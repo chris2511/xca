@@ -287,6 +287,7 @@ void MainWindow::startRenameKey()
 {
 #ifdef qt3
 	pki_base *pki = keys->getSelectedPKI();
+	if (!pki) return;
 	QListViewItem *item = (QListViewItem *)pki->getPointer();
 	item->startRename(0);
 #else

@@ -289,7 +289,8 @@ void NewX509::toTemplate(pki_temp *temp)
 
 void NewX509::dataChangeP2()
 {
-	if (description->text() != "" || fromReqRB->isChecked()) {
+	if ((description->text() != "" || fromReqRB->isChecked()) &&
+	    (keyList->count() > 0  || !keyList->isEnabled())){
 		setNextEnabled(page2,true);
 	}
 	else {
@@ -327,9 +328,10 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::templateChanged()
 {
-	string name = tempList->currentText().latin1();
+	if (!tempList->isEnabled()) return;
+	QString name = tempList->currentText();
 	if (name == "" || !temps) return;
-	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(name);
+	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(name.latin1());
 	if (!temp) return;
 	fromTemplate(temp);
 }
@@ -337,7 +339,7 @@ void NewX509::templateChanged()
 void NewX509::switchExtended()
 {
 	CERR << "SWITCH Extended" <<endl;
-	if (changeDefault->isChecked()) {
+	if (changeDefault->isChecked() || !appropriate(page1)) {
 		setAppropriate(page4, true);
 		setAppropriate(page5, true);
 	}

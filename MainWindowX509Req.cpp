@@ -214,9 +214,10 @@ void MainWindow::startRenameReq()
 {
 #ifdef qt3
 	pki_base *pki = reqs->getSelectedPKI();
+	if (!pki) return;
 	QListViewItem *item = (QListViewItem *)pki->getPointer();
 	item->startRename(0);
 #else
-	renamePKI(certs);
+	renamePKI(reqs);
 #endif
 }

@@ -58,7 +58,6 @@
 #include "NewKey_UI.h"
 #include "NewX509.h"
 #include "NewX509_UI.h"
-#include "Rename_UI.h"
 #include "TrustState_UI.h"
 #include "ExportKey.h"
 #include <iostream.h>
@@ -76,6 +75,7 @@
 #include <qlabel.h>
 #include <qfiledialog.h>
 #include <qmessagebox.h>
+#include <qinputdialog.h>
 #include <qcheckbox.h>
 #include <qprogressdialog.h>
 #include <qpushbutton.h>
@@ -97,7 +97,6 @@
 
 #define BASE_DIR "/xca"
 #define DBFILE "xca.db"
-
 #ifndef CERR
 #define CERR cerr
 #endif
@@ -115,6 +114,7 @@ class MainWindow: public MainWindow_UI
 	DbEnv *dbenv;
 	db_base *settings;
 	static QPixmap *keyImg, *csrImg, *certImg, *tempImg;
+	const static QString xca_title;
    public:
 	QString baseDir, dbfile;
 	static const int sizeList[];
@@ -163,8 +163,6 @@ class MainWindow: public MainWindow_UI
 	void showDetailsReq();
 	void showDetailsCert();
 	void showDetailsCert(QListViewItem *item);
-	void showDetailsTemp();
-	void showDetailsTemp(QListViewItem *item);
 	void deleteKey();
 	void deleteReq();
 	void deleteCert();
@@ -189,6 +187,7 @@ class MainWindow: public MainWindow_UI
 	void renameCert(QListViewItem *item, int col, const QString &text);
 	void renameTemp(QListViewItem *item, int col, const QString &text);
 	void alterTemp();
+	void setSerial();
    signals:
 	void keyDone(QString name);
 };

@@ -53,7 +53,7 @@
 
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL, *MainWindow::certImg = NULL, *MainWindow::tempImg = NULL;
-
+const QString MainWindow::xca_title = tr("X Certifikate and Key managementconst");
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
@@ -123,8 +123,8 @@ void MainWindow::initPass()
 	PASS_INFO p;
 	string passHash = settings->getString("pwhash");
 	if (passHash == "") {
-		string title="New Database Password";
-		string description="Please enter a password, that will be used to encrypt your private keys in the database-file";
+		string title=tr("New Database Password").latin1();
+		string description=tr("Please enter a password, that will be used to encrypt your private keys in the database-file").latin1();
 		p.title = &title;
 		p.description = &description;
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
@@ -138,9 +138,9 @@ void MainWindow::initPass()
 	     int keylen=0;		
 	     while (md5passwd() != passHash) {
 		if (keylen !=0)
-		  QMessageBox::warning(this,tr("Password"), tr("Password verify error, please try again"));	
-		string title= "Database Password";
-		string description="Please enter the password for unlocking the database";
+			QMessageBox::warning(this,tr("Password"), tr("Password verify error, please try again"));	
+		string title=tr("Database Password").latin1();
+		string description=tr("Please enter the password for unlocking the database").latin1();
 		p.title = &title;
 		p.description = &description;
 		keylen = passRead(pki_key::passwd, 25, 0, &p);
@@ -155,13 +155,15 @@ void MainWindow::initPass()
 void MainWindow::renamePKI(db_base *db)
 {
         pki_base * pki = db->getSelectedPKI();
-        Rename_UI *dlg = new Rename_UI(this,0,true);
-        dlg->newName->setText(pki->getDescription().c_str());
-        if (dlg->exec()) {
-		db->renamePKI(pki, dlg->newName->text().latin1());
+	if (!pki) return;
+        QString name= pki->getDescription().c_str();
+	bool ok;
+	QString nname = QInputDialog::getText (xca_title, "Please enter the new name",
+			QLineEdit::Normal, name, &ok, this );
+	if (ok && name != nname) {
+		db->renamePKI(pki, nname.latin1());
 	}
 }
-
 
 // Static Password Callback functions 
 
@@ -189,6 +191,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	PASS_INFO *p = (PASS_INFO *)userdata;
 	PassWrite_UI *dlg = new PassWrite_UI(NULL, 0, true);
 	if (p != NULL) {
+		dlg->image->setPixmap( *keyImg );
 		dlg->title->setText(tr(p->title->c_str()));
 		dlg->description->setText(tr(p->description->c_str()));
 	}

@@ -63,8 +63,11 @@ void MainWindow::newTemp(int type=tEMPTY)
 bool MainWindow::alterTemp(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL, tempImg );
+	CERR <<" Juhuuu" <<endl;
 	dlg->setTemp(temp);
+	CERR <<" Juhuuu" <<endl;
 	dlg->fromTemplate(temp);
+	CERR <<" Juhuuu" <<endl;
 	if (!dlg->exec()) return false;
 	dlg->toTemplate(temp);
 	return true;
@@ -72,8 +75,10 @@ bool MainWindow::alterTemp(pki_temp *temp)
 
 void MainWindow::alterTemp()
 {
+	CERR << "rename AA??" <<endl;
 	pki_temp *temp = (pki_temp *)temps->getSelectedPKI();
 	if (!temp) return;
+	CERR << "rename ??" <<endl;
 	string oldname = temp->getDescription();
 	alterTemp(temp);
 	string newname = temp->getDescription();
@@ -99,54 +104,6 @@ void MainWindow::deleteTemp()
 }
 
 
-bool MainWindow::showDetailsTemp(pki_temp *key)
-{
-	/*
-	if (!key) return false;
-	if (opensslError(key)) return false;
-	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
-	
-	detDlg->keyDesc->setText(
-		key->getDescription().c_str() );
-	detDlg->keyLength->setText(
-		key->length().c_str() );
-	detDlg->keyPubEx->setText(
-		key->pubEx().c_str() );
-	detDlg->keyModulus->setText(
-		key->modulus().c_str() );
-	if (key->isPubKey()) {
-		detDlg->keyPrivEx->setText(tr("not available") );
-		detDlg->keyPrivEx->setDisabled(true);
-	}
-	detDlg->image->setPixmap(*keyImg);
-	if (import) {
-		detDlg->but_ok->setText(tr("Import"));
-		detDlg->but_cancel->setText(tr("Discard"));
-	}
-	
-	if ( !detDlg->exec()) return false;
-	string ndesc = detDlg->keyDesc->text().latin1();
-	if (ndesc != key->getDescription()) {
-		keys->renamePKI(key, ndesc);
-	}
-	*/
-	return true;
-}
-
-
-void MainWindow::showDetailsTemp()
-{
-	pki_temp *targetTemp = (pki_temp *)temps->getSelectedPKI();
-	if (targetTemp) showDetailsTemp(targetTemp);
-}
-
-
-void MainWindow::showDetailsTemp(QListViewItem *item)
-{
-	string temp = item->text(0).latin1();
-	showDetailsTemp((pki_temp *)temps->getSelectedPKI(temp));
-}
-
 
 void MainWindow::insertTemp(pki_temp *temp)
 {
@@ -171,12 +128,19 @@ void MainWindow::reqFromTemp()
 void MainWindow::showPopupTemp(QListViewItem *item, const QPoint &pt, int x) {
 	CERR << "hallo popup template" << endl;
 	QPopupMenu *menu = new QPopupMenu(this);
+	QPopupMenu *subMenu = new QPopupMenu(this);
 	if (!item) {
-		menu->insertItem(tr("New Template"), this, SLOT(newTemp()));
+		menu->insertItem(tr("New Template"),  subMenu);
+		subMenu->insertItem(tr("Empty"), this, SLOT(newEmpTemp()));
+		subMenu->insertItem(tr("CA"), this, SLOT(newCATemp()));
+		subMenu->insertItem(tr("Client"), this, SLOT(newCliTemp()));
+		subMenu->insertItem(tr("Server"), this, SLOT(newSerTemp()));
+		
 	}
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRenameTemp()));
-		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsTemp()));
+		menu->insertItem(tr("Change"), this, SLOT(alterTemp()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteTemp()));
 		menu->insertItem(tr("Create certificate"), this, SLOT(certFromTemp()));
 		menu->insertItem(tr("Create request"), this, SLOT(reqFromTemp()));
 	}
@@ -194,10 +158,15 @@ void MainWindow::renameTemp(QListViewItem *item, int col, const QString &text)
 void MainWindow::startRenameTemp()
 {
 #ifdef qt3
+	
+	CERR << "rename" <<endl;
 	pki_base *pki = temps->getSelectedPKI();
+	CERR << "rename" <<endl;
+	if (!pki) return;
 	QListViewItem *item = (QListViewItem *)pki->getPointer();
 	item->startRename(0);
 #else
+	CERR << "rename qt2" <<endl;
 	renamePKI(temps);
 #endif
 }

@@ -211,7 +211,7 @@ void MainWindow::newCert(pki_temp *templ)
 	
 	// increase serial here	
 	if (dlg->foreignSignRB->isChecked()) {
-		serial = signcert->getCaSerial();
+		serial = signcert->getIncCaSerial();
 		certs->updatePKI(signcert);  // not so pretty ....
 		CERR << "serial is: " << serial <<endl;
 	}	
@@ -530,7 +530,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
 		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));
 		menu->insertSeparator();
-		itemSerial = menu->insertItem(tr("CA serial"));
+		itemSerial = menu->insertItem(tr("CA serial"), this, SLOT(setSerial()));
 		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Extend"));
 		if (cert) {
@@ -603,11 +603,27 @@ void MainWindow::unRevoke()
 	certs->updateViewAll();
 }
 
+void MainWindow::setSerial()
+{
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	int serial = cert->getCaSerial();
+	bool ok;
+	int nserial = QInputDialog::getInteger (xca_title,
+			tr("Please enter the new Serial for signing"),
+			serial, serial, 2147483647, 1, &ok, this );
+	if (ok && nserial > serial) {
+		cert->setCaSerial(nserial);
+		certs->updatePKI(cert);
+	}
+}
+
 
 void MainWindow::startRenameCert()
 {
 #ifdef qt3
 	pki_base *pki = certs->getSelectedPKI();
+	if (!pki) return;
 	QListViewItem *item = (QListViewItem *)pki->getPointer();
 	item->startRename(0);
 #else
