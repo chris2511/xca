@@ -99,7 +99,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	openssl_error();
 	
 	for(int i=0; bad_nids[i] != NID_undef; i++)
-		el.delByNid(i);
+		el.delByNid(bad_nids[i]);
 	
 	sk = el.getStack();
 	X509_REQ_add_extensions(request, sk);

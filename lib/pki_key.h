@@ -115,6 +115,7 @@ class pki_key: public pki_base
 	int decUcount();
 	int getUcount();
 	void updateView();
+	const EVP_MD *getDefaultMD();
 };
 
 #endif

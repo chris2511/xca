@@ -212,7 +212,9 @@ int extList::delByNid(int nid)
 	extList::Iterator it;
 	for( it = begin(); it != end(); ++it ) {
 		if ((*it).nid() == nid) {
+			printf("Removing: %s\n", (*it).getValue().latin1());
 			remove(it);
+			it = begin();
 			removed=1;
 		}
 	}

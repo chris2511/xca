@@ -657,6 +657,16 @@ int pki_key::getUcount()
 	return ucount;
 }
 
+const EVP_MD *pki_key::getDefaultMD(){
+	const EVP_MD *md;
+	switch (key->type) {
+		case EVP_PKEY_RSA: md = EVP_md5(); break;
+		case EVP_PKEY_DSA: md = EVP_dss1(); break;
+		default: md = NULL; break;
+	}
+	return md;
+}	
+
 void pki_key::updateView()
 {
 	QString type_str = "";

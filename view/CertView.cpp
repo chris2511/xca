@@ -739,15 +739,12 @@ void CertView::toRequest()
 {
 	pki_x509 *cert = (pki_x509 *)getSelected();
 	if (!cert) return;
-	extList el = cert->getExt();
-	printf("el.count(): %d\n", el.count());
-	x509name xn = cert->getSubject();
-	pki_key *pk = cert->getRefKey();
+
 	try {
 		pki_x509req *req = new pki_x509req();
 		req->setIntName(cert->getIntName());
-		req->createReq(pk, xn,
-				EVP_md5(), el);
+		req->createReq(cert->getRefKey(), cert->getSubject(),
+			cert->getRefKey()->getDefaultMD(), cert->getExt());
 		MainWindow::reqs->insert(req);
 	}
 	catch (errorEx &err) {
