@@ -167,7 +167,7 @@ x509v3ext NewX509::getIssAltName()
 		cont << (QString)"issuer:copy";
 	if (!issAltName->text().isEmpty())
 		cont << issAltName->text();
-	ext.create(NID_subject_alt_name, cont.join(", "), &ext_ctx);
+	ext.create(NID_issuer_alt_name, cont.join(", "), &ext_ctx);
 	return ext;
 }
 
@@ -197,14 +197,14 @@ extList NewX509::getNetscapeExt()
                         cont <<  certTypeList[i];
                 }
         }
-	el << ext.create(NID_netscape_cert_type, cont.join(", "))
-	<< ext.create(NID_netscape_base_url, nsBaseUrl->text())
-	<< ext.create(NID_netscape_revocation_url, nsRevocationUrl->text())
-	<< ext.create(NID_netscape_ca_revocation_url, nsCARevocationUrl->text())
-	<< ext.create(NID_netscape_renewal_url, nsRenewalUrl->text())
-	<< ext.create(NID_netscape_ca_policy_url, nsCaPolicyUrl->text())
-	<< ext.create(NID_netscape_ssl_server_name, nsSslServerName->text())
-	<< ext.create(NID_netscape_comment, nsComment->text());
+	el << ext.create(NID_netscape_cert_type, cont.join(", "));
+	el << ext.create(NID_netscape_base_url, nsBaseUrl->text());
+	el << ext.create(NID_netscape_revocation_url, nsRevocationUrl->text());
+	el << ext.create(NID_netscape_ca_revocation_url, nsCARevocationUrl->text());
+	el << ext.create(NID_netscape_renewal_url, nsRenewalUrl->text());
+	el << ext.create(NID_netscape_ca_policy_url, nsCaPolicyUrl->text());
+	el << ext.create(NID_netscape_ssl_server_name, nsSslServerName->text());
+	el << ext.create(NID_netscape_comment, nsComment->text());
 	return el;
 }
 

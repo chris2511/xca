@@ -83,10 +83,9 @@ x509v3ext &x509v3ext::set(const X509_EXTENSION *n)
 
 x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 {
-	
+	if (ext)
+	       	X509_EXTENSION_free(ext);
 	if (!et.isEmpty()) {
-		if (ext)
-		       	X509_EXTENSION_free(ext);
 		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, (char *)et.latin1());
 	}
 	if (!ext) ext = X509_EXTENSION_new();
