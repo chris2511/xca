@@ -1,0 +1,17 @@
+serverAuth
+clientAuth
+codeSigning
+emailProtection
+timeStamping
+msCodeInd
+msCodeCom
+msCTLSign
+msSGC
+msEFS
+nsSGC
+msEFSFR
+ipsecEndSystem
+ipsecTunnel
+ipsecUser
+iKEIntermediate
+msSmartcardLogin

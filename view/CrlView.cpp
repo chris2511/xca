@@ -234,7 +234,7 @@ pki_crl *CrlView::newItem(pki_x509 *cert)
 	a1time time;
 	pki_x509 *issuedcert = NULL;
 	pki_crl *crl = NULL;
-	CHECK_DB
+	CHECK_DB_NULL
 	x509v3ext e;
 	X509V3_CTX ext_ctx;
 	X509V3_set_ctx(&ext_ctx, cert->getCert() , NULL, NULL, NULL, 0);

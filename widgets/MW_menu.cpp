@@ -51,16 +51,18 @@
 
 
 #include "MainWindow.h"
+#include "lib/load_obj.h"
 #include <qapplication.h>
 #include <qmenubar.h>
 
 void MainWindow::init_menu()
 {
 	QPopupMenu *file = new QPopupMenu( this );
-	file->insertItem( "&Open",  this, SLOT(init_database()), CTRL+Key_O );
-	file->insertItem( "&Close", this, SLOT(close_database()), CTRL+Key_N );
+	file->insertItem( "&Open default DataBase",  this, SLOT(load_def_database()), CTRL+Key_O );
+	file->insertItem( "&Open DataBase",  this, SLOT(load_database()), CTRL+Key_L );
+	file->insertItem( "&Close DataBase", this, SLOT(close_database()), CTRL+Key_C );
 	file->insertSeparator();
-	file->insertItem( "E&xit",  qApp, SLOT(quit()), CTRL+Key_Q );
+	file->insertItem( "E&xit",  qApp, SLOT(quit()), ALT+Key_F4 );
 
 	QPopupMenu *help = new QPopupMenu( this );
 	help->insertItem( "&Content", this, SLOT(help()), Key_F1 );
@@ -73,3 +75,30 @@ void MainWindow::init_menu()
 	mb->insertItem( "&Help", help );
 	mb->setSeparator( QMenuBar::InWindowsStyle );
 }
+
+void MainWindow::load_database()
+{
+	load_db l;
+	QString fname;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(l.caption);
+	dlg->setFilters(l.filter);
+	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setDir(baseDir);
+	if (dlg->exec()) {
+		fname = dlg->selectedFile();
+	}
+	delete dlg;
+	if (fname.isEmpty()) return;
+	dbfile = fname;
+	close_database();
+	cerr << QString("Dir: ") + baseDir + ", file: " + dbfile <<endl;
+	emit init_database();
+}
+
+void MainWindow::load_def_database()
+{
+	dbfile = DBFILE;
+	close_database();
+    emit init_database();
+}		

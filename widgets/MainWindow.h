@@ -60,6 +60,7 @@
 #include "lib/db_temp.h"
 #include "lib/db_crl.h"
 #include "lib/exception.h"
+#include "lib/oid.h"
 #include <qpixmap.h>
 #include <qfiledialog.h>
 #include <qmenubar.h>
@@ -76,6 +77,7 @@ class MainWindow: public MainWindow_UI
 	void read_cmdline();
 	void init_menu();
 	void do_connections();
+	void init_baseDir();
 	DbTxn *global_tid;
 	QMenuBar *mb;
 	
@@ -90,17 +92,17 @@ class MainWindow: public MainWindow_UI
 	static db_crl *crls;
 	static db_base *settings;
 	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
+	static NIDlist *eku_nid, *dn_nid;
 	int exitApp;
-	QString baseDir, dbfile;
+	QString baseDir, dbfile, dbdir;
 	
 	MainWindow(QWidget *parent, const char *name);
 	~MainWindow(); 
 	void loadSettings();
 	void saveSettings();
-	void initPass();
+	int initPass();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-	static void incProgress(int a, int b, void *progress);
 	static void dberr(const char *errpfx, char *msg);
 	static NewX509 *newX509();
 	static QString md5passwd(const char *pass);
@@ -112,6 +114,8 @@ class MainWindow: public MainWindow_UI
 	bool mkDir(QString dir);
    public slots: 
 	void init_database();
+	void load_database();
+	void load_def_database();
 	void close_database();
 	void connNewX509(NewX509 *nx);
 	void changeView();

@@ -73,60 +73,9 @@
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"
 #include "lib/db_temp.h"
+#include "lib/oid.h"
+#include "lib/func.h"
 
-
-int NewX509::eku_nid[EKUN_CNT] = {
-  NID_server_auth,
-  NID_client_auth,
-  NID_code_sign,
-  NID_email_protect,
-  NID_time_stamp,
-  NID_ms_code_ind,
-  NID_ms_code_com,
-  NID_ms_ctl_sign,
-  NID_ms_sgc,
-  NID_ms_efs,
-  NID_ns_sgc,
-  OBJ_create("1.3.6.1.4.1.311.10.3.4.1", "msEFSFR",
-	"Microsoft EFS File Recovery" ),
-  NID_ipsecEndSystem,
-  NID_ipsecTunnel,
-  NID_ipsecUser,
-  OBJ_create("1.3.6.1.5.5.8.2.2", "iKEIntermediate",
-	"IP security end entity"),
-#if OPENSSL_VERSION_NUMBER >= 0x00907000L
-  NID_ms_smartcard_login
-#else
-  OBJ_create("1.3.6.1.4.1.311.20.2.2", "SmartCardLogon", "Smart Card Logon")
-#endif  
-};
-
-int NewX509::dn_nid[DISTNAME_CNT] = {
-  NID_commonName,
-  NID_surname,
-  NID_serialNumber,
-  NID_countryName,
-  NID_localityName,
-  NID_stateOrProvinceName,
-  NID_organizationName,
-  NID_organizationalUnitName,
-  NID_title,
-  NID_description,
-  NID_name,
-  NID_givenName,
-  NID_initials,
-  NID_dnQualifier,
-#if OPENSSL_VERSION_NUMBER >= 0x00907000L  
-  NID_role,
-  NID_generationQualifier,
-  NID_x500UniqueIdentifier,
-  NID_pseudonym
-#else
-  OBJ_create("2.5.4.44", "generationQualifier", "generationQualifier"),
-  OBJ_create("2.5.4.45", "x500UniqueIdentifier", "x500UniqueIdentifier"),
-  OBJ_create("2.5.4.65", "pseudonym", "pseudonym")
-#endif
-};
 
 int NewX509::name_nid[] = {
 	NID_commonName,
@@ -141,9 +90,12 @@ int NewX509::name_nid[] = {
 NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	:NewX509_UI(parent, name, modal, f)
 {
-        connect( extDNadd, SIGNAL(clicked()), this, SLOT(addX509NameEntry()) );
-        connect( extDNdel, SIGNAL(clicked()), this, SLOT(delX509NameEntry()) );
-	int i;
+	unsigned int i;
+	connect( extDNadd, SIGNAL(clicked()), this, SLOT(addX509NameEntry()) );
+	connect( extDNdel, SIGNAL(clicked()), this, SLOT(delX509NameEntry()) );
+
+	eku_nid = *MainWindow::eku_nid;
+	dn_nid = *MainWindow::dn_nid;
 	setCaption(tr(XCA_TITLE));
 	fixtemp = NULL;
 	nsImg->setPixmap(*MainWindow::nsImg);
@@ -199,11 +151,11 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	tempList->insertStringList(strings);
 	
 	// setup Extended keyusage
-	for (i=0; i<EKUN_CNT; i++)
+	for (i=0; i < eku_nid.count(); i++)
 		ekeyUsage->insertItem(OBJ_nid2ln(eku_nid[i]));
 
 	// setup Distinguished Name 
-	for (i=0; i<DISTNAME_CNT; i++)
+	for (i=0; i < dn_nid.count(); i++)
 		extDNobj->insertItem(OBJ_nid2ln(dn_nid[i]));
 
 	// init the X509 v3 context
@@ -218,7 +170,7 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	name_ptr[4] = organisationName;
 	name_ptr[5] = organisationalUnitName;
 	name_ptr[6] = emailAddress;
-							
+
 	// last polish 
 	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);

@@ -93,7 +93,7 @@ void XcaListView::loadCont()
 
 pki_base *XcaListView::getSelected()
 {
-	CHECK_DB
+	CHECK_DB_NULL
 	QListViewItem *lvi = selectedItem();
 	if (!lvi) return NULL;
 	QString name = lvi->text(0);

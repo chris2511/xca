@@ -189,4 +189,11 @@ pki_base * load_crl::loadItem(QString s)
 	return crl;
 };
 
+/* Database */
+load_db::load_db()
+	:load_base()
+{
+	filter.prepend(QObject::tr("XCA Databases ( *.db )"));
+	caption = QObject::tr("Open XCA Database");
+}		
 

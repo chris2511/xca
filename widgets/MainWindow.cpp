@@ -86,8 +86,8 @@ db_base	*MainWindow::settings = NULL;
 db_crl	*MainWindow::crls = NULL;
 DbEnv *MainWindow::dbenv = NULL;
 
-extern void initOIDs(void);
-
+NIDlist *MainWindow::eku_nid = NULL;
+NIDlist *MainWindow::dn_nid = NULL;
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
 {
@@ -97,11 +97,6 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	global_tid = NULL;
 
 	baseDir = getBaseDir();
-	QDir d(baseDir);
-        if ( ! d.exists() && !d.mkdir(baseDir)) {
-		QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("Could not create ") + baseDir);
-		qFatal(  QString::fromLatin1("Couldnt create: ") +  baseDir );
-	}
 	
 	init_menu();
 	
@@ -111,10 +106,41 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
-	/* read in all our own OIDs */
-	initOIDs();
-	
 	read_cmdline();
+	if (exitApp) return;
+	init_baseDir();
+	emit init_database();
+}
+
+void MainWindow::init_baseDir()
+{
+	static bool done = false;
+	if (done) return;
+	cerr << "base Dir: "<< baseDir << endl; 
+	QDir d(baseDir);
+	if ( ! d.exists() && !d.mkdir(baseDir)) {
+		QMessageBox::warning(this,tr(XCA_TITLE),
+			QString::fromLatin1("Could not create: ") + baseDir);
+		qFatal(  QString::fromLatin1("Could not create: ") +  baseDir );
+	}
+	done = true;
+	NIDlist nl;
+	nl.clear();
+	QString prefix = getPrefix();
+
+	nl = readNIDlist(baseDir + QDir::separator() + "eku.txt");
+	if (nl.count() == 0)
+		nl = readNIDlist(prefix + QDir::separator() + "eku.txt");
+	eku_nid = new NIDlist(nl);
+	nl.clear();
+	nl = readNIDlist(baseDir + QDir::separator() + "dn.txt");
+	if (nl.count() == 0)
+		nl = readNIDlist(prefix + QDir::separator() + "dn.txt");
+	dn_nid = new NIDlist(nl);
+
+	/* read in all our own OIDs */
+	initOIDs(baseDir);
+	
 }
 
 
@@ -200,13 +226,14 @@ void MainWindow::init_images()
 	pki_x509::icon[1] = loadImg("validcertkey.png");
 	pki_x509::icon[2] = loadImg("invalidcert.png");
 	pki_x509::icon[3] = loadImg("invalidcertkey.png");
+	pki_x509::icon[4] = loadImg("revoked.png");
 	pki_temp::icon = loadImg("template.png");			     
 	pki_crl::icon = loadImg("crl.png");			     
 }		
 	
 void MainWindow::read_cmdline()
 {
-	int cnt = 1, opt;
+	int cnt = 1, opt, type;
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;
@@ -228,7 +255,8 @@ void MainWindow::read_cmdline()
 				case '7' : lb = new load_pkcs7(); break;
 				case 'l' : lb = new load_crl(); break;
 				case 't' : lb = new load_temp(); break;
-				case 'd' : break;
+				case 'd' : type = 1; break;
+				case 'b' : type = 2; break;
 				case 'v' : printf("%s Version %s\n", XCA_TITLE, VER); opt=0; break;
 				case 'x' : exitApp = 1; opt=0; break;
 				default  : cmd_help(tr("no such option: ") + arg );
@@ -256,7 +284,11 @@ void MainWindow::read_cmdline()
 			}
 		}
 		else {
-			dbfile = arg;
+			switch (type) {
+				case 1 : dbfile = arg; break;
+				case 2 : baseDir = arg; init_baseDir(); break;
+				default  : cmd_help(tr("I'm puzzled: this should not happen ! ") );
+			}
 		}
 		
 		cnt++;
@@ -270,38 +302,39 @@ void MainWindow::read_cmdline()
 
 MainWindow::~MainWindow() 
 {
+	close_database();
 	ERR_free_strings();
 	EVP_cleanup();
-	close_database();
+	if (eku_nid)
+		delete eku_nid;
+	if (dn_nid)
+		delete dn_nid;
 }
 
-void MainWindow::initPass()
+int MainWindow::initPass()
 {
 	pass_info p(tr("New Password"), 
-	  tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
+		tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
 	QString passHash = settings->getString("pwhash");
 	if (passHash.isEmpty()) {
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
-		if (keylen == 0) {
-			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
-		}
+		if (keylen == 0) return 0;
 		pki_key::passwd[keylen]='\0';
 		settings->putString( "pwhash", md5passwd(pki_key::passwd) );
 	}
 	else {
 		int keylen=0;		
 		while (md5passwd(pki_key::passwd) != passHash) {
-		if (keylen !=0)
-			QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error, please try again"));	
-		p.setTitle(tr("Password"));
-		p.setDescription(tr("Please enter the password for unlocking the database"));
-		keylen = passRead(pki_key::passwd, 25, 0, &p);
-		if (keylen == 0) {
-			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
-		}
-		pki_key::passwd[keylen]='\0';
+			if (keylen !=0) QMessageBox::warning(this,tr(XCA_TITLE),
+				tr("Password verify error, please try again"));	
+			p.setTitle(tr("Password"));
+			p.setDescription(tr("Please enter the password for unlocking the database"));
+			keylen = passRead(pki_key::passwd, 25, 0, &p);
+			if (keylen == 0) return 0;
+			pki_key::passwd[keylen]='\0';
 	    }
 	}
+	return 1;
 }
 
 // Static Password Callback functions 

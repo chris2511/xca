@@ -116,4 +116,10 @@ class load_crl: public load_base
 		pki_base * loadItem(QString s);
 };		
 
+class load_db: public load_base
+{
+	public:
+		load_db();
+};		
+
 #endif

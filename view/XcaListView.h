@@ -59,7 +59,8 @@
 #include "lib/exception.h"
 #include "widgets/NewX509.h"
 
-#define CHECK_DB emit init_database();
+#define CHECK_DB emit init_database(); if (!MainWindow::dbenv) return;
+#define CHECK_DB_NULL emit init_database(); if (!MainWindow::dbenv) return NULL;
 	
 class XcaListView : public QListView
 {

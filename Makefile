@@ -54,6 +54,7 @@ install: xca
 	install -m 644 img/*.png $(destdir)$(prefix)/share/xca
 	install -m 644 img/key.xpm $(destdir)$(prefix)/share/pixmaps/xca.xpm
 	install -m 644 misc/xca.desktop $(destdir)$(prefix)/share/applications
+	install -m 644 misc/*.txt $(destdir)$(prefix)/share/xca
 	install -m 644 lang/xca_??.qm $(destdir)$(prefix)/share/xca
 
 .PHONY: $(SUBDIRS)

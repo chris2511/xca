@@ -1,0 +1,17 @@
+CN
+SN
+C
+L
+ST
+O
+OU
+title
+description
+name
+givenName
+initials
+dnQualifier
+role
+generationQualifier
+x500UniqueIdentifier
+pseudonym

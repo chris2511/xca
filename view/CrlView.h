@@ -64,7 +64,7 @@ class CrlView : public XcaListView
 
    private:
 	static const int sizeList[];
-	static void incProgress(int a, int b, void *progress);
+
    public:
 	CrlView(QWidget * parent = NULL, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
@@ -73,10 +73,12 @@ class CrlView : public XcaListView
 	pki_base *loadItem(QString fname);
 	void store(bool);
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	
    public slots:
 	pki_crl *newItem(pki_x509 *cert);
 	void writeCrl_pem();
 	void writeCrl_der();
+
    private slots:
 	void showCert(QListViewItem *i);
 	void showCert(QString name);

@@ -76,11 +76,24 @@ void MainWindow::init_database() {
 	catch (DbException &err) {
 		QString e = err.what();
 		e += QString::fromLatin1(" (") + baseDir + QString::fromLatin1(")");
-		qFatal(e);
+		global_tid->abort();
+	    dbenv->close(0);
+	    dbenv = NULL;
+		return;
+			
 	}
+	cerr << "Opening database: "<< dbfile << endl;
 	try {
 		settings = new db_base(dbenv, dbfile, "settings",global_tid, NULL);
-		initPass();
+		if (!initPass()) {
+			/* password error */
+			delete settings; settings = NULL;
+			global_tid->abort();
+		    dbenv->close(0);
+		    pki_key::erasePasswd();
+		    dbenv = NULL;
+			return;
+		}
 		keys = new db_key(dbenv, dbfile, global_tid, keyList);
 		reqs = new db_x509req(dbenv, dbfile, keys, global_tid, reqList);
 		certs = new db_x509(dbenv, dbfile, keys, global_tid, certList);
@@ -101,6 +114,9 @@ void MainWindow::init_database() {
 	catch (DbException &err) {
 		qFatal(err.what());
 	}
+	
+	setCaption(QString(XCA_TITLE) + " - " + dbfile);
+	
 	connect( keys, SIGNAL(newKey(pki_key *)),
 		certs, SLOT(newKey(pki_key *)) );
 	connect( keys, SIGNAL(delKey(pki_key *)),

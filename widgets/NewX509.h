@@ -53,6 +53,7 @@
 #define NEWX509_H
 
 #include "ui/NewX509.h"
+#include "lib/oid.h"
 #include <openssl/x509v3.h>
 
 class MainWindow;
@@ -73,11 +74,9 @@ class NewX509: public NewX509_UI
    private:
 	pki_temp *fixtemp;
 	QString startText, endText, tText;
-#define EKUN_CNT 17
-#define DISTNAME_CNT 18
+	NIDlist eku_nid;
+	NIDlist dn_nid;
 #define EXPLICIT_NAME_CNT 7
-	static int eku_nid[EKUN_CNT];
-	static int dn_nid[DISTNAME_CNT];
 	static int name_nid[EXPLICIT_NAME_CNT];
 	QLineEdit *name_ptr[EXPLICIT_NAME_CNT];
 	X509V3_CTX ext_ctx;

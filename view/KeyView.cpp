@@ -229,13 +229,14 @@ void KeyView::importKey(pki_key *k)
 
 void KeyView::changePasswd()
 {
-	QString passHash = MainWindow::settings->getString("pwhash");
+	QString passHash;
 	QString pass;
 	bool ret;
 	DbTxn *tid;
 	
 	CHECK_DB
 	
+	passHash =  MainWindow::settings->getString("pwhash");
 	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
 	dlg->image->setPixmap( *MainWindow::keyImg );
 	dlg->title->setText(XCA_TITLE);

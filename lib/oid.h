@@ -49,88 +49,18 @@
  *
  */
 
-/* here we have the possibility to add our own OIDS */
 
-#include <openssl/objects.h>
-#include <qstringlist.h>
-#include <qmessagebox.h>
-#include <qdir.h>
-#include <stream.h>
-#include "func.h"
-#include "oid.h"
+class QString;
+#include <qvaluelist.h>
 
+typedef QValueList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */
-static void readOIDs(QString fname)
-{
-	char buff[128];
-	char *pb;
-	FILE *fp;
-	int line = 0;
-	QStringList sl;
-	fp = fopen(fname.latin1(), "r");
-	if (fp == NULL) return;
-	while (fgets(buff, 127, fp)) {
-		line++;
-		pb = buff;
-		while (*pb==' ' || *pb=='\t' ) pb++;
-		if (*pb == '#' || *pb=='\n' || *pb=='\0') continue;
-		sl.clear();
-		sl = sl.split(':', QString(pb));
-		if (sl.count() != 3) {
-			QMessageBox::warning(NULL, QString(XCA_TITLE),
-				QString("Error reading config file: ") + fname + " Line: " + QString::number(line) );
-			return;
-		}
-		else {
-			OBJ_create((char *)sl[0].stripWhiteSpace().latin1(),
-			   	(char *)sl[1].stripWhiteSpace().latin1(),
-			   	(char *)sl[2].stripWhiteSpace().latin1());
-		}
-	}
-	fclose(fp);
-}
 
-void initOIDs(QString baseDir)
-{
-	QString dir=getPrefix();
-	readOIDs(dir + QDir::separator() + "oids.txt");
-	readOIDs(baseDir + QDir::separator() + "oids.txt");
-}
+void initOIDs(QString baseDir);
 
 /* reads a list of OIDs/SNs from a file and turns them into a QValueList
  * of integers, representing the NIDs. Usually to be used by NewX509 for
  * the list of ExtendedKeyUsage and Distinguished Name 
  */
 
-NIDlist readNIDlist(QString fname)
-{
-	char buff[128];
-	const char *pb;
-	char *pbe;
-	FILE *fp;
-	int line = 0, nid;
-	NIDlist nl;
-	nl.clear();
-	fp = fopen(fname.latin1(), "r");
-	if (fp == NULL) return nl;
-	cerr << "Reading OID list from: " << fname <<endl;
-	while (fgets(buff, 127, fp)) {
-		line++;
-		pb = buff;
-		while (*pb==' ' || *pb=='\t' ) pb++;
-		if (*pb == '#' ) continue;
-		pbe = buff + strlen(buff) -1;
-		while (*pbe == ' ' || *pbe == '\t' || *pbe == '\r' || *pbe == '\n')
-			*pbe-- = '\0';
-		nid = OBJ_txt2nid((char *)pb);
-		if (nid == NID_undef)
-			QMessageBox::warning(NULL, QString(XCA_TITLE),
-				QString("Unknown (flying:-) Object: ") + fname +
-				" Line: " + QString::number(line) );
-		else
-			nl += nid;
-	}
-	fclose(fp);
-	return nl;
-}
-
+NIDlist readNIDlist(QString fname);
