@@ -84,6 +84,7 @@ dist:
 	rm -rf ../$(TARGET)
 	
 install: xca
+	strip xca
 	install -m 755 -o root -g root xca $(DESTDIR)@prefix@/bin
 	install -m 755 -o root -g root -d $(DESTDIR)@prefix@/share/xca
 	install -m 644 -o root -g root img/*.png $(DESTDIR)@prefix@/share/xca
