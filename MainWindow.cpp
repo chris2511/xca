@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 {
 	connect(quitApp, SIGNAL(clicked()), qApp, SLOT(quit()) );
 	baseDir = QDir::homeDirPath() + BASE_DIR;
- 	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN);
+ 	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN );
 	QDir d(baseDir);
 	if ( ! d.exists() ){
 		if (!d.mkdir(baseDir)) 

@@ -43,19 +43,19 @@ bool db_base::insertPKI(pki_base *pki)
 	string desc = pki->getDescription();
 	string orig = desc;
 	int size=0;
-	char field[80];
+	char field[10];
 	unsigned char *p;
 	p = pki->toData(&size);
 	int cnt=0;
 	int x = DB_KEYEXIST;
 	while (x == DB_KEYEXIST) {
-	Dbt k((void *)desc.c_str(), desc.length() + 1);
+	   Dbt k((void *)desc.c_str(), desc.length() + 1);
 	   Dbt d((void *)p, size);
            cerr << "Size: " << d.get_size() << "\n";
 	
-	   if ((x = data->put(NULL, &k, &d, DB_NOOVERWRITE))) {
+	   if ((x = data->put(NULL, &k, &d, DB_NOOVERWRITE ))!=0) {
 		data->err(x,"DB Error put");
-		sprintf(field,"%i",++cnt);
+		sprintf(field,"%i", ++cnt);
 		string z = field;
 	   	desc = orig + "_" + z ;
 	   }

@@ -61,10 +61,10 @@ void MainWindow::showDetailsReq()
 	   }
 	  }
 	}
+	string land = req->getDN( NID_countryName) + " / " 
+		+ req->getDN(NID_stateOrProvinceName);
 	dlg->dnCN->setText(req->getDN(NID_commonName).c_str() );
-	dlg->dnC->setText((req->getDN(
-		NID_countryName) + " / " + 
-		req->getDN(NID_stateOrProvinceName)).c_str());
+	dlg->dnC->setText(land.c_str());
 	dlg->dnL->setText(req->getDN(NID_localityName).c_str());
 	dlg->dnO->setText(req->getDN(NID_organizationName).c_str());
 	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).c_str());

@@ -22,18 +22,25 @@ pki_x509::pki_x509(pki_key *key, const string cn,
 	openssl_error();
 	
 	X509_NAME *subj = X509_get_subject_name(cert);
+	if (cn != "")
 	X509_NAME_add_entry_by_NID(subj,NID_commonName, MBSTRING_ASC,
 		(unsigned char*)cn.c_str(),-1,-1,0);
+	if (c != "")
 	X509_NAME_add_entry_by_NID(subj,NID_countryName, MBSTRING_ASC, 
 		(unsigned char*)c.c_str() , -1, -1, 0);
+	if (l != "")
 	X509_NAME_add_entry_by_NID(subj,NID_localityName, MBSTRING_ASC, 
 		(unsigned char*)l.c_str() , -1, -1, 0);
+	if (st != "")
 	X509_NAME_add_entry_by_NID(subj,NID_stateOrProvinceName, MBSTRING_ASC, 
 		(unsigned char*)st.c_str() , -1, -1, 0);
+	if (o != "")
 	X509_NAME_add_entry_by_NID(subj,NID_organizationName, MBSTRING_ASC, 
 		(unsigned char*)o.c_str() , -1, -1, 0);
+	if (ou != "")
 	X509_NAME_add_entry_by_NID(subj,NID_organizationalUnitName, MBSTRING_ASC, 
 		(unsigned char*)ou.c_str() , -1, -1, 0);
+	if (email != "")
 	X509_NAME_add_entry_by_NID(subj,NID_pkcs9_emailAddress, MBSTRING_ASC, 
 		(unsigned char*)email.c_str() , -1, -1, 0);
 
@@ -100,9 +107,9 @@ void pki_x509::fromData(unsigned char *p, int size)
 }
 
 
-string pki_x509::getDN(int nid)
+string pki_x509::getDNs(int nid)
 {
-	char buf[200];
+	char buf[200] = "";
 	string s;
 	X509_NAME *subj = X509_get_subject_name(cert);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
@@ -110,6 +117,15 @@ string pki_x509::getDN(int nid)
 	return s;
 }
 
+string pki_x509::getDNi(int nid)
+{
+	char buf[200] = "";
+	string s;
+	X509_NAME *iss = X509_get_issuer_name(cert);
+	X509_NAME_get_text_by_NID(iss, nid, buf, 200);
+	s = buf;
+	return s;
+}
 
 unsigned char *pki_x509::toData(int *size)
 {

@@ -7,6 +7,7 @@
 #include "MainWindow_UI.h"
 #include "KeyDetail_UI.h"
 #include "ReqDetail_UI.h"
+#include "CertDetail_UI.h"
 #include "PassRead_UI.h"
 #include "PassWrite_UI.h"
 #include "NewKey_UI.h"
@@ -60,6 +61,7 @@ class MainWindow: public MainWindow_UI
 	void newCert();
 	void showDetailsKey();
 	void showDetailsReq();
+	void showDetailsCert();
 	void deleteKey();
 	void deleteReq();
 	void deleteCert();

@@ -21,7 +21,8 @@ class pki_x509 : public pki_base
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
-	   string getDN(int nid);
+	   string getDNs(int nid);
+	   string getDNi(int nid);
 	   void writeReq(const string fname, bool PEM);
 	   bool verify();
 	   pki_key *getKey();

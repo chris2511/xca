@@ -15,7 +15,13 @@ void MainWindow::newCert()
 	string ou = dlg->organisationalUnitName->text().latin1();
 	string email = dlg->emailAddress->text().latin1();
 	string desc = dlg->description->text().latin1();
-	pki_x509 *cert = new pki_x509(key, cn,c,l,st,o,ou,email,desc);
+	string days = dlg->validNumber->text().latin1();
+	int range = dlg->validRange->currentItem();
+	int x = atoi(days.c_str());
+	if (range == 1) x *= 30;
+	if (range == 2) x *= 365;
+
+	pki_x509 *cert = new pki_x509(key, cn,c,l,st,o,ou,email,desc,x);
 	string e;
 	if ((e = cert->getError()) != "") {
 	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
@@ -34,10 +40,10 @@ void MainWindow::newCert()
 	}
 	certs->insertPKI(cert);
 }
-/*
-void MainWindow::showDetailsReq()
+
+void MainWindow::showDetailsCert()
 {
-	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
+	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	dlg->descr->setText(cert->getDescription().c_str());
@@ -51,6 +57,7 @@ void MainWindow::showDetailsReq()
 	  {
 	   dlg->keyPubEx->setText(key->pubEx().c_str());   
 	   dlg->keyModulus->setText(key->modulus().c_str());   
+	   dlg->keySize->setText(key->length().c_str());   
 	   pki_key *existkey = (pki_key *)keys->findPKI(key);
 	   if (existkey) {
 	        if (!existkey->isPubKey()) {
@@ -60,21 +67,38 @@ void MainWindow::showDetailsReq()
 	   }
 	  }
 	}
-	dlg->dnCN->setText(cert->getDN(NID_commonName).c_str() );
-	dlg->dnC->setText((cert->getDN(
-		NID_countryName) + " / " + 
-		cert->getDN(NID_stateOrProvinceName)).c_str());
-	dlg->dnL->setText(cert->getDN(NID_localityName).c_str());
-	dlg->dnO->setText(cert->getDN(NID_organizationName).c_str());
-	dlg->dnOU->setText(cert->getDN(NID_organizationalUnitName).c_str());
-	dlg->dnEmail->setText(cert->getDN(NID_pkcs9_emailAddress).c_str());
+	string land = cert->getDNs(NID_countryName);
+	string land1 = cert->getDNs(NID_stateOrProvinceName);
+	if (land != "" && land1 != "")
+		land += " / " +land1;
+	else
+		land+=land1;
+	dlg->dnCN->setText(cert->getDNs(NID_commonName).c_str() );
+	dlg->dnC->setText(land.c_str());
+	dlg->dnL->setText(cert->getDNs(NID_localityName).c_str());
+	dlg->dnO->setText(cert->getDNs(NID_organizationName).c_str());
+	dlg->dnOU->setText(cert->getDNs(NID_organizationalUnitName).c_str());
+	dlg->dnEmail->setText(cert->getDNs(NID_pkcs9_emailAddress).c_str());
+// same for issuer....	
+	land = cert->getDNi(NID_countryName);
+	land1 = cert->getDNi(NID_stateOrProvinceName);
+	if (land != "" && land1 != "")
+		land += " / " +land1;
+	else
+		land+=land1;
+	dlg->dnCN_2->setText(cert->getDNi(NID_commonName).c_str() );
+	dlg->dnC_2->setText(land.c_str());
+	dlg->dnL_2->setText(cert->getDNi(NID_localityName).c_str());
+	dlg->dnO_2->setText(cert->getDNi(NID_organizationName).c_str());
+	dlg->dnOU_2->setText(cert->getDNi(NID_organizationalUnitName).c_str());
+	dlg->dnEmail_2->setText(cert->getDNi(NID_pkcs9_emailAddress).c_str());
 	if ( !dlg->exec()) return;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != cert->getDescription()) {
 		certs->updatePKI(cert, ndesc);
 	}
 }
-*/
+
 void MainWindow::deleteCert()
 {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();

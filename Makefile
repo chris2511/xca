@@ -18,6 +18,7 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      ExportKey_UI.o ExportKey_UI_MOC.o \
      NewX509Req_UI.o NewX509Req_UI_MOC.o \
      NewX509_UI.o NewX509_UI_MOC.o \
+     CertDetail_UI.o CertDetail_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
      MainWindow.o MainWindow_MOC.o \
      MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o \
@@ -29,7 +30,7 @@ re: clean all
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
 	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h \
-	      NewX509_UI.h 
+	      NewX509_UI.h CertDetail_UI.h
 
 %.o: %.cpp
 	$(GCC) -c $(INC) -DVER=\"$(VERSION)\" $<
