@@ -2,7 +2,11 @@
 <context>
     <name>About_UI</name>
     <message>
-        <source>XCA</source>
+        <source>About_UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -168,6 +172,30 @@
     </message>
     <message>
         <source>Not after</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Midnight</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1225,36 +1253,36 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A signing request needs a private key, so it will becreated if there isn&apos;t any unused key available in the keydatabase. This signing request can then be given to aCertification authority while the private key of the requestand of the resulting certificate returned from the CA does neverleave your computer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are done with entering all parameters for generatinga Certificate signing request. The resulting request shouldbe exported and send to an appropriate CA for signing it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This templates do not refer to any ASN.1 structurebut are used to keep default settings for signing requests andcertificates. When creating a Request or Certificate the templatecan preset the needed fields with default settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are done with entering all parameters for the Template.
-After this step the template can be assigned to one of your CAs tobe autoatically applied when signing with this CA.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Welcome to the settings for Certificates.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The information for the new Certificate can either begrabbed from a given Certificate-request or be filled in by hand.In the case of not signing a request there needs to be at least oneunused key. If this is not the case it will be created. If you wantto self-sign a request (unusual but nevertheless possible) you needthe private key used to create the request.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are done with entering all parameters for creatinga Certificate.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A signing request needs a private key, so it will be created if there isn&apos;t any unused key available in the key database. This signing request can then be given to a Certification authority while the private key of the request and of the resulting certificate returned from the CA does never leave your computer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for generating a Certificate signing request. The resulting request should be exported and send to an appropriate CA for signing it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This templates do not refer to any ASN.1 structure but are used to keep default settings for signing requests and certificates. When creating a Request or Certificate the template can preset the needed fields with default settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for the Template.
+After this step the template can be assigned to one of your CAs to be autoatically applied when signing with this CA.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for creating a Certificate.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1729,6 +1757,26 @@ caIssuers;URI:http://my.ca/ca.html</source>
     </message>
     <message>
         <source>Authority Info Access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Midnight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the time to 00:00:00 and 23:59:59 respectively</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>can be altered by the file &quot;eku.txt&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will be enabled in a later version :-(</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

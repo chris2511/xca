@@ -84,10 +84,12 @@ qFatal("Cmdline Error (%s)\n", msg);
 void MainWindow::about()
 {
 	About_UI *about = new About_UI(this, 0, true );
-	QString cont="<p><h3><center><u>XCA</u></center></h3>"
+	QString cont;
+	cont.sprintf("<p><h3><center><u>XCA</u></center></h3>"
 	"<p>Copyright 2002 - 2003 by Christian Hohnst&auml;dt - "
 	"version : <b>" VER "</b>"
-	"<p><hr><br><table border=0>"
+	"<p>%s<br>%s<br>QT: %s"
+	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
 	"<tr><th align=left>Kerstin Steinhauff</th><td><u>&lt;tine@kerstine.de&gt;</td></u></tr>"
@@ -97,7 +99,8 @@ void MainWindow::about()
 	"<tr><th align=left>Wolfgang Glas</th><td><u>&lt;wolfgang.glas@ev-i.at&gt;</u></td></tr>"
 	"<tr><td></td><td>SPKAC support and Testing</td></tr>"
 	"</table><hr><center><u><b>General support</b></u></center>"
-	"<p><b>Mark Foster</b> <u>&lt;mark@foster.cc&gt;</u>";
+	"<p><b>Mark Foster</b> <u>&lt;mark@foster.cc&gt;</u>",
+	OPENSSL_VERSION_TEXT, DB_VERSION_STRING, QT_VERSION_STR ); 
 	
 	about->setCaption(tr(XCA_TITLE));
 	about->image->setPixmap( *keyImg );

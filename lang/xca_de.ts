@@ -10,7 +10,15 @@
     <name>About_UI</name>
     <message>
         <source>XCA</source>
-        <translation>XCA</translation>
+        <translation type="obsolete">XCA</translation>
+    </message>
+    <message>
+        <source>About_UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Schliessen</translation>
     </message>
 </context>
 <context>
@@ -200,6 +208,30 @@
     <message>
         <source>Not after</source>
         <translation>Nicht nach dem</translation>
+    </message>
+    <message>
+        <source>Time Range</source>
+        <translation>Zeitspanne</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>Tage</translation>
+    </message>
+    <message>
+        <source>Months</source>
+        <translation>Monate</translation>
+    </message>
+    <message>
+        <source>Years</source>
+        <translation>Jahre</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Übernehmen</translation>
+    </message>
+    <message>
+        <source>Midnight</source>
+        <translation>Mitternacht</translation>
     </message>
 </context>
 <context>
@@ -1342,32 +1374,32 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
         <translation>Willkommen zu den Einstellungen für Templates.</translation>
     </message>
     <message>
-        <source>A signing request needs a private key, so it will becreated if there isn&apos;t any unused key available in the keydatabase. This signing request can then be given to aCertification authority while the private key of the requestand of the resulting certificate returned from the CA does neverleave your computer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are done with entering all parameters for generatinga Certificate signing request. The resulting request shouldbe exported and send to an appropriate CA for signing it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This templates do not refer to any ASN.1 structurebut are used to keep default settings for signing requests andcertificates. When creating a Request or Certificate the templatecan preset the needed fields with default settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are done with entering all parameters for the Template.
-After this step the template can be assigned to one of your CAs tobe autoatically applied when signing with this CA.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Welcome to the settings for Certificates.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The information for the new Certificate can either begrabbed from a given Certificate-request or be filled in by hand.In the case of not signing a request there needs to be at least oneunused key. If this is not the case it will be created. If you wantto self-sign a request (unusual but nevertheless possible) you needthe private key used to create the request.</source>
+        <source>A signing request needs a private key, so it will be created if there isn&apos;t any unused key available in the key database. This signing request can then be given to a Certification authority while the private key of the request and of the resulting certificate returned from the CA does never leave your computer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are done with entering all parameters for creatinga Certificate.</source>
+        <source>You are done with entering all parameters for generating a Certificate signing request. The resulting request should be exported and send to an appropriate CA for signing it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This templates do not refer to any ASN.1 structure but are used to keep default settings for signing requests and certificates. When creating a Request or Certificate the template can preset the needed fields with default settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for the Template.
+After this step the template can be assigned to one of your CAs to be autoatically applied when signing with this CA.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for creating a Certificate.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1743,22 +1775,22 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     </message>
     <message>
         <source>Wether to copy the subj. alt. name from the issuer</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiere SubjectAlternativeName vom Aussteller</translation>
     </message>
     <message>
         <source>This will automatically include any email addresses contained in the certificate subject name in the extension.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dies kopiert alle Mailadressen aus dem Zertifikats besitzer in die Erweiterung.</translation>
     </message>
     <message>
         <source>DNS: IP: URI: email: RIP:</source>
-        <translation type="unfinished"></translation>
+        <translation>DNS: IP: URI: email: RIP:</translation>
     </message>
     <message>
         <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
@@ -1795,7 +1827,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Use &amp;this Certificate for for signing</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
     </message>
     <message>
         <source>CA</source>
@@ -1803,19 +1835,19 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Path length</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad länge</translation>
     </message>
     <message>
         <source>Not before</source>
-        <translation type="unfinished">Nicht vor dem</translation>
+        <translation>Nicht vor dem</translation>
     </message>
     <message>
         <source>Not after</source>
-        <translation type="unfinished">Nicht nach dem</translation>
+        <translation>Nicht nach dem</translation>
     </message>
     <message>
         <source>Press Next to continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicke Next um fortzufahren</translation>
     </message>
     <message>
         <source>State or Province</source>
@@ -1827,15 +1859,15 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Not defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht definiert</translation>
     </message>
     <message>
         <source>Certification Authority</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikats Authorität</translation>
     </message>
     <message>
         <source>End Entity</source>
-        <translation type="unfinished"></translation>
+        <translation>End Instanz</translation>
     </message>
     <message>
         <source>Certificate Policies</source>
@@ -1862,6 +1894,26 @@ caIssuers;URI:http://my.ca/ca.html</source>
     <message>
         <source>Authority Info Access</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Midnight</source>
+        <translation>Mitternacht</translation>
+    </message>
+    <message>
+        <source>Set the time to 00:00:00 and 23:59:59 respectively</source>
+        <translation>Stell die Zeiten auf 00:00:00 und 23:59:59</translation>
+    </message>
+    <message>
+        <source>can be altered by the file &quot;eku.txt&quot;</source>
+        <translation>Kann in der Datei &quot;eku.txt&quot; angepasst werden</translation>
+    </message>
+    <message>
+        <source>This will be enabled in a later version :-(</source>
+        <translation>Kümmt später</translation>
+    </message>
+    <message>
+        <source>can be altered by the file &quot;aia.txt&quot;</source>
+        <translation>Kann in der Datei &quot;aia.txt&quot;</translation>
     </message>
 </context>
 <context>
@@ -2383,11 +2435,11 @@ caIssuers;URI:http://my.ca/ca.html</source>
     </message>
     <message>
         <source>Please wait, Key generation is in progress</source>
-        <translation type="unfinished">Bitte warten Sie, der Schlüssel wird erstellt</translation>
+        <translation>Bitte warten Sie, der Schlüssel wird erstellt</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
