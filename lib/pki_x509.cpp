@@ -674,6 +674,16 @@ string pki_x509::getSerial()
 	return x;
 }
 
+long pki_x509::getSerialLong()
+{
+	long s=-1;
+	if (cert->cert_info->serialNumber != NULL) {
+		s = ASN1_INTEGER_get(cert->cert_info->serialNumber);
+		openssl_error();
+	}
+	return s;
+}
+
 int pki_x509::getTrust()
 {
 	if (trust > 2) trust = 2;

@@ -107,6 +107,7 @@ class pki_x509 : public pki_base
 	   string fingerprint(const EVP_MD *digest);
 	   string printV3ext();
 	   string getSerial();
+	   long getSerialLong();
 	   int checkDate();
 	   void addV3ext(int nid, string exttext);
 	   void sign(pki_key *signkey);

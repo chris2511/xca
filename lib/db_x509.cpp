@@ -106,7 +106,7 @@ bool db_x509::updateView()
 	pki_x509 *signer;
 	QListViewItem *parentitem;
 	QListViewItem *current;
-	CERR("myupdate");
+	CERR("myUPDATE");
 	if ( container.isEmpty() ) return false;
 	QList<pki_base> mycont = container;
 	for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delPointer();
@@ -367,6 +367,18 @@ pki_x509 *db_x509::getBySubject(X509_NAME *xname)
 	if (!xname) return cert;
        	for (cert=(pki_x509 *)container.first(); cert !=0; cert=(pki_x509 *)container.next() ) {
 		if (X509_NAME_cmp(X509_get_subject_name(cert->cert), xname) == 0) {
+			return cert;
+		}
+	}
+	return NULL;
+}
+
+pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, long serial)
+{
+	pki_x509 *cert = NULL;
+	if (!iss || serial == -1) return cert;
+       	for (cert=(pki_x509 *)container.first(); cert !=0; cert=(pki_x509 *)container.next() ) {
+		if ((cert->getSigner() == iss) && (serial == cert->getSerialLong())) {
 			return cert;
 		}
 	}

@@ -69,13 +69,33 @@ bool MainWindow::showDetailsCrl(pki_crl *crl, bool import)
 {
 	if (!crl) return false;
 	if (opensslError(crl)) return false;
+	bool ret;
+	int numc, i;
+	pki_x509 *iss, *rev;
+	QListViewItem *current;
     try {
 	CrlDetail_UI *dlg = new CrlDetail_UI(this,0,true);
-	bool ret;
 	dlg->image->setPixmap(*revImg);
 	dlg->descr->setText(crl->getDescription().c_str());
 	dlg->setCaption(tr(XCA_TITLE));
-	pki_x509 *iss = certs->getBySubject(crl->getIssuerX509_NAME());	
+	iss = certs->getBySubject(crl->getIssuerX509_NAME());	
+	numc = crl->numRev();
+	dlg->certList->clear();
+	dlg->certList->addColumn(tr("Common Name"));
+	dlg->certList->addColumn(tr("Serial"));
+	dlg->certList->addColumn(tr("Revokation"));
+	CERR("NUMBER:" << numc);
+	for (i=0; i<numc; i++) {
+		CERR("SERIAL: "<<  crl->getSerial(i));
+		rev = certs->getByIssSerial(iss, crl->getSerial(i));
+		if (rev != NULL) {
+			CERR(rev->getDescription());
+			current = new QListViewItem(dlg->certList, 
+					rev->getDescription().c_str());
+			current->setText(1, rev->getSerial().c_str() );
+			current->setText(2, rev->revokedAt(TIMEFORM_SORTABLE).c_str());
+		}
+	}
 	dlg->issuer->setText(iss->getDescription().c_str());
 	if (crl->verify(iss->getKey()) == 0) {
 		dlg->signCheck->setText(tr("Success"));

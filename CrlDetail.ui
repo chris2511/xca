@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>546</width>
+            <width>542</width>
             <height>381</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string></string>
+        <string>CrlDetail_UI</string>
     </property>
     <property>
         <name>hAlign</name>
@@ -826,7 +826,7 @@
                                 <class>QLabel</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>fpMD5</cstring>
+                                    <cstring>lUpdate</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>sizePolicy</name>
@@ -863,7 +863,7 @@
                                 <class>QLabel</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>fpSHA1</cstring>
+                                    <cstring>nUpdate</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>frameShape</name>
@@ -924,33 +924,9 @@
                     </property>
                     <widget>
                         <class>QListView</class>
-                        <column>
-                            <property>
-                                <name>text</name>
-                                <string>Column 1</string>
-                            </property>
-                            <property>
-                                <name>clickable</name>
-                                <bool>true</bool>
-                            </property>
-                            <property>
-                                <name>resizeable</name>
-                                <bool>true</bool>
-                            </property>
-                        </column>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>New Item</string>
-                        </property>
-                        <property>
-                            <name>pixmap</name>
-                            <pixmap></pixmap>
-                        </property>
-                    </item>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>ListView1</cstring>
+                            <cstring>certList</cstring>
                         </property>
                     </widget>
                 </vbox>
