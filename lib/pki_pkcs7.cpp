@@ -155,7 +155,7 @@ pki_x509 *pki_pkcs7::getCert(int x) {
 }
 
 int pki_pkcs7::numCert() {
-	if (!certstack) return NULL;
+	if (!certstack) return 0;
 	int n= sk_X509_num(certstack);
 	openssl_error();
 	return n;

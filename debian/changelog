@@ -1,3 +1,16 @@
+xca (0.2.13-PRE1) unstable; urgency=low
+
+  * libdb-4.1.24 and higher is supported
+  * The certificate details dialog was redesigned to be a smaller tab-dialog
+  * Item viewing and import via the commandline is possible
+    so xca can be used as default viewing application for
+  * keys and requests in in your window environment
+  * documentation littlebit updated
+  * small changes in configure
+  * The wizard invokes the key generation process only if really needed
+
+ -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Thu,  6 Feb 2003 11:30:18 +0100
+
 xca (0.2.12) unstable; urgency=low
 
   * PKCS#7 encryption and signing of files added
