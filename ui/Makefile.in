@@ -22,7 +22,7 @@ CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
 UINAMES=CertDetail ExportKey ExportCert KeyDetail MainWindow \
         NewKey NewX509 PassRead PassWrite ReqDetail TrustState \
-        CertExtend ExportTinyCA CrlDetail
+        CertExtend ExportTinyCA CrlDetail ImportMulti
 
 UIOBJS=$(patsubst %,moc_%.o,$(UINAMES)) $(patsubst %,%.o,$(UINAMES))
 

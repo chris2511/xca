@@ -21,7 +21,8 @@ CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 ##############################################
 
 MOC_NAMES= ExportCert ExportKey ExportTinyCA NewX509 CrlDetail CertDetail \
-	MainWindow validity distname ReqDetail clicklabel
+	MainWindow validity distname ReqDetail clicklabel ImportMulti
+
 NAMES=$(MOC_NAMES) NewX509_ext
 
 OBJS=$(patsubst %,moc_%.o,$(MOC_NAMES)) $(patsubst %,%.o,$(NAMES))

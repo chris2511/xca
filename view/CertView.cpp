@@ -62,6 +62,7 @@
 #include <qpushbutton.h>
 #include <qinputdialog.h>
 #include "ui/CertExtend.h"
+#include "widgets/ImportMulti.h"
 #include "widgets/ExportCert.h"
 #include "widgets/CertDetail.h"
 #include "ui/TrustState.h"
@@ -401,31 +402,20 @@ void CertView::loadPKCS12()
 			
 void CertView::insertP12(pki_pkcs12 *pk12)
 {
-	pki_x509 *acert;
-	pki_key *akey;
-
+	ImportMulti *dlg = NULL;
 	try {
-		akey = pk12->getKey();
-		acert = pk12->getCert();
-#ifdef INSERT_WO_ASK
-		insertKey(akey);
-		insertCert(acert);
+		dlg = new ImportMulti(this, NULL, true);
+		dlg->addItem(pk12->getKey());
+		dlg->addItem(pk12->getCert());
 		for (int i=0; i<pk12->numCa(); i++) {
-			acert = pk12->getCa(i);
-			insertCert(acert);
+			dlg->addItem( pk12->getCa(i));
 		}
-#else
-		emit importKey(akey);
-		showItem(acert,true);
-		for (int i=0; i<pk12->numCa(); i++) {
-			acert = pk12->getCa(i);
-			showItem(acert, true);
-		}
-#endif			
+		dlg->exec();
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
+	delete dlg;
 }	
 	
 
@@ -451,19 +441,21 @@ void CertView::loadPKCS7()
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
 		s = QDir::convertSeparators(s);
+	    ImportMulti *dlgi = NULL;
+		dlgi = new ImportMulti(this, NULL, true);
 		try {
 			pk7 = new pki_pkcs7(s);
 			pk7->readP7(s);
 			for (int i=0; i<pk7->numCert(); i++) {
-				acert = pk7->getCert(i);
-				showItem(acert, true);
+				dlgi->addItem(pk7->getCert(i));
 			}
-			// keys->updateView();
+			dlgi->exec();
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
 		if (pk7) delete pk7;
+		delete dlgi;
 	}
 }
 
