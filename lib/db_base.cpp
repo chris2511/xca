@@ -56,7 +56,9 @@ bool db_base::updateView()
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
                 pki = it.current();
-		listView->insertItem(new QListViewItem(listView, pki->getDescription().c_str()));
+		QListViewItem * lvi = new QListViewItem(listView, pki->getDescription().c_str());
+		lvi->setPixmap(0, *icon);
+		listView->insertItem(lvi);
 	}
 	return true;
 }

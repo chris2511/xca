@@ -89,9 +89,15 @@ void MainWindow::showDetailsKey()
 }
 
 
+void MainWindow::showDetailsKey(QListViewItem *item)
+{
+	string key = item->text(0).latin1();
+	showDetailsKey((pki_key *)keys->getSelectedPKI(key));
+}
+
+
 void MainWindow::loadKey()
 {
-	pki_key *oldkey;
 	QStringList filt;
 	filt.append( "PKI Schlüssel ( *.pem *.der *.pk8 )"); 
 	filt.append("Alle Dateien ( *.* )");
@@ -110,7 +116,13 @@ void MainWindow::loadKey()
 			"\nkonnte nicht geladen werden:\n" + errtxt).c_str());
 		return;
 	}
-	cerr << "before findkey\n";
+	insertKey(lkey);
+}
+
+
+void MainWindow::insertKey(pki_key *lkey)
+{
+	pki_key *oldkey;
 	if ((oldkey = (pki_key *)keys->findPKI(lkey))!= 0) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) ||
 		    lkey->isPubKey()){
@@ -142,7 +154,6 @@ void MainWindow::loadKey()
 		"Der Schlüssel konnte nicht in der Datenbank \
 		gespeichert werden", "OK");
 	
-	cerr << "after insert\n";
 }
 
 

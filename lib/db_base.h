@@ -1,6 +1,7 @@
 #include <db_cxx.h>
 #include <qlistview.h>
 #include <qlist.h>
+#include <qpixmap.h>
 #include "pki_base.h"
 
 #ifndef DB_BASE_H
@@ -9,12 +10,14 @@
 
 class db_base
 {
+		
     protected:
 	Db *data;
 	DbEnv *dbenv;
 	QListView *listView;
 	QList<pki_base> container;
 	char *passwd;
+	QPixmap *icon;
     public:
 	db_base(DbEnv *dbe, string DBfile, string db, QListView *l);
 	virtual ~db_base();

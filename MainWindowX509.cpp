@@ -27,25 +27,29 @@ void MainWindow::newCert()
 	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
 		("Beim Erstellen der Anfrage trat folgender Fehler auf:\n'" +
 		e + "'\nund wurde daher nicht importiert").c_str(), "OK");
+	   	delete(cert);
 		return;
 	}
-	pki_x509 *oldcert = (pki_x509 *)certs->findPKI((pki_x509 *)cert);
-	if (oldcert) {
-	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
-		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
-		oldcert->getDescription() + 
-		"'\nund wurde daher nicht importiert").c_str(), "OK");
-	   delete(oldcert);
-	   return;
-	}
-	certs->insertPKI(cert);
+	insertCert(cert);
 }
 
 void MainWindow::showDetailsCert()
 {
-	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+        showDetailsCert(cert);
+}
+
+void MainWindow::showDetailsCert(QListViewItem *item)
+{
+	string cert = item->text(0).latin1();
+        showDetailsCert((pki_x509 *)certs->getSelectedPKI(cert));
+}
+
+
+void MainWindow::showDetailsCert(pki_x509 *cert)
+{
 	if (!cert) return;
+	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->descr->setText(cert->getDescription().c_str());
 	pki_x509 *signer = certs->findsigner(cert);
 
@@ -59,22 +63,6 @@ void MainWindow::showDetailsCert()
 	
 	else {
 		dlg->verify->setText(signer->getDescription().c_str());
-	}
-	
-	
-  	pki_key *key = cert->getKey();
-	if (key)
-	{
-	   dlg->keyPubEx->setText(key->pubEx().c_str());   
-	   dlg->keyModulus->setText(key->modulus().c_str());   
-	   dlg->keySize->setText(key->length().c_str());   
-	   pki_key *existkey = (pki_key *)keys->findPKI(key);
-	   if (existkey) {
-	        if (!existkey->isPubKey()) {
-	       	   dlg->privKey->setEnabled(true);
-		   dlg->privKey->setText(existkey->getDescription().c_str());
-	        }	
-	   }
 	}
 	
 	string land = cert->getDNs(NID_countryName);
@@ -146,6 +134,12 @@ void MainWindow::loadCert()
 			"'\nkonnte nicht geladen werden:\n" + errtxt).c_str());
 		return;
 	}
+	insertCert(cert);
+}
+
+
+void MainWindow::insertCert(pki_x509 *cert)
+{
 	pki_x509 *oldcert = (pki_x509 *)certs->findPKI(cert);
 	if (oldcert) {
 	   QMessageBox::information(this,"Zertifikats import",
@@ -172,7 +166,7 @@ void MainWindow::writeCert()
 	if (s == "") return;
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (cert) {
-	   cert->writeReq(s,true);
+	   cert->writeCert(s,true);
 	   string errtxt;
 	   if ((errtxt = cert->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",

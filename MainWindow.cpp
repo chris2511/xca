@@ -22,8 +22,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 	loadSettings();
 	initPass();
 	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList, passwd);
-	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList);
-	certs = new db_x509(dbenv, dbfile.latin1(), "certdb", certList);
+	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList, keys);
+	certs = new db_x509(dbenv, dbfile.latin1(), "certdb", certList, keys);
 };
 
 
@@ -86,8 +86,9 @@ void MainWindow::saveSettings()
 
 void MainWindow::initPass()
 {
+	cerr <<"pwhash " << settings["pwhash"] <<endl;
 	if (!settings["pwhash"]) {
-		int keylen = passWrite(passwd, sizeof(passwd), 0, NULL);
+		int keylen = passWrite(passwd, 25, 0, NULL);
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
 		}
@@ -98,13 +99,20 @@ void MainWindow::initPass()
 		saveSettings();
 	}
 	else {
-	    while (strncmp(passwd, settings["pwhash"], sizeof(passwd))) {
-		int keylen = passRead(passwd, sizeof(passwd), 0, NULL);
+	cerr <<"pwhash " << settings["pwhash"] <<endl;
+	    //while (strncmp(passwd, settings["pwhash"], 25)) {
+	    while (strncmp(passwd, "pass", 25)) {
+		cerr <<"vorher pwhash " << settings["pwhash"] <<endl;
+		int keylen = passRead(passwd, 25, 0, NULL);
+		loadSettings();
+		cerr <<"nachher pwhash " << settings["pwhash"] <<endl;
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
 		}
+		cerr <<"pwhash " << settings["pwhash"] <<endl;
+		cerr <<"meier " << settings["meier"] <<endl;
+		cerr <<"mueller " << settings["mueller"] <<endl;
 		passwd[keylen]='\0';
-		cerr << passwd << " - " << settings["pwhash"] << endl;
 	    }
 	}
 }
@@ -115,8 +123,7 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
 	if (dlg->exec()) {
 	   QString x = dlg->pass->text();
-	   const char *pass = x.latin1();
-	   strncpy(buf, pass, size);
+	   strncpy(buf, x.latin1(), size);
 	   return x.length();
 	}
 	else return 0;
@@ -130,8 +137,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	   QString A = dlg->passA->text();
 	   QString B = dlg->passB->text();
 	   if (A != B) return 0;
-	   const char *pass = A.latin1();
-	   strncpy(buf, pass, size);
+	   strncpy(buf, A.latin1(), size);
 	   return A.length();
 	}
 	else return 0;

@@ -55,10 +55,14 @@ class MainWindow: public MainWindow_UI
 	void saveSettings();
 	void initPass();
 	void showDetailsKey(pki_key *key);
+	void showDetailsReq(pki_x509req *req);
+	void showDetailsCert(pki_x509 *cert);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static void incProgress(int a, int b, void *progress);
 	pki_key *getSelectedKey();
+	void insertKey(pki_key *lkey);
+	void insertCert(pki_x509 *cert);
    public slots:
 	void loadKey();
 	void loadReq();
@@ -66,9 +70,12 @@ class MainWindow: public MainWindow_UI
 	void newKey();
 	void newReq();
 	void newCert();
+	void showDetailsKey(QListViewItem *item);
 	void showDetailsKey();
+	void showDetailsReq(QListViewItem *item);
 	void showDetailsReq();
 	void showDetailsCert();
+	void showDetailsCert(QListViewItem *item);
 	void deleteKey();
 	void deleteReq();
 	void deleteCert();

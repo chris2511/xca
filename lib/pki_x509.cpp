@@ -169,7 +169,7 @@ unsigned char *pki_x509::toData(char *passwd, int *size)
 }
 
 
-void pki_x509::writeReq(const string fname, bool PEM)
+void pki_x509::writeCert(const string fname, bool PEM)
 {
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {

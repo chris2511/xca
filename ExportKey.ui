@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>401</width>
+            <width>397</width>
             <height>500</height>
         </rect>
     </property>
@@ -325,34 +325,6 @@
         <class>QLabel</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>TextLabel12</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>230</width>
-                <height>40</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Schlüssel in eine Datei sichern</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
             <cstring>PixmapLabel1</cstring>
         </property>
         <property stdset="1">
@@ -398,6 +370,34 @@
         </property>
         <property>
             <name>wordwrap</name>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel12</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>270</width>
+                <height>40</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Schlüssel in eine Datei sichern</string>
         </property>
     </widget>
 </widget>

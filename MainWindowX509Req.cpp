@@ -35,32 +35,29 @@ void MainWindow::newReq()
 	reqs->insertPKI(req);
 }
 
+
 void MainWindow::showDetailsReq()
 {
-	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
+	showDetailsReq(req);
+}
+void MainWindow::showDetailsReq(QListViewItem *item)
+{
+	string req = item->text(0).latin1();
+	showDetailsReq((pki_x509req *)reqs->getSelectedPKI(req));
+}
+
+
+void MainWindow::showDetailsReq(pki_x509req *req)
+{
+	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	if (!req) return;
 	dlg->descr->setText(req->getDescription().c_str());
 	if ( req->verify() != pki_base::VERIFY_OK ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
-	else {
-	  pki_key *key = req->getKey();
-	  if (key)
-	  {
-	   dlg->keyPubEx->setText(key->pubEx().c_str());   
-	   dlg->keyModulus->setText(key->modulus().c_str());   
-	   dlg->keySize->setText(key->length().c_str());   
-	   pki_key *existkey = (pki_key *)keys->findPKI(key);
-	   if (existkey) {
-	        if (!existkey->isPubKey()) {
-	       	   dlg->privKey->setEnabled(true);
-		   dlg->privKey->setText(existkey->getDescription().c_str());
-	        }	
-	   }
-	  }
-	}
+
 	string land = req->getDN( NID_countryName) + " / " 
 		+ req->getDN(NID_stateOrProvinceName);
 	dlg->dnCN->setText(req->getDN(NID_commonName).c_str() );

@@ -25,7 +25,7 @@ class pki_x509 : public pki_base
 	   virtual bool compare(pki_base *refcert);
 	   string getDNs(int nid);
 	   string getDNi(int nid);
-	   void writeReq(const string fname, bool PEM);
+	   void writeCert(const string fname, bool PEM);
 	   bool verify(pki_x509 *signer);
 	   pki_key *getKey();
 	   string notAfter();

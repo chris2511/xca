@@ -1,9 +1,11 @@
 #include "db_x509req.h"
 
 
-db_x509req::db_x509req(DbEnv *dbe, string DBfile, string DB, QListView *l)
+db_x509req::db_x509req(DbEnv *dbe, string DBfile, string DB, QListView *l, db_key *keyl)
 		:db_base(dbe, DBfile, DB, l)
 {
+	icon = new QPixmap("req.png");
+	keylist = keyl;
 	loadContainer();
 	updateView();
 }

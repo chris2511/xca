@@ -1,9 +1,10 @@
 #include "db_x509.h"
 
 
-db_x509::db_x509(DbEnv *dbe, string DBfile, string DB, QListView *l)
+db_x509::db_x509(DbEnv *dbe, string DBfile, string DB, QListView *l, db_key *keyl)
 		:db_base(dbe, DBfile, DB, l)
 {
+	keylist = keyl;
 	loadContainer();
 	updateView();
 }
@@ -32,7 +33,12 @@ bool db_x509::updateView()
 {
         listView->clear();
 	listView->setRootIsDecorated(true);
-        pki_x509 *pki;
+        QPixmap *pm[4];
+	pm[0] = new QPixmap("validcert.png");
+        pm[1] = new QPixmap("invalidcert.png");
+        pm[2] = new QPixmap("validcertkey.png");
+        pm[3] = new QPixmap("invalidcertkey.png");
+	pki_x509 *pki;
 	pki_x509 *signer;
 	QListViewItem *parentitem;
 	QListViewItem *current;
@@ -51,8 +57,7 @@ bool db_x509::updateView()
 			cerr << "ARound "<< pki <<" - "<< signer << endl;
 			if ((signer != pki) && (signer != NULL)) // foreign signed
 				parentitem = (QListViewItem *)signer->getPointer();
-			if (signer == NULL); // do something for unknown signers...
-			if (((parentitem != NULL) || (signer == pki) || (signer == NULL)) && (pki->getPointer() == 0 )) {
+			if (((parentitem != NULL) || (signer == pki) || (signer == NULL)) && (pki->getPointer() == NULL )) {
 				// create the listview item
 				if (parentitem != NULL) {
 					current = new QListViewItem(parentitem, pki->getDescription().c_str());	
@@ -62,10 +67,21 @@ bool db_x509::updateView()
 					current = new QListViewItem(listView, pki->getDescription().c_str());	
 					cerr<< "Adding as parent: "<<pki->getDescription().c_str()<<endl;
 				}
+			cerr << "ARound "<< pki <<" - "<< signer << endl;
 				pki->setPointer(current);
+			cerr << "ARound "<< pki <<" - "<< signer << endl;
+				pki_key *key= (pki_key *)keylist->findPKI(pki->getKey());
+			cerr << "ARound "<< pki <<" - "<< signer << endl;
+				int pixnum = 0;
+				if (key)
+ 				   if (key->isPrivKey()) pixnum += 2;	
+				if (signer == NULL) pixnum += 1 ;
+			cerr << "ARound "<< pki <<" - "<< signer << endl;
+				current->setPixmap(0, *pm[pixnum]);
 				mycont.remove(pki);
+			cerr << "ARound "<< pki <<" - "<< signer << endl;
 				it.toFirst();
-				listView->setOpen(current, true);
+			cerr << "ARound "<< pki <<" - "<< signer << endl;
 				cerr << "CRound " <<endl;
 			}
 		}

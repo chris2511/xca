@@ -4,6 +4,7 @@
 db_key::db_key(DbEnv *dbe, string DBfile, string DB, QListView *l, char *pass)
 	:db_base(dbe, DBfile, DB, l)
 {
+	icon = new QPixmap("key.png");
 	passwd = pass;
 	loadContainer();
 	updateView();
