@@ -86,100 +86,13 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	dbenv = NULL;
 	global_tid = NULL;
 
-
-#ifdef WIN32
-	unsigned char reg_path_buf[255] = "";
-	char data_path_buf[255] = "";
-// verification registry keys
-	LONG lRc;
-    HKEY hKey;
-	DWORD dwDisposition;
-	DWORD dwLength = 255;
-    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
-    if(lRc!= ERROR_SUCCESS){
-	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found . ReInstall Xca.");
-		qFatal("");
-	}
-    else {
-		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
-        if(lRc!= ERROR_SUCCESS){
-	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
-			qFatal("");
-		}
-		lRc=RegCloseKey(hKey);
-	}
-	lRc=RegOpenKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,KEY_ALL_ACCESS, &hKey);
-        if(lRc!= ERROR_SUCCESS)
-        {//First run for current user
-                lRc=RegCloseKey(hKey);
-                lRc=RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
-                NULL,&hKey, &dwDisposition);
-		//setup data dir for current user
-				DWORD ret_val;
-				ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
-				strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
-				if (strncmp(data_path_buf,"%USERPROFILE%",13)==0){ // win9x - %Program files%\xca\data
-					strncpy(data_path_buf,(char *)reg_path_buf,255);
-					strcat(data_path_buf,"\\data");
-				}
-				baseDir = data_path_buf;
-				if (ret_val > 255) {
-					QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
-					lRc=RegCloseKey(hKey);
-					qFatal(  "Couldnt create: " +  baseDir );
-				}
-		// save in registry
-                lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
-                lRc=RegCloseKey(hKey);
-				QMessageBox::warning(this,tr(XCA_TITLE), "New data dir create:"+ baseDir);
-				QMessageBox::warning(this,tr(XCA_TITLE), tr("WARNING: If you have updated your 'xca' application you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to "+ baseDir +" or change HKEY_CURRENT_USER->Software->xca->data_path key"));
-        }
-		else{
-				dwLength = sizeof(data_path_buf);
-				lRc=RegQueryValueEx(hKey,"data_path",NULL,NULL, (BYTE*)data_path_buf, &dwLength);
-				if ((lRc != ERROR_SUCCESS)) {
-					QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
-		//recreate data dir for current user
-					DWORD ret_val;
-					ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
-					strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
-					if (strncmp(data_path_buf,"%USERPROFILE%",13)==0){ //win9x -  %USERPROFILE% not set %Program files%\xca\data
-						strncpy(data_path_buf,(char *)reg_path_buf,255);
-						strcat(data_path_buf,"\\data");
-					}
-					baseDir = data_path_buf;
-					if (ret_val > 255) {
-						QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
-						lRc=RegCloseKey(hKey);
-						qFatal(  "Couldnt create: " +  baseDir );
-					}
-		// save in registry
-					lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
-					lRc=RegCloseKey(hKey);
-					QMessageBox::warning(this,tr(XCA_TITLE), "data dir:"+ baseDir);
-				}
-
-			lRc=RegCloseKey(hKey);
-			baseDir = data_path_buf;
-		}
-// 
-
-#else	
-	baseDir = QDir::homeDirPath();
-
-	baseDir += QDir::separator();
-
-	baseDir += BASE_DIR;
-#endif
-
+	getBaseDir();
 	QDir d(baseDir);
-        if ( ! d.exists() ){
-			if (!d.mkdir(baseDir)) {
-				QMessageBox::warning(this,tr(XCA_TITLE), "Could not create " + baseDir);
-				qFatal(  "Couldnt create: " +  baseDir );
-			}
+        if ( ! d.exists() && !d.mkdir(baseDir)) {
+		QMessageBox::warning(this,tr(XCA_TITLE), "Could not create " + baseDir);
+		qFatal(  "Couldnt create: " +  baseDir );
 	}
-	
+
 	init_images();
 	
 	CERR("Connecting init-database");
@@ -194,18 +107,11 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( (const QObject *)BNimportKey, SIGNAL(clicked()), keyList, SLOT(load()));
 	connect( (const QObject *)BNdetailsKey, SIGNAL(clicked()), keyList, SLOT(showItem()));
 	connect( (const QObject *)BNdeleteKey, SIGNAL(clicked()), keyList, SLOT(deleteItem()));
-
-	/*
-	MARK
-	/keyList->loadCont();
-	MARK
-	reqList->loadCont();
-	MARK
-	certList->loadCont();
-	MARK
-	tempList->loadCont();
-	MARK
-	*/
+	CERR("Connecting Request Buttons");
+	connect( (const QObject *)BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
+	connect( (const QObject *)BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));
+	connect( (const QObject *)BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
+	connect( (const QObject *)BNdeleteReq, SIGNAL(clicked()), reqList, SLOT(deleteItem()));
 
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
@@ -216,32 +122,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 
 QPixmap *MainWindow::loadImg(const char *name )
 {
-#ifdef WIN32
-	static unsigned char PREFIX[100]="";
-	if (PREFIX[0] == '\0') {
-	  LONG lRc;
-      HKEY hKey;
-      lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
-      if(lRc!= ERROR_SUCCESS){
-        // No key error
-	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");		
-		PREFIX[0] = '\0';
-	  }
-      else {
-	    ULONG dwLength = 100;
-		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
-        if(lRc!= ERROR_SUCCESS){
-            // No key error
-	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");		
-		    PREFIX[0] = '\0';
-		}
-	  }
-	lRc=RegCloseKey(hKey);
-	}
-#endif    
-	QString path = (char *)PREFIX;
-	path += QDir::separator();
-    return new QPixmap(path + name);
+	return reqList->loadImg(name);
 }
 
 void MainWindow::init_images(){
@@ -537,3 +418,91 @@ NewX509 *MainWindow::newX509(QPixmap *image)
 	return new NewX509(NULL, 0, keys, reqs, certs, temps, image, nsImg);
 }
 
+QString MainWindow::getBaseDir()
+{
+#ifdef WIN32
+	unsigned char reg_path_buf[255] = "";
+	char data_path_buf[255] = "";
+// verification registry keys
+	LONG lRc;
+    HKEY hKey;
+	DWORD dwDisposition;
+	DWORD dwLength = 255;
+    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
+    if(lRc!= ERROR_SUCCESS){
+	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found . ReInstall Xca.");
+		qFatal("");
+	}
+    else {
+		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
+        if(lRc!= ERROR_SUCCESS){
+	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
+			qFatal("");
+		}
+		lRc=RegCloseKey(hKey);
+	}
+	lRc=RegOpenKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,KEY_ALL_ACCESS, &hKey);
+        if(lRc!= ERROR_SUCCESS)
+        {//First run for current user
+                lRc=RegCloseKey(hKey);
+                lRc=RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
+                NULL,&hKey, &dwDisposition);
+		//setup data dir for current user
+				DWORD ret_val;
+				ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
+				strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
+				if (strncmp(data_path_buf,"%USERPROFILE%",13)==0){ // win9x - %Program files%\xca\data
+					strncpy(data_path_buf,(char *)reg_path_buf,255);
+					strcat(data_path_buf,"\\data");
+				}
+				baseDir = data_path_buf;
+				if (ret_val > 255) {
+					QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
+					lRc=RegCloseKey(hKey);
+					qFatal(  "Couldnt create: " +  baseDir );
+				}
+		// save in registry
+                lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
+                lRc=RegCloseKey(hKey);
+				QMessageBox::warning(this,tr(XCA_TITLE), "New data dir create:"+ baseDir);
+				QMessageBox::warning(this,tr(XCA_TITLE), tr("WARNING: If you have updated your 'xca' application you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to "+ baseDir +" or change HKEY_CURRENT_USER->Software->xca->data_path key"));
+        }
+		else{
+				dwLength = sizeof(data_path_buf);
+				lRc=RegQueryValueEx(hKey,"data_path",NULL,NULL, (BYTE*)data_path_buf, &dwLength);
+				if ((lRc != ERROR_SUCCESS)) {
+					QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
+		//recreate data dir for current user
+					DWORD ret_val;
+					ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
+					strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
+					if (strncmp(data_path_buf,"%USERPROFILE%",13)==0){ //win9x -  %USERPROFILE% not set %Program files%\xca\data
+						strncpy(data_path_buf,(char *)reg_path_buf,255);
+						strcat(data_path_buf,"\\data");
+					}
+					baseDir = data_path_buf;
+					if (ret_val > 255) {
+						QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
+						lRc=RegCloseKey(hKey);
+						qFatal(  "Couldnt create: " +  baseDir );
+					}
+		// save in registry
+					lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
+					lRc=RegCloseKey(hKey);
+					QMessageBox::warning(this,tr(XCA_TITLE), "data dir:"+ baseDir);
+				}
+
+			lRc=RegCloseKey(hKey);
+			baseDir = data_path_buf;
+		}
+// 
+
+#else	
+	baseDir = QDir::homeDirPath();
+
+	baseDir += QDir::separator();
+
+	baseDir += BASE_DIR;
+#endif
+	return baseDir;
+}

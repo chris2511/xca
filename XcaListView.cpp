@@ -70,11 +70,15 @@ XcaListView::XcaListView( QWidget * parent = 0,
 #endif		
 	connect( this, SIGNAL(rightButtonPressed(QListViewItem *, const QPoint &, int)),
 	  this, SLOT(popupMenu(QListViewItem *, const QPoint &, int))) ;
+	
+	connect( this, SIGNAL(doubleClicked(QListViewItem *)),
+	  this, SLOT(showItem(QListViewItem *))) ;
 }
 
 void XcaListView::setDB(db_base *mydb)
 {
 	db = mydb;
+	updateView();
 }
 
 void XcaListView::loadCont()
@@ -100,9 +104,8 @@ void XcaListView::showItem()
 
 void XcaListView::showItem(QListViewItem *item)
 {
-        showItem(db->getByPtr(item), false);
+        showItem(db->getByName(item->text(0)), false);
 }
-
 
 void XcaListView::rename(QListViewItem *item, int col, const QString &text)
 {

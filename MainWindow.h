@@ -77,6 +77,7 @@ class MainWindow: public MainWindow_UI
   protected:
 	void init_images();
 	void read_cmdline();
+	QString getBaseDir();
 	DbTxn *global_tid;
 	DbEnv *dbenv;
 			    

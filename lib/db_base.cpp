@@ -368,6 +368,7 @@ pki_base *db_base::getByName(QString desc)
 pki_base *db_base::getByReference(pki_base *refpki)
 {
 	pki_base *pki;
+	if (refpki == 0) return NULL;
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
                 pki = it.current();

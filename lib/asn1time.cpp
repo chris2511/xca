@@ -60,8 +60,8 @@ a1time::a1time()
 
 a1time::a1time(const ASN1_TIME *a)
 {
-	time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, NULL);
-	
+	time = NULL;
+	set(a);	
 }
 
 a1time::~a1time()
@@ -71,13 +71,17 @@ a1time::~a1time()
 
 ASN1_TIME *a1time::get() const
 {
-	return ASN1_TIME_to_generalizedtime(time, NULL);
+	return M_ASN1_TIME_dup(time);
 }
 
 a1time &a1time::set(const ASN1_TIME *a)
 {
-	ASN1_TIME_free(time);
-	time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, NULL);
+	if (a == NULL) {
+		set((time_t)0);
+	}
+	else {
+		ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, &time);
+	}
 	return *this;
 }
 

@@ -60,6 +60,12 @@ x509name::x509name(const X509_NAME *n)
 	xn = X509_NAME_dup((X509_NAME *)n);
 }
 
+x509name::x509name(const x509name &n)
+{
+	xn = NULL;
+	set(n.xn);
+}
+
 x509name::~x509name()
 {
 	X509_NAME_free(xn);
@@ -67,7 +73,8 @@ x509name::~x509name()
 
 void x509name::set(const X509_NAME *n)
 {
-	X509_NAME_free(xn);
+	if (xn != NULL)
+		X509_NAME_free(xn);
 	xn = X509_NAME_dup((X509_NAME *)n);
 }
 
@@ -94,6 +101,12 @@ QString x509name::getEntryByNid(int nid) const
 bool x509name::operator == (const x509name &x) const
 {
 	return (X509_NAME_cmp(xn, x.xn) == 0);
+}
+
+x509name &x509name::operator = (const x509name &x)
+{
+	set(x.xn);
+	return *this;
 }
 
 int x509name::entryCount() const

@@ -61,11 +61,13 @@ class x509name
    public:
 	x509name();
 	x509name(const X509_NAME *n);
+	x509name(const x509name &n);
 	~x509name();
 	void set(const X509_NAME *n);
 	QString oneLine() const;
 	QString getEntryByNid(int nid) const;
 	int entryCount() const;
+	x509name &operator = (const x509name &x);
 	bool operator == (const x509name &x) const;
 	void addEntryByNid(int nid, const QString entry);
 	X509_NAME *get() const;
