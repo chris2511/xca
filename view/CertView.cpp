@@ -362,6 +362,7 @@ void CertView::loadPKCS7()
 #define P7_ONLY 0
 #define P7_CHAIN 1
 #define P7_TRUSTED 2
+#define P7_ALL 3
 
 void CertView::store()
 {
@@ -409,16 +410,19 @@ void CertView::store()
 		case 5: // P7 lonely
 			writePKCS7(fname, P7_ONLY);
 			break;
-		case 6: // P12
+		case 6: // P7
 			writePKCS7(fname, P7_CHAIN);
 			break;
-		case 7: // P12
+		case 7: // P7
 			writePKCS7(fname, P7_TRUSTED);
 			break;
-		case 8: // P12
+		case 8: // P7
+			writePKCS7(fname, P7_ALL);
+			break;
+		case 9: // P12
 			writePKCS12(fname,false);
 			break;
-		case 9: // P12 + cert chain
+		case 10: // P12 + cert chain
 			writePKCS12(fname,true);
 			break;
 
@@ -483,7 +487,16 @@ void CertView::writePKCS7(QString s, int type)
 	if (type == P7_TRUSTED) {
 		list = db->getContainer();
 		if (!list.isEmpty()) {
-       			for ( cer = list.first(); cer != NULL; cer = list.next() ) {
+       		for ( cer = list.first(); cer != NULL; cer = list.next() ) {
+				if (((pki_x509*)cer)->getTrust() == 2)
+					p7->addCert((pki_x509 *)cer);
+			}
+		}
+	}
+	if (type == P7_ALL) {
+		list = db->getContainer();
+		if (!list.isEmpty()) {
+			for ( cer = list.first(); cer != NULL; cer = list.next() ) {
 				p7->addCert((pki_x509 *)cer);
 			}
 		}

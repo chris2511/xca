@@ -70,6 +70,7 @@ ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
 	exportFormat->insertItem("PKCS #7");
 	exportFormat->insertItem("PKCS #7 with Certificate chain");
 	exportFormat->insertItem("PKCS #7 all trusted Certificates");
+	exportFormat->insertItem("PKCS #7 all Certificates");
 	if (hasKey) {
 		exportFormat->insertItem("PKCS #12");
 		exportFormat->insertItem("PKCS #12 with Certificate chain");
@@ -103,7 +104,7 @@ void ExportCert::chooseFile()
 
 void ExportCert::formatChanged()
 {
-	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p7b", "p7b", "p7b", "p12", "p12"};
+	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p7b", "p7b", "p7b", "p7b", "p12", "p12"};
 	int selected = exportFormat->currentItem();
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.findRev('.')+1) + suffix[selected];

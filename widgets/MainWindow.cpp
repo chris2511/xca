@@ -282,16 +282,16 @@ void MainWindow::read_cmdline()
 
 void MainWindow::cmd_help(const char* msg) {
 
-printf(" -c : The following arguments are X509 certificates
- -r : The following arguments are PKCS10 requests
- -k : The following arguments are RSA keys
- -p : The following arguments are PKCS#12 files
- -7 : The following arguments are PKCS#7 files
- -l : The following arguments are CRLs
- -t : The following arguments are XCA templates 
- -v : Print name and version number
- -d : The following argument is the database name 
- -x : exit the application after managing the commandline args ");
+printf(" -v show version information and exit
+ -k expect all following non-option arguments to be RSA keys
+ -r expect all following non-option arguments to be
+    Certificate signing requests or SPKAC requests
+ -c expect all following non-option arguments to be Certificates
+ -p expect all following non-option arguments to be PKCS#12 files
+ -7 expect all following non-option arguments to be PKCS#7 files
+ -l expect all following non-option arguments to be Revokation lists
+ -t expect all following non-option arguments to be XCA templates
+ -x Exit after processing all commandline options");
 
 qFatal("Cmdline Error (%s)\n", msg);
 }
