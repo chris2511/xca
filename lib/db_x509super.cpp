@@ -50,6 +50,7 @@
 
 
 #include "db_x509super.h"
+#include "MainWindow.h"
 
 #define FOR_container for (pki_x509super *pki = (pki_x509super *)container.first(); \
 			pki != 0; pki = (pki_x509super *)container.next() ) 
@@ -86,7 +87,7 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	if (!ref) return NULL;
 	if ((key = ref->getRefKey()) != NULL ) return key;
 	refkey = ref->getPubKey();
-	key = (pki_key *)keylist->getByReference(refkey);
+	key = (pki_key *)MainWindow::keys->getByReference(refkey);
 	if (key && key->isPubKey()) {
 		key = NULL;
 	}

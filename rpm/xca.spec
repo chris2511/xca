@@ -21,28 +21,8 @@ like PKCS#7, PKCS#12, PEM, DER, PKCS#8.
 %prep
 %setup
 
-# Patch Makefile for non-root build-install step
-cat <<END | patch Makefile.in
-@@ -80,10 +80,10 @@
-
- install: xca
-       strip xca
--      install -m 755 -o root -d \$(prefix)@prefix@/share/xca \$(prefix)@prefix@/bin
--      install -m 755 -o root xca \$(prefix)@prefix@/bin
--      install -m 644 -o root img/*.png \$(prefix)@prefix@/share/xca
--      install -m 644 -o root xca_??.qm \$(prefix)@prefix@/share/xca
-+      install -m 755 -d \$(prefix)@prefix@/share/xca \$(prefix)@prefix@/bin
-+      install -m 755 xca \$(prefix)@prefix@/bin
-+      install -m 644 img/*.png \$(prefix)@prefix@/share/xca
-+      install -m 644 xca_??.qm \$(prefix)@prefix@/share/xca
-
-
- moc_%.cpp: %.h %.cpp
-END
-
-
 %build
-./configure --prefix=/usr --disable-printf-debug
+./configure --prefix=/usr --disable-debug
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=X-CA
+Type=Application
+Comment=A graphical user interface for handling and issuing X.509 compliant Certificates
+Comment[de]=Eine graphische Oberfläche zur Erstellung von X.509 konformen Zertifikaten
+Exec=xca
+Icon=xca.xpm
+Terminal=false
