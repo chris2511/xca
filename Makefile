@@ -56,6 +56,7 @@ install: xca
 	install -m 644 misc/xca.desktop $(destdir)$(prefix)/share/applications
 	install -m 644 misc/*.txt $(destdir)$(prefix)/share/xca
 	install -m 644 lang/xca_??.qm $(destdir)$(prefix)/share/xca
+	install -m 644 doc/xca*.html $(destdir)$(prefix)/share/xca
 
 .PHONY: $(SUBDIRS)
 

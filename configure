@@ -167,7 +167,7 @@ LD=${LD:=ld}
 STRIP=${STRIP:=strip}
 
 prefix=${prefix}
-
+BASEDIR=${basedir}
 EOF
 
 for dirs in /bin /usr/bin /usr/local/bin /sw/bin; do

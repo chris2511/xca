@@ -3,7 +3,9 @@ include ../Local.mak
 all: target.obj
 
 CFLAGS+= -DPREFIX=\"$(prefix)\"
-
+ifneq ($(basedir),)
+	CFLAGS+=-DBASEDIR=\"$(basedir)\"
+endif
 # recompile all
 re: clean all
 

@@ -221,10 +221,14 @@ QString getBaseDir()
 	}
 // 
 
-#else	
+#else
+#ifdef BASEDIR
+	baseDir = BASEDIR;
+#else
 	baseDir = QDir::homeDirPath();
 	baseDir += QDir::separator();
 	baseDir += "xca";
+#endif
 #endif
 	return baseDir;
 }
