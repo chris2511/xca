@@ -78,6 +78,8 @@ class ReqView : public XcaListView
 	void writeReq_der();
 	void signReq();
 	void newItem(pki_temp *temp);
+	void showKey(pki_key *key);
+	void showKey(QString name);
    signals:
 	void newCert(pki_x509req *req);
 

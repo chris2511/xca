@@ -319,9 +319,3 @@ QPixmap *XcaListView::loadImg(const char *name )
     return new QPixmap(path + name);
 }
 
-
-void XcaListView::dlg_showKey(QString name)
-{
-	emit showKey(name);
-}
-

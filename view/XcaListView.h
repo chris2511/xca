@@ -61,43 +61,41 @@
 
 class XcaListView : public QListView
 {
-   Q_OBJECT
+	Q_OBJECT
 		
-   protected:
-	db_base *db;
-   protected slots:
-	void dlg_showKey(QString name);
+	protected:
+		db_base *db;
    
-   public:
-	XcaListView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void setDB(db_base *mydb);
-	virtual pki_base *getSelected();
-	virtual void showItem(pki_base *item, bool import);
-	void deleteItem_default(QString t1, QString t2);
-	void load_default(QStringList &filter, QString caption);
-	void load_default(load_base &load);
-	void setDB(db_base *mydb, QPixmap *myimage);
-	void Error(errorEx &err);
-	bool Error(pki_base *pki);
-	void loadCont();
-	QPixmap *loadImg(const char *name );
-   public slots:
-	virtual void newItem();
-	virtual void deleteItem();
-	void showItem();
-	void showItem(QString name);
-	void showItem(QListViewItem *item);
-	virtual void load();
-	virtual	void store();
-	virtual void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-	void startRename();
-	void renameDialog();
-	void rename(QListViewItem *item, int col, const QString &text);
-	virtual void updateView();
-   signals:
-	void init_database();
-	void connNewX509(NewX509 *);
-	void showKey(QString name);
+	public:
+		XcaListView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+		void setDB(db_base *mydb);
+		virtual pki_base *getSelected();
+		virtual void showItem(pki_base *item, bool import);
+		void deleteItem_default(QString t1, QString t2);
+		void load_default(QStringList &filter, QString caption);
+		void load_default(load_base &load);
+		void setDB(db_base *mydb, QPixmap *myimage);
+		void Error(errorEx &err);
+		bool Error(pki_base *pki);
+		void loadCont();
+		QPixmap *loadImg(const char *name );
+	public slots:
+		virtual void newItem();
+		virtual void deleteItem();
+		void showItem();
+		void showItem(QString name);
+		void showItem(QListViewItem *item);
+		virtual void load();
+		virtual	void store();
+		virtual void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+		void startRename();
+		void renameDialog();
+		void rename(QListViewItem *item, int col, const QString &text);
+		virtual void updateView();
+	signals:
+		void init_database();
+		void connNewX509(NewX509 *);
+		void showKey(QString name);
 };
 
 #endif
