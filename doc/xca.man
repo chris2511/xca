@@ -1,0 +1,55 @@
+.TH XCA 1
+.SH NAME
+xca \- A GUI for handling X509 certificates, RSA keys, PKCS#10 Requests and CRLs.
+.SH SYNOPSIS
+.B xca
+[
+.I -v
+] [
+.I -k
+] [
+.I -r
+] [
+.I -c
+] [
+.I -p
+] [
+.I -7
+] [
+.I -l
+] [
+.I -t
+] [
+.I -d
+] [
+.I -b
+] [
+.I -x
+]
+.br
+.SH "DESCRIPTION"
+The Program uses a Berkeley db for storage and supports RSA keys,
+Certificate signing requests (PKCS#10) and Certificates (X509v3)
+The signing of requests, and the creation of selfsigned certificates
+is supported. Both can use templates for simplicity.
+The PKI structures can be imported and exported in several formats
+like PKCS#12, PEM, DER, PKCS#8, PKCS#7.
+      
+.PP
+.B xca
+is a program that...
+.SH OPTIONS
+The programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options are included below.
+For a complete description, see the Info files.
+.TP
+.B \-v 
+Show version information and exit.
+.TP
+.B \-r
+expect all following non-option arguments to be Certificate signing requests or SPKAC requests and to import them by first showing an import dialog.
+Show version of program.
+.SH "SEE ALSO"
+.SH AUTHOR
+This manual page was written by Christian Hohnstaedt <chohnstaedt@innominate.com>

@@ -8,18 +8,21 @@
 # This is the debhelper compatability version to use.
 export DH_COMPAT=2
 
-Local.mak: configure
+Local.mak: 
 
 	dh_testdir
 	# Add here commands to configure the package.
 	# prefix=/usr ./configure
 	cat debian/debian.mak > Local.mak
+	touch Local.mak
 
-build: Local.mak
+build: build-stamp
+build-stamp: Local.mak
 
 	dh_testdir
 	# Add here commands to compile the package.
 	$(MAKE) -j 4
+	touch build-stamp
 
 clean:
 	dh_testdir
@@ -38,7 +41,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/xca.
-	$(MAKE) destdir=$(CURDIR)/debian/xca install
+	$(MAKE) destdir=$(CURDIR)/debian/xca bindir=X11R6/bin install
 
 # Build architecture-independent files here.
 binary-indep: build install

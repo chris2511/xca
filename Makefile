@@ -10,8 +10,11 @@ export TOPDIR=$(shell pwd)
 
 SUBDIRS=lib widgets view ui
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
+INSTDIR=img misc lang doc
 
-all: headers xca
+bindir=bin
+
+all: headers xca doc
 re: clean all
 
 xca: $(OBJECTS)
@@ -42,6 +45,7 @@ dist:
 	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \
 	cat lib/base.h.in |sed s/MY_VERSION/$(TVERSION)/g >lib/base.h && \
+	cat doc/xca.man |sed s/MY_VERSION/$(TVERSION)/g >doc/xca.1 && \
 	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \
 	rm -rf misc/xca.nsi rpm/xca.spec && \
 	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
@@ -50,16 +54,11 @@ dist:
 	
 install: xca
 	$(STRIP) xca
-	install -m 755 -d $(destdir)$(prefix)/share/xca $(destdir)$(prefix)/bin \
-			$(destdir)$(prefix)/share/applications \
-			$(destdir)$(prefix)/share/pixmaps
-	install -m 755 xca $(destdir)$(prefix)/bin
-	install -m 644 img/*.png $(destdir)$(prefix)/share/xca
-	install -m 644 img/key.xpm $(destdir)$(prefix)/share/pixmaps/xca.xpm
-	install -m 644 misc/xca.desktop $(destdir)$(prefix)/share/applications
-	install -m 644 misc/*.txt $(destdir)$(prefix)/share/xca
-	install -m 644 lang/xca_??.qm $(destdir)$(prefix)/share/xca
-	install -m 644 doc/xca*.html $(destdir)$(prefix)/share/xca
+	install -m 755 -d $(destdir)$(prefix)/$(bindir)
+	install -m 755 xca $(destdir)$(prefix)/$(bindir)
+	for d in $(INSTDIR); do \
+	  $(MAKE) -C $$d install; \
+	done
 
 .PHONY: $(SUBDIRS)
 
