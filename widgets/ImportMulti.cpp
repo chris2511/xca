@@ -232,7 +232,7 @@ void ImportMulti::details()
 		}
 		else if (cn == "pki_temp") {
 			QMessageBox::warning(this, XCA_TITLE,
-				tr("Details of this item cannot be shown") + cn, tr("OK"));
+				tr("Details of this item cannot be shown: ") + cn, tr("OK"));
 		}
 			
 		else 

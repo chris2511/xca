@@ -172,39 +172,6 @@ void XcaListView::deleteItem_default(QString t1, QString t2)
 	}
 	updateView();
 }
-#if 0
-void XcaListView::load_default(QStringList &filter, QString caption)
-{
-	filter.append( tr("All Files ( *.* )") );
-	QString s = "";
-	QStringList slist;
-	
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	
-	dlg->setCaption(caption);
-        dlg->setFilters(filter);
-        dlg->setMode( QFileDialog::ExistingFiles );
-        dlg->setDir(MainWindow::getPath());
-        if (dlg->exec()) {
-                slist = dlg->selectedFiles();
-		MainWindow::setPath(dlg->dirPath());
-        }
-        delete dlg;
-		
-        for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
-                s = *it;
-                s = QDir::convertSeparators(s);
-                try {
-                        pki_base *item = loadItem(s);
-                        insert(item);
-                }
-                catch (errorEx &err) {
-                        Error(err);
-                }
-        }
-	updateView();
-}
-#endif
 
 void XcaListView::load_default(load_base &load)
 {
@@ -233,8 +200,10 @@ void XcaListView::load_default(load_base &load)
 		}
 		catch (errorEx &err) {
 			Error(err);
-			if (item)
+			if (item) {
 				delete item;
+				item = NULL;
+			}
 		}
 		dlgi->addItem(item);
 	}

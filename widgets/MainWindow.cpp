@@ -51,6 +51,7 @@
 
 
 #include "MainWindow.h"
+#include "ImportMulti.h"
 #include <qapplication.h>
 #include <qmessagebox.h>
 #include <qlabel.h>
@@ -162,9 +163,10 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
+	init_database();
+	
 	read_cmdline();
-	if (!exitApp)
-		init_database();
+	//if (!exitApp)
 }
 
 void MainWindow::init_images(){
@@ -196,48 +198,50 @@ void MainWindow::init_images(){
 	
 void MainWindow::read_cmdline()
 {
-#define XCA_KEY 1
-#define XCA_REQ 2
-#define XCA_CERT 3
-#define XCA_P12 5
-#define XCA_DB 4
-
-	int type = XCA_DB;
 	int cnt = 1;
 	char *arg = NULL;
-	pki_key *key;
-	pki_x509 *cert;
-	pki_x509req *req;
-	pki_pkcs12 *p12;
+	pki_base *item;
+	load_base *lb = NULL;
 	exitApp = 0;
+	
+	ImportMulti *dlgi = NULL;
+	dlgi = new ImportMulti(this, NULL, true); 
 	
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
 			switch (arg[1]) {
-				case 'c' : type = XCA_CERT;
+				case 'c' : lb = new load_cert();
 					   exitApp =1;
 					   break;
-				case 'r' : type = XCA_REQ;
+				case 'r' : lb = new load_req();
 					   exitApp =1;
 					   break;
-				case 'k' : type = XCA_KEY;
+				case 'k' : lb = new load_key();
 					   exitApp =1;
 					   break;
-				case 'p' : type = XCA_P12;
+				case 'p' : lb = new load_pkcs12();
 					   exitApp =1;
 					   break;
-				case 'd' : type = XCA_DB;
+				case '7' : lb = new load_pkcs7();
+					   exitApp =1;
 					   break;
-				case 'v' : type = XCA_DB;
-					   printf("%s Version %s\n", 
+				case 'l' : lb = new load_crl();
+					   exitApp =1;
+					   break;
+				case 't' : lb = new load_temp();
+					   exitApp =1;
+					   break;
+				case 'v' : printf("%s Version %s\n", 
 						   XCA_TITLE, VER);
 					   exitApp =1;
 					   return;
+				case 'd' : dbfile = arg;
 					   break;
+				default  : qFatal("Cmdline Error (%s)\n", arg);
 			}
 			if (arg[2] != '\0') {
-				 arg=&(arg[2]);
+				 arg+=2;
 			}
 			else {
 				if (++cnt >= qApp->argc()) {
@@ -247,35 +251,30 @@ void MainWindow::read_cmdline()
 			}
 		}
 		try {
-		    switch (type) {
-			case XCA_DB : dbfile = arg;
-				     break;
-			case XCA_KEY : 
-		 		key = new pki_key(arg, &MainWindow::passRead);
-				keyList->showItem(key, true);
-				break;
-			case XCA_CERT : 
-		 		cert = new pki_x509(arg);
-				certList->showItem(cert, true);
-				break;
-			case XCA_REQ : 
-		 		req = new pki_x509req(arg);
-				reqList->showItem(req, true);
-				break;
-			case XCA_P12 : 
-		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);
-				//certList->insertP12(p12);
-				delete p12;
-				break;
-		    }
+			if (lb != NULL) {
+				try {
+					item = lb->loadItem(arg);
+				}
+				catch (errorEx &err) {
+					Error(err);
+					if (item) {
+						delete item;
+						item = NULL;
+					}
+				}
+				dlgi->addItem(item);
+				delete lb;
+				lb = NULL;
+			}
 		}
 		
 		catch (errorEx &err) {
 			Error(err);
 		}
-		
 		cnt++;
 	}
+	dlgi->execute();
+	delete dlgi;
 }	
 
 
