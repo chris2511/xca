@@ -1,12 +1,12 @@
 
------=[	XCA ]=----
+-------------------=[ XCA ]=---------------------
 
 
 A graphical userinterface to OpenSSL.
 handling keys, generating Certificate signing requests,
 handling of client and root-certificates, 
-as well as handling a CA with signing , CRL
-and signing-policies will be possible if the software is ready.
+as well as handling multiple CAs with signing , CRL
+and certificate templates.
 
 
 
@@ -20,17 +20,12 @@ BercleyDB-3.3   from http://www.sleepycat.com
 OpenSSl-0.9.6   from http://www.openssl.org
 
 GNU C++ compiler 2.9.5
+GNU make
 
 
-for debian-woody:
-----------------
-libdb3++-dev
-libssl-dev
-libqt-dev
 
-
-Installation
-============
+Installation:
+=============
 
 should be straight forward:
 just type 'configure' to configure the package,
@@ -43,10 +38,25 @@ than the recommended software packages, or on an other platform
 than Linux, or if it failed :-)
 
 
+
+Running/invoking:
+=================
+
+xca can be invoked with one argument (next to the usual X args) which is
+the filename of the database created/used in ~/xca/ the default 
+filename is xca.db
+
+When running the software its usage should be straight forward.
+Some functions can be reached via a context-menu by right-clicking
+the cert/request/key.
+
+
+
 ----------------------------------------------------------
 if there are any questions regarding this software,
 dont hesitate to contact me:
 
 christian@hohnstaedt.de
 
-$id$
+
+$Id$
