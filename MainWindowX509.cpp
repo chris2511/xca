@@ -413,7 +413,7 @@ void MainWindow::loadCert()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	QDir::convertSeparators(s);
+	s=QDir::convertSeparators(s);
 	pki_x509 *cert = new pki_x509(s.latin1());
 	if (opensslError(cert)) return;
 	insertCert(cert);
@@ -434,7 +434,7 @@ void MainWindow::loadPKCS12()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	QDir::convertSeparators(s);
+	s=QDir::convertSeparators(s);
 	pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
 	opensslError(pk12);
 	akey = pk12->getKey();
@@ -503,7 +503,7 @@ void MainWindow::writeCert()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	QDir::convertSeparators(s);
+	s=QDir::convertSeparators(s);
 	cert->writeCert(s.latin1(),true);
 	opensslError(cert);
 }
@@ -526,7 +526,7 @@ void MainWindow::writePKCS12()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	QDir::convertSeparators(s);
+	S=QDir::convertSeparators(s);
 	pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
 	pki_x509 *signer = cert->getSigner();
 	int cnt =0;

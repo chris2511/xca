@@ -144,7 +144,7 @@ void MainWindow::loadReq()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	QDir::convertSeparators(s);
+	s=QDir::convertSeparators(s);
 	pki_x509req *req = new pki_x509req(s.latin1());
 	if (opensslError(req)) return;
 	insertReq(req);
@@ -163,7 +163,7 @@ void MainWindow::writeReq()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	QDir::convertSeparators(s);
+	s=QDir::convertSeparators(s);
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (opensslError(req)) return;
 	req->writeReq(s.latin1(),true);

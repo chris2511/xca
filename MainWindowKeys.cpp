@@ -172,7 +172,7 @@ void MainWindow::loadKey()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	QDir::convertSeparators(s);
+	s=QDir::convertSeparators(s);
 	string errtxt;
 	pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
 	if ((errtxt = lkey->getError()) != "") {
