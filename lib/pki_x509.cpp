@@ -63,10 +63,14 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	openssl_error();
 	if (signer) {
   		issn = X509_get_subject_name(signer->cert);
+		trust =1;
+		efftrust=1;
 	}
 	else {
   		issn = X509_REQ_get_subject_name(req->request);
 		signer = this;
+		trust = 2;
+		efftrust=2; // always trust our self created certs
 	}
 	
 	// copy Requestinfo to New cert

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
+            <width>572</width>
             <height>520</height>
         </rect>
     </property>
@@ -732,10 +732,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>name</name>
                             <cstring>organisationName</cstring>
                         </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string></string>
-                        </property>
                     </widget>
                     <widget row="1"  column="2" >
                         <class>QLabel</class>
@@ -771,10 +767,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         <property stdset="1">
                             <name>name</name>
                             <cstring>localityName</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string></string>
                         </property>
                     </widget>
                     <widget row="2"  column="2" >
@@ -2272,12 +2264,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <slot>switchExtended()</slot>
     </connection>
     <connection>
-        <sender>keyList</sender>
-        <signal>textChanged(const QString&amp;)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>dataChangeP2()</slot>
-    </connection>
-    <connection>
         <sender>tempList</sender>
         <signal>activated(int)</signal>
         <receiver>NewX509_UI</receiver>
@@ -2312,6 +2298,18 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <signal>clicked()</signal>
         <receiver>NewX509_UI</receiver>
         <slot>signerChanged()</slot>
+    </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>activated(int)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP2()</slot>
+    </connection>
+    <connection>
+        <sender>countryName</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP2()</slot>
     </connection>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">newKey()</slot>

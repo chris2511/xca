@@ -86,6 +86,7 @@ class NewX509: public NewX509_UI
 	QString startText, endText, tText;
    public:	
 	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns);
+	~NewX509();
 	void setRequest(); // reduce to request form 	
 	void setTemp(pki_temp *temp); // reduce to template form 	
 	void setCert(); // reduce to certificate form 	

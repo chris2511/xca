@@ -142,6 +142,10 @@ void MainWindow::newCert(NewX509 *dlg)
 	// increase serial here	
 	if (dlg->foreignSignRB->isChecked()) {
 		serial = signcert->getIncCaSerial();
+		// get own serial to avoid having the same
+		if (serial == atoi(signcert->getSerial().c_str())) { // FIXME: anybody tell me the string method for this ?
+			serial = signcert->getIncCaSerial(); // just take the next one
+		}
 		certs->updatePKI(signcert);  // not so pretty ....
 		CERR("serial is: " << serial );
 	}	

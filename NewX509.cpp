@@ -82,6 +82,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 #else
 	//setFont( tFont );
 #endif	
+	serialNr->setValidator( new QIntValidator(0, 32767, this));
 	QStringList strings;
 	// are there any useable private keys  ?
 	if (keys) {
@@ -175,6 +176,11 @@ void NewX509::setRequest()
 	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa, volunteers ?)");
 	tText=tr("Certificate request");
 	setup();
+}
+
+NewX509::~NewX509()
+{
+
 }
 
 void NewX509::setTemp(pki_temp *temp)
@@ -332,7 +338,7 @@ void NewX509::toggleFromRequest()
 void NewX509::dataChangeP2()
 {
 	CERR( "Data changed" );
-	if ((description->text() != "" || fromReqCB->isChecked()) &&
+	if (description->text() != ""  && countryName->text().length() !=1 &&
 	    (keyList->count() > 0  || !keyList->isEnabled())){
 		setNextEnabled(page2,true);
 	}
@@ -458,4 +464,5 @@ void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(name,0);
 	keyList->setCurrentItem(0);
+	dataChangeP2();	
 }
