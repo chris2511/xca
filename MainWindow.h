@@ -149,8 +149,9 @@ class MainWindow: public MainWindow_UI
 	void newKey();
 	void newReq(pki_temp *templ);
 	void newCert(pki_temp *templ);
+	void newCert(NewX509 *dlg);
 	void newReq(){newReq(NULL);}
-	void newCert(){newCert(NULL);}
+	void newCert();
 	void newTemp(int type = tEMPTY);
 	void newEmpTemp(){ newTemp(tEMPTY); }
 	void newCATemp(){ newTemp(tCA); }

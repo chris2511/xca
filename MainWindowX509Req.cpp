@@ -212,6 +212,7 @@ void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRenameReq()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsReq()));
+		//menu->insertItem(tr("Sign"), this, SLOT(signReq()));
 		menu->insertItem(tr("Export"), this, SLOT(writeReq()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteReq()));
 	}

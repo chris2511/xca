@@ -51,8 +51,30 @@
 
 #include "MainWindow.h"
 
+void MainWindow::newCert()
+{
+	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg, nsImg );
+	dlg->setCert();
+	if (dlg->exec()) {
+		newCert(dlg);
+	}
+	delete dlg;
+}
 
 void MainWindow::newCert(pki_temp *templ)
+{
+	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg, nsImg );
+	if (templ) {
+		dlg->defineTemplate(templ);
+	}
+	dlg->setCert();
+	if (dlg->exec()) {
+		newCert(dlg);
+	}
+	delete dlg;
+}
+
+void MainWindow::newCert(NewX509 *dlg)
 {
 	pki_x509 *cert = NULL;
 	pki_x509 *signcert = NULL;
@@ -72,12 +94,6 @@ void MainWindow::newCert(pki_temp *templ)
 	char *certTypeList[] = { "client", "server", "email", "objsign",
 				 "sslCA", "emailCA", "objCA" };
 	QListBoxItem *item;
-	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg, nsImg );
-	if (templ) {
-		dlg->defineTemplate(templ);
-	}
-	dlg->setCert();
-	if (!dlg->exec()) goto err;
 	
 
 	
@@ -272,14 +288,12 @@ void MainWindow::newCert(pki_temp *templ)
 	insertCert(cert);
 	CERR("inserted");
 	if (tempReq && req) delete(req);
-	delete (dlg);
 	CERR("Dialog deleted" );
 	keys->updateView();
 	return;
 err:	
 	if (cert) delete(cert);
 	if (tempReq && req) delete(req);
-	delete (dlg);
 	return;
 
 	

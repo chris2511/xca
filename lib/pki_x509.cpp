@@ -268,6 +268,7 @@ bool pki_x509::fromData(unsigned char *p, int size)
 		sRev = intFromData(&p1);
 		if (sRev) {
 		   revoked= d2i_ASN1_TIME(NULL, &p1, sRev);
+		   CERR("revoked time");
 		}
 		else {
 		   revoked = NULL;
@@ -289,6 +290,7 @@ bool pki_x509::fromData(unsigned char *p, int size)
 			sLastCrl = intFromData(&p1);
 			if (sLastCrl) {
 			   lastCrl = d2i_ASN1_TIME(NULL, &p1, sLastCrl);
+			   CERR("last CRL"<< sLastCrl);
 			}
 			else {
 			   lastCrl = NULL;
@@ -430,9 +432,10 @@ bool pki_x509::verify(pki_x509 *signer)
 	if (X509_NAME_cmp(subject, issuer)) {
 		return false;
 	}
-	EVP_PKEY *pkey = X509_get_pubkey(signer->cert);
-	int i = X509_verify(cert,pkey);
-	openssl_error();
+	pki_key *pkey = signer->getPubKey();
+	int i = X509_verify(cert,pkey->key);
+	ign_openssl_error();
+	if (pkey) delete(pkey);
 	if (i>0) {
 		CERR("psigner set for: " << getDescription().c_str() );
 		psigner = signer;
@@ -445,6 +448,7 @@ bool pki_x509::verify(pki_x509 *signer)
 pki_key *pki_x509::getPubKey()
 {
 	EVP_PKEY *pkey = X509_get_pubkey(cert);
+	openssl_error();
 	pki_key *key = new pki_key(pkey);	
 	return key;
 }

@@ -217,7 +217,10 @@ void db_base::loadContainer()
 			pki->setDescription(desc);
 			container.append(pki);
 		}
-		else delete(pki);
+		else {
+			QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: ") + desc.c_str());
+			delete(pki);
+		}
 	}
 	delete (k);
 	delete (d);

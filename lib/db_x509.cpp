@@ -157,7 +157,7 @@ void db_x509::updateViewPKI(pki_base *pki)
 	else {
 		current->setText(3, "");
 	}
-	keylist->updateView();
+	//keylist->updateView();
 }
 
 
@@ -214,7 +214,7 @@ void db_x509::remFromCont(pki_base *pki)
 
 pki_key *db_x509::findKey(pki_x509* cert)
 {
-	pki_key *key, *refkey;
+	pki_key *key = NULL, *refkey = NULL;
 	if (!cert) return NULL;
 	if ((key = cert->getKey()) != NULL ) return key;
 	refkey = cert->getPubKey();
@@ -223,7 +223,7 @@ pki_key *db_x509::findKey(pki_x509* cert)
 		key = NULL;
 	}
 	if (cert->setKey(key)) keylist->updateViewPKI(key);
-	delete(refkey);
+	if (refkey) delete(refkey);
 	return key;
 }
 
