@@ -47,6 +47,13 @@ RSAkey::RSAkey(const QString fname, pem_password_cb *cb, QObject *parent=0, cons
 		printf("Fallback to pubkey DER\n"); 
 	   	key = d2i_RSA_PUBKEY_fp(fp, NULL);
 	   }
+	   if (!key) {
+	        openssl_error();
+	        rewind(fp);
+	        printf("Fallback to PKCS#8 Private key\n"); 
+	        EVP_PKEY *evpkey = d2i_PKCS8PrivateKey_fp(fp, NULL, cb, NULL);
+	        key = EVP_PKEY_get1_RSA(evpkey);
+	   }
 	   int r = fname.findRev('.',-4);
 	   int l = fname.findRev('/');
 	   desc = fname.mid(l+1,r-l-1);
