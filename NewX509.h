@@ -63,6 +63,7 @@
 #include <qgroupbox.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
+#include <qwhatsthis.h>
 #include <qlistbox.h>
 #include <qpixmap.h>
 #include <qvalidator.h>
@@ -109,6 +110,7 @@ class NewX509: public NewX509_UI
 	void switchExtended();
 	void templateChanged();
 	void signerChanged();
+	void helpClicked();
 	
    signals:
 	void genKey();  

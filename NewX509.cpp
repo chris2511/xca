@@ -482,3 +482,8 @@ void NewX509::newKeyDone(QString name)
 	keyList->setCurrentItem(0);
 	dataChangeP2();	
 }
+
+void NewX509::helpClicked()
+{
+	QWhatsThis::enterWhatsThisMode();
+}

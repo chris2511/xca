@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>652</width>
+            <width>648</width>
             <height>531</height>
         </rect>
     </property>
@@ -23,10 +23,6 @@
     <property stdset="1">
         <name>caption</name>
         <string>X Certificate and Key management</string>
-    </property>
-    <property>
-        <name>whatsThis</name>
-        <string>hjfghjgfhjfghj</string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -334,6 +330,18 @@
                             <name>name</name>
                             <cstring>reqList</cstring>
                         </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>A certificate signing request can be signed, even if the
+private key of the request is not available. This is the 
+actually the intention of a CSR:
+
+Getting signed by a CA certificate, whoes certificate
+of course must be in the database
+
+Of course you need the private key of the CSR if you want
+to create a self-signed cert from it.</string>
+                        </property>
                     </widget>
                 </hbox>
             </widget>
@@ -428,6 +436,13 @@
                             <name>toolTip</name>
                             <string>All certificates in your database that can create valid signatures</string>
                         </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>This list contains all certificates with the CA-flag set to true
+and whoes private key is present in the key database.
+
+If this list is disabled, you only can create a self-signed certificate.</string>
+                        </property>
                     </widget>
                 </grid>
             </widget>
@@ -494,6 +509,18 @@
                                 <hsizetype>7</hsizetype>
                                 <vsizetype>0</vsizetype>
                             </sizepolicy>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>All available templates</string>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>This list contains all templates from the toplevel template
+Tab. 
+
+Additionally it contains 4 default templates:
+Empy, CA, client, server</string>
                         </property>
                     </widget>
                     <widget row="1"  column="0"  rowspan="1"  colspan="2" >
@@ -905,6 +932,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>text</name>
                             <string>&amp;Generate a new key</string>
                         </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>This funny button creates a key. Go figure.</string>
+                        </property>
                     </widget>
                 </grid>
             </widget>
@@ -1115,6 +1146,17 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                     <name>toolTip</name>
                                     <string>If this will become a CA certificate or not</string>
                                 </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>Set this to TRUE if you want to create a CA certificate
+that signs other certificates.
+
+This is always set to FALSE for client or server certificates.
+
+In most cases self-signed certificates are CA certificates.
+Self-signed non-CA certificates are unusual although
+they are possible.</string>
+                                </property>
                             </widget>
                             <widget row="1"  column="0" >
                                 <class>QLabel</class>
@@ -1135,7 +1177,18 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property>
                                     <name>toolTip</name>
-                                    <string>How much CA may be below this.</string>
+                                    <string>How much CAs may be below this.</string>
+                                </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>If this is left empty the pathlen is not included in the
+certificate. 
+Otherwise it distinguishes the count of chained CA certificates below this one.
+
+A pathlen of 0 means, that this certificate may not issue
+other sub-CA certificates.
+Although it can do it, all chain-checking algorithms in
+e.g. your browser or openssl will (should) fail.</string>
                                 </property>
                             </widget>
                             <widget row="1"  column="2" >
@@ -1147,6 +1200,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>&amp;Critical</string>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The basic constraints should always be critical but they need not</string>
                                 </property>
                             </widget>
                         </grid>
@@ -1182,7 +1239,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property>
                                     <name>toolTip</name>
-                                    <string>Wether to create a </string>
+                                    <string>Creates a hash of the key following the PKIX guidelines</string>
                                 </property>
                             </widget>
                             <widget>
@@ -1194,6 +1251,18 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>&amp;Authority Key Identifier</string>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>Copy the Subject Key Identifier from the issuer</string>
+                                </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>If this box is checked an attempt is made to copy the subject key
+identifier from the signing certificate.
+
+It also copies the issuer and serial number from the issuer
+certificate. Normally this will only be done if the keyid option fails.</string>
                                 </property>
                             </widget>
                         </vbox>
@@ -1233,6 +1302,20 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>365</string>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>Number of validity</string>
+                                </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>The validation time period is counted from "now" of your
+system clock the amount of time entered here.
+
+It is not possible to adjust the starting time of a certificate.
+This is a weakness of this program based on the laziness
+of the programmer and not a weakness of certificates
+or OpenSSL.</string>
                                 </property>
                             </widget>
                             <widget>
@@ -1312,7 +1395,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property>
                             <name>toolTip</name>
-                            <string>Wether to copy the subj. alt. name of the issuer</string>
+                            <string>Wether to copy the subj. alt. name from the issuer</string>
                         </property>
                     </widget>
                     <widget row="2"  column="0" >
@@ -1358,6 +1441,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>text</name>
                             <string>Copy &amp;e-mail address from subject line</string>
                         </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>This will automatically include any email addresses contained in the certificate subject name in the extension.</string>
+                        </property>
                     </widget>
                     <widget row="2"  column="1" >
                         <class>QLineEdit</class>
@@ -1367,7 +1454,19 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property>
                             <name>toolTip</name>
-                            <string>Valid IDs: DNS: IP: URL: email:</string>
+                            <string>DNS: IP: URI: email: RIP:</string>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>The issuer alternative name extension allows various literal values to be used. 
+These include "email" (an email address)
+"URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a
+registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+
+Examples:
+
+email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
+email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
                     </widget>
                     <widget row="0"  column="1" >
@@ -1378,7 +1477,19 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property>
                             <name>toolTip</name>
-                            <string>Valid IDs: DNS: IP: URL: email:</string>
+                            <string>DNS: IP: URI: email: RIP:</string>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>The subject alternative name extension allows various literal values to be used.
+These include "email" (an email address)
+"URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a
+registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+
+Examples:
+
+email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
+email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
                     </widget>
                     <widget row="4"  column="1" >
@@ -1386,6 +1497,27 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         <property stdset="1">
                             <name>name</name>
                             <cstring>crlDist</cstring>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>This is a multi-valued extension that supports all the literal options of
+subject alternative name. Of the few software packages that currently interpret
+this extension most only interpret the URI option.
+
+Currently each option will set a new DistributionPoint with the fullName
+field set to the given value.
+
+Other fields like cRLissuer and reasons cannot currently be set or displayed:
+at this time no examples were available that used these fields.
+
+If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out
+or it doesn't appear to display correctly then let me know, including the
+certificate (mail me at steve@openssl.org) .
+
+Examples:
+
+URI:http://www.myhost.com/myca.crl
+URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
                         </property>
                     </widget>
                 </grid>
@@ -2362,8 +2494,15 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <receiver>NewX509_UI</receiver>
         <slot>dataChangeP2()</slot>
     </connection>
+    <connection>
+        <sender>NewX509_UI</sender>
+        <signal>helpClicked()</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>helpClicked()</slot>
+    </connection>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">newKey()</slot>
+    <slot access="public">helpClicked()</slot>
     <slot access="public">signerChanged()</slot>
     <slot access="public">switchExtended()</slot>
     <slot access="public">templateChanged()</slot>
