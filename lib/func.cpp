@@ -104,10 +104,9 @@ return ret;
 #else
 
 	QString ret = PREFIX;
-	//ret += "/share/xca";
+	ret += "/share/xca";
 	return ret;
 #endif
-
 
 }
 

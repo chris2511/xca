@@ -78,12 +78,9 @@ class pki_base : public QObject
 	pki_base(const QString d);
 	pki_base();
 	static int get_pki_counter();
-	virtual void fromData(unsigned char *p, int size)
-		{ CERR("VIRTUAL FUNCTION CALLED: fromData"); };
-	virtual unsigned char *toData(int *size)
-		{ CERR("VIRTUAL FUNCTION CALLED: toData"); return NULL;};
-	virtual bool compare(pki_base *ref)
-		{ CERR("VIRTUAL FUNCTION CALLED: compare"); return false;};
+	virtual void fromData(unsigned char *p, int size){};
+	virtual unsigned char *toData(int *size){return NULL;};
+	virtual bool compare(pki_base *ref){return false;};
 	virtual ~pki_base();
         QString getIntName();
         void setIntName(const QString d );

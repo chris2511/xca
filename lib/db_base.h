@@ -51,27 +51,7 @@
 #ifndef DB_BASE_H
 #define DB_BASE_H
 
-#include <qglobal.h>
-
-#ifdef HAVE_CONFIG_H
-#include "../config.h"
-
-#ifdef HAVE_DB4_DB_CXX_H
-#include <db4/db_cxx.h>
-#elif HAVE_DB3_DB_CXX_H
-#include <db3/db_cxx.h>
-#elif HAVE_DB_DB_CXX_H
-#include <db/db_cxx.h>
-#else
 #include <db_cxx.h>
-#endif
-
-#else  // HAVE_CONFIG_H
-#define WIN32 1
-#include <db_cxx.h>
-#include <WINDOWS.H>
-
-#endif  // HAVE_CONFIG_H
 
 #include <qlistview.h>
 #include <qlist.h>
@@ -79,7 +59,6 @@
 #include <qstringlist.h>
 #include "pki_base.h"
 
-#define BASE_DIR "xca"
 
 class XcaListView;
 

@@ -184,7 +184,6 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 	FILE *fp = fopen(fname,"w");
 	if (fp != NULL) {
 	   if (crl){
-		CERR("writing CRL");
 		if (pem)
 			PEM_write_X509_CRL(fp, crl);
 		else

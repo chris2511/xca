@@ -67,7 +67,6 @@ pki_base *db_crl::newPKI(){
 void db_crl::preprocess()
 {
 	return;
-	CERR("preprocess CRL");
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...

@@ -95,7 +95,6 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	pki_x509 *signer = crt->getSigner();
 	if (signer == crt) signer = NULL;
 	while (signer != NULL ) {
-		CERR("SIGNER: "<<signer->getDescription())
 		sk_X509_push(certstack, signer->getCert());
 	        openssl_error();
 		if (signer == signer->getSigner() ) signer = NULL;
@@ -169,10 +168,8 @@ void pki_pkcs7::readP7(QString fname)
                	if (!p7) {
 			ign_openssl_error();
 			rewind(fp);
-			CERR("Fallback to DER encoded PKCS#7");
 			p7 = d2i_PKCS7_fp(fp, &p7);
 		}
-		CERR("PK7");
 		fclose(fp);
 		openssl_error();
 	}
@@ -188,11 +185,9 @@ STACK_OF(X509) *pki_pkcs7::getCertStack() {
 	switch (i) {
 		case NID_pkcs7_signed:
 			certstack = p7->d.sign->cert;
-			CERR("PKCS#7: SIGNED");
 			break;									    
 		case NID_pkcs7_signedAndEnveloped:
 			certstack = p7->d.signed_and_enveloped->cert;
-			CERR("PKCS#7: SIGNED and ENVELOPED");
 			break;									    
 		default:
 			break;

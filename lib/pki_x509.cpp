@@ -237,7 +237,6 @@ bool pki_x509::hasSubAltName()
 	int crit;
 	subAlt = (STACK_OF(GENERAL_NAME) *)X509_get_ext_d2i(cert, NID_subject_alt_name, &crit, NULL);
 	openssl_error();
-	CERR("hasSubAlt: "<< sk_GENERAL_NAME_num(subAlt));
 	if (sk_GENERAL_NAME_num(subAlt) < 1) return false;	
 	return true;
 }
@@ -451,13 +450,11 @@ int pki_x509::resetTimes(pki_x509 *signer)
 	if (!signer) return -1;
 	if (getNotAfter() > signer->getNotAfter()) {
 		// client cert is longer valid....
-		CERR("adjust notAfter");
 		setNotAfter(signer->getNotAfter());
 		ret=1;
 	}
 	if (getNotBefore() < signer->getNotBefore()) {
 		// client cert is longer valid....
-		CERR("adjust notBefore");
 		setNotBefore(signer->getNotBefore());
 		ret=2;
 	}
@@ -611,7 +608,6 @@ QString pki_x509::tinyCAfname()
 	col = (char *)buf;
 	OPENSSL_free(buf);
 	col += ".pem";
-	CERR("base64 Encoding: " <<col);
 	return col;
 }
 

@@ -241,10 +241,10 @@ void XcaListView::updateView()
 	}
 }
 
-void XcaListView::newItem(void) { CERR("Virtual called..."); }
-void XcaListView::deleteItem(void) { CERR("Virtual called..."); }
-void XcaListView::load(void) { CERR("Virtual called..."); }
-void XcaListView::store(void) { CERR("Virtual called..."); }
-void XcaListView::popupMenu(QListViewItem *, QPoint const &, int) { CERR("Virtual called..."); }
-void XcaListView::showItem(pki_base *, bool) { CERR("Virtual called...");}
+void XcaListView::newItem(void) { }
+void XcaListView::deleteItem(void) { }
+void XcaListView::load(void) { }
+void XcaListView::store(void) { }
+void XcaListView::popupMenu(QListViewItem *, QPoint const &, int) { }
+void XcaListView::showItem(pki_base *, bool) { }
 

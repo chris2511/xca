@@ -72,7 +72,6 @@ db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
 #endif
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		throw errorEx(err.what());
 	}
 }
@@ -103,7 +102,6 @@ void *db_base::getData(void *key, int length, int *dsize)
 		return q;
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		throw errorEx(err.what());
 	}
 	return NULL;
@@ -158,7 +156,6 @@ void db_base::putData(void *key, int keylen, void *dat, int datalen, DbTxn *tid)
 		data->put(tid, &k, &d, 0 );
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		throw errorEx(err.what());
 	}
 }
@@ -170,14 +167,12 @@ void db_base::putString(QString key, void *dat, int datalen, DbTxn *tid)
 
 void db_base::putString(QString key, QString dat, DbTxn *tid)
 {
-	CERR( key);
 	putString(key, (void *)dat.latin1(), dat.length() +1, tid);
 }
 
 void db_base::putString(char *key, QString dat, DbTxn *tid)
 {
 	QString x = key;
-	CERR(key);
 	putString(x, dat, tid);
 }
 
@@ -226,7 +221,6 @@ void db_base::loadContainer()
 	}
 	catch (DbException &err) {
 		tid->abort();
-		DBEX(err);
 		throw errorEx(err.what());
 	}
 }	
@@ -242,7 +236,7 @@ void db_base::insertPKI(pki_base *pki)
 	}
 	catch (DbException &err) {
 		tid->abort();
-		DBEX(err);
+		throw errorEx(err.what());
 	}
 	if (listview) {
 		
@@ -306,7 +300,6 @@ void db_base::deletePKI(pki_base *pki)
 		delete(pki);
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		tid->abort();
 		throw errorEx(err.what());
 	}
@@ -324,7 +317,6 @@ void db_base::renamePKI(pki_base *pki, QString desc)
 		tid->commit(0);
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		tid->abort();
 		throw errorEx(err.what(), "rename PKI");
 	}
@@ -350,7 +342,6 @@ void db_base::updatePKI(pki_base *pki)
 		tid->commit(0);
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		tid->abort();
 		throw errorEx(err.what(), "update PKI");
 	}
@@ -359,7 +350,6 @@ void db_base::updatePKI(pki_base *pki)
 pki_base *db_base::getByName(QString desc)
 {
 	if (desc == "" ) return NULL;
-	CERR( __FUNCTION__ << "desc = '" << desc << "'");
 	pki_base *pki;
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
@@ -433,7 +423,6 @@ void db_base::writeAll(DbTxn *tid)
 			_writePKI(pki, true, tid);
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		tid->abort();
 		throw errorEx(err.what());
 	}

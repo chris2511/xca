@@ -102,7 +102,6 @@ pki_x509req::pki_x509req(const QString fname)
 	   if (!request) {
 		ign_openssl_error();
 		rewind(fp);
-		CERR("Fallback to private key DER"); 
 	   	request = d2i_X509_REQ_fp(fp, NULL);
 		openssl_error();
 	   }

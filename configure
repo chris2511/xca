@@ -1,0 +1,193 @@
+#!/bin/sh -e
+
+#####################################################
+# this configure-script searches for the needed includes
+# and libraries.
+#
+# it is MUCH faster, smaller and does what I want. :-)
+#
+# If you have openssl or the Berkeley db installed in 
+# an unusual directory like /home/me/install/ssl
+# just give it as argument to ./configure
+# it then searches for headers in /home/me/install/ssl/include
+# and librarys in /home/me/install/ssl/lib
+#
+# if you have a very unusual setup or you are cross-compiling
+# you can edit "Local.mak" to fit your needs and to reflect your setup
+# 
+# The Makefiles should support parallel builds.
+#
+#######################################################
+
+DIRS="$QTDIR $@ /usr /usr/X11R6 /usr/local"
+
+CF="-I. -I.."
+LIBS=-lstdc++
+LDIRS=
+MOC=moc
+UIC=uic
+
+err() {
+  echo
+  echo ERROR: $1
+  echo 
+  err_occ=Y
+}
+
+#adds an includedir to $CF
+add_include() {
+  for _dir in -I/usr/include ${CF}; do
+    if test "-I$1" = "${_dir}"; then
+      return 0
+    fi
+  done
+ 
+  CF="${CF} -I$1"
+}
+
+add_lib() {
+  LIBS="$LIBS -l$2"
+  for _libs in -L/usr/lib ${LDIRS}; do
+    if test "-L$1" = "${_libs}"; then
+      return 0
+    fi
+  done
+
+  LDIRS="${LDIRS} -L$1"
+}
+
+# check for includes
+search_includes() {
+  for dbn in "" ${subdirs}; do
+    for dir in ${DIRS};  do
+      if test -r ${dir}/include${dbn}/$1; then
+          add_include ${dir}/include${dbn}
+          echo Found:  $1 at ${dir}/include${dbn}
+          return 0
+      fi
+    done
+  done
+  return 1
+}
+
+# check for libs
+search_lib() {
+  for dbn in $@; do
+    for dir in ${DIRS};  do
+      for suffix in so dylib obj; do
+        if test -r ${dir}/lib/lib${dbn}.${suffix}; then
+          add_lib ${dir}/lib ${dbn};
+	  echo Found: lib${dbn}.${suffix} at ${dir}/lib
+          return 0
+	fi
+      done
+    done
+  done
+  return 1
+}
+ 
+
+######################## DB
+subdirs="/db /db3 /db4"
+search_includes db_cxx.h || err "The Berkeley DB header files were not found"
+search_lib db_cxx db4_cxx db3_cxx db_cxx-4 db_cxx-3 || err "The Berkeley DB library was not found. Try installing db-dev" 
+## The fun of NPTL... (Thx Enrico Scholz)
+echo 'int main() {}' >conftest.c
+if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log; then
+  :
+else
+  search_lib pthread || err "Lib pthread needed for db_cxx and not found"
+fi
+
+######################### QT
+subdirs="/qt"
+search_includes qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
+search_lib qt qt-mt || err "The QT library was not found. Try installing qt-dev" 
+search_lib c_r || true
+# look if it compiles...
+if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log; then
+  :
+else
+  search_lib c_r || err "Libc_r needed for FreeBSD systems and was not found"
+fi
+
+###################### OpenSSL
+subdirs=""
+search_includes openssl/opensslv.h || err "The OpenSSL library headerfiles were not found."
+search_lib crypto || err "The OpenSSL library was not found."
+
+##### Try to compile them all together and show the versions.
+cat >conftest.c <<EOF
+#include <openssl/opensslv.h>
+#include <db_cxx.h>
+#include <qglobal.h>
+
+main(){
+printf("\nThe Versions of the used libraries are:\n\t%s\n\t%s\n\tQT: %s\n",
+	 OPENSSL_VERSION_TEXT, DB_VERSION_STRING, QT_VERSION_STR );
+}
+EOF
+
+if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log ; then
+  ./conftest ||err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf"
+  rm -f conftest.c conftest conftest.log
+else
+  err "Unable to compile a minimal application look at 'conftest.log' for errors"
+fi
+
+
+
+if test -x $QTDIR/bin/moc; then
+  MOC="$QTDIR/bin/moc"
+fi
+
+if test -x $QTDIR/bin/uic; then
+  UIC="$QTDIR/bin/uic"
+fi
+
+echo
+echo "LDFLAGS   :${LIBS}${LDIRS}"
+echo "PREFIX    :${prefix:=/usr/local}"
+echo "CPPFLAGS  :${CF}"
+echo "CFLAGS    :${CFLAGS:=-Wall}"
+echo
+
+cat >Local.mak <<EOF
+CPPFLAGS=$CF
+CFLAGS=${CFLAGS}
+
+LDFLAGS=$LDIRS
+LIBS=$LIBS
+
+MOC=$MOC
+UIC=$UIC
+
+CC=${CC:=gcc}
+LD=${LD:=ld}
+STRIP=${STRIP:=strip}
+
+prefix=${prefix}
+
+EOF
+
+for dirs in /bin /usr/bin /usr/local/bin /sw/bin; do
+  for make in gmake make; do
+    if ${dirs}/${make} -v 2>/dev/null | grep GNU; then
+      mak=${dirs}/${make}
+    fi
+  done  
+done
+
+echo
+if test ! -z "${mak}"; then
+  echo A usable "make" executable was found in ${mak}
+else
+  echo No usable "make" executable found.
+fi
+echo
+
+if test "x${err_occ}" = "xY"; then
+  echo
+  echo An error occured. Please edit 'Local.mak' manually if compiling fails.
+fi
+

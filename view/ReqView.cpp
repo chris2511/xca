@@ -192,7 +192,6 @@ void ReqView::signReq()
 }
 
 void ReqView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	CERR("hallo popup Req");
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subExport = new QPopupMenu(this);
 	if (!item) {
