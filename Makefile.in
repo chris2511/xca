@@ -5,8 +5,8 @@
 #
 
 VERSION=@PACKAGE_VERSION@
-TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
-TARGET=xca-$(VERSION)
+TAG=$(shell echo "V.$(TVERSION)" |sed "s/\./_/g" )
+TARGET=xca-$(TVERSION)
 
 GCC=@CXX@
 CC=@CC@
@@ -64,14 +64,15 @@ distclean: clean
 	rm -rf autom4te.cache
 
 dist: 
-	rm -rf ../$(TARGET)
-	cvs export -r $(TAG) -d ../$(TARGET) xca
-	(cd ../$(TARGET);  autoconf; \
-	./mkxcapro.sh ||true; lrelease xca.pro ||true; \
-	cat rpm/xca.spec |sed s/VERSION/$(VERSION)/g >rpm/$(TARGET)-1.spec; \
+	test ! -z "$(TVERSION)"
+	rm -rf $(TARGET)
+	cvs export -r $(TAG) -d $(TARGET) xca
+	(cd $(TARGET);  autoconf; \
+	./mkxcapro.sh; lrelease xca.pro; \
+	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec; \
 	rm -rf rpm/xca.spec autom4te.cache; \
 	cd doc; linuxdoc -B html xca.sgml; )
-	(cd ..; tar zcf $(TARGET).tar.gz $(TARGET) )
+	tar zcf $(TARGET).tar.gz $(TARGET) 
 	#rm -rf ../$(TARGET)
 	
 install: xca
