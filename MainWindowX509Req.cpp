@@ -186,7 +186,7 @@ void MainWindow::deleteReq()
 void MainWindow::loadReq()
 {
 	QStringList filt;
-	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
+	filt.append("PKCS#10 CSR ( *.pem *.der *.csr )"); 
 	filt.append("All Files ( *.* )");
 	QString s="";
 	QStringList slist;
@@ -227,7 +227,7 @@ void MainWindow::writeReq()
 
 	if (!req) return;
 	QStringList filt;
-	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
+	filt.append("PKCS#10 CSR ( *.pem *.der *.csr )"); 
 	filt.append("All Files ( *.* )");
 	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
