@@ -102,6 +102,7 @@ class MainWindow: public MainWindow_UI
 	static NewX509 *newX509();
 	static QString md5passwd(const char *pass);
 	static void Error(errorEx &err);
+	void cmd_help(const char* msg);
 	
 	static QString getPath();
 	static void setPath(QString path);

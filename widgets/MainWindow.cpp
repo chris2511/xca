@@ -204,7 +204,7 @@ void MainWindow::init_images(){
 	
 void MainWindow::read_cmdline()
 {
-	int cnt = 1;
+	int cnt = 1, opt;
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;
@@ -223,47 +223,30 @@ void MainWindow::read_cmdline()
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
+			opt = 1; lb = NULL;
 			switch (arg[1]) {
-				case 'c' : lb = lc;
-					   exitApp =1;
-					   break;
-				case 'r' : lb = lr;
-					   exitApp =1;
-					   break;
-				case 'k' : lb = lk;
-					   exitApp =1;
-					   break;
-				case 'p' : lb = lp12;
-					   exitApp =1;
-					   break;
-				case '7' : lb = lp7;
-					   exitApp =1;
-					   break;
-				case 'l' : lb = lcr;
-					   exitApp =1;
-					   break;
-				case 't' : lb = lt;
-					   exitApp =1;
-					   break;
-				case 'v' : printf("%s Version %s\n", 
-						   XCA_TITLE, VER);
-					   exitApp =1;
-					   return;
-				case 'd' : dbfile = arg;
-					   break;
-				default  : qFatal("Cmdline Error (%s)\n", arg);
+				case 'c' : lb = lc; break;
+				case 'r' : lb = lr; break;
+				case 'k' : lb = lk; break;
+				case 'p' : lb = lp12; break;
+				case '7' : lb = lp7; break;
+				case 'l' : lb = lcr; break;
+				case 't' : lb = lt; break;
+				case 'd' : lb = NULL; break;
+				case 'v' : printf("%s Version %s\n", XCA_TITLE, VER); opt=0; break;
+				case 'x' : exitApp = 1; opt=0; break;
+				default  : cmd_help("defa");
 			}
-			if (arg[2] != '\0') {
+			if (arg[2] != '\0' && opt==1) {
 				 arg+=2;
 			}
 			else {
-				if (++cnt >= qApp->argc()) {
-					qFatal("cmdline argument error\n");
-				}
-				arg=qApp->argv()[cnt];
+				cnt++;
+				continue;
 			}
 		}
 		if (lb) {
+			item = NULL;
 			try {
 				item = lb->loadItem(arg);
 				dlgi->addItem(item);
@@ -276,6 +259,10 @@ void MainWindow::read_cmdline()
 				}
 			}
 		}
+		else {
+			dbfile = arg;
+		}
+		
 		cnt++;
 	}
 
@@ -292,6 +279,21 @@ void MainWindow::read_cmdline()
 	delete lc;		
 }	
 
+void MainWindow::cmd_help(const char* msg) {
+
+printf(" -c : The following arguments are X509 certificates
+ -r : The following arguments are PKCS10 requests
+ -k : The following arguments are RSA keys
+ -p : The following arguments are PKCS#12 files
+ -7 : The following arguments are PKCS#7 files
+ -l : The following arguments are CRLs
+ -t : The following arguments are XCA templates 
+ -v : Print name and version number
+ -d : The following argument is the database name 
+ -x : exit the application after managing the commandline args ");
+
+qFatal("Cmdline Error (%s)\n", msg);
+}
 
 void MainWindow::init_database() {
 	
