@@ -144,6 +144,8 @@ Thank you very much.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Common actions
+<p>
+Many actions are common to all crypto parts.
 <sect1>Importing items
 <p>
 The import of an item can be done by either clicking the import button on the right
@@ -156,11 +158,12 @@ The import function is smart enough to probe all known formats as there are:
 	must be imported with an extra button, because they can contain more than one certificate)
 </itemize>
 After selecting the filename XCA will probe for the known formats of that item
-and in case of an error it prompts the <em>last</em> OpenSSL errormessage.
+and in case of an error it prompts the <em>last</em> OpenSSL error message.
 
 <p>
 After reading the item it searches for this item in the database and if it is unique the item
-is stored in the database, otherwise it shows a message containing the internal name of the item.
+is stored in the database, otherwise it shows a message containing the internal name of the item
+in the database.
 
 <sect1>Details of an item
 <p>
@@ -307,6 +310,9 @@ includes your personal information and your public key.
 <p>
 After clicking on the <tt>New Request</tt> button the Certificate Wizard will be started to ask
 all needed information for generating a new Request. See: <ref id="wizard" name="Wizard">
+The request generation can also be invoked by the context menu of a certificate (Export->Request).
+This menu point is only available if the private key of the certificate is available.
+In this case all needed data is copied from the certificate and the Wizard is not invoked.
 
 <sect1>Request export
 <p>
@@ -333,15 +339,99 @@ the client certificates can be shown by clicking on the plus sign of the CA cert
 <sect1>CA certificates <label id="ca_cert">
 <p>
 XCA recognizes your CA certificates if the CA flag in the <em>Basic Constraints</em> is set to true
-and if there is a private key. In this case the <tt>CA</tt> submenu in the context-menu is enabled.
+and if there is a corresponding private key.
+In this case the <tt>CA</tt> submenu in the context-menu is enabled.
+
 <p>
 For building the chains the CA flag is disregarded instead it consideres the issuer name and
 the signature to decide which certificate is the issuer.
 
 <sect1>Generating certificates
+<p>
 After clicking on the <tt>New Certificate</tt> button the Certificate Wizard will be started to ask
 all needed information for generating a new Request. See: <ref id="wizard" name="Wizard">
+Certificate creation can also be invoked by the context menu of the certificate list background
+or by the context menu of the request.
+In this case the Wizard is preset with the Request to be signedi.
+<p>
+If in the certificate list a <em>CA certificate</em> is selected, this
+certificate is preselected as signer certificate on the second page of the Wizard.
 
+<sect1>Certificate details
+<p>
+The signer is the internal name of the issuers certificate, <em>SELF SIGNED</em> if it is
+self signed or <em>SIGNER UNKNOWN</em> if the issuers certificate is not available.
+The validity is set to <em>valid</em> if the certificate dates are valid
+or to <em>Not valid</em> if the are not, regarding the internal time and date of the OS.
+<p>
+If the certificate was revoked, the revocation date is shown instead.
+
+<sect1>Certificate trustment
+<p>
+The certificate trustment can be changed by the context menu of the certificate.
+It can be set to:
+<itemize>
+<item><bf>Not trusted</bf> - never trust this certificate, even if we trust the issuer. 
+This is the default for imported self-signed certificates.
+<item><bf>Trust depends on issuer</bf> - only trust this certificate, if we trust the
+issuer. This is the default for imported and generated non-self-signed certificates.
+<item><bf>Always trust</bf> - always trust this certificate, even if we do not trust
+the issuers certificate or if it is absent. This is the default for generated 
+self-signed certificates.
+</itemize>
+
+<sect1>Certificate export
+<p>
+The filename can be selected in the export dialog and the Export format:
+<itemize>
+<item><bf>PEM</bf> - PEM encoded
+<item><bf>PEM with Certificate chain</bf> - PEM encoded certificate and all issuers up to the
+root certificate in one file
+<item><bf>PEM all trusted Certificates</bf> - List of all PEM encoded certificates
+that are marked als <em>Always trusted</em> (usually all self-signed certificates)
+in one file for e.g. apache as trusted cert store.
+<item><bf>PEM all Certificates</bf> - All PEM encoded certificates in one file.
+<item><bf>DER</bf> - DER encoded certificate.
+<item><bf>Signed PKCS#7</bf> - PEM encoded PKCS#7 structure signed by the issuer.
+<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate and the corresponding 
+<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate, the corresponding 
+private key and the chain of all issuers certificates.
+</itemize>
+<p>
+The PKCS#12 structures will be encrypted by the password you are asked for later.
+
+<sect1>Certificate revokation
+<p>
+Certificates only can be revoked, if the private key of the issuers certificate
+is available. The certificate will marked as revoked and the revokation date
+will be stored with the certificate.
+
+<sect1>Certificate renewal
+<p>
+Certificates only can be renewed, if the private key of the issuers certificate
+is available. Renewal is done by creating a new certificate as a copy of the original one
+with just adjusted validity dates.
+
+<sect1>PKCS#7
+<p>
+PKCS#7 structures can be created by the context menu of the signing certificate.
+The PKCS#7 structure can be either signed or encrypted. 
+Therefore it will prompt for a file to be either signed or encrypted.
+The resulting file has the original filename with ".p7s" suffix.
+
+<sect1>CA special functions
+<p>
+The context menu of CA certificates does contain the <em>CA</em> submenu.
+that makes the following functions available:
+
+<itemize>
+<item><bf>Serial</bf> The serial number of the next certificate
+signed by this issuer.
+<item><bf>CRL days</bf> The days until the next CRL release.
+<item><bf>Signing Template</bf> The default template for signing certificates.
+<item><bf>Generate CRL</bf> Generate the CRL by collecting all revoked certificates
+and their revokation date.
+</itemize>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 </article>
