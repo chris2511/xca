@@ -105,7 +105,7 @@ void x509rev::setDate(const a1time &t)
 {
 	if (rev->revocationDate != NULL)
 		ASN1_TIME_free(rev->revocationDate);
-	rev->revocationDate = t.get();
+	rev->revocationDate = t.get_utc();
 }
 
 a1int x509rev::getSerial() const

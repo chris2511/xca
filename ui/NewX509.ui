@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>563</width>
+            <width>559</width>
             <height>590</height>
         </rect>
     </property>
@@ -2937,6 +2937,20 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
     <slot access="public">toggleFromRequest()</slot>
 </connections>
 <tabstops>
+    <tabstop>nsCertType</tabstop>
+    <tabstop>nsBaseUrl</tabstop>
+    <tabstop>nsRevocationUrl</tabstop>
+    <tabstop>nsCARevocationUrl</tabstop>
+    <tabstop>nsRenewalUrl</tabstop>
+    <tabstop>nsCaPolicyUrl</tabstop>
+    <tabstop>nsSslServerName</tabstop>
+    <tabstop>nsComment</tabstop>
+    <tabstop>fromReqCB</tabstop>
+    <tabstop>reqList</tabstop>
+    <tabstop>selfSignRB</tabstop>
+    <tabstop>serialNr</tabstop>
+    <tabstop>certList</tabstop>
+    <tabstop>extDNobj</tabstop>
     <tabstop>tempList</tabstop>
     <tabstop>changeDefault</tabstop>
     <tabstop>description</tabstop>
@@ -2963,5 +2977,14 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
     <tabstop>keyUsage</tabstop>
     <tabstop>ekuCritical</tabstop>
     <tabstop>ekeyUsage</tabstop>
+    <tabstop>extDNname</tabstop>
+    <tabstop>extDNadd</tabstop>
+    <tabstop>extDNdel</tabstop>
+    <tabstop>extDNlist</tabstop>
+    <tabstop>hashAlgo</tabstop>
+    <tabstop>validNumber</tabstop>
+    <tabstop>validRange</tabstop>
+    <tabstop>applyTime</tabstop>
+    <tabstop>v3Extensions</tabstop>
 </tabstops>
 </UI>

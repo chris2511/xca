@@ -71,7 +71,7 @@ class ImportMulti: public ImportMulti_UI
 		pki_base *search(QListViewItem *current);
 		pki_base *getSelected();
 		void import(pki_base *pki);
-		void execute();
+		void execute(int force=0);
 
 	public slots:
 		void showPopupMenu(QListViewItem *item, const QPoint &pt, int x);

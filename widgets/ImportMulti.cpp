@@ -253,12 +253,12 @@ ImportMulti::~ImportMulti()
 	cont.clear();
 }	 
 
-void ImportMulti::execute()
+void ImportMulti::execute(int force)
 {
 	/* if there is nothing to import don't pop up */
 	if (cont.count() == 0) return;
-	/* if there is only 1 item import it silently */
-	if (cont.count() == 1) {
+	/* if there is only 1 item and force is 0 import it silently */
+	if (cont.count() == 1 && force == 0) {
 		import(cont.first());
 		return;
 	}

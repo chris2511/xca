@@ -268,7 +268,7 @@ void MainWindow::read_cmdline()
 
 	init_database();
 	
-	dlgi->execute();
+	dlgi->execute(1); /* force showing of import dialog */
 	delete dlgi;
 	delete lt;
 	delete lcr;

@@ -110,7 +110,7 @@ void pki_crl::setLastUpdate(const a1time &t)
 	if (crl->crl->lastUpdate != NULL)
 		ASN1_TIME_free(crl->crl->lastUpdate);
 	
-	crl->crl->lastUpdate = t.get();
+	crl->crl->lastUpdate = t.get_utc();
 }
 
 void pki_crl::setNextUpdate(const a1time &t)
@@ -118,7 +118,7 @@ void pki_crl::setNextUpdate(const a1time &t)
 	if (crl->crl->nextUpdate != NULL)
 		ASN1_TIME_free(crl->crl->nextUpdate);
 	
-	crl->crl->nextUpdate = t.get();
+	crl->crl->nextUpdate = t.get_utc();
 }
 
 pki_crl::~pki_crl()
