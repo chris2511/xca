@@ -1,3 +1,12 @@
+xca (0.2.12) unstable; urgency=low
+
+  * PKCS#7 encryption and signing of files added
+  * First attempt of documentation added
+  * Several export targets added
+  * Certificate renewal repaired 
+
+ -- Christian Hohnstädt <chris@trinity.local>  Mon,  6 Jan 2003 21:40:28 +0100
+
 xca (0.2.11) unstable; urgency=low
 
   * Certificate export enhanced, increase signer-serial on certimport.
