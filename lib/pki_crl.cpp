@@ -69,6 +69,9 @@ pki_crl::pki_crl(const string d, pki_x509 *iss )
 	X509_gmtime_adj(ci->nextUpdate, (issuer->getCrlDays())*24*60*60);
 	ci->version = ASN1_INTEGER_new();
 	ASN1_INTEGER_set(ci->version,1); /* version 2 CRL */
+#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
+	ci->revoked = sk_X509_REVOKED_new_null();
+#endif
 	openssl_error();
 	className="pki_crl";
 }	
