@@ -8,6 +8,8 @@ db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
 	listView = l;
 	loadContainer();
 	updateView();
+	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
+	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
 }
 
 pki_base *db_x509::newPKI(){
@@ -122,4 +124,14 @@ pki_key *db_x509::findKey(pki_x509* cert)
 	return key;
 }
 
+void db_x509::delKey(pki_key *delkey)
+{
+	updateView();
+}
+
+
+void db_x509::newKey(pki_key *newkey)
+{
+	updateView();
+}
 

@@ -50,3 +50,15 @@ QStringList db_key::getPrivateDesc()
 	return x;
 }
 
+void db_key::remFromCont(pki_base *pki)
+{
+	container.remove(pki);
+	emit delKey((pki_key *)pki);
+}
+
+bool db_key::insertPKI(pki_base *pki) 
+{
+	db_base::insertPKI(pki);
+	emit newKey((pki_key *)pki);
+	return true;
+}

@@ -237,7 +237,6 @@ string pki_x509::fingerprint(EVP_MD *digest)
 	 return fp;
 }
 
-
 int pki_x509::checkDate()
 {
 	time_t tnow = time(NULL);

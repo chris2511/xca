@@ -8,6 +8,7 @@
 
 class db_x509req: public db_base
 {
+	Q_OBJECT
     protected:
 	db_key *keylist;
     public:
@@ -15,6 +16,9 @@ class db_x509req: public db_base
 	pki_base *newPKI();
 	QStringList getDesc();
 	bool updateView();
+    public slots:
+	void delKey(pki_key *delkey);
+    	void newKey(pki_key *newKey);
 };
 
 #endif

@@ -290,4 +290,3 @@ QPixmap *db_base::loadImg(const char *name )
         return new QPixmap(path + name);
 }
 
-

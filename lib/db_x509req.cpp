@@ -8,6 +8,8 @@ db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
 	keylist = keyl;
 	loadContainer();
 	updateView();
+	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
+	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
 }
 
 pki_base *db_x509req::newPKI(){
@@ -47,3 +49,16 @@ bool db_x509req::updateView()
 	}				
 	return true;
 }
+
+
+void db_x509req::delKey(pki_key *delkey)
+{
+	updateView();
+}
+
+
+void db_x509req::newKey(pki_key *newkey)
+{
+	updateView();
+}
+

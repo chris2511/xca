@@ -9,6 +9,7 @@
 
 class db_x509: public db_base
 {
+	Q_OBJECT
     protected:
 	db_key *keylist;
     public:
@@ -19,6 +20,9 @@ class db_x509: public db_base
 	void remFromCont(pki_base *pki);
 	QStringList getPrivateDesc();
 	pki_key * findKey(pki_x509 *cert);
+    public slots:
+	void delKey(pki_key *delkey);
+    	void newKey(pki_key *newKey);
 };
 
 #endif

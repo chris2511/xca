@@ -15,7 +15,7 @@
 #define DB_BASE_H
 
 
-class db_base
+class db_base: public QObject
 {
 		
     protected:
@@ -28,7 +28,7 @@ class db_base
 	db_base(DbEnv *dbe, string DBfile, string db);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
-		cerr<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
+		CERR<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
 	virtual bool updateView();
 	bool insertPKI(pki_base *pki);
 	bool deletePKI(pki_base *pki);
@@ -37,6 +37,9 @@ class db_base
 	pki_base *getSelectedPKI();
 	pki_base *findPKI(pki_base *refpki);
 	virtual void loadContainer();
+	/* preprocess should be implemented once to speed up updateView() 
+	 * i.e search for signers and keys */
+	virtual void preprocess() {return;}
 	virtual void remFromCont(pki_base *pki);
 	Dbc *getCursor();
 	bool freeCursor(Dbc *cursor);

@@ -7,12 +7,13 @@ TARGET=xca-$(VERSION)
 
 GCC=@CXX@
 CPPFLAGS=@CPPFLAGS@ -Wall -g
+MOC=@MOC@
 
 ##############################################
 
 
 PKIOBJS=pki_base.o pki_key.o pki_x509req.o pki_x509.o pki_pkcs12.o
-DBOBJS=db_base.o db_key.o db_x509req.o db_x509.o
+DBOBJS=db_base.o db_key.o db_x509req.o db_x509.o db_key_MOC.o db_x509req_MOC.o db_x509_MOC.o
      
 
 all: libpki.a libxcadb.a
@@ -22,6 +23,9 @@ libpki.a: $(PKIOBJS)
 
 libxcadb.a: $(DBOBJS)
 	ar rcs libxcadb.a $(DBOBJS)
+	
+%_MOC.cpp: %.h
+	$(MOC) $< -o $@
 	
 %.o: %.cpp %.h
 	$(GCC) $(CPPFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $<
