@@ -1,3 +1,14 @@
+xca (0.2.8) unstable; urgency=low
+
+  * consistency checks for Iss-alt-name and Sub-alt-name
+  * Check for certificate dates to not exceed those of the signer
+  * defines for libdb >4.1.x
+  * default templates added
+  * package-builder do build without printf-debugging
+  * key-use counter works now well
+
+ -- Christian Hohnstädt <chris@trinity.local>  Sun, 13 Oct 2002 23:28:29 +0200
+
 xca (0.2.7) unstable; urgency=low
 
   * segfaults removed

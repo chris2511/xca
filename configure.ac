@@ -1,4 +1,4 @@
-AC_INIT(xca, 0.2.7)
+AC_INIT(xca, 0.2.8)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
