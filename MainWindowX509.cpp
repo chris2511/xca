@@ -321,9 +321,6 @@ void MainWindow::insertCert(pki_x509 *cert)
 	   return;
 	}
 	certs->insertPKI(cert);
-	certs->findSigner(cert);
-	certs->findKey(cert);
-	cert->calcEffTrust();
 }
 
 void MainWindow::writeCert()
