@@ -1176,6 +1176,10 @@ void MainWindow::changeView()
 	certs->updateView();
 }
 
+#define fopenerror(file) \
+	QMessageBox::warning(this,tr(XCA_TITLE), \
+       		tr("The file '") + file + tr("' could not be opened"));
+
 void MainWindow::toTinyCA()
 {
 	pki_x509 *crt = (pki_x509 *)certs->getSelectedPKI();
@@ -1233,7 +1237,10 @@ void MainWindow::toTinyCA()
 	chdir("..");
 	// write the serial
 	fp = fopen("serial", "w");
-	if (!fp) return;
+	if (!fp) {
+		fopenerror("serial");
+		return;
+	}
 	fprintf(fp, "%04x", crt->getCaSerial());
 	fclose(fp);
 	
@@ -1242,10 +1249,15 @@ void MainWindow::toTinyCA()
 	tcatempdir += "openssl.cnf";
 	fpr = fopen(tcatempdir.latin1(), "r");
 	if (!fpr) {
-		CERR("Could not open: " << tcatempdir );
+		fopenerror("openssl.cnf" );
 		return;
 	}
 	fp = fopen("openssl.cnf", "w");
+	if (!fp) {
+		fopenerror("openssl.cnf" );
+		fclose(fpr);
+		return;
+	}
 	while (fgets(buf ,200, fpr) != NULL) {
 		char *x = strstr(buf,"%dir%");
 		if (x != 0) {
@@ -1289,7 +1301,6 @@ void MainWindow::toTinyCA()
 	
 }	
 			
-
 void MainWindow::startRenameCert()
 {
 	try {
