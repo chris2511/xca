@@ -56,6 +56,7 @@
 #include <qtextbrowser.h>
 #include <qpixmap.h>
 #include <qlabel.h>
+#include <iostream.h>
 #include "ui/About.h"
 #include "ui/Help.h"
 #include "lib/func.h"
@@ -63,7 +64,7 @@
 
 void MainWindow::cmd_help(const char* msg) {
 
-cerr << " -v show version information and exit\n"
+fprintf(stderr, " -v show version information and exit\n"
 " -k expect all following non-option arguments to be RSA keys\n"
 " -r expect all following non-option arguments to be\n"
 "    Certificate signing requests or SPKAC requests\n"
@@ -75,7 +76,7 @@ cerr << " -v show version information and exit\n"
 " -d expect the following argument to be the database name to use\n"
 " -b expect the following argument to be the basedirectory for oids\n"
 "    and database logs\n"
-" -x Exit after processing all commandline options\n\n";
+" -x Exit after processing all commandline options\n\n");
 
 qFatal("Cmdline Error (%s)\n", msg);
 }

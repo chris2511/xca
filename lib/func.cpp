@@ -137,14 +137,14 @@ QString getBaseDir()
     if(lRc!= ERROR_SUCCESS){
 		QMessageBox::warning(NULL, XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found. ReInstall Xca.");
-		qFatal("Reinstall Xca");
+		qFatal("Installation problem");
 	}
     else {
 		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
         if(lRc!= ERROR_SUCCESS){
 			QMessageBox::warning(NULL, XCA_TITLE,
 				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
-			qFatal("Reinstall Xca");
+			qFatal("Installation problem");
 		}
 		lRc=RegCloseKey(hKey);
 	}

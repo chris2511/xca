@@ -14,6 +14,7 @@ re: clean all
 
 xca: $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o xca
+	#$(CC) $(CPPFLAGS) ../mingw/qt/lib/qt-mt230nc.lib ../mingw/qt/lib/qtmain.lib main.cpp -o main
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
 headers:

@@ -92,7 +92,7 @@ void MainWindow::load_database()
 	if (fname.isEmpty()) return;
 	dbfile = fname;
 	close_database();
-	cerr << QString("Dir: ") + baseDir + ", file: " + dbfile <<endl;
+	fprintf(stderr, "Dir: %s, File: %s\n", baseDir.latin1(),  dbfile.latin1() );
 	emit init_database();
 }
 

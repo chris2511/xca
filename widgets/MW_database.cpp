@@ -82,7 +82,7 @@ void MainWindow::init_database() {
 		return;
 			
 	}
-	cerr << "Opening database: "<< dbfile << endl;
+	fprintf(stderr, "Opening database: %s\n", dbfile.latin1());
 	try {
 		settings = new db_base(dbenv, dbfile, "settings",global_tid, NULL);
 		if (!initPass()) {
