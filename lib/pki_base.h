@@ -49,16 +49,16 @@
  */                           
 
 
-#include <iostream>
-#include <string>
-
 #ifndef HAVE_CONFIG_H
 using namespace std ;
 #else
 #include "../config.h"
 #endif
 
+#include "base.h"
 #include <openssl/err.h>
+#include <iostream>
+#include <string>
 
 #ifndef PKI_BASE_H
 #define PKI_BASE_H

@@ -46,15 +46,3 @@
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 
-
-/* handle printf debugging */
-#define MARK CERR("--Mark--")
-
-#ifdef PRINTF_DEBUG
-#define CERR(x) cerr <<__FILE__<<" ("<<__LINE__<<") :"<< x << endl;
-#else
-#define CERR(x)
-#endif
-
-
-#define XCA_TITLE "X Certifikate and Key management"

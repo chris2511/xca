@@ -48,7 +48,11 @@
  *
  */                           
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
+#include "lib/base.h"
 #include "MainWindow_UI.h"
 #include "KeyDetail.h"
 #include "ReqDetail.h"
@@ -93,21 +97,11 @@
 #include "lib/db_x509.h"
 #include "lib/db_temp.h"
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #define DBFILE "xca.db"
-#ifndef CERR
-#define CERR(x)
-#endif
 
-#ifdef WIN32
-#define VER "0.2.7-win"
-#endif
 
 class MainWindow: public MainWindow_UI
 {
