@@ -1,4 +1,4 @@
-VERSION=0.2.0
+VERSION=0.2.1
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 

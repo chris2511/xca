@@ -99,24 +99,26 @@ void MainWindow::newCert()
 	}
 	cert->addV3ext(NID_basic_constraints, constraints);
 	cerr << "B-Const:" << constraints << endl;
+	// Subject Key identifier
 	if (dlg3->subKey->isChecked()) {
 		string subkey="hash";
 		cert->addV3ext(NID_subject_key_identifier, subkey);
 		cerr << subkey <<endl;
 	}
-	
+	// Authority Key identifier
 	if (dlg3->authKey->isChecked()) {
 		string authkey="keyid,issuer:always";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
 		cerr << authkey <<endl;
 	}
 	
+	// key usage
 	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"};
 	QListBoxItem *item;
 	int i=0;
-	string keyuse;
+	string keyuse, keyuse1;
 	while ((item = dlg3->keyUsage->item(i))) {	
 		if (item->selected()){
 			if (keyuse.length() > 0) keyuse +=", ";
@@ -126,9 +128,10 @@ void MainWindow::newCert()
 	}
 	
 	if (keyuse.length() > 0) 
-		if (dlg3->kuCritical->isChecked()) keyuse = "critical," + keyuse;
-		cert->addV3ext(NID_key_usage, keyuse);
-	cerr << "KeyUsage:" <<keyuse;
+		if (dlg3->kuCritical->isChecked()) keyuse1 = "critical," + keyuse;
+		cert->addV3ext(NID_key_usage, keyuse1);
+	cerr << "KeyUsage:" <<keyuse1<< endl;
+	
 	
 	// and finally sign the request 
 	cert->sign(signkey);
