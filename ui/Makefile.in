@@ -22,7 +22,7 @@ CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
 UINAMES=CertDetail ExportKey ExportCert KeyDetail MainWindow \
         NewKey NewX509 PassRead PassWrite ReqDetail TrustState \
-        CertExtend ExportTinyCA CrlDetail #ImportMulti
+        CertExtend ExportTinyCA CrlDetail ImportMulti
 
 UIOBJS=$(patsubst %,moc_%.o,$(UINAMES)) $(patsubst %,%.o,$(UINAMES))
 
@@ -41,7 +41,7 @@ clean:
 	rm -rf *~ *.o *.a $(UI_CPP) $(UI_H) $(MOC_CPP)  
 
 distclean: clean
-	rm -f Makefile base.h
+	rm -f Makefile
 
 moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@

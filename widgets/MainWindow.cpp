@@ -126,7 +126,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 
 	connect( BNnewCert, SIGNAL(clicked()), certList, SLOT(newItem()));
 	connect( BNimportCert, SIGNAL(clicked()), certList, SLOT(load()));
-	connect( BNexportCert, SIGNAL(clicked()), keyList, SLOT(store()));
+	connect( BNexportCert, SIGNAL(clicked()), certList, SLOT(store()));
 	connect( BNdetailsCert, SIGNAL(clicked()), certList, SLOT(showItem()));
 	connect( BNdeleteCert, SIGNAL(clicked()), certList, SLOT(deleteItem()));
 	connect( BNimportPKCS12, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
@@ -139,6 +139,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( BNclientTemp, SIGNAL(clicked()), tempList, SLOT(newClientTemp()));
 	connect( BNserverTemp, SIGNAL(clicked()), tempList, SLOT(newServerTemp()));
 	connect( BNdeleteTemp, SIGNAL(clicked()), tempList, SLOT(deleteItem()));
+	connect( BNchangeTemp, SIGNAL(clicked()), tempList, SLOT(alterTemp()));
 	
 	connect( BNimportCrl, SIGNAL(clicked()), crlList, SLOT(load()));
 	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));

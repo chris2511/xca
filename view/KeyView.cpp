@@ -51,7 +51,7 @@
 
 #include "KeyView.h"
 #include "ui/NewKey.h"
-#include "ui/KeyDetail.h"
+#include "widgets/KeyDetail.h"
 #include "widgets/ExportKey.h"
 #include "widgets/MainWindow.h"
 #include "widgets/clicklabel.h"
@@ -119,25 +119,11 @@ void KeyView::showItem(pki_base *item, bool import)
 {
 	pki_key *key = (pki_key *)item;
 	if (!key) return;
-	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
+	KeyDetail *detDlg = new KeyDetail(this, 0, true, 0 );
 	try {	
-		detDlg->setCaption(tr(XCA_TITLE));
-		detDlg->keyDesc->setText( key->getIntName() );
-		detDlg->keyLength->setText( key->length() );
-		detDlg->keyPubEx->setText( key->pubEx() );
-		detDlg->keyModulus->setText( key->modulus());
-		if (key->isPubKey()) {
-			detDlg->keyPrivEx->setText(tr("Not available") );
-			detDlg->keyPrivEx->setDisabled(true);
-		}
-		else {
-			detDlg->keyPrivEx->setText(tr("Available") );
-			detDlg->keyPrivEx->setDisabled(false);
-		}
-		detDlg->image->setPixmap(*MainWindow::keyImg);
+		detDlg->setKey(key);
 		if (import) {
-			detDlg->but_ok->setText(tr("Import"));
-			detDlg->but_cancel->setText(tr("Discard"));
+			detDlg->setImport();
 		}
 	}
 	catch (errorEx &err) {

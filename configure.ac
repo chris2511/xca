@@ -12,6 +12,7 @@ AC_CANONICAL_SYSTEM
 AC_PROG_CXX
 AC_CHECK_TOOL(RANLIB, ranlib, :)
 AC_CHECK_TOOL(AR, ar, :)
+AC_CHECK_TOOL(STRIP, strip, :)
 
 AC_SUBST(ac_QTDIR)
 AC_SUBST(ac_DEBUG)
@@ -23,12 +24,12 @@ AC_ARG_WITH(openssldir,    specify an extra dir for openssl,
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
 	export PATH=$QTDIR/bin:$PATH
-	export CPPFLAGS="$CPPFLAGS -I$QTDIR/include -I/usr/local/include"
-	export LDFLAGS="$LDFLAGS -L$QTDIR/lib -L/usr/local/lib"
+	export CPPFLAGS="$CPPFLAGS -I$QTDIR/include"
+	export LDFLAGS="$LDFLAGS -L$QTDIR/lib"
 	ac_QTDIR="$QTDIR"
 else
-	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include -I/usr/X11R6/include"
-	export LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
+	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/X11R6/include"
+	export LDFLAGS="$LDFLAGS -L/usr/X11R6/lib"
 	ac_QTDIR="System location"
 fi
 
