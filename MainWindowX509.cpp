@@ -1204,11 +1204,12 @@ void MainWindow::toTinyCA()
 	tcadir = dlg->tinycadir->text();
 	dname = dlg->dname->text();
 	
+	settings->putString("TinyCAtempdir", tcatempdir.latin1());
+	settings->putString("TinyCAdir", tcadir.latin1());
+	
 	if (dname.isEmpty()) return;
 	const EVP_CIPHER *enc = EVP_des_ede3_cbc();
 	
-	settings->putString("TinyCAtempdir", tcatempdir.latin1());
-	settings->putString("TinyCAdir", tcadir.latin1());
 	
 	// OK, we have all names now...
 	tcadir += QDir::separator();
@@ -1240,7 +1241,10 @@ void MainWindow::toTinyCA()
 	tcatempdir += QDir::separator();
 	tcatempdir += "openssl.cnf";
 	fpr = fopen(tcatempdir.latin1(), "r");
-	if (!fpr) return;
+	if (!fpr) {
+		CERR("Could not open: " << tcatempdir );
+		return;
+	}
 	fp = fopen("openssl.cnf", "w");
 	while (fgets(buf ,200, fpr) != NULL) {
 		char *x = strstr(buf,"%dir%");
@@ -1270,10 +1274,12 @@ void MainWindow::toTinyCA()
 			chdir("certs");
 			crt->writeCert(fname, true, false);
 			chdir("..");
-			chdir("keys");
-			key = crt->getKey();
-			key->writeKey(fname, NULL, &MainWindow::passWrite, true);
-			chdir("..");
+			key = issuedcert->getKey();
+			if (key) {
+				chdir("keys");
+				key->writeKey(fname, NULL, &MainWindow::passWrite, true);
+				chdir("..");
+			}
 			fprintf(fp, "%c\t%s\t%s\tunknown %s\n", rev? 'R':'V', nadate.c_str(), revdate.c_str(),"------");
 			
 		}

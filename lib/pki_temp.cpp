@@ -138,6 +138,7 @@ pki_temp::pki_temp(const string d, int atype)
 	if (type==tCLIENT) {
 		ca=false;
 		bcCrit=true;
+		subKey=true;
 		authKey=true;
 		issAltCp=true;
 		subAltCp=true;
@@ -147,6 +148,7 @@ pki_temp::pki_temp(const string d, int atype)
 	if (type==tSERVER) {
 		ca=false;
 		bcCrit=true;
+		subKey=true;
 		authKey=true;
 		issAltCp=true;
 		subAltCp=true;
