@@ -396,6 +396,18 @@ void db_x509::writeAllCerts(QString fname, bool onlyTrusted)
 	}
 }
 
+QList<pki_x509> db_x509::getCerts(bool onlyTrusted)
+{
+	QList<pki_x509> c;
+	c.clear();
+	pki_x509 *cert = NULL;
+       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
+		if (onlyTrusted && cert->getTrust() != 2) continue;
+		c.append(cert);
+	}
+	return c;
+}
+
 int db_x509::searchSerial(pki_x509 *signer)
 {
 	if (!signer) return 0;

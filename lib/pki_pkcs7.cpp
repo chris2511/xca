@@ -55,8 +55,9 @@
 pki_pkcs7::pki_pkcs7(const string d )
 	:pki_base(d)
 { 
-	p7 = NULL;
-	certstack = NULL;
+	p7 = PKCS7_new();
+	PKCS7_set_type(p7, NID_pkcs7_signed);
+	PKCS7_content_new(p7, NID_pkcs7_data);
 	className = "pki_pkcs7";
 }	
 
@@ -64,16 +65,14 @@ pki_pkcs7::pki_pkcs7(const string d )
 pki_pkcs7::~pki_pkcs7()
 {
 	if (p7) PKCS7_free(p7);
-	if (certstack) sk_X509_free(certstack);
 }
 
 void pki_pkcs7::encryptFile(pki_x509 *crt, string filename)
 {
 	BIO *bio = NULL;
+	STACK_OF(X509) *certstack;
 	if (!crt) return;
 	bio = BIO_new_file(filename.c_str(), "r");
-        openssl_error();
-	if (certstack) sk_X509_free(certstack);
 	certstack = sk_X509_new_null();
 	sk_X509_push(certstack, crt->getCert());
 	openssl_error();
@@ -81,29 +80,30 @@ void pki_pkcs7::encryptFile(pki_x509 *crt, string filename)
 	p7 = PKCS7_encrypt(certstack, bio, EVP_des_ede3_cbc(), PKCS7_BINARY);
 	openssl_error();	
 	sk_X509_free(certstack);
-	certstack = NULL;
 }
 
 void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 {
 	pki_key *privkey;
+	STACK_OF(X509) *certstack;
 	if (!crt) return;
 	privkey = crt->getKey();
 	if (!privkey) throw errorEx("No private key for signing found", className);
-	if (certstack) sk_X509_free(certstack);
 	certstack = sk_X509_new_null();
+
 	pki_x509 *signer = crt->getSigner();
-	while (signer != NULL && signer != signer->getSigner()) {
+	if (signer == crt) signer = NULL;
+	while (signer != NULL ) {
+		CERR("SIGNER: "<<signer->getDescription())
 		sk_X509_push(certstack, signer->getCert());
 	        openssl_error();
-		signer = signer->getSigner();
-		CERR("SIGNER: "<<signer->getDescription())
+		if (signer == signer->getSigner() ) signer = NULL;
+		else signer = signer->getSigner();
 	}
 	if (p7) PKCS7_free(p7);
 	p7 = PKCS7_sign(crt->getCert(), privkey->getKey(), certstack, bio, PKCS7_BINARY);
 	openssl_error();	
 	sk_X509_free(certstack);
-	certstack = NULL;
 }
 
 
@@ -146,17 +146,15 @@ void pki_pkcs7::writeP7(string fname,bool PEM)
 }
 
 pki_x509 *pki_pkcs7::getCert(int x) {
-	if (!certstack) return NULL;
 	pki_x509 *cert;
-	cert = new pki_x509(X509_dup(sk_X509_value(certstack, x)));
+	cert = new pki_x509(X509_dup(sk_X509_value(getCertStack(), x)));
 	openssl_error();
 	cert->setDescription("pk7-import");
 	return cert;
 }
 
 int pki_pkcs7::numCert() {
-	if (!certstack) return 0;
-	int n= sk_X509_num(certstack);
+	int n= sk_X509_num(getCertStack());
 	openssl_error();
 	return n;
 }
@@ -169,6 +167,7 @@ void pki_pkcs7::readP7(string fname)
 		p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);	
                	if (!p7) {
 			ign_openssl_error();
+			rewind(fp);
 			CERR("Fallback to DER encoded PKCS#7");
 			p7 = d2i_PKCS7_fp(fp, &p7);
 		}
@@ -176,7 +175,34 @@ void pki_pkcs7::readP7(string fname)
 		fclose(fp);
 		openssl_error();
 	}
-	certstack = PKCS7_get0_signers(p7, NULL, 0);
+	else fopen_error(fname);
+}
+
+
+STACK_OF(X509) *pki_pkcs7::getCertStack() {
+	STACK_OF(X509) *certstack = NULL; 
+	int i;
+        if (p7 == NULL) return NULL;
+	i = OBJ_obj2nid(p7->type);
+	switch (i) {
+		case NID_pkcs7_signed:
+			certstack = p7->d.sign->cert;
+			CERR("PKCS#7: SIGNED");
+			break;									    
+		case NID_pkcs7_signedAndEnveloped:
+			certstack = p7->d.signed_and_enveloped->cert;
+			CERR("PKCS#7: SIGNED and ENVELOPED");
+			break;									    
+		default:
+			break;
+	}
+	openssl_error();
+	return certstack;
+}
+
+void pki_pkcs7::addCert(pki_x509 *crt) {
+	if (p7 == NULL || crt == NULL) return;
+	PKCS7_add_certificate(p7, crt->getCert());
 	openssl_error();
 }
 

@@ -169,6 +169,7 @@ class MainWindow: public MainWindow_UI
 	bool alterTemp(pki_temp *temp);
 	void Error(errorEx &err);
 	void writePKCS12(QString s, bool chain);
+	void writePKCS7(QString s, int type);
 	void setPath(QFileDialog *dlg);
 	QString getPath();
 	void newPath(QFileDialog *dlg);

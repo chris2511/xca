@@ -62,7 +62,7 @@ class pki_pkcs7: public pki_base
     friend class pki_x509;
     protected:
 	PKCS7 *p7;
-	STACK_OF(X509) *certstack;
+	STACK_OF(X509) *getCertStack();
 	void signBio(pki_x509 *crt, BIO * bio);
     public:
 	pki_pkcs7(const string d);
@@ -75,6 +75,7 @@ class pki_pkcs7: public pki_base
 	void writeP7(string fname,bool PEM);
 	void readP7(string fname);
 	pki_x509 *getCert(int x);
+	void addCert(pki_x509 *crt);
 	int numCert(); // number of certs;
 
 };
