@@ -10,7 +10,6 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListBox *l)
 	int x;
 	if (( x = data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
 		data->err(x,"DB open");
-	updateView();
 }
 
 
@@ -104,9 +103,11 @@ pki_base *db_base::getSelectedPKI(string desc)
 	int x = data->get(NULL, &k, &d, 0);
 	p = (unsigned char *)d.get_data();
 	int size = d.get_size();
+	cerr<< "getSelectedPKI" <<endl;	
 	if (x) data->err(x,"DB Error get");
 	else {
 		targetPki = newPKI();
+		cerr<< "after newkey" <<endl;	
 		targetPki->fromData(p, size);
 		targetPki->setDescription(desc);
 	}

@@ -6,8 +6,8 @@
 MainWindow::MainWindow(QWidget *parent, const char *name) 
 	:MainWindow_UI(parent, name)
 {
-	connect((QObject *) quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
-	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
+	connect(quitApp, SIGNAL(clicked()), qApp, SLOT(quit()) );
+	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de V.";
 	copyright->setText(cpr + VER);
 	baseDir = QDir::homeDirPath() + BASE_DIR;
  	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN );
@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList);
 	certs = new db_x509(dbenv, dbfile.latin1(), "certdb", certList);
+	keys->updateView();
+	reqs->updateView();
+	certs->updateView();
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
@@ -34,6 +37,7 @@ MainWindow::~MainWindow()
 	 delete(keys);
 	 delete(reqs);
 	 delete(certs);
+	 delete(dbenv);
 }
 
 

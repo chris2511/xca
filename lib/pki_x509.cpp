@@ -222,8 +222,6 @@ int pki_x509::verify()
 pki_key *pki_x509::getKey()
 {
 	 EVP_PKEY *pkey = X509_get_pubkey(cert);
-	 pki_key *key = new pki_key("");	
-	 key->key=pkey;
-	 key->onlyPubKey=true;
+	 pki_key *key = new pki_key(pkey);	
 	 return key;
 }

@@ -14,14 +14,20 @@
 
 #define MAX_KEY_LENGTH 4096
 
+typedef struct {
+	int size;
+	bool onlyPubKey;
+	int type;
+} KeyInfo;
+
 
 class pki_key: public pki_base
 {
     friend class pki_x509req;
     friend class pki_x509;
     protected:
+    	KeyInfo info;
 	EVP_PKEY *key;
-	bool onlyPubKey;
 	string BN2string(BIGNUM *bn);
     public:
 		
@@ -47,6 +53,7 @@ class pki_key: public pki_base
 	 */
 	
 	pki_key(const string d, int type=EVP_PKEY_RSA);
+	pki_key(EVP_PKEY *pkey);
 	void fromData(unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);

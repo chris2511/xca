@@ -2,14 +2,17 @@ VERSION=0.1.11
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 
+PREFIX=/usr/X11R6
 GCC=g++
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g 
 QTDIR=$(shell ./configure)
+DEBQT=/usr/include/qt
 
-INC=-I$(QTDIR)/include
+export INC=-I$(DEBQT)
 LPATH=-L$(QTDIR)/lib -Llib
 LIBS=-lqt -lcrypto -ldb_cxx -lxcadb -lpki
-#LIBS=-lqt -lcrypto -ldb_cxx  -lall
+#LIBS=-lqt -lcrypto -ldb3_cxx -lxcadb -lpki
+
 MOC=$(QTDIR)/bin/moc
 UIC=$(QTDIR)/bin/uic
 
@@ -29,6 +32,7 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      main.o
 
 all: libs $(OBJS) xca
+
 re: clean all
 
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
@@ -52,7 +56,7 @@ xca: $(OBJS) lib/libxcadb.a lib/libpki.a
 	$(GCC) $(CFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
 
 libs:
-	make -C lib all
+	make -C lib all 
 
 clean:
 	make -C lib clean
@@ -66,4 +70,4 @@ dist:
 	rm -rf ../$(TARGET)
 	
 install: xca
-	install -m 755 -o root -g root xca /usr/bin
+	install -m 755 -o root -g root xca $(DESTDIR)$(PREFIX)/bin

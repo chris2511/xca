@@ -1,0 +1,14 @@
+Source: xca
+Section: x11
+Priority: optional
+Maintainer: Christian Hohnstaedt <christian@hohnstaedt.de>
+Build-Depends: debhelper (>> 3.0.0)
+Standards-Version: 3.5.2
+
+Package: xca
+Architecture: any
+Depends: ${shlibs:Depends}, libdb3++, libssl0.9.6, libqt2
+Description: qt based program to handle RSA keys
+   Certificate requests (PKCS#10)
+   Certificates (X509v3)
+   and the signing of requests

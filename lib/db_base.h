@@ -18,7 +18,7 @@ class db_base
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		cerr<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
-	bool updateView();
+	virtual bool updateView();
 	bool insertPKI(pki_base *pki);
 	bool deletePKI(pki_base *pki);
 	bool updatePKI(pki_base *pki, string desc);
