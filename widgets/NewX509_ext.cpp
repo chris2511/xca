@@ -95,7 +95,7 @@ x509v3ext NewX509::getSubKeyIdent()
 {
 	x509v3ext ext;
 	if (subKey->isChecked())
-		ext.create(NID_subject_key_identifier, "hash");
+		ext.create(NID_subject_key_identifier, "hash", &ext_ctx);
 	return ext;
 }
 
@@ -103,7 +103,7 @@ x509v3ext NewX509::getSubKeyIdent()
 x509v3ext NewX509::getAuthKeyIdent()
 {
 	x509v3ext ext;
-	if (subKey->isChecked())
+	if (authKey->isChecked())
 		ext.create(NID_authority_key_identifier, 
 			"keyid:always,issuer:always", &ext_ctx);
 	return ext;
@@ -153,7 +153,8 @@ x509v3ext NewX509::getSubAltName()
 	x509v3ext ext;
 	if (subAltCp->isChecked() && subAltCp->isEnabled())
 		cont << (QString)"email:" + emailAddress->text();
-	cont << subAltName->text();
+	if (!subAltName->text().isEmpty())
+		cont << subAltName->text();
 	ext.create(NID_subject_alt_name, cont.join(", "));
 	return ext;
 }
@@ -164,7 +165,8 @@ x509v3ext NewX509::getIssAltName()
 	x509v3ext ext;
 	if (issAltCp->isChecked() && issAltCp->isEnabled())
 		cont << (QString)"issuer:copy";
-	cont << subAltName->text();
+	if (!issAltName->text().isEmpty())
+		cont << issAltName->text();
 	ext.create(NID_subject_alt_name, cont.join(", "), &ext_ctx);
 	return ext;
 }
@@ -209,11 +211,13 @@ extList NewX509::getNetscapeExt()
 void NewX509::initCtx(pki_x509 *subj)
 {
 	pki_x509 *iss = getSelectedSigner();
+	//pki_key *key = getSelectedKey();
 	X509 *s = NULL, *s1 = NULL;
+	EVP_PKEY *k = NULL;
 	if (iss) s = iss->getCert();
 	if (subj) s1 = subj->getCert();
-	
-	X509V3_set_ctx(&ext_ctx, s , s1, NULL, NULL, 0);
+	//if (key) k = key->getKey();	
+	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
 }	
 
 void NewX509::setExt(const x509v3ext &ext)
@@ -226,7 +230,7 @@ void NewX509::setExt(const x509v3ext &ext)
 
 QString NewX509::createRequestText()
 {
-
+	return "---";
 	extList ne;
 	
 	ne << getBasicConstraints();

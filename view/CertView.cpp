@@ -154,9 +154,10 @@ void CertView::newCert(NewX509 *dlg)
 	// initially create cert 
 	cert = new pki_x509();
 	cert->setIntName(intname);
-	cert->setPubKey(clientkey);
 	cert->setSubject(subject);
+	cert->setPubKey(clientkey);
 	dlg->initCtx(cert);
+	
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = dlg->getSelectedSigner();
