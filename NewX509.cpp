@@ -332,11 +332,13 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::templateChanged()
 {
+	//if (!appropriate(page1)) return;
 	if (!tempList->isEnabled()) return;
 	QString name = tempList->currentText();
 	if (name == "" || !temps) return;
 	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(name.latin1());
 	if (!temp) return;
+	CERR <<"CHANGING TEMPLATE" << endl;
 	fromTemplate(temp);
 }
 
