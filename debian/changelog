@@ -1,3 +1,10 @@
+xca (0.2.4) unstable; urgency=low
+
+  * PKCS#12 import added
+  * bugfixes fileview, requestgeneration
+ 
+ -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Mon,  8 Sep 2002 23:35:42 +0200
+
 xca (0.2.3) unstable; urgency=low
 
   * icons changed
