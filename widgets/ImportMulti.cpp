@@ -53,8 +53,11 @@
 #include "ImportMulti.h"
 #include "MainWindow.h"
 #include "lib/pki_base.h"
+#include "lib/pki_pkcs7.h"
+#include "lib/pki_pkcs12.h"
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
+#include "widgets/ReqDetail.h"
 #include <qpushbutton.h>
 #include <qpopupmenu.h>
 #include <qmessagebox.h>
@@ -78,11 +81,34 @@ ImportMulti::ImportMulti(QWidget *parent, const char *name, bool modal, WFlags f
 void ImportMulti::addItem(pki_base *pki)
 {
 	if (!pki) return;
-	QListViewItem *current = new QListViewItem(itemView);
-	pki->setLvi(current);
-	pki->updateView();
-	cont.append(pki);
+	QString cn = pki->getClassName();
+	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ) {
+		QListViewItem *current = new QListViewItem(itemView);
+		pki->setLvi(current);
+		pki->updateView();
+		cont.append(pki);
+	}
+	else if (cn == "pki_pkcs7") {
+		pki_pkcs7 *p7 = ( pki_pkcs7 *)pki;
+		for (int i=0; i<p7->numCert(); i++) {
+			addItem(p7->getCert(i));
+		}
+	}
+	else if (cn == "pki_pkcs12") {
+		pki_pkcs12 *p12 = ( pki_pkcs12 *)pki;
+		addItem(p12->getKey());
+		addItem(p12->getCert());
+		for (int i=0; i<p12->numCa(); i++) {
+			addItem(p12->getCa(i));
+		}
+	}
+	else  {
+		QMessageBox::warning(this, XCA_TITLE,
+			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
+	}
+	
 }
+	
 
 void ImportMulti::showPopupMenu(QListViewItem *item, const QPoint &pt, int x)
 {
@@ -101,6 +127,7 @@ void ImportMulti::remove()
 	if (!pki) return;
 	if (pki->getLvi())
 		delete pki->getLvi();
+	pki->delLvi();
 	cont.remove(pki);
 }
 
@@ -123,16 +150,20 @@ void ImportMulti::import()
 	pki_base *pki = getSelected();
 	if (!pki) return;
 	QListViewItem *lvi = pki->getLvi();
-	
-	if (pki->getClassName() == "pki_x509")
-		emit importCert((pki_x509 *)pki);
-	else if (pki->getClassName() == "pki_key") {
-		emit importKey((pki_key *)pki);
+	pki->delLvi();
+	QString cn = pki->getClassName();
+	if (cn == "pki_x509")
+		MainWindow::certs->insert(pki);
+	else if (cn == "pki_key") {
+		MainWindow::keys->insert(pki);
+	}
+	else if (cn == "pki_x509req") {
+		MainWindow::reqs->insert(pki);
 	}
 	else  {
 		QMessageBox::warning(this, XCA_TITLE,
-			tr("The type of the Item is not recognized ") +
-			pki->getClassName(), tr("OK"));
+			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
+		delete pki;
 	}
 	if (lvi)
 		delete lvi;
@@ -143,26 +174,33 @@ void ImportMulti::details()
 {
 	pki_base *pki = getSelected();
 	if (!pki) return;
+	QString cn = pki->getClassName();
 	try {
-		if (pki->getClassName() == "pki_x509"){
+		if (cn == "pki_x509"){
 			CertDetail *dlg;
 			dlg = new CertDetail(this,0,true);
 			dlg->setCert((pki_x509 *)pki);
 			dlg->exec();
 			delete dlg;
 		}						  
-		else if (pki->getClassName() == "pki_key") {
+		else if (cn == "pki_key") {
 			KeyDetail *dlg;
 			dlg = new KeyDetail(this,0,true);
 			dlg->setKey((pki_key *)pki);
 			dlg->exec();
 			delete dlg;
 		}						  
+		else if (cn == "pki_x509req") {
+			ReqDetail *dlg;
+			dlg = new ReqDetail(this,0,true);
+			dlg->setReq((pki_x509req *)pki);
+			dlg->exec();
+			delete dlg;
+		}						  
 			
 		else 
 			QMessageBox::warning(this, XCA_TITLE,
-				tr("The type of the Item is not recognized ") +
-				pki->getClassName(), tr("OK"));
+				tr("The type of the Item is not recognized ") + cn, tr("OK"));
 	}
 	catch (errorEx &err) {
 		QMessageBox::warning(this, XCA_TITLE,

@@ -81,12 +81,10 @@ class CertView : public XcaListView
 	void deleteItem();
 	void updateViewItem(pki_base *);
 	void load();
-	pki_base* loadItem(QString fname);
 	pki_base* insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
 	void newCert(NewX509 *dlg);
-	void insertP12(pki_pkcs12 *pk12);
 	void writePKCS12(QString s, bool chain);
 	void writePKCS7(QString s, int type);	
 	void changeView(QPushButton *b);

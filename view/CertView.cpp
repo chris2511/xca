@@ -62,7 +62,6 @@
 #include <qpushbutton.h>
 #include <qinputdialog.h>
 #include "ui/CertExtend.h"
-#include "widgets/ImportMulti.h"
 #include "widgets/ExportCert.h"
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
@@ -342,115 +341,25 @@ void CertView::deleteItem()
 
 void CertView::load()
 {
-	QStringList filter;
-	filter.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
-	filter.append(tr("All files ( *.* )"));
-	load_default(filter,tr("Certificate import"));
-}
-
-pki_base *CertView::loadItem(QString fname)
-{
-	pki_x509 *cert = new pki_x509(fname);
-	return cert;
+	printf("PKI counter: %d\n",get_pki_counter());
+	load_cert l;
+	load_default(l);
+	printf("PKI counter: %d\n",get_pki_counter());
 }
 
 void CertView::loadPKCS12()
 {
-	pki_pkcs12 *pk12 = NULL;
-	QStringList filt;
-	filt.append(tr("PKCS#12 Certificates ( *.p12 *.pfx )")); 
-	filt.append(tr("All files ( *.* )"));
-	QStringList slist;
-	QString s="";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(tr("Certificate import"));
-	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::ExistingFiles );
-        dlg->setDir(MainWindow::getPath());
-	if (dlg->exec()) {
-		slist = dlg->selectedFiles();
-		MainWindow::setPath(dlg->dirPath());
-	}
-	delete dlg;
-	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
-		s = *it;
-		s = QDir::convertSeparators(s);
-		try {
-			pk12 = new pki_pkcs12(s, &MainWindow::passRead);
-			insertP12(pk12);
-		}
-		catch (errorEx &err) {
-			Error(err);
-		}
-		if (pk12)
-			delete pk12;
-	}
-	updateView();
+	printf("PKI counter: %d\n",get_pki_counter());
+	load_pkcs12 l;
+	load_default(l);
+	printf("PKI counter: %d\n",get_pki_counter());
 }
-
-			
-void CertView::insertP12(pki_pkcs12 *pk12)
-{
-	ImportMulti *dlg = NULL;
-	try {
-		dlg = new ImportMulti(this, NULL, true);
-		connect( dlg, SIGNAL( importKey(pki_key*) ), 
-			this, SLOT( importKey(pki_key*) ));
-		connect( dlg, SIGNAL( importCert(pki_x509*) ), 
-			this, SLOT( importCert(pki_x509*) ));
-		dlg->addItem(pk12->getKey());
-		dlg->addItem(pk12->getCert());
-		for (int i=0; i<pk12->numCa(); i++) {
-			dlg->addItem( pk12->getCa(i));
-		}
-		dlg->exec();
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
-	delete dlg;
-}	
-	
 
 void CertView::loadPKCS7()
 {
-	pki_pkcs7 *pk7 = NULL;
-	QStringList filt;
-	filt.append(tr("PKCS#7 data ( *.p7s *.p7m *.p7b )")); 
-	filt.append(tr("All files ( *.* )"));
-	QStringList slist;
-	QString s="";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(tr("Certificate import"));
-	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::ExistingFiles );
-        dlg->setDir(MainWindow::getPath());
-	if (dlg->exec()) {
-		slist = dlg->selectedFiles();
-		MainWindow::setPath(dlg->dirPath());
-	}
-	delete dlg;
-	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
-		s = *it;
-		s = QDir::convertSeparators(s);
-	    ImportMulti *dlgi = NULL;
-		dlgi = new ImportMulti(this, NULL, true);
-		try {
-			pk7 = new pki_pkcs7(s);
-			pk7->readP7(s);
-			for (int i=0; i<pk7->numCert(); i++) {
-				dlgi->addItem(pk7->getCert(i));
-			}
-			dlgi->exec();
-		}
-		catch (errorEx &err) {
-			Error(err);
-		}
-		if (pk7) delete pk7;
-		delete dlgi;
-	}
+	load_pkcs7 l;
+	load_default(l);
 }
-
 
 pki_base *CertView::insert(pki_base *item)
 {

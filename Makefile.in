@@ -23,7 +23,7 @@ UIC=@UIC@
 ###################################
 
 OBJS=ui/ui.o widgets/widgets.o view/view.o
-SUBDIRS=lib ui widgets view
+SUBDIRS=ui lib widgets view
 
 all: $(SUBDIRS) xca
 

@@ -53,6 +53,7 @@
 
 #include "XcaListView.h"
 #include "widgets/MainWindow.h"
+#include "widgets/ImportMulti.h"
 #include <qinputdialog.h>
 #include <qfiledialog.h>
 #include <qmessagebox.h>
@@ -205,13 +206,47 @@ void XcaListView::load_default(QStringList &filter, QString caption)
 	updateView();
 }
 
+void XcaListView::load_default(load_base &load)
+{
+	QStringList slist;
+	
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	
+	dlg->setCaption(load.caption);
+	dlg->setFilters(load.filter);
+	dlg->setMode( QFileDialog::ExistingFiles );
+	dlg->setDir(MainWindow::getPath());
+	if (dlg->exec()) {
+		slist = dlg->selectedFiles();
+		MainWindow::setPath(dlg->dirPath());
+	}
+	delete dlg;
+
+	ImportMulti *dlgi = NULL;
+	dlgi = new ImportMulti(this, NULL, true);
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		QString s = *it;
+		s = QDir::convertSeparators(s);
+		try {
+			pki_base *item = load.loadItem(s);
+			dlgi->addItem(item);
+		}
+		catch (errorEx &err) {
+			Error(err);
+		}
+	}
+	dlgi->exec();
+	delete dlgi;
+	updateView();
+}
+
 void XcaListView::Error(errorEx &err)
 {
 	if (err.isEmpty()) {
 		return;
 	}
 	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +
-			QString::fromLatin1(err.getCString()));
+		QString::fromLatin1(err.getCString()));
 }
 
 bool XcaListView::Error(pki_base *pki)

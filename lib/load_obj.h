@@ -80,4 +80,25 @@ class load_req: public load_base
 		load_req();
 		pki_base * loadItem(QString s);
 };		
+
+class load_cert: public load_base
+{
+	public:
+		load_cert();
+		pki_base * loadItem(QString s);
+};		
+
+class load_pkcs7: public load_base
+{
+	public:
+		load_pkcs7();
+		pki_base * loadItem(QString s);
+};		
+
+class load_pkcs12: public load_base
+{
+	public:
+		load_pkcs12();
+		pki_base * loadItem(QString s);
+};		
 #endif

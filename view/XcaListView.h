@@ -55,6 +55,7 @@
 
 #include <qlistview.h>
 #include "lib/db_base.h"
+#include "lib/load_obj.h"
 #include "lib/exception.h"
 #include "widgets/NewX509.h"
 
@@ -75,6 +76,7 @@ class XcaListView : public QListView
 	void deleteItem_default(QString t1, QString t2);
 	virtual pki_base *loadItem(QString fname);
 	void load_default(QStringList &filter, QString caption);
+	void load_default(load_base &load);
 	void setDB(db_base *mydb, QPixmap *myimage);
 	void Error(errorEx &err);
 	bool Error(pki_base *pki);

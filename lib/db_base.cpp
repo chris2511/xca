@@ -58,7 +58,6 @@ db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid)
 {
 	dbenv = dbe;
 	data = new Db(dbe, 0);
-	CERR("DB:" << DBfile << " " << DB);
 	try {
 #if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
 		data->open(NULL, DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
@@ -78,7 +77,6 @@ db_base::~db_base()
 	data->close(0);
 	container.setAutoDelete(true);
 	container.clear();
-	CERR("Deleting db");
 }
 
 void *db_base::getData(void *key, int length, int *dsize)

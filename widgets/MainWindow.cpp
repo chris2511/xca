@@ -264,7 +264,7 @@ void MainWindow::read_cmdline()
 				break;
 			case XCA_P12 : 
 		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);
-				certList->insertP12(p12);
+				//certList->insertP12(p12);
 				delete p12;
 				break;
 		    }

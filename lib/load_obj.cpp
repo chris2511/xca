@@ -51,28 +51,36 @@
 
 
 #include "load_obj.h"
-#include "pki_x509req.h"
+#include "pki_x509.h"
 #include "pki_key.h"
+#include "pki_x509req.h"
+#include "pki_pkcs7.h"
+#include "pki_pkcs12.h"
 #include "widgets/MainWindow.h"
 
 load_base::load_base()
 {
 	filter.clear();
-	filter.append( QObject::tr("All Files ( *.* )") );
+	filter.prepend( QObject::tr("All Files ( *.* )") );
 	caption = "";
 }
 
 pki_base * load_base::loadItem(QString s)
 {
 
-};		
+}		
+
+load_base::~load_base()
+{
+}
 
 /* Keys */
 load_key::load_key()
 	:load_base()
 {
-	filter.append( QObject::tr("PKCS#10 Requests ( *.pem *.der *.req )") );
-	caption = QObject::tr("Import key");
+	filter.prepend( "PKI Keys ( *.pem *.der *.key )");
+	filter.prepend( "PKCS#8 Keys ( *.p8 *.pk8 )");
+	caption = QObject::tr("Import RSA key");
 }		
 
 pki_base * load_key::loadItem(QString s)
@@ -85,7 +93,7 @@ pki_base * load_key::loadItem(QString s)
 load_req::load_req()
 	:load_base()
 {
-	filter.append( QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr )"));
+	filter.prepend( QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr )"));
 	caption = QObject::tr("Import Request");
 }		
 
@@ -93,6 +101,49 @@ pki_base * load_req::loadItem(QString s)
 {
 	pki_base *req = new pki_x509req(s);
 	return req;
+};
+
+/* Certificates */
+load_cert::load_cert()
+	:load_base()
+{
+	filter.prepend(QObject::tr("Certificates ( *.pem *.der *.crt *.cer )"));
+	caption = QObject::tr("Import X.509 Certificate");
+}		
+
+pki_base * load_cert::loadItem(QString s)
+{
+	pki_base *crt = new pki_x509(s);
+	return crt;
+};
+
+/* PKCS#7 Certificates */
+load_pkcs7::load_pkcs7()
+	:load_base()
+{
+	filter.prepend(QObject::tr("PKCS#7 data ( *.p7s *.p7m *.p7b )"));
+	caption = QObject::tr("Import PKCS#7 Certificates");
+}		
+
+pki_base * load_pkcs7::loadItem(QString s)
+{
+	pki_base *p7 = new pki_pkcs7(s);
+	((pki_pkcs7 *)p7)->readP7(s);
+	return p7;
+};
+
+/* PKCS#12 Certificates */
+load_pkcs12::load_pkcs12()
+	:load_base()
+{
+	filter.prepend(QObject::tr("PKCS#12 Certificates ( *.p12 *.pfx )"));
+	caption = QObject::tr("Import PKCS#12 Private Certificate");
+}		
+
+pki_base * load_pkcs12::loadItem(QString s)
+{
+	pki_base *p12 = new pki_pkcs12(s, &MainWindow::passRead);
+	return p12;
 };
 
 
