@@ -104,7 +104,9 @@
 #include "lib/db_crl.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifndef WIN32
 #include <unistd.h>
+#endif
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

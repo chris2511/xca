@@ -1131,6 +1131,7 @@ void MainWindow::changeView()
 
 void MainWindow::toTinyCA()
 {
+#ifndef WIN32
 	pki_x509 *crt = (pki_x509 *)certs->getSelectedPKI();
 	if (!crt) return;
 	pki_key *key = crt->getKey();
@@ -1251,7 +1252,7 @@ void MainWindow::toTinyCA()
 	}
 	fclose(fp);
 	
-	
+#endif	
 }	
 			
 void MainWindow::startRenameCert()

@@ -71,6 +71,7 @@ dist:
 	(cd $(TARGET);  autoconf; \
 	./mkxcapro.sh; lrelease xca.pro; \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec; \
+	cat lib/base.h.win |sed s/VERSION/$(TVERSION)/g >lib/base.h; \
 	rm -rf rpm/xca.spec autom4te.cache; \
 	cd doc; linuxdoc -B html xca.sgml; )
 	tar zcf $(TARGET).tar.gz $(TARGET) 
