@@ -16,6 +16,9 @@ AC_CHECK_TOOL(AR, ar, :)
 AC_SUBST(ac_QTDIR)
 AC_SUBST(ac_DEBUG)
 
+AC_ARG_WITH(openssldir,    specify an extra includedir for openssl,
+	CPPFLAGS="$CPPFLAGS -I$withval")
+
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
 	export PATH=$QTDIR/bin:$PATH
