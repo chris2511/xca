@@ -114,7 +114,10 @@ pki_base *db_base::getSelectedPKI(string desc)
 
 pki_base *db_base::getSelectedPKI()
 {
-	string desc = listView->currentText().latin1();
+	const char *tp;
+	string desc = "";
+	if ((tp = listView->currentText().latin1())) desc = tp;
+	cerr << "desc = '"<<desc <<"'\n";
 	return getSelectedPKI(desc);
 }
 	

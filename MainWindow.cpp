@@ -28,6 +28,8 @@ MainWindow::~MainWindow()
 {
 	 ERR_free_strings();
 	 EVP_cleanup();
+	 delete(keys);
+	 delete(reqs);
 }
 
 

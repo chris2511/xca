@@ -25,10 +25,10 @@ void MainWindow::newReq()
 	}
 	pki_x509req *oldreq = (pki_x509req *)reqs->findPKI((pki_x509req *)req);
 	if (oldreq) {
-	   QMessageBox::information(this,"Zertifikatsanfragen import",
+	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
 		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
 		oldreq->getDescription() + 
-		"'\nund wurde daher nicht erstellt").c_str(), "OK");
+		"'\nund wurde daher nicht importiert").c_str(), "OK");
 	   delete(oldreq);
 	   return;
 	}
@@ -52,7 +52,6 @@ void MainWindow::showDetailsReq()
 	   dlg->keyPubEx->setText(key->pubEx().c_str());   
 	   dlg->keyModulus->setText(key->modulus().c_str());   
 	   pki_key *existkey = (pki_key *)keys->findPKI(key);
-	   QColor *green = new QColor(0,192,0);
 	   if (existkey) {
 	        if (!existkey->isPubKey()) {
 	       	   dlg->privKey->setEnabled(true);

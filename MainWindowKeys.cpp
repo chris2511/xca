@@ -5,7 +5,9 @@ const int MainWindow::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 
 pki_key *MainWindow::getSelectedKey()
 {
+	cerr << "get Selected Key\n";
 	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
+	cerr << "got selected: "<< (int)targetKey << endl;
 	if (targetKey) {
 	   string errtxt = targetKey->getError();
 	   if (errtxt != "")
@@ -13,6 +15,7 @@ pki_key *MainWindow::getSelectedKey()
 			("Der Schlüssel: " + targetKey->getDescription() +
 			"\nist nicht konsistent:\n" + errtxt).c_str());
 	}
+	cerr << "targetKey = " << (int)targetKey << endl;
 	return targetKey;
 }
 
@@ -57,6 +60,7 @@ void MainWindow::deleteKey()
 
 void MainWindow::showDetailsKey(pki_key *key)
 {
+	if (key == NULL ) return;
 	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
 	
 	detDlg->keyDesc->setText(
@@ -100,7 +104,6 @@ void MainWindow::loadKey()
 	if (s == "") return;
 	string errtxt;
 	pki_key *lkey = new pki_key(s, &MainWindow::passRead);
-	showDetailsKey(lkey);
 	if ((errtxt = lkey->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
 			("Der Schlüssel: " + s +
@@ -122,13 +125,15 @@ void MainWindow::loadKey()
 			("Der öffentliche Teil des Schlüssels ist bereits vorhanden als:\n'" +
 			oldkey->getDescription() + 
 			"'\nund wird durch den neuen, vollständigen Schlüssel ersetzt").c_str(), "OK");
+		    cerr << "before deleting pki...\n";
 		    keys->deletePKI(oldkey);
 		    lkey->setDescription(oldkey->getDescription());
 		    delete(oldkey);
 		}
 	}
+	showDetailsKey(lkey);
 	cerr << "after findkey\n";
-	/*if (keys->insertPKI(lkey))
+	if (keys->insertPKI(lkey))
 	   QMessageBox::information(this,"Schlüssel import",
 		("Der Schlüssel wurde erfolgreich importiert als:\n'" +
 		lkey->getDescription() + "'").c_str(), "OK");
@@ -136,7 +141,7 @@ void MainWindow::loadKey()
 	   QMessageBox::warning(this,"Schlüssel import",
 		"Der Schlüssel konnte nicht in der Datenbank \
 		gespeichert werden", "OK");
-	*/
+	
 	cerr << "after insert\n";
 }
 

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>397</width>
+            <width>387</width>
             <height>273</height>
         </rect>
     </property>
@@ -76,7 +76,7 @@
         <property stdset="1">
             <name>geometry</name>
             <rect>
-                <x>270</x>
+                <x>260</x>
                 <y>220</y>
                 <width>110</width>
                 <height>32</height>
@@ -96,60 +96,20 @@
         <property stdset="1">
             <name>geometry</name>
             <rect>
-                <x>60</x>
-                <y>80</y>
-                <width>280</width>
+                <x>20</x>
+                <y>90</y>
+                <width>350</width>
                 <height>110</height>
             </rect>
         </property>
         <property stdset="1">
             <name>frameShape</name>
-            <enum>Panel</enum>
+            <enum>Box</enum>
         </property>
         <property stdset="1">
             <name>frameShadow</name>
             <enum>Sunken</enum>
         </property>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>30</x>
-                    <y>60</y>
-                    <width>90</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Wiederholung:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel1</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>30</x>
-                    <y>20</y>
-                    <width>90</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Passwort:</string>
-            </property>
-        </widget>
         <widget>
             <class>QLineEdit</class>
             <property stdset="1">
@@ -159,9 +119,9 @@
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
-                    <x>130</x>
+                    <x>100</x>
                     <y>20</y>
-                    <width>110</width>
+                    <width>230</width>
                     <height>23</height>
                 </rect>
             </property>
@@ -179,15 +139,63 @@
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
-                    <x>130</x>
+                    <x>100</x>
                     <y>60</y>
-                    <width>110</width>
+                    <width>230</width>
                     <height>23</height>
                 </rect>
             </property>
             <property stdset="1">
                 <name>echoMode</name>
                 <enum>Password</enum>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>60</y>
+                    <width>90</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>MShape</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>MShadow</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Wiederholung:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>90</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Passwort:</string>
             </property>
         </widget>
     </widget>

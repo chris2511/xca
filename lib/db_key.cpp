@@ -29,9 +29,9 @@ QStringList db_key::getPrivateDesc()
 			x.append(desc.data());	
 			cerr << desc <<endl;
 		}
-		delete(key);
 		
 	}
+	delete(key);
 	delete (k);
 	delete (d);
 	return x;
