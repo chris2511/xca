@@ -71,6 +71,7 @@ QStringList db_key::getPrivateDesc()
 {
 	pki_key *pki;
 	QStringList x;
+	x.clear();
 	for ( pki = (pki_key *)container.first(); pki != 0; pki = (pki_key *)container.next() )	{
 		if (pki->isPrivKey()) {
 			x.append(pki->getDescription().c_str());	
