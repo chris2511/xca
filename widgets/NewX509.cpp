@@ -487,7 +487,19 @@ void NewX509::showPage(QWidget *page)
 	}
 	
 	if (page == page7) {
-		v3Extensions->setText(createRequestText());
+		QString issn, subn;
+		subn = getX509name().oneLine();
+		pki_x509 *issuer = getSelectedSigner();
+		if (issuer)
+			issn = issuer->getSubject().oneLine();
+		else
+			issn = subn;
+		
+		subn = "<p><b>Subject:</b> " + subn;
+		issn = "<p><b>Issuer:</b> " + issn;
+		if (!appropriate(page1)) issn = "";
+		
+		v3Extensions->setText( subn + issn + "<p>" + createRequestText() );
 	}
 	
 	if (page == page4) {
@@ -548,6 +560,7 @@ void NewX509::templateChanged(QString tempname)
 		}
 	}
 #endif
+	templateChanged();
 }
 
 
@@ -657,6 +670,10 @@ x509name NewX509::getX509name()
 void NewX509::setX509name(const x509name &n)
 {
 	int j;	
+	extDNlist->clear();
+	for ( j = 0; j<EXPLICIT_NAME_CNT; j++) {
+		name_ptr[j]->setText(""); 
+	}
 	for ( int i=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		QStringList sl = n.entryList(i);

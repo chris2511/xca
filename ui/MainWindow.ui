@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>820</width>
+            <width>816</width>
             <height>534</height>
         </rect>
     </property>
@@ -162,6 +162,10 @@
                                 <property stdset="1">
                                     <name>name</name>
                                     <cstring>PushButton33</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>enabled</name>
+                                    <bool>false</bool>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>

@@ -115,7 +115,7 @@ pki_key::pki_key(const QString fname, pem_password_cb *cb, int type )
 { 
 	init();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the RSA key.")
-		+ "'" + fname + "'"); 
+		+ "\n'" + fname + "'"); 
 	key = EVP_PKEY_new();
 	key->type = EVP_PKEY_type(type);
 	FILE *fp = fopen(fname.latin1(), "r");
@@ -141,7 +141,8 @@ pki_key::pki_key(const QString fname, pem_password_cb *cb, int type )
 	        ign_openssl_error();
 	        rewind(fp);
 		p.setTitle(tr("Password for PKCS#8 private key"));
-		p.setDescription(tr("Please enter the password to decrypt the PKCS#8 private key."));
+		p.setDescription(tr("Please enter the password to decrypt the PKCS#8 private key.")
+			+ "\n'" + fname + "'"); 
 	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
 	   }
 	   else {

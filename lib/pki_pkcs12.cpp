@@ -77,7 +77,7 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	class_name="pki_pkcs12";
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file.")
-		+ "'" + fname + "'");
+		+ "\n'" + fname + "'");
 	fp = fopen(fname, "rb");
 	if (fp) {
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);

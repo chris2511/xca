@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>579</width>
+            <width>567</width>
             <height>590</height>
         </rect>
     </property>
@@ -2550,7 +2550,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
                 </property>
                 <property stdset="1">
                     <name>sizeType</name>
-                    <enum>Expanding</enum>
+                    <enum>Minimum</enum>
                 </property>
                 <property>
                     <name>sizeHint</name>
@@ -2813,7 +2813,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
                 </property>
                 <property stdset="1">
                     <name>sizeType</name>
-                    <enum>Expanding</enum>
+                    <enum>Minimum</enum>
                 </property>
                 <property>
                     <name>sizeHint</name>
