@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -53,6 +54,8 @@
 #include "MainWindow.h"
 #include "lib/pki_base.h"
 #include <qpushbutton.h>
+#include <qpopupmenu.h>
+#include <qmessagebox.h>
 #include <qlabel.h>
 
 ImportMulti::ImportMulti(QWidget *parent, const char *name, bool modal, WFlags f )
@@ -70,9 +73,68 @@ ImportMulti::ImportMulti(QWidget *parent, const char *name, bool modal, WFlags f
 void ImportMulti::addItem(pki_base *pki)
 {
 	if (!pki) return;
-	QListViewItem *current = NULL;
-	current = new QListViewItem(itemView);
+	QListViewItem *current = new QListViewItem(itemView);
 	pki->setLvi(current);
 	pki->updateView();
+	cont.append(pki);
+}
+
+void ImportMulti::showPopupMenu(QListViewItem *item, const QPoint &pt, int x)
+{
+	QPopupMenu *menu = new QPopupMenu(this);
+
+	menu->insertItem(tr("Import"), this, SLOT(import()));
+	menu->insertItem(tr("Details"), this, SLOT(details()));
+	menu->insertItem(tr("Remove"), this, SLOT(remove()));
+	menu->exec(pt);
+	delete menu;
+}	
+
+void ImportMulti::remove()
+{
+	pki_base *pki = getSelected();
+	delete pki;
+}
+
+pki_base *ImportMulti::getSelected()
+{
+	QListViewItem *current = itemView->selectedItem();
+	return search(current);
+}
+
+pki_base *ImportMulti::search(QListViewItem *current)
+{
+	for (pki_base *pki = cont.first(); pki != 0; pki = cont.next() ) {
+		if (current == pki->getLvi()) return pki;
+	}
+	return NULL;
+}
+
+void ImportMulti::import()
+{
+	pki_base *pki = getSelected();
+	if (pki->getClassName() == "pki_x509")
+		emit importCert((pki_x509 *)pki);
+	else if (pki->getClassName() == "pki_key")
+		emit importKey((pki_key *)pki);
+	else 
+		QMessageBox::warning(this, XCA_TITLE,
+			tr("The type of the Item is not recognized ") +
+			pki->getClassName(), tr("OK"));
+	delete pki;
+}
+
+void ImportMulti::details()
+{
+	pki_base *pki = getSelected();
+	if (pki->getClassName() == "pki_x509")
+		emit showCert((pki_x509 *)pki);
+	else if (pki->getClassName() == "pki_key")
+		emit showKey((pki_key *)pki);
+	else 
+		QMessageBox::warning(this, XCA_TITLE,
+			tr("The type of the Item is not recognized ") +
+			pki->getClassName(), tr("OK"));
+	delete pki;
 }
 

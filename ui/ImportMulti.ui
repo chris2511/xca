@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>677</width>
+            <width>673</width>
             <height>295</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string></string>
+        <string>ImportMulti_UI</string>
     </property>
     <hbox>
         <property stdset="1">
@@ -149,9 +149,23 @@
 <connections>
     <connection>
         <sender>buttonCancel</sender>
-        <signal>stateChanged(int)</signal>
+        <signal>clicked()</signal>
         <receiver>ImportMulti_UI</receiver>
-        <slot>accept()</slot>
+        <slot>reject()</slot>
     </connection>
+    <connection>
+        <sender>itemView</sender>
+        <signal>rightButtonClicked(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>ImportMulti_UI</receiver>
+        <slot>showPopupMenu(QListViewItem *, const QPoint &amp;, int)</slot>
+    </connection>
+    <connection>
+        <sender>PushButton4</sender>
+        <signal>clicked()</signal>
+        <receiver>ImportMulti_UI</receiver>
+        <slot>import()</slot>
+    </connection>
+    <slot access="public">import()</slot>
+    <slot access="public">showPopupMenu(QListViewItem *, const QPoint &amp;, int)</slot>
 </connections>
 </UI>

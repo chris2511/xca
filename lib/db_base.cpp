@@ -117,12 +117,10 @@ QString db_base::getString(QString key)
 	int dsize;
 	char *p = (char *)getData(key, &dsize);
 	if (p == NULL) {
-		CERR("getString: p was NULL");
 		return x;
 	}
 	if ( p[dsize-1] != '\0' ) {
 		int a =p[dsize-1];	
-		CERR( "getString: QStringerror "<< a <<" != 0  (returning empty QString) size:" <<dsize);
 		return x;
 	}
 	x = p;
@@ -202,7 +200,6 @@ void db_base::loadContainer()
 		QString desc;
 		pki_base *pki;
 		container.clear();
-		CERR("Load Container");
 		while (!cursor->get(k, d, DB_NEXT)) {
 			desc = (char *)k->get_data();
 			p = (unsigned char *)d->get_data();
@@ -230,7 +227,6 @@ void db_base::loadContainer()
 		DBEX(err);
 		throw errorEx(err.what());
 	}
-	CERR("PKI Counter: " << pki_base::get_pki_counter() );
 }	
 
 void db_base::insertPKI(pki_base *pki)

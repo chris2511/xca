@@ -510,11 +510,10 @@ void NewX509::signerChanged()
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
 	
+	issAltCp->setEnabled(false);
 	if (!cert) return;
 	if (cert->hasSubAltName() || !appropriate(page1))
 		issAltCp->setEnabled(true);
-	else
-		issAltCp->setEnabled(false);
 	
 	QString templ = cert->getTemplate();	
 	snb = cert->getNotBefore();

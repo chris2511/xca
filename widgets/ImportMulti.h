@@ -53,19 +53,34 @@
 #define IMPORTMULTI_H
 
 #include "ui/ImportMulti.h"
+#include "lib/pki_base.h"
+#include <qlist.h>
 
-class pki_base;
+class pki_x509;
+class pki_key;
 
 class ImportMulti: public ImportMulti_UI
 {
 	Q_OBJECT
-		
-  public:	
-	ImportMulti( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
-	void addItem(pki_base *pki);
-  signals:	
-	void importCert();
+	private:
+		QList<pki_base> cont;	
+	public:	
+		ImportMulti( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+		void addItem(pki_base *pki);
+		pki_base *search(QListViewItem *current);
+		pki_base *getSelected();
+	public slots:
+		void showPopupMenu(QListViewItem *item, const QPoint &pt, int x);
+		void remove();
+		void details();
+		void import();
 
+	signals:	
+		void importCert(pki_x509 *);
+		void importKey(pki_key *);
+		void showCert(pki_x509 *);
+		void showKey(pki_key *);
+  
 };
 
 #endif

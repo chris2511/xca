@@ -62,7 +62,6 @@
 #include <qpushbutton.h>
 #include <qinputdialog.h>
 #include "ui/CertExtend.h"
-#include "widgets/ImportMulti.h"
 #include "widgets/ExportCert.h"
 #include "widgets/CertDetail.h"
 #include "ui/TrustState.h"
@@ -188,6 +187,12 @@ void CertView::newCert(NewX509 *dlg)
 		if (!ok) serial = 0;
 		cert->setTrust(2);
 	}
+	
+	// if we can not sign
+	if (! signkey || signkey->isPubKey()) {
+		throw errorEx(tr("The key you selected for signing is not a private one."));
+	}
+	
 	// set the issuers name
 	cert->setIssuer(signcert->getSubject());
 	cert->setSerial(serial);
@@ -201,10 +206,11 @@ void CertView::newCert(NewX509 *dlg)
 		if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
 			tr("Continue creation"), tr("Abort")
-		))
+		)) {
+			
 			throw errorEx("");
+		}
 	}
-	 
 			
 	// STEP 4
 	// handle extensions
@@ -402,20 +408,31 @@ void CertView::loadPKCS12()
 			
 void CertView::insertP12(pki_pkcs12 *pk12)
 {
-	ImportMulti *dlg = NULL;
+	pki_x509 *acert;
+	pki_key *akey;
+
 	try {
-		dlg = new ImportMulti(this, NULL, true);
-		dlg->addItem(pk12->getKey());
-		dlg->addItem(pk12->getCert());
+		akey = pk12->getKey();
+		acert = pk12->getCert();
+#ifdef INSERT_WO_ASK
+		insertKey(akey);
+		insertCert(acert);
 		for (int i=0; i<pk12->numCa(); i++) {
-			dlg->addItem( pk12->getCa(i));
+			acert = pk12->getCa(i);
+			insertCert(acert);
 		}
-		dlg->exec();
+#else
+		emit importKey(akey);
+		showItem(acert,true);
+		for (int i=0; i<pk12->numCa(); i++) {
+			acert = pk12->getCa(i);
+			showItem(acert, true);
+		}
+#endif			
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
-	delete dlg;
 }	
 	
 
@@ -441,21 +458,19 @@ void CertView::loadPKCS7()
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
 		s = QDir::convertSeparators(s);
-	    ImportMulti *dlgi = NULL;
-		dlgi = new ImportMulti(this, NULL, true);
 		try {
 			pk7 = new pki_pkcs7(s);
 			pk7->readP7(s);
 			for (int i=0; i<pk7->numCert(); i++) {
-				dlgi->addItem(pk7->getCert(i));
+				acert = pk7->getCert(i);
+				showItem(acert, true);
 			}
-			dlgi->exec();
+			// keys->updateView();
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
 		if (pk7) delete pk7;
-		delete dlgi;
 	}
 }
 

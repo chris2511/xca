@@ -108,12 +108,10 @@ void pki_base::openssl_error(const QString myerr)  const
 	QString errtxt = "";
 	QString error = "";
 	if (myerr != "") {
-		CERR("PKI ERROR: " << myerr);
 		error += myerr + "\n";
 	}
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
-	   CERR("OpenSSL: " << errtxt);
 	   error += errtxt + "\n";
 	}
 	if (!error.isEmpty()) {
@@ -128,7 +126,6 @@ bool pki_base::ign_openssl_error() const
 	QString errtxt;
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
-	   CERR("IGNORE -> OpenSSL: " << errtxt << " <- IGNORE");
 	}
 	return !errtxt.isEmpty();
 }

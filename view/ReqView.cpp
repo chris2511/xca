@@ -109,31 +109,31 @@ void ReqView::newItem(pki_temp *temp)
 void ReqView::showItem(pki_base *item, bool import)
 {
 	if (!item) return;
-	emit init_database();
     try {
-        ReqDetail *dlg = new ReqDetail(this,0,true);
-
-	dlg->setReq((pki_x509req *)item);
-	connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
-		this, SLOT(dlg_showKey(QString)));	
-	QString odesc = item->getIntName();
-	bool ret = dlg->exec();
-	QString ndesc = dlg->descr->text();
-	delete dlg;
-	if (!ret && import) {
-		delete (pki_x509req *)item;
-	}
-	if (!ret) return;
+		ReqDetail *dlg = new ReqDetail(this,0,true);
+		dlg->setReq((pki_x509req *)item);
+		if (import)
+			dlg->setImport();
+		connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
+			this, SLOT(dlg_showKey(QString)));	
+		QString odesc = item->getIntName();
+		bool ret = dlg->exec();
+		QString ndesc = dlg->descr->text();
+		delete dlg;
+		if (!ret && import) {
+			delete (pki_x509req *)item;
+		}
+		if (!ret) return;
 	
-	emit init_database();
+		emit init_database();
 	
-	if (import) {
-		item = insert(item);
-	}
+		if (import) {
+			item = insert(item);
+		}
 	
-	if (ndesc != odesc) {
-			db->renamePKI(item, ndesc);
-	}
+		if (ndesc != odesc) {
+				db->renamePKI(item, ndesc);
+		}
     }
     catch (errorEx &err) {
 	    Error(err);
