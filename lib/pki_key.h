@@ -39,6 +39,9 @@ class pki_key: public pki_base
 	 */
 	pki_key(const string fname, pem_password_cb *cb,int type = EVP_PKEY_RSA);
 	
+	// copy constructor
+	pki_key::pki_key(const pki_key *pk);
+	
 	/* destructor */
 	~pki_key();
 	

@@ -32,6 +32,10 @@ class pki_pkcs12: public pki_base
 	/* destructor */
 	~pki_pkcs12();
 	void addCaCert(pki_x509 *acert);
+	pki_key *getKey(); 
+	pki_x509 *getCert();
+	pki_x509 *getCa(int x);
+	int num_ca(); // number of ca certs;
 	//bool fromData(unsigned char *p, int size);
 	//unsigned char *toData(int *size);
 	//bool compare(pki_base *ref);

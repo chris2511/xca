@@ -20,6 +20,8 @@ class pki_x509 : public pki_base
 	   int efftrust;
 	public:
 	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
+	   pki_x509(X509 *c);
+	   pki_x509(const pki_x509 *crt);
 	   pki_x509();
 	   pki_x509(const string fname);
 	   ~pki_x509();

@@ -43,6 +43,28 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	revoked = NULL;
 }
 
+pki_x509::pki_x509(X509 *c) : pki_base()
+{
+	cert = c;
+	openssl_error();
+	psigner = NULL;
+	pkey= NULL;
+	trust = 0;
+	efftrust = 0;
+	revoked = NULL;
+}
+
+pki_x509::pki_x509(const pki_x509 *crt) 
+	:pki_base(crt->desc)
+{
+	cert = X509_dup(crt->cert);
+	openssl_error();
+	psigner = crt->psigner;
+	pkey= crt->pkey;
+	trust = crt->trust;
+	efftrust = crt->efftrust;
+	revoked = crt->revoked;
+}
 
 pki_x509::pki_x509() : pki_base()
 {

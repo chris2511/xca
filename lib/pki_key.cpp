@@ -14,6 +14,14 @@ pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bit
 	}
 }
 
+pki_key::pki_key(const pki_key *pk) 
+	:pki_base(pk->desc)
+{
+	key = EVP_PKEY_new();
+	EVP_PKEY_copy_parameters(key, pk->key);
+	openssl_error();
+}
+
 pki_key::pki_key(const string d, int type = EVP_PKEY_RSA)
 	:pki_base(d)
 { 
