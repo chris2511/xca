@@ -682,7 +682,7 @@ void MainWindow::writeCert()
 	if (!crt) return;
 	pki_key *privkey = crt->getKey();
 	ExportCert *dlg = new ExportCert((crt->getDescription() + ".crt").c_str(),
-			  (privkey->isPrivKey()));
+			  (privkey && privkey->isPrivKey()));
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
@@ -767,13 +767,16 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	CERR( "popup Cert");
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subCa = new QPopupMenu(this);
+	QPopupMenu *subP7 = new QPopupMenu(this);
 	QPopupMenu *subExport = new QPopupMenu(this);
-	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate, itemReq;
+	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate, itemReq, itemP7;
 	bool canSign, parentCanSign, hasTemplates, hasPrivkey;
 	
 	if (!item) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
 		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
+		menu->insertItem(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
+		menu->insertItem(tr("Import from PKCS#7"), this, SLOT(loadCert()));
 	}
 	else {
 		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());
@@ -791,6 +794,12 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		subCa->insertItem(tr("CRL days"), this, SLOT(setCrlDays()));
 		itemTemplate = subCa->insertItem(tr("Signing Template"), this, SLOT(setTemplate()));
 		subCa->insertItem(tr("Generate CRL"), this, SLOT(genCrl()));
+		
+		itemP7 = menu->insertItem(tr("PKCS#7"), subP7);
+		subP7->insertItem(tr("Sign"), this, SLOT(setSerial()));
+		subP7->insertItem(tr("Verify"), this, SLOT(setSerial()));
+		subP7->insertItem(tr("Encrypt"), this, SLOT(setSerial()));
+		subP7->insertItem(tr("Decrypt"), this, SLOT(setSerial()));
 		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Renewal"), this, SLOT(extendCert()));
 		if (cert) {
@@ -809,12 +818,14 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->setItemEnabled(itemRevoke, parentCanSign);
 		menu->setItemEnabled(itemCA, canSign);
 		subExport->setItemEnabled(itemReq, hasPrivkey);
+		menu->setItemEnabled(itemP7, hasPrivkey);
 		subCa->setItemEnabled(itemTemplate, hasTemplates);
 
 	}
 	menu->exec(pt);
 	delete menu;
 	delete subCa;
+	delete subP7;
 	delete subExport;
 	
 	return;

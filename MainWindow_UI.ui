@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>764</width>
+            <width>760</width>
             <height>604</height>
         </rect>
     </property>
@@ -532,6 +532,17 @@
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>Import PKCS#12</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>PushButton18_2</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Import from PKCS#7</string>
                                 </property>
                             </widget>
                             <spacer>

@@ -52,7 +52,7 @@
 #include "ExportCert.h"
 
 
-ExportCert::ExportCert(QString fname, bool hasKey, 
+ExportCert::ExportCert(QString fname, bool hasKey,
 	QWidget *parent, const char *name )
 	:ExportCert_UI(parent,name,true,0)
 {
@@ -63,6 +63,7 @@ ExportCert::ExportCert(QString fname, bool hasKey,
 	exportFormat->insertItem("PEM all trusted Certificates");
 	exportFormat->insertItem("PEM all Certificates");
 	exportFormat->insertItem("DER");
+	exportFormat->insertItem("Signed PKCS#7");
 	if (hasKey) {
 		exportFormat->insertItem("PKCS #12");
 		exportFormat->insertItem("PKCS #12 with Certificate chain");
