@@ -12,6 +12,6 @@ LD=ld
 STRIP=strip
 
 prefix=/usr
-destdir=$(CURDIR)/debian/xca 
-bindir=X11R6/bin 
+destdir=$(CURDIR)/debian/xca
+bindir=X11R6/bin
 mandir=X11R6/man
