@@ -1,0 +1,296 @@
+<!DOCTYPE UI><UI>
+<class>MainWindow_UI</class>
+<widget>
+    <class>QWidget</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>MainWindow_UI</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>611</width>
+            <height>533</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Zertifikats und Schlüsselverwaltung</string>
+    </property>
+    <widget>
+        <class>QTabWidget</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>MainTab</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>570</width>
+                <height>460</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>tabShape</name>
+            <enum>Rounded</enum>
+        </property>
+        <widget>
+            <class>QWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>RSATab</cstring>
+            </property>
+            <attribute>
+                <name>title</name>
+                <string>RSA Schlüssel</string>
+            </attribute>
+            <widget>
+                <class>QListBox</class>
+                <item>
+                    <property>
+                        <name>text</name>
+                        <string>New Item</string>
+                    </property>
+                </item>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>keyList</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>20</x>
+                        <y>20</y>
+                        <width>300</width>
+                        <height>390</height>
+                    </rect>
+                </property>
+            </widget>
+            <widget>
+                <class>QPushButton</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>detailsKey</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>390</x>
+                        <y>170</y>
+                        <width>160</width>
+                        <height>32</height>
+                    </rect>
+                </property>
+                <property stdset="1">
+                    <name>text</name>
+                    <string>Details anzeigen</string>
+                </property>
+            </widget>
+            <widget>
+                <class>QPushButton</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>genNewKey</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>390</x>
+                        <y>20</y>
+                        <width>160</width>
+                        <height>32</height>
+                    </rect>
+                </property>
+                <property stdset="1">
+                    <name>text</name>
+                    <string>Neu generieren</string>
+                </property>
+            </widget>
+            <widget>
+                <class>QPushButton</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>importKey</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>390</x>
+                        <y>120</y>
+                        <width>160</width>
+                        <height>32</height>
+                    </rect>
+                </property>
+                <property stdset="1">
+                    <name>text</name>
+                    <string>Importieren</string>
+                </property>
+            </widget>
+            <widget>
+                <class>QPushButton</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>exportKey</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>390</x>
+                        <y>70</y>
+                        <width>160</width>
+                        <height>32</height>
+                    </rect>
+                </property>
+                <property stdset="1">
+                    <name>text</name>
+                    <string>Exportieren</string>
+                </property>
+            </widget>
+            <widget>
+                <class>QPushButton</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>renameKey</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>390</x>
+                        <y>220</y>
+                        <width>160</width>
+                        <height>32</height>
+                    </rect>
+                </property>
+                <property stdset="1">
+                    <name>text</name>
+                    <string>Löschen</string>
+                </property>
+            </widget>
+        </widget>
+        <widget>
+            <class>QWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>CertTab</cstring>
+            </property>
+            <attribute>
+                <name>title</name>
+                <string>Zertifikate</string>
+            </attribute>
+        </widget>
+        <widget>
+            <class>QWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>ReqTab</cstring>
+            </property>
+            <attribute>
+                <name>title</name>
+                <string>Anfrage (PKCS#10)</string>
+            </attribute>
+        </widget>
+        <widget>
+            <class>QWidget</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>CATab</cstring>
+            </property>
+            <attribute>
+                <name>title</name>
+                <string>Zertifikats Authorität</string>
+            </attribute>
+        </widget>
+    </widget>
+    <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>quitApp</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>480</x>
+                <y>490</y>
+                <width>108</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Beenden</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>10</x>
+                <y>510</y>
+                <width>220</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>(c) 2002 by christian@hohnstaedt.de</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>detailsKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetails()</slot>
+    </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>doubleClicked(QListBoxItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetails()</slot>
+    </connection>
+    <connection>
+        <sender>importKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>loadKey()</slot>
+    </connection>
+    <connection>
+        <sender>genNewKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>newKey()</slot>
+    </connection>
+    <connection>
+        <sender>exportKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>writeKey()</slot>
+    </connection>
+    <connection>
+        <sender>renameKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>deleteKey()</slot>
+    </connection>
+    <slot access="public">chooseFile()</slot>
+    <slot access="public">loadKey()</slot>
+    <slot access="public">newKey()</slot>
+    <slot access="public">deleteKey()</slot>
+    <slot access="public">showDetails()</slot>
+    <slot access="public">writeKey()</slot>
+</connections>
+<tabstops>
+    <tabstop>detailsKey</tabstop>
+</tabstops>
+</UI>

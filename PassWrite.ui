@@ -1,0 +1,227 @@
+<!DOCTYPE UI><UI>
+<class>PassWrite_UI</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>PassWrite_UI</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>397</width>
+            <height>273</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Passwort</string>
+    </property>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>heading</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>370</width>
+                <height>50</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>RSA Schlüssel speichern</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>PushButton1</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>220</y>
+                <width>108</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>OK</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>PushButton2</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>270</x>
+                <y>220</y>
+                <width>110</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Abbrechen</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QFrame</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>Frame3</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>60</x>
+                <y>80</y>
+                <width>280</width>
+                <height>110</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>frameShape</name>
+            <enum>Panel</enum>
+        </property>
+        <property stdset="1">
+            <name>frameShadow</name>
+            <enum>Sunken</enum>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>30</x>
+                    <y>60</y>
+                    <width>90</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Wiederholung:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>30</x>
+                    <y>20</y>
+                    <width>90</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Passwort:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>passA</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>130</x>
+                    <y>20</y>
+                    <width>110</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>echoMode</name>
+                <enum>Password</enum>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>passB</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>130</x>
+                    <y>60</y>
+                    <width>110</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>echoMode</name>
+                <enum>Password</enum>
+            </property>
+        </widget>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>PassWrite_UI</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>PassWrite_UI</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>passA</sender>
+        <signal>returnPressed()</signal>
+        <receiver>passB</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>passB</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PassWrite_UI</receiver>
+        <slot>accept()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>passA</tabstop>
+    <tabstop>passB</tabstop>
+    <tabstop>PushButton1</tabstop>
+    <tabstop>PushButton2</tabstop>
+</tabstops>
+</UI>

@@ -1,0 +1,401 @@
+<!DOCTYPE UI><UI>
+<class>KeyDetailDlg_UI</class>
+<widget>
+    <class>QDialog</class>
+    <property stdset="1">
+        <name>name</name>
+        <cstring>KeyDetailDlg_UI</cstring>
+    </property>
+    <property stdset="1">
+        <name>geometry</name>
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>382</width>
+            <height>641</height>
+        </rect>
+    </property>
+    <property stdset="1">
+        <name>caption</name>
+        <string>Schlüssel Details</string>
+    </property>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel7</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>220</y>
+                <width>120</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Modulus</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel9</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>400</y>
+                <width>120</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Private Exponent</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel11</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>350</width>
+                <height>40</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Details des RSA Schlüssels</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>keyPubEx</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>190</y>
+                <width>350</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>frameShape</name>
+            <enum>Panel</enum>
+        </property>
+        <property stdset="1">
+            <name>frameShadow</name>
+            <enum>Sunken</enum>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string></string>
+        </property>
+    </widget>
+    <widget>
+        <class>QFrame</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>Frame19</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>60</y>
+                <width>350</width>
+                <height>90</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>frameShape</name>
+            <enum>Box</enum>
+        </property>
+        <property stdset="1">
+            <name>frameShadow</name>
+            <enum>Sunken</enum>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel3</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>30</x>
+                    <y>50</y>
+                    <width>90</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Schlüssellänge:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>30</x>
+                    <y>20</y>
+                    <width>90</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Bezeichnung:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>keyLength</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>130</x>
+                    <y>50</y>
+                    <width>180</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>keyDesc</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>130</x>
+                    <y>20</y>
+                    <width>180</width>
+                    <height>23</height>
+                </rect>
+            </property>
+        </widget>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>keyModulus</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>240</y>
+                <width>350</width>
+                <height>150</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>frameShape</name>
+            <enum>Panel</enum>
+        </property>
+        <property stdset="1">
+            <name>frameShadow</name>
+            <enum>Sunken</enum>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string></string>
+        </property>
+        <property stdset="1">
+            <name>alignment</name>
+            <set>WordBreak|AlignTop|AlignLeft</set>
+        </property>
+        <property>
+            <name>vAlign</name>
+        </property>
+        <property>
+            <name>wordwrap</name>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel5</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>170</y>
+                <width>120</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>frameShape</name>
+            <enum>MShape</enum>
+        </property>
+        <property stdset="1">
+            <name>frameShadow</name>
+            <enum>Sunken</enum>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Public Exponent</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>PushButton2</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>150</x>
+                <y>590</y>
+                <width>108</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Abbrechen</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>keyPrivEx</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>420</y>
+                <width>350</width>
+                <height>150</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>frameShape</name>
+            <enum>Panel</enum>
+        </property>
+        <property stdset="1">
+            <name>frameShadow</name>
+            <enum>Sunken</enum>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string></string>
+        </property>
+        <property stdset="1">
+            <name>alignment</name>
+            <set>WordBreak|AlignTop|AlignLeft</set>
+        </property>
+        <property>
+            <name>vAlign</name>
+        </property>
+        <property>
+            <name>wordwrap</name>
+        </property>
+    </widget>
+    <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>PushButton1</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>590</y>
+                <width>110</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>OK</string>
+        </property>
+        <property stdset="1">
+            <name>flat</name>
+            <bool>false</bool>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>KeyDetailDlg_UI</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>KeyDetailDlg_UI</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>KeyDetailDlg_UI</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>keyDesc</sender>
+        <signal>returnPressed()</signal>
+        <receiver>KeyDetailDlg_UI</receiver>
+        <slot>accept()</slot>
+    </connection>
+</connections>
+</UI>

@@ -1,0 +1,45 @@
+
+-----=[	XCA ]=----
+
+
+A graphical userinterface to OpenSSL.
+handling keys, generating Certificate signing requests,
+handling of client and root-certificates, 
+as well as handling a CA with signing , CRL
+and signing-policies will be possible if the software is ready.
+
+
+
+Requirements:
+==============
+
+for compilation, you need the following Libraries:
+
+QT-2.2.4        from http://www.troll.no
+BercleyDB-3.3   from http://www.sleepycat.com
+OpenSSl-0.9.6   from http://www.openssl.org
+
+GNU C++ compiler
+
+
+
+Installation
+============
+
+should be straight forward:
+just type 'make' to compile
+and as root: 'make install'
+for installation
+
+please contact me, if you could compile the program with other
+than the recommended software packages, or on an other platform
+than Linux, or if it failed :-)
+
+
+
+----------------------------------------------------------
+if there are any questions regarding this software,
+dont fear to contact me:
+
+christian@hohnstaedt.de
+
