@@ -359,21 +359,6 @@ void CertView::loadPKCS7()
 	load_default(l);
 }
 
-#if 0
-pki_base *CertView::insert(pki_base *item)
-{
-	pki_base *cert = NULL;
-	try{
-	    cert = db->insert(item);
-		updateView();
-    }
-    catch (errorEx &err) {
-	    Error(err);
-    }
-    return cert;
-}
-#endif
-
 #define P7_ONLY 0
 #define P7_CHAIN 1
 #define P7_TRUSTED 2

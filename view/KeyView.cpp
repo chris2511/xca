@@ -152,21 +152,6 @@ void KeyView::load()
 	load_default(l);
 }
 
-#if 0
-pki_base* KeyView::insert(pki_base *item)
-{
-	pki_base *key;
-	try {
-		key = db->insert(item);
-		updateView();
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
-	return key;
-}
-#endif
-
 void KeyView::store()
 {
 	bool PEM = false;
