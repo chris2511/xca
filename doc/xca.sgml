@@ -59,7 +59,7 @@ always shown in the first column.
 There are several default file-formats to exchange cryptographic the data with
 other applications.
 <itemize>
-<item><bf>DER</bf> is the ASN.1 encoding of the data.
+<item><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding <bf>R</bf>ules is the binary ASN.1 encoding of the data.
 <item><bf>PEM</bf> is the base64 encoded version of the <bf>DER</bf> formatted data 
 	with additional header and footer lines to be transported via e.g. E-mail
 <item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards 
@@ -143,6 +143,7 @@ Thank you very much.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
+
 <sect>Common actions
 <p>
 Many actions are common to all crypto parts.
@@ -159,6 +160,8 @@ The import function is smart enough to probe all known formats as there are:
 </itemize>
 After selecting the filename XCA will probe for the known formats of that item
 and in case of an error it prompts the <em>last</em> OpenSSL error message.
+It is possible to select more than one file by selecting them with SHIFT click.
+In this case all items are imported one by one.
 
 <p>
 After reading the item it searches for this item in the database and if it is unique the item
@@ -172,9 +175,6 @@ the button on the right.
 The details dialog shows the internal name of the item, 
 which can be changed here and will be accepted when clicking <tt>Ok</tt>.
 
-the keysize and the modulus which is effectively the public part of the key and showing it to others is no security risk.
-The private part is not shown, only the availibility is mentioned.
-
 <sect1>Renaming an item
 <p>
 The Key can also be renamed via the context menu by right-clicking on the item
@@ -185,6 +185,16 @@ the internal name unique.
 <sect1>Deleting Items
 <p>
 Items can be deleted by the button on the right or via the context menu.
+If a certificate signed by this application is going to be removed
+the application will warn you once more, because you can not revoke a
+deleted certificate. So only delete a certificate signed by you
+if you never exported it. Certificate signing requests can be deleted
+when they got signed, because they are not needed anymore. 
+The request can be recovered from the resulting certificate by 
+exporting the certificate to a request. 
+This is however only possible if you own the private key for the 
+certificate.
+
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
@@ -224,10 +234,12 @@ If you want to create a SSL-server certificate the <tt>Common name</tt>
 must contain the <em>DNS</em> name of the server.
 <p>
 Keys can be generated here <em>on the fly</em> by pressing the button.
+If there is no usable key and you need one, they key generation is
+invoked automatically.
 The newly generated key will be stored in the database, 
 even if you cancel the Wizard. The drop-down list of the keys
-does only contain keys that were not used by an other certificate or
-request. The Keylist is not available for creating or changing templates.
+does only contain keys that were not used by any other certificate or
+request. The keylist is not available for creating or changing templates.
 <p>
 This page does not appear when signing a request, because the request does
 contain all needed data from this page.
