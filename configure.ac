@@ -2,37 +2,60 @@ AC_INIT(xca, 0.2.11)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
+
+if test -z "$CFLAGS"; then
+	CFLAGS=-O2
+fi
+
 # Checks for programs.
 AC_PROG_CXX
+
+AC_SUBST(ac_QTDIR)
+AC_SUBST(ac_DEBUG)
+AC_SUBST(ac_SSLVER)
+AC_SUBST(ac_QTVER)
 
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
 	export PATH=$QTDIR/bin:$PATH
 	export CPPFLAGS="$CPPFLAGS -I$QTDIR/include"
 	export LDFLAGS="$LDFLAGS -L$QTDIR/lib"
+	ac_QTDIR="$QTDIR"
 else
 	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include -I/usr/X11R6/include"
 	export LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
+	ac_QTDIR=
 fi
+
+H_SSL097=no
 H_SSL=no
 H_DB=no
+ac_SSLVER="<= 0.9.6"
+
 AC_CHECK_HEADERS([evp.h openssl/evp.h],[H_SSL=y;break])
 if test "$H_SSL" == no; then
 	AC_MSG_ERROR([OpenSSL headerfiles not found])
 fi
+
+AC_CHECK_HEADERS([ocsp.h openssl/ocsp.h],[H_SSL097=y;break])
+if test "$H_SSL097" == y; then
+	ac_SSLVER=">= 0.9.7"
+fi
+
+
 AC_LANG(C++)
 AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break])
 if test "$H_DB" == no; then
 	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca for a workaround)])
 fi
-QT_VER="2"
-AC_CHECK_HEADERS([qaccessible.h],[QT_VER="3"])
+ac_QTVER="2.x.x"
+AC_CHECK_HEADERS([qaccessible.h],[ac_QTVER="3.x.x"])
 
 AC_LANG(C)
 
 # Checks for libraries.
 AC_CHECK_LIB([crypto], [atexit], , [AC_MSG_ERROR([OpenSSL libraries not found, try installing openssl-dev or look at www.openssl.org])])
-AC_CHECK_LIB([stdc++], [atexit], , [AC_MSG_ERROR([standard C++ librarie not found...])])
+AC_CHECK_LIB([stdc++], [atexit], , [AC_MSG_ERROR([standard C++ library not found...])])
 LDB=X
 AC_CHECK_LIB([db4_cxx], [atexit], ,[LDB=${LDB}y] )
 AC_CHECK_LIB([db3_cxx], [atexit], ,[LDB=${LDB}y] )
@@ -53,9 +76,17 @@ AC_PATH_PROG(UIC,uic,[uic],[$PATH /usr/X11R6/bin],,[LQT=no])
 AC_ARG_ENABLE([printf-debug],[  --enable-printf-debug   switch on or off the printf-debugging ],
 [if test "x$enableval" == "xyes"; then
 	AC_DEFINE(PRINTF_DEBUG)
+	ac_DEBUG=-g
 fi], AC_DEFINE(PRINTF_DEBUG) )
 
-AC_CONFIG_FILES([Makefile lib/Makefile])
+AC_ARG_ENABLE([debug],[  --enable-debug          switch on or off the printf-debugging ],
+[if test "x$enableval" == "xyes"; then
+	ac_DEBUG=-g
+else
+	ac_DEBUG=
+fi], ) 
+
+AC_CONFIG_FILES([Makefile lib/Makefile results])
 AC_OUTPUT
 
 if test "$LDB" == Xyyy; then
@@ -64,21 +95,6 @@ fi
 if test "$LQT" == "no"; then
 	AC_MSG_NOTICE([QT library and tools not found, try setting $QTDIR apropriate or install qt-dev])
 fi
-if test -d "$QTDIR" ; then
-	AC_MSG_NOTICE([Using QT in $QTDIR....])
-else	
-	AC_MSG_NOTICE([QTDIR was not set, using system locations])
-fi
-cat << EOT
 
-
-*****************************************************************
-* If you have comments, compilingproblems, bugs or suggestions  *
-* don't hesitate to contact me at: christian@hohnstaedt.de      *
-*                                                               *
-* now type make to build the package....                        *
-*****************************************************************
-
-
-EOT
+cat results
 

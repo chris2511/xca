@@ -1,0 +1,17 @@
+
+
+QT directory: @ac_QTDIR@
+Guessed QT Version: @ac_QTVER@
+Guessed OpenSSL Version: @ac_SSLVER@
+CPP flags: @CPPFLAGS@
+LD flags: @LDFLAGS@
+
+
+*****************************************************************
+* If you have comments, compilingproblems, bugs or suggestions  *
+* don't hesitate to contact me at: christian@hohnstaedt.de      *
+*                                                               *
+* now type make to build the package....                        *
+*****************************************************************
+
+

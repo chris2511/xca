@@ -31,6 +31,9 @@
 /* Define if you have the <openssl/evp.h> header file. */
 #undef HAVE_OPENSSL_EVP_H
 
+/* Define if you have the <openssl/ocsp.h> header file. */
+#undef HAVE_OPENSSL_OCSP_H
+
 /* Define if you have the <qaccessible.h> header file. */
 #undef HAVE_QACCESSIBLE_H
 

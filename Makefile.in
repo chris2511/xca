@@ -9,9 +9,14 @@ TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 
 GCC=@CXX@
-CPPFLAGS=@CPPFLAGS@ @DEFS@ -Wall -g
+CC=@CC@
 
-LIBS=-Llib @LDFLAGS@ @LIBS@ -lxcadb -lpki
+CPPFLAGS=@CPPFLAGS@ @DEFS@ 
+CFLAGS=-Wall @ac_DEBUG@
+
+LDFLAGS=-Llib @LDFLAGS@
+LIBS=@LIBS@ -lxcadb -lpki
+
 MOC=@MOC@
 UIC=@UIC@
 
@@ -39,10 +44,10 @@ re: clean all
 $(OBJS): $(UI_H)
 
 %.o: %.cpp
-	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
 
 xca: $(OBJS) lib/libxcadb.a lib/libpki.a
-	$(GCC) $(CPPFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
+	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o xca
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
 libs:
