@@ -53,6 +53,7 @@
 #include "ui/KeyDetail.h"
 #include "widgets/ExportKey.h"
 #include "widgets/MainWindow.h"
+#include "widgets/clicklabel.h"
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qprogressdialog.h>
@@ -125,6 +126,10 @@ void KeyView::showItem(pki_base *item, bool import)
 		if (key->isPubKey()) {
 			detDlg->keyPrivEx->setText(tr("not available") );
 			detDlg->keyPrivEx->setDisabled(true);
+		}
+		else {
+			detDlg->keyPrivEx->setText(tr("Available") );
+			detDlg->keyPrivEx->setDisabled(false);
 		}
 		detDlg->image->setPixmap(*MainWindow::keyImg);
 		if (import) {

@@ -78,8 +78,10 @@ class CrlView : public XcaListView
 	void writeCrl_der();
    private slots:
 	void dlg_showCert(QListViewItem *i);
+	void dlg_showCert(QString name);
+	   
    signals:
-	void showCert(QListViewItem *i);	
+	void showCert(QString name);	
 };	
 
 #endif

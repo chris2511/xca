@@ -269,7 +269,6 @@ unsigned char *pki_key::toData(int *size)
 
 pki_key::~pki_key()
 {
-	//RSA_free(key);
 	EVP_PKEY_free(key);
 }
 
@@ -430,11 +429,15 @@ int pki_key::getType()
 
 int pki_key::incUcount()
 {
-	return ++ucount;
+	ucount++;
+	updateView();
+	return ucount;
 }
 int pki_key::decUcount()
 {
-	return --ucount;
+	ucount--;
+	updateView();
+	return ucount;
 }
 
 int pki_key::getUcount()

@@ -66,6 +66,7 @@
 #include "ui/TrustState.h"
 #include "widgets/ExportTinyCA.h"
 #include "widgets/validity.h"
+#include "widgets/clicklabel.h"
 #include "lib/pki_pkcs12.h"
 #include "lib/pki_pkcs7.h"
 
@@ -81,7 +82,8 @@
 CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
         :XcaListView(parent, name, f)
 {
-	addColumn(tr("Common Name"));
+	addColumn(tr("Internal name"));
+	addColumn(tr("Common name"));
 	addColumn(tr("Serial"));
 	addColumn(tr("not After"));
 	addColumn(tr("Trust state"));
@@ -101,7 +103,6 @@ void CertView::newItem()
 	delete dlg;
 	updateView();
 }
-
 
 void CertView::newCert(NewX509 *dlg)
 {
@@ -161,7 +162,8 @@ void CertView::newCert(NewX509 *dlg)
 	}
 	// set the issuers name
 	cert->setIssuer(signcert->getSubject());
-
+	cert->setSerial(serial);
+	
 	// Step 3 - Choose the Date
 	// Date handling
 	cert->setNotBefore( dlg->notBefore->getDate() );
@@ -268,6 +270,10 @@ void CertView::showItem(pki_base *item, bool import)
 	CertDetail *dlg = new CertDetail(this,0,true);
 	bool ret;
 	dlg->setCert((pki_x509 *)item);
+	connect( dlg->privKey, SIGNAL( doubleClicked(QString) ), 
+		this, SLOT( dlg_showKey(QString) ));
+	connect( dlg->signCert, SIGNAL( doubleClicked(QString) ), 
+		this, SLOT( showItem(QString) ));
 	if (import) {
 		dlg->setImport();
 	}
@@ -777,6 +783,7 @@ void CertView::setTrust()
 	if (!cert) return;
 	TrustState_UI *dlg = new TrustState_UI(this,0,true);
 	int state, newstate;
+	dlg->image->setPixmap(*MainWindow::certImg);
 	state = cert->getTrust();
 	if (cert->getSigner() == cert) {
 		if (state == 1) state = 0;

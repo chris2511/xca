@@ -54,8 +54,8 @@
                         pki != 0; pki = (pki_x509 *)container.next() ) 
 			
 
-db_x509::db_x509(DbEnv *dbe, QString DBfile, DbTxn *tid)
-		:db_x509super(dbe, DBfile, "certdb", tid)
+db_x509::db_x509(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid)
+	:db_x509super(dbe, DBfile, "certdb", k, tid)
 {
 	loadContainer();
 	// FIXME:

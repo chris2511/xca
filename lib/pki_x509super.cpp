@@ -58,7 +58,12 @@ pki_x509super::pki_x509super()
 	privkey = NULL;
 }
 
-pki_x509super::~pki_x509super() {}
+pki_x509super::~pki_x509super()
+{
+	if (privkey)
+		privkey->decUcount();
+	privkey = NULL;
+}
 
 x509name pki_x509super::getSubject()
 {
@@ -92,6 +97,7 @@ void pki_x509super::setRefKey(pki_key *ref)
 		// this is our key
 		privkey = ref;
 		ref->incUcount();
+		updateView();
 	}
 	delete mk;
 }
@@ -101,4 +107,5 @@ void pki_x509super::delRefKey(pki_key *ref)
 	if (ref != privkey || ref == NULL) return;
 	ref->decUcount();
 	privkey = NULL;
+	updateView();
 }

@@ -102,6 +102,11 @@ void XcaListView::showItem()
         showItem(getSelected(), false);
 }
 
+void XcaListView::showItem(QString name)
+{
+        showItem(db->getByName(name), false);
+}
+
 void XcaListView::showItem(QListViewItem *item)
 {
         showItem(db->getByName(item->text(0)), false);
@@ -272,3 +277,10 @@ QPixmap *XcaListView::loadImg(const char *name )
         path += QDir::separator();
     return new QPixmap(path + name);
 }
+
+
+void XcaListView::dlg_showKey(QString name)
+{
+	emit showKey(name);
+}
+

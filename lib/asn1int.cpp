@@ -106,9 +106,13 @@ a1int &a1int::set(long l)
 
 QString a1int::toHex() const
 {
+	QString r = "--";
+	if (in->length == 0) {
+		return r;
+	}
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	char *res = BN_bn2hex(bn);
-	QString r = res;
+	r = res;
 	OPENSSL_free(bn);
 	OPENSSL_free(res);
 	return r;
@@ -116,9 +120,13 @@ QString a1int::toHex() const
 
 QString a1int::toDec() const
 {
+	QString r = "--";
+	if (in->length == 0) {
+		return r;
+	}
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	char *res = BN_bn2dec(bn);
-	QString r = res;
+	r = res;
 	OPENSSL_free(bn);
 	OPENSSL_free(res);
 	return r;

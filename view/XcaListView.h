@@ -63,6 +63,9 @@ class XcaListView : public QListView
 		
    protected:
 	db_base *db;
+   protected slots:
+	void dlg_showKey(QString name);
+   
    public:
 	XcaListView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void setDB(db_base *mydb);
@@ -80,6 +83,7 @@ class XcaListView : public QListView
 	virtual void newItem();
 	virtual void deleteItem();
 	void showItem();
+	void showItem(QString name);
 	void showItem(QListViewItem *item);
 	virtual void load();
 	virtual	void store();
@@ -92,6 +96,7 @@ class XcaListView : public QListView
    signals:
 	void init_database();
 	void connNewX509(NewX509 *);
+	void showKey(QString name);
 };
 
 #endif

@@ -633,6 +633,7 @@ void pki_x509::updateView()
 		pixnum += 2;
 	}	
 	pointer->setPixmap(0, *icon[pixnum]);
+	pointer->setText(0, getIntName());
 	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
 	pointer->setText(2, getSerial().toHex() );  
 	pointer->setText(3, getNotAfter().toSortable() );  

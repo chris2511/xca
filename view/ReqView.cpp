@@ -62,6 +62,7 @@
 #include "widgets/MainWindow.h"
 #include "widgets/NewX509.h"
 #include "widgets/distname.h"
+#include "widgets/clicklabel.h"
 
 
 ReqView::ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
@@ -116,7 +117,8 @@ void ReqView::showItem(pki_base *item, bool import)
         ReqDetail *dlg = new ReqDetail(this,0,true);
 
 	dlg->setReq((pki_x509req *)item);
-	
+	connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
+		this, SLOT(dlg_showKey(QString)));	
 	QString odesc = item->getIntName();
 	bool ret = dlg->exec();
 	QString ndesc = dlg->descr->text();

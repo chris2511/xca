@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>592</width>
+            <width>588</width>
             <height>477</height>
         </rect>
     </property>
@@ -200,323 +200,7 @@
                                 <name>spacing</name>
                                 <number>6</number>
                             </property>
-                            <widget row="2"  column="1" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>privKey</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>enabled</name>
-                                    <bool>false</bool>
-                                </property>
-                                <property stdset="1">
-                                    <name>sizePolicy</name>
-                                    <sizepolicy>
-                                        <hsizetype>7</hsizetype>
-                                        <vsizetype>1</vsizetype>
-                                    </sizepolicy>
-                                </property>
-                                <property stdset="1">
-                                    <name>palette</name>
-                                    <palette>
-                                        <active>
-                                            <color>
-                                                <red>0</red>
-                                                <green>150</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>223</red>
-                                                <green>223</green>
-                                                <blue>223</blue>
-                                            </color>
-                                            <color>
-                                                <red>96</red>
-                                                <green>96</green>
-                                                <blue>96</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>193</red>
-                                                <green>193</green>
-                                                <blue>193</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </active>
-                                        <disabled>
-                                            <color>
-                                                <red>160</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>220</red>
-                                                <green>220</green>
-                                                <blue>220</blue>
-                                            </color>
-                                            <color>
-                                                <red>96</red>
-                                                <green>96</green>
-                                                <blue>96</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </disabled>
-                                        <inactive>
-                                            <color>
-                                                <red>0</red>
-                                                <green>150</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>220</red>
-                                                <green>220</green>
-                                                <blue>220</blue>
-                                            </color>
-                                            <color>
-                                                <red>96</red>
-                                                <green>96</green>
-                                                <blue>96</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>193</red>
-                                                <green>193</green>
-                                                <blue>193</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </inactive>
-                                    </palette>
-                                </property>
-                                <property stdset="1">
-                                    <name>font</name>
-                                    <font>
-                                        <bold>1</bold>
-                                    </font>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShape</name>
-                                    <enum>Panel</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShadow</name>
-                                    <enum>Sunken</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>not available</string>
-                                </property>
-                                <property stdset="1">
-                                    <name>alignment</name>
-                                    <set>AlignCenter</set>
-                                </property>
-                                <property>
-                                    <name>hAlign</name>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>The internal name of the RSA key in the key database</string>
-                                </property>
-                            </widget>
-                            <widget row="2"  column="2" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel1_3</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Serial:</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel4</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Signed by</string>
-                                </property>
-                            </widget>
-                            <widget row="2"  column="3" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>serialNr</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>sizePolicy</name>
-                                    <sizepolicy>
-                                        <hsizetype>1</hsizetype>
-                                        <vsizetype>1</vsizetype>
-                                    </sizepolicy>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShape</name>
-                                    <enum>Panel</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShadow</name>
-                                    <enum>Sunken</enum>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>The serial number of the certificate</string>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="1"  rowspan="1"  colspan="3" >
+                            <widget row="0"  column="1" >
                                 <class>QLineEdit</class>
                                 <property stdset="1">
                                     <name>name</name>
@@ -538,284 +222,6 @@
                                     <string>Internal name</string>
                                 </property>
                             </widget>
-                            <widget row="1"  column="1"  rowspan="1"  colspan="3" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>verify</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>sizePolicy</name>
-                                    <sizepolicy>
-                                        <hsizetype>7</hsizetype>
-                                        <vsizetype>1</vsizetype>
-                                    </sizepolicy>
-                                </property>
-                                <property stdset="1">
-                                    <name>palette</name>
-                                    <palette>
-                                        <active>
-                                            <color>
-                                                <red>0</red>
-                                                <green>150</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>223</red>
-                                                <green>223</green>
-                                                <blue>223</blue>
-                                            </color>
-                                            <color>
-                                                <red>96</red>
-                                                <green>96</green>
-                                                <blue>96</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </active>
-                                        <disabled>
-                                            <color>
-                                                <red>160</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>220</red>
-                                                <green>220</green>
-                                                <blue>220</blue>
-                                            </color>
-                                            <color>
-                                                <red>96</red>
-                                                <green>96</green>
-                                                <blue>96</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </disabled>
-                                        <inactive>
-                                            <color>
-                                                <red>0</red>
-                                                <green>150</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>220</red>
-                                                <green>220</green>
-                                                <blue>220</blue>
-                                            </color>
-                                            <color>
-                                                <red>96</red>
-                                                <green>96</green>
-                                                <blue>96</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </inactive>
-                                    </palette>
-                                </property>
-                                <property stdset="1">
-                                    <name>font</name>
-                                    <font>
-                                        <bold>1</bold>
-                                    </font>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShape</name>
-                                    <enum>Panel</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShadow</name>
-                                    <enum>Sunken</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>SELF SIGNED </string>
-                                </property>
-                                <property stdset="1">
-                                    <name>alignment</name>
-                                    <set>AlignCenter</set>
-                                </property>
-                                <property>
-                                    <name>hAlign</name>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>The internal name of the signer or "SELF SIGNED" if self signed</string>
-                                </property>
-                                <property>
-                                    <name>vAlign</name>
-                                </property>
-                            </widget>
-                            <widget row="2"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel6</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Key</string>
-                                </property>
-                            </widget>
                             <widget row="3"  column="0" >
                                 <class>QLabel</class>
                                 <property stdset="1">
@@ -827,7 +233,7 @@
                                     <string>Signature algorithm</string>
                                 </property>
                             </widget>
-                            <widget row="3"  column="1"  rowspan="1"  colspan="3" >
+                            <widget row="3"  column="1" >
                                 <class>QLineEdit</class>
                                 <property stdset="1">
                                     <name>name</name>
@@ -1055,6 +461,110 @@
                                     </palette>
                                 </property>
                             </widget>
+                            <widget row="2"  column="0" >
+                                <class>QLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>TextLabel6</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Private key</string>
+                                </property>
+                            </widget>
+                            <widget row="1"  column="0" >
+                                <class>QLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>TextLabel4</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Signed by</string>
+                                </property>
+                            </widget>
+                            <widget row="1"  column="1" >
+                                <class>ClickLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>signCert</cstring>
+                                </property>
+                            </widget>
+                            <widget row="2"  column="1" >
+                                <class>QLayoutWidget</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>Layout5</cstring>
+                                </property>
+                                <hbox>
+                                    <property stdset="1">
+                                        <name>margin</name>
+                                        <number>0</number>
+                                    </property>
+                                    <property stdset="1">
+                                        <name>spacing</name>
+                                        <number>6</number>
+                                    </property>
+                                    <widget>
+                                        <class>ClickLabel</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>privKey</cstring>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>sizePolicy</name>
+                                            <sizepolicy>
+                                                <hsizetype>7</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                            </sizepolicy>
+                                        </property>
+                                    </widget>
+                                    <widget>
+                                        <class>QLabel</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>TextLabel1_3</cstring>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>sizePolicy</name>
+                                            <sizepolicy>
+                                                <hsizetype>0</hsizetype>
+                                                <vsizetype>1</vsizetype>
+                                            </sizepolicy>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>text</name>
+                                            <string>Serial:</string>
+                                        </property>
+                                    </widget>
+                                    <widget>
+                                        <class>QLabel</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>serialNr</cstring>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>sizePolicy</name>
+                                            <sizepolicy>
+                                                <hsizetype>5</hsizetype>
+                                                <vsizetype>1</vsizetype>
+                                            </sizepolicy>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>frameShape</name>
+                                            <enum>Panel</enum>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>frameShadow</name>
+                                            <enum>Sunken</enum>
+                                        </property>
+                                        <property>
+                                            <name>toolTip</name>
+                                            <string>The serial number of the certificate</string>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
                         </grid>
                     </widget>
                     <widget>
@@ -1131,6 +641,13 @@
                                     <cstring>fpSHA1</cstring>
                                 </property>
                                 <property stdset="1">
+                                    <name>sizePolicy</name>
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                    </sizepolicy>
+                                </property>
+                                <property stdset="1">
                                     <name>frameShape</name>
                                     <enum>Panel</enum>
                                 </property>
@@ -1171,6 +688,13 @@
                                     <cstring>notBefore</cstring>
                                 </property>
                                 <property stdset="1">
+                                    <name>sizePolicy</name>
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                    </sizepolicy>
+                                </property>
+                                <property stdset="1">
                                     <name>frameShape</name>
                                     <enum>Panel</enum>
                                 </property>
@@ -1190,6 +714,13 @@
                                     <cstring>notAfter</cstring>
                                 </property>
                                 <property stdset="1">
+                                    <name>sizePolicy</name>
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                    </sizepolicy>
+                                </property>
+                                <property stdset="1">
                                     <name>frameShape</name>
                                     <enum>Panel</enum>
                                 </property>
@@ -1203,260 +734,10 @@
                                 </property>
                             </widget>
                             <widget>
-                                <class>QLabel</class>
+                                <class>ClickLabel</class>
                                 <property stdset="1">
                                     <name>name</name>
                                     <cstring>dateValid</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>palette</name>
-                                    <palette>
-                                        <active>
-                                            <color>
-                                                <red>0</red>
-                                                <green>150</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>220</red>
-                                                <green>220</green>
-                                                <blue>220</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>237</red>
-                                                <green>237</green>
-                                                <blue>237</blue>
-                                            </color>
-                                            <color>
-                                                <red>110</red>
-                                                <green>110</green>
-                                                <blue>110</blue>
-                                            </color>
-                                            <color>
-                                                <red>146</red>
-                                                <green>146</green>
-                                                <blue>146</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </active>
-                                        <disabled>
-                                            <color>
-                                                <red>160</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>220</red>
-                                                <green>220</green>
-                                                <blue>220</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>253</red>
-                                                <green>253</green>
-                                                <blue>253</blue>
-                                            </color>
-                                            <color>
-                                                <red>110</red>
-                                                <green>110</green>
-                                                <blue>110</blue>
-                                            </color>
-                                            <color>
-                                                <red>146</red>
-                                                <green>146</green>
-                                                <blue>146</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>128</red>
-                                                <green>128</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </disabled>
-                                        <inactive>
-                                            <color>
-                                                <red>0</red>
-                                                <green>150</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>220</red>
-                                                <green>220</green>
-                                                <blue>220</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>253</red>
-                                                <green>253</green>
-                                                <blue>253</blue>
-                                            </color>
-                                            <color>
-                                                <red>110</red>
-                                                <green>110</green>
-                                                <blue>110</blue>
-                                            </color>
-                                            <color>
-                                                <red>146</red>
-                                                <green>146</green>
-                                                <blue>146</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                            <color>
-                                                <red>192</red>
-                                                <green>192</green>
-                                                <blue>192</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>0</blue>
-                                            </color>
-                                            <color>
-                                                <red>0</red>
-                                                <green>0</green>
-                                                <blue>128</blue>
-                                            </color>
-                                            <color>
-                                                <red>255</red>
-                                                <green>255</green>
-                                                <blue>255</blue>
-                                            </color>
-                                        </inactive>
-                                    </palette>
-                                </property>
-                                <property stdset="1">
-                                    <name>font</name>
-                                    <font>
-                                        <bold>1</bold>
-                                    </font>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShape</name>
-                                    <enum>Panel</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>frameShadow</name>
-                                    <enum>Sunken</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>valid</string>
-                                </property>
-                                <property stdset="1">
-                                    <name>alignment</name>
-                                    <set>AlignCenter</set>
-                                </property>
-                                <property>
-                                    <name>hAlign</name>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>The validity of the certificate regarding to your system clock or the revokation date</string>
                                 </property>
                             </widget>
                         </hbox>
@@ -1948,6 +1229,20 @@
         <sizepolicy>
             <hordata>7</hordata>
             <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+    <customwidget>
+        <class>ClickLabel</class>
+        <header location="local">clicklabel.h</header>
+        <sizehint>
+            <width>100</width>
+            <height>26</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>0</verdata>
         </sizepolicy>
         <pixmap>image0</pixmap>
     </customwidget>
