@@ -679,16 +679,19 @@ void NewX509::applyTimeDiff()
 	int faktor[] = { 1, 30, 365 };
 	int N = validNumber->text().toInt();
 	int M = validRange->currentItem();
+	int midnight = midnightCB->isChecked()? 1:0;
+	
 	if (M>2||M<0) M=0;
 	a1time a;
 	time_t t;
 	time(&t);
-	t /= d_fac;
 	int delta = faktor[M] * N ;
+	t /= d_fac;
+	
 	if (delta + t > 24850){
 		 QMessageBox::warning(this, XCA_TITLE, "Time difference too big\nYou must set it manually." );
 		 return;
 	}
-    notBefore->setDate(a.now());
-	notAfter->setDate(a.now(delta * d_fac));	 
+    notBefore->setDate(a.now(), midnight);
+	notAfter->setDate(a.now(delta * d_fac), midnight* (-1));	 
 }

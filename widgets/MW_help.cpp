@@ -84,7 +84,8 @@ qFatal("Cmdline Error (%s)\n", msg);
 void MainWindow::about()
 {
 	About_UI *about = new About_UI(this, 0, true );
-	QString cont="<p>Copyright 2002 - 2003 by Christian Hohnst&auml;dt - "
+	QString cont="<p><h3><center><u>XCA</u></center></h3>"
+	"<p>Copyright 2002 - 2003 by Christian Hohnst&auml;dt - "
 	"version : <b>" VER "</b>"
 	"<p><hr><br><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"

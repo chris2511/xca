@@ -64,22 +64,15 @@
 Validity::Validity( QWidget* parent,  const char* name )
     : QWidget( parent, name )
 {
-#define CHAR_W 16
+    int charw = this->fontMetrics().width('0');
+    int space = 10;
+    
+#define CHAR_W(x) (charw * (x) + space)
+    
     QStringList months;
     months << tr("Jan") << tr("Feb") << tr("Mar") << tr("Apr") 
 	   << tr("May") << tr("Jun") << tr("Jul") << tr("Aug")
 	   << tr("Sep") << tr("Oct") << tr("Nov") << tr("Dec");
-    
-    printf("FONT: 0:%d\n", this->fontMetrics().width('0') );
-    printf("FONT: 1:%d\n", this->fontMetrics().width('1') );
-    printf("FONT: 2:%d\n", this->fontMetrics().width('2') );
-    printf("FONT: 3:%d\n", this->fontMetrics().width('3') );
-    printf("FONT: 4:%d\n", this->fontMetrics().width('4') );
-    printf("FONT: 5:%d\n", this->fontMetrics().width('5') );
-    printf("FONT: 6:%d\n", this->fontMetrics().width('6') );
-    printf("FONT: 7:%d\n", this->fontMetrics().width('7') );
-    printf("FONT: 8:%d\n", this->fontMetrics().width('8') );
-    printf("FONT: 9:%d\n", this->fontMetrics().width('9') );
     
     if ( !name )
 	setName( "Validity" );
@@ -91,27 +84,27 @@ Validity::Validity( QWidget* parent,  const char* name )
     Mon->insertStringList(months);
     
     Year = new QLineEdit( this, "Year" );
-    Year->setMaximumWidth(CHAR_W * 5);
-    Year->setMinimumWidth(CHAR_W * 4);
+    Year->setMinimumWidth(CHAR_W(4));
     Year->setValidator( new QIntValidator(1000, 9999, this));
     
     Day = new QLineEdit( this, "Day" );
-    Day->setMaximumWidth(CHAR_W * 2);
+    Day->setMinimumWidth(CHAR_W(2));
     Day->setValidator( new QIntValidator(1, 31, this));
     
     Hour = new QLineEdit( this, "Hour" );
-    Hour->setMaximumWidth(CHAR_W * 2);
+    Hour->setMinimumWidth(CHAR_W(2));
     Hour->setValidator( new QIntValidator(1, 23, this));
     
     Min = new QLineEdit( this, "Min" );
-    Min->setMaximumWidth(CHAR_W * 2);
+    Min->setMinimumWidth(CHAR_W(2));
     Min->setValidator( new QIntValidator(1, 59, this));
     
     Sec = new QLineEdit( this, "Sec" );
-    Sec->setMaximumWidth(CHAR_W * 2);
+    Sec->setMinimumWidth(CHAR_W(2));
     Sec->setValidator( new QIntValidator(1, 59, this));
     
     bnNow = new QPushButton(this, "now" );
+    bnNow->setMaximumWidth(this->fontMetrics().width("Now") + 16);
     bnNow->setText(tr("Now"));
     
     l1 = new QLabel(":", this, "l1");
@@ -148,16 +141,26 @@ a1time Validity::getDate() const
 	return date;
 }
 
-void Validity::setDate(const a1time &a)
+void Validity::setDate(const a1time &a, int midnight)
 {
 	int y, m, d, h, min, s, g;
+	QString S;
+	
 	a.ymdg(&y, &m, &d, &h, &min, &s, &g);
-	Year->setText(QString::number(y));
+	
+	if (midnight == 1) {
+		h=0; min=0; s=0;
+	}
+	if (midnight == -1) {
+		h=23; min=59; s=59;
+	}
+
+	Year->setText(S.sprintf("%02d",y));
 	Mon->setCurrentItem(m-1);
-	Day->setText(QString::number(d));
-	Hour->setText(QString::number(h));
-	Min->setText(QString::number(min));
-	Sec->setText(QString::number(s));
+	Day->setText(S.sprintf("%02d",d));
+	Hour->setText(S.sprintf("%02d",h));
+	Min->setText(S.sprintf("%02d",min));
+	Sec->setText(S.sprintf("%02d",s));
 }
 
 void Validity::setNow()

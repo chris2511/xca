@@ -44,41 +44,25 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$
+ * $Id$ 
  *
  */                           
 
-#ifndef VALIDITY_H
-#define VALIDITY_H
+#ifndef CERTEXTEND_H
+#define CERTEXTEND_H
 
-#include <qgroupbox.h>
+#include "ui/CertExtend.h"
 
-class QHBoxLayout;
-class a1time;
-class QComboBox;
-class QLineEdit;
-class QLabel;
-class QPushButton;
+class pki_key;
 
-class Validity : public QWidget
-{ 
-    Q_OBJECT
-
-  public:
-	Validity( QWidget* parent = 0, const char* name = 0);
-	~Validity();
-	a1time getDate() const;
-	void setDate(const a1time &t, int midnight = 0);
-  public slots:	
-	void setNow();
-
-  protected:
-	QHBoxLayout* ValidityLayout;
-	QComboBox *Mon;
-	QLineEdit *Year, *Day, *Hour, *Min, *Sec;
-	QLabel *l1, *l2;
-	QPushButton *bnNow;
-   
+class CertExtend: public CertExtend_UI
+{
+	Q_OBJECT
+		
+   public:	
+	CertExtend( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+   public slots:
+	void applyTimeDiff();
+		
 };
-
-#endif // VALIDITY_H
+#endif

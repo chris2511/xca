@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -44,41 +45,35 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$
+ * $Id$ 
  *
  */                           
 
-#ifndef VALIDITY_H
-#define VALIDITY_H
 
-#include <qgroupbox.h>
+#include "CertExtend.h"
+#include "lib/base.h"
+#include "lib/func.h"
+#include "lib/asn1time.h"
+#include "widgets/validity.h"
+#include "widgets/MainWindow.h"
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qcombobox.h>
+#include <qcheckbox.h>
 
-class QHBoxLayout;
-class a1time;
-class QComboBox;
-class QLineEdit;
-class QLabel;
-class QPushButton;
 
-class Validity : public QWidget
-{ 
-    Q_OBJECT
+CertExtend::CertExtend(QWidget *parent, const char *name, bool modal, WFlags f)
+	:CertExtend_UI(parent, name, modal, f)
+{
+	a1time time;
+	setCaption(tr(XCA_TITLE));
+	image->setPixmap(*MainWindow::certImg);
+	notBefore->setDate(time.now());
+	notAfter->setDate(time.now(60 * 60 * 24 * 356));
+}
 
-  public:
-	Validity( QWidget* parent = 0, const char* name = 0);
-	~Validity();
-	a1time getDate() const;
-	void setDate(const a1time &t, int midnight = 0);
-  public slots:	
-	void setNow();
-
-  protected:
-	QHBoxLayout* ValidityLayout;
-	QComboBox *Mon;
-	QLineEdit *Year, *Day, *Hour, *Min, *Sec;
-	QLabel *l1, *l2;
-	QPushButton *bnNow;
-   
-};
-
-#endif // VALIDITY_H
+void CertExtend::applyTimeDiff()
+{
+	applyTD(validNumber->text().toInt(), validRange->currentItem(),
+		midnightCB->isChecked(), notBefore, notAfter);
+}
