@@ -355,6 +355,15 @@ void db_x509::assignClients(pki_crl *crl)
 	}
 }
 
+void db_x509::writeAllCerts(QString fname, bool onlyTrusted)
+{
+	pki_x509 *cert = NULL;
+       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
+		if (onlyTrusted && cert->getTrust() != 2) continue;
+		cert->writeCert(fname.latin1(),true,true);
+	}
+}
+
 int db_x509::searchSerial(pki_x509 *signer)
 {
 	if (!signer) return 0;

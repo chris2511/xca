@@ -87,7 +87,7 @@ class pki_x509 : public pki_base
 	   bool canSign();
 	   string getDNs(int nid);
 	   string getDNi(int nid);
-	   void writeCert(const string fname, bool PEM);
+	   void writeCert(const string fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);
 	   pki_key *getKey();
 	   pki_key *getPubKey(); // will be created temporarily and must be freed
