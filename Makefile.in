@@ -39,7 +39,7 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      main.o
 
 all: libs $(OBJS) xca
-	@echo -e "\n\n***********************************************\nIf you have comments, compilingproblems, bugs or suggestions,\ndon't hesitate to contact me at: christian@hohnstaedt.de\n************************************************************"
+	@echo -e "\n\n*****************************************************************\n* If you have comments, compilingproblems, bugs or suggestions, *\n* don't hesitate to contact me at: christian@hohnstaedt.de      *\n*****************************************************************\n"
 
 re: clean all
 
