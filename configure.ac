@@ -1,4 +1,4 @@
-AC_INIT(xca, 0.3.0)
+AC_INIT(xca, 0.4.0)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
@@ -16,8 +16,8 @@ AC_CHECK_TOOL(AR, ar, :)
 AC_SUBST(ac_QTDIR)
 AC_SUBST(ac_DEBUG)
 
-AC_ARG_WITH(openssldir,    specify an extra includedir for openssl,
-	CPPFLAGS="$CPPFLAGS -I$withval")
+AC_ARG_WITH(openssldir,    specify an extra dir for openssl,
+	CPPFLAGS="$CPPFLAGS -I$withval/include"; LDFLAGS="$LDFLAGS -L$withval/lib")
 
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
@@ -32,6 +32,7 @@ else
 fi
 
 H_SSL=no
+H_SSLCXX=no
 H_DB=no
 
 AC_CHECK_HEADERS([evp.h openssl/evp.h],[H_SSL=y;break])
@@ -39,8 +40,12 @@ if test "$H_SSL" == no; then
 	AC_MSG_ERROR([OpenSSL headerfiles not found])
 fi
 
-
 AC_LANG(C++)
+AC_CHECK_HEADERS([asn1object.h openssl/cxx/asn1object.h],[H_SSLCXX=y;break])
+if test "$H_SSLCXX" == no; then
+	AC_MSG_ERROR([OpenSSL CXX extension headerfiles not found])
+fi
+
 AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break])
 if test "$H_DB" == no; then
 	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca/compfaq.html for a workaround)])
@@ -71,6 +76,7 @@ if test "$LQT" == "no"; then
         AC_CHECK_LIB([qt-mt], [atexit], ,[LQT=no])
 	
 fi
+AC_CHECK_LIB([crypto_cxx], [atexit], , [AC_MSG_ERROR([OpenSSL cxx extension library not found, look at http://www.hohnstaedt.de/libcrypto_cxx ])])
 
 AC_PATH_PROG(MOC,moc,[moc],[$PATH /usr/X11R6/bin],,[LQT=no])
 AC_PATH_PROG(UIC,uic,[uic],[$PATH /usr/X11R6/bin],,[LQT=no])
