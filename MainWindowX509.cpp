@@ -74,13 +74,13 @@ void MainWindow::showDetailsReq()
 		certs->updatePKI(cert, ndesc);
 	}
 }
-
-void MainWindow::deleteReq()
+*/
+void MainWindow::deleteCert()
 {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
-	if (QMessageBox::information(this,"Zertifikatsanfrage löschen",
-			("Möchten Sie die Zertifikatsanfrage: '" + 
+	if (QMessageBox::information(this,"Zertifikat löschen",
+			("Möchten Sie das Zertifikat: '" + 
 			cert->getDescription() +
 			"'\nwirklich löschen ?\n").c_str(),
 			"Löschen", "Abbrechen")
@@ -88,14 +88,14 @@ void MainWindow::deleteReq()
 	certs->deletePKI(cert);
 }
 
-void MainWindow::loadReq()
+void MainWindow::loadCert()
 {
 	QStringList filt;
-	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
+	filt.append( "Zertifikate ( *.pem *.der )"); 
 	filt.append("Alle Dateien ( *.* )");
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Anfrage importieren");
+	dlg->setCaption("Zertifikat importieren");
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
@@ -104,14 +104,14 @@ void MainWindow::loadReq()
 	string errtxt;
 	if ((errtxt = cert->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
-			("Die Zertifikatsanfrage: '" + s +
+			("Das Zertifikat: '" + s +
 			"'\nkonnte nicht geladen werden:\n" + errtxt).c_str());
 		return;
 	}
 	pki_x509 *oldcert = (pki_x509 *)certs->findPKI(cert);
 	if (oldcert) {
-	   QMessageBox::information(this,"Zertifikatsanfragen import",
-		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
+	   QMessageBox::information(this,"Zertifikats import",
+		("Das Zertifikat ist bereits vorhanden als:\n'" +
 		oldcert->getDescription() + 
 		"'\nund wurde daher nicht importiert").c_str(), "OK");
 	   delete(oldcert);
@@ -120,14 +120,14 @@ void MainWindow::loadReq()
 	certs->insertPKI(cert);
 }
 
-void MainWindow::writeReq()
+void MainWindow::writeCert()
 {
 	QStringList filt;
-	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
+	filt.append( "Zertifikat ( *.pem *.der )"); 
 	filt.append("Alle Dateien ( *.* )");
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Anfrage exportieren");
+	dlg->setCaption("Zertifikat exportieren");
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
@@ -138,10 +138,9 @@ void MainWindow::writeReq()
 	   string errtxt;
 	   if ((errtxt = cert->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
-			("Die Zertifikatsanfrage: '" + s +
+			("Das Zertifikat: '" + s +
 			"'\nkonnte nicht gespeichert werden:\n" + errtxt).c_str());
 		return;
 	   }
 	}
 }
-*/

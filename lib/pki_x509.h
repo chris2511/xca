@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <openssl/x509.h>
+#include <openssl/x509v3.h>
 #include <openssl/pem.h>
 #include "pki_key.h"
 
@@ -14,7 +15,7 @@ class pki_x509 : public pki_base
 		   const string c, const string l,
 		   const string st,const string o,
 		   const string ou,const string email,
-		   const string d);
+		   const string d, int days=365);
 	   pki_x509();
 	   pki_x509(const string fname);
 	   virtual void fromData(unsigned char *p, int size);

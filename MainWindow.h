@@ -54,6 +54,7 @@ class MainWindow: public MainWindow_UI
    public slots:
 	void loadKey();
 	void loadReq();
+	void loadCert();
 	void newKey();
 	void newReq();
 	void newCert();
@@ -61,7 +62,9 @@ class MainWindow: public MainWindow_UI
 	void showDetailsReq();
 	void deleteKey();
 	void deleteReq();
+	void deleteCert();
 	void writeKey();
 	void writeReq();
+	void writeCert();
 };
 #endif

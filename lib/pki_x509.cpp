@@ -6,7 +6,7 @@ pki_x509::pki_x509(pki_key *key, const string cn,
 		const string c, const string l,
 		const string st,const string o,
 		const string ou,const string email, 
-		const string d)
+		const string d,int days=365)
 		:pki_base( d )
 {
 	cert = X509_new();
@@ -38,7 +38,26 @@ pki_x509::pki_x509(pki_key *key, const string cn,
 		(unsigned char*)email.c_str() , -1, -1, 0);
 
 	const EVP_MD *digest = EVP_md5();
-	X509_sign(cert, key->key, digest);
+
+	/* Set version to V3 */
+	if(!X509_set_version(cert, 2)) {
+		error="set Version faoiled";
+		return;
+	}
+	ASN1_INTEGER_set(X509_get_serialNumber(cert),0L);
+
+	X509_set_issuer_name(cert,subj);
+	X509_gmtime_adj(X509_get_notBefore(cert),0);
+	X509_gmtime_adj(X509_get_notAfter(cert), (long)60*60*24*days);
+
+	/* Set up V3 context struct */
+	X509V3_CTX ext_ctx;
+
+	X509V3_set_ctx(&ext_ctx, cert, cert, NULL, NULL, 0);
+
+	if (!X509_sign(cert, key->key, digest)) {
+		error="Error signing the request";
+	}
 	openssl_error();
 }
 
@@ -60,12 +79,12 @@ pki_x509::pki_x509(const string fname)
 	   if (!cert) {
 		openssl_error();
 		rewind(fp);
-		printf("Fallback to private key DER\n"); 
+		printf("Fallback to certificate DER\n"); 
 	   	cert = d2i_X509_fp(fp, NULL);
 	   }
 	   int r = fname.rfind('.');
 	   int l = fname.rfind('/');
-	   desc = fname.substr(l,r);
+	   desc = fname.substr(l+1,r-l-1);
 	   if (desc == "") desc = fname;
 	   openssl_error();
 	}	

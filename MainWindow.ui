@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>600</width>
+            <width>596</width>
             <height>533</height>
         </rect>
     </property>
@@ -261,7 +261,7 @@
             </property>
             <attribute>
                 <name>title</name>
-                <string>Signing Request</string>
+                <string>Unterschriftsanfrage</string>
             </attribute>
             <widget>
                 <class>QFrame</class>
@@ -462,26 +462,6 @@
                     <enum>Sunken</enum>
                 </property>
                 <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton26_2</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>geometry</name>
-                        <rect>
-                            <x>20</x>
-                            <y>180</y>
-                            <width>190</width>
-                            <height>32</height>
-                        </rect>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Löschen</string>
-                    </property>
-                </widget>
-                <widget>
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
@@ -503,26 +483,6 @@
                     <property stdset="1">
                         <name>scaledContents</name>
                         <bool>true</bool>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton47_2</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>geometry</name>
-                        <rect>
-                            <x>20</x>
-                            <y>60</y>
-                            <width>190</width>
-                            <height>32</height>
-                        </rect>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Exportieren</string>
                     </property>
                 </widget>
                 <widget>
@@ -585,6 +545,46 @@
                         <string>Neues Zertifikat erstellen</string>
                     </property>
                 </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton47_2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>60</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Exportieren</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton26_2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>180</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Löschen</string>
+                    </property>
+                </widget>
             </widget>
             <widget>
                 <class>QListBox</class>
@@ -636,12 +636,6 @@
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
         <slot>newKey()</slot>
-    </connection>
-    <connection>
-        <sender>renameKey</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>deleteKey()</slot>
     </connection>
     <connection>
         <sender>detailsKey</sender>
@@ -709,15 +703,49 @@
         <receiver>MainWindow_UI</receiver>
         <slot>newCert()</slot>
     </connection>
+    <connection>
+        <sender>PushButton47_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>writeCert()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton46_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>loadCert()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton25_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsCert()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton26_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>deleteCert()</slot>
+    </connection>
+    <connection>
+        <sender>renameKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>deleteKey()</slot>
+    </connection>
+    <slot access="public">deleteCert()</slot>
     <slot access="public">deleteKey()</slot>
     <slot access="public">deleteReq()</slot>
+    <slot access="public">loadCert()</slot>
     <slot access="public">loadKey()</slot>
     <slot access="public">loadReq()</slot>
+    <slot access="public">newCert()</slot>
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
-    <slot access="public">newCert()</slot>
+    <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsKey()</slot>
     <slot access="public">showDetailsReq()</slot>
+    <slot access="public">writeCert()</slot>
     <slot access="public">writeKey()</slot>
     <slot access="public">writeReq()</slot>
 </connections>

@@ -51,6 +51,7 @@ void MainWindow::showDetailsReq()
 	  {
 	   dlg->keyPubEx->setText(key->pubEx().c_str());   
 	   dlg->keyModulus->setText(key->modulus().c_str());   
+	   dlg->keySize->setText(key->length().c_str());   
 	   pki_key *existkey = (pki_key *)keys->findPKI(key);
 	   if (existkey) {
 	        if (!existkey->isPubKey()) {
