@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>595</width>
+            <width>591</width>
             <height>614</height>
         </rect>
     </property>
@@ -1736,7 +1736,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                         </property>
                         <property>
                             <name>toolTip</name>
-                            <string>DNS: IP: URI: email: RIP:</string>
+                            <string>DNS: IP: URI: email: RID:</string>
                         </property>
                         <property>
                             <name>whatsThis</name>
