@@ -9,6 +9,8 @@ TARGET=xca-$(VERSION)
 GCC=@CXX@
 CC=@CC@
 MOC=@MOC@
+AR=@AR@
+RANLIB=@RANLIB@
 
 CPPFLAGS=@CPPFLAGS@ @DEFS@
 CFLAGS=-Wall @ac_DEBUG@
@@ -24,10 +26,12 @@ DB_CPP=$(patsubst %,moc_%.cpp,$(DBNAMES))
 all: libpki.a libxcadb.a
 
 libpki.a: $(PKIOBJS)
-	$(AR) rcs libpki.a $(PKIOBJS)
+	$(AR) rc $@ $(PKIOBJS)
+	$(RANLIB) $@
 
 libxcadb.a: $(DBOBJS)
-	$(AR) rcs libxcadb.a $(DBOBJS)
+	$(AR) rc $@ $(DBOBJS)
+	$(RANLIB) $@
 	
 %.o: %.cpp 
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@

@@ -610,6 +610,8 @@ string pki_x509::getSerial()
 
 int pki_x509::getTrust()
 {
+	if (trust > 2) trust = 2;
+	if (trust < 0) trust = 0;
 	return trust;
 }
 
@@ -621,6 +623,8 @@ void pki_x509::setTrust(int t)
 
 int pki_x509::getEffTrust()
 {
+	if (efftrust > 2) efftrust = 2;
+	if (efftrust < 0) efftrust = 0;
 	return efftrust;
 }
 

@@ -2,13 +2,16 @@ AC_INIT(xca, 0.2.13-PRE1)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
-
 if test -z "$CFLAGS"; then
 	CFLAGS=-O2
 fi
 
+AC_CANONICAL_SYSTEM
+
 # Checks for programs.
 AC_PROG_CXX
+AC_CHECK_TOOL(RANLIB, ranlib, :)
+AC_CHECK_TOOL(AR, ar, :)
 
 AC_SUBST(ac_QTDIR)
 AC_SUBST(ac_DEBUG)
