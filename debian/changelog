@@ -1,3 +1,13 @@
+xca (0.5.0-1) unstable; urgency=low
+
+  * orthographical changes
+  * more translations
+  * segfault in CRL import removed
+  * manpage and documentation updated
+  * store "midnight" in template
+
+ -- Christian Hohnstaedt <christian@hohnstaedt.de>  Wed, 26 May 2004 23:07:23 +0200
+
 xca (0.4.7-RC2-1) unstable; urgency=low
 
   * open db if explicit mentioned, otherwise do not.

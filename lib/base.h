@@ -3,7 +3,7 @@
 #ifndef BASE_H
 #define BASE_H
 
-#define VER "0.4.7"
+#define VER "0.5.0-cvs"
 
 #if QT_VERSION >= 0x030000
 #define qt3 1
