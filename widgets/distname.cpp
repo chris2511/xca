@@ -62,20 +62,13 @@
 #include <iostream>
 
 DistName::DistName( QWidget* parent,  const char* name )
-    : QGroupBox( parent, name )
+    : QWidget( parent, name )
 {
 	if ( !name )
 		setName( "DistName" );
-	setTitle( tr( "Distinguished Name" ) );
 	
-	setFrameShape( QGroupBox::Box );
-	setFrameShadow( QGroupBox::Sunken );
-    
-	setColumnLayout(0, Qt::Vertical );
-	layout()->setSpacing( 0 );
-        layout()->setMargin( 0 );
-	
-	DistNameLayout = new QGridLayout( this ); 
+	DistNameLayout = new QGridLayout(this); 
+	DistNameLayout->setAlignment( Qt::AlignTop );
 	DistNameLayout->setSpacing( 6 );
 	DistNameLayout->setMargin( 11 );
 }
@@ -85,7 +78,6 @@ void DistName::setX509name(const x509name &n)
 	QLabel *lb;
 	QLineEdit *le;
 	QStringList sl;
-
 	for (int i=0; i<n.entryCount(); i++) {
 		lb = new QLabel( this );
 		le = new QLineEdit( this );
@@ -98,7 +90,6 @@ void DistName::setX509name(const x509name &n)
 		DistNameLayout->addWidget( lb, i, 0 );
 		DistNameLayout->addWidget( le, i, 1 );
 	}
-	DistNameLayout->invalidate();
 }
 
 DistName::~DistName()

@@ -61,7 +61,7 @@ class QComboBox;
 class QLineEdit;
 class myGridlayout;
 
-class DistName : public QGroupBox
+class DistName : public QWidget
 { 
     Q_OBJECT
 

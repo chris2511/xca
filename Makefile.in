@@ -44,12 +44,15 @@ $(SUBDIRS):
 	$(MAKE) -C $@ all
 
 clean:
-	$(MAKE) -C lib clean
-	$(MAKE) -C ui clean
+	for x in $(SUBDIRS); do \
+		$(MAKE) -C $${x} clean; \
+	done
 	rm -f $(MOC_CPP) $(UI_CPP) $(UI_H) *~ *.o xca 
 
 distclean: clean	
-	$(MAKE) -C lib distclean
+	for x in $(SUBDIRS); do \
+		$(MAKE) -C $${x} distclean; \
+	done
 	rm -f Makefile config.cache config.h config.log config.status results
 	rm -rf autom4te.cache
 
@@ -73,9 +76,5 @@ install: xca
 	install -m 755 -o root xca $(prefix)@prefix@/bin
 	install -m 644 -o root img/*.png $(prefix)@prefix@/share/xca
 	install -m 644 -o root xca_??.qm $(prefix)@prefix@/share/xca
-	
-moc_%.cpp: %.h %.cpp
-	$(MOC) $< -o $@
-
 
 .PHONY: $(SUBDIRS)

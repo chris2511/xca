@@ -48,32 +48,19 @@
  *
  */                           
 
+#ifndef CERTDETAIL_H
+#define CERTDETAIL_H
 
-#ifndef CRLVIEW_H
-#define CRLVIEW_H
+#include "ui/CertDetail.h"
+#include "lib/pki_x509.h"
 
-#include "XcaListView.h"
-#include <qlistview.h>
-
-class CrlView : public XcaListView
+class CertDetail: public CertDetail_UI
 {
-   Q_OBJECT
-
-   private:
-	static const int sizeList[];
-	static void incProgress(int a, int b, void *progress);
-   public:
-	CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void showItem(pki_base *item, bool import);
-	void newItem();
-	void deleteItem();
-	void load();
-	pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
-	void store(bool);
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-	void writeCrl_pem();
-	void writeCrl_der();
-};	
+	Q_OBJECT
+		
+   public:	
+	CertDetail( QWidget *parent = 0, const char *name = 0);
+	void setCert(pki_crl *crl);
+};
 
 #endif

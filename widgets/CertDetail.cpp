@@ -1,0 +1,156 @@
+/*
+ * Copyright (C) 2001 Christian Hohnstaedt.
+ *
+ *  All rights reserved.
+ *
+ *
+ *  Redistribution and use in source and binary forms, with or without 
+ *  modification, are permitted provided that the following conditions are met:
+ *
+ *  - Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *  - Neither the name of the author nor the names of its contributors may be 
+ *    used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *
+ * This program links to software with different licenses from:
+ *
+ *	http://www.openssl.org which includes cryptographic software
+ * 	written by Eric Young (eay@cryptsoft.com)"
+ *
+ *	http://www.sleepycat.com
+ *
+ *	http://www.trolltech.com
+ * 
+ *
+ *
+ * http://www.hohnstaedt.de/xca
+ * email: christian@hohnstaedt.de
+ *
+ * $Id$ 
+ *
+ */                           
+
+
+#include "CertDetail.h"
+#include "MainWindow.h"
+#include <qlabel.h>
+#include <qtextview.h>
+#include <qlistview.h>
+
+CertDetail::CertDetail(QWidget *parent, const char *name)
+	:CertDetail_UI(parent,name,true,0)
+{
+	setCaption(tr(XCA_TITLE));
+	image->setPixmap(*MainWindow::revImg);		 
+}
+
+CertDetail::setCrt(pki_x509 *cert)
+{
+	descr->setText(cert->getIntName());
+	
+	// examine the key
+	pki_key *key= cert->getRefKey();
+	if (key && key->isPrivKey()) {
+		privKey->setText(key->getIntName());
+		privKey->setDisabled(false);
+	}
+	
+	// examine the signature
+	if ( cert->getSigner() == NULL) {
+		verify->setText(tr("SIGNER UNKNOWN"));
+	}
+	else if ( cert == cert->getSigner())  {
+		verify->setText(tr("SELF SIGNED"));
+	}
+	
+	else {
+		verify->setText(cert->getSigner()->getIntName());
+	}
+	
+	// check trust state
+	if (cert->getEffTrust() == 0) {
+		verify->setDisabled(true);
+	}
+	CERR( cert->getEffTrust() );
+	
+	// the serial
+	serialNr->setText(cert->getSerial().toHex());
+	
+	// details of subject
+	x509name subj = cert->getSubject();
+	QString land = subj.getEntryByNid(NID_countryName);
+	QString land1 = subj.getEntryByNid(NID_stateOrProvinceName);
+	if (land != "" && land1 != "")
+	land += " / " +land1;
+	else
+	land+=land1;
+	
+	dlg->dnCN->setText(subj.getEntryByNid(NID_commonName));
+	dlg->dnC->setText(land);
+	dlg->dnL->setText(subj.getEntryByNid(NID_localityName));
+	dlg->dnO->setText(subj.getEntryByNid(NID_organizationName));
+	dlg->dnOU->setText(subj.getEntryByNid(NID_organizationalUnitName));
+	dlg->dnEmail->setText(subj.getEntryByNid(NID_pkcs9_emailAddress));
+	
+	// same for issuer....  
+	x509name iss = cert->getIssuer();
+	land = iss.getEntryByNid(NID_countryName);
+	land1 = iss.getEntryByNid(NID_stateOrProvinceName);
+	if (land != "" && land1 != "")
+	land += " / " +land1;
+	else
+	land+=land1;
+	
+	dlg->dnCN_2->setText(iss.getEntryByNid(NID_commonName) );
+	dlg->dnC_2->setText(land);
+	dlg->dnL_2->setText(iss.getEntryByNid(NID_localityName));
+	dlg->dnO_2->setText(iss.getEntryByNid(NID_organizationName));
+	dlg->dnOU_2->setText(iss.getEntryByNid(NID_organizationalUnitName));
+	dlg->dnEmail_2->setText(iss.getEntryByNid(NID_pkcs9_emailAddress));
+	dlg->notBefore->setText(cert->getNotBefore().toPretty());
+	dlg->notAfter->setText(cert->getNotAfter().toPretty());
+	MARK
+	
+	// validation of the Date
+	if (cert->checkDate() != 0) {
+		dateValid->setText(tr("Not valid"));
+		dateValid->setDisabled(true);
+	}
+	if (cert->isRevoked()) {
+		dateValid->setText(tr("Revoked: ") +
+			cert->getRevoked().toPretty());
+		dateValid->setDisabled(true);
+	
+	}
+	// the fingerprints
+	fpMD5->setText(cert->fingerprint(EVP_md5()));
+	fpSHA1->setText(cert->fingerprint(EVP_sha1()));
+	
+	// V3 extensions
+	dlg->v3Extensions->setText(cert->printV3ext());
+
+void CertDetail::setImport()
+{
+	// rename the buttons in case of import 
+	but_ok->setText(tr("Import"));
+	but_cancel->setText(tr("Discard"));
+}
+	
