@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
+            <width>572</width>
             <height>343</height>
         </rect>
     </property>
@@ -957,7 +957,7 @@
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout13</cstring>
+                <cstring>Layout18</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -972,11 +972,11 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton10</cstring>
+                        <cstring>PushButton11</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -1004,11 +1004,11 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton11</cstring>
+                        <cstring>PushButton10</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>OK</string>
                     </property>
                 </widget>
             </hbox>

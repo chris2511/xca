@@ -82,6 +82,7 @@
 #include <qasciidict.h>
 #include <qpixmap.h>
 #include <qobject.h>
+#include <qmultilineedit.h>
 #include "lib/pki_key.h"
 #include "lib/pki_x509req.h"
 #include "lib/pki_x509.h"
@@ -192,6 +193,8 @@ class MainWindow: public MainWindow_UI
 	void renameTemp(QListViewItem *item, int col, const QString &text);
 	void alterTemp();
 	void setSerial();
+	void setCrlDays();
+	void setTemplate();
    signals:
 	void keyDone(QString name);
 };

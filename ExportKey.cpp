@@ -50,6 +50,7 @@
 
 
 #include "ExportKey.h"
+#include "lib/pki_base.h"
 #include <iostream.h>
 
 
@@ -60,22 +61,27 @@ ExportKey::ExportKey(QString fname, bool onlypub,
 	filename->setText(fname);
 	onlyPub = onlypub;
 	if (onlyPub) {
+		privFrame->setDisabled(true);
 		exportPrivate->setDisabled(true);
 		encryptKey->setDisabled(true);
 	}		
+	else {
+		exportPrivate->setChecked(true);
+	}
+	canEncrypt();	
 }
 	
 void ExportKey::chooseFile()
 {
 	QStringList filt;
-	filt.append( "PKI Schlüssel ( *.pem *.der *.pk8 )"); 
-	filt.append("Alle Dateien ( *.* )");
+	filt.append(tr("RSA Keys ( *.pem *.der *.pk8 )")); 
+	filt.append(tr("All Files ( *.* )"));
 	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	//dlg->setSelection( filename->text() );
-	dlg->setCaption("Schlüssel speichern unter");
+	dlg->setCaption(tr("Save RSA key as"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setSelection( filename->text() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (! s.isEmpty()) {
@@ -85,26 +91,32 @@ void ExportKey::chooseFile()
 }
 
 void ExportKey::canEncrypt() {
+	CERR<< "TOGGEL" <<endl;
 	if (exportFormat->currentText() == "PKCS#8") {
-		//exportPrivate->setOn(true);
+		exportPrivate->setChecked(true);
 		exportPrivate->setDisabled(true);
-		//encryptKey->setOn(true);
+		encryptKey->setChecked(true);
 		encryptKey->setDisabled(true);
 	}
 	else if (exportFormat->currentText() == "PEM" && !onlyPub) {
 		exportPrivate->setEnabled(true);
-	    	if (exportPrivate->isOn())
+	    	if (exportPrivate->isChecked()) {
 			encryptKey->setEnabled(true);
+		}
+		else {
+			encryptKey->setEnabled(false);
+		}
 	}
 	else {
 		encryptKey->setDisabled(true);
-		//encryptKey->setOn(false);
+		encryptKey->setChecked(false);
+		exportPrivate->setEnabled(true);
 	}
 
 	if (onlyPub) {
-		//exportPrivate->setOn(false);
+		exportPrivate->setChecked(false);
 		exportPrivate->setDisabled(true);
-		//encryptKey->setOn(false);
+		encryptKey->setChecked(false);
 		encryptKey->setDisabled(true);
 	}
 }

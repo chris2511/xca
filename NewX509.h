@@ -65,6 +65,7 @@
 #include <qlabel.h>
 #include <qlistbox.h>
 #include <qpixmap.h>
+#include <qvalidator.h>
 
 #ifndef NEWX509_H
 #define NEWX509_H

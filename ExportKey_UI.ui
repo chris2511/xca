@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>499</width>
-            <height>579</height>
+            <width>599</width>
+            <height>375</height>
         </rect>
     </property>
     <property stdset="1">
@@ -267,8 +267,7 @@ PKCS#8 is an encrypted official Key-exchange format</string>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>When exporting the private key 
-it should be encrypted.</string>
+                <string>When exporting the private key it should be encrypted.</string>
             </property>
             <property stdset="1">
                 <name>alignment</name>
@@ -282,7 +281,7 @@ it should be encrypted.</string>
             <class>QFrame</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Frame5</cstring>
+                <cstring>privFrame</cstring>
             </property>
             <property stdset="1">
                 <name>frameShape</name>
@@ -333,7 +332,7 @@ it should be encrypted.</string>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout10</cstring>
+                <cstring>Layout6</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -348,11 +347,11 @@ it should be encrypted.</string>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton7</cstring>
+                        <cstring>PushButton9</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -380,11 +379,11 @@ it should be encrypted.</string>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton9</cstring>
+                        <cstring>PushButton7</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>OK</string>
                     </property>
                 </widget>
             </hbox>

@@ -66,10 +66,11 @@ class pki_x509 : public pki_base
 	   pki_key *pkey;
            X509V3_CTX ext_ctx;
 	   X509 *cert;
-	   ASN1_TIME *revoked;
+	   ASN1_TIME *revoked, *lastCrl;
 	   int trust;
 	   int efftrust;
 	   int caSerial;
+	   int crlDays;
 	   string caTemplate;
 	public:
 	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
@@ -113,6 +114,10 @@ class pki_x509 : public pki_base
 	   int getIncCaSerial();
 	   int getCaSerial();
 	   void setCaSerial(int s);
+	   void setTemplate(string s);
+	   string getTemplate();
+	   void setCrlDays(int s);
+	   int getCrlDays();
 };
 
 #endif

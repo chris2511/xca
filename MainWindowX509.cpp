@@ -500,6 +500,7 @@ void MainWindow::writeCert()
 	dlg->setCaption(tr("Certificate export"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setSelection( (cert->getDescription() + ".crt").c_str() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
@@ -523,6 +524,7 @@ void MainWindow::writePKCS12()
 	dlg->setCaption(tr("PKCS#12 export"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setSelection( (cert->getDescription() + ".p12").c_str() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
@@ -544,7 +546,8 @@ void MainWindow::writePKCS12()
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	CERR << "hallo popup" << endl;
 	QPopupMenu *menu = new QPopupMenu(this);
-	int itemExtend, itemRevoke, itemTrust, itemSerial;
+	QPopupMenu *subMenu = new QPopupMenu(this);
+	int itemExtend, itemRevoke, itemTrust, itemCA;
 	bool canSign, parentCanSign;
 	if (!item) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
@@ -558,7 +561,11 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
 		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));
 		menu->insertSeparator();
-		itemSerial = menu->insertItem(tr("CA serial"), this, SLOT(setSerial()));
+		itemCA = menu->insertItem(tr("CA"), subMenu);
+		subMenu->insertItem(tr("Serial"), this, SLOT(setSerial()));
+		subMenu->insertItem(tr("CRL days"), this, SLOT(setCrlDays()));
+		subMenu->insertItem(tr("Signing Template"), this, SLOT(setTemplate()));
+		subMenu->insertItem(tr("Generate CRL"), this, SLOT(genCrl()));
 		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Extend"));
 		if (cert) {
@@ -573,7 +580,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		}
 		menu->setItemEnabled(itemExtend, parentCanSign);
 		menu->setItemEnabled(itemRevoke, parentCanSign);
-		menu->setItemEnabled(itemSerial, canSign);
+		menu->setItemEnabled(itemCA, canSign);
 
 	}
 	menu->exec(pt);
@@ -645,6 +652,44 @@ void MainWindow::setSerial()
 		certs->updatePKI(cert);
 	}
 }
+
+void MainWindow::setCrlDays()
+{
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	int crlDays = cert->getCrlDays();
+	bool ok;
+	int nCrlDays = QInputDialog::getInteger (xca_title,
+			tr("Please enter the CRL renewal periode in days"),
+			crlDays, crlDays, 365, 1, &ok, this );
+	if (ok && (crlDays != nCrlDays)) {
+		cert->setCrlDays(nCrlDays);
+		certs->updatePKI(cert);
+	}
+}
+
+void MainWindow::setTemplate()
+{
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	QString templ = cert->getTemplate().c_str();
+	QStringList tempList = temps->getDesc();
+	unsigned int i, sel=0;
+	bool ok;
+	for (i=0; i<tempList.count(); i++) {
+		if (tempList[i] == templ) {
+			sel = i;
+		}
+	}
+	QString nTempl = QInputDialog::getItem (xca_title,
+			tr("Please select the default Template for signing"),
+			tempList, sel, false, &ok, this );
+	if (ok && (templ != nTempl)) {
+		cert->setTemplate(nTempl.latin1());
+		certs->updatePKI(cert);
+	}
+}
+
 
 
 void MainWindow::startRenameCert()

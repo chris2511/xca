@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>570</width>
+            <width>562</width>
             <height>387</height>
         </rect>
     </property>
@@ -116,6 +116,14 @@
                             <width>95</width>
                             <height>40</height>
                         </size>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShape</name>
+                        <enum>MShape</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShadow</name>
+                        <enum>MShadow</enum>
                     </property>
                     <property stdset="1">
                         <name>scaledContents</name>
@@ -549,39 +557,25 @@
             </property>
         </widget>
         <widget>
-            <class>QLabel</class>
+            <class>QMultiLineEdit</class>
             <property stdset="1">
                 <name>name</name>
                 <cstring>keyModulus</cstring>
             </property>
             <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
+                <name>enabled</name>
+                <bool>false</bool>
             </property>
             <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>textFormat</name>
-                <enum>PlainText</enum>
-            </property>
-            <property stdset="1">
-                <name>alignment</name>
-                <set>WordBreak|AlignTop|AlignLeft</set>
-            </property>
-            <property>
-                <name>vAlign</name>
-            </property>
-            <property>
-                <name>wordwrap</name>
+                <name>wrapPolicy</name>
+                <enum>Anywhere</enum>
             </property>
         </widget>
         <widget>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout5</cstring>
+                <cstring>Layout25</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -596,15 +590,11 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>but_ok</cstring>
+                        <cstring>but_cancel</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
-                    </property>
-                    <property stdset="1">
-                        <name>flat</name>
-                        <bool>false</bool>
+                        <string>Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -632,11 +622,15 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>but_cancel</cstring>
+                        <cstring>but_ok</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>OK</string>
+                    </property>
+                    <property stdset="1">
+                        <name>flat</name>
+                        <bool>false</bool>
                     </property>
                 </widget>
             </hbox>

@@ -94,6 +94,7 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	revoked = NULL;
 	caSerial=0;
 	caTemplate="";
+	crlDays=30;
 }
 
 pki_x509::pki_x509(X509 *c) : pki_base()
@@ -107,6 +108,8 @@ pki_x509::pki_x509(X509 *c) : pki_base()
 	revoked = NULL;
 	caSerial=1;
 	caTemplate="";
+	crlDays=30;
+	lastCrl=NULL;
 }
 
 pki_x509::pki_x509(const pki_x509 *crt) 
@@ -118,9 +121,11 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	pkey= crt->pkey;
 	trust = crt->trust;
 	efftrust = crt->efftrust;
-	revoked = crt->revoked;
+	revoked = M_ASN1_TIME_dup(crt->revoked);
 	caSerial = crt->caSerial;
 	caTemplate = crt->caTemplate;
+	crlDays = crt->crlDays;
+	lastCrl = M_ASN1_TIME_dup(crt->lastCrl);
 }
 
 pki_x509::pki_x509() : pki_base()
@@ -132,8 +137,10 @@ pki_x509::pki_x509() : pki_base()
 	trust = 0;
 	efftrust = 0;
 	revoked = NULL;
-	caSerial=1;
-	caTemplate="";
+	caSerial = 1;
+	caTemplate = "";
+	crlDays = 0;
+	lastCrl = NULL;
 }
 
 pki_x509::pki_x509(const string fname)
@@ -164,6 +171,8 @@ pki_x509::pki_x509(const string fname)
 	pkey = NULL;
 	caSerial=1;
 	caTemplate="";
+	crlDays=30;
+	lastCrl=NULL;
 }
 
 pki_x509::~pki_x509()
@@ -228,10 +237,10 @@ void pki_x509::sign(pki_key *signkey)
 	
 bool pki_x509::fromData(unsigned char *p, int size)
 {
-	int version, sCert, sRev;
+	int version, sCert, sRev, sLastCrl;
 	unsigned char *p1 = p;
 	version = intFromData(&p1);
-	if (version == 1 || version == 2) {
+	if (version >=1 || version <= 3) {
 		sCert = intFromData(&p1);
 		cert = d2i_X509(NULL, &p1, sCert);
 		trust = intFromData(&p1);
@@ -244,13 +253,26 @@ bool pki_x509::fromData(unsigned char *p, int size)
 		   revoked = NULL;
 		}
 		
-		if (version == 2) {
-			caSerial=intFromData(&p1);
-			caTemplate=stringFromData(&p1);
-		}
-		else {
+		if (version == 1) {
 			caTemplate="";
 			caSerial=1;
+			lastCrl = NULL;
+			crlDays=30;
+		}
+		
+		if (version >= 2 ) {
+			caSerial = intFromData(&p1);
+			caTemplate = stringFromData(&p1);
+		}
+		if (version >= 3 ) {
+			crlDays = intFromData(&p1);
+			sLastCrl = intFromData(&p1);
+			if (sLastCrl) {
+			   lastCrl = d2i_ASN1_TIME(NULL, &p1, sLastCrl);
+			}
+			else {
+			   lastCrl = NULL;
+			}
 		}
 	}
 	else { // old version
@@ -266,26 +288,34 @@ bool pki_x509::fromData(unsigned char *p, int size)
 
 unsigned char *pki_x509::toData(int *size)
 {
+#define PKI_DB_VERSION (int)3
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
 	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
-	*size = caTemplate.length() + 1 + sCert + sRev + (5 * sizeof(int)); // calculate the needed size 
+	int sLastCrl = (revoked ? i2d_ASN1_TIME(lastCrl, NULL) : 0);
+	// calculate the needed size 
+	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();
 	CERR <<"CertSize: "<<sCert << "RevSize: " <<sRev << endl;
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	intToData(&p1, (int)2); // version
+	intToData(&p1, (PKI_DB_VERSION)); // version
 	intToData(&p1, sCert); // sizeof(cert)
 	i2d_X509(cert, &p1); // cert
 	intToData(&p1, trust); // trust
 	intToData(&p1, sRev); // sizeof(revoked)
-	if (revoked) {
+	if (sRev) {
 		i2d_ASN1_TIME(revoked, &p1); // revokation date
 	}
 	// version 2
 	intToData(&p1, caSerial); // the serial if this is a CA
 	stringToData(&p1, caTemplate); // the name of the template to use for signing
-	
+	// version 3
+	intToData(&p1, crlDays); // the CRL period
+	intToData(&p1, sLastCrl); // size of last CRL
+	if (sLastCrl) {
+		i2d_ASN1_TIME(lastCrl, &p1); // last CRL date
+	}
 	openssl_error();
 	return p;
 }
@@ -563,19 +593,16 @@ int pki_x509::calcEffTrust()
 	return mytrust;
 }
 
-int pki_x509::getIncCaSerial()
-{
-	// dirty = true;
-	return caSerial++;
-}
+int pki_x509::getIncCaSerial() { return caSerial++; }
 
-int pki_x509::getCaSerial()
-{
-	return caSerial;
-}
+int pki_x509::getCaSerial() { return caSerial; }
 
-void pki_x509::setCaSerial(int s)
-{
-	caSerial = s;
-}
+void pki_x509::setCaSerial(int s) { if (s>0) caSerial = s; }
 
+int pki_x509::getCrlDays() {return crlDays;}
+
+void pki_x509::setCrlDays(int s){if (s>0) crlDays = s;}
+
+string pki_x509::getTemplate(){ return caTemplate; }
+
+void pki_x509::setTemplate(string s) {if (s.length()>0) caTemplate = s; }

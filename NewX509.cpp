@@ -68,6 +68,10 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		bigImg3->setPixmap(*image);
 		nsImg->setPixmap(*ns);
 	}
+	// set Validator for  2 letter country code
+	QRegExp rx( "\\w{2}" );
+	QRegExpValidator validator( rx, 0 );
+	countryName->setValidator( &validator );
 	// pretty fat Title :-)
 	QFont tFont; // = getFont();
 	tFont.setPointSize(14);
