@@ -1,4 +1,4 @@
-VERSION=0.1.7
+VERSION=0.1.8
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 GCC=g++ -Wall
