@@ -23,11 +23,9 @@ pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int s
         X509_set_issuer_name(cert, X509_NAME_dup(issn));
 	
 	/* Set version to V3 */
-	if(!X509_set_version(cert, 2)) {
-		error="set Version failed";
-		X509_free(cert);
-		return;
-	}
+	X509_set_version(cert, 2);
+	if (openssl_error()) return;
+	
 	ASN1_INTEGER_set(X509_get_serialNumber(cert), serial);
 
 	X509_gmtime_adj(X509_get_notBefore(cert),0);
@@ -51,6 +49,12 @@ pki_x509::pki_x509() : pki_base()
 	trust = false;
 }
 
+pki_x509::~pki_x509()
+{
+	X509_free(cert);
+	openssl_error();
+}
+
 
 pki_x509::pki_x509(const string fname)
 {
@@ -70,7 +74,7 @@ pki_x509::pki_x509(const string fname)
 	   if (desc == "") desc = fname;
 	   openssl_error();
 	}	
-	else error = "Fehler beim Öffnen der Datei";
+	else pki_error("Error opening file");
 	fclose(fp);
 	trust = false;
 	psigner = NULL;
@@ -92,9 +96,7 @@ void pki_x509::addV3ext(int nid, string exttext)
 void pki_x509::sign(pki_key *signkey)
 {
 	const EVP_MD *digest = EVP_md5();
-	if (!X509_sign(cert, signkey->key, digest)) {
-		error="Error signing the request";
-	}
+	X509_sign(cert, signkey->key, digest);
 	openssl_error();
 }
 
@@ -174,7 +176,7 @@ void pki_x509::writeCert(const string fname, bool PEM)
 	        openssl_error();
 	   }
 	}
-	else error = "Fehler beim Öffnen der Datei";
+	else pki_error("Error opening the file");
 	fclose(fp);
 }
 
@@ -182,16 +184,6 @@ bool pki_x509::compare(pki_base *refreq)
 {
 	if (!X509_cmp(cert, ((pki_x509 *)refreq)->cert))
 		return true;
-/*
-	const EVP_MD *digest=EVP_md5();
-	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];	
-	unsigned int d1_len,d2_len;
-	X509_digest(cert, digest, d1, &d1_len);
-	X509_digest(((pki_x509 *)refreq)->cert, digest, d2, &d2_len);
-	if ((d1_len == d2_len) && 
-	    (d1_len >0) &&
-	    (memcmp(d1,d2,d1_len) == 0) )return true;
-*/
 	return false;
 }
 
@@ -202,6 +194,7 @@ bool pki_x509::verify(pki_x509 *signer)
 	if ((psigner != NULL )||( signer == NULL)) return false;
 	X509_NAME *subject =  X509_get_subject_name(signer->cert);
 	X509_NAME *issuer = X509_get_issuer_name(cert);
+	openssl_error();
 	if (X509_NAME_cmp(subject, issuer)) {
 		return false;
 	}
@@ -233,7 +226,8 @@ string pki_x509::fingerprint(EVP_MD *digest)
 	 char zs[4];
          unsigned int n;
          unsigned char md[EVP_MAX_MD_SIZE];
-         if (!X509_digest(cert, digest, md, &n)) return fp;
+         X509_digest(cert, digest, md, &n);
+	 if (openssl_error()) return fp;
          for (j=0; j<(int)n; j++)
          {
               sprintf(zs, "%02X%c",md[j], (j+1 == (int)n) ?'\0':':');
@@ -287,6 +281,7 @@ string pki_x509::printV3ext()
 		text+="</tt><br>";
 	}
 	BIO_free(bio);
+	openssl_error();
 	return text;
 }
 
@@ -299,5 +294,6 @@ string pki_x509::getSerial()
 	buf[len]='\0';
 	string x = buf;
 	BIO_free(bio);
+	openssl_error();
 	return x;
 }

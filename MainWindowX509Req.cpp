@@ -15,8 +15,7 @@ void MainWindow::newReq()
 	string ou = dlg->organisationalUnitName->text().latin1();
 	string email = dlg->emailAddress->text().latin1();
 	string desc = dlg->description->text().latin1();
-	string challenge = dlg->challenge->text().latin1();
-	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, challenge);
+	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, "");
 	insertReq(req);
 }
 

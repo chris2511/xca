@@ -1,6 +1,6 @@
 #include "pki_key.h"
 
-char pki_key::passwd[30]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
 pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type = EVP_PKEY_RSA): pki_base(d)
 {
@@ -31,8 +31,8 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	:pki_base(fname)
 { 
 	PASS_INFO p;
-	string title = "Passwort für RSA Schlüssel";
-	string description = "Bitte geben Sie das Passwort an mit dem der RSA-Schlüssel geschützt ist."; 
+	string title = "Password for the RSA key";
+	string description = "Please enter the password to decrypt the RSA key."; 
 	p.title = &title;
 	p.description = &description;
 	key = EVP_PKEY_new();
@@ -43,76 +43,80 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	if (fp != NULL) {
 	   rsakey = PEM_read_RSAPrivateKey(fp, NULL, cb, &p);
 	   if (!rsakey) {
-		openssl_error();
+		ign_openssl_error();
 		rewind(fp);
-		cerr << "Fallback to privatekey DER" << endl; 
+		CERR << "Fallback to privatekey DER" << endl; 
 	   	rsakey = d2i_RSAPrivateKey_fp(fp, NULL);
 	   }
 	   if (!rsakey) {
-		openssl_error();
+		ign_openssl_error();
 		rewind(fp);
-		cerr << "Fallback to pubkey" << endl; 
+		CERR << "Fallback to pubkey" << endl; 
 	   	rsakey = PEM_read_RSA_PUBKEY(fp, NULL, cb, &p);
 	   }
 	   if (!rsakey) {
-		openssl_error();
+		ign_openssl_error();
 		rewind(fp);
-		cerr << "Fallback to pubkey DER" << endl; 
+		CERR << "Fallback to pubkey DER" << endl; 
 	   	rsakey = d2i_RSA_PUBKEY_fp(fp, NULL);
 	   }
 	   if (!rsakey) {
-	        openssl_error();
+	        ign_openssl_error();
 	        rewind(fp);
-		title = "Passwort für PKCS#8 Schlüssel";
-		description = "Bitte geben Sie das Passwort an mit dem der PKCS#8 Schlüssel geschützt ist.";
-		cerr << "Fallback to PKCS#8 Private key" << endl; 
+		title = "Password for PKCS#8 private key";
+		description = "Please enter the password to decrypt the PKCS#8 private key.";
+		CERR << "Fallback to PKCS#8 Private key" << endl; 
 	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
 	   }
 	   else {
 	   	EVP_PKEY_set1_RSA(key,rsakey);
 		openssl_error();
-		cerr << "assigning loaded key\n";
+		CERR << "assigning loaded key\n";
 	   }
 	   int r = fname.rfind('.');
 	   int l = fname.rfind('/');
-	   cerr << fname << "r,l: "<< r <<","<< l << endl;
+	   CERR << fname << "r,l: "<< r <<","<< l << endl;
 	   setDescription(fname.substr(l+1,r-l-1));
 	   openssl_error();
-	   //if ( verify() != pki_base::VERIFY_OK)
-		//   cerr << "RSA key is faulty !!\n";
 	}	
-	else error = "Fehler beim Öffnen der Datei";
-	cerr << "endofloading\n";
+	else pki_error("Error opening file");
+	CERR << "endofloading\n";
 	fclose(fp);
 }
 
 
 bool pki_key::fromData(unsigned char *p, int size )
 {
-	cerr << "KEY fromData\n";
+	CERR << "KEY fromData\n";
 	unsigned char *sik, *pdec, *pdec1, *sik1;
 	int outl, decsize;
+        unsigned char iv[EVP_MAX_IV_LENGTH];
+        unsigned char ckey[EVP_MAX_KEY_LENGTH];
+	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	RSA *rsakey;
 	EVP_CIPHER_CTX ctx;
+	EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	sik = (unsigned char *)OPENSSL_malloc(size);
 	if ( sik == NULL ) return false;
 	pdec = (unsigned char *)OPENSSL_malloc(size);
 	if (pdec == NULL ) {OPENSSL_free(sik); return false;}
 	pdec1=pdec;
 	sik1=sik;
-	
+	memcpy(iv, p, 8); /* recover the iv */
+        EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd, strlen(passwd), 1, ckey,NULL); /* generate the key */
+	/* we use sha1 as message digest, because an md5 version of the password is stored in the database... */
 	EVP_CIPHER_CTX_init (&ctx);
-	EVP_DecryptInit( &ctx, EVP_des_ede3_cbc(),(unsigned char *)passwd, NULL);
-	EVP_DecryptUpdate( &ctx, pdec, &outl, p, size );
+	EVP_DecryptInit( &ctx, cipher, ckey, iv);
+	EVP_DecryptUpdate( &ctx, pdec , &outl, p + 8, size -8 );
 	decsize = outl;
-	EVP_DecryptFinal( &ctx, pdec + decsize, &outl );
+	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
 	decsize += outl;
-	cerr << "Encr done: " << size << "--" << decsize << endl;
+	CERR << "Decryption  done: " << size << "--" << decsize << endl;
 	if (openssl_error()) return false;
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
 	   rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
-	   if (openssl_error()) {
+	   if (ign_openssl_error()) {
 		rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
 	   }
 	   if (openssl_error()) return false; 
@@ -120,53 +124,61 @@ bool pki_key::fromData(unsigned char *p, int size )
 	}
 	OPENSSL_free(sik1);
 	OPENSSL_free(pdec1);
-	return true;
+	return !openssl_error();
 }
 
 
 unsigned char *pki_key::toData(int *size) 
 {
-	cerr << "KEY toData " << getDescription()<< endl;
+	CERR << "KEY toData " << getDescription()<< endl;
 	unsigned char *p, *p1, *penc;
 	int outl, encsize=0;
 	EVP_CIPHER_CTX ctx;
-	
+	EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+        unsigned char iv[EVP_MAX_IV_LENGTH];
+        unsigned char ckey[EVP_MAX_KEY_LENGTH];
+	memset(iv, 0, EVP_MAX_IV_LENGTH);
+        RAND_pseudo_bytes(iv,8);      /* Generate a salt */
+        EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd, strlen(passwd), 1, ckey,NULL);
+		       
 	EVP_CIPHER_CTX_init (&ctx);
-	EVP_EncryptInit( &ctx, EVP_des_ede3_cbc(),(unsigned char *)passwd , NULL);
+	EVP_EncryptInit( &ctx, cipher, ckey, iv);
 	//if (key->type == EVP_PKEY_RSA) {
 	if (true) {
 	   if (isPubKey()) {
 	      *size = i2d_RSA_PUBKEY(key->pkey.rsa, NULL);
-	      cerr << "Sizeofpubkey: " << *size <<endl;
+	      CERR << "Sizeofpubkey: " << *size <<endl;
 	      openssl_error();
 	      p = (unsigned char *)OPENSSL_malloc(*size);
-	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH - 1);
+	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH + 8);
 	      p1 = p;
+	      memcpy(penc,iv,8); /* store the iv */
 	      i2d_RSA_PUBKEY(key->pkey.rsa, &p1);
-	      EVP_EncryptUpdate( &ctx, penc, &outl, p, *size );
+	      EVP_EncryptUpdate( &ctx, penc + 8, &outl, p, *size );
 	      encsize = outl;
 	      openssl_error();
 	      
 	   }
 	   else {
 	      *size = i2d_RSAPrivateKey(key->pkey.rsa, NULL);
-	      cerr << "Sizeofprivkey: " << *size <<endl;
+	      CERR << "Sizeofprivkey: " << *size <<endl;
 	      openssl_error();
 	      p = (unsigned char *)OPENSSL_malloc(*size);
-	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH - 1);
+	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH + 8);
 	      p1 = p;
+	      memcpy(penc, iv, 8); /* store the iv */
 	      i2d_RSAPrivateKey(key->pkey.rsa, &p1);
-	      EVP_EncryptUpdate( &ctx, penc, &outl, p, *size );
+	      EVP_EncryptUpdate( &ctx, penc + 8, &outl, p, *size ); /* store key right after the iv */
 	      encsize = outl;
 	      openssl_error();
 	   }
 	}
-	EVP_EncryptFinal( &ctx, penc + encsize, &outl );
-	encsize += outl;
+	EVP_EncryptFinal( &ctx, penc + encsize + 8, &outl );
+	encsize += outl ;
 	OPENSSL_free(p);
 	
-	cerr << "KEY toData end ..."<< encsize << "--"<<*size <<endl;
-	*size = encsize;
+	CERR << "KEY toData end ..."<< encsize << "--"<<*size <<endl;
+	*size = encsize + 8;
 	return penc;
 }
 
@@ -189,7 +201,7 @@ void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key){
-		cerr << "writing PKCS8\n";
+		CERR << "writing PKCS8\n";
 		PEM_write_PKCS8PrivateKey_nid(fp, key, 
 		   NID_pbeWithMD5AndDES_CBC, NULL, 0, cb, &p);
 		openssl_error();
@@ -214,7 +226,7 @@ void pki_key::writeKey(const string fname, EVP_CIPHER *enc,
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key){
-		cerr << "writing Private Key\n";
+		CERR << "writing Private Key\n";
 		if (PEM) 
 		   PEM_write_PrivateKey(fp, key, enc, NULL, 0, cb, NULL);
 		else {
@@ -233,7 +245,7 @@ void pki_key::writePublic(const string fname, bool PEM)
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key->type == EVP_PKEY_RSA) {
-		cerr << "writing Public Key\n";
+		CERR << "writing Public Key\n";
 		if (PEM)
 		   PEM_write_RSA_PUBKEY(fp, key->pkey.rsa);
 		else
@@ -295,11 +307,11 @@ bool pki_key::compare(pki_base *ref)
 bool pki_key::isPubKey()
 {
 	if (key == NULL) {
-	   cerr << "key is null" <<endl;
+	   CERR << "key is null" <<endl;
 	   return false;
 	}
 	if (key->pkey.rsa == 0) {
-	   cerr << "key->pkey is null" <<endl;
+	   CERR << "key->pkey is null" <<endl;
 	   return false;
 	}
 	return (key->pkey.rsa->d == NULL);
@@ -316,13 +328,13 @@ int pki_key::verify()
 {
 	bool veri = false;
 	return true;
-	cerr<< "verify start\n";
+	CERR<< "verify start\n";
 	if (key->type == EVP_PKEY_RSA && isPrivKey()) {
 	   if (RSA_check_key(key->pkey.rsa) == 1) veri = true;
 	}
 	if (isPrivKey()) veri = true;
 	openssl_error();
-	cerr<< "verify end: "<< veri << endl;;
+	CERR<< "verify end: "<< veri << endl;;
 	if (veri) return pki_base::VERIFY_OK;
 	else  return pki_base::VERIFY_ERROR;
 }

@@ -274,7 +274,7 @@ void MainWindow::insertCert(pki_x509 *cert)
 	   QMessageBox::information(this,tr("Certificate import"),
 		tr("The certificate already exists in the database as") +":\n'" +
 		QString::fromLatin1(oldcert->getDescription().c_str()) + 
-		"'\n" + tr("und wurde daher nicht importiert"), "OK");
+		"'\n" + tr("and so it was not imported"), "OK");
 	   delete(cert);
 	   return;
 	}
@@ -299,3 +299,35 @@ void MainWindow::writeCert()
 	   opensslError(cert);
 	}
 }
+
+
+void MainWindow::writePKCS12()
+{
+	QStringList filt;
+	filt.append(tr("PKCS#12 bags ( *.p12 *.pfx )")); 
+	filt.append(tr("All Files ( *.* )"));
+	string s;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("PKCS#12 export"));
+	dlg->setFilters(filt);
+	if (dlg->exec())
+		s = dlg->selectedFile().latin1();
+	if (s == "") return;
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (cert) {
+	   pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert,(pki_key *)keys->findPKI(cert->getKey()), &MainWindow::passWrite);
+	   pki_x509 *signer = cert->getSigner();
+	   int cnt =0;
+	   while ((signer != NULL ) && (signer != cert)) {
+		   p12->addCaCert(signer);
+		   CERR << "signer: " << ++cnt << endl;
+		   cert=signer;
+		   signer=signer->getSigner();
+	   }
+	   CERR << "start writing" <<endl;
+	   p12->writePKCS12(s);
+
+	   opensslError(cert);
+	}
+}
+

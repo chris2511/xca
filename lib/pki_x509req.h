@@ -17,6 +17,7 @@ class pki_x509req : public pki_base
 		   const string d, const string challenge);
 	   pki_x509req();
 	   pki_x509req(const string fname);
+	   ~pki_x509req();
 	   virtual bool fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);

@@ -30,6 +30,7 @@
 #include "lib/pki_key.h"
 #include "lib/pki_x509req.h"
 #include "lib/pki_x509.h"
+#include "lib/pki_pkcs12.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"
@@ -94,5 +95,6 @@ class MainWindow: public MainWindow_UI
 	void writeKey();
 	void writeReq();
 	void writeCert();
+	void writePKCS12();
 };
 #endif

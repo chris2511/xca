@@ -61,12 +61,15 @@ bool pki_base::openssl_error()
 }
 
 
-void pki_base::ign_openssl_error()
+bool pki_base::ign_openssl_error()
 {
 	// ignore openssl errors
+	bool ret = false;
 	string errtxt;
 	while (int i = ERR_get_error() ) {
+	   ret = true;
 	   errtxt = ERR_error_string(i ,NULL);
 	   CERR << "IGNORE: OpenSSL: " << errtxt << endl;
 	}
+	return ret;
 }

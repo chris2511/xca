@@ -58,6 +58,13 @@ pki_x509req::pki_x509req() : pki_base()
 }
 
 
+pki_x509req::~pki_x509req()
+{
+	X509_REQ_free(request);
+	openssl_error();
+}
+
+
 pki_x509req::pki_x509req(const string fname)
 {
 	FILE *fp = fopen(fname.c_str(),"r");

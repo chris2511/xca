@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
 #include <openssl/pem.h>
@@ -23,7 +24,7 @@ class pki_key: public pki_base
 	EVP_PKEY *key;
 	string BN2string(BIGNUM *bn);
     public:
-	static char passwd[30];
+	static char passwd[40];
 		
 	/* constructor to generate a key .....
 	 * d     is the description
@@ -63,6 +64,7 @@ class pki_key: public pki_base
 	bool isPubKey();
 	int verify();
 	int getType();
+	EVP_PKEY *getKey(){ return key;}
 };
 
 #endif

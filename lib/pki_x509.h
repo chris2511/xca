@@ -12,14 +12,15 @@ class pki_x509 : public pki_base
 {
 	private:
 	   bool trust;
-	   X509 *cert;
 	   pki_x509 *psigner;
 	   pki_x509 *pkey;
            X509V3_CTX ext_ctx;
+	   X509 *cert;
 	public:
 	   pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509();
 	   pki_x509(const string fname);
+	   ~pki_x509();
 	   virtual bool fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
@@ -38,6 +39,7 @@ class pki_x509 : public pki_base
 	   int checkDate();
 	   void addV3ext(int nid, string exttext);
 	   void sign(pki_key *signkey);
+	   X509 *getCert(){ return cert;}
 };
 
 #endif

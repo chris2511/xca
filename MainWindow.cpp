@@ -128,6 +128,7 @@ void MainWindow::incProgress(int a, int b, void *progress)
 
 string MainWindow::md5passwd()
 {
+
 	EVP_MD_CTX mdctx;
 	string str;
 	unsigned int n;
