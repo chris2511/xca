@@ -166,6 +166,7 @@ void MainWindow::writeReq()
 	s=QDir::convertSeparators(s);
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (opensslError(req)) return;
+
 	req->writeReq(s.latin1(),true);
 	if (opensslError(req)) return;
 }
