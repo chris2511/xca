@@ -46,6 +46,9 @@ Section "xca (required)"
   File "c:\devel\db-4.0.14\build_win32\Release\libdb40d.dll"
   File "c:\devel\openssl-0.9.6g\out32dll\Release\SSLeay32.dll"
   File "c:\devel\openssl-0.9.6g\out32dll\Release\libeay32.dll"
+  File "e:\win\qt2\bin\msvcrt.dll"
+  File "e:\win\qt2\bin\qt-mt230nc.dll"
+  
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
