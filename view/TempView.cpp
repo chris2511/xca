@@ -89,6 +89,9 @@ void TempView::newItem(int type)
 	if (alterTemp(temp)) {
 		insert(temp);
 	}
+	else {
+		delete temp;
+	}
 }
 
 void TempView::alterTemp()
@@ -142,6 +145,14 @@ void TempView::load()
 pki_base *TempView::loadItem(QString fname)
 {   
 	pki_temp *temp = new pki_temp(fname);
+	try {
+		temp->loadTemp(fname);
+	}
+    catch (errorEx &err) {
+        Error(err);
+		delete temp;
+        return NULL;
+    }
 	return temp;
 }
 
@@ -184,6 +195,7 @@ void TempView::store()
 
 pki_base *TempView::insert(pki_base *temp)
 {
+	if(! temp) return NULL;
 	MainWindow::temps->insertPKI(temp);
 	updateView();
 	return temp;
@@ -211,11 +223,11 @@ void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
 		subMenu->insertItem(tr("CA"), this, SLOT(newCaTemp()));
 		subMenu->insertItem(tr("Client"), this, SLOT(newClientTemp()));
 		subMenu->insertItem(tr("Server"), this, SLOT(newServerTemp()));
+		menu->insertItem(tr("Import"), this, SLOT(load()));
 		
 	}
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
-		menu->insertItem(tr("Import"), this, SLOT(load()));
 		menu->insertItem(tr("Export"), this, SLOT(store()));
 		menu->insertItem(tr("Change"), this, SLOT(alterTemp()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));

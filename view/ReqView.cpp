@@ -156,7 +156,7 @@ void ReqView::load()
 pki_base *ReqView::loadItem(QString fname)
 {
 	pki_base *req = new pki_x509req(fname);
-        return req;
+	return req;
 }
 
 
