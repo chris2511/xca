@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>568</width>
+            <width>564</width>
             <height>405</height>
         </rect>
     </property>
@@ -760,7 +760,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Province</string>
+                        <string>Locality</string>
                     </property>
                 </widget>
                 <widget row="0"  column="0" >
