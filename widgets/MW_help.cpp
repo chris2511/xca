@@ -63,7 +63,7 @@
 
 void MainWindow::cmd_help(const char* msg) {
 
-printf(" -v show version information and exit\n"
+cerr << " -v show version information and exit\n"
 " -k expect all following non-option arguments to be RSA keys\n"
 " -r expect all following non-option arguments to be\n"
 "    Certificate signing requests or SPKAC requests\n"
@@ -72,7 +72,10 @@ printf(" -v show version information and exit\n"
 " -7 expect all following non-option arguments to be PKCS#7 files\n"
 " -l expect all following non-option arguments to be Revokation lists\n"
 " -t expect all following non-option arguments to be XCA templates\n"
-" -x Exit after processing all commandline options");
+" -d expect the following argument to be the database name to use\n"
+" -b expect the following argument to be the basedirectory for oids\n"
+"    and database logs\n"
+" -x Exit after processing all commandline options\n\n";
 
 qFatal("Cmdline Error (%s)\n", msg);
 }

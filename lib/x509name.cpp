@@ -204,14 +204,14 @@ void x509name::addEntryByNid(int nid, const QString entry)
 	bool need_uc=false;
 
 	for (unsigned i=0;i<entry.length();i++)
-		if(entry[i].unicode()>127) { need_uc=true; break; }
+		if(entry.at(i).unicode()>127) { need_uc=true; break; }
 
 	if (need_uc) {
 		unsigned char *data = (unsigned char *)OPENSSL_malloc(entry.length()*2);
 
 		for (unsigned i=0;i<entry.length();i++) {
-			data[2*i] = entry[i].unicode() >> 8;
-			data[2*i+1] = entry[i].unicode() & 0xff;
+			data[2*i] = entry.at(i).unicode() >> 8;
+			data[2*i+1] = entry.at(i).unicode() & 0xff;
 		}
 
 		X509_NAME_add_entry_by_NID(xn, nid, V_ASN1_BMPSTRING,

@@ -232,7 +232,7 @@ void MainWindow::init_images()
 	
 void MainWindow::read_cmdline()
 {
-	int cnt = 1, opt, type=1;
+	int cnt = 1, opt, type;
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;
@@ -245,7 +245,7 @@ void MainWindow::read_cmdline()
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
 			if (lb) delete lb;
-			opt = 1; lb = NULL;
+			opt = 1; lb = NULL, type=1;
 			switch (arg[1]) {
 				case 'c' : lb = new load_cert(); break;
 				case 'r' : lb = new load_req(); break;
@@ -256,7 +256,8 @@ void MainWindow::read_cmdline()
 				case 't' : lb = new load_temp(); break;
 				case 'd' : type = 1; break;
 				case 'b' : type = 2; break;
-				case 'v' : printf("%s Version %s\n", XCA_TITLE, VER); opt=0; break;
+				case 'v' : cerr << XCA_TITLE " Version " << VER << endl; 
+						   opt=0; exitApp=1; break;
 				case 'x' : exitApp = 1; opt=0; break;
 				default  : cmd_help(tr("no such option: ") + arg );
 			}

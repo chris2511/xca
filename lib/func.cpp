@@ -1,5 +1,5 @@
 /* vi: set sw=4 ts=4: */
-#/*
+/*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
  *  All rights reserved.
@@ -56,6 +56,7 @@
 
 #ifdef WIN32
 #include <windows.h>
+#include <shlobj.h>
 #endif
 
 QPixmap *loadImg(const char *name )
@@ -136,14 +137,14 @@ QString getBaseDir()
     if(lRc!= ERROR_SUCCESS){
 		QMessageBox::warning(NULL, XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found. ReInstall Xca.");
-		qFatal("");
+		qFatal("Reinstall Xca");
 	}
     else {
 		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
         if(lRc!= ERROR_SUCCESS){
 			QMessageBox::warning(NULL, XCA_TITLE,
 				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
-			qFatal("");
+			qFatal("Reinstall Xca");
 		}
 		lRc=RegCloseKey(hKey);
 	}
@@ -180,14 +181,14 @@ QString getBaseDir()
 		// save in registry
 		lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
 		lRc=RegCloseKey(hKey);
-		QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("New data dir create:")+ baseDir);
-		QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("WARNING: If you have updated your 'xca' application \n you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to ") + baseDir + QString::fromLatin1(" \n or change HKEY_CURRENT_USER->Software->xca->data_path key"));
+		QMessageBox::warning(NULL,XCA_TITLE, QString::fromLatin1("New data dir create:")+ baseDir);
+		QMessageBox::warning(NULL,XCA_TITLE, QString::fromLatin1("WARNING: If you have updated your 'xca' application \n you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to ") + baseDir + QString::fromLatin1(" \n or change HKEY_CURRENT_USER->Software->xca->data_path key"));
         }
 	else{
 		dwLength = sizeof(data_path_buf);
 		lRc=RegQueryValueEx(hKey,"data_path",NULL,NULL, (BYTE*)data_path_buf, &dwLength);
 		if ((lRc != ERROR_SUCCESS)) {
-			QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
+			QMessageBox::warning(NULL,XCA_TITLE, "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
 			//recreate data dir for current user
 			OSVERSIONINFOEX osvi;
 			BOOL bOsVersionInfoEx;
@@ -213,7 +214,7 @@ QString getBaseDir()
 			// save in registry
 			lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
 			lRc=RegCloseKey(hKey);
-			QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("data dir:")+ baseDir);
+			QMessageBox::warning(NULL,XCA_TITLE, QString::fromLatin1("data dir:")+ baseDir);
 		}
 
 		lRc=RegCloseKey(hKey);

@@ -10,7 +10,7 @@
 #endif
 
 #ifdef WIN32
-#include <WINDOWS.H>
+#include <windows.h>
 #endif  
 
 #define XCA_TITLE "X Certifikate and Key management"
