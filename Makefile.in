@@ -44,8 +44,8 @@ re: clean all
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
 	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h \
-	      NewX509_0_UI.h CertDetail_UI.h NewX509_1_UI.h NewX509.h \
-	      NewX509_2_UI.h NewX509_3_UI.h Rename_UI.h TrustState_UI.h
+	      CertDetail_UI.h NewX509.h  NewX509_UI.h\
+	      Rename_UI.h TrustState_UI.h
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
@@ -53,23 +53,10 @@ MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 %_MOC.cpp: %.h
 	$(MOC) $< -o $@
 
-NewX509_%.mui:	NewX509_%.ui
-	cat $< | sed s/QDialog/NewX509/ > $@
-
-%.mui:	%.ui
-	cp $< $@
-
-NewX509_%_UI.h: NewX509_%.mui NewX509.h
-	echo '#include "NewX509.h"' > $@
-	$(UIC) $< >> $@
-#	 
-#NewX509_%_UI.cpp: NewX509_%_UI.h NewX509_%.mui
-#	$(UIC) -o $@ -subimpl NewX509 $^
-
-%_UI.h: %.mui
+%_UI.h: %.ui
 	$(UIC) -o $@ $<
 	 
-%_UI.cpp: %_UI.h %.mui
+%_UI.cpp: %_UI.h %.ui
 	$(UIC) -o $@ -impl $^
 
 xca: $(OBJS) lib/libxcadb.a lib/libpki.a

@@ -60,15 +60,7 @@ void MainWindow::newCert()
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
 	int i, retval;
-	NewX509 *dlg = new NewX509(this, NULL, true, 0);
-/*	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL);
-	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL);
-	NewX509_3_UI *dlg4 = new NewX509_3_UI(this, NULL);
-	NewX509 *dlg[4] = {dlg1, dlg2, dlg3, dlg4};
-	
-	CERR <<" Everything created" << endl;
-	// preset dlg 2 selection of signer
-*/
+	NewX509 *dlg = new NewX509(this, NULL, keys, reqs);
 	QStringList strlist = certs->getSignerDesc();
 	if (strlist.isEmpty()) {
 		dlg->foreignSignRB->setDisabled(true);

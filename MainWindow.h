@@ -58,10 +58,7 @@
 #include "NewKey_UI.h"
 #include "NewX509Req_UI.h"
 #include "NewX509.h"
-#include "NewX509_0.h"
-#include "NewX509_1_UI.h"
-#include "NewX509_2_UI.h"
-#include "NewX509_3_UI.h"
+#include "NewX509_UI.h"
 #include "Rename_UI.h"
 #include "TrustState_UI.h"
 #include "ExportKey.h"
@@ -72,6 +69,7 @@
 #include <qlineedit.h>
 #include <qpopupmenu.h>
 #include <qcombobox.h>
+#include <qradiobutton.h>
 #include <qlistview.h>
 #include <qlistbox.h>
 #include <qobjectlist.h>

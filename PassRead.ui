@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>487</width>
+            <width>484</width>
             <height>184</height>
         </rect>
     </property>
@@ -32,7 +32,7 @@
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout6</cstring>
+                <cstring>Layout16</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -65,7 +65,7 @@
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstring>Spacer6</cstring>
+                        <cstring>Spacer4</cstring>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -233,4 +233,38 @@
                         <name>name</name>
                         <cstring>PushButton2</cstring>
                     </property>
-            
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Cancel</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>PassRead_UI</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>PassRead_UI</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>pass</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PassRead_UI</receiver>
+        <slot>accept()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>pass</tabstop>
+    <tabstop>PushButton1</tabstop>
+    <tabstop>PushButton2</tabstop>
+</tabstops>
+</UI>

@@ -1,10 +1,10 @@
 <!DOCTYPE UI><UI>
-<class>Form1</class>
+<class>NewX509_UI</class>
 <widget>
     <class>QWizard</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>Form1</cstring>
+        <cstring>NewX509_UI</cstring>
     </property>
     <property stdset="1">
         <name>geometry</name>
@@ -14,6 +14,11 @@
             <width>652</width>
             <height>430</height>
         </rect>
+    </property>
+    <property stdset="1">
+        <name>font</name>
+        <font>
+        </font>
     </property>
     <property stdset="1">
         <name>caption</name>
@@ -399,7 +404,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         </property>
         <attribute>
             <name>title</name>
-            <string>Page</string>
+            <string>New Certificate </string>
         </attribute>
         <grid>
             <property stdset="1">
