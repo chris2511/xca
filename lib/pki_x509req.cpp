@@ -57,7 +57,7 @@
 #include "exception.h"
 #include <openssl/bio.h>
 #include <openssl/err.h>
-#include <string.h>
+#include <qdir.h>
 
 QPixmap *pki_x509req::icon[3] = { NULL, NULL, NULL };
 
@@ -178,6 +178,11 @@ unsigned char *pki_x509req::toData(int *size)
 	}
 	openssl_error();
 	return p;
+}
+void pki_x509req::writeDefault(const QString fname)
+{
+	printf ("Write req: %s\n", fname + QDir::separator() + getIntName() + ".req");
+	writeReq(fname + QDir::separator() + getIntName() + ".req", true);
 }
 
 void pki_x509req::writeReq(const QString fname, bool PEM)

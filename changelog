@@ -1,3 +1,4 @@
+  * add DB-dump function into subdirs
   * Support for DSA keys
   * Fix error in template changing
   * change storage-format of keys: store the public unencrypted

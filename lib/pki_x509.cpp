@@ -54,6 +54,7 @@
 #include "pki_x509.h"
 #include "func.h"
 #include "base.h"
+#include <qdir.h>
 
 QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
 
@@ -399,6 +400,11 @@ unsigned char *pki_x509::toData(int *size)
 	}
 	openssl_error();
 	return p;
+}
+
+void pki_x509::writeDefault(const QString fname)
+{
+	writeCert(fname + QDir::separator() + getIntName() + ".crt", true, false);
 }
 
 void pki_x509::writeCert(const QString fname, bool PEM, bool append)

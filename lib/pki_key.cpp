@@ -56,6 +56,7 @@
 #include <openssl/rand.h>
 #include <qprogressdialog.h>
 #include <qapplication.h>
+#include <qdir.h>
 #include <widgets/MainWindow.h>
 
 char pki_key::passwd[40]={0,};
@@ -474,6 +475,18 @@ void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
 	fclose(fp);
 }
 
+static int mycb(char *buf, int size, int rwflag, void *userdata)
+{
+	strncpy(buf, pki_key::passwd, size);
+	return strnlen(pki_key::passwd, size);
+}
+
+void pki_key::writeDefault(const QString fname)
+{
+	writeKey(fname + QDir::separator() + getIntName() + ".pem",
+			EVP_des_ede3_cbc(), mycb, true);
+}
+
 void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
@@ -499,7 +512,6 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 	else fopen_error(fname);
 	fclose(fp);
 }
-
 
 void pki_key::writePublic(const QString fname, bool PEM)
 {

@@ -61,6 +61,7 @@ void MainWindow::init_menu()
 	file->insertItem(tr("&Open default DataBase"),  this, SLOT(load_def_database()), CTRL+Key_O );
 	file->insertItem(tr("Open &DataBase"),  this, SLOT(load_database()), CTRL+Key_L );
 	file->insertItem(tr("&Close DataBase"), this, SLOT(close_database()), CTRL+Key_C );
+	file->insertItem(tr("&Dump DataBase"), this, SLOT(dump_database()), CTRL+Key_C );
 	file->insertSeparator();
 	file->insertItem(tr("E&xit"),  qApp, SLOT(quit()), ALT+Key_F4 );
 

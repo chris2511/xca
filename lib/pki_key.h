@@ -51,7 +51,6 @@
 #ifndef PKI_KEY_H
 #define PKI_KEY_H
 
-#include <iostream>
 #include <qstring.h>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
@@ -93,6 +92,7 @@ class pki_key: public pki_base
 	QString getIntNameWithType();
 	static QString removeTypeFromIntName(QString n);
 	void fload(const QString fname);
+	void writeDefault(const QString fname);
 	void fromData(const unsigned char *p, int size);
 	void oldFromData(const unsigned char *p, int size);
 	unsigned char *toData(int *size);

@@ -77,6 +77,7 @@ class pki_temp: public pki_base
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d, int atype=0);
 		void loadTemp(const QString fname);
+		void writeDefault(const QString fname);
 		/* destructor */
 		~pki_temp();
 		void fromData(const unsigned char *p, int size);

@@ -118,6 +118,7 @@ class MainWindow: public MainWindow_UI
 	void load_database();
 	void load_def_database();
 	void close_database();
+	void dump_database();
 	void connNewX509(NewX509 *nx);
 	void changeView();
 	void about();

@@ -68,6 +68,10 @@ void pki_base::fload(const QString fname)
 {
 }
 
+void pki_base::writeDefault(const QString fname)
+{
+}
+
 pki_base::~pki_base(void)
 {
 	pki_counter--;

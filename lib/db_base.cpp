@@ -54,12 +54,21 @@
 #include "exception.h"
 #include "view/XcaListView.h"
 #include <qmessagebox.h>
+#include <qdir.h>
 #ifdef qt4
 #include <q3listview.h>
 #else
 #include <qlistview.h>
 #endif
 #include <qdir.h>
+#ifdef WIN32
+#include <direct.h>     // to define mkdir function
+#include <windows.h>    // to define mkdir function
+#else
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#endif
 
 
 db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
@@ -68,6 +77,10 @@ db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
 	listview = lvi;
 	dbenv = dbe;
 	data = new Db(dbe, 0);
+	dbName = DB;
+
+	printf("dbName = %s\n", dbName.latin1());
+
 	try {
 #if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
 		data->open(NULL, DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
@@ -465,5 +478,21 @@ void db_base::writeAll(DbTxn *tid)
 	}
 	if (tidwasnull)
 		tid->commit(0);
+}
+
+void db_base::dump(QString dirname)
+{
+	pki_base *pki;
+	printf("1Dump in %s\n", dbName.latin1());
+	dirname += QDir::separator() + dbName;	
+	printf("2Dump in %s\n", dirname.latin1());
+	QDir d(dirname);
+	if ( ! d.exists() && !d.mkdir(dirname)) {
+		throw errorEx("Could not create directory '" + dirname + "'");
+	}
+
+	for ( pki = container.first(); pki != 0; pki = container.next() ){
+		pki->writeDefault(dirname);	
+	}
 }
 

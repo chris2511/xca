@@ -52,6 +52,7 @@
 
 #include "pki_crl.h"
 #include "widgets/MainWindow.h"
+#include <qdir.h>
 
 QPixmap *pki_crl::icon = NULL;
 
@@ -188,6 +189,10 @@ void pki_crl::sign(pki_key *key, const EVP_MD *md)
 	openssl_error();
 }
 
+void pki_crl::writeDefault(const QString fname)
+{
+	writeCrl(fname + QDir::separator() + getIntName() + ".crl", true);
+}
 
 void pki_crl::writeCrl(const QString fname, bool pem)
 {

@@ -46,7 +46,7 @@ target.obj: $(OBJS)
 
 # delete the crap
 clean:
-	rm -f *~ *.o *.obj $(DELFILES)
+	rm -f *~ *.o *.obj $(DELFILES) .depend
 
 distclean: clean
 	rm -f -r .depend

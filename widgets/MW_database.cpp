@@ -56,7 +56,7 @@
 #include "view/CertView.h"
 #include "view/CrlView.h"
 #include "view/TempView.h"
-
+#include <qdir.h>
 
 void MainWindow::init_database() {
 	
@@ -132,6 +132,41 @@ void MainWindow::init_database() {
 	
 }		
 
+void MainWindow::dump_database()
+{
+	QString dirname;
+	
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("Dump to directory"));
+	dlg->setMode(QFileDialog::AnyFile);
+	if (dlg->exec()) {
+		dirname = dlg->selectedFile();
+	}
+	delete dlg;
+	
+	if (dirname.isEmpty())
+		return;
+	
+	QDir d(dirname);
+	if ( ! d.exists() && !d.mkdir(dirname)) {
+		errorEx err("Could not create '" + dirname + "'");
+		Error(err);
+		return;
+	}
+
+	try {
+		keys->dump(dirname);
+		certs->dump(dirname);
+		temps->dump(dirname);
+		crls->dump(dirname);
+		reqs->dump(dirname);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+}
+	
+				 
 void MainWindow::close_database()
 {
 	if (!dbenv) return;

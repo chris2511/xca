@@ -3,6 +3,10 @@
 #
 #####################################################################
 
+ifeq ($(TOPDIR),)
+TOPDIR=..
+endif
+
 UINAMES=$(patsubst %.ui, %, $(wildcard *.ui))
 OBJS=$(patsubst %, moc_%.o, $(UINAMES)) $(patsubst %, %.o, $(UINAMES))
 

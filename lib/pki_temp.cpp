@@ -52,6 +52,7 @@
 
 #include "pki_temp.h"
 #include "func.h"
+#include <qdir.h>
 
 QPixmap *pki_temp::icon=  NULL;
 
@@ -261,6 +262,11 @@ unsigned char *pki_temp::toData(int *size)
 	stringToData(&p1, certPol);
 	boolToData(&p1, validMidn);
 	return p;
+}
+
+void pki_temp::writeDefault(const QString fname)
+{
+	writeTemp(fname + QDir::separator() + getIntName() + ".xca");
 }
 
 void pki_temp::writeTemp(QString fname)

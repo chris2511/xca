@@ -56,7 +56,6 @@
 #include <qtextbrowser.h>
 #include <qpixmap.h>
 #include <qlabel.h>
-#include <iostream.h>
 #include "ui/About.h"
 #include "ui/Help.h"
 #include "lib/func.h"
