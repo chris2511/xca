@@ -1113,6 +1113,11 @@ void CertView::importKey(pki_key *key)
 	emit importKeyS(key);
 }
 
+void CertView::importCert(pki_x509 *cert)
+{
+	insert(cert);
+}
+
 void CertView::showKey(pki_key *key)
 {
 	KeyDetail *dlg = NULL;
