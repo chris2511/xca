@@ -12,7 +12,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
-	./configure --prefix=/usr --disable-debug
+	prefix=/usr ./configure
 
 	touch configure-stamp
 
@@ -43,7 +43,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/xca.
-	$(MAKE) destdir=$(CURDIR)/debian/xca prefix=/usr install
+	$(MAKE) destdir=$(CURDIR)/debian/xca install
 
 # Build architecture-independent files here.
 binary-indep: build install

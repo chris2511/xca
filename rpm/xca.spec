@@ -22,7 +22,7 @@ like PKCS#7, PKCS#12, PEM, DER, PKCS#8.
 %setup
 
 %build
-./configure --prefix=/usr --disable-debug
+prefix=/usr ./configure
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
