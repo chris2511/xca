@@ -96,11 +96,10 @@ void MainWindow::newCert(NewX509 *dlg)
 	QListBoxItem *item;
 	
 
-	
+    try {	
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
 	    clientkey = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
-	    if (opensslError(clientkey)) goto err;
 	    string cn = dlg->commonName->text().latin1();
 	    string c = dlg->countryName->text().latin1();
 	    string l = dlg->localityName->text().latin1();
@@ -109,23 +108,19 @@ void MainWindow::newCert(NewX509 *dlg)
 	    string ou = dlg->organisationalUnitName->text().latin1();
 	    string email = dlg->emailAddress->text().latin1();
 	    string desc = dlg->description->text().latin1();
-	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
 	    tempReq = true;
-	    if (opensslError(req)) goto err;
+	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
 	}
 	else {
 	    // A PKCS#10 Request was selected 
 	    req = (pki_x509req *)reqs->getSelectedPKI(dlg->reqList->currentText().latin1());
-	    if (opensslError(req)) goto err;
 	    //clientkey = req->getKey();
 	}
 		
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg->certList->currentText().latin1());
-		if (opensslError(signcert)) goto err;
 		signkey = signcert->getKey();
-		if (opensslError(signkey)) goto err;
 		// search for serial in database
 		
 	}
@@ -154,13 +149,12 @@ void MainWindow::newCert(NewX509 *dlg)
 	// initially create cert 
 	cert = new pki_x509(req->getDescription(), clientkey, req, signcert, x, serial);
 	if (!signcert) signcert=cert;	
-	if (opensslError(cert)) goto err;
 	if (cert->resetTimes(signcert) > 0) {
-		QMessageBox::information(this,tr(XCA_TITLE),
-			tr("The validity times for the certificate were adjusted to not exceed those of the signer"),
-			tr("Ok")
-		);
-		
+		if (QMessageBox::information(this,tr(XCA_TITLE),
+			tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
+			tr("Continue creation"), tr("Abort")
+		))
+			throw errorEx("");
 	}
 			
 	// handle extensions
@@ -227,7 +221,7 @@ void MainWindow::newCert(NewX509 *dlg)
 			   tr("You requested to copy the subject E-Mail address but it is empty !"),
 			   tr("Continue creation"), tr("Abort")
 			))
-				goto err;
+				throw errorEx("");	
 		}
 		else {
 			subAltName = "email:copy";
@@ -250,7 +244,7 @@ void MainWindow::newCert(NewX509 *dlg)
 			   tr("You requested to copy the issuer alternative name but it is empty !"),
 			   tr("Continue creation"), tr("Abort")
 			))
-				goto err;
+				throw errorEx("");	
 		}
 		else {
 			issAltName = "issuer:copy";
@@ -264,7 +258,6 @@ void MainWindow::newCert(NewX509 *dlg)
 		cert->addV3ext(NID_issuer_alt_name, issAltName);
 	}
 		
-	if (opensslError(cert)) goto err;
 	// Step 5
 	// Nestcape extensions 
 	for (i=0; (item = dlg->nsCertType->item(i)); i++) {	
@@ -283,7 +276,6 @@ void MainWindow::newCert(NewX509 *dlg)
 	
 	// and finally sign the request 
 	cert->sign(signkey);
-	if (opensslError(cert)) goto err;
 	CERR( "SIGNED");
 	insertCert(cert);
 	CERR("inserted");
@@ -291,11 +283,10 @@ void MainWindow::newCert(NewX509 *dlg)
 	CERR("Dialog deleted" );
 	keys->updateView();
 	return;
-err:	
-	if (cert) delete(cert);
-	if (tempReq && req) delete(req);
-	return;
-
+    }
+    catch (errorEx &err) {
+	Error(err);
+    }
 	
 }
 void MainWindow::addStr(string &str, const  char *add)
@@ -325,6 +316,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 {
 	if (!cert) return false;
 	if (opensslError(cert)) return false;
+    try {
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->image->setPixmap(*certImg);
 	dlg->descr->setText(cert->getDescription().c_str());
@@ -416,23 +408,30 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 		dlg->but_ok->setText(tr("Import"));
 		dlg->but_cancel->setText(tr("Discard"));
 	}
-	 
 
 	// show it to the user...	
-	if ( !dlg->exec()) return false;
-	string ndesc = dlg->descr->text().latin1();
-	if (ndesc != cert->getDescription()) {
-		certs->renamePKI(cert, ndesc);
+	if (dlg->exec()) {
+		string ndesc = dlg->descr->text().latin1();
+		if (ndesc != cert->getDescription()) {
+			certs->renamePKI(cert, ndesc);
+		}
+		delete dlg;
+		return true;
 	}
-	if (opensslError(cert)) return false;
-	return true;
+	delete dlg;
+	return false;
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
+    return false;
 }
 
 void MainWindow::deleteCert()
 {
+    try {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
-	if (opensslError(cert)) return;
 	if (cert->getSigner() && cert->getSigner() != cert && cert->getSigner()->canSign()) {
 		QMessageBox::information(this,tr(XCA_TITLE),
 			tr("It is actually not a good idea to delete a cert that was signed by you") +":\n'" + 
@@ -445,8 +444,13 @@ void MainWindow::deleteCert()
 			QString::fromLatin1(cert->getDescription().c_str()) + "'\n" ,
 			tr("Delete"), tr("Cancel") )
 	) return;
+	pki_key *pkey = cert->getKey();
 	certs->deletePKI(cert);
-	keys->updateView();
+	if (pkey) keys->updateViewPKI(pkey);
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
 }
 
 void MainWindow::loadCert()
@@ -465,10 +469,15 @@ void MainWindow::loadCert()
 	delete dlg;
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
-	pki_x509 *cert = new pki_x509(s.latin1());
-	if (opensslError(cert)) return;
-	insertCert(cert);
-	keys->updateView();
+	try {
+		pki_x509 *cert = new pki_x509(s.latin1());
+		insertCert(cert);
+		keys->updateViewPKI(cert->getKey());
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+		
 }
 
 void MainWindow::loadPKCS12()
@@ -488,25 +497,22 @@ void MainWindow::loadPKCS12()
 	delete dlg;
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
-	pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
-	if (opensslError(pk12)) {
-		CERR( "PKCS12error, deleting..." );
-		if (pk12) delete pk12;
-		return;
-	}
-	akey = pk12->getKey();
-	acert = pk12->getCert();
-	opensslError(akey);
-	opensslError(acert);
-	opensslError(pk12);
-	insertKey(akey);
-	insertCert(acert);
-	for (int i=0; i<pk12->numCa(); i++) {
-		acert = pk12->getCa(i);
+	try {
+		pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
+		akey = pk12->getKey();
+		acert = pk12->getCert();
+		insertKey(akey);
 		insertCert(acert);
+		for (int i=0; i<pk12->numCa(); i++) {
+			acert = pk12->getCa(i);
+			insertCert(acert);
+		}
+		delete pk12;
+		keys->updateView();
 	}
-	delete pk12;
-	keys->updateView();
+	catch (errorEx &err) {
+		Error(err);
+	}
 
 /* insert with asking.....	
 	if (showDetailsKey(akey, true)) {
@@ -535,6 +541,7 @@ void MainWindow::loadPKCS12()
 	
 void MainWindow::insertCert(pki_x509 *cert)
 {
+    try {
 	pki_x509 *oldcert = (pki_x509 *)certs->findPKI(cert);
 	if (oldcert) {
 	   QMessageBox::information(this,tr(XCA_TITLE),
@@ -546,6 +553,10 @@ void MainWindow::insertCert(pki_x509 *cert)
 	}
 	CERR( "insertCert: inserting" );
 	certs->insertPKI(cert);
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
 }
 
 void MainWindow::writeCert()
@@ -566,14 +577,19 @@ void MainWindow::writeCert()
 	delete dlg;
 	if (s.isEmpty()) return;
 	s = QDir::convertSeparators(s);
-	cert->writeCert(s.latin1(),true);
-	opensslError(cert);
+	try {
+		cert->writeCert(s.latin1(),true);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 
 void MainWindow::writePKCS12()
 {
 	QStringList filt;
+    try {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	pki_key *privkey = cert->getKey();
@@ -608,8 +624,11 @@ void MainWindow::writePKCS12()
 	}
 	CERR("start writing" );
 	p12->writePKCS12(s.latin1());
-	opensslError(cert);
 	delete p12;
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
 }
 
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
@@ -665,9 +684,14 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 void MainWindow::renameCert(QListViewItem *item, int col, const QString &text)
 {
 	if (col != 0) return;
-	pki_base *pki = certs->getSelectedPKI(item);
-	string txt =  text.latin1();
-	certs->renamePKI(pki, txt);
+	try {
+		pki_base *pki = certs->getSelectedPKI(item);
+		string txt =  text.latin1();
+		certs->renamePKI(pki, txt);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 void MainWindow::setTrust()
@@ -790,35 +814,38 @@ void MainWindow::genCrl()
 	delete dlg;
 	if (s.isEmpty()) return;
 	s = QDir::convertSeparators(s);
-	
-	pki_crl *crl = new pki_crl(cert->getDescription(), cert);
-	if (opensslError(crl)) {
-		delete(crl);
-		return;
-	}
-	certs->assignClients(crl);
-	crl->addV3ext(NID_authority_key_identifier,"keyid,issuer");
-	//crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
-	crl->sign(cert->getKey());
-	if (!opensslError(crl)) {
+	try {	
+		pki_crl *crl = new pki_crl(cert->getDescription(), cert);
+		certs->assignClients(crl);
+		crl->addV3ext(NID_authority_key_identifier,"keyid,issuer");
+		//crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
+		crl->sign(cert->getKey());
 		crl->writeCrl(s.latin1());
 		cert->setLastCrl(crl->getDate());
 		certs->updatePKI(cert);
 		CERR( "CRL done, completely");
+		delete(crl);
+	 	CERR("crl deleted");
 	}
-	delete(crl);
- 	CERR("crl deleted");
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 
 void MainWindow::startRenameCert()
 {
+	try {
 #ifdef qt3
-	pki_base *pki = certs->getSelectedPKI();
-	if (!pki) return;
-	QListViewItem *item = (QListViewItem *)pki->getPointer();
-	item->startRename(0);
+		pki_base *pki = certs->getSelectedPKI();
+		if (!pki) return;
+		QListViewItem *item = (QListViewItem *)pki->getPointer();
+		item->startRename(0);
 #else
-	renamePKI(certs);
+		renamePKI(certs);
 #endif
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }

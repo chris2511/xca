@@ -277,6 +277,10 @@ bool MainWindow::opensslError(pki_base *pki)
 	
 void MainWindow::Error(errorEx &err)
 {
+	if (err.isEmpty()) {
+		CERR("Empty error Exception silently ignored");
+		return;
+	}
 	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +
 			QString::fromLatin1(err.getCString()));
 }

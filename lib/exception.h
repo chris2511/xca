@@ -66,11 +66,15 @@ class errorEx
 	private:
 		string msg;
 	public:
-		errorEx(string txt, string className) {
-			msg = txt + " (" + className + ")";
+		errorEx(string txt, string className = "") {
+			msg = txt; 
+			if (!className.empty())
+				msg += " (" + className + ")";
 		}
+		errorEx(const errorEx &e) { msg = e.msg; }
 		string getString(){return msg;}
 		const char *getCString(){return msg.c_str();}
+		bool isEmpty() { return msg.empty();}
 };
 
 #endif

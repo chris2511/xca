@@ -213,8 +213,11 @@ void MainWindow::loadKey()
 
 void MainWindow::insertKey(pki_key *lkey)
 {
+	
 	pki_key *oldkey;
-	if ((oldkey = (pki_key *)keys->findPKI(lkey))!= 0) {
+	try {
+	    oldkey = (pki_key *)keys->findPKI(lkey);
+	    if (oldkey != NULL) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) ||
 		    lkey->isPubKey()){
 	   	    QMessageBox::information(this,tr(XCA_TITLE),
@@ -234,12 +237,17 @@ void MainWindow::insertKey(pki_key *lkey)
 		    lkey->setDescription(oldkey->getDescription());
 		    delete(oldkey);
 		}
+	    }
+	    CERR( "after findkey");
+	    if (!keys->insertPKI(lkey)) {
+		QMessageBox::warning(this,tr(XCA_TITLE),
+		  tr("The key could not be stored into the database"), "OK");
+	    }
 	}
-	CERR( "after findkey");
-	if (!keys->insertPKI(lkey))
-	   QMessageBox::warning(this,tr(XCA_TITLE),
-		tr("The key could not be stored into the database"), "OK");
-	
+	catch (errorEx &err) {
+		Error(err);
+	}
+
 }
 
 
@@ -303,19 +311,32 @@ void MainWindow::showPopupKey(QListViewItem *item, const QPoint &pt, int x) {
 
 void MainWindow::renameKey(QListViewItem *item, int col, const QString &text)
 {
-	pki_base *pki = keys->getSelectedPKI(item);
-	string txt =  text.latin1();
-	keys->renamePKI(pki, txt);
+	try {
+		pki_base *pki = keys->getSelectedPKI(item);
+		string txt =  text.latin1();
+		keys->renamePKI(pki, txt);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 void MainWindow::startRenameKey()
 {
+	try {
 #ifdef qt3
-	pki_base *pki = keys->getSelectedPKI();
-	if (!pki) return;
-	QListViewItem *item = (QListViewItem *)pki->getPointer();
-	item->startRename(0);
+		pki_base *pki = keys->getSelectedPKI();
+		if (!pki) return;
+		QListViewItem *item = (QListViewItem *)pki->getPointer();
+		item->startRename(0);
 #else
-	renamePKI(keys);
+		renamePKI(keys);
 #endif
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
+
+
+

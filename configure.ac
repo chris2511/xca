@@ -26,7 +26,9 @@ AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break]
 if test "$H_DB" == no; then
 	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca for a workaround)])
 fi
-AC_CHECK_HEADERS([qaccessible.h])
+QT_VER="2"
+AC_CHECK_HEADERS([qaccessible.h],[QT_VER="3"])
+
 AC_LANG(C)
 
 # Checks for libraries.
@@ -41,6 +43,10 @@ if test "$LDB" == Xyyy; then
 fi
 LQT=y
 AC_CHECK_LIB([qt], [atexit], ,[LQT=no])
+if test "$LQT" == "no"; then
+        LQT=y
+        AC_CHECK_LIB([qt${QT_VER}], [atexit], ,[LQT=no])
+fi
 
 AC_PATH_PROG(MOC,moc,[moc],[$PATH],,[LQT=no])
 AC_PATH_PROG(UIC,uic,[uic],[$PATH],,[LQT=no])
