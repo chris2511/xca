@@ -95,11 +95,17 @@ int NewX509::dn_nid[DISTNAME_CNT] = {
   NID_name,
   NID_givenName,
   NID_initials,
+  NID_dnQualifier,
+  NID_role,
+#if OPENSSL_VERSION_NUMBER >= 0x00907000L  
   NID_generationQualifier,
   NID_x500UniqueIdentifier,
-  NID_dnQualifier,
-  NID_pseudonym,
-  NID_role
+  NID_pseudonym
+#else
+  OBJ_create("2.5.4.44", "generationQualifier", "generationQualifier"),
+  OBJ_create("2.5.4.45", "x500UniqueIdentifier", "x500UniqueIdentifier"),
+  OBJ_create("2.5.4.65", "pseudonym", "pseudonym")
+#endif
 };
 
 NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
@@ -220,8 +226,7 @@ applied when signing with this CA.");
 		tText += tr(" change");
 	}
 	setup();
-	keyList->setEnabled(false);
-	genKeyBUT->setEnabled(false);
+	privKeyBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
 	
 }

@@ -56,7 +56,6 @@ pki_x509super::pki_x509super()
 	: pki_base() 
 {
 	privkey = NULL;
-	printf("privkey set to NULL");
 }
 
 pki_x509super::~pki_x509super() {}
