@@ -13,9 +13,8 @@ xca (0.4.0) unstable; urgency=low
   * xca desktopfile added and will be installed in applications,
     key.xpm will be installed as xca.xpm in pixmaps
     ([ 763954 ] xca.desktop file) Thanks to Enrico Scholz
-   
 
- -- Christian Hohnstädt <chris@trinity.local>  Tue,  8 Jul 2003 23:25:36 +0200
+ -- Christian Hohnstädt <chris@trinity.local>  Tue,  8 Jul 2003 23:31:37 +0200
 
 xca (0.3.2) unstable; urgency=low
 

@@ -123,6 +123,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( BNdetailsCert, SIGNAL(clicked()), certList, SLOT(showItem()));
 	connect( BNdeleteCert, SIGNAL(clicked()), certList, SLOT(deleteItem()));
 	connect( BNimportPKCS12, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
+	connect( BNimportPFX, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
 	connect( BNimportPKCS7, SIGNAL(clicked()), certList, SLOT(loadPKCS7()));
 	connect( BNviewState, SIGNAL(clicked()), this, SLOT(changeView()));
 	
