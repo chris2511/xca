@@ -52,7 +52,7 @@
 #include "db_base.h"
 
 
-db_base::db_base(DbEnv *dbe, string DBfile, string DB) 
+db_base::db_base(DbEnv *dbe, std::string DBfile, std::string DB) 
 {
 	dbenv = dbe;
 	listView = NULL;
@@ -118,7 +118,7 @@ string db_base::getString(string key)
 	}
 	if ( p[dsize-1] != '\0' ) {
 		int a =p[dsize-1];	
-		CERR( "getString: stringerror "<< a <<" != 0  (returning empty string) size:" <<dsize);
+		CERR( "getString: std::stringerror "<< a <<" != 0  (returning empty std::string) size:" <<dsize);
 		return x;
 	}
 	x = p;
@@ -164,13 +164,13 @@ void db_base::putString(string key, void *dat, int datalen)
 	putData((void *)key.c_str(), key.length()+1, dat, datalen);
 }
 
-void db_base::putString(string key, string dat)
+void db_base::putString(string key, std::string dat)
 {
 	CERR( key);
 	putString(key, (void *)dat.c_str(), dat.length() +1);
 }
 
-void db_base::putString(char *key, string dat)
+void db_base::putString(char *key, std::string dat)
 {
 	string x = key;
 	CERR(key);
@@ -333,7 +333,7 @@ void db_base::deletePKI(pki_base *pki)
 	}
 }
 
-void db_base::renamePKI(pki_base *pki, string desc)
+void db_base::renamePKI(pki_base *pki, std::string desc)
 {
 	string oldname = pki->getDescription();
 	DbTxn *tid = NULL;

@@ -52,7 +52,7 @@
 #include "pki_crl.h"
 
 
-pki_crl::pki_crl(const string d, pki_x509 *iss )
+pki_crl::pki_crl(const std::string d, pki_x509 *iss )
 	:pki_base(d)
 { 
 	issuer = iss;
@@ -94,7 +94,7 @@ void pki_crl::addRevoked(const pki_x509 *client)
 	openssl_error();
 }
 
-void pki_crl::addV3ext(int nid, string exttext)
+void pki_crl::addV3ext(int nid, std::string exttext)
 { 
 	X509_EXTENSION *ext;
 	int len; 
@@ -125,7 +125,7 @@ void pki_crl::sign(pki_key *key)
 }
 
 
-void pki_crl::writeCrl(const string fname)
+void pki_crl::writeCrl(const std::string fname)
 {
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {

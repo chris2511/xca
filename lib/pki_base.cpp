@@ -52,7 +52,7 @@
 #include "pki_base.h"
 
 
-pki_base::pki_base(const string d)
+pki_base::pki_base(const std::string d)
 {
 	error = "";
 	desc = d;
@@ -92,21 +92,21 @@ string pki_base::getClassName()
 }
 
 
-void pki_base::setDescription(const string d)
+void pki_base::setDescription(const std::string d)
 {
 	desc = d;
 }
 
 
 
-void pki_base::fopen_error(const string fname)
+void pki_base::fopen_error(const std::string fname)
 {
 	string txt = "Error opening file: '" + fname + "'";
 	openssl_error(txt);
 }
 
 
-void pki_base::openssl_error(const string myerr)
+void pki_base::openssl_error(const std::string myerr)
 {
 	string errtxt = "";
 	error = "";
@@ -170,7 +170,7 @@ bool pki_base::boolFromData(unsigned char **p)
 	return ret;
 }
 
-int pki_base::stringToData(unsigned char **p, const string val)
+int pki_base::stringToData(unsigned char **p, const std::string val)
 {
 	int s = (val.length() +1) * sizeof(char);
 	memcpy(*p, val.c_str(), s);

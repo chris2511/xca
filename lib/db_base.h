@@ -94,7 +94,7 @@ class db_base: public QObject
 	void _removePKI(pki_base *pki, DbTxn *tid );
 	void removeItem(string k, DbTxn *tid);
     public:
-	db_base(DbEnv *dbe, string DBfile, string db);
+	db_base(DbEnv *dbe, std::string DBfile, std::string db);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		CERR("VIRTUAL CALLED: newPKI"); return NULL;}
@@ -103,7 +103,7 @@ class db_base: public QObject
 	virtual void insertPKI(pki_base *pki);
 	virtual void deletePKI(pki_base *pki);
 	virtual void updatePKI(pki_base *pki);
-	virtual void renamePKI(pki_base *pki, string desc);
+	virtual void renamePKI(pki_base *pki, std::string desc);
 	pki_base *getSelectedPKI(void *item);
 	pki_base *getSelectedPKI(string desc);
 	pki_base *getSelectedPKI();
@@ -122,8 +122,8 @@ class db_base: public QObject
 	int getInt(string key);
 	void putData(void *key, int keylen, void *dat, int datalen);
 	void putString(string key, void *dat, int datalen);
-	void putString(string key, string dat);
-	void putString(char *key, string dat);
+	void putString(string key, std::string dat);
+	void putString(char *key, std::string dat);
 	void putInt(string key, int dat);
 	QPixmap *loadImg(const char *name);
 	void setSelected(pki_base *item);

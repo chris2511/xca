@@ -64,13 +64,13 @@ class pki_pkcs7: public pki_base
 	PKCS7 *p7;
 	void signBio(pki_x509 *crt, BIO * bio);
     public:
-	pki_pkcs7(const string d);
+	pki_pkcs7(const std::string d);
 	/* destructor */
 	~pki_pkcs7();
 	
-	void signFile(pki_x509 *crt, string filename);
+	void signFile(pki_x509 *crt, std::string filename);
 	void signCert(pki_x509 *crt, pki_x509 *contCert);
-	//void encryptFile(pki_x509 *crt, string filename);
+	//void encryptFile(pki_x509 *crt, std::string filename);
 	void writeP7(string fname,bool PEM);
 	//void readP7(string fname);
 

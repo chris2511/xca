@@ -71,7 +71,7 @@ class pki_x509 : public pki_base
 	   int efftrust;
 	   int caSerial;
 	   int crlDays;
-	   string caTemplate;
+	   std::string caTemplate;
 	   X509 *cert;
 	   void init();
 	public:
@@ -79,31 +79,31 @@ class pki_x509 : public pki_base
 	   pki_x509(X509 *c);
 	   pki_x509(const pki_x509 *crt);
 	   pki_x509();
-	   pki_x509(const string fname);
+	   pki_x509(const std::string fname);
 	   ~pki_x509();
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
 	   bool canSign();
-	   string getDNs(int nid);
-	   string getDNi(int nid);
-	   void writeCert(const string fname, bool PEM, bool append = false);
+	   std::string getDNs(int nid);
+	   std::string getDNi(int nid);
+	   void writeCert(const std::string fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);
 	   pki_key *getKey();
 	   pki_key *getPubKey(); // will be created temporarily and must be freed
 	   void delKey();
 	   bool setKey(pki_key *key);
-	   string notAfter();
-	   string notBefore();
-	   string revokedAt();
-	   string asn1TimeToString(ASN1_TIME *a);
+	   std::string notAfter();
+	   std::string notBefore();
+	   std::string revokedAt();
+	   std::string asn1TimeToString(ASN1_TIME *a);
 	   pki_x509 *getSigner();
 	   void delSigner();
-	   string fingerprint(EVP_MD *digest);
-	   string printV3ext();
-	   string getSerial();
+	   std::string fingerprint(EVP_MD *digest);
+	   std::string printV3ext();
+	   std::string getSerial();
 	   int checkDate();
-	   void addV3ext(int nid, string exttext);
+	   void addV3ext(int nid, std::string exttext);
 	   void sign(pki_key *signkey);
 	   X509 *getCert(){ return cert;}
 	   int getTrust();
@@ -117,7 +117,7 @@ class pki_x509 : public pki_base
 	   int getCaSerial();
 	   void setCaSerial(int s);
 	   void setTemplate(string s);
-	   string getTemplate();
+	   std::string getTemplate();
 	   void setCrlDays(int s);
 	   int getCrlDays();
 	   void setLastCrl(ASN1_TIME *time);

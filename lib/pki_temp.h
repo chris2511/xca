@@ -77,7 +77,7 @@ class pki_temp: public pki_base
     // methods
     
 	pki_temp(const pki_temp *pk);
-	pki_temp(const string d, int atype=0);
+	pki_temp(const std::string d, int atype=0);
 	/* destructor */
 	~pki_temp();
 	void fromData(unsigned char *p, int size);

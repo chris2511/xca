@@ -90,7 +90,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 	eKeyUse=pk->eKeyUse;
 }
 
-pki_temp::pki_temp(const string d, int atype)
+pki_temp::pki_temp(const std::string d, int atype)
 	:pki_base(d)
 { 
 	version=1;

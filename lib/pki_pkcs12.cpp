@@ -52,7 +52,7 @@
 #include "pki_pkcs12.h"
 
 
-pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
+pki_pkcs12::pki_pkcs12(const std::string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
 	pki_base(d)
 {
 	key = new pki_key(akey);
@@ -64,7 +64,7 @@ pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_passw
 	className="pki_pkcs12";
 }
 
-pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
+pki_pkcs12::pki_pkcs12(const std::string fname, pem_password_cb *cb)
 	:pki_base(fname)
 { 
 	FILE *fp;
@@ -128,7 +128,7 @@ void pki_pkcs12::addCaCert(pki_x509 *ca)
 	openssl_error();
 }	
 
-void pki_pkcs12::writePKCS12(const string fname)
+void pki_pkcs12::writePKCS12(const std::string fname)
 { 
 	char pass[30];
 	char desc[100];

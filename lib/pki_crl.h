@@ -65,16 +65,16 @@ class pki_crl: public pki_base
 	pki_x509 *issuer;
 	X509V3_CTX ctx;
     public:
-	pki_crl(const string d, pki_x509 *iss);
+	pki_crl(const std::string d, pki_x509 *iss);
 	/* destructor */
 	~pki_crl();
 	
 	void addRevoked(const pki_x509 *rev);
-	void addExt(int nid, string value);
+	void addExt(int nid, std::string value);
 	void write(string fname);
-	void addV3ext(int nid, string exttext);
+	void addV3ext(int nid, std::string exttext);
 	void sign(pki_key *key);
-	void writeCrl(const string fname);
+	void writeCrl(const std::string fname);
 	pki_x509 *getIssuer();	
 	ASN1_TIME *pki_crl::getDate();
 

@@ -52,7 +52,7 @@
 #include "db_x509req.h"
 
 
-db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
+db_x509req::db_x509req(DbEnv *dbe, std::string DBfile, QListView *l, db_key *keyl)
 		:db_base(dbe, DBfile, "reqdb")
 {
 	listView = l;

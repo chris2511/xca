@@ -68,17 +68,17 @@ class pki_base
 	string error;
 	string className;
 	void *pointer; 
-	void openssl_error(const string myerr = "");
-	void fopen_error(const string fname);
+	void openssl_error(const std::string myerr = "");
+	void fopen_error(const std::string fname);
 	bool ign_openssl_error();
 	int intToData(unsigned char **p, const int val);
 	int intFromData(unsigned char **p);
 	int boolToData(unsigned char **p, const bool val);
 	bool boolFromData(unsigned char **p);
-	int stringToData(unsigned char **p, const string val);
-	string stringFromData(unsigned char **p);
+	int stringToData(unsigned char **p, const std::string val);
+	std::string stringFromData(unsigned char **p);
     public:
-	pki_base(const string d);
+	pki_base(const std::string d);
 	pki_base();
 	virtual void fromData(unsigned char *p, int size)
 		{ CERR("VIRTUAL FUNCTION CALLED: fromData"); };
@@ -87,13 +87,13 @@ class pki_base
 	virtual bool compare(pki_base *ref)
 		{ CERR("VIRTUAL FUNCTION CALLED: compare"); return false;};
 	virtual ~pki_base();
-        string getDescription();
-        void setDescription(const string d );
-	string getError();
+        std::string getDescription();
+        void setDescription(const std::string d );
+	std::string getError();
 	void setPointer(void *ptr) { pointer = ptr; }
 	void delPointer() { pointer = NULL; }
 	void *getPointer() { return pointer; }
-	string getClassName();
+	std::string getClassName();
 };
 
 #endif

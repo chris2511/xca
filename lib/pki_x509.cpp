@@ -127,7 +127,7 @@ pki_x509::pki_x509() : pki_base()
 	openssl_error();
 }
 
-pki_x509::pki_x509(const string fname)
+pki_x509::pki_x509(const std::string fname)
 {
 	FILE *fp = fopen(fname.c_str(),"r");
 	init();
@@ -201,7 +201,7 @@ void pki_x509::setDates(int days)
 	openssl_error();
 }
 	
-void pki_x509::addV3ext(int nid, string exttext)
+void pki_x509::addV3ext(int nid, std::string exttext)
 {	
 	X509_EXTENSION *ext;
 	int len; 
@@ -413,7 +413,7 @@ string pki_x509::asn1TimeToString(ASN1_TIME *a)
 }
 
 
-void pki_x509::writeCert(const string fname, bool PEM, bool append)
+void pki_x509::writeCert(const std::string fname, bool PEM, bool append)
 {
 	FILE *fp;
 	if (append)
@@ -487,7 +487,7 @@ pki_key *pki_x509::getPubKey()
 string pki_x509::fingerprint(EVP_MD *digest)
 {
 	 int j;
-	 string fp="";
+	 std::string fp="";
 	 char zs[4];
          unsigned int n;
          unsigned char md[EVP_MAX_MD_SIZE];

@@ -59,7 +59,7 @@ void pki_key::init()
 	className = "pki_key";
 }
 	
-pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
+pki_key::pki_key(const std::string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
 {
 	init();
 	key = EVP_PKEY_new();
@@ -87,7 +87,7 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 }
 
-pki_key::pki_key(const string d, int type )
+pki_key::pki_key(const std::string d, int type )
 	:pki_base(d)
 { 
 	init();
@@ -103,7 +103,7 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	key = pkey;
 }	
 
-pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
+pki_key::pki_key(const std::string fname, pem_password_cb *cb, int type )
 	:pki_base(fname)
 { 
 	init();
@@ -284,7 +284,7 @@ pki_key::~pki_key()
 }
 
 
-void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
+void pki_key::writePKCS8(const std::string fname, pem_password_cb *cb)
 {
 	PASS_INFO p;
 	string title=XCA_TITLE;
@@ -304,7 +304,7 @@ void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 	fclose(fp);
 }
 
-void pki_key::writeKey(const string fname, EVP_CIPHER *enc, 
+void pki_key::writeKey(const std::string fname, EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
 	PASS_INFO p;
@@ -333,7 +333,7 @@ void pki_key::writeKey(const string fname, EVP_CIPHER *enc,
 }
 
 
-void pki_key::writePublic(const string fname, bool PEM)
+void pki_key::writePublic(const std::string fname, bool PEM)
 {
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {

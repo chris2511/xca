@@ -52,7 +52,7 @@
 #include "db_key.h"
 
 
-db_key::db_key(DbEnv *dbe, string DBfile, QListView *l)
+db_key::db_key(DbEnv *dbe, std::string DBfile, QListView *l)
 	:db_base(dbe, DBfile, "keydb")
 {
 	listView = l;

@@ -60,9 +60,9 @@ pki_pkcs7::pki_pkcs7(const std::string d )
 }	
 
 
-pki_pkcs7::~pki_crl()
+pki_pkcs7::~pki_pkcs7()
 {
-	PKCS7_free(p7);
+	if (p7) PKCS7_free(p7);
 }
 
 void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
@@ -74,12 +74,14 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	if (!privkey) throw errorEx("No private key for signing found", className);
 	certstack = sk_X509_new_null();
 	pki_x509 *signer = crt->getSigner();
-	while (signer != NULL && signer != crt) {
+	while (signer != NULL && signer != signer->getSigner()) {
 		sk_X509_push(certstack, signer->getCert());
 	        openssl_error();
 		signer = signer->getSigner();
+		CERR("SIGNER: "<<signer->getDescription())
 	}
-	p7 = PKCS7_sign(crt, privkey, certstack, bio, 0);
+	if (p7) PKCS7_free(p7);
+	p7 = PKCS7_sign(crt->getCert(), privkey->getKey(), certstack, bio, PKCS7_BINARY);
 	openssl_error();	
 	sk_X509_free(certstack);
 }
@@ -101,11 +103,24 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 	if (!crt) return;
 	bio = BIO_new(BIO_s_mem());
         openssl_error();
-	i2d_X509_bio(bio, contCert);
+	i2d_X509_bio(bio, contCert->getCert());
 	signBio(crt, bio);
 	BIO_free(bio);
 }
 
 void pki_pkcs7::writeP7(string fname,bool PEM)
 {
-
+	FILE *fp;
+        fp = fopen(fname.c_str(),"w");
+        if (fp != NULL) {
+           if (p7){
+                if (PEM)
+                   PEM_write_PKCS7(fp, p7);
+                else
+                   i2d_PKCS7_fp(fp, p7);
+                openssl_error();
+           }
+        }
+        else fopen_error(fname);
+        fclose(fp);
+}
