@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>644</width>
+            <width>642</width>
             <height>531</height>
         </rect>
     </property>
@@ -1190,7 +1190,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
                                 </property>
                                 <property>
                                     <name>toolTip</name>
-                                    <string>The basic constraints should always be critical but they need not</string>
+                                    <string>The basic constraints should always be critical</string>
                                 </property>
                             </widget>
                         </grid>
@@ -2012,6 +2012,10 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
                                 <property stdset="1">
                                     <name>scaledContents</name>
                                     <bool>true</bool>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>Great picture , heh ?</string>
                                 </property>
                             </widget>
                             <spacer>
