@@ -52,12 +52,13 @@
 #define PKI_TEMP_H
 
 #include "pki_base.h"
+#include "x509name.h"
+#include "asn1time.h"
 
 #define tEMPTY 0
 #define tCA 1
 #define tCLIENT 2
 #define tSERVER 3
-
 
 class pki_temp: public pki_base
 {
@@ -65,12 +66,13 @@ class pki_temp: public pki_base
 	int version;
     public:
 	static QPixmap *icon;
-	QString C,P,L,O,OU,CN,EMAIL;
+	x509name xname;
 	QString subAltName, issAltName, crlDist;
-	QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
-	bool ca, bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
-	int type, nsCertType, pathLen, validN, validM, keyUse, eKeyUse;
-     
+	QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
+       		nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
+	bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
+	int type, nsCertType, pathLen, keyUse, eKeyUse, ca;
+     	a1time notBefore, notAfter;
     // methods
     
 	pki_temp(const pki_temp *pk);

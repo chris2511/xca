@@ -77,8 +77,7 @@ class x509v3ext
 	X509_EXTENSION *get() const;
 	bool isValid() const;
 	int nid() const;
-		
-		
+	void *d2i();
 };
 
 class extList : public QValueList<x509v3ext>

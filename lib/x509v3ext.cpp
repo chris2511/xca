@@ -98,6 +98,11 @@ int x509v3ext::nid() const
 	ASN1_OBJECT *obj = X509_EXTENSION_get_object(ext);
 	return OBJ_obj2nid(obj);
 }
+
+void *x509v3ext::d2i()
+{
+	return X509V3_EXT_d2i(ext);
+}
 		  
 /*	
 bool x509v3ext::operator == (const x509v3ext &x) const

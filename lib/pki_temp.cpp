@@ -59,13 +59,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 {
 	version=pk->version;
 	type=pk->type;
-	C=pk->C;
-	P=pk->P;
-	L=pk->L;
-	O=pk->O;
-	OU=pk->OU;
-	CN=pk->CN;
-	EMAIL=pk->EMAIL;
+	xname=pk->xname;
 	subAltName=pk->subAltName;
 	issAltName=pk->issAltName;
 	crlDist=pk->crlDist;
@@ -86,8 +80,8 @@ pki_temp::pki_temp(const pki_temp *pk)
 	subAltCp=pk->subAltCp;
 	issAltCp=pk->issAltCp;
 	pathLen=pk->pathLen;
-	validN=pk->validN;
-	validM=pk->validM;
+	notBefore=pk->notBefore;
+	notAfter=pk->notAfter;
 	keyUse=pk->keyUse;
 	eKeyUse=pk->eKeyUse;
 }
@@ -95,15 +89,8 @@ pki_temp::pki_temp(const pki_temp *pk)
 pki_temp::pki_temp(const QString d, int atype)
 	:pki_base(d)
 {
-	version=1;
+	version=2;
 	type=atype;
-	C="";
-	P="";
-	L="";
-	O="";
-	OU="";
-	CN="";
-	EMAIL="";
 	subAltName="";
 	issAltName="";
 	crlDist="";
@@ -115,7 +102,7 @@ pki_temp::pki_temp(const QString d, int atype)
 	nsRenewalUrl="";
 	nsCaPolicyUrl="";
 	nsSslServerName="";
-	ca=false;
+	ca=0;
 	bcCrit=false;
 	keyUseCrit=false;
 	eKeyUseCrit=false;
@@ -124,8 +111,8 @@ pki_temp::pki_temp(const QString d, int atype)
 	subAltCp=false;
 	issAltCp=false;
 	pathLen=0;
-	validN=365;
-	validM=0;
+	notBefore.now();
+	notAfter.now(60*60*24*365);
 	keyUse=0;
 	eKeyUse=0;
 	if (type==tCA) {
@@ -163,6 +150,7 @@ pki_temp::pki_temp(const QString d, int atype)
 
 void pki_temp::fromData(unsigned char *p, int size )
 {
+	X509_NAME *xn = NULL;
 	CERR("Temp fromData");
 	unsigned char *p1 = p;
 	version=intFromData(&p1);
@@ -176,18 +164,23 @@ void pki_temp::fromData(unsigned char *p, int size )
 	subAltCp=boolFromData(&p1);
 	issAltCp=boolFromData(&p1);
 	pathLen=intFromData(&p1);
-	validN=intFromData(&p1);
-	validM=intFromData(&p1);
+	if (version == 1) {
+		int validN = intFromData(&p1);
+		int validM = intFromData(&p1);
+		int x[] = {1, 30, 365 }
+	}
 	keyUse=intFromData(&p1);
 	eKeyUse=intFromData(&p1);
 	nsCertType=intFromData(&p1);
-	C=stringFromData(&p1);
-	P=stringFromData(&p1);
-	L=stringFromData(&p1);
-	O=stringFromData(&p1);
-	OU=stringFromData(&p1);
-	CN=stringFromData(&p1);
-	EMAIL=stringFromData(&p1);
+	if (version == 1) {
+		xname.addEntryByNid(OBJ_sn2nid("C"), stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("P"), stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("L"), stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("O"), stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("OU"), stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("CN"), stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("EMAIL"),stringFromData(&p1));
+	}
 	subAltName=stringFromData(&p1);
 	issAltName=stringFromData(&p1);
 	crlDist=stringFromData(&p1);
@@ -199,7 +192,10 @@ void pki_temp::fromData(unsigned char *p, int size )
 	nsCaPolicyUrl=stringFromData(&p1);
 	nsSslServerName=stringFromData(&p1);
 	//next version:
-	//if (version == 2) { ..... }
+	if (version == 2) { 
+		xn = d2i_X509_NAME(&xname, &p1);
+		xname.set(xn);
+	}
 	if (p1-p != size) {
 		CERR( "AAAAarrrrgghhhhh wrong tempsize..." << (p1-p) << " - " <<size );
 		openssl_error("Wrong Size");

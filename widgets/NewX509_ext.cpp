@@ -77,6 +77,19 @@ x509v3ext NewX509::getBasicConstraints()
 	return ext;
 }
 
+void NewX509::setBasicConstraints(const x509v3ext &e)
+{
+	if (e.nid() != NID_basic_constraints) return;
+	BASIC_CONSTRAINTS *bc;
+	x509v3ext ex = e;
+	bc = (BASIC_CONSTRAINTS *)ex.d2i();
+	if (bc) {
+		bcCritical->setChecked(bc->ca);
+		a1int pl(bc->pathlen);
+		basicPath->setText(pl.getLong());
+	}
+}
+
 x509v3ext NewX509::getSubKeyIdent()
 {
 	x509v3ext ext;
@@ -84,6 +97,7 @@ x509v3ext NewX509::getSubKeyIdent()
 		ext.create(NID_subject_key_identifier, "hash");
 	return ext;
 }
+
 
 x509v3ext NewX509::getAuthKeyIdent()
 {
@@ -114,6 +128,8 @@ x509v3ext NewX509::getKeyUsage()
 	ext.create(NID_key_usage, cont.join(", "));
 	return ext;
 }
+
+
 
 x509v3ext NewX509::getEkeyUsage()
 {

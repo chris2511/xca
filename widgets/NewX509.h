@@ -75,8 +75,11 @@ class NewX509: public NewX509_UI
 	QString startText, endText, tText;
 #define EKUN_CNT 12
 #define DISTNAME_CNT 18
+#define EXPLICIT_NAME_CNT 7
 	static int eku_nid[EKUN_CNT];
 	static int dn_nid[DISTNAME_CNT];
+	static int name_nid[EXPLICIT_NAME_CNT];
+	QLineEdit *name_ptr[EXPLICIT_NAME_CNT];
 	X509V3_CTX ext_ctx;
    public:	
 	NewX509(QWidget *parent, const char *name, bool modal = false, WFlags f = 0);
@@ -113,7 +116,8 @@ class NewX509: public NewX509_UI
 	extList getNetscapeExt();
 	const EVP_MD *getHashAlgo();
 	void initCtx(pki_x509 *subj);
-	void NewX509::setExt(const x509v3ext &ext);
+	void setBasicConstraints(const x509v3ext &e);
+	void setExt(const x509v3ext &ext);
    public slots:
 	void toggleFromRequest();
 	void dataChangeP2();

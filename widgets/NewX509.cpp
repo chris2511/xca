@@ -115,6 +115,16 @@ int NewX509::dn_nid[DISTNAME_CNT] = {
 #endif
 };
 
+int NewX509::name_nid[] = {
+	NID_commonName,
+	NID_countryName,
+	NID_localityName,
+	NID_stateOrProvinceName,
+	NID_organizationName,
+	NID_organizationalUnitName,
+	NID_pkcs9_emailAddress
+};
+							 
 NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	:NewX509_UI(parent, name, modal, f)
 {
@@ -165,7 +175,7 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	// set dates to now and now + 1 year
 	a1time a;
 	notBefore->setDate(a.now());
-	notAfter->setDate(a.now(60*60*24*356));
+	notAfter->setDate(a.now(60*60*24*365));
 	
 	// settings for the templates ....
 	strings = MainWindow::temps->getDesc();
@@ -182,10 +192,20 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	// setup Distinguished Name 
 	for (int i=0; i<DISTNAME_CNT; i++)
 		extDNobj->insertItem(OBJ_nid2ln(dn_nid[i]));
+
 	// init the X509 v3 context
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
 	X509V3_set_ctx_nodb((&ext_ctx));
 
+	// setup the list of x509nameEntrys
+	name_ptr[0] = commonName;
+	name_ptr[1] = countryName;
+	name_ptr[2] = localityName;
+	name_ptr[3] = stateOrProvinceName;
+	name_ptr[4] = organisationName;
+	name_ptr[5] = organisationalUnitName;
+	name_ptr[6] = emailAddress;
+							
 	// last polish 
 	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);
@@ -350,13 +370,7 @@ void NewX509::int2lb(QListBox *lb, int x)
 
 void NewX509::fromTemplate(pki_temp *temp)
 {
-	countryName->setText(temp->C);
-	stateOrProvinceName->setText(temp->P);
-	localityName->setText(temp->L);
-	organisationName->setText(temp->O);
-	organisationalUnitName->setText(temp->OU);
-	commonName->setText(temp->CN);
-	emailAddress->setText(temp->EMAIL);
+	setX509name(temp->xname);
 	subAltName->setText(temp->subAltName);
 	issAltName->setText(temp->issAltName);
 	crlDist->setText(temp->crlDist);
@@ -368,7 +382,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl);
 	nsSslServerName->setText(temp->nsSslServerName);
 	int2lb(nsCertType, temp->nsCertType);
-	basicCA->setCurrentItem(temp->ca?1:0);
+	basicCA->setCurrentItem(temp->ca);
 	bcCritical->setChecked(temp->bcCrit);
 	kuCritical->setChecked(temp->keyUseCrit);
 	ekuCritical->setChecked(temp->eKeyUseCrit);
@@ -378,8 +392,8 @@ void NewX509::fromTemplate(pki_temp *temp)
 	issAltCp->setChecked(temp->issAltCp);
 	int2lb(keyUsage, temp->keyUse);
 	int2lb(ekeyUsage, temp->eKeyUse);
-	//validNumber->setText(QString::number(temp->validN));
-	//validRange->setCurrentItem(temp->validM);
+	notBefore->setDate(temp->notBefore);
+	notAfter->setDate(temp->notAfter);
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
 	}
@@ -594,13 +608,9 @@ pki_x509req *NewX509::getSelectedReq()
 x509name NewX509::getX509name()
 {
 	x509name x;
-	x.addEntryByNid(NID_commonName, commonName->text());
-	x.addEntryByNid(NID_countryName, countryName->text());
-	x.addEntryByNid(NID_localityName ,localityName->text());
-	x.addEntryByNid(NID_stateOrProvinceName, stateOrProvinceName->text());
-	x.addEntryByNid(NID_organizationName, organisationName->text());
-	x.addEntryByNid(NID_organizationalUnitName, organisationalUnitName->text());
-	x.addEntryByNid(NID_pkcs9_emailAddress, emailAddress->text());
+	for (int j = 0; j<EXPLICIT_NAME_CNT; j++) {
+		x.addEntryByNid(name_nid[j], name_ptr[j]->text());
+	}
 	QListViewItem *lvi = extDNlist->firstChild();
 	while (lvi != NULL) {
 		int nid;
@@ -613,41 +623,18 @@ x509name NewX509::getX509name()
 
 void NewX509::setX509name(const x509name &n)
 {
+	
 	for ( int i=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		QStringList sl = n.entryList(i);
-		switch (nid) {
-			case NID_commonName: 
-				commonName->setText(sl[2]); 
-				// n.delEntry(i);
+		for (int j = 0; j<EXPLICIT_NAME_CNT; j++) {
+			if (nid == name_nid[j] && name_ptr[j]->text().isEmpty()) { 
+				name_ptr[j]->setText(sl[2]); 
 				break;
-				/*
-			case NID_commonName: 
-				commonName->setText(sl[2]); 
-				delEntry(i);
-				break;
-			case NID_commonName: 
-				commonName->setText(sl[2]); 
-				delEntry(i);
-				break;
-			case NID_commonName: 
-				commonName->setText(sl[2]); 
-				delEntry(i);
-				break;
-			case NID_commonName: 
-				commonName->setText(sl[2]); 
-				delEntry(i);
-				break;
-			case NID_commonName: 
-				commonName->setText(sl[2]); 
-				delEntry(i);
-				break;
-			case NID_commonName: 
-				commonName->setText(sl[2]); 
-				delEntry(i);
-				break;
-				*/
-					
+			}
+			if (j == EXPLICIT_NAME_CNT) {
+				new QListViewItem(extDNlist, sl[1], sl[2]);
+			}
 		}
 	}
 }
