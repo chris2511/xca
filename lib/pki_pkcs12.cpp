@@ -75,7 +75,7 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 	certstack = sk_X509_new_null();
 	PASS_INFO p;
 	string title = "Password to import the PKCS#12 certificate";
-	string description = "Please enter the password to encrypt the PKCS#12 bag.";
+	string description = "Please enter the password to encrypt the PKCS#12 file.";
 	p.title = &title;
 	p.description = &description;
 	fp = fopen(fname.c_str(), "rb");
@@ -106,9 +106,14 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 
 pki_pkcs12::~pki_pkcs12()
 {
-	sk_X509_pop_free(certstack, X509_free); // free the certs itself, because we own a copy of them
-	delete(key); 
-	delete(cert);
+	CERR <<"popping free certs" <<endl;
+	if (sk_X509_num(certstack)>0)
+		sk_X509_pop_free(certstack, X509_free); // free the certs itself, because we own a copy of them
+	CERR << "deleting key" <<endl;
+	if (key) delete(key); 
+	CERR << "deleting cert" <<endl;
+	if (cert) delete(cert);
+	CERR << "freeing PKCS12" <<endl;
 	PKCS12_free(pkcs12);
 }
 

@@ -79,7 +79,7 @@ void ExportKey::chooseFile()
 	QStringList filt;
 	filt.append(tr("RSA Keys ( *.pem *.der *.pk8 )")); 
 	filt.append(tr("All Files ( *.* )"));
-	QString s;
+	QString s = "";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Save RSA key as"));
 	dlg->setFilters(filt);
@@ -91,6 +91,7 @@ void ExportKey::chooseFile()
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
+	delete dlg;
 }
 
 void ExportKey::canEncrypt() {

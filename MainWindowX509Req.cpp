@@ -60,7 +60,10 @@ void MainWindow::newReq(pki_temp *temp)
 	}
 	dlg->setRequest();
 	//dlg->image->setPixmap(*csrImg);
-	if (! dlg->exec()) return;
+	if (! dlg->exec()){
+		delete dlg;
+		return;
+	}
 	pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
 	string cn = dlg->commonName->text().latin1();
 	string c = dlg->countryName->text().latin1();
@@ -112,7 +115,10 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).c_str());
 	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).c_str());
 	dlg->image->setPixmap(*csrImg);
-	if ( !dlg->exec()) return;
+	if ( !dlg->exec()) {
+		delete dlg;
+		return;
+	}
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != req->getDescription()) {
 		reqs->renamePKI(req, ndesc);
@@ -137,13 +143,14 @@ void MainWindow::loadReq()
 	QStringList filt;
 	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
 	filt.append("All Files ( *.* )");
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
+	delete dlg;
+	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	pki_x509req *req = new pki_x509req(s.latin1());
 	if (opensslError(req)) return;
@@ -157,7 +164,7 @@ void MainWindow::writeReq()
 	QStringList filt;
 	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
 	filt.append("All Files ( *.* )");
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption("Export Certificate signing request");
 	dlg->setFilters(filt);
@@ -165,7 +172,8 @@ void MainWindow::writeReq()
 	dlg->setSelection( (req->getDescription() + ".pem").c_str() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
+	delete dlg;
+	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	if (opensslError(req)) return;
 
@@ -204,6 +212,7 @@ void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Delete"), this, SLOT(deleteReq()));
 	}
 	menu->exec(pt);
+	delete menu;
 	return;
 }
 

@@ -68,8 +68,12 @@ bool MainWindow::alterTemp(pki_temp *temp)
 	CERR <<" Juhuuu" <<endl;
 	dlg->fromTemplate(temp);
 	CERR <<" Juhuuu" <<endl;
-	if (!dlg->exec()) return false;
+	if (!dlg->exec()) {
+		delete dlg;
+		return false;
+	}
 	dlg->toTemplate(temp);
+	delete dlg;
 	return true;
 }
 
@@ -145,6 +149,8 @@ void MainWindow::showPopupTemp(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Create request"), this, SLOT(reqFromTemp()));
 	}
 	menu->exec(pt);
+	delete menu;
+	delete subMenu;
 	return;
 }
 

@@ -406,13 +406,14 @@ void MainWindow::loadCert()
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	//filt.append(tr("PKCS#7 Signatures ( *.p7s )")); 
 	filt.append(tr("All files ( *.* )"));
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
+	delete dlg;
+	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	pki_x509 *cert = new pki_x509(s.latin1());
 	if (opensslError(cert)) return;
@@ -427,16 +428,21 @@ void MainWindow::loadPKCS12()
 	QStringList filt;
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	filt.append(tr("All files ( *.* )"));
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
+	delete dlg;
+	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
-	opensslError(pk12);
+	if (opensslError(pk12)) {
+		CERR<< "PKCS12error, deleting..." <<endl;
+		if (pk12) delete pk12;
+		return;
+	}
 	akey = pk12->getKey();
 	acert = pk12->getCert();
 	opensslError(akey);
@@ -448,6 +454,7 @@ void MainWindow::loadPKCS12()
 		acert = pk12->getCa(i);
 		insertCert(acert);
 	}
+	delete pk12;
 
 /* insert with asking.....	
 	if (showDetailsKey(akey, true)) {
@@ -495,7 +502,7 @@ void MainWindow::writeCert()
 	if (!cert) return;
 	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
 	filt.append(tr("All files ( *.* )"));
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate export"));
 	dlg->setFilters(filt);
@@ -503,8 +510,9 @@ void MainWindow::writeCert()
 	dlg->setSelection( (cert->getDescription() + ".crt").c_str() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
-	s=QDir::convertSeparators(s);
+	delete dlg;
+	if (s.isEmpty()) return;
+	s = QDir::convertSeparators(s);
 	cert->writeCert(s.latin1(),true);
 	opensslError(cert);
 }
@@ -515,11 +523,16 @@ void MainWindow::writePKCS12()
 	QStringList filt;
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
-	pki_key *privkey = (pki_key *)keys->findPKI(cert->getKey());
-	if (privkey->isPubKey()) return; /* should not happen */
+	pki_key *privkey = cert->getKey();
+	if (!privkey || privkey->isPubKey()) {
+		QMessageBox::warning(this,tr("Key error"),
+                	tr("There was no key found for the Certificate: ") +
+			QString::fromLatin1(cert->getDescription().c_str()) );
+		return; 
+	}
 	filt.append(tr("PKCS#12 files ( *.p12 *.pfx )")); 
 	filt.append(tr("All files ( *.* )"));
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("PKCS#12 export"));
 	dlg->setFilters(filt);
@@ -527,12 +540,14 @@ void MainWindow::writePKCS12()
 	dlg->setSelection( (cert->getDescription() + ".p12").c_str() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
+	delete dlg;
+	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
 	pki_x509 *signer = cert->getSigner();
 	int cnt =0;
 	while ((signer != NULL ) && (signer != cert)) {
+		CERR <<"SIGNER:"<<(int)signer<<endl;
 		p12->addCaCert(signer);
 		CERR << "signer: " << ++cnt << endl;
 		cert=signer;
@@ -541,6 +556,7 @@ void MainWindow::writePKCS12()
 	CERR << "start writing" <<endl;
 	p12->writePKCS12(s.latin1());
 	opensslError(cert);
+	delete p12;
 }
 
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
@@ -584,6 +600,9 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 
 	}
 	menu->exec(pt);
+	delete menu;
+	delete subMenu;
+	
 	return;
 }
 
@@ -610,14 +629,17 @@ void MainWindow::setTrust()
 	if (state == 1 ) dlg->trust1->setChecked(true);
 	if (state == 2 ) dlg->trust2->setChecked(true);
 	dlg->certName->setText(cert->getDescription().c_str());
-	if (!dlg->exec()) return;
-	if (dlg->trust0->isChecked()) newstate = 0;
-	if (dlg->trust1->isChecked()) newstate = 1;
-	if (dlg->trust2->isChecked()) newstate = 2;
-	if (newstate==state) return;
-	cert->setTrust(newstate);
-	certs->updatePKI(cert);
-	certs->updateViewAll();
+	if (dlg->exec()) {
+		if (dlg->trust0->isChecked()) newstate = 0;
+		if (dlg->trust1->isChecked()) newstate = 1;
+		if (dlg->trust2->isChecked()) newstate = 2;
+		if (newstate!=state) {
+			cert->setTrust(newstate);
+			certs->updatePKI(cert);
+			certs->updateViewAll();
+		}
+	}
+	delete dlg;
 }
 
 void MainWindow::revoke()
@@ -701,7 +723,7 @@ void MainWindow::genCrl()
 	if (cert->getKey()->isPubKey()) return;
 	filt.append(tr("CRLs ( *.crl )")); 
 	filt.append(tr("All Files ( *.* )"));
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("CRL export"));
 	dlg->setFilters(filt);
@@ -709,7 +731,8 @@ void MainWindow::genCrl()
 	dlg->setSelection( (cert->getDescription() + ".crl").c_str() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
+	delete dlg;
+	if (s.isEmpty()) return;
 	s = QDir::convertSeparators(s);
 	
 	pki_crl *crl = new pki_crl(cert->getDescription(), cert);

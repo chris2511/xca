@@ -91,10 +91,12 @@ void MainWindow::newKey()
 		       progress,
 		       sizeList[sel]);
            progress->cancel();
+	   delete progress;
 	   insertKey(nkey);
 	   x=nkey->getDescription().c_str();
 	   emit keyDone(x);
 	}
+	delete dlg;
 }
 
 
@@ -137,11 +139,15 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 		detDlg->but_cancel->setText(tr("Discard"));
 	}
 	
-	if ( !detDlg->exec()) return false;
+	if ( !detDlg->exec()) {
+		delete detDlg;
+		return false;
+	}
 	string ndesc = detDlg->keyDesc->text().latin1();
 	if (ndesc != key->getDescription()) {
 		keys->renamePKI(key, ndesc);
 	}
+	delete detDlg;
 	return true;
 }
 
@@ -166,13 +172,14 @@ void MainWindow::loadKey()
 	filt.append( "PKI Keys ( *.pem *.der )"); 
 	filt.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
 	filt.append( "All Files ( *.* )");
-	QString s;
+	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption("Import key");
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (s == "") return;
+	delete dlg;
+	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	string errtxt;
 	pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
@@ -180,6 +187,7 @@ void MainWindow::loadKey()
 		QMessageBox::warning(this,"Key error",
 			tr("The key") +": " + s +
 			"\n"+ tr("could not be loaded") + QString::fromLatin1(errtxt.c_str()) );
+		delete lkey;
 		return;
 	}
 	insertKey(lkey);
@@ -229,7 +237,10 @@ void MainWindow::writeKey()
 	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
 			targetKey->isPubKey(), this);
 	dlg->image->setPixmap(*keyImg);
-	if (!dlg->exec()) return;
+	if (!dlg->exec()) {
+		delete dlg;
+		return;
+	}
 	string fname = dlg->filename->text().latin1();
 	if (fname == "") return;
 	if (dlg->exportFormat->currentText() == "PEM") PEM = true;
@@ -253,6 +264,7 @@ void MainWindow::writeKey()
 	QMessageBox::information(this,tr("Key export"),
 		tr("The key was successfull exported into the file") + ":\n'" +
 		QString::fromLatin1(fname.c_str()) , "OK");
+	delete dlg;
 
 }
 
@@ -271,6 +283,7 @@ void MainWindow::showPopupKey(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Delete"), this, SLOT(deleteKey()));
 	}
 	menu->exec(pt);
+	delete menu;
 	return;
 }
 
