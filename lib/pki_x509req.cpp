@@ -104,7 +104,7 @@ bool pki_x509req::fromData(unsigned char *p, int size)
 
 string pki_x509req::getDN(int nid)
 {
-	char buf[200];
+	char buf[200] = "";
 	string s;
 	X509_NAME *subj = X509_REQ_get_subject_name(request);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
