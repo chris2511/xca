@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>584</width>
+            <width>580</width>
             <height>520</height>
         </rect>
     </property>
@@ -839,7 +839,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Certificate name:</string>
+                            <string>Internal name</string>
                         </property>
                     </widget>
                     <widget row="3"  column="3" >

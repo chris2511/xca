@@ -96,6 +96,8 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	caTemplate="";
 	crlDays=30;
 	lastCrl= NULL;
+	if (pkey)
+		pkey->incUcount();
 }
 
 pki_x509::pki_x509(X509 *c) : pki_base()
@@ -187,6 +189,8 @@ pki_x509::~pki_x509()
 	if (lastCrl) {
 		ASN1_TIME_free(lastCrl);
 	}
+	if (pkey)
+		pkey->decUcount();
 }
 
 

@@ -122,6 +122,7 @@ class pki_key: public pki_base
 	int getType();
 	EVP_PKEY *getKey(){ return key;}
 	int incUcount();
+	int decUcount();
 	int getUcount();
 };
 

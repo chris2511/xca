@@ -99,6 +99,7 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	X509_REQ_sign(request,key->key ,digest);
 	openssl_error();
 	privkey = key;
+	key->incUcount();
 }
 
 
@@ -115,6 +116,8 @@ pki_x509req::~pki_x509req()
 {
 	X509_REQ_free(request);
 	openssl_error();
+	if (privkey)
+		privkey->decUcount();
 }
 
 
@@ -236,4 +239,5 @@ pki_key *pki_x509req::getKey()
 void pki_x509req::setKey(pki_key *key)
 {
 	privkey = key;
+	key->incUcount();
 }

@@ -312,6 +312,7 @@ bool db_base::deletePKI(pki_base *pki)
 	if (s) {
 		remFromCont(pki);
 		updateView();
+		delete(pki);
 	}
 	return s;
 }

@@ -75,6 +75,7 @@ void MainWindow::newReq(pki_temp *temp)
 	string desc = dlg->description->text().latin1();
 	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, "");
 	insertReq(req);
+	keys->updateView();
 }
 
 
@@ -136,6 +137,7 @@ void MainWindow::deleteReq()
 			"'\n", "Delete", "Cancel")
 	) return;
 	reqs->deletePKI(req);
+	keys->updateView();
 }
 
 void MainWindow::loadReq()
@@ -155,6 +157,7 @@ void MainWindow::loadReq()
 	pki_x509req *req = new pki_x509req(s.latin1());
 	if (opensslError(req)) return;
 	insertReq(req);
+	keys->updateView();
 }
 
 void MainWindow::writeReq()

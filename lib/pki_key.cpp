@@ -415,6 +415,10 @@ int pki_key::incUcount()
 {
 	return ++ucount;
 }
+int pki_key::decUcount()
+{
+	return --ucount;
+}
 
 int pki_key::getUcount()
 {

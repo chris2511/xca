@@ -248,6 +248,7 @@ void MainWindow::newCert(pki_temp *templ)
 	if (tempReq && req) delete(req);
 	delete (dlg);
 	CERR << "Dialog deleted" <<endl;
+	keys->updateView();
 	return;
 err:	
 	if (cert) delete(cert);
@@ -398,6 +399,7 @@ void MainWindow::deleteCert()
 			tr("Delete"), tr("Cancel") )
 	) return;
 	certs->deletePKI(cert);
+	keys->updateView();
 }
 
 void MainWindow::loadCert()
@@ -419,6 +421,7 @@ void MainWindow::loadCert()
 	pki_x509 *cert = new pki_x509(s.latin1());
 	if (opensslError(cert)) return;
 	insertCert(cert);
+	keys->updateView();
 }
 
 void MainWindow::loadPKCS12()
@@ -456,6 +459,7 @@ void MainWindow::loadPKCS12()
 		insertCert(acert);
 	}
 	delete pk12;
+	keys->updateView();
 
 /* insert with asking.....	
 	if (showDetailsKey(akey, true)) {
