@@ -50,8 +50,6 @@
 
 
 #include "ExportKey.h"
-#include "lib/pki_base.h"
-#include <iostream>
 
 
 ExportKey::ExportKey(QString fname, bool onlypub, 
@@ -59,6 +57,7 @@ ExportKey::ExportKey(QString fname, bool onlypub,
 	:ExportKey_UI(parent,name,true,0)
 {
 	filename->setText(fname);
+	setCaption(tr(XCA_TITLE));
 	onlyPub = onlypub;
 	exportFormat->insertItem("PEM");
 	exportFormat->insertItem("DER");

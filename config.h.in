@@ -57,3 +57,4 @@
 #endif
 
 
+#define XCA_TITLE "X Certifikate and Key management"

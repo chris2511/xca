@@ -109,7 +109,6 @@
 #define VER "0.2.7-win"
 #endif
 
-
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
@@ -123,7 +122,6 @@ class MainWindow: public MainWindow_UI
 	DbEnv *dbenv;
 	db_base *settings;
 	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg;
-	const static QString xca_title;
    public:
 	QString baseDir, dbfile;
 	static const int sizeList[];

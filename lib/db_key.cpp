@@ -82,6 +82,19 @@ QStringList db_key::getPrivateDesc()
 	return x;
 }
 
+QStringList db_key::get0PrivateDesc()
+{
+	pki_key *pki;
+	QStringList x;
+	x.clear();
+	for ( pki = (pki_key *)container.first(); pki != 0; pki = (pki_key *)container.next() )	{
+		if (pki->isPrivKey() && pki->getUcount() == 0) {
+			x.append(pki->getDescription().c_str());	
+		}
+	}
+	return x;
+}
+
 void db_key::remFromCont(pki_base *pki)
 {
 	db_base::remFromCont(pki);

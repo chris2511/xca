@@ -98,7 +98,7 @@ void MainWindow::deleteTemp()
 {
 	pki_temp *delTemp = (pki_temp *)temps->getSelectedPKI();
 	if (!delTemp) return;
-	if (QMessageBox::information(this,"Delete template",
+	if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The template") + ": '" + 
 			QString::fromLatin1(delTemp->getDescription().c_str()) +
 			"'\n" + tr("is going to be deleted"),
@@ -112,7 +112,7 @@ void MainWindow::deleteTemp()
 void MainWindow::insertTemp(pki_temp *temp)
 {
 	if (!temps->insertPKI(temp))
-	   QMessageBox::warning(this, "Template storage",
+	   QMessageBox::warning(this,tr(XCA_TITLE),
 		tr("The template could not be stored into the database"), "OK");
 	
 }

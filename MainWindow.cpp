@@ -57,7 +57,7 @@ QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL;
 
 
-const QString MainWindow::xca_title = "X Certifikate and Key management";
+
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
@@ -65,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
+	setCaption(tr(XCA_TITLE));
 #ifdef WIN32
 	baseDir = "";
 	dbfile="xca.db";
@@ -139,7 +140,7 @@ void MainWindow::initPass()
 	PASS_INFO p;
 	string passHash = settings->getString("pwhash");
 	if (passHash == "") {
-		string title=tr("New Database Password").latin1();
+		string title=tr("New Password").latin1();
 		string description=tr("Please enter a password, that will be used to encrypt your private keys in the database-file").latin1();
 		p.title = &title;
 		p.description = &description;
@@ -154,8 +155,8 @@ void MainWindow::initPass()
 	     int keylen=0;		
 	     while (md5passwd() != passHash) {
 		if (keylen !=0)
-			QMessageBox::warning(this,tr("Password"), tr("Password verify error, please try again"));	
-		string title=tr("Database Password").latin1();
+			QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error, please try again"));	
+		string title=tr("Password").latin1();
 		string description=tr("Please enter the password for unlocking the database").latin1();
 		p.title = &title;
 		p.description = &description;
@@ -174,7 +175,7 @@ void MainWindow::renamePKI(db_base *db)
 	if (!pki) return;
         QString name= pki->getDescription().c_str();
 	bool ok;
-	QString nname = QInputDialog::getText (xca_title, "Please enter the new name",
+	QString nname = QInputDialog::getText (XCA_TITLE, "Please enter the new name",
 			QLineEdit::Normal, name, &ok, this );
 	if (ok && name != nname) {
 		db->renamePKI(pki, nname.latin1());
@@ -193,6 +194,7 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 		dlg->description->setText(tr(p->description->c_str()));
 	}
 	dlg->pass->setFocus();
+	dlg->setCaption(tr(XCA_TITLE));
 	if (dlg->exec()) {
 	   QString x = dlg->pass->text();
 	   strncpy(buf, x.latin1(), size);
@@ -212,6 +214,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 		dlg->description->setText(tr(p->description->c_str()));
 	}
 	dlg->passA->setFocus();
+	dlg->setCaption(tr(XCA_TITLE));
 	if (dlg->exec()) {
 	   QString A = dlg->passA->text();
 	   QString B = dlg->passB->text();
@@ -253,12 +256,12 @@ bool MainWindow::opensslError(pki_base *pki)
 	string err;
 
 	if (!pki) {
-		QMessageBox::warning(this,tr("Internal Error"), tr("The system detected a NULL pointer, maybe the system is out of memory" ));
+		QMessageBox::warning(this,tr(XCA_TITLE), tr("The system detected a NULL pointer, maybe the system is out of memory" ));
 		qFatal("NULL pointer detected - Exiting");
 	}
 	
 	if (( err = pki->getError()) != "") { 
-		QMessageBox::warning(this,tr("OpenSSL Error"), tr("The openSSL library raised the following error")+":" +
+		QMessageBox::warning(this,tr(XCA_TITLE), tr("The OpenSSL library raised the following error")+":" +
 			QString::fromLatin1(err.c_str()));
 		return true;
 	}

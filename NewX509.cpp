@@ -56,6 +56,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 {
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
 	connect( parent, SIGNAL(keyDone(QString)), this, SLOT(newKeyDone(QString)) );
+	setCaption(tr(XCA_TITLE));
 	keys = key;
 	reqs = req;
 	temps = temp;
@@ -88,7 +89,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	QStringList strings;
 	// are there any useable private keys  ?
 	if (keys) {
-		strings = keys->getPrivateDesc();
+		strings = keys->get0PrivateDesc();
 		if (strings.isEmpty()) {
 			newKey();
 		}

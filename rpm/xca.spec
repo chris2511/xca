@@ -19,7 +19,7 @@ like PKCS#12, PEM, DER, PKCS#8.
 %setup
 
 %build
-./configure --prefix=/usr
+./configure --prefix=/usr --disable-printf-debug
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install

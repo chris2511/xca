@@ -54,6 +54,8 @@
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qlineedit.h>
+#include "lib/pki_base.h"
+#include <iostream>
 
 #ifndef EXPORTKEY_H
 #define EXPORTKEY_H

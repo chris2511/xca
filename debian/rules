@@ -12,7 +12,7 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
-	./configure --prefix=/usr	
+	./configure --prefix=/usr --disable-printf-debug
 
 	touch configure-stamp
 

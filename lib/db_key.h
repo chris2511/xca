@@ -66,6 +66,7 @@ class db_key: public db_base
 	db_key(DbEnv *dbe, string DBfile, QListView *l);
 	pki_base *newPKI();
 	QStringList getPrivateDesc();
+	QStringList get0PrivateDesc();
 	void updateViewPKI(pki_base *pki);
 	void inToCont(pki_base *pki);
 	void remFromCont(pki_base *pki);

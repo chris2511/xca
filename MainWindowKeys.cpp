@@ -62,7 +62,7 @@ pki_key *MainWindow::getSelectedKey()
 	if (targetKey) {
 	   string errtxt = targetKey->getError();
 	   if (errtxt != "")
-		QMessageBox::warning(this,tr("Key error"),
+		QMessageBox::warning(this,tr(XCA_TITLE),
 			tr("The Key: ") + QString::fromLatin1(targetKey->getDescription().c_str()) +
 			tr(" is not consistent:") + QString::fromLatin1(errtxt.c_str()) );
 	}
@@ -86,6 +86,7 @@ void MainWindow::newKey()
 		tr("Cancel"),90, 0, 0, true);
 	   progress->setMinimumDuration(0);
 	   progress->setProgress(0);	
+	   progress->setCaption(tr(XCA_TITLE));
 	   pki_key *nkey = new pki_key (dlg->keyDesc->text().latin1(), 
 		       &MainWindow::incProgress,
 		       progress,
@@ -104,7 +105,7 @@ void MainWindow::deleteKey()
 {
 	pki_key *delKey = getSelectedKey();
 	if (!delKey) return;
-	if (QMessageBox::information(this,"Delete key",
+	if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The key") + ": '" + 
 			QString::fromLatin1(delKey->getDescription().c_str()) +
 			"'\n" + tr("is going to be deleted"),
@@ -120,6 +121,7 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 	if (opensslError(key)) return false;
 	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
 	
+	detDlg->setCaption(tr(XCA_TITLE));
 	detDlg->keyDesc->setText(
 		key->getDescription().c_str() );
 	detDlg->keyLength->setText(
@@ -184,7 +186,7 @@ void MainWindow::loadKey()
 	string errtxt;
 	pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
 	if ((errtxt = lkey->getError()) != "") {
-		QMessageBox::warning(this,"Key error",
+		QMessageBox::warning(this,tr(XCA_TITLE),
 			tr("The key") +": " + s +
 			"\n"+ tr("could not be loaded") + QString::fromLatin1(errtxt.c_str()) );
 		delete lkey;
@@ -197,11 +199,10 @@ void MainWindow::loadKey()
 void MainWindow::insertKey(pki_key *lkey)
 {
 	pki_key *oldkey;
-	QString title=tr("Key storing");
 	if ((oldkey = (pki_key *)keys->findPKI(lkey))!= 0) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) ||
 		    lkey->isPubKey()){
-	   	    QMessageBox::information(this,title,
+	   	    QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The key is already in the database as") +":\n'" +
 			QString::fromLatin1(oldkey->getDescription().c_str()) + 
 			"'\n" + tr("and is not going to be imported"), "OK");
@@ -209,7 +210,7 @@ void MainWindow::insertKey(pki_key *lkey)
 		    return;
 		}
 		else {
-	   	    QMessageBox::information(this,title,
+	   	    QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The database already contains the public part of the imported key as") +":\n'" +
 			QString::fromLatin1(oldkey->getDescription().c_str()) + 
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
@@ -221,7 +222,7 @@ void MainWindow::insertKey(pki_key *lkey)
 	}
 	CERR( "after findkey");
 	if (!keys->insertPKI(lkey))
-	   QMessageBox::warning(this,title,
+	   QMessageBox::warning(this,tr(XCA_TITLE),
 		tr("The key could not be stored into the database"), "OK");
 	
 }
@@ -256,12 +257,12 @@ void MainWindow::writeKey()
 	}
 	string errtxt;
 	if ((errtxt = targetKey->getError()) != "") {
-		QMessageBox::warning(this,tr("File error"),
+		QMessageBox::warning(this,tr(XCA_TITLE),
 			tr("Der Schlüssel") +": '" + QString::fromLatin1(fname.c_str()) +
 			"'\n" + tr("could not be written") +":\n" + QString::fromLatin1(errtxt.c_str()));
 		return;
 	}
-	QMessageBox::information(this,tr("Key export"),
+	QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The key was successfull exported into the file") + ":\n'" +
 		QString::fromLatin1(fname.c_str()) , "OK");
 	delete dlg;

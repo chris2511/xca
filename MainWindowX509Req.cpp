@@ -97,6 +97,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	if (opensslError(req)) return;
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	dlg->descr->setText(req->getDescription().c_str());
+	dlg->setCaption(tr(XCA_TITLE));
 	if (!req->verify() ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
@@ -131,7 +132,7 @@ void MainWindow::deleteReq()
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (!req) return;
 	if (opensslError(req)) return;
-	if (QMessageBox::information(this,tr("Delete Certificate signing request"),
+	if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("Really want to delete the Certificate signing request") +":\n'" + 
 			QString::fromLatin1(req->getDescription().c_str()) +
 			"'\n", "Delete", "Cancel")
@@ -169,7 +170,7 @@ void MainWindow::writeReq()
 	filt.append("All Files ( *.* )");
 	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Export Certificate signing request");
+	dlg->setCaption(tr("Export Certificate signing request"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	dlg->setSelection( (req->getDescription() + ".pem").c_str() );
@@ -189,7 +190,7 @@ void MainWindow::insertReq(pki_x509req *req)
 	if (opensslError(req)) return;
 	pki_x509 *oldreq = (pki_x509 *)reqs->findPKI(req);
 	if (oldreq) {
-	   QMessageBox::information(this,tr("Certificate signing request"),
+	   QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate signing request already exists in the database as") +":\n'" +
 		QString::fromLatin1(oldreq->getDescription().c_str()) + 
 		"'\n" + tr("and thus was not stored"), "OK");

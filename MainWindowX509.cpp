@@ -288,6 +288,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->image->setPixmap(*certImg);
 	dlg->descr->setText(cert->getDescription().c_str());
+	dlg->setCaption(tr(XCA_TITLE));
 
 	// examine the key
 	pki_key *key= cert->getKey();
@@ -392,10 +393,16 @@ void MainWindow::deleteCert()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	if (opensslError(cert)) return;
-	if (QMessageBox::information(this,tr("Delete Certificate"),
+	if (cert->getSigner() && cert->getSigner() != cert && cert->getSigner()->canSign()) {
+		QMessageBox::information(this,tr(XCA_TITLE),
+			tr("It is actually not a good idea to delete a cert that was signed by you") +":\n'" + 
+			QString::fromLatin1(cert->getDescription().c_str()) + "'\n" ,
+			tr("Ok") );
+	 		return;
+	}
+	if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("Really want to delete the Certificate") +":\n'" + 
-			QString::fromLatin1(cert->getDescription().c_str()) +
-			"'\n" ,
+			QString::fromLatin1(cert->getDescription().c_str()) + "'\n" ,
 			tr("Delete"), tr("Cancel") )
 	) return;
 	certs->deletePKI(cert);
@@ -490,7 +497,7 @@ void MainWindow::insertCert(pki_x509 *cert)
 {
 	pki_x509 *oldcert = (pki_x509 *)certs->findPKI(cert);
 	if (oldcert) {
-	   QMessageBox::information(this,tr("Certificate import"),
+	   QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate already exists in the database as") +":\n'" +
 		QString::fromLatin1(oldcert->getDescription().c_str()) + 
 		"'\n" + tr("and so it was not imported"), "OK");
@@ -531,7 +538,7 @@ void MainWindow::writePKCS12()
 	if (!cert) return;
 	pki_key *privkey = cert->getKey();
 	if (!privkey || privkey->isPubKey()) {
-		QMessageBox::warning(this,tr("Key error"),
+		QMessageBox::warning(this,tr(XCA_TITLE),
                 	tr("There was no key found for the Certificate: ") +
 			QString::fromLatin1(cert->getDescription().c_str()) );
 		return; 
@@ -678,7 +685,7 @@ void MainWindow::setSerial()
 	if (!cert) return;
 	int serial = cert->getCaSerial();
 	bool ok;
-	int nserial = QInputDialog::getInteger (xca_title,
+	int nserial = QInputDialog::getInteger (tr(XCA_TITLE),
 			tr("Please enter the new Serial for signing"),
 			serial, serial, 2147483647, 1, &ok, this );
 	if (ok && nserial > serial) {
@@ -693,7 +700,7 @@ void MainWindow::setCrlDays()
 	if (!cert) return;
 	int crlDays = cert->getCrlDays();
 	bool ok;
-	int nCrlDays = QInputDialog::getInteger (xca_title,
+	int nCrlDays = QInputDialog::getInteger (tr(XCA_TITLE),
 			tr("Please enter the CRL renewal periode in days"),
 			crlDays, crlDays, 365, 1, &ok, this );
 	if (ok && (crlDays != nCrlDays)) {
@@ -715,7 +722,7 @@ void MainWindow::setTemplate()
 			sel = i;
 		}
 	}
-	QString nTempl = QInputDialog::getItem (xca_title,
+	QString nTempl = QInputDialog::getItem (tr(XCA_TITLE),
 			tr("Please select the default Template for signing"),
 			tempList, sel, false, &ok, this );
 	if (ok && (templ != nTempl)) {
