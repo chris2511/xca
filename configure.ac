@@ -55,7 +55,7 @@ AC_LANG(C)
 
 # Checks for libraries.
 AC_CHECK_LIB([crypto], [atexit], , [AC_MSG_ERROR([OpenSSL libraries not found, try installing openssl-dev or look at www.openssl.org])])
-#AC_CHECK_LIB([stdc++3], [atexit], , [AC_MSG_ERROR([standard C++ library not found...])])
+AC_CHECK_LIB([stdc++], [atexit], , [AC_MSG_ERROR([standard C++ library not found...])])
 LDB=X
 AC_CHECK_LIB([db4_cxx], [atexit], ,[LDB=${LDB}y] )
 AC_CHECK_LIB([db3_cxx], [atexit], ,[LDB=${LDB}y] )
