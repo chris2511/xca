@@ -1,10 +1,10 @@
 Summary: A GUI for handling X509 certificates, RSA keys, and PKCS#10 Requests.
 Name: xca
-Version: 0.2.4
+Version: VERSION
 Release: 1
 Copyright: BSD
 Group: X11
-Source: http://www.hohnstaedt.de/xca-0.2.4.tar.gz
+Source: http://www.hohnstaedt.de/xca-VERSION.tar.gz
 
 %description
 This program is intended as a little CA for signing Requests,
