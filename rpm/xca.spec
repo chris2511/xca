@@ -27,7 +27,7 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make prefix=$RPM_BUILD_ROOT install
+make destdir=$RPM_BUILD_ROOT prefix=/usr install
 
 %clean
 make clean
