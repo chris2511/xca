@@ -76,22 +76,89 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 
 
 #ifdef WIN32
-	char buf[255] = "";
-	DWORD ret_val;
-	ret_val = ExpandEnvironmentStrings("%USERPROFILE%", buf, 255);
-	baseDir = buf;
-	if (ret_val == 0) baseDir = "C:";
-	if (ret_val > 255) {
-		QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
-		qFatal(  "Couldnt create: " +  baseDir );
+	unsigned char reg_path_buf[255] = "";
+	char data_path_buf[255] = "";
+// verification regestry keys
+	LONG lRc;
+    HKEY hKey;
+	DWORD dwDisposition;
+	ULONG dwLength = 255;
+    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
+    if(lRc!= ERROR_SUCCESS){
+	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found . ReInstall Xca.");
+// I have not found the description of this function 
+		qFatal("");
 	}
-	
+    else {
+		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
+        if(lRc!= ERROR_SUCCESS){
+	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
+			qFatal("");
+		}
+		lRc=RegCloseKey(hKey);
+	}
+	lRc=RegOpenKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,KEY_READ, &hKey);
+        if(lRc!= ERROR_SUCCESS)
+        {//First run for current user
+                lRc=RegCloseKey(hKey);
+                lRc=RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
+                NULL,&hKey, &dwDisposition);
+		//setup data dir for current user
+				DWORD ret_val;
+				ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
+				strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
+				if (ret_val == 0){ //win9x - %Program files%\xca\data
+					strncpy(data_path_buf,(char *)reg_path_buf,255);
+					strcat(data_path_buf,"\\data");
+				}
+				baseDir = data_path_buf;
+				if (ret_val > 255) {
+					QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
+					lRc=RegCloseKey(hKey);
+					qFatal(  "Couldnt create: " +  baseDir );
+				}
+		// save in registry
+                lRc=RegSetValueEx(hKey,"data_path",0,REG_EXPAND_SZ,(BYTE*)data_path_buf, 255);
+                lRc=RegCloseKey(hKey);
+				QMessageBox::warning(this,tr(XCA_TITLE), "New data dir create:"+ baseDir);
+				QMessageBox::warning(this,tr(XCA_TITLE), tr("WARNING: If you have updated your 'xca' application you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to new data dir or change HKEY_CURRENT_USER->Software->xca->data_path key"));
+        }
+		else{
+			lRc=RegQueryValueEx(hKey,"data_path",NULL,NULL, reg_path_buf, &dwLength);
+			if(lRc!= ERROR_SUCCESS){
+	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
+		//recreate data dir for current user
+				DWORD ret_val;
+				ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
+				strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
+				if (ret_val == 0){ //win9x - %Program files%\xca\data
+					strncpy(data_path_buf,(char *)reg_path_buf,255);
+					strcat(data_path_buf,"\\data");
+				}
+				baseDir = data_path_buf;
+				if (ret_val > 255) {
+					QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
+					lRc=RegCloseKey(hKey);
+					qFatal(  "Couldnt create: " +  baseDir );
+				}
+		// save in registry
+                lRc=RegSetValueEx(hKey,"data_path",0,REG_EXPAND_SZ,(BYTE*)data_path_buf, 255);
+                lRc=RegCloseKey(hKey);
+				QMessageBox::warning(this,tr(XCA_TITLE), "data dir:"+ baseDir);
+			}
+			lRc=RegCloseKey(hKey);
+			baseDir = (char *)reg_path_buf;
+		}
+// 
+
 #else	
 	baseDir = QDir::homeDirPath();
-#endif
+
 	baseDir += QDir::separator();
 
 	baseDir += BASE_DIR;
+#endif
+
 	QDir d(baseDir);
         if ( ! d.exists() ){
 			if (!d.mkdir(baseDir)) {
@@ -299,9 +366,9 @@ void MainWindow::initPass()
 	PASS_INFO p;
 	string passHash = settings->getString("pwhash");
 	if (passHash == "") {
-#ifdef WIN32
-	QMessageBox::warning(this,tr(XCA_TITLE), tr("WARNING: If you have updated your 'xca' application you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to 'C:\\DOCUMENTS AND SETTINGS\\xca\\ ( %USERPROFILE% )"));	
-#endif
+//#ifdef WIN32
+//	QMessageBox::warning(this,tr(XCA_TITLE), tr("WARNING: If you have updated your 'xca' application you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to '( %USERPROFILE% )\\xca\\ "));	
+//#endif
 		string title=tr("New Password").latin1();
 		string description=tr("Please enter a password, that will be used to encrypt your private keys in the database-file").latin1();
 		p.title = &title;
