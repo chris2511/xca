@@ -115,7 +115,7 @@ class NewX509: public NewX509_UI
 	x509v3ext getCrlDist();
 	extList getNetscapeExt();
 	const EVP_MD *getHashAlgo();
-	void initCtx(pki_x509 *subj);
+	void initCtx(pki_x509 *subj, pki_x509 *iss);
 	void setBasicConstraints(const x509v3ext &e);
 	void setExt(const x509v3ext &ext);
 	QString createRequestText();

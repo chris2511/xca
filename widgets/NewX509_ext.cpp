@@ -211,13 +211,12 @@ extList NewX509::getNetscapeExt()
 	return el;
 }
 
-void NewX509::initCtx(pki_x509 *subj)
+void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss)
 {
-	pki_x509 *iss = getSelectedSigner();
 	X509 *s = NULL, *s1 = NULL;
 	if (subj) s1 = subj->getCert();
 	
-	s = (iss) ? iss->getCert() : s1;
+	if (iss) s = iss->getCert();
 	
 	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
 }	

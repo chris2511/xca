@@ -388,7 +388,6 @@ bool pki_x509::verify(pki_x509 *signer)
 	ign_openssl_error();
 	if (pkey) delete(pkey);
 	if (i>0) {
-		CERR("psigner set for: " << getIntName().latin1() );
 		psigner = signer;
 		return true;
 	}

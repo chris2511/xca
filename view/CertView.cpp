@@ -170,7 +170,6 @@ void CertView::newCert(NewX509 *dlg)
 	cert->setIntName(intname);
 	cert->setSubject(subject);
 	cert->setPubKey(clientkey);
-	dlg->initCtx(cert);
 	
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
@@ -189,6 +188,7 @@ void CertView::newCert(NewX509 *dlg)
 		cert->setTrust(2);
 	}
 
+	dlg->initCtx(cert, signcert);
 	// if we can not sign
 	if (! signkey || signkey->isPubKey()) {
 		throw errorEx(tr("The key you selected for signing is not a private one."));
