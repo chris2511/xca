@@ -80,6 +80,7 @@ class MainWindow: public MainWindow_UI
 	void init_baseDir();
 	DbTxn *global_tid;
 	QMenuBar *mb;
+	int force_load;
 	
    friend class pki_key;
 

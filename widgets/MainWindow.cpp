@@ -88,6 +88,8 @@ DbEnv *MainWindow::dbenv = NULL;
 
 NIDlist *MainWindow::eku_nid = NULL;
 NIDlist *MainWindow::dn_nid = NULL;
+
+
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
 {
@@ -95,7 +97,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	dbfile = DBFILE;
 	dbenv = NULL;
 	global_tid = NULL;
-
+	force_load = 0;
+	
 	baseDir = getBaseDir();
 	
 	init_menu();
@@ -114,8 +117,11 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 
 	read_cmdline();
 	if (exitApp) return;
+	
 	init_baseDir();
-//	emit init_database();
+	
+	if (force_load)
+		emit init_database();
 }
 
 void MainWindow::init_baseDir()
@@ -260,7 +266,7 @@ void MainWindow::read_cmdline()
 				case '7' : lb = new load_pkcs7(); break;
 				case 'l' : lb = new load_crl(); break;
 				case 't' : lb = new load_temp(); break;
-				case 'd' : type = 1; break;
+				case 'd' : type = 1; force_load=1; break;
 				case 'b' : type = 2; break;
 				case 'v' : cerr << XCA_TITLE " Version " << VER << endl; 
 						   opt=0; exitApp=1; break;

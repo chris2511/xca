@@ -13,8 +13,7 @@ xca (0.4.7-RC1) unstable; urgency=low
   * OIDs for extended key usage and Distinguished name are
     now read from eku.txt and dn.txt respectively.
   * About dialog and help window added.
-  * Reqdetail is now tabdialog
-  * 
+  * Requestdetail is now tabdialog
 
  -- Christian Hohnstädt <christian@hohnstaedt.de>  Thu,  5 Feb 2004 23:43:40 +0100
 
