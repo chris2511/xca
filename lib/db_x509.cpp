@@ -76,6 +76,7 @@ bool db_x509::updateView()
 				if (key)
  				   if (key->isPrivKey()) pixnum += 2;	
 				if (signer == NULL) pixnum += 1 ;
+				else if (signer->getSigner() == NULL) pixnum += 1;
 			cerr << "ARound "<< pki <<" - "<< signer << endl;
 				current->setPixmap(0, *pm[pixnum]);
 				mycont.remove(pki);
@@ -99,7 +100,6 @@ void db_x509::remFromCont(pki_base *pki)
                 pkiit = (pki_x509 *)it.current();
 		if (pkiit->getSigner()==pki) {
 			pkiit->delSigner();
-			return;
 		}
 	}
 	return;
