@@ -181,13 +181,10 @@ void MainWindow::loadReq()
 		s = QDir::convertSeparators(s);
 		try {
 			pki_x509req *req = new pki_x509req(s.latin1());
-			MARK
 			insertReq(req);
-			MARK
 			pki_key *pkey = req->getKey();
 			MARK
 			if (pkey) keys->updateViewPKI(pkey);
-			MARK
 		}
 		catch (errorEx &err) {
 			Error(err);

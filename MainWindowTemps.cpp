@@ -111,10 +111,7 @@ void MainWindow::deleteTemp()
 
 void MainWindow::insertTemp(pki_temp *temp)
 {
-	if (!temps->insertPKI(temp))
-	   QMessageBox::warning(this,tr(XCA_TITLE),
-		tr("The template could not be stored into the database"), "OK");
-	
+	temps->insertPKI(temp);
 }
 
 void MainWindow::certFromTemp()

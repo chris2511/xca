@@ -132,22 +132,15 @@ void db_x509req::preprocess()
 pki_key *db_x509req::findKey(pki_x509req *req)
 {
 	pki_key *key, *refkey;
-	MARK
 	if (!req) return NULL;
 	MARK
 	if ((key = req->getKey()) != NULL ) return key;
-	MARK
 	refkey = req->getPubKey();
-	MARK
 	key = (pki_key *)keylist->findPKI(refkey);
-	MARK
 	if (key && key->isPubKey()) {
 		key = NULL;
 	}
-	MARK
 	if (req->setKey(key)) keylist->updateViewPKI(key);
-	MARK
 	if (refkey) delete(refkey);
-	MARK
 	return key;
 }
