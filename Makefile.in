@@ -27,8 +27,6 @@ SUBDIRS=ui lib widgets view
 
 all: $(SUBDIRS) xca
 
-re: clean all
-
 xca: $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o xca
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"

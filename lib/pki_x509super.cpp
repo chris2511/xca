@@ -68,7 +68,7 @@ pki_x509super::~pki_x509super()
 x509name pki_x509super::getSubject() const
 {
 	x509name x;
-	printf("ERROR VIRTUAL");
+	printf("ERROR VIRTUAL getSubject() %s\n", class_name.latin1());
 	openssl_error();
 	return x;
 }
@@ -81,7 +81,7 @@ int pki_x509super::verify()
 
 pki_key *pki_x509super::getPubKey() const
 {
-	 printf("ERROR VIRTUAL");
+	 printf("ERROR VIRTUAL getPubKey() %s\n", class_name.latin1());
 	 return NULL;
 }
 

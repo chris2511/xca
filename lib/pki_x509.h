@@ -103,7 +103,7 @@ class pki_x509 : public pki_x509super
 	   bool canSign();
 	   void writeCert(const QString fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);
-	   pki_key *getPubKey(); // will be created temporarily and must be freed
+	   pki_key *getPubKey() const;
 	   void setPubKey(pki_key *key);
 	   pki_x509 *getSigner();
 	   void delSigner(pki_x509 *s);

@@ -286,7 +286,6 @@ void XcaListView::newItem(void) { CERR("Virtual called..."); }
 void XcaListView::deleteItem(void) { CERR("Virtual called..."); }
 void XcaListView::load(void) { CERR("Virtual called..."); }
 void XcaListView::store(void) { CERR("Virtual called..."); }
-pki_base *XcaListView::insert(pki_base *) { CERR("Virtual called..."); return NULL; }
 void XcaListView::popupMenu(QListViewItem *, QPoint const &, int) { CERR("Virtual called..."); }
 void XcaListView::showItem(pki_base *, bool) { CERR("Virtual called...");}
 

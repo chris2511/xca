@@ -999,7 +999,7 @@ void CertView::importKey(pki_key *key)
 
 void CertView::importCert(pki_x509 *cert)
 {
-	insert(cert);
+	db->insert(cert);
 }
 
 void CertView::showKey(QString name)

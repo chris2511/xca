@@ -55,6 +55,8 @@
 #include <qmessagebox.h>
 #include <qlineedit.h>
 #include "widgets/CrlDetail.h"
+#include "widgets/KeyDetail.h"
+#include "widgets/CertDetail.h"
 #include "lib/pki_crl.h"
 #include "widgets/MainWindow.h"
 #include "widgets/clicklabel.h"
@@ -68,15 +70,50 @@ CrlView::CrlView(QWidget * parent, const char * name, WFlags f)
 }
 
 
-void CrlView::dlg_showCert(QListViewItem *i)
+void CrlView::showCert(QListViewItem *i)
 {
-	emit showCert(i->text(0));
+	showCert(i->text(0));
 }					 
 
-void CrlView::dlg_showCert(QString name)
+void CrlView::showCert(QString name)
 {
-	emit showCert(name);
-}					 
+	pki_base *item = MainWindow::certs->getByName(name);
+	if (!item) return; 
+	CertDetail *dlg=NULL;
+    try {
+		dlg = new CertDetail(this,0,true);
+		dlg->setCert((pki_x509 *)item);
+		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ), 
+			this, SLOT( showKey(QString) ));
+		connect( dlg->signCert, SIGNAL( doubleClicked(QString) ), 
+			this, SLOT( showCert(QString) ));
+
+		dlg->exec();
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
+	if (dlg)
+		delete dlg;
+    return ;
+}
+
+void CrlView::showKey(QString name)
+{
+	pki_key *key = (pki_key *)MainWindow::keys->getByName(name);
+	KeyDetail *dlg = NULL;
+	if (!key) return;
+	try {	
+		dlg = new KeyDetail(this, 0, true, 0 );
+		dlg->setKey(key);
+		dlg->exec();
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+	if (dlg)
+		delete dlg;
+}
 
 void CrlView::showItem(pki_base *item, bool import)
 {
@@ -86,9 +123,9 @@ void CrlView::showItem(pki_base *item, bool import)
 		dlg = new CrlDetail(this,0,true);
 		dlg->setCrl((pki_crl *)item);
 		connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
-			this, SLOT( dlg_showCert(QListViewItem *) ));
+			this, SLOT( showCert(QListViewItem *) ));
 		connect( dlg->issuerIntName, SIGNAL( doubleClicked(QString) ), 
-			this, SLOT( dlg_showCert(QString) ));
+			this, SLOT( showCert(QString) ));
 		
 		dlg->exec();
     }
@@ -223,7 +260,7 @@ pki_crl *CrlView::newItem(pki_x509 *cert)
 		crl->sign(cert->getRefKey(), EVP_md5());
 		MainWindow::certs->updatePKI(cert); 
 		// FIXME: set Last update
-		insert(crl); 
+		db->insert(crl); 
 		updateView();
 	}
 	catch (errorEx &err) {

@@ -265,6 +265,7 @@ void pki_crl::updateView()
 	QListViewItem *c = getLvi();
 	if (!c) return;
 	c->setPixmap(0, *icon);
+	c->setText(0, getIntName());
 	c->setText(1, getIssuerName().getEntryByNid(NID_commonName));
 	c->setText(2, QString::number(numRev()));
 }

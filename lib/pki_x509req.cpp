@@ -182,7 +182,7 @@ int pki_x509req::verify()
 	 return x;
 }
 
-pki_key *pki_x509req::getPubKey()
+pki_key *pki_x509req::getPubKey() const
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	 pki_key *key = new pki_key(pkey);	

@@ -272,6 +272,8 @@ void pki_temp::loadTemp(QString fname)
 	}
 	if (fread(&size, sizeof(size), 1, fp) != 1)
 		openssl_error(tr("Template file content error"));
+	if (size > 65535)
+		openssl_error(tr("Template file content error"));
 	p = (unsigned char *)OPENSSL_malloc(size);
 	if (fread(p, 1, size, fp) != size) {
 		OPENSSL_free(p);

@@ -265,16 +265,20 @@ void pki_x509::fromData(unsigned char *p, int size)
 	int version, sCert, sRev, sLastCrl;
 	unsigned char *p1 = p;
 	version = intFromData(&p1);
-	if (version >=1 || version <= 3) {
+	if (version >=1 || version <= 4) {
 		sCert = intFromData(&p1);
 		cert = d2i_X509(NULL, &p1, sCert);
 		trust = intFromData(&p1);
 		sRev = intFromData(&p1);
 		if (sRev) {
-		   revoked= d2i_ASN1_TIME(NULL, &p1, sRev);
+			ASN1_TIME *time;
+			if (version != 3) isrevoked = true;
+			time = d2i_ASN1_TIME(NULL, &p1, sRev);
+			revoked = time;
+			OPENSSL_free(time);
 		}
 		else {
-		   revoked = NULL;
+		   isrevoked = false;
 		}
 		
 		if (version == 1) {
@@ -295,6 +299,8 @@ void pki_x509::fromData(unsigned char *p, int size)
 			   lastCrl.d2i(p1, sLastCrl);
 			}
 		}
+		// version 4 saves a NULL as revoked
+		// version 3 did save a recent date :-((
 	}
 	else { // old version
 		cert = d2i_X509(NULL, &p, size);
@@ -308,11 +314,12 @@ void pki_x509::fromData(unsigned char *p, int size)
 
 unsigned char *pki_x509::toData(int *size)
 {
-#define PKI_DB_VERSION (int)3
+#define PKI_DB_VERSION (int)4
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
 	int sRev = revoked.derSize();
 	int sLastCrl = lastCrl.derSize();
+	if (!isrevoked) sRev = 0;
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();
@@ -395,7 +402,7 @@ bool pki_x509::verify(pki_x509 *signer)
 }
 
 
-pki_key *pki_x509::getPubKey()
+pki_key *pki_x509::getPubKey() const
 {
 	EVP_PKEY *pkey = X509_get_pubkey(cert);
 	openssl_error();

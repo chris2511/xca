@@ -89,7 +89,6 @@ class XcaListView : public QListView
 	void showItem(QListViewItem *item);
 	virtual void load();
 	virtual	void store();
-	virtual	pki_base *insert(pki_base *item);
 	virtual void popupMenu(QListViewItem *item, const QPoint &pt, int x);
 	void startRename();
 	void renameDialog();

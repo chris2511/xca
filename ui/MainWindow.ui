@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>775</width>
+            <width>820</width>
             <height>534</height>
         </rect>
     </property>
@@ -853,86 +853,6 @@
                     <name>title</name>
                     <string>Settings</string>
                 </attribute>
-                <widget>
-                    <class>QGroupBox</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>GroupBox1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>geometry</name>
-                        <rect>
-                            <x>11</x>
-                            <y>11</y>
-                            <width>720</width>
-                            <height>173</height>
-                        </rect>
-                    </property>
-                    <property stdset="1">
-                        <name>title</name>
-                        <string>Distinguished Name</string>
-                    </property>
-                    <grid>
-                        <property stdset="1">
-                            <name>margin</name>
-                            <number>11</number>
-                        </property>
-                        <property stdset="1">
-                            <name>spacing</name>
-                            <number>6</number>
-                        </property>
-                        <widget row="0"  column="0" >
-                            <class>QLineEdit</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>LineEdit1</cstring>
-                            </property>
-                        </widget>
-                        <widget row="0"  column="1" >
-                            <class>QLineEdit</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>LineEdit2</cstring>
-                            </property>
-                        </widget>
-                        <widget row="0"  column="2" >
-                            <class>QLineEdit</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>LineEdit3</cstring>
-                            </property>
-                        </widget>
-                        <widget row="1"  column="0"  rowspan="1"  colspan="3" >
-                            <class>QListView</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>ListView1</cstring>
-                            </property>
-                        </widget>
-                        <widget row="0"  column="3" >
-                            <class>QPushButton</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>PushButton32</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>text</name>
-                                <string>add</string>
-                            </property>
-                        </widget>
-                        <widget row="1"  column="3" >
-                            <class>QPushButton</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>PushButton31</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>text</name>
-                                <string>remove</string>
-                            </property>
-                        </widget>
-                    </grid>
-                </widget>
             </widget>
         </widget>
         <widget>
@@ -1024,7 +944,7 @@
             <hordata>7</hordata>
             <verdata>7</verdata>
         </sizepolicy>
-        <pixmap>image1</pixmap>
+        <pixmap>image0</pixmap>
     </customwidget>
     <customwidget>
         <class>CertView</class>
@@ -1038,7 +958,7 @@
             <hordata>7</hordata>
             <verdata>7</verdata>
         </sizepolicy>
-        <pixmap>image0</pixmap>
+        <pixmap>image1</pixmap>
     </customwidget>
     <customwidget>
         <class>TempView</class>
@@ -1052,7 +972,7 @@
             <hordata>7</hordata>
             <verdata>7</verdata>
         </sizepolicy>
-        <pixmap>image0</pixmap>
+        <pixmap>image1</pixmap>
     </customwidget>
     <customwidget>
         <class>CrlView</class>
@@ -1066,17 +986,17 @@
             <hordata>7</hordata>
             <verdata>7</verdata>
         </sizepolicy>
-        <pixmap>image1</pixmap>
+        <pixmap>image0</pixmap>
     </customwidget>
 </customwidgets>
 <images>
     <image>
         <name>image0</name>
-        <data format="XPM.GZ" length="4254">789c7dd7595323470c00e0777e850bbd6da59419db73552a0f1c86057c82cd95ca83e630186363c0184c2aff3d9a96d44b52496a96856f5bd3526bba07efcfdf1ad7c35ee3dbcf3baf6b5acf8a46714f2f8d6fe5db62b1fdedf75fffd8d96d361bfc27cc924673f7a79d5d0a1b45a3ffb4ac6ac0330382b4be9c53731838bfd40e83fa723e55a7a18bc7c039f53e33375d3c4a3c4b4c4fde999b0f6bd7a31a7febedc6e9ca396b5afe8db7d40bea54e79bd56e85ada015bafbf7d569db198e9db376202697afcdf19aef5ddcd6fbf1d95bc6af9dc97ba54e35df81b71bc7ae59f33f789373208e82581ece7deda8e9c7e7e22888647ce4ece7c317711468fc8759e2e1bb3ad3f596de2e3ecfcd3aff83b71ba74eedb81965ba5e32eb3888e350eb3f77261fbf16fbf189daf2dd98757ce62deb59899330c9ddf8c69cb6dc78563b69c5a1d483a15ae783476f99ef539c84ea57e73c09b55ffbe644e6dfaa33cd7f543b6d25b6feb1388d643eec99b5be776fb9df3d8f34b77828d5a5c4d3ab396bbbf93ae24cef8723735638bbf396b5d348eac35775a9f51e8bb348d64373b3ce776896f9e8ceb94823ed47e22debcdd4367f20e6fba5deadbad4f90bb3cc8f4762d27a696926c95f9873371fb8f3466d7b3ed414a7a5ee97489c69bfe9426df50dcd5a4f68967a61e12df94fc464cfebd1acf5f7cd24f7e7def23cf6d495da9d07f2fd8337b5d5bf1567a5ec0792f90a9f6fa3ae241f8ebc65fcc3acfd9a88f3aa889cddfb246f2776de5231e97ec8c1acfdb9516b3ea8bca53f67e23cd6fd7761d67a0666a90763b5d6477b66a90fdd7ecacbb4d4f32bf94bb2f374a2ae74ff2666797ed415737ef1a759f39daa2b7dbe03b3aeaf63d6feb5bc4be72b7161eb199aa5fedcedd722e2fa64bff4c5363f5d8a8b58f753cfacfd3a376b3f2ebc25ff81ba12933baf85ef0fb5d4953827b3be0f56e23cd6fe3d9be5bc8cd66aabf74d6cf5c0526dfb69ecedea41ada7d47ae9c55cbacf17e87edf9711ef17377f8eea4acf6b5b6cfdc1b5daf6c7bbb8b4febc794bfea6b994facc95e677efdbb2b2fc14ab353f44e252f3c39d59df0f43b3e6fff496f52ecc921f73b59dd72bb3de9f98b5de5b6fa9776cae6267f7feab62ab1f4ec485ada712977a1e90bc657f2dcdbadf0a71a5e7050fcc921fc82cf909bd65bca7aed46df3d4c583eb6f55d9fec207b5f57be42dfd5e9bb57e10fbfdb010fb7a8fbd653d7b66edffbeb7f4f3516dcfa334eb798eccb21ebc34eb7a9ec4d3584cd3dad3d8d683736f39df1fe2428d3371a9ef4bacc4953d8fa959df3f7db3d673279edafbe7de5bde0f53b3aebf6dd6fa2fbda7ce03f5548ceefdc1d0784cd553dd0f5db38e4fbca7f2fe4040c21c0b2cf9aa708a7778cf5f15cef001e7f8880b1e23febe94f701aef0195ff015d7f8861b7cc70fdce227ffbc87fbee3ac043ece0111ecbf9c5133cc533ec620ffb38c0217f8df01c2f708c137f5de2154abfaff1066f31c0109bd8c236461cd7e4f898ef4bbedc9122e9fc19de0202f01d6f404018f117df013914d883122a560453b893f9e1decd1fc00c1e600e8fb080653d233cf13d2b3c836778e1bf5f7121fb1bde60c3f3bcc3076ce11347b007f52a275c59130ee0103a7004c7f05dea81138e3f8533e8420ffa6ede01c70cbf542ed721caefdf119ce3695d3d5cf07cdc1398705dff88874bb8d2fae770cdf1c8d5dcc02d0e610c016c208426b47ef407dabc6e793fc590400a19f46140c831235871938872ee524bd7dde6cf1ffc1b47ce07ddd13d7e72d505cde881e6d8a7477e0e13eeed983b34a6052de98956d21f8e7fe6bc6d9ee305de794fd4f93f6041af30a73594e49e096de81d1fe57cd196bbb54f9fb4c4ad74c8f5e812c73cef0c37b4075bdaa703d96f74080975e8888ee93b9dd0299d51977ad4a7010d6944e774c1dfc75cfd842ee5f31cef32bd38fb95db75cf74cdabb8a15b0af869177291d4137eb9bad4840e85d8e5758750518babf932fef77868b94f8df5cff7dccfdafcdf9aff89eff0c9e9ff88e72bc115dff51ff1bcc614075fe3e182e2af157d8d77d5642a8befe4c88ff9dfe33b39f153723fe739f746fe3dc98b1f15edfef9cbce5fa057e358</data>
+        <data format="XPM.GZ" length="4254">789c7dd7595323371000e0777e858b7edb4a757c8fa75279e0302ce0136cae541e7a2e30c6c680319854fe7b7afad09254929ae5f8504b6ab5a481fdf95be57ad4af7cfb79e7754deb595a49efe9a5f22d7b5b2cb6bffdfeeb1f3bbbf57a85ffd5e2a852dffd6967976a95b432785ae625e09901d54ef9883bee5a55fc52ba562d1ff1a9b9539378ac8a3bc167ee7a4dacf12c353d05c7321e962e5b2dfe3658dae94a1cd76b36ff2658f305736ce3cd4a376ae523fdf7cd7153160fc762969a64be66bde1f3bdabcb9f483ecfc1da7e2da6e095996cbe836069c79edbe67f08267155ddaab71bd2ffbe74ab1edae7eaf291f6b1388c872feab287c47fb8351ebe9b2d9eb260894f12b78dff102cedd42ddd6eb46c3d446e6b0775f988cfc549885fab43fbd49cd87c376e6b9f052792ff4a1d3522316ddc9da6b4c7a5a3469991d4a366b6f1e03158c7fb54973f11bf8a793cabd7be3bd2fe5b7362f31f95ee34a3c4d63f51779a3a1ef6dd96df7b702af1b21f9dd4e32133a71a4fafee588c5d756cfde1c81dabe5be716b53f3c357736af91eabe3a6ae87e66e1befd0ade3d19d98b3b17a44c1baded8ece357d5e50832ffd69cdaf8a95bc7c72335b5acffd24d993875272de92ff78da36d7fa8aeeea4765e5aead8ea4d1766cf6fe4b67c6a6ecd1716c1bafe13753983f8d16df90fdca4f925c1923fec9933b3dc07cabc7ef066f6fcb7ea38d5f3403a5e16e6db98339d0fc7c1323e7eb8ad5e537592a56db1bc4f12aeb6d5afa32e2b2af71fdc569f1bb3cd0779b0eecf993ab1fce0c26df90cdd9a0fb6cd961fedb9353f94f394703decfeeafc3cbbdda7137366e73772ebfe514f9dd87ed0a7dbe63b3567b6bf43b7adafebb6fa358275ffaed4bc3dba9e915bf34fe4bca66dce4ff76fa0f6f1e9529db6ed3cf5dd56af73b7d5e322587f3f1f987335c97d4d73af0f35cc993a21b7bd0f56eac4f69b9edd7a5fc66bb3e7fba6f67c6069cecd9360c9072d9fccf2a51777a6edf2fb9e936be97e2568ceecbe36d55e1f5c9b6d3e7c57675e9fb7601dbfeece343f776ef3cbfb36cb7d7e6a9b6d7e68a9339b1feedcf67e18b96dfecf605defc2adf36362ceedbe5eb9ad7fe4b67c6f8335df893b8fc4f2fecb23cf1f4ed4a9e547b93acbedfd4bc15acfa5dbce5baace23cbefc0adf303b9757ec2e042dafbe6c2dc7417120f52dfbcf0f3850f66aff73858ebbd765bfea00ee761a10ef91e07eb7af6dc56fffd60ade7a3b9b0fe99dbee73cbadebc14bb7ade7495d446a2a4a1791af07e7c17abf3fd4696ef9cfd47c9ed4b99af3d1fc0bb7bd7f066ecbe74ecd3368bef7c1fa7e2adcb6fea6dbf2bf0cd6fd1a9a0b35cafba308ebc38eb9b0f3d0735bfb34b8d0f7070212269862c64f8e05dee13d7fe438c3079ce3232eb88df8eb52df07b8c2677cc1575ce31b6ef01d3f708b9ffcfd1eeecb738087d8c5233cd6fb8b27788a67d8c33e0e708823fe18e3395ee004a7e1b9c42bd4f7dd35dee02d56b186756c60135b1c57e7f836f78bbef4e820d9f831de0202708f3720206cf107f7800452ec430639ab0505dce9f8702fe35761060f30874758c0b21c119eb8cf0acfe0195ef8f32b2ef47cc31b6c789c77f8802d7ce218f6a05ce59433abc3011c42178ee018be6b3e70c2f1a770063de8c340c61d72cce84be6fa1ca2de9f319ce369993d5cf0785c1398725eff88874bb8b2fce770cdf1c8d9dcc02d8e600255d8400dead0f8511f68f2baf53cb621820ec430802121c78c61c545224ab84a0d5b779352fefb40df8705ddd13d7e72d629cde881e638a047de8729d776c2159ad08296f4442bad0fc73ff3bc4d1ee305def94c94f37fc0825e614e6bc848f68436f48e8f7abf68cbd5daa74f5ae2562b2435bac4098f3bc30dedc196f6e940cf1b1d42445d3aa263fa4e27744a67d4a33e0d6848231ad3395df0d709673fa54bfd7b8e4f993d3cfb959cba67bae655dcd02d5579b7537d48f3a97d797a54872ed5b0c7ebae414e0dcee64bfbdfe3a1c1ff056bc9f7f75ccfd26d8afe27becb3767f0239e9f0857dceb3fe2798d1d1c7e8d870b6a7fcde86bbc64139b3cbe9b206ff3bfc77713e25d92ef93846ba33f8f92f44746bb7ffeb2f3171196e795</data>
     </image>
     <image>
         <name>image1</name>
-        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
+        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1ddec44f503c0ae2a154410f53d0ed20e2bf6bdb656dd6861dd23d9a66591b0587fd1654235ebded6f0edcd53e419d87ae7b1f4f9b8f906d0bfe012317426a70b07bdc2f3ec77f8ed6b89559061a0343d06a124cc105596482585094bc0ae599b04646c9018926491b2205e140c485cace25755c175d0a967b622ff900b8cc9c7d29af594ea722d589167f813aa852ba07d94b9dce296e883fe7bb163f23896753</data>
     </image>
 </images>
 <tabstops>
