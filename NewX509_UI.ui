@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>520</height>
+            <width>656</width>
+            <height>531</height>
         </rect>
     </property>
     <property stdset="1">
@@ -321,7 +321,7 @@
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Sign this Certificate signing request</string>
+                            <string>Sign this Certificate signing &amp;request</string>
                         </property>
                     </widget>
                     <widget>
@@ -381,7 +381,7 @@
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Use this Certificate for for signing:</string>
+                            <string>Use &amp;this Certificate for for signing:</string>
                         </property>
                     </widget>
                     <widget row="0"  column="0" >
@@ -392,7 +392,7 @@
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Create a self signed certificate with the serial</string>
+                            <string>Create a &amp;self signed certificate with the serial</string>
                         </property>
                         <property stdset="1">
                             <name>checked</name>
@@ -492,7 +492,7 @@
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Change the default extension settings from the template</string>
+                            <string>Change the default &amp;extension settings from the template</string>
                         </property>
                     </widget>
                 </grid>
@@ -883,7 +883,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Generate a new key</string>
+                            <string>&amp;Generate a new key</string>
                         </property>
                     </widget>
                 </grid>
@@ -1122,7 +1122,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Critical</string>
+                                    <string>&amp;Critical</string>
                                 </property>
                             </widget>
                         </grid>
@@ -1154,7 +1154,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Subject Key Identifier</string>
+                                    <string>&amp;Subject Key Identifier</string>
                                 </property>
                             </widget>
                             <widget>
@@ -1165,7 +1165,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Authority Key Identifier</string>
+                                    <string>&amp;Authority Key Identifier</string>
                                 </property>
                             </widget>
                         </vbox>
@@ -1280,7 +1280,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Copy issuer name</string>
+                            <string>Copy &amp;issuer name</string>
                         </property>
                     </widget>
                     <widget row="2"  column="0" >
@@ -1324,7 +1324,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Copy e-mail address from subject line</string>
+                            <string>Copy &amp;e-mail address from subject line</string>
                         </property>
                     </widget>
                     <widget row="2"  column="1" >
@@ -1532,7 +1532,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Critical</string>
+                                    <string>&amp;Critical</string>
                                 </property>
                             </widget>
                             <widget>
@@ -1629,7 +1629,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Critical</string>
+                                    <string>C&amp;ritical</string>
                                 </property>
                             </widget>
                             <widget>

@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>764</width>
+            <width>756</width>
             <height>604</height>
         </rect>
     </property>
@@ -127,7 +127,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New Key</string>
+                                    <string>&amp;New Key</string>
                                 </property>
                             </widget>
                             <widget>
@@ -138,7 +138,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Export</string>
+                                    <string>&amp;Export</string>
                                 </property>
                             </widget>
                             <widget>
@@ -149,7 +149,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Import</string>
+                                    <string>&amp;Import</string>
                                 </property>
                             </widget>
                             <widget>
@@ -160,7 +160,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Show Details</string>
+                                    <string>&amp;Show Details</string>
                                 </property>
                             </widget>
                             <widget>
@@ -171,7 +171,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Delete</string>
+                                    <string>&amp;Delete</string>
                                 </property>
                             </widget>
                             <spacer>
@@ -305,7 +305,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New Request</string>
+                                    <string>&amp;New Request</string>
                                 </property>
                             </widget>
                             <widget>
@@ -316,7 +316,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Export</string>
+                                    <string>&amp;Export</string>
                                 </property>
                             </widget>
                             <widget>
@@ -327,7 +327,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Import</string>
+                                    <string>&amp;Import</string>
                                 </property>
                             </widget>
                             <widget>
@@ -338,7 +338,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Show Details</string>
+                                    <string>&amp;Show Details</string>
                                 </property>
                             </widget>
                             <widget>
@@ -349,7 +349,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Delete</string>
+                                    <string>&amp;Delete</string>
                                 </property>
                             </widget>
                             <spacer>
@@ -476,7 +476,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New Certificate</string>
+                                    <string>&amp;New Certificate</string>
                                 </property>
                             </widget>
                             <widget>
@@ -487,7 +487,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Export</string>
+                                    <string>&amp;Export</string>
                                 </property>
                             </widget>
                             <widget>
@@ -498,7 +498,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Import</string>
+                                    <string>&amp;Import</string>
                                 </property>
                             </widget>
                             <widget>
@@ -509,7 +509,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Show Details</string>
+                                    <string>&amp;Show Details</string>
                                 </property>
                             </widget>
                             <widget>
@@ -520,7 +520,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Delete</string>
+                                    <string>&amp;Delete</string>
                                 </property>
                             </widget>
                             <widget>
@@ -531,7 +531,18 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Import PKCS#12</string>
+                                    <string>Import &amp;PKCS#12</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>PushButton18_2</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Import P&amp;KCS#7</string>
                                 </property>
                             </widget>
                             <spacer>
@@ -658,7 +669,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New empty template</string>
+                                    <string>New &amp;empty template</string>
                                 </property>
                             </widget>
                             <widget>
@@ -669,7 +680,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New CA template</string>
+                                    <string>New C&amp;A template</string>
                                 </property>
                             </widget>
                             <widget>
@@ -680,7 +691,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New client template</string>
+                                    <string>New &amp;client template</string>
                                 </property>
                             </widget>
                             <widget>
@@ -691,7 +702,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New server template</string>
+                                    <string>New &amp;server template</string>
                                 </property>
                             </widget>
                             <widget>
@@ -702,7 +713,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Change Template</string>
+                                    <string>Ch&amp;ange Template</string>
                                 </property>
                             </widget>
                             <widget>
@@ -713,7 +724,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Delete</string>
+                                    <string>&amp;Delete</string>
                                 </property>
                             </widget>
                             <spacer>
@@ -966,7 +977,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Exit</string>
+                        <string>E&amp;xit</string>
                     </property>
                 </widget>
             </hbox>
@@ -1160,6 +1171,12 @@
         <receiver>MainWindow_UI</receiver>
         <slot>alterTemp()</slot>
     </connection>
+    <connection>
+        <sender>PushButton18_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>loadPKCS7()</slot>
+    </connection>
     <slot access="public">alterTemp()</slot>
     <slot access="public">crashApp()</slot>
     <slot access="public">deleteCert()</slot>
@@ -1177,6 +1194,7 @@
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
     <slot access="public">newSerTemp()</slot>
+    <slot access="public">loadPKCS7()</slot>
     <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
     <slot access="public">showDetailsKey()</slot>

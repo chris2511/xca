@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>478</width>
+            <width>474</width>
             <height>236</height>
         </rect>
     </property>
@@ -123,6 +123,10 @@
             <property stdset="1">
                 <name>name</name>
                 <cstring>description</cstring>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
             </property>
             <property stdset="1">
                 <name>alignment</name>
@@ -262,7 +266,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -294,7 +298,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
             </hbox>

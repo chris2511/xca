@@ -670,7 +670,7 @@ void MainWindow::loadPKCS7()
 			pk7->readP7(s.latin1());
 			for (int i=0; i<pk7->numCert(); i++) {
 				acert = pk7->getCert(i);
-				insertCert(acert);
+				showDetailsCert(acert, true);
 			}
 			delete pk7;
 			keys->updateView();

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>599</width>
+            <width>595</width>
             <height>375</height>
         </rect>
     </property>
@@ -308,7 +308,7 @@ PKCS#8 is an encrypted official Key-exchange format</string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Export the private part of the Key too</string>
+                        <string>E&amp;xport the private part of the Key too</string>
                     </property>
                 </widget>
                 <widget>
@@ -323,7 +323,7 @@ PKCS#8 is an encrypted official Key-exchange format</string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Encrypt the Key with a password</string>
+                        <string>&amp;Encrypt the Key with a password</string>
                     </property>
                 </widget>
             </vbox>
@@ -351,7 +351,7 @@ PKCS#8 is an encrypted official Key-exchange format</string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -383,7 +383,7 @@ PKCS#8 is an encrypted official Key-exchange format</string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
             </hbox>

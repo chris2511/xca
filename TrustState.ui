@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>481</width>
+            <width>477</width>
             <height>267</height>
         </rect>
     </property>
@@ -104,8 +104,19 @@
                         </size>
                     </property>
                     <property stdset="1">
+                        <name>text</name>
+                        <string></string>
+                    </property>
+                    <property stdset="1">
                         <name>scaledContents</name>
                         <bool>true</bool>
+                    </property>
+                    <property stdset="1">
+                        <name>alignment</name>
+                        <set>AlignVCenter|AlignLeft</set>
+                    </property>
+                    <property>
+                        <name>wordwrap</name>
                     </property>
                 </widget>
             </hbox>
@@ -235,7 +246,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Never trust this certificate</string>
+                        <string>&amp;Never trust this certificate</string>
                     </property>
                 </widget>
                 <widget>
@@ -246,7 +257,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Only trust this certificate, if we trust the signer</string>
+                        <string>Only &amp;trust this certificate, if we trust the signer</string>
                     </property>
                 </widget>
                 <widget>
@@ -257,7 +268,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Always trust this certificate</string>
+                        <string>&amp;Always trust this certificate</string>
                     </property>
                 </widget>
             </vbox>
@@ -285,7 +296,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -317,7 +328,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
             </hbox>

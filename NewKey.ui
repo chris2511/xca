@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>384</width>
+            <width>380</width>
             <height>244</height>
         </rect>
     </property>
@@ -244,7 +244,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -276,7 +276,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Create</string>
+                        <string>C&amp;reate</string>
                     </property>
                 </widget>
             </hbox>

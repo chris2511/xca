@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>476</width>
+            <width>472</width>
             <height>184</height>
         </rect>
     </property>
@@ -117,6 +117,20 @@
                 <cstring>description</cstring>
             </property>
             <property stdset="1">
+                <name>minimumSize</name>
+                <size>
+                    <width>0</width>
+                    <height>0</height>
+                </size>
+            </property>
+            <property stdset="1">
+                <name>maximumSize</name>
+                <size>
+                    <width>32767</width>
+                    <height>32767</height>
+                </size>
+            </property>
+            <property stdset="1">
                 <name>font</name>
                 <font>
                 </font>
@@ -124,6 +138,10 @@
             <property stdset="1">
                 <name>text</name>
                 <string></string>
+            </property>
+            <property stdset="1">
+                <name>scaledContents</name>
+                <bool>false</bool>
             </property>
             <property stdset="1">
                 <name>alignment</name>
@@ -203,7 +221,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -235,7 +253,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
             </hbox>
