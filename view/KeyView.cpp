@@ -81,6 +81,7 @@ KeyView::KeyView(QWidget * parent, const char * name, WFlags f)
 
 void KeyView::newItem()
 {
+	CHECK_DB
 	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
 	QString x;
 	dlg->keyLength->setEditable(true);	
@@ -112,6 +113,7 @@ void KeyView::newItem()
 			ksize);
 			progress->cancel();
 		delete progress;
+		
 		db->insert(nkey);
 		x = nkey->getIntName();
 		emit keyDone(x);
@@ -148,6 +150,7 @@ void KeyView::showItem(pki_base *item, bool import)
 
 void KeyView::load()
 {
+	CHECK_DB
 	load_key l;
 	load_default(l);
 }
@@ -201,6 +204,7 @@ void KeyView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Import"), this, SLOT(load()));
 	}
 	else {
+		CHECK_DB
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Export"), this, SLOT(store()));
@@ -219,6 +223,7 @@ void KeyView::incProgress(int a, int b, void *progress)
 
 void KeyView::importKey(pki_key *k)
 {
+	CHECK_DB
 	db->insert(k);
 }
 
@@ -228,6 +233,8 @@ void KeyView::changePasswd()
 	QString pass;
 	bool ret;
 	DbTxn *tid;
+	
+	CHECK_DB
 	
 	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
 	dlg->image->setPixmap( *MainWindow::keyImg );

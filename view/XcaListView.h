@@ -59,6 +59,8 @@
 #include "lib/exception.h"
 #include "widgets/NewX509.h"
 
+#define CHECK_DB emit init_database();
+	
 class XcaListView : public QListView
 {
 	Q_OBJECT
@@ -69,6 +71,7 @@ class XcaListView : public QListView
 	public:
 		XcaListView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 		void setDB(db_base *mydb);
+		void rmDB(db_base *mydb);
 		virtual pki_base *getSelected();
 		virtual void showItem(pki_base *item, bool import);
 		void deleteItem_default(QString t1, QString t2);

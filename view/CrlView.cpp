@@ -80,6 +80,7 @@ void CrlView::showCert(QString name)
 	pki_base *item = MainWindow::certs->getByName(name);
 	if (!item) return; 
 	CertDetail *dlg=NULL;
+	CHECK_DB
     try {
 		dlg = new CertDetail(this,0,true);
 		dlg->setCert((pki_x509 *)item);
@@ -103,6 +104,7 @@ void CrlView::showKey(QString name)
 	pki_key *key = (pki_key *)MainWindow::keys->getByName(name);
 	KeyDetail *dlg = NULL;
 	if (!key) return;
+	CHECK_DB
 	try {	
 		dlg = new KeyDetail(this, 0, true, 0 );
 		dlg->setKey(key);
@@ -119,6 +121,7 @@ void CrlView::showItem(pki_base *item, bool import)
 {
 	if (!item) return;
     CrlDetail *dlg;
+	CHECK_DB
 	try {
 		dlg = new CrlDetail(this,0,true);
 		dlg->setCrl((pki_crl *)item);
@@ -160,8 +163,10 @@ void CrlView::writeCrl_der()
 }	
 	
 void CrlView::store(bool pem)
-	{
+{
 	pki_crl *crl;
+	CHECK_DB
+
 	try {
 		crl = (pki_crl *)getSelected();
 	}
@@ -207,6 +212,7 @@ void CrlView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Import"), this, SLOT(load()));
 	}
 	else {
+		CHECK_DB
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Export"), subExport);
@@ -228,6 +234,7 @@ pki_crl *CrlView::newItem(pki_x509 *cert)
 	a1time time;
 	pki_x509 *issuedcert = NULL;
 	pki_crl *crl = NULL;
+	CHECK_DB
 	x509v3ext e;
 	X509V3_CTX ext_ctx;
 	X509V3_set_ctx(&ext_ctx, cert->getCert() , NULL, NULL, NULL, 0);

@@ -96,6 +96,7 @@ CertView::CertView(QWidget * parent, const char * name, WFlags f)
 
 void CertView::newItem()
 {
+	CHECK_DB 
 	NewX509 *dlg = new NewX509(this, NULL, true);
 	emit connNewX509(dlg);
 	dlg->setCert();
@@ -142,8 +143,7 @@ void CertView::newCert(NewX509 *dlg)
 	x509name subject;
 	QString intname;
 	
-	emit init_database();
-
+	CHECK_DB 
 	
     try {	
 	
@@ -606,6 +606,7 @@ void CertView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	}
 	else {
+		CHECK_DB
 		pki_x509 *cert = (pki_x509 *)db->getByName(item->text(0));
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
@@ -776,6 +777,7 @@ void CertView::setTemplate()
 
 void CertView::changeView(QPushButton *b)
 {
+	CHECK_DB
 	if (viewState == 0) { // Plain view
 		viewState = 1;
 		b->setText(tr("Plain View"));

@@ -82,9 +82,10 @@ void ReqView::newItem()
 
 void ReqView::newItem(pki_temp *temp)
 {
+	CHECK_DB 
 	NewX509 *dlg = new NewX509(this,0,true);
 	emit connNewX509(dlg);
-	 
+
 	if (temp) {
 		dlg->defineTemplate(temp);
 	}
@@ -201,6 +202,7 @@ void ReqView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Import"), this, SLOT(load()));
 	}
 	else {
+		CHECK_DB
 		pki_x509req *req = (pki_x509req *)db->getByName(item->text(0));
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));

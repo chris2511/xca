@@ -56,5 +56,6 @@
 
 QPixmap *loadImg(const char *name);
 QString getPrefix();
+QString getBaseDir();
 
 #endif

@@ -1,4 +1,4 @@
-/* uvi: set sw=4 ts=4: */
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -49,75 +49,25 @@
  *
  */                           
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
 
-#include "NewX509.h"
-#include "ui/MainWindow.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
-#include "lib/db_temp.h"
-#include "lib/db_crl.h"
-#include "lib/exception.h"
-#include <qpixmap.h>
-#include <qfiledialog.h>
+#include "MainWindow.h"
+#include <qapplication.h>
 #include <qmenubar.h>
 
-#define DBFILE "xca.db"
-
-
-class MainWindow: public MainWindow_UI
+void MainWindow::init_menu()
 {
-	Q_OBJECT
+	QPopupMenu *file = new QPopupMenu( this );
+	file->insertItem( "&Open",  this, SLOT(init_database()), CTRL+Key_O );
+	file->insertItem( "&Close", this, SLOT(close_database()), CTRL+Key_N );
+	file->insertSeparator();
+	file->insertItem( "E&xit",  qApp, SLOT(quit()), CTRL+Key_Q );
 
-  protected:
-	void init_images();
-	void read_cmdline();
-	void init_menu();
-	void do_connections();
-	DbTxn *global_tid;
-	QMenuBar *mb;
+	QPopupMenu *help = new QPopupMenu( this );
+	help->insertItem( "&Content", this, SLOT(help()), Key_F1 );
+	help->insertItem( "&About", this, SLOT(about()) );
 	
-   friend class pki_key;
-
-   public:
-	static DbEnv *dbenv;
-	static db_x509 *certs;
-	static db_x509req *reqs;
-	static db_key *keys;
-	static db_temp *temps;
-	static db_crl *crls;
-	static db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
-	int exitApp;
-	QString baseDir, dbfile;
 	
-	MainWindow(QWidget *parent, const char *name);
-	~MainWindow(); 
-	void loadSettings();
-	void saveSettings();
-	void initPass();
-	static int passRead(char *buf, int size, int rwflag, void *userdata);
-	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-	static void incProgress(int a, int b, void *progress);
-	static void dberr(const char *errpfx, char *msg);
-	static NewX509 *newX509();
-	static QString md5passwd(const char *pass);
-	static void Error(errorEx &err);
-	void cmd_help(const char* msg);
-	
-	static QString getPath();
-	static void setPath(QString path);
-	bool mkDir(QString dir);
-   public slots: 
-	void init_database();
-	void close_database();
-	void connNewX509(NewX509 *nx);
-	void changeView();
-	void about();
-	void help();
-		
-	
-};
-#endif
+	mb = new QMenuBar( this );
+	mb->insertItem( "&File", file );
+	mb->insertItem( "&Help", help );
+}

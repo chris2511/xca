@@ -78,16 +78,22 @@ void XcaListView::setDB(db_base *mydb)
 	updateView();
 }
 
+void XcaListView::rmDB(db_base *mydb)
+{
+	db = NULL;
+	clear();
+}
+
 void XcaListView::loadCont()
 {
-	emit init_database();
+	CHECK_DB
 	db->loadContainer();
 	updateView();
 }
 
 pki_base *XcaListView::getSelected()
 {
-	emit init_database();
+	CHECK_DB
 	QListViewItem *lvi = selectedItem();
 	if (!lvi) return NULL;
 	QString name = lvi->text(0);
@@ -111,7 +117,7 @@ void XcaListView::showItem(QListViewItem *item)
 
 void XcaListView::rename(QListViewItem *item, int col, const QString &text)
 {
-	emit init_database();
+	CHECK_DB
 	try {
 		pki_base *pki = db->getByPtr(item);
 		db->renamePKI(pki, text);
@@ -123,18 +129,19 @@ void XcaListView::rename(QListViewItem *item, int col, const QString &text)
 
 void XcaListView::startRename()
 {
-        try {
+	CHECK_DB
+	try {
 #ifdef qt3
-                QListViewItem *item = selectedItem();
-                if (item == NULL) return;
-                item->startRename(0);
+		QListViewItem *item = selectedItem();
+		if (item == NULL) return;
+		item->startRename(0);
 #else
-                renameDialog();
+		renameDialog();
 #endif
-        }
-        catch (errorEx &err) {
-                Error(err);
-        }
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 void XcaListView::renameDialog()
@@ -174,6 +181,7 @@ void XcaListView::load_default(load_base &load)
 	QStringList slist;
 	
 	QFileDialog *dlg = new QFileDialog(this,0,true);
+	CHECK_DB
 	
 	dlg->setCaption(load.caption);
 	dlg->setFilters(load.filter);
@@ -225,6 +233,7 @@ bool XcaListView::Error(pki_base *pki)
 
 void XcaListView::updateView()
 {
+	CHECK_DB
 	clear();
 	QList<pki_base> container;
 	pki_base *pki;

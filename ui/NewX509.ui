@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
+            <width>547</width>
             <height>590</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string></string>
+        <string>NewX509_UI</string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -1282,7 +1282,7 @@ Empy, CA, client, server</string>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>CA</string>
+                                    <string>Type</string>
                                 </property>
                             </widget>
                             <widget row="0"  column="1"  rowspan="1"  colspan="2" >
@@ -1290,19 +1290,19 @@ Empy, CA, client, server</string>
                                 <item>
                                     <property>
                                         <name>text</name>
-                                        <string>N/A</string>
+                                        <string>Not defined</string>
                                     </property>
                                 </item>
                                 <item>
                                     <property>
                                         <name>text</name>
-                                        <string>Yes</string>
+                                        <string>Certification Authority</string>
                                     </property>
                                 </item>
                                 <item>
                                     <property>
                                         <name>text</name>
-                                        <string>No</string>
+                                        <string>End Entity</string>
                                     </property>
                                 </item>
                                 <property stdset="1">

@@ -59,6 +59,7 @@
 #include <qpushbutton.h>
 #include <qlistview.h>
 #include <qlineedit.h>
+#include <qtextbrowser.h>
 #include "lib/exception.h"
 #include "lib/pki_pkcs12.h"
 #include "view/KeyView.h"
@@ -66,16 +67,11 @@
 #include "view/CertView.h"
 #include "view/TempView.h"
 #include "view/CrlView.h"
+#include "lib/load_obj.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
 #include "ui/PassRead.h"
 #include "ui/PassWrite.h"
-
-#ifdef WIN32
-#include <Shlobj.h>
-#endif
-
-
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
@@ -95,31 +91,35 @@ extern void initOIDs(void);
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
 {
-	//connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
-	//QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
-	//copyright->setText(cpr + VER);
 	setCaption(tr(XCA_TITLE));
-	dbfile="xca.db";
+	dbfile = DBFILE;
 	dbenv = NULL;
 	global_tid = NULL;
 
-	getBaseDir();
+	baseDir = getBaseDir();
 	QDir d(baseDir);
         if ( ! d.exists() && !d.mkdir(baseDir)) {
 		QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("Could not create ") + baseDir);
 		qFatal(  QString::fromLatin1("Couldnt create: ") +  baseDir );
 	}
-	QPopupMenu *file = new QPopupMenu( this );
-    file->insertItem( "&Open",  this, SLOT(open()), CTRL+Key_O );
-    file->insertItem( "&New", this, SLOT(news()), CTRL+Key_N );
-    file->insertItem( "&Save", this, SLOT(save()), CTRL+Key_S );
-    file->insertItem( "&Close", this, SLOT(closeDoc()), CTRL+Key_W );
-    file->insertSeparator();
-    file->insertItem( "E&xit",  qApp, SLOT(quit()), CTRL+Key_Q );
 	
-	mb = new QMenuBar( this );
-	mb->insertItem( "&File", file );
+	init_menu();
+	
 	init_images();
+	do_connections();
+	
+	ERR_load_crypto_strings();
+	OpenSSL_add_all_algorithms();
+
+	/* read in all our own OIDs */
+	initOIDs();
+	
+	read_cmdline();
+}
+
+
+void MainWindow::do_connections()
+{
 	
 	connect( keyList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( reqList, SIGNAL(init_database()), this, SLOT(init_database()));
@@ -173,18 +173,10 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		certList, SLOT(newCert(pki_temp *)) );
 	connect( tempList, SIGNAL(newReq(pki_temp *)),
 		reqList, SLOT(newItem(pki_temp *)) );
-	
-	ERR_load_crypto_strings();
-	OpenSSL_add_all_algorithms();
-
-	/* read in all out own OIDs */
-	initOIDs();
-	
-	read_cmdline();
-	//if (!exitApp)
 }
 
-void MainWindow::init_images(){
+void MainWindow::init_images()
+{
 	
 	keyImg = loadImg("bigkey.png");
 	csrImg = loadImg("bigcsr.png");
@@ -218,13 +210,6 @@ void MainWindow::read_cmdline()
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;
-	load_cert *lc = new load_cert();
-	load_req *lr = new load_req();
-	load_key *lk = new load_key();
-	load_pkcs12 *lp12 = new load_pkcs12();
-	load_pkcs7 *lp7 = new load_pkcs7();
-	load_crl *lcr = new load_crl();
-	load_temp *lt = new load_temp();
 	exitApp = 0;
 	
 	ImportMulti *dlgi = NULL;
@@ -233,19 +218,20 @@ void MainWindow::read_cmdline()
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
+			if (lb) delete lb;
 			opt = 1; lb = NULL;
 			switch (arg[1]) {
-				case 'c' : lb = lc; break;
-				case 'r' : lb = lr; break;
-				case 'k' : lb = lk; break;
-				case 'p' : lb = lp12; break;
-				case '7' : lb = lp7; break;
-				case 'l' : lb = lcr; break;
-				case 't' : lb = lt; break;
-				case 'd' : lb = NULL; break;
+				case 'c' : lb = new load_cert(); break;
+				case 'r' : lb = new load_req(); break;
+				case 'k' : lb = new load_key(); break;
+				case 'p' : lb = new load_pkcs12(); break;
+				case '7' : lb = new load_pkcs7(); break;
+				case 'l' : lb = new load_crl(); break;
+				case 't' : lb = new load_temp(); break;
+				case 'd' : break;
 				case 'v' : printf("%s Version %s\n", XCA_TITLE, VER); opt=0; break;
 				case 'x' : exitApp = 1; opt=0; break;
-				default  : cmd_help("defa");
+				default  : cmd_help(tr("no such option: ") + arg );
 			}
 			if (arg[2] != '\0' && opt==1) {
 				 arg+=2;
@@ -276,105 +262,18 @@ void MainWindow::read_cmdline()
 		cnt++;
 	}
 
-	init_database();
+	//init_database();
 	
 	dlgi->execute(1); /* force showing of import dialog */
 	delete dlgi;
-	delete lt;
-	delete lcr;
-	delete lp7;
-	delete lp12;
-   	delete lk;
-	delete lr;
-	delete lc;		
 }	
-
-void MainWindow::cmd_help(const char* msg) {
-
-printf(" -v show version information and exit\n"
-" -k expect all following non-option arguments to be RSA keys\n"
-" -r expect all following non-option arguments to be\n"
-"    Certificate signing requests or SPKAC requests\n"
-" -c expect all following non-option arguments to be Certificates\n"
-" -p expect all following non-option arguments to be PKCS#12 files\n"
-" -7 expect all following non-option arguments to be PKCS#7 files\n"
-" -l expect all following non-option arguments to be Revokation lists\n"
-" -t expect all following non-option arguments to be XCA templates\n"
-" -x Exit after processing all commandline options");
-
-qFatal("Cmdline Error (%s)\n", msg);
-}
-
-void MainWindow::init_database() {
-	
-	if (dbenv) return; // already initialized....
-	try {
-		dbenv = new DbEnv(0);
-		dbenv->set_errcall(&MainWindow::dberr);
-		dbenv->open(QFile::encodeName(baseDir), DB_RECOVER | DB_INIT_TXN | \
-				DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | \
-				DB_CREATE | DB_PRIVATE , 0600 );
-		dbenv->txn_begin(NULL, &global_tid, 0);
-#ifndef DB_AUTO_COMMIT
-#define DB_AUTO_COMMIT 0
-#endif
-		dbenv->set_flags(DB_AUTO_COMMIT,1);
-	}
-	catch (DbException &err) {
-		QString e = err.what();
-		e += QString::fromLatin1(" (") + baseDir + QString::fromLatin1(")");
-		qFatal(e);
-	}
-	try {
-		settings = new db_base(dbenv, dbfile, "settings",global_tid, NULL);
-		initPass();
-		keys = new db_key(dbenv, dbfile, global_tid, keyList);
-		reqs = new db_x509req(dbenv, dbfile, keys, global_tid, reqList);
-		certs = new db_x509(dbenv, dbfile, keys, global_tid, certList);
-		temps = new db_temp(dbenv, dbfile, global_tid, tempList);
-		crls = new db_crl(dbenv, dbfile, global_tid, crlList);
-		reqs->setKeyDb(keys);
-		certs->setKeyDb(keys);
-	
-		keyList->setDB(keys);
-		reqList->setDB(reqs);
-		certList->setDB(certs);
-		tempList->setDB(temps);
-		crlList->setDB(crls);
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
-	catch (DbException &err) {
-		qFatal(err.what());
-	}
-	connect( keys, SIGNAL(newKey(pki_key *)),
-		certs, SLOT(newKey(pki_key *)) );
-	connect( keys, SIGNAL(delKey(pki_key *)),
-		certs, SLOT(delKey(pki_key *)) );
-	connect( keys, SIGNAL(newKey(pki_key *)),
-		reqs, SLOT(newKey(pki_key *)) );
-	connect( keys, SIGNAL(delKey(pki_key *)),
-		reqs, SLOT(delKey(pki_key *)) );
-	
-}		
-
 
 
 MainWindow::~MainWindow() 
 {
 	ERR_free_strings();
 	EVP_cleanup();
-	if (dbenv) {
-		delete(crls);
-		delete(reqs);
-		delete(certs);
-		delete(temps);
-		delete(keys);
-		delete(settings);
-		global_tid->commit(0);
-		dbenv->close(0);
-	}
+	close_database();
 }
 
 void MainWindow::initPass()
@@ -511,112 +410,4 @@ void MainWindow::connNewX509(NewX509 *nx)
 void MainWindow::changeView()
 {
 	certList->changeView(BNviewState);
-}
-
-QString MainWindow::getBaseDir()
-{
-#ifdef WIN32
-	unsigned char reg_path_buf[255] = "";
-	TCHAR data_path_buf[255];
-
-	// verification registry keys
-	LONG lRc;
-    HKEY hKey;
-	DWORD dwDisposition;
-	DWORD dwLength = 255;
-    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
-    if(lRc!= ERROR_SUCCESS){
-		QMessageBox::warning(NULL, XCA_TITLE,
-			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found. ReInstall Xca.");
-		qFatal("");
-	}
-    else {
-		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
-        if(lRc!= ERROR_SUCCESS){
-			QMessageBox::warning(NULL, XCA_TITLE,
-				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
-			qFatal("");
-		}
-		lRc=RegCloseKey(hKey);
-	}
-	lRc=RegOpenKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,KEY_ALL_ACCESS, &hKey);
-    if(lRc!= ERROR_SUCCESS)
-    {
-		//First run for current user
-		lRc=RegCloseKey(hKey);
-		lRc=RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
-		NULL,&hKey, &dwDisposition);
-		
-		//setup data dir for current user
-		OSVERSIONINFOEX osvi;
-		BOOL bOsVersionInfoEx;
-		LPITEMIDLIST pidl=NULL; 
-
-		ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-		osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-		if(!(bOsVersionInfoEx=GetVersionEx((OSVERSIONINFO*)&osvi))){
-			osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-			if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) ) return FALSE;
-		}
-		if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
-			if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
-				SHGetPathFromIDList(pidl,data_path_buf);
-				lstrcat(data_path_buf, "\\xca");	 
-			}
-		}else{
-			strncpy(data_path_buf,(char *)reg_path_buf,255);
-			strcat(data_path_buf,"\\data");
-		}
-		baseDir = QString::fromLocal8Bit(data_path_buf);
-		// save in registry
-		lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
-		lRc=RegCloseKey(hKey);
-		QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("New data dir create:")+ baseDir);
-		QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("WARNING: If you have updated your 'xca' application \n you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to ") + baseDir + QString::fromLatin1(" \n or change HKEY_CURRENT_USER->Software->xca->data_path key"));
-        }
-	else{
-		dwLength = sizeof(data_path_buf);
-		lRc=RegQueryValueEx(hKey,"data_path",NULL,NULL, (BYTE*)data_path_buf, &dwLength);
-		if ((lRc != ERROR_SUCCESS)) {
-			QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
-			//recreate data dir for current user
-			OSVERSIONINFOEX osvi;
-			BOOL bOsVersionInfoEx;
-			LPITEMIDLIST pidl=NULL; 
-
-			ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-			osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-			if(!(bOsVersionInfoEx=GetVersionEx((OSVERSIONINFO*)&osvi))){
-				osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-				if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) ) return FALSE;
-			}
-			if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
-				if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
-					SHGetPathFromIDList(pidl,data_path_buf);
-					lstrcat(data_path_buf, "\\xca");	  
-				}
-			}else{
-				strncpy(data_path_buf,(char *)reg_path_buf,255);
-				strcat(data_path_buf,"\\data");
-			}
-			baseDir = QString::fromLocal8Bit(data_path_buf);
-			// save in registry
-			lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
-			lRc=RegCloseKey(hKey);
-			QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("data dir:")+ baseDir);
-		}
-
-		lRc=RegCloseKey(hKey);
-		baseDir = QString::fromLocal8Bit(data_path_buf);
-	}
-// 
-
-#else	
-	baseDir = QDir::homeDirPath();
-	baseDir += QDir::separator();
-	baseDir += "xca";
-#endif
-	return baseDir;
 }
