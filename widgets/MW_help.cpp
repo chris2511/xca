@@ -96,7 +96,8 @@ void MainWindow::about()
 	"<tr><td></td><td>Windows binaries and Registry stuff</td></tr>"
 	"<tr><th align=left>Wolfgang Glas</th><td><u>&lt;wolfgang.glas@ev-i.at&gt;</u></td></tr>"
 	"<tr><td></td><td>SPKAC support and Testing</td></tr>"
-	"</table>";
+	"</table><hr><center><u><b>General support</b></u></center>"
+	"<p><b>Mark Foster</b> <u>&lt;mark@foster.cc&gt;</u>";
 	
 	about->setCaption(tr(XCA_TITLE));
 	about->image->setPixmap( *keyImg );
