@@ -3,7 +3,7 @@
 #define VER "VERSION-W32"
 
 #define MARK 
-#define DBEX(x) 
+#define DBEX(x) x.get_errno();
 
 #define CERR(x)
 

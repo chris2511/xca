@@ -11,7 +11,7 @@ LicenseText "You must accept the following BSD like license to continue."
 LicenseData COPYRIGHT
 
 ; The file to write
-OutFile "xca.exe"
+OutFile "xca-VERSION.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\xca

@@ -277,15 +277,7 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	string orig = desc;
 	int size=0;
 	char field[10];
-	unsigned char *p;
-	try {
-		p = pki->toData(&size);
-	}
-	catch (errorEx &err) {
-		// catch openssl errors here to free the malloc'd mem
-		OPENSSL_free(p);
-		throw err;
-	}
+	unsigned char *p = pki->toData(&size);
 	int cnt=0;
 	int x = DB_KEYEXIST;
 	// exception occuring here will be catched by the caller
@@ -443,16 +435,17 @@ pki_base *db_base::findPKI(pki_base *refpki)
 QPixmap *db_base::loadImg(const char *name )
 {
 #ifdef WIN32
-    unsigned char PREFIX[100];
-	LONG lRc;
-    HKEY hKey;
-    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE,"Software\\xca",0,KEY_READ, &hKey);
-    if(lRc!= ERROR_SUCCESS){
+	static unsigned char PREFIX[100]="";
+	if (PREFIX[0] == '\0') {
+	  LONG lRc;
+      HKEY hKey;
+      lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
+      if(lRc!= ERROR_SUCCESS){
         // No key error
 	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");		
 		PREFIX[0] = '\0';
-	}
-    else {
+	  }
+      else {
 	    ULONG dwLength = 100;
 		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
         if(lRc!= ERROR_SUCCESS){
@@ -460,10 +453,10 @@ QPixmap *db_base::loadImg(const char *name )
 	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");		
 		    PREFIX[0] = '\0';
 		}
-    }
+	  }
 	lRc=RegCloseKey(hKey);
+	}
 #endif    
-
 	QString path = (char *)PREFIX;
 	path += QDir::separator();
     return new QPixmap(path + name);

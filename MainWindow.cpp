@@ -94,8 +94,10 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	baseDir += BASE_DIR;
 	QDir d(baseDir);
         if ( ! d.exists() ){
-		if (!d.mkdir(baseDir))
-			qFatal(  "Couldnt create: " +  baseDir );
+			if (!d.mkdir(baseDir)) {
+				QMessageBox::warning(this,tr(XCA_TITLE), "Could not create " + baseDir);
+				qFatal(  "Couldnt create: " +  baseDir );
+			}
 	}
 
 	

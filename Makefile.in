@@ -72,7 +72,8 @@ dist:
 	./mkxcapro.sh; lrelease xca.pro; \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec; \
 	cat lib/base.h.win |sed s/VERSION/$(TVERSION)/g >lib/base.h; \
-	rm -rf rpm/xca.spec autom4te.cache; \
+	mv xca.nsi xca.nsi.tmp; cat xca.nsi.tmp |sed s/VERSION/$(TVERSION)/g >xca.nsi; \
+	rm -rf xca.nsi.tmp rpm/xca.spec autom4te.cache; \
 	cd doc; linuxdoc -B html xca.sgml; )
 	tar zcf $(TARGET).tar.gz $(TARGET) 
 	#rm -rf ../$(TARGET)
