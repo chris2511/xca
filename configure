@@ -94,9 +94,9 @@ search_lib() {
  
 
 ######################## DB
-subdirs="/db /db3 /db4"
+subdirs="/db /db4 /db3"
 search_includes db_cxx.h || err "The Berkeley DB header files were not found"
-search_lib db_cxx db4_cxx db3_cxx db_cxx-4 db_cxx-3 || err "The Berkeley DB library was not found. Try installing db-dev" 
+search_lib db_cxx db4_cxx db_cxx-4 db3_cxx db_cxx-3 || err "The Berkeley DB library was not found. Try installing db-dev" 
 ## The fun of NPTL... (Thx Enrico Scholz)
 echo 'int main() {}' >conftest.c
 if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log; then
