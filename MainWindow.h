@@ -27,6 +27,7 @@
 #include <qmessagebox.h>
 #include <qcheckbox.h>
 #include <qprogressdialog.h>
+#include <qobject.h>
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

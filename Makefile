@@ -1,7 +1,8 @@
 VERSION=0.1.10
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
-GCC=g++ -Wall
+GCC=g++
+CFLAGS=-Wall -g
 INC=-I$(QTDIR)/include
 LPATH=-L$(QTDIR)/lib -Llib
 LIBS=-lqt -lcrypto -ldb_cxx -lxcadb -lpki
@@ -33,7 +34,7 @@ MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      NewX509_UI.h CertDetail_UI.h
 
 %.o: %.cpp
-	$(GCC) -c $(INC) -DVER=\"$(VERSION)\" $<
+	$(GCC) $(CFLAGS) -c $(INC) -DVER=\"$(VERSION)\" $<
 
 %_MOC.cpp: %.h
 	$(MOC) $< -o $@
@@ -45,7 +46,7 @@ MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	$(UIC) -o $@ -i $^
 
 xca: $(OBJS) lib/libxcadb.a lib/libpki.a
-	$(GCC) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
+	$(GCC) $(CFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
 
 libs:
 	make -C lib all

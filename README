@@ -22,6 +22,12 @@ OpenSSl-0.9.6   from http://www.openssl.org
 GNU C++ compiler
 
 
+for debian-woody:
+
+libdb3++-dev
+libssl-dev
+libqt-dev
+
 
 Installation
 ============

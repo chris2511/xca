@@ -199,9 +199,21 @@ int pki_x509::verify()
 	 int i = X509_verify(cert,pkey);
 	 if (i<0) ret = pki_base::VERIFY_ERROR;
 	 if (i>0) ret = pki_base::VERIFY_SELFSIGNED;
-	 // FIXME: check trusted state.....
-	 // if (i>0) ret = pki_base::VERIFY_UNTRUSTED;
 	 if (i==0) ret = pki_base::VERIFY_TRUSTED;
+	 /* FIXME: check trusted state.....
+	 else {
+	   ret = pki_base::VERIFY_ERROR
+	   X509_STORE_CTX *csc = X509_STORE_CTX_new();
+	   if (csc != NULL) {
+	     X509_STORE_CTX_init(csc,ctx,x,uchain);
+	     //if(tchain) X509_STORE_CTX_trusted_stack(csc, tchain);
+	     //if(purpose >= 0) X509_STORE_CTX_set_purpose(csc, purpose);
+	     //if(issuer_checks)
+	     //	X509_STORE_CTX_set_flags(csc, X509_V_FLAG_CB_ISSUER_CHECK);
+	     i=X509_verify_cert(csc);
+	     X509_STORE_CTX_free(csc);
+	 }
+	 */
 	 EVP_PKEY_free(pkey);
 	 openssl_error();
 	 return ret;

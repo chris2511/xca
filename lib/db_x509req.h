@@ -1,4 +1,5 @@
 #include <db_cxx.h>
+#include <qstringlist.h>
 #include "db_base.h"
 #include "pki_x509req.h"
 

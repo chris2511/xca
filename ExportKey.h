@@ -2,6 +2,7 @@
 #include <qfiledialog.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
+#include <qlineedit.h>
 
 #ifndef EXPORTKEY_H
 #define EXPORTKEY_H
