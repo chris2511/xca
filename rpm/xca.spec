@@ -36,8 +36,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc AUTHORS README COPYRIGHT debian/changelog
 
-/usr/local/bin/xca
-/usr/local/share/xca/*.png
-/usr/local/share/xca/xca_??.qm
+/usr/bin/xca
+/usr/share/xca/*.png
+/usr/share/xca/xca_??.qm
 
 %changelog
