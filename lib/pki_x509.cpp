@@ -138,7 +138,7 @@ void pki_x509::init()
 	isrevoked = false;
 }
 
-void pki_x509::setSerial(a1int &serial)
+void pki_x509::setSerial(const a1int &serial)
 {
 	if (cert->cert_info->serialNumber != NULL ) {
 		ASN1_INTEGER_free(cert->cert_info->serialNumber);
@@ -147,13 +147,13 @@ void pki_x509::setSerial(a1int &serial)
 	openssl_error();
 }
 
-a1int pki_x509::getSerial()
+a1int pki_x509::getSerial() const
 {
 	a1int a(X509_get_serialNumber(cert));
 	return a;
 }
 
-void pki_x509::setNotBefore(a1time &a1)
+void pki_x509::setNotBefore(const a1time &a1)
 {
 	if (X509_get_notBefore(cert) != NULL ) {
 		ASN1_TIME_free(X509_get_notBefore(cert));
@@ -162,7 +162,7 @@ void pki_x509::setNotBefore(a1time &a1)
 	openssl_error();
 }
 
-void pki_x509::setNotAfter(a1time &a1)
+void pki_x509::setNotAfter(const a1time &a1)
 {
 	if (X509_get_notAfter(cert) != NULL ) {
 		ASN1_TIME_free(X509_get_notAfter(cert));
@@ -171,61 +171,54 @@ void pki_x509::setNotAfter(a1time &a1)
 	openssl_error();
 }
 
-a1time pki_x509::getNotBefore()
+a1time pki_x509::getNotBefore() const
 {
 	a1time a(X509_get_notBefore(cert));
 	return a;
 }
 
-a1time pki_x509::getNotAfter()
+a1time pki_x509::getNotAfter() const
 {
 	a1time a(X509_get_notAfter(cert));
 	return a;
 }
 
-x509name pki_x509::getSubject()
+x509name pki_x509::getSubject() const
 {
 	x509name x(cert->cert_info->subject);
 	openssl_error();
 	return x;
 }
 
-x509name pki_x509::getIssuer()
+x509name pki_x509::getIssuer() const
 {
 	x509name x(cert->cert_info->issuer);
 	openssl_error();
 	return x;
 }
 
-void pki_x509::setSubject(x509name &n)
+void pki_x509::setSubject(const x509name &n)
 {
 	if (cert->cert_info->subject != NULL)
 		X509_NAME_free(cert->cert_info->subject);
 	cert->cert_info->subject = n.get();
 }
 
-void pki_x509::setIssuer(x509name &n)
+void pki_x509::setIssuer(const x509name &n)
 {
 	if ((cert->cert_info->issuer) != NULL)
 		X509_NAME_free(cert->cert_info->issuer);
 	cert->cert_info->issuer = n.get();
 }
 
-void pki_x509::addV3ext(int nid, string exttext)
+void pki_x509::addV3ext(int nid, const QString exttext)
 {	
 	X509_EXTENSION *ext;
-	int len; 
-	char *c = NULL;
-	if ((len = exttext.length()) == 0) return;
-	len++;
-	c = (char *)OPENSSL_malloc(len);
-	openssl_error();
-	strncpy(c, exttext.c_str(), len);
-	ext =  X509V3_EXT_conf_nid(NULL, NULL, nid, c);
-	OPENSSL_free(c);
+	const char *c = exttext.latin1();
+	ext =  X509V3_EXT_conf_nid(NULL, NULL, nid, (char *)c);
 	if (!ext) {
-		string x="v3 Extension: " + exttext;
-		openssl_error(x);
+		QString x = "v3 Extension: " + exttext;
+		openssl_error(x.latin1());
 		return;
 	}
 	X509_add_ext(cert, ext, -1);
@@ -443,7 +436,10 @@ pki_key *pki_x509::getPubKey()
 	return key;
 }
 
-
+void pki_x509::setPubKey(pki_key *key)
+{
+	 X509_set_pubkey(cert, key->getKey());
+}
 
 string pki_x509::fingerprint(const EVP_MD *digest)
 {

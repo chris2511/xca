@@ -77,6 +77,8 @@ class CertView : public XcaListView
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
 	void newCert();
 	void newCert(NewX509 *dlg);
+	void addStr(QString &str, const  char *add);
+	void extendCert();
    signals:
 	void init_database();
 

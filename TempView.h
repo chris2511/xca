@@ -44,30 +44,38 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$
+ * $Id$ 
  *
  */                           
 
-#ifndef X509NAME_H
-#define X509NAME_H
 
-#include <qstring.h>
-#include <openssl/x509.h>
+#ifndef KEYVIEW_H
+#define KEYVIEW_H
 
-class x509name
+#include "XcaListView.h"
+#include "lib/pki_key.h"
+#include <qlistview.h>
+
+class TempView : public XcaListView
 {
-   private:	
-	X509_NAME *xn;
+   Q_OBJECT
+
+   private:
+	QPixmap *keyicon;
    public:
-	x509name();
-	x509name(const X509_NAME *n);
-	~x509name();
-	QString subjectOneLine() const;
-	QString getEntryByNid(int nid) const;
-	int entryCount() const;
-	bool operator == (const x509name &x) const;
-	void addEntryByNid(int nid, const QString entry);
-	X509_NAME *get() const;
-};
+	TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void show(pki_base *item, bool import);
+	void newItem(int type);
+	void deleteItem();
+	void load();
+	void updateViewItem(pki_base *);
+	pki_base *loadItem(QString fname);
+	pki_base* insert(pki_base *item);
+	void store();
+	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+   signals:
+	void init_database();
+
+};	
 
 #endif

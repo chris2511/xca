@@ -52,15 +52,22 @@
 #include "asn1int.h"
 #include <openssl/bn.h>
 
+ASN1_INTEGER *a1int::dup(const ASN1_INTEGER *a) const
+{
+	// this wrapper casts the const to work around the nonconst
+	// declared ASN1_STRING_dup (actually it is const
+	return ASN1_INTEGER_dup((ASN1_INTEGER *)a);
+}
+
 a1int::a1int()
 {
 	in = ASN1_INTEGER_new();
 	ASN1_INTEGER_set(in, 0);
 }
 
-a1int::a1int(ASN1_INTEGER *i)
+a1int::a1int(const ASN1_INTEGER *i)
 {
-	in = ASN1_INTEGER_dup(i);
+	in = dup(i);
 }
 
 a1int::~a1int()
@@ -68,11 +75,11 @@ a1int::~a1int()
 	ASN1_INTEGER_free(in);
 }
 
-void a1int::set(ASN1_INTEGER *i)
+void a1int::set(const ASN1_INTEGER *i)
 {
 	if (in != NULL)
 		ASN1_INTEGER_free(in);
-	in = ASN1_INTEGER_dup(i);
+	in = dup(i);
 }
 
 void a1int::set(long i)
@@ -80,7 +87,7 @@ void a1int::set(long i)
 	ASN1_INTEGER_set(in, i);
 }
 
-QString a1int::toHex()
+QString a1int::toHex() const
 {
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	char *res = BN_bn2hex(bn);
@@ -90,7 +97,7 @@ QString a1int::toHex()
 	return r;
 }
 
-QString a1int::toDec()
+QString a1int::toDec() const
 {
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	char *res = BN_bn2dec(bn);
@@ -100,17 +107,17 @@ QString a1int::toDec()
 	return r;
 }
 
-ASN1_INTEGER *a1int::get()
+ASN1_INTEGER *a1int::get() const
 {
-	return ASN1_INTEGER_dup(in);
+	return dup(in);
 }
 
-long a1int::getLong()
+long a1int::getLong() const
 {
 	return ASN1_INTEGER_get(in);
 }
 
-a1int a1int::operator ++ (void)
+a1int &a1int::operator ++ (void)
 {
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	BN_add(bn, bn, BN_value_one());
@@ -119,13 +126,20 @@ a1int a1int::operator ++ (void)
 	return *this;
 }
 
-a1int a1int::operator = (const a1int &a)
+a1int a1int::operator ++ (int)
+{
+	a1int tmp = *this;
+	operator ++ ();
+	return tmp;
+}
+
+a1int &a1int::operator = (const a1int &a)
 {
 	set(a.in);
 	return *this;
 }
 
-a1int a1int::operator = (long i)
+a1int &a1int::operator = (long i)
 {
 	ASN1_INTEGER_set(in, i);
 	return *this;

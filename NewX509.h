@@ -90,6 +90,8 @@ class NewX509: public NewX509_UI
 	void templateChanged(QString templatename);
 	pki_key *getSelectedKey();
 	x509name getX509name();
+	a1time getNotBefore();
+	a1time getNotAfter();
    public slots:
 	void toggleFromRequest();
    	void newKey();

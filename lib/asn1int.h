@@ -58,22 +58,24 @@ class a1int
 {
    private:	
 	ASN1_INTEGER *in;
+	ASN1_INTEGER *dup(const ASN1_INTEGER *a) const;
    public:
 	a1int();
-	a1int(ASN1_INTEGER *i);
+	a1int(const ASN1_INTEGER *i);
 	~a1int();
-	void set(ASN1_INTEGER *i);
-	void set(long i);
-	QString toHex();
-	QString toDec();
-	long getLong();
-	ASN1_INTEGER *get();
+	void set(const ASN1_INTEGER *i);
+	void set(const long i);
+	QString toHex() const;
+	QString toDec() const;
+	long getLong() const;
+	ASN1_INTEGER *get() const;
 	unsigned char *i2d(unsigned char *p);
 	int derSize();
 
-	a1int operator ++ (void);
-	a1int operator = (const a1int &a);
-	a1int operator = (long i);
+	a1int &operator ++ (void);
+	a1int operator ++ (int);
+	a1int &operator = (const a1int &a);
+	a1int &operator = (long i);
 	bool const operator > (const a1int &a);
 	bool const operator < (const a1int &a);
 	bool const operator == (const a1int &a);

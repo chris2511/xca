@@ -104,7 +104,6 @@ class MainWindow: public MainWindow_UI
 	static void incProgress(int a, int b, void *progress);
 	static void dberr(const char *errpfx, char *msg);
 	static NewX509 *newX509(QPixmap *image);
-	static pki_key *getKeyByName(QString name);
 	string md5passwd();
 	bool opensslError(pki_base *pki);
 	QPixmap *loadImg(const char *name);

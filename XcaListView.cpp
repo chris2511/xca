@@ -192,6 +192,18 @@ void XcaListView::Error(errorEx &err)
 			QString::fromLatin1(err.getCString()));
 }
 
+bool XcaListView::Error(pki_base *pki)
+{
+	string err;
+
+	if (!pki) {
+		QMessageBox::warning(this,tr(XCA_TITLE), tr("The system detected a NULL pointer, maybe the system is out of memory" ));
+		qFatal("NULL pointer detected - Exiting");
+	}
+	
+	return false;
+}
+
 void XcaListView::updateView()
 {
 	clear();

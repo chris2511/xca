@@ -56,6 +56,7 @@
 #include <qradiobutton.h>
 #include <qmessagebox.h>
 #include <qpopupmenu.h>
+#include "CertExtend.h"
 
 CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
         :XcaListView(parent, name, f)
@@ -91,11 +92,12 @@ void CertView::newCert(NewX509 *dlg)
 	pki_x509 *cert = NULL;
 	pki_x509 *signcert = NULL;
 	pki_x509req *req = NULL;
-	pki_key *signkey = NULL, *clientkey = NULL;
-	int serial = 42; // :-)
-	bool tempReq=false;
-	int i, x, days;
-	string cont="", subAltName="", issAltName="", constraints="",
+	pki_key *signkey = NULL, *clientkey = NULL, *tempkey = NULL;
+	a1int serial;
+	a1time notBefore, notAfter;
+	x509name subject;
+	int i;
+	QString cont="", subAltName="", issAltName="", constraints="",
 		keyuse="", keyuse1="", pathstr="", certTypeStr = "";
 	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
 		"timeStamping","msCodeInd","msCodeCom",
@@ -112,21 +114,24 @@ void CertView::newCert(NewX509 *dlg)
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
 	    clientkey = dlg->getSelectedKey();
-	    x509name xn = dlg->getX509name();
-	    req = new pki_x509req();
-	    req->createReq(clientkey, xn);
-	    tempReq = true;
+	    subject = dlg->getX509name();
 	}
 	else {
 	    // A PKCS#10 Request was selected 
-	    req = (pki_x509req *)reqs->getSelectedPKI(dlg->reqList->currentText().latin1());
-	    if (opensslError(req)) return;
+	    req = (pki_x509req *)MainWindow::reqs->getByName(dlg->reqList->currentText());
+	    if (Error(req)) return;
 	    clientkey = req->getRefKey();
+	    if (clientkey == NULL) {
+		    clientkey = req->getPubKey();
+		    tempkey = clientkey;
+	    }
+	    subject = req->getSubject();
 	}
 		
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
-		signcert = (pki_x509 *)certs->getSelectedPKI(dlg->certList->currentText().latin1());
+		signcert = (pki_x509 *)MainWindow::certs->getByName(dlg->certList->currentText());
+		serial = signcert->getIncCaSerial();
 		signkey = signcert->getRefKey();
 		// search for serial in database
 		
@@ -140,28 +145,18 @@ void CertView::newCert(NewX509 *dlg)
 	
 	
 	// Step 3 - Choose the Date and all the V3 extensions
-	// Date handling
-	x = dlg->validNumber->text().toInt();
-	days = dlg->validRange->currentItem();
-	if (days == 1) x *= 30;
-	if (days == 2) x *= 365;
 	
-	// increase serial here	
-	if (dlg->foreignSignRB->isChecked()) {
-		serial = signcert->getIncCaSerial();
-		// get own serial to avoid having the same
-		int sigser;
-		sscanf(signcert->getSerial().c_str(), "%x", &sigser);
-		if (serial == sigser) { // FIXME: anybody tell me the string method for this ?
-			serial = signcert->getIncCaSerial(); // just take the next one
-		}
-		certs->updatePKI(signcert);  // not so pretty ....
-		CERR("serial is: " << serial );
-	}	
+	// Date handling
+	notBefore = dlg->getNotBefore();
+	notAfter = dlg->getNotAfter();
 	
 	// initially create cert 
-	cert = new pki_x509(req->getDescription(), clientkey, req, signcert, x, serial);
+	cert = new pki_x509();
 	if (!signcert) signcert=cert;	
+	cert->setIntName(req->getIntName());
+	cert->setPubKey(clientkey);
+	cert->setSubject(subject);
+	cert->setIssuer(signcert->getSubject());
 	if (cert->resetTimes(signcert) > 0) {
 		if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
@@ -174,8 +169,8 @@ void CertView::newCert(NewX509 *dlg)
 	// basic constraints
 	if (dlg->bcCritical->isChecked()) constraints = "critical,";
 	constraints +="CA:";
-	constraints += dlg->basicCA->currentText().latin1();
-	pathstr = dlg->basicPath->text().latin1();
+	constraints += dlg->basicCA->currentText();
+	pathstr = dlg->basicPath->text();
 	if (pathstr.length()>0) {
 		constraints += ", pathlen:";
 		constraints += pathstr;
@@ -183,15 +178,13 @@ void CertView::newCert(NewX509 *dlg)
 	cert->addV3ext(NID_basic_constraints, constraints);
 	// Subject Key identifier
 	if (dlg->subKey->isChecked()) {
-		string subkey="hash";
+		QString subkey="hash";
 		cert->addV3ext(NID_subject_key_identifier, subkey);
-		CERR( subkey );
 	}
 	// Authority Key identifier
 	if (dlg->authKey->isChecked()) {
-		string authkey="keyid:always,issuer:always";
+		QString authkey="keyid:always,issuer:always";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
-		CERR( authkey );
 	}
 	 
 	// key usage
@@ -227,9 +220,9 @@ void CertView::newCert(NewX509 *dlg)
 	// STEP 4
 	// Subject Alternative name
 	cont = "";
-	cont = dlg->subAltName->text().latin1();
+	cont = dlg->subAltName->text();
 	if (dlg->subAltCp->isChecked()) {
-		if (req->getDN(NID_pkcs9_emailAddress).length() == 0) {
+		if (subject.getEntryByNid(NID_pkcs9_emailAddress).length() == 0) {
 			if (QMessageBox::information(this,tr(XCA_TITLE),
 			   tr("You requested to copy the subject E-Mail address but it is empty !"),
 			   tr("Continue creation"), tr("Abort")
@@ -241,7 +234,7 @@ void CertView::newCert(NewX509 *dlg)
 		}
 	}
 	if (cont.length() > 0){
-		addStr(subAltName,cont.c_str());
+		addStr(subAltName,cont.latin1());
 	}
 	if (subAltName.length() > 0) {
 		CERR( "SubAltName:" << subAltName);
@@ -249,7 +242,7 @@ void CertView::newCert(NewX509 *dlg)
 	}
 	
 	cont = "";
-	cont = dlg->issAltName->text().latin1();
+	cont = dlg->issAltName->text();
 	// issuer alternative name	
 	if (dlg->issAltCp->isChecked()) {
 		if (!signcert->hasSubAltName()) {
@@ -264,7 +257,7 @@ void CertView::newCert(NewX509 *dlg)
 		}
 	}
 	if (cont.length() > 0){
-		addStr(issAltName,cont.c_str());
+		addStr(issAltName,cont.latin1());
 	}
 	if (issAltName.length() > 0) {
 		CERR("IssAltName:" << issAltName);
@@ -272,8 +265,8 @@ void CertView::newCert(NewX509 *dlg)
 	}
 	// CRL distribution points
 	if (!dlg->crlDist->text().isEmpty()) {
-		CERR("CRL dist. Point: "<<  dlg->crlDist->text().latin1() );
-		cert->addV3ext(NID_crl_distribution_points, dlg->crlDist->text().latin1());
+		CERR("CRL dist. Point: "<<  dlg->crlDist->text() );
+		cert->addV3ext(NID_crl_distribution_points, dlg->crlDist->text());
 	}
 		
 	// Step 5
@@ -284,20 +277,20 @@ void CertView::newCert(NewX509 *dlg)
 		}
 	}
 	cert->addV3ext(NID_netscape_cert_type, certTypeStr);
-	cert->addV3ext(NID_netscape_base_url, dlg->nsBaseUrl->text().latin1());
-	cert->addV3ext(NID_netscape_revocation_url, dlg->nsRevocationUrl->text().latin1());
-	cert->addV3ext(NID_netscape_ca_revocation_url, dlg->nsCARevocationUrl->text().latin1());
-	cert->addV3ext(NID_netscape_renewal_url, dlg->nsRenewalUrl->text().latin1());
-	cert->addV3ext(NID_netscape_ca_policy_url, dlg->nsCaPolicyUrl->text().latin1());
-	cert->addV3ext(NID_netscape_ssl_server_name, dlg->nsSslServerName->text().latin1());
-	cert->addV3ext(NID_netscape_comment, dlg->nsComment->text().latin1());
+	cert->addV3ext(NID_netscape_base_url, dlg->nsBaseUrl->text());
+	cert->addV3ext(NID_netscape_revocation_url, dlg->nsRevocationUrl->text());
+	cert->addV3ext(NID_netscape_ca_revocation_url, dlg->nsCARevocationUrl->text());
+	cert->addV3ext(NID_netscape_renewal_url, dlg->nsRenewalUrl->text());
+	cert->addV3ext(NID_netscape_ca_policy_url, dlg->nsCaPolicyUrl->text());
+	cert->addV3ext(NID_netscape_ssl_server_name, dlg->nsSslServerName->text());
+	cert->addV3ext(NID_netscape_comment, dlg->nsComment->text());
 	
 	// and finally sign the request 
 	cert->sign(signkey);
 	CERR( "SIGNED");
 	insert(cert);
 	CERR("inserted");
-	if (tempReq && req) delete(req);
+	if (tempkey != NULL) delete(tempkey);
 	CERR("Dialog deleted" );
 	updateView();
 	return;
@@ -305,11 +298,11 @@ void CertView::newCert(NewX509 *dlg)
     catch (errorEx &err) {
 	Error(err);
 	delete cert;
-	if (tempReq && req) delete(req);
+	if (tempkey != NULL) delete(tempkey);
     }
 	
 }
-void CertView::addStr(string &str, const  char *add)
+void CertView::addStr(QString &str, const  char *add)
 {
 	string sadd = add;
 	if (sadd.length() == 0) return;	
@@ -326,12 +319,12 @@ void CertView::extendCert()
 	int serial, days, x;
 	try {
 		CertExtend_UI *dlg = new CertExtend_UI(this, NULL, true);
-		dlg->image->setPixmap(*certImg);
+		dlg->image->setPixmap(*MainWindow::certImg);
 		if (!dlg->exec()) {
 			delete dlg;
 			return;
 		}
-		oldcert = (pki_x509 *)certs->getSelectedPKI();
+		oldcert = (pki_x509 *)getSelected();
 		if (!oldcert || !(signer = oldcert->getSigner()) || !(signkey = signer->getKey()) || signkey->isPubKey()) return;
 		newcert = new pki_x509(oldcert);
 		serial = signer->getIncCaSerial();

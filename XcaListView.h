@@ -73,6 +73,7 @@ class XcaListView : public QListView
 	void load_default(QStringList &filter, QString caption);
 	void setDB(db_base *mydb, QPixmap *myimage);
 	void Error(errorEx &err);
+	bool Error(pki_base *pki);
 	QPixmap *loadImg(const char *name );
    public slots:
 	virtual void newItem();

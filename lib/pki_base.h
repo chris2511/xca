@@ -65,12 +65,11 @@ class pki_base
 	static int pki_counter;
     protected:
 	string desc;
-	string error;
 	string className;
 	QListViewItem *pointer; 
-	void openssl_error(const string myerr = "");
+	void openssl_error(const string myerr = "") const;
 	void fopen_error(const string fname);
-	bool ign_openssl_error();
+	bool ign_openssl_error() const;
 	int intToData(unsigned char **p, const int val);
 	int intFromData(unsigned char **p);
 	int boolToData(unsigned char **p, const bool val);
@@ -92,7 +91,6 @@ class pki_base
         void setDescription(const string d );
         QString getIntName();
         void setIntName(const QString d );
-	string getError();
 	void setPointer(void *ptr) { pointer = (QListViewItem *)ptr; }
 	void delPointer() { pointer = NULL; }
 	void *getPointer() { return (void *)pointer; }

@@ -84,16 +84,16 @@ class pki_x509 : public pki_x509super
 	   pki_x509(const string fname);
 	   ~pki_x509();
 
-	   void setSerial(a1int &serial);
-	   a1int pki_x509::getSerial();
-	   void setNotBefore(a1time &a1);
-	   void setNotAfter(a1time &a1);
-	   a1time getNotBefore();
-	   a1time getNotAfter();
-	   x509name getSubject();
-	   x509name getIssuer();
-	   void setSubject(x509name &n);
-	   void setIssuer(x509name &n);
+	   void setSerial(const a1int &serial);
+	   a1int pki_x509::getSerial() const;
+	   void setNotBefore(const a1time &a1);
+	   void setNotAfter(const a1time &a1);
+	   a1time getNotBefore() const;
+	   a1time getNotAfter() const;
+	   x509name getSubject() const;
+	   x509name getIssuer() const;
+	   void setSubject(const x509name &n);
+	   void setIssuer(const x509name &n);
 	   
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
@@ -102,12 +102,13 @@ class pki_x509 : public pki_x509super
 	   void writeCert(const string fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);
 	   pki_key *getPubKey(); // will be created temporarily and must be freed
+	   void setPubKey(pki_key *key);
 	   pki_x509 *getSigner();
 	   void delSigner(pki_x509 *s);
 	   string fingerprint(const EVP_MD *digest);
 	   string printV3ext();
 	   int checkDate();
-	   void addV3ext(int nid, string exttext);
+	   void addV3ext(int nid, const QString exttext);
 	   void sign(pki_key *signkey);
 	   X509 *getCert(){ return cert;}
 	   int getTrust();

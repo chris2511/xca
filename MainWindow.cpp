@@ -542,7 +542,3 @@ NewX509 *MainWindow::newX509(QPixmap *image)
 	return new NewX509(NULL, 0, keys, reqs, certs, temps, image, nsImg);
 }
 
-pki_key *MainWindow::getKeyByName(QString name)
-{
-	return (pki_key *)keys->getByName(name);
-}

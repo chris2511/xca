@@ -56,7 +56,6 @@ int pki_base::pki_counter = 0;
 
 pki_base::pki_base(const string d)
 {
-	error = "";
 	desc = d;
 	className = "pki_base";
 	pointer = NULL;
@@ -65,7 +64,6 @@ pki_base::pki_base(const string d)
 
 pki_base::pki_base()
 {
-	error = "";
 	desc = "";
 	className = "pki_base";
 	pointer=NULL;
@@ -95,13 +93,6 @@ int pki_base::get_pki_counter()
 	return pki_counter;
 }
 
-string pki_base::getError()
-{
-	string x = error;
-	error = "";
-	return x;
-}
-
 string pki_base::getClassName()
 {
 	return className;
@@ -126,10 +117,10 @@ void pki_base::fopen_error(const string fname)
 }
 
 
-void pki_base::openssl_error(const string myerr)
+void pki_base::openssl_error(const string myerr)  const
 {
 	string errtxt = "";
-	error = "";
+	string error = "";
 	if (myerr != "") {
 		CERR("PKI ERROR: " << myerr);
 		error += myerr + "\n";
@@ -145,7 +136,7 @@ void pki_base::openssl_error(const string myerr)
 }
 
 
-bool pki_base::ign_openssl_error()
+bool pki_base::ign_openssl_error() const 
 {
 	// ignore openssl errors
 	string errtxt;

@@ -57,21 +57,21 @@
 class a1time
 {
    private:	
-	ASN1_TIME *time;
+	ASN1_GENERALIZEDTIME *time;
    public:
 	a1time();
-	a1time(ASN1_TIME *a);
+	a1time(const ASN1_TIME *a);
 	~a1time();
-	void set(ASN1_TIME *a);
+	void set(const ASN1_TIME *a);
 	void set(time_t t);
-	QString toPretty();
-	QString toPlain();
-	QString toSortable();
-	int ymdg(int *y, int *m, int *d, int *g);
-	ASN1_TIME *get();
+	QString toPretty() const;
+	QString toPlain() const;
+	QString toSortable() const;
+	int ymdg(int *y, int *m, int *d, int *g) const;
+	ASN1_TIME *get() const;
 	void now(int delta = 0);
 	unsigned char *i2d(unsigned char *p);
-	int derSize();
+	int derSize() const;
 	void operator = (const a1time &a);
 	bool const operator > (const a1time &a);
 	bool const operator < (const a1time &a);

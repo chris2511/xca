@@ -53,13 +53,14 @@
 
 a1time::a1time()
 {
-	time = ASN1_TIME_new();
+	time = ASN1_GENERALIZEDTIME_new();
 	now();
 }
 
-a1time::a1time(ASN1_TIME *a)
+a1time::a1time(const ASN1_TIME *a)
 {
-	time = M_ASN1_TIME_dup(a);
+	time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, NULL);
+	
 }
 
 a1time::~a1time()
@@ -67,19 +68,19 @@ a1time::~a1time()
 	ASN1_TIME_free(time);
 }
 
-void a1time::set(ASN1_TIME *a)
+void a1time::set(const ASN1_TIME *a)
 {
 	ASN1_TIME_free(time);
-	time = M_ASN1_TIME_dup(a);
+	time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, NULL);
 }
 
 void a1time::set(time_t t)
 {
-	ASN1_TIME_set(time, t);
+	ASN1_GENERALIZEDTIME_set(time, t);
 }
 
 
-QString a1time::toPretty()
+QString a1time::toPretty() const
 {
         QString t = "";
         if (!time) return t;
@@ -92,7 +93,7 @@ QString a1time::toPretty()
         return t;
 }
 
-QString a1time::toPlain()
+QString a1time::toPlain() const
 {
         QString t = "";
         char b[15];
@@ -103,7 +104,7 @@ QString a1time::toPlain()
         return t;
 }
 
-QString a1time::toSortable()
+QString a1time::toSortable() const
 {
         int y,m,d,g;
         QString t = "";
@@ -112,12 +113,12 @@ QString a1time::toSortable()
                 // openssl_error("time error");
         }
         char buf[20];
-        sprintf(buf, "%04d-%02d-%02d %s",y+1900,m,d,(g==1)?"GMT":"");
+        sprintf(buf, "%04d-%02d-%02d %s",y,m,d,(g==1)?"GMT":"");
         t = buf;
         return t;
 }
 
-int a1time::ymdg(int *y, int *m, int *d, int *g)
+int a1time::ymdg(int *y, int *m, int *d, int *g) const
 {
         char *v;
         int i;
@@ -126,15 +127,14 @@ int a1time::ymdg(int *y, int *m, int *d, int *g)
         i=time->length;
         v=(char *)time->data;
 
-        if (i < 10) return 1; /* it is at least 10 digits */
+        if (i < 12) return 1; /* it is at least 10 digits */
         if (v[i-1] == 'Z') *g=1;
-        for (i=0; i<10; i++)
+        for (i=0; i<12; i++)
                 if ((v[i] > '9') || (v[i] < '0')) return 1;
-        *y= (v[0]-'0')*10+(v[1]-'0');
-        if (*y < 50) *y+=100;
-        *m= (v[2]-'0')*10+(v[3]-'0');
+        *y= (v[0]-'0')*1000+(v[1]-'0')*100+(v[2]-'0')*10+(v[3]-'0');
+        *m= (v[4]-'0')*10+(v[5]-'0');
         if ((*m > 12) || (*m < 1)) return 1;
-        *d= (v[4]-'0')*10+(v[5]-'0');
+        *d= (v[6]-'0')*10+(v[7]-'0');
         if ((*d > 31) || (*d < 1)) return 1;
         return 0;
 }
@@ -176,7 +176,7 @@ unsigned char *a1time::i2d(unsigned char *p)
 	return mp;
 }
 
-int a1time::derSize()
+int a1time::derSize() const
 {
 	return i2d_ASN1_TIME(time, NULL);
 }

@@ -55,9 +55,9 @@ x509name::x509name()
 	xn = X509_NAME_new();
 }
 
-x509name::x509name(X509_NAME *n)
+x509name::x509name(const X509_NAME *n)
 {
-	xn = X509_NAME_dup(n);
+	xn = X509_NAME_dup((X509_NAME *)n);
 }
 
 x509name::~x509name()
@@ -65,7 +65,7 @@ x509name::~x509name()
 	X509_NAME_free(xn);
 }
 
-QString x509name::subjectOneLine()
+QString x509name::subjectOneLine() const
 {
 	char *x = X509_NAME_oneline(xn, NULL ,0);
 	QString ret = x;
@@ -73,7 +73,7 @@ QString x509name::subjectOneLine()
 	return ret;
 }
 
-QString x509name::getEntryByNid(int nid)
+QString x509name::getEntryByNid(int nid) const
 {
 	int len = X509_NAME_get_text_by_NID(xn, nid, NULL, 0);
 	char *buf = (char *)OPENSSL_malloc(len);
@@ -84,24 +84,24 @@ QString x509name::getEntryByNid(int nid)
 	return s;
 }
 
-bool x509name::operator == (const x509name &x)
+bool x509name::operator == (const x509name &x) const
 {
 	return (X509_NAME_cmp(xn, x.xn) == 0);
 }
 
-int x509name::entryCount()
+int x509name::entryCount() const
 {
 	return  X509_NAME_entry_count(xn);
 }
 
-void x509name::addEntryByNid(int nid, QString entry)
+void x509name::addEntryByNid(int nid, const QString entry)
 {
 	if (entry.isEmpty()) return;
 	X509_NAME_add_entry_by_NID(xn, nid, 
 		MBSTRING_ASC, (unsigned char*)entry.latin1(),-1,-1,0);
 }
 
-X509_NAME *x509name::get()
+X509_NAME *x509name::get() const
 {
 	return X509_NAME_dup(xn);
 }
