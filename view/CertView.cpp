@@ -277,7 +277,7 @@ void CertView::extendCert()
 		// change date and serial
 		newcert->setSerial(serial);
 		newcert->setNotBefore(dlg->notBefore->getDate());
-		newcert->setNotAfter(dlg->notBefore->getDate());
+		newcert->setNotAfter(dlg->notAfter->getDate());
 
 		if (newcert->resetTimes(signer) > 0) {
 			if (QMessageBox::information(this,tr(XCA_TITLE),
