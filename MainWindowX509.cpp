@@ -8,13 +8,13 @@ void MainWindow::newCert()
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *key = NULL;
 	int serial = 42; // :-)
-	string serialstr;
 	
-	// Step 1
+	// Step 1 - Subject and key
 	NewX509 *dlg1 = new NewX509(this, NULL, keys, reqs);
 	if (! dlg1->exec()) return;
 	if (dlg1->fromDataRB->isChecked()) {
 	    key = (pki_key *)keys->getSelectedPKI(dlg1->keyList->currentText().latin1());
+	    if (opensslError(key)) return;
 	    string cn = dlg1->commonName->text().latin1();
 	    string c = dlg1->countryName->text().latin1();
 	    string l = dlg1->localityName->text().latin1();
@@ -24,12 +24,15 @@ void MainWindow::newCert()
 	    string email = dlg1->emailAddress->text().latin1();
 	    string desc = dlg1->description->text().latin1();
 	    req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc,"");
+	    if (opensslError(req)) return;
 	}
 	else {
+	    // A PKCS#10 Request was selected 
 	    req = (pki_x509req *)reqs->getSelectedPKI(dlg1->reqList->currentText().latin1());
+	    if (opensslError(req)) return;
 	}
 		
-	// Step 2
+	// Step 2 - select Signing
 	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL, true ,0);
 	QStringList strlist = certs->getPrivateDesc();
 	if (strlist.isEmpty()) {
@@ -40,51 +43,44 @@ void MainWindow::newCert()
 		dlg2->certList->insertStringList(strlist);
 	}
 	if (dlg1->fromDataRB->isChecked())
+		// if we entered subjectdata, selfsigning is default
 		dlg2->selfSignRB->setChecked(true);
 	else 
+		// for PKCS#10 signing foreignKey signing is default
 		dlg2->foreignSignRB->setChecked(true);
-	if (! dlg2->exec()) return;
+	if (!dlg2->exec()) return;
 	if (dlg2->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg2->certList->currentText().latin1());
+		if (opensslError(signcert)) return;
 		signkey = certs->findKey(signcert);
+		if (opensslError(signkey)) return;
 		// search for serial in database
-		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
-		serialstr = settings->getString(serhash);
-		serial = atoi(serialstr.c_str()) + 1;
-		cerr << "serial is: " << serial <<endl;
-		char num[20];
-		sprintf(num,"%i",serial);
-		serialstr= num;
-		settings->putString(serhash, serialstr);
+		string serhash = signcert->fingerprint(EVP_md5(i)) + "serial";
+		serial = settings->getInt(serhash) + 1;
+		CERR << "serial is: " << serial <<endl;
+		settings->putInt(serhash, serial);
 		
 	}
 	else {
 		signkey = key;	
-		serialstr = dlg2->serialNr->text().latin1();
-		serial = atoi(serialstr.c_str());
+		bool ok;
+		serial = atoi(dlg2->serialNr->text().toInt(&ok));
+		if (!ok) serial = 0;
 	}
 	
 	
-	// Step 3
+	// Step 3 - Choose the Date and all the V3 extensions
 	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL, true ,0);
 	if (! dlg3->exec()) return;
-
 	
-	string daystr = dlg3->validNumber->text().latin1();
-	int x = atoi(daystr.c_str());
+	// Date handling
+	int x = dlg3->validNumber->text().toInt();
 	int days = dlg3->validRange->currentItem();
 	if (days == 1) x *= 30;
 	if (days == 2) x *= 365;
 	
 	cert = new pki_x509(req->getDescription(), req, signcert, x, serial);
-	string e;
-	if (! cert ) {
-	   QMessageBox::information(this,"Zertifikat erstellen",
-		("Beim Erstellen des Zertifikats trat folgender Fehler auf:\n'" +
-		e + "'\nund wurde daher nicht erstellt").c_str(), "OK");
-	   	//delete(cert);
-		return;
-	}
+	if (opensslError(cert)) return;
 	
 	// handle extensions
 	// basic constraints
@@ -98,18 +94,18 @@ void MainWindow::newCert()
 		constraints += pathstr;
 	}
 	cert->addV3ext(NID_basic_constraints, constraints);
-	cerr << "B-Const:" << constraints << endl;
+	CERR << "B-Const:" << constraints << endl;
 	// Subject Key identifier
 	if (dlg3->subKey->isChecked()) {
 		string subkey="hash";
 		cert->addV3ext(NID_subject_key_identifier, subkey);
-		cerr << subkey <<endl;
+		CERR << subkey <<endl;
 	}
 	// Authority Key identifier
 	if (dlg3->authKey->isChecked()) {
 		string authkey="keyid,issuer:always";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
-		cerr << authkey <<endl;
+		CERR << authkey <<endl;
 	}
 	
 	// key usage
@@ -127,14 +123,16 @@ void MainWindow::newCert()
 		i++;
 	}
 	
-	if (keyuse.length() > 0) 
-		if (dlg3->kuCritical->isChecked()) keyuse1 = "critical," + keyuse;
+	if (keyuse.length() > 0) {
+		if (dlg3->kuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
 		cert->addV3ext(NID_key_usage, keyuse1);
-	cerr << "KeyUsage:" <<keyuse1<< endl;
-	
-	
+		CERR << "KeyUsage:" <<keyuse1<< endl;
+	}
+	if (opensslError(cert)) return;
 	// and finally sign the request 
 	cert->sign(signkey);
+	if (opensslError(cert)) return;
+	CERR << "SIGNED" <<endl;
 	insertCert(cert);
 }
 
@@ -153,7 +151,7 @@ void MainWindow::showDetailsCert(QListViewItem *item)
 
 void MainWindow::showDetailsCert(pki_x509 *cert)
 {
-	if (!cert) return;
+	if (opensslError(cert)) return;
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->descr->setText(cert->getDescription().c_str());
 	// examine the key
@@ -166,11 +164,11 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 
 	// examine the signature
 	if ( cert->getSigner() == NULL) {
-		dlg->verify->setText("NOT TRUSTED");
+		dlg->verify->setText(tr("NOT TRUSTED"));
 	      	dlg->verify->setDisabled(true);
 	}
 	else if ( cert->compare(cert->getSigner()) ) {
-		dlg->verify->setText("SELF SIGNED");
+		dlg->verify->setText(tr("SELF SIGNED"));
 	}
 	
 	else {
@@ -210,11 +208,11 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	dlg->notBefore->setText(cert->notBefore().c_str());
 	dlg->notAfter->setText(cert->notAfter().c_str());
 	if (cert->checkDate() == -1) {
-		dlg->dateValid->setText("Abgelaufen");
+		dlg->dateValid->setText(tr("Not valid"));
 	      	dlg->dateValid->setDisabled(true);
 	}
 	if (cert->checkDate() == +1) {
-		dlg->dateValid->setText("Noch nicht gültig");
+		dlg->dateValid->setText(tr("Not valid"));
 	      	dlg->dateValid->setDisabled(true);
 	}
 	
@@ -236,12 +234,12 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 void MainWindow::deleteCert()
 {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
-	if (!cert) return;
-	if (QMessageBox::information(this,"Zertifikat löschen",
-			("Möchten Sie das Zertifikat: '" + 
-			cert->getDescription() +
-			"'\nwirklich löschen ?\n").c_str(),
-			"Löschen", "Abbrechen")
+	if (opensslError(cert)) return;
+	if (QMessageBox::information(this,tr("Delete Certificate"),
+			tr("Really want to delete the Certificate") +":\n'" + 
+			QString::fromLatin1(cert->getDescription().c_str()) +
+			"'\n" ,
+			tr("Delete"), tr("Cancel") )
 	) return;
 	certs->deletePKI(cert);
 }
@@ -249,11 +247,11 @@ void MainWindow::deleteCert()
 void MainWindow::loadCert()
 {
 	QStringList filt;
-	filt.append( "Zertifikate ( *.pem *.der *.crt *.cer)"); 
-	filt.append("Alle Dateien ( *.* )");
+	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer)")); 
+	filt.append(tr("All files ( *.* )"));
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Zertifikat importieren");
+	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();

@@ -5,17 +5,17 @@ const int MainWindow::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 
 pki_key *MainWindow::getSelectedKey()
 {
-	cerr << "get Selected Key\n";
+	CERR << "get Selected Key" << endl;
 	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
-	cerr << "got selected: "<< (int)targetKey << endl;
+	CERR << "got selected: "<< (int)targetKey << endl;
 	if (targetKey) {
 	   string errtxt = targetKey->getError();
 	   if (errtxt != "")
-		QMessageBox::warning(this,"Schlüssel Fehler",
-			("Der Schlüssel: " + targetKey->getDescription() +
-			"\nist nicht konsistent:\n" + errtxt).c_str());
+		QMessageBox::warning(this,tr("Key error"),
+			tr("The Key: ") + QString::fromLatin1(targetKey->getDescription().c_str()) +
+			tr(" is not consistent:") + QString::fromLatin1(errtxt.c_str()) );
 	}
-	cerr << "targetKey = " << (int)targetKey << endl;
+	CERR << "targetKey = " << (int)targetKey << endl;
 	return targetKey;
 }
 
@@ -30,8 +30,8 @@ void MainWindow::newKey()
 	if (dlg->exec()) {
 	   int sel = dlg->keyLength->currentItem();
 	   QProgressDialog *progress = new QProgressDialog(
-		"Bitte warten Sie, der Schlüssel wird erstellt",
-		"Abbrechen",90, 0, 0, true);
+		tr("Please wait, Key generation is in progress"),
+		tr("Cancel"),90, 0, 0, true);
 	   progress->setMinimumDuration(0);
 	   progress->setProgress(0);	
 	   pki_key *nkey = new pki_key (dlg->keyDesc->text().latin1(), 
@@ -39,7 +39,7 @@ void MainWindow::newKey()
 		       progress,
 		       sizeList[sel]);
            progress->cancel();
-	   keys->insertPKI(nkey);
+	   insertKey(nkey);
 	}
 }
 
@@ -48,11 +48,11 @@ void MainWindow::deleteKey()
 {
 	pki_key *delKey = getSelectedKey();
 	if (!delKey) return;
-	if (QMessageBox::information(this,"Schlüssel löschen",
-			("Möchten Sie den Schlüssel: '" + 
-			delKey->getDescription() +
-			"'\nwirklich löschen ?\n").c_str(),
-			"Löschen", "Abbrechen")
+	if (QMessageBox::information(this,"Delete key",
+			tr("The key") + ": '" + 
+			QString::fromLatin1(delKey->getDescription().c_str()) +
+			"'\n" + tr("is going to be deleted"),
+			"Delete", "Cancel")
 	) return;
 	keys->deletePKI(delKey);
 }
@@ -99,11 +99,12 @@ void MainWindow::showDetailsKey(QListViewItem *item)
 void MainWindow::loadKey()
 {
 	QStringList filt;
-	filt.append( "PKI Schlüssel ( *.pem *.der *.pk8 )"); 
-	filt.append("Alle Dateien ( *.* )");
+	filt.append( "PKI Keys ( *.pem *.der )"); 
+	filt.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
+	filt.append( "All Files ( *.* )");
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Schlüssel importieren");
+	dlg->setCaption("Import key");
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
@@ -111,9 +112,9 @@ void MainWindow::loadKey()
 	string errtxt;
 	pki_key *lkey = new pki_key(s, &MainWindow::passRead);
 	if ((errtxt = lkey->getError()) != "") {
-		QMessageBox::warning(this,"Datei Fehler",
-			("Der Schlüssel: " + s +
-			"\nkonnte nicht geladen werden:\n" + errtxt).c_str());
+		QMessageBox::warning(this,"Key error",
+			tr("The key") +": " + QString::fromLatin1(s.c_str()) +
+			"\n"+ tr("could not be loaded") + QString::fromLatin1(errtxt.c_str()) );
 		return;
 	}
 	insertKey(lkey);
@@ -123,36 +124,36 @@ void MainWindow::loadKey()
 void MainWindow::insertKey(pki_key *lkey)
 {
 	pki_key *oldkey;
+	QString title=tr("Key storing");
 	if ((oldkey = (pki_key *)keys->findPKI(lkey))!= 0) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) ||
 		    lkey->isPubKey()){
-	   	    QMessageBox::information(this,"Schlüssel import",
-			("Der Schlüssel ist bereits vorhanden als:\n'" +
-			oldkey->getDescription() + 
-			"'\nund wurde daher nicht importiert").c_str(), "OK");
+	   	    QMessageBox::information(this,title,
+			tr("The key is already in the database as") +":\n'" +
+			QString::fromLatin1(oldkey->getDescription().c_str()) + 
+			"'\n" + tr("and is not going to be imported"), "OK");
 		    delete(lkey);
 		    return;
 		}
 		else {
-	   	    QMessageBox::information(this,"Schlüssel import",
-			("Der öffentliche Teil des Schlüssels ist bereits vorhanden als:\n'" +
-			oldkey->getDescription() + 
-			"'\nund wird durch den neuen, vollständigen Schlüssel ersetzt").c_str(), "OK");
-		    cerr << "before deleting pki...\n";
+	   	    QMessageBox::information(this,title,
+			tr("The database already contains the public part of the imported key as") +":\n'" +
+			QString::fromLatin1(oldkey->getDescription().c_str()) + 
+			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
+		    CERR << "before deleting pki...\n";
 		    keys->deletePKI(oldkey);
 		    lkey->setDescription(oldkey->getDescription());
 		    delete(oldkey);
 		}
 	}
-	cerr << "after findkey\n";
+	CERR << "after findkey\n";
 	if (keys->insertPKI(lkey))
-	   QMessageBox::information(this,"Schlüssel import",
-		("Der Schlüssel wurde erfolgreich importiert als:\n'" +
-		lkey->getDescription() + "'").c_str(), "OK");
+	   QMessageBox::information(this,title,
+		tr("The Key was successfully stored as:\n'") +
+		QString::fromLatin1(lkey->getDescription().c_str()) + "'", "OK");
 	else	
-	   QMessageBox::warning(this,"Schlüssel import",
-		"Der Schlüssel konnte nicht in der Datenbank \
-		gespeichert werden", "OK");
+	   QMessageBox::warning(this,title,
+		tr("The key could not be stored into the database"), "OK");
 	
 }
 
@@ -186,14 +187,14 @@ void MainWindow::writeKey()
 	}
 	string errtxt;
 	if ((errtxt = targetKey->getError()) != "") {
-		QMessageBox::warning(this,"Datei Fehler",
-			("Der Schlüssel: '" + fname +
-			"'\nkonnte nicht geschrieben werden:\n" + errtxt).c_str());
+		QMessageBox::warning(this,tr("File error"),
+			tr("Der Schlüssel") +": '" + QString::fromLatin1(fname.c_str()) +
+			"'\n" + tr("could not be written") +":\n" + QString::fromLatin1(errtxt.c_str()));
 		return;
 	}
-	QMessageBox::information(this,"Schlüssel export",
-		("Der Schlüssel wurde erfolgreich in die Datei:\n'" +
-		fname + "' exportiert").c_str(), "OK");
+	QMessageBox::information(this,tr("Key export"),
+		tr("The key was successfull exported into the file") + ":\n'" +
+		QString::fromLatin1(fname.c_str()) , "OK");
 
 }
 

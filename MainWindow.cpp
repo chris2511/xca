@@ -14,8 +14,9 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 	QDir d(baseDir);
 	if ( ! d.exists() ){
 		if (!d.mkdir(baseDir)) 
-		   cerr << "Couldnt create: " << baseDir.latin1() << "\n";
+		   CERR << "Couldnt create: "<<  baseDir.latin1() << endl;
 	}
+	CERR << "HALLO TEST"<< endl;
 	dbfile = baseDir +  "/xca.db";
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
@@ -43,8 +44,8 @@ void MainWindow::initPass()
 	PASS_INFO p;
 	string passHash = settings->getString("pwhash");
 	if (passHash == "") {
-		string title="Neues Datenbank Passwort";
-		string description="Bitte geben sie ein Passwort an mit dem Sie die Datenbank schützen wollen";
+		string title="New Database Password";
+		string description="Please enter a password, that will be used to encrypt your private keys in the database-file";
 		p.title = &title;
 		p.description = &description;
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
@@ -55,12 +56,15 @@ void MainWindow::initPass()
 		settings->putString( "pwhash", md5passwd() );
 	}
 	else {
+	     int keylen=0;		
 	     while (md5passwd() != passHash) {
-		string title="Datenbank Passwort";
-		string description="Bitte geben sie das Passwort für die Datenbank an";
+		if (keylen !=0)
+		  QMessageBox::warning(this,tr("Password"), tr("Password verify error, please try again"));	
+		string title= "Database Password";
+		string description="Please enter the password for unlocking the database";
 		p.title = &title;
 		p.description = &description;
-		int keylen = passRead(pki_key::passwd, 25, 0, &p);
+		keylen = passRead(pki_key::passwd, 25, 0, &p);
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
 		}
@@ -77,8 +81,8 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	PASS_INFO *p = (PASS_INFO *)userdata;
 	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
 	if (p != NULL) {
-		dlg->title->setText(p->title->c_str());
-		dlg->description->setText(p->description->c_str());
+		dlg->title->setText(tr(p->title->c_str()));
+		dlg->description->setText(tr(p->description->c_str()));
 	}
 	if (dlg->exec()) {
 	   QString x = dlg->pass->text();
@@ -94,8 +98,8 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	PASS_INFO *p = (PASS_INFO *)userdata;
 	PassWrite_UI *dlg = new PassWrite_UI(NULL, 0, true);
 	if (p != NULL) {
-		dlg->title->setText(p->title->c_str());
-		dlg->description->setText(p->description->c_str());
+		dlg->title->setText(tr(p->title->c_str()));
+		dlg->description->setText(tr(p->description->c_str()));
 	}
 	if (dlg->exec()) {
 	   QString A = dlg->passA->text();
@@ -129,7 +133,6 @@ string MainWindow::md5passwd()
 		sprintf(zs, "%02X%c",m[j], (j+1 == (int)n) ?'\0':':');
 		str += zs;
 	}
-	cerr <<pki_key::passwd << "  "<< str << endl;
 	return str;
 }
 

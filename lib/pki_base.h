@@ -5,6 +5,7 @@
 #ifndef PKI_BASE_H
 #define PKI_BASE_H
 
+#define CERR cerr
 
 typedef struct PASS_INFO {
 	string *title;
@@ -18,6 +19,7 @@ class pki_base
 	string desc;
 	string error;
 	bool openssl_error();
+	void ign_openssl_error();
 	void *pointer; 
     public:
 	enum { VERIFY_ERROR, VERIFY_SELFSIGNED, VERIFY_TRUSTED, 

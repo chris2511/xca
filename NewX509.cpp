@@ -6,9 +6,22 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
 	keys = key;
 	reqs = req;
-	par = (MainWindow *)parent;
-	keyList->insertStringList(keys->getPrivateDesc());
-	reqList->insertStringList(reqs->getDesc());
+	QStringList strings = keys->getPrivateDesc();
+	// are there any private keys to use ?
+	if (strings.isEmpty()) {
+		newKey();
+	}
+	else {
+		keyList->insertStringList(strings);
+	}
+	// any PKCS#10 requests to be used ?
+	strings = reqs->getDesc();
+	if (strings.isEmpty()) {
+		fromReqRB->setDisabled(true);
+	}
+	else {
+		reqList->insertStringList(strings);
+	}
 	fromDataRB->setChecked(true);
 }
 	
@@ -29,5 +42,24 @@ void NewX509::newKey()
 	emit genKey();
 	keyList->clear();
 	keyList->insertStringList(keys->getPrivateDesc());
+}
+
+void NewX509::validateFields() {
+	QStringList fields;
+	if (description->text() == "") 
+		fields.append(tr("Description"));
+	if (commonName->text() == "") 
+		fields.append(tr("Common Name"));
+	if (emailAddress->text() == "") 
+		fields.append(tr("Email Address"));
+
+	if (!fields.isEmpty()) {
+		 QMessageBox::information(this,tr("Missing parameter"),
+				 tr("The following fields must not be empty") +":\n'"+
+				 fields.join("'\n'") + "'", "OK"); 
+	}
+	else {
+		accept();
+	}
 }
 

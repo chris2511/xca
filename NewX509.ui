@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>706</width>
+            <width>702</width>
             <height>520</height>
         </rect>
     </property>
@@ -562,26 +562,6 @@
             <class>QRadioButton</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>fromCertRB</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>20</x>
-                    <y>300</y>
-                    <width>270</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Folgende Zertifikatsanfrage verwenden:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QRadioButton</class>
-            <property stdset="1">
-                <name>name</name>
                 <cstring>fromDataRB</cstring>
             </property>
             <property stdset="1">
@@ -598,6 +578,26 @@
                 <string>Folgende Angaben verwenden:</string>
             </property>
         </widget>
+        <widget>
+            <class>QRadioButton</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>fromReqRB</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>20</x>
+                    <y>300</y>
+                    <width>270</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Folgende Zertifikatsanfrage verwenden:</string>
+            </property>
+        </widget>
     </widget>
 </widget>
 <images>
@@ -607,12 +607,6 @@
     </image>
 </images>
 <connections>
-    <connection>
-        <sender>PushButton14</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>accept()</slot>
-    </connection>
     <connection>
         <sender>PushButton15</sender>
         <signal>clicked()</signal>
@@ -626,12 +620,12 @@
         <slot>setDisabled(int)</slot>
     </connection>
     <connection>
-        <sender>genKey</sender>
+        <sender>PushButton14</sender>
         <signal>clicked()</signal>
         <receiver>NewX509_UI</receiver>
-        <slot>newKey()</slot>
+        <slot>validateFields()</slot>
     </connection>
-    <slot access="public">newKey()</slot>
+    <slot access="public">validateFields()</slot>
     <slot access="public">setDisabled(int)</slot>
 </connections>
 <tabstops>
@@ -645,7 +639,7 @@
     <tabstop>organisationalUnitName</tabstop>
     <tabstop>commonName</tabstop>
     <tabstop>emailAddress</tabstop>
-    <tabstop>fromCertRB</tabstop>
+    <tabstop>fromReqRB</tabstop>
     <tabstop>reqList</tabstop>
     <tabstop>PushButton14</tabstop>
     <tabstop>PushButton15</tabstop>

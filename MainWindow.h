@@ -39,6 +39,10 @@
 #define BASE_DIR "/xca"
 #define DBFILE "xca.db"
 
+#ifndef CERR
+#define CERR cerr
+#endif
+
 
 class MainWindow: public MainWindow_UI
 {

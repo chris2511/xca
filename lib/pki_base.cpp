@@ -44,8 +44,18 @@ bool pki_base::openssl_error()
 	string errtxt = "";
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
-	   cerr << "OpenSSL: " << errtxt << endl;
+	   CERR << "OpenSSL: " << errtxt << endl;
 	   error += errtxt + "\n";
 	}
 	return  (!error.empty());
+}
+
+void pki_base::ign_openssl_error()
+{
+	// ignore openssl errors
+	string errtxt;
+	while (int i = ERR_get_error() ) {
+	   errtxt = ERR_error_string(i ,NULL);
+	   CERR << "IGNORE:OpenSSL: " << errtxt << endl;
+	}
 }

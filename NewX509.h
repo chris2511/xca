@@ -4,6 +4,8 @@
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
 #include <qframe.h>
+#include <qlineedit.h>
+#include <qmessagebox.h>
 
 #ifndef NEWX509_H
 #define NEWX509_H
@@ -22,6 +24,7 @@ class NewX509: public NewX509_UI
    public slots:
 	void setDisabled(int state);
    	void newKey();
+   	void validateFields();
    signals:
 	void genKey();  
 };

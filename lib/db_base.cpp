@@ -96,6 +96,13 @@ string db_base::getString(char *key)
 }
 
 
+int db_base::getString(string key)
+{
+	string x = getString(x);
+	return atoi(x.c_str());
+}
+
+
 void db_base::putData(void *key, int keylen, void *dat, int datalen)
 {
 	
