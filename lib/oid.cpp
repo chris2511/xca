@@ -1,4 +1,4 @@
-/* here we have the possibility to add out own OIDS */
+/* here we have the possibility to add our own OIDS */
 
 #include <openssl/objects.h>
 

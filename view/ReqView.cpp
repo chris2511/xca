@@ -194,18 +194,22 @@ void ReqView::signReq()
 void ReqView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subExport = new QPopupMenu(this);
+	int itemExport;
+	
 	if (!item) {
 		menu->insertItem(tr("New Request"), this, SLOT(newItem()));
 		menu->insertItem(tr("Import"), this, SLOT(load()));
 	}
 	else {
+		pki_x509req *req = (pki_x509req *)db->getByName(item->text(0));
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Sign"), this, SLOT(signReq()));
-		menu->insertItem(tr("Export"), subExport);
+		itemExport = menu->insertItem(tr("Export"), subExport);
 		subExport->insertItem(tr("PEM"), this, SLOT(writeReq_pem()));
 		subExport->insertItem(tr("DER"), this, SLOT(writeReq_der()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
+		menu->setItemEnabled(itemExport, ! req->isSpki());
 	}
 	menu->exec(pt);
 	delete menu;

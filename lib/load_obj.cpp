@@ -93,6 +93,7 @@ pki_base * load_key::loadItem(QString s)
 load_req::load_req()
 	:load_base()
 {
+	filter.prepend( QObject::tr("Netscape Request ( *.spkac *.spc )"));
 	filter.prepend( QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr )"));
 	caption = QObject::tr("Import Request");
 }		

@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -38,7 +38,7 @@
  *	http://www.sleepycat.com
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -46,7 +46,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 #ifndef PKI_X509REQ_H
 #define PKI_X509REQ_H
@@ -62,10 +62,18 @@ class pki_x509;
 
 class pki_x509req : public pki_x509super
 {
+	private:
+	   //loading spkac file and convert it to a request
+	   void load_spkac(const QString filename);
+	   //for checking spkac content-fields
+	   int fix_data(int nid, int *type);
+	   
 	protected:
 	   X509_REQ *request;
+	   NETSCAPE_SPKI *spki;
+
 	public:
-	   static QPixmap *icon[2];
+	   static QPixmap *icon[3];
 	   pki_x509req();
 	   pki_x509req(const QString fname);
 	   ~pki_x509req();
@@ -73,6 +81,7 @@ class pki_x509req : public pki_x509super
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);
 	   x509name getSubject() const;
+	   bool isSpki() const;
 	   void writeReq(const QString fname, bool PEM);
 	   int verify();
 	   pki_key *getPubKey() const;
