@@ -60,16 +60,19 @@
 class pki_temp: public pki_base
 {
     protected:
-	int version;
+	int version, type;
+	
+    public:
 	string C,P,L,O,OU,CN,EMAIL;
 	string subAltName, issAltName, crlDist;
 	string nsComment, nsBaseUrl, nsRevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 	bool ca, bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
 	int nsCertType, pathLen, valid, keyUse, eKeyUse;
-    public:
-	
+     
+    // methods
+    
 	pki_temp(const pki_temp *pk);
-	pki_temp(const string d);
+	pki_temp(const string d, int atype=0);
 	/* destructor */
 	~pki_temp();
 	bool fromData(unsigned char *p, int size);

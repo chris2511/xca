@@ -97,6 +97,7 @@ class db_base: public QObject
 	pki_base *getSelectedPKI();
 	pki_base *findPKI(pki_base *refpki);
 	virtual void loadContainer();
+	QStringList getDesc();
 	/* preprocess should be implemented once to speed up updateView() 
 	 * i.e search for signers and keys */
 	virtual void preprocess() {return;}

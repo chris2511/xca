@@ -200,13 +200,15 @@ void db_base::loadContainer()
 	string desc;
 	pki_base *pki;
 	container.clear();
+	CERR << "Load Container" << endl;
 	while (!cursor->get(k, d, DB_NEXT)) {
 		desc = (char *)k->get_data();
 		p = (unsigned char *)d->get_data();
 		int size = d->get_size();
 		pki = newPKI();
+		CERR <<"PKItest  "<< desc.c_str() << endl;
 		if (pki == NULL) continue;
-		cerr << desc.c_str() << endl;
+		CERR << desc.c_str() << endl;
 		if (pki->fromData(p, size)) {
 			pki->setDescription(desc);
 			container.append(pki);
@@ -263,7 +265,7 @@ bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL)
 	while (x == DB_KEYEXIST) {
 	   Dbt k((void *)desc.c_str(), desc.length() + 1);
 	   Dbt d((void *)p, size);
-           cerr << "Size: " << d.get_size() << "\n";
+           CERR << "Size: " << d.get_size() << endl;
 	
 	   if ((x = data->put(tid, &k, &d, flags ))!=0) {
 		data->err(x,"DB Error put");
@@ -419,3 +421,14 @@ void db_base::updateViewPKI(pki_base *pki)
         current->setText(0, pki->getDescription().c_str());
 }
 							
+QStringList db_base::getDesc()
+{
+	pki_base *pki;
+	QStringList x;
+	x.clear();
+	for ( pki = container.first(); pki != 0; pki = container.next() )	{
+		x.append(pki->getDescription().c_str());	
+	}
+	return x;
+}
+

@@ -53,7 +53,7 @@
 
 
 db_temp::db_temp(DbEnv *dbe, string DBfile, QListView *l)
-	:db_base(dbe, DBfile, "keydb")
+	:db_base(dbe, DBfile, "tempdb")
 {
 	listView = l;
 	loadContainer();
@@ -66,17 +66,6 @@ pki_base *db_temp::newPKI(){
 	return new pki_temp("");
 }
 
-
-QStringList db_temp::getDesc()
-{
-	pki_temp *pki;
-	QStringList x;
-	x.clear();
-	for ( pki = (pki_temp *)container.first(); pki != 0; pki = (pki_temp *)container.next() )	{
-		x.append(pki->getDescription().c_str());	
-	}
-	return x;
-}
 
 
 void db_temp::updateViewPKI(pki_base *pki)

@@ -161,7 +161,7 @@ bool pki_base::boolFromData(unsigned char **p)
 
 int pki_base::stringToData(unsigned char **p, const string val)
 {
-	int s = val.length() +1;
+	int s = (val.length() +1) * sizeof(char);
 	memcpy(*p, val.c_str(), s);
 	*p += s;
 	return s;
@@ -170,6 +170,11 @@ int pki_base::stringToData(unsigned char **p, const string val)
 string pki_base::stringFromData(unsigned char **p)
 {
 	string ret="";
-	while(*p)  ret +=(char) *(p++);
+	while(**p) {
+		ret +=(char)**p;
+		*p += sizeof(char);
+	}
+	CERR << "read:" << ret <<endl;
+	*p += sizeof(char);
 	return ret;
 }

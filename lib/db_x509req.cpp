@@ -69,18 +69,6 @@ pki_base *db_x509req::newPKI(){
 	return new pki_x509req();
 }
 
-QStringList db_x509req::getDesc()
-{
-	pki_x509req *pki;
-	QStringList x;
-        if ( container.isEmpty() ) return x;
-        for ( pki = (pki_x509req *)container.first(); pki != 0; pki = (pki_x509req *)container.next() ) {
-		x.append(pki->getDescription().c_str());	
-	}
-	return x;
-}
-
-
 void db_x509req::delKey(pki_key *delkey)
 {
 	pki_x509req *pki;

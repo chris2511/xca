@@ -56,6 +56,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 	:pki_base(pk->desc)
 {
 	version=pk->version;
+	type=pk->type;
 	C=pk->C;
 	P=pk->P;
 	L=pk->L;
@@ -86,10 +87,11 @@ pki_temp::pki_temp(const pki_temp *pk)
 	eKeyUse=pk->eKeyUse;
 }
 
-pki_temp::pki_temp(const string d)
+pki_temp::pki_temp(const string d, int atype=0)
 	:pki_base(d)
 { 
 	version=1;
+	type=atype;
 	C="";
 	P="";
 	L="";
@@ -126,6 +128,7 @@ bool pki_temp::fromData(unsigned char *p, int size )
 	CERR << "Temp fromData\n";
 	unsigned char *p1 = p;
 	version=intFromData(&p1);
+	type=intFromData(&p1);
 	ca=boolFromData(&p1);
 	bcCrit=boolFromData(&p1);
 	keyUseCrit=boolFromData(&p1);
@@ -157,7 +160,7 @@ bool pki_temp::fromData(unsigned char *p, int size )
 	//next version:
 	//if (version == 2) { ..... }
 	if (p1-p != size) {
-		CERR << "AAAAarrrrgghhhhh wrong tempsize..." << endl;
+		CERR << "AAAAarrrrgghhhhh wrong tempsize..." << (p1-p) << " - " <<size <<endl;
 		return false;
 	}
 	return true;
@@ -168,9 +171,11 @@ unsigned char *pki_temp::toData(int *size)
 {
 	CERR << "temp toData " << getDescription()<< endl;
 	unsigned char *p, *p1;
-	*size=dataSize();
-	p= (unsigned char*)OPENSSL_malloc(*size);
+	*size = dataSize();
+	p = (unsigned char*)OPENSSL_malloc(*size);
+	p1 = p;
 	intToData(&p1, version);
+	intToData(&p1, type);
 	boolToData(&p1, ca);
 	boolToData(&p1, bcCrit);
 	boolToData(&p1, keyUseCrit);
@@ -200,7 +205,7 @@ unsigned char *pki_temp::toData(int *size)
 	stringToData(&p1, nsCaPolicyUrl);
 	stringToData(&p1, nsSslServerName);
 
-	CERR << "KEY toData end ..."<< (p1-p) << "--"<<*size <<endl;
+	CERR << "Temp toData end ..."<< (p1-p) << " - "<<*size <<endl;
 	return p;
 }
 
@@ -214,7 +219,7 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	return 5 * sizeof(int) + 8 * sizeof(bool) +
+	return 6 * sizeof(int) + 8 * sizeof(bool) + (
 	C.length() +
 	P.length() +
 	L.length() +
@@ -231,7 +236,7 @@ int pki_temp::dataSize()
 	nsRenewalUrl.length() +
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
-	16 ;
+	16 ) * sizeof(char);
 		
 }
 

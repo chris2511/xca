@@ -25,15 +25,16 @@ libpki.a: $(PKIOBJS)
 libxcadb.a: $(DBOBJS)
 	ar rcs libxcadb.a $(DBOBJS)
 	
-%_MOC.cpp: %.h %.cpp
-	$(MOC) $< -o $@
-	
-%.o: %.cpp %.h
+%.o: %.cpp 
 	$(GCC) $(CPPFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $<
 
 clean:
-	rm -rf *~ *.o *.a
+	rm -rf *~ *.o *.a *_MOC.cpp
 
 distclean: clean
 	rm -f Makefile
 
+.SECONDARY:
+	
+%_MOC.cpp: %.h %.cpp
+	$(MOC) $< -o $@

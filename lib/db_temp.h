@@ -65,7 +65,6 @@ class db_temp: public db_base
     public:
 	db_temp(DbEnv *dbe, string DBfile, QListView *l);
 	pki_base *newPKI();
-	QStringList getDesc();
 	void updateViewPKI(pki_base *pki);
 };
 

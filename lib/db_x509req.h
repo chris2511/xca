@@ -66,7 +66,6 @@ class db_x509req: public db_base
     public:
 	db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl);
 	pki_base *newPKI();
-	QStringList getDesc();
 	void updateViewPKI(pki_base *pki);
 	void preprocess();
 	pki_key *findKey(pki_x509req *req);
