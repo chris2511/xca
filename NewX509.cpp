@@ -87,12 +87,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	// are there any useable private keys  ?
 	if (keys) {
 		strings = keys->get0PrivateDesc();
-		if (strings.isEmpty()) {
-			newKey();
-		}
-		else {
-			keyList->insertStringList(strings);
-		}
+		keyList->insertStringList(strings);
 	}
 	else {
 		keyList->setEnabled(false);
@@ -376,6 +371,9 @@ void NewX509::showPage(QWidget *page)
 		toggleFromRequest();
 	}
 	else if ( page == page2 ) {
+		if (keyList->isEnabled() && keyList->count() == 0 ) {
+			newKey();
+		}
 		dataChangeP2();
 	}
 	
