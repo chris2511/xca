@@ -113,14 +113,14 @@ void MainWindow::newCert(NewX509 *dlg)
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
 	    clientkey = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
-	    string cn = dlg->commonName->text().latin1();
-	    string c = dlg->countryName->text().latin1();
-	    string l = dlg->localityName->text().latin1();
-	    string st = dlg->stateOrProvinceName->text().latin1();
-	    string o = dlg->organisationName->text().latin1();
-	    string ou = dlg->organisationalUnitName->text().latin1();
-	    string email = dlg->emailAddress->text().latin1();
-	    string desc = dlg->description->text().latin1();
+	    std::string cn = dlg->commonName->text().latin1();
+	    std::string c = dlg->countryName->text().latin1();
+	    std::string l = dlg->localityName->text().latin1();
+	    std::string st = dlg->stateOrProvinceName->text().latin1();
+	    std::string o = dlg->organisationName->text().latin1();
+	    std::string ou = dlg->organisationalUnitName->text().latin1();
+	    std::string email = dlg->emailAddress->text().latin1();
+	    std::string desc = dlg->description->text().latin1();
 	    tempReq = true;
 	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
 	}
@@ -159,7 +159,7 @@ void MainWindow::newCert(NewX509 *dlg)
 		// get own serial to avoid having the same
 		int sigser;
 		sscanf(signcert->getSerial().c_str(), "%x", &sigser);
-		if (serial == sigser) { // FIXME: anybody tell me the string method for this ?
+		if (serial == sigser) { // FIXME: anybody tell me the std::string method for this ?
 			serial = signcert->getIncCaSerial(); // just take the next one
 		}
 		certs->updatePKI(signcert);  // not so pretty ....
@@ -342,7 +342,7 @@ void MainWindow::extendCert()
 		serial = signer->getIncCaSerial();
 		
 		// get signers own serial to avoid having the same
-		if (serial == atoi(signer->getSerial().c_str())) { // FIXME: anybody tell me the string method for this ?
+		if (serial == atoi(signer->getSerial().c_str())) { // FIXME: anybody tell me the std::string method for this ?
 			serial = signer->getIncCaSerial(); // just take the next one
 		}
 		certs->updatePKI(signer);  // not so pretty ....
@@ -763,6 +763,46 @@ void MainWindow::writePKCS12(QString s, bool chain)
     }
 }
 
+void MainWindow::signP7()
+{
+	QStringList filt;
+    try {
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	pki_key *privkey = cert->getKey();
+	if (!privkey || privkey->isPubKey()) {
+		QMessageBox::warning(this,tr(XCA_TITLE),
+                	tr("There was no key found for the Certificate: ") +
+			QString::fromLatin1(cert->getDescription().c_str()) );
+		return; 
+	}
+        filt.append("All Files ( *.* )");
+	QString s="";
+	QStringList slist;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("Import Certificate signing request"));
+	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::ExistingFiles );
+	setPath(dlg);
+	if (dlg->exec()) {
+		slist = dlg->selectedFiles();
+		newPath(dlg);
+        }
+	delete dlg;
+	pki_pkcs7 * p7 = new pki_pkcs7("");
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		p7->signFile(cert, s.latin1());
+		p7->writeP7((s + ".p7s").latin1(), true);
+	}
+	delete p7;
+    }
+    catch (errorEx &err) {
+	Error(err);
+    }
+}	
+
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	CERR( "popup Cert");
 	QPopupMenu *menu = new QPopupMenu(this);
@@ -796,10 +836,8 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		subCa->insertItem(tr("Generate CRL"), this, SLOT(genCrl()));
 		
 		itemP7 = menu->insertItem(tr("PKCS#7"), subP7);
-		subP7->insertItem(tr("Sign"), this, SLOT(setSerial()));
-		subP7->insertItem(tr("Verify"), this, SLOT(setSerial()));
-		subP7->insertItem(tr("Encrypt"), this, SLOT(setSerial()));
-		subP7->insertItem(tr("Decrypt"), this, SLOT(setSerial()));
+		subP7->insertItem(tr("Sign"), this, SLOT(signP7()));
+		subP7->insertItem(tr("Encrypt"), this, SLOT(encryptP7()));
 		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Renewal"), this, SLOT(extendCert()));
 		if (cert) {

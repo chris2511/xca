@@ -60,7 +60,7 @@ pki_key *MainWindow::getSelectedKey()
 	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
 	CERR( "got selected: "<< (int)targetKey );
 	if (targetKey) {
-	   string errtxt = targetKey->getError();
+	   std::string errtxt = targetKey->getError();
 	   if (errtxt != "")
 		QMessageBox::warning(this,tr(XCA_TITLE),
 			tr("The Key: ") + QString::fromLatin1(targetKey->getDescription().c_str()) +

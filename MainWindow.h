@@ -93,6 +93,7 @@
 #include "lib/pki_x509req.h"
 #include "lib/pki_x509.h"
 #include "lib/pki_pkcs12.h"
+#include "lib/pki_pkcs7.h"
 #include "lib/pki_temp.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
@@ -204,6 +205,7 @@ class MainWindow: public MainWindow_UI
 	void setPath(QFileDialog *dlg);
 	void newPath(QFileDialog *dlg);
 	void extendCert();
+	void signP7();
    signals:
 	void keyDone(QString name);
 };
