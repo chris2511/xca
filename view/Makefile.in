@@ -37,4 +37,3 @@ distclean: clean
 
 include ../Rules.mak
 
-.SECONDARY: $(UI_CPP) $(UI_H) $(MOC_CPP)  

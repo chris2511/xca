@@ -63,7 +63,7 @@ class db_crl: public db_base
 	QPixmap *crlicon;
 	db_x509 *certs;
     public:
-	db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid);
+	db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid,XcaListView *lvi);
 	pki_base *newPKI();
 	void revokeCerts(pki_crl *crl);
 	void preprocess();

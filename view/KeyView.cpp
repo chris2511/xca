@@ -123,6 +123,7 @@ void KeyView::showItem(pki_base *item, bool import)
 	try {	
 		dlg = new KeyDetail(this, 0, true, 0 );
 		dlg->setKey(key);
+		dlg->exec();
 	}
 	catch (errorEx &err) {
 		Error(err);

@@ -40,4 +40,3 @@ distclean: clean
 
 include ../Rules.mak
 
-.SECONDARY: $(MOC_CPP)  

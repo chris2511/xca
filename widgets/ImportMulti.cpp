@@ -82,7 +82,8 @@ void ImportMulti::addItem(pki_base *pki)
 {
 	if (!pki) return;
 	QString cn = pki->getClassName();
-	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ) {
+	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ||
+			cn == "pki_crl"  || cn == "pki_temp" ) {
 		QListViewItem *current = new QListViewItem(itemView);
 		pki->setLvi(current);
 		pki->updateView();
@@ -176,6 +177,12 @@ void ImportMulti::import(pki_base *pki)
 	else if (cn == "pki_x509req") {
 		MainWindow::reqs->insert(pki);
 	}
+	else if (cn == "pki_crl") {
+		MainWindow::crls->insert(pki);
+	}
+	else if (cn == "pki_temp") {
+		MainWindow::temps->insert(pki);
+	}
 	else  {
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
@@ -231,3 +238,16 @@ ImportMulti::~ImportMulti()
 	cont.setAutoDelete(true);
 	cont.clear();
 }	 
+
+void ImportMulti::execute()
+{
+	/* if there is nothing to import don't pop up */
+	if (cont.count() == 0) return;
+	/* if there is only 1 item import it silently */
+	if (cont.count() == 1) {
+		import(cont.first());
+		return;
+	}
+	/* the behavoiour for more than one item */
+	exec();
+}

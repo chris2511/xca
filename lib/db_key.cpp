@@ -58,8 +58,8 @@
                         pki != 0; pki = (pki_key *)container.next() ) 
 			
 
-db_key::db_key(DbEnv *dbe, QString DBfile, DbTxn *tid)
-	:db_base(dbe, DBfile, "keydb",tid)
+db_key::db_key(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi)
+	:db_base(dbe, DBfile, "keydb",tid, lvi)
 {
 	loadContainer();
 }

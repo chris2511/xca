@@ -55,8 +55,8 @@
 #include <qmessagebox.h>
 
 
-db_x509req::db_x509req(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid)
-	:db_x509super(dbe, DBfile, "reqdb", k, tid)
+db_x509req::db_x509req(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid, XcaListView *lvi)
+	:db_x509super(dbe, DBfile, "reqdb", k, tid, lvi)
 {
 	loadContainer();
 }

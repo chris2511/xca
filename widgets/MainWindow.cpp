@@ -301,13 +301,13 @@ void MainWindow::init_database() {
 		qFatal(e);
 	}
 	try {
-		settings = new db_base(dbenv, dbfile, "settings",global_tid);
+		settings = new db_base(dbenv, dbfile, "settings",global_tid, NULL);
 		initPass();
-		keys = new db_key(dbenv, dbfile, global_tid);
-		reqs = new db_x509req(dbenv, dbfile, keys, global_tid);
-		certs = new db_x509(dbenv, dbfile, keys, global_tid);
-		temps = new db_temp(dbenv, dbfile, global_tid);
-		crls = new db_crl(dbenv, dbfile, global_tid);
+		keys = new db_key(dbenv, dbfile, global_tid, keyList);
+		reqs = new db_x509req(dbenv, dbfile, keys, global_tid, reqList);
+		certs = new db_x509(dbenv, dbfile, keys, global_tid, certList);
+		temps = new db_temp(dbenv, dbfile, global_tid, tempList);
+		crls = new db_crl(dbenv, dbfile, global_tid, crlList);
 		reqs->setKeyDb(keys);
 		certs->setKeyDb(keys);
 	

@@ -97,6 +97,7 @@ class pki_x509 : public pki_x509super
 	   void setSubject(const x509name &n);
 	   void setIssuer(const x509name &n);
 	   
+	   void autoIntName();
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);

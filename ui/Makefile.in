@@ -12,9 +12,6 @@ CC=@CC@
 MOC=@MOC@
 UIC=@UIC@
 
-AR=@AR@
-RANLIB=@RANLIB@
-
 CPPFLAGS=-I.. -I../widgets -I../view @CPPFLAGS@ @DEFS@
 CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
@@ -43,4 +40,3 @@ distclean: clean
 
 include ../Rules.mak
 
-.SECONDARY: $(UI_CPP) $(UI_H) $(MOC_CPP)  

@@ -51,11 +51,15 @@
 
 #include "db_base.h"
 #include "exception.h"
+#include "view/XcaListView.h"
 #include <qmessagebox.h>
+#include <qlistview.h>
 #include <qdir.h>
 
-db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid) 
+db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
+	XcaListView *lvi) 
 {
+	listview = lvi;
 	dbenv = dbe;
 	data = new Db(dbe, 0);
 	try {
@@ -118,13 +122,12 @@ QString db_base::getString(QString key)
 		return x;
 	}
 	if ( p[dsize-1] != '\0' ) {
-		int a =p[dsize-1];	
 		return x;
 	}
 	x = p;
 	free(p);
 	if ( (int)x.length() != (dsize-1) ) {
-		CERR( "error with '"<<key<<"': "<< x.latin1() <<" "<<dsize);
+		// FIXME: Errorhandling...
 	}
 	return x;
 }
@@ -160,7 +163,6 @@ void db_base::putData(void *key, int keylen, void *dat, int datalen)
 
 void db_base::putString(QString key, void *dat, int datalen)
 {
-	CERR( key );
 	putData((void *)key.latin1(), key.length()+1, dat, datalen);
 }
 
@@ -239,6 +241,13 @@ void db_base::insertPKI(pki_base *pki)
 	catch (DbException &err) {
 		tid->abort();
 		DBEX(err);
+	}
+	if (listview) {
+		
+		QListViewItem *lvi = new QListViewItem((QListView *)listview, pki->getIntName());
+	        listview->insertItem(lvi);
+	        pki->setLvi(lvi);
+	        pki->updateView();
 	}
 }
 	
@@ -406,6 +415,9 @@ QList<pki_base> db_base::getContainer()
 	return c;
 }	
 
-pki_base *db_base::insert(pki_base *)
+pki_base *db_base::insert(pki_base *item)
 {
+	insertPKI(item);
+	return item;
+     
 }

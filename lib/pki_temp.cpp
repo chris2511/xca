@@ -58,6 +58,7 @@ QPixmap *pki_temp::icon=  NULL;
 pki_temp::pki_temp(const pki_temp *pk) 
 	:pki_base(pk->desc)
 {
+	class_name = pk->class_name;
 	version=pk->version;
 	type=pk->type;
 	xname=pk->xname;
@@ -90,6 +91,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 pki_temp::pki_temp(const QString d, int atype)
 	:pki_base(d)
 {
+	class_name = "pki_temp";
 	version=2;
 	type=atype;
 	subAltName="";
@@ -269,11 +271,11 @@ void pki_temp::loadTemp(QString fname)
 		return;
 	}
 	if (fread(&size, sizeof(size), 1, fp) != 1)
-		openssl_error("Template file content error");
+		openssl_error(tr("Template file content error"));
 	p = (unsigned char *)OPENSSL_malloc(size);
 	if (fread(p, 1, size, fp) != size) {
 		OPENSSL_free(p);
-		openssl_error("Template file content error");
+		openssl_error(tr("Template file content error"));
 	}
 	fromData(p, size);
 	OPENSSL_free(p);

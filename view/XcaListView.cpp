@@ -227,15 +227,18 @@ void XcaListView::load_default(load_base &load)
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		QString s = *it;
 		s = QDir::convertSeparators(s);
+		pki_base *item = NULL;
 		try {
-			pki_base *item = load.loadItem(s);
-			dlgi->addItem(item);
+			item = load.loadItem(s);
 		}
 		catch (errorEx &err) {
 			Error(err);
+			if (item)
+				delete item;
 		}
+		dlgi->addItem(item);
 	}
-	dlgi->exec();
+	dlgi->execute();
 	delete dlgi;
 	updateView();
 }

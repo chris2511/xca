@@ -114,7 +114,8 @@ pki_key::pki_key(const QString fname, pem_password_cb *cb, int type )
 	:pki_base(fname)
 { 
 	init();
-	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the RSA key.")); 
+	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the RSA key.")
+		+ "'" + fname + "'"); 
 	key = EVP_PKEY_new();
 	key->type = EVP_PKEY_type(type);
 	FILE *fp = fopen(fname.latin1(), "r");
@@ -221,7 +222,6 @@ unsigned char *pki_key::toData(int *size)
 	if (true) {
 	   if (isPubKey()) {
 	      *size = i2d_RSA_PUBKEY(key->pkey.rsa, NULL);
-	      CERR("Sizeofpubkey: " << *size );
 	      p = (unsigned char *)OPENSSL_malloc(*size);
 	      openssl_error();
 	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH + 8);
@@ -239,7 +239,6 @@ unsigned char *pki_key::toData(int *size)
 	   }
 	   else {
 	      *size = i2d_RSAPrivateKey(key->pkey.rsa, NULL);
-	      CERR("Sizeofprivkey: " << *size );
 	      openssl_error();
 	      p = (unsigned char *)OPENSSL_malloc(*size);
 	      openssl_error();
@@ -260,7 +259,6 @@ unsigned char *pki_key::toData(int *size)
 	encsize += outl ;
 	OPENSSL_free(p);
 	openssl_error();	
-	CERR("KEY toData end DB:"<< encsize+8 << " encrypted:"<< encsize << " decrypted:" << *size);
 	*size = encsize + 8;
 	return penc;
 }
@@ -279,7 +277,6 @@ void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
 	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
 	   if (key){
-		CERR( "writing PKCS8");
 		PEM_write_PKCS8PrivateKey_nid(fp, key, 
 		   NID_pbeWithMD5AndDES_CBC, NULL, 0, cb, &p);
 		openssl_error();
@@ -300,7 +297,6 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
 	   if (key){
-		CERR("writing Private Key");
 		if (PEM) 
 		   PEM_write_PrivateKey(fp, key, enc, NULL, 0, cb, &p);
 		else {
@@ -319,7 +315,6 @@ void pki_key::writePublic(const QString fname, bool PEM)
 	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
 	   if (key->type == EVP_PKEY_RSA) {
-		CERR("writing Public Key");
 		if (PEM)
 		   PEM_write_RSA_PUBKEY(fp, key->pkey.rsa);
 		else

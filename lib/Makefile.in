@@ -38,4 +38,3 @@ distclean: clean
 
 include ../Rules.mak
   
-.SECONDARY: $(DB_CPP)

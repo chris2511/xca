@@ -127,7 +127,7 @@ x509v3ext NewX509::getKeyUsage()
 		}
 	}
 	if (kuCritical->isChecked() && cont.count() > 0)
-		cont << "critical";
+		cont.prepend("critical");
 	ext.create(NID_key_usage, cont.join(", "));
 	return ext;
 }
@@ -145,7 +145,7 @@ x509v3ext NewX509::getEkeyUsage()
 		}
 	}
 	if (ekuCritical->isChecked() && cont.count() > 0)
-		cont << "critical";
+		cont.prepend("critical");
 	ext.create(NID_ext_key_usage, cont.join(", "));
 	return ext;
 }

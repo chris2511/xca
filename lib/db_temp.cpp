@@ -52,8 +52,8 @@
 #include "db_temp.h"
 
 
-db_temp::db_temp(DbEnv *dbe, QString DBfile, DbTxn *tid)
-	:db_base(dbe, DBfile, "tempdb", tid)
+db_temp::db_temp(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi)
+	:db_base(dbe, DBfile, "tempdb", tid, lvi)
 {
 	loadContainer();
 }

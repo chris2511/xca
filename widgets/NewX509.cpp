@@ -88,7 +88,12 @@ int NewX509::eku_nid[EKUN_CNT] = {
   NID_ms_efs,
   NID_ns_sgc,
   OBJ_create("1.3.6.1.4.1.311.10.3.4.1", "msEFSFR",
-	"Microsoft EFS File Recovery" )
+	"Microsoft EFS File Recovery" ),
+  NID_ipsecEndSystem,
+  NID_ipsecTunnel,
+  NID_ipsecUser,
+  OBJ_create("1.3.6.1.5.5.8.2.2", "iKEIntermediate",
+	"IP security end entity")
 };
 
 int NewX509::dn_nid[DISTNAME_CNT] = {

@@ -60,7 +60,7 @@ class db_x509req: public db_x509super
 {
 	Q_OBJECT
     public:
-	db_x509req(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid);
+	db_x509req(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid, XcaListView *lvi);
 	pki_base* insert(pki_base *item);
 	pki_base *newPKI();
 };

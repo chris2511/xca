@@ -54,8 +54,8 @@
 #include "exception.h"
 #include <qmessagebox.h>
 
-db_crl::db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid)
-	:db_base(dbe, DBfile, "crldb", tid)
+db_crl::db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi)
+	:db_base(dbe, DBfile, "crldb", tid, lvi)
 {
 	loadContainer();
 }

@@ -230,7 +230,7 @@ void CertView::newCert(NewX509 *dlg)
 	
 	// and finally sign the request 
 	cert->sign(signkey, dlg->getHashAlgo());
-	insert(cert);
+	db->insert(cert);
 	db->updatePKI(signcert);
 	if (tempkey != NULL) delete(tempkey);
 	updateView();
@@ -289,7 +289,7 @@ void CertView::extendCert()
 		
 		// and finally sign the request 
 		newcert->sign(signkey, oldcert->getDigest());
-		insert(newcert);
+		db->insert(newcert);
 		delete dlg;
 	}
 	catch (errorEx &err) {
@@ -297,6 +297,7 @@ void CertView::extendCert()
 		if (newcert)
 			delete newcert;
 	}
+	updateView();
 }
 		
 void CertView::showItem(pki_base *item, bool import)

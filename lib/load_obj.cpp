@@ -128,7 +128,13 @@ load_pkcs7::load_pkcs7()
 pki_base * load_pkcs7::loadItem(QString s)
 {
 	pki_pkcs7 *p7 = new pki_pkcs7(s);
-	p7->readP7(s);
+	try {
+		p7->readP7(s);
+	}
+	catch (errorEx &err){
+		delete p7;
+		throw err;
+	}
 	return p7;
 };
 
@@ -157,7 +163,14 @@ load_temp::load_temp()
 pki_base * load_temp::loadItem(QString s)
 {
 	pki_temp *temp = new pki_temp(s);
-	temp->loadTemp(s);
+	try {
+		temp->loadTemp(s);
+	}
+	catch (errorEx &err){
+		delete temp;
+		throw err;
+	}
+	
 	return temp;
 };
 

@@ -76,7 +76,8 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	passcb = cb;
 	class_name="pki_pkcs12";
 	certstack = sk_X509_new_null();
-	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file."));
+	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file.")
+		+ "'" + fname + "'");
 	fp = fopen(fname, "rb");
 	if (fp) {
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
@@ -93,6 +94,7 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		}
 		if (mycert) {
 			cert = new pki_x509(mycert);
+			cert->autoIntName();
 		}
 		PKCS12_free(pkcs12);
 	}
@@ -167,8 +169,10 @@ pki_x509 *pki_pkcs12::getCert() {
 pki_x509 *pki_pkcs12::getCa(int x) {
 	pki_x509 *cert = NULL;
 	X509 *crt = X509_dup(sk_X509_value(certstack, x));
-	if (crt)
+	if (crt) {
 		cert = new pki_x509(crt);
+		cert->autoIntName();
+	}
 	openssl_error();
 	return cert;
 }

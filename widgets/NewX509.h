@@ -73,7 +73,7 @@ class NewX509: public NewX509_UI
    private:
 	pki_temp *fixtemp;
 	QString startText, endText, tText;
-#define EKUN_CNT 12
+#define EKUN_CNT 16
 #define DISTNAME_CNT 18
 #define EXPLICIT_NAME_CNT 7
 	static int eku_nid[EKUN_CNT];

@@ -85,21 +85,24 @@
 
 #define BASE_DIR "xca"
 
+class XcaListView;
+
 class db_base: public QObject
 {
 		
     protected:
 	Db *data;
 	DbEnv *dbenv;
+	XcaListView *listview;
 	QList<pki_base> container;
 	void _writePKI(pki_base *pki, bool overwrite, DbTxn *tid );
 	void _removePKI(pki_base *pki, DbTxn *tid );
 	void removeItem(QString k, DbTxn *tid);
     public:
-	db_base(DbEnv *dbe, QString DBfile, QString db, DbTxn *global_tid);
+	db_base(DbEnv *dbe, QString DBfile, QString db, DbTxn *global_tid,
+		XcaListView *lvi);
 	virtual ~db_base();
-	virtual pki_base *newPKI(){
-		CERR("VIRTUAL CALLED: newPKI"); return NULL;}
+	virtual pki_base *newPKI(){return NULL;}
 	virtual void insertPKI(pki_base *pki);
 	virtual void deletePKI(pki_base *pki);
 	virtual void updatePKI(pki_base *pki);
