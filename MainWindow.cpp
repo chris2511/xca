@@ -57,7 +57,7 @@ QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL;
 
 
-const QString MainWindow::xca_title = tr("X Certifikate and Key management");
+const QString MainWindow::xca_title = "X Certifikate and Key management";
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)

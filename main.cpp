@@ -62,7 +62,6 @@ int main( int argc, char *argv[] )
     mw.setCaption("X Certification Authority"); 
     a.setMainWidget( &mw );
     // translation file for Qt
-#ifdef qt3    
     QTranslator qtTr( 0 );
     qtTr.load( QString( "qt_" ) + QTextCodec::locale(), "." );
     a.installTranslator( &qtTr );
@@ -74,7 +73,6 @@ int main( int argc, char *argv[] )
 #else	
     xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
     a.installTranslator( &xcaTr );
-#endif
 #endif
     
     mw.show();
