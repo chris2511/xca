@@ -78,18 +78,18 @@ if (inst_dir[0] == '\0') {
 	 */
 	LONG lRc;
 	HKEY hKey;
-	lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\xca",0,KEY_READ, &hKey);
+	lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
 	if(lRc!= ERROR_SUCCESS){
-		// No key error
+		/* No key error */
 		QMessageBox::warning(NULL,XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
                 inst_dir[0] = '\0';
 	}
-	else {
+	else{
         	ULONG dwLength = 100;
                 lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, inst_dir, &dwLength);
 		if(lRc!= ERROR_SUCCESS){
-			// No key error
+			/* No key error */
 	                QMessageBox::warning(NULL, XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
                 	inst_dir[0] = '\0';
@@ -98,7 +98,7 @@ if (inst_dir[0] == '\0') {
         lRc=RegCloseKey(hKey);
 }
 
-QString ret = inst_dir;
+QString ret = (char *)inst_dir;
 return ret;
 
 #else
@@ -107,6 +107,7 @@ return ret;
 	ret += "/share/xca";
 	return ret;
 #endif
+
 
 }
 
