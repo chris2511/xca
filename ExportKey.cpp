@@ -51,7 +51,7 @@
 
 #include "ExportKey.h"
 #include "lib/pki_base.h"
-#include <iostream.h>
+#include <iostream>
 
 
 ExportKey::ExportKey(QString fname, bool onlypub, 

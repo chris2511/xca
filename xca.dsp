@@ -142,6 +142,10 @@ SOURCE=lib\pki_base.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\lib\pki_crl.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=lib\pki_key.cpp
 # End Source File
 # Begin Source File
@@ -374,6 +378,10 @@ InputPath=NewX509.h
 # Begin Source File
 
 SOURCE=lib\pki_base.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\pki_crl.h
 # End Source File
 # Begin Source File
 
