@@ -355,3 +355,20 @@ void db_x509::assignClients(pki_crl *crl)
 	}
 }
 
+int db_x509::searchSerial(pki_x509 *signer)
+{
+	if (!signer) return 0;
+	int serial = signer->getCaSerial();
+	int oserial = serial, myserial =0;
+	pki_x509 *cert = NULL;
+       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
+		if (cert->getSigner() == signer)  {
+			sscanf(cert->getSerial().c_str(), "%x", &myserial);
+			if (myserial >= serial) {
+				serial = myserial + 1;
+			}
+		}
+	}
+	if (oserial < serial) return serial;
+	return 0;
+}

@@ -80,6 +80,7 @@ class db_x509: public db_base
 	pki_key * findKey(pki_x509 *cert);
 	void calcEffTrust();
 	void assignClients(pki_crl *crl);
+	int searchSerial(pki_x509 *signer);
     public slots:
 	void delKey(pki_key *delkey);
     	void newKey(pki_key *newKey);

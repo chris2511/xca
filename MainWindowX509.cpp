@@ -157,7 +157,9 @@ void MainWindow::newCert(NewX509 *dlg)
 	if (dlg->foreignSignRB->isChecked()) {
 		serial = signcert->getIncCaSerial();
 		// get own serial to avoid having the same
-		if (serial == atoi(signcert->getSerial().c_str())) { // FIXME: anybody tell me the string method for this ?
+		int sigser;
+		sscanf(signcert->getSerial().c_str(), "%x", &sigser);
+		if (serial == sigser) { // FIXME: anybody tell me the string method for this ?
 			serial = signcert->getIncCaSerial(); // just take the next one
 		}
 		certs->updatePKI(signcert);  // not so pretty ....
@@ -516,7 +518,6 @@ void MainWindow::deleteCert()
 			tr("It is actually not a good idea to delete a cert that was signed by you") +":\n'" + 
 			QString::fromLatin1(cert->getDescription().c_str()) + "'\n" ,
 			tr("Ok") );
-	 		return;
 	}
 	if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("Really want to delete the Certificate") +":\n'" + 
@@ -652,16 +653,25 @@ void MainWindow::insertCert(pki_x509 *cert)
     catch (errorEx &err) {
 	    Error(err);
     }
-    if (cert->getSigner()) {
-	int serial = atoi(cert->getSerial().c_str());
+    int serial;
+    if (cert->getSigner() != cert && cert->getSigner()) {
+	sscanf(cert->getSerial().c_str(), "%x", &serial);
+	CERR("OTHER SIGNER" << serial);
     	if (serial >= cert->getSigner()->getCaSerial()) {
 	    QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate-serial is higher than the next serial of the signer it will be set to ") +
 		QString::number(serial + 1), "OK");
 	    cert->getSigner()->setCaSerial(serial+1);
-	    certs->updatePKI(cert);
 	}	
     }
+    serial = certs->searchSerial(cert);
+    if ( serial > 0) {
+	QMessageBox::information(this,tr(XCA_TITLE),
+		tr("The certificate CA serial is lower than the highest serial of one signed certificate it will be set to ") +
+		QString::number(serial ), "OK");
+	cert->setCaSerial(serial);
+    }
+    certs->updatePKI(cert);
 }
 
 void MainWindow::writeCert()
