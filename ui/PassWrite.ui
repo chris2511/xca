@@ -17,7 +17,7 @@
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Passwort</string>
+        <string>Password</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -194,7 +194,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Repeat pasword</string>
+                        <string>Repeat password</string>
                     </property>
                     <property stdset="1">
                         <name>scaledContents</name>
