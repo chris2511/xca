@@ -20,7 +20,7 @@ CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 NAMES= XcaListView KeyView ReqView TempView CertView CrlView 
 		
 
-OBJS=$(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES)) main.o
+OBJS=$(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
 
 MOC_CPP=$(patsubst %,moc_%.cpp,$(NAMES))
 
