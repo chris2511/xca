@@ -200,7 +200,7 @@ void pki_key::fromData(unsigned char *p, int size )
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
 #if OPENSSL_VERSION_NUMBER >= 0x0090700fL
-	   rsakey = d2i_RSAPrivateKey(NULL, &(const unsigned char *)pdec, decsize);
+	   rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
 #else
 	   rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
 #endif
