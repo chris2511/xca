@@ -64,8 +64,15 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
-	baseDir = QDir::homeDirPath() + BASE_DIR;
+#ifndef HAVE_CONGIG_H
+	baseDir = "C:";
+#else	
+	baseDir = QDir::homeDirPath();
+#endif
+	baseDir += QDir::separator();
+	baseDir += BASE_DIR;
  	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN );
+	CERR << baseDir.latin1() <<endl;
 	QDir d(baseDir);
 	if ( ! d.exists() ){
 		if (!d.mkdir(baseDir)) 
@@ -77,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	else {
 		dbfile=qApp->argv()[1];
 	}
-	dbfile = baseDir + "/" +  dbfile;
+	dbfile = baseDir + QDir::separator() +  dbfile;
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 	settings = new db_base(dbenv, dbfile.latin1(), "settings");

@@ -95,7 +95,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define BASE_DIR "/xca"
 #define DBFILE "xca.db"
 #ifndef CERR
 #define CERR cerr
@@ -103,6 +102,7 @@
 #ifndef HAVE_CONFIG_H
 #define VER "0.2.4-win"
 #endif
+
 
 class MainWindow: public MainWindow_UI
 {

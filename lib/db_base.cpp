@@ -414,9 +414,19 @@ pki_base *db_base::findPKI(pki_base *refpki)
 
 QPixmap *db_base::loadImg(const char *name )
 {
-        QString path = PREFIX;
-	path += "/";
-        return new QPixmap(path + name);
+		QString path ="";
+#ifndef HAVE_CONFIG_H
+		path = "C:"; 
+		path +=	QDir::separator();
+		path += BASE_DIR ;
+#else
+		path = QDir::homeDirPath() + QDir::separator();
+		path += PREFIX ;
+#endif
+		path += QDir::separator();
+		path += name;
+		QMessageBox::information(NULL, "xca", path); 
+        return new QPixmap(path);
 }
 
 void db_base::updateViewPKI(pki_base *pki)

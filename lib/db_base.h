@@ -50,6 +50,7 @@
 
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
+
 #ifdef HAVE_DB4_DB_CXX_H
 #include <db4/db_cxx.h>
 #elif HAVE_DB3_DB_CXX_H
@@ -62,16 +63,20 @@
 #ifdef HAVE_QACCESSIBLE_H
 #define qt3 1
 #endif
-#else
+#else  // HAVE_CONFIG_H
+
 #include <db_cxx.h>
-#define PREFIX "c:\xca"
-#endif
+#endif  // HAVE_CONFIG_H
+
 #include <qlistview.h>
 #include <qlist.h>
+#include <qdir.h>
+#include <qmessagebox.h>
 #include <qpixmap.h>
 #include <qstringlist.h>
 #include "pki_base.h"
 
+#define BASE_DIR "xca"
 #ifndef DB_BASE_H
 #define DB_BASE_H
 
