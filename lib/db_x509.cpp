@@ -13,7 +13,7 @@ pki_base *db_x509::newPKI(){
 	return new pki_x509();
 }
 
-pki_x509 *db_x509::findsigner(pki_x509 *client)
+pki_x509 *db_x509::findSigner(pki_x509 *client)
 {
         pki_x509 *signer;
 	if ((signer = client->getSigner()) != NULL) return signer;
@@ -34,10 +34,13 @@ bool db_x509::updateView()
         listView->clear();
 	listView->setRootIsDecorated(true);
         QPixmap *pm[4];
-	pm[0] = new QPixmap("validcert.png");
-        pm[1] = new QPixmap("invalidcert.png");
-        pm[2] = new QPixmap("validcertkey.png");
-        pm[3] = new QPixmap("invalidcertkey.png");
+	QString path = PREFIX;
+	path += "/share/xca/";
+	cerr << "PATH=" << path << endl;
+	pm[0] = new QPixmap(path + "validcert.png");
+        pm[1] = new QPixmap(path + "invalidcert.png");
+        pm[2] = new QPixmap(path + "validcertkey.png");
+        pm[3] = new QPixmap(path + "invalidcertkey.png");
 	pki_x509 *pki;
 	pki_x509 *signer;
 	QListViewItem *parentitem;
@@ -53,8 +56,7 @@ bool db_x509::updateView()
 		for ( ; it.current(); ++it ) {
 			pki = (pki_x509 *)it.current();
 			parentitem = NULL;
-			signer = findsigner(pki);
-			cerr << "ARound "<< pki <<" - "<< signer << endl;
+			signer = findSigner(pki);
 			if ((signer != pki) && (signer != NULL)) // foreign signed
 				parentitem = (QListViewItem *)signer->getPointer();
 			if (((parentitem != NULL) || (signer == pki) || (signer == NULL)) && (pki->getPointer() == NULL )) {
@@ -67,29 +69,34 @@ bool db_x509::updateView()
 					current = new QListViewItem(listView, pki->getDescription().c_str());	
 					cerr<< "Adding as parent: "<<pki->getDescription().c_str()<<endl;
 				}
-			cerr << "ARound "<< pki <<" - "<< signer << endl;
 				pki->setPointer(current);
-			cerr << "ARound "<< pki <<" - "<< signer << endl;
-				pki_key *key= (pki_key *)keylist->findPKI(pki->getKey());
-			cerr << "ARound "<< pki <<" - "<< signer << endl;
 				int pixnum = 0;
-				if (key)
- 				   if (key->isPrivKey()) pixnum += 2;	
-				if (signer == NULL) pixnum += 1 ;
-				else if (signer->getSigner() == NULL) pixnum += 1;
-			cerr << "ARound "<< pki <<" - "<< signer << endl;
+				if (findKey(pki)) pixnum += 2;	
+				if (!signer) pixnum += 1 ;
+				else if (!signer->getSigner() ) pixnum += 1;
 				current->setPixmap(0, *pm[pixnum]);
 				mycont.remove(pki);
-			cerr << "ARound "<< pki <<" - "<< signer << endl;
 				it.toFirst();
-			cerr << "ARound "<< pki <<" - "<< signer << endl;
-				cerr << "CRound " <<endl;
 			}
 		}
 				
 	}				
 	return true;
 }
+
+
+QStringList db_x509::getPrivateDesc()
+{
+	pki_x509 *pki;
+	QStringList x;
+        if ( container.isEmpty() ) return x;
+        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
+		if (findKey(pki))
+		x.append(pki->getDescription().c_str());	
+	}
+	return x;
+}
+
 
 void db_x509::remFromCont(pki_base *pki)
 {
@@ -104,3 +111,16 @@ void db_x509::remFromCont(pki_base *pki)
 	}
 	return;
 }
+
+pki_key *db_x509::findKey(pki_x509* cert)
+{
+	pki_key *key;
+	key = (pki_key *)keylist->findPKI(cert->getKey());
+	if (key)
+ 	  if (key->isPubKey())
+		key = NULL;
+	
+	return key;
+}
+
+

@@ -1,5 +1,6 @@
 #include "pki_key.h"
 
+char pki_key::passwd[30]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
 pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type = EVP_PKEY_RSA): pki_base(d)
 {
@@ -79,7 +80,7 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 }
 
 
-bool pki_key::fromData(char *passwd, unsigned char *p, int size )
+bool pki_key::fromData(unsigned char *p, int size )
 {
 	cerr << "KEY fromData\n";
 	unsigned char *sik, *pdec, *pdec1, *sik1;
@@ -116,7 +117,7 @@ bool pki_key::fromData(char *passwd, unsigned char *p, int size )
 }
 
 
-unsigned char *pki_key::toData(char *passwd, int *size) 
+unsigned char *pki_key::toData(int *size) 
 {
 	cerr << "KEY toData " << getDescription()<< endl;
 	unsigned char *p, *p1, *penc;
@@ -263,10 +264,8 @@ bool pki_key::compare(pki_base *ref)
 	if (kref == NULL) return false;
 	if (kref->key == NULL) return false;
 	if (kref->key->pkey.rsa->n == NULL) return false;
-	cerr<< "Ref is ok\n";
 	if (key == NULL) return false;
 	if (key->pkey.rsa->n == NULL) return false;
-	cerr << "PKI key compare\n";
 	if (
 	   BN_cmp(key->pkey.rsa->n, kref->key->pkey.rsa->n) ||
 	   BN_cmp(key->pkey.rsa->e, kref->key->pkey.rsa->e) 

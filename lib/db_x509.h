@@ -15,9 +15,11 @@ class db_x509: public db_base
     public:
 	db_x509(DbEnv *dbe, string DBfile, string DB, QListView *l, db_key *keyl);
 	pki_base *newPKI();
-	pki_x509 *findsigner(pki_x509 *client);
+	pki_x509 *findSigner(pki_x509 *client);
 	bool updateView();
 	void remFromCont(pki_base *pki);
+	QStringList getPrivateDesc();
+	pki_key * findKey(pki_x509 *cert);
 };
 
 #endif

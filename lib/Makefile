@@ -1,4 +1,3 @@
-VERSION=0.1.5
 TARGET=xca-$(VERSION)
 GCC=g++ -Wall
 LPATH=-L$(QTDIR)/lib
@@ -17,7 +16,7 @@ libxcadb.a: $(DBOBJS)
 	ar rcs libxcadb.a $(DBOBJS)
 	
 %.o: %.cpp %.h
-	$(GCC) -c $(INC) $<
+	$(GCC) $(CFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"$(PREFIX)\" $<
 
 clean:
 	rm -rf *~ *.o *.a

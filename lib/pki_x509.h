@@ -3,25 +3,24 @@
 #include <openssl/x509v3.h>
 #include <openssl/pem.h>
 #include "pki_key.h"
+#include "pki_x509req.h"
 
 #ifndef PKI_X509_H
 #define PKI_X509_H
 
 class pki_x509 : public pki_base
 {
+	private:
 	   bool trust;
 	   X509 *cert;
 	   pki_x509 *psigner;
+	   pki_x509 *pkey;
 	public:
-	   pki_x509(pki_key *key, const string cn, 
-		   const string c, const string l,
-		   const string st,const string o,
-		   const string ou,const string email,
-		   const string d, int days=365);
+	   pki_x509(string d, pki_x509req *req, pki_x509 *signer, pki_key* signkey, int days, int serial);
 	   pki_x509();
 	   pki_x509(const string fname);
-	   virtual bool fromData(char *passwd, unsigned char *p, int size);
-	   virtual unsigned char *toData(char *passwd, int *size);
+	   virtual bool fromData(unsigned char *p, int size);
+	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
 	   string getDNs(int nid);
 	   string getDNi(int nid);
@@ -31,7 +30,10 @@ class pki_x509 : public pki_base
 	   string notAfter();
 	   string notBefore();
 	   pki_x509 *getSigner();
-	   void pki_x509::delSigner();
+	   void delSigner();
+	   string fingerprint(EVP_MD *digest);
+	   string printV3ext();
+	   int checkDate();
 };
 
 #endif

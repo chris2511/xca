@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>563</width>
-            <height>592</height>
+            <width>566</width>
+            <height>763</height>
         </rect>
     </property>
     <property stdset="1">
@@ -44,648 +44,24 @@
         </property>
     </widget>
     <widget>
-        <class>QLabel</class>
+        <class>QPushButton</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>TextLabel1</cstring>
+            <cstring>PushButton11</cstring>
         </property>
         <property stdset="1">
             <name>geometry</name>
             <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>420</width>
-                <height>40</height>
+                <x>430</x>
+                <y>720</y>
+                <width>115</width>
+                <height>32</height>
             </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
         </property>
         <property stdset="1">
             <name>text</name>
-            <string>Details des Zertifikats</string>
+            <string>Abbrechen</string>
         </property>
-    </widget>
-    <widget>
-        <class>QGroupBox</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>GroupBox3_2</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>290</x>
-                <y>230</y>
-                <width>260</width>
-                <height>220</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>title</name>
-            <string>Aussteller</string>
-        </property>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel6_2_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>90</y>
-                    <width>40</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Name:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel4_2_3</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>60</y>
-                    <width>40</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Stadt:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel3_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>30</y>
-                    <width>40</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Land:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel4_2_2_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>120</y>
-                    <width>60</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Firma</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel7_2_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>180</y>
-                    <width>60</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>E-Mail:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel5_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>150</y>
-                    <width>60</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Abteilung:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnC_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>30</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnL_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>60</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnCN_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>90</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnO_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>120</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnOU_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>150</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnEmail_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>180</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-    </widget>
-    <widget>
-        <class>QGroupBox</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>GroupBox3</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>230</y>
-                <width>260</width>
-                <height>220</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>title</name>
-            <string>Subject</string>
-        </property>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel5</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>150</y>
-                    <width>60</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Abteilung:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel7_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>180</y>
-                    <width>60</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>E-Mail:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnC</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>30</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnOU</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>150</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnO</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>120</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnEmail</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>180</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel3</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>30</y>
-                    <width>40</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Land:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel4_2_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>120</y>
-                    <width>60</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Firma</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnCN</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>90</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel4_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>60</y>
-                    <width>40</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Stadt:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel6_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>90</y>
-                    <width>40</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Name:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>dnL</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>70</x>
-                    <y>60</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
     </widget>
     <widget>
         <class>QGroupBox</class>
@@ -699,7 +75,7 @@
                 <x>20</x>
                 <y>60</y>
                 <width>530</width>
-                <height>150</height>
+                <height>110</height>
             </rect>
         </property>
         <property stdset="1">
@@ -724,7 +100,7 @@
                 <name>geometry</name>
                 <rect>
                     <x>10</x>
-                    <y>30</y>
+                    <y>20</y>
                     <width>90</width>
                     <height>20</height>
                 </rect>
@@ -744,7 +120,7 @@
                 <name>geometry</name>
                 <rect>
                     <x>130</x>
-                    <y>30</y>
+                    <y>20</y>
                     <width>380</width>
                     <height>23</height>
                 </rect>
@@ -760,14 +136,276 @@
                 <name>geometry</name>
                 <rect>
                     <x>10</x>
-                    <y>70</y>
-                    <width>90</width>
+                    <y>50</y>
+                    <width>120</width>
                     <height>20</height>
                 </rect>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>Signatur</string>
+                <string>Unterschrieben von:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>verify</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>130</x>
+                    <y>50</y>
+                    <width>380</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>palette</name>
+                <palette>
+                    <active>
+                        <color>
+                            <red>0</red>
+                            <green>192</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>192</red>
+                            <green>192</green>
+                            <blue>192</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>223</red>
+                            <green>223</green>
+                            <blue>223</blue>
+                        </color>
+                        <color>
+                            <red>96</red>
+                            <green>96</green>
+                            <blue>96</blue>
+                        </color>
+                        <color>
+                            <red>128</red>
+                            <green>128</green>
+                            <blue>128</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>192</red>
+                            <green>192</green>
+                            <blue>192</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                    </active>
+                    <disabled>
+                        <color>
+                            <red>192</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>192</red>
+                            <green>192</green>
+                            <blue>192</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>220</red>
+                            <green>220</green>
+                            <blue>220</blue>
+                        </color>
+                        <color>
+                            <red>96</red>
+                            <green>96</green>
+                            <blue>96</blue>
+                        </color>
+                        <color>
+                            <red>128</red>
+                            <green>128</green>
+                            <blue>128</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>128</red>
+                            <green>128</green>
+                            <blue>128</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>192</red>
+                            <green>192</green>
+                            <blue>192</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                    </disabled>
+                    <inactive>
+                        <color>
+                            <red>0</red>
+                            <green>192</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>192</red>
+                            <green>192</green>
+                            <blue>192</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>220</red>
+                            <green>220</green>
+                            <blue>220</blue>
+                        </color>
+                        <color>
+                            <red>96</red>
+                            <green>96</green>
+                            <blue>96</blue>
+                        </color>
+                        <color>
+                            <red>128</red>
+                            <green>128</green>
+                            <blue>128</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                        <color>
+                            <red>192</red>
+                            <green>192</green>
+                            <blue>192</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>0</blue>
+                        </color>
+                        <color>
+                            <red>255</red>
+                            <green>255</green>
+                            <blue>255</blue>
+                        </color>
+                    </inactive>
+                </palette>
+            </property>
+            <property stdset="1">
+                <name>font</name>
+                <font>
+                    <bold>1</bold>
+                </font>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>SELF SIGNED </string>
+            </property>
+            <property stdset="1">
+                <name>alignment</name>
+                <set>AlignCenter</set>
+            </property>
+            <property>
+                <name>hAlign</name>
             </property>
         </widget>
         <widget>
@@ -780,7 +418,7 @@
                 <name>geometry</name>
                 <rect>
                     <x>10</x>
-                    <y>110</y>
+                    <y>80</y>
                     <width>110</width>
                     <height>20</height>
                 </rect>
@@ -788,46 +426,6 @@
             <property stdset="1">
                 <name>text</name>
                 <string>Schlüssel:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QPushButton</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>PushButton19</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>400</x>
-                    <y>70</y>
-                    <width>111</width>
-                    <height>28</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Anzeigen</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QPushButton</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>PushButton20</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>400</x>
-                    <y>110</y>
-                    <width>111</width>
-                    <height>28</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Anzeigen</string>
             </property>
         </widget>
         <widget>
@@ -844,8 +442,8 @@
                 <name>geometry</name>
                 <rect>
                     <x>130</x>
-                    <y>110</y>
-                    <width>260</width>
+                    <y>80</y>
+                    <width>380</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -1096,247 +694,40 @@
                 <name>hAlign</name>
             </property>
         </widget>
+    </widget>
+    <widget>
+        <class>QGroupBox</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>GroupBox3</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>170</y>
+                <width>260</width>
+                <height>200</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>title</name>
+            <string>Subject</string>
+        </property>
         <widget>
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>verify</cstring>
+                <cstring>dnCN</cstring>
             </property>
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
-                    <x>130</x>
-                    <y>70</y>
-                    <width>260</width>
+                    <x>70</x>
+                    <y>80</y>
+                    <width>170</width>
                     <height>20</height>
                 </rect>
-            </property>
-            <property stdset="1">
-                <name>palette</name>
-                <palette>
-                    <active>
-                        <color>
-                            <red>0</red>
-                            <green>192</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>192</red>
-                            <green>192</green>
-                            <blue>192</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>223</red>
-                            <green>223</green>
-                            <blue>223</blue>
-                        </color>
-                        <color>
-                            <red>96</red>
-                            <green>96</green>
-                            <blue>96</blue>
-                        </color>
-                        <color>
-                            <red>128</red>
-                            <green>128</green>
-                            <blue>128</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>192</red>
-                            <green>192</green>
-                            <blue>192</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                    </active>
-                    <disabled>
-                        <color>
-                            <red>192</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>192</red>
-                            <green>192</green>
-                            <blue>192</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>220</red>
-                            <green>220</green>
-                            <blue>220</blue>
-                        </color>
-                        <color>
-                            <red>96</red>
-                            <green>96</green>
-                            <blue>96</blue>
-                        </color>
-                        <color>
-                            <red>128</red>
-                            <green>128</green>
-                            <blue>128</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>128</red>
-                            <green>128</green>
-                            <blue>128</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>192</red>
-                            <green>192</green>
-                            <blue>192</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                    </disabled>
-                    <inactive>
-                        <color>
-                            <red>0</red>
-                            <green>192</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>192</red>
-                            <green>192</green>
-                            <blue>192</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>220</red>
-                            <green>220</green>
-                            <blue>220</blue>
-                        </color>
-                        <color>
-                            <red>96</red>
-                            <green>96</green>
-                            <blue>96</blue>
-                        </color>
-                        <color>
-                            <red>128</red>
-                            <green>128</green>
-                            <blue>128</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                        <color>
-                            <red>192</red>
-                            <green>192</green>
-                            <blue>192</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                        </color>
-                        <color>
-                            <red>255</red>
-                            <green>255</green>
-                            <blue>255</blue>
-                        </color>
-                    </inactive>
-                </palette>
-            </property>
-            <property stdset="1">
-                <name>font</name>
-                <font>
-                    <bold>1</bold>
-                </font>
             </property>
             <property stdset="1">
                 <name>frameShape</name>
@@ -1348,56 +739,577 @@
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>OK</string>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnC</cstring>
             </property>
             <property stdset="1">
-                <name>alignment</name>
-                <set>AlignCenter</set>
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>20</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
             </property>
-            <property>
-                <name>hAlign</name>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel6_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>80</y>
+                    <width>40</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Name:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel4_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>50</y>
+                    <width>40</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Stadt:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel7_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>170</y>
+                    <width>60</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>E-Mail:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnOU</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>140</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel4_2_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>110</y>
+                    <width>60</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Firma</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel3</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>40</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Land:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnEmail</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>170</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnO</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>110</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel5</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>140</y>
+                    <width>60</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Abteilung:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnL</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>50</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
             </property>
         </widget>
     </widget>
     <widget>
-        <class>QPushButton</class>
+        <class>QGroupBox</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>PushButton10</cstring>
+            <cstring>GroupBox3_2</cstring>
         </property>
         <property stdset="1">
             <name>geometry</name>
             <rect>
-                <x>20</x>
-                <y>550</y>
-                <width>115</width>
-                <height>32</height>
+                <x>290</x>
+                <y>170</y>
+                <width>260</width>
+                <height>200</height>
             </rect>
         </property>
         <property stdset="1">
-            <name>text</name>
-            <string>OK</string>
+            <name>title</name>
+            <string>Aussteller</string>
         </property>
-    </widget>
-    <widget>
-        <class>QPushButton</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>PushButton11</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>430</x>
-                <y>550</y>
-                <width>115</width>
-                <height>32</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Abbrechen</string>
-        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnCN_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>80</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel4_2_3</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>50</y>
+                    <width>40</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Stadt:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel5_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>140</y>
+                    <width>60</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Abteilung:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnEmail_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>170</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnC_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>20</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnO_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>110</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel7_2_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>170</y>
+                    <width>60</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>E-Mail:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnL_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>50</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel4_2_2_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>110</y>
+                    <width>60</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Firma</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel6_2_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>80</y>
+                    <width>40</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Name:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>dnOU_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>70</x>
+                    <y>140</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel3_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>40</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Land:</string>
+            </property>
+        </widget>
     </widget>
     <widget>
         <class>QGroupBox</class>
@@ -1409,9 +1321,9 @@
             <name>geometry</name>
             <rect>
                 <x>20</x>
-                <y>460</y>
+                <y>370</y>
                 <width>530</width>
-                <height>70</height>
+                <height>50</height>
             </rect>
         </property>
         <property stdset="1">
@@ -1428,7 +1340,7 @@
                 <name>geometry</name>
                 <rect>
                     <x>10</x>
-                    <y>30</y>
+                    <y>20</y>
                     <width>170</width>
                     <height>20</height>
                 </rect>
@@ -1446,37 +1358,13 @@
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>notAfter</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>190</x>
-                    <y>30</y>
-                    <width>170</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel1_2</cstring>
+                <cstring>dateValid</cstring>
             </property>
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
                     <x>370</x>
-                    <y>30</y>
+                    <y>20</y>
                     <width>150</width>
                     <height>20</height>
                 </rect>
@@ -1546,9 +1434,9 @@
                             <blue>0</blue>
                         </color>
                         <color>
-                            <red>84</red>
-                            <green>112</green>
-                            <blue>152</blue>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>128</blue>
                         </color>
                         <color>
                             <red>255</red>
@@ -1558,9 +1446,9 @@
                     </active>
                     <disabled>
                         <color>
-                            <red>128</red>
-                            <green>128</green>
-                            <blue>128</blue>
+                            <red>255</red>
+                            <green>0</green>
+                            <blue>0</blue>
                         </color>
                         <color>
                             <red>220</red>
@@ -1618,9 +1506,9 @@
                             <blue>0</blue>
                         </color>
                         <color>
-                            <red>84</red>
-                            <green>112</green>
-                            <blue>152</blue>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>128</blue>
                         </color>
                         <color>
                             <red>255</red>
@@ -1690,9 +1578,9 @@
                             <blue>0</blue>
                         </color>
                         <color>
-                            <red>84</red>
-                            <green>112</green>
-                            <blue>152</blue>
+                            <red>0</red>
+                            <green>0</green>
+                            <blue>128</blue>
                         </color>
                         <color>
                             <red>255</red>
@@ -1718,7 +1606,7 @@
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>Gueltig</string>
+                <string>Gültig</string>
             </property>
             <property stdset="1">
                 <name>alignment</name>
@@ -1728,6 +1616,423 @@
                 <name>hAlign</name>
             </property>
         </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>notAfter</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>190</x>
+                    <y>20</y>
+                    <width>170</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+        </widget>
+    </widget>
+    <widget>
+        <class>QGroupBox</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>GroupBox5_2</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>420</y>
+                <width>530</width>
+                <height>80</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>title</name>
+            <string>Fingerprint</string>
+        </property>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel1_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>20</x>
+                    <y>20</y>
+                    <width>50</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>MD5</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>fpMD5</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>80</x>
+                    <y>20</y>
+                    <width>440</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel2_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>20</x>
+                    <y>50</y>
+                    <width>50</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>SHA1</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>fpSHA1</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>80</x>
+                    <y>50</y>
+                    <width>440</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>frameShape</name>
+                <enum>Panel</enum>
+            </property>
+            <property stdset="1">
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
+            </property>
+        </widget>
+    </widget>
+    <widget>
+        <class>QTextView</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>v3Extensions</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>510</y>
+                <width>530</width>
+                <height>200</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>palette</name>
+            <palette>
+                <active>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                    <color>
+                        <red>237</red>
+                        <green>237</green>
+                        <blue>237</blue>
+                    </color>
+                    <color>
+                        <red>110</red>
+                        <green>110</green>
+                        <blue>110</blue>
+                    </color>
+                    <color>
+                        <red>146</red>
+                        <green>146</green>
+                        <blue>146</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>84</red>
+                        <green>112</green>
+                        <blue>152</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                </active>
+                <disabled>
+                    <color>
+                        <red>128</red>
+                        <green>128</green>
+                        <blue>128</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                    <color>
+                        <red>253</red>
+                        <green>253</green>
+                        <blue>253</blue>
+                    </color>
+                    <color>
+                        <red>110</red>
+                        <green>110</green>
+                        <blue>110</blue>
+                    </color>
+                    <color>
+                        <red>146</red>
+                        <green>146</green>
+                        <blue>146</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                    <color>
+                        <red>128</red>
+                        <green>128</green>
+                        <blue>128</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>84</red>
+                        <green>112</green>
+                        <blue>152</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                </disabled>
+                <inactive>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                    <color>
+                        <red>253</red>
+                        <green>253</green>
+                        <blue>253</blue>
+                    </color>
+                    <color>
+                        <red>110</red>
+                        <green>110</green>
+                        <blue>110</blue>
+                    </color>
+                    <color>
+                        <red>146</red>
+                        <green>146</green>
+                        <blue>146</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>220</red>
+                        <green>220</green>
+                        <blue>220</blue>
+                    </color>
+                    <color>
+                        <red>0</red>
+                        <green>0</green>
+                        <blue>0</blue>
+                    </color>
+                    <color>
+                        <red>84</red>
+                        <green>112</green>
+                        <blue>152</blue>
+                    </color>
+                    <color>
+                        <red>255</red>
+                        <green>255</green>
+                        <blue>255</blue>
+                    </color>
+                </inactive>
+            </palette>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>420</width>
+                <height>40</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Details des Zertifikats</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>PushButton10</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>720</y>
+                <width>115</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>OK</string>
+        </property>
     </widget>
 </widget>
 <images>

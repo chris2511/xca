@@ -8,17 +8,17 @@
 
 class pki_x509req : public pki_base
 {
-	   X509_REQ *request;
 	public:
+	   X509_REQ *request;
 	   pki_x509req(pki_key *key, const string cn, 
 		   const string c, const string l,
 		   const string st,const string o,
 		   const string ou,const string email,
-		   const string d);
+		   const string d, const string challenge);
 	   pki_x509req();
 	   pki_x509req(const string fname);
-	   virtual bool fromData(char *passwd, unsigned char *p, int size);
-	   virtual unsigned char *toData(char *passwd, int *size);
+	   virtual bool fromData(unsigned char *p, int size);
+	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);
 	   string getDN(int nid);
 	   void writeReq(const string fname, bool PEM);

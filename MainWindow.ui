@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>595</width>
+            <width>591</width>
             <height>533</height>
         </rect>
     </property>
@@ -304,26 +304,6 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton25</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>geometry</name>
-                        <rect>
-                            <x>20</x>
-                            <y>140</y>
-                            <width>190</width>
-                            <height>32</height>
-                        </rect>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Details anzeigen</string>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
                         <cstring>PushButton26</cstring>
                     </property>
                     <property stdset="1">
@@ -358,26 +338,6 @@
                     <property stdset="1">
                         <name>text</name>
                         <string>Exportieren</string>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton46</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>geometry</name>
-                        <rect>
-                            <x>20</x>
-                            <y>100</y>
-                            <width>190</width>
-                            <height>32</height>
-                        </rect>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Importieren</string>
                     </property>
                 </widget>
                 <widget>
@@ -422,6 +382,46 @@
                     <property stdset="1">
                         <name>scaledContents</name>
                         <bool>true</bool>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton25</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>140</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Details anzeigen</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton46</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>100</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Importieren</string>
                     </property>
                 </widget>
             </widget>
@@ -763,6 +763,24 @@
         <receiver>MainWindow_UI</receiver>
         <slot>showDetailsCert(QListViewItem *)</slot>
     </connection>
+    <connection>
+        <sender>PushButton25</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsKey()</slot>
+    </connection>
+    <connection>
+        <sender>detailsKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsKey()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton25_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsCert()</slot>
+    </connection>
     <slot access="public">deleteCert()</slot>
     <slot access="public">deleteKey()</slot>
     <slot access="public">deleteReq()</slot>
@@ -772,8 +790,11 @@
     <slot access="public">newCert()</slot>
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
+    <slot access="public">showDetailsKey()</slot>
+    <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
     <slot access="public">showDetailsKey(QListViewItem *)</slot>
+    <slot access="public">showDetailsReq()</slot>
     <slot access="public">showDetailsReq(QListViewItem *)</slot>
     <slot access="public">writeCert()</slot>
     <slot access="public">writeKey()</slot>

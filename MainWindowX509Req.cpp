@@ -15,7 +15,8 @@ void MainWindow::newReq()
 	string ou = dlg->organisationalUnitName->text().latin1();
 	string email = dlg->emailAddress->text().latin1();
 	string desc = dlg->description->text().latin1();
-	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc);
+	string challenge = dlg->challenge->text().latin1();
+	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, challenge);
 	string e;
 	if ((e = req->getError()) != "") {
 	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
@@ -50,14 +51,19 @@ void MainWindow::showDetailsReq(QListViewItem *item)
 
 void MainWindow::showDetailsReq(pki_x509req *req)
 {
-	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	if (!req) return;
+	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	dlg->descr->setText(req->getDescription().c_str());
 	if ( req->verify() != pki_base::VERIFY_OK ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
-
+	pki_key *key =(pki_key *)keys->findPKI(req->getKey());
+	if (key)
+	    if(key->isPrivKey()) {
+		dlg->privKey->setText(key->getDescription().c_str());
+		dlg->privKey->setDisabled(false);
+	}
 	string land = req->getDN( NID_countryName) + " / " 
 		+ req->getDN(NID_stateOrProvinceName);
 	dlg->dnCN->setText(req->getDN(NID_commonName).c_str() );

@@ -3,31 +3,67 @@
 
 void MainWindow::newCert()
 {
-	NewX509_UI *dlg = new NewX509_UI(this,0,true,0);
-	dlg->keyList->insertStringList(keys->getPrivateDesc());
-	if (! dlg->exec()) return;
-	pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
-	string cn = dlg->commonName->text().latin1();
-	string c = dlg->countryName->text().latin1();
-	string l = dlg->localityName->text().latin1();
-	string st = dlg->stateOrProvinceName->text().latin1();
-	string o = dlg->organisationName->text().latin1();
-	string ou = dlg->organisationalUnitName->text().latin1();
-	string email = dlg->emailAddress->text().latin1();
-	string desc = dlg->description->text().latin1();
-	string days = dlg->validNumber->text().latin1();
-	int range = dlg->validRange->currentItem();
-	int x = atoi(days.c_str());
-	if (range == 1) x *= 30;
-	if (range == 2) x *= 365;
+	pki_x509 *cert = NULL;
+	pki_x509 *signcert = NULL;
+	pki_x509req *req = NULL;
+	pki_key *signkey = NULL, *key = NULL;
+	int serial = 42; // :-)
 
-	pki_x509 *cert = new pki_x509(key, cn,c,l,st,o,ou,email,desc,x);
+	// Step 1
+	NewX509 *dlg1 = new NewX509(this, NULL, keys, reqs);
+	if (! dlg1->exec()) return;
+	if (dlg1->fromDataRB->isChecked()) {
+	    key = (pki_key *)keys->getSelectedPKI(dlg1->keyList->currentText().latin1());
+	    string cn = dlg1->commonName->text().latin1();
+	    string c = dlg1->countryName->text().latin1();
+	    string l = dlg1->localityName->text().latin1();
+	    string st = dlg1->stateOrProvinceName->text().latin1();
+	    string o = dlg1->organisationName->text().latin1();
+	    string ou = dlg1->organisationalUnitName->text().latin1();
+	    string email = dlg1->emailAddress->text().latin1();
+	    string desc = dlg1->description->text().latin1();
+	    req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc,"");
+	}
+	else {
+	    req = (pki_x509req *)reqs->getSelectedPKI(dlg1->reqList->currentText().latin1());
+	}
+		
+	// Step 2
+	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL, true ,0);
+	dlg2->certList->insertStringList(certs->getPrivateDesc());
+	if (dlg1->fromDataRB->isChecked())
+		dlg2->selfSignRB->setChecked(true);
+	else 
+		dlg2->foreignSignRB->setChecked(true);
+	if (! dlg2->exec()) return;
+	if (dlg2->foreignSignRB->isChecked()) {
+		signcert = (pki_x509 *)certs->getSelectedPKI(dlg2->certList->currentText().latin1());
+		signkey = certs->findKey(signcert);
+	}
+	else {
+		signkey = key;	
+		string serialstr = dlg2->serialNr->text().latin1();
+		serial = atoi(serialstr.c_str());
+	}
+	
+	// Step 3
+	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL, true ,0);
+	if (! dlg3->exec()) return;
+
+	
+	string daystr = dlg3->validNumber->text().latin1();
+	int x = atoi(daystr.c_str());
+	int days = dlg3->validRange->currentItem();
+	if (days == 1) x *= 30;
+	if (days == 2) x *= 365;
+	
+	cert = new pki_x509(req->getDescription(), req, signcert, signkey, x, serial);
 	string e;
-	if ((e = cert->getError()) != "") {
-	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
-		("Beim Erstellen der Anfrage trat folgender Fehler auf:\n'" +
-		e + "'\nund wurde daher nicht importiert").c_str(), "OK");
-	   	delete(cert);
+	if (! cert ) {
+	   QMessageBox::information(this,"Zertifikat erstellen",
+		("Beim Erstellen des Zertifikats trat folgender Fehler auf:\n'" +
+		e + "'\nund wurde daher nicht erstellt").c_str(), "OK");
+	   	//delete(cert);
 		return;
 	}
 	insertCert(cert);
@@ -51,20 +87,28 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	if (!cert) return;
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->descr->setText(cert->getDescription().c_str());
-	pki_x509 *signer = certs->findsigner(cert);
+	// examine the key
+	pki_key *key= (pki_key *)keys->findPKI(cert->getKey());
+	if (key)
+	     if (key->isPrivKey()) {
+		dlg->privKey->setText(key->getDescription().c_str());
+	      	dlg->privKey->setDisabled(false);
+	     }								
 
-	if ( signer == NULL) {
+	// examine the signature
+	if ( cert->getSigner() == NULL) {
 		dlg->verify->setText("NOT TRUSTED");
+	      	dlg->verify->setDisabled(true);
 	}
-	
-	else if ( cert->compare(signer) ) {
+	else if ( cert->compare(cert->getSigner()) ) {
 		dlg->verify->setText("SELF SIGNED");
 	}
 	
 	else {
-		dlg->verify->setText(signer->getDescription().c_str());
+		dlg->verify->setText(cert->getSigner()->getDescription().c_str());
 	}
 	
+	// details of subject
 	string land = cert->getDNs(NID_countryName);
 	string land1 = cert->getDNs(NID_stateOrProvinceName);
 	if (land != "" && land1 != "")
@@ -77,7 +121,8 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	dlg->dnO->setText(cert->getDNs(NID_organizationName).c_str());
 	dlg->dnOU->setText(cert->getDNs(NID_organizationalUnitName).c_str());
 	dlg->dnEmail->setText(cert->getDNs(NID_pkcs9_emailAddress).c_str());
-// same for issuer....	
+	
+	// same for issuer....	
 	land = cert->getDNi(NID_countryName);
 	land1 = cert->getDNi(NID_stateOrProvinceName);
 	if (land != "" && land1 != "")
@@ -92,8 +137,23 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	dlg->dnEmail_2->setText(cert->getDNi(NID_pkcs9_emailAddress).c_str());
 	dlg->notBefore->setText(cert->notBefore().c_str());
 	dlg->notAfter->setText(cert->notAfter().c_str());
+	if (cert->checkDate() == -1) {
+		dlg->dateValid->setText("Abgelaufen");
+	      	dlg->dateValid->setDisabled(true);
+	}
+	if (cert->checkDate() == +1) {
+		dlg->dateValid->setText("Noch nicht gültig");
+	      	dlg->dateValid->setDisabled(true);
+	}
 	
+	// the fingerprints
+	dlg->fpMD5->setText(cert->fingerprint(EVP_md5()).c_str());
+	dlg->fpSHA1->setText(cert->fingerprint(EVP_sha1()).c_str());
 	
+	// V3 extensions
+	dlg->v3Extensions->setText(cert->printV3ext().c_str());
+
+	// show it to the user...	
 	if ( !dlg->exec()) return;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != cert->getDescription()) {
@@ -117,7 +177,7 @@ void MainWindow::deleteCert()
 void MainWindow::loadCert()
 {
 	QStringList filt;
-	filt.append( "Zertifikate ( *.pem *.der )"); 
+	filt.append( "Zertifikate ( *.pem *.der *.crt *.cer)"); 
 	filt.append("Alle Dateien ( *.* )");
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);

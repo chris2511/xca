@@ -1,3 +1,13 @@
+xca (0.1.12) unstable; urgency=low
+
+  * icons added 
+  * treeview for Certificates 
+  * private keys are triple DES encrypted in db
+  * program asks for initial password on startup
+  * some segfaulting bugs removed
+
+ -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Fri, 12 Jul 2002 11:49:05 +0200
+
 xca (0.1.11) unstable; urgency=low
 
   * initial debian Package

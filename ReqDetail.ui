@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>530</width>
+            <width>526</width>
             <height>413</height>
         </rect>
     </property>
@@ -506,6 +506,26 @@
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
+                <cstring>TextLabel6</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>110</y>
+                    <width>80</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Schlüssel:</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
                 <cstring>verify</cstring>
             </property>
             <property stdset="1">
@@ -513,7 +533,7 @@
                 <rect>
                     <x>100</x>
                     <y>70</y>
-                    <width>240</width>
+                    <width>370</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -779,7 +799,7 @@
                 <rect>
                     <x>100</x>
                     <y>110</y>
-                    <width>240</width>
+                    <width>370</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -1028,66 +1048,6 @@
             </property>
             <property>
                 <name>hAlign</name>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel6</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>110</y>
-                    <width>80</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Schlüssel:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QPushButton</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>PushButton26</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>360</x>
-                    <y>110</y>
-                    <width>111</width>
-                    <height>28</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Anzeigen</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QPushButton</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>PushButton25</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>360</x>
-                    <y>70</y>
-                    <width>111</width>
-                    <height>28</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Anzeigen</string>
             </property>
         </widget>
     </widget>

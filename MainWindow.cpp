@@ -19,9 +19,10 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 	dbfile = baseDir +  "/xca.db";
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
+	settings = new QAsciiDict<char>();
 	loadSettings();
 	initPass();
-	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList, passwd);
+	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList, keys);
 	certs = new db_x509(dbenv, dbfile.latin1(), "certdb", certList, keys);
 };
@@ -43,6 +44,8 @@ void MainWindow::loadSettings()
 	Db *data = new Db(dbenv, 0);
 	Dbt *k = new Dbt();
 	Dbt *d = new Dbt();
+	char *a, *b;
+	a = settarr;
 	if ((x = data->open(dbfile.latin1(), "settings", DB_BTREE, DB_CREATE, 0600))) 
 		data->err(x,"DB open");
 	if ((x = data->cursor(NULL, &cursor, 0)))
@@ -52,10 +55,13 @@ void MainWindow::loadSettings()
 		cerr << "in Whileload: "<< endl;
 		if (x) data->err(x,"DB Error get");
 		else {
-			settings.insert((char *)k->get_data(), (char *)d->get_data());
+			memcpy(a,(char *)k->get_data(),k->get_size());
+			b=a+k->get_size();
+			memcpy(b,(char *)d->get_data(),d->get_size());
+			settings->insert(a,b);
+			a=b+d->get_size();
 		}
 	}
-	cerr <<"pwhash " << settings["pwhash"] <<endl;
 	data->close(0);
 	delete(d);
 	delete(k);
@@ -71,7 +77,7 @@ void MainWindow::saveSettings()
 		data->err(x,"DB open");
 	if ((x = data->cursor(NULL, &cursor, 0)))
 		data->err(x,"DB new Cursor");
-        QAsciiDictIterator<char> it(settings);
+        QAsciiDictIterator<char> it(*settings);
         for ( ; it.current(); ++it ) {
 		cerr << "in save: "<< it.current() << endl;
 		Dbt k( (void *)it.currentKey(), strlen(it.currentKey()) +1 );
@@ -86,37 +92,29 @@ void MainWindow::saveSettings()
 
 void MainWindow::initPass()
 {
-	cerr <<"pwhash " << settings["pwhash"] <<endl;
-	if (!settings["pwhash"]) {
-		int keylen = passWrite(passwd, 25, 0, NULL);
+	if (!settings->find("pwhash")) {
+		int keylen = passWrite((char *)pki_key::passwd, 25, 0, NULL);
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
 		}
-		passwd[keylen]='\0';
-		settings.insert( "pwhash", passwd );
-		settings.insert( "meier", "aaaa");
-		settings.insert( "mueller", "bbbbb");
+		pki_key::passwd[keylen]='\0';
+
+		settings->insert( "pwhash", md5passwd().c_str() );
+		settings->insert( "meier", "aaaa");
+		settings->insert( "mueller", "bbbbb");
 		saveSettings();
 	}
 	else {
-	cerr <<"pwhash " << settings["pwhash"] <<endl;
-	    //while (strncmp(passwd, settings["pwhash"], 25)) {
-	    while (strncmp(passwd, "pass", 25)) {
-		cerr <<"vorher pwhash " << settings["pwhash"] <<endl;
-		int keylen = passRead(passwd, 25, 0, NULL);
-		loadSettings();
-		cerr <<"nachher pwhash " << settings["pwhash"] <<endl;
+	     while (strncmp(md5passwd().c_str(), settings->find("pwhash"), 100)) {
+		int keylen = passRead(pki_key::passwd, 25, 0, NULL);
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
 		}
-		cerr <<"pwhash " << settings["pwhash"] <<endl;
-		cerr <<"meier " << settings["meier"] <<endl;
-		cerr <<"mueller " << settings["mueller"] <<endl;
-		passwd[keylen]='\0';
+		pki_key::passwd[keylen]='\0';
 	    }
 	}
 }
-	    // Static Password Callback functions
+// Static Password Callback functions 
 
 int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 {
@@ -127,6 +125,25 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	   return x.length();
 	}
 	else return 0;
+}
+
+string MainWindow::md5passwd()
+{
+	EVP_MD_CTX mdctx;
+	string str;
+	unsigned int n;
+	int j;
+	char zs[4];
+	unsigned char m[EVP_MAX_MD_SIZE];
+	EVP_DigestInit(&mdctx, EVP_md5());
+	EVP_DigestUpdate(&mdctx, pki_key::passwd, strlen(pki_key::passwd));
+	EVP_DigestFinal(&mdctx, m, &n);
+	for (j=0; j<(int)n; j++) {
+		sprintf(zs, "%02X%c",m[j], (j+1 == (int)n) ?'\0':':');
+		str += zs;
+	}
+	cerr << str << endl;
+	return str;
 }
 
 

@@ -1,9 +1,3 @@
-#include "lib/pki_key.h"
-#include "lib/pki_x509req.h"
-#include "lib/pki_x509.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
 #include "MainWindow_UI.h"
 #include "KeyDetail_UI.h"
 #include "ReqDetail_UI.h"
@@ -12,9 +6,12 @@
 #include "PassWrite_UI.h"
 #include "NewKey_UI.h"
 #include "NewX509Req_UI.h"
-#include "NewX509_UI.h"
+#include "NewX509.h"
+#include "NewX509_1_UI.h"
+#include "NewX509_2_UI.h"
 #include "ExportKey.h"
 #include <iostream.h>
+#include <qtextview.h>
 #include <qapplication.h>
 #include <qdir.h>
 #include <qlineedit.h>
@@ -29,6 +26,12 @@
 #include <qprogressdialog.h>
 #include <qasciidict.h>
 #include <qobject.h>
+#include "lib/pki_key.h"
+#include "lib/pki_x509req.h"
+#include "lib/pki_x509.h"
+#include "lib/db_key.h"
+#include "lib/db_x509req.h"
+#include "lib/db_x509.h"
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -40,13 +43,14 @@
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
+   friend class pki_key;
 	db_x509 *certs;
 	db_x509req *reqs;
 	db_key *keys;
 	DbEnv *dbenv;
-	char passwd[30];
+	QAsciiDict<char> *settings;
+	char settarr[3000];
    public:
-	QAsciiDict<char> settings;
 	QString baseDir, dbfile;
 	static const int sizeList[];
 	MainWindow(QWidget *parent, const char *name);
@@ -63,6 +67,7 @@ class MainWindow: public MainWindow_UI
 	pki_key *getSelectedKey();
 	void insertKey(pki_key *lkey);
 	void insertCert(pki_x509 *cert);
+	string md5passwd();
    public slots:
 	void loadKey();
 	void loadReq();

@@ -14,7 +14,8 @@ class db_x509req: public db_base
     public:
 	db_x509req(DbEnv *dbe, string DBfile, string DB, QListView *l, db_key *keyl);
 	pki_base *newPKI();
-	QStringList gethasPrivateDesc(db_base *keydb);
+	QStringList getDesc();
+	bool updateView();
 };
 
 #endif

@@ -2,7 +2,7 @@ VERSION=0.1.12
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 
-PREFIX=/usr/X11R6
+PREFIX=/usr/local
 GCC=g++
 CFLAGS=-Wall -g
 
@@ -36,6 +36,9 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      ExportKey_UI.o ExportKey_UI_MOC.o \
      NewX509Req_UI.o NewX509Req_UI_MOC.o \
      NewX509_UI.o NewX509_UI_MOC.o \
+     NewX509_1_UI.o NewX509_1_UI_MOC.o \
+     NewX509_2_UI.o NewX509_2_UI_MOC.o \
+     NewX509.o NewX509_MOC.o \
      CertDetail_UI.o CertDetail_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
      MainWindow.o MainWindow_MOC.o \
@@ -49,10 +52,10 @@ re: clean all
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
 	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h \
-	      NewX509_UI.h CertDetail_UI.h
+	      NewX509_UI.h CertDetail_UI.h NewX509_1_UI.h NewX509_2_UI.h
 
 %.o: %.cpp
-	$(GCC) $(CFLAGS) -c $(INC) -DVER=\"$(VERSION)\" $<
+	$(GCC) $(CFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"$(PREFIX)\" $<
 
 %_MOC.cpp: %.h
 	$(MOC) $< -o $@
@@ -67,7 +70,7 @@ xca: $(OBJS) lib/libxcadb.a lib/libpki.a
 	$(GCC) $(CFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
 
 libs:
-	make -C lib all
+	make -C lib all VERSION=$(VERSION) PREFIX=$(PREFIX)
 
 clean:
 	make -C lib clean
@@ -82,3 +85,6 @@ dist:
 	
 install: xca
 	install -m 755 -o root -g root xca $(DESTDIR)$(PREFIX)/bin
+	install -m 755 -o root -g root -d $(DESTDIR)$(PREFIX)/share/xca
+	install -m 644 -o root -g root *.png $(DESTDIR)$(PREFIX)/share/xca
+	

@@ -23,6 +23,7 @@ class pki_key: public pki_base
 	EVP_PKEY *key;
 	string BN2string(BIGNUM *bn);
     public:
+	static char passwd[30];
 		
 	/* constructor to generate a key .....
 	 * d     is the description
@@ -47,8 +48,8 @@ class pki_key: public pki_base
 	
 	pki_key(const string d, int type=EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
-	bool fromData(char *passwd, unsigned char *p, int size);
-	unsigned char *toData(char* passwd, int *size);
+	bool fromData(unsigned char *p, int size);
+	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
         string length();
         string modulus();

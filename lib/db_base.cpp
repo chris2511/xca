@@ -10,7 +10,6 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListView *l)
 	int x;
 	if (( x = data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
 		data->err(x,"DB open");
-	passwd = NULL;
 }
 
 
@@ -37,7 +36,7 @@ void db_base::loadContainer()
 		pki = newPKI();
 		if (pki == NULL) continue;
 		cerr << desc.c_str() << endl;
-		if (pki->fromData(passwd, p, size)) {
+		if (pki->fromData(p, size)) {
 			pki->setDescription(desc);
 			container.append(pki);
 		}
@@ -71,7 +70,7 @@ bool db_base::insertPKI(pki_base *pki)
 	int size=0;
 	char field[10];
 	unsigned char *p;
-	p = pki->toData(passwd, &size);
+	p = pki->toData(&size);
 	int cnt=0;
 	int x = DB_KEYEXIST;
 	while (x == DB_KEYEXIST) {

@@ -16,7 +16,6 @@ class db_base
 	DbEnv *dbenv;
 	QListView *listView;
 	QList<pki_base> container;
-	char *passwd;
 	QPixmap *icon;
     public:
 	db_base(DbEnv *dbe, string DBfile, string db, QListView *l);

@@ -6,7 +6,7 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 		const string c, const string l,
 		const string st,const string o,
 		const string ou,const string email, 
-		const string d)
+		const string d, const string challenge)
 		:pki_base( d )
 {
 	request = X509_REQ_new();
@@ -74,7 +74,7 @@ pki_x509req::pki_x509req(const string fname)
 }
 
 
-bool pki_x509req::fromData(char *passwd, unsigned char *p, int size)
+bool pki_x509req::fromData(unsigned char *p, int size)
 {
 	request = d2i_X509_REQ(NULL, &p, size);
 	if (openssl_error()) return false;
@@ -93,7 +93,7 @@ string pki_x509req::getDN(int nid)
 }
 
 
-unsigned char *pki_x509req::toData(char *passwd, int *size)
+unsigned char *pki_x509req::toData(int *size)
 {
 	unsigned char *p, *p1;
 	*size = i2d_X509_REQ(request, NULL);

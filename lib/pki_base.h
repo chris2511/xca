@@ -17,9 +17,9 @@ class pki_base
 	       VERIFY_UNTRUSTED, VERIFY_OK }; 
 	pki_base(const string d);
 	pki_base();
-	virtual bool fromData(char *passwd, unsigned char *p, int size){
+	virtual bool fromData(unsigned char *p, int size){
 		cerr << "VIRTUAL FUNCTION CALLED: fromData\n"; return false; };
-	virtual unsigned char *toData(char *passwd, int *size){
+	virtual unsigned char *toData(int *size){
 		cerr << "VIRTUAL FUNCTION CALLED: toData\n";
 		return NULL;};
 	virtual bool compare(pki_base *ref){
