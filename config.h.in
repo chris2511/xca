@@ -1,3 +1,6 @@
+/* Define if you have the <db4/db_cxx.h> header file. */
+#undef HAVE_DB4_DB_CXX_H
+
 /* Define if you have the <db3/db_cxx.h> header file. */
 #undef HAVE_DB3_DB_CXX_H
 
