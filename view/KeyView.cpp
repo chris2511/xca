@@ -235,7 +235,7 @@ void KeyView::store()
 			targetKey->isPubKey(), MainWindow::getPath(), this);
 	dlg->image->setPixmap(*MainWindow::keyImg);
 	
-	if (dlg->exec()) {
+	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
