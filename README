@@ -19,11 +19,11 @@ QT-2.2.4        from http://www.troll.no
 BercleyDB-3.3   from http://www.sleepycat.com
 OpenSSl-0.9.6   from http://www.openssl.org
 
-GNU C++ compiler
+GNU C++ compiler 2.9.5
 
 
 for debian-woody:
-
+----------------
 libdb3++-dev
 libssl-dev
 libqt-dev
@@ -45,7 +45,7 @@ than Linux, or if it failed :-)
 
 ----------------------------------------------------------
 if there are any questions regarding this software,
-dont fear to contact me:
+dont hesitate to contact me:
 
 christian@hohnstaedt.de
 
