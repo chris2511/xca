@@ -1,6 +1,6 @@
 include ../Local.mak
 
-all: t.obj
+all: target.obj
 
 CFLAGS+= -DPREFIX=\"$(prefix)\"
 
@@ -24,7 +24,7 @@ moc_%.cpp: %.h %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
 
 # partial linking of objects in one directory
-t.obj: $(OBJS)
+target.obj: $(OBJS)
 	$(LD) -r -o $@ $(OBJS)
 
 # delete the crap

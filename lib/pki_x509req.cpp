@@ -135,7 +135,6 @@ void pki_x509req::fromData(unsigned char *p, int size)
 	unsigned char *ps = p;
 	privkey = NULL;
 	request = d2i_X509_REQ(&request, &ps, size);
-	printf("SPKAC %p - %p = %d <-> %d\n",ps, p, ps - p, size);
 	if (ps - p < size)
 		spki = d2i_NETSCAPE_SPKI(NULL, &ps , size + p - ps); 
 	openssl_error();
@@ -165,7 +164,6 @@ unsigned char *pki_x509req::toData(int *size)
 	p1 = p;
 	i2d_X509_REQ(request, &p1);
 	if (spki) {
-		printf("Writing SPKAC");
 		i2d_NETSCAPE_SPKI(spki, &p1);
 	}
 	openssl_error();
@@ -207,9 +205,7 @@ int pki_x509req::verify()
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	 bool x = (X509_REQ_verify(request,pkey) >= 0);
-	 printf("x: %d, spki: %p\n",x, spki);
 	 if ( !x  && spki != NULL) {
-		printf("SPKAC\n");
  		ign_openssl_error();
 		x = NETSCAPE_SPKI_verify(spki, pkey) >= 0;
 	 }

@@ -7,7 +7,7 @@ TAG=$(shell echo "V.$(TVERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(TVERSION)
 
 SUBDIRS=ui lib widgets view
-OBJECTS=$(patsubst %, %/t.obj, $(SUBDIRS))
+OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
 
 all: headers xca
 re: clean all
@@ -19,8 +19,8 @@ xca: $(OBJECTS)
 headers:
 	$(MAKE) -C ui $@
 
-%/t.obj: headers
-	$(MAKE) -C $* t.obj
+%/target.obj: headers
+	$(MAKE) -C $* target.obj
 
 clean:
 	for x in $(SUBDIRS); do \
