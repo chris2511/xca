@@ -99,13 +99,14 @@ void pki_x509req::fload(const QString fname)
 {
 	// request file section
 	FILE *fp = fopen(fname.latin1(),"r");
+	X509_REQ *_req;
 	if (fp != NULL) {
-		request = PEM_read_X509_REQ(fp, &request, NULL, NULL);
+		_req = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
 		// if der format
-		if (!request) {
+		if (!_req) {
 			ign_openssl_error();
 			rewind(fp);
-			request = d2i_X509_REQ_fp(fp, &request);
+			_req = d2i_X509_REQ_fp(fp, NULL);
 		}
 		// SPKAC
 		if (!request) {
@@ -122,6 +123,8 @@ void pki_x509req::fload(const QString fname)
 	if (getIntName().isEmpty())
 		setIntName(rmslashdot(fname));
 	openssl_error();
+	X509_REQ_free(request);
+	request = _req;
 }
 
 void pki_x509req::fromData(unsigned char *p, int size)

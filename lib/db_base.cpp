@@ -210,7 +210,8 @@ void db_base::loadContainer()
 			catch (errorEx &err) {
 				QMessageBox::warning(NULL,tr(XCA_TITLE),
 				       	tr("Error loading: '") + desc + "'\n" +
-					err.getCString());
+						err.getCString());
+				delete pki;
 			}
 		}
 		delete (k);
@@ -241,9 +242,9 @@ void db_base::insertPKI(pki_base *pki)
 	if (listview) {
 		
 		QListViewItem *lvi = new QListViewItem((QListView *)listview, pki->getIntName());
-	        listview->insertItem(lvi);
-	        pki->setLvi(lvi);
-	        pki->updateView();
+        listview->insertItem(lvi);
+        pki->setLvi(lvi);
+        pki->updateView();
 	}
 }
 	
@@ -261,18 +262,27 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	unsigned char *p = pki->toData(&size);
 	int cnt=0;
 	int x = DB_KEYEXIST;
-	// exception occuring here will be catched by the caller
-	while (x == DB_KEYEXIST) {
-		Dbt k((void *)desc.latin1(), desc.length() + 1);
-		Dbt d((void *)p, size);
-		if ((x = data->put(tid, &k, &d, flags ))!=0) {
-			sprintf(field,"%02i", ++cnt);
-			QString z = field;
-		   	desc = orig + "_" + z ;
+	
+	try {
+		while (x == DB_KEYEXIST) {
+			Dbt k((void *)desc.latin1(), desc.length() + 1);
+			Dbt d((void *)p, size);
+			if ((x = data->put(tid, &k, &d, flags ))!=0) {
+				sprintf(field,"%02i", ++cnt);
+				QString z = field;
+		   		desc = orig + "_" + z ;
+			}
 		}
+		pki->setIntName(desc);
+		pki->updateView();
 	}
-	pki->setIntName(desc);
-	pki->updateView();
+	catch (DbException &err) {
+		if (p)
+			OPENSSL_free(p);
+		throw errorEx(err.what(), "_writePKI");
+	}
+	if (p)
+		OPENSSL_free(p);
 }
 
 

@@ -54,6 +54,8 @@
 #include "pass_info.h"
 #include "func.h"
 #include <openssl/rand.h>
+#include <qprogressdialog.h>
+#include <widgets/MainWindow.h>
 
 char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
@@ -71,14 +73,29 @@ void pki_key::init(int type)
 	key->type = type;
 	class_name = "pki_key";
 }
-	
-void pki_key::generate(void (*cb)(int, int,void *),void *prog, int bits)
+
+void pki_key::incProgress(int a, int b, void *progress)
 {
-	RSA *rsakey;
+	int i = ((QProgressDialog *)progress)->progress();
+			((QProgressDialog *)progress)->setProgress(++i);
+}
+
+void pki_key::generate(int bits)
+{
+	RSA *rsakey=NULL;
+	QProgressDialog *progress = new QProgressDialog(
+		progress->tr("Please wait, Key generation is in progress"),
+		progress->tr("Cancel"),90, 0, 0, true);
+	progress->setMinimumDuration(0);
+	progress->setProgress(0);   
+	progress->setCaption(XCA_TITLE);
 	
-	rsakey = RSA_generate_key(bits, 0x10001, cb, prog);
+	rsakey = RSA_generate_key(bits, 0x10001, &incProgress, progress);
+	progress->cancel();
+	delete progress;
+				 
 	if (rsakey) 
-		EVP_PKEY_set1_RSA(key, rsakey);
+		EVP_PKEY_assign_RSA(key, rsakey);
 	openssl_error();	
 }
 
@@ -86,7 +103,6 @@ pki_key::pki_key(const pki_key *pk)
 	:pki_base(pk->desc)
 {
 	init();
-	key = EVP_PKEY_new();
 	openssl_error();	
 	if (pk == NULL) return;
 	key->type = pk->key->type;
@@ -112,10 +128,11 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	key = pkey;
 }	
 
-void pki_key::fload(const QString fname, pem_password_cb *cb )
+void pki_key::fload(const QString fname)
 { 
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the RSA key.")
 		+ "\n'" + fname + "'"); 
+	pem_password_cb *cb = &MainWindow::passRead;
 	FILE *fp = fopen(fname.latin1(), "r");
 	RSA *rsakey = NULL;
 	if (fp != NULL) {
@@ -144,7 +161,7 @@ void pki_key::fload(const QString fname, pem_password_cb *cb )
 			d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
 		}
 		else {
-			EVP_PKEY_set1_RSA(key, rsakey);
+			EVP_PKEY_assign_RSA(key, rsakey);
 			openssl_error();
 		}
 		setIntName(rmslashdot(fname));
@@ -175,8 +192,13 @@ void pki_key::fromData(unsigned char *p, int size )
 	pdec1=pdec;
 	sik1=sik;
 	memcpy(iv, p, 8); /* recover the iv */
-        EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd, strlen(passwd), 1, ckey,NULL); /* generate the key */
-	/* we use sha1 as message digest, because an md5 version of the password is stored in the database... */
+	/* generate the key */
+	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd,
+		   	strlen(passwd), 1, ckey,NULL);
+	/* we use sha1 as message digest, 
+	 * because an md5 version of the password is 
+	 * stored in the database...
+	 */
 	EVP_CIPHER_CTX_init (&ctx);
 	EVP_DecryptInit( &ctx, cipher, ckey, iv);
 	EVP_DecryptUpdate( &ctx, pdec , &outl, p + 8, size -8 );
@@ -195,7 +217,7 @@ void pki_key::fromData(unsigned char *p, int size )
 		rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
 	   }
 	   openssl_error(); 
-	   if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
+	   if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
 	}
 	OPENSSL_free(sik1);
 	OPENSSL_free(pdec1);

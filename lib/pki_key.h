@@ -74,11 +74,12 @@ class pki_key: public pki_base
 	QString BN2QString(BIGNUM *bn);
 	int ucount; // usage counter
 	void init(int type = EVP_PKEY_RSA);
+	static void incProgress(int a, int b, void *progress);
     public:
 	static QPixmap *icon[2];
 	static char passwd[MAX_PASS_LENGTH];
 	static void erasePasswd();
-	void generate(void (*cb)(int, int,void *),void *prog,int bits);
+	void generate(int bits);
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
 	// copy constructor
@@ -86,7 +87,7 @@ class pki_key: public pki_base
 	/* destructor */
 	~pki_key();
 	
-	void fload(const QString fname, pem_password_cb *cb);
+	void fload(const QString fname);
 	void fromData(unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);

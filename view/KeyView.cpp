@@ -61,7 +61,6 @@
 #include <qcombobox.h>
 #include <qregexp.h>
 #include <qlabel.h>
-#include <qprogressdialog.h>
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qtextview.h>
@@ -83,6 +82,7 @@ void KeyView::newItem()
 {
 	CHECK_DB
 	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
+	pki_key *nkey = NULL;
 	QString x;
 	dlg->keyLength->setEditable(true);	
 	for (int i=0; sizeList[i] != 0; i++ ) {
@@ -101,18 +101,8 @@ void KeyView::newItem()
 				+QString::number(ksize) + " ?", tr("Cancel"), tr("Create") ))
 					return;
 			
-		QProgressDialog *progress = new QProgressDialog(
-			tr("Please wait, Key generation is in progress"),
-			tr("Cancel"),90, 0, 0, true);
-		progress->setMinimumDuration(0);
-		progress->setProgress(0);	
-		progress->setCaption(tr(XCA_TITLE));
-		pki_key *nkey = new pki_key (dlg->keyDesc->text(), 
-			&incProgress,
-			progress,
-			ksize);
-			progress->cancel();
-		delete progress;
+		nkey = new pki_key(dlg->keyDesc->text());
+		nkey->generate(ksize);
 		
 		db->insert(nkey);
 		x = nkey->getIntName();
@@ -213,12 +203,6 @@ void KeyView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	menu->exec(pt);
 	delete menu;
 	return;
-}
-
-void KeyView::incProgress(int a, int b, void *progress)
-{
-	int i = ((QProgressDialog *)progress)->progress();
-	((QProgressDialog *)progress)->setProgress(++i);
 }
 
 void KeyView::importKey(pki_key *k)

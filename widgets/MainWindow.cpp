@@ -103,6 +103,12 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	init_images();
 	do_connections();
 	
+#ifdef MDEBUG	
+	CRYPTO_malloc_debug_init();
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
+	fprintf(stderr, "malloc() debugging on.\n");
+#endif
+
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
@@ -232,7 +238,7 @@ void MainWindow::init_images()
 	
 void MainWindow::read_cmdline()
 {
-	int cnt = 1, opt, type;
+	int cnt = 1, opt = 0 , type = 1;
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;
@@ -245,7 +251,7 @@ void MainWindow::read_cmdline()
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
 			if (lb) delete lb;
-			opt = 1; lb = NULL, type=1;
+			opt = 1; lb = NULL; type = 1;
 			switch (arg[1]) {
 				case 'c' : lb = new load_cert(); break;
 				case 'r' : lb = new load_req(); break;
@@ -305,10 +311,15 @@ MainWindow::~MainWindow()
 	close_database();
 	ERR_free_strings();
 	EVP_cleanup();
+	OBJ_cleanup();
 	if (eku_nid)
 		delete eku_nid;
 	if (dn_nid)
 		delete dn_nid;
+#ifdef MDEBUG	
+	fprintf(stderr, "Memdebug:\n");
+	CRYPTO_mem_leaks_fp(stderr);
+#endif
 }
 
 int MainWindow::initPass()

@@ -95,13 +95,13 @@ pki_x509::pki_x509(const QString name)
 void pki_x509::fload(const QString fname)
 {
 	FILE *fp = fopen(fname.latin1(),"r");
-	init();
+	X509 *_cert;
 	if (fp != NULL) {
-		cert = PEM_read_X509(fp, &cert, NULL, NULL);
-		if (!cert) {
+		_cert = PEM_read_X509(fp, NULL, NULL, NULL);
+		if (!_cert) {
 			ign_openssl_error();
 			rewind(fp);
-			cert = d2i_X509_fp(fp, &cert);
+			_cert = d2i_X509_fp(fp, NULL);
 		}
 		openssl_error();
 		autoIntName();
@@ -110,6 +110,8 @@ void pki_x509::fload(const QString fname)
 	}	
 	else fopen_error(fname);
 	fclose(fp);
+	X509_free(cert);
+	cert = _cert;
 	trust = 1;
 	efftrust = 1;
 }

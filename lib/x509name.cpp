@@ -96,6 +96,7 @@ QString x509name::getEntryByNid(int nid) const
 	obj=OBJ_nid2obj(nid);
 	if (obj == NULL) return QString::null;
 	int i=X509_NAME_get_index_by_OBJ(xn,obj,-1);
+	ASN1_OBJECT_free(obj);
 	if (i < 0) return QString::null;
 	return getEntry(i);
 }
@@ -147,7 +148,8 @@ int x509name::nid(int i) const
 unsigned char *x509name::d2i(unsigned char *p, int size)
 {
 	unsigned char *mp = p;
-	d2i_X509_NAME(&xn, &mp, size);
+	X509_NAME *xn_sik = xn;
+	xn = d2i_X509_NAME(NULL, &mp, size);
 	if (xn == NULL)
 		xn = X509_NAME_new();
 	return mp;

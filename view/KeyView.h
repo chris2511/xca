@@ -63,7 +63,6 @@ class KeyView : public XcaListView
 
   private:
 	static const int sizeList[];
-	static void incProgress(int a, int b, void *progress);
   public:
 	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
