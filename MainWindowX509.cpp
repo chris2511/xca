@@ -1182,7 +1182,8 @@ void MainWindow::toTinyCA()
 	if (!crt) return;
 	pki_key *key = crt->getKey();
 	if (!key) return;
-	FILE *fp;
+	FILE *fp, *fpr;
+	char buf[200];
 	QList<pki_x509> list;
 	pki_x509 *issuedcert;
 	QString dname = crt->getDescription().c_str();
@@ -1222,15 +1223,39 @@ void MainWindow::toTinyCA()
 	if (! mkDir("newcerts")) return;
 	if (! mkDir("req")) return;
 	
+	// write the CA cert and key
 	crt->writeCert("cacert.pem", true, false);
 	key->writeKey("cacert.key", enc, &MainWindow::passWrite, true);
+	// write the crl
 	chdir("crl");
 	writeCrl("crl.pem", crt);
 	chdir("..");
+	// write the serial
 	fp = fopen("serial", "w");
 	if (!fp) return;
 	fprintf(fp, "%04x", crt->getCaSerial());
 	fclose(fp);
+	
+	// copy openssl.cnf
+	tcatempdir += QDir::separator();
+	tcatempdir += "openssl.cnf";
+	fpr = fopen(tcatempdir.latin1(), "r");
+	if (!fpr) return;
+	fp = fopen("openssl.cnf", "w");
+	while (fgets(buf ,200, fpr) != NULL) {
+		char *x = strstr(buf,"%dir%");
+		if (x != 0) {
+			x[0]='\0';
+			fputs(buf, fp);
+			fputs(tcadir.latin1(), fp);
+			fputs(x+5, fp);
+		}
+		else {
+			fputs(buf, fp);
+		}
+	}
+	fclose(fp);
+	fclose(fpr);
 	
 	// store the issued certificates
 	fp = fopen("index.txt", "w");
