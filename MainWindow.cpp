@@ -243,7 +243,7 @@ void MainWindow::init_database() {
 		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys,global_tid);
 		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys,global_tid);
 		temps = new db_temp(dbenv, dbfile.latin1(), tempList,global_tid);
-		crls = new db_crl(dbenv, dbfile.latin1(), revList, global_tid);
+		crls = new db_crl(dbenv, dbfile.latin1(), revList, global_tid, certs);
 	}
 	catch (errorEx &err) {
 		Error(err);

@@ -52,7 +52,7 @@
 #include "db_crl.h"
 
 
-db_crl::db_crl(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid)
+db_crl::db_crl(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid, db_x509 *cts)
 	:db_base(dbe, DBfile, "crldb", tid)
 {
 	listView = l;
@@ -60,6 +60,7 @@ db_crl::db_crl(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid)
 	crlicon = loadImg("crl.png");
 	listView->addColumn(tr("Issuer"));
 	listView->addColumn(tr("Count"));
+	certs = cts;
 	updateView();
 }
 
@@ -76,8 +77,47 @@ void db_crl::updateViewPKI(pki_base *pki)
         QListViewItem *current = (QListViewItem *)pki->getPointer();
         if (!current) return;
 	current->setPixmap(0, *crlicon);
-	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
 	current->setText(1, ((pki_crl *)pki)->issuerName().c_str());
 	current->setText(2, QString::number(((pki_crl *)pki)->numRev()));
 	
 }
+
+void db_crl::preprocess()
+{
+	return;
+	CERR("preprocess CRL");
+	if ( container.isEmpty() ) return ;
+	QListIterator<pki_base> iter(container); 
+	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
+	MARK
+		revokeCerts((pki_crl *)iter.current());
+	MARK
+	}
+}	
+
+void db_crl::revokeCerts(pki_crl *crl)
+{
+	int numc, i;
+	pki_x509 *rev, *iss;
+	
+	MARK
+	iss = certs->getBySubject(crl->getIssuerX509_NAME());
+	MARK
+	numc = crl->numRev();
+	MARK
+	for (i=0; i<numc; i++) {
+		CERR("SERIAL: "<<  crl->getSerial(i));
+		rev = certs->getByIssSerial(iss, crl->getSerial(i));
+		if (rev != NULL) {
+			rev->setRevoked(crl->getRevDate(i));
+		}
+	}
+}
+
+void db_crl::inToCont(pki_base *pki)
+{
+	revokeCerts((pki_crl *)pki);
+	container.append(pki);
+}
+
+

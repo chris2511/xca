@@ -252,6 +252,18 @@ long pki_crl::getSerial(int num)
 	return serial;
 }	
 		
+ASN1_TIME *pki_crl::getRevDate(int num)
+{
+	X509_REVOKED *ret = NULL;
+	ASN1_TIME *t = NULL;
+	if (crl && crl->crl && crl->crl->revoked) {
+		ret = sk_X509_REVOKED_value(crl->crl->revoked, num);
+		openssl_error();
+		t = M_ASN1_TIME_dup(ret->revocationDate);
+	}
+	return t;
+}	
+
 string pki_crl::issuerName()
 {
 	char *x = NULL;

@@ -365,7 +365,9 @@ pki_x509 *db_x509::getBySubject(X509_NAME *xname)
 {
 	pki_x509 *cert = NULL;
 	if (!xname) return cert;
-       	for (cert=(pki_x509 *)container.first(); cert !=0; cert=(pki_x509 *)container.next() ) {
+	if ( container.isEmpty() ) return cert;
+	for ( cert = (pki_x509 *)container.first(); cert != NULL; cert = (pki_x509 *)container.next() ) {
+		CERR(cert);
 		if (X509_NAME_cmp(X509_get_subject_name(cert->cert), xname) == 0) {
 			return cert;
 		}

@@ -734,6 +734,13 @@ void pki_x509::setRevoked(bool rev)
 	}
 	openssl_error();
 }
+void pki_x509::setRevoked(ASN1_TIME *when)
+{
+	if (revoked) 
+		ASN1_TIME_free(revoked);
+	revoked = when;
+	openssl_error();	
+}
 
 int pki_x509::calcEffTrust()
 {

@@ -117,6 +117,7 @@ class pki_x509 : public pki_base
 	   int getEffTrust();
 	   void setEffTrust(int t);
 	   void setRevoked(bool rev);
+	   void setRevoked(ASN1_TIME *when);
 	   bool isRevoked();
 	   int calcEffTrust();
 	   int getIncCaSerial();
