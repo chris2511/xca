@@ -19,7 +19,11 @@ xca (0.2.3) unstable; urgency=low
 
 xca (0.2.2) unstable; urgency=low
 
-  * see upstream changelog
+  * basic constraints, key usage and subject/authority key identifier
+  * signing wizard...
+  * Signatures can be done with requests and from scratch
+  * Certificate for signing can be self or foreign,
+  * password is saved as md5sum
 
  -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Fri, 19 Jul 2002 08:50:27 +0200
    
@@ -36,6 +40,11 @@ xca (0.1.12) unstable; urgency=low
 xca (0.1.11) unstable; urgency=low
 
   * initial debian Package
+  * RSA Keys are generated and stored to or loaded from a file
+    in either DER or PEM format.
+  * They get stored in a local Bercley DB.
+  * Changing their description and viewing their contents, as well
+    as deleting them from local DB is possible.
 
  -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Thu,  4 Jul 2002 09:12:57 +0200
 
