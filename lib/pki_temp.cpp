@@ -131,6 +131,8 @@ pki_temp::pki_temp(const string d, int atype)
 		bcCrit=true;
 		authKey=true;
 		issAltCp=true;
+		nsCertType=112;
+		keyUse=96;
 	}
 	if (type==tCLIENT) {
 		ca=false;
@@ -138,6 +140,8 @@ pki_temp::pki_temp(const string d, int atype)
 		authKey=true;
 		issAltCp=true;
 		subAltCp=true;
+		nsCertType=5;
+		keyUse=13;
 	}
 	if (type==tSERVER) {
 		ca=false;
@@ -145,6 +149,8 @@ pki_temp::pki_temp(const string d, int atype)
 		authKey=true;
 		issAltCp=true;
 		subAltCp=true;
+		nsCertType=2;
+		keyUse=12;
 	}
 
 }	

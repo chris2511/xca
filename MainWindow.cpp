@@ -54,7 +54,8 @@
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
-	*MainWindow::nsImg = NULL;
+	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL;
+
 
 const QString MainWindow::xca_title = tr("X Certifikate and Key management");
 
@@ -93,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	certImg = loadImg("bigcert.png");
 	tempImg = loadImg("bigtemp.png");
 	nsImg = loadImg("netscape.png");
+	revImg = loadImg("revoked.png");
 	initPass();
 	keys = new db_key(dbenv, dbfile.latin1(), keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
@@ -102,6 +104,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
 	bigTemp->setPixmap(*tempImg);
+	bigRev->setPixmap(*revImg);
 #ifdef qt3	
 	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameKey(QListViewItem *, int, const QString &)));
 	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameReq(QListViewItem *, int, const QString &)));

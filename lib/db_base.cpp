@@ -420,8 +420,7 @@ QPixmap *db_base::loadImg(const char *name )
 		path +=	QDir::separator();
 		path += BASE_DIR ;
 #else
-		path = QDir::homeDirPath() + QDir::separator();
-		path += PREFIX ;
+		path = PREFIX ;
 #endif
 		path += QDir::separator();
 		path += name;

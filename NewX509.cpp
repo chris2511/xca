@@ -140,6 +140,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 			setAppropriate(page1,false);
 		}
 		else {
+			strings.prepend(tr("Empty Template"));
 			tempList->insertStringList(strings);
 		}
 	}

@@ -93,7 +93,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	if (opensslError(req)) return;
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	dlg->descr->setText(req->getDescription().c_str());
-	if ( req->verify() ) {
+	if (!req->verify() ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
