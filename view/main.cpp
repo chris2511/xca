@@ -49,28 +49,40 @@
  */                           
 
 
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
-
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#include <qapplication.h>
+#include <qtranslator.h>
+#include <qtextcodec.h>
+#include "widgets/MainWindow.h"
 
 
-class ExportKey: public ExportKey_UI
+int main( int argc, char *argv[] )
 {
-	Q_OBJECT
-	bool onlyPub;
-   public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
-	QString dirPath;
-   public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
-};
+    int ret = 0;
+    QApplication a( argc, argv );
+    MainWindow *mw = new MainWindow( NULL, "Main Widget");
+    a.setMainWidget( mw );
+    // translation file for Qt
+    QTranslator qtTr( 0 );
+    qtTr.load( QString( "qt_" ) + QTextCodec::locale(), "." );
+    a.installTranslator( &qtTr );
+    //translation file for application strings
+    QTranslator xcaTr( 0 );
+#ifdef WIN32
+    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), "." );
+    a.installTranslator( &xcaTr );
+#else	
+    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
+    a.installTranslator( &xcaTr );
 #endif
+    CERR("PKI Counter:" << pki_base::get_pki_counter());
+    if (mw->exitApp == 0) {
+   	mw->show();
+	ret = a.exec();
+    }
+    MARK
+    delete mw;
+    MARK
+    clog << "PKI Counter: " << pki_base::get_pki_counter() << endl; 
+    clog << "The PKI counter must be 0, if not contact me." << endl;
+    return ret;
+}

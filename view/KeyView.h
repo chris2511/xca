@@ -49,28 +49,34 @@
  */                           
 
 
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
+#ifndef KEYVIEW_H
+#define KEYVIEW_H
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#include "XcaListView.h"
+#include "lib/pki_key.h"
+#include <qlistview.h>
 
-
-class ExportKey: public ExportKey_UI
+class KeyView : public XcaListView
 {
-	Q_OBJECT
-	bool onlyPub;
-   public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
-	QString dirPath;
-   public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
-};
+   Q_OBJECT
+
+   private:
+	static const int sizeList[];
+	static void incProgress(int a, int b, void *progress);
+   public:
+	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void showItem(pki_base *item, bool import);
+	void newItem();
+	void deleteItem();
+	void load();
+	pki_base *loadItem(QString fname);
+	pki_base* insert(pki_base *item);
+	void store();
+	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+   signals:
+	void keyDone(QString &);
+	void init_database();
+
+};	
+
 #endif

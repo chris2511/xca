@@ -14,8 +14,8 @@ CC=@CC@
 CPPFLAGS=-I. @CPPFLAGS@ @DEFS@ 
 CFLAGS=-Wall @ac_DEBUG@
 
-LDFLAGS=-Llib -Lui -Lwidgets @LDFLAGS@
-LIBS=@LIBS@ -lwidget -lpki -lqtui
+LDFLAGS=-Llib @LDFLAGS@
+LIBS=@LIBS@ -lpki
 
 MOC=@MOC@
 UIC=@UIC@
@@ -23,24 +23,24 @@ UIC=@UIC@
 
 ###################################
 
-NAMES=XcaListView KeyView ReqView TempView CertView validity distname CrlView
-OBJS=main.o $(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
+#NAMES=XcaListView KeyView ReqView TempView CertView validity distname
+#OBJS=main.o $(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
 
-SUBDIRS=lib ui widgets
+OBJS=ui/ui.o widgets/widgets.o view/view.o
+SUBDIRS=lib ui widgets view
 
-all: $(SUBDIRS) $(OBJS) xca
-main.o: ui
+all: $(SUBDIRS) xca
 
 re: clean all
 
 %.o: %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-xca: $(OBJS) lib/libpki.a ui/libqtui.a widgets/libwidget.a
+xca: $(OBJS) lib/libpki.a $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o xca
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
-lib ui widgets:
+$(SUBDIRS):
 	$(MAKE) -C $@ all
 
 clean:

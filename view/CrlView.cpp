@@ -1,0 +1,236 @@
+/*
+ * Copyright (C) 2001 Christian Hohnstaedt.
+ *
+ *  All rights reserved.
+ *
+ *
+ *  Redistribution and use in source and binary forms, with or without 
+ *  modification, are permitted provided that the following conditions are met:
+ *
+ *  - Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *  - Neither the name of the author nor the names of its contributors may be 
+ *    used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *
+ * This program links to software with different licenses from:
+ *
+ *	http://www.openssl.org which includes cryptographic software
+ * 	written by Eric Young (eay@cryptsoft.com)"
+ *
+ *	http://www.sleepycat.com
+ *
+ *	http://www.trolltech.com
+ * 
+ *
+ *
+ * http://www.hohnstaedt.de/xca
+ * email: christian@hohnstaedt.de
+ *
+ * $Id$ 
+ *
+ */                           
+
+
+#include "CrlView.h"
+#include <qpopupmenu.h>
+#include "lib/pki_crl.h"
+#include "widgets/MainWindow.h"
+
+
+void CrlView::showItem(pki_base *item, bool import)
+{
+	pki_crl *crl = (pki_crl *)item;
+	if (!crl) return;
+    try {
+	CrlDetail_UI *dlg = new CrlDetail(this,0,true);
+	connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
+		this, SLOT( showDetailsCert(QListViewItem *) ));
+	QString odesc = crl->getIntName();
+	ret = dlg->exec();
+	QString ndesc = dlg->descr->text();
+	delete dlg;
+	if (!ret && import) {
+                delete crl;
+        }
+	if (!ret) return;
+	if (MainWindow::crls == NULL) {
+                emit init_database();
+        }
+	if (import) {
+                crl = insert(crl);
+        }
+	
+	if (ndesc != odesc) {
+		crls->renamePKI(crl, ndesc);
+	}
+		
+	
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
+    return;
+}
+
+void CrlView::deleteItem()
+{
+	deleteItem_default(tr("The Revokation list"),
+		tr("is going to be deleted"));
+}
+
+pki_base *CrlView::loadItem(QString fname)
+{
+        pki_base *crl = new pki_crl(fname, &MainWindow::passRead);
+        return crl;
+}
+		
+void CrlView::loadCrl()
+{
+	QStringList filter;
+	filt.append(tr("Revokation lists ( *.pem *.crl )")); 
+	filt.append(tr("All files ( *.* )"));
+	load_default(filter, tr("Load CRL"));
+}
+
+pki_crl *CrlView::insert(pki_base *item)
+{
+    pki_crl * crl = (pki_crl *)item;
+    try {
+	MARK
+	pki_crl *oldcrl = (pki_crl *)crls->findPKI(crl);
+	MARK
+	if (oldcrl) {
+	   QMessageBox::information(this,tr(XCA_TITLE),
+		tr("The revokation list already exists in the database as") +":\n'" +
+		QString::fromLatin1(oldcrl->getDescription().c_str()) + 
+		"'\n" + tr("and so it was not imported"), "OK");
+	   delete(crl);
+	   return oldcrl;
+	}
+	CERR( "insertCrl: inserting" );
+	crls->insertPKI(crl);
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
+    return crl;
+}
+
+void CrlView::writeCrl_pem()
+{
+	store(true);
+}	
+void CrlView::writeCrl_der()
+{
+	store(false);
+}	
+	
+void CrlView::store(bool pem)
+	{
+	pki_crl *crl;
+	try {
+                crl = (pki_crl *)crls->getSelectedPKI();
+        }
+	catch (errorEx &err) {
+		Error(err);
+		return;
+	}
+	
+	if (!crl) return;
+	QStringList filt;
+	filt.append("Revokation Lists ( *.crl *.pem)");
+	filt.append("All Files ( *.* )");
+	QString s="";
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("Export Certificate revokation list"));
+	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setSelection( (crl->getDescription() + ".crl").c_str() );
+	setPath(dlg);
+	if (dlg->exec()) {
+		s = dlg->selectedFile();
+		newPath(dlg);
+	}
+	delete dlg;
+	if (s.isEmpty()) return;
+	s=QDir::convertSeparators(s);
+	try {
+		crl->writeCrl(s.latin1(), pem);
+	}
+	catch (errorEx &err) {
+                Error(err);
+        }
+		
+}
+
+
+void CrlView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
+	CERR( "popup Crl");
+	QPopupMenu *menu = new QPopupMenu(this);
+	QPopupMenu *subExport = new QPopupMenu(this);
+	
+	if (!item) {
+		menu->insertItem(tr("Import"), this, SLOT(loadCrl()));
+	}
+	else {
+		menu->insertItem(tr("Rename"), this, SLOT(startRenameCrl()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCrl()));
+		menu->insertItem(tr("Export"), subExport);
+		subExport->insertItem(tr("PEM"), this, SLOT(writeCrl_pem()));
+		subExport->insertItem(tr("DER"), this, SLOT(writeCrl_der()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteCrl()));
+	}
+	menu->exec(pt);
+	delete menu;
+	delete subExport;
+	
+	return;
+}
+
+pki_crl *CrlView::newItem(pki_x509 *cert)
+{
+	QList<pki_x509> list;
+	pki_x509 *issuedcert = NULL;
+	pki_crl *crl = NULL;
+	try {	
+		crl = new pki_crl(cert->getIntName(), cert);
+
+		list = MainWindow::certs->getIssuedCerts(cert);
+		if (!list.isEmpty()) {
+	       		for ( issuedcert = list.first(); issuedcert != NULL; issuedcert = list.next() ) {
+				if (issuedcert->isRevoked() ) {
+					crl->addRevoked(issuedcert);
+				}
+			}
+		}
+		crl->addV3ext(NID_authority_key_identifier,"keyid,issuer");
+		crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
+		crl->sign(cert->getKey());
+		cert->setLastCrl(crl->getDate());
+		certs->updatePKI(cert);
+		CERR( "CRL done, completely");
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+	return crl;
+}
+

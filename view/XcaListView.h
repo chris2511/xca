@@ -49,28 +49,47 @@
  */                           
 
 
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
+#ifndef XCALISTVIEW_H
+#define XCALISTVIEW_H
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#include <qlistview.h>
+#include "lib/db_base.h"
+#include "lib/exception.h"
 
-
-class ExportKey: public ExportKey_UI
+class XcaListView : public QListView
 {
-	Q_OBJECT
-	bool onlyPub;
-   public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
-	QString dirPath;
+   Q_OBJECT
+		
+   protected:
+	db_base *db;
+   public:
+	XcaListView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void setDB(db_base *mydb);
+	virtual pki_base *getSelected();
+	virtual void showItem(pki_base *item, bool import);
+	void deleteItem_default(QString t1, QString t2);
+	virtual pki_base *loadItem(QString fname);
+	void load_default(QStringList &filter, QString caption);
+	void setDB(db_base *mydb, QPixmap *myimage);
+	void Error(errorEx &err);
+	bool Error(pki_base *pki);
+	void loadCont();
+	QPixmap *loadImg(const char *name );
    public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
+	virtual void newItem();
+	virtual void deleteItem();
+	void showItem();
+	void showItem(QListViewItem *item);
+	virtual void load();
+	virtual	void store();
+	virtual	pki_base *insert(pki_base *item);
+	virtual void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void startRename();
+	void renameDialog();
+	void rename(QListViewItem *item, int col, const QString &text);
+	void updateView();
+   signals:
+	void init_database();
 };
+
 #endif

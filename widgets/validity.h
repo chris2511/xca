@@ -44,33 +44,40 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
+#ifndef VALIDITY_H
+#define VALIDITY_H
 
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
+#include <qvariant.h>
+#include <qgroupbox.h>
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+class QGridLayout;
+class a1time;
+class QLabel;
+class QComboBox;
+class QLineEdit;
 
+class Validity : public QGroupBox
+{ 
+    Q_OBJECT
 
-class ExportKey: public ExportKey_UI
-{
-	Q_OBJECT
-	bool onlyPub;
-   public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
-	QString dirPath;
-   public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
+  public:
+	Validity( QWidget* parent = 0, const char* name = 0);
+	~Validity();
+	a1time getNotBefore() const;
+	a1time getNotAfter() const;
+	void setNotBefore(const a1time &t);
+	void setNotAfter(const a1time &t);
+
+  protected:
+	QGridLayout* ValidityLayout;
+	QLabel *Label1, *Label2;
+	QComboBox *nbDay, *nbMon, *naMon, *naDay;
+	QLineEdit *nbYear, *naYear;
+   
 };
-#endif
+
+#endif // VALIDITY_H

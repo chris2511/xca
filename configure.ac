@@ -1,5 +1,5 @@
 AC_INIT(xca, 0.4.0)
-AC_CONFIG_SRCDIR([main.cpp])
+AC_CONFIG_SRCDIR([view/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 if test -z "$CFLAGS"; then
@@ -94,7 +94,7 @@ else
 	ac_DEBUG=
 fi], ) 
 
-AC_CONFIG_FILES([Makefile lib/Makefile lib/base.h ui/Makefile widgets/Makefile results])
+AC_CONFIG_FILES([Makefile lib/Makefile lib/base.h ui/Makefile widgets/Makefile view/Makefile results])
 AC_OUTPUT
 
 if test "$LDB" != X; then

@@ -49,28 +49,39 @@
  */                           
 
 
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
+#ifndef REQVIEW_H
+#define REQVIEW_H
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#include "XcaListView.h"
+#include "lib/pki_x509req.h"
+#include "lib/pki_temp.h"
+#include "widgets/NewX509.h"
 
 
-class ExportKey: public ExportKey_UI
+class ReqView : public XcaListView
 {
-	Q_OBJECT
-	bool onlyPub;
-   public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
-	QString dirPath;
+   Q_OBJECT
+
+   public:
+	ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void showItem(pki_base *item, bool import);
+	void newItem();
+	void newItem(pki_temp *temp);
+	void deleteItem();
+	void load();
+	void updateViewItem(pki_base *);
+	pki_base *loadItem(QString fname);
+	pki_base* insert(pki_base *item);
+	void store(bool pem);
+	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
    public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
-};
+	void writeReq_pem();
+	void writeReq_der();
+	void signReq();
+   signals:
+	void keyDone(QString &);
+	void newCert(pki_x509req *req);
+
+};	
+
 #endif

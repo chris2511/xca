@@ -49,28 +49,37 @@
  */                           
 
 
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
+#ifndef TEMPVIEW_H
+#define TEMPVIEW_H
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#include "XcaListView.h"
+#include "lib/pki_temp.h"
+#include <qlistview.h>
 
-
-class ExportKey: public ExportKey_UI
+class TempView : public XcaListView
 {
-	Q_OBJECT
-	bool onlyPub;
-   public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
-	QString dirPath;
+   Q_OBJECT
+
+   private:
+	QPixmap *keyicon;
+   public:
+	TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void showItem(pki_base *item, bool import);
+	void newItem(int type);
+	void deleteItem();
+	//void load();
+	void updateViewItem(pki_base *);
+	//pki_base *loadItem(QString fname);
+	pki_base* insert(pki_base *item);
+	//void store();
+	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	bool alterTemp(pki_temp *temp);
    public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
-};
+	void certFromTemp();
+	void reqFromTemp();
+   signals:
+	void init_database();
+
+};	
+
 #endif

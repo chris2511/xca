@@ -54,10 +54,10 @@
 #include <qmessagebox.h>
 #include <qlabel.h>
 #include "lib/pki_pkcs12.h"
-#include "KeyView.h"
-#include "ReqView.h"
-#include "CertView.h"
-#include "TempView.h"
+#include "view/KeyView.h"
+#include "view/ReqView.h"
+#include "view/CertView.h"
+#include "view/TempView.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
 #include "ui/PassRead.h"

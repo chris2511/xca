@@ -20,16 +20,16 @@ CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################
 
-NAMES= ExportCert ExportKey ExportTinyCA NewX509 CrlDetail \
-	MainWindow validity distname
+NAMES= XcaListView KeyView ReqView TempView CertView #CrlView 
+		
 
-OBJS=$(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
+OBJS=$(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES)) main.o
 
 MOC_CPP=$(patsubst %,moc_%.cpp,$(NAMES))
 
-all: widgets.o
+all: view.o
 
-widgets.o: $(OBJS) 
+view.o: $(OBJS) 
 	$(LD) -r -o $@ $(OBJS)
 
 %.o: %.cpp 

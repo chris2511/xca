@@ -44,33 +44,61 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
 
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
+#ifndef CERTVIEW_H
+#define CERTVIEW_H
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#include "XcaListView.h"
+#include "lib/pki_x509.h"
+#include "lib/pki_pkcs12.h"
+#include <qlistview.h>
+#include "widgets/NewX509.h"
 
-
-class ExportKey: public ExportKey_UI
+class CertView : public XcaListView
 {
-	Q_OBJECT
-	bool onlyPub;
-   public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
-	QString dirPath;
+   Q_OBJECT
+
+   private:
+	int viewState;
+	bool mkDir(QString dir);
+   public:
+	CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void showItem(pki_base *item, bool import);
+	void newItem();
+	void deleteItem();
+	void updateViewItem(pki_base *);
+	void load();
+	pki_base* loadItem(QString fname);
+	pki_base* insert(pki_base *item);
+	void store();
+	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void newCert();
+	void newCert(NewX509 *dlg);
+	void extendCert();
+	void loadPKCS12();
+	void insertP12(pki_pkcs12 *pk12);
+	void loadPKCS7();
+	void writePKCS12(QString s, bool chain);
+	void writePKCS7(QString s, int type);	
    public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
-};
+	void signP7();
+	void encryptP7();
+	void setTrust();
+	void toRequest();
+	void revoke();
+	void unRevoke();
+	void setSerial();
+	void setCrlDays();
+	void setTemplate();
+	void changeView();
+	void toTinyCA();
+	bool updateView();
+	void updateViewAll();
+
+};	
+
 #endif

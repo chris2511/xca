@@ -15,7 +15,7 @@ UIC=@UIC@
 AR=@AR@
 RANLIB=@RANLIB@
 
-CPPFLAGS=-I.. @CPPFLAGS@ @DEFS@
+CPPFLAGS=-I.. -I../widgets -I../view @CPPFLAGS@ @DEFS@
 CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################
@@ -30,11 +30,10 @@ MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
 UI_H=$(patsubst %, %.h, $(UINAMES))
 
-all: libqtui.a
+all: ui.o
 
-libqtui.a: $(UIOBJS) 
-	$(AR) rc $@ $(UIOBJS)
-	$(RANLIB) $@
+ui.o: $(UIOBJS) 
+	$(LD) -r $(UIOBJS) -o $@
 
 %.o: %.cpp 
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
