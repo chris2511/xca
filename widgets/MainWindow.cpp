@@ -128,7 +128,7 @@ void MainWindow::init_baseDir()
 {
 	static bool done = false;
 	if (done) return;
-	cerr << "base Dir: "<< baseDir << endl; 
+	fprintf(stderr, "base Dir: %s\n", baseDir.latin1()); 
 	QDir d(baseDir);
 	if ( ! d.exists() && !d.mkdir(baseDir)) {
 		QMessageBox::warning(this,tr(XCA_TITLE),
@@ -268,7 +268,7 @@ void MainWindow::read_cmdline()
 				case 't' : lb = new load_temp(); break;
 				case 'd' : type = 1; force_load=1; break;
 				case 'b' : type = 2; break;
-				case 'v' : cerr << XCA_TITLE " Version " << VER << endl; 
+				case 'v' : fprintf(stderr, XCA_TITLE " Version " VER "\n"); 
 						   opt=0; exitApp=1; break;
 				case 'x' : exitApp = 1; opt=0; break;
 				default  : cmd_help(tr("no such option: ") + arg );

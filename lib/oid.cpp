@@ -113,7 +113,6 @@ NIDlist readNIDlist(QString fname)
 	nl.clear();
 	fp = fopen(fname.latin1(), "r");
 	if (fp == NULL) return nl;
-	cerr << "Reading OID list from: " << fname <<endl;
 	while (fgets(buff, 127, fp)) {
 		line++;
 		pb = buff;

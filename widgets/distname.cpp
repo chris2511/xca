@@ -100,9 +100,6 @@ DistName::~DistName()
 void DistName::resizeEvent( QResizeEvent *e)
 {
 	QWidget::resizeEvent(e);
-	//cerr << "W size:" << size().height() << " -- " << size().width() <<endl;
-	//cerr << "max:" << maximumSize().height() << " -- " << maximumSize().width() <<endl;
-	//cerr << "L.max:" << DistNameLayout->maximumSize().height() << " -- " << DistNameLayout->maximumSize().width() <<endl;
 }
 
 /*******************************************************************/
