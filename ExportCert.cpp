@@ -59,6 +59,9 @@ ExportCert::ExportCert(QString fname, bool hasKey,
 	filename->setText(fname);
 	setCaption(tr(XCA_TITLE));
 	exportFormat->insertItem("PEM");
+	exportFormat->insertItem("PEM with Certificate chain");
+	exportFormat->insertItem("PEM all trusted Certificates");
+	exportFormat->insertItem("PEM all Certificates");
 	exportFormat->insertItem("DER");
 	if (hasKey) {
 		exportFormat->insertItem("PKCS #12");

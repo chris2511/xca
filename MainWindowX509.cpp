@@ -678,6 +678,7 @@ void MainWindow::writeCert()
 {
 	QStringList filt;
 	pki_x509 *crt = (pki_x509 *)certs->getSelectedPKI();
+	pki_x509 *oldcrt = NULL;
 	if (!crt) return;
 	pki_key *privkey = crt->getKey();
 	ExportCert *dlg = new ExportCert((crt->getDescription() + ".crt").c_str(),
@@ -694,15 +695,28 @@ void MainWindow::writeCert()
 	try {
 	    switch (dlg->exportFormat->currentItem()) {
 		case 0: // PEM
-			crt->writeCert(fname.latin1(),true);
+			crt->writeCert(fname.latin1(),true,false);
 			break;
-		case 1: // DER	
-			crt->writeCert(fname.latin1(),false);
+		case 1: // PEM with chain
+			while(crt && crt != oldcrt) {
+				crt->writeCert(fname.latin1(),true,true);
+				oldcrt = crt;
+				crt = crt->getSigner();
+			}
 			break;
-		case 2: // P12
+		case 2: // PEM all trusted Certificates
+			certs->writeAllCerts(fname,true);
+			break;
+		case 3: // PEM all Certificates
+			certs->writeAllCerts(fname,false);
+			break;
+		case 4: // DER	
+			crt->writeCert(fname.latin1(),false,false);
+			break;
+		case 5: // P12
 			writePKCS12(fname,false);
 			break;
-		case 3: // P12 + cert chain
+		case 6: // P12 + cert chain
 			writePKCS12(fname,true);
 			break;
 

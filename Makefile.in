@@ -63,7 +63,8 @@ dist:
 	(cd ../$(TARGET);  autoconf; \
 	./mkxcapro.sh ||true; lrelease xca.pro ||true; \
 	cat rpm/xca.spec |sed s/VERSION/$(VERSION)/g >rpm/$(TARGET)-1.spec; \
-	rm -rf rpm/xca.spec autom4te.cache )
+	rm -rf rpm/xca.spec autom4te.cache; \
+	cd doc; linuxdoc -B html xca.sgml; )
 	(cd ..; tar zcf $(TARGET).tar.gz $(TARGET) )
 	#rm -rf ../$(TARGET)
 	
