@@ -280,14 +280,16 @@ void pki_x509::fromData(unsigned char *p, int size)
 		trust = intFromData(&p1);
 		sRev = intFromData(&p1);
 		if (sRev) {
-			ASN1_TIME *time;
+	//		ASN1_TIME *time;
 			if (version != 3) isrevoked = true;
-			time = d2i_ASN1_TIME(NULL, &p1, sRev);
-			revoked = time;
-			OPENSSL_free(time);
+			p1 = revoked.d2i(p1, sRev);
+	//		time = d2i_ASN1_TIME(NULL, &p1, sRev);
+	//		revoked = time;
+	//		ASN1_TIME_free(time);
 		}
 		else {
 		   isrevoked = false;
+		   revoked.now();
 		}
 		
 		if (version == 1) {
