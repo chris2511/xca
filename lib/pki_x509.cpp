@@ -248,11 +248,15 @@ bool pki_x509::hasSubAltName()
 	
 void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 {
+	EVP_PKEY *tkey;
 	if (!signkey) {
 		openssl_error("There is no key for signing !");
 	}
-	X509_sign(cert, signkey->key, digest);
+	tkey=signkey->decryptKey();
+	X509_sign(cert, tkey, digest);
+	EVP_PKEY_free(tkey);
 	openssl_error();
+
 }
 
 
@@ -408,7 +412,7 @@ bool pki_x509::verify(pki_x509 *signer)
 		return false;
 	}
 	pki_key *pkey = signer->getPubKey();
-	int i = X509_verify(cert,pkey->key);
+	int i = X509_verify(cert,pkey->getKey());
 	ign_openssl_error();
 	if (pkey) delete(pkey);
 	if (i>0) {

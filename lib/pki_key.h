@@ -66,22 +66,23 @@
 class pki_key: public pki_base
 {
 
-    friend class pki_x509req;
-    friend class pki_x509;
-    friend class pki_crl;
     protected:
 	EVP_PKEY *key;
-	QString BN2QString(BIGNUM *bn);
+	unsigned char *encKey;
+	int encKey_len;
 	int ucount; // usage counter
+	QString BN2QString(BIGNUM *bn);
 	void init(int type = EVP_PKEY_RSA);
 	static void incProgress(int a, int b, void *progress);
+	void encryptKey();
     public:
 	static QPixmap *icon[2];
 	static char passwd[MAX_PASS_LENGTH];
 	static void erasePasswd();
-	void generate(int bits);
+	void generate(int bits, int type = EVP_PKEY_RSA);
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
+	EVP_PKEY *decryptKey();
 	// copy constructor
 	pki_key::pki_key(const pki_key *pk);
 	/* destructor */
@@ -89,6 +90,7 @@ class pki_key: public pki_base
 	
 	void fload(const QString fname);
 	void fromData(unsigned char *p, int size);
+	void oldFromData(unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
         QString length();

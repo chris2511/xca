@@ -179,8 +179,11 @@ void pki_crl::addV3ext(const x509v3ext &e)
 
 void pki_crl::sign(pki_key *key, const EVP_MD *md)
 {
+	EVP_PKEY *pkey;
 	if (!key || key->isPubKey()) return;
-	X509_CRL_sign(crl, key->key, md);
+	pkey = key->decryptKey();
+	X509_CRL_sign(crl, pkey, md);
+	EVP_PKEY_free(pkey);
 	openssl_error();
 }
 
@@ -252,7 +255,7 @@ bool pki_crl::verify(pki_key *key)
 {
 	bool ret=false;
 	if (crl && crl->crl && key) {
-		ret = (X509_CRL_verify(crl , key->key) == 1);
+		ret = (X509_CRL_verify(crl , key->getKey()) == 1);
 		ign_openssl_error();
 	}
 	return ret ;

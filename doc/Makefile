@@ -18,5 +18,8 @@ install: xca.1.gz
 	install -m 644 xca*.html $(destdir)$(prefix)/share/xca
 	install xca.1.gz $(destdir)$(prefix)/$(mandir)/man1
 
+clean:
+	$(RM) xca.1.gz
+
 include $(TOPDIR)/Local.mak
 

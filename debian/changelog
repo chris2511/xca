@@ -1,3 +1,9 @@
+xca (0.5.1-1.0) unstable; urgency=low
+
+  * NMU
+
+ -- Mikael Magnusson <mikma@users.sourceforge.net>  Tue,  7 Sep 2004 20:01:50 +0200
+
 xca (0.5.1-1) unstable; urgency=low
 
   * support for different languages on WIN platform (Thanks Ilya)
@@ -66,7 +72,7 @@ xca (0.4.6) unstable; urgency=low
     - Support for UTF8 in x509name
     - Netscape SPKAC support added
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Tue, 25 Nov 2003 18:28:02 +0100
+ -- Christian Hohnst√§dt <chris@trinity.local>  Tue, 25 Nov 2003 18:28:02 +0100
 
 xca (0.4.5) unstable; urgency=low
 
@@ -78,14 +84,14 @@ xca (0.4.5) unstable; urgency=low
     editable to enter arbitrary key sizes.
   * [ 765774 ] change password for database
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Wed, 13 Aug 2003 22:10:43 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Wed, 13 Aug 2003 22:10:43 +0200
 
 xca (0.4.4) unstable; urgency=low
 
   * [ 783853 ] renewal uses 'notBefore' as 'notAfter' date
   * [ 783830 ] GeneralizedTime-format breaks browsers
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Wed,  6 Aug 2003 18:42:58 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Wed,  6 Aug 2003 18:42:58 +0200
 
 xca (0.4.3) unstable; urgency=low
 
@@ -99,7 +105,7 @@ xca (0.4.3) unstable; urgency=low
   * some segmentation faults removed 
   * VPN OIDs added to Ext. Keyusage
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Tue,  5 Aug 2003 21:51:20 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Tue,  5 Aug 2003 21:51:20 +0200
 
 xca (0.4.2) unstable; urgency=low
 
@@ -114,7 +120,7 @@ xca (0.4.2) unstable; urgency=low
     reconnected.
   * Authority Key identifier repaired
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Sun, 20 Jul 2003 23:38:38 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Sun, 20 Jul 2003 23:38:38 +0200
 
 xca (0.4.1) unstable; urgency=low
 
@@ -145,7 +151,7 @@ xca (0.4.0) unstable; urgency=low
     key.xpm will be installed as xca.xpm in pixmaps
     ([ 763954 ] xca.desktop file) Thanks to Enrico Scholz
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Tue,  8 Jul 2003 23:31:37 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Tue,  8 Jul 2003 23:31:37 +0200
 
 xca (0.3.2) unstable; urgency=low
 
@@ -154,14 +160,14 @@ xca (0.3.2) unstable; urgency=low
   * Support for PKCS#7 certs (im/export)
   * small UI changes
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Thu, 15 May 2003 00:46:07 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Thu, 15 May 2003 00:46:07 +0200
 
 xca (0.3.1) unstable; urgency=low
 
   * Tool Tips added
   * CRL handling (import, export, details) added
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Thu, 24 Apr 2003 19:29:36 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Thu, 24 Apr 2003 19:29:36 +0200
 
 xca (0.3.0) unstable; urgency=low
 
@@ -177,7 +183,7 @@ xca (0.3.0) unstable; urgency=low
   * changes in configure
   * The wizard invokes the key generation process only if really needed
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Wed,  5 Mar 2003 23:56:56 +0100
+ -- Christian Hohnst√§dt <chris@trinity.local>  Wed,  5 Mar 2003 23:56:56 +0100
 
 xca (0.2.12) unstable; urgency=low
 
@@ -186,7 +192,7 @@ xca (0.2.12) unstable; urgency=low
   * Several export targets added
   * Certificate renewal repaired 
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Mon,  6 Jan 2003 21:40:28 +0100
+ -- Christian Hohnst√§dt <chris@trinity.local>  Mon,  6 Jan 2003 21:40:28 +0100
 
 xca (0.2.11) unstable; urgency=low
 
@@ -195,7 +201,7 @@ xca (0.2.11) unstable; urgency=low
   * configure continues even if qt lib is absent.
   * $HOME/xca is created if it does not exist.
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Wed,  4 Dec 2002 21:38:28 +0100
+ -- Christian Hohnst√§dt <chris@trinity.local>  Wed,  4 Dec 2002 21:38:28 +0100
 
 xca (0.2.10) unstable; urgency=low
 
@@ -207,7 +213,7 @@ xca (0.2.10) unstable; urgency=low
   * create request from certificate
   * FreeBSD paths and libs  recognized by configure
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Wed,  4 Dec 2002 21:34:41 +0100
+ -- Christian Hohnst√§dt <chris@trinity.local>  Wed,  4 Dec 2002 21:34:41 +0100
 
 xca (0.2.9) unstable; urgency=low
 
@@ -219,7 +225,7 @@ xca (0.2.9) unstable; urgency=low
   * database transactions activated
   * exception-handling completed
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Mon, 21 Oct 2002 21:05:59 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Mon, 21 Oct 2002 21:05:59 +0200
 
 xca (0.2.8) unstable; urgency=low
 
@@ -230,14 +236,14 @@ xca (0.2.8) unstable; urgency=low
   * package-builder do build without printf-debugging
   * key-use counter works now well
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Sun, 13 Oct 2002 23:28:29 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Sun, 13 Oct 2002 23:28:29 +0200
 
 xca (0.2.7) unstable; urgency=low
 
   * segfaults removed
   * minor wizard changes
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Mon,  7 Oct 2002 23:32:19 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Mon,  7 Oct 2002 23:32:19 +0200
 
 xca (0.2.6) unstable; urgency=low
 
@@ -247,7 +253,7 @@ xca (0.2.6) unstable; urgency=low
   * signing-template, CRL date and CRL time interval adjustable
   * Fix for windows filenames
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Mon, 30 Sep 2002 22:02:01 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Mon, 30 Sep 2002 22:02:01 +0200
 
 xca (0.2.5) unstable; urgency=low
 
@@ -260,7 +266,7 @@ xca (0.2.5) unstable; urgency=low
   *  Files for MS Visual C++ added (yes, it compiles on MS Windows)
   *  Windows Installer added (Nullsoft)
 
- -- Christian Hohnst‰dt <chris@trinity.local>  Tue, 24 Sep 2002 02:18:51 +0200
+ -- Christian Hohnst√§dt <chris@trinity.local>  Tue, 24 Sep 2002 02:18:51 +0200
 
 xca (0.2.4) unstable; urgency=low
 

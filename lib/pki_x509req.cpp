@@ -82,6 +82,7 @@ pki_x509req::~pki_x509req()
 
 void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md)
 {
+	EVP_PKEY *privkey = NULL;
 	if (key->isPubKey()) {
 		openssl_error("key not valid");
 		return;
@@ -91,8 +92,10 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md)
 	X509_REQ_set_pubkey(request, key->getKey());
 	setSubject(dn);
 	openssl_error();
-	X509_REQ_sign(request,key->getKey(), md);
+	privkey = key->decryptKey();
+	X509_REQ_sign(request, privkey, md);
 	openssl_error();
+	EVP_PKEY_free(privkey);
 }
 
 void pki_x509req::fload(const QString fname)

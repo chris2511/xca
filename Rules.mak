@@ -46,7 +46,7 @@ clean:
 	rm -f *~ *.o *.obj $(DELFILES)
 
 distclean: clean
-	rm -f .depend
+	rm -f -r .depend
 
 .depend: $(SRCS)
 	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $(SRCS) > $@

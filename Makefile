@@ -11,6 +11,7 @@ export TOPDIR=$(shell pwd)
 SUBDIRS=lib widgets view ui
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
 INSTDIR=img misc lang doc
+CLEANDIRS=lang doc 
 
 bindir=bin
 
@@ -32,10 +33,13 @@ clean:
 	for x in $(SUBDIRS); do \
 	  $(MAKE) -C $${x} clean; \
 	done
+	for x in $(CLEANDIRS); do \
+	  $(MAKE) -C $${x} clean; \
+	done
 	rm -f *~ xca 
 
 distclean: clean	
-	rm -f Local.mak
+	rm -f Local.mak conftest conftest.log
 
 dist: 
 	test ! -z "$(TVERSION)"
@@ -52,7 +56,7 @@ dist:
 	tar zcf $(TARGET).tar.gz $(TARGET) && \
 	(cd $(TARGET) && dpkg-buildpackage -rfakeroot )
 	#rm -rf ../$(TARGET)
-	
+
 install: xca
 	$(STRIP) xca
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
