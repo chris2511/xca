@@ -52,7 +52,8 @@
 #include "NewX509_0.h"
 
 NewX509_0::NewX509_0(QWidget *parent , const char *name, db_key *key, db_x509req *req)
-	:NewX509_0_UI(parent, name, true, 0)
+	:NewX509_0_UI(parent, name)
+//	:NewX509_0_UI(parent, name, true, 0)
 {
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
 	keys = key;

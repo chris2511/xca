@@ -1,6 +1,5 @@
 <!DOCTYPE UI><UI>
 <class>NewX509_0_UI</class>
-<pixmapfunction>loadImage</pixmapfunction>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
@@ -12,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>742</width>
+            <width>738</width>
             <height>458</height>
         </rect>
     </property>
@@ -103,10 +102,6 @@
                             <width>95</width>
                             <height>40</height>
                         </size>
-                    </property>
-                    <property stdset="1">
-                        <name>pixmap</name>
-                        <pixmap></pixmap>
                     </property>
                     <property stdset="1">
                         <name>scaledContents</name>
@@ -547,30 +542,24 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <receiver>NewX509_0_UI</receiver>
         <slot>validateFields()</slot>
     </connection>
-    <connection>
-        <sender>genKey</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_0_UI</receiver>
-        <slot>newKey()</slot>
-    </connection>
-    <slot access="public">newKey()</slot>
     <slot access="public">setDisabled(int)</slot>
     <slot access="public">validateFields()</slot>
 </connections>
 <tabstops>
-    <tabstop>fromDataRB</tabstop>
     <tabstop>description</tabstop>
     <tabstop>countryName</tabstop>
     <tabstop>stateOrProvinceName</tabstop>
     <tabstop>localityName</tabstop>
     <tabstop>keyList</tabstop>
+    <tabstop>genKey</tabstop>
     <tabstop>organisationName</tabstop>
     <tabstop>organisationalUnitName</tabstop>
     <tabstop>commonName</tabstop>
     <tabstop>emailAddress</tabstop>
-    <tabstop>fromReqRB</tabstop>
     <tabstop>reqList</tabstop>
     <tabstop>PushButton14</tabstop>
     <tabstop>PushButton15</tabstop>
+    <tabstop>fromDataRB</tabstop>
+    <tabstop>fromReqRB</tabstop>
 </tabstops>
 </UI>

@@ -31,6 +31,7 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      NewX509_2_UI.o NewX509_2_UI_MOC.o \
      NewX509_3_UI.o NewX509_3_UI_MOC.o \
      NewX509.o NewX509_MOC.o \
+     NewX509_0.o NewX509_0_MOC.o \
      CertDetail_UI.o CertDetail_UI_MOC.o \
      Rename_UI.o Rename_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
@@ -47,7 +48,7 @@ re: clean all
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
 	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h \
-	      NewX509_UI.h CertDetail_UI.h NewX509_1_UI.h \
+	      NewX509_0_UI.h CertDetail_UI.h NewX509_1_UI.h NewX509.h \
 	      NewX509_2_UI.h NewX509_3_UI.h Rename_UI.h TrustState_UI.h
 
 %.o: %.cpp
@@ -62,8 +63,9 @@ NewX509_%.mui:	NewX509_%.ui
 %.mui:	%.ui
 	cp $< $@
 
-#NewX509_%_UI.h: NewX509.h NewX509_%.mui
-#	$(UIC) -o $@ $<
+NewX509_%_UI.h: NewX509_%.mui NewX509.h
+	echo '#include "NewX509.h"' > $@
+	$(UIC) $< >> $@
 #	 
 #NewX509_%_UI.cpp: NewX509_%_UI.h NewX509_%.mui
 #	$(UIC) -o $@ -subimpl NewX509 $^

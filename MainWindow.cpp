@@ -52,6 +52,7 @@
 #include "MainWindow.h"
 
 
+QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL, *MainWindow::certImg = NULL;
 
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
@@ -77,13 +78,13 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 	settings = new db_base(dbenv, dbfile.latin1(), "settings");
+	keyImg = loadImg("bigkey.png");
+	csrImg = loadImg("bigcsr.png");
+	certImg = loadImg("bigcert.png");
 	initPass();
 	keys = new db_key(dbenv, dbfile.latin1(), keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
 	certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
-	keyImg = loadImg("bigkey.png");
-	csrImg = loadImg("bigcsr.png");
-	certImg = loadImg("bigcert.png");
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
@@ -164,6 +165,7 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	PASS_INFO *p = (PASS_INFO *)userdata;
 	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
 	if (p != NULL) {
+		dlg->image->setPixmap( *keyImg );
 		dlg->title->setText(tr(p->title->c_str()));
 		dlg->description->setText(tr(p->description->c_str()));
 	}

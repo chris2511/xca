@@ -61,11 +61,12 @@ void MainWindow::newCert()
 	int serial = 42; // :-)
 	int i, retval;
 	NewX509_0 *dlg1 = new NewX509_0(this, NULL, keys, reqs);
-	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL, true ,0);
-	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL, true ,0);
-	NewX509_3_UI *dlg4 = new NewX509_3_UI(this, NULL, true ,0);
+	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL);
+	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL);
+	NewX509_3_UI *dlg4 = new NewX509_3_UI(this, NULL);
 	NewX509 *dlg[4] = {dlg1, dlg2, dlg3, dlg4};
 	
+	CERR <<" Everything created" << endl;
 	// preset dlg 2 selection of signer
 	QStringList strlist = certs->getSignerDesc();
 	if (strlist.isEmpty()) {
@@ -75,12 +76,19 @@ void MainWindow::newCert()
 	else {
 		dlg2->certList->insertStringList(strlist);
 	}
+	CERR <<" Everything created A" << endl;
 	// preset dialogs with images
-	for (i=4;i>0;i--) { 
-		dlg[i]->image->setPixmap(*certImg);
+	for (i=0;i<4;i++) { 
+		CERR <<" Everything created :" << i << endl;
+		//dlg[i]->image->setPixmap(*certImg);
 	}
+	CERR <<" Everything created V" << endl;
+	i=0;
 	
+	if (!dlg1->exec()) return;
 	if (!dlg2->exec()) return;
+	if (!dlg3->exec()) return;
+	if (!dlg4->exec()) return;
 	
 
 	
@@ -176,7 +184,7 @@ void MainWindow::newCert()
 	 
 	// STEP 4
 	// Subject Alternative name
-	string subAlt = dlg4->subAlt->text().latin1();	
+	string subAlt = dlg4->subAltURL->text().latin1();	
 	//if (subAlt != "") {
 		
 	// key usage
@@ -184,7 +192,7 @@ void MainWindow::newCert()
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"};
 	QListBoxItem *item;
-	int i=0;
+	i=0;
 	string keyuse, keyuse1;
 	while ((item = dlg3->keyUsage->item(i))) {	
 		if (item->selected()){

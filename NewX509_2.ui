@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>563</width>
+            <width>559</width>
             <height>507</height>
         </rect>
     </property>
@@ -644,17 +644,25 @@
 </widget>
 <connections>
     <connection>
-        <sender>PushButton14</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_2_UI</receiver>
-        <slot>accept()</slot>
-    </connection>
-    <connection>
         <sender>PushButton15</sender>
         <signal>clicked()</signal>
         <receiver>NewX509_2_UI</receiver>
         <slot>reject()</slot>
     </connection>
+    <connection>
+        <sender>PushButton14</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509_2_UI</receiver>
+        <slot>goBack()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton8</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509_2_UI</receiver>
+        <slot>goNext()</slot>
+    </connection>
+    <slot access="public">goNext()</slot>
+    <slot access="public">goBack()</slot>
 </connections>
 <tabstops>
     <tabstop>PushButton14</tabstop>

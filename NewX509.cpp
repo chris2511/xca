@@ -49,10 +49,10 @@
  */                           
 
 
-#include <NewX509.h>
+#include "NewX509.h"
 
-NewX509::NewX509( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 )
-		:QDialog(parent, name, modal, fl)
+NewX509::NewX509( QWidget* parent = 0, const char* name = 0 )
+		:QDialog(parent, name, true, 0)
 	{
 		image = NULL;
 	}

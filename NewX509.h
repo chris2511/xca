@@ -60,7 +60,7 @@ class NewX509: public QDialog
 	Q_OBJECT
    public:	
 	QLabel * image;
-	NewX509( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	NewX509( QWidget* parent = 0, const char* name = 0 );
 	
    public slots:
 	virtual void goBack();

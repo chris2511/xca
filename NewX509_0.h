@@ -49,7 +49,7 @@
  */                           
 
 
-#include "NewX509_UI.h"
+#include "NewX509_0_UI.h"
 #include <qcombobox.h>
 #include <qradiobutton.h>
 #include "lib/db_key.h"
@@ -70,7 +70,7 @@ class NewX509_0: public NewX509_0_UI
 	db_key *keys;
 	MainWindow *par;
    public:	
-	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req);
+	NewX509_0(QWidget *parent, const char *name, db_key *key, db_x509req *req);
 	
    public slots:
 	void setDisabled(int state);

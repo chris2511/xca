@@ -58,6 +58,7 @@
 #include "NewKey_UI.h"
 #include "NewX509Req_UI.h"
 #include "NewX509.h"
+#include "NewX509_0.h"
 #include "NewX509_1_UI.h"
 #include "NewX509_2_UI.h"
 #include "NewX509_3_UI.h"
@@ -111,7 +112,7 @@ class MainWindow: public MainWindow_UI
 	db_key *keys;
 	DbEnv *dbenv;
 	db_base *settings;
-	QPixmap *keyImg, *csrImg, *certImg;
+	static QPixmap *keyImg, *csrImg, *certImg;
    public:
 	QString baseDir, dbfile;
 	static const int sizeList[];
