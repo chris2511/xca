@@ -370,7 +370,7 @@ string pki_key::BN2string(BIGNUM *bn)
 	unsigned char *buf = (unsigned char *)OPENSSL_malloc(size);
 	BN_bn2bin(bn, buf);
 	for (j = 0; j< size; j++) {
-		sprintf(zs, "%02X%c",buf[j], ((j+1)%8 == 0) ?' ':':');
+		sprintf(zs, "%02X%c",buf[j], ((j+1)%16 == 0) ?'\n':':');
 		x += zs;
 	}
 	OPENSSL_free(buf);
