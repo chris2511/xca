@@ -57,6 +57,7 @@
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qpushbutton.h>
+#include <qfontmetrics.h>
 #include <qlabel.h>
 #include "lib/asn1time.h"
 
@@ -68,6 +69,17 @@ Validity::Validity( QWidget* parent,  const char* name )
     months << tr("Jan") << tr("Feb") << tr("Mar") << tr("Apr") 
 	   << tr("May") << tr("Jun") << tr("Jul") << tr("Aug")
 	   << tr("Sep") << tr("Oct") << tr("Nov") << tr("Dec");
+    
+    printf("FONT: 0:%d\n", this->fontMetrics().width('0') );
+    printf("FONT: 1:%d\n", this->fontMetrics().width('1') );
+    printf("FONT: 2:%d\n", this->fontMetrics().width('2') );
+    printf("FONT: 3:%d\n", this->fontMetrics().width('3') );
+    printf("FONT: 4:%d\n", this->fontMetrics().width('4') );
+    printf("FONT: 5:%d\n", this->fontMetrics().width('5') );
+    printf("FONT: 6:%d\n", this->fontMetrics().width('6') );
+    printf("FONT: 7:%d\n", this->fontMetrics().width('7') );
+    printf("FONT: 8:%d\n", this->fontMetrics().width('8') );
+    printf("FONT: 9:%d\n", this->fontMetrics().width('9') );
     
     if ( !name )
 	setName( "Validity" );
