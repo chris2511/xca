@@ -56,18 +56,23 @@
 #ifndef PKI_TEMP_H
 #define PKI_TEMP_H
 
+#define tEMPTY 0
+#define tCA 1
+#define tCLIENT 2
+#define tSERVER 3
+
 
 class pki_temp: public pki_base
 {
     protected:
-	int version, type;
+	int version;
 	
     public:
 	string C,P,L,O,OU,CN,EMAIL;
 	string subAltName, issAltName, crlDist;
 	string nsComment, nsBaseUrl, nsRevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 	bool ca, bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
-	int nsCertType, pathLen, valid, keyUse, eKeyUse;
+	int type, nsCertType, pathLen, validN, validM, keyUse, eKeyUse;
      
     // methods
     

@@ -89,7 +89,7 @@ class pki_x509 : public pki_base
 	   pki_key *getKey();
 	   pki_key *getPubKey(); // will be created temporarily and must be freed
 	   void delKey();
-	   void setKey(pki_key *key);
+	   bool setKey(pki_key *key);
 	   string notAfter();
 	   string notBefore();
 	   string revokedAt();

@@ -146,11 +146,15 @@ class MainWindow: public MainWindow_UI
 	void loadCert();
 	void loadPKCS12();
 	void newKey();
-	void newReq(pki_temp *templ=NULL);
-	void newCert(pki_temp *templ=NULL);
+	void newReq(pki_temp *templ);
+	void newCert(pki_temp *templ);
 	void newReq(){newReq(NULL);}
 	void newCert(){newCert(NULL);}
-	void newTemp();
+	void newTemp(int type = tEMPTY);
+	void newEmpTemp(){ newTemp(tEMPTY); }
+	void newCATemp(){ newTemp(tCA); }
+	void newCliTemp(){ newTemp(tCLIENT); }
+	void newSerTemp(){ newTemp(tSERVER); }
 	void certFromTemp();
 	void reqFromTemp();
 	void showDetailsKey(QListViewItem *item);

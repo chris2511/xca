@@ -215,8 +215,7 @@ int pki_x509req::verify()
 	 bool x = (X509_REQ_verify(request,pkey) != 0);
 	 EVP_PKEY_free(pkey);
 	 openssl_error();
-	 if (x) return pki_base::VERIFY_OK;
-	 else   return pki_base::VERIFY_ERROR;
+	 return x;
 }
 
 pki_key *pki_x509req::getPubKey()

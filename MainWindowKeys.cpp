@@ -290,6 +290,6 @@ void MainWindow::startRenameKey()
 	QListViewItem *item = (QListViewItem *)pki->getPointer();
 	item->startRename(0);
 #else
-	renamePKI(certs);
+	renamePKI(keys);
 #endif
 }

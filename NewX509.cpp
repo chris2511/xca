@@ -66,6 +66,16 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		bigImg2->setPixmap(*image);
 		bigImg3->setPixmap(*image);
 	}
+	// pretty fat Title :-)
+	QFont tFont; // = getFont();
+	tFont.setPointSize(14);
+	tFont.setBold(true);
+	tFont.setUnderline(true);
+#ifdef qt3
+	setTitleFont( tFont );
+#else
+	//setFont( tFont );
+#endif	
 	QStringList strings;
 	// are there any useable private keys  ?
 	if (keys) {
@@ -145,6 +155,48 @@ void NewX509::setRequest()
 	setAppropriate(page4, false);
 	setAppropriate(page5, false);
 	finishButton()->setEnabled(true);
+	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa)");
+	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa)");
+	tText=tr("Certificate request");
+	setup();
+}
+
+void NewX509::setTemp(pki_temp *temp)
+{
+	setAppropriate(page1, false);
+	setAppropriate(page3, false);
+	finishButton()->setEnabled(true);
+	startText=tr("Welcome to the settings for Templates.... (needs more prosa)");
+	endText=tr("You are done with entering all parameters for generating a Template..... (needs more prosa)");
+	tText=tr("Template");
+	if (temp->getDescription() != "--") {
+		description->setText(temp->getDescription().c_str());
+		tText += tr(" change");
+	}
+	setup();
+	
+}
+	
+void NewX509::setCert()
+{
+	finishButton()->setEnabled(true);
+	startText=tr("Welcome to the settings for Certificates.... (needs more prosa)");
+	endText=tr("You are done with entering all parameters for generating a Certificate..... (needs more prosa)");
+	tText=tr("Certificate");
+	setup();
+}
+
+void NewX509::setup()
+{
+	startLabel->setText(startText);
+	endLabel->setText(endText);
+	setTitle(page0, tText + " Wizard");
+	setTitle(page1, tText + " Template selection");
+	setTitle(page2, tText + " Personal settings");
+	setTitle(page3, tText + " signing selection");
+	setTitle(page4, tText + " X.509 v3 Extensions");
+	setTitle(page5, tText + " keyusage setup");
+	setTitle(page6, tText + " finished");
 }
 	
 void NewX509::defineTemplate(pki_temp *temp)
@@ -152,6 +204,29 @@ void NewX509::defineTemplate(pki_temp *temp)
 	setAppropriate(page1,false);
 	fromTemplate(temp);
 }
+
+
+int NewX509::lb2int(QListBox *lb)
+{
+	int x=0;
+	for (int i=0; lb->item(i); i++) {
+		if (lb->isSelected(i)){
+			x += 1<<i;
+		}
+	}
+	return x;
+}	
+
+
+void NewX509::int2lb(QListBox *lb, int x)
+{
+	for (int i=0; lb->item(i); i++) {
+		if ((1<<i)& x){
+			lb->setSelected(i,true);
+		}
+	}
+}	
+
 
 void NewX509::fromTemplate(pki_temp *temp)
 {
@@ -165,11 +240,27 @@ void NewX509::fromTemplate(pki_temp *temp)
 	subAltName->setText(temp->subAltName.c_str());
 	issAltName->setText(temp->issAltName.c_str());
 	crlDist->setText(temp->crlDist.c_str());
+	basicCA->setCurrentItem(temp->ca?1:0);
+	bcCritical->setChecked(temp->bcCrit);
+	kuCritical->setChecked(temp->keyUseCrit);
+	ekuCritical->setChecked(temp->eKeyUseCrit);
+	subKey->setChecked(temp->subKey);
+	authKey->setChecked(temp->authKey);
+	subAltCp->setChecked(temp->subAltCp);
+	issAltCp->setChecked(temp->issAltCp);
+	int2lb(keyUsage, temp->keyUse);
+	int2lb(ekeyUsage, temp->eKeyUse);
+	validNumber->setText(QString::number(temp->validN));
+	validRange->setCurrentItem(temp->validM);
+	if (temp->pathLen) {
+		basicPath->setText(QString::number(temp->pathLen));
+	}
 	
 }
 
 void NewX509::toTemplate(pki_temp *temp)
 {
+	temp->setDescription(description->text().latin1());
 	temp->C = countryName->text().latin1();
 	temp->P = stateOrProvinceName->text().latin1();
 	temp->L = localityName->text().latin1();
@@ -180,7 +271,21 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->subAltName = subAltName->text().latin1();
 	temp->issAltName = issAltName->text().latin1();
 	temp->crlDist = crlDist->text().latin1();
+	temp->ca = basicCA->currentItem();
+	temp->bcCrit = bcCritical->isChecked();
+	temp->keyUseCrit = kuCritical->isChecked();
+	temp->eKeyUseCrit = ekuCritical->isChecked();
+	temp->subKey = subKey->isChecked();
+	temp->authKey = authKey->isChecked();
+	temp->subAltCp = subAltCp->isChecked();
+	temp->issAltCp = issAltCp->isChecked();
+	temp->keyUse = lb2int(keyUsage);
+	temp->eKeyUse = lb2int(ekeyUsage);
+	temp->validN = validNumber->text().toInt();
+	temp->validM = validRange->currentItem();
+	temp->pathLen = basicPath->text().toInt();
 }
+
 
 void NewX509::dataChangeP2()
 {
@@ -195,7 +300,11 @@ void NewX509::dataChangeP2()
 void NewX509::showPage(QWidget *page)
 {
 	
-	if ( page == page2 ) {
+	if (page == page0) {
+		templateChanged();
+		switchExtended();
+	}
+	else if ( page == page2 ) {
 		dataChangeP2();
 		
 	}
@@ -218,7 +327,10 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::templateChanged()
 {
-	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(tempList->currentText().latin1());
+	string name = tempList->currentText().latin1();
+	if (name == "" || !temps) return;
+	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(name);
+	if (!temp) return;
 	fromTemplate(temp);
 }
 

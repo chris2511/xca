@@ -52,26 +52,36 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newCert(pki_temp *templ =NULL)
+void MainWindow::newCert(pki_temp *templ)
 {
 	pki_x509 *cert = NULL;
 	pki_x509 *signcert = NULL;
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
-	int i;
+	bool tempReq;
+	int i, x, days;
+	string cont="", subAltName="", issAltName="", constraints="", keyuse="", keyuse1="", pathstr="";
+	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
+		"timeStamping","msCodeInd","msCodeCom",
+		"msCTLSign","msSGC","msEFS","nsSGC"};
+	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
+		"dataEncipherment", "keyAgreement", "keyCertSign",
+		"cRLSign", "encipherOnly", "decipherOnly"};
+	QListBoxItem *item;
 	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg );
 	if (templ) {
 		dlg->defineTemplate(templ);
 	}
-	if (!dlg->exec()) return;
+	dlg->setCert();
+	if (!dlg->exec()) goto err;
 	
 
 	
 	// Step 1 - Subject and key
 	if (dlg->fromDataRB->isChecked()) {
 	    clientkey = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
-	    if (opensslError(clientkey)) return;
+	    if (opensslError(clientkey)) goto err;
 	    string cn = dlg->commonName->text().latin1();
 	    string c = dlg->countryName->text().latin1();
 	    string l = dlg->localityName->text().latin1();
@@ -81,21 +91,22 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	    string email = dlg->emailAddress->text().latin1();
 	    string desc = dlg->description->text().latin1();
 	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
-	    if (opensslError(req)) return;
+	    tempReq = true;
+	    if (opensslError(req)) goto err;
 	}
 	else {
 	    // A PKCS#10 Request was selected 
 	    req = (pki_x509req *)reqs->getSelectedPKI(dlg->reqList->currentText().latin1());
-	    if (opensslError(req)) return;
+	    if (opensslError(req)) goto err;
 	    //clientkey = req->getKey();
 	}
 		
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg->certList->currentText().latin1());
-		if (opensslError(signcert)) return;
+		if (opensslError(signcert)) goto err;
 		signkey = signcert->getKey();
-		if (opensslError(signkey)) return;
+		if (opensslError(signkey)) goto err;
 		// search for serial in database
 		
 	}
@@ -109,21 +120,20 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	
 	// Step 3 - Choose the Date and all the V3 extensions
 	// Date handling
-	int x = dlg->validNumber->text().toInt();
-	int days = dlg->validRange->currentItem();
+	x = dlg->validNumber->text().toInt();
+	days = dlg->validRange->currentItem();
 	if (days == 1) x *= 30;
 	if (days == 2) x *= 365;
 	
 	cert = new pki_x509(req->getDescription(), clientkey, req, signcert, x, serial);
-	if (opensslError(cert)) return;
+	if (opensslError(cert)) goto err;
 	
 	// handle extensions
 	// basic constraints
-	string constraints;
 	if (dlg->bcCritical->isChecked()) constraints = "critical,";
 	constraints +="CA:";
 	constraints += dlg->basicCA->currentText().latin1();
-	string pathstr = dlg->basicPath->text().latin1();
+	pathstr = dlg->basicPath->text().latin1();
 	if (pathstr.length()>0) {
 		constraints += ", pathlen:";
 		constraints += pathstr;
@@ -143,11 +153,6 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	}
 	 
 	// key usage
-	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
-		"dataEncipherment", "keyAgreement", "keyCertSign",
-		"cRLSign", "encipherOnly", "decipherOnly"};
-	QListBoxItem *item;
-	string keyuse, keyuse1;
 	for (i=0; (item = dlg->keyUsage->item(i)); i++) {	
 		if (item->selected()){
 			addStr(keyuse, keyusage[i]);
@@ -162,9 +167,6 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	}
 	
 	// extended key usage
-	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
-		"timeStamping","msCodeInd","msCodeCom",
-		"msCTLSign","msSGC","msEFS","nsSGC"};
 	keyuse=""; keyuse1="";
 	for (i=0; (item = dlg->ekeyUsage->item(i)); i++) {	
 		if (item->selected()){
@@ -182,7 +184,6 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	
 	// STEP 4
 	// Subject Alternative name
-	string cont="", subAltName="", issAltName="";
 	if (dlg->subAltCp->isChecked()) {
 		subAltName = "email:copy";
 	}
@@ -201,13 +202,12 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	if ((cont = dlg->issAltName->text().latin1()) != ""){
 		addStr(issAltName,cont.c_str());
 	}
-	CERR << "HIER" << endl;
 	if (issAltName.length() > 0) {
 		CERR << "IssAltName:" << issAltName<< endl;
 		cert->addV3ext(NID_issuer_alt_name, issAltName);
 	}
 		
-	if (opensslError(cert)) return;
+	if (opensslError(cert)) goto err;
 	
 	// increase serial here	
 	if (dlg->foreignSignRB->isChecked()) {
@@ -218,9 +218,19 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	
 	// and finally sign the request 
 	cert->sign(signkey);
-	if (opensslError(cert)) return;
+	if (opensslError(cert)) goto err;
 	CERR << "SIGNED" <<endl;
 	insertCert(cert);
+	if (tempReq) delete(req);
+	delete (dlg);
+	return;
+err:	
+	if (cert) delete(cert);
+	if (tempReq) delete(req);
+	delete (dlg);
+	return;
+
+	
 }
 void MainWindow::addStr(string &str, const  char *add)
 {
@@ -455,6 +465,8 @@ void MainWindow::insertCert(pki_x509 *cert)
 void MainWindow::writeCert()
 {
 	QStringList filt;
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
 	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
 	filt.append(tr("All Files ( *.* )"));
 	string s;
@@ -465,17 +477,18 @@ void MainWindow::writeCert()
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
 	if (s == "") return;
-	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
-	if (cert) {
-	   cert->writeCert(s,true);
-	   opensslError(cert);
-	}
+	cert->writeCert(s,true);
+	opensslError(cert);
 }
 
 
 void MainWindow::writePKCS12()
 {
 	QStringList filt;
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	pki_key *privkey = (pki_key *)keys->findPKI(cert->getKey());
+	if (privkey->isPubKey()) return; /* should not happen */
 	filt.append(tr("PKCS#12 bags ( *.p12 *.pfx )")); 
 	filt.append(tr("All Files ( *.* )"));
 	string s;
@@ -486,24 +499,18 @@ void MainWindow::writePKCS12()
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
 	if (s == "") return;
-	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
-	if (cert) {
-	   pki_key *privkey = (pki_key *)keys->findPKI(cert->getKey());
-	   if (privkey->isPubKey()) return; /* should not happen */
-	   pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
-	   pki_x509 *signer = cert->getSigner();
-	   int cnt =0;
-	   while ((signer != NULL ) && (signer != cert)) {
-		   p12->addCaCert(signer);
-		   CERR << "signer: " << ++cnt << endl;
-		   cert=signer;
-		   signer=signer->getSigner();
-	   }
-	   CERR << "start writing" <<endl;
-	   p12->writePKCS12(s);
-
-	   opensslError(cert);
+	pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
+	pki_x509 *signer = cert->getSigner();
+	int cnt =0;
+	while ((signer != NULL ) && (signer != cert)) {
+		p12->addCaCert(signer);
+		CERR << "signer: " << ++cnt << endl;
+		cert=signer;
+		signer=signer->getSigner();
 	}
+	CERR << "start writing" <<endl;
+	p12->writePKCS12(s);
+	opensslError(cert);
 }
 
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {

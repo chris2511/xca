@@ -155,6 +155,7 @@ void db_x509::updateViewPKI(pki_base *pki)
 	else {
 		current->setText(2, "");
 	}
+	keylist->updateView();
 }
 
 
@@ -219,7 +220,7 @@ pki_key *db_x509::findKey(pki_x509* cert)
 	if (key && key->isPubKey()) {
 		key = NULL;
 	}
-	cert->setKey(key);
+	if (cert->setKey(key)) keylist->updateViewPKI(key);
 	delete(refkey);
 	return key;
 }
@@ -247,7 +248,7 @@ void db_x509::newKey(pki_key *newkey)
 		if (!pki->getKey()) { 
 			refkey = pki->getPubKey();
 			if (newkey->compare(refkey)) {
-				pki->setKey(newkey);
+				if (pki->setKey(newkey)) keylist->updateViewPKI(newkey);
 				updateViewPKI(pki);
 			}
 			delete(refkey);
@@ -336,6 +337,7 @@ bool db_x509::insertPKI(pki_base *pki)
 		}
 		calcEffTrust();
 		updateView();
+		keylist->updateView();
 	}
 	return s;
 }				

@@ -52,9 +52,9 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newTemp()
+void MainWindow::newTemp(int type=tEMPTY)
 {
-	pki_temp *temp = new pki_temp(tr("New Template").latin1());
+	pki_temp *temp = new pki_temp("--", type);
 	if (alterTemp(temp)) {
 		temps->insertPKI(temp);
 	}
@@ -63,11 +63,9 @@ void MainWindow::newTemp()
 bool MainWindow::alterTemp(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL, tempImg );
-	CERR << ":-) a" << endl;
+	dlg->setTemp(temp);
 	dlg->fromTemplate(temp);
-	CERR << ":-) b" << endl;
 	if (!dlg->exec()) return false;
-	CERR << ":-) c" << endl;
 	dlg->toTemplate(temp);
 	return true;
 }
@@ -75,7 +73,15 @@ bool MainWindow::alterTemp(pki_temp *temp)
 void MainWindow::alterTemp()
 {
 	pki_temp *temp = (pki_temp *)temps->getSelectedPKI();
+	if (!temp) return;
+	string oldname = temp->getDescription();
 	alterTemp(temp);
+	string newname = temp->getDescription();
+	if (newname!= oldname) {
+		temp->setDescription(oldname);
+		temps->renamePKI(temp, newname);
+	}
+	temps->updatePKI(temp);
 }
 
 

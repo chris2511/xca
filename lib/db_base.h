@@ -51,7 +51,7 @@
 
 #include "../config.h"
 #ifdef HAVE_DB4_DB_CXX_H
-#include <db3/db_cxx.h>
+#include <db4/db_cxx.h>
 #elif HAVE_DB3_DB_CXX_H
 #include <db3/db_cxx.h>
 #elif HAVE_DB_DB_CXX_H
@@ -65,6 +65,7 @@
 #include <qlistview.h>
 #include <qlist.h>
 #include <qpixmap.h>
+#include <qstringlist.h>
 #include "pki_base.h"
 
 #ifndef DB_BASE_H

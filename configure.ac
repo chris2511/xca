@@ -7,7 +7,7 @@ AC_PROG_CXX
 
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
-	export PATH=$PATH:$QTDIR/bin
+	export PATH=$QTDIR/bin:$PATH
 	export CPPFLAGS="$CPPFLAGS -I$QTDIR/include"
 	export LDFLAGS="$LDFLAGS -L$QTDIR/lib"
 	AC_MSG_NOTICE([Using QT in $QTDIR....])

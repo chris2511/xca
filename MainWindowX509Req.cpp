@@ -52,7 +52,7 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newReq(pki_temp *temp=NULL)
+void MainWindow::newReq(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(this, 0, keys, NULL, NULL, temps, csrImg);
 	if (temp) {
@@ -93,7 +93,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	if (opensslError(req)) return;
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	dlg->descr->setText(req->getDescription().c_str());
-	if ( req->verify() != pki_base::VERIFY_OK ) {
+	if ( req->verify() ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}

@@ -93,7 +93,7 @@ bool pki_base::pki_error(const string myerr)
 {
 	string errtxt = "";
 	if (myerr != "") {
-		CERR << "PKI: " << myerr << endl;
+		CERR << "PKI ERROR: " << myerr << endl;
 		error += myerr + "\n";
 	}
 	return openssl_error();

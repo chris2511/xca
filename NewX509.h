@@ -56,12 +56,14 @@
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"
 #include "lib/db_temp.h"
+#include <qapplication.h>
 #include <qframe.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qgroupbox.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
+#include <qlistbox.h>
 
 #ifndef NEWX509_H
 #define NEWX509_H
@@ -75,13 +77,19 @@ class NewX509: public NewX509_UI
 	db_x509 *certs;
 	db_key *keys;
 	db_temp *temps;
+	QString startText, endText, tText;
    public:	
 	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image);
-	void setRequest(); // reduce to requestform 	
+	void setRequest(); // reduce to request form 	
+	void setTemp(pki_temp *temp); // reduce to template form 	
+	void setCert(); // reduce to certificate form 	
+	void setup();
 	void showPage(QWidget *page);
 	void toTemplate(pki_temp *temp);
 	void fromTemplate(pki_temp *temp);
 	void defineTemplate(pki_temp *temp);
+	int lb2int(QListBox *lb);
+	void int2lb(QListBox *lb, int x);
 
    public slots:
 	void setDisabled(int state);

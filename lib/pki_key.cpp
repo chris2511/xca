@@ -63,6 +63,7 @@ pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bit
 	   openssl_error();	
 	   if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
 	}
+	ucount=0;
 }
 
 pki_key::pki_key(const pki_key *pk) 
@@ -75,6 +76,7 @@ pki_key::pki_key(const pki_key *pk)
 	}
 	// TODO add DSA support.....	
 	openssl_error();
+	ucount=0;
 }
 
 pki_key::pki_key(const string d, int type = EVP_PKEY_RSA)
@@ -82,12 +84,14 @@ pki_key::pki_key(const string d, int type = EVP_PKEY_RSA)
 { 
 	key = EVP_PKEY_new();
 	key->type = type;
+	ucount=0;
 }	
 
 pki_key::pki_key(EVP_PKEY *pkey)
 	:pki_base("")
 { 
 	key = pkey;
+	ucount=0;
 }	
 
 pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
@@ -145,6 +149,7 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	else pki_error("Error opening file");
 	CERR << "endofloading\n";
 	fclose(fp);
+	ucount=0;
 }
 
 
@@ -398,11 +403,20 @@ int pki_key::verify()
 	if (isPrivKey()) veri = true;
 	openssl_error();
 	CERR<< "verify end: "<< veri << endl;;
-	if (veri) return pki_base::VERIFY_OK;
-	else  return pki_base::VERIFY_ERROR;
+	return veri;
 }
 		
 int pki_key::getType()
 {
 	return key->type;
+}
+
+int pki_key::incUcount()
+{
+	return ++ucount;
+}
+
+int pki_key::getUcount()
+{
+	return ucount;
 }

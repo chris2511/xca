@@ -22,7 +22,7 @@
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Certificate creation</string>
+        <string>X Certificate and Key management</string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -145,14 +145,7 @@
                 <class>QLabel</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>TextLabel1</cstring>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>Welcome to the certificate wizard helping you creating certificates from scratch or from certificate signing request.
-
-This can be done using one of the templates below. 
-(More to come, for Reqs and templates too :-)</string>
+                    <cstring>startLabel</cstring>
                 </property>
                 <property stdset="1">
                     <name>alignment</name>
@@ -1633,11 +1626,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                 <class>QLabel</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>TextLabel2</cstring>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>So, jetzt ist alles Fertig .... :-)</string>
+                    <cstring>endLabel</cstring>
                 </property>
             </widget>
             <spacer>
@@ -1694,6 +1683,12 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <signal>stateChanged(int)</signal>
         <receiver>NewX509_UI</receiver>
         <slot>switchExtended()</slot>
+    </connection>
+    <connection>
+        <sender>fromReqRB</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP2()</slot>
     </connection>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">newKey()</slot>

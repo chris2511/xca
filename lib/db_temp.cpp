@@ -75,5 +75,7 @@ void db_temp::updateViewPKI(pki_base *pki)
         QListViewItem *current = (QListViewItem *)pki->getPointer();
         if (!current) return;
 	current->setPixmap(0, *keyicon);
-	current->setText(1, "CA :-)");
+	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
+	current->setText(1, typec[((pki_temp *)pki)->type]);
+	
 }

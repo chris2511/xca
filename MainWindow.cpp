@@ -90,6 +90,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
+	bigTemp->setPixmap(*tempImg);
 #ifdef qt3	
 	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameKey(QListViewItem *, int, const QString &)));
 	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameReq(QListViewItem *, int, const QString &)));

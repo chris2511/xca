@@ -184,6 +184,11 @@ void pki_x509::addV3ext(int nid, string exttext)
 	if (exttext == "") return;
 	strncpy(c, exttext.c_str(), 200);
 	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
+	if (!ext) {
+		string x="v3 Extension: " + exttext;
+		pki_error(x);
+		return;
+	}
 	X509_add_ext(cert, ext, -1);
 	X509_EXTENSION_free(ext);
 }
@@ -264,7 +269,7 @@ unsigned char *pki_x509::toData(int *size)
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
 	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
-	*size = sCert + sRev + (4 * sizeof(int)); // calculate the needed size 
+	*size = caTemplate.length() + 1 + sCert + sRev + (5 * sizeof(int)); // calculate the needed size 
 	openssl_error();
 	CERR <<"CertSize: "<<sCert << "RevSize: " <<sRev << endl;
 	p = (unsigned char*)OPENSSL_malloc(*size);
@@ -423,9 +428,21 @@ int pki_x509::checkDate()
 
 pki_x509 *pki_x509::getSigner() { return (psigner); }
 pki_key *pki_x509::getKey() { return (pkey); }
-void pki_x509::setKey(pki_key *key) { pkey = key; }
-void pki_x509::delKey() { pkey = NULL; }
 
+
+bool pki_x509::setKey(pki_key *key) 
+{
+	bool ret=false;
+	if (!pkey && key) {
+		CERR << "KEYCOUNTUP" << endl;
+		key->incUcount();
+		ret=true;
+	}
+	pkey = key;
+	return ret;
+}
+
+void pki_x509::delKey() { pkey = NULL; }
 
 void pki_x509::delSigner() { psigner=NULL; }
 

@@ -83,6 +83,8 @@ pki_temp::pki_temp(const pki_temp *pk)
 	subAltCp=pk->subAltCp;
 	issAltCp=pk->issAltCp;
 	pathLen=pk->pathLen;
+	validN=pk->validN;
+	validM=pk->validM;
 	keyUse=pk->keyUse;
 	eKeyUse=pk->eKeyUse;
 }
@@ -103,7 +105,7 @@ pki_temp::pki_temp(const string d, int atype=0)
 	issAltName="";
 	crlDist="";
 	nsCertType=0;
-	nsComment="";
+	nsComment="xca certificate";
 	nsBaseUrl="";
 	nsRevocationUrl="";
 	nsRenewalUrl="";
@@ -118,8 +120,31 @@ pki_temp::pki_temp(const string d, int atype=0)
 	subAltCp=false;
 	issAltCp=false;
 	pathLen=0;
+	validN=356;
+	validM=0;
 	keyUse=0;
 	eKeyUse=0;
+	if (type==tCA) {
+		ca=true;
+		bcCrit=true;
+		authKey=true;
+		issAltCp=true;
+	}
+	if (type==tCLIENT) {
+		ca=false;
+		bcCrit=true;
+		authKey=true;
+		issAltCp=true;
+		subAltCp=true;
+	}
+	if (type==tSERVER) {
+		ca=false;
+		bcCrit=true;
+		authKey=true;
+		issAltCp=true;
+		subAltCp=true;
+	}
+
 }	
 
 
@@ -138,6 +163,8 @@ bool pki_temp::fromData(unsigned char *p, int size )
 	subAltCp=boolFromData(&p1);
 	issAltCp=boolFromData(&p1);
 	pathLen=intFromData(&p1);
+	validN=intFromData(&p1);
+	validM=intFromData(&p1);
 	keyUse=intFromData(&p1);
 	eKeyUse=intFromData(&p1);
 	nsCertType=intFromData(&p1);
@@ -185,6 +212,8 @@ unsigned char *pki_temp::toData(int *size)
 	boolToData(&p1, subAltCp);
 	boolToData(&p1, issAltCp);
 	intToData(&p1, pathLen);
+	intToData(&p1, validN);
+	intToData(&p1, validM);
 	intToData(&p1, keyUse);
 	intToData(&p1, eKeyUse);
 	intToData(&p1, nsCertType);
@@ -219,7 +248,7 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	return 6 * sizeof(int) + 8 * sizeof(bool) + (
+	return 8 * sizeof(int) + 8 * sizeof(bool) + (
 	C.length() +
 	P.length() +
 	L.length() +

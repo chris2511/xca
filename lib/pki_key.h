@@ -74,6 +74,7 @@ class pki_key: public pki_base
     protected:
 	EVP_PKEY *key;
 	string BN2string(BIGNUM *bn);
+	int ucount; // usage counter
     public:
 	static char passwd[40];
 		
@@ -119,6 +120,8 @@ class pki_key: public pki_base
 	int verify();
 	int getType();
 	EVP_PKEY *getKey(){ return key;}
+	int incUcount();
+	int getUcount();
 };
 
 #endif

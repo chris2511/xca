@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>792</width>
+            <width>788</width>
             <height>604</height>
         </rect>
     </property>
@@ -669,7 +669,40 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>New Template</string>
+                                    <string>New empty template</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>PushButton13_2_2_2</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>New CA template</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>PushButton13_2_2_3</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>New client template</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>PushButton13_2_2_4</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>New server template</string>
                                 </property>
                             </widget>
                             <widget>
@@ -940,12 +973,6 @@
         <slot>loadPKCS12()</slot>
     </connection>
     <connection>
-        <sender>PushButton13_2_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newTemp()</slot>
-    </connection>
-    <connection>
         <sender>PushButton26_2_2</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
@@ -969,6 +996,30 @@
         <receiver>MainWindow_UI</receiver>
         <slot>alterTemp()</slot>
     </connection>
+    <connection>
+        <sender>PushButton13_2_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>newEmpTemp()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton13_2_2_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>newCATemp()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton13_2_2_3</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>newCliTemp()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton13_2_2_4</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>newSerTemp()</slot>
+    </connection>
     <slot access="public">alterTemp()</slot>
     <slot access="public">deleteCert()</slot>
     <slot access="public">deleteKey()</slot>
@@ -978,10 +1029,13 @@
     <slot access="public">loadKey()</slot>
     <slot access="public">loadPKCS12()</slot>
     <slot access="public">loadReq()</slot>
+    <slot access="public">newCATemp()</slot>
     <slot access="public">newCert()</slot>
+    <slot access="public">newCliTemp()</slot>
+    <slot access="public">newEmpTemp()</slot>
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
-    <slot access="public">newTemp()</slot>
+    <slot access="public">newSerTemp()</slot>
     <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
     <slot access="public">showDetailsKey()</slot>

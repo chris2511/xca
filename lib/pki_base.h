@@ -80,8 +80,6 @@ class pki_base
 	int stringToData(unsigned char **p, const string val);
 	string stringFromData(unsigned char **p);
     public:
-	enum { VERIFY_ERROR, VERIFY_SELFSIGNED, VERIFY_TRUSTED, 
-	       VERIFY_UNTRUSTED, VERIFY_OK }; 
 	pki_base(const string d);
 	pki_base();
 	virtual bool fromData(unsigned char *p, int size){
