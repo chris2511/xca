@@ -62,6 +62,8 @@ db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
         certicon[2] = loadImg("invalidcert.png");
         certicon[3] = loadImg("invalidcertkey.png");
 	listView->addColumn(tr("Common Name"));
+	listView->addColumn(tr("Serial"));
+	listView->addColumn(tr("not After"));
 	listView->addColumn(tr("Trust state"));
 	listView->addColumn(tr("Revokation"));
 	loadContainer();
@@ -154,14 +156,10 @@ void db_x509::updateViewPKI(pki_base *pki)
 	}	
 	current->setPixmap(0, *certicon[pixnum]);
 	current->setText(1, ((pki_x509 *)pki)->getDNs(NID_commonName).c_str());
-	current->setText(2, truststatus[((pki_x509 *)pki)->getTrust() ]);  
-	if ( ((pki_x509 *)pki)->isRevoked() ){ 
-		current->setText(3, tr("Revoked"));
-	}
-	else {
-		current->setText(3, "");
-	}
-	//keylist->updateView();
+	current->setText(2, ((pki_x509 *)pki)->getSerial().c_str() );  
+	current->setText(3, ((pki_x509 *)pki)->notAfter().c_str() );  
+	current->setText(4, truststatus[((pki_x509 *)pki)->getTrust() ]);  
+	current->setText(5, ((pki_x509 *)pki)->revokedAt().c_str());
 }
 
 
@@ -213,9 +211,6 @@ void db_x509::remFromCont(pki_base *pki)
 			pkiit->delSigner();
 		}
 	}
-	pki_key *pkey = ((pki_x509 *)pki)->getKey();
-	if (pkey)
-		pkey->decUcount();
 	return;
 }
 

@@ -109,7 +109,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	cert = X509_dup(crt->cert);
 	openssl_error();
 	psigner = crt->psigner;
-	pkey= crt->pkey;
+	setKey(crt->pkey);
 	trust = crt->trust;
 	efftrust = crt->efftrust;
 	revoked = M_ASN1_TIME_dup(crt->revoked);
@@ -122,9 +122,9 @@ pki_x509::pki_x509(const pki_x509 *crt)
 
 pki_x509::pki_x509() : pki_base()
 {
+	init();
 	cert = X509_new();
 	openssl_error();
-	init();
 }
 
 pki_x509::pki_x509(const string fname)
@@ -167,6 +167,9 @@ pki_x509::~pki_x509()
 	if (lastCrl) {
 		ASN1_TIME_free(lastCrl);
 	}
+	if (pkey)
+		pkey->decUcount();
+	
 	openssl_error();
 }
 
