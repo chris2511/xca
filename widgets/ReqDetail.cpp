@@ -48,21 +48,44 @@
  *
  */                           
 
-#ifndef CERTDETAIL_H
-#define CERTDETAIL_H
 
-#include "ui/CertDetail.h"
+#include "ReqDetail.h"
+#include "MainWindow.h"
+#include "distname.h"
+#include "lib/pki_x509req.h"
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
 
-class pki_x509;
-
-class CertDetail: public CertDetail_UI
+ReqDetail::ReqDetail(QWidget *parent, const char *name, bool modal, WFlags f )
+	:ReqDetail_UI(parent, name, modal, f)
 {
-	Q_OBJECT
-		
-   public:	
-	CertDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
-	void setCert(pki_x509 *cert);
-	void setImport();
-};
+	setCaption(tr(XCA_TITLE));
+	image->setPixmap(*MainWindow::csrImg);		 
+}
 
-#endif
+void ReqDetail::setReq(pki_x509req *req)
+{
+	// internal name and verification
+	descr->setText(req->getIntName());
+	if (!req->verify() ) {
+		verify->setDisabled(true);
+		verify->setText("ERROR");
+	}
+	// look for the private key
+	pki_key *key =req->getRefKey();
+	if (key) {
+		privKey->setText(key->getIntName());
+		privKey->setDisabled(false);
+	}
+	// the subject
+	subject->setX509name(req->getSubject());
+	
+}
+
+void ReqDetail::setImport()
+{
+	// rename the buttons in case of import 
+	but_ok->setText(tr("Import"));
+	but_cancel->setText(tr("Discard"));
+}			

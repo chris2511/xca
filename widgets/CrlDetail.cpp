@@ -51,12 +51,13 @@
 
 #include "CrlDetail.h"
 #include "MainWindow.h"
+#include "lib/pki_crl.h"
 #include <qlabel.h>
 #include <qtextview.h>
 #include <qlistview.h>
 
-CrlDetail::CrlDetail(QWidget *parent, const char *name)
-	:CrlDetail_UI(parent,name,true,0)
+CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, WFlags f)
+	:CrlDetail_UI(parent, name, modal, f)
 {
 	setCaption(tr(XCA_TITLE));
 	certList->clear();

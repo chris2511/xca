@@ -20,7 +20,7 @@ CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################
 
-NAMES= ExportCert ExportKey ExportTinyCA NewX509 CrlDetail \
+NAMES= ExportCert ExportKey ExportTinyCA NewX509 CrlDetail CertDetail \
 	MainWindow validity distname
 
 OBJS=$(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))

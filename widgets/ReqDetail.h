@@ -48,20 +48,20 @@
  *
  */                           
 
-#ifndef CERTDETAIL_H
-#define CERTDETAIL_H
+#ifndef REQDETAIL_H
+#define REQDETAIL_H
 
-#include "ui/CertDetail.h"
+#include "ui/ReqDetail.h"
 
-class pki_x509;
+class pki_x509req;
 
-class CertDetail: public CertDetail_UI
+class ReqDetail: public ReqDetail_UI
 {
 	Q_OBJECT
 		
    public:	
-	CertDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
-	void setCert(pki_x509 *cert);
+	ReqDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+	void setReq(pki_x509req *req);
 	void setImport();
 };
 

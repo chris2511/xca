@@ -50,7 +50,7 @@
 
 
 #include "ReqView.h"
-#include "ui/ReqDetail.h"
+#include "widgets/ReqDetail.h"
 #include <qpopupmenu.h>
 #include <qmessagebox.h>
 #include <qfiledialog.h>
@@ -109,56 +109,27 @@ void ReqView::showItem(pki_base *item, bool import)
 	if (!item) return;
 	emit init_database();
     try {
-	pki_x509req *req = (pki_x509req *)item;    
-        ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
-	dlg->descr->setText(req->getIntName());
-	dlg->setCaption(tr(XCA_TITLE));
-	if (!req->verify() ) {
-	      	dlg->verify->setDisabled(true);
-		dlg->verify->setText("ERROR");
-	}
-	pki_key *key =req->getRefKey();
-	if (key) {
-		dlg->privKey->setText(key->getIntName());
-		dlg->privKey->setDisabled(false);
-	}
-	/*
-	x509name rn = req->getSubject();
-	dlg->dnCN->setText(rn.getEntryByNid(NID_commonName));
-	dlg->dnC->setText(rn.getEntryByNid(NID_countryName)  + " / "
-		+ rn.getEntryByNid(NID_stateOrProvinceName));
-	dlg->dnL->setText(rn.getEntryByNid(NID_localityName));
-	dlg->dnO->setText(rn.getEntryByNid(NID_organizationName));
-	dlg->dnOU->setText(rn.getEntryByNid(NID_organizationalUnitName));
-	dlg->dnEmail->setText(rn.getEntryByNid(NID_pkcs9_emailAddress));
-	dlg->image->setPixmap(*MainWindow::csrImg);
-	*/
+        ReqDetail *dlg = new ReqDetail(this,0,true);
+
+	dlg->setReq((pki_x509req *)item);
 	
-	dlg->subject->setX509name(req->getSubject());
-	
-	// rename the buttons in case of import 
-	if (import) {
-		dlg->but_ok->setText(tr("Import"));
-		dlg->but_cancel->setText(tr("Discard"));
-	}
-	
-	QString odesc = req->getIntName();
+	QString odesc = item->getIntName();
 	bool ret = dlg->exec();
 	QString ndesc = dlg->descr->text();
 	delete dlg;
 	if (!ret && import) {
-		delete req;
+		delete (pki_x509req *)item;
 	}
 	if (!ret) return;
 	
 	emit init_database();
 	
 	if (import) {
-		req = (pki_x509req *)insert((pki_x509req *)req);
+		item = insert(item);
 	}
 	
 	if (ndesc != odesc) {
-			db->renamePKI(req, ndesc);
+			db->renamePKI(item, ndesc);
 	}
     }
     catch (errorEx &err) {

@@ -52,14 +52,15 @@
 #define CRLDETAIL_H
 
 #include "ui/CrlDetail.h"
-#include "lib/pki_crl.h"
+
+class pki_crl;
 
 class CrlDetail: public CrlDetail_UI
 {
 	Q_OBJECT
 		
    public:	
-	CrlDetail( QWidget *parent = 0, const char *name = 0);
+	CrlDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
 	void setCrl(pki_crl *crl);
 };
 #endif

@@ -62,7 +62,7 @@
 #include <qinputdialog.h>
 #include "ui/CertExtend.h"
 #include "widgets/ExportCert.h"
-#include "ui/CertDetail.h"
+#include "widgets/CertDetail.h"
 #include "ui/TrustState.h"
 #include "widgets/ExportTinyCA.h"
 #include "widgets/validity.h"
@@ -354,127 +354,34 @@ void CertView::extendCert()
 	}
 }
 		
-void CertView::showItem(pki_base *basecert, bool import)
+void CertView::showItem(pki_base *item, bool import)
 {
-	pki_x509 *cert = (pki_x509 *)basecert;
-	if (!cert) return; 
-	if (Error(cert)) return ;
+	if (!item) return; 
     try {
-	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
+	CertDetail *dlg = new CertDetail(this,0,true);
 	bool ret;
-	dlg->image->setPixmap(*MainWindow::certImg);
-	dlg->descr->setText(cert->getIntName());
-	dlg->setCaption(tr(XCA_TITLE));
-
-	// examine the key
-	pki_key *key= cert->getRefKey();
-	if (key)
-	     if (key->isPrivKey()) {
-		dlg->privKey->setText(key->getIntName());
-	      	dlg->privKey->setDisabled(false);
-	     }								
-
-	// examine the signature
-	if ( cert->getSigner() == NULL) {
-		dlg->verify->setText(tr("SIGNER UNKNOWN"));
-	}
-	else if ( cert->compare(cert->getSigner()) ) {
-		dlg->verify->setText(tr("SELF SIGNED"));
-	}
-	
-	else {
-		dlg->verify->setText(cert->getSigner()->getIntName());
-	}
-
-	// check trust state
-	if (cert->getEffTrust() == 0) {
-	      	dlg->verify->setDisabled(true);
-	}
-	CERR( cert->getEffTrust() );
-	
-	// the serial
-	dlg->serialNr->setText(cert->getSerial().toHex());	
-
-	// details of subject
-	x509name subj = cert->getSubject();
-	QString land = subj.getEntryByNid(NID_countryName);
-	QString land1 = subj.getEntryByNid(NID_stateOrProvinceName);
-	if (land != "" && land1 != "")
-		land += " / " +land1;
-	else
-		land+=land1;
-	
-	dlg->dnCN->setText(subj.getEntryByNid(NID_commonName));
-	dlg->dnC->setText(land);
-	dlg->dnL->setText(subj.getEntryByNid(NID_localityName));
-	dlg->dnO->setText(subj.getEntryByNid(NID_organizationName));
-	dlg->dnOU->setText(subj.getEntryByNid(NID_organizationalUnitName));
-	dlg->dnEmail->setText(subj.getEntryByNid(NID_pkcs9_emailAddress));
-	
-	// same for issuer....	
-	x509name iss = cert->getIssuer();
-	land = iss.getEntryByNid(NID_countryName);
-	land1 = iss.getEntryByNid(NID_stateOrProvinceName);
-	if (land != "" && land1 != "")
-		land += " / " +land1;
-	else
-		land+=land1;
-
-	dlg->dnCN_2->setText(iss.getEntryByNid(NID_commonName) );
-	dlg->dnC_2->setText(land);
-	dlg->dnL_2->setText(iss.getEntryByNid(NID_localityName));
-	dlg->dnO_2->setText(iss.getEntryByNid(NID_organizationName));
-	dlg->dnOU_2->setText(iss.getEntryByNid(NID_organizationalUnitName));
-	dlg->dnEmail_2->setText(iss.getEntryByNid(NID_pkcs9_emailAddress));
-	dlg->notBefore->setText(cert->getNotBefore().toPretty());
-	dlg->notAfter->setText(cert->getNotAfter().toPretty());
-	MARK
-	
-	// validation of the Date
-	if (cert->checkDate() == -1) {
-		dlg->dateValid->setText(tr("Not valid"));
-	      	dlg->dateValid->setDisabled(true);
-	}
-	if (cert->checkDate() == +1) {
-		dlg->dateValid->setText(tr("Not valid"));
-	      	dlg->dateValid->setDisabled(true);
-	}
-	if (cert->isRevoked()) {
-		dlg->dateValid->setText(tr("Revoked: ") +
-			cert->getRevoked().toPretty());
-	      	dlg->dateValid->setDisabled(true);
-		
-	}
-	// the fingerprints
-	dlg->fpMD5->setText(cert->fingerprint(EVP_md5()));
-	dlg->fpSHA1->setText(cert->fingerprint(EVP_sha1()));
-	
-	// V3 extensions
-	dlg->v3Extensions->setText(cert->printV3ext());
-	
-	// rename the buttons in case of import 
+	dlg->setCert((pki_x509 *)item);
 	if (import) {
-		dlg->but_ok->setText(tr("Import"));
-		dlg->but_cancel->setText(tr("Discard"));
+		dlg->setImport();
 	}
 
 	// show it to the user...	
-	QString odesc = cert->getIntName();
+	QString odesc = item->getIntName();
 	ret = dlg->exec();
 	QString ndesc = dlg->descr->text();
 	delete dlg;
 	if (!ret && import) {
-		delete cert;
+		delete item;
 	}
 	if (!ret) return;	
 	
 	emit init_database();
 	
 	if (import) {
-		cert = (pki_x509 *)insert(cert);
+		item = insert(item);
 	}
 	if (ndesc != odesc) {
-		db->renamePKI(cert, ndesc);
+		db->renamePKI(item, ndesc);
 		return;
 	}
     }

@@ -48,18 +48,10 @@
  *
  */                           
 
-
-#include "ui/ExportKey.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/pki_base.h"
-#include <iostream>
-
 #ifndef EXPORTKEY_H
 #define EXPORTKEY_H
 
+#include "ui/ExportKey.h"
 
 class ExportKey: public ExportKey_UI
 {

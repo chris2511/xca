@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>557</width>
+            <width>553</width>
             <height>446</height>
         </rect>
     </property>
@@ -1249,11 +1249,11 @@
                 <class>QWidget</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>Widget9</cstring>
+                    <cstring>unnamed</cstring>
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Subject &amp; &amp;Issuer</string>
+                    <string>&amp;Subject</string>
                 </attribute>
                 <vbox>
                     <property stdset="1">
@@ -1286,437 +1286,11 @@
                         </property>
                     </spacer>
                     <widget>
-                        <class>QLayoutWidget</class>
+                        <class>DistName</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>Layout11</cstring>
+                            <cstring>subject</cstring>
                         </property>
-                        <hbox>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>0</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget>
-                                <class>QGroupBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>GroupBox3</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>title</name>
-                                    <string>Subject</string>
-                                </property>
-                                <grid>
-                                    <property stdset="1">
-                                        <name>margin</name>
-                                        <number>11</number>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>spacing</name>
-                                        <number>6</number>
-                                    </property>
-                                    <widget row="2"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel6_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>name / DNS:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="1"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel4_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Locality:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="5"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel7_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>E-Mail:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="4"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnOU</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="3"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel4_2_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Organisation</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="0"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel3</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Country:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="3"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnO</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="4"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel5</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Org. unit:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="5"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnEmail</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>sizePolicy</name>
-                                            <sizepolicy>
-                                                <hsizetype>7</hsizetype>
-                                                <vsizetype>1</vsizetype>
-                                            </sizepolicy>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="0"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnC</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="1"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnL</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="2"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnCN</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                </grid>
-                            </widget>
-                            <widget>
-                                <class>QGroupBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>GroupBox3_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>title</name>
-                                    <string>Issuer</string>
-                                </property>
-                                <grid>
-                                    <property stdset="1">
-                                        <name>margin</name>
-                                        <number>11</number>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>spacing</name>
-                                        <number>6</number>
-                                    </property>
-                                    <widget row="2"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnCN_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="1"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel4_2_3</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Locality:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="4"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel5_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Org. unit:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="5"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnEmail_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>sizePolicy</name>
-                                            <sizepolicy>
-                                                <hsizetype>7</hsizetype>
-                                                <vsizetype>1</vsizetype>
-                                            </sizepolicy>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="0"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnC_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="3"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnO_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="5"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel7_2_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>E-Mail:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="1"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnL_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="3"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel4_2_2_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Organisation:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="2"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel6_2_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>name / DNS:</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="4"  column="1" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>dnOU_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShape</name>
-                                            <enum>Panel</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>frameShadow</name>
-                                            <enum>Sunken</enum>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string></string>
-                                        </property>
-                                    </widget>
-                                    <widget row="0"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel3_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Country:</string>
-                                        </property>
-                                    </widget>
-                                </grid>
-                            </widget>
-                        </hbox>
                     </widget>
                     <spacer>
                         <property>
@@ -1749,7 +1323,77 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>&amp;Extensions</string>
+                    <string>&amp;Issuer</string>
+                </attribute>
+                <vbox>
+                    <property stdset="1">
+                        <name>margin</name>
+                        <number>11</number>
+                    </property>
+                    <property stdset="1">
+                        <name>spacing</name>
+                        <number>6</number>
+                    </property>
+                    <spacer>
+                        <property>
+                            <name>name</name>
+                            <cstring>Spacer7</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>orientation</name>
+                            <enum>Vertical</enum>
+                        </property>
+                        <property stdset="1">
+                            <name>sizeType</name>
+                            <enum>Expanding</enum>
+                        </property>
+                        <property>
+                            <name>sizeHint</name>
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget>
+                        <class>DistName</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>issuer</cstring>
+                        </property>
+                    </widget>
+                    <spacer>
+                        <property>
+                            <name>name</name>
+                            <cstring>Spacer8</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>orientation</name>
+                            <enum>Vertical</enum>
+                        </property>
+                        <property stdset="1">
+                            <name>sizeType</name>
+                            <enum>Expanding</enum>
+                        </property>
+                        <property>
+                            <name>sizeHint</name>
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </vbox>
+            </widget>
+            <widget>
+                <class>QWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>tab</cstring>
+                </property>
+                <attribute>
+                    <name>title</name>
+                    <string>&amp;Extension</string>
                 </attribute>
                 <vbox>
                     <property stdset="1">
@@ -2053,6 +1697,28 @@
         </widget>
     </vbox>
 </widget>
+<customwidgets>
+    <customwidget>
+        <class>DistName</class>
+        <header location="local">distname.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+</customwidgets>
+<images>
+    <image>
+        <name>image0</name>
+        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
+    </image>
+</images>
 <connections>
     <connection>
         <sender>but_ok</sender>

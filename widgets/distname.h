@@ -51,8 +51,7 @@
 #ifndef DISTNAME_H
 #define DISTNAME_H
 
-#include <qvariant.h>
-#include <qgroupbox.h>
+#include <qwidget.h>
 #include <qlayout.h>
 
 class x509name;

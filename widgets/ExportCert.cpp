@@ -50,7 +50,11 @@
 
 
 #include "ExportCert.h"
+#include "lib/base.h"
 
+#include <qcombobox.h>
+#include <qlineedit.h>
+#include <qfiledialog.h>
 
 ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
 	const QString tcafn, QWidget *parent, const char *name )
@@ -99,12 +103,10 @@ void ExportCert::chooseFile()
 
 void ExportCert::formatChanged()
 {
-	CERR("Export format changed");
 	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p7b", "p7b", "p7b", "p12", "p12"};
 	int selected = exportFormat->currentItem();
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.findRev('.')+1) + suffix[selected];
-	CERR(nfn);
 	filename->setText(nfn);
 }	
 

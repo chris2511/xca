@@ -48,16 +48,10 @@
  *
  */                           
 
-
-#include "ui/ExportCert.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/base.h"
-
 #ifndef EXPORTCERT_H
 #define EXPORTCERT_H
+
+#include "ui/ExportCert.h"
 
 class ExportCert: public ExportCert_UI
 {

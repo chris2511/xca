@@ -51,7 +51,6 @@
 #ifndef VALIDITY_H
 #define VALIDITY_H
 
-#include <qvariant.h>
 #include <qgroupbox.h>
 
 class QGridLayout;

@@ -65,26 +65,14 @@
 #include "MainWindow.h"
 #include "lib/x509name.h"
 
-NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns)
-	:NewX509_UI(parent, name, true, 0)
+NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
+	:NewX509_UI(parent, name, modal, f)
 {
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
 	connect( parent, SIGNAL(keyDone(QString)), this, SLOT(newKeyDone(QString)) );
 	setCaption(tr(XCA_TITLE));
-	keys = key;
-	reqs = req;
-	temps = temp;
-	certs = cert;
 	fixtemp = NULL;
-	if (image) {
-		bigImg1->setPixmap(*image);
-		bigImg2->setPixmap(*image);
-		bigImg3->setPixmap(*image);
-		bigImg4->setPixmap(*image);
-		bigImg5->setPixmap(*image);
-		bigImg6->setPixmap(*image);
-		nsImg->setPixmap(*ns);
-	}
+	nsImg->setPixmap(*MainWindow::nsImg);
 #ifdef qt3
 	// pretty fat Title :-)
 	QFont tFont;// = getFont();
@@ -98,63 +86,43 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	serialNr->setValidator( new QIntValidator(0, 32767, this));
 	QStringList strings;
 	// are there any useable private keys  ?
-	if (keys) {
-		strings = keys->get0PrivateDesc();
-		keyList->insertStringList(strings);
-	}
-	else {
-		keyList->setEnabled(false);
-		genKeyBUT->setEnabled(false);
-	}
+	strings = MainWindow::keys->get0PrivateDesc();
+	keyList->insertStringList(strings);
 	
 	// any PKCS#10 requests to be used ?
-	if (reqs) {
-		strings = reqs->getDesc();
-		if (strings.isEmpty()) {
-			fromReqCB->setDisabled(true);
-		}
-		else {
-			reqList->insertStringList(strings);
-		}
+	strings = MainWindow::reqs->getDesc();
+	if (strings.isEmpty()) {
+		fromReqCB->setDisabled(true);
+		reqList->setDisabled(true);
 	}
 	else {
-		reqList->setEnabled(false);
-		fromReqCB->setEnabled(false);
+		reqList->insertStringList(strings);
 	}
 	
 	// How about signing certificates ?
-	if (certs) {
-		strings = certs->getSignerDesc();
-		if (strings.isEmpty()) {
-			foreignSignRB->setDisabled(true);
-			certList->setDisabled(true);
-		}
-		else {
-			certList->insertStringList(strings);
-		}
-	}
-	else {
+	strings = certs->getSignerDesc();
+	if (strings.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 		certList->setDisabled(true);
 	}
+	else {
+		certList->insertStringList(strings);
+	}
 	
 	// settings for the templates ....
-	if (temps) {
-		strings = temps->getDesc();
-		strings.prepend(tr("Server Template"));
-		strings.prepend(tr("Client Template"));
-		strings.prepend(tr("CA Template"));
-		strings.prepend(tr("Empty Template"));
-		tempList->insertStringList(strings);
-	}
-	else {
-		templateBox->setEnabled(false);
-	}		
+	strings = MainWindow::temps->getDesc();
+	strings.prepend(tr("Server Template"));
+	strings.prepend(tr("Client Template"));
+	strings.prepend(tr("CA Template"));
+	strings.prepend(tr("Empty Template"));
+	tempList->insertStringList(strings);
+	
 	
 	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);
 	signerChanged();
 }
+
 void NewX509::setRequest()
 {
 	setAppropriate(page4, false);
@@ -177,6 +145,7 @@ request. The resulting request should be exported and send to an appropriate CA 
 for signing it.");
 	tText=tr("Certificate request");
 	setup();
+	setImage(MainWindow::csrImg);
 }
 
 NewX509::~NewX509()
@@ -204,6 +173,9 @@ applied when signing with this CA.");
 		tText += tr(" change");
 	}
 	setup();
+	keyList->setEnabled(false);
+	genKeyBUT->setEnabled(false);
+	setImage(MainWindow::tempImg);
 	
 }
 	
@@ -214,6 +186,17 @@ void NewX509::setCert()
 	endText=tr("You are done with entering all parameters for creating a Certificate.");
 	tText=tr("Certificate");
 	setup();
+	setImage(MainWindow::certImg);
+}
+
+void NewX509::setImage(QPixmap *image)
+{
+	bigImg1->setPixmap(*image);
+	bigImg2->setPixmap(*image);
+	bigImg3->setPixmap(*image);
+	bigImg4->setPixmap(*image);
+	bigImg5->setPixmap(*image);
+	bigImg6->setPixmap(*image);
 }
 
 void NewX509::setup()
@@ -385,7 +368,6 @@ void NewX509::toggleFromRequest()
 	
 void NewX509::dataChangeP2()
 {
-	CERR( "Data changed" );
 	if (description->text() != ""  && countryName->text().length() !=1 &&
 	    (keyList->count() > 0  || !keyList->isEnabled())){
 		setNextEnabled(page2,true);
@@ -423,19 +405,15 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::signerChanged()
 {
-	CERR("signer Changed");
-	if (!certs) return;
 	QString name = certList->currentText();
-	CERR( "Certificate: " << name);
 	
 	if (name.isEmpty()) return;
-	pki_x509 *cert = (pki_x509 *)certs->getByName(name);
+	pki_x509 *cert = (pki_x509 *)MainWindow::certs->getByName(name);
 	
 	if (!cert) return;
 	QString templ = cert->getTemplate();	
 	
 	if (templ.isEmpty()) return;
-	CERR( "set Template: " << templ );
 	
 	templateChanged(templ);
 	
@@ -475,7 +453,6 @@ void NewX509::templateChanged()
 		temp = new pki_temp("temp",item);
 		if (temp) { 
 			fromTemplate(temp);
-			CERR("using default template: "<< item);
 			delete (temp);
 		}
 		return;
@@ -484,14 +461,12 @@ void NewX509::templateChanged()
 	if (name == "" || !temps) return;
 	temp = (pki_temp *)temps->getByName(name);
 	if (!temp) return;
-	CERR("CHANGING TEMPLATE");
 	fromTemplate(temp);
 }
 
 void NewX509::switchExtended()
 {
 	if ( !appropriate(page1) ) return;
-	CERR( "SWITCH Extended");
 	if (changeDefault->isChecked() || !templateBox->isEnabled()) {
 		setAppropriate(page4, true);
 		setAppropriate(page5, true);

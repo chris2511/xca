@@ -51,18 +51,19 @@
 
 #include "CertDetail.h"
 #include "MainWindow.h"
+#include "distname.h"
 #include <qlabel.h>
 #include <qtextview.h>
-#include <qlistview.h>
+#include <qpushbutton.h>
 
-CertDetail::CertDetail(QWidget *parent, const char *name)
+CertDetail::CertDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 	:CertDetail_UI(parent,name,true,0)
 {
 	setCaption(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::revImg);		 
+	image->setPixmap(*MainWindow::certImg);		 
 }
 
-CertDetail::setCrt(pki_x509 *cert)
+void CertDetail::setCert(pki_x509 *cert)
 {
 	descr->setText(cert->getIntName());
 	
@@ -89,46 +90,17 @@ CertDetail::setCrt(pki_x509 *cert)
 	if (cert->getEffTrust() == 0) {
 		verify->setDisabled(true);
 	}
-	CERR( cert->getEffTrust() );
 	
 	// the serial
 	serialNr->setText(cert->getSerial().toHex());
 	
-	// details of subject
-	x509name subj = cert->getSubject();
-	QString land = subj.getEntryByNid(NID_countryName);
-	QString land1 = subj.getEntryByNid(NID_stateOrProvinceName);
-	if (land != "" && land1 != "")
-	land += " / " +land1;
-	else
-	land+=land1;
+	// details of subject and issuer
+	subject->setX509name(cert->getSubject());
+	issuer->setX509name(cert->getIssuer());
 	
-	dlg->dnCN->setText(subj.getEntryByNid(NID_commonName));
-	dlg->dnC->setText(land);
-	dlg->dnL->setText(subj.getEntryByNid(NID_localityName));
-	dlg->dnO->setText(subj.getEntryByNid(NID_organizationName));
-	dlg->dnOU->setText(subj.getEntryByNid(NID_organizationalUnitName));
-	dlg->dnEmail->setText(subj.getEntryByNid(NID_pkcs9_emailAddress));
-	
-	// same for issuer....  
-	x509name iss = cert->getIssuer();
-	land = iss.getEntryByNid(NID_countryName);
-	land1 = iss.getEntryByNid(NID_stateOrProvinceName);
-	if (land != "" && land1 != "")
-	land += " / " +land1;
-	else
-	land+=land1;
-	
-	dlg->dnCN_2->setText(iss.getEntryByNid(NID_commonName) );
-	dlg->dnC_2->setText(land);
-	dlg->dnL_2->setText(iss.getEntryByNid(NID_localityName));
-	dlg->dnO_2->setText(iss.getEntryByNid(NID_organizationName));
-	dlg->dnOU_2->setText(iss.getEntryByNid(NID_organizationalUnitName));
-	dlg->dnEmail_2->setText(iss.getEntryByNid(NID_pkcs9_emailAddress));
-	dlg->notBefore->setText(cert->getNotBefore().toPretty());
-	dlg->notAfter->setText(cert->getNotAfter().toPretty());
-	MARK
-	
+	// The dates
+	notBefore->setText(cert->getNotBefore().toPretty());
+	notAfter->setText(cert->getNotAfter().toPretty());
 	// validation of the Date
 	if (cert->checkDate() != 0) {
 		dateValid->setText(tr("Not valid"));
@@ -138,14 +110,15 @@ CertDetail::setCrt(pki_x509 *cert)
 		dateValid->setText(tr("Revoked: ") +
 			cert->getRevoked().toPretty());
 		dateValid->setDisabled(true);
-	
 	}
+	
 	// the fingerprints
 	fpMD5->setText(cert->fingerprint(EVP_md5()));
 	fpSHA1->setText(cert->fingerprint(EVP_sha1()));
 	
 	// V3 extensions
-	dlg->v3Extensions->setText(cert->printV3ext());
+	v3Extensions->setText(cert->printV3ext());
+}
 
 void CertDetail::setImport()
 {

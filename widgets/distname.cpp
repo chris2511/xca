@@ -86,7 +86,7 @@ void DistName::setX509name(const x509name &n)
 		if (lb->text().isEmpty())
 			lb->setText(sl[0]);
 		le->setText(sl[2]);
-		le->setDisabled(true);
+		le->setReadOnly(true);
 		DistNameLayout->addWidget( lb, i, 0 );
 		DistNameLayout->addWidget( le, i, 1 );
 	}
@@ -100,9 +100,9 @@ DistName::~DistName()
 void DistName::resizeEvent( QResizeEvent *e)
 {
 	QWidget::resizeEvent(e);
-	cerr << "W size:" << size().height() << " -- " << size().width() <<endl;
-	cerr << "max:" << maximumSize().height() << " -- " << maximumSize().width() <<endl;
-	cerr << "L.max:" << DistNameLayout->maximumSize().height() << " -- " << DistNameLayout->maximumSize().width() <<endl;
+	//cerr << "W size:" << size().height() << " -- " << size().width() <<endl;
+	//cerr << "max:" << maximumSize().height() << " -- " << maximumSize().width() <<endl;
+	//cerr << "L.max:" << DistNameLayout->maximumSize().height() << " -- " << DistNameLayout->maximumSize().width() <<endl;
 }
 
 /*******************************************************************/
