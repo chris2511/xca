@@ -136,6 +136,9 @@ void MainWindow::showDetailsReq(pki_x509req *req, bool import)
 	bool ret = dlg->exec();
 	string ndesc = dlg->descr->text().latin1();
 	delete dlg;
+	if (!ret && import) {
+		delete req;
+	}
 	if (!ret) return;
 	if (reqs == NULL) {
 		init_database();

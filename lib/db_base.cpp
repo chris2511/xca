@@ -75,6 +75,9 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB, DbTxn *global_tid)
 db_base::~db_base()
 {
 	data->close(0);
+	container.setAutoDelete(true);
+	container.clear();
+	CERR("Deleting db");
 }
 
 void *db_base::getData(void *key, int length, int *dsize)

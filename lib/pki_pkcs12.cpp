@@ -108,13 +108,18 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 
 pki_pkcs12::~pki_pkcs12()
 {
-	CERR("popping free certs");
-	if (sk_X509_num(certstack)>0)
+	if (sk_X509_num(certstack)>0) {
 		sk_X509_pop_free(certstack, X509_free); // free the certs itself, because we own a copy of them
-	CERR("deleting key");
-	if (key) delete(key); 
-	CERR( "deleting cert");
-	if (cert) delete(cert);
+		CERR("popping free certs");
+	}
+	if (key) { 
+		delete(key); 
+		CERR("deleting key");
+	}
+	if (cert) {
+		delete(cert);
+		CERR( "deleting cert");
+	}
 	CERR("freeing PKCS12");
 	PKCS12_free(pkcs12);
 	openssl_error();

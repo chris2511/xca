@@ -100,6 +100,7 @@ void db_x509req::newKey(pki_key *newkey)
 			pki->setKey(newkey);
 			updateViewPKI(pki);
 		}
+		delete refkey;
 	}
 }
 

@@ -63,6 +63,8 @@ struct PASS_INFO {
 
 class pki_base
 {
+    private:
+	static int pki_counter;
     protected:
 	string desc;
 	string error;
@@ -80,6 +82,7 @@ class pki_base
     public:
 	pki_base(const string d);
 	pki_base();
+	static int get_pki_counter();
 	virtual void fromData(unsigned char *p, int size)
 		{ CERR("VIRTUAL FUNCTION CALLED: fromData"); };
 	virtual unsigned char *toData(int *size)

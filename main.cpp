@@ -58,12 +58,8 @@
 int main( int argc, char *argv[] )
 {
     QApplication a( argc, argv );
-    MainWindow mw( NULL, "Main Widget");
-    if (mw.exitApp == 1) {
-	    MARK
-	    return 0;
-    }
-    a.setMainWidget( &mw );
+    MainWindow *mw = new MainWindow( NULL, "Main Widget");
+    a.setMainWidget( mw );
     // translation file for Qt
     QTranslator qtTr( 0 );
     qtTr.load( QString( "qt_" ) + QTextCodec::locale(), "." );
@@ -77,7 +73,22 @@ int main( int argc, char *argv[] )
     xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
     a.installTranslator( &xcaTr );
 #endif
+    CERR("PKI Counter:" << pki_base::get_pki_counter());
+    if (mw->exitApp == 1) {
+	    MARK
+    	    delete mw;
+	    MARK
+    	    CERR("PKI Counter:" << pki_base::get_pki_counter());
+	    MARK
+	    return 0;
+    }
     
-    mw.show();
-    return a.exec();
+    mw->show();
+    int ret = a.exec();
+    MARK
+    delete mw;
+    MARK
+    CERR("PKI Counter:" << pki_base::get_pki_counter());
+ 
+    return ret;
 }

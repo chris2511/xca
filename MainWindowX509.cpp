@@ -311,6 +311,8 @@ void MainWindow::newCert(NewX509 *dlg)
     }
     catch (errorEx &err) {
 	Error(err);
+	delete cert;
+	if (tempReq && req) delete(req);
     }
 	
 }
@@ -500,6 +502,9 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	ret = dlg->exec();
 	string ndesc = dlg->descr->text().latin1();
 	delete dlg;
+	if (!ret && import) {
+		delete cert;
+	}
 	if (!ret) return false;	
 	
 	if (!certs) {

@@ -265,7 +265,9 @@ MainWindow::~MainWindow()
 		delete(temps);
 		delete(settings);
 		global_tid->commit(0);
+		MARK
 		dbenv->close(0);
+		MARK
 	}
 }
 

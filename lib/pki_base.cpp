@@ -51,6 +51,7 @@
 
 #include "pki_base.h"
 
+int pki_base::pki_counter = 0;
 
 pki_base::pki_base(const string d)
 {
@@ -58,6 +59,7 @@ pki_base::pki_base(const string d)
 	desc = d;
 	className = "pki_base";
 	pointer = NULL;
+	pki_counter++;
 }
 
 pki_base::pki_base()
@@ -66,10 +68,13 @@ pki_base::pki_base()
 	desc = "";
 	className = "pki_base";
 	pointer=NULL;
+	pki_counter++;
 }
 
 pki_base::~pki_base(void)
-{}
+{
+	pki_counter--;
+}
 
 
 string pki_base::getDescription()
@@ -78,6 +83,10 @@ string pki_base::getDescription()
 	return x;
 }
 
+int pki_base::get_pki_counter()
+{
+	return pki_counter;
+}
 
 string pki_base::getError()
 {

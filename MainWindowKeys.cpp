@@ -158,6 +158,9 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 	bool ret = detDlg->exec();
 	string ndesc = detDlg->keyDesc->text().latin1();
 	delete detDlg;
+	if (!ret && import) {
+		delete key;
+	}
 	if (!ret) return false;
 	if (keys == NULL) {
 		init_database();
