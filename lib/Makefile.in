@@ -20,7 +20,7 @@ CFLAGS=-Wall @ac_DEBUG@
 
 PKIOBJS=pki_base.o pki_key.o pki_x509req.o # pki_x509.o pki_pkcs12.o pki_temp.o pki_crl.o pki_pkcs7.o
 DBNAMES=db_key db_x509req #db_x509 db_temp db_crl
-DBOBJS=db_base.o $(patsubst %,%.o,$(DBNAMES)) $(patsubst %,moc_%.o,$(DBNAMES))
+DBOBJS=db_base.o pass_info.o $(patsubst %,%.o,$(DBNAMES)) $(patsubst %,moc_%.o,$(DBNAMES))
 DB_CPP=$(patsubst %,moc_%.cpp,$(DBNAMES))
 
 all: libpki.a libxcadb.a

@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>621</width>
+            <width>617</width>
             <height>543</height>
         </rect>
     </property>
@@ -213,34 +213,10 @@
                         <number>6</number>
                     </property>
                     <widget>
-                        <class>QListView</class>
-                        <column>
-                            <property>
-                                <name>text</name>
-                                <string>Name</string>
-                            </property>
-                            <property>
-                                <name>clickable</name>
-                                <bool>true</bool>
-                            </property>
-                            <property>
-                                <name>resizeable</name>
-                                <bool>true</bool>
-                            </property>
-                        </column>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>Item</string>
-                        </property>
-                        <property>
-                            <name>pixmap</name>
-                            <pixmap></pixmap>
-                        </property>
-                    </item>
+                        <class>ReqView</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>reqList</cstring>
+                            <cstring>ReqList</cstring>
                         </property>
                     </widget>
                     <widget>
@@ -977,11 +953,29 @@
         </sizepolicy>
         <pixmap>image0</pixmap>
     </customwidget>
+    <customwidget>
+        <class>ReqView</class>
+        <header location="local">ReqView.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image1</pixmap>
+    </customwidget>
 </customwidgets>
 <images>
     <image>
         <name>image0</name>
-        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1ddec44f503c0ae2a154410f53d0ed20e2bf6bdb656dd6861dd23d9a66591b0587fd1654235ebded6f0edcd53e419d87ae7b1f4f9b8f906d0bfe012317426a70b07bdc2f3ec77f8ed6b89559061a0343d06a124cc105596482585094bc0ae599b04646c9018926491b2205e140c485cace25755c175d0a967b622ff900b8cc9c7d29af594ea722d589167f813aa852ba07d94b9dce296e883fe7bb163f23896753</data>
+        <data format="XPM.GZ" length="4254">789c7dd7595323470c00e0777e850bbd6da59419db73552a0f1c86057c82cd95ca83e630186363c0184c2aff3d9a96d44b52496a96856f5bd3526bba07efcfdf1ad7c35ee3dbcf3baf6b5acf8a46714f2f8d6fe5db62b1fdedf75fffd8d96d361bfc27cc924673f7a79d5d0a1b45a3ffb4ac6ac0330382b4be9c53731838bfd40e83fa723e55a7a18bc7c039f53e33375d3c4a3c4b4c4fde999b0f6bd7a31a7febedc6e9ca396b5afe8db7d40bea54e79bd56e85ada015bafbf7d569db198e9db376202697afcdf19aef5ddcd6fbf1d95bc6af9dc97ba54e35df81b71bc7ae59f33f789373208e82581ece7deda8e9c7e7e22888647ce4ece7c317711468fc8759e2e1bb3ad3f596de2e3ecfcd3aff83b71ba74eedb81965ba5e32eb3888e350eb3f77261fbf16fbf189daf2dd98757ce62deb59899330c9ddf8c69cb6dc78563b69c5a1d483a15ae783476f99ef539c84ea57e73c09b55ffbe644e6dfaa33cd7f543b6d25b6feb1388d643eec99b5be776fb9df3d8f34b77828d5a5c4d3ab396bbbf93ae24cef8723735638bbf396b5d348eac35775a9f51e8bb348d64373b3ce776896f9e8ceb94823ed47e22debcdd4367f20e6fba5deadbad4f90bb3cc8f4762d27a696926c95f9873371fb8f3466d7b3ed414a7a5ee97489c69bfe9426df50dcd5a4f68967a61e12df94fc464cfebd1acf5f7cd24f7e7def23cf6d495da9d07f2fd8337b5d5bf1567a5ec0792f90a9f6fa3ae241f8ebc65fcc3acfd9a88f3aa889cddfb246f2776de5231e97ec8c1acfdb9516b3ea8bca53f67e23cd6fd7761d67a0666a90763b5d6477b66a90fdd7ecacbb4d4f32bf94bb2f374a2ae74ff2666797ed415737ef1a759f39daa2b7dbe03b3aeaf63d6feb5bc4be72b7161eb199aa5fedcedd722e2fa64bff4c5363f5d8a8b58f753cfacfd3a376b3f2ebc25ff81ba12933baf85ef0fb5d4953827b3be0f56e23cd6fe3d9be5bc8cd66aabf74d6cf5c0526dfb69ecedea41ada7d47ae9c55cbacf17e87edf9711ef17377f8eea4acf6b5b6cfdc1b5daf6c7bbb8b4febc794bfea6b994facc95e677efdbb2b2fc14ab353f44e252f3c39d59df0f43b3e6fff496f52ecc921f73b59dd72bb3de9f98b5de5b6fa9776cae6267f7feab62ab1f4ec485ada712977a1e90bc657f2dcdbadf0a71a5e7050fcc921fc82cf909bd65bca7aed46df3d4c583eb6f55d9fec207b5f57be42dfd5e9bb57e10fbfdb010fb7a8fbd653d7b66edffbeb7f4f3516dcfa334eb798eccb21ebc34eb7a9ec4d3584cd3dad3d8d683736f39df1fe2428d3371a9ef4bacc4953d8fa959df3f7db3d673279edafbe7de5bde0f53b3aebf6dd6fa2fbda7ce03f5548ceefdc1d0784cd553dd0f5db38e4fbca7f2fe4040c21c0b2cf9aa708a7778cf5f15cef001e7f8880b1e23febe94f701aef0195ff015d7f8861b7cc70fdce227ffbc87fbee3ac043ece0111ecbf9c5133cc533ec620ffb38c0217f8df01c2f708c137f5de2154abfaff1066f31c0109bd8c236461cd7e4f898ef4bbedc9122e9fc19de0202f01d6f404018f117df013914d883122a560453b893f9e1decd1fc00c1e600e8fb080653d233cf13d2b3c836778e1bf5f7121fb1bde60c3f3bcc3076ce11347b007f52a275c59130ee0103a7004c7f05dea81138e3f8533e8420ffa6ede01c70cbf542ed721caefdf119ce3695d3d5cf07cdc1398705dff88874bb8d2fae770cdf1c8d5dcc02d0e610c016c208426b47ef407dabc6e793fc590400a19f46140c831235871938872ee524bd7dde6cf1ffc1b47ce07ddd13d7e72d505cde881e6d8a7477e0e13eeed983b34a6052de98956d21f8e7fe6bc6d9ee305de794fd4f93f6041af30a73594e49e096de81d1fe57cd196bbb54f9fb4c4ad74c8f5e812c73cef0c37b4075bdaa703d96f74080975e8888ee93b9dd0299d51977ad4a7010d6944e774c1dfc75cfd842ee5f31cef32bd38fb95db75cf74cdabb8a15b0af869177291d4137eb9bad4840e85d8e5758750518babf932fef77868b94f8df5cff7dccfdafcdf9aff89eff0c9e9ff88e72bc115dff51ff1bcc614075fe3e182e2af157d8d77d5642a8befe4c88ff9dfe33b39f153723fe739f746fe3dc98b1f15edfef9cbce5fa057e358</data>
+    </image>
+    <image>
+        <name>image1</name>
+        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
     </image>
 </images>
 <connections>
@@ -1080,18 +1074,6 @@
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
         <slot>showDetailsReq()</slot>
-    </connection>
-    <connection>
-        <sender>reqList</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsReq(QListViewItem *)</slot>
-    </connection>
-    <connection>
-        <sender>reqList</sender>
-        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showPopupReq(QListViewItem *, const QPoint &amp;, int)</slot>
     </connection>
     <connection>
         <sender>PushButton18</sender>
@@ -1234,7 +1216,6 @@
     <tabstop>importKey</tabstop>
     <tabstop>detailsKey</tabstop>
     <tabstop>renameKey</tabstop>
-    <tabstop>reqList</tabstop>
     <tabstop>PushButton13</tabstop>
     <tabstop>PushButton46</tabstop>
     <tabstop>PushButton25</tabstop>

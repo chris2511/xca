@@ -50,6 +50,18 @@
 
 
 #include "NewX509.h"
+#include <qgroupbox.h>
+#include <qcheckbox.h>
+#include <qcombobox.h>
+#include <qradiobutton.h>
+#include <qlineedit.h>
+#include <qlabel.h>
+#include <qwhatsthis.h>
+#include <qlistbox.h>
+#include <qpixmap.h>
+#include <qpushbutton.h>
+#include <qvalidator.h>
+#include <qbuttongroup.h>
 
 NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns)
 	:NewX509_UI(parent, name, true, 0)
@@ -62,7 +74,6 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	temps = temp;
 	certs = cert;
 	fixtemp = NULL;
-	pki_x509 *possibleSigner; 
 	if (image) {
 		bigImg1->setPixmap(*image);
 		bigImg2->setPixmap(*image);
@@ -118,25 +129,6 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		}
 		else {
 			certList->insertStringList(strings);
-			// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
-			/*
-			possibleSigner=(pki_x509 *)certs->getSelectedPKI();
-			if (possibleSigner && possibleSigner->canSign()) {
-				QString name = possibleSigner->getDescription().c_str();
-#ifdef qt3
-				certList->setCurrentText(name);
-#else
-				for (int i=0; i<certList->count();i++) {
-					if (certList->text(i) == name) {
-						certList->setCurrentItem(i);
-						break;
-					}
-				}
-#endif
-				foreignSignRB->setChecked(true);
-				// certList->setEnabled(true);
-			}
-			*/
 		}
 	}
 	else {
@@ -260,7 +252,26 @@ void NewX509::defineRequest(pki_x509req *req)
 #endif
 
 }
-	
+
+void NewX509::defineCert(pki_x509 *defcert)
+{
+	// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
+	if (defcert && defcert->canSign()) {
+		QString name = defcert->getIntName();
+#ifdef qt3
+		certList->setCurrentText(name);
+#else
+		for (int i=0; i<certList->count();i++) {
+			if (certList->text(i) == name) {
+				certList->setCurrentItem(i);
+				break;
+			}
+		}
+#endif
+		foreignSignRB->setChecked(true);
+		// certList->setEnabled(true);
+	}
+}	
 
 
 int NewX509::lb2int(QListBox *lb)

@@ -50,25 +50,10 @@
 
 
 #include "NewX509_UI.h"
-#include <qcombobox.h>
-#include <qradiobutton.h>
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"
 #include "lib/db_temp.h"
-#include <qapplication.h>
-#include <qframe.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qgroupbox.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qwhatsthis.h>
-#include <qlistbox.h>
-#include <qpixmap.h>
-#include <qvalidator.h>
-#include <qregexp.h>
-#include <qbuttongroup.h>
 
 #ifndef NEWX509_H
 #define NEWX509_H
@@ -85,6 +70,7 @@ class NewX509: public NewX509_UI
 	db_temp *temps;
 	pki_temp *fixtemp;
 	QString startText, endText, tText;
+	
    public:	
 	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns);
 	~NewX509();
@@ -97,6 +83,7 @@ class NewX509: public NewX509_UI
 	void fromTemplate(pki_temp *temp);
 	void defineTemplate(pki_temp *temp);
 	void defineRequest(pki_x509req *req);
+	void defineCert(pki_x509 *defcert);
 	int lb2int(QListBox *lb);
 	void int2lb(QListBox *lb, int x);
 	void templateChanged(pki_temp *templ);

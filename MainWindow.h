@@ -78,7 +78,6 @@ class MainWindow: public MainWindow_UI
   protected:
 	void init_images();
 	void read_cmdline();
-	void init_database();
 	DbTxn *global_tid;
 	DbEnv *dbenv;
 			    
@@ -114,6 +113,8 @@ class MainWindow: public MainWindow_UI
 	static QString getPath();
 	static void setPath(QString path);
 	bool mkDir(QString dir);
+   slots: 
+	void init_database();
 	
 };
 #endif

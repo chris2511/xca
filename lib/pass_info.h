@@ -52,6 +52,7 @@
 #define PASS_INFO_H
 
 #include <qstring.h>
+#include <qobject.h>
 
 class pass_info: public QObject 
 {
@@ -60,10 +61,10 @@ class pass_info: public QObject
 	QString description;
    public:
 	pass_info(QString t, QString d);
-	QString getTitle(){ return title; }
-	QString getDescription(){ return description; }
-	void setTitle(QString t){title = t; }
-	void setDescription(QString d){description = d; }
+	QString getTitle();
+	QString getDescription();
+	void setTitle(QString t);
+	void setDescription(QString d);
 };
 
 #endif

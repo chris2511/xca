@@ -55,6 +55,10 @@
 #include <qmessagebox.h>
 #include <qfiledialog.h>
 #include <qdir.h>
+#include <qlabel.h>
+#include <qcombobox.h>
+#include <qpushbutton.h>
+
 #include "MainWindow.h"
 #include "NewX509.h"
 

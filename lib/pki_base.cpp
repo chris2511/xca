@@ -84,6 +84,12 @@ string pki_base::getDescription()
 	return x;
 }
 
+QString pki_base::getIntName()
+{
+	QString x = desc.c_str();
+	return x;
+}
+
 int pki_base::get_pki_counter()
 {
 	return pki_counter;
@@ -107,6 +113,10 @@ void pki_base::setDescription(const string d)
 	desc = d;
 }
 
+void pki_base::setIntName(const QString d)
+{
+	desc = d.latin1();
+}
 
 
 void pki_base::fopen_error(const string fname)

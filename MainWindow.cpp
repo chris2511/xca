@@ -50,7 +50,9 @@
 
 
 #include "MainWindow.h"
+#include <qapplication.h>
 #include <qmessagebox.h>
+#include <qlabel.h>
 #include "lib/pki_pkcs12.h"
 #include "KeyView.h"
 #include "lib/pass_info.h"
@@ -290,7 +292,7 @@ void MainWindow::read_cmdline()
 				break;
 			case XCA_REQ : 
 		 		req = new pki_x509req(arg);
-				//showDetailsReq(req, true);
+				show(req, true);
 				break;
 			case XCA_P12 : 
 		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);
@@ -334,11 +336,9 @@ void MainWindow::init_database() {
 	}
 	try {
 		settings = new db_base(dbenv, dbfile.latin1(), "settings",global_tid);
-		MARK
 		initPass();
-		keys = new db_key(dbenv, dbfile.latin1(), keyList,global_tid);
-		MARK
-		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys,global_tid);
+		keys = new db_key(dbenv, dbfile.latin1(), global_tid);
+		reqs = new db_x509req(dbenv, dbfile.latin1(), keys, global_tid);
 		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys,global_tid);
 		temps = new db_temp(dbenv, dbfile.latin1(), tempList,global_tid);
 		crls = new db_crl(dbenv, dbfile.latin1(), revList, global_tid, certs);
