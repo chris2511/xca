@@ -64,18 +64,23 @@ void MainWindow::newReq(pki_temp *temp)
 		delete dlg;
 		return;
 	}
-	pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
-	string cn = dlg->commonName->text().latin1();
-	string c = dlg->countryName->text().latin1();
-	string l = dlg->localityName->text().latin1();
-	string st = dlg->stateOrProvinceName->text().latin1();
-	string o = dlg->organisationName->text().latin1();
-	string ou = dlg->organisationalUnitName->text().latin1();
-	string email = dlg->emailAddress->text().latin1();
-	string desc = dlg->description->text().latin1();
-	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, "");
-	insertReq(req);
-	keys->updateView();
+	try {
+		pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
+		string cn = dlg->commonName->text().latin1();
+		string c = dlg->countryName->text().latin1();
+		string l = dlg->localityName->text().latin1();
+		string st = dlg->stateOrProvinceName->text().latin1();
+		string o = dlg->organisationName->text().latin1();
+		string ou = dlg->organisationalUnitName->text().latin1();
+		string email = dlg->emailAddress->text().latin1();
+		string desc = dlg->description->text().latin1();
+		pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, "");
+		insertReq(req);
+		keys->updateView();
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 
@@ -94,7 +99,7 @@ void MainWindow::showDetailsReq(QListViewItem *item)
 void MainWindow::showDetailsReq(pki_x509req *req)
 {
 	if (!req) return;
-	if (opensslError(req)) return;
+    try {	
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	dlg->descr->setText(req->getDescription().c_str());
 	dlg->setCaption(tr(XCA_TITLE));
@@ -117,28 +122,44 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).c_str());
 	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).c_str());
 	dlg->image->setPixmap(*csrImg);
-	if ( !dlg->exec()) {
-		delete dlg;
-		return;
+	if (dlg->exec()) {
+		string ndesc = dlg->descr->text().latin1();
+		if (ndesc != req->getDescription()) {
+			reqs->renamePKI(req, ndesc);
+		}
 	}
-	string ndesc = dlg->descr->text().latin1();
-	if (ndesc != req->getDescription()) {
-		reqs->renamePKI(req, ndesc);
-	}
+	delete dlg;
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
 }
 
 void MainWindow::deleteReq()
 {
-	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
+	pki_x509req *req;
+	try {
+		req = (pki_x509req *)reqs->getSelectedPKI();
+	}
+	catch (errorEx &err) {
+		Error(err);
+		return;
+	}
+	
 	if (!req) return;
-	if (opensslError(req)) return;
 	if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("Really want to delete the Certificate signing request") +":\n'" + 
 			QString::fromLatin1(req->getDescription().c_str()) +
 			"'\n", "Delete", "Cancel")
 	) return;
-	reqs->deletePKI(req);
-	keys->updateView();
+	try {
+		pki_key *pkey = req->getKey();
+		reqs->deletePKI(req);
+		if (pkey) keys->updateViewPKI(pkey);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 void MainWindow::loadReq()
@@ -155,15 +176,28 @@ void MainWindow::loadReq()
 	delete dlg;
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
-	pki_x509req *req = new pki_x509req(s.latin1());
-	if (opensslError(req)) return;
-	insertReq(req);
-	keys->updateView();
+	try {
+		pki_x509req *req = new pki_x509req(s.latin1());
+		insertReq(req);
+		pki_key *pkey = req->getKey();
+		if (pkey) keys->updateViewPKI(pkey);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 void MainWindow::writeReq()
 {
-	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
+	pki_x509req *req;
+	try {
+		req = (pki_x509req *)reqs->getSelectedPKI();
+	}
+	catch (errorEx &err) {
+		Error(err);
+		return;
+	}
+
 	if (!req) return;
 	QStringList filt;
 	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
@@ -179,16 +213,23 @@ void MainWindow::writeReq()
 	delete dlg;
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
-	if (opensslError(req)) return;
-
-	req->writeReq(s.latin1(),true);
-	if (opensslError(req)) return;
+	try {
+		req->writeReq(s.latin1(),true);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 void MainWindow::insertReq(pki_x509req *req)
 {
-	if (opensslError(req)) return;
-	pki_x509 *oldreq = (pki_x509 *)reqs->findPKI(req);
+	pki_x509 *oldreq;
+	try {
+		oldreq = (pki_x509 *)reqs->findPKI(req);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 	if (oldreq) {
 	   QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate signing request already exists in the database as") +":\n'" +
@@ -197,8 +238,13 @@ void MainWindow::insertReq(pki_x509req *req)
 	   delete(req);
 	   return;
 	}
-	reqs->findKey(req);
-	reqs->insertPKI(req);
+	try {
+		reqs->findKey(req);
+		reqs->insertPKI(req);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 
@@ -223,20 +269,30 @@ void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
 
 void MainWindow::renameReq(QListViewItem *item, int col, const QString &text)
 {
-	pki_base *pki = reqs->getSelectedPKI(item);
-	string txt =  text.latin1();
-	reqs->renamePKI(pki, txt);
+	try {
+		pki_base *pki = reqs->getSelectedPKI(item);
+		string txt =  text.latin1();
+		reqs->renamePKI(pki, txt);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 
 void MainWindow::startRenameReq()
 {
+	try {
 #ifdef qt3
-	pki_base *pki = reqs->getSelectedPKI();
-	if (!pki) return;
-	QListViewItem *item = (QListViewItem *)pki->getPointer();
-	item->startRename(0);
+		pki_base *pki = reqs->getSelectedPKI();
+		if (!pki) return;
+		QListViewItem *item = (QListViewItem *)pki->getPointer();
+		item->startRename(0);
 #else
-	renamePKI(reqs);
+		renamePKI(reqs);
 #endif
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }

@@ -74,10 +74,10 @@ db_base::~db_base()
 }
 
 
-Dbc *db_base::getCursor()
+Dbc *db_base::getCursor(DbTxn *tid)
 {
 	Dbc *cursor;
-	if (int x = data->cursor(NULL, &cursor, 0)) {
+	if (int x = data->cursor(tid, &cursor, 0)) {
 		data->err(x,"DB new Cursor");
 		return NULL;	
 	}
@@ -197,8 +197,10 @@ void db_base::putInt(string key, int dat)
 
 void db_base::loadContainer()
 {
+	DbTxn *tid = NULL;
+	dbenv->txn_begin(NULL, &tid, 0);
 	unsigned char *p;
-	Dbc *cursor = getCursor();
+	Dbc *cursor = getCursor(tid);
 	Dbt *k = new Dbt();
 	Dbt *d = new Dbt();
 	string desc;
@@ -226,6 +228,8 @@ void db_base::loadContainer()
 	delete (d);
 	freeCursor(cursor);
 	preprocess();
+	tid->commit(0);
+	
 }	
 
 
@@ -249,10 +253,16 @@ bool db_base::updateView()
 
 bool db_base::insertPKI(pki_base *pki)
 {
-	bool s = _writePKI(pki, false);
+	DbTxn *tid = NULL;
+	dbenv->txn_begin(NULL, &tid, 0);
+	bool s = _writePKI(pki, false, tid);
 	if (s) {
 		inToCont(pki);
 		updateView();
+		tid->commit(0);
+	}
+	else {
+		tid->abort();
 	}
 	return s;
 }
@@ -294,7 +304,7 @@ bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 }
 
 
-bool db_base::_removePKI(pki_base *pki, DbTxn *tid = NULL) 
+bool db_base::_removePKI(pki_base *pki, DbTxn *tid) 
 {
 	string desc = pki->getDescription();
 	return removeItem(desc, tid);
@@ -314,11 +324,17 @@ bool db_base::removeItem(string key, DbTxn *tid)
 
 bool db_base::deletePKI(pki_base *pki)
 {
-	bool s = _removePKI(pki);
+	DbTxn *tid = NULL;
+	dbenv->txn_begin(NULL, &tid, 0);
+	bool s = _removePKI(pki, tid);
 	if (s) {
 		remFromCont(pki);
 		updateView();
+		tid->commit(0);
 		delete(pki);
+	}
+	else {
+		tid->abort();
 	}
 	return s;
 }
@@ -327,24 +343,24 @@ bool db_base::renamePKI(pki_base *pki, string desc)
 {
 	string oldname = pki->getDescription();
 	DbTxn *tid = NULL;
-	//dbenv->txn_begin(NULL, &tid, 0);
+	dbenv->txn_begin(NULL, &tid, 0);
 	if (! _removePKI(pki, tid)) {
-		//tid->abort();
+		tid->abort();
 		return false;
 	}
 	pki->setDescription(desc);
 	if (! _writePKI(pki, false, tid)) {
-		//tid->abort();
+		tid->abort();
 		return false;
 	}
 	// rename the pki in the listView .....	
 	QListViewItem * item = (QListViewItem *)pki->getPointer();
 	if (!item) {
-		//tid->abort();
+		tid->abort();
 		return false;
 	}
 	item->setText(0, pki->getDescription().c_str());
-	//tid->commit(0);
+	tid->commit(0);
 	updateViewPKI(pki);
 	return true;
 }
@@ -363,8 +379,16 @@ void db_base::inToCont(pki_base *pki)
 
 bool db_base::updatePKI(pki_base *pki) 
 {
-	bool s = _writePKI(pki, true);
-	if (s) updateViewPKI(pki);
+	DbTxn *tid = NULL;
+	dbenv->txn_begin(NULL, &tid, 0);
+	bool s = _writePKI(pki, true, tid);
+	if (s) {
+		updateViewPKI(pki);
+		tid->commit(0);
+	}
+	else {
+		tid->abort();
+	}
 	return s;
 }
 

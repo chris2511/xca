@@ -88,7 +88,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	}
 	dbfile = baseDir + QDir::separator() +  dbfile;
 #endif
-	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN );
+	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS);
+	dbenv->open(NULL, DB_RECOVER | DB_INIT_TXN | DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | DB_CREATE , 0600 );
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 	settings = new db_base(dbenv, dbfile.latin1(), "settings");
@@ -132,6 +133,7 @@ MainWindow::~MainWindow()
 	 delete(certs);
 	 delete(temps);
 	 delete(settings);
+	 dbenv->close(0);
 }
 
 
@@ -284,4 +286,11 @@ void MainWindow::Error(errorEx &err)
 	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +
 			QString::fromLatin1(err.getCString()));
 }
-	
+
+void MainWindow::crashApp()
+{
+	pki_base * nullpointer = NULL;
+	CERR("------> CRASHING the Application <----------");
+	nullpointer->getDescription();
+}
+

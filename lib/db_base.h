@@ -90,9 +90,9 @@ class db_base: public QObject
 	DbEnv *dbenv;
 	QListView *listView;
 	QList<pki_base> container;
-	bool _writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL);
+	bool _writePKI(pki_base *pki, bool overwrite, DbTxn *tid );
 	bool _removePKI(pki_base *pki, DbTxn *tid );
-	bool removeItem(string k, DbTxn *tid = NULL);
+	bool removeItem(string k, DbTxn *tid);
     public:
 	db_base(DbEnv *dbe, string DBfile, string db);
 	virtual ~db_base();
@@ -115,7 +115,7 @@ class db_base: public QObject
 	virtual void preprocess() {return;}
 	virtual void remFromCont(pki_base *pki);
 	virtual void inToCont(pki_base *pki);
-	Dbc *getCursor();
+	Dbc *getCursor(DbTxn *tid);
 	bool freeCursor(Dbc *cursor);
 	void *getData(void* key, int length, int *dsize);
 	void *getData(string key, int *dsize);
