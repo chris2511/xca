@@ -7,7 +7,7 @@ Name "X CA"
 Caption "X Certification Authority"
 
 ; The licenseagreement
-LicenseText "You must accept the following BSD like license to continue. The source can be obtained from: http://www.hohnstaedt.de/xca.html"
+LicenseText "You must accept the following BSD like license to continue."
 LicenseData COPYRIGHT
 
 ; The file to write
@@ -47,6 +47,7 @@ Section "xca (required)"
   File "c:\devel\openssl-0.9.6g\out32dll\Release\SSLeay32.dll"
   File "c:\devel\openssl-0.9.6g\out32dll\Release\libeay32.dll"
   File "e:\win\qt2\bin\msvcrt.dll"
+  File "c:\windows\system\msvcp60.dll"
   File "e:\win\qt2\bin\qt-mt230nc.dll"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
