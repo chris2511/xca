@@ -206,16 +206,9 @@ void pki_x509::setIssuer(const x509name &n)
 	cert->cert_info->issuer = n.get();
 }
 
-void pki_x509::addV3ext(int nid, const QString exttext)
+void pki_x509::addV3ext(const x509v3ext &e)
 {	
-	X509_EXTENSION *ext;
-	const char *c = exttext.latin1();
-	ext =  X509V3_EXT_conf_nid(NULL, NULL, nid, (char *)c);
-	if (!ext) {
-		QString x = "v3 Extension: " + exttext;
-		openssl_error(x.latin1());
-		return;
-	}
+	X509_EXTENSION *ext = e.get();
 	X509_add_ext(cert, ext, -1);
 	X509_EXTENSION_free(ext);
 	openssl_error();
@@ -321,18 +314,13 @@ void pki_x509::fromData(unsigned char *p, int size)
 unsigned char *pki_x509::toData(int *size)
 {
 #define PKI_DB_VERSION (int)3
-	CERR("cert toData");
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
-	MARK	
 	int sRev = revoked.derSize();
-	MARK	
 	int sLastCrl = lastCrl.derSize();
-	MARK	
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();
-	CERR("CertSize: "<<sCert << "  RevSize: " <<sRev <<" CRLdatesize: "<< sLastCrl);
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
 	intToData(&p1, (PKI_DB_VERSION)); // version
@@ -487,39 +475,9 @@ void pki_x509::delSigner(pki_x509 *s)
 
 QString pki_x509::printV3ext()
 {
-#define V3_BUF 100
-	ASN1_OBJECT *obj;
-	BIO *bio = BIO_new(BIO_s_mem());
-	int i, len, n = X509_get_ext_count(cert);
-	char buffer[V3_BUF+1];
-	X509_EXTENSION *ex;
-	QString text="";
-	for (i=0; i<n; i++) {
-		text += "<b><u>";
-		ex = X509_get_ext(cert,i);
-		obj = X509_EXTENSION_get_object(ex);
-		len = i2t_ASN1_OBJECT(buffer, V3_BUF, obj);
-		if (len <0 || len > V3_BUF) openssl_error("V3 buffer too small, this is a bug!");
-		buffer[len] = '\0';
-		CERR("extension: "<< buffer <<", length: " << len);
-		text += buffer;
-		text += ": ";
-		if (X509_EXTENSION_get_critical(ex)) {
-			text += " <font color=\"red\">critical</font>:";
-		}
-		if(!X509V3_EXT_print(bio, ex, 0, 0)) {
-			M_ASN1_OCTET_STRING_print(bio,ex->value);
-		}
-		text+="</u></b><br><tt>";
-        	do {
-			len = BIO_read(bio, buffer, V3_BUF);
-			buffer[len] = '\0';
-			text+=buffer;
-			CERR("extension-length: "<< len);
-		} while (len == V3_BUF);
-		text+="</tt><br>";
-	}
-	BIO_free(bio);
+	extList el;
+	el.setStack(cert->cert_info->extensions);
+	QString text = el.getHtml("<br>");
 	openssl_error();
 	return text;
 }

@@ -112,16 +112,7 @@ void CertView::newCert(NewX509 *dlg)
 	a1time notBefore, notAfter;
 	x509name subject;
 	int i;
-	const QString critical = "critical";
 	
-	QStringList cont;
-	
-	QString ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
-		"timeStamping","msCodeInd","msCodeCom",
-		"msCTLSign","msSGC","msEFS","nsSGC","1.3.6.1.4.1.311.10.3.4.1"};
-	QString keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
-		"dataEncipherment", "keyAgreement", "keyCertSign",
-		"cRLSign", "encipherOnly", "decipherOnly"};
 	QString certTypeList[] = { "client", "server", "email", "objsign",
 		"sslCA", "emailCA", "objCA" };
 
@@ -137,7 +128,7 @@ void CertView::newCert(NewX509 *dlg)
 	}
 	else {
 	    // A PKCS#10 Request was selected 
-	    req = (pki_x509req *)MainWindow::reqs->getByName(dlg->reqList->currentText());
+	    req = dlg->getSelectedReq();
 	    if (Error(req)) return;
 	    clientkey = req->getRefKey();
 	    if (clientkey == NULL) {
@@ -149,7 +140,7 @@ void CertView::newCert(NewX509 *dlg)
 		
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
-		signcert = (pki_x509 *)db->getByName(dlg->certList->currentText());
+		signcert = dlg->getSelectedSigner();
 		serial = signcert->getIncCaSerial();
 		signkey = signcert->getRefKey();
 		// search for serial in database
@@ -187,76 +178,8 @@ void CertView::newCert(NewX509 *dlg)
 	// STEP 4
 	// handle extensions
 	
-	// basic constraints
-	if (dlg->bcCritical->isChecked()) cont << critical;
-	cont << (QString)"CA:" + dlg->basicCA->currentText();
-	cont << (QString)"pathlen:" + dlg->basicPath->text();
-	cert->addV3ext(NID_basic_constraints, cont.join(", "));
-	 
-	// Subject Key identifier
-	if (dlg->subKey->isChecked()) {
-		cert->addV3ext(NID_subject_key_identifier, "hash");
-	}
-	
-	// Authority Key identifier
-	if (dlg->authKey->isChecked()) {
-		cert->addV3ext(NID_authority_key_identifier,
-			"keyid:always,issuer:always");
-	}
-	 
-	// key usage
-	cont.clear(); 
-	if (dlg->kuCritical->isChecked()) cont << critical;
-	for (i=0; (item = dlg->keyUsage->item(i)); i++) {	
-		if (item->selected()){
-			cont << keyusage[i];
-		}
-	}
-	cert->addV3ext(NID_key_usage, cont.join(", "));
-	
-	// extended key usage
-	cont.clear();
-	if (dlg->ekuCritical->isChecked()) cont << critical;
-	for (i=0; (item = dlg->ekeyUsage->item(i)); i++) {	
-		if (item->selected()){
-			cont << ekeyusage[i];
-		}
-	}
-	cert->addV3ext(NID_ext_key_usage, cont.join(", "));
 	
 	
-	// Subject Alternative name
-	if (dlg->subAltCp->isChecked()) {
-		if (subject.getEntryByNid(NID_pkcs9_emailAddress).length() == 0) {
-			if (QMessageBox::information(this,tr(XCA_TITLE),
-			   tr("You requested to copy the subject E-Mail address but it is empty !"),
-			   tr("Continue creation"), tr("Abort")
-			))
-				throw errorEx("");	
-		}
-		else {
-			cont << (QString)"email:copy";
-		}
-	}
-	cont << dlg->subAltName->text();
-	cert->addV3ext(NID_subject_alt_name, cont.join(", "));
-	
-	// issuer alternative name	
-	cont.clear();
-	if (dlg->issAltCp->isChecked()) {
-		if (!signcert->hasSubAltName()) {
-			if (QMessageBox::information(this,tr(XCA_TITLE),
-			   tr("You requested to copy the issuer alternative name but it is empty !"),
-			   tr("Continue creation"), tr("Abort")
-			))
-				throw errorEx("");	
-		}
-		else {
-			cont << (QString)"issuer:copy";
-		}
-	}
-	cont << dlg->issAltName->text();
-	cert->addV3ext(NID_issuer_alt_name, cont.join(", "));
 
 	// CRL distribution points
 	if (!dlg->crlDist->text().isEmpty()) {

@@ -160,16 +160,9 @@ void pki_crl::addRev(const x509rev &xrev)
 	openssl_error();
 }
 
-void pki_crl::addV3ext(int nid, const QString &exttext)
+void pki_crl::addV3ext(const x509v3ext &e)
 { 
-	X509_EXTENSION *ext;
-	char *c = (char *)exttext.latin1();
-	ext =  X509V3_EXT_conf_nid(NULL, NULL, nid, c);
-	if (!ext) {
-		QString x="CRL v3 Extension: " + exttext;
-		openssl_error(x);
-		return;
-	}
+	X509_EXTENSION *ext = e.get();
 	X509_CRL_add_ext(crl, ext, -1);
 	X509_EXTENSION_free(ext);
 	openssl_error();

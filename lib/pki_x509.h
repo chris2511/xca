@@ -61,6 +61,7 @@
 #include "asn1time.h"
 #include "asn1int.h"
 #include "x509rev.h"
+#include "x509v3ext.h"
 
 class pki_x509 : public pki_x509super
 {
@@ -110,7 +111,7 @@ class pki_x509 : public pki_x509super
 	   QString fingerprint(const EVP_MD *digest);
 	   QString printV3ext();
 	   int checkDate();
-	   void addV3ext(int nid, const QString exttext);
+	   void addV3ext(const x509v3ext &e);
 	   void sign(pki_key *signkey);
 	   X509 *getCert(){ return cert;}
 	   int getTrust();

@@ -65,6 +65,12 @@
 #include "MainWindow.h"
 #include "lib/x509name.h"
 
+void NewX509::initCtx()
+{
+	X509V3_set_ctx(&ext_ctx, getSelectedSigner()->getCert() , NULL, NULL, NULL, 0);
+        X509V3_set_ctx_nodb(&ext_ctx);
+}	
+
 int NewX509::eku_nid[EKUN_CNT] = {
   NID_server_auth,
   NID_client_auth,
@@ -451,6 +457,10 @@ void NewX509::showPage(QWidget *page)
 	}
 	else if (page == page4) {
 		basicCA->setFocus();
+		if (emailAddress->text().isEmpty())
+			subAltCp->setEnabled(false);
+		else
+			subAltCp->setEnabled(true);
 	}
 
 }
@@ -466,6 +476,11 @@ void NewX509::signerChanged()
 	QString templ = cert->getTemplate();	
 	
 	if (templ.isEmpty()) return;
+	
+	if (getSelectedSigner()->hasSubAltName())
+		issAltCp->setEnabled(true);
+	else
+		issAltCp->setEnabled(false);
 	
 	templateChanged(templ);
 	
@@ -548,6 +563,16 @@ pki_key *NewX509::getSelectedKey()
 	return (pki_key *)MainWindow::keys->getByName(keyList->currentText());
 }
 
+pki_x509 *NewX509::getSelectedSigner()
+{
+	return (pki_x509 *)MainWindow::certs->getByName(certList->currentText());
+}
+
+pki_x509req *NewX509::getSelectedReq()
+{
+	return (pki_x509req *)MainWindow::reqs->getByName(reqList->currentText());
+}
+
 x509name NewX509::getX509name()
 {
 	x509name x;
@@ -577,3 +602,92 @@ void NewX509::delX509NameEntry()
 {
 	extDNlist->removeItem(extDNlist->currentItem());
 }
+
+x509v3ext NewX509::getBasicConstraints()
+{
+	QStringList cont;
+	x509v3ext ext;
+	if (bcCritical->isChecked()) cont << "critical";
+	cont << (QString)"CA:" + basicCA->currentText();
+	cont << (QString)"pathlen:" + basicPath->text();
+	ext.create(NID_basic_constraints, cont.join(", "));
+	return ext;
+}
+
+x509v3ext NewX509::getSubKeyIdent()
+{
+	x509v3ext ext;
+	if (subKey->isChecked())
+		ext.create(NID_subject_key_identifier, "hash");
+	return ext;
+}
+
+x509v3ext NewX509::getAuthKeyIdent()
+{
+	x509v3ext ext;
+	initCtx();
+	if (subKey->isChecked())
+		ext.create(NID_authority_key_identifier, 
+			"keyid:always,issuer:always", &ext_ctx);
+	return ext;
+}
+
+x509v3ext NewX509::getKeyUsage()
+{
+	QString keyusage[] = {
+		"digitalSignature", "nonRepudiation", "keyEncipherment",
+		"dataEncipherment", "keyAgreement", "keyCertSign",
+		"cRLSign", "encipherOnly", "decipherOnly"
+	};
+						
+	QStringList cont;
+	x509v3ext ext;
+	QListBoxItem *item;
+	if (kuCritical->isChecked()) cont << "critical";
+        for (int i=0; (item = keyUsage->item(i)); i++) {
+		if (item->selected()) {
+			cont << keyusage[i];
+		}
+	}
+	ext.create(NID_key_usage, cont.join(", "));
+	return ext;
+}
+
+x509v3ext NewX509::getEkeyUsage()
+{
+	QStringList cont;
+	x509v3ext ext;
+	QListBoxItem *item;
+	if (ekuCritical->isChecked()) cont << "critical";
+	for (int i=0; (item = ekeyUsage->item(i)); i++) {
+		if (item->selected()){
+			cont << (QString)OBJ_nid2sn(eku_nid[i]);
+		}
+	}
+	ext.create(NID_ext_key_usage, cont.join(", "));
+	return ext;
+}
+
+x509v3ext NewX509::getSubAltName()
+{
+	QStringList cont;
+	x509v3ext ext;
+	if (subAltCp->isChecked() && subAltCp->isEnabled())
+		cont << (QString)"email:" + emailAddress->text();
+	cont << subAltName->text();
+	ext.create(NID_subject_alt_name, cont.join(", "));
+	return ext;
+}
+
+x509v3ext NewX509::getIssAltName()
+{
+	QStringList cont;
+	x509v3ext ext;
+	initCtx();
+	if (issAltCp->isChecked() && issAltCp->isEnabled())
+		cont << (QString)"issuer:copy";
+	cont << subAltName->text();
+	ext.create(NID_subject_alt_name, cont.join(", "), &ext_ctx);
+	return ext;
+}
+

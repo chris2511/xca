@@ -70,10 +70,11 @@ class NewX509: public NewX509_UI
 #define DISTNAME_CNT 18
 	static int eku_nid[EKUN_CNT];
 	static int dn_nid[DISTNAME_CNT];
-
+	X509V3_CTX ext_ctx;
    public:	
 	NewX509(QWidget *parent, const char *name, bool modal = false, WFlags f = 0);
 	~NewX509();
+	void initCtx();
 	void setRequest(); // reduce to request form 	
 	void setTemp(pki_temp *temp); // reduce to template form 	
 	void setCert(); // reduce to certificate form 	
@@ -89,8 +90,17 @@ class NewX509: public NewX509_UI
 	void templateChanged(pki_temp *templ);
 	void templateChanged(QString templatename);
 	pki_key *getSelectedKey();
+	pki_x509 *getSelectedSigner();
+	pki_x509req *getSelectedReq();
 	x509name getX509name();
 	void setImage(QPixmap *image);
+	x509v3ext getBasicConstraints();
+	x509v3ext getSubKeyIdent();
+	x509v3ext getAuthKeyIdent();
+	x509v3ext getKeyUsage();
+	x509v3ext getEkeyUsage();
+	x509v3ext getSubAltName();
+	x509v3ext getIssAltName();
    public slots:
 	void toggleFromRequest();
 	void dataChangeP2();

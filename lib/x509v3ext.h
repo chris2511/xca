@@ -48,51 +48,39 @@
  *
  */                           
 
+#ifndef X509V3EXT_H
+#define X509V3EXT_H
 
-#ifndef PKI_CRL_H
-#define PKI_CRL_H
+#include <qvaluelist.h>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
 
-#include <iostream>
-#include <openssl/pem.h>
-#include "pki_x509.h"
-#include "x509name.h"
-#include "asn1time.h"
-#include "asn1int.h"
+class QString;
 
-class pki_crl: public pki_base
+class x509v3ext
 {
-    friend class pki_x509;
-    protected:
-	pki_x509 *issuer;
-	X509_CRL *crl;
-    public:
-	pki_crl(const QString fname);
-	pki_crl();
-	/* destructor */
-	~pki_crl();
-	
-	void createCrl(const QString d, pki_x509 *iss);
-	void addRev(const x509rev &rev);
-	void addExt(int nid, QString value);
-	void write(QString fname);
-	void addV3ext(const x509v3ext &e);
-	void sign(pki_key *key, const EVP_MD *md = EVP_md5());
-	void writeCrl(const QString fname, bool pem = true);
-	pki_x509 *getIssuer();	
-	x509name getIssuerName();
-	void setLastUpdate(const a1time &t);
-	void setNextUpdate(const a1time &t);
-	a1time getNextUpdate();
-	a1time getLastUpdate();
-	virtual void fromData(unsigned char *p, int size);
-	virtual unsigned char *toData(int *size);
-	virtual bool compare(pki_base *refcrl);
-	int numRev();
-	bool verify(pki_key *pkey);
-	x509rev getRev(int num);
-	QString printV3ext();
-	a1int getVersion();
-			       
+   private:	
+	X509_EXTENSION *ext;
+   public:
+	x509v3ext();
+	x509v3ext(const X509_EXTENSION *n);
+	x509v3ext(const x509v3ext &n);
+	~x509v3ext();
+	x509v3ext &set(const X509_EXTENSION *n);
+	x509v3ext &create(int nid, const QString &et, X509V3_CTX *ctx = NULL);
+	x509v3ext &operator = (const x509v3ext &x);
+	// bool operator == (const x509v3ext &x) const;
+	QString getObject() const;
+	int getCritical() const;
+	QString getValue() const;
+	QString getHtml() const;
+	X509_EXTENSION *get() const;
 };
 
+class extList : public QValueList<x509v3ext>
+{
+    public:
+	void setStack(STACK_OF(X509_EXTENSION) *st);
+	QString getHtml(const QString &sep);
+};
 #endif
