@@ -19,7 +19,13 @@
 #
 #######################################################
 
-DIRS="$QTDIR $@ /usr /usr/X11R6 /usr/local"
+DIRS=""
+
+for dir in $@; do
+  DIRS="$DIRS `cd $dir; pwd`"
+done
+
+DIRS="$QTDIR $DIRS /usr /usr/X11R6 /usr/local"
 
 CF="-I. -I.."
 LIBS=-lstdc++
@@ -58,8 +64,8 @@ add_lib() {
 
 # check for includes
 search_includes() {
-  for dbn in "" ${subdirs}; do
-    for dir in ${DIRS};  do
+  for dir in ${DIRS};  do
+    for dbn in "" ${subdirs}; do
       if test -r ${dir}/include${dbn}/$1; then
           add_include ${dir}/include${dbn}
           echo Found:  $1 at ${dir}/include${dbn}
@@ -72,8 +78,8 @@ search_includes() {
 
 # check for libs
 search_lib() {
-  for dbn in $@; do
-    for dir in ${DIRS};  do
+  for dir in ${DIRS};  do
+    for dbn in $@; do
       for suffix in so dylib obj; do
         if test -r ${dir}/lib/lib${dbn}.${suffix}; then
           add_lib ${dir}/lib ${dbn};
