@@ -118,6 +118,7 @@ class NewX509: public NewX509_UI
 	void initCtx(pki_x509 *subj);
 	void setBasicConstraints(const x509v3ext &e);
 	void setExt(const x509v3ext &ext);
+	QString createRequestText();
    public slots:
 	void toggleFromRequest();
 	void dataChangeP2();

@@ -63,6 +63,7 @@
 #include <qpushbutton.h>
 #include <qvalidator.h>
 #include <qbuttongroup.h>
+#include <qtextview.h>
 #include "MainWindow.h"
 #include "validity.h"
 #include "lib/x509name.h"
@@ -469,6 +470,10 @@ void NewX509::showPage(QWidget *page)
 		dataChangeP2();
 	}
 	
+	if (page == page7) {
+		v3Extensions->setText(createRequestText());
+	}
+	
 	QWizard::showPage(page);
 	
 	if ( page == page2 ) {
@@ -481,6 +486,7 @@ void NewX509::showPage(QWidget *page)
 		else
 			subAltCp->setEnabled(true);
 	}
+
 
 }
 

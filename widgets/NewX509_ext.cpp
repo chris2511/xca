@@ -59,6 +59,7 @@
 #include <qlistbox.h>
 #include <qlistview.h>
 #include "MainWindow.h"
+#include "lib/x509v3ext.h"
 
 
 x509v3ext NewX509::getBasicConstraints()
@@ -222,3 +223,20 @@ void NewX509::setExt(const x509v3ext &ext)
 			bcCritical->setChecked(ext.getCritical());
 	}
 }
+
+QString NewX509::createRequestText()
+{
+
+	extList ne;
+	
+	ne << getBasicConstraints();
+	ne << getSubKeyIdent();
+	ne << getAuthKeyIdent();
+	ne << getKeyUsage();
+	ne << getEkeyUsage();
+	ne << getSubAltName();
+	ne << getIssAltName();
+	ne << getCrlDist();
+
+	return ne.getHtml("<br>") + getNetscapeExt().getHtml("<br>");
+}								
