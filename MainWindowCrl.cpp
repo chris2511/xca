@@ -93,12 +93,12 @@ bool MainWindow::showDetailsCrl(pki_crl *crl, bool import)
 			CERR(rev->getDescription());
 			current = new QListViewItem(dlg->certList, 
 					rev->getDescription().c_str());
-			current->setText(1, rev->getSerial().c_str() );
-			current->setText(2, rev->revokedAt(TIMEFORM_SORTABLE).c_str());
 		}
 		else {
-			current = new QListViewItem(dlg->certList, "Unknown" );
+			current = new QListViewItem(dlg->certList, "Unknown certificate" );
 		}
+		current->setText(1, QString::number(crl->getSerial(i)) );
+		current->setText(2, pki_x509::asn1TimeToSortable(crl->getRevDate(i)).c_str());
 	}
 	dlg->v3Extensions->setText(crl->printV3ext().c_str());
 	dlg->issuer->setText(iss->getDescription().c_str());
