@@ -330,7 +330,7 @@ void MainWindow::extendCert()
 	pki_key *signkey = NULL;
 	int serial, days, x;
 	try {
-		CertExtend_UI *dlg = new CertExtend_UI(this, NULL);
+		CertExtend_UI *dlg = new CertExtend_UI(this, NULL, true);
 		dlg->image->setPixmap(*certImg);
 		if (!dlg->exec()) {
 			delete dlg;
@@ -835,6 +835,46 @@ void MainWindow::signP7()
 		s = QDir::convertSeparators(s);
 		p7->signFile(cert, s.latin1());
 		p7->writeP7((s + ".p7s").latin1(), true);
+	}
+	delete p7;
+    }
+    catch (errorEx &err) {
+	Error(err);
+    }
+}	
+
+void MainWindow::encryptP7()
+{
+	QStringList filt;
+    try {
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	pki_key *privkey = cert->getKey();
+	if (!privkey || privkey->isPubKey()) {
+		QMessageBox::warning(this,tr(XCA_TITLE),
+                	tr("There was no key found for the Certificate: ") +
+			QString::fromLatin1(cert->getDescription().c_str()) );
+		return; 
+	}
+        filt.append("All Files ( *.* )");
+	QString s="";
+	QStringList slist;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("Import Certificate signing request"));
+	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::ExistingFiles );
+	setPath(dlg);
+	if (dlg->exec()) {
+		slist = dlg->selectedFiles();
+		newPath(dlg);
+        }
+	delete dlg;
+	pki_pkcs7 * p7 = new pki_pkcs7("");
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		p7->encryptFile(cert, s.latin1());
+		p7->writeP7((s + ".p7m").latin1(), true);
 	}
 	delete p7;
     }

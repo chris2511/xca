@@ -207,6 +207,7 @@ class MainWindow: public MainWindow_UI
 	void newPath(QFileDialog *dlg);
 	void extendCert();
 	void signP7();
+	void encryptP7();
    signals:
 	void keyDone(QString name);
 };
