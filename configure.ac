@@ -15,18 +15,19 @@ else
 	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include/qt"
 	AC_MSG_NOTICE([QTDIR was not set, using default locations])
 fi
-AC_LANG(C++)
 H_SSL=no
 H_DB=no
 AC_CHECK_HEADERS([evp.h openssl/evp.h],[H_SSL=y;break])
 if test "$H_SSL" == no; then
 	AC_MSG_ERROR([OpenSSL headerfiles not found])
 fi
+AC_LANG(C++)
 AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break])
 if test "$H_DB" == no; then
 	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca for a workaround)])
 fi
 AC_CHECK_HEADER([qaccessible.h])
+AC_LANG(C)
 
 # Checks for libraries.
 AC_CHECK_LIB([crypto], [atexit], , [AC_MSG_ERROR([OpenSSL libraries not found, try installing openssl-dev or look at www.openssl.org])])
