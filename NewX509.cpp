@@ -222,9 +222,9 @@ void NewX509::setup()
 	
 void NewX509::defineTemplate(pki_temp *temp)
 {
-	//setAppropriate(page1,false);
-	//fixtemp = temp;
 	fromTemplate(temp);
+	templateChanged(temp);
+	tempList->setEnabled(false);
 }
 
 void NewX509::defineRequest(pki_x509req *req)
@@ -378,17 +378,7 @@ void NewX509::showPage(QWidget *page)
 	else if ( page == page2 ) {
 		dataChangeP2();
 	}
-	/*
-	else if ( page == page4 ) { // disable Copy issuer alternative name 
-		if (selfSignRB->isChecked()) { // for self signed certs
-			issAltCp->setChecked(false);
-			issAltCp->setEnabled(false);
-		}
-		else {
-			issAltCp->setEnabled(true);
-		}
-	}
-	*/
+	
 	QWizard::showPage(page);
 	
 	if ( page == page2 ) {
@@ -403,38 +393,46 @@ void NewX509::showPage(QWidget *page)
 void NewX509::signerChanged()
 {
 	CERR("signer Changed");
-	// int i=0, sel=0;
 	if (!certs) return;
 	QString name = certList->currentText();
 	CERR( "Certificate: " << name.latin1());
+	
 	if (name.isEmpty()) return;
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(name.latin1());
+	
 	if (!cert) return;
 	QString templ = cert->getTemplate().c_str();	
+	
 	if (templ.isEmpty()) return;
-	CERR( "set Template: " << templ.latin1() );
+	CERR( "set Template: " << templ );
+	
+	templateChanged(templ);
+	
+}
+
+
+void NewX509::templateChanged(QString tempname)
+{
+	if (!tempList->isEnabled()) return;
 #ifdef qt3
-	tempList->setCurrentText(templ);
+	tempList->setCurrentText(tempname);
 #else
 	for (int i=0; i<tempList->count();i++) {
-		if (tempList->text(i) == templ) {
+		if (tempList->text(i) == tempname) {
 			tempList->setCurrentItem(i);
 			break;
 		}
 	}
 #endif
-	templateChanged();
-	/*
-	QStringList templates = tempList->list();
-	for (i=0; i<templates.count(); i++) {
-		if (templates[i] == templ) {
-			sel = i;
-		}
-	}
-	if (sel >0) {
-		tempList->setSelected(sel);
-	}*/
 }
+
+
+void NewX509::templateChanged(pki_temp *templ)
+{
+	QString tempname = templ->getDescription().c_str();
+	templateChanged(tempname);
+}
+
 	
 void NewX509::templateChanged()
 {

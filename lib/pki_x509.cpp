@@ -562,9 +562,9 @@ string pki_x509::printV3ext()
 		ex = X509_get_ext(cert,i);
 		obj = X509_EXTENSION_get_object(ex);
 		len = i2t_ASN1_OBJECT(buffer, V3_BUF, obj);
+		if (len <0 || len > V3_BUF) openssl_error("V3 buffer too small, this is a bug!");
 		buffer[len] = '\0';
 		CERR("extension: "<< buffer <<", length: " << len);
-		if (len == V3_BUF) openssl_error("V3 buffer too small, this is a bug!");
 		text += buffer;
 		text += ": ";
 		if (X509_EXTENSION_get_critical(ex)) {
