@@ -242,14 +242,19 @@ QString getBaseDir()
 void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na)
 {
 #define d_fac (60 * 60 * 24)
-    int faktor[] = { 1, 30, 365 };
-    int midnight = mnc? 1:0;
-
-    if (range>2 || range<0) range = 0;
+    int faktor[] = { 1, 30, 365 }, midnight, delta;
     a1time a;
     time_t t;
+	
+    midnight = mnc? 1:0;
+
+    if (range>2 || range<0) range = 0;
     time(&t);
-    int delta = faktor[range] * number ;
+    delta = faktor[range] * number;
+	
+	// one day less if we go from 0:00:00 to 23:59:59 
+	if (mnc) delta -=1;
+	
     t /= d_fac;
     if (delta + t > 24850){
         QMessageBox::warning(NULL, XCA_TITLE,
