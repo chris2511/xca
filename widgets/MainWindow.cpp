@@ -87,6 +87,7 @@ db_temp	*MainWindow::temps = NULL;
 db_base	*MainWindow::settings = NULL;
 db_crl	*MainWindow::crls = NULL;
 
+extern void initOIDs(void);
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
@@ -163,6 +164,9 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
+	/* read in all out own OIDs */
+	initOIDs();
+	
 	init_database();
 	
 	read_cmdline();

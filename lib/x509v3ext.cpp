@@ -135,7 +135,12 @@ QString x509v3ext::getValue() const
 	int len;
 	char buffer[V3_BUF+1];
 	BIO *bio = BIO_new(BIO_s_mem());
-	X509V3_EXT_print(bio, ext, 0, 0);
+#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
+	if(!X509V3_EXT_print(bio, ext, X509V3_EXT_PARSE_UNKNOWN, 0))
+#else
+	if (!X509V3_EXT_print(bio, ext, 0, 0))
+#endif
+		return text;
 	do {
 		len = BIO_read(bio, buffer, V3_BUF);
 		buffer[len] = '\0';

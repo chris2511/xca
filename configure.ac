@@ -18,7 +18,7 @@ AC_SUBST(ac_QTDIR)
 AC_SUBST(ac_DEBUG)
 AC_SUBST(ac_CC_WARN)
 
-AC_ARG_WITH(openssldir,    specify an extra dir for openssl,
+AC_ARG_WITH(openssldir,    "specify an extra dir for openssl",
 	CPPFLAGS="$CPPFLAGS -I$withval/include"; LDFLAGS="$LDFLAGS -L$withval/lib")
 
 # enable QTDIR if exist
