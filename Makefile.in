@@ -26,6 +26,7 @@ OBJS=ui/ui.o widgets/widgets.o view/view.o lib/libpki.o
 SUBDIRS=ui lib widgets view
 
 all: $(SUBDIRS) xca
+re: clean all
 
 xca: $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o xca
@@ -49,8 +50,8 @@ distclean: clean
 
 dist: 
 	test ! -z "$(TVERSION)"
-	rm -rf $(TARGET) 
-	cvs export -r $(TAG) -d $(TARGET) xca && \
+	#rm -rf $(TARGET) 
+	#cvs export -r $(TAG) -d $(TARGET) xca && 
 	(cd $(TARGET) &&  autoconf && \
 	./mkxcapro.sh && lrelease xca.pro && \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \

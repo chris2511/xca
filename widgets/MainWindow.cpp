@@ -200,8 +200,15 @@ void MainWindow::read_cmdline()
 {
 	int cnt = 1;
 	char *arg = NULL;
-	pki_base *item;
+	pki_base *item = NULL;
 	load_base *lb = NULL;
+	load_cert *lc = new load_cert();
+	load_req *lr = new load_req();
+	load_key *lk = new load_key();
+	load_pkcs12 *lp12 = new load_pkcs12();
+	load_pkcs7 *lp7 = new load_pkcs7();
+	load_crl *lcr = new load_crl();
+	load_temp *lt = new load_temp();
 	exitApp = 0;
 	
 	ImportMulti *dlgi = NULL;
@@ -211,25 +218,25 @@ void MainWindow::read_cmdline()
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
 			switch (arg[1]) {
-				case 'c' : lb = new load_cert();
+				case 'c' : lb = lc;
 					   exitApp =1;
 					   break;
-				case 'r' : lb = new load_req();
+				case 'r' : lb = lr;
 					   exitApp =1;
 					   break;
-				case 'k' : lb = new load_key();
+				case 'k' : lb = lk;
 					   exitApp =1;
 					   break;
-				case 'p' : lb = new load_pkcs12();
+				case 'p' : lb = lp12;
 					   exitApp =1;
 					   break;
-				case '7' : lb = new load_pkcs7();
+				case '7' : lb = lp7;
 					   exitApp =1;
 					   break;
-				case 'l' : lb = new load_crl();
+				case 'l' : lb = lcr;
 					   exitApp =1;
 					   break;
-				case 't' : lb = new load_temp();
+				case 't' : lb = lt;
 					   exitApp =1;
 					   break;
 				case 'v' : printf("%s Version %s\n", 
@@ -250,31 +257,30 @@ void MainWindow::read_cmdline()
 				arg=qApp->argv()[cnt];
 			}
 		}
-		try {
-			if (lb != NULL) {
-				try {
-					item = lb->loadItem(arg);
-				}
-				catch (errorEx &err) {
-					Error(err);
-					if (item) {
-						delete item;
-						item = NULL;
-					}
-				}
+		if (lb) {
+			try {
+				item = lb->loadItem(arg);
 				dlgi->addItem(item);
-				delete lb;
-				lb = NULL;
 			}
-		}
-		
-		catch (errorEx &err) {
-			Error(err);
+			catch (errorEx &err) {
+				Error(err);
+				if (item) {
+					delete item;
+					item = NULL;
+				}
+			}
 		}
 		cnt++;
 	}
 	dlgi->execute();
 	delete dlgi;
+	delete lt;
+	delete lcr;
+	delete lp7;
+	delete lp12;
+   	delete lk;
+	delete lr;
+	delete lc;		
 }	
 
 
