@@ -12,13 +12,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>828</width>
+            <width>824</width>
             <height>604</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Zertifikats und Schlüsselverwaltung</string>
+        <string>X Certificate and Key management</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -74,6 +74,16 @@
                                 <bool>true</bool>
                             </property>
                         </column>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Item</string>
+                        </property>
+                        <property>
+                            <name>pixmap</name>
+                            <pixmap></pixmap>
+                        </property>
+                    </item>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>keyList</cstring>
@@ -242,6 +252,16 @@
                                 <bool>true</bool>
                             </property>
                         </column>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Item</string>
+                        </property>
+                        <property>
+                            <name>pixmap</name>
+                            <pixmap></pixmap>
+                        </property>
+                    </item>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>reqList</cstring>
@@ -410,6 +430,16 @@
                                 <bool>true</bool>
                             </property>
                         </column>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Item</string>
+                        </property>
+                        <property>
+                            <name>pixmap</name>
+                            <pixmap></pixmap>
+                        </property>
+                    </item>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>certList</cstring>
@@ -695,30 +725,6 @@
         <slot>deleteKey()</slot>
     </connection>
     <connection>
-        <sender>keyList</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsKey(QListViewItem *)</slot>
-    </connection>
-    <connection>
-        <sender>reqList</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsReq(QListViewItem *)</slot>
-    </connection>
-    <connection>
-        <sender>certList</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsCert(QListViewItem *)</slot>
-    </connection>
-    <connection>
-        <sender>PushButton25</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsKey()</slot>
-    </connection>
-    <connection>
         <sender>detailsKey</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
@@ -736,6 +742,48 @@
         <receiver>MainWindow_UI</receiver>
         <slot>writePKCS12()</slot>
     </connection>
+    <connection>
+        <sender>certList</sender>
+        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showPopupCert(QListViewItem *, const QPoint &amp;, int)</slot>
+    </connection>
+    <connection>
+        <sender>certList</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsCert(QListViewItem *)</slot>
+    </connection>
+    <connection>
+        <sender>PushButton25</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsReq()</slot>
+    </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsKey(QListViewItem *)</slot>
+    </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showPopupKey(QListViewItem *, const QPoint &amp;, int)</slot>
+    </connection>
+    <connection>
+        <sender>reqList</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsReq(QListViewItem *)</slot>
+    </connection>
+    <connection>
+        <sender>reqList</sender>
+        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showPopupReq(QListViewItem *, const QPoint &amp;, int)</slot>
+    </connection>
     <slot access="public">deleteCert()</slot>
     <slot access="public">deleteKey()</slot>
     <slot access="public">deleteReq()</slot>
@@ -745,15 +793,18 @@
     <slot access="public">newCert()</slot>
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
-    <slot access="public">writePKCS12()</slot>
+    <slot access="public">showPopupKey(QListViewItem *, const QPoint &amp;, int)</slot>
     <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
     <slot access="public">showDetailsKey()</slot>
     <slot access="public">showDetailsKey(QListViewItem *)</slot>
     <slot access="public">showDetailsReq()</slot>
     <slot access="public">showDetailsReq(QListViewItem *)</slot>
+    <slot access="public">showPopupCert(QListViewItem *, const QPoint &amp;, int)</slot>
+    <slot access="public">showPopupReq(QListViewItem *, const QPoint &amp;, int)</slot>
     <slot access="public">writeCert()</slot>
     <slot access="public">writeKey()</slot>
+    <slot access="public">writePKCS12()</slot>
     <slot access="public">writeReq()</slot>
 </connections>
 <tabstops>

@@ -127,3 +127,25 @@ void MainWindow::insertReq(pki_x509req *req)
 	}
 	reqs->insertPKI(req);
 }
+
+
+void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
+	CERR << "hallo popup Req" << endl;
+	QPopupMenu *menu = new QPopupMenu(this);
+	if (!item) {
+		menu->insertItem(tr("New Request"), this, SLOT(newReq()));
+		menu->insertItem(tr("Import"), this, SLOT(loadReq()));
+	}
+	else {
+		menu->insertItem(tr("Rename"), this, SLOT(renameReq()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsReq()));
+		menu->insertItem(tr("Export"), this, SLOT(writeReq()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteReq()));
+	}
+	menu->exec(pt);
+	return;
+}
+
+void MainWindow::renameReq() {
+	renamePKI(reqs);
+}

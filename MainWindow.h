@@ -9,12 +9,14 @@
 #include "NewX509.h"
 #include "NewX509_1_UI.h"
 #include "NewX509_2_UI.h"
+#include "Rename_UI.h"
 #include "ExportKey.h"
 #include <iostream.h>
 #include <qtextview.h>
 #include <qapplication.h>
 #include <qdir.h>
 #include <qlineedit.h>
+#include <qpopupmenu.h>
 #include <qcombobox.h>
 #include <qlistview.h>
 #include <qlistbox.h>
@@ -78,6 +80,7 @@ class MainWindow: public MainWindow_UI
 	string md5passwd();
 	bool opensslError(pki_base *pki);
 	QPixmap *loadImg(const char *name);
+	void renamePKI(db_base *db);
    public slots:
 	void loadKey();
 	void loadReq();
@@ -98,5 +101,11 @@ class MainWindow: public MainWindow_UI
 	void writeReq();
 	void writeCert();
 	void writePKCS12();
+	void showPopupCert(QListViewItem *item,const QPoint &pt, int x);
+	void showPopupKey(QListViewItem *item,const QPoint &pt, int x);
+	void showPopupReq(QListViewItem *item,const QPoint &pt, int x);
+	void renameCert();
+	void renameKey();
+	void renameReq();
 };
 #endif

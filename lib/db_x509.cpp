@@ -112,6 +112,7 @@ void db_x509::remFromCont(pki_base *pki)
 
 pki_key *db_x509::findKey(pki_x509* cert)
 {
+	if (!cert) return NULL;
 	pki_key *key;
 	key = (pki_key *)keylist->findPKI(cert->getKey());
 	if (key)

@@ -244,6 +244,7 @@ bool db_base::updatePKI(pki_base *pki, string desc)
 	   pki->setDescription(desc);
 	   return insertPKI(pki);
 	}
+	updateView();
 	return true;
 }
 

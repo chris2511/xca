@@ -338,3 +338,38 @@ void MainWindow::writePKCS12()
 	}
 }
 
+void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
+	CERR << "hallo popup" << endl;
+	QPopupMenu *menu = new QPopupMenu(this);
+	int itemExtend, itemRevoke, itemTrust;
+	bool canSign, isRoot;
+	if (!item) {
+		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
+		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
+	}
+	else {
+		menu->insertItem(tr("Rename"), this, SLOT(renameCert()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCert()));
+		menu->insertItem(tr("Export"), this, SLOT(writeCert()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
+		itemTrust = menu->insertItem(tr("Trust"));
+		menu->setCheckable(true);
+		menu->insertSeparator();
+		itemExtend = menu->insertItem(tr("Extend"));
+		itemRevoke = menu->insertItem(tr("Revoke"));
+		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());
+		if (cert) {
+			canSign = (certs->findKey(cert->getSigner()) != NULL);
+			isRoot = ((cert->getSigner() == NULL) || (cert->getSigner() == cert));
+		}
+		menu->setItemEnabled(itemExtend, canSign);
+		menu->setItemEnabled(itemRevoke, canSign);
+		menu->setItemEnabled(itemTrust, isRoot);
+	}
+	menu->exec(pt);
+	return;
+}
+
+void MainWindow::renameCert() {
+	renamePKI(certs);
+}

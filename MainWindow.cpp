@@ -134,6 +134,16 @@ void MainWindow::incProgress(int a, int b, void *progress)
 	((QProgressDialog *)progress)->setProgress(++i);
 }
 
+void MainWindow::renamePKI(db_base *db)
+{
+	pki_base * pki = db->getSelectedPKI();
+	Rename_UI *dlg = new Rename_UI();
+	dlg->newName->setText(pki->getDescription().c_str());
+	if (dlg->exec()) {
+		db->updatePKI(pki, dlg->newName->text().latin1());
+	}
+}
+
 
 string MainWindow::md5passwd()
 {

@@ -204,3 +204,23 @@ void MainWindow::writeKey()
 }
 
 
+void MainWindow::showPopupKey(QListViewItem *item, const QPoint &pt, int x) {
+	CERR << "hallo popup key" << endl;
+	QPopupMenu *menu = new QPopupMenu(this);
+	if (!item) {
+		menu->insertItem(tr("New Key"), this, SLOT(newKey()));
+		menu->insertItem(tr("Import"), this, SLOT(loadKey()));
+	}
+	else {
+		menu->insertItem(tr("Rename"), this, SLOT(renameKey()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsKey()));
+		menu->insertItem(tr("Export"), this, SLOT(writeKey()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteKey()));
+	}
+	menu->exec(pt);
+	return;
+}
+
+void MainWindow::renameKey() {
+	renamePKI(keys);
+}
