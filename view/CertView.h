@@ -113,11 +113,10 @@ class CertView : public XcaListView
 	void importKey(pki_key *key);
 	void importCert(pki_x509 *cert);
 	void showKey(pki_key *key);
+	void showKey(QString name);
 	
   signals:
-	void insertReq(pki_base *);
 	void genCrl(pki_x509 *);
-	void importKeyS(pki_key *);
 		
 };	
 

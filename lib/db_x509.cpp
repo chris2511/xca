@@ -51,6 +51,8 @@
 
 
 #include "db_x509.h"
+#include <qmessagebox.h>
+
 #define FOR_ctr(container) for (pki_x509 *pki = (pki_x509 *)container.first(); \
                         pki != 0; pki = (pki_x509 *)container.next() ) 
 			
@@ -209,6 +211,40 @@ a1int db_x509::searchSerial(pki_x509 *signer)
 			}
 		}
 	return sserial;
+}
+
+pki_base *db_x509::insert(pki_base *item)
+{
+	pki_x509 *cert = (pki_x509 *)item;
+	pki_x509 *oldcert = (pki_x509 *)getByReference(cert);
+	if (oldcert) {
+		QMessageBox::information(NULL, XCA_TITLE,
+		tr("The certificate already exists in the database as") +":\n'" +
+		oldcert->getIntName() +
+		"'\n" + tr("and so it was not imported"), "OK");
+		delete(cert);
+		return oldcert;
+	}
+	cert->setCaSerial((cert->getSerial()));
+	insertPKI(cert);
+	a1int serial;
+
+	// check the CA serial of the CA of this cert to avoid serial doubles
+	if (cert->getSigner() != cert && cert->getSigner()) {
+		serial = cert->getSerial();
+		if (cert->getSigner()->getCaSerial() < ++serial ) {
+			cert->getSigner()->setCaSerial(serial);
+			updatePKI(cert->getSigner());
+		}
+	}
+	
+	// check CA serial of this cert
+	serial = searchSerial(cert);
+	if ( ++serial > cert->getCaSerial()) {
+		cert->setCaSerial(serial);
+	}
+	updatePKI(cert);
+	return cert;
 }
 
 #undef FOR_ctr

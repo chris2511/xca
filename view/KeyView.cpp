@@ -147,38 +147,15 @@ pki_base *KeyView::loadItem(QString fname)
 
 pki_base* KeyView::insert(pki_base *item)
 {
-	pki_key *lkey = (pki_key *)item;
-	pki_key *oldkey;
-	emit init_database();
+	pki_base *key;
 	try {
-	    oldkey = (pki_key *)db->getByReference(lkey);
-	    if (oldkey != NULL) {
-		if ((oldkey->isPrivKey() && lkey->isPrivKey()) ||
-		    lkey->isPubKey()){
-	   	    QMessageBox::information(this,tr(XCA_TITLE),
-			tr("The key is already in the database as") +":\n'" +
-			oldkey->getIntName() + 
-			"'\n" + tr("and is not going to be imported"), "OK");
-		    delete(lkey);
-		    return oldkey;
-		}
-		else {
-	   	    QMessageBox::information(this,tr(XCA_TITLE),
-			tr("The database already contains the public part of the imported key as") +":\n'" +
-			oldkey->getIntName() + 
-			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
-		    db->deletePKI(oldkey);
-		    lkey->setIntName(oldkey->getIntName());
-		    delete(oldkey);
-		}
-	    }
-	    db->insertPKI(lkey);
+		key = db->insert(item);
 		updateView();
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
-	return lkey;
+	return key;
 }
 
 

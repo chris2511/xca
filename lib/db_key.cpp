@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -50,6 +51,9 @@
 
 
 #include "db_key.h"
+#include <qmessagebox.h>
+#include "exception.h"
+
 #define FOR_container for (pki_key *pki = (pki_key *)container.first(); \
                         pki != 0; pki = (pki_key *)container.next() ) 
 			
@@ -95,6 +99,36 @@ void db_key::inToCont(pki_base *pki)
 {
 	db_base::inToCont(pki);
 	emit newKey((pki_key *)pki);
+}
+
+pki_base* db_key::insert(pki_base *item)
+{
+	pki_key *lkey = (pki_key *)item;
+	pki_key *oldkey;
+
+	oldkey = (pki_key *)getByReference(lkey);
+	if (oldkey != NULL) {
+		if ((oldkey->isPrivKey() && lkey->isPrivKey()) || lkey->isPubKey()){
+			QMessageBox::information(NULL, tr(XCA_TITLE),
+			tr("The key is already in the database as") +":\n'" +
+			oldkey->getIntName() +
+			"'\n" + tr("and is not going to be imported"), "OK");
+			delete(lkey);
+			return oldkey; 
+		}
+		else {
+			QMessageBox::information(NULL,tr(XCA_TITLE),
+			tr("The database already contains the public part of the imported key as") +":\n'" +
+			oldkey->getIntName() +
+			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
+			deletePKI(oldkey);
+			lkey->setIntName(oldkey->getIntName());
+			delete(oldkey);
+		}
+	}
+	insertPKI(lkey);
+	
+	return lkey;
 }
 
 #undef FOR_container

@@ -109,6 +109,7 @@ class db_base: public QObject
 	pki_base *getByPtr(void *);
 	virtual void loadContainer();
 	QStringList getDesc();
+	virtual pki_base* insert(pki_base *item);
 	/* preprocess should be implemented once to speed up updateView() 
 	 * i.e search for signers and keys */
 	virtual void preprocess() {return;}

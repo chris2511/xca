@@ -408,3 +408,6 @@ QList<pki_base> db_base::getContainer()
 	return c;
 }	
 
+pki_base *db_base::insert(pki_base *)
+{
+}

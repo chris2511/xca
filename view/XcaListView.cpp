@@ -208,7 +208,6 @@ void XcaListView::load_default(QStringList &filter, QString caption)
 void XcaListView::Error(errorEx &err)
 {
 	if (err.isEmpty()) {
-		CERR("Empty error Exception silently ignored");
 		return;
 	}
 	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +

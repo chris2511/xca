@@ -150,16 +150,6 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	
-	connect( crlList, SIGNAL(showCert(QString)),
-		certList, SLOT(showItem(QString)) );
-	connect( certList, SIGNAL(showKey(QString)),
-		keyList, SLOT(showItem(QString)) );
-	connect( reqList, SIGNAL(showKey(QString)),
-		keyList, SLOT(showItem(QString)) );
-	connect( certList, SIGNAL(insertReq(pki_base *)),
-		reqList, SLOT(insert(pki_base *)) ); 
-	connect( certList, SIGNAL(importKeyS(pki_key *)),
-		keyList, SLOT(importKey(pki_key *)) ); 
 	connect( reqList, SIGNAL(newCert(pki_x509req *)),
 		certList, SLOT(newCert(pki_x509req *)) );
 	connect( certList, SIGNAL(genCrl(pki_x509 *)),

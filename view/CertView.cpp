@@ -189,6 +189,12 @@ void CertView::newCert(NewX509 *dlg)
 		if (!ok) serial = 0;
 		cert->setTrust(2);
 	}
+
+	// if we can not sign
+	if (! signkey || signkey->isPubKey()) {
+		throw errorEx(tr("The key you selected for signing is not a private one."));
+	}
+
 	// set the issuers name
 	cert->setIssuer(signcert->getSubject());
 	cert->setSerial(serial);
@@ -302,7 +308,7 @@ void CertView::showItem(pki_base *item, bool import)
 		dlg = new CertDetail(this,0,true);
 		dlg->setCert((pki_x509 *)item);
 		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ), 
-			this, SLOT( dlg_showKey(QString) ));
+			this, SLOT( showKey(QString) ));
 		connect( dlg->signCert, SIGNAL( doubleClicked(QString) ), 
 			this, SLOT( showItem(QString) ));
 
@@ -448,46 +454,14 @@ void CertView::loadPKCS7()
 
 pki_base *CertView::insert(pki_base *item)
 {
-    pki_x509 *cert = (pki_x509 *)item;
-    emit init_database();
-    try {
-	pki_x509 *oldcert = (pki_x509 *)db->getByReference(cert);
-	if (oldcert) {
-	   QMessageBox::information(this,tr(XCA_TITLE),
-		tr("The certificate already exists in the database as") +":\n'" +
-		oldcert->getIntName() + 
-		"'\n" + tr("and so it was not imported"), "OK");
-	   delete(cert);
-	   return oldcert;
-	}
-	cert->setCaSerial((cert->getSerial()));
-	XcaListView::insert(cert);
-	db->insertPKI(cert);
+	pki_base *cert = NULL;
+	try{
+	    cert = db->insert(item);
+		updateView();
     }
     catch (errorEx &err) {
 	    Error(err);
     }
-    a1int serial;
-    // check the CA serial of the CA of this cert to avoid serial doubles
-    if (cert->getSigner() != cert && cert->getSigner()) {
-	serial = cert->getSerial();
-    if (cert->getSigner()->getCaSerial() < serial ) {
-		QMessageBox::information(this,tr(XCA_TITLE),
-			tr("The certificate-serial is higher than the next serial of the signer it will be set to ") +
-		(++serial).toHex(), "OK");
-		cert->getSigner()->setCaSerial(serial);
-    	db->updatePKI(cert->getSigner());
-	}
-    }
-    // check CA serial of this cert
-    MainWindow::certs->searchSerial(cert);
-    if ( serial > cert->getCaSerial()) {
-	QMessageBox::information(this,tr(XCA_TITLE),
-		tr("The certificate CA serial is lower than the highest serial of one signed certificate it will be set to ") +
-		serial.toHex(), "OK");
-	cert->setCaSerial(serial);
-    }
-    db->updatePKI(cert);
     return cert;
 }
 
@@ -814,7 +788,7 @@ void CertView::toRequest()
 		pki_x509req *req = new pki_x509req();
 		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(), EVP_md5());
-                emit insertReq(req);
+		MainWindow::reqs->insert(req);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -1111,12 +1085,18 @@ void CertView::genCrl()
 
 void CertView::importKey(pki_key *key)
 {
-	emit importKeyS(key);
+	MainWindow::keys->insert(key);
 }
 
 void CertView::importCert(pki_x509 *cert)
 {
 	insert(cert);
+}
+
+void CertView::showKey(QString name)
+{
+	pki_key *key = (pki_key *)MainWindow::keys->getByName(name);
+	showKey(key);
 }
 
 void CertView::showKey(pki_key *key)

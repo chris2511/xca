@@ -553,7 +553,7 @@ int pki_x509::calcEffTrust()
 	return mytrust;
 }
 
-a1int pki_x509::getIncCaSerial() { return ++caSerial; }
+a1int pki_x509::getIncCaSerial() { return caSerial++; }
 
 a1int pki_x509::getCaSerial() { return caSerial; }
 

@@ -200,30 +200,14 @@ void ReqView::signReq()
 
 pki_base *ReqView::insert(pki_base *item)
 {
-	pki_x509req *oldreq, *req;
-	req = (pki_x509req *)item;
-	emit init_database();
+	pki_base *req = NULL;
 	try {
-		oldreq = (pki_x509req *)db->getByReference(req);
+		req = db->insert(item);
+		updateView();
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
-	if (oldreq) {
-	   QMessageBox::information(this,tr(XCA_TITLE),
-		tr("The certificate signing request already exists in the database as") +":\n'" +
-		oldreq->getIntName() + 
-		"'\n" + tr("and thus was not stored"), "OK");
-	   delete(req);
-	   return oldreq;
-	}
-	try {
-		db->insertPKI(req);
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
-	updateView();
 	return req;
 }
 

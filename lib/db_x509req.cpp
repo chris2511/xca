@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -51,6 +52,8 @@
 
 #include "db_x509req.h"
 #include "pki_x509req.h"
+#include <qmessagebox.h>
+
 
 db_x509req::db_x509req(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid)
 	:db_x509super(dbe, DBfile, "reqdb", k, tid)
@@ -58,7 +61,24 @@ db_x509req::db_x509req(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid)
 	loadContainer();
 }
 
-pki_base *db_x509req::newPKI(){
+pki_base *db_x509req::newPKI()
+{
 	return new pki_x509req();
 }
 
+pki_base *db_x509req::insert(pki_base *item)
+{
+	pki_x509req *oldreq, *req;
+	req = (pki_x509req *)item;
+	oldreq = (pki_x509req *)getByReference(req);
+	if (oldreq) {
+		QMessageBox::information(NULL,tr(XCA_TITLE),
+		tr("The certificate signing request already exists in the database as") +":\n'" +
+		oldreq->getIntName() +
+		"'\n" + tr("and thus was not stored"), "OK");
+		delete(req);
+		return oldreq;
+	}
+	insertPKI(req);
+	return req;
+}
