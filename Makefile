@@ -1,4 +1,4 @@
-VERSION=0.1.1
+VERSION=0.1.2
 TARGET=xca-$(VERSION)
 GCC=c++
 INC=-I$(QTDIR)/include
