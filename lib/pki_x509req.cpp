@@ -56,6 +56,7 @@ pki_x509req::pki_x509req() : pki_base()
 {
 	request = X509_REQ_new();
 	openssl_error();
+	privkey = NULL;
 }
 
 
@@ -94,6 +95,7 @@ pki_x509req::pki_x509req(const string fname)
 
 bool pki_x509req::fromData(unsigned char *p, int size)
 {
+	privkey = NULL;
 	request = d2i_X509_REQ(NULL, &p, size);
 	if (openssl_error()) return false;
 	return true;

@@ -419,10 +419,17 @@ int pki_x509::calcEffTrust()
 		efftrust = mytrust;
 		return mytrust;
 	}
+	if (getSigner() == this && trust == 1) { // inherit trust, but self signed
+		trust=0;
+		efftrust=0;
+		return 0;
+	}
 	//we must look at the parent certs
 	pki_x509 *signer = getSigner();
-	while (mytrust==1 && signer != NULL && signer != this) {
+	pki_x509 *prevsigner = this;
+	while (mytrust==1 && signer != NULL && signer != prevsigner) {
 		mytrust = signer->getTrust();
+		prevsigner = signer;
 		signer = signer->getSigner();
 	}
 	

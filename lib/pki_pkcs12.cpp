@@ -48,7 +48,7 @@ void pki_pkcs12::writePKCS12(const string fname)
 			return;
 		}
 		passcb(pass, 30, 0, &p); 
-		CERR << pass << " " << desc << key->getKey() << cert->getCert() <<endl;
+		CERR << desc << key->getKey() << cert->getCert() <<endl;
 		CERR << "before PKCS12_create...." <<endl;
 		pkcs12 = PKCS12_create(pass, desc, key->getKey(), cert->getCert(), certstack, 0, 0, 0, 0, 0);
 		if (openssl_error()) return;

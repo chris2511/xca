@@ -18,12 +18,14 @@ class db_x509: public db_base
 	pki_base *newPKI();
 	pki_x509 *findSigner(pki_x509 *client);
 	bool updateView();
+	bool insertPKI(pki_base *pki);
 	void updateViewAll();
 	void updateViewPKI(pki_base *pki);
 	void remFromCont(pki_base *pki);
 	void preprocess();
 	QStringList getPrivateDesc();
 	pki_key * findKey(pki_x509 *cert);
+	void calcEffTrust();
     public slots:
 	void delKey(pki_key *delkey);
     	void newKey(pki_key *newKey);

@@ -32,13 +32,35 @@ QStringList db_x509req::getDesc()
 
 void db_x509req::delKey(pki_key *delkey)
 {
-	updateView();
+	pki_x509req *pki;
+	CERR <<"delKey in X509req"<<endl;
+	if ( container.isEmpty() ) return ;
+	QListIterator<pki_base> iter(container); 
+	for ( ; iter.current(); ++iter ) { // find the key of the request
+		pki = (pki_x509req *)iter.current();
+		if (pki->getKey() == delkey) {
+			pki->setKey(NULL);
+			updateViewPKI(pki);
+		}
+	}
 }
 
 
 void db_x509req::newKey(pki_key *newkey)
 {
-	updateView();
+	pki_key *refkey;
+	pki_x509req *pki;
+	CERR <<"newKey in X509req"<<endl;
+	if ( container.isEmpty() ) return ;
+	QListIterator<pki_base> iter(container); 
+	for ( ; iter.current(); ++iter ) { // find the key of the request
+		pki = (pki_x509req *)iter.current();
+		refkey = pki->getPubKey(); 
+		if (refkey->compare(newkey)) {
+			pki->setKey(newkey);
+			updateViewPKI(pki);
+		}
+	}
 }
 
 void db_x509req::updateViewPKI(pki_base *pki)

@@ -166,7 +166,7 @@ void db_x509::delKey(pki_key *delkey)
 	pki_x509 *pki;
         if ( container.isEmpty() ) return ;
         for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
-		if (pki->getKey()) {
+		if (pki->getKey() == delkey) {
 			pki->delKey();
 			updateViewPKI(pki);
 		}
@@ -195,12 +195,9 @@ void db_x509::newKey(pki_key *newkey)
 void db_x509::preprocess()
 {
 	pki_x509 *pki;
-	pki_x509 *signer;
 	CERR <<"preprocess X509"<<endl;
 	if ( container.isEmpty() ) return ;
-	// copy the container, cause we will drop the handled items...
-	QList<pki_base> mycont = container;
-	QListIterator<pki_base> iter(mycont); 
+	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
 		pki = (pki_x509 *)iter.current();
 		findSigner(pki);
@@ -209,6 +206,11 @@ void db_x509::preprocess()
 		CERR << "Key of "<< pki->getDescription().c_str() << endl;
 	}
 	CERR << "Signers and keys done "<< endl;
+	
+	calcEffTrust();
+	
+/*	
+	pki_x509 *signer;
 	while (! mycont.isEmpty() ) {
 	    QListIterator<pki_base> it(mycont); 
 	    for (it.toFirst(); it.current(); ++it ) {
@@ -228,6 +230,9 @@ void db_x509::preprocess()
 				trust = signer->getEffTrust(); // inherit trustment of parent
 			}
 		}	
+		else { // we do not trust an unknown signer
+			trust=0;
+		}
 		if (trust != 1) { // trustment deterministic
 			pki->setEffTrust(trust);
 			mycont.remove(pki);
@@ -237,6 +242,37 @@ void db_x509::preprocess()
 	    }
 	}
 	return ;
+*/
+}
+
+
+void db_x509::calcEffTrust()
+{
+	pki_x509 *pki;
+	CERR <<"re calc eff trust X509"<<endl;
+	if ( container.isEmpty() ) return ;
+	QListIterator<pki_base> iter(container); 
+	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
+		pki = (pki_x509 *)iter.current();
+		CERR << "CalcTrust for: " << pki->getDescription().c_str() << endl;
+		pki->calcEffTrust();
+	}
 }
 
 	
+bool db_x509::insertPKI(pki_base *pki)
+{
+	bool s = db_base::insertPKI(pki);
+	pki_x509 *cert, *x = (pki_x509 *)pki;
+	if (s) {
+		findSigner(x);
+		findKey(x);
+	        if ( container.isEmpty() ) return false;
+        	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
+			cert->verify(x);
+		}
+		calcEffTrust();
+		updateView();
+	}
+	return s;
+}				
