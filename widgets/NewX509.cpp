@@ -611,6 +611,47 @@ x509name NewX509::getX509name()
 	return x;
 }
 
+void NewX509::setX509name(const x509name &n)
+{
+	for ( int i=0; i< n.entryCount(); i++) {
+		int nid = n.nid(i);
+		QStringList sl = n.entryList(i);
+		switch (nid) {
+			case NID_commonName: 
+				commonName->setText(sl[2]); 
+				// n.delEntry(i);
+				break;
+				/*
+			case NID_commonName: 
+				commonName->setText(sl[2]); 
+				delEntry(i);
+				break;
+			case NID_commonName: 
+				commonName->setText(sl[2]); 
+				delEntry(i);
+				break;
+			case NID_commonName: 
+				commonName->setText(sl[2]); 
+				delEntry(i);
+				break;
+			case NID_commonName: 
+				commonName->setText(sl[2]); 
+				delEntry(i);
+				break;
+			case NID_commonName: 
+				commonName->setText(sl[2]); 
+				delEntry(i);
+				break;
+			case NID_commonName: 
+				commonName->setText(sl[2]); 
+				delEntry(i);
+				break;
+				*/
+					
+		}
+	}
+}
+
 void NewX509::addX509NameEntry()
 {
 	new QListViewItem(extDNlist, extDNobj->currentText(), extDNname->text());
@@ -626,137 +667,3 @@ const EVP_MD *NewX509::getHashAlgo()
 	const EVP_MD *ha[] = {EVP_md2(), EVP_md5(), EVP_sha1()};
 	return ha[hashAlgo->currentItem()];
 }
-
-x509v3ext NewX509::getBasicConstraints()
-{
-	QStringList cont;
-	x509v3ext ext;
-	if (bcCritical->isChecked()) cont << "critical";
-	cont << (QString)"CA:" + basicCA->currentText();
-	if (!basicPath->text().isEmpty())
-		cont << (QString)"pathlen:" + basicPath->text();
-	ext.create(NID_basic_constraints, cont.join(", "));
-	return ext;
-}
-
-x509v3ext NewX509::getSubKeyIdent()
-{
-	x509v3ext ext;
-	if (subKey->isChecked())
-		ext.create(NID_subject_key_identifier, "hash");
-	return ext;
-}
-
-x509v3ext NewX509::getAuthKeyIdent()
-{
-	x509v3ext ext;
-	if (subKey->isChecked())
-		ext.create(NID_authority_key_identifier, 
-			"keyid:always,issuer:always", &ext_ctx);
-	return ext;
-}
-
-x509v3ext NewX509::getKeyUsage()
-{
-	QString keyusage[] = {
-		"digitalSignature", "nonRepudiation", "keyEncipherment",
-		"dataEncipherment", "keyAgreement", "keyCertSign",
-		"cRLSign", "encipherOnly", "decipherOnly"
-	};
-						
-	QStringList cont;
-	x509v3ext ext;
-	QListBoxItem *item;
-	if (kuCritical->isChecked()) cont << "critical";
-        for (int i=0; (item = keyUsage->item(i)); i++) {
-		if (item->selected()) {
-			cont << keyusage[i];
-		}
-	}
-	ext.create(NID_key_usage, cont.join(", "));
-	return ext;
-}
-
-x509v3ext NewX509::getEkeyUsage()
-{
-	QStringList cont;
-	x509v3ext ext;
-	QListBoxItem *item;
-	if (ekuCritical->isChecked()) cont << "critical";
-	for (int i=0; (item = ekeyUsage->item(i)); i++) {
-		if (item->selected()){
-			cont << (QString)OBJ_nid2sn(eku_nid[i]);
-		}
-	}
-	ext.create(NID_ext_key_usage, cont.join(", "));
-	return ext;
-}
-
-x509v3ext NewX509::getSubAltName()
-{
-	QStringList cont;
-	x509v3ext ext;
-	if (subAltCp->isChecked() && subAltCp->isEnabled())
-		cont << (QString)"email:" + emailAddress->text();
-	cont << subAltName->text();
-	ext.create(NID_subject_alt_name, cont.join(", "));
-	return ext;
-}
-
-x509v3ext NewX509::getIssAltName()
-{
-	QStringList cont;
-	x509v3ext ext;
-	if (issAltCp->isChecked() && issAltCp->isEnabled())
-		cont << (QString)"issuer:copy";
-	cont << subAltName->text();
-	ext.create(NID_subject_alt_name, cont.join(", "), &ext_ctx);
-	return ext;
-}
-
-x509v3ext NewX509::getCrlDist()
-{
-	QStringList cont;
-	x509v3ext ext;
-        if (!crlDist->text().isEmpty()) {
-		ext.create(NID_crl_distribution_points, crlDist->text());
-	}
-	return ext;
-}
-
-extList NewX509::getNetscapeExt()
-{
-	QString certTypeList[] = {
-		"client", "server",  "email", "objsign",
-		"sslCA",  "emailCA", "objCA" };
-
-					
-	QStringList cont;
-	x509v3ext ext;
-	extList el;
-	QListBoxItem *item;
-        for (int i=0; (item = nsCertType->item(i)); i++) {
-                if (item->selected()){
-                        cont <<  certTypeList[i];
-                }
-        }
-	el << ext.create(NID_netscape_cert_type, cont.join(", "))
-	<< ext.create(NID_netscape_base_url, nsBaseUrl->text())
-	<< ext.create(NID_netscape_revocation_url, nsRevocationUrl->text())
-	<< ext.create(NID_netscape_ca_revocation_url, nsCARevocationUrl->text())
-	<< ext.create(NID_netscape_renewal_url, nsRenewalUrl->text())
-	<< ext.create(NID_netscape_ca_policy_url, nsCaPolicyUrl->text())
-	<< ext.create(NID_netscape_ssl_server_name, nsSslServerName->text())
-	<< ext.create(NID_netscape_comment, nsComment->text());
-	return el;
-}
-
-void NewX509::initCtx(pki_x509 *subj)
-{
-	pki_x509 *iss = getSelectedSigner();
-	X509 *s = NULL, *s1 = NULL;
-	if (iss) s = iss->getCert();
-	if (subj) s1 = subj->getCert();
-	
-	X509V3_set_ctx(&ext_ctx, s , s1, NULL, NULL, 0);
-}	

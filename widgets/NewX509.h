@@ -100,6 +100,7 @@ class NewX509: public NewX509_UI
 	pki_x509 *getSelectedSigner();
 	pki_x509req *getSelectedReq();
 	x509name getX509name();
+	void setX509name(const x509name &n);
 	void setImage(QPixmap *image);
 	x509v3ext getBasicConstraints();
 	x509v3ext getSubKeyIdent();
@@ -112,6 +113,7 @@ class NewX509: public NewX509_UI
 	extList getNetscapeExt();
 	const EVP_MD *getHashAlgo();
 	void initCtx(pki_x509 *subj);
+	void NewX509::setExt(const x509v3ext &ext);
    public slots:
 	void toggleFromRequest();
 	void dataChangeP2();

@@ -92,6 +92,13 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 	if (!ext) ext = X509_EXTENSION_new();
 	return *this;
 }
+
+int x509v3ext::nid() const
+{
+	ASN1_OBJECT *obj = X509_EXTENSION_get_object(ext);
+	return OBJ_obj2nid(obj);
+}
+		  
 /*	
 bool x509v3ext::operator == (const x509v3ext &x) const
 {
@@ -106,9 +113,7 @@ x509v3ext &x509v3ext::operator = (const x509v3ext &x)
 
 QString x509v3ext::getObject() const
 {
-	ASN1_OBJECT *obj = X509_EXTENSION_get_object(ext);
-	int nid = OBJ_obj2nid(obj);
-	QString a = OBJ_nid2ln(nid);
+	QString a = OBJ_nid2ln(nid());
 	return a;
 }
 

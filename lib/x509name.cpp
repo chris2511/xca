@@ -49,6 +49,7 @@
  */                           
 
 #include "x509name.h"
+#include <openssl/asn1.h>
 
 x509name::x509name()
 {
@@ -101,19 +102,42 @@ QString x509name::getEntryByNid(int nid) const
 	return s;
 }
 
+QString x509name::getEntry(int i) const
+{
+	QString s;
+	char c;
+	ASN1_STRING *d;
+	if ( i<0 || i>entryCount() ) return s;
+	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
+	i = d->length;
+	c = d->data[i]; // replace the last char by \0
+	d->data[i] = '\0'; 
+	s = (char *)d->data; // strcopy the data
+	d->data[i] = c; // recover last char
+	return s + c;
+}
+
+void x509name::delEntry(int i)
+{
+	X509_NAME_delete_entry(xn, i);
+}
+
 QStringList x509name::entryList(int i) const
 {
 	QStringList sl;
-	QString ent;
-	X509_NAME_ENTRY *ne;
-	int n;
-	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
-	n = OBJ_obj2nid(ne->object);
+	int n = nid(i);
 	sl += OBJ_nid2sn(n);
 	sl += OBJ_nid2ln(n);
-	sl += getEntryByNid(n);
+	sl += getEntry(i);
 	return sl;
 }
+
+int x509name::nid(int i) const
+{
+	X509_NAME_ENTRY *ne;
+	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
+	return OBJ_obj2nid(ne->object);
+}				 
 
 bool x509name::operator == (const x509name &x) const
 {

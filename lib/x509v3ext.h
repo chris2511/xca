@@ -76,6 +76,8 @@ class x509v3ext
 	QString getHtml() const;
 	X509_EXTENSION *get() const;
 	bool isValid() const;
+	int nid() const;
+		
 		
 };
 

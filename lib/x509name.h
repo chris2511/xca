@@ -66,12 +66,15 @@ class x509name
 	~x509name();
 	x509name &set(const X509_NAME *n);
 	QString oneLine() const;
+	int nid(int i) const;
 	QStringList entryList(int i) const;
-	QString getEntryByNid(int nid) const;
+	QString getEntryByNid(int nid ) const;
+	QString getEntry(int i) const;
 	int entryCount() const;
 	x509name &operator = (const x509name &x);
 	bool operator == (const x509name &x) const;
 	void addEntryByNid(int nid, const QString entry);
+	void delEntry(int i);
 	X509_NAME *get() const;
 };
 
