@@ -188,8 +188,8 @@ void NewX509::setRequest()
 	changeDefault->setChecked(false);
 	signerBox->setEnabled(false);
 	requestBox->setEnabled(false);
-	startText=tr("\
-Welcome to the settings for certificate signing requests.\n\
+	startText_h=tr("Welcome to the settings for certificate signing requests.");
+	startText_b=tr("\
 A signing request needs a private key, so it will be created \
 if there isn't any unused key available in the key database. \
 This signing request can then be given to a Certification authority \
@@ -199,7 +199,7 @@ returned from the CA does never leave your computer.");
 You are done with entering all parameters for generating a Certificate signing \
 request. The resulting request should be exported and send to an appropriate CA \
 for signing it.");
-	tText=tr("Certificate request");
+	tText=tr("Certificate signing request");
 	setup();
 	setImage(MainWindow::csrImg);
 }
@@ -213,8 +213,8 @@ void NewX509::setTemp(pki_temp *temp)
 {
 	setAppropriate(page1, false);
 	finishButton()->setEnabled(true);
-	startText=tr("\
-Welcome to the settings for Templates.\n\
+	startText_h=tr("Welcome to the settings for Templates.");
+	startText_b=tr("
 This templates do not refer to any ASN.1 structure but are used to keep default \
 settings for signing requests and certificates. \
 When creating a Request or Certificate the template can preset the needed fields \
@@ -238,7 +238,8 @@ applied when signing with this CA.");
 void NewX509::setCert()
 {
 	finishButton()->setEnabled(true);
-	startText=tr("Welcome to the settings for Certificates.\n\
+	startText_h=tr("Welcome to the settings for Certificates.");
+	startText_b=tr("
 The information for the new Certificate can either be grabbed from a given \
 Certificate-request or be filled in by hand. In the case of not signing a request \
 there needs to be at least one unused key. If this is not the case it will be created. \
@@ -262,7 +263,8 @@ void NewX509::setImage(QPixmap *image)
 
 void NewX509::setup()
 {
-	startLabel->setText(startText);
+	startLabel_h->setText(startText_h);
+	startLabel_b->setText(startText_b);
 	endLabel->setText(endText);
 	setTitle(page0, tText + " Wizard");
 	setTitle(page1, tText + " template selection");

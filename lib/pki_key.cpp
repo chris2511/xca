@@ -64,24 +64,21 @@ void pki_key::erasePasswd(){
 		passwd[i] = 0;
 }
 
-void pki_key::init()
+void pki_key::init(int type)
 {
 	ucount = 0;
+	key = EVP_PKEY_new();
+	key->type = type;
 	class_name = "pki_key";
-		     
 }
 	
-pki_key::pki_key(const QString d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
+void pki_key::generate(void (*cb)(int, int,void *),void *prog, int bits)
 {
-	init();
-	key = EVP_PKEY_new();
-	openssl_error();	
-	key->type = type;
-	if (type == EVP_PKEY_RSA) {
-	   RSA *rsakey;
-	   rsakey = RSA_generate_key(bits, 0x10001, cb, prog);
-	   if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
-	}
+	RSA *rsakey;
+	
+	rsakey = RSA_generate_key(bits, 0x10001, cb, prog);
+	if (rsakey) 
+		EVP_PKEY_set1_RSA(key, rsakey);
 	openssl_error();	
 }
 
@@ -100,63 +97,58 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 }
 
-pki_key::pki_key(const QString d, int type )
-	:pki_base(d)
+pki_key::pki_key(const QString name, int type )
+	:pki_base(name)
 { 
-	init();
-	key = EVP_PKEY_new();
-	key->type = type;
+	init(type);
 	openssl_error();
 }	
 
 pki_key::pki_key(EVP_PKEY *pkey)
-	:pki_base("")
+	:pki_base()
 { 
 	init();
+	EVP_PKEY_free(key);
 	key = pkey;
 }	
 
-pki_key::pki_key(const QString fname, pem_password_cb *cb, int type )
-	:pki_base(fname)
+void pki_key::fload(const QString fname, pem_password_cb *cb )
 { 
-	init();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the RSA key.")
 		+ "\n'" + fname + "'"); 
-	key = EVP_PKEY_new();
-	key->type = EVP_PKEY_type(type);
 	FILE *fp = fopen(fname.latin1(), "r");
 	RSA *rsakey = NULL;
 	if (fp != NULL) {
-	   rsakey = PEM_read_RSAPrivateKey(fp, NULL, cb, &p);
-	   if (!rsakey) {
-		ign_openssl_error();
-		rewind(fp);
-	   	rsakey = d2i_RSAPrivateKey_fp(fp, NULL);
-	   }
-	   if (!rsakey) {
-		ign_openssl_error();
-		rewind(fp);
-	   	rsakey = PEM_read_RSA_PUBKEY(fp, NULL, cb, &p);
-	   }
-	   if (!rsakey) {
-		ign_openssl_error();
-		rewind(fp);
-	   	rsakey = d2i_RSA_PUBKEY_fp(fp, NULL);
-	   }
-	   if (!rsakey) {
-	        ign_openssl_error();
-	        rewind(fp);
-		p.setTitle(tr("Password for PKCS#8 private key"));
-		p.setDescription(tr("Please enter the password to decrypt the PKCS#8 private key.")
+		rsakey = PEM_read_RSAPrivateKey(fp, NULL, cb, &p);
+		if (!rsakey) {
+			ign_openssl_error();
+			rewind(fp);
+	   		rsakey = d2i_RSAPrivateKey_fp(fp, NULL);
+		}
+		if (!rsakey) {
+			ign_openssl_error();
+			rewind(fp);
+			rsakey = PEM_read_RSA_PUBKEY(fp, NULL, cb, &p);
+		}
+		if (!rsakey) {
+			ign_openssl_error();
+			rewind(fp);
+			rsakey = d2i_RSA_PUBKEY_fp(fp, NULL);
+		}
+		if (!rsakey) {
+			ign_openssl_error();
+			rewind(fp);
+			p.setTitle(tr("Password for PKCS#8 private key"));
+			p.setDescription(tr("Please enter the password to decrypt the PKCS#8 private key.")
 			+ "\n'" + fname + "'"); 
-	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
-	   }
-	   else {
-	   	EVP_PKEY_set1_RSA(key,rsakey);
+			d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
+		}
+		else {
+			EVP_PKEY_set1_RSA(key, rsakey);
+			openssl_error();
+		}
+		setIntName(rmslashdot(fname));
 		openssl_error();
-	   }
-	   setIntName(rmslashdot(fname));
-	   openssl_error();
 	}	
 	else fopen_error(fname);
 	fclose(fp);
@@ -274,7 +266,8 @@ unsigned char *pki_key::toData(int *size)
 
 pki_key::~pki_key()
 {
-	EVP_PKEY_free(key);
+	if (key)
+		EVP_PKEY_free(key);
 }
 
 

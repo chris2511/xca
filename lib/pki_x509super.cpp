@@ -52,8 +52,8 @@
 
 #include "pki_x509super.h"
 
-pki_x509super::pki_x509super() 
-	: pki_base() 
+pki_x509super::pki_x509super(const QString name) 
+	: pki_base(name) 
 {
 	privkey = NULL;
 }

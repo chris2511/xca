@@ -61,8 +61,8 @@
 
 QPixmap *pki_x509req::icon[3] = { NULL, NULL, NULL };
 
-pki_x509req::pki_x509req()
-	: pki_x509super()
+pki_x509req::pki_x509req(const QString name)
+	: pki_x509super(name)
 {
 	privkey = NULL;
 	class_name = "pki_x509req";
@@ -71,6 +71,14 @@ pki_x509req::pki_x509req()
 	spki = NULL;
 }
 
+pki_x509req::~pki_x509req()
+{
+	if (request)
+		X509_REQ_free(request);
+	if (spki)
+		NETSCAPE_SPKI_free(spki);
+	openssl_error();
+}
 
 void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md)
 {
@@ -87,33 +95,17 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md)
 	openssl_error();
 }
 
-pki_x509req::~pki_x509req()
+void pki_x509req::fload(const QString fname)
 {
-	if (request)
-		X509_REQ_free(request);
-	if (spki)
-		NETSCAPE_SPKI_free(spki);
-	openssl_error();
-}
-
-
-pki_x509req::pki_x509req(const QString fname)
-	: pki_x509super()
-{
-	privkey = NULL;
-	class_name = "pki_x509req";
-	request = NULL;
-	spki = NULL;
-
 	// request file section
 	FILE *fp = fopen(fname.latin1(),"r");
 	if (fp != NULL) {
-		request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
+		request = PEM_read_X509_REQ(fp, &request, NULL, NULL);
 		// if der format
 		if (!request) {
 			ign_openssl_error();
 			rewind(fp);
-			request = d2i_X509_REQ_fp(fp, NULL);
+			request = d2i_X509_REQ_fp(fp, &request);
 		}
 		// SPKAC
 		if (!request) {

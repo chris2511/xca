@@ -57,6 +57,7 @@
 QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
 
 pki_x509::pki_x509(X509 *c) 
+	:pki_x509super()
 {
 	init();
 	cert = c;
@@ -64,6 +65,7 @@ pki_x509::pki_x509(X509 *c)
 }
 
 pki_x509::pki_x509(const pki_x509 *crt) 
+	:pki_x509super(crt->desc)
 {
 	init();
 	cert = X509_dup(crt->cert);
@@ -81,7 +83,8 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	openssl_error();
 }
 
-pki_x509::pki_x509() 
+pki_x509::pki_x509(const QString name)
+	:pki_x509super(name)
 {
 	init();
 	cert = X509_new();
@@ -89,16 +92,16 @@ pki_x509::pki_x509()
 	openssl_error();
 }
 
-pki_x509::pki_x509(const QString fname)
+void pki_x509::fload(const QString fname)
 {
 	FILE *fp = fopen(fname.latin1(),"r");
 	init();
 	if (fp != NULL) {
-		cert = PEM_read_X509(fp, NULL, NULL, NULL);
+		cert = PEM_read_X509(fp, &cert, NULL, NULL);
 		if (!cert) {
 			ign_openssl_error();
 			rewind(fp);
-			cert = d2i_X509_fp(fp, NULL);
+			cert = d2i_X509_fp(fp, &cert);
 		}
 		openssl_error();
 		autoIntName();

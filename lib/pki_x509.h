@@ -82,10 +82,10 @@ class pki_x509 : public pki_x509super
 	   static QPixmap *icon[4];
 	   pki_x509(X509 *c);
 	   pki_x509(const pki_x509 *crt);
-	   pki_x509();
-	   pki_x509(const QString fname);
+	   pki_x509(const QString name = "");
 	   ~pki_x509();
 
+	   void fload(const QString fname);
 	   void setSerial(const a1int &serial);
 	   a1int getSerial() const;
 	   void setNotBefore(const a1time &a1);

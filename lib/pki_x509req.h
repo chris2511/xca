@@ -74,8 +74,8 @@ class pki_x509req : public pki_x509super
 
 	public:
 	   static QPixmap *icon[3];
-	   pki_x509req();
-	   pki_x509req(const QString fname);
+	   pki_x509req(QString name = "");
+	   void fload(const QString fname);
 	   ~pki_x509req();
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);

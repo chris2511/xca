@@ -63,7 +63,7 @@ class pki_x509super : public pki_base
 	protected:
 	   pki_key *privkey;
 	public:
-	   pki_x509super();
+	   pki_x509super(const QString name = "");
 	   virtual ~pki_x509super();
 	   virtual x509name getSubject() const;
 	   virtual int verify();

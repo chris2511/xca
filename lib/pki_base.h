@@ -75,14 +75,14 @@ class pki_base : public QObject
 	int stringToData(unsigned char **p, const QString val);
 	QString stringFromData(unsigned char **p);
     public:
-	pki_base(const QString d);
-	pki_base();
+	pki_base(const QString d = "");
+	void fload(const QString name);
 	static int get_pki_counter();
 	virtual void fromData(unsigned char *p, int size){};
 	virtual unsigned char *toData(int *size){return NULL;};
 	virtual bool compare(pki_base *ref){return false;};
 	virtual ~pki_base();
-        QString getIntName();
+        QString getIntName() const;
         void setIntName(const QString d );
 	void delLvi() { pointer = NULL; }
 	QListViewItem *getLvi() { return pointer; }

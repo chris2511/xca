@@ -55,20 +55,16 @@
 
 int pki_base::pki_counter = 0;
 
-pki_base::pki_base(const QString d)
+pki_base::pki_base(const QString name)
 {
-	desc = d;
+	desc = name;
 	class_name = "pki_base";
 	pointer = NULL;
 	pki_counter++;
 }
 
-pki_base::pki_base()
+void pki_base::fload(const QString fname)
 {
-	desc = "";
-	class_name = "pki_base";
-	pointer=NULL;
-	pki_counter++;
 }
 
 pki_base::~pki_base(void)
@@ -77,7 +73,7 @@ pki_base::~pki_base(void)
 }
 
 
-QString pki_base::getIntName()
+QString pki_base::getIntName() const
 {
 	return desc;
 }

@@ -53,8 +53,8 @@
 #include "exception.h"
 
 
-pki_pkcs7::pki_pkcs7(const QString d )
-	:pki_base(d)
+pki_pkcs7::pki_pkcs7(const QString name)
+	:pki_base(name)
 { 
 	p7 = PKCS7_new();
 	PKCS7_set_type(p7, NID_pkcs7_signed);
@@ -166,7 +166,7 @@ int pki_pkcs7::numCert() {
 	return n;
 }
 
-void pki_pkcs7::readP7(QString fname)
+void pki_pkcs7::fload(const QString fname)
 {
 	FILE *fp;
 	fp = fopen(fname, "rb");

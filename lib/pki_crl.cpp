@@ -54,12 +54,22 @@
 
 QPixmap *pki_crl::icon = NULL;
 
-pki_crl::pki_crl(const QString fname )
-	:pki_base(fname)
+pki_crl::pki_crl(const QString name )
+	:pki_base(name)
 { 
 	issuer = NULL;
+	a1int version = 1; /* version 2 CRL */
 	crl = X509_CRL_new();
 	class_name="pki_crl";
+#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
+	crl->crl->revoked = sk_X509_REVOKED_new_null();
+#endif
+	crl->crl->version = version.get();
+	openssl_error();
+}
+
+void pki_crl::fload(const QString fname )
+{
 	FILE * fp = fopen(fname, "r");
 	if (fp != NULL) {
 		crl = PEM_read_X509_CRL(fp, &crl, NULL, NULL);
@@ -75,26 +85,12 @@ pki_crl::pki_crl(const QString fname )
 	else fopen_error(fname);
 }
 
-pki_crl::pki_crl()
-	:pki_base()
-{
-	issuer = NULL;
-	a1int version = 1; /* version 2 CRL */
-	crl = X509_CRL_new();
-	class_name="pki_crl";
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
-	crl->crl->revoked = sk_X509_REVOKED_new_null();
-#endif
-	crl->crl->version = version.get();
-	openssl_error();
-}
 
 void pki_crl::createCrl(const QString d, pki_x509 *iss )
 { 
 	setIntName(d);
 	issuer = iss;
 	if (!iss) openssl_error("no issuer");
-	openssl_error();
 	crl->crl->issuer = issuer->getSubject().get();
 	openssl_error();
 }	

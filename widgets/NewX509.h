@@ -73,7 +73,7 @@ class NewX509: public NewX509_UI
 	Q_OBJECT
    private:
 	pki_temp *fixtemp;
-	QString startText, endText, tText;
+	QString startText_h, startText_b, endText, tText;
 	NIDlist eku_nid;
 	NIDlist dn_nid;
 #define EXPLICIT_NAME_CNT 7

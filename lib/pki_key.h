@@ -73,38 +73,20 @@ class pki_key: public pki_base
 	EVP_PKEY *key;
 	QString BN2QString(BIGNUM *bn);
 	int ucount; // usage counter
+	void init(int type = EVP_PKEY_RSA);
     public:
 	static QPixmap *icon[2];
 	static char passwd[MAX_PASS_LENGTH];
 	static void erasePasswd();
-		
-	/* constructor to generate a key .....
-	 * d     is the description
-	 * bits  is the keylength in bits
-	 * cb    a callback for e.g. a progress bar
-	 */ 
-	pki_key(const QString d, void (*cb)(int, int,void *),void *prog,int bits,int type = EVP_PKEY_RSA);   
-	
-	/* constructor to load a key from a file
-	 * fname    = filename
-	 * pem_password_cb = password callback function
-	 */
-	pki_key(const QString fname, pem_password_cb *cb,int type = EVP_PKEY_RSA);
-	
+	void generate(void (*cb)(int, int,void *),void *prog,int bits);
+	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
+	pki_key(EVP_PKEY *pkey);
 	// copy constructor
 	pki_key::pki_key(const pki_key *pk);
-	
 	/* destructor */
 	~pki_key();
 	
-	/* constructor from database 
-	 * p = pointer to data
-	 * size = size of datastruct
-	 */
-	
-	pki_key(const QString d, int type=EVP_PKEY_RSA);
-	pki_key(EVP_PKEY *pkey);
-	void init();
+	void fload(const QString fname, pem_password_cb *cb);
 	void fromData(unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);

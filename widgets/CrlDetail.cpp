@@ -91,7 +91,8 @@ void CrlDetail::setCrl(pki_crl *crl)
 			signCheck->setText(tr("Failed"));
                 	signCheck->setRed();
 		}	
-		delete key;
+		if (key)
+			delete key;
 	}
 	else {
 		issuerIntName->setText(tr("Unknown signer"));

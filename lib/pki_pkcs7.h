@@ -63,7 +63,7 @@ class pki_pkcs7: public pki_base
 	void signBio(pki_x509 *crt, BIO * bio);
 	void encryptBio(pki_x509 *crt, BIO * bio);
     public:
-	pki_pkcs7(const QString d);
+	pki_pkcs7(const QString name = "");
 	/* destructor */
 	~pki_pkcs7();
 	
@@ -71,7 +71,7 @@ class pki_pkcs7: public pki_base
 	void signCert(pki_x509 *crt, pki_x509 *contCert);
 	void encryptFile(pki_x509 *crt, QString filename);
 	void writeP7(QString fname,bool PEM);
-	void readP7(QString fname);
+	void fload(const QString fname);
 	pki_x509 *getCert(int x);
 	void addCert(pki_x509 *crt);
 	int numCert(); // number of certs;
