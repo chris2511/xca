@@ -526,7 +526,7 @@ void MainWindow::writePKCS12()
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (s == "") return;
-	S=QDir::convertSeparators(s);
+	s=QDir::convertSeparators(s);
 	pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
 	pki_x509 *signer = cert->getSigner();
 	int cnt =0;
