@@ -46,7 +46,7 @@ fi
 AC_LANG(C++)
 AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break])
 if test "$H_DB" == no; then
-	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca for a workaround)])
+	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca/compfaq.html for a workaround)])
 fi
 ac_QTVER="2.x.x"
 AC_CHECK_HEADERS([qaccessible.h],[ac_QTVER="3.x.x"])
