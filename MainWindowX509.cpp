@@ -158,7 +158,7 @@ void MainWindow::newCert(pki_temp *templ)
 	}
 	// Authority Key identifier
 	if (dlg->authKey->isChecked()) {
-		string authkey="keyid,issuer:always";
+		string authkey="keyid,issuer";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
 		CERR << authkey <<endl;
 	}
@@ -718,7 +718,7 @@ void MainWindow::genCrl()
 		return;
 	}
 	certs->assignClients(crl);
-	crl->addV3ext(NID_authority_key_identifier,"keyid:always,issuer:always");
+	crl->addV3ext(NID_authority_key_identifier,"keyid,issuer");
 	crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
 	crl->sign(cert->getKey());
 	if (!opensslError(crl)) {
