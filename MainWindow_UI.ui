@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>760</width>
+            <width>756</width>
             <height>604</height>
         </rect>
     </property>
@@ -1171,6 +1171,12 @@
         <receiver>MainWindow_UI</receiver>
         <slot>alterTemp()</slot>
     </connection>
+    <connection>
+        <sender>PushButton18_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>loadPKCS7()</slot>
+    </connection>
     <slot access="public">alterTemp()</slot>
     <slot access="public">crashApp()</slot>
     <slot access="public">deleteCert()</slot>
@@ -1188,6 +1194,7 @@
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
     <slot access="public">newSerTemp()</slot>
+    <slot access="public">loadPKCS7()</slot>
     <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
     <slot access="public">showDetailsKey()</slot>

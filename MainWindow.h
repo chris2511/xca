@@ -152,6 +152,7 @@ class MainWindow: public MainWindow_UI
 	void loadReq();
 	void loadCert();
 	void loadPKCS12();
+	void loadPKCS7();
 	void newKey();
 	void newReq(pki_temp *templ);
 	void newCert(pki_temp *templ);

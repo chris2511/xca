@@ -260,7 +260,7 @@ void MainWindow::insertKey(pki_key *lkey)
 void MainWindow::writeKey()
 {
 	bool PEM=false;
-	EVP_CIPHER *enc = NULL;
+	const EVP_CIPHER *enc = NULL;
 	pki_key *targetKey = NULL;
 	targetKey = getSelectedKey();
 	if (!targetKey) return;

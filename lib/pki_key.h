@@ -113,7 +113,7 @@ class pki_key: public pki_base
         std::string modulus();
         std::string pubEx();
         std::string privEx();
-	void writeKey(const std::string fname, EVP_CIPHER *enc, 
+	void writeKey(const std::string fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM);
 	void writePublic(const std::string fname, bool PEM);
 	void writePKCS8(const std::string fname, pem_password_cb *cb);

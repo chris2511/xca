@@ -484,7 +484,7 @@ pki_key *pki_x509::getPubKey()
 
 
 
-std::string pki_x509::fingerprint(EVP_MD *digest)
+std::string pki_x509::fingerprint(const EVP_MD *digest)
 {
 	 int j;
 	 std::string fp="";

@@ -73,7 +73,7 @@ class pki_pkcs7: public pki_base
 	void signCert(pki_x509 *crt, pki_x509 *contCert);
 	void encryptFile(pki_x509 *crt, std::string filename);
 	void writeP7(std::string fname,bool PEM);
-	//void readP7(std::string fname);
+	void readP7(std::string fname);
 	pki_x509 *getCert(int x);
 	int numCert(); // number of certs;
 

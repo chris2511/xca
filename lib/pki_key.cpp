@@ -176,7 +176,7 @@ void pki_key::fromData(unsigned char *p, int size )
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	RSA *rsakey;
 	EVP_CIPHER_CTX ctx;
-	EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	sik = (unsigned char *)OPENSSL_malloc(size);
 	openssl_error();
 	pdec = (unsigned char *)OPENSSL_malloc(size);
@@ -199,7 +199,7 @@ void pki_key::fromData(unsigned char *p, int size )
 	openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
-	   rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
+	   rsakey = d2i_RSAPrivateKey(NULL, &(const unsigned char *)pdec, decsize);
 	   if (ign_openssl_error()) {
 		rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
 	   }
@@ -218,7 +218,7 @@ unsigned char *pki_key::toData(int *size)
 	unsigned char *p, *p1, *penc;
 	int outl, encsize=0;
 	EVP_CIPHER_CTX ctx;
-	EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
         unsigned char iv[EVP_MAX_IV_LENGTH];
         unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
@@ -304,7 +304,7 @@ void pki_key::writePKCS8(const std::string fname, pem_password_cb *cb)
 	fclose(fp);
 }
 
-void pki_key::writeKey(const std::string fname, EVP_CIPHER *enc, 
+void pki_key::writeKey(const std::string fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
 	PASS_INFO p;

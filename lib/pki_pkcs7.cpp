@@ -157,3 +157,22 @@ int pki_pkcs7::numCert() {
 	return n;
 }
 
+void pki_pkcs7::readP7(std::string fname)
+{
+	FILE *fp;
+	fp = fopen(fname.c_str(), "rb");
+       	if (fp) {
+		p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);	
+               	if (!p7) {
+			ign_openssl_error();
+			CERR("Fallback to DER encoded PKCS#7");
+			p7 = d2i_PKCS7_fp(fp, &p7);
+		}
+		CERR("PK7");
+		fclose(fp);
+		openssl_error();
+	}
+	certstack = PKCS7_get0_signers(p7, NULL, 0);
+	openssl_error();
+}
+

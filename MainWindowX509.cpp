@@ -635,6 +635,46 @@ void MainWindow::loadPKCS12()
 */
 }	
 	
+
+void MainWindow::loadPKCS7()
+{
+	pki_pkcs7 *pk7;
+	pki_x509 *acert;
+	QStringList filt;
+	filt.append(tr("PKCS#7 data ( *.p7s *.p7m )")); 
+	filt.append(tr("All files ( *.* )"));
+	QStringList slist;
+	QString s="";
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("Certificate import"));
+	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::ExistingFiles );
+	setPath(dlg);
+	if (dlg->exec()) {
+		slist = dlg->selectedFiles();
+		newPath(dlg);
+	}
+	delete dlg;
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		try {
+			pk7 = new pki_pkcs7("");
+			pk7->readP7(s.latin1());
+			for (int i=0; i<pk7->numCert(); i++) {
+				acert = pk7->getCert(i);
+				insertCert(acert);
+			}
+			delete pk7;
+			keys->updateView();
+		}
+		catch (errorEx &err) {
+			Error(err);
+		}
+	}
+}
+
+
 void MainWindow::insertCert(pki_x509 *cert)
 {
     try {
@@ -816,7 +856,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
 		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
 		menu->insertItem(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
-		menu->insertItem(tr("Import from PKCS#7"), this, SLOT(loadCert()));
+		menu->insertItem(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	}
 	else {
 		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());

@@ -99,7 +99,7 @@ class pki_x509 : public pki_base
 	   std::string asn1TimeToString(ASN1_TIME *a);
 	   pki_x509 *getSigner();
 	   void delSigner();
-	   std::string fingerprint(EVP_MD *digest);
+	   std::string fingerprint(const EVP_MD *digest);
 	   std::string printV3ext();
 	   std::string getSerial();
 	   int checkDate();
