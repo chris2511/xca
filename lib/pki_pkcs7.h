@@ -61,6 +61,7 @@ class pki_pkcs7: public pki_base
 	PKCS7 *p7;
 	STACK_OF(X509) *getCertStack();
 	void signBio(pki_x509 *crt, BIO * bio);
+	void encryptBio(pki_x509 *crt, BIO * bio);
     public:
 	pki_pkcs7(const QString d);
 	/* destructor */
