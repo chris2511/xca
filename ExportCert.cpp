@@ -89,4 +89,12 @@ void ExportCert::chooseFile()
 	}
 	delete dlg;
 }
-	
+
+void formatChanged()
+{
+	CERR("Export format changed");
+	char suffix[][] = {"pem", "pem", "pem", "pem", "der", "p12", "p12"};
+	int selected = dlg->exportFormat->currentItem();
+	char *suf = suffix[selected];
+	QString fn = filename->text();
+}	
