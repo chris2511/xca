@@ -43,7 +43,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
-	pki_key *key =(pki_key *)keys->findPKI(req->getKey());
+	pki_key *key =req->getKey();
 	if (key)
 	    if(key->isPrivKey()) {
 		dlg->privKey->setText(key->getDescription().c_str());
@@ -125,6 +125,7 @@ void MainWindow::insertReq(pki_x509req *req)
 	   delete(req);
 	   return;
 	}
+	reqs->findKey(req);
 	reqs->insertPKI(req);
 }
 

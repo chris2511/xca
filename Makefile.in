@@ -75,7 +75,7 @@ dist:
 	rm -rf ../$(TARGET)
 	cvs export -r $(TAG) -d ../$(TARGET) xca
 	rcs2log >> ../$(TARGET)/CHANGELOG 
-	(cd ../$(TARGET); autoconf; lrelease -v xca.pro )
+	(cd ../$(TARGET); autoconf; lrelease xca.pro )
 	(cd ..; tar zcf $(TARGET).tar.gz $(TARGET) )
 	rm -rf ../$(TARGET)
 	

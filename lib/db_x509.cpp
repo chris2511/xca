@@ -214,6 +214,8 @@ void db_x509::preprocess()
 	    for (it.toFirst(); it.current(); ++it ) {
 		int trust = 1; // dont know
 		pki = (pki_x509 *)it.current();
+		signer = pki->getSigner();
+		    CERR << "inloop " << pki->getDescription() <<endl;
 	
 		if (pki->getTrust() != 1){ // Always trust it or never
 			trust = pki->getTrust();

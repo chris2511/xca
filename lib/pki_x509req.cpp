@@ -47,6 +47,7 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	const EVP_MD *digest = EVP_md5();
 	X509_REQ_sign(request,key->key ,digest);
 	openssl_error();
+	privkey = key;
 }
 
 
@@ -86,6 +87,8 @@ pki_x509req::pki_x509req(const string fname)
 	}	
 	else pki_error("Error opening file");
 	fclose(fp);
+	privkey = NULL;
+	
 }
 
 

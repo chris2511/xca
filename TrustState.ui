@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>418</width>
-            <height>264</height>
+            <width>485</width>
+            <height>267</height>
         </rect>
     </property>
     <property stdset="1">
@@ -467,7 +467,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Only trust this certificate, if we Trust the Signer</string>
+                        <string>Only trust this certificate, if we trust the signer</string>
                     </property>
                 </widget>
                 <widget>

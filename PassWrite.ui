@@ -11,91 +11,36 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>379</width>
-            <height>282</height>
+            <width>494</width>
+            <height>236</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
         <string>Passwort</string>
     </property>
-    <widget>
-        <class>QPushButton</class>
+    <vbox>
         <property stdset="1">
-            <name>name</name>
-            <cstring>PushButton1</cstring>
+            <name>margin</name>
+            <number>11</number>
         </property>
         <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>240</y>
-                <width>108</width>
-                <height>32</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>OK</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QPushButton</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>PushButton2</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>260</x>
-                <y>240</y>
-                <width>110</width>
-                <height>32</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Abbrechen</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QFrame</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>Frame3</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>110</y>
-                <width>350</width>
-                <height>110</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>frameShape</name>
-            <enum>Box</enum>
-        </property>
-        <property stdset="1">
-            <name>frameShadow</name>
-            <enum>Sunken</enum>
+            <name>spacing</name>
+            <number>6</number>
         </property>
         <widget>
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>TextLabel2</cstring>
+                <cstring>title</cstring>
             </property>
             <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>60</y>
-                    <width>90</width>
-                    <height>20</height>
-                </rect>
+                <name>font</name>
+                <font>
+                    <pointsize>14</pointsize>
+                    <bold>1</bold>
+                    <underline>1</underline>
+                </font>
             </property>
             <property stdset="1">
                 <name>frameShape</name>
@@ -107,129 +52,191 @@
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>Wiederholung:</string>
+                <string>Password</string>
             </property>
         </widget>
         <widget>
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>TextLabel1</cstring>
+                <cstring>description</cstring>
             </property>
             <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>20</y>
-                    <width>90</width>
-                    <height>20</height>
-                </rect>
+                <name>alignment</name>
+                <set>WordBreak|AlignVCenter|AlignLeft</set>
             </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Passwort:</string>
+            <property>
+                <name>wordwrap</name>
             </property>
         </widget>
         <widget>
-            <class>QLineEdit</class>
+            <class>QFrame</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>passB</cstring>
+                <cstring>Frame3</cstring>
             </property>
             <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>100</x>
-                    <y>60</y>
-                    <width>230</width>
-                    <height>23</height>
-                </rect>
+                <name>frameShape</name>
+                <enum>Box</enum>
             </property>
             <property stdset="1">
-                <name>echoMode</name>
-                <enum>Password</enum>
+                <name>frameShadow</name>
+                <enum>Sunken</enum>
             </property>
+            <grid>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>11</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget row="1"  column="0" >
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>minimumSize</name>
+                        <size>
+                            <width>0</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>maximumSize</name>
+                        <size>
+                            <width>32767</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>font</name>
+                        <font>
+                        </font>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShape</name>
+                        <enum>MShape</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShadow</name>
+                        <enum>MShadow</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Repeat pasword</string>
+                    </property>
+                    <property stdset="1">
+                        <name>scaledContents</name>
+                        <bool>false</bool>
+                    </property>
+                </widget>
+                <widget row="0"  column="0" >
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Password</string>
+                    </property>
+                    <property stdset="1">
+                        <name>alignment</name>
+                        <set>AlignVCenter|AlignLeft</set>
+                    </property>
+                    <property>
+                        <name>wordwrap</name>
+                    </property>
+                </widget>
+                <widget row="1"  column="1" >
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>passB</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>echoMode</name>
+                        <enum>Password</enum>
+                    </property>
+                </widget>
+                <widget row="0"  column="1" >
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>passA</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>echoMode</name>
+                        <enum>Password</enum>
+                    </property>
+                </widget>
+            </grid>
         </widget>
         <widget>
-            <class>QLineEdit</class>
+            <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>passA</cstring>
+                <cstring>Layout36</cstring>
             </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>100</x>
-                    <y>20</y>
-                    <width>230</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>echoMode</name>
-                <enum>Password</enum>
-            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton1</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>OK</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property>
+                        <name>name</name>
+                        <cstring>Spacer2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>sizeType</name>
+                        <enum>Expanding</enum>
+                    </property>
+                    <property>
+                        <name>sizeHint</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Cancel</string>
+                    </property>
+                </widget>
+            </hbox>
         </widget>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>title</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>350</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
-        </property>
-        <property stdset="1">
-            <name>frameShape</name>
-            <enum>MShape</enum>
-        </property>
-        <property stdset="1">
-            <name>frameShadow</name>
-            <enum>MShadow</enum>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Passwort</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>description</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>50</y>
-                <width>350</width>
-                <height>50</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>alignment</name>
-            <set>WordBreak|AlignVCenter|AlignLeft</set>
-        </property>
-        <property>
-            <name>wordwrap</name>
-        </property>
-    </widget>
+    </vbox>
 </widget>
 <connections>
     <connection>

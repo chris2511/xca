@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>580</width>
+            <width>576</width>
             <height>343</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Details der Unterschriftsanfrage</string>
+        <string>Details of the request</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -59,7 +59,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Details der Unterschriftsanfrage</string>
+                        <string>Details of the certificate signing request</string>
                     </property>
                 </widget>
                 <spacer>
@@ -173,7 +173,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Beschreibung:</string>
+                        <string>Certificate name</string>
                     </property>
                 </widget>
                 <widget row="1"  column="0" >
@@ -698,7 +698,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>nicht vorhanden</string>
+                        <string>not available</string>
                     </property>
                     <property stdset="1">
                         <name>alignment</name>
@@ -1008,7 +1008,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Abbrechen</string>
+                        <string>Cancel</string>
                     </property>
                 </widget>
             </hbox>

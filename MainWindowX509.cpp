@@ -134,6 +134,29 @@ void MainWindow::newCert()
 		CERR << "KeyUsage:" <<keyuse1<< endl;
 	}
 	if (opensslError(cert)) return;
+	
+	// extended key usage
+	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
+		"timeStamping","msCodeInd","msCodeCom",
+		"msCTLSign","msSGC","msEFS","nsSGC"};
+	i=0; keyuse=""; keyuse1="";
+	while ((item = dlg3->ekeyUsage->item(i))) {	
+		if (item->selected()){
+			if (keyuse.length() > 0) keyuse += ", ";
+			keyuse += ekeyusage[i];
+		}
+		i++;
+	}
+	
+	if (keyuse.length() > 0) {
+		keyuse1 = keyuse;
+		if (dlg3->ekuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
+		cert->addV3ext(NID_ext_key_usage, keyuse1);
+		CERR << "Extended Key Usage:" <<keyuse1<< endl;
+	}
+	if (opensslError(cert)) return;
+	
+	
 	// and finally sign the request 
 	cert->sign(signkey);
 	if (opensslError(cert)) return;
@@ -298,6 +321,9 @@ void MainWindow::insertCert(pki_x509 *cert)
 	   return;
 	}
 	certs->insertPKI(cert);
+	certs->findSigner(cert);
+	certs->findKey(cert);
+	cert->calcEffTrust();
 }
 
 void MainWindow::writeCert()

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>758</width>
+            <width>750</width>
             <height>458</height>
         </rect>
     </property>
@@ -465,7 +465,7 @@ For a SSL servercertificate choose the DNS name of the server</string>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout8</cstring>
+                <cstring>Layout27</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -476,17 +476,6 @@ For a SSL servercertificate choose the DNS name of the server</string>
                     <name>spacing</name>
                     <number>6</number>
                 </property>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton14</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Continue</string>
-                    </property>
-                </widget>
                 <spacer>
                     <property>
                         <name>name</name>
@@ -508,6 +497,17 @@ For a SSL servercertificate choose the DNS name of the server</string>
                         </size>
                     </property>
                 </spacer>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton14</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Next &gt;</string>
+                    </property>
+                </widget>
                 <widget>
                     <class>QPushButton</class>
                     <property stdset="1">
@@ -542,8 +542,15 @@ For a SSL servercertificate choose the DNS name of the server</string>
         <receiver>NewX509_UI</receiver>
         <slot>validateFields()</slot>
     </connection>
-    <slot access="public">validateFields()</slot>
+    <connection>
+        <sender>genKey</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>newKey()</slot>
+    </connection>
+    <slot access="public">newKey()</slot>
     <slot access="public">setDisabled(int)</slot>
+    <slot access="public">validateFields()</slot>
 </connections>
 <tabstops>
     <tabstop>fromDataRB</tabstop>
