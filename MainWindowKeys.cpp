@@ -72,9 +72,10 @@ void MainWindow::showDetailsKey(pki_key *key)
 		key->pubEx().c_str() );
 	detDlg->keyModulus->setText(
 		key->modulus().c_str() );
-	detDlg->keyPrivEx->setText(
-		key->privEx().c_str() );
-
+	if (key->isPubKey()) {
+		detDlg->keyPrivEx->setText(tr("not available") );
+		detDlg->keyPrivEx->setDisabled(true);
+	}
 	detDlg->image->setPixmap(*keyImg);
 
 	if ( !detDlg->exec()) return;

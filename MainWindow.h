@@ -17,6 +17,7 @@
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qlistview.h>
+#include <qlistbox.h>
 #include <qobjectlist.h>
 #include <qobjcoll.h>
 #include <qlabel.h>

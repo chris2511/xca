@@ -11,215 +11,241 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>620</width>
-            <height>294</height>
+            <width>546</width>
+            <height>252</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
         <string>New Certificate - Step 2</string>
     </property>
-    <widget>
-        <class>QPushButton</class>
+    <vbox>
         <property stdset="1">
-            <name>name</name>
-            <cstring>PushButton14</cstring>
+            <name>margin</name>
+            <number>11</number>
         </property>
         <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>360</x>
-                <y>250</y>
-                <width>110</width>
-                <height>32</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Weiter</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QPushButton</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>PushButton15</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>490</x>
-                <y>250</y>
-                <width>115</width>
-                <height>32</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Abbrechen</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel10</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>50</y>
-                <width>590</width>
-                <height>60</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Please choose the signer, wether it should be self signed,
-or signed by an other signer</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QButtonGroup</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>ButtonGroup2</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>110</y>
-                <width>590</width>
-                <height>120</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>title</name>
-            <string>Certificate to sign with</string>
+            <name>spacing</name>
+            <number>6</number>
         </property>
         <widget>
-            <class>QComboBox</class>
+            <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>certList</cstring>
+                <cstring>Layout18</cstring>
             </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>300</x>
-                    <y>70</y>
-                    <width>260</width>
-                    <height>22</height>
-                </rect>
-            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>font</name>
+                        <font>
+                            <pointsize>14</pointsize>
+                            <bold>1</bold>
+                            <underline>1</underline>
+                        </font>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>New Certificate</string>
+                    </property>
+                </widget>
+                <spacer>
+                    <property>
+                        <name>name</name>
+                        <cstring>Spacer6</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>sizeType</name>
+                        <enum>Expanding</enum>
+                    </property>
+                    <property>
+                        <name>sizeHint</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget>
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>image</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>minimumSize</name>
+                        <size>
+                            <width>95</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>maximumSize</name>
+                        <size>
+                            <width>95</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>scaledContents</name>
+                        <bool>true</bool>
+                    </property>
+                </widget>
+            </hbox>
         </widget>
         <widget>
-            <class>QRadioButton</class>
+            <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>foreignSignRB</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>20</x>
-                    <y>70</y>
-                    <width>280</width>
-                    <height>20</height>
-                </rect>
+                <cstring>TextLabel10</cstring>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>Use this Certificate for for signing:</string>
+                <string>Please choose the signer, wether it should be self signed, or signed by an other signer</string>
+            </property>
+            <property stdset="1">
+                <name>alignment</name>
+                <set>WordBreak|AlignVCenter|AlignLeft</set>
+            </property>
+            <property>
+                <name>wordwrap</name>
             </property>
         </widget>
         <widget>
-            <class>QLineEdit</class>
+            <class>QButtonGroup</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>serialNr</cstring>
+                <cstring>ButtonGroup2</cstring>
             </property>
             <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>410</x>
-                    <y>30</y>
-                    <width>140</width>
-                    <height>22</height>
-                </rect>
+                <name>title</name>
+                <string>Certificate to sign with</string>
             </property>
+            <grid>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>11</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget row="1"  column="1"  rowspan="1"  colspan="2" >
+                    <class>QComboBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>certList</cstring>
+                    </property>
+                </widget>
+                <widget row="1"  column="0" >
+                    <class>QRadioButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>foreignSignRB</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Use this Certificate for for signing:</string>
+                    </property>
+                </widget>
+                <widget row="0"  column="2" >
+                    <class>QLineEdit</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>serialNr</cstring>
+                    </property>
+                </widget>
+                <widget row="0"  column="0"  rowspan="1"  colspan="2" >
+                    <class>QRadioButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>selfSignRB</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Create a self signed certificate with the serial:</string>
+                    </property>
+                </widget>
+            </grid>
         </widget>
         <widget>
-            <class>QRadioButton</class>
+            <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>selfSignRB</cstring>
+                <cstring>Layout16</cstring>
             </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>20</x>
-                    <y>30</y>
-                    <width>380</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Create a self signed certificate with the serial:</string>
-            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>0</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <spacer>
+                    <property>
+                        <name>name</name>
+                        <cstring>Spacer5</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>orientation</name>
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>sizeType</name>
+                        <enum>Expanding</enum>
+                    </property>
+                    <property>
+                        <name>sizeHint</name>
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton14</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Weiter</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton15</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Abbrechen</string>
+                    </property>
+                </widget>
+            </hbox>
         </widget>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>490</width>
-                <height>40</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>New Certificate</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>image</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>510</x>
-                <y>10</y>
-                <width>100</width>
-                <height>47</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>scaledContents</name>
-            <bool>true</bool>
-        </property>
-    </widget>
+    </vbox>
 </widget>
 <connections>
     <connection>

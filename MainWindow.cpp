@@ -16,7 +16,13 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		if (!d.mkdir(baseDir)) 
 		   qFatal(  "Couldnt create: " +  baseDir );
 	}
-	dbfile = baseDir +  "/xca.db";
+	if (qApp->argc() <2){
+		dbfile="xca.db";
+	}
+	else {
+		dbfile=qApp->argv()[1];
+	}
+	dbfile = baseDir + "/" +  dbfile;
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 	settings = new db_base(dbenv, dbfile.latin1(), "settings");

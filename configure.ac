@@ -23,6 +23,7 @@ AC_CHECK_LIB([stdc++], [atexit])
 AC_CHECK_LIB([db3_cxx], [atexit])
 AC_CHECK_LIB([db_cxx], [atexit])
 AC_CHECK_LIB([qt], [atexit])
+AC_CHECK_LIB([qt-mt], [atexit])
 
 AC_LANG(C++)
 

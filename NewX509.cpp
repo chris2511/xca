@@ -46,6 +46,11 @@ void NewX509::newKey()
 
 void NewX509::validateFields() {
 	QStringList fields;
+	if (fromReqRB->isChecked()) {
+		accept();
+		return;
+	}
+	
 	if (description->text() == "") 
 		fields.append(tr("Description"));
 	if (commonName->text() == "") 
