@@ -1,4 +1,4 @@
-xca (0.4.7-RC1) unstable; urgency=low
+xca (0.4.7-RC1-1) unstable; urgency=low
 
   * debian menu-entry added
   * Open and closing of different databases
@@ -14,8 +14,9 @@ xca (0.4.7-RC1) unstable; urgency=low
     now read from eku.txt and dn.txt respectively.
   * About dialog and help window added.
   * Requestdetail is now tabdialog
+  * 
 
- -- Christian Hohnstädt <christian@hohnstaedt.de>  Thu,  5 Feb 2004 23:43:40 +0100
+ -- Christian Hohnstaedt <christian@hohnstaedt.de>  Thu, 25 Mar 2004 10:07:10 +0100
 
 xca (0.4.6) unstable; urgency=low
 

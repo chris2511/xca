@@ -14,7 +14,6 @@ Local.mak:
 	# Add here commands to configure the package.
 	# prefix=/usr ./configure
 	cat debian/debian.mak > Local.mak
-	touch Local.mak
 
 build: build-stamp
 build-stamp: Local.mak
@@ -27,11 +26,10 @@ build-stamp: Local.mak
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp configure-stamp
+	rm -f build-stamp
 
 	# Add here commands to clean up after the build process.
 	-$(MAKE) distclean
-
 	dh_clean
 
 install: build
