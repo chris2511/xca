@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 	QString dbfile = baseDir +  "/xca.db";
 	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList);
+	certs = new db_x509(dbenv, dbfile.latin1(), "certdb", certList);
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
@@ -30,6 +31,7 @@ MainWindow::~MainWindow()
 	 EVP_cleanup();
 	 delete(keys);
 	 delete(reqs);
+	 delete(certs);
 }
 
 

@@ -131,7 +131,6 @@ void MainWindow::loadKey()
 		    delete(oldkey);
 		}
 	}
-	showDetailsKey(lkey);
 	cerr << "after findkey\n";
 	if (keys->insertPKI(lkey))
 	   QMessageBox::information(this,"Schlüssel import",

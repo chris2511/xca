@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>652</width>
+            <width>648</width>
             <height>463</height>
         </rect>
     </property>
@@ -19,34 +19,6 @@
         <name>caption</name>
         <string>Unterschriftsanfrage</string>
     </property>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>250</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Zertifikat - Unterschriftsanfrage</string>
-        </property>
-    </widget>
     <widget>
         <class>QPushButton</class>
         <property stdset="1">
@@ -595,6 +567,34 @@
         <property stdset="1">
             <name>scaledContents</name>
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>250</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Neue Zertifikats Unterschriftsanfrage</string>
         </property>
     </widget>
 </widget>

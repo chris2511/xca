@@ -1,7 +1,9 @@
 #include "lib/pki_key.h"
 #include "lib/pki_x509req.h"
+#include "lib/pki_x509.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
+#include "lib/db_x509.h"
 #include "MainWindow_UI.h"
 #include "KeyDetail_UI.h"
 #include "ReqDetail_UI.h"
@@ -9,6 +11,7 @@
 #include "PassWrite_UI.h"
 #include "NewKey_UI.h"
 #include "NewX509Req_UI.h"
+#include "NewX509_UI.h"
 #include "ExportKey.h"
 #include <iostream.h>
 #include <qapplication.h>
@@ -34,8 +37,9 @@
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
+	db_x509 *certs;
+	db_x509req *reqs;
 	db_key *keys;
-	db_base *reqs;
 	DbEnv *dbenv;
    public:
 	QString baseDir;
@@ -51,10 +55,11 @@ class MainWindow: public MainWindow_UI
 	void loadKey();
 	void loadReq();
 	void newKey();
-	void showDetailsKey();
-	void deleteKey();
 	void newReq();
+	void newCert();
+	void showDetailsKey();
 	void showDetailsReq();
+	void deleteKey();
 	void deleteReq();
 	void writeKey();
 	void writeReq();

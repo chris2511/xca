@@ -4,7 +4,7 @@ TARGET=xca-$(VERSION)
 GCC=g++ -Wall
 INC=-I$(QTDIR)/include
 LPATH=-L$(QTDIR)/lib -Llib
-LIBS=-lqt -lcrypto -ldb_cxx  -lpki -lxcadb
+LIBS=-lqt -lcrypto -ldb_cxx -lxcadb -lpki
 #LIBS=-lqt -lcrypto -ldb_cxx  -lall
 MOC=$(QTDIR)/bin/moc
 UIC=$(QTDIR)/bin/uic
@@ -17,9 +17,10 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      PassWrite_UI.o PassWrite_UI_MOC.o \
      ExportKey_UI.o ExportKey_UI_MOC.o \
      NewX509Req_UI.o NewX509Req_UI_MOC.o \
+     NewX509_UI.o NewX509_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
      MainWindow.o MainWindow_MOC.o \
-     MainWindowKeys.o MainWindowX509Req.o \
+     MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o \
      main.o
 
 all: libs $(OBJS) xca
@@ -27,7 +28,8 @@ re: clean all
 
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
-	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h
+	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h \
+	      NewX509_UI.h 
 
 %.o: %.cpp
 	$(GCC) -c $(INC) -DVER=\"$(VERSION)\" $<
@@ -42,7 +44,6 @@ MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	$(UIC) -o $@ -i $^
 
 xca: $(OBJS) lib/libxcadb.a lib/libpki.a
-	#$(GCC) $(INC) $(LPATH) $(LIBS) $(OBJS) lib/*.o  -o xca
 	$(GCC) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
 
 libs:
