@@ -48,15 +48,15 @@ After starting the application all RSA keys are hold <bf>unencrypted</bf> in the
 This is a security issue to be aware of.
 
 <p>
-The different parts are divided over 4 Tabs: Keys, Requests, Certificates and Templates.
+The different parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revokation lists.
 All items can be manipulated either by a context menu available by
 right-clicking on the item, or by using the buttons at the right border.
-Every item gets an internal name which is unique in one tab-view and is
+Every item is identified by an internal name which is unique in one tab-view and is
 always shown in the first column.
 
 <sect1>File formats
 <p>
-There are several default file-formats to exchange cryptographic the data with
+There are several default file-formats to exchange cryptographic data with
 other applications.
 <itemize>
 <item><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding <bf>R</bf>ules is the binary ASN.1 encoding of the data.
@@ -130,7 +130,6 @@ other applications.
 <sect1>Credits
 <p>
 
-In this version I have the pleasure of acknowledging
 <tscreen><verb>
 Kerstin Steinhauff &lt;tine (at) kerstine.de&gt;
         Arts and graphics
@@ -181,9 +180,9 @@ The import of an item can be done by either clicking the import button on the ri
 or via the context menu available by right clicking on the list background.
 The import function is smart enough to probe all known formats as there are:
 <itemize>
-<item><em>Keys:</em>  PEM private key, PEM public key, DER private key, DER public key, PKCS8 private key.
+<item><em>Keys:</em>  PEM private key, PEM public key, DER private key, DER public key, PKCS#8 private key.
 <item><em>Requests</em> DER request, PEM request.
-<item><em>Certificates</em> DER certificate, PEM certificate (PKCS#12 and in future PKCS#7 certificates
+<item><em>Certificates</em> DER certificate, PEM certificate (PKCS#12 and PKCS#7 certificates
 	must be imported with an extra button, because they can contain more than one certificate)
 </itemize>
 After selecting the filename XCA will probe for the known formats of that item
@@ -193,7 +192,7 @@ In this case all items are imported one by one.
 
 <p>
 After reading the item it searches for this item in the database and if it is unique the item
-is stored in the database, otherwise it shows a message containing the internal name of the item
+is stored in the database, otherwise it shows a message containing the internal name of this item
 in the database.
 
 <sect1>Details of an item
@@ -220,7 +219,7 @@ if you never exported it. Certificate signing requests can be deleted
 when they got signed, because they are not needed anymore. 
 The request can be recovered from the resulting certificate by 
 exporting the certificate to a request. 
-This is however only possible if you own the private key for the 
+This is however only possible if you own the private key of the 
 certificate.
 
 
@@ -229,7 +228,8 @@ certificate.
 <sect>The Wizard <label id="wizard">
 <p>
 The Wizard is the central part for collecting all data regarding Certificates,
-Requests and Templates. It will be invoked for generating Requests, Certificates
+Requests and Templates. It will be invoked whenever such an item is going 
+to be created or, in case of a Template, is altered.
 and Templates and for changing Templates.
 
 <sect1>Template selection
@@ -472,6 +472,24 @@ signed by this issuer.
 <item><bf>Generate CRL</bf> Generate the CRL by collecting all revoked certificates
 and their revokation date.
 </itemize>
+
+<sect>Certificate Recokation Lists
+<p>
+All certificates are issued for a restricted timeperiod of validity.
+However it can happen that a certificate may not be used / gets invalid
+before the "not after" time in the certificate is reached. In this case
+the issuing CA should revoke this certificate by putting it on the list of 
+revoked certificates, signing it and publishing it.
+
+<sect1>Generation of Certificate revokation lists
+<p>
+In XCA this can be done by the context-menu of the CA and the 
+"revoke" entry in the context-menu of the issued certificate.
+First all invalid certificates are marked as revoked and 
+then a Certificate Revokation List should be created and will be stored in the
+database. 
+<p>
+
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 </article>
