@@ -54,8 +54,7 @@
 
 void MainWindow::newReq()
 {
-	NewX509Req_UI *dlg = new NewX509Req_UI(this,0,true,0);
-	dlg->keyList->insertStringList(keys->getPrivateDesc());
+	NewX509Req *dlg = new NewX509Req(this, 0, keys);
 	dlg->image->setPixmap(*csrImg);
 	if (! dlg->exec()) return;
 	pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());

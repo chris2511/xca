@@ -49,36 +49,43 @@
  */                           
 
 
-#include "NewX509_UI.h"
-#include <qcombobox.h>
-#include <qradiobutton.h>
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include <qframe.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
+#include "NewX509Req.h"
 
-#ifndef NEWX509_H
-#define NEWX509_H
-
-class MainWindow;
-class NewX509: public NewX509_UI
+NewX509Req::NewX509Req(QWidget *parent , const char *name, db_key *key)
+	:NewX509Req_UI(parent, name, true, 0)
 {
-	Q_OBJECT
-   private:
-	db_x509req *reqs;
-	db_key *keys;
-   public:	
-	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req);
+	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
+	connect( parent, SIGNAL(keyDone(QString)), this, SLOT(newKeyDone(QString)) );
+	keys = key;
+	QStringList strings = keys->getPrivateDesc();
+	// are there any useable private keys  ?
+	if (strings.isEmpty()) {
+		newKey();
+	}
+	else {
+		keyList->insertStringList(strings);
+	}
+	generateBut->setEnabled(false);
+}
 	
-   public slots:
-	void setDisabled(int state);
-   	void newKey();
-	void dataChangeP1();
-	void showPage(QWidget *page);
-	void newKeyDone(QString name);
-   signals:
-	void genKey();  
-};
+void NewX509Req::dataChange()
+{
+	if (description->text() != "" ) {
+		generateBut->setEnabled(true);
+	}
+	else {
+		generateBut->setEnabled(false);
+	}
+}
 
-#endif
+
+void NewX509Req::newKey()
+{
+	emit genKey();
+}
+
+void NewX509Req::newKeyDone(QString name)
+{
+	keyList->insertItem(name,0);
+	keyList->setCurrentItem(0);
+}

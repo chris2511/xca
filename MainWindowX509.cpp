@@ -59,7 +59,7 @@ void MainWindow::newCert()
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
-	int i, retval;
+	int i;
 	NewX509 *dlg = new NewX509(this, NULL, keys, reqs);
 	QStringList strlist = certs->getSignerDesc();
 	if (strlist.isEmpty()) {
@@ -69,14 +69,6 @@ void MainWindow::newCert()
 	else {
 		dlg->certList->insertStringList(strlist);
 	}
-	CERR <<" Everything created A" << endl;
-	// preset dialogs with images
-	for (i=0;i<4;i++) { 
-		CERR <<" Everything created :" << i << endl;
-		//dlg[i]->image->setPixmap(*certImg);
-	}
-	CERR <<" Everything created V" << endl;
-	i=0;
 	
 	if (!dlg->exec()) return;
 	
@@ -105,14 +97,6 @@ void MainWindow::newCert()
 	}
 		
 	// Step 2 - select Signing
-	/*
-	if (dlg->fromDataRB->isChecked())
-		// if we entered subjectdata, selfsigning is default
-		dlg->selfSignRB->setChecked(true);
-	else 
-		// for PKCS#10 signing foreignKey signing is default
-		dlg->foreignSignRB->setChecked(true);
-	*/
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg->certList->currentText().latin1());
 		if (opensslError(signcert)) return;
@@ -158,7 +142,6 @@ void MainWindow::newCert()
 		constraints += pathstr;
 	}
 	cert->addV3ext(NID_basic_constraints, constraints);
-	CERR << "B-Const:" << constraints << endl;
 	// Subject Key identifier
 	if (dlg->subKey->isChecked()) {
 		string subkey="hash";
@@ -172,24 +155,16 @@ void MainWindow::newCert()
 		CERR << authkey <<endl;
 	}
 	 
-	// STEP 4
-	// Subject Alternative name
-	string subAlt = dlg->subAltURL->text().latin1();	
-	//if (subAlt != "") {
-		
 	// key usage
 	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"};
 	QListBoxItem *item;
-	i=0;
 	string keyuse, keyuse1;
-	while ((item = dlg->keyUsage->item(i))) {	
+	for (i=0; (item = dlg->keyUsage->item(i)); i++) {	
 		if (item->selected()){
-			if (keyuse.length() > 0) keyuse +=", ";
-			keyuse += keyusage[i];
+			addStr(keyuse, keyusage[i]);
 		}
-		i++;
 	}
 	
 	if (keyuse.length() > 0) {
@@ -198,19 +173,16 @@ void MainWindow::newCert()
 		cert->addV3ext(NID_key_usage, keyuse1);
 		CERR << "KeyUsage:" <<keyuse1<< endl;
 	}
-	if (opensslError(cert)) return;
 	
 	// extended key usage
 	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
 		"timeStamping","msCodeInd","msCodeCom",
 		"msCTLSign","msSGC","msEFS","nsSGC"};
-	i=0; keyuse=""; keyuse1="";
-	while ((item = dlg->ekeyUsage->item(i))) {	
+	keyuse=""; keyuse1="";
+	for (i=0; (item = dlg->ekeyUsage->item(i)); i++) {	
 		if (item->selected()){
-			if (keyuse.length() > 0) keyuse += ", ";
-			keyuse += ekeyusage[i];
+			addStr(keyuse, ekeyusage[i]);
 		}
-		i++;
 	}
 	
 	if (keyuse.length() > 0) {
@@ -219,14 +191,76 @@ void MainWindow::newCert()
 		cert->addV3ext(NID_ext_key_usage, keyuse1);
 		CERR << "Extended Key Usage:" <<keyuse1<< endl;
 	}
-	if (opensslError(cert)) return;
 	
+	
+	// STEP 4
+	// Subject Alternative name
+	string cont="", subAltName="", issAltName="";
+	if (dlg->subAltCpMail->isChecked()) {
+		subAltName = "email:copy";
+	}
+	if ((cont = dlg->subAltURL->text().latin1()) != ""){
+		addStr(subAltName,"URI:");
+		subAltName+=cont;
+	}
+	if ((cont = dlg->subAltDNS->text().latin1()) != ""){
+		addStr(subAltName,"DNS:");
+		subAltName+=cont;
+	}
+	if ((cont = dlg->subAltIP->text().latin1()) != ""){
+		addStr(subAltName,"IP:");
+		subAltName+=cont;
+	}
+	if ((cont = dlg->subAltEMAIL->text().latin1()) != ""){
+		addStr(subAltName,"email:");
+		subAltName+=cont;
+	}
+	if (subAltName.length() > 0) {
+		cert->addV3ext(NID_subject_alt_name, subAltName);
+		CERR << "SubAltName:" << subAltName<< endl;
+	}
+	
+	// issuer alternative name	
+	if (dlg->issAltCopy->isChecked()) {
+		issAltName = "issuer:copy";
+	}
+	if ((cont = dlg->issAltURL->text().latin1()) != ""){
+		addStr(issAltName,"URI:");
+		issAltName+=cont;
+	}
+	if ((cont = dlg->issAltDNS->text().latin1()) != ""){
+		addStr(issAltName,"DNS:");
+		issAltName+=cont;
+	}
+	if ((cont = dlg->issAltIP->text().latin1()) != ""){
+		addStr(issAltName,"IP:");
+		issAltName+=cont;
+	}
+	if ((cont = dlg->issAltEMAIL->text().latin1()) != ""){
+		addStr(issAltName,"email:");
+		issAltName+=cont;
+	}
+	CERR << "HIER" << endl;
+	if (issAltName.length() > 0) {
+		cert->addV3ext(NID_issuer_alt_name, issAltName);
+		CERR << "IssAltName:" << issAltName<< endl;
+	}
+	
+		
+	if (opensslError(cert)) return;
 	
 	// and finally sign the request 
 	cert->sign(signkey);
 	if (opensslError(cert)) return;
 	CERR << "SIGNED" <<endl;
 	insertCert(cert);
+}
+void MainWindow::addStr(string &str, char *add)
+{
+	if (str.length() >0) {
+		str += ", ";
+	}
+	str += add;
 }
 
 void MainWindow::showDetailsCert()

@@ -49,7 +49,7 @@
  */                           
 
 
-#include "NewX509_UI.h"
+#include "NewX509Req_UI.h"
 #include <qcombobox.h>
 #include <qradiobutton.h>
 #include "lib/db_key.h"
@@ -58,24 +58,21 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 
-#ifndef NEWX509_H
-#define NEWX509_H
+#ifndef NEWX509REQ_H
+#define NEWX509REQ_H
 
 class MainWindow;
-class NewX509: public NewX509_UI
+class NewX509Req: public NewX509Req_UI
 {
 	Q_OBJECT
    private:
-	db_x509req *reqs;
 	db_key *keys;
    public:	
-	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req);
+	NewX509Req(QWidget *parent, const char *name, db_key *key);
 	
    public slots:
-	void setDisabled(int state);
    	void newKey();
-	void dataChangeP1();
-	void showPage(QWidget *page);
+	void dataChange();
 	void newKeyDone(QString name);
    signals:
 	void genKey();  

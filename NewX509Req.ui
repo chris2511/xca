@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>631</width>
+            <width>627</width>
             <height>326</height>
         </rect>
     </property>
@@ -393,7 +393,7 @@ For a SSL servercertificate choose the DNS name of the server</string>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout14</cstring>
+                <cstring>Layout4</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -408,11 +408,11 @@ For a SSL servercertificate choose the DNS name of the server</string>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton14</cstring>
+                        <cstring>PushButton15</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -440,11 +440,11 @@ For a SSL servercertificate choose the DNS name of the server</string>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton15</cstring>
+                        <cstring>generateBut</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>Generate request</string>
                     </property>
                 </widget>
             </hbox>
@@ -453,7 +453,7 @@ For a SSL servercertificate choose the DNS name of the server</string>
 </widget>
 <connections>
     <connection>
-        <sender>PushButton14</sender>
+        <sender>generateBut</sender>
         <signal>clicked()</signal>
         <receiver>NewX509Req_UI</receiver>
         <slot>accept()</slot>
@@ -464,9 +464,23 @@ For a SSL servercertificate choose the DNS name of the server</string>
         <receiver>NewX509Req_UI</receiver>
         <slot>reject()</slot>
     </connection>
+    <connection>
+        <sender>description</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>NewX509Req_UI</receiver>
+        <slot>dataChange()</slot>
+    </connection>
+    <connection>
+        <sender>genKey</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509Req_UI</receiver>
+        <slot>newKey()</slot>
+    </connection>
+    <slot access="public">newKey()</slot>
+    <slot access="public">dataChange()</slot>
 </connections>
 <tabstops>
-    <tabstop>PushButton14</tabstop>
+    <tabstop>generateBut</tabstop>
     <tabstop>PushButton15</tabstop>
 </tabstops>
 </UI>

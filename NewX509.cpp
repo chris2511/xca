@@ -55,10 +55,11 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	:NewX509_UI(parent, name, true, 0)
 {
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
+	connect( parent, SIGNAL(keyDone(QString)), this, SLOT(newKeyDone(QString)) );
 	keys = key;
 	reqs = req;
 	QStringList strings = keys->getPrivateDesc();
-	// are there any private keys to use ?
+	// are there any useable private keys  ?
 	if (strings.isEmpty()) {
 		newKey();
 	}
@@ -74,8 +75,43 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		reqList->insertStringList(strings);
 	}
 	fromDataRB->setChecked(true);
+	setFinishEnabled(page4,true);
+	setNextEnabled(page1,false);
 }
 	
+void NewX509::dataChangeP1()
+{
+	if (description->text() != "" || fromReqRB->isChecked()) {
+		setNextEnabled(page1,true);
+	}
+	else {
+		setNextEnabled(page1,false);
+	}
+}
+
+void NewX509::showPage(QWidget *page)
+{
+	
+	if ( page == page1 ) {
+		dataChangeP1();
+	}
+	else if ( page == page2 ) {
+		if (!selfSignRB->isChecked() && !foreignSignRB->isChecked()) {
+			if (fromDataRB->isChecked()) {
+				selfSignRB->setChecked(true);
+				serialNr->setText("00");
+			}
+			else {
+				foreignSignRB->setChecked(true);
+			}
+		}
+	}
+	else if (page == page4) {
+	}
+	QWizard::showPage(page);
+
+}
+		    
 void NewX509::setDisabled(int state)
 {
    if (state == 2) {
@@ -91,31 +127,10 @@ void NewX509::setDisabled(int state)
 void NewX509::newKey()
 {
 	emit genKey();
-	keyList->clear();
-	keyList->insertStringList(keys->getPrivateDesc());
 }
 
-void NewX509::validateFields() {
-	QStringList fields;
-	if (fromReqRB->isChecked()) {
-		accept();
-		return;
-	}
-	
-	if (description->text() == "") 
-		fields.append(tr("Description"));
-	if (commonName->text() == "") 
-		fields.append(tr("Common Name"));
-	if (emailAddress->text() == "") 
-		fields.append(tr("Email Address"));
-
-	if (!fields.isEmpty()) {
-		 QMessageBox::information(this,tr("Missing parameter"),
-				 tr("The following fields must not be empty") +":\n'"+
-				 fields.join("'\n'") + "'", "OK"); 
-	}
-	else {
-		accept();
-	}
+void NewX509::newKeyDone(QString name)
+{
+	keyList->insertItem(name,0);
+	keyList->setCurrentItem(0);
 }
-

@@ -92,6 +92,8 @@ void MainWindow::newKey()
 		       sizeList[sel]);
            progress->cancel();
 	   insertKey(nkey);
+	   x=nkey->getDescription().c_str();
+	   emit keyDone(x);
 	}
 }
 
@@ -208,11 +210,7 @@ void MainWindow::insertKey(pki_key *lkey)
 		}
 	}
 	CERR << "after findkey\n";
-	if (keys->insertPKI(lkey))
-	   QMessageBox::information(this,title,
-		tr("The Key was successfully stored as:\n'") +
-		QString::fromLatin1(lkey->getDescription().c_str()) + "'", "OK");
-	else	
+	if (!keys->insertPKI(lkey))
 	   QMessageBox::warning(this,title,
 		tr("The key could not be stored into the database"), "OK");
 	

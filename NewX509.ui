@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>652</width>
+            <width>648</width>
             <height>430</height>
         </rect>
     </property>
@@ -22,17 +22,17 @@
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Form1</string>
+        <string>Certificate creation</string>
     </property>
     <widget>
         <class>QWidget</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>page</cstring>
+            <cstring>page1</cstring>
         </property>
         <attribute>
             <name>title</name>
-            <string>Page</string>
+            <string>New Certificate Step 1</string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -400,11 +400,11 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <class>QWidget</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>page</cstring>
+            <cstring>page2</cstring>
         </property>
         <attribute>
             <name>title</name>
-            <string>New Certificate </string>
+            <string>New Certificate Step 2</string>
         </attribute>
         <grid>
             <property stdset="1">
@@ -756,11 +756,11 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <class>QWidget</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>page</cstring>
+            <cstring>page3</cstring>
         </property>
         <attribute>
             <name>title</name>
-            <string>Page</string>
+            <string>New Certificate Step 3</string>
         </attribute>
         <grid>
             <property stdset="1">
@@ -991,11 +991,11 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <class>QWidget</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>page</cstring>
+            <cstring>page4</cstring>
         </property>
         <attribute>
             <name>title</name>
-            <string>Page</string>
+            <string>New Certificate Step 4</string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -1217,4 +1217,33 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         </vbox>
     </widget>
 </widget>
+<connections>
+    <connection>
+        <sender>description</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP1()</slot>
+    </connection>
+    <connection>
+        <sender>fromReqRB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP1()</slot>
+    </connection>
+    <connection>
+        <sender>fromDataRB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>setDisabled(int)</slot>
+    </connection>
+    <connection>
+        <sender>genKey</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>newKey()</slot>
+    </connection>
+    <slot access="public">dataChangeP1()</slot>
+    <slot access="public">newKey()</slot>
+    <slot access="public">setDisabled(int)</slot>
+</connections>
 </UI>

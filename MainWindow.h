@@ -56,7 +56,7 @@
 #include "PassRead_UI.h"
 #include "PassWrite_UI.h"
 #include "NewKey_UI.h"
-#include "NewX509Req_UI.h"
+#include "NewX509Req.h"
 #include "NewX509.h"
 #include "NewX509_UI.h"
 #include "Rename_UI.h"
@@ -104,6 +104,8 @@
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
+   protected:
+	void addStr(string &str, char *add);
    friend class pki_key;
 	db_x509 *certs;
 	db_x509req *reqs;
@@ -166,5 +168,7 @@ class MainWindow: public MainWindow_UI
 	void renameKey(QListViewItem *item, int col, const QString &text);
 	void renameReq(QListViewItem *item, int col, const QString &text);
 	void renameCert(QListViewItem *item, int col, const QString &text);
+   signals:
+	void keyDone(QString name);
 };
 #endif
