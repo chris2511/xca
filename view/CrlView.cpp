@@ -81,37 +81,23 @@ void CrlView::dlg_showCert(QString name)
 void CrlView::showItem(pki_base *item, bool import)
 {
 	if (!item) return;
-    try {
-	CrlDetail *dlg = new CrlDetail(this,0,true);
-	dlg->setCrl((pki_crl *)item);
-	connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
-		this, SLOT( dlg_showCert(QListViewItem *) ));
-	connect( dlg->issuerIntName, SIGNAL( doubleClicked(QString) ), 
-		this, SLOT( dlg_showCert(QString) ));
-	QString odesc = item->getIntName();
-	bool ret = dlg->exec();
-	QString ndesc = dlg->descr->text();
-	delete dlg;
-	if (!ret && import) {
-                delete item;
-        }
-	if (!ret) return;
-	if (MainWindow::crls == NULL) {
-                emit init_database();
-        }
-	if (import) {
-                item = insert(item);
-        }
-	
-	if (ndesc != odesc) {
-		MainWindow::crls->renamePKI(item, ndesc);
-	}
+    CrlDetail *dlg;
+	try {
+		dlg = new CrlDetail(this,0,true);
+		dlg->setCrl((pki_crl *)item);
+		connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
+			this, SLOT( dlg_showCert(QListViewItem *) ));
+		connect( dlg->issuerIntName, SIGNAL( doubleClicked(QString) ), 
+			this, SLOT( dlg_showCert(QString) ));
 		
-	
+		dlg->exec();
     }
     catch (errorEx &err) {
 	    Error(err);
     }
+	if (dlg)
+		delete dlg;
+		
     return;
 }
 

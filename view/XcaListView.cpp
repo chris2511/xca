@@ -176,10 +176,12 @@ void XcaListView::deleteItem_default(QString t1, QString t2)
 void XcaListView::load_default(QStringList &filter, QString caption)
 {
 	filter.append( tr("All Files ( *.* )") );
-        QString s = "";
-        QStringList slist;
-        QFileDialog *dlg = new QFileDialog(this,0,true);
-        dlg->setCaption(caption);
+	QString s = "";
+	QStringList slist;
+	
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	
+	dlg->setCaption(caption);
         dlg->setFilters(filter);
         dlg->setMode( QFileDialog::ExistingFiles );
         dlg->setDir(MainWindow::getPath());
@@ -188,6 +190,7 @@ void XcaListView::load_default(QStringList &filter, QString caption)
 		MainWindow::setPath(dlg->dirPath());
         }
         delete dlg;
+		
         for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
                 s = *it;
                 s = QDir::convertSeparators(s);

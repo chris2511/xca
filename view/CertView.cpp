@@ -303,41 +303,20 @@ void CertView::showItem(pki_base *item, bool import)
 {
 	if (!item) return; 
     try {
-	CertDetail *dlg = new CertDetail(this,0,true);
-	bool ret;
-	dlg->setCert((pki_x509 *)item);
-	connect( dlg->privKey, SIGNAL( doubleClicked(QString) ), 
-		this, SLOT( dlg_showKey(QString) ));
-	connect( dlg->signCert, SIGNAL( doubleClicked(QString) ), 
-		this, SLOT( showItem(QString) ));
-	if (import) {
-		dlg->setImport();
-	}
+		CertDetail *dlg = new CertDetail(this,0,true);
+		dlg->setCert((pki_x509 *)item);
+		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ), 
+			this, SLOT( dlg_showKey(QString) ));
+		connect( dlg->signCert, SIGNAL( doubleClicked(QString) ), 
+			this, SLOT( showItem(QString) ));
 
-	// show it to the user...	
-	QString odesc = item->getIntName();
-	ret = dlg->exec();
-	QString ndesc = dlg->descr->text();
-	delete dlg;
-	if (!ret && import) {
-		delete item;
-	}
-	if (!ret) return;	
-	
-	emit init_database();
-	
-	if (import) {
-		item = insert(item);
-	}
-	if (ndesc != odesc) {
-		db->renamePKI(item, ndesc);
-		return;
-	}
+		dlg->exec();
     }
     catch (errorEx &err) {
 	    Error(err);
     }
-    return ;
+	if (dlg)
+		delete dlg;
 }
 
 void CertView::deleteItem()
@@ -464,13 +443,13 @@ void CertView::loadPKCS7()
 				acert = pk7->getCert(i);
 				showItem(acert, true);
 			}
-			// keys->updateView();
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
 		if (pk7) delete pk7;
 	}
+	updateView();
 }
 
 

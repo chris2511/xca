@@ -118,45 +118,17 @@ void KeyView::deleteItem()
 void KeyView::showItem(pki_base *item, bool import)
 {
 	pki_key *key = (pki_key *)item;
+	KeyDetail *detDlg;
 	if (!key) return;
-	KeyDetail *detDlg = new KeyDetail(this, 0, true, 0 );
 	try {	
+		detDlg = new KeyDetail(this, 0, true, 0 );
 		detDlg->setKey(key);
-		if (import) {
-			detDlg->setImport();
-		}
 	}
 	catch (errorEx &err) {
 		Error(err);
+	}
+	if (detDlg)
 		delete detDlg;
-		return;
-	}
-	QString odesc = key->getIntName();
-	bool ret = detDlg->exec();
-	QString ndesc = detDlg->keyDesc->text();
-	delete detDlg;
-	if (!ret && import) {
-		delete key;
-	}
-	if (!ret) return;
-	
-	emit init_database();
-	
-	if (import) {
-		key = (pki_key *)insert(key);
-	}
-	CERR(ndesc << " " << key->getIntName());
-	if ( ndesc != odesc) {
-		MARK
-		try {
-			db->renamePKI(key, ndesc);
-			MARK
-		}
-		catch (errorEx &err) {
-			Error(err);
-		}
-		return;
-	}
 }
 
 void KeyView::load()

@@ -109,35 +109,19 @@ void ReqView::newItem(pki_temp *temp)
 void ReqView::showItem(pki_base *item, bool import)
 {
 	if (!item) return;
+	ReqDetail *dlg; 
     try {
-		ReqDetail *dlg = new ReqDetail(this,0,true);
+		dlg = new ReqDetail(this,0,true);
 		dlg->setReq((pki_x509req *)item);
-		if (import)
-			dlg->setImport();
 		connect(dlg->privKey, SIGNAL(doubleClicked(QString)),
 			this, SLOT(dlg_showKey(QString)));	
-		QString odesc = item->getIntName();
-		bool ret = dlg->exec();
-		QString ndesc = dlg->descr->text();
-		delete dlg;
-		if (!ret && import) {
-			delete (pki_x509req *)item;
-		}
-		if (!ret) return;
-	
-		emit init_database();
-	
-		if (import) {
-			item = insert(item);
-		}
-	
-		if (ndesc != odesc) {
-				db->renamePKI(item, ndesc);
-		}
+		dlg->exec();
     }
     catch (errorEx &err) {
 	    Error(err);
     }
+	if (dlg)
+		delete dlg;
 }
 
 void ReqView::deleteItem()
