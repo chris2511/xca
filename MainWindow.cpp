@@ -72,6 +72,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	certs = NULL;
 	temps = NULL;
 	dbenv = NULL;
+	global_tid = NULL;
 #ifdef WIN32
 	baseDir = "";
 #else	
@@ -213,6 +214,8 @@ void MainWindow::init_database() {
 		dbenv->open(baseDir.latin1(), DB_RECOVER | DB_INIT_TXN | \
 				DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | \
 				DB_CREATE , 0600 );
+		dbenv->txn_begin(NULL, &global_tid, 0);
+		dbenv->set_flags(DB_AUTO_COMMIT,1);
 		MARK
 	}
 	catch (DbException &err) {
@@ -222,13 +225,13 @@ void MainWindow::init_database() {
 		qFatal(e);
 	}
 	try {
-		settings = new db_base(dbenv, dbfile.latin1(), "settings");
+		settings = new db_base(dbenv, dbfile.latin1(), "settings",global_tid);
 		MARK
 		initPass();
-		keys = new db_key(dbenv, dbfile.latin1(), keyList);
-		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
-		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
-		temps = new db_temp(dbenv, dbfile.latin1(), tempList);
+		keys = new db_key(dbenv, dbfile.latin1(), keyList,global_tid);
+		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys,global_tid);
+		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys,global_tid);
+		temps = new db_temp(dbenv, dbfile.latin1(), tempList,global_tid);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -251,6 +254,7 @@ MainWindow::~MainWindow()
 		delete(certs);
 		delete(temps);
 		delete(settings);
+		global_tid->commit(0);
 		dbenv->close(0);
 	}
 }

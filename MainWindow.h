@@ -114,6 +114,7 @@ class MainWindow: public MainWindow_UI
 	void init_images();
 	void read_cmdline();
 	void init_database();
+	DbTxn *global_tid;
 			    
    friend class pki_key;
 	db_x509 *certs;
