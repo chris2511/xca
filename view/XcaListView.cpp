@@ -99,29 +99,29 @@ pki_base *XcaListView::getSelected()
 
 void XcaListView::showItem()
 {
-        showItem(getSelected(), false);
+	showItem(getSelected(), false);
 }
 
 void XcaListView::showItem(QString name)
 {
-        showItem(db->getByName(name), false);
+	showItem(db->getByName(name), false);
 }
 
 void XcaListView::showItem(QListViewItem *item)
 {
-        showItem(db->getByName(item->text(0)), false);
+	showItem(db->getByName(item->text(0)), false);
 }
 
 void XcaListView::rename(QListViewItem *item, int col, const QString &text)
 {
 	emit init_database();
-        try {
-                pki_base *pki = db->getByPtr(item);
-                db->renamePKI(pki, text);
-        }
-        catch (errorEx &err) {
-                Error(err);
-        }
+	try {
+		pki_base *pki = db->getByPtr(item);
+		db->renamePKI(pki, text);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 void XcaListView::startRename()
@@ -158,18 +158,19 @@ void XcaListView::renameDialog()
 void XcaListView::deleteItem_default(QString t1, QString t2)
 {
 	pki_base *del = getSelected();
+	QListViewItem *lvi;
 	if (!del) return;
 	if (QMessageBox::information(this,tr(XCA_TITLE),
 		t1 + ": '" + del->getIntName() + "'\n" + t2,
 		tr("Delete"), tr("Cancel"))
         ) return;
-        try {
-                db->deletePKI(del);
-        }
-        catch (errorEx &err) {
-                Error(err);
-        }
-	updateView();
+	try {
+		db->deletePKI(del);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+		
 }
 
 void XcaListView::load_default(QStringList &filter, QString caption)
