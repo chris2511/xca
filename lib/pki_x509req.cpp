@@ -162,13 +162,13 @@ void pki_x509req::writeReq(const string fname, bool PEM)
 	fclose(fp);
 }
 
-bool pki_x509req::compare(pki_x509req *refreq)
+bool pki_x509req::compare(pki_base *refreq)
 {
 	const EVP_MD *digest=EVP_md5();
 	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];	
 	unsigned int d1_len,d2_len;
 	X509_REQ_digest(request, digest, d1, &d1_len);
-	X509_REQ_digest(refreq->request, digest, d2, &d2_len);
+	X509_REQ_digest(((pki_x509req *)refreq)->request, digest, d2, &d2_len);
 	if ((d1_len == d2_len) && 
 	    (d1_len >0) &&
 	    (memcmp(d1,d2,d1_len) == 0) )return true;

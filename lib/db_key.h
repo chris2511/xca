@@ -10,7 +10,9 @@
 class db_key: public db_base
 {
     public:
-	db_key(DbEnv *dbe, string DBfile, string DB, QListBox *l, pki_key *tg);
+	db_key(DbEnv *dbe, string DBfile, string DB, QListBox *l)
+		:db_base(dbe, DBfile, DB, l){};
+	pki_base *newPKI();
 	QStringList getPrivateDesc();
 };
 

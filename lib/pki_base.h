@@ -12,12 +12,17 @@ class pki_base
 	string error;
 	bool openssl_error();
     public:
-	virtual void fromData(unsigned char *p, int size);
-	virtual unsigned char *toData(int *size);
-	virtual bool compare(pki_base *ref);
 	pki_base(const string d);
 	pki_base();
-	~pki_base();
+	virtual void fromData(unsigned char *p, int size){
+		cerr << "VIRTUAL FUNCTION CALLED: fromData\n"; };
+	virtual unsigned char *toData(int *size){
+		cerr << "VIRTUAL FUNCTION CALLED: toData\n";
+		return NULL;};
+	virtual bool compare(pki_base *ref){
+		cerr << "VIRTUAL FUNCTION CALLED: compare\n";
+		return false;};
+	virtual ~pki_base();
         string getDescription();
         void setDescription(const string d );
 	string getError();

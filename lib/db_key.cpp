@@ -1,9 +1,11 @@
 #include "db_key.h"
 
 
-db_key::db_key(DbEnv *dbe, string DBfile, string DB, QListBox *l, pki_key *tg) 
-	:db_base(dbe, DBfile, DB, l,(pki_base *)tg)
-{}
+
+pki_base *db_key::newPKI(){
+	return new pki_key("");
+}
+
 
 QStringList db_key::getPrivateDesc()
 {
@@ -15,7 +17,7 @@ QStringList db_key::getPrivateDesc()
 	Dbt *d = new Dbt();
 	string desc;
 	QStringList x;
-	pki_key *key = (pki_key *)targetPKI;
+	pki_key *key = (pki_key *)newPKI();
 	//cerr << "before While loop\n";
 	while (!cursor->get(k, d, DB_NEXT)) {
 		//cerr << "in loop\n";

@@ -13,10 +13,11 @@ class db_base
 	DbEnv *dbenv;
 	QListBox *listView;
 	unsigned char mem[100];
-	pki_base *targetPKI; 
     public:
-	db_base(DbEnv *dbe, string DBfile, string db, QListBox *l, pki_base *tg);
-	~db_base();
+	db_base(DbEnv *dbe, string DBfile, string db, QListBox *l);
+	virtual ~db_base();
+	virtual pki_base *newPKI(){
+		cerr<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
 	bool updateView();
 	bool insertPKI(pki_base *pki);
 	bool deletePKI(pki_base *pki);

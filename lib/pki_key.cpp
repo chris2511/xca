@@ -75,11 +75,14 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 
 void pki_key::fromData(unsigned char *p, int size )
 {
+	cerr << "KEY fromData\n";
+	return;
 	unsigned char *sik;
 	sik = (unsigned char *)OPENSSL_malloc(size);
 	RSA *rsakey;
 	memcpy(sik,p,size);
 	onlyPubKey = false;
+	cerr << "Key newdata\n";
 	if (key->type == EVP_PKEY_RSA) {
 	   rsakey = d2i_RSAPrivateKey(NULL, &p, size);
 	   if (openssl_error()) {
@@ -95,8 +98,9 @@ void pki_key::fromData(unsigned char *p, int size )
 
 unsigned char *pki_key::toData(int *size) 
 {
+	cerr << "KEY toData\n";
 	unsigned char *p = NULL , *p1;
-	if (key->type = EVP_PKEY_RSA) {
+	if (key->type == EVP_PKEY_RSA) {
 	   RSA * rsakey = EVP_PKEY_get1_RSA(key);
 	   if (onlyPubKey) {
 	      *size = i2d_RSA_PUBKEY(rsakey, NULL);
@@ -219,10 +223,10 @@ string pki_key::privEx() {
 	return BN2string(rsakey->d);
 }
 
-bool pki_key::compare(pki_key *refkey)
+bool pki_key::compare(pki_base *ref)
 {
 	RSA *rsakey = EVP_PKEY_get1_RSA(key);
-	RSA *rsarefkey = EVP_PKEY_get1_RSA(refkey->key);
+	RSA *rsarefkey = EVP_PKEY_get1_RSA(((pki_key *)ref)->key);
 	if (
 	   BN_cmp(rsakey->n, rsarefkey->n) ||
 	   BN_cmp(rsakey->e, rsarefkey->e)
@@ -240,7 +244,7 @@ bool pki_key::isPubKey()
 
 bool pki_key::isPrivKey()
 {
-	return ~onlyPubKey;
+	return ! onlyPubKey;
 	
 }
 

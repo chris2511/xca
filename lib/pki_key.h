@@ -35,7 +35,7 @@ class pki_key: public pki_base
 	 * fname    = filename
 	 * pem_password_cb = password callback function
 	 */
-	pki_key(const string fname, pem_password_cb *cb,int type=EVP_PKEY_RSA);
+	pki_key(const string fname, pem_password_cb *cb,int type = EVP_PKEY_RSA);
 	
 	/* destructor */
 	~pki_key();
@@ -46,9 +46,9 @@ class pki_key: public pki_base
 	 */
 	
 	pki_key(const string d, int type=EVP_PKEY_RSA);
-	virtual void fromData(unsigned char *p, int size);
-	virtual unsigned char *toData(int *size);
-	virtual bool compare(pki_key *refkey);
+	void fromData(unsigned char *p, int size);
+	unsigned char *toData(int *size);
+	bool compare(pki_base *ref);
         string length();
         string modulus();
         string pubEx();

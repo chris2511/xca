@@ -1,15 +1,14 @@
 #include "db_base.h"
 
 
-db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListBox *l,pki_base *tg) 
+db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListBox *l) 
 {
-	targetPKI = tg;
 	listView = l;
 	dbenv = dbe;
 	data = new Db(dbe, 0);
 	cerr << "DB:" << DBfile <<"\n";//
 	int x;
-	if ( x = data->open(DBfile.data(), DB.data(), DB_BTREE, DB_CREATE, 0600)) 
+	if (( x = data->open(DBfile.data(), DB.data(), DB_BTREE, DB_CREATE, 0600))) 
 		data->err(x,"DB open");
 	updateView();
 }
@@ -30,17 +29,20 @@ bool db_base::updateView()
 		data->err(x,"DB new Cursor");
 	Dbt *key = new Dbt();
 	Dbt *data = new Dbt();
-	string desc;
+	QString  desc;
 	while (!cursor->get(key, data, DB_NEXT)) {
 		desc = (char *)key->get_data();
-		listView->insertItem(desc.data());
+		listView->insertItem(desc);
 	}
+	return true;
 }
 
 
 bool db_base::insertPKI(pki_base *pki) 
 {
 	string desc = pki->getDescription();
+	cerr << "Desc: " <<desc << "size: " << desc.length() <<endl;
+	cerr << "Desc: " << desc << " size: " << desc.length() << (int)desc.data()[desc.length()] << endl;
 	string orig = desc;
 	int size=0;
 	unsigned char *p;
@@ -49,10 +51,11 @@ bool db_base::insertPKI(pki_base *pki)
 	int x = DB_KEYEXIST;
 	while (x == DB_KEYEXIST) {
 	   Dbt k((void *)desc.data(), desc.length() + 1);
+	cerr << "Desc[len]: "  << (int)desc.data()[desc.length()] << endl;
 	   Dbt d((void *)p, size);
            cerr << "Size: " << d.get_size() << "\n";
 	
-	   if (x = data->put(NULL, &k, &d, DB_NOOVERWRITE)) {
+	   if ((x = data->put(NULL, &k, &d, DB_NOOVERWRITE))) {
 		data->err(x,"DB Error put");
 		string z ;
 		z = (++cnt);
@@ -96,19 +99,27 @@ bool db_base::updatePKI(pki_base *pki, string desc)
 pki_base *db_base::getSelectedPKI(string desc)
 {
 	if (desc == "" ) return NULL;
+	char pt[255];
+	strncpy(pt,desc.data(),desc.length());
+	pt[desc.length()]='\0';
 	unsigned char *p;
 	pki_base *targetPki = NULL;
-	Dbt k((void *)desc.data(), desc.length() + 1);
+	Dbt k((void *)pt, desc.length() + 1);
+		cerr << "got selected desc: " << desc << " size: " << desc.length() << (int)desc.data()[desc.length()] <<"dbsize: "<< k.get_size() <<endl;
 	Dbt d((void *)p, 0);
 	int x = data->get(NULL, &k, &d, 0);
 	p = (unsigned char *)d.get_data();
 	int size = d.get_size();
 	if (x) data->err(x,"DB Error get");
 	else {
-		targetPki = new pki_base();
+		targetPki = newPKI();
+		cerr << "GOTIT\n";
 		targetPki->fromData(p, size);
+		cerr << "GOTIT2\n";
 		targetPki->setDescription(desc);
+		cerr << "GOTIT3\n";
 	}
+//	return NULL; //FIXME
 	return targetPki;
 }
 
@@ -129,12 +140,11 @@ pki_base *db_base::findPKI(pki_base *refpki)
 	Dbt *d = new Dbt();
 	string desc;
 	pki_base *pki;
-	bool found = false;
 	while (!cursor->get(k, d, DB_NEXT)) {
 		desc = (char *)k->get_data();
 		p = (unsigned char *)d->get_data();
 		int size = d->get_size();
-		pki = new pki_base();
+		pki = newPKI();
 		pki->fromData(p, size);
 		pki->setDescription(desc);
 		if (refpki->compare(pki)) {
