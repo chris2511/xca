@@ -1114,9 +1114,7 @@ void MainWindow::setTemplate()
 void MainWindow::genCrl() 
 {
 	QStringList filt;
-	QList<pki_x509> list;
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
-	pki_x509 *issuedcert = NULL;
 	if (!cert) return;
 	if (cert->getKey()->isPubKey()) return;
 	filt.append(tr("CRLs ( *.crl )")); 
@@ -1132,6 +1130,13 @@ void MainWindow::genCrl()
 	delete dlg;
 	if (s.isEmpty()) return;
 	s = QDir::convertSeparators(s);
+	writeCrl(s, cert);
+}
+
+void MainWindow::writeCrl(QString s, pki_x509 *cert)
+{
+	QList<pki_x509> list;
+	pki_x509 *issuedcert = NULL;
 	try {	
 		pki_crl *crl = new pki_crl(cert->getDescription(), cert);
 
@@ -1178,7 +1183,8 @@ void MainWindow::toTinyCA()
 	pki_key *key = crt->getKey();
 	if (!key) return;
 	FILE *fp;
-	
+	QList<pki_x509> list;
+	pki_x509 *issuedcert;
 	QString dname = crt->getDescription().c_str();
 	QString tcatempdir = settings->getString("TinyCAtempdir").c_str();
 	QString tcadir = settings->getString("TinyCAdir").c_str();
@@ -1200,6 +1206,9 @@ void MainWindow::toTinyCA()
 	if (dname.isEmpty()) return;
 	const EVP_CIPHER *enc = EVP_des_ede3_cbc();
 	
+	settings->putString("TinyCAtempdir", tcatempdir.latin1());
+	settings->putString("TinyCAdir", tcadir.latin1());
+	
 	// OK, we have all names now...
 	tcadir += QDir::separator();
         tcadir += dname;
@@ -1215,13 +1224,37 @@ void MainWindow::toTinyCA()
 	
 	crt->writeCert("cacert.pem", true, false);
 	key->writeKey("cacert.key", enc, &MainWindow::passWrite, true);
+	chdir("crl");
+	writeCrl("crl.pem", crt);
+	chdir("..");
 	fp = fopen("serial", "w");
 	if (!fp) return;
-	fprintf(fp, "%x", crt->getCaSerial());
+	fprintf(fp, "%04x", crt->getCaSerial());
 	fclose(fp);
-
-	settings->putString("TinyCAtempdir", tcatempdir.latin1());
-	settings->putString("TinyCAdir", tcadir.latin1());
+	
+	// store the issued certificates
+	fp = fopen("index.txt", "w");
+        if (!fp) return;
+	list = certs->getIssuedCerts(crt);
+	if (!list.isEmpty()) {
+       		for ( issuedcert = list.first(); issuedcert != NULL; issuedcert = list.next() ) {
+			bool rev = issuedcert->isRevoked();
+			string revdate = issuedcert->revokedAt(TIMEFORM_PLAIN);
+			string nadate = issuedcert->notAfter(TIMEFORM_PLAIN);
+			string fname = issuedcert->tinyCAfname();
+			chdir("certs");
+			crt->writeCert(fname, true, false);
+			chdir("..");
+			chdir("keys");
+			key = crt->getKey();
+			key->writeKey(fname, NULL, &MainWindow::passWrite, true);
+			chdir("..");
+			fprintf(fp, "%c\t%s\t%s\tunknown %s\n", rev? 'R':'V', nadate.c_str(), revdate.c_str(),"------");
+			
+		}
+	}
+	fclose(fp);
+	
 	
 }	
 			

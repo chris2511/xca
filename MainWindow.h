@@ -164,6 +164,7 @@ class MainWindow: public MainWindow_UI
 	void newPath(QFileDialog *dlg);
 	void newPath(QString str);
 	bool mkDir(QString dir);
+	void writeCrl(QString s, pki_x509 *cert);
    public slots:
 	void loadKey();
 	void loadReq();

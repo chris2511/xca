@@ -381,33 +381,43 @@ string pki_x509::getDNi(int nid)
 	return s;
 }
 
-string pki_x509::notBefore()
+string pki_x509::notBefore(int format)
 {
-	return asn1TimeToString(X509_get_notBefore(cert));
+	return asn1TimeToString(X509_get_notBefore(cert), format);
 }
 
-string pki_x509::notBeforeS()
+string pki_x509::notAfter(int format)
 {
-	return asn1TimeToSortableString(X509_get_notBefore(cert));
+	return asn1TimeToString(X509_get_notAfter(cert), format);
 }
 
-string pki_x509::notAfter()
+string pki_x509::revokedAt(int format)
 {
-	return asn1TimeToString(X509_get_notAfter(cert));
-}
-
-string pki_x509::notAfterS()
-{
-	return asn1TimeToSortableString(X509_get_notAfter(cert));
-}
-
-string pki_x509::revokedAt()
-{
-	return asn1TimeToString(revoked);
+	return asn1TimeToString(revoked, format);
 }
 
 
-string pki_x509::asn1TimeToString(ASN1_TIME *a)
+string pki_x509::asn1TimeToString(ASN1_TIME *a, int format)
+{
+	string time = "";
+	switch (format) {
+		case TIMEFORM_PRETTY:
+			time = asn1TimeToPretty(a);
+			break;
+		case TIMEFORM_PLAIN:
+			time = asn1TimeToPlain(a);
+			break;
+		case TIMEFORM_SORTABLE:
+			time = asn1TimeToSortable(a);
+			break;
+		default:
+			time="Unknown Format";
+			
+	}
+	return time;
+}
+			
+string pki_x509::asn1TimeToPretty(ASN1_TIME *a)
 {
 	string time = "";
 	if (!a) return time;
@@ -421,7 +431,18 @@ string pki_x509::asn1TimeToString(ASN1_TIME *a)
 	return time;
 }
 
-string pki_x509::asn1TimeToSortableString(ASN1_TIME *a)
+string pki_x509::asn1TimeToPlain(ASN1_TIME *a)
+{
+	string time = "";
+	char b[15];
+	if (!a) return time;
+	memcpy(b, a->data, a->length);
+	b[a->length] = '\0';
+	time = b;
+	return time;
+}
+	
+string pki_x509::asn1TimeToSortable(ASN1_TIME *a)
 {
 	int y,m,d,g;
 	string time = "";

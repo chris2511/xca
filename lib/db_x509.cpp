@@ -158,12 +158,12 @@ void db_x509::updateViewPKI(pki_base *pki)
 	current->setPixmap(0, *certicon[pixnum]);
 	current->setText(1, ((pki_x509 *)pki)->getDNs(NID_commonName).c_str());
 	current->setText(2, ((pki_x509 *)pki)->getSerial().c_str() );  
-	current->setText(3, ((pki_x509 *)pki)->notAfterS().c_str() );  
+	current->setText(3, ((pki_x509 *)pki)->notAfter(TIMEFORM_SORTABLE).c_str() );  
 MARK
 	CERR(((pki_x509 *)pki)->getTrust());
 	current->setText(4, truststatus[((pki_x509 *)pki)->getTrust() ]);  
 MARK
-	current->setText(5, ((pki_x509 *)pki)->revokedAt().c_str());
+	current->setText(5, ((pki_x509 *)pki)->revokedAt(TIMEFORM_SORTABLE).c_str());
 }
 
 
