@@ -52,7 +52,7 @@
 #include <qapplication.h>
 #include <qtranslator.h>
 #include <qtextcodec.h>
-#include "MainWindow.h"
+#include "widgets/MainWindow.h"
 
 
 int main( int argc, char *argv[] )

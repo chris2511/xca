@@ -50,7 +50,7 @@
 
 
 #include "CertView.h"
-#include "MainWindow.h"
+#include "widgets/MainWindow.h"
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
@@ -61,10 +61,10 @@
 #include <qpushbutton.h>
 #include <qinputdialog.h>
 #include "ui/CertExtend.h"
-#include "ExportCert.h"
+#include "widgets/ExportCert.h"
 #include "ui/CertDetail.h"
 #include "ui/TrustState.h"
-#include "ExportTinyCA.h"
+#include "widgets/ExportTinyCA.h"
 #include "validity.h"
 #include "lib/pki_pkcs12.h"
 #include "lib/pki_pkcs7.h"
@@ -81,10 +81,6 @@
 CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
         :XcaListView(parent, name, f)
 {
-	certicon[0] = loadImg("validcert.png");
-	certicon[1] = loadImg("validcertkey.png");
-	certicon[2] = loadImg("invalidcert.png");
-	certicon[3] = loadImg("invalidcertkey.png");
 	addColumn(tr("Common Name"));
 	addColumn(tr("Serial"));
 	addColumn(tr("not After"));
@@ -1256,7 +1252,7 @@ bool CertView::updateView()
                                 }
                                 pki->setLvi(current);
                                 mycont.remove(pki);
-                                updateViewItem(pki);
+                                pki->updateView();
                                 it.toFirst();
                         }
                 }
@@ -1285,34 +1281,12 @@ bool CertView::mkDir(QString dir)
 
 }
 
-void CertView::updateViewItem(pki_base *pki)
-{
-	XcaListView::updateViewItem(pki);
-	if (! pki) return;
-	QString truststatus[] = { tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
-	int pixnum = 0;
-	QListViewItem *current = pki->getLvi();
-	if (!current) return;
-	if (((pki_x509 *)pki)->getRefKey()) {
-		pixnum += 1;
-	}
-	if (((pki_x509 *)pki)->calcEffTrust() == 0){ 
-		pixnum += 2;
-	}	
-	current->setPixmap(0, *certicon[pixnum]);
-	current->setText(1, ((pki_x509 *)pki)->getSubject().getEntryByNid(NID_commonName));
-	current->setText(2, ((pki_x509 *)pki)->getSerial().toHex() );  
-	current->setText(3, ((pki_x509 *)pki)->getNotAfter().toSortable() );  
-	current->setText(4, truststatus[((pki_x509 *)pki)->getTrust() ]);  
-	current->setText(5, ((pki_x509 *)pki)->getRevoked().toSortable());
-}
-
 void CertView::updateViewAll()
 {
 	emit init_database();
 	QList<pki_base> c = db->getContainer();
 	for (pki_x509 *pki = (pki_x509 *)c.first(); pki != 0; pki = (pki_x509 *)c.next() ) 
-		updateViewItem(pki);
+		pki->updateView();
 	return;
 }
 

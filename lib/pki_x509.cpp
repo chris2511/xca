@@ -51,6 +51,9 @@
 
 
 #include "pki_x509.h"
+#include "func.h"
+
+QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
 
 pki_x509::pki_x509(X509 *c) 
 {
@@ -660,5 +663,28 @@ QString pki_x509::tinyCAfname()
 	col += ".pem";
 	CERR("base64 Encoding: " <<col);
 	return col;
+}
+
+
+
+void pki_x509::updateView()
+{
+	pki_base::updateView();
+	QString truststatus[] = 
+		{ tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
+	int pixnum = 0;
+	if (!pointer) return;
+	if (getRefKey()) {
+		pixnum += 1;
+	}
+	if (calcEffTrust() == 0){ 
+		pixnum += 2;
+	}	
+	pointer->setPixmap(0, *icon[pixnum]);
+	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
+	pointer->setText(2, getSerial().toHex() );  
+	pointer->setText(3, getNotAfter().toSortable() );  
+	pointer->setText(4, truststatus[ getTrust() ]);  
+	pointer->setText(5, getRevoked().toSortable());
 }
 

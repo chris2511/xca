@@ -56,14 +56,13 @@
 #include "lib/pki_x509.h"
 #include "lib/pki_pkcs12.h"
 #include <qlistview.h>
-#include "NewX509.h"
+#include "widgets/NewX509.h"
 
 class CertView : public XcaListView
 {
    Q_OBJECT
 
    private:
-	QPixmap *certicon[4];
 	int viewState;
 	bool mkDir(QString dir);
    public:

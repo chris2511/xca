@@ -196,3 +196,13 @@ QString pki_base::rmslashdot(const QString &s)
 #endif
         return s.mid(l+1,r-l-1);
 }							       
+
+void pki_base::updateView()
+{
+	if (pointer == NULL) return;
+#ifdef qt3
+	pointer->setRenameEnabled(0,true);
+#endif
+	pointer->setText(0, getIntName());
+}
+

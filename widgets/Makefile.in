@@ -1,0 +1,46 @@
+#
+#  @configure_input@
+#
+# $Id$
+
+VERSION=@PACKAGE_VERSION@
+TARGET=xca-$(VERSION)
+
+GCC=@CXX@
+CC=@CC@
+
+MOC=@MOC@
+UIC=@UIC@
+
+AR=@AR@
+RANLIB=@RANLIB@
+
+CPPFLAGS=-I.. @CPPFLAGS@ @DEFS@
+CFLAGS=-Wall @ac_DEBUG@
+
+##############################################
+
+NAMES= MainWindow ExportCert ExportKey ExportTinyCA NewX509 
+
+OBJS=$(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
+
+MOC_CPP=$(patsubst %,moc_%.cpp,$(NAMES))
+
+all: libwidget.a
+
+libwidget.a: $(OBJS) 
+	$(AR) rc $@ $(OBJS)
+	$(RANLIB) $@
+
+%.o: %.cpp 
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+clean:
+	rm -rf *~ *.o *.a $(MOC_CPP)  
+
+distclean: clean
+	rm -f Makefile 
+
+moc_%.cpp: %.h %.cpp
+	$(MOC) $< -o $@
+
+.SECONDARY: $(UI_CPP) $(UI_H) $(MOC_CPP)  

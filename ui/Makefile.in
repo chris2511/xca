@@ -15,7 +15,7 @@ UIC=@UIC@
 AR=@AR@
 RANLIB=@RANLIB@
 
-CPPFLAGS=-I.. -I../lib @CPPFLAGS@ @DEFS@
+CPPFLAGS=-I.. @CPPFLAGS@ @DEFS@
 CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################

@@ -1,3 +1,4 @@
+/* uvi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -48,41 +49,69 @@
  *
  */                           
 
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
-#ifndef REQVIEW_H
-#define REQVIEW_H
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
-#include "XcaListView.h"
-#include "lib/pki_x509req.h"
-#include "lib/pki_temp.h"
-#include "widgets/NewX509.h"
+#include "NewX509.h"
+#include "ui/MainWindow.h"
+#include "lib/db_key.h"
+#include "lib/db_x509req.h"
+#include "lib/db_x509.h"
+#include "lib/db_temp.h"
+#include "lib/db_crl.h"
+#include "lib/exception.h"
+#include <qpixmap.h>
+#include <qfiledialog.h>
+
+#define DBFILE "xca.db"
 
 
-class ReqView : public XcaListView
+class MainWindow: public MainWindow_UI
 {
-   Q_OBJECT
+	Q_OBJECT
+
+  protected:
+	void init_images();
+	void read_cmdline();
+	QString getBaseDir();
+	DbTxn *global_tid;
+	DbEnv *dbenv;
+			    
+   friend class pki_key;
 
    public:
-	ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void showItem(pki_base *item, bool import);
-	void newItem();
-	void newItem(pki_temp *temp);
-	void deleteItem();
-	void load();
-	void updateViewItem(pki_base *);
-	pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
-	void store(bool pem);
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-   public slots:
-	void writeReq_pem();
-	void writeReq_der();
-	void signReq();
-   signals:
-	void keyDone(QString &);
+	static db_x509 *certs;
+	static db_x509req *reqs;
+	static db_key *keys;
+	static db_temp *temps;
+	static db_crl *crls;
+	static db_base *settings;
+	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
+	int exitApp;
+	QString baseDir, dbfile;
+	
+	MainWindow(QWidget *parent, const char *name);
+	~MainWindow(); 
+	void loadSettings();
+	void saveSettings();
+	void initPass();
+	static int passRead(char *buf, int size, int rwflag, void *userdata);
+	static int passWrite(char *buf, int size, int rwflag, void *userdata);
+	static void incProgress(int a, int b, void *progress);
+	static void dberr(const char *errpfx, char *msg);
+	static NewX509 *newX509(QPixmap *image);
+	QString md5passwd();
+	void Error(errorEx &err);
+	
+	static QString getPath();
+	static void setPath(QString path);
+	bool mkDir(QString dir);
+   public slots: 
 	void init_database();
-	void newCert(pki_x509req *req);
-
-};	
-
+	
+};
 #endif

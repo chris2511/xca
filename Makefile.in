@@ -11,11 +11,11 @@ TARGET=xca-$(TVERSION)
 GCC=@CXX@
 CC=@CC@
 
-CPPFLAGS=@CPPFLAGS@ @DEFS@ 
+CPPFLAGS=-I. @CPPFLAGS@ @DEFS@ 
 CFLAGS=-Wall @ac_DEBUG@
 
-LDFLAGS=-Llib -Lui @LDFLAGS@
-LIBS=@LIBS@ -lpki -lqtui
+LDFLAGS=-Llib -Lui -Lwidgets @LDFLAGS@
+LIBS=@LIBS@ -lwidget -lpki -lqtui
 
 MOC=@MOC@
 UIC=@UIC@
@@ -23,29 +23,25 @@ UIC=@UIC@
 
 ###################################
 
-MOCNAMES=XcaListView KeyView ReqView CertView TempView ExportTinyCA NewX509 \
-	 ExportKey MainWindow ExportCert validity
-     
-OBJS=main.o $(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))
+NAMES=XcaListView KeyView ReqView TempView CertView validity
+OBJS=main.o $(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
 
-MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
+SUBDIRS=lib ui widgets
 
-all: uis libs $(OBJS) xca
+all: $(SUBDIRS) $(OBJS) xca
+main.o: ui
 
 re: clean all
 
 %.o: %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-xca: $(OBJS) lib/libpki.a ui/libqtui.a
+xca: $(OBJS) lib/libpki.a ui/libqtui.a widgets/libwidget.a
 	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o xca
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
-libs:
-	$(MAKE) -C lib all
-
-uis:
-	$(MAKE) -C ui all
+lib ui widgets:
+	$(MAKE) -C $@ all
 
 clean:
 	$(MAKE) -C lib clean
@@ -78,14 +74,8 @@ install: xca
 	install -m 644 -o root img/*.png $(prefix)@prefix@/share/xca
 	install -m 644 -o root xca_??.qm $(prefix)@prefix@/share/xca
 	
-
 moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@
 
-%.h: %.ui
-	$(UIC) -o $@ $<
-	 
-%.cpp: %.h %.ui
-	$(UIC) -o $@ -impl $^
 
-.SECONDARY:  $(UI_CPP) $(UI_H) $(MOC_CPP)
+.PHONY: $(SUBDIRS)

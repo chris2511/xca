@@ -1,4 +1,3 @@
-/* uvi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -49,70 +48,29 @@
  *
  */                           
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include "NewX509.h"
-#include "ui/MainWindow.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
-#include "lib/db_temp.h"
-#include "lib/db_crl.h"
-#include "lib/exception.h"
-#include <qpixmap.h>
+#include "ui/ExportKey.h"
 #include <qfiledialog.h>
+#include <qcombobox.h>
+#include <qcheckbox.h>
+#include <qlineedit.h>
+#include "lib/pki_base.h"
+#include <iostream>
 
-#define DBFILE "xca.db"
+#ifndef EXPORTKEY_H
+#define EXPORTKEY_H
 
 
-class MainWindow: public MainWindow_UI
+class ExportKey: public ExportKey_UI
 {
 	Q_OBJECT
-
-  protected:
-	void init_images();
-	void read_cmdline();
-	QString getBaseDir();
-	DbTxn *global_tid;
-	DbEnv *dbenv;
-			    
-   friend class pki_key;
-
-   public:
-	static db_x509 *certs;
-	static db_x509req *reqs;
-	static db_key *keys;
-	static db_temp *temps;
-	static db_crl *crls;
-	static db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
-	int exitApp;
-	QString baseDir, dbfile;
-	
-	MainWindow(QWidget *parent, const char *name);
-	~MainWindow(); 
-	void loadSettings();
-	void saveSettings();
-	void initPass();
-	static int passRead(char *buf, int size, int rwflag, void *userdata);
-	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-	static void incProgress(int a, int b, void *progress);
-	static void dberr(const char *errpfx, char *msg);
-	static NewX509 *newX509(QPixmap *image);
-	QString md5passwd();
-	QPixmap *loadImg(const char *name);
-	void Error(errorEx &err);
-	
-	static QString getPath();
-	static void setPath(QString path);
-	bool mkDir(QString dir);
-   public slots: 
-	void init_database();
-	
+	bool onlyPub;
+   public:	
+	ExportKey(QString fname, bool onlypub, QString dpath,
+		  QWidget *parent = 0, const char *name = 0);
+	QString dirPath;
+   public slots:
+	virtual void chooseFile();
+	virtual void canEncrypt();
 };
 #endif

@@ -51,8 +51,8 @@
 #include "KeyView.h"
 #include "ui/NewKey.h"
 #include "ui/KeyDetail.h"
-#include "ExportKey.h"
-#include "MainWindow.h"
+#include "widgets/ExportKey.h"
+#include "widgets/MainWindow.h"
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qprogressdialog.h>
@@ -65,11 +65,8 @@ const int KeyView::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 KeyView::KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 	:XcaListView(parent, name, f)
 {
-	keyicon[0] = loadImg("key.png");
-	keyicon[1] = loadImg("halfkey.png");
 	addColumn(tr("Keysize"));
 	addColumn(tr("Use count"));
-			    
 }
 
 void KeyView::newItem()
@@ -284,16 +281,3 @@ void KeyView::incProgress(int a, int b, void *progress)
 	((QProgressDialog *)progress)->setProgress(++i);
 }
 
-void KeyView::updateViewItem(pki_base *pki)
-{
-	CERR("updateViewPKI()");
-        if (! pki) return;
-        XcaListView::updateViewItem(pki);
-        int pixnum = 0;
-        QListViewItem *current = pki->getLvi();
-        if (!current) return;
-	if (((pki_key *)pki)->isPubKey()) pixnum += 1;	
-	current->setPixmap(0, *keyicon[pixnum]);
-	current->setText(1, ((pki_key *)pki)->length());
-	current->setText(2, QString::number(((pki_key *)pki)->getUcount()));
-}

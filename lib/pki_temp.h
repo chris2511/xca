@@ -51,7 +51,6 @@
 #ifndef PKI_TEMP_H
 #define PKI_TEMP_H
 
-#include <iostream>
 #include "pki_base.h"
 
 #define tEMPTY 0
@@ -64,8 +63,8 @@ class pki_temp: public pki_base
 {
     protected:
 	int version;
-	
     public:
+	static QPixmap *icon;
 	QString C,P,L,O,OU,CN,EMAIL;
 	QString subAltName, issAltName, crlDist;
 	QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
@@ -82,6 +81,7 @@ class pki_temp: public pki_base
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
 	int dataSize();
+	void updateView();
 };
 
 #endif

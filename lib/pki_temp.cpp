@@ -50,7 +50,9 @@
 
 
 #include "pki_temp.h"
+#include "func.h"
 
+QPixmap *pki_temp::icon=  NULL;
 
 pki_temp::pki_temp(const pki_temp *pk) 
 	:pki_base(pk->desc)
@@ -92,7 +94,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 
 pki_temp::pki_temp(const QString d, int atype)
 	:pki_base(d)
-{ 
+{
 	version=1;
 	type=atype;
 	C="";
@@ -289,5 +291,14 @@ bool pki_temp::compare(pki_base *ref)
  // are stored in the database ...
 	return false;
 }	
+
+void pki_temp::updateView()
+{
+	pki_base::updateView();
+	if (!pointer) return;
+	pointer->setPixmap(0, *icon);
+	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
+	pointer->setText(1, typec[type]);
+}
 
 

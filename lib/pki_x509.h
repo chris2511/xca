@@ -78,6 +78,7 @@ class pki_x509 : public pki_x509super
 	   X509 *cert;
 	   void init();
 	public:
+	   static QPixmap *icon[4];
 	   pki_x509(X509 *c);
 	   pki_x509(const pki_x509 *crt);
 	   pki_x509();
@@ -132,6 +133,7 @@ class pki_x509 : public pki_x509super
 	   bool hasSubAltName();
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);
 	   QString tinyCAfname();
+	   void updateView();
 };
 
 #endif

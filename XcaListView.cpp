@@ -51,7 +51,7 @@
 
 
 #include "XcaListView.h"
-#include "MainWindow.h"
+#include "widgets/MainWindow.h"
 #include <qinputdialog.h>
 #include <qfiledialog.h>
 #include <qmessagebox.h>
@@ -228,21 +228,9 @@ void XcaListView::updateView()
 		QListViewItem *lvi = new QListViewItem(this, pki->getIntName());
 		insertItem(lvi);
 		pki->setLvi(lvi);
-		updateViewItem(pki);
+		pki->updateView();
 	}
 }
-
-void XcaListView::updateViewItem(pki_base *pki)
-{
-        if (! pki) return;
-        QListViewItem *current = pki->getLvi();
-        if (!current) return;
-#ifdef qt3
-	current->setRenameEnabled(0,true);
-#endif
-        current->setText(0, pki->getIntName());
-}
-							
 
 pki_base *XcaListView::loadItem(QString) { CERR("Virtual called..."); return NULL; }
 void XcaListView::newItem(void) { CERR("Virtual called..."); }

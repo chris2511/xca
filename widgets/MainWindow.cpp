@@ -59,6 +59,7 @@
 #include "CertView.h"
 #include "TempView.h"
 #include "lib/pass_info.h"
+#include "lib/func.h"
 #include "ui/PassRead.h"
 #include "ui/PassWrite.h"
 
@@ -120,11 +121,6 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	init_database();
 }
 
-QPixmap *MainWindow::loadImg(const char *name )
-{
-	return reqList->loadImg(name);
-}
-
 void MainWindow::init_images(){
 	
 	keyImg = loadImg("bigkey.png");
@@ -140,6 +136,15 @@ void MainWindow::init_images(){
 	bigTemp->setPixmap(*tempImg);
 	bigRev->setPixmap(*revImg);
 	setIcon(*appIco);
+	pki_key::icon[0] = loadImg("key.png");
+	pki_key::icon[1] = loadImg("halfkey.png");
+	pki_x509req::icon[0] = loadImg("req.png");
+	pki_x509req::icon[1] = loadImg("reqkey.png");
+	pki_x509::icon[0] = loadImg("validcert.png");
+	pki_x509::icon[1] = loadImg("validcertkey.png");
+	pki_x509::icon[2] = loadImg("invalidcert.png");
+	pki_x509::icon[3] = loadImg("invalidcertkey.png");
+	pki_temp::icon = loadImg("template.png");			     
 }		
 	
 void MainWindow::read_cmdline()

@@ -49,40 +49,59 @@
  */                           
 
 
-#ifndef REQVIEW_H
-#define REQVIEW_H
+#include "ui/NewX509.h"
+#include "lib/db_key.h"
+#include "lib/db_x509req.h"
+#include "lib/db_x509.h"
+#include "lib/db_temp.h"
 
-#include "XcaListView.h"
-#include "lib/pki_x509req.h"
-#include "lib/pki_temp.h"
-#include "widgets/NewX509.h"
+#ifndef NEWX509_H
+#define NEWX509_H
 
+class MainWindow;
 
-class ReqView : public XcaListView
+class NewX509: public NewX509_UI
 {
-   Q_OBJECT
-
-   public:
-	ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void showItem(pki_base *item, bool import);
-	void newItem();
-	void newItem(pki_temp *temp);
-	void deleteItem();
-	void load();
-	void updateViewItem(pki_base *);
-	pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
-	void store(bool pem);
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	Q_OBJECT
+   private:
+	db_x509req *reqs;
+	db_x509 *certs;
+	db_key *keys;
+	db_temp *temps;
+	pki_temp *fixtemp;
+	QString startText, endText, tText;
+	
+   public:	
+	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns);
+	~NewX509();
+	void setRequest(); // reduce to request form 	
+	void setTemp(pki_temp *temp); // reduce to template form 	
+	void setCert(); // reduce to certificate form 	
+	void setup();
+	void showPage(QWidget *page);
+	void toTemplate(pki_temp *temp);
+	void fromTemplate(pki_temp *temp);
+	void defineTemplate(pki_temp *temp);
+	void defineRequest(pki_x509req *req);
+	void defineCert(pki_x509 *defcert);
+	int lb2int(QListBox *lb);
+	void int2lb(QListBox *lb, int x);
+	void templateChanged(pki_temp *templ);
+	void templateChanged(QString templatename);
+	pki_key *getSelectedKey();
+	x509name getX509name();
    public slots:
-	void writeReq_pem();
-	void writeReq_der();
-	void signReq();
+	void toggleFromRequest();
+   	void newKey();
+	void dataChangeP2();
+	void newKeyDone(QString name);
+	void switchExtended();
+	void templateChanged();
+	void signerChanged();
+	void helpClicked();
+	
    signals:
-	void keyDone(QString &);
-	void init_database();
-	void newCert(pki_x509req *req);
-
-};	
+	void genKey();  
+};
 
 #endif

@@ -59,15 +59,13 @@
 #include <qcombobox.h>
 #include <qpushbutton.h>
 
-#include "MainWindow.h"
-#include "NewX509.h"
+#include "widgets/MainWindow.h"
+#include "widgets/NewX509.h"
 
 
 ReqView::ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 	:XcaListView(parent, name, f)
 {
-	reqicon[0] = loadImg("req.png");
-	reqicon[1] = loadImg("reqkey.png");
 	addColumn(tr("Common Name"));
 	/*
 	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
@@ -287,17 +285,5 @@ void ReqView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	delete menu;
 	delete subExport;
 	return;
-}
-
-void ReqView::updateViewItem(pki_base *pki)
-{
-        XcaListView::updateViewItem(pki);
-        if (! pki) return;
-        int pixnum = 0;
-        QListViewItem *current = pki->getLvi();
-        if (!current) return;
-	if (((pki_x509req *)pki)->getRefKey() != NULL ) pixnum += 1;	
-	current->setPixmap(0, *reqicon[pixnum]);
-	current->setText(1, ((pki_x509req *)pki)->getSubject().getEntryByNid(NID_commonName));
 }
 

@@ -44,45 +44,16 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
+#ifndef FUNC_H
+#define FUNC_H
 
-#ifndef REQVIEW_H
-#define REQVIEW_H
+#include <qpixmap.h>
+#include "base.h"
 
-#include "XcaListView.h"
-#include "lib/pki_x509req.h"
-#include "lib/pki_temp.h"
-#include "widgets/NewX509.h"
-
-
-class ReqView : public XcaListView
-{
-   Q_OBJECT
-
-   public:
-	ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void showItem(pki_base *item, bool import);
-	void newItem();
-	void newItem(pki_temp *temp);
-	void deleteItem();
-	void load();
-	void updateViewItem(pki_base *);
-	pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
-	void store(bool pem);
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-   public slots:
-	void writeReq_pem();
-	void writeReq_der();
-	void signReq();
-   signals:
-	void keyDone(QString &);
-	void init_database();
-	void newCert(pki_x509req *req);
-
-};	
+QPixmap *loadImg(const char *name);
 
 #endif

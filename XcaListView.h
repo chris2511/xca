@@ -88,7 +88,6 @@ class XcaListView : public QListView
 	void renameDialog();
 	void rename(QListViewItem *item, int col, const QString &text);
 	void updateView();
-	void updateViewItem(pki_base *pki);
    signals:
 	void init_database();
 };

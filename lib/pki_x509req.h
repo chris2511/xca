@@ -65,6 +65,7 @@ class pki_x509req : public pki_x509super
 	protected:
 	   X509_REQ *request;
 	public:
+	   static QPixmap *icon[2];
 	   pki_x509req();
 	   pki_x509req(const QString fname);
 	   ~pki_x509req();
@@ -76,6 +77,7 @@ class pki_x509req : public pki_x509super
 	   int verify();
 	   pki_key *getPubKey();
 	   void createReq(pki_key *key, const x509name &dist_name);
+	   void updateView();
 };
 
 #endif

@@ -63,14 +63,12 @@ class KeyView : public XcaListView
    private:
 	static const int sizeList[];
 	static void incProgress(int a, int b, void *progress);
-	QPixmap *keyicon[2];
    public:
 	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem();
 	void deleteItem();
 	void load();
-	void updateViewItem(pki_base *);
 	pki_base *loadItem(QString fname);
 	pki_base* insert(pki_base *item);
 	void store();

@@ -92,6 +92,7 @@ class pki_base : public QObject
 	void setLvi(QListViewItem *ptr) { pointer = ptr; }
 	QString getClassName();
 	QString rmslashdot(const QString &fname);
+	virtual void updateView();
 };
 
 #endif

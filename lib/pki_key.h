@@ -73,6 +73,7 @@ class pki_key: public pki_base
 	QString BN2QString(BIGNUM *bn);
 	int ucount; // usage counter
     public:
+	static QPixmap *icon[2];
 	static char passwd[40];
 		
 	/* constructor to generate a key .....
@@ -121,6 +122,7 @@ class pki_key: public pki_base
 	int incUcount();
 	int decUcount();
 	int getUcount();
+	void updateView();
 };
 
 #endif

@@ -51,13 +51,18 @@
 
 
 #include "pki_x509.h"
+#include "func.h"
 #include "x509name.h"
+
+QPixmap *pki_x509req::icon[2] = { NULL, NULL };
 
 pki_x509req::pki_x509req() 
 	: pki_x509super()
 {
 	privkey = NULL;
 	class_name = "pki_x509req";
+	icon[0] = loadImg("req.png");
+	icon[1] = loadImg("reqkey.png");
 	request = X509_REQ_new();
 	openssl_error();
 }
@@ -86,8 +91,11 @@ pki_x509req::~pki_x509req()
 
 
 pki_x509req::pki_x509req(const QString fname)
+	: pki_x509super()
 {
 	privkey = NULL;
+	icon[0] = loadImg("req.png");
+	icon[1] = loadImg("reqkey.png");
 	class_name = "pki_x509req";
 	FILE *fp = fopen(fname.latin1(),"r");
 	if (fp != NULL) {
@@ -180,3 +188,14 @@ pki_key *pki_x509req::getPubKey()
 	 openssl_error();
 	 return key;
 }
+
+void pki_x509req::updateView()
+{
+	pki_base::updateView();
+	if (! pointer) return;
+	int pixnum = 0;
+	if (getRefKey() != NULL ) pixnum += 1;
+	pointer->setPixmap(0, *icon[pixnum]);
+	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
+}
+

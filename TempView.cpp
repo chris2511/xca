@@ -50,8 +50,8 @@
 
 
 #include "TempView.h"
-#include "MainWindow.h"
-#include "NewX509.h"
+#include "widgets/MainWindow.h"
+#include "widgets/NewX509.h"
 #include <qmessagebox.h>
 #include <qpopupmenu.h>
 
@@ -149,13 +149,3 @@ void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
 	return;
 }
 
-void TempView::updateViewItem(pki_base *pki)
-{
-        XcaListView::updateViewItem(pki);
-        if (! pki) return;
-        QListViewItem *current = pki->getLvi();
-        if (!current) return; 
-        current->setPixmap(0, *keyicon);
-        QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
-        current->setText(1, typec[((pki_temp *)pki)->type]);
-}

@@ -51,14 +51,18 @@
 
 #include "pki_key.h"
 #include "pass_info.h"
+#include "func.h"
 #include <openssl/rand.h>
 
 char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+
+QPixmap *pki_key::icon[2]= { NULL, NULL };
 
 void pki_key::init()
 {
 	ucount = 0;
 	class_name = "pki_key";
+		     
 }
 	
 pki_key::pki_key(const QString d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
@@ -454,4 +458,16 @@ int pki_key::getUcount()
 {
 	return ucount;
 }
+
+void pki_key::updateView()
+{
+	pki_base::updateView();
+	int pixnum = 0;
+	if (!pointer) return;
+	if (isPubKey()) pixnum += 1;
+	pointer->setPixmap(0, *icon[pixnum]);
+	pointer->setText(1, length());
+	pointer->setText(2, QString::number(getUcount()));
+}
+
 

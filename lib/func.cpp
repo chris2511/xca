@@ -44,45 +44,47 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
 
-#ifndef REQVIEW_H
-#define REQVIEW_H
+#include "func.h"
+#include <qdir.h>
 
-#include "XcaListView.h"
-#include "lib/pki_x509req.h"
-#include "lib/pki_temp.h"
-#include "widgets/NewX509.h"
-
-
-class ReqView : public XcaListView
-{
-   Q_OBJECT
-
-   public:
-	ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void showItem(pki_base *item, bool import);
-	void newItem();
-	void newItem(pki_temp *temp);
-	void deleteItem();
-	void load();
-	void updateViewItem(pki_base *);
-	pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
-	void store(bool pem);
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-   public slots:
-	void writeReq_pem();
-	void writeReq_der();
-	void signReq();
-   signals:
-	void keyDone(QString &);
-	void init_database();
-	void newCert(pki_x509req *req);
-
-};	
-
+#ifdef WIN32
+#include <windows.h>
 #endif
+
+QPixmap *loadImg(const char *name )
+{
+#ifdef WIN32
+static unsigned char PREFIX[100]="";
+if (PREFIX[0] == '\0') {
+	LONG lRc;
+	HKEY hKey;
+	lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\xca",0,KEY_READ, &hKey);
+	if(lRc!= ERROR_SUCCESS){
+		// No key error
+		QMessageBox::warning(NULL,tr(XCA_TITLE),
+			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
+                PREFIX[0] = '\0';
+	}
+	else {
+        	ULONG dwLength = 100;
+                lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
+		if(lRc!= ERROR_SUCCESS){
+			// No key error
+	                QMessageBox::warning(NULL,tr(XCA_TITLE),
+			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
+                	PREFIX[0] = '\0';
+		}
+	}
+        lRc=RegCloseKey(hKey);
+}
+#endif
+
+QString path = (char *)PREFIX;
+path += QDir::separator();
+return new QPixmap(path + name);
+}
