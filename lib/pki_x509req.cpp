@@ -54,7 +54,7 @@
 #include "x509name.h"
 
 pki_x509req::pki_x509req() 
-	: pki_base()
+	: pki_x509super()
 {
 	privkey = NULL;
 	className = "pki_x509req";
