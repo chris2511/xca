@@ -136,6 +136,7 @@ class pki_x509 : public pki_base
 	   string asn1TimeToPlain(ASN1_TIME *a);
 	   string asn1TimeToPretty(ASN1_TIME *a);
 	   int asn1TimeYMDG(ASN1_TIME *a, int *y, int *m, int *d, int *g);
+	   string subjectOneLine();
 };
 
 #endif

@@ -325,7 +325,7 @@ void pki_key::writeKey(const string fname, const EVP_CIPHER *enc,
 	   if (key){
 		CERR("writing Private Key");
 		if (PEM) 
-		   PEM_write_PrivateKey(fp, key, enc, NULL, 0, cb, NULL);
+		   PEM_write_PrivateKey(fp, key, enc, NULL, 0, cb, &p);
 		else {
 		   i2d_RSAPrivateKey_fp(fp, key->pkey.rsa);
 	        }

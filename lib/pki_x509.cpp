@@ -793,3 +793,12 @@ string pki_x509::tinyCAfname()
 	CERR("base64 Encoding: " <<col);
 	return col;
 }
+
+string pki_x509::subjectOneLine()
+{
+	char *x = X509_NAME_oneline(X509_get_subject_name(cert), NULL ,0);
+	string ret = x;
+	OPENSSL_free(x);
+	openssl_error();
+	return ret;
+}
