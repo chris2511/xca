@@ -87,8 +87,11 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		fclose(fp);
 		openssl_error();
 		if (passcb(pass, 30, 0, &p) == 0) {
-			PKCS12_free(pkcs12);
-			throw errorEx("","");
+			if (pass[0] != '\0') {
+				/* cancel pressed */
+				PKCS12_free(pkcs12);
+				throw errorEx("","");
+			}
 		}
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
 		if ( ERR_peek_error() != 0) {

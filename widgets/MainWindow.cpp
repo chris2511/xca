@@ -383,6 +383,7 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	}
 	dlg->pass->setFocus();
 	dlg->setCaption(tr(XCA_TITLE));
+	buf[0] = '-'; /* if this remains the dialog was aborted */
 	if (dlg->exec()) {
 	   QString x = dlg->pass->text();
 	   strncpy(buf, x.latin1(), size);
