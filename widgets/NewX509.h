@@ -81,7 +81,7 @@ class NewX509: public NewX509_UI
 	static int name_nid[EXPLICIT_NAME_CNT];
 	QLineEdit *name_ptr[EXPLICIT_NAME_CNT];
 	X509V3_CTX ext_ctx;
-	void editV3ext(QLineEdit *le, QString types);
+	void editV3ext(QLineEdit *le, QString types, int n);
    public:	
 	NewX509(QWidget *parent, const char *name, bool modal = false, WFlags f = 0);
 	~NewX509();

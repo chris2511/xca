@@ -57,12 +57,14 @@
 #include <qlistview.h>
 #include <qlineedit.h>
 #include <qstringlist.h>
+#include <qmessagebox.h>
+#include "MainWindow.h"
+#include "lib/exception.h"
 
 v3ext::v3ext(QWidget *parent, const char *name, bool modal, WFlags f )
 	:v3ext_UI(parent, name, modal, f)
 {
 	setCaption(tr(XCA_TITLE));
-//	image->setPixmap(*MainWindow::certImg);		 
 	listView->addColumn(tr("Type"));
 	listView->addColumn(tr("Content"));
 }
@@ -71,16 +73,17 @@ v3ext::~v3ext()
 {
 }
 
-void v3ext::addLineEdit(QLineEdit *myle)
+void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
+		X509 *s, X509 *s1)
 {
+	type->insertStringList(sl);
+	nid = n;
 	le = myle;
 	if (le)
 		addItem(le->text());
-}
-
-void v3ext::addTypeList(const QStringList &sl)
-{
-	type->insertStringList(sl);
+	
+	memset(&ext_ctx, 0, sizeof(X509V3_CTX));
+	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
 }
 
 void v3ext::addItem(QString list)
@@ -105,8 +108,11 @@ QString v3ext::toString()
 	QStringList str;
 	QListViewItem *lvi = listView->firstChild();
 	while (lvi != NULL) {
-		str += lvi->text(0).stripWhiteSpace() +
-			":" + lvi->text(1).stripWhiteSpace();
+		QString s;
+		s = lvi->text(0).stripWhiteSpace();
+		if (!s.contains(':'))
+			s += ":" + lvi->text(1).stripWhiteSpace();
+		str += s;	
 		lvi = lvi->nextSibling();
 	}
 	return str.join(",");
@@ -120,11 +126,49 @@ void v3ext::delEntry()
 	
 void v3ext::addEntry()
 {
-	new QListViewItem(listView, type->currentText(), value->text());
+	QString typ, cont;
+	typ = type->currentText();
+	if ( ! typ.contains(':') )
+		cont = value->text();
+	
+	new QListViewItem(listView, typ, cont);
 }
 
 void v3ext::apply()
 {
 	le->setText(toString());
+	__validate();
 	accept();
+}
+
+bool v3ext::__validate()
+{
+	x509v3ext ext;
+	QString str, error;
+	
+	if (nid==NID_info_access) {
+		str = "OCSP;";
+	}
+	str += toString();
+	
+	ext.create(nid, str, &ext_ctx);
+	while (int i = ERR_get_error() ) {
+		error += ERR_error_string(i ,NULL);
+		error += "\n";
+	}
+	if (! error.isEmpty()) {
+		 QMessageBox::warning(NULL, XCA_TITLE, tr("Validation failed:\n")
+				 + "'" + str + "'\n" + error,
+				tr("&OK"));
+		 return false;
+	}
+	return true;
+}
+
+void v3ext::validate()
+{
+	if (__validate()) {
+		 QMessageBox::information(NULL, XCA_TITLE, "Validation successfull",
+				tr("&OK"));
+	}
 }

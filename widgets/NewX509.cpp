@@ -498,12 +498,6 @@ void NewX509::showPage(QWidget *page)
 	}
 	else if (page == page4) {
 		basicCA->setFocus();
-#if 0
-		if (emailAddress->text().isEmpty() && appropriate(page1))
-			subAltCp->setEnabled(false);
-		else
-			subAltCp->setEnabled(true);
-#endif
 	}
 
 
@@ -514,10 +508,7 @@ void NewX509::signerChanged()
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
 	
-//	issAltCp->setEnabled(false);
 	if (!cert) return;
-//	if (cert->hasSubAltName() || !appropriate(page1))
-//		issAltCp->setEnabled(true);
 	
 	QString templ = cert->getTemplate();	
 	snb = cert->getNotBefore();
@@ -716,33 +707,55 @@ void NewX509::applyTimeDiff()
 	notAfter->setDate(a.now(delta * d_fac), midnight* (-1));	 
 }
 
-void NewX509::editV3ext(QLineEdit *le, QString types)
+void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 {
 	v3ext *dlg;
+	pki_x509 *cert, *signcert;
+	pki_x509req *req;
+	
+	// initially create cert 
+	cert = new pki_x509();
+	if (fromReqCB->isChecked()) {
+		req = getSelectedReq();
+		cert->setSubject(req->getSubject());
+	} else {
+		cert->setSubject(getX509name());
+	}
+	// Step 2 - select Signing
+	if (foreignSignRB->isChecked()) {
+		signcert = getSelectedSigner();
+	} else {
+		signcert = cert;
+	}
+	
 	dlg = new v3ext(this, NULL, true);
-	dlg->addLineEdit(le);
-	dlg->addTypeList(QStringList::split(',', types ));
+	dlg->addInfo(le, QStringList::split(',', types ), n,
+			cert->getCert(), signcert->getCert());
 	dlg->exec();
+	delete(dlg);
+	delete(cert);
 }
 
 void NewX509::editSubAltName()
 {
-	editV3ext(subAltName, "email,RID,URI,DNS,IP");
+	editV3ext(subAltName, "email,email:copy,RID,URI,DNS,IP",
+			NID_subject_alt_name);
 }
 
 void NewX509::editIssAltName()
 {
-	editV3ext(issAltName, "email,RID,URI,DNS,IP");
+	editV3ext(issAltName, "email,RID,URI,DNS,IP,issuer:copy",
+			NID_issuer_alt_name);
 }
 
 void NewX509::editCrlDist()
 {
-	editV3ext(crlDist, "URI");
+	editV3ext(crlDist, "URI", NID_crl_distribution_points);
 }
 
 void NewX509::editAuthInfAcc()
 {
-	editV3ext(authInfAcc, "email,RID,URI,DNS,IP");
+	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
 }
 
 

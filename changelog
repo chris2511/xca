@@ -1,3 +1,4 @@
+  * add "validation" function for editable extensions below
   * add "edit" buttons for subject/issuer alt. name,
     crl dist. point and cert. auth. info access
   * add DB-dump function into subdirs

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>503</width>
+            <width>499</width>
             <height>255</height>
         </rect>
     </property>
@@ -114,6 +114,17 @@
                         <string>Apply</string>
                     </property>
                 </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton5</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Validate</string>
+                    </property>
+                </widget>
                 <spacer>
                     <property>
                         <name>name</name>
@@ -175,8 +186,15 @@
         <receiver>v3ext_UI</receiver>
         <slot>apply()</slot>
     </connection>
+    <connection>
+        <sender>PushButton5</sender>
+        <signal>clicked()</signal>
+        <receiver>v3ext_UI</receiver>
+        <slot>validate()</slot>
+    </connection>
     <slot access="public">addEntry()</slot>
-    <slot access="public">delEntry()</slot>
     <slot access="public">apply()</slot>
+    <slot access="public">delEntry()</slot>
+    <slot access="public">validate()</slot>
 </connections>
 </UI>

@@ -57,6 +57,7 @@
 #include <qlistview.h>
 #include <qlineedit.h>
 #include <qstringlist.h>
+#include <openssl/x509v3.h>
 #ifndef qt3
 #include <qlist.h>
 #endif
@@ -69,19 +70,23 @@ class v3ext: public v3ext_UI
 	Q_OBJECT
 	private:
 		QLineEdit *le;
+		int nid;
+		X509V3_CTX ext_ctx;
+		bool __validate();
 	public:	
 		v3ext( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
 		~v3ext();
 		void addItem(QString list);
 		void addEntry(QString list);
 		QString toString();
-		void addLineEdit(QLineEdit *myle);
-		void addTypeList(const QStringList &sl);
+		void addInfo(QLineEdit *myle, const QStringList &sl, int n,
+				X509 *s, X509 *s1);
 		
 	public slots:
 		void delEntry();
 		void addEntry();
 		void apply();
+		void validate();
 };
 
 #endif
