@@ -69,9 +69,6 @@ class db_crl: public db_base
 	void preprocess();
 	void inToCont(pki_base *pki);
 	pki_base *insert(pki_base *item);
-    signals:
-	void revokeCert(const x509rev &revok);
-			
 };
 
 #endif

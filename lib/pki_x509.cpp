@@ -272,6 +272,7 @@ void pki_x509::fromData(unsigned char *p, int size)
 {
 	int version, sCert, sRev, sLastCrl;
 	unsigned char *p1 = p;
+	X509 *cert_sik = cert;
 	version = intFromData(&p1);
 	if (version >=1 || version <= 4) {
 		sCert = intFromData(&p1);
@@ -316,7 +317,12 @@ void pki_x509::fromData(unsigned char *p, int size)
 		trust = 1;
 		efftrust = 1;
 	}	
+	if (cert)
+		X509_free(cert_sik);
+	else
+		cert = cert_sik;
 	openssl_error();
+		
 }
 
 
@@ -539,6 +545,8 @@ void pki_x509::setRevoked(const a1time &when)
 {
 	isrevoked = true;
 	revoked = when;
+	setEffTrust(0);
+	setTrust(0);
 	openssl_error();	
 }
 
