@@ -2,8 +2,8 @@ VERSION=0.1.5
 TARGET=xca-$(VERSION)
 GCC=c++
 INC=-I$(QTDIR)/include
-LPATH=-L$(QTDIR)/lib
-LIBS=-lqt -lcrypto -ldb_cxx
+LPATH=-L$(QTDIR)/lib -Llib
+LIBS=-lqt -lcrcpp -lxcadb
 MOC=$(QTDIR)/bin/moc
 UIC=$(QTDIR)/bin/uic
 
@@ -17,11 +17,7 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      NewX509Req_UI.o NewX509Req_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
      MainWindowKeys.o MainWindowX509Req.o \
-     MainWindow.o MainWindow_MOC.o \
-     RSAkey.o RSAkey_MOC.o \
-     KeyDB.o KeyDB_MOC.o \
-     ReqDB.o ReqDB_MOC.o \
-     X509Req.o X509Req_MOC.o
+     MainWindow.o MainWindow_MOC.o 
 
 all: $(OBJS) xca
 re: clean all
