@@ -75,8 +75,8 @@ pki_pkcs12::pki_pkcs12(const std::string fname, pem_password_cb *cb)
 	passcb = cb;
 	certstack = sk_X509_new_null();
 	PASS_INFO p;
-	string title = XCA_TITLE;
-	string description = "Please enter the password to encrypt the PKCS#12 file.";
+	std::string title = XCA_TITLE;
+	std::string description = "Please enter the password to encrypt the PKCS#12 file.";
 	p.title = &title;
 	p.description = &description;
 	fp = fopen(fname.c_str(), "rb");
@@ -134,8 +134,8 @@ void pki_pkcs12::writePKCS12(const std::string fname)
 	char desc[100];
 	strncpy(desc,getDescription().c_str(),100);
 	PASS_INFO p;
-	string title = XCA_TITLE;
-	string description = "Please enter the password to encrypt the PKCS#12 file";
+	std::string title = XCA_TITLE;
+	std::string description = "Please enter the password to encrypt the PKCS#12 file";
 	p.title = &title;
 	p.description = &description;
 	if (!pkcs12) {

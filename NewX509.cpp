@@ -83,7 +83,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	//setFont( tFont );
 #endif	
 	serialNr->setValidator( new QIntValidator(0, 32767, this));
-	QStringList std::strings;
+	QStringList strings;
 	// are there any useable private keys  ?
 	if (keys) {
 		strings = keys->get0PrivateDesc();

@@ -101,15 +101,15 @@ void *db_base::getData(void *key, int length, int *dsize)
 	return NULL;
 }
 
-void *db_base::getData(string key, int *dsize)
+void *db_base::getData(std::string key, int *dsize)
 {
 	return getData((void *)key.c_str(), key.length()+ 1, dsize);
 }
 
 
-string db_base::getString(string key)
+std::string db_base::getString(std::string key)
 {
-	string x = "";
+	std::string x = "";
 	int dsize;
 	char *p = (char *)getData(key, &dsize);
 	if (p == NULL) {
@@ -130,16 +130,16 @@ string db_base::getString(string key)
 }
 
 
-string db_base::getString(char *key)
+std::string db_base::getString(char *key)
 {
-	string x = key;
+	std::string x = key;
 	return getString(x);
 }
 
 
-int db_base::getInt(string key)
+int db_base::getInt(std::string key)
 {
-	string x = getString(key);
+	std::string x = getString(key);
 	return atoi(x.c_str());
 }
 
@@ -158,13 +158,13 @@ void db_base::putData(void *key, int keylen, void *dat, int datalen)
 	}
 }
 
-void db_base::putString(string key, void *dat, int datalen)
+void db_base::putString(std::string key, void *dat, int datalen)
 {
 	CERR( key );
 	putData((void *)key.c_str(), key.length()+1, dat, datalen);
 }
 
-void db_base::putString(string key, std::string dat)
+void db_base::putString(std::string key, std::string dat)
 {
 	CERR( key);
 	putString(key, (void *)dat.c_str(), dat.length() +1);
@@ -172,16 +172,16 @@ void db_base::putString(string key, std::string dat)
 
 void db_base::putString(char *key, std::string dat)
 {
-	string x = key;
+	std::string x = key;
 	CERR(key);
 	putString(x,dat);
 }
 
-void db_base::putInt(string key, int dat)
+void db_base::putInt(std::string key, int dat)
 {
 	char buf[100];
 	sprintf(buf,"%i",dat);
-	string x = buf;
+	std::string x = buf;
 	putString(key, x);
 }
 
@@ -195,7 +195,7 @@ void db_base::loadContainer()
 		data->cursor(tid, &cursor, 0);
 		Dbt *k = new Dbt();
 		Dbt *d = new Dbt();
-		string desc;
+		std::string desc;
 		pki_base *pki;
 		container.clear();
 		CERR("Load Container");
@@ -268,11 +268,11 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 {
 	int flags = 0;
 	if (!overwrite) flags = DB_NOOVERWRITE;
-	string desc = pki->getDescription();
+	std::string desc = pki->getDescription();
 	if (desc == "") {
 		desc="unnamed";
 	}
-	string orig = desc;
+	std::string orig = desc;
 	int size=0;
 	char field[10];
 	unsigned char *p;
@@ -294,7 +294,7 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 		if ((x = data->put(tid, &k, &d, flags ))!=0) {
 			data->err(x,"DB Error put");
 			sprintf(field,"%02i", ++cnt);
-			string z = field;
+			std::string z = field;
 		   	desc = orig + "_" + z ;
 		}
 	}
@@ -304,11 +304,11 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 
 void db_base::_removePKI(pki_base *pki, DbTxn *tid) 
 {
-	string desc = pki->getDescription();
+	std::string desc = pki->getDescription();
 	removeItem(desc, tid);
 }	
 
-void db_base::removeItem(string key, DbTxn *tid) 
+void db_base::removeItem(std::string key, DbTxn *tid) 
 {
 	Dbt k((void *)key.c_str(), key.length() + 1);
 	data->del(tid, &k, 0);
@@ -335,7 +335,7 @@ void db_base::deletePKI(pki_base *pki)
 
 void db_base::renamePKI(pki_base *pki, std::string desc)
 {
-	string oldname = pki->getDescription();
+	std::string oldname = pki->getDescription();
 	DbTxn *tid = NULL;
 	try {
 		dbenv->txn_begin(NULL, &tid, 0);
@@ -388,7 +388,7 @@ void db_base::updatePKI(pki_base *pki)
 }
 
 
-pki_base *db_base::getSelectedPKI(string desc)
+pki_base *db_base::getSelectedPKI(std::string desc)
 {
 	if (desc == "" ) return NULL;
 	CERR("desc = '" << desc << "'");
@@ -418,7 +418,7 @@ pki_base *db_base::getSelectedPKI(void *item)
 pki_base *db_base::getSelectedPKI()
 {
 	const char *tp;
-	string desc = "";
+	std::string desc = "";
 	QListViewItem *lvi;
 	if ((lvi = listView->selectedItem()) == NULL) return NULL;
 	if ((tp = lvi->text(0).latin1())) desc = tp;

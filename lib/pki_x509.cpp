@@ -53,7 +53,7 @@
 #include "pki_x509.h"
 
 
-pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial)
+pki_x509::pki_x509(std::string d,pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial)
 		:pki_base( d )
 {
 	init();
@@ -214,7 +214,7 @@ void pki_x509::addV3ext(int nid, std::string exttext)
 	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
 	OPENSSL_free(c);
 	if (!ext) {
-		string x="v3 Extension: " + exttext;
+		std::string x="v3 Extension: " + exttext;
 		openssl_error(x);
 		return;
 	}
@@ -359,10 +359,10 @@ unsigned char *pki_x509::toData(int *size)
 }
 
 
-string pki_x509::getDNs(int nid)
+std::string pki_x509::getDNs(int nid)
 {
 	char buf[200] = "";
-	string s;
+	std::string s;
 	X509_NAME *subj = X509_get_subject_name(cert);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
 	openssl_error();
@@ -370,10 +370,10 @@ string pki_x509::getDNs(int nid)
 	return s;
 }
 
-string pki_x509::getDNi(int nid)
+std::string pki_x509::getDNi(int nid)
 {
 	char buf[200] = "";
-	string s;
+	std::string s;
 	X509_NAME *iss = X509_get_issuer_name(cert);
 	X509_NAME_get_text_by_NID(iss, nid, buf, 200);
 	openssl_error();
@@ -381,26 +381,26 @@ string pki_x509::getDNi(int nid)
 	return s;
 }
 
-string pki_x509::notBefore()
+std::string pki_x509::notBefore()
 {
 	return asn1TimeToString(X509_get_notBefore(cert));
 }
 
 
-string pki_x509::notAfter()
+std::string pki_x509::notAfter()
 {
 	return asn1TimeToString(X509_get_notAfter(cert));
 }
 
-string pki_x509::revokedAt()
+std::string pki_x509::revokedAt()
 {
 	return asn1TimeToString(revoked);
 }
 
 
-string pki_x509::asn1TimeToString(ASN1_TIME *a)
+std::string pki_x509::asn1TimeToString(ASN1_TIME *a)
 {
-	string time = "";
+	std::string time = "";
 	if (!a) return time;
 	BIO * bio = BIO_new(BIO_s_mem());
 	char buf[200];
@@ -484,7 +484,7 @@ pki_key *pki_x509::getPubKey()
 
 
 
-string pki_x509::fingerprint(EVP_MD *digest)
+std::string pki_x509::fingerprint(EVP_MD *digest)
 {
 	 int j;
 	 std::string fp="";
@@ -556,7 +556,7 @@ void pki_x509::delKey() { pkey = NULL; }
 
 void pki_x509::delSigner() { psigner=NULL; }
 
-string pki_x509::printV3ext()
+std::string pki_x509::printV3ext()
 {
 #define V3_BUF 100
 	ASN1_OBJECT *obj;
@@ -564,7 +564,7 @@ string pki_x509::printV3ext()
 	int i, len, n = X509_get_ext_count(cert);
 	char buffer[V3_BUF+1];
 	X509_EXTENSION *ex;
-	string text="";
+	std::string text="";
 	for (i=0; i<n; i++) {
 		text += "<b><u>";
 		ex = X509_get_ext(cert,i);
@@ -595,14 +595,14 @@ string pki_x509::printV3ext()
 	return text;
 }
 
-string pki_x509::getSerial()
+std::string pki_x509::getSerial()
 {
 	char buf[100];
 	BIO *bio = BIO_new(BIO_s_mem());
 	i2a_ASN1_INTEGER(bio, cert->cert_info->serialNumber);
 	int len = BIO_read(bio, buf, 100);
 	buf[len]='\0';
-	string x = buf;
+	std::string x = buf;
 	BIO_free(bio);
 	openssl_error();
 	return x;
@@ -691,9 +691,9 @@ int pki_x509::getCrlDays() {return crlDays;}
 
 void pki_x509::setCrlDays(int s){if (s>0) crlDays = s;}
 
-string pki_x509::getTemplate(){ return caTemplate; }
+std::string pki_x509::getTemplate(){ return caTemplate; }
 
-void pki_x509::setTemplate(string s) {if (s.length()>0) caTemplate = s; }
+void pki_x509::setTemplate(std::string s) {if (s.length()>0) caTemplate = s; }
 
 void pki_x509::setLastCrl(ASN1_TIME *time)
 {

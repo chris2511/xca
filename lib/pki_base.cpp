@@ -72,21 +72,21 @@ pki_base::~pki_base(void)
 {}
 
 
-string pki_base::getDescription()
+std::string pki_base::getDescription()
 {
-	string x = desc;
+	std::string x = desc;
 	return x;
 }
 
 
-string pki_base::getError()
+std::string pki_base::getError()
 {
-	string x = error;
+	std::string x = error;
 	error = "";
 	return x;
 }
 
-string pki_base::getClassName()
+std::string pki_base::getClassName()
 {
 	return className;
 }
@@ -101,14 +101,14 @@ void pki_base::setDescription(const std::string d)
 
 void pki_base::fopen_error(const std::string fname)
 {
-	string txt = "Error opening file: '" + fname + "'";
+	std::string txt = "Error opening file: '" + fname + "'";
 	openssl_error(txt);
 }
 
 
 void pki_base::openssl_error(const std::string myerr)
 {
-	string errtxt = "";
+	std::string errtxt = "";
 	error = "";
 	if (myerr != "") {
 		CERR("PKI ERROR: " << myerr);
@@ -128,7 +128,7 @@ void pki_base::openssl_error(const std::string myerr)
 bool pki_base::ign_openssl_error()
 {
 	// ignore openssl errors
-	string errtxt;
+	std::string errtxt;
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
 	   CERR("IGNORE -> OpenSSL: " << errtxt << " <- IGNORE");
@@ -178,9 +178,9 @@ int pki_base::stringToData(unsigned char **p, const std::string val)
 	return s;
 }
 
-string pki_base::stringFromData(unsigned char **p)
+std::string pki_base::stringFromData(unsigned char **p)
 {
-	string ret="";
+	std::string ret="";
 	while(**p) {
 		ret +=(char)**p;
 		*p += sizeof(char);

@@ -68,9 +68,9 @@ class pki_temp: public pki_base
 	int version;
 	
     public:
-	string C,P,L,O,OU,CN,EMAIL;
-	string subAltName, issAltName, crlDist;
-	string nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
+	std::string C,P,L,O,OU,CN,EMAIL;
+	std::string subAltName, issAltName, crlDist;
+	std::string nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 	bool ca, bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
 	int type, nsCertType, pathLen, validN, validM, keyUse, eKeyUse;
      

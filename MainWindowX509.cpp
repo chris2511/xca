@@ -96,7 +96,7 @@ void MainWindow::newCert(NewX509 *dlg)
 	int serial = 42; // :-)
 	bool tempReq=false;
 	int i, x, days;
-	string cont="", subAltName="", issAltName="", constraints="",
+	std::std::string cont="", subAltName="", issAltName="", constraints="",
 		keyuse="", keyuse1="", pathstr="", certTypeStr = "";
 	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
 		"timeStamping","msCodeInd","msCodeCom",
@@ -113,14 +113,14 @@ void MainWindow::newCert(NewX509 *dlg)
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
 	    clientkey = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
-	    std::string cn = dlg->commonName->text().latin1();
-	    std::string c = dlg->countryName->text().latin1();
-	    std::string l = dlg->localityName->text().latin1();
-	    std::string st = dlg->stateOrProvinceName->text().latin1();
-	    std::string o = dlg->organisationName->text().latin1();
-	    std::string ou = dlg->organisationalUnitName->text().latin1();
-	    std::string email = dlg->emailAddress->text().latin1();
-	    std::string desc = dlg->description->text().latin1();
+	    std::std::string cn = dlg->commonName->text().latin1();
+	    std::std::string c = dlg->countryName->text().latin1();
+	    std::std::string l = dlg->localityName->text().latin1();
+	    std::std::string st = dlg->stateOrProvinceName->text().latin1();
+	    std::std::string o = dlg->organisationName->text().latin1();
+	    std::std::string ou = dlg->organisationalUnitName->text().latin1();
+	    std::std::string email = dlg->emailAddress->text().latin1();
+	    std::std::string desc = dlg->description->text().latin1();
 	    tempReq = true;
 	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
 	}
@@ -159,7 +159,7 @@ void MainWindow::newCert(NewX509 *dlg)
 		// get own serial to avoid having the same
 		int sigser;
 		sscanf(signcert->getSerial().c_str(), "%x", &sigser);
-		if (serial == sigser) { // FIXME: anybody tell me the std::string method for this ?
+		if (serial == sigser) { // FIXME: anybody tell me the std::std::string method for this ?
 			serial = signcert->getIncCaSerial(); // just take the next one
 		}
 		certs->updatePKI(signcert);  // not so pretty ....
@@ -190,13 +190,13 @@ void MainWindow::newCert(NewX509 *dlg)
 	cert->addV3ext(NID_basic_constraints, constraints);
 	// Subject Key identifier
 	if (dlg->subKey->isChecked()) {
-		string subkey="hash";
+		std::std::string subkey="hash";
 		cert->addV3ext(NID_subject_key_identifier, subkey);
 		CERR( subkey );
 	}
 	// Authority Key identifier
 	if (dlg->authKey->isChecked()) {
-		string authkey="keyid:always,issuer:always";
+		std::std::string authkey="keyid:always,issuer:always";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
 		CERR( authkey );
 	}
@@ -314,9 +314,9 @@ void MainWindow::newCert(NewX509 *dlg)
     }
 	
 }
-void MainWindow::addStr(string &str, const  char *add)
+void MainWindow::addStr(std::std::string &str, const  char *add)
 {
-	string sadd = add;
+	std::std::string sadd = add;
 	if (sadd.length() == 0) return;	
 	if (str.length() > 0 ) {
 		str += ", ";
@@ -342,7 +342,7 @@ void MainWindow::extendCert()
 		serial = signer->getIncCaSerial();
 		
 		// get signers own serial to avoid having the same
-		if (serial == atoi(signer->getSerial().c_str())) { // FIXME: anybody tell me the std::string method for this ?
+		if (serial == atoi(signer->getSerial().c_str())) { // FIXME: anybody tell me the std::std::string method for this ?
 			serial = signer->getIncCaSerial(); // just take the next one
 		}
 		certs->updatePKI(signer);  // not so pretty ....
@@ -388,7 +388,7 @@ void MainWindow::showDetailsCert()
 
 void MainWindow::showDetailsCert(QListViewItem *item)
 {
-	string cert = item->text(0).latin1();
+	std::std::string cert = item->text(0).latin1();
         showDetailsCert((pki_x509 *)certs->getSelectedPKI(cert));
 }
 
@@ -433,8 +433,8 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	dlg->serialNr->setText(cert->getSerial().c_str());	
 
 	// details of subject
-	string land = cert->getDNs(NID_countryName);
-	string land1 = cert->getDNs(NID_stateOrProvinceName);
+	std::std::string land = cert->getDNs(NID_countryName);
+	std::std::string land1 = cert->getDNs(NID_stateOrProvinceName);
 	if (land != "" && land1 != "")
 		land += " / " +land1;
 	else
@@ -471,7 +471,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 		dlg->dateValid->setText(tr("Not valid"));
 	      	dlg->dateValid->setDisabled(true);
 	}
-	string revdate = cert->revokedAt();
+	std::std::string revdate = cert->revokedAt();
 	if (revdate != "") {
 		dlg->dateValid->setText(tr("Revoked: ")+ revdate.c_str());
 	      	dlg->dateValid->setDisabled(true);
@@ -492,7 +492,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 
 	// show it to the user...	
 	if (dlg->exec()) {
-		string ndesc = dlg->descr->text().latin1();
+		std::std::string ndesc = dlg->descr->text().latin1();
 		if (ndesc != cert->getDescription()) {
 			certs->renamePKI(cert, ndesc);
 		}
@@ -874,7 +874,7 @@ void MainWindow::renameCert(QListViewItem *item, int col, const QString &text)
 	if (col != 0) return;
 	try {
 		pki_base *pki = certs->getSelectedPKI(item);
-		string txt =  text.latin1();
+		std::std::string txt =  text.latin1();
 		certs->renamePKI(pki, txt);
 	}
 	catch (errorEx &err) {

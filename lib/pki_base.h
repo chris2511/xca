@@ -56,17 +56,17 @@
 #define PKI_BASE_H
 
 struct PASS_INFO {
-	string *title;
-	string *description;
+	std::string *title;
+	std::string *description;
 };
 
 
 class pki_base
 {
     protected:
-	string desc;
-	string error;
-	string className;
+	std::string desc;
+	std::string error;
+	std::string className;
 	void *pointer; 
 	void openssl_error(const std::string myerr = "");
 	void fopen_error(const std::string fname);

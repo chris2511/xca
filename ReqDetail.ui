@@ -4,7 +4,7 @@
     <class>QDialog</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>ReqDetail_UI</cstring>
+        <cstd::string>ReqDetail_UI</cstd::string>
     </property>
     <property stdset="1">
         <name>geometry</name>
@@ -17,7 +17,7 @@
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Details of the request</string>
+        <std::string>Details of the request</std::string>
     </property>
     <vbox>
         <property stdset="1">
@@ -32,7 +32,7 @@
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout12</cstring>
+                <cstd::string>Layout12</cstd::string>
             </property>
             <hbox>
                 <property stdset="1">
@@ -47,7 +47,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel1</cstring>
+                        <cstd::string>TextLabel1</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>font</name>
@@ -59,13 +59,13 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Details of the certificate signing request</string>
+                        <std::string>Details of the certificate signing request</std::string>
                     </property>
                 </widget>
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstring>Spacer5</cstring>
+                        <cstd::string>Spacer5</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -87,7 +87,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>image</cstring>
+                        <cstd::string>image</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>minimumSize</name>
@@ -113,7 +113,7 @@
         <spacer>
             <property>
                 <name>name</name>
-                <cstring>Spacer7</cstring>
+                <cstd::string>Spacer7</cstd::string>
             </property>
             <property stdset="1">
                 <name>orientation</name>
@@ -135,7 +135,7 @@
             <class>QGroupBox</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>GroupBox1</cstring>
+                <cstd::string>GroupBox1</cstd::string>
             </property>
             <property stdset="1">
                 <name>frameShape</name>
@@ -147,7 +147,7 @@
             </property>
             <property stdset="1">
                 <name>title</name>
-                <string>Standards</string>
+                <std::string>Standards</std::string>
             </property>
             <grid>
                 <property stdset="1">
@@ -162,47 +162,47 @@
                     <class>QLineEdit</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>descr</cstring>
+                        <cstd::string>descr</cstd::string>
                     </property>
                 </widget>
                 <widget row="0"  column="0" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel2</cstring>
+                        <cstd::string>TextLabel2</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Certificate name</string>
+                        <std::string>Certificate name</std::string>
                     </property>
                 </widget>
                 <widget row="1"  column="0" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel4</cstring>
+                        <cstd::string>TextLabel4</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Signature</string>
+                        <std::string>Signature</std::string>
                     </property>
                 </widget>
                 <widget row="2"  column="0" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel6</cstring>
+                        <cstd::string>TextLabel6</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Key</string>
+                        <std::string>Key</std::string>
                     </property>
                 </widget>
                 <widget row="1"  column="1" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>verify</cstring>
+                        <cstd::string>verify</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>palette</name>
@@ -441,7 +441,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <std::string>OK</std::string>
                     </property>
                     <property stdset="1">
                         <name>alignment</name>
@@ -455,7 +455,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>privKey</cstring>
+                        <cstd::string>privKey</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>enabled</name>
@@ -698,7 +698,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>not available</string>
+                        <std::string>not available</std::string>
                     </property>
                     <property stdset="1">
                         <name>alignment</name>
@@ -714,11 +714,11 @@
             <class>QGroupBox</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>GroupBox3</cstring>
+                <cstd::string>GroupBox3</cstd::string>
             </property>
             <property stdset="1">
                 <name>title</name>
-                <string>Subject</string>
+                <std::string>Subject</std::string>
             </property>
             <grid>
                 <property stdset="1">
@@ -733,62 +733,62 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel6_2</cstring>
+                        <cstd::string>TextLabel6_2</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>name / DNS</string>
+                        <std::string>name / DNS</std::string>
                     </property>
                 </widget>
                 <widget row="1"  column="0" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel4_2</cstring>
+                        <cstd::string>TextLabel4_2</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Province</string>
+                        <std::string>Province</std::string>
                     </property>
                 </widget>
                 <widget row="0"  column="0" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel3</cstring>
+                        <cstd::string>TextLabel3</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Country</string>
+                        <std::string>Country</std::string>
                     </property>
                 </widget>
                 <widget row="1"  column="2" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel5</cstring>
+                        <cstd::string>TextLabel5</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Org. Unit</string>
+                        <std::string>Org. Unit</std::string>
                     </property>
                 </widget>
                 <widget row="2"  column="2" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel7_2</cstring>
+                        <cstd::string>TextLabel7_2</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>E-Mail</string>
+                        <std::string>E-Mail</std::string>
                     </property>
                 </widget>
                 <widget row="0"  column="1" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>dnC</cstring>
+                        <cstd::string>dnC</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -807,14 +807,14 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string></string>
+                        <std::string></std::string>
                     </property>
                 </widget>
                 <widget row="0"  column="3" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>dnO</cstring>
+                        <cstd::string>dnO</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -833,14 +833,14 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string></string>
+                        <std::string></std::string>
                     </property>
                 </widget>
                 <widget row="1"  column="3" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>dnOU</cstring>
+                        <cstd::string>dnOU</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -859,14 +859,14 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string></string>
+                        <std::string></std::string>
                     </property>
                 </widget>
                 <widget row="2"  column="3" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>dnEmail</cstring>
+                        <cstd::string>dnEmail</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -885,14 +885,14 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string></string>
+                        <std::string></std::string>
                     </property>
                 </widget>
                 <widget row="2"  column="1" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>dnCN</cstring>
+                        <cstd::string>dnCN</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -911,14 +911,14 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string></string>
+                        <std::string></std::string>
                     </property>
                 </widget>
                 <widget row="1"  column="1" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>dnL</cstring>
+                        <cstd::string>dnL</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -937,18 +937,18 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string></string>
+                        <std::string></std::string>
                     </property>
                 </widget>
                 <widget row="0"  column="2" >
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel4_2_2</cstring>
+                        <cstd::string>TextLabel4_2_2</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Organisation</string>
+                        <std::string>Organisation</std::string>
                     </property>
                 </widget>
             </grid>
@@ -957,7 +957,7 @@
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout18</cstring>
+                <cstd::string>Layout18</cstd::string>
             </property>
             <hbox>
                 <property stdset="1">
@@ -972,17 +972,17 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton11</cstring>
+                        <cstd::string>PushButton11</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <std::string>Cancel</std::string>
                     </property>
                 </widget>
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstring>Spacer6</cstring>
+                        <cstd::string>Spacer6</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -1004,11 +1004,11 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton10</cstring>
+                        <cstd::string>PushButton10</cstd::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <std::string>OK</std::string>
                     </property>
                 </widget>
             </hbox>

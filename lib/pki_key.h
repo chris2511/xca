@@ -74,7 +74,7 @@ class pki_key: public pki_base
     friend class pki_crl;
     protected:
 	EVP_PKEY *key;
-	string BN2string(BIGNUM *bn);
+	std::string BN2string(BIGNUM *bn);
 	int ucount; // usage counter
     public:
 	static char passwd[40];

@@ -71,7 +71,7 @@ class pki_crl: public pki_base
 	
 	void addRevoked(const pki_x509 *rev);
 	void addExt(int nid, std::string value);
-	void write(string fname);
+	void write(std::string fname);
 	void addV3ext(int nid, std::string exttext);
 	void sign(pki_key *key);
 	void writeCrl(const std::string fname);

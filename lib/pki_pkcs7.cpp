@@ -108,7 +108,7 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 	BIO_free(bio);
 }
 
-void pki_pkcs7::writeP7(string fname,bool PEM)
+void pki_pkcs7::writeP7(std::string fname,bool PEM)
 {
 	FILE *fp;
         fp = fopen(fname.c_str(),"w");

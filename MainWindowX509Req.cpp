@@ -66,14 +66,14 @@ void MainWindow::newReq(pki_temp *temp)
 	}
 	try {
 		pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
-		string cn = dlg->commonName->text().latin1();
-		string c = dlg->countryName->text().latin1();
-		string l = dlg->localityName->text().latin1();
-		string st = dlg->stateOrProvinceName->text().latin1();
-		string o = dlg->organisationName->text().latin1();
-		string ou = dlg->organisationalUnitName->text().latin1();
-		string email = dlg->emailAddress->text().latin1();
-		string desc = dlg->description->text().latin1();
+		std::string cn = dlg->commonName->text().latin1();
+		std::string c = dlg->countryName->text().latin1();
+		std::string l = dlg->localityName->text().latin1();
+		std::string st = dlg->stateOrProvinceName->text().latin1();
+		std::string o = dlg->organisationName->text().latin1();
+		std::string ou = dlg->organisationalUnitName->text().latin1();
+		std::string email = dlg->emailAddress->text().latin1();
+		std::string desc = dlg->description->text().latin1();
 		pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, "");
 		insertReq(req);
 	}
@@ -90,7 +90,7 @@ void MainWindow::showDetailsReq()
 }
 void MainWindow::showDetailsReq(QListViewItem *item)
 {
-	string req = item->text(0).latin1();
+	std::string req = item->text(0).latin1();
 	showDetailsReq((pki_x509req *)reqs->getSelectedPKI(req));
 }
 
@@ -117,7 +117,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 		dlg->privKey->setText(key->getDescription().c_str());
 		dlg->privKey->setDisabled(false);
 	}
-	string land = req->getDN( NID_countryName) + " / " 
+	std::string land = req->getDN( NID_countryName) + " / " 
 		+ req->getDN(NID_stateOrProvinceName);
 	dlg->dnCN->setText(req->getDN(NID_commonName).c_str() );
 	dlg->dnC->setText(land.c_str());
@@ -127,7 +127,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).c_str());
 	dlg->image->setPixmap(*csrImg);
 	if (dlg->exec()) {
-		string ndesc = dlg->descr->text().latin1();
+		std::string ndesc = dlg->descr->text().latin1();
 		if (ndesc != req->getDescription()) {
 			reqs->renamePKI(req, ndesc);
 		}
@@ -305,7 +305,7 @@ void MainWindow::renameReq(QListViewItem *item, int col, const QString &text)
 {
 	try {
 		pki_base *pki = reqs->getSelectedPKI(item);
-		string txt =  text.latin1();
+		std::string txt =  text.latin1();
 		reqs->renamePKI(pki, txt);
 	}
 	catch (errorEx &err) {

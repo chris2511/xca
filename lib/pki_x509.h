@@ -75,7 +75,7 @@ class pki_x509 : public pki_base
 	   X509 *cert;
 	   void init();
 	public:
-	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
+	   pki_x509(std::string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509(X509 *c);
 	   pki_x509(const pki_x509 *crt);
 	   pki_x509();
@@ -116,7 +116,7 @@ class pki_x509 : public pki_base
 	   int getIncCaSerial();
 	   int getCaSerial();
 	   void setCaSerial(int s);
-	   void setTemplate(string s);
+	   void setTemplate(std::string s);
 	   std::string getTemplate();
 	   void setCrlDays(int s);
 	   int getCrlDays();

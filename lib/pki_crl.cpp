@@ -107,7 +107,7 @@ void pki_crl::addV3ext(int nid, std::string exttext)
 	ext =  X509V3_EXT_conf_nid(NULL, &ctx, nid, c);
 	OPENSSL_free(c);
 	if (!ext) {
-		string x="CRL v3 Extension: " + exttext;
+		std::string x="CRL v3 Extension: " + exttext;
 		openssl_error(x);
 		return;
 	}

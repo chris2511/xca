@@ -108,8 +108,8 @@ pki_key::pki_key(const std::string fname, pem_password_cb *cb, int type )
 { 
 	init();
 	PASS_INFO p;
-	string title = XCA_TITLE;
-	string description = "Please enter the password to decrypt the RSA key."; 
+	std::string title = XCA_TITLE;
+	std::string description = "Please enter the password to decrypt the RSA key."; 
 	p.title = &title;
 	p.description = &description;
 	key = EVP_PKEY_new();
@@ -287,8 +287,8 @@ pki_key::~pki_key()
 void pki_key::writePKCS8(const std::string fname, pem_password_cb *cb)
 {
 	PASS_INFO p;
-	string title=XCA_TITLE;
-	string description="Please enter the password protecting the PKCS#8 key";
+	std::string title=XCA_TITLE;
+	std::string description="Please enter the password protecting the PKCS#8 key";
 	p.title = &title;
 	p.description = &description;
 	FILE *fp = fopen(fname.c_str(),"w");
@@ -308,8 +308,8 @@ void pki_key::writeKey(const std::string fname, EVP_CIPHER *enc,
 			pem_password_cb *cb, bool PEM)
 {
 	PASS_INFO p;
-	string title=XCA_TITLE;
-	string description="Please enter the password protecting the RSA private key";
+	std::string title=XCA_TITLE;
+	std::string description="Please enter the password protecting the RSA private key";
 	p.title = &title;
 	p.description = &description;
 	if (isPubKey()) {
@@ -351,19 +351,19 @@ void pki_key::writePublic(const std::string fname, bool PEM)
 }
 
 
-string pki_key::length()
+std::string pki_key::length()
 {
 	char st[64];
 	sprintf(st,"%i bit", EVP_PKEY_size(key) * 8 );
 	openssl_error();
-	string x = st;
+	std::string x = st;
 	return x;
 }
 
-string pki_key::BN2string(BIGNUM *bn)
+std::string pki_key::BN2string(BIGNUM *bn)
 {
 	if (bn == NULL) return "--";
-	string x="";
+	std::string x="";
 	char zs[10];
 	int j;
 	int size = BN_num_bytes(bn);
@@ -378,15 +378,15 @@ string pki_key::BN2string(BIGNUM *bn)
 	return x;
 }
 
-string pki_key::modulus() {
+std::string pki_key::modulus() {
 	return BN2string(key->pkey.rsa->n);
 }
 
-string pki_key::pubEx() {
+std::string pki_key::pubEx() {
 	return BN2string(key->pkey.rsa->e);
 }
 
-string pki_key::privEx() {
+std::string pki_key::privEx() {
 	if (isPubKey()) return "Not existent (not a private key)";
 	return BN2string(key->pkey.rsa->d);
 }
