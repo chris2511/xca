@@ -12,7 +12,7 @@ Certificate signing requests (PKCS#10) and Certificates (X509v3)
 The signing of requests, and the creation of selfsigned certificates
 is supported. Both can use templates for simplicity.
 The PKI structures can be imported and exported in several formats
-like PKCS#12, PEM, DER, PKCS#8.
+like PKCS#7, PKCS#12, PEM, DER, PKCS#8.
 
 
 %prep
@@ -24,8 +24,7 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-export DESTDIR=$RPM_BUILD_ROOT
-make install
+make prefix=$RPM_BUILD_ROOT install
 
 %clean
 make clean

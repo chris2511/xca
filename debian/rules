@@ -43,7 +43,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/xca.
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/xca
+	$(MAKE) prefix=$(CURDIR)/debian/xca install
 
 # Build architecture-independent files here.
 binary-indep: build install
