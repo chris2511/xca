@@ -77,10 +77,10 @@ dist:
 	
 install: xca
 	strip xca
-	install -m 755 -o root -g root xca $(prefix)@prefix@/bin
-	install -m 755 -o root -g root -d $(prefix)@prefix@/share/xca
-	install -m 644 -o root -g root img/*.png $(prefix)@prefix@/share/xca
-	install -m 644 -o root -g root xca_??.qm $(prefix)@prefix@/share/xca
+	install -m 755 -o root -d $(prefix)@prefix@/share/xca $(prefix)@prefix@/bin
+	install -m 755 -o root xca $(prefix)@prefix@/bin
+	install -m 644 -o root img/*.png $(prefix)@prefix@/share/xca
+	install -m 644 -o root xca_??.qm $(prefix)@prefix@/share/xca
 	
 
 moc_%.cpp: %.h %.cpp
