@@ -107,7 +107,8 @@ void DistName::resizeEvent( QResizeEvent *e)
 
 /*******************************************************************/
 
-myGridlayout::myGridlayout(QWidget * parent, int nRows = 1, int nCols = 1, int margin = 0, int space = -1, const char * name = 0) 
+myGridlayout::myGridlayout(QWidget * parent, int nRows, int nCols,
+	int margin, int space, const char * name) 
 	:QGridLayout(parent, nRows, nCols, margin, space, name)
 {
 }

@@ -61,8 +61,7 @@
 #include <windows.h>
 #endif
 
-XcaListView::XcaListView( QWidget * parent = 0, 
-		const char * name = 0, WFlags f = 0)
+XcaListView::XcaListView( QWidget * parent, const char * name, WFlags f)
 		:QListView(parent, name, f)
 {
 #ifdef qt3      

@@ -67,14 +67,10 @@
 #include "widgets/clicklabel.h"
 
 
-ReqView::ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
+ReqView::ReqView(QWidget * parent, const char * name, WFlags f)
 	:XcaListView(parent, name, f)
 {
 	addColumn(tr("Common Name"));
-	/*
-	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
-	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
-	*/
 }
 
 void ReqView::newItem()

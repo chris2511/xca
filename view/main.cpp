@@ -75,15 +75,12 @@ int main( int argc, char *argv[] )
     xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
     a.installTranslator( &xcaTr );
 #endif
-    CERR("PKI Counter:" << pki_base::get_pki_counter());
     if (mw->exitApp == 0) {
    	mw->show();
 	ret = a.exec();
     }
-    MARK
     delete mw;
-    MARK
-    clog << "PKI Counter: " << pki_base::get_pki_counter() << endl; 
-    clog << "The PKI counter must be 0, if not contact me." << endl;
+	printf("PKI Counter: %d\nThe PKI counter must be 0, if not contact me.\n",
+		pki_base::get_pki_counter());
     return ret;
 }
