@@ -65,14 +65,14 @@ class pki_crl: public pki_base
     protected:
 	pki_x509 *issuer;
 	X509V3_CTX ctx;
-    public:
 	X509_CRL *crl;
-	pki_crl(const QString d, pki_x509 *iss);
+    public:
 	pki_crl(const QString fname);
 	pki_crl();
 	/* destructor */
 	~pki_crl();
 	
+	void createCrl(const QString d, pki_x509 *iss);
 	void addRevoked(pki_x509 *rev);
 	void addExt(int nid, QString value);
 	void write(QString fname);
@@ -81,7 +81,8 @@ class pki_crl: public pki_base
 	void writeCrl(const QString fname, bool pem = true);
 	pki_x509 *getIssuer();	
 	x509name getIssuerName();
-	a1time getDate();
+	a1time getNextUpdate();
+	a1time getLastUpdate();
 	virtual void fromData(unsigned char *p, int size);
 	virtual unsigned char *toData(int *size);
 	virtual bool compare(pki_base *refcrl);
@@ -90,6 +91,7 @@ class pki_crl: public pki_base
 	a1int getSerial(int num);
 	a1time getRevDate(int num);
 	QString printV3ext();
+	a1int getVersion();
 			       
 };
 

@@ -78,12 +78,11 @@ class db_x509: public db_x509super
 	QStringList getPrivateDesc();
 	QStringList getSignerDesc();
 	void calcEffTrust();
-	QList<pki_x509> getIssuedCerts(pki_x509 *issuer);
+	QList<pki_x509> getIssuedCerts(const pki_x509 *issuer);
 	QList<pki_x509> getCerts(bool onlyTrusted);
-	pki_x509 *getBySubject(x509name *xname);
 	a1int searchSerial(pki_x509 *signer);
-	void writeAllCerts(QString fname, bool onlyTrusted);
-	pki_x509 *getByIssSerial(pki_x509 *iss, a1int &serial);
+	void writeAllCerts(const QString fname, bool onlyTrusted);
+	pki_x509 *getByIssSerial(pki_x509 *iss, const a1int &serial);
 	pki_x509 *getBySubject(const x509name &xname);
 };
 

@@ -51,6 +51,9 @@
 
 #include "ExportTinyCA.h"
 
+#include <qfiledialog.h>
+#include <qlineedit.h>
+#include "lib/base.h"
 
 ExportTinyCA::ExportTinyCA(const QString tmpdir, const QString tcadir,
 	QWidget *parent, const char *name )

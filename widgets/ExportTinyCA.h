@@ -48,17 +48,10 @@
  *
  */                           
 
-
-#include "ui/ExportTinyCA.h"
-#include <qfiledialog.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include "lib/base.h"
-#include <iostream>
-
 #ifndef EXPORTTINY_H
 #define EXPORTTINY_H
+
+#include "ui/ExportTinyCA.h"
 
 class ExportTinyCA: public ExportTinyCA_UI
 {

@@ -384,14 +384,6 @@ bool pki_x509::compare(pki_base *ref)
 
 bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 {
-	/*
-	if (!refcert || !refcert->cert) return false;
-	if (getSerial() != refcert->getSerial()) return false;
-	X509_NAME *issuer = X509_get_issuer_name(cert);
-	X509_NAME *refissuer = X509_get_issuer_name(refcert->cert);
-	openssl_error();
-	return !X509_NAME_cmp(issuer, refissuer);
-	*/
 	bool ret =  X509_issuer_and_serial_cmp(cert, refcert->cert);
 	openssl_error();
 	return ret;

@@ -44,45 +44,55 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$
+ * $Id$ 
  *
  */                           
 
-#ifndef ASN1TIME_H
-#define ASN1TIME_H
 
-#include <qstring.h>
-#include <openssl/asn1.h>
+#include "CrlDetail.h"
+#include "MainWindow.h"
+#include <qlabel.h>
+#include <qtextview.h>
+#include <qlistview.h>
 
-class a1time
+CrlDetail::CrlDetail(QWidget *parent, const char *name)
+	:CrlDetail_UI(parent,name,true,0)
 {
-   private:	
-	ASN1_GENERALIZEDTIME *time;
-#if OPENSSL_VERSION_NUMBER < 0x00907000L
-	ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out);
-#endif
-   public:
-	a1time();
-	a1time(const ASN1_TIME *a);
-	a1time(const a1time &a);
-	~a1time();
-	a1time &set(const ASN1_TIME *a);
-	a1time &set(time_t t);
-	a1time &set(const QString &s);
-	a1time &set(int y, int mon, int d, int h, int m, int s);
-	QString toPretty() const;
-	QString toPlain() const;
-	QString toSortable() const;
-	int ymdg(int *y, int *m, int *d, int *g) const;
-	ASN1_TIME *get() const;
-	a1time &now(int delta = 0);
-	unsigned char *i2d(unsigned char *p);
-	int derSize() const;
-	a1time &operator = (const a1time &a);
-	bool const operator > (const a1time &a);
-	bool const operator < (const a1time &a);
-	bool const operator == (const a1time &a);
-	bool const operator != (const a1time &a);
-};
+	setCaption(tr(XCA_TITLE));
+	certList->clear();
+	certList->addColumn(tr("Name"));
+	certList->addColumn(tr("Serial"));
+	certList->addColumn(tr("Revokation"));
+	image->setPixmap(*MainWindow::revImg);		 
+}
 
-#endif
+void CrlDetail::setCrl(pki_crl *crl)
+{
+	int numc, i;
+	pki_x509 *iss, *rev;
+	QListViewItem *current;
+	descr->setText(crl->getIntName());
+	iss = MainWindow::certs->getBySubject(crl->getIssuerName());
+	numc = crl->numRev();
+	for (i=0; i<numc; i++) {
+                rev = MainWindow::certs->getByIssSerial(iss, crl->getSerial(i));
+                if (rev != NULL) {
+                        current = new QListViewItem(certList,
+                                        rev->getIntName());
+                }
+                else {
+                        current = new QListViewItem(certList,
+					"Unknown certificate" );
+                } 
+                current->setText(1, crl->getSerial(i).toHex()) ;
+                current->setText(2, crl->getRevDate(i).toSortable());
+        }
+        v3Extensions->setText(crl->printV3ext());
+        issuer->setText(iss->getIntName());
+        if (crl->verify(iss->getRefKey()) == 0) {
+                signCheck->setText(tr("Success"));
+        }
+        lUpdate->setText(crl->getLastUpdate().toPretty());
+        nUpdate->setText(crl->getNextUpdate().toPretty());
+        version->setText(crl->getVersion().toHex());
+}

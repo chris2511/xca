@@ -70,6 +70,12 @@ a1int::a1int(const ASN1_INTEGER *i)
 	in = dup(i);
 }
 
+a1int::a1int(const a1int &a)
+{
+	in = dup(a.in);
+}
+
+
 a1int::a1int(long l)
 {
 	in = NULL;
@@ -81,16 +87,18 @@ a1int::~a1int()
 	ASN1_INTEGER_free(in);
 }
 
-void a1int::set(const ASN1_INTEGER *i)
+a1int &a1int::set(const ASN1_INTEGER *i)
 {
 	if (in != NULL)
 		ASN1_INTEGER_free(in);
 	in = dup(i);
+	return *this;
 }
 
-void a1int::set(long l)
+a1int &a1int::set(long l)
 {
 	ASN1_INTEGER_set(in, l);
+	return *this;
 }
 
 QString a1int::toHex() const
@@ -151,22 +159,22 @@ a1int &a1int::operator = (long i)
 	return *this;
 }
 
-bool const a1int::operator > (const a1int &a)
+bool a1int::operator > (const a1int &a) const
 {
 	return (ASN1_INTEGER_cmp(in, a.in) == 1);
 }
 
-bool const a1int::operator < (const a1int &a)
+bool a1int::operator < (const a1int &a) const
 {
 	return (ASN1_INTEGER_cmp(in, a.in) == -1);
 }
 
-bool const a1int::operator == (const a1int &a)
+bool a1int::operator == (const a1int &a) const
 {
 	return (ASN1_INTEGER_cmp(in, a.in) == 0);
 }
 
-bool const a1int::operator != (const a1int &a)
+bool a1int::operator != (const a1int &a) const
 {
 	return (ASN1_INTEGER_cmp(in, a.in) != 0);
 }

@@ -62,10 +62,11 @@ class a1int
    public:
 	a1int();
 	a1int(const ASN1_INTEGER *i);
+	a1int(const a1int &a);
 	a1int(long l);
 	~a1int();
-	void set(const ASN1_INTEGER *i);
-	void set(long l);
+	a1int &set(const ASN1_INTEGER *i);
+	a1int &set(long l);
 	QString toHex() const;
 	QString toDec() const;
 	long getLong() const;
@@ -77,10 +78,10 @@ class a1int
 	a1int operator ++ (int);
 	a1int &operator = (const a1int &a);
 	a1int &operator = (long i);
-	bool const operator > (const a1int &a);
-	bool const operator < (const a1int &a);
-	bool const operator == (const a1int &a);
-	bool const operator != (const a1int &a);
+	bool operator > (const a1int &a) const;
+	bool operator < (const a1int &a) const;
+	bool operator == (const a1int &a) const;
+	bool operator != (const a1int &a) const;
 };
 
 #endif

@@ -64,6 +64,12 @@ a1time::a1time(const ASN1_TIME *a)
 	set(a);	
 }
 
+a1time::a1time(const a1time &a)
+{
+	time = NULL;
+	set(a.time);	
+}
+
 a1time::~a1time()
 {
 	ASN1_TIME_free(time);

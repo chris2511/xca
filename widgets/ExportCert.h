@@ -55,7 +55,6 @@
 #include <qcheckbox.h>
 #include <qlineedit.h>
 #include "lib/base.h"
-#include <iostream>
 
 #ifndef EXPORTCERT_H
 #define EXPORTCERT_H

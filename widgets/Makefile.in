@@ -20,7 +20,7 @@ CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################
 
-NAMES= MainWindow ExportCert ExportKey ExportTinyCA NewX509 
+NAMES= MainWindow ExportCert ExportKey ExportTinyCA NewX509 CrlDetail
 
 OBJS=$(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
 

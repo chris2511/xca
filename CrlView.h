@@ -44,45 +44,36 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$
+ * $Id$ 
  *
  */                           
 
-#ifndef ASN1TIME_H
-#define ASN1TIME_H
 
-#include <qstring.h>
-#include <openssl/asn1.h>
+#ifndef CRLVIEW_H
+#define CRLVIEW_H
 
-class a1time
+#include "XcaListView.h"
+#include <qlistview.h>
+
+class CrlView : public XcaListView
 {
-   private:	
-	ASN1_GENERALIZEDTIME *time;
-#if OPENSSL_VERSION_NUMBER < 0x00907000L
-	ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out);
-#endif
+   Q_OBJECT
+
+   private:
+	static const int sizeList[];
+	static void incProgress(int a, int b, void *progress);
    public:
-	a1time();
-	a1time(const ASN1_TIME *a);
-	a1time(const a1time &a);
-	~a1time();
-	a1time &set(const ASN1_TIME *a);
-	a1time &set(time_t t);
-	a1time &set(const QString &s);
-	a1time &set(int y, int mon, int d, int h, int m, int s);
-	QString toPretty() const;
-	QString toPlain() const;
-	QString toSortable() const;
-	int ymdg(int *y, int *m, int *d, int *g) const;
-	ASN1_TIME *get() const;
-	a1time &now(int delta = 0);
-	unsigned char *i2d(unsigned char *p);
-	int derSize() const;
-	a1time &operator = (const a1time &a);
-	bool const operator > (const a1time &a);
-	bool const operator < (const a1time &a);
-	bool const operator == (const a1time &a);
-	bool const operator != (const a1time &a);
-};
+	CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void showItem(pki_base *item, bool import);
+	void newItem();
+	void deleteItem();
+	void load();
+	pki_base *loadItem(QString fname);
+	pki_base* insert(pki_base *item);
+	void store(bool);
+	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void writeCrl_pem();
+	void writeCrl_der();
+};	
 
 #endif

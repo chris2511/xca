@@ -98,8 +98,6 @@ class CertView : public XcaListView
 	void toTinyCA();
 	bool updateView();
 	void updateViewAll();
-   signals:
-	void init_database();
 
 };	
 

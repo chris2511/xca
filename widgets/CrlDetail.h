@@ -44,45 +44,22 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$
+ * $Id$ 
  *
  */                           
 
-#ifndef ASN1TIME_H
-#define ASN1TIME_H
+#ifndef CRLDETAIL_H
+#define CRLDETAIL_H
 
-#include <qstring.h>
-#include <openssl/asn1.h>
+#include "ui/CrlDetail.h"
+#include "lib/pki_crl.h"
 
-class a1time
+class CrlDetail: public CrlDetail_UI
 {
-   private:	
-	ASN1_GENERALIZEDTIME *time;
-#if OPENSSL_VERSION_NUMBER < 0x00907000L
-	ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out);
-#endif
-   public:
-	a1time();
-	a1time(const ASN1_TIME *a);
-	a1time(const a1time &a);
-	~a1time();
-	a1time &set(const ASN1_TIME *a);
-	a1time &set(time_t t);
-	a1time &set(const QString &s);
-	a1time &set(int y, int mon, int d, int h, int m, int s);
-	QString toPretty() const;
-	QString toPlain() const;
-	QString toSortable() const;
-	int ymdg(int *y, int *m, int *d, int *g) const;
-	ASN1_TIME *get() const;
-	a1time &now(int delta = 0);
-	unsigned char *i2d(unsigned char *p);
-	int derSize() const;
-	a1time &operator = (const a1time &a);
-	bool const operator > (const a1time &a);
-	bool const operator < (const a1time &a);
-	bool const operator == (const a1time &a);
-	bool const operator != (const a1time &a);
+	Q_OBJECT
+	bool onlyPub;
+   public:	
+	CrlDetail( QWidget *parent = 0, const char *name = 0);
+	void setCrl(pki_crl *crl);
 };
-
 #endif

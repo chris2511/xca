@@ -80,7 +80,6 @@ class ReqView : public XcaListView
 	void signReq();
    signals:
 	void keyDone(QString &);
-	void init_database();
 	void newCert(pki_x509req *req);
 
 };	

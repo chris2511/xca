@@ -52,30 +52,6 @@
 #include "pki_crl.h"
 
 
-pki_crl::pki_crl(const QString d, pki_x509 *iss )
-	:pki_base(d)
-{ 
-	issuer = iss;
-	crl = NULL;
-	class_name="pki_crl";
-	if (!iss) openssl_error("no issuer");
-	crl = X509_CRL_new();
-	X509V3_set_ctx(&ctx, issuer->cert, NULL, NULL, crl, 0);
-	X509_CRL_INFO *ci = crl->crl;
-	openssl_error();
-	ci->issuer = X509_NAME_dup(issuer->cert->cert_info->subject);
-	ci->lastUpdate = ASN1_UTCTIME_new();
-	X509_gmtime_adj(ci->lastUpdate,0);
-	ci->nextUpdate=ASN1_UTCTIME_new();
-	X509_gmtime_adj(ci->nextUpdate, (issuer->getCrlDays())*24*60*60);
-	ci->version = ASN1_INTEGER_new();
-	ASN1_INTEGER_set(ci->version,1); /* version 2 CRL */
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
-	ci->revoked = sk_X509_REVOKED_new_null();
-#endif
-	openssl_error();
-}	
-
 pki_crl::pki_crl(const QString fname )
 	:pki_base(fname)
 { 
@@ -104,7 +80,34 @@ pki_crl::pki_crl()
 	issuer = NULL;
 	crl = X509_CRL_new();
 	class_name="pki_crl";
+#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
+	ci->revoked = sk_X509_REVOKED_new_null();
+#endif
 	openssl_error();
+}
+
+void pki_crl::createCrl(const QString d, pki_x509 *iss )
+{ 
+	setIntName(d);
+	issuer = iss;
+	if (!iss) openssl_error("no issuer");
+	X509V3_set_ctx(&ctx, issuer->cert, NULL, NULL, crl, 0);
+	X509_CRL_INFO *ci = crl->crl;
+	openssl_error();
+	ci->issuer = X509_NAME_dup(issuer->cert->cert_info->subject);
+	ci->lastUpdate = ASN1_UTCTIME_new();
+	X509_gmtime_adj(ci->lastUpdate,0);
+	ci->nextUpdate=ASN1_UTCTIME_new();
+	X509_gmtime_adj(ci->nextUpdate, (issuer->getCrlDays())*24*60*60);
+	ci->version = ASN1_INTEGER_new();
+	ASN1_INTEGER_set(ci->version,1); /* version 2 CRL */
+	openssl_error();
+}	
+
+a1int pki_crl::getVersion()
+{
+	a1int a(crl->crl->version);
+	return a;
 }
 
 	
@@ -137,22 +140,6 @@ bool pki_crl::compare(pki_base *refcrl)
 	bool ret;
 	ret = X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0;
 	openssl_error();
-/*
-	int s1,s2;
-	unsigned char *p1, *p2;
-	bool ret = false;
-	p1 = toData(&s1);
-	if (p1) {
-		p2 = ((pki_crl *)refcrl)->toData(&s2);
-		if (p2){
-			if(s1 == s2)
-				if (memcmp(p1,p2,s1) == 0)
-					ret = true;
-			OPENSSL_free(p2);
-		}		
-		OPENSSL_free(p1);
-	}
-*/
 	return ret;
 }
 
@@ -215,11 +202,19 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 
 pki_x509 *pki_crl::getIssuer() { return issuer; }
 
-a1time pki_crl::getDate()
+a1time pki_crl::getLastUpdate()
 {
 	a1time a;
 	if (!crl || !crl->crl) return a;
 	a.set(crl->crl->lastUpdate);
+	return a;
+}
+
+a1time pki_crl::getNextUpdate()
+{
+	a1time a;
+	if (!crl || !crl->crl) return a;
+	a.set(crl->crl->nextUpdate);
 	return a;
 }
 

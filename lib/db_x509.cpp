@@ -138,7 +138,7 @@ void db_x509::insertPKI(pki_base *refpki)
 }				
 
 
-QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer)
+QList<pki_x509> db_x509::getIssuedCerts(const pki_x509 *issuer)
 {
 	QList<pki_x509> c;
 	c.clear();
@@ -157,7 +157,7 @@ pki_x509 *db_x509::getBySubject(const x509name &xname)
 	return NULL;
 }
 
-pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, a1int &serial)
+pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, const a1int &serial)
 {
 	if (!iss ) return NULL;
 	FOR_container
@@ -166,7 +166,7 @@ pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, a1int &serial)
 	return NULL;
 }
 
-void db_x509::writeAllCerts(QString fname, bool onlyTrusted)
+void db_x509::writeAllCerts(const QString fname, bool onlyTrusted)
 {
        	FOR_container {
 		if (onlyTrusted && pki->getTrust() != 2) continue;
