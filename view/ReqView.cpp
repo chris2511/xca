@@ -97,7 +97,7 @@ void ReqView::newItem(pki_temp *temp)
 		pki_x509req *req = new pki_x509req();
 		req->setIntName(dlg->description->text());
 		req->createReq(key, xn, dlg->getHashAlgo());
-		insert(req);
+		db->insert(req);
 	}
 	catch (errorEx &err) {
 		Error(err);

@@ -99,6 +99,7 @@ void CertView::newItem()
 	NewX509 *dlg = new NewX509(this, NULL, true);
 	emit connNewX509(dlg);
 	dlg->setCert();
+	dlg->defineSigner((pki_x509*)getSelected());
 	if (dlg->exec()) {
 		newCert(dlg);
 	}
@@ -111,6 +112,7 @@ void CertView::newCert(pki_x509req *req)
 	emit connNewX509(dlg);
 	dlg->setCert();
 	dlg->defineRequest(req);
+	dlg->defineSigner((pki_x509*)getSelected());
 	if (dlg->exec()) {
 		newCert(dlg);
 	}
@@ -142,7 +144,6 @@ void CertView::newCert(NewX509 *dlg)
 	
 	emit init_database();
 
-	dlg->defineSigner((pki_x509*)getSelected());
 	
     try {	
 	
