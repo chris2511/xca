@@ -340,20 +340,7 @@ PKCS#12 is an encrypted official Key-Certificate exchange format</string>
         <receiver>ExportCert_UI</receiver>
         <slot>chooseFile()</slot>
     </connection>
-    <connection>
-        <sender>exportFormat</sender>
-        <signal>textChanged(const QString&amp;)</signal>
-        <receiver>ExportCert_UI</receiver>
-        <slot>canEncrypt()</slot>
-    </connection>
-    <connection>
-        <sender>exportFormat</sender>
-        <signal>activated(int)</signal>
-        <receiver>ExportCert_UI</receiver>
-        <slot>canEncrypt()</slot>
-    </connection>
     <slot access="public">chooseFile()</slot>
-    <slot access="public">canEncrypt()</slot>
 </connections>
 <tabstops>
     <tabstop>filename</tabstop>

@@ -267,12 +267,10 @@ void MainWindow::writeKey()
 	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
 			targetKey->isPubKey(), this);
 	dlg->image->setPixmap(*keyImg);
-	//setPath(dlg);
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
-	//newPath(dlg);
 	string fname = dlg->filename->text().latin1();
 	if (fname == "") {
 		delete dlg;

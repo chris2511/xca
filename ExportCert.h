@@ -57,8 +57,8 @@
 #include "lib/pki_base.h"
 #include <iostream>
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#ifndef EXPORTCERT_H
+#define EXPORTCERT_H
 
 class ExportCert: public ExportCert_UI
 {

@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>768</width>
+            <width>764</width>
             <height>604</height>
         </rect>
     </property>
@@ -521,17 +521,6 @@
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>Delete</string>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QPushButton</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>renameKey_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Export PKCS#12</string>
                                 </property>
                             </widget>
                             <widget>
@@ -1070,12 +1059,6 @@
         <slot>showDetailsCert()</slot>
     </connection>
     <connection>
-        <sender>renameKey_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>writePKCS12()</slot>
-    </connection>
-    <connection>
         <sender>certList</sender>
         <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
         <receiver>MainWindow_UI</receiver>
@@ -1206,7 +1189,6 @@
     <slot access="public">showPopupTemp(QListViewItem *, const QPoint &amp;, int)</slot>
     <slot access="public">writeCert()</slot>
     <slot access="public">writeKey()</slot>
-    <slot access="public">writePKCS12()</slot>
     <slot access="public">writeReq()</slot>
 </connections>
 <tabstops>
@@ -1229,7 +1211,6 @@
     <tabstop>PushButton46_2</tabstop>
     <tabstop>PushButton25_2</tabstop>
     <tabstop>PushButton26_2</tabstop>
-    <tabstop>renameKey_2</tabstop>
     <tabstop>PushButton18</tabstop>
     <tabstop>tempList</tabstop>
     <tabstop>PushButton13_2_2</tabstop>

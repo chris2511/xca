@@ -652,39 +652,60 @@ void MainWindow::insertCert(pki_x509 *cert)
     catch (errorEx &err) {
 	    Error(err);
     }
+    if (cert->getSigner()) {
+	int serial = atoi(cert->getSerial().c_str());
+    	if (serial >= cert->getSigner()->getCaSerial()) {
+	    QMessageBox::information(this,tr(XCA_TITLE),
+		tr("The certificate-serial is higher than the next serial of the signer it will be set to ") +
+		QString::number(serial + 1), "OK");
+	    cert->getSigner()->setCaSerial(serial+1);
+	    certs->updatePKI(cert);
+	}	
+    }
 }
 
 void MainWindow::writeCert()
 {
 	QStringList filt;
-	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
-	if (!cert) return;
-	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
-	filt.append(tr("All files ( *.* )"));
-	QString s="";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(tr("Certificate export"));
-	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::AnyFile );
-	dlg->setSelection( (cert->getDescription() + ".crt").c_str() );
-	setPath(dlg);
-	if (dlg->exec()) {
-		s = dlg->selectedFile();
-		newPath(dlg);
+	pki_x509 *crt = (pki_x509 *)certs->getSelectedPKI();
+	if (!crt) return;
+	pki_key *privkey = crt->getKey();
+	ExportCert *dlg = new ExportCert((crt->getDescription() + ".crt").c_str(),
+			  (privkey->isPrivKey()));
+	if (!dlg->exec()) {
+		delete dlg;
+		return;
 	}
-	delete dlg;
-	if (s.isEmpty()) return;
-	s = QDir::convertSeparators(s);
+	QString fname = dlg->filename->text();
+        if (fname == "") {
+                delete dlg;
+                return;
+        }
 	try {
-		cert->writeCert(s.latin1(),true);
+	    switch (dlg->exportFormat->currentItem()) {
+		case 0: // PEM
+			crt->writeCert(fname.latin1(),true);
+			break;
+		case 1: // DER	
+			crt->writeCert(fname.latin1(),false);
+			break;
+		case 2: // P12
+			writePKCS12(fname,false);
+			break;
+		case 3: // P12 + cert chain
+			writePKCS12(fname,true);
+			break;
+
+	    }
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
+	delete dlg;
 }
 
 
-void MainWindow::writePKCS12()
+void MainWindow::writePKCS12(QString s, bool chain)
 {
 	QStringList filt;
     try {
@@ -697,26 +718,12 @@ void MainWindow::writePKCS12()
 			QString::fromLatin1(cert->getDescription().c_str()) );
 		return; 
 	}
-	filt.append(tr("PKCS#12 files ( *.p12 *.pfx )")); 
-	filt.append(tr("All files ( *.* )"));
-	QString s="";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(tr("PKCS#12 export"));
-	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::AnyFile );
-	dlg->setSelection( (cert->getDescription() + ".p12").c_str() );
-	setPath(dlg);
-	if (dlg->exec()) {
-		s = dlg->selectedFile();
-		newPath(dlg);
-	}
-	delete dlg;
 	if (s.isEmpty()) return;
-	s=QDir::convertSeparators(s);
+	s = QDir::convertSeparators(s);
 	pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
 	pki_x509 *signer = cert->getSigner();
 	int cnt =0;
-	while ((signer != NULL ) && (signer != cert)) {
+	while ((signer != NULL ) && (signer != cert) && chain) {
 		CERR("SIGNER:"<<(int)signer);
 		p12->addCaCert(signer);
 		CERR( "signer: " << ++cnt );

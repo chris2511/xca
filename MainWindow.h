@@ -64,6 +64,7 @@
 #include "NewX509_UI.h"
 #include "CertExtend.h"
 #include "TrustState.h"
+#include "ExportCert.h"
 #include "ExportKey.h"
 #include <iostream>
 #include <qtextview.h>
@@ -144,6 +145,7 @@ class MainWindow: public MainWindow_UI
 	void renamePKI(db_base *db);
 	bool alterTemp(pki_temp *temp);
 	void Error(errorEx &err);
+	void writePKCS12(QString s, bool chain);
    public slots:
 	void loadKey();
 	void loadReq();
@@ -176,7 +178,6 @@ class MainWindow: public MainWindow_UI
 	void writeKey();
 	void writeReq();
 	void writeCert();
-	void writePKCS12();
 	void showPopupCert(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupKey(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupReq(QListViewItem *item,const QPoint &pt, int x);
