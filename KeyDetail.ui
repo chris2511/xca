@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>562</width>
+            <width>558</width>
             <height>387</height>
         </rect>
     </property>
@@ -561,10 +561,6 @@
             <property stdset="1">
                 <name>name</name>
                 <cstring>keyModulus</cstring>
-            </property>
-            <property stdset="1">
-                <name>enabled</name>
-                <bool>false</bool>
             </property>
             <property stdset="1">
                 <name>wrapPolicy</name>
