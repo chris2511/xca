@@ -192,7 +192,7 @@ void pki_key::fromData(unsigned char *p, int size )
 	decsize = outl;
 	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
 	decsize += outl;
-	CERR("Decryption  done: " << size << "--" << decsize);
+	CERR("Decryption  done: DB:" << size << " encrypted:" << size-8 << " decrypted:" << decsize);
 	openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
@@ -267,7 +267,7 @@ unsigned char *pki_key::toData(int *size)
 	encsize += outl ;
 	OPENSSL_free(p);
 	openssl_error();	
-	CERR("KEY toData end ..."<< encsize << "--"<<*size );
+	CERR("KEY toData end DB:"<< encsize+8 << " encrypted:"<< encsize << " decrypted:" << *size);
 	*size = encsize + 8;
 	return penc;
 }
