@@ -61,7 +61,6 @@ pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_pass
 	key = new pki_key(akey);
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
-	pkcs12 = NULL;
 	passcb = cb;
 	openssl_error();	
 }
@@ -71,33 +70,31 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 { 
 	FILE *fp;
 	char pass[30];
-	EVP_PKEY *mykey;
-	X509 *mycert;
-	key=NULL; cert=NULL; pkcs12=NULL;
+	EVP_PKEY *mykey = NULL;
+	X509 *mycert = NULL;
+	key=NULL; cert=NULL;
 	passcb = cb;
 	class_name="pki_pkcs12";
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file."));
 	fp = fopen(fname, "rb");
 	if (fp) {
-		pkcs12 = d2i_PKCS12_fp(fp, NULL);
+		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		fclose(fp);
 		openssl_error();
 		if (passcb(pass, 30, 0, &p) == 0) {
+			PKCS12_free(pkcs12);
 			throw errorEx("","");
 		}
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
 		openssl_error();
 		if (mykey) {
 			key = new pki_key(mykey);
-			key->setIntName("pk12-import");
-			//EVP_PKEY_free(mykey);
 		}
 		if (mycert) {
 			cert = new pki_x509(mycert);
-			cert->setIntName("pk12-import");
-			//X509_free(mycert);
 		}
+		PKCS12_free(pkcs12);
 	}
 	else fopen_error(fname);
 }	
@@ -106,7 +103,8 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 pki_pkcs12::~pki_pkcs12()
 {
 	if (sk_X509_num(certstack)>0) {
-		sk_X509_pop_free(certstack, X509_free); // free the certs itself, because we own a copy of them
+		// free the certs itself, because we own a copy of them
+		sk_X509_pop_free(certstack, X509_free);
 	}
 	if (key) { 
 		delete(key); 
@@ -114,8 +112,6 @@ pki_pkcs12::~pki_pkcs12()
 	if (cert) {
 		delete(cert);
 	}
-	if (pkcs12)
-		PKCS12_free(pkcs12);
 	openssl_error();
 }
 
@@ -133,20 +129,20 @@ void pki_pkcs12::writePKCS12(const QString fname)
 	char desc[100];
 	strncpy(desc,getIntName(),100);
 	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
-	if (!pkcs12) {
-		if (cert == NULL || key == NULL) {
-			openssl_error("No key or no Cert and no pkcs12....");
-		}
-		passcb(pass, 30, 0, &p); 
-		pkcs12 = PKCS12_create(pass, desc, key->getKey(), cert->getCert(), certstack, 0, 0, 0, 0, 0);
-		openssl_error();
+	if (cert == NULL || key == NULL) {
+		openssl_error("No key or no Cert and no pkcs12....");
 	}
+
 	FILE *fp = fopen(fname,"wb");
 	if (fp != NULL) {
-            i2d_PKCS12_fp(fp, pkcs12);
-            openssl_error();
-	    fclose (fp);
-        }
+		passcb(pass, 30, 0, &p); 
+		PKCS12 *pkcs12 = PKCS12_create(pass, desc, key->getKey(),
+			cert->getCert(), certstack, 0, 0, 0, 0, 0);
+		i2d_PKCS12_fp(fp, pkcs12);
+		openssl_error();
+		fclose (fp);
+		PKCS12_free(pkcs12);
+	}
 	else fopen_error(fname);
 }
 
@@ -158,19 +154,22 @@ int pki_pkcs12::numCa() {
 
 
 pki_key *pki_pkcs12::getKey() {
+	if (!key) return NULL;
 	return new pki_key(key);
 }
 
 
 pki_x509 *pki_pkcs12::getCert() {
+	if (!cert) return NULL;
 	return new pki_x509(cert);
 }
 
 pki_x509 *pki_pkcs12::getCa(int x) {
-	pki_x509 *cert;
-	cert = new pki_x509(X509_dup(sk_X509_value(certstack, x)));
+	pki_x509 *cert = NULL;
+	X509 *crt = X509_dup(sk_X509_value(certstack, x));
+	if (crt)
+		cert = new pki_x509(crt);
 	openssl_error();
-	cert->setIntName("pk12-import");
 	return cert;
 }
 

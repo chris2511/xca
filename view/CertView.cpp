@@ -350,7 +350,7 @@ pki_base *CertView::loadItem(QString fname)
 
 void CertView::loadPKCS12()
 {
-	pki_pkcs12 *pk12;
+	pki_pkcs12 *pk12 = NULL;
 	QStringList filt;
 	filt.append(tr("PKCS#12 Certificates ( *.p12 *.pfx )")); 
 	filt.append(tr("All files ( *.* )"));
@@ -376,7 +376,8 @@ void CertView::loadPKCS12()
 		catch (errorEx &err) {
 			Error(err);
 		}
-		delete pk12;
+		if (pk12)
+			delete pk12;
 	}
 	updateView();
 }

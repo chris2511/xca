@@ -69,7 +69,7 @@ ImportMulti::ImportMulti(QWidget *parent, const char *name, bool modal, WFlags f
 	itemView->addColumn(tr("Common name"));
 	itemView->addColumn(tr("Serial"));
 	cont.clear();
-	cont.setAutoDelete(true);
+	cont.setAutoDelete(false);
 	connect( itemView, SIGNAL(doubleClicked(QListViewItem *)),
 		this, SLOT(details())) ;
 	  
@@ -122,6 +122,8 @@ void ImportMulti::import()
 {
 	pki_base *pki = getSelected();
 	if (!pki) return;
+	QListViewItem *lvi = pki->getLvi();
+	
 	if (pki->getClassName() == "pki_x509")
 		emit importCert((pki_x509 *)pki);
 	else if (pki->getClassName() == "pki_key") {
@@ -132,8 +134,8 @@ void ImportMulti::import()
 			tr("The type of the Item is not recognized ") +
 			pki->getClassName(), tr("OK"));
 	}
-	if (pki->getLvi())
-		delete pki->getLvi();
+	if (lvi)
+		delete lvi;
 	cont.remove(pki);
 }
 
@@ -172,5 +174,6 @@ void ImportMulti::details()
 
 ImportMulti::~ImportMulti()
 {
+	cont.setAutoDelete(true);
 	cont.clear();
 }	 

@@ -250,10 +250,6 @@ void KeyView::incProgress(int a, int b, void *progress)
 
 void KeyView::importKey(pki_key *k)
 {
-	showItem(k, true);
-}
-
-void KeyView::showKey(pki_key *k)
-{
 	insert(k);
 }
+

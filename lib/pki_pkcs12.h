@@ -68,7 +68,6 @@ class pki_pkcs12: public pki_base
     friend class pki_x509;
     friend class pki_key;
     protected:
-	PKCS12 *pkcs12;
 	pki_x509 *cert;
 	pki_key *key;
 	STACK_OF(X509) *certstack;
