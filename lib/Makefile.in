@@ -14,10 +14,12 @@ MOC=@MOC@
 
 
 PKIOBJS=pki_base.o pki_key.o pki_x509req.o pki_x509.o pki_pkcs12.o pki_temp.o
-DBOBJS=db_base.o db_key.o db_x509req.o db_x509.o db_temp.o moc_db_key.o moc_db_x509req.o moc_db_x509.o moc_db_temp.o
-     
+DBNAMES=db_key db_x509req db_x509 db_temp
+DBOBJS=db_base.o $(patsubst %,%.o,$(DBNAMES)) $(patsubst %,moc_%.o,$(DBNAMES))
+DB_CPP=$(patsubst %,moc_%.cpp,$(DBNAMES))
 
 all: libpki.a libxcadb.a
+win: $(DB_CPP)
 
 libpki.a: $(PKIOBJS)
 	ar rcs libpki.a $(PKIOBJS)
@@ -26,10 +28,9 @@ libxcadb.a: $(DBOBJS)
 	ar rcs libxcadb.a $(DBOBJS)
 	
 %.o: %.cpp 
-	$(GCC) $(CPPFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $<
-
+	$(GCC) $(CPPFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $< -o $@
 clean:
-	rm -rf *~ *.o *.a moc_*.cpp
+	rm -rf *~ *.o *.a $(DB_CPP)
 
 distclean: clean
 	rm -f Makefile

@@ -18,33 +18,26 @@ UIC=@UIC@
 
 ###################################
 
-OBJS=NewKey.o moc_NewKey.o \
-     KeyDetail.o moc_KeyDetail.o \
-     ReqDetail.o moc_ReqDetail.o \
-     MainWindow_UI.o moc_MainWindow_UI.o \
-     PassRead.o moc_PassRead.o \
-     PassWrite.o moc_PassWrite.o \
-     ExportKey_UI.o moc_ExportKey_UI.o \
-     NewX509_UI.o moc_NewX509_UI.o \
-     NewX509.o moc_NewX509.o \
-     CertDetail.o moc_CertDetail.o \
-     ExportKey.o moc_ExportKey.o \
-     TrustState.o moc_TrustState.o \
-     MainWindow.o moc_MainWindow.o \
-     MainWindowKeys.o MainWindowX509Req.o \
-     MainWindowX509.o MainWindowTemps.o \
-     main.o
+UINAMES=CertDetail ExportKey_UI KeyDetail MainWindow_UI NewKey NewX509_UI PassRead PassWrite ReqDetail TrustState
 
+MOCNAMES=NewX509 ExportKey MainWindow $(UINAMES)
+     
+OBJS=MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o MainWindowTemps.o main.o \
+     $(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))
+
+
+MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
+UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
+UI_H=$(patsubst %, %.h, $(UINAMES))
 
 all: libs $(OBJS) xca
 
+win: $(MOC_CPP) $(UI_CPP) $(UI_H)
+	make -C lib win
+
 re: clean all
 
-MainWindow.h: MainWindow_UI.h KeyDetail.h \
-	      PassRead.h PassWrite.h ExportKey_UI.h \
-	      NewKey.h ReqDetail.h \
-	      CertDetail.h NewX509.h  NewX509_UI.h\
-	      TrustState.h
+MainWindow.h: $(UI_H)
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
@@ -58,7 +51,7 @@ libs:
 
 clean:
 	make -C lib clean
-	rm -rf moc_*.cpp *_UI.h *_UI.cpp *~ *.o xca 
+	rm -f $(MOC_CPP) $(UI_CPP) $(UI_H) *~ *.o xca 
 
 distclean: clean	
 	make -C lib distclean
@@ -81,6 +74,7 @@ install: xca
 	install -m 644 -o root -g root img/*.png $(DESTDIR)@prefix@/share/xca
 	install -m 644 -o root -g root xca_??.qm $(DESTDIR)@prefix@/share/xca
 	
+
 moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@
 
@@ -89,3 +83,4 @@ moc_%.cpp: %.h %.cpp
 	 
 %.cpp: %.h %.ui
 	$(UIC) -o $@ -impl $^
+
