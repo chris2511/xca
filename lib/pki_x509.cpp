@@ -296,7 +296,7 @@ unsigned char *pki_x509::toData(int *size)
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();
-	CERR <<"CertSize: "<<sCert << "  RevSize: " <<sRev " CRLdatesize: "<< sLastCrl<< endl;
+	CERR <<"CertSize: "<<sCert << "  RevSize: " <<sRev <<" CRLdatesize: "<< sLastCrl<< endl;
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
 	intToData(&p1, (PKI_DB_VERSION)); // version

@@ -61,6 +61,7 @@ db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
         certicon[1] = loadImg("validcertkey.png");
         certicon[2] = loadImg("invalidcert.png");
         certicon[3] = loadImg("invalidcertkey.png");
+	listView->addColumn(tr("Common Name"));
 	listView->addColumn(tr("Trust state"));
 	listView->addColumn(tr("Revokation"));
 	loadContainer();
@@ -148,12 +149,13 @@ void db_x509::updateViewPKI(pki_base *pki)
 		pixnum += 2;
 	}	
 	current->setPixmap(0, *certicon[pixnum]);
-	current->setText(1, truststatus[((pki_x509 *)pki)->getTrust() ]);  
+	current->setText(1, ((pki_x509 *)pki)->getDNs(NID_commonName).c_str());
+	current->setText(2, truststatus[((pki_x509 *)pki)->getTrust() ]);  
 	if ( ((pki_x509 *)pki)->isRevoked() ){ 
-		current->setText(2, tr("Revoked"));
+		current->setText(3, tr("Revoked"));
 	}
 	else {
-		current->setText(2, "");
+		current->setText(3, "");
 	}
 	keylist->updateView();
 }

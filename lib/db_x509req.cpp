@@ -60,6 +60,7 @@ db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
 	loadContainer();
 	reqicon[0] = loadImg("req.png");
         reqicon[1] = loadImg("reqkey.png");
+	listView->addColumn(tr("Common Name"));
 	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
 	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
 	updateView();
@@ -111,6 +112,7 @@ void db_x509req::updateViewPKI(pki_base *pki)
         if (!current) return;
 	if (((pki_x509req *)pki)->getKey() != NULL ) pixnum += 1;	
 	current->setPixmap(0, *reqicon[pixnum]);
+	current->setText(1, ((pki_x509req *)pki)->getDN(NID_commonName).c_str());
 }
 
 void db_x509req::preprocess()
