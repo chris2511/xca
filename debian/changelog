@@ -1,3 +1,10 @@
+xca (0.5.1-1) unstable; urgency=low
+
+  * support for different languages on WIN platform (Thanks Ilya)
+  * better installation and deinstallation on WIN platform
+
+ -- Christian Hohnstaedt <christian@hohnstaedt.de>  Tue, 13 Jul 2004 20:52:08 +0200
+
 xca (0.5.0-1) unstable; urgency=low
 
   * orthographical changes
