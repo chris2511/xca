@@ -27,5 +27,8 @@ libxcadb.a: $(DBOBJS)
 	$(GCC) $(CPPFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $<
 
 clean:
-	rm -rf *~ *.o *.a Makefile
+	rm -rf *~ *.o *.a
+
+distclean: clean
+	Makefile
 

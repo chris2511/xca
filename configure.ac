@@ -1,14 +1,13 @@
 # Process this file with autoconf to produce a configure script.
 
 
-AC_INIT(xca, 0.2.1)
+AC_INIT(xca, 0.2.2)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CXX
 
-export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include/qt"
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
 	export PATH=$PATH:$QTDIR/bin

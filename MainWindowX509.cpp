@@ -315,7 +315,9 @@ void MainWindow::writePKCS12()
 	if (s == "") return;
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (cert) {
-	   pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert,(pki_key *)keys->findPKI(cert->getKey()), &MainWindow::passWrite);
+	   pki_key *privkey = (pki_key *)keys->findPKI(cert->getKey());
+	   if (privkey->isPubKey()) return; /* should not happen */
+	   pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
 	   pki_x509 *signer = cert->getSigner();
 	   int cnt =0;
 	   while ((signer != NULL ) && (signer != cert)) {
