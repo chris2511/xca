@@ -123,11 +123,11 @@ class db_base: public QObject
 	QString getString(QString key);
 	QString getString(char *key);
 	int getInt(QString key);
-	void putData(void *key, int keylen, void *dat, int datalen);
-	void putString(QString key, void *dat, int datalen);
-	void putString(QString key, QString dat);
-	void putString(char *key, QString dat);
-	void putInt(QString key, int dat);
+	void putData(void *key, int keylen, void *dat, int datalen, DbTxn *tid = NULL);
+	void putString(QString key, void *dat, int datalen, DbTxn *tid = NULL);
+	void putString(QString key, QString dat, DbTxn *tid = NULL);
+	void putString(char *key, QString dat, DbTxn *tid = NULL);
+	void putInt(QString key, int dat, DbTxn *tid = NULL);
 	QPixmap *loadImg(const char *name);
 	void writeAll(DbTxn *tid);
 	QList<pki_base> getContainer();

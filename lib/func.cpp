@@ -60,9 +60,22 @@
 
 QPixmap *loadImg(const char *name )
 {
+	QString path = getPrefix();
+	path += QDir::separator();
+	return new QPixmap(path + name);
+}
+
+QString getPrefix() 
+{
+	/* returns e.g. /usr/local/share/xca for unix systems
+	 * or HKEY_LOCAL_MACHINE->Software->xca for WIN32 */
+
 #ifdef WIN32
-static unsigned char PREFIX[100]="";
-if (PREFIX[0] == '\0') {
+static unsigned char inst_dir[100]="";
+if (inst_dir[0] == '\0') { 
+	/* if we already once discovered the directory
+	 * we need not doing it again 
+	 */
 	LONG lRc;
 	HKEY hKey;
 	lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\xca",0,KEY_READ, &hKey);
@@ -70,23 +83,31 @@ if (PREFIX[0] == '\0') {
 		// No key error
 		QMessageBox::warning(NULL,XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
-                PREFIX[0] = '\0';
+                inst_dir[0] = '\0';
 	}
 	else {
         	ULONG dwLength = 100;
-                lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
+                lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, inst_dir, &dwLength);
 		if(lRc!= ERROR_SUCCESS){
 			// No key error
 	                QMessageBox::warning(NULL, XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
-                	PREFIX[0] = '\0';
+                	inst_dir[0] = '\0';
 		}
 	}
         lRc=RegCloseKey(hKey);
 }
+
+QString ret = inst_dir;
+return ret;
+
+#else
+
+	QString ret = PREFIX;
+	//ret += "/share/xca";
+	return ret;
 #endif
 
-QString path = (char *)PREFIX;
-path += QDir::separator();
-return new QPixmap(path + name);
+
 }
+

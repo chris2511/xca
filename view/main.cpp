@@ -54,6 +54,7 @@
 #include <qtranslator.h>
 #include <qtextcodec.h>
 #include "widgets/MainWindow.h"
+#include "lib/func.h"
 
 
 int main( int argc, char *argv[] )
@@ -68,19 +69,15 @@ int main( int argc, char *argv[] )
     a.installTranslator( &qtTr );
     //translation file for application strings
     QTranslator xcaTr( 0 );
-#ifdef WIN32
-    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), "." );
+    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), getPrefix() );
     a.installTranslator( &xcaTr );
-#else	
-    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
-    a.installTranslator( &xcaTr );
-#endif
     if (mw->exitApp == 0) {
    	mw->show();
 	ret = a.exec();
     }
     delete mw;
-	printf("PKI Counter: %d\nThe PKI counter must be 0, if not contact me.\n",
-		pki_base::get_pki_counter());
+	int pkictr =  pki_base::get_pki_counter();
+	if (pkictr) 
+		printf("PKI Counter (%d)\n", pkictr);
     return ret;
 }

@@ -75,11 +75,11 @@ class MainWindow: public MainWindow_UI
 	void read_cmdline();
 	QString getBaseDir();
 	DbTxn *global_tid;
-	DbEnv *dbenv;
 			    
    friend class pki_key;
 
    public:
+	static DbEnv *dbenv;
 	static db_x509 *certs;
 	static db_x509req *reqs;
 	static db_key *keys;

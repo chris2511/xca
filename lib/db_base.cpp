@@ -149,13 +149,13 @@ int db_base::getInt(QString key)
 }
 
 
-void db_base::putData(void *key, int keylen, void *dat, int datalen)
+void db_base::putData(void *key, int keylen, void *dat, int datalen, DbTxn *tid)
 {
 	
 	Dbt k(key, keylen);
 	Dbt d(dat, datalen);
 	try {
-		data->put(NULL, &k, &d, 0 );
+		data->put(tid, &k, &d, 0 );
 	}
 	catch (DbException &err) {
 		DBEX(err);
@@ -163,30 +163,30 @@ void db_base::putData(void *key, int keylen, void *dat, int datalen)
 	}
 }
 
-void db_base::putString(QString key, void *dat, int datalen)
+void db_base::putString(QString key, void *dat, int datalen, DbTxn *tid)
 {
-	putData((void *)key.latin1(), key.length()+1, dat, datalen);
+	putData((void *)key.latin1(), key.length()+1, dat, datalen, tid);
 }
 
-void db_base::putString(QString key, QString dat)
+void db_base::putString(QString key, QString dat, DbTxn *tid)
 {
 	CERR( key);
-	putString(key, (void *)dat.latin1(), dat.length() +1);
+	putString(key, (void *)dat.latin1(), dat.length() +1, tid);
 }
 
-void db_base::putString(char *key, QString dat)
+void db_base::putString(char *key, QString dat, DbTxn *tid)
 {
 	QString x = key;
 	CERR(key);
-	putString(x,dat);
+	putString(x, dat, tid);
 }
 
-void db_base::putInt(QString key, int dat)
+void db_base::putInt(QString key, int dat, DbTxn *tid)
 {
 	char buf[100];
 	sprintf(buf,"%i",dat);
 	QString x = buf;
-	putString(key, x);
+	putString(key, x, tid);
 }
 
 void db_base::loadContainer()
@@ -271,9 +271,7 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	while (x == DB_KEYEXIST) {
 		Dbt k((void *)desc.latin1(), desc.length() + 1);
 		Dbt d((void *)p, size);
-		CERR("Size: " << d.get_size());
 		if ((x = data->put(tid, &k, &d, flags ))!=0) {
-			data->err(x,"DB Error put");
 			sprintf(field,"%02i", ++cnt);
 			QString z = field;
 		   	desc = orig + "_" + z ;

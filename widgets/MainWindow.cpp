@@ -87,6 +87,7 @@ db_x509	*MainWindow::certs = NULL;
 db_temp	*MainWindow::temps = NULL;
 db_base	*MainWindow::settings = NULL;
 db_crl	*MainWindow::crls = NULL;
+DbEnv *MainWindow::dbenv = NULL;
 
 extern void initOIDs(void);
 
@@ -121,6 +122,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( BNimportKey, SIGNAL(clicked()), keyList, SLOT(load()));
 	connect( BNdetailsKey, SIGNAL(clicked()), keyList, SLOT(showItem()));
 	connect( BNdeleteKey, SIGNAL(clicked()), keyList, SLOT(deleteItem()));
+	connect( BNchangePass, SIGNAL(clicked()), keyList, SLOT(changePasswd()));
 	
 	connect( BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
 	connect( BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));

@@ -60,6 +60,7 @@
 #include "pki_base.h"
 
 #define MAX_KEY_LENGTH 4096
+#define MAX_PASS_LENGTH 40
 
 
 class pki_key: public pki_base
@@ -74,7 +75,7 @@ class pki_key: public pki_base
 	int ucount; // usage counter
     public:
 	static QPixmap *icon[2];
-	static char passwd[40];
+	static char passwd[MAX_PASS_LENGTH];
 		
 	/* constructor to generate a key .....
 	 * d     is the description

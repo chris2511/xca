@@ -57,6 +57,7 @@
 #include "widgets/ExportKey.h"
 #include "widgets/MainWindow.h"
 #include "widgets/clicklabel.h"
+#include "lib/pki_key.h"
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qprogressdialog.h>
@@ -230,13 +231,14 @@ void KeyView::changePasswd()
 	QString passHash = MainWindow::settings->getString("pwhash");
 	QString pass;
 	bool ret;
+	DbTxn *tid;
 	
 	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
 	dlg->image->setPixmap( *MainWindow::keyImg );
 	dlg->title->setText(XCA_TITLE);
-	dlg->description->setText(tr("Enter the old password"));
+	dlg->description->setText(tr("Please enter the old password of the database."));
 	dlg->pass->setFocus();
-	dlg->setCaption(tr(XCA_TITLE));
+	dlg->setCaption(XCA_TITLE);
 	
 	ret = dlg->exec();
 	if (ret) {
@@ -245,14 +247,14 @@ void KeyView::changePasswd()
 	delete dlg;
 	if (!ret) return;
 	if (MainWindow::md5passwd(pass.latin1()) != passHash) {
-		QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error."));
+		QMessageBox::warning(this, XCA_TITLE, tr("Database password verify error."));
 		return;
 	}
 	
 	PassWrite_UI *dlg1 = new PassWrite_UI(NULL, 0, true);
 	dlg1->image->setPixmap( *MainWindow::keyImg );
 	dlg1->title->setText(XCA_TITLE);
-	dlg1->description->setText(tr("Please enter the new password."));
+	dlg1->description->setText(tr("Please enter the new password for the database."));
 	dlg1->passA->setFocus();
 	dlg1->setCaption(XCA_TITLE);
 	QString A = "Irgendwas", B="";
@@ -264,10 +266,30 @@ void KeyView::changePasswd()
 	delete dlg1;
 	if (!ret) return;
 	if (A != B) {
-		QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error."));
+		QMessageBox::warning(this, XCA_TITLE, tr("Database password verify error."));
 		return;
 	}
-	
-	
+	if (A.length() > MAX_PASS_LENGTH) {
+		QMessageBox::warning(this, XCA_TITLE, tr("Database password too long: ") + 
+			QString::number(MAX_PASS_LENGTH));
+		return;
+	}
+	MainWindow::dbenv->txn_begin(NULL, &tid, 0);
+	B = pki_key::passwd;
+	strncpy(pki_key::passwd, A.latin1(), MAX_PASS_LENGTH);
+	try {
+		db->writeAll(tid);
+		MainWindow::settings->putString( "pwhash", MainWindow::md5passwd(pki_key::passwd), tid );
+	}
+	catch (DbException &err) {
+		QString e = err.what();
+		/* recover the old password */
+		tid->abort();
+		strncpy(pki_key::passwd, B.latin1(), MAX_PASS_LENGTH);
+		errorEx er(e);
+		Error(er);
+	}
+	tid->commit(0);
+	QMessageBox::information(this, XCA_TITLE, tr("Database password changed successfully.") );
 }
 		

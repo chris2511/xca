@@ -55,5 +55,6 @@
 #include "base.h"
 
 QPixmap *loadImg(const char *name);
+QString getPrefix();
 
 #endif
