@@ -86,6 +86,10 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\ui\About.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\lib\asn1int.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -371,6 +375,10 @@ SOURCE=.\lib\func.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ui\Help.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\widgets\ImportMulti.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -441,6 +449,51 @@ SOURCE=.\lib\main.cpp
 # Begin Source File
 
 SOURCE=.\widgets\MainWindow.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\MW_database.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\MW_help.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\MW_menu.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
@@ -761,6 +814,10 @@ SOURCE=.\view\XcaListView.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\ui\About.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\lib\asn1int.h
@@ -1411,6 +1468,10 @@ InputName=func
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\Help.h
 # End Source File
 # Begin Source File
 
@@ -2127,6 +2188,61 @@ SOURCE=.\misc\xca.rc
 # PROP Default_Filter "ui"
 # Begin Source File
 
+SOURCE=.\ui\About.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - Uic'ing $(InputName).ui ...
+InputDir=.\ui
+InputPath=.\ui\About.ui
+InputName=About
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - Uic'ing $(InputName).ui ...
+InputDir=.\ui
+InputPath=.\ui\About.ui
+InputName=About
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\ui\CertDetail.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -2423,6 +2539,61 @@ BuildCmds= \
 InputDir=.\ui
 InputPath=.\ui\ExportTinyCA.ui
 InputName=ExportTinyCA
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\Help.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - Uic'ing $(InputName).ui ...
+InputDir=.\ui
+InputPath=.\ui\Help.ui
+InputName=Help
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - Uic'ing $(InputName).ui ...
+InputDir=.\ui
+InputPath=.\ui\Help.ui
+InputName=Help
 
 BuildCmds= \
 	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
@@ -3639,6 +3810,32 @@ SOURCE=.\ui\ui_MainWindow.cpp
 !IF  "$(CFG)" == "xca - Win32 Release"
 
 # ADD CPP /I "." /I ".\widgets" /I ".\view"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\moc_About.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\widgets"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\moc_Help.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 

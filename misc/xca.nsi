@@ -44,6 +44,9 @@ Section "xca (required)"
   SetOutPath $INSTDIR
   ; Put file there
   File "Release\xca.exe"
+  File "misc\dn.txt"
+  File "misc\eku.txt"
+  File "misc\oids.txt"
   File "img\bigcert.png"
   File "img\bigcrl.png"
   File "img\bigcsr.png"

@@ -53,6 +53,7 @@
 #include "pki_base.h"
 #include "exception.h"
 
+
 int pki_base::pki_counter = 0;
 
 pki_base::pki_base(const QString name)

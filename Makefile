@@ -35,9 +35,9 @@ distclean: clean
 dist: 
 	test ! -z "$(TVERSION)"
 	rm -rf $(TARGET) 
-	cvs export -r $(TAG) -d $(TARGET) xca && \
+	cvs export -r $(TAG) -d $(TARGET) xca && 
 	(cd $(TARGET) && \
-	./mkxcapro.sh && lrelease xca.pro && \
+	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \
 	cat lib/base.h.in |sed s/MY_VERSION/$(TVERSION)/g >lib/base.h && \
 	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \

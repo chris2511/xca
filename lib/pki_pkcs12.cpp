@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -52,6 +53,8 @@
 #include "pki_pkcs12.h"
 #include "pass_info.h"
 #include "exception.h"
+#include <openssl/err.h>
+#include <qmessagebox.h>
 
 
 pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
@@ -88,6 +91,14 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 			throw errorEx("","");
 		}
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
+		if ( ERR_peek_error() != 0) {
+			ign_openssl_error();
+			//QMessageBox::warning(NULL, XCA_TITLE, 
+			//	tr(), tr("&OK"));
+			PKCS12_free(pkcs12);
+			throw errorEx(getClassName(),"The supplied password was wrong");
+		}
+
 		openssl_error();
 		if (mykey) {
 			key = new pki_key(mykey);
@@ -100,7 +111,6 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	}
 	else fopen_error(fname);
 }	
-
 
 pki_pkcs12::~pki_pkcs12()
 {
