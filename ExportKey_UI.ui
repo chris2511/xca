@@ -4,7 +4,7 @@
     <class>QDialog</class>
     <property stdset="1">
         <name>name</name>
-        <cstd::string>ExportKey_UI</cstd::string>
+        <cstring>ExportKey_UI</cstring>
     </property>
     <property stdset="1">
         <name>geometry</name>
@@ -17,7 +17,7 @@
     </property>
     <property stdset="1">
         <name>caption</name>
-        <std::string>Key export</std::string>
+        <string>Key export</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -32,7 +32,7 @@
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>Layout9</cstd::string>
+                <cstring>Layout9</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -47,7 +47,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>TextLabel12</cstd::string>
+                        <cstring>TextLabel12</cstring>
                     </property>
                     <property stdset="1">
                         <name>font</name>
@@ -59,13 +59,13 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>Key export</std::string>
+                        <string>Key export</string>
                     </property>
                 </widget>
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstd::string>Spacer6</cstd::string>
+                        <cstring>Spacer6</cstring>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -87,7 +87,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>image</cstd::string>
+                        <cstring>image</cstring>
                     </property>
                     <property stdset="1">
                         <name>minimumSize</name>
@@ -114,11 +114,11 @@
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>TextLabel13</cstd::string>
+                <cstring>TextLabel13</cstring>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <std::string>Please enter the filename for the key.</std::string>
+                <string>Please enter the filename for the key.</string>
             </property>
             <property stdset="1">
                 <name>alignment</name>
@@ -132,7 +132,7 @@
             <class>QFrame</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>Frame5_2</cstd::string>
+                <cstring>Frame5_2</cstring>
             </property>
             <property stdset="1">
                 <name>frameShape</name>
@@ -155,25 +155,25 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>TextLabel14</cstd::string>
+                        <cstring>TextLabel14</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>Filename:</std::string>
+                        <string>Filename:</string>
                     </property>
                 </widget>
                 <widget>
                     <class>QLineEdit</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>filename</cstd::string>
+                        <cstring>filename</cstring>
                     </property>
                 </widget>
                 <widget>
                     <class>QToolButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>ToolButton1</cstd::string>
+                        <cstring>ToolButton1</cstring>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -184,7 +184,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>...</std::string>
+                        <string>...</string>
                     </property>
                 </widget>
             </hbox>
@@ -193,13 +193,13 @@
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>TextLabel3</cstd::string>
+                <cstring>TextLabel3</cstring>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <std::string>DER is a binary format of the key without encryption
+                <string>DER is a binary format of the key without encryption
 PEM is a base64 encoded key with optional encryption
-PKCS#8 is an encrypted official Key-exchange format</std::string>
+PKCS#8 is an encrypted official Key-exchange format</string>
             </property>
             <property stdset="1">
                 <name>alignment</name>
@@ -213,7 +213,7 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
             <class>QFrame</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>Frame4</cstd::string>
+                <cstring>Frame4</cstring>
             </property>
             <property stdset="1">
                 <name>frameShape</name>
@@ -236,18 +236,18 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>TextLabel1</cstd::string>
+                        <cstring>TextLabel1</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>Export Format:</std::string>
+                        <string>Export Format:</string>
                     </property>
                 </widget>
                 <widget>
                     <class>QComboBox</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>exportFormat</cstd::string>
+                        <cstring>exportFormat</cstring>
                     </property>
                     <property stdset="1">
                         <name>sizePolicy</name>
@@ -263,11 +263,11 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>TextLabel2</cstd::string>
+                <cstring>TextLabel2</cstring>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <std::string>When exporting the private key it should be encrypted.</std::string>
+                <string>When exporting the private key it should be encrypted.</string>
             </property>
             <property stdset="1">
                 <name>alignment</name>
@@ -281,7 +281,7 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
             <class>QFrame</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>privFrame</cstd::string>
+                <cstring>privFrame</cstring>
             </property>
             <property stdset="1">
                 <name>frameShape</name>
@@ -304,18 +304,18 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
                     <class>QCheckBox</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>exportPrivate</cstd::string>
+                        <cstring>exportPrivate</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>Export the private part of the Key too</std::string>
+                        <string>Export the private part of the Key too</string>
                     </property>
                 </widget>
                 <widget>
                     <class>QCheckBox</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>encryptKey</cstd::string>
+                        <cstring>encryptKey</cstring>
                     </property>
                     <property stdset="1">
                         <name>enabled</name>
@@ -323,7 +323,7 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>Encrypt the Key with a password</std::string>
+                        <string>Encrypt the Key with a password</string>
                     </property>
                 </widget>
             </vbox>
@@ -332,7 +332,7 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstd::string>Layout6</cstd::string>
+                <cstring>Layout6</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -347,17 +347,17 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>PushButton9</cstd::string>
+                        <cstring>PushButton9</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>Cancel</std::string>
+                        <string>Cancel</string>
                     </property>
                 </widget>
                 <spacer>
                     <property>
                         <name>name</name>
-                        <cstd::string>Spacer7</cstd::string>
+                        <cstring>Spacer7</cstring>
                     </property>
                     <property stdset="1">
                         <name>orientation</name>
@@ -379,11 +379,11 @@ PKCS#8 is an encrypted official Key-exchange format</std::string>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstd::string>PushButton7</cstd::string>
+                        <cstring>PushButton7</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <std::string>OK</std::string>
+                        <string>OK</string>
                     </property>
                 </widget>
             </hbox>
