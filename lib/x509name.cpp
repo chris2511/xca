@@ -119,7 +119,7 @@ QString x509name::getEntry(int i) const
 		ret=QString::fromUtf8((const char *)d->data,d->length);
 	else
 		ret=QString::fromLatin1((const char *)d->data,d->length);
-
+	
 	return ret;
 }
 
@@ -151,7 +151,9 @@ unsigned char *x509name::d2i(unsigned char *p, int size)
 	X509_NAME *xn_sik = xn;
 	xn = d2i_X509_NAME(NULL, &mp, size);
 	if (xn == NULL)
-		xn = X509_NAME_new();
+		xn = xn_sik;
+	else
+		X509_NAME_free(xn_sik);
 	return mp;
 }
 

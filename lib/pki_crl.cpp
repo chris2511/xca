@@ -58,13 +58,8 @@ pki_crl::pki_crl(const QString name )
 	:pki_base(name)
 { 
 	issuer = NULL;
-	a1int version = 1; /* version 2 CRL */
 	crl = X509_CRL_new();
 	class_name="pki_crl";
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
-	crl->crl->revoked = sk_X509_REVOKED_new_null();
-#endif
-	crl->crl->version = version.get();
 	openssl_error();
 }
 
@@ -92,6 +87,11 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	issuer = iss;
 	if (!iss) openssl_error("no issuer");
 	crl->crl->issuer = issuer->getSubject().get();
+#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
+	crl->crl->revoked = sk_X509_REVOKED_new_null();
+#endif
+	a1int version = 1; /* version 2 CRL */
+	crl->crl->version = version.get();
 	openssl_error();
 }	
 
@@ -124,8 +124,12 @@ pki_crl::~pki_crl()
 
 void pki_crl::fromData(unsigned char *p, int size)
 {
-	crl = NULL;
+	X509_CRL *crl_sik = crl;
 	crl = d2i_X509_CRL(NULL, &p, size);
+	if (crl)
+		X509_CRL_free(crl_sik);
+	else
+		crl = crl_sik;
 	openssl_error();
 }
 

@@ -79,9 +79,15 @@ db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
 
 db_base::~db_base()
 {
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
+    fprintf(stderr, "close 1:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
 	data->close(0);
 	container.setAutoDelete(true);
 	container.clear();
+    fprintf(stderr, "close 2:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 }
 
 void *db_base::getData(void *key, int length, int *dsize)
@@ -187,7 +193,6 @@ void db_base::putInt(QString key, int dat, DbTxn *tid)
 void db_base::loadContainer()
 {
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
-	CRYPTO_remove_all_info();
 				
 	DbTxn *tid = NULL;
 	Dbc *cursor = NULL;
@@ -239,10 +244,7 @@ void db_base::loadContainer()
 		tid->abort();
 		throw errorEx(err.what());
 	}
-	data->close(0);
-	container.setAutoDelete(true);
-	container.clear();
-    fprintf(stderr, "loadContainer 1:\n" );
+    fprintf(stderr, "loadContainer 7:\n" );
 	CRYPTO_mem_leaks_fp(stderr);
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 }	
