@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>537</width>
-            <height>427</height>
+            <width>558</width>
+            <height>473</height>
         </rect>
     </property>
     <property stdset="1">
@@ -550,32 +550,14 @@
             </property>
         </widget>
         <widget>
-            <class>QLabel</class>
+            <class>QTextView</class>
             <property stdset="1">
                 <name>name</name>
                 <cstring>keyModulus</cstring>
             </property>
             <property stdset="1">
-                <name>frameShape</name>
-                <enum>Panel</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <property stdset="1">
                 <name>textFormat</name>
                 <enum>PlainText</enum>
-            </property>
-            <property stdset="1">
-                <name>alignment</name>
-                <set>WordBreak|AlignTop|AlignLeft</set>
-            </property>
-            <property>
-                <name>vAlign</name>
-            </property>
-            <property>
-                <name>wordwrap</name>
             </property>
         </widget>
         <widget>
