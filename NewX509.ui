@@ -1690,10 +1690,53 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <receiver>NewX509_UI</receiver>
         <slot>dataChangeP2()</slot>
     </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP2()</slot>
+    </connection>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">newKey()</slot>
     <slot access="public">switchExtended()</slot>
     <slot access="public">setDisabled(int)</slot>
     <slot access="public">tempChanged()</slot>
 </connections>
+<tabstops>
+    <tabstop>tempList</tabstop>
+    <tabstop>changeDefault</tabstop>
+    <tabstop>description</tabstop>
+    <tabstop>countryName</tabstop>
+    <tabstop>stateOrProvinceName</tabstop>
+    <tabstop>localityName</tabstop>
+    <tabstop>organisationName</tabstop>
+    <tabstop>organisationalUnitName</tabstop>
+    <tabstop>commonName</tabstop>
+    <tabstop>emailAddress</tabstop>
+    <tabstop>keyList</tabstop>
+    <tabstop>genKeyBUT</tabstop>
+    <tabstop>fromReqRB</tabstop>
+    <tabstop>reqList</tabstop>
+    <tabstop>selfSignRB</tabstop>
+    <tabstop>serialNr</tabstop>
+    <tabstop>foreignSignRB</tabstop>
+    <tabstop>certList</tabstop>
+    <tabstop>bcCritical</tabstop>
+    <tabstop>basicCA</tabstop>
+    <tabstop>basicPath</tabstop>
+    <tabstop>subKey</tabstop>
+    <tabstop>authKey</tabstop>
+    <tabstop>validNumber</tabstop>
+    <tabstop>validRange</tabstop>
+    <tabstop>subAltName</tabstop>
+    <tabstop>subAltCp</tabstop>
+    <tabstop>issAltName</tabstop>
+    <tabstop>issAltCp</tabstop>
+    <tabstop>crlDist</tabstop>
+    <tabstop>kuCritical</tabstop>
+    <tabstop>keyUsage</tabstop>
+    <tabstop>ekuCritical</tabstop>
+    <tabstop>ekeyUsage</tabstop>
+    <tabstop>fromDataRB</tabstop>
+</tabstops>
 </UI>

@@ -289,6 +289,7 @@ void NewX509::toTemplate(pki_temp *temp)
 
 void NewX509::dataChangeP2()
 {
+	CERR << "Data changed" << endl;
 	if ((description->text() != "" || fromReqRB->isChecked()) &&
 	    (keyList->count() > 0  || !keyList->isEnabled())){
 		setNextEnabled(page2,true);
@@ -307,20 +308,23 @@ void NewX509::showPage(QWidget *page)
 	}
 	else if ( page == page2 ) {
 		dataChangeP2();
-		
+		description->setFocus();	
 	}
 	else if ( page == page3 ) {
 		if (!selfSignRB->isChecked() && !foreignSignRB->isChecked()) {
 			if (fromDataRB->isChecked()) {
 				selfSignRB->setChecked(true);
 				serialNr->setText("00");
+				serialNr->setFocus();
 			}
 			else {
 				foreignSignRB->setChecked(true);
+				foreignSignRB->setFocus();
 			}
 		}
 	}
 	else if (page == page4) {
+		basicCA->setFocus();
 	}
 	QWizard::showPage(page);
 

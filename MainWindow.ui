@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>788</width>
+            <width>784</width>
             <height>604</height>
         </rect>
     </property>
@@ -1052,6 +1052,34 @@
     <slot access="public">writeReq()</slot>
 </connections>
 <tabstops>
+    <tabstop>MainTab</tabstop>
+    <tabstop>keyList</tabstop>
+    <tabstop>genNewKey</tabstop>
+    <tabstop>exportKey</tabstop>
+    <tabstop>importKey</tabstop>
     <tabstop>detailsKey</tabstop>
+    <tabstop>renameKey</tabstop>
+    <tabstop>reqList</tabstop>
+    <tabstop>PushButton13</tabstop>
+    <tabstop>PushButton47</tabstop>
+    <tabstop>PushButton46</tabstop>
+    <tabstop>PushButton25</tabstop>
+    <tabstop>PushButton26</tabstop>
+    <tabstop>certList</tabstop>
+    <tabstop>PushButton13_2</tabstop>
+    <tabstop>PushButton47_2</tabstop>
+    <tabstop>PushButton46_2</tabstop>
+    <tabstop>PushButton25_2</tabstop>
+    <tabstop>PushButton26_2</tabstop>
+    <tabstop>renameKey_2</tabstop>
+    <tabstop>PushButton18</tabstop>
+    <tabstop>tempList</tabstop>
+    <tabstop>PushButton13_2_2</tabstop>
+    <tabstop>PushButton13_2_2_2</tabstop>
+    <tabstop>PushButton13_2_2_3</tabstop>
+    <tabstop>PushButton13_2_2_4</tabstop>
+    <tabstop>PushButton25_2_2</tabstop>
+    <tabstop>PushButton26_2_2</tabstop>
+    <tabstop>quitApp</tabstop>
 </tabstops>
 </UI>
