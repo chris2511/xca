@@ -11,7 +11,7 @@ LicenseText "You must accept the following BSD like license to continue."
 LicenseData COPYRIGHT
 
 ; The file to write
-OutFile "xca-VERSION.exe"
+OutFile "xca-0.3.2.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\xca
@@ -26,6 +26,20 @@ DirText "Choose a directory to install in to:"
 
 ; The stuff to install
 Section "xca (required)"
+
+  ClearErrors
+  UserInfo::GetName
+  IfErrors Win9x
+  UserInfo::GetAccountType
+  Pop $0
+  StrCmp $0 "Admin" 0 +3
+  	SetShellVarContext all
+  	Goto done
+  	SetShellVarContext current
+  Win9x:
+  	SetShellVarContext current
+  done:
+
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
   ; Put file there
@@ -81,14 +95,32 @@ Section "Uninstall"
   DeleteRegKey HKLM SOFTWARE\xca
   ; remove files
   Delete $INSTDIR\xca.exe
+  Delete $INSTDIR\*.png
+  Delete $INSTDIR\*.dll
+  Delete $INSTDIR\*.ico
+  Delete $INSTDIR\*.xpm
   ; MUST REMOVE UNINSTALLER, too
   Delete $INSTDIR\uninstall.exe
+  RMDir $INSTDIR
+
+  ClearErrors
+  UserInfo::GetName
+  IfErrors Win9x
+  UserInfo::GetAccountType
+  Pop $0
+  StrCmp $0 "Admin" 0 +3
+  	SetShellVarContext all
+  	Goto done
+  	SetShellVarContext current
+  Win9x:
+  	SetShellVarContext current
+  done:
+
+  
   ; remove shortcuts, if any.
   Delete "$SMPROGRAMS\xca\*.*"
   ; remove directories used.
-  RMDir "$SMPROGRAMS\xca"
- 
-  RMDir "$INSTDIR"
+  RMDir "$SMPROGRAMS\xca" 
 SectionEnd
 
 ; eof
