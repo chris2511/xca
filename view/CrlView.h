@@ -74,10 +74,10 @@ class CrlView : public XcaListView
 	pki_base* insert(pki_base *item);
 	void store(bool);
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-	void writeCrl_pem();
-	void writeCrl_der();
    public slots:
 	pki_crl *newItem(pki_x509 *cert);
+	void writeCrl_pem();
+	void writeCrl_der();
    private slots:
 	void dlg_showCert(QListViewItem *i);
 	void dlg_showCert(QString name);

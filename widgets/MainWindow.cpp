@@ -55,6 +55,7 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlistview.h>
+#include <qlineedit.h>
 #include "lib/pki_pkcs12.h"
 #include "view/KeyView.h"
 #include "view/ReqView.h"
@@ -154,6 +155,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		keyList, SLOT(importKey(pki_key *)) );
 	connect( tempList, SIGNAL(newCert(pki_temp *)),
 		certList, SLOT(newCert(pki_temp *)) );
+	connect( tempList, SIGNAL(newReq(pki_temp *)),
+		reqList, SLOT(newItem(pki_temp *)) );
 	
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();

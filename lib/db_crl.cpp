@@ -76,7 +76,6 @@ void db_crl::preprocess()
 void db_crl::revokeCerts(pki_crl *crl)
 {
 	int numc, i;
-	pki_x509 *rev, *iss;
 	x509rev revok; 
 	numc = crl->numRev();
 	a1int x;

@@ -1,5 +1,4 @@
 /* vi: set sw=4 ts=4: */
-/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -54,6 +53,7 @@
 #include "CrlView.h"
 #include <qpopupmenu.h>
 #include <qmessagebox.h>
+#include <qlineedit.h>
 #include "widgets/CrlDetail.h"
 #include "lib/pki_crl.h"
 #include "widgets/MainWindow.h"
@@ -210,15 +210,15 @@ void CrlView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	QPopupMenu *subExport = new QPopupMenu(this);
 	
 	if (!item) {
-		menu->insertItem(tr("Import"), this, SLOT(loadCrl()));
+		menu->insertItem(tr("Import"), this, SLOT(load()));
 	}
 	else {
-		menu->insertItem(tr("Rename"), this, SLOT(startRenameCrl()));
-		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCrl()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Export"), subExport);
 		subExport->insertItem(tr("PEM"), this, SLOT(writeCrl_pem()));
 		subExport->insertItem(tr("DER"), this, SLOT(writeCrl_der()));
-		menu->insertItem(tr("Delete"), this, SLOT(deleteCrl()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
 	}
 	menu->exec(pt);
 	delete menu;

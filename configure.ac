@@ -23,8 +23,8 @@ AC_ARG_WITH(openssldir,    specify an extra dir for openssl,
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
 	export PATH=$QTDIR/bin:$PATH
-	export CPPFLAGS="$CPPFLAGS -I$QTDIR/include"
-	export LDFLAGS="$LDFLAGS -L$QTDIR/lib"
+	export CPPFLAGS="$CPPFLAGS -I$QTDIR/include -I/usr/local/include"
+	export LDFLAGS="$LDFLAGS -L$QTDIR/lib -L/usr/local/lib"
 	ac_QTDIR="$QTDIR"
 else
 	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include -I/usr/X11R6/include"

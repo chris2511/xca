@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>583</width>
+            <width>579</width>
             <height>590</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string></string>
+        <string>NewX509_UI</string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -426,6 +426,10 @@ Of course you need the private key of the CSR if you want to create a self-signe
                         <property stdset="1">
                             <name>name</name>
                             <cstring>serialNr</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>1</string>
                         </property>
                         <property>
                             <name>toolTip</name>

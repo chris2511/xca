@@ -58,6 +58,8 @@
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qprogressdialog.h>
+#include <qpushbutton.h>
+#include <qlineedit.h>
 #include <qtextview.h>
 #include <qmessagebox.h>
 #include <qpopupmenu.h>

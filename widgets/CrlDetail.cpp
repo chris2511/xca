@@ -57,6 +57,7 @@
 #include <qlabel.h>
 #include <qtextview.h>
 #include <qlistview.h>
+#include <qlineedit.h>
 
 CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 	:CrlDetail_UI(parent, name, modal, f)
@@ -101,7 +102,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 	descr->setText(crl->getIntName());
         lUpdate->setText(crl->getLastUpdate().toPretty());
         nUpdate->setText(crl->getNextUpdate().toPretty());
-        version->setText(crl->getVersion().toHex());
+        version->setText((++crl->getVersion()).toHex());
 	
 	// page 2
 	issuer->setX509name(crl->getIssuerName());

@@ -56,6 +56,7 @@
 #include <qlabel.h>
 #include <qtextview.h>
 #include <qpushbutton.h>
+#include <qlineedit.h>
 
 CertDetail::CertDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 	:CertDetail_UI(parent,name,true,0)

@@ -57,6 +57,7 @@
 #include <qfiledialog.h>
 #include <qdir.h>
 #include <qlabel.h>
+#include <qlineedit.h>
 #include <qcombobox.h>
 #include <qpushbutton.h>
 

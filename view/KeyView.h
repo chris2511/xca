@@ -78,7 +78,6 @@ class KeyView : public XcaListView
 	void importKey(pki_key *k);
   signals:
 	void keyDone(QString);
-	void init_database();
 
 };	
 

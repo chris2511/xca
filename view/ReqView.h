@@ -67,7 +67,6 @@ class ReqView : public XcaListView
 	ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem();
-	void newItem(pki_temp *temp);
 	void deleteItem();
 	void load();
 	void updateViewItem(pki_base *);
@@ -79,6 +78,7 @@ class ReqView : public XcaListView
 	void writeReq_pem();
 	void writeReq_der();
 	void signReq();
+	void newItem(pki_temp *temp);
    signals:
 	void newCert(pki_x509req *req);
 

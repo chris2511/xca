@@ -54,10 +54,17 @@
 #define CERTVIEW_H
 
 #include "XcaListView.h"
+/*
 #include "lib/pki_x509.h"
 #include "lib/pki_pkcs12.h"
-#include <qlistview.h>
 #include "widgets/NewX509.h"
+*/
+class pki_pkcs12;
+class NewX509;
+class pki_base;
+class QListViewItem;
+class pki_x509req;
+class pki_temp;
 
 class CertView : public XcaListView
 {

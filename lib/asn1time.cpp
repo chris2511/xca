@@ -240,6 +240,9 @@ bool const a1time::operator != (const a1time &a)
 unsigned char *a1time::d2i(unsigned char *p, int size)
 {
 	unsigned char *mp = p;
+	if (time)
+		ASN1_TIME_free(time);
+	time = NULL;
 	d2i_ASN1_TIME(&time, &mp, size);
 	return mp;
 }

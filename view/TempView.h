@@ -84,7 +84,6 @@ class TempView : public XcaListView
 	void alterTemp();
 	void deleteItem();
   signals:
-	void init_database();
 	void newReq(pki_temp *);
 	void newCert(pki_temp *);
 };	
