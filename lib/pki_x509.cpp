@@ -171,8 +171,6 @@ pki_x509::~pki_x509()
 	if (lastCrl) {
 		ASN1_TIME_free(lastCrl);
 	}
-	if (pkey)
-		pkey->decUcount();
 	openssl_error();
 }
 

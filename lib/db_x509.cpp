@@ -209,6 +209,9 @@ void db_x509::remFromCont(pki_base *pki)
 			pkiit->delSigner();
 		}
 	}
+	pki_key *pkey = ((pki_x509 *)pki)->getKey();
+	if (pkey)
+		pkey->decUcount();
 	return;
 }
 

@@ -69,6 +69,7 @@ class db_x509req: public db_base
 	void updateViewPKI(pki_base *pki);
 	void preprocess();
 	pki_key *findKey(pki_x509req *req);
+	void remFromCont(pki_base *pki);
     public slots:
 	void delKey(pki_key *delkey);
     	void newKey(pki_key *newKey);

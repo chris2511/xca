@@ -144,3 +144,12 @@ pki_key *db_x509req::findKey(pki_x509req *req)
 	if (refkey) delete(refkey);
 	return key;
 }
+
+void db_x509req::remFromCont(pki_base *pki)
+{
+        container.remove(pki);
+	pki_key *pkey = ((pki_x509req *)pki)->getKey();
+	if (pkey)
+		pkey->decUcount();
+}
+

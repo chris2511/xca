@@ -153,7 +153,6 @@ pki_x509req::pki_x509req(const string fname)
 	
 }
 
-
 void pki_x509req::fromData(unsigned char *p, int size)
 {
 	privkey = NULL;
