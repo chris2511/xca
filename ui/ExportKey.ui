@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>591</width>
+            <width>587</width>
             <height>375</height>
         </rect>
     </property>
@@ -421,7 +421,7 @@ PKCS#8 is an encrypted official Key-exchange format</string>
     </connection>
     <connection>
         <sender>exportFormat</sender>
-        <signal>textChanged(const QString&amp;)</signal>
+        <signal>activated(int)</signal>
         <receiver>ExportKey_UI</receiver>
         <slot>canEncrypt()</slot>
     </connection>
@@ -429,10 +429,11 @@ PKCS#8 is an encrypted official Key-exchange format</string>
         <sender>exportFormat</sender>
         <signal>activated(int)</signal>
         <receiver>ExportKey_UI</receiver>
-        <slot>canEncrypt()</slot>
+        <slot>formatChanged()</slot>
     </connection>
-    <slot access="public">chooseFile()</slot>
     <slot access="public">canEncrypt()</slot>
+    <slot access="public">chooseFile()</slot>
+    <slot access="public">formatChanged()</slot>
 </connections>
 <tabstops>
     <tabstop>filename</tabstop>

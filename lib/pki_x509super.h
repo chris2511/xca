@@ -64,13 +64,14 @@ class pki_x509super : public pki_base
 	   pki_key *privkey;
 	public:
 	   pki_x509super();
-	   ~pki_x509super();
-	   virtual x509name getSubject();
+	   virtual ~pki_x509super();
+	   virtual x509name getSubject() const;
 	   virtual int verify();
-	   virtual pki_key *getPubKey();
-	   pki_key *getRefKey() const ;
+	   pki_key *getPubKey() const;
+	   pki_key *getRefKey() const;
 	   void setRefKey(pki_key *ref);
 	   void delRefKey(pki_key *ref);
+	   void autoIntName();
 };
 
 #endif

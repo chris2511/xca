@@ -72,7 +72,7 @@ class pki_x509req : public pki_x509super
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
+	   x509name getSubject() const;
 	   void writeReq(const QString fname, bool PEM);
 	   int verify();
 	   pki_key *getPubKey();

@@ -256,7 +256,7 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	int flags = 0;
 	if (!overwrite) flags = DB_NOOVERWRITE;
 	QString desc = pki->getIntName();
-	if (desc == "") {
+	if (desc.isEmpty()) {
 		desc="unnamed";
 	}
 	QString orig = desc;

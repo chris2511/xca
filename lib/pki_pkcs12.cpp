@@ -163,7 +163,9 @@ pki_key *pki_pkcs12::getKey() {
 
 pki_x509 *pki_pkcs12::getCert() {
 	if (!cert) return NULL;
-	return new pki_x509(cert);
+	pki_x509 *c = new pki_x509(cert);
+	c->autoIntName();
+	return c;
 }
 
 pki_x509 *pki_pkcs12::getCa(int x) {

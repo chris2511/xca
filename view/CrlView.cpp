@@ -62,9 +62,9 @@
 CrlView::CrlView(QWidget * parent, const char * name, WFlags f)
 	:XcaListView(parent, name, f)
 {
-	addColumn(tr("Common Name"));
-	addColumn(tr("Issuer C-Name"));
-	addColumn(tr("Count"));
+	addColumn(tr("Internal Name"));
+	addColumn(tr("Issuer Common Name"));
+	addColumn(tr("Revoked"));
 }
 
 

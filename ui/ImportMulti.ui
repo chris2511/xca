@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>669</width>
-            <height>295</height>
+            <width>670</width>
+            <height>328</height>
         </rect>
     </property>
     <property stdset="1">
@@ -103,6 +103,17 @@
                         <bool>true</bool>
                     </property>
                 </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton9</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Remove</string>
+                    </property>
+                </widget>
                 <spacer>
                     <property>
                         <name>name</name>
@@ -171,8 +182,15 @@
         <receiver>ImportMulti_UI</receiver>
         <slot>importAll()</slot>
     </connection>
+    <connection>
+        <sender>PushButton9</sender>
+        <signal>clicked()</signal>
+        <receiver>ImportMulti_UI</receiver>
+        <slot>remove()</slot>
+    </connection>
     <slot access="public">import()</slot>
     <slot access="public">importAll()</slot>
+    <slot access="public">remove()</slot>
     <slot access="public">showPopupMenu(QListViewItem *, const QPoint &amp;, int)</slot>
 </connections>
 </UI>

@@ -62,7 +62,8 @@ class ExportKey: public ExportKey_UI
 		  QWidget *parent = 0, const char *name = 0);
 	QString dirPath;
    public slots:
-	virtual void chooseFile();
-	virtual void canEncrypt();
+	void chooseFile();
+	void canEncrypt();
+	void formatChanged();
 };
 #endif

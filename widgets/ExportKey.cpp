@@ -102,7 +102,6 @@ void ExportKey::chooseFile()
 }
 
 void ExportKey::canEncrypt() {
-	CERR("TOGGEL");
 	if (exportFormat->currentText() == "PKCS#8") {
 		exportPrivate->setChecked(true);
 		exportPrivate->setDisabled(true);
@@ -132,3 +131,12 @@ void ExportKey::canEncrypt() {
 	}
 }
 	
+void ExportKey::formatChanged()
+{
+	char *suffix[] = { "pem", "der", "pk8" };
+	int selected = exportFormat->currentItem();
+	QString fn = filename->text();
+	QString nfn = fn.left(fn.findRev('.')+1) + suffix[selected];
+	filename->setText(nfn);
+}	
+

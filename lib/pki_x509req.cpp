@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -105,8 +106,10 @@ pki_x509req::pki_x509req(const QString fname)
 	   	request = d2i_X509_REQ_fp(fp, NULL);
 		openssl_error();
 	   }
-	   setIntName(rmslashdot(fname));
 	   openssl_error();
+	autoIntName();
+	if (getIntName().isEmpty())
+	   setIntName(rmslashdot(fname));
 	}	
 	else fopen_error(fname);
 	fclose(fp);
@@ -120,7 +123,7 @@ void pki_x509req::fromData(unsigned char *p, int size)
 	openssl_error();
 }
 
-x509name pki_x509req::getSubject()
+x509name pki_x509req::getSubject() const
 {
 	x509name x(X509_REQ_get_subject_name(request));
 	openssl_error();

@@ -65,9 +65,10 @@ pki_x509super::~pki_x509super()
 	privkey = NULL;
 }
 
-x509name pki_x509super::getSubject()
+x509name pki_x509super::getSubject() const
 {
 	x509name x;
+	printf("ERROR VIRTUAL");
 	openssl_error();
 	return x;
 }
@@ -78,7 +79,7 @@ int pki_x509super::verify()
 	 return -1;
 }
 
-pki_key *pki_x509super::getPubKey()
+pki_key *pki_x509super::getPubKey() const
 {
 	 printf("ERROR VIRTUAL");
 	 return NULL;
@@ -108,4 +109,9 @@ void pki_x509super::delRefKey(pki_key *ref)
 	ref->decUcount();
 	privkey = NULL;
 	updateView();
+}
+
+void pki_x509super::autoIntName()
+{
+	setIntName(getSubject().getEntryByNid(NID_commonName));
 }

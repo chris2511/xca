@@ -98,7 +98,7 @@ pki_x509::pki_x509(const QString fname)
 		if (!cert) {
 			ign_openssl_error();
 			rewind(fp);
-	   		cert = d2i_X509_fp(fp, NULL);
+			cert = d2i_X509_fp(fp, NULL);
 		}
 		openssl_error();
 		autoIntName();
@@ -646,7 +646,3 @@ const EVP_MD *pki_x509::getDigest()
 	return EVP_get_digestbyobj(cert->sig_alg->algorithm);
 }
 
-void pki_x509::autoIntName()
-{
-	setIntName(getSubject().getEntryByNid(NID_commonName));
-}

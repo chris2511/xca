@@ -55,6 +55,8 @@
 #include "lib/pki_base.h"
 #include "lib/pki_pkcs7.h"
 #include "lib/pki_pkcs12.h"
+#include "lib/pki_crl.h"
+#include "widgets/CrlDetail.h"
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/ReqDetail.h"
@@ -131,6 +133,7 @@ void ImportMulti::remove()
 	if (pki->getLvi())
 		delete pki->getLvi();
 	pki->delLvi();
+	delete pki;
 	cont.remove(pki);
 }
 
@@ -220,6 +223,17 @@ void ImportMulti::details()
 			dlg->exec();
 			delete dlg;
 		}						  
+		else if (cn == "pki_crl") {
+			CrlDetail *dlg;
+			dlg = new CrlDetail(this,0,true);
+			dlg->setCrl((pki_crl *)pki);
+			dlg->exec();
+			delete dlg;
+		}
+		else if (cn == "pki_temp") {
+			QMessageBox::warning(this, XCA_TITLE,
+				tr("Details of this item cannot be shown") + cn, tr("OK"));
+		}
 			
 		else 
 			QMessageBox::warning(this, XCA_TITLE,

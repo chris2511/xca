@@ -70,6 +70,7 @@
 ReqView::ReqView(QWidget * parent, const char * name, WFlags f)
 	:XcaListView(parent, name, f)
 {
+	addColumn(tr("Internal name"));
 	addColumn(tr("Common Name"));
 }
 

@@ -23,7 +23,7 @@ UINAMES=CertDetail ExportKey ExportCert KeyDetail MainWindow \
 
 UIOBJS=$(patsubst %,moc_%.o,$(UINAMES)) $(patsubst %,%.o,$(UINAMES))
 
-MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
+MOC_CPP=$(patsubst %,moc_%.cpp,$(UINAMES))
 UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
 UI_H=$(patsubst %, %.h, $(UINAMES))
 
