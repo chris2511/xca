@@ -12,6 +12,7 @@ class db_key: public db_base
 	db_key(DbEnv *dbe, string DBfile, QListView *l);
 	pki_base *newPKI();
 	QStringList getPrivateDesc();
+	bool updateView();
 };
 
 #endif

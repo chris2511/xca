@@ -5,13 +5,36 @@ db_key::db_key(DbEnv *dbe, string DBfile, QListView *l)
 	:db_base(dbe, DBfile, "keydb")
 {
 	listView = l;
-	icon = loadImg("key.png");
 	loadContainer();
 	updateView();
 }
 
 pki_base *db_key::newPKI(){
 	return new pki_key("");
+}
+
+
+bool db_key::updateView()
+{
+        listView->clear();
+	QPixmap *pm[2];
+	pm[0] = loadImg("key.png");
+        pm[1] = loadImg("halfkey.png");
+	pki_key *pki;
+	QListViewItem *current;
+	cerr <<"myupdate keys"<<endl;
+	if ( container.isEmpty() ) return false;
+	QListIterator<pki_base> it(container); 
+	for ( ; it.current(); ++it ) {
+		pki = (pki_key *)it.current();
+		// create the listview item
+		current = new QListViewItem(listView, pki->getDescription().c_str());	
+		CERR<< "Adding as parent: "<<pki->getDescription().c_str()<<endl;
+		int pixnum = 0;
+		if (pki->isPubKey()) pixnum += 1;	
+		current->setPixmap(0, *pm[pixnum]);
+	}				
+	return true;
 }
 
 
