@@ -118,6 +118,11 @@ QString a1time::toSortable() const
         return t;
 }
 
+void a1time::set(const QString &s)
+{
+	ASN1_GENERALIZEDTIME_set_string(time, (char *)s.latin1());
+}
+
 int a1time::ymdg(int *y, int *m, int *d, int *g) const
 {
         char *v;
@@ -180,3 +185,47 @@ int a1time::derSize() const
 {
 	return i2d_ASN1_TIME(time, NULL);
 }
+
+
+/* this was happily copied from OpenSSL 0.9.7 
+ * and is used if linking against 0.9.6
+ */
+ 
+#if OPENSSL_VERSION_NUMBER < 0x00907000L
+/* Convert an ASN1_TIME structure to GeneralizedTime */
+ASN1_GENERALIZEDTIME *a1time::ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out)
+        {
+        ASN1_GENERALIZEDTIME *ret;
+        char *str;
+
+        // if (!ASN1_TIME_check(t)) return NULL;
+
+        if (!out || !*out)
+                {
+                if (!(ret = ASN1_GENERALIZEDTIME_new ()))
+                        return NULL;
+                if (out) *out = ret;
+                }
+        else ret = *out;
+
+        /* If already GeneralizedTime just copy across */
+        if (t->type == V_ASN1_GENERALIZEDTIME)
+                {
+                if(!ASN1_STRING_set(ret, t->data, t->length))
+                        return NULL;
+                return ret;
+                }
+
+        /* grow the string */
+        if (!ASN1_STRING_set(ret, NULL, t->length + 2))
+                return NULL;
+        str = (char *)ret->data;
+        /* Work out the century and prepend */
+        if (t->data[0] >= '5') strcpy(str, "19");
+        else strcpy(str, "20");
+
+        strncat(str, (char *)t->data, t->length);
+
+        return ret;
+        }
+#endif                                                                              

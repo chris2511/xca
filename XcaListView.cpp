@@ -194,8 +194,6 @@ void XcaListView::Error(errorEx &err)
 
 bool XcaListView::Error(pki_base *pki)
 {
-	string err;
-
 	if (!pki) {
 		QMessageBox::warning(this,tr(XCA_TITLE), tr("The system detected a NULL pointer, maybe the system is out of memory" ));
 		qFatal("NULL pointer detected - Exiting");
@@ -211,7 +209,7 @@ void XcaListView::updateView()
 	pki_base *pki;
 	container = db->getContainer();
 	if (container.isEmpty()) return;
-	for ( pki = container.first(); pki != NULL; pki = container.next() ) pki->delPointer();
+	for ( pki = container.first(); pki != NULL; pki = container.next() ) pki->delLvi();
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
                 pki = it.current();

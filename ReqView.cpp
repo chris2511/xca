@@ -111,7 +111,7 @@ void ReqView::show(pki_base *item, bool import)
     try {
 	pki_x509req *req = (pki_x509req *)item;    
         ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
-	dlg->descr->setText(req->getDescription().c_str());
+	dlg->descr->setText(req->getIntName());
 	dlg->setCaption(tr(XCA_TITLE));
 	if (!req->verify() ) {
 	      	dlg->verify->setDisabled(true);
@@ -177,7 +177,7 @@ void ReqView::load()
 
 pki_base *ReqView::loadItem(QString fname)
 {
-	pki_base *req = new pki_x509req(fname.latin1());
+	pki_base *req = new pki_x509req(fname);
         return req;
 }
 
@@ -215,7 +215,7 @@ void ReqView::store(bool pem)
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	try {
-		req->writeReq(s.latin1(), pem);
+		req->writeReq(s, pem);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -249,7 +249,7 @@ pki_base *ReqView::insert(pki_base *item)
 	if (oldreq) {
 	   QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate signing request already exists in the database as") +":\n'" +
-		QString::fromLatin1(oldreq->getDescription().c_str()) + 
+		oldreq->getIntName() + 
 		"'\n" + tr("and thus was not stored"), "OK");
 	   delete(req);
 	   return oldreq;

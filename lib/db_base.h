@@ -96,7 +96,7 @@ class db_base: public QObject
 	void _removePKI(pki_base *pki, DbTxn *tid );
 	void removeItem(QString k, DbTxn *tid);
     public:
-	db_base(DbEnv *dbe, string DBfile, string db, DbTxn *global_tid);
+	db_base(DbEnv *dbe, QString DBfile, QString db, DbTxn *global_tid);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		CERR("VIRTUAL CALLED: newPKI"); return NULL;}
@@ -115,15 +115,15 @@ class db_base: public QObject
 	virtual void remFromCont(pki_base *pki);
 	virtual void inToCont(pki_base *pki);
 	void *getData(void* key, int length, int *dsize);
-	void *getData(string key, int *dsize);
-	string getString(string key);
-	string getString(char *key);
-	int getInt(string key);
+	void *getData(QString key, int *dsize);
+	QString getString(QString key);
+	QString getString(char *key);
+	int getInt(QString key);
 	void putData(void *key, int keylen, void *dat, int datalen);
-	void putString(string key, void *dat, int datalen);
-	void putString(string key, string dat);
-	void putString(char *key, string dat);
-	void putInt(string key, int dat);
+	void putString(QString key, void *dat, int datalen);
+	void putString(QString key, QString dat);
+	void putString(char *key, QString dat);
+	void putInt(QString key, int dat);
 	QPixmap *loadImg(const char *name);
 	QList<pki_base> getContainer();
 };

@@ -89,14 +89,14 @@ void KeyView::newItem()
 	   progress->setMinimumDuration(0);
 	   progress->setProgress(0);	
 	   progress->setCaption(tr(XCA_TITLE));
-	   pki_key *nkey = new pki_key (dlg->keyDesc->text().latin1(), 
+	   pki_key *nkey = new pki_key (dlg->keyDesc->text(), 
 		       &incProgress,
 		       progress,
 		       sizeList[sel]);
            progress->cancel();
 	   delete progress;
 	   insert(nkey);
-	   x = nkey->getDescription().c_str();
+	   x = nkey->getIntName();
 	   emit keyDone(x);
 	  }
 	  catch (errorEx &err) {
@@ -118,14 +118,10 @@ void KeyView::show(pki_base *item, bool import)
 	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
 	try {	
 		detDlg->setCaption(tr(XCA_TITLE));
-		detDlg->keyDesc->setText(
-			key->getDescription().c_str() );
-		detDlg->keyLength->setText(
-			key->length().c_str() );
-		detDlg->keyPubEx->setText(
-			key->pubEx().c_str() );
-		detDlg->keyModulus->setText(
-			key->modulus().c_str() );
+		detDlg->keyDesc->setText( key->getIntName() );
+		detDlg->keyLength->setText( key->length() );
+		detDlg->keyPubEx->setText( key->pubEx() );
+		detDlg->keyModulus->setText( key->modulus());
 		if (key->isPubKey()) {
 			detDlg->keyPrivEx->setText(tr("not available") );
 			detDlg->keyPrivEx->setDisabled(true);
@@ -155,7 +151,7 @@ void KeyView::show(pki_base *item, bool import)
 	if (import) {
 		key = (pki_key *)insert(key);
 	}
-	CERR(ndesc << " " << key->getDescription());
+	CERR(ndesc << " " << key->getIntName());
 	if ( ndesc != odesc) {
 		MARK
 		try {
@@ -179,7 +175,7 @@ void KeyView::load()
 
 pki_base *KeyView::loadItem(QString fname)
 {
-	pki_base *lkey = new pki_key(fname.latin1(), &MainWindow::passRead);
+	pki_base *lkey = new pki_key(fname, &MainWindow::passRead);
 	return lkey;
 }
 
@@ -194,7 +190,7 @@ pki_base* KeyView::insert(pki_base *item)
 		    lkey->isPubKey()){
 	   	    QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The key is already in the database as") +":\n'" +
-			QString::fromLatin1(oldkey->getDescription().c_str()) + 
+			oldkey->getIntName() + 
 			"'\n" + tr("and is not going to be imported"), "OK");
 		    delete(lkey);
 		    return oldkey;
@@ -202,11 +198,11 @@ pki_base* KeyView::insert(pki_base *item)
 		else {
 	   	    QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The database already contains the public part of the imported key as") +":\n'" +
-			QString::fromLatin1(oldkey->getDescription().c_str()) + 
+			oldkey->getIntName() + 
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
 		    CERR( "before deleting pki...");
 		    db->deletePKI(oldkey);
-		    lkey->setDescription(oldkey->getDescription());
+		    lkey->setIntName(oldkey->getIntName());
 		    delete(oldkey);
 		}
 	    }
@@ -227,7 +223,7 @@ void KeyView::store()
 	pki_key *targetKey = NULL;
 	targetKey = (pki_key *)getSelected();
 	if (!targetKey) return;
-	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
+	ExportKey *dlg = new ExportKey((targetKey->getIntName() + ".pem"),
 			targetKey->isPubKey(), MainWindow::getPath(), this);
 	dlg->image->setPixmap(*image);
 	int dlgret = dlg->exec();
@@ -237,8 +233,8 @@ void KeyView::store()
 		delete dlg;
 		return;
 	}
-	string fname = dlg->filename->text().latin1();
-	if (fname == "") {
+	QString fname = dlg->filename->text();
+	if (fname.isEmpty()) {
 		delete dlg;
 		return;
 	}
@@ -293,10 +289,10 @@ void KeyView::updateViewItem(pki_base *pki)
         if (! pki) return;
         XcaListView::updateViewItem(pki);
         int pixnum = 0;
-        QListViewItem *current = (QListViewItem *)pki->getPointer();
+        QListViewItem *current = pki->getLvi();
         if (!current) return;
 	if (((pki_key *)pki)->isPubKey()) pixnum += 1;	
 	current->setPixmap(0, *keyicon[pixnum]);
-	current->setText(1, ((pki_key *)pki)->length().c_str());
+	current->setText(1, ((pki_key *)pki)->length());
 	current->setText(2, QString::number(((pki_key *)pki)->getUcount()));
 }

@@ -54,30 +54,29 @@
 #include <openssl/err.h>
 #include <qstring.h>
 #include <qlistview.h>
-#include <string>
 #include "base.h"
 
-#define p_tr pass_info::tr
 
 class pki_base
 {
+	Q_OBJECT
     private:
 	static int pki_counter;
     protected:
-	string desc;
-	string className;
+	QString desc;
+	QString class_name;
 	QListViewItem *pointer; 
-	void openssl_error(const string myerr = "") const;
-	void fopen_error(const string fname);
+	void openssl_error(const QString myerr = "") const;
+	void fopen_error(const QString fname);
 	bool ign_openssl_error() const;
 	int intToData(unsigned char **p, const int val);
 	int intFromData(unsigned char **p);
 	int boolToData(unsigned char **p, const bool val);
 	bool boolFromData(unsigned char **p);
-	int stringToData(unsigned char **p, const string val);
-	string stringFromData(unsigned char **p);
+	int stringToData(unsigned char **p, const QString val);
+	QString stringFromData(unsigned char **p);
     public:
-	pki_base(const string d);
+	pki_base(const QString d);
 	pki_base();
 	static int get_pki_counter();
 	virtual void fromData(unsigned char *p, int size)
@@ -87,16 +86,13 @@ class pki_base
 	virtual bool compare(pki_base *ref)
 		{ CERR("VIRTUAL FUNCTION CALLED: compare"); return false;};
 	virtual ~pki_base();
-        string getDescription();
-        void setDescription(const string d );
         QString getIntName();
         void setIntName(const QString d );
-	void setPointer(void *ptr) { pointer = (QListViewItem *)ptr; }
-	void delPointer() { pointer = NULL; }
-	void *getPointer() { return (void *)pointer; }
+	void delLvi() { pointer = NULL; }
 	QListViewItem *getLvi() { return pointer; }
 	void setLvi(QListViewItem *ptr) { pointer = ptr; }
-	string getClassName();
+	QString getClassName();
+	QString rmslashdot(const QString &fname);
 };
 
 #endif

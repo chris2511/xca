@@ -49,12 +49,11 @@
  */                           
 
 
-#include "db_base.h"
-#include "pki_temp.h"
-#include <qstringlist.h>
-
 #ifndef DB_TEMP_H
 #define DB_TEMP_H
+
+#include "db_base.h"
+#include "pki_temp.h"
 
 
 class db_temp: public db_base
@@ -63,7 +62,7 @@ class db_temp: public db_base
     protected:
 	QPixmap *keyicon;
     public:
-	db_temp(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid);
+	db_temp(DbEnv *dbe, QString DBfile, QListView *l, DbTxn *tid);
 	pki_base *newPKI();
 };
 

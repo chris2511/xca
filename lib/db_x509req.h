@@ -49,10 +49,8 @@
  */                           
 
 
-#include <qstringlist.h>
 #include "db_key.h"
 #include "db_x509super.h"
-#include "pki_x509req.h"
 
 #ifndef DB_X509REQ_H
 #define DB_X509REQ_H
@@ -62,7 +60,7 @@ class db_x509req: public db_x509super
 {
 	Q_OBJECT
     public:
-	db_x509req(DbEnv *dbe, string DBfile, db_key *dk, DbTxn *tid);
+	db_x509req(DbEnv *dbe, QString DBfile, db_key *dk, DbTxn *tid);
 	pki_base *newPKI();
 };
 

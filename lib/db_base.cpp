@@ -54,16 +54,16 @@
 #include <qmessagebox.h>
 #include <qdir.h>
 
-db_base::db_base(DbEnv *dbe, string DBfile, string DB, DbTxn *global_tid) 
+db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid) 
 {
 	dbenv = dbe;
 	data = new Db(dbe, 0);
 	CERR("DB:" << DBfile);
 	try {
 #if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
-		data->open(NULL, DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600); 
+		data->open(NULL, DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
 #else
-		data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600); 
+		data->open(DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
 #endif
 	}
 	catch (DbException &err) {
@@ -105,15 +105,15 @@ void *db_base::getData(void *key, int length, int *dsize)
 	return NULL;
 }
 
-void *db_base::getData(string key, int *dsize)
+void *db_base::getData(QString key, int *dsize)
 {
-	return getData((void *)key.c_str(), key.length()+ 1, dsize);
+	return getData((void *)key.latin1(), key.length()+ 1, dsize);
 }
 
 
-string db_base::getString(string key)
+QString db_base::getString(QString key)
 {
-	string x = "";
+	QString x = "";
 	int dsize;
 	char *p = (char *)getData(key, &dsize);
 	if (p == NULL) {
@@ -122,29 +122,29 @@ string db_base::getString(string key)
 	}
 	if ( p[dsize-1] != '\0' ) {
 		int a =p[dsize-1];	
-		CERR( "getString: stringerror "<< a <<" != 0  (returning empty string) size:" <<dsize);
+		CERR( "getString: QStringerror "<< a <<" != 0  (returning empty QString) size:" <<dsize);
 		return x;
 	}
 	x = p;
 	free(p);
 	if ( (int)x.length() != (dsize-1) ) {
-		CERR( "error with '"<<key<<"': "<< x.c_str() <<" "<<dsize);
+		CERR( "error with '"<<key<<"': "<< x.latin1() <<" "<<dsize);
 	}
 	return x;
 }
 
 
-string db_base::getString(char *key)
+QString db_base::getString(char *key)
 {
-	string x = key;
+	QString x = key;
 	return getString(x);
 }
 
 
-int db_base::getInt(string key)
+int db_base::getInt(QString key)
 {
-	string x = getString(key);
-	return atoi(x.c_str());
+	QString x = getString(key);
+	return atoi(x.latin1());
 }
 
 
@@ -162,30 +162,30 @@ void db_base::putData(void *key, int keylen, void *dat, int datalen)
 	}
 }
 
-void db_base::putString(string key, void *dat, int datalen)
+void db_base::putString(QString key, void *dat, int datalen)
 {
 	CERR( key );
-	putData((void *)key.c_str(), key.length()+1, dat, datalen);
+	putData((void *)key.latin1(), key.length()+1, dat, datalen);
 }
 
-void db_base::putString(string key, string dat)
+void db_base::putString(QString key, QString dat)
 {
 	CERR( key);
-	putString(key, (void *)dat.c_str(), dat.length() +1);
+	putString(key, (void *)dat.latin1(), dat.length() +1);
 }
 
-void db_base::putString(char *key, string dat)
+void db_base::putString(char *key, QString dat)
 {
-	string x = key;
+	QString x = key;
 	CERR(key);
 	putString(x,dat);
 }
 
-void db_base::putInt(string key, int dat)
+void db_base::putInt(QString key, int dat)
 {
 	char buf[100];
 	sprintf(buf,"%i",dat);
-	string x = buf;
+	QString x = buf;
 	putString(key, x);
 }
 
@@ -199,7 +199,7 @@ void db_base::loadContainer()
 		data->cursor(tid, &cursor, 0);
 		Dbt *k = new Dbt();
 		Dbt *d = new Dbt();
-		string desc;
+		QString desc;
 		pki_base *pki;
 		container.clear();
 		CERR("Load Container");
@@ -210,13 +210,13 @@ void db_base::loadContainer()
 			try {	
 				pki = newPKI();
 				CERR("PKItest");
-				CERR(desc.c_str());
+				CERR(desc.latin1());
 				pki->fromData(p, size);
-				pki->setDescription(desc);
+				pki->setIntName(desc);
 				container.append(pki);
 			}
 			catch (errorEx &err) {
-				QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: '") + desc.c_str() + "'\n" +
+				QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: '") + desc.latin1() + "'\n" +
 				err.getCString());
 			}
 		}
@@ -252,11 +252,11 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 {
 	int flags = 0;
 	if (!overwrite) flags = DB_NOOVERWRITE;
-	string desc = pki->getDescription();
+	QString desc = pki->getIntName();
 	if (desc == "") {
 		desc="unnamed";
 	}
-	string orig = desc;
+	QString orig = desc;
 	int size=0;
 	char field[10];
 	unsigned char *p = pki->toData(&size);
@@ -264,17 +264,17 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	int x = DB_KEYEXIST;
 	// exception occuring here will be catched by the caller
 	while (x == DB_KEYEXIST) {
-		Dbt k((void *)desc.c_str(), desc.length() + 1);
+		Dbt k((void *)desc.latin1(), desc.length() + 1);
 		Dbt d((void *)p, size);
 		CERR("Size: " << d.get_size());
 		if ((x = data->put(tid, &k, &d, flags ))!=0) {
 			data->err(x,"DB Error put");
 			sprintf(field,"%02i", ++cnt);
-			string z = field;
+			QString z = field;
 		   	desc = orig + "_" + z ;
 		}
 	}
-	pki->setDescription(desc);
+	pki->setIntName(desc);
 }
 
 

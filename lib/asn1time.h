@@ -58,12 +58,16 @@ class a1time
 {
    private:	
 	ASN1_GENERALIZEDTIME *time;
+#if OPENSSL_VERSION_NUMBER < 0x00907000L
+	ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out);
+#endif
    public:
 	a1time();
 	a1time(const ASN1_TIME *a);
 	~a1time();
 	void set(const ASN1_TIME *a);
 	void set(time_t t);
+	void set(const QString &s);
 	QString toPretty() const;
 	QString toPlain() const;
 	QString toSortable() const;

@@ -52,12 +52,12 @@
 #include "pki_crl.h"
 
 
-pki_crl::pki_crl(const string d, pki_x509 *iss )
+pki_crl::pki_crl(const QString d, pki_x509 *iss )
 	:pki_base(d)
 { 
 	issuer = iss;
 	crl = NULL;
-	className="pki_crl";
+	class_name="pki_crl";
 	if (!iss) openssl_error("no issuer");
 	crl = X509_CRL_new();
 	X509V3_set_ctx(&ctx, issuer->cert, NULL, NULL, crl, 0);
@@ -76,13 +76,13 @@ pki_crl::pki_crl(const string d, pki_x509 *iss )
 	openssl_error();
 }	
 
-pki_crl::pki_crl(const string fname )
+pki_crl::pki_crl(const QString fname )
 	:pki_base(fname)
 { 
 	issuer = NULL;
 	crl = X509_CRL_new();
-	className="pki_crl";
-	FILE * fp = fopen(fname.c_str(), "r");
+	class_name="pki_crl";
+	FILE * fp = fopen(fname, "r");
 	if (fp != NULL) {
 		crl = PEM_read_X509_CRL(fp, &crl, NULL, NULL);
 		if (!crl) {
@@ -92,14 +92,7 @@ pki_crl::pki_crl(const string fname )
 			crl = d2i_X509_CRL_fp(fp, &crl);
 		}	
 		fclose(fp);
-		int r = fname.rfind('.');
-#ifdef WIN32
-		int l = fname.rfind('\\');
-#else
-		int l = fname.rfind('/');
-#endif
-		CERR( fname << "r,l: "<< r <<","<< l );
-		setDescription(fname.substr(l+1,r-l-1));
+		setIntName(rmslashdot(fname));
 		openssl_error();
 	}
 	else fopen_error(fname);
@@ -110,7 +103,7 @@ pki_crl::pki_crl()
 {
 	issuer = NULL;
 	crl = X509_CRL_new();
-	className="pki_crl";
+	class_name="pki_crl";
 	openssl_error();
 }
 
@@ -179,20 +172,13 @@ void pki_crl::addRevoked(pki_x509 *client)
 	openssl_error();
 }
 
-void pki_crl::addV3ext(int nid, string exttext)
+void pki_crl::addV3ext(int nid, const QString &exttext)
 { 
 	X509_EXTENSION *ext;
-	int len; 
-	char *c = NULL;
-	if ((len = exttext.length()) == 0) return;
-	len++;
-	c = (char *)OPENSSL_malloc(len);
-	openssl_error();
-	strncpy(c, exttext.c_str(), len);
+	char *c = (char *)exttext.latin1();
 	ext =  X509V3_EXT_conf_nid(NULL, &ctx, nid, c);
-	OPENSSL_free(c);
 	if (!ext) {
-		string x="CRL v3 Extension: " + exttext;
+		QString x="CRL v3 Extension: " + exttext;
 		openssl_error(x);
 		return;
 	}
@@ -210,9 +196,9 @@ void pki_crl::sign(pki_key *key)
 }
 
 
-void pki_crl::writeCrl(const string fname, bool pem)
+void pki_crl::writeCrl(const QString fname, bool pem)
 {
-	FILE *fp = fopen(fname.c_str(),"w");
+	FILE *fp = fopen(fname,"w");
 	if (fp != NULL) {
 	   if (crl){
 		CERR("writing CRL");
@@ -229,10 +215,12 @@ void pki_crl::writeCrl(const string fname, bool pem)
 
 pki_x509 *pki_crl::getIssuer() { return issuer; }
 
-ASN1_TIME *pki_crl::getDate()
+a1time pki_crl::getDate()
 {
-	if (!crl || !crl->crl) return NULL;
-	return crl->crl->lastUpdate;
+	a1time a;
+	if (!crl || !crl->crl) return a;
+	a.set(crl->crl->lastUpdate);
+	return a;
 }
 
 int pki_crl::numRev()
@@ -243,49 +231,38 @@ int pki_crl::numRev()
 		return 0;
 }
 
-long pki_crl::getSerial(int num)
+a1int pki_crl::getSerial(int num)
 {
 	X509_REVOKED *ret = NULL;
-	long serial=-1;
+	a1int serial;
+	serial = -1;
 	if (crl && crl->crl && crl->crl->revoked) {
 		ret = sk_X509_REVOKED_value(crl->crl->revoked, num);
-		serial = ASN1_INTEGER_get(ret->serialNumber);
+		serial.set(ret->serialNumber);
 	}
 	openssl_error();
 	return serial;
 }	
 		
-ASN1_TIME *pki_crl::getRevDate(int num)
+a1time pki_crl::getRevDate(int num)
 {
 	X509_REVOKED *ret = NULL;
-	ASN1_TIME *t = NULL;
+	a1time t;;
 	if (crl && crl->crl && crl->crl->revoked) {
 		ret = sk_X509_REVOKED_value(crl->crl->revoked, num);
 		openssl_error();
-		t = M_ASN1_TIME_dup(ret->revocationDate);
+		t.set(ret->revocationDate);
 	}
 	return t;
 }	
 
-string pki_crl::issuerName()
+x509name pki_crl::getIssuerName()
 {
-	char *x = NULL;
-	if (crl && crl->crl && crl->crl->issuer)
-		x = X509_NAME_oneline(crl->crl->issuer, NULL ,0);
-	string ret = x;
-	if (x)
-	       	OPENSSL_free(x);
-	openssl_error();
-	return ret;
-}					  
-
-X509_NAME *pki_crl::getIssuerX509_NAME()
-{
+	x509name x;
 	if (crl && crl->crl && crl->crl->issuer) {
-		return crl->crl->issuer;
+		x.set(crl->crl->issuer);
 	}
-	else 
-		return NULL ;
+	return x ;
 }
 
 bool pki_crl::verify(pki_key *key)
@@ -298,7 +275,7 @@ bool pki_crl::verify(pki_key *key)
 	return ret ;
 }	
 
-string pki_crl::printV3ext()
+QString pki_crl::printV3ext()
 {
 #define V3_BUF 100
 	ASN1_OBJECT *obj;
@@ -306,7 +283,7 @@ string pki_crl::printV3ext()
 	int i, len, n = X509_CRL_get_ext_count(crl);
 	char buffer[V3_BUF+1];
 	X509_EXTENSION *ex;
-	string text="";
+	QString text="";
 	for (i=0; i<n; i++) {
 		text += "<b><u>";
 		ex = X509_CRL_get_ext(crl,i);

@@ -54,7 +54,7 @@
                         pki != 0; pki = (pki_x509 *)container.next() ) 
 			
 
-db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid)
+db_x509::db_x509(DbEnv *dbe, QString DBfile, QListView *l, db_key *keyl, DbTxn *tid)
 		:db_x509super(dbe, DBfile, "certdb", keyl, tid)
 {
 	loadContainer();

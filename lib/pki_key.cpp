@@ -58,10 +58,10 @@ char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0
 void pki_key::init()
 {
 	ucount = 0;
-	className = "pki_key";
+	class_name = "pki_key";
 }
 	
-pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
+pki_key::pki_key(const QString d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
 {
 	init();
 	key = EVP_PKEY_new();
@@ -94,7 +94,7 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 }
 
-pki_key::pki_key(const string d, int type )
+pki_key::pki_key(const QString d, int type )
 	:pki_base(d)
 { 
 	init();
@@ -110,15 +110,14 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	key = pkey;
 }	
 
-pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
+pki_key::pki_key(const QString fname, pem_password_cb *cb, int type )
 	:pki_base(fname)
 { 
 	init();
-	pass_info p(XCA_TITLE, p_tr("Please enter the password to decrypt the RSA key.")); 
+	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the RSA key.")); 
 	key = EVP_PKEY_new();
 	key->type = EVP_PKEY_type(type);
-	error = "";
-	FILE *fp = fopen(fname.c_str(), "r");
+	FILE *fp = fopen(fname.latin1(), "r");
 	RSA *rsakey = NULL;
 	if (fp != NULL) {
 	   rsakey = PEM_read_RSAPrivateKey(fp, NULL, cb, &p);
@@ -143,8 +142,8 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 	   if (!rsakey) {
 	        ign_openssl_error();
 	        rewind(fp);
-		p.setTitle(p_tr("Password for PKCS#8 private key"));
-		p.setDescription(p_tr("Please enter the password to decrypt the PKCS#8 private key."));
+		p.setTitle(tr("Password for PKCS#8 private key"));
+		p.setDescription(tr("Please enter the password to decrypt the PKCS#8 private key."));
 		CERR("Fallback to PKCS#8 Private key"); 
 	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
 	   }
@@ -153,14 +152,7 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 		openssl_error();
 		CERR("assigning loaded key");
 	   }
-	   int r = fname.rfind('.');
-#ifdef WIN32
-	   int l = fname.rfind('\\');
-#else
-	   int l = fname.rfind('/');
-#endif
-	   CERR( fname << "r,l: "<< r <<","<< l );
-	   setDescription(fname.substr(l+1,r-l-1));
+	   setIntName(rmslashdot(fname));
 	   openssl_error();
 	}	
 	else fopen_error(fname);
@@ -291,10 +283,10 @@ pki_key::~pki_key()
 }
 
 
-void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
+void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
 {
-	pass_info p(XCA_TITLE, p_tr("Please enter the password protecting the PKCS#8 key"));
-	FILE *fp = fopen(fname.c_str(),"w");
+	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key"));
+	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
 	   if (key){
 		CERR( "writing PKCS8");
@@ -307,15 +299,15 @@ void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 	fclose(fp);
 }
 
-void pki_key::writeKey(const string fname, const EVP_CIPHER *enc, 
+void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
-	pass_info p(XCA_TITLE, p_tr("Please enter the password protecting the RSA private key"));
+	pass_info p(XCA_TITLE, tr("Please enter the password protecting the RSA private key"));
 	if (isPubKey()) {
 		writePublic(fname, PEM);
 		return;
 	}
-	FILE *fp = fopen(fname.c_str(),"w");
+	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
 	   if (key){
 		CERR("writing Private Key");
@@ -332,9 +324,9 @@ void pki_key::writeKey(const string fname, const EVP_CIPHER *enc,
 }
 
 
-void pki_key::writePublic(const string fname, bool PEM)
+void pki_key::writePublic(const QString fname, bool PEM)
 {
-	FILE *fp = fopen(fname.c_str(),"w");
+	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
 	   if (key->type == EVP_PKEY_RSA) {
 		CERR("writing Public Key");
@@ -350,19 +342,19 @@ void pki_key::writePublic(const string fname, bool PEM)
 }
 
 
-string pki_key::length()
+QString pki_key::length()
 {
 	char st[64];
 	sprintf(st,"%i bit", EVP_PKEY_size(key) * 8 );
 	openssl_error();
-	string x = st;
+	QString x = st;
 	return x;
 }
 
-string pki_key::BN2string(BIGNUM *bn)
+QString pki_key::BN2QString(BIGNUM *bn)
 {
 	if (bn == NULL) return "--";
-	string x="";
+	QString x="";
 	char zs[10];
 	int j;
 	int size = BN_num_bytes(bn);
@@ -377,17 +369,17 @@ string pki_key::BN2string(BIGNUM *bn)
 	return x;
 }
 
-string pki_key::modulus() {
-	return BN2string(key->pkey.rsa->n);
+QString pki_key::modulus() {
+	return BN2QString(key->pkey.rsa->n);
 }
 
-string pki_key::pubEx() {
-	return BN2string(key->pkey.rsa->e);
+QString pki_key::pubEx() {
+	return BN2QString(key->pkey.rsa->e);
 }
 
-string pki_key::privEx() {
+QString pki_key::privEx() {
 	if (isPubKey()) return "Not existent (not a private key)";
-	return BN2string(key->pkey.rsa->d);
+	return BN2QString(key->pkey.rsa->d);
 }
 
 bool pki_key::compare(pki_base *ref)

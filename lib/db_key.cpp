@@ -54,7 +54,7 @@
                         pki != 0; pki = (pki_key *)container.next() ) 
 			
 
-db_key::db_key(DbEnv *dbe, string DBfile, DbTxn *tid)
+db_key::db_key(DbEnv *dbe, QString DBfile, DbTxn *tid)
 	:db_base(dbe, DBfile, "keydb",tid)
 {
 	loadContainer();

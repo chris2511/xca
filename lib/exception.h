@@ -48,33 +48,26 @@
  *
  */                           
 
-#include <string>
-
-using namespace std;
-
-#ifdef HAVE_CONFIG_H
-#include "../config.h"
-#endif
-
-#include "base.h"
-
 #ifndef PKI_EXCEPTION_H
 #define PKI_EXCEPTION_H
+
+#include <qstring.h>
+#include "base.h"
 
 class errorEx
 {
 	private:
-		string msg;
+		QString msg;
 	public:
-		errorEx(string txt, string className = "") {
+		errorEx(QString txt, QString className = "") {
 			msg = txt; 
-			if (!className.empty())
+			if (!className.isEmpty())
 				msg += " (" + className + ")";
 		}
 		errorEx(const errorEx &e) { msg = e.msg; }
-		string getString(){return msg;}
-		const char *getCString(){return msg.c_str();}
-		bool isEmpty() { return msg.empty();}
+		QString getString() const {return msg;}
+		const char *getCString() const {return msg.latin1();}
+		bool isEmpty() const { return msg.isEmpty();}
 };
 
 #endif

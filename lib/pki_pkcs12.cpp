@@ -54,10 +54,10 @@
 #include "exception.h"
 
 
-pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
+pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
 	pki_base(d)
 {
-	className="pki_pkcs12";
+	class_name="pki_pkcs12";
 	key = new pki_key(akey);
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
@@ -66,7 +66,7 @@ pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_passw
 	openssl_error();	
 }
 
-pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
+pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	:pki_base(fname)
 { 
 	FILE *fp;
@@ -75,10 +75,10 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 	X509 *mycert;
 	key=NULL; cert=NULL; pkcs12=NULL;
 	passcb = cb;
-	className="pki_pkcs12";
+	class_name="pki_pkcs12";
 	certstack = sk_X509_new_null();
-	pass_info p(XCA_TITLE, p_tr("Please enter the password to decrypt the PKCS#12 file."));
-	fp = fopen(fname.c_str(), "rb");
+	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file."));
+	fp = fopen(fname, "rb");
 	if (fp) {
 		pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		CERR("PK12");
@@ -93,12 +93,12 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 		openssl_error();
 		if (mykey) {
 			key = new pki_key(mykey);
-			key->setDescription("pk12-import");
+			key->setIntName("pk12-import");
 			//EVP_PKEY_free(mykey);
 		}
 		if (mycert) {
 			cert = new pki_x509(mycert);
-			cert->setDescription("pk12-import");
+			cert->setIntName("pk12-import");
 			//X509_free(mycert);
 		}
 	}
@@ -135,12 +135,12 @@ void pki_pkcs12::addCaCert(pki_x509 *ca)
 	openssl_error();
 }	
 
-void pki_pkcs12::writePKCS12(const string fname)
+void pki_pkcs12::writePKCS12(const QString fname)
 { 
 	char pass[30];
 	char desc[100];
-	strncpy(desc,getDescription().c_str(),100);
-	pass_info p(XCA_TITLE, p_tr("Please enter the password to encrypt the PKCS#12 file"));
+	strncpy(desc,getIntName(),100);
+	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
 	if (!pkcs12) {
 		if (cert == NULL || key == NULL) {
 			openssl_error("No key or no Cert and no pkcs12....");
@@ -152,7 +152,7 @@ void pki_pkcs12::writePKCS12(const string fname)
 		openssl_error();
 		CERR("after PKCS12_create....");
 	}
-	FILE *fp = fopen(fname.c_str(),"wb");
+	FILE *fp = fopen(fname,"wb");
 	if (fp != NULL) {
 	    CERR("writing PKCS#12");
             i2d_PKCS12_fp(fp, pkcs12);
@@ -182,7 +182,7 @@ pki_x509 *pki_pkcs12::getCa(int x) {
 	pki_x509 *cert;
 	cert = new pki_x509(X509_dup(sk_X509_value(certstack, x)));
 	openssl_error();
-	cert->setDescription("pk12-import");
+	cert->setIntName("pk12-import");
 	return cert;
 }
 

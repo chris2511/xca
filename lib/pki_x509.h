@@ -74,18 +74,18 @@ class pki_x509 : public pki_x509super
 	   int efftrust;
 	   a1int caSerial;
 	   int crlDays;
-	   string caTemplate;
+	   QString caTemplate;
 	   X509 *cert;
 	   void init();
 	public:
 	   pki_x509(X509 *c);
 	   pki_x509(const pki_x509 *crt);
 	   pki_x509();
-	   pki_x509(const string fname);
+	   pki_x509(const QString fname);
 	   ~pki_x509();
 
 	   void setSerial(const a1int &serial);
-	   a1int pki_x509::getSerial() const;
+	   a1int getSerial() const;
 	   void setNotBefore(const a1time &a1);
 	   void setNotAfter(const a1time &a1);
 	   a1time getNotBefore() const;
@@ -99,14 +99,14 @@ class pki_x509 : public pki_x509super
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
 	   bool canSign();
-	   void writeCert(const string fname, bool PEM, bool append = false);
+	   void writeCert(const QString fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);
 	   pki_key *getPubKey(); // will be created temporarily and must be freed
 	   void setPubKey(pki_key *key);
 	   pki_x509 *getSigner();
 	   void delSigner(pki_x509 *s);
-	   string fingerprint(const EVP_MD *digest);
-	   string printV3ext();
+	   QString fingerprint(const EVP_MD *digest);
+	   QString printV3ext();
 	   int checkDate();
 	   void addV3ext(int nid, const QString exttext);
 	   void sign(pki_key *signkey);
@@ -123,8 +123,8 @@ class pki_x509 : public pki_x509super
 	   a1int getIncCaSerial();
 	   a1int getCaSerial();
 	   void setCaSerial(a1int s);
-	   void setTemplate(string s);
-	   string getTemplate();
+	   void setTemplate(QString s);
+	   QString getTemplate();
 	   void setCrlDays(int s);
 	   int getCrlDays();
 	   void setLastCrl(a1time &time);

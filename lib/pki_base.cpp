@@ -54,10 +54,10 @@
 
 int pki_base::pki_counter = 0;
 
-pki_base::pki_base(const string d)
+pki_base::pki_base(const QString d)
 {
 	desc = d;
-	className = "pki_base";
+	class_name = "pki_base";
 	pointer = NULL;
 	pki_counter++;
 }
@@ -65,7 +65,7 @@ pki_base::pki_base(const string d)
 pki_base::pki_base()
 {
 	desc = "";
-	className = "pki_base";
+	class_name = "pki_base";
 	pointer=NULL;
 	pki_counter++;
 }
@@ -76,16 +76,9 @@ pki_base::~pki_base(void)
 }
 
 
-string pki_base::getDescription()
-{
-	string x = desc;
-	return x;
-}
-
 QString pki_base::getIntName()
 {
-	QString x = desc.c_str();
-	return x;
+	return desc;
 }
 
 int pki_base::get_pki_counter()
@@ -93,15 +86,9 @@ int pki_base::get_pki_counter()
 	return pki_counter;
 }
 
-string pki_base::getClassName()
+QString pki_base::getClassName()
 {
-	return className;
-}
-
-
-void pki_base::setDescription(const string d)
-{
-	desc = d;
+	return class_name;
 }
 
 void pki_base::setIntName(const QString d)
@@ -109,18 +96,17 @@ void pki_base::setIntName(const QString d)
 	desc = d.latin1();
 }
 
-
-void pki_base::fopen_error(const string fname)
+void pki_base::fopen_error(const QString fname)
 {
-	string txt = "Error opening file: '" + fname + "'";
+	QString txt = "Error opening file: '" + fname + "'";
 	openssl_error(txt);
 }
 
 
-void pki_base::openssl_error(const string myerr)  const
+void pki_base::openssl_error(const QString myerr)  const
 {
-	string errtxt = "";
-	string error = "";
+	QString errtxt = "";
+	QString error = "";
 	if (myerr != "") {
 		CERR("PKI ERROR: " << myerr);
 		error += myerr + "\n";
@@ -130,8 +116,8 @@ void pki_base::openssl_error(const string myerr)  const
 	   CERR("OpenSSL: " << errtxt);
 	   error += errtxt + "\n";
 	}
-	if (!error.empty()) {
-		throw errorEx(error, className);
+	if (!error.isEmpty()) {
+		throw errorEx(error, class_name);
 	}
 }
 
@@ -139,12 +125,12 @@ void pki_base::openssl_error(const string myerr)  const
 bool pki_base::ign_openssl_error() const 
 {
 	// ignore openssl errors
-	string errtxt;
+	QString errtxt;
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
 	   CERR("IGNORE -> OpenSSL: " << errtxt << " <- IGNORE");
 	}
-	return !errtxt.empty();
+	return !errtxt.isEmpty();
 }
 
 int pki_base::intToData(unsigned char **p, const int val)
@@ -181,17 +167,17 @@ bool pki_base::boolFromData(unsigned char **p)
 	return ret;
 }
 
-int pki_base::stringToData(unsigned char **p, const string val)
+int pki_base::stringToData(unsigned char **p, const QString val)
 {
 	int s = (val.length() +1) * sizeof(char);
-	memcpy(*p, val.c_str(), s);
+	memcpy(*p, val.latin1(), s);
 	*p += s;
 	return s;
 }
 
-string pki_base::stringFromData(unsigned char **p)
+QString pki_base::stringFromData(unsigned char **p)
 {
-	string ret="";
+	QString ret="";
 	while(**p) {
 		ret +=(char)**p;
 		*p += sizeof(char);
@@ -199,3 +185,14 @@ string pki_base::stringFromData(unsigned char **p)
 	*p += sizeof(char);
 	return ret;
 }
+
+QString pki_base::rmslashdot(const QString &s)
+{
+	int r = s.findRev('.');
+#ifdef WIN32
+	int l = s.findRev('\\');
+#else
+	int l = s.findRev('/');
+#endif
+        return s.mid(l+1,r-l-1);
+}							       

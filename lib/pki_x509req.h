@@ -66,13 +66,13 @@ class pki_x509req : public pki_x509super
 	   X509_REQ *request;
 	public:
 	   pki_x509req();
-	   pki_x509req(const string fname);
+	   pki_x509req(const QString fname);
 	   ~pki_x509req();
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);
 	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
+	   void writeReq(const QString fname, bool PEM);
 	   int verify();
 	   pki_key *getPubKey();
 	   void createReq(pki_key *key, x509name &dist_name);

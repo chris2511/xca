@@ -85,9 +85,9 @@ pki_x509::pki_x509()
 	openssl_error();
 }
 
-pki_x509::pki_x509(const string fname)
+pki_x509::pki_x509(const QString fname)
 {
-	FILE *fp = fopen(fname.c_str(),"r");
+	FILE *fp = fopen(fname.latin1(),"r");
 	init();
 	if (fp != NULL) {
 	   cert = PEM_read_X509(fp, NULL, NULL, NULL);
@@ -97,15 +97,7 @@ pki_x509::pki_x509(const string fname)
 		CERR("Fallback to certificate DER"); 
 	   	cert = d2i_X509_fp(fp, NULL);
 	   }
-	   openssl_error();
-	   int r = fname.rfind('.');
-#ifdef WIN32
-	   int l = fname.rfind('\\');
-#else
-	   int l = fname.rfind('/');
-#endif
-	   desc = fname.substr(l+1,r-l-1);
-	   if (desc == "") desc = fname;
+	   setIntName(rmslashdot(fname));
 	   openssl_error();
 	}	
 	else fopen_error(fname);
@@ -133,7 +125,7 @@ void pki_x509::init()
 	caTemplate = "";
 	crlDays = 30;
 	lastCrl.now();
-	className = "pki_x509";
+	class_name = "pki_x509";
 	cert = NULL;
 	isrevoked = false;
 }
@@ -361,14 +353,12 @@ unsigned char *pki_x509::toData(int *size)
 	return p;
 }
 
-void pki_x509::writeCert(const string fname, bool PEM, bool append)
+void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 {
 	FILE *fp;
-	if (append)
-		fp = fopen(fname.c_str(),"a");
-	else
-		fp = fopen(fname.c_str(),"w");
-
+	char *_a = "a", *_w="w", *p = _w;
+	if (append) p=_a;
+	fp = fopen(fname.latin1(), p);
 	if (fp != NULL) {
 	   if (cert){
 		if (PEM) 
@@ -441,10 +431,10 @@ void pki_x509::setPubKey(pki_key *key)
 	 X509_set_pubkey(cert, key->getKey());
 }
 
-string pki_x509::fingerprint(const EVP_MD *digest)
+QString pki_x509::fingerprint(const EVP_MD *digest)
 {
 	 int j;
-	 string fp="";
+	 QString fp="";
 	 char zs[4];
          unsigned int n;
          unsigned char md[EVP_MAX_MD_SIZE];
@@ -500,7 +490,7 @@ void pki_x509::delSigner(pki_x509 *s)
 		psigner = NULL;
 }
 
-string pki_x509::printV3ext()
+QString pki_x509::printV3ext()
 {
 #define V3_BUF 100
 	ASN1_OBJECT *obj;
@@ -508,7 +498,7 @@ string pki_x509::printV3ext()
 	int i, len, n = X509_get_ext_count(cert);
 	char buffer[V3_BUF+1];
 	X509_EXTENSION *ex;
-	string text="";
+	QString text="";
 	for (i=0; i<n; i++) {
 		text += "<b><u>";
 		ex = X509_get_ext(cert,i);
@@ -632,9 +622,9 @@ int pki_x509::getCrlDays() {return crlDays;}
 
 void pki_x509::setCrlDays(int s){if (s>0) crlDays = s;}
 
-string pki_x509::getTemplate(){ return caTemplate; }
+QString pki_x509::getTemplate(){ return caTemplate; }
 
-void pki_x509::setTemplate(string s) {if (s.length()>0) caTemplate = s; }
+void pki_x509::setTemplate(QString s) {if (s.length()>0) caTemplate = s; }
 
 void pki_x509::setLastCrl(a1time &time)
 {

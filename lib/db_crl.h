@@ -49,10 +49,8 @@
  */                           
 
 
-#include "db_base.h"
 #include "db_x509.h"
 #include "pki_crl.h"
-#include <qstringlist.h>
 
 #ifndef DB_CRL_H
 #define DB_CRL_H
@@ -65,7 +63,7 @@ class db_crl: public db_base
 	QPixmap *crlicon;
 	db_x509 *certs;
     public:
-	db_crl(DbEnv *dbe, string DBfile, DbTxn *tid);
+	db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid);
 	pki_base *newPKI();
 	void revokeCerts(pki_crl *crl);
 	void preprocess();

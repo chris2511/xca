@@ -52,7 +52,6 @@
 #define PKI_TEMP_H
 
 #include <iostream>
-#include <string>
 #include "pki_base.h"
 
 #define tEMPTY 0
@@ -67,16 +66,16 @@ class pki_temp: public pki_base
 	int version;
 	
     public:
-	string C,P,L,O,OU,CN,EMAIL;
-	string subAltName, issAltName, crlDist;
-	string nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
+	QString C,P,L,O,OU,CN,EMAIL;
+	QString subAltName, issAltName, crlDist;
+	QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 	bool ca, bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
 	int type, nsCertType, pathLen, validN, validM, keyUse, eKeyUse;
      
     // methods
     
 	pki_temp(const pki_temp *pk);
-	pki_temp(const string d, int atype=0);
+	pki_temp(const QString d, int atype=0);
 	/* destructor */
 	~pki_temp();
 	void fromData(unsigned char *p, int size);

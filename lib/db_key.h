@@ -61,7 +61,7 @@ class db_key: public db_base
 {
 	Q_OBJECT
     public:
-	db_key(DbEnv *dbe, string DBfile, DbTxn *tid);
+	db_key(DbEnv *dbe, QString DBfile, DbTxn *tid);
 	pki_base *newPKI();
 	QStringList getPrivateDesc();
 	QStringList get0PrivateDesc();

@@ -65,6 +65,13 @@ x509name::~x509name()
 	X509_NAME_free(xn);
 }
 
+void x509name::set(const X509_NAME *n)
+{
+	X509_NAME_free(xn);
+	xn = X509_NAME_dup((X509_NAME *)n);
+}
+
+
 QString x509name::subjectOneLine() const
 {
 	char *x = X509_NAME_oneline(xn, NULL ,0);

@@ -53,9 +53,11 @@
 #define PKI_CRL_H
 
 #include <iostream>
-#include <string>
 #include <openssl/pem.h>
 #include "pki_x509.h"
+#include "x509name.h"
+#include "asn1time.h"
+#include "asn1int.h"
 
 class pki_crl: public pki_base
 {
@@ -65,30 +67,29 @@ class pki_crl: public pki_base
 	X509V3_CTX ctx;
     public:
 	X509_CRL *crl;
-	pki_crl(const string d, pki_x509 *iss);
-	pki_crl(const string fname);
+	pki_crl(const QString d, pki_x509 *iss);
+	pki_crl(const QString fname);
 	pki_crl();
 	/* destructor */
 	~pki_crl();
 	
 	void addRevoked(pki_x509 *rev);
-	void addExt(int nid, string value);
-	void write(string fname);
-	void addV3ext(int nid, string exttext);
+	void addExt(int nid, QString value);
+	void write(QString fname);
+	void addV3ext(int nid, const QString &exttext);
 	void sign(pki_key *key);
-	void writeCrl(const string fname, bool pem = true);
+	void writeCrl(const QString fname, bool pem = true);
 	pki_x509 *getIssuer();	
-	ASN1_TIME *pki_crl::getDate();
+	x509name getIssuerName();
+	a1time getDate();
 	virtual void fromData(unsigned char *p, int size);
 	virtual unsigned char *toData(int *size);
 	virtual bool compare(pki_base *refcrl);
 	int numRev();
-	string issuerName();
-	X509_NAME *getIssuerX509_NAME();
 	bool verify(pki_key *pkey);
-	long getSerial(int num);
-	ASN1_TIME *getRevDate(int num);
-	string printV3ext();
+	a1int getSerial(int num);
+	a1time getRevDate(int num);
+	QString printV3ext();
 			       
 };
 

@@ -52,11 +52,13 @@
 #include "CertView.h"
 #include "MainWindow.h"
 #include <qcheckbox.h>
+#include <qlabel.h>
 #include <qcombobox.h>
 #include <qradiobutton.h>
 #include <qmessagebox.h>
 #include <qpopupmenu.h>
 #include "CertExtend.h"
+#include "CertDetail.h"
 
 CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
         :XcaListView(parent, name, f)
@@ -234,7 +236,7 @@ void CertView::newCert(NewX509 *dlg)
 		}
 	}
 	if (cont.length() > 0){
-		addStr(subAltName,cont.latin1());
+		addStr(subAltName,cont);
 	}
 	if (subAltName.length() > 0) {
 		CERR( "SubAltName:" << subAltName);
@@ -257,7 +259,7 @@ void CertView::newCert(NewX509 *dlg)
 		}
 	}
 	if (cont.length() > 0){
-		addStr(issAltName,cont.latin1());
+		addStr(issAltName,cont);
 	}
 	if (issAltName.length() > 0) {
 		CERR("IssAltName:" << issAltName);
@@ -316,7 +318,8 @@ void CertView::extendCert()
 {
 	pki_x509 *oldcert = NULL, *signer = NULL, *newcert =NULL;
 	pki_key *signkey = NULL;
-	int serial, days, x;
+	int days, x;
+	a1int serial;
 	try {
 		CertExtend_UI *dlg = new CertExtend_UI(this, NULL, true);
 		dlg->image->setPixmap(*MainWindow::certImg);
@@ -325,16 +328,15 @@ void CertView::extendCert()
 			return;
 		}
 		oldcert = (pki_x509 *)getSelected();
-		if (!oldcert || !(signer = oldcert->getSigner()) || !(signkey = signer->getKey()) || signkey->isPubKey()) return;
+		if (!oldcert || !(signer = oldcert->getSigner()) || !(signkey = signer->getRefKey()) || signkey->isPubKey()) return;
 		newcert = new pki_x509(oldcert);
 		serial = signer->getIncCaSerial();
 		
 		// get signers own serial to avoid having the same
-		if (serial == atoi(signer->getSerial().c_str())) { // FIXME: anybody tell me the string method for this ?
+		if (serial == signer->getSerial()) {
 			serial = signer->getIncCaSerial(); // just take the next one
 		}
-		certs->updatePKI(signer);  // not so pretty ....
-		CERR("serial is: " << serial );
+		db->updatePKI(signer);  // FIXME::not so pretty ....
 		
 		// Date handling
 		x = dlg->validNumber->text().toInt();
@@ -344,7 +346,8 @@ void CertView::extendCert()
 		
 		// change date and serial
 		newcert->setSerial(serial);
-		newcert->setDates(x); // now and now + x days
+		newcert->setNotBefore(dlg->getNotBefore());
+		newcert->setNotAfter(dlg->getNotAfter());
 
 		if (newcert->resetTimes(signer) > 0) {
 			if (QMessageBox::information(this,tr(XCA_TITLE),
@@ -358,7 +361,7 @@ void CertView::extendCert()
 		// and finally sign the request 
 		newcert->sign(signkey);
 		CERR( "SIGNED");
-		insertCert(newcert);
+		insert(newcert);
 		CERR("inserted");
 		delete dlg;
 	}
@@ -369,23 +372,23 @@ void CertView::extendCert()
 	}
 }
 		
-bool CertView::show(pki_base *basecert, bool import)
+void CertView::show(pki_base *basecert, bool import)
 {
 	pki_x509 *cert = (pki_x509 *)basecert;
-	if (!cert) return false;
-	if (opensslError(cert)) return false;
+	if (!cert) return; 
+	if (opensslError(cert)) return ;
     try {
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	bool ret;
 	dlg->image->setPixmap(*certImg);
-	dlg->descr->setText(cert->getDescription().c_str());
+	dlg->descr->setText(cert->getIntName());
 	dlg->setCaption(tr(XCA_TITLE));
 
 	// examine the key
 	pki_key *key= cert->getKey();
 	if (key)
 	     if (key->isPrivKey()) {
-		dlg->privKey->setText(key->getDescription().c_str());
+		dlg->privKey->setText(key->getIntName());
 	      	dlg->privKey->setDisabled(false);
 	     }								
 
@@ -398,7 +401,7 @@ bool CertView::show(pki_base *basecert, bool import)
 	}
 	
 	else {
-		dlg->verify->setText(cert->getSigner()->getDescription().c_str());
+		dlg->verify->setText(cert->getSigner()->getIntName());
 	}
 
 	// check trust state
@@ -408,40 +411,41 @@ bool CertView::show(pki_base *basecert, bool import)
 	CERR( cert->getEffTrust() );
 	
 	// the serial
-	dlg->serialNr->setText(cert->getSerial().c_str());	
+	dlg->serialNr->setText(cert->getSerial().toHex());	
 
 	// details of subject
-	string land = cert->getDNs(NID_countryName);
-	string land1 = cert->getDNs(NID_stateOrProvinceName);
+	x509name subj = cert->getSubject();
+	QString land = subj.getEntryByNid(NID_countryName);
+	QString land1 = subj.getEntryByNid(NID_stateOrProvinceName);
 	if (land != "" && land1 != "")
 		land += " / " +land1;
 	else
 		land+=land1;
 	
+	dlg->dnCN->setText(subj.geEntryByNid(NID_commonName));
+	dlg->dnC->setText(land);
+	dlg->dnL->setText(subj.getEntryByNid(NID_localityName));
+	dlg->dnO->setText(subj.getEntryByNid(NID_organizationName));
+	dlg->dnOU->setText(subj.getEntryByNid(NID_organizationalUnitName));
+	dlg->dnEmail->setText(subj.getEntryByNid(NID_pkcs9_emailAddress));
 	
-	dlg->dnCN->setText(cert->getDNs(NID_commonName).c_str() );
-	dlg->dnC->setText(land.c_str());
-	dlg->dnL->setText(cert->getDNs(NID_localityName).c_str());
-	dlg->dnO->setText(cert->getDNs(NID_organizationName).c_str());
-	dlg->dnOU->setText(cert->getDNs(NID_organizationalUnitName).c_str());
-	dlg->dnEmail->setText(cert->getDNs(NID_pkcs9_emailAddress).c_str());
-	
-	MARK
 	// same for issuer....	
-	land = cert->getDNi(NID_countryName);
-	land1 = cert->getDNi(NID_stateOrProvinceName);
+	x509name iss = cert->getIssuer();
+	land = iss.getEntryByNid(NID_countryName);
+	land1 = iss.getEntryByNid(NID_stateOrProvinceName);
 	if (land != "" && land1 != "")
 		land += " / " +land1;
 	else
 		land+=land1;
-	dlg->dnCN_2->setText(cert->getDNi(NID_commonName).c_str() );
-	dlg->dnC_2->setText(land.c_str());
-	dlg->dnL_2->setText(cert->getDNi(NID_localityName).c_str());
-	dlg->dnO_2->setText(cert->getDNi(NID_organizationName).c_str());
-	dlg->dnOU_2->setText(cert->getDNi(NID_organizationalUnitName).c_str());
-	dlg->dnEmail_2->setText(cert->getDNi(NID_pkcs9_emailAddress).c_str());
-	dlg->notBefore->setText(cert->notBefore().c_str());
-	dlg->notAfter->setText(cert->notAfter().c_str());
+
+	dlg->dnCN_2->setText(iss.getEntryByNid(NID_commonName) );
+	dlg->dnC_2->setText(land);
+	dlg->dnL_2->setText(iss.getEntryByNid(NID_localityName));
+	dlg->dnO_2->setText(iss.getEntryByNid(NID_organizationName));
+	dlg->dnOU_2->setText(iss.getEntryByNid(NID_organizationalUnitName));
+	dlg->dnEmail_2->setText(iss.getEntryByNid(NID_pkcs9_emailAddress));
+	dlg->notBefore->setText(cert.getNotBefore().toPretty());
+	dlg->notAfter->setText(cert.getNotAfter().toPretty());
 	MARK
 	
 	// validation of the Date
@@ -453,18 +457,18 @@ bool CertView::show(pki_base *basecert, bool import)
 		dlg->dateValid->setText(tr("Not valid"));
 	      	dlg->dateValid->setDisabled(true);
 	}
-	string revdate = cert->revokedAt();
-	if (revdate != "") {
-		dlg->dateValid->setText(tr("Revoked: ")+ revdate.c_str());
+	if (cert->isRevoked()) {
+		dlg->dateValid->setText(tr("Revoked: ") +
+			cert->getRevoked().toPretty());
 	      	dlg->dateValid->setDisabled(true);
 		
 	}
 	// the fingerprints
-	dlg->fpMD5->setText(cert->fingerprint(EVP_md5()).c_str());
-	dlg->fpSHA1->setText(cert->fingerprint(EVP_sha1()).c_str());
+	dlg->fpMD5->setText(cert->fingerprint(EVP_md5()));
+	dlg->fpSHA1->setText(cert->fingerprint(EVP_sha1()));
 	
 	// V3 extensions
-	dlg->v3Extensions->setText(cert->printV3ext().c_str());
+	dlg->v3Extensions->setText(cert->printV3ext());
 	
 	// rename the buttons in case of import 
 	if (import) {
@@ -473,33 +477,33 @@ bool CertView::show(pki_base *basecert, bool import)
 	}
 
 	// show it to the user...	
-	string odesc = cert->getDescription();
+	QString odesc = cert->getIntName();
 	ret = dlg->exec();
-	string ndesc = dlg->descr->text().latin1();
+	QString ndesc = dlg->descr->text();
 	delete dlg;
 	if (!ret && import) {
 		delete cert;
 	}
-	if (!ret) return false;	
+	if (!ret) return;	
 	
-	if (!certs) {
+	if (!db) {
 		init_database();
 	}
 	if (import) {
-		cert = insertCert(cert);
+		cert = insert(cert);
 	}
 	if (ndesc != odesc) {
-		certs->renamePKI(cert, ndesc);
-		return true;
+		db->renamePKI(cert, ndesc);
+		return;
 	}
     }
     catch (errorEx &err) {
 	    Error(err);
     }
-    return false;
+    return ;
 }
 
-void CertView::deleteCert()
+void CertView::deleteItem()
 {
     try {
 	pki_x509 *cert = (pki_x509 *)getSelected();
@@ -517,7 +521,7 @@ void CertView::deleteCert()
     }
 }
 
-void CertView::loadCert()
+void CertView::loadItem()
 {
 	QStringList filter;
 	filter.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
@@ -527,7 +531,7 @@ void CertView::loadCert()
 
 void CertView::loadItem(QString fname)
 {
-	pki_x509 *cert = new pki_x509(s.latin1());
+	pki_x509 *cert = new pki_x509(s);
 	return cert;
 }
 
@@ -553,7 +557,7 @@ void CertView::loadPKCS12()
 		s = *it;
 		s = QDir::convertSeparators(s);
 		try {
-			pk12 = new pki_pkcs12(s.latin1(), &CertView::passRead);
+			pk12 = new pki_pkcs12(s, &CertView::passRead);
 			insertP12(pk12);
 			MARK
 		}
@@ -630,9 +634,9 @@ void CertView::loadPKCS7()
 		s = *it;
 		s = QDir::convertSeparators(s);
 		try {
-			pk7 = new pki_pkcs7(s.latin1());
+			pk7 = new pki_pkcs7(s);
 			MARK
-			pk7->readP7(s.latin1());
+			pk7->readP7(s);
 			MARK
 			for (int i=0; i<pk7->numCert(); i++) {
 				acert = pk7->getCert(i);
@@ -658,7 +662,7 @@ pki_x509 *CertView::insert(pki_base *item)
 	if (oldcert) {
 	   QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate already exists in the database as") +":\n'" +
-		QString::fromLatin1(oldcert->getDescription().c_str()) + 
+		QString::fromLatin1(oldcert->getIntName()) + 
 		"'\n" + tr("and so it was not imported"), "OK");
 	   delete(cert);
 	   return oldcert;
@@ -671,7 +675,7 @@ pki_x509 *CertView::insert(pki_base *item)
     }
     int serial;
     if (cert->getSigner() != cert && cert->getSigner()) {
-	sscanf(cert->getSerial().c_str(), "%x", &serial);
+	sscanf(cert->getSerial(), "%x", &serial);
 	CERR("OTHER SIGNER" << serial);
     	if (serial >= cert->getSigner()->getCaSerial()) {
 	    QMessageBox::information(this,tr(XCA_TITLE),
@@ -703,8 +707,8 @@ void CertView::writeCert()
 	pki_x509 *oldcrt = NULL;
 	if (!crt) return;
 	pki_key *privkey = crt->getKey();
-	ExportCert *dlg = new ExportCert((crt->getDescription() + ".crt").c_str(),
-			  (privkey && privkey->isPrivKey()), getPath(), crt->tinyCAfname().c_str() );
+	ExportCert *dlg = new ExportCert((crt->getIntName() + ".crt"),
+			  (privkey && privkey->isPrivKey()), getPath(), crt->tinyCAfname() );
 	dlg->image->setPixmap(*certImg);
 	int dlgret = dlg->exec();
 	newPath(dlg->dirPath);
@@ -721,11 +725,11 @@ void CertView::writeCert()
 	try {
 	    switch (dlg->exportFormat->currentItem()) {
 		case 0: // PEM
-			crt->writeCert(fname.latin1(),true,false);
+			crt->writeCert(fname,true,false);
 			break;
 		case 1: // PEM with chain
 			while(crt && crt != oldcrt) {
-				crt->writeCert(fname.latin1(),true,true);
+				crt->writeCert(fname,true,true);
 				oldcrt = crt;
 				crt = crt->getSigner();
 			}
@@ -737,7 +741,7 @@ void CertView::writeCert()
 			certs->writeAllCerts(fname,false);
 			break;
 		case 4: // DER	
-			crt->writeCert(fname.latin1(),false,false);
+			crt->writeCert(fname,false,false);
 			break;
 		case 5: // P7 lonely
 			writePKCS7(fname, P7_ONLY);
@@ -774,12 +778,12 @@ void CertView::writePKCS12(QString s, bool chain)
 	if (!privkey || privkey->isPubKey()) {
 		QMessageBox::warning(this,tr(XCA_TITLE),
                 	tr("There was no key found for the Certificate: ") +
-			QString::fromLatin1(cert->getDescription().c_str()) );
+			QString::fromLatin1(cert->getIntName()) );
 		return; 
 	}
 	if (s.isEmpty()) return;
 	s = QDir::convertSeparators(s);
-	pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &CertView::passWrite);
+	pki_pkcs12 *p12 = new pki_pkcs12(cert->getIntName(), cert, privkey, &CertView::passWrite);
 	pki_x509 *signer = cert->getSigner();
 	int cnt =0;
 	while ((signer != NULL ) && (signer != cert) && chain) {
@@ -790,7 +794,7 @@ void CertView::writePKCS12(QString s, bool chain)
 		signer=signer->getSigner();
 	}
 	CERR("start writing" );
-	p12->writePKCS12(s.latin1());
+	p12->writePKCS12(s);
 	delete p12;
     }
     catch (errorEx &err) {
@@ -822,7 +826,7 @@ void CertView::writePKCS7(QString s, int type) {
 			}
 		}
 	}
-	p7->writeP7(s.latin1(), false);
+	p7->writeP7(s, false);
     }
     catch (errorEx &err) {
 	    Error(err);
@@ -841,7 +845,7 @@ void CertView::signP7()
 	if (!privkey || privkey->isPubKey()) {
 		QMessageBox::warning(this,tr(XCA_TITLE),
                 	tr("There was no key found for the Certificate: ") +
-			QString::fromLatin1(cert->getDescription().c_str()) );
+			QString::fromLatin1(cert->getIntName()) );
 		return; 
 	}
         filt.append("All Files ( *.* )");
@@ -861,8 +865,8 @@ void CertView::signP7()
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
 		s = QDir::convertSeparators(s);
-		p7->signFile(cert, s.latin1());
-		p7->writeP7((s + ".p7s").latin1(), true);
+		p7->signFile(cert, s);
+		p7->writeP7((s + ".p7s"), true);
 	}
 	delete p7;
     }
@@ -881,7 +885,7 @@ void CertView::encryptP7()
 	if (!privkey || privkey->isPubKey()) {
 		QMessageBox::warning(this,tr(XCA_TITLE),
                 	tr("There was no key found for the Certificate: ") +
-			QString::fromLatin1(cert->getDescription().c_str()) );
+			QString::fromLatin1(cert->getIntName()) );
 		return; 
 	}
         filt.append("All Files ( *.* )");
@@ -904,9 +908,9 @@ void CertView::encryptP7()
 	MARK
 		s = QDir::convertSeparators(s);
 	MARK
-		p7->encryptFile(cert, s.latin1());
+		p7->encryptFile(cert, s);
 	MARK
-		p7->writeP7((s + ".p7m").latin1(), true);
+		p7->writeP7((s + ".p7m"), true);
 	MARK
 	}
 	delete p7;
@@ -933,7 +937,7 @@ void CertView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	}
 	else {
-		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());
+		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0));
 		menu->insertItem(tr("Rename"), this, SLOT(startRenameCert()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCert()));
 		menu->insertItem(tr("Export"), subExport);
@@ -999,7 +1003,7 @@ void CertView::setTrust()
 	if (state == 0 ) dlg->trust0->setChecked(true);
 	if (state == 1 ) dlg->trust1->setChecked(true);
 	if (state == 2 ) dlg->trust2->setChecked(true);
-	dlg->certName->setText(cert->getDescription().c_str());
+	dlg->certName->setText(cert->getIntName());
 	if (dlg->exec()) {
 		if (dlg->trust0->isChecked()) newstate = 0;
 		if (dlg->trust1->isChecked()) newstate = 1;
@@ -1082,7 +1086,7 @@ void CertView::setTemplate()
 {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
-	QString templ = cert->getTemplate().c_str();
+	QString templ = cert->getTemplate();
 	QStringList tempList = temps->getDesc();
 	unsigned int i, sel=0;
 	bool ok;
@@ -1095,7 +1099,7 @@ void CertView::setTemplate()
 			tr("Please select the default Template for signing"),
 			tempList, sel, false, &ok, this );
 	if (ok && (templ != nTempl)) {
-		cert->setTemplate(nTempl.latin1());
+		cert->setTemplate(nTempl);
 		certs->updatePKI(cert);
 	}
 }
@@ -1129,9 +1133,9 @@ void CertView::toTinyCA()
 	char buf[200];
 	QList<pki_x509> list;
 	pki_x509 *issuedcert;
-	QString dname = crt->getDescription().c_str();
-	QString tcatempdir = settings->getString("TinyCAtempdir").c_str();
-	QString tcadir = settings->getString("TinyCAdir").c_str();
+	QString dname = crt->getIntName();
+	QString tcatempdir = settings->getString("TinyCAtempdir");
+	QString tcadir = settings->getString("TinyCAdir");
 	if (tcatempdir.isEmpty()) {
 		tcatempdir = "templates";
 	}
@@ -1147,8 +1151,8 @@ void CertView::toTinyCA()
 	tcadir = dlg->tinycadir->text();
 	dname = dlg->dname->text();
 	
-	settings->putString("TinyCAtempdir", tcatempdir.latin1());
-	settings->putString("TinyCAdir", tcadir.latin1());
+	settings->putString("TinyCAtempdir", tcatempdir);
+	settings->putString("TinyCAdir", tcadir);
 	
 	if (dname.isEmpty()) return;
 	const EVP_CIPHER *enc = EVP_des_ede3_cbc();
@@ -1160,7 +1164,7 @@ void CertView::toTinyCA()
 	
 	//create directory tree
 	if (! mkDir(tcadir)) return;
-	chdir(tcadir.latin1());
+	chdir(tcadir);
 	if (! mkDir("certs")) return;
 	if (! mkDir("crl")) return;
 	if (! mkDir("keys")) return;
@@ -1188,7 +1192,7 @@ void CertView::toTinyCA()
 	// copy openssl.cnf
 	tcatempdir += QDir::separator();
 	tcatempdir += "openssl.cnf";
-	fpr = fopen(tcatempdir.latin1(), "r");
+	fpr = fopen(tcatempdir, "r");
 	if (!fpr) {
 		fopenerror("openssl.cnf" );
 		return;
@@ -1204,7 +1208,7 @@ void CertView::toTinyCA()
 		if (x != 0) {
 			x[0]='\0';
 			fputs(buf, fp);
-			fputs(tcadir.latin1(), fp);
+			fputs(tcadir, fp);
 			fputs(x+5, fp);
 		}
 		else {
@@ -1234,8 +1238,8 @@ void CertView::toTinyCA()
 				chdir("..");
 			}
 			fprintf(fp, "%c\t%s\t%s\t%s\tunknown\t%s\n", rev? 'R':'V', 
-					nadate.c_str(), revdate.c_str(), issuedcert->getSerial().c_str(), 
-					issuedcert->subjectOneLine().c_str() );
+					nadate, revdate, issuedcert->getSerial(), 
+					issuedcert->subjectOneLine() );
 			
 		}
 	}
@@ -1270,12 +1274,12 @@ bool db_x509::updateView()
                         if (((parentitem != NULL) || (signer == pki) || (signer == NULL) || viewState == 0) && (pki->getPointer() == NULL )) {
                                 // create the listview item
                                 if (parentitem != NULL) {
-                                        current = new QListViewItem(parentitem, pki->getDescription().c_str());
-                                        CERR("Adding as client: "<<pki->getDescription().c_str());
+                                        current = new QListViewItem(parentitem, pki->getIntName());
+                                        CERR("Adding as client: "<<pki->getIntName());
                                 }
                                 else {
-                                        current = new QListViewItem(listView, pki->getDescription().c_str());
-                                        CERR("Adding as parent: "<<pki->getDescription().c_str());
+                                        current = new QListViewItem(listView, pki->getIntName());
+                                        CERR("Adding as parent: "<<pki->getIntName());
                                 }
                                 pki->setPointer(current);
                                 mycont.remove(pki);

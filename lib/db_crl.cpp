@@ -51,7 +51,7 @@
 
 #include "db_crl.h"
 
-db_crl::db_crl(DbEnv *dbe, string DBfile, DbTxn *tid)
+db_crl::db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid)
 	:db_base(dbe, DBfile, "crldb", tid)
 {
 	loadContainer();

@@ -199,8 +199,8 @@ You are done with entering all parameters for the Template.
 After this step the template can be assigned to one of your CAs to be autoatically \
 applied when signing with this CA.");
 	tText=tr("Template");
-	if (temp->getDescription() != "--") {
-		description->setText(temp->getDescription().c_str());
+	if (temp->getIntName() != "--") {
+		description->setText(temp->getIntName());
 		tText += tr(" change");
 	}
 	setup();
@@ -241,7 +241,7 @@ void NewX509::defineRequest(pki_x509req *req)
 	if (!req) return;
 	fromReqCB->setEnabled(true);
 	fromReqCB->setChecked(true);
-	QString reqname = req->getDescription().c_str(); 
+	QString reqname = req->getIntName(); 
 #ifdef qt3
 	reqList->setCurrentText(reqname);
 #else
@@ -298,23 +298,23 @@ void NewX509::int2lb(QListBox *lb, int x)
 
 void NewX509::fromTemplate(pki_temp *temp)
 {
-	countryName->setText(temp->C.c_str());
-	stateOrProvinceName->setText(temp->P.c_str());
-	localityName->setText(temp->L.c_str());
-	organisationName->setText(temp->O.c_str());
-	organisationalUnitName->setText(temp->OU.c_str());
-	commonName->setText(temp->CN.c_str());
-	emailAddress->setText(temp->EMAIL.c_str());
-	subAltName->setText(temp->subAltName.c_str());
-	issAltName->setText(temp->issAltName.c_str());
-	crlDist->setText(temp->crlDist.c_str());
-	nsComment->setText(temp->nsComment.c_str());
-	nsBaseUrl->setText(temp->nsBaseUrl.c_str());
-	nsRevocationUrl->setText(temp->nsRevocationUrl.c_str());
-	nsCARevocationUrl->setText(temp->nsCARevocationUrl.c_str());
-	nsRenewalUrl->setText(temp->nsRenewalUrl.c_str());
-	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl.c_str());
-	nsSslServerName->setText(temp->nsSslServerName.c_str());
+	countryName->setText(temp->C);
+	stateOrProvinceName->setText(temp->P);
+	localityName->setText(temp->L);
+	organisationName->setText(temp->O);
+	organisationalUnitName->setText(temp->OU);
+	commonName->setText(temp->CN);
+	emailAddress->setText(temp->EMAIL);
+	subAltName->setText(temp->subAltName);
+	issAltName->setText(temp->issAltName);
+	crlDist->setText(temp->crlDist);
+	nsComment->setText(temp->nsComment);
+	nsBaseUrl->setText(temp->nsBaseUrl);
+	nsRevocationUrl->setText(temp->nsRevocationUrl);
+	nsCARevocationUrl->setText(temp->nsCARevocationUrl);
+	nsRenewalUrl->setText(temp->nsRenewalUrl);
+	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl);
+	nsSslServerName->setText(temp->nsSslServerName);
 	int2lb(nsCertType, temp->nsCertType);
 	basicCA->setCurrentItem(temp->ca?1:0);
 	bcCritical->setChecked(temp->bcCrit);
@@ -326,8 +326,8 @@ void NewX509::fromTemplate(pki_temp *temp)
 	issAltCp->setChecked(temp->issAltCp);
 	int2lb(keyUsage, temp->keyUse);
 	int2lb(ekeyUsage, temp->eKeyUse);
-	validNumber->setText(QString::number(temp->validN));
-	validRange->setCurrentItem(temp->validM);
+	//validNumber->setText(QString::number(temp->validN));
+	//validRange->setCurrentItem(temp->validM);
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
 	}
@@ -336,24 +336,24 @@ void NewX509::fromTemplate(pki_temp *temp)
 
 void NewX509::toTemplate(pki_temp *temp)
 {
-	temp->setDescription(description->text().latin1());
-	temp->C = countryName->text().latin1();
-	temp->P = stateOrProvinceName->text().latin1();
-	temp->L = localityName->text().latin1();
-	temp->O = organisationName->text().latin1();
-	temp->OU = organisationalUnitName->text().latin1();
-	temp->CN = commonName->text().latin1();
-	temp->EMAIL = emailAddress->text().latin1();
-	temp->subAltName = subAltName->text().latin1();
-	temp->issAltName = issAltName->text().latin1();
-	temp->crlDist = crlDist->text().latin1();
-	temp->nsComment = nsComment->text().latin1();
-	temp->nsBaseUrl = nsBaseUrl->text().latin1();
-	temp->nsRevocationUrl = nsRevocationUrl->text().latin1();
-	temp->nsCARevocationUrl = nsCARevocationUrl->text().latin1();
-	temp->nsRenewalUrl = nsRenewalUrl->text().latin1();
-	temp->nsCaPolicyUrl = nsCaPolicyUrl->text().latin1();
-	temp->nsSslServerName = nsSslServerName->text().latin1();
+	temp->setIntName(description->text());
+	temp->C = countryName->text();
+	temp->P = stateOrProvinceName->text();
+	temp->L = localityName->text();
+	temp->O = organisationName->text();
+	temp->OU = organisationalUnitName->text();
+	temp->CN = commonName->text();
+	temp->EMAIL = emailAddress->text();
+	temp->subAltName = subAltName->text();
+	temp->issAltName = issAltName->text();
+	temp->crlDist = crlDist->text();
+	temp->nsComment = nsComment->text();
+	temp->nsBaseUrl = nsBaseUrl->text();
+	temp->nsRevocationUrl = nsRevocationUrl->text();
+	temp->nsCARevocationUrl = nsCARevocationUrl->text();
+	temp->nsRenewalUrl = nsRenewalUrl->text();
+	temp->nsCaPolicyUrl = nsCaPolicyUrl->text();
+	temp->nsSslServerName = nsSslServerName->text();
 	temp->nsCertType =  lb2int(nsCertType);
 	temp->ca = basicCA->currentItem();
 	temp->bcCrit = bcCritical->isChecked();
@@ -365,8 +365,8 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->issAltCp = issAltCp->isChecked();
 	temp->keyUse = lb2int(keyUsage);
 	temp->eKeyUse = lb2int(ekeyUsage);
-	temp->validN = validNumber->text().toInt();
-	temp->validM = validRange->currentItem();
+	//temp->validN = validNumber->text().toInt();
+	//temp->validM = validRange->currentItem();
 	temp->pathLen = basicPath->text().toInt();
 }
 
@@ -426,13 +426,13 @@ void NewX509::signerChanged()
 	CERR("signer Changed");
 	if (!certs) return;
 	QString name = certList->currentText();
-	CERR( "Certificate: " << name.latin1());
+	CERR( "Certificate: " << name);
 	
 	if (name.isEmpty()) return;
 	pki_x509 *cert = (pki_x509 *)certs->getByName(name);
 	
 	if (!cert) return;
-	QString templ = cert->getTemplate().c_str();	
+	QString templ = cert->getTemplate();	
 	
 	if (templ.isEmpty()) return;
 	CERR( "set Template: " << templ );
@@ -460,7 +460,7 @@ void NewX509::templateChanged(QString tempname)
 
 void NewX509::templateChanged(pki_temp *templ)
 {
-	QString tempname = templ->getDescription().c_str();
+	QString tempname = templ->getIntName();
 	templateChanged(tempname);
 }
 
@@ -523,7 +523,7 @@ void NewX509::helpClicked()
 
 pki_key *NewX509::getSelectedKey()
 {
-	return MainWindow::getKeyByName(keyList->currentText());
+	return (pki_key *)MainWindow::keys->getByName(keyList->currentText());
 }
 
 x509name NewX509::getX509name()
@@ -537,4 +537,18 @@ x509name NewX509::getX509name()
 	x.addEntryByNid(NID_organizationalUnitName, organisationalUnitName->text());
 	x.addEntryByNid(NID_pkcs9_emailAddress, emailAddress->text());
 	return x;
+}
+
+a1time NewX509::getNotBefore()
+{
+	a1time nb;
+	nb.set(nbYear->getText() + nbMon->getText() + nbDay->getText());
+	return nb;
+}
+
+a1time NewX509::getNotAfter()
+{
+	a1time nb;
+	nb.set(nbYear->getText() + nbMon->getText() + nbDay->getText());
+	return nb;
 }

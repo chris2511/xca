@@ -57,7 +57,7 @@ pki_x509req::pki_x509req()
 	: pki_x509super()
 {
 	privkey = NULL;
-	className = "pki_x509req";
+	class_name = "pki_x509req";
 	request = X509_REQ_new();
 	openssl_error();
 }
@@ -85,11 +85,11 @@ pki_x509req::~pki_x509req()
 }
 
 
-pki_x509req::pki_x509req(const string fname)
+pki_x509req::pki_x509req(const QString fname)
 {
 	privkey = NULL;
-	className = "pki_x509req";
-	FILE *fp = fopen(fname.c_str(),"r");
+	class_name = "pki_x509req";
+	FILE *fp = fopen(fname.latin1(),"r");
 	if (fp != NULL) {
 	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
 	   if (!request) {
@@ -99,14 +99,7 @@ pki_x509req::pki_x509req(const string fname)
 	   	request = d2i_X509_REQ_fp(fp, NULL);
 		openssl_error();
 	   }
-	   int r = fname.rfind('.');
-#ifdef WIN32	   
-	   int l = fname.rfind('\\');
-#else
-	   int l = fname.rfind('/');
-#endif
-	   desc = fname.substr(l+1,r-l-1);
-	   if (desc == "") desc = fname;
+	   setIntName(rmslashdot(fname));
 	   openssl_error();
 	}	
 	else fopen_error(fname);
@@ -140,9 +133,9 @@ unsigned char *pki_x509req::toData(int *size)
 	return p;
 }
 
-void pki_x509req::writeReq(const string fname, bool PEM)
+void pki_x509req::writeReq(const QString fname, bool PEM)
 {
-	FILE *fp = fopen(fname.c_str(),"w");
+	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
 	   if (request){
 		if (PEM) 

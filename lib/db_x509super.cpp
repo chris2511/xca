@@ -53,7 +53,7 @@
 #define FOR_container for (pki_x509super *pki = (pki_x509super *)container.first(); \
 			pki != 0; pki = (pki_x509super *)container.next() ) 
 
-db_x509super::db_x509super(DbEnv *dbe, string DBfile, string db, db_key *dk, DbTxn *tid)
+db_x509super::db_x509super(DbEnv *dbe, QString DBfile, QString db, db_key *dk, DbTxn *tid)
                 :db_base(dbe, DBfile, db, tid)
 {
 	keylist = dk;
