@@ -48,34 +48,35 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
+#ifndef ASN1INTEGER_H
+#define ASN1INTEGER_H
 
-#include <openssl/x509.h>
-#include <openssl/pem.h>
-#include "pki_key.h"
-#include "x509name.h"
+#include <qstring.h>
+#include <openssl/asn1.h>
 
-class pki_x509;
-
-class pki_x509req : public pki_base
+class a1int
 {
-	protected:
-	   pki_key *privkey;
-	   X509_REQ *request;
-	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
-	   int verify();
-	   pki_key *getPubKey();
-	   pki_key *getKey();
-	   void createReq(pki_key &key, x509name &dist_name);
+   private:	
+	ASN1_INTEGER *in;
+   public:
+	a1int();
+	a1int(ASN1_INTEGER *i);
+	~a1int();
+	void set(ASN1_INTEGER *i);
+	void set(long i);
+	QString toHex();
+	QString toDec();
+	long getLong();
+	ASN1_INTEGER *get();
+	unsigned char *i2d(unsigned char *p);
+	int derSize();
+
+	void operator ++ (void);
+	void operator = (const a1int &a);
+	bool const operator > (const a1int &a);
+	bool const operator < (const a1int &a);
+	bool const operator == (const a1int &a);
+	bool const operator != (const a1int &a);
 };
 
 #endif

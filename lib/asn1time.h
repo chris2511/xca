@@ -48,34 +48,35 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
+#ifndef ASN1TIME_H
+#define ASN1TIME_H
 
-#include <openssl/x509.h>
-#include <openssl/pem.h>
-#include "pki_key.h"
-#include "x509name.h"
+#include <qstring.h>
+#include <openssl/asn1.h>
 
-class pki_x509;
-
-class pki_x509req : public pki_base
+class a1time
 {
-	protected:
-	   pki_key *privkey;
-	   X509_REQ *request;
-	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
-	   int verify();
-	   pki_key *getPubKey();
-	   pki_key *getKey();
-	   void createReq(pki_key &key, x509name &dist_name);
+   private:	
+	ASN1_TIME *time;
+   public:
+	a1time();
+	a1time(ASN1_TIME *a);
+	~a1time();
+	void set(ASN1_TIME *a);
+	void set(time_t t);
+	QString toPretty();
+	QString toPlain();
+	QString toSortable();
+	int ymdg(int *y, int *m, int *d, int *g);
+	ASN1_TIME *get();
+	void now(int delta = 0);
+	unsigned char *i2d(unsigned char *p);
+	int derSize();
+	void operator = (const a1time &a);
+	bool const operator > (const a1time &a);
+	bool const operator < (const a1time &a);
+	bool const operator == (const a1time &a);
+	bool const operator != (const a1time &a);
 };
 
 #endif

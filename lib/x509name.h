@@ -48,34 +48,26 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
+#ifndef X509NAME_H
+#define X509NAME_H
 
+#include <qstring.h>
 #include <openssl/x509.h>
-#include <openssl/pem.h>
-#include "pki_key.h"
-#include "x509name.h"
 
-class pki_x509;
-
-class pki_x509req : public pki_base
+class x509name
 {
-	protected:
-	   pki_key *privkey;
-	   X509_REQ *request;
-	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
-	   int verify();
-	   pki_key *getPubKey();
-	   pki_key *getKey();
-	   void createReq(pki_key &key, x509name &dist_name);
+   private:	
+	X509_NAME *xn;
+   public:
+	x509name();
+	x509name(X509_NAME *n);
+	~x509name();
+	QString subjectOneLine();
+	QString getEntryByNid(int nid);
+	int entryCount();
+	bool operator == (const x509name &x);
+	void addEntryByNid(int nid, QString entry);
+	X509_NAME *get();
 };
 
 #endif

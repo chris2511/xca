@@ -48,34 +48,112 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
 
-#include <openssl/x509.h>
-#include <openssl/pem.h>
-#include "pki_key.h"
-#include "x509name.h"
+#include "asn1int.h"
+#include <openssl/bn.h>
 
-class pki_x509;
-
-class pki_x509req : public pki_base
+a1int::a1int()
 {
-	protected:
-	   pki_key *privkey;
-	   X509_REQ *request;
-	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
-	   int verify();
-	   pki_key *getPubKey();
-	   pki_key *getKey();
-	   void createReq(pki_key &key, x509name &dist_name);
-};
+	in = ASN1_INTEGER_new();
+	ASN1_INTEGER_set(in, 0);
+}
 
-#endif
+a1int::a1int(ASN1_INTEGER *i)
+{
+	in = ASN1_INTEGER_dup(i);
+}
+
+a1int::~a1int()
+{
+	ASN1_INTEGER_free(in);
+}
+
+void a1int::set(ASN1_INTEGER *i)
+{
+	if (in != NULL)
+		ASN1_INTEGER_free(in);
+	in = ASN1_INTEGER_dup(i);
+}
+
+void a1int::set(long i)
+{
+	ASN1_INTEGER_set(in, i);
+}
+
+QString a1int::toHex()
+{
+	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	char *res = BN_bn2hex(bn);
+	QString r = res;
+	OPENSSL_free(bn);
+	OPENSSL_free(res);
+	return r;
+}
+
+QString a1int::toDec()
+{
+	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	char *res = BN_bn2dec(bn);
+	QString r = res;
+	OPENSSL_free(bn);
+	OPENSSL_free(res);
+	return r;
+}
+
+ASN1_INTEGER *a1int::get()
+{
+	return ASN1_INTEGER_dup(in);
+}
+
+long a1int::getLong()
+{
+	return ASN1_INTEGER_get(in);
+}
+
+void a1int::operator ++ (void)
+{
+	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	BN_add(bn, bn, BN_value_one());
+	BN_to_ASN1_INTEGER(bn, in);
+	OPENSSL_free(bn);
+}
+
+void a1int::operator = (const a1int &a)
+{
+	set(a.in);
+}
+
+bool const a1int::operator > (const a1int &a)
+{
+	return (ASN1_INTEGER_cmp(in, a.in) == 1);
+}
+
+bool const a1int::operator < (const a1int &a)
+{
+	return (ASN1_INTEGER_cmp(in, a.in) == -1);
+}
+
+bool const a1int::operator == (const a1int &a)
+{
+	return (ASN1_INTEGER_cmp(in, a.in) == 0);
+}
+
+bool const a1int::operator != (const a1int &a)
+{
+	return (ASN1_INTEGER_cmp(in, a.in) != 0);
+}
+
+unsigned char *a1int::i2d(unsigned char *p)
+{       
+	unsigned char *mp = p;
+	i2d_ASN1_INTEGER(in, &mp);
+	return mp;
+}       
+ 
+int a1int::derSize()
+{       
+	return i2d_ASN1_INTEGER(in, NULL);
+}       
+
+
+//if (a->length > sizeof(long))

@@ -52,49 +52,6 @@
 
 #include "pki_x509.h"
 
-
-pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial)
-		:pki_base( d )
-{
-	init();
-	X509_NAME *issn, *reqn;
-	if (!req) openssl_error("Request was null");	
-	cert = X509_new();
-	openssl_error();
-	if (signer) {
-  		issn = X509_get_subject_name(signer->cert);
-		trust =1;
-		efftrust=1;
-	}
-	else {
-  		issn = X509_REQ_get_subject_name(req->request);
-		signer = this;
-		trust = 2;
-		efftrust=2; // always trust our self created certs
-	}
-	
-	// copy Requestinfo to New cert
-	
-	X509_set_pubkey(cert, X509_REQ_get_pubkey(req->request));
-  	reqn = X509_REQ_get_subject_name(req->request);
-        X509_set_subject_name(cert, X509_NAME_dup(reqn));
-        X509_set_issuer_name(cert, X509_NAME_dup(issn));
-	
-	/* Set version to V3 */
-	X509_set_version(cert, 2);
-	openssl_error();
-	
-	setSerial(serial);
-	setDates(days);
-
-	/* Set up V3 context struct */
-	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
-	X509V3_set_ctx_nodb((&ext_ctx))
-
-	setKey(req->getKey());
-	openssl_error();
-}
-
 pki_x509::pki_x509(X509 *c) : pki_base()
 {
 	init();
@@ -102,21 +59,22 @@ pki_x509::pki_x509(X509 *c) : pki_base()
 	openssl_error();
 }
 
-pki_x509::pki_x509(const pki_x509 *crt) 
-	:pki_base(crt->desc)
+pki_x509::pki_x509(const pki_x509 &crt) 
+	:pki_base(crt.desc)
 {
 	init();
-	cert = X509_dup(crt->cert);
+	cert = X509_dup(crt.cert);
 	openssl_error();
-	psigner = crt->psigner;
-	setKey(crt->pkey);
-	trust = crt->trust;
-	efftrust = crt->efftrust;
-	revoked = M_ASN1_TIME_dup(crt->revoked);
-	caSerial = crt->caSerial;
-	caTemplate = crt->caTemplate;
-	crlDays = crt->crlDays;
-	lastCrl = M_ASN1_TIME_dup(crt->lastCrl);
+	psigner = crt.psigner;
+	setKey(crt.pkey);
+	trust = crt.trust;
+	efftrust = crt.efftrust;
+	revoked = crt.revoked;
+	caSerial = crt.caSerial;
+	caTemplate = crt.caTemplate;
+	crlDays = crt.crlDays;
+	lastCrl = crt.lastCrl;
+	isrevoked = isrevoked;
 	openssl_error();
 }
 
@@ -124,6 +82,7 @@ pki_x509::pki_x509() : pki_base()
 {
 	init();
 	cert = X509_new();
+	X509_set_version(cert, 2);
 	openssl_error();
 }
 
@@ -161,15 +120,6 @@ pki_x509::~pki_x509()
 	if (cert) {
 		X509_free(cert);
 	}
-	if (revoked) {
-		ASN1_TIME_free(revoked);
-	}
-	if (lastCrl) {
-		ASN1_TIME_free(lastCrl);
-	}
-	if (pkey)
-		pkey->decUcount();
-	
 	openssl_error();
 }
 
@@ -179,28 +129,89 @@ void pki_x509::init()
 	pkey= NULL;
 	trust = 0;
 	efftrust = 0;
-	revoked = NULL;
+	revoked.now();
 	caSerial = 1;
 	caTemplate = "";
 	crlDays = 30;
-	lastCrl = NULL;
+	lastCrl.now();
 	className = "pki_x509";
 	cert = NULL;
+	isrevoked = false;
 }
 
-void pki_x509::setSerial(int serial)
+void pki_x509::setSerial(a1int &serial)
 {
-	ASN1_INTEGER_set(X509_get_serialNumber(cert), serial);
+	if (cert->cert_info->serialNumber != NULL ) {
+		ASN1_INTEGER_free(cert->cert_info->serialNumber);
+	}
+	cert->cert_info->serialNumber = serial.get();
 	openssl_error();
 }
 
-void pki_x509::setDates(int days)
+a1int pki_x509::getSerial()
 {
-	X509_gmtime_adj(X509_get_notBefore(cert),0);
-	X509_gmtime_adj(X509_get_notAfter(cert), (long)60*60*24*days);
+	a1int a(X509_get_serialNumber(cert));
+	return a;
+}
+
+void pki_x509::setNotBefore(a1time &a1)
+{
+	if (X509_get_notBefore(cert) != NULL ) {
+		ASN1_TIME_free(X509_get_notBefore(cert));
+	}
+	X509_get_notBefore(cert) = a1.get();
 	openssl_error();
 }
-	
+
+void pki_x509::setNotAfter(a1time &a1)
+{
+	if (X509_get_notAfter(cert) != NULL ) {
+		ASN1_TIME_free(X509_get_notAfter(cert));
+	}
+	X509_get_notAfter(cert) = a1.get();
+	openssl_error();
+}
+
+a1time pki_x509::getNotBefore()
+{
+	a1time a(X509_get_notBefore(cert));
+	return a;
+}
+
+a1time pki_x509::getNotAfter()
+{
+	a1time a(X509_get_notAfter(cert));
+	return a;
+}
+
+x509name pki_x509::getSubject()
+{
+	x509name x(cert->cert_info->subject);
+	openssl_error();
+	return x;
+}
+
+x509name pki_x509::getIssuer()
+{
+	x509name x(cert->cert_info->issuer);
+	openssl_error();
+	return x;
+}
+
+void pki_x509::setSubject(x509name &n)
+{
+	if (cert->cert_info->subject != NULL)
+		X509_NAME_free(cert->cert_info->subject);
+	cert->cert_info->subject = n.get();
+}
+
+void pki_x509::setIssuer(x509name &n)
+{
+	if ((cert->cert_info->issuer) != NULL)
+		X509_NAME_free(cert->cert_info->issuer);
+	cert->cert_info->issuer = n.get();
+}
+
 void pki_x509::addV3ext(int nid, string exttext)
 {	
 	X509_EXTENSION *ext;
@@ -211,7 +222,7 @@ void pki_x509::addV3ext(int nid, string exttext)
 	c = (char *)OPENSSL_malloc(len);
 	openssl_error();
 	strncpy(c, exttext.c_str(), len);
-	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
+	ext =  X509V3_EXT_conf_nid(NULL, NULL, nid, c);
 	OPENSSL_free(c);
 	if (!ext) {
 		string x="v3 Extension: " + exttext;
@@ -327,9 +338,9 @@ unsigned char *pki_x509::toData(int *size)
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
 	MARK	
-	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
+	int sRev = revoked.derSize();
 	MARK	
-	int sLastCrl = (lastCrl ? i2d_ASN1_TIME(lastCrl, NULL) : 0);
+	int sLastCrl = lastCrl.derSize();
 	MARK	
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
@@ -343,7 +354,7 @@ unsigned char *pki_x509::toData(int *size)
 	intToData(&p1, trust); // trust
 	intToData(&p1, sRev); // sizeof(revoked)
 	if (sRev) {
-		i2d_ASN1_TIME(revoked, &p1); // revokation date
+		p1 = revoked.i2d(p1); // revokation date
 	}
 	// version 2
 	intToData(&p1, caSerial); // the serial if this is a CA
@@ -352,132 +363,11 @@ unsigned char *pki_x509::toData(int *size)
 	intToData(&p1, crlDays); // the CRL period
 	intToData(&p1, sLastCrl); // size of last CRL
 	if (sLastCrl) {
-		i2d_ASN1_TIME(lastCrl, &p1); // last CRL date
+		p1 = lastCrl.i2d(p1); // last CRL date
 	}
 	openssl_error();
 	return p;
 }
-
-
-string pki_x509::getDNs(int nid)
-{
-	char buf[200] = "";
-	string s;
-	X509_NAME *subj = X509_get_subject_name(cert);
-	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
-	openssl_error();
-	s = buf;
-	return s;
-}
-
-string pki_x509::getDNi(int nid)
-{
-	char buf[200] = "";
-	string s;
-	X509_NAME *iss = X509_get_issuer_name(cert);
-	X509_NAME_get_text_by_NID(iss, nid, buf, 200);
-	openssl_error();
-	s = buf;
-	return s;
-}
-
-string pki_x509::notBefore(int format)
-{
-	return asn1TimeToString(X509_get_notBefore(cert), format);
-}
-
-string pki_x509::notAfter(int format)
-{
-	return asn1TimeToString(X509_get_notAfter(cert), format);
-}
-
-string pki_x509::revokedAt(int format)
-{
-	return asn1TimeToString(revoked, format);
-}
-
-
-string pki_x509::asn1TimeToString(ASN1_TIME *a, int format)
-{
-	string time = "";
-	switch (format) {
-		case TIMEFORM_PRETTY:
-			time = asn1TimeToPretty(a);
-			break;
-		case TIMEFORM_PLAIN:
-			time = asn1TimeToPlain(a);
-			break;
-		case TIMEFORM_SORTABLE:
-			time = asn1TimeToSortable(a);
-			break;
-		default:
-			time="Unknown Format";
-			
-	}
-	return time;
-}
-			
-string pki_x509::asn1TimeToPretty(ASN1_TIME *a)
-{
-	string time = "";
-	if (!a) return time;
-	BIO * bio = BIO_new(BIO_s_mem());
-	char buf[200];
-	ASN1_TIME_print(bio, a);
-	BIO_gets(bio, buf, 200);
-	time = buf;
-	BIO_free(bio);
-	openssl_error();
-	return time;
-}
-
-string pki_x509::asn1TimeToPlain(ASN1_TIME *a)
-{
-	string time = "";
-	char b[15];
-	if (!a) return time;
-	memcpy(b, a->data, a->length);
-	b[a->length] = '\0';
-	time = b;
-	return time;
-}
-	
-string pki_x509::asn1TimeToSortable(ASN1_TIME *a)
-{
-	int y,m,d,g;
-	string time = "";
-	if (!a) return time;
-	if (asn1TimeYMDG(a, &y ,&m ,&d ,&g)) {
-		// openssl_error("time error");
-	}
-	char buf[20];
-	sprintf(buf, "%04d-%02d-%02d %s",y+1900,m,d,(g==1)?"GMT":"");
-	time = buf;
-	return time;
-}
-
-int pki_x509::asn1TimeYMDG(ASN1_TIME *a, int *y, int *m, int *d, int *g)
-{
-	char *v;
-	int i;
-	*y=0, *m=0, *d=0, *g=0;
-	if (!a) return 1;
-	i=a->length;
-	v=(char *)a->data;
-
-	if (i < 10) return 1; /* it is at least 10 digits */
-	if (v[i-1] == 'Z') *g=1;
-	for (i=0; i<10; i++)
-		if ((v[i] > '9') || (v[i] < '0')) return 1;
-	*y= (v[0]-'0')*10+(v[1]-'0');
-	if (*y < 50) *y+=100;
-	*m= (v[2]-'0')*10+(v[3]-'0');
-	if ((*m > 12) || (*m < 1)) return 1;
-	*d= (v[4]-'0')*10+(v[5]-'0');
-	if ((*d > 31) || (*d < 1)) return 1;
-	return 0;
-}
-
 
 void pki_x509::writeCert(const string fname, bool PEM, bool append)
 {
@@ -500,9 +390,9 @@ void pki_x509::writeCert(const string fname, bool PEM, bool append)
 	fclose(fp);
 }
 
-bool pki_x509::compare(pki_base *refreq)
+bool pki_x509::compare(pki_base *ref)
 {
-	bool ret = !X509_cmp(cert, ((pki_x509 *)refreq)->cert);
+	bool ret = !X509_cmp(cert, ((pki_x509 *)ref)->cert);
 	ign_openssl_error();
 	return ret;
 }
@@ -532,7 +422,7 @@ bool pki_x509::verify(pki_x509 *signer)
 	ign_openssl_error();
 	if (pkey) delete(pkey);
 	if (i>0) {
-		CERR("psigner set for: " << getDescription().c_str() );
+		CERR("psigner set for: " << getIntName().latin1() );
 		psigner = signer;
 		return true;
 	}
@@ -610,11 +500,10 @@ bool pki_x509::setKey(pki_key *key)
 {
 	bool ret=false;
 	if (!pkey && key) {
-		CERR( "KEY COUNT UP");
-		key->incUcount();
+		X509_set_pubkey(cert, key->getKey());
+		pkey = key;
 		ret=true;
 	}
-	pkey = key;
 	return ret;
 }
 
@@ -661,29 +550,6 @@ string pki_x509::printV3ext()
 	return text;
 }
 
-string pki_x509::getSerial()
-{
-	char buf[100];
-	BIO *bio = BIO_new(BIO_s_mem());
-	i2a_ASN1_INTEGER(bio, cert->cert_info->serialNumber);
-	int len = BIO_read(bio, buf, 100);
-	buf[len]='\0';
-	string x = buf;
-	BIO_free(bio);
-	openssl_error();
-	return x;
-}
-
-long pki_x509::getSerialLong()
-{
-	long s=-1;
-	if (cert->cert_info->serialNumber != NULL) {
-		s = ASN1_INTEGER_get(cert->cert_info->serialNumber);
-		openssl_error();
-	}
-	return s;
-}
-
 int pki_x509::getTrust()
 {
 	if (trust > 2) trust = 2;
@@ -713,7 +579,7 @@ void pki_x509::setEffTrust(int t)
 
 bool pki_x509::isRevoked()
 {
-	return (revoked != NULL);
+	return isrevoked ;
 }
 
 
@@ -722,22 +588,15 @@ void pki_x509::setRevoked(bool rev)
 	if (rev) {
 		setEffTrust(0);
 		setTrust(0);
-		if (revoked) return;
-		revoked = ASN1_TIME_new();
+		revoked.now();
 		openssl_error();
-		X509_gmtime_adj(revoked,0);
 	}
-	else {
-		if (!revoked) return;
-		ASN1_TIME_free(revoked);
-		revoked = NULL;
-	}
+	isrevoked = rev;
 	openssl_error();
 }
-void pki_x509::setRevoked(ASN1_TIME *when)
+void pki_x509::setRevoked(a1time &when)
 {
-	if (revoked) 
-		ASN1_TIME_free(revoked);
+	isrevoked = true;
 	revoked = when;
 	openssl_error();	
 }
@@ -782,28 +641,35 @@ string pki_x509::getTemplate(){ return caTemplate; }
 
 void pki_x509::setTemplate(string s) {if (s.length()>0) caTemplate = s; }
 
-void pki_x509::setLastCrl(ASN1_TIME *time)
+void pki_x509::setLastCrl(a1time &time)
 {
-	if (!time) return;
-	lastCrl=M_ASN1_TIME_dup(time);
+	lastCrl = time;
 	openssl_error();
 }
 
-string pki_x509::tinyCAfname()
+QString pki_x509::tinyCAfname()
 {
-	string col;
-	col = getDNs(NID_commonName) + (getDNs(NID_commonName) == "" ? " :" : ":")
-	    + getDNs(NID_pkcs9_emailAddress) + (getDNs(NID_pkcs9_emailAddress) == "" ? " :" : ":")
-	    + getDNs(NID_organizationalUnitName) +(getDNs(NID_organizationalUnitName) == "" ? " :" : ":")
-	    + getDNs(NID_organizationName) +  (getDNs(NID_organizationName) == "" ? " :" : ":")
-	    + getDNs(NID_localityName) +  (getDNs(NID_localityName) == "" ? " :" : ":")
-	    + getDNs(NID_stateOrProvinceName) +  (getDNs(NID_stateOrProvinceName) == "" ? " :" : ":")
-	    + getDNs(NID_countryName) +  (getDNs(NID_countryName) == "" ? " :" : ":");
+	QString col;
+	x509name x = getSubject();
+	col = x.getEntryByNid(NID_commonName) 
+	    +(x.getEntryByNid(NID_commonName) == "" ? " :" : ":")
+	    + x.getEntryByNid(NID_pkcs9_emailAddress) 
+	    +(x.getEntryByNid(NID_pkcs9_emailAddress) == "" ? " :" : ":")
+	    + x.getEntryByNid(NID_organizationalUnitName) 
+	    +(x.getEntryByNid(NID_organizationalUnitName) == "" ? " :" : ":")
+	    + x.getEntryByNid(NID_organizationName) 
+	    +(x.getEntryByNid(NID_organizationName) == "" ? " :" : ":")
+	    + x.getEntryByNid(NID_localityName) 
+	    +(x.getEntryByNid(NID_localityName) == "" ? " :" : ":")
+	    + x.getEntryByNid(NID_stateOrProvinceName) 
+	    +(x.getEntryByNid(NID_stateOrProvinceName) == "" ? " :" : ":")
+	    + x.getEntryByNid(NID_countryName) 
+	    +(x.getEntryByNid(NID_countryName) == "" ? " :" : ":");
 
 	int len = col.length();
 	unsigned char *buf = (unsigned char *)OPENSSL_malloc(len * 2 + 3);
 	
-	EVP_EncodeBlock(buf, (unsigned char *)col.c_str(), len );
+	EVP_EncodeBlock(buf, (unsigned char *)col.latin1(), len );
 	col = (char *)buf;
 	OPENSSL_free(buf);
 	col += ".pem";
@@ -811,11 +677,3 @@ string pki_x509::tinyCAfname()
 	return col;
 }
 
-string pki_x509::subjectOneLine()
-{
-	char *x = X509_NAME_oneline(X509_get_subject_name(cert), NULL ,0);
-	string ret = x;
-	OPENSSL_free(x);
-	openssl_error();
-	return ret;
-}

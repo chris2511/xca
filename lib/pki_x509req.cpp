@@ -51,102 +51,45 @@
 
 
 #include "pki_x509.h"
+#include "x509name.h"
 
-void pki_x509req::init()
+pki_x509req::pki_x509req() 
+	: pki_base()
 {
-	request = NULL;
 	privkey = NULL;
 	className = "pki_x509req";
-}
-
-
-pki_x509req::pki_x509req(pki_key *key, const string cn,
-		const string c, const string l,
-		const string st,const string o,
-		const string ou,const string email, 
-		const string d, const string challenge)
-		:pki_base( d )
-{
-	init();
-	
-	X509_NAME *subj = X509_NAME_new();
-	if (cn != "")
-	X509_NAME_add_entry_by_NID(subj,NID_commonName, MBSTRING_ASC,
-		(unsigned char*)cn.c_str(),-1,-1,0);
-	if (c != "")
-	X509_NAME_add_entry_by_NID(subj,NID_countryName, MBSTRING_ASC, 
-		(unsigned char*)c.c_str() , -1, -1, 0);
-	if (l != "")
-	X509_NAME_add_entry_by_NID(subj,NID_localityName, MBSTRING_ASC, 
-		(unsigned char*)l.c_str() , -1, -1, 0);
-	if (st != "")
-	X509_NAME_add_entry_by_NID(subj,NID_stateOrProvinceName, MBSTRING_ASC, 
-		(unsigned char*)st.c_str() , -1, -1, 0);
-	if (o != "")
-	X509_NAME_add_entry_by_NID(subj,NID_organizationName, MBSTRING_ASC, 
-		(unsigned char*)o.c_str() , -1, -1, 0);
-	if (ou != "")
-	X509_NAME_add_entry_by_NID(subj,NID_organizationalUnitName, MBSTRING_ASC, 
-		(unsigned char*)ou.c_str() , -1, -1, 0);
-	if (email != "")
-	X509_NAME_add_entry_by_NID(subj,NID_pkcs9_emailAddress, MBSTRING_ASC, 
-		(unsigned char*)email.c_str() , -1, -1, 0);
-
-	createReq(key, subj);
-	X509_NAME_free(subj);
-}
-
-pki_x509req::pki_x509req(pki_x509 *cert) :pki_base()
-{
-	init();
-	if (!cert) return;
-	setDescription(cert->getDescription());
-	createReq(cert->getKey(), X509_get_subject_name(cert->getCert()));
-}
-
-void pki_x509req::createReq(pki_key *key, X509_NAME *dist_name)
-{
 	request = X509_REQ_new();
 	openssl_error();
-	if (!key || key->isPubKey()) {
+}
+
+void pki_x509req::createReq(pki_key &key, x509name &dist_name)
+{
+	if (key.isPubKey()) {
 		openssl_error("key not valid");
 		return;
 	}
 	openssl_error();
 	X509_REQ_set_version(request, 0L);
-	openssl_error();
-	X509_REQ_set_pubkey(request, key->key);
-	openssl_error();
-	X509_REQ_get_subject_name(request) = X509_NAME_dup( dist_name);
+	X509_REQ_set_pubkey(request, key.getKey());
+	X509_REQ_get_subject_name(request) = dist_name.get();
 	openssl_error();
 	const EVP_MD *digest = EVP_md5();
-	X509_REQ_sign(request,key->key ,digest);
-	openssl_error();
-	setKey(key);
-}
-
-
-pki_x509req::pki_x509req() : pki_base()
-{
-	init();
-	request = X509_REQ_new();
+	X509_REQ_sign(request,key.getKey() ,digest);
 	openssl_error();
 }
-
 
 pki_x509req::~pki_x509req()
 {
 	if (request)
 		X509_REQ_free(request);
 	openssl_error();
-	if (privkey)
-		privkey->decUcount();
 }
 
 
 pki_x509req::pki_x509req(const string fname)
 {
-	init();
+	privkey = NULL;
+	className = "pki_x509req";
 	FILE *fp = fopen(fname.c_str(),"r");
 	if (fp != NULL) {
 	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
@@ -175,22 +118,16 @@ pki_x509req::pki_x509req(const string fname)
 void pki_x509req::fromData(unsigned char *p, int size)
 {
 	privkey = NULL;
-	request = d2i_X509_REQ(NULL, &p, size);
+	request = d2i_X509_REQ(&request, &p, size);
 	openssl_error();
 }
 
-
-string pki_x509req::getDN(int nid)
+x509name pki_x509req::getSubject()
 {
-	char buf[200] = "";
-	string s;
-	X509_NAME *subj = X509_REQ_get_subject_name(request);
-	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
+	x509name x(X509_REQ_get_subject_name(request));
 	openssl_error();
-	s = buf;
-	return s;
+	return x;
 }
-
 
 unsigned char *pki_x509req::toData(int *size)
 {
@@ -203,7 +140,6 @@ unsigned char *pki_x509req::toData(int *size)
 	openssl_error();
 	return p;
 }
-
 
 void pki_x509req::writeReq(const string fname, bool PEM)
 {
@@ -235,7 +171,6 @@ bool pki_x509req::compare(pki_base *refreq)
 	    (memcmp(d1,d2,d1_len) == 0) )return true;
 	return false;
 }
-
 	
 int pki_x509req::verify()
 {
@@ -254,22 +189,8 @@ pki_key *pki_x509req::getPubKey()
 	 return key;
 }
 
-
 pki_key *pki_x509req::getKey()
 {
 	return privkey;
-}
-
-
-bool pki_x509req::setKey(pki_key *key)
-{
-	bool ret = false;
-	if (!privkey && key) {
-		CERR( "KEY COUNT UP");
-		key->incUcount();
-		ret=true;
-	}
-	privkey = key;
-	return ret;
 }
 

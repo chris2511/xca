@@ -48,34 +48,60 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
-
-#include <openssl/x509.h>
-#include <openssl/pem.h>
-#include "pki_key.h"
 #include "x509name.h"
 
-class pki_x509;
-
-class pki_x509req : public pki_base
+x509name::x509name()
 {
-	protected:
-	   pki_key *privkey;
-	   X509_REQ *request;
-	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
-	   int verify();
-	   pki_key *getPubKey();
-	   pki_key *getKey();
-	   void createReq(pki_key &key, x509name &dist_name);
-};
+	xn = X509_NAME_new();
+}
 
-#endif
+x509name::x509name(X509_NAME *n)
+{
+	xn = X509_NAME_dup(n);
+}
+
+x509name::~x509name()
+{
+	X509_NAME_free(xn);
+}
+
+QString x509name::subjectOneLine()
+{
+	char *x = X509_NAME_oneline(xn, NULL ,0);
+	QString ret = x;
+	OPENSSL_free(x);
+	return ret;
+}
+
+QString x509name::getEntryByNid(int nid)
+{
+	int len = X509_NAME_get_text_by_NID(xn, nid, NULL, 0);
+	char *buf = (char *)OPENSSL_malloc(len);
+	QString s;
+	X509_NAME_get_text_by_NID(xn, nid, buf, len);
+	s = buf;
+	OPENSSL_free(buf);
+	return s;
+}
+
+bool x509name::operator == (const x509name &x)
+{
+	return (X509_NAME_cmp(xn, x.xn) == 0);
+}
+
+int x509name::entryCount()
+{
+	return  X509_NAME_entry_count(xn);
+}
+
+void x509name::addEntryByNid(int nid, QString entry)
+{
+	if (entry.isEmpty()) return;
+	X509_NAME_add_entry_by_NID(xn, nid, 
+		MBSTRING_ASC, (unsigned char*)entry.latin1(),-1,-1,0);
+}
+
+X509_NAME *x509name::get()
+{
+	return X509_NAME_dup(xn);
+}

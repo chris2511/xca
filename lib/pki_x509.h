@@ -57,11 +57,8 @@
 #include <openssl/pem.h>
 #include "pki_key.h"
 #include "pki_x509req.h"
-
-#define TIMEFORM_PRETTY 1
-#define TIMEFORM_PLAIN 2
-#define TIMEFORM_SORTABLE 3
-
+#include "asn1time.h"
+#include "asn1int.h"
 
 class pki_x509 : public pki_base
 {
@@ -70,8 +67,8 @@ class pki_x509 : public pki_base
 	private:
 	   pki_x509 *psigner;
 	   pki_key *pkey;
-           X509V3_CTX ext_ctx;
-	   ASN1_TIME *revoked, *lastCrl;
+	   a1time revoked, lastCrl;
+	   bool isrevoked;
 	   int trust;
 	   int efftrust;
 	   int caSerial;
@@ -80,33 +77,37 @@ class pki_x509 : public pki_base
 	   X509 *cert;
 	   void init();
 	public:
-	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509(X509 *c);
-	   pki_x509(const pki_x509 *crt);
+	   pki_x509(const pki_x509 &crt);
 	   pki_x509();
 	   pki_x509(const string fname);
 	   ~pki_x509();
+
+	   void setSerial(a1int &serial);
+	   a1int pki_x509::getSerial();
+	   void setNotBefore(a1time &a1);
+	   void setNotAfter(a1time &a1);
+	   a1time getNotBefore();
+	   a1time getNotAfter();
+	   x509name getSubject();
+	   x509name getIssuer();
+	   void setSubject(x509name &n);
+	   void setIssuer(x509name &n);
+	   
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
 	   bool canSign();
-	   string getDNs(int nid);
-	   string getDNi(int nid);
 	   void writeCert(const string fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);
 	   pki_key *getKey();
 	   pki_key *getPubKey(); // will be created temporarily and must be freed
 	   void delKey();
 	   bool setKey(pki_key *key);
-	   string notAfter(int format = TIMEFORM_PRETTY);
-	   string notBefore(int format = TIMEFORM_PRETTY);
-	   string revokedAt(int format = TIMEFORM_PRETTY);
 	   pki_x509 *getSigner();
 	   void delSigner();
 	   string fingerprint(const EVP_MD *digest);
 	   string printV3ext();
-	   string getSerial();
-	   long getSerialLong();
 	   int checkDate();
 	   void addV3ext(int nid, string exttext);
 	   void sign(pki_key *signkey);
@@ -116,7 +117,7 @@ class pki_x509 : public pki_base
 	   int getEffTrust();
 	   void setEffTrust(int t);
 	   void setRevoked(bool rev);
-	   void setRevoked(ASN1_TIME *when);
+	   void setRevoked(a1time &when);
 	   bool isRevoked();
 	   int calcEffTrust();
 	   int getIncCaSerial();
@@ -126,19 +127,11 @@ class pki_x509 : public pki_base
 	   string getTemplate();
 	   void setCrlDays(int s);
 	   int getCrlDays();
-	   void setLastCrl(ASN1_TIME *time);
+	   void setLastCrl(a1time &time);
 	   int resetTimes(pki_x509 *signer);
 	   bool hasSubAltName();
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);
-	   void setDates(int days);
-	   void setSerial(int serial);
-	   string tinyCAfname();
-	   static string asn1TimeToSortable(ASN1_TIME *a);
-	   string asn1TimeToString(ASN1_TIME *a, int format);
-	   string asn1TimeToPlain(ASN1_TIME *a);
-	   string asn1TimeToPretty(ASN1_TIME *a);
-	   static int asn1TimeYMDG(ASN1_TIME *a, int *y, int *m, int *d, int *g);
-	   string subjectOneLine();
+	   QString tinyCAfname();
 };
 
 #endif
