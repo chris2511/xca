@@ -78,6 +78,7 @@ class a1time
 	ASN1_TIME *get() const;
 	a1time &now(int delta = 0);
 	unsigned char *i2d(unsigned char *p);
+	unsigned char *d2i(unsigned char *p, int size);
 	int derSize() const;
 	a1time &operator = (const a1time &a);
 	bool const operator > (const a1time &a);

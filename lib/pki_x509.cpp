@@ -267,11 +267,9 @@ void pki_x509::fromData(unsigned char *p, int size)
 		sCert = intFromData(&p1);
 		cert = d2i_X509(NULL, &p1, sCert);
 		trust = intFromData(&p1);
-		CERR( "Trust: " << trust );
 		sRev = intFromData(&p1);
 		if (sRev) {
 		   revoked= d2i_ASN1_TIME(NULL, &p1, sRev);
-		   CERR("revoked time");
 		}
 		else {
 		   revoked = NULL;
@@ -292,11 +290,7 @@ void pki_x509::fromData(unsigned char *p, int size)
 			crlDays = intFromData(&p1);
 			sLastCrl = intFromData(&p1);
 			if (sLastCrl) {
-			   lastCrl = d2i_ASN1_TIME(NULL, &p1, sLastCrl);
-			   CERR("last CRL"<< sLastCrl);
-			}
-			else {
-			   lastCrl = NULL;
+			   lastCrl.d2i(p1, sLastCrl);
 			}
 		}
 	}

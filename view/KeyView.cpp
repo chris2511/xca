@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -124,7 +125,7 @@ void KeyView::showItem(pki_base *item, bool import)
 		detDlg->keyPubEx->setText( key->pubEx() );
 		detDlg->keyModulus->setText( key->modulus());
 		if (key->isPubKey()) {
-			detDlg->keyPrivEx->setText(tr("not available") );
+			detDlg->keyPrivEx->setText(tr("Not available") );
 			detDlg->keyPrivEx->setDisabled(true);
 		}
 		else {
@@ -206,14 +207,13 @@ pki_base* KeyView::insert(pki_base *item)
 			tr("The database already contains the public part of the imported key as") +":\n'" +
 			oldkey->getIntName() + 
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
-		    CERR( "before deleting pki...");
 		    db->deletePKI(oldkey);
 		    lkey->setIntName(oldkey->getIntName());
 		    delete(oldkey);
 		}
 	    }
-	    CERR( "after findkey");
 	    db->insertPKI(lkey);
+		updateView();
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -286,5 +286,10 @@ void KeyView::incProgress(int a, int b, void *progress)
 {
 	int i = ((QProgressDialog *)progress)->progress();
 	((QProgressDialog *)progress)->setProgress(++i);
+}
+
+void KeyView::importKey(pki_key *k)
+{
+	showItem(k, true);
 }
 

@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -62,11 +63,11 @@ class CertView : public XcaListView
 {
    Q_OBJECT
 
-   private:
+  private:
 	int viewState;
 	bool mkDir(QString dir);
 	
-   public:
+  public:
 	CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem();
@@ -83,7 +84,7 @@ class CertView : public XcaListView
 	void writePKCS7(QString s, int type);	
 	void changeView(QPushButton *b);
 		
-   public slots:
+  public slots:
 	void loadPKCS12();
 	void loadPKCS7();
 	void extendCert();
@@ -100,8 +101,14 @@ class CertView : public XcaListView
 	void updateView();
 	void updateViewAll();
 	void newCert(pki_x509req *req);
-    signals:
-	void insertReq(pki_base *req);
+	void newCert(pki_temp *req);
+	void genCrl();
+	
+  signals:
+	void insertReq(pki_base *);
+	void genCrl(pki_x509 *);
+	void importKey(pki_key *);
+		
 };	
 
 #endif

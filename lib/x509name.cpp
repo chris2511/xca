@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -138,6 +139,22 @@ int x509name::nid(int i) const
 	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
 	return OBJ_obj2nid(ne->object);
 }				 
+
+unsigned char *x509name::d2i(unsigned char *p, int size)
+{
+	unsigned char *mp = p;
+	d2i_X509_NAME(&xn, &mp, size);
+	if (xn == NULL)
+		xn = X509_NAME_new();
+	return mp;
+}
+
+unsigned char *x509name::i2d(unsigned char *p)
+{
+	unsigned char *mp = p;
+	i2d_X509_NAME(xn, &mp);
+	return mp;
+}					 
 
 bool x509name::operator == (const x509name &x) const
 {

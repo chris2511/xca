@@ -209,14 +209,14 @@ void db_base::loadContainer()
 			int size = d->get_size();
 			try {	
 				pki = newPKI();
-				CERR(desc.latin1());
-				pki->fromData(p, size);
 				pki->setIntName(desc);
+				pki->fromData(p, size);
 				container.append(pki);
 			}
 			catch (errorEx &err) {
-				QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: '") + desc.latin1() + "'\n" +
-				err.getCString());
+				QMessageBox::warning(NULL,tr(XCA_TITLE),
+				       	tr("Error loading: '") + desc + "'\n" +
+					err.getCString());
 			}
 		}
 		delete (k);

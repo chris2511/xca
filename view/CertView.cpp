@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -115,6 +116,18 @@ void CertView::newCert(pki_x509req *req)
 	delete dlg;
 }
 
+void CertView::newCert(pki_temp *req)
+{
+	NewX509 *dlg = new NewX509(this, NULL, true);
+	emit connNewX509(dlg);
+	dlg->setCert();
+	dlg->defineTemplate(req);
+	if (dlg->exec()) {
+		newCert(dlg);
+	}
+	delete dlg;
+}
+
 void CertView::newCert(NewX509 *dlg)
 {
 	pki_x509 *cert = NULL;
@@ -125,11 +138,11 @@ void CertView::newCert(NewX509 *dlg)
 	a1time notBefore, notAfter;
 	x509name subject;
 	QString intname;
-	//int i;
-	//QListBoxItem *item;
 	
 	emit init_database();
 
+	dlg->defineSigner((pki_x509*)getSelected());
+	
     try {	
 	
 	// Step 1 - Subject and key
@@ -161,9 +174,10 @@ void CertView::newCert(NewX509 *dlg)
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = dlg->getSelectedSigner();
-	    	if (Error(signcert)) return;
+		if (Error(signcert)) return;
 		serial = signcert->getIncCaSerial();
 		signkey = signcert->getRefKey();
+		cert->setTrust(1);
 	}
 	else {
 		signcert = cert;	
@@ -171,6 +185,7 @@ void CertView::newCert(NewX509 *dlg)
 		bool ok;
 		serial = dlg->serialNr->text().toInt(&ok);
 		if (!ok) serial = 0;
+		cert->setTrust(2);
 	}
 	// set the issuers name
 	cert->setIssuer(signcert->getSubject());
@@ -212,11 +227,12 @@ void CertView::newCert(NewX509 *dlg)
 	if (tempkey != NULL) delete(tempkey);
 	updateView();
 	return;
-    }
+    } // EOF try
+	
     catch (errorEx &err) {
-	Error(err);
-	delete cert;
-	if (tempkey != NULL) delete(tempkey);
+		Error(err);
+		delete cert;
+		if (tempkey != NULL) delete(tempkey);
     }
 	
 }
@@ -398,20 +414,17 @@ void CertView::insertP12(pki_pkcs12 *pk12)
 			insertCert(acert);
 		}
 #else
-		// keyList->show(akey, true);
+		emit importKey(akey);
 		showItem(acert,true);
 		for (int i=0; i<pk12->numCa(); i++) {
 			acert = pk12->getCa(i);
 			showItem(acert, true);
 		}
 #endif			
-		//if (keys)
-			//FIXME:: keys->updateView();
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
-	MARK
 }	
 	
 
@@ -478,7 +491,6 @@ pki_base *CertView::insert(pki_base *item)
     // check the CA serial of the CA of this cert to avoid serial doubles
     if (cert->getSigner() != cert && cert->getSigner()) {
 	serial = cert->getSerial();
-	CERR("OTHER SIGNER" << serial.getLong());
     	if (cert->getSigner()->getCaSerial() <serial ) {
 	    QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate-serial is higher than the next serial of the signer it will be set to ") +
@@ -587,15 +599,11 @@ void CertView::writePKCS12(QString s, bool chain)
 	s = QDir::convertSeparators(s);
 	pki_pkcs12 *p12 = new pki_pkcs12(cert->getIntName(), cert, privkey, &MainWindow::passWrite);
 	pki_x509 *signer = cert->getSigner();
-	int cnt = 0;
 	while ((signer != NULL ) && (signer != cert) && chain) {
-		CERR("SIGNER:"<<(int)signer);
 		p12->addCaCert(signer);
-		CERR( "signer: " << ++cnt );
 		cert=signer;
 		signer=signer->getSigner();
 	}
-	CERR("start writing" );
 	p12->writePKCS12(s);
 	delete p12;
     }
@@ -721,7 +729,6 @@ void CertView::encryptP7()
 }	
 
 void CertView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	CERR( "popup Cert");
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subCa = new QPopupMenu(this);
 	QPopupMenu *subP7 = new QPopupMenu(this);
@@ -839,11 +846,8 @@ void CertView::revoke()
 	pki_x509 *cert = (pki_x509 *)getSelected();
 	if (!cert) return;
 	cert->setRevoked(true);
-	CERR("setRevoked..." );
 	db->updatePKI(cert);
-	CERR("updatePKI done");
 	updateView();
-	CERR("view updated");
 }
 
 void CertView::unRevoke()
@@ -1053,45 +1057,41 @@ void CertView::toTinyCA()
 
 void CertView::updateView()
 {
-        clear();
-        setRootIsDecorated(true);
-        pki_x509 *pki;
-        pki_base *pkib;
-        pki_x509 *signer;
-        QListViewItem *parentitem;
-        QListViewItem *current;
-        QList<pki_base> container = db->getContainer();
+	clear();
+	setRootIsDecorated(true);
+	pki_x509 *pki, *signer;
+	pki_base *pkib;
+	QListViewItem *parentitem,  *current;
+	QList<pki_base> container = db->getContainer();
 	if ( container.isEmpty() ) return;
-        QList<pki_base> mycont = container;
-        for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delLvi();
-        int f=0;
-        while (! mycont.isEmpty() ) {
-                QListIterator<pki_base> it(mycont);
-                for ( ; it.current(); ++it ) {
-                        pki = (pki_x509 *)it.current();
-                        parentitem = NULL;
-                        signer = pki->getSigner();
+	QList<pki_base> mycont = container;
+	for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delLvi();
+	while (! mycont.isEmpty() ) {
+		QListIterator<pki_base> it(mycont);
+		for ( ; it.current(); ++it ) {
+			pki = (pki_x509 *)it.current();
+			parentitem = NULL;
+			signer = pki->getSigner();
 			// foreign signed
-                        if ((signer != pki) && (signer != NULL) && (viewState != 0)) 
-                                parentitem = signer->getLvi();
-                        if (((parentitem != NULL) || (signer == pki) || (signer == NULL)
+			if ((signer != pki) && (signer != NULL) && (viewState != 0)) 
+				parentitem = signer->getLvi();
+			if (((parentitem != NULL) || (signer == pki) || (signer == NULL)
 				|| viewState == 0) && (pki->getLvi() == NULL )) {
-                                // create the listview item
-                                if (parentitem != NULL) {
-                                        current = new QListViewItem(parentitem, pki->getIntName());
-                                }
-                                else {
-                                        current = new QListViewItem(this, pki->getIntName());
-                                }
-                                pki->setLvi(current);
-                                mycont.remove(pki);
-                                pki->updateView();
-                                it.toFirst();
-                        }
-                }
-
-        }
-        return;
+				// create the listview item
+				if (parentitem != NULL) {
+					current = new QListViewItem(parentitem);
+				}
+				else {
+					current = new QListViewItem(this);
+				}
+				pki->setLvi(current);
+				mycont.remove(pki);
+				pki->updateView();
+				it.toFirst();
+			}
+		}
+	}
+	return;
 }
 
 bool CertView::mkDir(QString dir)
@@ -1121,5 +1121,10 @@ void CertView::updateViewAll()
 	for (pki_x509 *pki = (pki_x509 *)c.first(); pki != 0; pki = (pki_x509 *)c.next() ) 
 		pki->updateView();
 	return;
+}
+
+void CertView::genCrl()
+{
+	emit genCrl((pki_x509 *)getSelected());
 }
 

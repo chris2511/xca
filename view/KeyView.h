@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -58,12 +59,12 @@ class pki_base;
 
 class KeyView : public XcaListView
 {
-   Q_OBJECT
+  Q_OBJECT
 
-   private:
+  private:
 	static const int sizeList[];
 	static void incProgress(int a, int b, void *progress);
-   public:
+  public:
 	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem();
@@ -73,7 +74,9 @@ class KeyView : public XcaListView
 	pki_base *insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-   signals:
+  public slots:
+	void importKey(pki_key *k);
+  signals:
 	void keyDone(QString);
 	void init_database();
 

@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -67,7 +68,6 @@ class CrlView : public XcaListView
    public:
 	CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
-	pki_crl *newItem(pki_x509 *cert);
 	void deleteItem();
 	void load();
 	pki_base *loadItem(QString fname);
@@ -76,6 +76,8 @@ class CrlView : public XcaListView
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
 	void writeCrl_pem();
 	void writeCrl_der();
+   public slots:
+	pki_crl *newItem(pki_x509 *cert);
    private slots:
 	void dlg_showCert(QListViewItem *i);
 	void dlg_showCert(QString name);

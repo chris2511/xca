@@ -72,7 +72,7 @@ void CertDetail::setCert(pki_x509 *cert)
 	pki_key *key= cert->getRefKey();
 	if (key && key->isPrivKey()) {
 		privKey->setText(key->getIntName());
-		privKey->setDisabled(false);
+		privKey->setGreen();
 	}
 	else {
 		privKey->setText(tr("Not available"));
@@ -82,21 +82,26 @@ void CertDetail::setCert(pki_x509 *cert)
 	// examine the signature
 	if ( cert->getSigner() == NULL) {
 		signCert->setText(tr("Signer unknown"));
+		signCert->setDisabled(true);
 	}
 	else if ( cert == cert->getSigner())  {
 		signCert->setText(tr("Self signed"));
+		signCert->setGreen();
 	}
 	
 	else {
 		signCert->setText(cert->getSigner()->getIntName());
+		signCert->setGreen();
 	}
 	
 	// check trust state
 	if (cert->getEffTrust() == 0) {
-		signCert->setDisabled(true);
+		trustState->setText(tr("Not trusted"));
+		trustState->setRed();
 	}
 	else {
-		signCert->setDisabled(false);
+		trustState->setText(tr("Trusted"));
+		trustState->setGreen();
 	}
 	
 	// the serial
@@ -114,14 +119,14 @@ void CertDetail::setCert(pki_x509 *cert)
 	if (cert->isRevoked()) {
 		dateValid->setText(tr("Revoked: ") +
 		cert->getRevoked().toPretty());
-		dateValid->setDisabled(true);
+		dateValid->setRed();
 	}
 	else if (cert->checkDate() != 0) {
 		dateValid->setText(tr("Not valid"));
-		dateValid->setDisabled(true);
+		dateValid->setRed();
 	}
 	else {
-		dateValid->setDisabled(false);
+		dateValid->setGreen();
 		dateValid->setText(tr("Valid"));
 	}
 	// the fingerprints

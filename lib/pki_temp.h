@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -55,35 +56,32 @@
 #include "x509name.h"
 #include "asn1time.h"
 
-#define tEMPTY 0
-#define tCA 1
-#define tCLIENT 2
-#define tSERVER 3
-
 class pki_temp: public pki_base
 {
-    protected:
-	int version;
-    public:
-	static QPixmap *icon;
-	x509name xname;
-	QString subAltName, issAltName, crlDist;
-	QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
-       		nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
-	bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
-	int type, nsCertType, pathLen, keyUse, eKeyUse, ca;
-     	a1time notBefore, notAfter;
-    // methods
+	protected:
+		int version;
+	public:
+		enum { EMPTY, CA, CLIENT, SERVER };
+		static QPixmap *icon;
+		x509name xname;
+		QString subAltName, issAltName, crlDist;
+		QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
+			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
+		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
+		int type, nsCertType, pathLen, keyUse, eKeyUse, ca;
+		int validN, validM;
+	
+		// methods
     
-	pki_temp(const pki_temp *pk);
-	pki_temp(const QString d, int atype=0);
-	/* destructor */
-	~pki_temp();
-	void fromData(unsigned char *p, int size);
-	unsigned char *toData(int *size);
-	bool compare(pki_base *ref);
-	int dataSize();
-	void updateView();
+		pki_temp(const pki_temp *pk);
+		pki_temp(const QString d, int atype=0);
+		/* destructor */
+		~pki_temp();
+		void fromData(unsigned char *p, int size);
+		unsigned char *toData(int *size);
+		bool compare(pki_base *ref);
+		int dataSize();
+		void updateView();
 };
 
 #endif

@@ -70,18 +70,18 @@ void ReqDetail::setReq(pki_x509req *req)
 	// internal name and verification
 	descr->setText(req->getIntName());
 	if (!req->verify() ) {
-		verify->setDisabled(true);
+		verify->setRed();
 		verify->setText("Failed");
 	}
 	else {
-		verify->setDisabled(false);
+		verify->setGreen();
 		verify->setText("Ok");
 	}
 	// look for the private key
 	pki_key *key =req->getRefKey();
 	if (key) {
 		privKey->setText(key->getIntName());
-		privKey->setDisabled(false);
+		privKey->setGreen();
 	}
 	else {
 		privKey->setText(tr("Not available"));

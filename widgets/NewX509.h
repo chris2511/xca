@@ -94,7 +94,7 @@ class NewX509: public NewX509_UI
 	void fromTemplate(pki_temp *temp);
 	void defineTemplate(pki_temp *temp);
 	void defineRequest(pki_x509req *req);
-	void defineCert(pki_x509 *defcert);
+	void defineSigner(pki_x509 *defcert);
 	int lb2int(QListBox *lb);
 	void int2lb(QListBox *lb, int x);
 	void templateChanged(pki_temp *templ);
@@ -129,6 +129,7 @@ class NewX509: public NewX509_UI
 	void helpClicked();
 	void addX509NameEntry();
 	void delX509NameEntry();
+	void checkAuthKeyId();
    signals:
 	void genKey();
 };

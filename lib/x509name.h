@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -67,6 +68,8 @@ class x509name
 	x509name &set(const X509_NAME *n);
 	QString oneLine() const;
 	int nid(int i) const;
+	unsigned char *d2i(unsigned char *p, int size);
+	unsigned char *i2d(unsigned char *p);
 	QStringList entryList(int i) const;
 	QString getEntryByNid(int nid ) const;
 	QString getEntry(int i) const;

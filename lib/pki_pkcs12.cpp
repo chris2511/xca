@@ -81,15 +81,12 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	fp = fopen(fname, "rb");
 	if (fp) {
 		pkcs12 = d2i_PKCS12_fp(fp, NULL);
-		CERR("PK12");
 		fclose(fp);
 		openssl_error();
 		if (passcb(pass, 30, 0, &p) == 0) {
 			throw errorEx("","");
 		}
-		CERR("PK12");
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
-		CERR("PK12");
 		openssl_error();
 		if (mykey) {
 			key = new pki_key(mykey);
@@ -103,7 +100,6 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		}
 	}
 	else fopen_error(fname);
-	CERR("PK12");
 }	
 
 
@@ -111,17 +107,13 @@ pki_pkcs12::~pki_pkcs12()
 {
 	if (sk_X509_num(certstack)>0) {
 		sk_X509_pop_free(certstack, X509_free); // free the certs itself, because we own a copy of them
-		CERR("popping free certs");
 	}
 	if (key) { 
 		delete(key); 
-		CERR("deleting key");
 	}
 	if (cert) {
 		delete(cert);
-		CERR( "deleting cert");
 	}
-	CERR("freeing PKCS12");
 	if (pkcs12)
 		PKCS12_free(pkcs12);
 	openssl_error();
@@ -146,15 +138,11 @@ void pki_pkcs12::writePKCS12(const QString fname)
 			openssl_error("No key or no Cert and no pkcs12....");
 		}
 		passcb(pass, 30, 0, &p); 
-		CERR( desc << key->getKey() << cert->getCert() );
-		CERR("before PKCS12_create....");
 		pkcs12 = PKCS12_create(pass, desc, key->getKey(), cert->getCert(), certstack, 0, 0, 0, 0, 0);
 		openssl_error();
-		CERR("after PKCS12_create....");
 	}
 	FILE *fp = fopen(fname,"wb");
 	if (fp != NULL) {
-	    CERR("writing PKCS#12");
             i2d_PKCS12_fp(fp, pkcs12);
             openssl_error();
 	    fclose (fp);

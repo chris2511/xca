@@ -65,7 +65,6 @@ pki_crl::pki_crl(const QString fname )
 		if (!crl) {
 			ign_openssl_error();
 			rewind(fp);
-			CERR("Fallback to CRL - DER");
 			crl = d2i_X509_CRL_fp(fp, &crl);
 		}	
 		fclose(fp);
@@ -79,13 +78,13 @@ pki_crl::pki_crl()
 	:pki_base()
 {
 	issuer = NULL;
+	a1int version = 1; /* version 2 CRL */
 	crl = X509_CRL_new();
 	class_name="pki_crl";
 #if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
 	crl->crl->revoked = sk_X509_REVOKED_new_null();
 #endif
-	crl->crl->version = ASN1_INTEGER_new();
-	ASN1_INTEGER_set(crl->crl->version,1); /* version 2 CRL */
+	crl->crl->version = version.get();
 	openssl_error();
 }
 
@@ -148,7 +147,9 @@ unsigned char *pki_crl::toData(int *size)
 bool pki_crl::compare(pki_base *refcrl)
 {
 	bool ret;
-	ret = X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0;
+	ret = X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0 && 
+		getLastUpdate() == ((pki_crl *)refcrl)->getLastUpdate() &&
+		getNextUpdate() == ((pki_crl *)refcrl)->getNextUpdate() ;
 	openssl_error();
 	return ret;
 }

@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -211,6 +212,7 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);
 	signerChanged();
+	checkAuthKeyId();
 }
 
 void NewX509::setRequest()
@@ -328,7 +330,7 @@ void NewX509::defineRequest(pki_x509req *req)
 
 }
 
-void NewX509::defineCert(pki_x509 *defcert)
+void NewX509::defineSigner(pki_x509 *defcert)
 {
 	// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
 	if (defcert && defcert->canSign()) {
@@ -344,7 +346,7 @@ void NewX509::defineCert(pki_x509 *defcert)
 		}
 #endif
 		foreignSignRB->setChecked(true);
-		// certList->setEnabled(true);
+		certList->setEnabled(true);
 	}
 }	
 
@@ -393,12 +395,15 @@ void NewX509::fromTemplate(pki_temp *temp)
 	issAltCp->setChecked(temp->issAltCp);
 	int2lb(keyUsage, temp->keyUse);
 	int2lb(ekeyUsage, temp->eKeyUse);
-	notBefore->setDate(temp->notBefore);
-	notAfter->setDate(temp->notAfter);
+	validNumber->setText(QString::number(temp->validN));
+	validRange->setCurrentItem(temp->validM);
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
 	}
-	
+	int faktor[] = { 1, 30, 365 };
+	a1time a;
+	notBefore->setDate(a.now());
+	notAfter->setDate(a.now(3600 * faktor[temp->validM] * temp->validN - 1 ));
 }
 
 void NewX509::toTemplate(pki_temp *temp)
@@ -426,8 +431,8 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->issAltCp = issAltCp->isChecked();
 	temp->keyUse = lb2int(keyUsage);
 	temp->eKeyUse = lb2int(ekeyUsage);
-	temp->notBefore = notBefore->getDate();
-	temp->notAfter = notAfter->getDate();
+	temp->validN = validNumber->text().toInt();
+	temp->validM = validRange->currentItem();
 	temp->pathLen = basicPath->text().toInt();
 }
 
@@ -474,6 +479,10 @@ void NewX509::showPage(QWidget *page)
 		v3Extensions->setText(createRequestText());
 	}
 	
+	if (page == page4) {
+		checkAuthKeyId();
+	}
+			
 	QWizard::showPage(page);
 	
 	if ( page == page2 ) {
@@ -578,6 +587,23 @@ void NewX509::switchExtended()
 	}
 }
 		    
+void NewX509::checkAuthKeyId()
+{
+	bool enabled = false;
+	// for Templates:
+	if ( !appropriate(page1) ) enabled = true ; 
+
+	if (foreignSignRB->isChecked()) {
+		if (getSelectedSigner()->hasSubAltName())
+			enabled = true;
+	}
+	else { // Self signed
+		if (subKey->isChecked())
+			enabled = true;
+	}
+	authKey->setEnabled(enabled);
+}
+			
 void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(name,0);
@@ -623,18 +649,18 @@ x509name NewX509::getX509name()
 
 void NewX509::setX509name(const x509name &n)
 {
-	
+	int j;	
 	for ( int i=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		QStringList sl = n.entryList(i);
-		for (int j = 0; j<EXPLICIT_NAME_CNT; j++) {
+		for ( j = 0; j<EXPLICIT_NAME_CNT; j++) {
 			if (nid == name_nid[j] && name_ptr[j]->text().isEmpty()) { 
 				name_ptr[j]->setText(sl[2]); 
 				break;
 			}
-			if (j == EXPLICIT_NAME_CNT) {
-				new QListViewItem(extDNlist, sl[1], sl[2]);
-			}
+		}
+		if (j == EXPLICIT_NAME_CNT) {
+			new QListViewItem(extDNlist, sl[1], sl[2]);
 		}
 	}
 }

@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -56,33 +57,12 @@
 ClickLabel::ClickLabel( QWidget* parent,  const char* name, WFlags f )
 	:QLabel( parent, name, f )
 {
-    QPalette pal;
-    QColorGroup cg;
-    cg.setColor( QColorGroup::Foreground, QColor( 0, 192, 0) );
-    cg.setColor( QColorGroup::Button, QColor( 192, 192, 192) );
-    cg.setColor( QColorGroup::Light, white ); 
-    cg.setColor( QColorGroup::Midlight, QColor( 220, 220, 220) );
-    cg.setColor( QColorGroup::Dark, QColor( 96, 96, 96) );
-    cg.setColor( QColorGroup::Mid, QColor( 128, 128, 128) );
-    cg.setColor( QColorGroup::Text, black );
-    cg.setColor( QColorGroup::BrightText, white );
-    cg.setColor( QColorGroup::ButtonText, black );
-    cg.setColor( QColorGroup::Base, white );
-    cg.setColor( QColorGroup::Background, QColor( 192, 192, 192) );
-    cg.setColor( QColorGroup::Shadow, black );
-    cg.setColor( QColorGroup::Highlight, black );
-    cg.setColor( QColorGroup::HighlightedText, white );
-    pal.setActive( cg );
-    pal.setInactive( cg );
-    cg.setColor( QColorGroup::Foreground, QColor( 0, 0, 0) );
-    pal.setDisabled( cg );
-    setPalette( pal );
-    QFont font( font() );
-    font.setBold(true);
-    setFont( font );
-    setFrameShape( QLabel::Panel );
-    setFrameShadow( QLabel::Sunken );
-    setAlignment( int( QLabel::AlignCenter ) );
+	QFont font( font() );
+	font.setBold(true);
+	setFont( font );
+	setFrameShape( QLabel::Panel );
+	setFrameShadow( QLabel::Sunken );
+	setAlignment( int( QLabel::AlignCenter ) );
 }
 
 void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
@@ -91,3 +71,23 @@ void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
 	emit doubleClicked(text());
 }
 
+void ClickLabel::setColor(const QColor &col)
+{
+	QPalette pal = palette();
+	QColorGroup cg = pal.active();
+	cg.setColor( QColorGroup::Foreground, col );
+	pal.setActive( cg );
+	pal.setInactive( cg );
+	pal.setDisabled( cg );
+	setPalette( pal );
+}
+
+void ClickLabel::setRed()
+{
+	setColor( QColor( 192, 0, 0) );
+}
+
+void ClickLabel::setGreen()
+{
+	setColor( QColor( 0, 192, 0) );
+}

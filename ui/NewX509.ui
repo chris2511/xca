@@ -11,18 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>599</width>
+            <width>587</width>
             <height>590</height>
         </rect>
     </property>
     <property stdset="1">
-        <name>font</name>
-        <font>
-        </font>
-    </property>
-    <property stdset="1">
         <name>caption</name>
-        <string>X Certificate and Key management</string>
+        <string>NewX509_UI</string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -1361,27 +1356,6 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
                             </widget>
                         </grid>
                     </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer97</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
                     <widget>
                         <class>QGroupBox</class>
                         <property stdset="1">
@@ -1441,98 +1415,154 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                 </hbox>
             </widget>
             <widget>
-                <class>QGroupBox</class>
+                <class>QLayoutWidget</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>GroupBox8</cstring>
-                </property>
-                <property stdset="1">
-                    <name>title</name>
-                    <string>Validity</string>
+                    <cstring>Layout32</cstring>
                 </property>
                 <hbox>
                     <property stdset="1">
                         <name>margin</name>
-                        <number>11</number>
+                        <number>0</number>
                     </property>
                     <property stdset="1">
                         <name>spacing</name>
                         <number>6</number>
                     </property>
                     <widget>
-                        <class>QLayoutWidget</class>
+                        <class>QGroupBox</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>Layout16</cstring>
+                            <cstring>validitybox</cstring>
                         </property>
-                        <grid>
+                        <property stdset="1">
+                            <name>title</name>
+                            <string>Validity</string>
+                        </property>
+                        <hbox>
                             <property stdset="1">
                                 <name>margin</name>
-                                <number>0</number>
+                                <number>11</number>
                             </property>
                             <property stdset="1">
                                 <name>spacing</name>
                                 <number>6</number>
                             </property>
-                            <widget row="0"  column="0" >
-                                <class>QLabel</class>
+                            <widget>
+                                <class>QLayoutWidget</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>TextLabel1_2</cstring>
+                                    <cstring>Layout16</cstring>
                                 </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>not Before</string>
-                                </property>
+                                <grid>
+                                    <property stdset="1">
+                                        <name>margin</name>
+                                        <number>0</number>
+                                    </property>
+                                    <property stdset="1">
+                                        <name>spacing</name>
+                                        <number>6</number>
+                                    </property>
+                                    <widget row="0"  column="0" >
+                                        <class>QLabel</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>TextLabel1_2</cstring>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>text</name>
+                                            <string>not Before</string>
+                                        </property>
+                                    </widget>
+                                    <widget row="1"  column="0" >
+                                        <class>QLabel</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>TextLabel2_4</cstring>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>text</name>
+                                            <string>not After</string>
+                                        </property>
+                                    </widget>
+                                    <widget row="0"  column="1" >
+                                        <class>Validity</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>notBefore</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget row="1"  column="1" >
+                                        <class>Validity</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>notAfter</cstring>
+                                        </property>
+                                    </widget>
+                                </grid>
                             </widget>
-                            <widget row="1"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel2_4</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>not After</string>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="1" >
-                                <class>Validity</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>notBefore</cstring>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="1" >
-                                <class>Validity</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>notAfter</cstring>
-                                </property>
-                            </widget>
-                        </grid>
+                        </hbox>
                     </widget>
-                    <spacer>
-                        <property>
+                    <widget>
+                        <class>QGroupBox</class>
+                        <property stdset="1">
                             <name>name</name>
-                            <cstring>Spacer34_2</cstring>
+                            <cstring>GroupBox35</cstring>
                         </property>
                         <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
+                            <name>title</name>
+                            <string>Time Range</string>
                         </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
+                        <vbox>
+                            <property stdset="1">
+                                <name>margin</name>
+                                <number>11</number>
+                            </property>
+                            <property stdset="1">
+                                <name>spacing</name>
+                                <number>6</number>
+                            </property>
+                            <widget>
+                                <class>QLineEdit</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>validNumber</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>sizePolicy</name>
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                    </sizepolicy>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QComboBox</class>
+                                <item>
+                                    <property>
+                                        <name>text</name>
+                                        <string>Days</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property>
+                                        <name>text</name>
+                                        <string>Months</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property>
+                                        <name>text</name>
+                                        <string>Years</string>
+                                    </property>
+                                </item>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>validRange</cstring>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
                 </hbox>
             </widget>
             <spacer>
@@ -1720,7 +1750,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
         </property>
         <attribute>
             <name>title</name>
-            <string>Page</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -2385,7 +2415,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
         </property>
         <attribute>
             <name>title</name>
-            <string>Page</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -2849,8 +2879,15 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
         <receiver>NewX509_UI</receiver>
         <slot>helpClicked()</slot>
     </connection>
+    <connection>
+        <sender>subKey</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>checkAuthKeyId()</slot>
+    </connection>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">helpClicked()</slot>
+    <slot access="public">checkAuthKeyId()</slot>
     <slot access="public">signerChanged()</slot>
     <slot access="public">switchExtended()</slot>
     <slot access="public">templateChanged()</slot>

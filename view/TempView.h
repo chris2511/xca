@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -58,28 +59,34 @@
 
 class TempView : public XcaListView
 {
-   Q_OBJECT
+  Q_OBJECT
 
-   private:
+  private:
 	QPixmap *keyicon;
-   public:
+  public:
 	TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem(int type);
-	void deleteItem();
 	//void load();
 	void updateViewItem(pki_base *);
 	//pki_base *loadItem(QString fname);
 	pki_base* insert(pki_base *item);
 	//void store();
+	bool alterTemp(pki_temp *);
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-	bool alterTemp(pki_temp *temp);
-   public slots:
+  public slots:
+	void newEmptyTemp();
+	void newCaTemp();
+	void newClientTemp();
+	void newServerTemp();
 	void certFromTemp();
 	void reqFromTemp();
-   signals:
+	void alterTemp();
+	void deleteItem();
+  signals:
 	void init_database();
-
+	void newReq(pki_temp *);
+	void newCert(pki_temp *);
 };	
 
 #endif

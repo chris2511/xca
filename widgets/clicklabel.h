@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -57,13 +58,16 @@ class QMouseEvent;
 
 class ClickLabel : public QLabel
 { 
-    Q_OBJECT
+  Q_OBJECT
 
   public:
 	ClickLabel( QWidget * parent, const char * name=0, WFlags f=0 );
+	void setRed();
+	void setGreen();
 	
   protected:
 	void mouseDoubleClickEvent ( QMouseEvent * e );
+	void setColor(const QColor &col);
   
   signals:
 	void doubleClicked(QString text);

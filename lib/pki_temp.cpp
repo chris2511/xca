@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -80,8 +81,8 @@ pki_temp::pki_temp(const pki_temp *pk)
 	subAltCp=pk->subAltCp;
 	issAltCp=pk->issAltCp;
 	pathLen=pk->pathLen;
-	notBefore=pk->notBefore;
-	notAfter=pk->notAfter;
+	validN=pk->validN;
+	validM=pk->validM;
 	keyUse=pk->keyUse;
 	eKeyUse=pk->eKeyUse;
 }
@@ -111,12 +112,12 @@ pki_temp::pki_temp(const QString d, int atype)
 	subAltCp=false;
 	issAltCp=false;
 	pathLen=0;
-	notBefore.now();
-	notAfter.now(60*60*24*365);
+	validN=365;
+	validM=0;
 	keyUse=0;
 	eKeyUse=0;
-	if (type==tCA) {
-		ca=true;
+	if (type == CA) {
+		ca=1;
 		bcCrit=true;
 		subKey=true;
 		authKey=true;
@@ -124,8 +125,8 @@ pki_temp::pki_temp(const QString d, int atype)
 		nsCertType=112;
 		keyUse=96;
 	}
-	if (type==tCLIENT) {
-		ca=false;
+	if (type == CLIENT) {
+		ca=2;
 		bcCrit=true;
 		subKey=true;
 		authKey=true;
@@ -134,8 +135,8 @@ pki_temp::pki_temp(const QString d, int atype)
 		nsCertType=5;
 		keyUse=13;
 	}
-	if (type==tSERVER) {
-		ca=false;
+	if (type == SERVER) {
+		ca=2;
 		bcCrit=true;
 		subKey=true;
 		authKey=true;
@@ -150,12 +151,14 @@ pki_temp::pki_temp(const QString d, int atype)
 
 void pki_temp::fromData(unsigned char *p, int size )
 {
-	X509_NAME *xn = NULL;
-	CERR("Temp fromData");
 	unsigned char *p1 = p;
 	version=intFromData(&p1);
 	type=intFromData(&p1);
-	ca=boolFromData(&p1);
+	if (version == 1) {
+		ca = 2;
+		bool mca = boolFromData(&p1);
+		if (mca) ca = 1;
+	}
 	bcCrit=boolFromData(&p1);
 	keyUseCrit=boolFromData(&p1);
 	eKeyUseCrit=boolFromData(&p1);
@@ -163,23 +166,23 @@ void pki_temp::fromData(unsigned char *p, int size )
 	authKey=boolFromData(&p1);
 	subAltCp=boolFromData(&p1);
 	issAltCp=boolFromData(&p1);
-	pathLen=intFromData(&p1);
-	if (version == 1) {
-		int validN = intFromData(&p1);
-		int validM = intFromData(&p1);
-		int x[] = {1, 30, 365 };
+	if (version == 2) { 
+		ca = intFromData(&p1);
 	}
+	pathLen=intFromData(&p1);
+	validN = intFromData(&p1);
+	validM = intFromData(&p1);
 	keyUse=intFromData(&p1);
 	eKeyUse=intFromData(&p1);
 	nsCertType=intFromData(&p1);
 	if (version == 1) {
 		xname.addEntryByNid(OBJ_sn2nid("C"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("P"), stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("ST"), stringFromData(&p1));
 		xname.addEntryByNid(OBJ_sn2nid("L"), stringFromData(&p1));
 		xname.addEntryByNid(OBJ_sn2nid("O"), stringFromData(&p1));
 		xname.addEntryByNid(OBJ_sn2nid("OU"), stringFromData(&p1));
 		xname.addEntryByNid(OBJ_sn2nid("CN"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("EMAIL"),stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("emailAddress"),stringFromData(&p1));
 	}
 	subAltName=stringFromData(&p1);
 	issAltName=stringFromData(&p1);
@@ -193,19 +196,18 @@ void pki_temp::fromData(unsigned char *p, int size )
 	nsSslServerName=stringFromData(&p1);
 	//next version:
 	if (version == 2) { 
-		xn = d2i_X509_NAME(&xn, &p1, 0);
-		xname.set(xn);
+		p1 = xname.d2i(p1, size - (p1-p));
 	}
 	if (p1-p != size) {
-		CERR( "AAAAarrrrgghhhhh wrong tempsize..." << (p1-p) << " - " <<size );
 		openssl_error("Wrong Size");
 	}
+	//set version to 2
+	version = 2;
 }
 
 
 unsigned char *pki_temp::toData(int *size) 
 {
-	CERR("temp toData " << getDescription() );
 	unsigned char *p, *p1;
 	*size = dataSize();
 	p = (unsigned char*)OPENSSL_malloc(*size);
@@ -213,7 +215,6 @@ unsigned char *pki_temp::toData(int *size)
 	version = 2;
 	intToData(&p1, version);
 	intToData(&p1, type);
-	boolToData(&p1, ca);
 	boolToData(&p1, bcCrit);
 	boolToData(&p1, keyUseCrit);
 	boolToData(&p1, eKeyUseCrit);
@@ -221,7 +222,10 @@ unsigned char *pki_temp::toData(int *size)
 	boolToData(&p1, authKey);
 	boolToData(&p1, subAltCp);
 	boolToData(&p1, issAltCp);
+	intToData(&p1, ca);
 	intToData(&p1, pathLen);
+	intToData(&p1, validN);
+	intToData(&p1, validM);
 	intToData(&p1, keyUse);
 	intToData(&p1, eKeyUse);
 	intToData(&p1, nsCertType);
@@ -235,8 +239,7 @@ unsigned char *pki_temp::toData(int *size)
 	stringToData(&p1, nsRenewalUrl);
 	stringToData(&p1, nsCaPolicyUrl);
 	stringToData(&p1, nsSslServerName);
-
-	CERR( "Temp toData end ..."<< (p1-p) << " - "<<*size );
+	p1 = xname.i2d(p1);
 	return p;
 }
 
@@ -250,8 +253,8 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	return 6 * sizeof(int) + 
-	       8 * sizeof(bool) + 
+	return 9 * sizeof(int) + 
+	       7 * sizeof(bool) + 
 	       xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +

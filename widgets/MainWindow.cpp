@@ -125,6 +125,12 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( BNimportPKCS7, SIGNAL(clicked()), certList, SLOT(loadPKCS7()));
 	connect( BNviewState, SIGNAL(clicked()), this, SLOT(changeView()));
 	
+	connect( BNemptyTemp, SIGNAL(clicked()), tempList, SLOT(newEmptyTemp()));
+	connect( BNcaTemp, SIGNAL(clicked()), tempList, SLOT(newCaTemp()));
+	connect( BNclientTemp, SIGNAL(clicked()), tempList, SLOT(newClientTemp()));
+	connect( BNserverTemp, SIGNAL(clicked()), tempList, SLOT(newServerTemp()));
+	connect( BNdeleteTemp, SIGNAL(clicked()), tempList, SLOT(deleteItem()));
+	
 	connect( BNimportCrl, SIGNAL(clicked()), crlList, SLOT(load()));
 	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));
 	connect( BNdeleteCrl, SIGNAL(clicked()), crlList, SLOT(deleteItem()));
@@ -142,6 +148,12 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		reqList, SLOT(insert(pki_base *)) ); 
 	connect( reqList, SIGNAL(newCert(pki_x509req *)),
 		certList, SLOT(newCert(pki_x509req *)) );
+	connect( certList, SIGNAL(genCrl(pki_x509 *)),
+		crlList, SLOT(newItem(pki_x509 *)) );
+	connect( certList, SIGNAL(importKey(pki_key *)),
+		keyList, SLOT(importKey(pki_key *)) );
+	connect( tempList, SIGNAL(newCert(pki_temp *)),
+		certList, SLOT(newCert(pki_temp *)) );
 	
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>588</width>
+            <width>584</width>
             <height>477</height>
         </rect>
     </property>
@@ -472,24 +472,6 @@
                                     <string>Private key</string>
                                 </property>
                             </widget>
-                            <widget row="1"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel4</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Signed by</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="1" >
-                                <class>ClickLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>signCert</cstring>
-                                </property>
-                            </widget>
                             <widget row="2"  column="1" >
                                 <class>QLayoutWidget</class>
                                 <property stdset="1">
@@ -564,6 +546,55 @@
                                         </property>
                                     </widget>
                                 </hbox>
+                            </widget>
+                            <widget row="1"  column="1" >
+                                <class>QLayoutWidget</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>Layout20</cstring>
+                                </property>
+                                <hbox>
+                                    <property stdset="1">
+                                        <name>margin</name>
+                                        <number>0</number>
+                                    </property>
+                                    <property stdset="1">
+                                        <name>spacing</name>
+                                        <number>6</number>
+                                    </property>
+                                    <widget>
+                                        <class>ClickLabel</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>signCert</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget>
+                                        <class>ClickLabel</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>trustState</cstring>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>sizePolicy</name>
+                                            <sizepolicy>
+                                                <hsizetype>1</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                            </sizepolicy>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                            <widget row="1"  column="0" >
+                                <class>QLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>TextLabel4</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Signed by</string>
+                                </property>
                             </widget>
                         </grid>
                     </widget>

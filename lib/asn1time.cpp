@@ -196,11 +196,11 @@ int a1time::ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const
         *d= (v[6]-'0')*10+(v[7]-'0');
         if ((*d > 31) || (*d < 1)) return 1;
         *h= (v[8]-'0')*10+(v[9]-'0');
-        if ((*h > 23) || (*h < 1)) return 1;
+        if ((*h > 23) || (*h < 0)) return 1;
         *M= (v[10]-'0')*10+(v[11]-'0');
-        if ((*M > 59) || (*M < 1)) return 1;
+        if ((*M > 59) || (*M < 0)) return 1;
         *s= (v[12]-'0')*10+(v[13]-'0');
-        if ((*s > 59) || (*s < 1)) return 1;
+        if ((*s > 59) || (*s < 0)) return 1;
         return 0;
 }
 
@@ -234,6 +234,13 @@ bool const a1time::operator == (const a1time &a)
 bool const a1time::operator != (const a1time &a)
 {
 	return (ASN1_STRING_cmp(time, a.time) != 0);
+}
+
+unsigned char *a1time::d2i(unsigned char *p, int size)
+{
+	unsigned char *mp = p;
+	d2i_ASN1_TIME(&time, &mp, size);
+	return mp;
 }
 
 unsigned char *a1time::i2d(unsigned char *p)

@@ -83,18 +83,18 @@ void CrlDetail::setCrl(pki_crl *crl)
 		pki_key *key = iss->getPubKey();
 		if (crl->verify(key)) {
 			signCheck->setText(tr("Ok"));
-                	signCheck->setDisabled(false);
+                	signCheck->setGreen();
 	        }
 		else {
 			signCheck->setText(tr("Failed"));
-                	signCheck->setDisabled(true);
+                	signCheck->setRed();
 		}	
 		delete key;
 	}
 	else {
 		issuerIntName->setText("Unknown signer");
 		issuerIntName->setDisabled(true);
-                signCheck->setText(tr("Failed"));
+                signCheck->setText(tr("Verification not possible"));
                 signCheck->setDisabled(true);
 	}
 

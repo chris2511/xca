@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -58,8 +59,28 @@
 TempView::TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 	        :XcaListView(parent, name, f)
 {
-	keyicon = loadImg("template.png");
+	addColumn(tr("Internal name"));
 	addColumn(tr("Type"));
+}
+
+void TempView::newEmptyTemp()
+{
+	newItem(pki_temp::EMPTY);
+}
+
+void TempView::newCaTemp()
+{
+	newItem(pki_temp::CA);
+}
+
+void TempView::newClientTemp()
+{
+	newItem(pki_temp::CLIENT);
+}
+
+void TempView::newServerTemp()
+{
+	newItem(pki_temp::SERVER);
 }
 
 void TempView::newItem(int type)
@@ -68,6 +89,11 @@ void TempView::newItem(int type)
 	if (alterTemp(temp)) {
 		insert(temp);
 	}
+}
+
+void TempView::alterTemp()
+{
+	alterTemp((pki_temp *)getSelected());
 }
 
 bool TempView::alterTemp(pki_temp *temp)
@@ -111,19 +137,20 @@ void TempView::deleteItem()
 pki_base *TempView::insert(pki_base *temp)
 {
 	MainWindow::temps->insertPKI(temp);
+	updateView();
 	return temp;
 }
 
 void TempView::certFromTemp()
 {
 	pki_temp *temp = (pki_temp *)getSelected();
-	// FIXME: newCert(temp);
+	newCert(temp);
 }
 
 void TempView::reqFromTemp()
 {
 	pki_temp *temp = (pki_temp *)getSelected();
-	// FIXME: newReq(temp);
+	newReq(temp);
 }
 
 void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
@@ -132,16 +159,16 @@ void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
 	QPopupMenu *subMenu = new QPopupMenu(this);
 	if (!item) {
 		menu->insertItem(tr("New Template"),  subMenu);
-		subMenu->insertItem(tr("Empty"), this, SLOT(newEmpTemp()));
-		subMenu->insertItem(tr("CA"), this, SLOT(newCATemp()));
-		subMenu->insertItem(tr("Client"), this, SLOT(newCliTemp()));
-		subMenu->insertItem(tr("Server"), this, SLOT(newSerTemp()));
+		subMenu->insertItem(tr("Empty"), this, SLOT(newEmptyTemp()));
+		subMenu->insertItem(tr("CA"), this, SLOT(newCaTemp()));
+		subMenu->insertItem(tr("Client"), this, SLOT(newClientTemp()));
+		subMenu->insertItem(tr("Server"), this, SLOT(newServerTemp()));
 		
 	}
 	else {
-		menu->insertItem(tr("Rename"), this, SLOT(startRenameTemp()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
 		menu->insertItem(tr("Change"), this, SLOT(alterTemp()));
-		menu->insertItem(tr("Delete"), this, SLOT(deleteTemp()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
 		menu->insertItem(tr("Create certificate"), this, SLOT(certFromTemp()));
 		menu->insertItem(tr("Create request"), this, SLOT(reqFromTemp()));
 	}

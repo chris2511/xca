@@ -1,3 +1,5 @@
+/* vi: set sw=4 ts=4: */
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -121,8 +123,8 @@ void CrlView::deleteItem()
 
 pki_base *CrlView::loadItem(QString fname)
 {
-        pki_base *crl = new pki_crl(fname);
-        return crl;
+	pki_base *crl = new pki_crl(fname);
+	return crl;
 }
 		
 void CrlView::load()
@@ -139,17 +141,17 @@ pki_base *CrlView::insert(pki_base *item)
     try {
 	pki_crl *oldcrl = (pki_crl *)MainWindow::crls->getByReference(crl);
 	if (oldcrl) {
-	   QMessageBox::information(this,tr(XCA_TITLE),
-		tr("The revokation list already exists in the database as") +
-		":\n'" + oldcrl->getIntName() + 
-		"'\n" + tr("and so it was not imported"), "OK");
-	   delete(crl);
-	   return oldcrl;
+		QMessageBox::information(this,tr(XCA_TITLE),
+			tr("The revokation list already exists in the database as") +
+			":\n'" + oldcrl->getIntName() + 
+			"'\n" + tr("and so it was not imported"), "OK");
+		delete(crl);
+		return oldcrl;
 	}
 	MainWindow::crls->insertPKI(crl);
     }
     catch (errorEx &err) {
-	    Error(err);
+		Error(err);
     }
     return crl;
 }
@@ -167,8 +169,8 @@ void CrlView::store(bool pem)
 	{
 	pki_crl *crl;
 	try {
-                crl = (pki_crl *)getSelected();
-        }
+		crl = (pki_crl *)getSelected();
+	}
 	catch (errorEx &err) {
 		Error(err);
 		return;
@@ -197,14 +199,13 @@ void CrlView::store(bool pem)
 		crl->writeCrl(s.latin1(), pem);
 	}
 	catch (errorEx &err) {
-                Error(err);
-        }
+		Error(err);
+	}
 		
 }
 
 
 void CrlView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	CERR( "popup Crl");
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subExport = new QPopupMenu(this);
 	
@@ -230,6 +231,7 @@ pki_crl *CrlView::newItem(pki_x509 *cert)
 {
 	if (!cert) return NULL;
 	QList<pki_x509> list;
+	a1time time;
 	pki_x509 *issuedcert = NULL;
 	pki_crl *crl = NULL;
 	x509v3ext e;
@@ -243,17 +245,29 @@ pki_crl *CrlView::newItem(pki_x509 *cert)
 
 		list = MainWindow::certs->getIssuedCerts(cert);
 		if (!list.isEmpty()) {
-	       		for ( issuedcert = list.first(); issuedcert != NULL; issuedcert = list.next() ) {
+	    	for ( issuedcert = list.first(); 
+					issuedcert != NULL; issuedcert = list.next() )
+			{
 				if (issuedcert->isRevoked() ) {
 					crl->addRev(issuedcert->getRev());
 				}
 			}
 		}
-		crl->addV3ext(e.create(NID_authority_key_identifier, "keyid,issuer"));
-		crl->addV3ext(e.create(NID_issuer_alt_name, "issuer:copy"));
+		crl->addV3ext(e.create(NID_authority_key_identifier,
+			"keyid,issuer", &ext_ctx));
+		if (cert->hasSubAltName()) {
+			crl->addV3ext(e.create(NID_issuer_alt_name,
+				"issuer:copy", &ext_ctx));
+		}
 		crl->sign(cert->getRefKey());
-		cert->setLastCrl(crl->getLastUpdate());
-		MainWindow::certs->updatePKI(cert);
+		crl->setLastUpdate(time.now());
+		crl->setNextUpdate(time.now(60*60*24*cert->getCrlDays()));
+		cert->setLastCrl(time);
+		crl->sign(cert->getRefKey(), EVP_md5());
+		MainWindow::certs->updatePKI(cert); 
+		// FIXME: set Last update
+		insert(crl); 
+		updateView();
 	}
 	catch (errorEx &err) {
 		Error(err);

@@ -103,7 +103,7 @@ x509v3ext NewX509::getSubKeyIdent()
 x509v3ext NewX509::getAuthKeyIdent()
 {
 	x509v3ext ext;
-	if (authKey->isChecked())
+	if (authKey->isChecked() && authKey->isEnabled())
 		ext.create(NID_authority_key_identifier, 
 			"keyid:always,issuer:always", &ext_ctx);
 	return ext;
@@ -211,12 +211,11 @@ extList NewX509::getNetscapeExt()
 void NewX509::initCtx(pki_x509 *subj)
 {
 	pki_x509 *iss = getSelectedSigner();
-	//pki_key *key = getSelectedKey();
 	X509 *s = NULL, *s1 = NULL;
-	EVP_PKEY *k = NULL;
-	if (iss) s = iss->getCert();
 	if (subj) s1 = subj->getCert();
-	//if (key) k = key->getKey();	
+	
+	s = (iss) ? iss->getCert() : s1;
+	
 	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
 }	
 
