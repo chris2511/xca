@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir ""
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD CPP /nologo /MD /W3 /O1 /I "$(QTDIR)\include" /I "$(QTDIR)\mkspecs\win32-msvc" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /D "QT_NO_DEBUG" /FD -Zm200 /c
+# ADD CPP /nologo /MD /W3 /O1 /I "$(QTDIR)\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /D "QT_NO_DEBUG" /FD /I -Zm200 "$(QTDIR)\mkspecs\win32-msvc" /c
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -155,6 +155,10 @@ SOURCE=lib\pki_key.cpp
 # Begin Source File
 
 SOURCE=lib\pki_pkcs12.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\pki_pkcs7.cpp
 # End Source File
 # Begin Source File
 
@@ -421,6 +425,10 @@ SOURCE=lib\pki_key.h
 # Begin Source File
 
 SOURCE=lib\pki_pkcs12.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\pki_pkcs7.h
 # End Source File
 # Begin Source File
 
@@ -1100,6 +1108,10 @@ SOURCE=lib\moc_db_x509.cpp
 # Begin Source File
 
 SOURCE=lib\moc_db_x509req.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_ExportCert.cpp
 # End Source File
 # Begin Source File
 
