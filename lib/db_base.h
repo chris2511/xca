@@ -23,16 +23,20 @@ class db_base: public QObject
 	DbEnv *dbenv;
 	QListView *listView;
 	QList<pki_base> container;
-	QPixmap *icon;
+	bool _writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL);
+	bool _removePKI(pki_base *pki, DbTxn *tid = NULL);
     public:
 	db_base(DbEnv *dbe, string DBfile, string db);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		CERR<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
 	virtual bool updateView();
+	virtual void updateViewPKI(pki_base *pki);
 	virtual bool insertPKI(pki_base *pki);
-	bool deletePKI(pki_base *pki);
-	bool updatePKI(pki_base *pki, string desc);
+	virtual bool deletePKI(pki_base *pki);
+	virtual bool updatePKI(pki_base *pki);
+	virtual bool renamePKI(pki_base *pki, string desc);
+	pki_base *getSelectedPKI(void *item);
 	pki_base *getSelectedPKI(string desc);
 	pki_base *getSelectedPKI();
 	pki_base *findPKI(pki_base *refpki);
@@ -41,6 +45,7 @@ class db_base: public QObject
 	 * i.e search for signers and keys */
 	virtual void preprocess() {return;}
 	virtual void remFromCont(pki_base *pki);
+	virtual void inToCont(pki_base *pki);
 	Dbc *getCursor();
 	bool freeCursor(Dbc *cursor);
 	void *getData(void* key, int length, int *dsize);

@@ -6,7 +6,7 @@ void MainWindow::newCert()
 	pki_x509 *cert = NULL;
 	pki_x509 *signcert = NULL;
 	pki_x509req *req = NULL;
-	pki_key *signkey = NULL, *key = NULL;
+	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
 	
 	// Step 1 - Subject and key
@@ -14,8 +14,8 @@ void MainWindow::newCert()
 	dlg1->image->setPixmap(*certImg);
 	if (! dlg1->exec()) return;
 	if (dlg1->fromDataRB->isChecked()) {
-	    key = (pki_key *)keys->getSelectedPKI(dlg1->keyList->currentText().latin1());
-	    if (opensslError(key)) return;
+	    clientkey = (pki_key *)keys->getSelectedPKI(dlg1->keyList->currentText().latin1());
+	    if (opensslError(clientkey)) return;
 	    string cn = dlg1->commonName->text().latin1();
 	    string c = dlg1->countryName->text().latin1();
 	    string l = dlg1->localityName->text().latin1();
@@ -24,13 +24,14 @@ void MainWindow::newCert()
 	    string ou = dlg1->organisationalUnitName->text().latin1();
 	    string email = dlg1->emailAddress->text().latin1();
 	    string desc = dlg1->description->text().latin1();
-	    req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc,"");
+	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
 	    if (opensslError(req)) return;
 	}
 	else {
 	    // A PKCS#10 Request was selected 
 	    req = (pki_x509req *)reqs->getSelectedPKI(dlg1->reqList->currentText().latin1());
 	    if (opensslError(req)) return;
+	    //clientkey = req->getKey();
 	}
 		
 	// Step 2 - select Signing
@@ -54,7 +55,7 @@ void MainWindow::newCert()
 	if (dlg2->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg2->certList->currentText().latin1());
 		if (opensslError(signcert)) return;
-		signkey = certs->findKey(signcert);
+		signkey = signcert->getKey();
 		if (opensslError(signkey)) return;
 		// search for serial in database
 		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
@@ -64,7 +65,7 @@ void MainWindow::newCert()
 		
 	}
 	else {
-		signkey = key;	
+		signkey = clientkey;	
 		bool ok;
 		serial = dlg2->serialNr->text().toInt(&ok);
 		if (!ok) serial = 0;
@@ -82,7 +83,7 @@ void MainWindow::newCert()
 	if (days == 1) x *= 30;
 	if (days == 2) x *= 365;
 	
-	cert = new pki_x509(req->getDescription(), req, signcert, x, serial);
+	cert = new pki_x509(req->getDescription(), clientkey, req, signcert, x, serial);
 	if (opensslError(cert)) return;
 	
 	// handle extensions
@@ -162,7 +163,7 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	dlg->descr->setText(cert->getDescription().c_str());
 
 	// examine the key
-	pki_key *key= (pki_key *)keys->findPKI(cert->getKey());
+	pki_key *key= cert->getKey();
 	if (key)
 	     if (key->isPrivKey()) {
 		dlg->privKey->setText(key->getDescription().c_str());
@@ -182,9 +183,10 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	}
 
 	// check trust state
-	if (!cert->getEffTrust()) {
+	if (cert->getEffTrust() == 0) {
 	      	dlg->verify->setDisabled(true);
 	}
+	CERR << cert->getEffTrust() <<endl;
 	
 	// the serial
 	dlg->serialNr->setText(cert->getSerial().c_str());	
@@ -245,7 +247,7 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	if ( !dlg->exec()) return;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != cert->getDescription()) {
-		certs->updatePKI(cert, ndesc);
+		certs->renamePKI(cert, ndesc);
 	}
 	opensslError(cert);
 }
@@ -361,7 +363,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	}
 	else {
 		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());
-		menu->insertItem(tr("Rename"), this, SLOT(renameCert()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRenameCert()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCert()));
 		menu->insertItem(tr("Export"), this, SLOT(writeCert()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
@@ -375,7 +377,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 			}
 			else	
 				itemRevoke = menu->insertItem(tr("Revoke"), this, SLOT(revoke()));
-			canSign = (certs->findKey(cert->getSigner()) != NULL) && (cert->getSigner() != cert);
+			canSign = (cert->getSigner() && (cert->getSigner()->getKey() != NULL)) && (cert->getSigner() != cert);
 		}
 		menu->setItemEnabled(itemExtend, canSign);
 		menu->setItemEnabled(itemRevoke, canSign);
@@ -384,8 +386,12 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	return;
 }
 
-void MainWindow::renameCert() {
-	renamePKI(certs);
+void MainWindow::renameCert(QListViewItem *item, int col, const QString &text)
+{
+	if (col != 0) return;
+	pki_base *pki = certs->getSelectedPKI(item);
+	string txt =  text.latin1();
+	certs->renamePKI(pki, txt);
 }
 
 void MainWindow::setTrust()
@@ -409,7 +415,8 @@ void MainWindow::setTrust()
 	if (dlg->trust2->isChecked()) newstate = 2;
 	if (newstate==state) return;
 	cert->setTrust(newstate);
-	certs->updatePKI(cert, cert->getDescription());
+	certs->updatePKI(cert);
+	certs->updateViewAll();
 }
 
 void MainWindow::revoke()
@@ -417,7 +424,8 @@ void MainWindow::revoke()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	cert->setRevoked(true);
-	certs->updatePKI(cert, cert->getDescription());
+	certs->updatePKI(cert);
+	certs->updateViewAll();
 }
 
 void MainWindow::unRevoke()
@@ -425,5 +433,18 @@ void MainWindow::unRevoke()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	cert->setRevoked(false);
-	certs->updatePKI(cert, cert->getDescription());
+	certs->updatePKI(cert);
+	certs->updateViewAll();
+}
+
+
+void MainWindow::startRenameCert()
+{
+#ifdef qt3
+	pki_base *pki = certs->getSelectedPKI();
+	QListViewItem *item = (QListViewItem *)pki->getPointer();
+	item->startRename(0);
+#else
+	renamePKI(certs);
+#endif
 }

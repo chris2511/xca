@@ -49,6 +49,7 @@
 #define CERR cerr
 #endif
 
+#define qt3 1
 
 class MainWindow: public MainWindow_UI
 {
@@ -105,11 +106,14 @@ class MainWindow: public MainWindow_UI
 	void showPopupCert(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupKey(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupReq(QListViewItem *item,const QPoint &pt, int x);
-	void renameCert();
-	void renameKey();
-	void renameReq();
+	void startRenameCert();
+	void startRenameKey();
+	void startRenameReq();
 	void setTrust();
 	void revoke();
 	void unRevoke();
+	void renameKey(QListViewItem *item, int col, const QString &text);
+	void renameReq(QListViewItem *item, int col, const QString &text);
+	void renameCert(QListViewItem *item, int col, const QString &text);
 };
 #endif

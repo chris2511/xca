@@ -2,7 +2,7 @@
 #include "pki_x509.h"
 
 
-pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int serial)
+pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial)
 		:pki_base( d )
 {
 	X509_NAME *issn, *reqn;
@@ -37,7 +37,9 @@ pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int s
 	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
 
 	trust = 2;
+	efftrust = 2;
 	psigner = signer;
+	pkey = clientKey;
 	revoked = NULL;
 }
 
@@ -47,7 +49,9 @@ pki_x509::pki_x509() : pki_base()
 	cert = X509_new();
 	openssl_error();
 	psigner = NULL;
+	pkey= NULL;
 	trust = 0;
+	efftrust = 0;
 	revoked = NULL;
 }
 
@@ -84,8 +88,10 @@ pki_x509::pki_x509(const string fname)
 	else pki_error("Error opening file");
 	fclose(fp);
 	trust = 1;
+	efftrust = 1;
 	psigner = NULL;
 	revoked = NULL;
+	pkey = NULL;
 }
 
 
@@ -108,6 +114,9 @@ void pki_x509::sign(pki_key *signkey)
 	X509_sign(cert, signkey->key, digest);
 	openssl_error();
 }
+
+
+
 /* Save the Certificate to data and back:
  * Version 1:
  * 	int Version
@@ -141,6 +150,7 @@ bool pki_x509::fromData(unsigned char *p, int size)
 		cert = d2i_X509(NULL, &p, size);
 		revoked = NULL;
 		trust = 1;
+		efftrust = 1;
 	}	
 	if (openssl_error()) return false;
 	return true;
@@ -267,7 +277,7 @@ bool pki_x509::verify(pki_x509 *signer)
 }
 
 
-pki_key *pki_x509::getKey()
+pki_key *pki_x509::getPubKey()
 {
 	EVP_PKEY *pkey = X509_get_pubkey(cert);
 	pki_key *key = new pki_key(pkey);	
@@ -306,6 +316,9 @@ int pki_x509::checkDate()
 
 
 pki_x509 *pki_x509::getSigner() { return (psigner); }
+pki_key *pki_x509::getKey() { return (pkey); }
+void pki_x509::setKey(pki_key *key) { pkey = key; }
+void pki_x509::delKey() { pkey = NULL; }
 
 
 void pki_x509::delSigner() { psigner=NULL; }
@@ -365,14 +378,15 @@ void pki_x509::setTrust(int t)
 		trust = t;
 }
 
-bool pki_x509::getEffTrust()
+int pki_x509::getEffTrust()
 {
 	return efftrust;
 }
 
-void pki_x509::setEffTrust(bool t)
+void pki_x509::setEffTrust(int t)
 {
-	efftrust = t;
+	if (t>= 0 && t<= 2)
+		efftrust = t;
 }
 
 
@@ -385,7 +399,7 @@ bool pki_x509::isRevoked()
 void pki_x509::setRevoked(bool rev)
 {
 	if (rev) {
-		setEffTrust(false);
+		setEffTrust(0);
 		setTrust(0);
 		if (revoked) return;
 		revoked = ASN1_TIME_new();
@@ -398,3 +412,21 @@ void pki_x509::setRevoked(bool rev)
 	}
 }
 
+int pki_x509::calcEffTrust()
+{
+	int mytrust = trust;
+	if (mytrust != 1) {
+		efftrust = mytrust;
+		return mytrust;
+	}
+	//we must look at the parent certs
+	pki_x509 *signer = getSigner();
+	while (mytrust==1 && signer != NULL && signer != this) {
+		mytrust = signer->getTrust();
+		signer = signer->getSigner();
+	}
+	
+	if (mytrust == 1) mytrust = 0;
+	efftrust = mytrust;
+	return mytrust;
+}

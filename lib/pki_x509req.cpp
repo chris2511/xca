@@ -163,10 +163,22 @@ int pki_x509req::verify()
 	 else   return pki_base::VERIFY_ERROR;
 }
 
-pki_key *pki_x509req::getKey()
+pki_key *pki_x509req::getPubKey()
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	 pki_key *key = new pki_key(pkey);	
 	 openssl_error();
 	 return key;
+}
+
+
+pki_key *pki_x509req::getKey()
+{
+	return privkey;
+}
+
+
+void pki_x509req::setKey(pki_key *key)
+{
+	privkey = key;
 }

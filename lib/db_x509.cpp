@@ -6,6 +6,12 @@ db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
 {
 	keylist = keyl;
 	listView = l;
+	certicon[0] = loadImg("validcert.png");
+        certicon[1] = loadImg("validcertkey.png");
+        certicon[2] = loadImg("invalidcert.png");
+        certicon[3] = loadImg("invalidcertkey.png");
+	listView->addColumn(tr("Trust state"));
+	listView->addColumn(tr("Revokation"));
 	loadContainer();
 	updateView();
 	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
@@ -36,19 +42,15 @@ bool db_x509::updateView()
 {
         listView->clear();
 	listView->setRootIsDecorated(true);
-        QPixmap *pm[4];
-	pm[0] = loadImg("validcert.png");
-        pm[1] = loadImg("invalidcert.png");
-        pm[2] = loadImg("validcertkey.png");
-        pm[3] = loadImg("invalidcertkey.png");
 	pki_x509 *pki;
+	pki_base *pkib;
 	pki_x509 *signer;
 	QListViewItem *parentitem;
 	QListViewItem *current;
 	cerr <<"myupdate"<<endl;
 	if ( container.isEmpty() ) return false;
 	QList<pki_base> mycont = container;
-	for ( pki = (pki_x509 *)container.first(); pki != NULL; pki = (pki_x509 *)container.next() ) pki->delPointer();
+	for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delPointer();
 	int f=0;
 	while (! mycont.isEmpty() ) {
 		cerr << "-----------------------------------------------------------------Round "<< f++ <<endl;
@@ -56,7 +58,7 @@ bool db_x509::updateView()
 		for ( ; it.current(); ++it ) {
 			pki = (pki_x509 *)it.current();
 			parentitem = NULL;
-			signer = findSigner(pki);
+			signer = pki->getSigner();
 			if ((signer != pki) && (signer != NULL)) // foreign signed
 				parentitem = (QListViewItem *)signer->getPointer();
 			if (((parentitem != NULL) || (signer == pki) || (signer == NULL)) && (pki->getPointer() == NULL )) {
@@ -70,27 +72,50 @@ bool db_x509::updateView()
 					cerr<< "Adding as parent: "<<pki->getDescription().c_str()<<endl;
 				}
 				pki->setPointer(current);
-				int pixnum = 0;
-				if (pki->getTrust() == 0){ // Never Trust it
-					pixnum += 1;
-				}	
-				else if (pki->getTrust() == 1) { // Trust it, if we trust parent
-					if (signer == pki ) pixnum += 1; // self signed
-					else if (!signer) pixnum += 1 ; // no signer
-					else if (!signer->getEffTrust()) pixnum += 1 ; // no trust of parent
-				}
-				if (pixnum == 0) pki->setEffTrust(true);
-				else pki->setEffTrust(false); // remember the effektive truststate	
-				if (findKey(pki)) pixnum += 2;	
-				// if pki->getTrust() == 2 trust it always
-				current->setPixmap(0, *pm[pixnum]);
 				mycont.remove(pki);
+				updateViewPKI(pki);
 				it.toFirst();
 			}
 		}
 				
 	}				
 	return true;
+}
+
+void db_x509::updateViewPKI(pki_base *pki)
+{
+	db_base::updateViewPKI(pki);
+	if (! pki) return;
+	QString truststatus[] = { tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
+	int pixnum = 0;
+	QListViewItem *current = (QListViewItem *)pki->getPointer();
+	if (!current) return;
+	if (((pki_x509 *)pki)->getKey()) {
+		pixnum += 1;
+	}
+	if (((pki_x509 *)pki)->calcEffTrust() == 0){ 
+		pixnum += 2;
+	}	
+	current->setPixmap(0, *certicon[pixnum]);
+	current->setText(1, truststatus[((pki_x509 *)pki)->getTrust() ]);  
+	if ( ((pki_x509 *)pki)->isRevoked() ){ 
+		current->setText(2, tr("Revoked"));
+	}
+	else {
+		current->setText(2, "");
+	}
+}
+
+
+void db_x509::updateViewAll()
+{
+ 	pki_x509 *pki;
+        QListIterator<pki_base> it(container);
+        for ( ; it.current(); ++it ) {
+                pki = (pki_x509 *)it.current();
+		updateViewPKI(pki);
+	}
+	return;
 }
 
 
@@ -100,7 +125,7 @@ QStringList db_x509::getPrivateDesc()
 	QStringList x;
         if ( container.isEmpty() ) return x;
         for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
-		if (findKey(pki))
+		if (pki->getKey())
 		x.append(pki->getDescription().c_str());	
 	}
 	return x;
@@ -114,7 +139,7 @@ void db_x509::remFromCont(pki_base *pki)
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
                 pkiit = (pki_x509 *)it.current();
-		if (pkiit->getSigner()==pki) {
+		if (pkiit->getSigner() == pki) {
 			pkiit->delSigner();
 		}
 	}
@@ -123,24 +148,93 @@ void db_x509::remFromCont(pki_base *pki)
 
 pki_key *db_x509::findKey(pki_x509* cert)
 {
+	pki_key *key, *refkey;
 	if (!cert) return NULL;
-	pki_key *key;
-	key = (pki_key *)keylist->findPKI(cert->getKey());
-	if (key)
- 	  if (key->isPubKey())
+	if ((key = cert->getKey()) != NULL ) return key;
+	refkey = cert->getPubKey();
+	key = (pki_key *)keylist->findPKI(refkey);
+	if (key && key->isPubKey()) {
 		key = NULL;
-	
+	}
+	cert->setKey(key);
+	delete(refkey);
 	return key;
 }
 
 void db_x509::delKey(pki_key *delkey)
 {
-	updateView();
+	pki_x509 *pki;
+        if ( container.isEmpty() ) return ;
+        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
+		if (pki->getKey()) {
+			pki->delKey();
+			updateViewPKI(pki);
+		}
+	}
+	
 }
 
 
 void db_x509::newKey(pki_key *newkey)
 {
-	updateView();
+	pki_x509 *pki;
+	pki_key *refkey;
+        if ( container.isEmpty() ) return ;
+        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
+		if (!pki->getKey()) { 
+			refkey = pki->getPubKey();
+			if (newkey->compare(refkey)) {
+				pki->setKey(newkey);
+				updateViewPKI(pki);
+			}
+			delete(refkey);
+		}
+	}
 }
 
+void db_x509::preprocess()
+{
+	pki_x509 *pki;
+	pki_x509 *signer;
+	CERR <<"preprocess X509"<<endl;
+	if ( container.isEmpty() ) return ;
+	// copy the container, cause we will drop the handled items...
+	QList<pki_base> mycont = container;
+	QListIterator<pki_base> iter(mycont); 
+	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
+		pki = (pki_x509 *)iter.current();
+		findSigner(pki);
+		CERR << "Signer of "<< pki->getDescription().c_str() << endl;
+		findKey(pki);	
+		CERR << "Key of "<< pki->getDescription().c_str() << endl;
+	}
+	CERR << "Signers and keys done "<< endl;
+	while (! mycont.isEmpty() ) {
+	    QListIterator<pki_base> it(mycont); 
+	    for (it.toFirst(); it.current(); ++it ) {
+		int trust = 1; // dont know
+		pki = (pki_x509 *)it.current();
+	
+		if (pki->getTrust() != 1){ // Always trust it or never
+			trust = pki->getTrust();
+		}	
+		else if ( signer) { // Trust it, if we trust parent and there is a parent
+			if (signer == pki) {  // if self signed
+				trust = 0; // no trust
+			}
+			else {
+				trust = signer->getEffTrust(); // inherit trustment of parent
+			}
+		}	
+		if (trust != 1) { // trustment deterministic
+			pki->setEffTrust(trust);
+			mycont.remove(pki);
+			it.toFirst();
+		}
+				
+	    }
+	}
+	return ;
+}
+
+	

@@ -61,7 +61,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	if ( !dlg->exec()) return;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != req->getDescription()) {
-		reqs->updatePKI(req, ndesc);
+		reqs->renamePKI(req, ndesc);
 	}
 }
 
@@ -137,7 +137,7 @@ void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Import"), this, SLOT(loadReq()));
 	}
 	else {
-		menu->insertItem(tr("Rename"), this, SLOT(renameReq()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRenameReq()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsReq()));
 		menu->insertItem(tr("Export"), this, SLOT(writeReq()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteReq()));
@@ -146,6 +146,21 @@ void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
 	return;
 }
 
-void MainWindow::renameReq() {
-	renamePKI(reqs);
+void MainWindow::renameReq(QListViewItem *item, int col, const QString &text)
+{
+	pki_base *pki = reqs->getSelectedPKI(item);
+	string txt =  text.latin1();
+	reqs->renamePKI(pki, txt);
+}
+
+
+void MainWindow::startRenameReq()
+{
+#ifdef qt3
+	pki_base *pki = reqs->getSelectedPKI();
+	QListViewItem *item = (QListViewItem *)pki->getPointer();
+	item->startRename(0);
+#else
+	renamePKI(certs);
+#endif
 }

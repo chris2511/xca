@@ -81,7 +81,7 @@ void MainWindow::showDetailsKey(pki_key *key)
 	if ( !detDlg->exec()) return;
 	string ndesc = detDlg->keyDesc->text().latin1();
 	if (ndesc != key->getDescription()) {
-		keys->updatePKI(key, ndesc);
+		keys->renamePKI(key, ndesc);
 	}
 }
 
@@ -212,7 +212,7 @@ void MainWindow::showPopupKey(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Import"), this, SLOT(loadKey()));
 	}
 	else {
-		menu->insertItem(tr("Rename"), this, SLOT(renameKey()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRenameKey()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsKey()));
 		menu->insertItem(tr("Export"), this, SLOT(writeKey()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteKey()));
@@ -221,6 +221,20 @@ void MainWindow::showPopupKey(QListViewItem *item, const QPoint &pt, int x) {
 	return;
 }
 
-void MainWindow::renameKey() {
-	renamePKI(keys);
+void MainWindow::renameKey(QListViewItem *item, int col, const QString &text)
+{
+	pki_base *pki = keys->getSelectedPKI(item);
+	string txt =  text.latin1();
+	keys->renamePKI(pki, txt);
+}
+
+void MainWindow::startRenameKey()
+{
+#ifdef qt3
+	pki_base *pki = keys->getSelectedPKI();
+	QListViewItem *item = (QListViewItem *)pki->getPointer();
+	item->startRename(0);
+#else
+	renamePKI(certs);
+#endif
 }

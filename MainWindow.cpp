@@ -6,7 +6,7 @@
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
 {
-	connect((QObject *) quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
+	connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
 	baseDir = QDir::homeDirPath() + BASE_DIR;
@@ -36,6 +36,11 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
+#ifdef qt3	
+	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameKey(QListViewItem *, int, const QString &)));
+	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameReq(QListViewItem *, int, const QString &)));
+	connect( certList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameCert(QListViewItem *, int, const QString &)));
+#endif	
 };
 
 
@@ -90,6 +95,16 @@ void MainWindow::initPass()
 	}
 }
 
+void MainWindow::renamePKI(db_base *db)
+{
+        pki_base * pki = db->getSelectedPKI();
+        Rename_UI *dlg = new Rename_UI(this,0,true);
+        dlg->newName->setText(pki->getDescription().c_str());
+        if (dlg->exec()) {
+		db->renamePKI(pki, dlg->newName->text().latin1());
+	}
+}
+
 
 // Static Password Callback functions 
 
@@ -132,16 +147,6 @@ void MainWindow::incProgress(int a, int b, void *progress)
 {
 	int i = ((QProgressDialog *)progress)->progress();
 	((QProgressDialog *)progress)->setProgress(++i);
-}
-
-void MainWindow::renamePKI(db_base *db)
-{
-	pki_base * pki = db->getSelectedPKI();
-	Rename_UI *dlg = new Rename_UI(this,0,true);
-	dlg->newName->setText(pki->getDescription().c_str());
-	if (dlg->exec()) {
-		db->updatePKI(pki, dlg->newName->text().latin1());
-	}
 }
 
 

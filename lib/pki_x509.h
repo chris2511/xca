@@ -12,14 +12,14 @@ class pki_x509 : public pki_base
 {
 	private:
 	   pki_x509 *psigner;
-	   pki_x509 *pkey;
+	   pki_key *pkey;
            X509V3_CTX ext_ctx;
 	   X509 *cert;
 	   ASN1_TIME *revoked;
 	   int trust;
-	   bool efftrust;
+	   int efftrust;
 	public:
-	   pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int serial);
+	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509();
 	   pki_x509(const string fname);
 	   ~pki_x509();
@@ -31,6 +31,9 @@ class pki_x509 : public pki_base
 	   void writeCert(const string fname, bool PEM);
 	   bool verify(pki_x509 *signer);
 	   pki_key *getKey();
+	   pki_key *getPubKey(); // will be created temporarily and must be freed
+	   void delKey();
+	   void setKey(pki_key *key);
 	   string notAfter();
 	   string notBefore();
 	   string revokedAt();
@@ -46,10 +49,11 @@ class pki_x509 : public pki_base
 	   X509 *getCert(){ return cert;}
 	   int getTrust();
 	   void setTrust(int t);
-	   bool getEffTrust();
-	   void setEffTrust(bool t);
+	   int getEffTrust();
+	   void setEffTrust(int t);
 	   void setRevoked(bool rev);
 	   bool isRevoked();
+	   int calcEffTrust();
 };
 
 #endif

@@ -165,6 +165,7 @@ void db_base::loadContainer()
 	delete (k);
 	delete (d);
 	freeCursor(cursor);
+	preprocess();
 }	
 
 
@@ -174,19 +175,32 @@ bool db_base::updateView()
 	listView->clear();
 	pki_base *pki;
 	if (container.isEmpty()) return false;
+	for ( pki = container.first(); pki != NULL; pki = container.next() ) pki->delPointer();
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
                 pki = it.current();
-		QListViewItem * lvi = new QListViewItem(listView, pki->getDescription().c_str());
-		lvi->setPixmap(0, *icon);
+		QListViewItem *lvi = new QListViewItem(listView, pki->getDescription().c_str());
 		listView->insertItem(lvi);
+		pki->setPointer(lvi);
+		updateViewPKI(pki);
 	}
 	return true;
 }
 
-
-bool db_base::insertPKI(pki_base *pki) 
+bool db_base::insertPKI(pki_base *pki)
 {
+	bool s = _writePKI(pki, false);
+	if (s) {
+		inToCont(pki);
+		updateView();
+	}
+	return s;
+}
+	
+bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL) 
+{
+	int flags = 0;
+	if (!overwrite) flags = DB_NOOVERWRITE;
 	string desc = pki->getDescription();
 	string orig = desc;
 	int size=0;
@@ -200,7 +214,7 @@ bool db_base::insertPKI(pki_base *pki)
 	   Dbt d((void *)p, size);
            cerr << "Size: " << d.get_size() << "\n";
 	
-	   if ((x = data->put(NULL, &k, &d, DB_NOOVERWRITE ))!=0) {
+	   if ((x = data->put(tid, &k, &d, flags ))!=0) {
 		data->err(x,"DB Error put");
 		sprintf(field,"%02i", ++cnt);
 		string z = field;
@@ -209,27 +223,61 @@ bool db_base::insertPKI(pki_base *pki)
 	}
 	if (x != DB_KEYEXIST && x != 0) {
 	   data->err(x,"DB Error put");
-	   //return false;
+	   OPENSSL_free(p);
+	   return false;
 	}
 	OPENSSL_free(p);
 	pki->setDescription(desc);
-	container.append(pki);
-	updateView();
 	return true;
 }
 
 
-bool db_base::deletePKI(pki_base *pki) 
+bool db_base::_removePKI(pki_base *pki, DbTxn *tid = NULL) 
 {
 	string desc = pki->getDescription();
 	Dbt k((void *)desc.c_str(), desc.length() + 1);
-	int x = data->del(NULL, &k, 0);
+	int x = data->del(tid, &k, 0);
 	if (x){
 	   data->err(x,"DB Error del");
 	   return false;
 	}
-	remFromCont(pki);
-	updateView();
+	return true;
+}
+
+
+bool db_base::deletePKI(pki_base *pki)
+{
+	bool s = _removePKI(pki);
+	if (s) {
+		remFromCont(pki);
+		updateView();
+	}
+	return s;
+}
+
+bool db_base::renamePKI(pki_base *pki, string desc)
+{
+	string oldname = pki->getDescription();
+	DbTxn *tid = NULL;
+	//dbenv->txn_begin(NULL, &tid, 0);
+	if (! _removePKI(pki, tid)) {
+		//tid->abort();
+		return false;
+	}
+	pki->setDescription(desc);
+	if (! _writePKI(pki, false, tid)) {
+		//tid->abort();
+		return false;
+	}
+	// rename the pki in the listView .....	
+	QListViewItem * item = (QListViewItem *)pki->getPointer();
+	if (!item) {
+		//tid->abort();
+		return false;
+	}
+	item->setText(0, pki->getDescription().c_str());
+	//tid->commit(0);
+	updateViewPKI(pki);
 	return true;
 }
 
@@ -238,14 +286,18 @@ void db_base::remFromCont(pki_base *pki)
 	container.remove(pki);
 }
 
-bool db_base::updatePKI(pki_base *pki, string desc) 
+
+void db_base::inToCont(pki_base *pki)
 {
-	if (deletePKI(pki)){
-	   pki->setDescription(desc);
-	   return insertPKI(pki);
-	}
-	updateView();
-	return true;
+	container.append(pki);
+}
+
+
+bool db_base::updatePKI(pki_base *pki) 
+{
+	bool s = _writePKI(pki, true);
+	if (s) updateViewPKI(pki);
+	return s;
 }
 
 
@@ -258,7 +310,22 @@ pki_base *db_base::getSelectedPKI(string desc)
                 pki = it.current();
 		if (pki->getDescription() == desc) return pki;
 	}
+	return NULL;
 }
+
+
+pki_base *db_base::getSelectedPKI(void *item)
+{
+	if (item  == NULL) return NULL;
+	pki_base *pki;
+        QListIterator<pki_base> it(container);
+        for ( ; it.current(); ++it ) {
+                pki = it.current();
+		if (pki->getPointer() == item) return pki;
+	}
+	return NULL;
+}
+
 
 pki_base *db_base::getSelectedPKI()
 {
@@ -290,3 +357,12 @@ QPixmap *db_base::loadImg(const char *name )
         return new QPixmap(path + name);
 }
 
+void db_base::updateViewPKI(pki_base *pki)
+{
+        if (! pki) return;
+        QListViewItem *current = (QListViewItem *)pki->getPointer();
+        if (!current) return;
+	current->setRenameEnabled(0,true);
+        current->setText(0, pki->getDescription().c_str());
+}
+							

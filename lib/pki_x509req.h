@@ -8,6 +8,8 @@
 
 class pki_x509req : public pki_base
 {
+	protected:
+	   pki_key *privkey;
 	public:
 	   X509_REQ *request;
 	   pki_x509req(pki_key *key, const string cn, 
@@ -24,7 +26,9 @@ class pki_x509req : public pki_base
 	   string getDN(int nid);
 	   void writeReq(const string fname, bool PEM);
 	   int verify();
+	   pki_key *getPubKey();
 	   pki_key *getKey();
+	   void setKey(pki_key *key);
 };
 
 #endif

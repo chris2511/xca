@@ -6,35 +6,13 @@ db_key::db_key(DbEnv *dbe, string DBfile, QListView *l)
 {
 	listView = l;
 	loadContainer();
+	keyicon[0] = loadImg("key.png");
+	keyicon[1] = loadImg("halfkey.png");
 	updateView();
 }
 
 pki_base *db_key::newPKI(){
 	return new pki_key("");
-}
-
-
-bool db_key::updateView()
-{
-        listView->clear();
-	QPixmap *pm[2];
-	pm[0] = loadImg("key.png");
-        pm[1] = loadImg("halfkey.png");
-	pki_key *pki;
-	QListViewItem *current;
-	cerr <<"myupdate keys"<<endl;
-	if ( container.isEmpty() ) return false;
-	QListIterator<pki_base> it(container); 
-	for ( ; it.current(); ++it ) {
-		pki = (pki_key *)it.current();
-		// create the listview item
-		current = new QListViewItem(listView, pki->getDescription().c_str());	
-		CERR<< "Adding as parent: "<<pki->getDescription().c_str()<<endl;
-		int pixnum = 0;
-		if (pki->isPubKey()) pixnum += 1;	
-		current->setPixmap(0, *pm[pixnum]);
-	}				
-	return true;
 }
 
 
@@ -52,13 +30,24 @@ QStringList db_key::getPrivateDesc()
 
 void db_key::remFromCont(pki_base *pki)
 {
-	container.remove(pki);
+	db_base::remFromCont(pki);
 	emit delKey((pki_key *)pki);
 }
 
-bool db_key::insertPKI(pki_base *pki) 
+void db_key::inToCont(pki_base *pki) 
 {
-	db_base::insertPKI(pki);
+	db_base::inToCont(pki);
 	emit newKey((pki_key *)pki);
-	return true;
+}
+
+
+void db_key::updateViewPKI(pki_base *pki)
+{
+        db_base::updateViewPKI(pki);
+        if (! pki) return;
+        int pixnum = 0;
+        QListViewItem *current = (QListViewItem *)pki->getPointer();
+        if (!current) return;
+	if (((pki_key *)pki)->isPubKey()) pixnum += 1;	
+	current->setPixmap(0, *keyicon[pixnum]);
 }

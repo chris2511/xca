@@ -7,9 +7,11 @@ db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
 	listView = l;
 	keylist = keyl;
 	loadContainer();
-	updateView();
+	reqicon[0] = loadImg("req.png");
+        reqicon[1] = loadImg("reqkey.png");
 	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
 	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
+	updateView();
 }
 
 pki_base *db_x509req::newPKI(){
@@ -27,29 +29,6 @@ QStringList db_x509req::getDesc()
 	return x;
 }
 
-bool db_x509req::updateView()
-{
-        listView->clear();
-	QPixmap *pm[2];
-	pm[0] = loadImg("req.png");
-        pm[1] = loadImg("reqkey.png");
-	pki_x509req *pki;
-	QListViewItem *current;
-	cerr <<"myupdate requests"<<endl;
-	if ( container.isEmpty() ) return false;
-	QListIterator<pki_base> it(container); 
-	for ( ; it.current(); ++it ) {
-		pki = (pki_x509req *)it.current();
-		// create the listview item
-		current = new QListViewItem(listView, pki->getDescription().c_str());	
-		cerr<< "Adding as parent: "<<pki->getDescription().c_str()<<endl;
-		int pixnum = 0;
-		if (keylist->findPKI(pki->getKey())) pixnum += 1;	
-		current->setPixmap(0, *pm[pixnum]);
-	}				
-	return true;
-}
-
 
 void db_x509req::delKey(pki_key *delkey)
 {
@@ -62,3 +41,42 @@ void db_x509req::newKey(pki_key *newkey)
 	updateView();
 }
 
+void db_x509req::updateViewPKI(pki_base *pki)
+{
+        db_base::updateViewPKI(pki);
+        if (! pki) return;
+        int pixnum = 0;
+        QListViewItem *current = (QListViewItem *)pki->getPointer();
+        if (!current) return;
+	if (((pki_x509req *)pki)->getKey() != NULL ) pixnum += 1;	
+	current->setPixmap(0, *reqicon[pixnum]);
+}
+
+void db_x509req::preprocess()
+{
+	pki_x509req *pki;
+	CERR <<"preprocess X509req"<<endl;
+	if ( container.isEmpty() ) return ;
+	QListIterator<pki_base> iter(container); 
+	for ( ; iter.current(); ++iter ) { // find the key of the request
+		pki = (pki_x509req *)iter.current();
+		findKey(pki);
+		CERR << "Key of "<< pki->getDescription().c_str() << endl;
+	}
+}
+
+
+pki_key *db_x509req::findKey(pki_x509req *req)
+{
+	pki_key *key, *refkey;
+	if (!req) return NULL;
+	if ((key = req->getKey()) != NULL ) return key;
+	refkey = req->getPubKey();
+	key = (pki_key *)keylist->findPKI(refkey);
+	if (key && key->isPubKey()) {
+		key = NULL;
+	}
+	req->setKey(key);
+	delete(refkey);
+	return key;
+}
