@@ -63,6 +63,7 @@ CertDetail::CertDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 {
 	setCaption(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::certImg);		 
+	descr->setReadOnly(true);
 }
 
 void CertDetail::setCert(pki_x509 *cert)

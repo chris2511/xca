@@ -65,6 +65,7 @@ KeyDetail::KeyDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 {
 	setCaption(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::keyImg);		 
+	keyDesc->setReadOnly(true);
 }
 
 void KeyDetail::setKey(pki_key *key)

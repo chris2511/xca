@@ -68,6 +68,7 @@ CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 	certList->addColumn(tr("Serial"));
 	certList->addColumn(tr("Revokation"));
 	image->setPixmap(*MainWindow::revImg);		 
+	descr->setReadOnly(true);
 }
 
 void CrlDetail::setCrl(pki_crl *crl)

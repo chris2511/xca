@@ -63,6 +63,7 @@ ReqDetail::ReqDetail(QWidget *parent, const char *name, bool modal, WFlags f )
 {
 	setCaption(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::csrImg);		 
+	descr->setReadOnly(true);
 }
 
 void ReqDetail::setReq(pki_x509req *req)
