@@ -95,7 +95,7 @@ int NewX509::eku_nid[EKUN_CNT] = {
   OBJ_create("1.3.6.1.5.5.8.2.2", "iKEIntermediate",
 	"IP security end entity"),
 #if OPENSSL_VERSION_NUMBER >= 0x00907000L
-  NID_msSmartcardLogin
+  NID_ms_smartcard_login
 #else
   OBJ_create("1.3.6.1.4.1.311.20.2.2", "SmartCardLogon", "Smart Card Logon")
 #endif  
