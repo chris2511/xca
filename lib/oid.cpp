@@ -94,6 +94,9 @@ void initOIDs(QString baseDir)
 {
 	QString dir=getPrefix();
 	readOIDs(dir + QDir::separator() + "oids.txt");
+#ifndef _WIN32_
+	readOIDs("/etc/xca/oids.txt");
+#endif
 	readOIDs(baseDir + QDir::separator() + "oids.txt");
 }
 

@@ -74,11 +74,24 @@ CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 void CrlDetail::setCrl(pki_crl *crl)
 {
 	int numc, i;
-	pki_x509 *iss, *rev;
+	pki_x509 *iss, *last, *rev;
 	x509rev revit;
 	QListViewItem *current;
-	iss = MainWindow::certs->getBySubject(crl->getIssuerName());
-        
+       	x509v3ext e1, e2;
+	QStringList sl;
+	
+	last = NULL;
+	while ((iss = MainWindow::certs->getBySubject(crl->getIssuerName(),
+		last)) != NULL) {
+		pki_key *key = iss->getPubKey();
+		if (crl->verify(key)) {
+			delete key;
+			break;
+		}
+		delete key;
+		last = iss;
+	}
+			
 	// page 1
 	if (iss != NULL) {
 		issuerIntName->setText(iss->getIntName());

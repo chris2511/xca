@@ -137,6 +137,7 @@ class pki_x509 : public pki_x509super
 	   void updateView();
 	   x509rev getRev();
 	   QString getSigAlg();
+	   x509v3ext getExtByNid(int nid);
 	   const EVP_MD *getDigest();
 };
 

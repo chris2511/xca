@@ -1,4 +1,4 @@
-include ../Local.mak
+include $(TOPDIR)/Local.mak
 
 all: target.obj
 
@@ -9,6 +9,7 @@ ifneq ($(basedir),)
   CFLAGS+= -DBASEDIR=\"$(basedir)\"
 endif
 
+SRCS=$(patsubst %.o, %.cpp, $(OBJS))
 
 # recompile all
 re: clean all
@@ -26,7 +27,7 @@ moc_%.cpp: %.h %.cpp
 	$(UIC) -o $@ -impl $^
 
 # default compile rule
-%.o: %.cpp 
+%.o: %.cpp $(TOPDIR)/Local.mak
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
 
 # partial linking of objects in one directory
@@ -38,5 +39,12 @@ clean:
 	rm -f *~ *.o *.obj $(DELFILES)
 
 distclean: clean
+	rm -f .depend
+
+.depend: $(SRCS)
+	rm -f $@
+	for s in $(SRCS); do \
+	  $(CC) $(CPPFLAGS) $(CFLAGS) -M $$s >> $@; \
+	done
 
 .SECONDARY:

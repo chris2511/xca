@@ -196,6 +196,8 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 }
 
 pki_x509 *pki_crl::getIssuer() { return issuer; }
+void pki_crl::setIssuer(pki_x509 *iss) { issuer = iss; }
+
 
 a1time pki_crl::getLastUpdate()
 {
@@ -248,6 +250,18 @@ bool pki_crl::verify(pki_key *key)
 		ign_openssl_error();
 	}
 	return ret ;
+}	
+
+x509v3ext pki_crl::getExtByNid(int nid)
+{
+	extList el;
+	x509v3ext e;
+	el.setStack(crl->crl->extensions);
+	
+	for (unsigned int i=0; i< el.count(); i++){
+		if (el[i].nid() == nid) return el[i];
+	}			
+	return e;
 }	
 
 QString pki_crl::printV3ext()

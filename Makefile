@@ -6,7 +6,9 @@
 TAG=$(shell echo "V.$(TVERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(TVERSION)
 
-SUBDIRS=ui lib widgets view
+export TOPDIR=$(shell pwd)
+
+SUBDIRS=lib widgets view ui
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
 
 all: headers xca
@@ -21,11 +23,11 @@ headers:
 	$(MAKE) -C ui $@
 
 %/target.obj: headers
-	$(MAKE) -C $* target.obj
+	$(MAKE) DEP=yes -C $* target.obj
 
 clean:
 	for x in $(SUBDIRS); do \
-		$(MAKE) -C $${x} clean; \
+	  $(MAKE) -C $${x} clean; \
 	done
 	rm -f *~ xca 
 

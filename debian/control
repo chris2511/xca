@@ -9,9 +9,9 @@ Package: xca
 Architecture: any
 Depends: ${shlibs:Depends}
 Description: A GUI for handling X509 certificates, RSA keys, PKCS#10 Requests and RSA keys.
-The Program uses a Berkeley db for storage and supports RSA keys,
-Certificate signing requests (PKCS#10) and Certificates (X509v3)
-The signing of requests, and the creation of selfsigned certificates
-is supported. Both can use templates for simplicity.
-The PKI structures can be imported and exported in several formats
-like PKCS#12, PEM, DER, PKCS#8.
+ The Program uses a Berkeley db for storage and supports RSA keys,
+ Certificate signing requests (PKCS#10) and Certificates (X509v3)
+ The signing of requests, and the creation of selfsigned certificates
+ is supported. Both can use templates for simplicity.
+ The PKI structures can be imported and exported in several formats
+ like PKCS#12, PEM, DER, PKCS#8, PKCS#7.

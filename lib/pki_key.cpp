@@ -124,7 +124,9 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	:pki_base()
 { 
 	init();
-	EVP_PKEY_free(key);
+	if (pkey) {
+		EVP_PKEY_free(key);
+	}
 	key = pkey;
 }	
 

@@ -144,11 +144,20 @@ void MainWindow::init_baseDir()
 	initOIDs(baseDir);
 	
 	nl = readNIDlist(baseDir + QDir::separator() + "eku.txt");
+#ifndef _WIN32_
+	if (nl.count() == 0)
+		nl = readNIDlist("/etc/xca/eku.txt");
+#endif
 	if (nl.count() == 0)
 		nl = readNIDlist(prefix + QDir::separator() + "eku.txt");
 	eku_nid = new NIDlist(nl);
 	nl.clear();
+	
 	nl = readNIDlist(baseDir + QDir::separator() + "dn.txt");
+#ifndef _WIN32_
+	if (nl.count() == 0)
+		nl = readNIDlist("/etc/xca/dn.txt");
+#endif
 	if (nl.count() == 0)
 		nl = readNIDlist(prefix + QDir::separator() + "dn.txt");
 	dn_nid = new NIDlist(nl);

@@ -10,5 +10,8 @@ NAMES=$(MOC_NAMES) NewX509_ext MW_menu MW_help MW_database
 OBJS=$(patsubst %,moc_%.o,$(MOC_NAMES)) $(patsubst %,%.o,$(NAMES))
 DELFILES=$(patsubst %,moc_%.cpp,$(MOC_NAMES))
 
-include ../Rules.mak
+include $(TOPDIR)/Rules.mak
 
+ifeq ($(DEP), yes)
+  sinclude .depend
+endif  

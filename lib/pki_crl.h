@@ -79,6 +79,7 @@ class pki_crl: public pki_base
 	void sign(pki_key *key, const EVP_MD *md = EVP_md5());
 	void writeCrl(const QString fname, bool pem = true);
 	pki_x509 *getIssuer();	
+	void setIssuer(pki_x509 *iss);
 	x509name getIssuerName();
 	void setLastUpdate(const a1time &t);
 	void setNextUpdate(const a1time &t);
@@ -91,6 +92,7 @@ class pki_crl: public pki_base
 	bool verify(pki_key *pkey);
 	x509rev getRev(int num);
 	QString printV3ext();
+	x509v3ext getExtByNid(int nid);
 	a1int getVersion();
 	void updateView();
 };

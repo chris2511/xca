@@ -116,6 +116,7 @@ subdirs=""
 search_includes openssl/opensslv.h || err "The OpenSSL library headerfiles were not found."
 search_lib crypto || err "The OpenSSL library was not found."
 
+export LD_LIBRARY_PATH
 ##### Try to compile them all together and show the versions.
 cat >conftest.c <<EOF
 #include <openssl/opensslv.h>
@@ -130,7 +131,7 @@ EOF
 
 if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log ; then
   ./conftest ||err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf"
-  rm -f conftest.c conftest conftest.log
+  #rm -f conftest.c conftest conftest.log
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi

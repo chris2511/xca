@@ -8,23 +8,18 @@
 # This is the debhelper compatability version to use.
 export DH_COMPAT=2
 
-configure: configure-stamp
-configure-stamp:
+Local.mak: configure
+
 	dh_testdir
 	# Add here commands to configure the package.
 	# prefix=/usr ./configure
-	cp debian/debian.mak Local.mak
-	touch configure-stamp
+	cat debian/debian.mak > Local.mak
 
-build: build-stamp
+build: Local.mak
 
-build-stamp: configure-stamp 
 	dh_testdir
-
 	# Add here commands to compile the package.
-	$(MAKE)
-
-	touch build-stamp
+	$(MAKE) -j 4
 
 clean:
 	dh_testdir
@@ -32,7 +27,7 @@ clean:
 	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
-	-$(MAKE) clean
+	-$(MAKE) distclean
 
 	dh_clean
 

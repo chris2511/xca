@@ -153,11 +153,21 @@ QList<pki_x509> db_x509::getIssuedCerts(const pki_x509 *issuer)
 	return c;
 }
 
-pki_x509 *db_x509::getBySubject(const x509name &xname)
+pki_x509 *db_x509::getBySubject(const x509name &xname, pki_x509 *last)
 {
-	FOR_ctr(container)
-		if ( pki->getSubject() ==  xname) 
-			return pki;
+	bool lastfound = false;
+	if (last == NULL) lastfound = true;
+	
+	FOR_ctr(container) {
+		if ( pki->getSubject() ==  xname) {
+			if (lastfound) {
+				return pki;
+			}
+		}
+		if (pki == last) {
+			lastfound = true;
+		}
+	}
 	return NULL;
 }
 

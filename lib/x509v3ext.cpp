@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -132,7 +133,7 @@ QString x509v3ext::getValue() const
 {
 #define V3_BUF 100
 	QString text = "";
-	int len;
+	int len, cn=0;
 	char buffer[V3_BUF+1];
 	BIO *bio = BIO_new(BIO_s_mem());
 #if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
@@ -143,6 +144,7 @@ QString x509v3ext::getValue() const
 		return text;
 	do {
 		len = BIO_read(bio, buffer, V3_BUF);
+		if (len < 0) break;
 		buffer[len] = '\0';
 		text+=buffer;
 	} while (len == V3_BUF);
