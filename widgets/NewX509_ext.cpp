@@ -106,7 +106,7 @@ x509v3ext NewX509::getAuthKeyIdent()
 	x509v3ext ext;
 	if (authKey->isChecked() && authKey->isEnabled())
 		ext.create(NID_authority_key_identifier, 
-			"keyid:always,issuer:always", &ext_ctx);
+			"keyid,issuer:always", &ext_ctx);
 	return ext;
 }
 

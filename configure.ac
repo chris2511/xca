@@ -1,4 +1,4 @@
-AC_INIT(xca, 0.4.1)
+AC_INIT(xca, 0.4.2)
 AC_CONFIG_SRCDIR([view/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 
@@ -43,10 +43,6 @@ if test "$H_SSL" == no; then
 fi
 
 AC_LANG(C++)
-#AC_CHECK_HEADERS([asn1object.h openssl/cxx/asn1object.h],[H_SSLCXX=y;break])
-#if test "$H_SSLCXX" == no; then
-#	AC_MSG_ERROR([OpenSSL CXX extension headerfiles not found])
-#fi
 
 AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break])
 if test "$H_DB" == no; then

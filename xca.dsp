@@ -121,7 +121,6 @@ SOURCE=.\widgets\CertDetail.cpp
 !IF  "$(CFG)" == "xca - Win32 Release"
 
 # ADD CPP /I "."
-# SUBTRACT CPP /I "_$(QTDIR)\include"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -366,6 +365,19 @@ SOURCE=.\lib\func.cpp
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\KeyDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 !ENDIF 
 
@@ -1372,6 +1384,27 @@ InputName=func
 # End Source File
 # Begin Source File
 
+SOURCE=.\widgets\KeyDetail.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\KeyDetail.h
+InputName=KeyDetail
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\view\KeyView.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -2357,6 +2390,38 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
+SOURCE=.\ui\ImportMulti.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ImportMulti.ui
+InputName=ImportMulti
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\ui\KeyDetail.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -2801,7 +2866,7 @@ SOURCE=.\lib\moc_asn1int.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2816,7 +2881,7 @@ SOURCE=.\lib\moc_asn1time.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2831,7 +2896,7 @@ SOURCE=.\lib\moc_base.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2846,7 +2911,7 @@ SOURCE=.\widgets\moc_CertDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2859,7 +2924,7 @@ SOURCE=.\view\moc_CertView.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2872,7 +2937,7 @@ SOURCE=.\widgets\moc_clicklabel.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2885,7 +2950,7 @@ SOURCE=.\widgets\moc_CrlDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2898,7 +2963,7 @@ SOURCE=.\view\moc_CrlView.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2911,7 +2976,7 @@ SOURCE=.\lib\moc_db_base.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2926,7 +2991,7 @@ SOURCE=.\lib\moc_db_crl.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2941,7 +3006,7 @@ SOURCE=.\lib\moc_db_key.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2956,7 +3021,7 @@ SOURCE=.\lib\moc_db_temp.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2971,7 +3036,7 @@ SOURCE=.\lib\moc_db_x509.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -2986,7 +3051,7 @@ SOURCE=.\lib\moc_db_x509req.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3001,7 +3066,7 @@ SOURCE=.\lib\moc_db_x509super.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3016,7 +3081,7 @@ SOURCE=.\widgets\moc_distname.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3029,7 +3094,7 @@ SOURCE=.\lib\moc_exception.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3044,7 +3109,7 @@ SOURCE=.\widgets\moc_ExportCert.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3057,7 +3122,7 @@ SOURCE=.\widgets\moc_ExportKey.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3070,7 +3135,7 @@ SOURCE=.\widgets\moc_ExportTinyCA.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3083,7 +3148,7 @@ SOURCE=.\lib\moc_func.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3094,11 +3159,24 @@ SOURCE=.\lib\moc_func.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\widgets\moc_KeyDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\widgets"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\view\moc_KeyView.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3111,7 +3189,7 @@ SOURCE=.\widgets\moc_MainWindow.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3124,7 +3202,7 @@ SOURCE=.\widgets\moc_NewX509.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3137,7 +3215,7 @@ SOURCE=.\lib\moc_pass_info.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3152,7 +3230,7 @@ SOURCE=.\lib\moc_pki_base.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3167,7 +3245,7 @@ SOURCE=.\lib\moc_pki_crl.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3182,7 +3260,7 @@ SOURCE=.\lib\moc_pki_key.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3197,7 +3275,7 @@ SOURCE=.\lib\moc_pki_pkcs12.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3212,7 +3290,7 @@ SOURCE=.\lib\moc_pki_pkcs7.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3227,7 +3305,7 @@ SOURCE=.\lib\moc_pki_temp.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3242,7 +3320,7 @@ SOURCE=.\lib\moc_pki_x509.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3257,7 +3335,7 @@ SOURCE=.\lib\moc_pki_x509req.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3272,7 +3350,7 @@ SOURCE=.\lib\moc_pki_x509super.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3287,7 +3365,7 @@ SOURCE=.\widgets\moc_ReqDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3300,7 +3378,7 @@ SOURCE=.\view\moc_ReqView.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3313,7 +3391,7 @@ SOURCE=.\view\moc_TempView.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3326,7 +3404,7 @@ SOURCE=.\widgets\moc_validity.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3339,7 +3417,7 @@ SOURCE=.\lib\moc_x509name.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3354,7 +3432,7 @@ SOURCE=.\lib\moc_x509rev.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3369,7 +3447,7 @@ SOURCE=.\lib\moc_x509v3ext.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "." /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3384,7 +3462,7 @@ SOURCE=.\view\moc_XcaListView.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\"
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3397,7 +3475,7 @@ SOURCE=.\ui\ui_CertDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3410,7 +3488,7 @@ SOURCE=.\ui\ui_CertExtend.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3423,7 +3501,7 @@ SOURCE=.\ui\ui_CrlDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3436,7 +3514,7 @@ SOURCE=.\ui\ui_ExportCert.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3449,7 +3527,7 @@ SOURCE=.\ui\ui_ExportKey.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3462,7 +3540,7 @@ SOURCE=.\ui\ui_ExportTinyCA.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3475,7 +3553,7 @@ SOURCE=.\ui\ui_KeyDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3488,7 +3566,7 @@ SOURCE=.\ui\ui_MainWindow.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "view" /I "widgets"
+# ADD CPP /I "." /I ".\widgets" /I ".\view"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3501,7 +3579,7 @@ SOURCE=.\ui\ui_moc_CertDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3514,7 +3592,7 @@ SOURCE=.\ui\ui_moc_CertExtend.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3527,7 +3605,7 @@ SOURCE=.\ui\ui_moc_CrlDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3540,7 +3618,7 @@ SOURCE=.\ui\ui_moc_ExportCert.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3553,7 +3631,7 @@ SOURCE=.\ui\ui_moc_ExportKey.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3566,7 +3644,7 @@ SOURCE=.\ui\ui_moc_ExportTinyCA.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3579,7 +3657,7 @@ SOURCE=.\ui\ui_moc_KeyDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3592,7 +3670,7 @@ SOURCE=.\ui\ui_moc_MainWindow.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3605,7 +3683,7 @@ SOURCE=.\ui\ui_moc_NewKey.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3618,7 +3696,7 @@ SOURCE=.\ui\ui_moc_NewX509.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3631,7 +3709,7 @@ SOURCE=.\ui\ui_moc_PassRead.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3644,7 +3722,7 @@ SOURCE=.\ui\ui_moc_PassWrite.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3657,7 +3735,7 @@ SOURCE=.\ui\ui_moc_ReqDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3670,7 +3748,7 @@ SOURCE=.\ui\ui_moc_TrustState.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I ".\\" /I "widgets" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3683,7 +3761,7 @@ SOURCE=.\ui\ui_NewKey.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3696,7 +3774,7 @@ SOURCE=.\ui\ui_NewX509.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3709,7 +3787,7 @@ SOURCE=.\ui\ui_PassRead.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3722,7 +3800,7 @@ SOURCE=.\ui\ui_PassWrite.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3735,7 +3813,7 @@ SOURCE=.\ui\ui_ReqDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -3748,7 +3826,7 @@ SOURCE=.\ui\ui_TrustState.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+# ADD CPP /I "." /I ".\widgets"
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 

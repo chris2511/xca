@@ -596,8 +596,8 @@ void NewX509::checkAuthKeyId()
 	if ( !appropriate(page1) ) enabled = true ; 
 
 	if (foreignSignRB->isChecked()) {
-		if (getSelectedSigner()->hasSubAltName())
-			enabled = true;
+		//if (getSelectedSigner()->hasSubAltName())
+		enabled = true;
 	}
 	else { // Self signed
 		if (subKey->isChecked() && subKey->isEnabled())

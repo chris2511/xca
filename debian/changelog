@@ -1,3 +1,18 @@
+xca (0.4.2) unstable; urgency=low
+
+  * Memory leak removed
+  * Template import and export added
+  * fix bug [ 773056 ] Duplicate 'All files (*.*)'
+    selection on import menus
+  * import of PKCS#12 keys repaired
+  * crl icon added to W32 installation
+  * /usr/local/include removed from CPP flags
+  * Buttons "Export Cert" and "Change Template"
+    reconnected.
+  * Authority Key identifier repaired
+
+ -- Christian Hohnstädt <chris@trinity.local>  Sun, 20 Jul 2003 23:38:38 +0200
+
 xca (0.4.1) unstable; urgency=low
 
   * some compiling issues removed
