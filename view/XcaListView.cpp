@@ -178,6 +178,13 @@ void XcaListView::deleteItem_default(QString t1, QString t2)
 
 void XcaListView::load_default(load_base &load)
 {
+#if 0
+	CRYPTO_remove_all_info();
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
+	fprintf(stderr, "loadContainer:\n");
+	CRYPTO_mem_leaks_fp(stderr);
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
+#endif
 	QStringList slist;
 	
 	QFileDialog *dlg = new QFileDialog(this,0,true);

@@ -111,12 +111,10 @@ QString a1int::toHex() const
 		return r;
 	}
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
-	fprintf(stderr, "a1int 1:\n");
-	CRYPTO_mem_leaks_fp(stderr);
 	char *res = BN_bn2hex(bn);
 	r = res;
 	OPENSSL_free(res);
-	OPENSSL_free(bn);
+	BN_free(bn);
 	return r;
 }
 
@@ -129,7 +127,7 @@ QString a1int::toDec() const
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	char *res = BN_bn2dec(bn);
 	r = res;
-	OPENSSL_free(bn);
+	BN_free(bn);
 	OPENSSL_free(res);
 	return r;
 }
@@ -149,7 +147,7 @@ a1int &a1int::operator ++ (void)
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	BN_add(bn, bn, BN_value_one());
 	BN_to_ASN1_INTEGER(bn, in);
-	OPENSSL_free(bn);
+	BN_free(bn);
 	return *this;
 }
 

@@ -642,8 +642,6 @@ void pki_x509::updateView()
 	pointer->setText(0, getIntName());
 	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
 	pointer->setText(2, getSerial().toHex() );  
-	fprintf(stderr, "updV 3:\n");
-	CRYPTO_mem_leaks_fp(stderr);
 	pointer->setText(3, getNotAfter().toSortable() );  
 	pointer->setText(4, truststatus[ getTrust() ]);  
 	if (isRevoked())

@@ -176,8 +176,8 @@ void pki_key::fromData(unsigned char *p, int size )
 {
 	unsigned char *sik, *pdec, *pdec1, *sik1;
 	int outl, decsize;
-        unsigned char iv[EVP_MAX_IV_LENGTH];
-        unsigned char ckey[EVP_MAX_KEY_LENGTH];
+	unsigned char iv[EVP_MAX_IV_LENGTH];
+	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	RSA *rsakey;
 	EVP_CIPHER_CTX ctx;
@@ -194,7 +194,7 @@ void pki_key::fromData(unsigned char *p, int size )
 	memcpy(iv, p, 8); /* recover the iv */
 	/* generate the key */
 	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd,
-		   	strlen(passwd), 1, ckey,NULL);
+		strlen(passwd), 1, ckey,NULL);
 	/* we use sha1 as message digest, 
 	 * because an md5 version of the password is 
 	 * stored in the database...
@@ -209,18 +209,19 @@ void pki_key::fromData(unsigned char *p, int size )
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
 #if OPENSSL_VERSION_NUMBER >= 0x0090700fL
-	   rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
+		rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
 #else
-	   rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
+		rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
 #endif
-	   if (ign_openssl_error()) {
-		rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
-	   }
-	   openssl_error(); 
-	   if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
+		if (ign_openssl_error()) {
+			rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
+		}
+		openssl_error(); 
+		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
 	}
 	OPENSSL_free(sik1);
 	OPENSSL_free(pdec1);
+	EVP_CIPHER_CTX_cleanup(&ctx);
 	openssl_error();
 }
 
@@ -231,15 +232,26 @@ unsigned char *pki_key::toData(int *size)
 	int outl, encsize=0;
 	EVP_CIPHER_CTX ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
-        unsigned char iv[EVP_MAX_IV_LENGTH];
-        unsigned char ckey[EVP_MAX_KEY_LENGTH];
+	unsigned char iv[EVP_MAX_IV_LENGTH];
+	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
-        RAND_pseudo_bytes(iv,8);      /* Generate a salt */
-        EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd, strlen(passwd), 1, ckey,NULL);
+	fprintf(stderr, "Key to data 1a:\n");
+	CRYPTO_mem_leaks_fp(stderr);
+	RAND_pseudo_bytes(iv,8);      /* Generate a salt */
+	fprintf(stderr, "Key to data 1b:\n");
+	CRYPTO_mem_leaks_fp(stderr);
+	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd,
+		   	strlen(passwd), 1, ckey,NULL);
+	fprintf(stderr, "Key to data 1c:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	EVP_CIPHER_CTX_init (&ctx);
+	fprintf(stderr, "Key to data 1d:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	EVP_EncryptInit( &ctx, cipher, ckey, iv);
 	openssl_error();
 	//if (key->type == EVP_PKEY_RSA) {
+	fprintf(stderr, "Key to data 1:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	if (true) {
 	   if (isPubKey()) {
 	      *size = i2d_RSA_PUBKEY(key->pkey.rsa, NULL);
@@ -261,24 +273,37 @@ unsigned char *pki_key::toData(int *size)
 	   else {
 	      *size = i2d_RSAPrivateKey(key->pkey.rsa, NULL);
 	      openssl_error();
+	fprintf(stderr, "Key to data 2:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	      p = (unsigned char *)OPENSSL_malloc(*size);
 	      openssl_error();
+	fprintf(stderr, "Key to data 3:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH + 8);
 	      if (!penc) {
 		      OPENSSL_free(p);
 		      openssl_error();
 	      }
+	fprintf(stderr, "Key to data 4:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	      p1 = p;
 	      memcpy(penc, iv, 8); /* store the iv */
 	      i2d_RSAPrivateKey(key->pkey.rsa, &p1);
 	      EVP_EncryptUpdate( &ctx, penc + 8, &outl, p, *size ); /* store key right after the iv */
+	fprintf(stderr, "Key to data 5:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	      encsize = outl;
 	      openssl_error();
 	   }
 	}
 	EVP_EncryptFinal( &ctx, penc + encsize + 8, &outl );
+	fprintf(stderr, "Key to data 6:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	encsize += outl ;
 	OPENSSL_free(p);
+	EVP_CIPHER_CTX_cleanup(&ctx);
+	fprintf(stderr, "Key to data 7:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	openssl_error();	
 	*size = encsize + 8;
 	return penc;
