@@ -13,10 +13,6 @@
         <translation type="obsolete">XCA</translation>
     </message>
     <message>
-        <source>About_UI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Done</source>
         <translation>Schliessen</translation>
     </message>
@@ -124,7 +120,7 @@
     </message>
     <message>
         <source>The serial number of the certificate</source>
-        <translation>Die seriennummer des Zertifikats</translation>
+        <translation>Die Seriennummer des Zertifikats</translation>
     </message>
     <message>
         <source>Signed by</source>
@@ -160,7 +156,7 @@
     </message>
     <message>
         <source>Serial</source>
-        <translation>Serial</translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <source>&amp;Extensions</source>
@@ -246,7 +242,7 @@
     </message>
     <message>
         <source>Serial</source>
-        <translation>Serial</translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <source>not After</source>
@@ -417,7 +413,7 @@
     <name>ClickLabel</name>
     <message>
         <source>Double click for details</source>
-        <translation>Doppel klick für Details</translation>
+        <translation>Doppelklick für Details</translation>
     </message>
 </context>
 <context>
@@ -428,7 +424,7 @@
     </message>
     <message>
         <source>Serial</source>
-        <translation>Serien Nummer</translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <source>Revokation</source>
@@ -457,10 +453,6 @@
 </context>
 <context>
     <name>CrlDetail_UI</name>
-    <message>
-        <source>CrlDetail_UI</source>
-        <translation></translation>
-    </message>
     <message>
         <source>Details of the Revokation list</source>
         <translation>Details der Rücknahmeliste</translation>
@@ -511,7 +503,7 @@
     </message>
     <message>
         <source>A list of all revoked certificates</source>
-        <translation>Eine Liste aller zurück genommenen Zertifikate</translation>
+        <translation>Eine Liste aller zurückgenommenen Zertifikate</translation>
     </message>
     <message>
         <source>&amp;Extensions</source>
@@ -548,6 +540,10 @@
     <message>
         <source>Next Update</source>
         <translation>Nächstes Update</translation>
+    </message>
+    <message>
+        <source>CrlDetail_UI</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -624,7 +620,7 @@
     <name>ExportCert_UI</name>
     <message>
         <source>Certificate export</source>
-        <translation>Zertifikats export</translation>
+        <translation>Zertifikatsexport</translation>
     </message>
     <message>
         <source>Please enter the filename for the certificate.</source>
@@ -652,7 +648,7 @@
     </message>
     <message>
         <source>TinyCA filename</source>
-        <translation>TinyCA dateiname</translation>
+        <translation>TinyCA Dateiname</translation>
     </message>
     <message>
         <source>Set the filename to the one used by TinyCA</source>
@@ -669,16 +665,16 @@ PKCS#7 ist ein offizielles Zertifikatsaustauschformat
 PKCS#12 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</translation>
     </message>
     <message>
-        <source>ExportCert_UI</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Filename</source>
         <translation>Dateiname</translation>
     </message>
     <message>
         <source>Export Format</source>
         <translation>Exportformat</translation>
+    </message>
+    <message>
+        <source>ExportCert_UI</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -704,7 +700,7 @@ PKCS#12 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel<
     </message>
     <message>
         <source>Please enter the filename for the key.</source>
-        <translation>Bitte geben Sie den Datei namen für den Schlüssel ein.</translation>
+        <translation>Bitte geben Sie den Dateinamen für den Schlüssel ein.</translation>
     </message>
     <message>
         <source>Filename:</source>
@@ -748,14 +744,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     </message>
     <message>
         <source>When exporting the private part, it should be encrypted.</source>
-        <translation>DER ist ein Binärformat des Zertifikats
-PEM ist ein base64 codiertes Zertifikat
-PKCS#7 ist ein offizielles Zertifikatsaustauschformat
-PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und Zertifikate.</translation>
-    </message>
-    <message>
-        <source>ExportKey_UI</source>
-        <translation></translation>
+        <translation>Wenn der private Teil mit exportiert wird, sollte er verschlüsselt werden.</translation>
     </message>
     <message>
         <source>Filename</source>
@@ -765,12 +754,16 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
         <source>Export Format</source>
         <translation>Exportformat</translation>
     </message>
+    <message>
+        <source>ExportKey_UI</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ExportTinyCA</name>
     <message>
         <source>TinyCA Template directory</source>
-        <translation>TinyCA Template verzeichnis</translation>
+        <translation>TinyCA Template Verzeichnis</translation>
     </message>
     <message>
         <source>TinyCA Directory </source>
@@ -805,7 +798,7 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     </message>
     <message>
         <source>the TinyCA database directory, usually: ~/.TinyCA/</source>
-        <translation>das TinyCA datenbank verzeichnis üblicherweise: ~/.TinyCA/</translation>
+        <translation>das TinyCA Datenbankverzeichnis üblicherweise: ~/.TinyCA/</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -871,7 +864,7 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     </message>
     <message>
         <source>Serial</source>
-        <translation>Serien Nummer</translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <source>The type of the Item is not recognized: </source>
@@ -909,10 +902,6 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
 <context>
     <name>ImportMulti_UI</name>
     <message>
-        <source>ImportMulti_UI</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Import &amp;All</source>
         <translation>&amp;Alle importieren</translation>
     </message>
@@ -931,6 +920,10 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     <message>
         <source>&amp;Remove</source>
         <translation>Entfe&amp;rnen</translation>
+    </message>
+    <message>
+        <source>ImportMulti_UI</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1248,10 +1241,6 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
         <translation>Rücknahmelisten</translation>
     </message>
     <message>
-        <source>Import PFX (PKCS#12)</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Change password</source>
         <translation>Passwort ändern</translation>
     </message>
@@ -1268,16 +1257,20 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
         <translation type="obsolete">Einstellungen</translation>
     </message>
     <message>
-        <source>MainWindow_UI</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Certificate signing requests</source>
         <translation>Unterschriftsanfragen</translation>
     </message>
     <message>
         <source>Certificates</source>
         <translation>Zertifikate</translation>
+    </message>
+    <message>
+        <source>MainWindow_UI</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Import PFX (PKCS#12)</source>
+        <translation>Import PFX (PKCS#12)</translation>
     </message>
 </context>
 <context>
@@ -1374,16 +1367,12 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
         <translation>Willkommen zu den Einstellungen für Templates.</translation>
     </message>
     <message>
-        <source>Welcome to the settings for Certificates.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A signing request needs a private key, so it will be created if there isn&apos;t any unused key available in the key database. This signing request can then be given to a Certification authority while the private key of the request and of the resulting certificate returned from the CA does never leave your computer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You are done with entering all parameters for generating a Certificate signing request. The resulting request should be exported and send to an appropriate CA for signing it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben alle Parameter zur Zertifikatsanfragenerstellung angegeben. Die resultierende Anfrage sollte exportiert und an eine CA gesendet werden.</translation>
     </message>
     <message>
         <source>This templates do not refer to any ASN.1 structure but are used to keep default settings for signing requests and certificates. When creating a Request or Certificate the template can preset the needed fields with default settings.</source>
@@ -1392,7 +1381,11 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     <message>
         <source>You are done with entering all parameters for the Template.
 After this step the template can be assigned to one of your CAs to be autoatically applied when signing with this CA.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben alle Parameter zur Vorlagenerstellung angegeben.</translation>
+    </message>
+    <message>
+        <source>Welcome to the settings for Certificates.</source>
+        <translation>Willkommen zu den Einstellungen für Zertifikate.</translation>
     </message>
     <message>
         <source>The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.</source>
@@ -1400,7 +1393,7 @@ After this step the template can be assigned to one of your CAs to be autoatical
     </message>
     <message>
         <source>You are done with entering all parameters for creating a Certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sie haben alle Parameter zur Zertifikatserstellung angegeben.</translation>
     </message>
 </context>
 <context>
@@ -1408,26 +1401,6 @@ After this step the template can be assigned to one of your CAs to be autoatical
     <message>
         <source>Template</source>
         <translation>Vorlage</translation>
-    </message>
-    <message>
-        <source>CRL distribution point</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>issuer alternative name</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>subject alternative name</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Basic Constraints</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Key identifier</source>
-        <translation></translation>
     </message>
     <message>
         <source>Validity</source>
@@ -1444,106 +1417,6 @@ After this step the template can be assigned to one of your CAs to be autoatical
     <message>
         <source>Years</source>
         <translation>Jahre</translation>
-    </message>
-    <message>
-        <source>Key Usage</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Digital Signature</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Non Repudiation</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Key Encipherment</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Data Encipherment</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Key Agreement</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Certificate Sign</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>CRL Sign</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Encipher Only</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Decipher Only</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Extended Key Usage</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>SSL Client</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>SSL Server</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>S/MIME</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Object Signing</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>SSL CA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>S/MIME CA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Object Signing CA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>CA Revokation URL</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Revokation URL</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>SSL server name</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Certificate renewal URL</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>CA policy URL</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Base URL</source>
-        <translation></translation>
     </message>
     <message>
         <source>Signer</source>
@@ -1575,7 +1448,7 @@ After this step the template can be assigned to one of your CAs to be autoatical
     </message>
     <message>
         <source>&amp;Critical</source>
-        <translation type="unfinished">&amp;Critical</translation>
+        <translation>&amp;Critical</translation>
     </message>
     <message>
         <source>&amp;Subject Key Identifier</source>
@@ -1599,17 +1472,11 @@ After this step the template can be assigned to one of your CAs to be autoatical
     </message>
     <message>
         <source>NewX509_UI</source>
-        <translation>NewX509_UI</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Signing request</source>
         <translation>Unterschriftsanfrage</translation>
-    </message>
-    <message>
-        <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
-Getting signed by a CA certificate, whoes certificate of course must be in the database
-Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If you leave this blank the serial 00 will be used</source>
@@ -1627,15 +1494,15 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
     </message>
     <message>
         <source>All available templates</source>
-        <translation>Alle verfügbaren Templates</translation>
+        <translation>Alle verfügbaren Vorlagen</translation>
     </message>
     <message>
         <source>This list contains all templates from the toplevel template Tab. 
 Additionally it contains 4 default templates:
 Empy, CA, client, server</source>
-        <translation>Diese Liste enthält all Templates aus der Templateliste.
-Zusätzlich enthält sie 4 standard templates:
-Empy, CA, client, server</translation>
+        <translation>Diese Liste enthält alle Vorlagen aus der Vorlagenliste.
+Zusätzlich enthält sie 4 Standardvorlagen:
+Leer, CA, Client, Server</translation>
     </message>
     <message>
         <source>Check this to adjust all details of the certificate</source>
@@ -1702,18 +1569,6 @@ Empy, CA, client, server</translation>
         <translation>Diese Liste enthält nur unbenutzte Schlüssel</translation>
     </message>
     <message>
-        <source>MD 2</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>MD 5</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>SHA 1</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>This funny button creates a key. Go figure.</source>
         <translation>Dieser lustige Knopf erstellt einen Schlüssel, stell Dir vor.</translation>
     </message>
@@ -1730,36 +1585,12 @@ Empy, CA, client, server</translation>
         <translation>Ob dies ein CA Zertifikat wird oder nicht</translation>
     </message>
     <message>
-        <source>Set this to TRUE if you want to create a CA certificate that signs other certificates.
-This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
-Self-signed non-CA certificates are unusual although they are possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>How much CAs may be below this.</source>
         <translation>Wieviele CAs in der Kette unter diesem sein dürfen.</translation>
     </message>
     <message>
-        <source>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
-A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The basic constraints should always be critical</source>
         <translation>Die &quot;grundlegenden Einschränkungen&quot; sollten immer &quot;critical&quot; sein </translation>
-    </message>
-    <message>
-        <source>Creates a hash of the key following the PKIX guidelines</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Copy the Subject Key Identifier from the issuer</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
-It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>not Before</source>
@@ -1771,7 +1602,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     </message>
     <message>
         <source>Time Range</source>
-        <translation type="unfinished">Zeitspanne</translation>
+        <translation>Zeitspanne</translation>
     </message>
     <message>
         <source>Wether to copy the subj. alt. name from the issuer</source>
@@ -1786,44 +1617,8 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation>DNS: IP: URI: email: RIP:</translation>
     </message>
     <message>
-        <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Great picture , heh ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If you know a more pretty one tell me</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>1</source>
-        <translation type="unfinished">1</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
-Currently each option will set a new DistributionPoint with the fullName field set to the given value.
-Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn&apos;t appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
-Examples:
-URI:http://www.myhost.com/myca.crl
-URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
         <source>Use &amp;this Certificate for for signing</source>
@@ -1835,7 +1630,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Path length</source>
-        <translation>Pfad länge</translation>
+        <translation>Pfadlänge</translation>
     </message>
     <message>
         <source>Not before</source>
@@ -1850,12 +1645,8 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation>Klicke Next um fortzufahren</translation>
     </message>
     <message>
-        <source>State or Province</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Not defined</source>
@@ -1868,32 +1659,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <message>
         <source>End Entity</source>
         <translation>End Instanz</translation>
-    </message>
-    <message>
-        <source>Certificate Policies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If you follow the PKIX recommendations of not including any qualifiers and just
-using only one OID then you just include the value of that OID. Multiple OIDs
-can be set separated by commas, for example:
-
-Example:
-1.2.4.5, 1.1.3.4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-
-Example:
-
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Authority Info Access</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Midnight</source>
@@ -1913,7 +1678,235 @@ caIssuers;URI:http://my.ca/ca.html</source>
     </message>
     <message>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
-        <translation>Kann in der Datei &quot;aia.txt&quot;</translation>
+        <translation>Kann in der Datei &quot;aia.txt&quot; angepasst werden</translation>
+    </message>
+    <message>
+        <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
+Getting signed by a CA certificate, whoes certificate of course must be in the database
+Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State or Province</source>
+        <translation>Bundesland, Kreis</translation>
+    </message>
+    <message>
+        <source>MD 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MD 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SHA 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set this to TRUE if you want to create a CA certificate that signs other certificates.
+This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
+Self-signed non-CA certificates are unusual although they are possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
+A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Creates a hash of the key following the PKIX guidelines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy the Subject Key Identifier from the issuer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
+It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Übernehmen</translation>
+    </message>
+    <message>
+        <source>subject alternative name</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+Examples:
+email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
+email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>issuer alternative name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+Examples:
+email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
+email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key Usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Digital Signature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Repudiation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key Encipherment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data Encipherment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key Agreement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Sign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CRL Sign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encipher Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decipher Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extended Key Usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CRL distribution point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authority Info Access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Policies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
+
+Example:
+
+OCSP;URI:http://ocsp.my.host/
+caIssuers;URI:http://my.ca/ca.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
+Currently each option will set a new DistributionPoint with the fullName field set to the given value.
+Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
+If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn&apos;t appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
+Examples:
+URI:http://www.myhost.com/myca.crl
+URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you follow the PKIX recommendations of not including any qualifiers and just
+using only one OID then you just include the value of that OID. Multiple OIDs
+can be set separated by commas, for example:
+
+Example:
+1.2.4.5, 1.1.3.4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S/MIME</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Signing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S/MIME CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Signing CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Great picture , heh ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA Revokation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revokation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL server name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate renewal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA policy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you know a more pretty one tell me</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1972,10 +1965,6 @@ caIssuers;URI:http://my.ca/ca.html</source>
         <translation>Import von RSA Schlüssel</translation>
     </message>
     <message>
-        <source>PKCS#10 CSR ( *.pem *.der *.csr )</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Import Request</source>
         <translation>Import von Anfragen</translation>
     </message>
@@ -1986,10 +1975,6 @@ caIssuers;URI:http://my.ca/ca.html</source>
     <message>
         <source>Import X.509 Certificate</source>
         <translation>Import von X.509 Zertifikaten</translation>
-    </message>
-    <message>
-        <source>PKCS#7 data ( *.p7s *.p7m *.p7b )</source>
-        <translation></translation>
     </message>
     <message>
         <source>Import PKCS#7 Certificates</source>
@@ -2016,20 +2001,28 @@ caIssuers;URI:http://my.ca/ca.html</source>
         <translation>Zertifikatsrücknahmelisten ( *.pem *.crl )</translation>
     </message>
     <message>
-        <source>Import Certificate Revokation List</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Netscape Request ( *.spkac *.spc )</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>XCA Databases ( *.db )</source>
         <translation>XCA Datenbanken ( *.db )</translation>
     </message>
     <message>
         <source>Open XCA Database</source>
         <translation>Öffnen einer XCA Datenbank</translation>
+    </message>
+    <message>
+        <source>Netscape Request ( *.spkac *.spc )</source>
+        <translation>Netscape format ( *.spkac *.spc )</translation>
+    </message>
+    <message>
+        <source>PKCS#10 CSR ( *.pem *.der *.csr )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#7 data ( *.p7s *.p7m *.p7b )</source>
+        <translation>PKCS#7 format ( *.p7s *.p7m *.p7b )</translation>
+    </message>
+    <message>
+        <source>Import Certificate Revokation List</source>
+        <translation>Importiere Zertifikatsrücknahmeliste</translation>
     </message>
 </context>
 <context>
@@ -2101,16 +2094,16 @@ caIssuers;URI:http://my.ca/ca.html</source>
         <translation>Privater Schlüssel</translation>
     </message>
     <message>
-        <source>ReqDetail_UI</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>S&amp;tatus</source>
         <translation>S&amp;tatus</translation>
     </message>
     <message>
         <source>&amp;Subject</source>
         <translation>Be&amp;sitzer</translation>
+    </message>
+    <message>
+        <source>ReqDetail_UI</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2165,11 +2158,11 @@ caIssuers;URI:http://my.ca/ca.html</source>
     </message>
     <message>
         <source>PEM</source>
-        <translation>PEM</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>DER</source>
-        <translation>DER</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2281,40 +2274,8 @@ caIssuers;URI:http://my.ca/ca.html</source>
 <context>
     <name>Validity</name>
     <message>
-        <source>Jan</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Feb</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Mar</source>
         <translation>Mär</translation>
-    </message>
-    <message>
-        <source>Apr</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Jun</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Jul</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Aug</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Sep</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Nov</source>
-        <translation></translation>
     </message>
     <message>
         <source>Now</source>
@@ -2331,6 +2292,38 @@ caIssuers;URI:http://my.ca/ca.html</source>
     <message>
         <source>Dec</source>
         <translation>Dez</translation>
+    </message>
+    <message>
+        <source>Jan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jun</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jul</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nov</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
