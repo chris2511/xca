@@ -69,7 +69,7 @@ void MainWindow::newCert(pki_temp *templ)
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"};
 	QListBoxItem *item;
-	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg );
+	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg, nsImg );
 	if (templ) {
 		dlg->defineTemplate(templ);
 	}

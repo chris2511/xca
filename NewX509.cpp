@@ -51,7 +51,7 @@
 
 #include "NewX509.h"
 
-NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image)
+NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns)
 	:NewX509_UI(parent, name, true, 0)
 {
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
@@ -66,6 +66,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		bigImg1->setPixmap(*image);
 		bigImg2->setPixmap(*image);
 		bigImg3->setPixmap(*image);
+		nsImg->setPixmap(*ns);
 	}
 	// pretty fat Title :-)
 	QFont tFont; // = getFont();
@@ -147,7 +148,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	}		
 	
 	fromDataRB->setChecked(true);
-	setFinishEnabled(page6,true);
+	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);
 }
 void NewX509::setRequest()
@@ -155,8 +156,10 @@ void NewX509::setRequest()
 	setAppropriate(page3, false);
 	setAppropriate(page4, false);
 	setAppropriate(page5, false);
+	setAppropriate(page6, false);
 	finishButton()->setEnabled(true);
-	changeDefault->setEnabled(true);
+	changeDefault->setEnabled(false);
+	changeDefault->setChecked(false);
 	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa)");
 	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa)");
 	tText=tr("Certificate request");
@@ -193,12 +196,13 @@ void NewX509::setup()
 	startLabel->setText(startText);
 	endLabel->setText(endText);
 	setTitle(page0, tText + " Wizard");
-	setTitle(page1, tText + " Template selection");
-	setTitle(page2, tText + " Personal settings");
+	setTitle(page1, tText + " template selection");
+	setTitle(page2, tText + " personal settings");
 	setTitle(page3, tText + " signing selection");
 	setTitle(page4, tText + " X.509 v3 Extensions");
 	setTitle(page5, tText + " keyusage setup");
-	setTitle(page6, tText + " finished");
+	setTitle(page6, tText + " Netscape extensions");
+	setTitle(page7, tText + " Wizard finished");
 }
 	
 void NewX509::defineTemplate(pki_temp *temp)
@@ -241,6 +245,14 @@ void NewX509::fromTemplate(pki_temp *temp)
 	subAltName->setText(temp->subAltName.c_str());
 	issAltName->setText(temp->issAltName.c_str());
 	crlDist->setText(temp->crlDist.c_str());
+	nsComment->setText(temp->nsComment.c_str());
+	nsBaseUrl->setText(temp->nsBaseUrl.c_str());
+	nsRevocationUrl->setText(temp->nsRevocationUrl.c_str());
+	nsCARevocationUrl->setText(temp->nsCARevocationUrl.c_str());
+	nsRenewalUrl->setText(temp->nsRenewalUrl.c_str());
+	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl.c_str());
+	nsSslServerName->setText(temp->nsSslServerName.c_str());
+	int2lb(nsCertType, temp->nsCertType);
 	basicCA->setCurrentItem(temp->ca?1:0);
 	bcCritical->setChecked(temp->bcCrit);
 	kuCritical->setChecked(temp->keyUseCrit);
@@ -272,6 +284,14 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->subAltName = subAltName->text().latin1();
 	temp->issAltName = issAltName->text().latin1();
 	temp->crlDist = crlDist->text().latin1();
+	temp->nsComment = nsComment->text().latin1();
+	temp->nsBaseUrl = nsBaseUrl->text().latin1();
+	temp->nsRevocationUrl = nsRevocationUrl->text().latin1();
+	temp->nsCARevocationUrl = nsCARevocationUrl->text().latin1();
+	temp->nsRenewalUrl = nsRenewalUrl->text().latin1();
+	temp->nsCaPolicyUrl = nsCaPolicyUrl->text().latin1();
+	temp->nsSslServerName = nsSslServerName->text().latin1();
+	temp->nsCertType =  lb2int(nsCertType);
 	temp->ca = basicCA->currentItem();
 	temp->bcCrit = bcCritical->isChecked();
 	temp->keyUseCrit = kuCritical->isChecked();
@@ -323,6 +343,13 @@ void NewX509::showPage(QWidget *page)
 				foreignSignRB->setFocus();
 			}
 		}
+		else {
+			if (!foreignSignRB->isEnabled()) {
+				selfSignRB->setChecked(true);
+				serialNr->setText("00");
+				serialNr->setFocus();
+			}
+		}
 	}
 	else if (page == page4) {
 		basicCA->setFocus();
@@ -345,14 +372,17 @@ void NewX509::templateChanged()
 
 void NewX509::switchExtended()
 {
+	if ( !appropriate(page1) ) return;
 	CERR << "SWITCH Extended" <<endl;
-	if (changeDefault->isChecked() || !appropriate(page1)) {
+	if (changeDefault->isChecked()) {
 		setAppropriate(page4, true);
 		setAppropriate(page5, true);
+		setAppropriate(page6, true);
 	}
 	else {
 		setAppropriate(page4, false);
 		setAppropriate(page5, false);
+		setAppropriate(page6, false);
 	}
 }
 		    

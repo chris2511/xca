@@ -52,8 +52,11 @@
 #include "MainWindow.h"
 
 
-QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL, *MainWindow::certImg = NULL, *MainWindow::tempImg = NULL;
-const QString MainWindow::xca_title = tr("X Certifikate and Key managementconst");
+QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
+	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
+	*MainWindow::nsImg = NULL;
+
+const QString MainWindow::xca_title = tr("X Certifikate and Key management");
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
@@ -82,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	csrImg = loadImg("bigcsr.png");
 	certImg = loadImg("bigcert.png");
 	tempImg = loadImg("bigtemp.png");
+	nsImg = loadImg("netscape.png");
 	initPass();
 	keys = new db_key(dbenv, dbfile.latin1(), keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);

@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>571</width>
-            <height>444</height>
+            <width>596</width>
+            <height>520</height>
         </rect>
     </property>
     <property stdset="1">
@@ -32,7 +32,7 @@
         </property>
         <attribute>
             <name>title</name>
-            <string>Page0</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -189,7 +189,7 @@
         </property>
         <attribute>
             <name>title</name>
-            <string>New Certificate Step 1</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -393,7 +393,7 @@
         </property>
         <attribute>
             <name>title</name>
-            <string>New Certificate Step 2</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -764,7 +764,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         </property>
         <attribute>
             <name>title</name>
-            <string>New Certificate Step 3</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -902,7 +902,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         </property>
         <attribute>
             <name>title</name>
-            <string>New Certificate Step 4</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -1030,10 +1030,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                     <name>text</name>
                                     <string>Critical</string>
                                 </property>
-                                <property stdset="1">
-                                    <name>checked</name>
-                                    <bool>true</bool>
-                                </property>
                             </widget>
                         </grid>
                     </widget>
@@ -1066,10 +1062,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                     <name>text</name>
                                     <string>Subject Key Identifier</string>
                                 </property>
-                                <property stdset="1">
-                                    <name>checked</name>
-                                    <bool>true</bool>
-                                </property>
                             </widget>
                             <widget>
                                 <class>QCheckBox</class>
@@ -1080,10 +1072,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>Authority Key Identifier</string>
-                                </property>
-                                <property stdset="1">
-                                    <name>checked</name>
-                                    <bool>true</bool>
                                 </property>
                             </widget>
                         </vbox>
@@ -1318,10 +1306,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>text</name>
                             <string>Critical</string>
                         </property>
-                        <property stdset="1">
-                            <name>checked</name>
-                            <bool>true</bool>
-                        </property>
                     </widget>
                     <widget>
                         <class>QListBox</class>
@@ -1419,10 +1403,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>text</name>
                             <string>Critical</string>
                         </property>
-                        <property stdset="1">
-                            <name>checked</name>
-                            <bool>true</bool>
-                        </property>
                     </widget>
                     <widget>
                         <class>QListBox</class>
@@ -1513,7 +1493,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         </property>
         <attribute>
             <name>title</name>
-            <string>Page</string>
+            <string></string>
         </attribute>
         <vbox>
             <property stdset="1">
@@ -1523,6 +1503,373 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
             <property stdset="1">
                 <name>spacing</name>
                 <number>6</number>
+            </property>
+            <widget>
+                <class>QLayoutWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>Layout18</cstring>
+                </property>
+                <hbox>
+                    <property stdset="1">
+                        <name>margin</name>
+                        <number>0</number>
+                    </property>
+                    <property stdset="1">
+                        <name>spacing</name>
+                        <number>6</number>
+                    </property>
+                    <widget>
+                        <class>QListBox</class>
+                        <item>
+                            <property>
+                                <name>text</name>
+                                <string>SSL Client</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property>
+                                <name>text</name>
+                                <string>SSL Server</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property>
+                                <name>text</name>
+                                <string>S/MIME</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property>
+                                <name>text</name>
+                                <string>Object Signing</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property>
+                                <name>text</name>
+                                <string>SSL CA</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property>
+                                <name>text</name>
+                                <string>S/MIME CA</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property>
+                                <name>text</name>
+                                <string>Object Signing CA</string>
+                            </property>
+                        </item>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsCertType</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>sizePolicy</name>
+                            <sizepolicy>
+                                <hsizetype>7</hsizetype>
+                                <vsizetype>7</vsizetype>
+                            </sizepolicy>
+                        </property>
+                    </widget>
+                    <spacer>
+                        <property>
+                            <name>name</name>
+                            <cstring>Spacer37_3</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>orientation</name>
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property stdset="1">
+                            <name>sizeType</name>
+                            <enum>Expanding</enum>
+                        </property>
+                        <property>
+                            <name>sizeHint</name>
+                            <size>
+                                <width>20</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget>
+                        <class>QLayoutWidget</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>Layout16</cstring>
+                        </property>
+                        <vbox>
+                            <property stdset="1">
+                                <name>margin</name>
+                                <number>0</number>
+                            </property>
+                            <property stdset="1">
+                                <name>spacing</name>
+                                <number>6</number>
+                            </property>
+                            <widget>
+                                <class>QLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>nsImg</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>minimumSize</name>
+                                    <size>
+                                        <width>107</width>
+                                        <height>107</height>
+                                    </size>
+                                </property>
+                                <property stdset="1">
+                                    <name>scaledContents</name>
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property>
+                                    <name>name</name>
+                                    <cstring>Spacer38_3</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>orientation</name>
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property stdset="1">
+                                    <name>sizeType</name>
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property>
+                                    <name>sizeHint</name>
+                                    <size>
+                                        <width>20</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </vbox>
+                    </widget>
+                </hbox>
+            </widget>
+            <spacer>
+                <property>
+                    <name>name</name>
+                    <cstring>Spacer39_2</cstring>
+                </property>
+                <property stdset="1">
+                    <name>orientation</name>
+                    <enum>Vertical</enum>
+                </property>
+                <property stdset="1">
+                    <name>sizeType</name>
+                    <enum>Expanding</enum>
+                </property>
+                <property>
+                    <name>sizeHint</name>
+                    <size>
+                        <width>20</width>
+                        <height>20</height>
+                    </size>
+                </property>
+            </spacer>
+            <widget>
+                <class>Line</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>Line1</cstring>
+                </property>
+                <property stdset="1">
+                    <name>orientation</name>
+                    <enum>Horizontal</enum>
+                </property>
+            </widget>
+            <spacer>
+                <property>
+                    <name>name</name>
+                    <cstring>Spacer40</cstring>
+                </property>
+                <property stdset="1">
+                    <name>orientation</name>
+                    <enum>Vertical</enum>
+                </property>
+                <property stdset="1">
+                    <name>sizeType</name>
+                    <enum>Expanding</enum>
+                </property>
+                <property>
+                    <name>sizeHint</name>
+                    <size>
+                        <width>20</width>
+                        <height>20</height>
+                    </size>
+                </property>
+            </spacer>
+            <widget>
+                <class>QLayoutWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>Layout15</cstring>
+                </property>
+                <grid>
+                    <property stdset="1">
+                        <name>margin</name>
+                        <number>0</number>
+                    </property>
+                    <property stdset="1">
+                        <name>spacing</name>
+                        <number>6</number>
+                    </property>
+                    <widget row="3"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsRenewalUrl</cstring>
+                        </property>
+                    </widget>
+                    <widget row="4"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsCaPolicyUrl</cstring>
+                        </property>
+                    </widget>
+                    <widget row="2"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>CA Revokation URL</string>
+                        </property>
+                    </widget>
+                    <widget row="5"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsSslServerName</cstring>
+                        </property>
+                    </widget>
+                    <widget row="1"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel4</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Revokation URL</string>
+                        </property>
+                    </widget>
+                    <widget row="5"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel7</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>SSL server name</string>
+                        </property>
+                    </widget>
+                    <widget row="0"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsBaseUrl</cstring>
+                        </property>
+                    </widget>
+                    <widget row="2"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsCARevocationUrl</cstring>
+                        </property>
+                    </widget>
+                    <widget row="3"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel3</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Certificate renewal URL</string>
+                        </property>
+                    </widget>
+                    <widget row="6"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel8</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Comment</string>
+                        </property>
+                    </widget>
+                    <widget row="4"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel6</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>CA policy URL</string>
+                        </property>
+                    </widget>
+                    <widget row="0"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel1</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Base URL</string>
+                        </property>
+                    </widget>
+                    <widget row="1"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsRevocationUrl</cstring>
+                        </property>
+                    </widget>
+                    <widget row="6"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>nsComment</cstring>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+        </vbox>
+    </widget>
+    <widget>
+        <class>QWidget</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>page7</cstring>
+        </property>
+        <attribute>
+            <name>title</name>
+            <string>Page</string>
+        </attribute>
+        <vbox>
+            <property stdset="1">
+                <name>margin</name>
+                <number>11</number>
+            </property>
+            <property stdset="1">
+                <name>spacing</name>
+                <number>7</number>
             </property>
             <widget>
                 <class>QLayoutWidget</class>

@@ -54,7 +54,7 @@
 
 void MainWindow::newReq(pki_temp *temp)
 {
-	NewX509 *dlg = new NewX509(this, 0, keys, NULL, NULL, temps, csrImg);
+	NewX509 *dlg = new NewX509(this, 0, keys, NULL, NULL, temps, csrImg, nsImg);
 	if (temp) {
 		dlg->defineTemplate(temp);
 	}

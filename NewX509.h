@@ -64,11 +64,13 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qlistbox.h>
+#include <qpixmap.h>
 
 #ifndef NEWX509_H
 #define NEWX509_H
 
 class MainWindow;
+
 class NewX509: public NewX509_UI
 {
 	Q_OBJECT
@@ -80,7 +82,7 @@ class NewX509: public NewX509_UI
 	pki_temp *fixtemp;
 	QString startText, endText, tText;
    public:	
-	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image);
+	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns);
 	void setRequest(); // reduce to request form 	
 	void setTemp(pki_temp *temp); // reduce to template form 	
 	void setCert(); // reduce to certificate form 	

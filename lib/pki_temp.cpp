@@ -71,6 +71,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 	nsComment=pk->nsComment;
 	nsBaseUrl=pk->nsBaseUrl;
 	nsRevocationUrl=pk->nsRevocationUrl;
+	nsCARevocationUrl=pk->nsCARevocationUrl;
 	nsRenewalUrl=pk->nsRenewalUrl;
 	nsCaPolicyUrl=pk->nsCaPolicyUrl;
 	nsSslServerName=pk->nsSslServerName;
@@ -108,6 +109,7 @@ pki_temp::pki_temp(const string d, int atype)
 	nsComment="xca certificate";
 	nsBaseUrl="";
 	nsRevocationUrl="";
+	nsCARevocationUrl="";
 	nsRenewalUrl="";
 	nsCaPolicyUrl="";
 	nsSslServerName="";
@@ -181,6 +183,7 @@ bool pki_temp::fromData(unsigned char *p, int size )
 	nsComment=stringFromData(&p1);
 	nsBaseUrl=stringFromData(&p1);
 	nsRevocationUrl=stringFromData(&p1);
+	nsCARevocationUrl=stringFromData(&p1);
 	nsRenewalUrl=stringFromData(&p1);
 	nsCaPolicyUrl=stringFromData(&p1);
 	nsSslServerName=stringFromData(&p1);
@@ -230,6 +233,7 @@ unsigned char *pki_temp::toData(int *size)
 	stringToData(&p1, nsComment);
 	stringToData(&p1, nsBaseUrl);
 	stringToData(&p1, nsRevocationUrl);
+	stringToData(&p1, nsCARevocationUrl);
 	stringToData(&p1, nsRenewalUrl);
 	stringToData(&p1, nsCaPolicyUrl);
 	stringToData(&p1, nsSslServerName);
@@ -262,10 +266,11 @@ int pki_temp::dataSize()
 	nsComment.length() +
 	nsBaseUrl.length() +
 	nsRevocationUrl.length() +
+	nsCARevocationUrl.length() +
 	nsRenewalUrl.length() +
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
-	16 ) * sizeof(char);
+	17 ) * sizeof(char);
 		
 }
 

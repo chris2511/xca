@@ -116,7 +116,7 @@ class MainWindow: public MainWindow_UI
 	db_temp *temps;
 	DbEnv *dbenv;
 	db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg, *tempImg;
+	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg;
 	const static QString xca_title;
    public:
 	QString baseDir, dbfile;

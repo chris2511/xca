@@ -70,7 +70,7 @@ class pki_temp: public pki_base
     public:
 	string C,P,L,O,OU,CN,EMAIL;
 	string subAltName, issAltName, crlDist;
-	string nsComment, nsBaseUrl, nsRevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
+	string nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 	bool ca, bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
 	int type, nsCertType, pathLen, validN, validM, keyUse, eKeyUse;
      

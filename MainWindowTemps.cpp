@@ -62,7 +62,7 @@ void MainWindow::newTemp(int type)
 
 bool MainWindow::alterTemp(pki_temp *temp)
 {
-	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL, tempImg );
+	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL, tempImg, nsImg );
 	CERR <<" Juhuuu" <<endl;
 	dlg->setTemp(temp);
 	CERR <<" Juhuuu" <<endl;
