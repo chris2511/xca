@@ -1015,6 +1015,7 @@ void CertView::showKey(pki_key *key)
 	try {   
 		dlg = new KeyDetail(this, 0, true, 0 );
 		dlg->setKey(key);
+		dlg->exec();
 	} 
 	catch (errorEx &err) {
 		Error(err);

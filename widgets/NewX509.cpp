@@ -488,9 +488,17 @@ void NewX509::showPage(QWidget *page)
 	
 	if (page == page7) {
 		QString issn, subn;
-		subn = getX509name().oneLine();
+		if (fromReqCB->isChecked()) {
+			pki_x509req *req = getSelectedReq();
+			if (req) {
+				subn = req->getSubject().oneLine();
+			}
+		}
+		else
+			subn = getX509name().oneLine();
+		
 		pki_x509 *issuer = getSelectedSigner();
-		if (issuer)
+		if (issuer && foreignSignRB->isChecked())
 			issn = issuer->getSubject().oneLine();
 		else
 			issn = subn;
