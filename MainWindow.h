@@ -87,9 +87,11 @@
 #include "lib/pki_x509req.h"
 #include "lib/pki_x509.h"
 #include "lib/pki_pkcs12.h"
+#include "lib/pki_temp.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"
+#include "lib/db_temp.h"
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -105,14 +107,15 @@ class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
    protected:
-	void addStr(string &str, char *add);
+	void addStr(string &str, const char *add);
    friend class pki_key;
 	db_x509 *certs;
 	db_x509req *reqs;
 	db_key *keys;
+	db_temp *temps;
 	DbEnv *dbenv;
 	db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg;
+	static QPixmap *keyImg, *csrImg, *certImg, *tempImg;
    public:
 	QString baseDir, dbfile;
 	static const int sizeList[];
@@ -124,13 +127,15 @@ class MainWindow: public MainWindow_UI
 	bool showDetailsKey(pki_key *key, bool import = false);
 	void showDetailsReq(pki_x509req *req);
 	bool showDetailsCert(pki_x509 *cert, bool import = false);
+	bool showDetailsTemp(pki_temp *temp);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static void incProgress(int a, int b, void *progress);
 	pki_key *getSelectedKey();
 	void insertKey(pki_key *lkey);
-	void insertCert(pki_x509 *cert);
 	void insertReq(pki_x509req *req);
+	void insertCert(pki_x509 *cert);
+	void insertTemp(pki_temp *temp);
 	string md5passwd();
 	bool opensslError(pki_base *pki);
 	QPixmap *loadImg(const char *name);
@@ -143,15 +148,19 @@ class MainWindow: public MainWindow_UI
 	void newKey();
 	void newReq();
 	void newCert();
+	void newTemp(int type=1);
 	void showDetailsKey(QListViewItem *item);
 	void showDetailsKey();
 	void showDetailsReq(QListViewItem *item);
 	void showDetailsReq();
 	void showDetailsCert();
 	void showDetailsCert(QListViewItem *item);
+	void showDetailsTemp();
+	void showDetailsTemp(QListViewItem *item);
 	void deleteKey();
 	void deleteReq();
 	void deleteCert();
+	void deleteTemp();
 	void writeKey();
 	void writeReq();
 	void writeCert();
@@ -159,15 +168,18 @@ class MainWindow: public MainWindow_UI
 	void showPopupCert(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupKey(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupReq(QListViewItem *item,const QPoint &pt, int x);
+	void showPopupTemp(QListViewItem *item,const QPoint &pt, int x);
 	void startRenameCert();
 	void startRenameKey();
 	void startRenameReq();
+	void startRenameTemp();
 	void setTrust();
 	void revoke();
 	void unRevoke();
 	void renameKey(QListViewItem *item, int col, const QString &text);
 	void renameReq(QListViewItem *item, int col, const QString &text);
 	void renameCert(QListViewItem *item, int col, const QString &text);
+	void renameTemp(QListViewItem *item, int col, const QString &text);
    signals:
 	void keyDone(QString name);
 };

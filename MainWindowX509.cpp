@@ -196,24 +196,11 @@ void MainWindow::newCert()
 	// STEP 4
 	// Subject Alternative name
 	string cont="", subAltName="", issAltName="";
-	if (dlg->subAltCpMail->isChecked()) {
+	if (dlg->subAltCp->isChecked()) {
 		subAltName = "email:copy";
 	}
-	if ((cont = dlg->subAltURL->text().latin1()) != ""){
-		addStr(subAltName,"URI:");
-		subAltName+=cont;
-	}
-	if ((cont = dlg->subAltDNS->text().latin1()) != ""){
-		addStr(subAltName,"DNS:");
-		subAltName+=cont;
-	}
-	if ((cont = dlg->subAltIP->text().latin1()) != ""){
-		addStr(subAltName,"IP:");
-		subAltName+=cont;
-	}
-	if ((cont = dlg->subAltEMAIL->text().latin1()) != ""){
-		addStr(subAltName,"email:");
-		subAltName+=cont;
+	if ((cont = dlg->subAltName->text().latin1()) != ""){
+		addStr(subAltName,cont.c_str());
 	}
 	if (subAltName.length() > 0) {
 		cert->addV3ext(NID_subject_alt_name, subAltName);
@@ -221,24 +208,11 @@ void MainWindow::newCert()
 	}
 	
 	// issuer alternative name	
-	if (dlg->issAltCopy->isChecked()) {
+	if (dlg->issAltCp->isChecked()) {
 		issAltName = "issuer:copy";
 	}
-	if ((cont = dlg->issAltURL->text().latin1()) != ""){
-		addStr(issAltName,"URI:");
-		issAltName+=cont;
-	}
-	if ((cont = dlg->issAltDNS->text().latin1()) != ""){
-		addStr(issAltName,"DNS:");
-		issAltName+=cont;
-	}
-	if ((cont = dlg->issAltIP->text().latin1()) != ""){
-		addStr(issAltName,"IP:");
-		issAltName+=cont;
-	}
-	if ((cont = dlg->issAltEMAIL->text().latin1()) != ""){
-		addStr(issAltName,"email:");
-		issAltName+=cont;
+	if ((cont = dlg->issAltName->text().latin1()) != ""){
+		addStr(issAltName,cont.c_str());
 	}
 	CERR << "HIER" << endl;
 	if (issAltName.length() > 0) {
@@ -255,7 +229,7 @@ void MainWindow::newCert()
 	CERR << "SIGNED" <<endl;
 	insertCert(cert);
 }
-void MainWindow::addStr(string &str, char *add)
+void MainWindow::addStr(string &str, const  char *add)
 {
 	if (str.length() >0) {
 		str += ", ";

@@ -52,7 +52,7 @@
 #include "MainWindow.h"
 
 
-QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL, *MainWindow::certImg = NULL;
+QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL, *MainWindow::certImg = NULL, *MainWindow::tempImg = NULL;
 
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
@@ -81,10 +81,12 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	keyImg = loadImg("bigkey.png");
 	csrImg = loadImg("bigcsr.png");
 	certImg = loadImg("bigcert.png");
+	tempImg = loadImg("bigtemp.png");
 	initPass();
 	keys = new db_key(dbenv, dbfile.latin1(), keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
 	certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
+	temps = new db_temp(dbenv, dbfile.latin1(), tempList);
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
@@ -92,6 +94,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameKey(QListViewItem *, int, const QString &)));
 	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameReq(QListViewItem *, int, const QString &)));
 	connect( certList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameCert(QListViewItem *, int, const QString &)));
+	connect( tempList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameTemp(QListViewItem *, int, const QString &)));
 #endif	
 };
 

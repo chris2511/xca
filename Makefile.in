@@ -9,7 +9,7 @@ TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 
 GCC=@CXX@
-CPPFLAGS=@CPPFLAGS@ -Wall -ggdb
+CPPFLAGS=@CPPFLAGS@ -Wall -g
 
 LIBS=-Llib @LDFLAGS@ @LIBS@ -lxcadb -lpki
 MOC=@MOC@
@@ -34,11 +34,11 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
      TrustState_UI.o TrustState_UI_MOC.o \
      MainWindow.o MainWindow_MOC.o \
-     MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o \
+     MainWindowKeys.o MainWindowX509Req.o \
+     MainWindowX509.o MainWindowTemps.o \
      main.o
 
 all: libs $(OBJS) xca
-	@echo -e "\n\n*****************************************************************\n* If you have comments, compilingproblems, bugs or suggestions, *\n* don't hesitate to contact me at: christian@hohnstaedt.de      *\n*****************************************************************\n"
 
 re: clean all
 
