@@ -186,6 +186,9 @@ void db_base::putInt(QString key, int dat, DbTxn *tid)
 
 void db_base::loadContainer()
 {
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
+	CRYPTO_remove_all_info();
+				
 	DbTxn *tid = NULL;
 	Dbc *cursor = NULL;
 	unsigned char *p;
@@ -202,9 +205,17 @@ void db_base::loadContainer()
 			p = (unsigned char *)d->get_data();
 			int size = d->get_size();
 			try {	
+    fprintf(stderr, "loadContainer 1:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
 				pki = newPKI();
+    fprintf(stderr, "loadContainer 2:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
 				pki->setIntName(desc);
+    fprintf(stderr, "loadContainer 3:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
 				pki->fromData(p, size);
+    fprintf(stderr, "loadContainer 4:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
 				container.append(pki);
 			}
 			catch (errorEx &err) {
@@ -217,13 +228,23 @@ void db_base::loadContainer()
 		delete (k);
 		delete (d);
 		cursor->close();
+    fprintf(stderr, "loadContainer 5:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
 		preprocess();
+    fprintf(stderr, "loadContainer 6:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
 		tid->commit(0);
 	}
 	catch (DbException &err) {
 		tid->abort();
 		throw errorEx(err.what());
 	}
+	data->close(0);
+	container.setAutoDelete(true);
+	container.clear();
+    fprintf(stderr, "loadContainer 1:\n" );
+	CRYPTO_mem_leaks_fp(stderr);
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 }	
 
 void db_base::insertPKI(pki_base *pki)

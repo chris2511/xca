@@ -105,7 +105,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	
 #ifdef MDEBUG	
 	CRYPTO_malloc_debug_init();
-	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 	fprintf(stderr, "malloc() debugging on.\n");
 #endif
 
