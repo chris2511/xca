@@ -8,6 +8,7 @@
 #include "RSAkey.h"
 #include "X509Req.h"
 #include "KeyDB.h"
+#include "ReqDB.h"
 #include <iostream.h>
 #include <qapplication.h>
 #include <qdir.h>
@@ -32,6 +33,8 @@ class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
 	KeyDB *keys;
+	ReqDB *reqs;
+	DbEnv *dbenv;
    public:
 	QString baseDir;
 	static const int sizeList[];

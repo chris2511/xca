@@ -2,13 +2,13 @@
 #include <stdio.h>
 
 
-KeyDB::KeyDB(QString DBfile, QListBox *list, 
+KeyDB::KeyDB(DbEnv *dbe, QString DBfile, QListBox *list, 
 	QObject *parent , const char *name = 0)
 	:QObject( parent, name)
 {
 	listView = list;
-	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN);
-	data = new Db(dbenv, 0);
+	dbenv = dbe;
+	data = new Db(dbe, 0);
 	cerr << "DB:" << DBfile <<"\n";//
 	int x;
 	if ( x = data->open(DBfile,"keydb",DB_BTREE, DB_CREATE,0600)) 

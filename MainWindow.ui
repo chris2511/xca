@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>607</width>
+            <width>603</width>
             <height>533</height>
         </rect>
     </property>
@@ -246,28 +246,6 @@
                 <string>Signing Request</string>
             </attribute>
             <widget>
-                <class>QListBox</class>
-                <item>
-                    <property>
-                        <name>text</name>
-                        <string>New Item</string>
-                    </property>
-                </item>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>ListBox3</cstring>
-                </property>
-                <property stdset="1">
-                    <name>geometry</name>
-                    <rect>
-                        <x>20</x>
-                        <y>20</y>
-                        <width>280</width>
-                        <height>390</height>
-                    </rect>
-                </property>
-            </widget>
-            <widget>
                 <class>QFrame</class>
                 <property stdset="1">
                     <name>name</name>
@@ -310,6 +288,28 @@
                         <string>Neue Anfrage erstellen</string>
                     </property>
                 </widget>
+            </widget>
+            <widget>
+                <class>QListBox</class>
+                <item>
+                    <property>
+                        <name>text</name>
+                        <string>New Item</string>
+                    </property>
+                </item>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>reqList</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>20</x>
+                        <y>20</y>
+                        <width>280</width>
+                        <height>390</height>
+                    </rect>
+                </property>
             </widget>
         </widget>
         <widget>

@@ -8,14 +8,18 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 {
 	connect(quitApp, SIGNAL(clicked()), qApp, SLOT(quit()) );
 	baseDir = QDir::homeDirPath() + BASE_DIR;
+ 	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN);
 	QDir d(baseDir);
 	if ( ! d.exists() ){
 		if (!d.mkdir(baseDir)) 
 		   cerr << "Couldnt create: " << baseDir.latin1() << "\n";
 	}
-	keys = new KeyDB(baseDir + "/xca.db", keyList, this);
+	QString dbfile = baseDir +  "/xca.db";
+	keys = new KeyDB(dbenv, dbfile, keyList, this);
+	reqs = new ReqDB(dbenv, dbfile, reqList, this);
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
+
 
 };
 

@@ -14,7 +14,7 @@ class KeyDB: public QObject
 	QListBox *listView;
 	unsigned char mem[100];
     public:
-	KeyDB(QString DBfile, QListBox *list, 
+	KeyDB(DbEnv *dbe, QString DBfile, QListBox *list, 
 	      QObject *parent, const char *name = 0);
 	~KeyDB();
 	bool updateView();
