@@ -66,8 +66,8 @@ Validity::Validity( QWidget* parent,  const char* name )
 #define CHAR_W 16
     QStringList months;
     months << tr("Jan") << tr("Feb") << tr("Mar") << tr("Apr") 
-	   << tr("Mai") << tr("Jun") << tr("Jul") << tr("Aug")
-	   << tr("Sep") << tr("Okt") << tr("Nov") << tr("Dez");
+	   << tr("May") << tr("Jun") << tr("Jul") << tr("Aug")
+	   << tr("Sep") << tr("Oct") << tr("Nov") << tr("Dec");
     
     if ( !name )
 	setName( "Validity" );

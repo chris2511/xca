@@ -373,8 +373,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
 	}
-	a1time a;
-	notBefore->setDate(a.now());
+	notBefore->setNow();
 	applyTimeDiff();
 }
 

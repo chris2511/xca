@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	read_cmdline();
 	if (exitApp) return;
 	init_baseDir();
-	emit init_database();
+//	emit init_database();
 }
 
 void MainWindow::init_baseDir()

@@ -89,7 +89,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md)
 	openssl_error();
 	X509_REQ_set_version(request, 0L);
 	X509_REQ_set_pubkey(request, key->getKey());
-	X509_REQ_get_subject_name(request) = dn.get();
+	setSubject(dn);
 	openssl_error();
 	X509_REQ_sign(request,key->getKey(), md);
 	openssl_error();
@@ -102,14 +102,14 @@ void pki_x509req::fload(const QString fname)
 	X509_REQ *_req;
 	if (fp != NULL) {
 		_req = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
-		// if der format
+		// if DER format
 		if (!_req) {
 			ign_openssl_error();
 			rewind(fp);
 			_req = d2i_X509_REQ_fp(fp, NULL);
 		}
 		// SPKAC
-		if (!request) {
+		if (!_req) {
 			ign_openssl_error();
 			rewind(fp);
 			load_spkac(fname);
@@ -123,8 +123,11 @@ void pki_x509req::fload(const QString fname)
 	if (getIntName().isEmpty())
 		setIntName(rmslashdot(fname));
 	openssl_error();
-	X509_REQ_free(request);
-	request = _req;
+	
+	if( _req ) {
+		X509_REQ_free(request);
+		request = _req;
+	}
 }
 
 void pki_x509req::fromData(unsigned char *p, int size)
@@ -207,20 +210,22 @@ bool pki_x509req::compare(pki_base *refreq)
 	
 int pki_x509req::verify()
 {
-	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
-	 bool x = (X509_REQ_verify(request,pkey) >= 0);
-	 if ( !x  && spki != NULL) {
- 		ign_openssl_error();
+	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
+	bool x = (X509_REQ_verify(request,pkey) >= 0);
+	if ( !x  && spki != NULL) {
+		ign_openssl_error();
 		x = NETSCAPE_SPKI_verify(spki, pkey) >= 0;
-	 }
-	 EVP_PKEY_free(pkey);
-	 openssl_error();
-	 return x;
+	}
+	EVP_PKEY_free(pkey);
+	openssl_error();
+	return x;
 }
 
 pki_key *pki_x509req::getPubKey() const
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
+	 ign_openssl_error();
+	 if (pkey == NULL) return NULL;
 	 pki_key *key = new pki_key(pkey);	
 	 openssl_error();
 	 return key;
@@ -331,11 +336,8 @@ void pki_x509req::load_spkac(const QString filename)
 	long errline;
 	int nid;
 	bool spki_found =false;
-	// if we are called from a contructor, we should leave
-	// with the request structure cleaned up upon error.
-	bool ctor_excursion = (request == NULL);
 
-	try { // be aware of any expections
+	try { // be aware of any exceptions
 		parms=CONF_load(NULL,filename.latin1(),&errline);
 		if (parms == NULL)
 			openssl_error(QString("error on line %1 of %2\n")
@@ -345,13 +347,6 @@ void pki_x509req::load_spkac(const QString filename)
 		if (sk_CONF_VALUE_num(sk) == 0)
 			openssl_error(QString("no name/value pairs found in %1\n").arg(filename));
 
-		/*
-		   Create the request structure, if we are called from 
-		   inside a constructor
-		*/
-		if (ctor_excursion) request = X509_REQ_new();
-		if (request == NULL)
-			openssl_error();
 		/*
 		 * Build up the subject name set.
 		 */
@@ -397,15 +392,10 @@ void pki_x509req::load_spkac(const QString filename)
 		 */
 		setSubject(subject);
 		if (parms != NULL) CONF_free(parms);
-	        }
+		}
 	catch (errorEx &e)
 		{
-		// clean up the request pointer since we are called from within
-		// the ctor.
-		if (request != NULL){
-			 X509_REQ_free(request);
-			 request=NULL;
-		}
+		// clean up the request pointer
 		if (spki){
 			NETSCAPE_SPKI_free(spki);
 			spki=NULL;

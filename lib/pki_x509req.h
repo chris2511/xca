@@ -89,6 +89,7 @@ class pki_x509req : public pki_x509super
 	   void updateView();
 	   QString getSigAlg();
 	   void setSubject(const x509name &n);
+	   /* SPKAC special functions */
 	   void setSPKIFromData(unsigned char *p, int size);
 	   void setSPKIBase64(const char *p);
 	   void set_spki(NETSCAPE_SPKI *_spki);

@@ -62,6 +62,7 @@ void MainWindow::init_database() {
 	
 	if (dbenv) return; // already initialized....
 	try {
+		global_tid = NULL;
 		dbenv = new DbEnv(0);
 		dbenv->set_errcall(&MainWindow::dberr);
 		dbenv->open(QFile::encodeName(baseDir), DB_RECOVER | DB_INIT_TXN | \
@@ -76,7 +77,8 @@ void MainWindow::init_database() {
 	catch (DbException &err) {
 		QString e = err.what();
 		e += QString::fromLatin1(" (") + baseDir + QString::fromLatin1(")");
-		global_tid->abort();
+		if (global_tid)
+			global_tid->abort();
 	    dbenv->close(0);
 	    dbenv = NULL;
 		return;
@@ -150,6 +152,7 @@ void MainWindow::close_database()
 	tempList->rmDB(temps);
 	keyList->rmDB(keys);
 	global_tid->commit(0);
+	global_tid = NULL;
 	dbenv->close(0);
 	pki_key::erasePasswd();
 	dbenv = NULL;
