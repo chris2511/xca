@@ -51,31 +51,33 @@
 
 #include "CrlView.h"
 #include <qpopupmenu.h>
+#include <qmessagebox.h>
+#include "widgets/CrlDetail.h"
 #include "lib/pki_crl.h"
 #include "widgets/MainWindow.h"
 
 
 void CrlView::showItem(pki_base *item, bool import)
 {
-	pki_crl *crl = (pki_crl *)item;
-	if (!crl) return;
+	if (!item) return;
     try {
-	CrlDetail_UI *dlg = new CrlDetail(this,0,true);
-	connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
-		this, SLOT( showDetailsCert(QListViewItem *) ));
+	CrlDetail *dlg = new CrlDetail(this,0,true);
+	// to be moved to Mainwindow.cpp:
+	//connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
+	//	this, SLOT( showCert(QListViewItem *) ));
 	QString odesc = crl->getIntName();
-	ret = dlg->exec();
+	bool ret = dlg->exec();
 	QString ndesc = dlg->descr->text();
 	delete dlg;
 	if (!ret && import) {
-                delete crl;
+                delete item;
         }
 	if (!ret) return;
 	if (MainWindow::crls == NULL) {
                 emit init_database();
         }
 	if (import) {
-                crl = insert(crl);
+                item = insert(item);
         }
 	
 	if (ndesc != odesc) {
@@ -98,34 +100,31 @@ void CrlView::deleteItem()
 
 pki_base *CrlView::loadItem(QString fname)
 {
-        pki_base *crl = new pki_crl(fname, &MainWindow::passRead);
+        pki_base *crl = new pki_crl(fname);
         return crl;
 }
 		
-void CrlView::loadCrl()
+void CrlView::load()
 {
 	QStringList filter;
-	filt.append(tr("Revokation lists ( *.pem *.crl )")); 
-	filt.append(tr("All files ( *.* )"));
+	filter.append(tr("Revokation lists ( *.pem *.crl )")); 
+	filter.append(tr("All files ( *.* )"));
 	load_default(filter, tr("Load CRL"));
 }
 
-pki_crl *CrlView::insert(pki_base *item)
+pki_base *CrlView::insert(pki_base *item)
 {
     pki_crl * crl = (pki_crl *)item;
     try {
-	MARK
 	pki_crl *oldcrl = (pki_crl *)crls->findPKI(crl);
-	MARK
 	if (oldcrl) {
 	   QMessageBox::information(this,tr(XCA_TITLE),
-		tr("The revokation list already exists in the database as") +":\n'" +
-		QString::fromLatin1(oldcrl->getDescription().c_str()) + 
+		tr("The revokation list already exists in the database as") +
+		":\n'" + oldcrl->getIntName() + 
 		"'\n" + tr("and so it was not imported"), "OK");
 	   delete(crl);
 	   return oldcrl;
 	}
-	CERR( "insertCrl: inserting" );
 	crls->insertPKI(crl);
     }
     catch (errorEx &err) {
@@ -147,7 +146,7 @@ void CrlView::store(bool pem)
 	{
 	pki_crl *crl;
 	try {
-                crl = (pki_crl *)crls->getSelectedPKI();
+                crl = (pki_crl *)getSelected();
         }
 	catch (errorEx &err) {
 		Error(err);
@@ -163,11 +162,12 @@ void CrlView::store(bool pem)
 	dlg->setCaption(tr("Export Certificate revokation list"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
-	dlg->setSelection( (crl->getDescription() + ".crl").c_str() );
-	setPath(dlg);
+	dlg->setSelection( (crl->getIntName() + ".crl") );
+	dlg->setDir(MainWindow::getPath());
+
 	if (dlg->exec()) {
 		s = dlg->selectedFile();
-		newPath(dlg);
+		MainWindow::setPath(dlg->dirPath);
 	}
 	delete dlg;
 	if (s.isEmpty()) return;

@@ -227,13 +227,12 @@ void KeyView::store()
 	ExportKey *dlg = new ExportKey((targetKey->getIntName() + ".pem"),
 			targetKey->isPubKey(), MainWindow::getPath(), this);
 	dlg->image->setPixmap(*MainWindow::keyImg);
-	int dlgret = dlg->exec();
-	MainWindow::setPath(dlg->dirPath);
-
-	if (!dlgret) {
+	
+	if (dlg->exec()) {
 		delete dlg;
 		return;
 	}
+	MainWindow::setPath(dlg->dirPath);
 	QString fname = dlg->filename->text();
 	if (fname.isEmpty()) {
 		delete dlg;

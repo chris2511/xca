@@ -76,6 +76,8 @@ class x509name
 	void addEntryByNid(int nid, const QString entry);
 	void delEntry(int i);
 	X509_NAME *get() const;
+	int derSize() const;
+		
 };
 
 #endif

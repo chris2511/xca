@@ -186,7 +186,7 @@ void ReqView::store(bool pem)
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	dlg->setSelection( req->getIntName() + ".csr" );
-
+	dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
 		s = dlg->selectedFile();
 		MainWindow::setPath(dlg->dirPath());

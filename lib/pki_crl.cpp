@@ -93,9 +93,8 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	setIntName(d);
 	issuer = iss;
 	if (!iss) openssl_error("no issuer");
-	X509_CRL_INFO *ci = crl->crl;
 	openssl_error();
-	ci->issuer = issuer->getSubject().get();
+	crl->crl->issuer = issuer->getSubject().get();
 	openssl_error();
 }	
 

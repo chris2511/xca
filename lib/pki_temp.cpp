@@ -167,7 +167,7 @@ void pki_temp::fromData(unsigned char *p, int size )
 	if (version == 1) {
 		int validN = intFromData(&p1);
 		int validM = intFromData(&p1);
-		int x[] = {1, 30, 365 }
+		int x[] = {1, 30, 365 };
 	}
 	keyUse=intFromData(&p1);
 	eKeyUse=intFromData(&p1);
@@ -193,7 +193,7 @@ void pki_temp::fromData(unsigned char *p, int size )
 	nsSslServerName=stringFromData(&p1);
 	//next version:
 	if (version == 2) { 
-		xn = d2i_X509_NAME(&xname, &p1);
+		xn = d2i_X509_NAME(&xn, &p1, 0);
 		xname.set(xn);
 	}
 	if (p1-p != size) {
@@ -210,6 +210,7 @@ unsigned char *pki_temp::toData(int *size)
 	*size = dataSize();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
+	version = 2;
 	intToData(&p1, version);
 	intToData(&p1, type);
 	boolToData(&p1, ca);
@@ -221,18 +222,9 @@ unsigned char *pki_temp::toData(int *size)
 	boolToData(&p1, subAltCp);
 	boolToData(&p1, issAltCp);
 	intToData(&p1, pathLen);
-	intToData(&p1, validN);
-	intToData(&p1, validM);
 	intToData(&p1, keyUse);
 	intToData(&p1, eKeyUse);
 	intToData(&p1, nsCertType);
-	stringToData(&p1, C);
-	stringToData(&p1, P);
-	stringToData(&p1, L);
-	stringToData(&p1, O);
-	stringToData(&p1, OU);
-	stringToData(&p1, CN);
-	stringToData(&p1, EMAIL);
 	stringToData(&p1, subAltName);
 	stringToData(&p1, issAltName);
 	stringToData(&p1, crlDist);
@@ -258,14 +250,9 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	return 8 * sizeof(int) + 8 * sizeof(bool) + (
-	C.length() +
-	P.length() +
-	L.length() +
-	O.length() +
-	OU.length() +
-	CN.length() +
-	EMAIL.length() +
+	return 6 * sizeof(int) + 
+	       8 * sizeof(bool) + 
+	       xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
 	crlDist.length() +
@@ -276,7 +263,7 @@ int pki_temp::dataSize()
 	nsRenewalUrl.length() +
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
-	17 ) * sizeof(char);
+	10 ) * sizeof(char);
 		
 }
 

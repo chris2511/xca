@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>601</width>
+            <width>597</width>
             <height>543</height>
         </rect>
     </property>
@@ -694,34 +694,10 @@
                         <number>6</number>
                     </property>
                     <widget>
-                        <class>QListView</class>
-                        <column>
-                            <property>
-                                <name>text</name>
-                                <string>Name</string>
-                            </property>
-                            <property>
-                                <name>clickable</name>
-                                <bool>true</bool>
-                            </property>
-                            <property>
-                                <name>resizeable</name>
-                                <bool>true</bool>
-                            </property>
-                        </column>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>Item</string>
-                        </property>
-                        <property>
-                            <name>pixmap</name>
-                            <pixmap></pixmap>
-                        </property>
-                    </item>
+                        <class>CrlView</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>revList</cstring>
+                            <cstring>crlList</cstring>
                         </property>
                     </widget>
                     <widget>
@@ -751,7 +727,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>PushButton13_2_2_2_2</cstring>
+                                    <cstring>BNimportCrl</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -762,7 +738,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>PushButton26_2_2_2</cstring>
+                                    <cstring>BNdetailsCrl</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -773,7 +749,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>PushButton13_2_2_5_2</cstring>
+                                    <cstring>BNdeleteCrl</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -946,6 +922,20 @@
             <verdata>7</verdata>
         </sizepolicy>
         <pixmap>image0</pixmap>
+    </customwidget>
+    <customwidget>
+        <class>CrlView</class>
+        <header location="local">CrlView.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image1</pixmap>
     </customwidget>
 </customwidgets>
 <images>

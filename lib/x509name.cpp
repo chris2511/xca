@@ -166,3 +166,8 @@ X509_NAME *x509name::get() const
 {
 	return X509_NAME_dup(xn);
 }
+
+int x509name::derSize() const
+{
+	return i2d_X509_NAME(xn, NULL);
+}
