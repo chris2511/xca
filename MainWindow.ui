@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>607</width>
+            <width>599</width>
             <height>533</height>
         </rect>
     </property>
@@ -237,7 +237,21 @@
                 </widget>
             </widget>
             <widget>
-                <class>QListBox</class>
+                <class>QListView</class>
+                <column>
+                    <property>
+                        <name>text</name>
+                        <string>Schlüssel</string>
+                    </property>
+                    <property>
+                        <name>clickable</name>
+                        <bool>true</bool>
+                    </property>
+                    <property>
+                        <name>resizeable</name>
+                        <bool>true</bool>
+                    </property>
+                </column>
                 <property stdset="1">
                     <name>name</name>
                     <cstring>keyList</cstring>
@@ -245,9 +259,9 @@
                 <property stdset="1">
                     <name>geometry</name>
                     <rect>
-                        <x>20</x>
+                        <x>10</x>
                         <y>20</y>
-                        <width>280</width>
+                        <width>290</width>
                         <height>390</height>
                     </rect>
                 </property>
@@ -412,7 +426,21 @@
                 </widget>
             </widget>
             <widget>
-                <class>QListBox</class>
+                <class>QListView</class>
+                <column>
+                    <property>
+                        <name>text</name>
+                        <string>Anfragen</string>
+                    </property>
+                    <property>
+                        <name>clickable</name>
+                        <bool>true</bool>
+                    </property>
+                    <property>
+                        <name>resizeable</name>
+                        <bool>true</bool>
+                    </property>
+                </column>
                 <property stdset="1">
                     <name>name</name>
                     <cstring>reqList</cstring>
@@ -420,9 +448,9 @@
                 <property stdset="1">
                     <name>geometry</name>
                     <rect>
-                        <x>20</x>
+                        <x>10</x>
                         <y>20</y>
-                        <width>280</width>
+                        <width>290</width>
                         <height>390</height>
                     </rect>
                 </property>
@@ -587,7 +615,21 @@
                 </widget>
             </widget>
             <widget>
-                <class>QListBox</class>
+                <class>QListView</class>
+                <column>
+                    <property>
+                        <name>text</name>
+                        <string>Zertifikate</string>
+                    </property>
+                    <property>
+                        <name>clickable</name>
+                        <bool>true</bool>
+                    </property>
+                    <property>
+                        <name>resizeable</name>
+                        <bool>true</bool>
+                    </property>
+                </column>
                 <property stdset="1">
                     <name>name</name>
                     <cstring>certList</cstring>
@@ -595,9 +637,9 @@
                 <property stdset="1">
                     <name>geometry</name>
                     <rect>
-                        <x>20</x>
+                        <x>10</x>
                         <y>20</y>
-                        <width>280</width>
+                        <width>290</width>
                         <height>390</height>
                     </rect>
                 </property>
@@ -772,12 +814,6 @@
         <slot>showDetailsKey()</slot>
     </connection>
     <connection>
-        <sender>keyList</sender>
-        <signal>doubleClicked(QListBoxItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsKey()</slot>
-    </connection>
-    <connection>
         <sender>PushButton13</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
@@ -786,12 +822,6 @@
     <connection>
         <sender>PushButton25</sender>
         <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsReq()</slot>
-    </connection>
-    <connection>
-        <sender>reqList</sender>
-        <signal>doubleClicked(QListBoxItem*)</signal>
         <receiver>MainWindow_UI</receiver>
         <slot>showDetailsReq()</slot>
     </connection>
@@ -860,12 +890,6 @@
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
         <slot>deleteKey()</slot>
-    </connection>
-    <connection>
-        <sender>certList</sender>
-        <signal>doubleClicked(QListBoxItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsCert()</slot>
     </connection>
     <slot access="public">deleteCert()</slot>
     <slot access="public">deleteKey()</slot>

@@ -1,5 +1,5 @@
 #include <db_cxx.h>
-#include <qlistbox.h>
+#include <qlistview.h>
 #include <qlist.h>
 #include "pki_base.h"
 
@@ -12,10 +12,11 @@ class db_base
     protected:
 	Db *data;
 	DbEnv *dbenv;
-	QListBox *listView;
+	QListView *listView;
 	QList<pki_base> container;
+	char *passwd;
     public:
-	db_base(DbEnv *dbe, string DBfile, string db, QListBox *l);
+	db_base(DbEnv *dbe, string DBfile, string db, QListView *l);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		cerr<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
@@ -27,6 +28,7 @@ class db_base
 	pki_base *getSelectedPKI();
 	pki_base *findPKI(pki_base *refpki);
 	virtual void loadContainer();
+	virtual void remFromCont(pki_base *pki);
 };
 
 #endif

@@ -17,8 +17,8 @@ class pki_x509req : public pki_base
 		   const string d);
 	   pki_x509req();
 	   pki_x509req(const string fname);
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
+	   virtual bool fromData(char *passwd, unsigned char *p, int size);
+	   virtual unsigned char *toData(char *passwd, int *size);
 	   virtual bool compare(pki_base *refreq);
 	   string getDN(int nid);
 	   void writeReq(const string fname, bool PEM);

@@ -9,9 +9,9 @@
 
 class pki_x509 : public pki_base
 {
-	   pki_x509 *parent; // the signer
 	   bool trust;
 	   X509 *cert;
+	   pki_x509 *psigner;
 	public:
 	   pki_x509(pki_key *key, const string cn, 
 		   const string c, const string l,
@@ -20,8 +20,8 @@ class pki_x509 : public pki_base
 		   const string d, int days=365);
 	   pki_x509();
 	   pki_x509(const string fname);
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
+	   virtual bool fromData(char *passwd, unsigned char *p, int size);
+	   virtual unsigned char *toData(char *passwd, int *size);
 	   virtual bool compare(pki_base *refcert);
 	   string getDNs(int nid);
 	   string getDNi(int nid);
@@ -30,6 +30,8 @@ class pki_x509 : public pki_base
 	   pki_key *getKey();
 	   string notAfter();
 	   string notBefore();
+	   pki_x509 *getSigner();
+	   void pki_x509::delSigner();
 };
 
 #endif

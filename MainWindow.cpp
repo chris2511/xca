@@ -16,14 +16,14 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 		if (!d.mkdir(baseDir)) 
 		   cerr << "Couldnt create: " << baseDir.latin1() << "\n";
 	}
-	QString dbfile = baseDir +  "/xca.db";
-	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList);
-	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList);
-	certs = new db_x509(dbenv, dbfile.latin1(), "certdb", certList);
+	dbfile = baseDir +  "/xca.db";
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
-
-
+	loadSettings();
+	initPass();
+	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList, passwd);
+	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList);
+	certs = new db_x509(dbenv, dbfile.latin1(), "certdb", certList);
 };
 
 
@@ -36,8 +36,79 @@ MainWindow::~MainWindow()
 	 delete(certs);
 }
 
+void MainWindow::loadSettings()
+{
+	int x;
+	Dbc *cursor;
+	Db *data = new Db(dbenv, 0);
+	Dbt *k = new Dbt();
+	Dbt *d = new Dbt();
+	if ((x = data->open(dbfile.latin1(), "settings", DB_BTREE, DB_CREATE, 0600))) 
+		data->err(x,"DB open");
+	if ((x = data->cursor(NULL, &cursor, 0)))
+		data->err(x,"DB new Cursor");
+	cerr <<"laden" <<endl;
+	while (!cursor->get(k, d, DB_NEXT)) {
+		cerr << "in Whileload: "<< endl;
+		if (x) data->err(x,"DB Error get");
+		else {
+			settings.insert((char *)k->get_data(), (char *)d->get_data());
+		}
+	}
+	cerr <<"pwhash " << settings["pwhash"] <<endl;
+	data->close(0);
+	delete(d);
+	delete(k);
+	delete(data);
+}
 
-// Static Password Callback functions
+void MainWindow::saveSettings()
+{
+	int x;
+	Dbc *cursor;
+	Db *data = new Db(dbenv, 0);
+	if ((x = data->open(dbfile.latin1(), "settings", DB_BTREE, DB_CREATE, 0600))) 
+		data->err(x,"DB open");
+	if ((x = data->cursor(NULL, &cursor, 0)))
+		data->err(x,"DB new Cursor");
+        QAsciiDictIterator<char> it(settings);
+        for ( ; it.current(); ++it ) {
+		cerr << "in save: "<< it.current() << endl;
+		Dbt k( (void *)it.currentKey(), strlen(it.currentKey()) +1 );
+		Dbt d( (void *)it.current(), strlen(it.current()) +1 );
+		cerr << it.currentKey() << " -- " << it.current() <<endl;
+		int x = data->put(NULL, &k, &d, 0);
+		if (x) data->err(x,"DB Error put");
+	}
+	data->close(0);
+	delete(data);
+}
+
+void MainWindow::initPass()
+{
+	if (!settings["pwhash"]) {
+		int keylen = passWrite(passwd, sizeof(passwd), 0, NULL);
+		if (keylen == 0) {
+			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
+		}
+		passwd[keylen]='\0';
+		settings.insert( "pwhash", passwd );
+		settings.insert( "meier", "aaaa");
+		settings.insert( "mueller", "bbbbb");
+		saveSettings();
+	}
+	else {
+	    while (strncmp(passwd, settings["pwhash"], sizeof(passwd))) {
+		int keylen = passRead(passwd, sizeof(passwd), 0, NULL);
+		if (keylen == 0) {
+			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
+		}
+		passwd[keylen]='\0';
+		cerr << passwd << " - " << settings["pwhash"] << endl;
+	    }
+	}
+}
+	    // Static Password Callback functions
 
 int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 {

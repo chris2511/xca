@@ -11,14 +11,15 @@ class pki_base
 	string desc;
 	string error;
 	bool openssl_error();
+	void *pointer; 
     public:
 	enum { VERIFY_ERROR, VERIFY_SELFSIGNED, VERIFY_TRUSTED, 
 	       VERIFY_UNTRUSTED, VERIFY_OK }; 
 	pki_base(const string d);
 	pki_base();
-	virtual void fromData(unsigned char *p, int size){
-		cerr << "VIRTUAL FUNCTION CALLED: fromData\n"; };
-	virtual unsigned char *toData(int *size){
+	virtual bool fromData(char *passwd, unsigned char *p, int size){
+		cerr << "VIRTUAL FUNCTION CALLED: fromData\n"; return false; };
+	virtual unsigned char *toData(char *passwd, int *size){
 		cerr << "VIRTUAL FUNCTION CALLED: toData\n";
 		return NULL;};
 	virtual bool compare(pki_base *ref){
@@ -28,6 +29,9 @@ class pki_base
         string getDescription();
         void setDescription(const string d );
 	string getError();
+	void setPointer(void *ptr) { pointer = ptr; }
+	void delPointer() { pointer = NULL; }
+	void *getPointer() { return pointer; }
 };
 
 #endif

@@ -19,7 +19,7 @@
 #include <qdir.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
-#include <qlistbox.h>
+#include <qlistview.h>
 #include <qobjectlist.h>
 #include <qobjcoll.h>
 #include <qlabel.h>
@@ -27,6 +27,7 @@
 #include <qmessagebox.h>
 #include <qcheckbox.h>
 #include <qprogressdialog.h>
+#include <qasciidict.h>
 #include <qobject.h>
 
 #ifndef MAINWINDOW_H
@@ -43,11 +44,16 @@ class MainWindow: public MainWindow_UI
 	db_x509req *reqs;
 	db_key *keys;
 	DbEnv *dbenv;
+	char passwd[30];
    public:
-	QString baseDir;
+	QAsciiDict<char> settings;
+	QString baseDir, dbfile;
 	static const int sizeList[];
 	MainWindow(QWidget *parent, const char *name);
 	~MainWindow(); 
+	void loadSettings();
+	void saveSettings();
+	void initPass();
 	void showDetailsKey(pki_key *key);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);

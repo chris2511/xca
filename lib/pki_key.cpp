@@ -79,51 +79,86 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 }
 
 
-void pki_key::fromData(unsigned char *p, int size )
+bool pki_key::fromData(char *passwd, unsigned char *p, int size )
 {
 	cerr << "KEY fromData\n";
-	unsigned char *sik;
-	sik = (unsigned char *)OPENSSL_malloc(size);
+	unsigned char *sik, *pdec, *pdec1, *sik1;
+	int outl, decsize;
 	RSA *rsakey;
-	memcpy(sik,p,size);
+	EVP_CIPHER_CTX ctx;
+	sik = (unsigned char *)OPENSSL_malloc(size);
+	if ( sik == NULL ) return false;
+	pdec = (unsigned char *)OPENSSL_malloc(size);
+	if (pdec == NULL ) {OPENSSL_free(sik); return false;}
+	pdec1=pdec;
+	sik1=sik;
+	
+	EVP_CIPHER_CTX_init (&ctx);
+	EVP_DecryptInit( &ctx, EVP_des_ede3_cbc(),(unsigned char *)passwd, NULL);
+	EVP_DecryptUpdate( &ctx, pdec, &outl, p, size );
+	decsize = outl;
+	EVP_DecryptFinal( &ctx, pdec + decsize, &outl );
+	decsize += outl;
+	cerr << "Encr done: " << size << "--" << decsize << endl;
+	if (openssl_error()) return false;
+	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
-	   rsakey = d2i_RSAPrivateKey(NULL, &p, size);
+	   rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
 	   if (openssl_error()) {
-		rsakey = d2i_RSA_PUBKEY(NULL, &sik, size);
+		rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
 	   }
-	   openssl_error(); 
+	   if (openssl_error()) return false; 
 	   if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
 	}
-	OPENSSL_free(sik);
+	OPENSSL_free(sik1);
+	OPENSSL_free(pdec1);
+	return true;
 }
 
 
-unsigned char *pki_key::toData(int *size) 
+unsigned char *pki_key::toData(char *passwd, int *size) 
 {
 	cerr << "KEY toData " << getDescription()<< endl;
-	unsigned char *p = NULL , *p1;
+	unsigned char *p, *p1, *penc;
+	int outl, encsize=0;
+	EVP_CIPHER_CTX ctx;
+	
+	EVP_CIPHER_CTX_init (&ctx);
+	EVP_EncryptInit( &ctx, EVP_des_ede3_cbc(),(unsigned char *)passwd , NULL);
 	if (key->type == EVP_PKEY_RSA) {
 	   if (isPubKey()) {
 	      *size = i2d_RSA_PUBKEY(key->pkey.rsa, NULL);
 	      cerr << "Sizeofpubkey: " << *size <<endl;
 	      openssl_error();
 	      p = (unsigned char *)OPENSSL_malloc(*size);
+	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH - 1);
 	      p1 = p;
 	      i2d_RSA_PUBKEY(key->pkey.rsa, &p1);
-	   openssl_error();
+	      EVP_EncryptUpdate( &ctx, penc, &outl, p, *size );
+	      encsize = outl;
+	      openssl_error();
+	      
 	   }
 	   else {
 	      *size = i2d_RSAPrivateKey(key->pkey.rsa, NULL);
 	      cerr << "Sizeofprivkey: " << *size <<endl;
 	      openssl_error();
 	      p = (unsigned char *)OPENSSL_malloc(*size);
+	      penc = (unsigned char *)OPENSSL_malloc(*size +  EVP_MAX_KEY_LENGTH - 1);
 	      p1 = p;
 	      i2d_RSAPrivateKey(key->pkey.rsa, &p1);
+	      EVP_EncryptUpdate( &ctx, penc, &outl, p, *size );
+	      encsize = outl;
 	      openssl_error();
 	   }
 	}
-	cerr << "KEY toData end ...\n";
-	return p;
+	EVP_EncryptFinal( &ctx, penc + encsize, &outl );
+	encsize += outl;
+	OPENSSL_free(p);
+	
+	cerr << "KEY toData end ..."<< encsize << "--"<<*size <<endl;
+	*size = encsize;
+	return penc;
 }
 
 

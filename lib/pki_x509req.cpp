@@ -74,10 +74,11 @@ pki_x509req::pki_x509req(const string fname)
 }
 
 
-void pki_x509req::fromData(unsigned char *p, int size)
+bool pki_x509req::fromData(char *passwd, unsigned char *p, int size)
 {
 	request = d2i_X509_REQ(NULL, &p, size);
-	openssl_error();
+	if (openssl_error()) return false;
+	return true;
 }
 
 
@@ -92,7 +93,7 @@ string pki_x509req::getDN(int nid)
 }
 
 
-unsigned char *pki_x509req::toData(int *size)
+unsigned char *pki_x509req::toData(char *passwd, int *size)
 {
 	unsigned char *p, *p1;
 	*size = i2d_X509_REQ(request, NULL);
@@ -147,8 +148,6 @@ int pki_x509req::verify()
 pki_key *pki_x509req::getKey()
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
-	 pki_key *key = new pki_key("");	
-	 key->key=pkey;
-	 key->onlyPubKey=true;
+	 pki_key *key = new pki_key(pkey);	
 	 return key;
 }

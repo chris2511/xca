@@ -67,7 +67,7 @@ pki_x509::pki_x509(pki_key *key, const string cn,
 	}
 	openssl_error();
 	trust = true;
-	parent = NULL;
+	psigner = NULL;
 }
 
 
@@ -76,7 +76,7 @@ pki_x509::pki_x509() : pki_base()
 {
 	cert = X509_new();
 	openssl_error();
-	parent= NULL;
+	psigner = NULL;
 	trust = false;
 }
 
@@ -102,14 +102,15 @@ pki_x509::pki_x509(const string fname)
 	else error = "Fehler beim Öffnen der Datei";
 	fclose(fp);
 	trust = false;
-	parent = NULL;
+	psigner = NULL;
 }
 
 
-void pki_x509::fromData(unsigned char *p, int size)
+bool pki_x509::fromData(char *passwd, unsigned char *p, int size)
 {
 	cert = d2i_X509(NULL, &p, size);
-	openssl_error();
+	if (openssl_error()) return false;
+	return true;
 }
 
 
@@ -155,7 +156,7 @@ string pki_x509::notAfter()
 	return time;
 }
 
-unsigned char *pki_x509::toData(int *size)
+unsigned char *pki_x509::toData(char *passwd, int *size)
 {
 	unsigned char *p, *p1;
 	*size = i2d_X509(cert, NULL);
@@ -200,19 +201,38 @@ bool pki_x509::compare(pki_base *refreq)
 	
 bool pki_x509::verify(pki_x509 *signer)
 {
-	 if (parent == signer) return true;
-	 if (parent != NULL) return false;
-	 EVP_PKEY *pkey = X509_get_pubkey(signer->cert);
-	 int i = X509_verify(cert,pkey);
-	 EVP_PKEY_free(pkey);
-	 openssl_error();
-	 if (i>0)  return true;
-	 return false;
+	if (psigner == signer) return true;
+	if (psigner != NULL) return false;
+	if (getDNi(NID_commonName) != signer->getDNs(NID_commonName)) { 
+		return false;
+	}
+	EVP_PKEY *pkey = X509_get_pubkey(signer->cert);
+	int i = X509_verify(cert,pkey);
+	openssl_error();
+	if (i>0) {
+		cerr << "psigner set for: " << getDescription().c_str() << endl;
+		psigner = signer;
+		return true;
+	}
+	return false;
 }
 
 pki_key *pki_x509::getKey()
 {
-	 EVP_PKEY *pkey = X509_get_pubkey(cert);
-	 pki_key *key = new pki_key(pkey);	
-	 return key;
+	EVP_PKEY *pkey = X509_get_pubkey(cert);
+	pki_key *key = new pki_key(pkey);	
+	return key;
 }
+
+pki_x509 *pki_x509::getSigner()
+{
+	cerr << "getSigner..." << psigner << endl;
+	return (psigner);
+}
+
+void pki_x509::delSigner()
+{
+	cerr << "delSigner..." << psigner << endl;
+	psigner=NULL;
+}
+

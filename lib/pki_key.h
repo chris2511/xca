@@ -47,8 +47,8 @@ class pki_key: public pki_base
 	
 	pki_key(const string d, int type=EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
-	void fromData(unsigned char *p, int size);
-	unsigned char *toData(int *size);
+	bool fromData(char *passwd, unsigned char *p, int size);
+	unsigned char *toData(char* passwd, int *size);
 	bool compare(pki_base *ref);
         string length();
         string modulus();

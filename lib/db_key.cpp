@@ -1,9 +1,10 @@
 #include "db_key.h"
 
 
-db_key::db_key(DbEnv *dbe, string DBfile, string DB, QListBox *l)
+db_key::db_key(DbEnv *dbe, string DBfile, string DB, QListView *l, char *pass)
 	:db_base(dbe, DBfile, DB, l)
 {
+	passwd = pass;
 	loadContainer();
 	updateView();
 }

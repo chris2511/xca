@@ -5,16 +5,27 @@ TARGET=xca-$(VERSION)
 PREFIX=/usr/X11R6
 GCC=g++
 CFLAGS=-Wall -g
-QTDIR=$(shell ./configure)
-QTDIR=/usr/lib/qt
-DEBQT=/usr/include/qt
 
-export INC=-I$(QTDIR)/include -I$(DEBQT)
+###########################
+# LFS
+
+QTDIR=/usr/lib/qt
+export INC=-I$(QTDIR)/include 
 LPATH=-L$(QTDIR)/lib -Llib
 LIBS=-lqt -lcrypto -ldb_cxx -lxcadb -lpki
-
 MOC=$(QTDIR)/bin/moc
 UIC=$(QTDIR)/bin/uic
+
+###########################
+#  debian woody
+
+#export INC=-I/usr/include/qt 
+#LPATH=-Llib
+#LIBS=-lqt -lcrypto -ldb3_cxx -lxcadb -lpki
+#MOC=/usr/bin/moc
+#UIC=/usr/bin/uic
+
+###################################
 
 OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      KeyDetail_UI.o KeyDetail_UI_MOC.o \
