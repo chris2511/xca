@@ -1,5 +1,6 @@
 #include "MainWindow_UI.h"
 #include "KeyDetail_UI.h"
+#include "ReqDetail_UI.h"
 #include "PassRead_UI.h"
 #include "PassWrite_UI.h"
 #include "NewKey_UI.h"
@@ -27,6 +28,7 @@
 #define MAINWINDOW_H
 
 #define BASE_DIR "/xca"
+#define DBFILE "xca.db"
 
 
 class MainWindow: public MainWindow_UI
@@ -51,6 +53,8 @@ class MainWindow: public MainWindow_UI
 	virtual void newKey();
 	virtual void showDetailsKey();
 	virtual void deleteKey();
-	virtual void newX509Req();
+	virtual void newReq();
+	virtual void showDetailsReq();
+	virtual void deleteReq();
 };
 #endif

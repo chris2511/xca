@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newX509Req()
+void MainWindow::newReq()
 {
 	NewX509Req_UI *dlg = new NewX509Req_UI(this,0,true,0);
 	dlg->keyList->insertStringList(keys->getPrivateDesc());
@@ -20,3 +20,16 @@ void MainWindow::newX509Req()
 	req->setDescription(dlg->description->text());
 	reqs->insertReq(req);
 }
+
+void MainWindow::showDetailsReq()
+{
+	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
+	dlg->exec();
+}
+
+void MainWindow::deleteReq()
+{
+	X509Req *req = reqs->getSelectedReq();
+	reqs->deleteReq(req);
+}
+

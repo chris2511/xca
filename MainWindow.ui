@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>603</width>
+            <width>599</width>
             <height>533</height>
         </rect>
     </property>
@@ -288,6 +288,46 @@
                         <string>Neue Anfrage erstellen</string>
                     </property>
                 </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton25</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>60</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Details anzeigen</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton26</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>100</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Löschen</string>
+                    </property>
+                </widget>
             </widget>
             <widget>
                 <class>QListBox</class>
@@ -377,14 +417,33 @@
         <sender>PushButton13</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
-        <slot>newX509Req()</slot>
+        <slot>newReq()</slot>
     </connection>
-    <slot access="public">chooseFile()</slot>
+    <connection>
+        <sender>PushButton25</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsReq()</slot>
+    </connection>
+    <connection>
+        <sender>reqList</sender>
+        <signal>doubleClicked(QListBoxItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsReq()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton26</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>deleteReq()</slot>
+    </connection>
     <slot access="public">deleteKey()</slot>
     <slot access="public">loadKey()</slot>
     <slot access="public">newKey()</slot>
-    <slot access="public">newX509Req()</slot>
+    <slot access="public">newReq()</slot>
+    <slot access="public">deleteReq()</slot>
     <slot access="public">showDetailsKey()</slot>
+    <slot access="public">showDetailsReq()</slot>
     <slot access="public">writeKey()</slot>
 </connections>
 <tabstops>

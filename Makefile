@@ -1,4 +1,4 @@
-VERSION=0.1.2
+VERSION=0.1.3
 TARGET=xca-$(VERSION)
 GCC=c++
 INC=-I$(QTDIR)/include
@@ -9,6 +9,7 @@ UIC=$(QTDIR)/bin/uic
 
 OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      KeyDetail_UI.o KeyDetail_UI_MOC.o \
+     ReqDetail_UI.o ReqDetail_UI_MOC.o \
      MainWindow_UI.o MainWindow_UI_MOC.o \
      PassRead_UI.o PassRead_UI_MOC.o \
      PassWrite_UI.o PassWrite_UI_MOC.o \
@@ -27,7 +28,7 @@ re: clean all
 
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
-	      NewX509Req_UI.h NewKey_UI.h
+	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h
 
 %.o: %.cpp
 	$(GCC) -c $(INC) $<
