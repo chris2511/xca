@@ -153,13 +153,11 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	// settings for the templates ....
 	if (temps) {
 		strings = temps->getDesc();
-		if (strings.isEmpty()) {
-			templateBox->setEnabled(false);
-		}
-		else {
-			strings.prepend(tr("Empty Template"));
-			tempList->insertStringList(strings);
-		}
+		strings.prepend(tr("Server Template"));
+		strings.prepend(tr("Client Template"));
+		strings.prepend(tr("CA Template"));
+		strings.prepend(tr("Empty Template"));
+		tempList->insertStringList(strings);
 	}
 	else {
 		templateBox->setEnabled(false);
@@ -407,11 +405,22 @@ void NewX509::signerChanged()
 	
 void NewX509::templateChanged()
 {
+	pki_temp *temp = NULL;
+	int item;
 	if (!appropriate(page1)) return;
 	if (!tempList->isEnabled()) return;
+	if ((item = tempList->currentItem())<4) {
+		temp = new pki_temp("temp",item);
+		if (temp) { 
+			fromTemplate(temp);
+			CERR("using default template:"<< item);
+			delete (temp);
+		}
+		return;
+	}
 	QString name = tempList->currentText();
 	if (name == "" || !temps) return;
-	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(name.latin1());
+	temp = (pki_temp *)temps->getSelectedPKI(name.latin1());
 	if (!temp) return;
 	CERR("CHANGING TEMPLATE");
 	fromTemplate(temp);
