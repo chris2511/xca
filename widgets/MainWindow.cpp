@@ -135,7 +135,7 @@ NIDlist *MainWindow::read_nidlist(QString name)
 	/* first try $HOME/xca/ */
 	nl = readNIDlist(baseDir + name);
 
-#ifndef _WIN32_
+#ifndef WIN32
 	if (nl.count() == 0){ /* next is /etx/xca/... */
 		QString unix_etc = ETC;
 		nl = readNIDlist(unix_etc + name);

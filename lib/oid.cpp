@@ -98,7 +98,7 @@ void initOIDs(QString baseDir)
 	QString dir = getPrefix();
 	
 	readOIDs(dir + oids);
-#ifndef _WIN32_
+#ifndef WIN32
 	QString etc = ETC;
 	readOIDs(etc + oids);
 #endif
