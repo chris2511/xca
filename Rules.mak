@@ -42,9 +42,6 @@ distclean: clean
 	rm -f .depend
 
 .depend: $(SRCS)
-	rm -f $@
-	for s in $(SRCS); do \
-	  $(CC) $(CPPFLAGS) $(CFLAGS) -M $$s >> $@; \
-	done
+	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $(SRCS) > $@
 
 .SECONDARY:

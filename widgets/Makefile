@@ -3,6 +3,10 @@
 #
 ############################################################################
 
+ifeq ($(TOPDIR),)
+TOPDIR=..
+endif
+
 MOC_NAMES=CertDetail ExportKey KeyDetail distname CrlDetail ExportTinyCA \
 	MainWindow ReqDetail validity ExportCert ImportMulti NewX509 clicklabel
 	
