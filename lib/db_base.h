@@ -30,7 +30,7 @@ class db_base: public QObject
 	virtual pki_base *newPKI(){
 		CERR<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
 	virtual bool updateView();
-	bool insertPKI(pki_base *pki);
+	virtual bool insertPKI(pki_base *pki);
 	bool deletePKI(pki_base *pki);
 	bool updatePKI(pki_base *pki, string desc);
 	pki_base *getSelectedPKI(string desc);

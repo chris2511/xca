@@ -160,6 +160,7 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->image->setPixmap(*certImg);
 	dlg->descr->setText(cert->getDescription().c_str());
+
 	// examine the key
 	pki_key *key= (pki_key *)keys->findPKI(cert->getKey());
 	if (key)
@@ -170,8 +171,7 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 
 	// examine the signature
 	if ( cert->getSigner() == NULL) {
-		dlg->verify->setText(tr("NOT TRUSTED"));
-	      	dlg->verify->setDisabled(true);
+		dlg->verify->setText(tr("SIGNER UNKNOWN"));
 	}
 	else if ( cert->compare(cert->getSigner()) ) {
 		dlg->verify->setText(tr("SELF SIGNED"));
@@ -179,6 +179,11 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	
 	else {
 		dlg->verify->setText(cert->getSigner()->getDescription().c_str());
+	}
+
+	// check trust state
+	if (!cert->getEffTrust()) {
+	      	dlg->verify->setDisabled(true);
 	}
 	
 	// the serial
@@ -213,6 +218,8 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	dlg->dnEmail_2->setText(cert->getDNi(NID_pkcs9_emailAddress).c_str());
 	dlg->notBefore->setText(cert->notBefore().c_str());
 	dlg->notAfter->setText(cert->notAfter().c_str());
+
+	// validation of the Date
 	if (cert->checkDate() == -1) {
 		dlg->dateValid->setText(tr("Not valid"));
 	      	dlg->dateValid->setDisabled(true);
@@ -221,7 +228,12 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 		dlg->dateValid->setText(tr("Not valid"));
 	      	dlg->dateValid->setDisabled(true);
 	}
-	
+	string revdate = cert->revokedAt();
+	if (revdate != "") {
+		dlg->dateValid->setText(tr("Revoked: ")+ revdate.c_str());
+	      	dlg->dateValid->setDisabled(true);
+		
+	}
 	// the fingerprints
 	dlg->fpMD5->setText(cert->fingerprint(EVP_md5()).c_str());
 	dlg->fpSHA1->setText(cert->fingerprint(EVP_sha1()).c_str());
@@ -342,29 +354,31 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	CERR << "hallo popup" << endl;
 	QPopupMenu *menu = new QPopupMenu(this);
 	int itemExtend, itemRevoke, itemTrust;
-	bool canSign, isRoot;
+	bool canSign;
 	if (!item) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
 		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
 	}
 	else {
+		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());
 		menu->insertItem(tr("Rename"), this, SLOT(renameCert()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCert()));
 		menu->insertItem(tr("Export"), this, SLOT(writeCert()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
-		itemTrust = menu->insertItem(tr("Trust"));
-		menu->setCheckable(true);
+		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));
 		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Extend"));
-		itemRevoke = menu->insertItem(tr("Revoke"));
-		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());
 		if (cert) {
-			canSign = (certs->findKey(cert->getSigner()) != NULL);
-			isRoot = ((cert->getSigner() == NULL) || (cert->getSigner() == cert));
+			if (cert->isRevoked()) {
+				itemRevoke = menu->insertItem(tr("Unrevoke"), this, SLOT(unRevoke()));
+				menu->setItemEnabled(itemTrust, false);
+			}
+			else	
+				itemRevoke = menu->insertItem(tr("Revoke"), this, SLOT(revoke()));
+			canSign = (certs->findKey(cert->getSigner()) != NULL) && (cert->getSigner() != cert);
 		}
 		menu->setItemEnabled(itemExtend, canSign);
 		menu->setItemEnabled(itemRevoke, canSign);
-		menu->setItemEnabled(itemTrust, isRoot);
 	}
 	menu->exec(pt);
 	return;
@@ -372,4 +386,44 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 
 void MainWindow::renameCert() {
 	renamePKI(certs);
+}
+
+void MainWindow::setTrust()
+{
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	TrustState_UI *dlg = new TrustState_UI(this,0,true);
+	int state, newstate;
+	state = cert->getTrust();
+	if (cert->getSigner() == cert) {
+		if (state == 1) state = 0;
+		dlg->trust1->setDisabled(true);
+	}
+	if (state == 0 ) dlg->trust0->setChecked(true);
+	if (state == 1 ) dlg->trust1->setChecked(true);
+	if (state == 2 ) dlg->trust2->setChecked(true);
+	dlg->certName->setText(cert->getDescription().c_str());
+	if (!dlg->exec()) return;
+	if (dlg->trust0->isChecked()) newstate = 0;
+	if (dlg->trust1->isChecked()) newstate = 1;
+	if (dlg->trust2->isChecked()) newstate = 2;
+	if (newstate==state) return;
+	cert->setTrust(newstate);
+	certs->updatePKI(cert, cert->getDescription());
+}
+
+void MainWindow::revoke()
+{
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	cert->setRevoked(true);
+	certs->updatePKI(cert, cert->getDescription());
+}
+
+void MainWindow::unRevoke()
+{
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	cert->setRevoked(false);
+	certs->updatePKI(cert, cert->getDescription());
 }

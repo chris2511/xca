@@ -71,9 +71,18 @@ bool db_x509::updateView()
 				}
 				pki->setPointer(current);
 				int pixnum = 0;
+				if (pki->getTrust() == 0){ // Never Trust it
+					pixnum += 1;
+				}	
+				else if (pki->getTrust() == 1) { // Trust it, if we trust parent
+					if (signer == pki ) pixnum += 1; // self signed
+					else if (!signer) pixnum += 1 ; // no signer
+					else if (!signer->getEffTrust()) pixnum += 1 ; // no trust of parent
+				}
+				if (pixnum == 0) pki->setEffTrust(true);
+				else pki->setEffTrust(false); // remember the effektive truststate	
 				if (findKey(pki)) pixnum += 2;	
-				if (!signer) pixnum += 1 ;
-				else if (!signer->getSigner() ) pixnum += 1;
+				// if pki->getTrust() == 2 trust it always
 				current->setPixmap(0, *pm[pixnum]);
 				mycont.remove(pki);
 				it.toFirst();

@@ -36,8 +36,9 @@ pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int s
 	/* Set up V3 context struct */
 	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
 
-	trust = true;
+	trust = 2;
 	psigner = signer;
+	revoked = NULL;
 }
 
 
@@ -46,13 +47,18 @@ pki_x509::pki_x509() : pki_base()
 	cert = X509_new();
 	openssl_error();
 	psigner = NULL;
-	trust = false;
+	trust = 0;
+	revoked = NULL;
 }
 
 pki_x509::~pki_x509()
 {
-	X509_free(cert);
-	openssl_error();
+	if (cert) {
+		X509_free(cert);
+	}
+	if (revoked) {
+		ASN1_TIME_free(revoked);
+	}
 }
 
 
@@ -63,11 +69,12 @@ pki_x509::pki_x509(const string fname)
 	if (fp != NULL) {
 	   cert = PEM_read_X509(fp, NULL, NULL, NULL);
 	   if (!cert) {
-		openssl_error();
+		ign_openssl_error();
 		rewind(fp);
 		printf("Fallback to certificate DER\n"); 
 	   	cert = d2i_X509_fp(fp, NULL);
 	   }
+	   openssl_error();
 	   int r = fname.rfind('.');
 	   int l = fname.rfind('/');
 	   desc = fname.substr(l+1,r-l-1);
@@ -76,8 +83,9 @@ pki_x509::pki_x509(const string fname)
 	}	
 	else pki_error("Error opening file");
 	fclose(fp);
-	trust = false;
+	trust = 1;
 	psigner = NULL;
+	revoked = NULL;
 }
 
 
@@ -100,13 +108,65 @@ void pki_x509::sign(pki_key *signkey)
 	X509_sign(cert, signkey->key, digest);
 	openssl_error();
 }
+/* Save the Certificate to data and back:
+ * Version 1:
+ * 	int Version
+ * 	int size of cert
+ * 	cert
+ * 	int trust
+ * 	int size of revTime
+ * 	revocationtime
+ */
 
 	
 bool pki_x509::fromData(unsigned char *p, int size)
 {
-	cert = d2i_X509(NULL, &p, size);
+	int version, sCert, sRev;
+	unsigned char *p1 = p;
+	version = intFromData(&p1);
+	if (version == 1) {
+		sCert = intFromData(&p1);
+		cert = d2i_X509(NULL, &p1, sCert);
+		trust = intFromData(&p1);
+		CERR << "Trust: " << trust <<endl;
+		sRev = intFromData(&p1);
+		if (sRev) {
+		   revoked= d2i_ASN1_TIME(NULL, &p1, sRev);
+		}
+		else {
+		   revoked = NULL;
+		}
+	}
+	else { // old version
+		cert = d2i_X509(NULL, &p, size);
+		revoked = NULL;
+		trust = 1;
+	}	
 	if (openssl_error()) return false;
 	return true;
+}
+
+
+unsigned char *pki_x509::toData(int *size)
+{
+	unsigned char *p, *p1;
+	int sCert = i2d_X509(cert, NULL);
+	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
+	*size = sCert + sRev + (4 * sizeof(int)); // calculate the needed size 
+	openssl_error();
+	CERR <<"CertSize: "<<sCert << "RevSize: " <<sRev << endl;
+	p = (unsigned char*)OPENSSL_malloc(*size);
+	p1 = p;
+	intToData(&p1, (int)1); // version
+	intToData(&p1, sCert); // sizeof(cert)
+	i2d_X509(cert, &p1); // cert
+	intToData(&p1, trust); // trust
+	intToData(&p1, sRev); // sizeof(revoked)
+	if (revoked) {
+		i2d_ASN1_TIME(revoked, &p1); // revokation date
+	}
+	openssl_error();
+	return p;
 }
 
 
@@ -132,36 +192,32 @@ string pki_x509::getDNi(int nid)
 
 string pki_x509::notBefore()
 {
-	BIO * bio = BIO_new(BIO_s_mem());
-	char buf[200] = "";
-	ASN1_TIME_print(bio,X509_get_notBefore(cert));
-	BIO_gets(bio,buf,200);
-	string time = buf;
-	BIO_free(bio);
-	return time;
+	return asn1TimeToString(X509_get_notBefore(cert));
 }
+
 
 string pki_x509::notAfter()
 {
-	BIO * bio = BIO_new(BIO_s_mem());
-	char buf[200];
-	ASN1_TIME_print(bio,X509_get_notAfter(cert));
-	BIO_gets(bio,buf,200);
-	string time = buf;
-	BIO_free(bio);
-	return time;
+	return asn1TimeToString(X509_get_notAfter(cert));
 }
 
-unsigned char *pki_x509::toData(int *size)
+string pki_x509::revokedAt()
 {
-	unsigned char *p, *p1;
-	*size = i2d_X509(cert, NULL);
-	openssl_error();
-	p = (unsigned char*)OPENSSL_malloc(*size);
-	p1 = p;
-	i2d_X509(cert, &p1);
-	openssl_error();
-	return p;
+	return asn1TimeToString(revoked);
+}
+
+
+string pki_x509::asn1TimeToString(ASN1_TIME *a)
+{
+	string time = "";
+	if (!a) return time;
+	BIO * bio = BIO_new(BIO_s_mem());
+	char buf[200];
+	ASN1_TIME_print(bio, a);
+	BIO_gets(bio, buf, 200);
+	time = buf;
+	BIO_free(bio);
+	return time;
 }
 
 
@@ -297,3 +353,48 @@ string pki_x509::getSerial()
 	openssl_error();
 	return x;
 }
+
+int pki_x509::getTrust()
+{
+	return trust;
+}
+
+void pki_x509::setTrust(int t)
+{
+	if (t>=0 && t<=2)
+		trust = t;
+}
+
+bool pki_x509::getEffTrust()
+{
+	return efftrust;
+}
+
+void pki_x509::setEffTrust(bool t)
+{
+	efftrust = t;
+}
+
+
+bool pki_x509::isRevoked()
+{
+	return (revoked != NULL);
+}
+
+
+void pki_x509::setRevoked(bool rev)
+{
+	if (rev) {
+		setEffTrust(false);
+		setTrust(0);
+		if (revoked) return;
+		revoked = ASN1_TIME_new();
+		X509_gmtime_adj(revoked,0);
+	}
+	else {
+		if (!revoked) return;
+		ASN1_TIME_free(revoked);
+		revoked = NULL;
+	}
+}
+

@@ -18,10 +18,12 @@ class pki_base
     protected:
 	string desc;
 	string error;
-	bool pki_error(string myerr);
+	bool pki_error(const string myerr);
 	bool openssl_error();
 	bool ign_openssl_error();
 	void *pointer; 
+	int intToData(unsigned char **p, const int val);
+	int intFromData(unsigned char **p);
     public:
 	enum { VERIFY_ERROR, VERIFY_SELFSIGNED, VERIFY_TRUSTED, 
 	       VERIFY_UNTRUSTED, VERIFY_OK }; 

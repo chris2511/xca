@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>542</width>
+            <width>538</width>
             <height>763</height>
         </rect>
     </property>
@@ -222,7 +222,7 @@
                             <active>
                                 <color>
                                     <red>0</red>
-                                    <green>192</green>
+                                    <green>150</green>
                                     <blue>0</blue>
                                 </color>
                                 <color>
@@ -271,9 +271,9 @@
                                     <blue>255</blue>
                                 </color>
                                 <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
+                                    <red>193</red>
+                                    <green>193</green>
+                                    <blue>193</blue>
                                 </color>
                                 <color>
                                     <red>0</red>
@@ -293,7 +293,7 @@
                             </active>
                             <disabled>
                                 <color>
-                                    <red>192</red>
+                                    <red>160</red>
                                     <green>0</green>
                                     <blue>0</blue>
                                 </color>
@@ -366,7 +366,7 @@
                             <inactive>
                                 <color>
                                     <red>0</red>
-                                    <green>192</green>
+                                    <green>150</green>
                                     <blue>0</blue>
                                 </color>
                                 <color>
@@ -415,9 +415,9 @@
                                     <blue>255</blue>
                                 </color>
                                 <color>
-                                    <red>192</red>
-                                    <green>192</green>
-                                    <blue>192</blue>
+                                    <red>193</red>
+                                    <green>193</green>
+                                    <blue>193</blue>
                                 </color>
                                 <color>
                                     <red>0</red>
@@ -493,7 +493,7 @@
                             <active>
                                 <color>
                                     <red>0</red>
-                                    <green>192</green>
+                                    <green>150</green>
                                     <blue>0</blue>
                                 </color>
                                 <color>
@@ -564,7 +564,7 @@
                             </active>
                             <disabled>
                                 <color>
-                                    <red>192</red>
+                                    <red>160</red>
                                     <green>0</green>
                                     <blue>0</blue>
                                 </color>
@@ -637,7 +637,7 @@
                             <inactive>
                                 <color>
                                     <red>0</red>
-                                    <green>192</green>
+                                    <green>150</green>
                                     <blue>0</blue>
                                 </color>
                                 <color>
@@ -1230,7 +1230,7 @@
                             <active>
                                 <color>
                                     <red>0</red>
-                                    <green>170</green>
+                                    <green>150</green>
                                     <blue>0</blue>
                                 </color>
                                 <color>
@@ -1279,9 +1279,9 @@
                                     <blue>255</blue>
                                 </color>
                                 <color>
-                                    <red>200</red>
-                                    <green>200</green>
-                                    <blue>200</blue>
+                                    <red>192</red>
+                                    <green>192</green>
+                                    <blue>192</blue>
                                 </color>
                                 <color>
                                     <red>0</red>
@@ -1301,7 +1301,7 @@
                             </active>
                             <disabled>
                                 <color>
-                                    <red>255</red>
+                                    <red>160</red>
                                     <green>0</green>
                                     <blue>0</blue>
                                 </color>
@@ -1351,9 +1351,9 @@
                                     <blue>255</blue>
                                 </color>
                                 <color>
-                                    <red>200</red>
-                                    <green>200</green>
-                                    <blue>200</blue>
+                                    <red>192</red>
+                                    <green>192</green>
+                                    <blue>192</blue>
                                 </color>
                                 <color>
                                     <red>0</red>
@@ -1374,7 +1374,7 @@
                             <inactive>
                                 <color>
                                     <red>0</red>
-                                    <green>170</green>
+                                    <green>150</green>
                                     <blue>0</blue>
                                 </color>
                                 <color>
@@ -1423,9 +1423,9 @@
                                     <blue>255</blue>
                                 </color>
                                 <color>
-                                    <red>200</red>
-                                    <green>200</green>
-                                    <blue>200</blue>
+                                    <red>192</red>
+                                    <green>192</green>
+                                    <blue>192</blue>
                                 </color>
                                 <color>
                                     <red>0</red>

@@ -11,11 +11,13 @@
 class pki_x509 : public pki_base
 {
 	private:
-	   bool trust;
 	   pki_x509 *psigner;
 	   pki_x509 *pkey;
            X509V3_CTX ext_ctx;
 	   X509 *cert;
+	   ASN1_TIME *revoked;
+	   int trust;
+	   bool efftrust;
 	public:
 	   pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509();
@@ -31,6 +33,8 @@ class pki_x509 : public pki_base
 	   pki_key *getKey();
 	   string notAfter();
 	   string notBefore();
+	   string revokedAt();
+	   string asn1TimeToString(ASN1_TIME *a);
 	   pki_x509 *getSigner();
 	   void delSigner();
 	   string fingerprint(EVP_MD *digest);
@@ -40,6 +44,12 @@ class pki_x509 : public pki_base
 	   void addV3ext(int nid, string exttext);
 	   void sign(pki_key *signkey);
 	   X509 *getCert(){ return cert;}
+	   int getTrust();
+	   void setTrust(int t);
+	   bool getEffTrust();
+	   void setEffTrust(bool t);
+	   void setRevoked(bool rev);
+	   bool isRevoked();
 };
 
 #endif

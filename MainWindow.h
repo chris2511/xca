@@ -10,6 +10,7 @@
 #include "NewX509_1_UI.h"
 #include "NewX509_2_UI.h"
 #include "Rename_UI.h"
+#include "TrustState_UI.h"
 #include "ExportKey.h"
 #include <iostream.h>
 #include <qtextview.h>
@@ -107,5 +108,8 @@ class MainWindow: public MainWindow_UI
 	void renameCert();
 	void renameKey();
 	void renameReq();
+	void setTrust();
+	void revoke();
+	void unRevoke();
 };
 #endif

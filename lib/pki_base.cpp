@@ -38,7 +38,7 @@ void pki_base::setDescription(const string d)
 }
 
 
-bool pki_base::pki_error(string myerr)
+bool pki_base::pki_error(const string myerr)
 {
 	string errtxt = "";
 	if (myerr != "") {
@@ -73,3 +73,21 @@ bool pki_base::ign_openssl_error()
 	}
 	return ret;
 }
+
+int pki_base::intToData(unsigned char **p, const int val)
+{
+	int s = sizeof(int);
+	memcpy(*p, &val, s);
+	*p += s;
+	return s;
+}
+
+int pki_base::intFromData(unsigned char **p)
+{
+	int s = sizeof(int);
+	int ret;
+	memcpy(&ret, *p, s);
+	*p += s;
+	return ret;
+}
+

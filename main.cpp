@@ -10,7 +10,6 @@ int main( int argc, char *argv[] )
     MainWindow mw( NULL, "Main Widget");
     mw.setCaption("X Certification Authority"); 
     a.setMainWidget( &mw );
-    	
     // translation file for Qt
     QTranslator qtTr( 0 );
     qtTr.load( QString( "qt_" ) + QTextCodec::locale(), "." );

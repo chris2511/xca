@@ -31,6 +31,7 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      CertDetail_UI.o CertDetail_UI_MOC.o \
      Rename_UI.o Rename_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
+     TrustState_UI.o TrustState_UI_MOC.o \
      MainWindow.o MainWindow_MOC.o \
      MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o \
      main.o
@@ -43,7 +44,7 @@ MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
 	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h \
 	      NewX509_UI.h CertDetail_UI.h NewX509_1_UI.h \
-	      NewX509_2_UI.h Rename_UI.h
+	      NewX509_2_UI.h Rename_UI.h TrustState_UI.h
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $<
