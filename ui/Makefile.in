@@ -1,0 +1,57 @@
+#
+#  @configure_input@
+#
+# $Id$
+
+VERSION=@PACKAGE_VERSION@
+TARGET=xca-$(VERSION)
+
+GCC=@CXX@
+CC=@CC@
+
+MOC=@MOC@
+UIC=@UIC@
+
+AR=@AR@
+RANLIB=@RANLIB@
+
+CPPFLAGS=-I.. -I../lib @CPPFLAGS@ @DEFS@
+CFLAGS=-Wall @ac_DEBUG@
+
+##############################################
+
+UINAMES=CertDetail ExportKey ExportCert KeyDetail MainWindow \
+        NewKey NewX509 PassRead PassWrite ReqDetail TrustState \
+        CertExtend ExportTinyCA CrlDetail
+
+UIOBJS=$(patsubst %,moc_%.o,$(UINAMES)) $(patsubst %,%.o,$(UINAMES))
+
+MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
+UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
+UI_H=$(patsubst %, %.h, $(UINAMES))
+
+$(UIOBJS): $(UI_H)
+
+all: libqtui.a
+
+libqtui.a: $(UIOBJS) 
+	$(AR) rc $@ $(UIOBJS)
+	$(RANLIB) $@
+
+%.o: %.cpp 
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+clean:
+	rm -rf *~ *.o *.a $(UI_CPP) $(UI_H) $(MOC_CPP)  
+
+distclean: clean
+	rm -f Makefile base.h
+
+moc_%.cpp: %.h %.cpp
+	$(MOC) $< -o $@
+%.h: %.ui
+	$(UIC) -o $@ $<
+
+%.cpp: %.h %.ui
+	$(UIC) -o $@ -impl $^
+
+.SECONDARY: $(UI_CPP) $(UI_H) $(MOC_CPP)  

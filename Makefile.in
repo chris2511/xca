@@ -14,8 +14,8 @@ CC=@CC@
 CPPFLAGS=@CPPFLAGS@ @DEFS@ 
 CFLAGS=-Wall @ac_DEBUG@
 
-LDFLAGS=-Llib @LDFLAGS@
-LIBS=@LIBS@ -lxcadb -lpki
+LDFLAGS=-Llib -Lui @LDFLAGS@
+LIBS=@LIBS@ -lpki -lqtui
 
 MOC=@MOC@
 UIC=@UIC@
@@ -23,41 +23,33 @@ UIC=@UIC@
 
 ###################################
 
-UINAMES=CertDetail ExportKey_UI ExportCert_UI KeyDetail MainWindow_UI \
-	NewKey NewX509_UI PassRead PassWrite ReqDetail TrustState \
-	CertExtend ExportTinyCA_UI CrlDetail
-
 MOCNAMES=XcaListView KeyView ReqView CertView TempView ExportTinyCA NewX509 \
-	 ExportKey MainWindow ExportCert validity $(UINAMES)
+	 ExportKey MainWindow ExportCert validity
      
-MOBJS=
-     
-OOBJS=$(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))
-
-OBJS=$(MOBJS) $(OOBJS) main.o
+OBJS=main.o $(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))
 
 MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
-UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
-UI_H=$(patsubst %, %.h, $(UINAMES))
 
-all: $(UI_H) libs $(OBJS) xca
+all: uis libs $(OBJS) xca
 
 re: clean all
-
-$(OBJS): $(UI_H)
 
 %.o: %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-xca: $(OBJS) lib/libxcadb.a lib/libpki.a
+xca: $(OBJS) lib/libpki.a ui/libqtui.a
 	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o xca
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
 libs:
 	$(MAKE) -C lib all
 
+uis:
+	$(MAKE) -C ui all
+
 clean:
 	$(MAKE) -C lib clean
+	$(MAKE) -C ui clean
 	rm -f $(MOC_CPP) $(UI_CPP) $(UI_H) *~ *.o xca 
 
 distclean: clean	

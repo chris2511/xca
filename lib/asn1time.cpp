@@ -69,6 +69,11 @@ a1time::~a1time()
 	ASN1_TIME_free(time);
 }
 
+ASN1_TIME *a1time::get() const
+{
+	return ASN1_TIME_to_generalizedtime(time, NULL);
+}
+
 a1time &a1time::set(const ASN1_TIME *a)
 {
 	ASN1_TIME_free(time);

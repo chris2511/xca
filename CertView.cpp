@@ -96,7 +96,7 @@ CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 }	
 
 
-void CertView::newCert()
+void CertView::newItem()
 {
 	NewX509 *dlg = MainWindow::newX509(MainWindow::certImg);
 	dlg->setCert();
@@ -117,16 +117,19 @@ void CertView::newCert(NewX509 *dlg)
 	a1time notBefore, notAfter;
 	x509name subject;
 	int i;
-	QString cont="", subAltName="", issAltName="", constraints="",
-		keyuse="", keyuse1="", pathstr="", certTypeStr = "";
-	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
+	const QString critical = "critical";
+	
+	QStringList cont;
+	
+	QString ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
 		"timeStamping","msCodeInd","msCodeCom",
 		"msCTLSign","msSGC","msEFS","nsSGC","1.3.6.1.4.1.311.10.3.4.1"};
-	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
+	QString keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"};
-	char *certTypeList[] = { "client", "server", "email", "objsign",
-				 "sslCA", "emailCA", "objCA" };
+	QString certTypeList[] = { "client", "server", "email", "objsign",
+		"sslCA", "emailCA", "objCA" };
+
 	QListBoxItem *item;
 	
 
@@ -185,62 +188,48 @@ void CertView::newCert(NewX509 *dlg)
 			throw errorEx("");
 	}
 			
+	// STEP 4
 	// handle extensions
+	
 	// basic constraints
-	if (dlg->bcCritical->isChecked()) constraints = "critical,";
-	constraints +="CA:";
-	constraints += dlg->basicCA->currentText();
-	pathstr = dlg->basicPath->text();
-	if (pathstr.length()>0) {
-		constraints += ", pathlen:";
-		constraints += pathstr;
-	}
-	cert->addV3ext(NID_basic_constraints, constraints);
+	if (dlg->bcCritical->isChecked()) cont << critical;
+	cont << (QString)"CA:" + dlg->basicCA->currentText();
+	cont << (QString)"pathlen:" + dlg->basicPath->text();
+	cert->addV3ext(NID_basic_constraints, cont.join(", "));
+	 
 	// Subject Key identifier
 	if (dlg->subKey->isChecked()) {
-		QString subkey="hash";
-		cert->addV3ext(NID_subject_key_identifier, subkey);
+		cert->addV3ext(NID_subject_key_identifier, "hash");
 	}
+	
 	// Authority Key identifier
 	if (dlg->authKey->isChecked()) {
-		QString authkey="keyid:always,issuer:always";
-		cert->addV3ext(NID_authority_key_identifier, authkey);
+		cert->addV3ext(NID_authority_key_identifier,
+			"keyid:always,issuer:always");
 	}
 	 
 	// key usage
+	cont.clear(); 
+	if (dlg->kuCritical->isChecked()) cont << critical;
 	for (i=0; (item = dlg->keyUsage->item(i)); i++) {	
 		if (item->selected()){
-			addStr(keyuse, keyusage[i]);
+			cont << keyusage[i];
 		}
 	}
-	
-	if (keyuse.length() > 0) {
-		keyuse1 = keyuse;
-		if (dlg->kuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
-		cert->addV3ext(NID_key_usage, keyuse1);
-		CERR( "KeyUsage:" <<keyuse1);
-	}
+	cert->addV3ext(NID_key_usage, cont.join(", "));
 	
 	// extended key usage
-	keyuse=""; keyuse1="";
+	cont.clear();
+	if (dlg->ekuCritical->isChecked()) cont << critical;
 	for (i=0; (item = dlg->ekeyUsage->item(i)); i++) {	
 		if (item->selected()){
-			addStr(keyuse, ekeyusage[i]);
+			cont << ekeyusage[i];
 		}
 	}
-	
-	if (keyuse.length() > 0) {
-		keyuse1 = keyuse;
-		if (dlg->ekuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
-		cert->addV3ext(NID_ext_key_usage, keyuse1);
-		CERR( "Extended Key Usage:" <<keyuse1 );
-	}
+	cert->addV3ext(NID_ext_key_usage, cont.join(", "));
 	
 	
-	// STEP 4
 	// Subject Alternative name
-	cont = "";
-	cont = dlg->subAltName->text();
 	if (dlg->subAltCp->isChecked()) {
 		if (subject.getEntryByNid(NID_pkcs9_emailAddress).length() == 0) {
 			if (QMessageBox::information(this,tr(XCA_TITLE),
@@ -250,20 +239,14 @@ void CertView::newCert(NewX509 *dlg)
 				throw errorEx("");	
 		}
 		else {
-			subAltName = "email:copy";
+			cont << (QString)"email:copy";
 		}
 	}
-	if (cont.length() > 0){
-		addStr(subAltName,cont);
-	}
-	if (subAltName.length() > 0) {
-		CERR( "SubAltName:" << subAltName);
-		cert->addV3ext(NID_subject_alt_name, subAltName);
-	}
+	cont << dlg->subAltName->text();
+	cert->addV3ext(NID_subject_alt_name, cont.join(", "));
 	
-	cont = "";
-	cont = dlg->issAltName->text();
 	// issuer alternative name	
+	cont.clear();
 	if (dlg->issAltCp->isChecked()) {
 		if (!signcert->hasSubAltName()) {
 			if (QMessageBox::information(this,tr(XCA_TITLE),
@@ -273,30 +256,27 @@ void CertView::newCert(NewX509 *dlg)
 				throw errorEx("");	
 		}
 		else {
-			issAltName = "issuer:copy";
+			cont << (QString)"issuer:copy";
 		}
 	}
-	if (cont.length() > 0){
-		addStr(issAltName,cont);
-	}
-	if (issAltName.length() > 0) {
-		CERR("IssAltName:" << issAltName);
-		cert->addV3ext(NID_issuer_alt_name, issAltName);
-	}
+	cont << dlg->issAltName->text();
+	cert->addV3ext(NID_issuer_alt_name, cont.join(", "));
+
 	// CRL distribution points
 	if (!dlg->crlDist->text().isEmpty()) {
 		CERR("CRL dist. Point: "<<  dlg->crlDist->text() );
 		cert->addV3ext(NID_crl_distribution_points, dlg->crlDist->text());
 	}
 		
-	// Step 5
+	// STEP 5
 	// Nestcape extensions 
+	cont.clear();
 	for (i=0; (item = dlg->nsCertType->item(i)); i++) {	
 		if (item->selected()){
-			addStr(certTypeStr, certTypeList[i]);
+			cont <<  certTypeList[i];
 		}
 	}
-	cert->addV3ext(NID_netscape_cert_type, certTypeStr);
+	cert->addV3ext(NID_netscape_cert_type, cont.join(", "));
 	cert->addV3ext(NID_netscape_base_url, dlg->nsBaseUrl->text());
 	cert->addV3ext(NID_netscape_revocation_url, dlg->nsRevocationUrl->text());
 	cert->addV3ext(NID_netscape_ca_revocation_url, dlg->nsCARevocationUrl->text());
@@ -321,15 +301,6 @@ void CertView::newCert(NewX509 *dlg)
 	if (tempkey != NULL) delete(tempkey);
     }
 	
-}
-void CertView::addStr(QString &str, const  char *add)
-{
-	string sadd = add;
-	if (sadd.length() == 0) return;	
-	if (str.length() > 0 ) {
-		str += ", ";
-	}
-	str += add;
 }
 
 void CertView::extendCert()
@@ -1309,3 +1280,34 @@ bool CertView::mkDir(QString dir)
         return true;
 
 }
+
+void CertView::updateViewItem(pki_base *pki)
+{
+	XcaListView::updateViewItem(pki);
+	if (! pki) return;
+	QString truststatus[] = { tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
+	int pixnum = 0;
+	QListViewItem *current = pki->getLvi();
+	if (!current) return;
+	if (((pki_x509 *)pki)->getRefKey()) {
+		pixnum += 1;
+	}
+	if (((pki_x509 *)pki)->calcEffTrust() == 0){ 
+		pixnum += 2;
+	}	
+	current->setPixmap(0, *certicon[pixnum]);
+	current->setText(1, ((pki_x509 *)pki)->getSubject().getEntryByNid(NID_commonName));
+	current->setText(2, ((pki_x509 *)pki)->getSerial().toHex() );  
+	current->setText(3, ((pki_x509 *)pki)->getNotAfter().toSortable() );  
+	current->setText(4, truststatus[((pki_x509 *)pki)->getTrust() ]);  
+	current->setText(5, ((pki_x509 *)pki)->getRevoked().toSortable());
+}
+
+void CertView::updateViewAll()
+{
+	QList<pki_base> c = db->getContainer();
+	for (pki_x509 *pki = (pki_x509 *)c.first(); pki != 0; pki = (pki_x509 *)c.next() ) 
+		updateViewItem(pki);
+	return;
+}
+

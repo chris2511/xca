@@ -17,22 +17,22 @@ CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################
 
+PKINAMES=asn1int asn1time x509name pass_info \
+	pki_key pki_x509super pki_x509req pki_x509 \
+	pki_pkcs12 pki_temp pki_crl pki_pkcs7 \
+	db_base
 
-PKIOBJS=pki_base.o pki_key.o pki_x509super.o pki_x509req.o pki_x509.o asn1int.o asn1time.o x509name.o pki_pkcs12.o pki_temp.o pki_crl.o pki_pkcs7.o pass_info.o
-DBNAMES=db_key db_x509super db_x509req db_x509 db_temp db_crl
-DBOBJS=db_base.o $(patsubst %,%.o,$(DBNAMES)) $(patsubst %,moc_%.o,$(DBNAMES))
-DB_CPP=$(patsubst %,moc_%.cpp,$(DBNAMES))
+MOCNAMES=pki_base db_key db_x509super db_x509req db_x509 db_temp db_crl
 
-all: libpki.a libxcadb.a
+PKIOBJS=$(patsubst %, %.o, $(MOCNAMES) $(PKINAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
+DB_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 
-libpki.a: $(PKIOBJS)
+all: libpki.a
+
+libpki.a: $(PKIOBJS) 
 	$(AR) rc $@ $(PKIOBJS)
 	$(RANLIB) $@
 
-libxcadb.a: $(DBOBJS)
-	$(AR) rc $@ $(DBOBJS)
-	$(RANLIB) $@
-	
 %.o: %.cpp 
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 clean:

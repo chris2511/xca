@@ -56,10 +56,7 @@
 #include <qlistview.h>
 #include "base.h"
 
-
-using namespace std;
-
-class pki_base
+class pki_base : public QObject
 {
 	Q_OBJECT
     private:

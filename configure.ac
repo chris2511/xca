@@ -94,7 +94,7 @@ else
 	ac_DEBUG=
 fi], ) 
 
-AC_CONFIG_FILES([Makefile lib/Makefile results lib/base.h])
+AC_CONFIG_FILES([Makefile lib/Makefile lib/base.h ui/Makefile results])
 AC_OUTPUT
 
 if test "$LDB" != X; then

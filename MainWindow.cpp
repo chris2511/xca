@@ -72,6 +72,7 @@ db_x509req *MainWindow::reqs = NULL;
 db_x509	*MainWindow::certs = NULL;
 db_temp	*MainWindow::temps = NULL;
 db_base	*MainWindow::settings = NULL;
+db_crl	*MainWindow::crls = NULL;
 
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
@@ -198,6 +199,35 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	read_cmdline();
 	if (exitApp) return;
 	init_database();
+}
+QPixmap *MainWindow::loadImg(const char *name )
+{
+#ifdef WIN32
+	static unsigned char PREFIX[100]="";
+	if (PREFIX[0] == '\0') {
+	  LONG lRc;
+      HKEY hKey;
+      lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
+      if(lRc!= ERROR_SUCCESS){
+        // No key error
+	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");		
+		PREFIX[0] = '\0';
+	  }
+      else {
+	    ULONG dwLength = 100;
+		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
+        if(lRc!= ERROR_SUCCESS){
+            // No key error
+	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");		
+		    PREFIX[0] = '\0';
+		}
+	  }
+	lRc=RegCloseKey(hKey);
+	}
+#endif    
+	QString path = (char *)PREFIX;
+	path += QDir::separator();
+    return new QPixmap(path + name);
 }
 
 void MainWindow::init_images(){
@@ -334,6 +364,8 @@ void MainWindow::init_database() {
 		certs = new db_x509(dbenv, dbfile, global_tid);
 		temps = new db_temp(dbenv, dbfile, global_tid);
 		crls = new db_crl(dbenv, dbfile, global_tid);
+		reqs->setKeyDb(keys);
+		certs->setKeyDb(keys);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -363,13 +395,6 @@ MainWindow::~MainWindow()
 		MARK
 	}
 }
-
-
-QPixmap *MainWindow::loadImg(const char *name )
-{
-        return settings->loadImg(name);
-}			
-
 
 void MainWindow::initPass()
 {
