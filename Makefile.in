@@ -22,9 +22,10 @@ UINAMES=CertDetail ExportKey_UI KeyDetail MainWindow_UI NewKey NewX509_UI PassRe
 
 MOCNAMES=NewX509 ExportKey MainWindow $(UINAMES)
      
-OBJS=MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o MainWindowTemps.o main.o \
-     $(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))
+MOBJS=MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o MainWindowTemps.o  
+OOBJS=$(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))
 
+OBJS=$(MOBJS) $(OOBJS) main.o
 
 MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
@@ -33,6 +34,8 @@ UI_H=$(patsubst %, %.h, $(UINAMES))
 all: libs $(OBJS) xca
 
 re: clean all
+
+$(MOBJS): $(UI_H)
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
