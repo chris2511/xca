@@ -67,6 +67,7 @@
 #include <qpixmap.h>
 #include <qvalidator.h>
 #include <qregexp.h>
+#include <qbuttongroup.h>
 
 #ifndef NEWX509_H
 #define NEWX509_H
@@ -97,12 +98,13 @@ class NewX509: public NewX509_UI
 	void int2lb(QListBox *lb, int x);
 
    public slots:
-	void setDisabled(int state);
+	void toggleFromRequest();
    	void newKey();
 	void dataChangeP2();
 	void newKeyDone(QString name);
 	void switchExtended();
 	void templateChanged();
+	void signerChanged();
 	
    signals:
 	void genKey();  

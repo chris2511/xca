@@ -95,6 +95,7 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	caSerial=0;
 	caTemplate="";
 	crlDays=30;
+	lastCrl= NULL;
 }
 
 pki_x509::pki_x509(X509 *c) : pki_base()
@@ -182,6 +183,9 @@ pki_x509::~pki_x509()
 	}
 	if (revoked) {
 		ASN1_TIME_free(revoked);
+	}
+	if (lastCrl) {
+		ASN1_TIME_free(lastCrl);
 	}
 }
 
@@ -289,10 +293,14 @@ bool pki_x509::fromData(unsigned char *p, int size)
 unsigned char *pki_x509::toData(int *size)
 {
 #define PKI_DB_VERSION (int)3
+	CERR <<"cert toData" << endl;
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
+	CERR << "A" <<endl;
 	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
+	CERR << "B" <<endl;
 	int sLastCrl = (lastCrl ? i2d_ASN1_TIME(lastCrl, NULL) : 0);
+	CERR << "C" <<endl;
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();

@@ -66,6 +66,9 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		bigImg1->setPixmap(*image);
 		bigImg2->setPixmap(*image);
 		bigImg3->setPixmap(*image);
+		bigImg4->setPixmap(*image);
+		bigImg5->setPixmap(*image);
+		bigImg6->setPixmap(*image);
 		nsImg->setPixmap(*ns);
 	}
 #ifdef qt3
@@ -96,14 +99,13 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	else {
 		keyList->setEnabled(false);
 		genKeyBUT->setEnabled(false);
-		setAppropriate(page3, false);
 	}
 	
 	// any PKCS#10 requests to be used ?
 	if (reqs) {
 		strings = reqs->getDesc();
 		if (strings.isEmpty()) {
-			fromReqRB->setDisabled(true);
+			fromReqCB->setDisabled(true);
 		}
 		else {
 			reqList->insertStringList(strings);
@@ -111,7 +113,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	}
 	else {
 		reqList->setEnabled(false);
-		fromReqRB->setEnabled(false);
+		fromReqCB->setEnabled(false);
 	}
 	
 	// How about signing certificates ?
@@ -126,9 +128,10 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 			// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
 			possibleSigner=(pki_x509 *)certs->getSelectedPKI();
 			if (possibleSigner && possibleSigner->canSign()) {
-				//const QString name = possibleSigner->getDescription().c_str();
-				//certList->setCurrentText(name);
+				QString name = possibleSigner->getDescription().c_str();
+				certList->setCurrentText(name);
 				foreignSignRB->setChecked(true);
+				// certList->setEnabled(true);
 			}
 		}
 	}
@@ -141,7 +144,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	if (temps) {
 		strings = temps->getDesc();
 		if (strings.isEmpty()) {
-			setAppropriate(page1,false);
+			templateBox->setEnabled(false);
 		}
 		else {
 			strings.prepend(tr("Empty Template"));
@@ -149,22 +152,21 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		}
 	}
 	else {
-		setAppropriate(page1,false);
+		templateBox->setEnabled(false);
 	}		
 	
-	fromDataRB->setChecked(true);
 	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);
 }
 void NewX509::setRequest()
 {
-	setAppropriate(page3, false);
 	setAppropriate(page4, false);
 	setAppropriate(page5, false);
 	setAppropriate(page6, false);
 	finishButton()->setEnabled(true);
 	changeDefault->setEnabled(false);
 	changeDefault->setChecked(false);
+	signerBox->setEnabled(false);
 	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa)");
 	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa)");
 	tText=tr("Certificate request");
@@ -174,7 +176,6 @@ void NewX509::setRequest()
 void NewX509::setTemp(pki_temp *temp)
 {
 	setAppropriate(page1, false);
-	setAppropriate(page3, false);
 	finishButton()->setEnabled(true);
 	startText=tr("Welcome to the settings for Templates.... (needs more prosa)");
 	endText=tr("You are done with entering all parameters for generating a Template..... (needs more prosa)");
@@ -203,9 +204,8 @@ void NewX509::setup()
 	setTitle(page0, tText + " Wizard");
 	setTitle(page1, tText + " template selection");
 	setTitle(page2, tText + " personal settings");
-	setTitle(page3, tText + " signing selection");
 	setTitle(page4, tText + " X.509 v3 Extensions");
-	setTitle(page5, tText + " keyusage setup");
+	setTitle(page5, tText + " key usage setup");
 	setTitle(page6, tText + " Netscape extensions");
 	setTitle(page7, tText + " Wizard finished");
 }
@@ -213,7 +213,7 @@ void NewX509::setup()
 void NewX509::defineTemplate(pki_temp *temp)
 {
 	setAppropriate(page1,false);
-	fixtemp = temp;
+	//fixtemp = temp;
 	fromTemplate(temp);
 }
 
@@ -312,11 +312,23 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->pathLen = basicPath->text().toInt();
 }
 
-
+void NewX509::toggleFromRequest()
+{
+	if (fromReqCB->isChecked()) {
+		setAppropriate(page2, false);
+		reqList->setEnabled(true);
+	}
+	else {
+		setAppropriate(page2, true);
+		reqList->setEnabled(false);
+	}
+}
+	
+	
 void NewX509::dataChangeP2()
 {
 	CERR << "Data changed" << endl;
-	if ((description->text() != "" || fromReqRB->isChecked()) &&
+	if ((description->text() != "" || fromReqCB->isChecked()) &&
 	    (keyList->count() > 0  || !keyList->isEnabled())){
 		setNextEnabled(page2,true);
 	}
@@ -329,40 +341,51 @@ void NewX509::showPage(QWidget *page)
 {
 	
 	if (page == page0) {
-		templateChanged();
+		signerChanged();
 		switchExtended();
+		toggleFromRequest();
 	}
 	else if ( page == page2 ) {
 		dataChangeP2();
-		description->setFocus();	
 	}
-	else if ( page == page3 ) {
-		if (!selfSignRB->isChecked() && !foreignSignRB->isChecked()) {
-			if (fromDataRB->isChecked()) {
-				selfSignRB->setChecked(true);
-				serialNr->setText("00");
-				serialNr->setFocus();
-			}
-			else {
-				foreignSignRB->setChecked(true);
-				foreignSignRB->setFocus();
-			}
-		}
-		else {
-			if (!foreignSignRB->isEnabled()) {
-				selfSignRB->setChecked(true);
-				serialNr->setText("00");
-				serialNr->setFocus();
-			}
-		}
+	
+	QWizard::showPage(page);
+	
+	if ( page == page2 ) {
+		description->setFocus();	
 	}
 	else if (page == page4) {
 		basicCA->setFocus();
 	}
-	QWizard::showPage(page);
 
 }
 
+void NewX509::signerChanged()
+{
+	CERR << "signer Changed" <<endl;
+	// int i=0, sel=0;
+	if (!certs) return;
+	QString name = certList->currentText();
+	CERR << "Certificate: " << name.latin1() << endl;
+	if (name.isEmpty()) return;
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(name.latin1());
+	if (!cert) return;
+	QString templ = cert->getTemplate().c_str();	
+	CERR << "set Template: " << templ.latin1() << endl;
+	tempList->setCurrentText(templ);
+	templateChanged();
+	/*
+	QStringList templates = tempList->list();
+	for (i=0; i<templates.count(); i++) {
+		if (templates[i] == templ) {
+			sel = i;
+		}
+	}
+	if (sel >0) {
+		tempList->setSelected(sel);
+	}*/
+}
+	
 void NewX509::templateChanged()
 {
 	if (!appropriate(page1)) return;
@@ -379,7 +402,7 @@ void NewX509::switchExtended()
 {
 	if ( !appropriate(page1) ) return;
 	CERR << "SWITCH Extended" <<endl;
-	if (changeDefault->isChecked()) {
+	if (changeDefault->isChecked() || !templateBox->isEnabled()) {
 		setAppropriate(page4, true);
 		setAppropriate(page5, true);
 		setAppropriate(page6, true);
@@ -391,18 +414,6 @@ void NewX509::switchExtended()
 	}
 }
 		    
-void NewX509::setDisabled(int state)
-{
-   if (state == 2) {
-	inputFrame->setDisabled(false);
-	reqList->setDisabled(true);
-   }
-   else if (state == 0) {
-	inputFrame->setDisabled(true);
-	reqList->setDisabled(false);
-   }
-}
-
 void NewX509::newKey()
 {
 	emit genKey();

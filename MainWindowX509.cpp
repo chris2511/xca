@@ -82,7 +82,7 @@ void MainWindow::newCert(pki_temp *templ)
 
 	
 	// Step 1 - Subject and key
-	if (dlg->fromDataRB->isChecked()) {
+	if (!dlg->fromReqCB->isChecked()) {
 	    clientkey = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
 	    if (opensslError(clientkey)) goto err;
 	    string cn = dlg->commonName->text().latin1();
@@ -230,7 +230,6 @@ void MainWindow::newCert(pki_temp *templ)
 			addStr(certTypeStr, certTypeList[i]);
 		}
 	}
-	CERR << "IssAltName:" << issAltName<< endl;
 	cert->addV3ext(NID_netscape_cert_type, certTypeStr);
 	cert->addV3ext(NID_netscape_base_url, dlg->nsBaseUrl->text().latin1());
 	cert->addV3ext(NID_netscape_revocation_url, dlg->nsRevocationUrl->text().latin1());
@@ -245,8 +244,10 @@ void MainWindow::newCert(pki_temp *templ)
 	if (opensslError(cert)) goto err;
 	CERR << "SIGNED" <<endl;
 	insertCert(cert);
-	if (tempReq) delete(req);
+	CERR <<"inserted"<<endl;
+	if (tempReq && req) delete(req);
 	delete (dlg);
+	CERR << "Dialog deleted" <<endl;
 	return;
 err:	
 	if (cert) delete(cert);
@@ -492,6 +493,7 @@ void MainWindow::insertCert(pki_x509 *cert)
 	   delete(cert);
 	   return;
 	}
+	CERR << "insertCert: inserting" <<endl;
 	certs->insertPKI(cert);
 }
 
@@ -742,7 +744,7 @@ void MainWindow::genCrl()
 	}
 	certs->assignClients(crl);
 	crl->addV3ext(NID_authority_key_identifier,"keyid,issuer");
-	crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
+	//crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
 	crl->sign(cert->getKey());
 	if (!opensslError(crl)) {
 		crl->writeCrl(s.latin1());
