@@ -9,9 +9,12 @@ Source: http://www.hohnstaedt.de/xca/src/xca-VERSION.tar.gz
 %description
 This program is intended as a little CA for signing Requests,
 creating self signed Certificates and RSA keys.
+There are predefined templates that can be used
+to create default Requests/Certificates.
+All X.509 v3 extensions are configurable and adjustable.
 They can be exported and imported in several formats
-like PKCS#12, PKCS#10 or PKCS#8. Templates for Certificates
-speed up the work.
+like PEM, DER, PKCS#12, PKCS#10 or PKCS#8.
+
 
 %prep
 %setup
@@ -36,6 +39,6 @@ rm -rf $RPM_BUILD_ROOT
 
 /usr/local/bin/xca
 /usr/local/share/xca/*.png
-/usr/local/share/xca/xca_*.qm
+/usr/local/share/xca/xca_??.qm
 
 %changelog

@@ -463,6 +463,54 @@ it should be encrypted.</source>
         <source>Create request</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>X Certifikate and Key management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Database Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter a password, that will be used to encrypt your private keys in the database-file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Database Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password for unlocking the database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA serial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the new Serial for signing</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow_UI</name>
@@ -540,6 +588,34 @@ it should be encrypted.</source>
     </message>
     <message>
         <source>New Template</source>
+        <translation type="obsolete"></translation>
+    </message>
+    <message>
+        <source>New empty template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New CA template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New client template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New server template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revocation list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -576,6 +652,53 @@ it should be encrypted.</source>
     <message>
         <source>Cancel</source>
         <translation type="unfinished">Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>NewX509</name>
+    <message>
+        <source>Empty Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to the settings for Certificate signing requests.... (needs more prosa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to the settings for Templates.... (needs more prosa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for generating a Template..... (needs more prosa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to the settings for Certificates.... (needs more prosa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for generating a Certificate..... (needs more prosa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -630,11 +753,11 @@ it should be encrypted.</source>
     </message>
     <message>
         <source>Certificate creation</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>New Certificate Step 1</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Please choose from the templates the one to use for the new certificate or request</source>
@@ -646,7 +769,7 @@ it should be encrypted.</source>
     </message>
     <message>
         <source>New Certificate Step 2</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>For a new certificate you have to enter your personal data into the form and select a key to use.
@@ -660,7 +783,7 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
     </message>
     <message>
         <source>New Certificate Step 3</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Please choose the signer, wether it should be self signed, or signed by an other signer</source>
@@ -680,7 +803,7 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
     </message>
     <message>
         <source>New Certificate Step 4</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>CRL distribution point</source>
@@ -850,6 +973,70 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
         <source>Netscape Server Gated Crypto</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>X Certificate and Key management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the default extension settings from the template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S/MIME</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Signing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S/MIME CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Signing CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA Revokation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revokation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SSL server name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate renewal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA policy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Base URL</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PassRead_UI</name>
@@ -897,19 +1084,19 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
     <name>Rename_UI</name>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>Please enter the new Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -1016,6 +1203,67 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
     <message>
         <source>Cancel</source>
         <translation type="unfinished">Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>db_key</name>
+    <message>
+        <source>Keysize</source>
+        <translation type="unfinished">Schlüssellänge</translation>
+    </message>
+    <message>
+        <source>Use count</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>db_temp</name>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>db_x509</name>
+    <message>
+        <source>Trust state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revokation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not trusted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trust inherited</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always Trusted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revoked</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -66,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
 #ifdef WIN32
-	baseDir = "";
+	baseDir = ".";
 #else	
 	baseDir = QDir::homeDirPath();
 	baseDir += QDir::separator();

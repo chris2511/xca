@@ -52,8 +52,6 @@
 #include <qapplication.h>
 #include <qtranslator.h>
 #include <qtextcodec.h>
-#include <qdir.h>
-#include <qstring.h>
 #include "MainWindow.h"
 
 
@@ -64,6 +62,7 @@ int main( int argc, char *argv[] )
     mw.setCaption("X Certification Authority"); 
     a.setMainWidget( &mw );
     // translation file for Qt
+#ifdef qt3    
     QTranslator qtTr( 0 );
     qtTr.load( QString( "qt_" ) + QTextCodec::locale(), "." );
     a.installTranslator( &qtTr );
@@ -71,10 +70,12 @@ int main( int argc, char *argv[] )
     QTranslator xcaTr( 0 );
 #ifdef WIN32
     xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), "." );
+    a.installTranslator( &xcaTr );
 #else	
     xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
-#endif
     a.installTranslator( &xcaTr );
+#endif
+#endif
     
     mw.show();
     return a.exec();
