@@ -1,4 +1,3 @@
-
 /* Define if you have the <db3/db_cxx.h> header file. */
 #undef HAVE_DB3_DB_CXX_H
 
@@ -32,11 +31,8 @@
 /* Define if you have the <openssl/evp.h> header file. */
 #undef HAVE_OPENSSL_EVP_H
 
-/* Define if you have the <qconfig.h> header file. */
-#undef HAVE_QCONFIG_H
-
-/* Define if you have the <qt/qconfig.h> header file. */
-#undef HAVE_QT_QCONFIG_H
+/* Define if you have the <qaccessible.h> header file. */
+#undef HAVE_QACCESSIBLE_H
 
 /* Define if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H

@@ -362,7 +362,9 @@ void db_base::updateViewPKI(pki_base *pki)
         if (! pki) return;
         QListViewItem *current = (QListViewItem *)pki->getPointer();
         if (!current) return;
+#ifdef qt3
 	current->setRenameEnabled(0,true);
+#endif
         current->setText(0, pki->getDescription().c_str());
 }
 							

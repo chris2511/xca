@@ -49,8 +49,6 @@
 #define CERR cerr
 #endif
 
-#define qt3 1
-
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT

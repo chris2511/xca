@@ -6,6 +6,9 @@
 #else
 #include <db_cxx.h>
 #endif
+#ifdef HAVE_QACCESSIBLE_H
+#define qt3 1
+#endif
 #include <qlistview.h>
 #include <qlist.h>
 #include <qpixmap.h>
