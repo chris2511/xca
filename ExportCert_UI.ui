@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>527</width>
+            <width>523</width>
             <height>319</height>
         </rect>
     </property>
@@ -159,6 +159,10 @@
                     <property stdset="1">
                         <name>text</name>
                         <string>TinyCA filename</string>
+                    </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>Set the filename to the one used by TinyCA</string>
                     </property>
                 </widget>
             </hbox>

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>554</width>
+            <width>550</width>
             <height>473</height>
         </rect>
     </property>
@@ -211,6 +211,10 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
+                        <string></string>
+                    </property>
+                    <property>
+                        <name>toolTip</name>
                         <string></string>
                     </property>
                 </widget>
@@ -474,6 +478,10 @@
                     <property>
                         <name>hAlign</name>
                     </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>If this is a complete Key or only a public</string>
+                    </property>
                 </widget>
                 <widget row="1"  column="0" >
                     <class>QLabel</class>
@@ -495,6 +503,10 @@
                     <property stdset="1">
                         <name>maxLength</name>
                         <number>32767</number>
+                    </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>The internal name of the key used by xca</string>
                     </property>
                 </widget>
                 <widget row="1"  column="4" >

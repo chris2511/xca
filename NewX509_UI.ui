@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>656</width>
+            <width>652</width>
             <height>531</height>
         </rect>
     </property>
@@ -23,6 +23,10 @@
     <property stdset="1">
         <name>caption</name>
         <string>X Certificate and Key management</string>
+    </property>
+    <property>
+        <name>whatsThis</name>
+        <string>hjfghjgfhjfghj</string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -405,6 +409,10 @@
                             <name>name</name>
                             <cstring>serialNr</cstring>
                         </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>If you leave this blank the serial 00 will be used</string>
+                        </property>
                     </widget>
                     <widget row="1"  column="1" >
                         <class>QComboBox</class>
@@ -415,6 +423,10 @@
                         <property stdset="1">
                             <name>enabled</name>
                             <bool>false</bool>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>All certificates in your database that can create valid signatures</string>
                         </property>
                     </widget>
                 </grid>
@@ -493,6 +505,10 @@
                         <property stdset="1">
                             <name>text</name>
                             <string>Change the default &amp;extension settings from the template</string>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Check this to adjust all details of the certificate</string>
                         </property>
                     </widget>
                 </grid>
@@ -749,6 +765,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         <property stdset="1">
                             <name>name</name>
                             <cstring>keyList</cstring>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>This list only contains unused keys</string>
                         </property>
                     </widget>
                     <widget row="0"  column="1" >
@@ -1092,8 +1112,8 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                     <cstring>basicCA</cstring>
                                 </property>
                                 <property>
-                                    <name>whatsThis</name>
-                                    <string></string>
+                                    <name>toolTip</name>
+                                    <string>If this will become a CA certificate or not</string>
                                 </property>
                             </widget>
                             <widget row="1"  column="0" >
@@ -1112,6 +1132,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <property stdset="1">
                                     <name>name</name>
                                     <cstring>basicPath</cstring>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>How much CA may be below this.</string>
                                 </property>
                             </widget>
                             <widget row="1"  column="2" >
@@ -1155,6 +1179,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>&amp;Subject Key Identifier</string>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>Wether to create a </string>
                                 </property>
                             </widget>
                             <widget>
@@ -1282,6 +1310,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>text</name>
                             <string>Copy &amp;issuer name</string>
                         </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Wether to copy the subj. alt. name of the issuer</string>
+                        </property>
                     </widget>
                     <widget row="2"  column="0" >
                         <class>QLabel</class>
@@ -1333,12 +1365,20 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>name</name>
                             <cstring>issAltName</cstring>
                         </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Valid IDs: DNS: IP: URL: email:</string>
+                        </property>
                     </widget>
                     <widget row="0"  column="1" >
                         <class>QLineEdit</class>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>subAltName</cstring>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Valid IDs: DNS: IP: URL: email:</string>
                         </property>
                     </widget>
                     <widget row="4"  column="1" >
@@ -2069,6 +2109,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         <property stdset="1">
                             <name>name</name>
                             <cstring>nsComment</cstring>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>If you know a more pretty one tell me</string>
                         </property>
                     </widget>
                 </grid>

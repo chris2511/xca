@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>380</width>
+            <width>376</width>
             <height>244</height>
         </rect>
     </property>
@@ -186,6 +186,10 @@
                             <vsizetype>0</vsizetype>
                         </sizepolicy>
                     </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>Usually 1024 or 2048 bit keys are used</string>
+                    </property>
                 </widget>
                 <widget row="0"  column="1" >
                     <class>QLineEdit</class>
@@ -194,8 +198,26 @@
                         <cstring>keyDesc</cstring>
                     </property>
                     <property stdset="1">
+                        <name>minimumSize</name>
+                        <size>
+                            <width>0</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
+                        <name>maximumSize</name>
+                        <size>
+                            <width>32767</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                    <property stdset="1">
                         <name>text</name>
                         <string>New Key</string>
+                    </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>The internal name of the new key</string>
                     </property>
                 </widget>
             </grid>

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>573</width>
+            <width>569</width>
             <height>446</height>
         </rect>
     </property>
@@ -455,6 +455,10 @@
                                 <property>
                                     <name>hAlign</name>
                                 </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The internal name of the RSA key in the key database</string>
+                                </property>
                             </widget>
                             <widget row="2"  column="2" >
                                 <class>QLabel</class>
@@ -505,6 +509,10 @@
                                 <property stdset="1">
                                     <name>name</name>
                                     <cstring>descr</cstring>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The internal name of the certificate in the database</string>
                                 </property>
                             </widget>
                             <widget row="0"  column="0" >
@@ -777,6 +785,10 @@
                                 <property>
                                     <name>hAlign</name>
                                 </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The internal name of the signer or "SELF SIGNED" if self signed</string>
+                                </property>
                             </widget>
                             <widget row="2"  column="0" >
                                 <class>QLabel</class>
@@ -842,6 +854,10 @@
                                     <name>frameShadow</name>
                                     <enum>Sunken</enum>
                                 </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>An md5 hashsum of the certificate</string>
+                                </property>
                             </widget>
                             <widget row="1"  column="0" >
                                 <class>QLabel</class>
@@ -867,6 +883,10 @@
                                 <property stdset="1">
                                     <name>frameShadow</name>
                                     <enum>Sunken</enum>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>A SHA-1 hashsum of the certificate</string>
                                 </property>
                             </widget>
                         </grid>
@@ -904,6 +924,10 @@
                                     <name>frameShadow</name>
                                     <enum>Sunken</enum>
                                 </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The time since the certificate is valid</string>
+                                </property>
                             </widget>
                             <widget>
                                 <class>QLabel</class>
@@ -918,6 +942,10 @@
                                 <property stdset="1">
                                     <name>frameShadow</name>
                                     <enum>Sunken</enum>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The time until the certificate is valid</string>
                                 </property>
                             </widget>
                             <widget>
@@ -1171,6 +1199,10 @@
                                 </property>
                                 <property>
                                     <name>hAlign</name>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The validity of the certificate regarding to your system clock or the revokation date</string>
                                 </property>
                             </widget>
                         </hbox>

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>572</width>
+            <width>568</width>
             <height>405</height>
         </rect>
     </property>
@@ -164,6 +164,10 @@
                         <name>name</name>
                         <cstring>descr</cstring>
                     </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>Internal name of the PKCS#10 signing request</string>
+                    </property>
                 </widget>
                 <widget row="0"  column="0" >
                     <class>QLabel</class>
@@ -173,7 +177,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Certificate name</string>
+                        <string>Name</string>
                     </property>
                 </widget>
                 <widget row="1"  column="0" >
@@ -450,6 +454,10 @@
                     <property>
                         <name>hAlign</name>
                     </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>Wether the signature of the CSR is good</string>
+                    </property>
                 </widget>
                 <widget row="2"  column="1" >
                     <class>QLabel</class>
@@ -706,6 +714,10 @@
                     </property>
                     <property>
                         <name>hAlign</name>
+                    </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>If the private key for this CSR is stored in the key database</string>
                     </property>
                 </widget>
             </grid>

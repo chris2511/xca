@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>637</width>
+            <width>633</width>
             <height>543</height>
         </rect>
     </property>
@@ -857,6 +857,10 @@
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>C R A S H</string>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>Do NOT press this button :-)</string>
                                 </property>
                             </widget>
                             <widget>
