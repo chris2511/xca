@@ -255,6 +255,9 @@ bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL)
 	int flags = 0;
 	if (!overwrite) flags = DB_NOOVERWRITE;
 	string desc = pki->getDescription();
+	if (desc == "") {
+		desc="unnamed";
+	}
 	string orig = desc;
 	int size=0;
 	char field[10];
@@ -362,6 +365,7 @@ bool db_base::updatePKI(pki_base *pki)
 pki_base *db_base::getSelectedPKI(string desc)
 {
 	if (desc == "" ) return NULL;
+	CERR << "descB = '"<<desc <<"'\n";
 	pki_base *pki;
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
@@ -392,7 +396,7 @@ pki_base *db_base::getSelectedPKI()
 	QListViewItem *lvi;
 	if ((lvi = listView->selectedItem()) == NULL) return NULL;
 	if ((tp = lvi->text(0).latin1())) desc = tp;
-	cerr << "desc = '"<<desc <<"'\n";
+	CERR << "desc = '"<<desc <<"'\n";
 	return getSelectedPKI(desc);
 }
 	

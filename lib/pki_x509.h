@@ -110,7 +110,9 @@ class pki_x509 : public pki_base
 	   void setRevoked(bool rev);
 	   bool isRevoked();
 	   int calcEffTrust();
+	   int getIncCaSerial();
 	   int getCaSerial();
+	   void setCaSerial(int s);
 };
 
 #endif

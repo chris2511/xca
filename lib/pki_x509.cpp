@@ -274,7 +274,7 @@ unsigned char *pki_x509::toData(int *size)
 	CERR <<"CertSize: "<<sCert << "RevSize: " <<sRev << endl;
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	intToData(&p1, (int)1); // version
+	intToData(&p1, (int)2); // version
 	intToData(&p1, sCert); // sizeof(cert)
 	i2d_X509(cert, &p1); // cert
 	intToData(&p1, trust); // trust
@@ -563,8 +563,19 @@ int pki_x509::calcEffTrust()
 	return mytrust;
 }
 
-int pki_x509::getCaSerial()
+int pki_x509::getIncCaSerial()
 {
 	// dirty = true;
 	return caSerial++;
 }
+
+int pki_x509::getCaSerial()
+{
+	return caSerial;
+}
+
+void pki_x509::setCaSerial(int s)
+{
+	caSerial = s;
+}
+
