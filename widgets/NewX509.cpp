@@ -374,6 +374,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	int2lb(ekeyUsage, temp->eKeyUse);
 	validNumber->setText(QString::number(temp->validN));
 	validRange->setCurrentItem(temp->validM);
+	midnightCB->setChecked(temp->validMidn);
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
 	}
@@ -411,6 +412,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->validN = validNumber->text().toInt();
 	temp->validM = validRange->currentItem();
 	temp->pathLen = basicPath->text().toInt();
+	temp->validMidn = midnightCB->isChecked();
 }
 
 void NewX509::toggleFromRequest()

@@ -86,6 +86,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 	pathLen=pk->pathLen;
 	validN=pk->validN;
 	validM=pk->validM;
+	validMidn=pk->validMidn;
 	keyUse=pk->keyUse;
 	eKeyUse=pk->eKeyUse;
 }
@@ -117,6 +118,7 @@ pki_temp::pki_temp(const QString d, int atype)
 	authKey=false;
 	subAltCp=false;
 	issAltCp=false;
+	validMidn=false;
 	pathLen=0;
 	validN=365;
 	validM=0;
@@ -209,6 +211,7 @@ void pki_temp::fromData(unsigned char *p, int size )
 	if (version >= 3) { 
 		authInfAcc=stringFromData(&p1);
 		certPol=stringFromData(&p1);
+		validMidn=boolFromData(&p1);
 	}
 	
 	if (p1-p != size) {
@@ -256,6 +259,7 @@ unsigned char *pki_temp::toData(int *size)
 	p1 = xname.i2d(p1);
 	stringToData(&p1, authInfAcc);
 	stringToData(&p1, certPol);
+	boolToData(&p1, validMidn);
 	return p;
 }
 
@@ -309,7 +313,7 @@ pki_temp::~pki_temp()
 int pki_temp::dataSize()
 {
 	return 9 * sizeof(int) + 
-	       7 * sizeof(bool) + 
+	       8 * sizeof(bool) + 
 	       xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +

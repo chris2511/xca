@@ -67,7 +67,8 @@ class pki_temp: public pki_base
 		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
 		QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
 			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
-		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
+		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp,
+	   		issAltCp, validMidn;
 		int type, nsCertType, pathLen, keyUse, eKeyUse, ca;
 		int validN, validM;
 	
