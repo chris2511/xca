@@ -48,6 +48,7 @@
  *
  */                           
 
+#include <qglobal.h>
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
 
@@ -60,7 +61,8 @@
 #else
 #include <db_cxx.h>
 #endif
-#ifdef HAVE_QACCESSIBLE_H
+
+#if QT_VERSION >= 0x030000
 #define qt3 1
 #endif
 

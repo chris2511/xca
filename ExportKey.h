@@ -66,8 +66,9 @@ class ExportKey: public ExportKey_UI
 	Q_OBJECT
 	bool onlyPub;
    public:	
-	ExportKey(QString fname, bool onlypub,
+	ExportKey(QString fname, bool onlypub, QString dpath,
 		  QWidget *parent = 0, const char *name = 0);
+	QString dirPath;
    public slots:
 	virtual void chooseFile();
 	virtual void canEncrypt();

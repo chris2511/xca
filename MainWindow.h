@@ -155,6 +155,10 @@ class MainWindow: public MainWindow_UI
 	bool alterTemp(pki_temp *temp);
 	void Error(errorEx &err);
 	void writePKCS12(QString s, bool chain);
+	void setPath(QFileDialog *dlg);
+	QString getPath();
+	void newPath(QFileDialog *dlg);
+	void newPath(QString str);
    public slots:
 	void loadKey();
 	void loadReq();
@@ -211,8 +215,6 @@ class MainWindow: public MainWindow_UI
 	void signReq();
 	void crashApp();
 	void toRequest();
-	void setPath(QFileDialog *dlg);
-	void newPath(QFileDialog *dlg);
 	void extendCert();
 	void signP7();
 	void encryptP7();

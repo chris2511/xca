@@ -273,9 +273,12 @@ void MainWindow::writeKey()
 	targetKey = getSelectedKey();
 	if (!targetKey) return;
 	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
-			targetKey->isPubKey(), this);
+			targetKey->isPubKey(), getPath(), this);
 	dlg->image->setPixmap(*keyImg);
-	if (!dlg->exec()) {
+	int dlgret = dlg->exec();
+	newPath(dlg->dirPath);
+
+	if (!dlgret) {
 		delete dlg;
 		return;
 	}

@@ -730,8 +730,11 @@ void MainWindow::writeCert()
 	if (!crt) return;
 	pki_key *privkey = crt->getKey();
 	ExportCert *dlg = new ExportCert((crt->getDescription() + ".crt").c_str(),
-			  (privkey && privkey->isPrivKey()));
-	if (!dlg->exec()) {
+			  (privkey && privkey->isPrivKey()), getPath() );
+	int dlgret = dlg->exec();
+	newPath(dlg->dirPath);
+
+	if (!dlgret) {
 		delete dlg;
 		return;
 	}

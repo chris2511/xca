@@ -52,7 +52,7 @@
 #include "ExportCert.h"
 
 
-ExportCert::ExportCert(QString fname, bool hasKey,
+ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
 	QWidget *parent, const char *name )
 	:ExportCert_UI(parent,name,true,0)
 {
@@ -68,6 +68,7 @@ ExportCert::ExportCert(QString fname, bool hasKey,
 		exportFormat->insertItem("PKCS #12");
 		exportFormat->insertItem("PKCS #12 with Certificate chain");
 	}		
+	dirPath = dpath;
 }
 	
 void ExportCert::chooseFile()
@@ -81,20 +82,25 @@ void ExportCert::chooseFile()
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	dlg->setSelection( filename->text() );
+	dlg->setDir(dirPath);
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
+	dirPath= dlg->dirPath();
+	formatChanged();
 	delete dlg;
 }
 
-void formatChanged()
+void ExportCert::formatChanged()
 {
 	CERR("Export format changed");
-	char suffix[][] = {"pem", "pem", "pem", "pem", "der", "p12", "p12"};
-	int selected = dlg->exportFormat->currentItem();
-	char *suf = suffix[selected];
+	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p12", "p12"};
+	int selected = exportFormat->currentItem();
 	QString fn = filename->text();
+	QString nfn = fn.left(fn.findRev('.')+1) + suffix[selected];
+	CERR(nfn);
+	filename->setText(nfn);
 }	

@@ -12,8 +12,6 @@ AC_PROG_CXX
 
 AC_SUBST(ac_QTDIR)
 AC_SUBST(ac_DEBUG)
-AC_SUBST(ac_SSLVER)
-AC_SUBST(ac_QTVER)
 
 # enable QTDIR if exist
 if test -d "$QTDIR" ; then
@@ -27,19 +25,12 @@ else
 	ac_QTDIR="System location"
 fi
 
-H_SSL097=no
 H_SSL=no
 H_DB=no
-ac_SSLVER="<= 0.9.6"
 
 AC_CHECK_HEADERS([evp.h openssl/evp.h],[H_SSL=y;break])
 if test "$H_SSL" == no; then
 	AC_MSG_ERROR([OpenSSL headerfiles not found])
-fi
-
-AC_CHECK_HEADERS([ocsp.h openssl/ocsp.h],[H_SSL097=y;break])
-if test "$H_SSL097" == y; then
-	ac_SSLVER=">= 0.9.7"
 fi
 
 
@@ -48,8 +39,6 @@ AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break]
 if test "$H_DB" == no; then
 	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca/compfaq.html for a workaround)])
 fi
-ac_QTVER="2.x.x"
-AC_CHECK_HEADERS([qaccessible.h],[ac_QTVER="3.x.x"])
 
 AC_LANG(C)
 

@@ -54,7 +54,7 @@
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qlineedit.h>
-#include "lib/pki_base.h"
+#include "lib/base.h"
 #include <iostream>
 
 #ifndef EXPORTCERT_H
@@ -64,10 +64,12 @@ class ExportCert: public ExportCert_UI
 {
 	Q_OBJECT
    public:	
-	ExportCert(QString fname, bool hasKey,
+	ExportCert(QString fname, bool hasKey, QString dpath,
 		  QWidget *parent = 0, const char *name = 0);
+	QString dirPath;
    public slots:
 	virtual void chooseFile();
+	virtual void formatChanged();
 };
 
 #endif

@@ -441,8 +441,18 @@ void MainWindow::setPath(QFileDialog *dlg)
 	}
 }
 
+QString MainWindow::getPath()
+{
+	QString x = settings->getString("workingdir").c_str();	
+	return x;
+}
+
 void MainWindow::newPath(QFileDialog *dlg)
 {
-	string wd = dlg->dirPath().latin1();
-	settings->putString("workingdir", wd);
+	newPath( dlg->dirPath() );
+}
+
+void MainWindow::newPath(QString str)
+{
+	settings->putString("workingdir", str.latin1());
 }

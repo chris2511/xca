@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>496</width>
+            <width>492</width>
             <height>306</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Key export</string>
+        <string>Cerificate export</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -340,7 +340,14 @@ PKCS#12 is an encrypted official Key-Certificate exchange format</string>
         <receiver>ExportCert_UI</receiver>
         <slot>chooseFile()</slot>
     </connection>
+    <connection>
+        <sender>exportFormat</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>ExportCert_UI</receiver>
+        <slot>formatChanged()</slot>
+    </connection>
     <slot access="public">chooseFile()</slot>
+    <slot access="public">formatChanged()</slot>
 </connections>
 <tabstops>
     <tabstop>filename</tabstop>

@@ -52,7 +52,7 @@
 #include "ExportKey.h"
 
 
-ExportKey::ExportKey(QString fname, bool onlypub, 
+ExportKey::ExportKey(QString fname, bool onlypub, QString dpath,
 	QWidget *parent, const char *name )
 	:ExportKey_UI(parent,name,true,0)
 {
@@ -71,6 +71,7 @@ ExportKey::ExportKey(QString fname, bool onlypub,
 		exportFormat->insertItem("PKCS#8");
 	}
 	canEncrypt();	
+	dirPath = dpath;
 }
 	
 void ExportKey::chooseFile()
@@ -84,12 +85,14 @@ void ExportKey::chooseFile()
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	dlg->setSelection( filename->text() );
+	dlg->setDir(dirPath);
 	if (dlg->exec())
 		s = dlg->selectedFile();
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
+	dirPath = dlg->dirPath();
 	delete dlg;
 }
 

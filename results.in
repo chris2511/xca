@@ -2,8 +2,6 @@
 Package		: @PACKAGE_STRING@
 Install dir	: @prefix@
 QT directory	: @ac_QTDIR@
-QT Version	: @ac_QTVER@
-OpenSSL Ver.	: @ac_SSLVER@
 CPP flags	: @CPPFLAGS@
 LD flags	: @LDFLAGS@
 Debug flag	: @ac_DEBUG@
