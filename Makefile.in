@@ -60,7 +60,7 @@ dist:
 	cvs export -r $(TAG) -d ../$(TARGET) xca
 	(cd ../$(TARGET);  autoconf; \
 		./mkxcapro.sh; lrelease xca.pro; \
-		cat rpm/xca.spec debian/changelog |sed s/VERSION/$(VERSION)/g >rpm/$(TARGET)-1.spec; \
+		cat rpm/xca.spec |sed s/VERSION/$(VERSION)/g >rpm/$(TARGET)-1.spec; \
 		rm rpm/xca.spec )
 	(cd ..; tar zcf $(TARGET).tar.gz $(TARGET) )
 	#rm -rf ../$(TARGET)
