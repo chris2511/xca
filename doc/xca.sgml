@@ -491,7 +491,7 @@ signed by this issuer.
 and their revokation date.
 </itemize>
 
-<sect>Certificate Recokation Lists
+<sect>Certificate Revokation Lists
 <p>
 All certificates are issued for a restricted timeperiod of validity.
 However it can happen that a certificate may not be used / gets invalid

@@ -5,6 +5,9 @@
 char *our_oids[] = {
 "1.3.6.1.4.1.311.20.2", "dom", "Domain Controller",
 "1.3.6.1.4.1.311.21.1", "MsCaV", "Microsoft CA Version",
+#if OPENSSL_VERSION_NUMBER < 0x00907000L
+"1.3.6.1.4.1.311.20.2.3", "msUPN", "Microsoft Universal Principal Name",
+#endif
 NULL };
 
 void initOIDs() {
