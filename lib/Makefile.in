@@ -35,7 +35,7 @@ clean:
 	rm -rf *~ *.o *.a $(DB_CPP)
 
 distclean: clean
-	rm -f Makefile
+	rm -f Makefile base.h
 
 moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@

@@ -59,7 +59,7 @@ clean:
 
 distclean: clean	
 	$(MAKE) -C lib distclean
-	rm -f Makefile config.cache config.h config.log config.status
+	rm -f Makefile config.cache config.h config.log config.status results
 	rm -rf autom4te.cache
 
 dist: 
