@@ -24,6 +24,7 @@ class KeyDB: public QObject
 	RSAkey *getSelectedKey(QString desc);
 	RSAkey *getSelectedKey();
 	QStringList getPrivateDesc();
+	RSAkey *findPublicKey(RSAkey *refkey);
 };
 
 #endif

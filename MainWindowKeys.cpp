@@ -6,11 +6,13 @@ const int MainWindow::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 RSAkey *MainWindow::getSelectedKey()
 {
 	RSAkey *targetKey = keys->getSelectedKey();
-	char *errtxt = targetKey->getError();
-	if (errtxt)
+	if (targetKey) {
+	   char *errtxt = targetKey->getError();
+	   if (errtxt)
 		QMessageBox::warning(this,"Schlüssel Fehler",
 			"Der Schlüssel: " + targetKey->description() +
 			"\nist nicht konsistent:\n" + errtxt);
+	}
 	return targetKey;
 }
 
@@ -46,7 +48,7 @@ void MainWindow::deleteKey()
 	if (QMessageBox::information(this,"Schlüssel löschen",
 			"Möchten Sie den Schlüssel: '" + 
 			delKey->description() +
-			"' wirklich löschen ?\n",
+			"'\nwirklich löschen ?\n",
 			"Löschen", "Abbrechen")
 	) return;
 	keys->deleteKey(delKey);
@@ -85,7 +87,16 @@ void MainWindow::showDetailsKey()
 
 void MainWindow::loadKey()
 {
-	QString s(QFileDialog::getOpenFileName( QString::null, "PEM Schlüssel (*.pem *.der)", this));
+	RSAkey *oldkey;
+	QStringList filt;
+	filt.append( "PKI Schlüssel ( *.pem *.der *.pk8 )"); 
+	filt.append("Alle Dateien ( *.* )");
+	QString s;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption("Schlüssel importieren");
+	dlg->setFilters(filt);
+	if (dlg->exec())
+		s = dlg->selectedFile();
 	if (s.isEmpty()) return;
 	char *errtxt;
 	RSAkey *lkey = new RSAkey(s, &MainWindow::passRead);
@@ -95,10 +106,29 @@ void MainWindow::loadKey()
 			"\nkonnte nicht geladen werden:\n" + errtxt);
 		return;
 	}
+	if ((oldkey = keys->findPublicKey(lkey))!= 0) {
+		if ((!oldkey->onlyPubKey && !lkey->onlyPubKey) ||
+		    lkey->onlyPubKey){
+	   	    QMessageBox::information(this,"Schlüssel import",
+			"Der Schlüssel ist bereits vorhanden als:\n'" +
+			oldkey->description() + 
+			"'\nund wurde daher nicht importiert", "OK");
+		    return;
+		}
+		else {
+	   	    QMessageBox::information(this,"Schlüssel import",
+			"Der öffentliche Teil des Schlüssels ist bereits vorhanden als:\n'" +
+			oldkey->description() + 
+			"'\nund wird durch den neuen, vollständigen Schlüssel ersetzt", "OK");
+		    keys->deleteKey(oldkey);
+		    lkey->setDescription(oldkey->description());
+		    delete(oldkey);
+		}
+	}
 	if (keys->insertKey(lkey))
 	   QMessageBox::information(this,"Schlüssel import",
-		"Der Schlüssel wurde erfolgreich importiert als: '" +
-		lkey->description() + "' ", "OK");
+		"Der Schlüssel wurde erfolgreich importiert als:\n'" +
+		lkey->description() + "'", "OK");
 	else	
 	   QMessageBox::warning(this,"Schlüssel import",
 		"Der Schlüssel konnte nicht in der Datenbank \
@@ -110,7 +140,8 @@ void MainWindow::writeKey()
 {
 	bool PEM=false;
 	EVP_CIPHER *enc = NULL;
-	RSAkey *targetKey = getSelectedKey();
+	RSAkey *targetKey = NULL;
+	targetKey = getSelectedKey();
 	if (!targetKey) return;
 	ExportKey *dlg = new ExportKey(targetKey->description() + ".pem",
 			targetKey->onlyPubKey, this);
@@ -135,12 +166,12 @@ void MainWindow::writeKey()
 	char *errtxt;
 	if ((errtxt = targetKey->getError()) != NULL) {
 		QMessageBox::warning(this,"Datei Fehler",
-			"Der Schlüssel: " + fname +
-			"\nkonnte nicht geschrieben werden:\n" + errtxt);
+			"Der Schlüssel: '" + fname +
+			"'\nkonnte nicht geschrieben werden:\n" + errtxt);
 		return;
 	}
 	QMessageBox::information(this,"Schlüssel export",
-		"Der Schlüssel wurde erfolgreich in die Datei '" +
+		"Der Schlüssel wurde erfolgreich in die Datei:\n'" +
 		fname + "' exportiert", "OK");
 
 }

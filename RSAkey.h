@@ -51,6 +51,7 @@ class RSAkey: public QObject
 	void writePublic(const char *fname, bool PEM);
 	void writePKCS8(const char *fname, pem_password_cb *cb);
 	unsigned char *getKey(int *size);
+	bool comparePublic(RSAkey *refkey);
 };
 
 #endif

@@ -16,7 +16,16 @@ ExportKey::ExportKey(QString fname, bool onlypub,
 	
 void ExportKey::chooseFile()
 {
-	QString s(QFileDialog::getSaveFileName( filename->text(), "PEM Schlüssel (*.pem *.der)", this));
+	QStringList filt;
+	filt.append( "PKI Schlüssel ( *.pem *.der *.pk8 )"); 
+	filt.append("Alle Dateien ( *.* )");
+	QString s;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	//dlg->setSelection( filename->text() );
+	dlg->setCaption("Schlüssel speichern unter");
+	dlg->setFilters(filt);
+	if (dlg->exec())
+		s = dlg->selectedFile();
 	if (! s.isEmpty()) filename->setText(s);
 }
 

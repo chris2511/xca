@@ -100,6 +100,7 @@ bool KeyDB::updateKey(RSAkey *key, QString desc)
 
 RSAkey *KeyDB::getSelectedKey(QString desc)
 {
+	if (desc.isNull()) return NULL;
 	unsigned char *p;
 	RSAkey *targetKey = NULL;
 	Dbt k((void *)desc.latin1(), desc.length()+1);
@@ -144,5 +145,39 @@ QStringList KeyDB::getPrivateDesc()
 		delete(key);
 		
 	}
+	delete (k);
+	delete (d);
 	return x;
+}
+
+RSAkey *KeyDB::findPublicKey(RSAkey *refkey)
+{
+	unsigned char *p;
+	Dbc *cursor;
+	if (int x = data->cursor(NULL, &cursor, 0))
+		data->err(x,"DB new Cursor");
+	Dbt *k = new Dbt();
+	Dbt *d = new Dbt();
+	QString desc;
+	RSAkey *key;
+	bool found = false;
+	//cerr << "before While loop\n";
+	while (!cursor->get(k, d, DB_NEXT)) {
+		//cerr << "in loop\n";
+		desc = (char *)k->get_data();
+		p = (unsigned char *)d->get_data();
+		int size = d->get_size();
+		key = new RSAkey(p, size);
+		key->setDescription(desc);
+		if (refkey->comparePublic(key)) {
+			delete (k);
+			delete (d);
+			return key;
+		}
+		delete(key);
+		
+	}
+	delete (k);
+	delete (d);
+	return NULL;
 }

@@ -230,6 +230,17 @@ QString RSAkey::privEx() {
 	return BN2QString(key->d);
 }
 
+
+bool RSAkey::comparePublic(RSAkey *refkey)
+{
+	if (
+	   BN_cmp(key->n, refkey->key->n) ||
+	   BN_cmp(key->e, refkey->key->e)
+	) return false;
+	return true;
+}	
+
+
 char *RSAkey::getError()
 {
 	char *x = error;
