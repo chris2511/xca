@@ -26,6 +26,9 @@ class X509Req : public QObject
 	   QString description();
 	   unsigned char *getReq(int *size);
 	   char *getError();
+	   QStringList *getDN();
+	   void writeReq(const char *fname, bool PEM);
+	   bool compareReq(X509Req *refreq);
 };
 
 #endif

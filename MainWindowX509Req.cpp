@@ -15,6 +15,22 @@ void MainWindow::newReq()
 	QString ou = dlg->organisationalUnitName->text();
 	QString email = dlg->emailAddress->text();
 	X509Req *req = new X509Req(key, cn.latin1(),c.latin1(),l.latin1(),st.latin1(),o.latin1(),ou.latin1(),email.latin1(), this);
+	QString e;
+	if ((e = req->getError()) != NULL) {
+	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
+		"Beim Erstellen der Anfrage trat folgender Fehler auf:\n'" +
+		e + "'\nund wurde daher nicht importiert", "OK");
+		return;
+	}
+	X509Req *oldreq = reqs->findReq(req);
+	if (oldreq) {
+	   QMessageBox::information(this,"Zertifikatsanfragen import",
+		"Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
+		oldreq->description() + 
+		"'\nund wurde daher nicht erstellt", "OK");
+	   delete(oldreq);
+	   return;
+	}
 	req->setDescription(dlg->description->text());
 	reqs->insertReq(req);
 }
@@ -44,6 +60,15 @@ void MainWindow::showDetailsReq()
 	        }	
 	   }
 	}
+	QStringList *l = req->getDN();
+	QStringList::Iterator it = l->begin();
+	
+	dlg->dnCN->setText(*it);
+	dlg->dnC->setText(*++it + " / " + *++it);
+	dlg->dnL->setText(*++it);
+	dlg->dnO->setText(*++it);
+	dlg->dnOU->setText(*++it);
+	dlg->dnEmail->setText(*++it);
 	if ( !dlg->exec()) return;
 	QString ndesc = dlg->descr->text();
 	if (ndesc != req->description()) {
@@ -54,6 +79,13 @@ void MainWindow::showDetailsReq()
 void MainWindow::deleteReq()
 {
 	X509Req *req = reqs->getSelectedReq();
+	if (!req) return;
+	if (QMessageBox::information(this,"Zertifikatsanfrage löschen",
+			"Möchten Sie die Zertifikatsanfrage: '" + 
+			req->description() +
+			"'\nwirklich löschen ?\n",
+			"Löschen", "Abbrechen")
+	) return;
 	reqs->deleteReq(req);
 }
 
@@ -77,6 +109,40 @@ void MainWindow::loadReq()
 			"'\nkonnte nicht geladen werden:\n" + errtxt);
 		return;
 	}
+	X509Req *oldreq = reqs->findReq(req);
+	if (oldreq) {
+	   QMessageBox::information(this,"Zertifikatsanfragen import",
+		"Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
+		oldreq->description() + 
+		"'\nund wurde daher nicht importiert", "OK");
+	   delete(oldreq);
+	   return;
+	}
 	reqs->insertReq(req);
+}
+
+void MainWindow::writeReq()
+{
+	QStringList filt;
+	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
+	filt.append("Alle Dateien ( *.* )");
+	QString s;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption("Anfrage exportieren");
+	dlg->setFilters(filt);
+	if (dlg->exec())
+		s = dlg->selectedFile();
+	if (s.isEmpty()) return;
+	X509Req *req = reqs->getSelectedReq();
+	if (req) {
+	   req->writeReq(s,true);
+	   QString errtxt;
+	   if ((errtxt = req->getError()) != NULL) {
+		QMessageBox::warning(this,"Datei Fehler",
+			"Die Zertifikatsanfrage: '" + s +
+			"'\nkonnte nicht gespeichert werden:\n" + errtxt);
+		return;
+	   }
+	}
 }
 

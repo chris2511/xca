@@ -161,9 +161,7 @@ RSAkey *KeyDB::findPublicKey(RSAkey *refkey)
 	QString desc;
 	RSAkey *key;
 	bool found = false;
-	//cerr << "before While loop\n";
 	while (!cursor->get(k, d, DB_NEXT)) {
-		//cerr << "in loop\n";
 		desc = (char *)k->get_data();
 		p = (unsigned char *)d->get_data();
 		int size = d->get_size();

@@ -113,3 +113,34 @@ X509Req *ReqDB::getSelectedReq()
 	return getSelectedReq(desc);
 }
 	
+
+X509Req *ReqDB::findReq(X509Req *refreq)
+{
+	unsigned char *p;
+	Dbc *cursor;
+	if (int x = data->cursor(NULL, &cursor, 0))
+		data->err(x,"DB new Cursor");
+	Dbt *k = new Dbt();
+	Dbt *d = new Dbt();
+	QString desc;
+	X509Req *req;
+	bool found = false;
+	while (!cursor->get(k, d, DB_NEXT)) {
+		desc = (char *)k->get_data();
+		p = (unsigned char *)d->get_data();
+		int size = d->get_size();
+		req = new X509Req(p, size);
+		req->setDescription(desc);
+		if (refreq->compareReq(req)) {
+			delete (k);
+			delete (d);
+			return req;
+		}
+		delete(req);
+		
+	}
+	delete (k);
+	delete (d);
+	return NULL;
+}
+

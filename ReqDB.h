@@ -24,7 +24,7 @@ class ReqDB: public QObject
 	bool updateReq(X509Req *req, QString desc);
 	X509Req *getSelectedReq(QString desc);
 	X509Req *getSelectedReq();
-	QStringList getPrivateDesc();
+	X509Req *findReq(X509Req *refreq);
 };
 
 #endif

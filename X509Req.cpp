@@ -20,11 +20,8 @@ X509Req::X509Req(RSAkey *key, const char *cn,
 	openssl_error();
 	X509_REQ_set_version(request, 0L);
 	openssl_error();
-	cerr << "HIIIIEEER\n";
 	openssl_error();
 	X509_REQ_set_pubkey(request, pkey);
-	cerr << "HIER\n";
-	cerr << "ende...\n";
 	openssl_error();
 	
 	X509_NAME *subj = X509_REQ_get_subject_name(request);
@@ -46,66 +43,7 @@ X509Req::X509Req(RSAkey *key, const char *cn,
 	const EVP_MD *digest=EVP_md5();
 	X509_REQ_sign(request,pkey,digest);
 	openssl_error();
-	FILE *fp = fopen("request.pem","w");
-	PEM_write_X509_REQ(fp,request);
-	fclose(fp); 
 }
-
-
-X509Req::X509Req(unsigned char *p, int size)
-{
-	request = d2i_X509_REQ(NULL, &p, size);
-	openssl_error();
-}
-
-		
-QString X509Req::description()
-{
-	return desc;
-}
-
-
-void X509Req::setDescription(QString d)
-{
-	desc=d;
-}
-
-unsigned char *X509Req::getReq(int *size)
-{
-	unsigned char *p, *p1;
-	*size = i2d_X509_REQ(request, NULL);
-	openssl_error();
-	p = (unsigned char*)OPENSSL_malloc(*size);
-	p1 = p;
-	i2d_X509_REQ(request, &p1);
-	openssl_error();
-	return p;
-}
-
-
-char *X509Req::getError()
-{
-	char *x = error;
-	error = NULL;
-	return x;
-}
-
-
-	
-char *X509Req::openssl_error()
-{
-	error = NULL;
-	char *errtxt = NULL;
-	while (int i = ERR_get_error() ) {
-	   errtxt = ERR_error_string(i ,NULL);
-	   if (errtxt) {
-		fprintf(stderr, "OpenSSL: %s\n", errtxt);
-	   }
-	   error = errtxt;
-	}
-	return error;
-}
-
 
 
 X509Req::X509Req(QString fname)
@@ -130,9 +68,127 @@ X509Req::X509Req(QString fname)
 	fclose(fp);
 }
 
-/*
-	FILE *fp = fopen("request.pem","w");
-	PEM_write_X509_REQ(fp,request);
-	fclose(fp); 
-*/
+
+X509Req::X509Req(unsigned char *p, int size)
+{
+	request = d2i_X509_REQ(NULL, &p, size);
+	openssl_error();
+}
+
+		
+QString X509Req::description()
+{
+	return desc;
+}
+
+QStringList *X509Req::getDN()
+{
+#define BUFLEN 200
+	char buf[BUFLEN];
+	QString s;
+	QStringList *l = new QStringList();
+	X509_NAME *subj = X509_REQ_get_subject_name(request);
+	X509_NAME_get_text_by_NID(subj,NID_commonName,
+			buf, BUFLEN);
+	s = buf;
+	l->append(s);
+	X509_NAME_get_text_by_NID(subj,NID_countryName,
+			buf, BUFLEN);
+	s = buf;
+	l->append(s);
+	X509_NAME_get_text_by_NID(subj,NID_stateOrProvinceName,
+			buf, BUFLEN);
+	s = buf;
+	l->append(s);
+	X509_NAME_get_text_by_NID(subj,NID_localityName,
+			buf, BUFLEN);
+	s = buf;
+	l->append(s);
+	X509_NAME_get_text_by_NID(subj,NID_organizationName,
+			buf, BUFLEN);
+	s = buf;
+	l->append(s);
+	X509_NAME_get_text_by_NID(subj,NID_organizationalUnitName,
+			buf, BUFLEN);
+	s = buf;
+	l->append(s);
+	X509_NAME_get_text_by_NID(subj,NID_pkcs9_emailAddress,
+			buf, BUFLEN);
+	s = buf;
+	l->append(s);
+	
+	return l;
+}
+
+
+void X509Req::setDescription(QString d)
+{
+	desc=d;
+}
+
+unsigned char *X509Req::getReq(int *size)
+{
+	unsigned char *p, *p1;
+	*size = i2d_X509_REQ(request, NULL);
+	openssl_error();
+	p = (unsigned char*)OPENSSL_malloc(*size);
+	p1 = p;
+	i2d_X509_REQ(request, &p1);
+	openssl_error();
+	return p;
+}
+
+
+void X509Req::writeReq(const char *fname, bool PEM)
+{
+	FILE *fp = fopen(fname,"w");
+	if (fp != NULL) {
+	   if (request){
+		if (PEM) 
+		   PEM_write_X509_REQ(fp, request);
+		else
+		   i2d_X509_REQ_fp(fp,request);
+	        openssl_error();
+	   }
+	}
+	else error = "Fehler beim Öffnen der Datei";
+	fclose(fp);
+}
+
+bool X509Req::compareReq(X509Req *refreq)
+{
+	const EVP_MD *digest=EVP_md5();
+	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];	
+	unsigned int d1_len,d2_len;
+	X509_REQ_digest(request, digest, d1, &d1_len);
+	X509_REQ_digest(refreq->request, digest, d2, &d2_len);
+	if ((d1_len == d2_len) && 
+	    (d1_len >0) &&
+	    (memcmp(d1,d2,d1_len) == 0) )return true;
+	return false;
+}
+
+char *X509Req::getError()
+{
+	char *x = error;
+	error = NULL;
+	return x;
+}
+
+
+	
+char *X509Req::openssl_error()
+{
+	error = NULL;
+	char *errtxt = NULL;
+	while (int i = ERR_get_error() ) {
+	   errtxt = ERR_error_string(i ,NULL);
+	   if (errtxt) {
+		fprintf(stderr, "OpenSSL: %s\n", errtxt);
+	   }
+	   error = errtxt;
+	}
+	return error;
+}
+
 

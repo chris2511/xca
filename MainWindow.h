@@ -43,7 +43,6 @@ class MainWindow: public MainWindow_UI
 	MainWindow(QWidget *parent, const char *name);
 	~MainWindow(); 
 	void showDetailsKey(RSAkey *key);
-	void writeKey();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static void incProgress(int a, int b, void *progress);
@@ -57,5 +56,7 @@ class MainWindow: public MainWindow_UI
 	virtual void newReq();
 	virtual void showDetailsReq();
 	virtual void deleteReq();
+	virtual void writeKey();
+	virtual void writeReq();
 };
 #endif
