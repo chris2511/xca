@@ -55,6 +55,7 @@
 #include "func.h"
 #include <openssl/rand.h>
 #include <qprogressdialog.h>
+#include <qapplication.h>
 #include <widgets/MainWindow.h>
 
 char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
@@ -84,8 +85,8 @@ void pki_key::generate(int bits)
 {
 	RSA *rsakey=NULL;
 	QProgressDialog *progress = new QProgressDialog(
-		progress->tr("Please wait, Key generation is in progress"),
-		progress->tr("Cancel"),90, 0, 0, true);
+		qApp->tr("Please wait, Key generation is in progress"),
+		qApp->tr("Cancel"),90, 0, 0, true);
 	progress->setMinimumDuration(0);
 	progress->setProgress(0);   
 	progress->setCaption(XCA_TITLE);

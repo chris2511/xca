@@ -58,21 +58,21 @@
 void MainWindow::init_menu()
 {
 	QPopupMenu *file = new QPopupMenu( this );
-	file->insertItem( "&Open default DataBase",  this, SLOT(load_def_database()), CTRL+Key_O );
-	file->insertItem( "&Open DataBase",  this, SLOT(load_database()), CTRL+Key_L );
-	file->insertItem( "&Close DataBase", this, SLOT(close_database()), CTRL+Key_C );
+	file->insertItem(tr("&Open default DataBase"),  this, SLOT(load_def_database()), CTRL+Key_O );
+	file->insertItem(tr("Open &DataBase"),  this, SLOT(load_database()), CTRL+Key_L );
+	file->insertItem(tr("&Close DataBase"), this, SLOT(close_database()), CTRL+Key_C );
 	file->insertSeparator();
-	file->insertItem( "E&xit",  qApp, SLOT(quit()), ALT+Key_F4 );
+	file->insertItem(tr("E&xit"),  qApp, SLOT(quit()), ALT+Key_F4 );
 
 	QPopupMenu *help = new QPopupMenu( this );
-	help->insertItem( "&Content", this, SLOT(help()), Key_F1 );
-	help->insertItem( "&About", this, SLOT(about()) );
+	help->insertItem(tr("&Content"), this, SLOT(help()), Key_F1 );
+	help->insertItem(tr("&About"), this, SLOT(about()) );
 	
 	
 	mb = new QMenuBar( this );
-	mb->insertItem( "&File", file );
+	mb->insertItem(tr("&File"), file );
 	mb->insertSeparator();
-	mb->insertItem( "&Help", help );
+	mb->insertItem(tr("&Help"), help );
 	mb->setSeparator( QMenuBar::InWindowsStyle );
 }
 

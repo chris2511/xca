@@ -1,5 +1,12 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name>About_UI</name>
+    <message>
+        <source>XCA</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CertDetail</name>
     <message>
         <source>Not available</source>
@@ -69,14 +76,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>CertDetail_UI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -138,6 +137,10 @@
     </message>
     <message>
         <source>&amp;Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;tatus</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -344,6 +347,13 @@
     </message>
     <message>
         <source>The key you selected for signing is not a private one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ClickLabel</name>
+    <message>
+        <source>Double click for details</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -726,6 +736,21 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
 </context>
 <context>
+    <name>Help_UI</name>
+    <message>
+        <source>&lt;&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportMulti</name>
     <message>
         <source>Internal name</source>
@@ -865,7 +890,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Please wait, Key generation is in progress</source>
-        <translation type="unfinished">Espere, generando claves...</translation>
+        <translation type="obsolete">Espere, generando claves...</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -974,15 +999,51 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <source>Copy to Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>no such option: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&apos;m puzzled: this should not happen ! </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open default DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open &amp;DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow_UI</name>
     <message>
         <source>RSA Keys</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(c) 2002 by christian@hohnstaedt.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1043,10 +1104,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Ch&amp;ange Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1136,19 +1193,11 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Certificate request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source> change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1164,77 +1213,48 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are done with entering all parameters for creating a Certificate.</source>
+        <source>Welcome to the settings for certificate signing requests.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to the settings for certificate signing requests.
-A signing request needs a private key, so it will be created if there isn&apos;t any unused key available in the key database. This signing request can then be given to a Certification authority while the private key of the request and of the resulting certificate returned from the CA does never leave your computer.</source>
-        <translation type="obsolete"></translation>
+        <source>Certificate signing request</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are done with entering all parameters for generating a Certificate signing request. The resulting request should be exported and send to an appropriate CA for signing it.</source>
-        <translation type="obsolete"></translation>
+        <source>Welcome to the settings for Templates.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to the settings for Templates.
-This templates do not refer to any ASN.1 structure but are used to keep default settings for signing requests and certificates. When creating a Request or Certificate the template can preset the needed fields with default settings.</source>
-        <translation type="obsolete"></translation>
+        <source>A signing request needs a private key, so it will becreated if there isn&apos;t any unused key available in the keydatabase. This signing request can then be given to aCertification authority while the private key of the requestand of the resulting certificate returned from the CA does neverleave your computer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for generatinga Certificate signing request. The resulting request shouldbe exported and send to an appropriate CA for signing it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This templates do not refer to any ASN.1 structurebut are used to keep default settings for signing requests andcertificates. When creating a Request or Certificate the templatecan preset the needed fields with default settings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You are done with entering all parameters for the Template.
-After this step the template can be assigned to one of your CAs to be autoatically applied when signing with this CA.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Welcome to the settings for Certificates.
-The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>
-Welcome to the settings for certificate signing requests.
-
-A signing request needs a private key, so it will be created 
-if there isn&apos;t any unused key available in the key database. 
-This signing request can then be given to a Certification authority 
-while the private key of the request and of the resulting certificate 
-returned from the CA does never leave your computer.</source>
+After this step the template can be assigned to one of your CAs tobe autoatically applied when signing with this CA.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-You are done with entering all parameters for generating a Certificate signing 
-request. The resulting request should be exported and send to an appropriate CA 
-for signing it.</source>
+        <source>Welcome to the settings for Certificates.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-Welcome to the settings for Templates.
-
-This templates do not refer to any ASN.1 structure but are used to keep default 
-settings for signing requests and certificates. 
-When creating a Request or Certificate the template can preset the needed fields 
-with default settings.</source>
+        <source>The information for the new Certificate can either begrabbed from a given Certificate-request or be filled in by hand.In the case of not signing a request there needs to be at least oneunused key. If this is not the case it will be created. If you wantto self-sign a request (unusual but nevertheless possible) you needthe private key used to create the request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-You are done with entering all parameters for the Template.
-
-After this step the template can be assigned to one of your CAs to be autoatically 
-applied when signing with this CA.</source>
+        <source>You are done with entering all parameters for creatinga Certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to the settings for Certificates.
-
-The information for the new Certificate can either be grabbed from a given 
-Certificate-request or be filled in by hand. In the case of not signing a request 
-there needs to be at least one unused key. If this is not the case it will be created. 
-If you want to self-sign a request (unusual but nevertheless possible) you need the 
-private key used to create the request.</source>
+        <source>Certificate</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1495,7 +1515,7 @@ Empy, CA, client, server</source>
     </message>
     <message>
         <source>Country</source>
-        <translation type="unfinished">País</translation>
+        <translation type="obsolete">País</translation>
     </message>
     <message>
         <source>Locality</source>
@@ -1551,18 +1571,6 @@ Empy, CA, client, server</source>
     </message>
     <message>
         <source>This funny button creates a key. Go figure.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1662,10 +1670,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Path length</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1675,6 +1679,56 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Not after</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Press Next to continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State or Province</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certification Authority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Entity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Policies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you follow the PKIX recommendations of not including any qualifiers and just
+using only one OID then you just include the value of that OID. Multiple OIDs
+can be set separated by commas, for example:
+
+Example:
+1.2.4.5, 1.1.3.4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
+
+Example:
+
+OCSP;URI:http://ocsp.my.host/
+caIssuers;URI:http://my.ca/ca.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authority Info Access</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1781,6 +1835,29 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <source>Import Certificate Revokation List</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Netscape Request ( *.spkac *.spc )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XCA Databases ( *.db )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open XCA Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QString</name>
+    <message>
+        <source>Please wait, Key generation is in progress</source>
+        <translation type="obsolete">Espere, generando claves...</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Cancelar</translation>
+    </message>
 </context>
 <context>
     <name>ReqDetail</name>
@@ -1813,7 +1890,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Subject</source>
-        <translation>Sujeto</translation>
+        <translation type="obsolete">Sujeto</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -1821,10 +1898,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1841,6 +1914,18 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Private key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ReqDetail_UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;tatus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Subject</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2024,10 +2109,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mai</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Jun</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2044,19 +2125,23 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Okt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Nov</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dez</source>
+        <source>Now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Now</source>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dec</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2155,6 +2240,14 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <message>
         <source>Please enter the password protecting the RSA private key</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please wait, Key generation is in progress</source>
+        <translation type="unfinished">Espere, generando claves...</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
     </message>
 </context>
 <context>

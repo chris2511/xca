@@ -1,5 +1,19 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name>@default</name>
+    <message>
+        <source>Certificate</source>
+        <translation type="obsolete">Zertifikat</translation>
+    </message>
+</context>
+<context>
+    <name>About_UI</name>
+    <message>
+        <source>XCA</source>
+        <translation>XCA</translation>
+    </message>
+</context>
+<context>
     <name>CertDetail</name>
     <message>
         <source>Not available</source>
@@ -70,11 +84,11 @@
     </message>
     <message>
         <source>CertDetail_UI</source>
-        <translation>CertDetail_UI</translation>
+        <translation type="obsolete">CertDetail_UI</translation>
     </message>
     <message>
         <source>&amp;Status</source>
-        <translation>&amp;Status</translation>
+        <translation type="obsolete">&amp;Status</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -143,6 +157,10 @@
     <message>
         <source>&amp;Extensions</source>
         <translation>&amp;Erweiterungen</translation>
+    </message>
+    <message>
+        <source>S&amp;tatus</source>
+        <translation>S&amp;tatus</translation>
     </message>
 </context>
 <context>
@@ -361,6 +379,13 @@
     <message>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
+    </message>
+</context>
+<context>
+    <name>ClickLabel</name>
+    <message>
+        <source>Double click for details</source>
+        <translation>Doppel klick für Details</translation>
     </message>
 </context>
 <context>
@@ -788,6 +813,21 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     </message>
 </context>
 <context>
+    <name>Help_UI</name>
+    <message>
+        <source>&lt;&lt;</source>
+        <translation>&lt;&lt;</translation>
+    </message>
+    <message>
+        <source>&gt;&gt;</source>
+        <translation>&gt;&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Done</source>
+        <translation>&amp;Fertig</translation>
+    </message>
+</context>
+<context>
     <name>ImportMulti</name>
     <message>
         <source>Internal name</source>
@@ -931,7 +971,7 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     </message>
     <message>
         <source>Please wait, Key generation is in progress</source>
-        <translation>Bitte warten Sie, der Schlüssel wird erstellt</translation>
+        <translation type="obsolete">Bitte warten Sie, der Schlüssel wird erstellt</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1040,6 +1080,46 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
         <source>Copy to Clipboard</source>
         <translation>In die Zwischenablage</translation>
     </message>
+    <message>
+        <source>no such option: </source>
+        <translation>Es gib keine Option:</translation>
+    </message>
+    <message>
+        <source>I&apos;m puzzled: this should not happen ! </source>
+        <translation>Ich bin verwirrt: das sollte nicht passieren !</translation>
+    </message>
+    <message>
+        <source>&amp;Open default DataBase</source>
+        <translation>Öffne &amp;standard Datenbank</translation>
+    </message>
+    <message>
+        <source>&amp;Close DataBase</source>
+        <translation>Datenbank s&amp;chliessen</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Beenden</translation>
+    </message>
+    <message>
+        <source>&amp;Content</source>
+        <translation>&amp;Inhalt</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <translation>Ü&amp;ber</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>D&amp;atei</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Hilfe</translation>
+    </message>
+    <message>
+        <source>Open &amp;DataBase</source>
+        <translation>&amp;Datenbank öffnen</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow_UI</name>
@@ -1057,7 +1137,7 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     </message>
     <message>
         <source>(c) 2002 by christian@hohnstaedt.de</source>
-        <translation>(c) 2002 by christian@hohnstaedt.de</translation>
+        <translation type="obsolete">(c) 2002 by christian@hohnstaedt.de</translation>
     </message>
     <message>
         <source>X Certificate and Key management</source>
@@ -1125,7 +1205,7 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>&amp;Beenden</translation>
+        <translation type="obsolete">&amp;Beenden</translation>
     </message>
     <message>
         <source>Plain View</source>
@@ -1223,7 +1303,7 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     </message>
     <message>
         <source>Certificate request</source>
-        <translation>Unterschriftsanfrage</translation>
+        <translation type="obsolete">Unterschriftsanfrage</translation>
     </message>
     <message>
         <source>Template</source>
@@ -1250,77 +1330,44 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
         <translation>CA Vorlage</translation>
     </message>
     <message>
-        <source>You are done with entering all parameters for creating a Certificate.</source>
+        <source>Welcome to the settings for certificate signing requests.</source>
+        <translation>Wilkommen bei den Einstellungen für Unterschriftsanfragen.</translation>
+    </message>
+    <message>
+        <source>Certificate signing request</source>
+        <translation>Unterschriftsanfrage</translation>
+    </message>
+    <message>
+        <source>Welcome to the settings for Templates.</source>
+        <translation>Willkommen zu den Einstellungen für Templates.</translation>
+    </message>
+    <message>
+        <source>A signing request needs a private key, so it will becreated if there isn&apos;t any unused key available in the keydatabase. This signing request can then be given to aCertification authority while the private key of the requestand of the resulting certificate returned from the CA does neverleave your computer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to the settings for certificate signing requests.
-A signing request needs a private key, so it will be created if there isn&apos;t any unused key available in the key database. This signing request can then be given to a Certification authority while the private key of the request and of the resulting certificate returned from the CA does never leave your computer.</source>
-        <translation type="obsolete"></translation>
+        <source>You are done with entering all parameters for generatinga Certificate signing request. The resulting request shouldbe exported and send to an appropriate CA for signing it.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are done with entering all parameters for generating a Certificate signing request. The resulting request should be exported and send to an appropriate CA for signing it.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Welcome to the settings for Templates.
-This templates do not refer to any ASN.1 structure but are used to keep default settings for signing requests and certificates. When creating a Request or Certificate the template can preset the needed fields with default settings.</source>
-        <translation type="obsolete"></translation>
+        <source>This templates do not refer to any ASN.1 structurebut are used to keep default settings for signing requests andcertificates. When creating a Request or Certificate the templatecan preset the needed fields with default settings.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You are done with entering all parameters for the Template.
-After this step the template can be assigned to one of your CAs to be autoatically applied when signing with this CA.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>Welcome to the settings for Certificates.
-The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.</source>
-        <translation type="obsolete"></translation>
-    </message>
-    <message>
-        <source>
-Welcome to the settings for certificate signing requests.
-
-A signing request needs a private key, so it will be created 
-if there isn&apos;t any unused key available in the key database. 
-This signing request can then be given to a Certification authority 
-while the private key of the request and of the resulting certificate 
-returned from the CA does never leave your computer.</source>
+After this step the template can be assigned to one of your CAs tobe autoatically applied when signing with this CA.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-You are done with entering all parameters for generating a Certificate signing 
-request. The resulting request should be exported and send to an appropriate CA 
-for signing it.</source>
+        <source>Welcome to the settings for Certificates.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-Welcome to the settings for Templates.
-
-This templates do not refer to any ASN.1 structure but are used to keep default 
-settings for signing requests and certificates. 
-When creating a Request or Certificate the template can preset the needed fields 
-with default settings.</source>
+        <source>The information for the new Certificate can either begrabbed from a given Certificate-request or be filled in by hand.In the case of not signing a request there needs to be at least oneunused key. If this is not the case it will be created. If you wantto self-sign a request (unusual but nevertheless possible) you needthe private key used to create the request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-You are done with entering all parameters for the Template.
-
-After this step the template can be assigned to one of your CAs to be autoatically 
-applied when signing with this CA.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Welcome to the settings for Certificates.
-
-The information for the new Certificate can either be grabbed from a given 
-Certificate-request or be filled in by hand. In the case of not signing a request 
-there needs to be at least one unused key. If this is not the case it will be created. 
-If you want to self-sign a request (unusual but nevertheless possible) you need the 
-private key used to create the request.</source>
+        <source>You are done with entering all parameters for creatinga Certificate.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1480,51 +1527,51 @@ private key used to create the request.</source>
     </message>
     <message>
         <source>Sign this Certificate signing &amp;request</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Unterschriftsanf&amp;rage unterschreiben</translation>
     </message>
     <message>
         <source>Create a &amp;self signed certificate with the serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit der Serien nummer</translation>
     </message>
     <message>
         <source>Change the default &amp;extension settings from the template</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Standard&amp;einstellungen des Zertifikats sollen geändert werden</translation>
     </message>
     <message>
         <source>&amp;Generate a new key</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Erstelle einen neuen Schlüssel</translation>
     </message>
     <message>
         <source>&amp;Critical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Critical</translation>
     </message>
     <message>
         <source>&amp;Subject Key Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Subject Key Identifier</translation>
     </message>
     <message>
         <source>&amp;Authority Key Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Authority Key Identifier</translation>
     </message>
     <message>
         <source>Copy &amp;issuer name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiere den &amp;Namen des Ausstellers</translation>
     </message>
     <message>
         <source>Copy &amp;e-mail address from subject line</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiere &amp;E-Mail adresse aus der Subject Zeile</translation>
     </message>
     <message>
         <source>C&amp;ritical</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;ritical</translation>
     </message>
     <message>
         <source>NewX509_UI</source>
-        <translation type="unfinished"></translation>
+        <translation>NewX509_UI</translation>
     </message>
     <message>
         <source>Signing request</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterschriftsanfrage</translation>
     </message>
     <message>
         <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
@@ -1534,126 +1581,121 @@ Of course you need the private key of the CSR if you want to create a self-signe
     </message>
     <message>
         <source>If you leave this blank the serial 00 will be used</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Sie dieses Feld frei lassen wird die Seriennummer 00 verwendet</translation>
     </message>
     <message>
         <source>All certificates in your database that can create valid signatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Zertifikate aus der Datenbank, die gültige Unterschriften leisten können</translation>
     </message>
     <message>
         <source>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
 If this list is disabled, you only can create a self-signed certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Liste enthält alle Zertifikate mit dem CA-flag gesetzt und dessen privater Schlüssel verfügbar ist.
+Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifikat erstellt werden. </translation>
     </message>
     <message>
         <source>All available templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle verfügbaren Templates</translation>
     </message>
     <message>
         <source>This list contains all templates from the toplevel template Tab. 
 Additionally it contains 4 default templates:
 Empy, CA, client, server</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Liste enthält all Templates aus der Templateliste.
+Zusätzlich enthält sie 4 standard templates:
+Empy, CA, client, server</translation>
     </message>
     <message>
         <source>Check this to adjust all details of the certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie dies um alle Details des Zertifikats einzustellen</translation>
     </message>
     <message>
         <source>Source of the subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelle der Besitzerdaten</translation>
     </message>
     <message>
         <source>Organisation</source>
-        <translation type="unfinished">Firma</translation>
+        <translation>Firma</translation>
     </message>
     <message>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
     <message>
         <source>Must be exactly 2 letter of size (DE, UK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Muss exakt 2 Zeichen lang sein (DE,UK)</translation>
     </message>
     <message>
         <source>Country code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation>Länder code</translation>
     </message>
     <message>
         <source>Locality</source>
-        <translation type="unfinished"></translation>
+        <translation>Ort</translation>
     </message>
     <message>
         <source>Organ. unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Firmenabteilung</translation>
     </message>
     <message>
         <source>Common name</source>
-        <translation type="unfinished">Üblicher Name</translation>
+        <translation>Üblicher Name</translation>
     </message>
     <message>
         <source>E-Mail address</source>
-        <translation type="unfinished"></translation>
+        <translation>E-Mail Adresse</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Object</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <source>Private key</source>
-        <translation type="unfinished">Privater Schlüssel</translation>
+        <translation>Privater Schlüssel</translation>
     </message>
     <message>
         <source>This list only contains unused keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Liste enthält nur unbenutzte Schlüssel</translation>
     </message>
     <message>
         <source>MD 2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>MD 5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>SHA 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This funny button creates a key. Go figure.</source>
         <translation>Dieser lustige Knopf erstellt einen Schlüssel, stell Dir vor.</translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Yes</source>
-        <translation>Ja</translation>
+        <translation type="obsolete">Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nein</translation>
+        <translation type="obsolete">Nein</translation>
     </message>
     <message>
         <source>If this will become a CA certificate or not</source>
-        <translation type="unfinished"></translation>
+        <translation>Ob dies ein CA Zertifikat wird oder nicht</translation>
     </message>
     <message>
         <source>Set this to TRUE if you want to create a CA certificate that signs other certificates.
@@ -1663,7 +1705,7 @@ Self-signed non-CA certificates are unusual although they are possible.</source>
     </message>
     <message>
         <source>How much CAs may be below this.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wieviele CAs in der Kette unter diesem sein dürfen.</translation>
     </message>
     <message>
         <source>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
@@ -1672,15 +1714,15 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
     </message>
     <message>
         <source>The basic constraints should always be critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Die &quot;grundlegenden Einschränkungen&quot; sollten immer &quot;critical&quot; sein </translation>
     </message>
     <message>
         <source>Creates a hash of the key following the PKIX guidelines</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Copy the Subject Key Identifier from the issuer</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
@@ -1697,7 +1739,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     </message>
     <message>
         <source>Time Range</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zeitspanne</translation>
     </message>
     <message>
         <source>Wether to copy the subj. alt. name from the issuer</source>
@@ -1757,7 +1799,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>CA</source>
-        <translation type="unfinished">CA</translation>
+        <translation type="obsolete">CA</translation>
     </message>
     <message>
         <source>Path length</source>
@@ -1770,6 +1812,56 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <message>
         <source>Not after</source>
         <translation type="unfinished">Nicht nach dem</translation>
+    </message>
+    <message>
+        <source>Press Next to continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State or Province</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Typ</translation>
+    </message>
+    <message>
+        <source>Not defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certification Authority</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Entity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Policies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you follow the PKIX recommendations of not including any qualifiers and just
+using only one OID then you just include the value of that OID. Multiple OIDs
+can be set separated by commas, for example:
+
+Example:
+1.2.4.5, 1.1.3.4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
+
+Example:
+
+OCSP;URI:http://ocsp.my.host/
+caIssuers;URI:http://my.ca/ca.html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authority Info Access</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1875,6 +1967,29 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <source>Import Certificate Revokation List</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Netscape Request ( *.spkac *.spc )</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>XCA Databases ( *.db )</source>
+        <translation>XCA Datenbanken ( *.db )</translation>
+    </message>
+    <message>
+        <source>Open XCA Database</source>
+        <translation>Öffnen einer XCA Datenbank</translation>
+    </message>
+</context>
+<context>
+    <name>QString</name>
+    <message>
+        <source>Please wait, Key generation is in progress</source>
+        <translation type="obsolete">Bitte warten Sie, der Schlüssel wird erstellt</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
 </context>
 <context>
     <name>ReqDetail</name>
@@ -1895,7 +2010,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <name>ReqDetail_UI</name>
     <message>
         <source>Subject</source>
-        <translation>Besitzer</translation>
+        <translation type="obsolete">Besitzer</translation>
     </message>
     <message>
         <source>Details of the certificate signing request</source>
@@ -1915,7 +2030,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Status</source>
-        <translation>Status</translation>
+        <translation type="obsolete">Status</translation>
     </message>
     <message>
         <source>Internal Name</source>
@@ -1932,6 +2047,18 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <message>
         <source>Private key</source>
         <translation>Privater Schlüssel</translation>
+    </message>
+    <message>
+        <source>ReqDetail_UI</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>S&amp;tatus</source>
+        <translation>S&amp;tatus</translation>
+    </message>
+    <message>
+        <source>&amp;Subject</source>
+        <translation>Be&amp;sitzer</translation>
     </message>
 </context>
 <context>
@@ -2111,14 +2238,10 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Mar</source>
-        <translation></translation>
+        <translation>Mär</translation>
     </message>
     <message>
         <source>Apr</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Mai</source>
         <translation></translation>
     </message>
     <message>
@@ -2138,20 +2261,24 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation></translation>
     </message>
     <message>
-        <source>Okt</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Nov</source>
         <translation></translation>
     </message>
     <message>
-        <source>Dez</source>
-        <translation></translation>
+        <source>Now</source>
+        <translation>Jetzt</translation>
     </message>
     <message>
-        <source>Now</source>
-        <translation></translation>
+        <source>May</source>
+        <translation>Mai</translation>
+    </message>
+    <message>
+        <source>Oct</source>
+        <translation>Okt</translation>
+    </message>
+    <message>
+        <source>Dec</source>
+        <translation>Dez</translation>
     </message>
 </context>
 <context>
@@ -2253,6 +2380,14 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <message>
         <source>Please enter the password protecting the RSA private key</source>
         <translation>Bitte geben Sie das Passwort zur Verschlüsselung des RSA Schlüssels an</translation>
+    </message>
+    <message>
+        <source>Please wait, Key generation is in progress</source>
+        <translation type="unfinished">Bitte warten Sie, der Schlüssel wird erstellt</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>

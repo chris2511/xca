@@ -1,0 +1,2 @@
+?package(xca):needs=X11 section=Apps/Tools\
+  title="xca" command="/usr/bin/xca"
