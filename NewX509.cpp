@@ -172,7 +172,7 @@ void NewX509::setRequest()
 	changeDefault->setEnabled(false);
 	changeDefault->setChecked(false);
 	signerBox->setEnabled(false);
-	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa)");
+	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa, volunteers ?)");
 	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa, volunteers ?)");
 	tText=tr("Certificate request");
 	setup();
@@ -226,6 +226,26 @@ void NewX509::defineTemplate(pki_temp *temp)
 	//fixtemp = temp;
 	fromTemplate(temp);
 }
+
+void NewX509::defineRequest(pki_x509req *req)
+{
+	if (!req) return;
+	fromReqCB->setEnabled(true);
+	fromReqCB->setChecked(true);
+	QString reqname = req->getDescription().c_str(); 
+#ifdef qt3
+	reqList->setCurrentText(reqname);
+#else
+	for (int i=0; i<reqList->count(); i++) {
+		if (reqList->text(i) == reqname) {
+			reqList->setCurrentItem(i);
+			break;
+		}
+	}
+#endif
+
+}
+	
 
 
 int NewX509::lb2int(QListBox *lb)

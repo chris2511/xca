@@ -79,6 +79,10 @@ pki_x509 *db_x509::findSigner(pki_x509 *client)
         pki_x509 *signer;
 	if ((signer = client->getSigner()) != NULL) return signer;
 	QListIterator<pki_base> it(container); 
+	if (client->verify(client)) {
+		CERR("SELF signed");
+		return signer;
+	}
 	for ( ; it.current(); ++it ) {
 		signer = (pki_x509 *)it.current();
 		if (client->verify(signer)) {

@@ -95,6 +95,7 @@ class NewX509: public NewX509_UI
 	void toTemplate(pki_temp *temp);
 	void fromTemplate(pki_temp *temp);
 	void defineTemplate(pki_temp *temp);
+	void defineRequest(pki_x509req *req);
 	int lb2int(QListBox *lb);
 	void int2lb(QListBox *lb, int x);
 

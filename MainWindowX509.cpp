@@ -74,6 +74,19 @@ void MainWindow::newCert(pki_temp *templ)
 	delete dlg;
 }
 
+void MainWindow::newCert(pki_x509req *req)
+{
+	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg, nsImg );
+	if (req) {
+		dlg->defineRequest(req);
+	}
+	dlg->setCert();
+	if (dlg->exec()) {
+		newCert(dlg);
+	}
+	delete dlg;
+}
+
 void MainWindow::newCert(NewX509 *dlg)
 {
 	pki_x509 *cert = NULL;
@@ -81,7 +94,7 @@ void MainWindow::newCert(NewX509 *dlg)
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
-	bool tempReq;
+	bool tempReq=false;
 	int i, x, days;
 	string cont="", subAltName="", issAltName="", constraints="",
 		keyuse="", keyuse1="", pathstr="", certTypeStr = "";
@@ -261,6 +274,11 @@ void MainWindow::newCert(NewX509 *dlg)
 	if (issAltName.length() > 0) {
 		CERR("IssAltName:" << issAltName);
 		cert->addV3ext(NID_issuer_alt_name, issAltName);
+	}
+	// CRL distribution points
+	if (!dlg->crlDist->text().isEmpty()) {
+		CERR("CRL dist. Point: "<<  dlg->crlDist->text().latin1() );
+		cert->addV3ext(NID_crl_distribution_points, dlg->crlDist->text().latin1());
 	}
 		
 	// Step 5
@@ -661,9 +679,10 @@ void MainWindow::writePKCS12()
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	CERR( "popup Cert");
 	QPopupMenu *menu = new QPopupMenu(this);
-	QPopupMenu *subMenu = new QPopupMenu(this);
-	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate;
-	bool canSign, parentCanSign, hasTemplates;
+	QPopupMenu *subCa = new QPopupMenu(this);
+	QPopupMenu *subExport = new QPopupMenu(this);
+	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate, itemReq;
+	bool canSign, parentCanSign, hasTemplates, hasPrivkey;
 	
 	if (!item) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
@@ -673,15 +692,19 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(item->text(0).latin1());
 		menu->insertItem(tr("Rename"), this, SLOT(startRenameCert()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCert()));
-		menu->insertItem(tr("Export"), this, SLOT(writeCert()));
+		menu->insertItem(tr("Export"), subExport);
+		subExport->insertItem(tr("File"), this, SLOT(writeCert()));
+		itemReq = subExport->insertItem(tr("Request"), this, SLOT(toRequest()));
+		subExport->insertItem(tr("Template"));
+
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
 		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));
 		menu->insertSeparator();
-		itemCA = menu->insertItem(tr("CA"), subMenu);
-		subMenu->insertItem(tr("Serial"), this, SLOT(setSerial()));
-		subMenu->insertItem(tr("CRL days"), this, SLOT(setCrlDays()));
-		itemTemplate = subMenu->insertItem(tr("Signing Template"), this, SLOT(setTemplate()));
-		subMenu->insertItem(tr("Generate CRL"), this, SLOT(genCrl()));
+		itemCA = menu->insertItem(tr("CA"), subCa);
+		subCa->insertItem(tr("Serial"), this, SLOT(setSerial()));
+		subCa->insertItem(tr("CRL days"), this, SLOT(setCrlDays()));
+		itemTemplate = subCa->insertItem(tr("Signing Template"), this, SLOT(setTemplate()));
+		subCa->insertItem(tr("Generate CRL"), this, SLOT(genCrl()));
 		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Extend"));
 		if (cert) {
@@ -694,16 +717,19 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 			parentCanSign = (cert->getSigner() && cert->getSigner()->canSign() && (cert->getSigner() != cert));
 			canSign = cert->canSign();
 			hasTemplates = temps->getDesc().count() > 0 ;
+			hasPrivkey = cert->getKey();
 		}
 		menu->setItemEnabled(itemExtend, parentCanSign);
 		menu->setItemEnabled(itemRevoke, parentCanSign);
 		menu->setItemEnabled(itemCA, canSign);
-		subMenu->setItemEnabled(itemTemplate, hasTemplates);
+		subExport->setItemEnabled(itemReq, hasPrivkey);
+		subCa->setItemEnabled(itemTemplate, hasTemplates);
 
 	}
 	menu->exec(pt);
 	delete menu;
-	delete subMenu;
+	delete subCa;
+	delete subExport;
 	
 	return;
 }
@@ -747,6 +773,20 @@ void MainWindow::setTrust()
 		}
 	}
 	delete dlg;
+}
+
+void MainWindow::toRequest()
+{
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	try {
+		pki_x509req *req = new pki_x509req(cert);
+		insertReq(req);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+	
 }
 
 void MainWindow::revoke()

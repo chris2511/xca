@@ -12,8 +12,9 @@ if test -d "$QTDIR" ; then
 	export LDFLAGS="$LDFLAGS -L$QTDIR/lib"
 	AC_MSG_NOTICE([Using QT in $QTDIR....])
 else
-	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include/qt"
-	AC_MSG_NOTICE([QTDIR was not set, using default locations])
+	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include"
+	export LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
+	AC_MSG_NOTICE([QTDIR was not set, using system locations])
 fi
 H_SSL=no
 H_DB=no
@@ -45,16 +46,18 @@ LQT=y
 AC_CHECK_LIB([qt], [atexit], ,[LQT=no])
 if test "$LQT" == "no"; then
         LQT=y
-        AC_CHECK_LIB([qt${QT_VER}], [atexit], ,[LQT=no])
+        AC_CHECK_LIB([c_r], [atexit])
+        AC_CHECK_LIB([qt-mt], [atexit], ,[LQT=no])
+	
 fi
 
-AC_PATH_PROG(MOC,moc,[moc],[$PATH],,[LQT=no])
-AC_PATH_PROG(UIC,uic,[uic],[$PATH],,[LQT=no])
+AC_PATH_PROG(MOC,moc,[moc],[$PATH /usr/X11R6/bin],,[LQT=no])
+AC_PATH_PROG(UIC,uic,[uic],[$PATH /usr/X11R6/bin],,[LQT=no])
 if test "$LDB" == "no"; then
 	AC_MSG_ERROR([QT library and tools not found, try setting $QTDIR apropriate or install qt-dev])
 fi
 
-AC_ARG_ENABLE([printf-debug],[--enable-printf-debug  switch on or off the printf-debugging :-) ],
+AC_ARG_ENABLE([printf-debug],[  --enable-printf-debug   switch on or off the printf-debugging ],
 [if test "x$enableval" == "xyes"; then
 	AC_DEFINE(PRINTF_DEBUG)
 fi], AC_DEFINE(PRINTF_DEBUG) )

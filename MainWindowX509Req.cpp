@@ -76,7 +76,6 @@ void MainWindow::newReq(pki_temp *temp)
 		string desc = dlg->description->text().latin1();
 		pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, "");
 		insertReq(req);
-		keys->updateView();
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -101,10 +100,15 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	if (!req) return;
     try {	
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
+	MARK
 	dlg->descr->setText(req->getDescription().c_str());
+	MARK
 	dlg->setCaption(tr(XCA_TITLE));
+	MARK
 	if (!req->verify() ) {
+	MARK
 	      	dlg->verify->setDisabled(true);
+	MARK
 		dlg->verify->setText("FEHLER");
 	}
 	pki_key *key =req->getKey();
@@ -185,9 +189,7 @@ void MainWindow::loadReq()
 		try {
 			pki_x509req *req = new pki_x509req(s.latin1());
 			insertReq(req);
-			pki_key *pkey = req->getKey();
 			MARK
-			if (pkey) keys->updateViewPKI(pkey);
 		}
 		catch (errorEx &err) {
 			Error(err);
@@ -232,6 +234,20 @@ void MainWindow::writeReq()
 	}
 }
 
+void MainWindow::signReq()
+{
+	pki_x509req *req;
+	try {
+		req = (pki_x509req *)reqs->getSelectedPKI();
+	}
+	catch (errorEx &err) {
+		Error(err);
+		return;
+	}
+	newCert(req);
+}
+
+
 void MainWindow::insertReq(pki_x509req *req)
 {
 	pki_x509 *oldreq;
@@ -258,6 +274,7 @@ void MainWindow::insertReq(pki_x509req *req)
 	MARK
 		reqs->insertPKI(req);
 	MARK
+		if (req->getKey()) keys->updateViewPKI(req->getKey());
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -275,7 +292,7 @@ void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRenameReq()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsReq()));
-		//menu->insertItem(tr("Sign"), this, SLOT(signReq()));
+		menu->insertItem(tr("Sign"), this, SLOT(signReq()));
 		menu->insertItem(tr("Export"), this, SLOT(writeReq()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteReq()));
 	}

@@ -93,8 +93,7 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
 	X509V3_set_ctx_nodb((&ext_ctx))
 
-	if (pkey)
-		pkey->incUcount();
+	setKey(req->getKey());
 	openssl_error();
 }
 

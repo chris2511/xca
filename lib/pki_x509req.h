@@ -57,6 +57,8 @@
 #ifndef PKI_X509REQ_H
 #define PKI_X509REQ_H
 
+class pki_x509;
+
 class pki_x509req : public pki_base
 {
 	protected:
@@ -69,6 +71,7 @@ class pki_x509req : public pki_base
 		   const string ou,const string email,
 		   const string d, const string challenge);
 	   pki_x509req();
+	   pki_x509req(pki_x509 *cert);
 	   pki_x509req(const string fname);
 	   ~pki_x509req();
 	   void init();
@@ -81,6 +84,7 @@ class pki_x509req : public pki_base
 	   pki_key *getPubKey();
 	   pki_key *getKey();
 	   bool setKey(pki_key *key);
+	   void createReq(pki_key *key, X509_NAME *dist_name);
 };
 
 #endif

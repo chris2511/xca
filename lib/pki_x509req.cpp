@@ -50,7 +50,7 @@
 
 
 
-#include "pki_x509req.h"
+#include "pki_x509.h"
 
 void pki_x509req::init()
 {
@@ -68,19 +68,8 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 		:pki_base( d )
 {
 	init();
-	request = X509_REQ_new();
-	openssl_error();
-	if (key == NULL) {
-		openssl_error("key ist null");
-		return;
-	}
-	openssl_error();
-	X509_REQ_set_version(request, 0L);
-	openssl_error();
-	X509_REQ_set_pubkey(request, key->key);
-	openssl_error();
 	
-	X509_NAME *subj = X509_REQ_get_subject_name(request);
+	X509_NAME *subj = X509_NAME_new();
 	if (cn != "")
 	X509_NAME_add_entry_by_NID(subj,NID_commonName, MBSTRING_ASC,
 		(unsigned char*)cn.c_str(),-1,-1,0);
@@ -103,13 +92,38 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	X509_NAME_add_entry_by_NID(subj,NID_pkcs9_emailAddress, MBSTRING_ASC, 
 		(unsigned char*)email.c_str() , -1, -1, 0);
 
+	createReq(key, subj);
+	X509_NAME_free(subj);
+}
+
+pki_x509req::pki_x509req(pki_x509 *cert) :pki_base()
+{
+	init();
+	if (!cert) return;
+	setDescription(cert->getDescription());
+	createReq(cert->getKey(), X509_get_subject_name(cert->getCert()));
+}
+
+void pki_x509req::createReq(pki_key *key, X509_NAME *dist_name)
+{
+	request = X509_REQ_new();
+	openssl_error();
+	if (!key || key->isPubKey()) {
+		openssl_error("key not valid");
+		return;
+	}
+	openssl_error();
+	X509_REQ_set_version(request, 0L);
+	openssl_error();
+	X509_REQ_set_pubkey(request, key->key);
+	openssl_error();
+	X509_REQ_get_subject_name(request) = X509_NAME_dup( dist_name);
+	openssl_error();
 	const EVP_MD *digest = EVP_md5();
 	X509_REQ_sign(request,key->key ,digest);
 	openssl_error();
-	privkey = key;
-	key->incUcount();
+	setKey(key);
 }
-
 
 
 pki_x509req::pki_x509req() : pki_base()

@@ -151,6 +151,7 @@ class MainWindow: public MainWindow_UI
 	void newKey();
 	void newReq(pki_temp *templ);
 	void newCert(pki_temp *templ);
+	void newCert(pki_x509req *req);
 	void newCert(NewX509 *dlg);
 	void newReq(){newReq(NULL);}
 	void newCert();
@@ -195,7 +196,9 @@ class MainWindow: public MainWindow_UI
 	void setCrlDays();
 	void setTemplate();
 	void genCrl();
+	void signReq();
 	void crashApp();
+	void toRequest();
 	void setPath(QFileDialog *dlg);
 	void newPath(QFileDialog *dlg);
    signals:
