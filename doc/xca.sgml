@@ -319,7 +319,7 @@ a mail and I will implement it.
 <sect1>Request details
 <p>
 All information contained in the request are shown. If the Keystore does contain
-the private key corresponding to the request its internal name is shown in the
+the private key corresponding to the request the keys internal name is shown in the
 <tt>Key</tt> field.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -339,6 +339,9 @@ For building the chains the CA flag is disregarded instead it consideres the iss
 the signature to decide which certificate is the issuer.
 
 <sect1>Generating certificates
+After clicking on the <tt>New Certificate</tt> button the Certificate Wizard will be started to ask
+all needed information for generating a new Request. See: <ref id="wizard" name="Wizard">
+
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 </article>
