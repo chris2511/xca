@@ -215,6 +215,9 @@ void MainWindow::init_database() {
 				DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | \
 				DB_CREATE , 0600 );
 		dbenv->txn_begin(NULL, &global_tid, 0);
+#ifndef DB_AUTO_COMMIT
+#define DB_AUTO_COMMIT 0
+#endif
 		dbenv->set_flags(DB_AUTO_COMMIT,1);
 		MARK
 	}
