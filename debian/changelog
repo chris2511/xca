@@ -1,5 +1,6 @@
 xca (0.4.6) unstable; urgency=low
 
+  * Support for UTF8 in x509name
   * Netscape SPKAC support added
   * Country is State or Province
   * xca.dsp: WIN32 changes from Ilya
@@ -12,8 +13,8 @@ xca (0.4.6) unstable; urgency=low
   * [ 836967 ] Unable to specify alternate database
   * [ 843725 ] xca dies when opened with a pem key as argument
   * [ 789374 ] Bad encoding in misc/xca.desktop
-  
- -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Tue, 25 Nov 2003 11:58:07 +0100
+
+ -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Tue, 25 Nov 2003 17:10:23 +0100
 
 xca (0.4.5) unstable; urgency=low
 
