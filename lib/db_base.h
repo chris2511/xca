@@ -37,10 +37,13 @@ class db_base
 	void *getData(string key, int *dsize);
 	string getString(string key);
 	string getString(char *key);
+	int getInt(string key);
 	void putData(void *key, int keylen, void *dat, int datalen);
 	void putString(string key, void *dat, int datalen);
 	void putString(string key, string dat);
 	void putString(char *key, string dat);
+	void putInt(string key, int dat);
+	QPixmap *loadImg(const char *name);
 };
 
 #endif

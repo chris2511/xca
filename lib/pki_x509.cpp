@@ -32,6 +32,8 @@ pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int s
 
 	X509_gmtime_adj(X509_get_notBefore(cert),0);
 	X509_gmtime_adj(X509_get_notAfter(cert), (long)60*60*24*days);
+	if (signer == NULL) // selfsigned....
+		signer=this;
 
 	/* Set up V3 context struct */
 	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);

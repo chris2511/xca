@@ -38,9 +38,19 @@ void pki_base::setDescription(const string d)
 }
 
 
+bool pki_base::pki_error(string myerr)
+{
+	string errtxt = "";
+	if (myerr != "") {
+		CERR << "PKI: " << myerr << endl;
+		error += myerr + "\n";
+	}
+	return openssl_error();
+}
+
+
 bool pki_base::openssl_error()
 {
-	error = "";
 	string errtxt = "";
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
@@ -50,12 +60,13 @@ bool pki_base::openssl_error()
 	return  (!error.empty());
 }
 
+
 void pki_base::ign_openssl_error()
 {
 	// ignore openssl errors
 	string errtxt;
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
-	   CERR << "IGNORE:OpenSSL: " << errtxt << endl;
+	   CERR << "IGNORE: OpenSSL: " << errtxt << endl;
 	}
 }

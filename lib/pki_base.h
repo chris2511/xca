@@ -18,6 +18,7 @@ class pki_base
     protected:
 	string desc;
 	string error;
+	bool pki_error(string myerr);
 	bool openssl_error();
 	void ign_openssl_error();
 	void *pointer; 

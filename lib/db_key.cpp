@@ -5,8 +5,7 @@ db_key::db_key(DbEnv *dbe, string DBfile, QListView *l)
 	:db_base(dbe, DBfile, "keydb")
 {
 	listView = l;
-	QString path = PREFIX;
-	icon = new QPixmap(path + "/share/xca/key.png");
+	icon = loadImg("key.png");
 	loadContainer();
 	updateView();
 }

@@ -11,8 +11,8 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 {
 	request = X509_REQ_new();
 	openssl_error();
-	if (key== NULL) {
-		cerr << "key ist null\n";
+	if (key == NULL) {
+		pki_error( "key ist null");
 		return;
 	}
 	openssl_error();
@@ -22,18 +22,25 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	openssl_error();
 	
 	X509_NAME *subj = X509_REQ_get_subject_name(request);
+	if (cn != "")
 	X509_NAME_add_entry_by_NID(subj,NID_commonName, MBSTRING_ASC,
 		(unsigned char*)cn.c_str(),-1,-1,0);
+	if (c != "")
 	X509_NAME_add_entry_by_NID(subj,NID_countryName, MBSTRING_ASC, 
 		(unsigned char*)c.c_str() , -1, -1, 0);
+	if (l != "")
 	X509_NAME_add_entry_by_NID(subj,NID_localityName, MBSTRING_ASC, 
 		(unsigned char*)l.c_str() , -1, -1, 0);
+	if (st != "")
 	X509_NAME_add_entry_by_NID(subj,NID_stateOrProvinceName, MBSTRING_ASC, 
 		(unsigned char*)st.c_str() , -1, -1, 0);
+	if (o != "")
 	X509_NAME_add_entry_by_NID(subj,NID_organizationName, MBSTRING_ASC, 
 		(unsigned char*)o.c_str() , -1, -1, 0);
+	if (ou != "")
 	X509_NAME_add_entry_by_NID(subj,NID_organizationalUnitName, MBSTRING_ASC, 
 		(unsigned char*)ou.c_str() , -1, -1, 0);
+	if (email != "")
 	X509_NAME_add_entry_by_NID(subj,NID_pkcs9_emailAddress, MBSTRING_ASC, 
 		(unsigned char*)email.c_str() , -1, -1, 0);
 
@@ -58,10 +65,11 @@ pki_x509req::pki_x509req(const string fname)
 	if (fp != NULL) {
 	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
 	   if (!request) {
-		openssl_error();
+		ign_openssl_error();
 		rewind(fp);
 		printf("Fallback to private key DER\n"); 
 	   	request = d2i_X509_REQ_fp(fp, NULL);
+		openssl_error();
 	   }
 	   int r = fname.rfind('.');
 	   int l = fname.rfind('/');
@@ -69,7 +77,7 @@ pki_x509req::pki_x509req(const string fname)
 	   if (desc == "") desc = fname;
 	   openssl_error();
 	}	
-	else error = "Fehler beim Öffnen der Datei";
+	else pki_error("Error opening file");
 	fclose(fp);
 }
 
@@ -88,6 +96,7 @@ string pki_x509req::getDN(int nid)
 	string s;
 	X509_NAME *subj = X509_REQ_get_subject_name(request);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
+	openssl_error();
 	s = buf;
 	return s;
 }
@@ -118,7 +127,7 @@ void pki_x509req::writeReq(const string fname, bool PEM)
 	        openssl_error();
 	   }
 	}
-	else error = "Fehler beim Öffnen der Datei";
+	else pki_error("Error opening file");
 	fclose(fp);
 }
 
@@ -129,6 +138,7 @@ bool pki_x509req::compare(pki_base *refreq)
 	unsigned int d1_len,d2_len;
 	X509_REQ_digest(request, digest, d1, &d1_len);
 	X509_REQ_digest(((pki_x509req *)refreq)->request, digest, d2, &d2_len);
+	openssl_error();
 	if ((d1_len == d2_len) && 
 	    (d1_len >0) &&
 	    (memcmp(d1,d2,d1_len) == 0) )return true;
@@ -141,6 +151,7 @@ int pki_x509req::verify()
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	 bool x = (X509_REQ_verify(request,pkey) != 0);
 	 EVP_PKEY_free(pkey);
+	 openssl_error();
 	 if (x) return pki_base::VERIFY_OK;
 	 else   return pki_base::VERIFY_ERROR;
 }
@@ -149,5 +160,6 @@ pki_key *pki_x509req::getKey()
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	 pki_key *key = new pki_key(pkey);	
+	 openssl_error();
 	 return key;
 }

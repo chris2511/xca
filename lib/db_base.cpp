@@ -96,9 +96,9 @@ string db_base::getString(char *key)
 }
 
 
-int db_base::getString(string key)
+int db_base::getInt(string key)
 {
-	string x = getString(x);
+	string x = getString(key);
 	return atoi(x.c_str());
 }
 
@@ -130,6 +130,14 @@ void db_base::putString(char *key, string dat)
 	string x = key;
 	cerr << key<<endl;
 	putString(x,dat);
+}
+
+void db_base::putInt(string key, int dat)
+{
+	char buf[100];
+	sprintf(buf,"%i",dat);
+	string x = buf;
+	putString(key, x);
 }
 
 void db_base::loadContainer()
@@ -273,3 +281,12 @@ pki_base *db_base::findPKI(pki_base *refpki)
 	}
 	return NULL;
 }
+
+QPixmap *db_base::loadImg(const char *name )
+{
+        QString path = PREFIX;
+        path += "/share/xca/";
+        return new QPixmap(path + name);
+}
+
+

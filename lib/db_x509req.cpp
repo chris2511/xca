@@ -5,8 +5,6 @@ db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
 		:db_base(dbe, DBfile, "reqdb")
 {
 	listView = l;
-	QString path = PREFIX;
-	icon = new QPixmap(path + "/share/xca/req.png");
 	keylist = keyl;
 	loadContainer();
 	updateView();
@@ -30,12 +28,9 @@ QStringList db_x509req::getDesc()
 bool db_x509req::updateView()
 {
         listView->clear();
-	QString path = PREFIX;
-	path += "/share/xca/";
-	cerr << "PATH=" << path << endl;
 	QPixmap *pm[2];
-	pm[0] = new QPixmap(path + "req.png");
-        pm[1] = new QPixmap(path + "reqkey.png");
+	pm[0] = loadImg("req.png");
+        pm[1] = loadImg("reqkey.png");
 	pki_x509req *pki;
 	QListViewItem *current;
 	cerr <<"myupdate requests"<<endl;

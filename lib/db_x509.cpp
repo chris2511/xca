@@ -35,13 +35,10 @@ bool db_x509::updateView()
         listView->clear();
 	listView->setRootIsDecorated(true);
         QPixmap *pm[4];
-	QString path = PREFIX;
-	path += "/share/xca/";
-	cerr << "PATH=" << path << endl;
-	pm[0] = new QPixmap(path + "validcert.png");
-        pm[1] = new QPixmap(path + "invalidcert.png");
-        pm[2] = new QPixmap(path + "validcertkey.png");
-        pm[3] = new QPixmap(path + "invalidcertkey.png");
+	pm[0] = loadImg("validcert.png");
+        pm[1] = loadImg("invalidcert.png");
+        pm[2] = loadImg("validcertkey.png");
+        pm[3] = loadImg("invalidcertkey.png");
 	pki_x509 *pki;
 	pki_x509 *signer;
 	QListViewItem *parentitem;
