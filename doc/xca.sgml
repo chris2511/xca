@@ -1,0 +1,168 @@
+<!doctype linuxdoc system>
+
+
+<article>
+
+<title>XCA     <!-- insert your title here -->
+<author>Christian Hohnstädt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
+<date>$Date$            <!-- always have a version number and a date -->
+<abstract>                          <!-- the abstract: a short and precise description -->
+<nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
+                         <!-- nidx means the indexed word is not in output of main text, only in the index -->
+
+This application is intended for creating and managing X.509 certificates
+and RSA keys (DSA keys maybe supported in a later release
+since they are not wideley used in PKI cryptography).
+Everything that is needed for a CA is implemented.
+All CAs can sign sub-CAs rekursively. These certificate chains are shown clearly in a list-view.
+For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
+All crypto data is stored in a local Berkeley database. 
+</abstract>
+
+
+
+<!-- Table of contents -->
+<toc>
+
+<!-- Begin the document -->
+
+
+<sect>Introduction
+
+<p>
+<nidx>(your index root)!introduction</nidx>   <!-- here introduction is a sub entry of template, exclamationmark is separator -->
+This application is intended as Certificate and Keystore and as 
+signing application issuing certificates.
+
+<p>
+All datastructures (keys, Certificate signing requests, Certificates, Templates) can be imported
+and exported in several formats (DER, PEM).
+Import means reading a file from the filesystem and storing the datastructure
+into the databasefile, while exporting means to write the datastructure
+from the databasefile to the filesystem to be e.g imported to an other application.
+
+<p>
+When starting the application the first time, it needs a password to encrypt the
+private keys in the database.
+After starting the application all RSA-keys are hold <bf>unencrypted</bf> in RAM.
+
+<p>
+The different parts are divided over 3 Tabs: Keys, Requests, Certificates.
+All items can be manipulated either by a context-menu available by
+right clicking on the item. 
+
+<sect1>File formats
+<p>
+There are several widely known file-formats to exchange the data with
+other applications.
+<itemize>
+<item><bf>DER</bf> is the ASN.1 encoding of the data, ASN.1 is an international standard.
+<item><bf>PEM</bf> is the base64 encoded version of the <bf>DER</bf> formatted data 
+	with additional header and footer lines to be transported via e.g. E-mail
+<item><bf>PKCS #X</bf> stands for Public Key Cryptographic Standard
+
+<sect1>Further reading
+<p>
+<url url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/" name="SSL Certificates HOWTO">
+<url url="http://ospkibook.sourceforge.net/" name="OS-PKI book">
+
+
+<sect1>Copyright
+<p>
+<tscreen><verb>
+/*
+ * Copyright (C) 2001 Christian Hohnstaedt.
+ *
+ *  All rights reserved.
+ *
+ *
+ *  Redistribution and use in source and binary forms, with or without 
+ *  modification, are permitted provided that the following conditions are met:
+ *
+ *  - Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *  - Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *  - Neither the name of the author nor the names of its contributors may be 
+ *    used to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *
+ * This program links to software with different licenses from:
+ *
+ *	http://www.openssl.org which includes cryptographic software
+ * 	written by Eric Young (eay@cryptsoft.com)"
+ *
+ *	http://www.sleepycat.com
+ *
+ *	http://www.trolltech.com
+ * 
+ *
+ *
+ * http://www.hohnstaedt.de/xca
+ * email: christian@hohnstaedt.de
+ *
+ */                           
+
+</verb></tscreen>
+
+<sect1>Credits
+<p>
+
+In this version I have the pleasure of acknowledging
+<tscreen><verb>
+Kerstin Steinhauff &lt;tine (at) kerstine.de&gt;
+        Arts, graphics, testing, SuSE rpm building
+
+Ilya Kozhevnikov &lt;ilya (at) ef.unn.ru&gt;
+        Compiling and testing the WIN32-port
+</verb></tscreen>
+
+Thank you very much.
+
+<!--
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ -->
+
+
+<sect>RSA Keys
+
+<p>
+For asynchronous encryption and signing there are keys needed. XCA only supports RSA keys
+and no DSA keys. All keys are stored encrypted in the database using 3DES algorithm.
+
+<sect1>Key export
+<p>
+Keys can be exported by either selecting the key and pressing <em>Export</em> or by
+using the context-menu. This opens a Dialogbox where you can change the following settings:
+<itemize>
+<item>filename
+<item>Outputformat
+<item>Public or Private Key
+<item>Encryption of the exported file (yes/no)
+</itemize>
+
+The filename is the internal name plus a <tt>pem</tt> suffix.
+If the fileformat is not PEM it is your responsibility
+to change the suffix to <tt>der</tt> or <tt>pk8</tt>.
+Only PKCS8 or PEM files can be encrypted, because
+the DER format (although it could be encryoted)
+does not support a way to supply the <em>encryption algorithm</em>.
+
+</article>
+
+
