@@ -1,3 +1,16 @@
+xca (0.2.5) unstable; urgency=low
+
+  *  Certificate and Template Wizard completed
+  *  CA-serial can be changed and is stored with the cert 
+  *  Passwordboxes set focus right (Andrey Brindeew <abr@abr.pp.ru>)
+  *  configure enhanced with  error and success messages
+  *  x509 v3 extensions completed inc. Netscape extensions
+  *  Templates implemented
+  *  Files for MS Visual C++ added (yes, it compiles on MS Windows)
+  *  Windows Installer added (Nullsoft)
+
+ -- Christian Hohnstädt <chris@trinity.local>  Tue, 24 Sep 2002 02:18:51 +0200
+
 xca (0.2.4) unstable; urgency=low
 
   * PKCS#12 import added
