@@ -202,7 +202,7 @@ void MainWindow::showDetailsKey(QListViewItem *item)
 void MainWindow::loadKey()
 {
 	QStringList filt;
-	filt.append( "PKI Keys ( *.pem *.der )"); 
+	filt.append( "PKI Keys ( *.pem *.der *.key )"); 
 	filt.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
 	filt.append( "All Files ( *.* )");
 	QString s="";
