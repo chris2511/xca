@@ -95,9 +95,9 @@ extern void initOIDs(void);
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
 {
-	connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
-	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
-	copyright->setText(cpr + VER);
+	//connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
+	//QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
+	//copyright->setText(cpr + VER);
 	setCaption(tr(XCA_TITLE));
 	dbfile="xca.db";
 	dbenv = NULL;
@@ -109,7 +109,16 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		QMessageBox::warning(this,tr(XCA_TITLE), QString::fromLatin1("Could not create ") + baseDir);
 		qFatal(  QString::fromLatin1("Couldnt create: ") +  baseDir );
 	}
-
+	QPopupMenu *file = new QPopupMenu( this );
+    file->insertItem( "&Open",  this, SLOT(open()), CTRL+Key_O );
+    file->insertItem( "&New", this, SLOT(news()), CTRL+Key_N );
+    file->insertItem( "&Save", this, SLOT(save()), CTRL+Key_S );
+    file->insertItem( "&Close", this, SLOT(closeDoc()), CTRL+Key_W );
+    file->insertSeparator();
+    file->insertItem( "E&xit",  qApp, SLOT(quit()), CTRL+Key_Q );
+	
+	mb = new QMenuBar( this );
+	mb->insertItem( "&File", file );
 	init_images();
 	
 	connect( keyList, SIGNAL(init_database()), this, SLOT(init_database()));

@@ -149,6 +149,13 @@ x509name pki_x509req::getSubject() const
 	return x;
 }
 
+void pki_x509req::setSubject(const x509name &n)
+{
+	if (request->req_info->subject != NULL)
+		X509_NAME_free(request->req_info->subject);
+	request->req_info->subject = n.get();
+}
+
 bool pki_x509req::isSpki() const
 {
 	return spki != NULL;
@@ -241,156 +248,174 @@ QString pki_x509req::getSigAlg()
 	return alg;
 }
 
-int pki_x509req::fix_data(int nid, int *type)
-	{
-	if (nid == NID_pkcs9_emailAddress)
-		*type=V_ASN1_IA5STRING;
-	if ((nid == NID_commonName) && (*type == V_ASN1_IA5STRING))
-		*type=V_ASN1_T61STRING;
-	if ((nid == NID_pkcs9_challengePassword) && (*type == V_ASN1_IA5STRING))
-		*type=V_ASN1_T61STRING;
-	if ((nid == NID_pkcs9_unstructuredName) && (*type == V_ASN1_T61STRING))
-		return(0);
-	if (nid == NID_pkcs9_unstructuredName)
-		*type=V_ASN1_IA5STRING;
-	return(1);
-	}
+/*!
+   Sets the public key of this request to the public key of the
+   DER-encoded Netscape SPKI structure contained in the supplied
+   raw data array.
+*/
+void pki_x509req::setSPKIFromData(unsigned char *p, int size)
+{
+	NETSCAPE_SPKI *spki = NULL;
 
-/*
- * function for making a x509 request out of a spkac netscape request.
- * The spkac file is parsed and the information assembled to the x509 format
- */
+	spki = d2i_NETSCAPE_SPKI(NULL,&p,size);
+	if (spki == NULL) goto err;
+
+	set_spki (spki);
+ err:
+	openssl_error();
+}
+
+/*!
+   Sets the public key of this request to the public key of the
+   base64-encoded Netscape SPKI structure contained in the supplied
+   null-terminated string.
+*/
+void pki_x509req::setSPKIBase64(const char *p)
+{
+	NETSCAPE_SPKI *spki = NULL;
+
+	spki = NETSCAPE_SPKI_b64_decode(p, -1);
+	if (spki == NULL) goto err;
+
+	set_spki (spki);
+ err:
+	openssl_error();
+}
+
+/*!
+   Sets the public key of this request to the public key of the
+   given Netscape SPKI structure. Throws an error exception, if the
+   verification of the signature contained in the SPKI structure fails.
+   The SPKI structure is implicitly freed by this internal function upon
+   error. On success, the internally stored SPKI structure is replaced.
+*/
+void pki_x509req::set_spki(NETSCAPE_SPKI *_spki)
+{
+	EVP_PKEY *pktmp=NULL;
+
+	/*
+	  Now extract the key from the SPKI structure and
+	   check the signature.
+	 */
+
+	pktmp=NETSCAPE_SPKI_get_pubkey(_spki);
+	if (pktmp == NULL) goto err;
+
+	if (NETSCAPE_SPKI_verify(_spki, pktmp) <= 0) goto err;
+		
+	X509_REQ_set_pubkey(request,pktmp);
+
+	// replace the internally stored spki structure.
+	if (spki)
+		NETSCAPE_SPKI_free(spki);
+	spki=_spki;
+	return;
+ err:
+	NETSCAPE_SPKI_free(_spki);
+	if (pktmp != NULL) EVP_PKEY_free(pktmp);
+	openssl_error();
+}
+
+/*!
+   Load a spkac FILE into this request structure. 
+   The file format follows the conventions understood by the 'openssl ca'
+   command. (see: 'man ca')
+
+   Indeed, this function is derived from the original sources in  ca.c
+   of the openssl package.
+*/
 
 void pki_x509req::load_spkac(const QString filename)
 {
-
 	STACK_OF(CONF_VALUE) *sk=NULL;
 	LHASH *parms=NULL;
 	CONF_VALUE *cv=NULL;
-	X509_REQ_INFO *ri;
+	x509name subject;
 	char *type,*buf;
-	EVP_PKEY *pktmp=NULL;
-	X509_NAME *n=NULL;
-	X509_NAME_ENTRY *ne=NULL;
-	int i,j;
+	int i;
 	long errline;
 	int nid;
-	QString eerror;
+	bool spki_found =false;
+	// if we are called from a contructor, we should leave
+	// with the request structure cleaned up upon error.
+	bool ctor_excursion = (request == NULL);
 
-	parms=CONF_load(NULL,filename,&errline);
-	if (parms == NULL)
-		{
-		eerror.sprintf("error on line %ld", errline);
-		goto err;
-		}
+	try { // be aware of any expections
+		parms=CONF_load(NULL,filename.latin1(),&errline);
+		if (parms == NULL)
+			openssl_error(QString("error on line %1 of %2\n")
+				      .arg(errline).arg(filename));
 
-	sk=CONF_get_section(parms, "default");
-	if (sk_CONF_VALUE_num(sk) == 0)
-		{
-		eerror = "no name/value pairs found";
-		goto err;
-		}
-	/*
-	 * Create the request structure, parsing the spkac file
-	*/
+		sk=CONF_get_section(parms, "default");
+		if (sk_CONF_VALUE_num(sk) == 0)
+			openssl_error(QString("no name/value pairs found in %1\n").arg(filename));
 
-	request = X509_REQ_new();
-	openssl_error();
-	
-	/*
-	 * Build up the subject name set.
-	 */
-	ri=request->req_info;
-	n = ri->subject;
-
-	for (i = 0; ; i++)
-		{
-		if (sk_CONF_VALUE_num(sk) <= i) break;
-
-		cv=sk_CONF_VALUE_value(sk,i);
-		type=cv->name;
-		/* Skip past any leading X. X: X, etc to allow for
-		 * multiple instances
+		/*
+		   Create the request structure, if we are called from 
+		   inside a constructor
+		*/
+		if (ctor_excursion) request = X509_REQ_new();
+		if (request == NULL)
+			openssl_error();
+		/*
+		 * Build up the subject name set.
 		 */
-		for (buf = cv->name; *buf ; buf++)
-			if ((*buf == ':') || (*buf == ',') || (*buf == '.'))
-				{
-				buf++;
-				if (*buf) type = buf;
-				break;
-				}
-
-		buf=cv->value;
-		if ((nid=OBJ_txt2nid(type)) == NID_undef)
+		for (i = 0; ; i++)
 			{
-			if (strcmp(type, "SPKAC") == 0)
-				{
-				spki = NETSCAPE_SPKI_b64_decode(cv->value, -1);
-				if (spki == NULL)
+			if (sk_CONF_VALUE_num(sk) <= i) break;
+
+			cv=sk_CONF_VALUE_value(sk,i);
+			type=cv->name;
+			/* Skip past any leading X. X: X, etc to allow for
+			 * multiple instances
+			 */
+			for (buf = cv->name; *buf ; buf++)
+				if ((*buf == ':') || (*buf == ',') || (*buf == '.'))
 					{
-					eerror = "unable to load Netscape SPKAC structure";
-					goto err;
+					buf++;
+					if (*buf) type = buf;
+					break;
 					}
+
+			buf=cv->value;
+			// check for a valid DN component.
+			if ((nid=OBJ_txt2nid(type)) == NID_undef)
+				{
+				// ... or a SPKAC tag. 
+				if (strcmp(type, "SPKAC") == 0)
+					setSPKIBase64(cv->value);
+				else
+				  // ... or throw an error.
+					openssl_error(QString("Unknown name tag %1 found in %2\n").arg(type).arg(filename));
+
+				spki_found=true;
 				}
-			continue;
+			else
+				// gather all values in the x509name subject.
+				subject.addEntryByNid(nid,cv->value);
 			}
+		if (!spki_found)
+			openssl_error(QString("No Netscape SPKAC structure found in %1\n").arg(filename));
 
-		j=ASN1_PRINTABLE_type((unsigned char *)buf,-1);
-		if (fix_data(nid, &j) == 0)
-			{
-			eerror.sprintf("invalid characters in string %s",buf);
-			goto err;
-			}
-
-		if ((ne=X509_NAME_ENTRY_create_by_NID(&ne,nid,j,(unsigned char *)buf,strlen(buf))) == NULL)
-			{
-			eerror.sprintf("failed to create Name entry %s",buf);
-			goto err;
-			}
-
-		if (!X509_NAME_add_entry(n,ne,-1, 0)) 
-			{
-			eerror.sprintf("failed to add Name entry %s",buf);
-			goto err;
-			}
-		}
-	if (spki == NULL)
+		/*
+		 * Now set the subject.
+		 */
+		setSubject(subject);
+		if (parms != NULL) CONF_free(parms);
+	        }
+	catch (errorEx &e)
 		{
-		eerror = "Netscape SPKAC structure not found";
-		goto err;
+		// clean up the request pointer since we are called from within
+		// the ctor.
+		if (request != NULL){
+			 X509_REQ_free(request);
+			 request=NULL;
 		}
-
-	/*
-	 * Now extract the key from the SPKI structure.
-	 */
-
-	if ((pktmp=NETSCAPE_SPKI_get_pubkey(spki)) == NULL)
-		{
-		eerror = "error unpacking SPKAC public key";
-		goto err;
+		if (spki){
+			NETSCAPE_SPKI_free(spki);
+			spki=NULL;
 		}
-
-	j = NETSCAPE_SPKI_verify(spki, pktmp);
-	if (j <= 0)
-		{
-		eerror = "signature verification failed on SPKAC public key";
-		goto err;
+		if (parms != NULL) CONF_free(parms);
+		throw e;
 		}
-
-	X509_REQ_set_pubkey(request,pktmp);
-	EVP_PKEY_free(pktmp);
-    return;
-err:
-	if (request != NULL){
-		 X509_REQ_free(request);
-		 request=NULL;
-	}
-	if (parms != NULL) CONF_free(parms);
-	if (spki != NULL) {
-		NETSCAPE_SPKI_free(spki);
-		spki = NULL;
-	}
-	if (ne != NULL) X509_NAME_ENTRY_free(ne);
-	openssl_error(QString::fromLatin1("SPKAC Error: ") + eerror + "(" + filename +")" );
-
 }

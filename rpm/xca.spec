@@ -41,5 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/xca
 /usr/share/xca/*.png
 /usr/share/xca/xca_??.qm
+/usr/share/applications/xca.desktop
+/usr/share/pixmaps/xca.xpm
 
 %changelog

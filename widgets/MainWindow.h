@@ -62,6 +62,7 @@
 #include "lib/exception.h"
 #include <qpixmap.h>
 #include <qfiledialog.h>
+#include <qmenubar.h>
 
 #define DBFILE "xca.db"
 
@@ -75,7 +76,8 @@ class MainWindow: public MainWindow_UI
 	void read_cmdline();
 	QString getBaseDir();
 	DbTxn *global_tid;
-			    
+	QMenuBar *mb;
+	
    friend class pki_key;
 
    public:
