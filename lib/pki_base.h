@@ -57,6 +57,8 @@
 #include "base.h"
 
 
+using namespace std;
+
 class pki_base
 {
 	Q_OBJECT

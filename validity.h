@@ -44,64 +44,40 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
+#ifndef VALIDITY_H
+#define VALIDITY_H
 
-#include "NewX509_UI.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
-#include "lib/db_temp.h"
+#include <qvariant.h>
+#include <qgroupbox.h>
 
-#ifndef NEWX509_H
-#define NEWX509_H
+class QGridLayout;
+class a1time;
+class QLabel;
+class QComboBox;
+class QLineEdit;
 
-class MainWindow;
+class Validity : public QGroupBox
+{ 
+    Q_OBJECT
 
-class NewX509: public NewX509_UI
-{
-	Q_OBJECT
-   private:
-	db_x509req *reqs;
-	db_x509 *certs;
-	db_key *keys;
-	db_temp *temps;
-	pki_temp *fixtemp;
-	QString startText, endText, tText;
-	
-   public:	
-	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns);
-	~NewX509();
-	void setRequest(); // reduce to request form 	
-	void setTemp(pki_temp *temp); // reduce to template form 	
-	void setCert(); // reduce to certificate form 	
-	void setup();
-	void showPage(QWidget *page);
-	void toTemplate(pki_temp *temp);
-	void fromTemplate(pki_temp *temp);
-	void defineTemplate(pki_temp *temp);
-	void defineRequest(pki_x509req *req);
-	void defineCert(pki_x509 *defcert);
-	int lb2int(QListBox *lb);
-	void int2lb(QListBox *lb, int x);
-	void templateChanged(pki_temp *templ);
-	void templateChanged(QString templatename);
-	pki_key *getSelectedKey();
-	x509name getX509name();
-   public slots:
-	void toggleFromRequest();
-   	void newKey();
-	void dataChangeP2();
-	void newKeyDone(QString name);
-	void switchExtended();
-	void templateChanged();
-	void signerChanged();
-	void helpClicked();
-	
-   signals:
-	void genKey();  
+  public:
+	Validity( QWidget* parent = 0, const char* name = 0);
+	~Validity();
+	a1time getNotBefore() const;
+	a1time getNotAfter() const;
+	void setNotBefore(const a1time &t);
+	void setNotAfter(const a1time &t);
+
+  protected:
+    QGridLayout* ValidityLayout;
+    QLabel *Label1, *Label2;
+    QComboBox *nbDay, *nbMon, *naMon, *naDay;
+    QLineEdit *nbYear, *naYear;
+   
 };
 
-#endif
+#endif // VALIDITY_H

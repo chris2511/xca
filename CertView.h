@@ -44,7 +44,7 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
@@ -54,6 +54,7 @@
 
 #include "XcaListView.h"
 #include "lib/pki_x509.h"
+#include "lib/pki_pkcs12.h"
 #include <qlistview.h>
 #include "NewX509.h"
 
@@ -69,9 +70,9 @@ class CertView : public XcaListView
 	void show(pki_base *item, bool import);
 	void newItem();
 	void deleteItem();
-	void load();
 	void updateViewItem(pki_base *);
-	pki_base *loadItem(QString fname);
+	void load();
+	pki_base* loadItem(QString fname);
 	pki_base* insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
@@ -79,6 +80,9 @@ class CertView : public XcaListView
 	void newCert(NewX509 *dlg);
 	void addStr(QString &str, const  char *add);
 	void extendCert();
+	void loadPKCS12();
+	void insertP12(pki_pkcs12 *pk12);
+	void loadPKCS7();
    signals:
 	void init_database();
 

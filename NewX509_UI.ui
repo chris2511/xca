@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>648</width>
+            <width>644</width>
             <height>542</height>
         </rect>
     </property>
@@ -1423,264 +1423,11 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                 </hbox>
             </widget>
             <widget>
-                <class>QGroupBox</class>
+                <class>Validity</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>GroupBox3</cstring>
+                    <cstring>validity</cstring>
                 </property>
-                <property stdset="1">
-                    <name>title</name>
-                    <string>Validity</string>
-                </property>
-                <property>
-                    <name>toolTip</name>
-                    <string>Number of validity</string>
-                </property>
-                <property>
-                    <name>whatsThis</name>
-                    <string>The validation time period is counted from "now" of your system clock the amount of time entered here.
-It is not possible to adjust the starting time of a certificate. This is a weakness of this program based on the laziness of the programmer and not a weakness of certificates or OpenSSL.</string>
-                </property>
-                <grid>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget row="0"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>not Before</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="1" >
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nbDay</cstring>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="2" >
-                        <class>QComboBox</class>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Jan</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Feb</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Mar</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Apr</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Mai</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Jun</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Jul</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Aug</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Sep</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Okt</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Nov</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Dec</string>
-                            </property>
-                        </item>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nbMon</cstring>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="3" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nbYear</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
-                            <sizepolicy>
-                                <hsizetype>5</hsizetype>
-                                <vsizetype>0</vsizetype>
-                            </sizepolicy>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>2003</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="2" >
-                        <class>QComboBox</class>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Jan</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Feb</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Mar</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Apr</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Mai</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Jun</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Jul</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Aug</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Sep</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Okt</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Nov</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Dec</string>
-                            </property>
-                        </item>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>naMon</cstring>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="3" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>naYear</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
-                            <sizepolicy>
-                                <hsizetype>5</hsizetype>
-                                <vsizetype>0</vsizetype>
-                            </sizepolicy>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>2003</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel2_4</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>not After</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="1" >
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>naDay</cstring>
-                        </property>
-                    </widget>
-                </grid>
             </widget>
             <spacer>
                 <property>
@@ -2751,6 +2498,28 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
         </vbox>
     </widget>
 </widget>
+<customwidgets>
+    <customwidget>
+        <class>Validity</class>
+        <header location="local">validity.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+</customwidgets>
+<images>
+    <image>
+        <name>image0</name>
+        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1ddec44f503c0ae2a154410f53d0ed20e2bf6bdb656dd6861dd23d9a66591b0587fd1654235ebded6f0edcd53e419d87ae7b1f4f9b8f906d0bfe012317426a70b07bdc2f3ec77f8ed6b89559061a0343d06a124cc105596482585094bc0ae599b04646c9018926491b2205e140c485cace25755c175d0a967b622ff900b8cc9c7d29af594ea722d589167f813aa852ba07d94b9dce296e883fe7bb163f23896753</data>
+    </image>
+</images>
 <connections>
     <connection>
         <sender>genKeyBUT</sender>
@@ -2850,8 +2619,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
     <tabstop>basicPath</tabstop>
     <tabstop>subKey</tabstop>
     <tabstop>authKey</tabstop>
-    <tabstop>nbYear</tabstop>
-    <tabstop>nbMon</tabstop>
     <tabstop>subAltName</tabstop>
     <tabstop>subAltCp</tabstop>
     <tabstop>issAltName</tabstop>

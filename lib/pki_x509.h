@@ -116,7 +116,7 @@ class pki_x509 : public pki_x509super
 	   int getEffTrust();
 	   void setEffTrust(int t);
 	   void setRevoked(bool rev);
-	   void setRevoked(a1time &when);
+	   void setRevoked(const a1time &when);
 	   a1time getRevoked();
 	   bool isRevoked();
 	   int calcEffTrust();

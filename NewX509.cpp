@@ -539,16 +539,3 @@ x509name NewX509::getX509name()
 	return x;
 }
 
-a1time NewX509::getNotBefore()
-{
-	a1time nb;
-	nb.set(nbYear->getText() + nbMon->getText() + nbDay->getText());
-	return nb;
-}
-
-a1time NewX509::getNotAfter()
-{
-	a1time nb;
-	nb.set(nbYear->getText() + nbMon->getText() + nbDay->getText());
-	return nb;
-}

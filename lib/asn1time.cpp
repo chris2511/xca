@@ -50,6 +50,7 @@
 
 #include "asn1time.h"
 #include <openssl/x509.h>
+#include <openssl/err.h>
 
 a1time::a1time()
 {
@@ -68,15 +69,31 @@ a1time::~a1time()
 	ASN1_TIME_free(time);
 }
 
-void a1time::set(const ASN1_TIME *a)
+a1time &a1time::set(const ASN1_TIME *a)
 {
 	ASN1_TIME_free(time);
 	time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, NULL);
+	return *this;
 }
 
-void a1time::set(time_t t)
+a1time &a1time::set(time_t t)
 {
 	ASN1_GENERALIZEDTIME_set(time, t);
+	return *this;
+}
+
+a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
+{
+	if (time->length < 16 ||
+	    mon < 1 || mon > 12 ||
+	    d < 1 || d > 31 ||
+	    h < 0 || h >23 ||
+	    m < 0 || m > 59 ||
+	    s < 0 || s > 59 )
+		ASN1err(ASN1_F_D2I_ASN1_GENERALIZEDTIME,ASN1_R_INVALID_TIME_FORMAT);
+	
+	sprintf((char *)time->data, "%04d%02d%02d%02d%02d%02dZ", y, mon, d, h, m ,s);
+	return *this;
 }
 
 
@@ -118,9 +135,10 @@ QString a1time::toSortable() const
         return t;
 }
 
-void a1time::set(const QString &s)
+a1time &a1time::set(const QString &s)
 {
 	ASN1_GENERALIZEDTIME_set_string(time, (char *)s.latin1());
+	return *this;
 }
 
 int a1time::ymdg(int *y, int *m, int *d, int *g) const
@@ -144,14 +162,16 @@ int a1time::ymdg(int *y, int *m, int *d, int *g) const
         return 0;
 }
 
-void a1time::now(int delta)
+a1time &a1time::now(int delta)
 {
 	X509_gmtime_adj(time, delta);
+	return *this;
 }
 
-void a1time::operator = (const a1time &a)
+a1time &a1time::operator = (const a1time &a)
 {
 	set(a.time);
+	return *this;
 }
 
 bool const a1time::operator > (const a1time &a)

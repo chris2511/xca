@@ -579,7 +579,7 @@ a1time pki_x509::getRevoked()
 	return x;
 }
 	
-void pki_x509::setRevoked(a1time &when)
+void pki_x509::setRevoked(const a1time &when)
 {
 	isrevoked = true;
 	revoked = when;

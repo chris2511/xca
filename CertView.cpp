@@ -57,8 +57,12 @@
 #include <qradiobutton.h>
 #include <qmessagebox.h>
 #include <qpopupmenu.h>
+#include <qtextview.h>
+#include <qpushbutton.h>
 #include "CertExtend.h"
 #include "CertDetail.h"
+#include "validity.h"
+#include "lib/pki_pkcs12.h"
 
 CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
         :XcaListView(parent, name, f)
@@ -149,8 +153,8 @@ void CertView::newCert(NewX509 *dlg)
 	// Step 3 - Choose the Date and all the V3 extensions
 	
 	// Date handling
-	notBefore = dlg->getNotBefore();
-	notAfter = dlg->getNotAfter();
+	notBefore = dlg->validity->getNotBefore();
+	notAfter = dlg->validity->getNotAfter();
 	
 	// initially create cert 
 	cert = new pki_x509();
@@ -318,11 +322,14 @@ void CertView::extendCert()
 {
 	pki_x509 *oldcert = NULL, *signer = NULL, *newcert =NULL;
 	pki_key *signkey = NULL;
-	int days, x;
+	a1time time;
 	a1int serial;
 	try {
 		CertExtend_UI *dlg = new CertExtend_UI(this, NULL, true);
 		dlg->image->setPixmap(*MainWindow::certImg);
+		dlg->validity->setNotBefore(time.now());
+		dlg->validity->setNotAfter(time.now(60 * 60 * 24 * 356));
+		
 		if (!dlg->exec()) {
 			delete dlg;
 			return;
@@ -338,16 +345,10 @@ void CertView::extendCert()
 		}
 		db->updatePKI(signer);  // FIXME::not so pretty ....
 		
-		// Date handling
-		x = dlg->validNumber->text().toInt();
-		days = dlg->validRange->currentItem();
-		if (days == 1) x *= 30;
-		if (days == 2) x *= 365;
-		
 		// change date and serial
 		newcert->setSerial(serial);
-		newcert->setNotBefore(dlg->getNotBefore());
-		newcert->setNotAfter(dlg->getNotAfter());
+		newcert->setNotBefore(dlg->validity->getNotBefore());
+		newcert->setNotAfter(dlg->validity->getNotAfter());
 
 		if (newcert->resetTimes(signer) > 0) {
 			if (QMessageBox::information(this,tr(XCA_TITLE),
@@ -376,16 +377,16 @@ void CertView::show(pki_base *basecert, bool import)
 {
 	pki_x509 *cert = (pki_x509 *)basecert;
 	if (!cert) return; 
-	if (opensslError(cert)) return ;
+	if (Error(cert)) return ;
     try {
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	bool ret;
-	dlg->image->setPixmap(*certImg);
+	dlg->image->setPixmap(*MainWindow::certImg);
 	dlg->descr->setText(cert->getIntName());
 	dlg->setCaption(tr(XCA_TITLE));
 
 	// examine the key
-	pki_key *key= cert->getKey();
+	pki_key *key= cert->getRefKey();
 	if (key)
 	     if (key->isPrivKey()) {
 		dlg->privKey->setText(key->getIntName());
@@ -422,7 +423,7 @@ void CertView::show(pki_base *basecert, bool import)
 	else
 		land+=land1;
 	
-	dlg->dnCN->setText(subj.geEntryByNid(NID_commonName));
+	dlg->dnCN->setText(subj.getEntryByNid(NID_commonName));
 	dlg->dnC->setText(land);
 	dlg->dnL->setText(subj.getEntryByNid(NID_localityName));
 	dlg->dnO->setText(subj.getEntryByNid(NID_organizationName));
@@ -444,8 +445,8 @@ void CertView::show(pki_base *basecert, bool import)
 	dlg->dnO_2->setText(iss.getEntryByNid(NID_organizationName));
 	dlg->dnOU_2->setText(iss.getEntryByNid(NID_organizationalUnitName));
 	dlg->dnEmail_2->setText(iss.getEntryByNid(NID_pkcs9_emailAddress));
-	dlg->notBefore->setText(cert.getNotBefore().toPretty());
-	dlg->notAfter->setText(cert.getNotAfter().toPretty());
+	dlg->notBefore->setText(cert->getNotBefore().toPretty());
+	dlg->notAfter->setText(cert->getNotAfter().toPretty());
 	MARK
 	
 	// validation of the Date
@@ -490,7 +491,7 @@ void CertView::show(pki_base *basecert, bool import)
 		init_database();
 	}
 	if (import) {
-		cert = insert(cert);
+		cert = (pki_x509 *)insert(cert);
 	}
 	if (ndesc != odesc) {
 		db->renamePKI(cert, ndesc);
@@ -521,7 +522,7 @@ void CertView::deleteItem()
     }
 }
 
-void CertView::loadItem()
+void CertView::load()
 {
 	QStringList filter;
 	filter.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
@@ -529,9 +530,9 @@ void CertView::loadItem()
 	load_default(filter,tr("Certificate import"));
 }
 
-void CertView::loadItem(QString fname)
+pki_base *CertView::loadItem(QString fname)
 {
-	pki_x509 *cert = new pki_x509(s);
+	pki_x509 *cert = new pki_x509(fname);
 	return cert;
 }
 
@@ -547,17 +548,17 @@ void CertView::loadPKCS12()
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::ExistingFiles );
-	setPath(dlg);
+        dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
-		newPath(dlg);
+		MainWindow::setPath(dlg->dirPath());
 	}
 	delete dlg;
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
 		s = QDir::convertSeparators(s);
 		try {
-			pk12 = new pki_pkcs12(s, &CertView::passRead);
+			pk12 = new pki_pkcs12(s, &MainWindow::passRead);
 			insertP12(pk12);
 			MARK
 		}
@@ -624,10 +625,10 @@ void CertView::loadPKCS7()
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::ExistingFiles );
-	setPath(dlg);
+        dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
-		newPath(dlg);
+		MainWindow::setPath(dlg->dirPath());
 	}
 	delete dlg;
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
@@ -700,7 +701,7 @@ pki_x509 *CertView::insert(pki_base *item)
 #define P7_CHAIN 1
 #define P7_TRUSTED 2
 
-void CertView::writeCert()
+void CertView::store()
 {
 	QStringList filt;
 	pki_x509 *crt = (pki_x509 *)certs->getSelectedPKI();
