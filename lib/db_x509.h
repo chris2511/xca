@@ -75,6 +75,7 @@ class db_x509: public db_base
 	void remFromCont(pki_base *pki);
 	void preprocess();
 	QStringList getPrivateDesc();
+	QStringList getSignerDesc();
 	pki_key * findKey(pki_x509 *cert);
 	void calcEffTrust();
     public slots:

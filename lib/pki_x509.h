@@ -79,6 +79,7 @@ class pki_x509 : public pki_base
 	   virtual bool fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
+	   bool canSign();
 	   string getDNs(int nid);
 	   string getDNi(int nid);
 	   void writeCert(const string fname, bool PEM);

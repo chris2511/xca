@@ -179,7 +179,18 @@ void pki_x509::addV3ext(int nid, string exttext)
 	X509_EXTENSION_free(ext);
 }
 
-	
+bool pki_x509::canSign()
+{
+	BASIC_CONSTRAINTS *bc;
+	int crit;
+	if (!pkey) return false;
+	if (pkey->isPubKey()) return false;
+	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
+	openssl_error();
+	if (!bc) return false;	
+	if (!bc->ca) return false;
+	return true;
+}
 	
 void pki_x509::sign(pki_key *signkey)
 {
@@ -412,11 +423,13 @@ string pki_x509::printV3ext()
 		buffer[len] = '\0';
 		text+=buffer;
 		text+=": ";
-		if (X509_EXTENSION_get_critical(ex))
+		if (X509_EXTENSION_get_critical(ex)) {
 			text += " <font color=\"red\">critical</font>:";
-		if(!X509V3_EXT_print(bio, ex, 0, 0))
+		}
+		if(!X509V3_EXT_print(bio, ex, 0, 0)) {
 			M_ASN1_OCTET_STRING_print(bio,ex->value);
-        		len = BIO_read(bio, buffer, 200);
+		}
+        	len = BIO_read(bio, buffer, 200);
 		text+="</u></b><br><tt>";
 		buffer[len] = '\0';
 		text+=buffer;

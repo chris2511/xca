@@ -182,6 +182,18 @@ QStringList db_x509::getPrivateDesc()
 	return x;
 }
 
+QStringList db_x509::getSignerDesc()
+{
+	pki_x509 *pki;
+	QStringList x;
+        if ( container.isEmpty() ) return x;
+        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
+		if (pki->canSign())
+		x.append(pki->getDescription().c_str());	
+	}
+	return x;
+}
+
 
 void db_x509::remFromCont(pki_base *pki)
 {
