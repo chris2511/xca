@@ -170,7 +170,7 @@ void XcaListView::deleteItem_default(QString t1, QString t2)
 	catch (errorEx &err) {
 		Error(err);
 	}
-		
+	updateView();
 }
 
 void XcaListView::load_default(QStringList &filter, QString caption)

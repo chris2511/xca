@@ -1,3 +1,16 @@
+xca (0.4.1) unstable; urgency=low
+
+  * some compiling issues removed
+  * Import via commandline repaired,
+  * signing of requests without key fixed
+  * Changes for WIN32 version from Ilya added
+  * solved bug:
+    [ 770120 ] Attempting to export private key results in no file exported
+  * implemented feature request:
+    [ 755599 ] add PFX import button to Keytab
+  
+ -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Tue, 15 Jul 2003 15:18:17 +0200
+
 xca (0.4.0) unstable; urgency=low
 
   * Solved bugs:
