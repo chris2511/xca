@@ -568,10 +568,9 @@ void pki_x509::setRevoked(bool rev)
 	openssl_error();
 }
 
-a1time pki_x509::getRevoked()
+a1time &pki_x509::getRevoked()
 {
-	a1time x = revoked;
-	return x;
+	return revoked;
 }
 	
 void pki_x509::setRevoked(const a1time &when)
@@ -657,8 +656,14 @@ QString pki_x509::tinyCAfname()
 	return col;
 }
 
-
-
+x509rev pki_x509::getRev()
+{
+	x509rev a;
+	a.setDate(getRevoked());
+	a.setSerial(getSerial());
+	return a;
+}
+	
 void pki_x509::updateView()
 {
 	pki_base::updateView();

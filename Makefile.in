@@ -23,7 +23,7 @@ UIC=@UIC@
 
 ###################################
 
-NAMES=XcaListView KeyView ReqView TempView CertView validity CrlView
+NAMES=XcaListView KeyView ReqView TempView CertView validity distname CrlView
 OBJS=main.o $(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
 
 SUBDIRS=lib ui widgets

@@ -73,10 +73,10 @@ class Validity : public QGroupBox
 	void setNotAfter(const a1time &t);
 
   protected:
-    QGridLayout* ValidityLayout;
-    QLabel *Label1, *Label2;
-    QComboBox *nbDay, *nbMon, *naMon, *naDay;
-    QLineEdit *nbYear, *naYear;
+	QGridLayout* ValidityLayout;
+	QLabel *Label1, *Label2;
+	QComboBox *nbDay, *nbMon, *naMon, *naDay;
+	QLineEdit *nbYear, *naYear;
    
 };
 

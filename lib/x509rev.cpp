@@ -44,22 +44,85 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
-#ifndef CRLDETAIL_H
-#define CRLDETAIL_H
+#include "x509rev.h"
 
-#include "ui/CrlDetail.h"
-#include "lib/pki_crl.h"
-
-class CrlDetail: public CrlDetail_UI
+#define X509_REVOKED_dup(x5r) (X509_REVOKED *)ASN1_dup((int (*)())i2d_X509_REVOKED, \
+		(char *(*)())d2i_X509_REVOKED,(char *)x5r)
+	
+x509rev::x509rev()
 {
-	Q_OBJECT
-		
-   public:	
-	CrlDetail( QWidget *parent = 0, const char *name = 0);
-	void setCrl(pki_crl *crl);
-};
-#endif
+	rev = X509_REVOKED_new();
+}
+
+x509rev::x509rev(const X509_REVOKED *n)
+{
+	rev = X509_REVOKED_dup((X509_REVOKED *)n);
+}
+
+x509rev::x509rev(const x509rev &n)
+{
+	rev = NULL;
+	set(n.rev);
+}
+
+x509rev::~x509rev()
+{
+	X509_REVOKED_free(rev);
+}
+
+x509rev &x509rev::set(const X509_REVOKED *n)
+{
+	if (rev != NULL)
+		X509_REVOKED_free(rev);
+	rev = X509_REVOKED_dup((X509_REVOKED *)n);
+	return *this;
+}
+
+bool x509rev::operator == (const x509rev &x) const
+{
+	return (getSerial() == x.getSerial() &&
+		getDate() == x.getDate());
+}
+
+x509rev &x509rev::operator = (const x509rev &x)
+{
+	set(x.rev);
+	return *this;
+}
+
+void x509rev::setSerial(const a1int &i)
+{
+	if (rev->serialNumber != NULL)
+		ASN1_INTEGER_free(rev->serialNumber);
+	rev->serialNumber = i.get();
+}
+
+void x509rev::setDate(const a1time &t)
+{
+	if (rev->revocationDate != NULL)
+		ASN1_TIME_free(rev->revocationDate);
+	rev->revocationDate = t.get();
+}
+
+a1int x509rev::getSerial() const
+{
+	a1int a(rev->serialNumber);
+	return a;
+}
+
+a1time x509rev::getDate() const
+{
+	a1time t(rev->revocationDate);
+	return t;
+}
+
+X509_REVOKED *x509rev::get() const
+{
+	return X509_REVOKED_dup(rev);
+}
+
+#undef X509_REVOKED

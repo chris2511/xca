@@ -17,14 +17,14 @@ CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################
 
-PKINAMES=asn1int asn1time x509name pass_info \
+PKINAMES=func asn1int asn1time x509name x509rev pass_info \
 	pki_key pki_x509super pki_x509req pki_x509 \
 	pki_pkcs12 pki_temp pki_crl pki_pkcs7 \
-	db_base func 
+	db_base
 
 MOCNAMES=pki_base db_key db_x509super db_x509req db_x509 db_temp db_crl
 
-PKIOBJS=$(patsubst %, %.o, $(MOCNAMES) $(PKINAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
+PKIOBJS=$(patsubst %, %.o, $(PKINAMES) $(MOCNAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
 DB_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 
 all: libpki.a

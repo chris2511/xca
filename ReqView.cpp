@@ -61,6 +61,7 @@
 
 #include "widgets/MainWindow.h"
 #include "widgets/NewX509.h"
+#include "distname.h"
 
 
 ReqView::ReqView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
@@ -121,6 +122,7 @@ void ReqView::showItem(pki_base *item, bool import)
 		dlg->privKey->setText(key->getIntName());
 		dlg->privKey->setDisabled(false);
 	}
+	/*
 	x509name rn = req->getSubject();
 	dlg->dnCN->setText(rn.getEntryByNid(NID_commonName));
 	dlg->dnC->setText(rn.getEntryByNid(NID_countryName)  + " / "
@@ -130,6 +132,10 @@ void ReqView::showItem(pki_base *item, bool import)
 	dlg->dnOU->setText(rn.getEntryByNid(NID_organizationalUnitName));
 	dlg->dnEmail->setText(rn.getEntryByNid(NID_pkcs9_emailAddress));
 	dlg->image->setPixmap(*MainWindow::csrImg);
+	*/
+	
+	dlg->subject->setX509name(req->getSubject());
+
 	// rename the buttons in case of import 
 	if (import) {
 		dlg->but_ok->setText(tr("Import"));

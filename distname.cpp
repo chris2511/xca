@@ -48,18 +48,52 @@
  *
  */                           
 
-#ifndef CRLDETAIL_H
-#define CRLDETAIL_H
+#include "distname.h"
 
-#include "ui/CrlDetail.h"
-#include "lib/pki_crl.h"
+#include <qcombobox.h>
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
+#include <qlayout.h>
+#include <qvariant.h>
+#include <qtooltip.h>
+#include <qwhatsthis.h>
+#include "lib/x509name.h"
 
-class CrlDetail: public CrlDetail_UI
+DistName::DistName( QWidget* parent,  const char* name )
+    : QGroupBox( parent, name )
 {
-	Q_OBJECT
-		
-   public:	
-	CrlDetail( QWidget *parent = 0, const char *name = 0);
-	void setCrl(pki_crl *crl);
-};
-#endif
+	if ( !name )
+		setName( "DistName" );
+	setTitle( tr( "Distinguished Name" ) );
+
+	DistNameLayout = new QGridLayout( this ); 
+	DistNameLayout->setSpacing( 6 );
+	DistNameLayout->setMargin( 11 );
+}
+
+void DistName::setX509name(const x509name &n)
+{
+	QLabel *lb;
+	QLineEdit *le;
+	QStringList sl;
+	for (int i=0; i<n.entryCount(); i++) {
+		lb = new QLabel( this );
+		le = new QLineEdit( this );
+		sl = n.entryList(i);
+		lb->setText(sl[0]);
+		if (lb->text().isEmpty())
+			lb->setText(sl[1]);
+		le->setText(sl[2]);
+		DistNameLayout->addWidget( lb, i, 0 );
+		DistNameLayout->addWidget( le, i, 1 );
+	}
+	//DistNameLayout->invalidate();	
+	
+}
+
+DistName::~DistName()
+{
+    // no need to delete child widgets, Qt does it all for us
+}
+

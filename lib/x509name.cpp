@@ -71,11 +71,12 @@ x509name::~x509name()
 	X509_NAME_free(xn);
 }
 
-void x509name::set(const X509_NAME *n)
+x509name &x509name::set(const X509_NAME *n)
 {
 	if (xn != NULL)
 		X509_NAME_free(xn);
 	xn = X509_NAME_dup((X509_NAME *)n);
+	return *this;
 }
 
 
@@ -96,6 +97,20 @@ QString x509name::getEntryByNid(int nid) const
 	s = buf;
 	OPENSSL_free(buf);
 	return s;
+}
+
+QStringList x509name::entryList(int i) const
+{
+	QStringList sl;
+	QString ent;
+	X509_NAME_ENTRY *ne;
+	int n;
+	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
+	n = OBJ_obj2nid(ne->object);
+	sl += OBJ_nid2sn(n);
+	sl += OBJ_nid2ln(n);
+	sl += getEntryByNid(n);
+	return sl;
 }
 
 bool x509name::operator == (const x509name &x) const

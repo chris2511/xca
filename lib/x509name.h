@@ -52,6 +52,7 @@
 #define X509NAME_H
 
 #include <qstring.h>
+#include <qstringlist.h>
 #include <openssl/x509.h>
 
 class x509name
@@ -63,8 +64,9 @@ class x509name
 	x509name(const X509_NAME *n);
 	x509name(const x509name &n);
 	~x509name();
-	void set(const X509_NAME *n);
+	x509name &set(const X509_NAME *n);
 	QString oneLine() const;
+	QStringList entryList(int i) const;
 	QString getEntryByNid(int nid) const;
 	int entryCount() const;
 	x509name &operator = (const x509name &x);

@@ -81,8 +81,10 @@ pki_crl::pki_crl()
 	crl = X509_CRL_new();
 	class_name="pki_crl";
 #if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
-	ci->revoked = sk_X509_REVOKED_new_null();
+	crl->crl->revoked = sk_X509_REVOKED_new_null();
 #endif
+	crl->crl->version = ASN1_INTEGER_new();
+	ASN1_INTEGER_set(crl->crl->version,1); /* version 2 CRL */
 	openssl_error();
 }
 
@@ -91,16 +93,9 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	setIntName(d);
 	issuer = iss;
 	if (!iss) openssl_error("no issuer");
-	X509V3_set_ctx(&ctx, issuer->cert, NULL, NULL, crl, 0);
 	X509_CRL_INFO *ci = crl->crl;
 	openssl_error();
-	ci->issuer = X509_NAME_dup(issuer->cert->cert_info->subject);
-	ci->lastUpdate = ASN1_UTCTIME_new();
-	X509_gmtime_adj(ci->lastUpdate,0);
-	ci->nextUpdate=ASN1_UTCTIME_new();
-	X509_gmtime_adj(ci->nextUpdate, (issuer->getCrlDays())*24*60*60);
-	ci->version = ASN1_INTEGER_new();
-	ASN1_INTEGER_set(ci->version,1); /* version 2 CRL */
+	ci->issuer = issuer->getSubject().get();
 	openssl_error();
 }	
 
@@ -110,7 +105,22 @@ a1int pki_crl::getVersion()
 	return a;
 }
 
+void pki_crl::setLastUpdate(const a1time &t)
+{
+	if (crl->crl->lastUpdate != NULL)
+		ASN1_TIME_free(crl->crl->lastUpdate);
 	
+	crl->crl->lastUpdate = t.get();
+}
+
+void pki_crl::setNextUpdate(const a1time &t)
+{
+	if (crl->crl->nextUpdate != NULL)
+		ASN1_TIME_free(crl->crl->nextUpdate);
+	
+	crl->crl->nextUpdate = t.get();
+}
+
 pki_crl::~pki_crl()
 {
 	X509_CRL_free(crl);
@@ -144,18 +154,9 @@ bool pki_crl::compare(pki_base *refcrl)
 }
 
 
-void pki_crl::addRevoked(pki_x509 *client)
+void pki_crl::addRev(const x509rev &xrev)
 {
-	X509_REVOKED *rev = NULL;
-	if (!crl) openssl_error("crl disappeared");
-	X509_CRL_INFO *ci = crl->crl;
-	if (!client || !client->isRevoked()) return;
-	if (client->psigner != issuer) return;
-	rev = X509_REVOKED_new();
-	openssl_error();
-	rev->revocationDate = client->getRevoked().get();
-	rev->serialNumber = client->getSerial().get();
-	sk_X509_REVOKED_push(ci->revoked,rev);
+	sk_X509_REVOKED_push(crl->crl->revoked, xrev.get());
 	openssl_error();
 }
 
@@ -163,7 +164,7 @@ void pki_crl::addV3ext(int nid, const QString &exttext)
 { 
 	X509_EXTENSION *ext;
 	char *c = (char *)exttext.latin1();
-	ext =  X509V3_EXT_conf_nid(NULL, &ctx, nid, c);
+	ext =  X509V3_EXT_conf_nid(NULL, NULL, nid, c);
 	if (!ext) {
 		QString x="CRL v3 Extension: " + exttext;
 		openssl_error(x);
@@ -175,10 +176,10 @@ void pki_crl::addV3ext(int nid, const QString &exttext)
 }
 
 
-void pki_crl::sign(pki_key *key)
+void pki_crl::sign(pki_key *key, const EVP_MD *md)
 {
 	if (!key || key->isPubKey()) return;
-	X509_CRL_sign(crl,key->key, EVP_md5());
+	X509_CRL_sign(crl, key->key, md);
 	openssl_error();
 }
 
@@ -226,29 +227,14 @@ int pki_crl::numRev()
 		return 0;
 }
 
-a1int pki_crl::getSerial(int num)
+x509rev pki_crl::getRev(int num)
 {
-	X509_REVOKED *ret = NULL;
-	a1int serial;
-	serial = -1;
+	x509rev ret;
 	if (crl && crl->crl && crl->crl->revoked) {
-		ret = sk_X509_REVOKED_value(crl->crl->revoked, num);
-		serial.set(ret->serialNumber);
-	}
-	openssl_error();
-	return serial;
-}	
-		
-a1time pki_crl::getRevDate(int num)
-{
-	X509_REVOKED *ret = NULL;
-	a1time t;;
-	if (crl && crl->crl && crl->crl->revoked) {
-		ret = sk_X509_REVOKED_value(crl->crl->revoked, num);
+		ret.set(sk_X509_REVOKED_value(crl->crl->revoked, num));
 		openssl_error();
-		t.set(ret->revocationDate);
 	}
-	return t;
+	return ret;
 }	
 
 x509name pki_crl::getIssuerName()

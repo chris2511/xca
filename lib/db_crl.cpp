@@ -77,14 +77,16 @@ void db_crl::revokeCerts(pki_crl *crl)
 {
 	int numc, i;
 	pki_x509 *rev, *iss;
+	x509rev revok; 
 	//crts->MainWindow::getBySubject(crl->getIssuerX509_NAME());
 	numc = crl->numRev();
 	a1int x;
 	for (i=0; i<numc; i++) {
-		x = crl->getSerial(i);
+		revok = crl->getRev(i);
+		x = revok.getSerial();
 		rev = certs->getByIssSerial(iss, x);
 		if (rev != NULL) {
-			rev->setRevoked(crl->getRevDate(i));
+			rev->setRevoked(revok.getDate());
 		}
 	}
 }

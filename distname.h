@@ -44,22 +44,37 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
-#ifndef CRLDETAIL_H
-#define CRLDETAIL_H
+#ifndef DISTNAME_H
+#define DISTNAME_H
 
-#include "ui/CrlDetail.h"
-#include "lib/pki_crl.h"
+#include <qvariant.h>
+#include <qgroupbox.h>
 
-class CrlDetail: public CrlDetail_UI
-{
-	Q_OBJECT
-		
-   public:	
-	CrlDetail( QWidget *parent = 0, const char *name = 0);
-	void setCrl(pki_crl *crl);
+class QGridLayout;
+class x509name;
+class QLabel;
+class QComboBox;
+class QLineEdit;
+
+class DistName : public QGroupBox
+{ 
+    Q_OBJECT
+
+  public:
+	DistName( QWidget* parent = 0, const char* name = 0);
+	~DistName();
+	void setX509name(const x509name &n);
+
+  protected:
+	QGridLayout* DistNameLayout;
+	QLabel *Label1, *Label2;
+	QComboBox *nbDay, *nbMon, *naMon, *naDay;
+	QLineEdit *nbYear, *naYear;
+   
 };
+
 #endif

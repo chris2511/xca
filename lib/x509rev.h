@@ -44,22 +44,35 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
-#ifndef CRLDETAIL_H
-#define CRLDETAIL_H
+#ifndef X509REV_H
+#define X509REV_H
 
-#include "ui/CrlDetail.h"
-#include "lib/pki_crl.h"
+#include <qstring.h>
+#include <openssl/x509.h>
+#include "asn1time.h"
+#include "asn1int.h"
 
-class CrlDetail: public CrlDetail_UI
+class x509rev
 {
-	Q_OBJECT
-		
-   public:	
-	CrlDetail( QWidget *parent = 0, const char *name = 0);
-	void setCrl(pki_crl *crl);
+   private:	
+	X509_REVOKED *rev;
+   public:
+	x509rev();
+	x509rev(const X509_REVOKED *n);
+	x509rev(const x509rev &n);
+	~x509rev();
+	x509rev &set(const X509_REVOKED *n);
+	x509rev &operator = (const x509rev &x);
+	bool operator == (const x509rev &x) const;
+	void setSerial(const a1int &i);
+	void setDate(const a1time &t);
+	a1int getSerial() const;
+	a1time getDate() const;
+	X509_REVOKED *get() const;
 };
+
 #endif

@@ -70,12 +70,14 @@ void CrlDetail::setCrl(pki_crl *crl)
 {
 	int numc, i;
 	pki_x509 *iss, *rev;
+	x509rev revit;
 	QListViewItem *current;
 	descr->setText(crl->getIntName());
 	iss = MainWindow::certs->getBySubject(crl->getIssuerName());
 	numc = crl->numRev();
 	for (i=0; i<numc; i++) {
-                rev = MainWindow::certs->getByIssSerial(iss, crl->getSerial(i));
+		revit = crl->getRev(i);
+                rev = MainWindow::certs->getByIssSerial(iss, revit.getSerial());
                 if (rev != NULL) {
                         current = new QListViewItem(certList,
                                         rev->getIntName());
@@ -84,8 +86,8 @@ void CrlDetail::setCrl(pki_crl *crl)
                         current = new QListViewItem(certList,
 					"Unknown certificate" );
                 } 
-                current->setText(1, crl->getSerial(i).toHex()) ;
-                current->setText(2, crl->getRevDate(i).toSortable());
+                current->setText(1, revit.getSerial().toHex()) ;
+                current->setText(2, revit.getDate().toSortable());
         }
         v3Extensions->setText(crl->printV3ext());
         issuer->setText(iss->getIntName());

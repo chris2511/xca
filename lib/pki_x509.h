@@ -60,6 +60,7 @@
 #include "pki_x509super.h"
 #include "asn1time.h"
 #include "asn1int.h"
+#include "x509rev.h"
 
 class pki_x509 : public pki_x509super
 {
@@ -118,7 +119,7 @@ class pki_x509 : public pki_x509super
 	   void setEffTrust(int t);
 	   void setRevoked(bool rev);
 	   void setRevoked(const a1time &when);
-	   a1time getRevoked();
+	   a1time &getRevoked();
 	   bool isRevoked();
 	   int calcEffTrust();
 	   a1int getIncCaSerial();
@@ -134,6 +135,7 @@ class pki_x509 : public pki_x509super
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);
 	   QString tinyCAfname();
 	   void updateView();
+	   x509rev getRev();
 };
 
 #endif
