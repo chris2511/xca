@@ -106,6 +106,7 @@ MainWindow::~MainWindow()
 	 delete(keys);
 	 delete(reqs);
 	 delete(certs);
+	 delete(temps);
 	 delete(settings);
 }
 

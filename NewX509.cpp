@@ -51,51 +51,138 @@
 
 #include "NewX509.h"
 
-NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req)
+NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp)
 	:NewX509_UI(parent, name, true, 0)
 {
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
 	connect( parent, SIGNAL(keyDone(QString)), this, SLOT(newKeyDone(QString)) );
 	keys = key;
 	reqs = req;
-	QStringList strings = keys->getPrivateDesc();
+	temps = temp;
+	certs = cert;
+	QStringList strings;
+	 
 	// are there any useable private keys  ?
-	if (strings.isEmpty()) {
-		newKey();
+	if (keys) {
+		strings = keys->getPrivateDesc();
+		if (strings.isEmpty()) {
+			newKey();
+		}
+		else {
+			keyList->insertStringList(strings);
+		}
 	}
 	else {
-		keyList->insertStringList(strings);
+		keyList->setEnabled(false);
+		genKeyBUT->setEnabled(false);
+		removePage(page3);
 	}
+	
 	// any PKCS#10 requests to be used ?
-	strings = reqs->getDesc();
-	if (strings.isEmpty()) {
-		fromReqRB->setDisabled(true);
+	if (reqs) {
+		strings = reqs->getDesc();
+		if (strings.isEmpty()) {
+			fromReqRB->setDisabled(true);
+		}
+		else {
+			reqList->insertStringList(strings);
+		}
 	}
 	else {
-		reqList->insertStringList(strings);
+		reqList->setEnabled(false);
+		fromReqRB->setEnabled(false);
 	}
+	
+	// How about signing certificates ?
+	if (certs) {
+		strings = certs->getSignerDesc();
+		if (strings.isEmpty()) {
+			foreignSignRB->setDisabled(true);
+			certList->setDisabled(true);
+		}
+		else {
+			certList->insertStringList(strings);
+		}
+	}
+	else {
+		foreignSignRB->setDisabled(true);
+		certList->setDisabled(true);
+	}
+	
+	// settings for the templates ....
+	if (temps) {
+		strings = temps->getDesc();
+		if (strings.isEmpty()) {
+			removePage(page1);
+		}
+		else {
+			tempList->insertStringList(strings);
+		}
+	}
+	else {
+		removePage(page1);
+	}		
+	
 	fromDataRB->setChecked(true);
-	setFinishEnabled(page4,true);
-	setNextEnabled(page1,false);
+	setFinishEnabled(page5,true);
+	setNextEnabled(page2,false);
+}
+void NewX509::setRequest()
+{
+	removePage(page3);
+	removePage(page4);
+	removePage(page5);
 }
 	
-void NewX509::dataChangeP1()
+void NewX509::fromTemplate(pki_temp *temp)
+{
+	removePage(page1);
+	countryName->setText(temp->C.c_str());
+	stateOrProvinceName->setText(temp->P.c_str());
+	localityName->setText(temp->L.c_str());
+	organisationName->setText(temp->O.c_str());
+	organisationalUnitName->setText(temp->OU.c_str());
+	commonName->setText(temp->CN.c_str());
+	emailAddress->setText(temp->EMAIL.c_str());
+	subAltName->setText(temp->subAltName.c_str());
+	issAltName->setText(temp->issAltName.c_str());
+	crlDist->setText(temp->crlDist.c_str());
+	
+}
+
+void NewX509::toTemplate(pki_temp *temp)
+{
+	temp->C = countryName->text().latin1();
+	temp->P = stateOrProvinceName->text().latin1();
+	temp->L = localityName->text().latin1();
+	temp->O = organisationName->text().latin1();
+	temp->OU = organisationalUnitName->text().latin1();
+	temp->CN = commonName->text().latin1();
+	temp->EMAIL = emailAddress->text().latin1();
+	temp->subAltName = subAltName->text().latin1();
+	temp->issAltName = issAltName->text().latin1();
+	temp->crlDist = crlDist->text().latin1();
+}
+
+void NewX509::dataChangeP2()
 {
 	if (description->text() != "" || fromReqRB->isChecked()) {
-		setNextEnabled(page1,true);
+		setNextEnabled(page2,true);
+		finishButton()->setEnabled(true);
 	}
 	else {
-		setNextEnabled(page1,false);
+		setNextEnabled(page2,false);
+		finishButton()->setEnabled(false);
 	}
 }
 
 void NewX509::showPage(QWidget *page)
 {
 	
-	if ( page == page1 ) {
-		dataChangeP1();
+	if ( page == page2 ) {
+		dataChangeP2();
 	}
-	else if ( page == page2 ) {
+	else if ( page == page3 ) {
 		if (!selfSignRB->isChecked() && !foreignSignRB->isChecked()) {
 			if (fromDataRB->isChecked()) {
 				selfSignRB->setChecked(true);

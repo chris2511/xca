@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>462</width>
+            <width>458</width>
             <height>349</height>
         </rect>
     </property>
@@ -553,7 +553,10 @@
             </property>
             <property stdset="1">
                 <name>alignment</name>
-                <set>WordBreak|AlignVCenter|AlignLeft</set>
+                <set>WordBreak|AlignTop|AlignLeft</set>
+            </property>
+            <property>
+                <name>vAlign</name>
             </property>
             <property>
                 <name>wordwrap</name>

@@ -1,6 +1,3 @@
-
-
-
 AC_INIT(xca, 0.2.4)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
@@ -54,14 +51,18 @@ AC_CONFIG_FILES([Makefile lib/Makefile])
 AC_OUTPUT
 
 cat << EOT
+
+
 *****************************************************************
-* It seems, all headers and libraries were found...             *
+* It seems that all headers and libraries were found !          *
 *                                                               *
-* If you have comments, compilingproblems, bugs or suggestions, *
+* If you have comments, compilingproblems, bugs or suggestions  *
 * don't hesitate to contact me at: christian@hohnstaedt.de      *
 *                                                               *
 * now type make to build the package....                        *
 *****************************************************************
+
+
 EOT
 
 

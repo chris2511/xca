@@ -52,10 +52,14 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newReq()
+void MainWindow::newReq(pki_temp *temp=NULL)
 {
-	NewX509Req *dlg = new NewX509Req(this, 0, keys);
-	dlg->image->setPixmap(*csrImg);
+	NewX509 *dlg = new NewX509(this, 0, keys, NULL, NULL, temps);
+	if (temp) {
+		dlg->fromTemplate(temp);
+	}
+	dlg->setRequest();
+	//dlg->image->setPixmap(*csrImg);
 	if (! dlg->exec()) return;
 	pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
 	string cn = dlg->commonName->text().latin1();

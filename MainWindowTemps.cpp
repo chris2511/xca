@@ -52,32 +52,24 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newTemp(int type=1)
+void MainWindow::newTemp()
 {
-	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
-	QString x;
-	for (int i=0; sizeList[i] != 0; i++ ) 
-	   dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
-	dlg->keyLength->setCurrentItem(2);
-	dlg->image->setPixmap(*keyImg);
-	if (dlg->exec()) {
-	   int sel = dlg->keyLength->currentItem();
-	   QProgressDialog *progress = new QProgressDialog(
-		tr("Please wait, Key generation is in progress"),
-		tr("Cancel"),90, 0, 0, true);
-	   progress->setMinimumDuration(0);
-	   progress->setProgress(0);	
-	   pki_key *nkey = new pki_key (dlg->keyDesc->text().latin1(), 
-		       &MainWindow::incProgress,
-		       progress,
-		       sizeList[sel]);
-           progress->cancel();
-	   insertKey(nkey);
-	   x=nkey->getDescription().c_str();
-	   emit keyDone(x);
+	pki_temp *temp = new pki_temp(tr("New Template").latin1());
+	if (alterTemp(temp)) {
+		temps->insertPKI(temp);
 	}
 }
 
+bool MainWindow::alterTemp(pki_temp *temp)
+{
+	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL );
+	CERR << ":-) a" << endl;
+	dlg->fromTemplate(temp);
+	CERR << ":-) b" << endl;
+	if (!dlg->exec()) return false;
+	dlg->toTemplate(temp);
+	return true;
+}
 
 void MainWindow::deleteTemp()
 {
@@ -89,7 +81,7 @@ void MainWindow::deleteTemp()
 			"'\n" + tr("is going to be deleted"),
 			"Delete", "Cancel")
 	) return;
-	keys->deletePKI(delTemp);
+	temps->deletePKI(delTemp);
 }
 
 
@@ -150,6 +142,18 @@ void MainWindow::insertTemp(pki_temp *temp)
 	
 }
 
+void MainWindow::certFromTemp()
+{
+	pki_temp *temp = (pki_temp *)temps->getSelectedPKI();
+	newCert(temp);
+}
+
+void MainWindow::reqFromTemp()
+{
+	pki_temp *temp = (pki_temp *)temps->getSelectedPKI();
+	newReq(temp);
+}
+
 void MainWindow::showPopupTemp(QListViewItem *item, const QPoint &pt, int x) {
 	CERR << "hallo popup template" << endl;
 	QPopupMenu *menu = new QPopupMenu(this);
@@ -159,8 +163,8 @@ void MainWindow::showPopupTemp(QListViewItem *item, const QPoint &pt, int x) {
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRenameTemp()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsTemp()));
-		menu->insertItem(tr("Create certificate"), this, SLOT(newTemp()));
-		menu->insertItem(tr("Create request"), this, SLOT(newTemp()));
+		menu->insertItem(tr("Create certificate"), this, SLOT(certFromTemp()));
+		menu->insertItem(tr("Create request"), this, SLOT(reqFromTemp()));
 	}
 	menu->exec(pt);
 	return;

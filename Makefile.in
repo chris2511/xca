@@ -25,10 +25,8 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      PassRead_UI.o PassRead_UI_MOC.o \
      PassWrite_UI.o PassWrite_UI_MOC.o \
      ExportKey_UI.o ExportKey_UI_MOC.o \
-     NewX509Req_UI.o NewX509Req_UI_MOC.o \
      NewX509_UI.o NewX509_UI_MOC.o \
      NewX509.o NewX509_MOC.o \
-     NewX509Req.o NewX509Req_MOC.o \
      CertDetail_UI.o CertDetail_UI_MOC.o \
      Rename_UI.o Rename_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
@@ -44,24 +42,16 @@ re: clean all
 
 MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
-	      NewX509Req_UI.h NewKey_UI.h ReqDetail_UI.h \
+	      NewKey_UI.h ReqDetail_UI.h \
 	      CertDetail_UI.h NewX509.h  NewX509_UI.h\
 	      Rename_UI.h TrustState_UI.h
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
 
-%_MOC.cpp: %.h %.cpp
-	$(MOC) $< -o $@
-
-%_UI.h: %.ui
-	$(UIC) -o $@ $<
-	 
-%_UI.cpp: %_UI.h %.ui
-	$(UIC) -o $@ -impl $^
-
 xca: $(OBJS) lib/libxcadb.a lib/libpki.a
 	$(GCC) $(CPPFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
+	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
 libs:
 	make -C lib all
@@ -88,3 +78,14 @@ install: xca
 	install -m 755 -o root -g root -d $(DESTDIR)@prefix@/share/xca
 	install -m 644 -o root -g root img/*.png $(DESTDIR)@prefix@/share/xca
 	
+
+.SECONDARY:
+
+%_MOC.cpp: %.h %.cpp
+	$(MOC) $< -o $@
+
+%_UI.h: %.ui
+	$(UIC) -o $@ $<
+	 
+%_UI.cpp: %_UI.h %.ui
+	$(UIC) -o $@ -impl $^

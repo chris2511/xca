@@ -54,6 +54,8 @@
 #include <qradiobutton.h>
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
+#include "lib/db_x509.h"
+#include "lib/db_temp.h"
 #include <qframe.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
@@ -67,16 +69,22 @@ class NewX509: public NewX509_UI
 	Q_OBJECT
    private:
 	db_x509req *reqs;
+	db_x509 *certs;
 	db_key *keys;
+	db_temp *temps;
    public:	
-	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req);
-	
+	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp);
+	void setRequest(); // reduce to requestform 	
+	void showPage(QWidget *page);
+	void toTemplate(pki_temp *temp);
+	void fromTemplate(pki_temp *temp);
+
    public slots:
 	void setDisabled(int state);
    	void newKey();
-	void dataChangeP1();
-	void showPage(QWidget *page);
+	void dataChangeP2();
 	void newKeyDone(QString name);
+	
    signals:
 	void genKey();  
 };

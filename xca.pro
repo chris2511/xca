@@ -1,7 +1,4 @@
-HEADERS = CertDetail_UI.h config.h ExportKey.h ExportKey_UI.h KeyDetail_UI.h MainWindow.h MainWindow_UI.h NewKey_UI.h NewX509_1_UI.h NewX509_2_UI.h NewX509.h NewX509Req_UI.h NewX509_UI.h PassRead_UI.h PassWrite_UI.h ReqDetail_UI.h
-
-SOURCES = ExportKey.cpp main.cpp MainWindow.cpp MainWindowKeys.cpp MainWindowX509.cpp MainWindowX509Req.cpp NewX509.cpp
-
-FORMS = CertDetail.ui ExportKey.ui KeyDetail.ui MainWindow.ui NewKey.ui NewX509_1.ui NewX509_2.ui NewX509Req.ui NewX509.ui PassRead.ui PassWrite.ui ReqDetail.ui
-
-TRANSLATIONS = xca_de.ts
+HEADERS = ExportKey.h MainWindow.h NewX509.h NewX509Req.h
+SOURCES = ExportKey.cpp MainWindow.cpp MainWindowKeys.cpp MainWindowTemps.cpp MainWindowX509.cpp MainWindowX509Req.cpp NewX509.cpp NewX509Req.cpp main.cpp
+FORMS   = CertDetail.ui ExportKey.ui KeyDetail.ui MainWindow.ui NewKey.ui NewX509.ui NewX509Req.ui PassRead.ui PassWrite.ui Rename.ui ReqDetail.ui TrustState.ui
+TRANSLATIONS = xca_de.ts xca_es.ts

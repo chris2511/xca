@@ -56,7 +56,6 @@
 #include "PassRead_UI.h"
 #include "PassWrite_UI.h"
 #include "NewKey_UI.h"
-#include "NewX509Req.h"
 #include "NewX509.h"
 #include "NewX509_UI.h"
 #include "Rename_UI.h"
@@ -146,9 +145,13 @@ class MainWindow: public MainWindow_UI
 	void loadCert();
 	void loadPKCS12();
 	void newKey();
-	void newReq();
-	void newCert();
-	void newTemp(int type=1);
+	void newReq(pki_temp *templ=NULL);
+	void newCert(pki_temp *templ=NULL);
+	void newReq(){newReq(NULL);}
+	void newCert(){newCert(NULL);}
+	void newTemp();
+	void certFromTemp();
+	void reqFromTemp();
 	void showDetailsKey(QListViewItem *item);
 	void showDetailsKey();
 	void showDetailsReq(QListViewItem *item);
@@ -180,6 +183,7 @@ class MainWindow: public MainWindow_UI
 	void renameReq(QListViewItem *item, int col, const QString &text);
 	void renameCert(QListViewItem *item, int col, const QString &text);
 	void renameTemp(QListViewItem *item, int col, const QString &text);
+	bool alterTemp(pki_temp *temp);
    signals:
 	void keyDone(QString name);
 };

@@ -112,7 +112,7 @@
                         <class>QComboBox</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>tempDrop</cstring>
+                            <cstring>tempList</cstring>
                         </property>
                         <property stdset="1">
                             <name>sizePolicy</name>
@@ -224,6 +224,13 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <cstring>inputFrame</cstring>
                         </property>
                         <property stdset="1">
+                            <name>sizePolicy</name>
+                            <sizepolicy>
+                                <hsizetype>5</hsizetype>
+                                <vsizetype>5</vsizetype>
+                            </sizepolicy>
+                        </property>
+                        <property stdset="1">
                             <name>frameShape</name>
                             <enum>Box</enum>
                         </property>
@@ -266,10 +273,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <property stdset="1">
                                     <name>name</name>
                                     <cstring>stateOrProvinceName</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Germany</string>
                                 </property>
                             </widget>
                             <widget row="3"  column="3" >
@@ -345,7 +348,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>genKey</cstring>
+                                    <cstring>genKeyBUT</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -414,10 +417,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                         <hsizetype>1</hsizetype>
                                         <vsizetype>0</vsizetype>
                                     </sizepolicy>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>DE</string>
                                 </property>
                             </widget>
                             <widget row="4"  column="0" >
@@ -999,7 +998,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <class>QWidget</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>page</cstring>
+            <cstring>page5</cstring>
         </property>
         <attribute>
             <name>title</name>
@@ -1232,7 +1231,25 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
     </widget>
 </widget>
 <connections>
-    <slot access="public">dataChangeP1()</slot>
+    <connection>
+        <sender>genKeyBUT</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>newKey()</slot>
+    </connection>
+    <connection>
+        <sender>fromDataRB</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>setDisabled(int)</slot>
+    </connection>
+    <connection>
+        <sender>description</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP2()</slot>
+    </connection>
+    <slot access="public">dataChangeP2()</slot>
     <slot access="public">newKey()</slot>
     <slot access="public">setDisabled(int)</slot>
 </connections>

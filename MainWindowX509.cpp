@@ -52,7 +52,7 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newCert()
+void MainWindow::newCert(pki_temp *templ =NULL)
 {
 	pki_x509 *cert = NULL;
 	pki_x509 *signcert = NULL;
@@ -60,16 +60,10 @@ void MainWindow::newCert()
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
 	int i;
-	NewX509 *dlg = new NewX509(this, NULL, keys, reqs);
-	QStringList strlist = certs->getSignerDesc();
-	if (strlist.isEmpty()) {
-		dlg->foreignSignRB->setDisabled(true);
-		dlg->certList->setDisabled(true);
+	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps );
+	if (templ) {
+		dlg->fromTemplate(templ);
 	}
-	else {
-		dlg->certList->insertStringList(strlist);
-	}
-	
 	if (!dlg->exec()) return;
 	
 
@@ -203,8 +197,8 @@ void MainWindow::newCert()
 		addStr(subAltName,cont.c_str());
 	}
 	if (subAltName.length() > 0) {
-		cert->addV3ext(NID_subject_alt_name, subAltName);
 		CERR << "SubAltName:" << subAltName<< endl;
+		cert->addV3ext(NID_subject_alt_name, subAltName);
 	}
 	
 	// issuer alternative name	
@@ -216,8 +210,8 @@ void MainWindow::newCert()
 	}
 	CERR << "HIER" << endl;
 	if (issAltName.length() > 0) {
-		cert->addV3ext(NID_issuer_alt_name, issAltName);
 		CERR << "IssAltName:" << issAltName<< endl;
+		cert->addV3ext(NID_issuer_alt_name, issAltName);
 	}
 	
 		
@@ -231,7 +225,9 @@ void MainWindow::newCert()
 }
 void MainWindow::addStr(string &str, const  char *add)
 {
-	if (str.length() >0) {
+	string sadd = add;
+	if (sadd.length() == 0) return;	
+	if (str.length() > 0 ) {
 		str += ", ";
 	}
 	str += add;
