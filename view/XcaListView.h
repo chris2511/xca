@@ -55,6 +55,7 @@
 #include <qlistview.h>
 #include "lib/db_base.h"
 #include "lib/exception.h"
+#include "widgets/NewX509.h"
 
 class XcaListView : public QListView
 {
@@ -90,6 +91,7 @@ class XcaListView : public QListView
 	void updateView();
    signals:
 	void init_database();
+	void connNewX509(NewX509 *);
 };
 
 #endif

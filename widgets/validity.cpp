@@ -51,17 +51,15 @@
 #include "validity.h"
 
 #include <qcombobox.h>
-#include <qlabel.h>
 #include <qlineedit.h>
-#include <qpushbutton.h>
+#include <qvalidator.h>
 #include <qlayout.h>
-#include <qvariant.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include "lib/asn1time.h"
 
 Validity::Validity( QWidget* parent,  const char* name )
-    : QGroupBox( parent, name )
+    : QWidget( parent, name )
 {
     QStringList months, days;
     months << tr("Jan") << tr("Feb") << tr("Mar") << tr("Apr") 
@@ -72,40 +70,22 @@ Validity::Validity( QWidget* parent,  const char* name )
 
     if ( !name )
 	setName( "Validity" );
-    setTitle( tr( "Validity" ) );
-    ValidityLayout = new QGridLayout( this ); 
+    ValidityLayout = new QHBoxLayout( this ); 
     ValidityLayout->setSpacing( 6 );
-    ValidityLayout->setMargin( 11 );
+    ValidityLayout->setMargin( 0 );
 
-    Label1 = new QLabel( this, "Label1" );
-    Label1->setText( tr( "not Before" ) );
+    Day = new QComboBox( FALSE, this, "Day" );
+    Mon = new QComboBox( FALSE, this, "Mon" );
+    Year = new QLineEdit( this, "Year" );
+    Year->setMaximumWidth(64);
+    Year->setValidator( new QIntValidator(1000, 9999, this));
     
-    Label2 = new QLabel( this, "Label2" );
-    Label2->setText( tr( "not After" ) );
+    ValidityLayout->addWidget( Day );
+    ValidityLayout->addWidget( Mon );
+    ValidityLayout->addWidget( Year );
 
-    nbDay = new QComboBox( FALSE, this, "nbDay" );
-    nbMon = new QComboBox( FALSE, this, "nbMon" );
-    nbYear = new QLineEdit( this, "nbYear" );
-
-    naDay = new QComboBox( FALSE, this, "naDay" );
-    naMon = new QComboBox( FALSE, this, "naMon" );
-    naYear = new QLineEdit( this, "naYear" );
-    
-    ValidityLayout->addWidget( Label1, 0, 0 );
-    ValidityLayout->addWidget( nbDay, 0, 1 );
-    ValidityLayout->addWidget( nbMon, 0, 2 );
-    ValidityLayout->addWidget( nbYear, 0, 3 );
-
-    ValidityLayout->addWidget( Label2, 1, 0 );
-    ValidityLayout->addWidget( naDay, 1, 1 );
-    ValidityLayout->addWidget( naMon, 1, 2 );
-    ValidityLayout->addWidget( naYear, 1, 3 );
-
-    
-    nbMon->insertStringList(months);
-    naMon->insertStringList(months);
-    nbDay->insertStringList(days);
-    naDay->insertStringList(days);
+    Mon->insertStringList(months);
+    Day->insertStringList(days);
 }
 
 Validity::~Validity()
@@ -113,37 +93,20 @@ Validity::~Validity()
     // no need to delete child widgets, Qt does it all for us
 }
 
-a1time Validity::getNotBefore() const
+a1time Validity::getDate() const
 {
 	a1time date;
-	date.set(nbYear->text().toInt(), nbMon->currentItem() + 1, 
-			nbDay->currentItem() +1, 0, 0, 0);
+	date.set(Year->text().toInt(), Mon->currentItem() + 1, 
+			Day->currentItem() +1, 0, 0, 0);
 	return date;
 }
 
-a1time Validity::getNotAfter() const
-{
-	a1time date;
-	date.set(naYear->text().toInt(), naMon->currentItem() + 1, 
-			naDay->currentItem() +1, 0, 0, 0);
-	return date;
-}
-
-void Validity::setNotBefore(const a1time &a)
+void Validity::setDate(const a1time &a)
 {
 	int y, m, d, g;
 	a.ymdg(&y,&m,&d,&g);
-	nbYear->setText(QString::number(y));
-	nbMon->setCurrentItem(m-1);
-	nbDay->setCurrentItem(d-1);
-}
-
-void Validity::setNotAfter(const a1time &a)
-{
-	int y, m, d, g;
-	a.ymdg(&y,&m,&d,&g);
-	naYear->setText(QString::number(y));
-	naMon->setCurrentItem(m-1);
-	naDay->setCurrentItem(d-1);
+	Year->setText(QString::number(y));
+	Mon->setCurrentItem(m-1);
+	Day->setCurrentItem(d-1);
 }
 

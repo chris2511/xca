@@ -65,11 +65,49 @@
 #include "MainWindow.h"
 #include "lib/x509name.h"
 
+int NewX509::eku_nid[EKUN_CNT] = {
+  NID_server_auth,
+  NID_client_auth,
+  NID_code_sign,
+  NID_email_protect,
+  NID_time_stamp,
+  NID_ms_code_ind,
+  NID_ms_code_com,
+  NID_ms_ctl_sign,
+  NID_ms_sgc,
+  NID_ms_efs,
+  NID_ns_sgc,
+  OBJ_create("1.3.6.1.4.1.311.10.3.4.1", "msEFSFR",
+	"Microsoft EFS File Recovery" )
+};
+
+int NewX509::dn_nid[DISTNAME_CNT] = {
+  NID_commonName,
+  NID_surname,
+  NID_serialNumber,
+  NID_countryName,
+  NID_localityName,
+  NID_stateOrProvinceName,
+  NID_organizationName,
+  NID_organizationalUnitName,
+  NID_title,
+  NID_description,
+  NID_name,
+  NID_givenName,
+  NID_initials,
+  NID_generationQualifier,
+  NID_x500UniqueIdentifier,
+  NID_dnQualifier,
+  NID_pseudonym,
+  NID_role
+};
+
 NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	:NewX509_UI(parent, name, modal, f)
 {
-	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
-	connect( parent, SIGNAL(keyDone(QString)), this, SLOT(newKeyDone(QString)) );
+        connect( extDNadd, SIGNAL(clicked()), this, SLOT(addX509NameEntry()) );
+        connect( extDNdel, SIGNAL(clicked()), this, SLOT(delX509NameEntry()) );
+		
 	setCaption(tr(XCA_TITLE));
 	fixtemp = NULL;
 	nsImg->setPixmap(*MainWindow::nsImg);
@@ -83,8 +121,9 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 #else
 	//setFont( tFont );
 #endif	
-	serialNr->setValidator( new QIntValidator(0, 32767, this));
+//	serialNr->setValidator( new QIntValidator(0, 32767, this));
 	QStringList strings;
+	 
 	// are there any useable private keys  ?
 	strings = MainWindow::keys->get0PrivateDesc();
 	keyList->insertStringList(strings);
@@ -100,7 +139,7 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	}
 	
 	// How about signing certificates ?
-	strings = certs->getSignerDesc();
+	strings = MainWindow::certs->getSignerDesc();
 	if (strings.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 		certList->setDisabled(true);
@@ -117,7 +156,15 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	strings.prepend(tr("Empty Template"));
 	tempList->insertStringList(strings);
 	
-	
+	// setup Extended keyusage
+	for (int i=0; i<EKUN_CNT; i++)
+		ekeyUsage->insertItem(OBJ_nid2ln(eku_nid[i]));
+
+	// setup Distinguished Name 
+	for (int i=0; i<DISTNAME_CNT; i++)
+		extDNobj->insertItem(OBJ_nid2ln(dn_nid[i]));
+
+	// last polish 
 	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);
 	signerChanged();
@@ -387,7 +434,7 @@ void NewX509::showPage(QWidget *page)
 	}
 	else if ( page == page2 ) {
 		if (keyList->isEnabled() && keyList->count() == 0 ) {
-			newKey();
+			emit genKey();
 		}
 		dataChangeP2();
 	}
@@ -458,8 +505,8 @@ void NewX509::templateChanged()
 		return;
 	}
 	QString name = tempList->currentText();
-	if (name == "" || !temps) return;
-	temp = (pki_temp *)temps->getByName(name);
+	if (name.isEmpty()) return;
+	temp = (pki_temp *)MainWindow::temps->getByName(name);
 	if (!temp) return;
 	fromTemplate(temp);
 }
@@ -479,11 +526,6 @@ void NewX509::switchExtended()
 	}
 }
 		    
-void NewX509::newKey()
-{
-	emit genKey();
-}
-
 void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(name,0);
@@ -511,6 +553,22 @@ x509name NewX509::getX509name()
 	x.addEntryByNid(NID_organizationName, organisationName->text());
 	x.addEntryByNid(NID_organizationalUnitName, organisationalUnitName->text());
 	x.addEntryByNid(NID_pkcs9_emailAddress, emailAddress->text());
+	QListViewItem *lvi = extDNlist->firstChild();
+	while (lvi != NULL) {
+		int nid;
+		nid = OBJ_ln2nid(lvi->text(0).latin1());
+		x.addEntryByNid(nid, lvi->text(1));
+		lvi = lvi->nextSibling();
+	}
 	return x;
 }
 
+void NewX509::addX509NameEntry()
+{
+	new QListViewItem(extDNlist, extDNobj->currentText(), extDNname->text());
+}
+
+void NewX509::delX509NameEntry()
+{
+	extDNlist->removeItem(extDNlist->currentItem());
+}

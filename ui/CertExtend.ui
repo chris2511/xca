@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>335</width>
-            <height>336</height>
+            <width>388</width>
+            <height>304</height>
         </rect>
     </property>
     <property stdset="1">
@@ -145,11 +145,78 @@
             </property>
         </spacer>
         <widget>
-            <class>Validity</class>
+            <class>QGroupBox</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>validity</cstring>
+                <cstring>GroupBox8</cstring>
             </property>
+            <property stdset="1">
+                <name>title</name>
+                <string>Validity</string>
+            </property>
+            <hbox>
+                <property stdset="1">
+                    <name>margin</name>
+                    <number>11</number>
+                </property>
+                <property stdset="1">
+                    <name>spacing</name>
+                    <number>6</number>
+                </property>
+                <widget>
+                    <class>QLayoutWidget</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>Layout16</cstring>
+                    </property>
+                    <grid>
+                        <property stdset="1">
+                            <name>margin</name>
+                            <number>0</number>
+                        </property>
+                        <property stdset="1">
+                            <name>spacing</name>
+                            <number>6</number>
+                        </property>
+                        <widget row="0"  column="0" >
+                            <class>QLabel</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>TextLabel1_2</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>not Before</string>
+                            </property>
+                        </widget>
+                        <widget row="1"  column="0" >
+                            <class>QLabel</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>TextLabel2_4</cstring>
+                            </property>
+                            <property stdset="1">
+                                <name>text</name>
+                                <string>not After</string>
+                            </property>
+                        </widget>
+                        <widget row="0"  column="1" >
+                            <class>Validity</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>notBefore</cstring>
+                            </property>
+                        </widget>
+                        <widget row="1"  column="1" >
+                            <class>Validity</class>
+                            <property stdset="1">
+                                <name>name</name>
+                                <cstring>notAfter</cstring>
+                            </property>
+                        </widget>
+                    </grid>
+                </widget>
+            </hbox>
         </widget>
         <spacer>
             <property>

@@ -81,7 +81,9 @@ void ReqView::newItem()
 
 void ReqView::newItem(pki_temp *temp)
 {
-	NewX509 *dlg = MainWindow::newX509(MainWindow::csrImg);
+	NewX509 *dlg = new NewX509(this,0,true);
+	emit connNewX509(dlg);
+	 
 	if (temp) {
 		dlg->defineTemplate(temp);
 	}

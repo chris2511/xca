@@ -53,8 +53,8 @@
 #define KEYVIEW_H
 
 #include "XcaListView.h"
-#include "lib/pki_key.h"
-#include <qlistview.h>
+
+class pki_base;
 
 class KeyView : public XcaListView
 {
@@ -70,11 +70,11 @@ class KeyView : public XcaListView
 	void deleteItem();
 	void load();
 	pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
+	pki_base *insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
    signals:
-	void keyDone(QString &);
+	void keyDone(QString);
 	void init_database();
 
 };	

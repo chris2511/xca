@@ -92,7 +92,8 @@ CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 
 void CertView::newItem()
 {
-	NewX509 *dlg = MainWindow::newX509(MainWindow::certImg);
+	NewX509 *dlg = new NewX509(this, NULL, true);
+	emit connNewX509(dlg);
 	dlg->setCert();
 	if (dlg->exec()) {
 		newCert(dlg);
@@ -165,8 +166,8 @@ void CertView::newCert(NewX509 *dlg)
 	// Step 3 - Choose the Date and all the V3 extensions
 	
 	// Date handling
-	notBefore = dlg->validity->getNotBefore();
-	notAfter = dlg->validity->getNotAfter();
+	notBefore = dlg->notBefore->getDate();
+	notAfter = dlg->notAfter->getDate();
 	
 	// initially create cert 
 	cert = new pki_x509();
@@ -282,11 +283,8 @@ void CertView::newCert(NewX509 *dlg)
 	
 	// and finally sign the request 
 	cert->sign(signkey);
-	CERR( "SIGNED");
 	insert(cert);
-	CERR("inserted");
 	if (tempkey != NULL) delete(tempkey);
-	CERR("Dialog deleted" );
 	updateView();
 	return;
     }
@@ -308,8 +306,8 @@ void CertView::extendCert()
 	try {
 		CertExtend_UI *dlg = new CertExtend_UI(this, NULL, true);
 		dlg->image->setPixmap(*MainWindow::certImg);
-		dlg->validity->setNotBefore(time.now());
-		dlg->validity->setNotAfter(time.now(60 * 60 * 24 * 356));
+		dlg->notBefore->setDate(time.now());
+		dlg->notAfter->setDate(time.now(60 * 60 * 24 * 356));
 		
 		if (!dlg->exec()) {
 			delete dlg;
@@ -328,8 +326,8 @@ void CertView::extendCert()
 		
 		// change date and serial
 		newcert->setSerial(serial);
-		newcert->setNotBefore(dlg->validity->getNotBefore());
-		newcert->setNotAfter(dlg->validity->getNotAfter());
+		newcert->setNotBefore(dlg->notBefore->getDate());
+		newcert->setNotAfter(dlg->notBefore->getDate());
 
 		if (newcert->resetTimes(signer) > 0) {
 			if (QMessageBox::information(this,tr(XCA_TITLE),
@@ -342,9 +340,7 @@ void CertView::extendCert()
 		
 		// and finally sign the request 
 		newcert->sign(signkey);
-		CERR( "SIGNED");
 		insert(newcert);
-		CERR("inserted");
 		delete dlg;
 	}
 	catch (errorEx &err) {
@@ -805,21 +801,21 @@ void CertView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	
 	emit init_database();
 	if (!item) {
-		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
-		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
+		menu->insertItem(tr("New Certificate"), this, SLOT(newItem()));
+		menu->insertItem(tr("Import"), this, SLOT(load()));
 		menu->insertItem(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 		menu->insertItem(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	}
 	else {
 		pki_x509 *cert = (pki_x509 *)db->getByName(item->text(0));
-		menu->insertItem(tr("Rename"), this, SLOT(startRenameCert()));
-		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCert()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Export"), subExport);
-		subExport->insertItem(tr("File"), this, SLOT(writeCert()));
+		subExport->insertItem(tr("File"), this, SLOT(store()));
 		itemReq = subExport->insertItem(tr("Request"), this, SLOT(toRequest()));
 		itemtca = subExport->insertItem(tr("TinyCA"), this, SLOT(toTinyCA()));
 
-		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
 		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));
 		menu->insertSeparator();
 		itemCA = menu->insertItem(tr("CA"), subCa);

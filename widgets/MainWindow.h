@@ -103,7 +103,7 @@ class MainWindow: public MainWindow_UI
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static void incProgress(int a, int b, void *progress);
 	static void dberr(const char *errpfx, char *msg);
-	static NewX509 *newX509(QPixmap *image);
+	static NewX509 *newX509();
 	QString md5passwd();
 	void Error(errorEx &err);
 	
@@ -112,6 +112,7 @@ class MainWindow: public MainWindow_UI
 	bool mkDir(QString dir);
    public slots: 
 	void init_database();
+	void connNewX509(NewX509 *nx);
 	
 };
 #endif

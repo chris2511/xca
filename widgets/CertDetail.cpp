@@ -101,6 +101,7 @@ void CertDetail::setCert(pki_x509 *cert)
 	// The dates
 	notBefore->setText(cert->getNotBefore().toPretty());
 	notAfter->setText(cert->getNotAfter().toPretty());
+
 	// validation of the Date
 	if (cert->checkDate() != 0) {
 		dateValid->setText(tr("Not valid"));

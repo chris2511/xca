@@ -83,13 +83,9 @@ pki_key::pki_key(const pki_key *pk)
 	:pki_base(pk->desc)
 {
 	init();
-	MARK
 	key = EVP_PKEY_new();
-	MARK
 	openssl_error();	
-	MARK
 	if (pk == NULL) return;
-	MARK
 	key->type = pk->key->type;
 	if (key->type == EVP_PKEY_RSA) {
 		key->pkey.rsa=((RSA *)ASN1_dup( (int (*)())i2d_RSAPrivateKey, (char *(*)())d2i_RSAPrivateKey,(char *)pk->key->pkey.rsa));
@@ -128,19 +124,16 @@ pki_key::pki_key(const QString fname, pem_password_cb *cb, int type )
 	   if (!rsakey) {
 		ign_openssl_error();
 		rewind(fp);
-		CERR("Fallback to privatekey DER"); 
 	   	rsakey = d2i_RSAPrivateKey_fp(fp, NULL);
 	   }
 	   if (!rsakey) {
 		ign_openssl_error();
 		rewind(fp);
-		CERR("Fallback to pubkey"); 
 	   	rsakey = PEM_read_RSA_PUBKEY(fp, NULL, cb, &p);
 	   }
 	   if (!rsakey) {
 		ign_openssl_error();
 		rewind(fp);
-		CERR("Fallback to pubkey DER"); 
 	   	rsakey = d2i_RSA_PUBKEY_fp(fp, NULL);
 	   }
 	   if (!rsakey) {
@@ -148,26 +141,22 @@ pki_key::pki_key(const QString fname, pem_password_cb *cb, int type )
 	        rewind(fp);
 		p.setTitle(tr("Password for PKCS#8 private key"));
 		p.setDescription(tr("Please enter the password to decrypt the PKCS#8 private key."));
-		CERR("Fallback to PKCS#8 Private key"); 
 	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
 	   }
 	   else {
 	   	EVP_PKEY_set1_RSA(key,rsakey);
 		openssl_error();
-		CERR("assigning loaded key");
 	   }
 	   setIntName(rmslashdot(fname));
 	   openssl_error();
 	}	
 	else fopen_error(fname);
-	CERR("end of loading");
 	fclose(fp);
 }
 
 
 void pki_key::fromData(unsigned char *p, int size )
 {
-	CERR( "KEY fromData");
 	unsigned char *sik, *pdec, *pdec1, *sik1;
 	int outl, decsize;
         unsigned char iv[EVP_MAX_IV_LENGTH];
@@ -194,7 +183,6 @@ void pki_key::fromData(unsigned char *p, int size )
 	decsize = outl;
 	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
 	decsize += outl;
-	CERR("Decryption  done: DB:" << size << " encrypted:" << size-8 << " decrypted:" << decsize);
 	openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
@@ -217,7 +205,6 @@ void pki_key::fromData(unsigned char *p, int size )
 
 unsigned char *pki_key::toData(int *size) 
 {
-	CERR("KEY toData " << getDescription());
 	unsigned char *p, *p1, *penc;
 	int outl, encsize=0;
 	EVP_CIPHER_CTX ctx;
@@ -409,11 +396,9 @@ bool pki_key::compare(pki_base *ref)
 bool pki_key::isPubKey()
 {
 	if (key == NULL) {
-	   CERR("key is null");
 	   return false;
 	}
 	if (key->pkey.rsa == 0) {
-	   CERR("key->pkey is null");
 	   return false;
 	}
 	return (key->pkey.rsa->d == NULL);
@@ -430,13 +415,11 @@ int pki_key::verify()
 {
 	bool veri = false;
 	return true;
-	CERR("verify start");
 	if (key->type == EVP_PKEY_RSA && isPrivKey()) {
 	   if (RSA_check_key(key->pkey.rsa) == 1) veri = true;
 	}
 	if (isPrivKey()) veri = true;
 	openssl_error();
-	CERR("verify end: "<< veri );
 	return veri;
 }
 		

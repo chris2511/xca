@@ -53,29 +53,25 @@
 
 #include <qgroupbox.h>
 
-class QGridLayout;
+class QHBoxLayout;
 class a1time;
-class QLabel;
 class QComboBox;
 class QLineEdit;
 
-class Validity : public QGroupBox
+class Validity : public QWidget
 { 
     Q_OBJECT
 
   public:
 	Validity( QWidget* parent = 0, const char* name = 0);
 	~Validity();
-	a1time getNotBefore() const;
-	a1time getNotAfter() const;
-	void setNotBefore(const a1time &t);
-	void setNotAfter(const a1time &t);
+	a1time getDate() const;
+	void setDate(const a1time &t);
 
   protected:
-	QGridLayout* ValidityLayout;
-	QLabel *Label1, *Label2;
-	QComboBox *nbDay, *nbMon, *naMon, *naDay;
-	QLineEdit *nbYear, *naYear;
+	QHBoxLayout* ValidityLayout;
+	QComboBox *Mon, *Day;
+	QLineEdit *Year;
    
 };
 

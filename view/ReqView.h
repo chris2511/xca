@@ -79,7 +79,6 @@ class ReqView : public XcaListView
 	void writeReq_der();
 	void signReq();
    signals:
-	void keyDone(QString &);
 	void newCert(pki_x509req *req);
 
 };	

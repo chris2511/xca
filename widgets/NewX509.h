@@ -66,7 +66,11 @@ class NewX509: public NewX509_UI
    private:
 	pki_temp *fixtemp;
 	QString startText, endText, tText;
-	
+#define EKUN_CNT 12
+#define DISTNAME_CNT 18
+	static int eku_nid[EKUN_CNT];
+	static int dn_nid[DISTNAME_CNT];
+
    public:	
 	NewX509(QWidget *parent, const char *name, bool modal = false, WFlags f = 0);
 	~NewX509();
@@ -89,16 +93,16 @@ class NewX509: public NewX509_UI
 	void setImage(QPixmap *image);
    public slots:
 	void toggleFromRequest();
-   	void newKey();
 	void dataChangeP2();
 	void newKeyDone(QString name);
 	void switchExtended();
 	void templateChanged();
 	void signerChanged();
 	void helpClicked();
-	
+	void addX509NameEntry();
+	void delX509NameEntry();
    signals:
-	void genKey();  
+	void genKey();
 };
 
 #endif

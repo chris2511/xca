@@ -96,24 +96,25 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 
 	init_images();
 	
-	CERR("Connecting init-database");
 	connect( keyList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( reqList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( certList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( tempList, SIGNAL(init_database()), this, SLOT(init_database()));
 
-	CERR("Connecting Key Buttons");
 	connect( (const QObject *)BNnewKey, SIGNAL(clicked()), keyList, SLOT(newItem()));
 	connect( (const QObject *)BNexportKey, SIGNAL(clicked()), keyList, SLOT(store()));
 	connect( (const QObject *)BNimportKey, SIGNAL(clicked()), keyList, SLOT(load()));
 	connect( (const QObject *)BNdetailsKey, SIGNAL(clicked()), keyList, SLOT(showItem()));
 	connect( (const QObject *)BNdeleteKey, SIGNAL(clicked()), keyList, SLOT(deleteItem()));
-	CERR("Connecting Request Buttons");
+	
 	connect( (const QObject *)BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
 	connect( (const QObject *)BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));
 	connect( (const QObject *)BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
 	connect( (const QObject *)BNdeleteReq, SIGNAL(clicked()), reqList, SLOT(deleteItem()));
 
+	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
+	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
+	
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
@@ -418,10 +419,18 @@ void MainWindow::setPath(QString str)
 	settings->putString("workingdir", str);
 }
 
-NewX509 *MainWindow::newX509(QPixmap *image)
+NewX509 *MainWindow::newX509()
 {
-	return new NewX509(NULL, 0, keys, reqs, certs, temps, image, nsImg);
+	return new NewX509(NULL, 0, true);
 }
+
+void MainWindow::connNewX509(NewX509 *nx)
+{
+	connect( (const QObject *)nx->genKeyBUT, SIGNAL(clicked()), keyList, SLOT(newItem()) );
+	connect( nx, SIGNAL(genKey()), keyList, SLOT(newItem()) );
+	connect( keyList, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
+}
+
 
 QString MainWindow::getBaseDir()
 {

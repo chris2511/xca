@@ -59,6 +59,7 @@
 #include <qtextview.h>
 #include <qmessagebox.h>
 #include <qpopupmenu.h>
+#include <qcheckbox.h>
 
 const int KeyView::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 
