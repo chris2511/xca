@@ -4,7 +4,7 @@
 <article>
 
 <title>XCA <!-- insert your title here -->
-<author>Christian Hohnstädt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
+<author>Christian Hohnst&auml;dt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
 <date>$Date$            <!-- always have a version number and a date -->
 <abstract>                          <!-- the abstract: a short and precise description -->
 <nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
