@@ -52,12 +52,15 @@
 #include <qapplication.h>
 #include <qtranslator.h>
 #include <qtextcodec.h>
+#include <qdir.h>
+#include <qstring.h>
 #include "MainWindow.h"
 
 
 int main( int argc, char *argv[] )
 {
-    QApplication a( argc, argv );
+    QString path = "";
+	QApplication a( argc, argv );
     MainWindow mw( NULL, "Main Widget");
     mw.setCaption("X Certification Authority"); 
     a.setMainWidget( &mw );
@@ -67,8 +70,14 @@ int main( int argc, char *argv[] )
     a.installTranslator( &qtTr );
     //translation file for application strings
     QTranslator xcaTr( 0 );
-    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
-    a.installTranslator( &xcaTr );
+#ifdef HAVE_CONFIG_H    
+	xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
+#else	
+	path = "C:";
+	path += QDir::separator();
+	xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), path + BASE_DIR );
+#endif
+	a.installTranslator( &xcaTr );
     
     mw.show();
     return a.exec();
