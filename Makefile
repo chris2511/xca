@@ -35,12 +35,12 @@ dist:
 	test ! -z "$(TVERSION)"
 	rm -rf $(TARGET) 
 	cvs export -r $(TAG) -d $(TARGET) xca && \
-	(cd $(TARGET) &&  autoconf && \
+	(cd $(TARGET) && \
 	./mkxcapro.sh && lrelease xca.pro && \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \
-	cat lib/base.h.in |sed s/VERSION/$(TVERSION)/g >lib/base.h && \
+	cat lib/base.h.in |sed s/MY_VERSION/$(TVERSION)/g >lib/base.h && \
 	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \
-	rm -rf misc/xca.nsi rpm/xca.spec autom4te.cache && \
+	rm -rf misc/xca.nsi rpm/xca.spec && \
 	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
 	tar zcf $(TARGET).tar.gz $(TARGET) 
 	#rm -rf ../$(TARGET)
