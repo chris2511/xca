@@ -389,6 +389,14 @@
         <source>Verification not possible</source>
         <translation>Überprüfung nicht möglich</translation>
     </message>
+    <message>
+        <source>Unknown signer</source>
+        <translation>Unterzeichner unbekannt</translation>
+    </message>
+    <message>
+        <source>Unknown certificate</source>
+        <translation>Unbekanntes Zertifikat</translation>
+    </message>
 </context>
 <context>
     <name>CrlDetail_UI</name>
@@ -1023,6 +1031,14 @@ PKCS#12 ist ein verschlüsseltes offizielles Austauschformat für Schlüssel und
     <message>
         <source>The following error occured:</source>
         <translation>Der folgende Fehler ist aufgetreten:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Copy to Clipboard</source>
+        <translation>In die Zwischenablage</translation>
     </message>
 </context>
 <context>
@@ -1703,11 +1719,11 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Not before</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nicht vor dem</translation>
     </message>
     <message>
         <source>Not after</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nicht nach dem</translation>
     </message>
 </context>
 <context>
@@ -2104,7 +2120,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>The following error occured:</source>
-        <translation>Der folgende Fehler ist aufgetreten:</translation>
+        <translation type="obsolete">Der folgende Fehler ist aufgetreten:</translation>
     </message>
     <message>
         <source>The system detected a NULL pointer, maybe the system is out of memory</source>

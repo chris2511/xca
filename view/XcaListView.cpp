@@ -214,11 +214,7 @@ void XcaListView::load_default(load_base &load)
 
 void XcaListView::Error(errorEx &err)
 {
-	if (err.isEmpty()) {
-		return;
-	}
-	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +
-		QString::fromLatin1(err.getCString()));
+	MainWindow::Error(err);
 }
 
 bool XcaListView::Error(pki_base *pki)

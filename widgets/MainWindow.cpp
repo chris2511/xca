@@ -53,6 +53,7 @@
 #include "MainWindow.h"
 #include "ImportMulti.h"
 #include <qapplication.h>
+#include <qclipboard.h>
 #include <qmessagebox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
@@ -457,20 +458,19 @@ QString MainWindow::md5passwd(const char *pass)
 void MainWindow::Error(errorEx &err)
 {
 	if (err.isEmpty()) return;
-	QMessageBox::warning(this, XCA_TITLE,
-		tr("The following error occured:") + "\n" +
-		err.getString()
-	);
+	QString msg =  tr("The following error occured:") + "\n" + err.getString();
+	int ret = QMessageBox::warning(NULL, XCA_TITLE, msg, tr("&OK"), tr("Copy to Clipboard"));
+	printf("RET: %d\n",ret);
+	if (ret == 1) {
+		QClipboard *cb = QApplication::clipboard();
+		cb->setText(msg);
+	}
 }
 
 void MainWindow::dberr(const char *errpfx, char *msg)
 {
-	QString a = errpfx;
-	QString b = msg;
-	QMessageBox::warning(NULL, XCA_TITLE,
-		tr("The following error occured:") + "\n" +
-		errpfx + "\n" + msg
-	);
+	errorEx e(QString(errpfx) + "\n" + msg);
+	Error(e);
 }
 
 QString MainWindow::getPath()

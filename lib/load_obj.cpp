@@ -78,8 +78,8 @@ load_base::~load_base()
 load_key::load_key()
 	:load_base()
 {
-	filter.prepend( "PKI Keys ( *.pem *.der *.key )");
 	filter.prepend( "PKCS#8 Keys ( *.p8 *.pk8 )");
+	filter.prepend( "PKI Keys ( *.pem *.der *.key )");
 	caption = QObject::tr("Import RSA key");
 }		
 

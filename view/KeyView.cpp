@@ -59,6 +59,7 @@
 #include "widgets/clicklabel.h"
 #include "lib/pki_key.h"
 #include <qcombobox.h>
+#include <qregexp.h>
 #include <qlabel.h>
 #include <qprogressdialog.h>
 #include <qpushbutton.h>
@@ -279,7 +280,7 @@ void KeyView::changePasswd()
 		QMessageBox::warning(this, XCA_TITLE, tr("Database password verify error."));
 		return;
 	}
-	if (A.length() > MAX_PASS_LENGTH) {
+	if (A.length() >= MAX_PASS_LENGTH) {
 		QMessageBox::warning(this, XCA_TITLE, tr("Database password too long: ") + 
 			QString::number(MAX_PASS_LENGTH));
 		return;

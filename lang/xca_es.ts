@@ -373,6 +373,14 @@
         <source>Verification not possible</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unknown signer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CrlDetail_UI</name>
@@ -956,6 +964,14 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>The following error occured:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy to Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2007,10 +2023,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <message>
         <source>Cancel</source>
         <translation type="unfinished">Cancelar</translation>
-    </message>
-    <message>
-        <source>The following error occured:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The system detected a NULL pointer, maybe the system is out of memory</source>

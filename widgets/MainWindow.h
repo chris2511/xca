@@ -101,7 +101,7 @@ class MainWindow: public MainWindow_UI
 	static void dberr(const char *errpfx, char *msg);
 	static NewX509 *newX509();
 	static QString md5passwd(const char *pass);
-	void Error(errorEx &err);
+	static void Error(errorEx &err);
 	
 	static QString getPath();
 	static void setPath(QString path);
