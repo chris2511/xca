@@ -176,11 +176,30 @@ x509v3ext NewX509::getIssAltName()
 
 x509v3ext NewX509::getCrlDist()
 {
-	QStringList cont;
 	x509v3ext ext;
-        if (!crlDist->text().isEmpty()) {
+	if (!crlDist->text().isEmpty()) {
 		ext.create(NID_crl_distribution_points, crlDist->text());
 	}
+	return ext;
+}
+
+x509v3ext NewX509::getAuthInfAcc()
+{
+	x509v3ext ext;
+	if (!authInfAcc->text().isEmpty()) {
+		ext.create(NID_info_access, authInfAcc->text());
+	}
+	return ext;
+}
+
+x509v3ext NewX509::getCertPol()
+{
+	x509v3ext ext;
+#if 0
+	if (!certPol->text().isEmpty()) {
+		ext.create(NID_certificate_policies, certPol->text(), &ext_ctx);
+	}
+#endif
 	return ext;
 }
 
@@ -218,6 +237,7 @@ void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss)
 	
 	if (iss) s = iss->getCert();
 	
+	memset(&ext_ctx, 0, sizeof(X509V3_CTX));
 	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
 }	
 

@@ -65,6 +65,8 @@ pki_temp::pki_temp(const pki_temp *pk)
 	subAltName=pk->subAltName;
 	issAltName=pk->issAltName;
 	crlDist=pk->crlDist;
+	authInfAcc=pk->authInfAcc;
+	certPol=pk->certPol;
 	nsCertType=pk->nsCertType;
 	nsComment=pk->nsComment;
 	nsBaseUrl=pk->nsBaseUrl;
@@ -92,11 +94,13 @@ pki_temp::pki_temp(const QString d, int atype)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
-	version=2;
+	version=3;
 	type=atype;
 	subAltName="";
 	issAltName="";
 	crlDist="";
+	authInfAcc="";
+	certPol="";
 	nsCertType=0;
 	nsComment="xca certificate";
 	nsBaseUrl="";
@@ -168,7 +172,7 @@ void pki_temp::fromData(unsigned char *p, int size )
 	authKey=boolFromData(&p1);
 	subAltCp=boolFromData(&p1);
 	issAltCp=boolFromData(&p1);
-	if (version == 2) { 
+	if (version >= 2) { 
 		ca = intFromData(&p1);
 	}
 	pathLen=intFromData(&p1);
@@ -196,15 +200,21 @@ void pki_temp::fromData(unsigned char *p, int size )
 	nsRenewalUrl=stringFromData(&p1);
 	nsCaPolicyUrl=stringFromData(&p1);
 	nsSslServerName=stringFromData(&p1);
-	//next version:
-	if (version == 2) { 
+	// next version:
+	if (version >= 2) { 
 		p1 = xname.d2i(p1, size - (p1-p));
 	}
+	if (version >= 3) { 
+		authInfAcc=stringFromData(&p1);
+		certPol=stringFromData(&p1);
+	}
+	
 	if (p1-p != size) {
 		openssl_error("Wrong Size");
 	}
-	//set version to 2
-	version = 2;
+	 
+	//set version to 3
+	version = 3;
 }
 
 
@@ -214,7 +224,7 @@ unsigned char *pki_temp::toData(int *size)
 	*size = dataSize();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	version = 2;
+	version = 3;
 	intToData(&p1, version);
 	intToData(&p1, type);
 	boolToData(&p1, bcCrit);
@@ -242,6 +252,8 @@ unsigned char *pki_temp::toData(int *size)
 	stringToData(&p1, nsCaPolicyUrl);
 	stringToData(&p1, nsSslServerName);
 	p1 = xname.i2d(p1);
+	stringToData(&p1, authInfAcc);
+	stringToData(&p1, certPol);
 	return p;
 }
 
@@ -300,6 +312,8 @@ int pki_temp::dataSize()
 	subAltName.length() +
 	issAltName.length() +
 	crlDist.length() +
+	authInfAcc.length() +
+	certPol.length() +
 	nsComment.length() +
 	nsBaseUrl.length() +
 	nsRevocationUrl.length() +
@@ -307,7 +321,7 @@ int pki_temp::dataSize()
 	nsRenewalUrl.length() +
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
-	10 ) * sizeof(char);
+	12 ) * sizeof(char);
 		
 }
 

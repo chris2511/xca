@@ -128,6 +128,9 @@ void MainWindow::init_baseDir()
 	nl.clear();
 	QString prefix = getPrefix();
 
+	/* read in all our own OIDs */
+	initOIDs(baseDir);
+	
 	nl = readNIDlist(baseDir + QDir::separator() + "eku.txt");
 	if (nl.count() == 0)
 		nl = readNIDlist(prefix + QDir::separator() + "eku.txt");
@@ -137,10 +140,6 @@ void MainWindow::init_baseDir()
 	if (nl.count() == 0)
 		nl = readNIDlist(prefix + QDir::separator() + "dn.txt");
 	dn_nid = new NIDlist(nl);
-
-	/* read in all our own OIDs */
-	initOIDs(baseDir);
-	
 }
 
 
@@ -233,7 +232,7 @@ void MainWindow::init_images()
 	
 void MainWindow::read_cmdline()
 {
-	int cnt = 1, opt, type;
+	int cnt = 1, opt, type=1;
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;

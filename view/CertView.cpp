@@ -223,6 +223,8 @@ void CertView::newCert(NewX509 *dlg)
 	cert->addV3ext(dlg->getSubAltName());
 	cert->addV3ext(dlg->getIssAltName());
 	cert->addV3ext(dlg->getCrlDist());
+	cert->addV3ext(dlg->getAuthInfAcc());
+	cert->addV3ext(dlg->getCertPol());
 	extList ne = dlg->getNetscapeExt();
 	int m = ne.count();
 	for (int i=0; i<m; i++)

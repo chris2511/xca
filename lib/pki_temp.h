@@ -64,7 +64,7 @@ class pki_temp: public pki_base
 		enum { EMPTY, CA, CLIENT, SERVER };
 		static QPixmap *icon;
 		x509name xname;
-		QString subAltName, issAltName, crlDist;
+		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
 		QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
 			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;

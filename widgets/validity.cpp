@@ -79,7 +79,8 @@ Validity::Validity( QWidget* parent,  const char* name )
     Mon->insertStringList(months);
     
     Year = new QLineEdit( this, "Year" );
-    Year->setMaximumWidth(CHAR_W * 4);
+    Year->setMaximumWidth(CHAR_W * 5);
+    Year->setMinimumWidth(CHAR_W * 4);
     Year->setValidator( new QIntValidator(1000, 9999, this));
     
     Day = new QLineEdit( this, "Day" );

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>547</width>
+            <width>531</width>
             <height>590</height>
         </rect>
     </property>
@@ -1222,7 +1222,7 @@ Empy, CA, client, server</string>
             <spacer>
                 <property>
                     <name>name</name>
-                    <cstring>Spacer39</cstring>
+                    <cstring>Spacer33_3</cstring>
                 </property>
                 <property stdset="1">
                     <name>orientation</name>
@@ -1604,7 +1604,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
             <spacer>
                 <property>
                     <name>name</name>
-                    <cstring>Spacer8</cstring>
+                    <cstring>Spacer35_2</cstring>
                 </property>
                 <property stdset="1">
                     <name>orientation</name>
@@ -1626,7 +1626,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                 <class>QLayoutWidget</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>Layout17</cstring>
+                    <cstring>Layout18</cstring>
                 </property>
                 <grid>
                     <property stdset="1">
@@ -1637,32 +1637,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                         <name>spacing</name>
                         <number>6</number>
                     </property>
-                    <widget row="3"  column="1" >
-                        <class>QCheckBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>issAltCp</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Copy &amp;issuer name</string>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>Wether to copy the subj. alt. name from the issuer</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_2_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>issuer alternative name</string>
-                        </property>
-                    </widget>
                     <widget row="0"  column="0" >
                         <class>QLabel</class>
                         <property stdset="1">
@@ -1672,17 +1646,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                         <property stdset="1">
                             <name>text</name>
                             <string>subject alternative name</string>
-                        </property>
-                    </widget>
-                    <widget row="4"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_3_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>CRL distribution point</string>
                         </property>
                     </widget>
                     <widget row="1"  column="1" >
@@ -1698,24 +1661,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                         <property>
                             <name>whatsThis</name>
                             <string>This will automatically include any email addresses contained in the certificate subject name in the extension.</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>issAltName</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>DNS: IP: URI: email: RIP:</string>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
                     </widget>
                     <widget row="0"  column="1" >
@@ -1736,21 +1681,48 @@ email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
                     </widget>
-                    <widget row="4"  column="1" >
+                    <widget row="2"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel1_2_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>issuer alternative name</string>
+                        </property>
+                    </widget>
+                    <widget row="3"  column="1" >
+                        <class>QCheckBox</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>issAltCp</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Copy &amp;issuer name</string>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Wether to copy the subj. alt. name from the issuer</string>
+                        </property>
+                    </widget>
+                    <widget row="2"  column="1" >
                         <class>QLineEdit</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>crlDist</cstring>
+                            <cstring>issAltName</cstring>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>DNS: IP: URI: email: RIP:</string>
                         </property>
                         <property>
                             <name>whatsThis</name>
-                            <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
-Currently each option will set a new DistributionPoint with the fullName field set to the given value.
-Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
+                            <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
-URI:http://www.myhost.com/myca.crl
-URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
+email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
+email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
                     </widget>
                 </grid>
@@ -1758,7 +1730,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
             <spacer>
                 <property>
                     <name>name</name>
-                    <cstring>Spacer74</cstring>
+                    <cstring>Spacer34_2</cstring>
                 </property>
                 <property stdset="1">
                     <name>orientation</name>
@@ -1877,7 +1849,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
             <spacer>
                 <property>
                     <name>name</name>
-                    <cstring>Spacer79</cstring>
+                    <cstring>Spacer65</cstring>
                 </property>
                 <property stdset="1">
                     <name>orientation</name>
@@ -2055,7 +2027,135 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
             <spacer>
                 <property>
                     <name>name</name>
-                    <cstring>Spacer80</cstring>
+                    <cstring>Spacer66</cstring>
+                </property>
+                <property stdset="1">
+                    <name>orientation</name>
+                    <enum>Vertical</enum>
+                </property>
+                <property stdset="1">
+                    <name>sizeType</name>
+                    <enum>Expanding</enum>
+                </property>
+                <property>
+                    <name>sizeHint</name>
+                    <size>
+                        <width>20</width>
+                        <height>20</height>
+                    </size>
+                </property>
+            </spacer>
+            <widget>
+                <class>QLayoutWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>Layout19</cstring>
+                </property>
+                <grid>
+                    <property stdset="1">
+                        <name>margin</name>
+                        <number>0</number>
+                    </property>
+                    <property stdset="1">
+                        <name>spacing</name>
+                        <number>6</number>
+                    </property>
+                    <widget row="0"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>crlDist</cstring>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
+Currently each option will set a new DistributionPoint with the fullName field set to the given value.
+Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
+If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
+Examples:
+URI:http://www.myhost.com/myca.crl
+URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
+                        </property>
+                    </widget>
+                    <widget row="2"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel1_2_3_2_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>enabled</name>
+                            <bool>false</bool>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Certificate Policies</string>
+                        </property>
+                    </widget>
+                    <widget row="0"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel1_2_3_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>CRL distribution point</string>
+                        </property>
+                    </widget>
+                    <widget row="2"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>certPol</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>enabled</name>
+                            <bool>false</bool>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>If you follow the PKIX recommendations of not including any qualifiers and just
+using only one OID then you just include the value of that OID. Multiple OIDs
+can be set separated by commas, for example:
+
+Example:
+1.2.4.5, 1.1.3.4</string>
+                        </property>
+                    </widget>
+                    <widget row="1"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>authInfAcc</cstring>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
+
+Example:
+
+OCSP;URI:http://ocsp.my.host/
+caIssuers;URI:http://my.ca/ca.html</string>
+                        </property>
+                    </widget>
+                    <widget row="1"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel1_2_3_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Authority Info Access</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <spacer>
+                <property>
+                    <name>name</name>
+                    <cstring>Spacer67</cstring>
                 </property>
                 <property stdset="1">
                     <name>orientation</name>
@@ -2972,7 +3072,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
     <tabstop>subAltCp</tabstop>
     <tabstop>issAltName</tabstop>
     <tabstop>issAltCp</tabstop>
-    <tabstop>crlDist</tabstop>
     <tabstop>kuCritical</tabstop>
     <tabstop>keyUsage</tabstop>
     <tabstop>ekuCritical</tabstop>
