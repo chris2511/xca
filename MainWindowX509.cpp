@@ -1292,8 +1292,8 @@ void MainWindow::toTinyCA()
 				key->writeKey(fname, NULL, &MainWindow::passWrite, true);
 				chdir("..");
 			}
-			fprintf(fp, "%c\t%s\t%s\tunknown %s\n", rev? 'R':'V', 
-					nadate.c_str(), revdate.c_str(),
+			fprintf(fp, "%c\t%s\t%s\t%s\tunknown\t%s\n", rev? 'R':'V', 
+					nadate.c_str(), revdate.c_str(), issuedcert->getSerial().c_str(), 
 					issuedcert->subjectOneLine().c_str() );
 			
 		}
