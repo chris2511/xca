@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>541</width>
-            <height>668</height>
+            <width>563</width>
+            <height>507</height>
         </rect>
     </property>
     <property stdset="1">
@@ -117,24 +117,6 @@
                     </property>
                 </widget>
             </hbox>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel10</cstring>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Please choose the certificate validity and its basic constraints</string>
-            </property>
-            <property stdset="1">
-                <name>alignment</name>
-                <set>WordBreak|AlignVCenter|AlignLeft</set>
-            </property>
-            <property>
-                <name>wordwrap</name>
-            </property>
         </widget>
         <widget>
             <class>QLayoutWidget</class>
@@ -588,118 +570,10 @@
             </hbox>
         </widget>
         <widget>
-            <class>QGroupBox</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>GroupBox2</cstring>
-            </property>
-            <property stdset="1">
-                <name>title</name>
-                <string>V3 extensions</string>
-            </property>
-            <grid>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>11</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget row="6"  column="1" >
-                    <class>QLineEdit</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>crlDist</cstring>
-                    </property>
-                </widget>
-                <widget row="6"  column="0" >
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>TextLabel4</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>CRL Distribution Point</string>
-                    </property>
-                </widget>
-                <widget row="5"  column="0"  rowspan="1"  colspan="2" >
-                    <class>Line</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>Line1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                </widget>
-                <widget row="3"  column="1" >
-                    <class>QLineEdit</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>issAlt</cstring>
-                    </property>
-                </widget>
-                <widget row="3"  column="0" >
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>TextLabel3</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Issuer Alternative Name</string>
-                    </property>
-                </widget>
-                <widget row="2"  column="0"  rowspan="1"  colspan="2" >
-                    <class>Line</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>Line2</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                </widget>
-                <widget row="1"  column="1" >
-                    <class>QLineEdit</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>subAlt</cstring>
-                    </property>
-                </widget>
-                <widget row="1"  column="0" >
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>TextLabel2</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Subject Alternative Name</string>
-                    </property>
-                </widget>
-                <widget row="4"  column="0"  rowspan="1"  colspan="2" >
-                    <class>QCheckBox</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>CheckBox4</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>copie subject from issuer</string>
-                    </property>
-                </widget>
-            </grid>
-        </widget>
-        <widget>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout2</cstring>
+                <cstring>Layout15</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -710,6 +584,17 @@
                     <name>spacing</name>
                     <number>6</number>
                 </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton15</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Cancel</string>
+                    </property>
+                </widget>
                 <spacer>
                     <property>
                         <name>name</name>
@@ -739,18 +624,18 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Create Certificate</string>
+                        <string>&lt; Back</string>
                     </property>
                 </widget>
                 <widget>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton15</cstring>
+                        <cstring>PushButton8</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>Next &gt;</string>
                     </property>
                 </widget>
             </hbox>
@@ -769,12 +654,6 @@
         <signal>clicked()</signal>
         <receiver>NewX509_2_UI</receiver>
         <slot>reject()</slot>
-    </connection>
-    <connection>
-        <sender>CheckBox4</sender>
-        <signal>clicked()</signal>
-        <receiver>issAlt</receiver>
-        <slot>deselect()</slot>
     </connection>
 </connections>
 <tabstops>

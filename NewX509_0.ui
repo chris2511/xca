@@ -1,17 +1,18 @@
 <!DOCTYPE UI><UI>
-<class>NewX509_UI</class>
+<class>NewX509_0_UI</class>
+<pixmapfunction>loadImage</pixmapfunction>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>NewX509_UI</cstring>
+        <cstring>NewX509_0_UI</cstring>
     </property>
     <property stdset="1">
         <name>geometry</name>
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>750</width>
+            <width>742</width>
             <height>458</height>
         </rect>
     </property>
@@ -104,6 +105,10 @@
                         </size>
                     </property>
                     <property stdset="1">
+                        <name>pixmap</name>
+                        <pixmap></pixmap>
+                    </property>
+                    <property stdset="1">
                         <name>scaledContents</name>
                         <bool>true</bool>
                     </property>
@@ -120,7 +125,7 @@
                 <name>text</name>
                 <string>For a new certificate you have to enter your personal data into the form and select a key to use.
 For signing a request, please select the appropriate Certificates igning request.
-For a SSL servercertificate choose the DNS name of the server</string>
+For a SSL servercertificate choose the DNS name of the server as "Common name"</string>
             </property>
         </widget>
         <widget>
@@ -158,7 +163,7 @@ For a SSL servercertificate choose the DNS name of the server</string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Use this data:</string>
+                        <string>Use the data entered here</string>
                     </property>
                 </widget>
                 <widget>
@@ -465,7 +470,7 @@ For a SSL servercertificate choose the DNS name of the server</string>
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout27</cstring>
+                <cstring>Layout22</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -476,6 +481,17 @@ For a SSL servercertificate choose the DNS name of the server</string>
                     <name>spacing</name>
                     <number>6</number>
                 </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton15</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Cancel</string>
+                    </property>
+                </widget>
                 <spacer>
                     <property>
                         <name>name</name>
@@ -508,17 +524,6 @@ For a SSL servercertificate choose the DNS name of the server</string>
                         <string>Next &gt;</string>
                     </property>
                 </widget>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton15</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Cancel</string>
-                    </property>
-                </widget>
             </hbox>
         </widget>
     </vbox>
@@ -527,25 +532,25 @@ For a SSL servercertificate choose the DNS name of the server</string>
     <connection>
         <sender>PushButton15</sender>
         <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
+        <receiver>NewX509_0_UI</receiver>
         <slot>reject()</slot>
     </connection>
     <connection>
         <sender>fromDataRB</sender>
         <signal>stateChanged(int)</signal>
-        <receiver>NewX509_UI</receiver>
+        <receiver>NewX509_0_UI</receiver>
         <slot>setDisabled(int)</slot>
     </connection>
     <connection>
         <sender>PushButton14</sender>
         <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
+        <receiver>NewX509_0_UI</receiver>
         <slot>validateFields()</slot>
     </connection>
     <connection>
         <sender>genKey</sender>
         <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
+        <receiver>NewX509_0_UI</receiver>
         <slot>newKey()</slot>
     </connection>
     <slot access="public">newKey()</slot>

@@ -60,6 +60,7 @@
 #include "NewX509.h"
 #include "NewX509_1_UI.h"
 #include "NewX509_2_UI.h"
+#include "NewX509_3_UI.h"
 #include "Rename_UI.h"
 #include "TrustState_UI.h"
 #include "ExportKey.h"

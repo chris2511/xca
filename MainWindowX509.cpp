@@ -59,11 +59,32 @@ void MainWindow::newCert()
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
+	int i, retval;
+	NewX509_0 *dlg1 = new NewX509_0(this, NULL, keys, reqs);
+	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL, true ,0);
+	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL, true ,0);
+	NewX509_3_UI *dlg4 = new NewX509_3_UI(this, NULL, true ,0);
+	NewX509 *dlg[4] = {dlg1, dlg2, dlg3, dlg4};
+	
+	// preset dlg 2 selection of signer
+	QStringList strlist = certs->getSignerDesc();
+	if (strlist.isEmpty()) {
+		dlg2->foreignSignRB->setDisabled(true);
+		dlg2->certList->setDisabled(true);
+	}
+	else {
+		dlg2->certList->insertStringList(strlist);
+	}
+	// preset dialogs with images
+	for (i=4;i>0;i--) { 
+		dlg[i]->image->setPixmap(*certImg);
+	}
+	
+	if (!dlg2->exec()) return;
+	
+
 	
 	// Step 1 - Subject and key
-	NewX509 *dlg1 = new NewX509(this, NULL, keys, reqs);
-	dlg1->image->setPixmap(*certImg);
-	if (! dlg1->exec()) return;
 	if (dlg1->fromDataRB->isChecked()) {
 	    clientkey = (pki_key *)keys->getSelectedPKI(dlg1->keyList->currentText().latin1());
 	    if (opensslError(clientkey)) return;
@@ -86,33 +107,20 @@ void MainWindow::newCert()
 	}
 		
 	// Step 2 - select Signing
-	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL, true ,0);
-	dlg2->image->setPixmap(*certImg);
-	QStringList strlist = certs->getPrivateDesc();
-	if (strlist.isEmpty()) {
-		dlg2->foreignSignRB->setDisabled(true);
-		dlg2->certList->setDisabled(true);
-	}
-	else {
-		dlg2->certList->insertStringList(strlist);
-	}
+	/*
 	if (dlg1->fromDataRB->isChecked())
 		// if we entered subjectdata, selfsigning is default
 		dlg2->selfSignRB->setChecked(true);
 	else 
 		// for PKCS#10 signing foreignKey signing is default
 		dlg2->foreignSignRB->setChecked(true);
-	if (!dlg2->exec()) return;
+	*/
 	if (dlg2->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg2->certList->currentText().latin1());
 		if (opensslError(signcert)) return;
 		signkey = signcert->getKey();
 		if (opensslError(signkey)) return;
 		// search for serial in database
-		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
-		serial = settings->getInt(serhash) + 1;
-		CERR << "serial is: " << serial <<endl;
-		settings->putInt(serhash, serial);
 		
 	}
 	else {
@@ -124,10 +132,13 @@ void MainWindow::newCert()
 	
 	
 	// Step 3 - Choose the Date and all the V3 extensions
-	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL, true ,0);
-	dlg3->image->setPixmap(*certImg);
-	if (! dlg3->exec()) return;
-	
+	if (dlg2->foreignSignRB->isChecked()) {
+		// increase serial here	
+		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
+		serial = settings->getInt(serhash) + 1;
+		CERR << "serial is: " << serial <<endl;
+		settings->putInt(serhash, serial);
+	}	
 	// Date handling
 	int x = dlg3->validNumber->text().toInt();
 	int days = dlg3->validRange->currentItem();
@@ -162,7 +173,12 @@ void MainWindow::newCert()
 		cert->addV3ext(NID_authority_key_identifier, authkey);
 		CERR << authkey <<endl;
 	}
-	
+	 
+	// STEP 4
+	// Subject Alternative name
+	string subAlt = dlg4->subAlt->text().latin1();	
+	//if (subAlt != "") {
+		
 	// key usage
 	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
 		"dataEncipherment", "keyAgreement", "keyCertSign",

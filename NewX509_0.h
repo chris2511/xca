@@ -49,20 +49,35 @@
  */                           
 
 
-#include <NewX509.h>
+#include "NewX509_UI.h"
+#include <qcombobox.h>
+#include <qradiobutton.h>
+#include "lib/db_key.h"
+#include "lib/db_x509req.h"
+#include <qframe.h>
+#include <qlineedit.h>
+#include <qmessagebox.h>
 
-NewX509::NewX509( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 )
-		:QDialog(parent, name, modal, fl)
-	{
-		image = NULL;
-	}
+#ifndef NEWX509_0_H
+#define NEWX509_0_H
+
+class MainWindow;
+class NewX509_0: public NewX509_0_UI
+{
+	Q_OBJECT
+   private:
+	db_x509req *reqs;
+	db_key *keys;
+	MainWindow *par;
+   public:	
+	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req);
 	
-void NewX509::goBack()
-{ 
-	done(-1);
-}
+   public slots:
+	void setDisabled(int state);
+   	void newKey();
+   	void validateFields();
+   signals:
+	void genKey();  
+};
 
-void NewX509::goNext(){
-	done(1);
-}
-
+#endif

@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>542</width>
-            <height>252</height>
+            <width>604</width>
+            <height>214</height>
         </rect>
     </property>
     <property stdset="1">
@@ -198,7 +198,7 @@
             <class>QLayoutWidget</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>Layout16</cstring>
+                <cstring>Layout18</cstring>
             </property>
             <hbox>
                 <property stdset="1">
@@ -209,6 +209,17 @@
                     <name>spacing</name>
                     <number>6</number>
                 </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton15</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Cancel</string>
+                    </property>
+                </widget>
                 <spacer>
                     <property>
                         <name>name</name>
@@ -234,22 +245,22 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton14</cstring>
+                        <cstring>PushButton14_2</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Next &gt;</string>
+                        <string>&lt; Back</string>
                     </property>
                 </widget>
                 <widget>
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton15</cstring>
+                        <cstring>PushButton14</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>Next &gt;</string>
                     </property>
                 </widget>
             </hbox>
