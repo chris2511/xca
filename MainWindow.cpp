@@ -173,6 +173,7 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 		dlg->title->setText(tr(p->title->c_str()));
 		dlg->description->setText(tr(p->description->c_str()));
 	}
+	dlg->pass->setFocus();
 	if (dlg->exec()) {
 	   QString x = dlg->pass->text();
 	   strncpy(buf, x.latin1(), size);
@@ -190,6 +191,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 		dlg->title->setText(tr(p->title->c_str()));
 		dlg->description->setText(tr(p->description->c_str()));
 	}
+	dlg->passA->setFocus();
 	if (dlg->exec()) {
 	   QString A = dlg->passA->text();
 	   QString B = dlg->passB->text();

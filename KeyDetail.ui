@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>458</width>
+            <width>454</width>
             <height>349</height>
         </rect>
     </property>
@@ -443,7 +443,7 @@
                     <property stdset="1">
                         <name>font</name>
                         <font>
-                            <pointsize>14</pointsize>
+                            <pointsize>10</pointsize>
                             <bold>1</bold>
                         </font>
                     </property>

@@ -3,311 +3,314 @@
     <name>CertDetail_UI</name>
     <message>
         <source>Details of the Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalles del Certificado</translation>
     </message>
     <message>
         <source>Standards</source>
-        <translation type="unfinished"></translation>
+        <translation>Standards</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <source>Signed by:</source>
-        <translation type="unfinished"></translation>
+        <translation>Firmado por:</translation>
     </message>
     <message>
         <source>Key:</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave:</translation>
     </message>
     <message>
         <source>not available</source>
-        <translation type="unfinished"></translation>
+        <translation>no disponible</translation>
     </message>
     <message>
         <source>Serial:</source>
-        <translation type="unfinished"></translation>
+        <translation>Num Serie:</translation>
     </message>
     <message>
         <source>SELF SIGNED </source>
-        <translation type="unfinished"></translation>
+        <translation>AUTO FIRMADO</translation>
     </message>
     <message>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Sujeto</translation>
     </message>
     <message>
         <source>name / DNS:</source>
-        <translation type="unfinished"></translation>
+        <translation>nombre / DNS:</translation>
     </message>
     <message>
         <source>Province:</source>
-        <translation type="unfinished"></translation>
+        <translation>Provincia:</translation>
     </message>
     <message>
         <source>E-Mail:</source>
-        <translation type="unfinished"></translation>
+        <translation>E-Mail:</translation>
     </message>
     <message>
         <source>Organisation</source>
-        <translation type="unfinished"></translation>
+        <translation>Organización</translation>
     </message>
     <message>
         <source>Country:</source>
-        <translation type="unfinished"></translation>
+        <translation>País:</translation>
     </message>
     <message>
         <source>Org. unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Departamento</translation>
     </message>
     <message>
         <source>Issuer</source>
-        <translation type="unfinished"></translation>
+        <translation>Emisor</translation>
     </message>
     <message>
         <source>Org. unit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Departamento:</translation>
     </message>
     <message>
         <source>Organisation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Organización:</translation>
     </message>
     <message>
         <source>Validity</source>
-        <translation type="unfinished"></translation>
+        <translation>Validez</translation>
     </message>
     <message>
         <source>valid</source>
-        <translation type="unfinished"></translation>
+        <translation>válido</translation>
     </message>
     <message>
         <source>Fingerprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Huella</translation>
     </message>
     <message>
         <source>MD5</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>SHA1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
     <name>ExportKey_UI</name>
     <message>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar clave</translation>
     </message>
     <message>
         <source>Please enter the filename for the key.</source>
-        <translation type="unfinished"></translation>
+        <translation>Introduzca nombre de fichero que contendrá la clave.</translation>
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichero:</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>DER is a binary format of the key without encryption
 PEM is a base64 encoded key with optional encryption
 PKCS#8 is an encrypted official Key-exchange format</source>
-        <translation type="unfinished"></translation>
+        <translation>DER es un formato binario sin cifrado
+PEM es un formato texto bas64 con cifrado opcional
+PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Export Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato de exportación:</translation>
     </message>
     <message>
         <source>When exporting the private key 
 it should be encrypted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuando se exporte la clave privada
+es aconsejable utilizar cifrado.</translation>
     </message>
     <message>
         <source>Export the private part of the Key too</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar la clave privada simultaneamente</translation>
     </message>
     <message>
         <source>Encrypt the Key with a password</source>
-        <translation type="unfinished"></translation>
+        <translation>Cifrar la clave con una contraseña</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
     <name>KeyDetail_UI</name>
     <message>
         <source>Details of the key</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalles de la clave</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <source>Private Exponent</source>
-        <translation type="unfinished"></translation>
+        <translation>Exponente secreto</translation>
     </message>
     <message>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Disponible</translation>
     </message>
     <message>
         <source>Public Exponent</source>
-        <translation type="unfinished"></translation>
+        <translation>Exponente público</translation>
     </message>
     <message>
         <source>Keysize</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de clave</translation>
     </message>
     <message>
         <source>Modulus</source>
-        <translation type="unfinished"></translation>
+        <translation>Módulo</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <source>Password verify error, please try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraeña incorrecta, inténtelo de nuevo</translation>
     </message>
     <message>
         <source>Internal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error interno</translation>
     </message>
     <message>
         <source>The system detected a NULL pointer, maybe the system is out of memory</source>
-        <translation type="unfinished"></translation>
+        <translation>El sistema detectó un puntero NULL, podría deberse a falta de memoria</translation>
     </message>
     <message>
         <source>OpenSSL Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de OpenSSL</translation>
     </message>
     <message>
         <source>The openSSL library raised the following error</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenSSL devolvió el siguiente error</translation>
     </message>
     <message>
         <source>Key error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en la clave</translation>
     </message>
     <message>
         <source>The Key: </source>
-        <translation type="unfinished"></translation>
+        <translation>Clave:</translation>
     </message>
     <message>
         <source> is not consistent:</source>
-        <translation type="unfinished"></translation>
+        <translation>no es consistente:</translation>
     </message>
     <message>
         <source>Please wait, Key generation is in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Espere, generando claves...</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <source>The key</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave</translation>
     </message>
     <message>
         <source>is going to be deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>va a ser eliminado</translation>
     </message>
     <message>
         <source>not available</source>
-        <translation type="unfinished"></translation>
+        <translation>no disponible</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar</translation>
     </message>
     <message>
         <source>Discard</source>
-        <translation type="unfinished"></translation>
+        <translation>Abandonar</translation>
     </message>
     <message>
         <source>could not be loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>no ha podido ser cargado</translation>
     </message>
     <message>
         <source>Key storing</source>
-        <translation type="unfinished"></translation>
+        <translation>Almacenamiento de claves</translation>
     </message>
     <message>
         <source>The key is already in the database as</source>
-        <translation type="unfinished"></translation>
+        <translation>La clave ya aparece en la base de datos como</translation>
     </message>
     <message>
         <source>and is not going to be imported</source>
-        <translation type="unfinished"></translation>
+        <translation>y no va a ser importada</translation>
     </message>
     <message>
         <source>The database already contains the public part of the imported key as</source>
-        <translation type="unfinished"></translation>
+        <translation>La base de datos ya contiene la parte pública de la clave importada como</translation>
     </message>
     <message>
         <source>and will be completed by the new, private part of the key</source>
-        <translation type="unfinished"></translation>
+        <translation>y será completada por la nueva parte secreta de la clave</translation>
     </message>
     <message>
         <source>The key could not be stored into the database</source>
-        <translation type="unfinished"></translation>
+        <translation>La clave no pudo ser almacenada en la base de datos</translation>
     </message>
     <message>
         <source>File error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error en el fichero</translation>
     </message>
     <message>
         <source>Der Schl&#xfc;ssel</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>could not be written</source>
-        <translation type="unfinished"></translation>
+        <translation>no ha podido ser escrito</translation>
     </message>
     <message>
         <source>Key export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar clave</translation>
     </message>
     <message>
         <source>The key was successfull exported into the file</source>
-        <translation type="unfinished"></translation>
+        <translation>La clave ha sido exportada con éxito en el fichero</translation>
     </message>
     <message>
         <source>New Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva clave</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -442,15 +445,15 @@ it should be encrypted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>New Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The template could not be stored into the database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -474,7 +477,7 @@ it should be encrypted.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nombre</translation>
     </message>
     <message>
         <source>Item</source>
@@ -482,7 +485,7 @@ it should be encrypted.</source>
     </message>
     <message>
         <source>New Key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nueva clave</translation>
     </message>
     <message>
         <source>Export</source>
@@ -490,7 +493,7 @@ it should be encrypted.</source>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Importar</translation>
     </message>
     <message>
         <source>Show Details</source>
@@ -525,19 +528,19 @@ it should be encrypted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Templates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>(c) 2002 by christian@hohnstaedt.de</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Template</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -561,11 +564,11 @@ it should be encrypted.</source>
     </message>
     <message>
         <source>Keysize</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tamaño de clave</translation>
     </message>
     <message>
         <source>New Key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nueva clave</translation>
     </message>
     <message>
         <source>OK</source>
@@ -577,30 +580,9 @@ it should be encrypted.</source>
     </message>
 </context>
 <context>
-    <name>NewX509Req_UI</name>
+    <name>NewX509_UI</name>
     <message>
-        <source>Certificate signing request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New certificate signing request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>For a new certificate you have to enter your personal data into the form and select a key to use.
-For a SSL servercertificate choose the DNS name of the server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organisational unit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organisation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Common name:</source>
+        <source>Source of the subject and the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -608,11 +590,23 @@ For a SSL servercertificate choose the DNS name of the server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Organisation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>State or Province</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Country:</source>
+        <source>Organisational unit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate a new key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -624,32 +618,17 @@ For a SSL servercertificate choose the DNS name of the server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Request name:</source>
+        <source>Country:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Germany</source>
+        <source>Certificate name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Generate a new key</source>
+        <source>Use this Certificate signing request</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>DE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Generate request</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>NewX509_UI</name>
     <message>
         <source>Certificate creation</source>
         <translation type="unfinished"></translation>
@@ -677,63 +656,7 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Source of the subject and the key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use the data entered here</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Germany</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E-Mail address:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organisation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>State or Province</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organisational unit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Generate a new key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Common name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locality:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Country:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use this Certificate signing request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -933,42 +856,42 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
     <name>PassRead_UI</name>
     <message>
         <source>Passwort</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
     <name>PassWrite_UI</name>
     <message>
         <source>Passwort</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <source>Repeat pasword</source>
-        <translation type="unfinished"></translation>
+        <translation>Repetir contraseña</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -994,67 +917,67 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
     <name>ReqDetail_UI</name>
     <message>
         <source>Details of the request</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalles de la solicitud</translation>
     </message>
     <message>
         <source>Details of the certificate signing request</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalles de la solicitud</translation>
     </message>
     <message>
         <source>Standards</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Certificate name</source>
-        <translation type="unfinished"></translation>
+        <translation>Id del certificado</translation>
     </message>
     <message>
         <source>Signature</source>
-        <translation type="unfinished"></translation>
+        <translation>Firma</translation>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>not available</source>
-        <translation type="unfinished"></translation>
+        <translation>no disponible</translation>
     </message>
     <message>
         <source>Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>Sujeto</translation>
     </message>
     <message>
         <source>name / DNS</source>
-        <translation type="unfinished"></translation>
+        <translation>nombre / DNS</translation>
     </message>
     <message>
         <source>Province</source>
-        <translation type="unfinished"></translation>
+        <translation>Provincia</translation>
     </message>
     <message>
         <source>Country</source>
-        <translation type="unfinished"></translation>
+        <translation>País</translation>
     </message>
     <message>
         <source>Org. Unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Departamento</translation>
     </message>
     <message>
         <source>E-Mail</source>
-        <translation type="unfinished"></translation>
+        <translation>E-Mail</translation>
     </message>
     <message>
         <source>Organisation</source>
-        <translation type="unfinished"></translation>
+        <translation>Organización</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -1069,7 +992,7 @@ For a SSL servercertificate choose the DNS name of the server as &quot;Common na
     </message>
     <message>
         <source>Certificate name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Id del certificado</translation>
     </message>
     <message>
         <source>Select the Truststate</source>

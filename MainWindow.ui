@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>800</width>
+            <width>792</width>
             <height>604</height>
         </rect>
     </property>
@@ -680,7 +680,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Show Details</string>
+                                    <string>Change Template</string>
                                 </property>
                             </widget>
                             <widget>
@@ -719,7 +719,7 @@
                                 <class>QLabel</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>bigCert_2</cstring>
+                                    <cstring>bigTemp</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>minimumSize</name>
@@ -952,6 +952,12 @@
         <slot>deleteTemp()</slot>
     </connection>
     <connection>
+        <sender>PushButton25_2_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>alterTemp()</slot>
+    </connection>
+    <connection>
         <sender>tempList</sender>
         <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
         <receiver>MainWindow_UI</receiver>
@@ -961,8 +967,9 @@
         <sender>tempList</sender>
         <signal>doubleClicked(QListViewItem*)</signal>
         <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsTemp(QListViewItem *)</slot>
+        <slot>alterTemp()</slot>
     </connection>
+    <slot access="public">alterTemp()</slot>
     <slot access="public">deleteCert()</slot>
     <slot access="public">deleteKey()</slot>
     <slot access="public">deleteReq()</slot>
@@ -975,7 +982,6 @@
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
     <slot access="public">newTemp()</slot>
-    <slot access="public">showDetailsTemp(QListViewItem *)</slot>
     <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
     <slot access="public">showDetailsKey()</slot>

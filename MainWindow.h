@@ -139,6 +139,7 @@ class MainWindow: public MainWindow_UI
 	bool opensslError(pki_base *pki);
 	QPixmap *loadImg(const char *name);
 	void renamePKI(db_base *db);
+	bool alterTemp(pki_temp *temp);
    public slots:
 	void loadKey();
 	void loadReq();
@@ -183,7 +184,7 @@ class MainWindow: public MainWindow_UI
 	void renameReq(QListViewItem *item, int col, const QString &text);
 	void renameCert(QListViewItem *item, int col, const QString &text);
 	void renameTemp(QListViewItem *item, int col, const QString &text);
-	bool alterTemp(pki_temp *temp);
+	void alterTemp();
    signals:
 	void keyDone(QString name);
 };

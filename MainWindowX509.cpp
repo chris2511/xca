@@ -60,9 +60,9 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
 	int i;
-	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps );
+	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg );
 	if (templ) {
-		dlg->fromTemplate(templ);
+		dlg->defineTemplate(templ);
 	}
 	if (!dlg->exec()) return;
 	
@@ -108,13 +108,6 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 	
 	
 	// Step 3 - Choose the Date and all the V3 extensions
-	if (dlg->foreignSignRB->isChecked()) {
-		// increase serial here	
-		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
-		serial = settings->getInt(serhash) + 1;
-		CERR << "serial is: " << serial <<endl;
-		settings->putInt(serhash, serial);
-	}	
 	// Date handling
 	int x = dlg->validNumber->text().toInt();
 	int days = dlg->validRange->currentItem();
@@ -213,9 +206,15 @@ void MainWindow::newCert(pki_temp *templ =NULL)
 		CERR << "IssAltName:" << issAltName<< endl;
 		cert->addV3ext(NID_issuer_alt_name, issAltName);
 	}
-	
 		
 	if (opensslError(cert)) return;
+	
+	// increase serial here	
+	if (dlg->foreignSignRB->isChecked()) {
+		serial = signcert->getCaSerial();
+		certs->updatePKI(signcert);  // not so pretty ....
+		CERR << "serial is: " << serial <<endl;
+	}	
 	
 	// and finally sign the request 
 	cert->sign(signkey);
@@ -510,8 +509,8 @@ void MainWindow::writePKCS12()
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	CERR << "hallo popup" << endl;
 	QPopupMenu *menu = new QPopupMenu(this);
-	int itemExtend, itemRevoke, itemTrust;
-	bool canSign;
+	int itemExtend, itemRevoke, itemTrust, itemSerial;
+	bool canSign, parentCanSign;
 	if (!item) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
 		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
@@ -524,6 +523,8 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
 		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));
 		menu->insertSeparator();
+		itemSerial = menu->insertItem(tr("CA serial"));
+		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Extend"));
 		if (cert) {
 			if (cert->isRevoked()) {
@@ -532,10 +533,13 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 			}
 			else	
 				itemRevoke = menu->insertItem(tr("Revoke"), this, SLOT(revoke()));
-			canSign = (cert->getSigner() && (cert->getSigner()->getKey() != NULL)) && (cert->getSigner() != cert);
+			parentCanSign = (cert->getSigner() && cert->getSigner()->canSign() && (cert->getSigner() != cert));
+			canSign = cert->canSign();
 		}
-		menu->setItemEnabled(itemExtend, canSign);
-		menu->setItemEnabled(itemRevoke, canSign);
+		menu->setItemEnabled(itemExtend, parentCanSign);
+		menu->setItemEnabled(itemRevoke, parentCanSign);
+		menu->setItemEnabled(itemSerial, canSign);
+
 	}
 	menu->exec(pt);
 	return;

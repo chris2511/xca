@@ -59,6 +59,9 @@
 #include <qframe.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <qgroupbox.h>
+#include <qcheckbox.h>
+#include <qlabel.h>
 
 #ifndef NEWX509_H
 #define NEWX509_H
@@ -73,17 +76,20 @@ class NewX509: public NewX509_UI
 	db_key *keys;
 	db_temp *temps;
    public:	
-	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp);
+	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image);
 	void setRequest(); // reduce to requestform 	
 	void showPage(QWidget *page);
 	void toTemplate(pki_temp *temp);
 	void fromTemplate(pki_temp *temp);
+	void defineTemplate(pki_temp *temp);
 
    public slots:
 	void setDisabled(int state);
    	void newKey();
 	void dataChangeP2();
 	void newKeyDone(QString name);
+	void switchExtended();
+	void templateChanged();
 	
    signals:
 	void genKey();  

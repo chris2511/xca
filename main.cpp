@@ -67,7 +67,7 @@ int main( int argc, char *argv[] )
     a.installTranslator( &qtTr );
     //translation file for application strings
     QTranslator xcaTr( 0 );
-    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), "." );
+    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
     a.installTranslator( &xcaTr );
     
     mw.show();

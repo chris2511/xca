@@ -54,9 +54,9 @@
 
 void MainWindow::newReq(pki_temp *temp=NULL)
 {
-	NewX509 *dlg = new NewX509(this, 0, keys, NULL, NULL, temps);
+	NewX509 *dlg = new NewX509(this, 0, keys, NULL, NULL, temps, csrImg);
 	if (temp) {
-		dlg->fromTemplate(temp);
+		dlg->defineTemplate(temp);
 	}
 	dlg->setRequest();
 	//dlg->image->setPixmap(*csrImg);

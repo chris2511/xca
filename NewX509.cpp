@@ -51,7 +51,7 @@
 
 #include "NewX509.h"
 
-NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp)
+NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image)
 	:NewX509_UI(parent, name, true, 0)
 {
 	connect( this, SIGNAL(genKey()), parent, SLOT(newKey()) );
@@ -60,8 +60,13 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	reqs = req;
 	temps = temp;
 	certs = cert;
+	pki_x509 *possibleSigner; 
+	if (image) {
+		bigImg1->setPixmap(*image);
+		bigImg2->setPixmap(*image);
+		bigImg3->setPixmap(*image);
+	}
 	QStringList strings;
-	 
 	// are there any useable private keys  ?
 	if (keys) {
 		strings = keys->getPrivateDesc();
@@ -75,7 +80,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	else {
 		keyList->setEnabled(false);
 		genKeyBUT->setEnabled(false);
-		removePage(page3);
+		setAppropriate(page3, false);
 	}
 	
 	// any PKCS#10 requests to be used ?
@@ -102,6 +107,13 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		}
 		else {
 			certList->insertStringList(strings);
+			// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
+			possibleSigner=(pki_x509 *)certs->getSelectedPKI();
+			if (possibleSigner && possibleSigner->canSign()) {
+				//const QString name = possibleSigner->getDescription().c_str();
+				//certList->setCurrentText(name);
+				foreignSignRB->setChecked(true);
+			}
 		}
 	}
 	else {
@@ -113,30 +125,36 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	if (temps) {
 		strings = temps->getDesc();
 		if (strings.isEmpty()) {
-			removePage(page1);
+			setAppropriate(page1,false);
 		}
 		else {
 			tempList->insertStringList(strings);
 		}
 	}
 	else {
-		removePage(page1);
+		setAppropriate(page1,false);
 	}		
 	
 	fromDataRB->setChecked(true);
-	setFinishEnabled(page5,true);
+	setFinishEnabled(page6,true);
 	setNextEnabled(page2,false);
 }
 void NewX509::setRequest()
 {
-	removePage(page3);
-	removePage(page4);
-	removePage(page5);
+	setAppropriate(page3, false);
+	setAppropriate(page4, false);
+	setAppropriate(page5, false);
+	finishButton()->setEnabled(true);
 }
 	
+void NewX509::defineTemplate(pki_temp *temp)
+{
+	setAppropriate(page1,false);
+	fromTemplate(temp);
+}
+
 void NewX509::fromTemplate(pki_temp *temp)
 {
-	removePage(page1);
 	countryName->setText(temp->C.c_str());
 	stateOrProvinceName->setText(temp->P.c_str());
 	localityName->setText(temp->L.c_str());
@@ -168,11 +186,9 @@ void NewX509::dataChangeP2()
 {
 	if (description->text() != "" || fromReqRB->isChecked()) {
 		setNextEnabled(page2,true);
-		finishButton()->setEnabled(true);
 	}
 	else {
 		setNextEnabled(page2,false);
-		finishButton()->setEnabled(false);
 	}
 }
 
@@ -181,6 +197,7 @@ void NewX509::showPage(QWidget *page)
 	
 	if ( page == page2 ) {
 		dataChangeP2();
+		
 	}
 	else if ( page == page3 ) {
 		if (!selfSignRB->isChecked() && !foreignSignRB->isChecked()) {
@@ -197,6 +214,25 @@ void NewX509::showPage(QWidget *page)
 	}
 	QWizard::showPage(page);
 
+}
+
+void NewX509::templateChanged()
+{
+	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(tempList->currentText().latin1());
+	fromTemplate(temp);
+}
+
+void NewX509::switchExtended()
+{
+	CERR << "SWITCH Extended" <<endl;
+	if (changeDefault->isChecked()) {
+		setAppropriate(page4, true);
+		setAppropriate(page5, true);
+	}
+	else {
+		setAppropriate(page4, false);
+		setAppropriate(page5, false);
+	}
 }
 		    
 void NewX509::setDisabled(int state)

@@ -579,88 +579,12 @@ it should be encrypted.</source>
     </message>
 </context>
 <context>
-    <name>NewX509Req_UI</name>
-    <message>
-        <source>Certificate signing request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New certificate signing request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>For a new certificate you have to enter your personal data into the form and select a key to use.
-For a SSL servercertificate choose the DNS name of the server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organisational unit:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organisation:</source>
-        <translation type="unfinished">Firma:</translation>
-    </message>
-    <message>
-        <source>Common name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E-Mail address:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>State or Province</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Country:</source>
-        <translation type="unfinished">Land:</translation>
-    </message>
-    <message>
-        <source>Key:</source>
-        <translation type="unfinished">Schlüssel:</translation>
-    </message>
-    <message>
-        <source>Locality:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Request name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Germany</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Generate a new key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
-    </message>
-    <message>
-        <source>Generate request</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>NewX509_UI</name>
     <message>
         <source>Source of the subject and the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Germany</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>E-Mail address:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -682,10 +606,6 @@ For a SSL servercertificate choose the DNS name of the server</source>
     </message>
     <message>
         <source>Common name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -62,14 +62,22 @@ void MainWindow::newTemp()
 
 bool MainWindow::alterTemp(pki_temp *temp)
 {
-	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL );
+	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL, tempImg );
 	CERR << ":-) a" << endl;
 	dlg->fromTemplate(temp);
 	CERR << ":-) b" << endl;
 	if (!dlg->exec()) return false;
+	CERR << ":-) c" << endl;
 	dlg->toTemplate(temp);
 	return true;
 }
+
+void MainWindow::alterTemp()
+{
+	pki_temp *temp = (pki_temp *)temps->getSelectedPKI();
+	alterTemp(temp);
+}
+
 
 void MainWindow::deleteTemp()
 {
