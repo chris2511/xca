@@ -76,7 +76,12 @@ void ReqDetail::setReq(pki_x509req *req)
 	}
 	else {
 		verify->setGreen();
-		verify->setText("Ok");
+		if (req->isSpki()) {
+			verify->setText("SPKAC");
+		}
+		else {       
+			verify->setText("PKCS#10");
+		}
 	}
 	// look for the private key
 	pki_key *key =req->getRefKey();

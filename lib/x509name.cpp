@@ -92,30 +92,34 @@ QString x509name::oneLine() const
 
 QString x509name::getEntryByNid(int nid) const
 {
-	QString s;
-	int len = X509_NAME_get_text_by_NID(xn, nid, NULL, 0) + 1;
-	if (len < 2)
-		return s;
-	char *buf = (char *)OPENSSL_malloc(len);
-	X509_NAME_get_text_by_NID(xn, nid, buf, len);
-	s = buf;
-	OPENSSL_free(buf);
-	return s;
+	ASN1_OBJECT *obj;
+	obj=OBJ_nid2obj(nid);
+	if (obj == NULL) return QString::null;
+	int i=X509_NAME_get_index_by_OBJ(xn,obj,-1);
+	if (i < 0) return QString::null;
+	return getEntry(i);
 }
 
 QString x509name::getEntry(int i) const
 {
 	QString s;
-	char c;
 	ASN1_STRING *d;
 	if ( i<0 || i>entryCount() ) return s;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
-	i = d->length - 1;
-	c = d->data[i]; // replace the last char by \0
-	d->data[i] = '\0'; 
-	s = (char *)d->data; // strcopy the data
-	d->data[i] = c; // recover last char
-	return s + c;
+
+	QString ret;
+
+	if (d->type == V_ASN1_BMPSTRING) {
+	  for (int i=0;i<d->length;i+=2)
+		ret+=QChar((unsigned short)d->data[i]*256+
+			   (unsigned short)d->data[i+1]   );
+	}
+	else if (d->type == V_ASN1_UTF8STRING)
+		ret=QString::fromUtf8((const char *)d->data,d->length);
+	else
+		ret=QString::fromLatin1((const char *)d->data,d->length);
+
+	return ret;
 }
 
 void x509name::delEntry(int i)
@@ -172,11 +176,57 @@ int x509name::entryCount() const
 	return  X509_NAME_entry_count(xn);
 }
 
+int x509name::getNidByName(const QString &nid_name)
+{
+ 	return OBJ_txt2nid((char*)nid_name.latin1());
+}
+
+static int fix_data(int nid, int *type)
+{
+	if (nid == NID_pkcs9_emailAddress)
+		*type=V_ASN1_IA5STRING;
+	if ((nid == NID_commonName) && (*type == V_ASN1_IA5STRING))
+		*type=V_ASN1_T61STRING;
+	if ((nid == NID_pkcs9_challengePassword) && (*type == V_ASN1_IA5STRING))
+		*type=V_ASN1_T61STRING;
+	if ((nid == NID_pkcs9_unstructuredName) && (*type == V_ASN1_T61STRING))
+		return(0);
+	if (nid == NID_pkcs9_unstructuredName)
+		*type=V_ASN1_IA5STRING;
+	return 1;
+}
+
 void x509name::addEntryByNid(int nid, const QString entry)
 {
 	if (entry.isEmpty()) return;
-	X509_NAME_add_entry_by_NID(xn, nid, 
-		MBSTRING_ASC, (unsigned char*)entry.latin1(),-1,-1,0);
+
+	// check for a UNICODE-String.
+	bool need_uc=false;
+
+	for (unsigned i=0;i<entry.length();i++)
+		if(entry[i].unicode()>127) { need_uc=true; break; }
+
+	if (need_uc) {
+		unsigned char *data = (unsigned char *)OPENSSL_malloc(entry.length()*2);
+
+		for (unsigned i=0;i<entry.length();i++) {
+			data[2*i] = entry[i].unicode() >> 8;
+			data[2*i+1] = entry[i].unicode() & 0xff;
+		}
+
+		X509_NAME_add_entry_by_NID(xn, nid, V_ASN1_BMPSTRING,
+					   data,entry.length()*2,-1,0);
+		OPENSSL_free(data);
+	}
+	else {
+		int type=ASN1_PRINTABLE_type((unsigned char *)entry.latin1(),-1);
+
+		if (fix_data(nid, &type) == 0)
+			return;
+
+		X509_NAME_add_entry_by_NID(xn, nid, type,
+					   (unsigned char*)entry.latin1(),-1,-1,0);
+	}
 }
 
 X509_NAME *x509name::get() const

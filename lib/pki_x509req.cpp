@@ -91,6 +91,8 @@ pki_x509req::~pki_x509req()
 {
 	if (request)
 		X509_REQ_free(request);
+	if (spki)
+		NETSCAPE_SPKI_free(spki);
 	openssl_error();
 }
 

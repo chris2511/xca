@@ -76,6 +76,7 @@ class x509name
 	int entryCount() const;
 	x509name &operator = (const x509name &x);
 	bool operator == (const x509name &x) const;
+	static int getNidByName(const QString &nid_name);
 	void addEntryByNid(int nid, const QString entry);
 	void delEntry(int i);
 	X509_NAME *get() const;
