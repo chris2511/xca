@@ -104,8 +104,10 @@
 #include "lib/db_crl.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+
 #ifdef WIN32
 #include <direct.h>     // to define mkdir function
+#include <WINDOWS.H>     // to define mkdir function
 #else
 #include <unistd.h>
 #endif
@@ -120,6 +122,7 @@
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
+
    protected:
 	void addStr(string &str, const char *add);
 	void init_images();

@@ -73,10 +73,22 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	temps = NULL;
 	dbenv = NULL;
 	global_tid = NULL;
+
+
 #ifdef WIN32
-	baseDir = "";
+	char buf[255] = "";
+	DWORD ret_val;
+	ret_val = ExpandEnvironmentStrings("%USERPROFILE%", buf, 255);
+	baseDir = buf;
+	if (ret_val == 0) baseDir = "C:";
+	if (ret_val > 255) {
+		QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
+		qFatal(  "Couldnt create: " +  baseDir );
+	}
+	
 #else	
 	baseDir = QDir::homeDirPath();
+#endif
 	baseDir += QDir::separator();
 
 	baseDir += BASE_DIR;
@@ -85,8 +97,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		if (!d.mkdir(baseDir))
 			qFatal(  "Couldnt create: " +  baseDir );
 	}
-	
-#endif
+
 	
 #ifdef qt3	
 	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
@@ -286,6 +297,9 @@ void MainWindow::initPass()
 	PASS_INFO p;
 	string passHash = settings->getString("pwhash");
 	if (passHash == "") {
+#ifdef WIN32
+	QMessageBox::warning(this,tr(XCA_TITLE), tr("WARNING: If you have updated your 'xca' application you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to 'C:\\DOCUMENTS AND SETTINGS\\xca\\ ( %USERPROFILE% )"));	
+#endif
 		string title=tr("New Password").latin1();
 		string description=tr("Please enter a password, that will be used to encrypt your private keys in the database-file").latin1();
 		p.title = &title;

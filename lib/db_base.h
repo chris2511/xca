@@ -49,6 +49,7 @@
  */                           
 
 #include <qglobal.h>
+
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
 
@@ -69,6 +70,8 @@
 #else  // HAVE_CONFIG_H
 #define WIN32 1
 #include <db_cxx.h>
+#include <WINDOWS.H>
+
 #endif  // HAVE_CONFIG_H
 
 #include <qlistview.h>

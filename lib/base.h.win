@@ -6,5 +6,5 @@
 #define DBEX(x) 
 
 #define CERR(x)
-#define PREFIX ""
+
 #define XCA_TITLE "X Certifikate and Key management"

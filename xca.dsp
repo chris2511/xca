@@ -65,7 +65,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD CPP /nologo /MD /W3 /Gm /Zi /Od /I "$(QTDIR)\include" /I "$(QTDIR)\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /FD /GZ -Zm200 /c
+# ADD CPP /nologo /MD /W3 /Gm /GX /Zi /Od /I "$(QTDIR)\include" /I "$(QTDIR)\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /FD /D /GZ -Zm200 "UNICODE" /c
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407
 # ADD RSC /l 0x409 /d "_DEBUG"
@@ -207,6 +207,14 @@ InputPath=.\lib\db_crl.h
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build
+InputPath=.\lib\db_crl.h
+
+"lib\moc_db_crl.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	$(QTDIR)\bin\moc lib\db_crl.h -o lib\moc_db_crl.cpp
+
+# End Custom Build
 
 !ENDIF 
 

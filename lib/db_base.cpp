@@ -51,7 +51,6 @@
 
 #include "db_base.h"
 
-
 db_base::db_base(DbEnv *dbe, string DBfile, string DB, DbTxn *global_tid) 
 {
 	dbenv = dbe;
@@ -443,14 +442,31 @@ pki_base *db_base::findPKI(pki_base *refpki)
 
 QPixmap *db_base::loadImg(const char *name )
 {
-		QString path ="";
 #ifdef WIN32
-		path = "."; 
-#else
-		path = PREFIX ;
-#endif
-		path += QDir::separator();
-        return new QPixmap(path + name);
+    unsigned char PREFIX[100];
+	LONG lRc;
+    HKEY hKey;
+    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE,"Software\\xca",0,KEY_READ, &hKey);
+    if(lRc!= ERROR_SUCCESS){
+        // No key error
+	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");		
+		PREFIX[0] = '\0';
+	}
+    else {
+	    ULONG dwLength = 100;
+		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
+        if(lRc!= ERROR_SUCCESS){
+            // No key error
+	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");		
+		    PREFIX[0] = '\0';
+		}
+    }
+	lRc=RegCloseKey(hKey);
+#endif    
+
+	QString path = (char *)PREFIX;
+	path += QDir::separator();
+    return new QPixmap(path + name);
 }
 
 void db_base::updateViewPKI(pki_base *pki)

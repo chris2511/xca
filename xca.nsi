@@ -31,6 +31,7 @@ Section "xca (required)"
   ; Put file there
   File "Release\xca.exe"
   File "img\bigcert.png"
+  File "img\bigcrl.png"
   File "img\bigcsr.png"
   File "img\bigkey.png"
   File "img\bigtemp.png"
@@ -38,17 +39,21 @@ Section "xca (required)"
   File "img\invalidcert.png"
   File "img\invalidcertkey.png"
   File "img\key.png"
+  File "img\key.ico"
+  File "img\key.xpm"
+  File "img\netscape.png"
   File "img\req.png"
   File "img\reqkey.png"
+  File "img\revoked.png"
   File "img\template.png"
   File "img\validcert.png"
   File "img\validcertkey.png"
-  File "c:\devel\db-4.0.14\build_win32\Release\libdb40.dll"
-  File "c:\devel\openssl-0.9.6g\out32dll\Release\SSLeay32.dll"
-  File "c:\devel\openssl-0.9.6g\out32dll\Release\libeay32.dll"
-  File "e:\win\qt2\bin\msvcrt.dll"
-  File "c:\windows\system\msvcp60.dll"
-  File "e:\win\qt2\bin\qt-mt230nc.dll"
+  File "Release\libdb41.dll"
+  File "Release\SSLeay32.dll"
+  File "Release\libeay32.dll"
+  File "Release\msvcrt.dll"
+  File "Release\msvcp60.dll"
+  File "Release\qt-mt230nc.dll"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
 
@@ -62,7 +67,7 @@ SectionEnd
 Section "Start Menu Shortcuts"
   CreateDirectory "$SMPROGRAMS\xca"
   CreateShortCut "$SMPROGRAMS\xca\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
-  CreateShortCut "$SMPROGRAMS\xca\xca xca.lnk" "$INSTDIR\xca.exe" "" "$INSTDIR\xca.exe" 0
+  CreateShortCut "$SMPROGRAMS\xca\xca.lnk" "$INSTDIR\xca.exe" "" "$INSTDIR\xca.exe" 0
 SectionEnd
 
 ; uninstall stuff
@@ -82,29 +87,8 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\xca\*.*"
   ; remove directories used.
   RMDir "$SMPROGRAMS\xca"
-  
-  ;RMDir "$INSTDIR" NO, we keep the databasefiles xca.db
-  Delete "$INSTDIR\xca\*.png"
-  Delete "$INSTDIR\xca\*.dll"
-  Delete "$INSTDIR\bigcert.png"
-  Delete "$INSTDIR\bigcsr.png"
-  Delete "$INSTDIR\bigkey.png"
-  Delete "$INSTDIR\bigtemp.png"
-  Delete "$INSTDIR\halfkey.png"
-  Delete "$INSTDIR\invalidcert.png"
-  Delete "$INSTDIR\invalidcertkey.png"
-  Delete "$INSTDIR\key.png"
-  Delete "$INSTDIR\req.png"
-  Delete "$INSTDIR\reqkey.png"
-  Delete "$INSTDIR\template.png"
-  Delete "$INSTDIR\validcert.png"
-  Delete "$INSTDIR\validcertkey.png"
-  Delete "$INSTDIR\libdb40.dll"
-  Delete "$INSTDIR\SSLeay32.dll"
-  Delete "$INSTDIR\libeay32.dll"
-  Delete "$INSTDIR\msvcrt.dll"
-  Delete "$INSTDIR\msvcp60.dll"
-  Delete "$INSTDIR\qt-mt230nc.dll"
+ 
+  RMDir "$INSTDIR"
 SectionEnd
 
 ; eof
