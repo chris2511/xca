@@ -77,6 +77,7 @@ class NewX509: public NewX509_UI
 	db_x509 *certs;
 	db_key *keys;
 	db_temp *temps;
+	pki_temp *fixtemp;
 	QString startText, endText, tText;
    public:	
 	NewX509(QWidget *parent, const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image);

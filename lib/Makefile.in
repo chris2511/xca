@@ -18,7 +18,7 @@ DBNAMES=db_key db_x509req db_x509 db_temp
 DBOBJS=db_base.o $(patsubst %,%.o,$(DBNAMES)) $(patsubst %,moc_%.o,$(DBNAMES))
 DB_CPP=$(patsubst %,moc_%.cpp,$(DBNAMES))
 
-all: libpki.a libxcadb.a
+all: win libpki.a libxcadb.a
 win: $(DB_CPP)
 
 libpki.a: $(PKIOBJS)
@@ -37,3 +37,5 @@ distclean: clean
 
 moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@
+
+.INTERMEDIATE: $(DB_CPP)

@@ -60,6 +60,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	reqs = req;
 	temps = temp;
 	certs = cert;
+	fixtemp = NULL;
 	pki_x509 *possibleSigner; 
 	if (image) {
 		bigImg1->setPixmap(*image);
@@ -155,6 +156,7 @@ void NewX509::setRequest()
 	setAppropriate(page4, false);
 	setAppropriate(page5, false);
 	finishButton()->setEnabled(true);
+	changeDefault->setEnabled(true);
 	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa)");
 	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa)");
 	tText=tr("Certificate request");
@@ -202,6 +204,7 @@ void NewX509::setup()
 void NewX509::defineTemplate(pki_temp *temp)
 {
 	setAppropriate(page1,false);
+	fixtemp = temp;
 	fromTemplate(temp);
 }
 
@@ -211,7 +214,7 @@ int NewX509::lb2int(QListBox *lb)
 	int x=0;
 	for (int i=0; lb->item(i); i++) {
 		if (lb->isSelected(i)){
-			x += 1<<i;
+			x |= 1<<i;
 		}
 	}
 	return x;
@@ -221,9 +224,7 @@ int NewX509::lb2int(QListBox *lb)
 void NewX509::int2lb(QListBox *lb, int x)
 {
 	for (int i=0; lb->item(i); i++) {
-		if ((1<<i)& x){
-			lb->setSelected(i,true);
-		}
+		lb->setSelected(i, (1<<i) & x);
 	}
 }	
 
@@ -332,7 +333,7 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::templateChanged()
 {
-	//if (!appropriate(page1)) return;
+	if (!appropriate(page1)) return;
 	if (!tempList->isEnabled()) return;
 	QString name = tempList->currentText();
 	if (name == "" || !temps) return;

@@ -180,8 +180,8 @@ pki_x509::~pki_x509()
 void pki_x509::addV3ext(int nid, string exttext)
 {	
 	X509_EXTENSION *ext;
-	char c[200];
-	if (exttext == "") return;
+	char c[200] = "";
+	if (exttext.length() == 0) return;
 	strncpy(c, exttext.c_str(), 200);
 	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
 	if (!ext) {

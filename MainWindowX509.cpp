@@ -125,6 +125,14 @@ void MainWindow::newCert(pki_temp *templ)
 	if (days == 1) x *= 30;
 	if (days == 2) x *= 365;
 	
+	// increase serial here	
+	if (dlg->foreignSignRB->isChecked()) {
+		serial = signcert->getIncCaSerial();
+		certs->updatePKI(signcert);  // not so pretty ....
+		CERR << "serial is: " << serial <<endl;
+	}	
+	
+	// initially create cert 
 	cert = new pki_x509(req->getDescription(), clientkey, req, signcert, x, serial);
 	if (opensslError(cert)) goto err;
 	
@@ -184,10 +192,12 @@ void MainWindow::newCert(pki_temp *templ)
 	
 	// STEP 4
 	// Subject Alternative name
+	cont = "";
+	cont = dlg->subAltName->text().latin1();
 	if (dlg->subAltCp->isChecked()) {
 		subAltName = "email:copy";
 	}
-	if ((cont = dlg->subAltName->text().latin1()) != ""){
+	if (cont.length() > 0){
 		addStr(subAltName,cont.c_str());
 	}
 	if (subAltName.length() > 0) {
@@ -195,11 +205,13 @@ void MainWindow::newCert(pki_temp *templ)
 		cert->addV3ext(NID_subject_alt_name, subAltName);
 	}
 	
+	cont = "";
+	cont = dlg->issAltName->text().latin1();
 	// issuer alternative name	
 	if (dlg->issAltCp->isChecked()) {
 		issAltName = "issuer:copy";
 	}
-	if ((cont = dlg->issAltName->text().latin1()) != ""){
+	if (cont.length() > 0){
 		addStr(issAltName,cont.c_str());
 	}
 	if (issAltName.length() > 0) {
@@ -208,13 +220,6 @@ void MainWindow::newCert(pki_temp *templ)
 	}
 		
 	if (opensslError(cert)) goto err;
-	
-	// increase serial here	
-	if (dlg->foreignSignRB->isChecked()) {
-		serial = signcert->getIncCaSerial();
-		certs->updatePKI(signcert);  // not so pretty ....
-		CERR << "serial is: " << serial <<endl;
-	}	
 	
 	// and finally sign the request 
 	cert->sign(signkey);
@@ -226,7 +231,7 @@ void MainWindow::newCert(pki_temp *templ)
 	return;
 err:	
 	if (cert) delete(cert);
-	if (tempReq) delete(req);
+	if (tempReq && req) delete(req);
 	delete (dlg);
 	return;
 

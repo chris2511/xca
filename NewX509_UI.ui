@@ -357,7 +357,7 @@
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Change default settings of the template</string>
+                            <string>Change the default extension settings from the template</string>
                         </property>
                     </widget>
                 </vbox>
@@ -1673,12 +1673,6 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <slot>dataChangeP2()</slot>
     </connection>
     <connection>
-        <sender>tempList</sender>
-        <signal>textChanged(const QString&amp;)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>tempChanged()</slot>
-    </connection>
-    <connection>
         <sender>changeDefault</sender>
         <signal>stateChanged(int)</signal>
         <receiver>NewX509_UI</receiver>
@@ -1696,11 +1690,17 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
         <receiver>NewX509_UI</receiver>
         <slot>dataChangeP2()</slot>
     </connection>
+    <connection>
+        <sender>tempList</sender>
+        <signal>activated(int)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>templateChanged()</slot>
+    </connection>
+    <slot access="public">templateChanged()</slot>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">newKey()</slot>
-    <slot access="public">switchExtended()</slot>
     <slot access="public">setDisabled(int)</slot>
-    <slot access="public">tempChanged()</slot>
+    <slot access="public">switchExtended()</slot>
 </connections>
 <tabstops>
     <tabstop>tempList</tabstop>
