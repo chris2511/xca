@@ -101,7 +101,7 @@ if test "$LDB" != X; then
 	AC_MSG_NOTICE([C++ extension library to Berkeley db not found, try installing libdb_cxx-dev])
 fi
 if test "$LQT" == "no"; then
-	AC_MSG_NOTICE([QT library and tools not found, try setting $QTDIR apropriate or install qt-dev])
+	AC_MSG_NOTICE([QT library and tools not found, try setting \$QTDIR apropriate or install qt-dev])
 fi
 
 cat results

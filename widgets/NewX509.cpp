@@ -106,8 +106,8 @@ int NewX509::dn_nid[DISTNAME_CNT] = {
   NID_givenName,
   NID_initials,
   NID_dnQualifier,
-  NID_role,
 #if OPENSSL_VERSION_NUMBER >= 0x00907000L  
+  NID_role,
   NID_generationQualifier,
   NID_x500UniqueIdentifier,
   NID_pseudonym
