@@ -68,7 +68,7 @@
 void NewX509::initCtx()
 {
 	X509V3_set_ctx(&ext_ctx, getSelectedSigner()->getCert() , NULL, NULL, NULL, 0);
-        X509V3_set_ctx_nodb(&ext_ctx);
+	X509V3_set_ctx_nodb((&ext_ctx));
 }	
 
 int NewX509::eku_nid[EKUN_CNT] = {

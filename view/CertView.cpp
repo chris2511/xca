@@ -141,10 +141,9 @@ void CertView::newCert(NewX509 *dlg)
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = dlg->getSelectedSigner();
+	    	if (Error(signcert)) return;
 		serial = signcert->getIncCaSerial();
 		signkey = signcert->getRefKey();
-		// search for serial in database
-		
 	}
 	else {
 		signkey = clientkey;	
