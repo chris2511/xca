@@ -60,10 +60,10 @@
 #include <qtextview.h>
 #include <qpushbutton.h>
 #include <qinputdialog.h>
-#include "CertExtend.h"
+#include "ui/CertExtend.h"
 #include "ExportCert.h"
-#include "CertDetail.h"
-#include "TrustState.h"
+#include "ui/CertDetail.h"
+#include "ui/TrustState.h"
 #include "ExportTinyCA.h"
 #include "validity.h"
 #include "lib/pki_pkcs12.h"
@@ -90,9 +90,7 @@ CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 	addColumn(tr("not After"));
 	addColumn(tr("Trust state"));
 	addColumn(tr("Revokation"));
-	db->loadContainer();
 	viewState=1; // Tree View
-	updateView();
 }	
 
 
@@ -132,6 +130,7 @@ void CertView::newCert(NewX509 *dlg)
 
 	QListBoxItem *item;
 	
+	emit init_database();
 
     try {	
 	// Step 1 - Subject and key
@@ -309,6 +308,7 @@ void CertView::extendCert()
 	pki_key *signkey = NULL;
 	a1time time;
 	a1int serial;
+	emit init_database();
 	try {
 		CertExtend_UI *dlg = new CertExtend_UI(this, NULL, true);
 		dlg->image->setPixmap(*MainWindow::certImg);
@@ -358,7 +358,7 @@ void CertView::extendCert()
 	}
 }
 		
-void CertView::show(pki_base *basecert, bool import)
+void CertView::showItem(pki_base *basecert, bool import)
 {
 	pki_x509 *cert = (pki_x509 *)basecert;
 	if (!cert) return; 
@@ -472,9 +472,8 @@ void CertView::show(pki_base *basecert, bool import)
 	}
 	if (!ret) return;	
 	
-	if (!db) {
-		init_database();
-	}
+	emit init_database();
+	
 	if (import) {
 		cert = (pki_x509 *)insert(cert);
 	}
@@ -571,10 +570,10 @@ void CertView::insertP12(pki_pkcs12 *pk12)
 		}
 #else
 		// keyList->show(akey, true);
-		show(acert,true);
+		showItem(acert,true);
 		for (int i=0; i<pk12->numCa(); i++) {
 			acert = pk12->getCa(i);
-			show(acert, true);
+			showItem(acert, true);
 		}
 #endif			
 		//if (keys)
@@ -614,7 +613,7 @@ void CertView::loadPKCS7()
 			pk7->readP7(s);
 			for (int i=0; i<pk7->numCert(); i++) {
 				acert = pk7->getCert(i);
-				show(acert, true);
+				showItem(acert, true);
 			}
 			// keys->updateView();
 		}
@@ -629,6 +628,7 @@ void CertView::loadPKCS7()
 pki_base *CertView::insert(pki_base *item)
 {
     pki_x509 *cert = (pki_x509 *)item;
+    emit init_database();
     try {
 	pki_x509 *oldcert = (pki_x509 *)db->getByReference(cert);
 	if (oldcert) {
@@ -678,6 +678,7 @@ void CertView::store()
 	QStringList filt;
 	pki_x509 *crt = (pki_x509 *)getSelected();
 	pki_x509 *oldcrt = NULL;
+	emit init_database();
 	if (!crt) return;
 	pki_key *privkey = crt->getRefKey();
 	ExportCert *dlg = new ExportCert((crt->getIntName() + ".crt"),
@@ -774,11 +775,13 @@ void CertView::writePKCS12(QString s, bool chain)
     }
 }
 
-void CertView::writePKCS7(QString s, int type) {
+void CertView::writePKCS7(QString s, int type)
+{
     pki_pkcs7 *p7 = NULL;
     QList<pki_base> list;
     pki_x509 *cert = (pki_x509 *)getSelected();
     pki_base *cer;
+    emit init_database();
     try {	
 	p7 =  new pki_pkcs7("");
 	if ( type == P7_CHAIN ) {
@@ -897,6 +900,7 @@ void CertView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate, itemReq, itemP7, itemtca;
 	bool canSign, parentCanSign, hasTemplates, hasPrivkey;
 	
+	emit init_database();
 	if (!item) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
 		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
@@ -1305,6 +1309,7 @@ void CertView::updateViewItem(pki_base *pki)
 
 void CertView::updateViewAll()
 {
+	emit init_database();
 	QList<pki_base> c = db->getContainer();
 	for (pki_x509 *pki = (pki_x509 *)c.first(); pki != 0; pki = (pki_x509 *)c.next() ) 
 		updateViewItem(pki);

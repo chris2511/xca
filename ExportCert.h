@@ -49,7 +49,7 @@
  */                           
 
 
-#include "ExportCert_UI.h"
+#include "ui/ExportCert.h"
 #include <qfiledialog.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>

@@ -49,7 +49,7 @@
  */                           
 
 
-#include "ExportTinyCA_UI.h"
+#include "ui/ExportTinyCA.h"
 #include <qfiledialog.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>

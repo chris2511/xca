@@ -84,7 +84,7 @@ bool TempView::alterTemp(pki_temp *temp)
 	return true;
 }
 
-void TempView::show(pki_base *item, bool import)
+void TempView::showItem(pki_base *item, bool import)
 {
 	pki_temp *temp = (pki_temp *)item;
 	if (!temp) return;

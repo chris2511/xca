@@ -59,8 +59,8 @@
 #include "CertView.h"
 #include "TempView.h"
 #include "lib/pass_info.h"
-#include "PassRead.h"
-#include "PassWrite.h"
+#include "ui/PassRead.h"
+#include "ui/PassWrite.h"
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
@@ -179,27 +179,41 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 				qFatal(  "Couldnt create: " +  baseDir );
 			}
 	}
-
 	
-#ifdef qt3	
-	connect( keyList, SIGNAL(newPath(QString &)), this, SLOT(newPath(QString &)));
-	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
-			this, SLOT(renameReq(QListViewItem *, int, const QString &)));
-	connect( certList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
-			this, SLOT(renameCert(QListViewItem *, int, const QString &)));
-	connect( tempList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
-			this, SLOT(renameTemp(QListViewItem *, int, const QString &)));
-#endif	
+	init_images();
+	
+	CERR("Connecting init-database");
+	connect( keyList, SIGNAL(init_database()), this, SLOT(init_database()));
+	connect( reqList, SIGNAL(init_database()), this, SLOT(init_database()));
+	connect( certList, SIGNAL(init_database()), this, SLOT(init_database()));
+	connect( tempList, SIGNAL(init_database()), this, SLOT(init_database()));
+
+	CERR("Connecting Key Buttons");
+	connect( (const QObject *)BNnewKey, SIGNAL(clicked()), keyList, SLOT(newItem()));
+	connect( (const QObject *)BNexportKey, SIGNAL(clicked()), keyList, SLOT(store()));
+	connect( (const QObject *)BNimportKey, SIGNAL(clicked()), keyList, SLOT(load()));
+	connect( (const QObject *)BNdetailsKey, SIGNAL(clicked()), keyList, SLOT(showItem()));
+	connect( (const QObject *)BNdeleteKey, SIGNAL(clicked()), keyList, SLOT(deleteItem()));
+
+	/*
 	MARK
+	/keyList->loadCont();
+	MARK
+	reqList->loadCont();
+	MARK
+	certList->loadCont();
+	MARK
+	tempList->loadCont();
+	MARK
+	*/
+
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
-	init_images();
-	MARK
 
 	read_cmdline();
-	if (exitApp) return;
 	init_database();
 }
+
 QPixmap *MainWindow::loadImg(const char *name )
 {
 #ifdef WIN32
@@ -305,16 +319,16 @@ void MainWindow::read_cmdline()
 				     break;
 			case XCA_KEY : 
 		 		key = new pki_key(arg, &MainWindow::passRead);
-				keyList->show(key, true);
+				keyList->showItem(key, true);
 				MARK
 				break;
 			case XCA_CERT : 
 		 		cert = new pki_x509(arg);
-				certList->show(cert, true);
+				certList->showItem(cert, true);
 				break;
 			case XCA_REQ : 
 		 		req = new pki_x509req(arg);
-				reqList->show(req, true);
+				reqList->showItem(req, true);
 				break;
 			case XCA_P12 : 
 		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);
@@ -333,10 +347,10 @@ void MainWindow::read_cmdline()
 }	
 
 
-
 void MainWindow::init_database() {
 	
 	if (dbenv) return; // already initialized....
+	CERR("Init Database");
 	try {
 		dbenv = new DbEnv(0);
 		dbenv->set_errcall(&MainWindow::dberr);
@@ -366,6 +380,11 @@ void MainWindow::init_database() {
 		crls = new db_crl(dbenv, dbfile, global_tid);
 		reqs->setKeyDb(keys);
 		certs->setKeyDb(keys);
+	
+		keyList->setDB(keys);
+		reqList->setDB(reqs);
+		certList->setDB(certs);
+		tempList->setDB(temps);
 	}
 	catch (errorEx &err) {
 		Error(err);

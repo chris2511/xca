@@ -66,7 +66,7 @@ class KeyView : public XcaListView
 	QPixmap *keyicon[2];
    public:
 	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void show(pki_base *item, bool import);
+	void showItem(pki_base *item, bool import);
 	void newItem();
 	void deleteItem();
 	void load();

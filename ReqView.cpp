@@ -50,7 +50,7 @@
 
 
 #include "ReqView.h"
-#include "ReqDetail.h"
+#include "ui/ReqDetail.h"
 #include <qpopupmenu.h>
 #include <qmessagebox.h>
 #include <qfiledialog.h>
@@ -105,9 +105,10 @@ void ReqView::newItem(pki_temp *temp)
 
 
 
-void ReqView::show(pki_base *item, bool import)
+void ReqView::showItem(pki_base *item, bool import)
 {
 	if (!item) return;
+	emit init_database();
     try {
 	pki_x509req *req = (pki_x509req *)item;    
         ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
@@ -145,9 +146,9 @@ void ReqView::show(pki_base *item, bool import)
 		delete req;
 	}
 	if (!ret) return;
-	if (db == NULL) {
-		init_database();
-	}
+	
+	emit init_database();
+	
 	if (import) {
 		req = (pki_x509req *)insert((pki_x509req *)req);
 	}
@@ -240,6 +241,7 @@ pki_base *ReqView::insert(pki_base *item)
 {
 	pki_x509req *oldreq, *req;
 	req = (pki_x509req *)item;
+	emit init_database();
 	try {
 		oldreq = (pki_x509req *)db->getByReference(req);
 	}

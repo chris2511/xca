@@ -57,7 +57,7 @@
 #endif
 
 #include "NewX509.h"
-#include "MainWindow_UI.h"
+#include "ui/MainWindow.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"

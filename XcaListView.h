@@ -62,24 +62,24 @@ class XcaListView : public QListView
 		
    protected:
 	db_base *db;
-	QPixmap *image;
    public:
 	XcaListView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void init(db_base *mydb, QPixmap *myimage);
+	void setDB(db_base *mydb);
 	virtual pki_base *getSelected();
-	virtual void show(pki_base *item, bool import);
+	virtual void showItem(pki_base *item, bool import);
 	void deleteItem_default(QString t1, QString t2);
 	virtual pki_base *loadItem(QString fname);
 	void load_default(QStringList &filter, QString caption);
 	void setDB(db_base *mydb, QPixmap *myimage);
 	void Error(errorEx &err);
 	bool Error(pki_base *pki);
+	void loadCont();
 	QPixmap *loadImg(const char *name );
    public slots:
 	virtual void newItem();
 	virtual void deleteItem();
-	void show();
-	void show(QListViewItem *item);
+	void showItem();
+	void showItem(QListViewItem *item);
 	virtual void load();
 	virtual	void store();
 	virtual	pki_base *insert(pki_base *item);
@@ -89,6 +89,8 @@ class XcaListView : public QListView
 	void rename(QListViewItem *item, int col, const QString &text);
 	void updateView();
 	void updateViewItem(pki_base *pki);
+   signals:
+	void init_database();
 };
 
 #endif

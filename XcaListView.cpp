@@ -64,40 +64,49 @@ XcaListView::XcaListView( QWidget * parent = 0,
 		const char * name = 0, WFlags f = 0)
 		:QListView(parent, name, f)
 {
-	db = NULL;
 #ifdef qt3      
 	connect( this, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
 	  this, SLOT(rename(QListViewItem *, int, const QString &)));
 #endif		
+	connect( this, SIGNAL(rightButtonPressed(QListViewItem *, const QPoint &, int)),
+	  this, SLOT(popupMenu(QListViewItem *, const QPoint &, int))) ;
 }
 
-void XcaListView::setDB(db_base *mydb, QPixmap *myimage)
+void XcaListView::setDB(db_base *mydb)
 {
 	db = mydb;
-	image = myimage;
+}
+
+void XcaListView::loadCont()
+{
+	emit init_database();
+	db->loadContainer();
+	updateView();
 }
 
 pki_base *XcaListView::getSelected()
 {
+	emit init_database();
 	QListViewItem *lvi = selectedItem();
-	if (lvi) return NULL;
+	if (!lvi) return NULL;
 	QString name = lvi->text(0);
 	return db->getByName(name);
 }
 
-void XcaListView::show()
+void XcaListView::showItem()
 {
-        show(getSelected(), false);
+        showItem(getSelected(), false);
 }
 
-void XcaListView::show(QListViewItem *item)
+void XcaListView::showItem(QListViewItem *item)
 {
-        show(db->getByPtr(item), false);
+        showItem(db->getByPtr(item), false);
 }
 
 
 void XcaListView::rename(QListViewItem *item, int col, const QString &text)
 {
+	emit init_database();
         try {
                 pki_base *pki = db->getByPtr(item);
                 db->renamePKI(pki, text);
@@ -239,37 +248,34 @@ void XcaListView::load(void) { CERR("Virtual called..."); }
 void XcaListView::store(void) { CERR("Virtual called..."); }
 pki_base *XcaListView::insert(pki_base *) { CERR("Virtual called..."); return NULL; }
 void XcaListView::popupMenu(QListViewItem *, QPoint const &, int) { CERR("Virtual called..."); }
-void XcaListView::show(pki_base *, bool) { CERR("Virtual called...");}
-
+void XcaListView::showItem(pki_base *, bool) { CERR("Virtual called...");}
 
 QPixmap *XcaListView::loadImg(const char *name )
 {
 #ifdef WIN32
-   static unsigned char PREFIX[100]="";
-   if (PREFIX[0] == '\0') {
-	LONG lRc;
-	HKEY hKey;
-	lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
-	if (lRc!= ERROR_SUCCESS){
-           // No key error
-	   QMessageBox::warning(NULL,tr(XCA_TITLE), 
-		"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
-	   PREFIX[0] = '\0';
-	}
-        else {
-	   ULONG dwLength = 100;
-	   lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
-           if (lRc!= ERROR_SUCCESS){
-              // No key error
-	      QMessageBox::warning(NULL,tr(XCA_TITLE),
-		"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");		
-	      PREFIX[0] = '\0';
-	   }
-	}
-	lRc=RegCloseKey(hKey);
-   }
-#endif    
-   QString path = (char *)PREFIX;
-   path += QDir::separator();
-   return new QPixmap(path + name);
+        static unsigned char PREFIX[100]="";
+        if (PREFIX[0] == '\0') {
+          LONG lRc;
+      HKEY hKey;
+      lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\xca",0,KEY_READ, &hKey);
+      if(lRc!= ERROR_SUCCESS){
+        // No key error
+            QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
+                PREFIX[0] = '\0';
+          }
+      else {
+            ULONG dwLength = 100;
+                lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
+        if(lRc!= ERROR_SUCCESS){
+            // No key error
+                QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");        
+                    PREFIX[0] = '\0';
+                }
+          }
+        lRc=RegCloseKey(hKey);
+        }
+#endif
+        QString path = (char *)PREFIX;
+        path += QDir::separator();
+    return new QPixmap(path + name);
 }

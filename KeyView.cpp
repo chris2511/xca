@@ -49,8 +49,8 @@
  */                           
 
 #include "KeyView.h"
-#include "NewKey.h"
-#include "KeyDetail.h"
+#include "ui/NewKey.h"
+#include "ui/KeyDetail.h"
 #include "ExportKey.h"
 #include "MainWindow.h"
 #include <qcombobox.h>
@@ -79,7 +79,7 @@ void KeyView::newItem()
 	for (int i=0; sizeList[i] != 0; i++ ) 
 	   dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
 	dlg->keyLength->setCurrentItem(2);
-	dlg->image->setPixmap(*image);
+	dlg->image->setPixmap(*MainWindow::keyImg);
 	if (dlg->exec()) {
 	  try {
 	   int sel = dlg->keyLength->currentItem();
@@ -111,7 +111,7 @@ void KeyView::deleteItem()
 	deleteItem_default(tr("The key"), tr("is going to be deleted")); 
 }
 
-void KeyView::show(pki_base *item, bool import)
+void KeyView::showItem(pki_base *item, bool import)
 {
 	pki_key *key = (pki_key *)item;
 	if (!key) return;
@@ -126,7 +126,7 @@ void KeyView::show(pki_base *item, bool import)
 			detDlg->keyPrivEx->setText(tr("not available") );
 			detDlg->keyPrivEx->setDisabled(true);
 		}
-		detDlg->image->setPixmap(*image);
+		detDlg->image->setPixmap(*MainWindow::keyImg);
 		if (import) {
 			detDlg->but_ok->setText(tr("Import"));
 			detDlg->but_cancel->setText(tr("Discard"));
@@ -145,9 +145,9 @@ void KeyView::show(pki_base *item, bool import)
 		delete key;
 	}
 	if (!ret) return;
-	if (db == NULL) {
-		emit init_database();
-	}
+	
+	emit init_database();
+	
 	if (import) {
 		key = (pki_key *)insert(key);
 	}
@@ -183,6 +183,7 @@ pki_base* KeyView::insert(pki_base *item)
 {
 	pki_key *lkey = (pki_key *)item;
 	pki_key *oldkey;
+	emit init_database();
 	try {
 	    oldkey = (pki_key *)db->getByReference(lkey);
 	    if (oldkey != NULL) {
@@ -225,7 +226,7 @@ void KeyView::store()
 	if (!targetKey) return;
 	ExportKey *dlg = new ExportKey((targetKey->getIntName() + ".pem"),
 			targetKey->isPubKey(), MainWindow::getPath(), this);
-	dlg->image->setPixmap(*image);
+	dlg->image->setPixmap(*MainWindow::keyImg);
 	int dlgret = dlg->exec();
 	MainWindow::setPath(dlg->dirPath);
 

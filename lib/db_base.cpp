@@ -58,7 +58,7 @@ db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid)
 {
 	dbenv = dbe;
 	data = new Db(dbe, 0);
-	CERR("DB:" << DBfile);
+	CERR("DB:" << DBfile << " " << DB);
 	try {
 #if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
 		data->open(NULL, DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
@@ -209,7 +209,6 @@ void db_base::loadContainer()
 			int size = d->get_size();
 			try {	
 				pki = newPKI();
-				CERR("PKItest");
 				CERR(desc.latin1());
 				pki->fromData(p, size);
 				pki->setIntName(desc);
@@ -231,6 +230,7 @@ void db_base::loadContainer()
 		DBEX(err);
 		throw errorEx(err.what());
 	}
+	CERR("PKI Counter: " << pki_base::get_pki_counter() );
 }	
 
 void db_base::insertPKI(pki_base *pki)

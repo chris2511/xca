@@ -68,7 +68,7 @@ class CertView : public XcaListView
 	bool mkDir(QString dir);
    public:
 	CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
-	void show(pki_base *item, bool import);
+	void showItem(pki_base *item, bool import);
 	void newItem();
 	void deleteItem();
 	void updateViewItem(pki_base *);

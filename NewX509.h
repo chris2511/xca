@@ -49,7 +49,7 @@
  */                           
 
 
-#include "NewX509_UI.h"
+#include "ui/NewX509.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"

@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>613</width>
+            <width>605</width>
             <height>543</height>
         </rect>
     </property>
@@ -99,7 +99,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>genNewKey</cstring>
+                                    <cstring>BNnewKey</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -110,7 +110,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>exportKey</cstring>
+                                    <cstring>BNexportKey</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -121,7 +121,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>importKey</cstring>
+                                    <cstring>BNimportKey</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -132,7 +132,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>detailsKey</cstring>
+                                    <cstring>BNdetailsKey</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -143,7 +143,7 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>renameKey</cstring>
+                                    <cstring>BNdeleteKey</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
@@ -536,31 +536,7 @@
                         <number>6</number>
                     </property>
                     <widget>
-                        <class>QListView</class>
-                        <column>
-                            <property>
-                                <name>text</name>
-                                <string>Name</string>
-                            </property>
-                            <property>
-                                <name>clickable</name>
-                                <bool>true</bool>
-                            </property>
-                            <property>
-                                <name>resizeable</name>
-                                <bool>true</bool>
-                            </property>
-                        </column>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>Item</string>
-                        </property>
-                        <property>
-                            <name>pixmap</name>
-                            <pixmap></pixmap>
-                        </property>
-                    </item>
+                        <class>TempView</class>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>tempList</cstring>
@@ -957,6 +933,20 @@
         </sizepolicy>
         <pixmap>image1</pixmap>
     </customwidget>
+    <customwidget>
+        <class>TempView</class>
+        <header location="local">TempView.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image1</pixmap>
+    </customwidget>
 </customwidgets>
 <images>
     <image>
@@ -969,231 +959,14 @@
     </image>
 </images>
 <connections>
-    <connection>
-        <sender>genNewKey</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newKey()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newReq()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton26</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>deleteReq()</slot>
-    </connection>
-    <connection>
-        <sender>exportKey</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>writeKey()</slot>
-    </connection>
-    <connection>
-        <sender>importKey</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>loadKey()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton46</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>loadReq()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newCert()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton47_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>writeCert()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton46_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>loadCert()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton26_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>deleteCert()</slot>
-    </connection>
-    <connection>
-        <sender>renameKey</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>deleteKey()</slot>
-    </connection>
-    <connection>
-        <sender>detailsKey</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsKey()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton25_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsCert()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton25</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsReq()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton18</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>loadPKCS12()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton26_2_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>deleteTemp()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13_2_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newEmpTemp()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13_2_2_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newCATemp()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13_2_2_3</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newCliTemp()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13_2_2_4</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>newSerTemp()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton25_2_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>alterTemp()</slot>
-    </connection>
-    <connection>
-        <sender>tempList</sender>
-        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showPopupTemp(QListViewItem *, const QPoint &amp;, int)</slot>
-    </connection>
-    <connection>
-        <sender>tempList</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>alterTemp()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton18_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>loadPKCS7()</slot>
-    </connection>
-    <connection>
-        <sender>bnViewState</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>changeView()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13_2_2_2_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>loadCrl()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton26_2_2_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsCrl()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton13_2_2_5_2</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>deleteCrl()</slot>
-    </connection>
-    <connection>
-        <sender>revList</sender>
-        <signal>rightButtonClicked(QListViewItem*,const QPoint&amp;,int)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showPopupCrl(QListViewItem *, const QPoint &amp;, int)</slot>
-    </connection>
-    <connection>
-        <sender>revList</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsCrl()</slot>
-    </connection>
-    <slot access="public">alterTemp()</slot>
-    <slot access="public">changeView()</slot>
-    <slot access="public">crashApp()</slot>
-    <slot access="public">deleteCert()</slot>
-    <slot access="public">deleteCrl()</slot>
-    <slot access="public">deleteKey()</slot>
-    <slot access="public">deleteReq()</slot>
-    <slot access="public">deleteTemp()</slot>
-    <slot access="public">loadCert()</slot>
-    <slot access="public">loadCrl()</slot>
-    <slot access="public">loadKey()</slot>
-    <slot access="public">loadPKCS12()</slot>
-    <slot access="public">loadPKCS7()</slot>
-    <slot access="public">loadReq()</slot>
-    <slot access="public">newCATemp()</slot>
-    <slot access="public">newCert()</slot>
-    <slot access="public">newCliTemp()</slot>
-    <slot access="public">newEmpTemp()</slot>
-    <slot access="public">newKey()</slot>
-    <slot access="public">newReq()</slot>
-    <slot access="public">newSerTemp()</slot>
-    <slot access="public">showDetailsCert()</slot>
-    <slot access="public">showDetailsCert(QListViewItem *)</slot>
-    <slot access="public">showDetailsCrl()</slot>
-    <slot access="public">showDetailsKey()</slot>
-    <slot access="public">showDetailsKey(QListViewItem *)</slot>
-    <slot access="public">showDetailsReq()</slot>
-    <slot access="public">showDetailsReq(QListViewItem *)</slot>
-    <slot access="public">showPopupCert(QListViewItem *, const QPoint &amp;, int)</slot>
-    <slot access="public">showPopupCrl(QListViewItem *, const QPoint &amp;, int)</slot>
-    <slot access="public">showPopupKey(QListViewItem *, const QPoint &amp;, int)</slot>
-    <slot access="public">showPopupReq(QListViewItem *, const QPoint &amp;, int)</slot>
-    <slot access="public">showPopupTemp(QListViewItem *, const QPoint &amp;, int)</slot>
-    <slot access="public">writeCert()</slot>
-    <slot access="public">writeCrl()</slot>
-    <slot access="public">writeKey()</slot>
-    <slot access="public">writeReq()</slot>
 </connections>
 <tabstops>
     <tabstop>MainTab</tabstop>
-    <tabstop>genNewKey</tabstop>
-    <tabstop>exportKey</tabstop>
-    <tabstop>importKey</tabstop>
-    <tabstop>detailsKey</tabstop>
-    <tabstop>renameKey</tabstop>
+    <tabstop>BNnewKey</tabstop>
+    <tabstop>BNexportKey</tabstop>
+    <tabstop>BNimportKey</tabstop>
+    <tabstop>BNdetailsKey</tabstop>
+    <tabstop>BNdeleteKey</tabstop>
     <tabstop>PushButton13</tabstop>
     <tabstop>PushButton46</tabstop>
     <tabstop>PushButton25</tabstop>
@@ -1204,7 +977,6 @@
     <tabstop>PushButton25_2</tabstop>
     <tabstop>PushButton26_2</tabstop>
     <tabstop>PushButton18</tabstop>
-    <tabstop>tempList</tabstop>
     <tabstop>PushButton13_2_2</tabstop>
     <tabstop>PushButton13_2_2_2</tabstop>
     <tabstop>PushButton13_2_2_3</tabstop>
