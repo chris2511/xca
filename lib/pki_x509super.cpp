@@ -75,6 +75,7 @@ int pki_x509super::verify()
 
 pki_key *pki_x509super::getPubKey()
 {
+	 printf("ERROR VIRTUAL");
 	 return NULL;
 }
 

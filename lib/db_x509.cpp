@@ -50,7 +50,7 @@
 
 
 #include "db_x509.h"
-#define FOR_container for (pki_x509 *pki = (pki_x509 *)container.first(); \
+#define FOR_ctr(container) for (pki_x509 *pki = (pki_x509 *)container.first(); \
                         pki != 0; pki = (pki_x509 *)container.next() ) 
 			
 
@@ -73,18 +73,18 @@ pki_x509 *db_x509::findSigner(pki_x509 *client)
 	if ((signer = client->getSigner()) != NULL) return signer;
 	// first check for self-signed
 	if (client->verify(client)) {
-		return signer;
+		return client;
 	}
-	FOR_container
+	FOR_ctr(container)
 		if (client->verify(pki)) 
-			return signer;
+			return pki;
 	return NULL;
 }
 
 QStringList db_x509::getPrivateDesc()
 {
 	QStringList x;
-	FOR_container
+	FOR_ctr(container)
 		if (pki->getRefKey())
 			x.append(pki->getIntName());	
 	return x;
@@ -93,7 +93,7 @@ QStringList db_x509::getPrivateDesc()
 QStringList db_x509::getSignerDesc()
 {
 	QStringList x;
-	FOR_container
+	FOR_ctr(container)
 		if (pki->canSign())
 			x.append(pki->getIntName());	
 	return x;
@@ -103,14 +103,15 @@ QStringList db_x509::getSignerDesc()
 void db_x509::remFromCont(pki_base *ref)
 {
         container.remove(ref);
-	FOR_container
+	FOR_ctr(container)
 		pki->delSigner((pki_x509 *)ref);
 	return;
 }
 
 void db_x509::preprocess()
 {
-	FOR_container {
+	QList<pki_base> conta = container;
+	FOR_ctr(conta) {
 		findSigner(pki);
 		findKey(pki);	
 	}
@@ -121,7 +122,7 @@ void db_x509::preprocess()
 
 void db_x509::calcEffTrust()
 {
-	FOR_container
+	FOR_ctr(container)
 		pki->calcEffTrust();
 }
 
@@ -132,7 +133,7 @@ void db_x509::insertPKI(pki_base *refpki)
 	pki_x509 *x = (pki_x509 *)refpki;
 	findSigner(x);
 	findKey(x);
-	FOR_container
+	FOR_ctr(container)
 		pki->verify(x);
 	calcEffTrust();
 }				
@@ -143,7 +144,7 @@ QList<pki_x509> db_x509::getIssuedCerts(const pki_x509 *issuer)
 	QList<pki_x509> c;
 	c.clear();
 	if (!issuer) return c;
-	FOR_container
+	FOR_ctr(container)
 		if (pki->getSigner() == issuer)
 			c.append(pki);
 	return c;
@@ -151,7 +152,7 @@ QList<pki_x509> db_x509::getIssuedCerts(const pki_x509 *issuer)
 
 pki_x509 *db_x509::getBySubject(const x509name &xname)
 {
-	FOR_container
+	FOR_ctr(container)
 		if ( pki->getSubject() ==  xname) 
 			return pki;
 	return NULL;
@@ -167,7 +168,7 @@ void db_x509::revokeCert(const x509rev &revok, const pki_x509 *iss)
 pki_x509 *db_x509::getByIssSerial(const pki_x509 *issuer, const a1int &a)
 {
 	if (!issuer ) return NULL;
-	FOR_container
+	FOR_ctr(container)
 		if ((pki->getSigner() == issuer) && (a == pki->getSerial()))
 			return pki;
 	return NULL;
@@ -175,7 +176,7 @@ pki_x509 *db_x509::getByIssSerial(const pki_x509 *issuer, const a1int &a)
 
 void db_x509::writeAllCerts(const QString fname, bool onlyTrusted)
 {
-       	FOR_container {
+       	FOR_ctr(container) {
 		if (onlyTrusted && pki->getTrust() != 2) continue;
 		pki->writeCert(fname.latin1(),true,true);
 	}
@@ -185,7 +186,7 @@ QList<pki_x509> db_x509::getCerts(bool onlyTrusted)
 {
 	QList<pki_x509> c;
 	c.clear();
-	FOR_container {
+	FOR_ctr(container) {
 		if (onlyTrusted && pki->getTrust() != 2) continue;
 		c.append(pki);
 	}
@@ -197,7 +198,7 @@ a1int db_x509::searchSerial(pki_x509 *signer)
 	a1int sserial, myserial; 
 	if (!signer) return sserial;
 	sserial = signer->getCaSerial();
-	FOR_container
+	FOR_ctr(container)
 		if (pki->getSigner() == signer)  {
 			myserial = pki->getSerial();
 			if (sserial < myserial ) {
@@ -207,4 +208,4 @@ a1int db_x509::searchSerial(pki_x509 *signer)
 	return sserial;
 }
 
-#undef FOR_container
+#undef FOR_ctr(container)

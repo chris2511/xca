@@ -1040,30 +1040,28 @@ void CertView::updateView()
         pki_x509 *signer;
         QListViewItem *parentitem;
         QListViewItem *current;
-        CERR("myUPDATE");
         QList<pki_base> container = db->getContainer();
 	if ( container.isEmpty() ) return;
         QList<pki_base> mycont = container;
         for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delLvi();
         int f=0;
         while (! mycont.isEmpty() ) {
-                CERR("-----------------------------------------------------------------Round "<< f++);
                 QListIterator<pki_base> it(mycont);
                 for ( ; it.current(); ++it ) {
                         pki = (pki_x509 *)it.current();
                         parentitem = NULL;
                         signer = pki->getSigner();
-                        if ((signer != pki) && (signer != NULL) && (viewState != 0)) // foreign signed
+			// foreign signed
+                        if ((signer != pki) && (signer != NULL) && (viewState != 0)) 
                                 parentitem = signer->getLvi();
-                        if (((parentitem != NULL) || (signer == pki) || (signer == NULL) || viewState == 0) && (pki->getLvi() == NULL )) {
+                        if (((parentitem != NULL) || (signer == pki) || (signer == NULL)
+				|| viewState == 0) && (pki->getLvi() == NULL )) {
                                 // create the listview item
                                 if (parentitem != NULL) {
                                         current = new QListViewItem(parentitem, pki->getIntName());
-                                        CERR("Adding as client: "<<pki->getIntName());
                                 }
                                 else {
                                         current = new QListViewItem(this, pki->getIntName());
-                                        CERR("Adding as parent: "<<pki->getIntName());
                                 }
                                 pki->setLvi(current);
                                 mycont.remove(pki);

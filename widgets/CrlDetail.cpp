@@ -52,6 +52,7 @@
 #include "CrlDetail.h"
 #include "MainWindow.h"
 #include "lib/pki_crl.h"
+#include "widgets/distname.h"
 #include <qlabel.h>
 #include <qtextview.h>
 #include <qlistview.h>
@@ -73,8 +74,32 @@ void CrlDetail::setCrl(pki_crl *crl)
 	pki_x509 *iss, *rev;
 	x509rev revit;
 	QListViewItem *current;
-	descr->setText(crl->getIntName());
 	iss = MainWindow::certs->getBySubject(crl->getIssuerName());
+        
+	// page 1
+	if (iss != NULL) {
+		issuerIntName->setText(iss->getIntName());
+		pki_key *key = iss->getPubKey();
+		if (crl->verify(key)) {
+			signCheck->setText(tr("Success"));
+	        }
+		delete key;
+	}
+	else {
+		issuerIntName->setText("Unknown Signer");
+                signCheck->setText(tr("Failed"));
+                signCheck->setDisabled(true);
+	}
+
+	descr->setText(crl->getIntName());
+        lUpdate->setText(crl->getLastUpdate().toPretty());
+        nUpdate->setText(crl->getNextUpdate().toPretty());
+        version->setText(crl->getVersion().toHex());
+	
+	// page 2
+	issuer->setX509name(crl->getIssuerName());
+	
+	// page 3
 	numc = crl->numRev();
 	for (i=0; i<numc; i++) {
 		revit = crl->getRev(i);
@@ -90,22 +115,7 @@ void CrlDetail::setCrl(pki_crl *crl)
                 current->setText(1, revit.getSerial().toHex()) ;
                 current->setText(2, revit.getDate().toSortable());
         }
+
+	// page 4
         v3Extensions->setText(crl->printV3ext());
-        if (iss != NULL) {
-		issuer->setText(iss->getIntName());
-		pki_key *key = iss->getPubKey();
-		if (crl->verify(key)) {
-			signCheck->setText(tr("Success"));
-	        }
-		delete key;
-	}
-	else {
-		issuer->setText("Unknown Signer");
-                signCheck->setText(tr("Failed"));
-                signCheck->setDisabled(true);
-	}
-		
-        lUpdate->setText(crl->getLastUpdate().toPretty());
-        nUpdate->setText(crl->getNextUpdate().toPretty());
-        version->setText(crl->getVersion().toHex());
 }

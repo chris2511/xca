@@ -65,6 +65,10 @@ CrlView::CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 }
 
 
+void CrlView::dlg_showCert(QListViewItem *i)
+{
+	emit showCert(i);
+}					 
 
 void CrlView::showItem(pki_base *item, bool import)
 {
@@ -73,8 +77,8 @@ void CrlView::showItem(pki_base *item, bool import)
 	CrlDetail *dlg = new CrlDetail(this,0,true);
 	dlg->setCrl((pki_crl *)item);
 	// to be moved to Mainwindow.cpp:
-	//connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
-	//	this, SLOT( showCert(QListViewItem *) ));
+	connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
+		this, SLOT( dlg_showCert(QListViewItem *) ));
 	QString odesc = item->getIntName();
 	bool ret = dlg->exec();
 	QString ndesc = dlg->descr->text();

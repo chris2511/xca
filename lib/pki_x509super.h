@@ -66,8 +66,8 @@ class pki_x509super : public pki_base
 	   pki_x509super();
 	   ~pki_x509super();
 	   virtual x509name getSubject();
-	   int verify();
-	   pki_key *getPubKey();
+	   virtual int verify();
+	   virtual pki_key *getPubKey();
 	   pki_key *getRefKey() const ;
 	   void setRefKey(pki_key *ref);
 	   void delRefKey(pki_key *ref);

@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>534</width>
-            <height>381</height>
+            <width>604</width>
+            <height>481</height>
         </rect>
     </property>
     <property stdset="1">
@@ -523,7 +523,7 @@
                                 <class>QLabel</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>issuer</cstring>
+                                    <cstring>issuerIntName</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>sizePolicy</name>
@@ -903,7 +903,35 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Revokation list</string>
+                    <string>&amp;Issuer</string>
+                </attribute>
+                <vbox>
+                    <property stdset="1">
+                        <name>margin</name>
+                        <number>11</number>
+                    </property>
+                    <property stdset="1">
+                        <name>spacing</name>
+                        <number>6</number>
+                    </property>
+                    <widget>
+                        <class>DistName</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>issuer</cstring>
+                        </property>
+                    </widget>
+                </vbox>
+            </widget>
+            <widget>
+                <class>QWidget</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>tab</cstring>
+                </property>
+                <attribute>
+                    <name>title</name>
+                    <string>&amp;Revokation list</string>
                 </attribute>
                 <vbox>
                     <property stdset="1">
@@ -931,7 +959,7 @@
                 <class>QWidget</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>tab</cstring>
+                    <cstring>unnamed</cstring>
                 </property>
                 <attribute>
                     <name>title</name>
@@ -1239,6 +1267,28 @@
         </widget>
     </vbox>
 </widget>
+<customwidgets>
+    <customwidget>
+        <class>DistName</class>
+        <header location="local">distname.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+</customwidgets>
+<images>
+    <image>
+        <name>image0</name>
+        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
+    </image>
+</images>
 <connections>
     <connection>
         <sender>but_ok</sender>

@@ -64,17 +64,23 @@ dist:
 	./mkxcapro.sh; lrelease xca.pro; \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec; \
 	cat lib/base.h.win |sed s/VERSION/$(TVERSION)/g >lib/base.h; \
-	mv xca.nsi xca.nsi.tmp; cat xca.nsi.tmp |sed s/VERSION/$(TVERSION)/g >xca.nsi; \
-	rm -rf xca.nsi.tmp rpm/xca.spec autom4te.cache; \
-	cd doc; linuxdoc -B html xca.sgml; )
+	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi; \
+	rm -rf misc/xca.nsi rpm/xca.spec autom4te.cache; \
+	cd doc; linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; )
 	tar zcf $(TARGET).tar.gz $(TARGET) 
 	#rm -rf ../$(TARGET)
 	
 install: xca
 	strip xca
-	install -m 755 -o root -d $(prefix)@prefix@/share/xca $(prefix)@prefix@/bin
-	install -m 755 -o root xca $(prefix)@prefix@/bin
-	install -m 644 -o root img/*.png $(prefix)@prefix@/share/xca
-	install -m 644 -o root xca_??.qm $(prefix)@prefix@/share/xca
+	install -m 755 -d $(prefix)@prefix@/share/xca $(prefix)@prefix@/bin
+	install -m 755 xca $(prefix)@prefix@/bin
+	install -m 644 img/*.png $(prefix)@prefix@/share/xca
+	if test -d $(prefix)@prefix@/share/pixmaps; then \
+		install -m 644 img/key.xpm $(prefix)@prefix@/share/xca \
+	fi
+	if test -d $(prefix)@prefix@/share/applications; then \
+		install -m 644 img/key.xpm $(prefix)@prefix@/share/xca \
+	fi
+	install -m 644 lang/xca_??.qm $(prefix)@prefix@/share/xca
 
 .PHONY: $(SUBDIRS)

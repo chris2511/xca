@@ -90,6 +90,9 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	if (key && key->isPubKey()) {
 		key = NULL;
 	}
+	else {
+		ref->setRefKey(key);
+	}
 	if (refkey) delete(refkey);
 	return key;
 }

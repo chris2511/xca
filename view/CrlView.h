@@ -76,6 +76,10 @@ class CrlView : public XcaListView
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
 	void writeCrl_pem();
 	void writeCrl_der();
+   private slots:
+	void dlg_showCert(QListViewItem *i);
+   signals:
+	void showCert(QListViewItem *i);	
 };	
 
 #endif

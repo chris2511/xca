@@ -54,6 +54,7 @@
 #include <qmessagebox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
+#include <qlistview.h>
 #include "lib/pki_pkcs12.h"
 #include "view/KeyView.h"
 #include "view/ReqView.h"
@@ -102,6 +103,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( reqList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( certList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( tempList, SIGNAL(init_database()), this, SLOT(init_database()));
+	connect( crlList, SIGNAL(init_database()), this, SLOT(init_database()));
 
 	connect( BNnewKey, SIGNAL(clicked()), keyList, SLOT(newItem()));
 	connect( BNexportKey, SIGNAL(clicked()), keyList, SLOT(store()));
@@ -128,6 +130,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	
 	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
+	
+	connect( crlList, SIGNAL(showCert(QListViewItem *)), certList, SLOT(showItem(QListViewItem *)) );
 	
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
