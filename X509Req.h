@@ -20,10 +20,12 @@ class X509Req : public QObject
 		   const char *ou,const char *email,
 		   QObject *parent, const char *name = 0);
 	   X509Req(unsigned char *p, int size);
+	   X509Req(QString fname);
 	   char *openssl_error();
 	   void setDescription(QString d);
 	   QString description();
 	   unsigned char *getReq(int *size);
+	   char *getError();
 };
 
 #endif

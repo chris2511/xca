@@ -22,11 +22,13 @@ RSAkey::RSAkey(const QString d, int bits,
 
 
 RSAkey::RSAkey(EVP_PKEY *evpkey, QObject *parent=0, const char *name=0)
+	:QObject( parent, name)
 {
 
 	key = EVP_PKEY_get1_RSA(evpkey);
 	EVP_PKEY_free(evpkey);
 	desc="anonymous";
+	openssl_error();
 }
 
 

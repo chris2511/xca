@@ -83,6 +83,13 @@ unsigned char *X509Req::getReq(int *size)
 }
 
 
+char *X509Req::getError()
+{
+	char *x = error;
+	error = NULL;
+	return x;
+}
+
 
 	
 char *X509Req::openssl_error()
@@ -98,6 +105,31 @@ char *X509Req::openssl_error()
 	}
 	return error;
 }
+
+
+
+X509Req::X509Req(QString fname)
+{
+	FILE *fp = fopen(fname.latin1(),"r");
+	request = NULL;
+	if (fp != NULL) {
+	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
+	   if (!request) {
+		openssl_error();
+		rewind(fp);
+		printf("Fallback to privatekey DER\n"); 
+	   	request = d2i_X509_REQ_fp(fp, NULL);
+	   }
+	   int r = fname.findRev('.',-4);
+	   int l = fname.findRev('/');
+	   desc = fname.mid(l+1,r-l-1);
+	   if (desc.isEmpty()) desc=fname;
+	   openssl_error();
+	}	
+	else error = "Fehler beim Öffnen der Datei";
+	fclose(fp);
+}
+
 /*
 	FILE *fp = fopen("request.pem","w");
 	PEM_write_X509_REQ(fp,request);

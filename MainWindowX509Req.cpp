@@ -7,7 +7,6 @@ void MainWindow::newReq()
 	dlg->keyList->insertStringList(keys->getPrivateDesc());
 	if (! dlg->exec()) return;
 	RSAkey *key = keys->getSelectedKey(dlg->keyList->currentText());
-	cerr << "HIIIIEEER\n";
 	QString cn = dlg->commonName->text();
 	QString c = dlg->countryName->text();
 	QString l = dlg->localityName->text();
@@ -16,7 +15,6 @@ void MainWindow::newReq()
 	QString ou = dlg->organisationalUnitName->text();
 	QString email = dlg->emailAddress->text();
 	X509Req *req = new X509Req(key, cn.latin1(),c.latin1(),l.latin1(),st.latin1(),o.latin1(),ou.latin1(),email.latin1(), this);
-	cerr << "HIIIIEEER\n";
 	req->setDescription(dlg->description->text());
 	reqs->insertReq(req);
 }
@@ -30,22 +28,55 @@ void MainWindow::showDetailsReq()
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(req->request);
 	if ( X509_REQ_verify(req->request,pkey) <= 0) {
 	      	dlg->verify->setDisabled(true);
-		dlg->verify->setText("Fehlgeschlagen");
+		dlg->verify->setText("FEHLER");
 	}
-	RSAkey *key = new RSAkey(pkey);
-	RSAkey *existkey = keys->findPublicKey(key);
-	QColor *green = new QColor(0,192,0);
-	if (existkey)
-	   if (!existkey->onlyPubKey) {
-	      	dlg->privKey->setEnabled(true);
-		dlg->privKey->setText("vorhanden");
-	   }	
-	dlg->exec();
+	if (pkey) {
+	   RSAkey *key = new RSAkey(pkey);
+	   if (key);
+		dlg->keyPubEx->setText(key->pubEx());   
+		dlg->keyModulus->setText(key->modulus());   
+	   RSAkey *existkey = keys->findPublicKey(key);
+	   QColor *green = new QColor(0,192,0);
+	   if (existkey) {
+	        if (!existkey->onlyPubKey) {
+	       	   dlg->privKey->setEnabled(true);
+		   dlg->privKey->setText(existkey->description());
+	        }	
+	   }
+	}
+	if ( !dlg->exec()) return;
+	QString ndesc = dlg->descr->text();
+	if (ndesc != req->description()) {
+		reqs->updateReq(req, ndesc);
+	}
 }
 
 void MainWindow::deleteReq()
 {
 	X509Req *req = reqs->getSelectedReq();
 	reqs->deleteReq(req);
+}
+
+void MainWindow::loadReq()
+{
+	QStringList filt;
+	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
+	filt.append("Alle Dateien ( *.* )");
+	QString s;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption("Anfrage importieren");
+	dlg->setFilters(filt);
+	if (dlg->exec())
+		s = dlg->selectedFile();
+	if (s.isEmpty()) return;
+	X509Req *req = new X509Req(s);
+	QString errtxt;
+	if ((errtxt = req->getError()) != NULL) {
+		QMessageBox::warning(this,"Datei Fehler",
+			"Die Zertifikatsanfrage: '" + s +
+			"'\nkonnte nicht geladen werden:\n" + errtxt);
+		return;
+	}
+	reqs->insertReq(req);
 }
 

@@ -43,13 +43,14 @@ class MainWindow: public MainWindow_UI
 	MainWindow(QWidget *parent, const char *name);
 	~MainWindow(); 
 	void showDetailsKey(RSAkey *key);
-	void loadKey();
 	void writeKey();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static void incProgress(int a, int b, void *progress);
 	RSAkey* getSelectedKey();
    public slots:
+	virtual void loadKey();
+	virtual void loadReq();
 	virtual void newKey();
 	virtual void showDetailsKey();
 	virtual void deleteKey();
