@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>406</width>
+            <width>402</width>
             <height>500</height>
         </rect>
     </property>
@@ -332,26 +332,6 @@ it should be encrypted.</string>
         </property>
     </widget>
     <widget>
-        <class>QPushButton</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>PushButton9</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>280</x>
-                <y>450</y>
-                <width>108</width>
-                <height>32</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Cancel</string>
-        </property>
-    </widget>
-    <widget>
         <class>QLabel</class>
         <property stdset="1">
             <name>name</name>
@@ -380,10 +360,30 @@ it should be encrypted.</string>
         </property>
     </widget>
     <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>PushButton9</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>280</x>
+                <y>450</y>
+                <width>108</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Cancel</string>
+        </property>
+    </widget>
+    <widget>
         <class>QLabel</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>img</cstring>
+            <cstring>image</cstring>
         </property>
         <property stdset="1">
             <name>geometry</name>

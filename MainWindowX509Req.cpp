@@ -5,6 +5,7 @@ void MainWindow::newReq()
 {
 	NewX509Req_UI *dlg = new NewX509Req_UI(this,0,true,0);
 	dlg->keyList->insertStringList(keys->getPrivateDesc());
+	dlg->image->setPixmap(*csrImg);
 	if (! dlg->exec()) return;
 	pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
 	string cn = dlg->commonName->text().latin1();
@@ -56,6 +57,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	dlg->dnO->setText(req->getDN(NID_organizationName).c_str());
 	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).c_str());
 	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).c_str());
+	dlg->image->setPixmap(*csrImg);
 	if ( !dlg->exec()) return;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != req->getDescription()) {

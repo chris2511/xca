@@ -27,6 +27,7 @@ void MainWindow::newKey()
 	for (int i=0; sizeList[i] != 0; i++ ) 
 	   dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
 	dlg->keyLength->setCurrentItem(2);
+	dlg->image->setPixmap(*keyImg);
 	if (dlg->exec()) {
 	   int sel = dlg->keyLength->currentItem();
 	   QProgressDialog *progress = new QProgressDialog(
@@ -73,6 +74,8 @@ void MainWindow::showDetailsKey(pki_key *key)
 		key->modulus().c_str() );
 	detDlg->keyPrivEx->setText(
 		key->privEx().c_str() );
+
+	detDlg->image->setPixmap(*keyImg);
 
 	if ( !detDlg->exec()) return;
 	string ndesc = detDlg->keyDesc->text().latin1();
@@ -171,6 +174,7 @@ void MainWindow::writeKey()
 	dlg->exportFormat->insertItem("DER");
 	if (targetKey->isPrivKey())
 		dlg->exportFormat->insertItem("PKCS#8");
+	dlg->image->setPixmap(*keyImg);
 	if (!dlg->exec()) return;
 	string fname = dlg->filename->text().latin1();
 	if (fname == "") return;

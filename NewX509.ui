@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>777</width>
+            <width>773</width>
             <height>520</height>
         </rect>
     </property>
@@ -559,26 +559,6 @@
         <class>QLabel</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>img</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>650</x>
-                <y>10</y>
-                <width>100</width>
-                <height>47</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>scaledContents</name>
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
             <cstring>TextLabel10</cstring>
         </property>
         <property stdset="1">
@@ -595,6 +575,26 @@
             <string>For a new certificate you have to enter your personal data into the form and select a key to use.
 For signing a request, please select the appropriate Certificates igning request.
 For a SSL servercertificate choose the DNS name of the server</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>image</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>650</x>
+                <y>10</y>
+                <width>100</width>
+                <height>47</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>scaledContents</name>
+            <bool>true</bool>
         </property>
     </widget>
 </widget>

@@ -24,9 +24,12 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	keys = new db_key(dbenv, dbfile.latin1(), keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
 	certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
-	bigKey->setPixmap(*loadImg("bigkey.png"));
-	bigCsr->setPixmap(*loadImg("bigcsr.png"));
-	bigCert->setPixmap(*loadImg("bigcert.png"));
+	keyImg = loadImg("bigkey.png");
+	csrImg = loadImg("bigcsr.png");
+	certImg = loadImg("bigcert.png");
+	bigKey->setPixmap(*keyImg);
+	bigCsr->setPixmap(*csrImg);
+	bigCert->setPixmap(*certImg);
 };
 
 

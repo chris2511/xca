@@ -55,6 +55,7 @@ class MainWindow: public MainWindow_UI
 	db_key *keys;
 	DbEnv *dbenv;
 	db_base *settings;
+	QPixmap *keyImg, *csrImg, *certImg;
    public:
 	QString baseDir, dbfile;
 	static const int sizeList[];

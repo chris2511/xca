@@ -11,6 +11,7 @@ void MainWindow::newCert()
 	
 	// Step 1 - Subject and key
 	NewX509 *dlg1 = new NewX509(this, NULL, keys, reqs);
+	dlg1->image->setPixmap(*certImg);
 	if (! dlg1->exec()) return;
 	if (dlg1->fromDataRB->isChecked()) {
 	    key = (pki_key *)keys->getSelectedPKI(dlg1->keyList->currentText().latin1());
@@ -34,6 +35,7 @@ void MainWindow::newCert()
 		
 	// Step 2 - select Signing
 	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL, true ,0);
+	dlg2->image->setPixmap(*certImg);
 	QStringList strlist = certs->getPrivateDesc();
 	if (strlist.isEmpty()) {
 		dlg2->foreignSignRB->setDisabled(true);
@@ -71,6 +73,7 @@ void MainWindow::newCert()
 	
 	// Step 3 - Choose the Date and all the V3 extensions
 	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL, true ,0);
+	dlg3->image->setPixmap(*certImg);
 	if (! dlg3->exec()) return;
 	
 	// Date handling
@@ -155,6 +158,7 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	if (!cert) return;
 	if (opensslError(cert)) return;
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
+	dlg->image->setPixmap(*certImg);
 	dlg->descr->setText(cert->getDescription().c_str());
 	// examine the key
 	pki_key *key= (pki_key *)keys->findPKI(cert->getKey());

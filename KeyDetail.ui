@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>466</width>
+            <width>462</width>
             <height>408</height>
         </rect>
     </property>
@@ -129,26 +129,6 @@
         <property stdset="1">
             <name>text</name>
             <string>Public Exponent</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>img</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>350</x>
-                <y>10</y>
-                <width>100</width>
-                <height>47</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>scaledContents</name>
-            <bool>true</bool>
         </property>
     </widget>
     <widget>
@@ -283,6 +263,30 @@
         <property stdset="1">
             <name>text</name>
             <string></string>
+        </property>
+    </widget>
+    <widget>
+        <class>QPushButton</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>PushButton1</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>360</y>
+                <width>110</width>
+                <height>32</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>OK</string>
+        </property>
+        <property stdset="1">
+            <name>flat</name>
+            <bool>false</bool>
         </property>
     </widget>
     <widget>
@@ -552,30 +556,6 @@
         <class>QPushButton</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>PushButton1</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>360</y>
-                <width>110</width>
-                <height>32</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>OK</string>
-        </property>
-        <property stdset="1">
-            <name>flat</name>
-            <bool>false</bool>
-        </property>
-    </widget>
-    <widget>
-        <class>QPushButton</class>
-        <property stdset="1">
-            <name>name</name>
             <cstring>PushButton2</cstring>
         </property>
         <property stdset="1">
@@ -590,6 +570,26 @@
         <property stdset="1">
             <name>text</name>
             <string>Abbrechen</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>image</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>350</x>
+                <y>10</y>
+                <width>100</width>
+                <height>47</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>scaledContents</name>
+            <bool>true</bool>
         </property>
     </widget>
 </widget>
