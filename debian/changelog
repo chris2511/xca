@@ -1,3 +1,10 @@
+xca (0.3.1) unstable; urgency=low
+
+  * Tool Tips added
+  * CRL handling (import, export, details) added
+
+ -- Christian Hohnstädt <chris@trinity.local>  Thu, 24 Apr 2003 19:29:36 +0200
+
 xca (0.3.0) unstable; urgency=low
 
   * several bugfixes and memoryleaks removed
