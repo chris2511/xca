@@ -84,10 +84,8 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	X509_set_version(cert, 2);
 	openssl_error();
 	
-	ASN1_INTEGER_set(X509_get_serialNumber(cert), serial);
-
-	X509_gmtime_adj(X509_get_notBefore(cert),0);
-	X509_gmtime_adj(X509_get_notAfter(cert), (long)60*60*24*days);
+	setSerial(serial);
+	setDates(days);
 
 	/* Set up V3 context struct */
 	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
@@ -183,18 +181,35 @@ void pki_x509::init()
 	caTemplate = "";
 	crlDays = 30;
 	lastCrl = NULL;
-	className="pki_x509";
-	cert=NULL;
+	className = "pki_x509";
+	cert = NULL;
 }
 
+void pki_x509::setSerial(int serial)
+{
+	ASN1_INTEGER_set(X509_get_serialNumber(cert), serial);
+	openssl_error();
+}
 
+void pki_x509::setDates(int days)
+{
+	X509_gmtime_adj(X509_get_notBefore(cert),0);
+	X509_gmtime_adj(X509_get_notAfter(cert), (long)60*60*24*days);
+	openssl_error();
+}
+	
 void pki_x509::addV3ext(int nid, string exttext)
 {	
 	X509_EXTENSION *ext;
-	char c[200] = "";
-	if (exttext.length() == 0) return;
-	strncpy(c, exttext.c_str(), 200);
+	int len; 
+	char *c = NULL;
+	if ((len = exttext.length()) == 0) return;
+	len++;
+	c = (char *)OPENSSL_malloc(len);
+	openssl_error();
+	strncpy(c, exttext.c_str(), len);
 	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
+	OPENSSL_free(c);
 	if (!ext) {
 		string x="v3 Extension: " + exttext;
 		openssl_error(x);
@@ -209,12 +224,10 @@ bool pki_x509::canSign()
 {
 	BASIC_CONSTRAINTS *bc;
 	int crit;
-	if (!pkey) return false;
-	if (pkey->isPubKey()) return false;
+	if (!pkey || pkey->isPubKey()) return false;
 	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
 	openssl_error();
-	if (!bc) return true;	
-	if (!bc->ca) return false;
+	if (!bc || !bc->ca) return false;
 	return true;
 }
 	
@@ -231,6 +244,9 @@ bool pki_x509::hasSubAltName()
 	
 void pki_x509::sign(pki_key *signkey)
 {
+	if (!signkey) {
+		openssl_error("There is no key for signing !");
+	}
 	const EVP_MD *digest = EVP_md5();
 	X509_sign(cert, signkey->key, digest);
 	openssl_error();

@@ -322,6 +322,62 @@ void MainWindow::addStr(string &str, const  char *add)
 	str += add;
 }
 
+void MainWindow::extendCert()
+{
+	pki_x509 *oldcert = NULL, *signer = NULL, *newcert =NULL;
+	pki_key *signkey = NULL;
+	int serial, days, x;
+	try {
+		CertExtend_UI *dlg = new CertExtend_UI(this, NULL);
+		dlg->image->setPixmap(*certImg);
+		if (!dlg->exec()) {
+			delete dlg;
+			return;
+		}
+		oldcert = (pki_x509 *)certs->getSelectedPKI();
+		if (!oldcert || !(signer = oldcert->getSigner()) || !(signkey = signer->getKey()) || signkey->isPubKey()) return;
+		newcert = new pki_x509(oldcert);
+		serial = signer->getIncCaSerial();
+		
+		// get signers own serial to avoid having the same
+		if (serial == atoi(signer->getSerial().c_str())) { // FIXME: anybody tell me the string method for this ?
+			serial = signer->getIncCaSerial(); // just take the next one
+		}
+		certs->updatePKI(signer);  // not so pretty ....
+		CERR("serial is: " << serial );
+		
+		// Date handling
+		x = dlg->validNumber->text().toInt();
+		days = dlg->validRange->currentItem();
+		if (days == 1) x *= 30;
+		if (days == 2) x *= 365;
+		
+		// change date and serial
+		newcert->setSerial(serial);
+		newcert->setDates(x); // now and now + x days
+
+		if (newcert->resetTimes(signer) > 0) {
+			if (QMessageBox::information(this,tr(XCA_TITLE),
+				tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
+				tr("Continue creation"), tr("Abort")
+			))
+				throw errorEx("");
+		}
+		
+		
+		// and finally sign the request 
+		newcert->sign(signkey);
+		CERR( "SIGNED");
+		insertCert(newcert);
+		CERR("inserted");
+		delete dlg;
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+}
+		
+	
 void MainWindow::showDetailsCert()
 {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
@@ -706,7 +762,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		itemTemplate = subCa->insertItem(tr("Signing Template"), this, SLOT(setTemplate()));
 		subCa->insertItem(tr("Generate CRL"), this, SLOT(genCrl()));
 		menu->insertSeparator();
-		itemExtend = menu->insertItem(tr("Extend"));
+		itemExtend = menu->insertItem(tr("Renewal"), this, SLOT(extendCert()));
 		if (cert) {
 			if (cert->isRevoked()) {
 				itemRevoke = menu->insertItem(tr("Unrevoke"), this, SLOT(unRevoke()));

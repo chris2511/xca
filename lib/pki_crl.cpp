@@ -97,10 +97,15 @@ void pki_crl::addRevoked(const pki_x509 *client)
 void pki_crl::addV3ext(int nid, string exttext)
 { 
 	X509_EXTENSION *ext;
-	char c[200] = "";
-	if (exttext.length() == 0) return;
-	strncpy(c, exttext.c_str(), 200);
+	int len; 
+	char *c = NULL;
+	if ((len = exttext.length()) == 0) return;
+	len++;
+	c = (char *)OPENSSL_malloc(len);
+	openssl_error();
+	strncpy(c, exttext.c_str(), len);
 	ext =  X509V3_EXT_conf_nid(NULL, &ctx, nid, c);
+	OPENSSL_free(c);
 	if (!ext) {
 		string x="CRL v3 Extension: " + exttext;
 		openssl_error(x);

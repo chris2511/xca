@@ -62,6 +62,7 @@
 #include "NewKey.h"
 #include "NewX509.h"
 #include "NewX509_UI.h"
+#include "CertExtend.h"
 #include "TrustState.h"
 #include "ExportKey.h"
 #include <iostream>
@@ -201,6 +202,7 @@ class MainWindow: public MainWindow_UI
 	void toRequest();
 	void setPath(QFileDialog *dlg);
 	void newPath(QFileDialog *dlg);
+	void extendCert();
    signals:
 	void keyDone(QString name);
 };

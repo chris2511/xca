@@ -124,6 +124,8 @@ class pki_x509 : public pki_base
 	   int resetTimes(pki_x509 *signer);
 	   bool hasSubAltName();
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);
+	   void setDates(int days);
+	   void setSerial(int serial);
 };
 
 #endif

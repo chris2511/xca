@@ -122,7 +122,7 @@ pki_temp::pki_temp(const string d, int atype)
 	subAltCp=false;
 	issAltCp=false;
 	pathLen=0;
-	validN=356;
+	validN=365;
 	validM=0;
 	keyUse=0;
 	eKeyUse=0;

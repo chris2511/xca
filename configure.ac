@@ -12,7 +12,7 @@ if test -d "$QTDIR" ; then
 	export LDFLAGS="$LDFLAGS -L$QTDIR/lib"
 	AC_MSG_NOTICE([Using QT in $QTDIR....])
 else
-	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include"
+	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include -I/usr/X11R6/include"
 	export LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
 	AC_MSG_NOTICE([QTDIR was not set, using system locations])
 fi

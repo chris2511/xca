@@ -18,7 +18,7 @@ UIC=@UIC@
 
 ###################################
 
-UINAMES=CertDetail ExportKey_UI KeyDetail MainWindow_UI NewKey NewX509_UI PassRead PassWrite ReqDetail TrustState
+UINAMES=CertDetail ExportKey_UI KeyDetail MainWindow_UI NewKey NewX509_UI PassRead PassWrite ReqDetail TrustState CertExtend
 
 MOCNAMES=NewX509 ExportKey MainWindow $(UINAMES)
      
