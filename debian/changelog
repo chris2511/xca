@@ -1,3 +1,16 @@
+xca (0.4.7-RC2-1) unstable; urgency=low
+
+  * open db if explicit mentioned, otherwise do not.
+  * Errormessage on a wrong pkcs12 password more comprehensive
+  * postinst and  postrm do update-menu
+  * search more intensive for the CRL signer
+  * add /etc/xca/nid.txt to OID search path
+  * debian build enhanced, lintian satisfied, manpage added.
+  * AuthorityInfoAccess enhanced "aia.txt" as oid list added
+  * allow empty passwords on PKCS#12 import
+
+ -- Christian Hohnstaedt <christian@hohnstaedt.de>  Sat, 17 Apr 2004 00:08:31 +0200
+
 xca (0.4.7-RC1-1) unstable; urgency=low
 
   * debian menu-entry added
@@ -14,9 +27,8 @@ xca (0.4.7-RC1-1) unstable; urgency=low
     now read from eku.txt and dn.txt respectively.
   * About dialog and help window added.
   * Requestdetail is now tabdialog
-  * 
 
- -- Christian Hohnstaedt <christian@hohnstaedt.de>  Thu, 25 Mar 2004 10:07:10 +0100
+ -- Christian Hohnstaedt <christian@hohnstaedt.de>  Fri, 16 Apr 2004 23:51:56 +0200
 
 xca (0.4.6) unstable; urgency=low
 
