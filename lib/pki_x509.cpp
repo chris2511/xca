@@ -154,7 +154,9 @@ void pki_x509::setNotBefore(const a1time &a1)
 	if (X509_get_notBefore(cert) != NULL ) {
 		ASN1_TIME_free(X509_get_notBefore(cert));
 	}
-	X509_get_notBefore(cert) = a1.get();
+	X509_get_notBefore(cert) = a1.get_utc();
+	if (X509_get_notBefore(cert) == NULL)
+		X509_get_notBefore(cert) = a1.get();
 	openssl_error();
 }
 
@@ -163,7 +165,9 @@ void pki_x509::setNotAfter(const a1time &a1)
 	if (X509_get_notAfter(cert) != NULL ) {
 		ASN1_TIME_free(X509_get_notAfter(cert));
 	}
-	X509_get_notAfter(cert) = a1.get();
+	X509_get_notAfter(cert) = a1.get_utc();
+	if (X509_get_notAfter(cert) == NULL)
+		X509_get_notAfter(cert) = a1.get();
 	openssl_error();
 }
 

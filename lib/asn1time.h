@@ -57,10 +57,11 @@
 class a1time
 {
    private:	
-	ASN1_GENERALIZEDTIME *time;
+	ASN1_TIME *time;
 #if OPENSSL_VERSION_NUMBER < 0x00907000L
 	ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out);
 #endif
+	ASN1_UTCTIME *toUTCtime() const;
    public:
 	a1time();
 	a1time(const ASN1_TIME *a);
@@ -76,6 +77,7 @@ class a1time
 	int ymdg(int *y, int *m, int *d, int *g) const;
 	int a1time::ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const;
 	ASN1_TIME *get() const;
+	ASN1_TIME *get_utc() const;
 	a1time &now(int delta = 0);
 	unsigned char *i2d(unsigned char *p);
 	unsigned char *d2i(unsigned char *p, int size);
