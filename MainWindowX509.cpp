@@ -138,7 +138,14 @@ void MainWindow::newCert(pki_temp *templ)
 	// initially create cert 
 	cert = new pki_x509(req->getDescription(), clientkey, req, signcert, x, serial);
 	if (opensslError(cert)) goto err;
-	
+	if (cert->resetTimes(signcert) > 0) {
+		QMessageBox::information(this,tr(XCA_TITLE),
+			tr("The validity times for the certificate were adjusted to not exceed those of the signer"),
+			tr("Ok")
+		);
+		
+	}
+			
 	// handle extensions
 	// basic constraints
 	if (dlg->bcCritical->isChecked()) constraints = "critical,";

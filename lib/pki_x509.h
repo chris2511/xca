@@ -120,6 +120,7 @@ class pki_x509 : public pki_base
 	   void setCrlDays(int s);
 	   int getCrlDays();
 	   void setLastCrl(ASN1_TIME *time);
+	   int resetTimes(pki_x509 *signer);
 };
 
 #endif

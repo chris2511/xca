@@ -86,6 +86,7 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 
 	/* Set up V3 context struct */
 	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
+	X509V3_set_ctx_nodb((&ext_ctx))
 
 	trust = 2;
 	efftrust = 2;
@@ -467,6 +468,27 @@ int pki_x509::checkDate()
 		return 1;
 }
 
+int pki_x509::resetTimes(pki_x509 *signer)
+{
+	int ret = 0;
+	if (!signer) return -1;
+	if (ASN1_STRING_cmp(X509_get_notAfter(cert), X509_get_notAfter(signer->cert)) == 1) {
+		// client cert is longer valid....
+		CERR("adjust notAfter");
+		if (X509_get_notAfter(cert)) ASN1_TIME_free(X509_get_notAfter(cert));
+		X509_get_notAfter(cert) = M_ASN1_TIME_dup(X509_get_notAfter(signer->cert));
+		ret=1;
+	}
+	if (ASN1_STRING_cmp(X509_get_notBefore(cert), X509_get_notBefore(signer->cert)) == -1) {
+		// client cert is longer valid....
+		CERR("adjust notBefore");
+		if (X509_get_notBefore(cert)) ASN1_TIME_free(X509_get_notBefore(cert));
+		X509_get_notBefore(cert) = M_ASN1_TIME_dup(X509_get_notBefore(signer->cert));
+		ret=2;
+	}
+	return ret;
+}
+	
 
 pki_x509 *pki_x509::getSigner() { return (psigner); }
 pki_key *pki_x509::getKey() { return (pkey); }

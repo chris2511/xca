@@ -59,7 +59,11 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB)
 	data = new Db(dbe, 0);
 	CERR("DB:" << DBfile);
 	int x;
+#if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
+	if (( x = data->open(NULL, DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
+#else
 	if (( x = data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
+#endif
 		data->err(x,"DB open");
 }
 
