@@ -659,7 +659,7 @@
 PEM is a base64 encoded Certificate
 PKCS#7 is an official Certificate exchange format
 PKCS#12 is an encrypted official Key-Certificate exchange format</source>
-        <translation>DER ist ein Binärformat des Zertifikats
+        <translation type="obsolete">DER ist ein Binärformat des Zertifikats
 PEM ist ein base64 codiertes Zertifikat
 PKCS#7 ist ein offizielles Zertifikatsaustauschformat
 PKCS#12 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</translation>
@@ -673,7 +673,19 @@ PKCS#12 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel<
         <translation>Exportformat</translation>
     </message>
     <message>
-        <source>ExportCert_UI</source>
+        <source>DER is a binary format of the Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PEM is a base64 encoded Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#7 is an official Certificate exchange format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#12 is an encrypted official Key-Certificate exchange format</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

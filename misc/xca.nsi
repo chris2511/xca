@@ -1,3 +1,4 @@
+
 ; xca.nsi
 ;
 ; This is the .nsi script for creating the nullsoft windows installer
@@ -47,6 +48,8 @@ Section "xca (required)"
   File "misc\dn.txt"
   File "misc\eku.txt"
   File "misc\oids.txt"
+  File "misc\aia.txt"
+  File "lang\*.qm"
   File "img\bigcert.png"
   File "img\bigcrl.png"
   File "img\bigcsr.png"
@@ -105,6 +108,10 @@ Section "Uninstall"
   Delete $INSTDIR\*.dll
   Delete $INSTDIR\*.ico
   Delete $INSTDIR\*.xpm
+  Delete $INSTDIR\*.log
+  Delete $INSTDIR\*.txt
+  Delete $INSTDIR\*.qm
+  Delete $INSTDIR\*.html
   ; MUST REMOVE UNINSTALLER, too
   Delete $INSTDIR\uninstall.exe
   RMDir $INSTDIR

@@ -580,10 +580,6 @@
         <translation type="unfinished">Cancelar</translation>
     </message>
     <message>
-        <source>ExportCert_UI</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Certificate export</source>
         <translation type="unfinished"></translation>
     </message>
@@ -604,18 +600,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>DER is a binary format of the Certificate
-PEM is a base64 encoded Certificate
-PKCS#7 is an official Certificate exchange format
-PKCS#12 is an encrypted official Key-Certificate exchange format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Export Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DER is a binary format of the Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PEM is a base64 encoded Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#7 is an official Certificate exchange format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#12 is an encrypted official Key-Certificate exchange format</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
