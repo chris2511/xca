@@ -49,15 +49,15 @@
  */                           
 
 
+#ifndef DB_X509_H
+#define DB_X509_H
+
 #include <qlistview.h>
 #include <qpixmap.h>
 #include "db_key.h"
 #include "db_x509super.h"
 #include "pki_x509.h"
 #include "pki_crl.h"
-
-#ifndef DB_X509_H
-#define DB_X509_H
 
 
 class db_x509: public db_x509super
@@ -82,9 +82,10 @@ class db_x509: public db_x509super
 	QList<pki_x509> getIssuedCerts(pki_x509 *issuer);
 	QList<pki_x509> getCerts(bool onlyTrusted);
 	pki_x509 *getBySubject(x509name *xname);
-	int searchSerial(pki_x509 *signer);
+	a1int searchSerial(pki_x509 *signer);
 	void writeAllCerts(QString fname, bool onlyTrusted);
-	pki_x509 *getByIssSerial(pki_x509 *iss, long serial);
+	pki_x509 *getByIssSerial(pki_x509 *iss, a1int &serial);
+	pki_x509 *getBySubject(const x509name &xname);
 };
 
 #endif

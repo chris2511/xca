@@ -75,7 +75,7 @@ class pki_x509req : public pki_x509super
 	   void writeReq(const string fname, bool PEM);
 	   int verify();
 	   pki_key *getPubKey();
-	   void createReq(pki_key &key, x509name &dist_name);
+	   void createReq(pki_key *key, x509name &dist_name);
 };
 
 #endif

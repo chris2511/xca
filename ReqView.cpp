@@ -92,16 +92,10 @@ void ReqView::newItem(pki_temp *temp)
 		return;
 	}
 	try {
-		pki_key *key = MainWindow::getKeyByName(dlg->keyList->currentText());
-		string cn = dlg->commonName->text().latin1();
-		string c = dlg->countryName->text().latin1();
-		string l = dlg->localityName->text().latin1();
-		string st = dlg->stateOrProvinceName->text().latin1();
-		string o = dlg->organisationName->text().latin1();
-		string ou = dlg->organisationalUnitName->text().latin1();
-		string email = dlg->emailAddress->text().latin1();
-		string desc = dlg->description->text().latin1();
-		pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, "");
+		pki_key *key = dlg->getSelectedKey();
+		x509name xn = dlg->getX509name();
+		pki_x509req *req = new pki_x509req();
+		req->createReq(key, xn);
 		insert(req);
 	}
 	catch (errorEx &err) {
@@ -123,20 +117,19 @@ void ReqView::show(pki_base *item, bool import)
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("ERROR");
 	}
-	pki_key *key =req->getKey();
-	if (key)
-	    if(key->isPrivKey()) {
-		dlg->privKey->setText(key->getDescription().c_str());
+	pki_key *key =req->getRefKey();
+	if (key) {
+		dlg->privKey->setText(key->getIntName());
 		dlg->privKey->setDisabled(false);
 	}
-	string land = req->getDN( NID_countryName) + " / " 
-		+ req->getDN(NID_stateOrProvinceName);
-	dlg->dnCN->setText(req->getDN(NID_commonName).c_str() );
-	dlg->dnC->setText(land.c_str());
-	dlg->dnL->setText(req->getDN(NID_localityName).c_str());
-	dlg->dnO->setText(req->getDN(NID_organizationName).c_str());
-	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).c_str());
-	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).c_str());
+	x509name rn = req->getSubject();
+	dlg->dnCN->setText(rn.getEntryByNid(NID_commonName));
+	dlg->dnC->setText(rn.getEntryByNid(NID_countryName)  + " / "
+		+ rn.getEntryByNid(NID_stateOrProvinceName));
+	dlg->dnL->setText(rn.getEntryByNid(NID_localityName));
+	dlg->dnO->setText(rn.getEntryByNid(NID_organizationName));
+	dlg->dnOU->setText(rn.getEntryByNid(NID_organizationalUnitName));
+	dlg->dnEmail->setText(rn.getEntryByNid(NID_pkcs9_emailAddress));
 	dlg->image->setPixmap(*MainWindow::csrImg);
 	// rename the buttons in case of import 
 	if (import) {
@@ -301,8 +294,8 @@ void ReqView::updateViewItem(pki_base *pki)
         int pixnum = 0;
         QListViewItem *current = pki->getLvi();
         if (!current) return;
-	if (((pki_x509req *)pki)->getKey() != NULL ) pixnum += 1;	
+	if (((pki_x509req *)pki)->getRefKey() != NULL ) pixnum += 1;	
 	current->setPixmap(0, *reqicon[pixnum]);
-	current->setText(1, ((pki_x509req *)pki)->getDN(NID_commonName).c_str());
+	current->setText(1, ((pki_x509req *)pki)->getSubject().getEntryByNid(NID_commonName));
 }
 

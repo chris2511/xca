@@ -71,8 +71,9 @@ class a1int
 	unsigned char *i2d(unsigned char *p);
 	int derSize();
 
-	void operator ++ (void);
-	void operator = (const a1int &a);
+	a1int operator ++ (void);
+	a1int operator = (const a1int &a);
+	a1int operator = (long i);
 	bool const operator > (const a1int &a);
 	bool const operator < (const a1int &a);
 	bool const operator == (const a1int &a);

@@ -110,17 +110,25 @@ long a1int::getLong()
 	return ASN1_INTEGER_get(in);
 }
 
-void a1int::operator ++ (void)
+a1int a1int::operator ++ (void)
 {
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
 	BN_add(bn, bn, BN_value_one());
 	BN_to_ASN1_INTEGER(bn, in);
 	OPENSSL_free(bn);
+	return *this;
 }
 
-void a1int::operator = (const a1int &a)
+a1int a1int::operator = (const a1int &a)
 {
 	set(a.in);
+	return *this;
+}
+
+a1int a1int::operator = (long i)
+{
+	ASN1_INTEGER_set(in, i);
+	return *this;
 }
 
 bool const a1int::operator > (const a1int &a)

@@ -74,7 +74,7 @@ pki_key *pki_x509super::getPubKey()
 	 return NULL;
 }
 
-pki_key *pki_x509super::getRefKey()
+pki_key *pki_x509super::getRefKey() const 
 {
 	return privkey;
 }

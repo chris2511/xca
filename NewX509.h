@@ -88,7 +88,8 @@ class NewX509: public NewX509_UI
 	void int2lb(QListBox *lb, int x);
 	void templateChanged(pki_temp *templ);
 	void templateChanged(QString templatename);
-
+	pki_key *getSelectedKey();
+	x509name getX509name();
    public slots:
 	void toggleFromRequest();
    	void newKey();

@@ -62,18 +62,18 @@ pki_x509req::pki_x509req()
 	openssl_error();
 }
 
-void pki_x509req::createReq(pki_key &key, x509name &dist_name)
+void pki_x509req::createReq(pki_key *key, x509name &dist_name)
 {
-	if (key.isPubKey()) {
+	if (key->isPubKey()) {
 		openssl_error("key not valid");
 		return;
 	}
 	openssl_error();
 	X509_REQ_set_version(request, 0L);
-	X509_REQ_set_pubkey(request, key.getKey());
+	X509_REQ_set_pubkey(request, key->getKey());
 	X509_REQ_get_subject_name(request) = dist_name.get();
 	openssl_error();
-	X509_REQ_sign(request,key.getKey() , EVP_md5());
+	X509_REQ_sign(request,key->getKey() , EVP_md5());
 	openssl_error();
 }
 

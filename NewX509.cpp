@@ -62,6 +62,8 @@
 #include <qpushbutton.h>
 #include <qvalidator.h>
 #include <qbuttongroup.h>
+#include "MainWindow.h"
+#include "lib/x509name.h"
 
 NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *req, db_x509 *cert, db_temp *temp, QPixmap *image, QPixmap *ns)
 	:NewX509_UI(parent, name, true, 0)
@@ -517,4 +519,22 @@ void NewX509::newKeyDone(QString name)
 void NewX509::helpClicked()
 {
 	QWhatsThis::enterWhatsThisMode();
+}
+
+pki_key *NewX509::getSelectedKey()
+{
+	return MainWindow::getKeyByName(keyList->currentText());
+}
+
+x509name NewX509::getX509name()
+{
+	x509name x;
+	x.addEntryByNid(NID_commonName, commonName->text());
+	x.addEntryByNid(NID_countryName, countryName->text());
+	x.addEntryByNid(NID_localityName ,localityName->text());
+	x.addEntryByNid(NID_stateOrProvinceName, stateOrProvinceName->text());
+	x.addEntryByNid(NID_organizationName, organisationName->text());
+	x.addEntryByNid(NID_organizationalUnitName, organisationalUnitName->text());
+	x.addEntryByNid(NID_pkcs9_emailAddress, emailAddress->text());
+	return x;
 }

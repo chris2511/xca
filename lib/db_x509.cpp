@@ -55,22 +55,9 @@
 			
 
 db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid)
-		:db_base(dbe, DBfile, "certdb", tid)
+		:db_x509super(dbe, DBfile, "certdb", keyl, tid)
 {
-	keylist = keyl;
-	listView = l;
-	certicon[0] = loadImg("validcert.png");
-        certicon[1] = loadImg("validcertkey.png");
-        certicon[2] = loadImg("invalidcert.png");
-        certicon[3] = loadImg("invalidcertkey.png");
-	listView->addColumn(tr("Common Name"));
-	listView->addColumn(tr("Serial"));
-	listView->addColumn(tr("not After"));
-	listView->addColumn(tr("Trust state"));
-	listView->addColumn(tr("Revokation"));
 	loadContainer();
-	viewState=1; // Tree View
-	updateView();
 	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
 	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
 }
@@ -83,71 +70,21 @@ pki_x509 *db_x509::findSigner(pki_x509 *client)
 {
         pki_x509 *signer;
 	if ((signer = client->getSigner()) != NULL) return signer;
-	QListIterator<pki_base> it(container); 
+	// first check for self-signed
 	if (client->verify(client)) {
-		CERR("SELF signed");
 		return signer;
 	}
-	for ( ; it.current(); ++it ) {
-		signer = (pki_x509 *)it.current();
-		if (client->verify(signer)) {
-			CERR("SIGNER found");
+	FOR_container
+		if (client->verify(pki)) 
 			return signer;
-		}
-	}		
-	
 	return NULL;
-}
-
-bool db_x509::updateView()
-{
-        listView->clear();
-	listView->setRootIsDecorated(true);
-	pki_x509 *pki;
-	pki_base *pkib;
-	pki_x509 *signer;
-	QListViewItem *parentitem;
-	QListViewItem *current;
-	CERR("myUPDATE");
-	if ( container.isEmpty() ) return false;
-	QList<pki_base> mycont = container;
-	for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delPointer();
-	int f=0;
-	while (! mycont.isEmpty() ) {
-		CERR("-----------------------------------------------------------------Round "<< f++);
-		QListIterator<pki_base> it(mycont); 
-		for ( ; it.current(); ++it ) {
-			pki = (pki_x509 *)it.current();
-			parentitem = NULL;
-			signer = pki->getSigner();
-			if ((signer != pki) && (signer != NULL) && (viewState != 0)) // foreign signed
-				parentitem = (QListViewItem *)signer->getPointer();
-			if (((parentitem != NULL) || (signer == pki) || (signer == NULL) || viewState == 0) && (pki->getPointer() == NULL )) {
-				// create the listview item
-				if (parentitem != NULL) {
-					current = new QListViewItem(parentitem, pki->getDescription().c_str());	
-					CERR("Adding as client: "<<pki->getDescription().c_str());
-				}
-				else {
-					current = new QListViewItem(listView, pki->getDescription().c_str());	
-					CERR("Adding as parent: "<<pki->getDescription().c_str());
-				}
-				pki->setPointer(current);
-				mycont.remove(pki);
-				updateViewPKI(pki);
-				it.toFirst();
-			}
-		}
-				
-	}				
-	return true;
 }
 
 QStringList db_x509::getPrivateDesc()
 {
 	QStringList x;
 	FOR_container
-		if (pki->getKey())
+		if (pki->getRefKey())
 			x.append(pki->getIntName());	
 	return x;
 }
@@ -166,25 +103,16 @@ void db_x509::remFromCont(pki_base *ref)
 {
         container.remove(ref);
 	FOR_container
-		pki->delSigner(ref);
+		pki->delSigner((pki_x509 *)ref);
 	return;
 }
 
 void db_x509::preprocess()
 {
-	pki_x509 *pki;
-	CERR("preprocess X509");
-	if ( container.isEmpty() ) return ;
-	QListIterator<pki_base> iter(container); 
-	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
-		pki = (pki_x509 *)iter.current();
+	FOR_container {
 		findSigner(pki);
-		CERR("Signer of "<< pki->getDescription().c_str());
 		findKey(pki);	
-		CERR("Key of "<< pki->getDescription().c_str());
 	}
-	CERR("Signers and keys done ");
-	
 	calcEffTrust();
 	
 }
@@ -192,7 +120,6 @@ void db_x509::preprocess()
 
 void db_x509::calcEffTrust()
 {
-	// find the signer and the key of the certificate...
 	FOR_container
 		pki->calcEffTrust();
 }
@@ -205,7 +132,7 @@ void db_x509::insertPKI(pki_base *refpki)
 	findSigner(x);
 	findKey(x);
 	FOR_container
-		cert->verify(x);
+		pki->verify(x);
 	calcEffTrust();
 }				
 
@@ -217,21 +144,21 @@ QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer)
 	if (!issuer) return c;
 	FOR_container
 		if (pki->getSigner() == issuer)
-			c.append(cert);
+			c.append(pki);
 	return c;
 }
 
 pki_x509 *db_x509::getBySubject(const x509name &xname)
 {
 	FOR_container
-		if ( pki->getSubject ==  xname) 
+		if ( pki->getSubject() ==  xname) 
 			return pki;
 	return NULL;
 }
 
 pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, a1int &serial)
 {
-	if (!iss || serial == -1) return NULL;
+	if (!iss ) return NULL;
 	FOR_container
 		if ((pki->getSigner() == iss) && (serial == pki->getSerial()))
 			return pki;
@@ -240,7 +167,6 @@ pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, a1int &serial)
 
 void db_x509::writeAllCerts(QString fname, bool onlyTrusted)
 {
-	pki_x509 *cert = NULL;
        	FOR_container {
 		if (onlyTrusted && pki->getTrust() != 2) continue;
 		pki->writeCert(fname.latin1(),true,true);
@@ -262,7 +188,7 @@ a1int db_x509::searchSerial(pki_x509 *signer)
 {
 	if (!signer) return 0;
 	a1int sserial = signer->getCaSerial();
-	a1int oserial = 0;
+	a1int myserial;
 	FOR_container
 		if (pki->getSigner() == signer)  {
 			myserial = pki->getSerial();

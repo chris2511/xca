@@ -52,7 +52,7 @@
 
 #include "pki_x509.h"
 
-pki_x509::pki_x509(X509 *c) : pki_base()
+pki_x509::pki_x509(X509 *c) 
 {
 	init();
 	cert = c;
@@ -60,13 +60,12 @@ pki_x509::pki_x509(X509 *c) : pki_base()
 }
 
 pki_x509::pki_x509(const pki_x509 &crt) 
-	:pki_base(crt.desc)
 {
 	init();
 	cert = X509_dup(crt.cert);
 	openssl_error();
 	psigner = crt.psigner;
-	setKey(crt.pkey);
+	setRefKey(crt.getRefKey());
 	trust = crt.trust;
 	efftrust = crt.efftrust;
 	revoked = crt.revoked;
@@ -78,7 +77,7 @@ pki_x509::pki_x509(const pki_x509 &crt)
 	openssl_error();
 }
 
-pki_x509::pki_x509() : pki_base()
+pki_x509::pki_x509() 
 {
 	init();
 	cert = X509_new();
@@ -357,7 +356,7 @@ unsigned char *pki_x509::toData(int *size)
 		p1 = revoked.i2d(p1); // revokation date
 	}
 	// version 2
-	intToData(&p1, caSerial); // the serial if this is a CA
+	intToData(&p1, caSerial.getLong()); // the serial if this is a CA
 	stringToData(&p1, caTemplate); // the name of the template to use for signing
 	// version 3
 	intToData(&p1, crlDays); // the CRL period
@@ -499,23 +498,11 @@ int pki_x509::resetTimes(pki_x509 *signer)
 	
 
 pki_x509 *pki_x509::getSigner() { return (psigner); }
-pki_key *pki_x509::getKey() { return (pkey); }
-
-
-bool pki_x509::setKey(pki_key *key) 
+void pki_x509::delSigner(pki_x509 *s) 
 {
-	bool ret=false;
-	if (!pkey && key) {
-		X509_set_pubkey(cert, key->getKey());
-		pkey = key;
-		ret=true;
-	}
-	return ret;
+	if (s == psigner) 
+		psigner = NULL;
 }
-
-void pki_x509::delKey() { pkey = NULL; }
-
-void pki_x509::delSigner() { psigner=NULL; }
 
 string pki_x509::printV3ext()
 {
@@ -633,11 +620,11 @@ int pki_x509::calcEffTrust()
 	return mytrust;
 }
 
-int pki_x509::getIncCaSerial() { return caSerial++; }
+a1int pki_x509::getIncCaSerial() { return ++caSerial; }
 
-int pki_x509::getCaSerial() { return caSerial; }
+a1int pki_x509::getCaSerial() { return caSerial; }
 
-void pki_x509::setCaSerial(int s) { if (s>0) caSerial = s; }
+void pki_x509::setCaSerial(a1int s) { caSerial = s; }
 
 int pki_x509::getCrlDays() {return crlDays;}
 

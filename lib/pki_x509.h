@@ -57,10 +57,11 @@
 #include <openssl/pem.h>
 #include "pki_key.h"
 #include "pki_x509req.h"
+#include "pki_x509super.h"
 #include "asn1time.h"
 #include "asn1int.h"
 
-class pki_x509 : public pki_base
+class pki_x509 : public pki_x509super
 {
 	friend class pki_crl;
 	friend class db_x509;
@@ -71,7 +72,7 @@ class pki_x509 : public pki_base
 	   bool isrevoked;
 	   int trust;
 	   int efftrust;
-	   int caSerial;
+	   a1int caSerial;
 	   int crlDays;
 	   string caTemplate;
 	   X509 *cert;
@@ -100,12 +101,9 @@ class pki_x509 : public pki_base
 	   bool canSign();
 	   void writeCert(const string fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);
-	   pki_key *getKey();
 	   pki_key *getPubKey(); // will be created temporarily and must be freed
-	   void delKey();
-	   bool setKey(pki_key *key);
 	   pki_x509 *getSigner();
-	   void delSigner();
+	   void delSigner(pki_x509 *s);
 	   string fingerprint(const EVP_MD *digest);
 	   string printV3ext();
 	   int checkDate();
@@ -120,9 +118,9 @@ class pki_x509 : public pki_base
 	   void setRevoked(a1time &when);
 	   bool isRevoked();
 	   int calcEffTrust();
-	   int getIncCaSerial();
-	   int getCaSerial();
-	   void setCaSerial(int s);
+	   a1int getIncCaSerial();
+	   a1int getCaSerial();
+	   void setCaSerial(a1int s);
 	   void setTemplate(string s);
 	   string getTemplate();
 	   void setCrlDays(int s);
