@@ -52,7 +52,7 @@ bool KeyDB::insertKey(RSAkey *key)
 	int size=0;
 	unsigned char *p;
 	p = key->getKey(&size);
-	int cnt=1;
+	int cnt=0;
 	int x = DB_KEYEXIST;
 	while (x == DB_KEYEXIST) {
 	   Dbt k((void *)desc.latin1(), desc.length()+1);
@@ -61,15 +61,16 @@ bool KeyDB::insertKey(RSAkey *key)
 	
 	   if (x = data->put(NULL, &k, &d, DB_NODUPDATA | DB_NOOVERWRITE)) {
 		data->err(x,"DB Error put");
+	   	desc = orig + "_" + QString::number(++cnt);
 	   }
-	   desc = orig + "_" + QString::number(cnt++);
 	}
 	if (x != DB_KEYEXIST && x != 0) {
-	   data->err(x,"DB Error put");
-	   return false;
+	   data->err(x,"DB Error put TINE");
+	   //return false;
 	}
 	OPENSSL_free(p);
 	updateView();
+	key->setDescription(desc);
 	return true;
 }
 

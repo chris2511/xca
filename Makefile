@@ -12,7 +12,9 @@ OBJS=NewKeyDlg_UI.o NewKeyDlg_UI_MOC.o \
      PassRead_UI.o PassRead_UI_MOC.o \
      PassWrite_UI.o PassWrite_UI_MOC.o \
      ExportKey_UI.o ExportKey_UI_MOC.o \
+     NewX509Req_UI.o NewX509Req_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \
+     MainWindowKeys.o MainWindowX509Req.o \
      MainWindow.o MainWindow_MOC.o \
      RSAkey.o RSAkey_MOC.o \
      KeyDB.o KeyDB_MOC.o
@@ -21,7 +23,9 @@ all: $(OBJS) xca
 re: clean all
 
 MainWindow.h: MainWindow_UI.h KeyDetailDlg_UI.h \
-	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h
+	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
+	      NewX509Req_UI.h
+
 NewKeyDlg.h: NewKeyDlg_UI.h
 
 %.o: %.cpp
@@ -43,7 +47,10 @@ clean:
 	rm -rf *_MOC.cpp *_UI.h *_UI.cpp *~ *.o xca
 
 dist: clean
-	(cd ..; tar zcf xca-$(VERSION).tar.gz xca;)
+	(cd ..;\
+	 mv xca xca-$(VERSION); \
+	 tar zcf xca-$(VERSION).tar.gz xca-$(VERSION);\
+	 mv xca-$(VERSION) xca;)
 	
 install: xca
 	install -m 755 -o root -g root xca /usr/bin

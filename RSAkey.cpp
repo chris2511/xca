@@ -52,7 +52,10 @@ RSAkey::RSAkey(const QString fname, pem_password_cb *cb, QObject *parent=0, cons
 	        rewind(fp);
 	        printf("Fallback to PKCS#8 Private key\n"); 
 	        EVP_PKEY *evpkey = d2i_PKCS8PrivateKey_fp(fp, NULL, cb, NULL);
-	        key = EVP_PKEY_get1_RSA(evpkey);
+		if (evpkey) {
+		   key = EVP_PKEY_get1_RSA(evpkey);
+		   EVP_PKEY_free(evpkey);
+		}
 	   }
 	   int r = fname.findRev('.',-4);
 	   int l = fname.findRev('/');

@@ -89,6 +89,130 @@
                 <string>RSA Schlüssel</string>
             </attribute>
             <widget>
+                <class>QFrame</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>Frame4</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>320</x>
+                        <y>20</y>
+                        <width>230</width>
+                        <height>390</height>
+                    </rect>
+                </property>
+                <property stdset="1">
+                    <name>frameShape</name>
+                    <enum>Box</enum>
+                </property>
+                <property stdset="1">
+                    <name>frameShadow</name>
+                    <enum>Sunken</enum>
+                </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>renameKey</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>180</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Löschen</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>importKey</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>100</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Importieren</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>exportKey</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>60</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Exportieren</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>genNewKey</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>20</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Neu generieren</string>
+                    </property>
+                </widget>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>detailsKey</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>140</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Details anzeigen</string>
+                    </property>
+                </widget>
+            </widget>
+            <widget>
                 <class>QListBox</class>
                 <item>
                     <property>
@@ -105,109 +229,9 @@
                     <rect>
                         <x>20</x>
                         <y>20</y>
-                        <width>300</width>
+                        <width>280</width>
                         <height>390</height>
                     </rect>
-                </property>
-            </widget>
-            <widget>
-                <class>QPushButton</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>detailsKey</cstring>
-                </property>
-                <property stdset="1">
-                    <name>geometry</name>
-                    <rect>
-                        <x>390</x>
-                        <y>170</y>
-                        <width>160</width>
-                        <height>32</height>
-                    </rect>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>Details anzeigen</string>
-                </property>
-            </widget>
-            <widget>
-                <class>QPushButton</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>genNewKey</cstring>
-                </property>
-                <property stdset="1">
-                    <name>geometry</name>
-                    <rect>
-                        <x>390</x>
-                        <y>20</y>
-                        <width>160</width>
-                        <height>32</height>
-                    </rect>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>Neu generieren</string>
-                </property>
-            </widget>
-            <widget>
-                <class>QPushButton</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>importKey</cstring>
-                </property>
-                <property stdset="1">
-                    <name>geometry</name>
-                    <rect>
-                        <x>390</x>
-                        <y>120</y>
-                        <width>160</width>
-                        <height>32</height>
-                    </rect>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>Importieren</string>
-                </property>
-            </widget>
-            <widget>
-                <class>QPushButton</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>exportKey</cstring>
-                </property>
-                <property stdset="1">
-                    <name>geometry</name>
-                    <rect>
-                        <x>390</x>
-                        <y>70</y>
-                        <width>160</width>
-                        <height>32</height>
-                    </rect>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>Exportieren</string>
-                </property>
-            </widget>
-            <widget>
-                <class>QPushButton</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>renameKey</cstring>
-                </property>
-                <property stdset="1">
-                    <name>geometry</name>
-                    <rect>
-                        <x>390</x>
-                        <y>220</y>
-                        <width>160</width>
-                        <height>32</height>
-                    </rect>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>Löschen</string>
                 </property>
             </widget>
         </widget>
@@ -221,6 +245,72 @@
                 <name>title</name>
                 <string>Signing Request</string>
             </attribute>
+            <widget>
+                <class>QListBox</class>
+                <item>
+                    <property>
+                        <name>text</name>
+                        <string>New Item</string>
+                    </property>
+                </item>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>ListBox3</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>20</x>
+                        <y>20</y>
+                        <width>280</width>
+                        <height>390</height>
+                    </rect>
+                </property>
+            </widget>
+            <widget>
+                <class>QFrame</class>
+                <property stdset="1">
+                    <name>name</name>
+                    <cstring>Frame6</cstring>
+                </property>
+                <property stdset="1">
+                    <name>geometry</name>
+                    <rect>
+                        <x>320</x>
+                        <y>20</y>
+                        <width>230</width>
+                        <height>390</height>
+                    </rect>
+                </property>
+                <property stdset="1">
+                    <name>frameShape</name>
+                    <enum>Box</enum>
+                </property>
+                <property stdset="1">
+                    <name>frameShadow</name>
+                    <enum>Sunken</enum>
+                </property>
+                <widget>
+                    <class>QPushButton</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>PushButton13</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>geometry</name>
+                        <rect>
+                            <x>20</x>
+                            <y>20</y>
+                            <width>190</width>
+                            <height>32</height>
+                        </rect>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Neue Anfrage erstellen</string>
+                    </property>
+                </widget>
+            </widget>
         </widget>
         <widget>
             <class>QWidget</class>
@@ -248,18 +338,6 @@
 </widget>
 <connections>
     <connection>
-        <sender>detailsKey</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetails()</slot>
-    </connection>
-    <connection>
-        <sender>keyList</sender>
-        <signal>doubleClicked(QListBoxItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetails()</slot>
-    </connection>
-    <connection>
         <sender>importKey</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
@@ -283,11 +361,30 @@
         <receiver>MainWindow_UI</receiver>
         <slot>deleteKey()</slot>
     </connection>
+    <connection>
+        <sender>detailsKey</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsKey()</slot>
+    </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>doubleClicked(QListBoxItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsKey()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton13</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>newX509Req()</slot>
+    </connection>
     <slot access="public">chooseFile()</slot>
+    <slot access="public">deleteKey()</slot>
     <slot access="public">loadKey()</slot>
     <slot access="public">newKey()</slot>
-    <slot access="public">deleteKey()</slot>
-    <slot access="public">showDetails()</slot>
+    <slot access="public">newX509Req()</slot>
+    <slot access="public">showDetailsKey()</slot>
     <slot access="public">writeKey()</slot>
 </connections>
 <tabstops>

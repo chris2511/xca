@@ -3,6 +3,7 @@
 #include "PassRead_UI.h"
 #include "PassWrite_UI.h"
 #include "NewKeyDlg_UI.h"
+#include "NewX509Req_UI.h"
 #include "ExportKey.h"
 #include "RSAkey.h"
 #include "KeyDB.h"
@@ -25,6 +26,7 @@
 
 #define BASE_DIR "/xca"
 
+
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
@@ -43,7 +45,8 @@ class MainWindow: public MainWindow_UI
 	RSAkey* getSelectedKey();
    public slots:
 	virtual void newKey();
-	virtual void showDetails();
+	virtual void showDetailsKey();
 	virtual void deleteKey();
+	virtual void newX509Req();
 };
 #endif
