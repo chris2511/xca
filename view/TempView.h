@@ -74,6 +74,7 @@ class TempView : public XcaListView
 	//void store();
 	bool alterTemp(pki_temp *);
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	pki_base *loadItem(QString fname);
   public slots:
 	void newEmptyTemp();
 	void newCaTemp();
@@ -83,6 +84,8 @@ class TempView : public XcaListView
 	void reqFromTemp();
 	void alterTemp();
 	void deleteItem();
+	void store();
+	void load();
   signals:
 	void newReq(pki_temp *);
 	void newCert(pki_temp *);

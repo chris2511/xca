@@ -75,6 +75,7 @@ class pki_temp: public pki_base
     
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d, int atype=0);
+		void loadTemp(const QString fname);
 		/* destructor */
 		~pki_temp();
 		void fromData(unsigned char *p, int size);
@@ -82,6 +83,7 @@ class pki_temp: public pki_base
 		bool compare(pki_base *ref);
 		int dataSize();
 		void updateView();
+		void writeTemp(QString fname);
 };
 
 #endif

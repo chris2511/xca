@@ -132,7 +132,55 @@ void TempView::deleteItem()
 	deleteItem_default(tr("The Template"), tr("is going to be deleted"));
 }
 
+void TempView::load()
+{   
+	QStringList filter;
+	filter.append( "XCA templates ( *.xca )");
+	load_default(filter, tr("Import key"));
+}
 
+pki_base *TempView::loadItem(QString fname)
+{   
+	pki_temp *temp = new pki_temp(fname);
+	return temp;
+}
+
+void TempView::store()
+{
+    pki_temp *temp;
+    try {
+        temp = (pki_temp *)getSelected();
+    }
+    catch (errorEx &err) {
+        Error(err);
+        return;
+    }
+
+    if (!temp) return;
+    QStringList filt; 
+    filt.append("XCA Templates ( *.xca )");
+    filt.append("All Files ( *.* )");
+    QString s="";
+    QFileDialog *dlg = new QFileDialog(this,0,true);
+    dlg->setCaption(tr("Export Template"));
+    dlg->setFilters(filt);
+    dlg->setMode( QFileDialog::AnyFile );
+    dlg->setSelection( temp->getIntName() + ".xca" );
+    dlg->setDir(MainWindow::getPath());
+    if (dlg->exec()) {
+        s = dlg->selectedFile();
+        MainWindow::setPath(dlg->dirPath());
+    }
+    delete dlg;
+    if (s.isEmpty()) return;
+    s=QDir::convertSeparators(s);
+    try {
+        temp->writeTemp(s);
+    }
+    catch (errorEx &err) {
+        Error(err);
+    }
+}
 
 pki_base *TempView::insert(pki_base *temp)
 {
@@ -167,6 +215,8 @@ void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
 	}
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
+		menu->insertItem(tr("Import"), this, SLOT(load()));
+		menu->insertItem(tr("Export"), this, SLOT(store()));
 		menu->insertItem(tr("Change"), this, SLOT(alterTemp()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
 		menu->insertItem(tr("Create certificate"), this, SLOT(certFromTemp()));
@@ -177,4 +227,3 @@ void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
 	delete subMenu;
 	return;
 }
-

@@ -140,6 +140,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( BNserverTemp, SIGNAL(clicked()), tempList, SLOT(newServerTemp()));
 	connect( BNdeleteTemp, SIGNAL(clicked()), tempList, SLOT(deleteItem()));
 	connect( BNchangeTemp, SIGNAL(clicked()), tempList, SLOT(alterTemp()));
+	connect( BNimportTemp, SIGNAL(clicked()), tempList, SLOT(load()));
+	connect( BNexportTemp, SIGNAL(clicked()), tempList, SLOT(store()));
 	
 	connect( BNimportCrl, SIGNAL(clicked()), crlList, SLOT(load()));
 	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));

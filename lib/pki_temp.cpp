@@ -243,7 +243,70 @@ unsigned char *pki_temp::toData(int *size)
 	return p;
 }
 
+void pki_temp::writeTemp(QString fname)
+{
+	FILE *fp = fopen(fname,"w");
+	if (fp == NULL) {
+		fopen_error(fname);
+		return;
+	}
+	fprintf(fp, "version=%d\ntype=%d\n", version, type);
+	fprintf(fp, "Bool=%d,%d,%d,%d,%d,%d,%d\n", bcCrit, keyUseCrit, eKeyUseCrit,
+		subKey, authKey, subAltCp, issAltCp);
+	fprintf(fp, "Int=%d,%d,%d,%d,%d,%d,%d\n", ca, pathLen, validN, validM,
+		keyUse, eKeyUse, nsCertType);
+	fprintf(fp, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", subAltName.latin1(),
+		issAltName.latin1(), crlDist.latin1(), nsComment.latin1(),
+	   	nsBaseUrl.latin1(), nsRevocationUrl.latin1(),
+	   	nsCARevocationUrl.latin1(), nsRenewalUrl.latin1(),
+	   	nsCaPolicyUrl.latin1(), nsSslServerName.latin1());
+	
+	xname.write_fp(fp);
+	fclose(fp);
+}
 
+void pki_temp::loadTemp(QString fname)
+{
+	char buf[180];
+	int i[7];
+	FILE *fp = fopen(fname,"r");
+	if (fp == NULL) {
+		fopen_error(fname);
+		return;
+	}
+	
+	fscanf(fp, " version=%d\ntype=%d ", &version, &type);
+	if (version != 2 || type<0 || type>3) {
+		openssl_error("Template version or type error");
+		return;
+	}
+
+	fscanf(fp, "Bool = %d , %d , %d , %d , %d , %d , %d ", &bcCrit, &keyUseCrit,
+		&eKeyUseCrit, &subKey, &authKey, &subAltCp, &issAltCp);
+	fscanf(fp, "Int = %d , %d , %d , %d , %d , %d , %d\n", &ca, &pathLen, &validN, &validM,
+		&keyUse, &eKeyUse, &nsCertType);
+#define LONG_ERR openssl_error("String too long error")
+	QString subAltName = fgets(buf, 180, fp);
+	QString issAltName = fgets(buf, 180, fp);
+	QString crlDist = fgets(buf, 180, fp);
+	QString nsComment = fgets(buf, 180, fp);
+	QString nsBaseUrl = fgets(buf, 180, fp);
+	QString nsRevocationUrl = fgets(buf, 180, fp);
+	QString nsCARevocationUrl = fgets(buf, 180, fp);
+	QString nsRenewalUrl = fgets(buf, 180, fp);
+	QString nsCaPolicyUrl = fgets(buf, 180, fp);
+	QString nsSslServerName = fgets(buf, 180, fp);
+	if (subAltName.length() >= 179) LONG_ERR;
+	if (issAltName.length() >= 179) LONG_ERR;
+	if (crlDist.length() >= 179) LONG_ERR;
+	if (nsComment.length() >= 179) LONG_ERR;
+	if (nsBaseUrl.length() >= 179) LONG_ERR;
+	if (nsRevocationUrl.length() >= 179) LONG_ERR;
+	if (nsCARevocationUrl.length() >= 179) LONG_ERR;
+	if (nsRenewalUrl.length() >= 179) LONG_ERR;
+	if (nsCaPolicyUrl.length() >= 179) LONG_ERR;
+	if (nsSslServerName.length() >= 179) LONG_ERR;
+}
 
 pki_temp::~pki_temp()
 {

@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>618</width>
+            <width>614</width>
             <height>543</height>
         </rect>
     </property>
@@ -640,6 +640,28 @@
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>&amp;Delete</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>BNimportTemp</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Import</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>BNexportTemp</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Export</string>
                                 </property>
                             </widget>
                             <spacer>
