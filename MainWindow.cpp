@@ -458,3 +458,18 @@ void MainWindow::newPath(QString str)
 {
 	settings->putString("workingdir", str.latin1());
 }
+
+bool MainWindow::mkDir(QString dir)
+{
+	int ret = mkdir(dir.latin1(), S_IRUSR | S_IWUSR | S_IXUSR);
+	if (ret) {
+		QString desc = " (";
+		desc += strerror(ret);
+	      	desc += ")";
+		QMessageBox::critical(this,tr(XCA_TITLE), 
+			tr("Error creating: ") + dir + desc);
+		return false;
+	}
+	return true;
+}
+

@@ -66,6 +66,7 @@
 #include "TrustState.h"
 #include "ExportCert.h"
 #include "ExportKey.h"
+#include "ExportTinyCA.h"
 #include <iostream>
 #include <qtextview.h>
 #include <qapplication.h>
@@ -99,6 +100,9 @@
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"
 #include "lib/db_temp.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -159,6 +163,7 @@ class MainWindow: public MainWindow_UI
 	QString getPath();
 	void newPath(QFileDialog *dlg);
 	void newPath(QString str);
+	bool mkDir(QString dir);
    public slots:
 	void loadKey();
 	void loadReq();
@@ -219,6 +224,7 @@ class MainWindow: public MainWindow_UI
 	void signP7();
 	void encryptP7();
 	void changeView();
+	void toTinyCA();
    signals:
 	void keyDone(QString name);
 };

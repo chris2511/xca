@@ -768,6 +768,7 @@ string pki_x509::tinyCAfname()
 	EVP_EncodeBlock(buf, (unsigned char *)col.c_str(), len );
 	col = (char *)buf;
 	OPENSSL_free(buf);
+	col += ".pem";
 	CERR("base64 Encoding: " <<col);
 	return col;
 }

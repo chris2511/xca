@@ -63,13 +63,19 @@
 class ExportCert: public ExportCert_UI
 {
 	Q_OBJECT
+
+   private:
+	QString tinyCAfname;
+	
    public:	
 	ExportCert(QString fname, bool hasKey, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
+		  const QString tcafn,  QWidget *parent = 0, const char *name = 0);
 	QString dirPath;
+	
    public slots:
-	virtual void chooseFile();
-	virtual void formatChanged();
+	void chooseFile();
+	void formatChanged();
+	void setTinyCAfname();
 };
 
 #endif

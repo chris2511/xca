@@ -44,70 +44,33 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$
+ * $Id$ 
  *
  */                           
 
 
-#include "ExportCert.h"
+#include "ExportTinyCA_UI.h"
+#include <qfiledialog.h>
+#include <qcombobox.h>
+#include <qcheckbox.h>
+#include <qlineedit.h>
+#include "lib/base.h"
+#include <iostream>
 
+#ifndef EXPORTTINY_H
+#define EXPORTTINY_H
 
-ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
-	const QString tcafn, QWidget *parent, const char *name )
-	:ExportCert_UI(parent,name,true,0)
+class ExportTinyCA: public ExportTinyCA_UI
 {
-	filename->setText(fname);
-	setCaption(tr(XCA_TITLE));
-	exportFormat->insertItem("PEM");
-	exportFormat->insertItem("PEM with Certificate chain");
-	exportFormat->insertItem("PEM all trusted Certificates");
-	exportFormat->insertItem("PEM all Certificates");
-	exportFormat->insertItem("DER");
-//	exportFormat->insertItem("Signed PKCS#7");
-	if (hasKey) {
-		exportFormat->insertItem("PKCS #12");
-		exportFormat->insertItem("PKCS #12 with Certificate chain");
-	}		
-	dirPath = dpath;
-	tinyCAfname = tcafn;
-}
+	Q_OBJECT
+
+   public:	
+	ExportTinyCA(const QString tmpdir, const QString tcadir,
+		QWidget *parent = 0, const char *name = 0);
 	
-void ExportCert::chooseFile()
-{
-	QStringList filt;
-	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )")); 
-	filt.append(tr("All Files ( *.* )"));
-	QString s = "";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(tr("Save Certificate as"));
-	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::AnyFile );
-	dlg->setSelection( filename->text() );
-	dlg->setDir(dirPath);
-	if (dlg->exec())
-		s = dlg->selectedFile();
-	if (! s.isEmpty()) {
-		QDir::convertSeparators(s);
-		filename->setText(s);
-	}
-	dirPath= dlg->dirPath();
-	formatChanged();
-	delete dlg;
-}
+   public slots:
+	void chooseTempDir();
+	void chooseTinyCaDir();
+};
 
-void ExportCert::formatChanged()
-{
-	CERR("Export format changed");
-	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p12", "p12"};
-	int selected = exportFormat->currentItem();
-	QString fn = filename->text();
-	QString nfn = fn.left(fn.findRev('.')+1) + suffix[selected];
-	CERR(nfn);
-	filename->setText(nfn);
-}	
-
-void ExportCert::setTinyCAfname()
-{
-	filename->setText(tinyCAfname);
-}
-
+#endif

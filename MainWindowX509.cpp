@@ -744,7 +744,8 @@ void MainWindow::writeCert()
 	if (!crt) return;
 	pki_key *privkey = crt->getKey();
 	ExportCert *dlg = new ExportCert((crt->getDescription() + ".crt").c_str(),
-			  (privkey && privkey->isPrivKey()), getPath() );
+			  (privkey && privkey->isPrivKey()), getPath(), crt->tinyCAfname().c_str() );
+	dlg->image->setPixmap(*certImg);
 	int dlgret = dlg->exec();
 	newPath(dlg->dirPath);
 
@@ -920,7 +921,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	QPopupMenu *subCa = new QPopupMenu(this);
 	QPopupMenu *subP7 = new QPopupMenu(this);
 	QPopupMenu *subExport = new QPopupMenu(this);
-	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate, itemReq, itemP7;
+	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate, itemReq, itemP7, itemtca;
 	bool canSign, parentCanSign, hasTemplates, hasPrivkey;
 	
 	if (!item) {
@@ -936,6 +937,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Export"), subExport);
 		subExport->insertItem(tr("File"), this, SLOT(writeCert()));
 		itemReq = subExport->insertItem(tr("Request"), this, SLOT(toRequest()));
+		itemtca = subExport->insertItem(tr("TinyCA"), this, SLOT(toTinyCA()));
 
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
 		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));
@@ -967,6 +969,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->setItemEnabled(itemRevoke, parentCanSign);
 		menu->setItemEnabled(itemCA, canSign);
 		subExport->setItemEnabled(itemReq, hasPrivkey);
+		subExport->setItemEnabled(itemtca, canSign);
 		menu->setItemEnabled(itemP7, hasPrivkey);
 		subCa->setItemEnabled(itemTemplate, hasTemplates);
 
@@ -1167,6 +1170,61 @@ void MainWindow::changeView()
 	}
 	certs->updateView();
 }
+
+void MainWindow::toTinyCA()
+{
+	pki_x509 *crt = (pki_x509 *)certs->getSelectedPKI();
+	if (!crt) return;
+	pki_key *key = crt->getKey();
+	if (!key) return;
+	FILE *fp;
+	
+	QString dname = crt->getDescription().c_str();
+	QString tcatempdir = settings->getString("TinyCAtempdir").c_str();
+	QString tcadir = settings->getString("TinyCAdir").c_str();
+	if (tcatempdir.isEmpty()) {
+		tcatempdir = "templates";
+	}
+	if (tcadir.isEmpty()) {
+		tcadir = QDir::homeDirPath();
+		tcadir += QDir::separator();
+		tcadir += ".TinyCA";
+	}
+	ExportTinyCA *dlg = new ExportTinyCA( tcatempdir, tcadir, this, NULL);
+	if (!dlg->exec()) return;
+	
+	tcatempdir = dlg->tempdir->text();
+	tcadir = dlg->tinycadir->text();
+	dname = dlg->dname->text();
+	
+	if (dname.isEmpty()) return;
+	const EVP_CIPHER *enc = EVP_des_ede3_cbc();
+	
+	// OK, we have all names now...
+	tcadir += QDir::separator();
+        tcadir += dname;
+	
+	//create directory tree
+	if (! mkDir(tcadir)) return;
+	chdir(tcadir.latin1());
+	if (! mkDir("certs")) return;
+	if (! mkDir("crl")) return;
+	if (! mkDir("keys")) return;
+	if (! mkDir("newcerts")) return;
+	if (! mkDir("req")) return;
+	
+	crt->writeCert("cacert.pem", true, false);
+	key->writeKey("cacert.key", enc, &MainWindow::passWrite, true);
+	fp = fopen("serial", "w");
+	if (!fp) return;
+	fprintf(fp, "%x", crt->getCaSerial());
+	fclose(fp);
+
+	settings->putString("TinyCAtempdir", tcatempdir.latin1());
+	settings->putString("TinyCAdir", tcadir.latin1());
+	
+}	
+			
 
 void MainWindow::startRenameCert()
 {
