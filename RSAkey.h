@@ -37,6 +37,7 @@ class RSAkey: public QObject
 		QObject *parent=0, const char *name=0);   
 	RSAkey(RSA *rsa, QString &d, 
 		QObject *parent=0, const char *name=0);
+	RSAkey(EVP_PKEY *evpkey, QObject *parent=0, const char *name=0);
 	RSAkey(unsigned char *p, int size);
 	~RSAkey();
         QString description();
@@ -51,6 +52,7 @@ class RSAkey: public QObject
 	void writePublic(const char *fname, bool PEM);
 	void writePKCS8(const char *fname, pem_password_cb *cb);
 	unsigned char *getKey(int *size);
+	bool comparePublic(RSA *refkey);
 	bool comparePublic(RSAkey *refkey);
 };
 

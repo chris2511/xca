@@ -10,10 +10,10 @@
 class X509Req : public QObject
 {
 	Q_OBJECT
-	   X509_REQ *request;
 	   char *error;
 	   QString desc;
 	public:
+	   X509_REQ *request;
 	   X509Req(RSAkey *key, const char *cn, 
 		   const char *c, const char *l,
 		   const char *st,const char *o,

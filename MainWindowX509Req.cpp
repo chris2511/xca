@@ -24,6 +24,22 @@ void MainWindow::newReq()
 void MainWindow::showDetailsReq()
 {
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
+	X509Req *req = reqs->getSelectedReq();
+	if (!req) return;
+	dlg->descr->setText(req->description());
+	EVP_PKEY *pkey = X509_REQ_get_pubkey(req->request);
+	if ( X509_REQ_verify(req->request,pkey) <= 0) {
+	      	dlg->verify->setDisabled(true);
+		dlg->verify->setText("Fehlgeschlagen");
+	}
+	RSAkey *key = new RSAkey(pkey);
+	RSAkey *existkey = keys->findPublicKey(key);
+	QColor *green = new QColor(0,192,0);
+	if (existkey)
+	   if (!existkey->onlyPubKey) {
+	      	dlg->privKey->setEnabled(true);
+		dlg->privKey->setText("vorhanden");
+	   }	
 	dlg->exec();
 }
 

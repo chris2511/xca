@@ -20,6 +20,16 @@ RSAkey::RSAkey(const QString d, int bits,
 }
 
 
+
+RSAkey::RSAkey(EVP_PKEY *evpkey, QObject *parent=0, const char *name=0)
+{
+
+	key = EVP_PKEY_get1_RSA(evpkey);
+	EVP_PKEY_free(evpkey);
+	desc="anonymous";
+}
+
+
 RSAkey::RSAkey(const QString fname, pem_password_cb *cb, QObject *parent=0, const char *name=0)
 	:QObject( parent, name)
 {
@@ -226,16 +236,21 @@ QString RSAkey::pubEx() {
 }
 
 QString RSAkey::privEx() {
-	if (onlyPubKey) return "Not available";
+	if (onlyPubKey) return "Nicht vorhanden (kein priveter Schlüssel)";
 	return BN2QString(key->d);
 }
 
 
 bool RSAkey::comparePublic(RSAkey *refkey)
 {
+	return comparePublic(refkey->key);
+}
+	
+bool RSAkey::comparePublic(RSA *refkey)
+{
 	if (
-	   BN_cmp(key->n, refkey->key->n) ||
-	   BN_cmp(key->e, refkey->key->e)
+	   BN_cmp(key->n, refkey->n) ||
+	   BN_cmp(key->e, refkey->e)
 	) return false;
 	return true;
 }	

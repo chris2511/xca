@@ -93,6 +93,7 @@ bool ReqDB::updateReq(X509Req *req, QString desc)
 
 X509Req *ReqDB::getSelectedReq(QString desc)
 {
+	if (desc.isEmpty()) return NULL;
 	unsigned char *p;
 	X509Req *req = NULL;
 	Dbt k((void *)desc.latin1(), desc.length()+1);
