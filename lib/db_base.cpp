@@ -250,6 +250,8 @@ void db_base::insertPKI(pki_base *pki)
 	
 void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid) 
 {
+	CRYPTO_remove_all_info();
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
 	int flags = 0;
 	if (!overwrite) flags = DB_NOOVERWRITE;
 	QString desc = pki->getIntName();
@@ -279,10 +281,14 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	catch (DbException &err) {
 		if (p)
 			OPENSSL_free(p);
+		CRYPTO_mem_leaks_fp(stderr);
 		throw errorEx(err.what(), "_writePKI");
 	}
 	if (p)
 		OPENSSL_free(p);
+	fprintf(stderr, "_writePKI:\n");
+	CRYPTO_mem_leaks_fp(stderr);
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 }
 
 

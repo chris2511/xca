@@ -341,6 +341,7 @@ unsigned char *pki_x509::toData(int *size)
 	if (sRev) {
 		p1 = revoked.i2d(p1); // revokation date
 	}
+			 
 	// version 2
 	intToData(&p1, caSerial.getLong()); // the serial if this is a CA
 	stringToData(&p1, caTemplate); // the name of the template to use for signing
@@ -641,6 +642,8 @@ void pki_x509::updateView()
 	pointer->setText(0, getIntName());
 	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
 	pointer->setText(2, getSerial().toHex() );  
+	fprintf(stderr, "updV 3:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	pointer->setText(3, getNotAfter().toSortable() );  
 	pointer->setText(4, truststatus[ getTrust() ]);  
 	if (isRevoked())

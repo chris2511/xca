@@ -92,9 +92,12 @@ a1time &a1time::set(const ASN1_TIME *a)
 		set((time_t)0);
 	}
 	else {
-		time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, &time);
-		if (!time)
+		ASN1_TIME *siko = time;
+		time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, &siko);
+		if (!time) {
+			if (siko) ASN1_TIME_free(time);
 			time=M_ASN1_TIME_dup(a);
+		}
 	}
 	return *this;
 }

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>527</width>
+            <width>523</width>
             <height>590</height>
         </rect>
     </property>
@@ -176,6 +176,10 @@
                 <property stdset="1">
                     <name>name</name>
                     <cstring>startLabel_b</cstring>
+                </property>
+                <property stdset="1">
+                    <name>alignment</name>
+                    <set>WordBreak|AlignVCenter|AlignLeft</set>
                 </property>
                 <property>
                     <name>vAlign</name>

@@ -111,10 +111,12 @@ QString a1int::toHex() const
 		return r;
 	}
 	BIGNUM *bn = ASN1_INTEGER_to_BN(in, NULL);
+	fprintf(stderr, "a1int 1:\n");
+	CRYPTO_mem_leaks_fp(stderr);
 	char *res = BN_bn2hex(bn);
 	r = res;
-	OPENSSL_free(bn);
 	OPENSSL_free(res);
+	OPENSSL_free(bn);
 	return r;
 }
 
