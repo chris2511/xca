@@ -7,11 +7,11 @@ pki_key *MainWindow::getSelectedKey()
 {
 	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
 	if (targetKey) {
-	   string errtxt = targetKey->getError();
+	   QString errtxt = toQStr(targetKey->getError());
 	   if (errtxt != "")
 		QMessageBox::warning(this,"Schlüssel Fehler",
-			("Der Schlüssel: " + targetKey->getDescription() +
-			"\nist nicht konsistent:\n" + errtxt).data());
+			"Der Schlüssel: " + toQStr(targetKey->getDescription()) +
+			"\nist nicht konsistent:\n" + errtxt);
 	}
 	return targetKey;
 }
@@ -46,9 +46,9 @@ void MainWindow::deleteKey()
 	pki_key *delKey = getSelectedKey();
 	if (!delKey) return;
 	if (QMessageBox::information(this,"Schlüssel löschen",
-			("Möchten Sie den Schlüssel: '" + 
-			delKey->getDescription() +
-			"'\nwirklich löschen ?\n").data(),
+			"Möchten Sie den Schlüssel: '" + 
+			toQStr(delKey->getDescription()) +
+			"'\nwirklich löschen ?\n",
 			"Löschen", "Abbrechen")
 	) return;
 	keys->deletePKI(delKey);

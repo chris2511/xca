@@ -1,7 +1,7 @@
 #include "lib/pki_key.h"
 #include "lib/pki_x509req.h"
 #include "lib/db_key.h"
-#include "lib/db_base.h"
+#include "lib/db_x509req.h"
 #include "MainWindow_UI.h"
 #include "KeyDetail_UI.h"
 #include "ReqDetail_UI.h"
@@ -42,6 +42,7 @@ class MainWindow: public MainWindow_UI
 	static const int sizeList[];
 	MainWindow(QWidget *parent, const char *name);
 	~MainWindow(); 
+	QString toQStr(string s);
 	void showDetailsKey(pki_key *key);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);

@@ -15,10 +15,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 		   cerr << "Couldnt create: " << baseDir.latin1() << "\n";
 	}
 	QString dbfile = baseDir +  "/xca.db";
-	pki_key *key = new pki_key("");
-	pki_base *req = new pki_base();
-	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList, key);
-	reqs = new db_base(dbenv, dbfile.latin1(), "reqdb", reqList, req);
+	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList);
+	reqs = new db_x509req(dbenv, dbfile.latin1(), "reqdb", reqList);
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
@@ -66,4 +64,14 @@ void MainWindow::incProgress(int a, int b, void *progress)
 {
 	int i = ((QProgressDialog *)progress)->progress();
 	((QProgressDialog *)progress)->setProgress(++i);
+}
+
+
+QString MainWindow::toQStr(string s)
+{
+	char pt[5000];
+	strncpy(pt, s.data(), s.length() );
+	pt[s.length()] = '\0';
+	QString x = pt;
+	return x;
 }
