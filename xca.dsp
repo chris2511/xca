@@ -106,6 +106,10 @@ SOURCE=lib\db_x509req.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ExportCert.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=ExportKey.cpp
 # End Source File
 # Begin Source File
@@ -168,6 +172,10 @@ SOURCE=lib\pki_x509req.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\lib\base.h
+# End Source File
 # Begin Source File
 
 SOURCE=lib\db_base.h
@@ -284,6 +292,29 @@ InputPath=lib\db_x509req.h
 	$(QTDIR)\bin\moc lib\db_x509req.h -o lib\moc_db_x509req.cpp
 
 # End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\exception.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ExportCert.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build
+InputPath=.\ExportCert.h
+
+"moc_ExportCert.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	$(QTDIR)\bin\moc ExportCert.h -o moc_ExportCert.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 !ENDIF 
 
@@ -464,11 +495,72 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=ExportKey_UI.ui
+SOURCE=.\CertExtend.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - Uic'ing CertExtend.ui
+InputPath=.\CertExtend.ui
+
+BuildCmds= \
+	$(QTDIR)\bin\uic CertExtend.ui -o CertExtend.h \
+	$(QTDIR)\bin\uic CertExtend.ui -i CertExtend.h -o CertExtend.cpp \
+	$(QTDIR)\bin\moc CertExtend.h -o moc_CertExtend.cpp \
+	
+
+"CertExtend.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"CertExtend.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"moc_CertExtend.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ExportCert_UI.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
 USERDEP__EXPORT="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
+# Begin Custom Build - Uic'ing ExportCert_UI.ui
+InputPath=.\ExportCert_UI.ui
+
+BuildCmds= \
+	$(QTDIR)\bin\uic ExportCert_UI.ui -o ExportCert_UI.h \
+	$(QTDIR)\bin\uic ExportCert_UI.ui -i ExportCert_UI.h -o ExportCert_UI.cpp \
+	$(QTDIR)\bin\moc ExportCert_UI.h -o moc_ExportCert_UI.cpp \
+	
+
+"ExportCert_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"ExportCert_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"moc_ExportCert_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=ExportKey_UI.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+USERDEP__EXPORTK="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
 # Begin Custom Build - Uic'ing ExportKey_UI.ui...
 InputPath=ExportKey_UI.ui
 
@@ -490,7 +582,7 @@ BuildCmds= \
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__EXPORT="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
+USERDEP__EXPORTK="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
 # Begin Custom Build - Uic'ing ExportKey_UI.ui...
 InputPath=ExportKey_UI.ui
 
@@ -947,6 +1039,22 @@ SOURCE=CertDetail.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\CertExtend.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\CertExtend.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\ExportCert_UI.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\ExportCert_UI.h
+# End Source File
+# Begin Source File
+
 SOURCE=ExportKey_UI.cpp
 # End Source File
 # Begin Source File
@@ -975,6 +1083,10 @@ SOURCE=moc_CertDetail.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\moc_CertExtend.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=lib\moc_db_key.cpp
 # End Source File
 # Begin Source File
@@ -988,6 +1100,10 @@ SOURCE=lib\moc_db_x509.cpp
 # Begin Source File
 
 SOURCE=lib\moc_db_x509req.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_ExportCert_UI.cpp
 # End Source File
 # Begin Source File
 
