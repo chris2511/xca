@@ -70,7 +70,7 @@ class db_x509: public db_base
 	pki_base *newPKI();
 	pki_x509 *findSigner(pki_x509 *client);
 	bool updateView();
-	bool insertPKI(pki_base *pki);
+	void insertPKI(pki_base *pki);
 	void updateViewAll();
 	void updateViewPKI(pki_base *pki);
 	void remFromCont(pki_base *pki);

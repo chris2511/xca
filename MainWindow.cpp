@@ -74,33 +74,41 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	baseDir += QDir::separator();
 
 	baseDir += BASE_DIR;
-	CERR(baseDir.latin1());
-	QDir d(baseDir);
-	if ( ! d.exists() ){
-		if (!d.mkdir(baseDir)) 
-		   qFatal(  "Couldnt create: " +  baseDir );
-	}
 	if (qApp->argc() <2){
-		dbfile="xca.db";
+		dbfile = "xca.db";
 	}
 	else {
-		dbfile=qApp->argv()[1];
+		dbfile = qApp->argv()[1];
 	}
-	dbfile = baseDir + QDir::separator() +  dbfile;
+	
 #endif
-	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS);
-	dbenv->open(NULL, DB_RECOVER | DB_INIT_TXN | DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | DB_CREATE , 0600 );
+	try {
+		dbenv = new DbEnv(0);
+		//dbenv->set_errcall(&MainWindow::dberr);
+		dbenv->open(baseDir.latin1(), DB_RECOVER | DB_INIT_TXN | DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | DB_CREATE , 0600 );
+		MARK
+	}
+	catch (DbException &err) {
+		DBEX(err);
+		QString e = err.what();
+		e += " (" + baseDir + ")";
+		qFatal(e);
+	}
+	MARK
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
-	settings = new db_base(dbenv, dbfile.latin1(), "settings");
+	
 	keyImg = loadImg("bigkey.png");
 	csrImg = loadImg("bigcsr.png");
 	certImg = loadImg("bigcert.png");
 	tempImg = loadImg("bigtemp.png");
 	nsImg = loadImg("netscape.png");
 	revImg = loadImg("revoked.png");
-	initPass();
+	MARK	
 	try {
+		settings = new db_base(dbenv, dbfile.latin1(), "settings");
+		MARK
+		initPass();
 		keys = new db_key(dbenv, dbfile.latin1(), keyList);
 		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
 		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
@@ -108,6 +116,10 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	}
 	catch (errorEx &err) {
 		Error(err);
+	}
+	catch (DbException &err) {
+		DBEX(err);
+		qFatal(err.what());
 	}
 		
 	bigKey->setPixmap(*keyImg);
@@ -294,3 +306,7 @@ void MainWindow::crashApp()
 	nullpointer->getDescription();
 }
 
+void dberr(const char *errpfx, char *msg)
+{
+//	CERR(errpfx << " " << msg);
+}

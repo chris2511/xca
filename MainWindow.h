@@ -131,6 +131,7 @@ class MainWindow: public MainWindow_UI
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static void incProgress(int a, int b, void *progress);
+	static void dberr(const char *errpfx, char *msg);
 	pki_key *getSelectedKey();
 	void insertKey(pki_key *lkey);
 	void insertReq(pki_x509req *req);

@@ -9,3 +9,6 @@ Kerstin Steinhauff <tine@kerstine.de>
 David Guerrero <david@boe.es>
 	Spanish translation, testing, Redhat rpm building
 
+
+Ilya Kozhevnikov <ilya@ef.unn.ru>
+	Compiling and testing the WIN32-port

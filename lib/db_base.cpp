@@ -58,13 +58,17 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB)
 	listView = NULL;
 	data = new Db(dbe, 0);
 	CERR("DB:" << DBfile);
-	int x;
+	try {
 #if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
-	if (( x = data->open(NULL, DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
+		data->open(NULL, DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600); 
 #else
-	if (( x = data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
+		data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600); 
 #endif
-		data->err(x,"DB open");
+	}
+	catch (DbException &err) {
+		DBEX(err);
+		throw errorEx(err.what());
+	}
 }
 
 
@@ -73,46 +77,28 @@ db_base::~db_base()
 	data->close(0);
 }
 
-
-Dbc *db_base::getCursor(DbTxn *tid)
-{
-	Dbc *cursor;
-	if (int x = data->cursor(tid, &cursor, 0)) {
-		data->err(x,"DB new Cursor");
-		return NULL;	
-	}
-	return cursor;
-}
-
-bool db_base::freeCursor(Dbc *cursor)
-{
-	if (int x = cursor->close()) {
-		data->err(x,"DB delete cursor");
-		return false;
-	}
-	return true;
-}
-
 void *db_base::getData(void *key, int length, int *dsize)
 {
+	*dsize = 0;
 	if ((key == NULL) || (length == 0) ) {
-		*dsize = 0;
 		return NULL;
 	}
-	void *p;
-	Dbt k(key, length);
-	Dbt d(NULL, 0);
-	if (int x = data->get(NULL, &k, &d, 0)) {
-		data->err(x,"DB Error get");
-		*dsize = 0;
-		return NULL;
+	try {
+		void *p;
+		Dbt k(key, length);
+		Dbt d(NULL, 0);
+		if (data->get(NULL, &k, &d, 0)) return NULL;
+		p = d.get_data();
+		*dsize = d.get_size();
+		void *q = malloc(*dsize);
+		memcpy(q,p,*dsize);
+		return q;
 	}
-	p = d.get_data();
-	*dsize = d.get_size();
-	void *q = malloc(*dsize);
-	memcpy(q,p,*dsize);
-
-	return q;
+	catch (DbException &err) {
+		DBEX(err);
+		throw errorEx(err.what());
+	}
+	return NULL;
 }
 
 void *db_base::getData(string key, int *dsize)
@@ -163,8 +149,12 @@ void db_base::putData(void *key, int keylen, void *dat, int datalen)
 	
 	Dbt k(key, keylen);
 	Dbt d(dat, datalen);
-	if (int x = data->put(NULL, &k, &d, 0 )) {
-		data->err(x,"DB Error put");
+	try {
+		data->put(NULL, &k, &d, 0 );
+	}
+	catch (DbException &err) {
+		DBEX(err);
+		throw errorEx(err.what());
 	}
 }
 
@@ -198,38 +188,45 @@ void db_base::putInt(string key, int dat)
 void db_base::loadContainer()
 {
 	DbTxn *tid = NULL;
-	dbenv->txn_begin(NULL, &tid, 0);
+	Dbc *cursor = NULL;
 	unsigned char *p;
-	Dbc *cursor = getCursor(tid);
-	Dbt *k = new Dbt();
-	Dbt *d = new Dbt();
-	string desc;
-	pki_base *pki;
-	container.clear();
-	CERR("Load Container");
-	while (!cursor->get(k, d, DB_NEXT)) {
-		desc = (char *)k->get_data();
-		p = (unsigned char *)d->get_data();
-		int size = d->get_size();
-		try {	
-			pki = newPKI();
-			CERR("PKItest");
-			CERR(desc.c_str());
-			pki->fromData(p, size);
-			pki->setDescription(desc);
-			container.append(pki);
+	try {
+		dbenv->txn_begin(NULL, &tid, 0);
+		data->cursor(tid, &cursor, 0);
+		Dbt *k = new Dbt();
+		Dbt *d = new Dbt();
+		string desc;
+		pki_base *pki;
+		container.clear();
+		CERR("Load Container");
+		while (!cursor->get(k, d, DB_NEXT)) {
+			desc = (char *)k->get_data();
+			p = (unsigned char *)d->get_data();
+			int size = d->get_size();
+			try {	
+				pki = newPKI();
+				CERR("PKItest");
+				CERR(desc.c_str());
+				pki->fromData(p, size);
+				pki->setDescription(desc);
+				container.append(pki);
+			}
+			catch (errorEx &err) {
+				QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: '") + desc.c_str() + "'\n" +
+				err.getCString());
+			}
 		}
-		catch (errorEx &err) {
-			QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: '") + desc.c_str() + "'\n" +
-			err.getCString());
-		}
+		delete (k);
+		delete (d);
+		cursor->close();
+		preprocess();
+		tid->commit(0);
 	}
-	delete (k);
-	delete (d);
-	freeCursor(cursor);
-	preprocess();
-	tid->commit(0);
-	
+	catch (DbException &err) {
+		tid->abort();
+		DBEX(err);
+		throw errorEx(err.what());
+	}
 }	
 
 
@@ -251,23 +248,23 @@ bool db_base::updateView()
 	return true;
 }
 
-bool db_base::insertPKI(pki_base *pki)
+void db_base::insertPKI(pki_base *pki)
 {
 	DbTxn *tid = NULL;
 	dbenv->txn_begin(NULL, &tid, 0);
-	bool s = _writePKI(pki, false, tid);
-	if (s) {
+	try {
+		_writePKI(pki, false, tid);
 		inToCont(pki);
 		updateView();
 		tid->commit(0);
 	}
-	else {
+	catch (DbException &err) {
 		tid->abort();
+		DBEX(err);
 	}
-	return s;
 }
 	
-bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid) 
+void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid) 
 {
 	int flags = 0;
 	if (!overwrite) flags = DB_NOOVERWRITE;
@@ -279,90 +276,87 @@ bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	int size=0;
 	char field[10];
 	unsigned char *p;
-	p = pki->toData(&size);
+	try {
+		p = pki->toData(&size);
+	}
+	catch (errorEx &err) {
+		// catch openssl errors here to free the malloc'd mem
+		OPENSSL_free(p);
+		throw err;
+	}
 	int cnt=0;
 	int x = DB_KEYEXIST;
+	// exception occuring here will be catched by the caller
 	while (x == DB_KEYEXIST) {
-	   Dbt k((void *)desc.c_str(), desc.length() + 1);
-	   Dbt d((void *)p, size);
-           CERR("Size: " << d.get_size());
-	   if ((x = data->put(tid, &k, &d, flags ))!=0) {
-		data->err(x,"DB Error put");
-		sprintf(field,"%02i", ++cnt);
-		string z = field;
-	   	desc = orig + "_" + z ;
-	   }
+		Dbt k((void *)desc.c_str(), desc.length() + 1);
+		Dbt d((void *)p, size);
+		CERR("Size: " << d.get_size());
+		if ((x = data->put(tid, &k, &d, flags ))!=0) {
+			data->err(x,"DB Error put");
+			sprintf(field,"%02i", ++cnt);
+			string z = field;
+		   	desc = orig + "_" + z ;
+		}
 	}
-	if (x != DB_KEYEXIST && x != 0) {
-	   data->err(x,"DB Error put");
-	   OPENSSL_free(p);
-	   return false;
-	}
-	OPENSSL_free(p);
 	pki->setDescription(desc);
-	return true;
 }
 
 
-bool db_base::_removePKI(pki_base *pki, DbTxn *tid) 
+void db_base::_removePKI(pki_base *pki, DbTxn *tid) 
 {
 	string desc = pki->getDescription();
-	return removeItem(desc, tid);
+	removeItem(desc, tid);
 }	
 
-bool db_base::removeItem(string key, DbTxn *tid) 
+void db_base::removeItem(string key, DbTxn *tid) 
 {
 	Dbt k((void *)key.c_str(), key.length() + 1);
-	int x = data->del(tid, &k, 0);
-	if (x){
-	   data->err(x,"DB Error delete");
-	   return false;
-	}
-	return true;
+	data->del(tid, &k, 0);
 }
 
 
-bool db_base::deletePKI(pki_base *pki)
+void db_base::deletePKI(pki_base *pki)
 {
 	DbTxn *tid = NULL;
-	dbenv->txn_begin(NULL, &tid, 0);
-	bool s = _removePKI(pki, tid);
-	if (s) {
+	try {
+		dbenv->txn_begin(NULL, &tid, 0);
+		_removePKI(pki, tid);
 		remFromCont(pki);
 		updateView();
 		tid->commit(0);
 		delete(pki);
 	}
-	else {
+	catch (DbException &err) {
+		DBEX(err);
 		tid->abort();
+		throw errorEx(err.what());
 	}
-	return s;
 }
 
-bool db_base::renamePKI(pki_base *pki, string desc)
+void db_base::renamePKI(pki_base *pki, string desc)
 {
 	string oldname = pki->getDescription();
 	DbTxn *tid = NULL;
-	dbenv->txn_begin(NULL, &tid, 0);
-	if (! _removePKI(pki, tid)) {
-		tid->abort();
-		return false;
+	try {
+		dbenv->txn_begin(NULL, &tid, 0);
+		_removePKI(pki, tid);
+		pki->setDescription(desc);
+		_writePKI(pki, false, tid);
+		// rename the pki in the listView .....	
+		QListViewItem * item = (QListViewItem *)pki->getPointer();
+		if (!item) {
+			tid->abort();
+			return;
+		}
+		item->setText(0, pki->getDescription().c_str());
+		tid->commit(0);
+		updateViewPKI(pki);
 	}
-	pki->setDescription(desc);
-	if (! _writePKI(pki, false, tid)) {
+	catch (DbException &err) {
+		DBEX(err);
 		tid->abort();
-		return false;
+		throw errorEx(err.what(), "rename PKI");
 	}
-	// rename the pki in the listView .....	
-	QListViewItem * item = (QListViewItem *)pki->getPointer();
-	if (!item) {
-		tid->abort();
-		return false;
-	}
-	item->setText(0, pki->getDescription().c_str());
-	tid->commit(0);
-	updateViewPKI(pki);
-	return true;
 }
 
 void db_base::remFromCont(pki_base *pki)
@@ -377,19 +371,20 @@ void db_base::inToCont(pki_base *pki)
 }
 
 
-bool db_base::updatePKI(pki_base *pki) 
+void db_base::updatePKI(pki_base *pki) 
 {
 	DbTxn *tid = NULL;
 	dbenv->txn_begin(NULL, &tid, 0);
-	bool s = _writePKI(pki, true, tid);
-	if (s) {
+	try {
+		_writePKI(pki, true, tid);
 		updateViewPKI(pki);
 		tid->commit(0);
 	}
-	else {
+	catch (DbException &err) {
+		DBEX(err);
 		tid->abort();
+		throw errorEx(err.what(), "update PKI");
 	}
-	return s;
 }
 
 

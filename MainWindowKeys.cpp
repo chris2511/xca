@@ -239,10 +239,7 @@ void MainWindow::insertKey(pki_key *lkey)
 		}
 	    }
 	    CERR( "after findkey");
-	    if (!keys->insertPKI(lkey)) {
-		QMessageBox::warning(this,tr(XCA_TITLE),
-		  tr("The key could not be stored into the database"), "OK");
-	    }
+	    keys->insertPKI(lkey);
 	}
 	catch (errorEx &err) {
 		Error(err);

@@ -326,22 +326,18 @@ void db_x509::calcEffTrust()
 }
 
 	
-bool db_x509::insertPKI(pki_base *pki)
+void db_x509::insertPKI(pki_base *pki)
 {
-	bool s = db_base::insertPKI(pki);
+	db_base::insertPKI(pki);
 	pki_x509 *cert, *x = (pki_x509 *)pki;
-	if (s) {
-		findSigner(x);
-		findKey(x);
-	        if ( container.isEmpty() ) return false;
-        	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
-			cert->verify(x);
-		}
-		calcEffTrust();
-		updateView();
-		keylist->updateView();
+	findSigner(x);
+	findKey(x);
+	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
+		cert->verify(x);
 	}
-	return s;
+	calcEffTrust();
+	updateView();
+	keylist->updateView();
 }				
 
 void db_x509::assignClients(pki_crl *crl)

@@ -5,6 +5,7 @@
 #endif
 
 #define MARK CERR("--Mark--")
+#define DBEX(x) CERR("DB-error: "<<x.what()<<", Errno: "<<x.get_errno())
 
 #ifdef PRINTF_DEBUG
 #define CERR(x) cerr <<__FILE__<<" ("<<__LINE__<<") :"<< x << endl;
