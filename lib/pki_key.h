@@ -14,19 +14,12 @@
 
 #define MAX_KEY_LENGTH 4096
 
-typedef struct {
-	int size;
-	bool onlyPubKey;
-	int type;
-} KeyInfo;
-
 
 class pki_key: public pki_base
 {
     friend class pki_x509req;
     friend class pki_x509;
     protected:
-    	KeyInfo info;
 	EVP_PKEY *key;
 	string BN2string(BIGNUM *bn);
     public:
@@ -68,6 +61,7 @@ class pki_key: public pki_base
 	bool isPrivKey();
 	bool isPubKey();
 	int verify();
+	int getType();
 };
 
 #endif

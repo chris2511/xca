@@ -18,20 +18,37 @@ db_base::~db_base()
 	data->close(0);
 }
 
+void db_base::loadContainer()
+{
+	unsigned char *p;
+	Dbc *cursor;
+	if (int x = data->cursor(NULL, &cursor, 0))
+		data->err(x,"DB new Cursor");
+	Dbt *k = new Dbt();
+	Dbt *d = new Dbt();
+	string desc;
+	pki_base *pki;
+	while (!cursor->get(k, d, DB_NEXT)) {
+		desc = (char *)k->get_data();
+		p = (unsigned char *)d->get_data();
+		int size = d->get_size();
+		pki = newPKI();
+		pki->fromData(p, size);
+		cerr << desc.c_str() << endl;
+		pki->setDescription(desc);
+		container.append(pki);
+	}
+	delete (k);
+	delete (d);
+}	
 
 
 bool db_base::updateView()
 {
 	listView->clear();
-	Dbc *cursor;
-	if (int x = data->cursor(NULL, &cursor, 0))
-		data->err(x,"DB new Cursor");
-	Dbt *key = new Dbt();
-	Dbt *data = new Dbt();
-	QString  desc;
-	while (!cursor->get(key, data, DB_NEXT)) {
-		desc = (char *)key->get_data();
-		listView->insertItem(desc);
+	pki_base *pki;
+	for ( pki = container.first(); pki != 0; pki = container.next() )	{
+		listView->insertItem(pki->getDescription().c_str());
 	}
 	return true;
 }
@@ -64,8 +81,9 @@ bool db_base::insertPKI(pki_base *pki)
 	   //return false;
 	}
 	OPENSSL_free(p);
-	updateView();
 	pki->setDescription(desc);
+	container.append(pki);
+	updateView();
 	return true;
 }
 
@@ -80,6 +98,7 @@ bool db_base::deletePKI(pki_base *pki)
 	   data->err(x,"DB Error del");
 	   return false;
 	}
+	container.remove(pki);
 	return true;
 }
 
@@ -96,22 +115,9 @@ bool db_base::updatePKI(pki_base *pki, string desc)
 pki_base *db_base::getSelectedPKI(string desc)
 {
 	if (desc == "" ) return NULL;
-	unsigned char *p;
-	pki_base *targetPki = NULL;
-	Dbt k((void *)desc.c_str(), desc.length() + 1);
-	Dbt d((void *)p, 0);
-	int x = data->get(NULL, &k, &d, 0);
-	p = (unsigned char *)d.get_data();
-	int size = d.get_size();
-	cerr<< "getSelectedPKI" <<endl;	
-	if (x) data->err(x,"DB Error get");
-	else {
-		targetPki = newPKI();
-		cerr<< "after newkey" <<endl;	
-		targetPki->fromData(p, size);
-		targetPki->setDescription(desc);
-	}
-	return targetPki;
+	pki_base *pki;
+	for ( pki = container.first(); pki != 0; pki = container.next() )	
+		if (pki->getDescription() == desc) return pki;
 }
 
 pki_base *db_base::getSelectedPKI()
@@ -126,31 +132,8 @@ pki_base *db_base::getSelectedPKI()
 
 pki_base *db_base::findPKI(pki_base *refpki)
 {
-	unsigned char *p;
-	Dbc *cursor;
-	if (int x = data->cursor(NULL, &cursor, 0))
-		data->err(x,"DB new Cursor");
-	Dbt *k = new Dbt();
-	Dbt *d = new Dbt();
-	string desc;
 	pki_base *pki;
-	while (!cursor->get(k, d, DB_NEXT)) {
-		desc = (char *)k->get_data();
-		p = (unsigned char *)d->get_data();
-		int size = d->get_size();
-		pki = newPKI();
-		pki->fromData(p, size);
-		cerr << "comparin\n";
-		pki->setDescription(desc);
-		if (refpki->compare(pki)) {
-			delete (k);
-			delete (d);
-			return pki;
-		}
-		delete(pki);
-		
-	}
-	delete (k);
-	delete (d);
+	for ( pki = container.first(); pki != 0; pki = container.next() )	
+		if (refpki->compare(pki)) return pki;
 	return NULL;
 }

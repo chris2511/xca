@@ -4,14 +4,14 @@ TARGET=xca-$(VERSION)
 
 PREFIX=/usr/X11R6
 GCC=g++
-CFLAGS=-Wall -g 
+CFLAGS=-Wall -g
 QTDIR=$(shell ./configure)
+QTDIR=/usr/lib/qt
 DEBQT=/usr/include/qt
 
-export INC=-I$(DEBQT)
+export INC=-I$(QTDIR)/include -I$(DEBQT)
 LPATH=-L$(QTDIR)/lib -Llib
 LIBS=-lqt -lcrypto -ldb_cxx -lxcadb -lpki
-#LIBS=-lqt -lcrypto -ldb3_cxx -lxcadb -lpki
 
 MOC=$(QTDIR)/bin/moc
 UIC=$(QTDIR)/bin/uic
@@ -56,7 +56,7 @@ xca: $(OBJS) lib/libxcadb.a lib/libpki.a
 	$(GCC) $(CFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
 
 libs:
-	make -C lib all 
+	make -C lib all
 
 clean:
 	make -C lib clean

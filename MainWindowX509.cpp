@@ -47,27 +47,24 @@ void MainWindow::showDetailsCert()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	dlg->descr->setText(cert->getDescription().c_str());
-	if ( cert->verify() == pki_base::VERIFY_ERROR) {
-	      	dlg->verify->setDisabled(true);
-		dlg->verify->setText("FEHLER");
-	}
-	
-	if ( cert->verify() == pki_base::VERIFY_SELFSIGNED) {
-		dlg->verify->setText("SELF SIGNED");
-	}
-	
-	if ( cert->verify() == pki_base::VERIFY_TRUSTED) {
-		dlg->verify->setText("TRUSTED");
-	}
-	
-	if ( cert->verify() == pki_base::VERIFY_UNTRUSTED) {
+	pki_x509 *signer = certs->findsigner(cert);
+
+	if ( signer == NULL) {
 		dlg->verify->setText("NOT TRUSTED");
 	}
 	
+	else if ( cert->compare(signer) ) {
+		dlg->verify->setText("SELF SIGNED");
+	}
+	
 	else {
-	  pki_key *key = cert->getKey();
-	  if (key)
-	  {
+		dlg->verify->setText(signer->getDescription().c_str());
+	}
+	
+	
+  	pki_key *key = cert->getKey();
+	if (key)
+	{
 	   dlg->keyPubEx->setText(key->pubEx().c_str());   
 	   dlg->keyModulus->setText(key->modulus().c_str());   
 	   dlg->keySize->setText(key->length().c_str());   
@@ -78,8 +75,8 @@ void MainWindow::showDetailsCert()
 		   dlg->privKey->setText(existkey->getDescription().c_str());
 	        }	
 	   }
-	  }
 	}
+	
 	string land = cert->getDNs(NID_countryName);
 	string land1 = cert->getDNs(NID_stateOrProvinceName);
 	if (land != "" && land1 != "")

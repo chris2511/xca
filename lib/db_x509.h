@@ -9,9 +9,9 @@
 class db_x509: public db_base
 {
     public:
-	db_x509(DbEnv *dbe, string DBfile, string DB, QListBox *l)
-		:db_base(dbe, DBfile, DB, l){return;};
+	db_x509(DbEnv *dbe, string DBfile, string DB, QListBox *l);
 	pki_base *newPKI();
+	pki_x509 *findsigner(pki_x509 *client);
 };
 
 #endif

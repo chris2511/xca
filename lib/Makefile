@@ -1,7 +1,6 @@
 VERSION=0.1.5
 TARGET=xca-$(VERSION)
 GCC=g++ -Wall
-INC=-I$(QTDIR)/include
 LPATH=-L$(QTDIR)/lib
 LIBS=-lqt -lcrypto -ldb_cxx
 
