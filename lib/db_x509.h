@@ -1,6 +1,5 @@
 #include <qlistview.h>
 #include <qpixmap.h>
-#include <db_cxx.h>
 #include "db_key.h"
 #include "pki_x509.h"
 
