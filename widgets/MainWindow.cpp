@@ -171,8 +171,6 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	/* read in all out own OIDs */
 	initOIDs();
 	
-	init_database();
-	
 	read_cmdline();
 	//if (!exitApp)
 }
@@ -280,6 +278,9 @@ void MainWindow::read_cmdline()
 		}
 		cnt++;
 	}
+
+	init_database();
+	
 	dlgi->execute();
 	delete dlgi;
 	delete lt;

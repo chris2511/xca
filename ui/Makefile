@@ -14,7 +14,6 @@ DELFILES=$(MOC_CPP) $(UI_CPP) $(UI_H)
 
 EXTRA_CFLAGS+=-I../widgets -I../view
 
-headers: $(UI_H)
-
 include ../Rules.mak
 
+headers: $(UI_H)
