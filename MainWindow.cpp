@@ -74,6 +74,11 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	baseDir += QDir::separator();
 
 	baseDir += BASE_DIR;
+	QDir d(baseDir);
+        if ( ! d.exists() ){
+		if (!d.mkdir(baseDir))
+			qFatal(  "Couldnt create: " +  baseDir );
+	}
 	if (qApp->argc() <2){
 		dbfile = "xca.db";
 	}

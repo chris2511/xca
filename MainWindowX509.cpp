@@ -751,7 +751,6 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Export"), subExport);
 		subExport->insertItem(tr("File"), this, SLOT(writeCert()));
 		itemReq = subExport->insertItem(tr("Request"), this, SLOT(toRequest()));
-		subExport->insertItem(tr("Template"));
 
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCert()));
 		itemTrust = menu->insertItem(tr("Trust"), this, SLOT(setTrust()));

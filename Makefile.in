@@ -18,9 +18,10 @@ UIC=@UIC@
 
 ###################################
 
-UINAMES=CertDetail ExportKey_UI KeyDetail MainWindow_UI NewKey NewX509_UI PassRead PassWrite ReqDetail TrustState CertExtend
+UINAMES=CertDetail ExportKey_UI ExportCert_UI KeyDetail MainWindow_UI \
+	NewKey NewX509_UI PassRead PassWrite ReqDetail TrustState CertExtend
 
-MOCNAMES=NewX509 ExportKey MainWindow $(UINAMES)
+MOCNAMES=NewX509 ExportKey MainWindow ExportCert $(UINAMES)
      
 MOBJS=MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o MainWindowTemps.o  
 OOBJS=$(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))

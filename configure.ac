@@ -10,11 +10,9 @@ if test -d "$QTDIR" ; then
 	export PATH=$QTDIR/bin:$PATH
 	export CPPFLAGS="$CPPFLAGS -I$QTDIR/include"
 	export LDFLAGS="$LDFLAGS -L$QTDIR/lib"
-	AC_MSG_NOTICE([Using QT in $QTDIR....])
 else
 	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include -I/usr/X11R6/include"
 	export LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
-	AC_MSG_NOTICE([QTDIR was not set, using system locations])
 fi
 H_SSL=no
 H_DB=no
@@ -39,9 +37,6 @@ LDB=X
 AC_CHECK_LIB([db4_cxx], [atexit], ,[LDB=${LDB}y] )
 AC_CHECK_LIB([db3_cxx], [atexit], ,[LDB=${LDB}y] )
 AC_CHECK_LIB([db_cxx], [atexit], ,[LDB=${LDB}y] )
-if test "$LDB" == Xyyy; then
-	AC_MSG_ERROR([C++ extension library to Berkeley db not found, try installing libdb_cxx-dev])
-fi
 LQT=y
 AC_CHECK_LIB([qt], [atexit], ,[LQT=no])
 if test "$LQT" == "no"; then
@@ -54,9 +49,6 @@ fi
 
 AC_PATH_PROG(MOC,moc,[moc],[$PATH /usr/X11R6/bin],,[LQT=no])
 AC_PATH_PROG(UIC,uic,[uic],[$PATH /usr/X11R6/bin],,[LQT=no])
-if test "$LDB" == "no"; then
-	AC_MSG_ERROR([QT library and tools not found, try setting $QTDIR apropriate or install qt-dev])
-fi
 
 AC_ARG_ENABLE([printf-debug],[  --enable-printf-debug   switch on or off the printf-debugging ],
 [if test "x$enableval" == "xyes"; then
@@ -66,12 +58,21 @@ fi], AC_DEFINE(PRINTF_DEBUG) )
 AC_CONFIG_FILES([Makefile lib/Makefile])
 AC_OUTPUT
 
+if test "$LDB" == Xyyy; then
+	AC_MSG_NOTICE([C++ extension library to Berkeley db not found, try installing libdb_cxx-dev])
+fi
+if test "$LQT" == "no"; then
+	AC_MSG_NOTICE([QT library and tools not found, try setting $QTDIR apropriate or install qt-dev])
+fi
+if test -d "$QTDIR" ; then
+	AC_MSG_NOTICE([Using QT in $QTDIR....])
+else	
+	AC_MSG_NOTICE([QTDIR was not set, using system locations])
+fi
 cat << EOT
 
 
 *****************************************************************
-* It seems that all headers and libraries were found !          *
-*                                                               *
 * If you have comments, compilingproblems, bugs or suggestions  *
 * don't hesitate to contact me at: christian@hohnstaedt.de      *
 *                                                               *
@@ -80,5 +81,4 @@ cat << EOT
 
 
 EOT
-
 
