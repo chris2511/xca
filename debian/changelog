@@ -1,3 +1,19 @@
+xca (0.3.2) unstable; urgency=low
+
+  * Optimizations, icon for WIN32 platform
+  * MS Registry and %USERPROFILE% support
+  * Support for PKCS#7 certs (im/export)
+  * small UI changes
+
+ -- Christian Hohnstädt <chris@trinity.local>  Thu, 15 May 2003 00:46:07 +0200
+
+xca (0.3.1) unstable; urgency=low
+
+  * Tool Tips added
+  * CRL handling (import, export, details) added
+
+ -- Christian Hohnstädt <chris@trinity.local>  Thu, 24 Apr 2003 19:29:36 +0200
+
 xca (0.3.0) unstable; urgency=low
 
   * several bugfixes and memoryleaks removed

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>561</width>
+            <width>557</width>
             <height>446</height>
         </rect>
     </property>
@@ -456,6 +456,10 @@
                                     <name>text</name>
                                     <string>not available</string>
                                 </property>
+                                <property stdset="1">
+                                    <name>alignment</name>
+                                    <set>AlignCenter</set>
+                                </property>
                                 <property>
                                     <name>hAlign</name>
                                 </property>
@@ -786,12 +790,19 @@
                                     <name>text</name>
                                     <string>SELF SIGNED </string>
                                 </property>
+                                <property stdset="1">
+                                    <name>alignment</name>
+                                    <set>AlignCenter</set>
+                                </property>
                                 <property>
                                     <name>hAlign</name>
                                 </property>
                                 <property>
                                     <name>toolTip</name>
                                     <string>The internal name of the signer or "SELF SIGNED" if self signed</string>
+                                </property>
+                                <property>
+                                    <name>vAlign</name>
                                 </property>
                             </widget>
                             <widget row="2"  column="0" >

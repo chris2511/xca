@@ -52,16 +52,10 @@
 #include "db_key.h"
 
 
-db_key::db_key(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid)
+db_key::db_key(DbEnv *dbe, string DBfile, DbTxn *tid)
 	:db_base(dbe, DBfile, "keydb",tid)
 {
-	listView = l;
 	loadContainer();
-	keyicon[0] = loadImg("key.png");
-	keyicon[1] = loadImg("halfkey.png");
-	listView->addColumn(tr("Keysize"));
-	listView->addColumn(tr("Use count"));
-	updateView();
 }
 
 pki_base *db_key::newPKI(){
@@ -107,17 +101,3 @@ void db_key::inToCont(pki_base *pki)
 	emit newKey((pki_key *)pki);
 }
 
-
-void db_key::updateViewPKI(pki_base *pki)
-{
-	CERR("updateViewPKI()");
-        if (! pki) return;
-        db_base::updateViewPKI(pki);
-        int pixnum = 0;
-        QListViewItem *current = (QListViewItem *)pki->getPointer();
-        if (!current) return;
-	if (((pki_key *)pki)->isPubKey()) pixnum += 1;	
-	current->setPixmap(0, *keyicon[pixnum]);
-	current->setText(1, ((pki_key *)pki)->length().c_str());
-	current->setText(2, QString::number(((pki_key *)pki)->getUcount()));
-}

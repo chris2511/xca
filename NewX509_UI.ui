@@ -680,7 +680,8 @@ Empy, CA, client, server</string>
                     <name>text</name>
                     <string>For a new certificate you have to enter your personal data into the form and select a key to use.
 For signing a request, please select the appropriate Certificates igning request.
-For a SSL servercertificate choose the DNS name of the server as "Common name"</string>
+For a SSL servercertificate choose the DNS name of the server as "Common name"
+Only the internal name and the key are mandatory but usually one wants to fill in more fields.</string>
                 </property>
             </widget>
             <spacer>
@@ -756,7 +757,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>State or Province</string>
+                            <string>Country</string>
                         </property>
                     </widget>
                     <widget row="0"  column="3" >
@@ -818,7 +819,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Common name:</string>
+                            <string>Common name / DNS:</string>
                         </property>
                     </widget>
                     <widget row="1"  column="1" >
@@ -1828,6 +1829,12 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
                                     <property>
                                         <name>text</name>
                                         <string>Netscape Server Gated Crypto</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property>
+                                        <name>text</name>
+                                        <string>Microsoft EFS File Recovery</string>
                                     </property>
                                 </item>
                                 <property stdset="1">

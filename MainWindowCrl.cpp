@@ -93,12 +93,12 @@ bool MainWindow::showDetailsCrl(pki_crl *crl, bool import)
 			CERR(rev->getDescription());
 			current = new QListViewItem(dlg->certList, 
 					rev->getDescription().c_str());
-			current->setText(1, rev->getSerial().c_str() );
-			current->setText(2, rev->revokedAt(TIMEFORM_SORTABLE).c_str());
 		}
 		else {
-			current = new QListViewItem(dlg->certList, "Unknown" );
+			current = new QListViewItem(dlg->certList, "Unknown certificate" );
 		}
+		current->setText(1, QString::number(crl->getSerial(i)) );
+		current->setText(2, pki_x509::asn1TimeToSortable(crl->getRevDate(i)).c_str());
 	}
 	dlg->v3Extensions->setText(crl->printV3ext().c_str());
 	dlg->issuer->setText(iss->getDescription().c_str());
@@ -217,7 +217,16 @@ pki_crl *MainWindow::insertCrl(pki_crl *crl)
     return crl;
 }
 
-void MainWindow::writeCrl()
+void MainWindow::writeCrl_pem()
+{
+	writeCrl(true);
+}	
+void MainWindow::writeCrl_der()
+{
+	writeCrl(false);
+}	
+	
+void MainWindow::writeCrl(bool pem)
 	{
 	pki_crl *crl;
 	try {
@@ -247,7 +256,7 @@ void MainWindow::writeCrl()
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	try {
-		crl->writeCrl(s.latin1());
+		crl->writeCrl(s.latin1(), pem);
 	}
 	catch (errorEx &err) {
                 Error(err);
@@ -259,6 +268,7 @@ void MainWindow::writeCrl()
 void MainWindow::showPopupCrl(QListViewItem *item, const QPoint &pt, int x) {
 	CERR( "popup Crl");
 	QPopupMenu *menu = new QPopupMenu(this);
+	QPopupMenu *subExport = new QPopupMenu(this);
 	
 	if (!item) {
 		menu->insertItem(tr("Import"), this, SLOT(loadCrl()));
@@ -266,11 +276,14 @@ void MainWindow::showPopupCrl(QListViewItem *item, const QPoint &pt, int x) {
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRenameCrl()));
 		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsCrl()));
-		menu->insertItem(tr("Export"), this, SLOT(writeCrl()));
+		menu->insertItem(tr("Export"), subExport);
+		subExport->insertItem(tr("PEM"), this, SLOT(writeCrl_pem()));
+		subExport->insertItem(tr("DER"), this, SLOT(writeCrl_der()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteCrl()));
 	}
 	menu->exec(pt);
 	delete menu;
+	delete subExport;
 	
 	return;
 }

@@ -1,4 +1,3 @@
-/* uvi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -45,75 +44,26 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef PASS_INFO_H
+#define PASS_INFO_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
+#include <qstring.h>
 
-#include "NewX509.h"
-#include "MainWindow_UI.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
-#include "lib/db_temp.h"
-#include "lib/db_crl.h"
-#include "lib/exception.h"
-#include <qpixmap.h>
-#include <qfiledialog.h>
-#include <string>
-
-#define DBFILE "xca.db"
-
-
-class MainWindow: public MainWindow_UI
+class pass_info: public QObject 
 {
-	Q_OBJECT
-
-  protected:
-	void init_images();
-	void read_cmdline();
-	void init_database();
-	DbTxn *global_tid;
-	DbEnv *dbenv;
-			    
-   friend class pki_key;
-
+   private:	
+	QString title;
+	QString description;
    public:
-	static db_x509 *certs;
-	static db_x509req *reqs;
-	static db_key *keys;
-	static db_temp *temps;
-	static db_crl *crls;
-	static db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
-	int exitApp;
-	QString baseDir, dbfile;
-	
-	MainWindow(QWidget *parent, const char *name);
-	~MainWindow(); 
-	void loadSettings();
-	void saveSettings();
-	void initPass();
-	static int passRead(char *buf, int size, int rwflag, void *userdata);
-	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-	static void incProgress(int a, int b, void *progress);
-	static void dberr(const char *errpfx, char *msg);
-	static NewX509 *newX509(QPixmap *image);
-	static pki_key *getKeyByName(QString name);
-	string md5passwd();
-	bool opensslError(pki_base *pki);
-	QPixmap *loadImg(const char *name);
-	void Error(errorEx &err);
-	
-	static QString getPath();
-	static void setPath(QString path);
-	bool mkDir(QString dir);
-	
+	pass_info(QString t, QString d);
+	QString getTitle(){ return title; }
+	QString getDescription(){ return description; }
+	void setTitle(QString t){title = t; }
+	void setDescription(QString d){description = d; }
 };
+
 #endif

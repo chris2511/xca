@@ -48,14 +48,12 @@
  *
  */                           
 
+#ifndef PKI_X509REQ_H
+#define PKI_X509REQ_H
 
-#include <stdio.h>
 #include <openssl/x509.h>
 #include <openssl/pem.h>
 #include "pki_key.h"
-
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
 
 class pki_x509;
 

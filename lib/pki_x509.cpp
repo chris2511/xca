@@ -573,7 +573,7 @@ int pki_x509::checkDate()
 	int ret=0;
 	if (ASN1_UTCTIME_cmp_time_t(X509_get_notAfter(cert), tnow) == -1)
 		ret = -1;
-	if (!ASN1_UTCTIME_cmp_time_t(X509_get_notBefore(cert), tnow) == -1)
+	if (!(ASN1_UTCTIME_cmp_time_t(X509_get_notBefore(cert), tnow) == -1))
 	 	ret = 1;
 	openssl_error();
 	return ret;
@@ -733,6 +733,13 @@ void pki_x509::setRevoked(bool rev)
 		revoked = NULL;
 	}
 	openssl_error();
+}
+void pki_x509::setRevoked(ASN1_TIME *when)
+{
+	if (revoked) 
+		ASN1_TIME_free(revoked);
+	revoked = when;
+	openssl_error();	
 }
 
 int pki_x509::calcEffTrust()

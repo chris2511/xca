@@ -48,37 +48,38 @@
  *
  */                           
 
-
+#include "KeyView.h"
+#include "NewKey.h"
+#include "KeyDetail.h"
+#include "ExportKey.h"
 #include "MainWindow.h"
+#include <qcombobox.h>
+#include <qlabel.h>
+#include <qprogressdialog.h>
+#include <qtextview.h>
+#include <qmessagebox.h>
+#include <qpopupmenu.h>
 
-const int MainWindow::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
+const int KeyView::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 
-
-pki_key *MainWindow::getSelectedKey()
+KeyView::KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
+	:XcaListView(parent, name, f)
 {
-	CERR( "get Selected Key");
-	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
-	CERR( "got selected: "<< (int)targetKey );
-	if (targetKey) {
-	   string errtxt = targetKey->getError();
-	   if (errtxt != "")
-		QMessageBox::warning(this,tr(XCA_TITLE),
-			tr("The Key: ") + QString::fromLatin1(targetKey->getDescription().c_str()) +
-			tr(" is not consistent:") + QString::fromLatin1(errtxt.c_str()) );
-	}
-	CERR( "targetKey = " << (int)targetKey );
-	return targetKey;
+	keyicon[0] = loadImg("key.png");
+	keyicon[1] = loadImg("halfkey.png");
+	addColumn(tr("Keysize"));
+	addColumn(tr("Use count"));
+			    
 }
 
-
-void MainWindow::newKey()
+void KeyView::newItem()
 {
 	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
 	QString x;
 	for (int i=0; sizeList[i] != 0; i++ ) 
 	   dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
 	dlg->keyLength->setCurrentItem(2);
-	dlg->image->setPixmap(*keyImg);
+	dlg->image->setPixmap(*image);
 	if (dlg->exec()) {
 	  try {
 	   int sel = dlg->keyLength->currentItem();
@@ -89,12 +90,12 @@ void MainWindow::newKey()
 	   progress->setProgress(0);	
 	   progress->setCaption(tr(XCA_TITLE));
 	   pki_key *nkey = new pki_key (dlg->keyDesc->text().latin1(), 
-		       &MainWindow::incProgress,
+		       &incProgress,
 		       progress,
 		       sizeList[sel]);
            progress->cancel();
 	   delete progress;
-	   insertKey(nkey);
+	   insert(nkey);
 	   x = nkey->getDescription().c_str();
 	   emit keyDone(x);
 	  }
@@ -105,29 +106,15 @@ void MainWindow::newKey()
 	delete dlg;
 }
 
-
-void MainWindow::deleteKey()
+void KeyView::deleteItem()
 {
-	pki_key *delKey = getSelectedKey();
-	if (!delKey) return;
-	if (QMessageBox::information(this,tr(XCA_TITLE),
-			tr("The key") + ": '" + 
-			QString::fromLatin1(delKey->getDescription().c_str()) +
-			"'\n" + tr("is going to be deleted"),
-			"Delete", "Cancel")
-	) return;
-	try {
-		keys->deletePKI(delKey);
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
+	deleteItem_default(tr("The key"), tr("is going to be deleted")); 
 }
 
-
-bool MainWindow::showDetailsKey(pki_key *key, bool import)
+void KeyView::show(pki_base *item, bool import)
 {
-	if (opensslError(key)) return false;
+	pki_key *key = (pki_key *)item;
+	if (!key) return;
 	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
 	try {	
 		detDlg->setCaption(tr(XCA_TITLE));
@@ -143,7 +130,7 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 			detDlg->keyPrivEx->setText(tr("not available") );
 			detDlg->keyPrivEx->setDisabled(true);
 		}
-		detDlg->image->setPixmap(*keyImg);
+		detDlg->image->setPixmap(*image);
 		if (import) {
 			detDlg->but_ok->setText(tr("Import"));
 			detDlg->but_cancel->setText(tr("Discard"));
@@ -152,91 +139,56 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 	catch (errorEx &err) {
 		Error(err);
 		delete detDlg;
-		return false;
+		return;
 	}
-	string odesc = key->getDescription();
+	QString odesc = key->getIntName();
 	bool ret = detDlg->exec();
-	string ndesc = detDlg->keyDesc->text().latin1();
+	QString ndesc = detDlg->keyDesc->text();
 	delete detDlg;
 	if (!ret && import) {
 		delete key;
 	}
-	if (!ret) return false;
-	if (keys == NULL) {
-		init_database();
+	if (!ret) return;
+	if (db == NULL) {
+		emit init_database();
 	}
 	if (import) {
-		key = insertKey(key);
+		key = (pki_key *)insert(key);
 	}
 	CERR(ndesc << " " << key->getDescription());
 	if ( ndesc != odesc) {
 		MARK
 		try {
-			keys->renamePKI(key, ndesc);
+			db->renamePKI(key, ndesc);
 			MARK
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
-		return true;
-	}
-	MARK
-	return false;
-}
-
-
-void MainWindow::showDetailsKey()
-{
-	pki_key *targetKey = getSelectedKey();
-	if (targetKey) showDetailsKey(targetKey);
-}
-
-
-void MainWindow::showDetailsKey(QListViewItem *item)
-{
-	string key = item->text(0).latin1();
-	showDetailsKey((pki_key *)keys->getSelectedPKI(key));
-}
-
-
-void MainWindow::loadKey()
-{
-	QStringList filt;
-	filt.append( "PKI Keys ( *.pem *.der )"); 
-	filt.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
-	filt.append( "All Files ( *.* )");
-	QString s="";
-	QStringList slist;
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Import key");
-	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::ExistingFiles );
-	setPath(dlg);
-	if (dlg->exec()) {
-		slist = dlg->selectedFiles();
-		newPath(dlg);
-	}
-	delete dlg;
-	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
-		s = *it;
-		s = QDir::convertSeparators(s);
-		try {
-			pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
-			insertKey(lkey);
-		}
-		catch (errorEx &err) {
-			Error(err);
-		}
+		return;
 	}
 }
 
-
-pki_key* MainWindow::insertKey(pki_key *lkey)
+void KeyView::load()
 {
-	
+	QStringList filter;
+	filter.append( "PKI Keys ( *.pem *.der *.key )"); 
+	filter.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
+	load_default(filter, tr("Import key"));
+}
+
+pki_base *KeyView::loadItem(QString fname)
+{
+	pki_base *lkey = new pki_key(fname.latin1(), &MainWindow::passRead);
+	return lkey;
+}
+
+pki_base* KeyView::insert(pki_base *item)
+{
+	pki_key *lkey = (pki_key *)item;
 	pki_key *oldkey;
 	try {
-	    oldkey = (pki_key *)keys->findPKI(lkey);
+	    oldkey = (pki_key *)db->getByReference(lkey);
 	    if (oldkey != NULL) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) ||
 		    lkey->isPubKey()){
@@ -253,13 +205,13 @@ pki_key* MainWindow::insertKey(pki_key *lkey)
 			QString::fromLatin1(oldkey->getDescription().c_str()) + 
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
 		    CERR( "before deleting pki...");
-		    keys->deletePKI(oldkey);
+		    db->deletePKI(oldkey);
 		    lkey->setDescription(oldkey->getDescription());
 		    delete(oldkey);
 		}
 	    }
 	    CERR( "after findkey");
-	    keys->insertPKI(lkey);
+	    db->insertPKI(lkey);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -268,18 +220,18 @@ pki_key* MainWindow::insertKey(pki_key *lkey)
 }
 
 
-void MainWindow::writeKey()
+void KeyView::store()
 {
-	bool PEM=false;
+	bool PEM = false;
 	const EVP_CIPHER *enc = NULL;
 	pki_key *targetKey = NULL;
-	targetKey = getSelectedKey();
+	targetKey = (pki_key *)getSelected();
 	if (!targetKey) return;
 	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
-			targetKey->isPubKey(), getPath(), this);
-	dlg->image->setPixmap(*keyImg);
+			targetKey->isPubKey(), MainWindow::getPath(), this);
+	dlg->image->setPixmap(*image);
 	int dlgret = dlg->exec();
-	newPath(dlg->dirPath);
+	MainWindow::setPath(dlg->dirPath);
 
 	if (!dlgret) {
 		delete dlg;
@@ -311,52 +263,40 @@ void MainWindow::writeKey()
 }
 
 
-void MainWindow::showPopupKey(QListViewItem *item, const QPoint &pt, int x) {
+void KeyView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	CERR( " popup key" );
 	QPopupMenu *menu = new QPopupMenu(this);
 	if (!item) {
-		menu->insertItem(tr("New Key"), this, SLOT(newKey()));
-		menu->insertItem(tr("Import"), this, SLOT(loadKey()));
+		menu->insertItem(tr("New Key"), this, SLOT(newItem()));
+		menu->insertItem(tr("Import"), this, SLOT(load()));
 	}
 	else {
-		menu->insertItem(tr("Rename"), this, SLOT(startRenameKey()));
-		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsKey()));
-		menu->insertItem(tr("Export"), this, SLOT(writeKey()));
-		menu->insertItem(tr("Delete"), this, SLOT(deleteKey()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
+		menu->insertItem(tr("Show Details"), this, SLOT(show()));
+		menu->insertItem(tr("Export"), this, SLOT(store()));
+		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
 	}
 	menu->exec(pt);
 	delete menu;
 	return;
 }
 
-void MainWindow::renameKey(QListViewItem *item, int col, const QString &text)
+void KeyView::incProgress(int a, int b, void *progress)
 {
-	try {
-		pki_base *pki = keys->getSelectedPKI(item);
-		string txt =  text.latin1();
-		keys->renamePKI(pki, txt);
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
+	int i = ((QProgressDialog *)progress)->progress();
+	((QProgressDialog *)progress)->setProgress(++i);
 }
 
-void MainWindow::startRenameKey()
+void KeyView::updateViewItem(pki_base *pki)
 {
-	try {
-#ifdef qt3
-		pki_base *pki = keys->getSelectedPKI();
-		if (!pki) return;
-		QListViewItem *item = (QListViewItem *)pki->getPointer();
-		item->startRename(0);
-#else
-		renamePKI(keys);
-#endif
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
+	CERR("updateViewPKI()");
+        if (! pki) return;
+        XcaListView::updateViewItem(pki);
+        int pixnum = 0;
+        QListViewItem *current = (QListViewItem *)pki->getPointer();
+        if (!current) return;
+	if (((pki_key *)pki)->isPubKey()) pixnum += 1;	
+	current->setPixmap(0, *keyicon[pixnum]);
+	current->setText(1, ((pki_key *)pki)->length().c_str());
+	current->setText(2, QString::number(((pki_key *)pki)->getUcount()));
 }
-
-
-

@@ -210,13 +210,16 @@ void pki_crl::sign(pki_key *key)
 }
 
 
-void pki_crl::writeCrl(const string fname)
+void pki_crl::writeCrl(const string fname, bool pem)
 {
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (crl){
 		CERR("writing CRL");
-		PEM_write_X509_CRL(fp, crl);
+		if (pem)
+			PEM_write_X509_CRL(fp, crl);
+		else
+			i2d_X509_CRL_fp(fp, crl);
 		openssl_error();
 	   }
 	}
@@ -252,6 +255,18 @@ long pki_crl::getSerial(int num)
 	return serial;
 }	
 		
+ASN1_TIME *pki_crl::getRevDate(int num)
+{
+	X509_REVOKED *ret = NULL;
+	ASN1_TIME *t = NULL;
+	if (crl && crl->crl && crl->crl->revoked) {
+		ret = sk_X509_REVOKED_value(crl->crl->revoked, num);
+		openssl_error();
+		t = M_ASN1_TIME_dup(ret->revocationDate);
+	}
+	return t;
+}	
+
 string pki_crl::issuerName()
 {
 	char *x = NULL;

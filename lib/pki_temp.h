@@ -48,13 +48,12 @@
  *
  */                           
 
+#ifndef PKI_TEMP_H
+#define PKI_TEMP_H
 
 #include <iostream>
 #include <string>
 #include "pki_base.h"
-
-#ifndef PKI_TEMP_H
-#define PKI_TEMP_H
 
 #define tEMPTY 0
 #define tCA 1

@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>629</width>
+            <width>621</width>
             <height>543</height>
         </rect>
     </property>
@@ -59,31 +59,7 @@
                         <number>6</number>
                     </property>
                     <widget>
-                        <class>QListView</class>
-                        <column>
-                            <property>
-                                <name>text</name>
-                                <string>Name</string>
-                            </property>
-                            <property>
-                                <name>clickable</name>
-                                <bool>true</bool>
-                            </property>
-                            <property>
-                                <name>resizeable</name>
-                                <bool>true</bool>
-                            </property>
-                        </column>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>Item</string>
-                        </property>
-                        <property>
-                            <name>pixmap</name>
-                            <pixmap></pixmap>
-                        </property>
-                    </item>
+                        <class>KeyView</class>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>keyList</cstring>
@@ -306,17 +282,6 @@
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>&amp;New Request</string>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QPushButton</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>PushButton47</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>&amp;Export</string>
                                 </property>
                             </widget>
                             <widget>
@@ -858,21 +823,6 @@
                                 <class>QPushButton</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>PushButton13_2_2_5</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>&amp;Export</string>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Do NOT press this button :-)</string>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QPushButton</class>
-                                <property stdset="1">
-                                    <name>name</name>
                                     <cstring>PushButton13_2_2_2_2</cstring>
                                 </property>
                                 <property stdset="1">
@@ -1012,6 +962,28 @@
         </widget>
     </vbox>
 </widget>
+<customwidgets>
+    <customwidget>
+        <class>KeyView</class>
+        <header location="local">KeyView.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>1</container>
+        <sizepolicy>
+            <hordata>7</hordata>
+            <verdata>7</verdata>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
+</customwidgets>
+<images>
+    <image>
+        <name>image0</name>
+        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1ddec44f503c0ae2a154410f53d0ed20e2bf6bdb656dd6861dd23d9a66591b0587fd1654235ebded6f0edcd53e419d87ae7b1f4f9b8f906d0bfe012317426a70b07bdc2f3ec77f8ed6b89559061a0343d06a124cc105596482585094bc0ae599b04646c9018926491b2205e140c485cace25755c175d0a967b622ff900b8cc9c7d29af594ea722d589167f813aa852ba07d94b9dce296e883fe7bb163f23896753</data>
+    </image>
+</images>
 <connections>
     <connection>
         <sender>genNewKey</sender>
@@ -1042,12 +1014,6 @@
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
         <slot>loadKey()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton47</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>writeReq()</slot>
     </connection>
     <connection>
         <sender>PushButton46</sender>
@@ -1114,18 +1080,6 @@
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
         <slot>showDetailsReq()</slot>
-    </connection>
-    <connection>
-        <sender>keyList</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showDetailsKey(QListViewItem *)</slot>
-    </connection>
-    <connection>
-        <sender>keyList</sender>
-        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showPopupKey(QListViewItem *, const QPoint &amp;, int)</slot>
     </connection>
     <connection>
         <sender>reqList</sender>
@@ -1206,12 +1160,6 @@
         <slot>changeView()</slot>
     </connection>
     <connection>
-        <sender>PushButton13_2_2_5</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>writeCrl()</slot>
-    </connection>
-    <connection>
         <sender>PushButton13_2_2_2_2</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
@@ -1281,7 +1229,6 @@
 </connections>
 <tabstops>
     <tabstop>MainTab</tabstop>
-    <tabstop>keyList</tabstop>
     <tabstop>genNewKey</tabstop>
     <tabstop>exportKey</tabstop>
     <tabstop>importKey</tabstop>
@@ -1289,7 +1236,6 @@
     <tabstop>renameKey</tabstop>
     <tabstop>reqList</tabstop>
     <tabstop>PushButton13</tabstop>
-    <tabstop>PushButton47</tabstop>
     <tabstop>PushButton46</tabstop>
     <tabstop>PushButton25</tabstop>
     <tabstop>PushButton26</tabstop>

@@ -238,6 +238,7 @@
                 <name>text</name>
                 <string>DER is a binary format of the Certificate
 PEM is a base64 encoded Certificate
+PKCS#7 is an official Certificate exchange format
 PKCS#12 is an encrypted official Key-Certificate exchange format</string>
             </property>
             <property stdset="1">

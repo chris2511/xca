@@ -60,14 +60,11 @@
 class db_key: public db_base
 {
 	Q_OBJECT
-    protected:
-	QPixmap *keyicon[2];
     public:
-	db_key(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid);
+	db_key(DbEnv *dbe, string DBfile, DbTxn *tid);
 	pki_base *newPKI();
 	QStringList getPrivateDesc();
 	QStringList get0PrivateDesc();
-	void updateViewPKI(pki_base *pki);
 	void inToCont(pki_base *pki);
 	void remFromCont(pki_base *pki);
     signals:

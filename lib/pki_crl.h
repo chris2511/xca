@@ -49,13 +49,13 @@
  */                           
 
 
+#ifndef PKI_CRL_H
+#define PKI_CRL_H
+
 #include <iostream>
 #include <string>
 #include <openssl/pem.h>
 #include "pki_x509.h"
-
-#ifndef PKI_CRL_H
-#define PKI_CRL_H
 
 class pki_crl: public pki_base
 {
@@ -76,7 +76,7 @@ class pki_crl: public pki_base
 	void write(string fname);
 	void addV3ext(int nid, string exttext);
 	void sign(pki_key *key);
-	void writeCrl(const string fname);
+	void writeCrl(const string fname, bool pem = true);
 	pki_x509 *getIssuer();	
 	ASN1_TIME *pki_crl::getDate();
 	virtual void fromData(unsigned char *p, int size);
@@ -87,6 +87,7 @@ class pki_crl: public pki_base
 	X509_NAME *getIssuerX509_NAME();
 	bool verify(pki_key *pkey);
 	long getSerial(int num);
+	ASN1_TIME *getRevDate(int num);
 	string printV3ext();
 			       
 };

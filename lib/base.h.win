@@ -1,10 +1,15 @@
 /* base definitions */
 
+#ifndef BASE_H
+#define BASE_H
+
 #define VER "VERSION-W32"
 
 #define MARK 
-#define DBEX(x) 
+#define DBEX(x) x.get_errno();
 
 #define CERR(x)
-#define PREFIX ""
+
 #define XCA_TITLE "X Certifikate and Key management"
+
+#endif

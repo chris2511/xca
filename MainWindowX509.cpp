@@ -100,7 +100,7 @@ void MainWindow::newCert(NewX509 *dlg)
 		keyuse="", keyuse1="", pathstr="", certTypeStr = "";
 	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
 		"timeStamping","msCodeInd","msCodeCom",
-		"msCTLSign","msSGC","msEFS","nsSGC"};
+		"msCTLSign","msSGC","msEFS","nsSGC","1.3.6.1.4.1.311.10.3.4.1"};
 	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"};
@@ -554,9 +554,7 @@ void MainWindow::deleteCert()
 void MainWindow::loadCert()
 {
 	QStringList filt;
-	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer)")); 
-	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
-	//filt.append(tr("PKCS#7 Signatures ( *.p7s )")); 
+	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
 	filt.append(tr("All files ( *.* )"));
 	QStringList slist;
 	QString s="";
@@ -591,7 +589,7 @@ void MainWindow::loadPKCS12()
 {
 	pki_pkcs12 *pk12;
 	QStringList filt;
-	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
+	filt.append(tr("PKCS#12 Certificates ( *.p12 *.pfx )")); 
 	filt.append(tr("All files ( *.* )"));
 	QStringList slist;
 	QString s="";
@@ -629,7 +627,9 @@ void MainWindow::insertP12(pki_pkcs12 *pk12)
 	pki_key *akey;
 
 	try {
+		MARK
 		akey = pk12->getKey();
+		MARK
 		acert = pk12->getCert();
 #ifdef INSERT_WO_ASK
 		insertKey(akey);
@@ -639,13 +639,18 @@ void MainWindow::insertP12(pki_pkcs12 *pk12)
 			insertCert(acert);
 		}
 #else
-		showDetailsKey(akey, true);
+		MARK
+		keyList->show(akey, true);
+		MARK
 		showDetailsCert(acert,true);
+		MARK
 		for (int i=0; i<pk12->numCa(); i++) {
 			acert = pk12->getCa(i);
 			showDetailsCert(acert, true);
+		MARK
 		}
 #endif			
+		MARK
 		if (keys)
 			keys->updateView();
 	}
@@ -658,10 +663,10 @@ void MainWindow::insertP12(pki_pkcs12 *pk12)
 
 void MainWindow::loadPKCS7()
 {
-	pki_pkcs7 *pk7;
+	pki_pkcs7 *pk7 = NULL;
 	pki_x509 *acert;
 	QStringList filt;
-	filt.append(tr("PKCS#7 data ( *.p7s *.p7m )")); 
+	filt.append(tr("PKCS#7 data ( *.p7s *.p7m *.p7b )")); 
 	filt.append(tr("All files ( *.* )"));
 	QStringList slist;
 	QString s="";
@@ -680,17 +685,21 @@ void MainWindow::loadPKCS7()
 		s = QDir::convertSeparators(s);
 		try {
 			pk7 = new pki_pkcs7(s.latin1());
+			MARK
 			pk7->readP7(s.latin1());
+			MARK
 			for (int i=0; i<pk7->numCert(); i++) {
 				acert = pk7->getCert(i);
 				showDetailsCert(acert, true);
 			}
-			delete pk7;
 			keys->updateView();
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
+		MARK
+		if (pk7) delete pk7;
+		MARK
 	}
 }
 
@@ -736,6 +745,10 @@ pki_x509 *MainWindow::insertCert(pki_x509 *cert)
     return cert;
 }
 
+#define P7_ONLY 0
+#define P7_CHAIN 1
+#define P7_TRUSTED 2
+
 void MainWindow::writeCert()
 {
 	QStringList filt;
@@ -779,10 +792,19 @@ void MainWindow::writeCert()
 		case 4: // DER	
 			crt->writeCert(fname.latin1(),false,false);
 			break;
-		case 5: // P12
+		case 5: // P7 lonely
+			writePKCS7(fname, P7_ONLY);
+			break;
+		case 6: // P12
+			writePKCS7(fname, P7_CHAIN);
+			break;
+		case 7: // P12
+			writePKCS7(fname, P7_TRUSTED);
+			break;
+		case 8: // P12
 			writePKCS12(fname,false);
 			break;
-		case 6: // P12 + cert chain
+		case 9: // P12 + cert chain
 			writePKCS12(fname,true);
 			break;
 
@@ -829,6 +851,39 @@ void MainWindow::writePKCS12(QString s, bool chain)
     }
 }
 
+void MainWindow::writePKCS7(QString s, int type) {
+    pki_pkcs7 *p7 = NULL;
+    QList<pki_x509> list;
+    pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+    try {	
+	p7 =  new pki_pkcs7("");
+	if ( type == P7_CHAIN ) {
+		while (cert != NULL) {
+			p7->addCert(cert);
+			if (cert->getSigner() == cert) cert = NULL;
+			else cert = cert->getSigner();
+		}
+	}
+	if ( type == P7_ONLY ) {
+		p7->addCert(cert);
+	}	
+	if (type == P7_TRUSTED) {
+		list = certs->getCerts(true);
+		if (!list.isEmpty()) {
+       			for ( cert = list.first(); cert != NULL; cert = list.next() ) {
+				p7->addCert(cert);
+			}
+		}
+	}
+	p7->writeP7(s.latin1(), false);
+    }
+    catch (errorEx &err) {
+	    Error(err);
+    }
+    if (p7 != NULL ) delete p7;
+	
+}
+		
 void MainWindow::signP7()
 {
 	QStringList filt;
@@ -1082,7 +1137,7 @@ void MainWindow::setCrlDays()
 	bool ok;
 	int nCrlDays = QInputDialog::getInteger (tr(XCA_TITLE),
 			tr("Please enter the CRL renewal periode in days"),
-			crlDays, crlDays, 365, 1, &ok, this );
+			crlDays, 1, 2147483647, 1, &ok, this );
 	if (ok && (crlDays != nCrlDays)) {
 		cert->setCrlDays(nCrlDays);
 		certs->updatePKI(cert);

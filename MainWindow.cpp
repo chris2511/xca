@@ -50,13 +50,34 @@
 
 
 #include "MainWindow.h"
+#include <qmessagebox.h>
+#include "lib/pki_pkcs12.h"
+#include "KeyView.h"
+#include "lib/pass_info.h"
+#include "PassRead.h"
+#include "PassWrite.h"
+
+#ifdef WIN32
+#include <direct.h>     // to define mkdir function
+#include <windows.h>    // to define mkdir function
+#else
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#endif
+
+
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
 	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL,
 	*MainWindow::appIco = NULL;
 
-
+db_key *MainWindow::keys = NULL;
+db_x509req *MainWindow::reqs = NULL;
+db_x509	*MainWindow::certs = NULL;
+db_temp	*MainWindow::temps = NULL;
+db_base	*MainWindow::settings = NULL;
 
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
@@ -67,30 +88,106 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	copyright->setText(cpr + VER);
 	setCaption(tr(XCA_TITLE));
 	dbfile="xca.db";
-	keys = NULL;
-	reqs = NULL;
-	certs = NULL;
-	temps = NULL;
 	dbenv = NULL;
 	global_tid = NULL;
+
+
 #ifdef WIN32
-	baseDir = "";
+	unsigned char reg_path_buf[255] = "";
+	char data_path_buf[255] = "";
+// verification registry keys
+	LONG lRc;
+    HKEY hKey;
+	DWORD dwDisposition;
+	DWORD dwLength = 255;
+    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
+    if(lRc!= ERROR_SUCCESS){
+	    QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found . ReInstall Xca.");
+		qFatal("");
+	}
+    else {
+		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
+        if(lRc!= ERROR_SUCCESS){
+	        QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
+			qFatal("");
+		}
+		lRc=RegCloseKey(hKey);
+	}
+	lRc=RegOpenKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,KEY_ALL_ACCESS, &hKey);
+        if(lRc!= ERROR_SUCCESS)
+        {//First run for current user
+                lRc=RegCloseKey(hKey);
+                lRc=RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
+                NULL,&hKey, &dwDisposition);
+		//setup data dir for current user
+				DWORD ret_val;
+				ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
+				strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
+				if (strncmp(data_path_buf,"%USERPROFILE%",13)==0){ // win9x - %Program files%\xca\data
+					strncpy(data_path_buf,(char *)reg_path_buf,255);
+					strcat(data_path_buf,"\\data");
+				}
+				baseDir = data_path_buf;
+				if (ret_val > 255) {
+					QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
+					lRc=RegCloseKey(hKey);
+					qFatal(  "Couldnt create: " +  baseDir );
+				}
+		// save in registry
+                lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
+                lRc=RegCloseKey(hKey);
+				QMessageBox::warning(this,tr(XCA_TITLE), "New data dir create:"+ baseDir);
+				QMessageBox::warning(this,tr(XCA_TITLE), tr("WARNING: If you have updated your 'xca' application you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to "+ baseDir +" or change HKEY_CURRENT_USER->Software->xca->data_path key"));
+        }
+		else{
+				dwLength = sizeof(data_path_buf);
+				lRc=RegQueryValueEx(hKey,"data_path",NULL,NULL, (BYTE*)data_path_buf, &dwLength);
+				if ((lRc != ERROR_SUCCESS)) {
+					QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
+		//recreate data dir for current user
+					DWORD ret_val;
+					ret_val = ExpandEnvironmentStrings("%USERPROFILE%", data_path_buf, 255);
+					strcat(data_path_buf,"\\Application Data\\xca"); //WinNT  - %USERPROFILE%\Application Data\xca
+					if (strncmp(data_path_buf,"%USERPROFILE%",13)==0){ //win9x -  %USERPROFILE% not set %Program files%\xca\data
+						strncpy(data_path_buf,(char *)reg_path_buf,255);
+						strcat(data_path_buf,"\\data");
+					}
+					baseDir = data_path_buf;
+					if (ret_val > 255) {
+						QMessageBox::warning(this,tr(XCA_TITLE), "Your %USERPROFILE% is too long");
+						lRc=RegCloseKey(hKey);
+						qFatal(  "Couldnt create: " +  baseDir );
+					}
+		// save in registry
+					lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
+					lRc=RegCloseKey(hKey);
+					QMessageBox::warning(this,tr(XCA_TITLE), "data dir:"+ baseDir);
+				}
+
+			lRc=RegCloseKey(hKey);
+			baseDir = data_path_buf;
+		}
+// 
+
 #else	
 	baseDir = QDir::homeDirPath();
+
 	baseDir += QDir::separator();
 
 	baseDir += BASE_DIR;
+#endif
+
 	QDir d(baseDir);
         if ( ! d.exists() ){
-		if (!d.mkdir(baseDir))
-			qFatal(  "Couldnt create: " +  baseDir );
+			if (!d.mkdir(baseDir)) {
+				QMessageBox::warning(this,tr(XCA_TITLE), "Could not create " + baseDir);
+				qFatal(  "Couldnt create: " +  baseDir );
+			}
 	}
-	
-#endif
+
 	
 #ifdef qt3	
-	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
-			this, SLOT(renameKey(QListViewItem *, int, const QString &)));
+	connect( keyList, SIGNAL(newPath(QString &)), this, SLOT(newPath(QString &)));
 	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
 			this, SLOT(renameReq(QListViewItem *, int, const QString &)));
 	connect( certList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
@@ -184,20 +281,20 @@ void MainWindow::read_cmdline()
 				     break;
 			case XCA_KEY : 
 		 		key = new pki_key(arg, &MainWindow::passRead);
-				showDetailsKey(key, true);
+				keyList->show(key, true);
 				MARK
 				break;
 			case XCA_CERT : 
 		 		cert = new pki_x509(arg);
-				showDetailsCert(cert, true);
+				//showDetailsCert(cert, true);
 				break;
 			case XCA_REQ : 
 		 		req = new pki_x509req(arg);
-				showDetailsReq(req, true);
+				//showDetailsReq(req, true);
 				break;
 			case XCA_P12 : 
 		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);
-				insertP12(p12);
+				//insertP12(p12);
 				delete p12;
 				break;
 		    }
@@ -221,7 +318,7 @@ void MainWindow::init_database() {
 		dbenv->set_errcall(&MainWindow::dberr);
 		dbenv->open(baseDir.latin1(), DB_RECOVER | DB_INIT_TXN | \
 				DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | \
-				DB_CREATE , 0600 );
+				DB_CREATE | DB_PRIVATE , 0600 );
 		dbenv->txn_begin(NULL, &global_tid, 0);
 #ifndef DB_AUTO_COMMIT
 #define DB_AUTO_COMMIT 0
@@ -240,10 +337,11 @@ void MainWindow::init_database() {
 		MARK
 		initPass();
 		keys = new db_key(dbenv, dbfile.latin1(), keyList,global_tid);
+		MARK
 		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys,global_tid);
 		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys,global_tid);
 		temps = new db_temp(dbenv, dbfile.latin1(), tempList,global_tid);
-		crls = new db_crl(dbenv, dbfile.latin1(), revList, global_tid);
+		crls = new db_crl(dbenv, dbfile.latin1(), revList, global_tid, certs);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -283,13 +381,10 @@ QPixmap *MainWindow::loadImg(const char *name )
 
 void MainWindow::initPass()
 {
-	PASS_INFO p;
+	pass_info p(tr("New Password"), 
+	  tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
 	string passHash = settings->getString("pwhash");
 	if (passHash == "") {
-		string title=tr("New Password").latin1();
-		string description=tr("Please enter a password, that will be used to encrypt your private keys in the database-file").latin1();
-		p.title = &title;
-		p.description = &description;
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
@@ -302,10 +397,8 @@ void MainWindow::initPass()
 	     while (md5passwd() != passHash) {
 		if (keylen !=0)
 			QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error, please try again"));	
-		string title=tr("Password").latin1();
-		string description=tr("Please enter the password for unlocking the database").latin1();
-		p.title = &title;
-		p.description = &description;
+		p.setTitle(tr("Password"));
+		p.setDescription(tr("Please enter the password for unlocking the database"));
 		keylen = passRead(pki_key::passwd, 25, 0, &p);
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
@@ -315,29 +408,16 @@ void MainWindow::initPass()
 	}
 }
 
-void MainWindow::renamePKI(db_base *db)
-{
-        pki_base * pki = db->getSelectedPKI();
-	if (!pki) return;
-        QString name= pki->getDescription().c_str();
-	bool ok;
-	QString nname = QInputDialog::getText (XCA_TITLE, "Please enter the new name",
-			QLineEdit::Normal, name, &ok, this );
-	if (ok && name != nname) {
-		db->renamePKI(pki, nname.latin1());
-	}
-}
-
 // Static Password Callback functions 
 
 int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 {
-	PASS_INFO *p = (PASS_INFO *)userdata;
+	pass_info *p = (pass_info *)userdata;
 	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
 	if (p != NULL) {
 		dlg->image->setPixmap( *keyImg );
-		dlg->title->setText(tr(p->title->c_str()));
-		dlg->description->setText(tr(p->description->c_str()));
+		dlg->title->setText(tr(p->getTitle()));
+		dlg->description->setText(tr(p->getDescription()));
 	}
 	dlg->pass->setFocus();
 	dlg->setCaption(tr(XCA_TITLE));
@@ -352,12 +432,12 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 
 int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 {
-	PASS_INFO *p = (PASS_INFO *)userdata;
+	pass_info *p = (pass_info *)userdata;
 	PassWrite_UI *dlg = new PassWrite_UI(NULL, 0, true);
 	if (p != NULL) {
 		dlg->image->setPixmap( *keyImg );
-		dlg->title->setText(tr(p->title->c_str()));
-		dlg->description->setText(tr(p->description->c_str()));
+		dlg->title->setText(tr(p->getTitle()));
+		dlg->description->setText(tr(p->getDescription()));
 	}
 	dlg->passA->setFocus();
 	dlg->setCaption(tr(XCA_TITLE));
@@ -370,13 +450,6 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	}
 	else return 0;
 }
-
-void MainWindow::incProgress(int a, int b, void *progress)
-{
-	int i = ((QProgressDialog *)progress)->progress();
-	((QProgressDialog *)progress)->setProgress(++i);
-}
-
 
 string MainWindow::md5passwd()
 {
@@ -425,24 +498,9 @@ void MainWindow::Error(errorEx &err)
 			QString::fromLatin1(err.getCString()));
 }
 
-void MainWindow::crashApp()
-{
-	pki_base * nullpointer = NULL;
-	CERR("------> CRASHING the Application <----------");
-	nullpointer->getDescription();
-}
-
 void MainWindow::dberr(const char *errpfx, char *msg)
 {
 	CERR(errpfx << " " << msg);
-}
-
-void MainWindow::setPath(QFileDialog *dlg)
-{
-	string wd = settings->getString("workingdir");	
-	if (!wd.empty()) {
-		dlg->setDir(QString(wd.c_str()));
-	}
 }
 
 QString MainWindow::getPath()
@@ -451,19 +509,19 @@ QString MainWindow::getPath()
 	return x;
 }
 
-void MainWindow::newPath(QFileDialog *dlg)
-{
-	newPath( dlg->dirPath() );
-}
-
-void MainWindow::newPath(QString str)
+void MainWindow::setPath(QString str)
 {
 	settings->putString("workingdir", str.latin1());
 }
 
 bool MainWindow::mkDir(QString dir)
 {
+#ifdef WIN32
+	int ret = mkdir(dir.latin1());
+	// in direct.h declare _CRTIMP int __cdecl mkdir(const char *);
+#else
 	int ret = mkdir(dir.latin1(), S_IRUSR | S_IWUSR | S_IXUSR);
+#endif
 	if (ret) {
 		QString desc = " (";
 		desc += strerror(ret);
@@ -473,5 +531,15 @@ bool MainWindow::mkDir(QString dir)
 		return false;
 	}
 	return true;
+
 }
 
+NewX509 *MainWindow::newX509(QPixmap *image)
+{
+	return new NewX509(NULL, 0, keys, reqs, certs, temps, image, nsImg);
+}
+
+pki_key *MainWindow::getKeyByName(QString name)
+{
+	return (pki_key *)keys->getByName(name);
+}

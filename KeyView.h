@@ -1,4 +1,3 @@
-/* uvi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -49,71 +48,37 @@
  *
  */                           
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
+#ifndef KEYVIEW_H
+#define KEYVIEW_H
 
-#include "NewX509.h"
-#include "MainWindow_UI.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
-#include "lib/db_temp.h"
-#include "lib/db_crl.h"
-#include "lib/exception.h"
-#include <qpixmap.h>
-#include <qfiledialog.h>
-#include <string>
+#include "XcaListView.h"
+#include "lib/pki_key.h"
+#include <qlistview.h>
 
-#define DBFILE "xca.db"
-
-
-class MainWindow: public MainWindow_UI
+class KeyView : public XcaListView
 {
-	Q_OBJECT
+   Q_OBJECT
 
-  protected:
-	void init_images();
-	void read_cmdline();
-	void init_database();
-	DbTxn *global_tid;
-	DbEnv *dbenv;
-			    
-   friend class pki_key;
-
-   public:
-	static db_x509 *certs;
-	static db_x509req *reqs;
-	static db_key *keys;
-	static db_temp *temps;
-	static db_crl *crls;
-	static db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
-	int exitApp;
-	QString baseDir, dbfile;
-	
-	MainWindow(QWidget *parent, const char *name);
-	~MainWindow(); 
-	void loadSettings();
-	void saveSettings();
-	void initPass();
-	static int passRead(char *buf, int size, int rwflag, void *userdata);
-	static int passWrite(char *buf, int size, int rwflag, void *userdata);
+   private:
+	static const int sizeList[];
 	static void incProgress(int a, int b, void *progress);
-	static void dberr(const char *errpfx, char *msg);
-	static NewX509 *newX509(QPixmap *image);
-	static pki_key *getKeyByName(QString name);
-	string md5passwd();
-	bool opensslError(pki_base *pki);
-	QPixmap *loadImg(const char *name);
-	void Error(errorEx &err);
-	
-	static QString getPath();
-	static void setPath(QString path);
-	bool mkDir(QString dir);
-	
-};
+	QPixmap *keyicon[2];
+   public:
+	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	void show(pki_base *item, bool import);
+	void newItem();
+	void deleteItem();
+	void load();
+	void updateViewItem(pki_base *);
+	pki_base *loadItem(QString fname);
+	pki_base* insert(pki_base *item);
+	void store();
+	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+   signals:
+	void keyDone(QString &);
+	void init_database();
+
+};	
+
 #endif

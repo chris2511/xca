@@ -50,6 +50,8 @@
 
 
 #include "pki_pkcs12.h"
+#include "pass_info.h"
+#include "exception.h"
 
 
 pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
@@ -75,18 +77,16 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 	passcb = cb;
 	className="pki_pkcs12";
 	certstack = sk_X509_new_null();
-	PASS_INFO p;
-	string title = XCA_TITLE;
-	string description = "Please enter the password to encrypt the PKCS#12 file.";
-	p.title = &title;
-	p.description = &description;
+	pass_info p(XCA_TITLE, p_tr("Please enter the password to decrypt the PKCS#12 file."));
 	fp = fopen(fname.c_str(), "rb");
 	if (fp) {
 		pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		CERR("PK12");
 		fclose(fp);
 		openssl_error();
-		passcb(pass, 30, 0, &p);
+		if (passcb(pass, 30, 0, &p) == 0) {
+			throw errorEx("","");
+		}
 		CERR("PK12");
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
 		CERR("PK12");
@@ -103,6 +103,7 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 		}
 	}
 	else fopen_error(fname);
+	CERR("PK12");
 }	
 
 
@@ -121,7 +122,8 @@ pki_pkcs12::~pki_pkcs12()
 		CERR( "deleting cert");
 	}
 	CERR("freeing PKCS12");
-	PKCS12_free(pkcs12);
+	if (pkcs12)
+		PKCS12_free(pkcs12);
 	openssl_error();
 }
 
@@ -138,11 +140,7 @@ void pki_pkcs12::writePKCS12(const string fname)
 	char pass[30];
 	char desc[100];
 	strncpy(desc,getDescription().c_str(),100);
-	PASS_INFO p;
-	string title = XCA_TITLE;
-	string description = "Please enter the password to encrypt the PKCS#12 file";
-	p.title = &title;
-	p.description = &description;
+	pass_info p(XCA_TITLE, p_tr("Please enter the password to encrypt the PKCS#12 file"));
 	if (!pkcs12) {
 		if (cert == NULL || key == NULL) {
 			openssl_error("No key or no Cert and no pkcs12....");

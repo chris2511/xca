@@ -1,5 +1,8 @@
 /* base definitions */
 
+#ifndef BASE_H
+#define BASE_H
+
 #define VER "@PACKAGE_VERSION@"
 
 #define MARK CERR("--Mark--")
@@ -13,3 +16,5 @@
 
 #define PREFIX "@prefix@/share/xca"
 #define XCA_TITLE "X Certifikate and Key management"
+
+#endif

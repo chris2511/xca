@@ -60,19 +60,18 @@
 class db_x509req: public db_base
 {
 	Q_OBJECT
-    protected:
+    private:
 	db_key *keylist;
-	QPixmap *reqicon[2];
     public:
-	db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid);
+	db_x509req(DbEnv *dbe, string DBfile, db_key *dk, DbTxn *tid);
 	pki_base *newPKI();
-	void updateViewPKI(pki_base *pki);
 	void preprocess();
 	pki_key *findKey(pki_x509req *req);
 	void remFromCont(pki_base *pki);
     public slots:
 	void delKey(pki_key *delkey);
-    	void newKey(pki_key *newKey);
+	void newKey(pki_key *newKey);
+			    
 };
 
 #endif

@@ -48,7 +48,11 @@
  *
  */                           
 
+#ifndef DB_BASE_H
+#define DB_BASE_H
+
 #include <qglobal.h>
+
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
 
@@ -69,20 +73,17 @@
 #else  // HAVE_CONFIG_H
 #define WIN32 1
 #include <db_cxx.h>
+#include <WINDOWS.H>
+
 #endif  // HAVE_CONFIG_H
 
 #include <qlistview.h>
 #include <qlist.h>
-#include <qdir.h>
-#include <qmessagebox.h>
 #include <qpixmap.h>
 #include <qstringlist.h>
 #include "pki_base.h"
 
 #define BASE_DIR "xca"
-#ifndef DB_BASE_H
-#define DB_BASE_H
-
 
 class db_base: public QObject
 {
@@ -90,26 +91,22 @@ class db_base: public QObject
     protected:
 	Db *data;
 	DbEnv *dbenv;
-	QListView *listView;
 	QList<pki_base> container;
 	void _writePKI(pki_base *pki, bool overwrite, DbTxn *tid );
 	void _removePKI(pki_base *pki, DbTxn *tid );
-	void removeItem(string k, DbTxn *tid);
+	void removeItem(QString k, DbTxn *tid);
     public:
 	db_base(DbEnv *dbe, string DBfile, string db, DbTxn *global_tid);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		CERR("VIRTUAL CALLED: newPKI"); return NULL;}
-	virtual bool updateView();
-	virtual void updateViewPKI(pki_base *pki);
 	virtual void insertPKI(pki_base *pki);
 	virtual void deletePKI(pki_base *pki);
 	virtual void updatePKI(pki_base *pki);
-	virtual void renamePKI(pki_base *pki, string desc);
-	pki_base *getSelectedPKI(void *item);
-	pki_base *getSelectedPKI(string desc);
-	pki_base *getSelectedPKI();
-	pki_base *findPKI(pki_base *refpki);
+	virtual void renamePKI(pki_base *pki, QString desc);
+	pki_base *getByName(QString desc);
+	pki_base *getByReference(pki_base *refpki);
+	pki_base *getByPtr(void *);
 	virtual void loadContainer();
 	QStringList getDesc();
 	/* preprocess should be implemented once to speed up updateView() 
@@ -128,7 +125,7 @@ class db_base: public QObject
 	void putString(char *key, string dat);
 	void putInt(string key, int dat);
 	QPixmap *loadImg(const char *name);
-	void setSelected(pki_base *item);
+	QList<pki_base> getContainer();
 };
 
 #endif

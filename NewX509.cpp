@@ -119,6 +119,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		else {
 			certList->insertStringList(strings);
 			// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
+			/*
 			possibleSigner=(pki_x509 *)certs->getSelectedPKI();
 			if (possibleSigner && possibleSigner->canSign()) {
 				QString name = possibleSigner->getDescription().c_str();
@@ -135,6 +136,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 				foreignSignRB->setChecked(true);
 				// certList->setEnabled(true);
 			}
+			*/
 		}
 	}
 	else {
@@ -214,17 +216,8 @@ applied when signing with this CA.");
 void NewX509::setCert()
 {
 	finishButton()->setEnabled(true);
-	startText=tr("\
-Welcome to the settings for Certificates.
-The information for the new Certificate can either be grabbed from a \
-given Certificate-request or be filled in by hand. \
-In the case of not signing a request there needs to be at least one unused key. \
-If this is not the case it will be created. 
-If you want to self-sign a request (unusual but nevertheless possible) you need \
-the private key used to create the request.");
-	endText=tr("\
-You are done with entering all parameters for creating a Certificate.
-");
+	startText=tr("Welcome to the settings for Certificates. The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.");
+	endText=tr("You are done with entering all parameters for creating a Certificate.");
 	tText=tr("Certificate");
 	setup();
 }
@@ -423,7 +416,7 @@ void NewX509::signerChanged()
 	CERR( "Certificate: " << name.latin1());
 	
 	if (name.isEmpty()) return;
-	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(name.latin1());
+	pki_x509 *cert = (pki_x509 *)certs->getByName(name);
 	
 	if (!cert) return;
 	QString templ = cert->getTemplate().c_str();	
@@ -476,7 +469,7 @@ void NewX509::templateChanged()
 	}
 	QString name = tempList->currentText();
 	if (name == "" || !temps) return;
-	temp = (pki_temp *)temps->getSelectedPKI(name.latin1());
+	temp = (pki_temp *)temps->getByName(name);
 	if (!temp) return;
 	CERR("CHANGING TEMPLATE");
 	fromTemplate(temp);

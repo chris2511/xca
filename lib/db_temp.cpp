@@ -59,7 +59,6 @@ db_temp::db_temp(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid)
 	loadContainer();
 	keyicon = loadImg("template.png");
 	listView->addColumn(tr("Type"));
-	updateView();
 }
 
 pki_base *db_temp::newPKI(){

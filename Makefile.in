@@ -27,10 +27,11 @@ UINAMES=CertDetail ExportKey_UI ExportCert_UI KeyDetail MainWindow_UI \
 	NewKey NewX509_UI PassRead PassWrite ReqDetail TrustState \
 	CertExtend ExportTinyCA_UI CrlDetail
 
-MOCNAMES=ExportTinyCA NewX509 ExportKey MainWindow ExportCert $(UINAMES)
+MOCNAMES=XcaListView KeyView ReqView ExportTinyCA NewX509 \
+	 ExportKey MainWindow ExportCert $(UINAMES)
      
-MOBJS=MainWindowKeys.o MainWindowX509Req.o MainWindowX509.o \
-      MainWindowTemps.o MainWindowCrl.o 
+MOBJS=
+     
 OOBJS=$(patsubst %,moc_%.o,$(MOCNAMES)) $(patsubst %,%.o,$(MOCNAMES))
 
 OBJS=$(MOBJS) $(OOBJS) main.o
@@ -72,7 +73,8 @@ dist:
 	./mkxcapro.sh; lrelease xca.pro; \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec; \
 	cat lib/base.h.win |sed s/VERSION/$(TVERSION)/g >lib/base.h; \
-	rm -rf rpm/xca.spec autom4te.cache; \
+	mv xca.nsi xca.nsi.tmp; cat xca.nsi.tmp |sed s/VERSION/$(TVERSION)/g >xca.nsi; \
+	rm -rf xca.nsi.tmp rpm/xca.spec autom4te.cache; \
 	cd doc; linuxdoc -B html xca.sgml; )
 	tar zcf $(TARGET).tar.gz $(TARGET) 
 	#rm -rf ../$(TARGET)

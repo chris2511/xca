@@ -141,44 +141,6 @@ bool db_x509::updateView()
 	return true;
 }
 
-void db_x509::updateViewPKI(pki_base *pki)
-{
-	db_base::updateViewPKI(pki);
-	if (! pki) return;
-	QString truststatus[] = { tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
-	int pixnum = 0;
-	QListViewItem *current = (QListViewItem *)pki->getPointer();
-	if (!current) return;
-	if (((pki_x509 *)pki)->getKey()) {
-		pixnum += 1;
-	}
-	if (((pki_x509 *)pki)->calcEffTrust() == 0){ 
-		pixnum += 2;
-	}	
-	current->setPixmap(0, *certicon[pixnum]);
-	current->setText(1, ((pki_x509 *)pki)->getDNs(NID_commonName).c_str());
-	current->setText(2, ((pki_x509 *)pki)->getSerial().c_str() );  
-	current->setText(3, ((pki_x509 *)pki)->notAfter(TIMEFORM_SORTABLE).c_str() );  
-MARK
-	CERR(((pki_x509 *)pki)->getTrust());
-	current->setText(4, truststatus[((pki_x509 *)pki)->getTrust() ]);  
-MARK
-	current->setText(5, ((pki_x509 *)pki)->revokedAt(TIMEFORM_SORTABLE).c_str());
-}
-
-
-void db_x509::updateViewAll()
-{
- 	pki_x509 *pki;
-        QListIterator<pki_base> it(container);
-        for ( ; it.current(); ++it ) {
-                pki = (pki_x509 *)it.current();
-		updateViewPKI(pki);
-	}
-	return;
-}
-
-
 QStringList db_x509::getPrivateDesc()
 {
 	pki_x509 *pki;
@@ -224,11 +186,10 @@ pki_key *db_x509::findKey(pki_x509* cert)
 	if (!cert) return NULL;
 	if ((key = cert->getKey()) != NULL ) return key;
 	refkey = cert->getPubKey();
-	key = (pki_key *)keylist->findPKI(refkey);
+	key = (pki_key *)keylist->getByReference(refkey);
 	if (key && key->isPubKey()) {
 		key = NULL;
 	}
-	if (cert->setKey(key)) keylist->updateViewPKI(key);
 	if (refkey) delete(refkey);
 	return key;
 }
@@ -240,7 +201,6 @@ void db_x509::delKey(pki_key *delkey)
         for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
 		if (pki->getKey() == delkey) {
 			pki->delKey();
-			updateViewPKI(pki);
 		}
 	}
 	
@@ -256,7 +216,6 @@ void db_x509::newKey(pki_key *newkey)
 		if (!pki->getKey()) { 
 			refkey = pki->getPubKey();
 			if (newkey->compare(refkey)) {
-				if (pki->setKey(newkey)) keylist->updateViewPKI(newkey);
 				updateViewPKI(pki);
 			}
 			delete(refkey);
@@ -343,7 +302,6 @@ void db_x509::insertPKI(pki_base *pki)
 	}
 	calcEffTrust();
 	updateView();
-	keylist->updateView();
 }				
 
 
@@ -365,7 +323,9 @@ pki_x509 *db_x509::getBySubject(X509_NAME *xname)
 {
 	pki_x509 *cert = NULL;
 	if (!xname) return cert;
-       	for (cert=(pki_x509 *)container.first(); cert !=0; cert=(pki_x509 *)container.next() ) {
+	if ( container.isEmpty() ) return cert;
+	for ( cert = (pki_x509 *)container.first(); cert != NULL; cert = (pki_x509 *)container.next() ) {
+		CERR(cert);
 		if (X509_NAME_cmp(X509_get_subject_name(cert->cert), xname) == 0) {
 			return cert;
 		}
@@ -392,6 +352,18 @@ void db_x509::writeAllCerts(QString fname, bool onlyTrusted)
 		if (onlyTrusted && cert->getTrust() != 2) continue;
 		cert->writeCert(fname.latin1(),true,true);
 	}
+}
+
+QList<pki_x509> db_x509::getCerts(bool onlyTrusted)
+{
+	QList<pki_x509> c;
+	c.clear();
+	pki_x509 *cert = NULL;
+       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
+		if (onlyTrusted && cert->getTrust() != 2) continue;
+		c.append(cert);
+	}
+	return c;
 }
 
 int db_x509::searchSerial(pki_x509 *signer)

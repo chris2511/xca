@@ -48,18 +48,16 @@
  *
  */                           
 
-#include <openssl/err.h>
-#include <iostream>
-#include "exception.h"
-
 #ifndef PKI_BASE_H
 #define PKI_BASE_H
 
-struct PASS_INFO {
-	string *title;
-	string *description;
-};
+#include <openssl/err.h>
+#include <qstring.h>
+#include <qlistview.h>
+#include <string>
+#include "base.h"
 
+#define p_tr pass_info::tr
 
 class pki_base
 {
@@ -69,7 +67,7 @@ class pki_base
 	string desc;
 	string error;
 	string className;
-	void *pointer; 
+	QListViewItem *pointer; 
 	void openssl_error(const string myerr = "");
 	void fopen_error(const string fname);
 	bool ign_openssl_error();
@@ -92,10 +90,14 @@ class pki_base
 	virtual ~pki_base();
         string getDescription();
         void setDescription(const string d );
+        QString getIntName();
+        void setIntName(const QString d );
 	string getError();
-	void setPointer(void *ptr) { pointer = ptr; }
+	void setPointer(void *ptr) { pointer = (QListViewItem *)ptr; }
 	void delPointer() { pointer = NULL; }
-	void *getPointer() { return pointer; }
+	void *getPointer() { return (void *)pointer; }
+	QListViewItem *getLvi() { return pointer; }
+	void setLvi(QListViewItem *ptr) { pointer = ptr; }
 	string getClassName();
 };
 

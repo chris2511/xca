@@ -80,8 +80,9 @@ class db_x509: public db_base
 	QStringList getSignerDesc();
 	pki_key * findKey(pki_x509 *cert);
 	void calcEffTrust();
-	QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer);
-	pki_x509 *db_x509::getBySubject(X509_NAME *xname);
+	QList<pki_x509> getIssuedCerts(pki_x509 *issuer);
+	QList<pki_x509> getCerts(bool onlyTrusted);
+	pki_x509 *getBySubject(X509_NAME *xname);
 	int searchSerial(pki_x509 *signer);
 	void writeAllCerts(QString fname, bool onlyTrusted);
 	pki_x509 *getByIssSerial(pki_x509 *iss, long serial);

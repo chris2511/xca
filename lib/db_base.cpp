@@ -50,12 +50,13 @@
 
 
 #include "db_base.h"
-
+#include "exception.h"
+#include <qmessagebox.h>
+#include <qdir.h>
 
 db_base::db_base(DbEnv *dbe, string DBfile, string DB, DbTxn *global_tid) 
 {
 	dbenv = dbe;
-	listView = NULL;
 	data = new Db(dbe, 0);
 	CERR("DB:" << DBfile);
 	try {
@@ -232,25 +233,6 @@ void db_base::loadContainer()
 	}
 }	
 
-
-bool db_base::updateView()
-{
-	if (listView == NULL) return false;
-	listView->clear();
-	pki_base *pki;
-	if (container.isEmpty()) return false;
-	for ( pki = container.first(); pki != NULL; pki = container.next() ) pki->delPointer();
-        QListIterator<pki_base> it(container);
-        for ( ; it.current(); ++it ) {
-                pki = it.current();
-		QListViewItem *lvi = new QListViewItem(listView, pki->getDescription().c_str());
-		listView->insertItem(lvi);
-		pki->setPointer(lvi);
-		updateViewPKI(pki);
-	}
-	return true;
-}
-
 void db_base::insertPKI(pki_base *pki)
 {
 	DbTxn *tid = NULL;
@@ -258,7 +240,6 @@ void db_base::insertPKI(pki_base *pki)
 	try {
 		_writePKI(pki, false, tid);
 		inToCont(pki);
-		updateView();
 		tid->commit(0);
 	}
 	catch (DbException &err) {
@@ -278,15 +259,7 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	string orig = desc;
 	int size=0;
 	char field[10];
-	unsigned char *p;
-	try {
-		p = pki->toData(&size);
-	}
-	catch (errorEx &err) {
-		// catch openssl errors here to free the malloc'd mem
-		OPENSSL_free(p);
-		throw err;
-	}
+	unsigned char *p = pki->toData(&size);
 	int cnt=0;
 	int x = DB_KEYEXIST;
 	// exception occuring here will be catched by the caller
@@ -307,13 +280,13 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 
 void db_base::_removePKI(pki_base *pki, DbTxn *tid) 
 {
-	string desc = pki->getDescription();
+	QString desc = pki->getIntName();
 	removeItem(desc, tid);
 }	
 
-void db_base::removeItem(string key, DbTxn *tid) 
+void db_base::removeItem(QString key, DbTxn *tid) 
 {
-	Dbt k((void *)key.c_str(), key.length() + 1);
+	Dbt k((void *)key.latin1(), key.length() + 1);
 	data->del(tid, &k, 0);
 }
 
@@ -325,7 +298,6 @@ void db_base::deletePKI(pki_base *pki)
 		dbenv->txn_begin(NULL, &tid, 0);
 		_removePKI(pki, tid);
 		remFromCont(pki);
-		updateView();
 		tid->commit(0);
 		delete(pki);
 	}
@@ -336,24 +308,16 @@ void db_base::deletePKI(pki_base *pki)
 	}
 }
 
-void db_base::renamePKI(pki_base *pki, string desc)
+void db_base::renamePKI(pki_base *pki, QString desc)
 {
-	string oldname = pki->getDescription();
+	QString oldname = pki->getIntName();
 	DbTxn *tid = NULL;
 	try {
 		dbenv->txn_begin(NULL, &tid, 0);
 		_removePKI(pki, tid);
-		pki->setDescription(desc);
+		pki->setIntName(desc);
 		_writePKI(pki, false, tid);
-		// rename the pki in the listView .....	
-		QListViewItem * item = (QListViewItem *)pki->getPointer();
-		if (!item) {
-			tid->abort();
-			return;
-		}
-		item->setText(0, pki->getDescription().c_str());
 		tid->commit(0);
-		updateViewPKI(pki);
 	}
 	catch (DbException &err) {
 		DBEX(err);
@@ -373,14 +337,12 @@ void db_base::inToCont(pki_base *pki)
 	container.append(pki);
 }
 
-
 void db_base::updatePKI(pki_base *pki) 
 {
 	DbTxn *tid = NULL;
 	dbenv->txn_begin(NULL, &tid, 0);
 	try {
 		_writePKI(pki, true, tid);
-		updateViewPKI(pki);
 		tid->commit(0);
 	}
 	catch (DbException &err) {
@@ -390,47 +352,20 @@ void db_base::updatePKI(pki_base *pki)
 	}
 }
 
-
-pki_base *db_base::getSelectedPKI(string desc)
+pki_base *db_base::getByName(QString desc)
 {
 	if (desc == "" ) return NULL;
-	CERR("desc = '" << desc << "'");
+	CERR( __FUNCTION__ << "desc = '" << desc << "'");
 	pki_base *pki;
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
                 pki = it.current();
-		if (pki->getDescription() == desc) return pki;
+		if (pki->getIntName() == desc) return pki;
 	}
 	return NULL;
 }
 
-
-pki_base *db_base::getSelectedPKI(void *item)
-{
-	if (item  == NULL) return NULL;
-	pki_base *pki;
-        QListIterator<pki_base> it(container);
-        for ( ; it.current(); ++it ) {
-                pki = it.current();
-		if (pki->getPointer() == item) return pki;
-	}
-	return NULL;
-}
-
-
-pki_base *db_base::getSelectedPKI()
-{
-	const char *tp;
-	string desc = "";
-	QListViewItem *lvi;
-	if ((lvi = listView->selectedItem()) == NULL) return NULL;
-	if ((tp = lvi->text(0).latin1())) desc = tp;
-	CERR("desc = '"<<desc);
-	return getSelectedPKI(desc);
-}
-	
-
-pki_base *db_base::findPKI(pki_base *refpki)
+pki_base *db_base::getByReference(pki_base *refpki)
 {
 	pki_base *pki;
         QListIterator<pki_base> it(container);
@@ -441,46 +376,37 @@ pki_base *db_base::findPKI(pki_base *refpki)
 	return NULL;
 }
 
-QPixmap *db_base::loadImg(const char *name )
+pki_base *db_base::getByPtr(void *item)
 {
-		QString path ="";
-#ifdef WIN32
-		path = "."; 
-#else
-		path = PREFIX ;
-#endif
-		path += QDir::separator();
-        return new QPixmap(path + name);
+	pki_base *pki;
+	if (item == NULL) return NULL;
+        QListIterator<pki_base> it(container);
+        for ( ; it.current(); ++it ) {
+                pki = it.current();
+		if (item == pki->getLvi()) return pki;
+	}
+	return NULL;
 }
 
-void db_base::updateViewPKI(pki_base *pki)
-{
-        if (! pki) return;
-        QListViewItem *current = (QListViewItem *)pki->getPointer();
-        if (!current) return;
-#ifdef qt3
-	current->setRenameEnabled(0,true);
-#endif
-        current->setText(0, pki->getDescription().c_str());
-}
-							
+
 QStringList db_base::getDesc()
 {
 	pki_base *pki;
 	QStringList x;
 	x.clear();
 	for ( pki = container.first(); pki != 0; pki = container.next() )	{
-		x.append(pki->getDescription().c_str());	
+		x.append(pki->getIntName());	
 	}
 	return x;
 }
 
-void db_base::setSelected(pki_base *item) 
+
+
+QList<pki_base> db_base::getContainer()
 {
-	if (!item) return;
-	QListViewItem * lvitem = (QListViewItem *)item->getPointer();
-	if (lvitem) {
-		listView->setSelected(lvitem, true);
-	}
-}
+	QList<pki_base> c;
+	c.clear();
+	c = container;
+	return c;
+}	
 

@@ -52,18 +52,11 @@
 #include "db_x509req.h"
 
 
-db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid)
+db_x509req::db_x509req(DbEnv *dbe, string DBfile, db_key *dk, DbTxn *tid)
 		:db_base(dbe, DBfile, "reqdb", tid)
 {
-	listView = l;
-	keylist = keyl;
 	loadContainer();
-	reqicon[0] = loadImg("req.png");
-        reqicon[1] = loadImg("reqkey.png");
-	listView->addColumn(tr("Common Name"));
-	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
-	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
-	updateView();
+	keylist = dk;
 }
 
 pki_base *db_x509req::newPKI(){
@@ -80,7 +73,6 @@ void db_x509req::delKey(pki_key *delkey)
 		pki = (pki_x509req *)iter.current();
 		if (pki->getKey() == delkey) {
 			pki->setKey(NULL);
-			updateViewPKI(pki);
 		}
 	}
 }
@@ -98,22 +90,9 @@ void db_x509req::newKey(pki_key *newkey)
 		refkey = pki->getPubKey(); 
 		if (refkey->compare(newkey)) {
 			pki->setKey(newkey);
-			updateViewPKI(pki);
 		}
 		delete refkey;
 	}
-}
-
-void db_x509req::updateViewPKI(pki_base *pki)
-{
-        db_base::updateViewPKI(pki);
-        if (! pki) return;
-        int pixnum = 0;
-        QListViewItem *current = (QListViewItem *)pki->getPointer();
-        if (!current) return;
-	if (((pki_x509req *)pki)->getKey() != NULL ) pixnum += 1;	
-	current->setPixmap(0, *reqicon[pixnum]);
-	current->setText(1, ((pki_x509req *)pki)->getDN(NID_commonName).c_str());
 }
 
 void db_x509req::preprocess()
@@ -137,18 +116,16 @@ pki_key *db_x509req::findKey(pki_x509req *req)
 	MARK
 	if ((key = req->getKey()) != NULL ) return key;
 	refkey = req->getPubKey();
-	key = (pki_key *)keylist->findPKI(refkey);
+	key = (pki_key *)keylist->getByReference(refkey);
 	if (key && key->isPubKey()) {
 		key = NULL;
 	}
-	if (req->setKey(key)) keylist->updateViewPKI(key);
 	if (refkey) delete(refkey);
 	return key;
 }
 
 void db_x509req::remFromCont(pki_base *pki)
 {
-        container.remove(pki);
-	pki_key *pkey = ((pki_x509req *)pki)->getKey();
+	db_base::remFromCont(pki);
 }
 

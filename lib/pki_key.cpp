@@ -50,6 +50,8 @@
 
 
 #include "pki_key.h"
+#include "pass_info.h"
+#include <openssl/rand.h>
 
 char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
@@ -77,8 +79,13 @@ pki_key::pki_key(const pki_key *pk)
 	:pki_base(pk->desc)
 {
 	init();
+	MARK
 	key = EVP_PKEY_new();
+	MARK
 	openssl_error();	
+	MARK
+	if (pk == NULL) return;
+	MARK
 	key->type = pk->key->type;
 	if (key->type == EVP_PKEY_RSA) {
 		key->pkey.rsa=((RSA *)ASN1_dup( (int (*)())i2d_RSAPrivateKey, (char *(*)())d2i_RSAPrivateKey,(char *)pk->key->pkey.rsa));
@@ -107,11 +114,7 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 	:pki_base(fname)
 { 
 	init();
-	PASS_INFO p;
-	string title = XCA_TITLE;
-	string description = "Please enter the password to decrypt the RSA key."; 
-	p.title = &title;
-	p.description = &description;
+	pass_info p(XCA_TITLE, p_tr("Please enter the password to decrypt the RSA key.")); 
 	key = EVP_PKEY_new();
 	key->type = EVP_PKEY_type(type);
 	error = "";
@@ -140,8 +143,8 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 	   if (!rsakey) {
 	        ign_openssl_error();
 	        rewind(fp);
-		title = "Password for PKCS#8 private key";
-		description = "Please enter the password to decrypt the PKCS#8 private key.";
+		p.setTitle(p_tr("Password for PKCS#8 private key"));
+		p.setDescription(p_tr("Please enter the password to decrypt the PKCS#8 private key."));
 		CERR("Fallback to PKCS#8 Private key"); 
 	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
 	   }
@@ -200,7 +203,7 @@ void pki_key::fromData(unsigned char *p, int size )
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
 #if OPENSSL_VERSION_NUMBER >= 0x0090700fL
-	   rsakey = d2i_RSAPrivateKey(NULL, &(const unsigned char *)pdec, decsize);
+	   rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
 #else
 	   rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
 #endif
@@ -290,11 +293,7 @@ pki_key::~pki_key()
 
 void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 {
-	PASS_INFO p;
-	string title=XCA_TITLE;
-	string description="Please enter the password protecting the PKCS#8 key";
-	p.title = &title;
-	p.description = &description;
+	pass_info p(XCA_TITLE, p_tr("Please enter the password protecting the PKCS#8 key"));
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key){
@@ -311,11 +310,7 @@ void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 void pki_key::writeKey(const string fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
-	PASS_INFO p;
-	string title=XCA_TITLE;
-	string description="Please enter the password protecting the RSA private key";
-	p.title = &title;
-	p.description = &description;
+	pass_info p(XCA_TITLE, p_tr("Please enter the password protecting the RSA private key"));
 	if (isPubKey()) {
 		writePublic(fname, PEM);
 		return;
@@ -467,3 +462,4 @@ int pki_key::getUcount()
 {
 	return ucount;
 }
+

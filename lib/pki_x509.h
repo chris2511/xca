@@ -48,6 +48,8 @@
  *
  */                           
 
+#ifndef PKI_X509_H
+#define PKI_X509_H
 
 #include <stdio.h>
 #include <openssl/x509.h>
@@ -55,9 +57,6 @@
 #include <openssl/pem.h>
 #include "pki_key.h"
 #include "pki_x509req.h"
-
-#ifndef PKI_X509_H
-#define PKI_X509_H
 
 #define TIMEFORM_PRETTY 1
 #define TIMEFORM_PLAIN 2
@@ -117,6 +116,7 @@ class pki_x509 : public pki_base
 	   int getEffTrust();
 	   void setEffTrust(int t);
 	   void setRevoked(bool rev);
+	   void setRevoked(ASN1_TIME *when);
 	   bool isRevoked();
 	   int calcEffTrust();
 	   int getIncCaSerial();

@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir ""
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD CPP /nologo /MD /W3 /O1 /I "$(QTDIR)\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /D "QT_NO_DEBUG" /FD /I -Zm200 "$(QTDIR)\mkspecs\win32-msvc" /c
+# ADD CPP /nologo /MD /W3 /GX /O1 /I "$(QTDIR)\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "QT_NO_DEBUG" /D "QT_THREAD_SUPPORT" /D "$(QTDIR)\mkspecs\win32-msvc" /FD /D /I -Zm200 /c
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /machine:IX86
-# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib delayimp.lib SSLeay32.lib libeay32.lib libdb40.lib /nologo /subsystem:windows /machine:IX86 /DELAYLOAD:comdlg32.dll /DELAYLOAD:oleaut32.dll /DELAYLOAD:winmm.dll /DELAYLOAD:wsock32.dll /DELAYLOAD:winspool.dll
+# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib delayimp.lib SSLeay32.lib libeay32.lib libdb41.lib /nologo /subsystem:windows /machine:IX86 /DELAYLOAD:comdlg32.dll /DELAYLOAD:oleaut32.dll /DELAYLOAD:winmm.dll /DELAYLOAD:wsock32.dll /DELAYLOAD:winspool.dll
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -65,7 +65,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD CPP /nologo /MD /W3 /Gm /Zi /Od /I "$(QTDIR)\include" /I "$(QTDIR)\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "UNICODE" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /FD /GZ -Zm200 /c
+# ADD CPP /nologo /MD /W3 /Gm /GX /Zi /Od /I "$(QTDIR)\include" /I "$(QTDIR)\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /FD /D /GZ -Zm200 /c
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407
 # ADD RSC /l 0x409 /d "_DEBUG"
@@ -73,7 +73,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /machine:IX86
-# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib SSLeay32.lib libeay32.lib libdb40.lib /nologo /subsystem:windows /incremental:no /debug /machine:IX86 /pdbtype:sept
+# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib SSLeay32.lib libeay32.lib libdb41.lib /nologo /subsystem:windows /incremental:no /debug /machine:IX86 /pdbtype:sept
 
 !ENDIF 
 
@@ -87,6 +87,10 @@ LINK32=link.exe
 # Begin Source File
 
 SOURCE=lib\db_base.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\db_crl.cpp
 # End Source File
 # Begin Source File
 
@@ -119,6 +123,10 @@ SOURCE=main.cpp
 # Begin Source File
 
 SOURCE=MainWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MainWindowCrl.cpp
 # End Source File
 # Begin Source File
 
@@ -172,6 +180,10 @@ SOURCE=lib\pki_x509.cpp
 
 SOURCE=lib\pki_x509req.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\xca.rc
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -183,6 +195,33 @@ SOURCE=.\lib\base.h
 # Begin Source File
 
 SOURCE=lib\db_base.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\db_crl.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build
+InputPath=.\lib\db_crl.h
+
+"lib\moc_db_crl.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	$(QTDIR)\bin\moc lib\db_crl.h -o lib\moc_db_crl.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build
+InputPath=.\lib\db_crl.h
+
+"lib\moc_db_crl.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	$(QTDIR)\bin\moc lib\db_crl.h -o lib\moc_db_crl.cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -310,15 +349,29 @@ SOURCE=.\ExportCert.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# Begin Custom Build
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing ExportCert.h...
+InputDir=.
 InputPath=.\ExportCert.h
+InputName=ExportCert
 
-"moc_ExportCert.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc ExportCert.h -o moc_ExportCert.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# PROP Ignore_Default_Tool 1
+# Begin Custom Build - MOCing ExportCert.h...
+InputDir=.
+InputPath=.\ExportCert.h
+InputName=ExportCert
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ENDIF 
 
@@ -528,6 +581,78 @@ BuildCmds= \
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
+# Begin Custom Build
+InputDir=.
+InputPath=.\CertExtend.ui
+InputName=CertExtend
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\CrlDetail.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build
+InputPath=.\CrlDetail.ui
+
+BuildCmds= \
+	$(QTDIR)\bin\uic CrlDetail.ui -o CrlDetail.h \
+	$(QTDIR)\bin\uic CrlDetail.ui -i CrlDetail.h -o CrlDetail.cpp \
+	$(QTDIR)\bin\moc CrlDetail.h -o moc_CrlDetail.cpp \
+	
+
+"CrlDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"CrlDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"moc_CrlDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build
+InputDir=.
+InputPath=.\CrlDetail.ui
+InputName=CrlDetail
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
 !ENDIF 
 
 # End Source File
@@ -558,6 +683,27 @@ BuildCmds= \
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build
+InputDir=.
+InputPath=.\ExportCert_UI.ui
+InputName=ExportCert_UI
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
 
 !ENDIF 
 
@@ -607,6 +753,57 @@ BuildCmds= \
    $(BuildCmds)
 
 "moc_ExportKey_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ExportTinyCA_UI.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build
+InputPath=.\ExportTinyCA_UI.ui
+
+BuildCmds= \
+	$(QTDIR)\bin\uic ExportTinyCA_UI.ui -o ExportTinyCA_UI.h \
+	$(QTDIR)\bin\uic ExportTinyCA_UI.ui -i ExportTinyCA_UI.h -o ExportTinyCA_UI.cpp \
+	$(QTDIR)\bin\moc ExportTinyCA_UI.h -o moc_ExportTinyCA_UI.cpp \
+	
+
+"ExportTinyCA_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"ExportTinyCA_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"moc_ExportTinyCA_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build
+InputDir=.
+InputPath=.\ExportTinyCA_UI.ui
+InputName=ExportTinyCA_UI
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -1055,6 +1252,14 @@ SOURCE=.\CertExtend.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\CrlDetail.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\CrlDetail.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\ExportCert_UI.cpp
 # End Source File
 # Begin Source File
@@ -1092,6 +1297,14 @@ SOURCE=moc_CertDetail.cpp
 # Begin Source File
 
 SOURCE=.\moc_CertExtend.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_CrlDetail.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\moc_db_crl.cpp
 # End Source File
 # Begin Source File
 

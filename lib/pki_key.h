@@ -48,21 +48,16 @@
  *
  */                           
 
+#ifndef PKI_KEY_H
+#define PKI_KEY_H
 
 #include <iostream>
 #include <string>
-#include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
 #include <openssl/pem.h>
-#include <openssl/bio.h>
 #include <openssl/evp.h>
-#include <openssl/x509.h>
-#include <openssl/pkcs12.h>
 #include "pki_base.h"
-
-#ifndef PKI_KEY_H
-#define PKI_KEY_H
 
 #define MAX_KEY_LENGTH 4096
 

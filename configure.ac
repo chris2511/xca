@@ -41,10 +41,10 @@ if test "$H_SSL" == no; then
 fi
 
 AC_LANG(C++)
-AC_CHECK_HEADERS([asn1object.h openssl/cxx/asn1object.h],[H_SSLCXX=y;break])
-if test "$H_SSLCXX" == no; then
-	AC_MSG_ERROR([OpenSSL CXX extension headerfiles not found])
-fi
+#AC_CHECK_HEADERS([asn1object.h openssl/cxx/asn1object.h],[H_SSLCXX=y;break])
+#if test "$H_SSLCXX" == no; then
+#	AC_MSG_ERROR([OpenSSL CXX extension headerfiles not found])
+#fi
 
 AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break])
 if test "$H_DB" == no; then
@@ -76,7 +76,7 @@ if test "$LQT" == "no"; then
         AC_CHECK_LIB([qt-mt], [atexit], ,[LQT=no])
 	
 fi
-AC_CHECK_LIB([crypto_cxx], [atexit], , [AC_MSG_ERROR([OpenSSL cxx extension library not found, look at http://www.hohnstaedt.de/libcrypto_cxx ])])
+#AC_CHECK_LIB([crypto_cxx], [atexit], , [AC_MSG_ERROR([OpenSSL cxx extension library not found, look at http://www.hohnstaedt.de/libcrypto_cxx ])])
 
 AC_PATH_PROG(MOC,moc,[moc],[$PATH /usr/X11R6/bin],,[LQT=no])
 AC_PATH_PROG(UIC,uic,[uic],[$PATH /usr/X11R6/bin],,[LQT=no])

@@ -51,7 +51,6 @@
 
 #include <iostream>
 #include <string>
-#include <openssl/rsa.h>
 #include <openssl/pem.h>
 #include <openssl/stack.h>
 #include <openssl/evp.h>
