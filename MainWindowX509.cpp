@@ -61,13 +61,16 @@ void MainWindow::newCert(pki_temp *templ)
 	int serial = 42; // :-)
 	bool tempReq;
 	int i, x, days;
-	string cont="", subAltName="", issAltName="", constraints="", keyuse="", keyuse1="", pathstr="";
+	string cont="", subAltName="", issAltName="", constraints="",
+		keyuse="", keyuse1="", pathstr="", certTypeStr = "";
 	char *ekeyusage[]= {"serverAuth","clientAuth","codeSigning","emailProtection",
 		"timeStamping","msCodeInd","msCodeCom",
 		"msCTLSign","msSGC","msEFS","nsSGC"};
 	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"};
+	char *certTypeList[] = { "client", "server", "email", "objsign",
+				 "sslCA", "emailCA", "objsignCA" };
 	QListBoxItem *item;
 	NewX509 *dlg = new NewX509(this, NULL, keys, reqs, certs, temps, certImg, nsImg );
 	if (templ) {
@@ -220,6 +223,22 @@ void MainWindow::newCert(pki_temp *templ)
 	}
 		
 	if (opensslError(cert)) goto err;
+	// Step 5
+	// Nestcape extensions 
+	for (i=0; (item = dlg->nsCertType->item(i)); i++) {	
+		if (item->selected()){
+			addStr(certTypeStr, certTypeList[i]);
+		}
+	}
+	CERR << "IssAltName:" << issAltName<< endl;
+	cert->addV3ext(NID_netscape_cert_type, certTypeStr);
+	cert->addV3ext(NID_netscape_base_url, dlg->nsBaseUrl->text().latin1());
+	cert->addV3ext(NID_netscape_revocation_url, dlg->nsRevocationUrl->text().latin1());
+	cert->addV3ext(NID_netscape_ca_revocation_url, dlg->nsCARevocationUrl->text().latin1());
+	cert->addV3ext(NID_netscape_renewal_url, dlg->nsRenewalUrl->text().latin1());
+	cert->addV3ext(NID_netscape_ca_policy_url, dlg->nsCaPolicyUrl->text().latin1());
+	cert->addV3ext(NID_netscape_ssl_server_name, dlg->nsSslServerName->text().latin1());
+	cert->addV3ext(NID_netscape_comment, dlg->nsComment->text().latin1());
 	
 	// and finally sign the request 
 	cert->sign(signkey);

@@ -63,8 +63,9 @@
 #ifdef HAVE_QACCESSIBLE_H
 #define qt3 1
 #endif
-#else  // HAVE_CONFIG_H
 
+#else  // HAVE_CONFIG_H
+#define WIN32 1
 #include <db_cxx.h>
 #endif  // HAVE_CONFIG_H
 

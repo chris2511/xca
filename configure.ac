@@ -22,7 +22,7 @@ AC_CHECK_HEADERS([evp.h openssl/evp.h],[H_SSL=y;break])
 if test "$H_SSL" == no; then
 	AC_MSG_ERROR([OpenSSL headerfiles not found])
 fi
-AC_CHECK_HEADERS([db_cxx.h db/db_cxx.h db3/db_cxx.h db4/db_cxx],[H_DB=y;break])
+AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break])
 if test "$H_DB" == no; then
 	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca for a workaround)])
 fi
@@ -32,9 +32,9 @@ AC_CHECK_HEADER([qaccessible.h])
 AC_CHECK_LIB([crypto], [atexit], , [AC_MSG_ERROR([OpenSSL libraries not found, try installing openssl-dev or look at www.openssl.org])])
 AC_CHECK_LIB([stdc++], [atexit], , [AC_MSG_ERROR([standard C++ librarie not found...])])
 LDB=X
-AC_CHECK_LIB([db_cxx], [atexit], ,[LDB=${LDB}y] )
-AC_CHECK_LIB([db3_cxx], [atexit], ,[LDB=${LDB}y] )
 AC_CHECK_LIB([db4_cxx], [atexit], ,[LDB=${LDB}y] )
+AC_CHECK_LIB([db3_cxx], [atexit], ,[LDB=${LDB}y] )
+AC_CHECK_LIB([db_cxx], [atexit], ,[LDB=${LDB}y] )
 if test "$LDB" == Xyyy; then
 	AC_MSG_ERROR([C++ extension library to Berkeley db not found, try installing libdb_cxx-dev])
 fi

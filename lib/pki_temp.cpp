@@ -150,7 +150,7 @@ pki_temp::pki_temp(const string d, int atype)
 		issAltCp=true;
 		subAltCp=true;
 		nsCertType=2;
-		keyUse=12;
+		keyUse=7;
 	}
 
 }	

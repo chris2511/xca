@@ -65,12 +65,12 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
-#ifndef HAVE_CONFIG_H
-	baseDir = "C:";
+#ifdef WIN32
+	baseDir = "";
 #else	
 	baseDir = QDir::homeDirPath();
-#endif
 	baseDir += QDir::separator();
+#endif
 	baseDir += BASE_DIR;
  	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN );
 	CERR << baseDir.latin1() <<endl;

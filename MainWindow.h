@@ -99,8 +99,9 @@
 #ifndef CERR
 #define CERR cerr
 #endif
-#ifndef HAVE_CONFIG_H
-#define VER "0.2.4-win"
+
+#ifdef WIN32
+#define VER "0.2.5-win"
 #endif
 
 
