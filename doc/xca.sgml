@@ -47,7 +47,7 @@ After starting the application all RSA keys are hold <bf>unencrypted</bf> in the
 This is a security issue to be aware of.
 
 <p>
-The different parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revokation lists.
+The different parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revocation lists.
 All items can be manipulated either by a context menu available by
 right-clicking on the item, or by using the buttons at the right border.
 Every item is identified by an internal name which is unique in one tab-view and is
@@ -164,7 +164,7 @@ Next to the usual X commandline options. There are the following
 <item>-c expect all following non-option arguments to be Certificates
 <item>-p expect all following non-option arguments to be PKCS#12 files
 <item>-7 expect all following non-option arguments to be PKCS#7 files
-<item>-l expect all following non-option arguments to be Revokation lists
+<item>-l expect all following non-option arguments to be Revocation lists
 <item>-t expect all following non-option arguments to be Xca templates
 <item>-b set the database base-directory
 <item>-d set the database filename
@@ -506,7 +506,7 @@ signed by this issuer.
 and their revokation date.
 </itemize>
 
-<sect>Certificate Revokation Lists
+<sect>Certificate Revocation Lists
 <p>
 All certificates are issued for a restricted timeperiod of validity.
 However it can happen that a certificate may not be used / gets invalid
@@ -519,7 +519,7 @@ revoked certificates, signing it and publishing it.
 In XCA this can be done by the context-menu of the CA and the 
 "revoke" entry in the context-menu of the issued certificate.
 First all invalid certificates are marked as revoked and 
-then a Certificate Revokation List should be created and will be stored in the
+then a Certificate Revocation List should be created and will be stored in the
 database. 
 <p>
 

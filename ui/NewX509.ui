@@ -2532,7 +2532,7 @@ Example:
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>CA Revokation URL</string>
+                            <string>CA Revocation URL</string>
                         </property>
                     </widget>
                     <widget row="5"  column="1" >
@@ -2550,7 +2550,7 @@ Example:
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Revokation URL</string>
+                            <string>Revocation URL</string>
                         </property>
                     </widget>
                     <widget row="5"  column="0" >

@@ -143,7 +143,7 @@ void CrlView::showItem(pki_base *item, bool import)
 
 void CrlView::deleteItem()
 {
-	deleteItem_default(tr("The Revokation list"),
+	deleteItem_default(tr("The Revocation list"),
 		tr("is going to be deleted"));
 }
 
@@ -177,7 +177,7 @@ void CrlView::store(bool pem)
 	
 	if (!crl) return;
 	QStringList filt;
-	filt.append("Revokation Lists ( *.crl *.pem)");
+	filt.append("Revocation Lists ( *.crl *.pem)");
 	filt.append("All Files ( *.* )");
 	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);

@@ -67,7 +67,7 @@ CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, WFlags f)
 	certList->clear();
 	certList->addColumn(tr("Name"));
 	certList->addColumn(tr("Serial"));
-	certList->addColumn(tr("Revokation"));
+	certList->addColumn(tr("Revocation"));
 	image->setPixmap(*MainWindow::revImg);		 
 	descr->setReadOnly(true);
 }

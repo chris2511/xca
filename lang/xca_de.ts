@@ -253,7 +253,7 @@
         <translation>Vertrauensstatus</translation>
     </message>
     <message>
-        <source>Revokation</source>
+        <source>Revocation</source>
         <translation>Rücknahme</translation>
     </message>
     <message>
@@ -427,7 +427,7 @@
         <translation>Seriennummer</translation>
     </message>
     <message>
-        <source>Revokation</source>
+        <source>Revocation</source>
         <translation>Rücknahme</translation>
     </message>
     <message>
@@ -454,7 +454,7 @@
 <context>
     <name>CrlDetail_UI</name>
     <message>
-        <source>Details of the Revokation list</source>
+        <source>Details of the Revocation list</source>
         <translation>Details der Rücknahmeliste</translation>
     </message>
     <message>
@@ -498,7 +498,7 @@
         <translation>&amp;Aussteller</translation>
     </message>
     <message>
-        <source>&amp;Revokation list</source>
+        <source>&amp;Revocation list</source>
         <translation>&amp;Rücknahmeliste</translation>
     </message>
     <message>
@@ -549,7 +549,7 @@
 <context>
     <name>CrlView</name>
     <message>
-        <source>The Revokation list</source>
+        <source>The Revocation list</source>
         <translation>Die Rücknahmeliste</translation>
     </message>
     <message>
@@ -1877,11 +1877,11 @@ Example:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CA Revokation URL</source>
+        <source>CA Revocation URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revokation URL</source>
+        <source>Revocation URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1997,7 +1997,7 @@ Example:
         <translation>Import von XCA Vorlagen</translation>
     </message>
     <message>
-        <source>Revokation lists ( *.pem *.crl )</source>
+        <source>Revocation lists ( *.pem *.crl )</source>
         <translation>Zertifikatsrücknahmelisten ( *.pem *.crl )</translation>
     </message>
     <message>
@@ -2021,7 +2021,7 @@ Example:
         <translation>PKCS#7 format ( *.p7s *.p7m *.p7b )</translation>
     </message>
     <message>
-        <source>Import Certificate Revokation List</source>
+        <source>Import Certificate Revocation List</source>
         <translation>Importiere Zertifikatsrücknahmeliste</translation>
     </message>
 </context>
@@ -2158,11 +2158,11 @@ Example:
     </message>
     <message>
         <source>PEM</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PEM</translation>
     </message>
     <message>
         <source>DER</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DER</translation>
     </message>
 </context>
 <context>

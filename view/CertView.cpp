@@ -89,7 +89,7 @@ CertView::CertView(QWidget * parent, const char * name, WFlags f)
 	addColumn(tr("Serial"));
 	addColumn(tr("not After"));
 	addColumn(tr("Trust state"));
-	addColumn(tr("Revokation"));
+	addColumn(tr("Revocation"));
 	viewState=1; // Tree View
 }	
 

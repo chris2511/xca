@@ -65,7 +65,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Details of the Revokation list</string>
+                        <string>Details of the Revocation list</string>
                     </property>
                 </widget>
                 <spacer>
@@ -448,7 +448,7 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>&amp;Revokation list</string>
+                    <string>&amp;Revocation list</string>
                 </attribute>
                 <vbox>
                     <property stdset="1">

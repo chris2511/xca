@@ -13,6 +13,6 @@
 #include <windows.h>
 #endif  
 
-#define XCA_TITLE "X Certifikate and Key management"
+#define XCA_TITLE "X Certificate and Key management"
 
 #endif

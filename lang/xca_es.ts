@@ -226,7 +226,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revokation</source>
+        <source>Revocation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -392,7 +392,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revokation</source>
+        <source>Revocation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -435,7 +435,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Details of the Revokation list</source>
+        <source>Details of the Revocation list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -471,7 +471,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Revokation list</source>
+        <source>&amp;Revocation list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -514,7 +514,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The Revokation list</source>
+        <source>The Revocation list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1744,11 +1744,11 @@ Example:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CA Revokation URL</source>
+        <source>CA Revocation URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revokation URL</source>
+        <source>Revocation URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1876,11 +1876,11 @@ Example:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Revokation lists ( *.pem *.crl )</source>
+        <source>Revocation lists ( *.pem *.crl )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Import Certificate Revokation List</source>
+        <source>Import Certificate Revocation List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

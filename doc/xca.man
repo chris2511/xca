@@ -46,7 +46,7 @@ expect all following non-option arguments to be PKCS#12 files.
 expect all following non-option arguments to be PKCS#7 files.
 .TP
 .B \-l
-expect all following non-option arguments to be Revokation lists.
+expect all following non-option arguments to be Revocation lists.
 .TP
 .B \-t
 expect all following non-option arguments to be XCA templates.
