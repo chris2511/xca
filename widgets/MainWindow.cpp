@@ -460,7 +460,6 @@ void MainWindow::Error(errorEx &err)
 	if (err.isEmpty()) return;
 	QString msg =  tr("The following error occured:") + "\n" + err.getString();
 	int ret = QMessageBox::warning(NULL, XCA_TITLE, msg, tr("&OK"), tr("Copy to Clipboard"));
-	printf("RET: %d\n",ret);
 	if (ret == 1) {
 		QClipboard *cb = QApplication::clipboard();
 		cb->setText(msg);

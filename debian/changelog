@@ -1,3 +1,15 @@
+xca (0.4.5) unstable; urgency=low
+
+  * more german translations
+  * [ 737036 ] make error texts copiable from pop-up-windows to clipboard
+    by adding a button doing this
+  * [ 767603 ] Key sizes
+    Implemented by making the Key-size ComboBox
+    editable to enter arbitrary key sizes.
+  * [ 765774 ] change password for database
+
+ -- Christian Hohnstädt <chris@trinity.local>  Wed, 13 Aug 2003 22:10:43 +0200
+
 xca (0.4.4) unstable; urgency=low
 
   * [ 783853 ] renewal uses 'notBefore' as 'notAfter' date

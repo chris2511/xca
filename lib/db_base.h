@@ -66,10 +66,6 @@
 #include <db_cxx.h>
 #endif
 
-#if QT_VERSION >= 0x030000
-#define qt3 1
-#endif
-
 #else  // HAVE_CONFIG_H
 #define WIN32 1
 #include <db_cxx.h>

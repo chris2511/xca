@@ -1,5 +1,5 @@
-AC_INIT(xca, 0.4.4)
-AC_CONFIG_SRCDIR([view/main.cpp])
+AC_INIT(xca, 0.4.5)
+AC_CONFIG_SRCDIR([lib/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 if test -z "$CFLAGS"; then

@@ -262,6 +262,7 @@ QString pki_crl::printV3ext()
 
 void pki_crl::updateView()
 {
+	pki_base::updateView();
 	QListViewItem *c = getLvi();
 	if (!c) return;
 	c->setPixmap(0, *icon);

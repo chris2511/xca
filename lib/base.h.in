@@ -3,6 +3,10 @@
 #ifndef BASE_H
 #define BASE_H
 
+#if QT_VERSION >= 0x030000
+#define qt3 1
+#endif
+
 #define VER "@PACKAGE_VERSION@"
 
 #define MARK CERR("--Mark--")
