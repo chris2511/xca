@@ -141,6 +141,7 @@ class MainWindow: public MainWindow_UI
 	QPixmap *loadImg(const char *name);
 	void renamePKI(db_base *db);
 	bool alterTemp(pki_temp *temp);
+	void Error(errorEx &err);
    public slots:
 	void loadKey();
 	void loadReq();

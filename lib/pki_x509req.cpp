@@ -63,7 +63,7 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	request = X509_REQ_new();
 	openssl_error();
 	if (key == NULL) {
-		pki_error( "key ist null");
+		openssl_error("key ist null");
 		return;
 	}
 	openssl_error();
@@ -100,6 +100,7 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	openssl_error();
 	privkey = key;
 	key->incUcount();
+	className="pki_x509req";
 }
 
 
@@ -109,6 +110,7 @@ pki_x509req::pki_x509req() : pki_base()
 	request = X509_REQ_new();
 	openssl_error();
 	privkey = NULL;
+	className="pki_x509req";
 }
 
 
@@ -123,8 +125,8 @@ pki_x509req::~pki_x509req()
 
 pki_x509req::pki_x509req(const string fname)
 {
-	FILE *fp = fopen(fname.c_str(),"r");
 	request = NULL;
+	FILE *fp = fopen(fname.c_str(),"r");
 	if (fp != NULL) {
 	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
 	   if (!request) {
@@ -140,19 +142,19 @@ pki_x509req::pki_x509req(const string fname)
 	   if (desc == "") desc = fname;
 	   openssl_error();
 	}	
-	else pki_error("Error opening file");
+	else fopen_error(fname);
 	fclose(fp);
 	privkey = NULL;
+	className="pki_x509req";
 	
 }
 
 
-bool pki_x509req::fromData(unsigned char *p, int size)
+void pki_x509req::fromData(unsigned char *p, int size)
 {
 	privkey = NULL;
 	request = d2i_X509_REQ(NULL, &p, size);
-	if (openssl_error()) return false;
-	return true;
+	openssl_error();
 }
 
 
@@ -193,18 +195,19 @@ void pki_x509req::writeReq(const string fname, bool PEM)
 	        openssl_error();
 	   }
 	}
-	else pki_error("Error opening file");
+	else fopen_error(fname);
 	fclose(fp);
 }
 
 bool pki_x509req::compare(pki_base *refreq)
 {
+	if (!refreq) return false;
 	const EVP_MD *digest=EVP_md5();
 	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];	
 	unsigned int d1_len,d2_len;
 	X509_REQ_digest(request, digest, d1, &d1_len);
 	X509_REQ_digest(((pki_x509req *)refreq)->request, digest, d2, &d2_len);
-	openssl_error();
+	ign_openssl_error();
 	if ((d1_len == d2_len) && 
 	    (d1_len >0) &&
 	    (memcmp(d1,d2,d1_len) == 0) )return true;

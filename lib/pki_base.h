@@ -50,15 +50,7 @@
 
 #include <openssl/err.h>
 #include <iostream>
-#include <string>
-
-#ifndef HAVE_CONFIG_H
-using namespace std ;
-#else
-#include "../config.h"
-#endif
-
-#include "base.h"
+#include "exception.h"
 
 #ifndef PKI_BASE_H
 #define PKI_BASE_H
@@ -74,8 +66,9 @@ class pki_base
     protected:
 	string desc;
 	string error;
-	bool pki_error(const string myerr);
-	bool openssl_error();
+	string className;
+	void openssl_error(const string myerr = "");
+	void fopen_error(const string fname);
 	bool ign_openssl_error();
 	void *pointer; 
 	int intToData(unsigned char **p, const int val);
@@ -87,8 +80,8 @@ class pki_base
     public:
 	pki_base(const string d);
 	pki_base();
-	virtual bool fromData(unsigned char *p, int size)
-		{ CERR("VIRTUAL FUNCTION CALLED: fromData"); return false; };
+	virtual void fromData(unsigned char *p, int size)
+		{ CERR("VIRTUAL FUNCTION CALLED: fromData"); };
 	virtual unsigned char *toData(int *size)
 		{ CERR("VIRTUAL FUNCTION CALLED: toData"); return NULL;};
 	virtual bool compare(pki_base *ref)
@@ -100,6 +93,7 @@ class pki_base
 	void setPointer(void *ptr) { pointer = ptr; }
 	void delPointer() { pointer = NULL; }
 	void *getPointer() { return pointer; }
+	string getClassName();
 };
 
 #endif

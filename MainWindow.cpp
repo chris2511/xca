@@ -99,10 +99,16 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	nsImg = loadImg("netscape.png");
 	revImg = loadImg("revoked.png");
 	initPass();
-	keys = new db_key(dbenv, dbfile.latin1(), keyList);
-	reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
-	certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
-	temps = new db_temp(dbenv, dbfile.latin1(), tempList);
+	try {
+		keys = new db_key(dbenv, dbfile.latin1(), keyList);
+		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
+		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
+		temps = new db_temp(dbenv, dbfile.latin1(), tempList);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+		
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
@@ -261,11 +267,17 @@ bool MainWindow::opensslError(pki_base *pki)
 	}
 	
 	if (( err = pki->getError()) != "") { 
-		QMessageBox::warning(this,tr(XCA_TITLE), tr("The OpenSSL library raised the following error")+":" +
+		QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured")+
+			" (" + QString::fromLatin1(pki->getClassName().c_str()) +") :"+
 			QString::fromLatin1(err.c_str()));
 		return true;
 	}
 	return false;
 }
 	
+void MainWindow::Error(errorEx &err)
+{
+	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +
+			QString::fromLatin1(err.getCString()));
+}
 	

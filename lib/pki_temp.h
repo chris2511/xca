@@ -80,7 +80,7 @@ class pki_temp: public pki_base
 	pki_temp(const string d, int atype=0);
 	/* destructor */
 	~pki_temp();
-	bool fromData(unsigned char *p, int size);
+	void fromData(unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
 	int dataSize();

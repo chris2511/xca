@@ -73,6 +73,7 @@ class pki_x509 : public pki_base
 	   int crlDays;
 	   string caTemplate;
 	   X509 *cert;
+	   void init();
 	public:
 	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509(X509 *c);
@@ -80,7 +81,7 @@ class pki_x509 : public pki_base
 	   pki_x509();
 	   pki_x509(const string fname);
 	   ~pki_x509();
-	   virtual bool fromData(unsigned char *p, int size);
+	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
 	   bool canSign();

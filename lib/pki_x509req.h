@@ -71,7 +71,7 @@ class pki_x509req : public pki_base
 	   pki_x509req();
 	   pki_x509req(const string fname);
 	   ~pki_x509req();
-	   virtual bool fromData(unsigned char *p, int size);
+	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);
 	   string getDN(int nid);

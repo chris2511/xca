@@ -157,7 +157,7 @@ pki_temp::pki_temp(const string d, int atype)
 }	
 
 
-bool pki_temp::fromData(unsigned char *p, int size )
+void pki_temp::fromData(unsigned char *p, int size )
 {
 	CERR("Temp fromData");
 	unsigned char *p1 = p;
@@ -198,9 +198,8 @@ bool pki_temp::fromData(unsigned char *p, int size )
 	//if (version == 2) { ..... }
 	if (p1-p != size) {
 		CERR( "AAAAarrrrgghhhhh wrong tempsize..." << (p1-p) << " - " <<size );
-		return false;
+		openssl_error("Wrong Size");
 	}
-	return true;
 }
 
 

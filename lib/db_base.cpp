@@ -209,17 +209,17 @@ void db_base::loadContainer()
 		desc = (char *)k->get_data();
 		p = (unsigned char *)d->get_data();
 		int size = d->get_size();
-		pki = newPKI();
-		CERR("PKItest");
-		if (pki == NULL) continue;
-		CERR(desc.c_str());
-		if (pki->fromData(p, size)) {
+		try {	
+			pki = newPKI();
+			CERR("PKItest");
+			CERR(desc.c_str());
+			pki->fromData(p, size);
 			pki->setDescription(desc);
 			container.append(pki);
 		}
-		else {
-			QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: ") + desc.c_str());
-			delete(pki);
+		catch (errorEx &err) {
+			QMessageBox::warning(NULL,tr(XCA_TITLE), tr("Error loading: '") + desc.c_str() + "'\n" +
+			err.getCString());
 		}
 	}
 	delete (k);

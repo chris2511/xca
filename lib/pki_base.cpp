@@ -56,12 +56,14 @@ pki_base::pki_base(const string d)
 {
 	error = "";
 	desc = d;
+	className = "pki_base";
 }
 
 pki_base::pki_base()
 {
 	error = "";
 	desc = "";
+	className = "pki_base";
 }
 
 pki_base::~pki_base(void)
@@ -82,6 +84,11 @@ string pki_base::getError()
 	return x;
 }
 
+string pki_base::getClassName()
+{
+	return className;
+}
+
 
 void pki_base::setDescription(const string d)
 {
@@ -89,40 +96,42 @@ void pki_base::setDescription(const string d)
 }
 
 
-bool pki_base::pki_error(const string myerr)
+
+void pki_base::fopen_error(const string fname)
+{
+	string txt = "Error opening file: '" + fname + "'";
+	openssl_error(txt);
+}
+
+
+void pki_base::openssl_error(const string myerr)
 {
 	string errtxt = "";
+	error = "";
 	if (myerr != "") {
 		CERR("PKI ERROR: " << myerr);
 		error += myerr + "\n";
 	}
-	return openssl_error();
-}
-
-
-bool pki_base::openssl_error()
-{
-	string errtxt = "";
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
 	   CERR("OpenSSL: " << errtxt);
 	   error += errtxt + "\n";
 	}
-	return  (!error.empty());
+	if (!error.empty()) {
+		throw errorEx(error, className);
+	}
 }
 
 
 bool pki_base::ign_openssl_error()
 {
 	// ignore openssl errors
-	bool ret = false;
 	string errtxt;
 	while (int i = ERR_get_error() ) {
-	   ret = true;
 	   errtxt = ERR_error_string(i ,NULL);
-	   CERR("IGNORE: OpenSSL: " << errtxt);
+	   CERR("IGNORE -> OpenSSL: " << errtxt << " <- IGNORE");
 	}
-	return ret;
+	return !errtxt.empty();
 }
 
 int pki_base::intToData(unsigned char **p, const int val)

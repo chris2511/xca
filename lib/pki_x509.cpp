@@ -56,14 +56,17 @@
 pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial)
 		:pki_base( d )
 {
+	init();
 	X509_NAME *issn, *reqn;
-	if (!req) return ;	
-	if ((cert = X509_new()) == NULL) return ;
+	if (!req) openssl_error("Request was null");	
+	cert = X509_new();
+	openssl_error();
 	if (signer) {
   		issn = X509_get_subject_name(signer->cert);
 	}
 	else {
   		issn = X509_REQ_get_subject_name(req->request);
+		signer = this;
 	}
 	
 	// copy Requestinfo to New cert
@@ -75,50 +78,33 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	
 	/* Set version to V3 */
 	X509_set_version(cert, 2);
-	if (openssl_error()) return;
+	openssl_error();
 	
 	ASN1_INTEGER_set(X509_get_serialNumber(cert), serial);
 
 	X509_gmtime_adj(X509_get_notBefore(cert),0);
 	X509_gmtime_adj(X509_get_notAfter(cert), (long)60*60*24*days);
-	if (signer == NULL) // selfsigned....
-		signer=this;
 
 	/* Set up V3 context struct */
 	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
 	X509V3_set_ctx_nodb((&ext_ctx))
 
-	trust = 2;
-	efftrust = 2;
-	psigner = signer;
-	pkey = clientKey;
-	revoked = NULL;
-	caSerial=0;
-	caTemplate="";
-	crlDays=30;
-	lastCrl= NULL;
 	if (pkey)
 		pkey->incUcount();
+	openssl_error();
 }
 
 pki_x509::pki_x509(X509 *c) : pki_base()
 {
 	cert = c;
 	openssl_error();
-	psigner = NULL;
-	pkey= NULL;
-	trust = 0;
-	efftrust = 0;
-	revoked = NULL;
-	caSerial=1;
-	caTemplate="";
-	crlDays=30;
-	lastCrl=NULL;
+	init();
 }
 
 pki_x509::pki_x509(const pki_x509 *crt) 
 	:pki_base(crt->desc)
 {
+	init();
 	cert = X509_dup(crt->cert);
 	openssl_error();
 	psigner = crt->psigner;
@@ -130,26 +116,20 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	caTemplate = crt->caTemplate;
 	crlDays = crt->crlDays;
 	lastCrl = M_ASN1_TIME_dup(crt->lastCrl);
+	openssl_error();
 }
 
 pki_x509::pki_x509() : pki_base()
 {
 	cert = X509_new();
 	openssl_error();
-	psigner = NULL;
-	pkey= NULL;
-	trust = 0;
-	efftrust = 0;
-	revoked = NULL;
-	caSerial = 1;
-	caTemplate = "";
-	crlDays = 0;
-	lastCrl = NULL;
+	init();
 }
 
 pki_x509::pki_x509(const string fname)
 {
 	FILE *fp = fopen(fname.c_str(),"r");
+	init();
 	cert = NULL;
 	if (fp != NULL) {
 	   cert = PEM_read_X509(fp, NULL, NULL, NULL);
@@ -166,17 +146,10 @@ pki_x509::pki_x509(const string fname)
 	   if (desc == "") desc = fname;
 	   openssl_error();
 	}	
-	else pki_error("Error opening file");
+	else fopen_error(fname);
 	fclose(fp);
 	trust = 1;
 	efftrust = 1;
-	psigner = NULL;
-	revoked = NULL;
-	pkey = NULL;
-	caSerial=1;
-	caTemplate="";
-	crlDays=30;
-	lastCrl=NULL;
 }
 
 pki_x509::~pki_x509()
@@ -192,6 +165,21 @@ pki_x509::~pki_x509()
 	}
 	if (pkey)
 		pkey->decUcount();
+	openssl_error();
+}
+
+void pki_x509::init()
+{
+	psigner = NULL;
+	pkey= NULL;
+	trust = 0;
+	efftrust = 0;
+	revoked = NULL;
+	caSerial = 1;
+	caTemplate = "";
+	crlDays = 30;
+	lastCrl = NULL;
+	className="pki_x509";
 }
 
 
@@ -204,11 +192,12 @@ void pki_x509::addV3ext(int nid, string exttext)
 	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
 	if (!ext) {
 		string x="v3 Extension: " + exttext;
-		pki_error(x);
+		openssl_error(x);
 		return;
 	}
 	X509_add_ext(cert, ext, -1);
 	X509_EXTENSION_free(ext);
+	openssl_error();
 }
 
 bool pki_x509::canSign()
@@ -255,7 +244,7 @@ void pki_x509::sign(pki_key *signkey)
  */
 
 	
-bool pki_x509::fromData(unsigned char *p, int size)
+void pki_x509::fromData(unsigned char *p, int size)
 {
 	int version, sCert, sRev, sLastCrl;
 	unsigned char *p1 = p;
@@ -303,8 +292,7 @@ bool pki_x509::fromData(unsigned char *p, int size)
 		trust = 1;
 		efftrust = 1;
 	}	
-	if (openssl_error()) return false;
-	return true;
+	openssl_error();
 }
 
 
@@ -353,6 +341,7 @@ string pki_x509::getDNs(int nid)
 	string s;
 	X509_NAME *subj = X509_get_subject_name(cert);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
+	openssl_error();
 	s = buf;
 	return s;
 }
@@ -363,6 +352,7 @@ string pki_x509::getDNi(int nid)
 	string s;
 	X509_NAME *iss = X509_get_issuer_name(cert);
 	X509_NAME_get_text_by_NID(iss, nid, buf, 200);
+	openssl_error();
 	s = buf;
 	return s;
 }
@@ -394,6 +384,7 @@ string pki_x509::asn1TimeToString(ASN1_TIME *a)
 	BIO_gets(bio, buf, 200);
 	time = buf;
 	BIO_free(bio);
+	openssl_error();
 	return time;
 }
 
@@ -410,15 +401,15 @@ void pki_x509::writeCert(const string fname, bool PEM)
 	        openssl_error();
 	   }
 	}
-	else pki_error("Error opening the file");
+	else fopen_error(fname);
 	fclose(fp);
 }
 
 bool pki_x509::compare(pki_base *refreq)
 {
-	if (!X509_cmp(cert, ((pki_x509 *)refreq)->cert))
-		return true;
-	return false;
+	bool ret = !X509_cmp(cert, ((pki_x509 *)refreq)->cert);
+	ign_openssl_error();
+	return ret;
 }
 
 	
@@ -463,7 +454,7 @@ string pki_x509::fingerprint(EVP_MD *digest)
          unsigned int n;
          unsigned char md[EVP_MAX_MD_SIZE];
          X509_digest(cert, digest, md, &n);
-	 if (openssl_error()) return fp;
+	 openssl_error();
          for (j=0; j<(int)n; j++)
          {
               sprintf(zs, "%02X%c",md[j], (j+1 == (int)n) ?'\0':':');
@@ -475,12 +466,13 @@ string pki_x509::fingerprint(EVP_MD *digest)
 int pki_x509::checkDate()
 {
 	time_t tnow = time(NULL);
+	int ret=0;
 	if (ASN1_UTCTIME_cmp_time_t(X509_get_notAfter(cert), tnow) == -1)
-		return -1;
-	if (ASN1_UTCTIME_cmp_time_t(X509_get_notBefore(cert), tnow) == -1)
-	 	return 0;
-	else 
-		return 1;
+		ret = -1;
+	if (!ASN1_UTCTIME_cmp_time_t(X509_get_notBefore(cert), tnow) == -1)
+	 	ret = 1;
+	openssl_error();
+	return ret;
 }
 
 int pki_x509::resetTimes(pki_x509 *signer)
@@ -501,6 +493,7 @@ int pki_x509::resetTimes(pki_x509 *signer)
 		X509_get_notBefore(cert) = M_ASN1_TIME_dup(X509_get_notBefore(signer->cert));
 		ret=2;
 	}
+	openssl_error();
 	return ret;
 }
 	
@@ -607,7 +600,7 @@ void pki_x509::setRevoked(bool rev)
 		setTrust(0);
 		if (revoked) return;
 		revoked = ASN1_TIME_new();
-		if (openssl_error()) return;
+		openssl_error();
 		X509_gmtime_adj(revoked,0);
 	}
 	else {
@@ -615,6 +608,7 @@ void pki_x509::setRevoked(bool rev)
 		ASN1_TIME_free(revoked);
 		revoked = NULL;
 	}
+	openssl_error();
 }
 
 int pki_x509::calcEffTrust()

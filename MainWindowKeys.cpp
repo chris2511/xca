@@ -80,6 +80,7 @@ void MainWindow::newKey()
 	dlg->keyLength->setCurrentItem(2);
 	dlg->image->setPixmap(*keyImg);
 	if (dlg->exec()) {
+	  try {
 	   int sel = dlg->keyLength->currentItem();
 	   QProgressDialog *progress = new QProgressDialog(
 		tr("Please wait, Key generation is in progress"),
@@ -94,8 +95,12 @@ void MainWindow::newKey()
            progress->cancel();
 	   delete progress;
 	   insertKey(nkey);
-	   x=nkey->getDescription().c_str();
+	   x = nkey->getDescription().c_str();
 	   emit keyDone(x);
+	  }
+	  catch (errorEx &err) {
+		  Error(err);
+	  }
 	}
 	delete dlg;
 }
@@ -111,46 +116,58 @@ void MainWindow::deleteKey()
 			"'\n" + tr("is going to be deleted"),
 			"Delete", "Cancel")
 	) return;
-	keys->deletePKI(delKey);
+	try {
+		keys->deletePKI(delKey);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 
 bool MainWindow::showDetailsKey(pki_key *key, bool import)
 {
-	if (!key) return false;
 	if (opensslError(key)) return false;
 	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
-	
-	detDlg->setCaption(tr(XCA_TITLE));
-	detDlg->keyDesc->setText(
-		key->getDescription().c_str() );
-	detDlg->keyLength->setText(
-		key->length().c_str() );
-	detDlg->keyPubEx->setText(
-		key->pubEx().c_str() );
-	detDlg->keyModulus->setText(
-		key->modulus().c_str() );
-	detDlg->keyModulus->setDisabled(true);
-	if (key->isPubKey()) {
-		detDlg->keyPrivEx->setText(tr("not available") );
-		detDlg->keyPrivEx->setDisabled(true);
+	try {	
+		detDlg->setCaption(tr(XCA_TITLE));
+		detDlg->keyDesc->setText(
+			key->getDescription().c_str() );
+		detDlg->keyLength->setText(
+			key->length().c_str() );
+		detDlg->keyPubEx->setText(
+			key->pubEx().c_str() );
+		detDlg->keyModulus->setText(
+			key->modulus().c_str() );
+		detDlg->keyModulus->setDisabled(true);
+		if (key->isPubKey()) {
+			detDlg->keyPrivEx->setText(tr("not available") );
+			detDlg->keyPrivEx->setDisabled(true);
+		}
+		detDlg->image->setPixmap(*keyImg);
+		if (import) {
+			detDlg->but_ok->setText(tr("Import"));
+			detDlg->but_cancel->setText(tr("Discard"));
+		}
 	}
-	detDlg->image->setPixmap(*keyImg);
-	if (import) {
-		detDlg->but_ok->setText(tr("Import"));
-		detDlg->but_cancel->setText(tr("Discard"));
-	}
-	
-	if ( !detDlg->exec()) {
+	catch (errorEx &err) {
+		Error(err);
 		delete detDlg;
 		return false;
 	}
 	string ndesc = detDlg->keyDesc->text().latin1();
-	if (ndesc != key->getDescription()) {
-		keys->renamePKI(key, ndesc);
-	}
+	bool ret = detDlg->exec();
 	delete detDlg;
-	return true;
+	if ( ret && ndesc != key->getDescription()) {
+		try {
+			keys->renamePKI(key, ndesc);
+		}
+		catch (errorEx &err) {
+			Error(err);
+		}
+		return true;
+	}
+	return false;
 }
 
 
@@ -184,15 +201,13 @@ void MainWindow::loadKey()
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);
 	string errtxt;
-	pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
-	if ((errtxt = lkey->getError()) != "") {
-		QMessageBox::warning(this,tr(XCA_TITLE),
-			tr("The key") +": " + s +
-			"\n"+ tr("could not be loaded") + QString::fromLatin1(errtxt.c_str()) );
-		delete lkey;
-		return;
+	try {
+		pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
+		insertKey(lkey);
 	}
-	insertKey(lkey);
+	catch (errorEx &err) {
+		Error(err);
+	}
 }
 
 
@@ -243,28 +258,26 @@ void MainWindow::writeKey()
 		return;
 	}
 	string fname = dlg->filename->text().latin1();
-	if (fname == "") return;
-	if (dlg->exportFormat->currentText() == "PEM") PEM = true;
-	if (dlg->exportFormat->currentText() == "PKCS#8")
-		 targetKey->writePKCS8(fname, &MainWindow::passWrite);
-	else if (dlg->exportPrivate->isChecked()) {
-	   if (dlg->encryptKey->isChecked())
-   	   	enc = EVP_des_ede3_cbc();
-	   targetKey->writeKey(fname, enc, &MainWindow::passWrite, PEM);
-	}
-	else {
-		targetKey->writePublic(fname, PEM);
-	}
-	string errtxt;
-	if ((errtxt = targetKey->getError()) != "") {
-		QMessageBox::warning(this,tr(XCA_TITLE),
-			tr("Der Schlüssel") +": '" + QString::fromLatin1(fname.c_str()) +
-			"'\n" + tr("could not be written") +":\n" + QString::fromLatin1(errtxt.c_str()));
+	if (fname == "") {
+		delete dlg;
 		return;
 	}
-	QMessageBox::information(this,tr(XCA_TITLE),
-		tr("The key was successfull exported into the file") + ":\n'" +
-		QString::fromLatin1(fname.c_str()) , "OK");
+	try {
+		if (dlg->exportFormat->currentText() == "PEM") PEM = true;
+		if (dlg->exportFormat->currentText() == "PKCS#8")
+			targetKey->writePKCS8(fname, &MainWindow::passWrite);
+		else if (dlg->exportPrivate->isChecked()) {
+			if (dlg->encryptKey->isChecked())
+				enc = EVP_des_ede3_cbc();
+			targetKey->writeKey(fname, enc, &MainWindow::passWrite, PEM);
+		}
+		else {
+			targetKey->writePublic(fname, PEM);
+		}
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
 	delete dlg;
 
 }

@@ -44,36 +44,33 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
+#include <string>
 
-#include <qapplication.h>
-#include <qtranslator.h>
-#include <qtextcodec.h>
-#include "MainWindow.h"
-
-
-int main( int argc, char *argv[] )
-{
-    QApplication a( argc, argv );
-    MainWindow mw( NULL, "Main Widget");
-    a.setMainWidget( &mw );
-    // translation file for Qt
-    QTranslator qtTr( 0 );
-    qtTr.load( QString( "qt_" ) + QTextCodec::locale(), "." );
-    a.installTranslator( &qtTr );
-    //translation file for application strings
-    QTranslator xcaTr( 0 );
-#ifdef WIN32
-    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), "." );
-    a.installTranslator( &xcaTr );
-#else	
-    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
-    a.installTranslator( &xcaTr );
+#ifndef HAVE_CONFIG_H
+using namespace std ;
+#else
+#include "../config.h"
 #endif
-    
-    mw.show();
-    return a.exec();
-}
+
+#include "base.h"
+
+#ifndef PKI_EXCEPTION_H
+#define PKI_EXCEPTION_H
+
+class errorEx
+{
+	private:
+		string msg;
+	public:
+		errorEx(string txt, string className) {
+			msg = txt + " (" + className + ")";
+		}
+		string getString(){return msg;}
+		const char *getCString(){return msg.c_str();}
+};
+
+#endif

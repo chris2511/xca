@@ -105,7 +105,7 @@ class pki_key: public pki_base
 	
 	pki_key(const string d, int type=EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
-	bool fromData(unsigned char *p, int size);
+	void fromData(unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
         string length();

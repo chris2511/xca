@@ -57,25 +57,20 @@ pki_crl::pki_crl(const string d, pki_x509 *iss )
 { 
 	issuer = iss;
 	crl = NULL;
-	if (!iss) return;
+	if (!iss) openssl_error("no issuer");
 	crl = X509_CRL_new();
 	X509V3_set_ctx(&ctx, issuer->cert, NULL, NULL, crl, 0);
 	X509_CRL_INFO *ci = crl->crl;
-	if (openssl_error()) return;
+	openssl_error();
 	ci->issuer = X509_NAME_dup(issuer->cert->cert_info->subject);
-	if (openssl_error()) return;
 	ci->lastUpdate = ASN1_UTCTIME_new();
-	if (openssl_error()) return;
 	X509_gmtime_adj(ci->lastUpdate,0);
-	if (openssl_error()) return;
 	ci->nextUpdate=ASN1_UTCTIME_new();
-	if (openssl_error()) return;
 	X509_gmtime_adj(ci->nextUpdate, (issuer->getCrlDays())*24*60*60);
-	if (openssl_error()) return;
 	ci->version = ASN1_INTEGER_new();
-	if (openssl_error()) return;
 	ASN1_INTEGER_set(ci->version,1); /* version 2 CRL */
-	if (openssl_error()) return;
+	openssl_error();
+	className="pki_crl";
 }	
 
 
@@ -87,18 +82,16 @@ pki_crl::~pki_crl()
 void pki_crl::addRevoked(const pki_x509 *client)
 {
 	X509_REVOKED *rev = NULL;
-	if (!crl) return;
+	if (!crl) openssl_error("crl disappeared");
 	X509_CRL_INFO *ci = crl->crl;
 	if (!client || !client->revoked) return;
 	if (client->psigner != issuer) return;
 	rev = X509_REVOKED_new();
-	if (openssl_error()) return;
+	openssl_error();
 	rev->revocationDate = M_ASN1_TIME_dup(client->revoked);
-	if (openssl_error()) return;
 	rev->serialNumber = ASN1_INTEGER_dup(X509_get_serialNumber(client->cert));
-	if (openssl_error()) return;
 	sk_X509_REVOKED_push(ci->revoked,rev);
-	if (openssl_error()) return;
+	openssl_error();
 }
 
 void pki_crl::addV3ext(int nid, string exttext)
@@ -110,12 +103,12 @@ void pki_crl::addV3ext(int nid, string exttext)
 	ext =  X509V3_EXT_conf_nid(NULL, &ctx, nid, c);
 	if (!ext) {
 		string x="CRL v3 Extension: " + exttext;
-		pki_error(x);
+		openssl_error(x);
 		return;
 	}
 	X509_CRL_add_ext(crl, ext, -1);
-	if (openssl_error()) return;
 	X509_EXTENSION_free(ext);
+	openssl_error();
 }
 
 
@@ -123,6 +116,7 @@ void pki_crl::sign(pki_key *key)
 {
 	if (!key || key->isPubKey()) return;
 	X509_CRL_sign(crl,key->key, EVP_md5());
+	openssl_error();
 }
 
 
@@ -136,7 +130,7 @@ void pki_crl::writeCrl(const string fname)
 		openssl_error();
 	   }
 	}
-	else pki_error("File open error");
+	else fopen_error(fname);
 	fclose(fp);
 }
 
