@@ -66,12 +66,9 @@ pki_base *db_x509req::newPKI(){
 void db_x509req::delKey(pki_key *delkey)
 {
 	pki_x509req *pki;
-	CERR("delKey in X509req");
-	if ( container.isEmpty() ) return ;
-	QListIterator<pki_base> iter(container); 
-	for ( ; iter.current(); ++iter ) { // find the key of the request
-		pki = (pki_x509req *)iter.current();
-		if (pki->getKey() == delkey) {
+	for ( pki = (pki_x509req *)container.first(); pki != 0; 
+	  pki = (pki_x509req *)container.next() ) {
+		if ( pki->getKey() == delkey) {
 			pki->setKey(NULL);
 		}
 	}

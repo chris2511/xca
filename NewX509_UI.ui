@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>642</width>
+            <width>638</width>
             <height>531</height>
         </rect>
     </property>
@@ -671,41 +671,6 @@ Empy, CA, client, server</string>
                 </property>
             </spacer>
             <widget>
-                <class>QLabel</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>TextLabel10</cstring>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>For a new certificate you have to enter your personal data into the form and select a key to use.
-For signing a request, please select the appropriate Certificates igning request.
-For a SSL servercertificate choose the DNS name of the server as "Common name"
-Only the internal name and the key are mandatory but usually one wants to fill in more fields.</string>
-                </property>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer72</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
                 <class>QGroupBox</class>
                 <property stdset="1">
                     <name>name</name>
@@ -724,69 +689,15 @@ Only the internal name and the key are mandatory but usually one wants to fill i
                         <name>spacing</name>
                         <number>6</number>
                     </property>
-                    <widget row="2"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>stateOrProvinceName</cstring>
-                        </property>
-                    </widget>
-                    <widget row="3"  column="2" >
+                    <widget row="0"  column="0" >
                         <class>QLabel</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>TextLabel7_2</cstring>
+                            <cstring>TextLabel1_3_2</cstring>
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>E-Mail address:</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="3" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>organisationalUnitName</cstring>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel3_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Country</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="3" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>organisationName</cstring>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="2" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel5_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Organisational unit:</string>
-                        </property>
-                    </widget>
-                    <widget row="4"  column="1" >
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>keyList</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>This list only contains unused keys</string>
+                            <string>Internal name</string>
                         </property>
                     </widget>
                     <widget row="0"  column="1" >
@@ -804,36 +715,11 @@ Only the internal name and the key are mandatory but usually one wants to fill i
                             <string>This name is only used internally and does not appear in the resulting certificate</string>
                         </property>
                     </widget>
-                    <widget row="3"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>localityName</cstring>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="2" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel6_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Common name / DNS:</string>
-                        </property>
-                    </widget>
                     <widget row="1"  column="1" >
                         <class>QLineEdit</class>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>countryName</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
-                            <sizepolicy>
-                                <hsizetype>1</hsizetype>
-                                <vsizetype>0</vsizetype>
-                            </sizepolicy>
                         </property>
                         <property stdset="1">
                             <name>maxLength</name>
@@ -844,28 +730,6 @@ Only the internal name and the key are mandatory but usually one wants to fill i
                             <string>Must be exactly 2 letter of size (DE, UK)</string>
                         </property>
                     </widget>
-                    <widget row="4"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Key:</string>
-                        </property>
-                    </widget>
-                    <widget row="3"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel4_3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Locality:</string>
-                        </property>
-                    </widget>
                     <widget row="1"  column="0" >
                         <class>QLabel</class>
                         <property stdset="1">
@@ -874,32 +738,35 @@ Only the internal name and the key are mandatory but usually one wants to fill i
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Country code:</string>
+                            <string>Country code</string>
                         </property>
                     </widget>
-                    <widget row="0"  column="0" >
+                    <widget row="2"  column="0" >
                         <class>QLabel</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>TextLabel1_3_2</cstring>
+                            <cstring>TextLabel3_2</cstring>
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Internal name</string>
+                            <string>Country</string>
                         </property>
                     </widget>
-                    <widget row="3"  column="3" >
+                    <widget row="3"  column="1" >
                         <class>QLineEdit</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>emailAddress</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>maxLength</name>
-                            <number>60</number>
+                            <cstring>localityName</cstring>
                         </property>
                     </widget>
-                    <widget row="2"  column="3" >
+                    <widget row="5"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>organisationalUnitName</cstring>
+                        </property>
+                    </widget>
+                    <widget row="6"  column="1" >
                         <class>QLineEdit</class>
                         <property stdset="1">
                             <name>name</name>
@@ -910,18 +777,200 @@ Only the internal name and the key are mandatory but usually one wants to fill i
                             <number>64</number>
                         </property>
                     </widget>
+                    <widget row="7"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>emailAddress</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>60</number>
+                        </property>
+                    </widget>
+                    <widget row="2"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>stateOrProvinceName</cstring>
+                        </property>
+                    </widget>
+                    <widget row="0"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>description_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>100</number>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>This name is only used internally and does not appear in the resulting certificate</string>
+                        </property>
+                    </widget>
+                    <widget row="1"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>countryName_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>2</number>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Must be exactly 2 letter of size (DE, UK)</string>
+                        </property>
+                    </widget>
+                    <widget row="7"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>emailAddress_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>60</number>
+                        </property>
+                    </widget>
+                    <widget row="6"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>commonName_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>64</number>
+                        </property>
+                    </widget>
+                    <widget row="5"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>organisationalUnitName_2</cstring>
+                        </property>
+                    </widget>
+                    <widget row="3"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>localityName_2</cstring>
+                        </property>
+                    </widget>
+                    <widget row="4"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>organisationName_2</cstring>
+                        </property>
+                    </widget>
+                    <widget row="2"  column="3" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>stateOrProvinceName_2</cstring>
+                        </property>
+                    </widget>
+                    <widget row="8"  column="1" >
+                        <class>QComboBox</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>keyList</cstring>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>This list only contains unused keys</string>
+                        </property>
+                    </widget>
                     <widget row="0"  column="2" >
                         <class>QLabel</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>TextLabel4_2_2</cstring>
+                            <cstring>TextLabel1_3_2_2</cstring>
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Organisation:</string>
+                            <string>Sure name</string>
                         </property>
                     </widget>
-                    <widget row="4"  column="2"  rowspan="1"  colspan="2" >
+                    <widget row="2"  column="2" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel3_2_3</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Title</string>
+                        </property>
+                    </widget>
+                    <widget row="3"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel4_3</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Locality</string>
+                        </property>
+                    </widget>
+                    <widget row="3"  column="2" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel4_3_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Name</string>
+                        </property>
+                    </widget>
+                    <widget row="5"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel5_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Organ. unit</string>
+                        </property>
+                    </widget>
+                    <widget row="6"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel6_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Common name</string>
+                        </property>
+                    </widget>
+                    <widget row="7"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel7_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>E-Mail address</string>
+                        </property>
+                    </widget>
+                    <widget row="4"  column="1" >
+                        <class>QLineEdit</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>organisationName</cstring>
+                        </property>
+                    </widget>
+                    <widget row="8"  column="2"  rowspan="1"  colspan="2" >
                         <class>QPushButton</class>
                         <property stdset="1">
                             <name>name</name>
@@ -934,6 +983,83 @@ Only the internal name and the key are mandatory but usually one wants to fill i
                         <property>
                             <name>toolTip</name>
                             <string>This funny button creates a key. Go figure.</string>
+                        </property>
+                    </widget>
+                    <widget row="1"  column="2" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel2_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Given Name</string>
+                        </property>
+                    </widget>
+                    <widget row="4"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel4_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Organisation</string>
+                        </property>
+                    </widget>
+                    <widget row="8"  column="0" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel1_2_3</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Private key</string>
+                        </property>
+                    </widget>
+                    <widget row="7"  column="2" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel7_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Description</string>
+                        </property>
+                    </widget>
+                    <widget row="6"  column="2" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel6_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Initials</string>
+                        </property>
+                    </widget>
+                    <widget row="5"  column="2" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel5_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Role</string>
+                        </property>
+                    </widget>
+                    <widget row="4"  column="2" >
+                        <class>QLabel</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>TextLabel4_2_2_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Pseudonym</string>
                         </property>
                     </widget>
                 </grid>

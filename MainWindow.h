@@ -113,7 +113,7 @@ class MainWindow: public MainWindow_UI
 	static QString getPath();
 	static void setPath(QString path);
 	bool mkDir(QString dir);
-   slots: 
+   public slots: 
 	void init_database();
 	
 };
