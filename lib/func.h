@@ -54,8 +54,11 @@
 #include <qpixmap.h>
 #include "base.h"
 
+class Validity;
+
 QPixmap *loadImg(const char *name);
 QString getPrefix();
 QString getBaseDir();
+void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na);
 
 #endif

@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>523</width>
-            <height>590</height>
+            <width>620</width>
+            <height>614</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>NewX509_UI</string>
+        <string></string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -1595,7 +1595,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                             <name>title</name>
                             <string>Time Range</string>
                         </property>
-                        <vbox>
+                        <grid>
                             <property stdset="1">
                                 <name>margin</name>
                                 <number>11</number>
@@ -1604,74 +1604,65 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                                 <name>spacing</name>
                                 <number>6</number>
                             </property>
-                            <widget>
-                                <class>QLayoutWidget</class>
+                            <widget row="0"  column="1" >
+                                <class>QComboBox</class>
+                                <item>
+                                    <property>
+                                        <name>text</name>
+                                        <string>Days</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property>
+                                        <name>text</name>
+                                        <string>Months</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property>
+                                        <name>text</name>
+                                        <string>Years</string>
+                                    </property>
+                                </item>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>Layout18</cstring>
+                                    <cstring>validRange</cstring>
                                 </property>
-                                <vbox>
-                                    <property stdset="1">
-                                        <name>margin</name>
-                                        <number>0</number>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>spacing</name>
-                                        <number>6</number>
-                                    </property>
-                                    <widget>
-                                        <class>QLineEdit</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>validNumber</cstring>
-                                        </property>
-                                    </widget>
-                                    <widget>
-                                        <class>QComboBox</class>
-                                        <item>
-                                            <property>
-                                                <name>text</name>
-                                                <string>Days</string>
-                                            </property>
-                                        </item>
-                                        <item>
-                                            <property>
-                                                <name>text</name>
-                                                <string>Months</string>
-                                            </property>
-                                        </item>
-                                        <item>
-                                            <property>
-                                                <name>text</name>
-                                                <string>Years</string>
-                                            </property>
-                                        </item>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>validRange</cstring>
-                                        </property>
-                                    </widget>
-                                    <widget>
-                                        <class>QPushButton</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>applyTime</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>maximumSize</name>
-                                            <size>
-                                                <width>32767</width>
-                                                <height>25</height>
-                                            </size>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Apply</string>
-                                        </property>
-                                    </widget>
-                                </vbox>
                             </widget>
-                        </vbox>
+                            <widget row="1"  column="1" >
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>applyTime</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Apply</string>
+                                </property>
+                            </widget>
+                            <widget row="1"  column="0" >
+                                <class>QCheckBox</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>midnightCB</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Midnight</string>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>Set the time to 00:00:00 and 23:59:59 respectively</string>
+                                </property>
+                            </widget>
+                            <widget row="0"  column="0" >
+                                <class>QLineEdit</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>validNumber</cstring>
+                                </property>
+                            </widget>
+                        </grid>
                     </widget>
                 </hbox>
             </widget>

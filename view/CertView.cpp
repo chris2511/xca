@@ -61,7 +61,7 @@
 #include <qtextview.h>
 #include <qpushbutton.h>
 #include <qinputdialog.h>
-#include "ui/CertExtend.h"
+#include "widgets/CertExtend.h"
 #include "widgets/ExportCert.h"
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
@@ -256,11 +256,8 @@ void CertView::extendCert()
 	a1int serial;
 	emit init_database();
 	try {
-		CertExtend_UI *dlg = new CertExtend_UI(this, NULL, true);
-		dlg->image->setPixmap(*MainWindow::certImg);
-		dlg->notBefore->setDate(time.now());
-		dlg->notAfter->setDate(time.now(60 * 60 * 24 * 356));
-		
+		CertExtend *dlg = new CertExtend(this, NULL, true);
+			
 		if (!dlg->exec()) {
 			delete dlg;
 			return;

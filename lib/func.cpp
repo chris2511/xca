@@ -51,7 +51,12 @@
 
 
 #include "func.h"
+#include "lib/asn1time.h"
+#include "widgets/validity.h"
 #include <qdir.h>
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qcombobox.h>
 #include <qmessagebox.h>
 
 #ifdef WIN32
@@ -232,4 +237,25 @@ QString getBaseDir()
 #endif
 #endif
 	return baseDir;
+}
+
+void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na)
+{
+#define d_fac (60 * 60 * 24)
+    int faktor[] = { 1, 30, 365 };
+    int midnight = mnc? 1:0;
+
+    if (range>2 || range<0) range = 0;
+    a1time a;
+    time_t t;
+    time(&t);
+    int delta = faktor[range] * number ;
+    t /= d_fac;
+    if (delta + t > 24850){
+        QMessageBox::warning(NULL, XCA_TITLE,
+            "Time difference too big\nYou must set it manually." );
+        return;
+    }
+    nb->setDate(a.now(), midnight);
+    na->setDate(a.now(delta * d_fac), midnight* (-1));
 }
