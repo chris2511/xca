@@ -26,12 +26,8 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      PassWrite_UI.o PassWrite_UI_MOC.o \
      ExportKey_UI.o ExportKey_UI_MOC.o \
      NewX509Req_UI.o NewX509Req_UI_MOC.o \
-     NewX509_0_UI.o NewX509_0_UI_MOC.o \
-     NewX509_1_UI.o NewX509_1_UI_MOC.o \
-     NewX509_2_UI.o NewX509_2_UI_MOC.o \
-     NewX509_3_UI.o NewX509_3_UI_MOC.o \
+     NewX509_UI.o NewX509_UI_MOC.o \
      NewX509.o NewX509_MOC.o \
-     NewX509_0.o NewX509_0_MOC.o \
      CertDetail_UI.o CertDetail_UI_MOC.o \
      Rename_UI.o Rename_UI_MOC.o \
      ExportKey.o ExportKey_MOC.o \

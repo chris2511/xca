@@ -60,21 +60,22 @@ void MainWindow::newCert()
 	pki_key *signkey = NULL, *clientkey = NULL;
 	int serial = 42; // :-)
 	int i, retval;
-	NewX509_0 *dlg1 = new NewX509_0(this, NULL, keys, reqs);
-	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL);
+	NewX509 *dlg = new NewX509(this, NULL, true, 0);
+/*	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL);
 	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL);
 	NewX509_3_UI *dlg4 = new NewX509_3_UI(this, NULL);
 	NewX509 *dlg[4] = {dlg1, dlg2, dlg3, dlg4};
 	
 	CERR <<" Everything created" << endl;
 	// preset dlg 2 selection of signer
+*/
 	QStringList strlist = certs->getSignerDesc();
 	if (strlist.isEmpty()) {
-		dlg2->foreignSignRB->setDisabled(true);
-		dlg2->certList->setDisabled(true);
+		dlg->foreignSignRB->setDisabled(true);
+		dlg->certList->setDisabled(true);
 	}
 	else {
-		dlg2->certList->insertStringList(strlist);
+		dlg->certList->insertStringList(strlist);
 	}
 	CERR <<" Everything created A" << endl;
 	// preset dialogs with images
@@ -85,46 +86,43 @@ void MainWindow::newCert()
 	CERR <<" Everything created V" << endl;
 	i=0;
 	
-	if (!dlg1->exec()) return;
-	if (!dlg2->exec()) return;
-	if (!dlg3->exec()) return;
-	if (!dlg4->exec()) return;
+	if (!dlg->exec()) return;
 	
 
 	
 	// Step 1 - Subject and key
-	if (dlg1->fromDataRB->isChecked()) {
-	    clientkey = (pki_key *)keys->getSelectedPKI(dlg1->keyList->currentText().latin1());
+	if (dlg->fromDataRB->isChecked()) {
+	    clientkey = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
 	    if (opensslError(clientkey)) return;
-	    string cn = dlg1->commonName->text().latin1();
-	    string c = dlg1->countryName->text().latin1();
-	    string l = dlg1->localityName->text().latin1();
-	    string st = dlg1->stateOrProvinceName->text().latin1();
-	    string o = dlg1->organisationName->text().latin1();
-	    string ou = dlg1->organisationalUnitName->text().latin1();
-	    string email = dlg1->emailAddress->text().latin1();
-	    string desc = dlg1->description->text().latin1();
+	    string cn = dlg->commonName->text().latin1();
+	    string c = dlg->countryName->text().latin1();
+	    string l = dlg->localityName->text().latin1();
+	    string st = dlg->stateOrProvinceName->text().latin1();
+	    string o = dlg->organisationName->text().latin1();
+	    string ou = dlg->organisationalUnitName->text().latin1();
+	    string email = dlg->emailAddress->text().latin1();
+	    string desc = dlg->description->text().latin1();
 	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
 	    if (opensslError(req)) return;
 	}
 	else {
 	    // A PKCS#10 Request was selected 
-	    req = (pki_x509req *)reqs->getSelectedPKI(dlg1->reqList->currentText().latin1());
+	    req = (pki_x509req *)reqs->getSelectedPKI(dlg->reqList->currentText().latin1());
 	    if (opensslError(req)) return;
 	    //clientkey = req->getKey();
 	}
 		
 	// Step 2 - select Signing
 	/*
-	if (dlg1->fromDataRB->isChecked())
+	if (dlg->fromDataRB->isChecked())
 		// if we entered subjectdata, selfsigning is default
-		dlg2->selfSignRB->setChecked(true);
+		dlg->selfSignRB->setChecked(true);
 	else 
 		// for PKCS#10 signing foreignKey signing is default
-		dlg2->foreignSignRB->setChecked(true);
+		dlg->foreignSignRB->setChecked(true);
 	*/
-	if (dlg2->foreignSignRB->isChecked()) {
-		signcert = (pki_x509 *)certs->getSelectedPKI(dlg2->certList->currentText().latin1());
+	if (dlg->foreignSignRB->isChecked()) {
+		signcert = (pki_x509 *)certs->getSelectedPKI(dlg->certList->currentText().latin1());
 		if (opensslError(signcert)) return;
 		signkey = signcert->getKey();
 		if (opensslError(signkey)) return;
@@ -134,13 +132,13 @@ void MainWindow::newCert()
 	else {
 		signkey = clientkey;	
 		bool ok;
-		serial = dlg2->serialNr->text().toInt(&ok);
+		serial = dlg->serialNr->text().toInt(&ok);
 		if (!ok) serial = 0;
 	}
 	
 	
 	// Step 3 - Choose the Date and all the V3 extensions
-	if (dlg2->foreignSignRB->isChecked()) {
+	if (dlg->foreignSignRB->isChecked()) {
 		// increase serial here	
 		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
 		serial = settings->getInt(serhash) + 1;
@@ -148,8 +146,8 @@ void MainWindow::newCert()
 		settings->putInt(serhash, serial);
 	}	
 	// Date handling
-	int x = dlg3->validNumber->text().toInt();
-	int days = dlg3->validRange->currentItem();
+	int x = dlg->validNumber->text().toInt();
+	int days = dlg->validRange->currentItem();
 	if (days == 1) x *= 30;
 	if (days == 2) x *= 365;
 	
@@ -159,10 +157,10 @@ void MainWindow::newCert()
 	// handle extensions
 	// basic constraints
 	string constraints;
-	if (dlg3->bcCritical->isChecked()) constraints = "critical,";
+	if (dlg->bcCritical->isChecked()) constraints = "critical,";
 	constraints +="CA:";
-	constraints += dlg3->basicCA->currentText().latin1();
-	string pathstr = dlg3->basicPath->text().latin1();
+	constraints += dlg->basicCA->currentText().latin1();
+	string pathstr = dlg->basicPath->text().latin1();
 	if (pathstr.length()>0) {
 		constraints += ", pathlen:";
 		constraints += pathstr;
@@ -170,13 +168,13 @@ void MainWindow::newCert()
 	cert->addV3ext(NID_basic_constraints, constraints);
 	CERR << "B-Const:" << constraints << endl;
 	// Subject Key identifier
-	if (dlg3->subKey->isChecked()) {
+	if (dlg->subKey->isChecked()) {
 		string subkey="hash";
 		cert->addV3ext(NID_subject_key_identifier, subkey);
 		CERR << subkey <<endl;
 	}
 	// Authority Key identifier
-	if (dlg3->authKey->isChecked()) {
+	if (dlg->authKey->isChecked()) {
 		string authkey="keyid,issuer:always";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
 		CERR << authkey <<endl;
@@ -184,7 +182,7 @@ void MainWindow::newCert()
 	 
 	// STEP 4
 	// Subject Alternative name
-	string subAlt = dlg4->subAltURL->text().latin1();	
+	string subAlt = dlg->subAltURL->text().latin1();	
 	//if (subAlt != "") {
 		
 	// key usage
@@ -194,7 +192,7 @@ void MainWindow::newCert()
 	QListBoxItem *item;
 	i=0;
 	string keyuse, keyuse1;
-	while ((item = dlg3->keyUsage->item(i))) {	
+	while ((item = dlg->keyUsage->item(i))) {	
 		if (item->selected()){
 			if (keyuse.length() > 0) keyuse +=", ";
 			keyuse += keyusage[i];
@@ -204,7 +202,7 @@ void MainWindow::newCert()
 	
 	if (keyuse.length() > 0) {
 		keyuse1 = keyuse;
-		if (dlg3->kuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
+		if (dlg->kuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
 		cert->addV3ext(NID_key_usage, keyuse1);
 		CERR << "KeyUsage:" <<keyuse1<< endl;
 	}
@@ -215,7 +213,7 @@ void MainWindow::newCert()
 		"timeStamping","msCodeInd","msCodeCom",
 		"msCTLSign","msSGC","msEFS","nsSGC"};
 	i=0; keyuse=""; keyuse1="";
-	while ((item = dlg3->ekeyUsage->item(i))) {	
+	while ((item = dlg->ekeyUsage->item(i))) {	
 		if (item->selected()){
 			if (keyuse.length() > 0) keyuse += ", ";
 			keyuse += ekeyusage[i];
@@ -225,7 +223,7 @@ void MainWindow::newCert()
 	
 	if (keyuse.length() > 0) {
 		keyuse1 = keyuse;
-		if (dlg3->ekuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
+		if (dlg->ekuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
 		cert->addV3ext(NID_ext_key_usage, keyuse1);
 		CERR << "Extended Key Usage:" <<keyuse1<< endl;
 	}
