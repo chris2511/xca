@@ -76,8 +76,9 @@ class pki_x509req : public pki_x509super
 	   void writeReq(const QString fname, bool PEM);
 	   int verify();
 	   pki_key *getPubKey();
-	   void createReq(pki_key *key, const x509name &dist_name);
+	   void createReq(pki_key *key, const x509name &dn, const EVP_MD *md);
 	   void updateView();
+	   QString getSigAlg();
 };
 
 #endif

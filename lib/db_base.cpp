@@ -275,6 +275,7 @@ void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 		}
 	}
 	pki->setIntName(desc);
+	pki->updateView();
 }
 
 

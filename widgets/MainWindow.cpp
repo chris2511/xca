@@ -112,6 +112,14 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( (const QObject *)BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
 	connect( (const QObject *)BNdeleteReq, SIGNAL(clicked()), reqList, SLOT(deleteItem()));
 
+	connect( (const QObject *)BNnewCert, SIGNAL(clicked()), certList, SLOT(newItem()));
+	connect( (const QObject *)BNimportCert, SIGNAL(clicked()), certList, SLOT(load()));
+	connect( (const QObject *)BNdetailsCert, SIGNAL(clicked()), certList, SLOT(showItem()));
+	connect( (const QObject *)BNdeleteCert, SIGNAL(clicked()), certList, SLOT(deleteItem()));
+	connect( (const QObject *)BNimportPKCS12, SIGNAL(clicked()), certList, SLOT(loadPkcs12()));
+	connect( (const QObject *)BNimportPKCS7, SIGNAL(clicked()), certList, SLOT(loadPkcs7()));
+	connect( (const QObject *)BNviewState, SIGNAL(clicked()), this, SLOT(changeView()));
+	
 	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	
@@ -431,6 +439,10 @@ void MainWindow::connNewX509(NewX509 *nx)
 	connect( keyList, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
 }
 
+void MainWindow::changeView()
+{
+	certList->changeView(BNviewState);
+}
 
 QString MainWindow::getBaseDir()
 {

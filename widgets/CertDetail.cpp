@@ -119,6 +119,10 @@ void CertDetail::setCert(pki_x509 *cert)
 	
 	// V3 extensions
 	v3Extensions->setText(cert->printV3ext());
+	 
+	// Algorithm
+	sigAlgo->setText(cert->getSigAlg());
+	sigAlgo->setReadOnly(true);
 }
 
 void CertDetail::setImport()

@@ -16,7 +16,7 @@ AR=@AR@
 RANLIB=@RANLIB@
 
 CPPFLAGS=-I.. -I../widgets -I../view @CPPFLAGS@ @DEFS@
-CFLAGS=-Wall @ac_DEBUG@
+CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
 ##############################################
 

@@ -13,7 +13,7 @@ AR=@AR@
 RANLIB=@RANLIB@
 
 CPPFLAGS=@CPPFLAGS@ @DEFS@
-CFLAGS=-Wall @ac_DEBUG@
+CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
 ##############################################
 

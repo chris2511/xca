@@ -90,9 +90,11 @@ QString x509name::oneLine() const
 
 QString x509name::getEntryByNid(int nid) const
 {
-	int len = X509_NAME_get_text_by_NID(xn, nid, NULL, 0) + 1;
-	char *buf = (char *)OPENSSL_malloc(len);
 	QString s;
+	int len = X509_NAME_get_text_by_NID(xn, nid, NULL, 0) + 1;
+	if (len < 2)
+		return s;
+	char *buf = (char *)OPENSSL_malloc(len);
 	X509_NAME_get_text_by_NID(xn, nid, buf, len);
 	s = buf;
 	OPENSSL_free(buf);

@@ -81,6 +81,9 @@ void ReqDetail::setReq(pki_x509req *req)
 	// the subject
 	subject->setX509name(req->getSubject());
 	
+	// Algorithm
+	sigAlgo->setText(req->getSigAlg());
+	sigAlgo->setReadOnly(true);
 }
 
 void ReqDetail::setImport()

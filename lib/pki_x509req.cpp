@@ -53,6 +53,7 @@
 #include "pki_x509.h"
 #include "func.h"
 #include "x509name.h"
+// #include <openssl/objects.h>
 
 QPixmap *pki_x509req::icon[2] = { NULL, NULL };
 
@@ -67,7 +68,7 @@ pki_x509req::pki_x509req()
 	openssl_error();
 }
 
-void pki_x509req::createReq(pki_key *key, const x509name &dist_name)
+void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md)
 {
 	if (key->isPubKey()) {
 		openssl_error("key not valid");
@@ -76,9 +77,9 @@ void pki_x509req::createReq(pki_key *key, const x509name &dist_name)
 	openssl_error();
 	X509_REQ_set_version(request, 0L);
 	X509_REQ_set_pubkey(request, key->getKey());
-	X509_REQ_get_subject_name(request) = dist_name.get();
+	X509_REQ_get_subject_name(request) = dn.get();
 	openssl_error();
-	X509_REQ_sign(request,key->getKey() , EVP_md5());
+	X509_REQ_sign(request,key->getKey(), md);
 	openssl_error();
 }
 
@@ -199,3 +200,8 @@ void pki_x509req::updateView()
 	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
 }
 
+QString pki_x509req::getSigAlg()
+{
+	QString alg = OBJ_nid2ln(OBJ_obj2nid(request->sig_alg->algorithm));
+	return alg;
+}

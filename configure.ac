@@ -15,6 +15,7 @@ AC_CHECK_TOOL(AR, ar, :)
 
 AC_SUBST(ac_QTDIR)
 AC_SUBST(ac_DEBUG)
+AC_SUBST(ac_CC_WARN)
 
 AC_ARG_WITH(openssldir,    specify an extra dir for openssl,
 	CPPFLAGS="$CPPFLAGS -I$withval/include"; LDFLAGS="$LDFLAGS -L$withval/lib")
@@ -80,19 +81,18 @@ fi
 
 AC_PATH_PROG(MOC,moc,[moc],[$PATH /usr/X11R6/bin],,[LQT=no])
 AC_PATH_PROG(UIC,uic,[uic],[$PATH /usr/X11R6/bin],,[LQT=no])
-
-AC_ARG_ENABLE([printf-debug],[  --enable-printf-debug   switch on or off the printf-debugging ],
+_ac_CC_WARN="-Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -Wshadow"
+AC_ARG_ENABLE([printf-debug],[  --enable-warnings       switch on or off Warnings ],
 [if test "x$enableval" == "xyes"; then
-	AC_DEFINE(PRINTF_DEBUG)
-	ac_DEBUG=-g
-fi], AC_DEFINE(PRINTF_DEBUG) )
+	ac_CC_WARN="$_ac_CC_WARN"
+fi], ac_CC_WARN=-Wall )
 
 AC_ARG_ENABLE([debug],[  --enable-debug          switch on or off debugging flag],
 [if test "x$enableval" == "xyes"; then
 	ac_DEBUG=-g
 else
 	ac_DEBUG=
-fi], ) 
+fi] ) 
 
 AC_CONFIG_FILES([Makefile lib/Makefile lib/base.h ui/Makefile widgets/Makefile view/Makefile results])
 AC_OUTPUT

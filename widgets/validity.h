@@ -57,6 +57,8 @@ class QHBoxLayout;
 class a1time;
 class QComboBox;
 class QLineEdit;
+class QLabel;
+class QPushButton;
 
 class Validity : public QWidget
 { 
@@ -67,11 +69,15 @@ class Validity : public QWidget
 	~Validity();
 	a1time getDate() const;
 	void setDate(const a1time &t);
+  public slots:	
+	void setNow();
 
   protected:
 	QHBoxLayout* ValidityLayout;
-	QComboBox *Mon, *Day;
-	QLineEdit *Year;
+	QComboBox *Mon;
+	QLineEdit *Year, *Day, *Hour, *Min, *Sec;
+	QLabel *l1, *l2;
+	QPushButton *bnNow;
    
 };
 

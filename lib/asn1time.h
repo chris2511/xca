@@ -74,6 +74,7 @@ class a1time
 	QString toPlain() const;
 	QString toSortable() const;
 	int ymdg(int *y, int *m, int *d, int *g) const;
+	int a1time::ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const;
 	ASN1_TIME *get() const;
 	a1time &now(int delta = 0);
 	unsigned char *i2d(unsigned char *p);

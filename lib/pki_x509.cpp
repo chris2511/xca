@@ -208,6 +208,7 @@ void pki_x509::setIssuer(const x509name &n)
 
 void pki_x509::addV3ext(const x509v3ext &e)
 {	
+	if (!e.isValid()) return;
 	X509_EXTENSION *ext = e.get();
 	X509_add_ext(cert, ext, -1);
 	X509_EXTENSION_free(ext);
@@ -236,12 +237,11 @@ bool pki_x509::hasSubAltName()
 	return true;
 }
 	
-void pki_x509::sign(pki_key *signkey)
+void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 {
 	if (!signkey) {
 		openssl_error("There is no key for signing !");
 	}
-	const EVP_MD *digest = EVP_md5();
 	X509_sign(cert, signkey->key, digest);
 	openssl_error();
 }
@@ -433,12 +433,10 @@ QString pki_x509::fingerprint(const EVP_MD *digest)
 
 int pki_x509::checkDate()
 {
-	time_t tnow = time(NULL);
-	int ret=0;
-	if (ASN1_UTCTIME_cmp_time_t(X509_get_notAfter(cert), tnow) == -1)
-		ret = -1;
-	if (!(ASN1_UTCTIME_cmp_time_t(X509_get_notBefore(cert), tnow) == -1))
-	 	ret = 1;
+	a1time a; a.now();
+	int ret = 0;
+	if (getNotAfter() <  a) ret = -1;
+	if (getNotBefore() > a) ret = 1;
 	openssl_error();
 	return ret;
 }
@@ -447,18 +445,16 @@ int pki_x509::resetTimes(pki_x509 *signer)
 {
 	int ret = 0;
 	if (!signer) return -1;
-	if (ASN1_STRING_cmp(X509_get_notAfter(cert), X509_get_notAfter(signer->cert)) == 1) {
+	if (getNotAfter() > signer->getNotAfter()) {
 		// client cert is longer valid....
 		CERR("adjust notAfter");
-		if (X509_get_notAfter(cert)) ASN1_TIME_free(X509_get_notAfter(cert));
-		X509_get_notAfter(cert) = M_ASN1_TIME_dup(X509_get_notAfter(signer->cert));
+		setNotAfter(signer->getNotAfter());
 		ret=1;
 	}
-	if (ASN1_STRING_cmp(X509_get_notBefore(cert), X509_get_notBefore(signer->cert)) == -1) {
+	if (getNotBefore() < signer->getNotBefore()) {
 		// client cert is longer valid....
 		CERR("adjust notBefore");
-		if (X509_get_notBefore(cert)) ASN1_TIME_free(X509_get_notBefore(cert));
-		X509_get_notBefore(cert) = M_ASN1_TIME_dup(X509_get_notBefore(signer->cert));
+		setNotBefore(signer->getNotBefore());
 		ret=2;
 	}
 	openssl_error();
@@ -467,6 +463,7 @@ int pki_x509::resetTimes(pki_x509 *signer)
 	
 
 pki_x509 *pki_x509::getSigner() { return (psigner); }
+
 void pki_x509::delSigner(pki_x509 *s) 
 {
 	if (s == psigner) 
@@ -643,3 +640,13 @@ void pki_x509::updateView()
 	pointer->setText(5, getRevoked().toSortable());
 }
 
+QString pki_x509::getSigAlg()
+{
+	QString alg = OBJ_nid2ln(OBJ_obj2nid(cert->sig_alg->algorithm));
+	return alg;
+}
+
+const EVP_MD *pki_x509::getDigest()
+{
+	return EVP_get_digestbyobj(cert->sig_alg->algorithm);
+}

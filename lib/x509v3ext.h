@@ -75,6 +75,8 @@ class x509v3ext
 	QString getValue() const;
 	QString getHtml() const;
 	X509_EXTENSION *get() const;
+	bool isValid() const;
+		
 };
 
 class extList : public QValueList<x509v3ext>

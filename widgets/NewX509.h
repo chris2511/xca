@@ -49,16 +49,23 @@
  */                           
 
 
-#include "ui/NewX509.h"
-#include "lib/db_key.h"
-#include "lib/db_x509req.h"
-#include "lib/db_x509.h"
-#include "lib/db_temp.h"
-
 #ifndef NEWX509_H
 #define NEWX509_H
 
+#include "ui/NewX509.h"
+#include <openssl/x509v3.h>
+
 class MainWindow;
+class extList;
+class pki_temp;
+class pki_x509req;
+class pki_x509;
+class pki_key;
+class QPixmap;
+class QListbox;
+class x509name;
+class x509v3ext;
+class extList;
 
 class NewX509: public NewX509_UI
 {
@@ -101,6 +108,10 @@ class NewX509: public NewX509_UI
 	x509v3ext getEkeyUsage();
 	x509v3ext getSubAltName();
 	x509v3ext getIssAltName();
+	x509v3ext getCrlDist();
+	extList getNetscapeExt();
+	const EVP_MD *getHashAlgo();
+	void initCtx(pki_x509 *subj);
    public slots:
 	void toggleFromRequest();
 	void dataChangeP2();

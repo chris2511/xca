@@ -86,7 +86,9 @@ a1time &a1time::set(const ASN1_TIME *a)
 		set((time_t)0);
 	}
 	else {
-		ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, &time);
+		time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, &time);
+		if (!time)
+			time=M_ASN1_TIME_dup(a);
 	}
 	return *this;
 }
@@ -99,15 +101,28 @@ a1time &a1time::set(time_t t)
 
 a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
 {
-	if (time->length < 16 ||
-	    mon < 1 || mon > 12 ||
+	char *p;
+	if (mon < 1 || mon > 12 ||
 	    d < 1 || d > 31 ||
 	    h < 0 || h >23 ||
 	    m < 0 || m > 59 ||
-	    s < 0 || s > 59 )
-		ASN1err(ASN1_F_D2I_ASN1_GENERALIZEDTIME,ASN1_R_INVALID_TIME_FORMAT);
+	    s < 0 || s > 59 ) {
+	}
+	if (time->length < 16) {
+		p = (char *)OPENSSL_malloc(20);
+		if (p == NULL) goto this_err;
+		if (time->data != NULL)
+			OPENSSL_free(time->data);
+		time->data=(unsigned char *)p;
+	}
 	
-	sprintf((char *)time->data, "%04d%02d%02d%02d%02d%02dZ", y, mon, d, h, m ,s);
+	
+	time->length = sprintf((char *)time->data, "%04d%02d%02d%02d%02d%02dZ",
+		       y, mon, d, h, m ,s);
+	time->type=V_ASN1_GENERALIZEDTIME;
+	return *this;
+this_err:
+	ASN1err(ASN1_F_D2I_ASN1_GENERALIZEDTIME,ASN1_R_INVALID_TIME_FORMAT);
 	return *this;
 }
 
@@ -158,6 +173,12 @@ a1time &a1time::set(const QString &s)
 
 int a1time::ymdg(int *y, int *m, int *d, int *g) const
 {
+	int h, M, s;
+	return ymdg(y,m,d, &h, &M, &s, g);
+}
+
+int a1time::ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const
+{
         char *v;
         int i;
         *y=0, *m=0, *d=0, *g=0;
@@ -165,15 +186,21 @@ int a1time::ymdg(int *y, int *m, int *d, int *g) const
         i=time->length;
         v=(char *)time->data;
 
-        if (i < 12) return 1; /* it is at least 10 digits */
+        if (i < 14) return 1; /* it is at least 10 digits */
         if (v[i-1] == 'Z') *g=1;
-        for (i=0; i<12; i++)
+        for (i=0; i<14; i++)
                 if ((v[i] > '9') || (v[i] < '0')) return 1;
         *y= (v[0]-'0')*1000+(v[1]-'0')*100+(v[2]-'0')*10+(v[3]-'0');
         *m= (v[4]-'0')*10+(v[5]-'0');
         if ((*m > 12) || (*m < 1)) return 1;
         *d= (v[6]-'0')*10+(v[7]-'0');
         if ((*d > 31) || (*d < 1)) return 1;
+        *h= (v[8]-'0')*10+(v[9]-'0');
+        if ((*h > 23) || (*h < 1)) return 1;
+        *M= (v[10]-'0')*10+(v[11]-'0');
+        if ((*M > 59) || (*M < 1)) return 1;
+        *s= (v[12]-'0')*10+(v[13]-'0');
+        if ((*s > 59) || (*s < 1)) return 1;
         return 0;
 }
 

@@ -58,18 +58,19 @@
 #include <qlabel.h>
 #include <qwhatsthis.h>
 #include <qlistbox.h>
+#include <qlistview.h>
 #include <qpixmap.h>
 #include <qpushbutton.h>
 #include <qvalidator.h>
 #include <qbuttongroup.h>
 #include "MainWindow.h"
+#include "validity.h"
 #include "lib/x509name.h"
+#include "lib/db_key.h"
+#include "lib/db_x509req.h"
+#include "lib/db_x509.h"
+#include "lib/db_temp.h"
 
-void NewX509::initCtx()
-{
-	X509V3_set_ctx(&ext_ctx, getSelectedSigner()->getCert() , NULL, NULL, NULL, 0);
-	X509V3_set_ctx_nodb((&ext_ctx));
-}	
 
 int NewX509::eku_nid[EKUN_CNT] = {
   NID_server_auth,
@@ -123,22 +124,23 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	setCaption(tr(XCA_TITLE));
 	fixtemp = NULL;
 	nsImg->setPixmap(*MainWindow::nsImg);
-#ifdef qt3
+#ifndef qt3
 	// pretty fat Title :-)
 	QFont tFont;// = getFont();
 	tFont.setPointSize(14);
 	tFont.setBold(true);
 	tFont.setUnderline(true);
-	setTitleFont( tFont );
+	//setFont( tFont );
 #else
 	//setFont( tFont );
 #endif	
-//	serialNr->setValidator( new QIntValidator(0, 32767, this));
+	// serialNr->setValidator( new QIntValidator(0, 32767, this));
 	QStringList strings;
 	 
 	// are there any useable private keys  ?
 	strings = MainWindow::keys->get0PrivateDesc();
 	keyList->insertStringList(strings);
+	hashAlgo->setCurrentItem(1);
 	
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
@@ -160,6 +162,11 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 		certList->insertStringList(strings);
 	}
 	
+	// set dates to now and now + 1 year
+	a1time a;
+	notBefore->setDate(a.now());
+	notAfter->setDate(a.now(60*60*24*356));
+	
 	// settings for the templates ....
 	strings = MainWindow::temps->getDesc();
 	strings.prepend(tr("Server Template"));
@@ -175,6 +182,9 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	// setup Distinguished Name 
 	for (int i=0; i<DISTNAME_CNT; i++)
 		extDNobj->insertItem(OBJ_nid2ln(dn_nid[i]));
+	// init the X509 v3 context
+	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
+	X509V3_set_ctx_nodb((&ext_ctx));
 
 	// last polish 
 	setFinishEnabled(page7,true);
@@ -191,6 +201,7 @@ void NewX509::setRequest()
 	changeDefault->setEnabled(false);
 	changeDefault->setChecked(false);
 	signerBox->setEnabled(false);
+	requestBox->setEnabled(false);
 	startText=tr("\
 Welcome to the settings for certificate signing requests.
 A signing request needs a private key, so it will be created \
@@ -468,19 +479,26 @@ void NewX509::showPage(QWidget *page)
 void NewX509::signerChanged()
 {
 	QString name = certList->currentText();
+	a1time snb, sna;
 	
 	if (name.isEmpty()) return;
 	pki_x509 *cert = (pki_x509 *)MainWindow::certs->getByName(name);
 	
 	if (!cert) return;
-	QString templ = cert->getTemplate();	
-	
-	if (templ.isEmpty()) return;
-	
 	if (getSelectedSigner()->hasSubAltName())
 		issAltCp->setEnabled(true);
 	else
 		issAltCp->setEnabled(false);
+	
+	QString templ = cert->getTemplate();	
+	snb = cert->getNotBefore();
+	sna = cert->getNotAfter();
+	if (snb > notBefore->getDate())
+		notBefore->setDate(snb);
+	if (sna < notAfter->getDate())
+		notAfter->setDate(sna);
+	
+	if (templ.isEmpty()) return;
 	
 	templateChanged(templ);
 	
@@ -603,13 +621,20 @@ void NewX509::delX509NameEntry()
 	extDNlist->removeItem(extDNlist->currentItem());
 }
 
+const EVP_MD *NewX509::getHashAlgo()
+{
+	const EVP_MD *ha[] = {EVP_md2(), EVP_md5(), EVP_sha1()};
+	return ha[hashAlgo->currentItem()];
+}
+
 x509v3ext NewX509::getBasicConstraints()
 {
 	QStringList cont;
 	x509v3ext ext;
 	if (bcCritical->isChecked()) cont << "critical";
 	cont << (QString)"CA:" + basicCA->currentText();
-	cont << (QString)"pathlen:" + basicPath->text();
+	if (!basicPath->text().isEmpty())
+		cont << (QString)"pathlen:" + basicPath->text();
 	ext.create(NID_basic_constraints, cont.join(", "));
 	return ext;
 }
@@ -625,7 +650,6 @@ x509v3ext NewX509::getSubKeyIdent()
 x509v3ext NewX509::getAuthKeyIdent()
 {
 	x509v3ext ext;
-	initCtx();
 	if (subKey->isChecked())
 		ext.create(NID_authority_key_identifier, 
 			"keyid:always,issuer:always", &ext_ctx);
@@ -683,7 +707,6 @@ x509v3ext NewX509::getIssAltName()
 {
 	QStringList cont;
 	x509v3ext ext;
-	initCtx();
 	if (issAltCp->isChecked() && issAltCp->isEnabled())
 		cont << (QString)"issuer:copy";
 	cont << subAltName->text();
@@ -691,3 +714,49 @@ x509v3ext NewX509::getIssAltName()
 	return ext;
 }
 
+x509v3ext NewX509::getCrlDist()
+{
+	QStringList cont;
+	x509v3ext ext;
+        if (!crlDist->text().isEmpty()) {
+		ext.create(NID_crl_distribution_points, crlDist->text());
+	}
+	return ext;
+}
+
+extList NewX509::getNetscapeExt()
+{
+	QString certTypeList[] = {
+		"client", "server",  "email", "objsign",
+		"sslCA",  "emailCA", "objCA" };
+
+					
+	QStringList cont;
+	x509v3ext ext;
+	extList el;
+	QListBoxItem *item;
+        for (int i=0; (item = nsCertType->item(i)); i++) {
+                if (item->selected()){
+                        cont <<  certTypeList[i];
+                }
+        }
+	el << ext.create(NID_netscape_cert_type, cont.join(", "))
+	<< ext.create(NID_netscape_base_url, nsBaseUrl->text())
+	<< ext.create(NID_netscape_revocation_url, nsRevocationUrl->text())
+	<< ext.create(NID_netscape_ca_revocation_url, nsCARevocationUrl->text())
+	<< ext.create(NID_netscape_renewal_url, nsRenewalUrl->text())
+	<< ext.create(NID_netscape_ca_policy_url, nsCaPolicyUrl->text())
+	<< ext.create(NID_netscape_ssl_server_name, nsSslServerName->text())
+	<< ext.create(NID_netscape_comment, nsComment->text());
+	return el;
+}
+
+void NewX509::initCtx(pki_x509 *subj)
+{
+	pki_x509 *iss = getSelectedSigner();
+	X509 *s = NULL, *s1 = NULL;
+	if (iss) s = iss->getCert();
+	if (subj) s1 = subj->getCert();
+	
+	X509V3_set_ctx(&ext_ctx, s , s1, NULL, NULL, 0);
+}	

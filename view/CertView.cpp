@@ -99,6 +99,7 @@ void CertView::newItem()
 		newCert(dlg);
 	}
 	delete dlg;
+	updateView();
 }
 
 
@@ -111,20 +112,19 @@ void CertView::newCert(NewX509 *dlg)
 	a1int serial;
 	a1time notBefore, notAfter;
 	x509name subject;
-	int i;
-	
-	QString certTypeList[] = { "client", "server", "email", "objsign",
-		"sslCA", "emailCA", "objCA" };
-
-	QListBoxItem *item;
+	QString intname;
+	//int i;
+	//QListBoxItem *item;
 	
 	emit init_database();
 
     try {	
+	
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
 	    clientkey = dlg->getSelectedKey();
 	    subject = dlg->getX509name();
+	    intname = dlg->description->text();
 	}
 	else {
 	    // A PKCS#10 Request was selected 
@@ -136,8 +136,15 @@ void CertView::newCert(NewX509 *dlg)
 		    tempkey = clientkey;
 	    }
 	    subject = req->getSubject();
+	    intname = req->getIntName();
 	}
-		
+	
+	// initially create cert 
+	cert = new pki_x509();
+	cert->setIntName(intname);
+	cert->setPubKey(clientkey);
+	cert->setSubject(subject);
+	dlg->initCtx(cert);
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = dlg->getSelectedSigner();
@@ -146,26 +153,20 @@ void CertView::newCert(NewX509 *dlg)
 		signkey = signcert->getRefKey();
 	}
 	else {
+		signcert = cert;	
 		signkey = clientkey;	
 		bool ok;
 		serial = dlg->serialNr->text().toInt(&ok);
 		if (!ok) serial = 0;
 	}
-	
-	
-	// Step 3 - Choose the Date and all the V3 extensions
-	
-	// Date handling
-	notBefore = dlg->notBefore->getDate();
-	notAfter = dlg->notAfter->getDate();
-	
-	// initially create cert 
-	cert = new pki_x509();
-	if (!signcert) signcert=cert;	
-	cert->setIntName(req->getIntName());
-	cert->setPubKey(clientkey);
-	cert->setSubject(subject);
+	// set the issuers name
 	cert->setIssuer(signcert->getSubject());
+
+	// Step 3 - Choose the Date
+	// Date handling
+	cert->setNotBefore( dlg->notBefore->getDate() );
+	cert->setNotAfter( dlg->notAfter->getDate() );
+
 	if (cert->resetTimes(signcert) > 0) {
 		if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
@@ -173,38 +174,26 @@ void CertView::newCert(NewX509 *dlg)
 		))
 			throw errorEx("");
 	}
+	 
 			
 	// STEP 4
 	// handle extensions
+	cert->addV3ext(dlg->getBasicConstraints());
+	cert->addV3ext(dlg->getSubKeyIdent());
+	cert->addV3ext(dlg->getAuthKeyIdent());
+	cert->addV3ext(dlg->getKeyUsage());
+	cert->addV3ext(dlg->getEkeyUsage());
+	cert->addV3ext(dlg->getSubAltName());
+	cert->addV3ext(dlg->getIssAltName());
+	cert->addV3ext(dlg->getCrlDist());
+	extList ne = dlg->getNetscapeExt();
+	int m = ne.count();
+	for (int i=0; i<m; i++)
+		 cert->addV3ext(ne[i]);
 	
-	
-	
-
-	// CRL distribution points
-	if (!dlg->crlDist->text().isEmpty()) {
-		CERR("CRL dist. Point: "<<  dlg->crlDist->text() );
-		cert->addV3ext(NID_crl_distribution_points, dlg->crlDist->text());
-	}
-		
-	// STEP 5
-	// Nestcape extensions 
-	cont.clear();
-	for (i=0; (item = dlg->nsCertType->item(i)); i++) {	
-		if (item->selected()){
-			cont <<  certTypeList[i];
-		}
-	}
-	cert->addV3ext(NID_netscape_cert_type, cont.join(", "));
-	cert->addV3ext(NID_netscape_base_url, dlg->nsBaseUrl->text());
-	cert->addV3ext(NID_netscape_revocation_url, dlg->nsRevocationUrl->text());
-	cert->addV3ext(NID_netscape_ca_revocation_url, dlg->nsCARevocationUrl->text());
-	cert->addV3ext(NID_netscape_renewal_url, dlg->nsRenewalUrl->text());
-	cert->addV3ext(NID_netscape_ca_policy_url, dlg->nsCaPolicyUrl->text());
-	cert->addV3ext(NID_netscape_ssl_server_name, dlg->nsSslServerName->text());
-	cert->addV3ext(NID_netscape_comment, dlg->nsComment->text());
 	
 	// and finally sign the request 
-	cert->sign(signkey);
+	cert->sign(signkey, dlg->getHashAlgo());
 	insert(cert);
 	if (tempkey != NULL) delete(tempkey);
 	updateView();
@@ -261,7 +250,7 @@ void CertView::extendCert()
 		
 		
 		// and finally sign the request 
-		newcert->sign(signkey);
+		newcert->sign(signkey, oldcert->getDigest());
 		insert(newcert);
 		delete dlg;
 	}
@@ -371,6 +360,7 @@ void CertView::loadPKCS12()
 		}
 		delete pk12;
 	}
+	updateView();
 }
 
 			
@@ -460,8 +450,8 @@ pki_base *CertView::insert(pki_base *item)
 	   delete(cert);
 	   return oldcert;
 	}
-	CERR( "insertCert: inserting" );
-	insert(cert);
+	XcaListView::insert(cert);
+	db->insertPKI(cert);
     }
     catch (errorEx &err) {
 	    Error(err);
@@ -579,7 +569,7 @@ void CertView::writePKCS12(QString s, bool chain)
 	s = QDir::convertSeparators(s);
 	pki_pkcs12 *p12 = new pki_pkcs12(cert->getIntName(), cert, privkey, &MainWindow::passWrite);
 	pki_x509 *signer = cert->getSigner();
-	int cnt =0;
+	int cnt = 0;
 	while ((signer != NULL ) && (signer != cert) && chain) {
 		CERR("SIGNER:"<<(int)signer);
 		p12->addCaCert(signer);
@@ -815,7 +805,7 @@ void CertView::toRequest()
 	if (!cert) return;
 	try {
 		pki_x509req *req = new pki_x509req();
-		req->createReq(cert->getRefKey(), cert->getSubject());
+		req->createReq(cert->getRefKey(), cert->getSubject(), EVP_md5());
                 // FIXME: insert(req);
 	}
 	catch (errorEx &err) {
@@ -898,15 +888,15 @@ void CertView::setTemplate()
 }
 
 
-void CertView::changeView()
+void CertView::changeView(QPushButton *b)
 {
 	if (viewState == 0) { // Plain view
 		viewState = 1;
-		// FIXME: bnViewState->setText(tr("Plain View"));
+		b->setText(tr("Plain View"));
 	}
 	else { // Tree View
 		viewState = 0;
-		// FIXME: bnViewState->setText(tr("Tree View"));
+		b->setText(tr("Tree View"));
 	}
 	updateView();
 }
@@ -1041,7 +1031,7 @@ void CertView::toTinyCA()
 #endif	
 }	
 
-bool CertView::updateView()
+void CertView::updateView()
 {
         clear();
         setRootIsDecorated(true);
@@ -1052,7 +1042,7 @@ bool CertView::updateView()
         QListViewItem *current;
         CERR("myUPDATE");
         QList<pki_base> container = db->getContainer();
-	if ( container.isEmpty() ) return false;
+	if ( container.isEmpty() ) return;
         QList<pki_base> mycont = container;
         for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delLvi();
         int f=0;
@@ -1083,7 +1073,7 @@ bool CertView::updateView()
                 }
 
         }
-        return true;
+        return;
 }
 
 bool CertView::mkDir(QString dir)

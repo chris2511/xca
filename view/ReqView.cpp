@@ -96,12 +96,14 @@ void ReqView::newItem(pki_temp *temp)
 		pki_key *key = dlg->getSelectedKey();
 		x509name xn = dlg->getX509name();
 		pki_x509req *req = new pki_x509req();
-		req->createReq(key, xn);
+		req->setIntName(dlg->description->text());
+		req->createReq(key, xn, dlg->getHashAlgo());
 		insert(req);
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
+	updateView();
 }
 
 
@@ -248,12 +250,12 @@ void ReqView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subExport = new QPopupMenu(this);
 	if (!item) {
-		menu->insertItem(tr("New Request"), this, SLOT(newReq()));
-		menu->insertItem(tr("Import"), this, SLOT(loadReq()));
+		menu->insertItem(tr("New Request"), this, SLOT(newItem()));
+		menu->insertItem(tr("Import"), this, SLOT(load()));
 	}
 	else {
-		menu->insertItem(tr("Rename"), this, SLOT(startRenameReq()));
-		menu->insertItem(tr("Show Details"), this, SLOT(showDetailsReq()));
+		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Sign"), this, SLOT(signReq()));
 		menu->insertItem(tr("Export"), subExport);
 		subExport->insertItem(tr("PEM"), this, SLOT(writeReq_pem()));

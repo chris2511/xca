@@ -83,7 +83,12 @@ x509v3ext &x509v3ext::set(const X509_EXTENSION *n)
 
 x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 {
-	ext = X509V3_EXT_conf_nid(NULL, ctx, nid, (char *)et.latin1());
+	
+	if (!et.isEmpty()) {
+		if (ext)
+		       	X509_EXTENSION_free(ext);
+		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, (char *)et.latin1());
+	}
 	if (!ext) ext = X509_EXTENSION_new();
 	return *this;
 }
@@ -144,6 +149,10 @@ X509_EXTENSION *x509v3ext::get() const
 	return X509_EXTENSION_dup(ext);
 }
 
+bool x509v3ext::isValid() const
+{
+	return ext->value->length > 0;
+}
 
 /*************************************************************/
 
@@ -166,3 +175,4 @@ QString extList::getHtml(const QString &sep)
 	QString a = s.join(sep);
 	return a;
 }
+

@@ -81,6 +81,8 @@ class CertView : public XcaListView
 	void insertP12(pki_pkcs12 *pk12);
 	void writePKCS12(QString s, bool chain);
 	void writePKCS7(QString s, int type);	
+	void changeView(QPushButton *b);
+		
    public slots:
 	void loadPKCS12();
 	void loadPKCS7();
@@ -94,9 +96,8 @@ class CertView : public XcaListView
 	void setSerial();
 	void setCrlDays();
 	void setTemplate();
-	void changeView();
 	void toTinyCA();
-	bool updateView();
+	void updateView();
 	void updateViewAll();
 
 };	

@@ -56,36 +56,65 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include <qpushbutton.h>
+#include <qlabel.h>
 #include "lib/asn1time.h"
 
 Validity::Validity( QWidget* parent,  const char* name )
     : QWidget( parent, name )
 {
-    QStringList months, days;
+#define CHAR_W 16
+    QStringList months;
     months << tr("Jan") << tr("Feb") << tr("Mar") << tr("Apr") 
 	   << tr("Mai") << tr("Jun") << tr("Jul") << tr("Aug")
 	   << tr("Sep") << tr("Okt") << tr("Nov") << tr("Dez");
-    for (int i=1; i<32; i++)
-	    days += QString::number(i);
-
+    
     if ( !name )
 	setName( "Validity" );
     ValidityLayout = new QHBoxLayout( this ); 
     ValidityLayout->setSpacing( 6 );
     ValidityLayout->setMargin( 0 );
 
-    Day = new QComboBox( FALSE, this, "Day" );
     Mon = new QComboBox( FALSE, this, "Mon" );
+    Mon->insertStringList(months);
+    
     Year = new QLineEdit( this, "Year" );
-    Year->setMaximumWidth(64);
+    Year->setMaximumWidth(CHAR_W * 4);
     Year->setValidator( new QIntValidator(1000, 9999, this));
     
+    Day = new QLineEdit( this, "Day" );
+    Day->setMaximumWidth(CHAR_W * 2);
+    Day->setValidator( new QIntValidator(1, 31, this));
+    
+    Hour = new QLineEdit( this, "Hour" );
+    Hour->setMaximumWidth(CHAR_W * 2);
+    Hour->setValidator( new QIntValidator(1, 23, this));
+    
+    Min = new QLineEdit( this, "Min" );
+    Min->setMaximumWidth(CHAR_W * 2);
+    Min->setValidator( new QIntValidator(1, 59, this));
+    
+    Sec = new QLineEdit( this, "Sec" );
+    Sec->setMaximumWidth(CHAR_W * 2);
+    Sec->setValidator( new QIntValidator(1, 59, this));
+    
+    bnNow = new QPushButton(this, "now" );
+    bnNow->setText(tr("Now"));
+    
+    l1 = new QLabel(":", this, "l1");
+    l2 = new QLabel(":", this, "l2");
+
     ValidityLayout->addWidget( Day );
     ValidityLayout->addWidget( Mon );
     ValidityLayout->addWidget( Year );
+    ValidityLayout->addWidget( Hour );
+    ValidityLayout->addWidget( l1 );
+    ValidityLayout->addWidget( Min );
+    ValidityLayout->addWidget( l2 );
+    ValidityLayout->addWidget( Sec );
+    ValidityLayout->addWidget( bnNow );
 
-    Mon->insertStringList(months);
-    Day->insertStringList(days);
+    connect( bnNow, SIGNAL(clicked()), this, SLOT(setNow()));
 }
 
 Validity::~Validity()
@@ -96,17 +125,31 @@ Validity::~Validity()
 a1time Validity::getDate() const
 {
 	a1time date;
-	date.set(Year->text().toInt(), Mon->currentItem() + 1, 
-			Day->currentItem() +1, 0, 0, 0);
+	date.set(Year->text().toInt(),
+		Mon->currentItem() + 1,
+		Day->text().toInt(), 
+		Hour->text().toInt(),
+		Min->text().toInt(),
+		Sec->text().toInt()
+		);
 	return date;
 }
 
 void Validity::setDate(const a1time &a)
 {
-	int y, m, d, g;
-	a.ymdg(&y,&m,&d,&g);
+	int y, m, d, h, min, s, g;
+	a.ymdg(&y, &m, &d, &h, &min, &s, &g);
 	Year->setText(QString::number(y));
 	Mon->setCurrentItem(m-1);
-	Day->setCurrentItem(d-1);
+	Day->setText(QString::number(d));
+	Hour->setText(QString::number(h));
+	Min->setText(QString::number(min));
+	Sec->setText(QString::number(s));
 }
 
+void Validity::setNow()
+{
+	a1time a;
+	setDate(a.now());
+}
+		

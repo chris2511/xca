@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>611</width>
+            <width>607</width>
             <height>590</height>
         </rect>
     </property>
@@ -299,45 +299,66 @@
                 </property>
             </spacer>
             <widget>
-                <class>QLayoutWidget</class>
+                <class>QGroupBox</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>Layout12</cstring>
+                    <cstring>requestBox</cstring>
                 </property>
-                <hbox>
+                <property stdset="1">
+                    <name>title</name>
+                    <string>Signing request</string>
+                </property>
+                <vbox>
                     <property stdset="1">
                         <name>margin</name>
-                        <number>0</number>
+                        <number>11</number>
                     </property>
                     <property stdset="1">
                         <name>spacing</name>
                         <number>6</number>
                     </property>
                     <widget>
-                        <class>QCheckBox</class>
+                        <class>QLayoutWidget</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>fromReqCB</cstring>
+                            <cstring>Layout12</cstring>
                         </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Sign this Certificate signing &amp;request</string>
-                        </property>
-                    </widget>
-                    <widget>
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>reqList</cstring>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
+                        <hbox>
+                            <property stdset="1">
+                                <name>margin</name>
+                                <number>0</number>
+                            </property>
+                            <property stdset="1">
+                                <name>spacing</name>
+                                <number>6</number>
+                            </property>
+                            <widget>
+                                <class>QCheckBox</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>fromReqCB</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Sign this Certificate signing &amp;request</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QComboBox</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>reqList</cstring>
+                                </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
 Getting signed by a CA certificate, whoes certificate of course must be in the database
 Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
-                        </property>
+                                </property>
+                            </widget>
+                        </hbox>
                     </widget>
-                </hbox>
+                </vbox>
             </widget>
             <spacer>
                 <property>
@@ -1018,24 +1039,24 @@ Empy, CA, client, server</string>
                         <item>
                             <property>
                                 <name>text</name>
-                                <string>md5</string>
+                                <string>MD 2</string>
                             </property>
                         </item>
                         <item>
                             <property>
                                 <name>text</name>
-                                <string>SHA-1</string>
+                                <string>MD 5</string>
                             </property>
                         </item>
                         <item>
                             <property>
                                 <name>text</name>
-                                <string>RipeMD 160</string>
+                                <string>SHA 1</string>
                             </property>
                         </item>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>ComboBox19</cstring>
+                            <cstring>hashAlgo</cstring>
                         </property>
                     </widget>
                     <spacer>
@@ -2524,7 +2545,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
 <images>
     <image>
         <name>image0</name>
-        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
+        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1ddec44f503c0ae2a154410f53d0ed20e2bf6bdb656dd6861dd23d9a66591b0587fd1654235ebded6f0edcd53e419d87ae7b1f4f9b8f906d0bfe012317426a70b07bdc2f3ec77f8ed6b89559061a0343d06a124cc105596482585094bc0ae599b04646c9018926491b2205e140c485cace25755c175d0a967b622ff900b8cc9c7d29af594ea722d589167f813aa852ba07d94b9dce296e883fe7bb163f23896753</data>
     </image>
 </images>
 <connections>

@@ -112,7 +112,7 @@ class pki_x509 : public pki_x509super
 	   QString printV3ext();
 	   int checkDate();
 	   void addV3ext(const x509v3ext &e);
-	   void sign(pki_key *signkey);
+	   void sign(pki_key *signkey, const EVP_MD *digest);
 	   X509 *getCert(){ return cert;}
 	   int getTrust();
 	   void setTrust(int t);
@@ -137,6 +137,8 @@ class pki_x509 : public pki_x509super
 	   QString tinyCAfname();
 	   void updateView();
 	   x509rev getRev();
+	   QString getSigAlg();
+	   const EVP_MD *getDigest();
 };
 
 #endif

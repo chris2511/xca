@@ -113,6 +113,8 @@ class MainWindow: public MainWindow_UI
    public slots: 
 	void init_database();
 	void connNewX509(NewX509 *nx);
+	void changeView();
+		
 	
 };
 #endif

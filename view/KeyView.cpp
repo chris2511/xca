@@ -67,6 +67,7 @@ KeyView::KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 	:XcaListView(parent, name, f)
 {
 	addColumn(tr("Keysize"));
+	addColumn(tr("Keylength"));
 	addColumn(tr("Use count"));
 }
 
@@ -102,6 +103,7 @@ void KeyView::newItem()
 	  }
 	}
 	delete dlg;
+	updateView();
 }
 
 void KeyView::deleteItem()
@@ -267,7 +269,7 @@ void KeyView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	}
 	else {
 		menu->insertItem(tr("Rename"), this, SLOT(startRename()));
-		menu->insertItem(tr("Show Details"), this, SLOT(show()));
+		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Export"), this, SLOT(store()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
 	}

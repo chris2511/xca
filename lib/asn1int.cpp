@@ -78,7 +78,7 @@ a1int::a1int(const a1int &a)
 
 a1int::a1int(long l)
 {
-	in = NULL;
+	in = ASN1_INTEGER_new();
 	set(l);
 }
 
@@ -89,8 +89,7 @@ a1int::~a1int()
 
 a1int &a1int::set(const ASN1_INTEGER *i)
 {
-	if (in != NULL)
-		ASN1_INTEGER_free(in);
+	ASN1_INTEGER_free(in);
 	in = dup(i);
 	return *this;
 }
