@@ -171,6 +171,8 @@ void ImportMulti::import(pki_base *pki)
 	QListViewItem *lvi = pki->getLvi();
 	pki->delLvi();
 	QString cn = pki->getClassName();
+	emit init_database();
+
 	if (cn == "pki_x509") {
 		MainWindow::certs->insert(pki);
 	}

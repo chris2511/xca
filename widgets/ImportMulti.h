@@ -79,6 +79,8 @@ class ImportMulti: public ImportMulti_UI
 		void details();
 		void import();
 		void importAll();
+	signals:
+		void init_database();
 };
 
 #endif

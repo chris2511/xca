@@ -85,6 +85,7 @@ void TempView::newServerTemp()
 
 void TempView::newItem(int type)
 {
+	CHECK_DB
 	pki_temp *temp = new pki_temp("--", type);
 	if (alterTemp(temp)) {
 		db->insert(temp);

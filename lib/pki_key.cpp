@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -57,6 +58,11 @@
 char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
 QPixmap *pki_key::icon[2]= { NULL, NULL };
+
+void pki_key::erasePasswd(){
+	for (int i=0; i<40; i++)
+		passwd[i] = 0;
+}
 
 void pki_key::init()
 {

@@ -262,8 +262,7 @@ void MainWindow::read_cmdline()
 		cnt++;
 	}
 
-	//init_database();
-	
+	connect( dlgi, SIGNAL(init_database()), this, SLOT(init_database()));
 	dlgi->execute(1); /* force showing of import dialog */
 	delete dlgi;
 }	
@@ -290,8 +289,8 @@ void MainWindow::initPass()
 		settings->putString( "pwhash", md5passwd(pki_key::passwd) );
 	}
 	else {
-	     int keylen=0;		
-	     while (md5passwd(pki_key::passwd) != passHash) {
+		int keylen=0;		
+		while (md5passwd(pki_key::passwd) != passHash) {
 		if (keylen !=0)
 			QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error, please try again"));	
 		p.setTitle(tr("Password"));

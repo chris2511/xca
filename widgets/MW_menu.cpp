@@ -69,5 +69,7 @@ void MainWindow::init_menu()
 	
 	mb = new QMenuBar( this );
 	mb->insertItem( "&File", file );
+	mb->insertSeparator();
 	mb->insertItem( "&Help", help );
+	mb->setSeparator( QMenuBar::InWindowsStyle );
 }

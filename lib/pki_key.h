@@ -76,6 +76,7 @@ class pki_key: public pki_base
     public:
 	static QPixmap *icon[2];
 	static char passwd[MAX_PASS_LENGTH];
+	static void erasePasswd();
 		
 	/* constructor to generate a key .....
 	 * d     is the description

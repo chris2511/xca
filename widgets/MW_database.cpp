@@ -115,11 +115,6 @@ void MainWindow::init_database() {
 void MainWindow::close_database()
 {
 	if (!dbenv) return;
-	crlList->rmDB(crls);
-	certList->rmDB(certs);
-	reqList->rmDB(reqs);
-	tempList->rmDB(temps);
-	keyList->rmDB(keys);
 										
 	delete(crls);
 	delete(reqs);
@@ -133,8 +128,14 @@ void MainWindow::close_database()
 	temps = NULL;
 	keys = NULL;
 	settings = NULL;
+	crlList->rmDB(crls);
+	certList->rmDB(certs);
+	reqList->rmDB(reqs);
+	tempList->rmDB(temps);
+	keyList->rmDB(keys);
 	global_tid->commit(0);
 	dbenv->close(0);
+	pki_key::erasePasswd();
 	dbenv = NULL;
 }
 
