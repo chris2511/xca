@@ -69,6 +69,8 @@ class pki_x509 : public pki_base
 	   ASN1_TIME *revoked;
 	   int trust;
 	   int efftrust;
+	   int caSerial;
+	   string caTemplate;
 	public:
 	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509(X509 *c);
@@ -108,6 +110,7 @@ class pki_x509 : public pki_base
 	   void setRevoked(bool rev);
 	   bool isRevoked();
 	   int calcEffTrust();
+	   int getCaSerial();
 };
 
 #endif

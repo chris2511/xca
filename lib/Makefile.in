@@ -34,7 +34,5 @@ clean:
 distclean: clean
 	rm -f Makefile
 
-.SECONDARY:
-	
 %_MOC.cpp: %.h %.cpp
 	$(MOC) $< -o $@

@@ -92,6 +92,8 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 	psigner = signer;
 	pkey = clientKey;
 	revoked = NULL;
+	caSerial=0;
+	caTemplate="";
 }
 
 pki_x509::pki_x509(X509 *c) : pki_base()
@@ -103,6 +105,8 @@ pki_x509::pki_x509(X509 *c) : pki_base()
 	trust = 0;
 	efftrust = 0;
 	revoked = NULL;
+	caSerial=1;
+	caTemplate="";
 }
 
 pki_x509::pki_x509(const pki_x509 *crt) 
@@ -115,6 +119,8 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	trust = crt->trust;
 	efftrust = crt->efftrust;
 	revoked = crt->revoked;
+	caSerial = crt->caSerial;
+	caTemplate = crt->caTemplate;
 }
 
 pki_x509::pki_x509() : pki_base()
@@ -126,18 +132,9 @@ pki_x509::pki_x509() : pki_base()
 	trust = 0;
 	efftrust = 0;
 	revoked = NULL;
+	caSerial=1;
+	caTemplate="";
 }
-
-pki_x509::~pki_x509()
-{
-	if (cert) {
-		X509_free(cert);
-	}
-	if (revoked) {
-		ASN1_TIME_free(revoked);
-	}
-}
-
 
 pki_x509::pki_x509(const string fname)
 {
@@ -165,6 +162,18 @@ pki_x509::pki_x509(const string fname)
 	psigner = NULL;
 	revoked = NULL;
 	pkey = NULL;
+	caSerial=1;
+	caTemplate="";
+}
+
+pki_x509::~pki_x509()
+{
+	if (cert) {
+		X509_free(cert);
+	}
+	if (revoked) {
+		ASN1_TIME_free(revoked);
+	}
 }
 
 
@@ -217,7 +226,7 @@ bool pki_x509::fromData(unsigned char *p, int size)
 	int version, sCert, sRev;
 	unsigned char *p1 = p;
 	version = intFromData(&p1);
-	if (version == 1) {
+	if (version == 1 || version == 2) {
 		sCert = intFromData(&p1);
 		cert = d2i_X509(NULL, &p1, sCert);
 		trust = intFromData(&p1);
@@ -228,6 +237,15 @@ bool pki_x509::fromData(unsigned char *p, int size)
 		}
 		else {
 		   revoked = NULL;
+		}
+		
+		if (version == 2) {
+			caSerial=intFromData(&p1);
+			caTemplate=stringFromData(&p1);
+		}
+		else {
+			caTemplate="";
+			caSerial=1;
 		}
 	}
 	else { // old version
@@ -259,6 +277,10 @@ unsigned char *pki_x509::toData(int *size)
 	if (revoked) {
 		i2d_ASN1_TIME(revoked, &p1); // revokation date
 	}
+	// version 2
+	intToData(&p1, caSerial); // the serial if this is a CA
+	stringToData(&p1, caTemplate); // the name of the template to use for signing
+	
 	openssl_error();
 	return p;
 }
@@ -522,4 +544,10 @@ int pki_x509::calcEffTrust()
 	if (mytrust == 1) mytrust = 0;
 	efftrust = mytrust;
 	return mytrust;
+}
+
+int pki_x509::getCaSerial()
+{
+	// dirty = true;
+	return caSerial++;
 }

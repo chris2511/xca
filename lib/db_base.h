@@ -81,6 +81,7 @@ class db_base: public QObject
 	QList<pki_base> container;
 	bool _writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL);
 	bool _removePKI(pki_base *pki, DbTxn *tid = NULL);
+	bool removeItem(string k, DbTxn *tid = NULL);
     public:
 	db_base(DbEnv *dbe, string DBfile, string db);
 	virtual ~db_base();
@@ -116,6 +117,7 @@ class db_base: public QObject
 	void putString(char *key, string dat);
 	void putInt(string key, int dat);
 	QPixmap *loadImg(const char *name);
+	void setSelected(pki_base *item);
 };
 
 #endif

@@ -288,10 +288,15 @@ bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL)
 bool db_base::_removePKI(pki_base *pki, DbTxn *tid = NULL) 
 {
 	string desc = pki->getDescription();
-	Dbt k((void *)desc.c_str(), desc.length() + 1);
+	return removeItem(desc, tid);
+}	
+
+bool db_base::removeItem(string key, DbTxn *tid = NULL) 
+{
+	Dbt k((void *)key.c_str(), key.length() + 1);
 	int x = data->del(tid, &k, 0);
 	if (x){
-	   data->err(x,"DB Error del");
+	   data->err(x,"DB Error delete");
 	   return false;
 	}
 	return true;
@@ -430,5 +435,14 @@ QStringList db_base::getDesc()
 		x.append(pki->getDescription().c_str());	
 	}
 	return x;
+}
+
+void db_base::setSelected(pki_base *item) 
+{
+	if (!item) return;
+	QListViewItem * lvitem = (QListViewItem *)item->getPointer();
+	if (lvitem) {
+		listView->setSelected(lvitem, true);
+	}
 }
 
