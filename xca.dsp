@@ -725,6 +725,16 @@ SOURCE=.\lib\asn1int.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\asn1int.h
+InputName=asn1int
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -745,6 +755,16 @@ InputName=asn1int
 SOURCE=.\lib\asn1time.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\asn1time.h
+InputName=asn1time
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -767,6 +787,16 @@ SOURCE=.\lib\base.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\base.h
+InputName=base
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -787,6 +817,16 @@ InputName=base
 SOURCE=.\widgets\CertDetail.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\CertDetail.h
+InputName=CertDetail
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -809,6 +849,16 @@ SOURCE=.\view\CertView.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\view
+InputPath=.\view\CertView.h
+InputName=CertView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -829,6 +879,16 @@ InputName=CertView
 SOURCE=.\widgets\clicklabel.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\clicklabel.h
+InputName=clicklabel
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -851,6 +911,16 @@ SOURCE=.\widgets\CrlDetail.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\CrlDetail.h
+InputName=CrlDetail
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -871,6 +941,16 @@ InputName=CrlDetail
 SOURCE=.\view\CrlView.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\view
+InputPath=.\view\CrlView.h
+InputName=CrlView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -893,6 +973,16 @@ SOURCE=.\lib\db_base.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\db_base.h
+InputName=db_base
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -913,6 +1003,16 @@ InputName=db_base
 SOURCE=.\lib\db_crl.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\db_crl.h
+InputName=db_crl
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -935,6 +1035,16 @@ SOURCE=.\lib\db_key.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\db_key.h
+InputName=db_key
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -955,6 +1065,16 @@ InputName=db_key
 SOURCE=.\lib\db_temp.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\db_temp.h
+InputName=db_temp
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -977,6 +1097,16 @@ SOURCE=.\lib\db_x509.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\db_x509.h
+InputName=db_x509
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -997,6 +1127,16 @@ InputName=db_x509
 SOURCE=.\lib\db_x509req.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\db_x509req.h
+InputName=db_x509req
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1019,6 +1159,16 @@ SOURCE=.\lib\db_x509super.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\db_x509super.h
+InputName=db_x509super
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1039,6 +1189,16 @@ InputName=db_x509super
 SOURCE=.\widgets\distname.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\distname.h
+InputName=distname
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1061,6 +1221,16 @@ SOURCE=.\lib\exception.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\exception.h
+InputName=exception
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1081,6 +1251,16 @@ InputName=exception
 SOURCE=.\widgets\ExportCert.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\ExportCert.h
+InputName=ExportCert
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1103,6 +1283,16 @@ SOURCE=.\widgets\ExportKey.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\ExportKey.h
+InputName=ExportKey
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1123,6 +1313,16 @@ InputName=ExportKey
 SOURCE=.\widgets\ExportTinyCA.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\ExportTinyCA.h
+InputName=ExportTinyCA
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1145,6 +1345,16 @@ SOURCE=.\lib\func.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\func.h
+InputName=func
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1165,6 +1375,16 @@ InputName=func
 SOURCE=.\view\KeyView.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\view
+InputPath=.\view\KeyView.h
+InputName=KeyView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1187,6 +1407,16 @@ SOURCE=.\widgets\MainWindow.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\MainWindow.h
+InputName=MainWindow
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1207,6 +1437,16 @@ InputName=MainWindow
 SOURCE=.\widgets\NewX509.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\NewX509.h
+InputName=NewX509
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1229,6 +1469,16 @@ SOURCE=.\lib\pass_info.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pass_info.h
+InputName=pass_info
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1249,6 +1499,16 @@ InputName=pass_info
 SOURCE=.\lib\pki_base.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_base.h
+InputName=pki_base
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1271,6 +1531,16 @@ SOURCE=.\lib\pki_crl.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_crl.h
+InputName=pki_crl
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1291,6 +1561,16 @@ InputName=pki_crl
 SOURCE=.\lib\pki_key.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_key.h
+InputName=pki_key
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1313,6 +1593,16 @@ SOURCE=.\lib\pki_pkcs12.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_pkcs12.h
+InputName=pki_pkcs12
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1333,6 +1623,16 @@ InputName=pki_pkcs12
 SOURCE=.\lib\pki_pkcs7.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_pkcs7.h
+InputName=pki_pkcs7
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1355,6 +1655,16 @@ SOURCE=.\lib\pki_temp.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_temp.h
+InputName=pki_temp
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1375,6 +1685,16 @@ InputName=pki_temp
 SOURCE=.\lib\pki_x509.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_x509.h
+InputName=pki_x509
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1397,6 +1717,16 @@ SOURCE=.\lib\pki_x509req.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_x509req.h
+InputName=pki_x509req
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1417,6 +1747,16 @@ InputName=pki_x509req
 SOURCE=.\lib\pki_x509super.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\pki_x509super.h
+InputName=pki_x509super
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1439,6 +1779,16 @@ SOURCE=.\widgets\ReqDetail.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\ReqDetail.h
+InputName=ReqDetail
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1459,6 +1809,16 @@ InputName=ReqDetail
 SOURCE=.\view\ReqView.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\view
+InputPath=.\view\ReqView.h
+InputName=ReqView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1481,6 +1841,16 @@ SOURCE=.\view\TempView.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\view
+InputPath=.\view\TempView.h
+InputName=TempView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1501,6 +1871,16 @@ InputName=TempView
 SOURCE=.\widgets\validity.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\validity.h
+InputName=validity
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1523,6 +1903,16 @@ SOURCE=.\lib\x509name.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\x509name.h
+InputName=x509name
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1543,6 +1933,16 @@ InputName=x509name
 SOURCE=.\lib\x509rev.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\x509rev.h
+InputName=x509rev
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -1565,6 +1965,16 @@ SOURCE=.\lib\x509v3ext.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\lib
+InputPath=.\lib\x509v3ext.h
+InputName=x509v3ext
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # Begin Custom Build - Moc ing $(InputName)
@@ -1585,6 +1995,16 @@ InputName=x509v3ext
 SOURCE=.\view\XcaListView.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\view
+InputPath=.\view\XcaListView.h
+InputName=XcaListView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 

@@ -68,15 +68,13 @@ dist:
 	
 install: xca
 	strip xca
-	install -m 755 -d $(prefix)@prefix@/share/xca $(prefix)@prefix@/bin
+	install -m 755 -d $(prefix)@prefix@/share/xca $(prefix)@prefix@/bin \
+			$(prefix)@prefix@/share/applications \
+			$(prefix)@prefix@/share/pixmaps
 	install -m 755 xca $(prefix)@prefix@/bin
 	install -m 644 img/*.png $(prefix)@prefix@/share/xca
-	if test -d $(prefix)@prefix@/share/pixmaps; then \
-		install -m 644 img/key.xpm $(prefix)@prefix@/share/xca \
-	fi
-	if test -d $(prefix)@prefix@/share/applications; then \
-		install -m 644 img/key.xpm $(prefix)@prefix@/share/xca \
-	fi
+	install -m 644 img/key.xpm $(prefix)@prefix@/share/pixmaps/xca.xpm
+	install -m 644 misc/xca.desktop $(prefix)@prefix@/share/applications
 	install -m 644 lang/xca_??.qm $(prefix)@prefix@/share/xca
 
 .PHONY: $(SUBDIRS)

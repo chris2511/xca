@@ -1,3 +1,22 @@
+xca (0.4.0) unstable; urgency=low
+
+  * Solved bugs:
+  * [ 752111 ] Cannot handle dates past 32-bit boundary (2038)
+  * [ 744227 ] Bug in handling of 3rd. party CRLs
+  * The following Feature requests were implemented:
+  * [ 743152 ] Attributes in subject name
+  * [ 755853 ] select the hash algorithm for signing.
+  * The code was completely rewritten to remove
+    many unpretty codefragements and get a more stable codebase
+  * The names of certs and keys in the detailsview of Certs, CRLs
+    and Requests are clickable.
+  * xca desktopfile added and will be installed in applications,
+    key.xpm will be installed as xca.xpm in pixmaps
+    ([ 763954 ] xca.desktop file) Thanks to Enrico Scholz
+   
+
+ -- Christian Hohnstädt <chris@trinity.local>  Tue,  8 Jul 2003 23:25:36 +0200
+
 xca (0.3.2) unstable; urgency=low
 
   * Optimizations, icon for WIN32 platform

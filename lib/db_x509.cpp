@@ -211,4 +211,4 @@ a1int db_x509::searchSerial(pki_x509 *signer)
 	return sserial;
 }
 
-#undef FOR_ctr(container)
+#undef FOR_ctr
