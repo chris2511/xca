@@ -51,6 +51,7 @@
 
 #include "func.h"
 #include <qdir.h>
+#include <qmessagebox.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -66,7 +67,7 @@ if (PREFIX[0] == '\0') {
 	lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\xca",0,KEY_READ, &hKey);
 	if(lRc!= ERROR_SUCCESS){
 		// No key error
-		QMessageBox::warning(NULL,tr(XCA_TITLE),
+		QMessageBox::warning(NULL,XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
                 PREFIX[0] = '\0';
 	}
@@ -75,7 +76,7 @@ if (PREFIX[0] == '\0') {
                 lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
 		if(lRc!= ERROR_SUCCESS){
 			// No key error
-	                QMessageBox::warning(NULL,tr(XCA_TITLE),
+	                QMessageBox::warning(NULL, XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
                 	PREFIX[0] = '\0';
 		}

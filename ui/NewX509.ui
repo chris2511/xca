@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>587</width>
+            <width>583</width>
             <height>590</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>NewX509_UI</string>
+        <string></string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -538,6 +538,10 @@ Empy, CA, client, server</string>
                         <property stdset="1">
                             <name>text</name>
                             <string>Change the default &amp;extension settings from the template</string>
+                        </property>
+                        <property stdset="1">
+                            <name>checked</name>
+                            <bool>true</bool>
                         </property>
                         <property>
                             <name>toolTip</name>
@@ -1418,7 +1422,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                 <class>QLayoutWidget</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>Layout32</cstring>
+                    <cstring>Layout19</cstring>
                 </property>
                 <hbox>
                     <property stdset="1">
@@ -1523,43 +1527,71 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                                 <number>6</number>
                             </property>
                             <widget>
-                                <class>QLineEdit</class>
+                                <class>QLayoutWidget</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>validNumber</cstring>
+                                    <cstring>Layout18</cstring>
                                 </property>
-                                <property stdset="1">
-                                    <name>sizePolicy</name>
-                                    <sizepolicy>
-                                        <hsizetype>5</hsizetype>
-                                        <vsizetype>0</vsizetype>
-                                    </sizepolicy>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QComboBox</class>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Days</string>
+                                <vbox>
+                                    <property stdset="1">
+                                        <name>margin</name>
+                                        <number>0</number>
                                     </property>
-                                </item>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Months</string>
+                                    <property stdset="1">
+                                        <name>spacing</name>
+                                        <number>6</number>
                                     </property>
-                                </item>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Years</string>
-                                    </property>
-                                </item>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>validRange</cstring>
-                                </property>
+                                    <widget>
+                                        <class>QLineEdit</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>validNumber</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget>
+                                        <class>QComboBox</class>
+                                        <item>
+                                            <property>
+                                                <name>text</name>
+                                                <string>Days</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property>
+                                                <name>text</name>
+                                                <string>Months</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property>
+                                                <name>text</name>
+                                                <string>Years</string>
+                                            </property>
+                                        </item>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>validRange</cstring>
+                                        </property>
+                                    </widget>
+                                    <widget>
+                                        <class>QPushButton</class>
+                                        <property stdset="1">
+                                            <name>name</name>
+                                            <cstring>applyTime</cstring>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>maximumSize</name>
+                                            <size>
+                                                <width>32767</width>
+                                                <height>25</height>
+                                            </size>
+                                        </property>
+                                        <property stdset="1">
+                                            <name>text</name>
+                                            <string>Apply</string>
+                                        </property>
+                                    </widget>
+                                </vbox>
                             </widget>
                         </vbox>
                     </widget>
@@ -1711,7 +1743,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                             <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
 Currently each option will set a new DistributionPoint with the fullName field set to the given value.
 Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let me know,i ncluding the certificate (mail steve at openssl dot org) .
+If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
 Examples:
 URI:http://www.myhost.com/myca.crl
 URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
@@ -2885,9 +2917,16 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
         <receiver>NewX509_UI</receiver>
         <slot>checkAuthKeyId()</slot>
     </connection>
+    <connection>
+        <sender>applyTime</sender>
+        <signal>clicked()</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>applyTimeDiff()</slot>
+    </connection>
+    <slot access="public">checkAuthKeyId()</slot>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">helpClicked()</slot>
-    <slot access="public">checkAuthKeyId()</slot>
+    <slot access="public">applyTimeDiff()</slot>
     <slot access="public">signerChanged()</slot>
     <slot access="public">switchExtended()</slot>
     <slot access="public">templateChanged()</slot>

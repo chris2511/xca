@@ -80,7 +80,7 @@
 #include <sys/stat.h>
 #endif
 
-CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
+CertView::CertView(QWidget * parent, const char * name, WFlags f)
         :XcaListView(parent, name, f)
 {
 	addColumn(tr("Internal name"));

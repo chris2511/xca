@@ -59,7 +59,7 @@
 #include "widgets/MainWindow.h"
 #include "widgets/clicklabel.h"
 
-CrlView::CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
+CrlView::CrlView(QWidget * parent, const char * name, WFlags f)
 	:XcaListView(parent, name, f)
 {
 	addColumn(tr("Common Name"));

@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir ""
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD CPP /nologo /MD /W3 /GX /O1 /I "$(QTDIR)\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "QT_NO_DEBUG" /D "QT_THREAD_SUPPORT" /D "$(QTDIR)\mkspecs\win32-msvc" /FD /D /I -Zm200 /c
+# ADD CPP /nologo /MD /W3 /GX /O1 /I "$(QTDIR)\include" /I "_$(QTDIR)\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "QT_NO_DEBUG" /D "QT_THREAD_SUPPORT" /D "$(QTDIR)\mkspecs\win32-msvc" /FD /D /I -Zm200 /c
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /machine:IX86
-# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib delayimp.lib SSLeay32.lib libeay32.lib libdb41.lib /nologo /subsystem:windows /machine:IX86 /DELAYLOAD:comdlg32.dll /DELAYLOAD:oleaut32.dll /DELAYLOAD:winmm.dll /DELAYLOAD:wsock32.dll /DELAYLOAD:winspool.dll
+# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib delayimp.lib SSLeay32.lib libeay32.lib libdb41.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib wsock32.lib winspool.lib winmm.lib /nologo /subsystem:windows /machine:IX86 /DELAYLOAD:comdlg32.dll /DELAYLOAD:oleaut32.dll /DELAYLOAD:winmm.dll /DELAYLOAD:wsock32.dll /DELAYLOAD:winspool.dll
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
@@ -65,7 +65,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD CPP /nologo /MD /W3 /Gm /GX /Zi /Od /I "$(QTDIR)\include" /I "$(QTDIR)\mkspecs\win32-msvc" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /FD /D /GZ -Zm200 /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /Zi /Od /I "$(QTDIR)\include" /I "$(QTDIR)\mkspecs\win32-msvc" /I "_$(QTDIR)\include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /FD /D /GZ -Zm200 /c
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407
 # ADD RSC /l 0x409 /d "_DEBUG"
@@ -73,7 +73,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /machine:IX86
-# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib SSLeay32.lib libeay32.lib libdb41.lib /nologo /subsystem:windows /incremental:no /debug /machine:IX86 /pdbtype:sept
+# ADD LINK32 $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib winspool.lib SSLeay32.lib libeay32.lib libdb41.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib wsock32.lib winspool.lib winmm.lib $(QTDIR)\lib\qt.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /incremental:no /debug /machine:IX86 /pdbtype:sept
 
 !ENDIF 
 
@@ -86,103 +86,634 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\lib\asn1int.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\asn1time.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\CertDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+# SUBTRACT CPP /I "_$(QTDIR)\include"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I ".."
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\CertView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\clicklabel.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\CrlDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\CrlView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=lib\db_base.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\lib\db_crl.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\db_key.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\db_temp.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\db_x509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\db_x509req.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\ExportCert.cpp
+SOURCE=.\lib\db_x509super.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=ExportKey.cpp
+SOURCE=.\widgets\distname.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=main.cpp
+SOURCE=.\widgets\ExportCert.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=MainWindow.cpp
+SOURCE=.\widgets\ExportKey.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\MainWindowCrl.cpp
+SOURCE=.\widgets\ExportTinyCA.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=MainWindowKeys.cpp
+SOURCE=.\lib\func.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=MainWindowTemps.cpp
+SOURCE=.\view\KeyView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=MainWindowX509.cpp
+SOURCE=.\view\main.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=MainWindowX509Req.cpp
+SOURCE=.\widgets\MainWindow.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=NewX509.cpp
+SOURCE=.\widgets\NewX509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\NewX509_ext.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\pass_info.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\pki_base.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\lib\pki_crl.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\pki_key.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\pki_pkcs12.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\lib\pki_pkcs7.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\pki_temp.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\pki_x509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=lib\pki_x509req.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\xca.rc
+SOURCE=.\lib\pki_x509super.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\ReqDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\ReqView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\TempView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\validity.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\x509name.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\x509rev.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\x509v3ext.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\XcaListView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -190,11 +721,192 @@ SOURCE=.\xca.rc
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\lib\base.h
+SOURCE=.\lib\asn1int.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\asn1int.h
+InputName=asn1int
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\db_base.h
+SOURCE=.\lib\asn1time.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\asn1time.h
+InputName=asn1time
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\base.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\base.h
+InputName=base
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\CertDetail.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\CertDetail.h
+InputName=CertDetail
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\CertView.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\view
+InputPath=.\view\CertView.h
+InputName=CertView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\clicklabel.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\clicklabel.h
+InputName=clicklabel
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\CrlDetail.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\CrlDetail.h
+InputName=CrlDetail
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\CrlView.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\view
+InputPath=.\view\CrlView.h
+InputName=CrlView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\db_base.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\db_base.h
+InputName=db_base
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -202,21 +914,15 @@ SOURCE=.\lib\db_crl.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# Begin Custom Build
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
 InputPath=.\lib\db_crl.h
+InputName=db_crl
 
-"lib\moc_db_crl.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_crl.h -o lib\moc_db_crl.cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
-
-# Begin Custom Build
-InputPath=.\lib\db_crl.h
-
-"lib\moc_db_crl.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_crl.h -o lib\moc_db_crl.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -225,27 +931,19 @@ InputPath=.\lib\db_crl.h
 # End Source File
 # Begin Source File
 
-SOURCE=lib\db_key.h
+SOURCE=.\lib\db_key.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__DB_KE="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_key.h...
-InputPath=lib\db_key.h
-
-"lib\moc_db_key.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_key.h -o lib\moc_db_key.cpp
-
-# End Custom Build
-
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__DB_KE="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_key.h...
-InputPath=lib\db_key.h
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\db_key.h
+InputName=db_key
 
-"lib\moc_db_key.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_key.h -o lib\moc_db_key.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -254,27 +952,19 @@ InputPath=lib\db_key.h
 # End Source File
 # Begin Source File
 
-SOURCE=lib\db_temp.h
+SOURCE=.\lib\db_temp.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__DB_TE="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_temp.h...
-InputPath=lib\db_temp.h
-
-"lib\moc_db_temp.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_temp.h -o lib\moc_db_temp.cpp
-
-# End Custom Build
-
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__DB_TE="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_temp.h...
-InputPath=lib\db_temp.h
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\db_temp.h
+InputName=db_temp
 
-"lib\moc_db_temp.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_temp.h -o lib\moc_db_temp.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -283,27 +973,19 @@ InputPath=lib\db_temp.h
 # End Source File
 # Begin Source File
 
-SOURCE=lib\db_x509.h
+SOURCE=.\lib\db_x509.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__DB_X5="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_x509.h...
-InputPath=lib\db_x509.h
-
-"lib\moc_db_x509.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_x509.h -o lib\moc_db_x509.cpp
-
-# End Custom Build
-
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__DB_X5="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_x509.h...
-InputPath=lib\db_x509.h
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\db_x509.h
+InputName=db_x509
 
-"lib\moc_db_x509.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_x509.h -o lib\moc_db_x509.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -312,27 +994,61 @@ InputPath=lib\db_x509.h
 # End Source File
 # Begin Source File
 
-SOURCE=lib\db_x509req.h
+SOURCE=.\lib\db_x509req.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__DB_X50="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_x509req.h...
-InputPath=lib\db_x509req.h
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-"lib\moc_db_x509req.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_x509req.h -o lib\moc_db_x509req.cpp
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\db_x509req.h
+InputName=db_x509req
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\db_x509super.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__DB_X50="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing lib\db_x509req.h...
-InputPath=lib\db_x509req.h
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\db_x509super.h
+InputName=db_x509super
 
-"lib\moc_db_x509req.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc lib\db_x509req.h -o lib\moc_db_x509req.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\distname.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\distname.h
+InputName=distname
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -342,31 +1058,15 @@ InputPath=lib\db_x509req.h
 # Begin Source File
 
 SOURCE=.\lib\exception.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\ExportCert.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing ExportCert.h...
-InputDir=.
-InputPath=.\ExportCert.h
-InputName=ExportCert
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing ExportCert.h...
-InputDir=.
-InputPath=.\ExportCert.h
-InputName=ExportCert
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\exception.h
+InputName=exception
 
 "$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
@@ -378,27 +1078,19 @@ InputName=ExportCert
 # End Source File
 # Begin Source File
 
-SOURCE=ExportKey.h
+SOURCE=.\widgets\ExportCert.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__EXPOR="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing ExportKey.h...
-InputPath=ExportKey.h
-
-"moc_ExportKey.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc ExportKey.h -o moc_ExportKey.cpp
-
-# End Custom Build
-
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__EXPOR="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing ExportKey.h...
-InputPath=ExportKey.h
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\ExportCert.h
+InputName=ExportCert
 
-"moc_ExportKey.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc ExportKey.h -o moc_ExportKey.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -407,27 +1099,19 @@ InputPath=ExportKey.h
 # End Source File
 # Begin Source File
 
-SOURCE=MainWindow.h
+SOURCE=.\widgets\ExportKey.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__MAINW="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing MainWindow.h...
-InputPath=MainWindow.h
-
-"moc_MainWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc MainWindow.h -o moc_MainWindow.cpp
-
-# End Custom Build
-
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__MAINW="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing MainWindow.h...
-InputPath=MainWindow.h
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\ExportKey.h
+InputName=ExportKey
 
-"moc_MainWindow.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc MainWindow.h -o moc_MainWindow.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -436,27 +1120,19 @@ InputPath=MainWindow.h
 # End Source File
 # Begin Source File
 
-SOURCE=NewX509.h
+SOURCE=.\widgets\ExportTinyCA.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__NEWX5="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing NewX509.h...
-InputPath=NewX509.h
-
-"moc_NewX509.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc NewX509.h -o moc_NewX509.cpp
-
-# End Custom Build
-
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__NEWX5="$(QTDIR)\bin\moc.exe"	
-# Begin Custom Build - Moc'ing NewX509.h...
-InputPath=NewX509.h
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\ExportTinyCA.h
+InputName=ExportTinyCA
 
-"moc_NewX509.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(QTDIR)\bin\moc NewX509.h -o moc_NewX509.cpp
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
 
 # End Custom Build
 
@@ -465,89 +1141,529 @@ InputPath=NewX509.h
 # End Source File
 # Begin Source File
 
-SOURCE=lib\pki_base.h
+SOURCE=.\lib\func.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\func.h
+InputName=func
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\KeyView.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\view
+InputPath=.\view\KeyView.h
+InputName=KeyView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\MainWindow.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\MainWindow.h
+InputName=MainWindow
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\NewX509.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\NewX509.h
+InputName=NewX509
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\pass_info.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pass_info.h
+InputName=pass_info
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\pki_base.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_base.h
+InputName=pki_base
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\lib\pki_crl.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_crl.h
+InputName=pki_crl
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\pki_key.h
+SOURCE=.\lib\pki_key.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_key.h
+InputName=pki_key
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\pki_pkcs12.h
+SOURCE=.\lib\pki_pkcs12.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_pkcs12.h
+InputName=pki_pkcs12
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\lib\pki_pkcs7.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_pkcs7.h
+InputName=pki_pkcs7
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\pki_temp.h
+SOURCE=.\lib\pki_temp.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_temp.h
+InputName=pki_temp
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\pki_x509.h
+SOURCE=.\lib\pki_x509.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_x509.h
+InputName=pki_x509
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\pki_x509req.h
+SOURCE=.\lib\pki_x509req.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_x509req.h
+InputName=pki_x509req
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\pki_x509super.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\pki_x509super.h
+InputName=pki_x509super
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\ReqDetail.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\ReqDetail.h
+InputName=ReqDetail
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\ReqView.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\view
+InputPath=.\view\ReqView.h
+InputName=ReqView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\TempView.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\view
+InputPath=.\view\TempView.h
+InputName=TempView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\widgets\validity.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\widgets
+InputPath=.\widgets\validity.h
+InputName=validity
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\x509name.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\x509name.h
+InputName=x509name
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\x509rev.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\x509rev.h
+InputName=x509rev
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\x509v3ext.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\lib
+InputPath=.\lib\x509v3ext.h
+InputName=x509v3ext
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\XcaListView.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - Moc ing $(InputName)
+InputDir=.\view
+InputPath=.\view\XcaListView.h
+InputName=XcaListView
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=.\img\key.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\misc\xca.rc
+# End Source File
 # End Group
 # Begin Group "Forms"
 
 # PROP Default_Filter "ui"
 # Begin Source File
 
-SOURCE=CertDetail.ui
+SOURCE=.\ui\CertDetail.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__CERTD="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing CertDetail.ui...
-InputPath=CertDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\CertDetail.ui
+InputName=CertDetail
 
 BuildCmds= \
-	$(QTDIR)\bin\uic CertDetail.ui -o CertDetail.h \
-	$(QTDIR)\bin\uic CertDetail.ui -i CertDetail.h -o CertDetail.cpp \
-	$(QTDIR)\bin\moc CertDetail.h -o moc_CertDetail.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"CertDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"CertDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_CertDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__CERTD="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing CertDetail.ui...
-InputPath=CertDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\CertDetail.ui
+InputName=CertDetail
 
 BuildCmds= \
-	$(QTDIR)\bin\uic CertDetail.ui -o CertDetail.h \
-	$(QTDIR)\bin\uic CertDetail.ui -i CertDetail.h -o CertDetail.cpp \
-	$(QTDIR)\bin\moc CertDetail.h -o moc_CertDetail.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"CertDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"CertDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_CertDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -556,34 +1672,36 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=.\CertExtend.ui
+SOURCE=.\ui\CertExtend.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# Begin Custom Build - Uic'ing CertExtend.ui
-InputPath=.\CertExtend.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\CertExtend.ui
+InputName=CertExtend
 
 BuildCmds= \
-	$(QTDIR)\bin\uic CertExtend.ui -o CertExtend.h \
-	$(QTDIR)\bin\uic CertExtend.ui -i CertExtend.h -o CertExtend.cpp \
-	$(QTDIR)\bin\moc CertExtend.h -o moc_CertExtend.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"CertExtend.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"CertExtend.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_CertExtend.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-# Begin Custom Build
-InputDir=.
-InputPath=.\CertExtend.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\CertExtend.ui
 InputName=CertExtend
 
 BuildCmds= \
@@ -607,34 +1725,36 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=.\CrlDetail.ui
+SOURCE=.\ui\CrlDetail.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-# Begin Custom Build
-InputPath=.\CrlDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\CrlDetail.ui
+InputName=CrlDetail
 
 BuildCmds= \
-	$(QTDIR)\bin\uic CrlDetail.ui -o CrlDetail.h \
-	$(QTDIR)\bin\uic CrlDetail.ui -i CrlDetail.h -o CrlDetail.cpp \
-	$(QTDIR)\bin\moc CrlDetail.h -o moc_CrlDetail.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"CrlDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"CrlDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_CrlDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-# Begin Custom Build
-InputDir=.
-InputPath=.\CrlDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\CrlDetail.ui
 InputName=CrlDetail
 
 BuildCmds= \
@@ -658,36 +1778,37 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=.\ExportCert_UI.ui
+SOURCE=.\ui\ExportCert.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__EXPORT="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing ExportCert_UI.ui
-InputPath=.\ExportCert_UI.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ExportCert.ui
+InputName=ExportCert
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ExportCert_UI.ui -o ExportCert_UI.h \
-	$(QTDIR)\bin\uic ExportCert_UI.ui -i ExportCert_UI.h -o ExportCert_UI.cpp \
-	$(QTDIR)\bin\moc ExportCert_UI.h -o moc_ExportCert_UI.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"ExportCert_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"ExportCert_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_ExportCert_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-# Begin Custom Build
-InputDir=.
-InputPath=.\ExportCert_UI.ui
-InputName=ExportCert_UI
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ExportCert.ui
+InputName=ExportCert
 
 BuildCmds= \
 	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
@@ -710,86 +1831,37 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=ExportKey_UI.ui
+SOURCE=.\ui\ExportKey.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__EXPORTK="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing ExportKey_UI.ui...
-InputPath=ExportKey_UI.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ExportKey.ui
+InputName=ExportKey
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ExportKey_UI.ui -o ExportKey_UI.h \
-	$(QTDIR)\bin\uic ExportKey_UI.ui -i ExportKey_UI.h -o ExportKey_UI.cpp \
-	$(QTDIR)\bin\moc ExportKey_UI.h -o moc_ExportKey_UI.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"ExportKey_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"ExportKey_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_ExportKey_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__EXPORTK="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing ExportKey_UI.ui...
-InputPath=ExportKey_UI.ui
-
-BuildCmds= \
-	$(QTDIR)\bin\uic ExportKey_UI.ui -o ExportKey_UI.h \
-	$(QTDIR)\bin\uic ExportKey_UI.ui -i ExportKey_UI.h -o ExportKey_UI.cpp \
-	$(QTDIR)\bin\moc ExportKey_UI.h -o moc_ExportKey_UI.cpp \
-	
-
-"ExportKey_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-   $(BuildCmds)
-
-"ExportKey_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-   $(BuildCmds)
-
-"moc_ExportKey_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-   $(BuildCmds)
-# End Custom Build
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\ExportTinyCA_UI.ui
-
-!IF  "$(CFG)" == "xca - Win32 Release"
-
-# Begin Custom Build
-InputPath=.\ExportTinyCA_UI.ui
-
-BuildCmds= \
-	$(QTDIR)\bin\uic ExportTinyCA_UI.ui -o ExportTinyCA_UI.h \
-	$(QTDIR)\bin\uic ExportTinyCA_UI.ui -i ExportTinyCA_UI.h -o ExportTinyCA_UI.cpp \
-	$(QTDIR)\bin\moc ExportTinyCA_UI.h -o moc_ExportTinyCA_UI.cpp \
-	
-
-"ExportTinyCA_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-   $(BuildCmds)
-
-"ExportTinyCA_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-   $(BuildCmds)
-
-"moc_ExportTinyCA_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-   $(BuildCmds)
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
-
-# Begin Custom Build
-InputDir=.
-InputPath=.\ExportTinyCA_UI.ui
-InputName=ExportTinyCA_UI
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ExportKey.ui
+InputName=ExportKey
 
 BuildCmds= \
 	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
@@ -812,49 +1884,51 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=KeyDetail.ui
+SOURCE=.\ui\ExportTinyCA.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__KEYDE="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing KeyDetail.ui...
-InputPath=KeyDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ExportTinyCA.ui
+InputName=ExportTinyCA
 
 BuildCmds= \
-	$(QTDIR)\bin\uic KeyDetail.ui -o KeyDetail.h \
-	$(QTDIR)\bin\uic KeyDetail.ui -i KeyDetail.h -o KeyDetail.cpp \
-	$(QTDIR)\bin\moc KeyDetail.h -o moc_KeyDetail.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"KeyDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"KeyDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_KeyDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__KEYDE="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing KeyDetail.ui...
-InputPath=KeyDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ExportTinyCA.ui
+InputName=ExportTinyCA
 
 BuildCmds= \
-	$(QTDIR)\bin\uic KeyDetail.ui -o KeyDetail.h \
-	$(QTDIR)\bin\uic KeyDetail.ui -i KeyDetail.h -o KeyDetail.cpp \
-	$(QTDIR)\bin\moc KeyDetail.h -o moc_KeyDetail.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"KeyDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"KeyDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_KeyDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -863,49 +1937,51 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=MainWindow_UI.ui
+SOURCE=.\ui\KeyDetail.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__MAINWI="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing MainWindow_UI.ui...
-InputPath=MainWindow_UI.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\KeyDetail.ui
+InputName=KeyDetail
 
 BuildCmds= \
-	$(QTDIR)\bin\uic MainWindow_UI.ui -o MainWindow_UI.h \
-	$(QTDIR)\bin\uic MainWindow_UI.ui -i MainWindow_UI.h -o MainWindow_UI.cpp \
-	$(QTDIR)\bin\moc MainWindow_UI.h -o moc_MainWindow_UI.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"MainWindow_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"MainWindow_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_MainWindow_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__MAINWI="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing MainWindow_UI.ui...
-InputPath=MainWindow_UI.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\KeyDetail.ui
+InputName=KeyDetail
 
 BuildCmds= \
-	$(QTDIR)\bin\uic MainWindow_UI.ui -o MainWindow_UI.h \
-	$(QTDIR)\bin\uic MainWindow_UI.ui -i MainWindow_UI.h -o MainWindow_UI.cpp \
-	$(QTDIR)\bin\moc MainWindow_UI.h -o moc_MainWindow_UI.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"MainWindow_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"MainWindow_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_MainWindow_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -914,49 +1990,51 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=NewKey.ui
+SOURCE=.\ui\MainWindow.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__NEWKE="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing NewKey.ui...
-InputPath=NewKey.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\MainWindow.ui
+InputName=MainWindow
 
 BuildCmds= \
-	$(QTDIR)\bin\uic NewKey.ui -o NewKey.h \
-	$(QTDIR)\bin\uic NewKey.ui -i NewKey.h -o NewKey.cpp \
-	$(QTDIR)\bin\moc NewKey.h -o moc_NewKey.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"NewKey.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"NewKey.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_NewKey.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__NEWKE="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing NewKey.ui...
-InputPath=NewKey.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\MainWindow.ui
+InputName=MainWindow
 
 BuildCmds= \
-	$(QTDIR)\bin\uic NewKey.ui -o NewKey.h \
-	$(QTDIR)\bin\uic NewKey.ui -i NewKey.h -o NewKey.cpp \
-	$(QTDIR)\bin\moc NewKey.h -o moc_NewKey.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"NewKey.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"NewKey.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_NewKey.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -965,49 +2043,51 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=NewX509_UI.ui
+SOURCE=.\ui\NewKey.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__NEWX50="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing NewX509_UI.ui...
-InputPath=NewX509_UI.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\NewKey.ui
+InputName=NewKey
 
 BuildCmds= \
-	$(QTDIR)\bin\uic NewX509_UI.ui -o NewX509_UI.h \
-	$(QTDIR)\bin\uic NewX509_UI.ui -i NewX509_UI.h -o NewX509_UI.cpp \
-	$(QTDIR)\bin\moc NewX509_UI.h -o moc_NewX509_UI.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"NewX509_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"NewX509_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_NewX509_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__NEWX50="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing NewX509_UI.ui...
-InputPath=NewX509_UI.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\NewKey.ui
+InputName=NewKey
 
 BuildCmds= \
-	$(QTDIR)\bin\uic NewX509_UI.ui -o NewX509_UI.h \
-	$(QTDIR)\bin\uic NewX509_UI.ui -i NewX509_UI.h -o NewX509_UI.cpp \
-	$(QTDIR)\bin\moc NewX509_UI.h -o moc_NewX509_UI.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"NewX509_UI.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"NewX509_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_NewX509_UI.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -1016,49 +2096,51 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=PassRead.ui
+SOURCE=.\ui\NewX509.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__PASSR="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing PassRead.ui...
-InputPath=PassRead.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\NewX509.ui
+InputName=NewX509
 
 BuildCmds= \
-	$(QTDIR)\bin\uic PassRead.ui -o PassRead.h \
-	$(QTDIR)\bin\uic PassRead.ui -i PassRead.h -o PassRead.cpp \
-	$(QTDIR)\bin\moc PassRead.h -o moc_PassRead.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"PassRead.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"PassRead.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_PassRead.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__PASSR="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing PassRead.ui...
-InputPath=PassRead.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\NewX509.ui
+InputName=NewX509
 
 BuildCmds= \
-	$(QTDIR)\bin\uic PassRead.ui -o PassRead.h \
-	$(QTDIR)\bin\uic PassRead.ui -i PassRead.h -o PassRead.cpp \
-	$(QTDIR)\bin\moc PassRead.h -o moc_PassRead.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"PassRead.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"PassRead.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_PassRead.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -1067,49 +2149,51 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=PassWrite.ui
+SOURCE=.\ui\PassRead.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__PASSW="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing PassWrite.ui...
-InputPath=PassWrite.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\PassRead.ui
+InputName=PassRead
 
 BuildCmds= \
-	$(QTDIR)\bin\uic PassWrite.ui -o PassWrite.h \
-	$(QTDIR)\bin\uic PassWrite.ui -i PassWrite.h -o PassWrite.cpp \
-	$(QTDIR)\bin\moc PassWrite.h -o moc_PassWrite.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"PassWrite.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"PassWrite.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_PassWrite.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__PASSW="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing PassWrite.ui...
-InputPath=PassWrite.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\PassRead.ui
+InputName=PassRead
 
 BuildCmds= \
-	$(QTDIR)\bin\uic PassWrite.ui -o PassWrite.h \
-	$(QTDIR)\bin\uic PassWrite.ui -i PassWrite.h -o PassWrite.cpp \
-	$(QTDIR)\bin\moc PassWrite.h -o moc_PassWrite.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"PassWrite.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"PassWrite.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_PassWrite.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -1118,49 +2202,51 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=ReqDetail.ui
+SOURCE=.\ui\PassWrite.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__REQDE="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing ReqDetail.ui...
-InputPath=ReqDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\PassWrite.ui
+InputName=PassWrite
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ReqDetail.ui -o ReqDetail.h \
-	$(QTDIR)\bin\uic ReqDetail.ui -i ReqDetail.h -o ReqDetail.cpp \
-	$(QTDIR)\bin\moc ReqDetail.h -o moc_ReqDetail.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"ReqDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"ReqDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_ReqDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__REQDE="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing ReqDetail.ui...
-InputPath=ReqDetail.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\PassWrite.ui
+InputName=PassWrite
 
 BuildCmds= \
-	$(QTDIR)\bin\uic ReqDetail.ui -o ReqDetail.h \
-	$(QTDIR)\bin\uic ReqDetail.ui -i ReqDetail.h -o ReqDetail.cpp \
-	$(QTDIR)\bin\moc ReqDetail.h -o moc_ReqDetail.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"ReqDetail.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"ReqDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_ReqDetail.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -1169,49 +2255,104 @@ BuildCmds= \
 # End Source File
 # Begin Source File
 
-SOURCE=TrustState.ui
+SOURCE=.\ui\ReqDetail.ui
 
 !IF  "$(CFG)" == "xca - Win32 Release"
 
-USERDEP__TRUST="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing TrustState.ui...
-InputPath=TrustState.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ReqDetail.ui
+InputName=ReqDetail
 
 BuildCmds= \
-	$(QTDIR)\bin\uic TrustState.ui -o TrustState.h \
-	$(QTDIR)\bin\uic TrustState.ui -i TrustState.h -o TrustState.cpp \
-	$(QTDIR)\bin\moc TrustState.h -o moc_TrustState.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
 	
 
-"TrustState.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"TrustState.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_TrustState.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-USERDEP__TRUST="$(QTDIR)\bin\moc.exe"	"$(QTDIR)\bin\uic.exe"	
-# Begin Custom Build - Uic'ing TrustState.ui...
-InputPath=TrustState.ui
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\ReqDetail.ui
+InputName=ReqDetail
 
 BuildCmds= \
-	$(QTDIR)\bin\uic TrustState.ui -o TrustState.h \
-	$(QTDIR)\bin\uic TrustState.ui -i TrustState.h -o TrustState.cpp \
-	$(QTDIR)\bin\moc TrustState.h -o moc_TrustState.cpp \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
 	
 
-"TrustState.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"TrustState.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"moc_TrustState.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\TrustState.ui
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\TrustState.ui
+InputName=TrustState
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\ui_$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\ui_moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\ui_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\ui_moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# Begin Custom Build - UI compiling $(InputName)
+InputDir=.\ui
+InputPath=.\ui\TrustState.ui
+InputName=TrustState
+
+BuildCmds= \
+	%qtdir%\bin\uic.exe $(InputPath) -o $(InputDir)\$(InputName).h \
+	%qtdir%\bin\uic.exe $(InputPath) -i $(InputName).h -o $(InputDir)\$(InputName).cpp \
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp \
+	
+
+"$(InputDir)\$(InputName).h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 
@@ -1224,11 +2365,11 @@ BuildCmds= \
 # PROP Default_Filter "ts"
 # Begin Source File
 
-SOURCE=xca_de.ts
+SOURCE=.\lang\xca_de.ts
 # End Source File
 # Begin Source File
 
-SOURCE=xca_es.ts
+SOURCE=.\lang\xca_es.ts
 # End Source File
 # End Group
 # Begin Group "Generated"
@@ -1236,195 +2377,963 @@ SOURCE=xca_es.ts
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=CertDetail.cpp
+SOURCE=.\lib\moc_asn1int.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=CertDetail.h
+SOURCE=.\lib\moc_asn1time.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\CertExtend.cpp
+SOURCE=.\lib\moc_base.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\CertExtend.h
+SOURCE=.\widgets\moc_CertDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\CrlDetail.cpp
+SOURCE=.\view\moc_CertView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\CrlDetail.h
+SOURCE=.\widgets\moc_clicklabel.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\ExportCert_UI.cpp
+SOURCE=.\widgets\moc_CrlDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\ExportCert_UI.h
+SOURCE=.\view\moc_CrlView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=ExportKey_UI.cpp
-# End Source File
-# Begin Source File
+SOURCE=.\lib\moc_db_base.cpp
 
-SOURCE=ExportKey_UI.h
-# End Source File
-# Begin Source File
+!IF  "$(CFG)" == "xca - Win32 Release"
 
-SOURCE=KeyDetail.cpp
-# End Source File
-# Begin Source File
+# ADD CPP /I "." /I ".\\"
 
-SOURCE=KeyDetail.h
-# End Source File
-# Begin Source File
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
-SOURCE=MainWindow_UI.cpp
-# End Source File
-# Begin Source File
+# ADD CPP /I "..\\"
 
-SOURCE=MainWindow_UI.h
-# End Source File
-# Begin Source File
+!ENDIF 
 
-SOURCE=moc_CertDetail.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_CertExtend.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_CrlDetail.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\lib\moc_db_crl.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\moc_db_key.cpp
+SOURCE=.\lib\moc_db_key.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\moc_db_temp.cpp
+SOURCE=.\lib\moc_db_temp.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\moc_db_x509.cpp
+SOURCE=.\lib\moc_db_x509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=lib\moc_db_x509req.cpp
+SOURCE=.\lib\moc_db_x509req.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\moc_ExportCert.cpp
+SOURCE=.\lib\moc_db_x509super.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\moc_ExportCert_UI.cpp
+SOURCE=.\widgets\moc_distname.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_ExportKey.cpp
+SOURCE=.\lib\moc_exception.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_ExportKey_UI.cpp
+SOURCE=.\widgets\moc_ExportCert.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_KeyDetail.cpp
+SOURCE=.\widgets\moc_ExportKey.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_MainWindow.cpp
+SOURCE=.\widgets\moc_ExportTinyCA.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_MainWindow_UI.cpp
+SOURCE=.\lib\moc_func.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_NewKey.cpp
+SOURCE=.\view\moc_KeyView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_NewX509.cpp
+SOURCE=.\widgets\moc_MainWindow.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_NewX509_UI.cpp
+SOURCE=.\widgets\moc_NewX509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_PassRead.cpp
+SOURCE=.\lib\moc_pass_info.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_PassWrite.cpp
+SOURCE=.\lib\moc_pki_base.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_ReqDetail.cpp
+SOURCE=.\lib\moc_pki_crl.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=moc_TrustState.cpp
+SOURCE=.\lib\moc_pki_key.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=NewKey.cpp
+SOURCE=.\lib\moc_pki_pkcs12.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=NewKey.h
+SOURCE=.\lib\moc_pki_pkcs7.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=NewX509_UI.cpp
+SOURCE=.\lib\moc_pki_temp.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=NewX509_UI.h
+SOURCE=.\lib\moc_pki_x509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=PassRead.cpp
+SOURCE=.\lib\moc_pki_x509req.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=PassRead.h
+SOURCE=.\lib\moc_pki_x509super.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=PassWrite.cpp
+SOURCE=.\widgets\moc_ReqDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=PassWrite.h
+SOURCE=.\view\moc_ReqView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=ReqDetail.cpp
+SOURCE=.\view\moc_TempView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=ReqDetail.h
+SOURCE=.\widgets\moc_validity.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=TrustState.cpp
+SOURCE=.\lib\moc_x509name.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=TrustState.h
+SOURCE=.\lib\moc_x509rev.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\moc_x509v3ext.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "." /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+# ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\view\moc_XcaListView.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_CertDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_CertExtend.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_CrlDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_ExportCert.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_ExportKey.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_ExportTinyCA.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_KeyDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_MainWindow.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "view" /I "widgets"
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_CertDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_CertExtend.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_CrlDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_ExportCert.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_ExportKey.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_ExportTinyCA.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_KeyDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_MainWindow.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_NewKey.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_NewX509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_PassRead.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_PassWrite.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_ReqDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_TrustState.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I ".\\" /I "widgets" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_NewKey.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_NewX509.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_PassRead.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_PassWrite.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_ReqDetail.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_TrustState.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "ui" /I "widgets" /I "view" /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # End Group
 # End Target

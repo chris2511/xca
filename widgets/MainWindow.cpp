@@ -225,8 +225,8 @@ void MainWindow::read_cmdline()
 				case 'd' : type = XCA_DB;
 					   break;
 				case 'v' : type = XCA_DB;
-					   cout << tr(XCA_TITLE) << 
-						   endl << VER << endl;
+					   printf("%s Version %s\n", 
+						   XCA_TITLE, VER);
 					   exitApp =1;
 					   return;
 					   break;

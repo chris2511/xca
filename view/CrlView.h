@@ -66,7 +66,7 @@ class CrlView : public XcaListView
 	static const int sizeList[];
 	static void incProgress(int a, int b, void *progress);
    public:
-	CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	CrlView(QWidget * parent = NULL, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void deleteItem();
 	void load();

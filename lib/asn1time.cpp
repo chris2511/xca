@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -54,7 +55,7 @@
 
 a1time::a1time()
 {
-	time = ASN1_GENERALIZEDTIME_new();
+	time = ASN1_UTCTIME_new();
 	now();
 }
 
@@ -86,16 +87,14 @@ a1time &a1time::set(const ASN1_TIME *a)
 		set((time_t)0);
 	}
 	else {
-		time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, &time);
-		if (!time)
-			time=M_ASN1_TIME_dup(a);
+		time=M_ASN1_TIME_dup(a);
 	}
 	return *this;
 }
 
 a1time &a1time::set(time_t t)
 {
-	ASN1_GENERALIZEDTIME_set(time, t);
+	ASN1_UTCTIME_set(time, t);
 	return *this;
 }
 
@@ -108,7 +107,7 @@ a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
 	    m < 0 || m > 59 ||
 	    s < 0 || s > 59 ) {
 	}
-	if (time->length < 16) {
+	if (time->length < 13) {
 		p = (char *)OPENSSL_malloc(20);
 		if (p == NULL) goto this_err;
 		if (time->data != NULL)
@@ -117,8 +116,8 @@ a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
 	}
 	
 	
-	time->length = sprintf((char *)time->data, "%04d%02d%02d%02d%02d%02dZ",
-		       y, mon, d, h, m ,s);
+	time->length = sprintf((char *)time->data, "%02d%02d%02d%02d%02d%02dZ",
+		       y%100, mon, d, h, m ,s);
 	time->type=V_ASN1_GENERALIZEDTIME;
 	return *this;
 this_err:
@@ -167,7 +166,7 @@ QString a1time::toSortable() const
 
 a1time &a1time::set(const QString &s)
 {
-	ASN1_GENERALIZEDTIME_set_string(time, (char *)s.latin1());
+	ASN1_UTCTIME_set_string(time, (char *)s.latin1());
 	return *this;
 }
 
@@ -179,29 +178,31 @@ int a1time::ymdg(int *y, int *m, int *d, int *g) const
 
 int a1time::ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const
 {
-        char *v;
-        int i;
-        *y=0, *m=0, *d=0, *g=0;
-        if (!time) return 1;
-        i=time->length;
-        v=(char *)time->data;
-
-        if (i < 14) return 1; /* it is at least 10 digits */
-        if (v[i-1] == 'Z') *g=1;
-        for (i=0; i<14; i++)
-                if ((v[i] > '9') || (v[i] < '0')) return 1;
-        *y= (v[0]-'0')*1000+(v[1]-'0')*100+(v[2]-'0')*10+(v[3]-'0');
-        *m= (v[4]-'0')*10+(v[5]-'0');
-        if ((*m > 12) || (*m < 1)) return 1;
-        *d= (v[6]-'0')*10+(v[7]-'0');
-        if ((*d > 31) || (*d < 1)) return 1;
-        *h= (v[8]-'0')*10+(v[9]-'0');
-        if ((*h > 23) || (*h < 0)) return 1;
-        *M= (v[10]-'0')*10+(v[11]-'0');
-        if ((*M > 59) || (*M < 0)) return 1;
-        *s= (v[12]-'0')*10+(v[13]-'0');
-        if ((*s > 59) || (*s < 0)) return 1;
-        return 0;
+	char *v;
+	int i;
+	*y=0, *m=0, *d=0, *g=0;
+	if (!time) return 1;
+	i=time->length;
+	if (time->type != V_ASN1_UTCTIME) return 1;
+	v=(char *)time->data;
+#define g2(p) (((p)[0]-'0')*10+(p)[1]-'0')
+	if (i < 12) return 1; /* it is at least 10 digits */
+	if (v[i-1] == 'Z') *g=1;
+	for (i=0; i<12; i++)
+	if ((v[i] > '9') || (v[i] < '0')) return 1;
+	*y= g2(v);
+	*y += (*y<50) ? 2000 : 1900;
+	*m= g2(v+2);
+	if ((*m > 12) || (*m < 1)) return 1;
+	*d= g2(v+4);
+	if ((*d > 31) || (*d < 1)) return 1;
+	*h= g2(v+6);
+	if ((*h > 23) || (*h < 0)) return 1;
+	*M= g2(v+8);
+	if ((*M > 59) || (*M < 0)) return 1;
+	*s= g2(v+10);
+	if ((*s > 59) || (*s < 0)) return 1;
+	return 0;
 }
 
 a1time &a1time::now(int delta)
@@ -260,7 +261,7 @@ int a1time::derSize() const
  * and is used if linking against 0.9.6
  */
  
-#if OPENSSL_VERSION_NUMBER < 0x00907000L
+#if NOTHING_OPENSSL_VERSION_NUMBER < 0x00907000L
 /* Convert an ASN1_TIME structure to GeneralizedTime */
 ASN1_GENERALIZEDTIME *a1time::ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out)
         {

@@ -55,6 +55,7 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qradiobutton.h>
+#include <qmessagebox.h>
 #include <qlineedit.h>
 #include <qlabel.h>
 #include <qwhatsthis.h>
@@ -132,7 +133,7 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 {
         connect( extDNadd, SIGNAL(clicked()), this, SLOT(addX509NameEntry()) );
         connect( extDNdel, SIGNAL(clicked()), this, SLOT(delX509NameEntry()) );
-		
+	int i;
 	setCaption(tr(XCA_TITLE));
 	fixtemp = NULL;
 	nsImg->setPixmap(*MainWindow::nsImg);
@@ -188,11 +189,11 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	tempList->insertStringList(strings);
 	
 	// setup Extended keyusage
-	for (int i=0; i<EKUN_CNT; i++)
+	for (i=0; i<EKUN_CNT; i++)
 		ekeyUsage->insertItem(OBJ_nid2ln(eku_nid[i]));
 
 	// setup Distinguished Name 
-	for (int i=0; i<DISTNAME_CNT; i++)
+	for (i=0; i<DISTNAME_CNT; i++)
 		extDNobj->insertItem(OBJ_nid2ln(dn_nid[i]));
 
 	// init the X509 v3 context
@@ -226,7 +227,7 @@ void NewX509::setRequest()
 	signerBox->setEnabled(false);
 	requestBox->setEnabled(false);
 	startText=tr("\
-Welcome to the settings for certificate signing requests.
+Welcome to the settings for certificate signing requests.\n\
 A signing request needs a private key, so it will be created \
 if there isn't any unused key available in the key database. \
 This signing request can then be given to a Certification authority \
@@ -251,13 +252,13 @@ void NewX509::setTemp(pki_temp *temp)
 	setAppropriate(page1, false);
 	finishButton()->setEnabled(true);
 	startText=tr("\
-Welcome to the settings for Templates.
+Welcome to the settings for Templates.\n\
 This templates do not refer to any ASN.1 structure but are used to keep default \
 settings for signing requests and certificates. \
 When creating a Request or Certificate the template can preset the needed fields \
 with default settings.");
 	endText=tr("\
-You are done with entering all parameters for the Template.
+You are done with entering all parameters for the Template.\n\
 After this step the template can be assigned to one of your CAs to be autoatically \
 applied when signing with this CA.");
 	tText=tr("Template");
@@ -275,7 +276,12 @@ applied when signing with this CA.");
 void NewX509::setCert()
 {
 	finishButton()->setEnabled(true);
-	startText=tr("Welcome to the settings for Certificates. The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.");
+	startText=tr("Welcome to the settings for Certificates.\n\
+The information for the new Certificate can either be grabbed from a given \
+Certificate-request or be filled in by hand. In the case of not signing a request \
+there needs to be at least one unused key. If this is not the case it will be created. \
+If you want to self-sign a request (unusual but nevertheless possible) you need the \
+private key used to create the request.");
 	endText=tr("You are done with entering all parameters for creating a Certificate.");
 	tText=tr("Certificate");
 	setup();
@@ -401,10 +407,9 @@ void NewX509::fromTemplate(pki_temp *temp)
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
 	}
-	int faktor[] = { 1, 30, 365 };
 	a1time a;
 	notBefore->setDate(a.now());
-	notAfter->setDate(a.now(3600 * faktor[temp->validM] * temp->validN - 1 ));
+	applyTimeDiff();
 }
 
 void NewX509::toTemplate(pki_temp *temp)
@@ -677,4 +682,21 @@ const EVP_MD *NewX509::getHashAlgo()
 {
 	const EVP_MD *ha[] = {EVP_md2(), EVP_md5(), EVP_sha1()};
 	return ha[hashAlgo->currentItem()];
+}
+
+void NewX509::applyTimeDiff()
+{
+	int faktor[] = { 1, 30, 365 };
+	int N = validNumber->text().toInt();
+	int M = validRange->currentItem();
+	a1time a;
+	time_t t;
+	time(&t);
+	long long int delta = (long long int)(60L * 60 * 24 * faktor[M] * N - 1) + t;
+	if (delta > 2147483647)
+		 QMessageBox::warning(this, XCA_TITLE, "Time difference too big" );
+	printf("Delta: %lld\n",delta);
+	delta -= t;
+    notBefore->setDate(a.now());
+	notAfter->setDate(a.now(delta));	 
 }

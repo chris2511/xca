@@ -130,6 +130,7 @@ class NewX509: public NewX509_UI
 	void addX509NameEntry();
 	void delX509NameEntry();
 	void checkAuthKeyId();
+	void applyTimeDiff();
    signals:
 	void genKey();
 };
