@@ -13,7 +13,7 @@ MOC=@MOC@
 ##############################################
 
 
-PKIOBJS=pki_base.o pki_key.o pki_x509req.o pki_x509.o pki_pkcs12.o pki_temp.o
+PKIOBJS=pki_base.o pki_key.o pki_x509req.o pki_x509.o pki_pkcs12.o pki_temp.o pki_crl.o
 DBNAMES=db_key db_x509req db_x509 db_temp
 DBOBJS=db_base.o $(patsubst %,%.o,$(DBNAMES)) $(patsubst %,moc_%.o,$(DBNAMES))
 DB_CPP=$(patsubst %,moc_%.cpp,$(DBNAMES))
@@ -37,4 +37,4 @@ distclean: clean
 moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@
   
-.INTERMEDIATE: $(DB_CPP)
+.SECONDARY: $(DB_CPP)

@@ -195,6 +195,7 @@ class MainWindow: public MainWindow_UI
 	void setSerial();
 	void setCrlDays();
 	void setTemplate();
+	void genCrl();
    signals:
 	void keyDone(QString name);
 };

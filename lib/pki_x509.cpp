@@ -292,11 +292,11 @@ unsigned char *pki_x509::toData(int *size)
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
 	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
-	int sLastCrl = (revoked ? i2d_ASN1_TIME(lastCrl, NULL) : 0);
+	int sLastCrl = (lastCrl ? i2d_ASN1_TIME(lastCrl, NULL) : 0);
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();
-	CERR <<"CertSize: "<<sCert << "RevSize: " <<sRev << endl;
+	CERR <<"CertSize: "<<sCert << "  RevSize: " <<sRev " CRLdatesize: "<< sLastCrl<< endl;
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
 	intToData(&p1, (PKI_DB_VERSION)); // version
@@ -558,6 +558,7 @@ void pki_x509::setRevoked(bool rev)
 		setTrust(0);
 		if (revoked) return;
 		revoked = ASN1_TIME_new();
+		if (openssl_error()) return;
 		X509_gmtime_adj(revoked,0);
 	}
 	else {
@@ -606,3 +607,10 @@ void pki_x509::setCrlDays(int s){if (s>0) crlDays = s;}
 string pki_x509::getTemplate(){ return caTemplate; }
 
 void pki_x509::setTemplate(string s) {if (s.length()>0) caTemplate = s; }
+
+void pki_x509::setLastCrl(ASN1_TIME *time)
+{
+	if (!time) return;
+	lastCrl=M_ASN1_TIME_dup(time);
+	openssl_error();
+}

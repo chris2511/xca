@@ -53,6 +53,7 @@
 #include <qpixmap.h>
 #include "db_key.h"
 #include "pki_x509.h"
+#include "pki_crl.h"
 
 #ifndef DB_X509_H
 #define DB_X509_H
@@ -78,6 +79,7 @@ class db_x509: public db_base
 	QStringList getSignerDesc();
 	pki_key * findKey(pki_x509 *cert);
 	void calcEffTrust();
+	void assignClients(pki_crl *crl);
     public slots:
 	void delKey(pki_key *delkey);
     	void newKey(pki_key *newKey);

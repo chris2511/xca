@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>780</width>
+            <width>776</width>
             <height>604</height>
         </rect>
     </property>
@@ -805,19 +805,13 @@
                                 <bool>true</bool>
                             </property>
                         </column>
-                    <item>
-                        <property>
-                            <name>text</name>
-                            <string>Item</string>
-                        </property>
-                        <property>
-                            <name>pixmap</name>
-                            <pixmap></pixmap>
-                        </property>
-                    </item>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>tempList_2</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>enabled</name>
+                            <bool>false</bool>
                         </property>
                     </widget>
                     <widget>
@@ -850,6 +844,10 @@
                                     <cstring>PushButton13_2_2_5</cstring>
                                 </property>
                                 <property stdset="1">
+                                    <name>enabled</name>
+                                    <bool>false</bool>
+                                </property>
+                                <property stdset="1">
                                     <name>text</name>
                                     <string>Import</string>
                                 </property>
@@ -861,6 +859,10 @@
                                     <cstring>PushButton13_2_2_2_2</cstring>
                                 </property>
                                 <property stdset="1">
+                                    <name>enabled</name>
+                                    <bool>false</bool>
+                                </property>
+                                <property stdset="1">
                                     <name>text</name>
                                     <string>Create</string>
                                 </property>
@@ -870,6 +872,10 @@
                                 <property stdset="1">
                                     <name>name</name>
                                     <cstring>PushButton26_2_2_2</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>enabled</name>
+                                    <bool>false</bool>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>

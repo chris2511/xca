@@ -494,7 +494,7 @@ void MainWindow::writeCert()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
-	filt.append(tr("All Files ( *.* )"));
+	filt.append(tr("All files ( *.* )"));
 	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate export"));
@@ -517,8 +517,8 @@ void MainWindow::writePKCS12()
 	if (!cert) return;
 	pki_key *privkey = (pki_key *)keys->findPKI(cert->getKey());
 	if (privkey->isPubKey()) return; /* should not happen */
-	filt.append(tr("PKCS#12 bags ( *.p12 *.pfx )")); 
-	filt.append(tr("All Files ( *.* )"));
+	filt.append(tr("PKCS#12 files ( *.p12 *.pfx )")); 
+	filt.append(tr("All files ( *.* )"));
 	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("PKCS#12 export"));
@@ -625,8 +625,11 @@ void MainWindow::revoke()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	cert->setRevoked(true);
+	CERR << "setRevoked..." <<endl;
 	certs->updatePKI(cert);
+	CERR << "updatePKI done"<<endl;
 	certs->updateViewAll();
+	CERR << "view updated" <<endl;
 }
 
 void MainWindow::unRevoke()
@@ -690,6 +693,43 @@ void MainWindow::setTemplate()
 	}
 }
 
+void MainWindow::genCrl() 
+{
+	QStringList filt;
+	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
+	if (cert->getKey()->isPubKey()) return;
+	filt.append(tr("CRLs ( *.crl )")); 
+	filt.append(tr("All Files ( *.* )"));
+	QString s;
+	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("CRL export"));
+	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setSelection( (cert->getDescription() + ".crl").c_str() );
+	if (dlg->exec())
+		s = dlg->selectedFile();
+	if (s == "") return;
+	s = QDir::convertSeparators(s);
+	
+	pki_crl *crl = new pki_crl(cert->getDescription(), cert);
+	if (opensslError(crl)) {
+		delete(crl);
+		return;
+	}
+	certs->assignClients(crl);
+	crl->addV3ext(NID_authority_key_identifier,"keyid:always,issuer:always");
+	crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
+	crl->sign(cert->getKey());
+	if (!opensslError(crl)) {
+		crl->writeCrl(s.latin1());
+		cert->setLastCrl(crl->getDate());
+		certs->updatePKI(cert);
+		CERR << "CRL done, completely" <<endl;
+	}
+	delete(crl);
+ 	CERR << "crl deleted" << endl;
+}
 
 
 void MainWindow::startRenameCert()

@@ -60,6 +60,8 @@ ExportKey::ExportKey(QString fname, bool onlypub,
 {
 	filename->setText(fname);
 	onlyPub = onlypub;
+	exportFormat->insertItem("PEM");
+	exportFormat->insertItem("DER");
 	if (onlyPub) {
 		privFrame->setDisabled(true);
 		exportPrivate->setDisabled(true);
@@ -67,6 +69,7 @@ ExportKey::ExportKey(QString fname, bool onlypub,
 	}		
 	else {
 		exportPrivate->setChecked(true);
+		exportFormat->insertItem("PKCS#8");
 	}
 	canEncrypt();	
 }

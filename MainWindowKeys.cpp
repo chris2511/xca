@@ -228,10 +228,6 @@ void MainWindow::writeKey()
 	if (!targetKey) return;
 	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
 			targetKey->isPubKey(), this);
-	dlg->exportFormat->insertItem("PEM");
-	dlg->exportFormat->insertItem("DER");
-	if (targetKey->isPrivKey())
-		dlg->exportFormat->insertItem("PKCS#8");
 	dlg->image->setPixmap(*keyImg);
 	if (!dlg->exec()) return;
 	string fname = dlg->filename->text().latin1();

@@ -61,17 +61,18 @@
 
 class pki_x509 : public pki_base
 {
+	friend class pki_crl;
 	private:
 	   pki_x509 *psigner;
 	   pki_key *pkey;
            X509V3_CTX ext_ctx;
-	   X509 *cert;
 	   ASN1_TIME *revoked, *lastCrl;
 	   int trust;
 	   int efftrust;
 	   int caSerial;
 	   int crlDays;
 	   string caTemplate;
+	   X509 *cert;
 	public:
 	   pki_x509(string d, pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509(X509 *c);
@@ -118,6 +119,7 @@ class pki_x509 : public pki_base
 	   string getTemplate();
 	   void setCrlDays(int s);
 	   int getCrlDays();
+	   void setLastCrl(ASN1_TIME *time);
 };
 
 #endif
