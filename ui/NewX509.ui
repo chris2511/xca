@@ -810,7 +810,7 @@ Empy, CA, client, server</string>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Country</string>
+                                    <string>State or Province</string>
                                 </property>
                             </widget>
                             <widget row="2"  column="1" >
