@@ -1,3 +1,12 @@
+xca (0.2.11) unstable; urgency=low
+
+  * Certificate export enhanced, increase signer-serial on certimport.
+  * interpretation of serial as hex and not as dezimal.
+  * configure continues even if qt lib is absent.
+  * $HOME/xca is created if it does not exist.
+
+ -- Christian Hohnstädt <chris@trinity.local>  Wed,  4 Dec 2002 21:38:28 +0100
+
 xca (0.2.10) unstable; urgency=low
 
   * shows not After time and serial in listview
@@ -8,7 +17,7 @@ xca (0.2.10) unstable; urgency=low
   * create request from certificate
   * FreeBSD paths and libs  recognized by configure
 
- -- Christian Hohnstädt <chris@trinity.local>  Tue, 29 Oct 2002 19:02:54 +0100
+ -- Christian Hohnstädt <chris@trinity.local>  Wed,  4 Dec 2002 21:34:41 +0100
 
 xca (0.2.9) unstable; urgency=low
 
