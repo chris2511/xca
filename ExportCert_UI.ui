@@ -17,7 +17,7 @@
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Cerificate export</string>
+        <string>Certificate export</string>
     </property>
     <vbox>
         <property stdset="1">

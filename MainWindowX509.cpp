@@ -1099,7 +1099,9 @@ void MainWindow::setTemplate()
 void MainWindow::genCrl() 
 {
 	QStringList filt;
+	QList<pki_x509> list;
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	pki_x509 *issuedcert = NULL;
 	if (!cert) return;
 	if (cert->getKey()->isPubKey()) return;
 	filt.append(tr("CRLs ( *.crl )")); 
@@ -1117,9 +1119,17 @@ void MainWindow::genCrl()
 	s = QDir::convertSeparators(s);
 	try {	
 		pki_crl *crl = new pki_crl(cert->getDescription(), cert);
-		certs->assignClients(crl);
+
+		list = certs->getIssuedCerts(cert);
+		if (!list.isEmpty()) {
+	       		for ( issuedcert = list.first(); issuedcert != NULL; issuedcert = list.next() ) {
+				if (issuedcert->isRevoked() ) {
+					crl->addRevoked(issuedcert);
+				}
+			}
+		}
 		crl->addV3ext(NID_authority_key_identifier,"keyid,issuer");
-		//crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
+		crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
 		crl->sign(cert->getKey());
 		crl->writeCrl(s.latin1());
 		cert->setLastCrl(crl->getDate());

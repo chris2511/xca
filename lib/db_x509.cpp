@@ -345,17 +345,19 @@ void db_x509::insertPKI(pki_base *pki)
 	keylist->updateView();
 }				
 
-void db_x509::assignClients(pki_crl *crl)
+
+QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer)
 {
-	if (!crl) return;
-	pki_x509 *issuer = crl->getIssuer();
 	pki_x509 *cert = NULL;
-	if (!issuer) return;
+	QList<pki_x509> c;
+	c.clear();
+	if (!issuer) return c;
        	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
-		if ((cert->getSigner() == issuer) && (cert->isRevoked())) {
-			crl->addRevoked(cert);
+		if (cert->getSigner() == issuer) {
+			c.append(cert);
 		}
 	}
+	return c;
 }
 
 void db_x509::writeAllCerts(QString fname, bool onlyTrusted)

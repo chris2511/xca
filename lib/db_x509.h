@@ -79,7 +79,7 @@ class db_x509: public db_base
 	QStringList getSignerDesc();
 	pki_key * findKey(pki_x509 *cert);
 	void calcEffTrust();
-	void assignClients(pki_crl *crl);
+	QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer);
 	int searchSerial(pki_x509 *signer);
 	void writeAllCerts(QString fname, bool onlyTrusted);
     public slots:

@@ -60,8 +60,8 @@ There are several default file-formats to exchange cryptographic the data with
 other applications.
 <itemize>
 <item><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding <bf>R</bf>ules is the binary ASN.1 encoding of the data.
-<item><bf>PEM</bf> is the base64 encoded version of the <bf>DER</bf> formatted data 
-	with additional header and footer lines to be transported via e.g. E-mail
+<item><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail is the base64 encoded version of the 
+	<bf>DER</bf> formatted data with additional header and footer lines to be transported via e.g. E-mail
 <item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards 
 	published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 	
