@@ -1,3 +1,13 @@
+xca (0.2.6) unstable; urgency=low
+
+  * show common name in request list and certificate list
+  * CRL generation added
+  * Key-export fixed
+  * signing-template, CRL date and CRL time interval adjustable
+  * Fix for windows filenames
+
+ -- Christian Hohnstädt <chris@trinity.local>  Mon, 30 Sep 2002 22:02:01 +0200
+
 xca (0.2.5) unstable; urgency=low
 
   *  Certificate and Template Wizard completed
