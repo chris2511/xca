@@ -60,11 +60,11 @@ void pki_x509req::init()
 }
 
 
-pki_x509req::pki_x509req(pki_key *key, const std::string cn,
-		const std::string c, const std::string l,
-		const std::string st,const std::string o,
-		const std::string ou,const std::string email, 
-		const std::string d, const std::string challenge)
+pki_x509req::pki_x509req(pki_key *key, const string cn,
+		const string c, const string l,
+		const string st,const string o,
+		const string ou,const string email, 
+		const string d, const string challenge)
 		:pki_base( d )
 {
 	init();
@@ -144,7 +144,7 @@ pki_x509req::~pki_x509req()
 }
 
 
-pki_x509req::pki_x509req(const std::string fname)
+pki_x509req::pki_x509req(const string fname)
 {
 	init();
 	FILE *fp = fopen(fname.c_str(),"r");
@@ -180,10 +180,10 @@ void pki_x509req::fromData(unsigned char *p, int size)
 }
 
 
-std::string pki_x509req::getDN(int nid)
+string pki_x509req::getDN(int nid)
 {
 	char buf[200] = "";
-	std::string s;
+	string s;
 	X509_NAME *subj = X509_REQ_get_subject_name(request);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
 	openssl_error();
@@ -205,7 +205,7 @@ unsigned char *pki_x509req::toData(int *size)
 }
 
 
-void pki_x509req::writeReq(const std::string fname, bool PEM)
+void pki_x509req::writeReq(const string fname, bool PEM)
 {
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {

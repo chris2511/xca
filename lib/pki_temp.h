@@ -68,16 +68,16 @@ class pki_temp: public pki_base
 	int version;
 	
     public:
-	std::string C,P,L,O,OU,CN,EMAIL;
-	std::string subAltName, issAltName, crlDist;
-	std::string nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
+	string C,P,L,O,OU,CN,EMAIL;
+	string subAltName, issAltName, crlDist;
+	string nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 	bool ca, bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp, issAltCp ;
 	int type, nsCertType, pathLen, validN, validM, keyUse, eKeyUse;
      
     // methods
     
 	pki_temp(const pki_temp *pk);
-	pki_temp(const std::string d, int atype=0);
+	pki_temp(const string d, int atype=0);
 	/* destructor */
 	~pki_temp();
 	void fromData(unsigned char *p, int size);

@@ -50,6 +50,8 @@
 
 #include <string>
 
+using namespace std;
+
 #ifdef HAVE_CONFIG_H
 #include "../config.h"
 #endif
@@ -62,15 +64,15 @@
 class errorEx
 {
 	private:
-		std::string msg;
+		string msg;
 	public:
-		errorEx(std::string txt, std::string className = "") {
+		errorEx(string txt, string className = "") {
 			msg = txt; 
 			if (!className.empty())
 				msg += " (" + className + ")";
 		}
 		errorEx(const errorEx &e) { msg = e.msg; }
-		std::string getString(){return msg;}
+		string getString(){return msg;}
 		const char *getCString(){return msg.c_str();}
 		bool isEmpty() { return msg.empty();}
 };

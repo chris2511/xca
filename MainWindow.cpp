@@ -163,10 +163,10 @@ QPixmap *MainWindow::loadImg(const char *name )
 void MainWindow::initPass()
 {
 	PASS_INFO p;
-	std::string passHash = settings->getString("pwhash");
+	string passHash = settings->getString("pwhash");
 	if (passHash == "") {
-		std::string title=tr("New Password").latin1();
-		std::string description=tr("Please enter a password, that will be used to encrypt your private keys in the database-file").latin1();
+		string title=tr("New Password").latin1();
+		string description=tr("Please enter a password, that will be used to encrypt your private keys in the database-file").latin1();
 		p.title = &title;
 		p.description = &description;
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
@@ -181,8 +181,8 @@ void MainWindow::initPass()
 	     while (md5passwd() != passHash) {
 		if (keylen !=0)
 			QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error, please try again"));	
-		std::string title=tr("Password").latin1();
-		std::string description=tr("Please enter the password for unlocking the database").latin1();
+		string title=tr("Password").latin1();
+		string description=tr("Please enter the password for unlocking the database").latin1();
 		p.title = &title;
 		p.description = &description;
 		keylen = passRead(pki_key::passwd, 25, 0, &p);
@@ -257,11 +257,11 @@ void MainWindow::incProgress(int a, int b, void *progress)
 }
 
 
-std::string MainWindow::md5passwd()
+string MainWindow::md5passwd()
 {
 
 	EVP_MD_CTX mdctx;
-	std::string str;
+	string str;
 	unsigned int n;
 	int j;
 	char zs[4];
@@ -278,7 +278,7 @@ std::string MainWindow::md5passwd()
 
 bool MainWindow::opensslError(pki_base *pki)
 {
-	std::string err;
+	string err;
 
 	if (!pki) {
 		QMessageBox::warning(this,tr(XCA_TITLE), tr("The system detected a NULL pointer, maybe the system is out of memory" ));
@@ -318,7 +318,7 @@ void MainWindow::dberr(const char *errpfx, char *msg)
 
 void MainWindow::setPath(QFileDialog *dlg)
 {
-	std::string wd = settings->getString("workingdir");	
+	string wd = settings->getString("workingdir");	
 	if (!wd.empty()) {
 		dlg->setDir(QString(wd.c_str()));
 	}
@@ -326,6 +326,6 @@ void MainWindow::setPath(QFileDialog *dlg)
 
 void MainWindow::newPath(QFileDialog *dlg)
 {
-	std::string wd = dlg->dirPath().latin1();
+	string wd = dlg->dirPath().latin1();
 	settings->putString("workingdir", wd);
 }

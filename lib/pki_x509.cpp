@@ -53,7 +53,7 @@
 #include "pki_x509.h"
 
 
-pki_x509::pki_x509(std::string d,pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial)
+pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *signer, int days, int serial)
 		:pki_base( d )
 {
 	init();
@@ -127,7 +127,7 @@ pki_x509::pki_x509() : pki_base()
 	openssl_error();
 }
 
-pki_x509::pki_x509(const std::string fname)
+pki_x509::pki_x509(const string fname)
 {
 	FILE *fp = fopen(fname.c_str(),"r");
 	init();
@@ -201,7 +201,7 @@ void pki_x509::setDates(int days)
 	openssl_error();
 }
 	
-void pki_x509::addV3ext(int nid, std::string exttext)
+void pki_x509::addV3ext(int nid, string exttext)
 {	
 	X509_EXTENSION *ext;
 	int len; 
@@ -214,7 +214,7 @@ void pki_x509::addV3ext(int nid, std::string exttext)
 	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
 	OPENSSL_free(c);
 	if (!ext) {
-		std::string x="v3 Extension: " + exttext;
+		string x="v3 Extension: " + exttext;
 		openssl_error(x);
 		return;
 	}
@@ -359,10 +359,10 @@ unsigned char *pki_x509::toData(int *size)
 }
 
 
-std::string pki_x509::getDNs(int nid)
+string pki_x509::getDNs(int nid)
 {
 	char buf[200] = "";
-	std::string s;
+	string s;
 	X509_NAME *subj = X509_get_subject_name(cert);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
 	openssl_error();
@@ -370,10 +370,10 @@ std::string pki_x509::getDNs(int nid)
 	return s;
 }
 
-std::string pki_x509::getDNi(int nid)
+string pki_x509::getDNi(int nid)
 {
 	char buf[200] = "";
-	std::string s;
+	string s;
 	X509_NAME *iss = X509_get_issuer_name(cert);
 	X509_NAME_get_text_by_NID(iss, nid, buf, 200);
 	openssl_error();
@@ -381,26 +381,26 @@ std::string pki_x509::getDNi(int nid)
 	return s;
 }
 
-std::string pki_x509::notBefore()
+string pki_x509::notBefore()
 {
 	return asn1TimeToString(X509_get_notBefore(cert));
 }
 
 
-std::string pki_x509::notAfter()
+string pki_x509::notAfter()
 {
 	return asn1TimeToString(X509_get_notAfter(cert));
 }
 
-std::string pki_x509::revokedAt()
+string pki_x509::revokedAt()
 {
 	return asn1TimeToString(revoked);
 }
 
 
-std::string pki_x509::asn1TimeToString(ASN1_TIME *a)
+string pki_x509::asn1TimeToString(ASN1_TIME *a)
 {
-	std::string time = "";
+	string time = "";
 	if (!a) return time;
 	BIO * bio = BIO_new(BIO_s_mem());
 	char buf[200];
@@ -413,7 +413,7 @@ std::string pki_x509::asn1TimeToString(ASN1_TIME *a)
 }
 
 
-void pki_x509::writeCert(const std::string fname, bool PEM, bool append)
+void pki_x509::writeCert(const string fname, bool PEM, bool append)
 {
 	FILE *fp;
 	if (append)
@@ -484,10 +484,10 @@ pki_key *pki_x509::getPubKey()
 
 
 
-std::string pki_x509::fingerprint(const EVP_MD *digest)
+string pki_x509::fingerprint(const EVP_MD *digest)
 {
 	 int j;
-	 std::string fp="";
+	 string fp="";
 	 char zs[4];
          unsigned int n;
          unsigned char md[EVP_MAX_MD_SIZE];
@@ -556,7 +556,7 @@ void pki_x509::delKey() { pkey = NULL; }
 
 void pki_x509::delSigner() { psigner=NULL; }
 
-std::string pki_x509::printV3ext()
+string pki_x509::printV3ext()
 {
 #define V3_BUF 100
 	ASN1_OBJECT *obj;
@@ -564,7 +564,7 @@ std::string pki_x509::printV3ext()
 	int i, len, n = X509_get_ext_count(cert);
 	char buffer[V3_BUF+1];
 	X509_EXTENSION *ex;
-	std::string text="";
+	string text="";
 	for (i=0; i<n; i++) {
 		text += "<b><u>";
 		ex = X509_get_ext(cert,i);
@@ -595,14 +595,14 @@ std::string pki_x509::printV3ext()
 	return text;
 }
 
-std::string pki_x509::getSerial()
+string pki_x509::getSerial()
 {
 	char buf[100];
 	BIO *bio = BIO_new(BIO_s_mem());
 	i2a_ASN1_INTEGER(bio, cert->cert_info->serialNumber);
 	int len = BIO_read(bio, buf, 100);
 	buf[len]='\0';
-	std::string x = buf;
+	string x = buf;
 	BIO_free(bio);
 	openssl_error();
 	return x;
@@ -691,9 +691,9 @@ int pki_x509::getCrlDays() {return crlDays;}
 
 void pki_x509::setCrlDays(int s){if (s>0) crlDays = s;}
 
-std::string pki_x509::getTemplate(){ return caTemplate; }
+string pki_x509::getTemplate(){ return caTemplate; }
 
-void pki_x509::setTemplate(std::string s) {if (s.length()>0) caTemplate = s; }
+void pki_x509::setTemplate(string s) {if (s.length()>0) caTemplate = s; }
 
 void pki_x509::setLastCrl(ASN1_TIME *time)
 {

@@ -83,9 +83,9 @@ void MainWindow::alterTemp()
 	pki_temp *temp = (pki_temp *)temps->getSelectedPKI();
 	if (!temp) return;
 	MARK
-	std::string oldname = temp->getDescription();
+	string oldname = temp->getDescription();
 	alterTemp(temp);
-	std::string newname = temp->getDescription();
+	string newname = temp->getDescription();
 	if (newname!= oldname) {
 		temp->setDescription(oldname);
 		temps->renamePKI(temp, newname);
@@ -154,7 +154,7 @@ void MainWindow::showPopupTemp(QListViewItem *item, const QPoint &pt, int x) {
 void MainWindow::renameTemp(QListViewItem *item, int col, const QString &text)
 {
 	pki_base *pki = temps->getSelectedPKI(item);
-	std::string txt =  text.latin1();
+	string txt =  text.latin1();
 	temps->renamePKI(pki, txt);
 }
 

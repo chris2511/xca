@@ -52,7 +52,7 @@
 #include "pki_pkcs12.h"
 
 
-pki_pkcs12::pki_pkcs12(const std::string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
+pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
 	pki_base(d)
 {
 	key = new pki_key(akey);
@@ -64,7 +64,7 @@ pki_pkcs12::pki_pkcs12(const std::string d, pki_x509 *acert, pki_key *akey, pem_
 	className="pki_pkcs12";
 }
 
-pki_pkcs12::pki_pkcs12(const std::string fname, pem_password_cb *cb)
+pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 	:pki_base(fname)
 { 
 	FILE *fp;
@@ -75,8 +75,8 @@ pki_pkcs12::pki_pkcs12(const std::string fname, pem_password_cb *cb)
 	passcb = cb;
 	certstack = sk_X509_new_null();
 	PASS_INFO p;
-	std::string title = XCA_TITLE;
-	std::string description = "Please enter the password to encrypt the PKCS#12 file.";
+	string title = XCA_TITLE;
+	string description = "Please enter the password to encrypt the PKCS#12 file.";
 	p.title = &title;
 	p.description = &description;
 	fp = fopen(fname.c_str(), "rb");
@@ -128,14 +128,14 @@ void pki_pkcs12::addCaCert(pki_x509 *ca)
 	openssl_error();
 }	
 
-void pki_pkcs12::writePKCS12(const std::string fname)
+void pki_pkcs12::writePKCS12(const string fname)
 { 
 	char pass[30];
 	char desc[100];
 	strncpy(desc,getDescription().c_str(),100);
 	PASS_INFO p;
-	std::string title = XCA_TITLE;
-	std::string description = "Please enter the password to encrypt the PKCS#12 file";
+	string title = XCA_TITLE;
+	string description = "Please enter the password to encrypt the PKCS#12 file";
 	p.title = &title;
 	p.description = &description;
 	if (!pkcs12) {

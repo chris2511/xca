@@ -63,7 +63,7 @@ class db_key: public db_base
     protected:
 	QPixmap *keyicon[2];
     public:
-	db_key(DbEnv *dbe, std::string DBfile, QListView *l);
+	db_key(DbEnv *dbe, string DBfile, QListView *l);
 	pki_base *newPKI();
 	QStringList getPrivateDesc();
 	QStringList get0PrivateDesc();

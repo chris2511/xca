@@ -77,8 +77,8 @@ class pki_pkcs12: public pki_base
 	pem_password_cb *passcb;
     public:
 		
-	pki_pkcs12(const std::string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb);   
-	pki_pkcs12(const std::string fname, pem_password_cb *cb);
+	pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb);   
+	pki_pkcs12(const string fname, pem_password_cb *cb);
 	
 	/* destructor */
 	~pki_pkcs12();
@@ -90,7 +90,7 @@ class pki_pkcs12: public pki_base
 	//bool fromData(unsigned char *p, int size);
 	//unsigned char *toData(int *size);
 	//bool compare(pki_base *ref);
-	void writePKCS12(const std::string fname);
+	void writePKCS12(const string fname);
 };
 
 #endif

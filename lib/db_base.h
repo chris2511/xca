@@ -92,9 +92,9 @@ class db_base: public QObject
 	QList<pki_base> container;
 	void _writePKI(pki_base *pki, bool overwrite, DbTxn *tid );
 	void _removePKI(pki_base *pki, DbTxn *tid );
-	void removeItem(std::string k, DbTxn *tid);
+	void removeItem(string k, DbTxn *tid);
     public:
-	db_base(DbEnv *dbe, std::string DBfile, std::string db);
+	db_base(DbEnv *dbe, string DBfile, string db);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		CERR("VIRTUAL CALLED: newPKI"); return NULL;}
@@ -103,9 +103,9 @@ class db_base: public QObject
 	virtual void insertPKI(pki_base *pki);
 	virtual void deletePKI(pki_base *pki);
 	virtual void updatePKI(pki_base *pki);
-	virtual void renamePKI(pki_base *pki, std::string desc);
+	virtual void renamePKI(pki_base *pki, string desc);
 	pki_base *getSelectedPKI(void *item);
-	pki_base *getSelectedPKI(std::string desc);
+	pki_base *getSelectedPKI(string desc);
 	pki_base *getSelectedPKI();
 	pki_base *findPKI(pki_base *refpki);
 	virtual void loadContainer();
@@ -116,15 +116,15 @@ class db_base: public QObject
 	virtual void remFromCont(pki_base *pki);
 	virtual void inToCont(pki_base *pki);
 	void *getData(void* key, int length, int *dsize);
-	void *getData(std::string key, int *dsize);
-	std::string getString(std::string key);
-	std::string getString(char *key);
-	int getInt(std::string key);
+	void *getData(string key, int *dsize);
+	string getString(string key);
+	string getString(char *key);
+	int getInt(string key);
 	void putData(void *key, int keylen, void *dat, int datalen);
-	void putString(std::string key, void *dat, int datalen);
-	void putString(std::string key, std::string dat);
-	void putString(char *key, std::string dat);
-	void putInt(std::string key, int dat);
+	void putString(string key, void *dat, int datalen);
+	void putString(string key, string dat);
+	void putString(char *key, string dat);
+	void putInt(string key, int dat);
 	QPixmap *loadImg(const char *name);
 	void setSelected(pki_base *item);
 };

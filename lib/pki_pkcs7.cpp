@@ -52,7 +52,7 @@
 #include "pki_pkcs7.h"
 
 
-pki_pkcs7::pki_pkcs7(const std::string d )
+pki_pkcs7::pki_pkcs7(const string d )
 	:pki_base(d)
 { 
 	p7 = NULL;
@@ -67,7 +67,7 @@ pki_pkcs7::~pki_pkcs7()
 	if (certstack) sk_X509_free(certstack);
 }
 
-void pki_pkcs7::encryptFile(pki_x509 *crt, std::string filename)
+void pki_pkcs7::encryptFile(pki_x509 *crt, string filename)
 {
 	BIO *bio = NULL;
 	if (!crt) return;
@@ -81,6 +81,7 @@ void pki_pkcs7::encryptFile(pki_x509 *crt, std::string filename)
 	p7 = PKCS7_encrypt(certstack, bio, EVP_des_ede3_cbc(), PKCS7_BINARY);
 	openssl_error();	
 	sk_X509_free(certstack);
+	certstack = NULL;
 }
 
 void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
@@ -102,10 +103,11 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	p7 = PKCS7_sign(crt->getCert(), privkey->getKey(), certstack, bio, PKCS7_BINARY);
 	openssl_error();	
 	sk_X509_free(certstack);
+	certstack = NULL;
 }
 
 
-void pki_pkcs7::signFile(pki_x509 *crt, std::string filename)
+void pki_pkcs7::signFile(pki_x509 *crt, string filename)
 {
 	BIO *bio = NULL;
 	if (!crt) return;
@@ -126,7 +128,7 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 	BIO_free(bio);
 }
 
-void pki_pkcs7::writeP7(std::string fname,bool PEM)
+void pki_pkcs7::writeP7(string fname,bool PEM)
 {
 	FILE *fp;
         fp = fopen(fname.c_str(),"w");
@@ -144,6 +146,7 @@ void pki_pkcs7::writeP7(std::string fname,bool PEM)
 }
 
 pki_x509 *pki_pkcs7::getCert(int x) {
+	if (!certstack) return NULL;
 	pki_x509 *cert;
 	cert = new pki_x509(X509_dup(sk_X509_value(certstack, x)));
 	openssl_error();
@@ -152,12 +155,13 @@ pki_x509 *pki_pkcs7::getCert(int x) {
 }
 
 int pki_pkcs7::numCert() {
+	if (!certstack) return NULL;
 	int n= sk_X509_num(certstack);
 	openssl_error();
 	return n;
 }
 
-void pki_pkcs7::readP7(std::string fname)
+void pki_pkcs7::readP7(string fname)
 {
 	FILE *fp;
 	fp = fopen(fname.c_str(), "rb");

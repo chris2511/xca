@@ -52,7 +52,7 @@
 #include "db_x509.h"
 
 
-db_x509::db_x509(DbEnv *dbe, std::string DBfile, QListView *l, db_key *keyl)
+db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
 		:db_base(dbe, DBfile, "certdb")
 {
 	keylist = keyl;

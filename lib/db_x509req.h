@@ -64,7 +64,7 @@ class db_x509req: public db_base
 	db_key *keylist;
 	QPixmap *reqicon[2];
     public:
-	db_x509req(DbEnv *dbe, std::string DBfile, QListView *l, db_key *keyl);
+	db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl);
 	pki_base *newPKI();
 	void updateViewPKI(pki_base *pki);
 	void preprocess();

@@ -59,7 +59,7 @@ void pki_key::init()
 	className = "pki_key";
 }
 	
-pki_key::pki_key(const std::string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
+pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
 {
 	init();
 	key = EVP_PKEY_new();
@@ -87,7 +87,7 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 }
 
-pki_key::pki_key(const std::string d, int type )
+pki_key::pki_key(const string d, int type )
 	:pki_base(d)
 { 
 	init();
@@ -103,13 +103,13 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	key = pkey;
 }	
 
-pki_key::pki_key(const std::string fname, pem_password_cb *cb, int type )
+pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 	:pki_base(fname)
 { 
 	init();
 	PASS_INFO p;
-	std::string title = XCA_TITLE;
-	std::string description = "Please enter the password to decrypt the RSA key."; 
+	string title = XCA_TITLE;
+	string description = "Please enter the password to decrypt the RSA key."; 
 	p.title = &title;
 	p.description = &description;
 	key = EVP_PKEY_new();
@@ -288,11 +288,11 @@ pki_key::~pki_key()
 }
 
 
-void pki_key::writePKCS8(const std::string fname, pem_password_cb *cb)
+void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 {
 	PASS_INFO p;
-	std::string title=XCA_TITLE;
-	std::string description="Please enter the password protecting the PKCS#8 key";
+	string title=XCA_TITLE;
+	string description="Please enter the password protecting the PKCS#8 key";
 	p.title = &title;
 	p.description = &description;
 	FILE *fp = fopen(fname.c_str(),"w");
@@ -308,12 +308,12 @@ void pki_key::writePKCS8(const std::string fname, pem_password_cb *cb)
 	fclose(fp);
 }
 
-void pki_key::writeKey(const std::string fname, const EVP_CIPHER *enc, 
+void pki_key::writeKey(const string fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
 	PASS_INFO p;
-	std::string title=XCA_TITLE;
-	std::string description="Please enter the password protecting the RSA private key";
+	string title=XCA_TITLE;
+	string description="Please enter the password protecting the RSA private key";
 	p.title = &title;
 	p.description = &description;
 	if (isPubKey()) {
@@ -337,7 +337,7 @@ void pki_key::writeKey(const std::string fname, const EVP_CIPHER *enc,
 }
 
 
-void pki_key::writePublic(const std::string fname, bool PEM)
+void pki_key::writePublic(const string fname, bool PEM)
 {
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
@@ -355,19 +355,19 @@ void pki_key::writePublic(const std::string fname, bool PEM)
 }
 
 
-std::string pki_key::length()
+string pki_key::length()
 {
 	char st[64];
 	sprintf(st,"%i bit", EVP_PKEY_size(key) * 8 );
 	openssl_error();
-	std::string x = st;
+	string x = st;
 	return x;
 }
 
-std::string pki_key::BN2string(BIGNUM *bn)
+string pki_key::BN2string(BIGNUM *bn)
 {
 	if (bn == NULL) return "--";
-	std::string x="";
+	string x="";
 	char zs[10];
 	int j;
 	int size = BN_num_bytes(bn);
@@ -382,15 +382,15 @@ std::string pki_key::BN2string(BIGNUM *bn)
 	return x;
 }
 
-std::string pki_key::modulus() {
+string pki_key::modulus() {
 	return BN2string(key->pkey.rsa->n);
 }
 
-std::string pki_key::pubEx() {
+string pki_key::pubEx() {
 	return BN2string(key->pkey.rsa->e);
 }
 
-std::string pki_key::privEx() {
+string pki_key::privEx() {
 	if (isPubKey()) return "Not existent (not a private key)";
 	return BN2string(key->pkey.rsa->d);
 }

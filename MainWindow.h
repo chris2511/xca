@@ -110,7 +110,7 @@ class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
    protected:
-	void addStr(std::string &str, const char *add);
+	void addStr(string &str, const char *add);
    friend class pki_key;
 	db_x509 *certs;
 	db_x509req *reqs;
@@ -140,7 +140,7 @@ class MainWindow: public MainWindow_UI
 	void insertReq(pki_x509req *req);
 	void insertCert(pki_x509 *cert);
 	void insertTemp(pki_temp *temp);
-	std::string md5passwd();
+	string md5passwd();
 	bool opensslError(pki_base *pki);
 	QPixmap *loadImg(const char *name);
 	void renamePKI(db_base *db);

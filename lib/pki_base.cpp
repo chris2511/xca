@@ -52,7 +52,7 @@
 #include "pki_base.h"
 
 
-pki_base::pki_base(const std::string d)
+pki_base::pki_base(const string d)
 {
 	error = "";
 	desc = d;
@@ -72,43 +72,43 @@ pki_base::~pki_base(void)
 {}
 
 
-std::string pki_base::getDescription()
+string pki_base::getDescription()
 {
-	std::string x = desc;
+	string x = desc;
 	return x;
 }
 
 
-std::string pki_base::getError()
+string pki_base::getError()
 {
-	std::string x = error;
+	string x = error;
 	error = "";
 	return x;
 }
 
-std::string pki_base::getClassName()
+string pki_base::getClassName()
 {
 	return className;
 }
 
 
-void pki_base::setDescription(const std::string d)
+void pki_base::setDescription(const string d)
 {
 	desc = d;
 }
 
 
 
-void pki_base::fopen_error(const std::string fname)
+void pki_base::fopen_error(const string fname)
 {
-	std::string txt = "Error opening file: '" + fname + "'";
+	string txt = "Error opening file: '" + fname + "'";
 	openssl_error(txt);
 }
 
 
-void pki_base::openssl_error(const std::string myerr)
+void pki_base::openssl_error(const string myerr)
 {
-	std::string errtxt = "";
+	string errtxt = "";
 	error = "";
 	if (myerr != "") {
 		CERR("PKI ERROR: " << myerr);
@@ -128,7 +128,7 @@ void pki_base::openssl_error(const std::string myerr)
 bool pki_base::ign_openssl_error()
 {
 	// ignore openssl errors
-	std::string errtxt;
+	string errtxt;
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
 	   CERR("IGNORE -> OpenSSL: " << errtxt << " <- IGNORE");
@@ -170,7 +170,7 @@ bool pki_base::boolFromData(unsigned char **p)
 	return ret;
 }
 
-int pki_base::stringToData(unsigned char **p, const std::string val)
+int pki_base::stringToData(unsigned char **p, const string val)
 {
 	int s = (val.length() +1) * sizeof(char);
 	memcpy(*p, val.c_str(), s);
@@ -178,9 +178,9 @@ int pki_base::stringToData(unsigned char **p, const std::string val)
 	return s;
 }
 
-std::string pki_base::stringFromData(unsigned char **p)
+string pki_base::stringFromData(unsigned char **p)
 {
-	std::string ret="";
+	string ret="";
 	while(**p) {
 		ret +=(char)**p;
 		*p += sizeof(char);

@@ -60,7 +60,7 @@ pki_key *MainWindow::getSelectedKey()
 	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
 	CERR( "got selected: "<< (int)targetKey );
 	if (targetKey) {
-	   std::string errtxt = targetKey->getError();
+	   string errtxt = targetKey->getError();
 	   if (errtxt != "")
 		QMessageBox::warning(this,tr(XCA_TITLE),
 			tr("The Key: ") + QString::fromLatin1(targetKey->getDescription().c_str()) +
@@ -155,7 +155,7 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 		return false;
 	}
 	bool ret = detDlg->exec();
-	std::string ndesc = detDlg->keyDesc->text().latin1();
+	string ndesc = detDlg->keyDesc->text().latin1();
 	delete detDlg;
 	CERR(ndesc << " " << key->getDescription());
 	if ( ret && ndesc != key->getDescription()) {
@@ -183,7 +183,7 @@ void MainWindow::showDetailsKey()
 
 void MainWindow::showDetailsKey(QListViewItem *item)
 {
-	std::string key = item->text(0).latin1();
+	string key = item->text(0).latin1();
 	showDetailsKey((pki_key *)keys->getSelectedPKI(key));
 }
 
@@ -271,7 +271,7 @@ void MainWindow::writeKey()
 		delete dlg;
 		return;
 	}
-	std::string fname = dlg->filename->text().latin1();
+	string fname = dlg->filename->text().latin1();
 	if (fname == "") {
 		delete dlg;
 		return;
@@ -319,7 +319,7 @@ void MainWindow::renameKey(QListViewItem *item, int col, const QString &text)
 {
 	try {
 		pki_base *pki = keys->getSelectedPKI(item);
-		std::string txt =  text.latin1();
+		string txt =  text.latin1();
 		keys->renamePKI(pki, txt);
 	}
 	catch (errorEx &err) {
