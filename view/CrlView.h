@@ -53,7 +53,9 @@
 #define CRLVIEW_H
 
 #include "XcaListView.h"
-#include <qlistview.h>
+
+class pki_crl;
+class QListViewItem;
 
 class CrlView : public XcaListView
 {
@@ -65,7 +67,7 @@ class CrlView : public XcaListView
    public:
 	CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
-	void newItem();
+	pki_crl *newItem(pki_x509 *cert);
 	void deleteItem();
 	void load();
 	pki_base *loadItem(QString fname);

@@ -51,6 +51,7 @@
 
 #include "pki_crl.h"
 
+QPixmap *pki_crl::icon = NULL;
 
 pki_crl::pki_crl(const QString fname )
 	:pki_base(fname)
@@ -241,7 +242,7 @@ x509name pki_crl::getIssuerName()
 bool pki_crl::verify(pki_key *key)
 {
 	bool ret=false;
-	if (crl && crl->crl) {
+	if (crl && crl->crl && key) {
 		ret = X509_CRL_verify(crl , key->key) == 0;
 		ign_openssl_error();
 	}
@@ -250,39 +251,19 @@ bool pki_crl::verify(pki_key *key)
 
 QString pki_crl::printV3ext()
 {
-#define V3_BUF 100
-	ASN1_OBJECT *obj;
-	BIO *bio = BIO_new(BIO_s_mem());
-	int i, len, n = X509_CRL_get_ext_count(crl);
-	char buffer[V3_BUF+1];
-	X509_EXTENSION *ex;
-	QString text="";
-	for (i=0; i<n; i++) {
-		text += "<b><u>";
-		ex = X509_CRL_get_ext(crl,i);
-		obj = X509_EXTENSION_get_object(ex);
-		len = i2t_ASN1_OBJECT(buffer, V3_BUF, obj);
-		if (len <0 || len > V3_BUF) openssl_error("V3 buffer too small, this is a bug!");
-		buffer[len] = '\0';
-		CERR("extension: "<< buffer <<", length: " << len);
-		text += buffer;
-		text += ": ";
-		if (X509_EXTENSION_get_critical(ex)) {
-			text += " <font color=\"red\">critical</font>:";
-		}
-		if(!X509V3_EXT_print(bio, ex, 0, 0)) {
-			M_ASN1_OCTET_STRING_print(bio,ex->value);
-		}
-		text+="</u></b><br><tt>";
-        	do {
-			len = BIO_read(bio, buffer, V3_BUF);
-			buffer[len] = '\0';
-			text+=buffer;
-			CERR("extension-length: "<< len);
-		} while (len == V3_BUF);
-		text+="</tt><br>";
-	}
-	BIO_free(bio);
+	extList el;
+	el.setStack(crl->crl->extensions);
+	QString text = el.getHtml("<br>");
 	openssl_error();
 	return text;
 }
+
+void pki_crl::updateView()
+{
+	QListViewItem *c = getLvi();
+	if (!c) return;
+	c->setPixmap(0, *icon);
+	c->setText(1, getIssuerName().getEntryByNid(NID_commonName));
+	c->setText(2, QString::number(numRev()));
+}
+

@@ -91,10 +91,20 @@ void CrlDetail::setCrl(pki_crl *crl)
                 current->setText(2, revit.getDate().toSortable());
         }
         v3Extensions->setText(crl->printV3ext());
-        issuer->setText(iss->getIntName());
-        if (crl->verify(iss->getRefKey()) == 0) {
-                signCheck->setText(tr("Success"));
-        }
+        if (iss != NULL) {
+		issuer->setText(iss->getIntName());
+		pki_key *key = iss->getPubKey();
+		if (crl->verify(key)) {
+			signCheck->setText(tr("Success"));
+	        }
+		delete key;
+	}
+	else {
+		issuer->setText("Unknown Signer");
+                signCheck->setText(tr("Failed"));
+                signCheck->setDisabled(true);
+	}
+		
         lUpdate->setText(crl->getLastUpdate().toPretty());
         nUpdate->setText(crl->getNextUpdate().toPretty());
         version->setText(crl->getVersion().toHex());

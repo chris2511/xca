@@ -403,13 +403,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 void NewX509::toTemplate(pki_temp *temp)
 {
 	temp->setIntName(description->text());
-	temp->C = countryName->text();
-	temp->P = stateOrProvinceName->text();
-	temp->L = localityName->text();
-	temp->O = organisationName->text();
-	temp->OU = organisationalUnitName->text();
-	temp->CN = commonName->text();
-	temp->EMAIL = emailAddress->text();
+	temp->xname = getX509name();
 	temp->subAltName = subAltName->text();
 	temp->issAltName = issAltName->text();
 	temp->crlDist = crlDist->text();
@@ -431,8 +425,8 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->issAltCp = issAltCp->isChecked();
 	temp->keyUse = lb2int(keyUsage);
 	temp->eKeyUse = lb2int(ekeyUsage);
-	//temp->validN = validNumber->text().toInt();
-	//temp->validM = validRange->currentItem();
+	temp->notBefore = notBefore->getDate();
+	temp->notAfter = notAfter->getDate();
 	temp->pathLen = basicPath->text().toInt();
 }
 

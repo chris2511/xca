@@ -575,7 +575,7 @@ QString pki_x509::getTemplate(){ return caTemplate; }
 
 void pki_x509::setTemplate(QString s) {if (s.length()>0) caTemplate = s; }
 
-void pki_x509::setLastCrl(a1time &time)
+void pki_x509::setLastCrl(const a1time &time)
 {
 	lastCrl = time;
 	openssl_error();

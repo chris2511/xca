@@ -109,7 +109,7 @@ QString x509name::getEntry(int i) const
 	ASN1_STRING *d;
 	if ( i<0 || i>entryCount() ) return s;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
-	i = d->length;
+	i = d->length - 1;
 	c = d->data[i]; // replace the last char by \0
 	d->data[i] = '\0'; 
 	s = (char *)d->data; // strcopy the data

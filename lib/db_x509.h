@@ -82,8 +82,11 @@ class db_x509: public db_x509super
 	QList<pki_x509> getCerts(bool onlyTrusted);
 	a1int searchSerial(pki_x509 *signer);
 	void writeAllCerts(const QString fname, bool onlyTrusted);
-	pki_x509 *getByIssSerial(pki_x509 *iss, const a1int &serial);
+	pki_x509 *getByIssSerial(const pki_x509 *issuer, const a1int &a);
 	pki_x509 *getBySubject(const x509name &xname);
+    public slots:
+	void revokeCert(const x509rev &revok, const pki_x509 *issuer);
+    
 };
 
 #endif

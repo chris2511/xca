@@ -53,11 +53,13 @@
 #include <qapplication.h>
 #include <qmessagebox.h>
 #include <qlabel.h>
+#include <qpushbutton.h>
 #include "lib/pki_pkcs12.h"
 #include "view/KeyView.h"
 #include "view/ReqView.h"
 #include "view/CertView.h"
 #include "view/TempView.h"
+#include "view/CrlView.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
 #include "ui/PassRead.h"
@@ -101,24 +103,28 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( certList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( tempList, SIGNAL(init_database()), this, SLOT(init_database()));
 
-	connect( (const QObject *)BNnewKey, SIGNAL(clicked()), keyList, SLOT(newItem()));
-	connect( (const QObject *)BNexportKey, SIGNAL(clicked()), keyList, SLOT(store()));
-	connect( (const QObject *)BNimportKey, SIGNAL(clicked()), keyList, SLOT(load()));
-	connect( (const QObject *)BNdetailsKey, SIGNAL(clicked()), keyList, SLOT(showItem()));
-	connect( (const QObject *)BNdeleteKey, SIGNAL(clicked()), keyList, SLOT(deleteItem()));
+	connect( BNnewKey, SIGNAL(clicked()), keyList, SLOT(newItem()));
+	connect( BNexportKey, SIGNAL(clicked()), keyList, SLOT(store()));
+	connect( BNimportKey, SIGNAL(clicked()), keyList, SLOT(load()));
+	connect( BNdetailsKey, SIGNAL(clicked()), keyList, SLOT(showItem()));
+	connect( BNdeleteKey, SIGNAL(clicked()), keyList, SLOT(deleteItem()));
 	
-	connect( (const QObject *)BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
-	connect( (const QObject *)BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));
-	connect( (const QObject *)BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
-	connect( (const QObject *)BNdeleteReq, SIGNAL(clicked()), reqList, SLOT(deleteItem()));
+	connect( BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
+	connect( BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));
+	connect( BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
+	connect( BNdeleteReq, SIGNAL(clicked()), reqList, SLOT(deleteItem()));
 
-	connect( (const QObject *)BNnewCert, SIGNAL(clicked()), certList, SLOT(newItem()));
-	connect( (const QObject *)BNimportCert, SIGNAL(clicked()), certList, SLOT(load()));
-	connect( (const QObject *)BNdetailsCert, SIGNAL(clicked()), certList, SLOT(showItem()));
-	connect( (const QObject *)BNdeleteCert, SIGNAL(clicked()), certList, SLOT(deleteItem()));
-	connect( (const QObject *)BNimportPKCS12, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
-	connect( (const QObject *)BNimportPKCS7, SIGNAL(clicked()), certList, SLOT(loadPKCS7()));
-	connect( (const QObject *)BNviewState, SIGNAL(clicked()), this, SLOT(changeView()));
+	connect( BNnewCert, SIGNAL(clicked()), certList, SLOT(newItem()));
+	connect( BNimportCert, SIGNAL(clicked()), certList, SLOT(load()));
+	connect( BNdetailsCert, SIGNAL(clicked()), certList, SLOT(showItem()));
+	connect( BNdeleteCert, SIGNAL(clicked()), certList, SLOT(deleteItem()));
+	connect( BNimportPKCS12, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
+	connect( BNimportPKCS7, SIGNAL(clicked()), certList, SLOT(loadPKCS7()));
+	connect( BNviewState, SIGNAL(clicked()), this, SLOT(changeView()));
+	
+	connect( BNimportCrl, SIGNAL(clicked()), crlList, SLOT(load()));
+	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));
+	connect( BNdeleteCrl, SIGNAL(clicked()), crlList, SLOT(deleteItem()));
 	
 	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
@@ -154,6 +160,7 @@ void MainWindow::init_images(){
 	pki_x509::icon[2] = loadImg("invalidcert.png");
 	pki_x509::icon[3] = loadImg("invalidcertkey.png");
 	pki_temp::icon = loadImg("template.png");			     
+	pki_crl::icon = loadImg("crl.png");			     
 }		
 	
 void MainWindow::read_cmdline()
@@ -215,7 +222,6 @@ void MainWindow::read_cmdline()
 			case XCA_KEY : 
 		 		key = new pki_key(arg, &MainWindow::passRead);
 				keyList->showItem(key, true);
-				MARK
 				break;
 			case XCA_CERT : 
 		 		cert = new pki_x509(arg);
@@ -245,7 +251,6 @@ void MainWindow::read_cmdline()
 void MainWindow::init_database() {
 	
 	if (dbenv) return; // already initialized....
-	CERR("Init Database");
 	try {
 		dbenv = new DbEnv(0);
 		dbenv->set_errcall(&MainWindow::dberr);
@@ -257,7 +262,6 @@ void MainWindow::init_database() {
 #define DB_AUTO_COMMIT 0
 #endif
 		dbenv->set_flags(DB_AUTO_COMMIT,1);
-		MARK
 	}
 	catch (DbException &err) {
 		DBEX(err);
@@ -280,6 +284,7 @@ void MainWindow::init_database() {
 		reqList->setDB(reqs);
 		certList->setDB(certs);
 		tempList->setDB(temps);
+		crlList->setDB(crls);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -304,9 +309,7 @@ MainWindow::~MainWindow()
 		delete(settings);
 		delete(crls);
 		global_tid->commit(0);
-		MARK
 		dbenv->close(0);
-		MARK
 	}
 }
 
@@ -403,10 +406,7 @@ QString MainWindow::md5passwd()
 	
 void MainWindow::Error(errorEx &err)
 {
-	if (err.isEmpty()) {
-		CERR("Empty error Exception silently ignored");
-		return;
-	}
+	if (err.isEmpty()) return;
 	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +
 			QString::fromLatin1(err.getCString()));
 }

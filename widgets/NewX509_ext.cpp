@@ -86,7 +86,7 @@ void NewX509::setBasicConstraints(const x509v3ext &e)
 	if (bc) {
 		bcCritical->setChecked(bc->ca);
 		a1int pl(bc->pathlen);
-		basicPath->setText(pl.getLong());
+		basicPath->setText(QString::number(pl.getLong()));
 	}
 }
 

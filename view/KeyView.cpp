@@ -66,7 +66,7 @@ const int KeyView::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 KeyView::KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 	:XcaListView(parent, name, f)
 {
-	addColumn(tr("Keysize"));
+	addColumn(tr("Common Name"));
 	addColumn(tr("Keylength"));
 	addColumn(tr("Use count"));
 }

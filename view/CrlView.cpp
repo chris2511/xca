@@ -56,16 +56,26 @@
 #include "lib/pki_crl.h"
 #include "widgets/MainWindow.h"
 
+CrlView::CrlView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
+	:XcaListView(parent, name, f)
+{
+	addColumn(tr("Common Name"));
+	addColumn(tr("Issuer C-Name"));
+	addColumn(tr("Count"));
+}
+
+
 
 void CrlView::showItem(pki_base *item, bool import)
 {
 	if (!item) return;
     try {
 	CrlDetail *dlg = new CrlDetail(this,0,true);
+	dlg->setCrl((pki_crl *)item);
 	// to be moved to Mainwindow.cpp:
 	//connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
 	//	this, SLOT( showCert(QListViewItem *) ));
-	QString odesc = crl->getIntName();
+	QString odesc = item->getIntName();
 	bool ret = dlg->exec();
 	QString ndesc = dlg->descr->text();
 	delete dlg;
@@ -81,7 +91,7 @@ void CrlView::showItem(pki_base *item, bool import)
         }
 	
 	if (ndesc != odesc) {
-		crls->renamePKI(crl, ndesc);
+		MainWindow::crls->renamePKI(item, ndesc);
 	}
 		
 	
@@ -116,7 +126,7 @@ pki_base *CrlView::insert(pki_base *item)
 {
     pki_crl * crl = (pki_crl *)item;
     try {
-	pki_crl *oldcrl = (pki_crl *)crls->findPKI(crl);
+	pki_crl *oldcrl = (pki_crl *)MainWindow::crls->getByReference(crl);
 	if (oldcrl) {
 	   QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The revokation list already exists in the database as") +
@@ -125,7 +135,7 @@ pki_base *CrlView::insert(pki_base *item)
 	   delete(crl);
 	   return oldcrl;
 	}
-	crls->insertPKI(crl);
+	MainWindow::crls->insertPKI(crl);
     }
     catch (errorEx &err) {
 	    Error(err);
@@ -167,7 +177,7 @@ void CrlView::store(bool pem)
 
 	if (dlg->exec()) {
 		s = dlg->selectedFile();
-		MainWindow::setPath(dlg->dirPath);
+		MainWindow::setPath(dlg->dirPath());
 	}
 	delete dlg;
 	if (s.isEmpty()) return;
@@ -207,26 +217,32 @@ void CrlView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 
 pki_crl *CrlView::newItem(pki_x509 *cert)
 {
+	if (!cert) return NULL;
 	QList<pki_x509> list;
 	pki_x509 *issuedcert = NULL;
 	pki_crl *crl = NULL;
+	x509v3ext e;
+	X509V3_CTX ext_ctx;
+	X509V3_set_ctx(&ext_ctx, cert->getCert() , NULL, NULL, NULL, 0);
+	X509V3_set_ctx_nodb((&ext_ctx));
+		   
 	try {	
-		crl = new pki_crl(cert->getIntName(), cert);
+		crl = new pki_crl();
+		crl->createCrl(cert->getIntName(), cert);
 
 		list = MainWindow::certs->getIssuedCerts(cert);
 		if (!list.isEmpty()) {
 	       		for ( issuedcert = list.first(); issuedcert != NULL; issuedcert = list.next() ) {
 				if (issuedcert->isRevoked() ) {
-					crl->addRevoked(issuedcert);
+					crl->addRev(issuedcert->getRev());
 				}
 			}
 		}
-		crl->addV3ext(NID_authority_key_identifier,"keyid,issuer");
-		crl->addV3ext(NID_issuer_alt_name,"issuer:copy");
-		crl->sign(cert->getKey());
-		cert->setLastCrl(crl->getDate());
-		certs->updatePKI(cert);
-		CERR( "CRL done, completely");
+		crl->addV3ext(e.create(NID_authority_key_identifier, "keyid,issuer"));
+		crl->addV3ext(e.create(NID_issuer_alt_name, "issuer:copy"));
+		crl->sign(cert->getRefKey());
+		cert->setLastCrl(crl->getLastUpdate());
+		MainWindow::certs->updatePKI(cert);
 	}
 	catch (errorEx &err) {
 		Error(err);

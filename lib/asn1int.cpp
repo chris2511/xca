@@ -68,11 +68,15 @@ a1int::a1int()
 a1int::a1int(const ASN1_INTEGER *i)
 {
 	in = dup(i);
+	if (!in)
+		in = ASN1_INTEGER_new();
 }
 
 a1int::a1int(const a1int &a)
 {
 	in = dup(a.in);
+	if (!in)
+		in = ASN1_INTEGER_new();
 }
 
 

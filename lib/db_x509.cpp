@@ -157,11 +157,18 @@ pki_x509 *db_x509::getBySubject(const x509name &xname)
 	return NULL;
 }
 
-pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, const a1int &serial)
+void db_x509::revokeCert(const x509rev &revok, const pki_x509 *iss)
 {
-	if (!iss ) return NULL;
+	pki_x509 *crt = getByIssSerial(iss, revok.getSerial());
+	if (crt)
+		crt->setRevoked(revok.getDate());
+}
+	
+pki_x509 *db_x509::getByIssSerial(const pki_x509 *issuer, const a1int &a)
+{
+	if (!issuer ) return NULL;
 	FOR_container
-		if ((pki->getSigner() == iss) && (serial == pki->getSerial()))
+		if ((pki->getSigner() == issuer) && (a == pki->getSerial()))
 			return pki;
 	return NULL;
 }

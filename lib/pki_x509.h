@@ -130,7 +130,7 @@ class pki_x509 : public pki_x509super
 	   QString getTemplate();
 	   void setCrlDays(int s);
 	   int getCrlDays();
-	   void setLastCrl(a1time &time);
+	   void setLastCrl(const a1time &time);
 	   int resetTimes(pki_x509 *signer);
 	   bool hasSubAltName();
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);

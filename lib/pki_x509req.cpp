@@ -53,7 +53,6 @@
 #include "pki_x509.h"
 #include "func.h"
 #include "x509name.h"
-// #include <openssl/objects.h>
 
 QPixmap *pki_x509req::icon[2] = { NULL, NULL };
 
@@ -62,8 +61,6 @@ pki_x509req::pki_x509req()
 {
 	privkey = NULL;
 	class_name = "pki_x509req";
-	icon[0] = loadImg("req.png");
-	icon[1] = loadImg("reqkey.png");
 	request = X509_REQ_new();
 	openssl_error();
 }

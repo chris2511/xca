@@ -70,7 +70,7 @@ class pki_crl: public pki_base
 	pki_crl();
 	/* destructor */
 	~pki_crl();
-	
+	static QPixmap *icon;
 	void createCrl(const QString d, pki_x509 *iss);
 	void addRev(const x509rev &rev);
 	void addExt(int nid, QString value);
@@ -92,7 +92,7 @@ class pki_crl: public pki_base
 	x509rev getRev(int num);
 	QString printV3ext();
 	a1int getVersion();
-			       
+	void updateView();
 };
 
 #endif
