@@ -95,6 +95,8 @@ class pki_x509 : public pki_base
 	   bool setKey(pki_key *key);
 	   string notAfter();
 	   string notBefore();
+	   string notAfterS();
+	   string notBeforeS();
 	   string revokedAt();
 	   string asn1TimeToString(ASN1_TIME *a);
 	   pki_x509 *getSigner();
@@ -127,6 +129,8 @@ class pki_x509 : public pki_base
 	   void setDates(int days);
 	   void setSerial(int serial);
 	   string tinyCAfname();
+	   string asn1TimeToSortableString(ASN1_TIME *a);
+	   int asn1TimeYMDG(ASN1_TIME *a, int *y, int *m, int *d, int *g);
 };
 
 #endif

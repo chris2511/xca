@@ -198,6 +198,7 @@ void MainWindow::read_cmdline()
 			case XCA_P12 : 
 		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);
 				insertP12(p12);
+				delete p12;
 				break;
 		    }
 		}

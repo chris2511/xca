@@ -386,10 +386,19 @@ string pki_x509::notBefore()
 	return asn1TimeToString(X509_get_notBefore(cert));
 }
 
+string pki_x509::notBeforeS()
+{
+	return asn1TimeToSortableString(X509_get_notBefore(cert));
+}
 
 string pki_x509::notAfter()
 {
 	return asn1TimeToString(X509_get_notAfter(cert));
+}
+
+string pki_x509::notAfterS()
+{
+	return asn1TimeToSortableString(X509_get_notAfter(cert));
 }
 
 string pki_x509::revokedAt()
@@ -410,6 +419,42 @@ string pki_x509::asn1TimeToString(ASN1_TIME *a)
 	BIO_free(bio);
 	openssl_error();
 	return time;
+}
+
+string pki_x509::asn1TimeToSortableString(ASN1_TIME *a)
+{
+	int y,m,d,g;
+	string time = "";
+	if (!a) return time;
+	if (asn1TimeYMDG(a, &y ,&m ,&d ,&g)) {
+		openssl_error("time error");
+	}
+	char buf[20];
+	sprintf(buf, "%04d-%02d-%02d %s",y+1900,m,d,(g==1)?"GMT":"");
+	time = buf;
+	return time;
+}
+
+int pki_x509::asn1TimeYMDG(ASN1_TIME *a, int *y, int *m, int *d, int *g)
+{
+	char *v;
+	int i;
+	*y=0, *m=0, *d=0, *g=0;
+	if (!a) return 1;
+	i=a->length;
+	v=(char *)a->data;
+
+	if (i < 10) return 1; /* it is at least 10 digits */
+	if (v[i-1] == 'Z') *g=1;
+	for (i=0; i<10; i++)
+		if ((v[i] > '9') || (v[i] < '0')) return 1;
+	*y= (v[0]-'0')*10+(v[1]-'0');
+	if (*y < 50) *y+=100;
+	*m= (v[2]-'0')*10+(v[3]-'0');
+	if ((*m > 12) || (*m < 1)) return 1;
+	*d= (v[4]-'0')*10+(v[5]-'0');
+	if ((*d > 31) || (*d < 1)) return 1;
+	return 0;
 }
 
 
@@ -709,7 +754,6 @@ void pki_x509::setLastCrl(ASN1_TIME *time)
 string pki_x509::tinyCAfname()
 {
 	string col;
-	int outl;
 	col = getDNs(NID_commonName) + (getDNs(NID_commonName) == "" ? " :" : ":")
 	    + getDNs(NID_pkcs9_emailAddress) + (getDNs(NID_pkcs9_emailAddress) == "" ? " :" : ":")
 	    + getDNs(NID_organizationalUnitName) +(getDNs(NID_organizationalUnitName) == "" ? " :" : ":")

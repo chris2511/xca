@@ -218,6 +218,7 @@ class MainWindow: public MainWindow_UI
 	void extendCert();
 	void signP7();
 	void encryptP7();
+	void changeView();
    signals:
 	void keyDone(QString name);
 };

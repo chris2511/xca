@@ -121,8 +121,8 @@ void MainWindow::newCert(NewX509 *dlg)
 	    string ou = dlg->organisationalUnitName->text().latin1();
 	    string email = dlg->emailAddress->text().latin1();
 	    string desc = dlg->description->text().latin1();
-	    tempReq = true;
 	    req = new pki_x509req(clientkey, cn,c,l,st,o,ou,email,desc,"");
+	    tempReq = true;
 	}
 	else {
 	    // A PKCS#10 Request was selected 
@@ -378,6 +378,8 @@ void MainWindow::extendCert()
 	}
 	catch (errorEx &err) {
 		Error(err);
+		if (newcert)
+			delete newcert;
 	}
 }
 		
@@ -609,11 +611,14 @@ void MainWindow::loadPKCS12()
 		try {
 			pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
 			insertP12(pk12);
-			delete pk12;
+			MARK
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
+		MARK
+		delete pk12;
+		MARK
 	}
 }
 
@@ -641,11 +646,13 @@ void MainWindow::insertP12(pki_pkcs12 *pk12)
 			showDetailsCert(acert, true);
 		}
 #endif			
-		keys->updateView();
+		if (keys)
+			keys->updateView();
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
+	MARK
 }	
 	
 
@@ -1148,6 +1155,18 @@ void MainWindow::genCrl()
 	}
 }
 
+void MainWindow::changeView()
+{
+	if (certs->viewState == 0) { // Plain view
+		certs->viewState = 1;
+		bnViewState->setText(tr("Plain View"));
+	}
+	else { // Tree View
+		certs->viewState = 0;
+		bnViewState->setText(tr("Tree View"));
+	}
+	certs->updateView();
+}
 
 void MainWindow::startRenameCert()
 {

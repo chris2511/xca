@@ -57,6 +57,7 @@
 
 int main( int argc, char *argv[] )
 {
+    int ret = 0;
     QApplication a( argc, argv );
     MainWindow *mw = new MainWindow( NULL, "Main Widget");
     a.setMainWidget( mw );
@@ -74,21 +75,14 @@ int main( int argc, char *argv[] )
     a.installTranslator( &xcaTr );
 #endif
     CERR("PKI Counter:" << pki_base::get_pki_counter());
-    if (mw->exitApp == 1) {
-	    MARK
-    	    delete mw;
-	    MARK
-    	    CERR("PKI Counter:" << pki_base::get_pki_counter());
-	    MARK
-	    return 0;
+    if (mw->exitApp == 0) {
+   	mw->show();
+	ret = a.exec();
     }
-    
-    mw->show();
-    int ret = a.exec();
     MARK
     delete mw;
     MARK
-    CERR("PKI Counter:" << pki_base::get_pki_counter());
- 
+    clog << "PKI Counter: " << pki_base::get_pki_counter() << endl; 
+    clog << "The PKI counter must be 0, if not contact me." << endl;
     return ret;
 }

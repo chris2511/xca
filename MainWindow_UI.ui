@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>756</width>
+            <width>752</width>
             <height>604</height>
         </rect>
     </property>
@@ -543,6 +543,17 @@
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>Import P&amp;KCS#7</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>bnViewState</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Plain View</string>
                                 </property>
                             </widget>
                             <spacer>
@@ -1177,6 +1188,12 @@
         <receiver>MainWindow_UI</receiver>
         <slot>loadPKCS7()</slot>
     </connection>
+    <connection>
+        <sender>bnViewState</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>changeView()</slot>
+    </connection>
     <slot access="public">alterTemp()</slot>
     <slot access="public">crashApp()</slot>
     <slot access="public">deleteCert()</slot>
@@ -1186,6 +1203,7 @@
     <slot access="public">loadCert()</slot>
     <slot access="public">loadKey()</slot>
     <slot access="public">loadPKCS12()</slot>
+    <slot access="public">loadPKCS7()</slot>
     <slot access="public">loadReq()</slot>
     <slot access="public">newCATemp()</slot>
     <slot access="public">newCert()</slot>
@@ -1194,7 +1212,7 @@
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
     <slot access="public">newSerTemp()</slot>
-    <slot access="public">loadPKCS7()</slot>
+    <slot access="public">changeView()</slot>
     <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
     <slot access="public">showDetailsKey()</slot>

@@ -67,6 +67,7 @@ db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *t
 	listView->addColumn(tr("Trust state"));
 	listView->addColumn(tr("Revokation"));
 	loadContainer();
+	viewState=1; // Tree View
 	updateView();
 	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
 	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
@@ -117,9 +118,9 @@ bool db_x509::updateView()
 			pki = (pki_x509 *)it.current();
 			parentitem = NULL;
 			signer = pki->getSigner();
-			if ((signer != pki) && (signer != NULL)) // foreign signed
+			if ((signer != pki) && (signer != NULL) && (viewState != 0)) // foreign signed
 				parentitem = (QListViewItem *)signer->getPointer();
-			if (((parentitem != NULL) || (signer == pki) || (signer == NULL)) && (pki->getPointer() == NULL )) {
+			if (((parentitem != NULL) || (signer == pki) || (signer == NULL) || viewState == 0) && (pki->getPointer() == NULL )) {
 				// create the listview item
 				if (parentitem != NULL) {
 					current = new QListViewItem(parentitem, pki->getDescription().c_str());	
@@ -157,7 +158,7 @@ void db_x509::updateViewPKI(pki_base *pki)
 	current->setPixmap(0, *certicon[pixnum]);
 	current->setText(1, ((pki_x509 *)pki)->getDNs(NID_commonName).c_str());
 	current->setText(2, ((pki_x509 *)pki)->getSerial().c_str() );  
-	current->setText(3, ((pki_x509 *)pki)->notAfter().c_str() );  
+	current->setText(3, ((pki_x509 *)pki)->notAfterS().c_str() );  
 MARK
 	CERR(((pki_x509 *)pki)->getTrust());
 	current->setText(4, truststatus[((pki_x509 *)pki)->getTrust() ]);  
