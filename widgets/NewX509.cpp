@@ -267,6 +267,7 @@ applied when signing with this CA.");
 	}
 	setup();
 	privKeyBox->setEnabled(false);
+	validitybox->setEnabled(false);
 	setImage(MainWindow::tempImg);
 	
 }
@@ -490,7 +491,7 @@ void NewX509::showPage(QWidget *page)
 	}
 	else if (page == page4) {
 		basicCA->setFocus();
-		if (emailAddress->text().isEmpty())
+		if (emailAddress->text().isEmpty() && appropriate(page1))
 			subAltCp->setEnabled(false);
 		else
 			subAltCp->setEnabled(true);
@@ -501,14 +502,11 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::signerChanged()
 {
-	QString name = certList->currentText();
 	a1time snb, sna;
-	
-	if (name.isEmpty()) return;
-	pki_x509 *cert = (pki_x509 *)MainWindow::certs->getByName(name);
+	pki_x509 *cert = getSelectedSigner();
 	
 	if (!cert) return;
-	if (getSelectedSigner()->hasSubAltName())
+	if (cert->hasSubAltName() || !appropriate(page1))
 		issAltCp->setEnabled(true);
 	else
 		issAltCp->setEnabled(false);
@@ -598,7 +596,7 @@ void NewX509::checkAuthKeyId()
 			enabled = true;
 	}
 	else { // Self signed
-		if (subKey->isChecked())
+		if (subKey->isChecked() && subKey->isEnabled())
 			enabled = true;
 	}
 	authKey->setEnabled(enabled);
