@@ -1,17 +1,17 @@
 <!DOCTYPE UI><UI>
-<class>NewKeyDlg_UI</class>
+<class>NewKey_UI</class>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>NewKeyDlg_UI</cstring>
+        <cstring>NewKey_UI</cstring>
     </property>
     <property stdset="1">
         <name>geometry</name>
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>501</width>
+            <width>497</width>
             <height>373</height>
         </rect>
     </property>
@@ -231,25 +231,25 @@
     <connection>
         <sender>PushButton2</sender>
         <signal>clicked()</signal>
-        <receiver>NewKeyDlg_UI</receiver>
+        <receiver>NewKey_UI</receiver>
         <slot>reject()</slot>
     </connection>
     <connection>
         <sender>PushButton1</sender>
         <signal>clicked()</signal>
-        <receiver>NewKeyDlg_UI</receiver>
+        <receiver>NewKey_UI</receiver>
         <slot>accept()</slot>
     </connection>
     <connection>
         <sender>PushButton1</sender>
         <signal>stateChanged(int)</signal>
-        <receiver>NewKeyDlg_UI</receiver>
+        <receiver>NewKey_UI</receiver>
         <slot>generateKey()</slot>
     </connection>
     <connection>
         <sender>keyDesc</sender>
         <signal>returnPressed()</signal>
-        <receiver>NewKeyDlg_UI</receiver>
+        <receiver>NewKey_UI</receiver>
         <slot>accept()</slot>
     </connection>
     <slot access="public">generateKey()</slot>

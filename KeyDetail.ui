@@ -1,17 +1,17 @@
 <!DOCTYPE UI><UI>
-<class>KeyDetailDlg_UI</class>
+<class>KeyDetail_UI</class>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>KeyDetailDlg_UI</cstring>
+        <cstring>KeyDetail_UI</cstring>
     </property>
     <property stdset="1">
         <name>geometry</name>
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>382</width>
+            <width>378</width>
             <height>641</height>
         </rect>
     </property>
@@ -376,25 +376,25 @@
     <connection>
         <sender>PushButton2</sender>
         <signal>clicked()</signal>
-        <receiver>KeyDetailDlg_UI</receiver>
+        <receiver>KeyDetail_UI</receiver>
         <slot>reject()</slot>
     </connection>
     <connection>
         <sender>PushButton1</sender>
         <signal>clicked()</signal>
-        <receiver>KeyDetailDlg_UI</receiver>
+        <receiver>KeyDetail_UI</receiver>
         <slot>accept()</slot>
     </connection>
     <connection>
         <sender>PushButton1</sender>
         <signal>clicked()</signal>
-        <receiver>KeyDetailDlg_UI</receiver>
+        <receiver>KeyDetail_UI</receiver>
         <slot>accept()</slot>
     </connection>
     <connection>
         <sender>keyDesc</sender>
         <signal>returnPressed()</signal>
-        <receiver>KeyDetailDlg_UI</receiver>
+        <receiver>KeyDetail_UI</receiver>
         <slot>accept()</slot>
     </connection>
 </connections>

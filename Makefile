@@ -7,8 +7,8 @@ LIBS=-lqt -lcrypto -ldb_cxx
 MOC=$(QTDIR)/bin/moc
 UIC=$(QTDIR)/bin/uic
 
-OBJS=NewKeyDlg_UI.o NewKeyDlg_UI_MOC.o \
-     KeyDetailDlg_UI.o KeyDetailDlg_UI_MOC.o \
+OBJS=NewKey_UI.o NewKey_UI_MOC.o \
+     KeyDetail_UI.o KeyDetail_UI_MOC.o \
      MainWindow_UI.o MainWindow_UI_MOC.o \
      PassRead_UI.o PassRead_UI_MOC.o \
      PassWrite_UI.o PassWrite_UI_MOC.o \
@@ -23,11 +23,9 @@ OBJS=NewKeyDlg_UI.o NewKeyDlg_UI_MOC.o \
 all: $(OBJS) xca
 re: clean all
 
-MainWindow.h: MainWindow_UI.h KeyDetailDlg_UI.h \
+MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
-	      NewX509Req_UI.h
-
-NewKeyDlg.h: NewKeyDlg_UI.h
+	      NewX509Req_UI.h NewKey_UI.h
 
 %.o: %.cpp
 	$(GCC) -c $(INC) $<

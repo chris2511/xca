@@ -17,7 +17,7 @@ RSAkey *MainWindow::getSelectedKey()
 
 void MainWindow::newKey()
 {
-	NewKeyDlg_UI *dlg = new NewKeyDlg_UI(this,0,true,0);
+	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
 	QString x;
 	for (int i=0; sizeList[i] != 0; i++ ) 
 	   dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
@@ -55,7 +55,7 @@ void MainWindow::deleteKey()
 
 void MainWindow::showDetailsKey(RSAkey *key)
 {
-	KeyDetailDlg_UI *detDlg = new KeyDetailDlg_UI(this, 0, true, 0 );
+	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
 	
 	detDlg->keyDesc->setText(
 		key->description() );
