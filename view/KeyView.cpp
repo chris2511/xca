@@ -118,17 +118,17 @@ void KeyView::deleteItem()
 void KeyView::showItem(pki_base *item, bool import)
 {
 	pki_key *key = (pki_key *)item;
-	KeyDetail *detDlg;
+	KeyDetail *dlg = NULL;
 	if (!key) return;
 	try {	
-		detDlg = new KeyDetail(this, 0, true, 0 );
-		detDlg->setKey(key);
+		dlg = new KeyDetail(this, 0, true, 0 );
+		dlg->setKey(key);
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
-	if (detDlg)
-		delete detDlg;
+	if (dlg)
+		delete dlg;
 }
 
 void KeyView::load()

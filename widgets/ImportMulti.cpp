@@ -53,6 +53,8 @@
 #include "ImportMulti.h"
 #include "MainWindow.h"
 #include "lib/pki_base.h"
+#include "widgets/CertDetail.h"
+#include "widgets/KeyDetail.h"
 #include <qpushbutton.h>
 #include <qpopupmenu.h>
 #include <qmessagebox.h>
@@ -66,8 +68,11 @@ ImportMulti::ImportMulti(QWidget *parent, const char *name, bool modal, WFlags f
 	itemView->addColumn(tr("Internal name"));
 	itemView->addColumn(tr("Common name"));
 	itemView->addColumn(tr("Serial"));
-	itemView->addColumn(tr("not After"));
-			
+	cont.clear();
+	cont.setAutoDelete(true);
+	connect( itemView, SIGNAL(doubleClicked(QListViewItem *)),
+		this, SLOT(details())) ;
+	  
 }
 
 void ImportMulti::addItem(pki_base *pki)
@@ -93,7 +98,10 @@ void ImportMulti::showPopupMenu(QListViewItem *item, const QPoint &pt, int x)
 void ImportMulti::remove()
 {
 	pki_base *pki = getSelected();
-	delete pki;
+	if (!pki) return;
+	if (pki->getLvi())
+		delete pki->getLvi();
+	cont.remove(pki);
 }
 
 pki_base *ImportMulti::getSelected()
@@ -113,28 +121,56 @@ pki_base *ImportMulti::search(QListViewItem *current)
 void ImportMulti::import()
 {
 	pki_base *pki = getSelected();
+	if (!pki) return;
 	if (pki->getClassName() == "pki_x509")
 		emit importCert((pki_x509 *)pki);
-	else if (pki->getClassName() == "pki_key")
+	else if (pki->getClassName() == "pki_key") {
 		emit importKey((pki_key *)pki);
-	else 
+	}
+	else  {
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("The type of the Item is not recognized ") +
 			pki->getClassName(), tr("OK"));
-	delete pki;
+	}
+	if (pki->getLvi())
+		delete pki->getLvi();
+	cont.remove(pki);
 }
 
 void ImportMulti::details()
 {
 	pki_base *pki = getSelected();
-	if (pki->getClassName() == "pki_x509")
-		emit showCert((pki_x509 *)pki);
-	else if (pki->getClassName() == "pki_key")
-		emit showKey((pki_key *)pki);
-	else 
+	if (!pki) return;
+	try {
+		if (pki->getClassName() == "pki_x509"){
+			CertDetail *dlg;
+			dlg = new CertDetail(this,0,true);
+			dlg->setCert((pki_x509 *)pki);
+			dlg->exec();
+			delete dlg;
+		}						  
+		else if (pki->getClassName() == "pki_key") {
+			KeyDetail *dlg;
+			dlg = new KeyDetail(this,0,true);
+			dlg->setKey((pki_key *)pki);
+			dlg->exec();
+			delete dlg;
+		}						  
+			
+		else 
+			QMessageBox::warning(this, XCA_TITLE,
+				tr("The type of the Item is not recognized ") +
+				pki->getClassName(), tr("OK"));
+	}
+	catch (errorEx &err) {
 		QMessageBox::warning(this, XCA_TITLE,
-			tr("The type of the Item is not recognized ") +
-			pki->getClassName(), tr("OK"));
-	delete pki;
+			tr("Error") + pki->getClassName() +
+			err.getString(), tr("OK"));
+	}
+ 
 }
 
+ImportMulti::~ImportMulti()
+{
+	cont.clear();
+}	 

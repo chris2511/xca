@@ -109,7 +109,7 @@ void ReqView::newItem(pki_temp *temp)
 void ReqView::showItem(pki_base *item, bool import)
 {
 	if (!item) return;
-	ReqDetail *dlg; 
+	ReqDetail *dlg = NULL; 
     try {
 		dlg = new ReqDetail(this,0,true);
 		dlg->setReq((pki_x509req *)item);

@@ -62,8 +62,10 @@
 #include <qpushbutton.h>
 #include <qinputdialog.h>
 #include "ui/CertExtend.h"
+#include "widgets/ImportMulti.h"
 #include "widgets/ExportCert.h"
 #include "widgets/CertDetail.h"
+#include "widgets/KeyDetail.h"
 #include "ui/TrustState.h"
 #include "widgets/ExportTinyCA.h"
 #include "widgets/validity.h"
@@ -187,12 +189,6 @@ void CertView::newCert(NewX509 *dlg)
 		if (!ok) serial = 0;
 		cert->setTrust(2);
 	}
-	
-	// if we can not sign
-	if (! signkey || signkey->isPubKey()) {
-		throw errorEx(tr("The key you selected for signing is not a private one."));
-	}
-	
 	// set the issuers name
 	cert->setIssuer(signcert->getSubject());
 	cert->setSerial(serial);
@@ -206,11 +202,10 @@ void CertView::newCert(NewX509 *dlg)
 		if (QMessageBox::information(this,tr(XCA_TITLE),
 			tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
 			tr("Continue creation"), tr("Abort")
-		)) {
-			
+		))
 			throw errorEx("");
-		}
 	}
+	 
 			
 	// STEP 4
 	// handle extensions
@@ -302,8 +297,9 @@ void CertView::extendCert()
 void CertView::showItem(pki_base *item, bool import)
 {
 	if (!item) return; 
+	CertDetail *dlg=NULL;
     try {
-		CertDetail *dlg = new CertDetail(this,0,true);
+		dlg = new CertDetail(this,0,true);
 		dlg->setCert((pki_x509 *)item);
 		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ), 
 			this, SLOT( dlg_showKey(QString) ));
@@ -317,6 +313,7 @@ void CertView::showItem(pki_base *item, bool import)
     }
 	if (dlg)
 		delete dlg;
+    return ;
 }
 
 void CertView::deleteItem()
@@ -341,6 +338,7 @@ void CertView::load()
 {
 	QStringList filter;
 	filter.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
+	filter.append(tr("All files ( *.* )"));
 	load_default(filter,tr("Certificate import"));
 }
 
@@ -386,38 +384,30 @@ void CertView::loadPKCS12()
 			
 void CertView::insertP12(pki_pkcs12 *pk12)
 {
-	pki_x509 *acert;
-	pki_key *akey;
-
+	ImportMulti *dlg = NULL;
 	try {
-		akey = pk12->getKey();
-		acert = pk12->getCert();
-#ifdef INSERT_WO_ASK
-		insertKey(akey);
-		insertCert(acert);
+		dlg = new ImportMulti(this, NULL, true);
+		connect( dlg, SIGNAL( importKey(pki_key*) ), 
+			this, SLOT( importKey(pki_key*) ));
+		connect( dlg, SIGNAL( importCert(pki_x509*) ), 
+			this, SLOT( importCert(pki_x509*) ));
+		dlg->addItem(pk12->getKey());
+		dlg->addItem(pk12->getCert());
 		for (int i=0; i<pk12->numCa(); i++) {
-			acert = pk12->getCa(i);
-			insertCert(acert);
+			dlg->addItem( pk12->getCa(i));
 		}
-#else
-		emit importKey(akey);
-		showItem(acert,true);
-		for (int i=0; i<pk12->numCa(); i++) {
-			acert = pk12->getCa(i);
-			showItem(acert, true);
-		}
-#endif			
+		dlg->exec();
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
+	delete dlg;
 }	
 	
 
 void CertView::loadPKCS7()
 {
 	pki_pkcs7 *pk7 = NULL;
-	pki_x509 *acert;
 	QStringList filt;
 	filt.append(tr("PKCS#7 data ( *.p7s *.p7m *.p7b )")); 
 	filt.append(tr("All files ( *.* )"));
@@ -436,20 +426,22 @@ void CertView::loadPKCS7()
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
 		s = QDir::convertSeparators(s);
+	    ImportMulti *dlgi = NULL;
+		dlgi = new ImportMulti(this, NULL, true);
 		try {
 			pk7 = new pki_pkcs7(s);
 			pk7->readP7(s);
 			for (int i=0; i<pk7->numCert(); i++) {
-				acert = pk7->getCert(i);
-				showItem(acert, true);
+				dlgi->addItem(pk7->getCert(i));
 			}
+			dlgi->exec();
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
 		if (pk7) delete pk7;
+		delete dlgi;
 	}
-	updateView();
 }
 
 
@@ -685,22 +677,22 @@ void CertView::encryptP7()
 	pki_key *privkey = cert->getRefKey();
 	if (!privkey || privkey->isPubKey()) {
 		QMessageBox::warning(this,tr(XCA_TITLE),
-                	tr("There was no key found for the Certificate: ") +
+			tr("There was no key found for the Certificate: ") +
 			cert->getIntName()) ;
 		return; 
 	}
-        filt.append("All Files ( *.* )");
+	filt.append("All Files ( *.* )");
 	QString s="";
 	QStringList slist;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::ExistingFiles );
-        dlg->setDir(MainWindow::getPath());
+	dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
 		MainWindow::setPath(dlg->dirPath());
-        }
+	}
 	delete dlg;
 	pki_pkcs7 * p7 = new pki_pkcs7("");
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
@@ -712,7 +704,7 @@ void CertView::encryptP7()
 	delete p7;
     }
     catch (errorEx &err) {
-	Error(err);
+		Error(err);
     }
 }	
 
@@ -1116,3 +1108,22 @@ void CertView::genCrl()
 	emit genCrl((pki_x509 *)getSelected());
 }
 
+void CertView::importKey(pki_key *key)
+{
+	emit importKeyS(key);
+}
+
+void CertView::showKey(pki_key *key)
+{
+	KeyDetail *dlg = NULL;
+	if (!key) return;
+	try {   
+		dlg = new KeyDetail(this, 0, true, 0 );
+		dlg->setKey(key);
+	} 
+	catch (errorEx &err) {
+		Error(err);
+	}
+	if (dlg)
+		delete dlg;
+}

@@ -66,6 +66,7 @@ class ImportMulti: public ImportMulti_UI
 		QList<pki_base> cont;	
 	public:	
 		ImportMulti( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+		~ImportMulti();
 		void addItem(pki_base *pki);
 		pki_base *search(QListViewItem *current);
 		pki_base *getSelected();

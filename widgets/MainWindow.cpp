@@ -158,7 +158,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		keyList, SLOT(showItem(QString)) );
 	connect( certList, SIGNAL(insertReq(pki_base *)),
 		reqList, SLOT(insert(pki_base *)) ); 
-	connect( certList, SIGNAL(importKey(pki_key *)),
+	connect( certList, SIGNAL(importKeyS(pki_key *)),
 		keyList, SLOT(importKey(pki_key *)) ); 
 	connect( reqList, SIGNAL(newCert(pki_x509req *)),
 		certList, SLOT(newCert(pki_x509req *)) );

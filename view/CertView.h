@@ -110,11 +110,13 @@ class CertView : public XcaListView
 	void newCert(pki_x509req *req);
 	void newCert(pki_temp *req);
 	void genCrl();
+	void importKey(pki_key *key);
+	void showKey(pki_key *key);
 	
   signals:
 	void insertReq(pki_base *);
 	void genCrl(pki_x509 *);
-	void importKey(pki_key *);
+	void importKeyS(pki_key *);
 		
 };	
 
