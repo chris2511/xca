@@ -136,12 +136,16 @@ pki_x509::pki_x509(const string fname)
 	   if (!cert) {
 		ign_openssl_error();
 		rewind(fp);
-		printf("Fallback to certificate DER\n"); 
+		CERR("Fallback to certificate DER"); 
 	   	cert = d2i_X509_fp(fp, NULL);
 	   }
 	   openssl_error();
 	   int r = fname.rfind('.');
+#ifdef WIN32
+	   int l = fname.rfind('\\');
+#else
 	   int l = fname.rfind('/');
+#endif
 	   desc = fname.substr(l+1,r-l-1);
 	   if (desc == "") desc = fname;
 	   openssl_error();

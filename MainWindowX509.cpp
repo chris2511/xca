@@ -460,22 +460,27 @@ void MainWindow::loadCert()
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	//filt.append(tr("PKCS#7 Signatures ( *.p7s )")); 
 	filt.append(tr("All files ( *.* )"));
+	QStringList slist;
 	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::ExistingFiles );
 	if (dlg->exec())
-		s = dlg->selectedFile();
+		slist = dlg->selectedFiles();
 	delete dlg;
-	if (s.isEmpty()) return;
-	s=QDir::convertSeparators(s);
-	try {
-		pki_x509 *cert = new pki_x509(s.latin1());
-		insertCert(cert);
-		keys->updateViewPKI(cert->getKey());
-	}
-	catch (errorEx &err) {
-		Error(err);
+	
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		try {
+			pki_x509 *cert = new pki_x509(s.latin1());
+			insertCert(cert);
+			keys->updateViewPKI(cert->getKey());
+		}
+		catch (errorEx &err) {
+			Error(err);
+		}
 	}
 		
 }
@@ -488,32 +493,37 @@ void MainWindow::loadPKCS12()
 	QStringList filt;
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	filt.append(tr("All files ( *.* )"));
+	QStringList slist;
 	QString s="";
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::ExistingFiles );
 	if (dlg->exec())
-		s = dlg->selectedFile();
+		slist = dlg->selectedFiles();
 	delete dlg;
-	if (s.isEmpty()) return;
-	s=QDir::convertSeparators(s);
-	try {
-		pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
-		akey = pk12->getKey();
-		acert = pk12->getCert();
-		insertKey(akey);
-		insertCert(acert);
-		for (int i=0; i<pk12->numCa(); i++) {
-			acert = pk12->getCa(i);
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		try {
+			pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
+			akey = pk12->getKey();
+			acert = pk12->getCert();
+			insertKey(akey);
 			insertCert(acert);
+			for (int i=0; i<pk12->numCa(); i++) {
+				acert = pk12->getCa(i);
+				insertCert(acert);
+			}
+			delete pk12;
+			keys->updateView();
 		}
-		delete pk12;
-		keys->updateView();
-	}
-	catch (errorEx &err) {
-		Error(err);
+		catch (errorEx &err) {
+			Error(err);
+		}
 	}
 
+	
 /* insert with asking.....	
 	if (showDetailsKey(akey, true)) {
 		insertKey(akey);

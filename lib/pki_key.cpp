@@ -146,7 +146,11 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 		CERR("assigning loaded key");
 	   }
 	   int r = fname.rfind('.');
+#ifdef WIN32
+	   int l = fname.rfind('\\');
+#else
 	   int l = fname.rfind('/');
+#endif
 	   CERR( fname << "r,l: "<< r <<","<< l );
 	   setDescription(fname.substr(l+1,r-l-1));
 	   openssl_error();

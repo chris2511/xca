@@ -132,13 +132,17 @@ pki_x509req::pki_x509req(const string fname)
 	   if (!request) {
 		ign_openssl_error();
 		rewind(fp);
-		printf("Fallback to private key DER\n"); 
+		CERR("Fallback to private key DER"); 
 	   	request = d2i_X509_REQ_fp(fp, NULL);
 		openssl_error();
 	   }
 	   int r = fname.rfind('.');
+#ifdef WIN32	   
+	   int l = fname.rfind('\\');
+#else
 	   int l = fname.rfind('/');
-	   desc = fname.substr(l,r);
+#endif
+	   desc = fname.substr(l+1,r-l-1);
 	   if (desc == "") desc = fname;
 	   openssl_error();
 	}	
@@ -239,8 +243,14 @@ pki_key *pki_x509req::getKey()
 }
 
 
-void pki_x509req::setKey(pki_key *key)
+bool pki_x509req::setKey(pki_key *key)
 {
+	bool ret = false;
+	if (!privkey && key) {
+		CERR( "KEY COUNT UP");
+		key->incUcount();
+		ret=true;
+	}
 	privkey = key;
-	key->incUcount();
+	return ret;
 }

@@ -192,21 +192,24 @@ void MainWindow::loadKey()
 	filt.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
 	filt.append( "All Files ( *.* )");
 	QString s="";
+	QStringList slist;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption("Import key");
 	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::ExistingFiles );
 	if (dlg->exec())
-		s = dlg->selectedFile();
+		slist = dlg->selectedFiles();
 	delete dlg;
-	if (s.isEmpty()) return;
-	s=QDir::convertSeparators(s);
-	string errtxt;
-	try {
-		pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
-		insertKey(lkey);
-	}
-	catch (errorEx &err) {
-		Error(err);
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		try {
+			pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
+			insertKey(lkey);
+		}
+		catch (errorEx &err) {
+			Error(err);
+		}
 	}
 }
 

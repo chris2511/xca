@@ -79,7 +79,7 @@ class pki_x509req : public pki_base
 	   int verify();
 	   pki_key *getPubKey();
 	   pki_key *getKey();
-	   void setKey(pki_key *key);
+	   bool setKey(pki_key *key);
 };
 
 #endif

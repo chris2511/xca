@@ -168,22 +168,30 @@ void MainWindow::loadReq()
 	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
 	filt.append("All Files ( *.* )");
 	QString s="";
+	QStringList slist;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::ExistingFiles );
 	if (dlg->exec())
-		s = dlg->selectedFile();
+		slist = dlg->selectedFiles();
 	delete dlg;
-	if (s.isEmpty()) return;
-	s=QDir::convertSeparators(s);
-	try {
-		pki_x509req *req = new pki_x509req(s.latin1());
-		insertReq(req);
-		pki_key *pkey = req->getKey();
-		if (pkey) keys->updateViewPKI(pkey);
-	}
-	catch (errorEx &err) {
-		Error(err);
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		try {
+			pki_x509req *req = new pki_x509req(s.latin1());
+			MARK
+			insertReq(req);
+			MARK
+			pki_key *pkey = req->getKey();
+			MARK
+			if (pkey) keys->updateViewPKI(pkey);
+			MARK
+		}
+		catch (errorEx &err) {
+			Error(err);
+		}
 	}
 }
 
@@ -226,11 +234,14 @@ void MainWindow::insertReq(pki_x509req *req)
 	pki_x509 *oldreq;
 	try {
 		oldreq = (pki_x509 *)reqs->findPKI(req);
+	MARK
 	}
 	catch (errorEx &err) {
 		Error(err);
 	}
+	MARK
 	if (oldreq) {
+	MARK
 	   QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate signing request already exists in the database as") +":\n'" +
 		QString::fromLatin1(oldreq->getDescription().c_str()) + 
@@ -238,9 +249,12 @@ void MainWindow::insertReq(pki_x509req *req)
 	   delete(req);
 	   return;
 	}
+	MARK
 	try {
 		reqs->findKey(req);
+	MARK
 		reqs->insertPKI(req);
+	MARK
 	}
 	catch (errorEx &err) {
 		Error(err);
