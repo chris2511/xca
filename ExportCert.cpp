@@ -63,7 +63,7 @@ ExportCert::ExportCert(QString fname, bool hasKey,
 	exportFormat->insertItem("PEM all trusted Certificates");
 	exportFormat->insertItem("PEM all Certificates");
 	exportFormat->insertItem("DER");
-	exportFormat->insertItem("Signed PKCS#7");
+//	exportFormat->insertItem("Signed PKCS#7");
 	if (hasKey) {
 		exportFormat->insertItem("PKCS #12");
 		exportFormat->insertItem("PKCS #12 with Certificate chain");
