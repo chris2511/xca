@@ -56,9 +56,9 @@ const int MainWindow::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
 
 pki_key *MainWindow::getSelectedKey()
 {
-	CERR << "get Selected Key" << endl;
+	CERR( "get Selected Key");
 	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
-	CERR << "got selected: "<< (int)targetKey << endl;
+	CERR( "got selected: "<< (int)targetKey );
 	if (targetKey) {
 	   string errtxt = targetKey->getError();
 	   if (errtxt != "")
@@ -66,7 +66,7 @@ pki_key *MainWindow::getSelectedKey()
 			tr("The Key: ") + QString::fromLatin1(targetKey->getDescription().c_str()) +
 			tr(" is not consistent:") + QString::fromLatin1(errtxt.c_str()) );
 	}
-	CERR << "targetKey = " << (int)targetKey << endl;
+	CERR( "targetKey = " << (int)targetKey );
 	return targetKey;
 }
 
@@ -213,13 +213,13 @@ void MainWindow::insertKey(pki_key *lkey)
 			tr("The database already contains the public part of the imported key as") +":\n'" +
 			QString::fromLatin1(oldkey->getDescription().c_str()) + 
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
-		    CERR << "before deleting pki...\n";
+		    CERR( "before deleting pki...");
 		    keys->deletePKI(oldkey);
 		    lkey->setDescription(oldkey->getDescription());
 		    delete(oldkey);
 		}
 	}
-	CERR << "after findkey\n";
+	CERR( "after findkey");
 	if (!keys->insertPKI(lkey))
 	   QMessageBox::warning(this,title,
 		tr("The key could not be stored into the database"), "OK");
@@ -270,7 +270,7 @@ void MainWindow::writeKey()
 
 
 void MainWindow::showPopupKey(QListViewItem *item, const QPoint &pt, int x) {
-	CERR << "hallo popup key" << endl;
+	CERR( " popup key" );
 	QPopupMenu *menu = new QPopupMenu(this);
 	if (!item) {
 		menu->insertItem(tr("New Key"), this, SLOT(newKey()));

@@ -97,6 +97,7 @@ void db_key::inToCont(pki_base *pki)
 
 void db_key::updateViewPKI(pki_base *pki)
 {
+	CERR("updateViewPKI()");
         db_base::updateViewPKI(pki);
         if (! pki) return;
         int pixnum = 0;

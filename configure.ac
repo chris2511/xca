@@ -47,6 +47,12 @@ AC_PATH_PROG(UIC,uic,[uic],[$PATH],,[LQT=no])
 if test "$LDB" == no; then
 	AC_MSG_ERROR([QT library and tools not found, try setting $QTDIR apropriate or install qt-dev])
 fi
+
+AC_ARG_ENABLE([printf-debug],[--enable-printf-debug  switch on or off the printf-debugging :-) ],
+[if test "x$enableval" == "xyes"; then
+	AC_DEFINE(PRINTF_DEBUG)
+fi], AC_DEFINE(PRINTF_DEBUG) )
+
 AC_CONFIG_FILES([Makefile lib/Makefile])
 AC_OUTPUT
 

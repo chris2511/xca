@@ -40,5 +40,20 @@
 /* Define if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
+/* Define if you want printf debugging. */
+#undef PRINTF_DEBUG
+
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const
+
+
+/* handle printf debugging */
+#define MARK CERR("--Mark--")
+
+#ifdef PRINTF_DEBUG
+#define CERR(x) cerr <<__FILE__<<" ("<<__LINE__<<") :"<< x << endl;
+#else
+#define CERR(x)
+#endif
+
+

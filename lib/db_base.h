@@ -97,7 +97,7 @@ class db_base: public QObject
 	db_base(DbEnv *dbe, string DBfile, string db);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
-		CERR<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
+		CERR("VIRTUAL CALLED: newPKI"); return NULL;}
 	virtual bool updateView();
 	virtual void updateViewPKI(pki_base *pki);
 	virtual bool insertPKI(pki_base *pki);

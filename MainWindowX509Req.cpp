@@ -202,7 +202,7 @@ void MainWindow::insertReq(pki_x509req *req)
 
 
 void MainWindow::showPopupReq(QListViewItem *item, const QPoint &pt, int x) {
-	CERR << "hallo popup Req" << endl;
+	CERR("hallo popup Req");
 	QPopupMenu *menu = new QPopupMenu(this);
 	if (!item) {
 		menu->insertItem(tr("New Request"), this, SLOT(newReq()));

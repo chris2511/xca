@@ -95,7 +95,7 @@ void ExportKey::chooseFile()
 }
 
 void ExportKey::canEncrypt() {
-	CERR<< "TOGGEL" <<endl;
+	CERR("TOGGEL");
 	if (exportFormat->currentText() == "PKCS#8") {
 		exportPrivate->setChecked(true);
 		exportPrivate->setDisabled(true);

@@ -132,7 +132,7 @@ void MainWindow::newCert(pki_temp *templ)
 	if (dlg->foreignSignRB->isChecked()) {
 		serial = signcert->getIncCaSerial();
 		certs->updatePKI(signcert);  // not so pretty ....
-		CERR << "serial is: " << serial <<endl;
+		CERR("serial is: " << serial );
 	}	
 	
 	// initially create cert 
@@ -154,13 +154,13 @@ void MainWindow::newCert(pki_temp *templ)
 	if (dlg->subKey->isChecked()) {
 		string subkey="hash";
 		cert->addV3ext(NID_subject_key_identifier, subkey);
-		CERR << subkey <<endl;
+		CERR( subkey );
 	}
 	// Authority Key identifier
 	if (dlg->authKey->isChecked()) {
 		string authkey="keyid,issuer";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
-		CERR << authkey <<endl;
+		CERR( authkey );
 	}
 	 
 	// key usage
@@ -174,7 +174,7 @@ void MainWindow::newCert(pki_temp *templ)
 		keyuse1 = keyuse;
 		if (dlg->kuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
 		cert->addV3ext(NID_key_usage, keyuse1);
-		CERR << "KeyUsage:" <<keyuse1<< endl;
+		CERR( "KeyUsage:" <<keyuse1);
 	}
 	
 	// extended key usage
@@ -189,7 +189,7 @@ void MainWindow::newCert(pki_temp *templ)
 		keyuse1 = keyuse;
 		if (dlg->ekuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
 		cert->addV3ext(NID_ext_key_usage, keyuse1);
-		CERR << "Extended Key Usage:" <<keyuse1<< endl;
+		CERR( "Extended Key Usage:" <<keyuse1 );
 	}
 	
 	
@@ -204,7 +204,7 @@ void MainWindow::newCert(pki_temp *templ)
 		addStr(subAltName,cont.c_str());
 	}
 	if (subAltName.length() > 0) {
-		CERR << "SubAltName:" << subAltName<< endl;
+		CERR( "SubAltName:" << subAltName);
 		cert->addV3ext(NID_subject_alt_name, subAltName);
 	}
 	
@@ -218,7 +218,7 @@ void MainWindow::newCert(pki_temp *templ)
 		addStr(issAltName,cont.c_str());
 	}
 	if (issAltName.length() > 0) {
-		CERR << "IssAltName:" << issAltName<< endl;
+		CERR("IssAltName:" << issAltName);
 		cert->addV3ext(NID_issuer_alt_name, issAltName);
 	}
 		
@@ -242,12 +242,12 @@ void MainWindow::newCert(pki_temp *templ)
 	// and finally sign the request 
 	cert->sign(signkey);
 	if (opensslError(cert)) goto err;
-	CERR << "SIGNED" <<endl;
+	CERR( "SIGNED");
 	insertCert(cert);
-	CERR <<"inserted"<<endl;
+	CERR("inserted");
 	if (tempReq && req) delete(req);
 	delete (dlg);
-	CERR << "Dialog deleted" <<endl;
+	CERR("Dialog deleted" );
 	keys->updateView();
 	return;
 err:	
@@ -313,7 +313,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	if (cert->getEffTrust() == 0) {
 	      	dlg->verify->setDisabled(true);
 	}
-	CERR << cert->getEffTrust() <<endl;
+	CERR( cert->getEffTrust() );
 	
 	// the serial
 	dlg->serialNr->setText(cert->getSerial().c_str());	
@@ -443,7 +443,7 @@ void MainWindow::loadPKCS12()
 	s=QDir::convertSeparators(s);
 	pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
 	if (opensslError(pk12)) {
-		CERR<< "PKCS12error, deleting..." <<endl;
+		CERR( "PKCS12error, deleting..." );
 		if (pk12) delete pk12;
 		return;
 	}
@@ -497,7 +497,7 @@ void MainWindow::insertCert(pki_x509 *cert)
 	   delete(cert);
 	   return;
 	}
-	CERR << "insertCert: inserting" <<endl;
+	CERR( "insertCert: inserting" );
 	certs->insertPKI(cert);
 }
 
@@ -553,20 +553,20 @@ void MainWindow::writePKCS12()
 	pki_x509 *signer = cert->getSigner();
 	int cnt =0;
 	while ((signer != NULL ) && (signer != cert)) {
-		CERR <<"SIGNER:"<<(int)signer<<endl;
+		CERR("SIGNER:"<<(int)signer);
 		p12->addCaCert(signer);
-		CERR << "signer: " << ++cnt << endl;
+		CERR( "signer: " << ++cnt );
 		cert=signer;
 		signer=signer->getSigner();
 	}
-	CERR << "start writing" <<endl;
+	CERR("start writing" );
 	p12->writePKCS12(s.latin1());
 	opensslError(cert);
 	delete p12;
 }
 
 void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
-	CERR << "hallo popup" << endl;
+	CERR( "popup Cert");
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subMenu = new QPopupMenu(this);
 	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate;
@@ -656,11 +656,11 @@ void MainWindow::revoke()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	cert->setRevoked(true);
-	CERR << "setRevoked..." <<endl;
+	CERR("setRevoked..." );
 	certs->updatePKI(cert);
-	CERR << "updatePKI done"<<endl;
+	CERR("updatePKI done");
 	certs->updateViewAll();
-	CERR << "view updated" <<endl;
+	CERR("view updated");
 }
 
 void MainWindow::unRevoke()
@@ -757,10 +757,10 @@ void MainWindow::genCrl()
 		crl->writeCrl(s.latin1());
 		cert->setLastCrl(crl->getDate());
 		certs->updatePKI(cert);
-		CERR << "CRL done, completely" <<endl;
+		CERR( "CRL done, completely");
 	}
 	delete(crl);
- 	CERR << "crl deleted" << endl;
+ 	CERR("crl deleted");
 }
 
 

@@ -82,7 +82,7 @@ pki_x509 *db_x509::findSigner(pki_x509 *client)
 	for ( ; it.current(); ++it ) {
 		signer = (pki_x509 *)it.current();
 		if (client->verify(signer)) {
-			cerr << "SIGNER found" <<endl;
+			CERR("SIGNER found");
 			return signer;
 		}
 	}		
@@ -99,13 +99,13 @@ bool db_x509::updateView()
 	pki_x509 *signer;
 	QListViewItem *parentitem;
 	QListViewItem *current;
-	cerr <<"myupdate"<<endl;
+	CERR("myupdate");
 	if ( container.isEmpty() ) return false;
 	QList<pki_base> mycont = container;
 	for ( pkib = container.first(); pkib != NULL; pkib = container.next() ) pkib->delPointer();
 	int f=0;
 	while (! mycont.isEmpty() ) {
-		cerr << "-----------------------------------------------------------------Round "<< f++ <<endl;
+		CERR("-----------------------------------------------------------------Round "<< f++);
 		QListIterator<pki_base> it(mycont); 
 		for ( ; it.current(); ++it ) {
 			pki = (pki_x509 *)it.current();
@@ -117,11 +117,11 @@ bool db_x509::updateView()
 				// create the listview item
 				if (parentitem != NULL) {
 					current = new QListViewItem(parentitem, pki->getDescription().c_str());	
-					cerr<< "Adding as client: "<<pki->getDescription().c_str()<<endl;
+					CERR("Adding as client: "<<pki->getDescription().c_str());
 				}
 				else {
 					current = new QListViewItem(listView, pki->getDescription().c_str());	
-					cerr<< "Adding as parent: "<<pki->getDescription().c_str()<<endl;
+					CERR("Adding as parent: "<<pki->getDescription().c_str());
 				}
 				pki->setPointer(current);
 				mycont.remove(pki);
@@ -261,17 +261,17 @@ void db_x509::newKey(pki_key *newkey)
 void db_x509::preprocess()
 {
 	pki_x509 *pki;
-	CERR <<"preprocess X509"<<endl;
+	CERR("preprocess X509");
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
 		pki = (pki_x509 *)iter.current();
 		findSigner(pki);
-		CERR << "Signer of "<< pki->getDescription().c_str() << endl;
+		CERR("Signer of "<< pki->getDescription().c_str());
 		findKey(pki);	
-		CERR << "Key of "<< pki->getDescription().c_str() << endl;
+		CERR("Key of "<< pki->getDescription().c_str());
 	}
-	CERR << "Signers and keys done "<< endl;
+	CERR("Signers and keys done ");
 	
 	calcEffTrust();
 	
@@ -315,12 +315,12 @@ void db_x509::preprocess()
 void db_x509::calcEffTrust()
 {
 	pki_x509 *pki;
-	CERR <<"re calc eff trust X509"<<endl;
+	CERR("re calc eff trust X509");
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
 		pki = (pki_x509 *)iter.current();
-		CERR << "CalcTrust for: " << pki->getDescription().c_str() << endl;
+		CERR("CalcTrust for: " << pki->getDescription().c_str());
 		pki->calcEffTrust();
 	}
 }

@@ -158,7 +158,7 @@ pki_temp::pki_temp(const string d, int atype)
 
 bool pki_temp::fromData(unsigned char *p, int size )
 {
-	CERR << "Temp fromData\n";
+	CERR("Temp fromData");
 	unsigned char *p1 = p;
 	version=intFromData(&p1);
 	type=intFromData(&p1);
@@ -196,7 +196,7 @@ bool pki_temp::fromData(unsigned char *p, int size )
 	//next version:
 	//if (version == 2) { ..... }
 	if (p1-p != size) {
-		CERR << "AAAAarrrrgghhhhh wrong tempsize..." << (p1-p) << " - " <<size <<endl;
+		CERR( "AAAAarrrrgghhhhh wrong tempsize..." << (p1-p) << " - " <<size );
 		return false;
 	}
 	return true;
@@ -205,7 +205,7 @@ bool pki_temp::fromData(unsigned char *p, int size )
 
 unsigned char *pki_temp::toData(int *size) 
 {
-	CERR << "temp toData " << getDescription()<< endl;
+	CERR("temp toData " << getDescription() );
 	unsigned char *p, *p1;
 	*size = dataSize();
 	p = (unsigned char*)OPENSSL_malloc(*size);
@@ -244,7 +244,7 @@ unsigned char *pki_temp::toData(int *size)
 	stringToData(&p1, nsCaPolicyUrl);
 	stringToData(&p1, nsSslServerName);
 
-	CERR << "Temp toData end ..."<< (p1-p) << " - "<<*size <<endl;
+	CERR( "Temp toData end ..."<< (p1-p) << " - "<<*size );
 	return p;
 }
 

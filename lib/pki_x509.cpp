@@ -252,7 +252,7 @@ bool pki_x509::fromData(unsigned char *p, int size)
 		sCert = intFromData(&p1);
 		cert = d2i_X509(NULL, &p1, sCert);
 		trust = intFromData(&p1);
-		CERR << "Trust: " << trust <<endl;
+		CERR( "Trust: " << trust );
 		sRev = intFromData(&p1);
 		if (sRev) {
 		   revoked= d2i_ASN1_TIME(NULL, &p1, sRev);
@@ -297,18 +297,18 @@ bool pki_x509::fromData(unsigned char *p, int size)
 unsigned char *pki_x509::toData(int *size)
 {
 #define PKI_DB_VERSION (int)3
-	CERR <<"cert toData" << endl;
+	CERR("cert toData");
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
-	CERR << "A" <<endl;
+	CERR("");
 	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
-	CERR << "B" <<endl;
+	CERR("");
 	int sLastCrl = (lastCrl ? i2d_ASN1_TIME(lastCrl, NULL) : 0);
-	CERR << "C" <<endl;
+	CERR("");
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();
-	CERR <<"CertSize: "<<sCert << "  RevSize: " <<sRev <<" CRLdatesize: "<< sLastCrl<< endl;
+	CERR("CertSize: "<<sCert << "  RevSize: " <<sRev <<" CRLdatesize: "<< sLastCrl);
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
 	intToData(&p1, (PKI_DB_VERSION)); // version
@@ -422,7 +422,7 @@ bool pki_x509::verify(pki_x509 *signer)
 	int i = X509_verify(cert,pkey);
 	openssl_error();
 	if (i>0) {
-		cerr << "psigner set for: " << getDescription().c_str() << endl;
+		CERR("psigner set for: " << getDescription().c_str() );
 		psigner = signer;
 		return true;
 	}
@@ -476,7 +476,7 @@ bool pki_x509::setKey(pki_key *key)
 {
 	bool ret=false;
 	if (!pkey && key) {
-		CERR << "KEYCOUNTUP" << endl;
+		CERR( "KEY COUNT UP");
 		key->incUcount();
 		ret=true;
 	}

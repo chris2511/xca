@@ -73,7 +73,7 @@ pki_base *db_x509req::newPKI(){
 void db_x509req::delKey(pki_key *delkey)
 {
 	pki_x509req *pki;
-	CERR <<"delKey in X509req"<<endl;
+	CERR("delKey in X509req");
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the key of the request
@@ -90,7 +90,7 @@ void db_x509req::newKey(pki_key *newkey)
 {
 	pki_key *refkey;
 	pki_x509req *pki;
-	CERR <<"newKey in X509req"<<endl;
+	CERR("newKey");
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the key of the request
@@ -118,13 +118,13 @@ void db_x509req::updateViewPKI(pki_base *pki)
 void db_x509req::preprocess()
 {
 	pki_x509req *pki;
-	CERR <<"preprocess X509req"<<endl;
+	CERR("preprocess X509req");
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the key of the request
 		pki = (pki_x509req *)iter.current();
 		findKey(pki);
-		CERR << "Key of "<< pki->getDescription().c_str() << endl;
+		CERR("Key of "<< pki->getDescription().c_str());
 	}
 }
 

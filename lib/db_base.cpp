@@ -57,7 +57,7 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB)
 	dbenv = dbe;
 	listView = NULL;
 	data = new Db(dbe, 0);
-	cerr << "DB:" << DBfile <<"\n";//
+	CERR("DB:" << DBfile);
 	int x;
 	if (( x = data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
 		data->err(x,"DB open");
@@ -123,18 +123,18 @@ string db_base::getString(string key)
 	int dsize;
 	char *p = (char *)getData(key, &dsize);
 	if (p == NULL) {
-		cerr << "getString: p was NULL"<< endl;
+		CERR("getString: p was NULL");
 		return x;
 	}
 	if ( p[dsize-1] != '\0' ) {
 		int a =p[dsize-1];	
-		cerr << "getString: stringerror "<< a <<" != 0  (returning empty string) size:" <<dsize<< endl;
+		CERR( "getString: stringerror "<< a <<" != 0  (returning empty string) size:" <<dsize);
 		return x;
 	}
 	x = p;
 	free(p);
 	if ( (int)x.length() != (dsize-1) ) {
-		cerr << "error with '"<<key<<"': "<< x.c_str() <<" "<<dsize<<endl;
+		CERR( "error with '"<<key<<"': "<< x.c_str() <<" "<<dsize);
 	}
 	return x;
 }
@@ -166,20 +166,20 @@ void db_base::putData(void *key, int keylen, void *dat, int datalen)
 
 void db_base::putString(string key, void *dat, int datalen)
 {
-	cerr << key << endl;
+	CERR( key );
 	putData((void *)key.c_str(), key.length()+1, dat, datalen);
 }
 
 void db_base::putString(string key, string dat)
 {
-	cerr << key<<endl;
+	CERR( key);
 	putString(key, (void *)dat.c_str(), dat.length() +1);
 }
 
 void db_base::putString(char *key, string dat)
 {
 	string x = key;
-	cerr << key<<endl;
+	CERR(key);
 	putString(x,dat);
 }
 
@@ -200,15 +200,15 @@ void db_base::loadContainer()
 	string desc;
 	pki_base *pki;
 	container.clear();
-	CERR << "Load Container" << endl;
+	CERR("Load Container");
 	while (!cursor->get(k, d, DB_NEXT)) {
 		desc = (char *)k->get_data();
 		p = (unsigned char *)d->get_data();
 		int size = d->get_size();
 		pki = newPKI();
-		CERR <<"PKItest  "<< desc.c_str() << endl;
+		CERR("PKItest");
 		if (pki == NULL) continue;
-		CERR << desc.c_str() << endl;
+		CERR(desc.c_str());
 		if (pki->fromData(p, size)) {
 			pki->setDescription(desc);
 			container.append(pki);
@@ -268,8 +268,7 @@ bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid)
 	while (x == DB_KEYEXIST) {
 	   Dbt k((void *)desc.c_str(), desc.length() + 1);
 	   Dbt d((void *)p, size);
-           CERR << "Size: " << d.get_size() << endl;
-	
+           CERR("Size: " << d.get_size());
 	   if ((x = data->put(tid, &k, &d, flags ))!=0) {
 		data->err(x,"DB Error put");
 		sprintf(field,"%02i", ++cnt);
@@ -366,7 +365,7 @@ bool db_base::updatePKI(pki_base *pki)
 pki_base *db_base::getSelectedPKI(string desc)
 {
 	if (desc == "" ) return NULL;
-	CERR << "descB = '"<<desc <<"'\n";
+	CERR("desc = '"<<desc);
 	pki_base *pki;
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
@@ -397,7 +396,7 @@ pki_base *db_base::getSelectedPKI()
 	QListViewItem *lvi;
 	if ((lvi = listView->selectedItem()) == NULL) return NULL;
 	if ((tp = lvi->text(0).latin1())) desc = tp;
-	CERR << "desc = '"<<desc <<"'\n";
+	CERR("desc = '"<<desc);
 	return getSelectedPKI(desc);
 }
 	

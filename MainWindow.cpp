@@ -73,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	baseDir += QDir::separator();
 
 	baseDir += BASE_DIR;
-	CERR << baseDir.latin1() <<endl;
+	CERR(baseDir.latin1());
 	QDir d(baseDir);
 	if ( ! d.exists() ){
 		if (!d.mkdir(baseDir)) 

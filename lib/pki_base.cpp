@@ -93,7 +93,7 @@ bool pki_base::pki_error(const string myerr)
 {
 	string errtxt = "";
 	if (myerr != "") {
-		CERR << "PKI ERROR: " << myerr << endl;
+		CERR("PKI ERROR: " << myerr);
 		error += myerr + "\n";
 	}
 	return openssl_error();
@@ -105,7 +105,7 @@ bool pki_base::openssl_error()
 	string errtxt = "";
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
-	   CERR << "OpenSSL: " << errtxt << endl;
+	   CERR("OpenSSL: " << errtxt);
 	   error += errtxt + "\n";
 	}
 	return  (!error.empty());
@@ -120,7 +120,7 @@ bool pki_base::ign_openssl_error()
 	while (int i = ERR_get_error() ) {
 	   ret = true;
 	   errtxt = ERR_error_string(i ,NULL);
-	   CERR << "IGNORE: OpenSSL: " << errtxt << endl;
+	   CERR("IGNORE: OpenSSL: " << errtxt);
 	}
 	return ret;
 }
@@ -174,7 +174,6 @@ string pki_base::stringFromData(unsigned char **p)
 		ret +=(char)**p;
 		*p += sizeof(char);
 	}
-	CERR << "read:" << ret <<endl;
 	*p += sizeof(char);
 	return ret;
 }

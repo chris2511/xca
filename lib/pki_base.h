@@ -54,14 +54,14 @@
 
 #ifndef HAVE_CONFIG_H
 using namespace std ;
+#else
+#include "../config.h"
 #endif
 
 #include <openssl/err.h>
 
 #ifndef PKI_BASE_H
 #define PKI_BASE_H
-
-#define CERR cerr
 
 struct PASS_INFO {
 	string *title;
@@ -88,11 +88,11 @@ class pki_base
 	pki_base(const string d);
 	pki_base();
 	virtual bool fromData(unsigned char *p, int size)
-		{ cerr << "VIRTUAL FUNCTION CALLED: fromData\n"; return false; };
+		{ CERR("VIRTUAL FUNCTION CALLED: fromData"); return false; };
 	virtual unsigned char *toData(int *size)
-		{ cerr << "VIRTUAL FUNCTION CALLED: toData\n"; return NULL;};
+		{ CERR("VIRTUAL FUNCTION CALLED: toData"); return NULL;};
 	virtual bool compare(pki_base *ref)
-		{ cerr << "VIRTUAL FUNCTION CALLED: compare\n"; return false;};
+		{ CERR("VIRTUAL FUNCTION CALLED: compare"); return false;};
 	virtual ~pki_base();
         string getDescription();
         void setDescription(const string d );

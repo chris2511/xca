@@ -131,7 +131,7 @@ void pki_crl::writeCrl(const string fname)
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (crl){
-		CERR << "writing CRL" << endl;
+		CERR("writing CRL");
 		PEM_write_X509_CRL(fp, crl);
 		openssl_error();
 	   }

@@ -336,7 +336,7 @@ void NewX509::toggleFromRequest()
 	
 void NewX509::dataChangeP2()
 {
-	CERR << "Data changed" << endl;
+	CERR( "Data changed" );
 	if ((description->text() != "" || fromReqCB->isChecked()) &&
 	    (keyList->count() > 0  || !keyList->isEnabled())){
 		setNextEnabled(page2,true);
@@ -371,16 +371,16 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::signerChanged()
 {
-	CERR << "signer Changed" <<endl;
+	CERR("signer Changed");
 	// int i=0, sel=0;
 	if (!certs) return;
 	QString name = certList->currentText();
-	CERR << "Certificate: " << name.latin1() << endl;
+	CERR( "Certificate: " << name.latin1());
 	if (name.isEmpty()) return;
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(name.latin1());
 	if (!cert) return;
 	QString templ = cert->getTemplate().c_str();	
-	CERR << "set Template: " << templ.latin1() << endl;
+	CERR( "set Template: " << templ.latin1() );
 #ifdef qt3
 	tempList->setCurrentText(templ);
 #else
@@ -412,14 +412,14 @@ void NewX509::templateChanged()
 	if (name == "" || !temps) return;
 	pki_temp *temp = (pki_temp *)temps->getSelectedPKI(name.latin1());
 	if (!temp) return;
-	CERR <<"CHANGING TEMPLATE" << endl;
+	CERR("CHANGING TEMPLATE");
 	fromTemplate(temp);
 }
 
 void NewX509::switchExtended()
 {
 	if ( !appropriate(page1) ) return;
-	CERR << "SWITCH Extended" <<endl;
+	CERR( "SWITCH Extended");
 	if (changeDefault->isChecked() || !templateBox->isEnabled()) {
 		setAppropriate(page4, true);
 		setAppropriate(page5, true);

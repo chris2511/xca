@@ -63,11 +63,11 @@ void MainWindow::newTemp(int type)
 bool MainWindow::alterTemp(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(this, NULL, NULL, NULL, NULL, NULL, tempImg, nsImg );
-	CERR <<" Juhuuu" <<endl;
+	MARK
 	dlg->setTemp(temp);
-	CERR <<" Juhuuu" <<endl;
+	MARK
 	dlg->fromTemplate(temp);
-	CERR <<" Juhuuu" <<endl;
+	MARK
 	if (!dlg->exec()) {
 		delete dlg;
 		return false;
@@ -79,10 +79,10 @@ bool MainWindow::alterTemp(pki_temp *temp)
 
 void MainWindow::alterTemp()
 {
-	CERR << "rename AA??" <<endl;
+	MARK
 	pki_temp *temp = (pki_temp *)temps->getSelectedPKI();
 	if (!temp) return;
-	CERR << "rename ??" <<endl;
+	MARK
 	string oldname = temp->getDescription();
 	alterTemp(temp);
 	string newname = temp->getDescription();
@@ -130,7 +130,7 @@ void MainWindow::reqFromTemp()
 }
 
 void MainWindow::showPopupTemp(QListViewItem *item, const QPoint &pt, int x) {
-	CERR << "hallo popup template" << endl;
+	CERR( " popup template" );
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subMenu = new QPopupMenu(this);
 	if (!item) {
@@ -165,14 +165,14 @@ void MainWindow::startRenameTemp()
 {
 #ifdef qt3
 	
-	CERR << "rename" <<endl;
+	CERR("rename" );
 	pki_base *pki = temps->getSelectedPKI();
-	CERR << "rename" <<endl;
+	CERR("rename" );
 	if (!pki) return;
 	QListViewItem *item = (QListViewItem *)pki->getPointer();
 	item->startRename(0);
 #else
-	CERR << "rename qt2" <<endl;
+	CERR ( "rename qt2" );
 	renamePKI(temps);
 #endif
 }
