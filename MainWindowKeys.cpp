@@ -44,6 +44,7 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
+ * $id$ 
  *
  */                           
 
@@ -109,9 +110,10 @@ void MainWindow::deleteKey()
 }
 
 
-void MainWindow::showDetailsKey(pki_key *key)
+bool MainWindow::showDetailsKey(pki_key *key, bool import = false)
 {
-	if (key == NULL ) return;
+	if (!key) return false;
+	if (opensslError(key)) return false;
 	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
 	
 	detDlg->keyDesc->setText(
@@ -127,12 +129,17 @@ void MainWindow::showDetailsKey(pki_key *key)
 		detDlg->keyPrivEx->setDisabled(true);
 	}
 	detDlg->image->setPixmap(*keyImg);
-
-	if ( !detDlg->exec()) return;
+	if (import) {
+		detDlg->but_ok->setText(tr("Import"));
+		detDlg->but_cancel->setText(tr("Discard"));
+	}
+	
+	if ( !detDlg->exec()) return false;
 	string ndesc = detDlg->keyDesc->text().latin1();
 	if (ndesc != key->getDescription()) {
 		keys->renamePKI(key, ndesc);
 	}
+	return true;
 }
 
 

@@ -1,6 +1,7 @@
 #
 #  @configure_input@
 #
+# $id$
 
 VERSION=@PACKAGE_VERSION@
 TARGET=xca-$(VERSION)
@@ -34,5 +35,5 @@ clean:
 	rm -rf *~ *.o *.a
 
 distclean: clean
-	Makefile
+	rm -f Makefile
 

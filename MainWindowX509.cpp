@@ -44,6 +44,7 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
+ * $id$ 
  *
  */                           
 
@@ -227,10 +228,10 @@ void MainWindow::showDetailsCert(QListViewItem *item)
 }
 
 
-void MainWindow::showDetailsCert(pki_x509 *cert)
+bool MainWindow::showDetailsCert(pki_x509 *cert, bool import = false)
 {
-	if (!cert) return;
-	if (opensslError(cert)) return;
+	if (!cert) return false;
+	if (opensslError(cert)) return false;
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->image->setPixmap(*certImg);
 	dlg->descr->setText(cert->getDescription().c_str());
@@ -315,14 +316,22 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	
 	// V3 extensions
 	dlg->v3Extensions->setText(cert->printV3ext().c_str());
+	
+	// rename the buttons in case of import 
+	if (import) {
+		dlg->but_ok->setText(tr("Import"));
+		dlg->but_cancel->setText(tr("Discard"));
+	}
+	 
 
 	// show it to the user...	
-	if ( !dlg->exec()) return;
+	if ( !dlg->exec()) return false;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != cert->getDescription()) {
 		certs->renamePKI(cert, ndesc);
 	}
-	opensslError(cert);
+	if (opensslError(cert)) return false;
+	return true;
 }
 
 void MainWindow::deleteCert()
@@ -360,11 +369,56 @@ void MainWindow::loadCert()
 
 void MainWindow::loadPKCS12()
 {
+	pki_pkcs12 *pk12;
+	pki_x509 *acert;
+	pki_key *akey;
 	QStringList filt;
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	filt.append(tr("All files ( *.* )"));
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
+	dlg->setCaption(tr("Certificate import"));
+	dlg->setFilters(filt);
+	if (dlg->exec())
+		s = dlg->selectedFile().latin1();
+	if (s == "") return;
+	pk12 = new pki_pkcs12(s, &MainWindow::passRead);
+	opensslError(pk12);
+	akey = pk12->getKey();
+	acert = pk12->getCert();
+	opensslError(akey);
+	opensslError(acert);
+	opensslError(pk12);
+	insertKey(akey);
+	insertCert(acert);
+	for (int i=0; i<pk12->numCa(); i++) {
+		acert = pk12->getCa(i);
+		insertCert(acert);
+	}
+
+/* insert with asking.....	
+	if (showDetailsKey(akey, true)) {
+		insertKey(akey);
+	}
+	else {
+		delete(akey);
+	}
+	if (showDetailsCert(acert,true)) {
+		insertCert(acert);
+	}
+	else {
+		delete(acert);
+	}
+	for (int i=0; i<pk12->numCa(); i++) {
+		acert = pk12->getCa(i);
+		if (showDetailsCert(acert, true)) {
+			insertCert(acert);
+		}
+		else {
+			delete(acert);
+		}
+	}
+*/
 }	
 	
 void MainWindow::insertCert(pki_x509 *cert)
@@ -411,6 +465,7 @@ void MainWindow::writePKCS12()
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("PKCS#12 export"));
 	dlg->setFilters(filt);
+	dlg->setMode( QFileDialog::AnyFile );
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
 	if (s == "") return;

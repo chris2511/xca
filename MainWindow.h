@@ -44,6 +44,7 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
+ * $id$ 
  *
  */                           
 
@@ -117,9 +118,9 @@ class MainWindow: public MainWindow_UI
 	void loadSettings();
 	void saveSettings();
 	void initPass();
-	void showDetailsKey(pki_key *key);
+	bool showDetailsKey(pki_key *key, bool import = false);
 	void showDetailsReq(pki_x509req *req);
-	void showDetailsCert(pki_x509 *cert);
+	bool showDetailsCert(pki_x509 *cert, bool import = false);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static void incProgress(int a, int b, void *progress);

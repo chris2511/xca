@@ -33,7 +33,8 @@ Installation
 ============
 
 should be straight forward:
-just type 'make' to compile
+just type 'configure' to configure the package,
+then type 'make' to compile
 and as root: 'make install'
 for installation
 
@@ -42,10 +43,10 @@ than the recommended software packages, or on an other platform
 than Linux, or if it failed :-)
 
 
-
 ----------------------------------------------------------
 if there are any questions regarding this software,
 dont hesitate to contact me:
 
 christian@hohnstaedt.de
 
+$id$

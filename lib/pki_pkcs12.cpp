@@ -44,6 +44,7 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
+ * $id$
  *
  */                           
 
@@ -54,8 +55,8 @@
 pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
 	pki_base(d)
 {
-	key = akey;
-	cert = acert;
+	key = new pki_key(akey);
+	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
 	pkcs12 = NULL;
 	passcb = cb;
@@ -69,6 +70,9 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 	char pass[30];
 	EVP_PKEY *mykey;
 	X509 *mycert;
+	key=NULL; cert=NULL; pkcs12=NULL;
+	passcb = cb;
+	certstack = sk_X509_new_null();
 	PASS_INFO p;
 	string title = "Password to import the PKCS#12 certificate";
 	string description = "Please enter the password to encrypt the PKCS#12 bag.";
@@ -77,14 +81,24 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 	fp = fopen(fname.c_str(), "rb");
 	if (fp) {
 		pkcs12 = d2i_PKCS12_fp(fp, NULL);
+		CERR<<"PK12 A" <<endl;
+		fclose(fp);
 		if (openssl_error()) return;
 		passcb(pass, 30, 0, &p);
+		CERR<<"PK12 B" <<endl;
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
+		CERR<<"PK12 C" <<endl;
 		if (openssl_error()) return;
-		key = new pki_key(mykey);
-		EVP_PKEY_free(mykey);
-		cert = new pki_x509(mycert);
-		X509_free(mycert);
+		if (mykey) {
+			key = new pki_key(mykey);
+			key->setDescription("pk12-import");
+			//EVP_PKEY_free(mykey);
+		}
+		if (mycert) {
+			cert = new pki_x509(mycert);
+			cert->setDescription("pk12-import");
+			//X509_free(mycert);
+		}
 	}
 	else pki_error("Error opening file");
 }	
@@ -93,13 +107,15 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 pki_pkcs12::~pki_pkcs12()
 {
 	sk_X509_pop_free(certstack, X509_free); // free the certs itself, because we own a copy of them
+	delete(key); 
+	delete(cert);
 	PKCS12_free(pkcs12);
 }
 
 
 void pki_pkcs12::addCaCert(pki_x509 *ca)
 { 
-	if (ca == 0) return;
+	if (!ca) return;
 	sk_X509_push(certstack, X509_dup(ca->getCert()));
 }	
 
@@ -135,21 +151,24 @@ void pki_pkcs12::writePKCS12(const string fname)
 	else pki_error("Error opening file");
 }
 
-int pki_pkcs12::num_ca() {
+int pki_pkcs12::numCa() {
 	return sk_X509_num(certstack);
 }
 
 
 pki_key *pki_pkcs12::getKey() {
-	return key;
+	return new pki_key(key);
 }
 
 
 pki_x509 *pki_pkcs12::getCert() {
-	return cert;
+	return new pki_x509(cert);
 }
 
 pki_x509 *pki_pkcs12::getCa(int x) {
-	return new pki_x509(sk_X509_value(certstack, x));
+	pki_x509 *cert;
+	cert = new pki_x509(X509_dup(sk_X509_value(certstack, x)));
+	cert->setDescription("pk12-import");
+	return cert;
 }
 

@@ -1,13 +1,15 @@
 #
 #  @configure_input@
 #
+# $id$
+#
 
 VERSION=@PACKAGE_VERSION@
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 
 GCC=@CXX@
-CPPFLAGS=@CPPFLAGS@ -Wall -g
+CPPFLAGS=@CPPFLAGS@ -Wall -ggdb
 
 LIBS=-Llib @LDFLAGS@ @LIBS@ -lxcadb -lpki
 MOC=@MOC@
@@ -70,6 +72,7 @@ clean:
 	rm -rf *_MOC.cpp *_UI.h *_UI.cpp *~ *.o xca 
 
 distclean: clean	
+	make -C lib distclean
 	rm -f Makefile config.cache config.h
 
 dist: 

@@ -44,6 +44,7 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
+ * $id$
  *
  */                           
 
@@ -85,7 +86,7 @@ class pki_pkcs12: public pki_base
 	pki_key *getKey(); 
 	pki_x509 *getCert();
 	pki_x509 *getCa(int x);
-	int num_ca(); // number of ca certs;
+	int numCa(); // number of ca certs;
 	//bool fromData(unsigned char *p, int size);
 	//unsigned char *toData(int *size);
 	//bool compare(pki_base *ref);

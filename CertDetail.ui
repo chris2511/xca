@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>538</width>
+            <width>534</width>
             <height>763</height>
         </rect>
     </property>
@@ -1800,7 +1800,7 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton10</cstring>
+                        <cstring>but_ok</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
@@ -1832,7 +1832,7 @@
                     <class>QPushButton</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>PushButton11</cstring>
+                        <cstring>but_cancel</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
@@ -1845,13 +1845,13 @@
 </widget>
 <connections>
     <connection>
-        <sender>PushButton10</sender>
+        <sender>but_ok</sender>
         <signal>clicked()</signal>
         <receiver>CertDetail_UI</receiver>
         <slot>accept()</slot>
     </connection>
     <connection>
-        <sender>PushButton11</sender>
+        <sender>but_cancel</sender>
         <signal>clicked()</signal>
         <receiver>CertDetail_UI</receiver>
         <slot>reject()</slot>

@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 
 
-AC_INIT(xca, 0.2.3)
+AC_INIT(xca, 0.2.4)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
