@@ -70,9 +70,9 @@ int main( int argc, char *argv[] )
     //translation file for application strings
     QTranslator xcaTr( 0 );
 #ifdef WIN32
-    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
-#else	
     xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), "." );
+#else	
+    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
 #endif
     a.installTranslator( &xcaTr );
     
