@@ -1,6 +1,6 @@
 all: doc
 
-mandir=share/man
+mandir=man
 
 doc: xca.1.gz
 xca.1.gz:

@@ -41,7 +41,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/xca.
-	$(MAKE) destdir=$(CURDIR)/debian/xca bindir=X11R6/bin install
+	$(MAKE) destdir=$(CURDIR)/debian/xca bindir=X11R6/bin mandir=X11R6/man install
 
 # Build architecture-independent files here.
 binary-indep: build install
