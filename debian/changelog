@@ -4,6 +4,7 @@ xca (0.4.6) unstable; urgency=low
   * xca.dsp: WIN32 changes from Ilya
   * New configure added, Makefile.in's purged and one configuration:
     "Local.mak" for flags and compilers.
+    supports parallel builds (make -j)
   * SmartCard Logon OID added
   * Fixed bugs:
   * [ 846052 ] Tab order in Certificate Netscape extensions is wrong
