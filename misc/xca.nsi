@@ -11,7 +11,7 @@ LicenseText "You must accept the following BSD like license to continue."
 LicenseData COPYRIGHT
 
 ; The file to write
-OutFile "xca-0.3.2.exe"
+OutFile "xca-VERSION.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\xca
@@ -62,6 +62,7 @@ Section "xca (required)"
   File "img\template.png"
   File "img\validcert.png"
   File "img\validcertkey.png"
+  File "img\crl.png"
   File "Release\libdb41.dll"
   File "Release\SSLeay32.dll"
   File "Release\libeay32.dll"
@@ -92,7 +93,8 @@ UninstallText "This will uninstall xca. Hit next to continue."
 Section "Uninstall"
   ; remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca"
-  DeleteRegKey HKLM SOFTWARE\xca
+  DeleteRegKey HKLM "SOFTWARE\xca"
+  DeleteRegKey HKCU "SOFTWARE\xca"
   ; remove files
   Delete $INSTDIR\xca.exe
   Delete $INSTDIR\*.png
