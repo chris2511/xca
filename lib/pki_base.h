@@ -75,6 +75,10 @@ class pki_base
 	void *pointer; 
 	int intToData(unsigned char **p, const int val);
 	int intFromData(unsigned char **p);
+	int boolToData(unsigned char **p, const bool val);
+	bool boolFromData(unsigned char **p);
+	int stringToData(unsigned char **p, const string val);
+	string stringFromData(unsigned char **p);
     public:
 	enum { VERIFY_ERROR, VERIFY_SELFSIGNED, VERIFY_TRUSTED, 
 	       VERIFY_UNTRUSTED, VERIFY_OK }; 

@@ -50,7 +50,9 @@
 
 
 #include "../config.h"
-#ifdef HAVE_DB3_DB_CXX_H
+#ifdef HAVE_DB4_DB_CXX_H
+#include <db3/db_cxx.h>
+#elif HAVE_DB3_DB_CXX_H
 #include <db3/db_cxx.h>
 #elif HAVE_DB_DB_CXX_H
 #include <db/db_cxx.h>

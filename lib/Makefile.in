@@ -13,8 +13,8 @@ MOC=@MOC@
 ##############################################
 
 
-PKIOBJS=pki_base.o pki_key.o pki_x509req.o pki_x509.o pki_pkcs12.o
-DBOBJS=db_base.o db_key.o db_x509req.o db_x509.o db_key_MOC.o db_x509req_MOC.o db_x509_MOC.o
+PKIOBJS=pki_base.o pki_key.o pki_x509req.o pki_x509.o pki_pkcs12.o pki_temp.o
+DBOBJS=db_base.o db_key.o db_x509req.o db_x509.o db_temp.o db_key_MOC.o db_x509req_MOC.o db_x509_MOC.o db_temp_MOC.o
      
 
 all: libpki.a libxcadb.a

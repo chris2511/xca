@@ -59,6 +59,7 @@ db_key::db_key(DbEnv *dbe, string DBfile, QListView *l)
 	loadContainer();
 	keyicon[0] = loadImg("key.png");
 	keyicon[1] = loadImg("halfkey.png");
+	listView->addColumn(tr("Keysize"));
 	updateView();
 }
 
@@ -102,4 +103,5 @@ void db_key::updateViewPKI(pki_base *pki)
         if (!current) return;
 	if (((pki_key *)pki)->isPubKey()) pixnum += 1;	
 	current->setPixmap(0, *keyicon[pixnum]);
+	current->setText(1, ((pki_key *)pki)->length().c_str());
 }

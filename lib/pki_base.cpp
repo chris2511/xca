@@ -142,3 +142,34 @@ int pki_base::intFromData(unsigned char **p)
 	return ret;
 }
 
+int pki_base::boolToData(unsigned char **p, const bool val)
+{
+	int s = sizeof(bool);
+	memcpy(*p, &val, s);
+	*p += s;
+	return s;
+}
+
+bool pki_base::boolFromData(unsigned char **p)
+{
+	int s = sizeof(bool);
+	bool ret;
+	memcpy(&ret, *p, s);
+	*p += s;
+	return ret;
+}
+
+int pki_base::stringToData(unsigned char **p, const string val)
+{
+	int s = val.length() +1;
+	memcpy(*p, val.c_str(), s);
+	*p += s;
+	return s;
+}
+
+string pki_base::stringFromData(unsigned char **p)
+{
+	string ret="";
+	while(*p)  ret +=(char) *(p++);
+	return ret;
+}
