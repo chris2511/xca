@@ -3,7 +3,7 @@
 
 
 
-MainWindow::MainWindow(QWidget *parent, const char *name) 
+MainWindow::MainWindow(QWidget *parent, const char *name ) 
 	:MainWindow_UI(parent, name)
 {
 	connect((QObject *) quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
@@ -14,9 +14,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 	QDir d(baseDir);
 	if ( ! d.exists() ){
 		if (!d.mkdir(baseDir)) 
-		   CERR << "Couldnt create: "<<  baseDir.latin1() << endl;
+		   qFatal(  "Couldnt create: " +  baseDir );
 	}
-	CERR << "HALLO TEST"<< endl;
 	dbfile = baseDir +  "/xca.db";
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
@@ -25,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 	keys = new db_key(dbenv, dbfile.latin1(), keyList);
 	reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys);
 	certs = new db_x509(dbenv, dbfile.latin1(), certList, keys);
+	bigKey->setPixmap(*loadImg("bigkey.png"));
+	bigCsr->setPixmap(*loadImg("bigcsr.png"));
+	bigCert->setPixmap(*loadImg("bigcert.png"));
 };
 
 
@@ -37,6 +39,12 @@ MainWindow::~MainWindow()
 	 delete(certs);
 	 delete(settings);
 }
+
+
+QPixmap *MainWindow::loadImg(const char *name )
+{
+        return settings->loadImg(name);
+}			
 
 
 void MainWindow::initPass()
@@ -136,3 +144,21 @@ string MainWindow::md5passwd()
 	return str;
 }
 
+bool MainWindow::opensslError(pki_base *pki)
+{
+	string err;
+
+	if (!pki) {
+		QMessageBox::warning(this,tr("Internal Error"), tr("The system detected a NULL pointer, maybe the system is out of memory" ));
+		qFatal("NULL pointer detected - Exiting");
+	}
+	
+	if (( err = pki->getError()) != "") { 
+		QMessageBox::warning(this,tr("OpenSSL Error"), tr("The openSSL library raised the following error")+":" +
+			QString::fromLatin1(err.c_str()));
+		return true;
+	}
+	return false;
+}
+	
+	

@@ -1,13 +1,106 @@
-#!/bin/sh 
+# Process this file with autoconf to produce a configure script.
+AC_INIT(MainWindow.h)
+VERSION=0.2.1
+AC_SUBST(VERSION)
 
-for mdir in /usr/lib /usr/local/lib /opt/ /opt/lib; do
-	for dir in $mdir/qt*; do
-		ls $dir/lib/libqt.so.2.[2-5].* >/dev/null 2>&1
-		if [ $? -eq 0 ]; then
-			export QTDIR=$dir
-			echo $dir 
-			break
-		fi
-	done
-done
-	
+
+dnl AC_FIND_PATH(programm-name, variable-name, list of directories,
+dnl	if-not-found, test-parameter)
+AC_DEFUN(AC_FIND_PATH,
+[
+   AC_MSG_CHECKING([for $1])
+
+        kde_cv_path="NONE"
+	dirs="$3"
+        for dir in $dirs; do
+	  if test -x "$dir/$1"; then
+	    if test -n "$5"
+	    then
+              evalstr="$dir/$1 $5 2>&1 "
+	      if eval $evalstr; then
+                kde_cv_path="$dir/$1"
+                break
+	      fi
+            else
+		kde_cv_path="$dir/$1"
+                break
+	    fi
+          fi
+	  if test -s "$dir/$1"; then
+		kde_cv_path="$dir"
+                break
+          fi
+        done
+
+
+   if test -z "$kde_cv_path" || test "$kde_cv_path" = NONE; then
+      AC_MSG_RESULT(not found)
+      $4
+   else
+      AC_MSG_RESULT($kde_cv_path)
+      $2=$kde_cv_path
+
+   fi
+])
+
+
+
+dnl ------------------------------------------------------------------------
+dnl Find the meta object compiler and the ui compiler in the PATH,
+dnl in $QTDIR/bin, and some more usual places
+dnl ------------------------------------------------------------------------
+dnl
+AC_DEFUN(AC_PATH_QT_MOC_UIC,
+[
+   ac_qt_dirs="$QTDIR /usr/lib/qt /opt/qt /usr/lib/qt2 /opt/qt2 /usr/local/qt2 /usr/local/qt /usr"
+   qt_bindirs=""
+   for dir in $ac_qt_dirs; do
+      qt_bindirs="$qt_bindirs $dir/bin $dir/src/moc"
+   done
+   qt_bindirs="$qt_bindirs /usr/bin /usr/local/bin /usr/X11R6/bin /usr/local/qt/bin"
+   if test ! "$ac_qt_bindir" = "NO"; then
+      qt_bindirs="$ac_qt_bindir $qt_bindirs"
+   fi
+
+
+   AC_FIND_PATH(moc, MOC, [$qt_bindirs], [AC_MSG_ERROR([No Qt meta object compiler (moc) found!  ]) ])
+   AC_FIND_PATH(uic, UIC, [$qt_bindirs], [AC_MSG_ERROR([No Qt ui compiler (uic) found!  ])])
+
+   AC_SUBST(MOC)
+   AC_SUBST(UIC)
+])
+
+
+# Checks for programs.
+AC_PROG_CXX
+
+# check for uic and moc
+AC_PATH_QT_MOC_UIC
+
+# Checks for headers..
+AC_FIND_PATH(openssl/evp.h,[SSL_INC],[/usr/include /usr/local/include /usr/ssl/include], [AC_MSG_ERROR([OpenSSL includes not found]) ])
+AC_FIND_PATH(db_cxx.h,[DB_INC],[/usr/include /usr/local/include /usr/include/db /usr/local/include/db], [AC_MSG_ERROR([c++ header for Berkeley db not found]) ])
+AC_FIND_PATH(qmessagebox.h,[QT_INC],[/usr/lib/qt/include /opt/qt/include /usr/lib/qt2/include /opt/qt2/include /usr/local/qt2/include /usr/local/qt/include /usr/include/qt /usr/local/include/qt],[AC_MSG_ERROR([QT not found]) ])
+
+AC_CHECK_LIB([db_cxx], [DbEnv])
+AC_CHECK_LIB([qt], [QString::fromLatin1])
+
+AC_SUBST(SSL_INC)
+AC_SUBST(DB_INC)
+AC_SUBST(QT_INC)
+
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_FUNC_MEMCMP
+AC_HEADER_STDC
+AC_CHECK_FUNCS([mkdir])
+
+AC_CONFIG_FILES([Makefile lib/Makefile])
+AC_OUTPUT
+
+
+

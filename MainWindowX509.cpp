@@ -55,7 +55,7 @@ void MainWindow::newCert()
 		signkey = certs->findKey(signcert);
 		if (opensslError(signkey)) return;
 		// search for serial in database
-		string serhash = signcert->fingerprint(EVP_md5(i)) + "serial";
+		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
 		serial = settings->getInt(serhash) + 1;
 		CERR << "serial is: " << serial <<endl;
 		settings->putInt(serhash, serial);
@@ -64,7 +64,7 @@ void MainWindow::newCert()
 	else {
 		signkey = key;	
 		bool ok;
-		serial = atoi(dlg2->serialNr->text().toInt(&ok));
+		serial = dlg2->serialNr->text().toInt(&ok);
 		if (!ok) serial = 0;
 	}
 	
@@ -151,6 +151,7 @@ void MainWindow::showDetailsCert(QListViewItem *item)
 
 void MainWindow::showDetailsCert(pki_x509 *cert)
 {
+	if (!cert) return;
 	if (opensslError(cert)) return;
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
 	dlg->descr->setText(cert->getDescription().c_str());
@@ -229,11 +230,13 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 	if (ndesc != cert->getDescription()) {
 		certs->updatePKI(cert, ndesc);
 	}
+	opensslError(cert);
 }
 
 void MainWindow::deleteCert()
 {
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
+	if (!cert) return;
 	if (opensslError(cert)) return;
 	if (QMessageBox::information(this,tr("Delete Certificate"),
 			tr("Really want to delete the Certificate") +":\n'" + 
@@ -248,6 +251,8 @@ void MainWindow::loadCert()
 {
 	QStringList filt;
 	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer)")); 
+	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
+	filt.append(tr("PKCS#7 Signatures ( *.p7s )")); 
 	filt.append(tr("All files ( *.* )"));
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
@@ -257,13 +262,7 @@ void MainWindow::loadCert()
 		s = dlg->selectedFile().latin1();
 	if (s == "") return;
 	pki_x509 *cert = new pki_x509(s);
-	string errtxt;
-	if ((errtxt = cert->getError()) != "") {
-		QMessageBox::warning(this,"Datei Fehler",
-			("Das Zertifikat: '" + s +
-			"'\nkonnte nicht geladen werden:\n" + errtxt).c_str());
-		return;
-	}
+	if (opensslError(cert)) return;
 	insertCert(cert);
 }
 
@@ -272,10 +271,10 @@ void MainWindow::insertCert(pki_x509 *cert)
 {
 	pki_x509 *oldcert = (pki_x509 *)certs->findPKI(cert);
 	if (oldcert) {
-	   QMessageBox::information(this,"Zertifikats import",
-		("Das Zertifikat ist bereits vorhanden als:\n'" +
-		oldcert->getDescription() + 
-		"'\nund wurde daher nicht importiert").c_str(), "OK");
+	   QMessageBox::information(this,tr("Certificate import"),
+		tr("The certificate already exists in the database as") +":\n'" +
+		QString::fromLatin1(oldcert->getDescription().c_str()) + 
+		"'\n" + tr("und wurde daher nicht importiert"), "OK");
 	   delete(cert);
 	   return;
 	}
@@ -285,11 +284,11 @@ void MainWindow::insertCert(pki_x509 *cert)
 void MainWindow::writeCert()
 {
 	QStringList filt;
-	filt.append( "Zertifikat ( *.pem *.der )"); 
-	filt.append("Alle Dateien ( *.* )");
+	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
+	filt.append(tr("All Files ( *.* )"));
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Zertifikat exportieren");
+	dlg->setCaption(tr("Certificate export"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
@@ -297,12 +296,6 @@ void MainWindow::writeCert()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (cert) {
 	   cert->writeCert(s,true);
-	   string errtxt;
-	   if ((errtxt = cert->getError()) != "") {
-		QMessageBox::warning(this,"Datei Fehler",
-			("Das Zertifikat: '" + s +
-			"'\nkonnte nicht gespeichert werden:\n" + errtxt).c_str());
-		return;
-	   }
+	   opensslError(cert);
 	}
 }

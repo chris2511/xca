@@ -25,6 +25,7 @@
 #include <qcheckbox.h>
 #include <qprogressdialog.h>
 #include <qasciidict.h>
+#include <qpixmap.h>
 #include <qobject.h>
 #include "lib/pki_key.h"
 #include "lib/pki_x509req.h"
@@ -70,7 +71,10 @@ class MainWindow: public MainWindow_UI
 	pki_key *getSelectedKey();
 	void insertKey(pki_key *lkey);
 	void insertCert(pki_x509 *cert);
+	void insertReq(pki_x509req *req);
 	string md5passwd();
+	bool opensslError(pki_base *pki);
+	QPixmap *loadImg(const char *name);
    public slots:
 	void loadKey();
 	void loadReq();

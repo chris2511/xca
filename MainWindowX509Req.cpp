@@ -17,23 +17,7 @@ void MainWindow::newReq()
 	string desc = dlg->description->text().latin1();
 	string challenge = dlg->challenge->text().latin1();
 	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc, challenge);
-	string e;
-	if ((e = req->getError()) != "") {
-	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
-		("Beim Erstellen der Anfrage trat folgender Fehler auf:\n'" +
-		e + "'\nund wurde daher nicht importiert").c_str(), "OK");
-		return;
-	}
-	pki_x509req *oldreq = (pki_x509req *)reqs->findPKI((pki_x509req *)req);
-	if (oldreq) {
-	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
-		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
-		oldreq->getDescription() + 
-		"'\nund wurde daher nicht importiert").c_str(), "OK");
-	   delete(oldreq);
-	   return;
-	}
-	reqs->insertPKI(req);
+	insertReq(req);
 }
 
 
@@ -52,6 +36,7 @@ void MainWindow::showDetailsReq(QListViewItem *item)
 void MainWindow::showDetailsReq(pki_x509req *req)
 {
 	if (!req) return;
+	if (opensslError(req)) return;
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	dlg->descr->setText(req->getDescription().c_str());
 	if ( req->verify() != pki_base::VERIFY_OK ) {
@@ -83,11 +68,11 @@ void MainWindow::deleteReq()
 {
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (!req) return;
-	if (QMessageBox::information(this,"Zertifikatsanfrage löschen",
-			("Möchten Sie die Zertifikatsanfrage: '" + 
-			req->getDescription() +
-			"'\nwirklich löschen ?\n").c_str(),
-			"Löschen", "Abbrechen")
+	if (opensslError(req)) return;
+	if (QMessageBox::information(this,tr("Delete Certificate signing request"),
+			tr("Really want to delete the Certificate signing request") +":\n'" + 
+			QString::fromLatin1(req->getDescription().c_str()) +
+			"'\n", "Delete", "Cancel")
 	) return;
 	reqs->deletePKI(req);
 }
@@ -95,57 +80,49 @@ void MainWindow::deleteReq()
 void MainWindow::loadReq()
 {
 	QStringList filt;
-	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
-	filt.append("Alle Dateien ( *.* )");
+	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
+	filt.append("All Files ( *.* )");
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Anfrage importieren");
+	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
 	if (s == "") return;
 	pki_x509req *req = new pki_x509req(s);
-	string errtxt;
-	if ((errtxt = req->getError()) != "") {
-		QMessageBox::warning(this,"Datei Fehler",
-			("Die Zertifikatsanfrage: '" + s +
-			"'\nkonnte nicht geladen werden:\n" + errtxt).c_str());
-		return;
-	}
-	pki_x509req *oldreq = (pki_x509req *)reqs->findPKI(req);
-	if (oldreq) {
-	   QMessageBox::information(this,"Zertifikatsanfragen import",
-		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
-		oldreq->getDescription() + 
-		"'\nund wurde daher nicht importiert").c_str(), "OK");
-	   delete(req);
-	   return;
-	}
-	reqs->insertPKI(req);
+	if (opensslError(req)) return;
+	insertReq(req);
 }
 
 void MainWindow::writeReq()
 {
 	QStringList filt;
-	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
-	filt.append("Alle Dateien ( *.* )");
+	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
+	filt.append("All Files ( *.* )");
 	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption("Anfrage exportieren");
+	dlg->setCaption("Export Certificate signing request");
 	dlg->setFilters(filt);
 	if (dlg->exec())
 		s = dlg->selectedFile().latin1();
 	if (s == "") return;
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
-	if (req) {
-	   req->writeReq(s,true);
-	   string errtxt;
-	   if ((errtxt = req->getError()) != "") {
-		QMessageBox::warning(this,"Datei Fehler",
-			("Die Zertifikatsanfrage: '" + s +
-			"'\nkonnte nicht gespeichert werden:\n" + errtxt).c_str());
-		return;
-	   }
-	}
+	if (opensslError(req)) return;
+	req->writeReq(s,true);
+	if (opensslError(req)) return;
 }
 
+void MainWindow::insertReq(pki_x509req *req)
+{
+	if (opensslError(req)) return;
+	pki_x509 *oldreq = (pki_x509 *)reqs->findPKI(req);
+	if (oldreq) {
+	   QMessageBox::information(this,tr("Certificate signing request"),
+		tr("The certificate signing request already exists in the database as") +":\n'" +
+		QString::fromLatin1(oldreq->getDescription().c_str()) + 
+		"'\n" + tr("and thus was not stored"), "OK");
+	   delete(req);
+	   return;
+	}
+	reqs->insertPKI(req);
+}
