@@ -53,8 +53,15 @@ AC_CHECK_LIB([crypto], [atexit], , [AC_MSG_ERROR([OpenSSL libraries not found, t
 AC_CHECK_LIB([stdc++], [atexit], , [AC_MSG_ERROR([standard C++ library not found...])])
 LDB=X
 AC_CHECK_LIB([db4_cxx], [atexit], ,[LDB=${LDB}y] )
+if test "$LDB" != X; then
+LDB=X
 AC_CHECK_LIB([db3_cxx], [atexit], ,[LDB=${LDB}y] )
+fi
+if test "$LDB" != X; then
+LDB=X
 AC_CHECK_LIB([db_cxx], [atexit], ,[LDB=${LDB}y] )
+fi
+
 LQT=y
 AC_CHECK_LIB([qt], [atexit], ,[LQT=no])
 if test "$LQT" == "no"; then
@@ -84,7 +91,7 @@ fi], )
 AC_CONFIG_FILES([Makefile lib/Makefile results lib/base.h])
 AC_OUTPUT
 
-if test "$LDB" == Xyyy; then
+if test "$LDB" == X; then
 	AC_MSG_NOTICE([C++ extension library to Berkeley db not found, try installing libdb_cxx-dev])
 fi
 if test "$LQT" == "no"; then
