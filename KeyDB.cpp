@@ -113,3 +113,31 @@ RSAkey *KeyDB::getSelectedKey()
 	targetKey->setDescription(desc);
 	return targetKey;
 }
+
+QStringList KeyDB::getPrivateDesc()
+{
+	unsigned char *p;
+	Dbc *cursor;
+	if (int x = data->cursor(NULL, &cursor, 0))
+		data->err(x,"DB new Cursor");
+	Dbt *k = new Dbt();
+	Dbt *d = new Dbt();
+	QString desc;
+	QStringList x;
+	RSAkey *key;
+	//cerr << "before While loop\n";
+	while (!cursor->get(k, d, DB_NEXT)) {
+		//cerr << "in loop\n";
+		desc = (char *)k->get_data();
+		p = (unsigned char *)d->get_data();
+		int size = d->get_size();
+		key = new RSAkey(p, size);
+		if (!key->onlyPubKey) {
+			x.append(desc);	
+			cerr << desc <<endl;
+		}
+		delete(key);
+		
+	}
+	return x;
+}

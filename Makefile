@@ -1,4 +1,5 @@
 VERSION=0.1.1
+TARGET=xca-$(VERSION)
 GCC=c++
 INC=-I$(QTDIR)/include
 LPATH=-L$(QTDIR)/lib
@@ -46,11 +47,10 @@ xca: main.cpp $(OBJS)
 clean:
 	rm -rf *_MOC.cpp *_UI.h *_UI.cpp *~ *.o xca
 
-dist: clean
-	(cd ..;\
-	 mv xca xca-$(VERSION); \
-	 tar zcf xca-$(VERSION).tar.gz xca-$(VERSION);\
-	 mv xca-$(VERSION) xca;)
+dist: 
+	cvs export -r HEAD -d $(TARGET) xca
+	tar zcf $(TARGET).tar.gz $(TARGET)
+	rm -rf $(TARGET)
 	
 install: xca
 	install -m 755 -o root -g root xca /usr/bin

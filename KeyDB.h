@@ -22,6 +22,7 @@ class KeyDB: public QObject
 	bool deleteKey(RSAkey *key);
 	bool updateKey(RSAkey *key, QString desc);
 	RSAkey *getSelectedKey();
+	QStringList getPrivateDesc();
 };
 
 #endif

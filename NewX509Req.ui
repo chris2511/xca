@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>652</width>
+            <width>648</width>
             <height>443</height>
         </rect>
     </property>
@@ -191,98 +191,50 @@
             </property>
         </widget>
         <widget>
-            <class>QLineEdit</class>
+            <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>LineEdit7</cstring>
+                <cstring>TextLabel6</cstring>
             </property>
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
-                    <x>110</x>
-                    <y>200</y>
-                    <width>180</width>
-                    <height>23</height>
-                </rect>
-            </property>
-        </widget>
-        <widget>
-            <class>QLineEdit</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>LineEdit6</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>110</x>
+                    <x>10</x>
                     <y>170</y>
-                    <width>180</width>
-                    <height>23</height>
+                    <width>90</width>
+                    <height>20</height>
                 </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Name , DNS:</string>
             </property>
         </widget>
         <widget>
             <class>QLineEdit</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>LineEdit5</cstring>
+                <cstring>countyName</cstring>
             </property>
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
                     <x>110</x>
-                    <y>140</y>
-                    <width>180</width>
-                    <height>23</height>
-                </rect>
-            </property>
-        </widget>
-        <widget>
-            <class>QLineEdit</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>LineEdit3_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>110</x>
-                    <y>110</y>
+                    <y>20</y>
                     <width>180</width>
                     <height>23</height>
                 </rect>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string></string>
+                <string>DE</string>
             </property>
         </widget>
         <widget>
             <class>QLineEdit</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>LineEdit3</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>110</x>
-                    <y>80</y>
-                    <width>180</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLineEdit</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>LineEdit2</cstring>
+                <cstring>stateOrProvinceName</cstring>
             </property>
             <property stdset="1">
                 <name>geometry</name>
@@ -302,40 +254,88 @@
             <class>QLineEdit</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>LineEdit1</cstring>
+                <cstring>localityName</cstring>
             </property>
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
                     <x>110</x>
-                    <y>20</y>
+                    <y>80</y>
                     <width>180</width>
                     <height>23</height>
                 </rect>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>DE</string>
+                <string></string>
             </property>
         </widget>
         <widget>
-            <class>QLabel</class>
+            <class>QLineEdit</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>TextLabel6</cstring>
+                <cstring>organisationName</cstring>
             </property>
             <property stdset="1">
                 <name>geometry</name>
                 <rect>
-                    <x>10</x>
-                    <y>170</y>
-                    <width>90</width>
-                    <height>20</height>
+                    <x>110</x>
+                    <y>110</y>
+                    <width>180</width>
+                    <height>23</height>
                 </rect>
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>Name , DNS:</string>
+                <string></string>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>organisationalUnitName</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>110</x>
+                    <y>140</y>
+                    <width>180</width>
+                    <height>23</height>
+                </rect>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>commonName</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>110</x>
+                    <y>170</y>
+                    <width>180</width>
+                    <height>23</height>
+                </rect>
+            </property>
+        </widget>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>emailAddress</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>110</x>
+                    <y>200</y>
+                    <width>180</width>
+                    <height>23</height>
+                </rect>
             </property>
         </widget>
     </widget>
@@ -396,6 +396,10 @@
                 <cstring>LineEdit8</cstring>
             </property>
             <property stdset="1">
+                <name>enabled</name>
+                <bool>false</bool>
+            </property>
+            <property stdset="1">
                 <name>geometry</name>
                 <rect>
                     <x>10</x>
@@ -430,22 +434,6 @@
             <enum>Sunken</enum>
         </property>
         <widget>
-            <class>QComboBox</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>ComboBox1</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>60</y>
-                    <width>260</width>
-                    <height>27</height>
-                </rect>
-            </property>
-        </widget>
-        <widget>
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
@@ -470,6 +458,22 @@
             </property>
             <property>
                 <name>wordwrap</name>
+            </property>
+        </widget>
+        <widget>
+            <class>QComboBox</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>keyList</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>60</y>
+                    <width>260</width>
+                    <height>27</height>
+                </rect>
             </property>
         </widget>
     </widget>
@@ -584,15 +588,15 @@
     </connection>
 </connections>
 <tabstops>
-    <tabstop>LineEdit1</tabstop>
-    <tabstop>LineEdit2</tabstop>
-    <tabstop>LineEdit3</tabstop>
-    <tabstop>LineEdit3_2</tabstop>
-    <tabstop>LineEdit5</tabstop>
-    <tabstop>LineEdit6</tabstop>
-    <tabstop>LineEdit7</tabstop>
+    <tabstop>countyName</tabstop>
+    <tabstop>stateOrProvinceName</tabstop>
+    <tabstop>localityName</tabstop>
+    <tabstop>organisationName</tabstop>
+    <tabstop>organisationalUnitName</tabstop>
+    <tabstop>commonName</tabstop>
+    <tabstop>emailAddress</tabstop>
     <tabstop>LineEdit8</tabstop>
-    <tabstop>ComboBox1</tabstop>
+    <tabstop>keyList</tabstop>
     <tabstop>PushButton14</tabstop>
     <tabstop>PushButton15</tabstop>
 </tabstops>
