@@ -7,8 +7,11 @@ VERSION=@PACKAGE_VERSION@
 TARGET=xca-$(VERSION)
 
 GCC=@CXX@
-CPPFLAGS=@CPPFLAGS@ @DEFS@ -Wall -g
+CC=@CC@
 MOC=@MOC@
+
+CPPFLAGS=@CPPFLAGS@ @DEFS@
+CFLAGS=-Wall @ac_DEBUG@
 
 ##############################################
 
@@ -21,13 +24,13 @@ DB_CPP=$(patsubst %,moc_%.cpp,$(DBNAMES))
 all: libpki.a libxcadb.a
 
 libpki.a: $(PKIOBJS)
-	ar rcs libpki.a $(PKIOBJS)
+	$(AR) rcs libpki.a $(PKIOBJS)
 
 libxcadb.a: $(DBOBJS)
-	ar rcs libxcadb.a $(DBOBJS)
+	$(AR) rcs libxcadb.a $(DBOBJS)
 	
 %.o: %.cpp 
-	$(GCC) $(CPPFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $< -o $@
 clean:
 	rm -rf *~ *.o *.a $(DB_CPP)
 

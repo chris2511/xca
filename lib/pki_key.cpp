@@ -199,7 +199,11 @@ void pki_key::fromData(unsigned char *p, int size )
 	openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
+#ifdef HAVE_OPENSSL_OCSP_H
 	   rsakey = d2i_RSAPrivateKey(NULL, &(const unsigned char *)pdec, decsize);
+#else
+	   rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
+#endif
 	   if (ign_openssl_error()) {
 		rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
 	   }
