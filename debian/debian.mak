@@ -1,5 +1,5 @@
 CPPFLAGS=-I. -I.. -I/usr/include/qt
-CFLAGS=-Wall
+CFLAGS=-Wall -O2
 
 LDFLAGS=
 LIBS=-lstdc++ -ldb3_cxx -lqt -lcrypto
@@ -12,4 +12,6 @@ LD=ld
 STRIP=strip
 
 prefix=/usr
-
+destdir=$(CURDIR)/debian/xca 
+bindir=X11R6/bin 
+mandir=X11R6/man

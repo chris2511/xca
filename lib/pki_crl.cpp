@@ -77,7 +77,11 @@ void pki_crl::fload(const QString fname )
 		fclose(fp);
 		setIntName(rmslashdot(fname));
 		openssl_error();
-		issuer = MainWindow::certs->getBySubject(getIssuerName());
+		if (MainWindow::certs) {
+			issuer = MainWindow::certs->getBySubject(getIssuerName());
+		}
+		else 
+			issuer = NULL;
 	}
 	else fopen_error(fname);
 }

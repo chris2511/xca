@@ -30,13 +30,12 @@ All crypto data is stored in a local Berkeley database.
 <sect>Introduction
 
 <p>
-<nidx>(your index root)!introduction</nidx>   <!-- here introduction is a sub entry of template, exclamationmark is separator -->
-This application is intended as Certificate and Keystore and as 
+This application is intended as Certificate- and Key-store and as
 signing application issuing certificates.
 
 <p>
-All datastructures (Keys, Certificate signing requests, Certificates and Templates) can be imported
-and exported in several formats like DER or PEM.
+All datastructures (Keys, Certificate signing requests, Certificates and Templates)
+can be imported and exported in several formats like DER or PEM.
 Import means reading a file from the filesystem and storing the datastructure
 into the databasefile, while exporting means to write the datastructure
 from the databasefile to the filesystem to be e.g imported into an other application.
@@ -63,7 +62,7 @@ other applications.
 <item><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail is the base64 encoded version of the 
 	<bf>DER</bf> formated data with additional header and footer lines to be transported via e.g. E-mail
 <item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards 
-	published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
+published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 	
 </itemize>
 
@@ -167,12 +166,15 @@ Next to the usual X commandline options. There are the following
 <item>-7 expect all following non-option arguments to be PKCS#7 files
 <item>-l expect all following non-option arguments to be Revokation lists
 <item>-t expect all following non-option arguments to be Xca templates
+<item>-b set the database base-directory
+<item>-d set the database filename
 <item>-x Exit after processing all commandline options
 </itemize>
 
 <p>
-when invoked with one of the -k -r -c -p -7 options, the application 
-will show the details of the items and import it into the database.
+when invoked with one of the -k -r -c -p -7 -l -t options, the application 
+will show the details of the items and import them into the database if 
+desired.
 If the application should exit afterwards, just supply the -x option. 
 This behaviour enables xca to be used as default application for viewing
 PKI items.
@@ -192,8 +194,9 @@ The import function is smart enough to probe all known formats as there are:
 <itemize>
 <item><em>Keys:</em>  PEM private key, PEM public key, DER private key, DER public key, PKCS#8 private key.
 <item><em>Requests</em> DER request, PEM request, Netscape SPKAC request.
-<item><em>Certificates</em> DER certificate, PEM certificate (PKCS#12 and PKCS#7 certificates
-	must be imported with an extra button, because they can contain more than one certificate)
+<item><em>Certificates</em> DER certificate, PEM certificate 
+(PKCS#12 and PKCS#7 certificates must be imported with an extra button,
+ because they can contain more than one certificate)
 </itemize>
 After selecting the filename XCA will probe for the known formats of that item
 and in case of an error it prompts the <em>last</em> OpenSSL error message.
@@ -201,14 +204,13 @@ It is possible to select more than one file by selecting them with SHIFT click.
 
 <p>
 When importing more than one Key, CRL, Certificate or Request
-all items are shown in a Multi-Import dialog.
-When importing a PKCS#7 or PKCS#12 item, the contained Keys and Certificates are shown in the import dialog.
-By using the import dialog the items can be examined, imported or dropped.
+all items are shown in a Multi-import dialog.
+When importing a PKCS#7 or PKCS#12 item, the contained Keys and Certificates are shown in the Multi-import dialog.
+By using the Multi-import dialog the items can be examined, imported or dropped.
 
 <p>
 After reading the item it searches for this item in the database and if it is unique the item
-is stored in the database, otherwise it shows a message containing the internal name of this item
-in the database.
+is stored in the database, otherwise it shows a message containing the internal name of this item in the database.
 
 <sect1>Details of an item
 <p>
@@ -521,6 +523,53 @@ then a Certificate Revokation List should be created and will be stored in the
 database. 
 <p>
 
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<sect>Object IDs
+<p>
+Private Object IDs and OID lists for the distinguished name or extended key
+usage can be added in files listed below.
+The files are:
+<itemize>
+<item><bf>oids.txt</bf> addidtional Object IDs
+<item><bf>eku.txt</bf> Content of <tt>ExtendedKeyUsage</tt>
+<item><bf>dn.txt</bf> Content of <tt>DistinguishedName</tt>
+<item><bf>aia.txt</bf> Content of <tt>AuthorityInformationAccess</tt>
+</itemize>
+The search path for all the files is listed below.
+<p>
+<bf>Unix</bf>
+<itemize>
+<item>PREFIX/share/xca/ <newline>PREFIX is usually /usr or /usr/local
+<item>/etc/xca/
+<item>$HOME/xca/
+</itemize>
+<bf>Windows</bf>
+<itemize>
+<item>HKEY_LOCAL_MACHINE->Software->xca->Install_Dir <newline>e.g.: C:\Program Files\xca
+<item>HKEY_CURRENT_USER->Software->xca->data_path <newline>e.g.: C:\Documents and Settings\%USER%\Application Data\xca
+</itemize>
+All Object IDs that are not official, but belong to your company
+or organisation can be added in the file <tt>oids.txt</tt>.
+For this file all locations are searched and all <tt>oids.txt</tt> files
+that are found are loaded. This way the application-installer adds
+some in /usr/share/xca, the Administrator in /etc/xca and the user in
+$HOME/xca. The format of this file is:<newline>
+<bf>OID</bf>:<bf>shortname</bf>:<bf>longname</bf><newline>
+Leading and trailing spaces between the colons and the text are ignored.
+Lines starting with a <bf>#</bf> are ignored.
+
+<p>
+The files containing OID lists (<tt>eku.txt, dn.txt, aia.txt</tt>) 
+are handled different: The first one that is found in one of the directories is used. 
+The format of this files is one entry per line. The entry can be either the
+numerical OID like <tt>1.3.6.1.5.5.8.2.2</tt>, the short name like 
+<tt>iKEIntermediate</tt> or the long name <tt>IP security end entity</tt>.
+Lines starting with a <bf>#</bf> are ignored.
+If this files shall contain new inofficial OIDs, they must be also mentioned 
+in one of the <tt>oids.txt</tt> files.
+
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Appendix
 <p>
 Here one can find several examples for file formats:
@@ -563,7 +612,6 @@ OU=CRM inner planets
 L=Jupiter
 </verb></tscreen>
 
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 </article>
 
 

@@ -40,7 +40,7 @@ distclean: clean
 dist: 
 	test ! -z "$(TVERSION)"
 	rm -rf $(TARGET) 
-	cvs export -r $(TAG) -d $(TARGET) xca && 
+	cvs export -r $(TAG) -d $(TARGET) xca && \
 	(cd $(TARGET) && \
 	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \
@@ -49,7 +49,8 @@ dist:
 	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \
 	rm -rf misc/xca.nsi rpm/xca.spec && \
 	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
-	tar zcf $(TARGET).tar.gz $(TARGET) 
+	tar zcf $(TARGET).tar.gz $(TARGET) && \
+	(cd $(TARGET) && dpkg-buildpackage -rfakeroot )
 	#rm -rf ../$(TARGET)
 	
 install: xca

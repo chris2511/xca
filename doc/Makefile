@@ -1,11 +1,16 @@
+ifeq ($(TOPDIR),)
+TOPDIR=..
+endif
+
 all: doc
-
 mandir=man
+doc: xca.1.gz xca.html
 
-doc: xca.1.gz
 xca.1.gz:
-	linuxdoc -B html xca.sgml || true
 	gzip -9 <xca.1 >$@
+
+xca.html: xca.sgml
+	linuxdoc -B html $< || true
 
 install: xca.1.gz
 	install -m 755 -d $(destdir)$(prefix)/share/xca \

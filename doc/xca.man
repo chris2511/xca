@@ -23,9 +23,6 @@ is supported. Both can use templates for simplicity.
 The PKI structures can be imported and exported in several formats
 like PKCS#12, PEM, DER, PKCS#8, PKCS#7.
       
-.PP
-.B xca
-is a program that...
 .SH OPTIONS
 A summary of options are included below.
 .TP
@@ -34,10 +31,42 @@ Show version information and exit.
 .TP
 .B \-r
 expect all following non-option arguments to be Certificate signing requests
-or SPKAC requests and to import them.
+or SPKAC requests.
 .TP
 .B \-k
-expect all following non-option arguments to be Certificates and import them.
-.SH "SEE ALSO"
+expect all following non-option arguments to be RSA keys.
+.TP
+.B \-c
+expect all following non-option arguments to be Certificates.
+.TP
+.B \-p
+expect all following non-option arguments to be PKCS#12 files.
+.TP
+.B \-7
+expect all following non-option arguments to be PKCS#7 files.
+.TP
+.B \-l
+expect all following non-option arguments to be Revokation lists.
+.TP
+.B \-t
+expect all following non-option arguments to be XCA templates.
+.TP
+.B \-d
+expect the following argument to be the database name to use.
+.TP
+.B \-b
+expect the following argument to be the basedirectory for the database(s) OIDs and database logs.
+.TP
+.B \-x
+Exit after processing all commandline options. 
+Usually after importing the items in 
+.I -k -r -c -p -7 -l -t
+the application will startup as usual. With the 
+.I -x
+option given it will exit after finishing the import dialog. This is usefull if xca is used as default application for viewing certificates, keys or requests.
+
+.SH SEE ALSO
+A more detailed HTML documentation can be found in the doc directory, in the "Help" menu of the application or on http://xca.sf.net
+
 .SH AUTHOR
-This manual page was written by Christian Hohnstaedt <chohnstaedt@innominate.com>
+This manual page was written by Christian Hohnstaedt <christian@hohnstaedt.de>

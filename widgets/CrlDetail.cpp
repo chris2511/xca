@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -81,17 +82,19 @@ void CrlDetail::setCrl(pki_crl *crl)
 	QStringList sl;
 	
 	last = NULL;
-	while ((iss = MainWindow::certs->getBySubject(crl->getIssuerName(),
-		last)) != NULL) {
-		pki_key *key = iss->getPubKey();
-		if (crl->verify(key)) {
+	iss = NULL;
+	if (MainWindow::certs != NULL) {
+		while ((iss = MainWindow::certs->getBySubject(crl->getIssuerName(),
+			last)) != NULL) {
+			pki_key *key = iss->getPubKey();
+			if (crl->verify(key)) {
+				delete key;
+				break;
+			}
 			delete key;
-			break;
+			last = iss;
 		}
-		delete key;
-		last = iss;
-	}
-			
+	}		
 	// page 1
 	if (iss != NULL) {
 		issuerIntName->setText(iss->getIntName());
