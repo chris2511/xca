@@ -2,7 +2,7 @@
 #include "pki_x509.h"
 
 
-pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, pki_key* signkey, int days, int serial)
+pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int serial)
 		:pki_base( d )
 {
 	X509_NAME *issn, *reqn;
@@ -22,32 +22,23 @@ pki_x509::pki_x509(string d, pki_x509req *req, pki_x509 *signer, pki_key* signke
         X509_set_subject_name(cert, X509_NAME_dup(reqn));
         X509_set_issuer_name(cert, X509_NAME_dup(issn));
 	
-	const EVP_MD *digest = EVP_md5();
-
 	/* Set version to V3 */
 	if(!X509_set_version(cert, 2)) {
 		error="set Version failed";
 		X509_free(cert);
 		return;
 	}
-	ASN1_INTEGER_set(X509_get_serialNumber(cert),0L);
+	ASN1_INTEGER_set(X509_get_serialNumber(cert), serial);
 
 	X509_gmtime_adj(X509_get_notBefore(cert),0);
 	X509_gmtime_adj(X509_get_notAfter(cert), (long)60*60*24*days);
 
 	/* Set up V3 context struct */
-	X509V3_CTX ext_ctx;
+	X509V3_set_ctx(&ext_ctx, signer->cert, cert, req->request, NULL, 0);
 
-	X509V3_set_ctx(&ext_ctx, cert, cert, NULL, NULL, 0);
-
-	if (!X509_sign(cert, signkey->key, digest)) {
-		error="Error signing the request";
-	}
-	openssl_error();
 	trust = true;
 	psigner = signer;
 }
-
 
 
 pki_x509::pki_x509() : pki_base()
@@ -84,6 +75,28 @@ pki_x509::pki_x509(const string fname)
 }
 
 
+void pki_x509::addV3ext(int nid, string exttext)
+{	
+	X509_EXTENSION *ext;
+	char c[200];
+	strncpy(c, exttext.c_str(), 200);
+	ext =  X509V3_EXT_conf_nid(NULL, &ext_ctx, nid, c);
+	X509_add_ext(cert, ext, -1);
+	X509_EXTENSION_free(ext);
+}
+
+	
+	
+void pki_x509::sign(pki_key *signkey)
+{
+	const EVP_MD *digest = EVP_md5();
+	if (!X509_sign(cert, signkey->key, digest)) {
+		error="Error signing the request";
+	}
+	openssl_error();
+}
+
+	
 bool pki_x509::fromData(unsigned char *p, int size)
 {
 	cert = d2i_X509(NULL, &p, size);
@@ -275,4 +288,14 @@ string pki_x509::printV3ext()
 	return text;
 }
 
-					
+string pki_x509::getSerial()
+{
+	char buf[100];
+	BIO *bio = BIO_new(BIO_s_mem());
+	i2a_ASN1_INTEGER(bio, cert->cert_info->serialNumber);
+	int len = BIO_read(bio, buf, 100);
+	buf[len]='\0';
+	string x = buf;
+	BIO_free(bio);
+	return x;
+}

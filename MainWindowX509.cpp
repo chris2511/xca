@@ -8,7 +8,8 @@ void MainWindow::newCert()
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *key = NULL;
 	int serial = 42; // :-)
-
+	string serialstr;
+	
 	// Step 1
 	NewX509 *dlg1 = new NewX509(this, NULL, keys, reqs);
 	if (! dlg1->exec()) return;
@@ -30,7 +31,14 @@ void MainWindow::newCert()
 		
 	// Step 2
 	NewX509_1_UI *dlg2 = new NewX509_1_UI(this, NULL, true ,0);
-	dlg2->certList->insertStringList(certs->getPrivateDesc());
+	QStringList strlist = certs->getPrivateDesc();
+	if (strlist.isEmpty()) {
+		dlg2->foreignSignRB->setDisabled(true);
+		dlg2->certList->setDisabled(true);
+	}
+	else {
+		dlg2->certList->insertStringList(strlist);
+	}
 	if (dlg1->fromDataRB->isChecked())
 		dlg2->selfSignRB->setChecked(true);
 	else 
@@ -39,12 +47,23 @@ void MainWindow::newCert()
 	if (dlg2->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg2->certList->currentText().latin1());
 		signkey = certs->findKey(signcert);
+		// search for serial in database
+		string serhash = signcert->fingerprint(EVP_md5()) + "serial";
+		serialstr = settings->getString(serhash);
+		serial = atoi(serialstr.c_str()) + 1;
+		cerr << "serial is: " << serial <<endl;
+		char num[20];
+		sprintf(num,"%i",serial);
+		serialstr= num;
+		settings->putString(serhash, serialstr);
+		
 	}
 	else {
 		signkey = key;	
-		string serialstr = dlg2->serialNr->text().latin1();
+		serialstr = dlg2->serialNr->text().latin1();
 		serial = atoi(serialstr.c_str());
 	}
+	
 	
 	// Step 3
 	NewX509_2_UI *dlg3 = new NewX509_2_UI(this, NULL, true ,0);
@@ -57,7 +76,7 @@ void MainWindow::newCert()
 	if (days == 1) x *= 30;
 	if (days == 2) x *= 365;
 	
-	cert = new pki_x509(req->getDescription(), req, signcert, signkey, x, serial);
+	cert = new pki_x509(req->getDescription(), req, signcert, x, serial);
 	string e;
 	if (! cert ) {
 	   QMessageBox::information(this,"Zertifikat erstellen",
@@ -66,6 +85,53 @@ void MainWindow::newCert()
 	   	//delete(cert);
 		return;
 	}
+	
+	// handle extensions
+	// basic constraints
+	string constraints;
+	if (dlg3->bcCritical->isChecked()) constraints = "critical,";
+	constraints +="CA:";
+	constraints += dlg3->basicCA->currentText().latin1();
+	string pathstr = dlg3->basicPath->text().latin1();
+	if (pathstr.length()>0) {
+		constraints += ", pathlen:";
+		constraints += pathstr;
+	}
+	cert->addV3ext(NID_basic_constraints, constraints);
+	cerr << "B-Const:" << constraints << endl;
+	if (dlg3->subKey->isChecked()) {
+		string subkey="hash";
+		cert->addV3ext(NID_subject_key_identifier, subkey);
+		cerr << subkey <<endl;
+	}
+	
+	if (dlg3->authKey->isChecked()) {
+		string authkey="keyid,issuer:always";
+		cert->addV3ext(NID_authority_key_identifier, authkey);
+		cerr << authkey <<endl;
+	}
+	
+	char *keyusage[] ={"digitalSignature", "nonRepudiation", "keyEncipherment",
+		"dataEncipherment", "keyAgreement", "keyCertSign",
+		"cRLSign", "encipherOnly", "decipherOnly"};
+	QListBoxItem *item;
+	int i=0;
+	string keyuse;
+	while ((item = dlg3->keyUsage->item(i))) {	
+		if (item->selected()){
+			if (keyuse.length() > 0) keyuse +=", ";
+			keyuse += keyusage[i];
+		}
+		i++;
+	}
+	
+	if (keyuse.length() > 0) 
+		if (dlg3->kuCritical->isChecked()) keyuse = "critical," + keyuse;
+		cert->addV3ext(NID_key_usage, keyuse);
+	cerr << "KeyUsage:" <<keyuse;
+	
+	// and finally sign the request 
+	cert->sign(signkey);
 	insertCert(cert);
 }
 
@@ -108,6 +174,9 @@ void MainWindow::showDetailsCert(pki_x509 *cert)
 		dlg->verify->setText(cert->getSigner()->getDescription().c_str());
 	}
 	
+	// the serial
+	dlg->serialNr->setText(cert->getSerial().c_str());	
+
 	// details of subject
 	string land = cert->getDNs(NID_countryName);
 	string land1 = cert->getDNs(NID_stateOrProvinceName);

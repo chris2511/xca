@@ -5,6 +5,13 @@
 #ifndef PKI_BASE_H
 #define PKI_BASE_H
 
+
+typedef struct PASS_INFO {
+	string *title;
+	string *description;
+};
+
+
 class pki_base
 {
     protected:

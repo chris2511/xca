@@ -30,13 +30,18 @@ pki_key::pki_key(EVP_PKEY *pkey)
 pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	:pki_base(fname)
 { 
+	PASS_INFO p;
+	string title = "Passwort für RSA Schlüssel";
+	string description = "Bitte geben Sie das Passwort an mit dem der RSA-Schlüssel geschützt ist."; 
+	p.title = &title;
+	p.description = &description;
 	key = EVP_PKEY_new();
 	key->type = EVP_PKEY_type(type);
 	error = "";
 	FILE *fp = fopen(fname.c_str(), "r");
 	RSA *rsakey = NULL;
 	if (fp != NULL) {
-	   rsakey = PEM_read_RSAPrivateKey(fp, NULL, cb, NULL);
+	   rsakey = PEM_read_RSAPrivateKey(fp, NULL, cb, &p);
 	   if (!rsakey) {
 		openssl_error();
 		rewind(fp);
@@ -47,7 +52,7 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 		openssl_error();
 		rewind(fp);
 		cerr << "Fallback to pubkey" << endl; 
-	   	rsakey = PEM_read_RSA_PUBKEY(fp, NULL, cb, NULL);
+	   	rsakey = PEM_read_RSA_PUBKEY(fp, NULL, cb, &p);
 	   }
 	   if (!rsakey) {
 		openssl_error();
@@ -58,8 +63,10 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	   if (!rsakey) {
 	        openssl_error();
 	        rewind(fp);
-	        cerr << "Fallback to PKCS#8 Private key" << endl; 
-	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, NULL);
+		title = "Passwort für PKCS#8 Schlüssel";
+		description = "Bitte geben Sie das Passwort an mit dem der PKCS#8 Schlüssel geschützt ist.";
+		cerr << "Fallback to PKCS#8 Private key" << endl; 
+	        d2i_PKCS8PrivateKey_fp(fp, &key, cb, &p);
 	   }
 	   else {
 	   	EVP_PKEY_set1_RSA(key,rsakey);
@@ -126,7 +133,8 @@ unsigned char *pki_key::toData(int *size)
 	
 	EVP_CIPHER_CTX_init (&ctx);
 	EVP_EncryptInit( &ctx, EVP_des_ede3_cbc(),(unsigned char *)passwd , NULL);
-	if (key->type == EVP_PKEY_RSA) {
+	//if (key->type == EVP_PKEY_RSA) {
+	if (true) {
 	   if (isPubKey()) {
 	      *size = i2d_RSA_PUBKEY(key->pkey.rsa, NULL);
 	      cerr << "Sizeofpubkey: " << *size <<endl;
@@ -173,12 +181,17 @@ pki_key::~pki_key()
 
 void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 {
+	PASS_INFO p;
+	string title="Passwort für PKCS#8 Schlüssel";
+	string description="Bitte geben Sie das Passwort an mit dem der PKCS#8 Schlüssel geschützt werden soll."; 
+	p.title = &title;
+	p.description = &description;
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key){
 		cerr << "writing PKCS8\n";
 		PEM_write_PKCS8PrivateKey_nid(fp, key, 
-		   NID_pbeWithMD5AndDES_CBC, NULL, 0, cb, 0);
+		   NID_pbeWithMD5AndDES_CBC, NULL, 0, cb, &p);
 		openssl_error();
 	   }
 	}
@@ -189,6 +202,11 @@ void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 void pki_key::writeKey(const string fname, EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
+	PASS_INFO p;
+	string title="Passwort für RSA Schlüssel";
+	string description="Bitte geben Sie das Passwort an mit dem der RSA Schlüssel geschützt werden soll."; 
+	p.title = &title;
+	p.description = &description;
 	if (isPubKey()) {
 		writePublic(fname, PEM);
 		return;

@@ -40,12 +40,6 @@
 #define DBFILE "xca.db"
 
 
-typedef struct PASS_INFO {
-	string *title;
-	string *description;
-};
-
-
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT

@@ -15,8 +15,9 @@ class pki_x509 : public pki_base
 	   X509 *cert;
 	   pki_x509 *psigner;
 	   pki_x509 *pkey;
+           X509V3_CTX ext_ctx;
 	public:
-	   pki_x509(string d, pki_x509req *req, pki_x509 *signer, pki_key* signkey, int days, int serial);
+	   pki_x509(string d, pki_x509req *req, pki_x509 *signer, int days, int serial);
 	   pki_x509();
 	   pki_x509(const string fname);
 	   virtual bool fromData(unsigned char *p, int size);
@@ -33,7 +34,10 @@ class pki_x509 : public pki_base
 	   void delSigner();
 	   string fingerprint(EVP_MD *digest);
 	   string printV3ext();
+	   string getSerial();
 	   int checkDate();
+	   void addV3ext(int nid, string exttext);
+	   void sign(pki_key *signkey);
 };
 
 #endif
