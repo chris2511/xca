@@ -56,22 +56,40 @@ pki_pkcs7::pki_pkcs7(const std::string d )
 	:pki_base(d)
 { 
 	p7 = NULL;
-	className="pki_pkcs7";
+	certstack = NULL;
+	className = "pki_pkcs7";
 }	
 
 
 pki_pkcs7::~pki_pkcs7()
 {
 	if (p7) PKCS7_free(p7);
+	if (certstack) sk_X509_free(certstack);
+}
+
+void pki_pkcs7::encryptFile(pki_x509 *crt, std::string filename)
+{
+	BIO *bio = NULL;
+	if (!crt) return;
+	bio = BIO_new_file(filename.c_str(), "r");
+        openssl_error();
+	if (certstack) sk_X509_free(certstack);
+	certstack = sk_X509_new_null();
+	sk_X509_push(certstack, crt->getCert());
+	openssl_error();
+	if (p7) PKCS7_free(p7);
+	p7 = PKCS7_encrypt(certstack, bio, EVP_des_ede3_cbc(), PKCS7_BINARY);
+	openssl_error();	
+	sk_X509_free(certstack);
 }
 
 void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 {
-	STACK_OF(X509) *certstack;
 	pki_key *privkey;
 	if (!crt) return;
 	privkey = crt->getKey();
 	if (!privkey) throw errorEx("No private key for signing found", className);
+	if (certstack) sk_X509_free(certstack);
 	certstack = sk_X509_new_null();
 	pki_x509 *signer = crt->getSigner();
 	while (signer != NULL && signer != signer->getSigner()) {
@@ -124,3 +142,18 @@ void pki_pkcs7::writeP7(std::string fname,bool PEM)
         else fopen_error(fname);
         fclose(fp);
 }
+
+pki_x509 *pki_pkcs7::getCert(int x) {
+	pki_x509 *cert;
+	cert = new pki_x509(X509_dup(sk_X509_value(certstack, x)));
+	openssl_error();
+	cert->setDescription("pk7-import");
+	return cert;
+}
+
+int pki_pkcs7::numCert() {
+	int n= sk_X509_num(certstack);
+	openssl_error();
+	return n;
+}
+
