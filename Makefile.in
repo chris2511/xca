@@ -31,11 +31,11 @@ MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
 UI_H=$(patsubst %, %.h, $(UINAMES))
 
-all: libs $(OBJS) xca
+all: $(UI_H) libs $(OBJS) xca
 
 re: clean all
 
-$(MOBJS): $(UI_H)
+$(OBJS): $(UI_H)
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@

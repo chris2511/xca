@@ -11,9 +11,16 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>454</width>
-            <height>349</height>
+            <width>570</width>
+            <height>387</height>
         </rect>
+    </property>
+    <property stdset="1">
+        <name>maximumSize</name>
+        <size>
+            <width>600</width>
+            <height>32767</height>
+        </size>
     </property>
     <property stdset="1">
         <name>caption</name>
@@ -484,6 +491,10 @@
                         <name>name</name>
                         <cstring>keyDesc</cstring>
                     </property>
+                    <property stdset="1">
+                        <name>maxLength</name>
+                        <number>32767</number>
+                    </property>
                 </widget>
                 <widget row="1"  column="4" >
                     <class>QLabel</class>
@@ -550,6 +561,10 @@
             <property stdset="1">
                 <name>frameShadow</name>
                 <enum>Sunken</enum>
+            </property>
+            <property stdset="1">
+                <name>textFormat</name>
+                <enum>PlainText</enum>
             </property>
             <property stdset="1">
                 <name>alignment</name>

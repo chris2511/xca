@@ -59,8 +59,7 @@
 
 int main( int argc, char *argv[] )
 {
-    QString path = "";
-	QApplication a( argc, argv );
+    QApplication a( argc, argv );
     MainWindow mw( NULL, "Main Widget");
     mw.setCaption("X Certification Authority"); 
     a.setMainWidget( &mw );
@@ -70,14 +69,12 @@ int main( int argc, char *argv[] )
     a.installTranslator( &qtTr );
     //translation file for application strings
     QTranslator xcaTr( 0 );
-#ifdef HAVE_CONFIG_H    
-	xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
+#ifdef WIN32
+    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), PREFIX );
 #else	
-	path = "C:";
-	path += QDir::separator();
-	xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), path + BASE_DIR );
+    xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), "." );
 #endif
-	a.installTranslator( &xcaTr );
+    a.installTranslator( &xcaTr );
     
     mw.show();
     return a.exec();
