@@ -60,6 +60,7 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB)
 	CERR("DB:" << DBfile);
 	try {
 #if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
+#error Berkeley DB 4.1.24 not supported (yet) please downgrade ....
 		data->open(NULL, DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600); 
 #else
 		data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600); 
