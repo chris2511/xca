@@ -137,6 +137,7 @@ void MainWindow::newCert(pki_temp *templ)
 	
 	// initially create cert 
 	cert = new pki_x509(req->getDescription(), clientkey, req, signcert, x, serial);
+	if (!signcert) signcert=cert;	
 	if (opensslError(cert)) goto err;
 	if (cert->resetTimes(signcert) > 0) {
 		QMessageBox::information(this,tr(XCA_TITLE),
@@ -165,7 +166,7 @@ void MainWindow::newCert(pki_temp *templ)
 	}
 	// Authority Key identifier
 	if (dlg->authKey->isChecked()) {
-		string authkey="keyid,issuer";
+		string authkey="keyid:always,issuer:always";
 		cert->addV3ext(NID_authority_key_identifier, authkey);
 		CERR( authkey );
 	}
@@ -205,7 +206,16 @@ void MainWindow::newCert(pki_temp *templ)
 	cont = "";
 	cont = dlg->subAltName->text().latin1();
 	if (dlg->subAltCp->isChecked()) {
-		subAltName = "email:copy";
+		if (req->getDN(NID_pkcs9_emailAddress).length() == 0) {
+			if (QMessageBox::information(this,tr(XCA_TITLE),
+			   tr("You requested to copy the subject E-Mail address but it is empty !"),
+			   tr("Continue creation"), tr("Abort")
+			))
+				goto err;
+		}
+		else {
+			subAltName = "email:copy";
+		}
 	}
 	if (cont.length() > 0){
 		addStr(subAltName,cont.c_str());
@@ -219,7 +229,16 @@ void MainWindow::newCert(pki_temp *templ)
 	cont = dlg->issAltName->text().latin1();
 	// issuer alternative name	
 	if (dlg->issAltCp->isChecked()) {
-		issAltName = "issuer:copy";
+		if (!signcert->hasSubAltName()) {
+			if (QMessageBox::information(this,tr(XCA_TITLE),
+			   tr("You requested to copy the issuer alternative name but it is empty !"),
+			   tr("Continue creation"), tr("Abort")
+			))
+				goto err;
+		}
+		else {
+			issAltName = "issuer:copy";
+		}
 	}
 	if (cont.length() > 0){
 		addStr(issAltName,cont.c_str());

@@ -48,6 +48,9 @@
  *
  */                           
 
+#include <openssl/err.h>
+#include <iostream>
+#include <string>
 
 #ifndef HAVE_CONFIG_H
 using namespace std ;
@@ -56,9 +59,6 @@ using namespace std ;
 #endif
 
 #include "base.h"
-#include <openssl/err.h>
-#include <iostream>
-#include <string>
 
 #ifndef PKI_BASE_H
 #define PKI_BASE_H

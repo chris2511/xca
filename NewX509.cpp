@@ -73,10 +73,6 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 		nsImg->setPixmap(*ns);
 	}
 #ifdef qt3
-	// set Validator for  2 letter country code
-	QRegExp rx( "\\w{2}" );
-	QRegExpValidator validator( rx, 0 );
-	countryName->setValidator( &validator );
 	// pretty fat Title :-)
 	QFont tFont;// = getFont();
 	tFont.setPointSize(14);
@@ -176,7 +172,7 @@ void NewX509::setRequest()
 	changeDefault->setChecked(false);
 	signerBox->setEnabled(false);
 	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa)");
-	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa)");
+	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa, volunteers ?)");
 	tText=tr("Certificate request");
 	setup();
 }
@@ -186,7 +182,7 @@ void NewX509::setTemp(pki_temp *temp)
 	setAppropriate(page1, false);
 	finishButton()->setEnabled(true);
 	startText=tr("Welcome to the settings for Templates.... (needs more prosa)");
-	endText=tr("You are done with entering all parameters for generating a Template..... (needs more prosa)");
+	endText=tr("You are done with entering all parameters for generating a Template..... (needs more prosa, volunteers ?)");
 	tText=tr("Template");
 	if (temp->getDescription() != "--") {
 		description->setText(temp->getDescription().c_str());
@@ -200,7 +196,7 @@ void NewX509::setCert()
 {
 	finishButton()->setEnabled(true);
 	startText=tr("Welcome to the settings for Certificates.... (needs more prosa)");
-	endText=tr("You are done with entering all parameters for generating a Certificate..... (needs more prosa)");
+	endText=tr("You are done with entering all parameters for generating a Certificate..... (needs more prosa, volunteers ?)");
 	tText=tr("Certificate");
 	setup();
 }
@@ -356,6 +352,7 @@ void NewX509::showPage(QWidget *page)
 	else if ( page == page2 ) {
 		dataChangeP2();
 	}
+	/*
 	else if ( page == page4 ) { // disable Copy issuer alternative name 
 		if (selfSignRB->isChecked()) { // for self signed certs
 			issAltCp->setChecked(false);
@@ -365,7 +362,7 @@ void NewX509::showPage(QWidget *page)
 			issAltCp->setEnabled(true);
 		}
 	}
-	
+	*/
 	QWizard::showPage(page);
 	
 	if ( page == page2 ) {
@@ -388,6 +385,7 @@ void NewX509::signerChanged()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI(name.latin1());
 	if (!cert) return;
 	QString templ = cert->getTemplate().c_str();	
+	if (templ.isEmpty()) return;
 	CERR( "set Template: " << templ.latin1() );
 #ifdef qt3
 	tempList->setCurrentText(templ);
@@ -422,7 +420,7 @@ void NewX509::templateChanged()
 		temp = new pki_temp("temp",item);
 		if (temp) { 
 			fromTemplate(temp);
-			CERR("using default template:"<< item);
+			CERR("using default template: "<< item);
 			delete (temp);
 		}
 		return;

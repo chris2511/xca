@@ -121,6 +121,7 @@ class pki_x509 : public pki_base
 	   int getCrlDays();
 	   void setLastCrl(ASN1_TIME *time);
 	   int resetTimes(pki_x509 *signer);
+	   bool hasSubAltName();
 };
 
 #endif

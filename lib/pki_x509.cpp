@@ -224,6 +224,17 @@ bool pki_x509::canSign()
 	return true;
 }
 	
+bool pki_x509::hasSubAltName()
+{
+	STACK_OF(GENERAL_NAME) *subAlt;
+	int crit;
+	subAlt = (STACK_OF(GENERAL_NAME) *)X509_get_ext_d2i(cert, NID_subject_alt_name, &crit, NULL);
+	openssl_error();
+	CERR("hasSubAlt: "<< sk_GENERAL_NAME_num(subAlt));
+	if (sk_GENERAL_NAME_num(subAlt) < 1) return false;	
+	return true;
+}
+	
 void pki_x509::sign(pki_key *signkey)
 {
 	const EVP_MD *digest = EVP_md5();
@@ -301,11 +312,11 @@ unsigned char *pki_x509::toData(int *size)
 	CERR("cert toData");
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
-	CERR("");
+	MARK	
 	int sRev = (revoked ? i2d_ASN1_TIME(revoked, NULL) : 0);
-	CERR("");
+	MARK	
 	int sLastCrl = (lastCrl ? i2d_ASN1_TIME(lastCrl, NULL) : 0);
-	CERR("");
+	MARK	
 	// calculate the needed size 
 	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
 	openssl_error();

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>580</width>
+            <width>576</width>
             <height>520</height>
         </rect>
     </property>
@@ -761,6 +761,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>name</name>
                             <cstring>description</cstring>
                         </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>100</number>
+                        </property>
                     </widget>
                     <widget row="3"  column="1" >
                         <class>QLineEdit</class>
@@ -797,6 +801,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 <vsizetype>0</vsizetype>
                             </sizepolicy>
                         </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>2</number>
+                        </property>
                     </widget>
                     <widget row="4"  column="0" >
                         <class>QLabel</class>
@@ -828,7 +836,7 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         </property>
                         <property stdset="1">
                             <name>text</name>
-                            <string>Country:</string>
+                            <string>Country code:</string>
                         </property>
                     </widget>
                     <widget row="0"  column="0" >
@@ -848,12 +856,20 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>name</name>
                             <cstring>emailAddress</cstring>
                         </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>60</number>
+                        </property>
                     </widget>
                     <widget row="2"  column="3" >
                         <class>QLineEdit</class>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>commonName</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>maxLength</name>
+                            <number>64</number>
                         </property>
                     </widget>
                     <widget row="0"  column="2" >

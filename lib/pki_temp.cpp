@@ -129,6 +129,7 @@ pki_temp::pki_temp(const string d, int atype)
 	if (type==tCA) {
 		ca=true;
 		bcCrit=true;
+		subKey=true;
 		authKey=true;
 		issAltCp=false;
 		nsCertType=112;
