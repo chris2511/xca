@@ -1,3 +1,10 @@
+xca (0.2.7) unstable; urgency=low
+
+  * segfaults removed
+  * minor wizard changes
+
+ -- Christian Hohnstädt <chris@trinity.local>  Mon,  7 Oct 2002 23:32:19 +0200
+
 xca (0.2.6) unstable; urgency=low
 
   * show common name in request list and certificate list
