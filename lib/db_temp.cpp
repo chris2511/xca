@@ -52,7 +52,7 @@
 #include "db_temp.h"
 
 
-db_temp::db_temp(DbEnv *dbe, QString DBfile, QListView *l, DbTxn *tid)
+db_temp::db_temp(DbEnv *dbe, QString DBfile, DbTxn *tid)
 	:db_base(dbe, DBfile, "tempdb", tid)
 {
 	loadContainer();

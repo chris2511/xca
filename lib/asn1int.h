@@ -62,15 +62,16 @@ class a1int
    public:
 	a1int();
 	a1int(const ASN1_INTEGER *i);
+	a1int(long l);
 	~a1int();
 	void set(const ASN1_INTEGER *i);
-	void set(const long i);
+	void set(long l);
 	QString toHex() const;
 	QString toDec() const;
 	long getLong() const;
 	ASN1_INTEGER *get() const;
 	unsigned char *i2d(unsigned char *p);
-	int derSize();
+	int derSize() const;
 
 	a1int &operator ++ (void);
 	a1int operator ++ (int);

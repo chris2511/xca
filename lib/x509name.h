@@ -63,7 +63,7 @@ class x509name
 	x509name(const X509_NAME *n);
 	~x509name();
 	void set(const X509_NAME *n);
-	QString subjectOneLine() const;
+	QString oneLine() const;
 	QString getEntryByNid(int nid) const;
 	int entryCount() const;
 	bool operator == (const x509name &x) const;

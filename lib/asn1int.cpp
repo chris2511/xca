@@ -70,6 +70,12 @@ a1int::a1int(const ASN1_INTEGER *i)
 	in = dup(i);
 }
 
+a1int::a1int(long l)
+{
+	in = NULL;
+	set(l);
+}
+
 a1int::~a1int()
 {
 	ASN1_INTEGER_free(in);
@@ -82,9 +88,9 @@ void a1int::set(const ASN1_INTEGER *i)
 	in = dup(i);
 }
 
-void a1int::set(long i)
+void a1int::set(long l)
 {
-	ASN1_INTEGER_set(in, i);
+	ASN1_INTEGER_set(in, l);
 }
 
 QString a1int::toHex() const
@@ -172,7 +178,7 @@ unsigned char *a1int::i2d(unsigned char *p)
 	return mp;
 }       
  
-int a1int::derSize()
+int a1int::derSize() const
 {       
 	return i2d_ASN1_INTEGER(in, NULL);
 }       

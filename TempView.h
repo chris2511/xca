@@ -53,7 +53,7 @@
 #define KEYVIEW_H
 
 #include "XcaListView.h"
-#include "lib/pki_key.h"
+#include "lib/pki_temp.h"
 #include <qlistview.h>
 
 class TempView : public XcaListView
@@ -73,7 +73,10 @@ class TempView : public XcaListView
 	pki_base* insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	bool alterTemp(pki_temp *temp);
    signals:
+	void certFromTemp();
+	void reqFromTemp();
 	void init_database();
 
 };	

@@ -66,7 +66,6 @@
 #include "lib/exception.h"
 #include <qpixmap.h>
 #include <qfiledialog.h>
-#include <string>
 
 #define DBFILE "xca.db"
 
@@ -104,8 +103,7 @@ class MainWindow: public MainWindow_UI
 	static void incProgress(int a, int b, void *progress);
 	static void dberr(const char *errpfx, char *msg);
 	static NewX509 *newX509(QPixmap *image);
-	string md5passwd();
-	bool opensslError(pki_base *pki);
+	QString md5passwd();
 	QPixmap *loadImg(const char *name);
 	void Error(errorEx &err);
 	

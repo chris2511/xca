@@ -72,7 +72,7 @@ void x509name::set(const X509_NAME *n)
 }
 
 
-QString x509name::subjectOneLine() const
+QString x509name::oneLine() const
 {
 	char *x = X509_NAME_oneline(xn, NULL ,0);
 	QString ret = x;

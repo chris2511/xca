@@ -50,13 +50,15 @@
 
 
 #include "db_x509super.h"
+#include "../MainWindow.h"
+
 #define FOR_container for (pki_x509super *pki = (pki_x509super *)container.first(); \
 			pki != 0; pki = (pki_x509super *)container.next() ) 
 
-db_x509super::db_x509super(DbEnv *dbe, QString DBfile, QString db, db_key *dk, DbTxn *tid)
+db_x509super::db_x509super(DbEnv *dbe, QString DBfile, QString db, DbTxn *tid)
                 :db_base(dbe, DBfile, db, tid)
 {
-	keylist = dk;
+	keylist = MainWindow::keys;
 }
 				
 

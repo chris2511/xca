@@ -28,7 +28,7 @@ UINAMES=CertDetail ExportKey_UI ExportCert_UI KeyDetail MainWindow_UI \
 	CertExtend ExportTinyCA_UI CrlDetail
 
 MOCNAMES=XcaListView KeyView ReqView CertView TempView ExportTinyCA NewX509 \
-	 ExportKey MainWindow ExportCert $(UINAMES)
+	 ExportKey MainWindow ExportCert validity $(UINAMES)
      
 MOBJS=
      

@@ -65,6 +65,7 @@ class CertView : public XcaListView
    private:
 	QPixmap *certicon[4];
 	int viewState;
+	bool mkDir(QString dir);
    public:
 	CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void show(pki_base *item, bool import);
@@ -83,6 +84,21 @@ class CertView : public XcaListView
 	void loadPKCS12();
 	void insertP12(pki_pkcs12 *pk12);
 	void loadPKCS7();
+	void writePKCS12(QString s, bool chain);
+	void writePKCS7(QString s, int type);	
+   public slots:
+	void signP7();
+	void encryptP7();
+	void setTrust();
+	void toRequest();
+	void revoke();
+	void unRevoke();
+	void setSerial();
+	void setCrlDays();
+	void setTemplate();
+	void changeView();
+	void toTinyCA();
+	bool updateView();
    signals:
 	void init_database();
 

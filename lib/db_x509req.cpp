@@ -52,8 +52,8 @@
 #include "db_x509req.h"
 #include "pki_x509req.h"
 
-db_x509req::db_x509req(DbEnv *dbe, QString DBfile, db_key *dk, DbTxn *tid)
-		:db_x509super(dbe, DBfile, "reqdb", dk, tid)
+db_x509req::db_x509req(DbEnv *dbe, QString DBfile, DbTxn *tid)
+		:db_x509super(dbe, DBfile, "reqdb", tid)
 {
 	loadContainer();
 }

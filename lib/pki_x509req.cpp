@@ -62,7 +62,7 @@ pki_x509req::pki_x509req()
 	openssl_error();
 }
 
-void pki_x509req::createReq(pki_key *key, x509name &dist_name)
+void pki_x509req::createReq(pki_key *key, const x509name &dist_name)
 {
 	if (key->isPubKey()) {
 		openssl_error("key not valid");

@@ -62,17 +62,6 @@
 #include "PassRead.h"
 #include "PassWrite.h"
 
-#ifdef WIN32
-#include <direct.h>     // to define mkdir function
-#include <windows.h>    // to define mkdir function
-#else
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#endif
-
-
-
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
 	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL,
@@ -338,13 +327,13 @@ void MainWindow::init_database() {
 		qFatal(e);
 	}
 	try {
-		settings = new db_base(dbenv, dbfile.latin1(), "settings",global_tid);
+		settings = new db_base(dbenv, dbfile, "settings",global_tid);
 		initPass();
-		keys = new db_key(dbenv, dbfile.latin1(), global_tid);
-		reqs = new db_x509req(dbenv, dbfile.latin1(), keys, global_tid);
-		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys,global_tid);
-		temps = new db_temp(dbenv, dbfile.latin1(), tempList,global_tid);
-		crls = new db_crl(dbenv, dbfile.latin1(), revList, global_tid, certs);
+		keys = new db_key(dbenv, dbfile, global_tid);
+		reqs = new db_x509req(dbenv, dbfile, global_tid);
+		certs = new db_x509(dbenv, dbfile, global_tid);
+		temps = new db_temp(dbenv, dbfile, global_tid);
+		crls = new db_crl(dbenv, dbfile, global_tid);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -386,8 +375,8 @@ void MainWindow::initPass()
 {
 	pass_info p(tr("New Password"), 
 	  tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
-	string passHash = settings->getString("pwhash");
-	if (passHash == "") {
+	QString passHash = settings->getString("pwhash");
+	if (passHash.isEmpty()) {
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
 		if (keylen == 0) {
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
@@ -454,11 +443,11 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	else return 0;
 }
 
-string MainWindow::md5passwd()
+QString MainWindow::md5passwd()
 {
 
 	EVP_MD_CTX mdctx;
-	string str;
+	QString str;
 	unsigned int n;
 	int j;
 	char zs[4];
@@ -471,24 +460,6 @@ string MainWindow::md5passwd()
 		str += zs;
 	}
 	return str;
-}
-
-bool MainWindow::opensslError(pki_base *pki)
-{
-	string err;
-
-	if (!pki) {
-		QMessageBox::warning(this,tr(XCA_TITLE), tr("The system detected a NULL pointer, maybe the system is out of memory" ));
-		qFatal("NULL pointer detected - Exiting");
-	}
-	
-	if (( err = pki->getError()) != "") { 
-		QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured")+
-			" (" + QString::fromLatin1(pki->getClassName().c_str()) +") :"+
-			QString::fromLatin1(err.c_str()));
-		return true;
-	}
-	return false;
 }
 	
 void MainWindow::Error(errorEx &err)
@@ -508,33 +479,13 @@ void MainWindow::dberr(const char *errpfx, char *msg)
 
 QString MainWindow::getPath()
 {
-	QString x = settings->getString("workingdir").c_str();	
+	QString x = settings->getString("workingdir");
 	return x;
 }
 
 void MainWindow::setPath(QString str)
 {
-	settings->putString("workingdir", str.latin1());
-}
-
-bool MainWindow::mkDir(QString dir)
-{
-#ifdef WIN32
-	int ret = mkdir(dir.latin1());
-	// in direct.h declare _CRTIMP int __cdecl mkdir(const char *);
-#else
-	int ret = mkdir(dir.latin1(), S_IRUSR | S_IWUSR | S_IXUSR);
-#endif
-	if (ret) {
-		QString desc = " (";
-		desc += strerror(ret);
-	      	desc += ")";
-		QMessageBox::critical(this,tr(XCA_TITLE), 
-			tr("Error creating: ") + dir + desc);
-		return false;
-	}
-	return true;
-
+	settings->putString("workingdir", str);
 }
 
 NewX509 *MainWindow::newX509(QPixmap *image)

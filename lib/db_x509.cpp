@@ -54,12 +54,13 @@
                         pki != 0; pki = (pki_x509 *)container.next() ) 
 			
 
-db_x509::db_x509(DbEnv *dbe, QString DBfile, QListView *l, db_key *keyl, DbTxn *tid)
-		:db_x509super(dbe, DBfile, "certdb", keyl, tid)
+db_x509::db_x509(DbEnv *dbe, QString DBfile, DbTxn *tid)
+		:db_x509super(dbe, DBfile, "certdb", tid)
 {
 	loadContainer();
-	connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
-	connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
+	// FIXME:
+	// connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
+	// connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
 }
 
 pki_base *db_x509::newPKI(){
@@ -186,9 +187,9 @@ QList<pki_x509> db_x509::getCerts(bool onlyTrusted)
 
 a1int db_x509::searchSerial(pki_x509 *signer)
 {
-	if (!signer) return 0;
-	a1int sserial = signer->getCaSerial();
-	a1int myserial;
+	a1int sserial, myserial; 
+	if (!signer) return sserial;
+	sserial = signer->getCaSerial();
 	FOR_container
 		if (pki->getSigner() == signer)  {
 			myserial = pki->getSerial();

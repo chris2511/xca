@@ -62,7 +62,7 @@ class db_x509super: public db_base
     protected:
 	db_key *keylist;
     public:
-	db_x509super(DbEnv *dbe, QString DBfile, QString db, db_key *dk, DbTxn *tid);
+	db_x509super(DbEnv *dbe, QString DBfile, QString db, DbTxn *tid);
 	void preprocess();
 	pki_key *findKey(pki_x509super *ref);
     public slots:

@@ -50,9 +50,12 @@
 
 
 #include "TempView.h"
-#include "TempView.h"
+#include "MainWindow.h"
+#include "NewX509.h"
+#include <qmessagebox.h>
+#include <qpopupmenu.h>
 
-KeyView::KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
+TempView::TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
 	        :XcaListView(parent, name, f)
 {
 	keyicon = loadImg("template.png");
@@ -69,7 +72,7 @@ void TempView::newItem(int type)
 
 bool TempView::alterTemp(pki_temp *temp)
 {
-	NewX509 *dlg = MainWindow::newX509(TempView::tempCert);
+	NewX509 *dlg = MainWindow::newX509(MainWindow::tempImg);
 	dlg->setTemp(temp);
 	dlg->fromTemplate(temp);
 	if (!dlg->exec()) {
@@ -90,42 +93,35 @@ void TempView::show(pki_base *item, bool import)
 	QString newname = temp->getIntName();
 	if (newname!= oldname) {
 		temp->setIntName(oldname);
-		temps->renamePKI(temp, newname);
+		MainWindow::temps->renamePKI(temp, newname);
 	}
-	temps->updatePKI(temp);
+	MainWindow::temps->updatePKI(temp);
 }
 
 
 void TempView::deleteItem()
 {
-	pki_temp *delTemp = (pki_temp *)getSelected();
-	if (!delTemp) return;
-	if (QMessageBox::information(this,tr(XCA_TITLE),
-			tr("The template") + ": '" + 
-			QString::fromLatin1(delTemp->getDescription().c_str()) +
-			"'\n" + tr("is going to be deleted"),
-			"Delete", "Cancel")
-	) return;
-	temps->deletePKI(delTemp);
+	deleteItem_default(tr("The Template"), tr("is going to be deleted"));
 }
 
 
 
-void TempView::insert(pki_temp *temp)
+pki_base *TempView::insert(pki_base *temp)
 {
-	temps->insertPKI(temp);
+	MainWindow::temps->insertPKI(temp);
+	return temp;
 }
 
 void TempView::certFromTemp()
 {
 	pki_temp *temp = (pki_temp *)getSelected();
-	newCert(temp);
+	// FIXME: newCert(temp);
 }
 
 void TempView::reqFromTemp()
 {
 	pki_temp *temp = (pki_temp *)getSelected();
-	newReq(temp);
+	// FIXME: newReq(temp);
 }
 
 void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
@@ -153,14 +149,13 @@ void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
 	return;
 }
 
-void TempView::updateViewPKI(pki_base *pki)
+void TempView::updateViewItem(pki_base *pki)
 {
-        db_base::updateViewPKI(pki);
+        XcaListView::updateViewItem(pki);
         if (! pki) return;
-        QListViewItem *current = (QListViewItem *)pki->getPointer();
+        QListViewItem *current = pki->getLvi();
         if (!current) return; 
         current->setPixmap(0, *keyicon);
         QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
         current->setText(1, typec[((pki_temp *)pki)->type]);
- 
 }
