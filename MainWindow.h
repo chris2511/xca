@@ -42,7 +42,6 @@ class MainWindow: public MainWindow_UI
 	static const int sizeList[];
 	MainWindow(QWidget *parent, const char *name);
 	~MainWindow(); 
-	QString toQStr(string s);
 	void showDetailsKey(pki_key *key);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);

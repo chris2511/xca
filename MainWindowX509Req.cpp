@@ -20,7 +20,7 @@ void MainWindow::newReq()
 	if ((e = req->getError()) != "") {
 	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
 		("Beim Erstellen der Anfrage trat folgender Fehler auf:\n'" +
-		e + "'\nund wurde daher nicht importiert").data(), "OK");
+		e + "'\nund wurde daher nicht importiert").c_str(), "OK");
 		return;
 	}
 	pki_x509req *oldreq = (pki_x509req *)reqs->findPKI((pki_x509req *)req);
@@ -28,7 +28,7 @@ void MainWindow::newReq()
 	   QMessageBox::information(this,"Zertifikatsanfragen import",
 		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
 		oldreq->getDescription() + 
-		"'\nund wurde daher nicht erstellt").data(), "OK");
+		"'\nund wurde daher nicht erstellt").c_str(), "OK");
 	   delete(oldreq);
 	   return;
 	}
@@ -40,34 +40,35 @@ void MainWindow::showDetailsReq()
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (!req) return;
-	dlg->descr->setText(req->getDescription().data());
+	dlg->descr->setText(req->getDescription().c_str());
 	if ( req->verify() ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
-	/*if (pkey) {
-	   pki_key *key = new pki_key(pkey);
-	   if (key);
-		dlg->keyPubEx->setText(key->pubEx());   
-		dlg->keyModulus->setText(key->modulus());   
-	   pki_key *existkey = keys->findPublicKey(key);
+	else {
+	  pki_key *key = req->getKey();
+	  if (key)
+	  {
+	   dlg->keyPubEx->setText(key->pubEx().c_str());   
+	   dlg->keyModulus->setText(key->modulus().c_str());   
+	   pki_key *existkey = (pki_key *)keys->findPKI(key);
 	   QColor *green = new QColor(0,192,0);
 	   if (existkey) {
-	        if (!existkey->onlyPubKey) {
+	        if (!existkey->isPubKey()) {
 	       	   dlg->privKey->setEnabled(true);
-		   dlg->privKey->setText(existkey->getDescription());
+		   dlg->privKey->setText(existkey->getDescription().c_str());
 	        }	
 	   }
-	}*/
-	
-	dlg->dnCN->setText(req->getDN(NID_commonName).data() );
+	  }
+	}
+	dlg->dnCN->setText(req->getDN(NID_commonName).c_str() );
 	dlg->dnC->setText((req->getDN(
 		NID_countryName) + " / " + 
-		req->getDN(NID_stateOrProvinceName)).data());
-	dlg->dnL->setText(req->getDN(NID_localityName).data());
-	dlg->dnO->setText(req->getDN(NID_organizationName).data());
-	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).data());
-	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).data());
+		req->getDN(NID_stateOrProvinceName)).c_str());
+	dlg->dnL->setText(req->getDN(NID_localityName).c_str());
+	dlg->dnO->setText(req->getDN(NID_organizationName).c_str());
+	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).c_str());
+	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).c_str());
 	if ( !dlg->exec()) return;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != req->getDescription()) {
@@ -82,7 +83,7 @@ void MainWindow::deleteReq()
 	if (QMessageBox::information(this,"Zertifikatsanfrage löschen",
 			("Möchten Sie die Zertifikatsanfrage: '" + 
 			req->getDescription() +
-			"'\nwirklich löschen ?\n").data(),
+			"'\nwirklich löschen ?\n").c_str(),
 			"Löschen", "Abbrechen")
 	) return;
 	reqs->deletePKI(req);
@@ -105,7 +106,7 @@ void MainWindow::loadReq()
 	if ((errtxt = req->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
 			("Die Zertifikatsanfrage: '" + s +
-			"'\nkonnte nicht geladen werden:\n" + errtxt).data());
+			"'\nkonnte nicht geladen werden:\n" + errtxt).c_str());
 		return;
 	}
 	pki_x509req *oldreq = (pki_x509req *)reqs->findPKI(req);
@@ -113,7 +114,7 @@ void MainWindow::loadReq()
 	   QMessageBox::information(this,"Zertifikatsanfragen import",
 		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
 		oldreq->getDescription() + 
-		"'\nund wurde daher nicht importiert").data(), "OK");
+		"'\nund wurde daher nicht importiert").c_str(), "OK");
 	   delete(oldreq);
 	   return;
 	}
@@ -139,7 +140,7 @@ void MainWindow::writeReq()
 	   if ((errtxt = req->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
 			("Die Zertifikatsanfrage: '" + s +
-			"'\nkonnte nicht gespeichert werden:\n" + errtxt).data());
+			"'\nkonnte nicht gespeichert werden:\n" + errtxt).c_str());
 		return;
 	   }
 	}

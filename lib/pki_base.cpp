@@ -43,9 +43,9 @@ bool pki_base::openssl_error()
 	error = "";
 	string errtxt = "";
 	while (int i = ERR_get_error() ) {
-	   error = ERR_error_string(i ,NULL);
-	   errtxt += error + "\n";
+	   errtxt = ERR_error_string(i ,NULL);
+	   cerr << "OpenSSL: " << errtxt << endl;
+	   error += errtxt + "\n";
 	}
-	cerr << "OpenSSL: " << errtxt << endl;
-	return (error != "");
+	return  (!error.empty());
 }

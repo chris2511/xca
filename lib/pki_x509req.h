@@ -23,6 +23,7 @@ class pki_x509req : public pki_base
 	   string getDN(int nid);
 	   void writeReq(const string fname, bool PEM);
 	   bool verify();
+	   pki_key *getKey();
 };
 
 #endif

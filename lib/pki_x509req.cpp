@@ -23,19 +23,19 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	
 	X509_NAME *subj = X509_REQ_get_subject_name(request);
 	X509_NAME_add_entry_by_NID(subj,NID_commonName, MBSTRING_ASC,
-		(unsigned char*)cn.data(),-1,-1,0);
+		(unsigned char*)cn.c_str(),-1,-1,0);
 	X509_NAME_add_entry_by_NID(subj,NID_countryName, MBSTRING_ASC, 
-		(unsigned char*)c.data() , -1, -1, 0);
+		(unsigned char*)c.c_str() , -1, -1, 0);
 	X509_NAME_add_entry_by_NID(subj,NID_localityName, MBSTRING_ASC, 
-		(unsigned char*)l.data() , -1, -1, 0);
+		(unsigned char*)l.c_str() , -1, -1, 0);
 	X509_NAME_add_entry_by_NID(subj,NID_stateOrProvinceName, MBSTRING_ASC, 
-		(unsigned char*)st.data() , -1, -1, 0);
+		(unsigned char*)st.c_str() , -1, -1, 0);
 	X509_NAME_add_entry_by_NID(subj,NID_organizationName, MBSTRING_ASC, 
-		(unsigned char*)o.data() , -1, -1, 0);
+		(unsigned char*)o.c_str() , -1, -1, 0);
 	X509_NAME_add_entry_by_NID(subj,NID_organizationalUnitName, MBSTRING_ASC, 
-		(unsigned char*)ou.data() , -1, -1, 0);
+		(unsigned char*)ou.c_str() , -1, -1, 0);
 	X509_NAME_add_entry_by_NID(subj,NID_pkcs9_emailAddress, MBSTRING_ASC, 
-		(unsigned char*)email.data() , -1, -1, 0);
+		(unsigned char*)email.c_str() , -1, -1, 0);
 
 	const EVP_MD *digest = EVP_md5();
 	X509_REQ_sign(request,key->key ,digest);
@@ -53,14 +53,14 @@ pki_x509req::pki_x509req() : pki_base()
 
 pki_x509req::pki_x509req(const string fname)
 {
-	FILE *fp = fopen(fname.data(),"r");
+	FILE *fp = fopen(fname.c_str(),"r");
 	request = NULL;
 	if (fp != NULL) {
 	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
 	   if (!request) {
 		openssl_error();
 		rewind(fp);
-		printf("Fallback to privatekey DER\n"); 
+		printf("Fallback to private key DER\n"); 
 	   	request = d2i_X509_REQ_fp(fp, NULL);
 	   }
 	   int r = fname.rfind('.');
@@ -91,47 +91,6 @@ string pki_x509req::getDN(int nid)
 	return s;
 }
 
-/*
-QStringList *pki_x509req::getDN()
-{
-#define BUFLEN 200
-	X509_NAME_get_text_by_NID(subj,NID_commonName)
-	char buf[BUFLEN];
-	QString s;
-	QStringList *l = new QStringList();
-	X509_NAME *subj = X509_REQ_get_subject_name(request);
-	X509_NAME_get_text_by_NID(subj,NID_commonName,
-			buf, BUFLEN);
-	s = buf;
-	l->append(s);
-	X509_NAME_get_text_by_NID(subj,NID_countryName,
-			buf, BUFLEN);
-	s = buf;
-	l->append(s);
-	X509_NAME_get_text_by_NID(subj,NID_stateOrProvinceName,
-			buf, BUFLEN);
-	s = buf;
-	l->append(s);
-	X509_NAME_get_text_by_NID(subj,NID_localityName,
-			buf, BUFLEN);
-	s = buf;
-	l->append(s);
-	X509_NAME_get_text_by_NID(subj,NID_organizationName,
-			buf, BUFLEN);
-	s = buf;
-	l->append(s);
-	X509_NAME_get_text_by_NID(subj,NID_organizationalUnitName,
-			buf, BUFLEN);
-	s = buf;
-	l->append(s);
-	X509_NAME_get_text_by_NID(subj,NID_pkcs9_emailAddress,
-			buf, BUFLEN);
-	s = buf;
-	l->append(s);
-	
-	return l;
-}
-*/
 
 unsigned char *pki_x509req::toData(int *size)
 {
@@ -148,7 +107,7 @@ unsigned char *pki_x509req::toData(int *size)
 
 void pki_x509req::writeReq(const string fname, bool PEM)
 {
-	FILE *fp = fopen(fname.data(),"w");
+	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (request){
 		if (PEM) 
@@ -184,3 +143,10 @@ bool pki_x509req::verify()
 	 return x;
 }
 
+pki_key *pki_x509req::getKey()
+{
+	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
+	 pki_key *key = new pki_key("");	
+	 key->key=pkey;
+	 return key;
+}

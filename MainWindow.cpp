@@ -67,11 +67,3 @@ void MainWindow::incProgress(int a, int b, void *progress)
 }
 
 
-QString MainWindow::toQStr(string s)
-{
-	char pt[5000];
-	strncpy(pt, s.data(), s.length() );
-	pt[s.length()] = '\0';
-	QString x = pt;
-	return x;
-}

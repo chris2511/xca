@@ -8,7 +8,7 @@ db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListBox *l)
 	data = new Db(dbe, 0);
 	cerr << "DB:" << DBfile <<"\n";//
 	int x;
-	if (( x = data->open(DBfile.data(), DB.data(), DB_BTREE, DB_CREATE, 0600))) 
+	if (( x = data->open(DBfile.c_str(), DB.c_str(), DB_BTREE, DB_CREATE, 0600))) 
 		data->err(x,"DB open");
 	updateView();
 }
@@ -41,8 +41,6 @@ bool db_base::updateView()
 bool db_base::insertPKI(pki_base *pki) 
 {
 	string desc = pki->getDescription();
-	cerr << "Desc: " <<desc << "size: " << desc.length() <<endl;
-	cerr << "Desc: " << desc << " size: " << desc.length() << (int)desc.data()[desc.length()] << endl;
 	string orig = desc;
 	int size=0;
 	unsigned char *p;
@@ -50,8 +48,7 @@ bool db_base::insertPKI(pki_base *pki)
 	int cnt=0;
 	int x = DB_KEYEXIST;
 	while (x == DB_KEYEXIST) {
-	   Dbt k((void *)desc.data(), desc.length() + 1);
-	cerr << "Desc[len]: "  << (int)desc.data()[desc.length()] << endl;
+	Dbt k((void *)desc.c_str(), desc.length() + 1);
 	   Dbt d((void *)p, size);
            cerr << "Size: " << d.get_size() << "\n";
 	
@@ -76,7 +73,7 @@ bool db_base::insertPKI(pki_base *pki)
 bool db_base::deletePKI(pki_base *pki) 
 {
 	string desc = pki->getDescription();
-	Dbt k((void *)desc.data(), desc.length() + 1);
+	Dbt k((void *)desc.c_str(), desc.length() + 1);
 	int x = data->del(NULL, &k, 0);
 	updateView();
 	if (x){
@@ -99,13 +96,9 @@ bool db_base::updatePKI(pki_base *pki, string desc)
 pki_base *db_base::getSelectedPKI(string desc)
 {
 	if (desc == "" ) return NULL;
-	char pt[255];
-	strncpy(pt,desc.data(),desc.length());
-	pt[desc.length()]='\0';
 	unsigned char *p;
 	pki_base *targetPki = NULL;
-	Dbt k((void *)pt, desc.length() + 1);
-		cerr << "got selected desc: " << desc << " size: " << desc.length() << (int)desc.data()[desc.length()] <<"dbsize: "<< k.get_size() <<endl;
+	Dbt k((void *)desc.c_str(), desc.length() + 1);
 	Dbt d((void *)p, 0);
 	int x = data->get(NULL, &k, &d, 0);
 	p = (unsigned char *)d.get_data();
@@ -113,13 +106,9 @@ pki_base *db_base::getSelectedPKI(string desc)
 	if (x) data->err(x,"DB Error get");
 	else {
 		targetPki = newPKI();
-		cerr << "GOTIT\n";
 		targetPki->fromData(p, size);
-		cerr << "GOTIT2\n";
 		targetPki->setDescription(desc);
-		cerr << "GOTIT3\n";
 	}
-//	return NULL; //FIXME
 	return targetPki;
 }
 
@@ -146,6 +135,7 @@ pki_base *db_base::findPKI(pki_base *refpki)
 		int size = d->get_size();
 		pki = newPKI();
 		pki->fromData(p, size);
+		cerr << "comparin\n";
 		pki->setDescription(desc);
 		if (refpki->compare(pki)) {
 			delete (k);

@@ -26,10 +26,10 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	:pki_base(fname)
 { 
 	key = EVP_PKEY_new();
-	type = type;
+	key->type = type;
 	onlyPubKey = false;
 	error = "";
-	FILE *fp = fopen(fname.data(), "r");
+	FILE *fp = fopen(fname.c_str(), "r");
 	RSA *rsakey = NULL;
 	key = NULL;
 	if (fp != NULL) {
@@ -62,11 +62,15 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	   }
 	   else {
 	   	EVP_PKEY_assign_RSA(key,rsakey);
+		openssl_error();
+		cerr << "assigning loaded key\n";
 	   }
 	   int r = fname.rfind('.');
 	   int l = fname.rfind('/');
 	   setDescription(fname.substr(l,r));
 	   openssl_error();
+	   if (RSA_check_key(rsakey)!= 1)
+		   cerr << "RSA key is faulty !!\n";
 	}	
 	else error = "Fehler beim Öffnen der Datei";
 	fclose(fp);
@@ -76,13 +80,12 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 void pki_key::fromData(unsigned char *p, int size )
 {
 	cerr << "KEY fromData\n";
-	return;
 	unsigned char *sik;
 	sik = (unsigned char *)OPENSSL_malloc(size);
 	RSA *rsakey;
 	memcpy(sik,p,size);
 	onlyPubKey = false;
-	cerr << "Key newdata\n";
+	cerr << "Key ne.c_str\n";
 	if (key->type == EVP_PKEY_RSA) {
 	   rsakey = d2i_RSAPrivateKey(NULL, &p, size);
 	   if (openssl_error()) {
@@ -133,7 +136,7 @@ pki_key::~pki_key()
 
 void pki_key::writePKCS8(const string fname, pem_password_cb *cb)
 {
-	FILE *fp = fopen(fname.data(),"w");
+	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key){
 		cerr << "writing PKCS8\n";
@@ -153,7 +156,7 @@ void pki_key::writeKey(const string fname, EVP_CIPHER *enc,
 		writePublic(fname, PEM);
 		return;
 	}
-	FILE *fp = fopen(fname.data(),"w");
+	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key){
 		cerr << "writing Private Key\n";
@@ -173,7 +176,7 @@ void pki_key::writeKey(const string fname, EVP_CIPHER *enc,
 
 void pki_key::writePublic(const string fname, bool PEM)
 {
-	FILE *fp = fopen(fname.data(),"w");
+	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
 	   if (key->type == EVP_PKEY_RSA) {
 		RSA *rsakey = EVP_PKEY_get1_RSA(key);
@@ -225,8 +228,16 @@ string pki_key::privEx() {
 
 bool pki_key::compare(pki_base *ref)
 {
-	RSA *rsakey = EVP_PKEY_get1_RSA(key);
+	if (ref == NULL) return false;
+	cerr<< "Ref not null\n";
 	RSA *rsarefkey = EVP_PKEY_get1_RSA(((pki_key *)ref)->key);
+	cerr << "ref key did it....";
+	RSA *rsakey = EVP_PKEY_get1_RSA(key);
+	if (openssl_error()){
+		cerr << "Error with keys whilecomparin\n";
+		return false;
+	}
+	cerr << "PKI key compare";
 	if (
 	   BN_cmp(rsakey->n, rsarefkey->n) ||
 	   BN_cmp(rsakey->e, rsarefkey->e)

@@ -7,11 +7,11 @@ pki_key *MainWindow::getSelectedKey()
 {
 	pki_key *targetKey = (pki_key *)keys->getSelectedPKI();
 	if (targetKey) {
-	   QString errtxt = toQStr(targetKey->getError());
+	   string errtxt = targetKey->getError();
 	   if (errtxt != "")
 		QMessageBox::warning(this,"Schlüssel Fehler",
-			"Der Schlüssel: " + toQStr(targetKey->getDescription()) +
-			"\nist nicht konsistent:\n" + errtxt);
+			("Der Schlüssel: " + targetKey->getDescription() +
+			"\nist nicht konsistent:\n" + errtxt).c_str());
 	}
 	return targetKey;
 }
@@ -46,9 +46,9 @@ void MainWindow::deleteKey()
 	pki_key *delKey = getSelectedKey();
 	if (!delKey) return;
 	if (QMessageBox::information(this,"Schlüssel löschen",
-			"Möchten Sie den Schlüssel: '" + 
-			toQStr(delKey->getDescription()) +
-			"'\nwirklich löschen ?\n",
+			("Möchten Sie den Schlüssel: '" + 
+			delKey->getDescription() +
+			"'\nwirklich löschen ?\n").c_str(),
 			"Löschen", "Abbrechen")
 	) return;
 	keys->deletePKI(delKey);
@@ -60,15 +60,15 @@ void MainWindow::showDetailsKey(pki_key *key)
 	KeyDetail_UI *detDlg = new KeyDetail_UI(this, 0, true, 0 );
 	
 	detDlg->keyDesc->setText(
-		key->getDescription().data() );
+		key->getDescription().c_str() );
 	detDlg->keyLength->setText(
-		key->length().data() );
+		key->length().c_str() );
 	detDlg->keyPubEx->setText(
-		key->pubEx().data() );
+		key->pubEx().c_str() );
 	detDlg->keyModulus->setText(
-		key->modulus().data() );
+		key->modulus().c_str() );
 	detDlg->keyPrivEx->setText(
-		key->privEx().data() );
+		key->privEx().c_str() );
 
 	if ( !detDlg->exec()) return;
 	string ndesc = detDlg->keyDesc->text().latin1();
@@ -100,39 +100,44 @@ void MainWindow::loadKey()
 	if (s == "") return;
 	string errtxt;
 	pki_key *lkey = new pki_key(s, &MainWindow::passRead);
+	showDetailsKey(lkey);
 	if ((errtxt = lkey->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
 			("Der Schlüssel: " + s +
-			"\nkonnte nicht geladen werden:\n" + errtxt).data());
+			"\nkonnte nicht geladen werden:\n" + errtxt).c_str());
 		return;
 	}
+	cerr << "before findkey\n";
 	if ((oldkey = (pki_key *)keys->findPKI(lkey))!= 0) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) ||
 		    lkey->isPubKey()){
 	   	    QMessageBox::information(this,"Schlüssel import",
 			("Der Schlüssel ist bereits vorhanden als:\n'" +
 			oldkey->getDescription() + 
-			"'\nund wurde daher nicht importiert").data(), "OK");
+			"'\nund wurde daher nicht importiert").c_str(), "OK");
 		    return;
 		}
 		else {
 	   	    QMessageBox::information(this,"Schlüssel import",
 			("Der öffentliche Teil des Schlüssels ist bereits vorhanden als:\n'" +
 			oldkey->getDescription() + 
-			"'\nund wird durch den neuen, vollständigen Schlüssel ersetzt").data(), "OK");
+			"'\nund wird durch den neuen, vollständigen Schlüssel ersetzt").c_str(), "OK");
 		    keys->deletePKI(oldkey);
 		    lkey->setDescription(oldkey->getDescription());
 		    delete(oldkey);
 		}
 	}
-	if (keys->insertPKI(lkey))
+	cerr << "after findkey\n";
+	/*if (keys->insertPKI(lkey))
 	   QMessageBox::information(this,"Schlüssel import",
 		("Der Schlüssel wurde erfolgreich importiert als:\n'" +
-		lkey->getDescription() + "'").data(), "OK");
+		lkey->getDescription() + "'").c_str(), "OK");
 	else	
 	   QMessageBox::warning(this,"Schlüssel import",
 		"Der Schlüssel konnte nicht in der Datenbank \
 		gespeichert werden", "OK");
+	*/
+	cerr << "after insert\n";
 }
 
 
@@ -143,7 +148,7 @@ void MainWindow::writeKey()
 	pki_key *targetKey = NULL;
 	targetKey = getSelectedKey();
 	if (!targetKey) return;
-	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").data(),
+	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
 			targetKey->isPubKey(), this);
 	dlg->exportFormat->insertItem("PEM");
 	dlg->exportFormat->insertItem("DER");
@@ -167,12 +172,12 @@ void MainWindow::writeKey()
 	if ((errtxt = targetKey->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
 			("Der Schlüssel: '" + fname +
-			"'\nkonnte nicht geschrieben werden:\n" + errtxt).data());
+			"'\nkonnte nicht geschrieben werden:\n" + errtxt).c_str());
 		return;
 	}
 	QMessageBox::information(this,"Schlüssel export",
 		("Der Schlüssel wurde erfolgreich in die Datei:\n'" +
-		fname + "' exportiert").data(), "OK");
+		fname + "' exportiert").c_str(), "OK");
 
 }
 
