@@ -79,6 +79,7 @@
 #include <qmessagebox.h>
 #include <qcheckbox.h>
 #include <qprogressdialog.h>
+#include <qpushbutton.h>
 #include <qasciidict.h>
 #include <qpixmap.h>
 #include <qobject.h>
