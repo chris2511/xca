@@ -45,14 +45,14 @@ xca: $(OBJS) lib/libxcadb.a lib/libpki.a
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
 libs:
-	make -C lib all
+	$(MAKE) -C lib all
 
 clean:
-	make -C lib clean
+	$(MAKE) -C lib clean
 	rm -f $(MOC_CPP) $(UI_CPP) $(UI_H) *~ *.o xca 
 
 distclean: clean	
-	make -C lib distclean
+	$(MAKE) -C lib distclean
 	rm -f Makefile config.cache config.h config.log config.status
 	rm -rf autom4te.cache
 

@@ -44,7 +44,7 @@ AC_CHECK_LIB([qt], [atexit], ,[LQT=no])
 
 AC_PATH_PROG(MOC,moc,[moc],[$PATH],,[LQT=no])
 AC_PATH_PROG(UIC,uic,[uic],[$PATH],,[LQT=no])
-if test "$LDB" == no; then
+if test "$LDB" == "no"; then
 	AC_MSG_ERROR([QT library and tools not found, try setting $QTDIR apropriate or install qt-dev])
 fi
 
