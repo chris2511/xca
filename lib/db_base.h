@@ -129,6 +129,7 @@ class db_base: public QObject
 	void putString(char *key, QString dat);
 	void putInt(QString key, int dat);
 	QPixmap *loadImg(const char *name);
+	void writeAll(DbTxn *tid);
 	QList<pki_base> getContainer();
 };
 

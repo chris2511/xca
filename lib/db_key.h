@@ -68,6 +68,8 @@ class db_key: public db_base
 	void inToCont(pki_base *pki);
 	void remFromCont(pki_base *pki);
 	pki_base* insert(pki_base *item);
+	void writeAll(DbTxn *tid = NULL);
+	
     signals:
 	void delKey(pki_key *delkey);
 	void newKey(pki_key *newkey);

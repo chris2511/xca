@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -55,6 +56,7 @@
 #include <qmessagebox.h>
 #include <qlistview.h>
 #include <qdir.h>
+
 
 db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
 	XcaListView *lvi) 
@@ -399,7 +401,7 @@ QStringList db_base::getDesc()
 	pki_base *pki;
 	QStringList x;
 	x.clear();
-	for ( pki = container.first(); pki != 0; pki = container.next() )	{
+	for ( pki = container.first(); pki != 0; pki = container.next() ){
 		x.append(pki->getIntName());	
 	}
 	return x;
@@ -419,5 +421,25 @@ pki_base *db_base::insert(pki_base *item)
 {
 	insertPKI(item);
 	return item;
-     
 }
+
+void db_base::writeAll(DbTxn *tid)
+{
+	bool tidwasnull = false;
+	if (tid == NULL) { 
+		tidwasnull = true;
+		dbenv->txn_begin(NULL, &tid, 0);
+	}
+	try {
+		for (pki_base *pki=container.first(); pki!=0; pki=container.next() ) 
+			_writePKI(pki, true, tid);
+	}
+	catch (DbException &err) {
+		DBEX(err);
+		tid->abort();
+		throw errorEx(err.what());
+	}
+	if (tidwasnull)
+		tid->commit(0);
+}
+

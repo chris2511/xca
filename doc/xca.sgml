@@ -160,11 +160,14 @@ Next to the usual X commandline options. There are the following
 <item>-r expect all following non-option arguments to be Certificate signing requests
 <item>-c expect all following non-option arguments to be Certificates
 <item>-p expect all following non-option arguments to be PKCS#12 files
+<item>-7 expect all following non-option arguments to be PKCS#7 files
+<item>-l expect all following non-option arguments to be Revokation lists
+<item>-t expect all following non-option arguments to be Xca templates
 </itemize>
 
 <p>
 when invoked with one of the -k -r -c -p options, the application 
-will show the details of the item and import it into the database
+will show the details of the items and import it into the database
 if desired and exit after that.
 This behaviour enables xca to be used as default application for viewing
 PKI items.
@@ -188,7 +191,12 @@ The import function is smart enough to probe all known formats as there are:
 After selecting the filename XCA will probe for the known formats of that item
 and in case of an error it prompts the <em>last</em> OpenSSL error message.
 It is possible to select more than one file by selecting them with SHIFT click.
-In this case all items are imported one by one.
+
+<p>
+When importing more than one Key, CRL, Certificate or Request
+all items are shown in a Multi-Import dialog.
+When importing a PKCS#7 or PKCS#12 item, the contained Keys and Certificates are shown in the import dialog.
+In the import dialog the items can be examined, imported or dropped.
 
 <p>
 After reading the item it searches for this item in the database and if it is unique the item
@@ -199,15 +207,15 @@ in the database.
 <p>
 The details dialog can be accessed by double clicking the item, by the context menu or by
 the button on the right.
-The details dialog shows the internal name of the item, 
-which can be changed here and will be accepted when clicking <tt>Ok</tt>.
+The names of the issuers certificate and the corresponding key are "clickable" and there
+content will be shown on "double-click"
 
 <sect1>Renaming an item
 <p>
-The Key can also be renamed via the context menu by right-clicking on the item
+An Item can be renamed via the context menu by right-clicking on the item
 or by the <tt>Rename</tt> button on the right border.
-If the new name of the item already exists in the database a <em>_01</em> will be appended to keep
-the internal name unique.
+If the new name of the item already exists in the database a <em>_01</em>
+will be appended to keep the internal name unique.
 
 <sect1>Deleting Items
 <p>
@@ -230,7 +238,6 @@ certificate.
 The Wizard is the central part for collecting all data regarding Certificates,
 Requests and Templates. It will be invoked whenever such an item is going 
 to be created or, in case of a Template, is altered.
-and Templates and for changing Templates.
 
 <sect1>Template selection
 <p>
@@ -261,11 +268,17 @@ two letters representing your country code; e.g. <em>DE</em> for Germany.
 If you want to create a SSL-server certificate the <tt>Common name</tt>
 must contain the <em>DNS</em> name of the server.
 <p>
+Other rather used <tt>name-entries</tt> can be selected in the dialog
+below. Only such items are recognized that were added using the <tt>add</tt>
+button. All items can be added more tha once, even those from above.
+This is not very usual but allowed.
+
+<p>
 Keys can be generated here <em>on the fly</em> by pressing the button.
-If there is no usable key and you need one, they key generation is
-invoked automatically.
-The newly generated key will be stored in the database, 
-even if you cancel the Wizard. The drop-down list of the keys
+If there is no usable key and you need one, 
+they key generation process will be invoked automatically.
+The newly generated key will be stored in the database and stay there, 
+even if you cancel the Wizard later. The drop-down list of the keys
 does only contain keys that were not used by any other certificate or
 request. The keylist is not available for creating or changing templates.
 <p>
@@ -292,6 +305,11 @@ must have set this flag to <tt>false</tt>
 The <em>not Before</em> field is set to the current date and time of the
 operating system and the <em>not After</em> field is set to the current date and time
 plus the specified time range.
+<p>
+For templates not the specified times are saved, because it does not make very much sense.
+Rather the time range is stored and automatically applied when selecting this 
+template. Applying the timerange means to set notBefore to "now" and notAfter
+to "now + time-range"
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 

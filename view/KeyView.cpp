@@ -51,6 +51,8 @@
 
 #include "KeyView.h"
 #include "ui/NewKey.h"
+#include "ui/PassRead.h"
+#include "ui/PassWrite.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/ExportKey.h"
 #include "widgets/MainWindow.h"
@@ -196,7 +198,6 @@ void KeyView::store()
 
 
 void KeyView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	CERR( " popup key" );
 	QPopupMenu *menu = new QPopupMenu(this);
 	if (!item) {
 		menu->insertItem(tr("New Key"), this, SLOT(newItem()));
@@ -224,3 +225,49 @@ void KeyView::importKey(pki_key *k)
 	db->insert(k);
 }
 
+void KeyView::changePasswd()
+{
+	QString passHash = MainWindow::settings->getString("pwhash");
+	QString pass;
+	bool ret;
+	
+	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
+	dlg->image->setPixmap( *MainWindow::keyImg );
+	dlg->title->setText(XCA_TITLE);
+	dlg->description->setText(tr("Enter the old password"));
+	dlg->pass->setFocus();
+	dlg->setCaption(tr(XCA_TITLE));
+	
+	ret = dlg->exec();
+	if (ret) {
+		pass = dlg->pass->text();
+	}
+	delete dlg;
+	if (!ret) return;
+	if (MainWindow::md5passwd(pass.latin1()) != passHash) {
+		QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error."));
+		return;
+	}
+	
+	PassWrite_UI *dlg1 = new PassWrite_UI(NULL, 0, true);
+	dlg1->image->setPixmap( *MainWindow::keyImg );
+	dlg1->title->setText(XCA_TITLE);
+	dlg1->description->setText(tr("Please enter the new password."));
+	dlg1->passA->setFocus();
+	dlg1->setCaption(XCA_TITLE);
+	QString A = "Irgendwas", B="";
+	ret = dlg1->exec();
+	if (ret) {
+		A = dlg1->passA->text();
+		B = dlg1->passB->text();
+	}
+	delete dlg1;
+	if (!ret) return;
+	if (A != B) {
+		QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error."));
+		return;
+	}
+	
+	
+}
+		

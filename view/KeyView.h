@@ -75,6 +75,7 @@ class KeyView : public XcaListView
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
   public slots:
 	void importKey(pki_key *k);
+	void changePasswd();
   signals:
 	void keyDone(QString);
 

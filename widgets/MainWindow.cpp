@@ -58,6 +58,7 @@
 #include <qpushbutton.h>
 #include <qlistview.h>
 #include <qlineedit.h>
+#include "lib/exception.h"
 #include "lib/pki_pkcs12.h"
 #include "view/KeyView.h"
 #include "view/ReqView.h"
@@ -304,7 +305,6 @@ void MainWindow::init_database() {
 		dbenv->set_flags(DB_AUTO_COMMIT,1);
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		QString e = err.what();
 		e += QString::fromLatin1(" (") + baseDir + QString::fromLatin1(")");
 		qFatal(e);
@@ -330,7 +330,6 @@ void MainWindow::init_database() {
 		Error(err);
 	}
 	catch (DbException &err) {
-		DBEX(err);
 		qFatal(err.what());
 	}
 	connect( keys, SIGNAL(newKey(pki_key *)),
@@ -373,11 +372,11 @@ void MainWindow::initPass()
 			qFatal("Ohne Passwort laeuft hier gaaarnix :-)");
 		}
 		pki_key::passwd[keylen]='\0';
-		settings->putString( "pwhash", md5passwd() );
+		settings->putString( "pwhash", md5passwd(pki_key::passwd) );
 	}
 	else {
 	     int keylen=0;		
-	     while (md5passwd() != passHash) {
+	     while (md5passwd(pki_key::passwd) != passHash) {
 		if (keylen !=0)
 			QMessageBox::warning(this,tr(XCA_TITLE), tr("Password verify error, please try again"));	
 		p.setTitle(tr("Password"));
@@ -434,7 +433,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	else return 0;
 }
 
-QString MainWindow::md5passwd()
+QString MainWindow::md5passwd(const char *pass)
 {
 
 	EVP_MD_CTX mdctx;
@@ -444,7 +443,7 @@ QString MainWindow::md5passwd()
 	char zs[4];
 	unsigned char m[EVP_MAX_MD_SIZE];
 	EVP_DigestInit(&mdctx, EVP_md5());
-	EVP_DigestUpdate(&mdctx, pki_key::passwd, strlen(pki_key::passwd));
+	EVP_DigestUpdate(&mdctx, pass, strlen(pass));
 	EVP_DigestFinal(&mdctx, m, &n);
 	for (j=0; j<(int)n; j++) {
 		sprintf(zs, "%02X%c",m[j], (j+1 == (int)n) ?'\0':':');
@@ -456,13 +455,20 @@ QString MainWindow::md5passwd()
 void MainWindow::Error(errorEx &err)
 {
 	if (err.isEmpty()) return;
-	QMessageBox::warning(this,tr(XCA_TITLE), tr("The following error occured:") + "\n" +
-			QString::fromLatin1(err.getCString()));
+	QMessageBox::warning(this, XCA_TITLE,
+		tr("The following error occured:") + "\n" +
+		err.getString()
+	);
 }
 
 void MainWindow::dberr(const char *errpfx, char *msg)
 {
-	CERR(errpfx << " " << msg);
+	QString a = errpfx;
+	QString b = msg;
+	QMessageBox::warning(NULL, XCA_TITLE,
+		tr("The following error occured:") + "\n" +
+		errpfx + "\n" + msg
+	);
 }
 
 QString MainWindow::getPath()
@@ -596,7 +602,7 @@ QString MainWindow::getBaseDir()
 #else	
 	baseDir = QDir::homeDirPath();
 	baseDir += QDir::separator();
-	baseDir += BASE_DIR;
+	baseDir += "xca";
 #endif
 	return baseDir;
 }

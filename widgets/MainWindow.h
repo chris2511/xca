@@ -52,10 +52,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include "NewX509.h"
 #include "ui/MainWindow.h"
 #include "lib/db_key.h"
@@ -104,7 +100,7 @@ class MainWindow: public MainWindow_UI
 	static void incProgress(int a, int b, void *progress);
 	static void dberr(const char *errpfx, char *msg);
 	static NewX509 *newX509();
-	QString md5passwd();
+	static QString md5passwd(const char *pass);
 	void Error(errorEx &err);
 	
 	static QString getPath();
