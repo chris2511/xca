@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>772</width>
+            <width>768</width>
             <height>604</height>
         </rect>
     </property>
@@ -1130,12 +1130,6 @@
         <slot>deleteTemp()</slot>
     </connection>
     <connection>
-        <sender>tempList</sender>
-        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>showPopupTemp(QListViewItem *, const QPoint &amp;, int)</slot>
-    </connection>
-    <connection>
         <sender>PushButton13_2_2</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
@@ -1165,6 +1159,25 @@
         <receiver>MainWindow_UI</receiver>
         <slot>crashApp()</slot>
     </connection>
+    <connection>
+        <sender>PushButton25_2_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>alterTemp()</slot>
+    </connection>
+    <connection>
+        <sender>tempList</sender>
+        <signal>rightButtonPressed(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showPopupTemp(QListViewItem *, const QPoint &amp;, int)</slot>
+    </connection>
+    <connection>
+        <sender>tempList</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>alterTemp()</slot>
+    </connection>
+    <slot access="public">alterTemp()</slot>
     <slot access="public">crashApp()</slot>
     <slot access="public">deleteCert()</slot>
     <slot access="public">deleteKey()</slot>

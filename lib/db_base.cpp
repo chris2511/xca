@@ -391,7 +391,7 @@ void db_base::updatePKI(pki_base *pki)
 pki_base *db_base::getSelectedPKI(string desc)
 {
 	if (desc == "" ) return NULL;
-	CERR("desc = '"<<desc);
+	CERR("desc = '" << desc << "'");
 	pki_base *pki;
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {

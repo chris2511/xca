@@ -114,7 +114,8 @@ void MainWindow::newCert(NewX509 *dlg)
 	else {
 	    // A PKCS#10 Request was selected 
 	    req = (pki_x509req *)reqs->getSelectedPKI(dlg->reqList->currentText().latin1());
-	    //clientkey = req->getKey();
+	    if (opensslError(req)) return;
+	    clientkey = req->getKey();
 	}
 		
 	// Step 2 - select Signing

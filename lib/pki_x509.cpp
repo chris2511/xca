@@ -418,6 +418,15 @@ bool pki_x509::compare(pki_base *refreq)
 	return ret;
 }
 
+bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
+{
+	if (!refcert || !refcert->cert) return false;
+	if (getSerial() != refcert->getSerial()) return false;
+	X509_NAME *issuer = X509_get_issuer_name(cert);
+	X509_NAME *refissuer = X509_get_issuer_name(refcert->cert);
+	openssl_error();
+	return !X509_NAME_cmp(issuer, refissuer);
+}	
 	
 bool pki_x509::verify(pki_x509 *signer)
 {
@@ -526,30 +535,36 @@ void pki_x509::delSigner() { psigner=NULL; }
 
 string pki_x509::printV3ext()
 {
+#define V3_BUF 100
 	ASN1_OBJECT *obj;
 	BIO *bio = BIO_new(BIO_s_mem());
 	int i, len, n = X509_get_ext_count(cert);
-	char buffer[200];
+	char buffer[V3_BUF+1];
 	X509_EXTENSION *ex;
 	string text="";
 	for (i=0; i<n; i++) {
 		text += "<b><u>";
 		ex = X509_get_ext(cert,i);
 		obj = X509_EXTENSION_get_object(ex);
-		len = i2t_ASN1_OBJECT(buffer, 200, obj);
+		len = i2t_ASN1_OBJECT(buffer, V3_BUF, obj);
 		buffer[len] = '\0';
-		text+=buffer;
-		text+=": ";
+		CERR("extension: "<< buffer <<", length: " << len);
+		if (len == V3_BUF) openssl_error("V3 buffer too small, this is a bug!");
+		text += buffer;
+		text += ": ";
 		if (X509_EXTENSION_get_critical(ex)) {
 			text += " <font color=\"red\">critical</font>:";
 		}
 		if(!X509V3_EXT_print(bio, ex, 0, 0)) {
 			M_ASN1_OCTET_STRING_print(bio,ex->value);
 		}
-        	len = BIO_read(bio, buffer, 200);
 		text+="</u></b><br><tt>";
-		buffer[len] = '\0';
-		text+=buffer;
+        	do {
+			len = BIO_read(bio, buffer, V3_BUF);
+			buffer[len] = '\0';
+			text+=buffer;
+			CERR("extension-length: "<< len);
+		} while (len == V3_BUF);
 		text+="</tt><br>";
 	}
 	BIO_free(bio);

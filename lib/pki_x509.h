@@ -123,6 +123,7 @@ class pki_x509 : public pki_base
 	   void setLastCrl(ASN1_TIME *time);
 	   int resetTimes(pki_x509 *signer);
 	   bool hasSubAltName();
+	   bool cmpIssuerAndSerial(pki_x509 *refcert);
 };
 
 #endif
