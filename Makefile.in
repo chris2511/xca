@@ -18,32 +18,33 @@ UIC=@UIC@
 
 ###################################
 
-OBJS=NewKey_UI.o NewKey_UI_MOC.o \
-     KeyDetail_UI.o KeyDetail_UI_MOC.o \
-     ReqDetail_UI.o ReqDetail_UI_MOC.o \
-     MainWindow_UI.o MainWindow_UI_MOC.o \
-     PassRead_UI.o PassRead_UI_MOC.o \
-     PassWrite_UI.o PassWrite_UI_MOC.o \
-     ExportKey_UI.o ExportKey_UI_MOC.o \
-     NewX509_UI.o NewX509_UI_MOC.o \
-     NewX509.o NewX509_MOC.o \
-     CertDetail_UI.o CertDetail_UI_MOC.o \
-     ExportKey.o ExportKey_MOC.o \
-     TrustState_UI.o TrustState_UI_MOC.o \
-     MainWindow.o MainWindow_MOC.o \
+OBJS=NewKey.o moc_NewKey.o \
+     KeyDetail.o moc_KeyDetail.o \
+     ReqDetail.o moc_ReqDetail.o \
+     MainWindow_UI.o moc_MainWindow_UI.o \
+     PassRead.o moc_PassRead.o \
+     PassWrite.o moc_PassWrite.o \
+     ExportKey_UI.o moc_ExportKey_UI.o \
+     NewX509_UI.o moc_NewX509_UI.o \
+     NewX509.o moc_NewX509.o \
+     CertDetail.o moc_CertDetail.o \
+     ExportKey.o moc_ExportKey.o \
+     TrustState.o moc_TrustState.o \
+     MainWindow.o moc_MainWindow.o \
      MainWindowKeys.o MainWindowX509Req.o \
      MainWindowX509.o MainWindowTemps.o \
      main.o
+
 
 all: libs $(OBJS) xca
 
 re: clean all
 
-MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
-	      PassRead_UI.h PassWrite_UI.h ExportKey_UI.h \
-	      NewKey_UI.h ReqDetail_UI.h \
-	      CertDetail_UI.h NewX509.h  NewX509_UI.h\
-	      TrustState_UI.h
+MainWindow.h: MainWindow_UI.h KeyDetail.h \
+	      PassRead.h PassWrite.h ExportKey_UI.h \
+	      NewKey.h ReqDetail.h \
+	      CertDetail.h NewX509.h  NewX509_UI.h\
+	      TrustState.h
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
@@ -57,7 +58,7 @@ libs:
 
 clean:
 	make -C lib clean
-	rm -rf *_MOC.cpp *_UI.h *_UI.cpp *~ *.o xca 
+	rm -rf moc_*.cpp *_UI.h *_UI.cpp *~ *.o xca 
 
 distclean: clean	
 	make -C lib distclean
@@ -80,11 +81,11 @@ install: xca
 	install -m 644 -o root -g root img/*.png $(DESTDIR)@prefix@/share/xca
 	install -m 644 -o root -g root xca_??.qm $(DESTDIR)@prefix@/share/xca
 	
-%_MOC.cpp: %.h %.cpp
+moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@
 
-%_UI.h: %.ui
+%.h: %.ui
 	$(UIC) -o $@ $<
 	 
-%_UI.cpp: %_UI.h %.ui
+%.cpp: %.h %.ui
 	$(UIC) -o $@ -impl $^

@@ -87,14 +87,12 @@ class pki_base
     public:
 	pki_base(const string d);
 	pki_base();
-	virtual bool fromData(unsigned char *p, int size){
-		cerr << "VIRTUAL FUNCTION CALLED: fromData\n"; return false; };
-	virtual unsigned char *toData(int *size){
-		cerr << "VIRTUAL FUNCTION CALLED: toData\n";
-		return NULL;};
-	virtual bool compare(pki_base *ref){
-		cerr << "VIRTUAL FUNCTION CALLED: compare\n";
-		return false;};
+	virtual bool fromData(unsigned char *p, int size)
+		{ cerr << "VIRTUAL FUNCTION CALLED: fromData\n"; return false; };
+	virtual unsigned char *toData(int *size)
+		{ cerr << "VIRTUAL FUNCTION CALLED: toData\n"; return NULL;};
+	virtual bool compare(pki_base *ref)
+		{ cerr << "VIRTUAL FUNCTION CALLED: compare\n"; return false;};
 	virtual ~pki_base();
         string getDescription();
         void setDescription(const string d );

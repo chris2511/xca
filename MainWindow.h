@@ -50,15 +50,15 @@
 
 
 #include "MainWindow_UI.h"
-#include "KeyDetail_UI.h"
-#include "ReqDetail_UI.h"
-#include "CertDetail_UI.h"
-#include "PassRead_UI.h"
-#include "PassWrite_UI.h"
-#include "NewKey_UI.h"
+#include "KeyDetail.h"
+#include "ReqDetail.h"
+#include "CertDetail.h"
+#include "PassRead.h"
+#include "PassWrite.h"
+#include "NewKey.h"
 #include "NewX509.h"
 #include "NewX509_UI.h"
-#include "TrustState_UI.h"
+#include "TrustState.h"
 #include "ExportKey.h"
 #include <iostream>
 #include <qtextview.h>
