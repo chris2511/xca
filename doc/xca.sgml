@@ -3,7 +3,7 @@
 
 <article>
 
-<title>XCA     <!-- insert your title here -->
+<title>XCA <!-- insert your title here -->
 <author>Christian Hohnstädt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
 <date>$Date$            <!-- always have a version number and a date -->
 <abstract>                          <!-- the abstract: a short and precise description -->
@@ -35,8 +35,8 @@ This application is intended as Certificate and Keystore and as
 signing application issuing certificates.
 
 <p>
-All datastructures (keys, Certificate signing requests, Certificates, Templates) can be imported
-and exported in several formats (DER, PEM).
+All datastructures (Keys, Certificate signing requests, Certificates and Templates) can be imported
+and exported in several formats like DER or PEM.
 Import means reading a file from the filesystem and storing the datastructure
 into the databasefile, while exporting means to write the datastructure
 from the databasefile to the filesystem to be e.g imported to an other application.
@@ -44,28 +44,35 @@ from the databasefile to the filesystem to be e.g imported to an other applicati
 <p>
 When starting the application the first time, it needs a password to encrypt the
 private keys in the database.
-After starting the application all RSA-keys are hold <bf>unencrypted</bf> in RAM.
+After starting the application all RSA keys are hold <bf>unencrypted</bf> in the RAM of the computer.
+This is a security issue to be aware of.
 
 <p>
-The different parts are divided over 3 Tabs: Keys, Requests, Certificates.
-All items can be manipulated either by a context-menu available by
-right clicking on the item. 
+The different parts are divided over 4 Tabs: Keys, Requests, Certificates and Templates.
+All items can be manipulated either by a context menu available by
+right-clicking on the item, or by using the buttons at the right border.
+Every item gets an internal name which is unique in one tab-view and is
+always shown in the first column.
 
 <sect1>File formats
 <p>
-There are several widely known file-formats to exchange the data with
+There are several default file-formats to exchange cryptographic the data with
 other applications.
 <itemize>
-<item><bf>DER</bf> is the ASN.1 encoding of the data, ASN.1 is an international standard.
+<item><bf>DER</bf> is the ASN.1 encoding of the data.
 <item><bf>PEM</bf> is the base64 encoded version of the <bf>DER</bf> formatted data 
 	with additional header and footer lines to be transported via e.g. E-mail
-<item><bf>PKCS #X</bf> stands for Public Key Cryptographic Standard
+<item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards 
+	published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
+	
+</itemize>
 
-<sect1>Further reading
+<sect1>Further reading <label id="otherdoc">
 <p>
-<url url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/" name="SSL Certificates HOWTO">
-<url url="http://ospkibook.sourceforge.net/" name="OS-PKI book">
-
+<enum>
+<item><url url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/" name="SSL Certificates HOWTO">
+<item><url url="http://ospkibook.sourceforge.net/" name="OS-PKI book">
+</enum>
 
 <sect1>Copyright
 <p>
@@ -134,16 +141,136 @@ Ilya Kozhevnikov &lt;ilya (at) ef.unn.ru&gt;
 
 Thank you very much.
 
-<!--
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- -->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-
-<sect>RSA Keys
+<sect>Common actions
+<sect1>Importing items
+<p>
+The import of an item can be done by either clicking the import button on the right
+or via the context menu available by right clicking on the list background.
+The import function is smart enough to probe all known formats as there are:
+<itemize>
+<item><em>Keys:</em>  PEM private key, PEM public key, DER private key, DER public key, PKCS8 private key.
+<item><em>Requests</em> DER request, PEM request.
+<item><em>Certificates</em> DER certificate, PEM certificate (PKCS#12 and in future PKCS#7 certificates
+	must be imported with an extra button, because they can contain more than one certificate)
+</itemize>
+After selecting the filename XCA will probe for the known formats of that item
+and in case of an error it prompts the <em>last</em> OpenSSL errormessage.
 
 <p>
+After reading the item it searches for this item in the database and if it is unique the item
+is stored in the database, otherwise it shows a message containing the internal name of the item.
+
+<sect1>Details of an item
+<p>
+The details dialog can be accessed by double clicking the item, by the context menu or by
+the button on the right.
+The details dialog shows the internal name of the item, 
+which can be changed here and will be accepted when clicking <tt>Ok</tt>.
+
+the keysize and the modulus which is effectively the public part of the key and showing it to others is no security risk.
+The private part is not shown, only the availibility is mentioned.
+
+<sect1>Renaming an item
+<p>
+The Key can also be renamed via the context menu by right-clicking on the item
+or by the <tt>Rename</tt> button on the right border.
+If the new name of the item already exists in the database a <em>_01</em> will be appended to keep
+the internal name unique.
+
+<sect1>Deleting Items
+<p>
+Items can be deleted by the button on the right or via the context menu.
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<sect>The Wizard <label id="wizard">
+<p>
+The Wizard is the central part for collecting all data regarding Certificates,
+Requests and Templates. It will be invoked for generating Requests, Certificates
+and Templates and for changing Templates.
+
+<sect1>Template selection
+<p>
+On this page the template to be used can be selected. All following pages will be 
+preset to the appropriate values of the selected template. If you don't want to 
+use a template just select the <tt>Empty Template</tt>.
+If the checkbox labeled: <tt>Change the default extensions of the template</tt>
+is checked the Wizard will show 3 more pages containing all certificate extensions.
+The lazy people leave this checkbox unchecked.
+
+<p>
+For generating Certificates there is a drop-down list of all Requests that are available. 
+If you don't want to sign a request but generate a certificate from scratch
+or template, uncheck the checkbox to the left of the request list.
+Also only for creating certificates the signer of the new certificate
+can be selected wether it shall become a <em>self-signed</em> certificate
+or get signed by one of the <ref id="ca_cert" name="CA certificates"> in the 
+drop-down list.
+<p>
+This page is not shown when creating or changing templates.
+
+<sect1>Personal settings
+<p>
+On this Page all personal data like country, name and Email address
+can be filled in. Only the <tt>Internal name</tt> is mandatory.
+The <tt>Country code</tt> field must either be empty or exactly contain
+two letters representing your country code; e.g. <em>DE</em> for Germany.
+If you want to create a SSL-server certificate the <tt>Common name</tt>
+must contain the <em>DNS</em> name of the server.
+<p>
+Keys can be generated here <em>on the fly</em> by pressing the button.
+The newly generated key will be stored in the database, 
+even if you cancel the Wizard. The drop-down list of the keys
+does only contain keys that were not used by an other certificate or
+request. The Keylist is not available for creating or changing templates.
+<p>
+This page does not appear when signing a request, because the request does
+contain all needed data from this page.
+
+<sect1>X509v3 Extensions
+<p>
+The following 3 pages do contain all fields for adjusting the certificate extensions.
+It is not in the focus of this document to explain them in detail.
+The most important are the <tt>Basic Constraints</tt> and the <tt>Validity</tt> range.
+<p>
+For more information consult the documents in <ref id="otherdoc">.
+Expecially if you don't know what this is all about consider not to create any
+certificates before reading those documents.
+
+<sect2>Basic Constraints
+<p>
+If the <tt>CA</tt> flag is set to true the certificate is recognized by XCA and other
+instances as issuer for other certificates. Server-certificates or E-Mail certificates
+must have set this flag to <tt>false</tt>
+<sect2>Validity Range
+<p>
+The <em>not Before</em> field is set to the current date and time of the
+operating system and the <em>not After</em> field is set to the current date and time
+plus the specified time range.
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<sect>RSA Keys <label id="keys">
+<p>
 For asynchronous encryption and signing there are keys needed. XCA only supports RSA keys
-and no DSA keys. All keys are stored encrypted in the database using 3DES algorithm.
+and no DSA keys. All keys are stored encrypted in the database using the 3DES algorithm.
+
+<p>
+All keys do carry a use counter which counts the times it is used. For new
+requests or certificates the list of available keys is reduced to
+the keys with a use counter of 0.
+
+
+<sect1>Generating Keys
+<p>
+The dialog asks for the internal name of the key and the keysize in bits.
+While searching for random prime numbers a progress bar is shown. Although the
+Progressbar carries a <tt>Cancel</tt> button it has no effect clicking on it
+since the underlaying <em>OpenSSL</em> routine does not support an abort.
+So think twice before generating a 4096 bit key on a 80Mhz i486 PC ....
+After the key generation is done the key will be stored in the database.
 
 <sect1>Key export
 <p>
@@ -151,18 +278,69 @@ Keys can be exported by either selecting the key and pressing <em>Export</em> or
 using the context-menu. This opens a Dialogbox where you can change the following settings:
 <itemize>
 <item>filename
-<item>Outputformat
+<item>Outputformat (DER, PEM, PKCS#8)
 <item>Public or Private Key
 <item>Encryption of the exported file (yes/no)
 </itemize>
 
 The filename is the internal name plus a <tt>pem</tt> suffix.
-If the fileformat is not PEM it is your responsibility
+If the desired fileformat is not PEM it is your responsibility
 to change the suffix to <tt>der</tt> or <tt>pk8</tt>.
-Only PKCS8 or PEM files can be encrypted, because
-the DER format (although it could be encryoted)
-does not support a way to supply the <em>encryption algorithm</em>.
+Only PKCS&num;8 or PEM files can be encrypted, because
+the DER format (although it could be encrypted)
+does not support a way to supply the encryption algorithm
+like e.g. <em>DES</em>.
+Of course the encryption is senseless if the private part is not exported.
 
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<sect>Certificate Signing Requests <label id="csr">
+<p>
+Certificate signing requests are described in PKCS#10 standard.
+They are used to supply a Certification Authority with the 
+needed information to issue a valid certificate for you 
+without knowing your private key. This
+includes your personal information and your public key.
+
+<sect1>Generating a new Request
+<p>
+After clicking on the <tt>New Request</tt> button the Certificate Wizard will be started to ask
+all needed information for generating a new Request. See: <ref id="wizard" name="Wizard">
+
+<sect1>Request export
+<p>
+Requests can be exported by either the context-menu or by selecting the request and pressing
+the <tt>Export</tt> button.
+The only supported format for exported requests is PEM, because there is no need for 
+DER formatted requests in real life. If someone needs DER formatted requests, drop me
+a mail and I will implement it.
+
+<sect1>Request details
+<p>
+All information contained in the request are shown. If the Keystore does contain
+the private key corresponding to the request its internal name is shown in the
+<tt>Key</tt> field.
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<sect>Certificates
+<p>
+All Certificates from the database are displayed in a tree view reflecting the chain dependencies.
+If there is a CA certificate and several client certificates signed by this CA,
+the client certificates can be shown by clicking on the plus sign of the CA certificate.
+
+<sect1>CA certificates <label id="ca_cert">
+<p>
+XCA recognizes your CA certificates if the CA flag in the <em>Basic Constraints</em> is set to true
+and if there is a private key. In this case the <tt>CA</tt> submenu in the context-menu is enabled.
+<p>
+For building the chains the CA flag is disregarded instead it consideres the issuer name and
+the signature to decide which certificate is the issuer.
+
+<sect1>Generating certificates
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 </article>
 
 
