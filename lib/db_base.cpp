@@ -285,7 +285,6 @@ pki_base *db_base::findPKI(pki_base *refpki)
 QPixmap *db_base::loadImg(const char *name )
 {
         QString path = PREFIX;
-        path += "/share/xca/";
         return new QPixmap(path + name);
 }
 

@@ -1,29 +1,18 @@
-VERSION=0.2.1
+#
+#  @configure_input@
+#
+
+VERSION=@PACKAGE_VERSION@
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 
-PREFIX=/usr/local
-GCC=g++
-CFLAGS=-Wall -g
+GCC=@CXX@
+CPPFLAGS=@CPPFLAGS@ @QTINC@ -Wall -g
 
-###########################
-# LFS
+LIBS=-Llib @LDFLAGS@ @LIBS@ -lxcadb -lpki
+MOC=@MOC@
+UIC=@UIC@
 
-QTDIR=/usr/lib/qt
-export INC=-I$(QTDIR)/include 
-LPATH=-L$(QTDIR)/lib -Llib
-LIBS=-lqt -lcrypto -ldb_cxx -lxcadb -lpki
-MOC=$(QTDIR)/bin/moc
-UIC=$(QTDIR)/bin/uic
-
-###########################
-#  debian woody
-
-#export INC=-I/usr/include/qt 
-#LPATH=-Llib
-#LIBS=-lqt -lcrypto -ldb3_cxx -lxcadb -lpki
-#MOC=/usr/bin/moc
-#UIC=/usr/bin/uic
 
 ###################################
 
@@ -55,7 +44,7 @@ MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	      NewX509_UI.h CertDetail_UI.h NewX509_1_UI.h NewX509_2_UI.h
 
 %.o: %.cpp
-	$(GCC) $(CFLAGS) -c $(INC) -DVER=\"$(VERSION)\" -DPREFIX=\"$(PREFIX)\" $<
+	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $<
 
 %_MOC.cpp: %.h
 	$(MOC) $< -o $@
@@ -67,14 +56,14 @@ MainWindow.h: MainWindow_UI.h KeyDetail_UI.h \
 	$(UIC) -o $@ -i $^
 
 xca: $(OBJS) lib/libxcadb.a lib/libpki.a
-	$(GCC) $(CFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
+	$(GCC) $(CPPFLAGS) $(INC) $(LPATH) $(OBJS) $(LIBS) -o xca
 
 libs:
-	make -C lib all VERSION=$(VERSION) PREFIX=$(PREFIX)
+	make -C lib all
 
 clean:
 	make -C lib clean
-	rm -rf *_MOC.cpp *_UI.h *_UI.cpp *~ *.o xca
+	rm -rf *_MOC.cpp *_UI.h *_UI.cpp *~ *.o xca Makefile configure config.cache
 
 dist: 
 	rm -rf ../$(TARGET)
@@ -84,7 +73,7 @@ dist:
 	rm -rf ../$(TARGET)
 	
 install: xca
-	install -m 755 -o root -g root xca $(DESTDIR)$(PREFIX)/bin
-	install -m 755 -o root -g root -d $(DESTDIR)$(PREFIX)/share/xca
-	install -m 644 -o root -g root *.png $(DESTDIR)$(PREFIX)/share/xca
+	install -m 755 -o root -g root xca @prefix@/bin
+	install -m 755 -o root -g root -d @prefix@/share/xca
+	install -m 644 -o root -g root *.png @prefix@/share/xca
 	
