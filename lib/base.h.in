@@ -1,7 +1,7 @@
 /* base definitions */
 
 #ifdef WIN32
-#define VER "0.2.13-PRE1-W32"
+#define VER "0.3.0-PRE1-W32"
 #else
 #define VER "@PACKAGE_VERSION@"
 #endif
