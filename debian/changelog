@@ -1,3 +1,15 @@
+xca (0.2.9) unstable; urgency=low
+
+  * several segfaults eliminated
+  * key-use counter corrected
+  * initial truststate fixed
+  * remembers Im/Export directories
+  * import of mutiple certs/keys/requests/pkcs12
+  * database transactions activated
+  * exception-handling completed
+
+ -- Christian Hohnstädt <chris@trinity.local>  Mon, 21 Oct 2002 21:05:59 +0200
+
 xca (0.2.8) unstable; urgency=low
 
   * consistency checks for Iss-alt-name and Sub-alt-name
