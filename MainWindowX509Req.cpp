@@ -173,8 +173,11 @@ void MainWindow::loadReq()
 	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::ExistingFiles );
-	if (dlg->exec())
+	setPath(dlg);
+	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
+		newPath(dlg);
+	}
 	delete dlg;
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
@@ -213,8 +216,11 @@ void MainWindow::writeReq()
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	dlg->setSelection( (req->getDescription() + ".pem").c_str() );
-	if (dlg->exec())
+	setPath(dlg);
+	if (dlg->exec()) {
 		s = dlg->selectedFile();
+		newPath(dlg);
+	}
 	delete dlg;
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);

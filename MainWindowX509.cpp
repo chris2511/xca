@@ -466,8 +466,11 @@ void MainWindow::loadCert()
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::ExistingFiles );
-	if (dlg->exec())
+	setPath(dlg);
+	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
+		newPath(dlg);
+	}
 	delete dlg;
 	
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
@@ -499,8 +502,11 @@ void MainWindow::loadPKCS12()
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::ExistingFiles );
-	if (dlg->exec())
+	setPath(dlg);
+	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
+		newPath(dlg);
+	}
 	delete dlg;
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
@@ -582,8 +588,11 @@ void MainWindow::writeCert()
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	dlg->setSelection( (cert->getDescription() + ".crt").c_str() );
-	if (dlg->exec())
+	setPath(dlg);
+	if (dlg->exec()) {
 		s = dlg->selectedFile();
+		newPath(dlg);
+	}
 	delete dlg;
 	if (s.isEmpty()) return;
 	s = QDir::convertSeparators(s);
@@ -617,8 +626,11 @@ void MainWindow::writePKCS12()
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	dlg->setSelection( (cert->getDescription() + ".p12").c_str() );
-	if (dlg->exec())
+	setPath(dlg);
+	if (dlg->exec()) {
 		s = dlg->selectedFile();
+		newPath(dlg);
+	}
 	delete dlg;
 	if (s.isEmpty()) return;
 	s=QDir::convertSeparators(s);

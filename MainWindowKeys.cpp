@@ -197,8 +197,11 @@ void MainWindow::loadKey()
 	dlg->setCaption("Import key");
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::ExistingFiles );
-	if (dlg->exec())
+	setPath(dlg);
+	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
+		newPath(dlg);
+	}
 	delete dlg;
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		s = *it;
@@ -261,10 +264,12 @@ void MainWindow::writeKey()
 	ExportKey *dlg = new ExportKey((targetKey->getDescription() + ".pem").c_str(),
 			targetKey->isPubKey(), this);
 	dlg->image->setPixmap(*keyImg);
+	//setPath(dlg);
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
+	//newPath(dlg);
 	string fname = dlg->filename->text().latin1();
 	if (fname == "") {
 		delete dlg;

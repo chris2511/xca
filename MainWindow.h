@@ -196,6 +196,8 @@ class MainWindow: public MainWindow_UI
 	void setTemplate();
 	void genCrl();
 	void crashApp();
+	void setPath(QFileDialog *dlg);
+	void newPath(QFileDialog *dlg);
    signals:
 	void keyDone(QString name);
 };

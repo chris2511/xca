@@ -19,7 +19,7 @@ QT-2.2.4        from http://www.troll.no
 BercleyDB-3.3   from http://www.sleepycat.com
 OpenSSl-0.9.6   from http://www.openssl.org
 
-GNU C++ compiler 2.9.5
+GNU C++ compiler 2.95
 GNU make
 
 

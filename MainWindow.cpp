@@ -84,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 #endif
 	try {
 		dbenv = new DbEnv(0);
-		//dbenv->set_errcall(&MainWindow::dberr);
+		dbenv->set_errcall(&MainWindow::dberr);
 		dbenv->open(baseDir.latin1(), DB_RECOVER | DB_INIT_TXN | DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | DB_CREATE , 0600 );
 		MARK
 	}
@@ -306,7 +306,21 @@ void MainWindow::crashApp()
 	nullpointer->getDescription();
 }
 
-void dberr(const char *errpfx, char *msg)
+void MainWindow::dberr(const char *errpfx, char *msg)
 {
-//	CERR(errpfx << " " << msg);
+	CERR(errpfx << " " << msg);
+}
+
+void MainWindow::setPath(QFileDialog *dlg)
+{
+	string wd = settings->getString("workingdir");	
+	if (!wd.empty()) {
+		dlg->setDir(QString(wd.c_str()));
+	}
+}
+
+void MainWindow::newPath(QFileDialog *dlg)
+{
+	string wd = dlg->dirPath().latin1();
+	settings->putString("workingdir", wd);
 }
