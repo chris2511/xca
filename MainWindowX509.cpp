@@ -399,6 +399,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	if (opensslError(cert)) return false;
     try {
 	CertDetail_UI *dlg = new CertDetail_UI(this,0,true);
+	bool ret;
 	dlg->image->setPixmap(*certImg);
 	dlg->descr->setText(cert->getDescription().c_str());
 	dlg->setCaption(tr(XCA_TITLE));
@@ -439,6 +440,8 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 		land += " / " +land1;
 	else
 		land+=land1;
+	
+	
 	dlg->dnCN->setText(cert->getDNs(NID_commonName).c_str() );
 	dlg->dnC->setText(land.c_str());
 	dlg->dnL->setText(cert->getDNs(NID_localityName).c_str());
@@ -446,6 +449,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	dlg->dnOU->setText(cert->getDNs(NID_organizationalUnitName).c_str());
 	dlg->dnEmail->setText(cert->getDNs(NID_pkcs9_emailAddress).c_str());
 	
+	MARK
 	// same for issuer....	
 	land = cert->getDNi(NID_countryName);
 	land1 = cert->getDNi(NID_stateOrProvinceName);
@@ -461,7 +465,8 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	dlg->dnEmail_2->setText(cert->getDNi(NID_pkcs9_emailAddress).c_str());
 	dlg->notBefore->setText(cert->notBefore().c_str());
 	dlg->notAfter->setText(cert->notAfter().c_str());
-
+	MARK
+	
 	// validation of the Date
 	if (cert->checkDate() == -1) {
 		dlg->dateValid->setText(tr("Not valid"));
@@ -491,7 +496,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	}
 
 	// show it to the user...	
-	bool ret = dlg->exec();
+	ret = dlg->exec();
 	string ndesc = dlg->descr->text().latin1();
 	delete dlg;
 	if (!ret) return false;	
