@@ -54,6 +54,7 @@
 #include <openssl/x509.h>
 #include <openssl/pem.h>
 #include "pki_key.h"
+#include "x509v3ext.h"
 #include "pki_x509super.h"
 #include "x509name.h"
 
@@ -73,6 +74,7 @@ class pki_x509req : public pki_x509super
 	   NETSCAPE_SPKI *spki;
 
 	public:
+	   extList getV3Ext();
 	   static QPixmap *icon[3];
 	   pki_x509req(QString name = "");
 	   void fload(const QString fname);
@@ -86,7 +88,8 @@ class pki_x509req : public pki_x509super
 	   void writeReq(const QString fname, bool PEM);
 	   int verify();
 	   pki_key *getPubKey() const;
-	   void createReq(pki_key *key, const x509name &dn, const EVP_MD *md);
+	   void createReq(pki_key *key, const x509name &dn, const EVP_MD *md,
+			   extList el);
 	   void updateView();
 	   QString getSigAlg();
 	   void setSubject(const x509name &n);

@@ -187,14 +187,16 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 
 void NewX509::setRequest()
 {
-	setAppropriate(page4, false);
-	setAppropriate(page5, false);
-	setAppropriate(page6, false);
+//	setAppropriate(page4, false);
+//	setAppropriate(page5, false);
+//	setAppropriate(page6, false);
 	finishButton()->setEnabled(true);
-	changeDefault->setEnabled(false);
-	changeDefault->setChecked(false);
+	changeDefault->setEnabled(true);
+	changeDefault->setChecked(true);
 	signerBox->setEnabled(false);
 	requestBox->setEnabled(false);
+	timeRangeBox->setEnabled(false);
+	validitybox->setEnabled(false);
 	startText_h=tr("Welcome to the settings for certificate signing requests.");
 	startText_b=tr("A signing request needs a private key, so it will be "
 		"created if there isn't any unused key available in the key "
@@ -730,7 +732,7 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 	
 	dlg = new v3ext(this, NULL, true);
 	dlg->addInfo(le, QStringList::split(',', types ), n,
-			cert->getCert(), signcert->getCert());
+			signcert->getCert(), cert->getCert());
 	dlg->exec();
 	delete(dlg);
 	delete(cert);
@@ -738,14 +740,24 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 
 void NewX509::editSubAltName()
 {
+#if OPENSSL_VERSION_NUMBER >= 0x00908000L
+	editV3ext(subAltName, "email,email:copy,RID,URI,DNS,IP,otherName",
+			NID_subject_alt_name);
+#else
 	editV3ext(subAltName, "email,email:copy,RID,URI,DNS,IP",
 			NID_subject_alt_name);
+#endif
 }
 
 void NewX509::editIssAltName()
 {
+#if OPENSSL_VERSION_NUMBER >= 0x00908000L
+	editV3ext(issAltName, "email,RID,URI,DNS,IP,issuer:copy,otherName",
+			NID_issuer_alt_name);
+#else
 	editV3ext(issAltName, "email,RID,URI,DNS,IP,issuer:copy",
 			NID_issuer_alt_name);
+#endif
 }
 
 void NewX509::editCrlDist()

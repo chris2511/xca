@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>579</width>
+            <width>571</width>
             <height>614</height>
         </rect>
     </property>
@@ -377,7 +377,7 @@
                     <name>title</name>
                     <string>Signing request</string>
                 </property>
-                <vbox>
+                <grid>
                     <property stdset="1">
                         <name>margin</name>
                         <number>11</number>
@@ -386,7 +386,7 @@
                         <name>spacing</name>
                         <number>6</number>
                     </property>
-                    <widget>
+                    <widget row="0"  column="0" >
                         <class>QLayoutWidget</class>
                         <property stdset="1">
                             <name>name</name>
@@ -427,7 +427,18 @@ Of course you need the private key of the CSR if you want to create a self-signe
                             </widget>
                         </hbox>
                     </widget>
-                </vbox>
+                    <widget row="1"  column="0" >
+                        <class>QCheckBox</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>copyReqExtCB</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Copy extensions from the request</string>
+                        </property>
+                    </widget>
+                </grid>
             </widget>
             <spacer>
                 <property>
@@ -1607,7 +1618,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
                         <class>QGroupBox</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>GroupBox35</cstring>
+                            <cstring>timeRangeBox</cstring>
                         </property>
                         <property stdset="1">
                             <name>title</name>

@@ -137,11 +137,11 @@ void v3ext::addEntry()
 void v3ext::apply()
 {
 	le->setText(toString());
-	__validate();
+	__validate(false);
 	accept();
 }
 
-bool v3ext::__validate()
+bool v3ext::__validate(bool showSuccess)
 {
 	x509v3ext ext;
 	QString str, error;
@@ -157,18 +157,18 @@ bool v3ext::__validate()
 		error += "\n";
 	}
 	if (! error.isEmpty()) {
-		 QMessageBox::warning(NULL, XCA_TITLE, tr("Validation failed:\n")
-				 + "'" + str + "'\n" + error,
-				tr("&OK"));
+		QMessageBox::warning(NULL, XCA_TITLE, tr("Validation failed:\n")
+			+ "'" + str + "'\n" + error, tr("&OK"));
 		 return false;
+	}
+	if (showSuccess) {
+		QMessageBox::information(NULL, XCA_TITLE,
+			"Validation successfull:\n'" + ext.getValue() + "'", tr("&OK"));
 	}
 	return true;
 }
 
 void v3ext::validate()
 {
-	if (__validate()) {
-		 QMessageBox::information(NULL, XCA_TITLE, "Validation successfull",
-				tr("&OK"));
-	}
+	__validate(true);
 }

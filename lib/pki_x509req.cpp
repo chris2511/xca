@@ -80,18 +80,32 @@ pki_x509req::~pki_x509req()
 	openssl_error();
 }
 
-void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md)
+void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, extList el)
 {
+	int bad_nids[] = { NID_subject_key_identifier, NID_authority_key_identifier,
+		NID_issuer_alt_name, NID_undef };
+	
 	EVP_PKEY *privkey = NULL;
+	STACK_OF(X509_EXTENSION) *sk;
+	
 	if (key->isPubKey()) {
 		openssl_error("key not valid");
 		return;
 	}
-	openssl_error();
+	
 	X509_REQ_set_version(request, 0L);
 	X509_REQ_set_pubkey(request, key->getKey());
 	setSubject(dn);
 	openssl_error();
+	
+	for(int i=0; bad_nids[i] != NID_undef; i++)
+		el.delByNid(i);
+	
+	sk = el.getStack();
+	X509_REQ_add_extensions(request, sk);
+	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
+	openssl_error();
+	
 	privkey = key->decryptKey();
 	X509_REQ_sign(request, privkey, md);
 	openssl_error();
@@ -253,6 +267,16 @@ QString pki_x509req::getSigAlg()
 {
 	QString alg = OBJ_nid2ln(OBJ_obj2nid(request->sig_alg->algorithm));
 	return alg;
+}
+
+extList pki_x509req::getV3Ext()
+{
+	extList el;
+	STACK_OF(X509_EXTENSION) *sk;
+	sk = X509_REQ_get_extensions(request);
+	el.setStack(sk);
+	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
+	return el;
 }
 
 /*!

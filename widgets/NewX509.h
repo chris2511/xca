@@ -119,6 +119,7 @@ class NewX509: public NewX509_UI
 	x509v3ext getAuthInfAcc();
 	x509v3ext getCertPol();
 	extList getNetscapeExt();
+	extList getAllExt();
 	const EVP_MD *getHashAlgo();
 	void initCtx(pki_x509 *subj, pki_x509 *iss);
 	void setBasicConstraints(const x509v3ext &e);

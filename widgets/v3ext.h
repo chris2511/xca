@@ -72,7 +72,7 @@ class v3ext: public v3ext_UI
 		QLineEdit *le;
 		int nid;
 		X509V3_CTX ext_ctx;
-		bool __validate();
+		bool __validate(bool showSuccess);
 	public:	
 		v3ext( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
 		~v3ext();

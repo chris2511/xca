@@ -233,6 +233,23 @@ x509v3ext NewX509::getCertPol()
 	return ext;
 }
 
+extList NewX509::getAllExt()
+{
+	extList ne;
+	
+	ne << getBasicConstraints();
+	ne << getSubKeyIdent();
+	ne << getAuthKeyIdent();
+	ne << getKeyUsage();
+	ne << getEkeyUsage();
+	ne << getSubAltName();
+	ne << getIssAltName();
+	ne << getCrlDist();
+	ne += getNetscapeExt();
+	return ne;
+
+}
+
 extList NewX509::getNetscapeExt()
 {
 	QString certTypeList[] = {

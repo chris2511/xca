@@ -243,8 +243,14 @@ void CertView::newCert(NewX509 *dlg)
 	}
 	 
 			
-	// STEP 4
-	// handle extensions
+	// STEP 4 handle extensions
+	if (dlg->copyReqExtCB->isChecked() && dlg->fromReqCB->isChecked()) {
+		extList el = req->getV3Ext();
+		int m = el.count();
+		for (int i=0; i<m; i++)
+			cert->addV3ext(el[i]);
+	}		
+		
 	cert->addV3ext(dlg->getBasicConstraints());
 	cert->addV3ext(dlg->getSubKeyIdent());
 	cert->addV3ext(dlg->getAuthKeyIdent());
@@ -261,7 +267,8 @@ void CertView::newCert(NewX509 *dlg)
 		 cert->addV3ext(ne[i]);
 	
 	const EVP_MD *hashAlgo = dlg->getHashAlgo();
-	if (signkey->getType() == EVP_PKEY_DSA) hashAlgo = EVP_dss1();
+	if (signkey->getType() == EVP_PKEY_DSA)
+		hashAlgo = EVP_dss1();
 	
 	if (dlg->selfQASignRB->isChecked())
           {
@@ -732,10 +739,15 @@ void CertView::toRequest()
 {
 	pki_x509 *cert = (pki_x509 *)getSelected();
 	if (!cert) return;
+	extList el = cert->getExt();
+	printf("el.count(): %d\n", el.count());
+	x509name xn = cert->getSubject();
+	pki_key *pk = cert->getRefKey();
 	try {
 		pki_x509req *req = new pki_x509req();
 		req->setIntName(cert->getIntName());
-		req->createReq(cert->getRefKey(), cert->getSubject(), EVP_md5());
+		req->createReq(pk, xn,
+				EVP_md5(), el);
 		MainWindow::reqs->insert(req);
 	}
 	catch (errorEx &err) {

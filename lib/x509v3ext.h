@@ -84,6 +84,8 @@ class extList : public QValueList<x509v3ext>
 {
     public:
 	void setStack(STACK_OF(X509_EXTENSION) *st);
+	STACK_OF(X509_EXTENSION) *getStack();
 	QString getHtml(const QString &sep);
+	int delByNid(int nid);
 };
 #endif

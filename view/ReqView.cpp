@@ -106,7 +106,7 @@ void ReqView::newItem(pki_temp *temp)
 		if (key->getType() == EVP_PKEY_DSA)
 			hashAlgo = EVP_dss1();
 		
-		req->createReq(key, xn, hashAlgo);
+		req->createReq(key, xn, hashAlgo, dlg->getAllExt());
 		db->insert(req);
 	}
 	catch (errorEx &err) {

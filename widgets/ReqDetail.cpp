@@ -57,6 +57,7 @@
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <qtextview.h>
 
 ReqDetail::ReqDetail(QWidget *parent, const char *name, bool modal, WFlags f )
 	:ReqDetail_UI(parent, name, modal, f)
@@ -99,6 +100,10 @@ void ReqDetail::setReq(pki_x509req *req)
 	// Algorithm
 	sigAlgo->setText(req->getSigAlg());
 	sigAlgo->setReadOnly(true);
+
+	// The extensions
+	extList el = req->getV3Ext();
+	v3extensions->setText(el.getHtml("<br>"));
 }
 
 void ReqDetail::setImport()

@@ -87,18 +87,18 @@ void pki_key::incProgress(int a, int b, void *progress)
 
 QString pki_key::getIntNameWithType()
 {
-	QString prefix;
+	QString postfix;
 	switch (key->type) {
 		case EVP_PKEY_RSA:
-			prefix = " (RSA)";
+			postfix = " (RSA)";
 			break;
 		case EVP_PKEY_DSA:
-			prefix = " (DSA)";
+			postfix = " (DSA)";
 			break;
 		default:
-			prefix = " (---)";
+			postfix = " (---)";
 	}
-	return getIntName() + prefix;
+	return getIntName() + postfix;
 }
 
 QString pki_key::removeTypeFromIntName(QString n)
@@ -390,7 +390,7 @@ void pki_key::encryptKey()
 	const unsigned char *punencc;
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	char ownPassBuf[MAX_PASS_LENGTH];
-	
+
 	/* This key has its own, private password ? */
 	if (ownPass == 1) {
 		pass_info p(XCA_TITLE, tr("Please enter the password to protect the private key: '" + getIntName() + "'"));
@@ -436,13 +436,15 @@ void pki_key::encryptKey()
 
 	/* Cleanup */
 	EVP_CIPHER_CTX_cleanup(&ctx);
+	OPENSSL_free(punenc);
 	openssl_error();	
 	
 	EVP_PKEY_free(key);
 	key = pkey1;
 	openssl_error();
 	
-	OPENSSL_free(punenc);
+	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
+	
 	return;
 }
 

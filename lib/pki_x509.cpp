@@ -540,14 +540,21 @@ QString pki_x509::printV3ext()
 
 x509v3ext pki_x509::getExtByNid(int nid)
 {
-	extList el;
+	extList el = getExt();
 	x509v3ext e;
-	el.setStack(cert->cert_info->extensions);
 	
 	for (unsigned int i=0; i< el.count(); i++){
 		if (el[i].nid() == nid) return el[i];
 	}			
 	return e;
+}	
+
+extList pki_x509::getExt()
+{
+	extList el;
+	el.setStack(cert->cert_info->extensions);
+	
+	return el;
 }	
 
 
