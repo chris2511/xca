@@ -61,8 +61,6 @@ int main( int argc, char *argv[] )
 {
     int ret = 0;
     QApplication a( argc, argv );
-    MainWindow *mw = new MainWindow( NULL, "Main Widget");
-    a.setMainWidget( mw );
     // translation file for Qt
     QTranslator qtTr( 0 );
     qtTr.load( QString( "qt_" ) + QTextCodec::locale(), "." );
@@ -70,7 +68,10 @@ int main( int argc, char *argv[] )
     //translation file for application strings
     QTranslator xcaTr( 0 );
     xcaTr.load( QString( "xca_" ) + QTextCodec::locale(), getPrefix() );
+	printf("Locale: %s\nPrefix:%s\n",QTextCodec::locale(), getPrefix().latin1());
     a.installTranslator( &xcaTr );
+    MainWindow *mw = new MainWindow( NULL, "Main Widget");
+    a.setMainWidget( mw );
     if (mw->exitApp == 0) {
    	mw->show();
 	ret = a.exec();
