@@ -11,73 +11,14 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>391</width>
-            <height>241</height>
+            <width>378</width>
+            <height>234</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
         <string>Passwort</string>
     </property>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>heading</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>350</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>RSA Schlüssel lesen</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel4</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>50</y>
-                <width>350</width>
-                <height>50</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Diese Datei ist mit einem Passwort geschützt. Um die  Datei zu öffnen müssen Sie das Passwort angeben.</string>
-        </property>
-        <property stdset="1">
-            <name>scaledContents</name>
-            <bool>false</bool>
-        </property>
-        <property stdset="1">
-            <name>alignment</name>
-            <set>WordBreak|AlignVCenter|AlignLeft</set>
-        </property>
-        <property>
-            <name>wordwrap</name>
-        </property>
-    </widget>
     <widget>
         <class>QFrame</class>
         <property stdset="1">
@@ -180,6 +121,53 @@
         <property stdset="1">
             <name>text</name>
             <string>Abbrechen</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>title</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>350</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Passwort</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>description</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>50</y>
+                <width>350</width>
+                <height>50</height>
+            </rect>
+        </property>
+        <property>
+            <name>wordwrap</name>
         </property>
     </widget>
 </widget>

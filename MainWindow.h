@@ -40,6 +40,12 @@
 #define DBFILE "xca.db"
 
 
+typedef struct PASS_INFO {
+	string *title;
+	string *description;
+};
+
+
 class MainWindow: public MainWindow_UI
 {
 	Q_OBJECT
@@ -48,8 +54,7 @@ class MainWindow: public MainWindow_UI
 	db_x509req *reqs;
 	db_key *keys;
 	DbEnv *dbenv;
-	QAsciiDict<char> *settings;
-	char settarr[3000];
+	db_base *settings;
    public:
 	QString baseDir, dbfile;
 	static const int sizeList[];
