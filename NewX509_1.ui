@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>546</width>
+            <width>542</width>
             <height>252</height>
         </rect>
     </property>
@@ -102,6 +102,15 @@
                             <width>95</width>
                             <height>40</height>
                         </size>
+                    </property>
+                    <property stdset="1">
+                        <name>font</name>
+                        <font>
+                        </font>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string></string>
                     </property>
                     <property stdset="1">
                         <name>scaledContents</name>
@@ -229,7 +238,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Weiter</string>
+                        <string>Next &gt;</string>
                     </property>
                 </widget>
                 <widget>
@@ -240,7 +249,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Abbrechen</string>
+                        <string>Cancel</string>
                     </property>
                 </widget>
             </hbox>
