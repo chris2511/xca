@@ -576,6 +576,7 @@ void MainWindow::loadCert()
 			Error(err);
 		}
 	}
+
 		
 }
 
@@ -719,6 +720,7 @@ pki_x509 *MainWindow::insertCert(pki_x509 *cert)
 	cert->setCaSerial(serial);
     }
     certs->updatePKI(cert);
+    cert->tinyCAfname();
     return cert;
 }
 

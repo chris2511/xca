@@ -272,3 +272,4 @@ bool pki_x509req::setKey(pki_key *key)
 	privkey = key;
 	return ret;
 }
+

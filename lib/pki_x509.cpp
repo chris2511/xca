@@ -701,3 +701,25 @@ void pki_x509::setLastCrl(ASN1_TIME *time)
 	lastCrl=M_ASN1_TIME_dup(time);
 	openssl_error();
 }
+
+string pki_x509::tinyCAfname()
+{
+	string col;
+	int outl;
+	col = getDNs(NID_commonName) + (getDNs(NID_commonName) == "" ? " :" : ":")
+	    + getDNs(NID_pkcs9_emailAddress) + (getDNs(NID_pkcs9_emailAddress) == "" ? " :" : ":")
+	    + getDNs(NID_organizationalUnitName) +(getDNs(NID_organizationalUnitName) == "" ? " :" : ":")
+	    + getDNs(NID_organizationName) +  (getDNs(NID_organizationName) == "" ? " :" : ":")
+	    + getDNs(NID_localityName) +  (getDNs(NID_localityName) == "" ? " :" : ":")
+	    + getDNs(NID_stateOrProvinceName) +  (getDNs(NID_stateOrProvinceName) == "" ? " :" : ":")
+	    + getDNs(NID_countryName) +  (getDNs(NID_countryName) == "" ? " :" : ":");
+
+	int len = col.length();
+	unsigned char *buf = (unsigned char *)OPENSSL_malloc(len * 2 + 3);
+	
+	EVP_EncodeBlock(buf, (unsigned char *)col.c_str(), len );
+	col = (char *)buf;
+	OPENSSL_free(buf);
+	CERR("base64 Encoding: " <<col);
+	return col;
+}

@@ -126,6 +126,7 @@ class pki_x509 : public pki_base
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);
 	   void setDates(int days);
 	   void setSerial(int serial);
+	   string tinyCAfname();
 };
 
 #endif
