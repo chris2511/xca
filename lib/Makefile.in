@@ -7,7 +7,7 @@ VERSION=@PACKAGE_VERSION@
 TARGET=xca-$(VERSION)
 
 GCC=@CXX@
-CPPFLAGS=@CPPFLAGS@ -Wall -g
+CPPFLAGS=@CPPFLAGS@ @DEFS@ -Wall -g
 MOC=@MOC@
 
 ##############################################

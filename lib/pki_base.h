@@ -51,6 +51,11 @@
 
 #include <iostream>
 #include <string>
+
+#ifndef HAVE_CONFIG_H
+using namespace std ;
+#endif
+
 #include <openssl/err.h>
 
 #ifndef PKI_BASE_H
@@ -58,7 +63,7 @@
 
 #define CERR cerr
 
-typedef struct PASS_INFO {
+struct PASS_INFO {
 	string *title;
 	string *description;
 };

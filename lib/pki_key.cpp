@@ -53,7 +53,7 @@
 
 char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
-pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type = EVP_PKEY_RSA): pki_base(d)
+pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
 {
 	key = EVP_PKEY_new();
 	key->type = type;
@@ -79,7 +79,7 @@ pki_key::pki_key(const pki_key *pk)
 	ucount=0;
 }
 
-pki_key::pki_key(const string d, int type = EVP_PKEY_RSA)
+pki_key::pki_key(const string d, int type )
 	:pki_base(d)
 { 
 	key = EVP_PKEY_new();
@@ -94,7 +94,7 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	ucount=0;
 }	
 
-pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
+pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 	:pki_base(fname)
 { 
 	PASS_INFO p;

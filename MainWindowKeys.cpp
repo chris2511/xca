@@ -112,7 +112,7 @@ void MainWindow::deleteKey()
 }
 
 
-bool MainWindow::showDetailsKey(pki_key *key, bool import = false)
+bool MainWindow::showDetailsKey(pki_key *key, bool import)
 {
 	if (!key) return false;
 	if (opensslError(key)) return false;

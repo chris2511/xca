@@ -60,7 +60,7 @@
 #include "NewX509_UI.h"
 #include "TrustState_UI.h"
 #include "ExportKey.h"
-#include <iostream.h>
+#include <iostream>
 #include <qtextview.h>
 #include <qapplication.h>
 #include <qdir.h>
@@ -99,6 +99,9 @@
 #define DBFILE "xca.db"
 #ifndef CERR
 #define CERR cerr
+#endif
+#ifndef HAVE_CONFIG_H
+#define VER "0.2.4-win"
 #endif
 
 class MainWindow: public MainWindow_UI

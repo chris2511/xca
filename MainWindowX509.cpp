@@ -255,7 +255,7 @@ void MainWindow::showDetailsCert(QListViewItem *item)
 }
 
 
-bool MainWindow::showDetailsCert(pki_x509 *cert, bool import = false)
+bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 {
 	if (!cert) return false;
 	if (opensslError(cert)) return false;

@@ -48,7 +48,7 @@
  *
  */                           
 
-
+#ifdef HAVE_CONFIG_H
 #include "../config.h"
 #ifdef HAVE_DB4_DB_CXX_H
 #include <db4/db_cxx.h>
@@ -61,6 +61,10 @@
 #endif
 #ifdef HAVE_QACCESSIBLE_H
 #define qt3 1
+#endif
+#else
+#include <db_cxx.h>
+#define PREFIX "c:\xca"
 #endif
 #include <qlistview.h>
 #include <qlist.h>
@@ -81,7 +85,7 @@ class db_base: public QObject
 	QListView *listView;
 	QList<pki_base> container;
 	bool _writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL);
-	bool _removePKI(pki_base *pki, DbTxn *tid = NULL);
+	bool _removePKI(pki_base *pki, DbTxn *tid );
 	bool removeItem(string k, DbTxn *tid = NULL);
     public:
 	db_base(DbEnv *dbe, string DBfile, string db);

@@ -54,7 +54,7 @@
 
 
 ExportKey::ExportKey(QString fname, bool onlypub, 
-	QWidget *parent = 0,const char *name = 0)
+	QWidget *parent, const char *name )
 	:ExportKey_UI(parent,name,true,0)
 {
 	filename->setText(fname);

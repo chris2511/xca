@@ -52,7 +52,7 @@
 #include "MainWindow.h"
 
 
-void MainWindow::newTemp(int type=tEMPTY)
+void MainWindow::newTemp(int type)
 {
 	pki_temp *temp = new pki_temp("--", type);
 	if (alterTemp(temp)) {

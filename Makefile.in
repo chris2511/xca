@@ -9,7 +9,7 @@ TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
 
 GCC=@CXX@
-CPPFLAGS=@CPPFLAGS@ -Wall -g
+CPPFLAGS=@CPPFLAGS@ @DEFS@ -Wall -g
 
 LIBS=-Llib @LDFLAGS@ @LIBS@ -lxcadb -lpki
 MOC=@MOC@

@@ -250,7 +250,7 @@ bool db_base::insertPKI(pki_base *pki)
 	return s;
 }
 	
-bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid = NULL) 
+bool db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid) 
 {
 	int flags = 0;
 	if (!overwrite) flags = DB_NOOVERWRITE;
@@ -294,7 +294,7 @@ bool db_base::_removePKI(pki_base *pki, DbTxn *tid = NULL)
 	return removeItem(desc, tid);
 }	
 
-bool db_base::removeItem(string key, DbTxn *tid = NULL) 
+bool db_base::removeItem(string key, DbTxn *tid) 
 {
 	Dbt k((void *)key.c_str(), key.length() + 1);
 	int x = data->del(tid, &k, 0);
