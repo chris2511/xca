@@ -1,9 +1,10 @@
 #include "db_x509req.h"
 
 
-db_x509req::db_x509req(DbEnv *dbe, string DBfile, string DB, QListView *l, db_key *keyl)
-		:db_base(dbe, DBfile, DB, l)
+db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
+		:db_base(dbe, DBfile, "reqdb")
 {
+	listView = l;
 	QString path = PREFIX;
 	icon = new QPixmap(path + "/share/xca/req.png");
 	keylist = keyl;
@@ -39,7 +40,6 @@ bool db_x509req::updateView()
 	QListViewItem *current;
 	cerr <<"myupdate requests"<<endl;
 	if ( container.isEmpty() ) return false;
-	int f=0;
 	QListIterator<pki_base> it(container); 
 	for ( ; it.current(); ++it ) {
 		pki = (pki_x509req *)it.current();

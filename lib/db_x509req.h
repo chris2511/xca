@@ -12,7 +12,7 @@ class db_x509req: public db_base
     protected:
 	db_key *keylist;
     public:
-	db_x509req(DbEnv *dbe, string DBfile, string DB, QListView *l, db_key *keyl);
+	db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl);
 	pki_base *newPKI();
 	QStringList getDesc();
 	bool updateView();

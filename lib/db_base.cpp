@@ -1,10 +1,10 @@
 #include "db_base.h"
 
 
-db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListView *l) 
+db_base::db_base(DbEnv *dbe, string DBfile, string DB) 
 {
-	listView = l;
 	dbenv = dbe;
+	listView = NULL;
 	data = new Db(dbe, 0);
 	cerr << "DB:" << DBfile <<"\n";//
 	int x;
@@ -18,12 +18,117 @@ db_base::~db_base()
 	data->close(0);
 }
 
+
+Dbc *db_base::getCursor()
+{
+	Dbc *cursor;
+	if (int x = data->cursor(NULL, &cursor, 0)) {
+		data->err(x,"DB new Cursor");
+		return NULL;	
+	}
+	return cursor;
+}
+
+bool db_base::freeCursor(Dbc *cursor)
+{
+	if (int x = cursor->close()) {
+		data->err(x,"DB delete cursor");
+		return false;
+	}
+	return true;
+}
+
+void *db_base::getData(void *key, int length, int *dsize)
+{
+	if ((key == NULL) || (length == 0) ) {
+		*dsize = 0;
+		return NULL;
+	}
+	void *p;
+	Dbt k(key, length);
+	Dbt d(NULL, 0);
+	if (int x = data->get(NULL, &k, &d, 0)) {
+		data->err(x,"DB Error get");
+		*dsize = 0;
+		return NULL;
+	}
+	p = d.get_data();
+	*dsize = d.get_size();
+	void *q = malloc(*dsize);
+	memcpy(q,p,*dsize);
+
+	return q;
+}
+
+void *db_base::getData(string key, int *dsize)
+{
+	return getData((void *)key.c_str(), key.length()+ 1, dsize);
+}
+
+
+string db_base::getString(string key)
+{
+	string x = "";
+	int dsize;
+	char *p = (char *)getData(key, &dsize);
+	if (p == NULL) {
+		cerr << "getString: p was NULL"<< endl;
+		return x;
+	}
+	if ( p[dsize-1] != '\0' ) {
+		int a =p[dsize-1];	
+		cerr << "getString: stringerror "<< a <<" != 0  (returning empty string) size:" <<dsize<< endl;
+		return x;
+	}
+	x = p;
+	free(p);
+	if ( (int)x.length() != (dsize-1) ) {
+		cerr << "error with '"<<key<<"': "<< x.c_str() <<" "<<dsize<<endl;
+	}
+	return x;
+}
+
+
+string db_base::getString(char *key)
+{
+	string x = key;
+	return getString(x);
+}
+
+
+void db_base::putData(void *key, int keylen, void *dat, int datalen)
+{
+	
+	Dbt k(key, keylen);
+	Dbt d(dat, datalen);
+	if (int x = data->put(NULL, &k, &d, 0 )) {
+		data->err(x,"DB Error put");
+	}
+}
+
+void db_base::putString(string key, void *dat, int datalen)
+{
+	cerr << key << endl;
+	putData((void *)key.c_str(), key.length()+1, dat, datalen);
+}
+
+void db_base::putString(string key, string dat)
+{
+	cerr << key<<endl;
+	putString(key, (void *)dat.c_str(), dat.length() +1);
+}
+
+void db_base::putString(char *key, string dat)
+{
+	string x = key;
+	cerr << key<<endl;
+	putString(x,dat);
+}
+
 void db_base::loadContainer()
 {
 	unsigned char *p;
-	Dbc *cursor;
-	if (int x = data->cursor(NULL, &cursor, 0))
-		data->err(x,"DB new Cursor");
+	Dbc *cursor = getCursor();
 	Dbt *k = new Dbt();
 	Dbt *d = new Dbt();
 	string desc;
@@ -44,11 +149,13 @@ void db_base::loadContainer()
 	}
 	delete (k);
 	delete (d);
+	freeCursor(cursor);
 }	
 
 
 bool db_base::updateView()
 {
+	if (listView == NULL) return false;
 	listView->clear();
 	pki_base *pki;
 	if (container.isEmpty()) return false;
@@ -80,13 +187,13 @@ bool db_base::insertPKI(pki_base *pki)
 	
 	   if ((x = data->put(NULL, &k, &d, DB_NOOVERWRITE ))!=0) {
 		data->err(x,"DB Error put");
-		sprintf(field,"%i", ++cnt);
+		sprintf(field,"%02i", ++cnt);
 		string z = field;
 	   	desc = orig + "_" + z ;
 	   }
 	}
 	if (x != DB_KEYEXIST && x != 0) {
-	   data->err(x,"DB Error put TINE");
+	   data->err(x,"DB Error put");
 	   //return false;
 	}
 	OPENSSL_free(p);

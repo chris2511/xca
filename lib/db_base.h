@@ -18,7 +18,7 @@ class db_base
 	QList<pki_base> container;
 	QPixmap *icon;
     public:
-	db_base(DbEnv *dbe, string DBfile, string db, QListView *l);
+	db_base(DbEnv *dbe, string DBfile, string db);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		cerr<<"VIRTUAL CALLED: newPKI\n"; return NULL;}
@@ -31,6 +31,16 @@ class db_base
 	pki_base *findPKI(pki_base *refpki);
 	virtual void loadContainer();
 	virtual void remFromCont(pki_base *pki);
+	Dbc *getCursor();
+	bool freeCursor(Dbc *cursor);
+	void *getData(void* key, int length, int *dsize);
+	void *getData(string key, int *dsize);
+	string getString(string key);
+	string getString(char *key);
+	void putData(void *key, int keylen, void *dat, int datalen);
+	void putString(string key, void *dat, int datalen);
+	void putString(string key, string dat);
+	void putString(char *key, string dat);
 };
 
 #endif
