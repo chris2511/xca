@@ -69,7 +69,6 @@ class pki_x509 : public pki_x509super
 	friend class db_x509;
 	private:
 	   pki_x509 *psigner;
-	   pki_key *pkey;
 	   a1time revoked, lastCrl;
 	   bool isrevoked;
 	   int trust;

@@ -138,6 +138,10 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		keyList, SLOT(showItem(QString)) );
 	connect( reqList, SIGNAL(showKey(QString)),
 		keyList, SLOT(showItem(QString)) );
+	connect( certList, SIGNAL(insertReq(pki_base *)),
+		reqList, SLOT(insert(pki_base *)) ); 
+	connect( reqList, SIGNAL(newCert(pki_x509req *)),
+		certList, SLOT(newCert(pki_x509req *)) );
 	
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
@@ -321,12 +325,12 @@ MainWindow::~MainWindow()
 	ERR_free_strings();
 	EVP_cleanup();
 	if (dbenv) {
-		delete(keys);
+		delete(crls);
 		delete(reqs);
 		delete(certs);
 		delete(temps);
+		delete(keys);
 		delete(settings);
-		delete(crls);
 		global_tid->commit(0);
 		dbenv->close(0);
 	}

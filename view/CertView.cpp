@@ -101,7 +101,18 @@ void CertView::newItem()
 		newCert(dlg);
 	}
 	delete dlg;
-	updateView();
+}
+
+void CertView::newCert(pki_x509req *req)
+{
+	NewX509 *dlg = new NewX509(this, NULL, true);
+	emit connNewX509(dlg);
+	dlg->setCert();
+	dlg->defineRequest(req);
+	if (dlg->exec()) {
+		newCert(dlg);
+	}
+	delete dlg;
 }
 
 void CertView::newCert(NewX509 *dlg)
@@ -812,8 +823,9 @@ void CertView::toRequest()
 	if (!cert) return;
 	try {
 		pki_x509req *req = new pki_x509req();
+		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(), EVP_md5());
-                // FIXME: insert(req);
+                emit insertReq(req);
 	}
 	catch (errorEx &err) {
 		Error(err);

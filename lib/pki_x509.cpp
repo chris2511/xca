@@ -120,7 +120,6 @@ pki_x509::~pki_x509()
 void pki_x509::init()
 {
 	psigner = NULL;
-	pkey= NULL;
 	trust = 0;
 	efftrust = 0;
 	revoked.now();
@@ -219,7 +218,7 @@ bool pki_x509::canSign()
 {
 	BASIC_CONSTRAINTS *bc;
 	int crit;
-	if (!pkey || pkey->isPubKey()) return false;
+	if (!privkey || privkey->isPubKey()) return false;
 	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
 	openssl_error();
 	if (!bc || !bc->ca) return false;

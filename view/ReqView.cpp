@@ -104,7 +104,6 @@ void ReqView::newItem(pki_temp *temp)
 	catch (errorEx &err) {
 		Error(err);
 	}
-	updateView();
 }
 
 
@@ -243,6 +242,7 @@ pki_base *ReqView::insert(pki_base *item)
 	catch (errorEx &err) {
 		Error(err);
 	}
+	updateView();
 	return req;
 }
 

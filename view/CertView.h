@@ -77,7 +77,6 @@ class CertView : public XcaListView
 	pki_base* insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
-	void newCert();
 	void newCert(NewX509 *dlg);
 	void insertP12(pki_pkcs12 *pk12);
 	void writePKCS12(QString s, bool chain);
@@ -100,7 +99,9 @@ class CertView : public XcaListView
 	void toTinyCA();
 	void updateView();
 	void updateViewAll();
-
+	void newCert(pki_x509req *req);
+    signals:
+	void insertReq(pki_base *req);
 };	
 
 #endif
