@@ -416,7 +416,7 @@ QPixmap *db_base::loadImg(const char *name )
 {
 		QString path ="";
 #ifdef WIN32
-		path = ""; 
+		path = "."; 
 #else
 		path = PREFIX ;
 #endif

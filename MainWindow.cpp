@@ -66,13 +66,13 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
 #ifdef WIN32
-	baseDir = ".";
+	baseDir = "";
+	dbfile="xca.db";
 #else	
 	baseDir = QDir::homeDirPath();
 	baseDir += QDir::separator();
-#endif
+
 	baseDir += BASE_DIR;
- 	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN );
 	CERR << baseDir.latin1() <<endl;
 	QDir d(baseDir);
 	if ( ! d.exists() ){
@@ -86,6 +86,8 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		dbfile=qApp->argv()[1];
 	}
 	dbfile = baseDir + QDir::separator() +  dbfile;
+#endif
+	dbenv = new DbEnv(DB_CXX_NO_EXCEPTIONS | DB_INIT_TXN );
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 	settings = new db_base(dbenv, dbfile.latin1(), "settings");

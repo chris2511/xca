@@ -29,29 +29,28 @@ Section "xca (required)"
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
   ; Put file there
-  File "xca.exe"
-  File "img/bigcert.png"
-  File "img/bigcsr.png"
-  File "img/bigkey.png"
-  File "img/bigtemp.png"
-  File "img/halfkey.png"
-  File "img/invalidcert.png"
-  File "img/invalidcertkey.png"
-  File "img/key.png"
-  File "img/req.png"
-  File "img/reqkey.png"
-  File "img/template.png"
-  File "img/validcert.png"
-  File "img/validcertkey.png"
-  File "c:\devel\db-4.0.14\build_win32\Release\libdb40d.dll"
+  File "Release\xca.exe"
+  File "img\bigcert.png"
+  File "img\bigcsr.png"
+  File "img\bigkey.png"
+  File "img\bigtemp.png"
+  File "img\halfkey.png"
+  File "img\invalidcert.png"
+  File "img\invalidcertkey.png"
+  File "img\key.png"
+  File "img\req.png"
+  File "img\reqkey.png"
+  File "img\template.png"
+  File "img\validcert.png"
+  File "img\validcertkey.png"
+  File "c:\devel\db-4.0.14\build_win32\Release\libdb40.dll"
   File "c:\devel\openssl-0.9.6g\out32dll\Release\SSLeay32.dll"
   File "c:\devel\openssl-0.9.6g\out32dll\Release\libeay32.dll"
   File "e:\win\qt2\bin\msvcrt.dll"
   File "e:\win\qt2\bin\qt-mt230nc.dll"
-  
-  
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
+
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "DisplayName" "X CA (remove only)"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "UninstallString" '"$INSTDIR\uninstall.exe"'
@@ -82,7 +81,7 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\xca\*.*"
   ; remove directories used.
   RMDir "$SMPROGRAMS\xca"
-  
+  
   ;RMDir "$INSTDIR" NO, we keep the databasefiles xca.db
   Delete "$INSTDIR\xca\*.png"
   Delete "$INSTDIR\xca\*.dll"
