@@ -132,6 +132,7 @@ void MainWindow::showDetailsReq(pki_x509req *req, bool import)
 		dlg->but_cancel->setText(tr("Discard"));
 	}
 	
+	string odesc = req->getDescription();
 	bool ret = dlg->exec();
 	string ndesc = dlg->descr->text().latin1();
 	delete dlg;
@@ -143,7 +144,7 @@ void MainWindow::showDetailsReq(pki_x509req *req, bool import)
 		req = insertReq(req);
 	}
 	
-	if (ndesc != req->getDescription()) {
+	if (ndesc != odesc) {
 			reqs->renamePKI(req, ndesc);
 	}
     }

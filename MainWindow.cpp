@@ -129,6 +129,7 @@ void MainWindow::read_cmdline()
 #define XCA_KEY 1
 #define XCA_REQ 2
 #define XCA_CERT 3
+#define XCA_P12 5
 #define XCA_DB 4
 
 	int type = XCA_DB;
@@ -137,6 +138,7 @@ void MainWindow::read_cmdline()
 	pki_key *key;
 	pki_x509 *cert;
 	pki_x509req *req;
+	pki_pkcs12 *p12;
 	exitApp = 0;
 	
 	while (cnt < qApp->argc()) {
@@ -150,6 +152,9 @@ void MainWindow::read_cmdline()
 					   exitApp =1;
 					   break;
 				case 'k' : type = XCA_KEY;
+					   exitApp =1;
+					   break;
+				case 'p' : type = XCA_P12;
 					   exitApp =1;
 					   break;
 				case 'd' : type = XCA_DB;
@@ -181,6 +186,10 @@ void MainWindow::read_cmdline()
 			case XCA_REQ : 
 		 		req = new pki_x509req(arg);
 				showDetailsReq(req, true);
+				break;
+			case XCA_P12 : 
+		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);
+				insertP12(p12);
 				break;
 		    }
 		}

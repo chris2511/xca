@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>416</width>
-            <height>279</height>
+            <width>388</width>
+            <height>284</height>
         </rect>
     </property>
     <property stdset="1">
@@ -252,7 +252,11 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
+                    </property>
+                    <property stdset="1">
+                        <name>accel</name>
+                        <number>276824131</number>
                     </property>
                 </widget>
                 <spacer>
@@ -284,7 +288,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
             </hbox>

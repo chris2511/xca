@@ -496,6 +496,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	}
 
 	// show it to the user...	
+	string odesc = cert->getDescription();
 	ret = dlg->exec();
 	string ndesc = dlg->descr->text().latin1();
 	delete dlg;
@@ -507,7 +508,7 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	if (import) {
 		cert = insertCert(cert);
 	}
-	if (ndesc != cert->getDescription()) {
+	if (ndesc != odesc) {
 		certs->renamePKI(cert, ndesc);
 		return true;
 	}
@@ -581,8 +582,6 @@ void MainWindow::loadCert()
 void MainWindow::loadPKCS12()
 {
 	pki_pkcs12 *pk12;
-	pki_x509 *acert;
-	pki_key *akey;
 	QStringList filt;
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	filt.append(tr("All files ( *.* )"));
@@ -603,46 +602,44 @@ void MainWindow::loadPKCS12()
 		s = QDir::convertSeparators(s);
 		try {
 			pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
-			akey = pk12->getKey();
-			acert = pk12->getCert();
-			insertKey(akey);
-			insertCert(acert);
-			for (int i=0; i<pk12->numCa(); i++) {
-				acert = pk12->getCa(i);
-				insertCert(acert);
-			}
+			insertP12(pk12);
 			delete pk12;
-			keys->updateView();
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
 	}
+}
 
-	
-/* insert with asking.....	
-	if (showDetailsKey(akey, true)) {
+			
+void MainWindow::insertP12(pki_pkcs12 *pk12)
+{
+	pki_x509 *acert;
+	pki_key *akey;
+
+	try {
+		akey = pk12->getKey();
+		acert = pk12->getCert();
+#ifdef INSERT_WO_ASK
 		insertKey(akey);
-	}
-	else {
-		delete(akey);
-	}
-	if (showDetailsCert(acert,true)) {
 		insertCert(acert);
-	}
-	else {
-		delete(acert);
-	}
-	for (int i=0; i<pk12->numCa(); i++) {
-		acert = pk12->getCa(i);
-		if (showDetailsCert(acert, true)) {
+		for (int i=0; i<pk12->numCa(); i++) {
+			acert = pk12->getCa(i);
 			insertCert(acert);
 		}
-		else {
-			delete(acert);
+#else
+		showDetailsKey(akey, true);
+		showDetailsCert(acert,true);
+		for (int i=0; i<pk12->numCa(); i++) {
+			acert = pk12->getCa(i);
+			showDetailsCert(acert, true);
 		}
+#endif			
+		keys->updateView();
 	}
-*/
+	catch (errorEx &err) {
+		Error(err);
+	}
 }	
 	
 
@@ -669,7 +666,7 @@ void MainWindow::loadPKCS7()
 		s = *it;
 		s = QDir::convertSeparators(s);
 		try {
-			pk7 = new pki_pkcs7("");
+			pk7 = new pki_pkcs7(s.latin1());
 			pk7->readP7(s.latin1());
 			for (int i=0; i<pk7->numCert(); i++) {
 				acert = pk7->getCert(i);

@@ -145,6 +145,7 @@ class MainWindow: public MainWindow_UI
 	pki_key *insertKey(pki_key *lkey);
 	pki_x509req *insertReq(pki_x509req *req);
 	pki_x509 *insertCert(pki_x509 *cert);
+	void insertP12(pki_pkcs12 *pk12);
 	void insertTemp(pki_temp *temp);
 	string md5passwd();
 	bool opensslError(pki_base *pki);

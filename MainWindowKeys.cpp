@@ -154,6 +154,7 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 		delete detDlg;
 		return false;
 	}
+	string odesc = key->getDescription();
 	bool ret = detDlg->exec();
 	string ndesc = detDlg->keyDesc->text().latin1();
 	delete detDlg;
@@ -165,7 +166,7 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 		key = insertKey(key);
 	}
 	CERR(ndesc << " " << key->getDescription());
-	if ( ndesc != key->getDescription()) {
+	if ( ndesc != odesc) {
 		MARK
 		try {
 			keys->renamePKI(key, ndesc);

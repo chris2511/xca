@@ -55,13 +55,13 @@
 pki_pkcs12::pki_pkcs12(const string d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
 	pki_base(d)
 {
+	className="pki_pkcs12";
 	key = new pki_key(akey);
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
 	pkcs12 = NULL;
 	passcb = cb;
 	openssl_error();	
-	className="pki_pkcs12";
 }
 
 pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
@@ -73,6 +73,7 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 	X509 *mycert;
 	key=NULL; cert=NULL; pkcs12=NULL;
 	passcb = cb;
+	className="pki_pkcs12";
 	certstack = sk_X509_new_null();
 	PASS_INFO p;
 	string title = XCA_TITLE;
@@ -102,7 +103,6 @@ pki_pkcs12::pki_pkcs12(const string fname, pem_password_cb *cb)
 		}
 	}
 	else fopen_error(fname);
-	className="pki_pkcs12";
 }	
 
 

@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>581</width>
+            <width>577</width>
             <height>446</height>
         </rect>
     </property>
@@ -137,7 +137,7 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Status</string>
+                    <string>&amp;Status</string>
                 </attribute>
                 <vbox>
                     <property stdset="1">
@@ -1451,7 +1451,7 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Subject &amp; Issuer</string>
+                    <string>Subject &amp; &amp;Issuer</string>
                 </attribute>
                 <vbox>
                     <property stdset="1">
@@ -1947,7 +1947,7 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Extensions</string>
+                    <string>&amp;Extensions</string>
                 </attribute>
                 <vbox>
                     <property stdset="1">
