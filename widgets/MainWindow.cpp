@@ -88,6 +88,7 @@ DbEnv *MainWindow::dbenv = NULL;
 
 NIDlist *MainWindow::eku_nid = NULL;
 NIDlist *MainWindow::dn_nid = NULL;
+NIDlist *MainWindow::aia_nid = NULL;
 
 
 MainWindow::MainWindow(QWidget *parent, const char *name ) 
@@ -124,6 +125,29 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		emit init_database();
 }
 
+/* creates a new nid list from the given filename */
+NIDlist *MainWindow::read_nidlist(QString name)
+{
+	NIDlist nl;
+	QString prefix = getPrefix();
+	name = QDir::separator() + name;
+	
+	/* first try $HOME/xca/ */
+	nl = readNIDlist(baseDir + name);
+
+#ifndef _WIN32_
+	if (nl.count() == 0){ /* next is /etx/xca/... */
+		QString unix_etc = ETC;
+		nl = readNIDlist(unix_etc + name);
+	}
+#endif
+	
+	if (nl.count() == 0) /* look at /usr/(local/)share/xca/ */
+		nl = readNIDlist(prefix + name);
+	
+	return new NIDlist(nl);
+}
+
 void MainWindow::init_baseDir()
 {
 	static bool done = false;
@@ -136,33 +160,14 @@ void MainWindow::init_baseDir()
 		qFatal(  QString::fromLatin1("Could not create: ") +  baseDir );
 	}
 	done = true;
-	NIDlist nl;
-	nl.clear();
-	QString prefix = getPrefix();
 
 	/* read in all our own OIDs */
 	initOIDs(baseDir);
 	
-	nl = readNIDlist(baseDir + QDir::separator() + "eku.txt");
-#ifndef _WIN32_
-	if (nl.count() == 0)
-		nl = readNIDlist("/etc/xca/eku.txt");
-#endif
-	if (nl.count() == 0)
-		nl = readNIDlist(prefix + QDir::separator() + "eku.txt");
-	eku_nid = new NIDlist(nl);
-	nl.clear();
-	
-	nl = readNIDlist(baseDir + QDir::separator() + "dn.txt");
-#ifndef _WIN32_
-	if (nl.count() == 0)
-		nl = readNIDlist("/etc/xca/dn.txt");
-#endif
-	if (nl.count() == 0)
-		nl = readNIDlist(prefix + QDir::separator() + "dn.txt");
-	dn_nid = new NIDlist(nl);
+	eku_nid = read_nidlist("eku.txt");
+	dn_nid = read_nidlist("dn.txt");
+	aia_nid = read_nidlist("aia.txt");
 }
-
 
 void MainWindow::do_connections()
 {
@@ -331,6 +336,8 @@ MainWindow::~MainWindow()
 		delete eku_nid;
 	if (dn_nid)
 		delete dn_nid;
+	if (aia_nid)
+		delete aia_nid;
 #ifdef MDEBUG	
 	fprintf(stderr, "Memdebug:\n");
 	CRYPTO_mem_leaks_fp(stderr);

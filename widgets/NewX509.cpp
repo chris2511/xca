@@ -96,6 +96,8 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 
 	eku_nid = *MainWindow::eku_nid;
 	dn_nid = *MainWindow::dn_nid;
+	aia_nid = *MainWindow::aia_nid;
+	
 	setCaption(tr(XCA_TITLE));
 	fixtemp = NULL;
 	nsImg->setPixmap(*MainWindow::nsImg);
@@ -158,6 +160,10 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	for (i=0; i < dn_nid.count(); i++)
 		extDNobj->insertItem(OBJ_nid2ln(dn_nid[i]));
 
+	// setup Authority Info Access
+	for (i=0; i < aia_nid.count(); i++)
+		aiaOid->insertItem(OBJ_nid2ln(aia_nid[i]));
+
 	// init the X509 v3 context
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
 	X509V3_set_ctx_nodb((&ext_ctx));
@@ -189,14 +195,14 @@ void NewX509::setRequest()
 	signerBox->setEnabled(false);
 	requestBox->setEnabled(false);
 	startText_h=tr("Welcome to the settings for certificate signing requests.");
-	startText_b=tr("A signing request needs a private key, so it will be"
-		"created if there isn't any unused key available in the key"
-		"database. This signing request can then be given to a"
-		"Certification authority while the private key of the request"
-		"and of the resulting certificate returned from the CA does never"
+	startText_b=tr("A signing request needs a private key, so it will be "
+		"created if there isn't any unused key available in the key "
+		"database. This signing request can then be given to a "
+		"Certification authority while the private key of the request "
+		"and of the resulting certificate returned from the CA does never "
 		"leave your computer.");
-	endText=tr("You are done with entering all parameters for generating"
-		"a Certificate signing request. The resulting request should"
+	endText=tr("You are done with entering all parameters for generating "
+		"a Certificate signing request. The resulting request should "
 		"be exported and send to an appropriate CA for signing it.");
 	tText=tr("Certificate signing request");
 	setup();
@@ -213,12 +219,12 @@ void NewX509::setTemp(pki_temp *temp)
 	setAppropriate(page1, false);
 	finishButton()->setEnabled(true);
 	startText_h=tr("Welcome to the settings for Templates.");
-	startText_b=tr("This templates do not refer to any ASN.1 structure"
-		"but are used to keep default settings for signing requests and"
-		"certificates. When creating a Request or Certificate the template"
+	startText_b=tr("This templates do not refer to any ASN.1 structure "
+		"but are used to keep default settings for signing requests and "
+		"certificates. When creating a Request or Certificate the template "
 		"can preset the needed fields with default settings.");
 	endText=tr("You are done with entering all parameters for the Template.\n"
-		"After this step the template can be assigned to one of your CAs to"
+		"After this step the template can be assigned to one of your CAs to "
 		"be autoatically applied when signing with this CA.");
 	tText=tr("Template");
 	if (temp->getIntName() != "--") {
@@ -236,13 +242,13 @@ void NewX509::setCert()
 {
 	finishButton()->setEnabled(true);
 	startText_h=tr("Welcome to the settings for Certificates.");
-	startText_b=tr("The information for the new Certificate can either be"
-		"grabbed from a given Certificate-request or be filled in by hand."
-		"In the case of not signing a request there needs to be at least one"
-		"unused key. If this is not the case it will be created. If you want"
-		"to self-sign a request (unusual but nevertheless possible) you need"
+	startText_b=tr("The information for the new Certificate can either be "
+		"grabbed from a given Certificate-request or be filled in by hand. "
+		"In the case of not signing a request there needs to be at least one "
+		"unused key. If this is not the case it will be created. If you want "
+		"to self-sign a request (unusual but nevertheless possible) you need "
 		"the private key used to create the request.");
-	endText=tr("You are done with entering all parameters for creating"
+	endText=tr("You are done with entering all parameters for creating "
 		"a Certificate.");
 	tText=tr("Certificate");
 	setup();
@@ -346,7 +352,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	subAltName->setText(temp->subAltName);
 	issAltName->setText(temp->issAltName);
 	crlDist->setText(temp->crlDist);
-	authInfAcc->setText(temp->authInfAcc);
+	setAuthInfAcc_string(temp->authInfAcc);
 	certPol->setText(temp->certPol);
 	nsComment->setText(temp->nsComment);
 	nsBaseUrl->setText(temp->nsBaseUrl);
@@ -382,7 +388,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->subAltName = subAltName->text();
 	temp->issAltName = issAltName->text();
 	temp->crlDist = crlDist->text();
-	temp->authInfAcc = authInfAcc->text();
+	temp->authInfAcc = getAuthInfAcc_string();
 	temp->certPol = certPol->text();
 	temp->nsComment = nsComment->text();
 	temp->nsBaseUrl = nsBaseUrl->text();

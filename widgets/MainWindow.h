@@ -81,7 +81,7 @@ class MainWindow: public MainWindow_UI
 	DbTxn *global_tid;
 	QMenuBar *mb;
 	int force_load;
-	
+	NIDlist *read_nidlist(QString name);	
    friend class pki_key;
 
    public:
@@ -93,7 +93,7 @@ class MainWindow: public MainWindow_UI
 	static db_crl *crls;
 	static db_base *settings;
 	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
-	static NIDlist *eku_nid, *dn_nid;
+	static NIDlist *eku_nid, *dn_nid, *aia_nid;
 	int exitApp;
 	QString baseDir, dbfile, dbdir;
 	

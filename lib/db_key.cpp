@@ -123,7 +123,6 @@ pki_base* db_key::insert(pki_base *item)
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
 			deletePKI(oldkey);
 			lkey->setIntName(oldkey->getIntName());
-			delete(oldkey);
 		}
 	}
 	insertPKI(lkey);

@@ -76,6 +76,7 @@ class NewX509: public NewX509_UI
 	QString startText_h, startText_b, endText, tText;
 	NIDlist eku_nid;
 	NIDlist dn_nid;
+	NIDlist aia_nid;
 #define EXPLICIT_NAME_CNT 7
 	static int name_nid[EXPLICIT_NAME_CNT];
 	QLineEdit *name_ptr[EXPLICIT_NAME_CNT];
@@ -104,6 +105,8 @@ class NewX509: public NewX509_UI
 	x509name getX509name();
 	void setX509name(const x509name &n);
 	void setImage(QPixmap *image);
+	void setAuthInfAcc_string(QString aia_txt);
+	QString getAuthInfAcc_string();
 	x509v3ext getBasicConstraints();
 	x509v3ext getSubKeyIdent();
 	x509v3ext getAuthKeyIdent();

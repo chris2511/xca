@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>620</width>
+            <width>595</width>
             <height>614</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string></string>
+        <string>NewX509_UI</string>
     </property>
     <widget>
         <class>QWidget</class>
@@ -2084,6 +2084,10 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                                     <name>selectionMode</name>
                                     <enum>Multi</enum>
                                 </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>can be altered by the file "eku.txt"</string>
+                                </property>
                             </widget>
                         </vbox>
                     </widget>
@@ -2114,9 +2118,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                 <class>QLayoutWidget</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>Layout19</cstring>
+                    <cstring>Layout23</cstring>
                 </property>
-                <grid>
+                <hbox>
                     <property stdset="1">
                         <name>margin</name>
                         <number>0</number>
@@ -2125,97 +2129,150 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         <name>spacing</name>
                         <number>6</number>
                     </property>
-                    <widget row="0"  column="1" >
-                        <class>QLineEdit</class>
+                    <widget>
+                        <class>QLayoutWidget</class>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>crlDist</cstring>
+                            <cstring>Layout22</cstring>
                         </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
+                        <vbox>
+                            <property stdset="1">
+                                <name>margin</name>
+                                <number>0</number>
+                            </property>
+                            <property stdset="1">
+                                <name>spacing</name>
+                                <number>6</number>
+                            </property>
+                            <widget>
+                                <class>QLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>TextLabel1_2_3_2</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>CRL distribution point</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>TextLabel1_2_3_2_2</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Authority Info Access</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QLabel</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>TextLabel1_2_3_2_2_2</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>enabled</name>
+                                    <bool>false</bool>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>Certificate Policies</string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget>
+                        <class>QLayoutWidget</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>Layout21</cstring>
+                        </property>
+                        <grid>
+                            <property stdset="1">
+                                <name>margin</name>
+                                <number>0</number>
+                            </property>
+                            <property stdset="1">
+                                <name>spacing</name>
+                                <number>6</number>
+                            </property>
+                            <widget row="1"  column="1" >
+                                <class>QLineEdit</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>authInfAcc</cstring>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>DNS: IP: URI: email: RIP:</string>
+                                </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
+
+Example:
+
+OCSP;URI:http://ocsp.my.host/
+caIssuers;URI:http://my.ca/ca.html</string>
+                                </property>
+                            </widget>
+                            <widget row="0"  column="0"  rowspan="1"  colspan="2" >
+                                <class>QLineEdit</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>crlDist</cstring>
+                                </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
 Currently each option will set a new DistributionPoint with the fullName field set to the given value.
 Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
 If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
 Examples:
 URI:http://www.myhost.com/myca.crl
 URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_3_2_2_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>enabled</name>
-                            <bool>false</bool>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Certificate Policies</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_3_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>CRL distribution point</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>certPol</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>enabled</name>
-                            <bool>false</bool>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>If you follow the PKIX recommendations of not including any qualifiers and just
+                                </property>
+                            </widget>
+                            <widget row="2"  column="0"  rowspan="1"  colspan="2" >
+                                <class>QLineEdit</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>certPol</cstring>
+                                </property>
+                                <property stdset="1">
+                                    <name>enabled</name>
+                                    <bool>false</bool>
+                                </property>
+                                <property stdset="1">
+                                    <name>text</name>
+                                    <string>This will be enabled in a later version :-(</string>
+                                </property>
+                                <property>
+                                    <name>whatsThis</name>
+                                    <string>If you follow the PKIX recommendations of not including any qualifiers and just
 using only one OID then you just include the value of that OID. Multiple OIDs
 can be set separated by commas, for example:
 
 Example:
 1.2.4.5, 1.1.3.4</string>
-                        </property>
+                                </property>
+                            </widget>
+                            <widget row="1"  column="0" >
+                                <class>QComboBox</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>aiaOid</cstring>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>can be altered by the file "aia.txt"</string>
+                                </property>
+                            </widget>
+                        </grid>
                     </widget>
-                    <widget row="1"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>authInfAcc</cstring>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-
-Example:
-
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_3_2_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Authority Info Access</string>
-                        </property>
-                    </widget>
-                </grid>
+                </hbox>
             </widget>
             <spacer>
                 <property>

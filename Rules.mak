@@ -5,8 +5,15 @@ all: target.obj
 ifneq ($(prefix),)
   CFLAGS+= -DPREFIX=\"$(prefix)\"
 endif
+
 ifneq ($(basedir),)
   CFLAGS+= -DBASEDIR=\"$(basedir)\"
+endif
+
+ifneq ($(etc),)
+  CFLAGS+= -DETC=\"$(etc)\"
+else
+  CFLAGS+= -DETC=\"/etc/xca\"
 endif
 
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))

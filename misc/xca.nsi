@@ -72,6 +72,7 @@ Section "xca (required)"
   File "Release\msvcrt.dll"
   File "Release\msvcp60.dll"
   File "Release\qt-mt230nc.dll"
+  File "doc\*.html"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
 

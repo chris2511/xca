@@ -67,6 +67,7 @@ static void readOIDs(QString fname)
 	FILE *fp;
 	int line = 0;
 	QStringList sl;
+	//fprintf(stderr, "FILE: %s\n", fname.latin1());
 	fp = fopen(fname.latin1(), "r");
 	if (fp == NULL) return;
 	while (fgets(buff, 127, fp)) {
@@ -92,12 +93,16 @@ static void readOIDs(QString fname)
 
 void initOIDs(QString baseDir)
 {
-	QString dir=getPrefix();
-	readOIDs(dir + QDir::separator() + "oids.txt");
+	QString oids = (QChar)QDir::separator();
+	oids += "oids.txt";
+	QString dir = getPrefix();
+	
+	readOIDs(dir + oids);
 #ifndef _WIN32_
-	readOIDs("/etc/xca/oids.txt");
+	QString etc = ETC;
+	readOIDs(etc + oids);
 #endif
-	readOIDs(baseDir + QDir::separator() + "oids.txt");
+	readOIDs(baseDir + oids);
 }
 
 /* reads a list of OIDs/SNs from a file and turns them into a QValueList
@@ -114,6 +119,7 @@ NIDlist readNIDlist(QString fname)
 	int line = 0, nid;
 	NIDlist nl;
 	nl.clear();
+	//fprintf(stderr, "OID FILE: %s\n", fname.latin1());
 	fp = fopen(fname.latin1(), "r");
 	if (fp == NULL) return nl;
 	while (fgets(buff, 127, fp)) {

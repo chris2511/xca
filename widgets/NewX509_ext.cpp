@@ -183,11 +183,46 @@ x509v3ext NewX509::getCrlDist()
 	return ext;
 }
 
+QString NewX509::getAuthInfAcc_string()
+{
+	QString rval="";
+	QString aia_txt	= authInfAcc->text();
+	aia_txt.stripWhiteSpace();
+	
+	if (!aia_txt.isEmpty()) {
+		rval = OBJ_nid2sn(aia_nid[aiaOid->currentItem()]);
+		rval += ";" + aia_txt;
+	}
+	return rval;
+}
+
+void NewX509::setAuthInfAcc_string(QString aia_txt)
+{
+	QStringList aia;
+	int nid;
+
+	aia = aia.split(';', aia_txt);
+
+	if (aia.count() != 2) return;
+	
+	nid = OBJ_sn2nid(aia[0].latin1());
+	
+	for (int i=0; i < aia_nid.count(); i++) {
+		if (aia_nid[i] == nid) { 
+			aiaOid->setCurrentItem(i);
+		}
+	}
+	authInfAcc->setText(aia[1]);
+}
+
+
 x509v3ext NewX509::getAuthInfAcc()
 {
 	x509v3ext ext;
-	if (!authInfAcc->text().isEmpty()) {
-		ext.create(NID_info_access, authInfAcc->text());
+	QString aia_txt = getAuthInfAcc_string();
+
+	if (!aia_txt.isEmpty()) {
+		ext.create(NID_info_access, aia_txt);
 	}
 	return ext;
 }
