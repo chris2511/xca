@@ -686,17 +686,20 @@ const EVP_MD *NewX509::getHashAlgo()
 
 void NewX509::applyTimeDiff()
 {
+#define d_fac (60 * 60 * 24)
 	int faktor[] = { 1, 30, 365 };
 	int N = validNumber->text().toInt();
 	int M = validRange->currentItem();
+	if (M>2||M<0) M=0;
 	a1time a;
 	time_t t;
 	time(&t);
-	long long int delta = (long long int)(60L * 60 * 24 * faktor[M] * N - 1) + t;
-	if (delta > 2147483647)
-		 QMessageBox::warning(this, XCA_TITLE, "Time difference too big" );
-	printf("Delta: %lld\n",delta);
-	delta -= t;
+	t /= d_fac;
+	int delta = faktor[M] * N ;
+	if (delta + t > 24850){
+		 QMessageBox::warning(this, XCA_TITLE, "Time difference too big\nYou must set it manually." );
+		 return;
+	}
     notBefore->setDate(a.now());
-	notAfter->setDate(a.now(delta));	 
+	notAfter->setDate(a.now(delta * d_fac));	 
 }

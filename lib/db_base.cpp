@@ -211,13 +211,13 @@ void db_base::loadContainer()
 				pki = newPKI();
 				pki->setIntName(desc);
 				pki->fromData(p, size);
-				container.append(pki);
 			}
 			catch (errorEx &err) {
 				QMessageBox::warning(NULL,tr(XCA_TITLE),
 				       	tr("Error loading: '") + desc + "'\n" +
 					err.getCString());
 			}
+			container.append(pki);
 		}
 		delete (k);
 		delete (d);

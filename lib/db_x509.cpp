@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -69,7 +70,7 @@ pki_base *db_x509::newPKI(){
 
 pki_x509 *db_x509::findSigner(pki_x509 *client)
 {
-        pki_x509 *signer;
+	pki_x509 *signer;
 	if ((signer = client->getSigner()) != NULL) return signer;
 	// first check for self-signed
 	if (client->verify(client)) {
@@ -102,7 +103,7 @@ QStringList db_x509::getSignerDesc()
 
 void db_x509::remFromCont(pki_base *ref)
 {
-        container.remove(ref);
+	container.remove(ref);
 	FOR_ctr(container)
 		pki->delSigner((pki_x509 *)ref);
 	return;
@@ -176,7 +177,7 @@ pki_x509 *db_x509::getByIssSerial(const pki_x509 *issuer, const a1int &a)
 
 void db_x509::writeAllCerts(const QString fname, bool onlyTrusted)
 {
-       	FOR_ctr(container) {
+	FOR_ctr(container) {
 		if (onlyTrusted && pki->getTrust() != 2) continue;
 		pki->writeCert(fname.latin1(),true,true);
 	}
@@ -195,6 +196,8 @@ QList<pki_x509> db_x509::getCerts(bool onlyTrusted)
 
 a1int db_x509::searchSerial(pki_x509 *signer)
 {
+	// returns the highest certificate serial
+	// of all certs with this signer (itself too)
 	a1int sserial, myserial; 
 	if (!signer) return sserial;
 	sserial = signer->getCaSerial();

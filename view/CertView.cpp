@@ -224,6 +224,7 @@ void CertView::newCert(NewX509 *dlg)
 	// and finally sign the request 
 	cert->sign(signkey, dlg->getHashAlgo());
 	insert(cert);
+	db->updatePKI(signcert);
 	if (tempkey != NULL) delete(tempkey);
 	updateView();
 	return;
@@ -481,6 +482,7 @@ pki_base *CertView::insert(pki_base *item)
 	   delete(cert);
 	   return oldcert;
 	}
+	cert->setCaSerial((cert->getSerial()));
 	XcaListView::insert(cert);
 	db->insertPKI(cert);
     }
@@ -491,19 +493,20 @@ pki_base *CertView::insert(pki_base *item)
     // check the CA serial of the CA of this cert to avoid serial doubles
     if (cert->getSigner() != cert && cert->getSigner()) {
 	serial = cert->getSerial();
-    	if (cert->getSigner()->getCaSerial() <serial ) {
-	    QMessageBox::information(this,tr(XCA_TITLE),
-		tr("The certificate-serial is higher than the next serial of the signer it will be set to ") +
-		QString::number((++serial).getLong()), "OK");
-	    cert->getSigner()->setCaSerial(serial);
-	}	
+    if (cert->getSigner()->getCaSerial() < serial ) {
+		QMessageBox::information(this,tr(XCA_TITLE),
+			tr("The certificate-serial is higher than the next serial of the signer it will be set to ") +
+		(++serial).toHex(), "OK");
+		cert->getSigner()->setCaSerial(serial);
+    	db->updatePKI(cert->getSigner());
+	}
     }
     // check CA serial of this cert
-    // FIXME: serial = certs->searchSerial(cert);
-    if ( serial > 0L) {
+    MainWindow::certs->searchSerial(cert);
+    if ( serial > cert->getCaSerial()) {
 	QMessageBox::information(this,tr(XCA_TITLE),
 		tr("The certificate CA serial is lower than the highest serial of one signed certificate it will be set to ") +
-		QString::number(serial.getLong()), "OK");
+		serial.toHex(), "OK");
 	cert->setCaSerial(serial);
     }
     db->updatePKI(cert);
@@ -549,10 +552,10 @@ void CertView::store()
 			}
 			break;
 		case 2: // PEM all trusted Certificates
-			// FIXME: db->writeAllCerts(fname,true);
+			MainWindow::certs->writeAllCerts(fname,true);
 			break;
 		case 3: // PEM all Certificates
-			// FIXME: db->writeAllCerts(fname,false);
+			MainWindow::certs->writeAllCerts(fname,false);
 			break;
 		case 4: // DER	
 			crt->writeCert(fname,false,false);

@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -120,12 +121,13 @@ x509v3ext NewX509::getKeyUsage()
 	QStringList cont;
 	x509v3ext ext;
 	QListBoxItem *item;
-	if (kuCritical->isChecked()) cont << "critical";
         for (int i=0; (item = keyUsage->item(i)); i++) {
 		if (item->selected()) {
 			cont << keyusage[i];
 		}
 	}
+	if (kuCritical->isChecked() && cont.count() > 0)
+		cont << "critical";
 	ext.create(NID_key_usage, cont.join(", "));
 	return ext;
 }
@@ -137,12 +139,13 @@ x509v3ext NewX509::getEkeyUsage()
 	QStringList cont;
 	x509v3ext ext;
 	QListBoxItem *item;
-	if (ekuCritical->isChecked()) cont << "critical";
 	for (int i=0; (item = ekeyUsage->item(i)); i++) {
 		if (item->selected()){
 			cont << (QString)OBJ_nid2sn(eku_nid[i]);
 		}
 	}
+	if (ekuCritical->isChecked() && cont.count() > 0)
+		cont << "critical";
 	ext.create(NID_ext_key_usage, cont.join(", "));
 	return ext;
 }

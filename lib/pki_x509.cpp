@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -93,15 +94,14 @@ pki_x509::pki_x509(const QString fname)
 	FILE *fp = fopen(fname.latin1(),"r");
 	init();
 	if (fp != NULL) {
-	   cert = PEM_read_X509(fp, NULL, NULL, NULL);
-	   if (!cert) {
-		ign_openssl_error();
-		rewind(fp);
-		CERR("Fallback to certificate DER"); 
-	   	cert = d2i_X509_fp(fp, NULL);
-	   }
-	   setIntName(rmslashdot(fname));
-	   openssl_error();
+		cert = PEM_read_X509(fp, NULL, NULL, NULL);
+		if (!cert) {
+			ign_openssl_error();
+			rewind(fp);
+	   		cert = d2i_X509_fp(fp, NULL);
+		}
+		setIntName(rmslashdot(fname));
+		openssl_error();
 	}	
 	else fopen_error(fname);
 	fclose(fp);
@@ -344,13 +344,13 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 	if (append) p=_a;
 	fp = fopen(fname.latin1(), p);
 	if (fp != NULL) {
-	   if (cert){
-		if (PEM) 
-		   PEM_write_X509(fp, cert);
-		else
-		   i2d_X509_fp(fp, cert);
-	        openssl_error();
-	   }
+		if (cert){
+			if (PEM) 
+				PEM_write_X509(fp, cert);
+			else
+				i2d_X509_fp(fp, cert);
+			openssl_error();
+		}
 	}
 	else fopen_error(fname);
 	fclose(fp);
@@ -409,19 +409,18 @@ void pki_x509::setPubKey(pki_key *key)
 
 QString pki_x509::fingerprint(const EVP_MD *digest)
 {
-	 int j;
-	 QString fp="";
-	 char zs[4];
-         unsigned int n;
-         unsigned char md[EVP_MAX_MD_SIZE];
-         X509_digest(cert, digest, md, &n);
-	 openssl_error();
-         for (j=0; j<(int)n; j++)
-         {
-              sprintf(zs, "%02X%c",md[j], (j+1 == (int)n) ?'\0':':');
-	      fp += zs;
-         }
-	 return fp;
+	int j;
+	QString fp="";
+	char zs[4];
+	unsigned int n;
+	unsigned char md[EVP_MAX_MD_SIZE];
+	X509_digest(cert, digest, md, &n);
+	openssl_error();
+	for (j=0; j<(int)n; j++) {
+		sprintf(zs, "%02X%c",md[j], (j+1 == (int)n) ?'\0':':');
+		fp += zs;
+	}
+	return fp;
 }
 
 int pki_x509::checkDate()
@@ -631,7 +630,8 @@ void pki_x509::updateView()
 	pointer->setText(2, getSerial().toHex() );  
 	pointer->setText(3, getNotAfter().toSortable() );  
 	pointer->setText(4, truststatus[ getTrust() ]);  
-	pointer->setText(5, getRevoked().toSortable());
+	if (isRevoked())
+		pointer->setText(5, getRevoked().toSortable());
 }
 
 QString pki_x509::getSigAlg()
