@@ -1,4 +1,4 @@
-AC_INIT(xca, 0.2.9)
+AC_INIT(xca, 0.2.10)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
@@ -46,6 +46,7 @@ LQT=y
 AC_CHECK_LIB([qt], [atexit], ,[LQT=no])
 if test "$LQT" == "no"; then
         LQT=y
+	# check for FreeBSD paths
         AC_CHECK_LIB([c_r], [atexit])
         AC_CHECK_LIB([qt-mt], [atexit], ,[LQT=no])
 	

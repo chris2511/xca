@@ -1,3 +1,15 @@
+xca (0.2.10) unstable; urgency=low
+
+  * shows not After time and serial in listview
+  * some segfaults removed
+  * Certificate renewal implemented
+  * extension-bug removed
+  * request-kontextmenu contains signing
+  * create request from certificate
+  * FreeBSD paths and libs  recognized by configure
+
+ -- Christian Hohnstädt <chris@trinity.local>  Tue, 29 Oct 2002 19:02:54 +0100
+
 xca (0.2.9) unstable; urgency=low
 
   * several segfaults eliminated

@@ -1,7 +1,7 @@
 /* base definitions */
 
 #ifdef WIN32
-#define VER "0.2.9-W32"
+#define VER "0.2.10-W32"
 #endif
 
 #define MARK CERR("--Mark--")
