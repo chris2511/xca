@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>648</width>
+            <width>644</width>
             <height>531</height>
         </rect>
     </property>
@@ -332,15 +332,9 @@
                         </property>
                         <property>
                             <name>whatsThis</name>
-                            <string>A certificate signing request can be signed, even if the
-private key of the request is not available. This is the 
-actually the intention of a CSR:
-
-Getting signed by a CA certificate, whoes certificate
-of course must be in the database
-
-Of course you need the private key of the CSR if you want
-to create a self-signed cert from it.</string>
+                            <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
+Getting signed by a CA certificate, whoes certificate of course must be in the database
+Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
                         </property>
                     </widget>
                 </hbox>
@@ -438,9 +432,7 @@ to create a self-signed cert from it.</string>
                         </property>
                         <property>
                             <name>whatsThis</name>
-                            <string>This list contains all certificates with the CA-flag set to true
-and whoes private key is present in the key database.
-
+                            <string>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
 If this list is disabled, you only can create a self-signed certificate.</string>
                         </property>
                     </widget>
@@ -516,9 +508,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
                         </property>
                         <property>
                             <name>whatsThis</name>
-                            <string>This list contains all templates from the toplevel template
-Tab. 
-
+                            <string>This list contains all templates from the toplevel template Tab. 
 Additionally it contains 4 default templates:
 Empy, CA, client, server</string>
                         </property>
@@ -808,6 +798,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                             <name>maxLength</name>
                             <number>100</number>
                         </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>This name is only used internally and does not appear in the resulting certificate</string>
+                        </property>
                     </widget>
                     <widget row="3"  column="1" >
                         <class>QLineEdit</class>
@@ -843,6 +837,10 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                         <property stdset="1">
                             <name>maxLength</name>
                             <number>2</number>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Must be exactly 2 letter of size (DE, UK)</string>
                         </property>
                     </widget>
                     <widget row="4"  column="0" >
@@ -1148,14 +1146,9 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                                 </property>
                                 <property>
                                     <name>whatsThis</name>
-                                    <string>Set this to TRUE if you want to create a CA certificate
-that signs other certificates.
-
-This is always set to FALSE for client or server certificates.
-
-In most cases self-signed certificates are CA certificates.
-Self-signed non-CA certificates are unusual although
-they are possible.</string>
+                                    <string>Set this to TRUE if you want to create a CA certificate that signs other certificates.
+This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
+Self-signed non-CA certificates are unusual although they are possible.</string>
                                 </property>
                             </widget>
                             <widget row="1"  column="0" >
@@ -1181,14 +1174,8 @@ they are possible.</string>
                                 </property>
                                 <property>
                                     <name>whatsThis</name>
-                                    <string>If this is left empty the pathlen is not included in the
-certificate. 
-Otherwise it distinguishes the count of chained CA certificates below this one.
-
-A pathlen of 0 means, that this certificate may not issue
-other sub-CA certificates.
-Although it can do it, all chain-checking algorithms in
-e.g. your browser or openssl will (should) fail.</string>
+                                    <string>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
+A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</string>
                                 </property>
                             </widget>
                             <widget row="1"  column="2" >
@@ -1258,11 +1245,8 @@ e.g. your browser or openssl will (should) fail.</string>
                                 </property>
                                 <property>
                                     <name>whatsThis</name>
-                                    <string>If this box is checked an attempt is made to copy the subject key
-identifier from the signing certificate.
-
-It also copies the issuer and serial number from the issuer
-certificate. Normally this will only be done if the keyid option fails.</string>
+                                    <string>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
+It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</string>
                                 </property>
                             </widget>
                         </vbox>
@@ -1276,6 +1260,15 @@ certificate. Normally this will only be done if the keyid option fails.</string>
                         <property stdset="1">
                             <name>title</name>
                             <string>Validity</string>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>Number of validity</string>
+                        </property>
+                        <property>
+                            <name>whatsThis</name>
+                            <string>The validation time period is counted from "now" of your system clock the amount of time entered here.
+It is not possible to adjust the starting time of a certificate. This is a weakness of this program based on the laziness of the programmer and not a weakness of certificates or OpenSSL.</string>
                         </property>
                         <hbox>
                             <property stdset="1">
@@ -1302,20 +1295,6 @@ certificate. Normally this will only be done if the keyid option fails.</string>
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>365</string>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Number of validity</string>
-                                </property>
-                                <property>
-                                    <name>whatsThis</name>
-                                    <string>The validation time period is counted from "now" of your
-system clock the amount of time entered here.
-
-It is not possible to adjust the starting time of a certificate.
-This is a weakness of this program based on the laziness
-of the programmer and not a weakness of certificates
-or OpenSSL.</string>
                                 </property>
                             </widget>
                             <widget>
@@ -1458,13 +1437,8 @@ or OpenSSL.</string>
                         </property>
                         <property>
                             <name>whatsThis</name>
-                            <string>The issuer alternative name extension allows various literal values to be used. 
-These include "email" (an email address)
-"URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a
-registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-
+                            <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
-
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
@@ -1481,13 +1455,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
                         <property>
                             <name>whatsThis</name>
-                            <string>The subject alternative name extension allows various literal values to be used.
-These include "email" (an email address)
-"URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a
-registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-
+                            <string>The subject alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
-
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
@@ -1500,22 +1469,11 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
                         </property>
                         <property>
                             <name>whatsThis</name>
-                            <string>This is a multi-valued extension that supports all the literal options of
-subject alternative name. Of the few software packages that currently interpret
-this extension most only interpret the URI option.
-
-Currently each option will set a new DistributionPoint with the fullName
-field set to the given value.
-
-Other fields like cRLissuer and reasons cannot currently be set or displayed:
-at this time no examples were available that used these fields.
-
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out
-or it doesn't appear to display correctly then let me know, including the
-certificate (mail me at steve@openssl.org) .
-
+                            <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
+Currently each option will set a new DistributionPoint with the fullName field set to the given value.
+Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
+If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let me know,i ncluding the certificate (mail steve at openssl dot org) .
 Examples:
-
 URI:http://www.myhost.com/myca.crl
 URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
                         </property>

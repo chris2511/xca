@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>542</width>
+            <width>538</width>
             <height>381</height>
         </rect>
     </property>
@@ -450,7 +450,7 @@
                                 </property>
                                 <property>
                                     <name>toolTip</name>
-                                    <string>The internal name of the RSA key in the key database</string>
+                                    <string>The status of the CRL signature</string>
                                 </property>
                             </widget>
                             <widget row="2"  column="2" >
@@ -505,7 +505,7 @@
                                 </property>
                                 <property>
                                     <name>toolTip</name>
-                                    <string>The internal name of the certificate in the database</string>
+                                    <string>The internal name of the CRL in the database</string>
                                 </property>
                             </widget>
                             <widget row="0"  column="0" >
@@ -843,10 +843,6 @@
                                     <name>frameShadow</name>
                                     <enum>Sunken</enum>
                                 </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>An md5 hashsum of the certificate</string>
-                                </property>
                             </widget>
                             <widget row="1"  column="0" >
                                 <class>QLabel</class>
@@ -872,10 +868,6 @@
                                 <property stdset="1">
                                     <name>frameShadow</name>
                                     <enum>Sunken</enum>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>A SHA-1 hashsum of the certificate</string>
                                 </property>
                             </widget>
                         </grid>
@@ -927,6 +919,10 @@
                         <property stdset="1">
                             <name>name</name>
                             <cstring>certList</cstring>
+                        </property>
+                        <property>
+                            <name>toolTip</name>
+                            <string>A list of all revoked certificates</string>
                         </property>
                     </widget>
                 </vbox>

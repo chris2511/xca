@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
+            <width>561</width>
             <height>446</height>
         </rect>
     </property>
@@ -69,6 +69,14 @@
                             <bold>1</bold>
                             <underline>1</underline>
                         </font>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShape</name>
+                        <enum>MShape</enum>
+                    </property>
+                    <property stdset="1">
+                        <name>frameShadow</name>
+                        <enum>MShadow</enum>
                     </property>
                     <property stdset="1">
                         <name>text</name>
@@ -448,10 +456,6 @@
                                     <name>text</name>
                                     <string>not available</string>
                                 </property>
-                                <property stdset="1">
-                                    <name>alignment</name>
-                                    <set>AlignCenter</set>
-                                </property>
                                 <property>
                                     <name>hAlign</name>
                                 </property>
@@ -502,6 +506,10 @@
                                 <property stdset="1">
                                     <name>frameShadow</name>
                                     <enum>Sunken</enum>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>The serial number of the certificate</string>
                                 </property>
                             </widget>
                             <widget row="0"  column="1"  rowspan="1"  colspan="3" >
@@ -777,10 +785,6 @@
                                 <property stdset="1">
                                     <name>text</name>
                                     <string>SELF SIGNED </string>
-                                </property>
-                                <property stdset="1">
-                                    <name>alignment</name>
-                                    <set>AlignCenter</set>
                                 </property>
                                 <property>
                                     <name>hAlign</name>

@@ -157,6 +157,7 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 	
 	setFinishEnabled(page7,true);
 	setNextEnabled(page2,false);
+	signerChanged();
 }
 void NewX509::setRequest()
 {
@@ -167,8 +168,17 @@ void NewX509::setRequest()
 	changeDefault->setEnabled(false);
 	changeDefault->setChecked(false);
 	signerBox->setEnabled(false);
-	startText=tr("Welcome to the settings for Certificate signing requests.... (needs more prosa, volunteers ?)");
-	endText=tr("You are done with entering all parameters for generating a Certificate signing request..... (needs more prosa, volunteers ?)");
+	startText=tr("\
+Welcome to the settings for Certificate signing requests.
+A signing request needs a private key, so it will be created \
+if there isn't any unused key available. \
+This signing request can then be given to a Certification authority \
+while the private key of the request and of the resulting certificate \
+returned from the CA does never leave your computer.");
+	endText=tr("\
+You are done with entering all parameters for generating a Certificate signing \
+request. The resulting Request should be exported and send to an appropriate CA \
+for signing it.");
 	tText=tr("Certificate request");
 	setup();
 }
@@ -182,8 +192,16 @@ void NewX509::setTemp(pki_temp *temp)
 {
 	setAppropriate(page1, false);
 	finishButton()->setEnabled(true);
-	startText=tr("Welcome to the settings for Templates.... (needs more prosa)");
-	endText=tr("You are done with entering all parameters for generating a Template..... (needs more prosa, volunteers ?)");
+	startText=tr("\
+Welcome to the settings for Templates.
+This templates do not refer to a ASN.1 structure but are used to keep default \
+settings for Requests and certificates. \
+When creating a Request or Certificate the template can preset the needed fields \
+your default settings.");
+	endText=tr("\
+You are done with entering all parameters for generating a Template.
+After this step The template can be assigned to one of your CAs to be always \
+applied when signing with this CA.");
 	tText=tr("Template");
 	if (temp->getDescription() != "--") {
 		description->setText(temp->getDescription().c_str());
@@ -196,8 +214,17 @@ void NewX509::setTemp(pki_temp *temp)
 void NewX509::setCert()
 {
 	finishButton()->setEnabled(true);
-	startText=tr("Welcome to the settings for Certificates.... (needs more prosa)");
-	endText=tr("You are done with entering all parameters for generating a Certificate..... (needs more prosa, volunteers ?)");
+	startText=tr("\
+Welcome to the settings for Certificates.
+The information for the new Certificate can either be grabbed from a \
+given Certificate-request or be filled in by hand. \
+In the case of not signing a request there needs to be at least one unused key. \
+If this is not the case it will be created. 
+If you want to self-sign a request (unusual but nevertheless possible) you need \
+the private key used to create the request.");
+	endText=tr("\
+You are done with entering all parameters for creating a Certificate.
+");
 	tText=tr("Certificate");
 	setup();
 }

@@ -87,6 +87,7 @@ class pki_crl: public pki_base
 	X509_NAME *getIssuerX509_NAME();
 	bool verify(pki_key *pkey);
 	long getSerial(int num);
+	string printV3ext();
 			       
 };
 

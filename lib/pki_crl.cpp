@@ -92,6 +92,14 @@ pki_crl::pki_crl(const string fname )
 			crl = d2i_X509_CRL_fp(fp, &crl);
 		}	
 		fclose(fp);
+		int r = fname.rfind('.');
+#ifdef WIN32
+		int l = fname.rfind('\\');
+#else
+		int l = fname.rfind('/');
+#endif
+		CERR( fname << "r,l: "<< r <<","<< l );
+		setDescription(fname.substr(l+1,r-l-1));
 		openssl_error();
 	}
 	else fopen_error(fname);
@@ -274,3 +282,42 @@ bool pki_crl::verify(pki_key *key)
 	}
 	return ret ;
 }	
+
+string pki_crl::printV3ext()
+{
+#define V3_BUF 100
+	ASN1_OBJECT *obj;
+	BIO *bio = BIO_new(BIO_s_mem());
+	int i, len, n = X509_CRL_get_ext_count(crl);
+	char buffer[V3_BUF+1];
+	X509_EXTENSION *ex;
+	string text="";
+	for (i=0; i<n; i++) {
+		text += "<b><u>";
+		ex = X509_CRL_get_ext(crl,i);
+		obj = X509_EXTENSION_get_object(ex);
+		len = i2t_ASN1_OBJECT(buffer, V3_BUF, obj);
+		if (len <0 || len > V3_BUF) openssl_error("V3 buffer too small, this is a bug!");
+		buffer[len] = '\0';
+		CERR("extension: "<< buffer <<", length: " << len);
+		text += buffer;
+		text += ": ";
+		if (X509_EXTENSION_get_critical(ex)) {
+			text += " <font color=\"red\">critical</font>:";
+		}
+		if(!X509V3_EXT_print(bio, ex, 0, 0)) {
+			M_ASN1_OCTET_STRING_print(bio,ex->value);
+		}
+		text+="</u></b><br><tt>";
+        	do {
+			len = BIO_read(bio, buffer, V3_BUF);
+			buffer[len] = '\0';
+			text+=buffer;
+			CERR("extension-length: "<< len);
+		} while (len == V3_BUF);
+		text+="</tt><br>";
+	}
+	BIO_free(bio);
+	openssl_error();
+	return text;
+}

@@ -81,7 +81,7 @@ bool MainWindow::showDetailsCrl(pki_crl *crl, bool import)
 	iss = certs->getBySubject(crl->getIssuerX509_NAME());	
 	numc = crl->numRev();
 	dlg->certList->clear();
-	dlg->certList->addColumn(tr("Common Name"));
+	dlg->certList->addColumn(tr("Name"));
 	dlg->certList->addColumn(tr("Serial"));
 	dlg->certList->addColumn(tr("Revokation"));
 	CERR("NUMBER:" << numc);
@@ -95,11 +95,17 @@ bool MainWindow::showDetailsCrl(pki_crl *crl, bool import)
 			current->setText(1, rev->getSerial().c_str() );
 			current->setText(2, rev->revokedAt(TIMEFORM_SORTABLE).c_str());
 		}
+		else {
+			current = new QListViewItem(dlg->certList, "Unknown" );
+		}
 	}
+	dlg->v3Extensions->setText(crl->printV3ext().c_str());
 	dlg->issuer->setText(iss->getDescription().c_str());
 	if (crl->verify(iss->getKey()) == 0) {
 		dlg->signCheck->setText(tr("Success"));
 	}
+	connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
+		this, SLOT( showDetailsCert(QListViewItem *) ));
 	string odesc = crl->getDescription();
 	ret = dlg->exec();
 	string ndesc = dlg->descr->text().latin1();

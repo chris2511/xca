@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>595</width>
+            <width>591</width>
             <height>375</height>
         </rect>
     </property>
@@ -309,6 +309,10 @@ PKCS#8 is an encrypted official Key-exchange format</string>
                     <property stdset="1">
                         <name>text</name>
                         <string>E&amp;xport the private part of the Key too</string>
+                    </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>When exporting the private part, it should be encrypted.</string>
                     </property>
                 </widget>
                 <widget>
