@@ -182,7 +182,7 @@ void pki_temp::fromData(unsigned char *p, int size )
 		xname.addEntryByNid(OBJ_sn2nid("O"), stringFromData(&p1));
 		xname.addEntryByNid(OBJ_sn2nid("OU"), stringFromData(&p1));
 		xname.addEntryByNid(OBJ_sn2nid("CN"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("emailAddress"),stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("Email"),stringFromData(&p1));
 	}
 	subAltName=stringFromData(&p1);
 	issAltName=stringFromData(&p1);
