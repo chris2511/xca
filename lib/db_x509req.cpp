@@ -52,8 +52,8 @@
 #include "db_x509req.h"
 
 
-db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
-		:db_base(dbe, DBfile, "reqdb")
+db_x509req::db_x509req(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid)
+		:db_base(dbe, DBfile, "reqdb", tid)
 {
 	listView = l;
 	keylist = keyl;

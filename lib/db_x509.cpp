@@ -52,8 +52,8 @@
 #include "db_x509.h"
 
 
-db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl)
-		:db_base(dbe, DBfile, "certdb")
+db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid)
+		:db_base(dbe, DBfile, "certdb", tid)
 {
 	keylist = keyl;
 	listView = l;

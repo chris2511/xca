@@ -63,7 +63,7 @@ class db_temp: public db_base
     protected:
 	QPixmap *keyicon;
     public:
-	db_temp(DbEnv *dbe, string DBfile, QListView *l);
+	db_temp(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid);
 	pki_base *newPKI();
 	void updateViewPKI(pki_base *pki);
 };

@@ -52,8 +52,8 @@
 #include "db_temp.h"
 
 
-db_temp::db_temp(DbEnv *dbe, string DBfile, QListView *l)
-	:db_base(dbe, DBfile, "tempdb")
+db_temp::db_temp(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid)
+	:db_base(dbe, DBfile, "tempdb", tid)
 {
 	listView = l;
 	loadContainer();

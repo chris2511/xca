@@ -94,7 +94,7 @@ class db_base: public QObject
 	void _removePKI(pki_base *pki, DbTxn *tid );
 	void removeItem(string k, DbTxn *tid);
     public:
-	db_base(DbEnv *dbe, string DBfile, string db);
+	db_base(DbEnv *dbe, string DBfile, string db, DbTxn *global_tid);
 	virtual ~db_base();
 	virtual pki_base *newPKI(){
 		CERR("VIRTUAL CALLED: newPKI"); return NULL;}
