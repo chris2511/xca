@@ -115,7 +115,7 @@ void MainWindow::loadReq()
 		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
 		oldreq->getDescription() + 
 		"'\nund wurde daher nicht importiert").c_str(), "OK");
-	   delete(oldreq);
+	   delete(req);
 	   return;
 	}
 	reqs->insertPKI(req);

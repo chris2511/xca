@@ -152,7 +152,7 @@ void MainWindow::loadCert()
 		("Das Zertifikat ist bereits vorhanden als:\n'" +
 		oldcert->getDescription() + 
 		"'\nund wurde daher nicht importiert").c_str(), "OK");
-	   delete(oldcert);
+	   delete(cert);
 	   return;
 	}
 	certs->insertPKI(cert);

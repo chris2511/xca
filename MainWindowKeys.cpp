@@ -118,6 +118,7 @@ void MainWindow::loadKey()
 			("Der Schlüssel ist bereits vorhanden als:\n'" +
 			oldkey->getDescription() + 
 			"'\nund wurde daher nicht importiert").c_str(), "OK");
+		    delete(lkey);
 		    return;
 		}
 		else {
