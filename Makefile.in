@@ -20,11 +20,7 @@ LIBS=@LIBS@ -lpki
 MOC=@MOC@
 UIC=@UIC@
 
-
 ###################################
-
-#NAMES=XcaListView KeyView ReqView TempView CertView validity distname
-#OBJS=main.o $(patsubst %,moc_%.o,$(NAMES)) $(patsubst %,%.o,$(NAMES))
 
 OBJS=ui/ui.o widgets/widgets.o view/view.o
 SUBDIRS=lib ui widgets view
@@ -58,15 +54,15 @@ distclean: clean
 
 dist: 
 	test ! -z "$(TVERSION)"
-	rm -rf $(TARGET)
-	cvs export -r $(TAG) -d $(TARGET) xca
-	(cd $(TARGET);  autoconf; \
-	./mkxcapro.sh; lrelease xca.pro; \
-	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec; \
-	cat lib/base.h.win |sed s/VERSION/$(TVERSION)/g >lib/base.h; \
-	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi; \
-	rm -rf misc/xca.nsi rpm/xca.spec autom4te.cache; \
-	cd doc; linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; )
+	rm -rf $(TARGET) 
+	cvs export -r $(TAG) -d $(TARGET) xca && \
+	(cd $(TARGET) &&  autoconf && \
+	./mkxcapro.sh && lrelease xca.pro && \
+	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \
+	cat lib/base.h.win |sed s/VERSION/$(TVERSION)/g >lib/base.h && \
+	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \
+	rm -rf misc/xca.nsi rpm/xca.spec autom4te.cache && \
+	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
 	tar zcf $(TARGET).tar.gz $(TARGET) 
 	#rm -rf ../$(TARGET)
 	

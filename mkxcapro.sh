@@ -8,10 +8,10 @@ fi
 
 echo -n "Creating $P ..."
 
-echo "HEADERS = "`ls *.h` `ls lib/*.h`  >$P
-echo "SOURCES = "`ls *.cpp` `ls lib/*.cpp` >>$P
-echo "FORMS = "`ls *.ui` >>$P
-echo "TRANSLATIONS = "`ls xca_??.ts` >>$P
+echo "HEADERS = "`ls lib/*.h` `ls view/*.h` `ls widgets/*.h`  >$P
+echo "SOURCES = "`ls lib/*.cpp` `ls view/*.cpp` `ls widgets/*.cpp` >>$P
+echo "FORMS = "`ls ui/*.ui` >>$P
+echo "TRANSLATIONS = "`ls lang/xca_??.ts` >>$P
 echo "TARGET = xca" >>$P
 
 echo "  done"
