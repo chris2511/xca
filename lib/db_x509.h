@@ -66,7 +66,6 @@ class db_x509: public db_x509super
     protected:
 	QPixmap *certicon[4];
     public:
-	int viewState;
 	db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid);
 	pki_base *newPKI();
 	pki_x509 *findSigner(pki_x509 *client);

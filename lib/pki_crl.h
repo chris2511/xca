@@ -71,7 +71,7 @@ class pki_crl: public pki_base
 	/* destructor */
 	~pki_crl();
 	
-	void addRevoked(const pki_x509 *rev);
+	void addRevoked(pki_x509 *rev);
 	void addExt(int nid, string value);
 	void write(string fname);
 	void addV3ext(int nid, string exttext);

@@ -164,17 +164,17 @@ bool pki_crl::compare(pki_base *refcrl)
 }
 
 
-void pki_crl::addRevoked(const pki_x509 *client)
+void pki_crl::addRevoked(pki_x509 *client)
 {
 	X509_REVOKED *rev = NULL;
 	if (!crl) openssl_error("crl disappeared");
 	X509_CRL_INFO *ci = crl->crl;
-	if (!client || !client->revoked) return;
+	if (!client || !client->isRevoked()) return;
 	if (client->psigner != issuer) return;
 	rev = X509_REVOKED_new();
 	openssl_error();
-	rev->revocationDate = M_ASN1_TIME_dup(client->revoked);
-	rev->serialNumber = ASN1_INTEGER_dup(X509_get_serialNumber(client->cert));
+	rev->revocationDate = client->getRevoked().get();
+	rev->serialNumber = client->getSerial().get();
 	sk_X509_REVOKED_push(ci->revoked,rev);
 	openssl_error();
 }

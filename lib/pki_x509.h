@@ -79,7 +79,7 @@ class pki_x509 : public pki_x509super
 	   void init();
 	public:
 	   pki_x509(X509 *c);
-	   pki_x509(const pki_x509 &crt);
+	   pki_x509(const pki_x509 *crt);
 	   pki_x509();
 	   pki_x509(const string fname);
 	   ~pki_x509();
@@ -116,6 +116,7 @@ class pki_x509 : public pki_x509super
 	   void setEffTrust(int t);
 	   void setRevoked(bool rev);
 	   void setRevoked(a1time &when);
+	   a1time getRevoked();
 	   bool isRevoked();
 	   int calcEffTrust();
 	   a1int getIncCaSerial();

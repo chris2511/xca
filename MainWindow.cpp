@@ -55,6 +55,9 @@
 #include <qlabel.h>
 #include "lib/pki_pkcs12.h"
 #include "KeyView.h"
+#include "ReqView.h"
+#include "CertView.h"
+#include "TempView.h"
 #include "lib/pass_info.h"
 #include "PassRead.h"
 #include "PassWrite.h"
@@ -288,11 +291,11 @@ void MainWindow::read_cmdline()
 				break;
 			case XCA_CERT : 
 		 		cert = new pki_x509(arg);
-				//showDetailsCert(cert, true);
+				certList->show(cert, true);
 				break;
 			case XCA_REQ : 
 		 		req = new pki_x509req(arg);
-				show(req, true);
+				reqList->show(req, true);
 				break;
 			case XCA_P12 : 
 		 		p12 = new pki_pkcs12(arg, &MainWindow::passRead);

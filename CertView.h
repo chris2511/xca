@@ -55,13 +55,15 @@
 #include "XcaListView.h"
 #include "lib/pki_x509.h"
 #include <qlistview.h>
+#include "NewX509.h"
 
 class CertView : public XcaListView
 {
    Q_OBJECT
 
    private:
-	QPixmap *keyicon[4];
+	QPixmap *certicon[4];
+	int viewState;
    public:
 	CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void show(pki_base *item, bool import);
@@ -73,8 +75,9 @@ class CertView : public XcaListView
 	pki_base* insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void newCert();
+	void newCert(NewX509 *dlg);
    signals:
-	void keyDone(QString &);
 	void init_database();
 
 };	

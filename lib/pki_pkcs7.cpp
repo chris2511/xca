@@ -88,7 +88,7 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 	pki_key *privkey;
 	STACK_OF(X509) *certstack;
 	if (!crt) return;
-	privkey = crt->getKey();
+	privkey = crt->getRefKey();
 	if (!privkey) throw errorEx("No private key for signing found", className);
 	certstack = sk_X509_new_null();
 

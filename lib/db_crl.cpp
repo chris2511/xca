@@ -51,35 +51,14 @@
 
 #include "db_crl.h"
 
-
-db_crl::db_crl(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid, db_x509 *cts)
+db_crl::db_crl(DbEnv *dbe, string DBfile, DbTxn *tid)
 	:db_base(dbe, DBfile, "crldb", tid)
 {
-	listView = l;
 	loadContainer();
-	crlicon = loadImg("crl.png");
-	listView->addColumn(tr("Issuer"));
-	listView->addColumn(tr("Count"));
-	certs = cts;
-	updateView();
 }
 
 pki_base *db_crl::newPKI(){
 	return new pki_crl();
-}
-
-
-
-void db_crl::updateViewPKI(pki_base *pki)
-{
-        db_base::updateViewPKI(pki);
-        if (! pki) return;
-        QListViewItem *current = (QListViewItem *)pki->getPointer();
-        if (!current) return;
-	current->setPixmap(0, *crlicon);
-	current->setText(1, ((pki_crl *)pki)->issuerName().c_str());
-	current->setText(2, QString::number(((pki_crl *)pki)->numRev()));
-	
 }
 
 void db_crl::preprocess()
@@ -89,25 +68,21 @@ void db_crl::preprocess()
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
 	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
-	MARK
 		revokeCerts((pki_crl *)iter.current());
-	MARK
 	}
 }	
 
+//void db_crl::revokeCerts(db_x509 *crts, pki_crl *crl)
 void db_crl::revokeCerts(pki_crl *crl)
 {
 	int numc, i;
 	pki_x509 *rev, *iss;
-	
-	MARK
-	iss = certs->getBySubject(crl->getIssuerX509_NAME());
-	MARK
+	//crts->MainWindow::getBySubject(crl->getIssuerX509_NAME());
 	numc = crl->numRev();
-	MARK
+	a1int x;
 	for (i=0; i<numc; i++) {
-		CERR("SERIAL: "<<  crl->getSerial(i));
-		rev = certs->getByIssSerial(iss, crl->getSerial(i));
+		x = crl->getSerial(i);
+		rev = certs->getByIssSerial(iss, x);
 		if (rev != NULL) {
 			rev->setRevoked(crl->getRevDate(i));
 		}

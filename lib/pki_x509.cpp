@@ -59,20 +59,20 @@ pki_x509::pki_x509(X509 *c)
 	openssl_error();
 }
 
-pki_x509::pki_x509(const pki_x509 &crt) 
+pki_x509::pki_x509(const pki_x509 *crt) 
 {
 	init();
-	cert = X509_dup(crt.cert);
+	cert = X509_dup(crt->cert);
 	openssl_error();
-	psigner = crt.psigner;
-	setRefKey(crt.getRefKey());
-	trust = crt.trust;
-	efftrust = crt.efftrust;
-	revoked = crt.revoked;
-	caSerial = crt.caSerial;
-	caTemplate = crt.caTemplate;
-	crlDays = crt.crlDays;
-	lastCrl = crt.lastCrl;
+	psigner = crt->psigner;
+	setRefKey(crt->getRefKey());
+	trust = crt->trust;
+	efftrust = crt->efftrust;
+	revoked = crt->revoked;
+	caSerial = crt->caSerial;
+	caTemplate = crt->caTemplate;
+	crlDays = crt->crlDays;
+	lastCrl = crt->lastCrl;
 	isrevoked = isrevoked;
 	openssl_error();
 }
@@ -575,7 +575,6 @@ bool pki_x509::isRevoked()
 	return isrevoked ;
 }
 
-
 void pki_x509::setRevoked(bool rev)
 {
 	if (rev) {
@@ -587,6 +586,13 @@ void pki_x509::setRevoked(bool rev)
 	isrevoked = rev;
 	openssl_error();
 }
+
+a1time pki_x509::getRevoked()
+{
+	a1time x = revoked;
+	return x;
+}
+	
 void pki_x509::setRevoked(a1time &when)
 {
 	isrevoked = true;

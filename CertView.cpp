@@ -50,22 +50,28 @@
 
 
 #include "CertView.h"
+#include "MainWindow.h"
+#include <qcheckbox.h>
+#include <qcombobox.h>
+#include <qradiobutton.h>
+#include <qmessagebox.h>
+#include <qpopupmenu.h>
 
 CertView::CertView(QWidget * parent = 0, const char * name = 0, WFlags f = 0)
         :XcaListView(parent, name, f)
 {
-        certicon[0] = loadImg("validcert.png");
-        certicon[1] = loadImg("validcertkey.png");
-        certicon[2] = loadImg("invalidcert.png");
-        certicon[3] = loadImg("invalidcertkey.png");
-        listView->addColumn(tr("Common Name"));
-        listView->addColumn(tr("Serial"));
-        listView->addColumn(tr("not After"));
-        listView->addColumn(tr("Trust state"));
-        listView->addColumn(tr("Revokation"));
-        loadContainer();
-        viewState=1; // Tree View
-        updateView();
+	certicon[0] = loadImg("validcert.png");
+	certicon[1] = loadImg("validcertkey.png");
+	certicon[2] = loadImg("invalidcert.png");
+	certicon[3] = loadImg("invalidcertkey.png");
+	addColumn(tr("Common Name"));
+	addColumn(tr("Serial"));
+	addColumn(tr("not After"));
+	addColumn(tr("Trust state"));
+	addColumn(tr("Revokation"));
+	db->loadContainer();
+	viewState=1; // Tree View
+	updateView();
 }	
 
 
@@ -79,31 +85,6 @@ void CertView::newCert()
 	delete dlg;
 }
 
-void CertView::newCert(pki_temp *templ)
-{
-	NewX509 *dlg = MainWindow::newX509(MainWindow::certImg);
-	if (templ) {
-		dlg->defineTemplate(templ);
-	}
-	dlg->setCert();
-	if (dlg->exec()) {
-		newCert(dlg);
-	}
-	delete dlg;
-}
-
-void CertView::newCert(pki_x509req *req)
-{
-	NewX509 *dlg = MainWindow::newX509(MainWindow::certImg);
-	if (req) {
-		dlg->defineRequest(req);
-	}
-	dlg->setCert();
-	if (dlg->exec()) {
-		newCert(dlg);
-	}
-	delete dlg;
-}
 
 void CertView::newCert(NewX509 *dlg)
 {
@@ -140,13 +121,13 @@ void CertView::newCert(NewX509 *dlg)
 	    // A PKCS#10 Request was selected 
 	    req = (pki_x509req *)reqs->getSelectedPKI(dlg->reqList->currentText().latin1());
 	    if (opensslError(req)) return;
-	    clientkey = req->getKey();
+	    clientkey = req->getRefKey();
 	}
 		
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = (pki_x509 *)certs->getSelectedPKI(dlg->certList->currentText().latin1());
-		signkey = signcert->getKey();
+		signkey = signcert->getRefKey();
 		// search for serial in database
 		
 	}

@@ -55,26 +55,10 @@
 db_temp::db_temp(DbEnv *dbe, string DBfile, QListView *l, DbTxn *tid)
 	:db_base(dbe, DBfile, "tempdb", tid)
 {
-	listView = l;
 	loadContainer();
-	keyicon = loadImg("template.png");
-	listView->addColumn(tr("Type"));
 }
 
 pki_base *db_temp::newPKI(){
 	return new pki_temp("");
 }
 
-
-
-void db_temp::updateViewPKI(pki_base *pki)
-{
-        db_base::updateViewPKI(pki);
-        if (! pki) return;
-        QListViewItem *current = (QListViewItem *)pki->getPointer();
-        if (!current) return;
-	current->setPixmap(0, *keyicon);
-	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
-	current->setText(1, typec[((pki_temp *)pki)->type]);
-	
-}
