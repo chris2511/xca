@@ -81,6 +81,7 @@ class db_x509: public db_base
 	void calcEffTrust();
 	void assignClients(pki_crl *crl);
 	int searchSerial(pki_x509 *signer);
+	void writeAllCerts(QString fname, bool onlyTrusted);
     public slots:
 	void delKey(pki_key *delkey);
     	void newKey(pki_key *newKey);

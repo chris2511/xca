@@ -413,9 +413,14 @@ string pki_x509::asn1TimeToString(ASN1_TIME *a)
 }
 
 
-void pki_x509::writeCert(const string fname, bool PEM)
+void pki_x509::writeCert(const string fname, bool PEM, bool append)
 {
-	FILE *fp = fopen(fname.c_str(),"w");
+	FILE *fp;
+	if (append)
+		fp = fopen(fname.c_str(),"a");
+	else
+		fp = fopen(fname.c_str(),"w");
+
 	if (fp != NULL) {
 	   if (cert){
 		if (PEM) 
