@@ -111,6 +111,10 @@ class MainWindow: public MainWindow_UI
 	Q_OBJECT
    protected:
 	void addStr(string &str, const char *add);
+	void init_images();
+	void read_cmdline();
+	void init_database();
+			    
    friend class pki_key;
 	db_x509 *certs;
 	db_x509req *reqs;
@@ -119,7 +123,9 @@ class MainWindow: public MainWindow_UI
 	DbEnv *dbenv;
 	db_base *settings;
 	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg;
+
    public:
+	int exitApp;
 	QString baseDir, dbfile;
 	static const int sizeList[];
 	MainWindow(QWidget *parent, const char *name);
@@ -128,7 +134,7 @@ class MainWindow: public MainWindow_UI
 	void saveSettings();
 	void initPass();
 	bool showDetailsKey(pki_key *key, bool import = false);
-	void showDetailsReq(pki_x509req *req);
+	void showDetailsReq(pki_x509req *req, bool import = false);
 	bool showDetailsCert(pki_x509 *cert, bool import = false);
 	bool showDetailsTemp(pki_temp *temp);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
@@ -136,9 +142,9 @@ class MainWindow: public MainWindow_UI
 	static void incProgress(int a, int b, void *progress);
 	static void dberr(const char *errpfx, char *msg);
 	pki_key *getSelectedKey();
-	void insertKey(pki_key *lkey);
-	void insertReq(pki_x509req *req);
-	void insertCert(pki_x509 *cert);
+	pki_key *insertKey(pki_key *lkey);
+	pki_x509req *insertReq(pki_x509req *req);
+	pki_x509 *insertCert(pki_x509 *cert);
 	void insertTemp(pki_temp *temp);
 	string md5passwd();
 	bool opensslError(pki_base *pki);

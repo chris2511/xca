@@ -66,9 +66,14 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
 	setCaption(tr(XCA_TITLE));
+	dbfile="xca.db";
+	keys = NULL;
+	reqs = NULL;
+	certs = NULL;
+	temps = NULL;
+	dbenv = NULL;
 #ifdef WIN32
 	baseDir = "";
-	dbfile="xca.db";
 #else	
 	baseDir = QDir::homeDirPath();
 	baseDir += QDir::separator();
@@ -79,18 +84,126 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		if (!d.mkdir(baseDir))
 			qFatal(  "Couldnt create: " +  baseDir );
 	}
-	if (qApp->argc() <2){
-		dbfile = "xca.db";
-	}
-	else {
-		dbfile = qApp->argv()[1];
-	}
 	
 #endif
+	
+#ifdef qt3	
+	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
+			this, SLOT(renameKey(QListViewItem *, int, const QString &)));
+	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
+			this, SLOT(renameReq(QListViewItem *, int, const QString &)));
+	connect( certList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
+			this, SLOT(renameCert(QListViewItem *, int, const QString &)));
+	connect( tempList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
+			this, SLOT(renameTemp(QListViewItem *, int, const QString &)));
+#endif	
+	MARK
+	ERR_load_crypto_strings();
+	OpenSSL_add_all_algorithms();
+	init_images();
+	MARK
+
+	read_cmdline();
+	if (exitApp) return;
+	init_database();
+}
+
+void MainWindow::init_images(){
+	
+	keyImg = loadImg("bigkey.png");
+	csrImg = loadImg("bigcsr.png");
+	certImg = loadImg("bigcert.png");
+	tempImg = loadImg("bigtemp.png");
+	nsImg = loadImg("netscape.png");
+	revImg = loadImg("revoked.png");
+	bigKey->setPixmap(*keyImg);
+	bigCsr->setPixmap(*csrImg);
+	bigCert->setPixmap(*certImg);
+	bigTemp->setPixmap(*tempImg);
+	bigRev->setPixmap(*revImg);
+	setIcon(*certImg);
+}		
+	
+void MainWindow::read_cmdline()
+{
+#define XCA_KEY 1
+#define XCA_REQ 2
+#define XCA_CERT 3
+#define XCA_DB 4
+
+	int type = XCA_DB;
+	int cnt = 1;
+	char *arg = NULL;
+	pki_key *key;
+	pki_x509 *cert;
+	pki_x509req *req;
+	exitApp = 0;
+	
+	while (cnt < qApp->argc()) {
+		arg = qApp->argv()[cnt];
+		if (arg[0] == '-') { // option
+			switch (arg[1]) {
+				case 'c' : type = XCA_CERT;
+					   exitApp =1;
+					   break;
+				case 'r' : type = XCA_REQ;
+					   exitApp =1;
+					   break;
+				case 'k' : type = XCA_KEY;
+					   exitApp =1;
+					   break;
+				case 'd' : type = XCA_DB;
+					   break;
+			}
+			if (arg[2] != '\0') {
+				 arg=&(arg[2]);
+			}
+			else {
+				if (++cnt >= qApp->argc()) {
+					qFatal("cmdline argument error\n");
+				}
+				arg=qApp->argv()[cnt];
+			}
+		}
+		try {
+		    switch (type) {
+			case XCA_DB : dbfile = arg;
+				     break;
+			case XCA_KEY : 
+		 		key = new pki_key(arg, &MainWindow::passRead);
+				showDetailsKey(key, true);
+				MARK
+				break;
+			case XCA_CERT : 
+		 		cert = new pki_x509(arg);
+				showDetailsCert(cert, true);
+				break;
+			case XCA_REQ : 
+		 		req = new pki_x509req(arg);
+				showDetailsReq(req, true);
+				break;
+		    }
+		}
+		
+		catch (errorEx &err) {
+			Error(err);
+		}
+		
+		cnt++;
+	}
+}	
+
+
+
+void MainWindow::init_database() {
+	
+	if (dbenv) return; // already initialized....
 	try {
 		dbenv = new DbEnv(0);
 		dbenv->set_errcall(&MainWindow::dberr);
-		dbenv->open(baseDir.latin1(), DB_RECOVER | DB_INIT_TXN | DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | DB_CREATE , 0600 );
+		dbenv->open(baseDir.latin1(), DB_RECOVER | DB_INIT_TXN | \
+				DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | \
+				DB_CREATE , 0600 );
 		MARK
 	}
 	catch (DbException &err) {
@@ -99,17 +212,6 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		e += " (" + baseDir + ")";
 		qFatal(e);
 	}
-	MARK
-	ERR_load_crypto_strings();
-	OpenSSL_add_all_algorithms();
-	
-	keyImg = loadImg("bigkey.png");
-	csrImg = loadImg("bigcsr.png");
-	certImg = loadImg("bigcert.png");
-	tempImg = loadImg("bigtemp.png");
-	nsImg = loadImg("netscape.png");
-	revImg = loadImg("revoked.png");
-	MARK	
 	try {
 		settings = new db_base(dbenv, dbfile.latin1(), "settings");
 		MARK
@@ -126,31 +228,22 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 		DBEX(err);
 		qFatal(err.what());
 	}
-		
-	bigKey->setPixmap(*keyImg);
-	bigCsr->setPixmap(*csrImg);
-	bigCert->setPixmap(*certImg);
-	bigTemp->setPixmap(*tempImg);
-	bigRev->setPixmap(*revImg);
-#ifdef qt3	
-	connect( keyList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameKey(QListViewItem *, int, const QString &)));
-	connect( reqList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameReq(QListViewItem *, int, const QString &)));
-	connect( certList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameCert(QListViewItem *, int, const QString &)));
-	connect( tempList, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),this, SLOT(renameTemp(QListViewItem *, int, const QString &)));
-#endif	
-};
+}		
+
 
 
 MainWindow::~MainWindow() 
 {
-	 ERR_free_strings();
-	 EVP_cleanup();
-	 delete(keys);
-	 delete(reqs);
-	 delete(certs);
-	 delete(temps);
-	 delete(settings);
-	 dbenv->close(0);
+	ERR_free_strings();
+	EVP_cleanup();
+	if (dbenv) {
+		delete(keys);
+		delete(reqs);
+		delete(certs);
+		delete(temps);
+		delete(settings);
+		dbenv->close(0);
+	}
 }
 
 

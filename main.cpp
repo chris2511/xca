@@ -59,6 +59,10 @@ int main( int argc, char *argv[] )
 {
     QApplication a( argc, argv );
     MainWindow mw( NULL, "Main Widget");
+    if (mw.exitApp == 1) {
+	    MARK
+	    return 0;
+    }
     a.setMainWidget( &mw );
     // translation file for Qt
     QTranslator qtTr( 0 );

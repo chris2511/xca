@@ -95,7 +95,7 @@ void MainWindow::showDetailsReq(QListViewItem *item)
 }
 
 
-void MainWindow::showDetailsReq(pki_x509req *req)
+void MainWindow::showDetailsReq(pki_x509req *req, bool import)
 {
 	if (!req) return;
     try {	
@@ -109,7 +109,7 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	MARK
 	      	dlg->verify->setDisabled(true);
 	MARK
-		dlg->verify->setText("FEHLER");
+		dlg->verify->setText("ERROR");
 	}
 	pki_key *key =req->getKey();
 	if (key)
@@ -126,13 +126,26 @@ void MainWindow::showDetailsReq(pki_x509req *req)
 	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).c_str());
 	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).c_str());
 	dlg->image->setPixmap(*csrImg);
-	if (dlg->exec()) {
-		string ndesc = dlg->descr->text().latin1();
-		if (ndesc != req->getDescription()) {
-			reqs->renamePKI(req, ndesc);
-		}
+	// rename the buttons in case of import 
+	if (import) {
+		dlg->but_ok->setText(tr("Import"));
+		dlg->but_cancel->setText(tr("Discard"));
 	}
+	
+	bool ret = dlg->exec();
+	string ndesc = dlg->descr->text().latin1();
 	delete dlg;
+	if (!ret) return;
+	if (reqs == NULL) {
+		init_database();
+	}
+	if (import) {
+		req = insertReq(req);
+	}
+	
+	if (ndesc != req->getDescription()) {
+			reqs->renamePKI(req, ndesc);
+	}
     }
     catch (errorEx &err) {
 	    Error(err);
@@ -248,11 +261,11 @@ void MainWindow::signReq()
 }
 
 
-void MainWindow::insertReq(pki_x509req *req)
+pki_x509req *MainWindow::insertReq(pki_x509req *req)
 {
-	pki_x509 *oldreq;
+	pki_x509req *oldreq;
 	try {
-		oldreq = (pki_x509 *)reqs->findPKI(req);
+		oldreq = (pki_x509req *)reqs->findPKI(req);
 	MARK
 	}
 	catch (errorEx &err) {
@@ -266,7 +279,7 @@ void MainWindow::insertReq(pki_x509req *req)
 		QString::fromLatin1(oldreq->getDescription().c_str()) + 
 		"'\n" + tr("and thus was not stored"), "OK");
 	   delete(req);
-	   return;
+	   return oldreq;
 	}
 	MARK
 	try {
@@ -279,6 +292,7 @@ void MainWindow::insertReq(pki_x509req *req)
 	catch (errorEx &err) {
 		Error(err);
 	}
+	return req;
 }
 
 

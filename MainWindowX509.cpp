@@ -491,16 +491,21 @@ bool MainWindow::showDetailsCert(pki_x509 *cert, bool import)
 	}
 
 	// show it to the user...	
-	if (dlg->exec()) {
-		string ndesc = dlg->descr->text().latin1();
-		if (ndesc != cert->getDescription()) {
-			certs->renamePKI(cert, ndesc);
-		}
-		delete dlg;
+	bool ret = dlg->exec();
+	string ndesc = dlg->descr->text().latin1();
+	delete dlg;
+	if (!ret) return false;	
+	
+	if (!certs) {
+		init_database();
+	}
+	if (import) {
+		cert = insertCert(cert);
+	}
+	if (ndesc != cert->getDescription()) {
+		certs->renamePKI(cert, ndesc);
 		return true;
 	}
-	delete dlg;
-	return false;
     }
     catch (errorEx &err) {
 	    Error(err);
@@ -675,7 +680,7 @@ void MainWindow::loadPKCS7()
 }
 
 
-void MainWindow::insertCert(pki_x509 *cert)
+pki_x509 *MainWindow::insertCert(pki_x509 *cert)
 {
     try {
 	pki_x509 *oldcert = (pki_x509 *)certs->findPKI(cert);
@@ -685,7 +690,7 @@ void MainWindow::insertCert(pki_x509 *cert)
 		QString::fromLatin1(oldcert->getDescription().c_str()) + 
 		"'\n" + tr("and so it was not imported"), "OK");
 	   delete(cert);
-	   return;
+	   return oldcert;
 	}
 	CERR( "insertCert: inserting" );
 	certs->insertPKI(cert);
@@ -712,6 +717,7 @@ void MainWindow::insertCert(pki_x509 *cert)
 	cert->setCaSerial(serial);
     }
     certs->updatePKI(cert);
+    return cert;
 }
 
 void MainWindow::writeCert()

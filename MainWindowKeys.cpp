@@ -157,8 +157,15 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 	bool ret = detDlg->exec();
 	string ndesc = detDlg->keyDesc->text().latin1();
 	delete detDlg;
+	if (!ret) return false;
+	if (keys == NULL) {
+		init_database();
+	}
+	if (import) {
+		key = insertKey(key);
+	}
 	CERR(ndesc << " " << key->getDescription());
-	if ( ret && ndesc != key->getDescription()) {
+	if ( ndesc != key->getDescription()) {
 		MARK
 		try {
 			keys->renamePKI(key, ndesc);
@@ -220,7 +227,7 @@ void MainWindow::loadKey()
 }
 
 
-void MainWindow::insertKey(pki_key *lkey)
+pki_key* MainWindow::insertKey(pki_key *lkey)
 {
 	
 	pki_key *oldkey;
@@ -234,7 +241,7 @@ void MainWindow::insertKey(pki_key *lkey)
 			QString::fromLatin1(oldkey->getDescription().c_str()) + 
 			"'\n" + tr("and is not going to be imported"), "OK");
 		    delete(lkey);
-		    return;
+		    return oldkey;
 		}
 		else {
 	   	    QMessageBox::information(this,tr(XCA_TITLE),
@@ -253,7 +260,7 @@ void MainWindow::insertKey(pki_key *lkey)
 	catch (errorEx &err) {
 		Error(err);
 	}
-
+	return lkey;
 }
 
 
