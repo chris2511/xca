@@ -30,14 +30,12 @@ MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
 UI_H=$(patsubst %, %.h, $(UINAMES))
 
-all: libs $(OBJS) xca
+all: libs $(UI_H) $(OBJS) xca
 
 win: $(MOC_CPP) $(UI_CPP) $(UI_H)
 	make -C lib win
 
 re: clean all
-
-MainWindow.h: $(UI_H)
 
 %.o: %.cpp
 	$(GCC) $(CPPFLAGS) -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" -c $< -o $@
