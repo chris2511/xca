@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>623</width>
+            <width>619</width>
             <height>294</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Zertifikat - Step 2</string>
+        <string>New Certificate - Step 2</string>
     </property>
     <widget>
         <class>QLabel</class>
@@ -41,34 +41,6 @@
         <property stdset="1">
             <name>scaledContents</name>
             <bool>true</bool>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>490</width>
-                <height>40</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Neues Zertifikat</string>
         </property>
     </widget>
     <widget>
@@ -112,6 +84,27 @@
         </property>
     </widget>
     <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel10</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>50</y>
+                <width>590</width>
+                <height>60</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Please choose the signer, wether it should be self signed,
+or signed by an other signer</string>
+        </property>
+    </widget>
+    <widget>
         <class>QButtonGroup</class>
         <property stdset="1">
             <name>name</name>
@@ -128,8 +121,24 @@
         </property>
         <property stdset="1">
             <name>title</name>
-            <string>Zertifikat unterschreiben mit</string>
+            <string>Certificate to sign with</string>
         </property>
+        <widget>
+            <class>QComboBox</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>certList</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>300</x>
+                    <y>70</y>
+                    <width>260</width>
+                    <height>22</height>
+                </rect>
+            </property>
+        </widget>
         <widget>
             <class>QRadioButton</class>
             <property stdset="1">
@@ -147,43 +156,7 @@
             </property>
             <property stdset="1">
                 <name>text</name>
-                <string>Verwende folgendes Zertifikat zur Signatur:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QRadioButton</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>selfSignRB</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>20</x>
-                    <y>30</y>
-                    <width>400</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Ein selbst unterschriebenes Zertifikat erstellen, Serien Nummer:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QComboBox</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>certList</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>300</x>
-                    <y>70</y>
-                    <width>260</width>
-                    <height>22</height>
-                </rect>
+                <string>Use this Certificate for for signing:</string>
             </property>
         </widget>
         <widget>
@@ -202,25 +175,53 @@
                 </rect>
             </property>
         </widget>
+        <widget>
+            <class>QRadioButton</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>selfSignRB</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>20</x>
+                    <y>30</y>
+                    <width>380</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Create a self signed certificate with the serial:</string>
+            </property>
+        </widget>
     </widget>
     <widget>
         <class>QLabel</class>
         <property stdset="1">
             <name>name</name>
-            <cstring>TextLabel10</cstring>
+            <cstring>TextLabel1</cstring>
         </property>
         <property stdset="1">
             <name>geometry</name>
             <rect>
                 <x>20</x>
-                <y>50</y>
-                <width>590</width>
-                <height>60</height>
+                <y>10</y>
+                <width>490</width>
+                <height>40</height>
             </rect>
         </property>
         <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
             <name>text</name>
-            <string>Das hier wird noch eine ziemlich ausführliche Erklärung, was zu tun ist.</string>
+            <string>New Certificate</string>
         </property>
     </widget>
 </widget>

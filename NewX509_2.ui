@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>619</width>
+            <width>615</width>
             <height>508</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Zertifikat - Step 3</string>
+        <string>New Certificate - Step 3</string>
     </property>
     <widget>
         <class>QLabel</class>
@@ -42,128 +42,6 @@
             <name>scaledContents</name>
             <bool>true</bool>
         </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel10</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>50</y>
-                <width>590</width>
-                <height>60</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Das hier wird noch eine ziemlich ausführliche Erklärung, was zu tun ist.</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>20</x>
-                <y>10</y>
-                <width>490</width>
-                <height>40</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>font</name>
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-                <underline>1</underline>
-            </font>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>Neues Zertifikat</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QGroupBox</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>GroupBox3</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>470</x>
-                <y>110</y>
-                <width>140</width>
-                <height>70</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>title</name>
-            <string>Gültigkeit</string>
-        </property>
-        <widget>
-            <class>QLineEdit</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>validNumber</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>30</y>
-                    <width>40</width>
-                    <height>22</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>356</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QComboBox</class>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>Tage</string>
-                </property>
-            </item>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>Monate</string>
-                </property>
-            </item>
-            <item>
-                <property>
-                    <name>text</name>
-                    <string>Jahre</string>
-                </property>
-            </item>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>validRange</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>50</x>
-                    <y>30</y>
-                    <width>80</width>
-                    <height>22</height>
-                </rect>
-            </property>
-        </widget>
     </widget>
     <widget>
         <class>QGroupBox</class>
@@ -205,6 +83,70 @@
             </property>
         </widget>
         <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>basicPath</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>390</x>
+                    <y>30</y>
+                    <width>30</width>
+                    <height>22</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>0</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QCheckBox</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>bcCritical</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>20</x>
+                    <y>30</y>
+                    <width>87</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Critical</string>
+            </property>
+            <property stdset="1">
+                <name>checked</name>
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget>
+            <class>QLabel</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>TextLabel3_2</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>310</x>
+                    <y>30</y>
+                    <width>70</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>Path length:</string>
+            </property>
+        </widget>
+        <widget>
             <class>QComboBox</class>
             <item>
                 <property>
@@ -231,69 +173,9 @@
                     <height>22</height>
                 </rect>
             </property>
-        </widget>
-        <widget>
-            <class>QLineEdit</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>basicPath</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>390</x>
-                    <y>30</y>
-                    <width>30</width>
-                    <height>22</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>0</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel3_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>320</x>
-                    <y>30</y>
-                    <width>70</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Pfadlänge:</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QCheckBox</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>bcCritical</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>20</x>
-                    <y>30</y>
-                    <width>87</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Critical</string>
-            </property>
-            <property stdset="1">
-                <name>checked</name>
-                <bool>true</bool>
+            <property>
+                <name>whatsThis</name>
+                <string></string>
             </property>
         </widget>
     </widget>
@@ -729,6 +611,128 @@
         <property stdset="1">
             <name>text</name>
             <string>ToDo: Netscape extensions</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>490</width>
+                <height>40</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>font</name>
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+                <underline>1</underline>
+            </font>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>New Certificate</string>
+        </property>
+    </widget>
+    <widget>
+        <class>QGroupBox</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>GroupBox3</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>470</x>
+                <y>110</y>
+                <width>140</width>
+                <height>70</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>title</name>
+            <string>Validity</string>
+        </property>
+        <widget>
+            <class>QLineEdit</class>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>validNumber</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>10</x>
+                    <y>30</y>
+                    <width>40</width>
+                    <height>22</height>
+                </rect>
+            </property>
+            <property stdset="1">
+                <name>text</name>
+                <string>356</string>
+            </property>
+        </widget>
+        <widget>
+            <class>QComboBox</class>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Tage</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Monate</string>
+                </property>
+            </item>
+            <item>
+                <property>
+                    <name>text</name>
+                    <string>Jahre</string>
+                </property>
+            </item>
+            <property stdset="1">
+                <name>name</name>
+                <cstring>validRange</cstring>
+            </property>
+            <property stdset="1">
+                <name>geometry</name>
+                <rect>
+                    <x>50</x>
+                    <y>30</y>
+                    <width>80</width>
+                    <height>22</height>
+                </rect>
+            </property>
+        </widget>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>TextLabel10</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>50</y>
+                <width>590</width>
+                <height>60</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>Please choose the certificate validity and its basic constraints</string>
         </property>
     </widget>
 </widget>

@@ -124,6 +124,7 @@ void MainWindow::newCert()
 	}
 	
 	if (keyuse.length() > 0) {
+		keyuse1 = keyuse;
 		if (dlg3->kuCritical->isChecked()) keyuse1 = "critical, " +keyuse;
 		cert->addV3ext(NID_key_usage, keyuse1);
 		CERR << "KeyUsage:" <<keyuse1<< endl;
