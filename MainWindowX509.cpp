@@ -565,8 +565,9 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 	CERR << "hallo popup" << endl;
 	QPopupMenu *menu = new QPopupMenu(this);
 	QPopupMenu *subMenu = new QPopupMenu(this);
-	int itemExtend, itemRevoke, itemTrust, itemCA;
-	bool canSign, parentCanSign;
+	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate;
+	bool canSign, parentCanSign, hasTemplates;
+	
 	if (!item) {
 		menu->insertItem(tr("New Certificate"), this, SLOT(newCert()));
 		menu->insertItem(tr("Import"), this, SLOT(loadCert()));
@@ -582,7 +583,7 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 		itemCA = menu->insertItem(tr("CA"), subMenu);
 		subMenu->insertItem(tr("Serial"), this, SLOT(setSerial()));
 		subMenu->insertItem(tr("CRL days"), this, SLOT(setCrlDays()));
-		subMenu->insertItem(tr("Signing Template"), this, SLOT(setTemplate()));
+		itemTemplate = subMenu->insertItem(tr("Signing Template"), this, SLOT(setTemplate()));
 		subMenu->insertItem(tr("Generate CRL"), this, SLOT(genCrl()));
 		menu->insertSeparator();
 		itemExtend = menu->insertItem(tr("Extend"));
@@ -595,10 +596,12 @@ void MainWindow::showPopupCert(QListViewItem *item, const QPoint &pt, int x) {
 				itemRevoke = menu->insertItem(tr("Revoke"), this, SLOT(revoke()));
 			parentCanSign = (cert->getSigner() && cert->getSigner()->canSign() && (cert->getSigner() != cert));
 			canSign = cert->canSign();
+			hasTemplates = temps->getDesc().count() > 0 ;
 		}
 		menu->setItemEnabled(itemExtend, parentCanSign);
 		menu->setItemEnabled(itemRevoke, parentCanSign);
 		menu->setItemEnabled(itemCA, canSign);
+		subMenu->setItemEnabled(itemTemplate, hasTemplates);
 
 	}
 	menu->exec(pt);

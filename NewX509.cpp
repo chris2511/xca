@@ -129,7 +129,16 @@ NewX509::NewX509(QWidget *parent , const char *name, db_key *key, db_x509req *re
 			possibleSigner=(pki_x509 *)certs->getSelectedPKI();
 			if (possibleSigner && possibleSigner->canSign()) {
 				QString name = possibleSigner->getDescription().c_str();
+#ifdef qt3
 				certList->setCurrentText(name);
+#else
+				for (int i=0; i<certList->count();i++) {
+					if (certList->text(i) == name) {
+						certList->setCurrentItem(i);
+						break;
+					}
+				}
+#endif
 				foreignSignRB->setChecked(true);
 				// certList->setEnabled(true);
 			}
@@ -212,7 +221,7 @@ void NewX509::setup()
 	
 void NewX509::defineTemplate(pki_temp *temp)
 {
-	setAppropriate(page1,false);
+	//setAppropriate(page1,false);
 	//fixtemp = temp;
 	fromTemplate(temp);
 }
@@ -372,7 +381,16 @@ void NewX509::signerChanged()
 	if (!cert) return;
 	QString templ = cert->getTemplate().c_str();	
 	CERR << "set Template: " << templ.latin1() << endl;
+#ifdef qt3
 	tempList->setCurrentText(templ);
+#else
+	for (int i=0; i<tempList->count();i++) {
+		if (tempList->text(i) == templ) {
+			tempList->setCurrentItem(i);
+			break;
+		}
+	}
+#endif
 	templateChanged();
 	/*
 	QStringList templates = tempList->list();
