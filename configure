@@ -1,0 +1,13 @@
+#!/bin/sh 
+
+for mdir in /usr/lib /usr/local/lib /opt/ /opt/lib; do
+	for dir in $mdir/qt*; do
+		ls $dir/lib/libqt.so.2.[2-5].* >/dev/null 2>&1
+		if [ $? -eq 0 ]; then
+			export QTDIR=$dir
+			echo $dir 
+			break
+		fi
+	done
+done
+	

@@ -1,8 +1,11 @@
 VERSION=0.1.10
 TAG=$(shell echo "V.$(VERSION)" |sed "s/\./_/g" )
 TARGET=xca-$(VERSION)
+
 GCC=g++
 CFLAGS=-Wall -g
+QTDIR=$(shell ./configure)
+
 INC=-I$(QTDIR)/include
 LPATH=-L$(QTDIR)/lib -Llib
 LIBS=-lqt -lcrypto -ldb_cxx -lxcadb -lpki
