@@ -68,7 +68,7 @@
 #include <qpopupmenu.h>
 #include <qcheckbox.h>
 
-const int KeyView::sizeList[] = {256, 512, 1024, 2048, 4096, 0 };
+const int KeyView::sizeList[] = {512, 1024, 2048, 4096, 0 };
 
 KeyView::KeyView(QWidget * parent, const char * name, WFlags f)
 	:XcaListView(parent, name, f)
@@ -82,13 +82,23 @@ void KeyView::newItem()
 {
 	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
 	QString x;
-	for (int i=0; sizeList[i] != 0; i++ ) 
-	dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
-	dlg->keyLength->setCurrentItem(2);
+	dlg->keyLength->setEditable(true);	
+	for (int i=0; sizeList[i] != 0; i++ ) {
+		dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
+	}
+	dlg->keyLength->setCurrentItem(1);
 	dlg->image->setPixmap(*MainWindow::keyImg);
 	if (dlg->exec()) {
 	  try {
-		int sel = dlg->keyLength->currentItem();
+		QString ksizes = dlg->keyLength->currentText();
+		ksizes.replace( QRegExp("[^0-9]"), "" );
+		int ksize = ksizes.toInt();
+		if (ksize < 32) throw errorEx(tr("Key size too small !"));
+		if (ksize < 512 || ksize > 4096)
+			if (!QMessageBox::warning(this, XCA_TITLE, tr("You are sure to create a key of the size: ")
+				+QString::number(ksize) + " ?", tr("Cancel"), tr("Create") ))
+					return;
+			
 		QProgressDialog *progress = new QProgressDialog(
 			tr("Please wait, Key generation is in progress"),
 			tr("Cancel"),90, 0, 0, true);
@@ -98,7 +108,7 @@ void KeyView::newItem()
 		pki_key *nkey = new pki_key (dlg->keyDesc->text(), 
 			&incProgress,
 			progress,
-			sizeList[sel]);
+			ksize);
 			progress->cancel();
 		delete progress;
 		db->insert(nkey);
