@@ -7,7 +7,7 @@ Standards-Version: 3.5.2
 
 Package: xca
 Architecture: any
-Depends: ${shlibs:Depends}, libdb3++, libssl0.9.6, libqt2
+Depends: ${shlibs:Depends}, libdb3++, libssl0.9.6, libqt3
 Description: qt based program to handle RSA keys
    Certificate requests (PKCS#10)
    Certificates (X509v3)

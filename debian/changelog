@@ -1,8 +1,20 @@
+xca (0.2.3) unstable; urgency=low
+
+  * icons changed
+  * context menu on right mousebutton
+  * trust state settings added
+  * dialogboxes are resizeable
+  * extended keyusage added to v3 extensions when creating new cert
+  * all dialogs translated to english
+  * no more images in *.ui files
+
+ -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Mon,  5 Aug 2002 08:35:42 +0200
+
 xca (0.2.2) unstable; urgency=low
 
   * see upstream changelog
 
-   -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Fri, 19 Jul 2002 08:50:27 +0200
+ -- Christian Hohnstaedt <chohnstaedt@innominate.com>  Fri, 19 Jul 2002 08:50:27 +0200
    
 xca (0.1.12) unstable; urgency=low
 
