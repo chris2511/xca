@@ -53,15 +53,16 @@ clean:
 
 distclean: clean	
 	make -C lib distclean
-	rm -f Makefile config.cache config.h
+	rm -f Makefile config.cache config.h config.log config.status
+	rm -rf autom4te.cache
 
 dist: 
 	rm -rf ../$(TARGET)
 	cvs export -r $(TAG) -d ../$(TARGET) xca
 	(cd ../$(TARGET);  autoconf; \
-		./mkxcapro.sh; lrelease xca.pro; \
-		cat rpm/xca.spec |sed s/VERSION/$(VERSION)/g >rpm/$(TARGET)-1.spec; \
-		rm rpm/xca.spec )
+	./mkxcapro.sh ||true; lrelease xca.pro ||true; \
+	cat rpm/xca.spec |sed s/VERSION/$(VERSION)/g >rpm/$(TARGET)-1.spec; \
+	rm -rf rpm/xca.spec autom4te.cache )
 	(cd ..; tar zcf $(TARGET).tar.gz $(TARGET) )
 	#rm -rf ../$(TARGET)
 	

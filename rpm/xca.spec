@@ -1,4 +1,4 @@
-Summary: A GUI for handling X509 certificates, RSA keys, and PKCS#10 Requests.
+Summary: A GUI for handling X509 certificates, RSA keys, PKCS#10 Requests and RSA keys.
 Name: xca
 Version: VERSION
 Release: 1
@@ -7,20 +7,19 @@ Group: X11
 Source: http://www.hohnstaedt.de/xca/src/xca-VERSION.tar.gz
 
 %description
-This program is intended as a little CA for signing Requests,
-creating self signed Certificates and RSA keys.
-There are predefined templates that can be used
-to create default Requests/Certificates.
-All X.509 v3 extensions are configurable and adjustable.
-They can be exported and imported in several formats
-like PEM, DER, PKCS#12, PKCS#10 or PKCS#8.
+The Program uses a Berkeley db for storage and supports RSA keys,
+Certificate signing requests (PKCS#10) and Certificates (X509v3)
+The signing of requests, and the creation of selfsigned certificates
+is supported. Both can use templates for simplicity.
+The PKI structures can be imported and exported in several formats
+like PKCS#12, PEM, DER, PKCS#8.
 
 
 %prep
 %setup
 
 %build
-./configure
+./configure --prefix=/usr
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 %install

@@ -466,7 +466,7 @@ es aconsejable utilizar cifrado.</translation>
     </message>
     <message>
         <source>X Certifikate and Key management</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"></translation>
     </message>
     <message>
         <source>New Database Password</source>
