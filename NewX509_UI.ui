@@ -2219,6 +2219,13 @@ For a SSL servercertificate choose the DNS name of the server as "Common name"</
                     <name>name</name>
                     <cstring>endLabel</cstring>
                 </property>
+                <property stdset="1">
+                    <name>alignment</name>
+                    <set>WordBreak|AlignVCenter|AlignLeft</set>
+                </property>
+                <property>
+                    <name>wordwrap</name>
+                </property>
             </widget>
             <spacer>
                 <property>
