@@ -12,7 +12,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>633</width>
+            <width>629</width>
             <height>543</height>
         </rect>
     </property>
@@ -789,7 +789,7 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Revocation list</string>
+                    <string>Revocation lists</string>
                 </attribute>
                 <hbox>
                     <property stdset="1">
@@ -816,13 +816,19 @@
                                 <bool>true</bool>
                             </property>
                         </column>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>Item</string>
+                        </property>
+                        <property>
+                            <name>pixmap</name>
+                            <pixmap></pixmap>
+                        </property>
+                    </item>
                         <property stdset="1">
                             <name>name</name>
-                            <cstring>tempList_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>enabled</name>
-                            <bool>false</bool>
+                            <cstring>revList</cstring>
                         </property>
                     </widget>
                     <widget>
@@ -856,7 +862,7 @@
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>C R A S H</string>
+                                    <string>&amp;Export</string>
                                 </property>
                                 <property>
                                     <name>toolTip</name>
@@ -870,12 +876,8 @@
                                     <cstring>PushButton13_2_2_2_2</cstring>
                                 </property>
                                 <property stdset="1">
-                                    <name>enabled</name>
-                                    <bool>false</bool>
-                                </property>
-                                <property stdset="1">
                                     <name>text</name>
-                                    <string>Create</string>
+                                    <string>&amp;Import</string>
                                 </property>
                             </widget>
                             <widget>
@@ -885,12 +887,23 @@
                                     <cstring>PushButton26_2_2_2</cstring>
                                 </property>
                                 <property stdset="1">
-                                    <name>enabled</name>
-                                    <bool>false</bool>
+                                    <name>text</name>
+                                    <string>&amp;Show Details</string>
+                                </property>
+                            </widget>
+                            <widget>
+                                <class>QPushButton</class>
+                                <property stdset="1">
+                                    <name>name</name>
+                                    <cstring>PushButton13_2_2_5_2</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>text</name>
-                                    <string>Delete</string>
+                                    <string>&amp;Delete</string>
+                                </property>
+                                <property>
+                                    <name>toolTip</name>
+                                    <string>Do NOT press this button :-)</string>
                                 </property>
                             </widget>
                             <spacer>
@@ -1163,12 +1176,6 @@
         <slot>newSerTemp()</slot>
     </connection>
     <connection>
-        <sender>PushButton13_2_2_5</sender>
-        <signal>clicked()</signal>
-        <receiver>MainWindow_UI</receiver>
-        <slot>crashApp()</slot>
-    </connection>
-    <connection>
         <sender>PushButton25_2_2</sender>
         <signal>clicked()</signal>
         <receiver>MainWindow_UI</receiver>
@@ -1198,13 +1205,52 @@
         <receiver>MainWindow_UI</receiver>
         <slot>changeView()</slot>
     </connection>
+    <connection>
+        <sender>PushButton13_2_2_5</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>writeCrl()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton13_2_2_2_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>loadCrl()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton26_2_2_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsCrl()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton13_2_2_5_2</sender>
+        <signal>clicked()</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>deleteCrl()</slot>
+    </connection>
+    <connection>
+        <sender>revList</sender>
+        <signal>rightButtonClicked(QListViewItem*,const QPoint&amp;,int)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showPopupCrl(QListViewItem *, const QPoint &amp;, int)</slot>
+    </connection>
+    <connection>
+        <sender>revList</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>MainWindow_UI</receiver>
+        <slot>showDetailsCrl()</slot>
+    </connection>
     <slot access="public">alterTemp()</slot>
+    <slot access="public">changeView()</slot>
     <slot access="public">crashApp()</slot>
     <slot access="public">deleteCert()</slot>
+    <slot access="public">deleteCrl()</slot>
     <slot access="public">deleteKey()</slot>
     <slot access="public">deleteReq()</slot>
     <slot access="public">deleteTemp()</slot>
     <slot access="public">loadCert()</slot>
+    <slot access="public">loadCrl()</slot>
     <slot access="public">loadKey()</slot>
     <slot access="public">loadPKCS12()</slot>
     <slot access="public">loadPKCS7()</slot>
@@ -1216,18 +1262,20 @@
     <slot access="public">newKey()</slot>
     <slot access="public">newReq()</slot>
     <slot access="public">newSerTemp()</slot>
-    <slot access="public">changeView()</slot>
     <slot access="public">showDetailsCert()</slot>
     <slot access="public">showDetailsCert(QListViewItem *)</slot>
+    <slot access="public">showDetailsCrl()</slot>
     <slot access="public">showDetailsKey()</slot>
     <slot access="public">showDetailsKey(QListViewItem *)</slot>
     <slot access="public">showDetailsReq()</slot>
     <slot access="public">showDetailsReq(QListViewItem *)</slot>
     <slot access="public">showPopupCert(QListViewItem *, const QPoint &amp;, int)</slot>
+    <slot access="public">showPopupCrl(QListViewItem *, const QPoint &amp;, int)</slot>
     <slot access="public">showPopupKey(QListViewItem *, const QPoint &amp;, int)</slot>
     <slot access="public">showPopupReq(QListViewItem *, const QPoint &amp;, int)</slot>
     <slot access="public">showPopupTemp(QListViewItem *, const QPoint &amp;, int)</slot>
     <slot access="public">writeCert()</slot>
+    <slot access="public">writeCrl()</slot>
     <slot access="public">writeKey()</slot>
     <slot access="public">writeReq()</slot>
 </connections>

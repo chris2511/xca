@@ -57,6 +57,7 @@ pki_crl::pki_crl(const string d, pki_x509 *iss )
 { 
 	issuer = iss;
 	crl = NULL;
+	className="pki_crl";
 	if (!iss) openssl_error("no issuer");
 	crl = X509_CRL_new();
 	X509V3_set_ctx(&ctx, issuer->cert, NULL, NULL, crl, 0);
@@ -73,14 +74,84 @@ pki_crl::pki_crl(const string d, pki_x509 *iss )
 	ci->revoked = sk_X509_REVOKED_new_null();
 #endif
 	openssl_error();
-	className="pki_crl";
 }	
 
+pki_crl::pki_crl(const string fname )
+	:pki_base(fname)
+{ 
+	issuer = NULL;
+	crl = X509_CRL_new();
+	className="pki_crl";
+	FILE * fp = fopen(fname.c_str(), "r");
+	if (fp != NULL) {
+		crl = PEM_read_X509_CRL(fp, &crl, NULL, NULL);
+		if (!crl) {
+			ign_openssl_error();
+			rewind(fp);
+			CERR("Fallback to CRL - DER");
+			crl = d2i_X509_CRL_fp(fp, &crl);
+		}	
+		fclose(fp);
+		openssl_error();
+	}
+	else fopen_error(fname);
+}
 
+pki_crl::pki_crl()
+	:pki_base()
+{
+	issuer = NULL;
+	crl = X509_CRL_new();
+	className="pki_crl";
+}
+
+	
 pki_crl::~pki_crl()
 {
 	X509_CRL_free(crl);
 }
+
+void pki_crl::fromData(unsigned char *p, int size)
+{
+	crl = NULL;
+	crl = d2i_X509_CRL(NULL, &p, size);
+	openssl_error();
+}
+
+unsigned char *pki_crl::toData(int *size)
+{
+	unsigned char *p, *p1;
+	*size = i2d_X509_CRL(crl, NULL);
+	openssl_error();
+	p = (unsigned char*)OPENSSL_malloc(*size);
+	p1 = p;
+	i2d_X509_CRL(crl, &p1);
+	openssl_error();
+	return p;
+}
+
+bool pki_crl::compare(pki_base *refcrl)
+{
+	return X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0;
+/*
+	int s1,s2;
+	unsigned char *p1, *p2;
+	bool ret = false;
+	p1 = toData(&s1);
+	if (p1) {
+		p2 = ((pki_crl *)refcrl)->toData(&s2);
+		if (p2){
+			if(s1 == s2)
+				if (memcmp(p1,p2,s1) == 0)
+					ret = true;
+			OPENSSL_free(p2);
+		}		
+		OPENSSL_free(p1);
+	}
+	return ret;
+*/
+}
+
 
 void pki_crl::addRevoked(const pki_x509 *client)
 {
@@ -149,3 +220,40 @@ ASN1_TIME *pki_crl::getDate()
 	if (!crl || !crl->crl) return NULL;
 	return crl->crl->lastUpdate;
 }
+
+int pki_crl::numRev()
+{
+	if (crl && crl->crl && crl->crl->revoked)
+		return sk_X509_REVOKED_num(crl->crl->revoked);
+	else
+		return 0;
+}
+
+string pki_crl::issuerName()
+{
+	char *x = NULL;
+	if (crl && crl->crl && crl->crl->issuer)
+		x = X509_NAME_oneline(crl->crl->issuer, NULL ,0);
+	string ret = x;
+	if (x)
+	       	OPENSSL_free(x);
+	openssl_error();
+	return ret;
+}					  
+
+X509_NAME *pki_crl::getIssuerX509_NAME()
+{
+	if (crl && crl->crl && crl->crl->issuer) {
+		return crl->crl->issuer;
+	}
+	else 
+		return NULL ;
+}
+
+bool pki_crl::verify(pki_key *key)
+{
+	if (crl && crl->crl) {
+		return X509_CRL_verify(crl , key->key) == 0;
+	}
+	return false ;
+}	

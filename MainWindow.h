@@ -57,6 +57,7 @@
 #include "KeyDetail.h"
 #include "ReqDetail.h"
 #include "CertDetail.h"
+#include "CrlDetail.h"
 #include "PassRead.h"
 #include "PassWrite.h"
 #include "NewKey.h"
@@ -100,6 +101,7 @@
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"
 #include "lib/db_temp.h"
+#include "lib/db_crl.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -125,6 +127,7 @@ class MainWindow: public MainWindow_UI
 	db_x509req *reqs;
 	db_key *keys;
 	db_temp *temps;
+	db_crl *crls;
 	DbEnv *dbenv;
 	db_base *settings;
 	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
@@ -141,6 +144,7 @@ class MainWindow: public MainWindow_UI
 	bool showDetailsKey(pki_key *key, bool import = false);
 	void showDetailsReq(pki_x509req *req, bool import = false);
 	bool showDetailsCert(pki_x509 *cert, bool import = false);
+	bool showDetailsCrl(pki_crl *crl, bool import = false);
 	bool showDetailsTemp(pki_temp *temp);
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
@@ -150,6 +154,7 @@ class MainWindow: public MainWindow_UI
 	pki_key *insertKey(pki_key *lkey);
 	pki_x509req *insertReq(pki_x509req *req);
 	pki_x509 *insertCert(pki_x509 *cert);
+	pki_crl *insertCrl(pki_crl *crl);
 	void insertP12(pki_pkcs12 *pk12);
 	void insertTemp(pki_temp *temp);
 	string md5passwd();
@@ -164,11 +169,12 @@ class MainWindow: public MainWindow_UI
 	void newPath(QFileDialog *dlg);
 	void newPath(QString str);
 	bool mkDir(QString dir);
-	void writeCrl(QString s, pki_x509 *cert);
+	pki_crl *genCrl(pki_x509 *cert);
    public slots:
 	void loadKey();
 	void loadReq();
 	void loadCert();
+	void loadCrl();
 	void loadPKCS12();
 	void loadPKCS7();
 	void newKey();
@@ -191,18 +197,24 @@ class MainWindow: public MainWindow_UI
 	void showDetailsReq();
 	void showDetailsCert();
 	void showDetailsCert(QListViewItem *item);
+	void showDetailsCrl();
+	void showDetailsCrl(QListViewItem *item);
 	void deleteKey();
 	void deleteReq();
 	void deleteCert();
+	void deleteCrl();
 	void deleteTemp();
 	void writeKey();
 	void writeReq();
 	void writeCert();
+	void writeCrl();
 	void showPopupCert(QListViewItem *item,const QPoint &pt, int x);
+	void showPopupCrl(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupKey(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupReq(QListViewItem *item,const QPoint &pt, int x);
 	void showPopupTemp(QListViewItem *item,const QPoint &pt, int x);
 	void startRenameCert();
+	void startRenameCrl();
 	void startRenameKey();
 	void startRenameReq();
 	void startRenameTemp();
@@ -212,6 +224,7 @@ class MainWindow: public MainWindow_UI
 	void renameKey(QListViewItem *item, int col, const QString &text);
 	void renameReq(QListViewItem *item, int col, const QString &text);
 	void renameCert(QListViewItem *item, int col, const QString &text);
+	void renameCrl(QListViewItem *item, int col, const QString &text);
 	void renameTemp(QListViewItem *item, int col, const QString &text);
 	void alterTemp();
 	void setSerial();

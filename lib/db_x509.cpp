@@ -361,6 +361,18 @@ QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer)
 	return c;
 }
 
+pki_x509 *db_x509::getBySubject(X509_NAME *xname)
+{
+	pki_x509 *cert = NULL;
+	if (!xname) return cert;
+       	for (cert=(pki_x509 *)container.first(); cert !=0; cert=(pki_x509 *)container.next() ) {
+		if (X509_NAME_cmp(X509_get_subject_name(cert->cert), xname) == 0) {
+			return cert;
+		}
+	}
+	return NULL;
+}
+
 void db_x509::writeAllCerts(QString fname, bool onlyTrusted)
 {
 	pki_x509 *cert = NULL;

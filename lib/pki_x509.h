@@ -67,6 +67,7 @@
 class pki_x509 : public pki_base
 {
 	friend class pki_crl;
+	friend class db_x509;
 	private:
 	   pki_x509 *psigner;
 	   pki_key *pkey;

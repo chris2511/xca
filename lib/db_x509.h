@@ -81,6 +81,7 @@ class db_x509: public db_base
 	pki_key * findKey(pki_x509 *cert);
 	void calcEffTrust();
 	QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer);
+	pki_x509 *db_x509::getBySubject(X509_NAME *xname);
 	int searchSerial(pki_x509 *signer);
 	void writeAllCerts(QString fname, bool onlyTrusted);
     public slots:

@@ -66,6 +66,8 @@ class pki_crl: public pki_base
 	X509V3_CTX ctx;
     public:
 	pki_crl(const string d, pki_x509 *iss);
+	pki_crl(const string fname);
+	pki_crl();
 	/* destructor */
 	~pki_crl();
 	
@@ -77,7 +79,14 @@ class pki_crl: public pki_base
 	void writeCrl(const string fname);
 	pki_x509 *getIssuer();	
 	ASN1_TIME *pki_crl::getDate();
-
+	virtual void fromData(unsigned char *p, int size);
+	virtual unsigned char *toData(int *size);
+	virtual bool compare(pki_base *refcrl);
+	int numRev();
+	string issuerName();
+	X509_NAME *getIssuerX509_NAME();
+	bool verify(pki_key *pkey);
+			       
 };
 
 #endif

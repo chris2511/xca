@@ -116,7 +116,7 @@ void MainWindow::init_images(){
 	certImg = loadImg("bigcert.png");
 	tempImg = loadImg("bigtemp.png");
 	nsImg = loadImg("netscape.png");
-	revImg = loadImg("revoked.png");
+	revImg = loadImg("bigcrl.png");
 	appIco = loadImg("key.xpm");
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
@@ -243,6 +243,7 @@ void MainWindow::init_database() {
 		reqs = new db_x509req(dbenv, dbfile.latin1(), reqList, keys,global_tid);
 		certs = new db_x509(dbenv, dbfile.latin1(), certList, keys,global_tid);
 		temps = new db_temp(dbenv, dbfile.latin1(), tempList,global_tid);
+		crls = new db_crl(dbenv, dbfile.latin1(), revList, global_tid);
 	}
 	catch (errorEx &err) {
 		Error(err);
@@ -265,6 +266,7 @@ MainWindow::~MainWindow()
 		delete(certs);
 		delete(temps);
 		delete(settings);
+		delete(crls);
 		global_tid->commit(0);
 		MARK
 		dbenv->close(0);
