@@ -57,7 +57,7 @@ pki_base::pki_base(const string d)
 	error = "";
 	desc = d;
 	className = "pki_base";
-	pointer=NULL;
+	pointer = NULL;
 }
 
 pki_base::pki_base()

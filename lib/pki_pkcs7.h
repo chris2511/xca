@@ -48,31 +48,32 @@
  *
  */                           
 
+
+#include <iostream>
 #include <string>
+#include <openssl/pem.h>
+#include "pki_x509.h"
 
-#ifdef HAVE_CONFIG_H
-#include "../config.h"
-#endif
+#ifndef PKI_PKCS7_H
+#define PKI_PKCS7_H
 
-#include "base.h"
-
-#ifndef PKI_EXCEPTION_H
-#define PKI_EXCEPTION_H
-
-class errorEx
+class pki_pkcs7: public pki_base
 {
-	private:
-		std::string msg;
-	public:
-		errorEx(string txt, std::string className = "") {
-			msg = txt; 
-			if (!className.empty())
-				msg += " (" + className + ")";
-		}
-		errorEx(const errorEx &e) { msg = e.msg; }
-		std::string getString(){return msg;}
-		const char *getCString(){return msg.c_str();}
-		bool isEmpty() { return msg.empty();}
+    friend class pki_x509;
+    protected:
+	PKCS7 *p7;
+	void signBio(pki_x509 *crt, BIO * bio);
+    public:
+	pki_pkcs7(const string d);
+	/* destructor */
+	~pki_pkcs7();
+	
+	void signFile(pki_x509 *crt, string filename);
+	void signCert(pki_x509 *crt, pki_x509 *contCert);
+	//void encryptFile(pki_x509 *crt, string filename);
+	void writeP7(string fname,bool PEM);
+	//void readP7(string fname);
+
 };
 
 #endif
