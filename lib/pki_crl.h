@@ -61,10 +61,10 @@ class pki_crl: public pki_base
 {
     friend class pki_x509;
     protected:
-	X509_CRL *crl;
 	pki_x509 *issuer;
 	X509V3_CTX ctx;
     public:
+	X509_CRL *crl;
 	pki_crl(const string d, pki_x509 *iss);
 	pki_crl(const string fname);
 	pki_crl();

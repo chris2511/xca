@@ -69,6 +69,7 @@ bool MainWindow::showDetailsCrl(pki_crl *crl, bool import)
 {
 	if (!crl) return false;
 	if (opensslError(crl)) return false;
+	char buf[20];
 	bool ret;
 	int numc, i;
 	pki_x509 *iss, *rev;
@@ -104,6 +105,11 @@ bool MainWindow::showDetailsCrl(pki_crl *crl, bool import)
 	if (crl->verify(iss->getKey()) == 0) {
 		dlg->signCheck->setText(tr("Success"));
 	}
+	sprintf(buf, "%d", ASN1_INTEGER_get(crl->crl->crl->version)+1);
+	/* yeah, this is really oo programming :-( */
+	dlg->lUpdate->setText(pki_x509::asn1TimeToSortable(crl->crl->crl->lastUpdate).c_str());
+	dlg->nUpdate->setText(pki_x509::asn1TimeToSortable(crl->crl->crl->nextUpdate).c_str());
+	dlg->version->setText(buf);
 	connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
 		this, SLOT( showDetailsCert(QListViewItem *) ));
 	string odesc = crl->getDescription();

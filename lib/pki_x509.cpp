@@ -448,7 +448,7 @@ string pki_x509::asn1TimeToSortable(ASN1_TIME *a)
 	string time = "";
 	if (!a) return time;
 	if (asn1TimeYMDG(a, &y ,&m ,&d ,&g)) {
-		openssl_error("time error");
+		// openssl_error("time error");
 	}
 	char buf[20];
 	sprintf(buf, "%04d-%02d-%02d %s",y+1900,m,d,(g==1)?"GMT":"");

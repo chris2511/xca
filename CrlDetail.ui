@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>538</width>
+            <width>534</width>
             <height>381</height>
         </rect>
     </property>
@@ -479,7 +479,7 @@
                                 <class>QLabel</class>
                                 <property stdset="1">
                                     <name>name</name>
-                                    <cstring>serialNr</cstring>
+                                    <cstring>version</cstring>
                                 </property>
                                 <property stdset="1">
                                     <name>sizePolicy</name>

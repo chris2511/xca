@@ -133,11 +133,11 @@ class pki_x509 : public pki_base
 	   void setDates(int days);
 	   void setSerial(int serial);
 	   string tinyCAfname();
-	   string asn1TimeToSortable(ASN1_TIME *a);
+	   static string asn1TimeToSortable(ASN1_TIME *a);
 	   string asn1TimeToString(ASN1_TIME *a, int format);
 	   string asn1TimeToPlain(ASN1_TIME *a);
 	   string asn1TimeToPretty(ASN1_TIME *a);
-	   int asn1TimeYMDG(ASN1_TIME *a, int *y, int *m, int *d, int *g);
+	   static int asn1TimeYMDG(ASN1_TIME *a, int *y, int *m, int *d, int *g);
 	   string subjectOneLine();
 };
 
