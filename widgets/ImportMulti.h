@@ -70,18 +70,14 @@ class ImportMulti: public ImportMulti_UI
 		void addItem(pki_base *pki);
 		pki_base *search(QListViewItem *current);
 		pki_base *getSelected();
+		void import(pki_base *pki);
+
 	public slots:
 		void showPopupMenu(QListViewItem *item, const QPoint &pt, int x);
 		void remove();
 		void details();
 		void import();
-
-	signals:	
-		void importCert(pki_x509 *);
-		void importKey(pki_key *);
-		void showCert(pki_x509 *);
-		void showKey(pki_key *);
-  
+		void importAll();
 };
 
 #endif

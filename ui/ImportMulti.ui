@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>673</width>
+            <width>669</width>
             <height>295</height>
         </rect>
     </property>
@@ -165,7 +165,14 @@
         <receiver>ImportMulti_UI</receiver>
         <slot>import()</slot>
     </connection>
+    <connection>
+        <sender>buttonOk</sender>
+        <signal>clicked()</signal>
+        <receiver>ImportMulti_UI</receiver>
+        <slot>importAll()</slot>
+    </connection>
     <slot access="public">import()</slot>
+    <slot access="public">importAll()</slot>
     <slot access="public">showPopupMenu(QListViewItem *, const QPoint &amp;, int)</slot>
 </connections>
 </UI>

@@ -93,6 +93,7 @@ void ImportMulti::addItem(pki_base *pki)
 		for (int i=0; i<p7->numCert(); i++) {
 			addItem(p7->getCert(i));
 		}
+		delete p7;
 	}
 	else if (cn == "pki_pkcs12") {
 		pki_pkcs12 *p12 = ( pki_pkcs12 *)pki;
@@ -101,6 +102,7 @@ void ImportMulti::addItem(pki_base *pki)
 		for (int i=0; i<p12->numCa(); i++) {
 			addItem(p12->getCa(i));
 		}
+		delete p12;
 	}
 	else  {
 		QMessageBox::warning(this, XCA_TITLE,
@@ -145,15 +147,29 @@ pki_base *ImportMulti::search(QListViewItem *current)
 	return NULL;
 }
 
+void ImportMulti::importAll()
+{
+	for (pki_base *pki = cont.first(); pki != 0; pki = cont.first() ) {
+		import(pki);
+	}
+	accept();
+}
+
 void ImportMulti::import()
 {
 	pki_base *pki = getSelected();
+	import(pki);
+}
+
+void ImportMulti::import(pki_base *pki)
+{
 	if (!pki) return;
 	QListViewItem *lvi = pki->getLvi();
 	pki->delLvi();
 	QString cn = pki->getClassName();
-	if (cn == "pki_x509")
+	if (cn == "pki_x509") {
 		MainWindow::certs->insert(pki);
+	}
 	else if (cn == "pki_key") {
 		MainWindow::keys->insert(pki);
 	}

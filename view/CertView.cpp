@@ -341,18 +341,14 @@ void CertView::deleteItem()
 
 void CertView::load()
 {
-	printf("PKI counter: %d\n",get_pki_counter());
 	load_cert l;
 	load_default(l);
-	printf("PKI counter: %d\n",get_pki_counter());
 }
 
 void CertView::loadPKCS12()
 {
-	printf("PKI counter: %d\n",get_pki_counter());
 	load_pkcs12 l;
 	load_default(l);
-	printf("PKI counter: %d\n",get_pki_counter());
 }
 
 void CertView::loadPKCS7()
@@ -361,6 +357,7 @@ void CertView::loadPKCS7()
 	load_default(l);
 }
 
+#if 0
 pki_base *CertView::insert(pki_base *item)
 {
 	pki_base *cert = NULL;
@@ -373,6 +370,7 @@ pki_base *CertView::insert(pki_base *item)
     }
     return cert;
 }
+#endif
 
 #define P7_ONLY 0
 #define P7_CHAIN 1

@@ -71,7 +71,6 @@ class ReqView : public XcaListView
 	void load();
 	void updateViewItem(pki_base *);
 	pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
 	void store(bool pem);
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
    public slots:

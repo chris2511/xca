@@ -107,38 +107,10 @@ void CrlView::deleteItem()
 		tr("is going to be deleted"));
 }
 
-pki_base *CrlView::loadItem(QString fname)
-{
-	pki_base *crl = new pki_crl(fname);
-	return crl;
-}
-		
 void CrlView::load()
 {
-	QStringList filter;
-	filter.append(tr("Revokation lists ( *.pem *.crl )")); 
-	load_default(filter, tr("Load CRL"));
-}
-
-pki_base *CrlView::insert(pki_base *item)
-{
-    pki_crl * crl = (pki_crl *)item;
-    try {
-	pki_crl *oldcrl = (pki_crl *)MainWindow::crls->getByReference(crl);
-	if (oldcrl) {
-		QMessageBox::information(this,tr(XCA_TITLE),
-			tr("The revokation list already exists in the database as") +
-			":\n'" + oldcrl->getIntName() + 
-			"'\n" + tr("and so it was not imported"), "OK");
-		delete(crl);
-		return oldcrl;
-	}
-	MainWindow::crls->insertPKI(crl);
-    }
-    catch (errorEx &err) {
-		Error(err);
-    }
-    return crl;
+	load_crl l;
+	load_default(l);
 }
 
 void CrlView::writeCrl_pem()

@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -50,6 +51,8 @@
 
 
 #include "db_crl.h"
+#include "exception.h"
+#include <qmessagebox.h>
 
 db_crl::db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid)
 	:db_base(dbe, DBfile, "crldb", tid)
@@ -89,6 +92,22 @@ void db_crl::inToCont(pki_base *pki)
 {
 	revokeCerts((pki_crl *)pki);
 	container.append(pki);
+}
+
+pki_base *db_crl::insert(pki_base *item)
+{
+	pki_crl * crl = (pki_crl *)item;
+	pki_crl *oldcrl = (pki_crl *)getByReference(crl);
+	if (oldcrl) {
+		QMessageBox::information(NULL, XCA_TITLE,
+			tr("The revokation list already exists in the database as") +
+			":\n'" + oldcrl->getIntName() + 
+			"'\n" + tr("and so it was not imported"), "OK");
+		delete(crl);
+		return oldcrl;
+	}
+	insertPKI(crl);
+	return crl;
 }
 
 

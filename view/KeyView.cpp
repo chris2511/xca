@@ -80,30 +80,30 @@ void KeyView::newItem()
 	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
 	QString x;
 	for (int i=0; sizeList[i] != 0; i++ ) 
-	   dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
+	dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
 	dlg->keyLength->setCurrentItem(2);
 	dlg->image->setPixmap(*MainWindow::keyImg);
 	if (dlg->exec()) {
 	  try {
-	   int sel = dlg->keyLength->currentItem();
-	   QProgressDialog *progress = new QProgressDialog(
-		tr("Please wait, Key generation is in progress"),
-		tr("Cancel"),90, 0, 0, true);
-	   progress->setMinimumDuration(0);
-	   progress->setProgress(0);	
-	   progress->setCaption(tr(XCA_TITLE));
-	   pki_key *nkey = new pki_key (dlg->keyDesc->text(), 
-		       &incProgress,
-		       progress,
-		       sizeList[sel]);
-           progress->cancel();
-	   delete progress;
-	   insert(nkey);
-	   x = nkey->getIntName();
-	   emit keyDone(x);
+		int sel = dlg->keyLength->currentItem();
+		QProgressDialog *progress = new QProgressDialog(
+			tr("Please wait, Key generation is in progress"),
+			tr("Cancel"),90, 0, 0, true);
+		progress->setMinimumDuration(0);
+		progress->setProgress(0);	
+		progress->setCaption(tr(XCA_TITLE));
+		pki_key *nkey = new pki_key (dlg->keyDesc->text(), 
+			&incProgress,
+			progress,
+			sizeList[sel]);
+			progress->cancel();
+		delete progress;
+		db->insert(nkey);
+		x = nkey->getIntName();
+		emit keyDone(x);
 	  }
 	  catch (errorEx &err) {
-		  Error(err);
+		Error(err);
 	  }
 	}
 	delete dlg;
@@ -133,18 +133,11 @@ void KeyView::showItem(pki_base *item, bool import)
 
 void KeyView::load()
 {
-	QStringList filter;
-	filter.append( "PKI Keys ( *.pem *.der *.key )"); 
-	filter.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
-	load_default(filter, tr("Import key"));
+	load_key l;
+	load_default(l);
 }
 
-pki_base *KeyView::loadItem(QString fname)
-{
-	pki_base *lkey = new pki_key(fname, &MainWindow::passRead);
-	return lkey;
-}
-
+#if 0
 pki_base* KeyView::insert(pki_base *item)
 {
 	pki_base *key;
@@ -157,7 +150,7 @@ pki_base* KeyView::insert(pki_base *item)
 	}
 	return key;
 }
-
+#endif
 
 void KeyView::store()
 {
@@ -227,6 +220,6 @@ void KeyView::incProgress(int a, int b, void *progress)
 
 void KeyView::importKey(pki_key *k)
 {
-	insert(k);
+	db->insert(k);
 }
 

@@ -159,7 +159,6 @@ void XcaListView::renameDialog()
 void XcaListView::deleteItem_default(QString t1, QString t2)
 {
 	pki_base *del = getSelected();
-	QListViewItem *lvi;
 	if (!del) return;
 	if (QMessageBox::information(this,tr(XCA_TITLE),
 		t1 + ": '" + del->getIntName() + "'\n" + t2,
@@ -173,7 +172,7 @@ void XcaListView::deleteItem_default(QString t1, QString t2)
 	}
 	updateView();
 }
-
+#if 0
 void XcaListView::load_default(QStringList &filter, QString caption)
 {
 	filter.append( tr("All Files ( *.* )") );
@@ -205,6 +204,7 @@ void XcaListView::load_default(QStringList &filter, QString caption)
         }
 	updateView();
 }
+#endif
 
 void XcaListView::load_default(load_base &load)
 {
@@ -276,8 +276,9 @@ void XcaListView::updateView()
 		pki->updateView();
 	}
 }
-
+#if 0
 pki_base *XcaListView::loadItem(QString) { CERR("Virtual called..."); return NULL; }
+#endif
 void XcaListView::newItem(void) { CERR("Virtual called..."); }
 void XcaListView::deleteItem(void) { CERR("Virtual called..."); }
 void XcaListView::load(void) { CERR("Virtual called..."); }

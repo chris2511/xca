@@ -9,39 +9,33 @@ TARGET=xca-$(VERSION)
 GCC=@CXX@
 CC=@CC@
 MOC=@MOC@
-AR=@AR@
-RANLIB=@RANLIB@
 
 CPPFLAGS=-I.. @CPPFLAGS@ @DEFS@
 CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
 ##############################################
 
-PKINAMES=func asn1int asn1time x509name x509rev x509v3ext pass_info \
+NAMES=func asn1int asn1time x509name x509rev x509v3ext pass_info \
 	pki_key pki_x509super pki_x509req pki_x509 \
 	pki_pkcs12 pki_temp pki_crl pki_pkcs7 \
 	db_base 
 
 MOCNAMES=pki_base db_key db_x509super db_x509req db_x509 db_temp db_crl load_obj
 
-PKIOBJS=$(patsubst %, %.o, $(PKINAMES) $(MOCNAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
-DB_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
+OBJS=$(patsubst %, %.o, $(NAMES) $(MOCNAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
+MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 
-all: libpki.a
+all: libpki.o
 
-libpki.a: $(PKIOBJS) 
-	$(AR) rc $@ $(PKIOBJS)
-	$(RANLIB) $@
+libpki.o: $(OBJS)
+	$(LD) -r -o $@ $(OBJS)
 
-%.o: %.cpp 
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 clean:
-	rm -rf *~ *.o *.a $(DB_CPP)
+	rm -rf *~ *.o *.a $(MOC_CPP)
 
 distclean: clean
 	rm -f Makefile base.h
 
-moc_%.cpp: %.h %.cpp
-	$(MOC) $< -o $@
+include ../Rules.mak
   
 .SECONDARY: $(DB_CPP)

@@ -12,9 +12,6 @@ CC=@CC@
 MOC=@MOC@
 UIC=@UIC@
 
-AR=@AR@
-RANLIB=@RANLIB@
-
 CPPFLAGS=-I.. @CPPFLAGS@ @DEFS@
 CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
@@ -32,15 +29,12 @@ all: view.o
 view.o: $(OBJS) 
 	$(LD) -r -o $@ $(OBJS)
 
-%.o: %.cpp 
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 clean:
 	rm -rf *~ *.o *.a $(MOC_CPP)  
 
 distclean: clean
 	rm -f Makefile 
 
-moc_%.cpp: %.h %.cpp
-	$(MOC) $< -o $@
+include ../Rules.mak
 
 .SECONDARY: $(UI_CPP) $(UI_H) $(MOC_CPP)  

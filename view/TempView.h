@@ -67,11 +67,7 @@ class TempView : public XcaListView
 	TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem(int type);
-	//void load();
 	void updateViewItem(pki_base *);
-	//pki_base *loadItem(QString fname);
-	pki_base* insert(pki_base *item);
-	//void store();
 	bool alterTemp(pki_temp *);
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
 	pki_base *loadItem(QString fname);

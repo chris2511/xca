@@ -35,20 +35,12 @@ all: ui.o
 ui.o: $(UIOBJS) 
 	$(LD) -r $(UIOBJS) -o $@
 
-%.o: %.cpp 
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 clean:
 	rm -rf *~ *.o *.a $(UI_CPP) $(UI_H) $(MOC_CPP)  
 
 distclean: clean
 	rm -f Makefile
 
-moc_%.cpp: %.h %.cpp
-	$(MOC) $< -o $@
-%.h: %.ui
-	$(UIC) -o $@ $<
-
-%.cpp: %.h %.ui
-	$(UIC) -o $@ -impl $^
+include ../Rules.mak
 
 .SECONDARY: $(UI_CPP) $(UI_H) $(MOC_CPP)  

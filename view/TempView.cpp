@@ -87,7 +87,7 @@ void TempView::newItem(int type)
 {
 	pki_temp *temp = new pki_temp("--", type);
 	if (alterTemp(temp)) {
-		insert(temp);
+		db->insert(temp);
 	}
 	else {
 		delete temp;
@@ -137,23 +137,8 @@ void TempView::deleteItem()
 
 void TempView::load()
 {   
-	QStringList filter;
-	filter.append( "XCA templates ( *.xca )");
-	load_default(filter, tr("Import key"));
-}
-
-pki_base *TempView::loadItem(QString fname)
-{   
-	pki_temp *temp = new pki_temp(fname);
-	try {
-		temp->loadTemp(fname);
-	}
-    catch (errorEx &err) {
-        Error(err);
-		delete temp;
-        return NULL;
-    }
-	return temp;
+	load_temp l;
+	load_default(l);
 }
 
 void TempView::store()
@@ -191,14 +176,6 @@ void TempView::store()
     catch (errorEx &err) {
         Error(err);
     }
-}
-
-pki_base *TempView::insert(pki_base *temp)
-{
-	if(! temp) return NULL;
-	MainWindow::temps->insertPKI(temp);
-	updateView();
-	return temp;
 }
 
 void TempView::certFromTemp()

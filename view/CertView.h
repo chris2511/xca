@@ -81,7 +81,7 @@ class CertView : public XcaListView
 	void deleteItem();
 	void updateViewItem(pki_base *);
 	void load();
-	pki_base* insert(pki_base *item);
+	// pki_base* insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
 	void newCert(NewX509 *dlg);

@@ -14,25 +14,22 @@ CC=@CC@
 CPPFLAGS=-I. @CPPFLAGS@ @DEFS@ 
 CFLAGS=@ac_CC_WARN@ @ac_DEBUG@
 
-LDFLAGS=-Llib @LDFLAGS@
-LIBS=@LIBS@ -lpki
+LDFLAGS=@LDFLAGS@
+LIBS=@LIBS@
 
 MOC=@MOC@
 UIC=@UIC@
 
 ###################################
 
-OBJS=ui/ui.o widgets/widgets.o view/view.o
+OBJS=ui/ui.o widgets/widgets.o view/view.o lib/libpki.o
 SUBDIRS=ui lib widgets view
 
 all: $(SUBDIRS) xca
 
 re: clean all
 
-%.o: %.cpp
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
-
-xca: $(OBJS) lib/libpki.a $(OBJS)
+xca: $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) $(LIBS) -o xca
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 

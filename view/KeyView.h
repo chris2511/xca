@@ -70,8 +70,7 @@ class KeyView : public XcaListView
 	void newItem();
 	void deleteItem();
 	void load();
-	pki_base *loadItem(QString fname);
-	pki_base *insert(pki_base *item);
+	// pki_base *insert(pki_base *item);
 	void store();
 	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
   public slots:

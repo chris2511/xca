@@ -127,8 +127,8 @@ load_pkcs7::load_pkcs7()
 
 pki_base * load_pkcs7::loadItem(QString s)
 {
-	pki_base *p7 = new pki_pkcs7(s);
-	((pki_pkcs7 *)p7)->readP7(s);
+	pki_pkcs7 *p7 = new pki_pkcs7(s);
+	p7->readP7(s);
 	return p7;
 };
 
@@ -144,6 +144,35 @@ pki_base * load_pkcs12::loadItem(QString s)
 {
 	pki_base *p12 = new pki_pkcs12(s, &MainWindow::passRead);
 	return p12;
+};
+
+/* Templates */
+load_temp::load_temp()
+	:load_base()
+{
+	filter.prepend(QObject::tr("XCA templates ( *.xca )"));
+	caption = QObject::tr("Import XCA Templates");
+}		
+
+pki_base * load_temp::loadItem(QString s)
+{
+	pki_temp *temp = new pki_temp(s);
+	temp->loadTemp(s);
+	return temp;
+};
+
+/* CRLs */
+load_crl::load_crl()
+	:load_base()
+{
+	filter.prepend(QObject::tr("Revokation lists ( *.pem *.crl )"));
+	caption = QObject::tr("Import Certificate Revokation List");
+}		
+
+pki_base * load_crl::loadItem(QString s)
+{
+	pki_crl *crl = new pki_crl(s);
+	return crl;
 };
 
 

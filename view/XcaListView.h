@@ -74,7 +74,6 @@ class XcaListView : public QListView
 	virtual pki_base *getSelected();
 	virtual void showItem(pki_base *item, bool import);
 	void deleteItem_default(QString t1, QString t2);
-	virtual pki_base *loadItem(QString fname);
 	void load_default(QStringList &filter, QString caption);
 	void load_default(load_base &load);
 	void setDB(db_base *mydb, QPixmap *myimage);

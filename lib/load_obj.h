@@ -101,4 +101,19 @@ class load_pkcs12: public load_base
 		load_pkcs12();
 		pki_base * loadItem(QString s);
 };		
+
+class load_temp: public load_base
+{
+	public:
+		load_temp();
+		pki_base * loadItem(QString s);
+};		
+
+class load_crl: public load_base
+{
+	public:
+		load_crl();
+		pki_base * loadItem(QString s);
+};		
+
 #endif

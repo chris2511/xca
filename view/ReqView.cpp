@@ -132,6 +132,11 @@ void ReqView::deleteItem()
 
 void ReqView::load()
 {
+	load_req l;
+	load_default(l);
+}
+
+#if 0
 	QStringList filter;
 	filter.append("PKCS#10 CSR ( *.pem *.der *.csr )"); 
 	load_default(filter, tr("Import CSR"));
@@ -142,7 +147,7 @@ pki_base *ReqView::loadItem(QString fname)
 	pki_base *req = new pki_x509req(fname);
 	return req;
 }
-
+#endif
 
 void ReqView::writeReq_pem() { store(true); }
 void ReqView::writeReq_der() { store(false); }
@@ -197,7 +202,7 @@ void ReqView::signReq()
 	newCert(req);
 }
 
-
+#if 0
 pki_base *ReqView::insert(pki_base *item)
 {
 	pki_base *req = NULL;
@@ -210,7 +215,7 @@ pki_base *ReqView::insert(pki_base *item)
 	}
 	return req;
 }
-
+#endif
 
 void ReqView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 	CERR("hallo popup Req");
