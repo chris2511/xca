@@ -258,33 +258,3 @@ void XcaListView::store(void) { CERR("Virtual called..."); }
 void XcaListView::popupMenu(QListViewItem *, QPoint const &, int) { CERR("Virtual called..."); }
 void XcaListView::showItem(pki_base *, bool) { CERR("Virtual called...");}
 
-QPixmap *XcaListView::loadImg(const char *name )
-{
-#ifdef WIN32
-        static unsigned char PREFIX[100]="";
-        if (PREFIX[0] == '\0') {
-          LONG lRc;
-      HKEY hKey;
-      lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\xca",0,KEY_READ, &hKey);
-      if(lRc!= ERROR_SUCCESS){
-        // No key error
-            QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
-                PREFIX[0] = '\0';
-          }
-      else {
-            ULONG dwLength = 100;
-                lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, PREFIX, &dwLength);
-        if(lRc!= ERROR_SUCCESS){
-            // No key error
-                QMessageBox::warning(NULL,tr(XCA_TITLE), "Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");        
-                    PREFIX[0] = '\0';
-                }
-          }
-        lRc=RegCloseKey(hKey);
-        }
-#endif
-        QString path = (char *)PREFIX;
-        path += QDir::separator();
-    return new QPixmap(path + name);
-}
-

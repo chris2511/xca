@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>523</width>
+            <width>515</width>
             <height>319</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>Certificate export</string>
+        <string>ExportCert_UI</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -198,7 +198,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Filename:</string>
+                        <string>Filename</string>
                     </property>
                 </widget>
                 <widget>
@@ -280,7 +280,7 @@ PKCS#12 is an encrypted official Key-Certificate exchange format</string>
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Export Format:</string>
+                        <string>Export Format</string>
                     </property>
                 </widget>
                 <widget>

@@ -94,7 +94,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 		delete key;
 	}
 	else {
-		issuerIntName->setText("Unknown signer");
+		issuerIntName->setText(tr("Unknown signer"));
 		issuerIntName->setDisabled(true);
                 signCheck->setText(tr("Verification not possible"));
                 signCheck->setDisabled(true);
@@ -119,7 +119,7 @@ void CrlDetail::setCrl(pki_crl *crl)
                 }
                 else {
                         current = new QListViewItem(certList,
-					"Unknown certificate" );
+					tr("Unknown certificate"));
                 } 
 		current->setPixmap(0, *pki_x509::icon[2]);
                 current->setText(1, revit.getSerial().toHex()) ;

@@ -78,7 +78,6 @@ class XcaListView : public QListView
 		void Error(errorEx &err);
 		bool Error(pki_base *pki);
 		void loadCont();
-		QPixmap *loadImg(const char *name );
 	public slots:
 		virtual void newItem();
 		virtual void deleteItem();

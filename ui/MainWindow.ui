@@ -12,13 +12,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>812</width>
+            <width>804</width>
             <height>534</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>X Certificate and Key management</string>
+        <string>MainWindow_UI</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -219,7 +219,7 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Certificate signing request</string>
+                    <string>Certificate signing requests</string>
                 </attribute>
                 <hbox>
                     <property stdset="1">
@@ -362,7 +362,7 @@
                 </property>
                 <attribute>
                     <name>title</name>
-                    <string>Certificate</string>
+                    <string>Certificates</string>
                 </attribute>
                 <hbox>
                     <property stdset="1">
@@ -718,7 +718,7 @@
                 <class>QWidget</class>
                 <property stdset="1">
                     <name>name</name>
-                    <cstring>tab</cstring>
+                    <cstring>unnamed</cstring>
                 </property>
                 <attribute>
                     <name>title</name>
@@ -795,10 +795,6 @@
                                     <name>text</name>
                                     <string>&amp;Delete</string>
                                 </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Do NOT press this button :-)</string>
-                                </property>
                             </widget>
                             <spacer>
                                 <property>
@@ -842,17 +838,6 @@
                         </vbox>
                     </widget>
                 </hbox>
-            </widget>
-            <widget>
-                <class>QWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>unnamed</cstring>
-                </property>
-                <attribute>
-                    <name>title</name>
-                    <string>Settings</string>
-                </attribute>
             </widget>
         </widget>
         <widget>

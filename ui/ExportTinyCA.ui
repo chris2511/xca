@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>585</width>
+            <width>581</width>
             <height>300</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string>CA export</string>
+        <string></string>
     </property>
     <vbox>
         <property stdset="1">
@@ -162,7 +162,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Templatedir:</string>
+                        <string>Templatedir</string>
                     </property>
                 </widget>
                 <widget>
@@ -227,7 +227,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>TinyCA Directory:</string>
+                        <string>TinyCA Directory</string>
                     </property>
                 </widget>
                 <widget>
@@ -292,7 +292,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Name:</string>
+                        <string>Name</string>
                     </property>
                 </widget>
                 <widget>
@@ -370,7 +370,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
                     </property>
                 </widget>
                 <spacer>
@@ -402,7 +402,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
             </hbox>

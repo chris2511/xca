@@ -50,7 +50,7 @@
     </message>
     <message>
         <source>Serial:</source>
-        <translation>Num Serie:</translation>
+        <translation type="obsolete">Num Serie:</translation>
     </message>
     <message>
         <source>Validity</source>
@@ -133,16 +133,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Extension</source>
+        <source>Serial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Extensions</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CertExtend_UI</name>
-    <message>
-        <source>Certificate renewal</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</source>
         <translation type="unfinished"></translation>
@@ -160,11 +160,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>not Before</source>
+        <source>Not before</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>not After</source>
+        <source>Not after</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -390,34 +390,14 @@
     </message>
     <message>
         <source>Signed by:</source>
-        <translation type="unfinished">Firmado por:</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Signature:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Firmado por:</translation>
     </message>
     <message>
         <source>The internal name of the CRL in the database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Version:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Issuing dates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Last Update:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Next Update:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -442,6 +422,30 @@
     </message>
     <message>
         <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Signed by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Nombre</translation>
+    </message>
+    <message>
+        <source>Signature</source>
+        <translation type="unfinished">Firma</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next Update</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -527,7 +531,7 @@
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished">Fichero:</translation>
+        <translation type="obsolete">Fichero:</translation>
     </message>
     <message>
         <source>...</source>
@@ -535,7 +539,7 @@
     </message>
     <message>
         <source>Export Format:</source>
-        <translation type="unfinished">Formato de exportación:</translation>
+        <translation type="obsolete">Formato de exportación:</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -558,6 +562,18 @@
 PEM is a base64 encoded Certificate
 PKCS#7 is an official Certificate exchange format
 PKCS#12 is an encrypted official Key-Certificate exchange format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ExportCert_UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export Format</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -588,7 +604,7 @@ PKCS#12 is an encrypted official Key-Certificate exchange format</source>
     </message>
     <message>
         <source>Filename:</source>
-        <translation>Fichero:</translation>
+        <translation type="obsolete">Fichero:</translation>
     </message>
     <message>
         <source>...</source>
@@ -604,7 +620,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Export Format:</source>
-        <translation>Formato de exportación:</translation>
+        <translation type="obsolete">Formato de exportación:</translation>
     </message>
     <message>
         <source>When exporting the private key it should be encrypted.</source>
@@ -630,6 +646,18 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <source>When exporting the private part, it should be encrypted.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ExportKey_UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export Format</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ExportTinyCA</name>
@@ -645,15 +673,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
 <context>
     <name>ExportTinyCA_UI</name>
     <message>
-        <source>CA export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>TinyCA export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Templatedir:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -665,15 +685,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished">...</translation>
     </message>
     <message>
-        <source>TinyCA Directory:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>the TinyCA database directory, usually: ~/.TinyCA/</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -682,10 +694,26 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <source>OK</source>
+        <source>Templatedir</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TinyCA Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Nombre</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -755,7 +783,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Remove</source>
+        <source>&amp;Remove</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -934,19 +962,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
 <context>
     <name>MainWindow_UI</name>
     <message>
-        <source>X Certificate and Key management</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>RSA Keys</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate signing request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1026,10 +1042,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do NOT press this button :-)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import PFX (PKCS#12)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1046,7 +1058,15 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Settings</source>
+        <source>MainWindow_UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate signing requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1062,10 +1082,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Key properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1091,6 +1107,10 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     <message>
         <source>The internal name of the new key</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Nombre</translation>
     </message>
 </context>
 <context>
@@ -1128,53 +1148,31 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-Welcome to the settings for certificate signing requests.
-
-A signing request needs a private key, so it will be created 
-if there isn&apos;t any unused key available in the key database. 
-This signing request can then be given to a Certification authority 
-while the private key of the request and of the resulting certificate 
-returned from the CA does never leave your computer.</source>
+        <source>You are done with entering all parameters for creating a Certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-You are done with entering all parameters for generating a Certificate signing 
-request. The resulting request should be exported and send to an appropriate CA 
-for signing it.</source>
+        <source>Welcome to the settings for certificate signing requests.
+A signing request needs a private key, so it will be created if there isn&apos;t any unused key available in the key database. This signing request can then be given to a Certification authority while the private key of the request and of the resulting certificate returned from the CA does never leave your computer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-Welcome to the settings for Templates.
-
-This templates do not refer to any ASN.1 structure but are used to keep default 
-settings for signing requests and certificates. 
-When creating a Request or Certificate the template can preset the needed fields 
-with default settings.</source>
+        <source>You are done with entering all parameters for generating a Certificate signing request. The resulting request should be exported and send to an appropriate CA for signing it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-You are done with entering all parameters for the Template.
-
-After this step the template can be assigned to one of your CAs to be autoatically 
-applied when signing with this CA.</source>
+        <source>Welcome to the settings for Templates.
+This templates do not refer to any ASN.1 structure but are used to keep default settings for signing requests and certificates. When creating a Request or Certificate the template can preset the needed fields with default settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are done with entering all parameters for the Template.
+After this step the template can be assigned to one of your CAs to be autoatically applied when signing with this CA.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Welcome to the settings for Certificates.
-
-The information for the new Certificate can either be grabbed from a given 
-Certificate-request or be filled in by hand. In the case of not signing a request 
-there needs to be at least one unused key. If this is not the case it will be created. 
-If you want to self-sign a request (unusual but nevertheless possible) you need the 
-private key used to create the request.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are done with entering all parameters for creating a Certificate.</source>
+The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1198,14 +1196,6 @@ private key used to create the request.</source>
     </message>
     <message>
         <source>Basic Constraints</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CA:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Path length:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1342,10 +1332,6 @@ private key used to create the request.</source>
     </message>
     <message>
         <source>Sign this Certificate signing &amp;request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use &amp;this Certificate for for signing:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1554,14 +1540,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>not Before</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>not After</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Time Range</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1615,6 +1593,26 @@ If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it 
 Examples:
 URI:http://www.myhost.com/myca.crl
 URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;this Certificate for for signing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not after</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1741,7 +1739,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <name>ReqDetail_UI</name>
     <message>
         <source>Details of the request</source>
-        <translation>Detalles de la solicitud</translation>
+        <translation type="obsolete">Detalles de la solicitud</translation>
     </message>
     <message>
         <source>Details of the certificate signing request</source>
@@ -1916,10 +1914,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
 </context>
 <context>
     <name>TrustState_UI</name>
-    <message>
-        <source>Trust State</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Set Trustment of the Certificate</source>
         <translation type="unfinished"></translation>
