@@ -356,6 +356,15 @@ void NewX509::showPage(QWidget *page)
 	else if ( page == page2 ) {
 		dataChangeP2();
 	}
+	else if ( page == page4 ) { // disable Copy issuer alternative name 
+		if (selfSignRB->isChecked()) { // for self signed certs
+			issAltCp->setChecked(false);
+			issAltCp->setEnabled(false);
+		}
+		else {
+			issAltCp->setEnabled(true);
+		}
+	}
 	
 	QWizard::showPage(page);
 	

@@ -130,7 +130,7 @@ pki_temp::pki_temp(const string d, int atype)
 		ca=true;
 		bcCrit=true;
 		authKey=true;
-		issAltCp=true;
+		issAltCp=false;
 		nsCertType=112;
 		keyUse=96;
 	}
