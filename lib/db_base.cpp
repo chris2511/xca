@@ -43,6 +43,7 @@ bool db_base::insertPKI(pki_base *pki)
 	string desc = pki->getDescription();
 	string orig = desc;
 	int size=0;
+	char field[80];
 	unsigned char *p;
 	p = pki->toData(&size);
 	int cnt=0;
@@ -54,8 +55,8 @@ bool db_base::insertPKI(pki_base *pki)
 	
 	   if ((x = data->put(NULL, &k, &d, DB_NOOVERWRITE))) {
 		data->err(x,"DB Error put");
-		string z ;
-		z = (++cnt);
+		sprintf(field,"%i",++cnt);
+		string z = field;
 	   	desc = orig + "_" + z ;
 	   }
 	}

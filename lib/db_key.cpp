@@ -26,7 +26,7 @@ QStringList db_key::getPrivateDesc()
 		int size = d->get_size();
 		key->fromData(p, size);
 		if (!key->isPubKey()) {
-			x.append(desc.data());	
+			x.append(desc.c_str());	
 			cerr << desc <<endl;
 		}
 		

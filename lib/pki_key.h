@@ -18,6 +18,7 @@
 class pki_key: public pki_base
 {
     friend class pki_x509req;
+    friend class pki_x509;
     protected:
 	EVP_PKEY *key;
 	bool onlyPubKey;

@@ -1,27 +1,27 @@
 
-#include "pki_x509req.h"
+#include "pki_x509.h"
 
 
-pki_x509req::pki_x509req(pki_key *key, const string cn,
+pki_x509::pki_x509(pki_key *key, const string cn,
 		const string c, const string l,
 		const string st,const string o,
 		const string ou,const string email, 
 		const string d)
 		:pki_base( d )
 {
-	request = X509_REQ_new();
+	cert = X509_new();
 	openssl_error();
 	if (key== NULL) {
 		cerr << "key ist null\n";
 		return;
 	}
 	openssl_error();
-	X509_REQ_set_version(request, 0L);
+	X509_set_version(cert, 0L);
 	openssl_error();
-	X509_REQ_set_pubkey(request, key->key);
+	X509_set_pubkey(cert, key->key);
 	openssl_error();
 	
-	X509_NAME *subj = X509_REQ_get_subject_name(request);
+	X509_NAME *subj = X509_get_subject_name(cert);
 	X509_NAME_add_entry_by_NID(subj,NID_commonName, MBSTRING_ASC,
 		(unsigned char*)cn.c_str(),-1,-1,0);
 	X509_NAME_add_entry_by_NID(subj,NID_countryName, MBSTRING_ASC, 
@@ -38,30 +38,30 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 		(unsigned char*)email.c_str() , -1, -1, 0);
 
 	const EVP_MD *digest = EVP_md5();
-	X509_REQ_sign(request,key->key ,digest);
+	X509_sign(cert, key->key, digest);
 	openssl_error();
 }
 
 
 
-pki_x509req::pki_x509req() : pki_base()
+pki_x509::pki_x509() : pki_base()
 {
-	request = X509_REQ_new();
+	cert = X509_new();
 	openssl_error();
 }
 
 
-pki_x509req::pki_x509req(const string fname)
+pki_x509::pki_x509(const string fname)
 {
 	FILE *fp = fopen(fname.c_str(),"r");
-	request = NULL;
+	cert = NULL;
 	if (fp != NULL) {
-	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
-	   if (!request) {
+	   cert = PEM_read_X509(fp, NULL, NULL, NULL);
+	   if (!cert) {
 		openssl_error();
 		rewind(fp);
 		printf("Fallback to private key DER\n"); 
-	   	request = d2i_X509_REQ_fp(fp, NULL);
+	   	cert = d2i_X509_fp(fp, NULL);
 	   }
 	   int r = fname.rfind('.');
 	   int l = fname.rfind('/');
@@ -74,46 +74,46 @@ pki_x509req::pki_x509req(const string fname)
 }
 
 
-void pki_x509req::fromData(unsigned char *p, int size)
+void pki_x509::fromData(unsigned char *p, int size)
 {
-	request = d2i_X509_REQ(NULL, &p, size);
+	cert = d2i_X509(NULL, &p, size);
 	openssl_error();
 }
 
 
-string pki_x509req::getDN(int nid)
+string pki_x509::getDN(int nid)
 {
 	char buf[200];
 	string s;
-	X509_NAME *subj = X509_REQ_get_subject_name(request);
+	X509_NAME *subj = X509_get_subject_name(cert);
 	X509_NAME_get_text_by_NID(subj, nid, buf, 200);
 	s = buf;
 	return s;
 }
 
 
-unsigned char *pki_x509req::toData(int *size)
+unsigned char *pki_x509::toData(int *size)
 {
 	unsigned char *p, *p1;
-	*size = i2d_X509_REQ(request, NULL);
+	*size = i2d_X509(cert, NULL);
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	i2d_X509_REQ(request, &p1);
+	i2d_X509(cert, &p1);
 	openssl_error();
 	return p;
 }
 
 
-void pki_x509req::writeReq(const string fname, bool PEM)
+void pki_x509::writeReq(const string fname, bool PEM)
 {
 	FILE *fp = fopen(fname.c_str(),"w");
 	if (fp != NULL) {
-	   if (request){
+	   if (cert){
 		if (PEM) 
-		   PEM_write_X509_REQ(fp, request);
+		   PEM_write_X509(fp, cert);
 		else
-		   i2d_X509_REQ_fp(fp, request);
+		   i2d_X509_fp(fp, cert);
 	        openssl_error();
 	   }
 	}
@@ -121,13 +121,13 @@ void pki_x509req::writeReq(const string fname, bool PEM)
 	fclose(fp);
 }
 
-bool pki_x509req::compare(pki_base *refreq)
+bool pki_x509::compare(pki_base *refreq)
 {
 	const EVP_MD *digest=EVP_md5();
 	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];	
 	unsigned int d1_len,d2_len;
-	X509_REQ_digest(request, digest, d1, &d1_len);
-	X509_REQ_digest(((pki_x509req *)refreq)->request, digest, d2, &d2_len);
+	X509_digest(cert, digest, d1, &d1_len);
+	X509_digest(((pki_x509 *)refreq)->cert, digest, d2, &d2_len);
 	if ((d1_len == d2_len) && 
 	    (d1_len >0) &&
 	    (memcmp(d1,d2,d1_len) == 0) )return true;
@@ -135,17 +135,17 @@ bool pki_x509req::compare(pki_base *refreq)
 }
 
 	
-bool pki_x509req::verify()
+bool pki_x509::verify()
 {
-	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
-	 bool x = (X509_REQ_verify(request,pkey) <= 0);
+	 EVP_PKEY *pkey = X509_get_pubkey(cert);
+	 bool x = (X509_verify(cert,pkey) <= 0);
 	 EVP_PKEY_free(pkey);
 	 return x;
 }
 
-pki_key *pki_x509req::getKey()
+pki_key *pki_x509::getKey()
 {
-	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
+	 EVP_PKEY *pkey = X509_get_pubkey(cert);
 	 pki_key *key = new pki_key("");	
 	 key->key=pkey;
 	 key->onlyPubKey=true;

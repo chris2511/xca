@@ -74,7 +74,8 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	   }
 	   int r = fname.rfind('.');
 	   int l = fname.rfind('/');
-	   setDescription(fname.substr(l,r));
+	   cerr << fname << "r,l: "<< r <<","<< l << endl;
+	   setDescription(fname.substr(l+1,r-l-1));
 	   openssl_error();
 	   if (! verify())
 		   cerr << "RSA key is faulty !!\n";
@@ -93,7 +94,6 @@ void pki_key::fromData(unsigned char *p, int size )
 	RSA *rsakey;
 	memcpy(sik,p,size);
 	onlyPubKey = false;
-	cerr << "Key ne.c_str\n";
 	if (key->type == EVP_PKEY_RSA) {
 	   rsakey = d2i_RSAPrivateKey(NULL, &p, size);
 	   if (openssl_error()) {
