@@ -24,7 +24,7 @@ if test -d "$QTDIR" ; then
 else
 	export CPPFLAGS="$CPPFLAGS -I/usr/include/qt -I/usr/local/include -I/usr/X11R6/include"
 	export LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/X11R6/lib"
-	ac_QTDIR=
+	ac_QTDIR="System location"
 fi
 
 H_SSL097=no
@@ -79,14 +79,14 @@ AC_ARG_ENABLE([printf-debug],[  --enable-printf-debug   switch on or off the pri
 	ac_DEBUG=-g
 fi], AC_DEFINE(PRINTF_DEBUG) )
 
-AC_ARG_ENABLE([debug],[  --enable-debug          switch on or off the printf-debugging ],
+AC_ARG_ENABLE([debug],[  --enable-debug          switch on or off debugging flag],
 [if test "x$enableval" == "xyes"; then
 	ac_DEBUG=-g
 else
 	ac_DEBUG=
 fi], ) 
 
-AC_CONFIG_FILES([Makefile lib/Makefile results])
+AC_CONFIG_FILES([Makefile lib/Makefile results lib/base.h])
 AC_OUTPUT
 
 if test "$LDB" == Xyyy; then

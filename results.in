@@ -1,10 +1,12 @@
 
-
-QT directory: @ac_QTDIR@
-Guessed QT Version: @ac_QTVER@
-Guessed OpenSSL Version: @ac_SSLVER@
-CPP flags: @CPPFLAGS@
-LD flags: @LDFLAGS@
+Package		: @PACKAGE_STRING@
+Install dir	: @prefix@
+QT directory	: @ac_QTDIR@
+QT Version	: @ac_QTVER@
+OpenSSL Ver.	: @ac_SSLVER@
+CPP flags	: @CPPFLAGS@
+LD flags	: @LDFLAGS@
+Debug flag	: @ac_DEBUG@
 
 
 *****************************************************************

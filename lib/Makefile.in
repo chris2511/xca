@@ -30,7 +30,7 @@ libxcadb.a: $(DBOBJS)
 	$(AR) rcs libxcadb.a $(DBOBJS)
 	
 %.o: %.cpp 
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c -DVER=\"$(VERSION)\" -DPREFIX=\"@prefix@/share/xca\" $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 clean:
 	rm -rf *~ *.o *.a $(DB_CPP)
 

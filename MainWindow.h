@@ -123,7 +123,7 @@ class MainWindow: public MainWindow_UI
 	db_temp *temps;
 	DbEnv *dbenv;
 	db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg;
+	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
 
    public:
 	int exitApp;

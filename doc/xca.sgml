@@ -133,16 +133,44 @@ other applications.
 In this version I have the pleasure of acknowledging
 <tscreen><verb>
 Kerstin Steinhauff &lt;tine (at) kerstine.de&gt;
-        Arts, graphics, testing, SuSE rpm building
+        Arts and graphics
 
 Ilya Kozhevnikov &lt;ilya (at) ef.unn.ru&gt;
         Compiling and testing the WIN32-port
+
+Paul Kirner &lt;kirner (at) fhwgt.de&gt;
+	Providing compile and test hardware
+
+Bugreports and feature input:
+	Frank Werner &lt;Frank (at) WeSoft.de&gt;
+	Peter Bieringer &lt;pb (at) bieringer.de&gt;
+
 </verb></tscreen>
 
 Thank you very much.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
+<sect>Commandline options
+<p>
+Usage: <em>xca dbname.db &lt;options&gt;</em>
+Next to the usual X commandline options. There are the following
+<itemize>
+<item>-v show version information and exit
+<item>-k expect all following non-option arguments to be RSA keys
+<item>-r expect all following non-option arguments to be Certificate signing requests
+<item>-c expect all following non-option arguments to be Certificates
+<item>-p expect all following non-option arguments to be PKCS#12 files
+</itemize>
+
+<p>
+when invoked with one of the -k -r -c -p options, the application 
+will show the details of the item and import it into the database
+if desired and exit after that.
+This behaviour enables xca to be used as default application for viewing
+PKI items.
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Common actions
 <p>

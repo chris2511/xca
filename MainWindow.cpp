@@ -54,7 +54,8 @@
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
-	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL;
+	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL,
+	*MainWindow::appIco = NULL;
 
 
 
@@ -117,12 +118,13 @@ void MainWindow::init_images(){
 	tempImg = loadImg("bigtemp.png");
 	nsImg = loadImg("netscape.png");
 	revImg = loadImg("revoked.png");
+	appIco = loadImg("key.xpm");
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
 	bigTemp->setPixmap(*tempImg);
 	bigRev->setPixmap(*revImg);
-	setIcon(*certImg);
+	setIcon(*appIco);
 }		
 	
 void MainWindow::read_cmdline()
@@ -159,6 +161,12 @@ void MainWindow::read_cmdline()
 					   exitApp =1;
 					   break;
 				case 'd' : type = XCA_DB;
+					   break;
+				case 'v' : type = XCA_DB;
+					   cout << tr(XCA_TITLE) << 
+						   endl << VER << endl;
+					   exitApp =1;
+					   return;
 					   break;
 			}
 			if (arg[2] != '\0') {
