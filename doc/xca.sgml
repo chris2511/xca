@@ -14,7 +14,7 @@ This application is intended for creating and managing X.509 certificates
 and RSA keys (DSA keys maybe supported in a later release
 since they are not wideley used in PKI cryptography).
 Everything that is needed for a CA is implemented.
-All CAs can sign sub-CAs rekursively. These certificate chains are shown clearly in a list-view.
+All CAs can sign sub-CAs recursively. These certificate chains are shown clearly in a list-view.
 For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
 All crypto data is stored in a local Berkeley database. 
 </abstract>
@@ -34,11 +34,11 @@ This application is intended as Certificate- and Key-store and as
 signing application issuing certificates.
 
 <p>
-All datastructures (Keys, Certificate signing requests, Certificates and Templates)
+All data structures (Keys, Certificate signing requests, Certificates and Templates)
 can be imported and exported in several formats like DER or PEM.
-Import means reading a file from the filesystem and storing the datastructure
-into the databasefile, while exporting means to write the datastructure
-from the databasefile to the filesystem to be e.g imported into an other application.
+Import means reading a file from the filesystem and storing the data structure
+into the database file, while exporting means to write the data structure
+from the database file to the filesystem to be e.g imported into an other application.
 
 <p>
 When starting the application the first time, it needs a password to encrypt the
@@ -152,10 +152,10 @@ Thank you very much.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Commandline options
+<sect>Command line options
 <p>
 Usage: <em>xca dbname.db &lt;options&gt;</em>
-Next to the usual X commandline options. There are the following
+Next to the usual X command line options. There are the following
 <itemize>
 <item>-v show version information and exit
 <item>-k expect all following non-option arguments to be RSA keys
@@ -168,7 +168,7 @@ Next to the usual X commandline options. There are the following
 <item>-t expect all following non-option arguments to be Xca templates
 <item>-b set the database base-directory
 <item>-d set the database filename
-<item>-x Exit after processing all commandline options
+<item>-x Exit after processing all command line options
 </itemize>
 
 <p>
@@ -190,7 +190,7 @@ also a common place for all selected PKI items like requests or Certificates.
 <p>
 The import of an item can be done by either clicking the import button on the right
 or via the context menu available by right clicking on the list background.
-The import function is smart enough to probe all known formats as there are:
+The import function is smart enough to probe all known formats there are:
 <itemize>
 <item><em>Keys:</em>  PEM private key, PEM public key, DER private key, DER public key, PKCS#8 private key.
 <item><em>Requests</em> DER request, PEM request, Netscape SPKAC request.
@@ -233,7 +233,7 @@ If a certificate signed by this application is going to be removed
 the application will warn you once more, because you can not revoke a
 deleted certificate. Thus only delete a certificate signed by you
 if you never exported it. Certificate signing requests can be deleted
-when they got signed, because they are not needed anymore. 
+when they get signed, because they are not needed anymore. 
 The request can be recovered from the resulting certificate by 
 exporting the certificate to a request. 
 This is however only possible if you own the private key of the 
@@ -278,8 +278,8 @@ If you want to create an SSL-server certificate the <tt>Common name</tt>
 must contain the <em>DNS</em> name of the server.
 <p>
 Other rarely used <tt>name-entries</tt> can be selected in the dialog
-below. Only such items are recognized that were added using the <tt>add</tt>
-button. All items can be added more tha once, even those from above.
+below. Only items that were added using the <tt>add</tt>
+button are recognized. All items can be added more than once, even those from above.
 This is not very usual but allowed.
 
 <p>
@@ -296,13 +296,13 @@ contain all needed data from this page.
 
 <sect1>X509v3 Extensions
 <p>
-The following 3 pages do contain all fields for adjusting the certificate extensions.
+The following 3 pages contain all fields for adjusting the certificate extensions.
 It is not in the focus of this document to explain them in detail.
 The most important are the <tt>Basic Constraints</tt> and the <tt>Validity</tt> range.
 <p>
 For more information consult the documents in <ref id="otherdoc">.
-Especially if you don't know what this is all about consider not to create any
-certificates before reading those documents.
+If you don't know what this is all about please read those documents before
+creating any certificates.
 
 <sect2>Basic Constraints
 <p>
@@ -315,20 +315,20 @@ The <em>not Before</em> field is set to the current date and time of the
 operating system and the <em>not After</em> field is set to the current date and time
 plus the specified time range.
 <p>
-For templates not the specified times are saved, because it does not make very much sense.
+For templates the specified times are not saved, because it does not make much sense.
 Rather the time range is stored and automatically applied when selecting this 
-template. Applying the timerange means to set notBefore to "now" and notAfter
-to "now + time-range"
+template. Applying the time range means to set notBefore to "now" and notAfter
+to "now + time range"
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>RSA Keys <label id="keys">
 <p>
-For asynchronous encryption and signing there are keys needed. XCA only supports RSA keys
-and no DSA keys. All keys are stored encrypted in the database using the 3DES algorithm.
+For asynchronous encryption and signing keys are needed. XCA only supports RSA keys
+but not DSA keys. All keys are stored encrypted in the database using the 3DES algorithm.
 
 <p>
-All keys do carry a use counter which counts the times it is used. For new
+All keys carry a use counter which counts the times it is used. For new
 requests or certificates the list of available keys is reduced to
 the keys with a use counter of 0.
 
@@ -361,21 +361,22 @@ Only PKCS&num;8 or PEM files can be encrypted, because
 the DER format (although it could be encrypted)
 does not support a way to supply the encryption algorithm
 like e.g. <em>DES</em>.
-Of course the encryption is senseless if the private part is not exported.
+Of course, encryption does not make sense if the private part is not exported.
 
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Certificate Signing Requests <label id="csr">
 <p>
-Certificate signing requests are described in PKCS#10 standard.
+Certificate signing requests are described in PKCS&num;10 standard.
 They are used to supply a Certification Authority with the 
 needed information to issue a valid certificate for you 
 without knowing your private key. This
 includes your personal information and your public key.
 <p>
 Netscape SPKAC files can not be created or exported, but they can be imported and signed.
-This requests are marked in the Signature field as SPKAC and they do carry a netscape icon.
+This requests are marked in the Signature field as SPKAC and a Netscape icon is
+shown.
 
 <sect1>Generating a new Request
 <p>
@@ -422,21 +423,21 @@ Certificate creation can also be invoked by the context menu of the certificate 
 or by the context menu of the request.
 In this case the Wizard is preset with the Request to be signed.
 <p>
-If in the certificate list a <em>CA certificate</em> is selected, this
+If a <em>CA certificate</em> is selected in the certificate list, this
 certificate is preselected as signer certificate on the second page of the Wizard.
 
 <sect1>Certificate details
 <p>
 The signer is the internal name of the issuers certificate, <em>SELF SIGNED</em> if it is
-self signed or <em>SIGNER UNKNOWN</em> if the issuers certificate is not available.
-The validity is set to <em>valid</em> if the certificate dates are valid
-or to <em>Not valid</em> if the are not, regarding to the internal time and date of the OS.
+self signed or <em>SIGNER UNKNOWN</em> if the issuer's certificate is not available.
+The validity is set to <em>valid</em> if the certificate's dates are valid
+or to <em>Not valid</em> if they are not, regarding to the internal time and date of the OS.
 <p>
-If the certificate was revoked, the revocation date is shown instead.
+If the certificate has been revoked, the revocation date is shown instead.
 
-<sect1>Certificate trustment
+<sect1>Certificate trust
 <p>
-The certificate trustment can be changed by the context menu of the certificate.
+The certificate trust can be changed by the context menu of the certificate.
 It can be set to:
 <itemize>
 <item><bf>Not trusted</bf> - never trust this certificate, even if we trust the issuer. 
@@ -444,7 +445,7 @@ This is the default for imported self-signed certificates.
 <item><bf>Trust depends on issuer</bf> - only trust this certificate, if we trust the
 issuer. This is the default for imported and generated non-self-signed certificates.
 <item><bf>Always trust</bf> - always trust this certificate, even if we do not trust
-the issuers certificate or if it is absent. This is the default for generated 
+the issuer's certificate or if it is absent. This is the default for generated 
 self-signed certificates.
 </itemize>
 
@@ -466,24 +467,25 @@ in one file for e.g. apache as trusted cert store.
 <item><bf>PKCS#7 all trusted Certificates</bf> - DER encoded PKCS#7 structure containing all
 	 certificates that are marked als <em>Always trusted</em>
 <item><bf>PKCS#7 all Certificates</bf> - DER encoded PKCS#7 structure containing all certificates.
-<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate and the corresponding 
+<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate and the corresponding XXX (?)
 <item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate, the corresponding 
 private key and the chain of all issuers certificates.
 </itemize>
 <p>
-The PKCS#12 structures will be encrypted by the password you are asked for later.
+When exporting PKCS#12 structures you are asked later for an encryption
+password.
 
-<sect1>Certificate revokation
+<sect1>Certificate revocation
 <p>
-Certificates only can be revoked, if the private key of the issuers certificate
-is available. The certificate will marked as revoked and the revokation date
+Certificates can only be revoked, if the private key of the issuer's certificate
+is available. The certificate will marked as revoked and the revocation date
 will be stored with the certificate.
 
 <sect1>Certificate renewal
 <p>
-Certificates only can be renewed, if the private key of the issuers certificate
+Certificates can only be renewed, if the private key of the issuer's certificate
 is available. Renewal is done by creating a new certificate as a copy of the original one
-with just adjusted validity dates.
+with adjusted validity dates.
 
 <sect1>PKCS#7
 <p>
@@ -494,7 +496,7 @@ The resulting file has the original filename with ".p7s" suffix.
 
 <sect1>CA special functions
 <p>
-The context menu of CA certificates does contain the <em>CA</em> submenu.
+The context menu of CA certificates contains the <em>CA</em> submenu.
 that makes the following functions available:
 
 <itemize>
@@ -503,18 +505,18 @@ signed by this issuer.
 <item><bf>CRL days</bf> The days until the next CRL release.
 <item><bf>Signing Template</bf> The default template for signing certificates.
 <item><bf>Generate CRL</bf> Generate the CRL by collecting all revoked certificates
-and their revokation date.
+and their revocation date.
 </itemize>
 
 <sect>Certificate Revocation Lists
 <p>
 All certificates are issued for a restricted timeperiod of validity.
-However it can happen that a certificate may not be used / gets invalid
+However it can happen that a certificate shoud not be used / becomes invalid
 before the "not after" time in the certificate is reached. In this case
 the issuing CA should revoke this certificate by putting it on the list of 
 revoked certificates, signing it and publishing it.
 
-<sect1>Generation of Certificate revokation lists
+<sect1>Generation of Certificate revocation lists
 <p>
 In XCA this can be done by the context-menu of the CA and the 
 "revoke" entry in the context-menu of the issued certificate.
@@ -550,8 +552,8 @@ The search path for all the files is listed below.
 </itemize>
 All Object IDs that are not official, but belong to your company
 or organisation can be added in the file <tt>oids.txt</tt>.
-For this file all locations are searched and all <tt>oids.txt</tt> files
-that are found are loaded. This way the application-installer adds
+All possilbe locations for this file are searched and all <tt>oids.txt</tt> files
+found are loaded. This way the application-installer adds
 some in /usr/share/xca, the Administrator in /etc/xca and the user in
 $HOME/xca. The format of this file is:<newline>
 <bf>OID</bf>:<bf>shortname</bf>:<bf>longname</bf><newline>
@@ -560,7 +562,7 @@ Lines starting with a <bf>#</bf> are ignored.
 
 <p>
 The files containing OID lists (<tt>eku.txt, dn.txt, aia.txt</tt>) 
-are handled different: The first one that is found in one of the directories is used. 
+are handled in a different way, only the first one found is used. 
 The format of this files is one entry per line. The entry can be either the
 numerical OID like <tt>1.3.6.1.5.5.8.2.2</tt>, the short name like 
 <tt>iKEIntermediate</tt> or the long name <tt>IP security end entity</tt>.
