@@ -371,6 +371,19 @@ SOURCE=.\lib\func.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\widgets\ImportMulti.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\widgets\KeyDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -393,6 +406,19 @@ SOURCE=.\view\KeyView.cpp
 !ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 # ADD CPP /I "..\\"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\load_obj.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
 
 !ENDIF 
 
@@ -1384,6 +1410,27 @@ InputName=func
 # End Source File
 # Begin Source File
 
+SOURCE=.\widgets\ImportMulti.h
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# Begin Custom Build - MOC ing $(InputPath)
+InputDir=.\widgets
+InputPath=.\widgets\ImportMulti.h
+InputName=ImportMulti
+
+"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\widgets\KeyDetail.h
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -1433,6 +1480,10 @@ InputName=KeyView
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\lib\load_obj.h
 # End Source File
 # Begin Source File
 
@@ -3159,6 +3210,19 @@ SOURCE=.\lib\moc_func.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\widgets\moc_ImportMulti.cpp
+
+!IF  "$(CFG)" == "xca - Win32 Release"
+
+# ADD CPP /I "."
+
+!ELSEIF  "$(CFG)" == "xca - Win32 Debug"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\widgets\moc_KeyDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -3549,6 +3613,10 @@ SOURCE=.\ui\ui_ExportTinyCA.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ui\ui_ImportMulti.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ui\ui_KeyDetail.cpp
 
 !IF  "$(CFG)" == "xca - Win32 Release"
@@ -3650,6 +3718,10 @@ SOURCE=.\ui\ui_moc_ExportTinyCA.cpp
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\ui\ui_moc_ImportMulti.cpp
 # End Source File
 # Begin Source File
 

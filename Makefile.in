@@ -50,8 +50,8 @@ distclean: clean
 
 dist: 
 	test ! -z "$(TVERSION)"
-	#rm -rf $(TARGET) 
-	#cvs export -r $(TAG) -d $(TARGET) xca && 
+	rm -rf $(TARGET) 
+	cvs export -r $(TAG) -d $(TARGET) xca && \
 	(cd $(TARGET) &&  autoconf && \
 	./mkxcapro.sh && lrelease xca.pro && \
 	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \

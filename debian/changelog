@@ -1,3 +1,17 @@
+xca (0.4.3) unstable; urgency=low
+
+  * remove Certificate creation bug (AuthKeyId)
+  * always take the right cert for signing
+  * critical flag in key usage and extended key usage works now
+  * Import of Multiple items is done and works
+    [ 739726 ] extend description of -p option
+    [ 775529 ] Import of PKCS#7 item not shown
+  * made the details dialogs internal name read only
+  * some segmentation faults removed 
+  * VPN OIDs added to Ext. Keyusage
+
+ -- Christian Hohnstädt <chris@trinity.local>  Tue,  5 Aug 2003 21:51:20 +0200
+
 xca (0.4.2) unstable; urgency=low
 
   * Memory leak removed

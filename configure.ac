@@ -1,4 +1,4 @@
-AC_INIT(xca, 0.4.2)
+AC_INIT(xca, 0.4.3)
 AC_CONFIG_SRCDIR([view/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 

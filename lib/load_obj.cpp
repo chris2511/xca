@@ -67,7 +67,7 @@ load_base::load_base()
 
 pki_base * load_base::loadItem(QString s)
 {
-
+	return NULL;
 }		
 
 load_base::~load_base()
