@@ -127,6 +127,8 @@ void MainWindow::init_database() {
 		reqs, SLOT(newKey(pki_key *)) );
 	connect( keys, SIGNAL(delKey(pki_key *)),
 		reqs, SLOT(delKey(pki_key *)) );
+	connect( crls, SIGNAL(updateCertView()),
+		certList, SLOT(updateView()) );
 	
 }		
 

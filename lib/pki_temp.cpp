@@ -130,6 +130,8 @@ pki_temp::pki_temp(const QString d, int atype)
 		issAltCp=false;
 		nsCertType=112;
 		keyUse=96;
+		validN=10;
+		validM=2;
 	}
 	if (type == CLIENT) {
 		ca=2;

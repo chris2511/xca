@@ -51,6 +51,7 @@
 
 
 #include "pki_crl.h"
+#include "widgets/MainWindow.h"
 
 QPixmap *pki_crl::icon = NULL;
 
@@ -76,6 +77,7 @@ void pki_crl::fload(const QString fname )
 		fclose(fp);
 		setIntName(rmslashdot(fname));
 		openssl_error();
+		issuer = MainWindow::certs->getBySubject(getIssuerName());
 	}
 	else fopen_error(fname);
 }

@@ -52,6 +52,8 @@
 
 #include "db_crl.h"
 #include "exception.h"
+#include "widgets/MainWindow.h"
+#include "view/CertView.h"
 #include <qmessagebox.h>
 
 db_crl::db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi)
@@ -68,27 +70,34 @@ void db_crl::preprocess()
 {
 	if ( container.isEmpty() ) return ;
 	QListIterator<pki_base> iter(container); 
-	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
-		revokeCerts((pki_crl *)iter.current());
+	for ( ; iter.current(); ++iter ) {
+		pki_crl *crl = (pki_crl *)iter.current();
+		pki_x509 *issuer = MainWindow::certs->getBySubject(crl->getIssuerName());
+		crl->setIssuer(issuer);
+		revokeCerts(crl);
 	}
 }	
 
 void db_crl::revokeCerts(pki_crl *crl)
 {
 	int numc, i;
+	bool updated = false;
+	certs = MainWindow::certs;
 	if (! certs) return;
 	x509rev revok;
 	pki_x509 *rev;
 	numc = crl->numRev();
 	
-	printf("Revoking %d certs\n", numc);
 	for (i=0; i<numc; i++) {
 		revok = crl->getRev(i);
 		rev = certs->getByIssSerial(crl->getIssuer(), revok.getSerial());
-		printf("Revoking %d\n", revok.getSerial().getLong());
-		if (rev)
+		if (rev) {
 			rev->setRevoked(revok.getDate());
+			updated = true;
+		}	
 	}
+	if (updated)
+		emit updateCertView();
 }
 
 void db_crl::inToCont(pki_base *pki)
@@ -113,4 +122,8 @@ pki_base *db_crl::insert(pki_base *item)
 	return crl;
 }
 
-
+void db_crl::deletePKI(pki_base *pki)
+{
+	db_base::deletePKI(pki);
+	emit updateCertView();
+}

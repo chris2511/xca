@@ -181,9 +181,10 @@ void db_x509::revokeCert(const x509rev &revok, const pki_x509 *iss)
 pki_x509 *db_x509::getByIssSerial(const pki_x509 *issuer, const a1int &a)
 {
 	if (!issuer ) return NULL;
-	FOR_ctr(container)
+	FOR_ctr(container) {
 		if ((pki->getSigner() == issuer) && (a == pki->getSerial()))
 			return pki;
+	}
 	return NULL;
 }
 

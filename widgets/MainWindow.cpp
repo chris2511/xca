@@ -224,6 +224,7 @@ void MainWindow::do_connections()
 		certList, SLOT(newCert(pki_temp *)) );
 	connect( tempList, SIGNAL(newReq(pki_temp *)),
 		reqList, SLOT(newItem(pki_temp *)) );
+	
 }
 
 void MainWindow::init_images()
