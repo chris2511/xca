@@ -18,7 +18,8 @@ OBJS=NewKey_UI.o NewKey_UI_MOC.o \
      MainWindowKeys.o MainWindowX509Req.o \
      MainWindow.o MainWindow_MOC.o \
      RSAkey.o RSAkey_MOC.o \
-     KeyDB.o KeyDB_MOC.o
+     KeyDB.o KeyDB_MOC.o \
+     X509Req.o X509Req_MOC.o
 
 all: $(OBJS) xca
 re: clean all

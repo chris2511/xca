@@ -6,6 +6,7 @@
 #include "NewX509Req_UI.h"
 #include "ExportKey.h"
 #include "RSAkey.h"
+#include "X509Req.h"
 #include "KeyDB.h"
 #include <iostream.h>
 #include <qapplication.h>

@@ -59,7 +59,7 @@ bool KeyDB::insertKey(RSAkey *key)
 	   Dbt d((void *)p, size);
            cerr << "Size: " << d.get_size() << "\n";
 	
-	   if (x = data->put(NULL, &k, &d, DB_NODUPDATA | DB_NOOVERWRITE)) {
+	   if (x = data->put(NULL, &k, &d, DB_NOOVERWRITE)) {
 		data->err(x,"DB Error put");
 	   	desc = orig + "_" + QString::number(++cnt);
 	   }
@@ -98,11 +98,10 @@ bool KeyDB::updateKey(RSAkey *key, QString desc)
 }
 
 
-RSAkey *KeyDB::getSelectedKey()
+RSAkey *KeyDB::getSelectedKey(QString desc)
 {
 	unsigned char *p;
 	RSAkey *targetKey = NULL;
-	QString desc = listView->currentText();
 	Dbt k((void *)desc.latin1(), desc.length()+1);
 	Dbt d((void *)p, 0);
 	int x = data->get(NULL, &k, &d, 0);
@@ -114,6 +113,12 @@ RSAkey *KeyDB::getSelectedKey()
 	return targetKey;
 }
 
+RSAkey *KeyDB::getSelectedKey()
+{
+	QString desc = listView->currentText();
+	return getSelectedKey(desc);
+}
+	
 QStringList KeyDB::getPrivateDesc()
 {
 	unsigned char *p;
