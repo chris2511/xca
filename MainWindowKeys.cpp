@@ -139,7 +139,7 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 			key->pubEx().c_str() );
 		detDlg->keyModulus->setText(
 			key->modulus().c_str() );
-		detDlg->keyModulus->setDisabled(true);
+		//detDlg->keyModulus->setDisabled(true);
 		if (key->isPubKey()) {
 			detDlg->keyPrivEx->setText(tr("not available") );
 			detDlg->keyPrivEx->setDisabled(true);

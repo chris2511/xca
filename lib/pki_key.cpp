@@ -363,8 +363,16 @@ string pki_key::length()
 string pki_key::BN2string(BIGNUM *bn)
 {
 	if (bn == NULL) return "--";
-	char *buf = BN_bn2hex(bn);
-	string x = buf; 
+	string x="";
+	char zs[10];
+	int j;
+	int size = BN_num_bytes(bn);
+	unsigned char *buf = (unsigned char *)OPENSSL_malloc(size);
+	BN_bn2bin(bn, buf);
+	for (j = 0; j< size; j++) {
+		sprintf(zs, "%02X%c",buf[j], ((j+1)%8 == 0) ?' ':':');
+		x += zs;
+	}
 	OPENSSL_free(buf);
 	openssl_error();
 	return x;
@@ -398,6 +406,7 @@ bool pki_key::compare(pki_base *ref)
 		openssl_error();
 		return false;
 	}
+	openssl_error();
 	return true;
 }	
 

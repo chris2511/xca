@@ -11,16 +11,9 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>600</width>
-            <height>447</height>
+            <width>537</width>
+            <height>427</height>
         </rect>
-    </property>
-    <property stdset="1">
-        <name>maximumSize</name>
-        <size>
-            <width>600</width>
-            <height>32767</height>
-        </size>
     </property>
     <property stdset="1">
         <name>caption</name>
@@ -571,8 +564,15 @@
                 <enum>Sunken</enum>
             </property>
             <property stdset="1">
+                <name>textFormat</name>
+                <enum>PlainText</enum>
+            </property>
+            <property stdset="1">
                 <name>alignment</name>
-                <set>WordBreak|AlignVCenter|AlignLeft</set>
+                <set>WordBreak|AlignTop|AlignLeft</set>
+            </property>
+            <property>
+                <name>vAlign</name>
             </property>
             <property>
                 <name>wordwrap</name>
