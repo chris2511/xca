@@ -168,17 +168,8 @@ void NewX509::setRequest()
 	changeDefault->setEnabled(false);
 	changeDefault->setChecked(false);
 	signerBox->setEnabled(false);
-	startText=tr("\
-Welcome to the settings for certificate signing requests.
-A signing request needs a private key, so it will be created \
-if there isn't any unused key available in the key database. \
-This signing request can then be given to a Certification authority \
-while the private key of the request and of the resulting certificate \
-returned from the CA does never leave your computer.");
-	endText=tr("\
-You are done with entering all parameters for generating a Certificate signing \
-request. The resulting request should be exported and send to an appropriate CA \
-for signing it.");
+	startText=tr("Welcome to the settings for certificate signing requests. A signing request needs a private key, so it will be created if there isn't any unused key available in the key database. This signing request can then be given to a Certification authority while the private key of the request and of the resulting certificate returned from the CA does never leave your computer.");
+	endText=tr("You are done with entering all parameters for generating a Certificate signing request. The resulting request should be exported and send to an appropriate CA for signing it.");
 	tText=tr("Certificate request");
 	setup();
 }
@@ -192,16 +183,8 @@ void NewX509::setTemp(pki_temp *temp)
 {
 	setAppropriate(page1, false);
 	finishButton()->setEnabled(true);
-	startText=tr("\
-Welcome to the settings for Templates.
-This templates do not refer to any ASN.1 structure but are used to keep default \
-settings for signing requests and certificates. \
-When creating a Request or Certificate the template can preset the needed fields \
-with default settings.");
-	endText=tr("\
-You are done with entering all parameters for the Template.
-After this step the template can be assigned to one of your CAs to be autoatically \
-applied when signing with this CA.");
+	startText=tr("Welcome to the settings for Templates. This templates do not refer to any ASN.1 structure but are used to keep default settings for signing requests and certificates. When creating a Request or Certificate the template can preset the needed fields with default settings.");
+	endText=tr("You are done with entering all parameters for the Template. After this step the template can be assigned to one of your CAs to be autoatically applied when signing with this CA.");
 	tText=tr("Template");
 	if (temp->getDescription() != "--") {
 		description->setText(temp->getDescription().c_str());
@@ -214,17 +197,8 @@ applied when signing with this CA.");
 void NewX509::setCert()
 {
 	finishButton()->setEnabled(true);
-	startText=tr("\
-Welcome to the settings for Certificates.
-The information for the new Certificate can either be grabbed from a \
-given Certificate-request or be filled in by hand. \
-In the case of not signing a request there needs to be at least one unused key. \
-If this is not the case it will be created. 
-If you want to self-sign a request (unusual but nevertheless possible) you need \
-the private key used to create the request.");
-	endText=tr("\
-You are done with entering all parameters for creating a Certificate.
-");
+	startText=tr("Welcome to the settings for Certificates. The information for the new Certificate can either be grabbed from a given Certificate-request or be filled in by hand. In the case of not signing a request there needs to be at least one unused key. If this is not the case it will be created. If you want to self-sign a request (unusual but nevertheless possible) you need the private key used to create the request.");
+	endText=tr("You are done with entering all parameters for creating a Certificate.");
 	tText=tr("Certificate");
 	setup();
 }

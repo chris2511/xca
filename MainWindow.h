@@ -104,9 +104,12 @@
 #include "lib/db_crl.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifndef WIN32
+#ifdef WIN32
+#include <direct.h>     // to define mkdir function
+#else
 #include <unistd.h>
 #endif
+
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

@@ -463,7 +463,12 @@ void MainWindow::newPath(QString str)
 
 bool MainWindow::mkDir(QString dir)
 {
+#ifdef WIN32
+	int ret = mkdir(dir.latin1());
+	// in direct.h declare _CRTIMP int __cdecl mkdir(const char *);
+#else
 	int ret = mkdir(dir.latin1(), S_IRUSR | S_IWUSR | S_IXUSR);
+#endif
 	if (ret) {
 		QString desc = " (";
 		desc += strerror(ret);
@@ -473,5 +478,6 @@ bool MainWindow::mkDir(QString dir)
 		return false;
 	}
 	return true;
+
 }
 
