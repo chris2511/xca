@@ -362,7 +362,6 @@ void CertView::load()
 {
 	QStringList filter;
 	filter.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
-	filter.append(tr("All files ( *.* )"));
 	load_default(filter,tr("Certificate import"));
 }
 

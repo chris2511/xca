@@ -150,7 +150,6 @@ void ReqView::load()
 {
 	QStringList filter;
 	filter.append("PKCS#10 CSR ( *.pem *.der *.csr )"); 
-	filter.append("All Files ( *.* )");
 	load_default(filter, tr("Import CSR"));
 }
 

@@ -131,7 +131,6 @@ void CrlView::load()
 {
 	QStringList filter;
 	filter.append(tr("Revokation lists ( *.pem *.crl )")); 
-	filter.append(tr("All files ( *.* )"));
 	load_default(filter, tr("Load CRL"));
 }
 
