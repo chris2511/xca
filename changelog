@@ -1,3 +1,5 @@
+  * add "edit" buttons for subject/issuer alt. name,
+    crl dist. point and cert. auth. info access
   * add DB-dump function into subdirs
   * Support for DSA keys
   * Fix error in template changing

@@ -181,7 +181,6 @@ unsigned char *pki_x509req::toData(int *size)
 }
 void pki_x509req::writeDefault(const QString fname)
 {
-	printf ("Write req: %s\n", fname + QDir::separator() + getIntName() + ".req");
 	writeReq(fname + QDir::separator() + getIntName() + ".req", true);
 }
 

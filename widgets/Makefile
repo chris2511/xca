@@ -9,7 +9,7 @@ endif
 
 MOC_NAMES=CertDetail ExportKey KeyDetail distname CrlDetail ExportTinyCA \
 	MainWindow ReqDetail validity ExportCert ImportMulti NewX509 \
-	CertExtend clicklabel
+	CertExtend clicklabel v3ext
 	
 NAMES=$(MOC_NAMES) NewX509_ext MW_menu MW_help MW_database
 OBJS=$(patsubst %,moc_%.o,$(MOC_NAMES)) $(patsubst %,%.o,$(NAMES))

@@ -68,6 +68,7 @@
 #include <qtextview.h>
 #include "MainWindow.h"
 #include "validity.h"
+#include "v3ext.h"
 #include "lib/x509name.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
@@ -368,8 +369,8 @@ void NewX509::fromTemplate(pki_temp *temp)
 	ekuCritical->setChecked(temp->eKeyUseCrit);
 	subKey->setChecked(temp->subKey);
 	authKey->setChecked(temp->authKey);
-	subAltCp->setChecked(temp->subAltCp);
-	issAltCp->setChecked(temp->issAltCp);
+	//subAltCp->setChecked(temp->subAltCp);
+	//issAltCp->setChecked(temp->issAltCp);
 	int2lb(keyUsage, temp->keyUse);
 	int2lb(ekeyUsage, temp->eKeyUse);
 	validNumber->setText(QString::number(temp->validN));
@@ -405,8 +406,8 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->eKeyUseCrit = ekuCritical->isChecked();
 	temp->subKey = subKey->isChecked();
 	temp->authKey = authKey->isChecked();
-	temp->subAltCp = subAltCp->isChecked();
-	temp->issAltCp = issAltCp->isChecked();
+//	temp->subAltCp = subAltCp->isChecked();
+//	temp->issAltCp = issAltCp->isChecked();
 	temp->keyUse = lb2int(keyUsage);
 	temp->eKeyUse = lb2int(ekeyUsage);
 	temp->validN = validNumber->text().toInt();
@@ -497,10 +498,12 @@ void NewX509::showPage(QWidget *page)
 	}
 	else if (page == page4) {
 		basicCA->setFocus();
+#if 0
 		if (emailAddress->text().isEmpty() && appropriate(page1))
 			subAltCp->setEnabled(false);
 		else
 			subAltCp->setEnabled(true);
+#endif
 	}
 
 
@@ -511,10 +514,10 @@ void NewX509::signerChanged()
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
 	
-	issAltCp->setEnabled(false);
+//	issAltCp->setEnabled(false);
 	if (!cert) return;
-	if (cert->hasSubAltName() || !appropriate(page1))
-		issAltCp->setEnabled(true);
+//	if (cert->hasSubAltName() || !appropriate(page1))
+//		issAltCp->setEnabled(true);
 	
 	QString templ = cert->getTemplate();	
 	snb = cert->getNotBefore();
@@ -712,3 +715,34 @@ void NewX509::applyTimeDiff()
     notBefore->setDate(a.now(), midnight);
 	notAfter->setDate(a.now(delta * d_fac), midnight* (-1));	 
 }
+
+void NewX509::editV3ext(QLineEdit *le, QString types)
+{
+	v3ext *dlg;
+	dlg = new v3ext(this, NULL, true);
+	dlg->addLineEdit(le);
+	dlg->addTypeList(QStringList::split(',', types ));
+	dlg->exec();
+}
+
+void NewX509::editSubAltName()
+{
+	editV3ext(subAltName, "email,RID,URI,DNS,IP");
+}
+
+void NewX509::editIssAltName()
+{
+	editV3ext(issAltName, "email,RID,URI,DNS,IP");
+}
+
+void NewX509::editCrlDist()
+{
+	editV3ext(crlDist, "URI");
+}
+
+void NewX509::editAuthInfAcc()
+{
+	editV3ext(authInfAcc, "email,RID,URI,DNS,IP");
+}
+
+

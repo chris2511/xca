@@ -89,6 +89,7 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		ext = NULL;
 	}
 	if (!et.isEmpty()) {
+		printf("Extension is '%s'\n", et.latin1());
 		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, (char *)et.latin1());
 	}
 	if (!ext) ext = X509_EXTENSION_new();

@@ -79,8 +79,6 @@ db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
 	data = new Db(dbe, 0);
 	dbName = DB;
 
-	printf("dbName = %s\n", dbName.latin1());
-
 	try {
 #if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
 		data->open(NULL, DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
@@ -483,9 +481,7 @@ void db_base::writeAll(DbTxn *tid)
 void db_base::dump(QString dirname)
 {
 	pki_base *pki;
-	printf("1Dump in %s\n", dbName.latin1());
 	dirname += QDir::separator() + dbName;	
-	printf("2Dump in %s\n", dirname.latin1());
 	QDir d(dirname);
 	if ( ! d.exists() && !d.mkdir(dirname)) {
 		throw errorEx("Could not create directory '" + dirname + "'");

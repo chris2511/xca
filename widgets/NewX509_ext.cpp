@@ -157,25 +157,27 @@ x509v3ext NewX509::getEkeyUsage()
 
 x509v3ext NewX509::getSubAltName()
 {
-	QStringList cont;
+//	QStringList cont;
 	x509v3ext ext;
-	if (subAltCp->isChecked() && subAltCp->isEnabled())
-		cont << (QString)"email:" + emailAddress->text();
-	if (!subAltName->text().isEmpty())
-		cont << subAltName->text();
-	ext.create(NID_subject_alt_name, cont.join(", "));
+//	if (subAltCp->isChecked() && subAltCp->isEnabled())
+//		cont << (QString)"email:" + emailAddress->text();
+//	if (!subAltName->text().isEmpty())
+//		cont << subAltName->text();
+//		ext.create(NID_subject_alt_name, cont.join(", "));
+	ext.create(NID_subject_alt_name, subAltName->text(), &ext_ctx);
 	return ext;
 }
 
 x509v3ext NewX509::getIssAltName()
 {
-	QStringList cont;
+//	QStringList cont;
 	x509v3ext ext;
-	if (issAltCp->isChecked() && issAltCp->isEnabled())
-		cont << (QString)"issuer:copy";
-	if (!issAltName->text().isEmpty())
-		cont << issAltName->text();
-	ext.create(NID_issuer_alt_name, cont.join(", "), &ext_ctx);
+//	if (issAltCp->isChecked() && issAltCp->isEnabled())
+//		cont << (QString)"issuer:copy";
+//	if (!issAltName->text().isEmpty())
+//		cont << issAltName->text();
+//	ext.create(NID_issuer_alt_name, cont.join(", "), &ext_ctx);
+	ext.create(NID_issuer_alt_name, issAltName->text(), &ext_ctx);
 	return ext;
 }
 
@@ -212,7 +214,7 @@ void NewX509::setAuthInfAcc_string(QString aia_txt)
 	
 	nid = OBJ_sn2nid(aia[0].latin1());
 	
-	for (int i=0; i < aia_nid.count(); i++) {
+	for (unsigned int i=0; i < aia_nid.count(); i++) {
 		if (aia_nid[i] == nid) { 
 			aiaOid->setCurrentItem(i);
 		}
