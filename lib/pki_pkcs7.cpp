@@ -93,6 +93,7 @@ void pki_pkcs7::encryptBio(pki_x509 *crt, BIO *bio)
 void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 {
 	pki_key *privkey;
+	EVP_PKEY *pk;
 	STACK_OF(X509) *certstack;
 	if (!crt) return;
 	privkey = crt->getRefKey();
@@ -108,8 +109,10 @@ void pki_pkcs7::signBio(pki_x509 *crt, BIO *bio)
 		else signer = signer->getSigner();
 	}
 	if (p7) PKCS7_free(p7);
-	p7 = PKCS7_sign(crt->getCert(), privkey->getKey(), certstack, bio, PKCS7_BINARY);
-	openssl_error();	
+	pk = privkey->decryptKey();
+	p7 = PKCS7_sign(crt->getCert(), pk, certstack, bio, PKCS7_BINARY);
+	EVP_PKEY_free(pk);
+	openssl_error();
 	sk_X509_free(certstack);
 }
 

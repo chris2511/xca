@@ -53,6 +53,7 @@
 #include "ReqView.h"
 #include "widgets/ReqDetail.h"
 #include "widgets/KeyDetail.h"
+#include <openssl/evp.h>
 #include <qpopupmenu.h>
 #include <qmessagebox.h>
 #include <qfiledialog.h>
@@ -83,6 +84,7 @@ void ReqView::newItem()
 void ReqView::newItem(pki_temp *temp)
 {
 	CHECK_DB 
+	pki_x509req *req;
 	NewX509 *dlg = new NewX509(this,0,true);
 	emit connNewX509(dlg);
 
@@ -95,14 +97,20 @@ void ReqView::newItem(pki_temp *temp)
 		return;
 	}
 	try {
+		const EVP_MD *hashAlgo = dlg->getHashAlgo();
 		pki_key *key = dlg->getSelectedKey();
 		x509name xn = dlg->getX509name();
-		pki_x509req *req = new pki_x509req();
+		req = new pki_x509req();
+		
 		req->setIntName(dlg->description->text());
-		req->createReq(key, xn, dlg->getHashAlgo());
+		if (key->getType() == EVP_PKEY_DSA)
+			hashAlgo = EVP_dss1();
+		
+		req->createReq(key, xn, hashAlgo);
 		db->insert(req);
 	}
 	catch (errorEx &err) {
+		delete req;
 		Error(err);
 	}
 }

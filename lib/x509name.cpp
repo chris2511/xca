@@ -50,6 +50,7 @@
  */                           
 
 #include "x509name.h"
+#include "base.h"
 #include <openssl/asn1.h>
 
 x509name::x509name()
@@ -145,16 +146,15 @@ int x509name::nid(int i) const
 	return OBJ_obj2nid(ne->object);
 }				 
 
-unsigned char *x509name::d2i(unsigned char *p, int size)
+unsigned char *x509name::d2i(const unsigned char *p, int size)
 {
-	unsigned char *mp = p;
 	X509_NAME *xn_sik = xn;
-	xn = d2i_X509_NAME(NULL, &mp, size);
+	xn = D2I_CLASH(d2i_X509_NAME, NULL, &p, size);
 	if (xn == NULL)
 		xn = xn_sik;
 	else
 		X509_NAME_free(xn_sik);
-	return mp;
+	return (unsigned char *)p;
 }
 
 unsigned char *x509name::i2d(unsigned char *p)

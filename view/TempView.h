@@ -55,7 +55,12 @@
 
 #include "XcaListView.h"
 #include "lib/pki_temp.h"
+#ifdef qt4
+#include <q3listview.h>
+#else
 #include <qlistview.h>
+#endif
+
 
 class TempView : public XcaListView
 {
@@ -63,6 +68,7 @@ class TempView : public XcaListView
 
   private:
 	QPixmap *keyicon;
+	bool runTempDlg(pki_temp *);
   public:
 	TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);

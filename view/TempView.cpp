@@ -63,6 +63,22 @@ TempView::TempView(QWidget * parent, const char * name, WFlags f)
 	addColumn(tr("Type"));
 }
 
+bool TempView::runTempDlg(pki_temp *temp)
+{
+	NewX509 *dlg = new NewX509(this, NULL, true);
+	emit connNewX509(dlg);
+	 
+	dlg->setTemp(temp);
+	dlg->fromTemplate(temp);
+	if (!dlg->exec()) {
+		delete dlg;
+		return false;
+	}
+	dlg->toTemplate(temp);
+	delete dlg;
+	return true;
+}
+
 void TempView::newEmptyTemp()
 {
 	newItem(pki_temp::EMPTY);
@@ -87,7 +103,7 @@ void TempView::newItem(int type)
 {
 	CHECK_DB
 	pki_temp *temp = new pki_temp("--", type);
-	if (alterTemp(temp)) {
+	if (runTempDlg(temp)) {
 		db->insert(temp);
 	}
 	else {
@@ -102,17 +118,14 @@ void TempView::alterTemp()
 
 bool TempView::alterTemp(pki_temp *temp)
 {
-	NewX509 *dlg = new NewX509(this, NULL, true);
-	emit connNewX509(dlg);
-	 
-	dlg->setTemp(temp);
-	dlg->fromTemplate(temp);
-	if (!dlg->exec()) {
-		delete dlg;
-		return false;
+	QString oldname = temp->getIntName();
+	if (!runTempDlg(temp)) return false;
+	QString newname = temp->getIntName();
+	if (newname!= oldname) {
+		temp->setIntName(oldname);
+		MainWindow::temps->renamePKI(temp, newname);
 	}
-	dlg->toTemplate(temp);
-	delete dlg;
+	MainWindow::temps->updatePKI(temp);
 	return true;
 }
 
@@ -120,14 +133,7 @@ void TempView::showItem(pki_base *item, bool import)
 {
 	pki_temp *temp = (pki_temp *)item;
 	if (!temp) return;
-	QString oldname = temp->getIntName();
 	alterTemp(temp);
-	QString newname = temp->getIntName();
-	if (newname!= oldname) {
-		temp->setIntName(oldname);
-		MainWindow::temps->renamePKI(temp, newname);
-	}
-	MainWindow::temps->updatePKI(temp);
 }
 
 

@@ -104,9 +104,14 @@ x509v3ext NewX509::getSubKeyIdent()
 x509v3ext NewX509::getAuthKeyIdent()
 {
 	x509v3ext ext;
-	if (authKey->isChecked() && authKey->isEnabled())
-		ext.create(NID_authority_key_identifier, 
-			"keyid,issuer:always", &ext_ctx);
+	if (authKey->isChecked() && authKey->isEnabled()) {
+		if (foreignSignRB->isChecked())
+			ext.create(NID_authority_key_identifier, 
+				"keyid,issuer:always", &ext_ctx);
+                else
+			ext.create(NID_authority_key_identifier, 
+				"keyid:always", &ext_ctx);
+	}
 	return ext;
 }
 

@@ -76,6 +76,7 @@ KeyView::KeyView(QWidget * parent, const char * name, WFlags f)
     addColumn(tr("Internal name"));
 	addColumn(tr("Keylength"));
 	addColumn(tr("Use count"));
+	addColumn(tr("Key type"));
 }
 
 void KeyView::newItem()
@@ -84,6 +85,7 @@ void KeyView::newItem()
 	NewKey_UI *dlg = new NewKey_UI(this,0,true,0);
 	pki_key *nkey = NULL;
 	QString x;
+	int keytypes[] = {EVP_PKEY_RSA, EVP_PKEY_DSA };
 	dlg->keyLength->setEditable(true);	
 	for (int i=0; sizeList[i] != 0; i++ ) {
 		dlg->keyLength->insertItem( x.number(sizeList[i]) +" bit");	
@@ -100,12 +102,11 @@ void KeyView::newItem()
 			if (!QMessageBox::warning(this, XCA_TITLE, tr("You are sure to create a key of the size: ")
 				+QString::number(ksize) + " ?", tr("Cancel"), tr("Create") ))
 					return;
-			
 		nkey = new pki_key(dlg->keyDesc->text());
-		nkey->generate(ksize);
+		nkey->generate(ksize, keytypes[dlg->keyType->currentItem()] );
 		
 		db->insert(nkey);
-		x = nkey->getIntName();
+		x = nkey->getIntNameWithType();
 		emit keyDone(x);
 	  }
 	  catch (errorEx &err) {
@@ -126,7 +127,7 @@ void KeyView::showItem(pki_base *item, bool import)
 	pki_key *key = (pki_key *)item;
 	KeyDetail *dlg = NULL;
 	if (!key) return;
-	try {	
+	try {
 		dlg = new KeyDetail(this, 0, true, 0 );
 		dlg->setKey(key);
 		dlg->exec();
@@ -199,6 +200,8 @@ void KeyView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
 		menu->insertItem(tr("Show Details"), this, SLOT(showItem()));
 		menu->insertItem(tr("Export"), this, SLOT(store()));
 		menu->insertItem(tr("Delete"), this, SLOT(deleteItem()));
+		menu->insertItem(tr("Change password"), this, SLOT(setOwnPass()));
+		menu->insertItem(tr("Reset password"), this, SLOT(resetOwnPass()));
 	}
 	menu->exec(pt);
 	delete menu;
@@ -209,6 +212,34 @@ void KeyView::importKey(pki_key *k)
 {
 	CHECK_DB
 	db->insert(k);
+}
+
+void KeyView::setOwnPass()
+{
+	try {
+		__setOwnPass(1);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+}
+
+void KeyView::resetOwnPass()
+{
+	try {
+		__setOwnPass(0);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+}
+
+void KeyView::__setOwnPass(int x)
+{
+	pki_key *targetKey; 
+	targetKey = (pki_key *)getSelected();
+	targetKey->setOwnPass(x);
+	db->updatePKI(targetKey);
 }
 
 void KeyView::changePasswd()

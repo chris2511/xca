@@ -92,9 +92,10 @@ search_lib() {
   return 1
 }
  
+echo -e "\n\nConfiguring XCA `cat VERSION`\n----------------------------"
 
 ######################## DB
-subdirs="/db /db4 /db3"
+subdirs="/db /db4.1 /db4 /db3"
 search_includes db_cxx.h || err "The Berkeley DB header files were not found"
 search_lib db_cxx db4_cxx db_cxx-4 db3_cxx db_cxx-3 || err "The Berkeley DB library was not found. Try installing db-dev" 
 ## The fun of NPTL... (Thx Enrico Scholz)
@@ -106,9 +107,9 @@ else
 fi
 
 ######################### QT
-subdirs="/qt"
+subdirs="/qt /Qt /qt4 /qt3 /qt2"
 search_includes qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
-search_lib qt qt-mt || err "The QT library was not found. Try installing qt-dev" 
+search_lib QtGui qt qt-mt || err "The QT library was not found. Try installing qt-dev" 
 search_lib c_r || true
 # look if it compiles...
 if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log; then

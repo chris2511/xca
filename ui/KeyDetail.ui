@@ -11,13 +11,13 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>542</width>
+            <width>538</width>
             <height>473</height>
         </rect>
     </property>
     <property stdset="1">
         <name>caption</name>
-        <string></string>
+        <string>KeyDetail_UI</string>
     </property>
     <vbox>
         <property stdset="1">
@@ -47,7 +47,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel11</cstring>
+                        <cstring>tlHeader</cstring>
                     </property>
                     <property stdset="1">
                         <name>font</name>
@@ -59,7 +59,7 @@
                     </property>
                     <property stdset="1">
                         <name>text</name>
-                        <string>Details of the key</string>
+                        <string>Details of the RSA key</string>
                     </property>
                 </widget>
                 <spacer>
@@ -274,7 +274,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel9</cstring>
+                        <cstring>tlPrivEx</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
@@ -285,7 +285,7 @@
                     <class>QLabel</class>
                     <property stdset="1">
                         <name>name</name>
-                        <cstring>TextLabel5</cstring>
+                        <cstring>tlPubEx</cstring>
                     </property>
                     <property stdset="1">
                         <name>text</name>
@@ -298,7 +298,7 @@
             <class>QLabel</class>
             <property stdset="1">
                 <name>name</name>
-                <cstring>TextLabel7</cstring>
+                <cstring>tlModulus</cstring>
             </property>
             <property stdset="1">
                 <name>sizePolicy</name>

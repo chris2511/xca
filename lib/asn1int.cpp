@@ -50,6 +50,8 @@
 
 
 #include "asn1int.h"
+#include "exception.h"
+#include <openssl/err.h>
 #include <openssl/bn.h>
 
 ASN1_INTEGER *a1int::dup(const ASN1_INTEGER *a) const
@@ -130,6 +132,46 @@ QString a1int::toDec() const
 	BN_free(bn);
 	OPENSSL_free(res);
 	return r;
+}
+
+void a1int::openssl_error()  const
+{
+	QString errtxt;
+	QString error = "asn1 Integer error:";
+	while (int i = ERR_get_error() ) {
+	   errtxt = ERR_error_string(i ,NULL);
+	   error += errtxt + "\n";
+	}
+	throw errorEx(error, "a1int");
+}
+
+a1int &a1int::setHex(const QString &s)
+{
+	BIGNUM *bn=0;
+	if (!BN_hex2bn(&bn,s.latin1()))
+	  openssl_error();
+	BN_to_ASN1_INTEGER(bn, in);
+	BN_free(bn);
+	return *this;
+}
+
+a1int &a1int::setDec(const QString &s)
+{
+	BIGNUM *bn=0;
+	if (!BN_dec2bn(&bn,s.latin1()))
+	  openssl_error();
+	BN_to_ASN1_INTEGER(bn, in);
+	BN_free(bn);
+	return *this;
+}
+
+a1int &a1int::setRaw(const unsigned char *data, unsigned len)
+{
+	BIGNUM *bn=BN_bin2bn(data,len,NULL);
+	if (!bn) openssl_error();
+	BN_to_ASN1_INTEGER(bn, in);
+	BN_free(bn);
+	return *this;
 }
 
 ASN1_INTEGER *a1int::get() const

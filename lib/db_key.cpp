@@ -85,7 +85,7 @@ QStringList db_key::get0PrivateDesc()
 	x.clear();
 	FOR_container
 		if (pki->isPrivKey() && pki->getUcount() == 0) 
-			x.append(pki->getIntName());	
+			x.append(pki->getIntNameWithType());	
 	return x;
 }
 

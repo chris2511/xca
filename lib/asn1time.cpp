@@ -49,9 +49,11 @@
  *
  */                           
 
+#include "base.h"
 #include "asn1time.h"
 #include <openssl/x509.h>
 #include <openssl/err.h>
+#include <openssl/opensslv.h>
 
 a1time::a1time()
 {
@@ -245,13 +247,12 @@ bool const a1time::operator != (const a1time &a)
 	return (ASN1_STRING_cmp(time, a.time) != 0);
 }
 
-unsigned char *a1time::d2i(unsigned char *p, int size)
+unsigned char *a1time::d2i(const unsigned char *p, int size)
 {
-	unsigned char *mp = p;
 	if (time)
 		ASN1_TIME_free(time);
-	time = d2i_ASN1_TIME(NULL, &mp, size);
-	return mp;
+	time = D2I_CLASH(d2i_ASN1_TIME, NULL, &p, size);
+	return (unsigned char *)p;
 }
 
 unsigned char *a1time::i2d(unsigned char *p)

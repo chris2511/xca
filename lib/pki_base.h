@@ -53,7 +53,11 @@
 
 #include <openssl/err.h>
 #include <qstring.h>
+#ifdef qt4
+#include <q3listview.h>
+#else
 #include <qlistview.h>
+#endif
 #include "base.h"
 
 class pki_base : public QObject
@@ -68,22 +72,22 @@ class pki_base : public QObject
 	void openssl_error(const QString myerr = "") const;
 	void fopen_error(const QString fname);
 	bool ign_openssl_error() const;
-	int intToData(unsigned char **p, const int val);
-	int intFromData(unsigned char **p);
-	int boolToData(unsigned char **p, const bool val);
-	bool boolFromData(unsigned char **p);
+	int intToData(unsigned char **p, int val);
+	int intFromData(const unsigned char **p);
+	int boolToData(unsigned char **p, bool val);
+	bool boolFromData(const unsigned char **p);
 	int stringToData(unsigned char **p, const QString val);
-	QString stringFromData(unsigned char **p);
+	QString stringFromData(const unsigned char **p);
     public:
 	pki_base(const QString d = "");
 	void fload(const QString name);
 	static int get_pki_counter();
-	virtual void fromData(unsigned char *p, int size){};
+	virtual void fromData(const unsigned char *p, int size){};
 	virtual unsigned char *toData(int *size){return NULL;};
 	virtual bool compare(pki_base *ref){return false;};
 	virtual ~pki_base();
         QString getIntName() const;
-        void setIntName(const QString d );
+        void setIntName(const QString &d);
 	void delLvi() { pointer = NULL; }
 	QListViewItem *getLvi() { return pointer; }
 	void setLvi(QListViewItem *ptr) { pointer = ptr; }

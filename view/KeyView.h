@@ -63,6 +63,7 @@ class KeyView : public XcaListView
 
   private:
 	static const int sizeList[];
+	void __setOwnPass(int x);
   public:
 	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
 	void showItem(pki_base *item, bool import);
@@ -75,6 +76,8 @@ class KeyView : public XcaListView
   public slots:
 	void importKey(pki_key *k);
 	void changePasswd();
+	void setOwnPass();
+	void resetOwnPass();
   signals:
 	void keyDone(QString);
 

@@ -128,10 +128,11 @@ pki_crl::~pki_crl()
 	X509_CRL_free(crl);
 }
 
-void pki_crl::fromData(unsigned char *p, int size)
+void pki_crl::fromData(const unsigned char *p, int size)
 {
 	X509_CRL *crl_sik = crl;
-	crl = d2i_X509_CRL(NULL, &p, size);
+
+	crl = D2I_CLASH(d2i_X509_CRL, NULL, &p, size);
 	if (crl)
 		X509_CRL_free(crl_sik);
 	else

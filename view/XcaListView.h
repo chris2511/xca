@@ -52,8 +52,11 @@
 
 #ifndef XCALISTVIEW_H
 #define XCALISTVIEW_H
-
+#ifdef qt4
+#include <q3listview.h>
+#else
 #include <qlistview.h>
+#endif
 #include "lib/db_base.h"
 #include "lib/load_obj.h"
 #include "lib/exception.h"

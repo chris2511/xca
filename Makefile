@@ -47,20 +47,17 @@ dist:
 	cvs export -r $(TAG) -d $(TARGET) xca && \
 	(cd $(TARGET) && \
 	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
-	cat rpm/xca.spec |sed s/VERSION/$(TVERSION)/g >rpm/$(TARGET)-1.spec && \
-	cat lib/base.h.in |sed s/MY_VERSION/$(TVERSION)/g >lib/base.h && \
-	cat doc/xca.man |sed s/MY_VERSION/$(TVERSION)/g >doc/xca.1 && \
 	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \
-	rm -rf misc/xca.nsi rpm/xca.spec && \
 	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
 	tar zcf $(TARGET).tar.gz $(TARGET) && \
 	(cd $(TARGET) && dpkg-buildpackage -rfakeroot )
 	#rm -rf ../$(TARGET)
 
 install: xca
-	$(STRIP) xca
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
 	install -m 755 xca $(destdir)$(prefix)/$(bindir)
+	$(STRIP) $(destdir)$(prefix)/$(bindir)/xca
+	
 	for d in $(INSTDIR); do \
 	  $(MAKE) -C $$d install; \
 	done

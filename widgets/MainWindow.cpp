@@ -50,6 +50,7 @@
  */                           
 
 
+#define MDEBUG
 #include "MainWindow.h"
 #include "ImportMulti.h"
 #include <qapplication.h>

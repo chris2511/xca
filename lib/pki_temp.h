@@ -79,7 +79,7 @@ class pki_temp: public pki_base
 		void loadTemp(const QString fname);
 		/* destructor */
 		~pki_temp();
-		void fromData(unsigned char *p, int size);
+		void fromData(const unsigned char *p, int size);
 		unsigned char *toData(int *size);
 		bool compare(pki_base *ref);
 		int dataSize();

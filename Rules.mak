@@ -16,7 +16,10 @@ else
   CFLAGS+= -DETC=\"/etc/xca\"
 endif
 
+CFLAGS+= -DVER=\"$(VERSION)\"
+
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))
+VERSION=$(shell cat $(TOPDIR)/VERSION )
 
 # recompile all
 re: clean all

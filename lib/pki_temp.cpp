@@ -159,9 +159,9 @@ pki_temp::pki_temp(const QString d, int atype)
 }	
 
 
-void pki_temp::fromData(unsigned char *p, int size )
+void pki_temp::fromData(const unsigned char *p, int size )
 {
-	unsigned char *p1 = p;
+	const unsigned char *p1 = p;
 	version=intFromData(&p1);
 	type=intFromData(&p1);
 	if (version == 1) {
@@ -281,7 +281,7 @@ void pki_temp::writeTemp(QString fname)
 
 void pki_temp::loadTemp(QString fname)
 {
-	int size;
+	unsigned int size;
 	unsigned char *p;
 	FILE *fp = fopen(fname,"r");
 	if (fp == NULL) {
@@ -290,14 +290,14 @@ void pki_temp::loadTemp(QString fname)
 	}
 	if (fread(&size, sizeof(size), 1, fp) != 1)
 		openssl_error(tr("Template file content error"));
-	if (size > 65535 || size < 0)
+	if (size > 65535 )
 		openssl_error(tr("Template file content error"));
 	p = (unsigned char *)OPENSSL_malloc(size);
 	if (fread(p, 1, size, fp) != size) {
 		OPENSSL_free(p);
 		openssl_error(tr("Template file content error"));
 	}
-	fromData(p, size);
+	fromData(p, (int)size);
 	OPENSSL_free(p);
 	
 	setIntName(rmslashdot(fname));

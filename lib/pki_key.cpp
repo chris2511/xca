@@ -75,12 +75,51 @@ void pki_key::init(int type)
 	class_name = "pki_key";
 	encKey = NULL;
 	encKey_len = 0;
+	ownPass = 0;
 }
 
 void pki_key::incProgress(int a, int b, void *progress)
 {
 	int i = ((QProgressDialog *)progress)->progress();
 			((QProgressDialog *)progress)->setProgress(++i);
+}
+
+QString pki_key::getIntNameWithType()
+{
+	QString prefix;
+	switch (key->type) {
+		case EVP_PKEY_RSA:
+			prefix = " (RSA)";
+			break;
+		case EVP_PKEY_DSA:
+			prefix = " (DSA)";
+			break;
+		default:
+			prefix = " (---)";
+	}
+	return getIntName() + prefix;
+}
+
+QString pki_key::removeTypeFromIntName(QString n)
+{
+	if (n.right(1) != ")" ) return n;
+	n.truncate(n.length() - 6);
+	return n;
+}
+
+void pki_key::setOwnPass(int x)
+{
+	EVP_PKEY *pk;
+	if (x) x=1;
+	if (ownPass == x) return;
+	
+	pk = decryptKey();
+	if (pk == NULL) return;
+	
+	EVP_PKEY_free(key);
+	key = pk;
+	ownPass = x;
+	encryptKey();
 }
 
 void pki_key::generate(int bits, int type)
@@ -148,61 +187,54 @@ pki_key::pki_key(EVP_PKEY *pkey)
 
 void pki_key::fload(const QString fname)
 { 
-	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the RSA key.")
+	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key.")
 		+ "\n'" + fname + "'"); 
 	pem_password_cb *cb = &MainWindow::passRead;
 	FILE *fp = fopen(fname.latin1(), "r");
-	RSA *rsakey = NULL, *rsapub = NULL;
-	EVP_PKEY *evkey = NULL;
+	EVP_PKEY *pkey = NULL;
+	bool priv = true;
 	
 	if (fp != NULL) {
-		rsakey = PEM_read_RSAPrivateKey(fp, NULL, cb, &p);
+		pkey = PEM_read_PrivateKey(fp, NULL, cb, &p);
 
-		if (!rsakey) {
+		if (!pkey) {
 			ign_openssl_error();
 			rewind(fp);
-	   		rsakey = d2i_RSAPrivateKey_fp(fp, NULL);
+	   		pkey = d2i_PrivateKey_fp(fp, NULL);
 		}
-		if (!rsakey) {
+		if (!pkey) {
 			ign_openssl_error();
 			rewind(fp);
-			rsapub = PEM_read_RSA_PUBKEY(fp, NULL, cb, &p);
+			pkey = PEM_read_PUBKEY(fp, NULL, cb, &p);
+			if (pkey) priv=false;
 		}
-		if (!rsapub) {
+		if (!pkey) {
 			ign_openssl_error();
 			rewind(fp);
-			rsapub = d2i_RSA_PUBKEY_fp(fp, NULL);
+			pkey = d2i_PUBKEY_fp(fp, NULL);
+			if (pkey) priv=false;
 		}
-		if (!rsapub) {
-			ign_openssl_error();
-			rewind(fp);
-			p.setTitle(tr("Password for PKCS#8 private key"));
-			p.setDescription(tr("Please enter the password to decrypt the PKCS#8 private key.")
-			+ "\n'" + fname + "'"); 
-			d2i_PKCS8PrivateKey_fp(fp, &evkey, cb, &p);
+		if (pkey){
+			if (key)
+				EVP_PKEY_free(key);
+			key = pkey;
+			if (priv)
+				encryptKey();
+			setIntName(rmslashdot(fname));
 		}
-		if (rsakey) {
-			encryptKey();
-		}
-		else if (rsapub) {
-			EVP_PKEY_assign_RSA(key, rsapub);
-			openssl_error();
-		}
-		setIntName(rmslashdot(fname));
+		
 		openssl_error();
 	}	
 	else fopen_error(fname);
 	fclose(fp);
 }
 
-void pki_key::fromData(unsigned char *p, int size )
+void pki_key::fromData(const unsigned char *p, int size )
 {
-	unsigned char *p1;
-	EVP_PKEY *pkey1;
+	const unsigned char *p1;
 	int version, type;
 	
 	p1 = p;
-	pkey1 = key;
 	
 	version = intFromData(&p1);
 	if (version != 1) { // backward compatibility
@@ -212,12 +244,14 @@ void pki_key::fromData(unsigned char *p, int size )
 	if (key)
 		EVP_PKEY_free(key);
 	
+	key = NULL;
 	type = intFromData(&p1);
+	ownPass = intFromData(&p1);
 	
-	d2i_PublicKey(type, &pkey1, &p1, size);
+	D2I_CLASHT(d2i_PublicKey, type, &key, &p1, size - (2*sizeof(int)));
 	openssl_error(); 
 	
-	encKey_len = size - (p1-p) - (2*sizeof(int)); 
+	encKey_len = size - (p1-p); 
 	if (encKey_len) {
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
 		memcpy(encKey, p1 ,encKey_len);
@@ -225,9 +259,10 @@ void pki_key::fromData(unsigned char *p, int size )
 	
 }
 
-void pki_key::oldFromData(unsigned char *p, int size )
+void pki_key::oldFromData(const unsigned char *p, int size )
 {
-	unsigned char *sik, *pdec, *pdec1, *sik1;
+	unsigned char *sik, *pdec;
+	const unsigned char *pdec1, *sik1;
 	int outl, decsize;
 	unsigned char iv[EVP_MAX_IV_LENGTH];
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
@@ -261,43 +296,50 @@ void pki_key::oldFromData(unsigned char *p, int size )
 	openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL
-		rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
-#else
-		rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
-#endif
+		rsakey = d2i_RSAPrivateKey(NULL, &pdec1, decsize);
 		if (ign_openssl_error()) {
-			rsakey = d2i_RSA_PUBKEY(NULL, &sik, decsize);
+			rsakey = D2I_CLASH(d2i_RSA_PUBKEY, NULL, &sik1, decsize);
 		}
 		openssl_error(); 
 		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
 	}
-	OPENSSL_free(sik1);
-	OPENSSL_free(pdec1);
+	OPENSSL_free(sik);
+	OPENSSL_free(pdec);
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	openssl_error();
 }
 
 EVP_PKEY *pki_key::decryptKey()
 {
-	unsigned char *p, *p1;
+	unsigned char *p;
+	const unsigned char *p1;
 	int outl, decsize;
 	unsigned char iv[EVP_MAX_IV_LENGTH];
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	
-	memset(iv, 0, EVP_MAX_IV_LENGTH);
-	RSA *rsakey;
 	EVP_PKEY *tmpkey;
 	EVP_CIPHER_CTX ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+	char ownPassBuf[MAX_PASS_LENGTH];
+	
+	/* This key has its  own password */
+	if (ownPass == 1) {
+		pass_info pi(XCA_TITLE, tr("Please enter the password to decrypt the private key: '" + getIntName() + "'"));
+		MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
+	}
+	else {
+		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
+	}
+	
 	p = (unsigned char *)OPENSSL_malloc(encKey_len);
-	p1 = p;
 	openssl_error();
+	p1 = p;
+	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	
 	memcpy(iv, encKey, 8); /* recover the iv */
 	/* generate the key */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd,
-		strlen(passwd), 1, ckey,NULL);
+	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)ownPassBuf,
+		strlen(ownPassBuf), 1, ckey,NULL);
 	/* we use sha1 as message digest, 
 	 * because an md5 version of the password is 
 	 * stored in the database...
@@ -309,17 +351,8 @@ EVP_PKEY *pki_key::decryptKey()
 	EVP_DecryptFinal( &ctx, encKey + decsize , &outl );
 	decsize += outl;
 	openssl_error();
-	if (key->type == EVP_PKEY_RSA) {
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL
-		rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&p, decsize);
-#else
-		rsakey = d2i_RSAPrivateKey(NULL, &p, decsize);
-#endif
-		openssl_error(); 
-		tmpkey = EVP_PKEY_new();
-		if (rsakey) EVP_PKEY_assign_RSA(tmpkey, rsakey);
-	}
-	OPENSSL_free(p1);
+	tmpkey = D2I_CLASHT(d2i_PrivateKey, key->type, NULL, &p1, decsize);
+	OPENSSL_free(p);
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	openssl_error();
 	return tmpkey;
@@ -331,16 +364,18 @@ unsigned char *pki_key::toData(int *size)
 	int pubsize;
 	
 	pubsize = i2d_PublicKey(key, NULL);
-	*size = pubsize + encKey_len + (2*sizeof(int));
+	*size = pubsize + encKey_len + (3*sizeof(int));
 	p = (unsigned char *)OPENSSL_malloc(*size);
 	openssl_error();
 	p1 = p;
 	intToData(&p1, 1);
 	intToData(&p1, key->type);
+	intToData(&p1, ownPass);
 	i2d_PublicKey(key, &p1);
 	openssl_error();
-	      
-	memcpy(p1, encKey, encKey_len);
+	if (encKey_len) {
+		memcpy(p1, encKey, encKey_len);
+	}
 	return p;
 }
 
@@ -351,30 +386,44 @@ void pki_key::encryptKey()
 	EVP_CIPHER_CTX ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	unsigned char iv[EVP_MAX_IV_LENGTH], *punenc, *punenc1;
+	const unsigned char *punencc;
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+	char ownPassBuf[MAX_PASS_LENGTH];
+	
+	/* This key has its own, private password ? */
+	if (ownPass == 1) {
+		pass_info p(XCA_TITLE, tr("Please enter the password to protect the private key: '" + getIntName() + "'"));
+		MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
+	}
+	else {
+		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
+	}
 	
 	/* Prepare Encryption */
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	RAND_pseudo_bytes(iv,8);      /* Generate a salt */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd,
-		   	strlen(passwd), 1, ckey, NULL);
+	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)ownPassBuf,
+		   	strlen(ownPassBuf), 1, ckey, NULL);
 	EVP_CIPHER_CTX_init (&ctx);
 	openssl_error();
+	if (encKey) 
+		OPENSSL_free(encKey);
+	encKey_len = 0;
 
 	/* reserve space for unencrypted and encrypted key */
 	keylen = i2d_PrivateKey(key, NULL);
 	encKey = (unsigned char *)OPENSSL_malloc(keylen + EVP_MAX_KEY_LENGTH + 8);
 	punenc = (unsigned char *)OPENSSL_malloc(keylen);
 	openssl_error();
-	punenc1 = punenc;
+	punencc = punenc1 = punenc;
 	memcpy(encKey, iv, 8); /* store the iv */
-	/* copy the public part */
-    i2d_PublicKey(key, &punenc1);
-	punenc1 = punenc;	
-	d2i_PublicKey(key->type, &pkey1, &punenc1, keylen);
-	punenc1 = punenc;	
-	openssl_error();	
-    i2d_PrivateKey(key, &punenc1);
+	/* convert rsa/dsa to Pubkey */
+    i2d_PublicKey(key, &punenc);
+	punenc = punenc1;	
+	D2I_CLASHT(d2i_PublicKey, key->type, &pkey1, &punencc, keylen);
+	openssl_error();
+    i2d_PrivateKey(key, &punenc);
+	punenc = punenc1;	
 
 	/* do the encryption */
 	/* store key right after the iv */
@@ -388,8 +437,6 @@ void pki_key::encryptKey()
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	openssl_error();	
 	
-	/* convert rsa/dsa to Pubkey */
-	/* punenc is big enough, because it held the privkey before. */
 	EVP_PKEY_free(key);
 	key = pkey1;
 	openssl_error();
@@ -411,13 +458,16 @@ pki_key::~pki_key()
 
 void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
 {
+	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key"));
 	FILE *fp = fopen(fname.latin1(),"w");
 	if (fp != NULL) {
-	   if (key){
-		PEM_write_PKCS8PrivateKey_nid(fp, key, 
-		   NID_pbeWithMD5AndDES_CBC, NULL, 0, cb, &p);
-		openssl_error();
+		if (key){
+			pkey = decryptKey();
+			PEM_write_PKCS8PrivateKey_nid(fp, pkey, 
+						NID_pbeWithMD5AndDES_CBC, NULL, 0, cb, &p);
+			EVP_PKEY_free(pkey);
+			openssl_error();
 	   }
 	}
 	else fopen_error(fname);
@@ -427,7 +477,8 @@ void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
 void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM)
 {
-	pass_info p(XCA_TITLE, tr("Please enter the password protecting the RSA private key"));
+	EVP_PKEY *pkey;
+	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key"));
 	if (isPubKey()) {
 		writePublic(fname, PEM);
 		return;
@@ -435,11 +486,13 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 	FILE *fp = fopen(fname.latin1(), "w");
 	if (fp != NULL) {
 		if (key){
+			pkey = decryptKey();
 			if (PEM) {
-				PEM_write_PrivateKey(fp, key, enc, NULL, 0, cb, &p);
+				PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
 			} else {
-				i2d_PrivateKey_fp(fp, key);
+				i2d_PrivateKey_fp(fp, pkey);
 	        }
+			EVP_PKEY_free(pkey);
 	   		openssl_error();
 		}
 	}
@@ -493,22 +546,29 @@ QString pki_key::BN2QString(BIGNUM *bn)
 }
 
 QString pki_key::modulus() {
+	if (key->type != EVP_PKEY_RSA) return "??no rsa??";
 	return BN2QString(key->pkey.rsa->n);
 }
 
 QString pki_key::pubEx() {
+	if (key->type != EVP_PKEY_RSA) return "??no rsa??";
 	return BN2QString(key->pkey.rsa->e);
 }
 
-QString pki_key::privEx() {
-	if (isPubKey()) return "Not existent (not a private key)";
-	return BN2QString(key->pkey.rsa->d);
+QString pki_key::subprime() {
+	if (key->type != EVP_PKEY_DSA) return "??no dsa??";
+	return BN2QString(key->pkey.dsa->q);
+}
+
+QString pki_key::pubkey() {
+	if (key->type != EVP_PKEY_DSA) return "??no dsa??";
+	return BN2QString(key->pkey.dsa->pub_key);
 }
 
 bool pki_key::compare(pki_base *ref)
 {
 	pki_key *kref = (pki_key *)ref;
-	if(key->type==EVP_PKEY_RSA) {
+	if(key->type == EVP_PKEY_RSA) {
 		if (kref==NULL || kref->key==NULL || kref->key->pkey.rsa->n==NULL)
 			return false;
 		if (key == NULL || key->pkey.rsa->n == NULL)
@@ -520,16 +580,12 @@ bool pki_key::compare(pki_base *ref)
 			openssl_error();
 			return false;
 		}
-	} else if(key->type==EVP_PKEY_DSA) {
-		if(kref==NULL || kref->key==NULL || kref->key->pkey.dsa->p==NULL)
+	} else if(key->type == EVP_PKEY_DSA) {
+		if(kref==NULL || kref->key==NULL || kref->key->pkey.dsa->pub_key==NULL)
 			return false;
-		if(key==NULL || key->pkey.rsa->p==NULL)
+		if(key==NULL || key->pkey.dsa->pub_key==NULL)
 		   	return false;
-		if(
-			BN_cmp(key->pkey.dsa->q,kref->key->pkey.dsa->q) ||
-			BN_cmp(key->pkey.dsa->g,kref->key->pkey.dsa->g) ||
-			BN_cmp(key->pkey.dsa->pub_key,kref->key->pkey.dsa->pub_key)
-		){
+		if(BN_cmp(key->pkey.dsa->pub_key,kref->key->pkey.dsa->pub_key)){
 			openssl_error();
 			return false;
 		}
@@ -589,13 +645,23 @@ int pki_key::getUcount()
 
 void pki_key::updateView()
 {
+	QString type_str = "";
 	pki_base::updateView();
 	int pixnum = 0;
+	
 	if (!pointer) return;
 	if (isPubKey()) pixnum += 1;
+	
+	switch (key->type) {
+		case EVP_PKEY_RSA: type_str = "RSA"; break;
+		case EVP_PKEY_DSA: type_str = "DSA"; break;
+		default: type_str = "???"; break;
+	}
+	
 	pointer->setPixmap(0, *icon[pixnum]);
 	pointer->setText(1, length());
 	pointer->setText(2, QString::number(getUcount()));
+	pointer->setText(3, type_str);
 }
 
 

@@ -110,8 +110,8 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	//setFont( tFont );
 #else
 	//setFont( tFont );
+	serialNr->setValidator( new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
 #endif	
-	// serialNr->setValidator( new QIntValidator(0, 32767, this));
 	QStringList strings;
 	 
 	// are there any useable private keys  ?
@@ -428,6 +428,14 @@ void NewX509::toggleFromRequest()
 }
 	
 	
+void NewX509::keyChanged(const QString &keyname)
+{
+	if ( keyname.right(5) == "(DSA)" )
+		hashAlgo->setDisabled(true);
+	else
+		hashAlgo->setDisabled(false);
+}
+
 void NewX509::dataChangeP2()
 {
 	if (description->text() != ""  && countryName->text().length() !=1 &&
@@ -614,7 +622,8 @@ void NewX509::helpClicked()
 
 pki_key *NewX509::getSelectedKey()
 {
-	return (pki_key *)MainWindow::keys->getByName(keyList->currentText());
+	QString name = pki_key::removeTypeFromIntName(keyList->currentText());
+	return (pki_key *)MainWindow::keys->getByName(name);
 }
 
 pki_x509 *NewX509::getSelectedSigner()

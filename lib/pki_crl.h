@@ -85,7 +85,7 @@ class pki_crl: public pki_base
 	void setNextUpdate(const a1time &t);
 	a1time getNextUpdate();
 	a1time getLastUpdate();
-	virtual void fromData(unsigned char *p, int size);
+	virtual void fromData(const unsigned char *p, int size);
 	virtual unsigned char *toData(int *size);
 	virtual bool compare(pki_base *refcrl);
 	int numRev();

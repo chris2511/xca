@@ -260,7 +260,6 @@ pki_crl *CrlView::newItem(pki_x509 *cert)
 			crl->addV3ext(e.create(NID_issuer_alt_name,
 				"issuer:copy", &ext_ctx));
 		}
-		crl->sign(cert->getRefKey());
 		crl->setLastUpdate(time.now());
 		crl->setNextUpdate(time.now(60*60*24*cert->getCrlDays()));
 		cert->setLastCrl(time);

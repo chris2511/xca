@@ -86,6 +86,9 @@ class pki_x509 : public pki_x509super
 	   ~pki_x509();
 
 	   void fload(const QString fname);
+	   a1int hashInfo(const EVP_MD *md) const;
+	   a1int getQASerial(const a1int &secret) const;
+	   bool verifyQASerial(const a1int &secret) const;
 	   void setSerial(const a1int &serial);
 	   a1int getSerial() const;
 	   void setNotBefore(const a1time &a1);
@@ -97,7 +100,7 @@ class pki_x509 : public pki_x509super
 	   void setSubject(const x509name &n);
 	   void setIssuer(const x509name &n);
 	   
-	   virtual void fromData(unsigned char *p, int size);
+	   virtual void fromData(const unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refcert);
 	   bool canSign();

@@ -55,7 +55,6 @@
 #include <qstringlist.h>
 #include <qmessagebox.h>
 #include <qdir.h>
-#include <stream.h>
 #include "func.h"
 #include "oid.h"
 

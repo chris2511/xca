@@ -58,9 +58,9 @@
 ClickLabel::ClickLabel( QWidget* parent,  const char* name, WFlags f )
 	:QLabel( parent, name, f )
 {
-	QFont font( font() );
-	font.setBold(true);
-	setFont( font );
+	QFont fnt( font() );
+	fnt.setBold(true);
+	setFont( fnt );
 	setFrameShape( QLabel::Panel );
 	setFrameShadow( QLabel::Sunken );
 	setAlignment( int( QLabel::AlignCenter ) );

@@ -77,7 +77,7 @@ class pki_x509req : public pki_x509super
 	   pki_x509req(QString name = "");
 	   void fload(const QString fname);
 	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
+	   virtual void fromData(const unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);
 	   x509name getSubject() const;
@@ -90,7 +90,7 @@ class pki_x509req : public pki_x509super
 	   QString getSigAlg();
 	   void setSubject(const x509name &n);
 	   /* SPKAC special functions */
-	   void setSPKIFromData(unsigned char *p, int size);
+	   void setSPKIFromData(const unsigned char *p, int size);
 	   void setSPKIBase64(const char *p);
 	   void set_spki(NETSCAPE_SPKI *_spki);
 };

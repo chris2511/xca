@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>372</width>
+            <width>364</width>
             <height>244</height>
         </rect>
     </property>
@@ -173,25 +173,7 @@
                         <string>Keysize</string>
                     </property>
                 </widget>
-                <widget row="1"  column="1" >
-                    <class>QComboBox</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>keyLength</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>sizePolicy</name>
-                        <sizepolicy>
-                            <hsizetype>7</hsizetype>
-                            <vsizetype>0</vsizetype>
-                        </sizepolicy>
-                    </property>
-                    <property>
-                        <name>toolTip</name>
-                        <string>Usually 1024 or 2048 bit keys are used</string>
-                    </property>
-                </widget>
-                <widget row="0"  column="1" >
+                <widget row="0"  column="1"  rowspan="1"  colspan="3" >
                     <class>QLineEdit</class>
                     <property stdset="1">
                         <name>name</name>
@@ -218,6 +200,54 @@
                     <property>
                         <name>toolTip</name>
                         <string>The internal name of the new key</string>
+                    </property>
+                </widget>
+                <widget row="1"  column="1" >
+                    <class>QComboBox</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>keyLength</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>sizePolicy</name>
+                        <sizepolicy>
+                            <hsizetype>7</hsizetype>
+                            <vsizetype>0</vsizetype>
+                        </sizepolicy>
+                    </property>
+                    <property>
+                        <name>toolTip</name>
+                        <string>Usually 1024 or 2048 bit keys are used</string>
+                    </property>
+                </widget>
+                <widget row="1"  column="3" >
+                    <class>QComboBox</class>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>RSA</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property>
+                            <name>text</name>
+                            <string>DSA</string>
+                        </property>
+                    </item>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>keyType</cstring>
+                    </property>
+                </widget>
+                <widget row="1"  column="2" >
+                    <class>QLabel</class>
+                    <property stdset="1">
+                        <name>name</name>
+                        <cstring>TextLabel1_2</cstring>
+                    </property>
+                    <property stdset="1">
+                        <name>text</name>
+                        <string>Keytype</string>
                     </property>
                 </widget>
             </grid>

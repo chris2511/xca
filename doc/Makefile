@@ -9,6 +9,8 @@ doc: xca.1.gz xca.html
 xca.1.gz:
 	gzip -9 <xca.1 >$@
 
+xca.1:
+	cat xca.man |sed s/MY_VERSION/$(VERSION)/g >doc/xca.1
 xca.html: xca.sgml
 	linuxdoc -B html $< || true
 
@@ -19,7 +21,7 @@ install: xca.1.gz
 	install xca.1.gz $(destdir)$(prefix)/$(mandir)/man1
 
 clean:
-	$(RM) xca.1.gz
+	$(RM) xca.1.gz xca.1
 
 include $(TOPDIR)/Local.mak
 

@@ -59,6 +59,7 @@ class a1int
    private:	
 	ASN1_INTEGER *in;
 	ASN1_INTEGER *dup(const ASN1_INTEGER *a) const;
+	void openssl_error()  const;
    public:
 	a1int();
 	a1int(const ASN1_INTEGER *i);
@@ -69,6 +70,9 @@ class a1int
 	a1int &set(long l);
 	QString toHex() const;
 	QString toDec() const;
+        a1int &setHex(const QString &s);
+        a1int &setDec(const QString &s);
+        a1int &setRaw(const unsigned char *data, unsigned len);
 	long getLong() const;
 	ASN1_INTEGER *get() const;
 	unsigned char *i2d(unsigned char *p);

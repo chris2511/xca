@@ -53,6 +53,7 @@
 
 #include "pki_x509.h"
 #include "func.h"
+#include "base.h"
 
 QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
 
@@ -154,6 +155,31 @@ a1int pki_x509::getSerial() const
 	return a;
 }
 
+a1int pki_x509::hashInfo(const EVP_MD *md) const
+{
+	unsigned char digest[EVP_MAX_MD_SIZE];
+        unsigned len = 0;
+	if (!ASN1_item_digest(ASN1_ITEM_rptr(X509_CINF),md,(char*)cert->cert_info,digest,&len)) openssl_error();
+        a1int a;
+        a.setRaw(digest,len);
+        return a;
+}
+
+a1int pki_x509::getQASerial(const a1int &secret) const
+{
+	ASN1_INTEGER *hold = cert->cert_info->serialNumber;
+	cert->cert_info->serialNumber = secret.get();
+	a1int ret = hashInfo(EVP_md5());
+        ASN1_INTEGER_free(cert->cert_info->serialNumber);
+        cert->cert_info->serialNumber = hold;
+        return ret;
+}
+
+bool pki_x509::verifyQASerial(const a1int &secret) const
+{
+	return getQASerial(secret) == getSerial();
+}
+
 void pki_x509::setNotBefore(const a1time &a1)
 {
 	if (X509_get_notBefore(cert) != NULL ) {
@@ -252,7 +278,7 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 	if (!signkey) {
 		openssl_error("There is no key for signing !");
 	}
-	tkey=signkey->decryptKey();
+	tkey = signkey->decryptKey();
 	X509_sign(cert, tkey, digest);
 	EVP_PKEY_free(tkey);
 	openssl_error();
@@ -272,24 +298,20 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
  */
 
 	
-void pki_x509::fromData(unsigned char *p, int size)
+void pki_x509::fromData(const unsigned char *p, int size)
 {
 	int version, sCert, sRev, sLastCrl;
-	unsigned char *p1 = p;
+	const unsigned char *p1 = p;
 	X509 *cert_sik = cert;
 	version = intFromData(&p1);
-	if (version >=1 || version <= 4) {
+	if (version >=1 || version <= 5) {
 		sCert = intFromData(&p1);
-		cert = d2i_X509(NULL, &p1, sCert);
+		cert = D2I_CLASH(d2i_X509, NULL, &p1, sCert);
 		trust = intFromData(&p1);
 		sRev = intFromData(&p1);
 		if (sRev) {
-	//		ASN1_TIME *time;
 			if (version != 3) isrevoked = true;
 			p1 = revoked.d2i(p1, sRev);
-	//		time = d2i_ASN1_TIME(NULL, &p1, sRev);
-	//		revoked = time;
-	//		ASN1_TIME_free(time);
 		}
 		else {
 		   isrevoked = false;
@@ -304,7 +326,17 @@ void pki_x509::fromData(unsigned char *p, int size)
 		}
 		
 		if (version >= 2 ) {
-			caSerial = intFromData(&p1);
+			if (version >= 5)  
+				caSerial.setHex(stringFromData(&p1));
+			else {
+				int i = intFromData(&p1);
+				if (i>=0) 
+					caSerial = i;
+				else {
+					caSerial = getSerial();
+					++caSerial;
+				}
+			}
 			caTemplate = stringFromData(&p1);
 		}
 		if (version >= 3 ) {
@@ -318,7 +350,7 @@ void pki_x509::fromData(unsigned char *p, int size)
 		// version 3 did save a recent date :-((
 	}
 	else { // old version
-		cert = d2i_X509(NULL, &p, size);
+		cert = D2I_CLASH(d2i_X509, NULL, &p, size);
 		revoked = NULL;
 		trust = 1;
 		efftrust = 1;
@@ -334,14 +366,15 @@ void pki_x509::fromData(unsigned char *p, int size)
 
 unsigned char *pki_x509::toData(int *size)
 {
-#define PKI_DB_VERSION (int)4
+#define PKI_DB_VERSION (int)5
 	unsigned char *p, *p1;
 	int sCert = i2d_X509(cert, NULL);
 	int sRev = revoked.derSize();
 	int sLastCrl = lastCrl.derSize();
 	if (!isrevoked) sRev = 0;
+        QString ca_s = caSerial.toHex();
 	// calculate the needed size 
-	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + (7 * sizeof(int));
+	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + ca_s.length() + 1 + (6 * sizeof(int));
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
@@ -355,7 +388,8 @@ unsigned char *pki_x509::toData(int *size)
 	}
 			 
 	// version 2
-	intToData(&p1, caSerial.getLong()); // the serial if this is a CA
+        //  *** caSerial format changed in version 5.
+	stringToData(&p1, caSerial.toHex()); // the serial if this is a CA
 	stringToData(&p1, caTemplate); // the name of the template to use for signing
 	// version 3
 	intToData(&p1, crlDays); // the CRL period

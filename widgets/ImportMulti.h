@@ -54,7 +54,10 @@
 
 #include "ui/ImportMulti.h"
 #include "lib/pki_base.h"
+#include <qlistview.h>
+#ifndef qt3
 #include <qlist.h>
+#endif
 
 class pki_x509;
 class pki_key;

@@ -52,9 +52,11 @@
 #define DB_BASE_H
 
 #include <db_cxx.h>
-
-#include <qlistview.h>
+#include "base.h"
+#ifndef qt3
 #include <qlist.h>
+#endif
+#include <qlistview.h>
 #include <qpixmap.h>
 #include <qstringlist.h>
 #include "pki_base.h"

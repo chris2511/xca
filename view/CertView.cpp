@@ -52,6 +52,7 @@
 
 #include "CertView.h"
 #include "widgets/MainWindow.h"
+#include <qvalidator.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
@@ -66,6 +67,7 @@
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
 #include "ui/TrustState.h"
+#include "ui/PassWrite.h"
 #include "widgets/ExportTinyCA.h"
 #include "widgets/validity.h"
 #include "widgets/clicklabel.h"
@@ -180,12 +182,40 @@ void CertView::newCert(NewX509 *dlg)
 		signkey = signcert->getRefKey();
 		cert->setTrust(1);
 	}
+	else if (dlg->selfQASignRB->isChecked()){
+          
+                PassWrite_UI *dlg1 = new PassWrite_UI(NULL, 0, true);
+                dlg1->image->setPixmap( *MainWindow::keyImg );
+                dlg1->title->setText(XCA_TITLE);
+                dlg1->description->setText(tr("Please enter the new hexadecimal secret number for the QA process."));
+                dlg1->passA->setFocus();
+#ifdef qt3
+                dlg1->passA->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),dlg1->passA));
+                dlg1->passB->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),dlg1->passB));
+#endif
+                dlg1->setCaption(XCA_TITLE);
+                QString A = "x", B="";
+
+                while (dlg1->exec())
+                  {
+                    A = dlg1->passA->text();
+                    B = dlg1->passB->text();
+                    if (A==B) break;
+                    else
+                      QMessageBox::warning(this, XCA_TITLE, tr("The two secret numbers don't match."));
+                    }
+                delete dlg1;
+                if (A!=B)
+                  throw errorEx(tr("The QA process has been terminated by the user."));
+		signcert = cert;	
+		signkey = clientkey;	
+                serial.setHex(A);
+		cert->setTrust(2);
+	}
 	else {
 		signcert = cert;	
 		signkey = clientkey;	
-		bool ok;
-		serial = dlg->serialNr->text().toInt(&ok);
-		if (!ok) serial = 0;
+		serial.setHex(dlg->serialNr->text());
 		cert->setTrust(2);
 	}
 
@@ -230,9 +260,20 @@ void CertView::newCert(NewX509 *dlg)
 	for (int i=0; i<m; i++)
 		 cert->addV3ext(ne[i]);
 	
+	const EVP_MD *hashAlgo = dlg->getHashAlgo();
+	if (signkey->getType() == EVP_PKEY_DSA) hashAlgo = EVP_dss1();
 	
+	if (dlg->selfQASignRB->isChecked())
+          {
+            // sign the request intermediately in order to finally fill
+            // up the cert_info substructure.
+            cert->sign(signkey, hashAlgo);
+            // now set the QA serial.
+            cert->setSerial(cert->hashInfo(EVP_md5()));
+          }
+
 	// and finally sign the request 
-	cert->sign(signkey, dlg->getHashAlgo());
+	cert->sign(signkey, hashAlgo);
 	db->insert(cert);
 	db->updatePKI(signcert);
 	if (tempkey != NULL) delete(tempkey);
@@ -726,13 +767,22 @@ void CertView::setSerial()
 	pki_x509 *cert = (pki_x509 *)getSelected();
 	if (!cert) return;
 	a1int serial = cert->getCaSerial();
-	bool ok;
-	a1int nserial = QInputDialog::getInteger (tr(XCA_TITLE),
+	try {   
+		bool ok;
+		QString s=
+		QInputDialog::getText (tr(XCA_TITLE),
 			tr("Please enter the new Serial for signing"),
-			serial.getLong(), serial.getLong(), 2147483647, 1, &ok, this );
-	if (ok && nserial > serial) {
-		cert->setCaSerial(nserial);
-		db->updatePKI(cert);
+			QLineEdit::Normal, serial.toHex(), &ok, this );
+		if (!ok) return;
+		a1int nserial;
+		nserial.setHex(s);
+		if (nserial > serial) {
+			cert->setCaSerial(nserial);
+			db->updatePKI(cert);
+		}
+	} 
+	catch (errorEx &err) {
+		Error(err);
 	}
 }
 

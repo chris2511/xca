@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>591</width>
+            <width>587</width>
             <height>614</height>
         </rect>
     </property>
@@ -469,7 +469,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
                         <name>spacing</name>
                         <number>6</number>
                     </property>
-                    <widget row="1"  column="0" >
+                    <widget row="2"  column="0" >
                         <class>QRadioButton</class>
                         <property stdset="1">
                             <name>name</name>
@@ -478,6 +478,17 @@ Of course you need the private key of the CSR if you want to create a self-signe
                         <property stdset="1">
                             <name>text</name>
                             <string>Use &amp;this Certificate for for signing</string>
+                        </property>
+                    </widget>
+                    <widget row="1"  column="0" rowspan="1"  colspan="2" >
+                        <class>QRadioButton</class>
+                        <property stdset="1">
+                            <name>name</name>
+                            <cstring>selfQASignRB</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>text</name>
+                            <string>Create a &amp;self signed certificate with a MD5-hashed QA serial</string>
                         </property>
                     </widget>
                     <widget row="0"  column="0" >
@@ -510,7 +521,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
                             <string>If you leave this blank the serial 00 will be used</string>
                         </property>
                     </widget>
-                    <widget row="1"  column="1" >
+                    <widget row="2"  column="1" >
                         <class>QComboBox</class>
                         <property stdset="1">
                             <name>name</name>
@@ -1105,6 +1116,13 @@ Empy, CA, client, server</string>
                         <property stdset="1">
                             <name>name</name>
                             <cstring>keyList</cstring>
+                        </property>
+                        <property stdset="1">
+                            <name>sizePolicy</name>
+                            <sizepolicy>
+                                <hsizetype>7</hsizetype>
+                                <vsizetype>0</vsizetype>
+                            </sizepolicy>
                         </property>
                         <property>
                             <name>toolTip</name>
@@ -3120,12 +3138,6 @@ Example:
         <slot>signerChanged()</slot>
     </connection>
     <connection>
-        <sender>keyList</sender>
-        <signal>activated(int)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>dataChangeP2()</slot>
-    </connection>
-    <connection>
         <sender>countryName</sender>
         <signal>textChanged(const QString&amp;)</signal>
         <receiver>NewX509_UI</receiver>
@@ -3149,10 +3161,23 @@ Example:
         <receiver>NewX509_UI</receiver>
         <slot>applyTimeDiff()</slot>
     </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>activated(const QString&amp;)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>keyChanged(const QString &amp;)</slot>
+    </connection>
+    <connection>
+        <sender>keyList</sender>
+        <signal>activated(int)</signal>
+        <receiver>NewX509_UI</receiver>
+        <slot>dataChangeP2()</slot>
+    </connection>
+    <slot access="public">applyTimeDiff()</slot>
     <slot access="public">checkAuthKeyId()</slot>
     <slot access="public">dataChangeP2()</slot>
     <slot access="public">helpClicked()</slot>
-    <slot access="public">applyTimeDiff()</slot>
+    <slot access="public">keyChanged(const QString &amp;)</slot>
     <slot access="public">signerChanged()</slot>
     <slot access="public">switchExtended()</slot>
     <slot access="public">templateChanged()</slot>

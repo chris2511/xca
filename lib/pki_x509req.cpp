@@ -133,13 +133,13 @@ void pki_x509req::fload(const QString fname)
 	}
 }
 
-void pki_x509req::fromData(unsigned char *p, int size)
+void pki_x509req::fromData(const unsigned char *p, int size)
 {
-	unsigned char *ps = p;
+	const unsigned char *ps = p;
 	privkey = NULL;
-	request = d2i_X509_REQ(&request, &ps, size);
+	request = D2I_CLASH(d2i_X509_REQ, &request, &ps, size);
 	if (ps - p < size)
-		spki = d2i_NETSCAPE_SPKI(NULL, &ps , size + p - ps); 
+		spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &ps , size + p - ps); 
 	openssl_error();
 }
 
@@ -256,11 +256,11 @@ QString pki_x509req::getSigAlg()
    DER-encoded Netscape SPKI structure contained in the supplied
    raw data array.
 */
-void pki_x509req::setSPKIFromData(unsigned char *p, int size)
+void pki_x509req::setSPKIFromData(const unsigned char *p, int size)
 {
 	NETSCAPE_SPKI *spki = NULL;
 
-	spki = d2i_NETSCAPE_SPKI(NULL,&p,size);
+	spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &p, size);
 	if (spki == NULL) goto err;
 
 	set_spki (spki);

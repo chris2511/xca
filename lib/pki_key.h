@@ -70,6 +70,7 @@ class pki_key: public pki_base
 	EVP_PKEY *key;
 	unsigned char *encKey;
 	int encKey_len;
+	int ownPass; // if we have our own private password
 	int ucount; // usage counter
 	QString BN2QString(BIGNUM *bn);
 	void init(int type = EVP_PKEY_RSA);
@@ -80,6 +81,7 @@ class pki_key: public pki_base
 	static char passwd[MAX_PASS_LENGTH];
 	static void erasePasswd();
 	void generate(int bits, int type = EVP_PKEY_RSA);
+	void setOwnPass(int x);
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
 	EVP_PKEY *decryptKey();
@@ -88,15 +90,18 @@ class pki_key: public pki_base
 	/* destructor */
 	~pki_key();
 	
+	QString getIntNameWithType();
+	static QString removeTypeFromIntName(QString n);
 	void fload(const QString fname);
-	void fromData(unsigned char *p, int size);
-	void oldFromData(unsigned char *p, int size);
+	void fromData(const unsigned char *p, int size);
+	void oldFromData(const unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
         QString length();
         QString modulus();
         QString pubEx();
-        QString privEx();
+        QString subprime();
+        QString pubkey();
 	void writeKey(const QString fname, const EVP_CIPHER *enc, 
 			pem_password_cb *cb, bool PEM);
 	void writePublic(const QString fname, bool PEM);

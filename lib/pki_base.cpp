@@ -89,7 +89,7 @@ QString pki_base::getClassName()
 	return class_name;
 }
 
-void pki_base::setIntName(const QString d)
+void pki_base::setIntName(const QString &d)
 {
 	desc = d.latin1();
 }
@@ -129,7 +129,7 @@ bool pki_base::ign_openssl_error() const
 	return !errtxt.isEmpty();
 }
 
-int pki_base::intToData(unsigned char **p, const int val)
+int pki_base::intToData(unsigned char **p, int val)
 {
 	int s = sizeof(int);
 	memcpy(*p, &val, s);
@@ -137,7 +137,7 @@ int pki_base::intToData(unsigned char **p, const int val)
 	return s;
 }
 
-int pki_base::intFromData(unsigned char **p)
+int pki_base::intFromData(const unsigned char **p)
 {
 	int s = sizeof(int);
 	int ret;
@@ -146,7 +146,7 @@ int pki_base::intFromData(unsigned char **p)
 	return ret;
 }
 
-int pki_base::boolToData(unsigned char **p, const bool val)
+int pki_base::boolToData(unsigned char **p, bool val)
 {
 	int s = sizeof(bool);
 	memcpy(*p, &val, s);
@@ -154,7 +154,7 @@ int pki_base::boolToData(unsigned char **p, const bool val)
 	return s;
 }
 
-bool pki_base::boolFromData(unsigned char **p)
+bool pki_base::boolFromData(const unsigned char **p)
 {
 	int s = sizeof(bool);
 	bool ret;
@@ -171,7 +171,7 @@ int pki_base::stringToData(unsigned char **p, const QString val)
 	return s;
 }
 
-QString pki_base::stringFromData(unsigned char **p)
+QString pki_base::stringFromData(const unsigned char **p)
 {
 	QString ret="";
 	while(**p) {

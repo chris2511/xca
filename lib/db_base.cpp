@@ -54,7 +54,11 @@
 #include "exception.h"
 #include "view/XcaListView.h"
 #include <qmessagebox.h>
+#ifdef qt4
+#include <q3listview.h>
+#else
 #include <qlistview.h>
+#endif
 #include <qdir.h>
 
 

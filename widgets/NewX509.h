@@ -125,6 +125,7 @@ class NewX509: public NewX509_UI
 	QString createRequestText();
    public slots:
 	void toggleFromRequest();
+	void keyChanged(const QString &keyname);
 	void dataChangeP2();
 	void newKeyDone(QString name);
 	void switchExtended();
