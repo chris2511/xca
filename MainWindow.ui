@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>592</width>
+            <width>611</width>
             <height>533</height>
         </rect>
     </property>
@@ -37,26 +37,6 @@
         <property stdset="1">
             <name>text</name>
             <string>Beenden</string>
-        </property>
-    </widget>
-    <widget>
-        <class>QLabel</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property stdset="1">
-            <name>geometry</name>
-            <rect>
-                <x>10</x>
-                <y>510</y>
-                <width>220</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property stdset="1">
-            <name>text</name>
-            <string>(c) 2002 by christian@hohnstaedt.de</string>
         </property>
     </widget>
     <widget>
@@ -614,6 +594,26 @@
                 <string>Zertifikats Authorität</string>
             </attribute>
         </widget>
+    </widget>
+    <widget>
+        <class>QLabel</class>
+        <property stdset="1">
+            <name>name</name>
+            <cstring>copyright</cstring>
+        </property>
+        <property stdset="1">
+            <name>geometry</name>
+            <rect>
+                <x>20</x>
+                <y>510</y>
+                <width>440</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property stdset="1">
+            <name>text</name>
+            <string>(c) 2002 by christian@hohnstaedt.de</string>
+        </property>
     </widget>
 </widget>
 <images>

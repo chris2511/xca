@@ -47,10 +47,23 @@ void MainWindow::showDetailsCert()
 	pki_x509 *cert = (pki_x509 *)certs->getSelectedPKI();
 	if (!cert) return;
 	dlg->descr->setText(cert->getDescription().c_str());
-	if ( cert->verify() ) {
+	if ( cert->verify() == pki_base::VERIFY_ERROR) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
+	
+	if ( cert->verify() == pki_base::VERIFY_SELFSIGNED) {
+		dlg->verify->setText("SELF SIGNED");
+	}
+	
+	if ( cert->verify() == pki_base::VERIFY_TRUSTED) {
+		dlg->verify->setText("TRUSTED");
+	}
+	
+	if ( cert->verify() == pki_base::VERIFY_UNTRUSTED) {
+		dlg->verify->setText("NOT TRUSTED");
+	}
+	
 	else {
 	  pki_key *key = cert->getKey();
 	  if (key)
@@ -92,6 +105,10 @@ void MainWindow::showDetailsCert()
 	dlg->dnO_2->setText(cert->getDNi(NID_organizationName).c_str());
 	dlg->dnOU_2->setText(cert->getDNi(NID_organizationalUnitName).c_str());
 	dlg->dnEmail_2->setText(cert->getDNi(NID_pkcs9_emailAddress).c_str());
+	dlg->notBefore->setText(cert->notBefore().c_str());
+	dlg->notAfter->setText(cert->notAfter().c_str());
+	
+	
 	if ( !dlg->exec()) return;
 	string ndesc = dlg->descr->text().latin1();
 	if (ndesc != cert->getDescription()) {

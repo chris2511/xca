@@ -41,7 +41,7 @@ void MainWindow::showDetailsReq()
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (!req) return;
 	dlg->descr->setText(req->getDescription().c_str());
-	if ( req->verify() ) {
+	if ( req->verify() != pki_base::VERIFY_OK ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
