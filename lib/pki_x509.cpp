@@ -127,6 +127,28 @@ string pki_x509::getDNi(int nid)
 	return s;
 }
 
+string pki_x509::notBefore()
+{
+	BIO * bio = BIO_new(BIO_s_mem());
+	char buf[200] = "";
+	ASN1_TIME_print(bio,X509_get_notBefore(cert));
+	BIO_gets(bio,buf,200);
+	string time = buf;
+	BIO_free(bio);
+	return time;
+}
+
+string pki_x509::notAfter()
+{
+	BIO * bio = BIO_new(BIO_s_mem());
+	char buf[200];
+	ASN1_TIME_print(bio,X509_get_notAfter(cert));
+	BIO_gets(bio,buf,200);
+	string time = buf;
+	BIO_free(bio);
+	return time;
+}
+
 unsigned char *pki_x509::toData(int *size)
 {
 	unsigned char *p, *p1;
@@ -170,12 +192,19 @@ bool pki_x509::compare(pki_base *refreq)
 }
 
 	
-bool pki_x509::verify()
+int pki_x509::verify()
 {
 	 EVP_PKEY *pkey = X509_get_pubkey(cert);
-	 bool x = (X509_verify(cert,pkey) <= 0);
+	 int ret=0;
+	 int i = X509_verify(cert,pkey);
+	 if (i<0) ret = pki_base::VERIFY_ERROR;
+	 if (i>0) ret = pki_base::VERIFY_SELFSIGNED;
+	 // FIXME: check trusted state.....
+	 // if (i>0) ret = pki_base::VERIFY_UNTRUSTED;
+	 if (i==0) ret = pki_base::VERIFY_TRUSTED;
 	 EVP_PKEY_free(pkey);
-	 return x;
+	 openssl_error();
+	 return ret;
 }
 
 pki_key *pki_x509::getKey()

@@ -60,7 +60,7 @@ class pki_key: public pki_base
 	void writePKCS8(const string fname, pem_password_cb *cb);
 	bool isPrivKey();
 	bool isPubKey();
-	bool verify();
+	int verify();
 };
 
 #endif

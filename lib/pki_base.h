@@ -12,6 +12,8 @@ class pki_base
 	string error;
 	bool openssl_error();
     public:
+	enum { VERIFY_ERROR, VERIFY_SELFSIGNED, VERIFY_TRUSTED, 
+	       VERIFY_UNTRUSTED, VERIFY_OK }; 
 	pki_base(const string d);
 	pki_base();
 	virtual void fromData(unsigned char *p, int size){

@@ -135,12 +135,13 @@ bool pki_x509req::compare(pki_base *refreq)
 }
 
 	
-bool pki_x509req::verify()
+int pki_x509req::verify()
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
-	 bool x = (X509_REQ_verify(request,pkey) <= 0);
+	 bool x = (X509_REQ_verify(request,pkey) != 0);
 	 EVP_PKEY_free(pkey);
-	 return x;
+	 if (x) return pki_base::VERIFY_OK;
+	 else   return pki_base::VERIFY_ERROR;
 }
 
 pki_key *pki_x509req::getKey()

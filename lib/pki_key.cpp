@@ -77,7 +77,7 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	   cerr << fname << "r,l: "<< r <<","<< l << endl;
 	   setDescription(fname.substr(l+1,r-l-1));
 	   openssl_error();
-	   if (! verify())
+	   if ( verify() != pki_base::VERIFY_OK)
 		   cerr << "RSA key is faulty !!\n";
 	}	
 	else error = "Fehler beim Öffnen der Datei";
@@ -204,7 +204,7 @@ void pki_key::writePublic(const string fname, bool PEM)
 string pki_key::length()
 {
 	char st[64];
-	sprintf(st,"%i bits", EVP_PKEY_size(key) * 8 );
+	sprintf(st,"%i bit", EVP_PKEY_size(key) * 8 );
 	string x = st;
 	return x;
 }
@@ -261,7 +261,7 @@ bool pki_key::isPrivKey()
 	
 }
 
-bool pki_key::verify()
+int pki_key::verify()
 {
 	bool veri = false;
 	return true;
@@ -272,6 +272,7 @@ bool pki_key::verify()
 	if (isPrivKey()) veri = true;
 	openssl_error();
 	cerr<< "verify end: "<< veri << endl;;
-	return veri;
+	if (veri) return pki_base::VERIFY_OK;
+	else  return pki_base::VERIFY_ERROR;
 }
 		

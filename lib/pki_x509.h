@@ -24,8 +24,10 @@ class pki_x509 : public pki_base
 	   string getDNs(int nid);
 	   string getDNi(int nid);
 	   void writeReq(const string fname, bool PEM);
-	   bool verify();
+	   int verify();
 	   pki_key *getKey();
+	   string notAfter();
+	   string notBefore();
 };
 
 #endif
