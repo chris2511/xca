@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( (QObject *)quitApp, SIGNAL(clicked()), (QObject *)qApp, SLOT(quit()) );
 	QString cpr = "(c) 2002 by Christian@Hohnstaedt.de - Version: ";
 	copyright->setText(cpr + VER);
-#ifndef HAVE_CONGIG_H
+#ifndef HAVE_CONFIG_H
 	baseDir = "C:";
 #else	
 	baseDir = QDir::homeDirPath();

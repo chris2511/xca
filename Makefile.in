@@ -30,10 +30,7 @@ MOC_CPP=$(patsubst %,moc_%.cpp,$(MOCNAMES))
 UI_CPP=$(patsubst %, %.cpp, $(UINAMES))
 UI_H=$(patsubst %, %.h, $(UINAMES))
 
-all: win libs $(OBJS) xca
-
-win: $(UI_CPP) $(UI_H) $(MOC_CPP)
-	make -C lib win
+all: libs $(OBJS) xca
 
 re: clean all
 
@@ -82,4 +79,4 @@ moc_%.cpp: %.h %.cpp
 %.cpp: %.h %.ui
 	$(UIC) -o $@ -impl $^
 
-.INTERMEDIATE: $(MOC_CPP) $(UI_CPP) $(UI_H)
+.INTERMEDIATE:  $(UI_CPP) $(UI_H) $(MOC_CPP)

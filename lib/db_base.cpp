@@ -425,7 +425,6 @@ QPixmap *db_base::loadImg(const char *name )
 #endif
 		path += QDir::separator();
 		path += name;
-		QMessageBox::information(NULL, "xca", path); 
         return new QPixmap(path);
 }
 
