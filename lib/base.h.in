@@ -1,10 +1,6 @@
 /* base definitions */
 
-#ifdef WIN32
-#define VER "0.3.0-PRE1-W32"
-#else
 #define VER "@PACKAGE_VERSION@"
-#endif
 
 #define MARK CERR("--Mark--")
 #define DBEX(x) CERR("DB-error: "<<x.what()<<", Errno: "<<x.get_errno())

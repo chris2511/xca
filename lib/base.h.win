@@ -1,8 +1,6 @@
 /* base definitions */
 
-#ifdef WIN32
 #define VER "VERSION-W32"
-#endif
 
 #define MARK 
 #define DBEX(x) 
