@@ -52,6 +52,13 @@
 
 #include "pki_x509req.h"
 
+void pki_x509req::init()
+{
+	request = NULL;
+	privkey = NULL;
+	className = "pki_x509req";
+}
+
 
 pki_x509req::pki_x509req(pki_key *key, const string cn,
 		const string c, const string l,
@@ -60,6 +67,7 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 		const string d, const string challenge)
 		:pki_base( d )
 {
+	init();
 	request = X509_REQ_new();
 	openssl_error();
 	if (key == NULL) {
@@ -100,23 +108,22 @@ pki_x509req::pki_x509req(pki_key *key, const string cn,
 	openssl_error();
 	privkey = key;
 	key->incUcount();
-	className="pki_x509req";
 }
 
 
 
 pki_x509req::pki_x509req() : pki_base()
 {
+	init();
 	request = X509_REQ_new();
 	openssl_error();
-	privkey = NULL;
-	className="pki_x509req";
 }
 
 
 pki_x509req::~pki_x509req()
 {
-	X509_REQ_free(request);
+	if (request)
+		X509_REQ_free(request);
 	openssl_error();
 	if (privkey)
 		privkey->decUcount();
@@ -125,7 +132,7 @@ pki_x509req::~pki_x509req()
 
 pki_x509req::pki_x509req(const string fname)
 {
-	request = NULL;
+	init();
 	FILE *fp = fopen(fname.c_str(),"r");
 	if (fp != NULL) {
 	   request = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
@@ -148,8 +155,6 @@ pki_x509req::pki_x509req(const string fname)
 	}	
 	else fopen_error(fname);
 	fclose(fp);
-	privkey = NULL;
-	className="pki_x509req";
 	
 }
 

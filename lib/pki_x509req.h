@@ -71,6 +71,7 @@ class pki_x509req : public pki_base
 	   pki_x509req();
 	   pki_x509req(const string fname);
 	   ~pki_x509req();
+	   void init();
 	   virtual void fromData(unsigned char *p, int size);
 	   virtual unsigned char *toData(int *size);
 	   virtual bool compare(pki_base *refreq);

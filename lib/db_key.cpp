@@ -111,8 +111,8 @@ void db_key::inToCont(pki_base *pki)
 void db_key::updateViewPKI(pki_base *pki)
 {
 	CERR("updateViewPKI()");
-        db_base::updateViewPKI(pki);
         if (! pki) return;
+        db_base::updateViewPKI(pki);
         int pixnum = 0;
         QListViewItem *current = (QListViewItem *)pki->getPointer();
         if (!current) return;

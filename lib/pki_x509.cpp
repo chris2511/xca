@@ -100,9 +100,9 @@ pki_x509::pki_x509(string d,pki_key *clientKey, pki_x509req *req, pki_x509 *sign
 
 pki_x509::pki_x509(X509 *c) : pki_base()
 {
+	init();
 	cert = c;
 	openssl_error();
-	init();
 }
 
 pki_x509::pki_x509(const pki_x509 *crt) 
@@ -134,7 +134,6 @@ pki_x509::pki_x509(const string fname)
 {
 	FILE *fp = fopen(fname.c_str(),"r");
 	init();
-	cert = NULL;
 	if (fp != NULL) {
 	   cert = PEM_read_X509(fp, NULL, NULL, NULL);
 	   if (!cert) {
@@ -186,6 +185,7 @@ void pki_x509::init()
 	crlDays = 30;
 	lastCrl = NULL;
 	className="pki_x509";
+	cert=NULL;
 }
 
 
@@ -214,7 +214,7 @@ bool pki_x509::canSign()
 	if (pkey->isPubKey()) return false;
 	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
 	openssl_error();
-	if (!bc) return false;	
+	if (!bc) return true;	
 	if (!bc->ca) return false;
 	return true;
 }

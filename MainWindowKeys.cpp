@@ -155,18 +155,22 @@ bool MainWindow::showDetailsKey(pki_key *key, bool import)
 		delete detDlg;
 		return false;
 	}
-	string ndesc = detDlg->keyDesc->text().latin1();
 	bool ret = detDlg->exec();
+	string ndesc = detDlg->keyDesc->text().latin1();
 	delete detDlg;
+	CERR(ndesc << " " << key->getDescription());
 	if ( ret && ndesc != key->getDescription()) {
+		MARK
 		try {
 			keys->renamePKI(key, ndesc);
+			MARK
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
 		return true;
 	}
+	MARK
 	return false;
 }
 

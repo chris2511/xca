@@ -53,9 +53,17 @@
 
 char pki_key::passwd[40]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
+void pki_key::init()
+{
+	ucount = 0;
+	className = "pki_key";
+}
+	
 pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bits = 1024, int type): pki_base(d)
 {
+	init();
 	key = EVP_PKEY_new();
+	openssl_error();	
 	key->type = type;
 	if (type == EVP_PKEY_RSA) {
 	   RSA *rsakey;
@@ -63,45 +71,42 @@ pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bit
 	   if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
 	}
 	openssl_error();	
-	ucount=0;
-	className = "pki_key";
 }
 
 pki_key::pki_key(const pki_key *pk) 
 	:pki_base(pk->desc)
 {
+	init();
 	key = EVP_PKEY_new();
+	openssl_error();	
 	key->type = pk->key->type;
 	if (key->type == EVP_PKEY_RSA) {
 		key->pkey.rsa=((RSA *)ASN1_dup( (int (*)())i2d_RSAPrivateKey, (char *(*)())d2i_RSAPrivateKey,(char *)pk->key->pkey.rsa));
 	}
 	// TODO add DSA support.....	
 	openssl_error();
-	ucount=0;
-	className = "pki_key";
 }
 
 pki_key::pki_key(const string d, int type )
 	:pki_base(d)
 { 
+	init();
 	key = EVP_PKEY_new();
 	key->type = type;
 	openssl_error();
-	ucount=0;
-	className = "pki_key";
 }	
 
 pki_key::pki_key(EVP_PKEY *pkey)
 	:pki_base("")
 { 
+	init();
 	key = pkey;
-	ucount=0;
-	className = "pki_key";
 }	
 
 pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 	:pki_base(fname)
 { 
+	init();
 	PASS_INFO p;
 	string title = XCA_TITLE;
 	string description = "Please enter the password to decrypt the RSA key."; 
@@ -158,8 +163,6 @@ pki_key::pki_key(const string fname, pem_password_cb *cb, int type )
 	else fopen_error(fname);
 	CERR("end of loading");
 	fclose(fp);
-	ucount=0;
-	className = "pki_key";
 }
 
 

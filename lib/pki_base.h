@@ -67,10 +67,10 @@ class pki_base
 	string desc;
 	string error;
 	string className;
+	void *pointer; 
 	void openssl_error(const string myerr = "");
 	void fopen_error(const string fname);
 	bool ign_openssl_error();
-	void *pointer; 
 	int intToData(unsigned char **p, const int val);
 	int intFromData(unsigned char **p);
 	int boolToData(unsigned char **p, const bool val);
