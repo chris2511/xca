@@ -406,14 +406,15 @@ void MainWindow::loadCert()
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	//filt.append(tr("PKCS#7 Signatures ( *.p7s )")); 
 	filt.append(tr("All files ( *.* )"));
-	string s;
+	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
-		s = dlg->selectedFile().latin1();
+		s = dlg->selectedFile();
 	if (s == "") return;
-	pki_x509 *cert = new pki_x509(s);
+	QDir::convertSeparators(s);
+	pki_x509 *cert = new pki_x509(s.latin1());
 	if (opensslError(cert)) return;
 	insertCert(cert);
 }
@@ -426,14 +427,15 @@ void MainWindow::loadPKCS12()
 	QStringList filt;
 	filt.append(tr("PKCS#12 Certificates ( *.p12 )")); 
 	filt.append(tr("All files ( *.* )"));
-	string s;
+	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate import"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
-		s = dlg->selectedFile().latin1();
+		s = dlg->selectedFile();
 	if (s == "") return;
-	pk12 = new pki_pkcs12(s, &MainWindow::passRead);
+	QDir::convertSeparators(s);
+	pk12 = new pki_pkcs12(s.latin1(), &MainWindow::passRead);
 	opensslError(pk12);
 	akey = pk12->getKey();
 	acert = pk12->getCert();
@@ -493,15 +495,16 @@ void MainWindow::writeCert()
 	if (!cert) return;
 	filt.append(tr("Certificates ( *.pem *.der *.crt *.cer )")); 
 	filt.append(tr("All Files ( *.* )"));
-	string s;
+	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Certificate export"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	if (dlg->exec())
-		s = dlg->selectedFile().latin1();
+		s = dlg->selectedFile();
 	if (s == "") return;
-	cert->writeCert(s,true);
+	QDir::convertSeparators(s);
+	cert->writeCert(s.latin1(),true);
 	opensslError(cert);
 }
 
@@ -515,14 +518,15 @@ void MainWindow::writePKCS12()
 	if (privkey->isPubKey()) return; /* should not happen */
 	filt.append(tr("PKCS#12 bags ( *.p12 *.pfx )")); 
 	filt.append(tr("All Files ( *.* )"));
-	string s;
+	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("PKCS#12 export"));
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	if (dlg->exec())
-		s = dlg->selectedFile().latin1();
+		s = dlg->selectedFile();
 	if (s == "") return;
+	QDir::convertSeparators(s);
 	pki_pkcs12 *p12 = new pki_pkcs12(cert->getDescription(), cert, privkey, &MainWindow::passWrite);
 	pki_x509 *signer = cert->getSigner();
 	int cnt =0;
@@ -533,7 +537,7 @@ void MainWindow::writePKCS12()
 		signer=signer->getSigner();
 	}
 	CERR << "start writing" <<endl;
-	p12->writePKCS12(s);
+	p12->writePKCS12(s.latin1());
 	opensslError(cert);
 }
 

@@ -165,18 +165,19 @@ void MainWindow::loadKey()
 	filt.append( "PKI Keys ( *.pem *.der )"); 
 	filt.append( "PKCS#8 Keys ( *.p8 *.pk8 )"); 
 	filt.append( "All Files ( *.* )");
-	string s;
+	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption("Import key");
 	dlg->setFilters(filt);
 	if (dlg->exec())
-		s = dlg->selectedFile().latin1();
+		s = dlg->selectedFile();
 	if (s == "") return;
+	QDir::convertSeparators(s);
 	string errtxt;
-	pki_key *lkey = new pki_key(s, &MainWindow::passRead);
+	pki_key *lkey = new pki_key(s.latin1(), &MainWindow::passRead);
 	if ((errtxt = lkey->getError()) != "") {
 		QMessageBox::warning(this,"Key error",
-			tr("The key") +": " + QString::fromLatin1(s.c_str()) +
+			tr("The key") +": " + s +
 			"\n"+ tr("could not be loaded") + QString::fromLatin1(errtxt.c_str()) );
 		return;
 	}

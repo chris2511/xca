@@ -78,7 +78,10 @@ void ExportKey::chooseFile()
 	dlg->setMode( QFileDialog::AnyFile );
 	if (dlg->exec())
 		s = dlg->selectedFile();
-	if (! s.isEmpty()) filename->setText(s);
+	if (! s.isEmpty()) {
+		QDir::convertSeparators(s);
+		filename->setText(s);
+	}
 }
 
 void ExportKey::canEncrypt() {

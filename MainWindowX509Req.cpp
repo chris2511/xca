@@ -137,14 +137,15 @@ void MainWindow::loadReq()
 	QStringList filt;
 	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
 	filt.append("All Files ( *.* )");
-	string s;
+	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
 	if (dlg->exec())
-		s = dlg->selectedFile().latin1();
+		s = dlg->selectedFile();
 	if (s == "") return;
-	pki_x509req *req = new pki_x509req(s);
+	QDir::convertSeparators(s);
+	pki_x509req *req = new pki_x509req(s.latin1());
 	if (opensslError(req)) return;
 	insertReq(req);
 }
@@ -154,17 +155,18 @@ void MainWindow::writeReq()
 	QStringList filt;
 	filt.append("PKCS#10 CSR ( *.pem *.der )"); 
 	filt.append("All Files ( *.* )");
-	string s;
+	QString s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption("Export Certificate signing request");
 	dlg->setFilters(filt);
 	dlg->setMode( QFileDialog::AnyFile );
 	if (dlg->exec())
-		s = dlg->selectedFile().latin1();
+		s = dlg->selectedFile();
 	if (s == "") return;
+	QDir::convertSeparators(s);
 	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (opensslError(req)) return;
-	req->writeReq(s,true);
+	req->writeReq(s.latin1(),true);
 	if (opensslError(req)) return;
 }
 
