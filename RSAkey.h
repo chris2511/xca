@@ -21,12 +21,15 @@ class RSAkey: public QObject
 	Q_OBJECT
 	
 	RSA *key;
+	EVP_PKEY *evp;
 	QString desc;
 	char *error;
 	QString BN2QString(BIGNUM *bn);	
 	char *openssl_error();
+	void initevp();
     public:
 	bool onlyPubKey;
+	EVP_PKEY *evpkey();
 	RSAkey(const QString d, int bits,
 		void (*cb)(int, int,void *),void *prog,
 		QObject *parent=0, const char *name=0);   

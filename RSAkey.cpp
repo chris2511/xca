@@ -16,6 +16,7 @@ RSAkey::RSAkey(const QString d, int bits,
 	error = NULL;
 	if ((key = RSA_generate_key(bits, 0x10001, cb, prog)) == NULL)
 		openssl_error();	
+	initevp();
 }
 
 
@@ -65,6 +66,7 @@ RSAkey::RSAkey(const QString fname, pem_password_cb *cb, QObject *parent=0, cons
 	}	
 	else error = "Fehler beim Öffnen der Datei";
 	fclose(fp);
+	initevp();
 	
 }
 
@@ -81,6 +83,7 @@ RSAkey::RSAkey(unsigned char *p, int size)
 	}
 	if (openssl_error()); 
 	OPENSSL_free(sik);
+	initevp();
 }
 
 unsigned char *RSAkey::getKey(int *size) 
@@ -113,11 +116,23 @@ RSAkey::RSAkey(RSA *rsa, QString &d,  QObject *parent=0, const char *name=0)
 	key = rsa;
 	desc = d;
 }
+void RSAkey::initevp()
+{
+	evp = EVP_PKEY_new();
+	EVP_PKEY_assign_RSA(evp,key);
+}
+
+
+EVP_PKEY *RSAkey::evpkey()
+{
+	return evp;
+}
 
 
 RSAkey::~RSAkey()
 {
-	RSA_free(key);
+	//RSA_free(key);
+	EVP_PKEY_free(evp);
 }
 
 
