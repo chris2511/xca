@@ -53,6 +53,7 @@
 #include "MainWindow.h"
 #include "lib/pki_crl.h"
 #include "widgets/distname.h"
+#include "widgets/clicklabel.h"
 #include <qlabel.h>
 #include <qtextview.h>
 #include <qlistview.h>
@@ -81,12 +82,18 @@ void CrlDetail::setCrl(pki_crl *crl)
 		issuerIntName->setText(iss->getIntName());
 		pki_key *key = iss->getPubKey();
 		if (crl->verify(key)) {
-			signCheck->setText(tr("Success"));
+			signCheck->setText(tr("Ok"));
+                	signCheck->setDisabled(false);
 	        }
+		else {
+			signCheck->setText(tr("Failed"));
+                	signCheck->setDisabled(true);
+		}	
 		delete key;
 	}
 	else {
-		issuerIntName->setText("Unknown Signer");
+		issuerIntName->setText("Unknown signer");
+		issuerIntName->setDisabled(true);
                 signCheck->setText(tr("Failed"));
                 signCheck->setDisabled(true);
 	}
@@ -112,6 +119,7 @@ void CrlDetail::setCrl(pki_crl *crl)
                         current = new QListViewItem(certList,
 					"Unknown certificate" );
                 } 
+		current->setPixmap(0, *pki_x509::icon[2]);
                 current->setText(1, revit.getSerial().toHex()) ;
                 current->setText(2, revit.getDate().toSortable());
         }

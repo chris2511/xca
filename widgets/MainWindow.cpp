@@ -118,6 +118,7 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 
 	connect( BNnewCert, SIGNAL(clicked()), certList, SLOT(newItem()));
 	connect( BNimportCert, SIGNAL(clicked()), certList, SLOT(load()));
+	connect( BNexportCert, SIGNAL(clicked()), keyList, SLOT(store()));
 	connect( BNdetailsCert, SIGNAL(clicked()), certList, SLOT(showItem()));
 	connect( BNdeleteCert, SIGNAL(clicked()), certList, SLOT(deleteItem()));
 	connect( BNimportPKCS12, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
@@ -131,7 +132,12 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	
-	connect( crlList, SIGNAL(showCert(QListViewItem *)), certList, SLOT(showItem(QListViewItem *)) );
+	connect( crlList, SIGNAL(showCert(QString)),
+		certList, SLOT(showItem(QString)) );
+	connect( certList, SIGNAL(showKey(QString)),
+		keyList, SLOT(showItem(QString)) );
+	connect( reqList, SIGNAL(showKey(QString)),
+		keyList, SLOT(showItem(QString)) );
 	
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
@@ -277,8 +283,8 @@ void MainWindow::init_database() {
 		settings = new db_base(dbenv, dbfile, "settings",global_tid);
 		initPass();
 		keys = new db_key(dbenv, dbfile, global_tid);
-		reqs = new db_x509req(dbenv, dbfile, global_tid);
-		certs = new db_x509(dbenv, dbfile, global_tid);
+		reqs = new db_x509req(dbenv, dbfile, keys, global_tid);
+		certs = new db_x509(dbenv, dbfile, keys, global_tid);
 		temps = new db_temp(dbenv, dbfile, global_tid);
 		crls = new db_crl(dbenv, dbfile, global_tid);
 		reqs->setKeyDb(keys);
@@ -297,6 +303,15 @@ void MainWindow::init_database() {
 		DBEX(err);
 		qFatal(err.what());
 	}
+	connect( keys, SIGNAL(newKey(pki_key *)),
+		certs, SLOT(newKey(pki_key *)) );
+	connect( keys, SIGNAL(delKey(pki_key *)),
+		certs, SLOT(delKey(pki_key *)) );
+	connect( keys, SIGNAL(newKey(pki_key *)),
+		reqs, SLOT(newKey(pki_key *)) );
+	connect( keys, SIGNAL(delKey(pki_key *)),
+		reqs, SLOT(delKey(pki_key *)) );
+	
 }		
 
 

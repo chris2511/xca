@@ -44,60 +44,29 @@
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
  */                           
 
+#ifndef CLICKLABEL_H
+#define CLICKLABEL_H
 
-#include "ReqDetail.h"
-#include "MainWindow.h"
-#include "distname.h"
-#include "clicklabel.h"
-#include "lib/pki_x509req.h"
 #include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
 
-ReqDetail::ReqDetail(QWidget *parent, const char *name, bool modal, WFlags f )
-	:ReqDetail_UI(parent, name, modal, f)
-{
-	setCaption(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::csrImg);		 
-}
+class QMouseEvent;
 
-void ReqDetail::setReq(pki_x509req *req)
-{
-	// internal name and verification
-	descr->setText(req->getIntName());
-	if (!req->verify() ) {
-		verify->setDisabled(true);
-		verify->setText("Failed");
-	}
-	else {
-		verify->setDisabled(false);
-		verify->setText("Ok");
-	}
-	// look for the private key
-	pki_key *key =req->getRefKey();
-	if (key) {
-		privKey->setText(key->getIntName());
-		privKey->setDisabled(false);
-	}
-	else {
-		privKey->setText(tr("Not available"));
-		privKey->setDisabled(true);
-	}
-	// the subject
-	subject->setX509name(req->getSubject());
+class ClickLabel : public QLabel
+{ 
+    Q_OBJECT
+
+  public:
+	ClickLabel( QWidget * parent, const char * name=0, WFlags f=0 );
 	
-	// Algorithm
-	sigAlgo->setText(req->getSigAlg());
-	sigAlgo->setReadOnly(true);
-}
+  protected:
+	void mouseDoubleClickEvent ( QMouseEvent * e );
+  
+  signals:
+	void doubleClicked(QString text);
+};
 
-void ReqDetail::setImport()
-{
-	// rename the buttons in case of import 
-	but_ok->setText(tr("Import"));
-	but_cancel->setText(tr("Discard"));
-}			
+#endif

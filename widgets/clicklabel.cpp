@@ -48,56 +48,46 @@
  *
  */                           
 
-
-#include "ReqDetail.h"
-#include "MainWindow.h"
-#include "distname.h"
 #include "clicklabel.h"
-#include "lib/pki_x509req.h"
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
 
-ReqDetail::ReqDetail(QWidget *parent, const char *name, bool modal, WFlags f )
-	:ReqDetail_UI(parent, name, modal, f)
+#include <qpalette.h>
+#include <qcolor.h>
+
+ClickLabel::ClickLabel( QWidget* parent,  const char* name, WFlags f )
+	:QLabel( parent, name, f )
 {
-	setCaption(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::csrImg);		 
+    QPalette pal;
+    QColorGroup cg;
+    cg.setColor( QColorGroup::Foreground, QColor( 0, 192, 0) );
+    cg.setColor( QColorGroup::Button, QColor( 192, 192, 192) );
+    cg.setColor( QColorGroup::Light, white ); 
+    cg.setColor( QColorGroup::Midlight, QColor( 220, 220, 220) );
+    cg.setColor( QColorGroup::Dark, QColor( 96, 96, 96) );
+    cg.setColor( QColorGroup::Mid, QColor( 128, 128, 128) );
+    cg.setColor( QColorGroup::Text, black );
+    cg.setColor( QColorGroup::BrightText, white );
+    cg.setColor( QColorGroup::ButtonText, black );
+    cg.setColor( QColorGroup::Base, white );
+    cg.setColor( QColorGroup::Background, QColor( 192, 192, 192) );
+    cg.setColor( QColorGroup::Shadow, black );
+    cg.setColor( QColorGroup::Highlight, black );
+    cg.setColor( QColorGroup::HighlightedText, white );
+    pal.setActive( cg );
+    pal.setInactive( cg );
+    cg.setColor( QColorGroup::Foreground, QColor( 0, 0, 0) );
+    pal.setDisabled( cg );
+    setPalette( pal );
+    QFont font( font() );
+    font.setBold(true);
+    setFont( font );
+    setFrameShape( QLabel::Panel );
+    setFrameShadow( QLabel::Sunken );
+    setAlignment( int( QLabel::AlignCenter ) );
 }
 
-void ReqDetail::setReq(pki_x509req *req)
+void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
 {
-	// internal name and verification
-	descr->setText(req->getIntName());
-	if (!req->verify() ) {
-		verify->setDisabled(true);
-		verify->setText("Failed");
-	}
-	else {
-		verify->setDisabled(false);
-		verify->setText("Ok");
-	}
-	// look for the private key
-	pki_key *key =req->getRefKey();
-	if (key) {
-		privKey->setText(key->getIntName());
-		privKey->setDisabled(false);
-	}
-	else {
-		privKey->setText(tr("Not available"));
-		privKey->setDisabled(true);
-	}
-	// the subject
-	subject->setX509name(req->getSubject());
-	
-	// Algorithm
-	sigAlgo->setText(req->getSigAlg());
-	sigAlgo->setReadOnly(true);
+	QWidget::mouseDoubleClickEvent(e);
+	emit doubleClicked(text());
 }
 
-void ReqDetail::setImport()
-{
-	// rename the buttons in case of import 
-	but_ok->setText(tr("Import"));
-	but_cancel->setText(tr("Discard"));
-}			

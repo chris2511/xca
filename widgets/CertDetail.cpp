@@ -52,6 +52,7 @@
 #include "CertDetail.h"
 #include "MainWindow.h"
 #include "distname.h"
+#include "clicklabel.h"
 #include <qlabel.h>
 #include <qtextview.h>
 #include <qpushbutton.h>
@@ -73,22 +74,29 @@ void CertDetail::setCert(pki_x509 *cert)
 		privKey->setText(key->getIntName());
 		privKey->setDisabled(false);
 	}
+	else {
+		privKey->setText(tr("Not available"));
+		privKey->setDisabled(true);
+	}
 	
 	// examine the signature
 	if ( cert->getSigner() == NULL) {
-		verify->setText(tr("SIGNER UNKNOWN"));
+		signCert->setText(tr("Signer unknown"));
 	}
 	else if ( cert == cert->getSigner())  {
-		verify->setText(tr("SELF SIGNED"));
+		signCert->setText(tr("Self signed"));
 	}
 	
 	else {
-		verify->setText(cert->getSigner()->getIntName());
+		signCert->setText(cert->getSigner()->getIntName());
 	}
 	
 	// check trust state
 	if (cert->getEffTrust() == 0) {
-		verify->setDisabled(true);
+		signCert->setDisabled(true);
+	}
+	else {
+		signCert->setDisabled(false);
 	}
 	
 	// the serial
@@ -103,16 +111,19 @@ void CertDetail::setCert(pki_x509 *cert)
 	notAfter->setText(cert->getNotAfter().toPretty());
 
 	// validation of the Date
-	if (cert->checkDate() != 0) {
+	if (cert->isRevoked()) {
+		dateValid->setText(tr("Revoked: ") +
+		cert->getRevoked().toPretty());
+		dateValid->setDisabled(true);
+	}
+	else if (cert->checkDate() != 0) {
 		dateValid->setText(tr("Not valid"));
 		dateValid->setDisabled(true);
 	}
-	if (cert->isRevoked()) {
-		dateValid->setText(tr("Revoked: ") +
-			cert->getRevoked().toPretty());
-		dateValid->setDisabled(true);
+	else {
+		dateValid->setDisabled(false);
+		dateValid->setText(tr("Valid"));
 	}
-	
 	// the fingerprints
 	fpMD5->setText(cert->fingerprint(EVP_md5()));
 	fpSHA1->setText(cert->fingerprint(EVP_sha1()));
