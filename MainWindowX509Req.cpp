@@ -6,87 +6,86 @@ void MainWindow::newReq()
 	NewX509Req_UI *dlg = new NewX509Req_UI(this,0,true,0);
 	dlg->keyList->insertStringList(keys->getPrivateDesc());
 	if (! dlg->exec()) return;
-	RSAkey *key = keys->getSelectedKey(dlg->keyList->currentText());
-	QString cn = dlg->commonName->text();
-	QString c = dlg->countryName->text();
-	QString l = dlg->localityName->text();
-	QString st = dlg->stateOrProvinceName->text();
-	QString o = dlg->organisationName->text();
-	QString ou = dlg->organisationalUnitName->text();
-	QString email = dlg->emailAddress->text();
-	X509Req *req = new X509Req(key, cn.latin1(),c.latin1(),l.latin1(),st.latin1(),o.latin1(),ou.latin1(),email.latin1(), this);
-	QString e;
-	if ((e = req->getError()) != NULL) {
+	pki_key *key = (pki_key *)keys->getSelectedPKI(dlg->keyList->currentText().latin1());
+	string cn = dlg->commonName->text().latin1();
+	string c = dlg->countryName->text().latin1();
+	string l = dlg->localityName->text().latin1();
+	string st = dlg->stateOrProvinceName->text().latin1();
+	string o = dlg->organisationName->text().latin1();
+	string ou = dlg->organisationalUnitName->text().latin1();
+	string email = dlg->emailAddress->text().latin1();
+	string desc = dlg->description->text().latin1();
+	pki_x509req *req = new pki_x509req(key, cn,c,l,st,o,ou,email,desc);
+	string e;
+	if ((e = req->getError()) != "") {
 	   QMessageBox::information(this,"Zertifikatsanfrage erstellen",
-		"Beim Erstellen der Anfrage trat folgender Fehler auf:\n'" +
-		e + "'\nund wurde daher nicht importiert", "OK");
+		("Beim Erstellen der Anfrage trat folgender Fehler auf:\n'" +
+		e + "'\nund wurde daher nicht importiert").data(), "OK");
 		return;
 	}
-	X509Req *oldreq = reqs->findReq(req);
+	pki_x509req *oldreq = (pki_x509req *)reqs->findPKI((pki_x509req *)req);
 	if (oldreq) {
 	   QMessageBox::information(this,"Zertifikatsanfragen import",
-		"Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
-		oldreq->description() + 
-		"'\nund wurde daher nicht erstellt", "OK");
+		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
+		oldreq->getDescription() + 
+		"'\nund wurde daher nicht erstellt").data(), "OK");
 	   delete(oldreq);
 	   return;
 	}
-	req->setDescription(dlg->description->text());
-	reqs->insertReq(req);
+	reqs->insertPKI(req);
 }
 
 void MainWindow::showDetailsReq()
 {
 	ReqDetail_UI *dlg = new ReqDetail_UI(this,0,true);
-	X509Req *req = reqs->getSelectedReq();
+	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (!req) return;
-	dlg->descr->setText(req->description());
-	EVP_PKEY *pkey = X509_REQ_get_pubkey(req->request);
-	if ( X509_REQ_verify(req->request,pkey) <= 0) {
+	dlg->descr->setText(req->getDescription().data());
+	if ( req->verify() ) {
 	      	dlg->verify->setDisabled(true);
 		dlg->verify->setText("FEHLER");
 	}
-	if (pkey) {
-	   RSAkey *key = new RSAkey(pkey);
+	/*if (pkey) {
+	   pki_key *key = new pki_key(pkey);
 	   if (key);
 		dlg->keyPubEx->setText(key->pubEx());   
 		dlg->keyModulus->setText(key->modulus());   
-	   RSAkey *existkey = keys->findPublicKey(key);
+	   pki_key *existkey = keys->findPublicKey(key);
 	   QColor *green = new QColor(0,192,0);
 	   if (existkey) {
 	        if (!existkey->onlyPubKey) {
 	       	   dlg->privKey->setEnabled(true);
-		   dlg->privKey->setText(existkey->description());
+		   dlg->privKey->setText(existkey->getDescription());
 	        }	
 	   }
-	}
-	QStringList *l = req->getDN();
-	QStringList::Iterator it = l->begin();
+	}*/
 	
-	dlg->dnCN->setText(*it);
-	dlg->dnC->setText(*++it + " / " + *++it);
-	dlg->dnL->setText(*++it);
-	dlg->dnO->setText(*++it);
-	dlg->dnOU->setText(*++it);
-	dlg->dnEmail->setText(*++it);
+	dlg->dnCN->setText(req->getDN(NID_commonName).data() );
+	dlg->dnC->setText((req->getDN(
+		NID_countryName) + " / " + 
+		req->getDN(NID_stateOrProvinceName)).data());
+	dlg->dnL->setText(req->getDN(NID_localityName).data());
+	dlg->dnO->setText(req->getDN(NID_organizationName).data());
+	dlg->dnOU->setText(req->getDN(NID_organizationalUnitName).data());
+	dlg->dnEmail->setText(req->getDN(NID_pkcs9_emailAddress).data());
 	if ( !dlg->exec()) return;
-	QString ndesc = dlg->descr->text();
-	if (ndesc != req->description()) {
-		reqs->updateReq(req, ndesc);
+	string ndesc = dlg->descr->text().latin1();
+	if (ndesc != req->getDescription()) {
+		reqs->updatePKI(req, ndesc);
 	}
 }
 
 void MainWindow::deleteReq()
 {
-	X509Req *req = reqs->getSelectedReq();
+	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (!req) return;
 	if (QMessageBox::information(this,"Zertifikatsanfrage löschen",
-			"Möchten Sie die Zertifikatsanfrage: '" + 
-			req->description() +
-			"'\nwirklich löschen ?\n",
+			("Möchten Sie die Zertifikatsanfrage: '" + 
+			req->getDescription() +
+			"'\nwirklich löschen ?\n").data(),
 			"Löschen", "Abbrechen")
 	) return;
-	reqs->deleteReq(req);
+	reqs->deletePKI(req);
 }
 
 void MainWindow::loadReq()
@@ -94,31 +93,31 @@ void MainWindow::loadReq()
 	QStringList filt;
 	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
 	filt.append("Alle Dateien ( *.* )");
-	QString s;
+	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption("Anfrage importieren");
 	dlg->setFilters(filt);
 	if (dlg->exec())
-		s = dlg->selectedFile();
-	if (s.isEmpty()) return;
-	X509Req *req = new X509Req(s);
-	QString errtxt;
-	if ((errtxt = req->getError()) != NULL) {
+		s = dlg->selectedFile().latin1();
+	if (s == "") return;
+	pki_x509req *req = new pki_x509req(s);
+	string errtxt;
+	if ((errtxt = req->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
-			"Die Zertifikatsanfrage: '" + s +
-			"'\nkonnte nicht geladen werden:\n" + errtxt);
+			("Die Zertifikatsanfrage: '" + s +
+			"'\nkonnte nicht geladen werden:\n" + errtxt).data());
 		return;
 	}
-	X509Req *oldreq = reqs->findReq(req);
+	pki_x509req *oldreq = (pki_x509req *)reqs->findPKI(req);
 	if (oldreq) {
 	   QMessageBox::information(this,"Zertifikatsanfragen import",
-		"Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
-		oldreq->description() + 
-		"'\nund wurde daher nicht importiert", "OK");
+		("Die Zertifikatsanfrage ist bereits vorhanden als:\n'" +
+		oldreq->getDescription() + 
+		"'\nund wurde daher nicht importiert").data(), "OK");
 	   delete(oldreq);
 	   return;
 	}
-	reqs->insertReq(req);
+	reqs->insertPKI(req);
 }
 
 void MainWindow::writeReq()
@@ -126,21 +125,21 @@ void MainWindow::writeReq()
 	QStringList filt;
 	filt.append( "Zertifikatsanfragen ( *.pem *.der )"); 
 	filt.append("Alle Dateien ( *.* )");
-	QString s;
+	string s;
 	QFileDialog *dlg = new QFileDialog(this,0,true);
 	dlg->setCaption("Anfrage exportieren");
 	dlg->setFilters(filt);
 	if (dlg->exec())
-		s = dlg->selectedFile();
-	if (s.isEmpty()) return;
-	X509Req *req = reqs->getSelectedReq();
+		s = dlg->selectedFile().latin1();
+	if (s == "") return;
+	pki_x509req *req = (pki_x509req *)reqs->getSelectedPKI();
 	if (req) {
 	   req->writeReq(s,true);
-	   QString errtxt;
-	   if ((errtxt = req->getError()) != NULL) {
+	   string errtxt;
+	   if ((errtxt = req->getError()) != "") {
 		QMessageBox::warning(this,"Datei Fehler",
-			"Die Zertifikatsanfrage: '" + s +
-			"'\nkonnte nicht gespeichert werden:\n" + errtxt);
+			("Die Zertifikatsanfrage: '" + s +
+			"'\nkonnte nicht gespeichert werden:\n" + errtxt).data());
 		return;
 	   }
 	}

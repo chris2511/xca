@@ -13,6 +13,10 @@ pki_base::pki_base()
 	desc = "";
 }
 
+pki_base::~pki_base(void)
+{}
+
+
 string pki_base::getDescription()
 {
 	string x = desc;

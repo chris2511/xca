@@ -15,8 +15,10 @@ MainWindow::MainWindow(QWidget *parent, const char *name)
 		   cerr << "Couldnt create: " << baseDir.latin1() << "\n";
 	}
 	QString dbfile = baseDir +  "/xca.db";
-	keys = new KeyDB(dbenv, dbfile, keyList, this);
-	reqs = new ReqDB(dbenv, dbfile, reqList, this);
+	pki_key *key = new pki_key("");
+	pki_base *req = new pki_base();
+	keys = new db_key(dbenv, dbfile.latin1(), "keydb", keyList, key);
+	reqs = new db_base(dbenv, dbfile.latin1(), "reqdb", reqList, req);
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 

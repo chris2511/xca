@@ -14,6 +14,13 @@ pki_key::pki_key(const string d, void (*cb)(int, int,void *),void *prog, int bit
 	}
 }
 
+pki_key::pki_key(const string d, int type = EVP_PKEY_RSA)
+	:pki_base(d)
+{ 
+	onlyPubKey = false;
+	key = EVP_PKEY_new();
+	key->type = type;
+}	
 
 pki_key::pki_key(const string fname, pem_password_cb *cb, int type=EVP_PKEY_RSA)
 	:pki_base(fname)
@@ -224,19 +231,16 @@ bool pki_key::compare(pki_key *refkey)
 }	
 
 
-/*
-pki_key::pki_key(EVP_PKEY *evpkVey, QObject *parent=0, const char *name=0)
-	:QObject( parent, name)
+bool pki_key::isPubKey()
 {
-
-	key = EVP_PKEY_get1_RSA(evpkey);
-	EVP_PKEY_free(evpkey);
-	desc="anonymous";
-	openssl_error();
+	return onlyPubKey;
+	
 }
-		if (evpkey) {
-		   key = EVP_PKEY_get1_RSA(evpkey);
-		   EVP_PKEY_free(evpkey);
-		}
-		*/
+
+
+bool pki_key::isPrivKey()
+{
+	return ~onlyPubKey;
+	
+}
 

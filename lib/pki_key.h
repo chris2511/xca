@@ -15,7 +15,7 @@
 #define MAX_KEY_LENGTH 4096
 
 
-class pki_key: private pki_base
+class pki_key: public pki_base
 {
     friend class pki_x509req;
     protected:
@@ -44,6 +44,8 @@ class pki_key: private pki_base
 	 * p = pointer to data
 	 * size = size of datastruct
 	 */
+	
+	pki_key(const string d, int type=EVP_PKEY_RSA);
 	virtual void fromData(unsigned char *p, int size);
 	virtual unsigned char *toData(int *size);
 	virtual bool compare(pki_key *refkey);

@@ -1,8 +1,9 @@
 #include "db_base.h"
 
 
-db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListBox *l) 
+db_base::db_base(DbEnv *dbe, string DBfile, string DB, QListBox *l,pki_base *tg) 
 {
+	targetPKI = tg;
 	listView = l;
 	dbenv = dbe;
 	data = new Db(dbe, 0);

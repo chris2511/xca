@@ -8,12 +8,14 @@
 
 class db_base
 {
+    protected:
 	Db *data;
 	DbEnv *dbenv;
 	QListBox *listView;
 	unsigned char mem[100];
+	pki_base *targetPKI; 
     public:
-	db_base(DbEnv *dbe, string DBfile, string db, QListBox *l);
+	db_base(DbEnv *dbe, string DBfile, string db, QListBox *l, pki_base *tg);
 	~db_base();
 	bool updateView();
 	bool insertPKI(pki_base *pki);

@@ -6,7 +6,7 @@
 #ifndef X509REQ_H
 #define X509REQ_H
 
-class pki_x509req : private pki_base
+class pki_x509req : public pki_base
 {
 	   X509_REQ *request;
 	public:
@@ -22,6 +22,7 @@ class pki_x509req : private pki_base
 	   virtual bool compare(pki_x509req *refreq);
 	   string pki_x509req::getDN(int nid);
 	   void writeReq(const string fname, bool PEM);
+	   bool verify();
 };
 
 #endif
