@@ -256,10 +256,10 @@ int pki_x509req::fix_data(int nid, int *type)
 	return(1);
 	}
 
-	/**
-* function for making a x509 request out of a spkac netscape request.
-* The spkac file is parsed and the information assembled to the x509 format
-*/
+/*
+ * function for making a x509 request out of a spkac netscape request.
+ * The spkac file is parsed and the information assembled to the x509 format
+ */
 
 void pki_x509req::load_spkac(const QString filename)
 {

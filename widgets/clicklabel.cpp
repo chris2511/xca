@@ -51,6 +51,7 @@
 
 #include "clicklabel.h"
 
+#include <qtooltip.h>
 #include <qpalette.h>
 #include <qcolor.h>
 
@@ -63,6 +64,7 @@ ClickLabel::ClickLabel( QWidget* parent,  const char* name, WFlags f )
 	setFrameShape( QLabel::Panel );
 	setFrameShadow( QLabel::Sunken );
 	setAlignment( int( QLabel::AlignCenter ) );
+	QToolTip::add( this, tr("Double click for details") );
 }
 
 void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )

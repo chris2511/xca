@@ -282,16 +282,16 @@ void MainWindow::read_cmdline()
 
 void MainWindow::cmd_help(const char* msg) {
 
-printf(" -v show version information and exit
- -k expect all following non-option arguments to be RSA keys
- -r expect all following non-option arguments to be
-    Certificate signing requests or SPKAC requests
- -c expect all following non-option arguments to be Certificates
- -p expect all following non-option arguments to be PKCS#12 files
- -7 expect all following non-option arguments to be PKCS#7 files
- -l expect all following non-option arguments to be Revokation lists
- -t expect all following non-option arguments to be XCA templates
- -x Exit after processing all commandline options");
+printf(" -v show version information and exit\n"
+" -k expect all following non-option arguments to be RSA keys\n"
+" -r expect all following non-option arguments to be\n"
+"    Certificate signing requests or SPKAC requests\n"
+" -c expect all following non-option arguments to be Certificates\n"
+" -p expect all following non-option arguments to be PKCS#12 files\n"
+" -7 expect all following non-option arguments to be PKCS#7 files\n"
+" -l expect all following non-option arguments to be Revokation lists\n"
+" -t expect all following non-option arguments to be XCA templates\n"
+" -x Exit after processing all commandline options");
 
 qFatal("Cmdline Error (%s)\n", msg);
 }
