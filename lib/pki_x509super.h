@@ -48,34 +48,29 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
+#ifndef PKI_X509SUPER_H
+#define PKI_X509SUPER_H
 
 #include <openssl/x509.h>
 #include <openssl/pem.h>
 #include "pki_key.h"
-#include "pki_x509super.h"
 #include "x509name.h"
-
 
 class pki_x509;
 
-class pki_x509req : public pki_x509super
+class pki_x509super : public pki_base
 {
 	protected:
-	   X509_REQ *request;
+	   pki_key *privkey;
 	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
+	   pki_x509super();
+	   ~pki_x509super();
+	   virtual x509name getSubject();
 	   int verify();
 	   pki_key *getPubKey();
-	   void createReq(pki_key &key, x509name &dist_name);
+	   pki_key *getRefKey();
+	   void setRefKey(pki_key *ref);
+	   void delRefKey(pki_key *ref);
 };
 
 #endif

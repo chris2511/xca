@@ -50,7 +50,9 @@
 
 
 #include "db_key.h"
-
+#define FOR_container for (pki_key *pki = (pki_key *)container.first(); \
+                        pki != 0; pki = (pki_key *)container.next() ) 
+			
 
 db_key::db_key(DbEnv *dbe, string DBfile, DbTxn *tid)
 	:db_base(dbe, DBfile, "keydb",tid)
@@ -65,27 +67,21 @@ pki_base *db_key::newPKI(){
 
 QStringList db_key::getPrivateDesc()
 {
-	pki_key *pki;
 	QStringList x;
 	x.clear();
-	for ( pki = (pki_key *)container.first(); pki != 0; pki = (pki_key *)container.next() )	{
-		if (pki->isPrivKey()) {
-			x.append(pki->getDescription().c_str());	
-		}
-	}
+	FOR_container
+		if (pki->isPrivKey())
+			x.append(pki->getIntName());	
 	return x;
 }
 
 QStringList db_key::get0PrivateDesc()
 {
-	pki_key *pki;
 	QStringList x;
 	x.clear();
-	for ( pki = (pki_key *)container.first(); pki != 0; pki = (pki_key *)container.next() )	{
-		if (pki->isPrivKey() && pki->getUcount() == 0) {
-			x.append(pki->getDescription().c_str());	
-		}
-	}
+	FOR_container
+		if (pki->isPrivKey() && pki->getUcount() == 0) 
+			x.append(pki->getIntName());	
 	return x;
 }
 
@@ -101,3 +97,4 @@ void db_key::inToCont(pki_base *pki)
 	emit newKey((pki_key *)pki);
 }
 
+#undef FOR_container

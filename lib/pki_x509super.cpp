@@ -48,34 +48,52 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
 
-#include <openssl/x509.h>
-#include <openssl/pem.h>
-#include "pki_key.h"
+
 #include "pki_x509super.h"
-#include "x509name.h"
 
+pki_x509super::pki_x509super() : pki_base() {}
 
-class pki_x509;
+pki_x509super::~pki_x509super() {}
 
-class pki_x509req : public pki_x509super
+x509name pki_x509super::getSubject()
 {
-	protected:
-	   X509_REQ *request;
-	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
-	   int verify();
-	   pki_key *getPubKey();
-	   void createReq(pki_key &key, x509name &dist_name);
-};
+	x509name x;
+	openssl_error();
+	return x;
+}
 
-#endif
+	
+int pki_x509super::verify()
+{
+	 return -1;
+}
+
+pki_key *pki_x509super::getPubKey()
+{
+	 return NULL;
+}
+
+pki_key *pki_x509super::getRefKey()
+{
+	return privkey;
+}
+
+void pki_x509super::setRefKey(pki_key *ref)
+{
+	if (ref == NULL || ref->isPubKey() || privkey != NULL ) return;
+	pki_key *mk = getPubKey();
+	if (ref->compare(mk)) {
+		// this is our key
+		privkey = ref;
+		ref->incUcount();
+	}
+	delete mk;
+}
+
+void pki_x509super::delRefKey(pki_key *ref)
+{
+	if (ref != privkey || ref == NULL) return;
+	ref->decUcount();
+	privkey = NULL;
+}

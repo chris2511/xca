@@ -73,8 +73,7 @@ void pki_x509req::createReq(pki_key &key, x509name &dist_name)
 	X509_REQ_set_pubkey(request, key.getKey());
 	X509_REQ_get_subject_name(request) = dist_name.get();
 	openssl_error();
-	const EVP_MD *digest = EVP_md5();
-	X509_REQ_sign(request,key.getKey() ,digest);
+	X509_REQ_sign(request,key.getKey() , EVP_md5());
 	openssl_error();
 }
 
@@ -188,9 +187,3 @@ pki_key *pki_x509req::getPubKey()
 	 openssl_error();
 	 return key;
 }
-
-pki_key *pki_x509req::getKey()
-{
-	return privkey;
-}
-

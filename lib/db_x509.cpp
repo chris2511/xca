@@ -50,7 +50,9 @@
 
 
 #include "db_x509.h"
-
+#define FOR_container for (pki_x509 *pki = (pki_x509 *)container.first(); \
+                        pki != 0; pki = (pki_x509 *)container.next() ) 
+			
 
 db_x509::db_x509(DbEnv *dbe, string DBfile, QListView *l, db_key *keyl, DbTxn *tid)
 		:db_base(dbe, DBfile, "certdb", tid)
@@ -143,84 +145,29 @@ bool db_x509::updateView()
 
 QStringList db_x509::getPrivateDesc()
 {
-	pki_x509 *pki;
 	QStringList x;
-        if ( container.isEmpty() ) return x;
-        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
+	FOR_container
 		if (pki->getKey())
-		x.append(pki->getDescription().c_str());	
-	}
+			x.append(pki->getIntName());	
 	return x;
 }
 
 QStringList db_x509::getSignerDesc()
 {
-	pki_x509 *pki;
 	QStringList x;
-        if ( container.isEmpty() ) return x;
-        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
+	FOR_container
 		if (pki->canSign())
-		x.append(pki->getDescription().c_str());	
-	}
+			x.append(pki->getIntName());	
 	return x;
 }
 
 
-void db_x509::remFromCont(pki_base *pki)
+void db_x509::remFromCont(pki_base *ref)
 {
-        container.remove(pki);
- 	pki_x509 *pkiit;
-        QListIterator<pki_base> it(container);
-        for ( ; it.current(); ++it ) {
-                pkiit = (pki_x509 *)it.current();
-		if (pkiit->getSigner() == pki) {
-			pkiit->delSigner();
-		}
-	}
+        container.remove(ref);
+	FOR_container
+		pki->delSigner(ref);
 	return;
-}
-
-pki_key *db_x509::findKey(pki_x509* cert)
-{
-	pki_key *key = NULL, *refkey = NULL;
-	if (!cert) return NULL;
-	if ((key = cert->getKey()) != NULL ) return key;
-	refkey = cert->getPubKey();
-	key = (pki_key *)keylist->getByReference(refkey);
-	if (key && key->isPubKey()) {
-		key = NULL;
-	}
-	if (refkey) delete(refkey);
-	return key;
-}
-
-void db_x509::delKey(pki_key *delkey)
-{
-	pki_x509 *pki;
-        if ( container.isEmpty() ) return ;
-        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
-		if (pki->getKey() == delkey) {
-			pki->delKey();
-		}
-	}
-	
-}
-
-
-void db_x509::newKey(pki_key *newkey)
-{
-	pki_x509 *pki;
-	pki_key *refkey;
-        if ( container.isEmpty() ) return ;
-        for ( pki = (pki_x509 *)container.first(); pki != 0; pki = (pki_x509 *)container.next() ) {
-		if (!pki->getKey()) { 
-			refkey = pki->getPubKey();
-			if (newkey->compare(refkey)) {
-				updateViewPKI(pki);
-			}
-			delete(refkey);
-		}
-	}
 }
 
 void db_x509::preprocess()
@@ -240,117 +187,63 @@ void db_x509::preprocess()
 	
 	calcEffTrust();
 	
-/*	
-	pki_x509 *signer;
-	while (! mycont.isEmpty() ) {
-	    QListIterator<pki_base> it(mycont); 
-	    for (it.toFirst(); it.current(); ++it ) {
-		int trust = 1; // dont know
-		pki = (pki_x509 *)it.current();
-		signer = pki->getSigner();
-		    CERR << "inloop " << pki->getDescription() <<endl;
-	
-		if (pki->getTrust() != 1){ // Always trust it or never
-			trust = pki->getTrust();
-		}	
-		else if ( signer) { // Trust it, if we trust parent and there is a parent
-			if (signer == pki) {  // if self signed
-				trust = 0; // no trust
-			}
-			else {
-				trust = signer->getEffTrust(); // inherit trustment of parent
-			}
-		}	
-		else { // we do not trust an unknown signer
-			trust=0;
-		}
-		if (trust != 1) { // trustment deterministic
-			pki->setEffTrust(trust);
-			mycont.remove(pki);
-			it.toFirst();
-		}
-				
-	    }
-	}
-	return ;
-*/
 }
 
 
 void db_x509::calcEffTrust()
 {
-	pki_x509 *pki;
-	CERR("re calc eff trust X509");
-	if ( container.isEmpty() ) return ;
-	QListIterator<pki_base> iter(container); 
-	for ( ; iter.current(); ++iter ) { // find the signer and the key of the certificate...
-		pki = (pki_x509 *)iter.current();
-		CERR("CalcTrust for: " << pki->getDescription().c_str());
+	// find the signer and the key of the certificate...
+	FOR_container
 		pki->calcEffTrust();
-	}
 }
 
 	
-void db_x509::insertPKI(pki_base *pki)
+void db_x509::insertPKI(pki_base *refpki)
 {
-	db_base::insertPKI(pki);
-	pki_x509 *cert, *x = (pki_x509 *)pki;
+	db_base::insertPKI(refpki);
+	pki_x509 *x = (pki_x509 *)refpki;
 	findSigner(x);
 	findKey(x);
-	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
+	FOR_container
 		cert->verify(x);
-	}
 	calcEffTrust();
-	updateView();
 }				
 
 
 QList<pki_x509> db_x509::getIssuedCerts(pki_x509 *issuer)
 {
-	pki_x509 *cert = NULL;
 	QList<pki_x509> c;
 	c.clear();
 	if (!issuer) return c;
-       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
-		if (cert->getSigner() == issuer) {
+	FOR_container
+		if (pki->getSigner() == issuer)
 			c.append(cert);
-		}
-	}
 	return c;
 }
 
-pki_x509 *db_x509::getBySubject(X509_NAME *xname)
+pki_x509 *db_x509::getBySubject(const x509name &xname)
 {
-	pki_x509 *cert = NULL;
-	if (!xname) return cert;
-	if ( container.isEmpty() ) return cert;
-	for ( cert = (pki_x509 *)container.first(); cert != NULL; cert = (pki_x509 *)container.next() ) {
-		CERR(cert);
-		if (X509_NAME_cmp(X509_get_subject_name(cert->cert), xname) == 0) {
-			return cert;
-		}
-	}
+	FOR_container
+		if ( pki->getSubject ==  xname) 
+			return pki;
 	return NULL;
 }
 
-pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, long serial)
+pki_x509 *db_x509::getByIssSerial(pki_x509 *iss, a1int &serial)
 {
-	pki_x509 *cert = NULL;
-	if (!iss || serial == -1) return cert;
-       	for (cert=(pki_x509 *)container.first(); cert !=0; cert=(pki_x509 *)container.next() ) {
-		if ((cert->getSigner() == iss) && (serial == cert->getSerialLong())) {
-			return cert;
-		}
-	}
+	if (!iss || serial == -1) return NULL;
+	FOR_container
+		if ((pki->getSigner() == iss) && (serial == pki->getSerial()))
+			return pki;
 	return NULL;
 }
 
 void db_x509::writeAllCerts(QString fname, bool onlyTrusted)
 {
 	pki_x509 *cert = NULL;
-       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
-		if (onlyTrusted && cert->getTrust() != 2) continue;
-		cert->writeCert(fname.latin1(),true,true);
+       	FOR_container {
+		if (onlyTrusted && pki->getTrust() != 2) continue;
+		pki->writeCert(fname.latin1(),true,true);
 	}
 }
 
@@ -358,28 +251,26 @@ QList<pki_x509> db_x509::getCerts(bool onlyTrusted)
 {
 	QList<pki_x509> c;
 	c.clear();
-	pki_x509 *cert = NULL;
-       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
-		if (onlyTrusted && cert->getTrust() != 2) continue;
-		c.append(cert);
+	FOR_container {
+		if (onlyTrusted && pki->getTrust() != 2) continue;
+		c.append(pki);
 	}
 	return c;
 }
 
-int db_x509::searchSerial(pki_x509 *signer)
+a1int db_x509::searchSerial(pki_x509 *signer)
 {
 	if (!signer) return 0;
-	int serial = signer->getCaSerial();
-	int oserial = serial, myserial =0;
-	pki_x509 *cert = NULL;
-       	for ( cert = (pki_x509 *)container.first(); cert != 0; cert = (pki_x509 *)container.next() ) {
-		if (cert->getSigner() == signer)  {
-			sscanf(cert->getSerial().c_str(), "%x", &myserial);
-			if (myserial >= serial) {
-				serial = myserial + 1;
+	a1int sserial = signer->getCaSerial();
+	a1int oserial = 0;
+	FOR_container
+		if (pki->getSigner() == signer)  {
+			myserial = pki->getSerial();
+			if (sserial < myserial ) {
+				sserial = myserial;
 			}
 		}
-	}
-	if (oserial < serial) return serial;
-	return 0;
+	return sserial;
 }
+
+#undef FOR_container

@@ -52,6 +52,7 @@
 #include <qlistview.h>
 #include <qpixmap.h>
 #include "db_key.h"
+#include "db_x509super.h"
 #include "pki_x509.h"
 #include "pki_crl.h"
 
@@ -59,11 +60,10 @@
 #define DB_X509_H
 
 
-class db_x509: public db_base
+class db_x509: public db_x509super
 {
 	Q_OBJECT
     protected:
-	db_key *keylist;
 	QPixmap *certicon[4];
     public:
 	int viewState;
@@ -78,17 +78,13 @@ class db_x509: public db_base
 	void preprocess();
 	QStringList getPrivateDesc();
 	QStringList getSignerDesc();
-	pki_key * findKey(pki_x509 *cert);
 	void calcEffTrust();
 	QList<pki_x509> getIssuedCerts(pki_x509 *issuer);
 	QList<pki_x509> getCerts(bool onlyTrusted);
-	pki_x509 *getBySubject(X509_NAME *xname);
+	pki_x509 *getBySubject(x509name *xname);
 	int searchSerial(pki_x509 *signer);
 	void writeAllCerts(QString fname, bool onlyTrusted);
 	pki_x509 *getByIssSerial(pki_x509 *iss, long serial);
-    public slots:
-	void delKey(pki_key *delkey);
-    	void newKey(pki_key *newKey);
 };
 
 #endif

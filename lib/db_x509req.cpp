@@ -51,78 +51,13 @@
 
 #include "db_x509req.h"
 
-
 db_x509req::db_x509req(DbEnv *dbe, string DBfile, db_key *dk, DbTxn *tid)
-		:db_base(dbe, DBfile, "reqdb", tid)
+		:db_x509super(dbe, DBfile, "reqdb", dk, tid)
 {
 	loadContainer();
-	keylist = dk;
 }
 
 pki_base *db_x509req::newPKI(){
 	return new pki_x509req();
-}
-
-void db_x509req::delKey(pki_key *delkey)
-{
-	pki_x509req *pki;
-	for ( pki = (pki_x509req *)container.first(); pki != 0; 
-	  pki = (pki_x509req *)container.next() ) {
-		if ( pki->getKey() == delkey) {
-			pki->setKey(NULL);
-		}
-	}
-}
-
-
-void db_x509req::newKey(pki_key *newkey)
-{
-	pki_key *refkey;
-	pki_x509req *pki;
-	CERR("newKey");
-	if ( container.isEmpty() ) return ;
-	QListIterator<pki_base> iter(container); 
-	for ( ; iter.current(); ++iter ) { // find the key of the request
-		pki = (pki_x509req *)iter.current();
-		refkey = pki->getPubKey(); 
-		if (refkey->compare(newkey)) {
-			pki->setKey(newkey);
-		}
-		delete refkey;
-	}
-}
-
-void db_x509req::preprocess()
-{
-	pki_x509req *pki;
-	CERR("preprocess X509req");
-	if ( container.isEmpty() ) return ;
-	QListIterator<pki_base> iter(container); 
-	for ( ; iter.current(); ++iter ) { // find the key of the request
-		pki = (pki_x509req *)iter.current();
-		findKey(pki);
-		CERR("Key of "<< pki->getDescription().c_str());
-	}
-}
-
-
-pki_key *db_x509req::findKey(pki_x509req *req)
-{
-	pki_key *key, *refkey;
-	if (!req) return NULL;
-	MARK
-	if ((key = req->getKey()) != NULL ) return key;
-	refkey = req->getPubKey();
-	key = (pki_key *)keylist->getByReference(refkey);
-	if (key && key->isPubKey()) {
-		key = NULL;
-	}
-	if (refkey) delete(refkey);
-	return key;
-}
-
-void db_x509req::remFromCont(pki_base *pki)
-{
-	db_base::remFromCont(pki);
 }
 

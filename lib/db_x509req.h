@@ -51,27 +51,19 @@
 
 #include <qstringlist.h>
 #include "db_key.h"
+#include "db_x509super.h"
 #include "pki_x509req.h"
 
 #ifndef DB_X509REQ_H
 #define DB_X509REQ_H
 
 
-class db_x509req: public db_base
+class db_x509req: public db_x509super
 {
 	Q_OBJECT
-    private:
-	db_key *keylist;
     public:
 	db_x509req(DbEnv *dbe, string DBfile, db_key *dk, DbTxn *tid);
 	pki_base *newPKI();
-	void preprocess();
-	pki_key *findKey(pki_x509req *req);
-	void remFromCont(pki_base *pki);
-    public slots:
-	void delKey(pki_key *delkey);
-	void newKey(pki_key *newKey);
-			    
 };
 
 #endif

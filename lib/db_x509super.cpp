@@ -48,34 +48,45 @@
  *
  */                           
 
-#ifndef PKI_X509REQ_H
-#define PKI_X509REQ_H
 
-#include <openssl/x509.h>
-#include <openssl/pem.h>
-#include "pki_key.h"
-#include "pki_x509super.h"
-#include "x509name.h"
+#include "db_x509super.h"
+#define FOR_container for (pki_x509super *pki = (pki_x509super *)container.first(); \
+			pki != 0; pki = (pki_x509super *)container.next() ) 
 
-
-class pki_x509;
-
-class pki_x509req : public pki_x509super
+db_x509super::db_x509super(DbEnv *dbe, string DBfile, string db, db_key *dk, DbTxn *tid)
+                :db_base(dbe, DBfile, db, tid)
 {
-	protected:
-	   X509_REQ *request;
-	public:
-	   pki_x509req();
-	   pki_x509req(const string fname);
-	   ~pki_x509req();
-	   virtual void fromData(unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
-	   x509name getSubject();
-	   void writeReq(const string fname, bool PEM);
-	   int verify();
-	   pki_key *getPubKey();
-	   void createReq(pki_key &key, x509name &dist_name);
-};
+	keylist = dk;
+}
+				
 
-#endif
+void db_x509super::delKey(pki_key *delkey)
+{
+	FOR_container {	pki->delRefKey(delkey); }
+}
+
+void db_x509super::newKey(pki_key *newkey)
+{
+	 FOR_container { pki->setRefKey(newkey); }
+}
+
+void db_x509super::preprocess()
+{
+	 FOR_container { findKey(pki); }
+}
+
+pki_key *db_x509super::findKey(pki_x509super *ref)
+{
+	pki_key *key, *refkey;
+	if (!ref) return NULL;
+	if ((key = ref->getRefKey()) != NULL ) return key;
+	refkey = ref->getPubKey();
+	key = (pki_key *)keylist->getByReference(refkey);
+	if (key && key->isPubKey()) {
+		key = NULL;
+	}
+	if (refkey) delete(refkey);
+	return key;
+}
+
+#undef FOR_container
