@@ -64,7 +64,7 @@ class errorEx
 	private:
 		std::string msg;
 	public:
-		errorEx(string txt, std::string className = "") {
+		errorEx(std::string txt, std::string className = "") {
 			msg = txt; 
 			if (!className.empty())
 				msg += " (" + className + ")";
