@@ -102,7 +102,7 @@
 #endif
 
 #ifdef WIN32
-#define VER "0.2.5-win"
+#define VER "0.2.6-win"
 #endif
 
 

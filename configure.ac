@@ -1,4 +1,4 @@
-AC_INIT(xca, 0.2.5)
+AC_INIT(xca, 0.2.6)
 AC_CONFIG_SRCDIR([MainWindow.h])
 AC_CONFIG_HEADERS([config.h])
 
@@ -26,7 +26,7 @@ AC_CHECK_HEADERS([db4/db_cxx.h db3/db_cxx.h db/db_cxx.h db_cxx.h],[H_DB=y;break]
 if test "$H_DB" == no; then
 	AC_MSG_ERROR([Berkeley DB header files not found (Redhat 7.3 users should have a look at www.hohnstaedt.de/xca for a workaround)])
 fi
-AC_CHECK_HEADER([qaccessible.h])
+AC_CHECK_HEADERS([qaccessible.h])
 AC_LANG(C)
 
 # Checks for libraries.
