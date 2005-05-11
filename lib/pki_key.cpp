@@ -535,7 +535,7 @@ void pki_key::writePublic(const QString fname, bool PEM)
 QString pki_key::length()
 {
 	char st[64];
-	sprintf(st,"%i bit", EVP_PKEY_size(key) * 8 );
+	sprintf(st,"%i bit",  EVP_PKEY_bits(key) );
 	openssl_error();
 	QString x = st;
 	return x;

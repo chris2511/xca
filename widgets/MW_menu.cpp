@@ -54,6 +54,7 @@
 #include "lib/load_obj.h"
 #include <qapplication.h>
 #include <qmenubar.h>
+#include <qstatusbar.h>
 
 void MainWindow::init_menu()
 {
@@ -69,12 +70,16 @@ void MainWindow::init_menu()
 	help->insertItem(tr("&Content"), this, SLOT(help()), Key_F1 );
 	help->insertItem(tr("&About"), this, SLOT(about()) );
 	
-	
+#if 0
 	mb = new QMenuBar( this );
+#endif
+	mb = menuBar();
 	mb->insertItem(tr("&File"), file );
 	mb->insertSeparator();
 	mb->insertItem(tr("&Help"), help );
 	mb->setSeparator( QMenuBar::InWindowsStyle );
+
+	statusBar()->message(XCA_TITLE);
 }
 
 void MainWindow::load_database()
