@@ -104,12 +104,11 @@ QString x509name::getEntryByNid(int nid) const
 
 QString x509name::getEntry(int i) const
 {
-	QString s;
+	QString s, ret;
 	ASN1_STRING *d;
+	
 	if ( i<0 || i>entryCount() ) return s;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
-
-	QString ret;
 
 	if (d->type == V_ASN1_BMPSTRING) {
 	  for (int i=0;i<d->length;i+=2)
@@ -120,6 +119,8 @@ QString x509name::getEntry(int i) const
 		ret=QString::fromUtf8((const char *)d->data,d->length);
 	else
 		ret=QString::fromLatin1((const char *)d->data,d->length);
+	 
+	ASN1_STRING_free(d);
 	
 	return ret;
 }
@@ -142,8 +143,12 @@ QStringList x509name::entryList(int i) const
 int x509name::nid(int i) const
 {
 	X509_NAME_ENTRY *ne;
+	int nid;
+	
 	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
-	return OBJ_obj2nid(ne->object);
+	nid = OBJ_obj2nid(ne->object);
+	X509_NAME_ENTRY_free(ne);
+	return nid;
 }				 
 
 unsigned char *x509name::d2i(const unsigned char *p, int size)

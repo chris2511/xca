@@ -195,7 +195,7 @@ unsigned char *pki_x509req::toData(int *size)
 }
 void pki_x509req::writeDefault(const QString fname)
 {
-	writeReq(fname + QDir::separator() + getIntName() + ".req", true);
+	writeReq(fname + QDir::separator() + getIntName() + ".csr", true);
 }
 
 void pki_x509req::writeReq(const QString fname, bool PEM)

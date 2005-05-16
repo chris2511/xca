@@ -52,7 +52,11 @@ add_include() {
 }
 
 add_lib() {
-  LIBS="$LIBS -l$2"
+  if test "$3" = "a"; then
+    SLIBS="$SLIBS -l$2"
+  else
+    LIBS="$LIBS -l$2"
+  fi  
   for _libs in -L/usr/lib ${LDIRS}; do
     if test "-L$1" = "${_libs}"; then
       return 0
@@ -80,9 +84,9 @@ search_includes() {
 search_lib() {
   for dir in ${DIRS};  do
     for dbn in $@; do
-      for suffix in so dylib obj; do
+      for suffix in so dylib obj a; do
         if test -r ${dir}/lib/lib${dbn}.${suffix}; then
-          add_lib ${dir}/lib ${dbn};
+          add_lib ${dir}/lib ${dbn} ${suffix};
 	  echo Found: lib${dbn}.${suffix} at ${dir}/lib
           return 0
 	fi
@@ -165,6 +169,11 @@ CPPFLAGS=$CF
 CFLAGS=${CFLAGS}
 
 LDFLAGS=$LDIRS
+
+# List of all libs to be compiled statically
+SLIBS=$SLIBS
+
+# list of dynamic libraries
 LIBS=$LIBS
 
 MOC=$MOC

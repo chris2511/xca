@@ -6,15 +6,16 @@ all: doc
 mandir=man
 doc: xca.1.gz xca.html
 
-xca.1.gz:
-	gzip -9 <xca.1 >$@
+xca.1.gz: xca.1
+	gzip -9 <$^ >$@
 
-xca.1:
-	cat xca.man |sed s/MY_VERSION/$(VERSION)/g >doc/xca.1
+xca.1: xca.man
+	cat $^ | sed s/MY_VERSION/$(VERSION)/g > $@
+	
 xca.html: xca.sgml
 	linuxdoc -B html $< || true
 
-install: xca.1.gz
+install: xca.1.gz xca.html
 	install -m 755 -d $(destdir)$(prefix)/share/xca \
 		$(destdir)$(prefix)/$(mandir)/man1
 	install -m 644 xca*.html $(destdir)$(prefix)/share/xca
