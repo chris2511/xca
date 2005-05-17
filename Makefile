@@ -64,7 +64,20 @@ install: xca
 	  $(MAKE) -C $$d install; \
 	done
 
-.PHONY: $(SUBDIRS)
+xca.app: xca
+	rm -rf xca.app
+	mkdir -p xca.app/Contents/MacOS
+	mkdir -p xca.app/Contents/Resources
+	install -m 755 xca xca.app/Contents/MacOS
+	$(STRIP) xca.app/Contents/MacOS/xca
+	for d in $(INSTDIR); do \
+	  $(MAKE) -C $$d APPDIR=$(TOPDIR)/xca.app/Contents app; \
+	done
+
+xca.dmg: xca.app
+	hdiutil create -ov -srcfolder $< $@
+
+.PHONY: $(SUBDIRS) xca.app
 
 Local.mak: configure
 	./configure

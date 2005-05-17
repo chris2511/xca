@@ -7,4 +7,9 @@ install:
 	install -m 644 *.txt $(destdir)$(prefix)/share/xca
 	install -m 644 xca.desktop $(destdir)$(prefix)/share/applications
 
+app:
+	mkdir -p $(APPDIR)/Resources
+	install -m 644 Info.plist PkgInfo $(APPDIR)
+	install -m 644 *.txt $(APPDIR)/Resources
+
 include $(TOPDIR)/Local.mak

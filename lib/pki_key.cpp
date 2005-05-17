@@ -480,7 +480,7 @@ void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
 static int mycb(char *buf, int size, int rwflag, void *userdata)
 {
 	strncpy(buf, pki_key::passwd, size);
-	return strnlen(pki_key::passwd, size);
+	return strlen(pki_key::passwd);
 }
 
 void pki_key::writeDefault(const QString fname)

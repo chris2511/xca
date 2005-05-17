@@ -58,6 +58,7 @@
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qmessagebox.h>
+#include <qapplication.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -110,6 +111,11 @@ if (inst_dir[0] == '\0') {
 QString ret = (char *)inst_dir;
 return ret;
 
+#elif __APPLE_CC__
+	QDir d;
+	d = qApp->applicationDirPath();
+	d.cdUp();
+	return d.canonicalPath() + "/Resources";
 #else
 
 	QString ret = PREFIX;
@@ -227,6 +233,8 @@ QString getBaseDir()
 	}
 // 
 
+#elif __APPLE_CC__
+	baseDir = getPrefix() + "/xca";
 #else
 #ifdef BASEDIR
 	baseDir = BASEDIR;

@@ -220,3 +220,20 @@ int extList::delByNid(int nid)
 	}
 	return removed;
 }
+
+int extList::delInvalid(void)
+{
+	int removed=0;
+	extList::Iterator it;
+	for( it = begin(); it != end(); ) {
+		if (!(*it).isValid()) {
+			printf("Remaining before del: %d\n", size());
+			remove(it);
+			it = begin();
+			removed=1;
+		} else {
+			++it;
+		}
+	}
+	return removed;
+}

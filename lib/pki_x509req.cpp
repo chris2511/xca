@@ -101,6 +101,8 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	for(int i=0; bad_nids[i] != NID_undef; i++)
 		el.delByNid(bad_nids[i]);
 	
+	el.delInvalid();
+	
 	sk = el.getStack();
 	X509_REQ_add_extensions(request, sk);
 	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);

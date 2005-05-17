@@ -7,5 +7,10 @@ install:
 	install -m 644 key.xpm $(destdir)$(prefix)/share/pixmaps/xca.xpm
 	install -m 644 *.png $(destdir)$(prefix)/share/xca
 
+
+app:
+	mkdir -p $(APPDIR)/Resources
+	install -m 644 *.png $(APPDIR)/Resources
+
 include $(TOPDIR)/Local.mak
 

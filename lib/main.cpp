@@ -52,6 +52,7 @@
 #include <qapplication.h>
 #include <qtranslator.h>
 #include <qtextcodec.h>
+#include <qdir.h>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
 #ifdef WIN32

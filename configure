@@ -32,6 +32,7 @@ LIBS=-lstdc++
 LDIRS=
 MOC=moc
 UIC=uic
+LRELEASE=lrelease
 
 err() {
   echo
@@ -157,6 +158,10 @@ if test -x $QTDIR/bin/uic; then
   UIC="$QTDIR/bin/uic"
 fi
 
+if test -x $QTDIR/bin/lrelease; then
+  LRELEASE="$QTDIR/bin/lrelease"
+fi
+
 echo
 echo "LDFLAGS   :${LIBS}${LDIRS}"
 echo "PREFIX    :${prefix:=/usr/local}"
@@ -178,6 +183,7 @@ LIBS=$LIBS
 
 MOC=$MOC
 UIC=$UIC
+LRELEASE=$LRELEASE
 
 CC=${CC:=gcc}
 LD=${LD:=ld}
