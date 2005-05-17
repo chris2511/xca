@@ -1,3 +1,4 @@
+  * finish support for Mac OS X
   * add X509 V3 extensions to PKCS#10 requests
   * add "validation" function for editable extensions below
   * add "edit" buttons for subject/issuer alt. name,
