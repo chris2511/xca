@@ -54,7 +54,6 @@
 #include "lib/load_obj.h"
 #include <qapplication.h>
 #include <qmenubar.h>
-#include <qstatusbar.h>
 
 void MainWindow::init_menu()
 {
@@ -78,8 +77,6 @@ void MainWindow::init_menu()
 	mb->insertSeparator();
 	mb->insertItem(tr("&Help"), help );
 	mb->setSeparator( QMenuBar::InWindowsStyle );
-
-	statusBar()->message(XCA_TITLE);
 }
 
 void MainWindow::load_database()

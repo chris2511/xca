@@ -57,6 +57,7 @@
 #include "view/CrlView.h"
 #include "view/TempView.h"
 #include <qdir.h>
+#include <qstatusbar.h>
 
 void MainWindow::init_database() {
 	
@@ -117,7 +118,7 @@ void MainWindow::init_database() {
 		qFatal(err.what());
 	}
 	
-	setCaption(QString(XCA_TITLE) + " - " + dbfile);
+	statusBar()->message(tr("Database") + ":" + dbfile);
 	
 	connect( keys, SIGNAL(newKey(pki_key *)),
 		certs, SLOT(newKey(pki_key *)) );

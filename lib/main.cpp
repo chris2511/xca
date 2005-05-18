@@ -88,7 +88,7 @@ int main( int argc, char *argv[] )
 	a.installTranslator( &qtTr );
 	a.installTranslator( &xcaTr );
 	fprintf(stderr, "Locale: %s\nPrefix:%s\n", 
-	locale.latin1(), getPrefix().latin1());
+		locale.latin1(), getPrefix().latin1());
 
 	mw = new MainWindow( NULL, "Main Widget");
 	a.setMainWidget( mw );
