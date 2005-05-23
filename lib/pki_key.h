@@ -84,7 +84,6 @@ class pki_key: public pki_base
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
 	EVP_PKEY *decryptKey();
-	// copy constructor
 	pki_key::pki_key(const pki_key *pk);
 	/* destructor */
 	~pki_key();

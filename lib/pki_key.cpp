@@ -138,6 +138,7 @@ void pki_key::generate(int bits, int type)
 		rsakey = RSA_generate_key(bits, 0x10001, &incProgress, progress);
 		if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
 	} else if (type == EVP_PKEY_DSA) {
+		progress->setTotalSteps(250);
  		dsakey = DSA_generate_parameters(bits,NULL,0,NULL,NULL,&incProgress, progress);
 		DSA_generate_key(dsakey);
 		if(dsakey) EVP_PKEY_set1_DSA(key,dsakey);
@@ -180,7 +181,7 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	:pki_base()
 { 
 	init();
-	if (pkey) {
+	if (key) {
 		EVP_PKEY_free(key);
 	}
 	key = pkey;
@@ -425,6 +426,10 @@ void pki_key::encryptKey()
 	openssl_error();
     i2d_PrivateKey(key, &punenc);
 	punenc = punenc1;	
+	/* 
+	 * Now DER version of privkey is in punenc, pubkey is in pkey1
+	 * and privkey is still in key
+	 */
 
 	/* do the encryption */
 	/* store key right after the iv */
@@ -436,6 +441,8 @@ void pki_key::encryptKey()
 
 	/* Cleanup */
 	EVP_CIPHER_CTX_cleanup(&ctx);
+	/* wipe out the memory */
+	memset(punenc, 0, keylen);
 	OPENSSL_free(punenc);
 	openssl_error();	
 	
@@ -443,7 +450,7 @@ void pki_key::encryptKey()
 	key = pkey1;
 	openssl_error();
 	
-	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
+	//CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 	
 	return;
 }

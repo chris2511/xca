@@ -166,7 +166,7 @@ echo
 echo "LDFLAGS   :${LIBS}${LDIRS}"
 echo "PREFIX    :${prefix:=/usr/local}"
 echo "CPPFLAGS  :${CF}"
-echo "CFLAGS    :${CFLAGS:=-Wall}"
+echo "CFLAGS    :${CFLAGS:=-Wall -g}"
 echo
 
 cat >Local.mak <<EOF

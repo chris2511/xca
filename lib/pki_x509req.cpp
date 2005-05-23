@@ -154,6 +154,8 @@ void pki_x509req::fromData(const unsigned char *p, int size)
 	const unsigned char *ps = p;
 	privkey = NULL;
 	request = D2I_CLASH(d2i_X509_REQ, &request, &ps, size);
+	openssl_error();
+	
 	if (ps - p < size)
 		spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &ps , size + p - ps); 
 	openssl_error();
