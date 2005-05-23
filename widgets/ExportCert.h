@@ -48,8 +48,8 @@
  *
  */                           
 
-#ifndef EXPORTCERT_H
-#define EXPORTCERT_H
+#ifndef __EXPORTCERT_H
+#define __EXPORTCERT_H
 
 #include "ui/ExportCert.h"
 

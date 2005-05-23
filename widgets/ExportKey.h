@@ -48,8 +48,8 @@
  *
  */                           
 
-#ifndef EXPORTKEY_H
-#define EXPORTKEY_H
+#ifndef __EXPORTKEY_H
+#define __EXPORTKEY_H
 
 #include "ui/ExportKey.h"
 

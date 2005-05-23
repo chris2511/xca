@@ -15,7 +15,7 @@ CLEANDIRS=lang doc
 
 bindir=bin
 
-all: headers xca doc
+all: headers xca docs
 re: clean all
 
 xca.o: $(OBJECTS)
@@ -25,6 +25,8 @@ xca: xca.o
 	$(CC) $(LDFLAGS) $< $(LIBS) -o $@
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
+docs:
+	$(MAKE) -C doc
 headers:
 	$(MAKE) -C ui $@
 
@@ -32,13 +34,8 @@ headers:
 	$(MAKE) DEP=yes -C $* target.obj
 
 clean:
-	for x in $(SUBDIRS); do \
-	  $(MAKE) -C $${x} clean; \
-	done
-	for x in $(CLEANDIRS); do \
-	  $(MAKE) -C $${x} clean; \
-	done
-	rm -f *~ xca 
+	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} clean; done
+	rm -f *~ xca xca.o
 
 distclean: clean	
 	rm -f Local.mak conftest conftest.log

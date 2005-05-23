@@ -48,8 +48,8 @@
  *
  */                           
 
-#ifndef CERTEXTEND_H
-#define CERTEXTEND_H
+#ifndef __CERTEXTEND_H
+#define __CERTEXTEND_H
 
 #include "ui/CertExtend.h"
 

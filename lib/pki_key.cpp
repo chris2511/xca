@@ -157,6 +157,12 @@ pki_key::pki_key(const pki_key *pk)
 	init();
 	openssl_error();	
 	if (pk == NULL) return;
+	printf("EVP_PKEY_COPY (no error)\n");
+	if (pk->key->type == EVP_PKEY_RSA)
+		EVP_PKEY_assign_RSA(key, EVP_PKEY_get1_RSA(pk->key));
+	if (pk->key->type == EVP_PKEY_DSA)
+		EVP_PKEY_assign_DSA(key, EVP_PKEY_get1_DSA(pk->key));
+#if 0
 	key->type = pk->key->type;
 	if (key->type == EVP_PKEY_RSA) {
 		//rsakey = RSA_dup(pk->key->pkey.rsa);
@@ -165,7 +171,7 @@ pki_key::pki_key(const pki_key *pk)
 	if (key->type == EVP_PKEY_DSA) {
 		key->pkey.dsa=((DSA *)ASN1_dup( (int(*)())i2d_DSAPrivateKey, (char *(*)())d2i_DSAPrivateKey,(char *)pk->key->pkey.dsa));
 	}
-	 
+#endif	 
 	openssl_error();
 	encryptKey();
 }
@@ -309,6 +315,7 @@ void pki_key::oldFromData(const unsigned char *p, int size )
 	OPENSSL_free(pdec);
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	openssl_error();
+	encryptKey();
 }
 
 EVP_PKEY *pki_key::decryptKey()
@@ -507,34 +514,35 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 	}
 	FILE *fp = fopen(fname.latin1(), "w");
 	if (fp != NULL) {
-		if (key){
-			pkey = decryptKey();
-			if (PEM) {
-				PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
-			} else {
-				i2d_PrivateKey_fp(fp, pkey);
-	        }
-			EVP_PKEY_free(pkey);
-	   		openssl_error();
-		}
+		fopen_error(fname);
+		return;
 	}
-	else fopen_error(fname);
+	if (key){
+		pkey = decryptKey();
+		if (PEM) {
+			PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
+		} else {
+			i2d_PrivateKey_fp(fp, pkey);
+        }
+		EVP_PKEY_free(pkey);
+   		openssl_error();
+	}
 	fclose(fp);
 }
 
 void pki_key::writePublic(const QString fname, bool PEM)
 {
 	FILE *fp = fopen(fname.latin1(),"w");
-	if (fp != NULL) {
-		if (key->type == EVP_PKEY_RSA) {
-			if (PEM)
-				PEM_write_PUBKEY(fp, key);
-			else
-				i2d_PUBKEY_fp(fp, key);
-		openssl_error();
-	   }
+	if (fp == NULL) {
+		fopen_error(fname);
+		return;
 	}
-	else fopen_error(fname);
+	if (PEM)
+		PEM_write_PUBKEY(fp, key);
+	else
+		i2d_PUBKEY_fp(fp, key);
+
+	openssl_error();
 	fclose(fp);
 }
 
@@ -542,9 +550,13 @@ void pki_key::writePublic(const QString fname, bool PEM)
 QString pki_key::length()
 {
 	char st[64];
+	QString x;
+	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p==NULL) {
+		return x="???";
+	}
 	sprintf(st,"%i bit",  EVP_PKEY_bits(key) );
 	openssl_error();
-	QString x = st;
+	x = st;
 	return x;
 }
 

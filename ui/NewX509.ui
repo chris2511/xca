@@ -3073,7 +3073,7 @@ Example:
 <customwidgets>
     <customwidget>
         <class>Validity</class>
-        <header location="local">validity.h</header>
+        <header location="global">widgets/validity.h</header>
         <sizehint>
             <width>-1</width>
             <height>-1</height>

@@ -73,6 +73,7 @@ search_includes() {
     for dbn in "" ${subdirs}; do
       if test -r ${dir}/include${dbn}/$1; then
           add_include ${dir}/include${dbn}
+	  test -z "${dbn}" || add_include ${dir}/include
           echo Found:  $1 at ${dir}/include${dbn}
           return 0
       fi
@@ -166,7 +167,7 @@ echo
 echo "LDFLAGS   :${LIBS}${LDIRS}"
 echo "PREFIX    :${prefix:=/usr/local}"
 echo "CPPFLAGS  :${CF}"
-echo "CFLAGS    :${CFLAGS:=-Wall -g}"
+echo "CFLAGS    :${CFLAGS:=-Wall -g -ggdb}"
 echo
 
 cat >Local.mak <<EOF

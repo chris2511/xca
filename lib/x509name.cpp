@@ -123,8 +123,6 @@ QString x509name::getEntry(int i) const
 	else
 		ret=QString::fromLatin1((const char *)d->data,d->length);
 	 
-	//ASN1_STRING_free(d);
-	
 	return ret;
 }
 

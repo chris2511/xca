@@ -48,8 +48,8 @@
  *
  */                           
 
-#ifndef CERTDETAIL_H
-#define CERTDETAIL_H
+#ifndef __CERTDETAIL_H
+#define __CERTDETAIL_H
 
 #include "ui/CertDetail.h"
 

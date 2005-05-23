@@ -97,7 +97,7 @@ a1time &a1time::set(const ASN1_TIME *a)
 		ASN1_TIME *siko = time;
 		time = ASN1_TIME_to_generalizedtime((ASN1_TIME *)a, &siko);
 		if (!time) {
-			if (siko) ASN1_TIME_free(time);
+			if (siko) ASN1_TIME_free(siko);
 			time=M_ASN1_TIME_dup(a);
 		}
 	}

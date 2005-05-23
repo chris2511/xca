@@ -49,8 +49,8 @@
  */                           
 
 
-#ifndef NEWX509_H
-#define NEWX509_H
+#ifndef __NEWX509_H
+#define __NEWX509_H
 
 #include "ui/NewX509.h"
 #include "lib/oid.h"

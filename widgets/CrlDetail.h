@@ -48,8 +48,8 @@
  *
  */                           
 
-#ifndef CRLDETAIL_H
-#define CRLDETAIL_H
+#ifndef __CRLDETAIL_H
+#define __CRLDETAIL_H
 
 #include "ui/CrlDetail.h"
 

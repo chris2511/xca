@@ -48,8 +48,8 @@
  *
  */                           
 
-#ifndef KEYDETAIL_H
-#define KEYDETAIL_H
+#ifndef __KEYDETAIL_H
+#define __KEYDETAIL_H
 
 #include "ui/KeyDetail.h"
 
