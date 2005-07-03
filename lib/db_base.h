@@ -71,7 +71,6 @@ class db_base: public QObject
 	Db *data;
 	DbEnv *dbenv;
 	XcaListView *listview;
-	QString dbName;
 	QList<pki_base> container;
 	void _writePKI(pki_base *pki, bool overwrite, DbTxn *tid );
 	void _removePKI(pki_base *pki, DbTxn *tid );
@@ -109,7 +108,6 @@ class db_base: public QObject
 	QPixmap *loadImg(const char *name);
 	void writeAll(DbTxn *tid);
 	QList<pki_base> getContainer();
-	void dump(QString dirname);
 };
 
 #endif

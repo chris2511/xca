@@ -49,12 +49,12 @@
  */                           
 
 
+#ifndef DB_KEY_H
+#define DB_KEY_H
+
 #include "db_base.h"
 #include "pki_key.h"
 #include <qstringlist.h>
-
-#ifndef DB_KEY_H
-#define DB_KEY_H
 
 
 class db_key: public db_base

@@ -49,8 +49,8 @@
  *
  */                           
 
-#ifndef __IMPORTMULTI_H
-#define __IMPORTMULTI_H
+#ifndef IMPORTMULTI_H
+#define IMPORTMULTI_H
 
 #include "ui/ImportMulti.h"
 #include "lib/pki_base.h"
