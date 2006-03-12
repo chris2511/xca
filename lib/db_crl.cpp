@@ -54,10 +54,10 @@
 #include "exception.h"
 #include "widgets/MainWindow.h"
 #include "view/CertView.h"
-#include <qmessagebox.h>
+#include <Qt/qmessagebox.h>
 
-db_crl::db_crl(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi)
-	:db_base(dbe, DBfile, "crldb", tid, lvi)
+db_crl::db_crl(QString DBfile)
+	:db_base(DBfile)
 {
 	loadContainer();
 }
@@ -69,11 +69,9 @@ pki_base *db_crl::newPKI(){
 void db_crl::preprocess()
 {
 	if ( container.isEmpty() ) return ;
-	QListIterator<pki_base> iter(container); 
-	for ( ; iter.current(); ++iter ) {
-		pki_crl *crl = (pki_crl *)iter.current();
-		pki_x509 *issuer = MainWindow::certs->getBySubject(crl->getIssuerName());
-		crl->setIssuer(issuer);
+	FOR_ALL_pki(crl, pki_crl) {
+		pki_x509 *iss = MainWindow::certs->getBySubject(crl->getIssuerName());
+		crl->setIssuer(iss);
 		revokeCerts(crl);
 	}
 }	

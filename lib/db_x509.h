@@ -52,8 +52,9 @@
 #ifndef DB_X509_H
 #define DB_X509_H
 
-#include <qlistview.h>
-#include <qpixmap.h>
+#include <Qt/qlistview.h>
+#include <Qt/qobject.h>
+#include <Qt/qpixmap.h>
 #include "db_key.h"
 #include "db_x509super.h"
 #include "pki_x509.h"
@@ -66,7 +67,7 @@ class db_x509: public db_x509super
     protected:
 	QPixmap *certicon[4];
     public:
-	db_x509(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid, XcaListView *lvi);
+	db_x509(QString DBfile, MainWindow *mw);
 	pki_base *newPKI();
 	pki_x509 *findSigner(pki_x509 *client);
 	bool updateView();
@@ -78,15 +79,19 @@ class db_x509: public db_x509super
 	QStringList getPrivateDesc();
 	QStringList getSignerDesc();
 	void calcEffTrust();
-	QList<pki_x509> getIssuedCerts(const pki_x509 *issuer);
-	QList<pki_x509> getCerts(bool onlyTrusted);
+	QList<pki_x509*> getIssuedCerts(const pki_x509 *issuer);
+	QList<pki_x509*> getCerts(bool onlyTrusted);
 	a1int searchSerial(pki_x509 *signer);
 	void writeAllCerts(const QString fname, bool onlyTrusted);
 	pki_x509 *getByIssSerial(const pki_x509 *issuer, const a1int &a);
 	pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
-	pki_base *db_x509::insert(pki_base *item);
+	pki_base *insert(pki_base *item);
+	void newCert(NewX509 *dlg);
+
     public slots:
 	void revokeCert(const x509rev &revok, const pki_x509 *issuer);
+	void load(void);
+	void newItem();
     
 };
 

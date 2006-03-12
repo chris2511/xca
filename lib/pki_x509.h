@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -81,7 +79,7 @@ class pki_x509 : public pki_x509super
 	public:
 	   static QPixmap *icon[4];
 	   pki_x509(X509 *c);
-	   pki_x509(const pki_x509 *crt);
+	   pki_x509(const pki_x509 &crt);
 	   pki_x509(const QString name = "");
 	   ~pki_x509();
 
@@ -100,10 +98,10 @@ class pki_x509 : public pki_x509super
 	   x509name getIssuer() const;
 	   void setSubject(const x509name &n);
 	   void setIssuer(const x509name &n);
-	   
-	   virtual void fromData(const unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refcert);
+
+	   unsigned char *toData(int *size);
+	   void fromData(const unsigned char *p, db_header_t *head);
+	   bool compare(pki_base *refcert);
 	   bool canSign();
 	   void writeCert(const QString fname, bool PEM, bool append = false);
 	   bool verify(pki_x509 *signer);

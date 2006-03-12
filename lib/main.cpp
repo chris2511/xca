@@ -49,10 +49,11 @@
  *
  */                           
 
-#include <qapplication.h>
-#include <qtranslator.h>
-#include <qtextcodec.h>
-#include <qdir.h>
+#include <Qt/qapplication.h>
+#include <Qt/qtranslator.h>
+#include <Qt/qtextcodec.h>
+#include <Qt/qdir.h>
+#include <Qt/qtranslator.h>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
 #ifdef WIN32
@@ -80,7 +81,8 @@ int main( int argc, char *argv[] )
 		default: locale="c";
 	}
 #else
-	locale = QTextCodec::locale();
+	locale = "C"; //QTextCodec::locale();
+#warning Fix locale
 #endif
 	qtTr.load( QString( "qt_" ) + locale, "." );
 	xcaTr.load( QString( "xca_" ) + locale, getPrefix() );
@@ -88,10 +90,9 @@ int main( int argc, char *argv[] )
 	a.installTranslator( &qtTr );
 	a.installTranslator( &xcaTr );
 	fprintf(stderr, "Locale: %s\nPrefix:%s\n", 
-		locale.latin1(), getPrefix().latin1());
+		locale.data(), getPrefix().data());
 
-	mw = new MainWindow( NULL, "Main Widget");
-	a.setMainWidget( mw );
+	mw = new MainWindow( NULL);
 	if (mw->exitApp == 0) {
 		mw->show();
 		ret = a.exec();

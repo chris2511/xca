@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -48,31 +46,43 @@
  *
  */                           
 
-
-#include "db_base.h"
-#include "pki_key.h"
-#include <qstringlist.h>
-
 #ifndef DB_KEY_H
 #define DB_KEY_H
 
+#include "db_base.h"
+#include "pki_key.h"
+#include <Qt/qstringlist.h>
+#include <Qt/qobject.h>
+
+class MainWindow;
+class QModelIndex;
+class QContextMenuEvent;
 
 class db_key: public db_base
 {
 	Q_OBJECT
+
     public:
-	db_key(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi);
+	db_key(QString db, MainWindow *mw);
 	pki_base *newPKI();
 	QStringList getPrivateDesc();
 	QStringList get0PrivateDesc();
 	void inToCont(pki_base *pki);
 	void remFromCont(pki_base *pki);
 	pki_base* insert(pki_base *item);
-	void writeAll(DbTxn *tid = NULL);
+	void writeAll();
+	void showItem(QModelIndex &index);
+	void showContextMenu(QContextMenuEvent * e, const QModelIndex &index);
 	
+    public slots:
+	void newItem(void);
+	void load(void);
+	void store(QModelIndex &index);
+
     signals:
 	void delKey(pki_key *delkey);
 	void newKey(pki_key *newkey);
+	void keyDone(pki_key *newkey);
 };
 
 #endif

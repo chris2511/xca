@@ -52,49 +52,60 @@
 #define PKI_BASE_H
 
 #include <openssl/err.h>
-#include <qstring.h>
-#ifdef qt4
-#include <q3listview.h>
-#else
-#include <qlistview.h>
-#endif
+#include <Qt/qstring.h>
+#include <Qt/qlistview.h>
+#include "db.h"
 #include "base.h"
 
 class pki_base : public QObject
 {
 	Q_OBJECT
+
     private:
 	static int pki_counter;
     protected:
+	int cols;
+	char *class_name;
 	QString desc;
-	QString class_name;
-	QListViewItem *pointer; 
+	int dataVersion;
+	enum pki_type pkiType;
+	/* model data */
+	pki_base *parent;
+
 	void openssl_error(const QString myerr = "") const;
 	void fopen_error(const QString fname);
 	bool ign_openssl_error() const;
-	int intToData(unsigned char **p, int val);
-	int intFromData(const unsigned char **p);
-	int boolToData(unsigned char **p, bool val);
-	bool boolFromData(const unsigned char **p);
-	int stringToData(unsigned char **p, const QString val);
-	QString stringFromData(const unsigned char **p);
+	
     public:
-	pki_base(const QString d = "");
-	void fload(const QString name);
-	virtual void writeDefault(const QString fname);
-	static int get_pki_counter();
-	virtual void fromData(const unsigned char *p, int size){};
-	virtual unsigned char *toData(int *size){return NULL;};
-	virtual bool compare(pki_base *ref){return false;};
-	virtual ~pki_base();
-        QString getIntName() const;
+	QList<pki_base*> childItems;
+	pki_base(const QString d = "", pki_base *p = NULL);
+	virtual void fload(const QString name){};
+	virtual void writeDefault(const QString fname){};
+	static int get_pki_counter(void);
+	virtual void fromData(const unsigned char *p, db_header_t *head){};
+	virtual unsigned char *toData(int *size){return NULL;}
+	virtual bool compare(pki_base *ref){return false;}
+	virtual ~pki_base(void);
+        QString getIntName(void) const;
         void setIntName(const QString &d);
-	void delLvi() { pointer = NULL; }
-	QListViewItem *getLvi() { return pointer; }
-	void setLvi(QListViewItem *ptr) { pointer = ptr; }
-	QString getClassName();
-	QString rmslashdot(const QString &fname);
-	virtual void updateView();
+	QString getClassName(void);
+	static QString rmslashdot(const QString &fname);
+	//virtual void updateView();
+	
+	int getVersion(void);
+	enum pki_type getType(void);
+	void setParent(pki_base *p);
+	pki_base *getParent();
+	pki_base *child(int row);
+	void append(pki_base *item);
+	int childCount(void);
+	int row(void) const;
+	pki_base *iterate(pki_base *pki = NULL);
+	void freeChild(pki_base *pki);
+
+	int columns(void);
+	virtual QVariant column_data(int col);
+	virtual QVariant getIcon();
 };
 
 #endif

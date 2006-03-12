@@ -52,9 +52,9 @@
 /* here we have the possibility to add our own OIDS */
 
 #include <openssl/objects.h>
-#include <qstringlist.h>
-#include <qmessagebox.h>
-#include <qdir.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qdir.h>
 #include "func.h"
 #include "oid.h"
 
@@ -62,29 +62,29 @@
 static void readOIDs(QString fname)
 {
 	char buff[128];
-	char *pb;
+	QString pb;
 	FILE *fp;
 	int line = 0;
 	QStringList sl;
-	//fprintf(stderr, "FILE: %s\n", fname.latin1());
-	fp = fopen(fname.latin1(), "r");
+	//fprintf(stderr, "FILE: %s\n", fname.toAscii());
+	fp = fopen(fname.toAscii(), "r");
 	if (fp == NULL) return;
 	while (fgets(buff, 127, fp)) {
 		line++;
 		pb = buff;
-		while (*pb==' ' || *pb=='\t' ) pb++;
-		if (*pb == '#' || *pb=='\n' || *pb=='\0') continue;
+		pb = pb.trimmed();
+		if (pb.startsWith('#') || pb.size() == 0) continue;
 		sl.clear();
-		sl = sl.split(':', QString(pb));
+		sl = pb.split(':');
 		if (sl.count() != 3) {
 			QMessageBox::warning(NULL, QString(XCA_TITLE),
 				QString("Error reading config file: ") + fname + " Line: " + QString::number(line) );
 			return;
 		}
 		else {
-			OBJ_create((char *)sl[0].stripWhiteSpace().latin1(),
-			   	(char *)sl[1].stripWhiteSpace().latin1(),
-			   	(char *)sl[2].stripWhiteSpace().latin1());
+			OBJ_create(sl[0].trimmed().toAscii(),
+			   	sl[1].trimmed().toAscii(),
+			   	sl[2].trimmed().toAscii());
 		}
 	}
 	fclose(fp);
@@ -92,7 +92,7 @@ static void readOIDs(QString fname)
 
 void initOIDs(QString baseDir)
 {
-	QString oids = (QChar)QDir::separator();
+	QString oids = QString(QDir::separator());
 	oids += "oids.txt";
 	QString dir = getPrefix();
 	
@@ -118,8 +118,7 @@ NIDlist readNIDlist(QString fname)
 	int line = 0, nid;
 	NIDlist nl;
 	nl.clear();
-	//fprintf(stderr, "OID FILE: %s\n", fname.latin1());
-	fp = fopen(fname.latin1(), "r");
+	fp = fopen(CCHAR(fname), "r");
 	if (fp == NULL) return nl;
 	while (fgets(buff, 127, fp)) {
 		line++;
@@ -129,6 +128,7 @@ NIDlist readNIDlist(QString fname)
 		pbe = buff + strlen(buff) -1;
 		while (*pbe == ' ' || *pbe == '\t' || *pbe == '\r' || *pbe == '\n')
 			*pbe-- = '\0';
+		
 		nid = OBJ_txt2nid((char *)pb);
 		if (nid == NID_undef)
 			QMessageBox::warning(NULL, QString(XCA_TITLE),

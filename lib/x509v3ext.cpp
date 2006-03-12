@@ -52,7 +52,8 @@
 #include "x509v3ext.h"
 #include <openssl/x509v3.h>
 #include <openssl/stack.h>
-#include <qstringlist.h>
+#include <Qt/qstringlist.h>
+#include "base.h"
 
 x509v3ext::x509v3ext()
 {
@@ -90,7 +91,7 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		ext = NULL;
 	}
 	if (!et.isEmpty()) {
-		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, (char *)et.latin1());
+		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, (char*)CCHAR(et));
 	}
 	if (!ext) ext = X509_EXTENSION_new();
 	return *this;
@@ -137,11 +138,7 @@ QString x509v3ext::getValue() const
 	int len,cn=0;
 	char buffer[V3_BUF+1];
 	BIO *bio = BIO_new(BIO_s_mem());
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
 	if(!X509V3_EXT_print(bio, ext, X509V3_EXT_PARSE_UNKNOWN, 0))
-#else
-	if (!X509V3_EXT_print(bio, ext, 0, 0))
-#endif
 		return text;
 	do {
 		len = BIO_read(bio, buffer, V3_BUF);
@@ -190,7 +187,7 @@ STACK_OF(X509_EXTENSION) *extList::getStack()
 {
 	STACK_OF(X509_EXTENSION) *sk;
 	sk = sk_X509_EXTENSION_new_null();
-	for (unsigned int i=0; i< count(); i++) {
+	for (int i=0; i< count(); i++) {
 		sk_X509_EXTENSION_push(sk, operator[](i).get());
 	}
 	return sk;		
@@ -200,7 +197,7 @@ QString extList::getHtml(const QString &sep)
 {
 	x509v3ext e;	
 	QStringList s;
-	for (unsigned int i=0; i< count(); i++)
+	for (int i=0; i< count(); i++)
 		s << operator[](i).getHtml();
 	QString a = s.join(sep);
 	return a;
@@ -212,7 +209,7 @@ int extList::delByNid(int nid)
 	extList::Iterator it;
 	for( it = begin(); it != end(); ++it ) {
 		if ((*it).nid() == nid) {
-			printf("Removing: %s\n", (*it).getValue().latin1());
+			printf("Removing: %s\n", CCHAR((*it).getValue()));
 			remove(it);
 			it = begin();
 			removed=1;

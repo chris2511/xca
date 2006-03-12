@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,40 +49,45 @@
 #ifndef DB_BASE_H
 #define DB_BASE_H
 
-#include <db_cxx.h>
+#include "db.h"
 #include "base.h"
-#ifndef qt3
-#include <qlist.h>
-#endif
-#include <qlistview.h>
-#include <qpixmap.h>
-#include <qstringlist.h>
+#include "load_obj.h"
+#include <Qt/qlistview.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qabstractitemmodel.h>
 #include "pki_base.h"
 
+#define FOR_ALL_pki(pki, pki_type) \
+	for(pki_type *pki=(pki_type*)rootItem->iterate(); pki; pki=(pki_type*)pki->iterate())
 
-class XcaListView;
+class MainWindow;
+class QContextMenuEvent;
 
-class db_base: public QObject
+class db_base: public QAbstractItemModel
 {
-		
+	Q_OBJECT
+
     protected:
-	Db *data;
-	DbEnv *dbenv;
-	XcaListView *listview;
-	QString dbName;
-	QList<pki_base> container;
-	void _writePKI(pki_base *pki, bool overwrite, DbTxn *tid );
-	void _removePKI(pki_base *pki, DbTxn *tid );
-	void removeItem(QString k, DbTxn *tid);
+	QString dbName, delete_txt;
+	pki_base *rootItem;
+	void _writePKI(pki_base *pki, bool overwrite );
+	void _removePKI(pki_base *pki );
+	void removeItem(QString k);
+	enum pki_type pkitype;
+	QList<QVariant> headertext;
+	MainWindow *mainwin;
+    public slots:
+	virtual void store(QModelIndex &index){};
+	
     public:
-	db_base(DbEnv *dbe, QString DBfile, QString db, DbTxn *global_tid,
-		XcaListView *lvi);
+	db_base(QString db, MainWindow *mw);
 	virtual ~db_base();
-	virtual pki_base *newPKI(){return NULL;}
+	virtual pki_base *newPKI();
 	virtual void insertPKI(pki_base *pki);
-	virtual void deletePKI(pki_base *pki);
-	virtual void updatePKI(pki_base *pki);
-	virtual void renamePKI(pki_base *pki, QString desc);
+	virtual void deletePKI(QModelIndex &index);
+	virtual void showItem(QModelIndex &index){};
 	pki_base *getByName(QString desc);
 	pki_base *getByReference(pki_base *refpki);
 	pki_base *getByPtr(void *);
@@ -94,22 +97,40 @@ class db_base: public QObject
 	/* preprocess should be implemented once to speed up updateView() 
 	 * i.e search for signers and keys */
 	virtual void preprocess() {return;}
-	virtual void remFromCont(pki_base *pki);
 	virtual void inToCont(pki_base *pki);
+	void remFromCont(pki_base *ref);
+
+#if 0
 	void *getData(void* key, int length, int *dsize);
 	void *getData(QString key, int *dsize);
 	QString getString(QString key);
 	QString getString(char *key);
 	int getInt(QString key);
-	void putData(void *key, int keylen, void *dat, int datalen, DbTxn *tid = NULL);
-	void putString(QString key, void *dat, int datalen, DbTxn *tid = NULL);
-	void putString(QString key, QString dat, DbTxn *tid = NULL);
-	void putString(char *key, QString dat, DbTxn *tid = NULL);
-	void putInt(QString key, int dat, DbTxn *tid = NULL);
+	void putData(void *key, int keylen, void *dat, int datalen);
+	void putString(QString key, void *dat, int datalen);
+	void putString(QString key, QString dat);
+	void putString(char *key, QString dat);
+	void putInt(QString key, int dat);
+#endif
 	QPixmap *loadImg(const char *name);
-	void writeAll(DbTxn *tid);
-	QList<pki_base> getContainer();
+	void writeAll(void);
 	void dump(QString dirname);
+	virtual void showContextMenu(QContextMenuEvent * e,
+			const QModelIndex &index) {};
+	
+	QModelIndex index(int row, int column, const QModelIndex &parent)const;
+	QModelIndex parent(const QModelIndex &index) const;
+	int rowCount(const QModelIndex &parent) const;
+	int columnCount(const QModelIndex &parent) const;
+	QVariant data(const QModelIndex &index, int role) const;
+	QVariant headerData(int section, Qt::Orientation orientation,
+			int role) const;
+	Qt::ItemFlags flags(const QModelIndex &index) const;
+	bool setData(const QModelIndex &index, const QVariant &value, int role);
+	void deleteSelectedItems(QAbstractItemView* view);
+	void showSelectedItems(QAbstractItemView *view);
+	void storeSelectedItems(QAbstractItemView *view);
+	void load_default(load_base &load);
 };
 
 #endif

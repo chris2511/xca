@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -54,7 +52,7 @@
 #include "pki_x509.h"
 #include "func.h"
 #include "base.h"
-#include <qdir.h>
+#include <Qt/qdir.h>
 
 QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
 
@@ -66,21 +64,21 @@ pki_x509::pki_x509(X509 *c)
 	openssl_error();
 }
 
-pki_x509::pki_x509(const pki_x509 *crt) 
-	:pki_x509super(crt->desc)
+pki_x509::pki_x509(const pki_x509 &crt) 
+	:pki_x509super(crt.desc)
 {
 	init();
-	cert = X509_dup(crt->cert);
+	cert = X509_dup(crt.cert);
 	openssl_error();
-	psigner = crt->psigner;
-	setRefKey(crt->getRefKey());
-	trust = crt->trust;
-	efftrust = crt->efftrust;
-	revoked = crt->revoked;
-	caSerial = crt->caSerial;
-	caTemplate = crt->caTemplate;
-	crlDays = crt->crlDays;
-	lastCrl = crt->lastCrl;
+	psigner = crt.psigner;
+	setRefKey(crt.getRefKey());
+	trust = crt.trust;
+	efftrust = crt.efftrust;
+	revoked = crt.revoked;
+	caSerial = crt.caSerial;
+	caTemplate = crt.caTemplate;
+	crlDays = crt.crlDays;
+	lastCrl = crt.lastCrl;
 	isrevoked = isrevoked;
 	openssl_error();
 }
@@ -96,7 +94,7 @@ pki_x509::pki_x509(const QString name)
 
 void pki_x509::fload(const QString fname)
 {
-	FILE *fp = fopen(fname.latin1(),"r");
+	FILE *fp = fopen(fname.toAscii(),"r");
 	X509 *_cert;
 	if (fp != NULL) {
 		_cert = PEM_read_X509(fp, NULL, NULL, NULL);
@@ -139,6 +137,9 @@ void pki_x509::init()
 	class_name = "pki_x509";
 	cert = NULL;
 	isrevoked = false;
+	dataVersion=1;
+	pkiType=x509;
+	cols=6;
 }
 
 void pki_x509::setSerial(const a1int &serial)
@@ -286,8 +287,6 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 
 }
 
-
-
 /* Save the Certificate to data and back:
  * Version 1:
  * 	int Version
@@ -298,107 +297,57 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
  * 	revocationtime
  */
 
-	
-void pki_x509::fromData(const unsigned char *p, int size)
+void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 {
-	int version, sCert, sRev, sLastCrl;
+	int version, size;
 	const unsigned char *p1 = p;
+
 	X509 *cert_sik = cert;
-	version = intFromData(&p1);
-	if (version >=1 || version <= 5) {
-		sCert = intFromData(&p1);
-		cert = D2I_CLASH(d2i_X509, NULL, &p1, sCert);
-		trust = intFromData(&p1);
-		sRev = intFromData(&p1);
-		if (sRev) {
-			if (version != 3) isrevoked = true;
-			p1 = revoked.d2i(p1, sRev);
-		}
-		else {
-		   isrevoked = false;
-		   revoked.now();
-		}
-		
-		if (version == 1) {
-			caTemplate="";
-			caSerial=1;
-			lastCrl = NULL;
-			crlDays=30;
-		}
-		
-		if (version >= 2 ) {
-			if (version >= 5)  
-				caSerial.setHex(stringFromData(&p1));
-			else {
-				int i = intFromData(&p1);
-				if (i>=0) 
-					caSerial = i;
-				else {
-					caSerial = getSerial();
-					++caSerial;
-				}
-			}
-			caTemplate = stringFromData(&p1);
-		}
-		if (version >= 3 ) {
-			crlDays = intFromData(&p1);
-			sLastCrl = intFromData(&p1);
-			if (sLastCrl) {
-			   lastCrl.d2i(p1, sLastCrl);
-			}
-		}
-		// version 4 saves a NULL as revoked
-		// version 3 did save a recent date :-((
-	}
-	else { // old version
-		cert = D2I_CLASH(d2i_X509, NULL, &p, size);
-		revoked = NULL;
-		trust = 1;
-		efftrust = 1;
-	}	
+	version = head->version;
+	size = head->len - sizeof(db_header_t);
+	
+	cert = D2I_CLASH(d2i_X509, NULL, &p1, size);
+	trust = db::intFromData(&p1);
+	isrevoked = db::boolFromData(&p1);
+	p1 = revoked.d2i(p1, size - (p1-p));
+	caSerial.setHex(db::stringFromData(&p1));
+	caTemplate = db::stringFromData(&p1);
+	crlDays = db::intFromData(&p1);
+	lastCrl.d2i(p1, size - (p1-p));
+	
 	if (cert)
 		X509_free(cert_sik);
 	else
 		cert = cert_sik;
 	openssl_error();
-		
 }
 
 
 unsigned char *pki_x509::toData(int *size)
 {
-#define PKI_DB_VERSION (int)5
 	unsigned char *p, *p1;
-	int sCert = i2d_X509(cert, NULL);
-	int sRev = revoked.derSize();
-	int sLastCrl = lastCrl.derSize();
-	if (!isrevoked) sRev = 0;
-        QString ca_s = caSerial.toHex();
+	
 	// calculate the needed size 
-	*size = caTemplate.length() + 1 + sCert + sRev + sLastCrl + ca_s.length() + 1 + (6 * sizeof(int));
+	*size = i2d_X509(cert, NULL) + 100;
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	intToData(&p1, (PKI_DB_VERSION)); // version
-	intToData(&p1, sCert); // sizeof(cert)
+	
 	i2d_X509(cert, &p1); // cert
-	intToData(&p1, trust); // trust
-	intToData(&p1, sRev); // sizeof(revoked)
-	if (sRev) {
-		p1 = revoked.i2d(p1); // revokation date
-	}
-			 
-	// version 2
-        //  *** caSerial format changed in version 5.
-	stringToData(&p1, caSerial.toHex()); // the serial if this is a CA
-	stringToData(&p1, caTemplate); // the name of the template to use for signing
+	db::intToData(&p1, trust); // trust
+	db::boolToData(&p1, isrevoked);
+	p1 = revoked.i2d(p1); // revokation date
+
+	// the serial if this is a CA
+	db::stringToData(&p1, caSerial.toHex());
+	// the name of the template to use for signing
+	db::stringToData(&p1, caTemplate);
 	// version 3
-	intToData(&p1, crlDays); // the CRL period
-	intToData(&p1, sLastCrl); // size of last CRL
-	if (sLastCrl) {
-		p1 = lastCrl.i2d(p1); // last CRL date
-	}
+	db::intToData(&p1, crlDays); // the CRL period
+	p1 = lastCrl.i2d(p1); // last CRL date
 	openssl_error();
+	printf("###### Size = %d, real size=%d\n", *size, p1-p);
+	*size = p1-p;
 	return p;
 }
 
@@ -412,7 +361,7 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 	FILE *fp;
 	char *_a = "a", *_w="w", *p = _w;
 	if (append) p=_a;
-	fp = fopen(fname.latin1(), p);
+	fp = fopen(fname.toAscii(), p);
 	if (fp != NULL) {
 		if (cert){
 			if (PEM) 
@@ -543,7 +492,7 @@ x509v3ext pki_x509::getExtByNid(int nid)
 	extList el = getExt();
 	x509v3ext e;
 	
-	for (unsigned int i=0; i< el.count(); i++){
+	for (int i=0; i< el.count(); i++){
 		if (el[i].nid() == nid) return el[i];
 	}			
 	return e;
@@ -665,6 +614,7 @@ void pki_x509::setLastCrl(const a1time &time)
 QString pki_x509::tinyCAfname()
 {
 	QString col;
+	const char *s;
 	x509name x = getSubject();
 	col = x.getEntryByNid(NID_commonName) 
 	    +(x.getEntryByNid(NID_commonName) == "" ? " :" : ":")
@@ -682,9 +632,10 @@ QString pki_x509::tinyCAfname()
 	    +(x.getEntryByNid(NID_countryName) == "" ? " :" : ":");
 
 	int len = col.length();
+	s = col.toAscii();
 	unsigned char *buf = (unsigned char *)OPENSSL_malloc(len * 2 + 3);
 	
-	EVP_EncodeBlock(buf, (unsigned char *)col.latin1(), len );
+	EVP_EncodeBlock(buf, (const unsigned char *)s, len );
 	col = (char *)buf;
 	OPENSSL_free(buf);
 	col += ".pem";
@@ -698,7 +649,7 @@ x509rev pki_x509::getRev()
 	a.setSerial(getSerial());
 	return a;
 }
-	
+#if 0	
 void pki_x509::updateView()
 {
 	pki_base::updateView();
@@ -721,6 +672,8 @@ void pki_x509::updateView()
 	if (isRevoked())
 		pointer->setText(5, getRevoked().toSortable());
 }
+
+#endif
 
 QString pki_x509::getSigAlg()
 {

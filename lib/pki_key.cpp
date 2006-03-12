@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -53,10 +51,11 @@
 #include "pki_key.h"
 #include "pass_info.h"
 #include "func.h"
+#include "db.h"
 #include <openssl/rand.h>
-#include <qprogressdialog.h>
-#include <qapplication.h>
-#include <qdir.h>
+#include <Qt/qprogressdialog.h>
+#include <Qt/qapplication.h>
+#include <Qt/qdir.h>
 #include <widgets/MainWindow.h>
 
 char pki_key::passwd[40]={0,};
@@ -77,12 +76,31 @@ void pki_key::init(int type)
 	encKey = NULL;
 	encKey_len = 0;
 	ownPass = 0;
+	dataVersion=1;
+	pkiType=async_key;
+	cols=4;
 }
 
 void pki_key::incProgress(int a, int b, void *progress)
 {
-	int i = ((QProgressDialog *)progress)->progress();
-			((QProgressDialog *)progress)->setProgress(++i);
+	int i = ((QProgressBar *)progress)->value();
+			((QProgressBar *)progress)->setValue(++i);
+}
+
+QString pki_key::getTypeString()
+{
+	QString type;
+	switch (key->type) {
+		case EVP_PKEY_RSA:
+			type = "RSA";
+			break;
+		case EVP_PKEY_DSA:
+			type = "DSA";
+			break;
+		default:
+			type = "---";
+	}
+	return type;
 }
 
 QString pki_key::getIntNameWithType()
@@ -98,9 +116,8 @@ QString pki_key::getIntNameWithType()
 		default:
 			postfix = " (---)";
 	}
-	return getIntName() + postfix;
+	return getIntName() + " (" + getTypeString() + ")";
 }
-
 QString pki_key::removeTypeFromIntName(QString n)
 {
 	if (n.right(1) != ")" ) return n;
@@ -123,32 +140,28 @@ void pki_key::setOwnPass(int x)
 	encryptKey();
 }
 
-void pki_key::generate(int bits, int type)
+void pki_key::generate(int bits, int type, QProgressBar *progress)
 {
 	RSA *rsakey = NULL;
 	DSA *dsakey = NULL;
-	QProgressDialog *progress = new QProgressDialog(
-		qApp->tr("Please wait, Key generation is in progress"),
-		qApp->tr("Cancel"),90, 0, 0, true);
-	progress->setMinimumDuration(0);
-	progress->setProgress(0);   
-	progress->setCaption(XCA_TITLE);
+	
+	progress->setMinimum(0);
+	progress->setMaximum(100);
+	progress->setValue(50);   
 	
 	if (type == EVP_PKEY_RSA) {
 		rsakey = RSA_generate_key(bits, 0x10001, &incProgress, progress);
 		if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
 	} else if (type == EVP_PKEY_DSA) {
-		progress->setTotalSteps(250);
+		progress->setMaximum(500);
  		dsakey = DSA_generate_parameters(bits,NULL,0,NULL,NULL,&incProgress, progress);
 		DSA_generate_key(dsakey);
 		if(dsakey) EVP_PKEY_set1_DSA(key,dsakey);
 	}
-	
-	progress->cancel();
-	delete progress;
-				 
 	openssl_error();
 	encryptKey();
+	
+	printf("encryption  DONE\n");				
 }
 
 pki_key::pki_key(const pki_key *pk) 
@@ -195,16 +208,15 @@ pki_key::pki_key(EVP_PKEY *pkey)
 
 void pki_key::fload(const QString fname)
 { 
-	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key.")
+	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password to decrypt the private key.")
 		+ "\n'" + fname + "'"); 
-	pem_password_cb *cb = &MainWindow::passRead;
-	FILE *fp = fopen(fname.latin1(), "r");
+	pem_password_cb *cb = MainWindow::passRead;
+	FILE *fp = fopen(CCHAR(fname), "r");
 	EVP_PKEY *pkey = NULL;
 	bool priv = true;
 	
 	if (fp != NULL) {
 		pkey = PEM_read_PrivateKey(fp, NULL, cb, &p);
-
 		if (!pkey) {
 			ign_openssl_error();
 			rewind(fp);
@@ -232,41 +244,39 @@ void pki_key::fload(const QString fname)
 		}
 		
 		openssl_error();
-	}	
-	else fopen_error(fname);
+	} else
+		fopen_error(fname);
+	
 	fclose(fp);
 }
 
-void pki_key::fromData(const unsigned char *p, int size )
+void pki_key::fromData(const unsigned char *p, db_header_t *head )
 {
 	const unsigned char *p1;
-	int version, type;
-	
+	int version, type, size;
+
 	p1 = p;
-	
-	version = intFromData(&p1);
-	if (version != 1) { // backward compatibility
-		oldFromData(p, size);
-		return;
-	}
+	size = head->len - sizeof(db_header_t);
+	version = head->version;
+
 	if (key)
 		EVP_PKEY_free(key);
-	
+
 	key = NULL;
-	type = intFromData(&p1);
-	ownPass = intFromData(&p1);
-	
+	type = db::intFromData(&p1);
+	ownPass = db::intFromData(&p1);
 	D2I_CLASHT(d2i_PublicKey, type, &key, &p1, size - (2*sizeof(int)));
 	openssl_error(); 
-	
+
 	encKey_len = size - (p1-p); 
 	if (encKey_len) {
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
 		memcpy(encKey, p1 ,encKey_len);
 	}
+	printf("from data: size=%d, encKey_len=%d\n", size, encKey_len);
 	
 }
-
+#if 0
 void pki_key::oldFromData(const unsigned char *p, int size )
 {
 	unsigned char *sik, *pdec;
@@ -317,7 +327,7 @@ void pki_key::oldFromData(const unsigned char *p, int size )
 	openssl_error();
 	encryptKey();
 }
-
+#endif
 EVP_PKEY *pki_key::decryptKey()
 {
 	unsigned char *p;
@@ -331,9 +341,9 @@ EVP_PKEY *pki_key::decryptKey()
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	char ownPassBuf[MAX_PASS_LENGTH];
 	
-	/* This key has its  own password */
+	/* This key has its own password */
 	if (ownPass == 1) {
-		pass_info pi(XCA_TITLE, tr("Please enter the password to decrypt the private key: '" + getIntName() + "'"));
+		pass_info pi(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password to decrypt the private key: '") + getIntName() + "'");
 		MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
 	}
 	else {
@@ -359,6 +369,7 @@ EVP_PKEY *pki_key::decryptKey()
 	decsize = outl;
 	EVP_DecryptFinal( &ctx, encKey + decsize , &outl );
 	decsize += outl;
+	printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey_len);
 	openssl_error();
 	tmpkey = D2I_CLASHT(d2i_PrivateKey, key->type, NULL, &p1, decsize);
 	OPENSSL_free(p);
@@ -373,18 +384,19 @@ unsigned char *pki_key::toData(int *size)
 	int pubsize;
 	
 	pubsize = i2d_PublicKey(key, NULL);
-	*size = pubsize + encKey_len + (3*sizeof(int));
+	*size = pubsize + encKey_len + (2*sizeof(int));
 	p = (unsigned char *)OPENSSL_malloc(*size);
 	openssl_error();
 	p1 = p;
-	intToData(&p1, 1);
-	intToData(&p1, key->type);
-	intToData(&p1, ownPass);
+	db::intToData(&p1, key->type);
+	db::intToData(&p1, ownPass);
 	i2d_PublicKey(key, &p1);
 	openssl_error();
 	if (encKey_len) {
 		memcpy(p1, encKey, encKey_len);
 	}
+	printf("To data: pubsize=%d, encKey_len: %d, *size=%d\n", 
+			pubsize, encKey_len, *size);
 	return p;
 }
 
@@ -401,7 +413,7 @@ void pki_key::encryptKey()
 
 	/* This key has its own, private password ? */
 	if (ownPass == 1) {
-		pass_info p(XCA_TITLE, tr("Please enter the password to protect the private key: '" + getIntName() + "'"));
+		pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password to protect the private key: '") + getIntName() + "'");
 		MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
 	}
 	else {
@@ -459,6 +471,7 @@ void pki_key::encryptKey()
 	
 	//CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 	
+	printf("Encrypt: encKey_len=%d\n", encKey_len);
 	return;
 }
 
@@ -476,8 +489,8 @@ pki_key::~pki_key()
 void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
 {
 	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key"));
-	FILE *fp = fopen(fname.latin1(),"w");
+	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password protecting the PKCS#8 key"));
+	FILE *fp = fopen(fname.toAscii(),"w");
 	if (fp != NULL) {
 		if (key){
 			pkey = decryptKey();
@@ -507,13 +520,13 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool PEM)
 {
 	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key"));
+	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the export password for the private key"));
 	if (isPubKey()) {
 		writePublic(fname, PEM);
 		return;
 	}
-	FILE *fp = fopen(fname.latin1(), "w");
-	if (fp != NULL) {
+	FILE *fp = fopen(CCHAR(fname), "w");
+	if (!fp) {
 		fopen_error(fname);
 		return;
 	}
@@ -532,7 +545,7 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 
 void pki_key::writePublic(const QString fname, bool PEM)
 {
-	FILE *fp = fopen(fname.latin1(),"w");
+	FILE *fp = fopen(fname.toAscii(),"w");
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;
@@ -661,13 +674,13 @@ int pki_key::getType()
 int pki_key::incUcount()
 {
 	ucount++;
-	updateView();
+//	updateView();
 	return ucount;
 }
 int pki_key::decUcount()
 {
 	ucount--;
-	updateView();
+//	updateView();
 	return ucount;
 }
 
@@ -685,7 +698,7 @@ const EVP_MD *pki_key::getDefaultMD(){
 	}
 	return md;
 }	
-
+#if 0
 void pki_key::updateView()
 {
 	QString type_str = "";
@@ -706,5 +719,26 @@ void pki_key::updateView()
 	pointer->setText(2, QString::number(getUcount()));
 	pointer->setText(3, type_str);
 }
+#endif
 
+QVariant pki_key::column_data(int col)
+{
+	switch (col) {
+		case 0:
+			return QVariant(getIntName());
+		case 1:
+			return QVariant(getTypeString());
+		case 2:
+			return QVariant(length());
+		case 3:
+			return QVariant(getUcount());
+	}
+	return QVariant();
+}
+
+QVariant pki_key::getIcon()
+{
+	int pixnum= isPubKey() ? 1 : 0;
+	return QVariant(*icon[pixnum]);
+}
 

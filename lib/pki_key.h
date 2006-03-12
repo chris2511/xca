@@ -51,7 +51,8 @@
 #ifndef PKI_KEY_H
 #define PKI_KEY_H
 
-#include <qstring.h>
+#include <Qt/qstring.h>
+#include <Qt/qprogressbar.h>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
 #include <openssl/pem.h>
@@ -79,7 +80,7 @@ class pki_key: public pki_base
 	static QPixmap *icon[2];
 	static char passwd[MAX_PASS_LENGTH];
 	static void erasePasswd();
-	void generate(int bits, int type = EVP_PKEY_RSA);
+	void generate(int bits, int type, QProgressBar *progress);
 	void setOwnPass(int x);
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
@@ -88,12 +89,12 @@ class pki_key: public pki_base
 	/* destructor */
 	~pki_key();
 	
-	QString getIntNameWithType();
+	QString pki_key::getTypeString(void);
+	QString getIntNameWithType(void);
 	static QString removeTypeFromIntName(QString n);
 	void fload(const QString fname);
 	void writeDefault(const QString fname);
-	void fromData(const unsigned char *p, int size);
-	void oldFromData(const unsigned char *p, int size);
+	void fromData(const unsigned char *p, db_header_t *head);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
         QString length();
@@ -113,8 +114,9 @@ class pki_key: public pki_base
 	int incUcount();
 	int decUcount();
 	int getUcount();
-	void updateView();
 	const EVP_MD *getDefaultMD();
+	QVariant column_data(int col);
+	QVariant getIcon();
 };
 
 #endif

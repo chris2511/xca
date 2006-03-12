@@ -48,13 +48,15 @@
  *
  */                           
 
-#include <qstring.h>
+#include <Qt/qstring.h>
+#include <Qt/qwidget.h>
 #include "pass_info.h"
 
-pass_info::pass_info(QString t, QString d)
+pass_info::pass_info(QString t, QString d, QWidget *w)
 { 
 	title=t;
 	description=d;
+	widget=w;
 }
 
 QString pass_info::getTitle()
@@ -67,6 +69,11 @@ QString pass_info::getDescription()
 	return description;
 }
 
+QWidget *pass_info::getWidget()
+{
+	return widget;
+}
+
 void pass_info::setTitle(QString t)
 {
 	title = t;
@@ -76,4 +83,7 @@ void pass_info::setDescription(QString d)
 {
 	description = d;
 }
-
+void pass_info::setWidget(QWidget *w)
+{
+	widget = w;
+}

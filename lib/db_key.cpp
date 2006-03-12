@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,16 +49,24 @@
 
 
 #include "db_key.h"
-#include <qmessagebox.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qprogressbar.h>
+#include <Qt/qstatusbar.h>
+#include <Qt/QContextMenuEvent>
 #include "exception.h"
+#include "ui/NewKey.h"
 
-#define FOR_container for (pki_key *pki = (pki_key *)container.first(); \
-                        pki != 0; pki = (pki_key *)container.next() ) 
-			
+#include "widgets/MainWindow.h"
+#include "widgets/ExportKey.h"
+#include "widgets/KeyDetail.h"
 
-db_key::db_key(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi)
-	:db_base(dbe, DBfile, "keydb",tid, lvi)
+db_key::db_key(QString db, MainWindow *mw)
+	:db_base(db, mw)
 {
+	delete rootItem;
+	rootItem = newPKI();
+	headertext << "Name" << "Type" << "Size" << "Use counter";
+	delete_txt = tr("Delete the key(s)");
 	loadContainer();
 }
 
@@ -73,7 +79,7 @@ QStringList db_key::getPrivateDesc()
 {
 	QStringList x;
 	x.clear();
-	FOR_container
+	FOR_ALL_pki(pki, pki_key)
 		if (pki->isPrivKey())
 			x.append(pki->getIntName());	
 	return x;
@@ -83,7 +89,7 @@ QStringList db_key::get0PrivateDesc()
 {
 	QStringList x;
 	x.clear();
-	FOR_container
+	FOR_ALL_pki(pki, pki_key)
 		if (pki->isPrivKey() && pki->getUcount() == 0) 
 			x.append(pki->getIntNameWithType());	
 	return x;
@@ -121,8 +127,9 @@ pki_base* db_key::insert(pki_base *item)
 			tr("The database already contains the public part of the imported key as") +":\n'" +
 			oldkey->getIntName() +
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
-			deletePKI(oldkey);
 			lkey->setIntName(oldkey->getIntName());
+			QModelIndex idx = index(oldkey->row(), 0, QModelIndex());
+			deletePKI(idx);
 		}
 	}
 	insertPKI(lkey);
@@ -130,4 +137,138 @@ pki_base* db_key::insert(pki_base *item)
 	return lkey;
 }
 
-#undef FOR_container
+
+void db_key::newItem()
+{
+	const int sizeList[] = { 512, 1024, 2048, 4096, 0 };
+
+	QDialog *dlg = new QDialog(qApp->activeWindow());
+	Ui::NewKey ui;
+	ui.setupUi(dlg);
+	QProgressBar *bar = new QProgressBar();
+	QStatusBar *status = mainwin->statusBar();
+	
+	pki_key *nkey = NULL;
+	QString x;
+	int keytypes[] = {EVP_PKEY_RSA, EVP_PKEY_DSA };
+	ui.keyLength->setEditable(true);	
+	for (int i=0; sizeList[i] != 0; i++ ) {
+		ui.keyLength->addItem( x.number(sizeList[i]) +" bit");	
+	}
+	ui.keyLength->setCurrentIndex(1);
+	ui.keyDesc->setFocus();
+#if 0	
+	ui.image->setPixmap(*MainWindow::keyImg);
+#endif
+	if (dlg->exec()) {
+		db mydb(dbName);
+		
+		QString ksizes = ui.keyLength->currentText();
+		ksizes.replace( QRegExp("[^0-9]"), "" );
+		int ksize = ksizes.toInt();
+		if (ksize < 32) throw errorEx(tr("Key size too small !"));
+		if (ksize < 512 || ksize > 4096)
+			if (!QMessageBox::warning(NULL, XCA_TITLE, tr("You are sure to create a key of the size: ")
+				+QString::number(ksize) + " ?", tr("Cancel"), tr("Create") ))
+					return;
+		
+		nkey = new pki_key(ui.keyDesc->text());
+		
+		QString m = status->currentMessage();
+		status->clearMessage();
+		status->addPermanentWidget(bar,1);
+		nkey->generate(ksize, keytypes[ui.keyType->currentIndex()], bar );
+		status->removeWidget(bar);
+		delete bar;
+		status->showMessage(m);
+		insert(nkey);
+		
+		emit keyDone(nkey);
+	}
+	delete dlg;
+}
+
+void db_key::load(void)
+{
+	load_key l;
+	load_default(l);
+}
+
+void db_key::showItem(QModelIndex &index)
+{
+	pki_key *key = static_cast<pki_key*>(index.internalPointer());
+	KeyDetail *dlg;
+	
+	dlg = new KeyDetail(mainwin);
+	if (dlg) {
+		dlg->setKey(key);
+		dlg->exec();
+		delete dlg;
+	}
+}
+
+void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
+{
+	QMenu *menu = new QMenu(mainwin);
+	
+	if (index == QModelIndex()) {
+		menu->addAction(tr("New Key"), this, SLOT(newItem()));
+		menu->addAction(tr("Import"), this, SLOT(load()));
+	}
+	else {
+		menu->addAction(tr("Show Details"), this, SLOT(showItem(index)));
+		menu->addAction(tr("Export"), this, SLOT(store(index)));
+		menu->addAction(tr("Delete"), this, SLOT(deletePKI(index)));
+		menu->addAction(tr("Change password"), this, SLOT(setOwnPass(index)));
+		menu->addAction(tr("Reset password"), this, SLOT(resetOwnPass()));
+	}
+	menu->exec(e->globalPos());
+	delete menu;
+	return;
+}
+
+void db_key::store(QModelIndex &index)
+{
+	bool PEM = false;
+	const EVP_CIPHER *enc = NULL;
+	
+	if (!index.isValid())
+		return;
+	
+	pki_key *targetKey = static_cast<pki_key*>(index.internalPointer());
+	QString fn = targetKey->getIntName() + ".pem";
+	
+	ExportKey *dlg = new ExportKey(mainwin, fn,
+			targetKey->isPubKey(), mainwin->getPath() );
+	//dlg->image->setPixmap(*MainWindow::keyImg);
+	
+	if (!dlg->exec()) {
+		delete dlg;
+		return;
+	}
+	mainwin->setPath(dlg->dirPath);
+	QString fname = dlg->filename->text();
+	if (fname.isEmpty()) {
+		delete dlg;
+		return;
+	}
+	try {
+		if (dlg->exportFormat->currentText() == "PEM") PEM = true;
+		if (dlg->exportFormat->currentText() == "PKCS#8")
+			targetKey->writePKCS8(fname, &MainWindow::passWrite);
+		else if (dlg->exportPrivate->isChecked()) {
+			if (dlg->encryptKey->isChecked())
+				enc = EVP_des_ede3_cbc();
+			targetKey->writeKey(fname, enc, &MainWindow::passWrite, PEM);
+		}
+		else {
+			targetKey->writePublic(fname, PEM);
+		}
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);	
+	}
+	delete dlg;
+
+}
+

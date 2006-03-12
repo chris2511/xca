@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -52,18 +50,37 @@
 
 #include "pki_base.h"
 #include "exception.h"
-
+#include <QtCore/QString>
 
 int pki_base::pki_counter = 0;
 
-pki_base::pki_base(const QString name)
+pki_base::pki_base(const QString name, pki_base *p)
 {
+	TRACE
 	desc = name;
 	class_name = "pki_base";
-	pointer = NULL;
+	parent = p;
 	pki_counter++;
+	childItems.clear();
+	dataVersion=0;
+	pkiType=none;
+	cols=1;
 }
 
+int pki_base::getVersion()
+{
+	TRACE
+	return dataVersion;
+}
+
+enum pki_type pki_base::getType()
+{
+	TRACE
+	return pkiType;
+}
+
+#if 0 
+// FIXME: remove if unneeded
 void pki_base::fload(const QString fname)
 {
 }
@@ -71,35 +88,43 @@ void pki_base::fload(const QString fname)
 void pki_base::writeDefault(const QString fname)
 {
 }
+#endif
 
 pki_base::~pki_base(void)
 {
+	TRACE
 	pki_counter--;
 }
 
 
 QString pki_base::getIntName() const
 {
+	TRACE
 	return desc;
 }
 
 int pki_base::get_pki_counter()
 {
+	TRACE
 	return pki_counter;
 }
 
 QString pki_base::getClassName()
 {
-	return class_name;
+	TRACE
+	QString x = class_name;
+	return x;
 }
 
 void pki_base::setIntName(const QString &d)
 {
-	desc = d.latin1();
+	TRACE
+	desc = d;
 }
 
 void pki_base::fopen_error(const QString fname)
 {
+	TRACE
 	QString txt = "Error opening file: '" + fname + "'";
 	openssl_error(txt);
 }
@@ -107,14 +132,16 @@ void pki_base::fopen_error(const QString fname)
 
 void pki_base::openssl_error(const QString myerr)  const
 {
+	TRACE
 	QString errtxt = "";
 	QString error = "";
 	if (myerr != "") {
 		error += myerr + "\n";
 	}
 	while (int i = ERR_get_error() ) {
-	   errtxt = ERR_error_string(i ,NULL);
-	   error += errtxt + "\n";
+		errtxt = ERR_error_string(i ,NULL);
+		printf("OpenSSL error: %s\n", ERR_error_string(i ,NULL) );
+		error += errtxt + "\n";
 	}
 	if (!error.isEmpty()) {
 		throw errorEx(error, class_name);
@@ -124,79 +151,33 @@ void pki_base::openssl_error(const QString myerr)  const
 
 bool pki_base::ign_openssl_error() const 
 {
+	TRACE
 	// ignore openssl errors
 	QString errtxt;
 	while (int i = ERR_get_error() ) {
 	   errtxt = ERR_error_string(i ,NULL);
-	   //fprintf(stderr,"IGNORED: %s\n",errtxt.latin1());
+	   fprintf(stderr,"IGNORED: %s\n", CCHAR(errtxt));
 	}
 	return !errtxt.isEmpty();
 }
 
-int pki_base::intToData(unsigned char **p, int val)
-{
-	int s = sizeof(int);
-	memcpy(*p, &val, s);
-	*p += s;
-	return s;
-}
-
-int pki_base::intFromData(const unsigned char **p)
-{
-	int s = sizeof(int);
-	int ret;
-	memcpy(&ret, *p, s);
-	*p += s;
-	return ret;
-}
-
-int pki_base::boolToData(unsigned char **p, bool val)
-{
-	int s = sizeof(bool);
-	memcpy(*p, &val, s);
-	*p += s;
-	return s;
-}
-
-bool pki_base::boolFromData(const unsigned char **p)
-{
-	int s = sizeof(bool);
-	bool ret;
-	memcpy(&ret, *p, s);
-	*p += s;
-	return ret;
-}
-
-int pki_base::stringToData(unsigned char **p, const QString val)
-{
-	int s = (val.length() +1) * sizeof(char);
-	memcpy(*p, val.latin1(), s);
-	*p += s;
-	return s;
-}
-
-QString pki_base::stringFromData(const unsigned char **p)
-{
-	QString ret="";
-	while(**p) {
-		ret +=(char)**p;
-		*p += sizeof(char);
-	}
-	*p += sizeof(char);
-	return ret;
-}
-
 QString pki_base::rmslashdot(const QString &s)
 {
-	int r = s.findRev('.');
+	TRACE
+	QByteArray a = s.toAscii();
+	int r = a.lastIndexOf('.');
 #ifdef WIN32
-	int l = s.findRev('\\');
+	int l = a.lastIndexOf('\\');
 #else
-	int l = s.findRev('/');
+	int l = a.lastIndexOf('/');
 #endif
-        return s.mid(l+1,r-l-1);
+	printf("r=%d, l=%d, s='%s', mid='%s'\n",r,l,(const char*)a,
+			CCHAR(s.mid(l+1,r-l-1)));
+	return s.mid(l+1,r-l-1);
 }							       
 
+#if 0
+// FIXME: remove if unneeded
 void pki_base::updateView()
 {
 	if (pointer == NULL) return;
@@ -205,4 +186,82 @@ void pki_base::updateView()
 #endif
 	pointer->setText(0, getIntName());
 }
+#endif
 
+pki_base *pki_base::getParent()
+{
+	TRACE
+	return parent;
+}
+
+void pki_base::setParent(pki_base *p)
+{
+	TRACE
+	parent = p;
+}
+
+pki_base *pki_base::child(int row)
+{
+	TRACE
+	return childItems.value(row);
+}
+
+void pki_base::append(pki_base *item)
+{
+	TRACE
+	childItems.append(item);
+}
+
+int pki_base::childCount()
+{
+	TRACE
+	return childItems.count();
+}
+
+int pki_base::row(void) const
+{
+	TRACE
+	if (parent)
+		return parent->childItems.indexOf(const_cast<pki_base*>(this));
+	return 0;
+}
+
+pki_base *pki_base::iterate(pki_base *pki)
+{
+	TRACE
+	if (pki == NULL)
+		pki = (childItems.isEmpty()) ? NULL : childItems.first();
+	else
+		pki = childItems.value(pki->row()+1);
+	if (pki)
+		return pki;
+	if (!parent)
+		return NULL;
+	return parent->iterate(this);
+}
+
+void pki_base::freeChild(pki_base *pki)
+{
+	TRACE
+	printf("Rows1: %d, delete row %d \n", childCount(), pki->row());
+	childItems.takeAt(pki->row());
+	delete pki;
+	printf("Rows2: %d\n", childCount());
+}
+
+int pki_base::columns(void)
+{
+	TRACE
+	return cols;
+}
+
+QVariant pki_base::column_data(int col)
+{
+	TRACE
+	return QVariant("invalid");
+}
+QVariant pki_base::getIcon()
+{
+	TRACE
+	return QVariant();
+}

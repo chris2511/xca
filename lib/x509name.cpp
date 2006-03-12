@@ -188,7 +188,7 @@ int x509name::entryCount() const
 
 int x509name::getNidByName(const QString &nid_name)
 {
- 	return OBJ_txt2nid((char*)nid_name.latin1());
+ 	return OBJ_txt2nid(nid_name.toAscii());
 }
 
 static int fix_data(int nid, int *type)
@@ -213,13 +213,13 @@ void x509name::addEntryByNid(int nid, const QString entry)
 	// check for a UNICODE-String.
 	bool need_uc=false;
 
-	for (unsigned i=0;i<entry.length();i++)
+	for (int i=0;i<entry.length();i++)
 		if(entry.at(i).unicode()>127) { need_uc=true; break; }
 
 	if (need_uc) {
 		unsigned char *data = (unsigned char *)OPENSSL_malloc(entry.length()*2);
 
-		for (unsigned i=0;i<entry.length();i++) {
+		for (int i=0;i<entry.length();i++) {
 			data[2*i] = entry.at(i).unicode() >> 8;
 			data[2*i+1] = entry.at(i).unicode() & 0xff;
 		}
@@ -229,13 +229,13 @@ void x509name::addEntryByNid(int nid, const QString entry)
 		OPENSSL_free(data);
 	}
 	else {
-		int type=ASN1_PRINTABLE_type((unsigned char *)entry.latin1(),-1);
+		const char *x = entry.toAscii();
+		int type = ASN1_PRINTABLE_type((const unsigned char*)x,-1);
 
 		if (fix_data(nid, &type) == 0)
 			return;
 
-		X509_NAME_add_entry_by_NID(xn, nid, type,
-					   (unsigned char*)entry.latin1(),-1,-1,0);
+		X509_NAME_add_entry_by_NID(xn, nid, type, (unsigned char*)x,-1,-1,0);
 	}
 }
 
@@ -254,7 +254,7 @@ void x509name::write_fp(FILE *fp) const
 	int cnt = entryCount();
 	for (int i=0; i<cnt; i++) {
 		QStringList sl = entryList(i);
-		fprintf(fp, "%s=%s\n",sl[0].latin1(), sl[2].latin1());
+		fprintf(fp, "%s=%s\n",sl[0].data(), sl[2].data());
 	}
 }
 
@@ -263,6 +263,6 @@ void x509name::read_fp(FILE *fp)
 	char buf[180];
 	QStringList sl;
 	QString line = fgets(buf, 180, fp);
-	sl.split('=', line),
-	addEntryByNid(OBJ_sn2nid(sl[0].latin1()), sl[1]);
+	sl = line.split('=');
+	addEntryByNid(OBJ_sn2nid(sl[0].toAscii()), sl[1]);
 }

@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,6 +49,7 @@
 
 #include "db_key.h"
 #include "pki_x509super.h"
+#include "widgets/MainWindow.h"
 
 #ifndef DB_X509SUPER_H
 #define DB_X509SUPER_H
@@ -59,13 +58,11 @@
 class db_x509super: public db_base
 {
 	Q_OBJECT
-    protected:
-	db_key *keylist;
+
     public:
-	db_x509super(DbEnv *dbe, QString DBfile, QString db, db_key *k, DbTxn *tid, XcaListView *lvi);
+	db_x509super(QString db, MainWindow *mw);
 	void preprocess();
 	pki_key *findKey(pki_x509super *ref);
-	void setKeyDb(db_key *kd);
 	void inToCont(pki_base *pki);
 		
     public slots:

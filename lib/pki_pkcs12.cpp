@@ -54,7 +54,7 @@
 #include "pass_info.h"
 #include "exception.h"
 #include <openssl/err.h>
-#include <qmessagebox.h>
+#include <Qt/qmessagebox.h>
 
 
 pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):

@@ -1,3 +1,7 @@
+
+//Added by the Qt porting tool:
+#include <QPixmap>
+
 /* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
@@ -52,7 +56,7 @@
 
 #include "pki_temp.h"
 #include "func.h"
-#include <qdir.h>
+#include <Qt/qdir.h>
 
 QPixmap *pki_temp::icon=  NULL;
 

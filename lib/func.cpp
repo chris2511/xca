@@ -52,13 +52,13 @@
 
 #include "func.h"
 #include "lib/asn1time.h"
-#include "widgets/validity.h"
-#include <qdir.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qmessagebox.h>
-#include <qapplication.h>
+//#include "widgets/validity.h"
+#include <Qt/qdir.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qapplication.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -69,6 +69,7 @@ QPixmap *loadImg(const char *name )
 {
 	QString path = getPrefix();
 	path += QDir::separator();
+	printf("Load image: '%s'\n", CCHAR(path + name));
 	return new QPixmap(path + name);
 }
 
@@ -239,14 +240,14 @@ QString getBaseDir()
 #ifdef BASEDIR
 	baseDir = BASEDIR;
 #else
-	baseDir = QDir::homeDirPath();
+	baseDir = QDir::homePath();
 	baseDir += QDir::separator();
-	baseDir += "xca";
+	baseDir += ".xca";
 #endif
 #endif
 	return baseDir;
 }
-
+#if 0
 void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na)
 {
 #define d_fac (60 * 60 * 24)
@@ -272,3 +273,5 @@ void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na)
     nb->setDate(a.now(), midnight);
     na->setDate(a.now(delta * d_fac), midnight* (-1));
 }
+#endif
+#warning set Date Time midnight

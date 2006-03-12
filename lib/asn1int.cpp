@@ -148,7 +148,7 @@ void a1int::openssl_error()  const
 a1int &a1int::setHex(const QString &s)
 {
 	BIGNUM *bn=0;
-	if (!BN_hex2bn(&bn,s.latin1()))
+	if (!BN_hex2bn(&bn,s.toAscii()))
 	  openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);
 	BN_free(bn);
@@ -158,7 +158,7 @@ a1int &a1int::setHex(const QString &s)
 a1int &a1int::setDec(const QString &s)
 {
 	BIGNUM *bn=0;
-	if (!BN_dec2bn(&bn,s.latin1()))
+	if (!BN_dec2bn(&bn,s.toAscii()))
 	  openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);
 	BN_free(bn);

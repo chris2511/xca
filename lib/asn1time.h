@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,7 +49,7 @@
 #ifndef ASN1TIME_H
 #define ASN1TIME_H
 
-#include <qstring.h>
+#include <Qt/qstring.h>
 #include <openssl/asn1.h>
 
 class a1time

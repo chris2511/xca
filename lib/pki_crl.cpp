@@ -1,3 +1,7 @@
+
+//Added by the Qt porting tool:
+#include <QPixmap>
+
 /* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
@@ -52,7 +56,7 @@
 
 #include "pki_crl.h"
 #include "widgets/MainWindow.h"
-#include <qdir.h>
+#include <Qt/qdir.h>
 
 QPixmap *pki_crl::icon = NULL;
 
@@ -291,7 +295,7 @@ QString pki_crl::printV3ext()
 void pki_crl::updateView()
 {
 	pki_base::updateView();
-	QListViewItem *c = getLvi();
+	Q3ListViewItem *c = getLvi();
 	if (!c) return;
 	c->setPixmap(0, *icon);
 	c->setText(0, getIntName());

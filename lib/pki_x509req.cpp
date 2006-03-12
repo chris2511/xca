@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  *
  *
@@ -57,7 +55,7 @@
 #include "exception.h"
 #include <openssl/bio.h>
 #include <openssl/err.h>
-#include <qdir.h>
+#include <Qt/qdir.h>
 
 QPixmap *pki_x509req::icon[3] = { NULL, NULL, NULL };
 
@@ -69,6 +67,9 @@ pki_x509req::pki_x509req(const QString name)
 	request = X509_REQ_new();
 	openssl_error();
 	spki = NULL;
+	dataVersion=1;
+	pkiType=x509_req;
+	cols=3;
 }
 
 pki_x509req::~pki_x509req()
@@ -117,7 +118,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 void pki_x509req::fload(const QString fname)
 {
 	// request file section
-	FILE *fp = fopen(fname.latin1(),"r");
+	FILE *fp = fopen(CCHAR(fname), "r");
 	X509_REQ *_req;
 	if (fp != NULL) {
 		_req = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
@@ -134,7 +135,7 @@ void pki_x509req::fload(const QString fname)
 			load_spkac(fname);
 			openssl_error();
 		}
-	}else
+	} else
 		fopen_error(fname);
 	fclose(fp);
 
@@ -149,13 +150,17 @@ void pki_x509req::fload(const QString fname)
 	}
 }
 
-void pki_x509req::fromData(const unsigned char *p, int size)
+void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
 {
 	const unsigned char *ps = p;
+	int version, size;
+
+	size = head->len - sizeof(db_header_t);
+	version = head->version;
+	
 	privkey = NULL;
 	request = D2I_CLASH(d2i_X509_REQ, &request, &ps, size);
 	openssl_error();
-	
 	if (ps - p < size)
 		spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &ps , size + p - ps); 
 	openssl_error();
@@ -184,9 +189,11 @@ unsigned char *pki_x509req::toData(int *size)
 {
 	unsigned char *p, *p1;
 	*size = i2d_X509_REQ(request, NULL);
+	printf("Size=%d\n", *size);
 	if (spki) {
 		*size += i2d_NETSCAPE_SPKI(spki, NULL);
 	}
+	printf("Size=%d\n", *size);
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
@@ -204,18 +211,18 @@ void pki_x509req::writeDefault(const QString fname)
 
 void pki_x509req::writeReq(const QString fname, bool PEM)
 {
-	FILE *fp = fopen(fname.latin1(),"w");
-	if (fp != NULL) {
-	   if (request){
-		if (PEM)
-		   PEM_write_X509_REQ(fp, request);
-		else
-		   i2d_X509_REQ_fp(fp, request);
-	       openssl_error();
-	   }
-	}
-	else fopen_error(fname);
-	fclose(fp);
+	FILE *fp = fopen(CCHAR(fname), "w");
+	if (fp) {
+		if (request){
+			if (PEM)
+				PEM_write_X509_REQ(fp, request);
+			else
+				i2d_X509_REQ_fp(fp, request);
+			fclose(fp);
+			openssl_error();
+		}
+	} else
+		fopen_error(fname);
 }
 
 bool pki_x509req::compare(pki_base *refreq)
@@ -242,7 +249,13 @@ int pki_x509req::verify()
 		x = NETSCAPE_SPKI_verify(spki, pkey) >= 0;
 	}
 	EVP_PKEY_free(pkey);
-	openssl_error();
+	try {
+		openssl_error();
+	}
+	catch (errorEx &err) {
+		if (!err.isEmpty())
+			printf("Error: %s\n", CCHAR(err.getString()));
+	}
 	return x;
 }
 
@@ -254,17 +267,6 @@ pki_key *pki_x509req::getPubKey() const
 	 pki_key *key = new pki_key(pkey);	
 	 openssl_error();
 	 return key;
-}
-
-void pki_x509req::updateView()
-{
-	pki_base::updateView();
-	if (! pointer) return;
-	int pixnum = 0;
-	if (getRefKey() != NULL ) pixnum = 1;
-	if (spki != NULL) pixnum = 2;
-	pointer->setPixmap(0, *icon[pixnum]);
-	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
 }
 
 QString pki_x509req::getSigAlg()
@@ -373,7 +375,7 @@ void pki_x509req::load_spkac(const QString filename)
 	bool spki_found =false;
 
 	try { // be aware of any exceptions
-		parms=CONF_load(NULL,filename.latin1(),&errline);
+		parms = CONF_load(NULL, CCHAR(filename),&errline);
 		if (parms == NULL)
 			openssl_error(QString("error on line %1 of %2\n")
 				      .arg(errline).arg(filename));
@@ -439,3 +441,22 @@ void pki_x509req::load_spkac(const QString filename)
 		throw e;
 		}
 }
+
+QVariant pki_x509req::column_data(int col)
+{
+	switch (col) {
+		case 0:
+			return QVariant(getIntName());
+		case 1:
+			return QVariant(getSubject().getEntryByNid(NID_commonName));
+	}
+	return QVariant();
+}
+QVariant pki_x509req::getIcon()
+{
+	int pixnum = 0;
+	if (getRefKey() != NULL ) pixnum = 1;
+	if (spki != NULL) pixnum = 2;
+	return QVariant(*icon[pixnum]);
+}
+

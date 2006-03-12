@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -52,15 +50,10 @@
 
 #include "db_base.h"
 #include "exception.h"
-#include "view/XcaListView.h"
-#include <qmessagebox.h>
-#include <qdir.h>
-#ifdef qt4
-#include <q3listview.h>
-#else
-#include <qlistview.h>
-#endif
-#include <qdir.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qdir.h>
+#include <Qt/qlistview.h>
+#include <Qt/qdir.h>
 #ifdef WIN32
 #include <direct.h>     // to define mkdir function
 #include <windows.h>    // to define mkdir function
@@ -69,389 +62,207 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif
+#include "widgets/MainWindow.h"
+//#include "widgets/ImportMulti.h"
 
 
-db_base::db_base(DbEnv *dbe, QString DBfile, QString DB, DbTxn *global_tid,
-	XcaListView *lvi) 
+db_base::db_base(QString db, MainWindow *mw) 
+	:QAbstractItemModel(NULL)
 {
-	listview = lvi;
-	dbenv = dbe;
-	data = new Db(dbe, 0);
-	dbName = DB;
-
-	try {
-#if DB_VERSION_MAJOR >= 4 && DB_VERSION_MINOR >=1	
-		data->open(NULL, DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
-#else
-		data->open(DBfile.latin1(), DB.latin1(), DB_BTREE, DB_CREATE, 0600); 
-#endif
-	}
-	catch (DbException &err) {
-		throw errorEx(err.what());
-	}
+	dbName = db;
+	rootItem = newPKI();
+	printf("New DB: %s\n", CCHAR(db));
+	headertext.clear();
+	mainwin = mw;
 }
-
 
 db_base::~db_base()
 {
-//	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
-//    fprintf(stderr, "close 1:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-	data->close(0);
-	container.setAutoDelete(true);
-	container.clear();
-//    fprintf(stderr, "close 2:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-//	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
+	FOR_ALL_pki(pki, pki_base)
+		rootItem->freeChild(pki);
+	delete rootItem;
 }
 
-void *db_base::getData(void *key, int length, int *dsize)
-{
-	*dsize = 0;
-	if ((key == NULL) || (length == 0) ) {
-		return NULL;
-	}
-	try {
-		void *p;
-		Dbt k(key, length);
-		Dbt d(NULL, 0);
-		if (data->get(NULL, &k, &d, 0)) return NULL;
-		p = d.get_data();
-		*dsize = d.get_size();
-		void *q = malloc(*dsize);
-		memcpy(q,p,*dsize);
-		return q;
-	}
-	catch (DbException &err) {
-		throw errorEx(err.what());
-	}
-	return NULL;
+pki_base *db_base::newPKI(){
+	return new pki_base("rootItem");
 }
 
-void *db_base::getData(QString key, int *dsize)
+void db_base::remFromCont(pki_base *ref)
 {
-	return getData((void *)key.latin1(), key.length()+ 1, dsize);
-}
-
-
-QString db_base::getString(QString key)
-{
-	QString x = "";
-	int dsize;
-	char *p = (char *)getData(key, &dsize);
-	if (p == NULL) {
-		return x;
-	}
-	if ( p[dsize-1] != '\0' ) {
-		return x;
-	}
-	x = p;
-	free(p);
-	if ( (int)x.length() != (dsize-1) ) {
-		// FIXME: Errorhandling...
-	}
-	return x;
-}
-
-
-QString db_base::getString(char *key)
-{
-	QString x = key;
-	return getString(x);
-}
-
-
-int db_base::getInt(QString key)
-{
-	QString x = getString(key);
-	return atoi(x.latin1());
-}
-
-
-void db_base::putData(void *key, int keylen, void *dat, int datalen, DbTxn *tid)
-{
-	
-	Dbt k(key, keylen);
-	Dbt d(dat, datalen);
-	try {
-		data->put(tid, &k, &d, 0 );
-	}
-	catch (DbException &err) {
-		throw errorEx(err.what());
-	}
-}
-
-void db_base::putString(QString key, void *dat, int datalen, DbTxn *tid)
-{
-	putData((void *)key.latin1(), key.length()+1, dat, datalen, tid);
-}
-
-void db_base::putString(QString key, QString dat, DbTxn *tid)
-{
-	putString(key, (void *)dat.latin1(), dat.length() +1, tid);
-}
-
-void db_base::putString(char *key, QString dat, DbTxn *tid)
-{
-	QString x = key;
-	putString(x, dat, tid);
-}
-
-void db_base::putInt(QString key, int dat, DbTxn *tid)
-{
-	char buf[100];
-	sprintf(buf,"%i",dat);
-	QString x = buf;
-	putString(key, x, tid);
 }
 
 void db_base::loadContainer()
 {
-//	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
-				
-	DbTxn *tid = NULL;
-	Dbc *cursor = NULL;
+	db mydb(dbName);
 	unsigned char *p;
-	try {
-		dbenv->txn_begin(NULL, &tid, 0);
-		data->cursor(tid, &cursor, 0);
-		Dbt *k = new Dbt();
-		Dbt *d = new Dbt();
-		QString desc;
-		pki_base *pki;
-		container.clear();
-		while (!cursor->get(k, d, DB_NEXT)) {
-			desc = (char *)k->get_data();
-			p = (unsigned char *)d->get_data();
-			int size = d->get_size();
-			try {	
-//    fprintf(stderr, "loadContainer 1:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-				pki = newPKI();
-//    fprintf(stderr, "loadContainer 2:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-				pki->setIntName(desc);
-//    fprintf(stderr, "loadContainer 3:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-				pki->fromData(p, size);
-//    fprintf(stderr, "loadContainer 4:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-				container.append(pki);
-			}
-			catch (errorEx &err) {
-				QMessageBox::warning(NULL,tr(XCA_TITLE),
-				       	tr("Error loading: '") + desc + "'\n" +
-						err.getCString());
-				delete pki;
-			}
+	db_header_t head;
+	
+	pki_base *pb, *pki;
+	pb = newPKI();
+	while ( mydb.find(pb->getType(), NULL) == 0 ) {
+		QString s;
+		p = mydb.load(&head);
+		if (!p) {
+			printf("Load was empty !\n");
+			break;
 		}
-		delete (k);
-		delete (d);
-		cursor->close();
-//    fprintf(stderr, "loadContainer 5:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-		preprocess();
-//    fprintf(stderr, "loadContainer 6:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-		tid->commit(0);
+		//printf("load item: %s\n",head.name);
+		if (pb->getVersion() < head.version) {
+			free(p);
+			printf("Item[%s]: Version %d > known version: %d -> ignored\n",
+					head.name, head.version, pb->getVersion() );
+			continue;
+		}
+		pki = newPKI();
+		s = head.name;
+		pki->setIntName(s);
+
+		pki->fromData(p, &head);
+		inToCont(pki);
+		if (mydb.next() != 0)
+			break;
 	}
-	catch (DbException &err) {
-		tid->abort();
-		throw errorEx(err.what());
-	}
-//    fprintf(stderr, "loadContainer 7:\n" );
-//	CRYPTO_mem_leaks_fp(stderr);
-//	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
-}	
+	delete pb;
+}
 
 void db_base::insertPKI(pki_base *pki)
 {
-	DbTxn *tid = NULL;
-	dbenv->txn_begin(NULL, &tid, 0);
-	try {
-		_writePKI(pki, false, tid);
-		inToCont(pki);
-		tid->commit(0);
-	}
-	catch (DbException &err) {
-		tid->abort();
-		throw errorEx(err.what());
-	}
-	if (listview) {
-		
-		QListViewItem *lvi = new QListViewItem((QListView *)listview, pki->getIntName());
-        listview->insertItem(lvi);
-        pki->setLvi(lvi);
-        pki->updateView();
-	}
-}
+	unsigned char *p;
+	int size;
+	QString name;
+	db mydb(dbName);
 	
-void db_base::_writePKI(pki_base *pki, bool overwrite, DbTxn *tid) 
-{
-	int flags = 0;
-	if (!overwrite) flags = DB_NOOVERWRITE;
-	QString desc = pki->getIntName();
-	if (desc.isEmpty()) {
-		desc="unnamed";
-	}
-	QString orig = desc;
-	int size=0;
-	char field[10];
-	unsigned char *p = pki->toData(&size);
-	int cnt=0;
-	int x = DB_KEYEXIST;
+	p = pki->toData(&size);
 	
-	try {
-		while (x == DB_KEYEXIST) {
-			Dbt k((void *)desc.latin1(), desc.length() + 1);
-			Dbt d((void *)p, size);
-			if ((x = data->put(tid, &k, &d, flags ))!=0) {
-				sprintf(field,"%02i", ++cnt);
-				QString z = field;
-		   		desc = orig + "_" + z ;
-			}
-		}
-		pki->setIntName(desc);
-		pki->updateView();
-	}
-	catch (DbException &err) {
-		if (p)
-			OPENSSL_free(p);
-		throw errorEx(err.what(), "_writePKI");
-	}
-	if (p)
+	if (p) {
+		name = mydb.uniq_name(pki->getIntName(), pki->getType());
+		pki->setIntName(name);
+		mydb.add(p, size, pki->getVersion(), pki->getType(), name.toAscii());
 		OPENSSL_free(p);
-}
-
-
-void db_base::_removePKI(pki_base *pki, DbTxn *tid) 
-{
-	QString desc = pki->getIntName();
-	removeItem(desc, tid);
-}	
-
-void db_base::removeItem(QString key, DbTxn *tid) 
-{
-	Dbt k((void *)key.latin1(), key.length() + 1);
-	data->del(tid, &k, 0);
-}
-
-
-void db_base::deletePKI(pki_base *pki)
-{
-	DbTxn *tid = NULL;
-	try {
-		dbenv->txn_begin(NULL, &tid, 0);
-		_removePKI(pki, tid);
-		remFromCont(pki);
-		tid->commit(0);
-		delete(pki);
 	}
-	catch (DbException &err) {
-		tid->abort();
-		throw errorEx(err.what());
-	}
+	inToCont(pki);
 }
-
-void db_base::renamePKI(pki_base *pki, QString desc)
+	
+void db_base::deletePKI(QModelIndex &index)
 {
-	QString oldname = pki->getIntName();
-	DbTxn *tid = NULL;
-	try {
-		dbenv->txn_begin(NULL, &tid, 0);
-		_removePKI(pki, tid);
-		pki->setIntName(desc);
-		_writePKI(pki, false, tid);
-		tid->commit(0);
-	}
-	catch (DbException &err) {
-		tid->abort();
-		throw errorEx(err.what(), "rename PKI");
-	}
+	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+	int row = pki->row();
+	
+	printf("Deleting item: %s\n", CCHAR(pki->getIntName()));
+	
+	beginRemoveRows(parent(index), row, row);
+	
+	db mydb(dbName);
+	mydb.find(pki->getType(), CCHAR(pki->getIntName()));
+	mydb.erase();
+	remFromCont(pki);
+	pki->getParent()->freeChild(pki);
+	
+	endRemoveRows();
 }
 
-void db_base::remFromCont(pki_base *pki)
+void db_base::deleteSelectedItems(QAbstractItemView* view)
 {
-	container.remove(pki);
+	printf("Delete selected items\n");
+	QItemSelectionModel *selectionModel = view->selectionModel();
+	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndex index;
+	QString items;
+	
+	foreach(index, indexes) {
+		if (index.column() != 0)
+			continue;
+		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+		items += "'" + pki->getIntName() + "' ";
+	}
+	
+	if (QMessageBox::information(mainwin, tr(XCA_TITLE),
+				delete_txt + ": " + items + " ?\n" ,
+				tr("Delete"), tr("Cancel"))
+        ) return;
+	
+	foreach(index, indexes) {
+		if (index.column() != 0)
+			continue;
+		deletePKI(index);
+	}
 }
 
+void db_base::showSelectedItems(QAbstractItemView* view)
+{
+	QItemSelectionModel *selectionModel = view->selectionModel();
+	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndex index;
+	QString items;
+	
+	foreach(index, indexes) {
+		if (index.column() != 0)
+			continue;
+		showItem(index);
+	}
+}
+
+void db_base::storeSelectedItems(QAbstractItemView* view)
+{
+	QItemSelectionModel *selectionModel = view->selectionModel();
+	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndex index;
+	QString items;
+	
+	foreach(index, indexes) {
+		if (index.column() != 0)
+			continue;
+		try {
+			store(index);
+		} catch (errorEx &err) {
+			MainWindow::Error(err);
+		}
+		
+	}
+}
 
 void db_base::inToCont(pki_base *pki)
 {
-	container.append(pki);
-}
+	static int i=0;
+	int row = rootItem->childCount()+1;
 
-void db_base::updatePKI(pki_base *pki) 
-{
-	DbTxn *tid = NULL;
-	dbenv->txn_begin(NULL, &tid, 0);
-	try {
-		_writePKI(pki, true, tid);
-		tid->commit(0);
-	}
-	catch (DbException &err) {
-		tid->abort();
-		throw errorEx(err.what(), "update PKI");
-	}
+	beginInsertRows(QModelIndex(), row, row);
+	rootItem->append(pki);
+	pki->setParent(rootItem);
+	endInsertRows();
+	printf("insertRow %d\n", ++i);
 }
 
 pki_base *db_base::getByName(QString desc)
 {
 	if (desc == "" ) return NULL;
-	pki_base *pki;
-        QListIterator<pki_base> it(container);
-        for ( ; it.current(); ++it ) {
-                pki = it.current();
-		if (pki->getIntName() == desc) return pki;
+	FOR_ALL_pki(pki, pki_base) {
+		if (pki->getIntName() == desc)
+			return pki;
 	}
 	return NULL;
 }
 
 pki_base *db_base::getByReference(pki_base *refpki)
 {
-	pki_base *pki;
-	if (refpki == 0) return NULL;
-        QListIterator<pki_base> it(container);
-        for ( ; it.current(); ++it ) {
-                pki = it.current();
-		if (refpki->compare(pki)) return pki;
+	if (refpki == NULL)
+		return NULL;
+	FOR_ALL_pki(pki, pki_base) {
+		if (refpki->compare(pki))
+			return pki;
 	}
 	return NULL;
 }
-
-pki_base *db_base::getByPtr(void *item)
-{
-	pki_base *pki;
-	if (item == NULL) return NULL;
-        QListIterator<pki_base> it(container);
-        for ( ; it.current(); ++it ) {
-                pki = it.current();
-		if (item == pki->getLvi()) return pki;
-	}
-	return NULL;
-}
-
 
 QStringList db_base::getDesc()
 {
-	pki_base *pki;
 	QStringList x;
 	x.clear();
-	for ( pki = container.first(); pki != 0; pki = container.next() ){
+	FOR_ALL_pki(pki, pki_base) {
 		x.append(pki->getIntName());	
 	}
 	return x;
 }
-
-
-
-QList<pki_base> db_base::getContainer()
-{
-	QList<pki_base> c;
-	c.clear();
-	c = container;
-	return c;
-}	
 
 pki_base *db_base::insert(pki_base *item)
 {
@@ -459,36 +270,170 @@ pki_base *db_base::insert(pki_base *item)
 	return item;
 }
 
-void db_base::writeAll(DbTxn *tid)
+void db_base::writeAll(void)
 {
-	bool tidwasnull = false;
-	if (tid == NULL) { 
-		tidwasnull = true;
-		dbenv->txn_begin(NULL, &tid, 0);
-	}
-	try {
-		for (pki_base *pki=container.first(); pki!=0; pki=container.next() ) 
-			_writePKI(pki, true, tid);
-	}
-	catch (DbException &err) {
-		tid->abort();
-		throw errorEx(err.what());
-	}
-	if (tidwasnull)
-		tid->commit(0);
 }
 
 void db_base::dump(QString dirname)
 {
-	pki_base *pki;
 	dirname += QDir::separator() + dbName;	
 	QDir d(dirname);
 	if ( ! d.exists() && !d.mkdir(dirname)) {
 		throw errorEx("Could not create directory '" + dirname + "'");
 	}
 
-	for ( pki = container.first(); pki != 0; pki = container.next() ){
+	FOR_ALL_pki(pki, pki_base) {
 		pki->writeDefault(dirname);	
 	}
+}
+
+QModelIndex db_base::index(int row, int column, const QModelIndex &parent)
+	                const
+{
+	pki_base *parentItem;
+
+	if (!parent.isValid())
+		parentItem = rootItem;
+	else
+		parentItem = static_cast<pki_base*>(parent.internalPointer());
+
+	pki_base *childItem = parentItem->child(row);
+	if (childItem)
+		return createIndex(row, column, childItem);
+	else
+		return QModelIndex();
+}
+
+QModelIndex db_base::parent(const QModelIndex &index) const
+{
+	if (!index.isValid())
+		return QModelIndex();
+
+	pki_base *childItem = static_cast<pki_base*>(index.internalPointer());
+	pki_base *parentItem = childItem->getParent();
+
+	if (parentItem == rootItem)
+		return QModelIndex();
+
+	return createIndex(parentItem->row(), 0, parentItem);
+}
+
+int db_base::rowCount(const QModelIndex &parent) const
+{
+	pki_base *parentItem;
+
+	if (!parent.isValid())
+		parentItem = rootItem;
+	else
+		parentItem = static_cast<pki_base*>(parent.internalPointer());
+
+	return parentItem->childCount();
+}
+
+int db_base::columnCount(const QModelIndex &parent) const
+{
+	pki_base *item;
+	if (parent.isValid())
+		item = static_cast<pki_base*>(parent.internalPointer());
+	else
+		item = rootItem;
+	
+	return item->columns();
+}
+
+QVariant db_base::data(const QModelIndex &index, int role) const
+{
+	if (!index.isValid())
+		return QVariant();
+
+	pki_base *item = static_cast<pki_base*>(index.internalPointer());
+	switch (role) {
+		case Qt::DisplayRole:
+			return item->column_data(index.column());
+		case Qt::DecorationRole:
+			if (!index.column())
+				return item->getIcon();
+	}
+	return QVariant();
+}
+
+QVariant db_base::headerData(int section, Qt::Orientation orientation,
+		int role) const
+{
+	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+		return headertext[section];
+
+	return QVariant();
+}
+
+Qt::ItemFlags db_base::flags(const QModelIndex &index) const
+{
+	if (!index.isValid())
+		return Qt::ItemIsEnabled;
+
+	if (index.column() == 0)
+		return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+	else
+		return QAbstractItemModel::flags(index);
+}
+
+bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+	//const char *n=NULL, *oldn=NULL;
+	QString on, nn;
+	pki_base *item;
+	if (index.isValid() && role == Qt::EditRole) {
+		//n = value.toString().toAscii().constData();
+		nn = value.toString();
+		//printf("New name: '%s', %p, %p\n", n, n, oldn);
+		db mydb(dbName);
+		item = static_cast<pki_base*>(index.internalPointer());
+		on = item->getIntName();
+		//printf("New name: '%s', old name: '%s' %p %p\n", n, oldn, n, oldn);
+		if (mydb.rename(item->getType(), CCHAR(on), CCHAR(nn)) == 0) {
+			printf("Rename Success !\n");
+			item->setIntName(nn);
+			emit dataChanged(index, index);
+			return true;
+		}
+	}
+	return false;
+}
+
+void db_base::load_default(load_base &load)
+{
+	QStringList slist;
+	
+	QFileDialog *dlg = new QFileDialog(mainwin);
+	
+	dlg->setWindowTitle(load.caption);
+	dlg->setFilters(load.filter);
+	dlg->setFileMode( QFileDialog::ExistingFiles );
+	dlg->setDirectory(mainwin->getPath());
+	if (dlg->exec()) {
+		slist = dlg->selectedFiles();
+		mainwin->setPath(dlg->directory().path());
+	}
+	delete dlg;
+
+	//ImportMulti *dlgi = NULL;
+	//dlgi = new ImportMulti(mainwin);
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		QString s = *it;
+		s = QDir::convertSeparators(s);
+		pki_base *item = NULL;
+		try {
+			item = load.loadItem(s);
+			//dlgi->addItem(item);
+		}
+		catch (errorEx &err) {
+			MainWindow::Error(err);
+			delete item;
+			return;
+		}
+		insert(item);
+	}
+	//dlgi->execute();
+	//delete dlgi;
 }
 

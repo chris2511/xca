@@ -5,18 +5,7 @@
 
 #define XCA_TITLE "X Certificate and Key management"
 
-#include <qglobal.h>
-
-#if QT_VERSION >= 0x030000
-#if QT_VERSION >= 0x040000
-#define qt4
-#define QListView Q3ListView
-#define QListViewItem Q3ListViewItem
-#define QListViewItemIterator Q3ListViewItemIterator
-#else
-#define qt3
-#endif
-#endif
+#include <Qt/qglobal.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -32,4 +21,8 @@
 #define D2I_CLASHT(f, t, a, PP, s) f(t,a,(unsigned char **)PP,s)
 #endif
 
+#define CCHAR(x) ((const char *)(x).toAscii().constData())
 #endif
+
+//#define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
+#define TRACE

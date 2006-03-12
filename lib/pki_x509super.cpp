@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -47,8 +45,6 @@
  * $Id$
  *
  */                           
-
-
 
 #include "pki_x509super.h"
 
@@ -68,7 +64,7 @@ pki_x509super::~pki_x509super()
 x509name pki_x509super::getSubject() const
 {
 	x509name x;
-	printf("ERROR VIRTUAL getSubject() %s\n", class_name.latin1());
+	printf("ERROR VIRTUAL getSubject() %s\n", class_name);
 	openssl_error();
 	return x;
 }
@@ -81,7 +77,7 @@ int pki_x509super::verify()
 
 pki_key *pki_x509super::getPubKey() const
 {
-	 printf("ERROR VIRTUAL getPubKey() %s\n", class_name.latin1());
+	 printf("ERROR VIRTUAL getPubKey() %s\n", class_name);
 	 return NULL;
 }
 
@@ -98,7 +94,7 @@ void pki_x509super::setRefKey(pki_key *ref)
 		// this is our key
 		privkey = ref;
 		ref->incUcount();
-		updateView();
+		//updateView();
 	}
 	delete mk;
 }
@@ -108,7 +104,7 @@ void pki_x509super::delRefKey(pki_key *ref)
 	if (ref != privkey || ref == NULL) return;
 	ref->decUcount();
 	privkey = NULL;
-	updateView();
+	//updateView();
 }
 
 void pki_x509super::autoIntName()

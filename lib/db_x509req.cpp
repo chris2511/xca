@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -52,12 +50,17 @@
 
 #include "db_x509req.h"
 #include "pki_x509req.h"
-#include <qmessagebox.h>
+#include "widgets/ReqDetail.h"
+#include <Qt/qmessagebox.h>
 
 
-db_x509req::db_x509req(DbEnv *dbe, QString DBfile, db_key *k, DbTxn *tid, XcaListView *lvi)
-	:db_x509super(dbe, DBfile, "reqdb", k, tid, lvi)
+db_x509req::db_x509req(QString DBfile, MainWindow *mw)
+	:db_x509super(DBfile, mw)
 {
+	delete rootItem;
+	rootItem = newPKI();
+	headertext << "Name" << "Subject" << "Serial" ;
+	delete_txt = tr("Delete the request(s)");
 	loadContainer();
 }
 
@@ -81,4 +84,66 @@ pki_base *db_x509req::insert(pki_base *item)
 	}
 	insertPKI(req);
 	return req;
+}
+
+void db_x509req::newItem()
+{
+	pki_x509req *req;
+	NewX509 *dlg = new NewX509(mainwin);
+	//emit connNewX509(dlg);
+
+//	if (temp) {
+//		dlg->defineTemplate(temp);
+//	}
+	dlg->setRequest();
+	if (! dlg->exec()){
+		delete dlg;
+		return;
+	}
+	try {
+		const EVP_MD *hashAlgo = dlg->getHashAlgo();
+		pki_key *key = dlg->getSelectedKey();
+		x509name xn = dlg->getX509name();
+		req = new pki_x509req();
+		
+		req->setIntName(dlg->description->text());
+		if (key->getType() == EVP_PKEY_DSA)
+			hashAlgo = EVP_dss1();
+		
+		req->createReq(key, xn, hashAlgo, dlg->getAllExt());
+		insert(req);
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+		delete req;
+	}
+}
+
+void db_x509req::load(void)
+{
+	load_req l;
+	load_default(l);
+}
+
+void db_x509req::showItem(QModelIndex &index)
+{
+	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	ReqDetail *dlg;
+	
+	dlg = new ReqDetail(mainwin);
+	if (dlg) {
+		dlg->setReq(req);
+		dlg->exec();
+		delete dlg;
+	}
+}
+
+void db_x509req::store(QModelIndex &index)
+{
+	if (!index.isValid())
+		return;
+	
+	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+
+	req->writeReq(req->getIntName(), true);
 }

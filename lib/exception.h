@@ -51,7 +51,7 @@
 #ifndef PKI_EXCEPTION_H
 #define PKI_EXCEPTION_H
 
-#include <qstring.h>
+#include <Qt/qstring.h>
 #include "base.h"
 
 class errorEx
@@ -66,7 +66,7 @@ class errorEx
 		}
 		errorEx(const errorEx &e) { msg = e.msg; }
 		QString getString() const {return msg;}
-		const char *getCString() const {return msg.latin1();}
+		const char *getCString() const {return msg.toAscii();}
 		bool isEmpty() const { return msg.isEmpty();}
 };
 

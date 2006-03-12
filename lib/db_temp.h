@@ -54,6 +54,9 @@
 
 #include "db_base.h"
 #include "pki_temp.h"
+#include <Qt/qobject.h>
+#include <Qt/qpixmap.h>
+
 
 
 class db_temp: public db_base
@@ -62,7 +65,7 @@ class db_temp: public db_base
     protected:
 	QPixmap *keyicon;
     public:
-	db_temp(DbEnv *dbe, QString DBfile, DbTxn *tid, XcaListView *lvi);
+	db_temp(QString DBfile);
 	pki_base *newPKI();
 };
 

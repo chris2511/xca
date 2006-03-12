@@ -51,20 +51,26 @@
 #ifndef PASS_INFO_H
 #define PASS_INFO_H
 
-#include <qstring.h>
-#include <qobject.h>
+#include <Qt/qstring.h>
+#include <Qt/qobject.h>
+#include <Qt/qwidget.h>
 
 class pass_info: public QObject 
 {
    private:	
 	QString title;
 	QString description;
+	QWidget *widget;
+
    public:
-	pass_info(QString t, QString d);
+	pass_info(QString t, QString d, QWidget *w = NULL);
 	QString getTitle();
 	QString getDescription();
+	QWidget *getWidget();
+	
 	void setTitle(QString t);
 	void setDescription(QString d);
+	void setWidget(QWidget *w);
 };
 
 #endif

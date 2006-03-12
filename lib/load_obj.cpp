@@ -36,11 +36,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -86,13 +83,7 @@ load_key::load_key()
 pki_base * load_key::loadItem(QString s)
 {
 	pki_key *lkey = new pki_key();
-	try {
-		lkey->fload(s);
-	}
-	catch (errorEx &err){
-		delete lkey;
-		throw err;
-	}
+	lkey->fload(s);
 	return lkey;
 };
 
@@ -139,6 +130,7 @@ pki_base * load_cert::loadItem(QString s)
 	return crt;
 };
 
+#if 0
 /* PKCS#7 Certificates */
 load_pkcs7::load_pkcs7()
 	:load_base()
@@ -223,4 +215,4 @@ load_db::load_db()
 	filter.prepend(QObject::tr("XCA Databases ( *.db )"));
 	caption = QObject::tr("Open XCA Database");
 }		
-
+#endif

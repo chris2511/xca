@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -35,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -50,8 +49,10 @@
 
 #include "x509rev.h"
 
-#define X509_REVOKED_dup(x5r) (X509_REVOKED *)ASN1_dup((int (*)())i2d_X509_REVOKED, \
-		(char *(*)())d2i_X509_REVOKED,(char *)x5r)
+#define X509_REVOKED_dup(x5r) (X509_REVOKED *)ASN1_dup( \
+		(int (*)(void*,unsigned char**))i2d_X509_REVOKED, \
+		(void *(*)(void**, const unsigned char**, long int))d2i_X509_REVOKED, \
+		(char *)x5r)
 	
 x509rev::x509rev()
 {

@@ -52,8 +52,8 @@
 #ifndef X509NAME_H
 #define X509NAME_H
 
-#include <qstring.h>
-#include <qstringlist.h>
+#include <Qt/qstring.h>
+#include <Qt/qstringlist.h>
 #include <openssl/x509.h>
 
 class x509name

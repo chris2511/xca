@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  *
  *
@@ -80,9 +78,9 @@ class pki_x509req : public pki_x509super
 	   void fload(const QString fname);
 	   void writeDefault(const QString fname);
 	   ~pki_x509req();
-	   virtual void fromData(const unsigned char *p, int size);
-	   virtual unsigned char *toData(int *size);
-	   virtual bool compare(pki_base *refreq);
+	   void fromData(const unsigned char *p, db_header_t *head);
+	   unsigned char *toData(int *size);
+	   bool compare(pki_base *refreq);
 	   x509name getSubject() const;
 	   bool isSpki() const;
 	   void writeReq(const QString fname, bool PEM);
@@ -90,13 +88,14 @@ class pki_x509req : public pki_x509super
 	   pki_key *getPubKey() const;
 	   void createReq(pki_key *key, const x509name &dn, const EVP_MD *md,
 			   extList el);
-	   void updateView();
 	   QString getSigAlg();
 	   void setSubject(const x509name &n);
 	   /* SPKAC special functions */
 	   void setSPKIFromData(const unsigned char *p, int size);
 	   void setSPKIBase64(const char *p);
 	   void set_spki(NETSCAPE_SPKI *_spki);
+	   QVariant column_data(int col);
+	   QVariant getIcon();
 };
 
 #endif

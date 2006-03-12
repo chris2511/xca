@@ -51,9 +51,9 @@
 
 
 class QString;
-#include <qvaluelist.h>
+#include <Qt/qlist.h>
 
-typedef QValueList<int> NIDlist;
+typedef QList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */
 
 void initOIDs(QString baseDir);

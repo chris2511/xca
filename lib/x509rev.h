@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -35,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,28 +50,28 @@
 #ifndef X509REV_H
 #define X509REV_H
 
-#include <qstring.h>
+#include <Qt/qstring.h>
 #include <openssl/x509.h>
 #include "asn1time.h"
 #include "asn1int.h"
 
 class x509rev
 {
-   private:	
-	X509_REVOKED *rev;
-   public:
-	x509rev();
-	x509rev(const X509_REVOKED *n);
-	x509rev(const x509rev &n);
-	~x509rev();
-	x509rev &set(const X509_REVOKED *n);
-	x509rev &operator = (const x509rev &x);
-	bool operator == (const x509rev &x) const;
-	void setSerial(const a1int &i);
-	void setDate(const a1time &t);
-	a1int getSerial() const;
-	a1time getDate() const;
-	X509_REVOKED *get() const;
+	private:	
+		X509_REVOKED *rev;
+	public:
+		x509rev();
+		x509rev(const X509_REVOKED *n);
+		x509rev(const x509rev &n);
+		~x509rev();
+		x509rev &set(const X509_REVOKED *n);
+		x509rev &operator = (const x509rev &x);
+		bool operator == (const x509rev &x) const;
+		void setSerial(const a1int &i);
+		void setDate(const a1time &t);
+		a1int getSerial() const;
+		a1time getDate() const;
+		X509_REVOKED *get() const;
 };
 
 #endif

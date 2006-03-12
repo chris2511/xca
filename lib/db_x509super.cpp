@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -48,55 +46,48 @@
  *
  */                           
 
-
 #include "db_x509super.h"
 
-#define FOR_container for (pki_x509super *pki = (pki_x509super *)container.first(); \
-			pki != 0; pki = (pki_x509super *)container.next() ) 
-
-db_x509super::db_x509super(DbEnv *dbe, QString DBfile, QString db, db_key *k, DbTxn *tid,
-	XcaListView *lvi)
-	:db_base(dbe, DBfile, db, tid, lvi)
+db_x509super::db_x509super(QString db, MainWindow *mw)
+	:db_base(db, mw)
 {
-	keylist = k;
-}
-
-void db_x509super::setKeyDb(db_key *kd)
-{
-	keylist = kd;
 }
 
 void db_x509super::delKey(pki_key *delkey)
 {
-	FOR_container {	pki->delRefKey(delkey); }
+	FOR_ALL_pki(pki, pki_x509super) { pki->delRefKey(delkey); }
 }
 
 void db_x509super::newKey(pki_key *newkey)
 {
-	 FOR_container { pki->setRefKey(newkey); }
+	 FOR_ALL_pki(pki,pki_x509super) { pki->setRefKey(newkey); }
 }
 
 void db_x509super::preprocess()
 {
-	 FOR_container { findKey(pki); }
+	 FOR_ALL_pki(pki,pki_x509super) { findKey(pki); }
 }
 
 pki_key *db_x509super::findKey(pki_x509super *ref)
 {
 	pki_key *key, *refkey;
-	if (!ref) return NULL;
-	if ((key = ref->getRefKey()) != NULL ) return key;
+	if (!ref)
+		return NULL;
+	if ((key = ref->getRefKey()) != NULL )
+		return key;
 	refkey = ref->getPubKey();
-	if (!refkey) return NULL;
+	if (!refkey)
+		return NULL;
 
-	key = (pki_key *)keylist->getByReference(refkey);
+	key = (pki_key *)mainwin->keys->getByReference(refkey);
 	if (key && key->isPubKey()) {
 		key = NULL;
 	}
 	else {
 		ref->setRefKey(key);
 	}
-	if (refkey) delete(refkey);
+	if (refkey)
+		delete(refkey);
 	return key;
 }
 
@@ -106,4 +97,3 @@ void db_x509super::inToCont(pki_base *pki)
 	findKey((pki_x509super *)pki);
 }
 
-#undef FOR_container

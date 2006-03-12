@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -178,7 +176,8 @@ QString a1time::toSortable() const
 
 a1time &a1time::set(const QString &s)
 {
-	ASN1_GENERALIZEDTIME_set_string(time, (char *)s.latin1());
+	const char *x = s.toAscii();
+	ASN1_GENERALIZEDTIME_set_string(time, (char*)x);
 	return *this;
 }
 

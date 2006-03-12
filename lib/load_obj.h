@@ -36,11 +36,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -53,7 +50,7 @@
 #ifndef LOAD_OBJ_H
 #define LOAD_OBJ_H
 
-#include <qstringlist.h>
+#include <Qt/qstringlist.h>
 
 class pki_base;
 
