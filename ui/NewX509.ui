@@ -1,3266 +1,1441 @@
-<!DOCTYPE UI><UI>
-<class>NewX509_UI</class>
-<widget>
-    <class>QWizard</class>
-    <property stdset="1">
-        <name>name</name>
-        <cstring>NewX509_UI</cstring>
-    </property>
-    <property stdset="1">
-        <name>geometry</name>
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>571</width>
-            <height>614</height>
-        </rect>
-    </property>
-    <property stdset="1">
-        <name>caption</name>
-        <string>NewX509_UI</string>
-    </property>
-    <widget>
-        <class>QWidget</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>page0</cstring>
-        </property>
-        <attribute>
-            <name>title</name>
-            <string></string>
-        </attribute>
-        <vbox>
-            <property stdset="1">
-                <name>margin</name>
-                <number>11</number>
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>NewX509</class>
+ <widget class="QDialog" name="NewX509" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>557</width>
+    <height>608</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>8</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="bigImg" >
+       <property name="minimumSize" >
+        <size>
+         <width>200</width>
+         <height>94</height>
+        </size>
+       </property>
+       <property name="scaledContents" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget" >
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>Source</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>16</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="requestBox" >
+         <property name="title" >
+          <string>Signing request</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>8</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item row="0" column="0" >
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
+             <number>0</number>
             </property>
-            <property stdset="1">
-                <name>spacing</name>
-                <number>6</number>
+            <property name="spacing" >
+             <number>6</number>
             </property>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout15</cstring>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer33</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget>
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>bigImg1</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>minimumSize</name>
-                            <size>
-                                <width>200</width>
-                                <height>94</height>
-                            </size>
-                        </property>
-                        <property stdset="1">
-                            <name>scaledContents</name>
-                            <bool>true</bool>
-                        </property>
-                    </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer34</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer35</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QLabel</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>startLabel_h</cstring>
-                </property>
-                <property stdset="1">
-                    <name>alignment</name>
-                    <set>AlignCenter</set>
-                </property>
-                <property>
-                    <name>hAlign</name>
-                </property>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer34_3</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QLabel</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>startLabel_b</cstring>
-                </property>
-                <property stdset="1">
-                    <name>alignment</name>
-                    <set>WordBreak|AlignVCenter|AlignLeft</set>
-                </property>
-                <property>
-                    <name>vAlign</name>
-                </property>
-                <property>
-                    <name>wordwrap</name>
-                </property>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer35_3</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QLabel</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>TextLabel2_5</cstring>
-                </property>
-                <property stdset="1">
-                    <name>text</name>
-                    <string>Press Next to continue</string>
-                </property>
-                <property stdset="1">
-                    <name>alignment</name>
-                    <set>AlignCenter</set>
-                </property>
-                <property>
-                    <name>hAlign</name>
-                </property>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer36</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-        </vbox>
-    </widget>
-    <widget>
-        <class>QWidget</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>page1</cstring>
-        </property>
-        <attribute>
-            <name>title</name>
-            <string></string>
-        </attribute>
-        <vbox>
-            <property stdset="1">
-                <name>margin</name>
-                <number>11</number>
-            </property>
-            <property stdset="1">
-                <name>spacing</name>
-                <number>6</number>
-            </property>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout16</cstring>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer37</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget>
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>bigImg2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>minimumSize</name>
-                            <size>
-                                <width>200</width>
-                                <height>94</height>
-                            </size>
-                        </property>
-                        <property stdset="1">
-                            <name>scaledContents</name>
-                            <bool>true</bool>
-                        </property>
-                    </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer38</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer16</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QGroupBox</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>requestBox</cstring>
-                </property>
-                <property stdset="1">
-                    <name>title</name>
-                    <string>Signing request</string>
-                </property>
-                <grid>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget row="0"  column="0" >
-                        <class>QLayoutWidget</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>Layout12</cstring>
-                        </property>
-                        <hbox>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>0</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget>
-                                <class>QCheckBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>fromReqCB</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Sign this Certificate signing &amp;request</string>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QComboBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>reqList</cstring>
-                                </property>
-                                <property>
-                                    <name>whatsThis</name>
-                                    <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
+            <item>
+             <widget class="QCheckBox" name="fromReqCB" >
+              <property name="text" >
+               <string>Sign this Certificate signing &amp;request</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="reqList" >
+              <property name="whatsThis" >
+               <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
 Getting signed by a CA certificate, whoes certificate of course must be in the database
 Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
-                                </property>
-                            </widget>
-                        </hbox>
-                    </widget>
-                    <widget row="1"  column="0" >
-                        <class>QCheckBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>copyReqExtCB</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Copy extensions from the request</string>
-                        </property>
-                    </widget>
-                </grid>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer70</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QButtonGroup</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>signerBox</cstring>
-                </property>
-                <property stdset="1">
-                    <name>title</name>
-                    <string>Signer</string>
-                </property>
-                <grid>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget row="2"  column="0" >
-                        <class>QRadioButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>foreignSignRB</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Use &amp;this Certificate for for signing</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="0"  rowspan="1"  colspan="2" >
-                        <class>QRadioButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>selfQASignRB</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Create a &amp;self signed certificate with a MD5-hashed QA serial</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="0" >
-                        <class>QRadioButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>selfSignRB</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Create a &amp;self signed certificate with the serial</string>
-                        </property>
-                        <property stdset="1">
-                            <name>checked</name>
-                            <bool>true</bool>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>serialNr</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>1</string>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>If you leave this blank the serial 00 will be used</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="1" >
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>certList</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>enabled</name>
-                            <bool>false</bool>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>All certificates in your database that can create valid signatures</string>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QCheckBox" name="copyReqExtCB" >
+            <property name="text" >
+             <string>Copy extensions from the request</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>16</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="signerBox" >
+         <property name="title" >
+          <string>Signer</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>8</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item row="1" column="0" colspan="3" >
+           <widget class="QRadioButton" name="selfQASignRB" >
+            <property name="text" >
+             <string>Create a &amp;self signed certificate with a MD5-hashed QA serial</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2" >
+           <widget class="QComboBox" name="certList" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="toolTip" >
+             <string>All certificates in your database that can create valid signatures</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
 If this list is disabled, you only can create a self-signed certificate.</string>
-                        </property>
-                    </widget>
-                </grid>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer69</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QGroupBox</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>templateBox</cstring>
-                </property>
-                <property stdset="1">
-                    <name>title</name>
-                    <string>Template</string>
-                </property>
-                <grid>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget row="0"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel2_3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Template for the new certificate</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="1" >
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>tempList</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
-                            <sizepolicy>
-                                <hsizetype>7</hsizetype>
-                                <vsizetype>0</vsizetype>
-                            </sizepolicy>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>All available templates</string>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>This list contains all templates from the toplevel template Tab. 
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2" >
+           <widget class="QRadioButton" name="foreignSignRB" >
+            <property name="text" >
+             <string>Use &amp;this Certificate for for signing</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QRadioButton" name="selfSignRB" >
+            <property name="text" >
+             <string>Create a &amp;self signed certificate with the serial</string>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="2" >
+           <widget class="QLineEdit" name="serialNr" >
+            <property name="toolTip" >
+             <string>If you leave this blank the serial 00 will be used</string>
+            </property>
+            <property name="text" >
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>16</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="templBox" >
+         <property name="title" >
+          <string>Template</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>8</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="tempList" >
+            <property name="sizePolicy" >
+             <sizepolicy>
+              <hsizetype>7</hsizetype>
+              <vsizetype>0</vsizetype>
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip" >
+             <string>All available templates</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This list contains all templates from the toplevel template Tab. 
 Additionally it contains 4 default templates:
 Empy, CA, client, server</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="0"  rowspan="1"  colspan="2" >
-                        <class>QCheckBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>changeDefault</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Change the default &amp;extension settings from the template</string>
-                        </property>
-                        <property stdset="1">
-                            <name>checked</name>
-                            <bool>true</bool>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>Check this to adjust all details of the certificate</string>
-                        </property>
-                    </widget>
-                </grid>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer17</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-        </vbox>
-    </widget>
-    <widget>
-        <class>QWidget</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>page2</cstring>
-        </property>
-        <attribute>
-            <name>title</name>
-            <string></string>
-        </attribute>
-        <vbox>
-            <property stdset="1">
-                <name>margin</name>
-                <number>11</number>
             </property>
-            <property stdset="1">
-                <name>spacing</name>
-                <number>6</number>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="TextLabel2_3_2" >
+            <property name="text" >
+             <string>Template for the new certificate</string>
             </property>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout16_3</cstring>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer37_4</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget>
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>bigImg3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>minimumSize</name>
-                            <size>
-                                <width>200</width>
-                                <height>94</height>
-                            </size>
-                        </property>
-                        <property stdset="1">
-                            <name>scaledContents</name>
-                            <bool>true</bool>
-                        </property>
-                    </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer38_4</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer71</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QGroupBox</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>GroupBox17</cstring>
-                </property>
-                <property stdset="1">
-                    <name>title</name>
-                    <string>Source of the subject</string>
-                </property>
-                <vbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QLayoutWidget</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>Layout20</cstring>
-                        </property>
-                        <grid>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>0</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget row="3"  column="3" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>emailAddress</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>maxLength</name>
-                                    <number>60</number>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="2" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel4_2_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Organisation</string>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="1" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>description</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>maxLength</name>
-                                    <number>100</number>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>This name is only used internally and does not appear in the resulting certificate</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="1" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>countryName</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>maxLength</name>
-                                    <number>2</number>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Must be exactly 2 letter of size (DE, UK)</string>
-                                </property>
-                            </widget>
-                            <widget row="2"  column="3" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>commonName</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>maxLength</name>
-                                    <number>64</number>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel2_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Country code</string>
-                                </property>
-                            </widget>
-                            <widget row="2"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel3_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>State or Province</string>
-                                </property>
-                            </widget>
-                            <widget row="2"  column="1" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>stateOrProvinceName</cstring>
-                                </property>
-                            </widget>
-                            <widget row="3"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel4_3</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Locality</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="2" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel5_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Organ. unit</string>
-                                </property>
-                            </widget>
-                            <widget row="2"  column="2" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel6_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Common name</string>
-                                </property>
-                            </widget>
-                            <widget row="3"  column="2" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel7_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>E-Mail address</string>
-                                </property>
-                            </widget>
-                            <widget row="3"  column="1" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>localityName</cstring>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="3" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>organisationalUnitName</cstring>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel1_3_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Internal name</string>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="3" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>organisationName</cstring>
-                                </property>
-                            </widget>
-                        </grid>
-                    </widget>
-                    <widget>
-                        <class>Line</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>Line1</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                    </widget>
-                    <widget>
-                        <class>QLayoutWidget</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>Layout23</cstring>
-                        </property>
-                        <hbox>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>0</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget>
-                                <class>QComboBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>extDNobj</cstring>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>extDNname</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>maxLength</name>
-                                    <number>100</number>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>This name is only used internally and does not appear in the resulting certificate</string>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QPushButton</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>extDNadd</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Add</string>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QPushButton</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>extDNdel</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Delete</string>
-                                </property>
-                            </widget>
-                        </hbox>
-                    </widget>
-                    <widget>
-                        <class>QListView</class>
-                        <column>
-                            <property>
-                                <name>text</name>
-                                <string>Object</string>
-                            </property>
-                            <property>
-                                <name>clickable</name>
-                                <bool>true</bool>
-                            </property>
-                            <property>
-                                <name>resizeable</name>
-                                <bool>true</bool>
-                            </property>
-                        </column>
-                        <column>
-                            <property>
-                                <name>text</name>
-                                <string>Value</string>
-                            </property>
-                            <property>
-                                <name>clickable</name>
-                                <bool>true</bool>
-                            </property>
-                            <property>
-                                <name>resizeable</name>
-                                <bool>true</bool>
-                            </property>
-                        </column>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>extDNlist</cstring>
-                        </property>
-                    </widget>
-                </vbox>
-            </widget>
-            <widget>
-                <class>QGroupBox</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>privKeyBox</cstring>
-                </property>
-                <property stdset="1">
-                    <name>title</name>
-                    <string>Private key</string>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>11</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>keyList</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
-                            <sizepolicy>
-                                <hsizetype>7</hsizetype>
-                                <vsizetype>0</vsizetype>
-                            </sizepolicy>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>This list only contains unused keys</string>
-                        </property>
-                    </widget>
-                    <widget>
-                        <class>QComboBox</class>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>MD 2</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>MD 5</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>SHA 1</string>
-                            </property>
-                        </item>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>hashAlgo</cstring>
-                        </property>
-                    </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer33_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget>
-                        <class>QPushButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>genKeyBUT</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>&amp;Generate a new key</string>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>This funny button creates a key. Go figure.</string>
-                        </property>
-                    </widget>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer73</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-        </vbox>
-    </widget>
-    <widget>
-        <class>QWidget</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>page4</cstring>
-        </property>
-        <attribute>
-            <name>title</name>
-            <string></string>
-        </attribute>
-        <vbox>
-            <property stdset="1">
-                <name>margin</name>
-                <number>11</number>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2" >
+           <widget class="QCheckBox" name="changeDefault" >
+            <property name="toolTip" >
+             <string>Check this to adjust all details of the certificate</string>
             </property>
-            <property stdset="1">
-                <name>spacing</name>
-                <number>6</number>
+            <property name="text" >
+             <string>Change the default &amp;extension settings from the template</string>
             </property>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout16_3_2</cstring>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>16</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>Subject</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="groupBox_10" >
+         <property name="title" >
+          <string>GroupBox</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <property name="margin" >
+           <number>8</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="widget_3_3" >
+            <layout class="QGridLayout" >
+             <property name="margin" >
+              <number>0</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <item row="3" column="3" >
+              <widget class="QLineEdit" name="emailAddress" >
+               <property name="maxLength" >
+                <number>60</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" >
+              <widget class="QLabel" name="TextLabel4_2_2_2" >
+               <property name="text" >
+                <string>Organisation</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" >
+              <widget class="QLineEdit" name="description" >
+               <property name="toolTip" >
+                <string>This name is only used internally and does not appear in the resulting certificate</string>
+               </property>
+               <property name="maxLength" >
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" >
+              <widget class="QLineEdit" name="countryName" >
+               <property name="toolTip" >
+                <string>Must be exactly 2 letter of size (DE, UK)</string>
+               </property>
+               <property name="maxLength" >
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3" >
+              <widget class="QLineEdit" name="commonName" >
+               <property name="maxLength" >
+                <number>64</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" >
+              <widget class="QLabel" name="TextLabel2_2_2" >
+               <property name="text" >
+                <string>Country code</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" >
+              <widget class="QLabel" name="TextLabel3_2_3" >
+               <property name="text" >
+                <string>State or Province</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1" >
+              <widget class="QLineEdit" name="stateOrProvinceName" />
+             </item>
+             <item row="3" column="0" >
+              <widget class="QLabel" name="TextLabel4_3_2" >
+               <property name="text" >
+                <string>Locality</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" >
+              <widget class="QLabel" name="TextLabel5_2_2" >
+               <property name="text" >
+                <string>Organ. unit</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2" >
+              <widget class="QLabel" name="TextLabel6_2_2" >
+               <property name="text" >
+                <string>Common name</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2" >
+              <widget class="QLabel" name="TextLabel7_2_2" >
+               <property name="text" >
+                <string>E-Mail address</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1" >
+              <widget class="QLineEdit" name="localityName" />
+             </item>
+             <item row="1" column="3" >
+              <widget class="QLineEdit" name="organisationalUnitName" />
+             </item>
+             <item row="0" column="0" >
+              <widget class="QLabel" name="TextLabel1_3_2_2" >
+               <property name="text" >
+                <string>Internal name</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3" >
+              <widget class="QLineEdit" name="organisationName" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="Line1_2" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_2" >
+            <layout class="QHBoxLayout" >
+             <property name="margin" >
+              <number>0</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <item>
+              <widget class="QComboBox" name="extDNobj" />
+             </item>
+             <item>
+              <widget class="QLineEdit" name="extDNname" >
+               <property name="toolTip" >
+                <string>This name is only used internally and does not appear in the resulting certificate</string>
+               </property>
+               <property name="maxLength" >
+                <number>100</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="extDNadd" >
+               <property name="text" >
+                <string>Add</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="extDNdel" >
+               <property name="text" >
+                <string>Delete</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="extDNlist" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_2_2" >
+         <property name="title" >
+          <string>Private key</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>8</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item row="0" column="3" >
+           <widget class="QPushButton" name="genKeyBUT" >
+            <property name="toolTip" >
+             <string>This funny button creates a key. Go figure.</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Generate a new key</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="hashAlgo" >
+            <item>
+             <property name="text" >
+              <string>MD 2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>MD 5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>SHA 1</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QComboBox" name="keyList" >
+            <property name="sizePolicy" >
+             <sizepolicy>
+              <hsizetype>7</hsizetype>
+              <vsizetype>0</vsizetype>
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip" >
+             <string>This list only contains unused keys</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" >
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>Extensions</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_8" >
+           <property name="title" >
+            <string>Basic constrains</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" >
+              <property name="margin" >
+               <number>0</number>
+              </property>
+              <property name="spacing" >
+               <number>6</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="TextLabel2_2_3" >
+                <property name="text" >
+                 <string>Type</string>
                 </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer37_4_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget>
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>bigImg4</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>minimumSize</name>
-                            <size>
-                                <width>200</width>
-                                <height>94</height>
-                            </size>
-                        </property>
-                        <property stdset="1">
-                            <name>scaledContents</name>
-                            <bool>true</bool>
-                        </property>
-                    </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer38_4_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer33_3</cstring>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="basicCA" >
+                <property name="toolTip" >
+                 <string>If this will become a CA certificate or not</string>
                 </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout15</cstring>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QGroupBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>GroupBox1</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>title</name>
-                            <string>Basic Constraints</string>
-                        </property>
-                        <grid>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>11</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget row="0"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel2_2_3</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Type</string>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="1"  rowspan="1"  colspan="2" >
-                                <class>QComboBox</class>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Not defined</string>
-                                    </property>
-                                </item>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Certification Authority</string>
-                                    </property>
-                                </item>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>End Entity</string>
-                                    </property>
-                                </item>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>basicCA</cstring>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>If this will become a CA certificate or not</string>
-                                </property>
-                                <property>
-                                    <name>whatsThis</name>
-                                    <string>Set this to TRUE if you want to create a CA certificate that signs other certificates.
+                <property name="whatsThis" >
+                 <string>Set this to TRUE if you want to create a CA certificate that signs other certificates.
 This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
 Self-signed non-CA certificates are unusual although they are possible.</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="0" >
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>TextLabel3_2_2</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Path length</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="1" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>basicPath</cstring>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>How much CAs may be below this.</string>
-                                </property>
-                                <property>
-                                    <name>whatsThis</name>
-                                    <string>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
+                </property>
+                <item>
+                 <property name="text" >
+                  <string>Not defined</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text" >
+                  <string>Certification Authority</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text" >
+                  <string>End Entity</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" >
+              <property name="margin" >
+               <number>0</number>
+              </property>
+              <property name="spacing" >
+               <number>6</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="TextLabel3_2_2" >
+                <property name="text" >
+                 <string>Path length</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="basicPath" >
+                <property name="toolTip" >
+                 <string>How much CAs may be below this.</string>
+                </property>
+                <property name="whatsThis" >
+                 <string>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
 A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="2" >
-                                <class>QCheckBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>bcCritical</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>&amp;Critical</string>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>The basic constraints should always be critical</string>
-                                </property>
-                            </widget>
-                        </grid>
-                    </widget>
-                    <widget>
-                        <class>QGroupBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>GroupBox12</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>title</name>
-                            <string>Key identifier</string>
-                        </property>
-                        <vbox>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>11</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget>
-                                <class>QCheckBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>subKey</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>&amp;Subject Key Identifier</string>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Creates a hash of the key following the PKIX guidelines</string>
-                                </property>
-                            </widget>
-                            <widget>
-                                <class>QCheckBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>authKey</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>&amp;Authority Key Identifier</string>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Copy the Subject Key Identifier from the issuer</string>
-                                </property>
-                                <property>
-                                    <name>whatsThis</name>
-                                    <string>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="bcCritical" >
+                <property name="toolTip" >
+                 <string>The basic constraints should always be critical</string>
+                </property>
+                <property name="text" >
+                 <string>&amp;Critical</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_9" >
+           <property name="title" >
+            <string>Key identifier</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="subKey" >
+              <property name="toolTip" >
+               <string>Creates a hash of the key following the PKIX guidelines</string>
+              </property>
+              <property name="text" >
+               <string>&amp;Subject Key Identifier</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="authKey" >
+              <property name="toolTip" >
+               <string>Copy the Subject Key Identifier from the issuer</string>
+              </property>
+              <property name="whatsThis" >
+               <string>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
 It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</string>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                </hbox>
-            </widget>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout19</cstring>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QGroupBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>validitybox</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>title</name>
-                            <string>Validity</string>
-                        </property>
-                        <hbox>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>11</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget>
-                                <class>QLayoutWidget</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>Layout16</cstring>
-                                </property>
-                                <grid>
-                                    <property stdset="1">
-                                        <name>margin</name>
-                                        <number>0</number>
-                                    </property>
-                                    <property stdset="1">
-                                        <name>spacing</name>
-                                        <number>6</number>
-                                    </property>
-                                    <widget row="0"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel1_2</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Not before</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="1"  column="0" >
-                                        <class>QLabel</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>TextLabel2_4</cstring>
-                                        </property>
-                                        <property stdset="1">
-                                            <name>text</name>
-                                            <string>Not after</string>
-                                        </property>
-                                    </widget>
-                                    <widget row="0"  column="1" >
-                                        <class>Validity</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>notBefore</cstring>
-                                        </property>
-                                    </widget>
-                                    <widget row="1"  column="1" >
-                                        <class>Validity</class>
-                                        <property stdset="1">
-                                            <name>name</name>
-                                            <cstring>notAfter</cstring>
-                                        </property>
-                                    </widget>
-                                </grid>
-                            </widget>
-                        </hbox>
-                    </widget>
-                    <widget>
-                        <class>QGroupBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>timeRangeBox</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>title</name>
-                            <string>Time Range</string>
-                        </property>
-                        <grid>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>11</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget row="0"  column="1" >
-                                <class>QComboBox</class>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Days</string>
-                                    </property>
-                                </item>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Months</string>
-                                    </property>
-                                </item>
-                                <item>
-                                    <property>
-                                        <name>text</name>
-                                        <string>Years</string>
-                                    </property>
-                                </item>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>validRange</cstring>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="1" >
-                                <class>QPushButton</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>applyTime</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Apply</string>
-                                </property>
-                            </widget>
-                            <widget row="1"  column="0" >
-                                <class>QCheckBox</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>midnightCB</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>text</name>
-                                    <string>Midnight</string>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Set the time to 00:00:00 and 23:59:59 respectively</string>
-                                </property>
-                            </widget>
-                            <widget row="0"  column="0" >
-                                <class>QLineEdit</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>validNumber</cstring>
-                                </property>
-                            </widget>
-                        </grid>
-                    </widget>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer35_2</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout30</cstring>
-                </property>
-                <grid>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget row="3"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_3_2_2_3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Authority Info Access</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_3_2_3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>CRL distribution point</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_2_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>issuer alternative name</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="1"  rowspan="1"  colspan="2" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>crlDist</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>URI:</string>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
+              </property>
+              <property name="text" >
+               <string>&amp;Authority Key Identifier</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="validityBox" >
+           <property name="title" >
+            <string>Validity</string>
+           </property>
+           <layout class="QGridLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item row="0" column="1" >
+             <widget class="Validity" name="notBefore" />
+            </item>
+            <item row="1" column="1" >
+             <widget class="Validity" name="notAfter" />
+            </item>
+            <item row="0" column="0" >
+             <widget class="QLabel" name="TextLabel1_2_3_2" >
+              <property name="text" >
+               <string>Not before</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QLabel" name="TextLabel2_4_2" >
+              <property name="text" >
+               <string>Not after</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="rangeBox" >
+           <property name="title" >
+            <string>Time range</string>
+           </property>
+           <layout class="QGridLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item row="1" column="1" >
+             <widget class="QPushButton" name="applyTime" >
+              <property name="text" >
+               <string>Apply</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" >
+             <widget class="QComboBox" name="validRange" >
+              <item>
+               <property name="text" >
+                <string>Days</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Months</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Years</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QCheckBox" name="midnightCB" >
+              <property name="toolTip" >
+               <string>Set the time to 00:00:00 and 23:59:59 respectively</string>
+              </property>
+              <property name="text" >
+               <string>Midnight</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" >
+             <widget class="QLineEdit" name="validNumber" />
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_5_3" >
+         <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item row="3" column="0" >
+           <widget class="QLabel" name="TextLabel1_2_3_2_2_3" >
+            <property name="text" >
+             <string>Authority Info Access</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" >
+           <widget class="QLabel" name="TextLabel1_2_3_2_3" >
+            <property name="text" >
+             <string>CRL distribution point</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="TextLabel1_2_2_2" >
+            <property name="text" >
+             <string>issuer alternative name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" colspan="2" >
+           <widget class="QLineEdit" name="crlDist" >
+            <property name="toolTip" >
+             <string>URI:</string>
+            </property>
+            <property name="whatsThis" >
+             <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
 Currently each option will set a new DistributionPoint with the fullName field set to the given value.
 Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
+If you see this extension with &lt;UNSUPPORTED> when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
 Examples:
 URI:http://www.myhost.com/myca.crl
 URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
-                        </property>
-                    </widget>
-                    <widget row="3"  column="1" >
-                        <class>QComboBox</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>aiaOid</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>can be altered by the file "aia.txt"</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="3" >
-                        <class>QPushButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>PushButton9</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Edit</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="3" >
-                        <class>QPushButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>PushButton10</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Edit</string>
-                        </property>
-                    </widget>
-                    <widget row="3"  column="2" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>authInfAcc</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>DNS: IP: URI: email: RID:</string>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1" >
+           <widget class="QComboBox" name="aiaOid" >
+            <property name="toolTip" >
+             <string>can be altered by the file &quot;aia.txt&quot;</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3" >
+           <widget class="QPushButton" name="PushButton9" >
+            <property name="text" >
+             <string>Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3" >
+           <widget class="QPushButton" name="PushButton10" >
+            <property name="text" >
+             <string>Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2" >
+           <widget class="QLineEdit" name="authInfAcc" >
+            <property name="toolTip" >
+             <string>DNS: IP: URI: email: RID:</string>
+            </property>
+            <property name="whatsThis" >
+             <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
 
 Example:
 
 OCSP;URI:http://ocsp.my.host/
 caIssuers;URI:http://my.ca/ca.html</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="1"  rowspan="1"  colspan="2" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>subAltName</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>DNS: IP: URI: email: RID:</string>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>The subject alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="2" >
+           <widget class="QLineEdit" name="subAltName" >
+            <property name="toolTip" >
+             <string>DNS: IP: URI: email: RID:</string>
+            </property>
+            <property name="whatsThis" >
+             <string>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="3" >
-                        <class>QPushButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>PushButton11</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Edit</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1_2_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>subject alternative name</string>
-                        </property>
-                    </widget>
-                    <widget row="3"  column="3" >
-                        <class>QPushButton</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>PushButton12</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Edit</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="1"  rowspan="1"  colspan="2" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>issAltName</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>DNS: IP: URI: email: RID:</string>
-                        </property>
-                        <property>
-                            <name>whatsThis</name>
-                            <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" >
+           <widget class="QPushButton" name="PushButton11" >
+            <property name="text" >
+             <string>Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="TextLabel1_2_2_3" >
+            <property name="text" >
+             <string>subject alternative name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3" >
+           <widget class="QPushButton" name="PushButton12" >
+            <property name="text" >
+             <string>Edit</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2" >
+           <widget class="QLineEdit" name="issAltName" >
+            <property name="toolTip" >
+             <string>DNS: IP: URI: email: RID:</string>
+            </property>
+            <property name="whatsThis" >
+             <string>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
-                        </property>
-                    </widget>
-                </grid>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer34_2</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-        </vbox>
-    </widget>
-    <widget>
-        <class>QWidget</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>page5</cstring>
-        </property>
-        <attribute>
-            <name>title</name>
-            <string></string>
-        </attribute>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout16_3_3</cstring>
             </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>11</x>
-                    <y>11</y>
-                    <width>549</width>
-                    <height>96</height>
-                </rect>
-            </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer37_4_3</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>bigImg5</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>minimumSize</name>
-                        <size>
-                            <width>200</width>
-                            <height>94</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>scaledContents</name>
-                        <bool>true</bool>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer38_4_3</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-            </hbox>
+           </widget>
+          </item>
+         </layout>
         </widget>
-        <spacer>
-            <property>
-                <name>name</name>
-                <cstring>Spacer65</cstring>
+       </item>
+      </layout>
+      <widget class="QWidget" name="widget" />
+     </widget>
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>Key Usage</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="widget_4_3" />
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_12" >
+           <property name="title" >
+            <string>GroupBox</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
             </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Vertical</enum>
+            <property name="spacing" >
+             <number>6</number>
             </property>
-            <property stdset="1">
-                <name>sizeType</name>
-                <enum>Expanding</enum>
+            <item>
+             <widget class="QCheckBox" name="kuCritical" >
+              <property name="text" >
+               <string>&amp;Critical</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="keyUsage" >
+              <item>
+               <property name="text" >
+                <string>Digital Signature</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Non Repudiation</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Key Encipherment</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Data Encipherment</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Key Agreement</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Certificate Sign</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>CRL Sign</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Encipher Only</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Decipher Only</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_11" >
+           <property name="title" >
+            <string>GroupBox</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
             </property>
-            <property>
-                <name>sizeHint</name>
-                <size>
-                    <width>20</width>
-                    <height>20</height>
-                </size>
+            <property name="spacing" >
+             <number>6</number>
             </property>
-        </spacer>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout15</cstring>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>10</x>
-                    <y>140</y>
-                    <width>549</width>
-                    <height>210</height>
-                </rect>
-            </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QGroupBox</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>GroupBox4</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>title</name>
-                        <string>Key Usage</string>
-                    </property>
-                    <vbox>
-                        <property stdset="1">
-                            <name>margin</name>
-                            <number>11</number>
-                        </property>
-                        <property stdset="1">
-                            <name>spacing</name>
-                            <number>6</number>
-                        </property>
-                        <widget>
-                            <class>QCheckBox</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>kuCritical</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>text</name>
-                                <string>&amp;Critical</string>
-                            </property>
-                        </widget>
-                        <widget>
-                            <class>QListBox</class>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Digital Signature</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Non Repudiation</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Key Encipherment</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Data Encipherment</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Key Agreement</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Certificate Sign</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>CRL Sign</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Encipher Only</string>
-                                </property>
-                            </item>
-                            <item>
-                                <property>
-                                    <name>text</name>
-                                    <string>Decipher Only</string>
-                                </property>
-                            </item>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>keyUsage</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>selectionMode</name>
-                                <enum>Multi</enum>
-                            </property>
-                        </widget>
-                    </vbox>
-                </widget>
-                <widget>
-                    <class>QGroupBox</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>GroupBox5</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>title</name>
-                        <string>Extended Key Usage</string>
-                    </property>
-                    <vbox>
-                        <property stdset="1">
-                            <name>margin</name>
-                            <number>11</number>
-                        </property>
-                        <property stdset="1">
-                            <name>spacing</name>
-                            <number>6</number>
-                        </property>
-                        <widget>
-                            <class>QCheckBox</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>ekuCritical</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>text</name>
-                                <string>C&amp;ritical</string>
-                            </property>
-                        </widget>
-                        <widget>
-                            <class>QListBox</class>
-                            <property stdset="1">
-                                <name>name</name>
-                                <cstring>ekeyUsage</cstring>
-                            </property>
-                            <property stdset="1">
-                                <name>selectionMode</name>
-                                <enum>Multi</enum>
-                            </property>
-                            <property>
-                                <name>toolTip</name>
-                                <string>can be altered by the file "eku.txt"</string>
-                            </property>
-                        </widget>
-                    </vbox>
-                </widget>
-            </hbox>
+            <item>
+             <widget class="QCheckBox" name="ekuCritical" >
+              <property name="text" >
+               <string>C&amp;ritical</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="ekeyUsage" />
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="TextLabel1_2_3" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>Certificate Policies</string>
+         </property>
         </widget>
-        <spacer>
-            <property>
-                <name>name</name>
-                <cstring>Spacer66</cstring>
-            </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Vertical</enum>
-            </property>
-            <property stdset="1">
-                <name>sizeType</name>
-                <enum>Expanding</enum>
-            </property>
-            <property>
-                <name>sizeHint</name>
-                <size>
-                    <width>20</width>
-                    <height>20</height>
-                </size>
-            </property>
-        </spacer>
-        <spacer>
-            <property>
-                <name>name</name>
-                <cstring>Spacer67</cstring>
-            </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Vertical</enum>
-            </property>
-            <property stdset="1">
-                <name>sizeType</name>
-                <enum>Expanding</enum>
-            </property>
-            <property>
-                <name>sizeHint</name>
-                <size>
-                    <width>20</width>
-                    <height>20</height>
-                </size>
-            </property>
-        </spacer>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>TextLabel1_2_3_2_2_2_2</cstring>
-            </property>
-            <property stdset="1">
-                <name>enabled</name>
-                <bool>false</bool>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>12</x>
-                    <y>419</y>
-                    <width>120</width>
-                    <height>24</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>Certificate Policies</string>
-            </property>
-        </widget>
-        <widget>
-            <class>QLineEdit</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>certPol</cstring>
-            </property>
-            <property stdset="1">
-                <name>enabled</name>
-                <bool>false</bool>
-            </property>
-            <property stdset="1">
-                <name>geometry</name>
-                <rect>
-                    <x>140</x>
-                    <y>420</y>
-                    <width>417</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string>This will be enabled in a later version :-(</string>
-            </property>
-            <property>
-                <name>whatsThis</name>
-                <string>If you follow the PKIX recommendations of not including any qualifiers and just
+       </item>
+       <item>
+        <widget class="QLineEdit" name="certPol" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="whatsThis" >
+          <string>If you follow the PKIX recommendations of not including any qualifiers and just
 using only one OID then you just include the value of that OID. Multiple OIDs
 can be set separated by commas, for example:
 
 Example:
 1.2.4.5, 1.1.3.4</string>
-            </property>
+         </property>
+         <property name="text" >
+          <string>This will be enabled in a later version :-(</string>
+         </property>
         </widget>
+       </item>
+      </layout>
+      <widget class="QWidget" name="widget_4" />
+     </widget>
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>Netscape</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QTreeWidget" name="nsCertType" />
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="nsImg" >
+             <property name="minimumSize" >
+              <size>
+               <width>107</width>
+               <height>107</height>
+              </size>
+             </property>
+             <property name="toolTip" >
+              <string>Great picture , heh ?</string>
+             </property>
+             <property name="scaledContents" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_4_2" >
+         <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item row="3" column="1" >
+           <widget class="QLineEdit" name="nsRenewalUrl" />
+          </item>
+          <item row="4" column="1" >
+           <widget class="QLineEdit" name="nsCaPolicyUrl" />
+          </item>
+          <item row="2" column="0" >
+           <widget class="QLabel" name="TextLabel2_2_4" >
+            <property name="text" >
+             <string>CA Revocation URL</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1" >
+           <widget class="QLineEdit" name="nsSslServerName" />
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="TextLabel4_2_2_3" >
+            <property name="text" >
+             <string>Revocation URL</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" >
+           <widget class="QLabel" name="TextLabel7_2_3" >
+            <property name="text" >
+             <string>SSL server name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QLineEdit" name="nsBaseUrl" />
+          </item>
+          <item row="2" column="1" >
+           <widget class="QLineEdit" name="nsCARevocationUrl" />
+          </item>
+          <item row="3" column="0" >
+           <widget class="QLabel" name="TextLabel3_2_4" >
+            <property name="text" >
+             <string>Certificate renewal URL</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0" >
+           <widget class="QLabel" name="TextLabel8" >
+            <property name="text" >
+             <string>Comment</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" >
+           <widget class="QLabel" name="TextLabel6_2_3" >
+            <property name="text" >
+             <string>CA policy URL</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="TextLabel1_3_2_3" >
+            <property name="text" >
+             <string>Base URL</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="nsRevocationUrl" />
+          </item>
+          <item row="6" column="1" >
+           <widget class="QLineEdit" name="nsComment" >
+            <property name="toolTip" >
+             <string>If you know a more pretty one tell me</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
-    <widget>
-        <class>QWidget</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>page6</cstring>
-        </property>
-        <attribute>
-            <name>title</name>
-            <string></string>
-        </attribute>
-        <vbox>
-            <property stdset="1">
-                <name>margin</name>
-                <number>11</number>
-            </property>
-            <property stdset="1">
-                <name>spacing</name>
-                <number>6</number>
-            </property>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout18</cstring>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget>
-                        <class>QListBox</class>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>SSL Client</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>SSL Server</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>S/MIME</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Object Signing</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>SSL CA</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>S/MIME CA</string>
-                            </property>
-                        </item>
-                        <item>
-                            <property>
-                                <name>text</name>
-                                <string>Object Signing CA</string>
-                            </property>
-                        </item>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsCertType</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>sizePolicy</name>
-                            <sizepolicy>
-                                <hsizetype>7</hsizetype>
-                                <vsizetype>7</vsizetype>
-                            </sizepolicy>
-                        </property>
-                        <property stdset="1">
-                            <name>selectionMode</name>
-                            <enum>Multi</enum>
-                        </property>
-                    </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer37_3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget>
-                        <class>QLayoutWidget</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>Layout16</cstring>
-                        </property>
-                        <vbox>
-                            <property stdset="1">
-                                <name>margin</name>
-                                <number>0</number>
-                            </property>
-                            <property stdset="1">
-                                <name>spacing</name>
-                                <number>6</number>
-                            </property>
-                            <widget>
-                                <class>QLabel</class>
-                                <property stdset="1">
-                                    <name>name</name>
-                                    <cstring>nsImg</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>minimumSize</name>
-                                    <size>
-                                        <width>107</width>
-                                        <height>107</height>
-                                    </size>
-                                </property>
-                                <property stdset="1">
-                                    <name>scaledContents</name>
-                                    <bool>true</bool>
-                                </property>
-                                <property>
-                                    <name>toolTip</name>
-                                    <string>Great picture , heh ?</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property>
-                                    <name>name</name>
-                                    <cstring>Spacer38_3</cstring>
-                                </property>
-                                <property stdset="1">
-                                    <name>orientation</name>
-                                    <enum>Vertical</enum>
-                                </property>
-                                <property stdset="1">
-                                    <name>sizeType</name>
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property>
-                                    <name>sizeHint</name>
-                                    <size>
-                                        <width>20</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                        </vbox>
-                    </widget>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer39_2</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout15</cstring>
-                </property>
-                <grid>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <widget row="3"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsRenewalUrl</cstring>
-                        </property>
-                    </widget>
-                    <widget row="4"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsCaPolicyUrl</cstring>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>CA Revocation URL</string>
-                        </property>
-                    </widget>
-                    <widget row="5"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsSslServerName</cstring>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel4</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Revocation URL</string>
-                        </property>
-                    </widget>
-                    <widget row="5"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel7</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>SSL server name</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsBaseUrl</cstring>
-                        </property>
-                    </widget>
-                    <widget row="2"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsCARevocationUrl</cstring>
-                        </property>
-                    </widget>
-                    <widget row="3"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel3</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Certificate renewal URL</string>
-                        </property>
-                    </widget>
-                    <widget row="6"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel8</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Comment</string>
-                        </property>
-                    </widget>
-                    <widget row="4"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel6</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>CA policy URL</string>
-                        </property>
-                    </widget>
-                    <widget row="0"  column="0" >
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>TextLabel1</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>text</name>
-                            <string>Base URL</string>
-                        </property>
-                    </widget>
-                    <widget row="1"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsRevocationUrl</cstring>
-                        </property>
-                    </widget>
-                    <widget row="6"  column="1" >
-                        <class>QLineEdit</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>nsComment</cstring>
-                        </property>
-                        <property>
-                            <name>toolTip</name>
-                            <string>If you know a more pretty one tell me</string>
-                        </property>
-                    </widget>
-                </grid>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer40</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Expanding</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-        </vbox>
-    </widget>
-    <widget>
-        <class>QWidget</class>
-        <property stdset="1">
-            <name>name</name>
-            <cstring>page7</cstring>
-        </property>
-        <attribute>
-            <name>title</name>
-            <string></string>
-        </attribute>
-        <vbox>
-            <property stdset="1">
-                <name>margin</name>
-                <number>11</number>
-            </property>
-            <property stdset="1">
-                <name>spacing</name>
-                <number>6</number>
-            </property>
-            <widget>
-                <class>QLayoutWidget</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>Layout16_2</cstring>
-                </property>
-                <hbox>
-                    <property stdset="1">
-                        <name>margin</name>
-                        <number>0</number>
-                    </property>
-                    <property stdset="1">
-                        <name>spacing</name>
-                        <number>6</number>
-                    </property>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer37_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget>
-                        <class>QLabel</class>
-                        <property stdset="1">
-                            <name>name</name>
-                            <cstring>bigImg6</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>minimumSize</name>
-                            <size>
-                                <width>200</width>
-                                <height>94</height>
-                            </size>
-                        </property>
-                        <property stdset="1">
-                            <name>scaledContents</name>
-                            <bool>true</bool>
-                        </property>
-                    </widget>
-                    <spacer>
-                        <property>
-                            <name>name</name>
-                            <cstring>Spacer38_2</cstring>
-                        </property>
-                        <property stdset="1">
-                            <name>orientation</name>
-                            <enum>Horizontal</enum>
-                        </property>
-                        <property stdset="1">
-                            <name>sizeType</name>
-                            <enum>Expanding</enum>
-                        </property>
-                        <property>
-                            <name>sizeHint</name>
-                            <size>
-                                <width>20</width>
-                                <height>20</height>
-                            </size>
-                        </property>
-                    </spacer>
-                </hbox>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer43</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Minimum</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget>
-                <class>QLabel</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>endLabel</cstring>
-                </property>
-                <property stdset="1">
-                    <name>alignment</name>
-                    <set>WordBreak|AlignVCenter|AlignLeft</set>
-                </property>
-                <property>
-                    <name>wordwrap</name>
-                </property>
-            </widget>
-            <widget>
-                <class>QTextView</class>
-                <property stdset="1">
-                    <name>name</name>
-                    <cstring>v3Extensions</cstring>
-                </property>
-                <property stdset="1">
-                    <name>palette</name>
-                    <palette>
-                        <active>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                            <color>
-                                <red>237</red>
-                                <green>237</green>
-                                <blue>237</blue>
-                            </color>
-                            <color>
-                                <red>110</red>
-                                <green>110</green>
-                                <blue>110</blue>
-                            </color>
-                            <color>
-                                <red>146</red>
-                                <green>146</green>
-                                <blue>146</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>84</red>
-                                <green>112</green>
-                                <blue>152</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                        </active>
-                        <disabled>
-                            <color>
-                                <red>128</red>
-                                <green>128</green>
-                                <blue>128</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                            <color>
-                                <red>253</red>
-                                <green>253</green>
-                                <blue>253</blue>
-                            </color>
-                            <color>
-                                <red>110</red>
-                                <green>110</green>
-                                <blue>110</blue>
-                            </color>
-                            <color>
-                                <red>146</red>
-                                <green>146</green>
-                                <blue>146</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                            <color>
-                                <red>128</red>
-                                <green>128</green>
-                                <blue>128</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>84</red>
-                                <green>112</green>
-                                <blue>152</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                        </disabled>
-                        <inactive>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                            <color>
-                                <red>253</red>
-                                <green>253</green>
-                                <blue>253</blue>
-                            </color>
-                            <color>
-                                <red>110</red>
-                                <green>110</green>
-                                <blue>110</blue>
-                            </color>
-                            <color>
-                                <red>146</red>
-                                <green>146</green>
-                                <blue>146</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>220</red>
-                                <green>220</green>
-                                <blue>220</blue>
-                            </color>
-                            <color>
-                                <red>0</red>
-                                <green>0</green>
-                                <blue>0</blue>
-                            </color>
-                            <color>
-                                <red>84</red>
-                                <green>112</green>
-                                <blue>152</blue>
-                            </color>
-                            <color>
-                                <red>255</red>
-                                <green>255</green>
-                                <blue>255</blue>
-                            </color>
-                        </inactive>
-                    </palette>
-                </property>
-            </widget>
-            <spacer>
-                <property>
-                    <name>name</name>
-                    <cstring>Spacer44</cstring>
-                </property>
-                <property stdset="1">
-                    <name>orientation</name>
-                    <enum>Vertical</enum>
-                </property>
-                <property stdset="1">
-                    <name>sizeType</name>
-                    <enum>Minimum</enum>
-                </property>
-                <property>
-                    <name>sizeHint</name>
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-        </vbox>
-    </widget>
-</widget>
-<customwidgets>
-    <customwidget>
-        <class>Validity</class>
-        <header location="global">widgets/validity.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>1</container>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="cancelButton" >
+       <property name="sizePolicy" >
         <sizepolicy>
-            <hordata>7</hordata>
-            <verdata>7</verdata>
+         <hsizetype>7</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
         </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-</customwidgets>
-<images>
-    <image>
-        <name>image0</name>
-        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
-    </image>
-</images>
-<connections>
-    <connection>
-        <sender>description</sender>
-        <signal>textChanged(const QString&amp;)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>dataChangeP2()</slot>
-    </connection>
-    <connection>
-        <sender>changeDefault</sender>
-        <signal>stateChanged(int)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>switchExtended()</slot>
-    </connection>
-    <connection>
-        <sender>tempList</sender>
-        <signal>activated(int)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>templateChanged()</slot>
-    </connection>
-    <connection>
-        <sender>fromReqCB</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>toggleFromRequest()</slot>
-    </connection>
-    <connection>
-        <sender>selfSignRB</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>serialNr</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>foreignSignRB</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>certList</receiver>
-        <slot>setEnabled(bool)</slot>
-    </connection>
-    <connection>
-        <sender>certList</sender>
-        <signal>activated(int)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>signerChanged()</slot>
-    </connection>
-    <connection>
-        <sender>foreignSignRB</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>signerChanged()</slot>
-    </connection>
-    <connection>
-        <sender>countryName</sender>
-        <signal>textChanged(const QString&amp;)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>dataChangeP2()</slot>
-    </connection>
-    <connection>
-        <sender>NewX509_UI</sender>
-        <signal>helpClicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>helpClicked()</slot>
-    </connection>
-    <connection>
-        <sender>subKey</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>checkAuthKeyId()</slot>
-    </connection>
-    <connection>
-        <sender>applyTime</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>applyTimeDiff()</slot>
-    </connection>
-    <connection>
-        <sender>keyList</sender>
-        <signal>activated(const QString&amp;)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>keyChanged(const QString &amp;)</slot>
-    </connection>
-    <connection>
-        <sender>keyList</sender>
-        <signal>activated(int)</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>dataChangeP2()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton9</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>editSubAltName()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton10</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>editIssAltName()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton11</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>editCrlDist()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton12</sender>
-        <signal>clicked()</signal>
-        <receiver>NewX509_UI</receiver>
-        <slot>editAuthInfAcc()</slot>
-    </connection>
-    <slot access="public">applyTimeDiff()</slot>
-    <slot access="public">checkAuthKeyId()</slot>
-    <slot access="public">dataChangeP2()</slot>
-    <slot access="public">editCrlDist()</slot>
-    <slot access="public">editIssAltName()</slot>
-    <slot access="public">editSubAltName()</slot>
-    <slot access="public">helpClicked()</slot>
-    <slot access="public">keyChanged(const QString &amp;)</slot>
-    <slot access="public">editAuthInfAcc()</slot>
-    <slot access="public">signerChanged()</slot>
-    <slot access="public">switchExtended()</slot>
-    <slot access="public">templateChanged()</slot>
-    <slot access="public">toggleFromRequest()</slot>
-</connections>
-<tabstops>
-    <tabstop>fromReqCB</tabstop>
-    <tabstop>reqList</tabstop>
-    <tabstop>selfSignRB</tabstop>
-    <tabstop>serialNr</tabstop>
-    <tabstop>certList</tabstop>
-    <tabstop>tempList</tabstop>
-    <tabstop>changeDefault</tabstop>
-    <tabstop>description</tabstop>
-    <tabstop>countryName</tabstop>
-    <tabstop>stateOrProvinceName</tabstop>
-    <tabstop>localityName</tabstop>
-    <tabstop>organisationName</tabstop>
-    <tabstop>organisationalUnitName</tabstop>
-    <tabstop>commonName</tabstop>
-    <tabstop>emailAddress</tabstop>
-    <tabstop>extDNobj</tabstop>
-    <tabstop>extDNname</tabstop>
-    <tabstop>extDNadd</tabstop>
-    <tabstop>extDNdel</tabstop>
-    <tabstop>extDNlist</tabstop>
-    <tabstop>keyList</tabstop>
-    <tabstop>hashAlgo</tabstop>
-    <tabstop>genKeyBUT</tabstop>
-    <tabstop>basicCA</tabstop>
-    <tabstop>basicPath</tabstop>
-    <tabstop>bcCritical</tabstop>
-    <tabstop>subKey</tabstop>
-    <tabstop>authKey</tabstop>
-    <tabstop>validNumber</tabstop>
-    <tabstop>validRange</tabstop>
-    <tabstop>applyTime</tabstop>
-    <tabstop>subAltName</tabstop>
-    <tabstop>issAltName</tabstop>
-    <tabstop>kuCritical</tabstop>
-    <tabstop>keyUsage</tabstop>
-    <tabstop>ekuCritical</tabstop>
-    <tabstop>ekeyUsage</tabstop>
-    <tabstop>nsCertType</tabstop>
-    <tabstop>nsBaseUrl</tabstop>
-    <tabstop>nsRevocationUrl</tabstop>
-    <tabstop>nsCARevocationUrl</tabstop>
-    <tabstop>nsRenewalUrl</tabstop>
-    <tabstop>nsCaPolicyUrl</tabstop>
-    <tabstop>nsSslServerName</tabstop>
-    <tabstop>nsComment</tabstop>
-    <tabstop>v3Extensions</tabstop>
-</tabstops>
-</UI>
+       </property>
+       <property name="text" >
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>311</width>
+         <height>31</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>3</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>OK</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Validity</class>
+   <extends></extends>
+   <header>widgets/validity.h</header>
+   <container>1</container>
+   <pixmap></pixmap>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>okButton</sender>
+   <signal>clicked()</signal>
+   <receiver>NewX509</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>278</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>96</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>NewX509</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>369</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>179</x>
+     <y>282</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

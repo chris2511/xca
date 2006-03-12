@@ -33,11 +33,14 @@ moc_%.cpp: %.h %.cpp
 	$(UIC) -o $@ $<
 
 # same for the *.cpp file from the *.ui
-%.cpp: %.h %.ui
-	$(UIC) -o $@ -impl $^
+#%.cpp: %.h %.ui
+#	$(UIC) -o $@ -impl $^
+#%.cpp: %.ui
+#	$(UIC) -o $@ $<
 
 # default compile rule
-%.o: %.cpp $(TOPDIR)/Local.mak
+#%.o: %.cpp $(TOPDIR)/Local.mak
+%.o: %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
 
 # partial linking of objects in one directory

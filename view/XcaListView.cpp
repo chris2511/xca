@@ -54,22 +54,22 @@
 #include "XcaListView.h"
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
-#include <qinputdialog.h>
-#include <qfiledialog.h>
-#include <qmessagebox.h>
+#include <Qt/qinputdialog.h>
+#include <Qt/q3filedialog.h>
+#include <Qt/qmessagebox.h>
 
-XcaListView::XcaListView( QWidget * parent, const char * name, WFlags f)
-		:QListView(parent, name, f)
+XcaListView::XcaListView( QWidget * parent, const char * name, Qt::WFlags f)
+		:Q3ListView(parent, name, f)
 {
 #ifdef qt3      
-	connect( this, SIGNAL(itemRenamed(QListViewItem *, int, const QString &)),
-	  this, SLOT(rename(QListViewItem *, int, const QString &)));
+	connect( this, SIGNAL(itemRenamed(Q3ListViewItem *, int, const QString &)),
+	  this, SLOT(rename(Q3ListViewItem *, int, const QString &)));
 #endif		
-	connect( this, SIGNAL(rightButtonPressed(QListViewItem *, const QPoint &, int)),
-	  this, SLOT(popupMenu(QListViewItem *, const QPoint &, int))) ;
+	connect( this, SIGNAL(rightButtonPressed(Q3ListViewItem *, const QPoint &, int)),
+	  this, SLOT(popupMenu(Q3ListViewItem *, const QPoint &, int))) ;
 	
-	connect( this, SIGNAL(doubleClicked(QListViewItem *)),
-	  this, SLOT(showItem(QListViewItem *))) ;
+	connect( this, SIGNAL(doubleClicked(Q3ListViewItem *)),
+	  this, SLOT(showItem(Q3ListViewItem *))) ;
 }
 
 void XcaListView::setDB(db_base *mydb)
@@ -94,7 +94,7 @@ void XcaListView::loadCont()
 pki_base *XcaListView::getSelected()
 {
 	CHECK_DB_NULL
-	QListViewItem *lvi = selectedItem();
+	Q3ListViewItem *lvi = selectedItem();
 	if (!lvi) return NULL;
 	QString name = lvi->text(0);
 	return db->getByName(name);
@@ -110,12 +110,12 @@ void XcaListView::showItem(QString name)
 	showItem(db->getByName(name), false);
 }
 
-void XcaListView::showItem(QListViewItem *item)
+void XcaListView::showItem(Q3ListViewItem *item)
 {
 	showItem(db->getByName(item->text(0)), false);
 }
 
-void XcaListView::rename(QListViewItem *item, int col, const QString &text)
+void XcaListView::rename(Q3ListViewItem *item, int col, const QString &text)
 {
 	CHECK_DB
 	try {
@@ -123,7 +123,7 @@ void XcaListView::rename(QListViewItem *item, int col, const QString &text)
 		db->renamePKI(pki, text);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 }
 
@@ -132,7 +132,7 @@ void XcaListView::startRename()
 	CHECK_DB
 	try {
 #ifdef qt3
-		QListViewItem *item = selectedItem();
+		Q3ListViewItem *item = selectedItem();
 		if (item == NULL) return;
 		item->startRename(0);
 #else
@@ -140,7 +140,7 @@ void XcaListView::startRename()
 #endif
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 }
 
@@ -171,7 +171,7 @@ void XcaListView::deleteItem_default(QString t1, QString t2)
 		db->deletePKI(del);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	updateView();
 }
@@ -187,12 +187,12 @@ void XcaListView::load_default(load_base &load)
 #endif
 	QStringList slist;
 	
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	CHECK_DB
 	
 	dlg->setCaption(load.caption);
 	dlg->setFilters(load.filter);
-	dlg->setMode( QFileDialog::ExistingFiles );
+	dlg->setMode( Q3FileDialog::ExistingFiles );
 	dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
@@ -210,7 +210,7 @@ void XcaListView::load_default(load_base &load)
 			item = load.loadItem(s);
 		}
 		catch (errorEx &err) {
-			Error(err);
+			Qt::SocketError(err);
 			if (item) {
 				delete item;
 				item = NULL;
@@ -250,7 +250,7 @@ void XcaListView::updateView()
         QListIterator<pki_base> it(container);
         for ( ; it.current(); ++it ) {
                 pki = it.current();
-		QListViewItem *lvi = new QListViewItem(this, pki->getIntName());
+		Q3ListViewItem *lvi = new Q3ListViewItem(this, pki->getIntName());
 		insertItem(lvi);
 		pki->setLvi(lvi);
 		pki->updateView();
@@ -261,6 +261,6 @@ void XcaListView::newItem(void) { }
 void XcaListView::deleteItem(void) { }
 void XcaListView::load(void) { }
 void XcaListView::store(void) { }
-void XcaListView::popupMenu(QListViewItem *, QPoint const &, int) { }
+void XcaListView::popupMenu(Q3ListViewItem *, QPoint const &, int) { }
 void XcaListView::showItem(pki_base *, bool) { }
 

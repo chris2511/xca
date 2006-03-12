@@ -1,798 +1,597 @@
-<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
-<class>MainWindow_UI</class>
-<widget class="QMainWindow">
-    <property name="name">
-        <cstring>MainWindow_UI</cstring>
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>698</width>
+    <height>369</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget" >
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>8</number>
     </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>818</width>
-            <height>541</height>
-        </rect>
+    <property name="spacing" >
+     <number>6</number>
     </property>
-    <property name="caption">
-        <string>MainWindow_UI</string>
-    </property>
-    <vbox>
-        <property name="name">
-            <cstring>unnamed</cstring>
+    <item>
+     <widget class="QTabWidget" name="MainTab" >
+      <widget class="QWidget" name="RSATab" >
+       <attribute name="title" >
+        <string>Private Keys</string>
+       </attribute>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
         </property>
-        <property name="margin">
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="XcaTreeView" name="keyView" >
+          <property name="selectionMode" >
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="Frame4" >
+          <property name="sizePolicy" >
+           <sizepolicy>
+            <hsizetype>1</hsizetype>
+            <vsizetype>1</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="frameShape" >
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow" >
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <layout class="QVBoxLayout" >
+           <property name="margin" >
             <number>11</number>
-        </property>
-        <property name="spacing">
+           </property>
+           <property name="spacing" >
             <number>6</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="BNnewKey" >
+             <property name="text" >
+              <string>&amp;New Key</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNexportKey" >
+             <property name="text" >
+              <string>&amp;Export</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNimportKey" >
+             <property name="text" >
+              <string>&amp;Import</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNimportPFX" >
+             <property name="text" >
+              <string>Import PFX (PKCS#12)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdetailsKey" >
+             <property name="text" >
+              <string>&amp;Show Details</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdeleteKey" >
+             <property name="text" >
+              <string>&amp;Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNchangePass" >
+             <property name="text" >
+              <string>Change password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="bigKey" >
+             <property name="minimumSize" >
+              <size>
+               <width>200</width>
+               <height>94</height>
+              </size>
+             </property>
+             <property name="scaledContents" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="CertTab" >
+       <attribute name="title" >
+        <string>Certificate signing requests</string>
+       </attribute>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
         </property>
-        <widget class="QTabWidget">
-            <property name="name">
-                <cstring>MainTab</cstring>
-            </property>
-            <widget class="QWidget">
-                <property name="name">
-                    <cstring>RSATab</cstring>
-                </property>
-                <attribute name="title">
-                    <string>Private Keys</string>
-                </attribute>
-                <hbox>
-                    <property name="name">
-                        <cstring>unnamed</cstring>
-                    </property>
-                    <property name="margin">
-                        <number>11</number>
-                    </property>
-                    <property name="spacing">
-                        <number>6</number>
-                    </property>
-                    <widget class="KeyView">
-                        <property name="name">
-                            <cstring>keyList</cstring>
-                        </property>
-                    </widget>
-                    <widget class="QFrame">
-                        <property name="name">
-                            <cstring>Frame4</cstring>
-                        </property>
-                        <property name="sizePolicy">
-                            <sizepolicy>
-                                <hsizetype>1</hsizetype>
-                                <vsizetype>1</vsizetype>
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                        <property name="frameShape">
-                            <enum>Box</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Sunken</enum>
-                        </property>
-                        <vbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>11</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNnewKey</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;New Key</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNexportKey</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Export</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportKey</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Import</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportPFX</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Import PFX (PKCS#12)</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdetailsKey</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Show Details</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdeleteKey</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Delete</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNchangePass</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Change password</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>Spacer1</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Vertical</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>20</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>bigKey</cstring>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>200</width>
-                                        <height>94</height>
-                                    </size>
-                                </property>
-                                <property name="scaledContents">
-                                    <bool>true</bool>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                </hbox>
-            </widget>
-            <widget class="QWidget">
-                <property name="name">
-                    <cstring>CertTab</cstring>
-                </property>
-                <attribute name="title">
-                    <string>Certificate signing requests</string>
-                </attribute>
-                <hbox>
-                    <property name="name">
-                        <cstring>unnamed</cstring>
-                    </property>
-                    <property name="margin">
-                        <number>11</number>
-                    </property>
-                    <property name="spacing">
-                        <number>6</number>
-                    </property>
-                    <widget class="ReqView">
-                        <property name="name">
-                            <cstring>reqList</cstring>
-                        </property>
-                    </widget>
-                    <widget class="QFrame">
-                        <property name="name">
-                            <cstring>Frame6</cstring>
-                        </property>
-                        <property name="sizePolicy">
-                            <sizepolicy>
-                                <hsizetype>1</hsizetype>
-                                <vsizetype>5</vsizetype>
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
-                        </property>
-                        <property name="frameShape">
-                            <enum>Box</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Sunken</enum>
-                        </property>
-                        <vbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>11</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNnewReq</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;New Request</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportReq</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Import</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdetailsReq</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Show Details</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdeleteReq</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Delete</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>Spacer8</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Vertical</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>20</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>bigCsr</cstring>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>200</width>
-                                        <height>94</height>
-                                    </size>
-                                </property>
-                                <property name="scaledContents">
-                                    <bool>true</bool>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                </hbox>
-            </widget>
-            <widget class="QWidget">
-                <property name="name">
-                    <cstring>ReqTab</cstring>
-                </property>
-                <attribute name="title">
-                    <string>Certificates</string>
-                </attribute>
-                <hbox>
-                    <property name="name">
-                        <cstring>unnamed</cstring>
-                    </property>
-                    <property name="margin">
-                        <number>11</number>
-                    </property>
-                    <property name="spacing">
-                        <number>6</number>
-                    </property>
-                    <widget class="CertView">
-                        <property name="name">
-                            <cstring>certList</cstring>
-                        </property>
-                    </widget>
-                    <widget class="QFrame">
-                        <property name="name">
-                            <cstring>Frame6_2</cstring>
-                        </property>
-                        <property name="frameShape">
-                            <enum>Box</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Sunken</enum>
-                        </property>
-                        <vbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>11</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNnewCert</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;New Certificate</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNexportCert</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Export</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportCert</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Import</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdetailsCert</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Show Details</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdeleteCert</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Delete</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportPKCS12</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Import &amp;PKCS#12</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportPKCS7</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Import P&amp;KCS#7</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNviewState</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Plain View</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>Spacer9</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Vertical</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>20</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>bigCert</cstring>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>200</width>
-                                        <height>94</height>
-                                    </size>
-                                </property>
-                                <property name="scaledContents">
-                                    <bool>true</bool>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                </hbox>
-            </widget>
-            <widget class="QWidget">
-                <property name="name">
-                    <cstring>CATab</cstring>
-                </property>
-                <attribute name="title">
-                    <string>Templates</string>
-                </attribute>
-                <hbox>
-                    <property name="name">
-                        <cstring>unnamed</cstring>
-                    </property>
-                    <property name="margin">
-                        <number>11</number>
-                    </property>
-                    <property name="spacing">
-                        <number>6</number>
-                    </property>
-                    <widget class="TempView">
-                        <property name="name">
-                            <cstring>tempList</cstring>
-                        </property>
-                    </widget>
-                    <widget class="QFrame">
-                        <property name="name">
-                            <cstring>FrameAA</cstring>
-                        </property>
-                        <property name="frameShape">
-                            <enum>Box</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Sunken</enum>
-                        </property>
-                        <vbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>11</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNemptyTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>New &amp;empty template</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNcaTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>New C&amp;A template</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNclientTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>New &amp;client template</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNserverTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>New &amp;server template</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNchangeTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Ch&amp;ange Template</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdeleteTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Delete</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Import</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNexportTemp</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Export</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>Spacer9_2</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Vertical</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>20</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>bigTemp</cstring>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>200</width>
-                                        <height>94</height>
-                                    </size>
-                                </property>
-                                <property name="scaledContents">
-                                    <bool>true</bool>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                </hbox>
-            </widget>
-            <widget class="QWidget">
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <attribute name="title">
-                    <string>Revocation lists</string>
-                </attribute>
-                <hbox>
-                    <property name="name">
-                        <cstring>unnamed</cstring>
-                    </property>
-                    <property name="margin">
-                        <number>11</number>
-                    </property>
-                    <property name="spacing">
-                        <number>6</number>
-                    </property>
-                    <widget class="CrlView">
-                        <property name="name">
-                            <cstring>crlList</cstring>
-                        </property>
-                    </widget>
-                    <widget class="QFrame">
-                        <property name="name">
-                            <cstring>FrameAA_2</cstring>
-                        </property>
-                        <property name="frameShape">
-                            <enum>Box</enum>
-                        </property>
-                        <property name="frameShadow">
-                            <enum>Sunken</enum>
-                        </property>
-                        <vbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <property name="margin">
-                                <number>11</number>
-                            </property>
-                            <property name="spacing">
-                                <number>6</number>
-                            </property>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNimportCrl</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Import</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdetailsCrl</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Show Details</string>
-                                </property>
-                            </widget>
-                            <widget class="QPushButton">
-                                <property name="name">
-                                    <cstring>BNdeleteCrl</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>&amp;Delete</string>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>Spacer9_2_2</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Vertical</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>20</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>bigRev</cstring>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>200</width>
-                                        <height>94</height>
-                                    </size>
-                                </property>
-                                <property name="scaledContents">
-                                    <bool>true</bool>
-                                </property>
-                            </widget>
-                        </vbox>
-                    </widget>
-                </hbox>
-            </widget>
-        </widget>
-    </vbox>
-</widget>
-<toolbars>
-</toolbars>
-<customwidgets>
-    <customwidget>
-        <class>KeyView</class>
-        <header location="local">KeyView.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>1</container>
-        <sizepolicy>
-            <hordata>7</hordata>
-            <verdata>7</verdata>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="XcaTreeView" name="reqView" />
+        </item>
+        <item>
+         <widget class="QFrame" name="Frame6" >
+          <property name="sizePolicy" >
+           <sizepolicy>
+            <hsizetype>1</hsizetype>
+            <vsizetype>5</vsizetype>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-    <customwidget>
-        <class>ReqView</class>
-        <header location="local">ReqView.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>1</container>
-        <sizepolicy>
-            <hordata>7</hordata>
-            <verdata>7</verdata>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-    <customwidget>
-        <class>CertView</class>
-        <header location="local">CertView.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>1</container>
-        <sizepolicy>
-            <hordata>7</hordata>
-            <verdata>7</verdata>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-    <customwidget>
-        <class>TempView</class>
-        <header location="local">TempView.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>1</container>
-        <sizepolicy>
-            <hordata>7</hordata>
-            <verdata>7</verdata>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-    <customwidget>
-        <class>CrlView</class>
-        <header location="local">CrlView.h</header>
-        <sizehint>
-            <width>-1</width>
-            <height>-1</height>
-        </sizehint>
-        <container>1</container>
-        <sizepolicy>
-            <hordata>7</hordata>
-            <verdata>7</verdata>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
-</customwidgets>
-<images>
-    <image name="image0">
-        <data format="PNG" length="782">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b000002d549444154388dad954f48147114c73fbb33b6399a075b313d581ddc352f42170f0929eab5407031e8929d942824c2e82a1da29b8740c9bd04057ad134a514bd186ee36e4276709dda560d5977d7249d7567ffcc4e07dd45626577a32fbcdfccfbfd980fef3de6bd1f866190cb805640079e02c3c0b99cdf1400ed066a0137e0079a7382811780f19f6c08104d86616032998cb5c561c27e1789d86fcca285427446b2a2c754b6569ddc7a064099983e0cfb5d6c7e7192320a620220086002927a66ab34034ec47e9332e0f6f3c2c100a34fce62a0a5dde20cf864fae17018b148448da8ac7e59656a6a8abdbd3d9aae35515d5d8d2449149714b3b1b98173c4c9fcdc3c95f60eb6bebe4e23c40cf8a4464646d809ede05a72217f92e9747432383888f5bc15004dd358fcb8c8867f83e04e306b0659c1fdfdfd9977b368c6e3f130fc7298bb77eee25df7323030c08a6785dddd5d2449ca1f0c60b3d9e8e9ed412c12a9b05660b7db292b2b43595768bede4cf79d6e26de4eb0bfbfcfccbb99fcc03df77ab879e326edaded2492092c672cc4e231cc8299783c4e6363236dad6dd8ec367c3e5f56b0391b581004f4948e1a51319b8f60a15088c3c343144561766e9603f5804b172f110e85f32fc5f4e434d6722bb5b5b558cbad08824020184092244a4a4a58f3ae313e39cecae715963dcb59c15923defeb94d281c425555a2d1285a5463617e81d1b151bc5e2f6ed94d3010c4e1705067abcb1facc535946f0abe1f3e7c7e1ff1449c96961614af82dbe3a6e6720d8140005dd7e9ededcdbf14a228227f92a9bf528fa3d3412412a1ea42157d0ffb68b8dac0fb0fef9197656459a6abab2b2b383ddd8ca5b1fbc69bc7ff3ed55c630f8c578f32be2d13b11e533171d4f395f68eec519c228b5481faebfb11f2ef526cad3a49ea60a09decf9bc641c2fa954662b992ec550ae540bb031a02a3de845a018283d7e9edaea399404a2809a069b00e1182870ca6f9887521cdd8fc93f3ef0c4cac7ee18430000000049454e44ae426082</data>
-    </image>
-</images>
-<tabstops>
-    <tabstop>MainTab</tabstop>
-    <tabstop>BNnewKey</tabstop>
-    <tabstop>BNexportKey</tabstop>
-    <tabstop>BNimportKey</tabstop>
-    <tabstop>BNdetailsKey</tabstop>
-    <tabstop>BNdeleteKey</tabstop>
-    <tabstop>BNnewReq</tabstop>
-    <tabstop>BNimportReq</tabstop>
-    <tabstop>BNdetailsReq</tabstop>
-    <tabstop>BNdeleteReq</tabstop>
-    <tabstop>BNnewCert</tabstop>
-    <tabstop>BNexportCert</tabstop>
-    <tabstop>BNimportCert</tabstop>
-    <tabstop>BNdetailsCert</tabstop>
-    <tabstop>BNdeleteCert</tabstop>
-    <tabstop>BNimportPKCS12</tabstop>
-    <tabstop>BNemptyTemp</tabstop>
-    <tabstop>BNcaTemp</tabstop>
-    <tabstop>BNclientTemp</tabstop>
-    <tabstop>BNserverTemp</tabstop>
-    <tabstop>BNchangeTemp</tabstop>
-    <tabstop>BNdeleteTemp</tabstop>
-</tabstops>
-<pixmapfunction></pixmapfunction>
-<layoutdefaults spacing="6" margin="11"/>
-<includehints>
-    <includehint>keyview.h</includehint>
-    <includehint>reqview.h</includehint>
-    <includehint>certview.h</includehint>
-    <includehint>tempview.h</includehint>
-    <includehint>crlview.h</includehint>
-</includehints>
-</UI>
+           </sizepolicy>
+          </property>
+          <property name="frameShape" >
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow" >
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <layout class="QVBoxLayout" >
+           <property name="margin" >
+            <number>8</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="BNnewReq" >
+             <property name="text" >
+              <string>&amp;New Request</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNexportReq" >
+             <property name="text" >
+              <string>&amp;Export</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNimportReq" >
+             <property name="text" >
+              <string>&amp;Import</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdetailsReq" >
+             <property name="text" >
+              <string>&amp;Show Details</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdeleteReq" >
+             <property name="text" >
+              <string>&amp;Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="bigCsr" >
+             <property name="minimumSize" >
+              <size>
+               <width>200</width>
+               <height>94</height>
+              </size>
+             </property>
+             <property name="scaledContents" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="ReqTab" >
+       <attribute name="title" >
+        <string>Certificates</string>
+       </attribute>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="XcaTreeView" name="certView" />
+        </item>
+        <item>
+         <widget class="QFrame" name="Frame6_2" >
+          <property name="frameShape" >
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow" >
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <layout class="QVBoxLayout" >
+           <property name="margin" >
+            <number>11</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="BNnewCert" >
+             <property name="text" >
+              <string>&amp;New Certificate</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNexportCert" >
+             <property name="text" >
+              <string>&amp;Export</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNimportCert" >
+             <property name="text" >
+              <string>&amp;Import</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdetailsCert" >
+             <property name="text" >
+              <string>&amp;Show Details</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdeleteCert" >
+             <property name="text" >
+              <string>&amp;Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNimportPKCS12" >
+             <property name="text" >
+              <string>Import &amp;PKCS#12</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNimportPKCS7" >
+             <property name="text" >
+              <string>Import P&amp;KCS#7</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNviewState" >
+             <property name="text" >
+              <string>Plain View</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="bigCert" >
+             <property name="minimumSize" >
+              <size>
+               <width>200</width>
+               <height>94</height>
+              </size>
+             </property>
+             <property name="scaledContents" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="CATab" >
+       <attribute name="title" >
+        <string>Templates</string>
+       </attribute>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QTreeView" name="treeView_4" />
+        </item>
+        <item>
+         <widget class="QFrame" name="FrameAA" >
+          <property name="frameShape" >
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow" >
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <layout class="QVBoxLayout" >
+           <property name="margin" >
+            <number>11</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="BNemptyTemp" >
+             <property name="text" >
+              <string>New &amp;empty template</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNcaTemp" >
+             <property name="text" >
+              <string>New C&amp;A template</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNclientTemp" >
+             <property name="text" >
+              <string>New &amp;client template</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNserverTemp" >
+             <property name="text" >
+              <string>New &amp;server template</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNchangeTemp" >
+             <property name="text" >
+              <string>Ch&amp;ange Template</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdeleteTemp" >
+             <property name="text" >
+              <string>&amp;Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNimportTemp" >
+             <property name="text" >
+              <string>Import</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNexportTemp" >
+             <property name="text" >
+              <string>Export</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="bigTemp" >
+             <property name="minimumSize" >
+              <size>
+               <width>200</width>
+               <height>94</height>
+              </size>
+             </property>
+             <property name="scaledContents" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="unnamed" >
+       <attribute name="title" >
+        <string>Revocation lists</string>
+       </attribute>
+       <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QTreeView" name="treeView_5" />
+        </item>
+        <item>
+         <widget class="QFrame" name="FrameAA_2" >
+          <property name="frameShape" >
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="frameShadow" >
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <layout class="QVBoxLayout" >
+           <property name="margin" >
+            <number>11</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="BNimportCrl" >
+             <property name="text" >
+              <string>&amp;Import</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdetailsCrl" >
+             <property name="text" >
+              <string>&amp;Show Details</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="BNdeleteCrl" >
+             <property name="text" >
+              <string>&amp;Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="bigRev" >
+             <property name="minimumSize" >
+              <size>
+               <width>200</width>
+               <height>94</height>
+              </size>
+             </property>
+             <property name="scaledContents" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>XcaTreeView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/XcaTreeView.h</header>
+   <container>0</container>
+   <pixmap></pixmap>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

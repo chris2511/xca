@@ -1,5 +1,8 @@
 #include "db.h"
 #include "base.h"
+#ifdef __WIN32__
+#include <windows.h>
+#else
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -10,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#endif
 
 #if 0
 int main()

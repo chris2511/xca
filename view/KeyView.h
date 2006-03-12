@@ -65,14 +65,14 @@ class KeyView : public XcaListView
 	static const int sizeList[];
 	void __setOwnPass(int x);
   public:
-	KeyView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	KeyView(QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem();
 	void deleteItem();
 	void load();
 	// pki_base *insert(pki_base *item);
 	void store();
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void popupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
   public slots:
 	void importKey(pki_key *k);
 	void changePasswd();

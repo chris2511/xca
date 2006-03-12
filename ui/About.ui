@@ -1,176 +1,126 @@
-<!DOCTYPE UI><UI>
-<class>About_UI</class>
-<widget>
-    <class>QDialog</class>
-    <property stdset="1">
-        <name>name</name>
-        <cstring>About_UI</cstring>
-    </property>
-    <property stdset="1">
-        <name>geometry</name>
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>561</width>
-            <height>392</height>
-        </rect>
-    </property>
-    <property stdset="1">
-        <name>caption</name>
-        <string></string>
-    </property>
-    <vbox>
-        <property stdset="1">
-            <name>margin</name>
-            <number>11</number>
-        </property>
-        <property stdset="1">
-            <name>spacing</name>
-            <number>6</number>
-        </property>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout2</cstring>
-            </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>image1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>minimumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>maximumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string></string>
-                    </property>
-                    <property stdset="1">
-                        <name>scaledContents</name>
-                        <bool>true</bool>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer1_2</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Done</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>image</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>minimumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>maximumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string></string>
-                    </property>
-                    <property stdset="1">
-                        <name>scaledContents</name>
-                        <bool>true</bool>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <widget>
-            <class>QTextBrowser</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>textbox</cstring>
-            </property>
-        </widget>
-    </vbox>
-</widget>
-<connections>
-    <connection>
-        <sender>PushButton1</sender>
-        <signal>clicked()</signal>
-        <receiver>About_UI</receiver>
-        <slot>accept()</slot>
-    </connection>
-</connections>
-</UI>
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>About</class>
+ <widget class="QDialog" name="About" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>561</width>
+    <height>392</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string/>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>8</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="image1" >
+       <property name="minimumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="text" >
+        <string/>
+       </property>
+       <property name="scaledContents" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="PushButton1" >
+       <property name="text" >
+        <string>Done</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="image" >
+       <property name="minimumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="text" >
+        <string/>
+       </property>
+       <property name="scaledContents" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTextBrowser" name="textbox" />
+   </item>
+  </layout>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections/>
+</ui>

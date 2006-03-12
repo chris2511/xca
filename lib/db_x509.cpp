@@ -45,12 +45,11 @@
  *
  * $Id$
  *
- */                           
-
+ */
 
 #include "db_x509.h"
+#include "widgets/CertDetail.h"
 #include <Qt/qmessagebox.h>
-
 
 db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
@@ -462,6 +461,19 @@ void db_x509::newCert(NewX509 *dlg)
 		if (tempkey != NULL) delete(tempkey);
     }
 	
+}
+
+void db_x509::showItem(QModelIndex &index)
+{
+	pki_x509 *crt = static_cast<pki_x509*>(index.internalPointer());
+	CertDetail *dlg;
+	
+	dlg = new CertDetail(mainwin);
+	if (dlg) {
+		dlg->setCert(crt);
+		dlg->exec();
+		delete dlg;
+	}
 }
 
 #undef FOR_ctr

@@ -56,7 +56,7 @@
 #include "XcaListView.h"
 
 class pki_crl;
-class QListViewItem;
+class Q3ListViewItem;
 
 class CrlView : public XcaListView
 {
@@ -66,13 +66,13 @@ class CrlView : public XcaListView
 	static const int sizeList[];
 
    public:
-	CrlView(QWidget * parent = NULL, const char * name = 0, WFlags f = 0);
+	CrlView(QWidget * parent = NULL, const char * name = 0, Qt::WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void deleteItem();
 	void load();
 	pki_base *loadItem(QString fname);
 	void store(bool);
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void popupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
 	
    public slots:
 	pki_crl *newItem(pki_x509 *cert);
@@ -80,7 +80,7 @@ class CrlView : public XcaListView
 	void writeCrl_der();
 
    private slots:
-	void showCert(QListViewItem *i);
+	void showCert(Q3ListViewItem *i);
 	void showCert(QString name);
 	void showKey(QString name);
 };	

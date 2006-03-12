@@ -51,20 +51,20 @@
 
 #include "clicklabel.h"
 
-#include <qtooltip.h>
-#include <qpalette.h>
-#include <qcolor.h>
+#include <Qt/qtooltip.h>
+#include <Qt/qpalette.h>
+#include <Qt/qcolor.h>
 
-ClickLabel::ClickLabel( QWidget* parent,  const char* name, WFlags f )
-	:QLabel( parent, name, f )
+ClickLabel::ClickLabel(QWidget *parent)
+	:QLabel(parent)
 {
 	QFont fnt( font() );
 	fnt.setBold(true);
 	setFont( fnt );
 	setFrameShape( QLabel::Panel );
 	setFrameShadow( QLabel::Sunken );
-	setAlignment( int( QLabel::AlignCenter ) );
-	QToolTip::add( this, tr("Double click for details") );
+	setAlignment( Qt::AlignCenter );
+	setToolTip( tr("Double click for details") );
 }
 
 void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
@@ -75,6 +75,7 @@ void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
 
 void ClickLabel::setColor(const QColor &col)
 {
+#if 0
 	QPalette pal = palette();
 	QColorGroup cg = pal.active();
 	cg.setColor( QColorGroup::Foreground, col );
@@ -82,6 +83,7 @@ void ClickLabel::setColor(const QColor &col)
 	pal.setInactive( cg );
 	pal.setDisabled( cg );
 	setPalette( pal );
+#endif
 }
 
 void ClickLabel::setRed()

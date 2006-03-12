@@ -51,11 +51,11 @@
 
 
 #include "MainWindow.h"
-#include <qapplication.h>
-#include <qmime.h>
-#include <qtextbrowser.h>
-#include <qpixmap.h>
-#include <qlabel.h>
+#include <Qt/qapplication.h>
+#include <Qt/qmime.h>
+#include <Qt/q3textbrowser.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qlabel.h>
 #include "ui/About.h"
 #include "ui/Help.h"
 #include "lib/func.h"
@@ -82,12 +82,16 @@ qFatal("Cmdline Error (%s)\n", msg);
 
 void MainWindow::about()
 {
-	About_UI *about = new About_UI(this, 0, true );
+	Ui::About ui;
+	QDialog *about = new QDialog(this, 0);
+
+	ui.setupUi(about);
+	
 	QString cont;
 	cont.sprintf("<p><h3><center><u>XCA</u></center></h3>"
-	"<p>Copyright 2002 - 2003 by Christian Hohnst&auml;dt - "
+	"<p>Copyright 2002 - 2006 by Christian Hohnst&auml;dt - "
 	"version : <b>" VER "</b>"
-	"<p>%s<br>%s<br>QT: %s"
+	"<p>%s<br>QT: %s"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
@@ -99,21 +103,22 @@ void MainWindow::about()
 	"<tr><td></td><td>SPKAC support and Testing</td></tr>"
 	"</table><hr><center><u><b>General support</b></u></center>"
 	"<p><b>Mark Foster</b> <u>&lt;mark@foster.cc&gt;</u>",
-	OPENSSL_VERSION_TEXT, DB_VERSION_STRING, QT_VERSION_STR ); 
+	OPENSSL_VERSION_TEXT, QT_VERSION_STR ); 
 	
-	about->setCaption(tr(XCA_TITLE));
-	about->image->setPixmap( *keyImg );
-	about->image1->setPixmap( *certImg );
-	about->textbox->setText(cont);
+	about->setWindowTitle(tr(XCA_TITLE));
+	//ui.image->setPixmap( *keyImg );
+	//ui.image1->setPixmap( *certImg );
+	ui.textbox->setHtml(cont);
 	about->exec();
 }
 
 void MainWindow::help()
 {
-	Help_UI *h = new Help_UI(this, 0, true );
-	h->setCaption(tr(XCA_TITLE));
-	h->textbox->mimeSourceFactory()->setFilePath(getPrefix());
-	h->textbox->setSource("xca.html");
+	QDialog *h = new QDialog(this, 0);
+	Ui::Help ui;
+	ui.setupUi(h);
+	h->setWindowTitle(tr(XCA_TITLE));
+	ui.textbox->setSource(QUrl("file://xca.html"));
 	h->exec();
 }
 		

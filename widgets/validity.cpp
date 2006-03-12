@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -35,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -50,99 +49,31 @@
 
 #include "validity.h"
 
-#include <qcombobox.h>
-#include <qlineedit.h>
-#include <qvalidator.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qpushbutton.h>
-#include <qfontmetrics.h>
-#include <qlabel.h>
+#include <Qt/qdatetime.h>
 #include "lib/asn1time.h"
 
-Validity::Validity( QWidget* parent,  const char* name )
-    : QWidget( parent, name )
+Validity::Validity( QWidget* parent )
+    : QDateTimeEdit( parent )
 {
-    int charw = this->fontMetrics().width('0');
-    int space = 10;
-    
-#define CHAR_W(x) (charw * (x) + space)
-    
-    QStringList months;
-    months << tr("Jan") << tr("Feb") << tr("Mar") << tr("Apr") 
-	   << tr("May") << tr("Jun") << tr("Jul") << tr("Aug")
-	   << tr("Sep") << tr("Oct") << tr("Nov") << tr("Dec");
-    
-    if ( !name )
-	setName( "Validity" );
-    ValidityLayout = new QHBoxLayout( this ); 
-    ValidityLayout->setSpacing( 6 );
-    ValidityLayout->setMargin( 0 );
-
-    Mon = new QComboBox( FALSE, this, "Mon" );
-    Mon->insertStringList(months);
-    
-    Year = new QLineEdit( this, "Year" );
-    Year->setMinimumWidth(CHAR_W(4));
-    Year->setValidator( new QIntValidator(1000, 9999, this));
-    
-    Day = new QLineEdit( this, "Day" );
-    Day->setMinimumWidth(CHAR_W(2));
-    Day->setValidator( new QIntValidator(1, 31, this));
-    
-    Hour = new QLineEdit( this, "Hour" );
-    Hour->setMinimumWidth(CHAR_W(2));
-    Hour->setValidator( new QIntValidator(1, 23, this));
-    
-    Min = new QLineEdit( this, "Min" );
-    Min->setMinimumWidth(CHAR_W(2));
-    Min->setValidator( new QIntValidator(1, 59, this));
-    
-    Sec = new QLineEdit( this, "Sec" );
-    Sec->setMinimumWidth(CHAR_W(2));
-    Sec->setValidator( new QIntValidator(1, 59, this));
-    
-    bnNow = new QPushButton(this, "now" );
-    bnNow->setMaximumWidth(this->fontMetrics().width("Now") + 16);
-    bnNow->setText(tr("Now"));
-    
-    l1 = new QLabel(":", this, "l1");
-    l2 = new QLabel(":", this, "l2");
-
-    ValidityLayout->addWidget( Day );
-    ValidityLayout->addWidget( Mon );
-    ValidityLayout->addWidget( Year );
-    ValidityLayout->addWidget( Hour );
-    ValidityLayout->addWidget( l1 );
-    ValidityLayout->addWidget( Min );
-    ValidityLayout->addWidget( l2 );
-    ValidityLayout->addWidget( Sec );
-    ValidityLayout->addWidget( bnNow );
-
-    connect( bnNow, SIGNAL(clicked()), this, SLOT(setNow()));
 }
 
 Validity::~Validity()
 {
-    // no need to delete child widgets, Qt does it all for us
 }
 
 a1time Validity::getDate() const
 {
 	a1time date;
-	date.set(Year->text().toInt(),
-		Mon->currentItem() + 1,
-		Day->text().toInt(), 
-		Hour->text().toInt(),
-		Min->text().toInt(),
-		Sec->text().toInt()
-		);
+	date.set(dateTime().toTime_t());
 	return date;
 }
 
 void Validity::setDate(const a1time &a, int midnight)
 {
+	QDate date;
+	QTime time;
+
+	
 	int y, m, d, h, min, s, g;
 	QString S;
 	
@@ -155,12 +86,13 @@ void Validity::setDate(const a1time &a, int midnight)
 		h=23; min=59; s=59;
 	}
 
-	Year->setText(S.sprintf("%02d",y));
-	Mon->setCurrentItem(m-1);
-	Day->setText(S.sprintf("%02d",d));
-	Hour->setText(S.sprintf("%02d",h));
-	Min->setText(S.sprintf("%02d",min));
-	Sec->setText(S.sprintf("%02d",s));
+	date.setYMD(y,m,d);
+	time.setHMS(h,min,s);
+
+	QDateTime dt;
+	dt.setDate(date);
+	dt.setTime(time);
+	setDateTime(dt);
 }
 
 void Validity::setNow()

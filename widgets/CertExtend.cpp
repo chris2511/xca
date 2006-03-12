@@ -36,11 +36,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -56,17 +53,18 @@
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
 #include "widgets/MainWindow.h"
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qcheckbox.h>
 
 
-CertExtend::CertExtend(QWidget *parent, const char *name, bool modal, WFlags f)
-	:CertExtend_UI(parent, name, modal, f)
+CertExtend::CertExtend(QWidget *parent)
+	:QDialog(parent)
 {
+	setupUi(this);
 	a1time time;
-	setCaption(tr(XCA_TITLE));
+	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::certImg);
 	notBefore->setDate(time.now());
 	notAfter->setDate(time.now(60 * 60 * 24 * 356));
@@ -74,6 +72,7 @@ CertExtend::CertExtend(QWidget *parent, const char *name, bool modal, WFlags f)
 
 void CertExtend::applyTimeDiff()
 {
-	applyTD(validNumber->text().toInt(), validRange->currentItem(),
-		midnightCB->isChecked(), notBefore, notAfter);
+#warning applyTimeDiff
+//	applyTD(validNumber->text().toInt(), validRange->currentItem(),
+//		midnightCB->isChecked(), notBefore, notAfter);
 }

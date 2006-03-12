@@ -55,12 +55,12 @@
 #include "lib/pki_crl.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
-#include <qlabel.h>
-#include <qtextview.h>
-#include <qlistview.h>
-#include <qlineedit.h>
+#include <Qt/qlabel.h>
+#include <Qt/q3textview.h>
+#include <Qt/q3listview.h>
+#include <Qt/qlineedit.h>
 
-CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, WFlags f)
+CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, Qt::WFlags f)
 	:CrlDetail_UI(parent, name, modal, f)
 {
 	setCaption(tr(XCA_TITLE));
@@ -77,7 +77,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 	int numc, i;
 	pki_x509 *iss, *last, *rev;
 	x509rev revit;
-	QListViewItem *current;
+	Q3ListViewItem *current;
        	x509v3ext e1, e2;
 	QStringList sl;
 	
@@ -131,11 +131,11 @@ void CrlDetail::setCrl(pki_crl *crl)
 		revit = crl->getRev(i);
                 rev = MainWindow::certs->getByIssSerial(iss, revit.getSerial());
                 if (rev != NULL) {
-                        current = new QListViewItem(certList,
+                        current = new Q3ListViewItem(certList,
                                         rev->getIntName());
                 }
                 else {
-                        current = new QListViewItem(certList,
+                        current = new Q3ListViewItem(certList,
 					tr("Unknown certificate"));
                 } 
 		current->setPixmap(0, *pki_x509::icon[2]);

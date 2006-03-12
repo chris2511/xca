@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -35,11 +36,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -54,15 +52,14 @@
 #include "distname.h"
 #include "clicklabel.h"
 #include "lib/pki_x509req.h"
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qtextview.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlineedit.h>
 
-ReqDetail::ReqDetail(QWidget *parent, const char *name, bool modal, WFlags f )
-	:ReqDetail_UI(parent, name, modal, f)
+ReqDetail::ReqDetail(QWidget *parent)
+	:QDialog(parent)
 {
-	setCaption(tr(XCA_TITLE));
+	setupUi(this);
+	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::csrImg);		 
 	descr->setReadOnly(true);
 }
@@ -103,12 +100,6 @@ void ReqDetail::setReq(pki_x509req *req)
 
 	// The extensions
 	extList el = req->getV3Ext();
-	v3extensions->setText(el.getHtml("<br>"));
+	v3extensions->document()->setHtml(el.getHtml("<br>"));
 }
 
-void ReqDetail::setImport()
-{
-	// rename the buttons in case of import 
-	but_ok->setText(tr("Import"));
-	but_cancel->setText(tr("Discard"));
-}			

@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -50,29 +48,26 @@
  */                           
 
 
-#define MDEBUG
+//#define MDEBUG
 #include "MainWindow.h"
-#include "ImportMulti.h"
-#include <qapplication.h>
-#include <qclipboard.h>
-#include <qmessagebox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlistview.h>
-#include <qlineedit.h>
-#include <qtextbrowser.h>
+//#include "ImportMulti.h"
+#include <Qt/qapplication.h>
+#include <Qt/qclipboard.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qlistview.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qtextbrowser.h>
+#include <Qt/qstatusbar.h>
 #include "lib/exception.h"
 #include "lib/pki_pkcs12.h"
-#include "view/KeyView.h"
-#include "view/ReqView.h"
-#include "view/CertView.h"
-#include "view/TempView.h"
-#include "view/CrlView.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
 #include "ui/PassRead.h"
 #include "ui/PassWrite.h"
+
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
@@ -85,24 +80,25 @@ db_x509	*MainWindow::certs = NULL;
 db_temp	*MainWindow::temps = NULL;
 db_base	*MainWindow::settings = NULL;
 db_crl	*MainWindow::crls = NULL;
-DbEnv *MainWindow::dbenv = NULL;
 
 NIDlist *MainWindow::eku_nid = NULL;
 NIDlist *MainWindow::dn_nid = NULL;
 NIDlist *MainWindow::aia_nid = NULL;
 
 
-MainWindow::MainWindow(QWidget *parent, const char *name ) 
-	:MainWindow_UI(parent, name)
+MainWindow::MainWindow(QWidget *parent ) 
+	:QMainWindow(parent)
 {
-	setCaption(tr(XCA_TITLE));
+	statusBar()->clearMessage();
+	
+	setWindowTitle(tr(XCA_TITLE));
 	dbfile = DBFILE;
-	dbenv = NULL;
-	global_tid = NULL;
 	force_load = 0;
-	
+
 	baseDir = getBaseDir();
-	
+
+	setupUi(this);
+
 	init_menu();
 	
 	init_images();
@@ -122,8 +118,9 @@ MainWindow::MainWindow(QWidget *parent, const char *name )
 	
 	init_baseDir();
 	
-	if (force_load)
-		emit init_database();
+	dbfile = baseDir + QDir::separator() + dbfile;
+	init_database();
+	printf("Init database\n");
 }
 
 /* creates a new nid list from the given filename */
@@ -153,12 +150,12 @@ void MainWindow::init_baseDir()
 {
 	static bool done = false;
 	if (done) return;
-	fprintf(stderr, "base Dir: %s\n", baseDir.latin1()); 
+	fprintf(stderr, "base Dir: %s\n", CCHAR(baseDir)); 
 	QDir d(baseDir);
 	if ( ! d.exists() && !d.mkdir(baseDir)) {
 		QMessageBox::warning(this,tr(XCA_TITLE),
 			QString::fromLatin1("Could not create: ") + baseDir);
-		qFatal(  QString::fromLatin1("Could not create: ") +  baseDir );
+		qFatal("Could not create base dir");
 	}
 	done = true;
 
@@ -168,24 +165,33 @@ void MainWindow::init_baseDir()
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
+
+	char *p;
+	db mydb(dbfile);
+	if (!mydb.find(setting, "workingdir")) {
+		if ((p = (char *)mydb.load(NULL))) {
+			workingdir = p;
+			free(p);
+		}
+	}
 }
 
 void MainWindow::do_connections()
 {
-	
+#if 0	
 	connect( keyList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( reqList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( certList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( tempList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( crlList, SIGNAL(init_database()), this, SLOT(init_database()));
-
-	connect( BNnewKey, SIGNAL(clicked()), keyList, SLOT(newItem()));
-	connect( BNexportKey, SIGNAL(clicked()), keyList, SLOT(store()));
-	connect( BNimportKey, SIGNAL(clicked()), keyList, SLOT(load()));
-	connect( BNdetailsKey, SIGNAL(clicked()), keyList, SLOT(showItem()));
-	connect( BNdeleteKey, SIGNAL(clicked()), keyList, SLOT(deleteItem()));
-	connect( BNchangePass, SIGNAL(clicked()), keyList, SLOT(changePasswd()));
-	
+	connect( BNnewKey, SIGNAL(clicked()), keys, SLOT(newItem()));
+	connect( BNexportKey, SIGNAL(clicked()), keys, SLOT(store()));
+	connect( BNimportKey, SIGNAL(clicked()), keys, SLOT(load()));
+	connect( BNdetailsKey, SIGNAL(clicked()), keys, SLOT(showItem()));
+	connect( BNdeleteKey, SIGNAL(clicked()), keys, SLOT(deleteItem()));
+	connect( BNchangePass, SIGNAL(clicked()), keys, SLOT(changePasswd()));
+#endif
+#if 0	
 	connect( BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
 	connect( BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));
 	connect( BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
@@ -216,7 +222,7 @@ void MainWindow::do_connections()
 	
 	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
-	
+
 	connect( reqList, SIGNAL(newCert(pki_x509req *)),
 		certList, SLOT(newCert(pki_x509req *)) );
 	connect( certList, SIGNAL(genCrl(pki_x509 *)),
@@ -225,12 +231,11 @@ void MainWindow::do_connections()
 		certList, SLOT(newCert(pki_temp *)) );
 	connect( tempList, SIGNAL(newReq(pki_temp *)),
 		reqList, SLOT(newItem(pki_temp *)) );
-	
+#endif
 }
 
 void MainWindow::init_images()
 {
-	
 	keyImg = loadImg("bigkey.png");
 	csrImg = loadImg("bigcsr.png");
 	certImg = loadImg("bigcert.png");
@@ -238,12 +243,13 @@ void MainWindow::init_images()
 	nsImg = loadImg("netscape.png");
 	revImg = loadImg("bigcrl.png");
 	appIco = loadImg("key.xpm");
+	printf("k:%p, c:%p\n", keyImg, csrImg);
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
 	bigTemp->setPixmap(*tempImg);
 	bigRev->setPixmap(*revImg);
-	setIcon(*appIco);
+	setWindowIcon(*appIco);
 	pki_key::icon[0] = loadImg("key.png");
 	pki_key::icon[1] = loadImg("halfkey.png");
 	pki_x509req::icon[0] = loadImg("req.png");
@@ -254,8 +260,10 @@ void MainWindow::init_images()
 	pki_x509::icon[2] = loadImg("invalidcert.png");
 	pki_x509::icon[3] = loadImg("invalidcertkey.png");
 	pki_x509::icon[4] = loadImg("revoked.png");
-	pki_temp::icon = loadImg("template.png");			     
-	pki_crl::icon = loadImg("crl.png");			     
+#if 0
+	pki_temp::icon = loadImg("template.png");
+	pki_crl::icon = loadImg("crl.png");
+#endif
 }		
 	
 void MainWindow::read_cmdline()
@@ -265,16 +273,17 @@ void MainWindow::read_cmdline()
 	pki_base *item = NULL;
 	load_base *lb = NULL;
 	exitApp = 0;
-	
+#if 0
 	ImportMulti *dlgi = NULL;
 	dlgi = new ImportMulti(this, NULL, true); 
-	
+#endif	
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
 			if (lb) delete lb;
 			opt = 1; lb = NULL; type = 1;
 			switch (arg[1]) {
+#if 0
 				case 'c' : lb = new load_cert(); break;
 				case 'r' : lb = new load_req(); break;
 				case 'k' : lb = new load_key(); break;
@@ -282,12 +291,13 @@ void MainWindow::read_cmdline()
 				case '7' : lb = new load_pkcs7(); break;
 				case 'l' : lb = new load_crl(); break;
 				case 't' : lb = new load_temp(); break;
+#endif
 				case 'd' : type = 1; force_load=1; break;
 				case 'b' : type = 2; break;
 				case 'v' : fprintf(stderr, XCA_TITLE " Version " VER "\n"); 
 						   opt=0; exitApp=1; break;
 				case 'x' : exitApp = 1; opt=0; break;
-				default  : cmd_help(tr("no such option: ") + arg );
+				default  : cmd_help((char*)(QString(tr("no such option: ")) + arg).data() );
 			}
 			if (arg[2] != '\0' && opt==1) {
 				 arg+=2;
@@ -301,10 +311,9 @@ void MainWindow::read_cmdline()
 			item = NULL;
 			try {
 				item = lb->loadItem(arg);
-				dlgi->addItem(item);
+				//dlgi->addItem(item);
 			}
 			catch (errorEx &err) {
-				Error(err);
 				if (item) {
 					delete item;
 					item = NULL;
@@ -315,16 +324,17 @@ void MainWindow::read_cmdline()
 			switch (type) {
 				case 1 : dbfile = arg; break;
 				case 2 : baseDir = arg; init_baseDir(); break;
-				default  : cmd_help(tr("I'm puzzled: this should not happen ! ") );
+				default  : cmd_help("I'm puzzled: this should not happen ! " );
 			}
 		}
 		
 		cnt++;
 	}
-
+#if 0
 	connect( dlgi, SIGNAL(init_database()), this, SLOT(init_database()));
 	dlgi->execute(1); /* force showing of import dialog */
 	delete dlgi;
+#endif
 }	
 
 
@@ -350,12 +360,13 @@ int MainWindow::initPass()
 {
 	pass_info p(tr("New Password"), 
 		tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
-	QString passHash = settings->getString("pwhash");
+	QString passHash;// = settings->getString("pwhash");
+#warning Keep a Passwd in DB ??
 	if (passHash.isEmpty()) {
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
 		if (keylen == 0) return 0;
 		pki_key::passwd[keylen]='\0';
-		settings->putString( "pwhash", md5passwd(pki_key::passwd) );
+		//settings->putString( "pwhash", md5passwd(pki_key::passwd) );
 	}
 	else {
 		int keylen=0;		
@@ -377,43 +388,61 @@ int MainWindow::initPass()
 int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 {
 	pass_info *p = (pass_info *)userdata;
-	PassRead_UI *dlg = new PassRead_UI(NULL, 0, true);
+	printf("Userdata called\n");
+	Ui::PassRead ui;
+	QDialog *dlg = new QDialog(qApp->activeWindow());
+	ui.setupUi(dlg);
 	if (p != NULL) {
-		dlg->image->setPixmap( *keyImg );
-		dlg->title->setText(tr(p->getTitle()));
-		dlg->description->setText(tr(p->getDescription()));
+		//ui.image->setPixmap( *keyImg );
+		ui.description->setText(p->getDescription());
+		dlg->setWindowTitle(p->getTitle());
 	}
-	dlg->pass->setFocus();
-	dlg->setCaption(tr(XCA_TITLE));
+	dlg->show();
+	//dlg->activateWindow();
+	ui.pass->setFocus();
+	
 	buf[0] = '-'; /* if this remains the dialog was aborted */
 	if (dlg->exec()) {
-	   QString x = dlg->pass->text();
-	   strncpy(buf, x.latin1(), size);
+	   QString x = ui.pass->text();
+	   strncpy(buf, x.toAscii(), size);
+	   delete dlg;
 	   return x.length();
 	}
-	else return 0;
+	else {
+		delete dlg;
+		return 0;
+	}
 }
 
 
 int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 {
 	pass_info *p = (pass_info *)userdata;
-	PassWrite_UI *dlg = new PassWrite_UI(NULL, 0, true);
+	Ui::PassWrite ui;
+	QDialog *dlg = new QDialog(qApp->activeWindow());
+	ui.setupUi(dlg);
 	if (p != NULL) {
-		dlg->image->setPixmap( *keyImg );
-		dlg->title->setText(tr(p->getTitle()));
-		dlg->description->setText(tr(p->getDescription()));
+		//ui.image->setPixmap( *keyImg );
+		ui.description->setText(p->getDescription());
+		dlg->setWindowTitle(p->getTitle());
 	}
-	dlg->passA->setFocus();
-	dlg->setCaption(tr(XCA_TITLE));
+	dlg->show();
+	//dlg->activateWindow();
+	ui.passA->setFocus();
+	
 	if (dlg->exec()) {
-	   QString A = dlg->passA->text();
-	   QString B = dlg->passB->text();
-	   if (A != B) return 0;
-	   strncpy(buf, A.latin1(), size);
+	   QString A = ui.passA->text();
+	   QString B = ui.passB->text();
+	   delete dlg;
+	   if (A != B)
+		   return 0;
+	   strncpy(buf, A.toAscii(), size);
 	   return A.length();
 	}
-	else return 0;
+	else {
+		delete dlg;
+		return 0;
+	}
 }
 
 QString MainWindow::md5passwd(const char *pass)
@@ -439,43 +468,45 @@ void MainWindow::Error(errorEx &err)
 {
 	if (err.isEmpty()) return;
 	QString msg =  tr("The following error occured:") + "\n" + err.getString();
-	int ret = QMessageBox::warning(NULL, XCA_TITLE, msg, tr("&OK"), tr("Copy to Clipboard"));
+	int ret = QMessageBox::warning(qApp->activeWindow(), XCA_TITLE,
+			msg, tr("&OK"), tr("Copy to Clipboard"));
 	if (ret == 1) {
 		QClipboard *cb = QApplication::clipboard();
 		cb->setText(msg);
 	}
 }
 
-void MainWindow::dberr(const char *errpfx, char *msg)
-{
-	errorEx e(QString(errpfx) + "\n" + msg);
-	Error(e);
-}
-
 QString MainWindow::getPath()
 {
-	QString x = settings->getString("workingdir");
-	return x;
+	return workingdir;
 }
 
 void MainWindow::setPath(QString str)
 {
-	settings->putString("workingdir", str);
+	db mydb(dbfile);
+	workingdir = str;
+	mydb.set((const unsigned char *)CCHAR(str), str.length()+1, 1, setting, "workingdir");
 }
 
 NewX509 *MainWindow::newX509()
 {
+#if 0
 	return new NewX509(NULL, 0, true);
+#endif
 }
 
 void MainWindow::connNewX509(NewX509 *nx)
 {
+#if 0
 	connect( (const QObject *)nx->genKeyBUT, SIGNAL(clicked()), keyList, SLOT(newItem()) );
 	connect( nx, SIGNAL(genKey()), keyList, SLOT(newItem()) );
 	connect( keyList, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
+#endif
 }
 
 void MainWindow::changeView()
 {
+#if 0
 	certList->changeView(BNviewState);
+#endif
 }

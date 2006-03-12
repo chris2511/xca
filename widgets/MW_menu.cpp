@@ -52,50 +52,48 @@
 
 #include "MainWindow.h"
 #include "lib/load_obj.h"
-#include <qapplication.h>
-#include <qmenubar.h>
+#include <Qt/qapplication.h>
+#include <Qt/qmenubar.h>
 
 void MainWindow::init_menu()
 {
-	QPopupMenu *file = new QPopupMenu( this );
-	file->insertItem(tr("&Open default DataBase"),  this, SLOT(load_def_database()), CTRL+Key_O );
-	file->insertItem(tr("Open &DataBase"),  this, SLOT(load_database()), CTRL+Key_L );
-	file->insertItem(tr("&Close DataBase"), this, SLOT(close_database()), CTRL+Key_C );
-	file->insertItem(tr("&Dump DataBase"), this, SLOT(dump_database()), CTRL+Key_C );
-	file->insertSeparator();
-	file->insertItem(tr("E&xit"),  qApp, SLOT(quit()), ALT+Key_F4 );
-
-	QPopupMenu *help = new QPopupMenu( this );
-	help->insertItem(tr("&Content"), this, SLOT(help()), Key_F1 );
-	help->insertItem(tr("&About"), this, SLOT(about()) );
+	QMenu *file;
+	QMenu *help;
 	
-#if 0
-	mb = new QMenuBar( this );
-#endif
-	mb = menuBar();
-	mb->insertItem(tr("&File"), file );
-	mb->insertSeparator();
-	mb->insertItem(tr("&Help"), help );
-	mb->setSeparator( QMenuBar::InWindowsStyle );
+	file = menuBar()->addMenu(tr("&File"));
+	file->addAction(tr("&Open default DataBase"),  this,
+				SLOT(load_def_database()), Qt::CTRL+Qt::Key_O );
+	file->addAction(tr("Open &DataBase"),  this,
+				SLOT(load_database()), Qt::CTRL+Qt::Key_L );
+	file->addAction(tr("&Close DataBase"), this,
+				SLOT(close_database()), Qt::CTRL+Qt::Key_C );
+	file->addAction(tr("&Dump DataBase"), this,
+				SLOT(dump_database()), Qt::CTRL+Qt::Key_C );
+	file->addSeparator();
+	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
+
+	help = menuBar()->addMenu(tr("&Help") );
+	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );
+	help->addAction(tr("&About"), this, SLOT(about()) );
 }
 
 void MainWindow::load_database()
 {
-	load_db l;
+	load_key l;
 	QString fname;
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(l.caption);
+	QFileDialog *dlg = new QFileDialog(this);
+	dlg->setWindowTitle(l.caption);
 	dlg->setFilters(l.filter);
-	dlg->setMode( QFileDialog::AnyFile );
-	dlg->setDir(baseDir);
+	dlg->setFileMode( QFileDialog::AnyFile );
+	dlg->setDirectory(baseDir);
 	if (dlg->exec()) {
-		fname = dlg->selectedFile();
+		fname = dlg->selectedFiles()[0];
 	}
 	delete dlg;
 	if (fname.isEmpty()) return;
 	dbfile = fname;
 	close_database();
-	fprintf(stderr, "Dir: %s, File: %s\n", baseDir.latin1(),  dbfile.latin1() );
+	fprintf(stderr, "Dir: %s, File: %s\n", baseDir.data(),  dbfile.data() );
 	emit init_database();
 }
 

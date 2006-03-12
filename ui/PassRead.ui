@@ -1,288 +1,252 @@
-<!DOCTYPE UI><UI>
-<class>PassRead_UI</class>
-<widget>
-    <class>QDialog</class>
-    <property stdset="1">
-        <name>name</name>
-        <cstring>PassRead_UI</cstring>
-    </property>
-    <property stdset="1">
-        <name>geometry</name>
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>472</width>
-            <height>184</height>
-        </rect>
-    </property>
-    <property stdset="1">
-        <name>caption</name>
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>PassRead</class>
+ <widget class="QDialog" name="PassRead" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>339</width>
+    <height>192</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Password</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>8</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="title" >
+       <property name="font" >
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
+        </font>
+       </property>
+       <property name="text" >
         <string>Password</string>
-    </property>
-    <vbox>
-        <property stdset="1">
-            <name>margin</name>
-            <number>11</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="image" >
+       <property name="minimumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="scaledContents" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="description" >
+     <property name="minimumSize" >
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize" >
+      <size>
+       <width>32767</width>
+       <height>32767</height>
+      </size>
+     </property>
+     <property name="font" >
+      <font>
+       <family>Sans Serif</family>
+       <pointsize>9</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+       <underline>false</underline>
+       <strikeout>false</strikeout>
+      </font>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="scaledContents" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame" >
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>8</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="TextLabel1" >
+        <property name="text" >
+         <string>Password</string>
         </property>
-        <property stdset="1">
-            <name>spacing</name>
-            <number>6</number>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="pass" >
+        <property name="echoMode" >
+         <enum>QLineEdit::Password</enum>
         </property>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout16</cstring>
-            </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>title</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>font</name>
-                        <font>
-                            <pointsize>14</pointsize>
-                            <bold>1</bold>
-                            <underline>1</underline>
-                        </font>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Password</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer4</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>image</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>minimumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>maximumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>scaledContents</name>
-                        <bool>true</bool>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <widget>
-            <class>QLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>description</cstring>
-            </property>
-            <property stdset="1">
-                <name>minimumSize</name>
-                <size>
-                    <width>0</width>
-                    <height>0</height>
-                </size>
-            </property>
-            <property stdset="1">
-                <name>maximumSize</name>
-                <size>
-                    <width>32767</width>
-                    <height>32767</height>
-                </size>
-            </property>
-            <property stdset="1">
-                <name>font</name>
-                <font>
-                </font>
-            </property>
-            <property stdset="1">
-                <name>text</name>
-                <string></string>
-            </property>
-            <property stdset="1">
-                <name>scaledContents</name>
-                <bool>false</bool>
-            </property>
-            <property stdset="1">
-                <name>alignment</name>
-                <set>AlignVCenter|AlignLeft</set>
-            </property>
-            <property>
-                <name>wordwrap</name>
-            </property>
-        </widget>
-        <widget>
-            <class>QFrame</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Frame22</cstring>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Box</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>11</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>TextLabel1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Password</string>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QLineEdit</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>pass</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>echoMode</name>
-                        <enum>Password</enum>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout12</cstring>
-            </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton2</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;Cancel</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;OK</string>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-    </vbox>
-</widget>
-<connections>
-    <connection>
-        <sender>PushButton1</sender>
-        <signal>clicked()</signal>
-        <receiver>PassRead_UI</receiver>
-        <slot>accept()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton2</sender>
-        <signal>clicked()</signal>
-        <receiver>PassRead_UI</receiver>
-        <slot>reject()</slot>
-    </connection>
-    <connection>
-        <sender>pass</sender>
-        <signal>returnPressed()</signal>
-        <receiver>PassRead_UI</receiver>
-        <slot>accept()</slot>
-    </connection>
-</connections>
-<tabstops>
-    <tabstop>pass</tabstop>
-    <tabstop>PushButton1</tabstop>
-    <tabstop>PushButton2</tabstop>
-</tabstops>
-</UI>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="PushButton2" >
+       <property name="text" >
+        <string>&amp;Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="PushButton1" >
+       <property name="text" >
+        <string>&amp;OK</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <tabstops>
+  <tabstop>pass</tabstop>
+  <tabstop>PushButton1</tabstop>
+  <tabstop>PushButton2</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pass</sender>
+   <signal>returnPressed()</signal>
+   <receiver>PassRead</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>148</x>
+     <y>123</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>158</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton1</sender>
+   <signal>clicked()</signal>
+   <receiver>PassRead</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>307</x>
+     <y>172</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>258</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton2</sender>
+   <signal>clicked()</signal>
+   <receiver>PassRead</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>28</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>110</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

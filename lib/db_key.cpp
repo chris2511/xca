@@ -52,7 +52,7 @@
 #include <Qt/qmessagebox.h>
 #include <Qt/qprogressbar.h>
 #include <Qt/qstatusbar.h>
-#include <Qt/QContextMenuEvent>
+#include <Qt/qevent.h>
 #include "exception.h"
 #include "ui/NewKey.h"
 

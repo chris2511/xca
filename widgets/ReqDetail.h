@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -48,21 +46,21 @@
  *
  */                           
 
-#ifndef REQDETAIL_H
-#define REQDETAIL_H
+#ifndef _REQDETAIL_H
+#define _REQDETAIL_H
 
 #include "ui/ReqDetail.h"
+#include <Qt/qdialog.h>
 
 class pki_x509req;
 
-class ReqDetail: public ReqDetail_UI
+class ReqDetail: public QDialog, public Ui::ReqDetail
 {
 	Q_OBJECT
 		
    public:	
-	ReqDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+	ReqDetail( QWidget *parent);
 	void setReq(pki_x509req *req);
-	void setImport();
 };
 
 #endif

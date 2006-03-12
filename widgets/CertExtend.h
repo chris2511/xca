@@ -35,11 +35,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -55,12 +52,12 @@
 
 class pki_key;
 
-class CertExtend: public CertExtend_UI
+class CertExtend: public QDialog, private Ui::CertExtend
 {
 	Q_OBJECT
 		
    public:	
-	CertExtend( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+	CertExtend(QWidget *parent);
    public slots:
 	void applyTimeDiff();
 		

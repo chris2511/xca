@@ -51,14 +51,14 @@
 
 
 #include "NewX509.h"
-#include <qgroupbox.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qradiobutton.h>
-#include <qlineedit.h>
-#include <qwhatsthis.h>
-#include <qlistbox.h>
-#include <qlistview.h>
+//#include <Qt/q3groupbox.h>
+#include <Qt/qcheckbox.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qradiobutton.h>
+#include <Qt/qlineedit.h>
+//#include <Qt/q3whatsthis.h>
+//#include <Qt/q3listbox.h>
+#include <Qt/qlistwidget.h>
 #include "MainWindow.h"
 #include "lib/x509v3ext.h"
 
@@ -68,10 +68,10 @@ x509v3ext NewX509::getBasicConstraints()
 	QStringList cont;
 	x509v3ext ext;
 	QString ca[] = { "", "CA:TRUE", "CA:FALSE" };
-	if (basicCA->currentItem() > 0) {
+	if (basicCA->currentIndex() > 0) {
 		if (bcCritical->isChecked())
 			cont << "critical";
-		cont << ca[basicCA->currentItem()];
+		cont << ca[basicCA->currentIndex()];
 		if (!basicPath->text().isEmpty())
 			cont << (QString)"pathlen:" + basicPath->text();
 		ext.create(NID_basic_constraints, cont.join(", "));
@@ -125,30 +125,34 @@ x509v3ext NewX509::getKeyUsage()
 						
 	QStringList cont;
 	x509v3ext ext;
-	QListBoxItem *item;
-        for (int i=0; (item = keyUsage->item(i)); i++) {
+#warning getKeyUsage
+#if 0
+	Q3ListBoxItem *item;
+	for (int i=0; (item = keyUsage->item(i)); i++) {
 		if (item->selected()) {
 			cont << keyusage[i];
 		}
 	}
+#endif
 	if (kuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_key_usage, cont.join(", "));
 	return ext;
 }
 
-
-
 x509v3ext NewX509::getEkeyUsage()
 {
 	QStringList cont;
 	x509v3ext ext;
-	QListBoxItem *item;
+#warning getKeyUsage
+#if 0
+	Q3ListBoxItem *item;
 	for (int i=0; (item = ekeyUsage->item(i)); i++) {
 		if (item->selected()){
 			cont << (QString)OBJ_nid2sn(eku_nid[i]);
 		}
 	}
+#endif
 	if (ekuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_ext_key_usage, cont.join(", "));
@@ -182,10 +186,10 @@ QString NewX509::getAuthInfAcc_string()
 {
 	QString rval="";
 	QString aia_txt	= authInfAcc->text();
-	aia_txt.stripWhiteSpace();
+	aia_txt = aia_txt.trimmed();
 	
 	if (!aia_txt.isEmpty()) {
-		rval = OBJ_nid2sn(aia_nid[aiaOid->currentItem()]);
+		rval = OBJ_nid2sn(aia_nid[aiaOid->currentIndex()]);
 		rval += ";" + aia_txt;
 	}
 	return rval;
@@ -196,20 +200,19 @@ void NewX509::setAuthInfAcc_string(QString aia_txt)
 	QStringList aia;
 	int nid;
 
-	aia = aia.split(';', aia_txt);
+	aia = aia_txt.split(';');
 
 	if (aia.count() != 2) return;
 	
-	nid = OBJ_sn2nid(aia[0].latin1());
+	nid = OBJ_sn2nid(CCHAR(aia[0]));
 	
-	for (unsigned int i=0; i < aia_nid.count(); i++) {
+	for (int i=0; i < aia_nid.count(); i++) {
 		if (aia_nid[i] == nid) { 
-			aiaOid->setCurrentItem(i);
+			aiaOid->setCurrentIndex(i);
 		}
 	}
 	authInfAcc->setText(aia[1]);
 }
-
 
 x509v3ext NewX509::getAuthInfAcc()
 {
@@ -260,12 +263,15 @@ extList NewX509::getNetscapeExt()
 	QStringList cont;
 	x509v3ext ext;
 	extList el;
-	QListBoxItem *item;
-        for (int i=0; (item = nsCertType->item(i)); i++) {
-                if (item->selected()){
-                        cont <<  certTypeList[i];
-                }
-        }
+#warning q3listbox
+#if 0
+	Q3ListBoxItem *item;
+	for (int i=0; (item = nsCertType->item(i)); i++) {
+		if (item->selected()) {
+			cont <<  certTypeList[i];
+		}
+	}
+#endif
 	el << ext.create(NID_netscape_cert_type, cont.join(", "));
 	el << ext.create(NID_netscape_base_url, nsBaseUrl->text());
 	el << ext.create(NID_netscape_revocation_url, nsRevocationUrl->text());

@@ -28,7 +28,7 @@ done
 DIRS="$QTDIR $DIRS /usr /usr/X11R6 /usr/local"
 
 CF="-I. -I.."
-LIBS=-lstdc++
+LIBS=
 LDIRS=
 MOC=moc
 UIC=uic
@@ -100,29 +100,11 @@ search_lib() {
  
 echo -e "\n\nConfiguring XCA `cat VERSION`\n----------------------------"
 
-######################## DB
-subdirs="/db /db4.1 /db4 /db3"
-search_includes db_cxx.h || err "The Berkeley DB header files were not found"
-search_lib db_cxx db4_cxx db_cxx-4 db3_cxx db_cxx-3 || err "The Berkeley DB library was not found. Try installing db-dev" 
-## The fun of NPTL... (Thx Enrico Scholz)
-echo 'int main() {}' >conftest.c
-if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log; then
-  :
-else
-  search_lib pthread || err "Lib pthread needed for db_cxx and not found"
-fi
-
 ######################### QT
-subdirs="/qt /Qt /qt4 /qt3 /qt2"
-search_includes qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
+subdirs="/qt /qt4"
+search_includes Qt/qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
 search_lib QtGui qt qt-mt || err "The QT library was not found. Try installing qt-dev" 
 search_lib c_r || true
-# look if it compiles...
-if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log; then
-  :
-else
-  search_lib c_r || err "Libc_r needed for FreeBSD systems and was not found"
-fi
 
 ###################### OpenSSL
 subdirs=""
@@ -132,19 +114,23 @@ search_lib crypto || err "The OpenSSL library was not found."
 export LD_LIBRARY_PATH
 ##### Try to compile them all together and show the versions.
 cat >conftest.c <<EOF
+#include <stdio.h>
 #include <openssl/opensslv.h>
-#include <db_cxx.h>
-#include <qglobal.h>
+#include <Qt/qglobal.h>
 
 main(){
-printf("\nThe Versions of the used libraries are:\n\t%s\n\t%s\n\tQT: %s\n",
-	 OPENSSL_VERSION_TEXT, DB_VERSION_STRING, QT_VERSION_STR );
+  printf("\nThe Versions of the used libraries are:\n\t%s\n\tQT: %s\n",
+	 OPENSSL_VERSION_TEXT, QT_VERSION_STR );
+  if (QT_VERSION < 0x040001) {
+	printf("You need Qt 4 or greater\n");
+	return 1;
+  }
+  return 0;
 }
 EOF
 
 if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log ; then
-  ./conftest ||err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf"
-  #rm -f conftest.c conftest conftest.log
+  ./conftest || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest conftest.log
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi

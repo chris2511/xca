@@ -1,325 +1,258 @@
-<!DOCTYPE UI><UI>
-<class>TrustState_UI</class>
-<widget>
-    <class>QDialog</class>
-    <property stdset="1">
-        <name>name</name>
-        <cstring>TrustState_UI</cstring>
+<ui version="4.0" stdsetdef="1" >
+  <author></author>
+  <comment></comment>
+  <exportmacro></exportmacro>
+  <class>TrustState_UI</class>
+  <widget class="QDialog" name="TrustState_UI" >
+    <property name="objectName" >
+      <string notr="true" >TrustState_UI</string>
     </property>
-    <property stdset="1">
-        <name>geometry</name>
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>455</width>
-            <height>267</height>
-        </rect>
+    <property name="geometry" >
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>455</width>
+        <height>267</height>
+      </rect>
     </property>
-    <property stdset="1">
-        <name>caption</name>
-        <string></string>
+    <property name="windowTitle" >
+      <string/>
     </property>
-    <vbox>
-        <property stdset="1">
-            <name>margin</name>
-            <number>11</number>
-        </property>
-        <property stdset="1">
-            <name>spacing</name>
+    <layout class="QVBoxLayout" >
+      <property name="margin" >
+        <number>11</number>
+      </property>
+      <property name="spacing" >
+        <number>6</number>
+      </property>
+      <item>
+        <layout class="QHBoxLayout" >
+          <property name="margin" >
+            <number>0</number>
+          </property>
+          <property name="spacing" >
             <number>6</number>
-        </property>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout4</cstring>
-            </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>TextLabel1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>font</name>
-                        <font>
-                            <pointsize>14</pointsize>
-                            <bold>1</bold>
-                            <underline>1</underline>
-                        </font>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Set Trustment of the Certificate</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>image</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>minimumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>maximumSize</name>
-                        <size>
-                            <width>95</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string></string>
-                    </property>
-                    <property stdset="1">
-                        <name>scaledContents</name>
-                        <bool>true</bool>
-                    </property>
-                    <property stdset="1">
-                        <name>alignment</name>
-                        <set>AlignVCenter|AlignLeft</set>
-                    </property>
-                    <property>
-                        <name>wordwrap</name>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <spacer>
-            <property>
-                <name>name</name>
-                <cstring>Spacer15</cstring>
-            </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Vertical</enum>
-            </property>
-            <property stdset="1">
-                <name>sizeType</name>
-                <enum>Expanding</enum>
-            </property>
-            <property>
-                <name>sizeHint</name>
+          </property>
+          <item>
+            <widget class="QLabel" name="TextLabel1" >
+              <property name="objectName" >
+                <string notr="true" >TextLabel1</string>
+              </property>
+              <property name="font" >
+                <font>
+                  <family></family>
+                  <pointsize>14</pointsize>
+                  <weight>0</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                  <underline>false</underline>
+                  <strikeout>false</strikeout>
+                </font>
+              </property>
+              <property name="text" >
+                <string>Set Trustment of the Certificate</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="Spacer1" >
+              <property name="sizeHint" >
                 <size>
-                    <width>20</width>
-                    <height>20</height>
+                  <width>20</width>
+                  <height>20</height>
                 </size>
-            </property>
-        </spacer>
-        <widget>
-            <class>ClickLabel</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>certName</cstring>
-            </property>
-        </widget>
-        <spacer>
-            <property>
-                <name>name</name>
-                <cstring>Spacer5</cstring>
-            </property>
-            <property stdset="1">
-                <name>orientation</name>
-                <enum>Vertical</enum>
-            </property>
-            <property stdset="1">
-                <name>sizeType</name>
+              </property>
+              <property name="sizeType" >
                 <enum>Expanding</enum>
-            </property>
-            <property>
-                <name>sizeHint</name>
+              </property>
+              <property name="orientation" >
+                <enum>Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QLabel" name="image" >
+              <property name="objectName" >
+                <string notr="true" >image</string>
+              </property>
+              <property name="minimumSize" >
                 <size>
-                    <width>20</width>
-                    <height>20</height>
+                  <width>95</width>
+                  <height>40</height>
                 </size>
-            </property>
+              </property>
+              <property name="maximumSize" >
+                <size>
+                  <width>95</width>
+                  <height>40</height>
+                </size>
+              </property>
+              <property name="text" >
+                <string/>
+              </property>
+              <property name="scaledContents" >
+                <bool>true</bool>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </item>
+      <item>
+        <spacer name="Spacer15" >
+          <property name="sizeHint" >
+            <size>
+              <width>20</width>
+              <height>20</height>
+            </size>
+          </property>
+          <property name="sizeType" >
+            <enum>Expanding</enum>
+          </property>
+          <property name="orientation" >
+            <enum>Vertical</enum>
+          </property>
         </spacer>
-        <widget>
-            <class>QButtonGroup</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>ButtonGroup2</cstring>
-            </property>
-            <property stdset="1">
-                <name>title</name>
-                <string>Select the Truststate</string>
-            </property>
-            <vbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>11</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QRadioButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>trust0</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;Never trust this certificate</string>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QRadioButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>trust1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Only &amp;trust this certificate, if we trust the signer</string>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QRadioButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>trust2</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;Always trust this certificate</string>
-                    </property>
-                </widget>
-            </vbox>
+      </item>
+      <item>
+        <widget class="ClickLabel" name="certName" >
+          <property name="objectName" >
+            <string notr="true" >certName</string>
+          </property>
         </widget>
-        <widget>
-            <class>QLayoutWidget</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Layout22</cstring>
+      </item>
+      <item>
+        <spacer name="Spacer5" >
+          <property name="sizeHint" >
+            <size>
+              <width>20</width>
+              <height>20</height>
+            </size>
+          </property>
+          <property name="sizeType" >
+            <enum>Expanding</enum>
+          </property>
+          <property name="orientation" >
+            <enum>Vertical</enum>
+          </property>
+        </spacer>
+      </item>
+      <item>
+        <widget class="Q3ButtonGroup" name="ButtonGroup2" >
+          <property name="objectName" >
+            <string notr="true" >ButtonGroup2</string>
+          </property>
+          <property name="title" >
+            <string>Select the Truststate</string>
+          </property>
+          <layout class="QVBoxLayout" >
+            <property name="margin" >
+              <number>11</number>
             </property>
-            <hbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>0</number>
+            <property name="spacing" >
+              <number>6</number>
+            </property>
+            <item>
+              <widget class="QRadioButton" name="trust0" >
+                <property name="objectName" >
+                  <string notr="true" >trust0</string>
                 </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
+                <property name="text" >
+                  <string>&amp;Never trust this certificate</string>
                 </property>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton5</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;Cancel</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer4</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton4</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;OK</string>
-                    </property>
-                </widget>
-            </hbox>
+              </widget>
+            </item>
+            <item>
+              <widget class="QRadioButton" name="trust1" >
+                <property name="objectName" >
+                  <string notr="true" >trust1</string>
+                </property>
+                <property name="text" >
+                  <string>Only &amp;trust this certificate, if we trust the signer</string>
+                </property>
+              </widget>
+            </item>
+            <item>
+              <widget class="QRadioButton" name="trust2" >
+                <property name="objectName" >
+                  <string notr="true" >trust2</string>
+                </property>
+                <property name="text" >
+                  <string>&amp;Always trust this certificate</string>
+                </property>
+              </widget>
+            </item>
+          </layout>
         </widget>
-    </vbox>
-</widget>
-<customwidgets>
+      </item>
+      <item>
+        <layout class="QHBoxLayout" >
+          <property name="margin" >
+            <number>0</number>
+          </property>
+          <property name="spacing" >
+            <number>6</number>
+          </property>
+          <item>
+            <widget class="QPushButton" name="PushButton5" >
+              <property name="objectName" >
+                <string notr="true" >PushButton5</string>
+              </property>
+              <property name="text" >
+                <string>&amp;Cancel</string>
+              </property>
+            </widget>
+          </item>
+          <item>
+            <spacer name="Spacer4" >
+              <property name="sizeHint" >
+                <size>
+                  <width>20</width>
+                  <height>20</height>
+                </size>
+              </property>
+              <property name="sizeType" >
+                <enum>Expanding</enum>
+              </property>
+              <property name="orientation" >
+                <enum>Horizontal</enum>
+              </property>
+            </spacer>
+          </item>
+          <item>
+            <widget class="QPushButton" name="PushButton4" >
+              <property name="objectName" >
+                <string notr="true" >PushButton4</string>
+              </property>
+              <property name="text" >
+                <string>&amp;OK</string>
+              </property>
+            </widget>
+          </item>
+        </layout>
+      </item>
+    </layout>
+  </widget>
+  <pixmapfunction></pixmapfunction>
+  <customwidgets>
     <customwidget>
-        <class>ClickLabel</class>
-        <header location="local">clicklabel.h</header>
-        <sizehint>
-            <width>100</width>
-            <height>26</height>
-        </sizehint>
-        <container>0</container>
-        <sizepolicy>
-            <hordata>7</hordata>
-            <verdata>0</verdata>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
+      <class>ClickLabel</class>
+      <extends></extends>
+      <header location="local" >clicklabel.h</header>
+      <sizehint>
+        <width>100</width>
+        <height>26</height>
+      </sizehint>
+      <container>0</container>
+      <sizepolicy>
+        <hordata>7</hordata>
+        <verdata>0</verdata>
+      </sizepolicy>
+      <pixmap>image0</pixmap>
     </customwidget>
-</customwidgets>
-<images>
-    <image>
-        <name>image0</name>
-        <data format="XPM.GZ" length="646">789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
+  </customwidgets>
+  <images>
+    <image name="image0" >
+      <data format="XPM.GZ" length="646" >789c6dd2c10ac2300c00d07bbf2234b7229d1be245fc04c5a3201e4615f430059d0711ff5ddb2e6bb236ec90eed134cb5a19d8ef36602af5ecdbfeeac05dda0798d3abebde87e3faa374d3807fa0d633a52d38d8de6f679fe33fc776e196f53cd010188256a3600a292882096246517815ca99884606e18044a3a40d91824820924265a7923a2e8bcd05f33db1173e002913175f2a6be6d3294871a2d95fa00e8a94ee017b69d339d90df1e77c57ea072ede6758</data>
     </image>
-</images>
-<connections>
-    <connection>
-        <sender>PushButton4</sender>
-        <signal>clicked()</signal>
-        <receiver>TrustState_UI</receiver>
-        <slot>accept()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton5</sender>
-        <signal>clicked()</signal>
-        <receiver>TrustState_UI</receiver>
-        <slot>reject()</slot>
-    </connection>
-</connections>
-</UI>
+  </images>
+</ui>

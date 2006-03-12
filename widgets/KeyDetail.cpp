@@ -52,18 +52,18 @@
 
 #include "KeyDetail.h"
 #include "MainWindow.h"
-#include "lib/pki_crl.h"
+#include "lib/pki_key.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
-#include <qlabel.h>
-#include <qtextview.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
+#include <Qt/qlabel.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qlineedit.h>
 
-KeyDetail::KeyDetail(QWidget *parent, const char *name, bool modal, WFlags f)
-	:KeyDetail_UI(parent, name, modal, f)
+KeyDetail::KeyDetail(QWidget *parent)
+	:QDialog(parent)
 {
-	setCaption(tr(XCA_TITLE));
+	setupUi(this);
+	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::keyImg);		 
 	keyDesc->setReadOnly(true);
 }
@@ -97,10 +97,3 @@ void KeyDetail::setKey(pki_key *key)
 			tlHeader->setText("UNKNOWN Key");
 	}
 }
-
-void KeyDetail::setImport()
-{
-	but_ok->setText(tr("Import"));
-	but_cancel->setText(tr("Discard"));
-}
-

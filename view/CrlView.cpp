@@ -51,9 +51,9 @@
 
 
 #include "CrlView.h"
-#include <qpopupmenu.h>
-#include <qmessagebox.h>
-#include <qlineedit.h>
+#include <Qt/q3popupmenu.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qlineedit.h>
 #include "widgets/CrlDetail.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/CertDetail.h"
@@ -61,7 +61,7 @@
 #include "widgets/MainWindow.h"
 #include "widgets/clicklabel.h"
 
-CrlView::CrlView(QWidget * parent, const char * name, WFlags f)
+CrlView::CrlView(QWidget * parent, const char * name, Qt::WFlags f)
 	:XcaListView(parent, name, f)
 {
 	addColumn(tr("Internal Name"));
@@ -70,7 +70,7 @@ CrlView::CrlView(QWidget * parent, const char * name, WFlags f)
 }
 
 
-void CrlView::showCert(QListViewItem *i)
+void CrlView::showCert(Q3ListViewItem *i)
 {
 	showCert(i->text(0));
 }					 
@@ -92,7 +92,7 @@ void CrlView::showCert(QString name)
 		dlg->exec();
     }
     catch (errorEx &err) {
-	    Error(err);
+	    Qt::SocketError(err);
     }
 	if (dlg)
 		delete dlg;
@@ -111,7 +111,7 @@ void CrlView::showKey(QString name)
 		dlg->exec();
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	if (dlg)
 		delete dlg;
@@ -125,15 +125,15 @@ void CrlView::showItem(pki_base *item, bool import)
 	try {
 		dlg = new CrlDetail(this,0,true);
 		dlg->setCrl((pki_crl *)item);
-		connect( dlg->certList, SIGNAL( doubleClicked(QListViewItem*) ), 
-			this, SLOT( showCert(QListViewItem *) ));
+		connect( dlg->certList, SIGNAL( doubleClicked(Q3ListViewItem*) ), 
+			this, SLOT( showCert(Q3ListViewItem *) ));
 		connect( dlg->issuerIntName, SIGNAL( doubleClicked(QString) ), 
 			this, SLOT( showCert(QString) ));
 		
 		dlg->exec();
     }
     catch (errorEx &err) {
-	    Error(err);
+	    Qt::SocketError(err);
     }
 	if (dlg)
 		delete dlg;
@@ -171,7 +171,7 @@ void CrlView::store(bool pem)
 		crl = (pki_crl *)getSelected();
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 		return;
 	}
 	
@@ -180,10 +180,10 @@ void CrlView::store(bool pem)
 	filt.append("Revocation Lists ( *.crl *.pem)");
 	filt.append("All Files ( *.* )");
 	QString s="";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	dlg->setCaption(tr("Export Certificate revokation list"));
 	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setMode( Q3FileDialog::AnyFile );
 	dlg->setSelection( (crl->getIntName() + ".crl") );
 	dlg->setDir(MainWindow::getPath());
 
@@ -198,15 +198,15 @@ void CrlView::store(bool pem)
 		crl->writeCrl(s.latin1(), pem);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 		
 }
 
 
-void CrlView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	QPopupMenu *menu = new QPopupMenu(this);
-	QPopupMenu *subExport = new QPopupMenu(this);
+void CrlView::popupMenu(Q3ListViewItem *item, const QPoint &pt, int x) {
+	Q3PopupMenu *menu = new Q3PopupMenu(this);
+	Q3PopupMenu *subExport = new Q3PopupMenu(this);
 	
 	if (!item) {
 		menu->insertItem(tr("Import"), this, SLOT(load()));
@@ -270,7 +270,7 @@ pki_crl *CrlView::newItem(pki_x509 *cert)
 		updateView();
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	return crl;
 }

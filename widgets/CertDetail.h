@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -35,11 +36,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -55,14 +53,13 @@
 
 class pki_x509;
 
-class CertDetail: public CertDetail_UI
+class CertDetail: public QDialog, private Ui::CertDetail
 {
-	Q_OBJECT
+		Q_OBJECT
 		
-   public:	
-	CertDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
-	void setCert(pki_x509 *cert);
-	void setImport();
+	public:	
+		CertDetail( QWidget *parent);
+		void setCert(pki_x509 *cert);
 };
 
 #endif

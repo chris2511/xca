@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -55,6 +53,7 @@
 #include "ui/NewX509.h"
 #include "lib/oid.h"
 #include <openssl/x509v3.h>
+#include <Qt/qlistwidget.h>
 
 class MainWindow;
 class extList;
@@ -68,7 +67,7 @@ class x509name;
 class x509v3ext;
 class extList;
 
-class NewX509: public NewX509_UI
+class NewX509: public QDialog, public Ui::NewX509
 {
 	Q_OBJECT
    private:
@@ -83,21 +82,20 @@ class NewX509: public NewX509_UI
 	X509V3_CTX ext_ctx;
 	void editV3ext(QLineEdit *le, QString types, int n);
    public:	
-	NewX509(QWidget *parent, const char *name, bool modal = false, WFlags f = 0);
-	~NewX509();
+	NewX509(QWidget *parent);
+	virtual ~NewX509();
 	void initCtx();
 	void setRequest(); // reduce to request form 	
 	void setTemp(pki_temp *temp); // reduce to template form 	
 	void setCert(); // reduce to certificate form 	
-	void setup();
-	void showPage(QWidget *page);
+	//void showPage(QWidget *page);
 	void toTemplate(pki_temp *temp);
 	void fromTemplate(pki_temp *temp);
 	void defineTemplate(pki_temp *temp);
 	void defineRequest(pki_x509req *req);
 	void defineSigner(pki_x509 *defcert);
-	int lb2int(QListBox *lb);
-	void int2lb(QListBox *lb, int x);
+	int lb2int(QListWidget *lb);
+	void int2lb(QListWidget *lb, int x);
 	void templateChanged(pki_temp *templ);
 	void templateChanged(QString templatename);
 	pki_key *getSelectedKey();
@@ -130,7 +128,7 @@ class NewX509: public NewX509_UI
 	void keyChanged(const QString &keyname);
 	void dataChangeP2();
 	void newKeyDone(QString name);
-	void switchExtended();
+	//void switchExtended();
 	void templateChanged();
 	void signerChanged();
 	void helpClicked();

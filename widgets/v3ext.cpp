@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,22 +49,23 @@
 
 
 #include "v3ext.h"
-#include <qlabel.h>
-#include <qlistbox.h>
-#include <qcombobox.h>
-#include <qlistview.h>
-#include <qlineedit.h>
-#include <qstringlist.h>
-#include <qmessagebox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlistwidget.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qstringlist.h>
+#include <Qt/qmessagebox.h>
 #include "MainWindow.h"
 #include "lib/exception.h"
 
-v3ext::v3ext(QWidget *parent, const char *name, bool modal, WFlags f )
-	:v3ext_UI(parent, name, modal, f)
+v3ext::v3ext(QWidget *parent)
+	:QDialog(parent)
 {
-	setCaption(tr(XCA_TITLE));
-	listView->addColumn(tr("Type"));
-	listView->addColumn(tr("Content"));
+	QStringList sl;
+	sl << "Type" << "Content";
+	setupUi(this);
+	setWindowTitle(tr(XCA_TITLE));
+	treeWidget->setHeaderLabels(sl);
 }
 
 v3ext::~v3ext()
@@ -76,7 +75,7 @@ v3ext::~v3ext()
 void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 		X509 *s, X509 *s1)
 {
-	type->insertStringList(sl);
+	type->addItems(sl);
 	nid = n;
 	le = myle;
 	if (le)
@@ -88,9 +87,9 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 
 void v3ext::addItem(QString list)
 {
-	unsigned int i;
+	int i;
 	QStringList sl;
-	sl = sl.split(',', list);
+	sl = list.split(',');
 	for (i=0; i< sl.count(); i++)
 		addEntry(sl[i]);	
 }
@@ -99,21 +98,25 @@ void v3ext::addItem(QString list)
 void v3ext::addEntry(QString line)
 {
 	int i;
-	i = line.find(':');
-	new QListViewItem(listView, line.left(i), line.right(line.length()-(i+1)));
+	QTreeWidgetItem *tw;
+	
+	i = line.indexOf(':');
+	tw = new QTreeWidgetItem(treeWidget);
+	tw->setText(0, line.left(i));
+	tw->setText(1, line.right(line.length()-(i+1)));
 }
 
 QString v3ext::toString()
 {
+	QTreeWidgetItem *tw;
 	QStringList str;
-	QListViewItem *lvi = listView->firstChild();
-	while (lvi != NULL) {
+	int i;
+	for (i=0; (tw = treeWidget->topLevelItem(i)); i++) {
 		QString s;
-		s = lvi->text(0).stripWhiteSpace();
+		s = tw->text(0).trimmed();
 		if (!s.contains(':'))
-			s += ":" + lvi->text(1).stripWhiteSpace();
-		str += s;	
-		lvi = lvi->nextSibling();
+			s += ":" + tw->text(1).trimmed();
+		str += s;
 	}
 	return str.join(",");
 }
@@ -121,17 +124,21 @@ QString v3ext::toString()
 
 void v3ext::delEntry()
 {
-	listView->removeItem(listView->currentItem());
+	treeWidget->takeTopLevelItem(
+			treeWidget->indexOfTopLevelItem(treeWidget->currentItem()));
 }
 	
 void v3ext::addEntry()
 {
+	QTreeWidgetItem *tw;
 	QString typ, cont;
+
 	typ = type->currentText();
 	if ( ! typ.contains(':') )
 		cont = value->text();
-	
-	new QListViewItem(listView, typ, cont);
+	tw = new QTreeWidgetItem(treeWidget);
+	tw->setText(0, typ);
+	tw->setText(1, cont);
 }
 
 void v3ext::apply()

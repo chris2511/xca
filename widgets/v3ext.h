@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -54,18 +52,14 @@
 
 #include "ui/v3ext.h"
 #include "lib/pki_base.h"
-#include <qlistview.h>
-#include <qlineedit.h>
-#include <qstringlist.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qstringlist.h>
 #include <openssl/x509v3.h>
-#ifndef qt3
-#include <qlist.h>
-#endif
 
 class pki_x509;
 class pki_key;
 
-class v3ext: public v3ext_UI
+class v3ext: public QDialog, public Ui::v3ext
 {
 	Q_OBJECT
 	private:
@@ -74,7 +68,7 @@ class v3ext: public v3ext_UI
 		X509V3_CTX ext_ctx;
 		bool __validate(bool showSuccess);
 	public:	
-		v3ext( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+		v3ext( QWidget *parent);
 		~v3ext();
 		void addItem(QString list);
 		void addEntry(QString list);

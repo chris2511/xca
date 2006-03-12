@@ -1,4 +1,4 @@
-/* uvi: set sw=4 ts=4: */
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -49,8 +49,8 @@
  *
  */                           
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef _MAINWINDOW_H
+#define _MAINWINDOW_H
 
 #include "NewX509.h"
 #include "ui/MainWindow.h"
@@ -61,31 +61,30 @@
 #include "lib/db_crl.h"
 #include "lib/exception.h"
 #include "lib/oid.h"
-#include <qpixmap.h>
-#include <qfiledialog.h>
-#include <qmenubar.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qfiledialog.h>
+#include <Qt/qmenubar.h>
 
 #define DBFILE "xca.db"
 
-
-class MainWindow: public MainWindow_UI
+class MainWindow: public QMainWindow, private Ui::MainWindow
 {
 	Q_OBJECT
 
+  private:
+	QString workingdir;
+	
   protected:
 	void init_images();
 	void read_cmdline();
 	void init_menu();
 	void do_connections();
 	void init_baseDir();
-	DbTxn *global_tid;
-	QMenuBar *mb;
 	int force_load;
 	NIDlist *read_nidlist(QString name);	
-   friend class pki_key;
+	QLabel *statusLabel;
 
-   public:
-	static DbEnv *dbenv;
+  public:
 	static db_x509 *certs;
 	static db_x509req *reqs;
 	static db_key *keys;
@@ -97,23 +96,24 @@ class MainWindow: public MainWindow_UI
 	int exitApp;
 	QString baseDir, dbfile, dbdir;
 	
-	MainWindow(QWidget *parent, const char *name);
-	~MainWindow(); 
+	MainWindow(QWidget *parent);
+	virtual ~MainWindow(); 
 	void loadSettings();
 	void saveSettings();
 	int initPass();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-	static void dberr(const char *errpfx, char *msg);
 	static NewX509 *newX509();
 	static QString md5passwd(const char *pass);
+	//static void Qt::SocketError(errorEx &err);
 	static void Error(errorEx &err);
 	void cmd_help(const char* msg);
 	
-	static QString getPath();
-	static void setPath(QString path);
+	QString getPath();
+	void setPath(QString path);
 	bool mkDir(QString dir);
-   public slots: 
+
+  public slots: 
 	void init_database();
 	void load_database();
 	void load_def_database();
@@ -123,7 +123,26 @@ class MainWindow: public MainWindow_UI
 	void changeView();
 	void about();
 	void help();
-		
+
+  private slots:
+	void on_keyView_doubleClicked(QModelIndex &m);
+  
+	void on_BNnewKey_clicked(void);
+	void on_BNdeleteKey_clicked(void);
+	void on_BNdetailsKey_clicked(void);
+	void on_BNimportKey_clicked(void);
+	void on_BNexportKey_clicked(void);
 	
+	void on_BNnewReq_clicked(void);
+	void on_BNdeleteReq_clicked(void);
+	void on_BNdetailsReq_clicked(void);
+	void on_BNimportReq_clicked(void);
+	void on_BNexportReq_clicked(void);
+	
+	void on_BNnewCert_clicked(void);
+	void on_BNdeleteCert_clicked(void);
+	void on_BNdetailsCert_clicked(void);
+	void on_BNimportCert_clicked(void);
+	void on_BNexportCert_clicked(void);
 };
 #endif

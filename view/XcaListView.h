@@ -52,11 +52,7 @@
 
 #ifndef XCALISTVIEW_H
 #define XCALISTVIEW_H
-#ifdef qt4
-#include <q3listview.h>
-#else
-#include <qlistview.h>
-#endif
+#include <Qt/qlistview.h>
 #include "lib/db_base.h"
 #include "lib/load_obj.h"
 #include "lib/exception.h"
@@ -65,7 +61,7 @@
 #define CHECK_DB emit init_database(); if (!MainWindow::dbenv) return;
 #define CHECK_DB_NULL emit init_database(); if (!MainWindow::dbenv) return NULL;
 	
-class XcaListView : public QListView
+class XcaListView : public Q3ListView
 {
 	Q_OBJECT
 		
@@ -73,7 +69,7 @@ class XcaListView : public QListView
 		db_base *db;
    
 	public:
-		XcaListView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+		XcaListView(QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
 		void setDB(db_base *mydb);
 		void rmDB(db_base *mydb);
 		virtual pki_base *getSelected();
@@ -82,21 +78,21 @@ class XcaListView : public QListView
 		void load_default(QStringList &filter, QString caption);
 		void load_default(load_base &load);
 		void setDB(db_base *mydb, QPixmap *myimage);
-		void Error(errorEx &err);
-		bool Error(pki_base *pki);
+		void Qt::SocketError(errorEx &err);
+		bool Qt::SocketError(pki_base *pki);
 		void loadCont();
 	public slots:
 		virtual void newItem();
 		virtual void deleteItem();
 		void showItem();
 		void showItem(QString name);
-		void showItem(QListViewItem *item);
+		void showItem(Q3ListViewItem *item);
 		virtual void load();
 		virtual	void store();
-		virtual void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+		virtual void popupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
 		void startRename();
 		void renameDialog();
-		void rename(QListViewItem *item, int col, const QString &text);
+		void rename(Q3ListViewItem *item, int col, const QString &text);
 		virtual void updateView();
 	signals:
 		void init_database();

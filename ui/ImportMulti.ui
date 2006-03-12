@@ -1,196 +1,107 @@
-<!DOCTYPE UI><UI>
-<class>ImportMulti_UI</class>
-<widget>
-    <class>QDialog</class>
-    <property stdset="1">
-        <name>name</name>
-        <cstring>ImportMulti_UI</cstring>
-    </property>
-    <property stdset="1">
-        <name>geometry</name>
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>666</width>
-            <height>328</height>
-        </rect>
-    </property>
-    <property stdset="1">
-        <name>caption</name>
-        <string>ImportMulti_UI</string>
-    </property>
-    <hbox>
-        <property stdset="1">
-            <name>margin</name>
-            <number>11</number>
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>ImportMulti</class>
+ <widget class="QDialog" name="ImportMulti" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>506</width>
+    <height>289</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>ImportMulti_UI</string>
+  </property>
+  <layout class="QHBoxLayout" >
+   <property name="margin" >
+    <number>8</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <widget class="QListView" name="listView" />
+   </item>
+   <item>
+    <widget class="QFrame" name="frame" >
+     <property name="frameShape" >
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>8</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="buttonOk" >
+        <property name="text" >
+         <string>Import &amp;All</string>
         </property>
-        <property stdset="1">
-            <name>spacing</name>
-            <number>6</number>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="PushButton4" >
+        <property name="text" >
+         <string>&amp;Import</string>
         </property>
-        <widget>
-            <class>QListView</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>itemView</cstring>
-            </property>
-        </widget>
-        <widget>
-            <class>QFrame</class>
-            <property stdset="1">
-                <name>name</name>
-                <cstring>Frame9</cstring>
-            </property>
-            <property stdset="1">
-                <name>frameShape</name>
-                <enum>Box</enum>
-            </property>
-            <property stdset="1">
-                <name>frameShadow</name>
-                <enum>Sunken</enum>
-            </property>
-            <vbox>
-                <property stdset="1">
-                    <name>margin</name>
-                    <number>11</number>
-                </property>
-                <property stdset="1">
-                    <name>spacing</name>
-                    <number>6</number>
-                </property>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>buttonOk</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>Import &amp;All</string>
-                    </property>
-                    <property stdset="1">
-                        <name>autoDefault</name>
-                        <bool>true</bool>
-                    </property>
-                    <property stdset="1">
-                        <name>default</name>
-                        <bool>true</bool>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton4</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;Import</string>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>buttonCancel</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;Done</string>
-                    </property>
-                    <property stdset="1">
-                        <name>autoDefault</name>
-                        <bool>true</bool>
-                    </property>
-                </widget>
-                <widget>
-                    <class>QPushButton</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>PushButton9</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>text</name>
-                        <string>&amp;Remove</string>
-                    </property>
-                </widget>
-                <spacer>
-                    <property>
-                        <name>name</name>
-                        <cstring>Spacer1</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>orientation</name>
-                        <enum>Vertical</enum>
-                    </property>
-                    <property stdset="1">
-                        <name>sizeType</name>
-                        <enum>Expanding</enum>
-                    </property>
-                    <property>
-                        <name>sizeHint</name>
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget>
-                    <class>QLabel</class>
-                    <property stdset="1">
-                        <name>name</name>
-                        <cstring>image</cstring>
-                    </property>
-                    <property stdset="1">
-                        <name>minimumSize</name>
-                        <size>
-                            <width>200</width>
-                            <height>94</height>
-                        </size>
-                    </property>
-                    <property stdset="1">
-                        <name>scaledContents</name>
-                        <bool>true</bool>
-                    </property>
-                </widget>
-            </vbox>
-        </widget>
-    </hbox>
-</widget>
-<connections>
-    <connection>
-        <sender>buttonCancel</sender>
-        <signal>clicked()</signal>
-        <receiver>ImportMulti_UI</receiver>
-        <slot>reject()</slot>
-    </connection>
-    <connection>
-        <sender>itemView</sender>
-        <signal>rightButtonClicked(QListViewItem*,const QPoint&amp;,int)</signal>
-        <receiver>ImportMulti_UI</receiver>
-        <slot>showPopupMenu(QListViewItem *, const QPoint &amp;, int)</slot>
-    </connection>
-    <connection>
-        <sender>PushButton4</sender>
-        <signal>clicked()</signal>
-        <receiver>ImportMulti_UI</receiver>
-        <slot>import()</slot>
-    </connection>
-    <connection>
-        <sender>buttonOk</sender>
-        <signal>clicked()</signal>
-        <receiver>ImportMulti_UI</receiver>
-        <slot>importAll()</slot>
-    </connection>
-    <connection>
-        <sender>PushButton9</sender>
-        <signal>clicked()</signal>
-        <receiver>ImportMulti_UI</receiver>
-        <slot>remove()</slot>
-    </connection>
-    <slot access="public">import()</slot>
-    <slot access="public">importAll()</slot>
-    <slot access="public">remove()</slot>
-    <slot access="public">showPopupMenu(QListViewItem *, const QPoint &amp;, int)</slot>
-</connections>
-</UI>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonCancel" >
+        <property name="text" >
+         <string>&amp;Done</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="PushButton9" >
+        <property name="text" >
+         <string>&amp;Remove</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>204</width>
+          <height>16</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="image" >
+        <property name="minimumSize" >
+         <size>
+          <width>200</width>
+          <height>94</height>
+         </size>
+        </property>
+        <property name="scaledContents" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -52,91 +50,107 @@
 #include "ExportKey.h"
 #include "lib/base.h"
 
-#include <qfiledialog.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
+#include <Qt/qfiledialog.h>
+#include <Qt/qcheckbox.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qfiledialog.h>
 
-ExportKey::ExportKey(QString fname, bool onlypub, QString dpath,
-	QWidget *parent, const char *name )
-	:ExportKey_UI(parent,name,true,0)
+ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
+	:QDialog(parent)
 {
+	setupUi(this);
 	filename->setText(fname);
-	setCaption(tr(XCA_TITLE));
+	setWindowTitle(tr(XCA_TITLE));
 	onlyPub = onlypub;
-	exportFormat->insertItem("PEM");
-	exportFormat->insertItem("DER");
+	exportFormat->addItem("PEM");
+	exportFormat->addItem("DER");
 	if (onlyPub) {
 		privFrame->setDisabled(true);
 		exportPrivate->setDisabled(true);
 		encryptKey->setDisabled(true);
-	}		
+	}
 	else {
 		exportPrivate->setChecked(true);
-		exportFormat->insertItem("PKCS#8");
+		exportFormat->addItem("PKCS#8");
 	}
 	canEncrypt();	
 	dirPath = dpath;
 }
 	
-void ExportKey::chooseFile()
+void ExportKey::on_fileBut_clicked()
 {
 	QStringList filt;
 	filt.append(tr("RSA Keys ( *.pem *.der *.pk8 )")); 
 	filt.append(tr("All Files ( *.* )"));
 	QString s = "";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(tr("Save RSA key as"));
+	QFileDialog *dlg = new QFileDialog(this);
+	dlg->setWindowTitle(tr("Save RSA key as"));
 	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::AnyFile );
-	dlg->setSelection( filename->text() );
-	dlg->setDir(dirPath);
-	if (dlg->exec())
-		s = dlg->selectedFile();
+	dlg->setFileMode( QFileDialog::AnyFile );
+	dlg->setDirectory(dirPath);
+	dlg->selectFile( filename->text() );
+	if (dlg->exec()) {
+		if (!dlg->selectedFiles().isEmpty())
+			s = dlg->selectedFiles()[0];
+	}
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
-	dirPath = dlg->dirPath();
+	dirPath = dlg->directory().path();
 	delete dlg;
 }
 
-void ExportKey::canEncrypt() {
+void ExportKey::canEncrypt()
+{
+	printf("canEncrypt\n");
 	if (exportFormat->currentText() == "PKCS#8") {
+		printf("PKCS#8\n");
 		exportPrivate->setChecked(true);
 		exportPrivate->setDisabled(true);
 		encryptKey->setChecked(true);
 		encryptKey->setDisabled(true);
 	}
 	else if (exportFormat->currentText() == "PEM" && !onlyPub) {
+		printf("PEM\n");
 		exportPrivate->setEnabled(true);
-	    	if (exportPrivate->isChecked()) {
-			encryptKey->setEnabled(true);
-		}
-		else {
-			encryptKey->setEnabled(false);
-		}
+		on_exportPrivate_stateChanged();
 	}
 	else {
+		printf("else DER\n");
 		encryptKey->setDisabled(true);
 		encryptKey->setChecked(false);
 		exportPrivate->setEnabled(true);
 	}
 
 	if (onlyPub) {
+		printf("onlyPub\n");
 		exportPrivate->setChecked(false);
 		exportPrivate->setDisabled(true);
 		encryptKey->setChecked(false);
 		encryptKey->setDisabled(true);
 	}
 }
-	
-void ExportKey::formatChanged()
+
+void ExportKey::on_exportFormat_activated(int c)
 {
 	char *suffix[] = { "pem", "der", "pk8" };
-	int selected = exportFormat->currentItem();
+
 	QString fn = filename->text();
-	QString nfn = fn.left(fn.findRev('.')+1) + suffix[selected];
+	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[c];
 	filename->setText(nfn);
+	canEncrypt();
 }	
 
+void ExportKey::on_exportPrivate_stateChanged()
+{
+    	if (exportPrivate->isChecked() && 
+			exportFormat->currentText() != "DER" && !onlyPub)
+	{
+		encryptKey->setEnabled(true);
+	}
+	else {
+		encryptKey->setEnabled(false);
+	}
+}

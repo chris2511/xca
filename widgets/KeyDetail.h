@@ -55,12 +55,12 @@
 
 class pki_key;
 
-class KeyDetail: public KeyDetail_UI
+class KeyDetail: public QDialog, private Ui::KeyDetail
 {
 	Q_OBJECT
 		
    public:	
-	KeyDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+	KeyDetail(QWidget *parent);
 	void setKey(pki_key *key);
 	void setImport();
 		

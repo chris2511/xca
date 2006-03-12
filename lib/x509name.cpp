@@ -229,13 +229,13 @@ void x509name::addEntryByNid(int nid, const QString entry)
 		OPENSSL_free(data);
 	}
 	else {
-		const char *x = entry.toAscii();
-		int type = ASN1_PRINTABLE_type((const unsigned char*)x,-1);
+		unsigned char *x = (unsigned char*)CCHAR(entry);
+		int type = ASN1_PRINTABLE_type(x,-1);
 
 		if (fix_data(nid, &type) == 0)
 			return;
 
-		X509_NAME_add_entry_by_NID(xn, nid, type, (unsigned char*)x,-1,-1,0);
+		X509_NAME_add_entry_by_NID(xn, nid, type, x,-1,-1,0);
 	}
 }
 

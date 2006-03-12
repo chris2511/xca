@@ -39,14 +39,12 @@
  *	http://www.trolltech.com
  * 
  *
- *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
  * $Id$
  *
  */                           
-
 
 
 #include "pki_x509.h"
@@ -328,7 +326,7 @@ unsigned char *pki_x509::toData(int *size)
 	unsigned char *p, *p1;
 	
 	// calculate the needed size 
-	*size = i2d_X509(cert, NULL) + 100;
+	*size = i2d_X509(cert, NULL) + 45 + caSerial.toHex().length();
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
@@ -346,8 +344,10 @@ unsigned char *pki_x509::toData(int *size)
 	db::intToData(&p1, crlDays); // the CRL period
 	p1 = lastCrl.i2d(p1); // last CRL date
 	openssl_error();
-	printf("###### Size = %d, real size=%d\n", *size, p1-p);
-	*size = p1-p;
+	if (*size != p1-p) {
+		printf("pki_x509::toData: Size = %d, real size=%d\n", *size, p1-p);
+		//abort();
+	}
 	return p;
 }
 
@@ -649,31 +649,44 @@ x509rev pki_x509::getRev()
 	a.setSerial(getSerial());
 	return a;
 }
-#if 0	
-void pki_x509::updateView()
+
+QVariant pki_x509::column_data(int col)
 {
-	pki_base::updateView();
 	QString truststatus[] = 
 		{ tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
+
+	switch (col) {
+		case 0:
+			return QVariant(getIntName());
+		case 1:
+			return QVariant(getSubject().getEntryByNid(NID_commonName));
+		case 2:
+			return QVariant(getSerial().toHex());
+		case 3:
+			return QVariant(getNotAfter().toSortable());
+		case 4:
+			return QVariant(truststatus[ getTrust() ]);
+		case 5:
+			if (isRevoked())
+				return QVariant(getRevoked().toSortable());
+			break;
+	}
+	return QVariant();
+	
+}
+
+QVariant pki_x509::getIcon()
+{
 	int pixnum = 0;
-	if (!pointer) return;
+	
 	if (getRefKey()) {
 		pixnum += 1;
 	}
 	if (calcEffTrust() == 0){ 
 		pixnum += 2;
 	}	
-	pointer->setPixmap(0, *icon[pixnum]);
-	pointer->setText(0, getIntName());
-	pointer->setText(1, getSubject().getEntryByNid(NID_commonName));
-	pointer->setText(2, getSerial().toHex() );  
-	pointer->setText(3, getNotAfter().toSortable() );  
-	pointer->setText(4, truststatus[ getTrust() ]);  
-	if (isRevoked())
-		pointer->setText(5, getRevoked().toSortable());
+	return QVariant(*icon[pixnum]);	
 }
-
-#endif
 
 QString pki_x509::getSigAlg()
 {

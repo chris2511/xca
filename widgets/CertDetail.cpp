@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -35,11 +36,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -53,15 +51,16 @@
 #include "MainWindow.h"
 #include "distname.h"
 #include "clicklabel.h"
-#include <qlabel.h>
-#include <qtextview.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
+#include <Qt/qlabel.h>
+//#include <Qt/qtextview.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qlineedit.h>
 
-CertDetail::CertDetail(QWidget *parent, const char *name, bool modal, WFlags f)
-	:CertDetail_UI(parent,name,true,0)
+CertDetail::CertDetail(QWidget *parent)
+	:QDialog(parent)
 {
-	setCaption(tr(XCA_TITLE));
+	setupUi(this);
+	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::certImg);		 
 	descr->setReadOnly(true);
 }
@@ -136,17 +135,9 @@ void CertDetail::setCert(pki_x509 *cert)
 	fpSHA1->setText(cert->fingerprint(EVP_sha1()));
 	
 	// V3 extensions
-	v3Extensions->setText(cert->printV3ext());
+	v3extensions->document()->setHtml(cert->printV3ext());
 	 
 	// Algorithm
 	sigAlgo->setText(cert->getSigAlg());
 	sigAlgo->setReadOnly(true);
 }
-
-void CertDetail::setImport()
-{
-	// rename the buttons in case of import 
-	but_ok->setText(tr("Import"));
-	but_cancel->setText(tr("Discard"));
-}
-	

@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -87,12 +88,12 @@ class db_x509: public db_x509super
 	pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
 	pki_base *insert(pki_base *item);
 	void newCert(NewX509 *dlg);
+	void load(void);
+	void newItem();
+	void showItem(QModelIndex &index);
 
     public slots:
 	void revokeCert(const x509rev &revok, const pki_x509 *issuer);
-	void load(void);
-	void newItem();
-    
 };
 
 #endif

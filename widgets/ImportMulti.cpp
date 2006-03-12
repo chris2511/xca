@@ -53,29 +53,28 @@
 #include "ImportMulti.h"
 #include "MainWindow.h"
 #include "lib/pki_base.h"
-#include "lib/pki_pkcs7.h"
-#include "lib/pki_pkcs12.h"
-#include "lib/pki_crl.h"
-#include "widgets/CrlDetail.h"
-#include "widgets/CertDetail.h"
+//#include "lib/pki_pkcs7.h"
+//#include "lib/pki_pkcs12.h"
+//#include "lib/pki_crl.h"
+//#include "widgets/CrlDetail.h"
+//#include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
-#include "widgets/ReqDetail.h"
-#include <qpushbutton.h>
-#include <qpopupmenu.h>
-#include <qmessagebox.h>
-#include <qlabel.h>
+//#include "widgets/ReqDetail.h"
+#include <Qt/qpushbutton.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qlabel.h>
 
-ImportMulti::ImportMulti(QWidget *parent, const char *name, bool modal, WFlags f )
-	:ImportMulti_UI(parent, name, modal, f)
+ImportMulti::ImportMulti(QWidget *parent)
+	:QDialog(parent)
 {
-	setCaption(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::certImg);		 
-	itemView->addColumn(tr("Internal name"));
-	itemView->addColumn(tr("Common name"));
-	itemView->addColumn(tr("Serial"));
+	setWindowTitle(tr(XCA_TITLE));
+	//image->setPixmap(*MainWindow::certImg);		 
+	//itemView->addColumn(tr("Internal name"));
+	//itemView->addColumn(tr("Common name"));
+	//itemView->addColumn(tr("Serial"));
 	cont.clear();
 	cont.setAutoDelete(false);
-	connect( itemView, SIGNAL(doubleClicked(QListViewItem *)),
+	connect( itemView, SIGNAL(doubleClicked()),
 		this, SLOT(details())) ;
 	  
 }
@@ -86,11 +85,10 @@ void ImportMulti::addItem(pki_base *pki)
 	QString cn = pki->getClassName();
 	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ||
 			cn == "pki_crl"  || cn == "pki_temp" ) {
-		QListViewItem *current = new QListViewItem(itemView);
-		pki->setLvi(current);
-		pki->updateView();
+		//Q3ListViewItem *current = new Q3ListViewItem(itemView);
 		cont.append(pki);
 	}
+#if 0
 	else if (cn == "pki_pkcs7") {
 		pki_pkcs7 *p7 = ( pki_pkcs7 *)pki;
 		for (int i=0; i<p7->numCert(); i++) {
@@ -111,13 +109,14 @@ void ImportMulti::addItem(pki_base *pki)
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
 	}
+#endif
 	
 }
 	
-
-void ImportMulti::showPopupMenu(QListViewItem *item, const QPoint &pt, int x)
+#if 0
+void ImportMulti::showPopupMenu(Q3ListViewItem *item, const QPoint &pt, int x)
 {
-	QPopupMenu *menu = new QPopupMenu(this);
+	Q3PopupMenu *menu = new Q3PopupMenu(this);
 
 	menu->insertItem(tr("Import"), this, SLOT(import()));
 	menu->insertItem(tr("Details"), this, SLOT(details()));
@@ -139,11 +138,12 @@ void ImportMulti::remove()
 
 pki_base *ImportMulti::getSelected()
 {
-	QListViewItem *current = itemView->selectedItem();
+	Q3ListViewItem *current = itemView->selectedItem();
 	return search(current);
 }
-
-pki_base *ImportMulti::search(QListViewItem *current)
+#endif
+#if 0
+pki_base *ImportMulti::search(Q3ListViewItem *current)
 {
 	for (pki_base *pki = cont.first(); pki != 0; pki = cont.next() ) {
 		if (current == pki->getLvi()) return pki;
@@ -168,7 +168,7 @@ void ImportMulti::import()
 void ImportMulti::import(pki_base *pki)
 {
 	if (!pki) return;
-	QListViewItem *lvi = pki->getLvi();
+	Q3ListViewItem *lvi = pki->getLvi();
 	pki->delLvi();
 	QString cn = pki->getClassName();
 	emit init_database();
@@ -255,13 +255,14 @@ ImportMulti::~ImportMulti()
 	cont.clear();
 }	 
 
+#endif
 void ImportMulti::execute(int force)
 {
 	/* if there is nothing to import don't pop up */
 	if (cont.count() == 0) return;
 	/* if there is only 1 item and force is 0 import it silently */
 	if (cont.count() == 1 && force == 0) {
-		import(cont.first());
+//		import(cont.first());
 		return;
 	}
 	/* the behavoiour for more than one item */

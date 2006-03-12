@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -50,23 +48,14 @@
 
 #include "distname.h"
 
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qvariant.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlineedit.h>
 #include "lib/x509name.h"
-#include <iostream>
+#include "lib/base.h"
 
-DistName::DistName( QWidget* parent,  const char* name )
-    : QWidget( parent, name )
+DistName::DistName(QWidget* parent)
+    : QWidget(parent)
 {
-	if ( !name )
-		setName( "DistName" );
-	
 	DistNameLayout = new QGridLayout(this); 
 	DistNameLayout->setAlignment( Qt::AlignTop );
 	DistNameLayout->setSpacing( 6 );
@@ -78,11 +67,15 @@ void DistName::setX509name(const x509name &n)
 	QLabel *lb;
 	QLineEdit *le;
 	QStringList sl;
+	printf("X509name iterate over items\n");
 	for (int i=0; i<n.entryCount(); i++) {
+		printf("X509name %d\n", i);
 		lb = new QLabel( this );
 		le = new QLineEdit( this );
 		sl = n.entryList(i);
 		lb->setText(sl[1]);
+		printf("X509 Name = '%s' '%s' '%s' \n",
+				CCHAR(sl[0]), CCHAR(sl[1]), CCHAR(sl[2]));
 		if (lb->text().isEmpty())
 			lb->setText(sl[0]);
 		le->setText(sl[2]);
@@ -101,19 +94,3 @@ void DistName::resizeEvent( QResizeEvent *e)
 {
 	QWidget::resizeEvent(e);
 }
-
-/*******************************************************************/
-
-myGridlayout::myGridlayout(QWidget * parent, int nRows, int nCols,
-	int margin, int space, const char * name) 
-	:QGridLayout(parent, nRows, nCols, margin, space, name)
-{
-}
-
-QSize myGridlayout::maximumSize() const
-{
-	QSize s = QGridLayout::maximumSize();
-	s.setHeight(32767);
-	return s;
-};				
-

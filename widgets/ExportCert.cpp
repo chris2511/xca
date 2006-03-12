@@ -52,9 +52,9 @@
 #include "ExportCert.h"
 #include "lib/base.h"
 
-#include <qcombobox.h>
-#include <qlineedit.h>
-#include <qfiledialog.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qlineedit.h>
+#include <Qt/q3filedialog.h>
 
 ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
 	const QString tcafn, QWidget *parent, const char *name )
@@ -85,10 +85,10 @@ void ExportCert::chooseFile()
 	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )")); 
 	filt.append(tr("All Files ( *.* )"));
 	QString s = "";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	dlg->setCaption(tr("Save Certificate as"));
 	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setMode( Q3FileDialog::AnyFile );
 	dlg->setSelection( filename->text() );
 	dlg->setDir(dirPath);
 	if (dlg->exec())

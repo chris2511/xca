@@ -52,16 +52,16 @@
 
 #include "CertView.h"
 #include "widgets/MainWindow.h"
-#include <qvalidator.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qradiobutton.h>
-#include <qmessagebox.h>
-#include <qpopupmenu.h>
-#include <qtextview.h>
-#include <qpushbutton.h>
-#include <qinputdialog.h>
+#include <Qt/qvalidator.h>
+#include <Qt/qcheckbox.h>
+#include <Qt/qlabel.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qradiobutton.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/q3popupmenu.h>
+#include <Qt/q3textview.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qinputdialog.h>
 #include "widgets/CertExtend.h"
 #include "widgets/ExportCert.h"
 #include "widgets/CertDetail.h"
@@ -83,7 +83,7 @@
 #include <sys/stat.h>
 #endif
 
-CertView::CertView(QWidget * parent, const char * name, WFlags f)
+CertView::CertView(QWidget * parent, const char * name, Qt::WFlags f)
         :XcaListView(parent, name, f)
 {
 	addColumn(tr("Internal name"));
@@ -158,7 +158,7 @@ void CertView::newCert(NewX509 *dlg)
 	else {
 	    // A PKCS#10 Request was selected 
 	    req = dlg->getSelectedReq();
-	    if (Error(req)) return;
+	    if (Qt::SocketError(req)) return;
 	    clientkey = req->getRefKey();
 	    if (clientkey == NULL) {
 		    clientkey = req->getPubKey();
@@ -177,7 +177,7 @@ void CertView::newCert(NewX509 *dlg)
 	// Step 2 - select Signing
 	if (dlg->foreignSignRB->isChecked()) {
 		signcert = dlg->getSelectedSigner();
-		if (Error(signcert)) return;
+		if (Qt::SocketError(signcert)) return;
 		serial = signcert->getIncCaSerial();
 		signkey = signcert->getRefKey();
 		cert->setTrust(1);
@@ -289,7 +289,7 @@ void CertView::newCert(NewX509 *dlg)
     } // EOF try
 	
     catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 		delete cert;
 		if (tempkey != NULL) delete(tempkey);
     }
@@ -341,7 +341,7 @@ void CertView::extendCert()
 		delete dlg;
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 		if (newcert)
 			delete newcert;
 	}
@@ -363,7 +363,7 @@ void CertView::showItem(pki_base *item, bool import)
 		dlg->exec();
     }
     catch (errorEx &err) {
-	    Error(err);
+	    Qt::SocketError(err);
     }
 	if (dlg)
 		delete dlg;
@@ -384,7 +384,7 @@ void CertView::deleteItem()
     	deleteItem_default(tr("The certificate"), tr("is going to be deleted"));
     }
     catch (errorEx &err) {
-	    Error(err);
+	    Qt::SocketError(err);
     }
 }
 
@@ -476,7 +476,7 @@ void CertView::store()
 	    }
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	delete dlg;
 }
@@ -508,7 +508,7 @@ void CertView::writePKCS12(QString s, bool chain)
 	delete p12;
     }
     catch (errorEx &err) {
-	    Error(err);
+	    Qt::SocketError(err);
     }
 }
 
@@ -551,7 +551,7 @@ void CertView::writePKCS7(QString s, int type)
 	p7->writeP7(s, false);
     }
     catch (errorEx &err) {
-	    Error(err);
+	    Qt::SocketError(err);
     }
     if (p7 != NULL ) delete p7;
 	
@@ -573,10 +573,10 @@ void CertView::signP7()
         filt.append("All Files ( *.* )");
 	QString s="";
 	QStringList slist;
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::ExistingFiles );
+	dlg->setMode( Q3FileDialog::ExistingFiles );
         dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
@@ -593,7 +593,7 @@ void CertView::signP7()
 	delete p7;
     }
     catch (errorEx &err) {
-	Error(err);
+	Qt::SocketError(err);
     }
 }	
 
@@ -613,10 +613,10 @@ void CertView::encryptP7()
 	filt.append("All Files ( *.* )");
 	QString s="";
 	QStringList slist;
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	dlg->setCaption(tr("Import Certificate signing request"));
 	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::ExistingFiles );
+	dlg->setMode( Q3FileDialog::ExistingFiles );
 	dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
 		slist = dlg->selectedFiles();
@@ -633,15 +633,15 @@ void CertView::encryptP7()
 	delete p7;
     }
     catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
     }
 }	
 
-void CertView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	QPopupMenu *menu = new QPopupMenu(this);
-	QPopupMenu *subCa = new QPopupMenu(this);
-	QPopupMenu *subP7 = new QPopupMenu(this);
-	QPopupMenu *subExport = new QPopupMenu(this);
+void CertView::popupMenu(Q3ListViewItem *item, const QPoint &pt, int x) {
+	Q3PopupMenu *menu = new Q3PopupMenu(this);
+	Q3PopupMenu *subCa = new Q3PopupMenu(this);
+	Q3PopupMenu *subP7 = new Q3PopupMenu(this);
+	Q3PopupMenu *subExport = new Q3PopupMenu(this);
 	int itemExtend, itemRevoke, itemTrust, itemCA, itemTemplate, itemReq, itemP7, itemtca;
 	bool canSign, parentCanSign, hasTemplates, hasPrivkey;
 	
@@ -748,7 +748,7 @@ void CertView::toRequest()
 		MainWindow::reqs->insert(req);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	
 }
@@ -791,7 +791,7 @@ void CertView::setSerial()
 		}
 	} 
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 }
 
@@ -983,7 +983,7 @@ void CertView::updateView()
 	setRootIsDecorated(true);
 	pki_x509 *pki, *signer;
 	pki_base *pkib;
-	QListViewItem *parentitem,  *current;
+	Q3ListViewItem *parentitem,  *current;
 	QList<pki_base> container = db->getContainer();
 	if ( container.isEmpty() ) return;
 	QList<pki_base> mycont = container;
@@ -1001,10 +1001,10 @@ void CertView::updateView()
 				|| viewState == 0) && (pki->getLvi() == NULL )) {
 				// create the listview item
 				if (parentitem != NULL) {
-					current = new QListViewItem(parentitem);
+					current = new Q3ListViewItem(parentitem);
 				}
 				else {
-					current = new QListViewItem(this);
+					current = new Q3ListViewItem(this);
 				}
 				pki->setLvi(current);
 				mycont.remove(pki);
@@ -1076,7 +1076,7 @@ void CertView::showKey(pki_key *key)
 		dlg->exec();
 	} 
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	if (dlg)
 		delete dlg;

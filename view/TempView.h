@@ -1,3 +1,7 @@
+
+//Added by the Qt porting tool:
+#include <QPixmap>
+
 /* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
@@ -56,9 +60,9 @@
 #include "XcaListView.h"
 #include "lib/pki_temp.h"
 #ifdef qt4
-#include <q3listview.h>
+#include <Qt/q3listview.h>
 #else
-#include <qlistview.h>
+#include <Qt/q3listview.h>
 #endif
 
 
@@ -70,12 +74,12 @@ class TempView : public XcaListView
 	QPixmap *keyicon;
 	bool runTempDlg(pki_temp *);
   public:
-	TempView(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+	TempView(QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
 	void showItem(pki_base *item, bool import);
 	void newItem(int type);
 	void updateViewItem(pki_base *);
 	bool alterTemp(pki_temp *);
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void popupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
 	pki_base *loadItem(QString fname);
   public slots:
 	void newEmptyTemp();

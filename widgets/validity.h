@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,34 +49,21 @@
 #ifndef VALIDITY_H
 #define VALIDITY_H
 
-#include <qgroupbox.h>
+#include <Qt/qdatetimeedit.h>
+#include <lib/asn1time.h>
 
-class QHBoxLayout;
-class a1time;
-class QComboBox;
-class QLineEdit;
-class QLabel;
-class QPushButton;
-
-class Validity : public QWidget
+class Validity : public QDateTimeEdit
 { 
     Q_OBJECT
 
   public:
-	Validity( QWidget* parent = 0, const char* name = 0);
+	Validity( QWidget* parent);
 	~Validity();
 	a1time getDate() const;
 	void setDate(const a1time &t, int midnight = 0);
   public slots:	
 	void setNow();
 
-  protected:
-	QHBoxLayout* ValidityLayout;
-	QComboBox *Mon;
-	QLineEdit *Year, *Day, *Hour, *Min, *Sec;
-	QLabel *l1, *l2;
-	QPushButton *bnNow;
-   
 };
 
-#endif // VALIDITY_H
+#endif

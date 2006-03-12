@@ -58,19 +58,19 @@
 #include "widgets/MainWindow.h"
 #include "widgets/clicklabel.h"
 #include "lib/pki_key.h"
-#include <qcombobox.h>
-#include <qregexp.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
-#include <qtextview.h>
-#include <qmessagebox.h>
-#include <qpopupmenu.h>
-#include <qcheckbox.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qregexp.h>
+#include <Qt/qlabel.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qlineedit.h>
+#include <Qt/q3textview.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/q3popupmenu.h>
+#include <Qt/qcheckbox.h>
 
 const int KeyView::sizeList[] = {512, 1024, 2048, 4096, 0 };
 
-KeyView::KeyView(QWidget * parent, const char * name, WFlags f)
+KeyView::KeyView(QWidget * parent, const char * name, Qt::WFlags f)
 	:XcaListView(parent, name, f)
 {
     addColumn(tr("Internal name"));
@@ -110,7 +110,7 @@ void KeyView::newItem()
 		emit keyDone(x);
 	  }
 	  catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	  }
 	}
 	delete dlg;
@@ -133,7 +133,7 @@ void KeyView::showItem(pki_base *item, bool import)
 		dlg->exec();
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	if (dlg)
 		delete dlg;
@@ -181,15 +181,15 @@ void KeyView::store()
 		}
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	delete dlg;
 
 }
 
 
-void KeyView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	QPopupMenu *menu = new QPopupMenu(this);
+void KeyView::popupMenu(Q3ListViewItem *item, const QPoint &pt, int x) {
+	Q3PopupMenu *menu = new Q3PopupMenu(this);
 	if (!item) {
 		menu->insertItem(tr("New Key"), this, SLOT(newItem()));
 		menu->insertItem(tr("Import"), this, SLOT(load()));
@@ -220,7 +220,7 @@ void KeyView::setOwnPass()
 		__setOwnPass(1);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 }
 
@@ -230,7 +230,7 @@ void KeyView::resetOwnPass()
 		__setOwnPass(0);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 }
 
@@ -306,9 +306,9 @@ void KeyView::changePasswd()
 		tid->abort();
 		strncpy(pki_key::passwd, B.latin1(), MAX_PASS_LENGTH);
 		errorEx er(e);
-		Error(er);
+		Qt::SocketError(er);
 	}
 	tid->commit(0);
 	QMessageBox::information(this, XCA_TITLE, tr("Database password changed successfully.") );
 }
-		
+

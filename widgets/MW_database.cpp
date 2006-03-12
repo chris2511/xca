@@ -36,11 +36,8 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
- *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
@@ -51,54 +48,23 @@
 
 
 #include "MainWindow.h"
+#if 0
 #include "view/KeyView.h"
 #include "view/ReqView.h"
 #include "view/CertView.h"
 #include "view/CrlView.h"
 #include "view/TempView.h"
-#include <qdir.h>
-#include <qstatusbar.h>
+#endif
+#include <Qt/qdir.h>
+#include <Qt/qstatusbar.h>
 
 void MainWindow::init_database() {
 	
-	if (dbenv) return; // already initialized....
-	try {
-		global_tid = NULL;
-		dbenv = new DbEnv(0);
-		dbenv->set_errcall(&MainWindow::dberr);
-		dbenv->open(QFile::encodeName(baseDir), DB_RECOVER | DB_INIT_TXN | \
-				DB_INIT_MPOOL | DB_INIT_LOG | DB_INIT_LOCK | \
-				DB_CREATE | DB_PRIVATE , 0600 );
-		dbenv->txn_begin(NULL, &global_tid, 0);
-#ifndef DB_AUTO_COMMIT
-#define DB_AUTO_COMMIT 0
-#endif
-		dbenv->set_flags(DB_AUTO_COMMIT,1);
-	}
-	catch (DbException &err) {
-		QString e = err.what();
-		e += QString::fromLatin1(" (") + baseDir + QString::fromLatin1(")");
-		if (global_tid)
-			global_tid->abort();
-	    dbenv->close(0);
-	    dbenv = NULL;
-		return;
-			
-	}
-	fprintf(stderr, "Opening database: %s\n", dbfile.latin1());
-	try {
-		settings = new db_base(dbenv, dbfile, "settings",global_tid, NULL);
-		if (!initPass()) {
-			/* password error */
-			delete settings; settings = NULL;
-			global_tid->abort();
-		    dbenv->close(0);
-		    pki_key::erasePasswd();
-		    dbenv = NULL;
-			return;
-		}
-		keys = new db_key(dbenv, dbfile, global_tid, keyList);
-		reqs = new db_x509req(dbenv, dbfile, keys, global_tid, reqList);
+	fprintf(stderr, "Opening database: %s\n", CCHAR(dbfile));
+	keys = new db_key(dbfile, this);
+	reqs = new db_x509req(dbfile, this);
+	certs = new db_x509(dbfile, this);
+#if 0
 		certs = new db_x509(dbenv, dbfile, keys, global_tid, certList);
 		temps = new db_temp(dbenv, dbfile, global_tid, tempList);
 		crls = new db_crl(dbenv, dbfile, global_tid, crlList);
@@ -110,15 +76,6 @@ void MainWindow::init_database() {
 		certList->setDB(certs);
 		tempList->setDB(temps);
 		crlList->setDB(crls);
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
-	catch (DbException &err) {
-		qFatal(err.what());
-	}
-	
-	statusBar()->message(tr("Database") + ":" + dbfile);
 	
 	connect( keys, SIGNAL(newKey(pki_key *)),
 		certs, SLOT(newKey(pki_key *)) );
@@ -128,20 +85,26 @@ void MainWindow::init_database() {
 		reqs, SLOT(newKey(pki_key *)) );
 	connect( keys, SIGNAL(delKey(pki_key *)),
 		reqs, SLOT(delKey(pki_key *)) );
-	connect( crls, SIGNAL(updateCertView()),
-		certList, SLOT(updateView()) );
+//	connect( crls, SIGNAL(updateCertView()),
+//		certList, SLOT(updateView()) );
 	
-}		
+#endif
+	statusBar()->showMessage(tr("Database") + ":" + dbfile);
+	keyView->setModel(keys);
+	reqView->setModel(reqs);
+	certView->setModel(certs);
+	printf("req new\n");
+}
 
 void MainWindow::dump_database()
 {
 	QString dirname;
 	
-	QFileDialog *dlg = new QFileDialog(this,0,true);
-	dlg->setCaption(tr("Dump to directory"));
-	dlg->setMode(QFileDialog::AnyFile);
+	QFileDialog *dlg = new QFileDialog(this);
+	dlg->setWindowTitle(tr("Dump to directory"));
+	dlg->setFileMode(QFileDialog::AnyFile);
 	if (dlg->exec()) {
-		dirname = dlg->selectedFile();
+		dirname = dlg->selectedFiles()[0];
 	}
 	delete dlg;
 	
@@ -151,7 +114,7 @@ void MainWindow::dump_database()
 	QDir d(dirname);
 	if ( ! d.exists() && !d.mkdir(dirname)) {
 		errorEx err("Could not create '" + dirname + "'");
-		Error(err);
+		// Qt::SocketError(err);
 		return;
 	}
 
@@ -163,36 +126,120 @@ void MainWindow::dump_database()
 		reqs->dump(dirname);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		// Qt::SocketError(err);
 	}
 }
 	
 				 
 void MainWindow::close_database()
 {
-	if (!dbenv) return;
-										
-	delete(crls);
+	//delete(crls);
 	delete(reqs);
 	delete(certs);
-	delete(temps);
+	//delete(temps);
 	delete(keys);
-	delete(settings);
+	//delete(settings);
+	
+	db mydb(dbfile);
+	mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
+	
+#if 0
 	crlList->rmDB(crls);
 	certList->rmDB(certs);
 	reqList->rmDB(reqs);
 	tempList->rmDB(temps);
 	keyList->rmDB(keys);
+#endif
 	crls = NULL;
 	reqs = NULL;
 	certs = NULL;
 	temps = NULL;
 	keys = NULL;
 	settings = NULL;
-	global_tid->commit(0);
-	global_tid = NULL;
-	dbenv->close(0);
-	pki_key::erasePasswd();
-	dbenv = NULL;
 }
 
+/* Async Key buttons */
+void MainWindow::on_BNnewKey_clicked(void)
+{
+	if (keys)
+		keys->newItem();
+}
+void MainWindow::on_BNdeleteKey_clicked(void)
+{
+	if (keys)
+		keys->deleteSelectedItems(keyView);
+}
+void MainWindow::on_BNdetailsKey_clicked(void)
+{
+	if (keys)
+		keys->showSelectedItems(keyView);
+}
+void MainWindow::on_BNimportKey_clicked(void)
+{
+	if(keys)
+		keys->load();
+}
+void MainWindow::on_BNexportKey_clicked(void)
+{
+	if(keys)
+		keys->storeSelectedItems(keyView);
+}
+void MainWindow::on_keyView_doubleClicked(QModelIndex &m)
+{
+	printf("Key View double clicked\n");
+	if (keys)
+		keys->showItem(m);
+}
+/* Certificate request buttons */
+void MainWindow::on_BNnewReq_clicked(void)
+{
+	if (reqs)
+		reqs->newItem();
+}
+void MainWindow::on_BNdeleteReq_clicked(void)
+{
+	if (reqs)
+		reqs->deleteSelectedItems(reqView);
+}
+void MainWindow::on_BNdetailsReq_clicked(void)
+{
+	if (reqs)
+		reqs->showSelectedItems(reqView);
+}
+void MainWindow::on_BNimportReq_clicked(void)
+{
+	if (reqs)
+		reqs->load();
+}
+void MainWindow::on_BNexportReq_clicked(void)
+{
+	if(reqs)
+		reqs->storeSelectedItems(reqView);
+}
+
+/* Certificate  buttons */
+void MainWindow::on_BNnewCert_clicked(void)
+{
+	if (certs)
+		certs->newItem();
+}
+void MainWindow::on_BNdeleteCert_clicked(void)
+{
+	if (certs)
+		certs->deleteSelectedItems(certView);
+}
+void MainWindow::on_BNdetailsCert_clicked(void)
+{
+	if (certs)
+		certs->showSelectedItems(certView);
+}
+void MainWindow::on_BNimportCert_clicked(void)
+{
+	if (certs)
+		certs->load();
+}
+void MainWindow::on_BNexportCert_clicked(void)
+{
+	if(certs)
+		certs->storeSelectedItems(certView);
+}

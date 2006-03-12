@@ -62,7 +62,7 @@
 class pki_pkcs12;
 class NewX509;
 class pki_base;
-class QListViewItem;
+class Q3ListViewItem;
 class pki_x509req;
 class pki_temp;
 
@@ -75,7 +75,7 @@ class CertView : public XcaListView
 	bool mkDir(QString dir);
 	
   public:
-	CertView(QWidget * parent = 0, const char * name = 0, WFlags f=0);
+	CertView(QWidget * parent = 0, const char * name = 0, Qt::WFlags f=0);
 	void showItem(pki_base *item, bool import);
 	void newItem();
 	void deleteItem();
@@ -83,7 +83,7 @@ class CertView : public XcaListView
 	void load();
 	// pki_base* insert(pki_base *item);
 	void store();
-	void popupMenu(QListViewItem *item, const QPoint &pt, int x);
+	void popupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
 	void newCert(NewX509 *dlg);
 	void writePKCS12(QString s, bool chain);
 	void writePKCS7(QString s, int type);	

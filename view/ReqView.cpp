@@ -54,14 +54,14 @@
 #include "widgets/ReqDetail.h"
 #include "widgets/KeyDetail.h"
 #include <openssl/evp.h>
-#include <qpopupmenu.h>
-#include <qmessagebox.h>
-#include <qfiledialog.h>
-#include <qdir.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qpushbutton.h>
+#include <Qt/q3popupmenu.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/q3filedialog.h>
+#include <Qt/qdir.h>
+#include <Qt/qlabel.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qpushbutton.h>
 
 #include "widgets/MainWindow.h"
 #include "widgets/NewX509.h"
@@ -69,7 +69,7 @@
 #include "widgets/clicklabel.h"
 
 
-ReqView::ReqView(QWidget * parent, const char * name, WFlags f)
+ReqView::ReqView(QWidget * parent, const char * name, Qt::WFlags f)
 	:XcaListView(parent, name, f)
 {
 	addColumn(tr("Internal name"));
@@ -111,7 +111,7 @@ void ReqView::newItem(pki_temp *temp)
 	}
 	catch (errorEx &err) {
 		delete req;
-		Error(err);
+		Qt::SocketError(err);
 	}
 }
 
@@ -129,7 +129,7 @@ void ReqView::showItem(pki_base *item, bool import)
 		dlg->exec();
     }
     catch (errorEx &err) {
-	    Error(err);
+	    Qt::SocketError(err);
     }
 	if (dlg)
 		delete dlg;
@@ -157,7 +157,7 @@ void ReqView::store(bool pem)
 		req = (pki_x509req *)getSelected();
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 		return;
 	}
 
@@ -166,10 +166,10 @@ void ReqView::store(bool pem)
 	filt.append("PKCS#10 CSR ( *.pem *.der *.csr )"); 
 	filt.append("All Files ( *.* )");
 	QString s="";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	dlg->setCaption(tr("Export Certificate signing request"));
 	dlg->setFilters(filt);
-	dlg->setMode( QFileDialog::AnyFile );
+	dlg->setMode( Q3FileDialog::AnyFile );
 	dlg->setSelection( req->getIntName() + ".csr" );
 	dlg->setDir(MainWindow::getPath());
 	if (dlg->exec()) {
@@ -183,7 +183,7 @@ void ReqView::store(bool pem)
 		req->writeReq(s, pem);
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 }
 
@@ -194,15 +194,15 @@ void ReqView::signReq()
 		req = (pki_x509req *)getSelected();
 	}
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 		return;
 	}
 	newCert(req);
 }
 
-void ReqView::popupMenu(QListViewItem *item, const QPoint &pt, int x) {
-	QPopupMenu *menu = new QPopupMenu(this);
-	QPopupMenu *subExport = new QPopupMenu(this);
+void ReqView::popupMenu(Q3ListViewItem *item, const QPoint &pt, int x) {
+	Q3PopupMenu *menu = new Q3PopupMenu(this);
+	Q3PopupMenu *subExport = new Q3PopupMenu(this);
 	int itemExport;
 	
 	if (!item) {
@@ -243,7 +243,7 @@ void ReqView::showKey(pki_key *key)
 		dlg->exec();
 	} 
 	catch (errorEx &err) {
-		Error(err);
+		Qt::SocketError(err);
 	}
 	if (dlg)
 		delete dlg;

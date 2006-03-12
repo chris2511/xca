@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,23 +49,16 @@
 
 
 #include "NewX509.h"
-#include <qgroupbox.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qradiobutton.h>
-#include <qmessagebox.h>
-#include <qlineedit.h>
-#include <qlabel.h>
-#include <qwhatsthis.h>
-#include <qlistbox.h>
-#include <qlistview.h>
-#include <qpixmap.h>
-#include <qpushbutton.h>
-#include <qvalidator.h>
-#include <qbuttongroup.h>
-#include <qtextview.h>
+#include <Qt/qcheckbox.h>
+#include <Qt/qcombobox.h>
+#include <Qt/qradiobutton.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qlabel.h>
+#include <Qt/qpixmap.h>
+#include <Qt/qpushbutton.h>
+#include <Qt/qvalidator.h>
 #include "MainWindow.h"
-#include "validity.h"
 #include "v3ext.h"
 #include "lib/x509name.h"
 #include "lib/db_key.h"
@@ -88,37 +79,31 @@ int NewX509::name_nid[] = {
 	NID_pkcs9_emailAddress
 };
 							 
-NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
-	:NewX509_UI(parent, name, modal, f)
+NewX509::NewX509(QWidget *parent)
+	:QDialog(parent)
 {
-	unsigned int i;
-	connect( extDNadd, SIGNAL(clicked()), this, SLOT(addX509NameEntry()) );
-	connect( extDNdel, SIGNAL(clicked()), this, SLOT(delX509NameEntry()) );
+	int i;
+	//connect( extDNadd, SIGNAL(clicked()), this, SLOT(addX509NameEntry()) );
+	//connect( extDNdel, SIGNAL(clicked()), this, SLOT(delX509NameEntry()) );
 
 	eku_nid = *MainWindow::eku_nid;
 	dn_nid = *MainWindow::dn_nid;
 	aia_nid = *MainWindow::aia_nid;
 	
-	setCaption(tr(XCA_TITLE));
+	setupUi(this);
+
+	setWindowTitle(tr(XCA_TITLE));
 	fixtemp = NULL;
+	
 	nsImg->setPixmap(*MainWindow::nsImg);
-#ifndef qt3
-	// pretty fat Title :-)
-	QFont tFont;// = getFont();
-	tFont.setPointSize(14);
-	tFont.setBold(true);
-	tFont.setUnderline(true);
-	//setFont( tFont );
-#else
 	//setFont( tFont );
 	serialNr->setValidator( new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
-#endif	
 	QStringList strings;
 	 
 	// are there any useable private keys  ?
 	strings = MainWindow::keys->get0PrivateDesc();
-	keyList->insertStringList(strings);
-	hashAlgo->setCurrentItem(1);
+	keyList->insertItems(0, strings);
+	hashAlgo->setCurrentIndex(2);
 	
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
@@ -127,17 +112,18 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 		reqList->setDisabled(true);
 	}
 	else {
-		reqList->insertStringList(strings);
+		reqList->insertItems(0, strings);
 	}
 	
 	// How about signing certificates ?
-	strings = MainWindow::certs->getSignerDesc();
+//	strings = MainWindow::certs->getSignerDesc();
+#warning certs->getSignerDesc()
 	if (strings.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 		certList->setDisabled(true);
 	}
 	else {
-		certList->insertStringList(strings);
+		certList->insertItems(0, strings);
 	}
 	
 	// set dates to now and now + 1 year
@@ -146,24 +132,26 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	notAfter->setDate(a.now(60*60*24*365));
 	
 	// settings for the templates ....
-	strings = MainWindow::temps->getDesc();
+#warning fix templates
+	strings.clear();
+	//strings = MainWindow::temps->getDesc();
 	strings.prepend(tr("Server Template"));
 	strings.prepend(tr("Client Template"));
 	strings.prepend(tr("CA Template"));
 	strings.prepend(tr("Empty Template"));
-	tempList->insertStringList(strings);
+	tempList->insertItems(0, strings);
 	
 	// setup Extended keyusage
 	for (i=0; i < eku_nid.count(); i++)
-		ekeyUsage->insertItem(OBJ_nid2ln(eku_nid[i]));
+		ekeyUsage->insertItem(0, OBJ_nid2ln(eku_nid[i]));
 
 	// setup Distinguished Name 
 	for (i=0; i < dn_nid.count(); i++)
-		extDNobj->insertItem(OBJ_nid2ln(dn_nid[i]));
+		extDNobj->insertItem(0, OBJ_nid2ln(dn_nid[i]));
 
 	// setup Authority Info Access
 	for (i=0; i < aia_nid.count(); i++)
-		aiaOid->insertItem(OBJ_nid2ln(aia_nid[i]));
+		aiaOid->insertItem(0, OBJ_nid2ln(aia_nid[i]));
 
 	// init the X509 v3 context
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
@@ -179,36 +167,18 @@ NewX509::NewX509(QWidget *parent , const char *name, bool modal, WFlags f)
 	name_ptr[6] = emailAddress;
 
 	// last polish 
-	setFinishEnabled(page7,true);
-	setNextEnabled(page2,false);
 	signerChanged();
 	checkAuthKeyId();
 }
 
 void NewX509::setRequest()
 {
-//	setAppropriate(page4, false);
-//	setAppropriate(page5, false);
-//	setAppropriate(page6, false);
-	finishButton()->setEnabled(true);
-	changeDefault->setEnabled(true);
-	changeDefault->setChecked(true);
-	signerBox->setEnabled(false);
 	requestBox->setEnabled(false);
-	timeRangeBox->setEnabled(false);
-	validitybox->setEnabled(false);
-	startText_h=tr("Welcome to the settings for certificate signing requests.");
-	startText_b=tr("A signing request needs a private key, so it will be "
-		"created if there isn't any unused key available in the key "
-		"database. This signing request can then be given to a "
-		"Certification authority while the private key of the request "
-		"and of the resulting certificate returned from the CA does never "
-		"leave your computer.");
-	endText=tr("You are done with entering all parameters for generating "
-		"a Certificate signing request. The resulting request should "
-		"be exported and send to an appropriate CA for signing it.");
+	signerBox->setEnabled(false);
+	validityBox->setEnabled(false);
+	rangeBox->setEnabled(false);
+	tabWidget->setCurrentIndex(1);
 	tText=tr("Certificate signing request");
-	setup();
 	setImage(MainWindow::csrImg);
 }
 
@@ -219,69 +189,28 @@ NewX509::~NewX509()
 
 void NewX509::setTemp(pki_temp *temp)
 {
-	setAppropriate(page1, false);
-	finishButton()->setEnabled(true);
-	startText_h=tr("Welcome to the settings for Templates.");
-	startText_b=tr("This templates do not refer to any ASN.1 structure "
-		"but are used to keep default settings for signing requests and "
-		"certificates. When creating a Request or Certificate the template "
-		"can preset the needed fields with default settings.");
-	endText=tr("You are done with entering all parameters for the Template.\n"
-		"After this step the template can be assigned to one of your CAs to "
-		"be autoatically applied when signing with this CA.");
 	tText=tr("Template");
 	if (temp->getIntName() != "--") {
 		description->setText(temp->getIntName());
 		tText += tr(" change");
 	}
-	setup();
-	privKeyBox->setEnabled(false);
-	validitybox->setEnabled(false);
-	setImage(MainWindow::tempImg);
+//	privKeyBox->setEnabled(false);
+//	validitybox->setEnabled(false);
+//	setImage(MainWindow::tempImg);
 	
 }
 	
 void NewX509::setCert()
 {
-	finishButton()->setEnabled(true);
-	startText_h=tr("Welcome to the settings for Certificates.");
-	startText_b=tr("The information for the new Certificate can either be "
-		"grabbed from a given Certificate-request or be filled in by hand. "
-		"In the case of not signing a request there needs to be at least one "
-		"unused key. If this is not the case it will be created. If you want "
-		"to self-sign a request (unusual but nevertheless possible) you need "
-		"the private key used to create the request.");
-	endText=tr("You are done with entering all parameters for creating "
-		"a Certificate.");
 	tText=tr("Certificate");
-	setup();
-	setImage(MainWindow::certImg);
+//	setImage(MainWindow::certImg);
 }
 
 void NewX509::setImage(QPixmap *image)
 {
-	bigImg1->setPixmap(*image);
-	bigImg2->setPixmap(*image);
-	bigImg3->setPixmap(*image);
-	bigImg4->setPixmap(*image);
-	bigImg5->setPixmap(*image);
-	bigImg6->setPixmap(*image);
+	bigImg->setPixmap(*image);
 }
 
-void NewX509::setup()
-{
-	startLabel_h->setText(startText_h);
-	startLabel_b->setText(startText_b);
-	endLabel->setText(endText);
-	setTitle(page0, tText + " Wizard");
-	setTitle(page1, tText + " template selection");
-	setTitle(page2, tText + " personal settings");
-	setTitle(page4, tText + " X.509 v3 Extensions");
-	setTitle(page5, tText + " key usage setup");
-	setTitle(page6, tText + " Netscape extensions");
-	setTitle(page7, tText + " Wizard finished");
-}
-	
 void NewX509::defineTemplate(pki_temp *temp)
 {
 	fromTemplate(temp);
@@ -295,45 +224,30 @@ void NewX509::defineRequest(pki_x509req *req)
 	fromReqCB->setEnabled(true);
 	fromReqCB->setChecked(true);
 	QString reqname = req->getIntName(); 
-#ifdef qt3
-	reqList->setCurrentText(reqname);
-#else
-	for (int i=0; i<reqList->count(); i++) {
-		if (reqList->text(i) == reqname) {
-			reqList->setCurrentItem(i);
-			break;
-		}
-	}
-#endif
-
+//	reqList->setCurrentText(reqname);
 }
 
 void NewX509::defineSigner(pki_x509 *defcert)
 {
 	// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
-	if (defcert && defcert->canSign()) {
+#warning FIX define Signer
+	if (defcert /* && defcert->canSign()*/ ) {
 		QString name = defcert->getIntName();
-#ifdef qt3
-		certList->setCurrentText(name);
-#else
-		for (int i=0; i<certList->count();i++) {
-			if (certList->text(i) == name) {
-				certList->setCurrentItem(i);
-				break;
-			}
-		}
-#endif
+		certList->findText(name);
 		foreignSignRB->setChecked(true);
 		certList->setEnabled(true);
 	}
 }	
 
 
-int NewX509::lb2int(QListBox *lb)
+int NewX509::lb2int(QListWidget *lb)
 {
-	int x=0;
-	for (int i=0; lb->item(i); i++) {
-		if (lb->isSelected(i)){
+	int i, x=0, c=lb->count();
+	QListWidgetItem *item;
+	
+	for (i=0; i<c; i++) {
+		item = lb->item(i);
+		if (lb->isItemSelected(item)){
 			x |= 1<<i;
 		}
 	}
@@ -341,10 +255,14 @@ int NewX509::lb2int(QListBox *lb)
 }	
 
 
-void NewX509::int2lb(QListBox *lb, int x)
+void NewX509::int2lb(QListWidget *lb, int x)
 {
-	for (int i=0; lb->item(i); i++) {
-		lb->setSelected(i, (1<<i) & x);
+	int i, c=lb->count();
+	QListWidgetItem *item;
+
+	for (i=0; i<c; i++) {
+		item = lb->item(i);
+		lb->setItemSelected(item, (1<<i) & x);
 	}
 }	
 
@@ -364,8 +282,9 @@ void NewX509::fromTemplate(pki_temp *temp)
 	nsRenewalUrl->setText(temp->nsRenewalUrl);
 	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl);
 	nsSslServerName->setText(temp->nsSslServerName);
-	int2lb(nsCertType, temp->nsCertType);
-	basicCA->setCurrentItem(temp->ca);
+#warning settings
+	//int2lb(nsCertType, temp->nsCertType);
+	basicCA->setCurrentIndex(temp->ca);
 	bcCritical->setChecked(temp->bcCrit);
 	kuCritical->setChecked(temp->keyUseCrit);
 	ekuCritical->setChecked(temp->eKeyUseCrit);
@@ -376,7 +295,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	int2lb(keyUsage, temp->keyUse);
 	int2lb(ekeyUsage, temp->eKeyUse);
 	validNumber->setText(QString::number(temp->validN));
-	validRange->setCurrentItem(temp->validM);
+	validRange->setCurrentIndex(temp->validM);
 	midnightCB->setChecked(temp->validMidn);
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
@@ -401,8 +320,8 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->nsRenewalUrl = nsRenewalUrl->text();
 	temp->nsCaPolicyUrl = nsCaPolicyUrl->text();
 	temp->nsSslServerName = nsSslServerName->text();
-	temp->nsCertType =  lb2int(nsCertType);
-	temp->ca = basicCA->currentItem();
+//	temp->nsCertType =  lb2int(nsCertType);
+	temp->ca = basicCA->currentIndex();
 	temp->bcCrit = bcCritical->isChecked();
 	temp->keyUseCrit = kuCritical->isChecked();
 	temp->eKeyUseCrit = ekuCritical->isChecked();
@@ -413,7 +332,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->keyUse = lb2int(keyUsage);
 	temp->eKeyUse = lb2int(ekeyUsage);
 	temp->validN = validNumber->text().toInt();
-	temp->validM = validRange->currentItem();
+	temp->validM = validRange->currentIndex();
 	temp->pathLen = basicPath->text().toInt();
 	temp->validMidn = midnightCB->isChecked();
 }
@@ -421,11 +340,9 @@ void NewX509::toTemplate(pki_temp *temp)
 void NewX509::toggleFromRequest()
 {
 	if (fromReqCB->isChecked()) {
-		setAppropriate(page2, false);
 		reqList->setEnabled(true);
 	}
 	else {
-		setAppropriate(page2, true);
 		reqList->setEnabled(false);
 	}
 }
@@ -443,13 +360,9 @@ void NewX509::dataChangeP2()
 {
 	if (description->text() != ""  && countryName->text().length() !=1 &&
 	    (keyList->count() > 0  || !keyList->isEnabled())){
-		setNextEnabled(page2,true);
-	}
-	else {
-		setNextEnabled(page2,false);
 	}
 }
-
+#if 0
 void NewX509::showPage(QWidget *page)
 {
 	
@@ -493,7 +406,7 @@ void NewX509::showPage(QWidget *page)
 		checkAuthKeyId();
 	}
 			
-	QWizard::showPage(page);
+	Q3Wizard::showPage(page);
 	
 	if ( page == page2 ) {
 		description->setFocus();	
@@ -504,9 +417,11 @@ void NewX509::showPage(QWidget *page)
 
 
 }
+#endif
 
 void NewX509::signerChanged()
 {
+#if 0
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
 	
@@ -523,23 +438,17 @@ void NewX509::signerChanged()
 	if (templ.isEmpty()) return;
 	
 	templateChanged(templ);
-	
+#else
+#warning signerChanged
+#endif
 }
 
 
 void NewX509::templateChanged(QString tempname)
 {
 	if (!tempList->isEnabled()) return;
-#ifdef qt3
-	tempList->setCurrentText(tempname);
-#else
-	for (int i=0; i<tempList->count();i++) {
-		if (tempList->text(i) == tempname) {
-			tempList->setCurrentItem(i);
-			break;
-		}
-	}
-#endif
+#warning set current Item
+	//tempList->setCurrentItem(0, tempname);
 	templateChanged();
 }
 
@@ -553,11 +462,11 @@ void NewX509::templateChanged(pki_temp *templ)
 	
 void NewX509::templateChanged()
 {
+#if 0
 	pki_temp *temp = NULL;
 	int item;
-	if (!appropriate(page1)) return;
 	if (!tempList->isEnabled()) return;
-	if ((item = tempList->currentItem())<4) {
+	if ((item = tempList->currentIndex())<4) {
 		temp = new pki_temp("temp",item);
 		if (temp) { 
 			fromTemplate(temp);
@@ -570,8 +479,12 @@ void NewX509::templateChanged()
 	temp = (pki_temp *)MainWindow::temps->getByName(name);
 	if (!temp) return;
 	fromTemplate(temp);
-}
+#else
+#warning templateChanged
+#endif
 
+}
+#if 0
 void NewX509::switchExtended()
 {
 	if ( !appropriate(page1) ) return;
@@ -586,12 +499,12 @@ void NewX509::switchExtended()
 		setAppropriate(page6, false);
 	}
 }
-		    
+#endif
 void NewX509::checkAuthKeyId()
 {
 	bool enabled = false;
 	// for Templates:
-	if ( !appropriate(page1) ) enabled = true ; 
+//	if ( !appropriate(page1) ) enabled = true ; 
 
 	if (foreignSignRB->isChecked()) {
 		//if (getSelectedSigner()->hasSubAltName())
@@ -606,14 +519,14 @@ void NewX509::checkAuthKeyId()
 			
 void NewX509::newKeyDone(QString name)
 {
-	keyList->insertItem(name,0);
-	keyList->setCurrentItem(0);
+	keyList->insertItem(0, name);
+	keyList->setCurrentIndex(0);
 	dataChangeP2();	
 }
 
 void NewX509::helpClicked()
 {
-	QWhatsThis::enterWhatsThisMode();
+	//Q3WhatsThis::enterWhatsThisMode();
 }
 
 pki_key *NewX509::getSelectedKey()
@@ -638,6 +551,7 @@ x509name NewX509::getX509name()
 	for (int j = 0; j<EXPLICIT_NAME_CNT; j++) {
 		x.addEntryByNid(name_nid[j], name_ptr[j]->text());
 	}
+#if 0
 	QListViewItem *lvi = extDNlist->firstChild();
 	while (lvi != NULL) {
 		int nid;
@@ -645,6 +559,9 @@ x509name NewX509::getX509name()
 		x.addEntryByNid(nid, lvi->text(1));
 		lvi = lvi->nextSibling();
 	}
+#else
+#warning getX509name
+#endif
 	return x;
 }
 
@@ -665,25 +582,28 @@ void NewX509::setX509name(const x509name &n)
 			}
 		}
 		if (j == EXPLICIT_NAME_CNT) {
-			new QListViewItem(extDNlist, sl[1], sl[2]);
+#warning add extDNlist item
+			//new QListViewItem(extDNlist, sl[1], sl[2]);
 		}
 	}
 }
 
 void NewX509::addX509NameEntry()
 {
-	new QListViewItem(extDNlist, extDNobj->currentText(), extDNname->text());
+#warning add extDNlist item
+//	new QListViewItem(extDNlist, extDNobj->currentText(), extDNname->text());
 }
 
 void NewX509::delX509NameEntry()
 {
-	extDNlist->removeItem(extDNlist->currentItem());
+#warning remove extDNlist item
+	//extDNlist->removeItem(extDNlist->currentItem());
 }
 
 const EVP_MD *NewX509::getHashAlgo()
 {
 	const EVP_MD *ha[] = {EVP_md2(), EVP_md5(), EVP_sha1()};
-	return ha[hashAlgo->currentItem()];
+	return ha[hashAlgo->currentIndex()];
 }
 
 void NewX509::applyTimeDiff()
@@ -691,7 +611,7 @@ void NewX509::applyTimeDiff()
 #define d_fac (60 * 60 * 24)
 	int faktor[] = { 1, 30, 365 };
 	int N = validNumber->text().toInt();
-	int M = validRange->currentItem();
+	int M = validRange->currentIndex();
 	int midnight = midnightCB->isChecked()? 1:0;
 	
 	if (M>2||M<0) M=0;
@@ -711,6 +631,7 @@ void NewX509::applyTimeDiff()
 
 void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 {
+#if 0
 	v3ext *dlg;
 	pki_x509 *cert, *signcert;
 	pki_x509req *req;
@@ -730,34 +651,27 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 		signcert = cert;
 	}
 	
-	dlg = new v3ext(this, NULL, true);
-	dlg->addInfo(le, QStringList::split(',', types ), n,
+	dlg = new v3ext(this);
+	dlg->addInfo(le, types.split(',' ), n,
 			signcert->getCert(), cert->getCert());
 	dlg->exec();
 	delete(dlg);
 	delete(cert);
+#else
+#warning editV3ext
+#endif
 }
 
 void NewX509::editSubAltName()
 {
-#if OPENSSL_VERSION_NUMBER >= 0x00908000L
 	editV3ext(subAltName, "email,email:copy,RID,URI,DNS,IP,otherName",
 			NID_subject_alt_name);
-#else
-	editV3ext(subAltName, "email,email:copy,RID,URI,DNS,IP",
-			NID_subject_alt_name);
-#endif
 }
 
 void NewX509::editIssAltName()
 {
-#if OPENSSL_VERSION_NUMBER >= 0x00908000L
 	editV3ext(issAltName, "email,RID,URI,DNS,IP,issuer:copy,otherName",
 			NID_issuer_alt_name);
-#else
-	editV3ext(issAltName, "email,RID,URI,DNS,IP,issuer:copy",
-			NID_issuer_alt_name);
-#endif
 }
 
 void NewX509::editCrlDist()
@@ -769,5 +683,4 @@ void NewX509::editAuthInfAcc()
 {
 	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
 }
-
 

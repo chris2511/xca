@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,8 +49,8 @@
 #ifndef DISTNAME_H
 #define DISTNAME_H
 
-#include <qwidget.h>
-#include <qlayout.h>
+#include <Qt/qwidget.h>
+#include <Qt/qgridlayout.h>
 
 class x509name;
 class QLabel;
@@ -65,7 +63,7 @@ class DistName : public QWidget
     Q_OBJECT
 
   public:
-	DistName( QWidget* parent = 0, const char* name = 0);
+	DistName(QWidget* parent);
 	~DistName();
 	void setX509name(const x509name &n);
 
@@ -74,13 +72,4 @@ class DistName : public QWidget
 	void resizeEvent( QResizeEvent *e);
    
 };
-
-class myGridlayout : public QGridLayout
-{
-	Q_OBJECT
-  public:
-	myGridlayout(QWidget * parent, int nRows = 1, int nCols = 1, int margin = 0, int space = -1, const char * name = 0 );
-	QSize maximumSize() const;
-};
-
 #endif

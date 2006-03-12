@@ -142,6 +142,8 @@ class pki_x509 : public pki_x509super
 	   x509v3ext getExtByNid(int nid);
 	   const EVP_MD *getDigest();
 	   extList getExt();
+	   QVariant column_data(int col);
+	   QVariant getIcon();
 };
 
 #endif

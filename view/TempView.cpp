@@ -53,10 +53,10 @@
 #include "TempView.h"
 #include "widgets/MainWindow.h"
 #include "widgets/NewX509.h"
-#include <qmessagebox.h>
-#include <qpopupmenu.h>
+#include <Qt/qmessagebox.h>
+#include <Qt/q3popupmenu.h>
 
-TempView::TempView(QWidget * parent, const char * name, WFlags f)
+TempView::TempView(QWidget * parent, const char * name, Qt::WFlags f)
 	        :XcaListView(parent, name, f)
 {
 	addColumn(tr("Internal name"));
@@ -155,7 +155,7 @@ void TempView::store()
         temp = (pki_temp *)getSelected();
     }
     catch (errorEx &err) {
-        Error(err);
+        Qt::SocketError(err);
         return;
     }
 
@@ -164,10 +164,10 @@ void TempView::store()
     filt.append("XCA Templates ( *.xca )");
     filt.append("All Files ( *.* )");
     QString s="";
-    QFileDialog *dlg = new QFileDialog(this,0,true);
+    Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
     dlg->setCaption(tr("Export Template"));
     dlg->setFilters(filt);
-    dlg->setMode( QFileDialog::AnyFile );
+    dlg->setMode( Q3FileDialog::AnyFile );
     dlg->setSelection( temp->getIntName() + ".xca" );
     dlg->setDir(MainWindow::getPath());
     if (dlg->exec()) {
@@ -181,7 +181,7 @@ void TempView::store()
         temp->writeTemp(s);
     }
     catch (errorEx &err) {
-        Error(err);
+        Qt::SocketError(err);
     }
 }
 
@@ -197,10 +197,10 @@ void TempView::reqFromTemp()
 	newReq(temp);
 }
 
-void TempView::popupMenu(QListViewItem *item, const QPoint &pt, int x)
+void TempView::popupMenu(Q3ListViewItem *item, const QPoint &pt, int x)
 {
-	QPopupMenu *menu = new QPopupMenu(this);
-	QPopupMenu *subMenu = new QPopupMenu(this);
+	Q3PopupMenu *menu = new Q3PopupMenu(this);
+	Q3PopupMenu *subMenu = new Q3PopupMenu(this);
 	if (!item) {
 		menu->insertItem(tr("New Template"),  subMenu);
 		subMenu->insertItem(tr("Empty"), this, SLOT(newEmptyTemp()));

@@ -51,8 +51,8 @@
 
 #include "ExportTinyCA.h"
 
-#include <qfiledialog.h>
-#include <qlineedit.h>
+#include <Qt/q3filedialog.h>
+#include <Qt/qlineedit.h>
 #include "lib/base.h"
 
 ExportTinyCA::ExportTinyCA(const QString tmpdir, const QString tcadir,
@@ -67,9 +67,9 @@ ExportTinyCA::ExportTinyCA(const QString tmpdir, const QString tcadir,
 void ExportTinyCA::chooseTempDir()
 {
 	QString s = "";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	dlg->setCaption(tr("TinyCA Template directory"));
-	dlg->setMode( QFileDialog::DirectoryOnly );
+	dlg->setMode( Q3FileDialog::DirectoryOnly );
 	dlg->setSelection( tempdir->text() );
 	if (dlg->exec())
 		s = dlg->selectedFile();
@@ -83,9 +83,9 @@ void ExportTinyCA::chooseTempDir()
 void ExportTinyCA::chooseTinyCaDir()
 {
 	QString s = "";
-	QFileDialog *dlg = new QFileDialog(this,0,true);
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
 	dlg->setCaption(tr("TinyCA Directory "));
-	dlg->setMode( QFileDialog::DirectoryOnly );
+	dlg->setMode( Q3FileDialog::DirectoryOnly );
 	dlg->setSelection( tinycadir->text() );
 	if (dlg->exec())
 		s = dlg->selectedFile();

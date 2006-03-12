@@ -53,17 +53,18 @@
 
 #include "ui/ExportKey.h"
 
-class ExportKey: public ExportKey_UI
+class ExportKey: public QDialog, public Ui::ExportKey
 {
 	Q_OBJECT
+   private:
 	bool onlyPub;
    public:	
-	ExportKey(QString fname, bool onlypub, QString dpath,
-		  QWidget *parent = 0, const char *name = 0);
+	ExportKey(QWidget *parent, QString fname, bool onlypub, QString dpath);
 	QString dirPath;
    public slots:
-	void chooseFile();
+	void on_fileBut_clicked();
 	void canEncrypt();
-	void formatChanged();
+	void on_exportFormat_activated(int);
+	void on_exportPrivate_stateChanged();
 };
 #endif

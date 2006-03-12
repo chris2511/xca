@@ -52,7 +52,7 @@
 #ifndef CLICKLABEL_H
 #define CLICKLABEL_H
 
-#include <qlabel.h>
+#include <Qt/qlabel.h>
 
 class QMouseEvent;
 
@@ -61,7 +61,7 @@ class ClickLabel : public QLabel
   Q_OBJECT
 
   public:
-	ClickLabel( QWidget * parent, const char * name=0, WFlags f=0 );
+	ClickLabel(QWidget *parent);
 	void setRed();
 	void setGreen();
 	

@@ -60,7 +60,7 @@ class CrlDetail: public CrlDetail_UI
 	Q_OBJECT
 		
    public:	
-	CrlDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, WFlags f = 0);
+	CrlDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, Qt::WFlags f = 0);
 	void setCrl(pki_crl *crl);
 };
 #endif

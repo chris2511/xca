@@ -1,4 +1,3 @@
-/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -50,39 +49,20 @@
  */                           
 
 
-#ifndef REQVIEW_H
-#define REQVIEW_H
+#include "XcaTreeView.h"
+#include "lib/db_base.h"
+#include <Qt/qabstractitemmodel.h>
+#include <Qt/qevent.h>
 
-#include "XcaListView.h"
-#include "lib/pki_x509req.h"
-#include "lib/pki_temp.h"
-#include "widgets/NewX509.h"
-
-
-class ReqView : public XcaListView
+XcaTreeView::XcaTreeView(QWidget *parent)
+	:QTreeView(parent)
 {
-   Q_OBJECT
+	setAlternatingRowColors(true);
+}
 
-   public:
-	ReqView(QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
-	void showItem(pki_base *item, bool import);
-	void newItem();
-	void deleteItem();
-	void load();
-	void updateViewItem(pki_base *);
-	pki_base *loadItem(QString fname);
-	void store(bool pem);
-	void popupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
-   public slots:
-	void writeReq_pem();
-	void writeReq_der();
-	void signReq();
-	void newItem(pki_temp *temp);
-	void showKey(pki_key *key);
-	void showKey(QString name);
-   signals:
-	void newCert(pki_x509req *req);
-
-};	
-
-#endif
+void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )
+{
+	db_base *dbb = (db_base*)model();
+	
+	dbb->showContextMenu(e, indexAt(e->pos()));
+}
