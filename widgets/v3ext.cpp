@@ -61,11 +61,12 @@
 v3ext::v3ext(QWidget *parent)
 	:QDialog(parent)
 {
+	setupUi(this);
 	QStringList sl;
 	sl << "Type" << "Content";
-	setupUi(this);
+	tableWidget->setColumnCount(2);
+	tableWidget->setHorizontalHeaderLabels(sl);
 	setWindowTitle(tr(XCA_TITLE));
-	treeWidget->setHeaderLabels(sl);
 }
 
 v3ext::~v3ext()
@@ -90,6 +91,7 @@ void v3ext::addItem(QString list)
 	int i;
 	QStringList sl;
 	sl = list.split(',');
+	printf("List count = %d\n",  sl.count());
 	for (i=0; i< sl.count(); i++)
 		addEntry(sl[i]);	
 }
@@ -97,25 +99,35 @@ void v3ext::addItem(QString list)
 /* for one TYPE:Content String */
 void v3ext::addEntry(QString line)
 {
-	int i;
-	QTreeWidgetItem *tw;
+	int i, row;
+	QTableWidgetItem *tw;
 	
 	i = line.indexOf(':');
-	tw = new QTreeWidgetItem(treeWidget);
-	tw->setText(0, line.left(i));
-	tw->setText(1, line.right(line.length()-(i+1)));
+	if (i<0 || line.isEmpty())
+		return;
+	
+	row = tableWidget->rowCount();
+	tableWidget->setRowCount(row+1);
+	
+	tw = new QTableWidgetItem(line.left(i));
+	tableWidget->setItem(row, 0, tw);
+	printf("Adding %s at %d,0\n", CCHAR(tw->text()), row);
+	
+	tw = new QTableWidgetItem(line.right(line.length()-(i+1)));
+	tableWidget->setItem(row, 1, tw);
+	printf("Adding %s at %d,1\n", CCHAR(tw->text()), row);
 }
 
 QString v3ext::toString()
 {
-	QTreeWidgetItem *tw;
 	QStringList str;
-	int i;
-	for (i=0; (tw = treeWidget->topLevelItem(i)); i++) {
+	int i, row = tableWidget->rowCount();
+	
+	for (i=0; i<row; i++) {
 		QString s;
-		s = tw->text(0).trimmed();
+		s = tableWidget->item(i,0)->text().trimmed();
 		if (!s.contains(':'))
-			s += ":" + tw->text(1).trimmed();
+			s += ":" + tableWidget->item(i,1)->text().trimmed();
 		str += s;
 	}
 	return str.join(",");
@@ -124,21 +136,17 @@ QString v3ext::toString()
 
 void v3ext::delEntry()
 {
-	treeWidget->takeTopLevelItem(
-			treeWidget->indexOfTopLevelItem(treeWidget->currentItem()));
+	tableWidget->removeRow(tableWidget->currentRow());
 }
-	
+		
 void v3ext::addEntry()
 {
-	QTreeWidgetItem *tw;
-	QString typ, cont;
+	QString line;
 
-	typ = type->currentText();
-	if ( ! typ.contains(':') )
-		cont = value->text();
-	tw = new QTreeWidgetItem(treeWidget);
-	tw->setText(0, typ);
-	tw->setText(1, cont);
+	line = type->currentText();
+	if ( ! line.contains(':') )
+		line += ":" + value->text();
+	addEntry(line);
 }
 
 void v3ext::apply()
@@ -164,12 +172,12 @@ bool v3ext::__validate(bool showSuccess)
 		error += "\n";
 	}
 	if (! error.isEmpty()) {
-		QMessageBox::warning(NULL, XCA_TITLE, tr("Validation failed:\n")
+		QMessageBox::warning(this, XCA_TITLE, tr("Validation failed:\n")
 			+ "'" + str + "'\n" + error, tr("&OK"));
 		 return false;
 	}
 	if (showSuccess) {
-		QMessageBox::information(NULL, XCA_TITLE,
+		QMessageBox::information(this, XCA_TITLE,
 			"Validation successfull:\n'" + ext.getValue() + "'", tr("&OK"));
 	}
 	return true;

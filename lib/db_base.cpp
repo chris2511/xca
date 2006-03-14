@@ -142,7 +142,7 @@ void db_base::insertPKI(pki_base *pki)
 	}
 	inToCont(pki);
 }
-	
+
 void db_base::deletePKI(QModelIndex &index)
 {
 	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
@@ -159,6 +159,22 @@ void db_base::deletePKI(QModelIndex &index)
 	pki->getParent()->freeChild(pki);
 	
 	endRemoveRows();
+}
+
+void db_base::updatePKI(pki_base *pki)
+{
+	unsigned char *p;
+	int size;
+	db mydb(dbName);
+
+	printf("Updating item: %s\n", CCHAR(pki->getIntName()));
+	p = pki->toData(&size);
+	
+	if (p) {
+		mydb.set(p, size, pki->getVersion(), pki->getType(),
+				CCHAR(pki->getIntName()));
+		OPENSSL_free(p);
+	}
 }
 
 void db_base::deleteSelectedItems(QAbstractItemView* view)

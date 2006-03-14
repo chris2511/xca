@@ -72,7 +72,6 @@ CertExtend::CertExtend(QWidget *parent)
 
 void CertExtend::applyTimeDiff()
 {
-#warning applyTimeDiff
-//	applyTD(validNumber->text().toInt(), validRange->currentItem(),
-//		midnightCB->isChecked(), notBefore, notAfter);
+	applyTD(this, validNumber->text().toInt(), validRange->currentIndex(),
+		midnightCB->isChecked(), notBefore, notAfter);
 }

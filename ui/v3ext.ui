@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>316</width>
-    <height>181</height>
+    <width>424</width>
+    <height>203</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -36,24 +36,73 @@
      <item>
       <widget class="QLineEdit" name="value" />
      </item>
-     <item>
-      <widget class="QPushButton" name="buttonAdd" >
-       <property name="text" >
-        <string>Add</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="buttonDelete" >
-       <property name="text" >
-        <string>Delete</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
-    <widget class="QTreeWidget" name="treeWidget" />
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QTableWidget" name="tableWidget" >
+       <property name="alternatingRowColors" >
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode" >
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior" >
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="gridStyle" >
+        <enum>Qt::DotLine</enum>
+       </property>
+       <property name="columnCount" >
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="buttonAdd" >
+         <property name="text" >
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonDelete" >
+         <property name="text" >
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" >
@@ -95,6 +144,14 @@
      </item>
      <item>
       <widget class="QPushButton" name="PushButton4" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>1</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text" >
         <string>Cancel</string>
        </property>
@@ -103,8 +160,110 @@
     </layout>
    </item>
   </layout>
+  <widget class="QWidget" name="" />
+  <widget class="QWidget" name="" >
+   <property name="geometry" >
+    <rect>
+     <x>9</x>
+     <y>40</y>
+     <width>406</width>
+     <height>110</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="" >
+   <property name="geometry" >
+    <rect>
+     <x>360</x>
+     <y>41</y>
+     <width>54</width>
+     <height>108</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonAdd</sender>
+   <signal>clicked()</signal>
+   <receiver>v3ext</receiver>
+   <slot>addEntry()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>355</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>90</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonDelete</sender>
+   <signal>clicked()</signal>
+   <receiver>v3ext</receiver>
+   <slot>delEntry()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>413</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>193</x>
+     <y>144</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton4</sender>
+   <signal>clicked()</signal>
+   <receiver>v3ext</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>413</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>227</x>
+     <y>150</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton3</sender>
+   <signal>clicked()</signal>
+   <receiver>v3ext</receiver>
+   <slot>apply()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>30</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>4</x>
+     <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton5</sender>
+   <signal>clicked()</signal>
+   <receiver>v3ext</receiver>
+   <slot>validate()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>122</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>136</x>
+     <y>152</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

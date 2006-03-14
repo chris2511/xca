@@ -116,8 +116,7 @@ NewX509::NewX509(QWidget *parent)
 	}
 	
 	// How about signing certificates ?
-//	strings = MainWindow::certs->getSignerDesc();
-#warning certs->getSignerDesc()
+	strings = MainWindow::certs->getSignerDesc();
 	if (strings.isEmpty()) {
 		foreignSignRB->setDisabled(true);
 		certList->setDisabled(true);
@@ -203,7 +202,7 @@ void NewX509::setTemp(pki_temp *temp)
 void NewX509::setCert()
 {
 	tText=tr("Certificate");
-//	setImage(MainWindow::certImg);
+	setImage(MainWindow::certImg);
 }
 
 void NewX509::setImage(QPixmap *image)
@@ -224,14 +223,13 @@ void NewX509::defineRequest(pki_x509req *req)
 	fromReqCB->setEnabled(true);
 	fromReqCB->setChecked(true);
 	QString reqname = req->getIntName(); 
-//	reqList->setCurrentText(reqname);
+	reqList->setCurrentIndex(reqList->findText(reqname));
 }
 
 void NewX509::defineSigner(pki_x509 *defcert)
 {
 	// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
-#warning FIX define Signer
-	if (defcert /* && defcert->canSign()*/ ) {
+	if (defcert  && defcert->canSign() ) {
 		QString name = defcert->getIntName();
 		certList->findText(name);
 		foreignSignRB->setChecked(true);
@@ -283,14 +281,14 @@ void NewX509::fromTemplate(pki_temp *temp)
 	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl);
 	nsSslServerName->setText(temp->nsSslServerName);
 #warning settings
-	//int2lb(nsCertType, temp->nsCertType);
+	int2lb(nsCertType, temp->nsCertType);
 	basicCA->setCurrentIndex(temp->ca);
 	bcCritical->setChecked(temp->bcCrit);
 	kuCritical->setChecked(temp->keyUseCrit);
 	ekuCritical->setChecked(temp->eKeyUseCrit);
 	subKey->setChecked(temp->subKey);
 	authKey->setChecked(temp->authKey);
-	//subAltCp->setChecked(temp->subAltCp);
+	//subAltCp->setCheckState(temp->subAltCp);
 	//issAltCp->setChecked(temp->issAltCp);
 	int2lb(keyUsage, temp->keyUse);
 	int2lb(ekeyUsage, temp->eKeyUse);
@@ -320,7 +318,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->nsRenewalUrl = nsRenewalUrl->text();
 	temp->nsCaPolicyUrl = nsCaPolicyUrl->text();
 	temp->nsSslServerName = nsSslServerName->text();
-//	temp->nsCertType =  lb2int(nsCertType);
+	temp->nsCertType =  lb2int(nsCertType);
 	temp->ca = basicCA->currentIndex();
 	temp->bcCrit = bcCritical->isChecked();
 	temp->keyUseCrit = kuCritical->isChecked();
@@ -608,30 +606,12 @@ const EVP_MD *NewX509::getHashAlgo()
 
 void NewX509::applyTimeDiff()
 {
-#define d_fac (60 * 60 * 24)
-	int faktor[] = { 1, 30, 365 };
-	int N = validNumber->text().toInt();
-	int M = validRange->currentIndex();
-	int midnight = midnightCB->isChecked()? 1:0;
-	
-	if (M>2||M<0) M=0;
-	a1time a;
-	time_t t;
-	time(&t);
-	int delta = faktor[M] * N ;
-	t /= d_fac;
-	
-	if (delta + t > 24850){
-		 QMessageBox::warning(this, XCA_TITLE, "Time difference too big\nYou must set it manually." );
-		 return;
-	}
-    notBefore->setDate(a.now(), midnight);
-	notAfter->setDate(a.now(delta * d_fac), midnight* (-1));	 
+	applyTD(this, validNumber->text().toInt(), validRange->currentIndex(),
+			midnightCB->isChecked(), notBefore, notAfter);
 }
 
 void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 {
-#if 0
 	v3ext *dlg;
 	pki_x509 *cert, *signcert;
 	pki_x509req *req;
@@ -657,9 +637,6 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 	dlg->exec();
 	delete(dlg);
 	delete(cert);
-#else
-#warning editV3ext
-#endif
 }
 
 void NewX509::editSubAltName()

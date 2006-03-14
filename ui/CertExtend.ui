@@ -23,9 +23,6 @@
     <number>6</number>
    </property>
    <item>
-    <widget class="QWidget" name="widget" />
-   </item>
-   <item>
     <layout class="QHBoxLayout" >
      <property name="margin" >
       <number>0</number>
@@ -204,8 +201,8 @@
          <widget class="QPushButton" name="applyTime" >
           <property name="sizePolicy" >
            <sizepolicy>
-            <hsizetype>1</hsizetype>
-            <vsizetype>1</vsizetype>
+            <hsizetype>7</hsizetype>
+            <vsizetype>5</vsizetype>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -280,6 +277,14 @@
      </item>
      <item>
       <widget class="QPushButton" name="PushButton2" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>7</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="font" >
         <font>
          <family>Sans Serif</family>
@@ -299,18 +304,76 @@
     </layout>
    </item>
   </layout>
-  <widget class="QWidget" name="" />
+  <widget class="QWidget" name="widget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>Validity</class>
    <extends></extends>
-   <header>validity.h</header>
+   <header>widgets/validity.h</header>
    <container>1</container>
    <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>PushButton2</sender>
+   <signal>clicked()</signal>
+   <receiver>CertExtend</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>322</x>
+     <y>307</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>222</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton3</sender>
+   <signal>clicked()</signal>
+   <receiver>CertExtend</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>112</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>158</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>applyTime</sender>
+   <signal>clicked()</signal>
+   <receiver>CertExtend</receiver>
+   <slot>applyTimeDiff()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>306</x>
+     <y>249</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>380</x>
+     <y>281</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

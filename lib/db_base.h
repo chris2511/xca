@@ -87,6 +87,7 @@ class db_base: public QAbstractItemModel
 	virtual pki_base *newPKI();
 	virtual void insertPKI(pki_base *pki);
 	virtual void deletePKI(QModelIndex &index);
+	virtual void updatePKI(pki_base *pki);
 	virtual void showItem(QModelIndex &index){};
 	pki_base *getByName(QString desc);
 	pki_base *getByReference(pki_base *refpki);

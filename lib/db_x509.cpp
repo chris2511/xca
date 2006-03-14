@@ -245,7 +245,7 @@ pki_base *db_x509::insert(pki_base *item)
 		serial = cert->getSerial();
 		if (cert->getSigner()->getCaSerial() < ++serial ) {
 			cert->getSigner()->setCaSerial(serial);
-			//updatePKI(cert->getSigner());
+			updatePKI(cert->getSigner());
 		}
 	}
 	
@@ -254,7 +254,7 @@ pki_base *db_x509::insert(pki_base *item)
 	if ( ++serial > cert->getCaSerial()) {
 		cert->setCaSerial(serial);
 	}
-	//updatePKI(cert);
+	updatePKI(cert);
 	return cert;
 }
 
@@ -450,7 +450,7 @@ void db_x509::newCert(NewX509 *dlg)
 	// and finally sign the request 
 	cert->sign(signkey, hashAlgo);
 	insert(cert);
-	//updatePKI(signcert);
+	updatePKI(signcert);
 	if (tempkey != NULL)
 		delete(tempkey);
     }

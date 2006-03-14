@@ -59,6 +59,7 @@ class Validity;
 QPixmap *loadImg(const char *name);
 QString getPrefix();
 QString getBaseDir();
-void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na);
+void applyTD(QWidget *parent, int number, int range, bool mnc,
+		Validity *nb, Validity *na);
 
 #endif

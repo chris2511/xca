@@ -36,10 +36,7 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
- * 
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -52,7 +49,7 @@
 
 #include "func.h"
 #include "lib/asn1time.h"
-//#include "widgets/validity.h"
+#include "widgets/validity.h"
 #include <Qt/qdir.h>
 #include <Qt/qlabel.h>
 #include <Qt/qlineedit.h>
@@ -247,8 +244,8 @@ QString getBaseDir()
 #endif
 	return baseDir;
 }
-#if 0
-void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na)
+void applyTD(QWidget *parent, int number, int range, bool mnc,
+		Validity *nb, Validity *na)
 {
 #define d_fac (60 * 60 * 24)
     int faktor[] = { 1, 30, 365 }, midnight, delta;
@@ -266,12 +263,10 @@ void applyTD(int number, int range, bool mnc, Validity *nb, Validity *na)
 	
     t /= d_fac;
     if (delta + t > 24850){
-        QMessageBox::warning(NULL, XCA_TITLE,
+        QMessageBox::warning(parent, XCA_TITLE,
             "Time difference too big\nYou must set it manually." );
         return;
     }
     nb->setDate(a.now(), midnight);
     na->setDate(a.now(delta * d_fac), midnight* (-1));
 }
-#endif
-#warning set Date Time midnight

@@ -122,5 +122,22 @@
  </widget>
  <pixmapfunction></pixmapfunction>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>PushButton1</sender>
+   <signal>clicked()</signal>
+   <receiver>About</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>270</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>213</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
