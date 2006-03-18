@@ -209,12 +209,12 @@ void pki_x509req::writeDefault(const QString fname)
 	writeReq(fname + QDir::separator() + getIntName() + ".csr", true);
 }
 
-void pki_x509req::writeReq(const QString fname, bool PEM)
+void pki_x509req::writeReq(const QString fname, bool pem)
 {
 	FILE *fp = fopen(CCHAR(fname), "w");
 	if (fp) {
 		if (request){
-			if (PEM)
+			if (pem)
 				PEM_write_X509_REQ(fp, request);
 			else
 				i2d_X509_REQ_fp(fp, request);

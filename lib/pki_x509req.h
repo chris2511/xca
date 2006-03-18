@@ -83,7 +83,8 @@ class pki_x509req : public pki_x509super
 	   bool compare(pki_base *refreq);
 	   x509name getSubject() const;
 	   bool isSpki() const;
-	   void writeReq(const QString fname, bool PEM);
+	   void writeReq(const QString fname, bool pem);
+
 	   int verify();
 	   pki_key *getPubKey() const;
 	   void createReq(pki_key *key, const x509name &dn, const EVP_MD *md,

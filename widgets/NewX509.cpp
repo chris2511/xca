@@ -83,15 +83,16 @@ NewX509::NewX509(QWidget *parent)
 	:QDialog(parent)
 {
 	int i;
-	//connect( extDNadd, SIGNAL(clicked()), this, SLOT(addX509NameEntry()) );
-	//connect( extDNdel, SIGNAL(clicked()), this, SLOT(delX509NameEntry()) );
-
 	eku_nid = *MainWindow::eku_nid;
 	dn_nid = *MainWindow::dn_nid;
 	aia_nid = *MainWindow::aia_nid;
-	
+	QStringList sl;
+
 	setupUi(this);
 
+	sl << "Type" << "Content";
+	extDNlist->setColumnCount(2);
+	extDNlist->setHorizontalHeaderLabels(sl);
 	setWindowTitle(tr(XCA_TITLE));
 	fixtemp = NULL;
 	
@@ -299,7 +300,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 		basicPath->setText(QString::number(temp->pathLen));
 	}
 	notBefore->setNow();
-	applyTimeDiff();
+	on_applyTime_clicked();
 }
 
 void NewX509::toTemplate(pki_temp *temp)
@@ -346,7 +347,7 @@ void NewX509::toggleFromRequest()
 }
 	
 	
-void NewX509::keyChanged(const QString &keyname)
+void NewX509::on_keyList_highlighted(const QString &keyname)
 {
 	if ( keyname.right(5) == "(DSA)" )
 		hashAlgo->setDisabled(true);
@@ -419,7 +420,6 @@ void NewX509::showPage(QWidget *page)
 
 void NewX509::signerChanged()
 {
-#if 0
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
 	
@@ -436,9 +436,6 @@ void NewX509::signerChanged()
 	if (templ.isEmpty()) return;
 	
 	templateChanged(templ);
-#else
-#warning signerChanged
-#endif
 }
 
 
@@ -501,11 +498,9 @@ void NewX509::switchExtended()
 void NewX509::checkAuthKeyId()
 {
 	bool enabled = false;
-	// for Templates:
-//	if ( !appropriate(page1) ) enabled = true ; 
 
 	if (foreignSignRB->isChecked()) {
-		//if (getSelectedSigner()->hasSubAltName())
+		if (getSelectedSigner()->hasSubAltName())
 		enabled = true;
 	}
 	else { // Self signed
@@ -514,7 +509,14 @@ void NewX509::checkAuthKeyId()
 	}
 	authKey->setEnabled(enabled);
 }
-			
+
+void NewX509::on_foreignSignRB_clicked(){
+	checkAuthKeyId();
+}
+void NewX509::on_subKey_clicked(){
+	checkAuthKeyId();
+}
+
 void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(0, name);
@@ -546,20 +548,18 @@ pki_x509req *NewX509::getSelectedReq()
 x509name NewX509::getX509name()
 {
 	x509name x;
-	for (int j = 0; j<EXPLICIT_NAME_CNT; j++) {
+	int j, row;
+	
+	for (j = 0; j<EXPLICIT_NAME_CNT; j++) {
 		x.addEntryByNid(name_nid[j], name_ptr[j]->text());
 	}
-#if 0
-	QListViewItem *lvi = extDNlist->firstChild();
-	while (lvi != NULL) {
+
+	row = extDNlist->rowCount();
+	for (j=0; j<row; j++) {
 		int nid;
-		nid = OBJ_ln2nid(lvi->text(0).latin1());
-		x.addEntryByNid(nid, lvi->text(1));
-		lvi = lvi->nextSibling();
+		nid = OBJ_ln2nid(CCHAR(extDNlist->item(j,0)->text()));
+		x.addEntryByNid(nid, CCHAR(extDNlist->item(j,1)->text()));
 	}
-#else
-#warning getX509name
-#endif
 	return x;
 }
 
@@ -580,22 +580,38 @@ void NewX509::setX509name(const x509name &n)
 			}
 		}
 		if (j == EXPLICIT_NAME_CNT) {
-#warning add extDNlist item
-			//new QListViewItem(extDNlist, sl[1], sl[2]);
+			QTableWidgetItem *tw;
+			int row;
+			
+			row = extDNlist->rowCount();
+			extDNlist->setRowCount(row+1);
+	
+			for (int i=0; i<2; i++) {
+				tw = new QTableWidgetItem(sl[i+1]);
+				extDNlist->setItem(row, i, tw);
+			}
 		}
 	}
 }
 
-void NewX509::addX509NameEntry()
+void NewX509::on_extDNadd_clicked()
 {
-#warning add extDNlist item
-//	new QListViewItem(extDNlist, extDNobj->currentText(), extDNname->text());
+	QTableWidgetItem *tw;
+	int row;
+			
+	row = extDNlist->rowCount();
+	extDNlist->setRowCount(row+1);
+	
+	tw = new QTableWidgetItem(extDNobj->currentText());
+	extDNlist->setItem(row, 0, tw);
+	
+	tw = new QTableWidgetItem(extDNname->text());
+	extDNlist->setItem(row, 1, tw);
 }
 
-void NewX509::delX509NameEntry()
+void NewX509::on_extDNdel_clicked()
 {
-#warning remove extDNlist item
-	//extDNlist->removeItem(extDNlist->currentItem());
+	extDNlist->removeRow(extDNlist->currentRow());
 }
 
 const EVP_MD *NewX509::getHashAlgo()
@@ -604,7 +620,7 @@ const EVP_MD *NewX509::getHashAlgo()
 	return ha[hashAlgo->currentIndex()];
 }
 
-void NewX509::applyTimeDiff()
+void NewX509::on_applyTime_clicked()
 {
 	applyTD(this, validNumber->text().toInt(), validRange->currentIndex(),
 			midnightCB->isChecked(), notBefore, notAfter);
@@ -639,24 +655,24 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 	delete(cert);
 }
 
-void NewX509::editSubAltName()
+void NewX509::on_editSubAlt_clicked()
 {
 	editV3ext(subAltName, "email,email:copy,RID,URI,DNS,IP,otherName",
 			NID_subject_alt_name);
 }
 
-void NewX509::editIssAltName()
+void NewX509::on_editIssAlt_clicked()
 {
 	editV3ext(issAltName, "email,RID,URI,DNS,IP,issuer:copy,otherName",
 			NID_issuer_alt_name);
 }
 
-void NewX509::editCrlDist()
+void NewX509::on_editCrlDist_clicked()
 {
 	editV3ext(crlDist, "URI", NID_crl_distribution_points);
 }
 
-void NewX509::editAuthInfAcc()
+void NewX509::on_editAuthInfAcc_clicked()
 {
 	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
 }

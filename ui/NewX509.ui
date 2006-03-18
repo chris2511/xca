@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>557</width>
-    <height>591</height>
+    <width>521</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -191,9 +191,6 @@ Of course you need the private key of the CSR if you want to create a self-signe
           </item>
           <item row="2" column="2" >
            <widget class="QComboBox" name="certList" >
-            <property name="enabled" >
-             <bool>false</bool>
-            </property>
             <property name="toolTip" >
              <string>All certificates in your database that can create valid signatures</string>
             </property>
@@ -323,7 +320,7 @@ Empy, CA, client, server</string>
        <item>
         <widget class="QGroupBox" name="groupBox_10" >
          <property name="title" >
-          <string>GroupBox</string>
+          <string>Distinguished name</string>
          </property>
          <layout class="QVBoxLayout" >
           <property name="margin" >
@@ -493,7 +490,14 @@ Empy, CA, client, server</string>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="extDNlist" />
+           <widget class="QTableWidget" name="extDNlist" >
+            <property name="selectionMode" >
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior" >
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -911,14 +915,14 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
            </widget>
           </item>
           <item row="0" column="3" >
-           <widget class="QPushButton" name="PushButton9" >
+           <widget class="QPushButton" name="editSubAlt" >
             <property name="text" >
              <string>Edit</string>
             </property>
            </widget>
           </item>
           <item row="1" column="3" >
-           <widget class="QPushButton" name="PushButton10" >
+           <widget class="QPushButton" name="editIssAlt" >
             <property name="text" >
              <string>Edit</string>
             </property>
@@ -953,7 +957,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            </widget>
           </item>
           <item row="2" column="3" >
-           <widget class="QPushButton" name="PushButton11" >
+           <widget class="QPushButton" name="editCrlDist" >
             <property name="text" >
              <string>Edit</string>
             </property>
@@ -967,7 +971,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            </widget>
           </item>
           <item row="3" column="3" >
-           <widget class="QPushButton" name="PushButton12" >
+           <widget class="QPushButton" name="editAuthInfAcc" >
             <property name="text" >
              <string>Edit</string>
             </property>
@@ -1017,7 +1021,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          <item>
           <widget class="QGroupBox" name="groupBox_12" >
            <property name="title" >
-            <string>GroupBox</string>
+            <string>Key usage</string>
            </property>
            <layout class="QVBoxLayout" >
             <property name="margin" >
@@ -1035,6 +1039,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
             </item>
             <item>
              <widget class="QListWidget" name="keyUsage" >
+              <property name="selectionMode" >
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
               <item>
                <property name="text" >
                 <string>Digital Signature</string>
@@ -1088,7 +1098,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          <item>
           <widget class="QGroupBox" name="groupBox_11" >
            <property name="title" >
-            <string>GroupBox</string>
+            <string>Extended key usage</string>
            </property>
            <layout class="QVBoxLayout" >
             <property name="margin" >
@@ -1105,7 +1115,14 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="ekeyUsage" />
+             <widget class="QListWidget" name="ekeyUsage" >
+              <property name="selectionMode" >
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -1163,7 +1180,46 @@ Example:
           <number>6</number>
          </property>
          <item>
-          <widget class="QListWidget" name="nsCertType" />
+          <widget class="QListWidget" name="nsCertType" >
+           <property name="selectionMode" >
+            <enum>QAbstractItemView::MultiSelection</enum>
+           </property>
+           <item>
+            <property name="text" >
+             <string>SSL Client</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>SSL Server</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>S/MIME</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>Object Signing</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>SSL CA</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>S/MIME CA</string>
+            </property>
+           </item>
+           <item>
+            <property name="text" >
+             <string>Object Signing CA</string>
+            </property>
+           </item>
+          </widget>
          </item>
          <item>
           <spacer>
@@ -1312,8 +1368,8 @@ Example:
         </widget>
        </item>
       </layout>
-      <widget class="QWidget" name="" />
-      <widget class="QWidget" name="" />
+      <widget class="QWidget" name="widget_3" />
+      <widget class="QWidget" name="widget_5" />
      </widget>
     </widget>
    </item>
@@ -1391,8 +1447,8 @@ Example:
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>546</x>
-     <y>579</y>
+     <x>510</x>
+     <y>576</y>
     </hint>
     <hint type="destinationlabel" >
      <x>96</x>
@@ -1407,140 +1463,12 @@ Example:
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>116</x>
-     <y>579</y>
+     <x>98</x>
+     <y>576</y>
     </hint>
     <hint type="destinationlabel" >
      <x>179</x>
      <y>282</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>PushButton9</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>editSubAltName()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>529</x>
-     <y>413</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>151</x>
-     <y>555</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>PushButton10</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>editIssAltName()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>510</x>
-     <y>443</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>183</x>
-     <y>563</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>PushButton11</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>editCrlDist()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>515</x>
-     <y>481</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>210</x>
-     <y>567</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>PushButton12</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>editAuthInfAcc()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>520</x>
-     <y>517</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>230</x>
-     <y>572</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>applyTime</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>applyTimeDiff()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>476</x>
-     <y>338</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>256</x>
-     <y>549</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>extDNadd</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>addX509NameEntry()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>439</x>
-     <y>327</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>357</x>
-     <y>576</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>extDNdel</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>delX509NameEntry()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>504</x>
-     <y>324</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>269</x>
-     <y>578</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>genKeyBUT</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>413</x>
-     <y>499</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>158</x>
-     <y>583</y>
     </hint>
    </hints>
   </connection>

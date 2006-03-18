@@ -51,13 +51,10 @@
 
 
 #include "NewX509.h"
-//#include <Qt/q3groupbox.h>
 #include <Qt/qcheckbox.h>
 #include <Qt/qcombobox.h>
 #include <Qt/qradiobutton.h>
 #include <Qt/qlineedit.h>
-//#include <Qt/q3whatsthis.h>
-//#include <Qt/q3listbox.h>
 #include <Qt/qlistwidget.h>
 #include "MainWindow.h"
 #include "lib/x509v3ext.h"
@@ -125,15 +122,13 @@ x509v3ext NewX509::getKeyUsage()
 						
 	QStringList cont;
 	x509v3ext ext;
-#warning getKeyUsage
-#if 0
-	Q3ListBoxItem *item;
-	for (int i=0; (item = keyUsage->item(i)); i++) {
-		if (item->selected()) {
+	
+	int rows = keyUsage->count();
+	for (int i=0; i<rows; i++) {
+		if (keyUsage->isItemSelected(keyUsage->item(i))) {
 			cont << keyusage[i];
 		}
 	}
-#endif
 	if (kuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_key_usage, cont.join(", "));
@@ -144,15 +139,15 @@ x509v3ext NewX509::getEkeyUsage()
 {
 	QStringList cont;
 	x509v3ext ext;
-#warning getKeyUsage
-#if 0
-	Q3ListBoxItem *item;
-	for (int i=0; (item = ekeyUsage->item(i)); i++) {
-		if (item->selected()){
+	
+	int rows = ekeyUsage->count();
+	for (int i=0; i<rows; i++) {
+		//QListWidgetItem *li = ekeyUsage->item(i);
+		//printf("rows = %d, ekeyUsage = %d, %p\n", rows, i, li);
+		if (ekeyUsage->isItemSelected(ekeyUsage->item(i))) {
 			cont << (QString)OBJ_nid2sn(eku_nid[i]);
 		}
 	}
-#endif
 	if (ekuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_ext_key_usage, cont.join(", "));
@@ -263,15 +258,14 @@ extList NewX509::getNetscapeExt()
 	QStringList cont;
 	x509v3ext ext;
 	extList el;
-#warning q3listbox
-#if 0
-	Q3ListBoxItem *item;
-	for (int i=0; (item = nsCertType->item(i)); i++) {
-		if (item->selected()) {
+
+	int rows = nsCertType->count();
+	for (int i=0; i<rows; i++) {
+		if (nsCertType->isItemSelected(nsCertType->item(i))) {
 			cont <<  certTypeList[i];
 		}
 	}
-#endif
+	
 	el << ext.create(NID_netscape_cert_type, cont.join(", "));
 	el << ext.create(NID_netscape_base_url, nsBaseUrl->text());
 	el << ext.create(NID_netscape_revocation_url, nsRevocationUrl->text());

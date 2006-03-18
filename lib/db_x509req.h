@@ -65,7 +65,9 @@ class db_x509req: public db_x509super
 	void load(void);
 	void newItem(void);
 	void showItem(QModelIndex &index);
-	void store(QModelIndex &index);
+	void store(QModelIndex &index, bool pem = true);
+	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+		
 };
 
 #endif

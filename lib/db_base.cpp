@@ -71,7 +71,6 @@ db_base::db_base(QString db, MainWindow *mw)
 {
 	dbName = db;
 	rootItem = newPKI();
-	printf("New DB: %s\n", CCHAR(db));
 	headertext.clear();
 	mainwin = mw;
 }
@@ -148,8 +147,6 @@ void db_base::deletePKI(QModelIndex &index)
 	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
 	int row = pki->row();
 	
-	printf("Deleting item: %s\n", CCHAR(pki->getIntName()));
-	
 	beginRemoveRows(parent(index), row, row);
 	
 	db mydb(dbName);
@@ -167,7 +164,6 @@ void db_base::updatePKI(pki_base *pki)
 	int size;
 	db mydb(dbName);
 
-	printf("Updating item: %s\n", CCHAR(pki->getIntName()));
 	p = pki->toData(&size);
 	
 	if (p) {
@@ -179,7 +175,6 @@ void db_base::updatePKI(pki_base *pki)
 
 void db_base::deleteSelectedItems(QAbstractItemView* view)
 {
-	printf("Delete selected items\n");
 	QItemSelectionModel *selectionModel = view->selectionModel();
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 	QModelIndex index;
@@ -246,7 +241,6 @@ void db_base::inToCont(pki_base *pki)
 	rootItem->append(pki);
 	pki->setParent(rootItem);
 	endInsertRows();
-	printf("insertRow %d\n", ++i);
 }
 
 pki_base *db_base::getByName(QString desc)
@@ -407,7 +401,6 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 		on = item->getIntName();
 		//printf("New name: '%s', old name: '%s' %p %p\n", n, oldn, n, oldn);
 		if (mydb.rename(item->getType(), CCHAR(on), CCHAR(nn)) == 0) {
-			printf("Rename Success !\n");
 			item->setIntName(nn);
 			emit dataChanged(index, index);
 			return true;

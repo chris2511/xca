@@ -46,7 +46,6 @@ int main()
 #endif
 db::db(QString filename, int mode)
 {
-	printf("DB->constructor('%s')\n", CCHAR(filename));
 	name = filename;
 	fd = open(CCHAR(filename), O_RDWR | O_CREAT, mode);
 	if (fd<0) {
@@ -60,7 +59,6 @@ db::db(QString filename, int mode)
 
 db::~db()
 {
-	printf("DB->destructor()\n");
 	if (fd>=0)
 		close(fd);
 }
@@ -185,7 +183,6 @@ int db::rename(enum pki_type type, const char *name, const char *n)
 	int ret;
 
 	first();
-	printf("Old name: %s new name: %s\n", name, n);
 	if (find(type, n) == 0) {
 		printf("New name: %s already in use\n", n);
 		return -1;
@@ -260,8 +257,8 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 				ntohs(head.flags));
 		lseek(fd, head_offset, SEEK_SET);
 		if (len != ntohl(head.len) - sizeof(db_header_t)) {
-			printf("## Found and len unequal %d, %d\n",
-				len, ntohl(head.len) - sizeof(db_header_t));
+			//printf("## Found and len unequal %d, %d\n",
+			//	len, ntohl(head.len) - sizeof(db_header_t));
 			int flags;
 			flags = head.flags;
 			head.flags |= htons(DBFLAG_DELETED | DBFLAG_OUTDATED);
@@ -280,7 +277,7 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 			}
 			return 0;
 		}
-		printf("## Overwriting entry at %u\n", head_offset);
+		//printf("## Overwriting entry at %u\n", head_offset);
 		head.version = htons(ver);
 		if (write(fd, &head, sizeof(db_header_t)) !=
 						sizeof(db_header_t)) {
@@ -355,12 +352,11 @@ int db::shrink(int flags)
 		if (!verify_magic())
 			return 1;
 		head_offset = ntohl(head.len) - sizeof(head);
-		printf("Read[%d] = %d\n", i++, offs);
 		if (ntohs(head.flags) == flags) {
-			printf("Skip Entry\n");
+			//printf("Skip Entry\n");
 			/* FF to the next entry */
 			offs = (int)lseek(fd, head_offset, SEEK_CUR);
-			printf("Seeking to %d\n", offs);
+			//printf("Seeking to %d\n", offs);
 			if (head_offset == (uint32_t)-1)
 				break;
 			continue;
@@ -368,7 +364,6 @@ int db::shrink(int flags)
 		ret = write(fdn, &head, sizeof(head));
 		if (ret<0)
 			break;
-		printf("Write Entry %d of %d\n", BUFSIZ, head_offset);
 		offs = head_offset;
 		while (offs) {
 			ret = read(fd, buf, (offs > BUFSIZ) ? BUFSIZ : offs);
@@ -377,14 +372,12 @@ int db::shrink(int flags)
 			ret = write(fdn, buf, ret);
 			if (ret<0)
 				break;
-			printf("offs=%d, ret=%d\n", offs, ret);
 			offs -= ret;
 		}
 		if (offs)
 			break;
 		
 	}
-	printf("Rewriting done, re=%d\n", ret);
 	close(fdn);
 	if (ret) {
 		unlink(CCHAR(filename));

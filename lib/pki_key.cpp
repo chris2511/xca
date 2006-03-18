@@ -273,7 +273,6 @@ void pki_key::fromData(const unsigned char *p, db_header_t *head )
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
 		memcpy(encKey, p1 ,encKey_len);
 	}
-	printf("from data: size=%d, encKey_len=%d\n", size, encKey_len);
 	
 }
 #if 0
@@ -413,10 +412,18 @@ void pki_key::encryptKey()
 
 	/* This key has its own, private password ? */
 	if (ownPass == 1) {
-		pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password to protect the private key: '") + getIntName() + "'");
-		MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
+		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+			"Please enter the password to protect the private key: '") +
+			getIntName() + "'");
+		while (!MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p) );
 	}
 	else {
+		int retlen = 0;
+		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+				"Please enter the default password for encrypting keys"));
+		while (strlen(passwd) == 0 && retlen == 0) {
+			retlen = MainWindow::passWrite(passwd, MAX_PASS_LENGTH, 0, &p);
+		}
 		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 	}
 	

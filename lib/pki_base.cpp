@@ -243,10 +243,8 @@ pki_base *pki_base::iterate(pki_base *pki)
 void pki_base::freeChild(pki_base *pki)
 {
 	TRACE
-	printf("Rows1: %d, delete row %d \n", childCount(), pki->row());
 	childItems.takeAt(pki->row());
 	delete pki;
-	printf("Rows2: %d\n", childCount());
 }
 
 int pki_base::columns(void)

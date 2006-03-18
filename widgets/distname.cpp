@@ -67,15 +67,11 @@ void DistName::setX509name(const x509name &n)
 	QLabel *lb;
 	QLineEdit *le;
 	QStringList sl;
-	printf("X509name iterate over items\n");
 	for (int i=0; i<n.entryCount(); i++) {
-		printf("X509name %d\n", i);
 		lb = new QLabel( this );
 		le = new QLineEdit( this );
 		sl = n.entryList(i);
 		lb->setText(sl[1]);
-		printf("X509 Name = '%s' '%s' '%s' \n",
-				CCHAR(sl[0]), CCHAR(sl[1]), CCHAR(sl[2]));
 		if (lb->text().isEmpty())
 			lb->setText(sl[0]);
 		le->setText(sl[2]);

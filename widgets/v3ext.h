@@ -77,10 +77,10 @@ class v3ext: public QDialog, public Ui::v3ext
 				X509 *s, X509 *s1);
 		
 	public slots:
-		void delEntry();
-		void addEntry();
-		void apply();
-		void validate();
+		void on_delEntry_clicked();
+		void on_addEntry_clicked();
+		void on_apply_clicked();
+		void on_validate_clicked();
 };
 
 #endif

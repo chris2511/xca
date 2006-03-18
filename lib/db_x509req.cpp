@@ -52,6 +52,8 @@
 #include "pki_x509req.h"
 #include "widgets/ReqDetail.h"
 #include <Qt/qmessagebox.h>
+#include <Qt/qevent.h>
+#include <Qt/qaction.h>
 
 
 db_x509req::db_x509req(QString DBfile, MainWindow *mw)
@@ -138,12 +140,38 @@ void db_x509req::showItem(QModelIndex &index)
 	}
 }
 
-void db_x509req::store(QModelIndex &index)
+void db_x509req::store(QModelIndex &index, bool pem)
 {
 	if (!index.isValid())
 		return;
 	
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
 
-	req->writeReq(req->getIntName(), true);
+	req->writeReq(req->getIntName(), pem);
+}
+
+void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
+{
+	QMenu *menu = new QMenu(mainwin);
+	QMenu *subExport;
+	
+	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	
+	if (index == QModelIndex()) {
+		menu->addAction(tr("New Request"), this, SLOT(newItem()));
+		menu->addAction(tr("Import"), this, SLOT(load()));
+	}
+	else {
+		menu->addAction(tr("Show Details"), this, SLOT(showItem(index)));
+		menu->addAction(tr("Sign"), this, SLOT(signReq()));
+		subExport = menu->addMenu(tr("Export"));
+		subExport->addAction(tr("PEM"), this, SLOT(store(index, true)));
+		subExport->addAction(tr("DER"), this, SLOT(store(index, false)));
+		menu->addAction(tr("Delete"), this, SLOT(deletePKI(index)));
+		subExport->setEnabled(! req->isSpki());
+	}
+	menu->exec(e->globalPos());
+	delete menu;
+	delete subExport;
+	return;
 }

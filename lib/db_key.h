@@ -71,13 +71,13 @@ class db_key: public db_base
 	void remFromCont(pki_base *pki);
 	pki_base* insert(pki_base *item);
 	void writeAll();
-	void showItem(QModelIndex &index);
 	void showContextMenu(QContextMenuEvent * e, const QModelIndex &index);
 	
     public slots:
 	void newItem(void);
 	void load(void);
 	void store(QModelIndex &index);
+	void showItem(QModelIndex &index);
 
     signals:
 	void delKey(pki_key *delkey);

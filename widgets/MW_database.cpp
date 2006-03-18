@@ -94,6 +94,11 @@ void MainWindow::init_database() {
 	reqView->setModel(reqs);
 	certView->setModel(certs);
 	printf("req new\n");
+	
+	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
+			SLOT(connNewX509(NewX509 *)) );
+	connect( reqs, SIGNAL(connNewX509(NewX509 *)), this,
+			SLOT(connNewX509(NewX509 *)) );
 }
 
 void MainWindow::dump_database()

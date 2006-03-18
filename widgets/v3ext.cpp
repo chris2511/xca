@@ -111,11 +111,9 @@ void v3ext::addEntry(QString line)
 	
 	tw = new QTableWidgetItem(line.left(i));
 	tableWidget->setItem(row, 0, tw);
-	printf("Adding %s at %d,0\n", CCHAR(tw->text()), row);
 	
 	tw = new QTableWidgetItem(line.right(line.length()-(i+1)));
 	tableWidget->setItem(row, 1, tw);
-	printf("Adding %s at %d,1\n", CCHAR(tw->text()), row);
 }
 
 QString v3ext::toString()
@@ -134,12 +132,12 @@ QString v3ext::toString()
 }
 
 
-void v3ext::delEntry()
+void v3ext::on_delEntry_clicked()
 {
 	tableWidget->removeRow(tableWidget->currentRow());
 }
 		
-void v3ext::addEntry()
+void v3ext::on_addEntry_clicked()
 {
 	QString line;
 
@@ -149,7 +147,7 @@ void v3ext::addEntry()
 	addEntry(line);
 }
 
-void v3ext::apply()
+void v3ext::on_apply_clicked()
 {
 	le->setText(toString());
 	__validate(false);
@@ -183,7 +181,7 @@ bool v3ext::__validate(bool showSuccess)
 	return true;
 }
 
-void v3ext::validate()
+void v3ext::on_validate_clicked()
 {
 	__validate(true);
 }

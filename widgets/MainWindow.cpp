@@ -220,8 +220,6 @@ void MainWindow::do_connections()
 	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));
 	connect( BNdeleteCrl, SIGNAL(clicked()), crlList, SLOT(deleteItem()));
 	
-	connect( certList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
-	connect( reqList, SIGNAL(connNewX509(NewX509 *)), this, SLOT(connNewX509(NewX509 *)) );
 
 	connect( reqList, SIGNAL(newCert(pki_x509req *)),
 		certList, SLOT(newCert(pki_x509req *)) );
@@ -422,12 +420,12 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	QDialog *dlg = new QDialog(qApp->activeWindow());
 	ui.setupUi(dlg);
 	if (p != NULL) {
-		//ui.image->setPixmap( *keyImg );
+		ui.image->setPixmap( *keyImg );
 		ui.description->setText(p->getDescription());
 		dlg->setWindowTitle(p->getTitle());
 	}
 	dlg->show();
-	//dlg->activateWindow();
+	dlg->activateWindow();
 	ui.passA->setFocus();
 	
 	if (dlg->exec()) {
@@ -497,11 +495,9 @@ NewX509 *MainWindow::newX509()
 
 void MainWindow::connNewX509(NewX509 *nx)
 {
-#if 0
-	connect( (const QObject *)nx->genKeyBUT, SIGNAL(clicked()), keyList, SLOT(newItem()) );
-	connect( nx, SIGNAL(genKey()), keyList, SLOT(newItem()) );
-	connect( keyList, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
-#endif
+	connect( (const QObject *)nx->genKeyBUT, SIGNAL(clicked()), keys, SLOT(newItem()) );
+	connect( nx, SIGNAL(genKey()), keys, SLOT(newItem()) );
+	connect( keys, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
 }
 
 void MainWindow::changeView()

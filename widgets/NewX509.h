@@ -123,23 +123,25 @@ class NewX509: public QDialog, public Ui::NewX509
 	void setBasicConstraints(const x509v3ext &e);
 	void setExt(const x509v3ext &ext);
 	QString createRequestText();
+	void checkAuthKeyId();
    public slots:
 	void toggleFromRequest();
-	void keyChanged(const QString &keyname);
+	void on_keyList_highlighted(const QString &keyname);
 	void dataChangeP2();
 	void newKeyDone(QString name);
 	//void switchExtended();
 	void templateChanged();
 	void signerChanged();
 	void helpClicked();
-	void addX509NameEntry();
-	void delX509NameEntry();
-	void checkAuthKeyId();
-	void applyTimeDiff();
-	void editSubAltName();
-	void editIssAltName();
-	void editCrlDist();
-	void editAuthInfAcc();
+	void on_extDNadd_clicked();
+	void on_extDNdel_clicked();
+	void on_applyTime_clicked();
+	void on_editSubAlt_clicked();
+	void on_editIssAlt_clicked();
+	void on_editCrlDist_clicked();
+	void on_editAuthInfAcc_clicked();
+	void on_foreignSignRB_clicked();
+	void on_subKey_clicked();
    signals:
 	void genKey();
 };

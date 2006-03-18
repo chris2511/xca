@@ -157,9 +157,9 @@ void db_key::newItem()
 	}
 	ui.keyLength->setCurrentIndex(1);
 	ui.keyDesc->setFocus();
-#if 0	
+	
 	ui.image->setPixmap(*MainWindow::keyImg);
-#endif
+	
 	if (dlg->exec()) {
 		db mydb(dbName);
 		
@@ -198,6 +198,8 @@ void db_key::showItem(QModelIndex &index)
 {
 	pki_key *key = static_cast<pki_key*>(index.internalPointer());
 	KeyDetail *dlg;
+
+	printf("Key detail: %p\n", key);
 	
 	dlg = new KeyDetail(mainwin);
 	if (dlg) {
@@ -214,8 +216,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	if (index == QModelIndex()) {
 		menu->addAction(tr("New Key"), this, SLOT(newItem()));
 		menu->addAction(tr("Import"), this, SLOT(load()));
-	}
-	else {
+	} else {
 		menu->addAction(tr("Show Details"), this, SLOT(showItem(index)));
 		menu->addAction(tr("Export"), this, SLOT(store(index)));
 		menu->addAction(tr("Delete"), this, SLOT(deletePKI(index)));
@@ -232,10 +233,12 @@ void db_key::store(QModelIndex &index)
 	bool PEM = false;
 	const EVP_CIPHER *enc = NULL;
 	
+	printf("Key store\n");
 	if (!index.isValid())
 		return;
 	
 	pki_key *targetKey = static_cast<pki_key*>(index.internalPointer());
+	printf("Key store: %p\n", targetKey);
 	QString fn = targetKey->getIntName() + ".pem";
 	
 	ExportKey *dlg = new ExportKey(mainwin, fn,

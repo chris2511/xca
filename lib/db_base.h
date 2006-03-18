@@ -86,9 +86,7 @@ class db_base: public QAbstractItemModel
 	virtual ~db_base();
 	virtual pki_base *newPKI();
 	virtual void insertPKI(pki_base *pki);
-	virtual void deletePKI(QModelIndex &index);
 	virtual void updatePKI(pki_base *pki);
-	virtual void showItem(QModelIndex &index){};
 	pki_base *getByName(QString desc);
 	pki_base *getByReference(pki_base *refpki);
 	pki_base *getByPtr(void *);
@@ -132,6 +130,10 @@ class db_base: public QAbstractItemModel
 	void showSelectedItems(QAbstractItemView *view);
 	void storeSelectedItems(QAbstractItemView *view);
 	void load_default(load_base &load);
+    public slots:
+	virtual void showItem(QModelIndex &index){};
+	virtual void deletePKI(QModelIndex &index);
+	    
 };
 
 #endif
