@@ -127,11 +127,15 @@ void db_x509req::load(void)
 	load_default(l);
 }
 
-void db_x509req::showItem(QModelIndex &index)
+void db_x509req::showItem()
 {
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	if (!currentIdx.isValid())
+		return;
+	
+	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 	ReqDetail *dlg;
 	
+	printf("ShowItem req\n");
 	dlg = new ReqDetail(mainwin);
 	if (dlg) {
 		dlg->setReq(req);
@@ -140,12 +144,12 @@ void db_x509req::showItem(QModelIndex &index)
 	}
 }
 
-void db_x509req::store(QModelIndex &index, bool pem)
+void db_x509req::store(bool pem)
 {
-	if (!index.isValid())
+	if (!currentIdx.isValid())
 		return;
 	
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
+	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 
 	req->writeReq(req->getIntName(), pem);
 }
@@ -154,24 +158,23 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subExport;
+	currentIdx = index;
 	
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
 	
-	if (index == QModelIndex()) {
-		menu->addAction(tr("New Request"), this, SLOT(newItem()));
-		menu->addAction(tr("Import"), this, SLOT(load()));
-	}
-	else {
-		menu->addAction(tr("Show Details"), this, SLOT(showItem(index)));
+	menu->addAction(tr("New Request"), this, SLOT(newItem()));
+	menu->addAction(tr("Import"), this, SLOT(load()));
+	if (index != QModelIndex()) {
+		menu->addAction(tr("Show Details"), this, SLOT(show(index)));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
 		subExport = menu->addMenu(tr("Export"));
-		subExport->addAction(tr("PEM"), this, SLOT(store(index, true)));
-		subExport->addAction(tr("DER"), this, SLOT(store(index, false)));
+		subExport->addAction(tr("PEM"), this, SLOT(store_pem(index, true)));
+		subExport->addAction(tr("DER"), this, SLOT(store_pem(index, false)));
 		menu->addAction(tr("Delete"), this, SLOT(deletePKI(index)));
 		subExport->setEnabled(! req->isSpki());
 	}
 	menu->exec(e->globalPos());
 	delete menu;
-	delete subExport;
+	currentIdx = QModelIndex();
 	return;
 }

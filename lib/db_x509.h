@@ -65,8 +65,10 @@
 class db_x509: public db_x509super
 {
 	Q_OBJECT
-    protected:
+    
+	protected:
 	QPixmap *certicon[4];
+	
     public:
 	db_x509(QString DBfile, MainWindow *mw);
 	pki_base *newPKI();
@@ -88,12 +90,16 @@ class db_x509: public db_x509super
 	pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
 	pki_base *insert(pki_base *item);
 	void newCert(NewX509 *dlg);
-	void load(void);
-	void newItem();
-	void showItem(QModelIndex &index);
+	void writePKCS12(pki_x509 *cert, QString s, bool chain);
+    void writePKCS7(pki_x509 *cert, QString s, int type);
+	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 
     public slots:
+	void load(void);
+	void newItem(void);
 	void revokeCert(const x509rev &revok, const pki_x509 *issuer);
+	void store();
+	void showItem();
 };
 
 #endif

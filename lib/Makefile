@@ -15,7 +15,8 @@ endif
 MOCNAMES= pki_base db_base db_key db_x509super db_x509req db_x509
 NAMES=$(MOCNAMES) db asn1int oid asn1time pass_info \
 	func load_obj pki_key pki_x509super \
-	main x509name pki_x509req x509v3ext pki_x509 x509rev
+	main x509name pki_x509req x509v3ext pki_x509 x509rev pki_pkcs12 \
+	pki_pkcs7
 
 
 OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))

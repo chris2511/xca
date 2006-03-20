@@ -62,6 +62,25 @@ pki_x509::pki_x509(X509 *c)
 	openssl_error();
 }
 
+pki_x509::pki_x509(const pki_x509 *crt) 
+	:pki_x509super(crt->desc)
+{
+	init();
+	cert = X509_dup(crt->cert);
+	openssl_error();
+	psigner = crt->psigner;
+	setRefKey(crt->getRefKey());
+	trust = crt->trust;
+	efftrust = crt->efftrust;
+	revoked = crt->revoked;
+	caSerial = crt->caSerial;
+	caTemplate = crt->caTemplate;
+	crlDays = crt->crlDays;
+	lastCrl = crt->lastCrl;
+	isrevoked = isrevoked;
+	openssl_error();
+}
+#if 0
 pki_x509::pki_x509(const pki_x509 &crt) 
 	:pki_x509super(crt.desc)
 {
@@ -80,7 +99,7 @@ pki_x509::pki_x509(const pki_x509 &crt)
 	isrevoked = isrevoked;
 	openssl_error();
 }
-
+#endif
 pki_x509::pki_x509(const QString name)
 	:pki_x509super(name)
 {

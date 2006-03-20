@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -51,7 +49,6 @@
 #ifndef PKI_PKCS7_H
 #define PKI_PKCS7_H
 
-#include <iostream>
 #include "pki_x509.h"
 
 class pki_pkcs7: public pki_base

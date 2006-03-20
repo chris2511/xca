@@ -58,16 +58,20 @@
 class db_x509req: public db_x509super
 {
 	Q_OBJECT
+
     public:
 	db_x509req(QString DBfile, MainWindow *mw);
 	pki_base* insert(pki_base *item);
 	pki_base *newPKI();
-	void load(void);
-	void newItem(void);
-	void showItem(QModelIndex &index);
-	void store(QModelIndex &index, bool pem = true);
+	void store(bool pem);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
-		
+
+    public slots:
+	void newItem(void);
+	void store_pem() {store(true);}
+	void store_der() {store(false);}
+	void load(void);
+	void showItem();
 };
 
 #endif

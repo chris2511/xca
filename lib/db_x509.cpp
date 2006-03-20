@@ -48,8 +48,14 @@
  */
 
 #include "db_x509.h"
+#include "pki_pkcs12.h"
+#include "pki_pkcs7.h"
 #include "widgets/CertDetail.h"
+#include "widgets/ExportCert.h"
 #include <Qt/qmessagebox.h>
+#include <Qt/qevent.h>
+#include <Qt/qaction.h>
+
 
 db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
@@ -463,11 +469,13 @@ void db_x509::newCert(NewX509 *dlg)
 	
 }
 
-void db_x509::showItem(QModelIndex &index)
+void db_x509::showItem()
 {
-	pki_x509 *crt = static_cast<pki_x509*>(index.internalPointer());
+	if (!currentIdx.isValid())
+		return;
+	pki_x509 *crt = static_cast<pki_x509*>(currentIdx.internalPointer());
 	CertDetail *dlg;
-	
+	printf("Show Item x509\n");	
 	dlg = new CertDetail(mainwin);
 	if (dlg) {
 		dlg->setCert(crt);
@@ -476,4 +484,313 @@ void db_x509::showItem(QModelIndex &index)
 	}
 }
 
-#undef FOR_ctr
+void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
+{
+	QMenu *menu = new QMenu(mainwin);
+	QMenu *subExport, *subCa, *subP7;
+	QAction *itemReq, *itemtca, *itemTemplate, *itemRevoke, *itemExtend,
+			*itemTrust;
+	bool parentCanSign, canSign, hasTemplates, hasPrivkey;	
+	currentIdx = QModelIndex();
+	
+	pki_x509 *cert = static_cast<pki_x509*>(index.internalPointer());
+	
+	menu->addAction(tr("New Certificate"), this, SLOT(newItem()));
+	menu->addAction(tr("Import"), this, SLOT(load()));
+	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
+	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
+	if (index != QModelIndex()) {
+		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
+		subExport = menu->addMenu(tr("Export"));
+		subExport->addAction(tr("File"), this, SLOT(store()));
+		itemReq = subExport->addAction(tr("Request"),
+				this, SLOT(toRequest()));
+		itemtca = subExport->addAction(tr("TinyCA"),
+				this, SLOT(toTinyCA()));
+
+		menu->addAction(tr("Delete"), this, SLOT(deletePKI()));
+		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
+		menu->addSeparator();
+		subCa = menu->addMenu(tr("CA"));
+		subCa->addAction(tr("Serial"), this, SLOT(setSerial()));
+		subCa->addAction(tr("CRL days"), this, SLOT(setCrlDays()));
+		itemTemplate = subCa->addAction(tr("Signing Template"),
+				this, SLOT(setTemplate()));
+		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
+		
+		subP7 = menu->addMenu(tr("PKCS#7"));
+		subP7->addAction(tr("Sign"), this, SLOT(signP7()));
+		subP7->addAction(tr("Encrypt"), this, SLOT(encryptP7()));
+		menu->addSeparator();
+		itemExtend = menu->addAction(tr("Renewal"),
+				this, SLOT(extendCert()));
+		if (cert) {
+			if (cert->isRevoked()) {
+				itemRevoke = menu->addAction(tr("Unrevoke"),
+						this, SLOT(unRevoke()));
+				itemTrust->setEnabled(false);
+			} else {
+				itemRevoke = menu->addAction(tr("Revoke"),
+						this, SLOT(revoke()));
+			}
+			parentCanSign = (cert->getSigner() && cert->getSigner()->canSign()
+					&& (cert->getSigner() != cert));
+			canSign = cert->canSign();
+#warning templates
+			hasTemplates = false; // MainWindow::temps->getDesc().count() > 0 ;
+			hasPrivkey = cert->getRefKey();
+		}
+		itemExtend->setEnabled(parentCanSign);
+		itemRevoke->setEnabled(parentCanSign);
+		subCa->setEnabled(canSign);
+		itemReq->setEnabled(hasPrivkey);
+		itemtca->setEnabled(canSign);
+		subP7->setEnabled(hasPrivkey);
+		itemTemplate->setEnabled(hasTemplates);
+
+	}
+	menu->exec(e->globalPos());
+	delete menu;
+	currentIdx = QModelIndex();
+	return;
+}
+
+
+#define P7_ONLY 0
+#define P7_CHAIN 1
+#define P7_TRUSTED 2
+#define P7_ALL 3
+
+void db_x509::store()
+{
+	QStringList filt;
+	if (!currentIdx.isValid())
+		return;
+	
+	pki_x509 *crt = static_cast<pki_x509*>(currentIdx.internalPointer());
+	pki_x509 *oldcrt = NULL;
+	if (!crt)
+		return;
+	pki_key *privkey = crt->getRefKey();
+	ExportCert *dlg = new ExportCert((crt->getIntName() + ".crt"),
+			  (privkey && privkey->isPrivKey()),
+			  mainwin->getPath(), crt->tinyCAfname() );
+	dlg->image->setPixmap(*MainWindow::certImg);
+	int dlgret = dlg->exec();
+
+	if (!dlgret) {
+		delete dlg;
+		return;
+	}
+	QString fname = dlg->filename->text();
+        if (fname == "") {
+                delete dlg;
+                return;
+        }
+	try {
+	  switch (dlg->exportFormat->currentIndex()) {
+		case 0: // PEM
+			crt->writeCert(fname,true,false);
+			break;
+		case 1: // PEM with chain
+			while(crt && crt != oldcrt) {
+				crt->writeCert(fname,true,true);
+				oldcrt = crt;
+				crt = crt->getSigner();
+			}
+			break;
+		case 2: // PEM all trusted Certificates
+			writeAllCerts(fname,true);
+			break;
+		case 3: // PEM all Certificates
+			writeAllCerts(fname,false);
+			break;
+		case 4: // DER	
+			crt->writeCert(fname,false,false);
+			break;
+		case 5: // P7 lonely
+			writePKCS7(crt,fname, P7_ONLY);
+			break;
+		case 6: // P7
+			writePKCS7(crt,fname, P7_CHAIN);
+			break;
+		case 7: // P7
+			writePKCS7(crt,fname, P7_TRUSTED);
+			break;
+		case 8: // P7
+			writePKCS7(crt,fname, P7_ALL);
+			break;
+		case 9: // P12
+			writePKCS12(crt,fname,false);
+			break;
+		case 10: // P12 + cert chain
+			writePKCS12(crt,fname,true);
+			break;
+
+	  }
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+	}
+	delete dlg;
+}
+
+
+void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
+{
+	QStringList filt;
+    try {
+		pki_key *privkey = cert->getRefKey();
+		if (!privkey || privkey->isPubKey()) {
+			QMessageBox::warning(mainwin, tr(XCA_TITLE),
+				tr("There was no key found for the Certificate: ") +
+				cert->getIntName() );
+			return; 
+		}
+		if (s.isEmpty())
+			return;
+		s = QDir::convertSeparators(s);
+		pki_pkcs12 *p12 = new pki_pkcs12(cert->getIntName(), cert, privkey,
+				MainWindow::passWrite);
+		pki_x509 *signer = cert->getSigner();
+		while ((signer != NULL ) && (signer != cert) && chain) {
+			p12->addCaCert(signer);
+			cert=signer;
+			signer=signer->getSigner();
+		}
+		p12->writePKCS12(s);
+		delete p12;
+    }
+    catch (errorEx &err) {
+		MainWindow::Error(err);
+    }
+}
+
+void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
+{
+    pki_pkcs7 *p7 = NULL;
+    QList<pki_base> list;
+    pki_base *cer;
+    try {	
+	p7 =  new pki_pkcs7("");
+	if ( type == P7_CHAIN ) {
+		while (cert != NULL) {
+			p7->addCert(cert);
+			if (cert->getSigner() == cert) cert = NULL;
+			else cert = cert->getSigner();
+		}
+	}
+	if ( type == P7_ONLY ) {
+		p7->addCert(cert);
+	}	
+#if 0
+	if (type == P7_TRUSTED) {
+		list = db->getContainer();
+		if (!list.isEmpty()) {
+       		for ( cer = list.first(); cer != NULL; cer = list.next() ) {
+				if (((pki_x509*)cer)->getTrust() == 2)
+					p7->addCert((pki_x509 *)cer);
+			}
+		}
+	}
+	if (type == P7_ALL) {
+		list = db->getContainer();
+		if (!list.isEmpty()) {
+			for ( cer = list.first(); cer != NULL; cer = list.next() ) {
+				p7->addCert((pki_x509 *)cer);
+			}
+		}
+	}
+#else 
+#warning P7_TRUSTED P7_ALL
+#endif
+	p7->writeP7(s, false);
+    }
+    catch (errorEx &err) {
+		MainWindow::Error(err);
+    }
+    if (p7 != NULL )
+		delete p7;
+	
+}
+# if 0		
+void ::signP7()
+{
+	QStringList filt;
+    try {
+	pki_x509 *cert = (pki_x509 *)getSelected();
+	if (!cert) return;
+	pki_key *privkey = cert->getRefKey();
+	if (!privkey || privkey->isPubKey()) {
+		QMessageBox::warning(this,tr(XCA_TITLE),
+                	tr("There was no key found for the Certificate: ") +
+			cert->getIntName());
+		return; 
+	}
+        filt.append("All Files ( *.* )");
+	QString s="";
+	QStringList slist;
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
+	dlg->setCaption(tr("Import Certificate signing request"));
+	dlg->setFilters(filt);
+	dlg->setMode( Q3FileDialog::ExistingFiles );
+        dlg->setDir(MainWindow::getPath());
+	if (dlg->exec()) {
+		slist = dlg->selectedFiles();
+		MainWindow::setPath(dlg->dirPath());
+        }
+	delete dlg;
+	pki_pkcs7 * p7 = new pki_pkcs7("");
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		p7->signFile(cert, s);
+		p7->writeP7((s + ".p7s"), true);
+	}
+	delete p7;
+    }
+    catch (errorEx &err) {
+	Qt::SocketError(err);
+    }
+}	
+
+void CertView::encryptP7()
+{
+	QStringList filt;
+    try {
+	pki_x509 *cert = (pki_x509 *)getSelected();
+	if (!cert) return;
+	pki_key *privkey = cert->getRefKey();
+	if (!privkey || privkey->isPubKey()) {
+		QMessageBox::warning(this,tr(XCA_TITLE),
+			tr("There was no key found for the Certificate: ") +
+			cert->getIntName()) ;
+		return; 
+	}
+	filt.append("All Files ( *.* )");
+	QString s="";
+	QStringList slist;
+	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
+	dlg->setCaption(tr("Import Certificate signing request"));
+	dlg->setFilters(filt);
+	dlg->setMode( Q3FileDialog::ExistingFiles );
+	dlg->setDir(MainWindow::getPath());
+	if (dlg->exec()) {
+		slist = dlg->selectedFiles();
+		MainWindow::setPath(dlg->dirPath());
+	}
+	delete dlg;
+	pki_pkcs7 * p7 = new pki_pkcs7("");
+	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+		s = *it;
+		s = QDir::convertSeparators(s);
+		p7->encryptFile(cert, s);
+		p7->writeP7((s + ".p7m"), true);
+	}
+	delete p7;
+    }
+    catch (errorEx &err) {
+		Qt::SocketError(err);
+    }
+}	
+#endif

@@ -73,6 +73,7 @@ db_base::db_base(QString db, MainWindow *mw)
 	rootItem = newPKI();
 	headertext.clear();
 	mainwin = mw;
+	currentIdx = QModelIndex();
 }
 
 db_base::~db_base()
@@ -142,12 +143,14 @@ void db_base::insertPKI(pki_base *pki)
 	inToCont(pki);
 }
 
-void db_base::deletePKI(QModelIndex &index)
+void db_base::deletePKI()
 {
-	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+	if (!currentIdx.isValid())
+		return;
+	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 	int row = pki->row();
 	
-	beginRemoveRows(parent(index), row, row);
+	beginRemoveRows(parent(currentIdx), row, row);
 	
 	db mydb(dbName);
 	mydb.find(pki->getType(), CCHAR(pki->getIntName()));
@@ -195,8 +198,10 @@ void db_base::deleteSelectedItems(QAbstractItemView* view)
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
-		deletePKI(index);
+		currentIdx = index;
+		deletePKI();
 	}
+	currentIdx = QModelIndex();
 }
 
 void db_base::showSelectedItems(QAbstractItemView* view)
@@ -209,8 +214,10 @@ void db_base::showSelectedItems(QAbstractItemView* view)
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
-		showItem(index);
+		currentIdx = index;
+		showItem();
 	}
+	currentIdx = QModelIndex();
 }
 
 void db_base::storeSelectedItems(QAbstractItemView* view)
@@ -224,12 +231,14 @@ void db_base::storeSelectedItems(QAbstractItemView* view)
 		if (index.column() != 0)
 			continue;
 		try {
-			store(index);
+			currentIdx = index;
+			store();
 		} catch (errorEx &err) {
 			MainWindow::Error(err);
 		}
 		
 	}
+	currentIdx = QModelIndex();
 }
 
 void db_base::inToCont(pki_base *pki)
@@ -445,4 +454,3 @@ void db_base::load_default(load_base &load)
 	//dlgi->execute();
 	//delete dlgi;
 }
-

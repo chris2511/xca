@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -81,7 +79,7 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file.")
 		+ "\n'" + fname + "'");
-	fp = fopen(fname, "rb");
+	fp = fopen(CCHAR(fname), "rb");
 	if (fp) {
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		fclose(fp);
@@ -96,8 +94,6 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
 		if ( ERR_peek_error() != 0) {
 			ign_openssl_error();
-			//QMessageBox::warning(NULL, XCA_TITLE, 
-			//	tr(), tr("&OK"));
 			PKCS12_free(pkcs12);
 			throw errorEx(getClassName(),"The supplied password was wrong");
 		}
@@ -142,13 +138,13 @@ void pki_pkcs12::writePKCS12(const QString fname)
 { 
 	char pass[30];
 	char desc[100];
-	strncpy(desc,getIntName(),100);
+	strncpy(desc, CCHAR(getIntName()), 100);
 	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
 	if (cert == NULL || key == NULL) {
 		openssl_error("No key or no Cert and no pkcs12....");
 	}
 
-	FILE *fp = fopen(fname,"wb");
+	FILE *fp = fopen(CCHAR(fname),"wb");
 	if (fp != NULL) {
 		passcb(pass, 30, 0, &p); 
 		PKCS12 *pkcs12 = PKCS12_create(pass, desc, key->getKey(),

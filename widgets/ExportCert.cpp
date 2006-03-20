@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -54,27 +52,24 @@
 
 #include <Qt/qcombobox.h>
 #include <Qt/qlineedit.h>
-#include <Qt/q3filedialog.h>
+#include <Qt/qfiledialog.h>
 
 ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
-	const QString tcafn, QWidget *parent, const char *name )
-	:ExportCert_UI(parent,name,true,0)
+	const QString tcafn, QWidget *parent)
+	:QDialog(parent)
 {
 	filename->setText(fname);
-	setCaption(tr(XCA_TITLE));
-	exportFormat->insertItem("PEM");
-	exportFormat->insertItem("PEM with Certificate chain");
-	exportFormat->insertItem("PEM all trusted Certificates");
-	exportFormat->insertItem("PEM all Certificates");
-	exportFormat->insertItem("DER");
-	exportFormat->insertItem("PKCS #7");
-	exportFormat->insertItem("PKCS #7 with Certificate chain");
-	exportFormat->insertItem("PKCS #7 all trusted Certificates");
-	exportFormat->insertItem("PKCS #7 all Certificates");
+	setWindowTitle(tr(XCA_TITLE));
+	QStringList sl; 
+	sl << "PEM" << "PEM with Certificate chain" <<
+		"PEM all trusted Certificates" << "PEM all Certificates" <<
+		"DER" << "PKCS #7" << "PKCS #7 with Certificate chain" <<
+		"PKCS #7 all trusted Certificates" <<"PKCS #7 all Certificates";
+	
 	if (hasKey) {
-		exportFormat->insertItem("PKCS #12");
-		exportFormat->insertItem("PKCS #12 with Certificate chain");
+		sl << "PKCS #12" << "PKCS #12 with Certificate chain";
 	}		
+	exportFormat->addItems(sl);
 	dirPath = dpath;
 	tinyCAfname = tcafn;
 }
@@ -85,19 +80,20 @@ void ExportCert::chooseFile()
 	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )")); 
 	filt.append(tr("All Files ( *.* )"));
 	QString s = "";
-	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
-	dlg->setCaption(tr("Save Certificate as"));
+	QFileDialog *dlg = new QFileDialog(this);
+	dlg->setWindowTitle(tr("Save Certificate as"));
 	dlg->setFilters(filt);
-	dlg->setMode( Q3FileDialog::AnyFile );
-	dlg->setSelection( filename->text() );
-	dlg->setDir(dirPath);
+	dlg->setFileMode( QFileDialog::AnyFile );
+	dlg->selectFile( filename->text() );
+	dlg->setDirectory(dirPath);
 	if (dlg->exec())
-		s = dlg->selectedFile();
+		if (!dlg->selectedFiles().isEmpty())
+			s = dlg->selectedFiles()[0];
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
-	dirPath= dlg->dirPath();
+	dirPath= dlg->directory().path();
 	formatChanged();
 	delete dlg;
 }
@@ -105,9 +101,9 @@ void ExportCert::chooseFile()
 void ExportCert::formatChanged()
 {
 	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p7b", "p7b", "p7b", "p7b", "p12", "p12"};
-	int selected = exportFormat->currentItem();
+	int selected = exportFormat->currentIndex();
 	QString fn = filename->text();
-	QString nfn = fn.left(fn.findRev('.')+1) + suffix[selected];
+	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];
 	filename->setText(nfn);
 }	
 

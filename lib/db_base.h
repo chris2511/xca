@@ -72,14 +72,13 @@ class db_base: public QAbstractItemModel
     protected:
 	QString dbName, delete_txt;
 	pki_base *rootItem;
+	QModelIndex currentIdx;
 	void _writePKI(pki_base *pki, bool overwrite );
 	void _removePKI(pki_base *pki );
 	void removeItem(QString k);
 	enum pki_type pkitype;
 	QList<QVariant> headertext;
 	MainWindow *mainwin;
-    public slots:
-	virtual void store(QModelIndex &index){};
 	
     public:
 	db_base(QString db, MainWindow *mw);
@@ -95,7 +94,7 @@ class db_base: public QAbstractItemModel
 	virtual pki_base* insert(pki_base *item);
 	/* preprocess should be implemented once to speed up updateView() 
 	 * i.e search for signers and keys */
-	virtual void preprocess() {return;}
+	virtual void preprocess(){};
 	virtual void inToCont(pki_base *pki);
 	void remFromCont(pki_base *ref);
 
@@ -115,7 +114,7 @@ class db_base: public QAbstractItemModel
 	void writeAll(void);
 	void dump(QString dirname);
 	virtual void showContextMenu(QContextMenuEvent * e,
-			const QModelIndex &index) {};
+			const QModelIndex &index){};
 	
 	QModelIndex index(int row, int column, const QModelIndex &parent)const;
 	QModelIndex parent(const QModelIndex &index) const;
@@ -130,10 +129,11 @@ class db_base: public QAbstractItemModel
 	void showSelectedItems(QAbstractItemView *view);
 	void storeSelectedItems(QAbstractItemView *view);
 	void load_default(load_base &load);
+
     public slots:
-	virtual void showItem(QModelIndex &index){};
-	virtual void deletePKI(QModelIndex &index);
-	    
+	void deletePKI();
+	virtual void store(){};
+	virtual void showItem(){};
 };
 
 #endif

@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -71,7 +69,7 @@ pki_pkcs7::~pki_pkcs7()
 void pki_pkcs7::encryptFile(pki_x509 *crt, QString filename)
 {
 	BIO *bio = NULL;
-	bio = BIO_new_file(filename, "r");
+	bio = BIO_new_file(CCHAR(filename), "r");
         openssl_error();
 	encryptBio(crt, bio);
 	BIO_free(bio);
@@ -121,7 +119,7 @@ void pki_pkcs7::signFile(pki_x509 *crt, QString filename)
 {
 	BIO *bio = NULL;
 	if (!crt) return;
-	bio = BIO_new_file(filename, "r");
+	bio = BIO_new_file(CCHAR(filename), "r");
         openssl_error();
 	signBio(crt, bio);
 	BIO_free(bio);
@@ -141,7 +139,7 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 void pki_pkcs7::writeP7(QString fname,bool PEM)
 {
 	FILE *fp;
-        fp = fopen(fname,"w");
+        fp = fopen(CCHAR(fname),"w");
         if (fp != NULL) {
            if (p7){
                 if (PEM)
@@ -172,7 +170,7 @@ int pki_pkcs7::numCert() {
 void pki_pkcs7::fload(const QString fname)
 {
 	FILE *fp;
-	fp = fopen(fname, "rb");
+	fp = fopen(CCHAR(fname), "rb");
        	if (fp) {
 		p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);	
                	if (!p7) {

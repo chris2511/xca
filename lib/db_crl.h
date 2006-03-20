@@ -72,7 +72,6 @@ class db_crl: public db_base
 	void preprocess();
 	void inToCont(pki_base *pki);
 	pki_base *insert(pki_base *item);
-	void db_crl::deletePKI(pki_base *pki);
     signals:
 	void updateCertView();
 };

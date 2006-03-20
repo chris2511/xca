@@ -119,9 +119,3 @@ pki_base *db_crl::insert(pki_base *item)
 	insertPKI(crl);
 	return crl;
 }
-
-void db_crl::deletePKI(pki_base *pki)
-{
-	db_base::deletePKI(pki);
-	emit updateCertView();
-}

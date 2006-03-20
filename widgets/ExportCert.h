@@ -53,7 +53,7 @@
 
 #include "ui/ExportCert.h"
 
-class ExportCert: public ExportCert_UI
+class ExportCert: public QDialog, public Ui::ExportCert
 {
 	Q_OBJECT
 
@@ -62,7 +62,7 @@ class ExportCert: public ExportCert_UI
 	
    public:	
 	ExportCert(QString fname, bool hasKey, QString dpath,
-		  const QString tcafn,  QWidget *parent = 0, const char *name = 0);
+		  const QString tcafn,  QWidget *parent = 0);
 	QString dirPath;
 	
    public slots:

@@ -128,8 +128,9 @@ pki_base* db_key::insert(pki_base *item)
 			oldkey->getIntName() +
 			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
 			lkey->setIntName(oldkey->getIntName());
-			QModelIndex idx = index(oldkey->row(), 0, QModelIndex());
-			deletePKI(idx);
+			currentIdx = index(oldkey->row(), 0, QModelIndex());
+			deletePKI();
+			currentIdx = QModelIndex();
 		}
 	}
 	insertPKI(lkey);
@@ -194,9 +195,11 @@ void db_key::load(void)
 	load_default(l);
 }
 
-void db_key::showItem(QModelIndex &index)
+void db_key::showItem()
 {
-	pki_key *key = static_cast<pki_key*>(index.internalPointer());
+	if (!currentIdx.isValid())
+		return;
+	pki_key *key = static_cast<pki_key*>(currentIdx.internalPointer());
 	KeyDetail *dlg;
 
 	printf("Key detail: %p\n", key);
@@ -213,37 +216,38 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	
-	if (index == QModelIndex()) {
-		menu->addAction(tr("New Key"), this, SLOT(newItem()));
-		menu->addAction(tr("Import"), this, SLOT(load()));
-	} else {
-		menu->addAction(tr("Show Details"), this, SLOT(showItem(index)));
-		menu->addAction(tr("Export"), this, SLOT(store(index)));
-		menu->addAction(tr("Delete"), this, SLOT(deletePKI(index)));
-		menu->addAction(tr("Change password"), this, SLOT(setOwnPass(index)));
+	currentIdx = index;
+
+	menu->addAction(tr("New Key"), this, SLOT(newItem()));
+	menu->addAction(tr("Import"), this, SLOT(load()));
+	if (index != QModelIndex()) {
+		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
+		menu->addAction(tr("Export"), this, SLOT(store()));
+		menu->addAction(tr("Delete"), this, SLOT(deletePKI()));
+		menu->addAction(tr("Change password"), this, SLOT(setOwnPass()));
 		menu->addAction(tr("Reset password"), this, SLOT(resetOwnPass()));
 	}
 	menu->exec(e->globalPos());
 	delete menu;
+	currentIdx = QModelIndex();
 	return;
 }
 
-void db_key::store(QModelIndex &index)
+void db_key::store()
 {
 	bool PEM = false;
 	const EVP_CIPHER *enc = NULL;
 	
-	printf("Key store\n");
-	if (!index.isValid())
+	if (!currentIdx.isValid())
 		return;
 	
-	pki_key *targetKey = static_cast<pki_key*>(index.internalPointer());
-	printf("Key store: %p\n", targetKey);
+	pki_key *targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
+	
 	QString fn = targetKey->getIntName() + ".pem";
 	
 	ExportKey *dlg = new ExportKey(mainwin, fn,
 			targetKey->isPubKey(), mainwin->getPath() );
-	//dlg->image->setPixmap(*MainWindow::keyImg);
+	dlg->image->setPixmap(*MainWindow::keyImg);
 	
 	if (!dlg->exec()) {
 		delete dlg;

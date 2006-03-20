@@ -76,8 +76,8 @@ class db_key: public db_base
     public slots:
 	void newItem(void);
 	void load(void);
-	void store(QModelIndex &index);
-	void showItem(QModelIndex &index);
+	void store();
+	void showItem();
 
     signals:
 	void delKey(pki_key *delkey);
