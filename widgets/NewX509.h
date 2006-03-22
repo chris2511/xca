@@ -52,6 +52,7 @@
 
 #include "ui/NewX509.h"
 #include "lib/oid.h"
+#include "lib/db.h"
 #include <openssl/x509v3.h>
 #include <Qt/qlistwidget.h>
 
@@ -81,6 +82,7 @@ class NewX509: public QDialog, public Ui::NewX509
 	QLineEdit *name_ptr[EXPLICIT_NAME_CNT];
 	X509V3_CTX ext_ctx;
 	void editV3ext(QLineEdit *le, QString types, int n);
+	enum pki_type pt;
    public:	
 	NewX509(QWidget *parent);
 	virtual ~NewX509();
@@ -119,13 +121,13 @@ class NewX509: public QDialog, public Ui::NewX509
 	extList getNetscapeExt();
 	extList getAllExt();
 	const EVP_MD *getHashAlgo();
-	void initCtx(pki_x509 *subj, pki_x509 *iss);
+	void initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req);
 	void setBasicConstraints(const x509v3ext &e);
 	void setExt(const x509v3ext &ext);
 	QString createRequestText();
 	void checkAuthKeyId();
    public slots:
-	void toggleFromRequest();
+	void on_fromReqCB_clicked();
 	void on_keyList_highlighted(const QString &keyname);
 	void dataChangeP2();
 	void newKeyDone(QString name);

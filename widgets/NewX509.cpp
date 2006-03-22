@@ -105,6 +105,7 @@ NewX509::NewX509(QWidget *parent)
 	strings = MainWindow::keys->get0PrivateDesc();
 	keyList->insertItems(0, strings);
 	hashAlgo->setCurrentIndex(2);
+	on_keyList_highlighted(strings[0]);
 	
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
@@ -169,6 +170,8 @@ NewX509::NewX509(QWidget *parent)
 	// last polish 
 	signerChanged();
 	checkAuthKeyId();
+
+	pt = none;
 }
 
 void NewX509::setRequest()
@@ -180,6 +183,8 @@ void NewX509::setRequest()
 	tabWidget->setCurrentIndex(1);
 	tText=tr("Certificate signing request");
 	setImage(MainWindow::csrImg);
+	//keyIdentBox->setEnabled(false);
+	pt = x509_req;
 }
 
 NewX509::~NewX509()
@@ -197,6 +202,7 @@ void NewX509::setTemp(pki_temp *temp)
 //	privKeyBox->setEnabled(false);
 //	validitybox->setEnabled(false);
 //	setImage(MainWindow::tempImg);
+	pt = tmpl;
 	
 }
 	
@@ -204,6 +210,7 @@ void NewX509::setCert()
 {
 	tText=tr("Certificate");
 	setImage(MainWindow::certImg);
+	pt = x509;
 }
 
 void NewX509::setImage(QPixmap *image)
@@ -336,13 +343,21 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->validMidn = midnightCB->isChecked();
 }
 
-void NewX509::toggleFromRequest()
+void NewX509::on_fromReqCB_clicked()
 {
 	if (fromReqCB->isChecked()) {
 		reqList->setEnabled(true);
+		distNameBox->setEnabled(false);
+		//privKeyBox->setEnabled(false);
+		//keyIdentBox->setEnabled(false);
+		//tabWidget->setTabEnabled(1,false);
 	}
 	else {
 		reqList->setEnabled(false);
+		distNameBox->setEnabled(true);
+		//privKeyBox->setEnabled(true);
+		//keyIdentBox->setEnabled(true);
+		//tabWidget->setTabEnabled(1,true);
 	}
 }
 	
@@ -504,7 +519,7 @@ void NewX509::checkAuthKeyId()
 		enabled = true;
 	}
 	else { // Self signed
-		if (subKey->isChecked() && subKey->isEnabled())
+		if (subKey->isChecked() && subKey->isEnabled() && pt != x509_req)
 			enabled = true;
 	}
 	authKey->setEnabled(enabled);

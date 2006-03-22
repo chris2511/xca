@@ -112,6 +112,7 @@ void db_x509req::newItem()
 		if (key->getType() == EVP_PKEY_DSA)
 			hashAlgo = EVP_dss1();
 		
+		dlg->initCtx(NULL, NULL, req);
 		req->createReq(key, xn, hashAlgo, dlg->getAllExt());
 		insert(req);
 	}
@@ -165,12 +166,12 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("New Request"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
-		menu->addAction(tr("Show Details"), this, SLOT(show(index)));
+		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
 		subExport = menu->addMenu(tr("Export"));
-		subExport->addAction(tr("PEM"), this, SLOT(store_pem(index, true)));
-		subExport->addAction(tr("DER"), this, SLOT(store_pem(index, false)));
-		menu->addAction(tr("Delete"), this, SLOT(deletePKI(index)));
+		subExport->addAction(tr("PEM"), this, SLOT(store_pem()));
+		subExport->addAction(tr("DER"), this, SLOT(store_der()));
+		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		subExport->setEnabled(! req->isSpki());
 	}
 	menu->exec(e->globalPos());

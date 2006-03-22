@@ -132,6 +132,7 @@ class db_base: public QAbstractItemModel
 
     public slots:
 	void deletePKI();
+	void delete_ask();
 	virtual void store(){};
 	virtual void showItem(){};
 };

@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
-    <height>588</height>
+    <width>518</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -118,40 +118,41 @@
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="0" column="0" >
-           <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
+          <item row="1" column="1" >
+           <widget class="QPushButton" name="pushButton" >
+            <property name="text" >
+             <string>Show request</string>
             </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="fromReqCB" >
-              <property name="text" >
-               <string>Sign this Certificate signing &amp;request</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="reqList" >
-              <property name="whatsThis" >
-               <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="reqList" >
+            <property name="whatsThis" >
+             <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
 Getting signed by a CA certificate, whoes certificate of course must be in the database
 Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0" >
            <widget class="QCheckBox" name="copyReqExtCB" >
             <property name="text" >
              <string>Copy extensions from the request</string>
             </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QCheckBox" name="fromReqCB" >
+            <property name="text" >
+             <string>Sign this Certificate signing &amp;request</string>
+            </property>
            </widget>
           </item>
          </layout>
+         <widget class="QWidget" name="" />
         </widget>
        </item>
        <item>
@@ -318,7 +319,7 @@ Empy, CA, client, server</string>
         <number>6</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="groupBox_10" >
+        <widget class="QGroupBox" name="distNameBox" >
          <property name="title" >
           <string>Distinguished name</string>
          </property>
@@ -503,7 +504,7 @@ Empy, CA, client, server</string>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_2_2" >
+        <widget class="QGroupBox" name="privKeyBox" >
          <property name="title" >
           <string>Private key</string>
          </property>
@@ -696,7 +697,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_9" >
+          <widget class="QGroupBox" name="keyIdentBox" >
            <property name="title" >
             <string>Key identifier</string>
            </property>

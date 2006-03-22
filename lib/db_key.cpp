@@ -223,7 +223,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	if (index != QModelIndex()) {
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Export"), this, SLOT(store()));
-		menu->addAction(tr("Delete"), this, SLOT(deletePKI()));
+		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		menu->addAction(tr("Change password"), this, SLOT(setOwnPass()));
 		menu->addAction(tr("Reset password"), this, SLOT(resetOwnPass()));
 	}

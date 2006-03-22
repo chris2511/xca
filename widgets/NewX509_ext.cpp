@@ -277,15 +277,17 @@ extList NewX509::getNetscapeExt()
 	return el;
 }
 
-void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss)
+void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req)
 {
 	X509 *s = NULL, *s1 = NULL;
-	if (subj) s1 = subj->getCert();
+	X509_REQ *r = NULL;
 	
+	if (subj) s1 = subj->getCert();
 	if (iss) s = iss->getCert();
+	if (req) r = req->getReq();
 	
 	memset(&ext_ctx, 0, sizeof(X509V3_CTX));
-	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
+	X509V3_set_ctx(&ext_ctx, s, s1, r, NULL, 0);
 }	
 
 void NewX509::setExt(const x509v3ext &ext)

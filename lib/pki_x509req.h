@@ -84,6 +84,7 @@ class pki_x509req : public pki_x509super
 	   x509name getSubject() const;
 	   bool isSpki() const;
 	   void writeReq(const QString fname, bool pem);
+	   X509_REQ *getReq() {return request;}
 
 	   int verify();
 	   pki_key *getPubKey() const;

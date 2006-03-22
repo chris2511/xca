@@ -143,6 +143,20 @@ void db_base::insertPKI(pki_base *pki)
 	inToCont(pki);
 }
 
+void db_base::delete_ask()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+
+	if (QMessageBox::information(mainwin, tr(XCA_TITLE),
+				delete_txt + ": " + pki->getIntName() + " ?\n" ,
+				tr("Delete"), tr("Cancel"))
+		) return;
+	
+	deletePKI();
+}
+
 void db_base::deletePKI()
 {
 	if (!currentIdx.isValid())

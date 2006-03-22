@@ -192,8 +192,8 @@ void MainWindow::on_BNexportKey_clicked(void)
 void MainWindow::on_keyView_doubleClicked(QModelIndex &m)
 {
 	printf("Key View double clicked\n");
-	if (keys)
-		keys->showItem(m);
+	if (keys) 
+		keys->showItem();
 }
 /* Certificate request buttons */
 void MainWindow::on_BNnewReq_clicked(void)

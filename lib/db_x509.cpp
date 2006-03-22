@@ -393,7 +393,7 @@ void db_x509::newCert(NewX509 *dlg)
 		cert->setTrust(2);
 	}
 
-	dlg->initCtx(cert, signcert);
+	dlg->initCtx(cert, signcert, NULL);
 	// if we can not sign
 	if (! signkey || signkey->isPubKey()) {
 		throw errorEx(tr("The key you selected for signing is not a private one."));
@@ -508,7 +508,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		itemtca = subExport->addAction(tr("TinyCA"),
 				this, SLOT(toTinyCA()));
 
-		menu->addAction(tr("Delete"), this, SLOT(deletePKI()));
+		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
 		menu->addSeparator();
 		subCa = menu->addMenu(tr("CA"));
