@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>698</width>
-    <height>369</height>
+    <width>702</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -24,7 +24,7 @@
      <number>6</number>
     </property>
     <item>
-     <widget class="QTabWidget" name="MainTab" >
+     <widget class="QTabWidget" name="tabView" >
       <widget class="QWidget" name="RSATab" >
        <attribute name="title" >
         <string>Private Keys</string>
@@ -386,7 +386,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QTreeView" name="treeView_4" />
+         <widget class="QTreeView" name="tempView" />
         </item>
         <item>
          <widget class="QFrame" name="FrameAA" >
@@ -505,7 +505,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QTreeView" name="treeView_5" />
+         <widget class="XcaTreeView" name="crlView" />
         </item>
         <item>
          <widget class="QFrame" name="FrameAA_2" >

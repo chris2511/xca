@@ -68,6 +68,8 @@
 #include "lib/oid.h"
 #include "lib/func.h"
 
+#undef TRACE
+#define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
 
 int NewX509::name_nid[] = {
 	NID_commonName,
@@ -88,12 +90,19 @@ NewX509::NewX509(QWidget *parent)
 	aia_nid = *MainWindow::aia_nid;
 	QStringList sl;
 
+	TRACE
 	setupUi(this);
 
+	TRACE
 	sl << "Type" << "Content";
+	printf("Set Ext DN list\n");
+	TRACE
 	extDNlist->setColumnCount(2);
+	TRACE
 	extDNlist->setHorizontalHeaderLabels(sl);
+	TRACE
 	setWindowTitle(tr(XCA_TITLE));
+	TRACE
 	fixtemp = NULL;
 	
 	nsImg->setPixmap(*MainWindow::nsImg);
@@ -102,61 +111,84 @@ NewX509::NewX509(QWidget *parent)
 	QStringList strings;
 	 
 	// are there any useable private keys  ?
+	TRACE
 	strings = MainWindow::keys->get0PrivateDesc();
 	keyList->insertItems(0, strings);
+	TRACE
 	hashAlgo->setCurrentIndex(2);
-	on_keyList_highlighted(strings[0]);
+	TRACE
+	if (!strings.isEmpty())
+		on_keyList_highlighted(strings[0]);
+	TRACE
 	
 	// any PKCS#10 requests to be used ?
+	TRACE
 	strings = MainWindow::reqs->getDesc();
 	if (strings.isEmpty()) {
 		fromReqCB->setDisabled(true);
+	TRACE
 		reqList->setDisabled(true);
 	}
 	else {
 		reqList->insertItems(0, strings);
+	TRACE
 	}
 	
 	// How about signing certificates ?
+	TRACE
 	strings = MainWindow::certs->getSignerDesc();
 	if (strings.isEmpty()) {
 		foreignSignRB->setDisabled(true);
+	TRACE
 		certList->setDisabled(true);
+	TRACE
 	}
 	else {
 		certList->insertItems(0, strings);
+	TRACE
 	}
 	
 	// set dates to now and now + 1 year
 	a1time a;
 	notBefore->setDate(a.now());
+	TRACE
 	notAfter->setDate(a.now(60*60*24*365));
+	TRACE
 	
 	// settings for the templates ....
-#warning fix templates
 	strings.clear();
-	//strings = MainWindow::temps->getDesc();
+	TRACE
+	strings = MainWindow::temps->getDesc();
 	strings.prepend(tr("Server Template"));
 	strings.prepend(tr("Client Template"));
+	TRACE
 	strings.prepend(tr("CA Template"));
+	TRACE
 	strings.prepend(tr("Empty Template"));
 	tempList->insertItems(0, strings);
+	TRACE
 	
 	// setup Extended keyusage
+	TRACE
 	for (i=0; i < eku_nid.count(); i++)
 		ekeyUsage->insertItem(0, OBJ_nid2ln(eku_nid[i]));
 
 	// setup Distinguished Name 
+	TRACE
 	for (i=0; i < dn_nid.count(); i++)
 		extDNobj->insertItem(0, OBJ_nid2ln(dn_nid[i]));
 
 	// setup Authority Info Access
+	TRACE
 	for (i=0; i < aia_nid.count(); i++)
 		aiaOid->insertItem(0, OBJ_nid2ln(aia_nid[i]));
 
 	// init the X509 v3 context
+	TRACE
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
+	TRACE
 	X509V3_set_ctx_nodb((&ext_ctx));
+	TRACE
 
 	// setup the list of x509nameEntrys
 	name_ptr[0] = commonName;
@@ -169,7 +201,9 @@ NewX509::NewX509(QWidget *parent)
 
 	// last polish 
 	signerChanged();
+	TRACE
 	checkAuthKeyId();
+	TRACE
 
 	pt = none;
 }
@@ -199,11 +233,17 @@ void NewX509::setTemp(pki_temp *temp)
 		description->setText(temp->getIntName());
 		tText += tr(" change");
 	}
-//	privKeyBox->setEnabled(false);
-//	validitybox->setEnabled(false);
-//	setImage(MainWindow::tempImg);
+	//tabWidget->removeTab(0);
+	tabWidget->setCurrentIndex(0);
+	privKeyBox->setEnabled(false);
+	validityBox->setEnabled(false);
+	setImage(MainWindow::tempImg);
+
+	QStringList sl;
+	sl << "Typef" << "Contentf";
+	printf("Set Ext DN list\n");
+	extDNlist->setHorizontalHeaderLabels(sl);
 	pt = tmpl;
-	
 }
 	
 void NewX509::setCert()

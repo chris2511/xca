@@ -65,7 +65,6 @@
 #include "widgets/MainWindow.h"
 //#include "widgets/ImportMulti.h"
 
-
 db_base::db_base(QString db, MainWindow *mw) 
 	:QAbstractItemModel(NULL)
 {
@@ -78,8 +77,10 @@ db_base::db_base(QString db, MainWindow *mw)
 
 db_base::~db_base()
 {
-	FOR_ALL_pki(pki, pki_base)
-		rootItem->freeChild(pki);
+	FOR_ALL_pki(pki, pki_base) {
+		rootItem->takeChild(pki);
+		delete pki;
+	}
 	delete rootItem;
 }
 
@@ -87,8 +88,15 @@ pki_base *db_base::newPKI(){
 	return new pki_base("rootItem");
 }
 
-void db_base::remFromCont(pki_base *ref)
+void db_base::remFromCont(QModelIndex &idx)
 {
+	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+	pki_base *parent_pki = pki->getParent();
+	int row = pki->row();
+	
+	beginRemoveRows(parent(idx), row, row);
+	parent_pki->takeChild(pki);
+	endRemoveRows();
 }
 
 void db_base::loadContainer()
@@ -162,17 +170,13 @@ void db_base::deletePKI()
 	if (!currentIdx.isValid())
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
-	int row = pki->row();
 	
-	beginRemoveRows(parent(currentIdx), row, row);
+	remFromCont(currentIdx);
 	
 	db mydb(dbName);
 	mydb.find(pki->getType(), CCHAR(pki->getIntName()));
 	mydb.erase();
-	remFromCont(pki);
-	pki->getParent()->freeChild(pki);
-	
-	endRemoveRows();
+	delete pki;
 }
 
 void db_base::updatePKI(pki_base *pki)
@@ -262,7 +266,6 @@ void db_base::inToCont(pki_base *pki)
 
 	beginInsertRows(QModelIndex(), row, row);
 	rootItem->append(pki);
-	pki->setParent(rootItem);
 	endInsertRows();
 }
 
@@ -311,7 +314,7 @@ void db_base::dump(QString dirname)
 {
 	dirname += QDir::separator() + dbName;	
 	QDir d(dirname);
-	if ( ! d.exists() && !d.mkdir(dirname)) {
+if ( ! d.exists() && !d.mkdir(dirname)) {
 		throw errorEx("Could not create directory '" + dirname + "'");
 	}
 
@@ -345,7 +348,7 @@ QModelIndex db_base::parent(const QModelIndex &index) const
 	pki_base *childItem = static_cast<pki_base*>(index.internalPointer());
 	pki_base *parentItem = childItem->getParent();
 
-	if (parentItem == rootItem)
+	if (parentItem == childItem || parentItem == NULL)
 		return QModelIndex();
 
 	return createIndex(parentItem->row(), 0, parentItem);

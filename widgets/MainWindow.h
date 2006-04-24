@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -144,5 +142,14 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void on_BNdetailsCert_clicked(void);
 	void on_BNimportCert_clicked(void);
 	void on_BNexportCert_clicked(void);
+	
+	void on_BNdeleteTemp_clicked(void);
+	void on_BNchangeTemp_clicked(void);
+	void on_BNimportTemp_clicked(void);
+	void on_BNexportTemp_clicked(void);
+	void on_BNemptyTemp_clicked(void);
+	void on_BNcaTemp_clicked(void);
+	void on_BNserverTemp_clicked(void);
+	void on_BNclientTemp_clicked(void);
 };
 #endif

@@ -64,6 +64,7 @@ void MainWindow::init_database() {
 	keys = new db_key(dbfile, this);
 	reqs = new db_x509req(dbfile, this);
 	certs = new db_x509(dbfile, this);
+	temps = new db_temp(dbfile, this);
 #if 0
 		certs = new db_x509(dbenv, dbfile, keys, global_tid, certList);
 		temps = new db_temp(dbenv, dbfile, global_tid, tempList);
@@ -93,7 +94,7 @@ void MainWindow::init_database() {
 	keyView->setModel(keys);
 	reqView->setModel(reqs);
 	certView->setModel(certs);
-	printf("req new\n");
+	tempView->setModel(temps);
 	
 	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
 			SLOT(connNewX509(NewX509 *)) );
@@ -119,7 +120,7 @@ void MainWindow::dump_database()
 	QDir d(dirname);
 	if ( ! d.exists() && !d.mkdir(dirname)) {
 		errorEx err("Could not create '" + dirname + "'");
-		// Qt::SocketError(err);
+		MainWindow::Error(err);
 		return;
 	}
 
@@ -131,7 +132,7 @@ void MainWindow::dump_database()
 		reqs->dump(dirname);
 	}
 	catch (errorEx &err) {
-		// Qt::SocketError(err);
+		MainWindow::Error(err);
 	}
 }
 	
@@ -141,26 +142,19 @@ void MainWindow::close_database()
 	//delete(crls);
 	delete(reqs);
 	delete(certs);
-	//delete(temps);
+	delete(temps);
 	delete(keys);
 	//delete(settings);
-	
-	db mydb(dbfile);
-	mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
-	
-#if 0
-	crlList->rmDB(crls);
-	certList->rmDB(certs);
-	reqList->rmDB(reqs);
-	tempList->rmDB(temps);
-	keyList->rmDB(keys);
-#endif
+
 	crls = NULL;
 	reqs = NULL;
 	certs = NULL;
 	temps = NULL;
 	keys = NULL;
 	settings = NULL;
+	
+	db mydb(dbfile);
+	mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
 }
 
 /* Async Key buttons */
@@ -247,4 +241,46 @@ void MainWindow::on_BNexportCert_clicked(void)
 {
 	if(certs)
 		certs->storeSelectedItems(certView);
+}
+
+/* Template buttons */
+void MainWindow::on_BNdeleteTemp_clicked(void)
+{
+	if (temps)
+		temps->deleteSelectedItems(tempView);
+}
+void MainWindow::on_BNchangeTemp_clicked(void)
+{
+	if (temps)
+		temps->showSelectedItems(tempView);
+}
+void MainWindow::on_BNimportTemp_clicked(void)
+{
+	if (temps)
+		temps->load();
+}
+void MainWindow::on_BNexportTemp_clicked(void)
+{
+	if(temps)
+		temps->storeSelectedItems(tempView);
+}
+void MainWindow::on_BNemptyTemp_clicked(void)
+{
+	if (temps)
+		temps->newEmptyTemp();
+}
+void MainWindow::on_BNcaTemp_clicked(void)
+{
+	if (temps)
+		temps->newCaTemp();
+}
+void MainWindow::on_BNserverTemp_clicked(void)
+{
+	if (temps)
+		temps->newServerTemp();
+}
+void MainWindow::on_BNclientTemp_clicked(void)
+{
+	if (temps)
+		temps->newClientTemp();
 }

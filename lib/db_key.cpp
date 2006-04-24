@@ -89,15 +89,18 @@ QStringList db_key::get0PrivateDesc()
 {
 	QStringList x;
 	x.clear();
-	FOR_ALL_pki(pki, pki_key)
+	FOR_ALL_pki(pki, pki_key) {
+		//printf("0Privatre desc: %s: priv:%d, cnt:%d\n", CCHAR(pki->getIntName()),	pki->isPrivKey() ,pki->getUcount());
 		if (pki->isPrivKey() && pki->getUcount() == 0) 
 			x.append(pki->getIntNameWithType());	
+	}
 	return x;
 }
 
-void db_key::remFromCont(pki_base *pki)
+void db_key::remFromCont(QModelIndex &idx)
 {
-	db_base::remFromCont(pki);
+	db_base::remFromCont(idx);
+	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 	emit delKey((pki_key *)pki);
 }
 

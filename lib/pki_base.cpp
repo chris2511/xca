@@ -56,7 +56,6 @@ int pki_base::pki_counter = 0;
 
 pki_base::pki_base(const QString name, pki_base *p)
 {
-	TRACE
 	desc = name;
 	class_name = "pki_base";
 	parent = p;
@@ -69,13 +68,11 @@ pki_base::pki_base(const QString name, pki_base *p)
 
 int pki_base::getVersion()
 {
-	TRACE
 	return dataVersion;
 }
 
 enum pki_type pki_base::getType()
 {
-	TRACE
 	return pkiType;
 }
 
@@ -92,39 +89,33 @@ void pki_base::writeDefault(const QString fname)
 
 pki_base::~pki_base(void)
 {
-	TRACE
 	pki_counter--;
 }
 
 
 QString pki_base::getIntName() const
 {
-	TRACE
 	return desc;
 }
 
 int pki_base::get_pki_counter()
 {
-	TRACE
 	return pki_counter;
 }
 
 QString pki_base::getClassName()
 {
-	TRACE
 	QString x = class_name;
 	return x;
 }
 
 void pki_base::setIntName(const QString &d)
 {
-	TRACE
 	desc = d;
 }
 
 void pki_base::fopen_error(const QString fname)
 {
-	TRACE
 	QString txt = "Error opening file: '" + fname + "'";
 	openssl_error(txt);
 }
@@ -132,7 +123,6 @@ void pki_base::fopen_error(const QString fname)
 
 void pki_base::openssl_error(const QString myerr)  const
 {
-	TRACE
 	QString errtxt = "";
 	QString error = "";
 	if (myerr != "") {
@@ -151,7 +141,6 @@ void pki_base::openssl_error(const QString myerr)  const
 
 bool pki_base::ign_openssl_error() const 
 {
-	TRACE
 	// ignore openssl errors
 	QString errtxt;
 	while (int i = ERR_get_error() ) {
@@ -163,7 +152,6 @@ bool pki_base::ign_openssl_error() const
 
 QString pki_base::rmslashdot(const QString &s)
 {
-	TRACE
 	QByteArray a = s.toAscii();
 	int r = a.lastIndexOf('.');
 #ifdef WIN32
@@ -190,37 +178,32 @@ void pki_base::updateView()
 
 pki_base *pki_base::getParent()
 {
-	TRACE
 	return parent;
 }
 
 void pki_base::setParent(pki_base *p)
 {
-	TRACE
 	parent = p;
 }
 
 pki_base *pki_base::child(int row)
 {
-	TRACE
 	return childItems.value(row);
 }
 
 void pki_base::append(pki_base *item)
 {
-	TRACE
 	childItems.append(item);
+	item->setParent(this);
 }
 
 int pki_base::childCount()
 {
-	TRACE
 	return childItems.count();
 }
 
 int pki_base::row(void) const
 {
-	TRACE
 	if (parent)
 		return parent->childItems.indexOf(const_cast<pki_base*>(this));
 	return 0;
@@ -228,38 +211,37 @@ int pki_base::row(void) const
 
 pki_base *pki_base::iterate(pki_base *pki)
 {
-	TRACE
+	//printf("Iterate start, %p=%s, %p=%s childs:%d\n", this, CCHAR(this->getIntName()), pki, pki? CCHAR(pki->getIntName()):"--", this->childCount());
 	if (pki == NULL)
 		pki = (childItems.isEmpty()) ? NULL : childItems.first();
 	else
 		pki = childItems.value(pki->row()+1);
-	if (pki)
+	//printf("Iterate middle, %p, %p\n", this, pki);
+	if (pki) {
+		//printf("Subchild %p\n", pki);
 		return pki;
+	}
+	//printf("Parent = %p\n", parent);
 	if (!parent)
 		return NULL;
 	return parent->iterate(this);
 }
 
-void pki_base::freeChild(pki_base *pki)
+void pki_base::takeChild(pki_base *pki)
 {
-	TRACE
 	childItems.takeAt(pki->row());
-	delete pki;
 }
 
 int pki_base::columns(void)
 {
-	TRACE
 	return cols;
 }
 
 QVariant pki_base::column_data(int col)
 {
-	TRACE
 	return QVariant("invalid");
 }
 QVariant pki_base::getIcon()
 {
-	TRACE
 	return QVariant();
 }

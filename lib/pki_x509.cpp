@@ -422,7 +422,7 @@ bool pki_x509::verify(pki_x509 *signer)
 	pki_key *pkey = signer->getPubKey();
 	int i = X509_verify(cert,pkey->getKey());
 	ign_openssl_error();
-	if (pkey) delete(pkey);
+	delete(pkey);
 	if (i>0) {
 		psigner = signer;
 		return true;
@@ -488,15 +488,6 @@ int pki_x509::resetTimes(pki_x509 *signer)
 	return ret;
 }
 	
-
-pki_x509 *pki_x509::getSigner() { return (psigner); }
-
-void pki_x509::delSigner(pki_x509 *s) 
-{
-	if (s == psigner) 
-		psigner = NULL;
-}
-
 QString pki_x509::printV3ext()
 {
 	extList el;
@@ -525,6 +516,10 @@ extList pki_x509::getExt()
 	return el;
 }	
 
+pki_x509 *pki_x509::getSigner()
+{
+	return (pki_x509 *)psigner;
+}
 
 int pki_x509::getTrust()
 {
@@ -574,7 +569,7 @@ a1time &pki_x509::getRevoked()
 {
 	return revoked;
 }
-	
+
 void pki_x509::setRevoked(const a1time &when)
 {
 	isrevoked = true;

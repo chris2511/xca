@@ -78,12 +78,10 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	refkey = ref->getPubKey();
 	if (!refkey)
 		return NULL;
-
 	key = (pki_key *)mainwin->keys->getByReference(refkey);
 	if (key && key->isPubKey()) {
 		key = NULL;
-	}
-	else {
+	} else {
 		ref->setRefKey(key);
 	}
 	if (refkey)

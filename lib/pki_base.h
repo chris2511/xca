@@ -95,13 +95,13 @@ class pki_base : public QObject
 	int getVersion(void);
 	enum pki_type getType(void);
 	void setParent(pki_base *p);
-	pki_base *getParent();
+	virtual pki_base *getParent();
 	pki_base *child(int row);
 	void append(pki_base *item);
 	int childCount(void);
 	int row(void) const;
 	pki_base *iterate(pki_base *pki = NULL);
-	void freeChild(pki_base *pki);
+	void takeChild(pki_base *pki);
 
 	int columns(void);
 	virtual QVariant column_data(int col);

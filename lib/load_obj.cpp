@@ -130,7 +130,6 @@ pki_base * load_cert::loadItem(QString s)
 	return crt;
 };
 
-#if 0
 /* PKCS#7 Certificates */
 load_pkcs7::load_pkcs7()
 	:load_base()
@@ -187,6 +186,7 @@ pki_base * load_temp::loadItem(QString s)
 	return temp;
 };
 
+#if 0
 /* CRLs */
 load_crl::load_crl()
 	:load_base()

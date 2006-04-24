@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -74,10 +72,9 @@ class db_x509: public db_x509super
 	pki_base *newPKI();
 	pki_x509 *findSigner(pki_x509 *client);
 	bool updateView();
-	void insertPKI(pki_base *pki);
 	void updateViewAll();
 	void updateViewPKI(pki_base *pki);
-	void remFromCont(pki_base *pki);
+	void remFromCont(QModelIndex &idx);
 	void preprocess();
 	QStringList getPrivateDesc();
 	QStringList getSignerDesc();
@@ -93,6 +90,8 @@ class db_x509: public db_x509super
 	void writePKCS12(pki_x509 *cert, QString s, bool chain);
     void writePKCS7(pki_x509 *cert, QString s, int type);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+	void inToCont(pki_base *pki);
+		
 
     public slots:
 	void load(void);

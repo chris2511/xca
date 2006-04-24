@@ -8,8 +8,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>518</width>
-    <height>545</height>
+    <width>496</width>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -118,19 +118,10 @@
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="1" column="1" >
-           <widget class="QPushButton" name="pushButton" >
+          <item row="0" column="0" >
+           <widget class="QCheckBox" name="fromReqCB" >
             <property name="text" >
-             <string>Show request</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="QComboBox" name="reqList" >
-            <property name="whatsThis" >
-             <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
-Getting signed by a CA certificate, whoes certificate of course must be in the database
-Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
+             <string>Sign this Certificate signing &amp;request</string>
             </property>
            </widget>
           </item>
@@ -144,15 +135,23 @@ Of course you need the private key of the CSR if you want to create a self-signe
             </property>
            </widget>
           </item>
-          <item row="0" column="0" >
-           <widget class="QCheckBox" name="fromReqCB" >
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="reqList" >
+            <property name="whatsThis" >
+             <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
+Getting signed by a CA certificate, whoes certificate of course must be in the database
+Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QPushButton" name="pushButton" >
             <property name="text" >
-             <string>Sign this Certificate signing &amp;request</string>
+             <string>Show request</string>
             </property>
            </widget>
           </item>
          </layout>
-         <widget class="QWidget" name="" />
         </widget>
        </item>
        <item>
@@ -497,6 +496,12 @@ Empy, CA, client, server</string>
             </property>
             <property name="selectionBehavior" >
              <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="rowCount" >
+             <number>0</number>
+            </property>
+            <property name="columnCount" >
+             <number>0</number>
             </property>
            </widget>
           </item>
@@ -995,7 +1000,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </widget>
        </item>
       </layout>
-      <widget class="QWidget" name="widget" />
+      <widget class="QWidget" name="widget_3" />
      </widget>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -1369,7 +1374,7 @@ Example:
         </widget>
        </item>
       </layout>
-      <widget class="QWidget" name="widget_3" />
+      <widget class="QWidget" name="widget_3_2" />
       <widget class="QWidget" name="widget_5" />
      </widget>
     </widget>

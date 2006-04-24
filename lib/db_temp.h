@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -57,7 +55,7 @@
 #include <Qt/qobject.h>
 #include <Qt/qpixmap.h>
 
-
+class Mainwin;
 
 class db_temp: public db_base
 {
@@ -65,8 +63,23 @@ class db_temp: public db_base
     protected:
 	QPixmap *keyicon;
     public:
-	db_temp(QString DBfile);
+	db_temp(QString DBfile, MainWindow *mw);
 	pki_base *newPKI();
+	void newItem(int type);
+	bool runTempDlg(pki_temp *temp);
+	bool alterTemp(pki_temp *temp);
+	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+		
+    public slots:
+	void newEmptyTemp();
+	void newCaTemp();
+	void newClientTemp();
+	void newServerTemp();
+	void changeTemp();
+	void showItem();
+	void load();
+	void store();
+	void certFromTemp();
+	void reqFromTemp();
 };
-
 #endif

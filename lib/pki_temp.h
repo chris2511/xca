@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -60,6 +58,7 @@ class pki_temp: public pki_base
 {
 	protected:
 		int version;
+		int dataSize();
 	public:
 		enum { EMPTY, CA, CLIENT, SERVER };
 		static QPixmap *icon;
@@ -80,12 +79,14 @@ class pki_temp: public pki_base
 		void writeDefault(const QString fname);
 		/* destructor */
 		~pki_temp();
-		void fromData(const unsigned char *p, int size);
+		void fromData(const unsigned char *p, int size, int version);
+		void fromData(const unsigned char *p, db_header_t *head );
+
 		unsigned char *toData(int *size);
 		bool compare(pki_base *ref);
-		int dataSize();
-		void updateView();
 		void writeTemp(QString fname);
+		QVariant column_data(int col);
+		QVariant getIcon();
 };
 
 #endif

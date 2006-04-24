@@ -68,7 +68,7 @@ class db_key: public db_base
 	QStringList getPrivateDesc();
 	QStringList get0PrivateDesc();
 	void inToCont(pki_base *pki);
-	void remFromCont(pki_base *pki);
+	void remFromCont(QModelIndex &idx);
 	pki_base* insert(pki_base *item);
 	void writeAll();
 	void showContextMenu(QContextMenuEvent * e, const QModelIndex &index);

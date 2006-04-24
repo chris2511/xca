@@ -258,8 +258,8 @@ void MainWindow::init_images()
 	pki_x509::icon[2] = loadImg("invalidcert.png");
 	pki_x509::icon[3] = loadImg("invalidcertkey.png");
 	pki_x509::icon[4] = loadImg("revoked.png");
-#if 0
 	pki_temp::icon = loadImg("template.png");
+#if 0
 	pki_crl::icon = loadImg("crl.png");
 #endif
 }		

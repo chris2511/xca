@@ -1,7 +1,3 @@
-
-//Added by the Qt porting tool:
-#include <QPixmap>
-
 /* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
@@ -40,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -56,6 +50,7 @@
 
 #include "pki_temp.h"
 #include "func.h"
+#include "db.h"
 #include <Qt/qdir.h>
 
 QPixmap *pki_temp::icon=  NULL;
@@ -64,7 +59,10 @@ pki_temp::pki_temp(const pki_temp *pk)
 	:pki_base(pk->desc)
 {
 	class_name = pk->class_name;
-	version=pk->version;
+	dataVersion=pk->dataVersion;
+	pkiType=pk->pkiType;
+	cols=pk->cols;
+	
 	type=pk->type;
 	xname=pk->xname;
 	subAltName=pk->subAltName;
@@ -100,7 +98,10 @@ pki_temp::pki_temp(const QString d, int atype)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
-	version=3;
+	dataVersion=1;
+	pkiType=tmpl;
+	cols=2;
+	
 	type=atype;
 	subAltName="";
 	issAltName="";
@@ -164,67 +165,52 @@ pki_temp::pki_temp(const QString d, int atype)
 }	
 
 
-void pki_temp::fromData(const unsigned char *p, int size )
+void pki_temp::fromData(const unsigned char *p, db_header_t *head )
+{
+	int version, size;
+
+	size = head->len - sizeof(db_header_t);
+	version = head->version;
+	fromData(p, size, version);
+}
+
+void pki_temp::fromData(const unsigned char *p, int size, int version)
 {
 	const unsigned char *p1 = p;
-	version=intFromData(&p1);
-	type=intFromData(&p1);
-	if (version == 1) {
-		ca = 2;
-		bool mca = boolFromData(&p1);
-		if (mca) ca = 1;
-	}
-	bcCrit=boolFromData(&p1);
-	keyUseCrit=boolFromData(&p1);
-	eKeyUseCrit=boolFromData(&p1);
-	subKey=boolFromData(&p1);
-	authKey=boolFromData(&p1);
-	subAltCp=boolFromData(&p1);
-	issAltCp=boolFromData(&p1);
-	if (version >= 2) { 
-		ca = intFromData(&p1);
-	}
-	pathLen=intFromData(&p1);
-	validN = intFromData(&p1);
-	validM = intFromData(&p1);
-	keyUse=intFromData(&p1);
-	eKeyUse=intFromData(&p1);
-	nsCertType=intFromData(&p1);
-	if (version == 1) {
-		xname.addEntryByNid(OBJ_sn2nid("C"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("ST"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("L"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("O"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("OU"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("CN"), stringFromData(&p1));
-		xname.addEntryByNid(OBJ_sn2nid("Email"),stringFromData(&p1));
-	}
-	subAltName=stringFromData(&p1);
-	issAltName=stringFromData(&p1);
-	crlDist=stringFromData(&p1);
-	nsComment=stringFromData(&p1);
-	nsBaseUrl=stringFromData(&p1);
-	nsRevocationUrl=stringFromData(&p1);
-	nsCARevocationUrl=stringFromData(&p1);
-	nsRenewalUrl=stringFromData(&p1);
-	nsCaPolicyUrl=stringFromData(&p1);
-	nsSslServerName=stringFromData(&p1);
-	// next version:
-	if (version >= 2) { 
-		p1 = xname.d2i(p1, size - (p1-p));
-	}
-	if (version >= 3) { 
-		authInfAcc=stringFromData(&p1);
-		certPol=stringFromData(&p1);
-		validMidn=boolFromData(&p1);
-	}
+
+	type=db::intFromData(&p1);
+	bcCrit=db::boolFromData(&p1);
+	keyUseCrit=db::boolFromData(&p1);
+	eKeyUseCrit=db::boolFromData(&p1);
+	subKey=db::boolFromData(&p1);
+	authKey=db::boolFromData(&p1);
+	subAltCp=db::boolFromData(&p1);
+	issAltCp=db::boolFromData(&p1);
+	ca =db:: intFromData(&p1);
+	pathLen=db::intFromData(&p1);
+	validN =db:: intFromData(&p1);
+	validM =db:: intFromData(&p1);
+	keyUse=db::intFromData(&p1);
+	eKeyUse=db::intFromData(&p1);
+	nsCertType=db::intFromData(&p1);
+	subAltName=db::stringFromData(&p1);
+	issAltName=db::stringFromData(&p1);
+	crlDist=db::stringFromData(&p1);
+	nsComment=db::stringFromData(&p1);
+	nsBaseUrl=db::stringFromData(&p1);
+	nsRevocationUrl=db::stringFromData(&p1);
+	nsCARevocationUrl=db::stringFromData(&p1);
+	nsRenewalUrl=db::stringFromData(&p1);
+	nsCaPolicyUrl=db::stringFromData(&p1);
+	nsSslServerName=db::stringFromData(&p1);
+	p1 = xname.d2i(p1, size - (p1-p));
+	authInfAcc=db::stringFromData(&p1);
+	certPol=db::stringFromData(&p1);
+	validMidn=db::boolFromData(&p1);
 	
 	if (p1-p != size) {
 		openssl_error("Wrong Size");
 	}
-	 
-	//set version to 3
-	version = 3;
 }
 
 
@@ -234,37 +220,38 @@ unsigned char *pki_temp::toData(int *size)
 	*size = dataSize();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	version = 3;
-	intToData(&p1, version);
-	intToData(&p1, type);
-	boolToData(&p1, bcCrit);
-	boolToData(&p1, keyUseCrit);
-	boolToData(&p1, eKeyUseCrit);
-	boolToData(&p1, subKey);
-	boolToData(&p1, authKey);
-	boolToData(&p1, subAltCp);
-	boolToData(&p1, issAltCp);
-	intToData(&p1, ca);
-	intToData(&p1, pathLen);
-	intToData(&p1, validN);
-	intToData(&p1, validM);
-	intToData(&p1, keyUse);
-	intToData(&p1, eKeyUse);
-	intToData(&p1, nsCertType);
-	stringToData(&p1, subAltName);
-	stringToData(&p1, issAltName);
-	stringToData(&p1, crlDist);
-	stringToData(&p1, nsComment);
-	stringToData(&p1, nsBaseUrl);
-	stringToData(&p1, nsRevocationUrl);
-	stringToData(&p1, nsCARevocationUrl);
-	stringToData(&p1, nsRenewalUrl);
-	stringToData(&p1, nsCaPolicyUrl);
-	stringToData(&p1, nsSslServerName);
+	
+	db::intToData(&p1, type);
+	db::boolToData(&p1, bcCrit);
+	db::boolToData(&p1, keyUseCrit);
+	db::boolToData(&p1, eKeyUseCrit);
+	db::boolToData(&p1, subKey);
+	db::boolToData(&p1, authKey);
+	db::boolToData(&p1, subAltCp);
+	db::boolToData(&p1, issAltCp);
+	db::intToData(&p1, ca);
+	db::intToData(&p1, pathLen);
+	db::intToData(&p1, validN);
+	db::intToData(&p1, validM);
+	db::intToData(&p1, keyUse);
+	db::intToData(&p1, eKeyUse);
+	db::intToData(&p1, nsCertType);
+	db::stringToData(&p1, subAltName);
+	db::stringToData(&p1, issAltName);
+	db::stringToData(&p1, crlDist);
+	db::stringToData(&p1, nsComment);
+	db::stringToData(&p1, nsBaseUrl);
+	db::stringToData(&p1, nsRevocationUrl);
+	db::stringToData(&p1, nsCARevocationUrl);
+	db::stringToData(&p1, nsRenewalUrl);
+	db::stringToData(&p1, nsCaPolicyUrl);
+	db::stringToData(&p1, nsSslServerName);
 	p1 = xname.i2d(p1);
-	stringToData(&p1, authInfAcc);
-	stringToData(&p1, certPol);
-	boolToData(&p1, validMidn);
+	db::stringToData(&p1, authInfAcc);
+	db::stringToData(&p1, certPol);
+	db::boolToData(&p1, validMidn);
+
+	*size = p1-p;
 	return p;
 }
 
@@ -276,14 +263,17 @@ void pki_temp::writeDefault(const QString fname)
 void pki_temp::writeTemp(QString fname)
 {
 	int size = 0;
-	unsigned char *p;
-	FILE *fp = fopen(fname,"w");
+	unsigned char *p, buf[2*sizeof(int)], *p1=buf;
+	FILE *fp = fopen(CCHAR(fname),"w");
+	
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;
 	}
 	p = toData(&size);
-	fwrite(&size, sizeof(size), 1, fp);
+	db::intToData(&p1, size);
+	db::intToData(&p1, version);
+	fwrite(buf, 2*sizeof(int), 1, fp);
 	fwrite(p, 1, size, fp);
 	OPENSSL_free(p);
 	fclose(fp);
@@ -291,23 +281,30 @@ void pki_temp::writeTemp(QString fname)
 
 void pki_temp::loadTemp(QString fname)
 {
-	unsigned int size;
-	unsigned char *p;
-	FILE *fp = fopen(fname,"r");
+	int size, s;
+	unsigned char *p, buf[2*sizeof(int)];
+	const unsigned char *p1 = buf;
+	FILE *fp = fopen(CCHAR(fname),"r");
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;
 	}
-	if (fread(&size, sizeof(size), 1, fp) != 1)
+	if (fread(buf, 2*sizeof(int), 1, fp) != 1)
 		openssl_error(tr("Template file content error"));
-	if (size > 65535 )
+	size = db::intFromData(&p1);
+	version = db::intFromData(&p1);
+	printf("Size=%d, Version=%d\n", size, version);
+	
+	if (size > 65535 || size <0)
 		openssl_error(tr("Template file content error"));
+	
 	p = (unsigned char *)OPENSSL_malloc(size);
-	if (fread(p, 1, size, fp) != size) {
+	if ((s=fread(p, 1, size, fp)) != size) {
 		OPENSSL_free(p);
 		openssl_error(tr("Template file content error"));
 	}
-	fromData(p, (int)size);
+	printf("read Size=%d , size=%d\n",s , size);
+	fromData(p, size, version);
 	OPENSSL_free(p);
 	
 	setIntName(rmslashdot(fname));
@@ -322,8 +319,8 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	return 9 * sizeof(int) + 
-	       8 * sizeof(bool) + 
+	int s = 9 * sizeof(int) + 
+	       8 * sizeof(char) + 
 	       xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
@@ -338,7 +335,8 @@ int pki_temp::dataSize()
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
 	12 ) * sizeof(char);
-		
+	printf("Size of template = %d\n", s);
+	return s;
 }
 
 
@@ -349,13 +347,20 @@ bool pki_temp::compare(pki_base *ref)
 	return false;
 }	
 
-void pki_temp::updateView()
+QVariant pki_temp::column_data(int col)
 {
-	pki_base::updateView();
-	if (!pointer) return;
-	pointer->setPixmap(0, *icon);
 	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
-	pointer->setText(1, typec[type]);
+	switch (col) {
+		case 0:
+			return QVariant(getIntName());
+		case 1:
+			return QVariant(typec[type]);
+	}
+	return QVariant();
 }
 
+QVariant pki_temp::getIcon()
+{
+	return QVariant(*icon);
+}
 

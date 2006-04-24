@@ -110,11 +110,14 @@ QStringList db_x509::getSignerDesc()
 }
 
 
-void db_x509::remFromCont(pki_base *ref)
+void db_x509::remFromCont(QModelIndex &idx)
 {
-	db_base::remFromCont(ref);
-	FOR_ALL_pki(pki, pki_x509)
-		pki->delSigner((pki_x509 *)ref);
+	db_base::remFromCont(idx);
+#warning FIXME deleting X509 items
+//	FOR_ALL_pki(pki, pki_x509) {
+//		if (pki->getParent() == ref)
+//			pki->setParent(rootItem);
+//	}
 	return;
 }
 
@@ -135,17 +138,57 @@ void db_x509::calcEffTrust()
 		pki->calcEffTrust();
 }
 
-	
+#if 0
 void db_x509::insertPKI(pki_base *refpki)
 {
-	db_base::insertPKI(refpki);
 	pki_x509 *x = (pki_x509 *)refpki;
-	findSigner(x);
-	findKey(x);
-	FOR_ALL_pki(pki, pki_x509)
+	findSigner(x); /* sets the signer if found for this cert */
+	FOR_ALL_pki(pki, pki_x509) /* sets this cert as signer the certs */
 		pki->verify(x);
-	calcEffTrust();
+	db_base::insertPKI(refpki);
 }				
+#endif
+void db_x509::inToCont(pki_base *pki)
+{
+	static int i=0;
+	pki_x509 *cert = (pki_x509*)pki;
+	
+	findSigner(cert);
+	pki_base *root = cert->getSigner();
+	QModelIndex idx = QModelIndex(), this_idx;
+	
+	if (root == pki || root == NULL)
+		root = rootItem;
+	else
+		idx = createIndex(root->row(), 0, root);
+	
+	int row = root->childCount()+1;
+
+	beginInsertRows(idx, row, row);
+	root->append(pki);
+	endInsertRows();
+	this_idx = index(row, 0, idx);
+	
+	/* search for dangling certificates, which signer this is */
+	FOR_ALL_pki(client, pki_x509) {
+		if (client->getSigner() == NULL) {
+			if (client->verify(cert)) {
+				int row = client->row();
+				//printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
+				beginRemoveRows(QModelIndex(), row, row);
+				rootItem->takeChild(client);
+				endRemoveRows();
+				
+				row = root->childCount()+1;
+				beginInsertRows(this_idx, row, row);
+				pki->append(client);
+				endInsertRows();
+			}
+		}
+	}
+	findKey(cert);
+	calcEffTrust();
+}
 
 
 QList<pki_x509*> db_x509::getIssuedCerts(const pki_x509 *issuer)

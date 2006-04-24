@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -50,11 +48,20 @@
 
 
 #include "db_temp.h"
+#include <widgets/NewX509.h>
+#include <widgets/MainWindow.h>
+#include <Qt/qfiledialog.h>
+#include <Qt/qdir.h>
+#include <Qt/qevent.h>
+#include <Qt/qaction.h>
 
-
-db_temp::db_temp(QString DBfile)
-	:db_base(DBfile)
+db_temp::db_temp(QString DBfile, MainWindow *mw)
+	:db_base(DBfile, mw)
 {
+	delete rootItem;
+	rootItem = newPKI();
+	headertext << "Name" << "Type";
+	delete_txt = tr("Delete the key(s)");
 	loadContainer();
 }
 
@@ -62,3 +69,152 @@ pki_base *db_temp::newPKI(){
 	return new pki_temp("");
 }
 
+bool db_temp::runTempDlg(pki_temp *temp)
+{
+	NewX509 *dlg = new NewX509(mainwin);
+	//emit connNewX509(dlg);
+	 
+	dlg->setTemp(temp);
+	dlg->fromTemplate(temp);
+	if (!dlg->exec()) {
+		delete dlg;
+		return false;
+	}
+	dlg->toTemplate(temp);
+	delete dlg;
+	return true;
+}
+
+void db_temp::newEmptyTemp()
+{
+	newItem(pki_temp::EMPTY);
+}
+
+void db_temp::newCaTemp()
+{
+	newItem(pki_temp::CA);
+}
+
+void db_temp::newClientTemp()
+{
+	newItem(pki_temp::CLIENT);
+}
+
+void db_temp::newServerTemp()
+{
+	newItem(pki_temp::SERVER);
+}
+
+void db_temp::newItem(int type)
+{
+	pki_temp *temp = new pki_temp("--", type);
+	if (runTempDlg(temp)) {
+		insertPKI(temp);
+		printf("Insert PKI temp\n");
+	}
+	else {
+		delete temp;
+	}
+}
+
+void db_temp::changeTemp()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+	alterTemp(temp);
+}
+
+bool db_temp::alterTemp(pki_temp *temp)
+{
+	if (!runTempDlg(temp))
+		return false;
+	updatePKI(temp);
+	return true;
+}
+
+void db_temp::showItem()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+	alterTemp(temp);
+}
+
+void db_temp::load()
+{   
+	load_temp l;
+	load_default(l);
+}
+
+void db_temp::store()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+
+	QStringList filt; 
+	filt.append("XCA Templates ( *.xca )");
+	filt.append("All Files ( *.* )");
+	QString s="";
+	QFileDialog *dlg = new QFileDialog(mainwin);
+	dlg->setWindowTitle(tr("Export Template"));
+	dlg->setFilters(filt);
+	dlg->setFileMode( QFileDialog::AnyFile );
+	dlg->selectFile( temp->getIntName() + ".xca" );
+	dlg->setDirectory(mainwin->getPath());
+	if (dlg->exec()) {
+		if( !dlg->selectedFiles().isEmpty())
+			s = dlg->selectedFiles()[0];
+		mainwin->setPath(dlg->directory().path());
+	}
+	delete dlg;
+	s=QDir::convertSeparators(s);
+	try {
+		temp->writeTemp(s);
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+	}
+}
+
+void db_temp::certFromTemp()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+//	newCert(temp);
+}
+
+void db_temp::reqFromTemp()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+//	newReq(temp);
+}
+
+void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
+{
+	QMenu *menu = new QMenu(mainwin);
+	QMenu *subMenu;
+	currentIdx = index;
+	
+	subMenu = menu->addMenu(tr("New Template"));
+	subMenu->addAction(tr("Empty"), this, SLOT(newEmptyTemp()));
+	subMenu->addAction(tr("CA"), this, SLOT(newCaTemp()));
+	subMenu->addAction(tr("Client"), this, SLOT(newClientTemp()));
+	subMenu->addAction(tr("Server"), this, SLOT(newServerTemp()));
+	menu->addAction(tr("Import"), this, SLOT(load()));
+	if (index != QModelIndex()) {
+		menu->addAction(tr("Export"), this, SLOT(store()));
+		menu->addAction(tr("Change"), this, SLOT(alterTemp()));
+		menu->addAction(tr("Delete"), this, SLOT(deleteItem()));
+		menu->addAction(tr("Create certificate"), this, SLOT(certFromTemp()));
+		menu->addAction(tr("Create request"), this, SLOT(reqFromTemp()));
+	}
+	menu->exec(e->globalPos());
+	delete menu;
+	currentIdx = QModelIndex();
+	return;
+}

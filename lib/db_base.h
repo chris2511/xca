@@ -96,7 +96,7 @@ class db_base: public QAbstractItemModel
 	 * i.e search for signers and keys */
 	virtual void preprocess(){};
 	virtual void inToCont(pki_base *pki);
-	void remFromCont(pki_base *ref);
+	void remFromCont(QModelIndex &idx);
 
 #if 0
 	void *getData(void* key, int length, int *dsize);
