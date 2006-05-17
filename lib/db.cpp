@@ -52,6 +52,8 @@ db::db(QString filename, int mode)
 		errstr = QString("DB open() failed: ") + filename +" "+ 
 				strerror(errno);
 		dberrno = errno;
+		perror(CCHAR(filename));
+
 	} else {
 		first();
 	}
@@ -74,6 +76,7 @@ void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
 	db->version = htons(ver);
 	db->flags = 0;
 	strncpy(db->name, name, NAMELEN);
+	db->name[NAMELEN] = '\0';
 }
 
 void db::convert_header(db_header_t *h)
@@ -100,13 +103,12 @@ bool db::verify_magic(void)
 int db::find(enum pki_type type, const char *name)
 {
 	//int len, ret=0;
-	
 	if (head_offset == OFF_EOF)
 		return 1;
 	
 	do {
 		//printf("Comparing %s -> %s at %lu\n", head.name, name,
-		//		head_offset);
+				//head_offset);
 		if (ntohs(head.type) == type) {
 			if (name == NULL) { /* only compare type */
 				//printf("typematch: %d\n", type);
@@ -128,7 +130,6 @@ int db::find(enum pki_type type, const char *name)
 void db::first(void)
 {
 	int ret;
-	//printf("First\n");
 	memset(&head, 0, sizeof(db_header_t) );
 	head_offset = lseek(fd, 0, SEEK_SET );
 	ret = read(fd, &head, sizeof(db_header_t) );
@@ -194,6 +195,7 @@ int db::rename(enum pki_type type, const char *name, const char *n)
 	}
 	printf("Off = %lu\n", head_offset);
 	strncpy(head.name, n, NAMELEN);
+	head.name[NAMELEN] = '\0';
 	lseek(fd, head_offset, SEEK_SET);
 	ret = write(fd, &head, sizeof(head));
 	if (ret != sizeof(head)) {
@@ -352,7 +354,7 @@ int db::shrink(int flags)
 		if (!verify_magic())
 			return 1;
 		head_offset = ntohl(head.len) - sizeof(head);
-		if (ntohs(head.flags) == flags) {
+		if ((ntohs(head.flags) & flags)) {
 			//printf("Skip Entry\n");
 			/* FF to the next entry */
 			offs = (int)lseek(fd, head_offset, SEEK_CUR);

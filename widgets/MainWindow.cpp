@@ -119,8 +119,15 @@ MainWindow::MainWindow(QWidget *parent )
 	init_baseDir();
 	
 	dbfile = baseDir + QDir::separator() + dbfile;
+	char *p;
+	db mydb(dbfile);
+	if (!mydb.find(setting, "workingdir")) {
+		if ((p = (char *)mydb.load(NULL))) {
+			workingdir = p;
+			free(p);
+		}
+	}
 	init_database();
-	printf("Init database\n");
 }
 
 /* creates a new nid list from the given filename */
@@ -166,14 +173,6 @@ void MainWindow::init_baseDir()
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
 
-	char *p;
-	db mydb(dbfile);
-	if (!mydb.find(setting, "workingdir")) {
-		if ((p = (char *)mydb.load(NULL))) {
-			workingdir = p;
-			free(p);
-		}
-	}
 }
 
 void MainWindow::do_connections()
@@ -241,7 +240,6 @@ void MainWindow::init_images()
 	nsImg = loadImg("netscape.png");
 	revImg = loadImg("bigcrl.png");
 	appIco = loadImg("key.xpm");
-	printf("k:%p, c:%p\n", keyImg, csrImg);
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
@@ -259,9 +257,7 @@ void MainWindow::init_images()
 	pki_x509::icon[3] = loadImg("invalidcertkey.png");
 	pki_x509::icon[4] = loadImg("revoked.png");
 	pki_temp::icon = loadImg("template.png");
-#if 0
 	pki_crl::icon = loadImg("crl.png");
-#endif
 }		
 	
 void MainWindow::read_cmdline()

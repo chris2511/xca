@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -61,14 +59,14 @@ class ExportCert: public QDialog, public Ui::ExportCert
 	QString tinyCAfname;
 	
    public:	
-	ExportCert(QString fname, bool hasKey, QString dpath,
-		  const QString tcafn,  QWidget *parent = 0);
+	ExportCert(QWidget *parent, QString fname, bool hasKey, QString dpath,
+		  const QString tcafn);
 	QString dirPath;
 	
    public slots:
-	void chooseFile();
-	void formatChanged();
-	void setTinyCAfname();
+	void on_fileBut_clicked();
+	void on_exportFormat_activated(int);	
+	void on_tinyCaName_clicked();
 };
 
 #endif

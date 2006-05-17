@@ -41,28 +41,28 @@
        <number>6</number>
       </property>
       <item>
-       <widget class="QPushButton" name="buttonOk" >
+       <widget class="QPushButton" name="butOk" >
         <property name="text" >
          <string>Import &amp;All</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="PushButton4" >
+       <widget class="QPushButton" name="butImport" >
         <property name="text" >
          <string>&amp;Import</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="buttonCancel" >
+       <widget class="QPushButton" name="butCancel" >
         <property name="text" >
          <string>&amp;Done</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="PushButton9" >
+       <widget class="QPushButton" name="butRemove" >
         <property name="text" >
          <string>&amp;Remove</string>
         </property>
@@ -102,6 +102,7 @@
    </item>
   </layout>
  </widget>
+ <pixmapfunction></pixmapfunction>
  <resources/>
  <connections/>
 </ui>

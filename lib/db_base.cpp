@@ -63,7 +63,7 @@
 #include <sys/stat.h>
 #endif
 #include "widgets/MainWindow.h"
-//#include "widgets/ImportMulti.h"
+#include "widgets/ImportMulti.h"
 
 db_base::db_base(QString db, MainWindow *mw) 
 	:QAbstractItemModel(NULL)
@@ -90,8 +90,12 @@ pki_base *db_base::newPKI(){
 
 void db_base::remFromCont(QModelIndex &idx)
 {
-	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+	if (!idx.isValid())
+		return;
+	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+	printf("PKI=%p\n", pki);
 	pki_base *parent_pki = pki->getParent();
+	printf("PKI=%p, parent=%p\n", pki,parent_pki);
 	int row = pki->row();
 	
 	beginRemoveRows(parent(idx), row, row);
@@ -114,7 +118,7 @@ void db_base::loadContainer()
 			printf("Load was empty !\n");
 			break;
 		}
-		//printf("load item: %s\n",head.name);
+		printf("load item: %s\n",head.name);
 		if (pb->getVersion() < head.version) {
 			free(p);
 			printf("Item[%s]: Version %d > known version: %d -> ignored\n",
@@ -347,8 +351,13 @@ QModelIndex db_base::parent(const QModelIndex &index) const
 
 	pki_base *childItem = static_cast<pki_base*>(index.internalPointer());
 	pki_base *parentItem = childItem->getParent();
-
-	if (parentItem == childItem || parentItem == NULL)
+	if (parentItem == NULL) {
+		printf("Item: (%s) %s: parent == NULL\n",
+				childItem->className(), CCHAR(childItem->getIntName()));
+	}
+	// printf("Parent of:%s(%p) %p %p\n",
+	// CCHAR(childItem->getIntName()), childItem, parentItem, rootItem);
+	if (parentItem == rootItem || parentItem == NULL)
 		return QModelIndex();
 
 	return createIndex(parentItem->row(), 0, parentItem);
@@ -363,6 +372,7 @@ int db_base::rowCount(const QModelIndex &parent) const
 	else
 		parentItem = static_cast<pki_base*>(parent.internalPointer());
 
+	//printf("%s rows=%d\n", CCHAR(parentItem->getIntName()), parentItem->childCount());
 	return parentItem->childCount();
 }
 
@@ -374,6 +384,7 @@ int db_base::columnCount(const QModelIndex &parent) const
 	else
 		item = rootItem;
 	
+	//printf("%s columns=%d\n", CCHAR(item->getIntName()), item->columns());
 	return item->columns();
 }
 
@@ -451,23 +462,23 @@ void db_base::load_default(load_base &load)
 	}
 	delete dlg;
 
-	//ImportMulti *dlgi = NULL;
-	//dlgi = new ImportMulti(mainwin);
+	ImportMulti *dlgi = NULL;
+	dlgi = new ImportMulti(mainwin);
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		QString s = *it;
 		s = QDir::convertSeparators(s);
 		pki_base *item = NULL;
 		try {
 			item = load.loadItem(s);
-			//dlgi->addItem(item);
+			dlgi->addItem(item);
 		}
 		catch (errorEx &err) {
 			MainWindow::Error(err);
 			delete item;
 			return;
 		}
-		insert(item);
+		//insert(item);
 	}
-	//dlgi->execute();
-	//delete dlgi;
+	dlgi->execute();
+	delete dlgi;
 }

@@ -71,7 +71,6 @@ class db_base: public QAbstractItemModel
 
     protected:
 	QString dbName, delete_txt;
-	pki_base *rootItem;
 	QModelIndex currentIdx;
 	void _writePKI(pki_base *pki, bool overwrite );
 	void _removePKI(pki_base *pki );
@@ -81,6 +80,7 @@ class db_base: public QAbstractItemModel
 	MainWindow *mainwin;
 	
     public:
+	pki_base *rootItem;
 	db_base(QString db, MainWindow *mw);
 	virtual ~db_base();
 	virtual pki_base *newPKI();
@@ -96,7 +96,7 @@ class db_base: public QAbstractItemModel
 	 * i.e search for signers and keys */
 	virtual void preprocess(){};
 	virtual void inToCont(pki_base *pki);
-	void remFromCont(QModelIndex &idx);
+	virtual void remFromCont(QModelIndex &idx);
 
 #if 0
 	void *getData(void* key, int length, int *dsize);

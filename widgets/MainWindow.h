@@ -151,5 +151,9 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void on_BNcaTemp_clicked(void);
 	void on_BNserverTemp_clicked(void);
 	void on_BNclientTemp_clicked(void);
+	
+	void on_BNdeleteCrl_clicked(void);
+	void on_BNdetailsCrl_clicked(void);
+	void on_BNimportCrl_clicked(void);
 };
 #endif

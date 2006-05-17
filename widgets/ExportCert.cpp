@@ -54,10 +54,11 @@
 #include <Qt/qlineedit.h>
 #include <Qt/qfiledialog.h>
 
-ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
-	const QString tcafn, QWidget *parent)
+ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey,
+		QString dpath, const QString tcafn)
 	:QDialog(parent)
 {
+	setupUi(this);
 	filename->setText(fname);
 	setWindowTitle(tr(XCA_TITLE));
 	QStringList sl; 
@@ -74,7 +75,7 @@ ExportCert::ExportCert(QString fname, bool hasKey, QString dpath,
 	tinyCAfname = tcafn;
 }
 	
-void ExportCert::chooseFile()
+void ExportCert::on_fileBut_clicked()
 {
 	QStringList filt;
 	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )")); 
@@ -94,11 +95,11 @@ void ExportCert::chooseFile()
 		filename->setText(s);
 	}
 	dirPath= dlg->directory().path();
-	formatChanged();
+	on_exportFormat_activated(0);
 	delete dlg;
 }
 
-void ExportCert::formatChanged()
+void ExportCert::on_exportFormat_activated(int)
 {
 	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p7b", "p7b", "p7b", "p7b", "p12", "p12"};
 	int selected = exportFormat->currentIndex();
@@ -107,7 +108,7 @@ void ExportCert::formatChanged()
 	filename->setText(nfn);
 }	
 
-void ExportCert::setTinyCAfname()
+void ExportCert::on_tinyCaName_clicked()
 {
 	filename->setText(tinyCAfname);
 }

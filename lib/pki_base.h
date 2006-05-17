@@ -65,7 +65,7 @@ class pki_base : public QObject
 	static int pki_counter;
     protected:
 	int cols;
-	char *class_name;
+	const char *class_name;
 	QString desc;
 	int dataVersion;
 	enum pki_type pkiType;
@@ -102,10 +102,11 @@ class pki_base : public QObject
 	int row(void) const;
 	pki_base *iterate(pki_base *pki = NULL);
 	void takeChild(pki_base *pki);
-
+	pki_base *takeFirst(void);
 	int columns(void);
 	virtual QVariant column_data(int col);
 	virtual QVariant getIcon();
+	const char *className() { return class_name; };
 };
 
 #endif

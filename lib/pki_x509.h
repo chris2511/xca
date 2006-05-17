@@ -108,7 +108,7 @@ class pki_x509 : public pki_x509super
 	   pki_key *getPubKey() const;
 	   void setPubKey(pki_key *key);
 	   pki_x509 *getSigner();
-	   void delSigner(pki_x509 *s);
+	   void delSigner(pki_base *s);
 	   QString fingerprint(const EVP_MD *digest);
 	   QString printV3ext();
 	   int checkDate();

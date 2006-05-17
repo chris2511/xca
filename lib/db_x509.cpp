@@ -112,12 +112,29 @@ QStringList db_x509::getSignerDesc()
 
 void db_x509::remFromCont(QModelIndex &idx)
 {
-	db_base::remFromCont(idx);
-#warning FIXME deleting X509 items
-//	FOR_ALL_pki(pki, pki_x509) {
-//		if (pki->getParent() == ref)
-//			pki->setParent(rootItem);
-//	}
+	int num, row;
+	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+	pki_base *parent_pki = pki->getParent();
+	row = pki->row();
+	pki_x509 *child;
+	
+	beginRemoveRows(parent(idx), row, row);
+	parent_pki->takeChild(pki);
+	endRemoveRows();
+
+	row = rootItem->childCount()+1;
+	num = pki->childCount();
+	
+	beginInsertRows(QModelIndex(), row, row + num );
+	while (pki->childCount()) {
+		printf("Insert dangling children: %d\n", pki->childCount());
+		child = (pki_x509*)pki->childItems.takeFirst();
+		printf("Child: %s\n", CCHAR(child->getIntName()));
+		child->delSigner((pki_x509*)pki);
+		findSigner(child);
+		rootItem->append(child);
+	}
+	endInsertRows();
 	return;
 }
 
@@ -172,9 +189,10 @@ void db_x509::inToCont(pki_base *pki)
 	/* search for dangling certificates, which signer this is */
 	FOR_ALL_pki(client, pki_x509) {
 		if (client->getSigner() == NULL) {
+			printf("expecting client %s\n", CCHAR(pki->getIntName()));
 			if (client->verify(cert)) {
 				int row = client->row();
-				//printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
+				printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
 				beginRemoveRows(QModelIndex(), row, row);
 				rootItem->takeChild(client);
 				endRemoveRows();
@@ -615,7 +633,7 @@ void db_x509::store()
 	if (!crt)
 		return;
 	pki_key *privkey = crt->getRefKey();
-	ExportCert *dlg = new ExportCert((crt->getIntName() + ".crt"),
+	ExportCert *dlg = new ExportCert(mainwin, crt->getIntName() + ".crt",
 			  (privkey && privkey->isPrivKey()),
 			  mainwin->getPath(), crt->tinyCAfname() );
 	dlg->image->setPixmap(*MainWindow::certImg);

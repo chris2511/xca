@@ -53,12 +53,17 @@
 #include "db_crl.h"
 #include "exception.h"
 #include "widgets/MainWindow.h"
-#include "view/CertView.h"
+#include "widgets/CrlDetail.h"
 #include <Qt/qmessagebox.h>
 
-db_crl::db_crl(QString DBfile)
-	:db_base(DBfile)
+db_crl::db_crl(QString db, MainWindow *mw)
+	:db_base(db,mw)
 {
+	delete rootItem;
+	rootItem = newPKI(); 
+	headertext << "Name" << "Type" << "Size";
+	delete_txt = tr("Delete the revokation list(s)");
+				
 	loadContainer();
 }
 
@@ -68,13 +73,21 @@ pki_base *db_crl::newPKI(){
 
 void db_crl::preprocess()
 {
+#if 0
 	if ( container.isEmpty() ) return ;
 	FOR_ALL_pki(crl, pki_crl) {
 		pki_x509 *iss = MainWindow::certs->getBySubject(crl->getIssuerName());
 		crl->setIssuer(iss);
 		revokeCerts(crl);
 	}
+#endif
 }	
+
+void db_crl::load()
+{
+	load_crl l;
+	load_default(l);
+}
 
 void db_crl::revokeCerts(pki_crl *crl)
 {
@@ -101,7 +114,7 @@ void db_crl::revokeCerts(pki_crl *crl)
 void db_crl::inToCont(pki_base *pki)
 {
 	revokeCerts((pki_crl *)pki);
-	container.append(pki);
+	db_base::inToCont(pki);
 }
 
 pki_base *db_crl::insert(pki_base *item)
@@ -118,4 +131,21 @@ pki_base *db_crl::insert(pki_base *item)
 	}
 	insertPKI(crl);
 	return crl;
+}
+
+void db_crl::showItem()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_crl *crl = static_cast<pki_crl*>(currentIdx.internalPointer());
+	CrlDetail *dlg;
+
+	printf("Crl detail: %p\n", crl);
+	
+	dlg = new CrlDetail(mainwin);
+	if (dlg) {
+		dlg->setCrl(crl);
+		dlg->exec();
+		delete dlg;
+	}
 }

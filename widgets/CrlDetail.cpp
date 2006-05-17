@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -56,18 +54,20 @@
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
 #include <Qt/qlabel.h>
-#include <Qt/q3textview.h>
-#include <Qt/q3listview.h>
+#include <Qt/qtextedit.h>
 #include <Qt/qlineedit.h>
 
-CrlDetail::CrlDetail(QWidget *parent, const char *name, bool modal, Qt::WFlags f)
-	:CrlDetail_UI(parent, name, modal, f)
+CrlDetail::CrlDetail(QWidget *parent)
+	:QDialog(parent)
 {
-	setCaption(tr(XCA_TITLE));
+	setupUi(this);
+	setWindowTitle(tr(XCA_TITLE));
+#if 0	
 	certList->clear();
 	certList->addColumn(tr("Name"));
 	certList->addColumn(tr("Serial"));
 	certList->addColumn(tr("Revocation"));
+#endif
 	image->setPixmap(*MainWindow::revImg);		 
 	descr->setReadOnly(true);
 }
@@ -77,7 +77,6 @@ void CrlDetail::setCrl(pki_crl *crl)
 	int numc, i;
 	pki_x509 *iss, *last, *rev;
 	x509rev revit;
-	Q3ListViewItem *current;
        	x509v3ext e1, e2;
 	QStringList sl;
 	
@@ -127,6 +126,8 @@ void CrlDetail::setCrl(pki_crl *crl)
 	
 	// page 3
 	numc = crl->numRev();
+#warning CRL details
+#if 0
 	for (i=0; i<numc; i++) {
 		revit = crl->getRev(i);
                 rev = MainWindow::certs->getByIssSerial(iss, revit.getSerial());
@@ -138,11 +139,11 @@ void CrlDetail::setCrl(pki_crl *crl)
                         current = new Q3ListViewItem(certList,
 					tr("Unknown certificate"));
                 } 
-		current->setPixmap(0, *pki_x509::icon[2]);
+				current->setPixmap(0, *pki_x509::icon[2]);
                 current->setText(1, revit.getSerial().toHex()) ;
                 current->setText(2, revit.getDate().toSortable());
         }
-
+#endif
 	// page 4
-        v3Extensions->setText(crl->printV3ext());
+	v3extensions->document()->setHtml(crl->printV3ext());
 }

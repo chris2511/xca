@@ -18,10 +18,10 @@
 
 enum pki_type {
 	none,
-	async_key,
+	asym_key,
 	x509_req,
 	x509,
-	crl,
+	revokation,
 	tmpl,
 	setting,
 };

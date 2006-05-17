@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -55,12 +53,12 @@
 
 class pki_crl;
 
-class CrlDetail: public CrlDetail_UI
+class CrlDetail: public QDialog, private Ui::CrlDetail
 {
 	Q_OBJECT
 		
    public:	
-	CrlDetail( QWidget *parent = 0, const char *name = 0, bool modal = false, Qt::WFlags f = 0);
+	CrlDetail(QWidget *parent);
 	void setCrl(pki_crl *crl);
 };
 #endif

@@ -1,7 +1,3 @@
-
-//Added by the Qt porting tool:
-#include <QPixmap>
-
 /* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
@@ -40,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -67,11 +61,14 @@ pki_crl::pki_crl(const QString name )
 	crl = X509_CRL_new();
 	class_name="pki_crl";
 	openssl_error();
+	dataVersion=1;
+	pkiType=revokation;
+	cols=3;
 }
 
 void pki_crl::fload(const QString fname )
 {
-	FILE * fp = fopen(fname, "r");
+	FILE * fp = fopen(CCHAR(fname), "r");
 	if (fp != NULL) {
 		crl = PEM_read_X509_CRL(fp, &crl, NULL, NULL);
 		if (!crl) {
@@ -98,9 +95,7 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	issuer = iss;
 	if (!iss) openssl_error("no issuer");
 	crl->crl->issuer = issuer->getSubject().get();
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL	
 	crl->crl->revoked = sk_X509_REVOKED_new_null();
-#endif
 	a1int version = 1; /* version 2 CRL */
 	crl->crl->version = version.get();
 	openssl_error();
@@ -133,10 +128,14 @@ pki_crl::~pki_crl()
 	X509_CRL_free(crl);
 }
 
-void pki_crl::fromData(const unsigned char *p, int size)
+void pki_crl::fromData(const unsigned char *p, db_header_t *head)
 {
 	X509_CRL *crl_sik = crl;
+	int version, size;
 
+	size = head->len - sizeof(db_header_t);
+	version = head->version;
+			 
 	crl = D2I_CLASH(d2i_X509_CRL, NULL, &p, size);
 	if (crl)
 		X509_CRL_free(crl_sik);
@@ -200,7 +199,7 @@ void pki_crl::writeDefault(const QString fname)
 
 void pki_crl::writeCrl(const QString fname, bool pem)
 {
-	FILE *fp = fopen(fname,"w");
+	FILE *fp = fopen(CCHAR(fname), "w");
 	if (fp != NULL) {
 	   if (crl){
 		if (pem)
@@ -292,14 +291,21 @@ QString pki_crl::printV3ext()
 	return text;
 }
 
-void pki_crl::updateView()
+QVariant pki_crl::column_data(int col)
 {
-	pki_base::updateView();
-	Q3ListViewItem *c = getLvi();
-	if (!c) return;
-	c->setPixmap(0, *icon);
-	c->setText(0, getIntName());
-	c->setText(1, getIssuerName().getEntryByNid(NID_commonName));
-	c->setText(2, QString::number(numRev()));
+	switch (col) {
+		case 0:
+			return QVariant(getIntName());
+		case 1:
+			return QVariant(getIssuerName().getEntryByNid(NID_commonName));
+		case 2:
+			return QVariant(numRev());
+	}
+	return QVariant();
+}
+
+QVariant pki_crl::getIcon()
+{
+	return QVariant(*icon);
 }
 

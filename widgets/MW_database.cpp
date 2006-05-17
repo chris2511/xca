@@ -48,13 +48,6 @@
 
 
 #include "MainWindow.h"
-#if 0
-#include "view/KeyView.h"
-#include "view/ReqView.h"
-#include "view/CertView.h"
-#include "view/CrlView.h"
-#include "view/TempView.h"
-#endif
 #include <Qt/qdir.h>
 #include <Qt/qstatusbar.h>
 
@@ -65,6 +58,7 @@ void MainWindow::init_database() {
 	reqs = new db_x509req(dbfile, this);
 	certs = new db_x509(dbfile, this);
 	temps = new db_temp(dbfile, this);
+	crls = new db_crl(dbfile, this);
 #if 0
 		certs = new db_x509(dbenv, dbfile, keys, global_tid, certList);
 		temps = new db_temp(dbenv, dbfile, global_tid, tempList);
@@ -95,6 +89,7 @@ void MainWindow::init_database() {
 	reqView->setModel(reqs);
 	certView->setModel(certs);
 	tempView->setModel(temps);
+	crlView->setModel(crls);
 	
 	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
 			SLOT(connNewX509(NewX509 *)) );
@@ -139,7 +134,7 @@ void MainWindow::dump_database()
 				 
 void MainWindow::close_database()
 {
-	//delete(crls);
+	delete(crls);
 	delete(reqs);
 	delete(certs);
 	delete(temps);
@@ -157,7 +152,7 @@ void MainWindow::close_database()
 	mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
 }
 
-/* Async Key buttons */
+/* Asymetric Key buttons */
 void MainWindow::on_BNnewKey_clicked(void)
 {
 	if (keys)
@@ -283,4 +278,21 @@ void MainWindow::on_BNclientTemp_clicked(void)
 {
 	if (temps)
 		temps->newClientTemp();
+}
+/* CRL buttons */
+
+void MainWindow::on_BNdeleteCrl_clicked(void)
+{
+	if (crls)
+		crls->deleteSelectedItems(crlView);
+}
+void MainWindow::on_BNimportCrl_clicked(void)
+{
+	if (crls)
+		crls->load();
+}
+void MainWindow::on_BNdetailsCrl_clicked(void)
+{
+	if(crls)
+		crls->showSelectedItems(crlView);
 }

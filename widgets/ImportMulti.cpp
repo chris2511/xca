@@ -36,8 +36,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -53,42 +51,45 @@
 #include "ImportMulti.h"
 #include "MainWindow.h"
 #include "lib/pki_base.h"
-//#include "lib/pki_pkcs7.h"
-//#include "lib/pki_pkcs12.h"
-//#include "lib/pki_crl.h"
-//#include "widgets/CrlDetail.h"
-//#include "widgets/CertDetail.h"
+#include "lib/pki_pkcs7.h"
+#include "lib/pki_pkcs12.h"
+#include "lib/pki_crl.h"
+#include "widgets/CrlDetail.h"
+#include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
-//#include "widgets/ReqDetail.h"
+#include "widgets/ReqDetail.h"
 #include <Qt/qpushbutton.h>
 #include <Qt/qmessagebox.h>
 #include <Qt/qlabel.h>
 
-ImportMulti::ImportMulti(QWidget *parent)
+ImportMulti::ImportMulti(MainWindow *parent)
 	:QDialog(parent)
 {
+	mainwin = parent;
+	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
-	//image->setPixmap(*MainWindow::certImg);		 
+	image->setPixmap(*MainWindow::certImg);		 
 	//itemView->addColumn(tr("Internal name"));
 	//itemView->addColumn(tr("Common name"));
 	//itemView->addColumn(tr("Serial"));
-	cont.clear();
-	cont.setAutoDelete(false);
-	connect( itemView, SIGNAL(doubleClicked()),
-		this, SLOT(details())) ;
+	mcont = new db_base("/dev/null", parent);
+	///cont.setAutoDelete(false);
+	listView->setModel(mcont);
+	connect( listView, SIGNAL(doubleClicked()),
+		this, SLOT(on_butDetails_clicked)) ;
 	  
 }
 
 void ImportMulti::addItem(pki_base *pki)
 {
+	printf("Add item\n");
 	if (!pki) return;
 	QString cn = pki->getClassName();
 	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ||
 			cn == "pki_crl"  || cn == "pki_temp" ) {
-		//Q3ListViewItem *current = new Q3ListViewItem(itemView);
-		cont.append(pki);
+		mcont->inToCont(pki);
+		printf("Content items:%d\n", mcont->rootItem->childCount());
 	}
-#if 0
 	else if (cn == "pki_pkcs7") {
 		pki_pkcs7 *p7 = ( pki_pkcs7 *)pki;
 		for (int i=0; i<p7->numCert(); i++) {
@@ -109,8 +110,6 @@ void ImportMulti::addItem(pki_base *pki)
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
 	}
-#endif
-	
 }
 	
 #if 0
@@ -123,25 +122,25 @@ void ImportMulti::showPopupMenu(Q3ListViewItem *item, const QPoint &pt, int x)
 	menu->insertItem(tr("Remove"), this, SLOT(remove()));
 	menu->exec(pt);
 	delete menu;
-}	
-
-void ImportMulti::remove()
-{
-	pki_base *pki = getSelected();
-	if (!pki) return;
-	if (pki->getLvi())
-		delete pki->getLvi();
-	pki->delLvi();
-	delete pki;
-	cont.remove(pki);
-}
-
-pki_base *ImportMulti::getSelected()
-{
-	Q3ListViewItem *current = itemView->selectedItem();
-	return search(current);
 }
 #endif
+
+void ImportMulti::on_butRemove_clicked()
+{
+	QItemSelectionModel *selectionModel = listView->selectionModel();
+	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndex index;
+	QString items;
+
+	foreach(index, indexes) {
+		if (index.column() != 0)
+			continue;
+		mcont->remFromCont(index);
+		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+		delete pki;
+	}
+}
+
 #if 0
 pki_base *ImportMulti::search(Q3ListViewItem *current)
 {
@@ -150,28 +149,42 @@ pki_base *ImportMulti::search(Q3ListViewItem *current)
 	}
 	return NULL;
 }
+#endif
 
-void ImportMulti::importAll()
+void ImportMulti::on_butOk_clicked()
 {
-	for (pki_base *pki = cont.first(); pki != 0; pki = cont.first() ) {
-		import(pki);
+	while (mcont->rootItem->childCount()) {
+		QModelIndex idx = mcont->index(0, 0, QModelIndex());
+		import(idx);
 	}
 	accept();
 }
 
-void ImportMulti::import()
+void ImportMulti::on_butImport_clicked()
 {
-	pki_base *pki = getSelected();
-	import(pki);
+	QItemSelectionModel *selectionModel = listView->selectionModel();
+	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndex index;
+	QString items;
+
+	foreach(index, indexes) {
+		if (index.column() != 0)
+			continue;
+		import(index);
+	}
 }
 
-void ImportMulti::import(pki_base *pki)
+void ImportMulti::import(QModelIndex &idx)
 {
-	if (!pki) return;
-	Q3ListViewItem *lvi = pki->getLvi();
-	pki->delLvi();
+
+	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+	
+	printf("Import items: %d\n", mcont->rootItem->childCount());
+	if (!pki)
+		return;
 	QString cn = pki->getClassName();
-	emit init_database();
+	
+	mcont->remFromCont(idx);
 
 	if (cn == "pki_x509") {
 		MainWindow::certs->insert(pki);
@@ -193,41 +206,39 @@ void ImportMulti::import(pki_base *pki)
 			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
 		delete pki;
 	}
-	if (lvi)
-		delete lvi;
-	cont.remove(pki);
 }
 
-void ImportMulti::details()
+void ImportMulti::on_butDetails_clicked()
 {
-	pki_base *pki = getSelected();
+#warning FIXME
+	pki_base *pki = NULL;
 	if (!pki) return;
 	QString cn = pki->getClassName();
 	try {
 		if (cn == "pki_x509"){
 			CertDetail *dlg;
-			dlg = new CertDetail(this,0,true);
+			dlg = new CertDetail(mainwin);
 			dlg->setCert((pki_x509 *)pki);
 			dlg->exec();
 			delete dlg;
 		}						  
 		else if (cn == "pki_key") {
 			KeyDetail *dlg;
-			dlg = new KeyDetail(this,0,true);
+			dlg = new KeyDetail(mainwin);
 			dlg->setKey((pki_key *)pki);
 			dlg->exec();
 			delete dlg;
 		}						  
 		else if (cn == "pki_x509req") {
 			ReqDetail *dlg;
-			dlg = new ReqDetail(this,0,true);
+			dlg = new ReqDetail(mainwin);
 			dlg->setReq((pki_x509req *)pki);
 			dlg->exec();
 			delete dlg;
 		}						  
 		else if (cn == "pki_crl") {
 			CrlDetail *dlg;
-			dlg = new CrlDetail(this,0,true);
+			dlg = new CrlDetail(mainwin);
 			dlg->setCrl((pki_crl *)pki);
 			dlg->exec();
 			delete dlg;
@@ -251,18 +262,24 @@ void ImportMulti::details()
 
 ImportMulti::~ImportMulti()
 {
-	cont.setAutoDelete(true);
-	cont.clear();
+	QModelIndex idx = listView->currentIndex();
+	while (idx != QModelIndex()) {
+		mcont->remFromCont(idx);
+		pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+		printf("Import Multi delete: %p\n", pki);
+		delete pki;
+		idx = listView->currentIndex();
+	}
 }	 
 
-#endif
 void ImportMulti::execute(int force)
 {
 	/* if there is nothing to import don't pop up */
-	if (cont.count() == 0) return;
+	if (mcont->rootItem->childCount() == 0)
+		return;
 	/* if there is only 1 item and force is 0 import it silently */
-	if (cont.count() == 1 && force == 0) {
-//		import(cont.first());
+	if (mcont->rootItem->childCount() == 1 && force == 0) {
+		on_butOk_clicked();
 		return;
 	}
 	/* the behavoiour for more than one item */

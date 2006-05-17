@@ -39,7 +39,7 @@
         <item>
          <widget class="XcaTreeView" name="keyView" >
           <property name="selectionMode" >
-           <enum>QAbstractItemView::SingleSelection</enum>
+           <enum>QAbstractItemView::MultiSelection</enum>
           </property>
          </widget>
         </item>
@@ -161,7 +161,11 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="reqView" />
+         <widget class="XcaTreeView" name="reqView" >
+          <property name="selectionMode" >
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QFrame" name="Frame6" >
@@ -267,7 +271,11 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="certView" />
+         <widget class="XcaTreeView" name="certView" >
+          <property name="selectionMode" >
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QFrame" name="Frame6_2" >
@@ -386,7 +394,14 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QTreeView" name="tempView" />
+         <widget class="QTreeView" name="tempView" >
+          <property name="alternatingRowColors" >
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode" >
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QFrame" name="FrameAA" >
@@ -505,7 +520,11 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="crlView" />
+         <widget class="XcaTreeView" name="crlView" >
+          <property name="selectionMode" >
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QFrame" name="FrameAA_2" >

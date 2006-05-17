@@ -12,7 +12,8 @@ endif
 	CertExtend clicklabel v3ext
 
 MOC_NAMES=MainWindow KeyDetail clicklabel XcaTreeView ExportKey NewX509 \
-	validity v3ext ReqDetail distname CertDetail CertExtend ExportCert
+	validity v3ext ReqDetail distname CertDetail CertExtend ExportCert \
+	ImportMulti CrlDetail
 
 #NAMES=$(MOC_NAMES) NewX509_ext MW_menu MW_help MW_database
 NAMES=$(MOC_NAMES) NewX509_ext MW_menu MW_help MW_database

@@ -77,7 +77,7 @@ void pki_key::init(int type)
 	encKey_len = 0;
 	ownPass = 0;
 	dataVersion=1;
-	pkiType=async_key;
+	pkiType=asym_key;
 	cols=4;
 }
 
@@ -346,6 +346,12 @@ EVP_PKEY *pki_key::decryptKey()
 		MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
 	}
 	else {
+		int retlen = 0;
+		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+				"Please enter the default password for decrypting keys"));
+		while (strlen(passwd) == 0 && retlen == 0) {
+			retlen = MainWindow::passRead(passwd, MAX_PASS_LENGTH, 0, &p);
+		}
 		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 	}
 	

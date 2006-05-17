@@ -270,6 +270,12 @@ void pki_x509::addV3ext(const x509v3ext &e)
 	openssl_error();
 }
 
+void pki_x509::delSigner(pki_base *s) 
+{
+	if (s == psigner) 
+		psigner = NULL;
+}
+
 bool pki_x509::canSign()
 {
 	BASIC_CONSTRAINTS *bc;

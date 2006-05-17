@@ -232,6 +232,11 @@ void pki_base::takeChild(pki_base *pki)
 	childItems.takeAt(pki->row());
 }
 
+pki_base *pki_base::takeFirst()
+{
+	return childItems.takeFirst();
+}
+
 int pki_base::columns(void)
 {
 	return cols;

@@ -53,7 +53,7 @@
 #define __IMPORTMULTI_H
 
 #include "ui/ImportMulti.h"
-#include "lib/pki_base.h"
+#include "lib/db_base.h"
 #include <Qt/qlist.h>
 
 class pki_x509;
@@ -64,24 +64,24 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 	Q_OBJECT
 
 	private:
-		QList<pki_base> cont;	
+		db_base *mcont;
+		MainWindow *mainwin;
 	public:	
-		ImportMulti( QWidget *parent = 0);
+		ImportMulti(MainWindow *parent);
 		~ImportMulti();
 		void addItem(pki_base *pki);
 		//pki_base *search(Q3ListViewItem *current);
 		pki_base *getSelected();
-		void import(pki_base *pki);
+		void import(QModelIndex &idx);
 		void execute(int force=0);
 
 	public slots:
 		// void showPopupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
-		void remove();
-		void details();
-		void import();
-		void importAll();
-	signals:
-		void init_database();
+		void on_butRemove_clicked();
+		void on_butImport_clicked();
+		void on_butDetails_clicked();
+		void on_butOk_clicked();
+		
 };
 
 #endif

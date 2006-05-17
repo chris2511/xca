@@ -66,12 +66,14 @@ class db_crl: public db_base
 	QPixmap *crlicon;
 	db_x509 *certs;
     public:
-	db_crl(QString DBfile);
+	db_crl(QString db, MainWindow *mw);
 	pki_base *newPKI();
 	void revokeCerts(pki_crl *crl);
 	void preprocess();
 	void inToCont(pki_base *pki);
 	pki_base *insert(pki_base *item);
+	void load();
+	void showItem();
     signals:
 	void updateCertView();
 };

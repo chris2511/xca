@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  * 	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  * 
  *
@@ -86,7 +84,7 @@ class pki_crl: public pki_base
 	void setNextUpdate(const a1time &t);
 	a1time getNextUpdate();
 	a1time getLastUpdate();
-	virtual void fromData(const unsigned char *p, int size);
+	virtual void fromData(const unsigned char *p, db_header_t *head);
 	virtual unsigned char *toData(int *size);
 	virtual bool compare(pki_base *refcrl);
 	int numRev();
@@ -95,7 +93,8 @@ class pki_crl: public pki_base
 	QString printV3ext();
 	x509v3ext getExtByNid(int nid);
 	a1int getVersion();
-	void updateView();
+	QVariant column_data(int col);
+	QVariant getIcon();
 };
 
 #endif
