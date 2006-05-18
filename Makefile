@@ -73,6 +73,7 @@ xca.app: xca
 	done
 
 xca.dmg: xca.app
+	test -x hdiutil
 	hdiutil create -ov -srcfolder $< $@
 
 .PHONY: $(SUBDIRS) xca.app
