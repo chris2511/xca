@@ -306,7 +306,7 @@ Empy, CA, client, server</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
+     <widget class="QWidget" name="tab_1" >
       <attribute name="title" >
        <string>Subject</string>
       </attribute>
@@ -585,7 +585,7 @@ Empy, CA, client, server</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
+     <widget class="QWidget" name="tab_2" >
       <attribute name="title" >
        <string>Extensions</string>
       </attribute>
@@ -1002,7 +1002,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
       </layout>
       <widget class="QWidget" name="widget_3" />
      </widget>
-     <widget class="QWidget" name="tab" >
+     <widget class="QWidget" name="tab_3" >
       <attribute name="title" >
        <string>Key Usage</string>
       </attribute>
@@ -1166,7 +1166,7 @@ Example:
       </layout>
       <widget class="QWidget" name="widget_4" />
      </widget>
-     <widget class="QWidget" name="tab" >
+     <widget class="QWidget" name="tab_4" >
       <attribute name="title" >
        <string>Netscape</string>
       </attribute>

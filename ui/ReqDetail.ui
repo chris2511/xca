@@ -490,7 +490,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
+     <widget class="QWidget" name="tab_1" >
       <attribute name="title" >
        <string>&amp;Extensions</string>
       </attribute>
