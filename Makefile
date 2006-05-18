@@ -16,6 +16,7 @@ CLEANDIRS=lang doc
 bindir=bin
 
 all: headers xca docs
+	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 re: clean all
 
 xca.o: $(OBJECTS)
@@ -23,7 +24,6 @@ xca.o: $(OBJECTS)
 
 xca: xca.o
 	$(CC) $(LDFLAGS) $< $(LIBS) -o $@
-	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 
 docs:
 	$(MAKE) -C doc
