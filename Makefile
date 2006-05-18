@@ -8,7 +8,7 @@ TARGET=xca-$(TVERSION)
 
 export TOPDIR=$(shell pwd)
 
-SUBDIRS=lib widgets #view
+SUBDIRS=lib widgets
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
 INSTDIR=img misc lang doc
 CLEANDIRS=lang doc

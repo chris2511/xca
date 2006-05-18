@@ -32,12 +32,6 @@ moc_%.cpp: %.h %.cpp
 %.h: %.ui
 	$(UIC) -o $@ $<
 
-# same for the *.cpp file from the *.ui
-#%.cpp: %.h %.ui
-#	$(UIC) -o $@ -impl $^
-#%.cpp: %.ui
-#	$(UIC) -o $@ $<
-
 # default compile rule
 #%.o: %.cpp $(TOPDIR)/Local.mak
 %.o: %.cpp
