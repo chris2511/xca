@@ -423,7 +423,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	dlg->show();
 	dlg->activateWindow();
 	ui.passA->setFocus();
-	
+
 	if (dlg->exec()) {
 	   QString A = ui.passA->text();
 	   QString B = ui.passB->text();

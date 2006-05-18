@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,10 +34,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -45,7 +45,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #ifndef DB_X509_H
@@ -63,10 +63,10 @@
 class db_x509: public db_x509super
 {
 	Q_OBJECT
-    
+
 	protected:
 	QPixmap *certicon[4];
-	
+
     public:
 	db_x509(QString DBfile, MainWindow *mw);
 	pki_base *newPKI();
@@ -91,7 +91,6 @@ class db_x509: public db_x509super
     void writePKCS7(pki_x509 *cert, QString s, int type);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 	void inToCont(pki_base *pki);
-		
 
     public slots:
 	void load(void);
@@ -99,6 +98,8 @@ class db_x509: public db_x509super
 	void revokeCert(const x509rev &revok, const pki_x509 *issuer);
 	void store();
 	void showItem();
+	void setMultiTrust(QAbstractItemView* view);
+	void setTrust();
 };
 
 #endif

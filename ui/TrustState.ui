@@ -2,14 +2,14 @@
  <author></author>
  <comment></comment>
  <exportmacro></exportmacro>
- <class>TrustState_UI</class>
- <widget class="QDialog" name="TrustState_UI" >
+ <class>TrustState</class>
+ <widget class="QDialog" name="TrustState" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>455</width>
-    <height>267</height>
+    <width>435</width>
+    <height>288</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +17,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>11</number>
+    <number>8</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -44,7 +44,7 @@
         </font>
        </property>
        <property name="text" >
-        <string>Set Trustment of the Certificate</string>
+        <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:Arial; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set trustment of the Certificate&lt;/p>&lt;/body>&lt;/html></string>
        </property>
       </widget>
      </item>
@@ -93,13 +93,10 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
      <property name="sizeHint" >
       <size>
        <width>20</width>
-       <height>20</height>
+       <height>40</height>
       </size>
      </property>
     </spacer>
@@ -112,25 +109,22 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
      <property name="sizeHint" >
       <size>
        <width>20</width>
-       <height>20</height>
+       <height>40</height>
       </size>
      </property>
     </spacer>
    </item>
    <item>
-    <widget class="Q3ButtonGroup" name="ButtonGroup2" >
+    <widget class="QGroupBox" name="groupBox" >
      <property name="title" >
-      <string>Select the Truststate</string>
+      <string>Trustment</string>
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >
-       <number>11</number>
+       <number>8</number>
       </property>
       <property name="spacing" >
        <number>6</number>
@@ -204,20 +198,46 @@
  <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>Q3ButtonGroup</class>
-   <extends></extends>
-   <header>Qt3Support/Q3ButtonGroup</header>
-   <container>1</container>
-   <pixmap></pixmap>
-  </customwidget>
-  <customwidget>
    <class>ClickLabel</class>
    <extends></extends>
-   <header>clicklabel.h</header>
+   <header>widgets/clicklabel.h</header>
    <container>0</container>
    <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>PushButton5</sender>
+   <signal>clicked()</signal>
+   <receiver>TrustState</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>66</x>
+     <y>258</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>171</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PushButton4</sender>
+   <signal>clicked()</signal>
+   <receiver>TrustState</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>383</x>
+     <y>247</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>238</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

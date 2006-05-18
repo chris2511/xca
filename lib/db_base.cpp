@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,10 +34,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -45,7 +45,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "db_base.h"
@@ -65,7 +65,7 @@
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
 
-db_base::db_base(QString db, MainWindow *mw) 
+db_base::db_base(QString db, MainWindow *mw)
 	:QAbstractItemModel(NULL)
 {
 	dbName = db;
@@ -97,7 +97,7 @@ void db_base::remFromCont(QModelIndex &idx)
 	pki_base *parent_pki = pki->getParent();
 	printf("PKI=%p, parent=%p\n", pki,parent_pki);
 	int row = pki->row();
-	
+
 	beginRemoveRows(parent(idx), row, row);
 	parent_pki->takeChild(pki);
 	endRemoveRows();
@@ -108,7 +108,7 @@ void db_base::loadContainer()
 	db mydb(dbName);
 	unsigned char *p;
 	db_header_t head;
-	
+
 	pki_base *pb, *pki;
 	pb = newPKI();
 	while ( mydb.find(pb->getType(), NULL) == 0 ) {
@@ -143,9 +143,9 @@ void db_base::insertPKI(pki_base *pki)
 	int size;
 	QString name;
 	db mydb(dbName);
-	
+
 	p = pki->toData(&size);
-	
+
 	if (p) {
 		name = mydb.uniq_name(pki->getIntName(), pki->getType());
 		pki->setIntName(name);
@@ -165,7 +165,7 @@ void db_base::delete_ask()
 				delete_txt + ": " + pki->getIntName() + " ?\n" ,
 				tr("Delete"), tr("Cancel"))
 		) return;
-	
+
 	deletePKI();
 }
 
@@ -174,9 +174,9 @@ void db_base::deletePKI()
 	if (!currentIdx.isValid())
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
-	
+
 	remFromCont(currentIdx);
-	
+
 	db mydb(dbName);
 	mydb.find(pki->getType(), CCHAR(pki->getIntName()));
 	mydb.erase();
@@ -190,7 +190,7 @@ void db_base::updatePKI(pki_base *pki)
 	db mydb(dbName);
 
 	p = pki->toData(&size);
-	
+
 	if (p) {
 		mydb.set(p, size, pki->getVersion(), pki->getType(),
 				CCHAR(pki->getIntName()));
@@ -204,19 +204,19 @@ void db_base::deleteSelectedItems(QAbstractItemView* view)
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 	QModelIndex index;
 	QString items;
-	
+
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
 		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
 		items += "'" + pki->getIntName() + "' ";
 	}
-	
+
 	if (QMessageBox::information(mainwin, tr(XCA_TITLE),
 				delete_txt + ": " + items + " ?\n" ,
 				tr("Delete"), tr("Cancel"))
         ) return;
-	
+
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
@@ -232,7 +232,7 @@ void db_base::showSelectedItems(QAbstractItemView* view)
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 	QModelIndex index;
 	QString items;
-	
+
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
