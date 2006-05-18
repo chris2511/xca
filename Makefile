@@ -1,9 +1,9 @@
 #
-# $Id$
+# Makefile for XCA
 #
 #####################################################################
 
-TAG=$(shell echo "V.$(TVERSION)" |sed "s/\./_/g" )
+TAG=RELEASE.$(TVERSION)
 TARGET=xca-$(TVERSION)
 
 export TOPDIR=$(shell pwd)
@@ -11,7 +11,7 @@ export TOPDIR=$(shell pwd)
 SUBDIRS=lib widgets #view
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
 INSTDIR=img misc lang doc
-CLEANDIRS=lang doc 
+CLEANDIRS=lang doc
 
 bindir=bin
 
@@ -37,13 +37,14 @@ clean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} clean; done
 	rm -f *~ xca xca.o
 
-distclean: clean	
+distclean: clean
 	rm -f Local.mak conftest conftest.log
 
-dist: 
+dist:
 	test ! -z "$(TVERSION)"
-	rm -rf $(TARGET) 
-	cvs export -r $(TAG) -d $(TARGET) xca && \
+	rm -rf $(TARGET)
+	exit 1
+	git checkout -r $(TAG) -d $(TARGET) xca && \
 	(cd $(TARGET) && \
 	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
 	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \
@@ -56,7 +57,7 @@ install: xca
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
 	install -m 755 xca $(destdir)$(prefix)/$(bindir)
 	$(STRIP) $(destdir)$(prefix)/$(bindir)/xca
-	
+
 	for d in $(INSTDIR); do \
 	  $(MAKE) -C $$d install; \
 	done
