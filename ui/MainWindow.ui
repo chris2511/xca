@@ -37,11 +37,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="keyView" >
-          <property name="selectionMode" >
-           <enum>QAbstractItemView::MultiSelection</enum>
-          </property>
-         </widget>
+         <widget class="XcaTreeView" name="keyView" />
         </item>
         <item>
          <widget class="QFrame" name="Frame4" >
@@ -161,11 +157,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="reqView" >
-          <property name="selectionMode" >
-           <enum>QAbstractItemView::MultiSelection</enum>
-          </property>
-         </widget>
+         <widget class="XcaTreeView" name="reqView" />
         </item>
         <item>
          <widget class="QFrame" name="Frame6" >
@@ -271,11 +263,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="certView" >
-          <property name="selectionMode" >
-           <enum>QAbstractItemView::MultiSelection</enum>
-          </property>
-         </widget>
+         <widget class="XcaTreeView" name="certView" />
         </item>
         <item>
          <widget class="QFrame" name="Frame6_2" >
@@ -398,9 +386,6 @@
           <property name="alternatingRowColors" >
            <bool>true</bool>
           </property>
-          <property name="selectionMode" >
-           <enum>QAbstractItemView::MultiSelection</enum>
-          </property>
          </widget>
         </item>
         <item>
@@ -520,11 +505,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="crlView" >
-          <property name="selectionMode" >
-           <enum>QAbstractItemView::MultiSelection</enum>
-          </property>
-         </widget>
+         <widget class="XcaTreeView" name="crlView" />
         </item>
         <item>
          <widget class="QFrame" name="FrameAA_2" >
