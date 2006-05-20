@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -33,10 +33,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -44,7 +44,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 #ifndef DB_KEY_H
 #define DB_KEY_H
@@ -61,7 +61,8 @@ class QContextMenuEvent;
 class db_key: public db_base
 {
 	Q_OBJECT
-
+    private:
+	void __setOwnPass(int x);
     public:
 	db_key(QString db, MainWindow *mw);
 	pki_base *newPKI();
@@ -72,12 +73,14 @@ class db_key: public db_base
 	pki_base* insert(pki_base *item);
 	void writeAll();
 	void showContextMenu(QContextMenuEvent * e, const QModelIndex &index);
-	
+
     public slots:
 	void newItem(void);
 	void load(void);
 	void store();
 	void showItem();
+	void setOwnPass();
+	void resetOwnPass();
 
     signals:
 	void delKey(pki_key *delkey);

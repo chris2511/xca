@@ -91,6 +91,8 @@ class db_x509: public db_x509super
     void writePKCS7(pki_x509 *cert, QString s, int type);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 	void inToCont(pki_base *pki);
+	void loadPKCS12();
+	void loadPKCS7();
 
     public slots:
 	void load(void);

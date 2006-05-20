@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,10 +34,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -45,7 +45,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "db_key.h"
@@ -81,7 +81,7 @@ QStringList db_key::getPrivateDesc()
 	x.clear();
 	FOR_ALL_pki(pki, pki_key)
 		if (pki->isPrivKey())
-			x.append(pki->getIntName());	
+			x.append(pki->getIntName());
 	return x;
 }
 
@@ -91,8 +91,8 @@ QStringList db_key::get0PrivateDesc()
 	x.clear();
 	FOR_ALL_pki(pki, pki_key) {
 		//printf("0Privatre desc: %s: priv:%d, cnt:%d\n", CCHAR(pki->getIntName()),	pki->isPrivKey() ,pki->getUcount());
-		if (pki->isPrivKey() && pki->getUcount() == 0) 
-			x.append(pki->getIntNameWithType());	
+		if (pki->isPrivKey() && pki->getUcount() == 0)
+			x.append(pki->getIntNameWithType());
 	}
 	return x;
 }
@@ -104,7 +104,7 @@ void db_key::remFromCont(QModelIndex &idx)
 	emit delKey((pki_key *)pki);
 }
 
-void db_key::inToCont(pki_base *pki) 
+void db_key::inToCont(pki_base *pki)
 {
 	db_base::inToCont(pki);
 	emit newKey((pki_key *)pki);
@@ -123,7 +123,7 @@ pki_base* db_key::insert(pki_base *item)
 			oldkey->getIntName() +
 			"'\n" + tr("and is not going to be imported"), "OK");
 			delete(lkey);
-			return oldkey; 
+			return oldkey;
 		}
 		else {
 			QMessageBox::information(NULL,tr(XCA_TITLE),
@@ -137,7 +137,7 @@ pki_base* db_key::insert(pki_base *item)
 		}
 	}
 	insertPKI(lkey);
-	
+
 	return lkey;
 }
 
@@ -151,22 +151,22 @@ void db_key::newItem()
 	ui.setupUi(dlg);
 	QProgressBar *bar = new QProgressBar();
 	QStatusBar *status = mainwin->statusBar();
-	
+
 	pki_key *nkey = NULL;
 	QString x;
 	int keytypes[] = {EVP_PKEY_RSA, EVP_PKEY_DSA };
-	ui.keyLength->setEditable(true);	
+	ui.keyLength->setEditable(true);
 	for (int i=0; sizeList[i] != 0; i++ ) {
-		ui.keyLength->addItem( x.number(sizeList[i]) +" bit");	
+		ui.keyLength->addItem( x.number(sizeList[i]) +" bit");
 	}
 	ui.keyLength->setCurrentIndex(1);
 	ui.keyDesc->setFocus();
-	
+
 	ui.image->setPixmap(*MainWindow::keyImg);
-	
+
 	if (dlg->exec()) {
 		db mydb(dbName);
-		
+
 		QString ksizes = ui.keyLength->currentText();
 		ksizes.replace( QRegExp("[^0-9]"), "" );
 		int ksize = ksizes.toInt();
@@ -175,9 +175,9 @@ void db_key::newItem()
 			if (!QMessageBox::warning(NULL, XCA_TITLE, tr("You are sure to create a key of the size: ")
 				+QString::number(ksize) + " ?", tr("Cancel"), tr("Create") ))
 					return;
-		
+
 		nkey = new pki_key(ui.keyDesc->text());
-		
+
 		QString m = status->currentMessage();
 		status->clearMessage();
 		status->addPermanentWidget(bar,1);
@@ -186,7 +186,7 @@ void db_key::newItem()
 		delete bar;
 		status->showMessage(m);
 		insert(nkey);
-		
+
 		emit keyDone(nkey);
 	}
 	delete dlg;
@@ -205,8 +205,6 @@ void db_key::showItem()
 	pki_key *key = static_cast<pki_key*>(currentIdx.internalPointer());
 	KeyDetail *dlg;
 
-	printf("Key detail: %p\n", key);
-	
 	dlg = new KeyDetail(mainwin);
 	if (dlg) {
 		dlg->setKey(key);
@@ -218,7 +216,7 @@ void db_key::showItem()
 void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
-	
+
 	currentIdx = index;
 
 	menu->addAction(tr("New Key"), this, SLOT(newItem()));
@@ -240,18 +238,18 @@ void db_key::store()
 {
 	bool PEM = false;
 	const EVP_CIPHER *enc = NULL;
-	
+
 	if (!currentIdx.isValid())
 		return;
-	
+
 	pki_key *targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
-	
+
 	QString fn = targetKey->getIntName() + ".pem";
-	
+
 	ExportKey *dlg = new ExportKey(mainwin, fn,
 			targetKey->isPubKey(), mainwin->getPath() );
 	dlg->image->setPixmap(*MainWindow::keyImg);
-	
+
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
@@ -276,9 +274,39 @@ void db_key::store()
 		}
 	}
 	catch (errorEx &err) {
-		MainWindow::Error(err);	
+		mainwin->Error(err);
 	}
 	delete dlg;
 
+}
+
+void db_key::setOwnPass()
+{
+	try {
+		__setOwnPass(1);
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
+	}
+}
+
+void db_key::resetOwnPass()
+{
+	try {
+		__setOwnPass(0);
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
+	}
+}
+
+void db_key::__setOwnPass(int x)
+{
+	pki_key *targetKey;
+	if (!currentIdx.isValid())
+		        return;
+    targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
+	targetKey->setOwnPass(x);
+	updatePKI(targetKey);
 }
 

@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,17 +34,17 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "load_obj.h"
@@ -65,7 +65,7 @@ load_base::load_base()
 pki_base * load_base::loadItem(QString s)
 {
 	return NULL;
-}		
+}
 
 load_base::~load_base()
 {
@@ -78,7 +78,7 @@ load_key::load_key()
 	filter.prepend( "PKCS#8 Keys ( *.p8 *.pk8 )");
 	filter.prepend( "PKI Keys ( *.pem *.der *.key )");
 	caption = QObject::tr("Import RSA key");
-}		
+}
 
 pki_base * load_key::loadItem(QString s)
 {
@@ -94,7 +94,7 @@ load_req::load_req()
 	filter.prepend( QObject::tr("Netscape Request ( *.spkac *.spc )"));
 	filter.prepend( QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr )"));
 	caption = QObject::tr("Import Request");
-}		
+}
 
 pki_base * load_req::loadItem(QString s)
 {
@@ -115,7 +115,7 @@ load_cert::load_cert()
 {
 	filter.prepend(QObject::tr("Certificates ( *.pem *.der *.crt *.cer )"));
 	caption = QObject::tr("Import X.509 Certificate");
-}		
+}
 
 pki_base * load_cert::loadItem(QString s)
 {
@@ -136,7 +136,7 @@ load_pkcs7::load_pkcs7()
 {
 	filter.prepend(QObject::tr("PKCS#7 data ( *.p7s *.p7m *.p7b )"));
 	caption = QObject::tr("Import PKCS#7 Certificates");
-}		
+}
 
 pki_base * load_pkcs7::loadItem(QString s)
 {
@@ -157,7 +157,7 @@ load_pkcs12::load_pkcs12()
 {
 	filter.prepend(QObject::tr("PKCS#12 Certificates ( *.p12 *.pfx )"));
 	caption = QObject::tr("Import PKCS#12 Private Certificate");
-}		
+}
 
 pki_base * load_pkcs12::loadItem(QString s)
 {
@@ -171,7 +171,7 @@ load_temp::load_temp()
 {
 	filter.prepend(QObject::tr("XCA templates ( *.xca )"));
 	caption = QObject::tr("Import XCA Templates");
-}		
+}
 
 pki_base * load_temp::loadItem(QString s)
 {
@@ -192,7 +192,7 @@ load_crl::load_crl()
 {
 	filter.prepend(QObject::tr("Revocation lists ( *.pem *.crl )"));
 	caption = QObject::tr("Import Certificate Revocation List");
-}		
+}
 
 pki_base * load_crl::loadItem(QString s)
 {
@@ -213,4 +213,4 @@ load_db::load_db()
 {
 	filter.prepend(QObject::tr("XCA Databases ( *.db )"));
 	caption = QObject::tr("Open XCA Database");
-}		
+}

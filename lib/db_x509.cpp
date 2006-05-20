@@ -331,12 +331,26 @@ void db_x509::load(void)
 	load_default(c);
 }
 
+void db_x509::loadPKCS12()
+{
+	load_pkcs12 l;
+	load_default(l);
+}
+
+void db_x509::loadPKCS7()
+{
+	load_pkcs7 l;
+	load_default(l);
+}
+
+
 void db_x509::newItem()
 {
 	NewX509 *dlg = new NewX509(mainwin);
 	//emit connNewX509(dlg);
 	dlg->setCert();
-	//dlg->defineSigner((pki_x509*)getSelected());
+	pki_x509 *sigcert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	dlg->defineSigner((pki_x509*)sigcert);
 	if (dlg->exec()) {
 		newCert(dlg);
 	}

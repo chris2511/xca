@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,18 +34,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 #ifndef _MAINWINDOW_H
 #define _MAINWINDOW_H
@@ -71,7 +71,7 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 
   private:
 	QString workingdir;
-	
+
   protected:
 	void init_images();
 	void read_cmdline();
@@ -79,7 +79,7 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void do_connections();
 	void init_baseDir();
 	int force_load;
-	NIDlist *read_nidlist(QString name);	
+	NIDlist *read_nidlist(QString name);
 	QLabel *statusLabel;
 
   public:
@@ -93,25 +93,26 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	static NIDlist *eku_nid, *dn_nid, *aia_nid;
 	int exitApp;
 	QString baseDir, dbfile, dbdir;
-	
+
 	MainWindow(QWidget *parent);
-	virtual ~MainWindow(); 
+	virtual ~MainWindow();
 	void loadSettings();
 	void saveSettings();
 	int initPass();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static NewX509 *newX509();
-	static QString md5passwd(const char *pass);
+	static QString md5passwd(const char *pass,
+			char *md5 = NULL, int *len = NULL);
 	//static void Qt::SocketError(errorEx &err);
 	static void Error(errorEx &err);
 	void cmd_help(const char* msg);
-	
+
 	QString getPath();
 	void setPath(QString path);
 	bool mkDir(QString dir);
 
-  public slots: 
+  public slots:
 	void init_database();
 	void load_database();
 	void load_def_database();
@@ -124,25 +125,28 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 
   private slots:
 	void on_keyView_doubleClicked(QModelIndex &m);
-  
+
 	void on_BNnewKey_clicked(void);
 	void on_BNdeleteKey_clicked(void);
 	void on_BNdetailsKey_clicked(void);
 	void on_BNimportKey_clicked(void);
 	void on_BNexportKey_clicked(void);
-	
+	void on_BNimportPFX_clicked(void);
+
 	void on_BNnewReq_clicked(void);
 	void on_BNdeleteReq_clicked(void);
 	void on_BNdetailsReq_clicked(void);
 	void on_BNimportReq_clicked(void);
 	void on_BNexportReq_clicked(void);
-	
+
 	void on_BNnewCert_clicked(void);
 	void on_BNdeleteCert_clicked(void);
 	void on_BNdetailsCert_clicked(void);
 	void on_BNimportCert_clicked(void);
 	void on_BNexportCert_clicked(void);
-	
+	void on_BNimportPKCS12_clicked(void);
+	void on_BNimportPKCS7_clicked(void);
+
 	void on_BNdeleteTemp_clicked(void);
 	void on_BNchangeTemp_clicked(void);
 	void on_BNimportTemp_clicked(void);
@@ -151,7 +155,7 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void on_BNcaTemp_clicked(void);
 	void on_BNserverTemp_clicked(void);
 	void on_BNclientTemp_clicked(void);
-	
+
 	void on_BNdeleteCrl_clicked(void);
 	void on_BNdetailsCrl_clicked(void);
 	void on_BNimportCrl_clicked(void);

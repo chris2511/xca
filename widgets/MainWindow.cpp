@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,23 +34,23 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 //#define MDEBUG
 #include "MainWindow.h"
-//#include "ImportMulti.h"
+#include "ImportMulti.h"
 #include <Qt/qapplication.h>
 #include <Qt/qclipboard.h>
 #include <Qt/qmessagebox.h>
@@ -86,11 +86,11 @@ NIDlist *MainWindow::dn_nid = NULL;
 NIDlist *MainWindow::aia_nid = NULL;
 
 
-MainWindow::MainWindow(QWidget *parent ) 
+MainWindow::MainWindow(QWidget *parent )
 	:QMainWindow(parent)
 {
 	statusBar()->clearMessage();
-	
+
 	setWindowTitle(tr(XCA_TITLE));
 	dbfile = DBFILE;
 	force_load = 0;
@@ -100,11 +100,11 @@ MainWindow::MainWindow(QWidget *parent )
 	setupUi(this);
 
 	init_menu();
-	
+
 	init_images();
 	do_connections();
-	
-#ifdef MDEBUG	
+
+#ifdef MDEBUG
 	CRYPTO_malloc_debug_init();
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
 	fprintf(stderr, "malloc() debugging on.\n");
@@ -115,9 +115,9 @@ MainWindow::MainWindow(QWidget *parent )
 
 	read_cmdline();
 	if (exitApp) return;
-	
+
 	init_baseDir();
-	
+
 	dbfile = baseDir + QDir::separator() + dbfile;
 	char *p;
 	db mydb(dbfile);
@@ -136,7 +136,7 @@ NIDlist *MainWindow::read_nidlist(QString name)
 	NIDlist nl;
 	QString prefix = getPrefix();
 	name = QDir::separator() + name;
-	
+
 	/* first try $HOME/xca/ */
 	nl = readNIDlist(baseDir + name);
 
@@ -146,10 +146,10 @@ NIDlist *MainWindow::read_nidlist(QString name)
 		nl = readNIDlist(unix_etc + name);
 	}
 #endif
-	
+
 	if (nl.count() == 0) /* look at /usr/(local/)share/xca/ */
 		nl = readNIDlist(prefix + name);
-	
+
 	return new NIDlist(nl);
 }
 
@@ -157,7 +157,7 @@ void MainWindow::init_baseDir()
 {
 	static bool done = false;
 	if (done) return;
-	fprintf(stderr, "base Dir: %s\n", CCHAR(baseDir)); 
+	fprintf(stderr, "base Dir: %s\n", CCHAR(baseDir));
 	QDir d(baseDir);
 	if ( ! d.exists() && !d.mkdir(baseDir)) {
 		QMessageBox::warning(this,tr(XCA_TITLE),
@@ -168,7 +168,7 @@ void MainWindow::init_baseDir()
 
 	/* read in all our own OIDs */
 	initOIDs(baseDir);
-	
+
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
@@ -177,7 +177,7 @@ void MainWindow::init_baseDir()
 
 void MainWindow::do_connections()
 {
-#if 0	
+#if 0
 	connect( keyList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( reqList, SIGNAL(init_database()), this, SLOT(init_database()));
 	connect( certList, SIGNAL(init_database()), this, SLOT(init_database()));
@@ -205,7 +205,7 @@ void MainWindow::do_connections()
 	connect( BNimportPFX, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
 	connect( BNimportPKCS7, SIGNAL(clicked()), certList, SLOT(loadPKCS7()));
 	connect( BNviewState, SIGNAL(clicked()), this, SLOT(changeView()));
-	
+
 	connect( BNemptyTemp, SIGNAL(clicked()), tempList, SLOT(newEmptyTemp()));
 	connect( BNcaTemp, SIGNAL(clicked()), tempList, SLOT(newCaTemp()));
 	connect( BNclientTemp, SIGNAL(clicked()), tempList, SLOT(newClientTemp()));
@@ -258,8 +258,8 @@ void MainWindow::init_images()
 	pki_x509::icon[4] = loadImg("revoked.png");
 	pki_temp::icon = loadImg("template.png");
 	pki_crl::icon = loadImg("crl.png");
-}		
-	
+}
+
 void MainWindow::read_cmdline()
 {
 	int cnt = 1, opt = 0 , type = 1;
@@ -267,17 +267,14 @@ void MainWindow::read_cmdline()
 	pki_base *item = NULL;
 	load_base *lb = NULL;
 	exitApp = 0;
-#if 0
 	ImportMulti *dlgi = NULL;
-	dlgi = new ImportMulti(this, NULL, true); 
-#endif	
+	dlgi = new ImportMulti(this);
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
 			if (lb) delete lb;
 			opt = 1; lb = NULL; type = 1;
 			switch (arg[1]) {
-#if 0
 				case 'c' : lb = new load_cert(); break;
 				case 'r' : lb = new load_req(); break;
 				case 'k' : lb = new load_key(); break;
@@ -285,10 +282,9 @@ void MainWindow::read_cmdline()
 				case '7' : lb = new load_pkcs7(); break;
 				case 'l' : lb = new load_crl(); break;
 				case 't' : lb = new load_temp(); break;
-#endif
 				case 'd' : type = 1; force_load=1; break;
 				case 'b' : type = 2; break;
-				case 'v' : fprintf(stderr, XCA_TITLE " Version " VER "\n"); 
+				case 'v' : fprintf(stderr, XCA_TITLE " Version " VER "\n");
 						   opt=0; exitApp=1; break;
 				case 'x' : exitApp = 1; opt=0; break;
 				default  : cmd_help((char*)(QString(tr("no such option: ")) + arg).data() );
@@ -305,7 +301,7 @@ void MainWindow::read_cmdline()
 			item = NULL;
 			try {
 				item = lb->loadItem(arg);
-				//dlgi->addItem(item);
+				dlgi->addItem(item);
 			}
 			catch (errorEx &err) {
 				if (item) {
@@ -321,18 +317,15 @@ void MainWindow::read_cmdline()
 				default  : cmd_help("I'm puzzled: this should not happen ! " );
 			}
 		}
-		
+
 		cnt++;
 	}
-#if 0
-	connect( dlgi, SIGNAL(init_database()), this, SLOT(init_database()));
 	dlgi->execute(1); /* force showing of import dialog */
 	delete dlgi;
-#endif
-}	
+}
 
 
-MainWindow::~MainWindow() 
+MainWindow::~MainWindow()
 {
 	close_database();
 	ERR_free_strings();
@@ -344,7 +337,7 @@ MainWindow::~MainWindow()
 		delete dn_nid;
 	if (aia_nid)
 		delete aia_nid;
-#ifdef MDEBUG	
+#ifdef MDEBUG
 	fprintf(stderr, "Memdebug:\n");
 	CRYPTO_mem_leaks_fp(stderr);
 #endif
@@ -352,32 +345,44 @@ MainWindow::~MainWindow()
 
 int MainWindow::initPass()
 {
-	pass_info p(tr("New Password"), 
+	db mydb(dbfile);
+	char *pass;
+
+	pass_info p(tr("New Password"),
 		tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
-	QString passHash;// = settings->getString("pwhash");
-#warning Keep a Passwd in DB ??
+	QString passHash;
+	if (!mydb.find(setting, "pwhash")) {
+		if ((pass = (char *)mydb.load(NULL))) {
+			passHash = pass;
+			free(pass);
+		}
+	}
 	if (passHash.isEmpty()) {
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
-		if (keylen == 0) return 0;
+		if (keylen == 0)
+			return 0;
 		pki_key::passwd[keylen]='\0';
-		//settings->putString( "pwhash", md5passwd(pki_key::passwd) );
+		passHash = md5passwd(pki_key::passwd);
+		mydb.set((const unsigned char *)CCHAR(passHash),
+				passHash.length()+1, 1, setting, "pwhash");
 	}
 	else {
-		int keylen=0;		
+		int keylen=0;
 		while (md5passwd(pki_key::passwd) != passHash) {
 			if (keylen !=0) QMessageBox::warning(this,tr(XCA_TITLE),
-				tr("Password verify error, please try again"));	
+				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database"));
 			keylen = passRead(pki_key::passwd, 25, 0, &p);
-			if (keylen == 0) return 0;
+			if (keylen == 0)
+				return 0;
 			pki_key::passwd[keylen]='\0';
 	    }
 	}
 	return 1;
 }
 
-// Static Password Callback functions 
+// Static Password Callback functions
 
 int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 {
@@ -387,14 +392,14 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	QDialog *dlg = new QDialog(qApp->activeWindow());
 	ui.setupUi(dlg);
 	if (p != NULL) {
-		//ui.image->setPixmap( *keyImg );
+		ui.image->setPixmap( *keyImg );
 		ui.description->setText(p->getDescription());
 		dlg->setWindowTitle(p->getTitle());
 	}
 	dlg->show();
-	//dlg->activateWindow();
+	dlg->activateWindow();
 	ui.pass->setFocus();
-	
+
 	buf[0] = '-'; /* if this remains the dialog was aborted */
 	if (dlg->exec()) {
 	   QString x = ui.pass->text();
@@ -439,7 +444,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	}
 }
 
-QString MainWindow::md5passwd(const char *pass)
+QString MainWindow::md5passwd(const char *pass, char *md5, int *len)
 {
 
 	EVP_MD_CTX mdctx;
@@ -455,9 +460,13 @@ QString MainWindow::md5passwd(const char *pass)
 		sprintf(zs, "%02X%c",m[j], (j+1 == (int)n) ?'\0':':');
 		str += zs;
 	}
+	if (md5 && len) {
+		*len = (*len>n) ? n : *len;
+		memcpy(md5, m, *len);
+	}
 	return str;
 }
-	
+
 void MainWindow::Error(errorEx &err)
 {
 	if (err.isEmpty()) return;
