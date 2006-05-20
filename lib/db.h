@@ -34,9 +34,9 @@ typedef struct db_header_t {
 	uint16_t version;
 	uint16_t flags;
 	char name[NAMELEN];	/* name of the entry */
-};	
+};
 
-class db 
+class db
 {
     private:
 	int fd;
@@ -44,14 +44,14 @@ class db
 	QString errstr;
 	int dberrno;
 	db_header_t head;
-	off_t head_offset;
-	
+
 	void init_header(db_header_t *db, int ver, int len, enum pki_type type,
 		const char *name);
 	bool verify_magic(void);
 	void convert_header(db_header_t *h);
 
     public:
+	off_t head_offset;
 	db(QString, int mode = S_IRUSR | S_IWUSR);
 	~db();
 	void first(void);
@@ -66,7 +66,7 @@ class db
 	unsigned char *load(db_header_t *u_header);
 	int erase(void);
 	int shrink(int flags);
-	
+
 	static int intToData(unsigned char **p, uint32_t val);
 	static uint32_t intFromData(const unsigned char **p);
 	static int boolToData(unsigned char **p, bool val);

@@ -426,17 +426,17 @@ Qt::ItemFlags db_base::flags(const QModelIndex &index) const
 
 bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-	//const char *n=NULL, *oldn=NULL;
+	const char *n=NULL, *oldn=NULL;
 	QString on, nn;
 	pki_base *item;
 	if (index.isValid() && role == Qt::EditRole) {
-		//n = value.toString().toAscii().constData();
+		n = CCHAR(value);
 		nn = value.toString();
-		//printf("New name: '%s', %p, %p\n", n, n, oldn);
+		printf("New name: '%s', %p, %p\n", n, n, oldn);
 		db mydb(dbName);
 		item = static_cast<pki_base*>(index.internalPointer());
 		on = item->getIntName();
-		//printf("New name: '%s', old name: '%s' %p %p\n", n, oldn, n, oldn);
+		printf("New name: '%s', old name: '%s' %p %p\n", n, oldn, n, oldn);
 		if (mydb.rename(item->getType(), CCHAR(on), CCHAR(nn)) == 0) {
 			item->setIntName(nn);
 			emit dataChanged(index, index);
@@ -449,9 +449,9 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 void db_base::load_default(load_base &load)
 {
 	QStringList slist;
-	
+
 	QFileDialog *dlg = new QFileDialog(mainwin);
-	
+
 	dlg->setWindowTitle(load.caption);
 	dlg->setFilters(load.filter);
 	dlg->setFileMode( QFileDialog::ExistingFiles );

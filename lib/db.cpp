@@ -15,35 +15,6 @@
 #include <errno.h>
 #endif
 
-#if 0
-int main()
-{
-	db mydb("test_db.x");
-	unsigned char *buf;
-	buf = (unsigned char *)malloc(400);
-	
-/*	
-	mydb.add(buf, 74, 1, async_key, "First entry");
-	mydb.add(buf, 246, 2, async_key, "Second entry");
-	mydb.add(buf, 43, 3, async_key, "Third thing");
-	mydb.add(buf, 74, 4, x509, "First entry");
-*/	
-	mydb.first();
-	if(mydb.find(async_key, "First entry") == 0)
-		printf("A\n" );
-	mydb.first();
-	if (mydb.find(async_key, "Third thing") == 0)
-		printf("B\n");
-	mydb.first();
-	if (mydb.find(async_key, "Second entry") == 0)
-		printf("C\n");
-	mydb.first();
-	if (mydb.find(async_key, "S-------y") == 0)
-		printf("D\n");
-	if (mydb.rename(async_key, "Second entry", "This is renamed") == 0)
-		printf("Rename success\n");
-}
-#endif
 db::db(QString filename, int mode)
 {
 	name = filename;
@@ -105,7 +76,7 @@ int db::find(enum pki_type type, const char *name)
 	//int len, ret=0;
 	if (head_offset == OFF_EOF)
 		return 1;
-	
+
 	do {
 		//printf("Comparing %s -> %s at %lu\n", head.name, name,
 				//head_offset);
@@ -121,9 +92,9 @@ int db::find(enum pki_type type, const char *name)
 		if (!verify_magic()) {
 			return -1;
 		}
-		
+
 	} while (next() == 0);
-	//printf("Returning 1\n");	
+	//printf("Returning 1\n");
 	return 1;
 }
 
@@ -146,10 +117,10 @@ void db::first(void)
 int db::next(void)
 {
 	int ret;
-	
+
 	if (head_offset == OFF_EOF)
 		return 1;
-	
+
 	head_offset = lseek(fd, head_offset + ntohl(head.len), SEEK_SET );
 	ret = read(fd, &head, sizeof(db_header_t) );
 	if (ret==0) {
@@ -209,7 +180,7 @@ QString db::uniq_name(QString s, enum pki_type type)
 {
 	int i;
 	QString myname = s;
-	
+
 	first();
 	for (i=1;;i++) {
 		if (find(type, CCHAR(myname)) == 0) {
@@ -230,7 +201,7 @@ int db::add(const unsigned char *p, int len, int ver, enum pki_type type,
 
 	init_header(&db, ver, len, type, name);
 	lseek(fd, 0, SEEK_END);
-	
+
 	if (write(fd, &db, sizeof(db)) != sizeof(db)) {
 		printf("write() failed\n");
 		return -1;
@@ -311,7 +282,7 @@ unsigned char *db::load(db_header_t *u_header)
 		if (u_header)
 			convert_header(u_header);
 		return data;
-		
+
 	} else {
 		printf("read of %u bytes failed: %d\n", size, ret);
 		free(data);
@@ -325,7 +296,7 @@ int db::erase(void)
 		return -1;
 
 	head.flags |= htons(DBFLAG_DELETED);
-	
+
 	lseek(fd, head_offset, SEEK_SET);
 	if (write(fd, &head, sizeof(db_header_t)) != sizeof(db_header_t)) {
 		printf("erasing of %s at %u failed\n", head.name, head_offset);
@@ -340,7 +311,7 @@ int db::shrink(int flags)
 	int fdn, ret, i=0;
 	uint32_t offs;
 	char buf[BUFSIZ];
-	
+
 	QString filename = name + "{new}";
 	fdn = open(CCHAR(filename), O_RDWR | O_CREAT, 0644);
 	if (fdn<0) {
@@ -349,7 +320,7 @@ int db::shrink(int flags)
 		return 1;
 	}
 	lseek(fd, 0, SEEK_SET);
-	
+
 	while ((ret = read(fd, &head, sizeof(head))) > 0) {
 		if (!verify_magic())
 			return 1;
@@ -378,7 +349,7 @@ int db::shrink(int flags)
 		}
 		if (offs)
 			break;
-		
+
 	}
 	close(fdn);
 	if (ret) {
