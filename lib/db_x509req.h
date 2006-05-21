@@ -72,6 +72,8 @@ class db_x509req: public db_x509super
 	void store_der() {store(false);}
 	void load(void);
 	void showItem();
+    signals:
+	void connNewX509(NewX509 *dlg);
 };
 
 #endif

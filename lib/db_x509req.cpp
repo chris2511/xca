@@ -92,7 +92,7 @@ void db_x509req::newItem()
 {
 	pki_x509req *req;
 	NewX509 *dlg = new NewX509(mainwin);
-	//emit connNewX509(dlg);
+	emit connNewX509(dlg);
 
 //	if (temp) {
 //		dlg->defineTemplate(temp);

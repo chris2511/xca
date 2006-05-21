@@ -61,7 +61,7 @@ db_crl::db_crl(QString db, MainWindow *mw)
 {
 	delete rootItem;
 	rootItem = newPKI();
-	headertext << "Name" << "Type" << "Size";
+	headertext << "Name" << "Common name" << "revoked";
 	delete_txt = tr("Delete the revokation list(s)");
 
 	loadContainer();
@@ -139,8 +139,6 @@ void db_crl::showItem()
 		return;
 	pki_crl *crl = static_cast<pki_crl*>(currentIdx.internalPointer());
 	CrlDetail *dlg;
-
-	printf("Crl detail: %p\n", crl);
 
 	dlg = new CrlDetail(mainwin);
 	if (dlg) {

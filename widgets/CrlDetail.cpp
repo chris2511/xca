@@ -57,17 +57,20 @@
 #include <Qt/qtextedit.h>
 #include <Qt/qlineedit.h>
 
-CrlDetail::CrlDetail(QWidget *parent)
-	:QDialog(parent)
+CrlDetail::CrlDetail(MainWindow *mainwin)
+	:QDialog(mainwin)
 {
+	mw = mainwin;
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
-#if 0
+
 	certList->clear();
-	certList->addColumn(tr("Name"));
-	certList->addColumn(tr("Serial"));
-	certList->addColumn(tr("Revocation"));
-#endif
+	certList->setColumnCount(3);
+
+	QStringList sl;
+	sl << tr("Name") << tr("Serial") << tr("Revocation");
+	certList->setHeaderLabels(sl);
+
 	image->setPixmap(*MainWindow::revImg);
 	descr->setReadOnly(true);
 }
@@ -82,9 +85,9 @@ void CrlDetail::setCrl(pki_crl *crl)
 
 	last = NULL;
 	iss = NULL;
-	if (MainWindow::certs != NULL) {
-		while ((iss = MainWindow::certs->getBySubject(crl->getIssuerName(),
-			last)) != NULL) {
+	if (mw->certs != NULL) {
+		while ((iss = mw->certs->getBySubject(crl->getIssuerName(),
+						last)) != NULL) {
 			pki_key *key = iss->getPubKey();
 			if (crl->verify(key)) {
 				delete key;
@@ -126,24 +129,20 @@ void CrlDetail::setCrl(pki_crl *crl)
 
 	// page 3
 	numc = crl->numRev();
-#warning CRL details
-#if 0
 	for (i=0; i<numc; i++) {
+		QTreeWidgetItem *current;
 		revit = crl->getRev(i);
-                rev = MainWindow::certs->getByIssSerial(iss, revit.getSerial());
-                if (rev != NULL) {
-                        current = new Q3ListViewItem(certList,
-                                        rev->getIntName());
-                }
-                else {
-                        current = new Q3ListViewItem(certList,
-					tr("Unknown certificate"));
-                }
-				current->setPixmap(0, *pki_x509::icon[2]);
-                current->setText(1, revit.getSerial().toHex()) ;
-                current->setText(2, revit.getDate().toSortable());
+			rev = mw->certs->getByIssSerial(iss, revit.getSerial());
+			current = new QTreeWidgetItem(certList);
+			if (rev != NULL) {
+				current->setText(0, rev->getIntName() );
+			} else {
+				current->setText(0, tr("Unknown certificate"));
+			}
+			current->setIcon(0, *pki_x509::icon[2]);
+			current->setText(1, revit.getSerial().toHex()) ;
+			current->setText(2, revit.getDate().toSortable());
         }
-#endif
 	// page 4
 	v3extensions->document()->setHtml(crl->printV3ext());
 }

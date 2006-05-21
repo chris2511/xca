@@ -118,7 +118,7 @@ void db_base::loadContainer()
 			printf("Load was empty !\n");
 			break;
 		}
-		printf("load item: %s\n",head.name);
+		//printf("load item: %s\n",head.name);
 		if (pb->getVersion() < head.version) {
 			free(p);
 			printf("Item[%s]: Version %d > known version: %d -> ignored\n",

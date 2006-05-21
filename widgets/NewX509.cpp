@@ -68,8 +68,8 @@
 #include "lib/oid.h"
 #include "lib/func.h"
 
-#undef TRACE
 #define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
+#define TRACE
 
 int NewX509::name_nid[] = {
 	NID_commonName,

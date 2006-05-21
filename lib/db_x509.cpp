@@ -69,9 +69,9 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 
 	delete_txt = tr("Delete the certificates(s)");
 	loadContainer();
-	// FIXME:
-	// connect(keyl, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
-	// connect(keyl, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
+
+//	connect(mw->keys, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
+//	connect(mw->keys, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
 }
 
 pki_base *db_x509::newPKI(){
@@ -189,10 +189,10 @@ void db_x509::inToCont(pki_base *pki)
 	/* search for dangling certificates, which signer this is */
 	FOR_ALL_pki(client, pki_x509) {
 		if (client->getSigner() == NULL) {
-			printf("expecting client %s\n", CCHAR(pki->getIntName()));
+			//printf("expecting client %s\n", CCHAR(pki->getIntName()));
 			if (client->verify(cert)) {
 				int row = client->row();
-				printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
+				//printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
 				beginRemoveRows(QModelIndex(), row, row);
 				rootItem->takeChild(client);
 				endRemoveRows();
@@ -347,7 +347,7 @@ void db_x509::loadPKCS7()
 void db_x509::newItem()
 {
 	NewX509 *dlg = new NewX509(mainwin);
-	//emit connNewX509(dlg);
+	emit connNewX509(dlg);
 	dlg->setCert();
 	pki_x509 *sigcert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	dlg->defineSigner((pki_x509*)sigcert);

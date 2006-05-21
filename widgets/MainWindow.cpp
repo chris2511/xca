@@ -218,17 +218,15 @@ void MainWindow::do_connections()
 	connect( BNimportCrl, SIGNAL(clicked()), crlList, SLOT(load()));
 	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));
 	connect( BNdeleteCrl, SIGNAL(clicked()), crlList, SLOT(deleteItem()));
-
-
-	connect( reqList, SIGNAL(newCert(pki_x509req *)),
-		certList, SLOT(newCert(pki_x509req *)) );
-	connect( certList, SIGNAL(genCrl(pki_x509 *)),
-		crlList, SLOT(newItem(pki_x509 *)) );
-	connect( tempList, SIGNAL(newCert(pki_temp *)),
-		certList, SLOT(newCert(pki_temp *)) );
-	connect( tempList, SIGNAL(newReq(pki_temp *)),
-		reqList, SLOT(newItem(pki_temp *)) );
 #endif
+	connect( reqs, SIGNAL(newCert(pki_x509req *)),
+		certs, SLOT(newCert(pki_x509req *)) );
+	connect( certs, SIGNAL(genCrl(pki_x509 *)),
+		crls, SLOT(newItem(pki_x509 *)) );
+	connect( temps, SIGNAL(newCert(pki_temp *)),
+		certs, SLOT(newCert(pki_temp *)) );
+	connect( temps, SIGNAL(newReq(pki_temp *)),
+		reqs, SLOT(newItem(pki_temp *)) );
 }
 
 void MainWindow::init_images()
@@ -500,6 +498,7 @@ NewX509 *MainWindow::newX509()
 
 void MainWindow::connNewX509(NewX509 *nx)
 {
+	printf("CONNECTING NewX509\n");
 	connect( (const QObject *)nx->genKeyBUT, SIGNAL(clicked()), keys, SLOT(newItem()) );
 	connect( nx, SIGNAL(genKey()), keys, SLOT(newItem()) );
 	connect( keys, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );

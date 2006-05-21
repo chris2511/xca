@@ -1,3 +1,4 @@
+/* vi: set sw=4 ts=4: */
 /*
  * Copyright (C) 2001 Christian Hohnstaedt.
  *
@@ -52,13 +53,15 @@
 #include "ui/CrlDetail.h"
 
 class pki_crl;
+class MainWindow;
 
 class CrlDetail: public QDialog, private Ui::CrlDetail
 {
 	Q_OBJECT
-
-   public:
-	CrlDetail(QWidget *parent);
-	void setCrl(pki_crl *crl);
+	private:
+		MainWindow *mw;
+	public:
+		CrlDetail(MainWindow *mainwin);
+		void setCrl(pki_crl *crl);
 };
 #endif

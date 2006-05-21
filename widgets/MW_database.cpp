@@ -91,9 +91,9 @@ void MainWindow::init_database()
 	crlView->setModel(crls);
 
 	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
-			SLOT(connNewX509(NewX509 *)) );
+		SLOT(connNewX509(NewX509 *)) );
 	connect( reqs, SIGNAL(connNewX509(NewX509 *)), this,
-			SLOT(connNewX509(NewX509 *)) );
+		SLOT(connNewX509(NewX509 *)) );
 }
 
 void MainWindow::dump_database()
