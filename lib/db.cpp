@@ -20,7 +20,7 @@ db::db(QString filename, int mode)
 	name = filename;
 	fd = open(CCHAR(filename), O_RDWR | O_CREAT, mode);
 	if (fd<0) {
-		errstr = QString("DB open() failed: ") + filename +" "+ 
+		errstr = QString("DB open() failed: ") + filename +" "+
 				strerror(errno);
 		dberrno = errno;
 		perror(CCHAR(filename));
@@ -315,7 +315,7 @@ int db::shrink(int flags)
 	QString filename = name + "{new}";
 	fdn = open(CCHAR(filename), O_RDWR | O_CREAT, 0644);
 	if (fdn<0) {
-		errstr = QString("open() failed: ") + filename +" "+ 
+		errstr = QString("open() failed: ") + filename +" "+
 				strerror(errno);
 		return 1;
 	}

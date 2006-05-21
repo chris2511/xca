@@ -33,7 +33,7 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
  *
@@ -66,7 +66,7 @@ class pki_x509req : public pki_x509super
 	   void load_spkac(const QString filename);
 	   //for checking spkac content-fields
 	   int fix_data(int nid, int *type);
-	   
+
 	protected:
 	   X509_REQ *request;
 	   NETSCAPE_SPKI *spki;

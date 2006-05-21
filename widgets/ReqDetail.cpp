@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,17 +34,17 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "ReqDetail.h"
@@ -60,7 +60,7 @@ ReqDetail::ReqDetail(QWidget *parent)
 {
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::csrImg);		 
+	image->setPixmap(*MainWindow::csrImg);
 	descr->setReadOnly(true);
 }
 
@@ -77,7 +77,7 @@ void ReqDetail::setReq(pki_x509req *req)
 		if (req->isSpki()) {
 			verify->setText("SPKAC");
 		}
-		else {       
+		else {
 			verify->setText("PKCS#10");
 		}
 	}
@@ -93,7 +93,7 @@ void ReqDetail::setReq(pki_x509req *req)
 	}
 	// the subject
 	subject->setX509name(req->getSubject());
-	
+
 	// Algorithm
 	sigAlgo->setText(req->getSigAlg());
 	sigAlgo->setReadOnly(true);

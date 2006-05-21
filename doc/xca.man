@@ -22,11 +22,11 @@ The signing of requests, and the creation of selfsigned certificates
 is supported. Both can use templates for simplicity.
 The PKI structures can be imported and exported in several formats
 like PKCS#12, PEM, DER, PKCS#8, PKCS#7.
-      
+
 .SH OPTIONS
 A summary of options are included below.
 .TP
-.B \-v 
+.B \-v
 Show version information and exit.
 .TP
 .B \-r
@@ -58,10 +58,10 @@ expect the following argument to be the database name to use.
 expect the following argument to be the basedirectory for the database(s) OIDs and database logs.
 .TP
 .B \-x
-Exit after processing all commandline options. 
-Usually after importing the items in 
+Exit after processing all commandline options.
+Usually after importing the items in
 .I -k -r -c -p -7 -l -t
-the application will startup as usual. With the 
+the application will startup as usual. With the
 .I -x
 option given it will exit after finishing the import dialog. This is usefull if xca is used as default application for viewing certificates, keys or requests.
 

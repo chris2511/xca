@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -33,10 +33,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -44,7 +44,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "pki_pkcs7.h"
@@ -53,12 +53,12 @@
 
 pki_pkcs7::pki_pkcs7(const QString name)
 	:pki_base(name)
-{ 
+{
 	p7 = PKCS7_new();
 	PKCS7_set_type(p7, NID_pkcs7_signed);
 	PKCS7_content_new(p7, NID_pkcs7_data);
 	class_name = "pki_pkcs7";
-}	
+}
 
 
 pki_pkcs7::~pki_pkcs7()
@@ -84,7 +84,7 @@ void pki_pkcs7::encryptBio(pki_x509 *crt, BIO *bio)
 	openssl_error();
 	if (p7) PKCS7_free(p7);
 	p7 = PKCS7_encrypt(certstack, bio, EVP_des_ede3_cbc(), PKCS7_BINARY);
-	openssl_error();	
+	openssl_error();
 	sk_X509_free(certstack);
 }
 
@@ -124,7 +124,7 @@ void pki_pkcs7::signFile(pki_x509 *crt, QString filename)
 	signBio(crt, bio);
 	BIO_free(bio);
 }
-	
+
 void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 {
 	BIO *bio = NULL;
@@ -171,9 +171,9 @@ void pki_pkcs7::fload(const QString fname)
 {
 	FILE *fp;
 	fp = fopen(CCHAR(fname), "rb");
-       	if (fp) {
-		p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);	
-               	if (!p7) {
+	if (fp) {
+		p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);
+	if (!p7) {
 			ign_openssl_error();
 			rewind(fp);
 			p7 = d2i_PKCS7_fp(fp, &p7);
@@ -186,17 +186,17 @@ void pki_pkcs7::fload(const QString fname)
 
 
 STACK_OF(X509) *pki_pkcs7::getCertStack() {
-	STACK_OF(X509) *certstack = NULL; 
+	STACK_OF(X509) *certstack = NULL;
 	int i;
         if (p7 == NULL) return NULL;
 	i = OBJ_obj2nid(p7->type);
 	switch (i) {
 		case NID_pkcs7_signed:
 			certstack = p7->d.sign->cert;
-			break;									    
+			break;
 		case NID_pkcs7_signedAndEnveloped:
 			certstack = p7->d.signed_and_enveloped->cert;
-			break;									    
+			break;
 		default:
 			break;
 	}

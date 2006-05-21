@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,17 +34,17 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "CertDetail.h"
@@ -61,14 +61,14 @@ CertDetail::CertDetail(QWidget *parent)
 {
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::certImg);		 
+	image->setPixmap(*MainWindow::certImg);
 	descr->setReadOnly(true);
 }
 
 void CertDetail::setCert(pki_x509 *cert)
 {
 	descr->setText(cert->getIntName());
-	
+
 	// examine the key
 	pki_key *key= cert->getRefKey();
 	if (key && key->isPrivKey()) {
@@ -79,7 +79,7 @@ void CertDetail::setCert(pki_x509 *cert)
 		privKey->setText(tr("Not available"));
 		privKey->setDisabled(true);
 	}
-	
+
 	// examine the signature
 	if ( cert->getSigner() == NULL) {
 		signCert->setText(tr("Signer unknown"));
@@ -89,12 +89,12 @@ void CertDetail::setCert(pki_x509 *cert)
 		signCert->setText(tr("Self signed"));
 		signCert->setGreen();
 	}
-	
+
 	else {
 		signCert->setText(cert->getSigner()->getIntName());
 		signCert->setGreen();
 	}
-	
+
 	// check trust state
 	if (cert->getEffTrust() == 0) {
 		trustState->setText(tr("Not trusted"));
@@ -104,14 +104,14 @@ void CertDetail::setCert(pki_x509 *cert)
 		trustState->setText(tr("Trusted"));
 		trustState->setGreen();
 	}
-	
+
 	// the serial
 	serialNr->setText(cert->getSerial().toHex());
-	
+
 	// details of subject and issuer
 	subject->setX509name(cert->getSubject());
 	issuer->setX509name(cert->getIssuer());
-	
+
 	// The dates
 	notBefore->setText(cert->getNotBefore().toPretty());
 	notAfter->setText(cert->getNotAfter().toPretty());
@@ -133,10 +133,10 @@ void CertDetail::setCert(pki_x509 *cert)
 	// the fingerprints
 	fpMD5->setText(cert->fingerprint(EVP_md5()));
 	fpSHA1->setText(cert->fingerprint(EVP_sha1()));
-	
+
 	// V3 extensions
 	v3extensions->document()->setHtml(cert->printV3ext());
-	 
+
 	// Algorithm
 	sigAlgo->setText(cert->getSigAlg());
 	sigAlgo->setReadOnly(true);

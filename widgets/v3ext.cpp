@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,18 +34,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "v3ext.h"
@@ -81,7 +81,7 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 	le = myle;
 	if (le)
 		addItem(le->text());
-	
+
 	memset(&ext_ctx, 0, sizeof(X509V3_CTX));
 	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
 }
@@ -93,7 +93,7 @@ void v3ext::addItem(QString list)
 	sl = list.split(',');
 	printf("List count = %d\n",  sl.count());
 	for (i=0; i< sl.count(); i++)
-		addEntry(sl[i]);	
+		addEntry(sl[i]);
 }
 
 /* for one TYPE:Content String */
@@ -101,17 +101,17 @@ void v3ext::addEntry(QString line)
 {
 	int i, row;
 	QTableWidgetItem *tw;
-	
+
 	i = line.indexOf(':');
 	if (i<0 || line.isEmpty())
 		return;
-	
+
 	row = tableWidget->rowCount();
 	tableWidget->setRowCount(row+1);
-	
+
 	tw = new QTableWidgetItem(line.left(i));
 	tableWidget->setItem(row, 0, tw);
-	
+
 	tw = new QTableWidgetItem(line.right(line.length()-(i+1)));
 	tableWidget->setItem(row, 1, tw);
 }
@@ -120,7 +120,7 @@ QString v3ext::toString()
 {
 	QStringList str;
 	int i, row = tableWidget->rowCount();
-	
+
 	for (i=0; i<row; i++) {
 		QString s;
 		s = tableWidget->item(i,0)->text().trimmed();
@@ -136,7 +136,7 @@ void v3ext::on_delEntry_clicked()
 {
 	tableWidget->removeRow(tableWidget->currentRow());
 }
-		
+
 void v3ext::on_addEntry_clicked()
 {
 	QString line;
@@ -158,12 +158,12 @@ bool v3ext::__validate(bool showSuccess)
 {
 	x509v3ext ext;
 	QString str, error;
-	
+
 	if (nid==NID_info_access) {
 		str = "OCSP;";
 	}
 	str += toString();
-	
+
 	ext.create(nid, str, &ext_ctx);
 	while (int i = ERR_get_error() ) {
 		error += ERR_error_string(i ,NULL);

@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,18 +34,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "NewX509.h"
@@ -80,7 +80,7 @@ int NewX509::name_nid[] = {
 	NID_organizationalUnitName,
 	NID_pkcs9_emailAddress
 };
-							 
+
 NewX509::NewX509(QWidget *parent)
 	:QDialog(parent)
 {
@@ -104,12 +104,12 @@ NewX509::NewX509(QWidget *parent)
 	setWindowTitle(tr(XCA_TITLE));
 	TRACE
 	fixtemp = NULL;
-	
+
 	nsImg->setPixmap(*MainWindow::nsImg);
 	//setFont( tFont );
 	serialNr->setValidator( new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
 	QStringList strings;
-	 
+
 	// are there any useable private keys  ?
 	TRACE
 	strings = MainWindow::keys->get0PrivateDesc();
@@ -120,7 +120,7 @@ NewX509::NewX509(QWidget *parent)
 	if (!strings.isEmpty())
 		on_keyList_highlighted(strings[0]);
 	TRACE
-	
+
 	// any PKCS#10 requests to be used ?
 	TRACE
 	strings = MainWindow::reqs->getDesc();
@@ -133,7 +133,7 @@ NewX509::NewX509(QWidget *parent)
 		reqList->insertItems(0, strings);
 	TRACE
 	}
-	
+
 	// How about signing certificates ?
 	TRACE
 	strings = MainWindow::certs->getSignerDesc();
@@ -147,14 +147,14 @@ NewX509::NewX509(QWidget *parent)
 		certList->insertItems(0, strings);
 	TRACE
 	}
-	
+
 	// set dates to now and now + 1 year
 	a1time a;
 	notBefore->setDate(a.now());
 	TRACE
 	notAfter->setDate(a.now(60*60*24*365));
 	TRACE
-	
+
 	// settings for the templates ....
 	strings.clear();
 	TRACE
@@ -167,13 +167,13 @@ NewX509::NewX509(QWidget *parent)
 	strings.prepend(tr("Empty Template"));
 	tempList->insertItems(0, strings);
 	TRACE
-	
+
 	// setup Extended keyusage
 	TRACE
 	for (i=0; i < eku_nid.count(); i++)
 		ekeyUsage->insertItem(0, OBJ_nid2ln(eku_nid[i]));
 
-	// setup Distinguished Name 
+	// setup Distinguished Name
 	TRACE
 	for (i=0; i < dn_nid.count(); i++)
 		extDNobj->insertItem(0, OBJ_nid2ln(dn_nid[i]));
@@ -199,7 +199,7 @@ NewX509::NewX509(QWidget *parent)
 	name_ptr[5] = organisationalUnitName;
 	name_ptr[6] = emailAddress;
 
-	// last polish 
+	// last polish
 	signerChanged();
 	TRACE
 	checkAuthKeyId();
@@ -245,7 +245,7 @@ void NewX509::setTemp(pki_temp *temp)
 	extDNlist->setHorizontalHeaderLabels(sl);
 	pt = tmpl;
 }
-	
+
 void NewX509::setCert()
 {
 	tText=tr("Certificate");
@@ -270,7 +270,7 @@ void NewX509::defineRequest(pki_x509req *req)
 	if (!req) return;
 	fromReqCB->setEnabled(true);
 	fromReqCB->setChecked(true);
-	QString reqname = req->getIntName(); 
+	QString reqname = req->getIntName();
 	reqList->setCurrentIndex(reqList->findText(reqname));
 }
 
@@ -283,14 +283,14 @@ void NewX509::defineSigner(pki_x509 *defcert)
 		foreignSignRB->setChecked(true);
 		certList->setEnabled(true);
 	}
-}	
+}
 
 
 int NewX509::lb2int(QListWidget *lb)
 {
 	int i, x=0, c=lb->count();
 	QListWidgetItem *item;
-	
+
 	for (i=0; i<c; i++) {
 		item = lb->item(i);
 		if (lb->isItemSelected(item)){
@@ -298,7 +298,7 @@ int NewX509::lb2int(QListWidget *lb)
 		}
 	}
 	return x;
-}	
+}
 
 
 void NewX509::int2lb(QListWidget *lb, int x)
@@ -310,7 +310,7 @@ void NewX509::int2lb(QListWidget *lb, int x)
 		item = lb->item(i);
 		lb->setItemSelected(item, (1<<i) & x);
 	}
-}	
+}
 
 
 void NewX509::fromTemplate(pki_temp *temp)
@@ -400,8 +400,8 @@ void NewX509::on_fromReqCB_clicked()
 		//tabWidget->setTabEnabled(1,true);
 	}
 }
-	
-	
+
+
 void NewX509::on_keyList_highlighted(const QString &keyname)
 {
 	if ( keyname.right(5) == "(DSA)" )
@@ -419,7 +419,7 @@ void NewX509::dataChangeP2()
 #if 0
 void NewX509::showPage(QWidget *page)
 {
-	
+
 	if (page == page0) {
 		signerChanged();
 		switchExtended();
@@ -431,7 +431,7 @@ void NewX509::showPage(QWidget *page)
 		}
 		dataChangeP2();
 	}
-	
+
 	if (page == page7) {
 		QString issn, subn;
 		if (fromReqCB->isChecked()) {
@@ -442,28 +442,28 @@ void NewX509::showPage(QWidget *page)
 		}
 		else
 			subn = getX509name().oneLine();
-		
+
 		pki_x509 *issuer = getSelectedSigner();
 		if (issuer && foreignSignRB->isChecked())
 			issn = issuer->getSubject().oneLine();
 		else
 			issn = subn;
-		
+
 		subn = "<p><b>Subject:</b> " + subn;
 		issn = "<p><b>Issuer:</b> " + issn;
 		if (!appropriate(page1)) issn = "";
-		
+
 		v3Extensions->setText( subn + issn + "<p>" + createRequestText() );
 	}
-	
+
 	if (page == page4) {
 		checkAuthKeyId();
 	}
-			
+
 	Q3Wizard::showPage(page);
-	
+
 	if ( page == page2 ) {
-		description->setFocus();	
+		description->setFocus();
 	}
 	else if (page == page4) {
 		basicCA->setFocus();
@@ -477,19 +477,19 @@ void NewX509::signerChanged()
 {
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
-	
+
 	if (!cert) return;
-	
-	QString templ = cert->getTemplate();	
+
+	QString templ = cert->getTemplate();
 	snb = cert->getNotBefore();
 	sna = cert->getNotAfter();
 	if (snb > notBefore->getDate())
 		notBefore->setDate(snb);
 	if (sna < notAfter->getDate())
 		notAfter->setDate(sna);
-	
+
 	if (templ.isEmpty()) return;
-	
+
 	templateChanged(templ);
 }
 
@@ -509,7 +509,7 @@ void NewX509::templateChanged(pki_temp *templ)
 	templateChanged(tempname);
 }
 
-	
+
 void NewX509::templateChanged()
 {
 #if 0
@@ -518,7 +518,7 @@ void NewX509::templateChanged()
 	if (!tempList->isEnabled()) return;
 	if ((item = tempList->currentIndex())<4) {
 		temp = new pki_temp("temp",item);
-		if (temp) { 
+		if (temp) {
 			fromTemplate(temp);
 			delete (temp);
 		}
@@ -576,7 +576,7 @@ void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(0, name);
 	keyList->setCurrentIndex(0);
-	dataChangeP2();	
+	dataChangeP2();
 }
 
 void NewX509::helpClicked()
@@ -604,7 +604,7 @@ x509name NewX509::getX509name()
 {
 	x509name x;
 	int j, row;
-	
+
 	for (j = 0; j<EXPLICIT_NAME_CNT; j++) {
 		x.addEntryByNid(name_nid[j], name_ptr[j]->text());
 	}
@@ -620,27 +620,27 @@ x509name NewX509::getX509name()
 
 void NewX509::setX509name(const x509name &n)
 {
-	int j;	
+	int j;
 	extDNlist->clear();
 	for ( j = 0; j<EXPLICIT_NAME_CNT; j++) {
-		name_ptr[j]->setText(""); 
+		name_ptr[j]->setText("");
 	}
 	for ( int i=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		QStringList sl = n.entryList(i);
 		for ( j = 0; j<EXPLICIT_NAME_CNT; j++) {
-			if (nid == name_nid[j] && name_ptr[j]->text().isEmpty()) { 
-				name_ptr[j]->setText(sl[2]); 
+			if (nid == name_nid[j] && name_ptr[j]->text().isEmpty()) {
+				name_ptr[j]->setText(sl[2]);
 				break;
 			}
 		}
 		if (j == EXPLICIT_NAME_CNT) {
 			QTableWidgetItem *tw;
 			int row;
-			
+
 			row = extDNlist->rowCount();
 			extDNlist->setRowCount(row+1);
-	
+
 			for (int i=0; i<2; i++) {
 				tw = new QTableWidgetItem(sl[i+1]);
 				extDNlist->setItem(row, i, tw);
@@ -653,13 +653,13 @@ void NewX509::on_extDNadd_clicked()
 {
 	QTableWidgetItem *tw;
 	int row;
-			
+
 	row = extDNlist->rowCount();
 	extDNlist->setRowCount(row+1);
-	
+
 	tw = new QTableWidgetItem(extDNobj->currentText());
 	extDNlist->setItem(row, 0, tw);
-	
+
 	tw = new QTableWidgetItem(extDNname->text());
 	extDNlist->setItem(row, 1, tw);
 }
@@ -686,8 +686,8 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 	v3ext *dlg;
 	pki_x509 *cert, *signcert;
 	pki_x509req *req;
-	
-	// initially create cert 
+
+	// initially create cert
 	cert = new pki_x509();
 	if (fromReqCB->isChecked()) {
 		req = getSelectedReq();
@@ -701,7 +701,7 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 	} else {
 		signcert = cert;
 	}
-	
+
 	dlg = new v3ext(this);
 	dlg->addInfo(le, types.split(',' ), n,
 			signcert->getCert(), cert->getCert());

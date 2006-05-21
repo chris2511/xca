@@ -24,4 +24,4 @@ include $(TOPDIR)/Rules.mak
 
 ifeq ($(DEP), yes)
   sinclude .depend
-endif  
+endif

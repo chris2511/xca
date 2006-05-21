@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,17 +34,17 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "pki_x509.h"
@@ -54,7 +54,7 @@
 
 QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
 
-pki_x509::pki_x509(X509 *c) 
+pki_x509::pki_x509(X509 *c)
 	:pki_x509super()
 {
 	init();
@@ -62,7 +62,7 @@ pki_x509::pki_x509(X509 *c)
 	openssl_error();
 }
 
-pki_x509::pki_x509(const pki_x509 *crt) 
+pki_x509::pki_x509(const pki_x509 *crt)
 	:pki_x509super(crt->desc)
 {
 	init();
@@ -81,7 +81,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	openssl_error();
 }
 #if 0
-pki_x509::pki_x509(const pki_x509 &crt) 
+pki_x509::pki_x509(const pki_x509 &crt)
 	:pki_x509super(crt.desc)
 {
 	init();
@@ -124,7 +124,7 @@ void pki_x509::fload(const QString fname)
 		autoIntName();
 		if (getIntName().isEmpty())
 			setIntName(rmslashdot(fname));
-	}	
+	}
 	else fopen_error(fname);
 	fclose(fp);
 	X509_free(cert);
@@ -262,7 +262,7 @@ void pki_x509::setIssuer(const x509name &n)
 }
 
 void pki_x509::addV3ext(const x509v3ext &e)
-{	
+{
 	if (!e.isValid()) return;
 	X509_EXTENSION *ext = e.get();
 	X509_add_ext(cert, ext, -1);
@@ -270,9 +270,9 @@ void pki_x509::addV3ext(const x509v3ext &e)
 	openssl_error();
 }
 
-void pki_x509::delSigner(pki_base *s) 
+void pki_x509::delSigner(pki_base *s)
 {
-	if (s == psigner) 
+	if (s == psigner)
 		psigner = NULL;
 }
 
@@ -286,17 +286,17 @@ bool pki_x509::canSign()
 	if (!bc || !bc->ca) return false;
 	return true;
 }
-	
+
 bool pki_x509::hasSubAltName()
 {
 	STACK_OF(GENERAL_NAME) *subAlt;
 	int crit;
 	subAlt = (STACK_OF(GENERAL_NAME) *)X509_get_ext_d2i(cert, NID_subject_alt_name, &crit, NULL);
 	openssl_error();
-	if (sk_GENERAL_NAME_num(subAlt) < 1) return false;	
+	if (sk_GENERAL_NAME_num(subAlt) < 1) return false;
 	return true;
 }
-	
+
 void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 {
 	EVP_PKEY *tkey;
@@ -312,12 +312,12 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 
 /* Save the Certificate to data and back:
  * Version 1:
- * 	int Version
- * 	int size of cert
- * 	cert
- * 	int trust
- * 	int size of revTime
- * 	revocationtime
+ *	int Version
+ *	int size of cert
+ *	cert
+ *	int trust
+ *	int size of revTime
+ *	revocationtime
  */
 
 void pki_x509::fromData(const unsigned char *p, db_header_t *head)
@@ -328,7 +328,7 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	X509 *cert_sik = cert;
 	version = head->version;
 	size = head->len - sizeof(db_header_t);
-	
+
 	cert = D2I_CLASH(d2i_X509, NULL, &p1, size);
 	trust = db::intFromData(&p1);
 	isrevoked = db::boolFromData(&p1);
@@ -337,7 +337,7 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	caTemplate = db::stringFromData(&p1);
 	crlDays = db::intFromData(&p1);
 	lastCrl.d2i(p1, size - (p1-p));
-	
+
 	if (cert)
 		X509_free(cert_sik);
 	else
@@ -349,13 +349,13 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 unsigned char *pki_x509::toData(int *size)
 {
 	unsigned char *p, *p1;
-	
-	// calculate the needed size 
+
+	// calculate the needed size
 	*size = i2d_X509(cert, NULL) + 45 + caSerial.toHex().length();
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	
+
 	i2d_X509(cert, &p1); // cert
 	db::intToData(&p1, trust); // trust
 	db::boolToData(&p1, isrevoked);
@@ -389,7 +389,7 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 	fp = fopen(fname.toAscii(), p);
 	if (fp != NULL) {
 		if (cert){
-			if (PEM) 
+			if (PEM)
 				PEM_write_X509(fp, cert);
 			else
 				i2d_X509_fp(fp, cert);
@@ -412,9 +412,9 @@ bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 	bool ret =  X509_issuer_and_serial_cmp(cert, refcert->cert);
 	openssl_error();
 	return ret;
-			  
-}	
-	
+
+}
+
 bool pki_x509::verify(pki_x509 *signer)
 {
 	if (psigner == signer) return true;
@@ -441,7 +441,7 @@ pki_key *pki_x509::getPubKey() const
 {
 	EVP_PKEY *pkey = X509_get_pubkey(cert);
 	openssl_error();
-	pki_key *key = new pki_key(pkey);	
+	pki_key *key = new pki_key(pkey);
 	return key;
 }
 
@@ -493,7 +493,7 @@ int pki_x509::resetTimes(pki_x509 *signer)
 	openssl_error();
 	return ret;
 }
-	
+
 QString pki_x509::printV3ext()
 {
 	extList el;
@@ -507,20 +507,20 @@ x509v3ext pki_x509::getExtByNid(int nid)
 {
 	extList el = getExt();
 	x509v3ext e;
-	
+
 	for (int i=0; i< el.count(); i++){
 		if (el[i].nid() == nid) return el[i];
-	}			
+	}
 	return e;
-}	
+}
 
 extList pki_x509::getExt()
 {
 	extList el;
 	el.setStack(cert->cert_info->extensions);
-	
+
 	return el;
-}	
+}
 
 pki_x509 *pki_x509::getSigner()
 {
@@ -582,7 +582,7 @@ void pki_x509::setRevoked(const a1time &when)
 	revoked = when;
 	setEffTrust(0);
 	setTrust(0);
-	openssl_error();	
+	openssl_error();
 }
 
 int pki_x509::calcEffTrust()
@@ -605,7 +605,7 @@ int pki_x509::calcEffTrust()
 		prevsigner = signer;
 		signer = signer->getSigner();
 	}
-	
+
 	if (mytrust == 1) mytrust = 0;
 	efftrust = mytrust;
 	return mytrust;
@@ -636,25 +636,25 @@ QString pki_x509::tinyCAfname()
 	QString col;
 	const char *s;
 	x509name x = getSubject();
-	col = x.getEntryByNid(NID_commonName) 
+	col = x.getEntryByNid(NID_commonName)
 	    +(x.getEntryByNid(NID_commonName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_pkcs9_emailAddress) 
+	    + x.getEntryByNid(NID_pkcs9_emailAddress)
 	    +(x.getEntryByNid(NID_pkcs9_emailAddress) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_organizationalUnitName) 
+	    + x.getEntryByNid(NID_organizationalUnitName)
 	    +(x.getEntryByNid(NID_organizationalUnitName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_organizationName) 
+	    + x.getEntryByNid(NID_organizationName)
 	    +(x.getEntryByNid(NID_organizationName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_localityName) 
+	    + x.getEntryByNid(NID_localityName)
 	    +(x.getEntryByNid(NID_localityName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_stateOrProvinceName) 
+	    + x.getEntryByNid(NID_stateOrProvinceName)
 	    +(x.getEntryByNid(NID_stateOrProvinceName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_countryName) 
+	    + x.getEntryByNid(NID_countryName)
 	    +(x.getEntryByNid(NID_countryName) == "" ? " :" : ":");
 
 	int len = col.length();
 	s = col.toAscii();
 	unsigned char *buf = (unsigned char *)OPENSSL_malloc(len * 2 + 3);
-	
+
 	EVP_EncodeBlock(buf, (const unsigned char *)s, len );
 	col = (char *)buf;
 	OPENSSL_free(buf);
@@ -672,7 +672,7 @@ x509rev pki_x509::getRev()
 
 QVariant pki_x509::column_data(int col)
 {
-	QString truststatus[] = 
+	QString truststatus[] =
 		{ tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
 
 	switch (col) {
@@ -692,20 +692,20 @@ QVariant pki_x509::column_data(int col)
 			break;
 	}
 	return QVariant();
-	
+
 }
 
 QVariant pki_x509::getIcon()
 {
 	int pixnum = 0;
-	
+
 	if (getRefKey()) {
 		pixnum += 1;
 	}
-	if (calcEffTrust() == 0){ 
+	if (calcEffTrust() == 0){
 		pixnum += 2;
-	}	
-	return QVariant(*icon[pixnum]);	
+	}
+	return QVariant(*icon[pixnum]);
 }
 
 QString pki_x509::getSigAlg()

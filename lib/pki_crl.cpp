@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,10 +34,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -45,7 +45,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "pki_crl.h"
@@ -56,7 +56,7 @@ QPixmap *pki_crl::icon = NULL;
 
 pki_crl::pki_crl(const QString name )
 	:pki_base(name)
-{ 
+{
 	issuer = NULL;
 	crl = X509_CRL_new();
 	class_name="pki_crl";
@@ -75,14 +75,14 @@ void pki_crl::fload(const QString fname )
 			ign_openssl_error();
 			rewind(fp);
 			crl = d2i_X509_CRL_fp(fp, &crl);
-		}	
+		}
 		fclose(fp);
 		setIntName(rmslashdot(fname));
 		openssl_error();
 		if (MainWindow::certs) {
 			issuer = MainWindow::certs->getBySubject(getIssuerName());
 		}
-		else 
+		else
 			issuer = NULL;
 	}
 	else fopen_error(fname);
@@ -90,7 +90,7 @@ void pki_crl::fload(const QString fname )
 
 
 void pki_crl::createCrl(const QString d, pki_x509 *iss )
-{ 
+{
 	setIntName(d);
 	issuer = iss;
 	if (!iss) openssl_error("no issuer");
@@ -99,7 +99,7 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	a1int version = 1; /* version 2 CRL */
 	crl->crl->version = version.get();
 	openssl_error();
-}	
+}
 
 a1int pki_crl::getVersion()
 {
@@ -111,7 +111,7 @@ void pki_crl::setLastUpdate(const a1time &t)
 {
 	if (crl->crl->lastUpdate != NULL)
 		ASN1_TIME_free(crl->crl->lastUpdate);
-	
+
 	crl->crl->lastUpdate = t.get_utc();
 }
 
@@ -119,7 +119,7 @@ void pki_crl::setNextUpdate(const a1time &t)
 {
 	if (crl->crl->nextUpdate != NULL)
 		ASN1_TIME_free(crl->crl->nextUpdate);
-	
+
 	crl->crl->nextUpdate = t.get_utc();
 }
 
@@ -135,7 +135,7 @@ void pki_crl::fromData(const unsigned char *p, db_header_t *head)
 
 	size = head->len - sizeof(db_header_t);
 	version = head->version;
-			 
+
 	crl = D2I_CLASH(d2i_X509_CRL, NULL, &p, size);
 	if (crl)
 		X509_CRL_free(crl_sik);
@@ -159,7 +159,7 @@ unsigned char *pki_crl::toData(int *size)
 bool pki_crl::compare(pki_base *refcrl)
 {
 	bool ret;
-	ret = X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0 && 
+	ret = X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0 &&
 		getLastUpdate() == ((pki_crl *)refcrl)->getLastUpdate() &&
 		getNextUpdate() == ((pki_crl *)refcrl)->getNextUpdate() ;
 	openssl_error();
@@ -174,7 +174,7 @@ void pki_crl::addRev(const x509rev &xrev)
 }
 
 void pki_crl::addV3ext(const x509v3ext &e)
-{ 
+{
 	X509_EXTENSION *ext = e.get();
 	X509_CRL_add_ext(crl, ext, -1);
 	X509_EXTENSION_free(ext);
@@ -249,7 +249,7 @@ x509rev pki_crl::getRev(int num)
 		openssl_error();
 	}
 	return ret;
-}	
+}
 
 x509name pki_crl::getIssuerName()
 {
@@ -268,19 +268,19 @@ bool pki_crl::verify(pki_key *key)
 		ign_openssl_error();
 	}
 	return ret ;
-}	
+}
 
 x509v3ext pki_crl::getExtByNid(int nid)
 {
 	extList el;
 	x509v3ext e;
 	el.setStack(crl->crl->extensions);
-	
+
 	for (unsigned int i=0; i< el.count(); i++){
 		if (el[i].nid() == nid) return el[i];
-	}			
+	}
 	return e;
-}	
+}
 
 QString pki_crl::printV3ext()
 {

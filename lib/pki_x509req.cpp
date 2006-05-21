@@ -34,7 +34,7 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
  *
@@ -85,30 +85,30 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 {
 	int bad_nids[] = { NID_subject_key_identifier, NID_authority_key_identifier,
 		NID_issuer_alt_name, NID_undef };
-	
+
 	EVP_PKEY *privkey = NULL;
 	STACK_OF(X509_EXTENSION) *sk;
-	
+
 	if (key->isPubKey()) {
 		openssl_error("key not valid");
 		return;
 	}
-	
+
 	X509_REQ_set_version(request, 0L);
 	X509_REQ_set_pubkey(request, key->getKey());
 	setSubject(dn);
 	openssl_error();
-	
+
 	for(int i=0; bad_nids[i] != NID_undef; i++)
 		el.delByNid(bad_nids[i]);
-	
+
 	el.delInvalid();
-	
+
 	sk = el.getStack();
 	X509_REQ_add_extensions(request, sk);
 	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
 	openssl_error();
-	
+
 	privkey = key->decryptKey();
 	X509_REQ_sign(request, privkey, md);
 	openssl_error();
@@ -143,7 +143,7 @@ void pki_x509req::fload(const QString fname)
 	if (getIntName().isEmpty())
 		setIntName(rmslashdot(fname));
 	openssl_error();
-	
+
 	if( _req ) {
 		X509_REQ_free(request);
 		request = _req;
@@ -157,12 +157,12 @@ void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
 
 	size = head->len - sizeof(db_header_t);
 	version = head->version;
-	
+
 	privkey = NULL;
 	request = D2I_CLASH(d2i_X509_REQ, &request, &ps, size);
 	openssl_error();
 	if (ps - p < size)
-		spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &ps , size + p - ps); 
+		spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &ps , size + p - ps);
 	openssl_error();
 }
 
@@ -229,17 +229,17 @@ bool pki_x509req::compare(pki_base *refreq)
 {
 	if (!refreq) return false;
 	const EVP_MD *digest=EVP_md5();
-	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];	
+	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];
 	unsigned int d1_len,d2_len;
 	X509_REQ_digest(request, digest, d1, &d1_len);
 	X509_REQ_digest(((pki_x509req *)refreq)->request, digest, d2, &d2_len);
 	ign_openssl_error();
-	if ((d1_len == d2_len) && 
+	if ((d1_len == d2_len) &&
 	    (d1_len >0) &&
 	    (memcmp(d1,d2,d1_len) == 0) )return true;
 	return false;
 }
-	
+
 int pki_x509req::verify()
 {
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
@@ -264,7 +264,7 @@ pki_key *pki_x509req::getPubKey() const
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	 ign_openssl_error();
 	 if (pkey == NULL) return NULL;
-	 pki_key *key = new pki_key(pkey);	
+	 pki_key *key = new pki_key(pkey);
 	 openssl_error();
 	 return key;
 }
@@ -339,7 +339,7 @@ void pki_x509req::set_spki(NETSCAPE_SPKI *_spki)
 	if (pktmp == NULL) goto err;
 
 	if (NETSCAPE_SPKI_verify(_spki, pktmp) <= 0) goto err;
-		
+
 	X509_REQ_set_pubkey(request,pktmp);
 
 	// replace the internally stored spki structure.
@@ -354,7 +354,7 @@ void pki_x509req::set_spki(NETSCAPE_SPKI *_spki)
 }
 
 /*!
-   Load a spkac FILE into this request structure. 
+   Load a spkac FILE into this request structure.
    The file format follows the conventions understood by the 'openssl ca'
    command. (see: 'man ca')
 
@@ -408,7 +408,7 @@ void pki_x509req::load_spkac(const QString filename)
 			// check for a valid DN component.
 			if ((nid=OBJ_txt2nid(type)) == NID_undef)
 				{
-				// ... or a SPKAC tag. 
+				// ... or a SPKAC tag.
 				if (strcmp(type, "SPKAC") == 0)
 					setSPKIBase64(cv->value);
 				else

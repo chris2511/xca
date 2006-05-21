@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -33,18 +33,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #ifndef __NEWX509_H
@@ -83,13 +83,13 @@ class NewX509: public QDialog, public Ui::NewX509
 	X509V3_CTX ext_ctx;
 	void editV3ext(QLineEdit *le, QString types, int n);
 	enum pki_type pt;
-   public:	
+   public:
 	NewX509(QWidget *parent);
 	virtual ~NewX509();
 	void initCtx();
-	void setRequest(); // reduce to request form 	
-	void setTemp(pki_temp *temp); // reduce to template form 	
-	void setCert(); // reduce to certificate form 	
+	void setRequest(); // reduce to request form
+	void setTemp(pki_temp *temp); // reduce to template form
+	void setCert(); // reduce to certificate form
 	//void showPage(QWidget *page);
 	void toTemplate(pki_temp *temp);
 	void fromTemplate(pki_temp *temp);

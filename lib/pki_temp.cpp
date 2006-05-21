@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,10 +34,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -45,7 +45,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "pki_temp.h"
@@ -55,14 +55,14 @@
 
 QPixmap *pki_temp::icon=  NULL;
 
-pki_temp::pki_temp(const pki_temp *pk) 
+pki_temp::pki_temp(const pki_temp *pk)
 	:pki_base(pk->desc)
 {
 	class_name = pk->class_name;
 	dataVersion=pk->dataVersion;
 	pkiType=pk->pkiType;
 	cols=pk->cols;
-	
+
 	type=pk->type;
 	xname=pk->xname;
 	subAltName=pk->subAltName;
@@ -101,7 +101,7 @@ pki_temp::pki_temp(const QString d, int atype)
 	dataVersion=1;
 	pkiType=tmpl;
 	cols=2;
-	
+
 	type=atype;
 	subAltName="";
 	issAltName="";
@@ -162,7 +162,7 @@ pki_temp::pki_temp(const QString d, int atype)
 		keyUse=7;
 	}
 
-}	
+}
 
 
 void pki_temp::fromData(const unsigned char *p, db_header_t *head )
@@ -207,20 +207,20 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	authInfAcc=db::stringFromData(&p1);
 	certPol=db::stringFromData(&p1);
 	validMidn=db::boolFromData(&p1);
-	
+
 	if (p1-p != size) {
 		openssl_error("Wrong Size");
 	}
 }
 
 
-unsigned char *pki_temp::toData(int *size) 
+unsigned char *pki_temp::toData(int *size)
 {
 	unsigned char *p, *p1;
 	*size = dataSize();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
-	
+
 	db::intToData(&p1, type);
 	db::boolToData(&p1, bcCrit);
 	db::boolToData(&p1, keyUseCrit);
@@ -265,7 +265,7 @@ void pki_temp::writeTemp(QString fname)
 	int size = 0;
 	unsigned char *p, buf[2*sizeof(int)], *p1=buf;
 	FILE *fp = fopen(CCHAR(fname),"w");
-	
+
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;
@@ -294,10 +294,10 @@ void pki_temp::loadTemp(QString fname)
 	size = db::intFromData(&p1);
 	version = db::intFromData(&p1);
 	printf("Size=%d, Version=%d\n", size, version);
-	
+
 	if (size > 65535 || size <0)
 		openssl_error(tr("Template file content error"));
-	
+
 	p = (unsigned char *)OPENSSL_malloc(size);
 	if ((s=fread(p, 1, size, fp)) != size) {
 		OPENSSL_free(p);
@@ -306,7 +306,7 @@ void pki_temp::loadTemp(QString fname)
 	printf("read Size=%d , size=%d\n",s , size);
 	fromData(p, size, version);
 	OPENSSL_free(p);
-	
+
 	setIntName(rmslashdot(fname));
 	fclose(fp);
 }
@@ -319,8 +319,8 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	int s = 9 * sizeof(int) + 
-	       8 * sizeof(char) + 
+	int s = 9 * sizeof(int) +
+	       8 * sizeof(char) +
 	       xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
@@ -345,7 +345,7 @@ bool pki_temp::compare(pki_base *ref)
  // we don't care if templates with identical contents
  // are stored in the database ...
 	return false;
-}	
+}
 
 QVariant pki_temp::column_data(int col)
 {

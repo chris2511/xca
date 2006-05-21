@@ -4,7 +4,7 @@
 
 A graphical userinterface to OpenSSL.
 handling keys, generating Certificate signing requests,
-handling of client and root-certificates, 
+handling of client and root-certificates,
 as well as handling multiple CAs with signing , CRL
 and certificate templates.
 
@@ -31,11 +31,11 @@ Configuration:
 --------------
 XCA comes with its own configuration tool that has no
 relationship with the GNU "autoconf" and "automake" tools.
-Just the naming and invokation looks like it. Thus the 
+Just the naming and invokation looks like it. Thus the
 usual way to configure and build a Package is the same:
 $ ./configure; make; make install
 
-If you have a special setup, you can predefine the following 
+If you have a special setup, you can predefine the following
 variables: CC, LD, STRIP, CFLAGS, prefix, basedir. e.g.:
 $ CC="ccache gcc" STRIP=: CFLAGS="-Wall -g" prefix=/opt/xca ./configure
 to have a cached build and to not strip xca when installing it.
@@ -48,11 +48,11 @@ There should not be any need to change this.
 If it is not defined it defaults to $HOME/xca this can be changed at runtime
 with the switch -b.
 
-The header and library files were searched in: 
+The header and library files were searched in:
 "$QTDIR /usr /usr/X11R6 /usr/local"
 and all directorys supplied at the commandline of configure.
 The QT installationdir should not be supplied at the CMDline of configure
-but rather written to the $QTDIR environment variable as it is done 
+but rather written to the $QTDIR environment variable as it is done
 with the most distributions.
 
 If for example your shiny recent QT is in /usr/local/lib/qt-X11-3.2.0
@@ -74,16 +74,16 @@ The Versions of the used libraries are:
 $
 ---------------------------------------------
 
-This writes all found settings, vars and headers to 
+This writes all found settings, vars and headers to
 "Local.mak".
 
 After Local.mak was created by configure it can be used
-and modified for your needs. 
+and modified for your needs.
 
 Building:
 -----------
 The Makefiles do support parallel builds (-j)
-targets: 
+targets:
 all, xca :  builds the app
 install  :  installs the app
 headers  :  UICs the headers in ui/ needed by other files.

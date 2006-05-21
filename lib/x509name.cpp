@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,12 +34,12 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.sleepycat.com
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -47,7 +47,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 #include "x509name.h"
 #include "base.h"
@@ -106,10 +106,10 @@ QString x509name::getEntry(int i) const
 {
 	QString s, ret;
 	ASN1_STRING *d;
-	
+
 	if ( i<0 || i>entryCount() ) return s;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
-	
+
 	if (d==NULL)
 		return ret;
 
@@ -122,7 +122,7 @@ QString x509name::getEntry(int i) const
 		ret=QString::fromUtf8((const char *)d->data,d->length);
 	else
 		ret=QString::fromLatin1((const char *)d->data,d->length);
-	 
+
 	return ret;
 }
 
@@ -145,12 +145,12 @@ int x509name::nid(int i) const
 {
 	X509_NAME_ENTRY *ne;
 	int nid;
-	
+
 	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
 	nid = OBJ_obj2nid(ne->object);
 	//X509_NAME_ENTRY_free(ne);
 	return nid;
-}				 
+}
 
 unsigned char *x509name::d2i(const unsigned char *p, int size)
 {
@@ -168,7 +168,7 @@ unsigned char *x509name::i2d(unsigned char *p)
 	unsigned char *mp = p;
 	i2d_X509_NAME(xn, &mp);
 	return mp;
-}					 
+}
 
 bool x509name::operator == (const x509name &x) const
 {
@@ -188,7 +188,7 @@ int x509name::entryCount() const
 
 int x509name::getNidByName(const QString &nid_name)
 {
- 	return OBJ_txt2nid(nid_name.toAscii());
+	return OBJ_txt2nid(nid_name.toAscii());
 }
 
 static int fix_data(int nid, int *type)

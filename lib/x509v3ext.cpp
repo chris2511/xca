@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,12 +34,12 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.sleepycat.com
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -47,7 +47,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 #include "x509v3ext.h"
 #include <openssl/x509v3.h>
@@ -107,8 +107,8 @@ void *x509v3ext::d2i()
 {
 	return X509V3_EXT_d2i(ext);
 }
-		  
-/*	
+
+/*
 bool x509v3ext::operator == (const x509v3ext &x) const
 {
 	return (X509_EXTENSION_cmp(ext, x.ext) == 0);
@@ -146,7 +146,7 @@ QString x509v3ext::getValue() const
 		buffer[len] = '\0';
 		text+=buffer;
 	} while (len == V3_BUF);
-#undef V3_BUF	 
+#undef V3_BUF
 	return text;
 }
 
@@ -159,7 +159,7 @@ QString x509v3ext::getHtml() const
 	html += ":</u></b><br><tt>" + getValue() + "</tt>";
 	return html;
 }
-	
+
 X509_EXTENSION *x509v3ext::get() const
 {
 	return X509_EXTENSION_dup(ext);
@@ -190,12 +190,12 @@ STACK_OF(X509_EXTENSION) *extList::getStack()
 	for (int i=0; i< count(); i++) {
 		sk_X509_EXTENSION_push(sk, operator[](i).get());
 	}
-	return sk;		
+	return sk;
 }
 
 QString extList::getHtml(const QString &sep)
 {
-	x509v3ext e;	
+	x509v3ext e;
 	QStringList s;
 	for (int i=0; i< count(); i++)
 		s << operator[](i).getHtml();

@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -39,7 +39,7 @@
  *  http://www.sleepycat.com
  *
  *  http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -60,7 +60,7 @@ void initOIDs(QString baseDir);
 
 /* reads a list of OIDs/SNs from a file and turns them into a QValueList
  * of integers, representing the NIDs. Usually to be used by NewX509 for
- * the list of ExtendedKeyUsage and Distinguished Name 
+ * the list of ExtendedKeyUsage and Distinguished Name
  */
 
 NIDlist readNIDlist(QString fname);

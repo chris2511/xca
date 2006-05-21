@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -33,10 +33,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -44,7 +44,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "db_temp.h"
@@ -73,7 +73,7 @@ bool db_temp::runTempDlg(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(mainwin);
 	//emit connNewX509(dlg);
-	 
+
 	dlg->setTemp(temp);
 	dlg->fromTemplate(temp);
 	if (!dlg->exec()) {
@@ -142,7 +142,7 @@ void db_temp::showItem()
 }
 
 void db_temp::load()
-{   
+{
 	load_temp l;
 	load_default(l);
 }
@@ -153,7 +153,7 @@ void db_temp::store()
 		return;
 	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
 
-	QStringList filt; 
+	QStringList filt;
 	filt.append("XCA Templates ( *.xca )");
 	filt.append("All Files ( *.* )");
 	QString s="";
@@ -199,7 +199,7 @@ void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subMenu;
 	currentIdx = index;
-	
+
 	subMenu = menu->addMenu(tr("New Template"));
 	subMenu->addAction(tr("Empty"), this, SLOT(newEmptyTemp()));
 	subMenu->addAction(tr("CA"), this, SLOT(newCaTemp()));

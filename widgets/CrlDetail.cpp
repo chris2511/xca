@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,18 +34,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "CrlDetail.h"
@@ -62,13 +62,13 @@ CrlDetail::CrlDetail(QWidget *parent)
 {
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
-#if 0	
+#if 0
 	certList->clear();
 	certList->addColumn(tr("Name"));
 	certList->addColumn(tr("Serial"));
 	certList->addColumn(tr("Revocation"));
 #endif
-	image->setPixmap(*MainWindow::revImg);		 
+	image->setPixmap(*MainWindow::revImg);
 	descr->setReadOnly(true);
 }
 
@@ -77,9 +77,9 @@ void CrlDetail::setCrl(pki_crl *crl)
 	int numc, i;
 	pki_x509 *iss, *last, *rev;
 	x509rev revit;
-       	x509v3ext e1, e2;
+	x509v3ext e1, e2;
 	QStringList sl;
-	
+
 	last = NULL;
 	iss = NULL;
 	if (MainWindow::certs != NULL) {
@@ -93,19 +93,19 @@ void CrlDetail::setCrl(pki_crl *crl)
 			delete key;
 			last = iss;
 		}
-	}		
+	}
 	// page 1
 	if (iss != NULL) {
 		issuerIntName->setText(iss->getIntName());
 		pki_key *key = iss->getPubKey();
 		if (crl->verify(key)) {
 			signCheck->setText(tr("Ok"));
-                	signCheck->setGreen();
+	signCheck->setGreen();
 	        }
 		else {
 			signCheck->setText(tr("Failed"));
-                	signCheck->setRed();
-		}	
+	signCheck->setRed();
+		}
 		if (key)
 			delete key;
 	}
@@ -120,10 +120,10 @@ void CrlDetail::setCrl(pki_crl *crl)
         lUpdate->setText(crl->getLastUpdate().toPretty());
         nUpdate->setText(crl->getNextUpdate().toPretty());
         version->setText((++crl->getVersion()).toHex());
-	
+
 	// page 2
 	issuer->setX509name(crl->getIssuerName());
-	
+
 	// page 3
 	numc = crl->numRev();
 #warning CRL details
@@ -138,7 +138,7 @@ void CrlDetail::setCrl(pki_crl *crl)
                 else {
                         current = new Q3ListViewItem(certList,
 					tr("Unknown certificate"));
-                } 
+                }
 				current->setPixmap(0, *pki_x509::icon[2]);
                 current->setText(1, revit.getSerial().toHex()) ;
                 current->setText(2, revit.getDate().toSortable());

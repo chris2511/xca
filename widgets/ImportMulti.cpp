@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,18 +34,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "ImportMulti.h"
@@ -68,7 +68,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	mainwin = parent;
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::certImg);		 
+	image->setPixmap(*MainWindow::certImg);
 	//itemView->addColumn(tr("Internal name"));
 	//itemView->addColumn(tr("Common name"));
 	//itemView->addColumn(tr("Serial"));
@@ -77,7 +77,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	listView->setModel(mcont);
 	connect( listView, SIGNAL(doubleClicked()),
 		this, SLOT(on_butDetails_clicked)) ;
-	  
+
 }
 
 void ImportMulti::addItem(pki_base *pki)
@@ -111,7 +111,7 @@ void ImportMulti::addItem(pki_base *pki)
 			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
 	}
 }
-	
+
 #if 0
 void ImportMulti::showPopupMenu(Q3ListViewItem *item, const QPoint &pt, int x)
 {
@@ -178,12 +178,12 @@ void ImportMulti::import(QModelIndex &idx)
 {
 
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-	
+
 	printf("Import items: %d\n", mcont->rootItem->childCount());
 	if (!pki)
 		return;
 	QString cn = pki->getClassName();
-	
+
 	mcont->remFromCont(idx);
 
 	if (cn == "pki_x509") {
@@ -221,21 +221,21 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->setCert((pki_x509 *)pki);
 			dlg->exec();
 			delete dlg;
-		}						  
+		}
 		else if (cn == "pki_key") {
 			KeyDetail *dlg;
 			dlg = new KeyDetail(mainwin);
 			dlg->setKey((pki_key *)pki);
 			dlg->exec();
 			delete dlg;
-		}						  
+		}
 		else if (cn == "pki_x509req") {
 			ReqDetail *dlg;
 			dlg = new ReqDetail(mainwin);
 			dlg->setReq((pki_x509req *)pki);
 			dlg->exec();
 			delete dlg;
-		}						  
+		}
 		else if (cn == "pki_crl") {
 			CrlDetail *dlg;
 			dlg = new CrlDetail(mainwin);
@@ -247,8 +247,8 @@ void ImportMulti::on_butDetails_clicked()
 			QMessageBox::warning(this, XCA_TITLE,
 				tr("Details of this item cannot be shown: ") + cn, tr("OK"));
 		}
-			
-		else 
+
+		else
 			QMessageBox::warning(this, XCA_TITLE,
 				tr("The type of the Item is not recognized ") + cn, tr("OK"));
 	}
@@ -257,7 +257,7 @@ void ImportMulti::on_butDetails_clicked()
 			tr("Error") + pki->getClassName() +
 			err.getString(), tr("OK"));
 	}
- 
+
 }
 
 ImportMulti::~ImportMulti()
@@ -270,7 +270,7 @@ ImportMulti::~ImportMulti()
 		delete pki;
 		idx = listView->currentIndex();
 	}
-}	 
+}
 
 void ImportMulti::execute(int force)
 {

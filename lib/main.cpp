@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,20 +34,20 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.sleepycat.com
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 #include <Qt/qapplication.h>
 #include <Qt/qtranslator.h>
@@ -66,7 +66,7 @@ int main( int argc, char *argv[] )
 	QString locale;
 	QTranslator qtTr( 0 );
 	QTranslator xcaTr( 0 );
-	MainWindow *mw; 
+	MainWindow *mw;
 	QApplication a( argc, argv );
 
 #ifdef WIN32
@@ -89,7 +89,7 @@ int main( int argc, char *argv[] )
 
 	a.installTranslator( &qtTr );
 	a.installTranslator( &xcaTr );
-	fprintf(stderr, "Locale: %s\nPrefix:%s\n", 
+	fprintf(stderr, "Locale: %s\nPrefix:%s\n",
 		locale.data(), getPrefix().data());
 
 	mw = new MainWindow( NULL);
@@ -100,7 +100,7 @@ int main( int argc, char *argv[] )
 	delete mw;
 
 	pkictr =  pki_base::get_pki_counter();
-	if (pkictr) 
+	if (pkictr)
 		printf("PKI Counter (%d)\n", pkictr);
 
 	return ret;

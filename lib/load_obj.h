@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,17 +34,17 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
  * $Id$
  *
- */                           
+ */
 
 
 #ifndef LOAD_OBJ_H
@@ -62,61 +62,61 @@ class load_base
 		virtual pki_base * loadItem(QString s);
 		load_base();
 		virtual ~load_base();
-};		
+};
 
 class load_key: public load_base
 {
 	public:
 		load_key();
 		pki_base * loadItem(QString s);
-};		
+};
 
 class load_req: public load_base
 {
 	public:
 		load_req();
 		pki_base * loadItem(QString s);
-};		
+};
 
 class load_cert: public load_base
 {
 	public:
 		load_cert();
 		pki_base * loadItem(QString s);
-};		
+};
 
 class load_pkcs7: public load_base
 {
 	public:
 		load_pkcs7();
 		pki_base * loadItem(QString s);
-};		
+};
 
 class load_pkcs12: public load_base
 {
 	public:
 		load_pkcs12();
 		pki_base * loadItem(QString s);
-};		
+};
 
 class load_temp: public load_base
 {
 	public:
 		load_temp();
 		pki_base * loadItem(QString s);
-};		
+};
 
 class load_crl: public load_base
 {
 	public:
 		load_crl();
 		pki_base * loadItem(QString s);
-};		
+};
 
 class load_db: public load_base
 {
 	public:
 		load_db();
-};		
+};
 
 #endif

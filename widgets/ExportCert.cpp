@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -33,10 +33,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -44,7 +44,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "ExportCert.h"
@@ -61,24 +61,24 @@ ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey,
 	setupUi(this);
 	filename->setText(fname);
 	setWindowTitle(tr(XCA_TITLE));
-	QStringList sl; 
+	QStringList sl;
 	sl << "PEM" << "PEM with Certificate chain" <<
 		"PEM all trusted Certificates" << "PEM all Certificates" <<
 		"DER" << "PKCS #7" << "PKCS #7 with Certificate chain" <<
 		"PKCS #7 all trusted Certificates" <<"PKCS #7 all Certificates";
-	
+
 	if (hasKey) {
 		sl << "PKCS #12" << "PKCS #12 with Certificate chain";
-	}		
+	}
 	exportFormat->addItems(sl);
 	dirPath = dpath;
 	tinyCAfname = tcafn;
 }
-	
+
 void ExportCert::on_fileBut_clicked()
 {
 	QStringList filt;
-	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )")); 
+	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )"));
 	filt.append(tr("All Files ( *.* )"));
 	QString s = "";
 	QFileDialog *dlg = new QFileDialog(this);
@@ -106,7 +106,7 @@ void ExportCert::on_exportFormat_activated(int)
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];
 	filename->setText(nfn);
-}	
+}
 
 void ExportCert::on_tinyCaName_clicked()
 {

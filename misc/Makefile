@@ -1,5 +1,5 @@
 
-all: 
+all:
 
 install:
 	install -m 755 -d $(destdir)$(prefix)/share/xca/ \

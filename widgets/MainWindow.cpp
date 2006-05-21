@@ -190,7 +190,7 @@ void MainWindow::do_connections()
 	connect( BNdeleteKey, SIGNAL(clicked()), keys, SLOT(deleteItem()));
 	connect( BNchangePass, SIGNAL(clicked()), keys, SLOT(changePasswd()));
 #endif
-#if 0	
+#if 0
 	connect( BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
 	connect( BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));
 	connect( BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
@@ -214,11 +214,11 @@ void MainWindow::do_connections()
 	connect( BNchangeTemp, SIGNAL(clicked()), tempList, SLOT(alterTemp()));
 	connect( BNimportTemp, SIGNAL(clicked()), tempList, SLOT(load()));
 	connect( BNexportTemp, SIGNAL(clicked()), tempList, SLOT(store()));
-	
+
 	connect( BNimportCrl, SIGNAL(clicked()), crlList, SLOT(load()));
 	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));
 	connect( BNdeleteCrl, SIGNAL(clicked()), crlList, SLOT(deleteItem()));
-	
+
 
 	connect( reqList, SIGNAL(newCert(pki_x509req *)),
 		certList, SLOT(newCert(pki_x509req *)) );

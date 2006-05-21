@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,20 +34,20 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.sleepycat.com
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "NewX509.h"
@@ -103,10 +103,10 @@ x509v3ext NewX509::getAuthKeyIdent()
 	x509v3ext ext;
 	if (authKey->isChecked() && authKey->isEnabled()) {
 		if (foreignSignRB->isChecked())
-			ext.create(NID_authority_key_identifier, 
+			ext.create(NID_authority_key_identifier,
 				"keyid,issuer:always", &ext_ctx);
                 else
-			ext.create(NID_authority_key_identifier, 
+			ext.create(NID_authority_key_identifier,
 				"keyid:always", &ext_ctx);
 	}
 	return ext;
@@ -119,10 +119,10 @@ x509v3ext NewX509::getKeyUsage()
 		"dataEncipherment", "keyAgreement", "keyCertSign",
 		"cRLSign", "encipherOnly", "decipherOnly"
 	};
-						
+
 	QStringList cont;
 	x509v3ext ext;
-	
+
 	int rows = keyUsage->count();
 	for (int i=0; i<rows; i++) {
 		if (keyUsage->isItemSelected(keyUsage->item(i))) {
@@ -139,7 +139,7 @@ x509v3ext NewX509::getEkeyUsage()
 {
 	QStringList cont;
 	x509v3ext ext;
-	
+
 	int rows = ekeyUsage->count();
 	for (int i=0; i<rows; i++) {
 		//QListWidgetItem *li = ekeyUsage->item(i);
@@ -182,7 +182,7 @@ QString NewX509::getAuthInfAcc_string()
 	QString rval="";
 	QString aia_txt	= authInfAcc->text();
 	aia_txt = aia_txt.trimmed();
-	
+
 	if (!aia_txt.isEmpty()) {
 		rval = OBJ_nid2sn(aia_nid[aiaOid->currentIndex()]);
 		rval += ";" + aia_txt;
@@ -198,11 +198,11 @@ void NewX509::setAuthInfAcc_string(QString aia_txt)
 	aia = aia_txt.split(';');
 
 	if (aia.count() != 2) return;
-	
+
 	nid = OBJ_sn2nid(CCHAR(aia[0]));
-	
+
 	for (int i=0; i < aia_nid.count(); i++) {
-		if (aia_nid[i] == nid) { 
+		if (aia_nid[i] == nid) {
 			aiaOid->setCurrentIndex(i);
 		}
 	}
@@ -234,7 +234,7 @@ x509v3ext NewX509::getCertPol()
 extList NewX509::getAllExt()
 {
 	extList ne;
-	
+
 	ne << getBasicConstraints();
 	ne << getSubKeyIdent();
 	ne << getAuthKeyIdent();
@@ -254,7 +254,7 @@ extList NewX509::getNetscapeExt()
 		"client", "server",  "email", "objsign",
 		"sslCA",  "emailCA", "objCA" };
 
-					
+
 	QStringList cont;
 	x509v3ext ext;
 	extList el;
@@ -265,7 +265,7 @@ extList NewX509::getNetscapeExt()
 			cont <<  certTypeList[i];
 		}
 	}
-	
+
 	el << ext.create(NID_netscape_cert_type, cont.join(", "));
 	el << ext.create(NID_netscape_base_url, nsBaseUrl->text());
 	el << ext.create(NID_netscape_revocation_url, nsRevocationUrl->text());
@@ -281,14 +281,14 @@ void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req)
 {
 	X509 *s = NULL, *s1 = NULL;
 	X509_REQ *r = NULL;
-	
+
 	if (subj) s1 = subj->getCert();
 	if (iss) s = iss->getCert();
 	if (req) r = req->getReq();
-	
+
 	memset(&ext_ctx, 0, sizeof(X509V3_CTX));
 	X509V3_set_ctx(&ext_ctx, s, s1, r, NULL, 0);
-}	
+}
 
 void NewX509::setExt(const x509v3ext &ext)
 {
@@ -302,7 +302,7 @@ QString NewX509::createRequestText()
 {
 	return "---";
 	extList ne;
-	
+
 	ne << getBasicConstraints();
 	ne << getSubKeyIdent();
 	ne << getAuthKeyIdent();
@@ -313,4 +313,4 @@ QString NewX509::createRequestText()
 	ne << getCrlDist();
 
 	return ne.getHtml("<br>") + getNetscapeExt().getHtml("<br>");
-}								
+}

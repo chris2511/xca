@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,18 +34,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 #ifndef IMPORTMULTI_H
 #define IMPORTMULTI_H
@@ -67,7 +67,7 @@ class v3ext: public QDialog, public Ui::v3ext
 		int nid;
 		X509V3_CTX ext_ctx;
 		bool __validate(bool showSuccess);
-	public:	
+	public:
 		v3ext( QWidget *parent);
 		~v3ext();
 		void addItem(QString list);
@@ -75,7 +75,7 @@ class v3ext: public QDialog, public Ui::v3ext
 		QString toString();
 		void addInfo(QLineEdit *myle, const QStringList &sl, int n,
 				X509 *s, X509 *s1);
-		
+
 	public slots:
 		void on_delEntry_clicked();
 		void on_addEntry_clicked();

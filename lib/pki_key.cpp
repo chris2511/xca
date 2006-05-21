@@ -209,7 +209,7 @@ pki_key::pki_key(EVP_PKEY *pkey)
 void pki_key::fload(const QString fname)
 {
 	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password to decrypt the private key.")
-		+ "\n'" + fname + "'"); 
+		+ "\n'" + fname + "'");
 	pem_password_cb *cb = MainWindow::passRead;
 	FILE *fp = fopen(CCHAR(fname), "r");
 	EVP_PKEY *pkey = NULL;
@@ -291,7 +291,7 @@ void pki_key::oldFromData(const unsigned char *p, int size )
 	openssl_error();
 	pdec = (unsigned char *)OPENSSL_malloc(size);
 	if (pdec == NULL ) {
-		OPENSSL_free(sik); 
+		OPENSSL_free(sik);
 		openssl_error();
 	}
 	pdec1=pdec;
@@ -300,8 +300,8 @@ void pki_key::oldFromData(const unsigned char *p, int size )
 	/* generate the key */
 	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd,
 		strlen(passwd), 1, ckey,NULL);
-	/* we use sha1 as message digest, 
-	 * because an md5 version of the password is 
+	/* we use sha1 as message digest,
+	 * because an md5 version of the password is
 	 * stored in the database...
 	 */
 	EVP_CIPHER_CTX_init (&ctx);
@@ -317,7 +317,7 @@ void pki_key::oldFromData(const unsigned char *p, int size )
 		if (ign_openssl_error()) {
 			rsakey = D2I_CLASH(d2i_RSA_PUBKEY, NULL, &sik1, decsize);
 		}
-		openssl_error(); 
+		openssl_error();
 		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
 	}
 	OPENSSL_free(sik);
@@ -637,7 +637,7 @@ bool pki_key::compare(pki_base *ref)
 			return false;
 		if (
 			BN_cmp(key->pkey.rsa->n, kref->key->pkey.rsa->n) ||
-			BN_cmp(key->pkey.rsa->e, kref->key->pkey.rsa->e) 
+			BN_cmp(key->pkey.rsa->e, kref->key->pkey.rsa->e)
 		){
 			openssl_error();
 			return false;

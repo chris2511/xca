@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,10 +34,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -45,7 +45,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "db_x509req.h"
@@ -107,11 +107,11 @@ void db_x509req::newItem()
 		pki_key *key = dlg->getSelectedKey();
 		x509name xn = dlg->getX509name();
 		req = new pki_x509req();
-		
+
 		req->setIntName(dlg->description->text());
 		if (key->getType() == EVP_PKEY_DSA)
 			hashAlgo = EVP_dss1();
-		
+
 		dlg->initCtx(NULL, NULL, req);
 		req->createReq(key, xn, hashAlgo, dlg->getAllExt());
 		insert(req);
@@ -132,10 +132,10 @@ void db_x509req::showItem()
 {
 	if (!currentIdx.isValid())
 		return;
-	
+
 	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 	ReqDetail *dlg;
-	
+
 	printf("ShowItem req\n");
 	dlg = new ReqDetail(mainwin);
 	if (dlg) {
@@ -149,7 +149,7 @@ void db_x509req::store(bool pem)
 {
 	if (!currentIdx.isValid())
 		return;
-	
+
 	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 
 	req->writeReq(req->getIntName(), pem);
@@ -160,9 +160,9 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subExport;
 	currentIdx = index;
-	
+
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
-	
+
 	menu->addAction(tr("New Request"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {

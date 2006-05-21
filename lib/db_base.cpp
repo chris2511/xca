@@ -248,7 +248,7 @@ void db_base::storeSelectedItems(QAbstractItemView* view)
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 	QModelIndex index;
 	QString items;
-	
+
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
@@ -258,7 +258,7 @@ void db_base::storeSelectedItems(QAbstractItemView* view)
 		} catch (errorEx &err) {
 			MainWindow::Error(err);
 		}
-		
+
 	}
 	currentIdx = QModelIndex();
 }
@@ -299,7 +299,7 @@ QStringList db_base::getDesc()
 	QStringList x;
 	x.clear();
 	FOR_ALL_pki(pki, pki_base) {
-		x.append(pki->getIntName());	
+		x.append(pki->getIntName());
 	}
 	return x;
 }
@@ -316,14 +316,14 @@ void db_base::writeAll(void)
 
 void db_base::dump(QString dirname)
 {
-	dirname += QDir::separator() + dbName;	
+	dirname += QDir::separator() + dbName;
 	QDir d(dirname);
 if ( ! d.exists() && !d.mkdir(dirname)) {
 		throw errorEx("Could not create directory '" + dirname + "'");
 	}
 
 	FOR_ALL_pki(pki, pki_base) {
-		pki->writeDefault(dirname);	
+		pki->writeDefault(dirname);
 	}
 }
 
@@ -383,7 +383,7 @@ int db_base::columnCount(const QModelIndex &parent) const
 		item = static_cast<pki_base*>(parent.internalPointer());
 	else
 		item = rootItem;
-	
+
 	//printf("%s columns=%d\n", CCHAR(item->getIntName()), item->columns());
 	return item->columns();
 }

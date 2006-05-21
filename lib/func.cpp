@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,7 +34,7 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
  *
@@ -44,7 +44,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "func.h"
@@ -70,18 +70,18 @@ QPixmap *loadImg(const char *name )
 }
 
 /* returns e.g. /usr/local/share/xca for unix systems
- * or HKEY_LOCAL_MACHINE->Software->xca for WIN32 
+ * or HKEY_LOCAL_MACHINE->Software->xca for WIN32
  * (e.g. c:\Program Files\xca )
  */
 
-QString getPrefix() 
+QString getPrefix()
 {
 
 #ifdef WIN32
 static unsigned char inst_dir[100]="";
-if (inst_dir[0] == '\0') { 
+if (inst_dir[0] == '\0') {
 	/* if we already once discovered the directory
-	 * we need not doing it again 
+	 * we need not doing it again
 	 */
 	LONG lRc;
 	HKEY hKey;
@@ -93,13 +93,13 @@ if (inst_dir[0] == '\0') {
                 inst_dir[0] = '\0';
 	}
 	else{
-        	ULONG dwLength = 100;
+	ULONG dwLength = 100;
                 lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, inst_dir, &dwLength);
 		if(lRc!= ERROR_SUCCESS){
 			/* No key error */
 	                QMessageBox::warning(NULL, XCA_TITLE,
 			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
-                	inst_dir[0] = '\0';
+	inst_dir[0] = '\0';
 		}
 	}
         lRc=RegCloseKey(hKey);
@@ -124,7 +124,7 @@ return ret;
 }
 
 /* This function returns the baseDirectory for storing private data.
- * on Unix: 		$HOME/xca 
+ * on Unix:		$HOME/xca
  * on WIN 98/ME:	c:\Program Files\xca
  * on NT, W2K,XP	c:\Documents and Settings\%USER%\Application Data\xca
  */
@@ -151,7 +151,7 @@ QString getBaseDir()
 		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
         if(lRc!= ERROR_SUCCESS){
 			QMessageBox::warning(NULL, XCA_TITLE,
-				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");		
+				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");
 			qFatal("Installation problem");
 		}
 		lRc=RegCloseKey(hKey);
@@ -163,11 +163,11 @@ QString getBaseDir()
 		lRc=RegCloseKey(hKey);
 		lRc=RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
 		NULL,&hKey, &dwDisposition);
-		
+
 		//setup data dir for current user
 		OSVERSIONINFOEX osvi;
 		BOOL bOsVersionInfoEx;
-		LPITEMIDLIST pidl=NULL; 
+		LPITEMIDLIST pidl=NULL;
 
 		ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
 		osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
@@ -179,7 +179,7 @@ QString getBaseDir()
 		if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
 			if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
 				SHGetPathFromIDList(pidl,data_path_buf);
-				lstrcat(data_path_buf, "\\xca");	 
+				lstrcat(data_path_buf, "\\xca");
 			}
 		}else{
 			strncpy(data_path_buf,(char *)reg_path_buf,255);
@@ -200,7 +200,7 @@ QString getBaseDir()
 			//recreate data dir for current user
 			OSVERSIONINFOEX osvi;
 			BOOL bOsVersionInfoEx;
-			LPITEMIDLIST pidl=NULL; 
+			LPITEMIDLIST pidl=NULL;
 
 			ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
 			osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
@@ -212,7 +212,7 @@ QString getBaseDir()
 			if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
 				if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
 					SHGetPathFromIDList(pidl,data_path_buf);
-					lstrcat(data_path_buf, "\\xca");	  
+					lstrcat(data_path_buf, "\\xca");
 				}
 			}else{
 				strncpy(data_path_buf,(char *)reg_path_buf,255);
@@ -228,7 +228,7 @@ QString getBaseDir()
 		lRc=RegCloseKey(hKey);
 		baseDir = QString::fromLocal8Bit(data_path_buf);
 	}
-// 
+//
 
 #elif __APPLE_CC__
 	baseDir = getPrefix() + "/xca";
@@ -250,16 +250,16 @@ void applyTD(QWidget *parent, int number, int range, bool mnc,
     int faktor[] = { 1, 30, 365 }, midnight, delta;
     a1time a;
     time_t t;
-	
+
     midnight = mnc? 1:0;
 
     if (range>2 || range<0) range = 0;
     time(&t);
     delta = faktor[range] * number;
-	
-	// one day less if we go from 0:00:00 to 23:59:59 
+
+	// one day less if we go from 0:00:00 to 23:59:59
 	if (mnc) delta -=1;
-	
+
     t /= d_fac;
     if (delta + t > 24850){
         QMessageBox::warning(parent, XCA_TITLE,

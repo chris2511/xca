@@ -9,7 +9,7 @@
 
 #ifdef WIN32
 #include <windows.h>
-#endif  
+#endif
 
 #include <openssl/opensslv.h>
 

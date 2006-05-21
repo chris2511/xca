@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,10 +34,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -45,7 +45,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 #include "base.h"
 #include "asn1time.h"
@@ -62,13 +62,13 @@ a1time::a1time()
 a1time::a1time(const ASN1_TIME *a)
 {
 	time = NULL;
-	set(a);	
+	set(a);
 }
 
 a1time::a1time(const a1time &a)
 {
 	time = NULL;
-	set(a.time);	
+	set(a.time);
 }
 
 a1time::~a1time()
@@ -124,8 +124,8 @@ a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
 			OPENSSL_free(time->data);
 		time->data=(unsigned char *)p;
 	}
-	
-	
+
+
 	time->length = sprintf((char *)time->data, "%04d%02d%02d%02d%02d%02dZ",
 		       y, mon, d, h, m ,s);
 	time->type=V_ASN1_GENERALIZEDTIME;
@@ -280,7 +280,7 @@ ASN1_UTCTIME *a1time::toUTCtime() const
 			return NULL;
 
         if (!(ret = ASN1_UTCTIME_new ()))
-        	return NULL;
+	return NULL;
 
         /* If already UTC Time just copy across */
         if (time->type == V_ASN1_UTCTIME)
@@ -289,15 +289,15 @@ ASN1_UTCTIME *a1time::toUTCtime() const
                         return NULL;
                 return ret;
                 }
-		
+
 		/* copy w/o 19 or 20 */
         if (!ASN1_STRING_set(ret, time->data+2, time->length - 2))
                 return NULL;
 
         return ret;
         }
- 
-/* this was happily copied from OpenSSL 0.9.7 
+
+/* this was happily copied from OpenSSL 0.9.7
  * and is used if linking against 0.9.6
  */
 
@@ -338,4 +338,4 @@ ASN1_GENERALIZEDTIME *a1time::ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GE
 
         return ret;
         }
-#endif                                                                              
+#endif

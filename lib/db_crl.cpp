@@ -5,7 +5,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -13,7 +13,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -34,12 +34,12 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.sleepycat.com
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -47,7 +47,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 
 #include "db_crl.h"
@@ -60,10 +60,10 @@ db_crl::db_crl(QString db, MainWindow *mw)
 	:db_base(db,mw)
 {
 	delete rootItem;
-	rootItem = newPKI(); 
+	rootItem = newPKI();
 	headertext << "Name" << "Type" << "Size";
 	delete_txt = tr("Delete the revokation list(s)");
-				
+
 	loadContainer();
 }
 
@@ -81,7 +81,7 @@ void db_crl::preprocess()
 		revokeCerts(crl);
 	}
 #endif
-}	
+}
 
 void db_crl::load()
 {
@@ -98,14 +98,14 @@ void db_crl::revokeCerts(pki_crl *crl)
 	x509rev revok;
 	pki_x509 *rev;
 	numc = crl->numRev();
-	
+
 	for (i=0; i<numc; i++) {
 		revok = crl->getRev(i);
 		rev = certs->getByIssSerial(crl->getIssuer(), revok.getSerial());
 		if (rev) {
 			rev->setRevoked(revok.getDate());
 			updated = true;
-		}	
+		}
 	}
 	if (updated)
 		emit updateCertView();
@@ -124,7 +124,7 @@ pki_base *db_crl::insert(pki_base *item)
 	if (oldcrl) {
 		QMessageBox::information(NULL, XCA_TITLE,
 			tr("The revokation list already exists in the database as") +
-			":\n'" + oldcrl->getIntName() + 
+			":\n'" + oldcrl->getIntName() +
 			"'\n" + tr("and so it was not imported"), "OK");
 		delete(crl);
 		return oldcrl;
@@ -141,7 +141,7 @@ void db_crl::showItem()
 	CrlDetail *dlg;
 
 	printf("Crl detail: %p\n", crl);
-	
+
 	dlg = new CrlDetail(mainwin);
 	if (dlg) {
 		dlg->setCrl(crl);

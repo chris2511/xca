@@ -11,7 +11,7 @@ xca.1.gz: xca.1
 
 xca.1: xca.man
 	cat $^ | sed s/MY_VERSION/$(VERSION)/g > $@
-	
+
 xca.html: xca.sgml
 	linuxdoc -B html $< || true
 

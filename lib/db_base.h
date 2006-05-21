@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -33,10 +33,10 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
@@ -44,7 +44,7 @@
  *
  * $Id$
  *
- */                           
+ */
 
 #ifndef DB_BASE_H
 #define DB_BASE_H
@@ -78,7 +78,7 @@ class db_base: public QAbstractItemModel
 	enum pki_type pkitype;
 	QList<QVariant> headertext;
 	MainWindow *mainwin;
-	
+
     public:
 	pki_base *rootItem;
 	db_base(QString db, MainWindow *mw);
@@ -92,7 +92,7 @@ class db_base: public QAbstractItemModel
 	virtual void loadContainer();
 	QStringList getDesc();
 	virtual pki_base* insert(pki_base *item);
-	/* preprocess should be implemented once to speed up updateView() 
+	/* preprocess should be implemented once to speed up updateView()
 	 * i.e search for signers and keys */
 	virtual void preprocess(){};
 	virtual void inToCont(pki_base *pki);
@@ -115,7 +115,7 @@ class db_base: public QAbstractItemModel
 	void dump(QString dirname);
 	virtual void showContextMenu(QContextMenuEvent * e,
 			const QModelIndex &index){};
-	
+
 	QModelIndex index(int row, int column, const QModelIndex &parent)const;
 	QModelIndex parent(const QModelIndex &index) const;
 	int rowCount(const QModelIndex &parent) const;

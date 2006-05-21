@@ -4,7 +4,7 @@
  *  All rights reserved.
  *
  *
- *  Redistribution and use in source and binary forms, with or without 
+ *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions are met:
  *
  *  - Redistributions of source code must retain the above copyright notice,
@@ -12,7 +12,7 @@
  *  - Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
+ *  - Neither the name of the author nor the names of its contributors may be
  *    used to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
@@ -33,18 +33,18 @@
  * This program links to software with different licenses from:
  *
  *	http://www.openssl.org which includes cryptographic software
- * 	written by Eric Young (eay@cryptsoft.com)"
+ *	written by Eric Young (eay@cryptsoft.com)"
  *
  *	http://www.trolltech.com
- * 
+ *
  *
  *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
- * $Id$ 
+ * $Id$
  *
- */                           
+ */
 
 
 #include "ExportKey.h"
@@ -74,14 +74,14 @@ ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
 		exportPrivate->setChecked(true);
 		exportFormat->addItem("PKCS#8");
 	}
-	canEncrypt();	
+	canEncrypt();
 	dirPath = dpath;
 }
-	
+
 void ExportKey::on_fileBut_clicked()
 {
 	QStringList filt;
-	filt.append(tr("RSA Keys ( *.pem *.der *.pk8 )")); 
+	filt.append(tr("RSA Keys ( *.pem *.der *.pk8 )"));
 	filt.append(tr("All Files ( *.* )"));
 	QString s = "";
 	QFileDialog *dlg = new QFileDialog(this);
@@ -141,11 +141,11 @@ void ExportKey::on_exportFormat_activated(int c)
 	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[c];
 	filename->setText(nfn);
 	canEncrypt();
-}	
+}
 
 void ExportKey::on_exportPrivate_stateChanged()
 {
-    	if (exportPrivate->isChecked() && 
+	if (exportPrivate->isChecked() &&
 			exportFormat->currentText() != "DER" && !onlyPub)
 	{
 		encryptKey->setEnabled(true);
