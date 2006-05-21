@@ -430,8 +430,8 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 	QString on, nn;
 	pki_base *item;
 	if (index.isValid() && role == Qt::EditRole) {
-		n = CCHAR(value);
 		nn = value.toString();
+		n = CCHAR(nn);
 		printf("New name: '%s', %p, %p\n", n, n, oldn);
 		db mydb(dbName);
 		item = static_cast<pki_base*>(index.internalPointer());
