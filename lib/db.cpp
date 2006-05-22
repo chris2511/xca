@@ -47,7 +47,7 @@ void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
 	db->version = htons(ver);
 	db->flags = 0;
 	strncpy(db->name, name, NAMELEN);
-	db->name[NAMELEN] = '\0';
+	db->name[NAMELEN-1] = '\0';
 }
 
 void db::convert_header(db_header_t *h)
@@ -166,7 +166,7 @@ int db::rename(enum pki_type type, const char *name, const char *n)
 	}
 	printf("Off = %lu\n", head_offset);
 	strncpy(head.name, n, NAMELEN);
-	head.name[NAMELEN] = '\0';
+	head.name[NAMELEN-1] = '\0';
 	lseek(fd, head_offset, SEEK_SET);
 	ret = write(fd, &head, sizeof(head));
 	if (ret != sizeof(head)) {
