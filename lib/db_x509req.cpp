@@ -128,21 +128,33 @@ void db_x509req::load(void)
 	load_default(l);
 }
 
-void db_x509req::showItem()
+void db_x509req::showItem(pki_x509req *req)
 {
-	if (!currentIdx.isValid())
+	if (!req)
 		return;
 
-	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 	ReqDetail *dlg;
-
-	printf("ShowItem req\n");
 	dlg = new ReqDetail(mainwin);
 	if (dlg) {
 		dlg->setReq(req);
 		dlg->exec();
 		delete dlg;
 	}
+}
+
+void db_x509req::showItem()
+{
+	if (!currentIdx.isValid())
+		return;
+
+	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
+	showItem(req);
+}
+
+void db_x509req::showItem(QString descr)
+{
+	pki_x509req *req = (pki_x509req*)getByName(descr);
+	showItem(req);
 }
 
 void db_x509req::store(bool pem)

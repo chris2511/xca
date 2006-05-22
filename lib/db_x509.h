@@ -102,6 +102,7 @@ class db_x509: public db_x509super
 	void showItem();
 	void setMultiTrust(QAbstractItemView* view);
 	void setTrust();
+	void extendCert();
 	signals:
 	void connNewX509(NewX509 *dlg);
 };

@@ -185,9 +185,9 @@ void db_key::newItem()
 		status->removeWidget(bar);
 		delete bar;
 		status->showMessage(m);
-		insert(nkey);
-
-		emit keyDone(nkey);
+		nkey = (pki_key*)insert(nkey);
+		printf("Emit KeyDone\n");
+		emit keyDone(nkey->getIntNameWithType());
 	}
 	delete dlg;
 }

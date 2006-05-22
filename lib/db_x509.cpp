@@ -51,6 +51,7 @@
 #include "pki_pkcs12.h"
 #include "pki_pkcs7.h"
 #include "widgets/CertDetail.h"
+#include "widgets/CertExtend.h"
 #include "widgets/ExportCert.h"
 #include "ui/TrustState.h"
 #include <Qt/qmessagebox.h>
@@ -747,39 +748,30 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
     QList<pki_base> list;
     pki_base *cer;
     try {
-	p7 =  new pki_pkcs7("");
-	if ( type == P7_CHAIN ) {
-		while (cert != NULL) {
+		p7 =  new pki_pkcs7("");
+		if ( type == P7_CHAIN ) {
+			while (cert != NULL) {
+				p7->addCert(cert);
+				if (cert->getSigner() == cert)
+					cert = NULL;
+				else
+					cert = cert->getSigner();
+			}
+		}
+		if ( type == P7_ONLY ) {
 			p7->addCert(cert);
-			if (cert->getSigner() == cert) cert = NULL;
-			else cert = cert->getSigner();
 		}
-	}
-	if ( type == P7_ONLY ) {
-		p7->addCert(cert);
-	}
-#if 0
-	if (type == P7_TRUSTED) {
-		list = db->getContainer();
-		if (!list.isEmpty()) {
-			for ( cer = list.first(); cer != NULL; cer = list.next() ) {
-				if (((pki_x509*)cer)->getTrust() == 2)
-					p7->addCert((pki_x509 *)cer);
+		if (type == P7_TRUSTED) {
+			FOR_ALL_pki(cer, pki_x509) {
+				if (cer->getTrust() == 2)
+					p7->addCert(cer);
 			}
 		}
-	}
-	if (type == P7_ALL) {
-		list = db->getContainer();
-		if (!list.isEmpty()) {
-			for ( cer = list.first(); cer != NULL; cer = list.next() ) {
+		if (type == P7_ALL) {
+			FOR_ALL_pki(cer, pki_x509)
 				p7->addCert((pki_x509 *)cer);
-			}
 		}
-	}
-#else
-#warning P7_TRUSTED P7_ALL
-#endif
-	p7->writeP7(s, false);
+		p7->writeP7(s, false);
     }
     catch (errorEx &err) {
 		MainWindow::Error(err);
@@ -914,5 +906,57 @@ void db_x509::setTrust()
 		}
 	}
 	delete dlg;
+}
+
+void db_x509::extendCert()
+{
+	pki_x509 *oldcert = NULL, *signer = NULL, *newcert =NULL;
+	pki_key *signkey = NULL;
+	a1time time;
+	a1int serial;
+	try {
+		CertExtend *dlg = new CertExtend(mainwin);
+		if (!dlg->exec()) {
+			delete dlg;
+			return;
+		}
+		oldcert = static_cast<pki_x509*>(currentIdx.internalPointer());
+		if (!oldcert ||
+				!(signer = oldcert->getSigner()) ||
+				!(signkey = signer->getRefKey()) ||
+				signkey->isPubKey())
+			return;
+		newcert = new pki_x509(oldcert);
+		serial = signer->getIncCaSerial();
+
+		// get signers own serial to avoid having the same
+		if (serial == signer->getSerial()) {
+			serial = signer->getIncCaSerial(); // just take the next one
+		}
+		updatePKI(signer);
+
+		// change date and serial
+		newcert->setSerial(serial);
+		newcert->setNotBefore(dlg->notBefore->getDate());
+		newcert->setNotAfter(dlg->notAfter->getDate());
+
+		if (newcert->resetTimes(signer) > 0) {
+			if (QMessageBox::information(mainwin, tr(XCA_TITLE),
+				tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
+				tr("Continue creation"), tr("Abort")
+			))
+				throw errorEx("");
+		}
+
+		// and finally sign the request
+		newcert->sign(signkey, oldcert->getDigest());
+		insert(newcert);
+		delete dlg;
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+		if (newcert)
+			delete newcert;
+	}
 }
 

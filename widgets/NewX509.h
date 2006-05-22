@@ -129,7 +129,7 @@ class NewX509: public QDialog, public Ui::NewX509
    public slots:
 	void on_fromReqCB_clicked();
 	void on_keyList_highlighted(const QString &keyname);
-	void dataChangeP2();
+	void toggleOkBut();
 	void newKeyDone(QString name);
 	//void switchExtended();
 	void templateChanged();
@@ -144,8 +144,13 @@ class NewX509: public QDialog, public Ui::NewX509
 	void on_editAuthInfAcc_clicked();
 	void on_foreignSignRB_clicked();
 	void on_subKey_clicked();
+	void on_genKeyBUT_clicked();
+	void on_showReqBut_clicked();
+	void on_description_textChanged(QString text);
+	void on_countryName_textChanged(QString);
    signals:
 	void genKey();
+	void showReq(QString req);
 };
 
 #endif

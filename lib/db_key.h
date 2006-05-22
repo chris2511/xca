@@ -85,7 +85,7 @@ class db_key: public db_base
     signals:
 	void delKey(pki_key *delkey);
 	void newKey(pki_key *newkey);
-	void keyDone(pki_key *newkey);
+	void keyDone(QString name);
 };
 
 #endif

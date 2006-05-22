@@ -76,17 +76,6 @@ enum pki_type pki_base::getType()
 	return pkiType;
 }
 
-#if 0
-// FIXME: remove if unneeded
-void pki_base::fload(const QString fname)
-{
-}
-
-void pki_base::writeDefault(const QString fname)
-{
-}
-#endif
-
 pki_base::~pki_base(void)
 {
 	pki_counter--;
@@ -163,18 +152,6 @@ QString pki_base::rmslashdot(const QString &s)
 			CCHAR(s.mid(l+1,r-l-1)));
 	return s.mid(l+1,r-l-1);
 }
-
-#if 0
-// FIXME: remove if unneeded
-void pki_base::updateView()
-{
-	if (pointer == NULL) return;
-#ifdef qt3
-	pointer->setRenameEnabled(0,true);
-#endif
-	pointer->setText(0, getIntName());
-}
-#endif
 
 pki_base *pki_base::getParent()
 {

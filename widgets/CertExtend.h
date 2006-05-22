@@ -52,7 +52,7 @@
 
 class pki_key;
 
-class CertExtend: public QDialog, private Ui::CertExtend
+class CertExtend: public QDialog, public Ui::CertExtend
 {
 	Q_OBJECT
 

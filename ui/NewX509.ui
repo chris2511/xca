@@ -145,7 +145,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
            </widget>
           </item>
           <item row="1" column="1" >
-           <widget class="QPushButton" name="pushButton" >
+           <widget class="QPushButton" name="showReqBut" >
             <property name="text" >
              <string>Show request</string>
             </property>
@@ -916,7 +916,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
           <item row="3" column="1" >
            <widget class="QComboBox" name="aiaOid" >
             <property name="toolTip" >
-             <string>can be altered by the file &quot;aia.txt&quot;</string>
+             <string>can be altered by the file "aia.txt"</string>
             </property>
            </widget>
           </item>
@@ -955,7 +955,7 @@ caIssuers;URI:http://my.ca/ca.html</string>
              <string>DNS: IP: URI: email: RID:</string>
             </property>
             <property name="whatsThis" >
-             <string>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+             <string>The subject alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
@@ -989,7 +989,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
              <string>DNS: IP: URI: email: RID:</string>
             </property>
             <property name="whatsThis" >
-             <string>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+             <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
@@ -1453,8 +1453,8 @@ Example:
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>510</x>
-     <y>576</y>
+     <x>485</x>
+     <y>509</y>
     </hint>
     <hint type="destinationlabel" >
      <x>96</x>
@@ -1469,8 +1469,8 @@ Example:
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>98</x>
-     <y>576</y>
+     <x>86</x>
+     <y>509</y>
     </hint>
     <hint type="destinationlabel" >
      <x>179</x>

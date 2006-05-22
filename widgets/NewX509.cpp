@@ -68,9 +68,10 @@
 #include "lib/oid.h"
 #include "lib/func.h"
 
+#if 0
 #define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
 #define TRACE
-
+#endif
 int NewX509::name_nid[] = {
 	NID_commonName,
 	NID_countryName,
@@ -90,19 +91,13 @@ NewX509::NewX509(QWidget *parent)
 	aia_nid = *MainWindow::aia_nid;
 	QStringList sl;
 
-	TRACE
 	setupUi(this);
 
-	TRACE
 	sl << "Type" << "Content";
 	printf("Set Ext DN list\n");
-	TRACE
 	extDNlist->setColumnCount(2);
-	TRACE
 	extDNlist->setHorizontalHeaderLabels(sl);
-	TRACE
 	setWindowTitle(tr(XCA_TITLE));
-	TRACE
 	fixtemp = NULL;
 
 	nsImg->setPixmap(*MainWindow::nsImg);
@@ -111,84 +106,61 @@ NewX509::NewX509(QWidget *parent)
 	QStringList strings;
 
 	// are there any useable private keys  ?
-	TRACE
 	strings = MainWindow::keys->get0PrivateDesc();
 	keyList->insertItems(0, strings);
-	TRACE
 	hashAlgo->setCurrentIndex(2);
-	TRACE
 	if (!strings.isEmpty())
 		on_keyList_highlighted(strings[0]);
-	TRACE
 
 	// any PKCS#10 requests to be used ?
-	TRACE
 	strings = MainWindow::reqs->getDesc();
 	if (strings.isEmpty()) {
 		fromReqCB->setDisabled(true);
-	TRACE
-		reqList->setDisabled(true);
+		fromReqCB->setChecked(false);
 	}
 	else {
 		reqList->insertItems(0, strings);
-	TRACE
 	}
+	on_fromReqCB_clicked();
 
 	// How about signing certificates ?
-	TRACE
 	strings = MainWindow::certs->getSignerDesc();
 	if (strings.isEmpty()) {
 		foreignSignRB->setDisabled(true);
-	TRACE
 		certList->setDisabled(true);
-	TRACE
-	}
-	else {
+	} else {
 		certList->insertItems(0, strings);
-	TRACE
 	}
 
 	// set dates to now and now + 1 year
 	a1time a;
 	notBefore->setDate(a.now());
-	TRACE
 	notAfter->setDate(a.now(60*60*24*365));
-	TRACE
 
 	// settings for the templates ....
 	strings.clear();
-	TRACE
 	strings = MainWindow::temps->getDesc();
 	strings.prepend(tr("Server Template"));
 	strings.prepend(tr("Client Template"));
-	TRACE
 	strings.prepend(tr("CA Template"));
-	TRACE
 	strings.prepend(tr("Empty Template"));
 	tempList->insertItems(0, strings);
-	TRACE
 
 	// setup Extended keyusage
-	TRACE
 	for (i=0; i < eku_nid.count(); i++)
 		ekeyUsage->insertItem(0, OBJ_nid2ln(eku_nid[i]));
 
 	// setup Distinguished Name
-	TRACE
 	for (i=0; i < dn_nid.count(); i++)
 		extDNobj->insertItem(0, OBJ_nid2ln(dn_nid[i]));
 
 	// setup Authority Info Access
-	TRACE
 	for (i=0; i < aia_nid.count(); i++)
 		aiaOid->insertItem(0, OBJ_nid2ln(aia_nid[i]));
 
 	// init the X509 v3 context
-	TRACE
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
-	TRACE
 	X509V3_set_ctx_nodb((&ext_ctx));
-	TRACE
 
 	// setup the list of x509nameEntrys
 	name_ptr[0] = commonName;
@@ -201,9 +173,8 @@ NewX509::NewX509(QWidget *parent)
 
 	// last polish
 	signerChanged();
-	TRACE
 	checkAuthKeyId();
-	TRACE
+	toggleOkBut();
 
 	pt = none;
 }
@@ -385,20 +356,15 @@ void NewX509::toTemplate(pki_temp *temp)
 
 void NewX509::on_fromReqCB_clicked()
 {
-	if (fromReqCB->isChecked()) {
-		reqList->setEnabled(true);
-		distNameBox->setEnabled(false);
-		//privKeyBox->setEnabled(false);
-		//keyIdentBox->setEnabled(false);
-		//tabWidget->setTabEnabled(1,false);
-	}
-	else {
-		reqList->setEnabled(false);
-		distNameBox->setEnabled(true);
-		//privKeyBox->setEnabled(true);
-		//keyIdentBox->setEnabled(true);
-		//tabWidget->setTabEnabled(1,true);
-	}
+	bool request = fromReqCB->isChecked();
+
+	reqList->setEnabled(request);
+	distNameBox->setEnabled( ! request);
+	privKeyBox->setEnabled( ! request);
+	copyReqExtCB->setEnabled(request);
+	showReqBut->setEnabled(request);
+	//keyIdentBox->setEnabled(false);
+	//tabWidget->setTabEnabled(1,false);
 }
 
 
@@ -410,12 +376,35 @@ void NewX509::on_keyList_highlighted(const QString &keyname)
 		hashAlgo->setDisabled(false);
 }
 
-void NewX509::dataChangeP2()
+void NewX509::toggleOkBut()
 {
-	if (description->text() != ""  && countryName->text().length() !=1 &&
-	    (keyList->count() > 0  || !keyList->isEnabled())){
-	}
+	bool ok = description->text() != ""  &&
+				countryName->text().length() !=1 &&
+				(keyList->count() > 0  || !keyList->isEnabled());
+		okButton->setEnabled(ok);
 }
+
+void NewX509::on_description_textChanged(QString text)
+{
+	toggleOkBut();
+}
+
+void NewX509::on_countryName_textChanged(QString text)
+{
+	toggleOkBut();
+}
+
+void NewX509::on_showReqBut_clicked()
+{
+	QString req = reqList->currentText();
+	emit showReq(req);
+}
+
+void NewX509::on_genKeyBUT_clicked()
+{
+	emit genKey();
+}
+
 #if 0
 void NewX509::showPage(QWidget *page)
 {
@@ -429,7 +418,7 @@ void NewX509::showPage(QWidget *page)
 		if (keyList->isEnabled() && keyList->count() == 0 ) {
 			emit genKey();
 		}
-		dataChangeP2();
+		toggleOkBut();
 	}
 
 	if (page == page7) {
@@ -534,22 +523,7 @@ void NewX509::templateChanged()
 #endif
 
 }
-#if 0
-void NewX509::switchExtended()
-{
-	if ( !appropriate(page1) ) return;
-	if (changeDefault->isChecked() || !templateBox->isEnabled()) {
-		setAppropriate(page4, true);
-		setAppropriate(page5, true);
-		setAppropriate(page6, true);
-	}
-	else {
-		setAppropriate(page4, false);
-		setAppropriate(page5, false);
-		setAppropriate(page6, false);
-	}
-}
-#endif
+
 void NewX509::checkAuthKeyId()
 {
 	bool enabled = false;
@@ -576,7 +550,9 @@ void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(0, name);
 	keyList->setCurrentIndex(0);
-	dataChangeP2();
+	on_keyList_highlighted(name);
+	toggleOkBut();
+	printf("NEW KEY DONE\n");
 }
 
 void NewX509::helpClicked()
