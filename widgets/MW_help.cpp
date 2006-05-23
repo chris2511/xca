@@ -89,8 +89,8 @@ void MainWindow::about()
 
 	QString cont;
 	cont.sprintf("<p><h3><center><u>XCA</u></center></h3>"
-	"<p>Copyright 2002 - 2006 by Christian Hohnst&auml;dt - "
-	"version : <b>" VER "</b>"
+	"<p>Copyright 2002 - 2006 by Christian Hohnst&auml;dt\n"
+	"<p>Version : <b>" VER "</b>"
 	"<p>%s<br>QT: %s"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
@@ -106,8 +106,8 @@ void MainWindow::about()
 	OPENSSL_VERSION_TEXT, QT_VERSION_STR );
 
 	about->setWindowTitle(tr(XCA_TITLE));
-	//ui.image->setPixmap( *keyImg );
-	//ui.image1->setPixmap( *certImg );
+	ui.image->setPixmap( *keyImg );
+	ui.image1->setPixmap( *certImg );
 	ui.textbox->setHtml(cont);
 	about->exec();
 }
@@ -117,8 +117,11 @@ void MainWindow::help()
 	QDialog *h = new QDialog(this, 0);
 	Ui::Help ui;
 	ui.setupUi(h);
+	QStringList path;
+	path << PREFIX "/share/xca";
+	//ui.textbox->setSearchPaths(path);
+	ui.textbox->setSource(QUrl("file://" PREFIX "/share/xca/xca.html"));
 	h->setWindowTitle(tr(XCA_TITLE));
-	ui.textbox->setSource(QUrl("file://xca.html"));
 	h->exec();
 }
 
