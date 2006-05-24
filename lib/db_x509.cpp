@@ -114,29 +114,26 @@ QStringList db_x509::getSignerDesc()
 
 void db_x509::remFromCont(QModelIndex &idx)
 {
-	int num, row;
+	int row;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 	pki_base *parent_pki = pki->getParent();
 	row = pki->row();
 	pki_x509 *child;
+	pki_base *new_parent;
+	QModelIndex new_idx;
 
 	beginRemoveRows(parent(idx), row, row);
 	parent_pki->takeChild(pki);
 	endRemoveRows();
 
-	row = rootItem->childCount()+1;
-	num = pki->childCount();
-
-	beginInsertRows(QModelIndex(), row, row + num );
 	while (pki->childCount()) {
 		printf("Insert dangling children: %d\n", pki->childCount());
 		child = (pki_x509*)pki->childItems.takeFirst();
 		printf("Child: %s\n", CCHAR(child->getIntName()));
 		child->delSigner((pki_x509*)pki);
-		findSigner(child);
-		rootItem->append(child);
+		new_parent = findSigner(child);
+		insertSortChild(new_parent, child);
 	}
-	endInsertRows();
 	return;
 }
 
@@ -173,20 +170,11 @@ void db_x509::inToCont(pki_base *pki)
 
 	findSigner(cert);
 	pki_base *root = cert->getSigner();
-	QModelIndex idx = QModelIndex(), this_idx;
+	QModelIndex idx = QModelIndex();
 
-	if (root == pki || root == NULL)
-		root = rootItem;
-	else
-		idx = createIndex(root->row(), 0, root);
+	insertSortChild(root, pki);
 
-	int row = root->childCount()+1;
-
-	beginInsertRows(idx, row, row);
-	root->append(pki);
-	endInsertRows();
-	this_idx = index(row, 0, idx);
-
+	idx = index(pki);
 	/* search for dangling certificates, which signer this is */
 	FOR_ALL_pki(client, pki_x509) {
 		if (client->getSigner() == NULL) {
@@ -198,10 +186,7 @@ void db_x509::inToCont(pki_base *pki)
 				rootItem->takeChild(client);
 				endRemoveRows();
 
-				row = root->childCount()+1;
-				beginInsertRows(this_idx, row, row);
-				pki->append(client);
-				endInsertRows();
+				insertSortChild(pki, client);
 			}
 		}
 	}
@@ -746,7 +731,7 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
 {
     pki_pkcs7 *p7 = NULL;
     QList<pki_base> list;
-    pki_base *cer;
+
     try {
 		p7 =  new pki_pkcs7("");
 		if ( type == P7_CHAIN ) {

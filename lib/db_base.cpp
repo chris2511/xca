@@ -263,14 +263,30 @@ void db_base::storeSelectedItems(QAbstractItemView* view)
 	currentIdx = QModelIndex();
 }
 
+void db_base::insertSortChild(pki_base *parent, pki_base *child)
+{
+	int row;
+	QModelIndex idx = QModelIndex();
+
+	if (parent == NULL)
+		printf("Parent is  null !!??\n");
+	if (child == NULL)
+		printf("Parent is  null !!??\n");
+	if (parent == child || parent == NULL)
+		parent = rootItem;
+
+	if (parent != rootItem)
+		idx = index(parent);
+
+	row = parent->alphabeticRow(child->getIntName());
+	beginInsertRows(idx, row, row);
+	parent->insert(row, child);
+	endInsertRows();
+}
+
 void db_base::inToCont(pki_base *pki)
 {
-	static int i=0;
-	int row = rootItem->childCount()+1;
-
-	beginInsertRows(QModelIndex(), row, row);
-	rootItem->append(pki);
-	endInsertRows();
+	insertSortChild(rootItem, pki);
 }
 
 pki_base *db_base::getByName(QString desc)
@@ -344,12 +360,17 @@ QModelIndex db_base::index(int row, int column, const QModelIndex &parent)
 		return QModelIndex();
 }
 
-QModelIndex db_base::parent(const QModelIndex &index) const
+QModelIndex db_base::index(pki_base *pki) const
 {
-	if (!index.isValid())
+	return createIndex(pki->row(), 0, pki);
+}
+
+QModelIndex db_base::parent(const QModelIndex &idx) const
+{
+	if (!idx.isValid())
 		return QModelIndex();
 
-	pki_base *childItem = static_cast<pki_base*>(index.internalPointer());
+	pki_base *childItem = static_cast<pki_base*>(idx.internalPointer());
 	pki_base *parentItem = childItem->getParent();
 	if (parentItem == NULL) {
 		printf("Item: (%s) %s: parent == NULL\n",
@@ -360,7 +381,7 @@ QModelIndex db_base::parent(const QModelIndex &index) const
 	if (parentItem == rootItem || parentItem == NULL)
 		return QModelIndex();
 
-	return createIndex(parentItem->row(), 0, parentItem);
+	return index(parentItem);
 }
 
 int db_base::rowCount(const QModelIndex &parent) const

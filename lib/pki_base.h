@@ -98,11 +98,13 @@ class pki_base : public QObject
 	virtual pki_base *getParent();
 	pki_base *child(int row);
 	void append(pki_base *item);
+	void insert(int row, pki_base *item);
 	int childCount(void);
 	int row(void) const;
 	pki_base *iterate(pki_base *pki = NULL);
 	void takeChild(pki_base *pki);
 	pki_base *takeFirst(void);
+	int alphabeticRow(QString name);
 	int columns(void);
 	virtual QVariant column_data(int col);
 	virtual QVariant getIcon();

@@ -174,9 +174,30 @@ void pki_base::append(pki_base *item)
 	item->setParent(this);
 }
 
+void pki_base::insert(int row, pki_base *item)
+{
+	childItems.insert(row, item);
+	item->setParent(this);
+}
+
 int pki_base::childCount()
 {
 	return childItems.count();
+}
+
+int pki_base::alphabeticRow(QString name)
+{
+	int i;
+	for (i=0; i< childItems.size(); i++) {
+		printf("CMP: '%s:%s'\n", CCHAR(childItems.at(i)->getIntName()),
+				CCHAR(name));
+		if (childItems.at(i)->getIntName() > name) {
+			if (i>0)
+				--i;
+			return i;
+		}
+	}
+	return i;
 }
 
 int pki_base::row(void) const

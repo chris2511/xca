@@ -117,6 +117,7 @@ class db_base: public QAbstractItemModel
 			const QModelIndex &index){};
 
 	QModelIndex index(int row, int column, const QModelIndex &parent)const;
+	QModelIndex index(pki_base *pki)const;
 	QModelIndex parent(const QModelIndex &index) const;
 	int rowCount(const QModelIndex &parent) const;
 	int columnCount(const QModelIndex &parent) const;
@@ -129,6 +130,7 @@ class db_base: public QAbstractItemModel
 	void showSelectedItems(QAbstractItemView *view);
 	void storeSelectedItems(QAbstractItemView *view);
 	void load_default(load_base &load);
+	void insertSortChild(pki_base *parent, pki_base *child);
 
     public slots:
 	void deletePKI();
