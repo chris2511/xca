@@ -357,7 +357,7 @@ int MainWindow::initPass()
 	}
 	if (passHash.isEmpty()) {
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
-		if (keylen == 0)
+		if (keylen < 0)
 			return 0;
 		pki_key::passwd[keylen]='\0';
 		passHash = md5passwd(pki_key::passwd);
@@ -372,7 +372,7 @@ int MainWindow::initPass()
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database"));
 			keylen = passRead(pki_key::passwd, 25, 0, &p);
-			if (keylen == 0)
+			if (keylen < 0)
 				return 0;
 			pki_key::passwd[keylen]='\0';
 	    }
@@ -384,6 +384,7 @@ int MainWindow::initPass()
 
 int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 {
+	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
 	printf("Userdata called\n");
 	Ui::PassRead ui;
@@ -398,22 +399,19 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	dlg->activateWindow();
 	ui.pass->setFocus();
 
-	buf[0] = '-'; /* if this remains the dialog was aborted */
 	if (dlg->exec()) {
 	   QString x = ui.pass->text();
 	   strncpy(buf, x.toAscii(), size);
-	   delete dlg;
-	   return x.length();
+	   ret = x.length();
 	}
-	else {
-		delete dlg;
-		return 0;
-	}
+	delete dlg;
+	return ret;
 }
 
 
 int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 {
+	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
 	Ui::PassWrite ui;
 	QDialog *dlg = new QDialog(qApp->activeWindow());
@@ -428,18 +426,15 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	ui.passA->setFocus();
 
 	if (dlg->exec()) {
-	   QString A = ui.passA->text();
-	   QString B = ui.passB->text();
-	   delete dlg;
-	   if (A != B)
-		   return 0;
-	   strncpy(buf, A.toAscii(), size);
-	   return A.length();
+		QString A = ui.passA->text();
+		QString B = ui.passB->text();
+		if (A == B) {
+			strncpy(buf, A.toAscii(), size);
+			ret = A.length();
+		}
 	}
-	else {
-		delete dlg;
-		return 0;
-	}
+	delete dlg;
+	return ret;
 }
 
 QString MainWindow::md5passwd(const char *pass, char *md5, int *len)

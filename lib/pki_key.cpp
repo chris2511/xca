@@ -128,6 +128,7 @@ QString pki_key::removeTypeFromIntName(QString n)
 void pki_key::setOwnPass(int x)
 {
 	EVP_PKEY *pk;
+	printf("Set own pass: %d -> %d\n",ownPass,x);
 	if (x) x=1;
 	if (ownPass == x) return;
 
@@ -346,9 +347,8 @@ EVP_PKEY *pki_key::decryptKey()
 		MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
 	}
 	else {
-		if (strlen(passwd) != 0)
-			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
-		else {
+		printf("Orig password: '%s' len:%d\n",passwd, strlen(passwd));
+		if (strlen(passwd) == 0) {
 			int retlen = 0;
 			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 					"Please enter the default password"));
@@ -356,8 +356,9 @@ EVP_PKEY *pki_key::decryptKey()
 				retlen = MainWindow::passRead(passwd, MAX_PASS_LENGTH, 0, &p);
 			}
 		}
+		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 	}
-
+	printf("Using decrypt Pass: %s\n", ownPassBuf);
 	p = (unsigned char *)OPENSSL_malloc(encKey_len);
 	openssl_error();
 	p1 = p;
@@ -430,7 +431,7 @@ void pki_key::encryptKey()
 		int retlen = 0;
 		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 				"Please enter the default password for encrypting keys"));
-		while (strlen(passwd) == 0 && retlen == 0) {
+		while (retlen >= 0) {
 			retlen = MainWindow::passWrite(passwd, MAX_PASS_LENGTH, 0, &p);
 		}
 		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);

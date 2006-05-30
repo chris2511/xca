@@ -598,7 +598,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 					&& (cert->getSigner() != cert));
 			canSign = cert->canSign();
 #warning templates
-			hasTemplates = false; // MainWindow::temps->getDesc().count() > 0 ;
+			hasTemplates = mainwin->temps->getDesc().count() > 0 ;
 			hasPrivkey = cert->getRefKey();
 		}
 		itemExtend->setEnabled(parentCanSign);
@@ -945,3 +945,87 @@ void db_x509::extendCert()
 	}
 }
 
+
+void db_x509::revoke()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert) return;
+	cert->setRevoked(true);
+	updatePKI(cert);
+}
+
+void db_x509::unRevoke()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert) return;
+	cert->setRevoked(false);
+	updatePKI(cert);
+}
+
+void db_x509::genCrl()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	mainwin->crls->newItem(cert);
+}
+
+#if 0
+void db_x509::setSerial()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert) return;
+	a1int serial = cert->getCaSerial();
+	try {
+		bool ok;
+		QString s = QInputDialog::getText (tr(XCA_TITLE),
+			tr("Please enter the new Serial for signing"),
+			QLineEdit::Normal, serial.toHex(), &ok, this );
+		if (!ok) return;
+		a1int nserial;
+		nserial.setHex(s);
+		if (nserial > serial) {
+			cert->setCaSerial(nserial);
+			updatePKI(cert);
+		}
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+}
+
+void db_x509::setCrlDays()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert) return;
+	int crlDays = cert->getCrlDays();
+	bool ok;
+	int nCrlDays = QInputDialog::getInteger (tr(XCA_TITLE),
+			tr("Please enter the CRL renewal periode in days"),
+			crlDays, 1, 2147483647, 1, &ok, this );
+	if (ok && (crlDays != nCrlDays)) {
+		cert->setCrlDays(nCrlDays);
+		db->updatePKI(cert);
+	}
+}
+
+void db_x509::setTemplate()
+{
+	pki_x509 *cert = (pki_x509 *)getSelected();
+	if (!cert) return;
+	QString templ = cert->getTemplate();
+	QStringList tempList = MainWindow::temps->getDesc();
+	unsigned int i, sel=0;
+	bool ok;
+	for (i=0; i<tempList.count(); i++) {
+		if (tempList[i] == templ) {
+			sel = i;
+		}
+	}
+	QString nTempl = QInputDialog::getItem (tr(XCA_TITLE),
+			tr("Please select the default Template for signing"),
+			tempList, sel, false, &ok, this );
+	if (ok && (templ != nTempl)) {
+		cert->setTemplate(nTempl);
+		db->updatePKI(cert);
+	}
+}
+#endif

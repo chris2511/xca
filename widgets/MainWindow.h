@@ -65,6 +65,7 @@
 
 #define DBFILE "xca.db"
 
+class db_x509;
 class MainWindow: public QMainWindow, private Ui::MainWindow
 {
 	Q_OBJECT

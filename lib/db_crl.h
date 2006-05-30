@@ -48,17 +48,15 @@
  *
  */
 
-
 #include "db_x509.h"
 #include "pki_crl.h"
 #include <Qt/qobject.h>
 #include <Qt/qpixmap.h>
 
-
 #ifndef DB_CRL_H
 #define DB_CRL_H
 
-
+class db_x509;
 class db_crl: public db_base
 {
 	Q_OBJECT
@@ -74,6 +72,7 @@ class db_crl: public db_base
 	pki_base *insert(pki_base *item);
 	void load();
 	void showItem();
+	pki_crl *newItem(pki_x509 *cert);
     signals:
 	void updateCertView();
 };

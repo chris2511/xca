@@ -103,6 +103,9 @@ class db_x509: public db_x509super
 	void setMultiTrust(QAbstractItemView* view);
 	void setTrust();
 	void extendCert();
+	void revoke();
+	void unRevoke();
+	void genCrl();
 	signals:
 	void connNewX509(NewX509 *dlg);
 };

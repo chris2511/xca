@@ -63,8 +63,8 @@
 
 class pki_x509 : public pki_x509super
 {
-	friend class pki_crl;
-	friend class db_x509;
+	//friend class pki_crl;
+	//friend class db_x509;
 	private:
 	   pki_x509 *psigner;
 	   a1time revoked, lastCrl;

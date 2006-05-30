@@ -189,12 +189,10 @@ int pki_base::alphabeticRow(QString name)
 {
 	int i;
 	for (i=0; i< childItems.size(); i++) {
-		printf("CMP: '%s:%s'\n", CCHAR(childItems.at(i)->getIntName()),
-				CCHAR(name));
+		//printf("CMP: '%s:%s'\n", CCHAR(childItems.at(i)->getIntName()),
+		//		CCHAR(name));
 		if (childItems.at(i)->getIntName() > name) {
-			if (i>0)
-				--i;
-			return i;
+			break;
 		}
 	}
 	return i;

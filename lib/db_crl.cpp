@@ -92,9 +92,9 @@ void db_crl::load()
 void db_crl::revokeCerts(pki_crl *crl)
 {
 	int numc, i;
-	bool updated = false;
-	certs = MainWindow::certs;
-	if (! certs) return;
+	certs = mainwin->certs;
+	if (! certs)
+		return;
 	x509rev revok;
 	pki_x509 *rev;
 	numc = crl->numRev();
@@ -104,11 +104,8 @@ void db_crl::revokeCerts(pki_crl *crl)
 		rev = certs->getByIssSerial(crl->getIssuer(), revok.getSerial());
 		if (rev) {
 			rev->setRevoked(revok.getDate());
-			updated = true;
 		}
 	}
-	if (updated)
-		emit updateCertView();
 }
 
 void db_crl::inToCont(pki_base *pki)
@@ -147,3 +144,48 @@ void db_crl::showItem()
 		delete dlg;
 	}
 }
+
+pki_crl *db_crl::newItem(pki_x509 *cert)
+{
+	if (!cert)
+		return NULL;
+	QList<pki_x509*> list;
+	a1time time;
+	pki_crl *crl = NULL;
+	x509v3ext e;
+	X509V3_CTX ext_ctx;
+	X509V3_set_ctx(&ext_ctx, cert->getCert() , NULL, NULL, NULL, 0);
+	X509V3_set_ctx_nodb((&ext_ctx));
+
+	try {
+		crl = new pki_crl();
+		crl->createCrl(cert->getIntName(), cert);
+
+		list = mainwin->certs->getIssuedCerts(cert);
+		if (!list.isEmpty()) {
+			for (int i =0; i<list.size(); i++) {
+				if (list.at(i)->isRevoked() ) {
+					crl->addRev(list.at(i)->getRev());
+				}
+			}
+		}
+		crl->addV3ext(e.create(NID_authority_key_identifier,
+			"keyid,issuer", &ext_ctx));
+		if (cert->hasSubAltName()) {
+			crl->addV3ext(e.create(NID_issuer_alt_name,
+				"issuer:copy", &ext_ctx));
+		}
+		crl->setLastUpdate(time.now());
+		crl->setNextUpdate(time.now(60*60*24*cert->getCrlDays()));
+		cert->setLastCrl(time);
+		crl->sign(cert->getRefKey(), EVP_sha1());
+		mainwin->certs->updatePKI(cert);
+		// FIXME: set Last update
+		insert(crl);
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+	}
+	return crl;
+}
+

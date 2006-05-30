@@ -356,7 +356,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="unnamed" >
+     <widget class="QWidget" name="unnamed_1" >
       <attribute name="title" >
        <string>&amp;Extensions</string>
       </attribute>
