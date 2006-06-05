@@ -103,8 +103,6 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	static NewX509 *newX509();
-	static QString md5passwd(const char *pass,
-			char *md5 = NULL, int *len = NULL);
 	//static void Qt::SocketError(errorEx &err);
 	static void Error(errorEx &err);
 	void cmd_help(const char* msg);

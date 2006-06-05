@@ -59,6 +59,7 @@
 #include <widgets/MainWindow.h>
 
 char pki_key::passwd[40]={0,};
+QString pki_key::passHash = QString();
 
 QPixmap *pki_key::icon[2]= { NULL, NULL };
 
@@ -127,7 +128,7 @@ QString pki_key::removeTypeFromIntName(QString n)
 
 void pki_key::setOwnPass(int x)
 {
-	EVP_PKEY *pk;
+	EVP_PKEY *pk, *pk_back;
 	printf("Set own pass: %d -> %d\n",ownPass,x);
 	if (x) x=1;
 	if (ownPass == x) return;
@@ -135,10 +136,19 @@ void pki_key::setOwnPass(int x)
 	pk = decryptKey();
 	if (pk == NULL) return;
 
-	EVP_PKEY_free(key);
+	pk_back = key;
 	key = pk;
 	ownPass = x;
-	encryptKey();
+	try {
+		encryptKey();
+	}
+	catch (errorEx &err) {
+		EVP_PKEY_free(key);
+		key = pk_back;
+		ownPass ^= 1;
+		throw(err);
+	}
+	EVP_PKEY_free(pk_back);
 }
 
 void pki_key::generate(int bits, int type, QProgressBar *progress)
@@ -339,24 +349,34 @@ EVP_PKEY *pki_key::decryptKey()
 	EVP_PKEY *tmpkey;
 	EVP_CIPHER_CTX ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
-	char ownPassBuf[MAX_PASS_LENGTH];
+	char ownPassBuf[MAX_PASS_LENGTH] = "";
 
 	/* This key has its own password */
 	if (ownPass == 1) {
-		pass_info pi(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password to decrypt the private key: '") + getIntName() + "'");
-		MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
+		int ret;
+		pass_info pi(XCA_TITLE, qApp->translate("MainWindow",
+			"Please enter the password to decrypt the private key: '") +
+			getIntName() + "'");
+		ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
+		if (ret < 0)
+			throw errorEx("Password input aborted", class_name);
 	}
 	else {
-		printf("Orig password: '%s' len:%d\n",passwd, strlen(passwd));
-		if (strlen(passwd) == 0) {
-			int retlen = 0;
-			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-					"Please enter the default password"));
-			while (strlen(passwd) == 0 && retlen == 0) {
-				retlen = MainWindow::passRead(passwd, MAX_PASS_LENGTH, 0, &p);
+		if (md5passwd(passwd) != passHash) {
+			printf("Orig password: '%s' len:%d\n", passwd, strlen(passwd));
+			while (md5passwd(ownPassBuf) != passHash) {
+				int ret;
+				printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
+						CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
+				pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+						"Please enter the default password"));
+				ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
+				if (ret < 0)
+					throw errorEx("Password input aborted", class_name);
 			}
+		} else {
+			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 		}
-		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 	}
 	printf("Using decrypt Pass: %s\n", ownPassBuf);
 	p = (unsigned char *)OPENSSL_malloc(encKey_len);
@@ -422,19 +442,27 @@ void pki_key::encryptKey()
 
 	/* This key has its own, private password ? */
 	if (ownPass == 1) {
+		int ret;
 		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 			"Please enter the password to protect the private key: '") +
 			getIntName() + "'");
-		while (!MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p) );
+		ret = MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
+		if (ret < 0)
+			throw errorEx("Password input aborted", class_name);
 	}
 	else {
-		int retlen = 0;
-		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-				"Please enter the default password for encrypting keys"));
-		while (retlen >= 0) {
-			retlen = MainWindow::passWrite(passwd, MAX_PASS_LENGTH, 0, &p);
+		if (md5passwd(passwd) != passHash) {
+			int ret = 0;
+			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+				"Please enter the database password for encrypting the key"));
+			while (md5passwd(ownPassBuf) != passHash) {
+				ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0,&p);
+				if (ret < 0)
+					throw errorEx("Password input aborted", class_name);
+			}
+		} else {
+			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 		}
-		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 	}
 
 	/* Prepare Encryption */
@@ -707,7 +735,7 @@ int pki_key::getUcount()
 const EVP_MD *pki_key::getDefaultMD(){
 	const EVP_MD *md;
 	switch (key->type) {
-		case EVP_PKEY_RSA: md = EVP_md5(); break;
+		case EVP_PKEY_RSA: md = EVP_sha1(); break;
 		case EVP_PKEY_DSA: md = EVP_dss1(); break;
 		default: md = NULL; break;
 	}
@@ -733,5 +761,28 @@ QVariant pki_key::getIcon()
 {
 	int pixnum= isPubKey() ? 1 : 0;
 	return QVariant(*icon[pixnum]);
+}
+
+QString pki_key::md5passwd(const char *pass, char *md5, int *len)
+{
+
+	EVP_MD_CTX mdctx;
+	QString str;
+	unsigned int n;
+	int j;
+	char zs[4];
+	unsigned char m[EVP_MAX_MD_SIZE];
+	EVP_DigestInit(&mdctx, EVP_md5());
+	EVP_DigestUpdate(&mdctx, pass, strlen(pass));
+	EVP_DigestFinal(&mdctx, m, &n);
+	for (j=0; j<(int)n; j++) {
+		sprintf(zs, "%02X%c",m[j], (j+1 == (int)n) ?'\0':':');
+		str += zs;
+	}
+	if (md5 && len) {
+		*len = (*len>n) ? n : *len;
+		memcpy(md5, m, *len);
+	}
+	return str;
 }
 

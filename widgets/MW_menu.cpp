@@ -79,27 +79,29 @@ void MainWindow::init_menu()
 
 void MainWindow::load_database()
 {
-	load_key l;
+	load_db l;
 	QString fname;
 	QFileDialog *dlg = new QFileDialog(this);
 	dlg->setWindowTitle(l.caption);
 	dlg->setFilters(l.filter);
 	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->setDirectory(baseDir);
+	dlg->setDirectory(getPath());
 	if (dlg->exec()) {
 		fname = dlg->selectedFiles()[0];
+		setPath(dlg->directory().path());
 	}
 	delete dlg;
-	if (fname.isEmpty()) return;
+	if (fname.isEmpty())
+		return;
 	dbfile = fname;
 	close_database();
-	fprintf(stderr, "Dir: %s, File: %s\n", baseDir.data(),  dbfile.data() );
-	emit init_database();
+	fprintf(stderr, "Dir: %s, File: %s\n", CCHAR(baseDir),  CCHAR(dbfile));
+	init_database();
 }
 
 void MainWindow::load_def_database()
 {
 	dbfile = DBFILE;
 	close_database();
-    emit init_database();
+    init_database();
 }

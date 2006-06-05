@@ -268,10 +268,6 @@ void db_base::insertSortChild(pki_base *parent, pki_base *child)
 	int row;
 	QModelIndex idx = QModelIndex();
 
-	if (parent == NULL)
-		printf("Parent is  null !!??\n");
-	if (child == NULL)
-		printf("Parent is  null !!??\n");
 	if (parent == child || parent == NULL)
 		parent = rootItem;
 

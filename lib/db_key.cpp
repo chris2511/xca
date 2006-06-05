@@ -218,6 +218,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	QMenu *menu = new QMenu(mainwin);
 
 	currentIdx = index;
+	pki_key *key = static_cast<pki_key*>(currentIdx.internalPointer());
 
 	menu->addAction(tr("New Key"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
@@ -225,8 +226,10 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-		menu->addAction(tr("Change password"), this, SLOT(setOwnPass()));
-		menu->addAction(tr("Reset password"), this, SLOT(resetOwnPass()));
+		if (!key->getOwnPass())
+			menu->addAction(tr("Change password"), this, SLOT(setOwnPass()));
+		else
+			menu->addAction(tr("Reset password"), this, SLOT(resetOwnPass()));
 	}
 	menu->exec(e->globalPos());
 	delete menu;

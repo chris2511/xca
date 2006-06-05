@@ -345,28 +345,28 @@ int MainWindow::initPass()
 {
 	db mydb(dbfile);
 	char *pass;
+	pki_key::passHash = QString();
 
 	pass_info p(tr("New Password"),
 		tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
-	QString passHash;
 	if (!mydb.find(setting, "pwhash")) {
 		if ((pass = (char *)mydb.load(NULL))) {
-			passHash = pass;
+			pki_key::passHash = pass;
 			free(pass);
 		}
 	}
-	if (passHash.isEmpty()) {
+	if (pki_key::passHash.isEmpty()) {
 		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
 		if (keylen < 0)
 			return 0;
 		pki_key::passwd[keylen]='\0';
-		passHash = md5passwd(pki_key::passwd);
-		mydb.set((const unsigned char *)CCHAR(passHash),
-				passHash.length()+1, 1, setting, "pwhash");
+		pki_key::passHash = pki_key::md5passwd(pki_key::passwd);
+		mydb.set((const unsigned char *)CCHAR(pki_key::passHash),
+				pki_key::passHash.length()+1, 1, setting, "pwhash");
 	}
 	else {
 		int keylen=0;
-		while (md5passwd(pki_key::passwd) != passHash) {
+		while (pki_key::md5passwd(pki_key::passwd) != pki_key::passHash) {
 			if (keylen !=0) QMessageBox::warning(this,tr(XCA_TITLE),
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
@@ -386,7 +386,6 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 {
 	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
-	printf("Userdata called\n");
 	Ui::PassRead ui;
 	QDialog *dlg = new QDialog(qApp->activeWindow());
 	ui.setupUi(dlg);
@@ -435,29 +434,6 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	}
 	delete dlg;
 	return ret;
-}
-
-QString MainWindow::md5passwd(const char *pass, char *md5, int *len)
-{
-
-	EVP_MD_CTX mdctx;
-	QString str;
-	unsigned int n;
-	int j;
-	char zs[4];
-	unsigned char m[EVP_MAX_MD_SIZE];
-	EVP_DigestInit(&mdctx, EVP_md5());
-	EVP_DigestUpdate(&mdctx, pass, strlen(pass));
-	EVP_DigestFinal(&mdctx, m, &n);
-	for (j=0; j<(int)n; j++) {
-		sprintf(zs, "%02X%c",m[j], (j+1 == (int)n) ?'\0':':');
-		str += zs;
-	}
-	if (md5 && len) {
-		*len = (*len>n) ? n : *len;
-		memcpy(md5, m, *len);
-	}
-	return str;
 }
 
 void MainWindow::Error(errorEx &err)

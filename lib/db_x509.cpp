@@ -54,6 +54,7 @@
 #include "widgets/CertExtend.h"
 #include "widgets/ExportCert.h"
 #include "ui/TrustState.h"
+#include "ui/CaProperties.h"
 #include <Qt/qmessagebox.h>
 #include <Qt/qevent.h>
 #include <Qt/qaction.h>
@@ -573,10 +574,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
 		menu->addSeparator();
 		subCa = menu->addMenu(tr("CA"));
-		subCa->addAction(tr("Serial"), this, SLOT(setSerial()));
-		subCa->addAction(tr("CRL days"), this, SLOT(setCrlDays()));
-		itemTemplate = subCa->addAction(tr("Signing Template"),
-				this, SLOT(setTemplate()));
+		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
 		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
 
 		subP7 = menu->addMenu(tr("PKCS#7"));
@@ -585,29 +583,26 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addSeparator();
 		itemExtend = menu->addAction(tr("Renewal"),
 				this, SLOT(extendCert()));
-		if (cert) {
-			if (cert->isRevoked()) {
-				itemRevoke = menu->addAction(tr("Unrevoke"),
-						this, SLOT(unRevoke()));
-				itemTrust->setEnabled(false);
-			} else {
-				itemRevoke = menu->addAction(tr("Revoke"),
-						this, SLOT(revoke()));
-			}
-			parentCanSign = (cert->getSigner() && cert->getSigner()->canSign()
-					&& (cert->getSigner() != cert));
-			canSign = cert->canSign();
-#warning templates
-			hasTemplates = mainwin->temps->getDesc().count() > 0 ;
-			hasPrivkey = cert->getRefKey();
+		if (cert->isRevoked()) {
+			itemRevoke = menu->addAction(tr("Unrevoke"),
+				this, SLOT(unRevoke()));
+			itemTrust->setEnabled(false);
+		} else {
+			itemRevoke = menu->addAction(tr("Revoke"),
+				this, SLOT(revoke()));
 		}
-		itemExtend->setEnabled(parentCanSign);
+		parentCanSign = (cert->getSigner() && cert->getSigner()->canSign()
+					&& (cert->getSigner() != cert));
+		canSign = cert->canSign();
+#warning templates
+		hasTemplates = mainwin->temps->getDesc().count() > 0 ;
+		hasPrivkey = cert->getRefKey();
 		itemRevoke->setEnabled(parentCanSign);
+		itemExtend->setEnabled(parentCanSign);
 		subCa->setEnabled(canSign);
 		itemReq->setEnabled(hasPrivkey);
 		itemtca->setEnabled(canSign);
 		subP7->setEnabled(hasPrivkey);
-		itemTemplate->setEnabled(hasTemplates);
 
 	}
 	menu->exec(e->globalPos());
@@ -949,7 +944,8 @@ void db_x509::extendCert()
 void db_x509::revoke()
 {
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
-	if (!cert) return;
+	if (!cert)
+		return;
 	cert->setRevoked(true);
 	updatePKI(cert);
 }
@@ -957,7 +953,8 @@ void db_x509::revoke()
 void db_x509::unRevoke()
 {
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
-	if (!cert) return;
+	if (!cert)
+		return;
 	cert->setRevoked(false);
 	updatePKI(cert);
 }
@@ -966,6 +963,25 @@ void db_x509::genCrl()
 {
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	mainwin->crls->newItem(cert);
+}
+
+
+void db_x509::toRequest()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
+		return;
+
+	try {
+		pki_x509req *req = new pki_x509req();
+		req->setIntName(cert->getIntName());
+		req->createReq(cert->getRefKey(), cert->getSubject(),
+			cert->getRefKey()->getDefaultMD(), cert->getExt());
+		mainwin->reqs->insert(req);
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
+	}
 }
 
 #if 0
@@ -1002,6 +1018,7 @@ void db_x509::setCrlDays()
 			tr("Please enter the CRL renewal periode in days"),
 			crlDays, 1, 2147483647, 1, &ok, this );
 	if (ok && (crlDays != nCrlDays)) {
+	int crlDays = cert->getCrlDays();
 		cert->setCrlDays(nCrlDays);
 		db->updatePKI(cert);
 	}
@@ -1029,3 +1046,38 @@ void db_x509::setTemplate()
 	}
 }
 #endif
+
+void db_x509::caProperties()
+{
+	Ui::CaProperties ui;
+	int i;
+	printf("CA Prop UI\n");
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
+		return;
+	QDialog *dlg = new QDialog(mainwin);
+	ui.setupUi(dlg);
+	ui.serial->setText(cert->getCaSerial().toHex());
+	ui.days->setValue(cert->getCrlDays());
+	ui.image->setPixmap(*MainWindow::certImg);
+	QString templ = cert->getTemplate();
+	QStringList tempList = mainwin->temps->getDesc();
+	for (i=0; i<tempList.count(); i++) {
+		if (tempList[i] == templ)
+			break;
+	}
+	ui.temp->addItems(tempList);
+	ui.temp->setCurrentIndex(i);
+	ui.certName->setText(cert->getIntName());
+	if (dlg->exec()) {
+		a1int nserial;
+		cert->setCrlDays(ui.days->value());
+		nserial.setHex(ui.serial->text());
+		if (nserial > cert->getCaSerial())
+			cert->setCaSerial(nserial);
+		cert->setTemplate(ui.temp->currentText());
+		updatePKI(cert);
+	}
+	delete dlg;
+}
+

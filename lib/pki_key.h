@@ -67,10 +67,10 @@ class pki_key: public pki_base
 {
 
     protected:
+	int ownPass; // if we have our own private password
 	EVP_PKEY *key;
 	unsigned char *encKey;
 	int encKey_len;
-	int ownPass; // if we have our own private password
 	int ucount; // usage counter
 	QString BN2QString(BIGNUM *bn);
 	void init(int type = EVP_PKEY_RSA);
@@ -78,10 +78,14 @@ class pki_key: public pki_base
 	void encryptKey();
     public:
 	static QPixmap *icon[2];
+	static QString passHash;
 	static char passwd[MAX_PASS_LENGTH];
 	static void erasePasswd();
+	static QString md5passwd(const char *pass,
+			char *md5 = NULL, int *len = NULL);
 	void generate(int bits, int type, QProgressBar *progress);
 	void setOwnPass(int x);
+	int getOwnPass(void) {return ownPass;};
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
 	EVP_PKEY *decryptKey();

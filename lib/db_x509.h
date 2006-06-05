@@ -106,6 +106,8 @@ class db_x509: public db_x509super
 	void revoke();
 	void unRevoke();
 	void genCrl();
+	void caProperties();
+	void toRequest();
 	signals:
 	void connNewX509(NewX509 *dlg);
 };

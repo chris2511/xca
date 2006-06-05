@@ -133,12 +133,17 @@ void MainWindow::dump_database()
 
 void MainWindow::close_database()
 {
+	keyView->setModel(NULL);
+	reqView->setModel(NULL);
+	certView->setModel(NULL);
+	tempView->setModel(NULL);
+	crlView->setModel(NULL);
+
 	delete(crls);
 	delete(reqs);
 	delete(certs);
 	delete(temps);
 	delete(keys);
-	//delete(settings);
 
 	crls = NULL;
 	reqs = NULL;
