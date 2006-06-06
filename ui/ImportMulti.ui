@@ -9,7 +9,7 @@
     <x>0</x>
     <y>0</y>
     <width>506</width>
-    <height>289</height>
+    <height>362</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +17,7 @@
   </property>
   <layout class="QHBoxLayout" >
    <property name="margin" >
-    <number>8</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -35,7 +35,7 @@
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >
-       <number>8</number>
+       <number>9</number>
       </property>
       <property name="spacing" >
        <number>6</number>
@@ -69,6 +69,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="butDetails" >
+        <property name="text" >
+         <string>Details</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -79,7 +86,7 @@
         <property name="sizeHint" >
          <size>
           <width>204</width>
-          <height>16</height>
+          <height>21</height>
          </size>
         </property>
        </spacer>

@@ -93,9 +93,7 @@ void db_base::remFromCont(QModelIndex &idx)
 	if (!idx.isValid())
 		return;
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-	printf("PKI=%p\n", pki);
 	pki_base *parent_pki = pki->getParent();
-	printf("PKI=%p, parent=%p\n", pki,parent_pki);
 	int row = pki->row();
 
 	beginRemoveRows(parent(idx), row, row);
@@ -106,7 +104,7 @@ void db_base::remFromCont(QModelIndex &idx)
 void db_base::loadContainer()
 {
 	db mydb(dbName);
-	unsigned char *p;
+	unsigned char *p = NULL;
 	db_header_t head;
 
 	pki_base *pb, *pki;
@@ -116,14 +114,14 @@ void db_base::loadContainer()
 		p = mydb.load(&head);
 		if (!p) {
 			printf("Load was empty !\n");
-			break;
+			goto next;
 		}
 		//printf("load item: %s\n",head.name);
 		if (pb->getVersion() < head.version) {
 			free(p);
 			printf("Item[%s]: Version %d > known version: %d -> ignored\n",
 					head.name, head.version, pb->getVersion() );
-			continue;
+			goto next;
 		}
 		pki = newPKI();
 		s = head.name;
@@ -133,12 +131,14 @@ void db_base::loadContainer()
 			pki->fromData(p, &head);
 		}
 		catch (errorEx &err) {
+			err.appendString(s);
 			mainwin->Error(err);
 			delete pki;
 			pki = NULL;
 		}
 		if (pki)
 			inToCont(pki);
+next:
 		if (mydb.next())
 			break;
 	}

@@ -59,15 +59,32 @@ class errorEx
 	private:
 		QString msg;
 	public:
-		errorEx(QString txt, QString className = "") {
+		errorEx(QString txt, QString className = "")
+		{
 			msg = txt;
 			if (!className.isEmpty())
 				msg += " (" + className + ")";
 		}
-		errorEx(const errorEx &e) { msg = e.msg; }
-		QString getString() const {return msg;}
-		const char *getCString() const {return msg.toAscii();}
-		bool isEmpty() const { return msg.isEmpty();}
+		errorEx(const errorEx &e)
+		{
+			msg = e.msg;
+		}
+		void appendString(QString s)
+		{
+			msg = msg + " " + s;
+		}
+		QString getString() const
+		{
+			return msg;
+		}
+		const char *getCString() const
+		{
+			return msg.toAscii();
+		}
+		bool isEmpty() const
+		{
+			return msg.isEmpty();
+		}
 };
 
 #endif

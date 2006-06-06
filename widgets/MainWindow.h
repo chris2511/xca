@@ -123,7 +123,7 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void help();
 
   private slots:
-	void on_keyView_doubleClicked(QModelIndex &m);
+	//void on_keyView_doubleClicked(QModelIndex &m);
 
 	void on_BNnewKey_clicked(void);
 	void on_BNdeleteKey_clicked(void);

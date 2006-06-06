@@ -48,32 +48,27 @@
 
 
 #include "MainWindow.h"
+#include "lib/exception.h"
 #include <Qt/qdir.h>
 #include <Qt/qstatusbar.h>
 
 void MainWindow::init_database()
 {
-	initPass();
 	fprintf(stderr, "Opening database: %s\n", CCHAR(dbfile));
-	keys = new db_key(dbfile, this);
-	reqs = new db_x509req(dbfile, this);
-	certs = new db_x509(dbfile, this);
-	temps = new db_temp(dbfile, this);
-	crls = new db_crl(dbfile, this);
-#if 0
-		certs = new db_x509(dbenv, dbfile, keys, global_tid, certList);
-		temps = new db_temp(dbenv, dbfile, global_tid, tempList);
-		crls = new db_crl(dbenv, dbfile, global_tid, crlList);
-		reqs->setKeyDb(keys);
-		certs->setKeyDb(keys);
+	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
+	try {
+		initPass();
+		keys = new db_key(dbfile, this);
+		reqs = new db_x509req(dbfile, this);
+		certs = new db_x509(dbfile, this);
+		temps = new db_temp(dbfile, this);
+		crls = new db_crl(dbfile, this);
+	}
+	catch (errorEx &err) {
+		Error(err);
+		return;
+	}
 
-		keyList->setDB(keys);
-		reqList->setDB(reqs);
-		certList->setDB(certs);
-		tempList->setDB(temps);
-		crlList->setDB(crls);
-
-#endif
 	connect( keys, SIGNAL(newKey(pki_key *)),
 		certs, SLOT(newKey(pki_key *)) );
 	connect( keys, SIGNAL(delKey(pki_key *)),
@@ -139,21 +134,34 @@ void MainWindow::close_database()
 	tempView->setModel(NULL);
 	crlView->setModel(NULL);
 
-	delete(crls);
-	delete(reqs);
-	delete(certs);
-	delete(temps);
-	delete(keys);
+	if (crls)
+		delete(crls);
+	if (reqs)
+		delete(reqs);
+	if (certs)
+		delete(certs);
+	if (temps)
+		delete(temps);
+	if (keys)
+		delete(keys);
 
-	crls = NULL;
 	reqs = NULL;
 	certs = NULL;
 	temps = NULL;
 	keys = NULL;
 	settings = NULL;
 
-	db mydb(dbfile);
-	mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
+	if (!crls)
+		return;
+	crls = NULL;
+
+	try {
+		db mydb(dbfile);
+		mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+	}
 }
 
 /* Asymetric Key buttons */
@@ -182,12 +190,14 @@ void MainWindow::on_BNexportKey_clicked(void)
 	if(keys)
 		keys->storeSelectedItems(keyView);
 }
+#if 0
 void MainWindow::on_keyView_doubleClicked(QModelIndex &m)
 {
 	printf("Key View double clicked\n");
 	if (keys)
 		keys->showItem();
 }
+#endif
 void MainWindow::on_BNimportPFX_clicked(void)
 {
 	if(certs)

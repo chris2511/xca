@@ -92,10 +92,10 @@ MainWindow::MainWindow(QWidget *parent )
 	statusBar()->clearMessage();
 
 	setWindowTitle(tr(XCA_TITLE));
-	dbfile = DBFILE;
 	force_load = 0;
 
 	baseDir = getBaseDir();
+	dbfile = baseDir + QDir::separator() + DBFILE;
 
 	setupUi(this);
 
@@ -118,14 +118,18 @@ MainWindow::MainWindow(QWidget *parent )
 
 	init_baseDir();
 
-	dbfile = baseDir + QDir::separator() + dbfile;
-	char *p;
-	db mydb(dbfile);
-	if (!mydb.find(setting, "workingdir")) {
-		if ((p = (char *)mydb.load(NULL))) {
-			workingdir = p;
-			free(p);
+	try {
+		db mydb(dbfile);
+		char *p;
+		if (!mydb.find(setting, "workingdir")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				workingdir = p;
+				free(p);
+			}
 		}
+	} catch (errorEx &err) {
+		Error(err);
+		return;
 	}
 	init_database();
 }
@@ -156,7 +160,8 @@ NIDlist *MainWindow::read_nidlist(QString name)
 void MainWindow::init_baseDir()
 {
 	static bool done = false;
-	if (done) return;
+	if (done)
+		return;
 	fprintf(stderr, "base Dir: %s\n", CCHAR(baseDir));
 	QDir d(baseDir);
 	if ( ! d.exists() && !d.mkdir(baseDir)) {

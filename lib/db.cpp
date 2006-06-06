@@ -1,5 +1,6 @@
 #include "db.h"
 #include "base.h"
+#include "exception.h"
 #ifdef __WIN32__
 #include <windows.h>
 #else
@@ -20,11 +21,7 @@ db::db(QString filename, int mode)
 	name = filename;
 	fd = open(CCHAR(filename), O_RDWR | O_CREAT, mode);
 	if (fd<0) {
-		errstr = QString("DB open() failed: ") + filename +" "+
-				strerror(errno);
-		dberrno = errno;
-		perror(CCHAR(filename));
-
+		fileIOerr("open");
 	} else {
 		first();
 	}
@@ -34,6 +31,13 @@ db::~db()
 {
 	if (fd>=0)
 		close(fd);
+}
+
+void db::fileIOerr(QString s)
+{
+	errstr = QString("DB ") + s + "() '" + name + "'";
+	dberrno = errno;
+	throw errorEx(errstr, strerror(errno));
 }
 
 void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
@@ -74,10 +78,8 @@ bool db::verify_magic(void)
 int db::find(enum pki_type type, const char *name)
 {
 	//int len, ret=0;
-	if (head_offset == OFF_EOF)
-		return 1;
 
-	do {
+	while (head_offset != OFF_EOF) {
 		//printf("Comparing %s -> %s at %lu\n", head.name, name,
 				//head_offset);
 		if (ntohs(head.type) == type) {
@@ -92,8 +94,8 @@ int db::find(enum pki_type type, const char *name)
 		if (!verify_magic()) {
 			return -1;
 		}
-
-	} while (next() == 0);
+		next();
+	}
 	//printf("Returning 1\n");
 	return 1;
 }
@@ -104,7 +106,9 @@ void db::first(void)
 	memset(&head, 0, sizeof(db_header_t) );
 	head_offset = lseek(fd, 0, SEEK_SET );
 	ret = read(fd, &head, sizeof(db_header_t) );
-	if (ret<=0) {
+	if (ret < 0 )
+		fileIOerr("read");
+	if (ret==0) {
 		head_offset = OFF_EOF;
 		return;
 	}
@@ -129,7 +133,7 @@ int db::next(void)
 		return 1;
 	}
 	if (ret < 0) {
-		printf("read() failed: %s\n", strerror(errno));
+		fileIOerr("read");
 		return -1;
 	}
 	if (ret != sizeof(db_header_t)) {
@@ -169,6 +173,9 @@ int db::rename(enum pki_type type, const char *name, const char *n)
 	head.name[NAMELEN-1] = '\0';
 	lseek(fd, head_offset, SEEK_SET);
 	ret = write(fd, &head, sizeof(head));
+	if (ret < 0) {
+		fileIOerr("write");
+	}
 	if (ret != sizeof(head)) {
 		printf("DB: Write error %d - %d\n", ret, sizeof(head));
 		return -1;
@@ -203,11 +210,11 @@ int db::add(const unsigned char *p, int len, int ver, enum pki_type type,
 	lseek(fd, 0, SEEK_END);
 
 	if (write(fd, &db, sizeof(db)) != sizeof(db)) {
-		printf("write() failed\n");
+		fileIOerr("write");
 		return -1;
 	}
 	if (write(fd, p, len) != len) {
-		printf("write() failed\n");
+		fileIOerr("write");
 		return -1;
 	}
 	return 0;
@@ -225,9 +232,9 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 		return add(p, len, ver, type, name);
 	}
 	if (ret == 0) {
-		printf("offs = %x, len=%d, head.len=%d name = %s flags=%x\n",
-				head_offset, len, ntohl(head.len), head.name,
-				ntohs(head.flags));
+		//printf("offs = %x, len=%d, head.len=%d name = %s flags=%x\n",
+		//		head_offset, len, ntohl(head.len), head.name,
+		//		ntohs(head.flags));
 		lseek(fd, head_offset, SEEK_SET);
 		if (len != ntohl(head.len) - sizeof(db_header_t)) {
 			//printf("## Found and len unequal %d, %d\n",
@@ -239,14 +246,15 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 			if (write(fd, &head, sizeof(db_header_t)) !=
 					sizeof(db_header_t))
 			{
-				printf("erasing of %s at failed\n", head.name);
-				dberrno = errno;
+				fileIOerr("write");
 				return -1;
 			}
 			if (add(p, len, ver, type, name) < 0) {
 				lseek(fd, head_offset, SEEK_SET);
 				head.flags = flags;
-				write(fd, &head, sizeof(db_header_t));
+				ret = write(fd, &head, sizeof(db_header_t));
+				if (ret != sizeof(db_header_t))
+					fileIOerr("write");
 			}
 			return 0;
 		}
@@ -254,11 +262,11 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 		head.version = htons(ver);
 		if (write(fd, &head, sizeof(db_header_t)) !=
 						sizeof(db_header_t)) {
-			printf("write() failed\n");
+			fileIOerr("write");
 			return -1;
 		}
 		if (write(fd, p, len) != len) {
-			printf("write() failed\n");
+			fileIOerr("write");
 			return -1;
 		}
 	}
@@ -284,8 +292,8 @@ unsigned char *db::load(db_header_t *u_header)
 		return data;
 
 	} else {
-		printf("read of %u bytes failed: %d\n", size, ret);
 		free(data);
+		fileIOerr("read");
 		return NULL;
 	}
 }
@@ -299,8 +307,7 @@ int db::erase(void)
 
 	lseek(fd, head_offset, SEEK_SET);
 	if (write(fd, &head, sizeof(db_header_t)) != sizeof(db_header_t)) {
-		printf("erasing of %s at %u failed\n", head.name, head_offset);
-		dberrno = errno;
+		fileIOerr("write");
 		return -1;
 	}
 	return 0;
@@ -308,15 +315,14 @@ int db::erase(void)
 
 int db::shrink(int flags)
 {
-	int fdn, ret, i=0;
+	int fdn, ret;
 	uint32_t offs;
 	char buf[BUFSIZ];
 
 	QString filename = name + "{new}";
 	fdn = open(CCHAR(filename), O_RDWR | O_CREAT, 0644);
 	if (fdn<0) {
-		errstr = QString("open() failed: ") + filename +" "+
-				strerror(errno);
+		fileIOerr("open");
 		return 1;
 	}
 	lseek(fd, 0, SEEK_SET);
@@ -328,9 +334,9 @@ int db::shrink(int flags)
 		if ((ntohs(head.flags) & flags)) {
 			//printf("Skip Entry\n");
 			/* FF to the next entry */
-			offs = (int)lseek(fd, head_offset, SEEK_CUR);
+			offs = lseek(fd, head_offset, SEEK_CUR);
 			//printf("Seeking to %d\n", offs);
-			if (head_offset == (uint32_t)-1)
+			if (head_offset == -1)
 				break;
 			continue;
 		}
