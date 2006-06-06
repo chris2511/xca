@@ -524,7 +524,7 @@ void db_x509::newCert(NewX509 *dlg)
     }
 
     catch (errorEx &err) {
-		MainWindow::Error(err);
+		mainwin->Error(err);
 		delete cert;
 		if (tempkey != NULL) delete(tempkey);
     }
@@ -1058,6 +1058,8 @@ void db_x509::caProperties()
 	QDialog *dlg = new QDialog(mainwin);
 	ui.setupUi(dlg);
 	ui.serial->setText(cert->getCaSerial().toHex());
+	ui.days->setSuffix(tr(" days"));
+	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
 	ui.image->setPixmap(*MainWindow::certImg);
 	QString templ = cert->getTemplate();

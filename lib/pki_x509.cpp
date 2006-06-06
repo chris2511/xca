@@ -351,7 +351,8 @@ unsigned char *pki_x509::toData(int *size)
 	unsigned char *p, *p1;
 
 	// calculate the needed size
-	*size = i2d_X509(cert, NULL) + 45 + caSerial.toHex().length();
+	*size = i2d_X509(cert, NULL) + 11 + caSerial.toHex().length() +
+		caTemplate.length() + lastCrl.derSize() + revoked.derSize();
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;

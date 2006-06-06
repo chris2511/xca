@@ -129,9 +129,17 @@ void db_base::loadContainer()
 		s = head.name;
 		pki->setIntName(s);
 
-		pki->fromData(p, &head);
-		inToCont(pki);
-		if (mydb.next() != 0)
+		try {
+			pki->fromData(p, &head);
+		}
+		catch (errorEx &err) {
+			mainwin->Error(err);
+			delete pki;
+			pki = NULL;
+		}
+		if (pki)
+			inToCont(pki);
+		if (mydb.next())
 			break;
 	}
 	delete pb;

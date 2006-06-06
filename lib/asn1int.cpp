@@ -214,12 +214,12 @@ a1int &a1int::operator = (long i)
 
 bool a1int::operator > (const a1int &a) const
 {
-	return (ASN1_INTEGER_cmp(in, a.in) == 1);
+	return (ASN1_INTEGER_cmp(in, a.in) > 0);
 }
 
 bool a1int::operator < (const a1int &a) const
 {
-	return (ASN1_INTEGER_cmp(in, a.in) == -1);
+	return (ASN1_INTEGER_cmp(in, a.in) < 0);
 }
 
 bool a1int::operator == (const a1int &a) const
@@ -244,5 +244,3 @@ int a1int::derSize() const
 	return i2d_ASN1_INTEGER(in, NULL);
 }
 
-
-//if (a->length > sizeof(long))
