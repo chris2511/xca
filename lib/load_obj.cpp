@@ -161,7 +161,7 @@ load_pkcs12::load_pkcs12()
 
 pki_base * load_pkcs12::loadItem(QString s)
 {
-	pki_base *p12 = new pki_pkcs12(s, &MainWindow::passRead);
+	pki_base *p12 = new pki_pkcs12(s, MainWindow::passRead);
 	return p12;
 };
 

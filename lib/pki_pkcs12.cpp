@@ -84,12 +84,10 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		fclose(fp);
 		openssl_error();
-		if (passcb(pass, 30, 0, &p) == 0) {
-			if (pass[0] != '\0') {
-				/* cancel pressed */
-				PKCS12_free(pkcs12);
-				throw errorEx("","");
-			}
+		if (passcb(pass, 30, 0, &p) < 0) {
+			/* cancel pressed */
+			PKCS12_free(pkcs12);
+			throw errorEx("","");
 		}
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
 		if ( ERR_peek_error() != 0) {
@@ -103,6 +101,14 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 			key = new pki_key(mykey);
 		}
 		if (mycert) {
+			char b[256];
+			i2t_ASN1_OBJECT(b, 256, (ASN1_OBJECT*)mycert->aux->alias);
+			printf("Alias: %s %x %x %x %x\n", b,
+					((char*)mycert->aux->alias)[0],
+					((char*)mycert->aux->alias)[1],
+					((char*)mycert->aux->alias)[2],
+					((char*)mycert->aux->alias)[3]
+			);
 			cert = new pki_x509(mycert);
 			cert->autoIntName();
 		}
