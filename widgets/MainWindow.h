@@ -121,6 +121,7 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void changeView();
 	void about();
 	void help();
+	void import_dbdump();
 
   private slots:
 	//void on_keyView_doubleClicked(QModelIndex &m);

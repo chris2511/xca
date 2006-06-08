@@ -79,6 +79,7 @@ class pki_x509req : public pki_x509super
 	   void writeDefault(const QString fname);
 	   ~pki_x509req();
 	   void fromData(const unsigned char *p, db_header_t *head);
+	   void oldFromData(unsigned char *p, int size);
 	   unsigned char *toData(int *size);
 	   bool compare(pki_base *refreq);
 	   x509name getSubject() const;

@@ -276,7 +276,7 @@ x509v3ext pki_crl::getExtByNid(int nid)
 	x509v3ext e;
 	el.setStack(crl->crl->extensions);
 
-	for (unsigned int i=0; i< el.count(); i++){
+	for (int i=0; i< el.count(); i++){
 		if (el[i].nid() == nid) return el[i];
 	}
 	return e;
@@ -309,3 +309,14 @@ QVariant pki_crl::getIcon()
 	return QVariant(*icon);
 }
 
+void pki_crl::oldFromData(unsigned char *p, int size)
+{
+	X509_CRL *crl_sik = crl;
+	const unsigned char *p1 = p;
+	crl = d2i_X509_CRL(NULL, &p1, size);
+	if (crl)
+		X509_CRL_free(crl_sik);
+	else
+		crl = crl_sik;
+	openssl_error();
+}

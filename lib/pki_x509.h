@@ -101,6 +101,7 @@ class pki_x509 : public pki_x509super
 
 	   unsigned char *toData(int *size);
 	   void fromData(const unsigned char *p, db_header_t *head);
+	   void oldFromData(unsigned char *p, int size);
 	   bool compare(pki_base *refcert);
 	   bool canSign();
 	   void writeCert(const QString fname, bool PEM, bool append = false);

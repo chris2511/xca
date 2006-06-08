@@ -720,3 +720,68 @@ const EVP_MD *pki_x509::getDigest()
 	return EVP_get_digestbyobj(cert->sig_alg->algorithm);
 }
 
+void pki_x509::oldFromData(unsigned char *p, int size)
+{
+	int version, sCert, sRev, sLastCrl;
+	const unsigned char *p1 = p;
+	X509 *cert_sik = cert;
+	version = intFromData(&p1);
+	if (version >=1 && version <= 5) {
+		sCert = intFromData(&p1);
+		cert = d2i_X509(NULL, &p1, sCert);
+		trust = intFromData(&p1);
+		sRev = intFromData(&p1);
+		if (sRev) {
+			if (version != 3) isrevoked = true;
+			p1 = revoked.d2i(p1, sRev);
+		}
+		else {
+		   isrevoked = false;
+		   revoked.now();
+		}
+
+		if (version == 1) {
+			caTemplate="";
+			caSerial=1;
+			lastCrl = NULL;
+			crlDays=30;
+		}
+
+		if (version >= 2 ) {
+			if (version >= 5)
+				caSerial.setHex(db::stringFromData(&p1));
+			else {
+				int i = intFromData(&p1);
+				if (i>=0)
+					caSerial = i;
+				else {
+					caSerial = getSerial();
+					++caSerial;
+				}
+			}
+			caTemplate = db::stringFromData(&p1);
+		}
+		if (version >= 3 ) {
+			crlDays = intFromData(&p1);
+			sLastCrl = intFromData(&p1);
+			if (sLastCrl) {
+			   lastCrl.d2i(p1, sLastCrl);
+			}
+		}
+		// version 4 saves a NULL as revoked
+		// version 3 did save a recent date :-((
+	}
+	else { // old version
+		p1 = p;
+		cert = d2i_X509(NULL, &p1, size);
+		revoked = NULL;
+		trust = 1;
+		efftrust = 1;
+	}
+	if (cert)
+		X509_free(cert_sik);
+	else
+		cert = cert_sik;
+	openssl_error();
+}
+

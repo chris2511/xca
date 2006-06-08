@@ -59,6 +59,7 @@
 #include <widgets/MainWindow.h>
 
 char pki_key::passwd[40]={0,};
+char pki_key::oldpasswd[40]={ 'p', 'a', 's', 's', 0,};
 QString pki_key::passHash = QString();
 
 QPixmap *pki_key::icon[2]= { NULL, NULL };
@@ -286,58 +287,7 @@ void pki_key::fromData(const unsigned char *p, db_header_t *head )
 	}
 
 }
-#if 0
-void pki_key::oldFromData(const unsigned char *p, int size )
-{
-	unsigned char *sik, *pdec;
-	const unsigned char *pdec1, *sik1;
-	int outl, decsize;
-	unsigned char iv[EVP_MAX_IV_LENGTH];
-	unsigned char ckey[EVP_MAX_KEY_LENGTH];
-	memset(iv, 0, EVP_MAX_IV_LENGTH);
-	RSA *rsakey;
-	EVP_CIPHER_CTX ctx;
-	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
-	sik = (unsigned char *)OPENSSL_malloc(size);
-	openssl_error();
-	pdec = (unsigned char *)OPENSSL_malloc(size);
-	if (pdec == NULL ) {
-		OPENSSL_free(sik);
-		openssl_error();
-	}
-	pdec1=pdec;
-	sik1=sik;
-	memcpy(iv, p, 8); /* recover the iv */
-	/* generate the key */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)passwd,
-		strlen(passwd), 1, ckey,NULL);
-	/* we use sha1 as message digest,
-	 * because an md5 version of the password is
-	 * stored in the database...
-	 */
-	EVP_CIPHER_CTX_init (&ctx);
-	EVP_DecryptInit( &ctx, cipher, ckey, iv);
-	EVP_DecryptUpdate( &ctx, pdec , &outl, p + 8, size -8 );
-	decsize = outl;
-	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
-	decsize += outl;
-	openssl_error();
-	memcpy(sik, pdec, decsize);
-	if (key->type == EVP_PKEY_RSA) {
-		rsakey = d2i_RSAPrivateKey(NULL, &pdec1, decsize);
-		if (ign_openssl_error()) {
-			rsakey = D2I_CLASH(d2i_RSA_PUBKEY, NULL, &sik1, decsize);
-		}
-		openssl_error();
-		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
-	}
-	OPENSSL_free(sik);
-	OPENSSL_free(pdec);
-	EVP_CIPHER_CTX_cleanup(&ctx);
-	openssl_error();
-	encryptKey();
-}
-#endif
+
 EVP_PKEY *pki_key::decryptKey()
 {
 	unsigned char *p;
@@ -784,5 +734,88 @@ QString pki_key::md5passwd(const char *pass, char *md5, int *len)
 		memcpy(md5, m, *len);
 	}
 	return str;
+}
+
+void pki_key::veryOldFromData(unsigned char *p, int size )
+{
+	unsigned char *sik, *pdec, *pdec1, *sik1;
+	int outl, decsize;
+	unsigned char iv[EVP_MAX_IV_LENGTH];
+	unsigned char ckey[EVP_MAX_KEY_LENGTH];
+	memset(iv, 0, EVP_MAX_IV_LENGTH);
+	RSA *rsakey;
+	EVP_CIPHER_CTX ctx;
+	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
+	sik = (unsigned char *)OPENSSL_malloc(size);
+	openssl_error();
+	pdec = (unsigned char *)OPENSSL_malloc(size);
+	if (pdec == NULL ) {
+		OPENSSL_free(sik);
+		openssl_error();
+	}
+	pdec1=pdec;
+	sik1=sik;
+	memcpy(iv, p, 8); /* recover the iv */
+	/* generate the key */
+	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)oldpasswd,
+		strlen(oldpasswd), 1, ckey,NULL);
+	/* we use sha1 as message digest,
+	 * because an md5 version of the password is
+	 * stored in the database...
+	 */
+	EVP_CIPHER_CTX_init (&ctx);
+	EVP_DecryptInit( &ctx, cipher, ckey, iv);
+	EVP_DecryptUpdate( &ctx, pdec , &outl, p + 8, size -8 );
+	decsize = outl;
+	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
+	decsize += outl;
+	openssl_error();
+	memcpy(sik, pdec, decsize);
+	if (key->type == EVP_PKEY_RSA) {
+#if OPENSSL_VERSION_NUMBER >= 0x0090700fL
+		rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
+#else
+		rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
+#endif
+		if (ign_openssl_error()) {
+			rsakey = d2i_RSA_PUBKEY(NULL,(const unsigned char **)&sik, decsize);
+		}
+		openssl_error();
+		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
+	}
+	OPENSSL_free(sik1);
+	OPENSSL_free(pdec1);
+	EVP_CIPHER_CTX_cleanup(&ctx);
+	openssl_error();
+	encryptKey();
+}
+
+void pki_key::oldFromData(unsigned char *p, int size )
+{
+	const unsigned char *p1;
+	int version, type;
+
+	p1 = (const unsigned char*)p;
+	version = intFromData(&p1);
+	if (version != 1) { // backward compatibility
+		veryOldFromData(p, size);
+		return;
+	}
+	if (key)
+		EVP_PKEY_free(key);
+
+	key = NULL;
+	type = intFromData(&p1);
+	ownPass = intFromData(&p1);
+
+	D2I_CLASHT(d2i_PublicKey, type, &key, &p1, size - (2*sizeof(int)));
+	openssl_error();
+
+	encKey_len = size - (p1-p);
+	if (encKey_len) {
+		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
+		memcpy(encKey, p1 ,encKey_len);
+	}
+
 }
 

@@ -76,10 +76,12 @@ class pki_key: public pki_base
 	void init(int type = EVP_PKEY_RSA);
 	static void incProgress(int a, int b, void *progress);
 	void encryptKey();
+	void veryOldFromData(unsigned char *p, int size);
     public:
 	static QPixmap *icon[2];
 	static QString passHash;
 	static char passwd[MAX_PASS_LENGTH];
+	static char oldpasswd[MAX_PASS_LENGTH];
 	static void erasePasswd();
 	static QString md5passwd(const char *pass,
 			char *md5 = NULL, int *len = NULL);
@@ -99,6 +101,7 @@ class pki_key: public pki_base
 	void fload(const QString fname);
 	void writeDefault(const QString fname);
 	void fromData(const unsigned char *p, db_header_t *head);
+	void oldFromData(unsigned char *p, int size);
 	unsigned char *toData(int *size);
 	bool compare(pki_base *ref);
         QString length();

@@ -52,8 +52,10 @@
 
 #include "MainWindow.h"
 #include "lib/load_obj.h"
+#include "lib/pass_info.h"
 #include <Qt/qapplication.h>
 #include <Qt/qmenubar.h>
+#include <Qt/qmessagebox.h>
 
 void MainWindow::init_menu()
 {
@@ -68,7 +70,9 @@ void MainWindow::init_menu()
 	file->addAction(tr("&Close DataBase"), this,
 				SLOT(close_database()), Qt::CTRL+Qt::Key_C );
 	file->addAction(tr("&Dump DataBase"), this,
-				SLOT(dump_database()), Qt::CTRL+Qt::Key_C );
+				SLOT(dump_database()), Qt::CTRL+Qt::Key_D );
+	file->addAction(tr("&Import old db_dump"), this,
+				SLOT(import_dbdump()), Qt::CTRL+Qt::Key_I );
 	file->addSeparator();
 	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
 
@@ -105,4 +109,45 @@ void MainWindow::load_def_database()
 	dbfile = baseDir + QDir::separator() + DBFILE;
 	close_database();
     init_database();
+}
+
+void MainWindow::import_dbdump()
+{
+	extern int read_dump(const char *filename, db_base **dbs, char*buf);
+	char buf[50];
+
+	db_base *dbl[] = { keys, reqs, certs, temps, crls };
+	if (!keys)
+		return;
+	QStringList filt;
+	QString file, pass;
+	load_db l;
+	QFileDialog *dlg = new QFileDialog(this);
+	dlg->setWindowTitle(l.caption);
+	dlg->setFilters(l.filter);
+	dlg->setFileMode( QFileDialog::ExistingFile );
+	dlg->setDirectory(getPath());
+	if (dlg->exec()) {
+		if (!dlg->selectedFiles().isEmpty())
+			file = dlg->selectedFiles()[0];
+	}
+	pass_info p(tr("New Password"),
+		tr("Please enter the password of the old database"));
+	if (passRead(buf, 50, 0, &p) <0)
+		return;
+	pass = buf;
+	try {
+		read_dump(CCHAR(file), dbl, buf);
+		printf("MD5:%s, r:%s\n", CCHAR(pki_key::md5passwd(CCHAR(pass))),buf);
+		if (pki_key::md5passwd("pass") != buf) {
+			int ret = QMessageBox::warning(this, tr(XCA_TITLE),
+				tr("Password verification error. Ignore keys ?"),
+				tr("Import anyway"), tr("Cancel"));
+			if (ret)
+				return;
+		}
+		read_dump(CCHAR(file), dbl, NULL);
+	} catch (errorEx &err) {
+		Error(err);
+	}
 }

@@ -246,3 +246,17 @@ QVariant pki_base::getIcon()
 {
 	return QVariant();
 }
+void pki_base::oldFromData(unsigned char *p, int size)
+{
+}
+
+uint32_t pki_base::intFromData(const unsigned char **p)
+{
+	/* For import "oldFromData" use the endian dependent version */
+	int s = sizeof(uint32_t);
+	uint32_t ret;
+	memcpy(&ret, *p, s);
+	*p += s;
+	return ret;
+}
+

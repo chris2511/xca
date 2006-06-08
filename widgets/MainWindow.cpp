@@ -182,48 +182,6 @@ void MainWindow::init_baseDir()
 
 void MainWindow::do_connections()
 {
-#if 0
-	connect( keyList, SIGNAL(init_database()), this, SLOT(init_database()));
-	connect( reqList, SIGNAL(init_database()), this, SLOT(init_database()));
-	connect( certList, SIGNAL(init_database()), this, SLOT(init_database()));
-	connect( tempList, SIGNAL(init_database()), this, SLOT(init_database()));
-	connect( crlList, SIGNAL(init_database()), this, SLOT(init_database()));
-	connect( BNnewKey, SIGNAL(clicked()), keys, SLOT(newItem()));
-	connect( BNexportKey, SIGNAL(clicked()), keys, SLOT(store()));
-	connect( BNimportKey, SIGNAL(clicked()), keys, SLOT(load()));
-	connect( BNdetailsKey, SIGNAL(clicked()), keys, SLOT(showItem()));
-	connect( BNdeleteKey, SIGNAL(clicked()), keys, SLOT(deleteItem()));
-	connect( BNchangePass, SIGNAL(clicked()), keys, SLOT(changePasswd()));
-#endif
-#if 0
-	connect( BNnewReq, SIGNAL(clicked()), reqList, SLOT(newItem()));
-	connect( BNimportReq, SIGNAL(clicked()), reqList, SLOT(load()));
-	connect( BNdetailsReq, SIGNAL(clicked()), reqList, SLOT(showItem()));
-	connect( BNdeleteReq, SIGNAL(clicked()), reqList, SLOT(deleteItem()));
-
-	connect( BNnewCert, SIGNAL(clicked()), certList, SLOT(newItem()));
-	connect( BNimportCert, SIGNAL(clicked()), certList, SLOT(load()));
-	connect( BNexportCert, SIGNAL(clicked()), certList, SLOT(store()));
-	connect( BNdetailsCert, SIGNAL(clicked()), certList, SLOT(showItem()));
-	connect( BNdeleteCert, SIGNAL(clicked()), certList, SLOT(deleteItem()));
-	connect( BNimportPKCS12, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
-	connect( BNimportPFX, SIGNAL(clicked()), certList, SLOT(loadPKCS12()));
-	connect( BNimportPKCS7, SIGNAL(clicked()), certList, SLOT(loadPKCS7()));
-	connect( BNviewState, SIGNAL(clicked()), this, SLOT(changeView()));
-
-	connect( BNemptyTemp, SIGNAL(clicked()), tempList, SLOT(newEmptyTemp()));
-	connect( BNcaTemp, SIGNAL(clicked()), tempList, SLOT(newCaTemp()));
-	connect( BNclientTemp, SIGNAL(clicked()), tempList, SLOT(newClientTemp()));
-	connect( BNserverTemp, SIGNAL(clicked()), tempList, SLOT(newServerTemp()));
-	connect( BNdeleteTemp, SIGNAL(clicked()), tempList, SLOT(deleteItem()));
-	connect( BNchangeTemp, SIGNAL(clicked()), tempList, SLOT(alterTemp()));
-	connect( BNimportTemp, SIGNAL(clicked()), tempList, SLOT(load()));
-	connect( BNexportTemp, SIGNAL(clicked()), tempList, SLOT(store()));
-
-	connect( BNimportCrl, SIGNAL(clicked()), crlList, SLOT(load()));
-	connect( BNdetailsCrl, SIGNAL(clicked()), crlList, SLOT(showItem()));
-	connect( BNdeleteCrl, SIGNAL(clicked()), crlList, SLOT(deleteItem()));
-#endif
 	connect( reqs, SIGNAL(newCert(pki_x509req *)),
 		certs, SLOT(newCert(pki_x509req *)) );
 	connect( certs, SIGNAL(genCrl(pki_x509 *)),

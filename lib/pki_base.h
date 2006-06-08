@@ -83,6 +83,7 @@ class pki_base : public QObject
 	virtual void writeDefault(const QString fname){};
 	static int get_pki_counter(void);
 	virtual void fromData(const unsigned char *p, db_header_t *head){};
+	virtual void oldFromData(unsigned char *p, int size);
 	virtual unsigned char *toData(int *size){return NULL;}
 	virtual bool compare(pki_base *ref){return false;}
 	virtual ~pki_base(void);
@@ -109,6 +110,7 @@ class pki_base : public QObject
 	virtual QVariant column_data(int col);
 	virtual QVariant getIcon();
 	const char *className() { return class_name; };
+	uint32_t intFromData(const unsigned char **p);
 };
 
 #endif

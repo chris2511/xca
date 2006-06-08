@@ -188,8 +188,8 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	issAltCp=db::boolFromData(&p1);
 	ca =db:: intFromData(&p1);
 	pathLen=db::intFromData(&p1);
-	validN =db:: intFromData(&p1);
-	validM =db:: intFromData(&p1);
+	validN =db::intFromData(&p1);
+	validM =db::intFromData(&p1);
 	keyUse=db::intFromData(&p1);
 	eKeyUse=db::intFromData(&p1);
 	nsCertType=db::intFromData(&p1);
@@ -362,5 +362,68 @@ QVariant pki_temp::column_data(int col)
 QVariant pki_temp::getIcon()
 {
 	return QVariant(*icon);
+}
+
+void pki_temp::oldFromData(unsigned char *p, int size )
+{
+	const unsigned char *p1 = p;
+	version=intFromData(&p1);
+	type=intFromData(&p1);
+	if (version == 1) {
+		ca = 2;
+		bool mca = intFromData(&p1);
+		if (mca) ca = 1;
+	}
+	bcCrit=db::boolFromData(&p1);
+	keyUseCrit=db::boolFromData(&p1);
+	eKeyUseCrit=db::boolFromData(&p1);
+	subKey=db::boolFromData(&p1);
+	authKey=db::boolFromData(&p1);
+	subAltCp=db::boolFromData(&p1);
+	issAltCp=db::boolFromData(&p1);
+	if (version >= 2) { 
+		ca = intFromData(&p1);
+	}
+	pathLen=intFromData(&p1);
+	validN = intFromData(&p1);
+	validM = intFromData(&p1);
+	keyUse=intFromData(&p1);
+	eKeyUse=intFromData(&p1);
+	nsCertType=intFromData(&p1);
+	if (version == 1) {
+		xname.addEntryByNid(OBJ_sn2nid("C"), db::stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("ST"), db::stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("L"), db::stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("O"), db::stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("OU"), db::stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("CN"), db::stringFromData(&p1));
+		xname.addEntryByNid(OBJ_sn2nid("Email"),db::stringFromData(&p1));
+	}
+	subAltName=db::stringFromData(&p1);
+	issAltName=db::stringFromData(&p1);
+	crlDist=db::stringFromData(&p1);
+	nsComment=db::stringFromData(&p1);
+	nsBaseUrl=db::stringFromData(&p1);
+	nsRevocationUrl=db::stringFromData(&p1);
+	nsCARevocationUrl=db::stringFromData(&p1);
+	nsRenewalUrl=db::stringFromData(&p1);
+	nsCaPolicyUrl=db::stringFromData(&p1);
+	nsSslServerName=db::stringFromData(&p1);
+	// next version:
+	if (version >= 2) {
+		p1 = xname.d2i(p1, size - (p1-p));
+	}
+	if (version >= 3) {
+		authInfAcc=db::stringFromData(&p1);
+		certPol=db::stringFromData(&p1);
+		validMidn=db::intFromData(&p1);
+	}
+
+	if (p1-p != size) {
+		openssl_error("Wrong Size");
+	}
+
+	//set version to 3
+	version = 3;
 }
 

@@ -67,7 +67,7 @@ class pki_temp: public pki_base
 		QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
 			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
 		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp,
-	   		issAltCp, validMidn;
+			issAltCp, validMidn;
 		int type, nsCertType, pathLen, keyUse, eKeyUse, ca;
 		int validN, validM;
 
@@ -81,6 +81,7 @@ class pki_temp: public pki_base
 		~pki_temp();
 		void fromData(const unsigned char *p, int size, int version);
 		void fromData(const unsigned char *p, db_header_t *head );
+		void oldFromData(unsigned char *p, int size);
 
 		unsigned char *toData(int *size);
 		bool compare(pki_base *ref);
