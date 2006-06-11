@@ -75,7 +75,6 @@ class pki_key: public pki_base
 	QString BN2QString(BIGNUM *bn);
 	void init(int type = EVP_PKEY_RSA);
 	static void incProgress(int a, int b, void *progress);
-	void encryptKey();
 	void veryOldFromData(unsigned char *p, int size);
     public:
 	static QPixmap *icon[2];
@@ -90,8 +89,9 @@ class pki_key: public pki_base
 	int getOwnPass(void) {return ownPass;};
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
-	EVP_PKEY *decryptKey();
-	pki_key::pki_key(const pki_key *pk);
+	void encryptKey();
+	EVP_PKEY *decryptKey() const;
+	pki_key(const pki_key *pk);
 	/* destructor */
 	~pki_key();
 
@@ -117,12 +117,12 @@ class pki_key: public pki_base
 	bool isPubKey();
 	int verify();
 	int getType();
-	EVP_PKEY *getKey(){ return key;}
 	int incUcount();
 	int decUcount();
 	int getUcount();
 	const EVP_MD *getDefaultMD();
 	QVariant column_data(int col);
+	EVP_PKEY *getPubKey() {return key;};
 	QVariant getIcon();
 };
 

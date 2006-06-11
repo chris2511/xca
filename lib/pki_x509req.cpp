@@ -95,7 +95,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	}
 
 	X509_REQ_set_version(request, 0L);
-	X509_REQ_set_pubkey(request, key->getKey());
+	X509_REQ_set_pubkey(request, key->getPubKey());
 	setSubject(dn);
 	openssl_error();
 

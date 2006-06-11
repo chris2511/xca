@@ -63,7 +63,8 @@ pki_pkcs7::pki_pkcs7(const QString name)
 
 pki_pkcs7::~pki_pkcs7()
 {
-	if (p7) PKCS7_free(p7);
+	if (p7)
+		PKCS7_free(p7);
 }
 
 void pki_pkcs7::encryptFile(pki_x509 *crt, QString filename)
@@ -153,7 +154,8 @@ void pki_pkcs7::writeP7(QString fname,bool PEM)
         fclose(fp);
 }
 
-pki_x509 *pki_pkcs7::getCert(int x) {
+pki_x509 *pki_pkcs7::getCert(int x)
+{
 	pki_x509 *cert;
 	cert = new pki_x509(X509_dup(sk_X509_value(getCertStack(), x)));
 	openssl_error();
@@ -161,7 +163,8 @@ pki_x509 *pki_pkcs7::getCert(int x) {
 	return cert;
 }
 
-int pki_pkcs7::numCert() {
+int pki_pkcs7::numCert()
+{
 	int n= sk_X509_num(getCertStack());
 	openssl_error();
 	return n;
@@ -185,7 +188,8 @@ void pki_pkcs7::fload(const QString fname)
 }
 
 
-STACK_OF(X509) *pki_pkcs7::getCertStack() {
+STACK_OF(X509) *pki_pkcs7::getCertStack()
+{
 	STACK_OF(X509) *certstack = NULL;
 	int i;
         if (p7 == NULL) return NULL;

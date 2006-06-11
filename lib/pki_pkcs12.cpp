@@ -153,7 +153,7 @@ void pki_pkcs12::writePKCS12(const QString fname)
 	FILE *fp = fopen(CCHAR(fname),"wb");
 	if (fp != NULL) {
 		passcb(pass, 30, 0, &p);
-		PKCS12 *pkcs12 = PKCS12_create(pass, desc, key->getKey(),
+		PKCS12 *pkcs12 = PKCS12_create(pass, desc, key->decryptKey(),
 			cert->getCert(), certstack, 0, 0, 0, 0, 0);
 		i2d_PKCS12_fp(fp, pkcs12);
 		openssl_error();
@@ -172,7 +172,9 @@ int pki_pkcs12::numCa() {
 
 pki_key *pki_pkcs12::getKey() {
 	if (!key) return NULL;
-	return new pki_key(key);
+	pki_key *k = new pki_key(key);
+	k->encryptKey();
+	return k;
 }
 
 

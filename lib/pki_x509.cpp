@@ -427,7 +427,7 @@ bool pki_x509::verify(pki_x509 *signer)
 		return false;
 	}
 	pki_key *pkey = signer->getPubKey();
-	int i = X509_verify(cert,pkey->getKey());
+	int i = X509_verify(cert,pkey->getPubKey());
 	ign_openssl_error();
 	delete(pkey);
 	if (i>0) {
@@ -448,7 +448,7 @@ pki_key *pki_x509::getPubKey() const
 
 void pki_x509::setPubKey(pki_key *key)
 {
-	 X509_set_pubkey(cert, key->getKey());
+	 X509_set_pubkey(cert, key->getPubKey());
 }
 
 QString pki_x509::fingerprint(const EVP_MD *digest)

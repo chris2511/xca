@@ -264,7 +264,7 @@ bool pki_crl::verify(pki_key *key)
 {
 	bool ret=false;
 	if (crl && crl->crl && key) {
-		ret = (X509_CRL_verify(crl , key->getKey()) == 1);
+		ret = (X509_CRL_verify(crl , key->getPubKey()) == 1);
 		ign_openssl_error();
 	}
 	return ret ;

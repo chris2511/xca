@@ -120,6 +120,7 @@ QString pki_key::getIntNameWithType()
 	}
 	return getIntName() + " (" + getTypeString() + ")";
 }
+
 QString pki_key::removeTypeFromIntName(QString n)
 {
 	if (n.right(1) != ")" ) return n;
@@ -181,14 +182,21 @@ pki_key::pki_key(const pki_key *pk)
 {
 	init();
 	openssl_error();
-	if (pk == NULL) return;
+	ownPass = 0;
+	ucount = pk->ucount;
 	printf("EVP_PKEY_COPY (no error)\n");
-	if (pk->key->type == EVP_PKEY_RSA)
-		EVP_PKEY_assign_RSA(key, EVP_PKEY_get1_RSA(pk->key));
-	if (pk->key->type == EVP_PKEY_DSA)
-		EVP_PKEY_assign_DSA(key, EVP_PKEY_get1_DSA(pk->key));
+	EVP_PKEY_free(key);
+	key = pk->decryptKey();
 #if 0
-	key->type = pk->key->type;
+	if ( EVP_PKEY_type(pk->key->type) == EVP_PKEY_RSA)
+		EVP_PKEY_assign_RSA(key, EVP_PKEY_get1_RSA(pk->key));
+	else if ( EVP_PKEY_type(pk->key->type) == EVP_PKEY_DSA)
+		EVP_PKEY_assign_DSA(key, EVP_PKEY_get1_DSA(pk->key));
+	else
+		throw errorEx("Unknown Key type",class_name);
+#endif
+#if 0
+	key->type = EVP_PKEY_type(pk->key->type);
 	if (key->type == EVP_PKEY_RSA) {
 		//rsakey = RSA_dup(pk->key->pkey.rsa);
 		key->pkey.rsa=((RSA *)ASN1_dup( (int (*)())i2d_RSAPrivateKey, (char *(*)())d2i_RSAPrivateKey,(char *)pk->key->pkey.rsa));
@@ -199,6 +207,7 @@ pki_key::pki_key(const pki_key *pk)
 #endif
 	openssl_error();
 	encryptKey();
+	printf("EVP_PKEY_COPY (no other error)\n");
 }
 
 pki_key::pki_key(const QString name, int type )
@@ -288,7 +297,7 @@ void pki_key::fromData(const unsigned char *p, db_header_t *head )
 
 }
 
-EVP_PKEY *pki_key::decryptKey()
+EVP_PKEY *pki_key::decryptKey() const
 {
 	unsigned char *p;
 	const unsigned char *p1;

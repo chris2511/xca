@@ -144,7 +144,6 @@ int read_dump(const char *filename, db_base **dbs, char *md5)
 					printf("size=%d\n", retlen);
 					try {
 						pki->oldFromData((unsigned char*)p, retlen);
-						db->inToCont(pki);
 						db->insert(pki);
 					} catch (errorEx &err) {
 						printf("Error catched for '%s'\n", CCHAR(pki->getIntName()));
