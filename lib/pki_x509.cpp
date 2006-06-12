@@ -728,7 +728,7 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 	version = intFromData(&p1);
 	if (version >=1 && version <= 5) {
 		sCert = intFromData(&p1);
-		cert = d2i_X509(NULL, &p1, sCert);
+		cert = D2I_CLASH(d2i_X509, NULL, &p1, sCert);
 		trust = intFromData(&p1);
 		sRev = intFromData(&p1);
 		if (sRev) {
@@ -773,7 +773,7 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 	}
 	else { // old version
 		p1 = p;
-		cert = d2i_X509(NULL, &p1, size);
+		cert = D2I_CLASH(d2i_X509, NULL, &p1, size);
 		revoked = NULL;
 		trust = 1;
 		efftrust = 1;

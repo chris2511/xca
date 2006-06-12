@@ -88,9 +88,13 @@ pki_x509 *db_x509::findSigner(pki_x509 *client)
 	if (client->verify(client)) {
 		return client;
 	}
-	FOR_ALL_pki(pki, pki_x509)
-		if (client->verify(pki))
+	FOR_ALL_pki(pki, pki_x509) {
+		//printf("TRYING Signer of '%s' to be '%s' ??\n", CCHAR(client->getIntName()), CCHAR(pki->getIntName()));
+		if (client->verify(pki)) {
+			//printf("Signer of %s = %s\n", CCHAR(client->getIntName()), CCHAR(pki->getIntName()));
 			return pki;
+		}
+	}
 	return NULL;
 }
 
@@ -177,17 +181,20 @@ void db_x509::inToCont(pki_base *pki)
 
 	idx = index(pki);
 	/* search for dangling certificates, which signer this is */
+	printf("New Certificate: %s\n", CCHAR(pki->getIntName()));
 	FOR_ALL_pki(client, pki_x509) {
+		printf("client %s ?\n", CCHAR(client->getIntName()));
 		if (client->getSigner() == NULL) {
-			//printf("expecting client %s\n", CCHAR(pki->getIntName()));
+			printf("examining client %s\n", CCHAR(client->getIntName()));
 			if (client->verify(cert)) {
 				int row = client->row();
-				//printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
+				printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
 				beginRemoveRows(QModelIndex(), row, row);
 				rootItem->takeChild(client);
 				endRemoveRows();
 
 				insertSortChild(pki, client);
+				client = (pki_x509*)rootItem->iterate();
 			}
 		}
 	}

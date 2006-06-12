@@ -313,7 +313,7 @@ void pki_crl::oldFromData(unsigned char *p, int size)
 {
 	X509_CRL *crl_sik = crl;
 	const unsigned char *p1 = p;
-	crl = d2i_X509_CRL(NULL, &p1, size);
+	crl = D2I_CLASH(d2i_X509_CRL, NULL, &p1, size);
 	if (crl)
 		X509_CRL_free(crl_sik);
 	else

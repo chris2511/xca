@@ -781,13 +781,9 @@ void pki_key::veryOldFromData(unsigned char *p, int size )
 	openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
-#if OPENSSL_VERSION_NUMBER >= 0x0090700fL
 		rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
-#else
-		rsakey = d2i_RSAPrivateKey(NULL, &pdec, decsize);
-#endif
 		if (ign_openssl_error()) {
-			rsakey = d2i_RSA_PUBKEY(NULL,(const unsigned char **)&sik, decsize);
+			rsakey = D2I_CLASH(d2i_RSA_PUBKEY, NULL, &sik, decsize);
 		}
 		openssl_error();
 		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
