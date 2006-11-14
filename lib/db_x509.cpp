@@ -63,7 +63,6 @@
 db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
-
 	delete rootItem;
 	rootItem = newPKI();
 	headertext << tr("Internal name") << tr("Common name") << tr("Serial") <<
@@ -71,9 +70,6 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 
 	delete_txt = tr("Delete the certificates(s)");
 	loadContainer();
-
-//	connect(mw->keys, SIGNAL(delKey(pki_key *)), this, SLOT(delKey(pki_key *)));
-//	connect(mw->keys, SIGNAL(newKey(pki_key *)), this, SLOT(newKey(pki_key *)));
 }
 
 pki_base *db_x509::newPKI(){
@@ -181,14 +177,14 @@ void db_x509::inToCont(pki_base *pki)
 
 	idx = index(pki);
 	/* search for dangling certificates, which signer this is */
-	printf("New Certificate: %s\n", CCHAR(pki->getIntName()));
+	// printf("New Certificate: %s\n", CCHAR(pki->getIntName()));
 	FOR_ALL_pki(client, pki_x509) {
-		printf("client %s ?\n", CCHAR(client->getIntName()));
+		//printf("client %s ?\n", CCHAR(client->getIntName()));
 		if (client->getSigner() == NULL) {
-			printf("examining client %s\n", CCHAR(client->getIntName()));
+			//printf("examining client %s\n", CCHAR(client->getIntName()));
 			if (client->verify(cert)) {
 				int row = client->row();
-				printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
+				// printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
 				beginRemoveRows(QModelIndex(), row, row);
 				rootItem->takeChild(client);
 				endRemoveRows();
@@ -350,14 +346,15 @@ void db_x509::newItem()
 	}
 	delete dlg;
 }
-#if 0
+
 void db_x509::newCert(pki_x509req *req)
 {
-	NewX509 *dlg = new NewX509(this, NULL, true);
+	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
+	pki_x509 *sigcert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	dlg->setCert();
 	dlg->defineRequest(req);
-	dlg->defineSigner((pki_x509*)getSelected());
+	dlg->defineSigner(sigcert);
 	if (dlg->exec()) {
 		newCert(dlg);
 	}
@@ -366,7 +363,7 @@ void db_x509::newCert(pki_x509req *req)
 
 void db_x509::newCert(pki_temp *req)
 {
-	NewX509 *dlg = new NewX509(this, NULL, true);
+	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
 	dlg->setCert();
 	dlg->defineTemplate(req);
@@ -375,7 +372,6 @@ void db_x509::newCert(pki_temp *req)
 	}
 	delete dlg;
 }
-#endif
 
 void db_x509::newCert(NewX509 *dlg)
 {
@@ -569,6 +565,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	if (index != QModelIndex()) {
+		menu->addAction(tr("Rename"), mainwin->certView, SLOT(edit(index)));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("File"), this, SLOT(store()));

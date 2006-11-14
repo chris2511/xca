@@ -102,7 +102,6 @@ MainWindow::MainWindow(QWidget *parent )
 	init_menu();
 
 	init_images();
-	do_connections();
 
 #ifdef MDEBUG
 	CRYPTO_malloc_debug_init();
@@ -178,18 +177,6 @@ void MainWindow::init_baseDir()
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
 
-}
-
-void MainWindow::do_connections()
-{
-	connect( reqs, SIGNAL(newCert(pki_x509req *)),
-		certs, SLOT(newCert(pki_x509req *)) );
-	connect( certs, SIGNAL(genCrl(pki_x509 *)),
-		crls, SLOT(newItem(pki_x509 *)) );
-	connect( temps, SIGNAL(newCert(pki_temp *)),
-		certs, SLOT(newCert(pki_temp *)) );
-	connect( temps, SIGNAL(newReq(pki_temp *)),
-		reqs, SLOT(newItem(pki_temp *)) );
 }
 
 void MainWindow::init_images()

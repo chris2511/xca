@@ -119,7 +119,7 @@ void pki_base::openssl_error(const QString myerr)  const
 	}
 	while (int i = ERR_get_error() ) {
 		errtxt = ERR_error_string(i ,NULL);
-		printf("OpenSSL error: %s\n", ERR_error_string(i ,NULL) );
+		fprintf(stderr, "OpenSSL error: %s\n", ERR_error_string(i ,NULL) );
 		error += errtxt + "\n";
 	}
 	if (!error.isEmpty()) {
@@ -148,8 +148,8 @@ QString pki_base::rmslashdot(const QString &s)
 #else
 	int l = a.lastIndexOf('/');
 #endif
-	printf("r=%d, l=%d, s='%s', mid='%s'\n",r,l,(const char*)a,
-			CCHAR(s.mid(l+1,r-l-1)));
+	//printf("r=%d, l=%d, s='%s', mid='%s'\n",r,l,(const char*)a,
+	//		CCHAR(s.mid(l+1,r-l-1)));
 	return s.mid(l+1,r-l-1);
 }
 

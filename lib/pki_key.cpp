@@ -131,7 +131,7 @@ QString pki_key::removeTypeFromIntName(QString n)
 void pki_key::setOwnPass(int x)
 {
 	EVP_PKEY *pk, *pk_back;
-	printf("Set own pass: %d -> %d\n",ownPass,x);
+	//printf("Set own pass: %d -> %d\n",ownPass,x);
 	if (x) x=1;
 	if (ownPass == x) return;
 
@@ -174,7 +174,7 @@ void pki_key::generate(int bits, int type, QProgressBar *progress)
 	openssl_error();
 	encryptKey();
 
-	printf("encryption  DONE\n");
+	//printf("encryption  DONE\n");
 }
 
 pki_key::pki_key(const pki_key *pk)
@@ -184,7 +184,7 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 	ownPass = 0;
 	ucount = pk->ucount;
-	printf("EVP_PKEY_COPY (no error)\n");
+	//printf("EVP_PKEY_COPY (no error)\n");
 	EVP_PKEY_free(key);
 	key = pk->decryptKey();
 #if 0
@@ -207,7 +207,7 @@ pki_key::pki_key(const pki_key *pk)
 #endif
 	openssl_error();
 	encryptKey();
-	printf("EVP_PKEY_COPY (no other error)\n");
+	//printf("EVP_PKEY_COPY (no other error)\n");
 }
 
 pki_key::pki_key(const QString name, int type )
@@ -322,11 +322,11 @@ EVP_PKEY *pki_key::decryptKey() const
 	}
 	else {
 		if (md5passwd(passwd) != passHash) {
-			printf("Orig password: '%s' len:%d\n", passwd, strlen(passwd));
+			//printf("Orig password: '%s' len:%d\n", passwd, strlen(passwd));
 			while (md5passwd(ownPassBuf) != passHash) {
 				int ret;
-				printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
-						CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
+				//printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
+						//CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
 				pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 						"Please enter the default password"));
 				ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
@@ -337,7 +337,7 @@ EVP_PKEY *pki_key::decryptKey() const
 			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 		}
 	}
-	printf("Using decrypt Pass: %s\n", ownPassBuf);
+	//printf("Using decrypt Pass: %s\n", ownPassBuf);
 	p = (unsigned char *)OPENSSL_malloc(encKey_len);
 	openssl_error();
 	p1 = p;
@@ -357,7 +357,7 @@ EVP_PKEY *pki_key::decryptKey() const
 	decsize = outl;
 	EVP_DecryptFinal( &ctx, encKey + decsize , &outl );
 	decsize += outl;
-	printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey_len);
+	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey_len);
 	openssl_error();
 	tmpkey = D2I_CLASHT(d2i_PrivateKey, key->type, NULL, &p1, decsize);
 	OPENSSL_free(p);
@@ -383,8 +383,8 @@ unsigned char *pki_key::toData(int *size)
 	if (encKey_len) {
 		memcpy(p1, encKey, encKey_len);
 	}
-	printf("To data: pubsize=%d, encKey_len: %d, *size=%d\n",
-			pubsize, encKey_len, *size);
+	// printf("To data: pubsize=%d, encKey_len: %d, *size=%d\n",
+			//pubsize, encKey_len, *size);
 	return p;
 }
 
@@ -475,7 +475,7 @@ void pki_key::encryptKey()
 
 	//CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 
-	printf("Encrypt: encKey_len=%d\n", encKey_len);
+	//printf("Encrypt: encKey_len=%d\n", encKey_len);
 	return;
 }
 
@@ -781,9 +781,9 @@ void pki_key::veryOldFromData(unsigned char *p, int size )
 	openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
-		rsakey = d2i_RSAPrivateKey(NULL, (const unsigned char **)&pdec, decsize);
+		rsakey = d2i_RSAPrivateKey(NULL,(const unsigned char **)&pdec, decsize);
 		if (ign_openssl_error()) {
-			rsakey = D2I_CLASH(d2i_RSA_PUBKEY, NULL, &sik, decsize);
+			rsakey =d2i_RSA_PUBKEY(NULL, (const unsigned char **)&sik, decsize);
 		}
 		openssl_error();
 		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);

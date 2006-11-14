@@ -49,6 +49,7 @@
 
 #include "db_key.h"
 #include "db_x509super.h"
+#include "pki_temp.h"
 #include "widgets/MainWindow.h"
 
 #ifndef DB_X509REQ_H
@@ -67,15 +68,16 @@ class db_x509req: public db_x509super
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 
     public slots:
-	void newItem(void);
-	void store_pem() {store(true);}
-	void store_der() {store(false);}
+	void newItem(pki_temp *temp = NULL);
+	void store_pem(void) {store(true);}
+	void store_der(void) {store(false);}
 	void load(void);
-	void showItem();
+	void showItem(void);
 	void showItem(QString descr);
 	void showItem(pki_x509req *req);
+	void signReq(void);
     signals:
-	void connNewX509(NewX509 *dlg);
+	void newCert(pki_x509req *req);
 };
 
 #endif

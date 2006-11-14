@@ -63,10 +63,10 @@
 #include <Qt/qfiledialog.h>
 #include <Qt/qmenubar.h>
 
-#define DBFILE "xca.db"
+#define DBFILE "xca.xdb"
 
 class db_x509;
-class MainWindow: public QMainWindow, private Ui::MainWindow
+class MainWindow: public QMainWindow, public Ui::MainWindow
 {
 	Q_OBJECT
 
@@ -77,7 +77,6 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void init_images();
 	void read_cmdline();
 	void init_menu();
-	void do_connections();
 	void init_baseDir();
 	int force_load;
 	NIDlist *read_nidlist(QString name);
@@ -124,7 +123,7 @@ class MainWindow: public QMainWindow, private Ui::MainWindow
 	void import_dbdump();
 
   private slots:
-	//void on_keyView_doubleClicked(QModelIndex &m);
+	void on_keyView_doubleClicked(QModelIndex &m);
 
 	void on_BNnewKey_clicked(void);
 	void on_BNdeleteKey_clicked(void);

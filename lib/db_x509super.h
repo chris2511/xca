@@ -54,7 +54,7 @@
 #ifndef DB_X509SUPER_H
 #define DB_X509SUPER_H
 
-
+class NewX509;
 class db_x509super: public db_base
 {
 	Q_OBJECT
@@ -68,6 +68,8 @@ class db_x509super: public db_base
     public slots:
 	void delKey(pki_key *delkey);
 	void newKey(pki_key *newKey);
+    signals:
+	void connNewX509(NewX509 *dlg);
 
 };
 

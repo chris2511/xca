@@ -88,15 +88,15 @@ pki_base *db_x509req::insert(pki_base *item)
 	return req;
 }
 
-void db_x509req::newItem()
+void db_x509req::newItem(pki_temp *temp)
 {
 	pki_x509req *req;
 	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
 
-//	if (temp) {
-//		dlg->defineTemplate(temp);
-//	}
+	if (temp) {
+		dlg->defineTemplate(temp);
+	}
 	dlg->setRequest();
 	if (! dlg->exec()){
 		delete dlg;
@@ -167,6 +167,15 @@ void db_x509req::store(bool pem)
 	req->writeReq(req->getIntName(), pem);
 }
 
+void db_x509req::signReq()
+{
+	if (!currentIdx.isValid())
+		return;
+
+	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
+	emit newCert(req);
+}
+
 void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
@@ -178,6 +187,7 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("New Request"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
+		menu->addAction(tr("Rename"), mainwin->reqView, SLOT(edit(index)));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
 		subExport = menu->addMenu(tr("Export"));

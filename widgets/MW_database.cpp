@@ -78,17 +78,29 @@ void MainWindow::init_database()
 	connect( keys, SIGNAL(delKey(pki_key *)),
 		reqs, SLOT(delKey(pki_key *)) );
 
+	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
+		SLOT(connNewX509(NewX509 *)) );
+	connect( reqs, SIGNAL(connNewX509(NewX509 *)), this,
+		SLOT(connNewX509(NewX509 *)) );
+
+	connect( reqs, SIGNAL(newCert(pki_x509req *)),
+		certs, SLOT(newCert(pki_x509req *)) );
+	connect( certs, SIGNAL(genCrl(pki_x509 *)),
+		crls, SLOT(newItem(pki_x509 *)) );
+	connect( temps, SIGNAL(newCert(pki_temp *)),
+		certs, SLOT(newCert(pki_temp *)) );
+	connect( temps, SIGNAL(newReq(pki_temp *)),
+		reqs, SLOT(newItem(pki_temp *)) );
+
+	connect(keyView, SIGNAL(doubleClicked(QModelIndex &)),
+			keys, SLOT(showItem(QModelIndex &)) );
+
 	statusBar()->showMessage(tr("Database") + ":" + dbfile);
 	keyView->setModel(keys);
 	reqView->setModel(reqs);
 	certView->setModel(certs);
 	tempView->setModel(temps);
 	crlView->setModel(crls);
-
-	connect( certs, SIGNAL(connNewX509(NewX509 *)), this,
-		SLOT(connNewX509(NewX509 *)) );
-	connect( reqs, SIGNAL(connNewX509(NewX509 *)), this,
-		SLOT(connNewX509(NewX509 *)) );
 }
 
 void MainWindow::dump_database()
@@ -190,7 +202,7 @@ void MainWindow::on_BNexportKey_clicked(void)
 	if(keys)
 		keys->storeSelectedItems(keyView);
 }
-#if 0
+#if 1
 void MainWindow::on_keyView_doubleClicked(QModelIndex &m)
 {
 	printf("Key View double clicked\n");

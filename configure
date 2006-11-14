@@ -136,18 +136,26 @@ else
 fi
 
 
+for moc in $QTDIR/bin/moc `which moc4 moc-qt4 moc`; do
+  if test -x "$moc"; then
+    MOC="$moc"
+    break
+  fi
+done
 
-if test -x $QTDIR/bin/moc; then
-  MOC="$QTDIR/bin/moc"
-fi
+for uic in $QTDIR/bin/uic `which uic4 uic-qt4 uic`; do
+  if test -x "$uic"; then
+    UIC="$uic"
+    break
+  fi
+done
 
-if test -x $QTDIR/bin/uic; then
-  UIC="$QTDIR/bin/uic"
-fi
-
-if test -x $QTDIR/bin/lrelease; then
-  LRELEASE="$QTDIR/bin/lrelease"
-fi
+for lrelease in $QTDIR/bin/lrelease `which lrelease4 lrelease-qt4 lrelease`; do
+  if test -x "$lrelease"; then
+    LRELEASE="$lrelease"
+    break
+  fi
+done
 
 echo
 echo "LDFLAGS   :${LIBS}${LDIRS}"
@@ -155,6 +163,9 @@ echo "PREFIX    :${prefix:=/usr/local}"
 echo "CPPFLAGS  :${CF}"
 echo "CFLAGS    :${CFLAGS:=-Wall -g -ggdb}"
 echo
+
+D_SRC="`pwd``dirname $0`"
+D_DST="`pwd`"
 
 cat >Local.mak <<EOF
 CPPFLAGS=$CF
@@ -178,6 +189,9 @@ STRIP=${STRIP:=strip}
 
 prefix=${prefix}
 basedir=${basedir}
+D_SRC=${D_SRC}
+D_DST=${D_DST}
+
 EOF
 
 for dirs in /bin /usr/bin /usr/local/bin /sw/bin; do

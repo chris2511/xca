@@ -209,7 +209,6 @@ int extList::delByNid(int nid)
 	extList::Iterator it;
 	for( it = begin(); it != end(); ++it ) {
 		if ((*it).nid() == nid) {
-			printf("Removing: %s\n", CCHAR((*it).getValue()));
 			remove(it);
 			it = begin();
 			removed=1;
@@ -224,7 +223,6 @@ int extList::delInvalid(void)
 	extList::Iterator it;
 	for( it = begin(); it != end(); ) {
 		if (!(*it).isValid()) {
-			printf("Remaining before del: %d\n", size());
 			remove(it);
 			it = begin();
 			removed=1;

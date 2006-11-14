@@ -507,3 +507,4 @@ void db_base::load_default(load_base &load)
 	dlgi->execute();
 	delete dlgi;
 }
+

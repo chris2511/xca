@@ -270,6 +270,8 @@ ImportMulti::~ImportMulti()
 		delete pki;
 		idx = listView->currentIndex();
 	}
+	listView->setModel(NULL);
+	delete mcont;
 }
 
 void ImportMulti::execute(int force)

@@ -60,6 +60,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 {
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
+	setEditTriggers(QAbstractItemView::EditKeyPressed);
 }
 
 void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )

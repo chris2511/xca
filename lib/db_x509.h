@@ -108,8 +108,8 @@ class db_x509: public db_x509super
 	void genCrl();
 	void caProperties();
 	void toRequest();
-	signals:
-	void connNewX509(NewX509 *dlg);
+	void newCert(pki_temp *);
+	void newCert(pki_x509req *);
 };
 
 #endif
