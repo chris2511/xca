@@ -538,9 +538,13 @@ void db_x509::showItem()
 {
 	if (!currentIdx.isValid())
 		return;
-	pki_x509 *crt = static_cast<pki_x509*>(currentIdx.internalPointer());
+	showItem(currentIdx);
+}
+
+void db_x509::showItem(const QModelIndex &index)
+{
+	pki_x509 *crt = static_cast<pki_x509*>(index.internalPointer());
 	CertDetail *dlg;
-	printf("Show Item x509\n");
 	dlg = new CertDetail(mainwin);
 	if (dlg) {
 		dlg->setCert(crt);
@@ -565,7 +569,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), mainwin->certView, SLOT(edit(index)));
+		menu->addAction(tr("Rename"), mainwin->certView, SLOT(edit(currentIdx)));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("File"), this, SLOT(store()));

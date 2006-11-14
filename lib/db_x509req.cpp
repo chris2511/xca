@@ -147,7 +147,12 @@ void db_x509req::showItem()
 	if (!currentIdx.isValid())
 		return;
 
-	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
+	showItem(currentIdx);
+}
+
+void db_x509req::showItem(const QModelIndex &index)
+{
+	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
 	showItem(req);
 }
 
@@ -187,7 +192,7 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("New Request"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), mainwin->reqView, SLOT(edit(index)));
+		menu->addAction(tr("Rename"), mainwin->reqView, SLOT(edit(currentIdx)));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
 		subExport = menu->addMenu(tr("Export"));

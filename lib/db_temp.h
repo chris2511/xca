@@ -76,6 +76,7 @@ class db_temp: public db_base
 	void newClientTemp();
 	void newServerTemp();
 	void changeTemp();
+	void showItem(const QModelIndex &index);
 	void showItem();
 	void load();
 	void store();

@@ -79,9 +79,9 @@ class db_key: public db_base
 	void load(void);
 	void store();
 	void showItem();
+	void showItem(const QModelIndex &index);
 	void setOwnPass();
 	void resetOwnPass();
-	void renameItem();
 
     signals:
 	void delKey(pki_key *delkey);

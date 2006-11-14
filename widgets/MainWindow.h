@@ -123,7 +123,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	void import_dbdump();
 
   private slots:
-	void on_keyView_doubleClicked(QModelIndex &m);
+	void on_keyView_doubleClicked(const QModelIndex &m);
+	void on_reqView_doubleClicked(const QModelIndex &m);
+	void on_certView_doubleClicked(const QModelIndex &m);
+	void on_tempView_doubleClicked(const QModelIndex &m);
 
 	void on_BNnewKey_clicked(void);
 	void on_BNdeleteKey_clicked(void);

@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  *	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  *
  *
@@ -61,11 +59,11 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
+
 }
 
 void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )
 {
 	db_base *dbb = (db_base*)model();
-
 	dbb->showContextMenu(e, indexAt(e->pos()));
 }

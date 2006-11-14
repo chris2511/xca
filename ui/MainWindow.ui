@@ -25,6 +25,9 @@
     </property>
     <item>
      <widget class="QTabWidget" name="tabView" >
+      <property name="currentIndex" >
+       <number>3</number>
+      </property>
       <widget class="QWidget" name="RSATab" >
        <attribute name="title" >
         <string>Private Keys</string>
@@ -382,7 +385,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="QTreeView" name="tempView" >
+         <widget class="XcaTreeView" name="tempView" >
           <property name="alternatingRowColors" >
            <bool>true</bool>
           </property>

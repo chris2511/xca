@@ -100,6 +100,7 @@ class db_x509: public db_x509super
 	void revokeCert(const x509rev &revok, const pki_x509 *issuer);
 	void store();
 	void showItem();
+	void showItem(const QModelIndex &index);
 	void setMultiTrust(QAbstractItemView* view);
 	void setTrust();
 	void extendCert();

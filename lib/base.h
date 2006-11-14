@@ -14,8 +14,8 @@
 #include <openssl/opensslv.h>
 
 #if OPENSSL_VERSION_NUMBER >= 0x00908000L
-#define D2I_CLASH(f, a, PP, s) f(a,PP,s)
-#define D2I_CLASHT(f, t, a, PP, s) f(t,a,PP,s)
+#define D2I_CLASH(f, a, PP, s) f(a,(const unsigned char **)PP,s)
+#define D2I_CLASHT(f, t, a, PP, s) f(t,a,(const unsigned char **)PP,s)
 #else
 #define D2I_CLASH(f, a, PP, s) f(a,(unsigned char **)PP,s)
 #define D2I_CLASHT(f, t, a, PP, s) f(t,a,(unsigned char **)PP,s)

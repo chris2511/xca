@@ -137,7 +137,12 @@ void db_temp::showItem()
 {
 	if (!currentIdx.isValid())
 		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+	showItem(currentIdx);
+}
+
+void db_temp::showItem(const QModelIndex &index)
+{
+	pki_temp *temp = static_cast<pki_temp*>(index.internalPointer());
 	alterTemp(temp);
 }
 
@@ -207,6 +212,8 @@ void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	subMenu->addAction(tr("Server"), this, SLOT(newServerTemp()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
+		menu->addAction(tr("Rename"), mainwin->tempView,
+				SLOT(edit(currentIdx)));
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Change"), this, SLOT(alterTemp()));
 		menu->addAction(tr("Delete"), this, SLOT(deleteItem()));

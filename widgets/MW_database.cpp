@@ -92,9 +92,6 @@ void MainWindow::init_database()
 	connect( temps, SIGNAL(newReq(pki_temp *)),
 		reqs, SLOT(newItem(pki_temp *)) );
 
-	connect(keyView, SIGNAL(doubleClicked(QModelIndex &)),
-			keys, SLOT(showItem(QModelIndex &)) );
-
 	statusBar()->showMessage(tr("Database") + ":" + dbfile);
 	keyView->setModel(keys);
 	reqView->setModel(reqs);
@@ -202,14 +199,31 @@ void MainWindow::on_BNexportKey_clicked(void)
 	if(keys)
 		keys->storeSelectedItems(keyView);
 }
-#if 1
-void MainWindow::on_keyView_doubleClicked(QModelIndex &m)
+
+void MainWindow::on_keyView_doubleClicked(const QModelIndex &m)
 {
-	printf("Key View double clicked\n");
 	if (keys)
-		keys->showItem();
+		keys->showItem(m);
 }
-#endif
+
+void MainWindow::on_reqView_doubleClicked(const QModelIndex &m)
+{
+	if (reqs)
+		reqs->showItem(m);
+}
+
+void MainWindow::on_certView_doubleClicked(const QModelIndex &m)
+{
+	if (certs)
+		certs->showItem(m);
+}
+
+void MainWindow::on_tempView_doubleClicked(const QModelIndex &m)
+{
+	if (temps)
+		temps->showItem(m);
+}
+
 void MainWindow::on_BNimportPFX_clicked(void)
 {
 	if(certs)

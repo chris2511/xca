@@ -198,11 +198,9 @@ void db_key::load(void)
 	load_default(l);
 }
 
-void db_key::showItem()
+void db_key::showItem(const QModelIndex &index)
 {
-	if (!currentIdx.isValid())
-		return;
-	pki_key *key = static_cast<pki_key*>(currentIdx.internalPointer());
+	pki_key *key = static_cast<pki_key*>(index.internalPointer());
 	KeyDetail *dlg;
 
 	dlg = new KeyDetail(mainwin);
@@ -213,11 +211,11 @@ void db_key::showItem()
 	}
 }
 
-void db_key::renameItem()
+void db_key::showItem()
 {
 	if (!currentIdx.isValid())
 		return;
-	mainwin->keyView->edit(currentIdx);
+	showItem(currentIdx);
 }
 
 void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
@@ -230,7 +228,8 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("New Key"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), this, SLOT(renameItem()));
+		menu->addAction(tr("Rename"), mainwin->keyView,
+				SLOT(edit(currentIdx)));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));

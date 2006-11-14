@@ -75,8 +75,8 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	mcont = new db_base("/dev/null", parent);
 	///cont.setAutoDelete(false);
 	listView->setModel(mcont);
-	connect( listView, SIGNAL(doubleClicked()),
-		this, SLOT(on_butDetails_clicked)) ;
+	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
+		this, SLOT(on_butDetails_clicked()));
 
 }
 

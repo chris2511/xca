@@ -35,8 +35,6 @@
  *	http://www.openssl.org which includes cryptographic software
  *	written by Eric Young (eay@cryptsoft.com)"
  *
- *	http://www.sleepycat.com
- *
  *	http://www.trolltech.com
  *
  *
