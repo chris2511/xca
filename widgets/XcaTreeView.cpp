@@ -67,3 +67,4 @@ void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )
 	db_base *dbb = (db_base*)model();
 	dbb->showContextMenu(e, indexAt(e->pos()));
 }
+

@@ -181,6 +181,13 @@ void db_x509req::signReq()
 	emit newCert(req);
 }
 
+void db_x509req::edit()
+{
+	if (!currentIdx.isValid())
+		return;
+	mainwin->reqView->edit(currentIdx);
+}
+
 void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
@@ -192,7 +199,7 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("New Request"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), mainwin->reqView, SLOT(edit(currentIdx)));
+		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
 		subExport = menu->addMenu(tr("Export"));

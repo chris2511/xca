@@ -218,18 +218,24 @@ void db_key::showItem()
 	showItem(currentIdx);
 }
 
+void db_key::edit()
+{
+	if (!currentIdx.isValid())
+		return;
+	mainwin->keyView->edit(currentIdx);
+}
+
 void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
-
 	currentIdx = index;
+
 	pki_key *key = static_cast<pki_key*>(currentIdx.internalPointer());
 
 	menu->addAction(tr("New Key"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), mainwin->keyView,
-				SLOT(edit(currentIdx)));
+		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));

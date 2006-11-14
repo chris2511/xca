@@ -553,6 +553,13 @@ void db_x509::showItem(const QModelIndex &index)
 	}
 }
 
+void db_x509::edit()
+{
+	if (!currentIdx.isValid())
+		return;
+	mainwin->certView->edit(currentIdx);
+}
+
 void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
@@ -569,7 +576,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), mainwin->certView, SLOT(edit(currentIdx)));
+		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("File"), this, SLOT(store()));
