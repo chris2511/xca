@@ -316,25 +316,10 @@ void MainWindow::on_BNexportTemp_clicked(void)
 	if(temps)
 		temps->storeSelectedItems(tempView);
 }
-void MainWindow::on_BNemptyTemp_clicked(void)
+void MainWindow::on_BNnewTemp_clicked(void)
 {
 	if (temps)
-		temps->newEmptyTemp();
-}
-void MainWindow::on_BNcaTemp_clicked(void)
-{
-	if (temps)
-		temps->newCaTemp();
-}
-void MainWindow::on_BNserverTemp_clicked(void)
-{
-	if (temps)
-		temps->newServerTemp();
-}
-void MainWindow::on_BNclientTemp_clicked(void)
-{
-	if (temps)
-		temps->newClientTemp();
+		temps->newItem();
 }
 /* CRL buttons */
 

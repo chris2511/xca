@@ -69,6 +69,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 			tr("not After") << tr("Trust state") << tr("Revocation");
 
 	delete_txt = tr("Delete the certificates(s)");
+	view = mw->certView;
 	loadContainer();
 }
 
@@ -361,12 +362,12 @@ void db_x509::newCert(pki_x509req *req)
 	delete dlg;
 }
 
-void db_x509::newCert(pki_temp *req)
+void db_x509::newCert(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
 	dlg->setCert();
-	dlg->defineTemplate(req);
+	dlg->defineTemplate(temp);
 	if (dlg->exec()) {
 		newCert(dlg);
 	}
@@ -551,13 +552,6 @@ void db_x509::showItem(const QModelIndex &index)
 		dlg->exec();
 		delete dlg;
 	}
-}
-
-void db_x509::edit()
-{
-	if (!currentIdx.isValid())
-		return;
-	mainwin->certView->edit(currentIdx);
 }
 
 void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)

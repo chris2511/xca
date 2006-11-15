@@ -67,6 +67,7 @@ db_key::db_key(QString db, MainWindow *mw)
 	rootItem = newPKI();
 	headertext << "Name" << "Type" << "Size" << "Use counter";
 	delete_txt = tr("Delete the key(s)");
+	view = mw->keyView;
 	loadContainer();
 }
 
@@ -216,13 +217,6 @@ void db_key::showItem()
 	if (!currentIdx.isValid())
 		return;
 	showItem(currentIdx);
-}
-
-void db_key::edit()
-{
-	if (!currentIdx.isValid())
-		return;
-	mainwin->keyView->edit(currentIdx);
 }
 
 void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)

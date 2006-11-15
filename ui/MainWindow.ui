@@ -407,30 +407,9 @@
             <number>6</number>
            </property>
            <item>
-            <widget class="QPushButton" name="BNemptyTemp" >
+            <widget class="QPushButton" name="BNnewTemp" >
              <property name="text" >
-              <string>New &amp;empty template</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="BNcaTemp" >
-             <property name="text" >
-              <string>New C&amp;A template</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="BNclientTemp" >
-             <property name="text" >
-              <string>New &amp;client template</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="BNserverTemp" >
-             <property name="text" >
-              <string>New &amp;server template</string>
+              <string>&amp;New template</string>
              </property>
             </widget>
            </item>
@@ -451,14 +430,14 @@
            <item>
             <widget class="QPushButton" name="BNimportTemp" >
              <property name="text" >
-              <string>Import</string>
+              <string>&amp;Import</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="BNexportTemp" >
              <property name="text" >
-              <string>Export</string>
+              <string>&amp;Export</string>
              </property>
             </widget>
            </item>

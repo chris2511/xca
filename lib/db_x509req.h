@@ -77,7 +77,6 @@ class db_x509req: public db_x509super
 	void showItem(pki_x509req *req);
 	void showItem(const QModelIndex &index);
 	void signReq(void);
-	void edit();
     signals:
 	void newCert(pki_x509req *req);
 };

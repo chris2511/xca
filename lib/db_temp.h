@@ -65,16 +65,12 @@ class db_temp: public db_base
     public:
 	db_temp(QString DBfile, MainWindow *mw);
 	pki_base *newPKI();
-	void newItem(int type);
 	bool runTempDlg(pki_temp *temp);
 	bool alterTemp(pki_temp *temp);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 
     public slots:
-	void newEmptyTemp();
-	void newCaTemp();
-	void newClientTemp();
-	void newServerTemp();
+	void newItem();
 	void changeTemp();
 	void showItem(const QModelIndex &index);
 	void showItem();
@@ -82,5 +78,9 @@ class db_temp: public db_base
 	void store();
 	void certFromTemp();
 	void reqFromTemp();
+    signals:
+	void newReq(pki_temp *);
+	void newCert(pki_temp *);
+
 };
 #endif

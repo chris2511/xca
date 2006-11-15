@@ -111,7 +111,6 @@ class db_x509: public db_x509super
 	void toRequest();
 	void newCert(pki_temp *);
 	void newCert(pki_x509req *);
-	void edit();
 };
 
 #endif

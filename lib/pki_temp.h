@@ -60,7 +60,6 @@ class pki_temp: public pki_base
 		int version;
 		int dataSize();
 	public:
-		enum { EMPTY, CA, CLIENT, SERVER };
 		static QPixmap *icon;
 		x509name xname;
 		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
@@ -74,7 +73,7 @@ class pki_temp: public pki_base
 		// methods
 
 		pki_temp(const pki_temp *pk);
-		pki_temp(const QString d, int atype=0);
+		pki_temp(const QString d);
 		void loadTemp(const QString fname);
 		void writeDefault(const QString fname);
 		/* destructor */

@@ -64,6 +64,7 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	headertext << "Name" << "Subject" << "Serial" ;
 	delete_txt = tr("Delete the request(s)");
 	loadContainer();
+	view = mw->reqView;
 }
 
 pki_base *db_x509req::newPKI()
@@ -179,13 +180,6 @@ void db_x509req::signReq()
 
 	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 	emit newCert(req);
-}
-
-void db_x509req::edit()
-{
-	if (!currentIdx.isValid())
-		return;
-	mainwin->reqView->edit(currentIdx);
 }
 
 void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)

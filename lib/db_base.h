@@ -58,6 +58,7 @@
 #include <Qt/qpixmap.h>
 #include <Qt/qabstractitemmodel.h>
 #include "pki_base.h"
+#include "widgets/XcaTreeView.h"
 
 #define FOR_ALL_pki(pki, pki_type) \
 	for(pki_type *pki=(pki_type*)rootItem->iterate(); pki; pki=(pki_type*)pki->iterate())
@@ -78,6 +79,7 @@ class db_base: public QAbstractItemModel
 	enum pki_type pkitype;
 	QList<QVariant> headertext;
 	MainWindow *mainwin;
+	XcaTreeView *view;
 
     public:
 	pki_base *rootItem;
@@ -135,6 +137,7 @@ class db_base: public QAbstractItemModel
     public slots:
 	void deletePKI();
 	void delete_ask();
+	void edit();
 	virtual void store(){};
 	virtual void showItem(){};
 };

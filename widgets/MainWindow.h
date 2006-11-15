@@ -149,14 +149,11 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	void on_BNimportPKCS12_clicked(void);
 	void on_BNimportPKCS7_clicked(void);
 
+	void on_BNnewTemp_clicked(void);
 	void on_BNdeleteTemp_clicked(void);
 	void on_BNchangeTemp_clicked(void);
 	void on_BNimportTemp_clicked(void);
 	void on_BNexportTemp_clicked(void);
-	void on_BNemptyTemp_clicked(void);
-	void on_BNcaTemp_clicked(void);
-	void on_BNserverTemp_clicked(void);
-	void on_BNclientTemp_clicked(void);
 
 	void on_BNdeleteCrl_clicked(void);
 	void on_BNdetailsCrl_clicked(void);

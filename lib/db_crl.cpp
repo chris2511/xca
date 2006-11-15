@@ -61,7 +61,7 @@ db_crl::db_crl(QString db, MainWindow *mw)
 	rootItem = newPKI();
 	headertext << "Name" << "Common name" << "revoked";
 	delete_txt = tr("Delete the revokation list(s)");
-
+	view = mw->crlView;
 	loadContainer();
 }
 
@@ -178,7 +178,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		cert->setLastCrl(time);
 		crl->sign(cert->getRefKey(), EVP_sha1());
 		mainwin->certs->updatePKI(cert);
-		// FIXME: set Last update
+#warning  FIXME: set Last update
 		insert(crl);
 	}
 	catch (errorEx &err) {

@@ -73,6 +73,7 @@ db_base::db_base(QString db, MainWindow *mw)
 	headertext.clear();
 	mainwin = mw;
 	currentIdx = QModelIndex();
+	view = NULL;
 }
 
 db_base::~db_base()
@@ -420,6 +421,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 
 	pki_base *item = static_cast<pki_base*>(index.internalPointer());
 	switch (role) {
+		case Qt::EditRole:
 		case Qt::DisplayRole:
 			return item->column_data(index.column());
 		case Qt::DecorationRole:
@@ -506,5 +508,12 @@ void db_base::load_default(load_base &load)
 	}
 	dlgi->execute();
 	delete dlgi;
+}
+
+void db_base::edit()
+{
+	if (!currentIdx.isValid())
+		return;
+	view->edit(currentIdx);
 }
 

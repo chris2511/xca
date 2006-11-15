@@ -94,7 +94,7 @@ pki_temp::pki_temp(const pki_temp *pk)
 	eKeyUse=pk->eKeyUse;
 }
 
-pki_temp::pki_temp(const QString d, int atype)
+pki_temp::pki_temp(const QString d)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
@@ -102,7 +102,7 @@ pki_temp::pki_temp(const QString d, int atype)
 	pkiType=tmpl;
 	cols=2;
 
-	type=atype;
+	type=0;
 	subAltName="";
 	issAltName="";
 	crlDist="";
@@ -130,38 +130,6 @@ pki_temp::pki_temp(const QString d, int atype)
 	validM=0;
 	keyUse=0;
 	eKeyUse=0;
-	if (type == CA) {
-		ca=1;
-		bcCrit=true;
-		subKey=true;
-		authKey=true;
-		issAltCp=false;
-		nsCertType=112;
-		keyUse=96;
-		validN=10;
-		validM=2;
-	}
-	if (type == CLIENT) {
-		ca=2;
-		bcCrit=true;
-		subKey=true;
-		authKey=true;
-		issAltCp=true;
-		subAltCp=true;
-		nsCertType=5;
-		keyUse=13;
-	}
-	if (type == SERVER) {
-		ca=2;
-		bcCrit=true;
-		subKey=true;
-		authKey=true;
-		issAltCp=true;
-		subAltCp=true;
-		nsCertType=2;
-		keyUse=7;
-	}
-
 }
 
 
