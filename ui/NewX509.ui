@@ -1,15 +1,12 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>NewX509</class>
  <widget class="QDialog" name="NewX509" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>496</width>
-    <height>630</height>
+    <width>596</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +14,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>8</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -80,7 +77,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab_0" >
       <attribute name="title" >
@@ -88,7 +85,7 @@
       </attribute>
       <layout class="QVBoxLayout" >
        <property name="margin" >
-        <number>8</number>
+        <number>9</number>
        </property>
        <property name="spacing" >
         <number>6</number>
@@ -254,14 +251,21 @@ If this list is disabled, you only can create a self-signed certificate.</string
          <property name="title" >
           <string>Template</string>
          </property>
-         <layout class="QGridLayout" >
+         <layout class="QHBoxLayout" >
           <property name="margin" >
-           <number>8</number>
+           <number>9</number>
           </property>
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="0" column="1" >
+          <item>
+           <widget class="QLabel" name="TextLabel2_3_2" >
+            <property name="text" >
+             <string>Template for the new certificate</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QComboBox" name="tempList" >
             <property name="sizePolicy" >
              <sizepolicy>
@@ -281,10 +285,10 @@ Empy, CA, client, server</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="TextLabel2_3_2" >
+          <item>
+           <widget class="QPushButton" name="applyTemplate" >
             <property name="text" >
-             <string>Template for the new certificate</string>
+             <string>Apply</string>
             </property>
            </widget>
           </item>
@@ -333,118 +337,116 @@ Empy, CA, client, server</string>
            <number>6</number>
           </property>
           <item>
-           <widget class="QWidget" name="widget_3_3" >
-            <layout class="QGridLayout" >
-             <property name="margin" >
-              <number>0</number>
-             </property>
-             <property name="spacing" >
-              <number>6</number>
-             </property>
-             <item row="3" column="3" >
-              <widget class="QLineEdit" name="emailAddress" >
-               <property name="maxLength" >
-                <number>60</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2" >
-              <widget class="QLabel" name="TextLabel4_2_2_2" >
-               <property name="text" >
-                <string>Organisation</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1" >
-              <widget class="QLineEdit" name="description" >
-               <property name="toolTip" >
-                <string>This name is only used internally and does not appear in the resulting certificate</string>
-               </property>
-               <property name="maxLength" >
-                <number>100</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1" >
-              <widget class="QLineEdit" name="countryName" >
-               <property name="toolTip" >
-                <string>Must be exactly 2 letter of size (DE, UK)</string>
-               </property>
-               <property name="maxLength" >
-                <number>2</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="3" >
-              <widget class="QLineEdit" name="commonName" >
-               <property name="maxLength" >
-                <number>64</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" >
-              <widget class="QLabel" name="TextLabel2_2_2" >
-               <property name="text" >
-                <string>Country code</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0" >
-              <widget class="QLabel" name="TextLabel3_2_3" >
-               <property name="text" >
-                <string>State or Province</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1" >
-              <widget class="QLineEdit" name="stateOrProvinceName" />
-             </item>
-             <item row="3" column="0" >
-              <widget class="QLabel" name="TextLabel4_3_2" >
-               <property name="text" >
-                <string>Locality</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2" >
-              <widget class="QLabel" name="TextLabel5_2_2" >
-               <property name="text" >
-                <string>Organ. unit</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2" >
-              <widget class="QLabel" name="TextLabel6_2_2" >
-               <property name="text" >
-                <string>Common name</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2" >
-              <widget class="QLabel" name="TextLabel7_2_2" >
-               <property name="text" >
-                <string>E-Mail address</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1" >
-              <widget class="QLineEdit" name="localityName" />
-             </item>
-             <item row="1" column="3" >
-              <widget class="QLineEdit" name="organisationalUnitName" />
-             </item>
-             <item row="0" column="0" >
-              <widget class="QLabel" name="TextLabel1_3_2_2" >
-               <property name="text" >
-                <string>Internal name</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="3" >
-              <widget class="QLineEdit" name="organisationName" />
-             </item>
-            </layout>
-           </widget>
+           <layout class="QGridLayout" >
+            <property name="margin" >
+             <number>0</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item row="3" column="3" >
+             <widget class="QLineEdit" name="emailAddress" >
+              <property name="maxLength" >
+               <number>60</number>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" >
+             <widget class="QLabel" name="TextLabel4_2_2_2" >
+              <property name="text" >
+               <string>Organisation</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" >
+             <widget class="QLineEdit" name="description" >
+              <property name="toolTip" >
+               <string>This name is only used internally and does not appear in the resulting certificate</string>
+              </property>
+              <property name="maxLength" >
+               <number>100</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="QLineEdit" name="countryName" >
+              <property name="toolTip" >
+               <string>Must be exactly 2 letter of size (DE, UK)</string>
+              </property>
+              <property name="maxLength" >
+               <number>2</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="3" >
+             <widget class="QLineEdit" name="commonName" >
+              <property name="maxLength" >
+               <number>64</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QLabel" name="TextLabel2_2_2" >
+              <property name="text" >
+               <string>Country code</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="QLabel" name="TextLabel3_2_3" >
+              <property name="text" >
+               <string>State or Province</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" >
+             <widget class="QLineEdit" name="stateOrProvinceName" />
+            </item>
+            <item row="3" column="0" >
+             <widget class="QLabel" name="TextLabel4_3_2" >
+              <property name="text" >
+               <string>Locality</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="QLabel" name="TextLabel5_2_2" >
+              <property name="text" >
+               <string>Organ. unit</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2" >
+             <widget class="QLabel" name="TextLabel6_2_2" >
+              <property name="text" >
+               <string>Common name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2" >
+             <widget class="QLabel" name="TextLabel7_2_2" >
+              <property name="text" >
+               <string>E-Mail address</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" >
+             <widget class="QLineEdit" name="localityName" />
+            </item>
+            <item row="1" column="3" >
+             <widget class="QLineEdit" name="organisationalUnitName" />
+            </item>
+            <item row="0" column="0" >
+             <widget class="QLabel" name="TextLabel1_3_2_2" >
+              <property name="text" >
+               <string>Internal name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3" >
+             <widget class="QLineEdit" name="organisationName" />
+            </item>
+           </layout>
           </item>
           <item>
            <widget class="Line" name="Line1_2" >
@@ -454,43 +456,41 @@ Empy, CA, client, server</string>
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_2" >
-            <layout class="QHBoxLayout" >
-             <property name="margin" >
-              <number>0</number>
-             </property>
-             <property name="spacing" >
-              <number>6</number>
-             </property>
-             <item>
-              <widget class="QComboBox" name="extDNobj" />
-             </item>
-             <item>
-              <widget class="QLineEdit" name="extDNname" >
-               <property name="toolTip" >
-                <string>This name is only used internally and does not appear in the resulting certificate</string>
-               </property>
-               <property name="maxLength" >
-                <number>100</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="extDNadd" >
-               <property name="text" >
-                <string>Add</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="extDNdel" >
-               <property name="text" >
-                <string>Delete</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
+             <number>0</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QComboBox" name="extDNobj" />
+            </item>
+            <item>
+             <widget class="QLineEdit" name="extDNname" >
+              <property name="toolTip" >
+               <string>This name is only used internally and does not appear in the resulting certificate</string>
+              </property>
+              <property name="maxLength" >
+               <number>100</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="extDNadd" >
+              <property name="text" >
+               <string>Add</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="extDNdel" >
+              <property name="text" >
+               <string>Delete</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <widget class="QTableWidget" name="extDNlist" >
@@ -779,10 +779,10 @@ It also copies the issuer and serial number from the issuer certificate. Normall
              <number>6</number>
             </property>
             <item row="0" column="1" >
-             <widget class="Validity" name="notBefore" />
+             <widget class="Validity" native="1" name="notBefore" />
             </item>
             <item row="1" column="1" >
-             <widget class="Validity" name="notAfter" />
+             <widget class="Validity" native="1" name="notAfter" />
             </item>
             <item row="0" column="0" >
              <widget class="QLabel" name="TextLabel1_2_3_2" >
@@ -871,139 +871,146 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         </spacer>
        </item>
        <item>
-        <widget class="QWidget" name="widget_5_3" >
-         <layout class="QGridLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item row="3" column="0" >
-           <widget class="QLabel" name="TextLabel1_2_3_2_2_3" >
-            <property name="text" >
-             <string>Authority Info Access</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" >
-           <widget class="QLabel" name="TextLabel1_2_3_2_3" >
-            <property name="text" >
-             <string>CRL distribution point</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="TextLabel1_2_2_2" >
-            <property name="text" >
-             <string>issuer alternative name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1" colspan="2" >
-           <widget class="QLineEdit" name="crlDist" >
-            <property name="toolTip" >
-             <string>URI:</string>
-            </property>
-            <property name="whatsThis" >
-             <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
+        <layout class="QGridLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item row="3" column="0" >
+          <widget class="QLabel" name="TextLabel1_2_3_2_2_3" >
+           <property name="text" >
+            <string>Authority Info Access</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" >
+          <widget class="QLabel" name="TextLabel1_2_3_2_3" >
+           <property name="text" >
+            <string>CRL distribution point</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" >
+          <widget class="QLabel" name="TextLabel1_2_2_2" >
+           <property name="text" >
+            <string>issuer alternative name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2" >
+          <widget class="QLineEdit" name="crlDist" >
+           <property name="toolTip" >
+            <string>URI:</string>
+           </property>
+           <property name="whatsThis" >
+            <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
 Currently each option will set a new DistributionPoint with the fullName field set to the given value.
 Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
 If you see this extension with &lt;UNSUPPORTED> when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
 Examples:
 URI:http://www.myhost.com/myca.crl
 URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1" >
-           <widget class="QComboBox" name="aiaOid" >
-            <property name="toolTip" >
-             <string>can be altered by the file "aia.txt"</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3" >
-           <widget class="QPushButton" name="editSubAlt" >
-            <property name="text" >
-             <string>Edit</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="3" >
-           <widget class="QPushButton" name="editIssAlt" >
-            <property name="text" >
-             <string>Edit</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2" >
-           <widget class="QLineEdit" name="authInfAcc" >
-            <property name="toolTip" >
-             <string>DNS: IP: URI: email: RID:</string>
-            </property>
-            <property name="whatsThis" >
-             <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1" >
+          <widget class="QComboBox" name="aiaOid" >
+           <property name="toolTip" >
+            <string>can be altered by the file "aia.txt"</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3" >
+          <widget class="QPushButton" name="editSubAlt" >
+           <property name="text" >
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3" >
+          <widget class="QPushButton" name="editIssAlt" >
+           <property name="text" >
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2" >
+          <widget class="QLineEdit" name="authInfAcc" >
+           <property name="toolTip" >
+            <string>DNS: IP: URI: email: RID:</string>
+           </property>
+           <property name="whatsThis" >
+            <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
 
 Example:
 
 OCSP;URI:http://ocsp.my.host/
 caIssuers;URI:http://my.ca/ca.html</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="2" >
-           <widget class="QLineEdit" name="subAltName" >
-            <property name="toolTip" >
-             <string>DNS: IP: URI: email: RID:</string>
-            </property>
-            <property name="whatsThis" >
-             <string>The subject alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2" >
+          <widget class="QLineEdit" name="subAltName" >
+           <property name="toolTip" >
+            <string>DNS: IP: URI: email: RID:</string>
+           </property>
+           <property name="whatsThis" >
+            <string>The subject alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3" >
-           <widget class="QPushButton" name="editCrlDist" >
-            <property name="text" >
-             <string>Edit</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="TextLabel1_2_2_3" >
-            <property name="text" >
-             <string>subject alternative name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3" >
-           <widget class="QPushButton" name="editAuthInfAcc" >
-            <property name="text" >
-             <string>Edit</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2" >
-           <widget class="QLineEdit" name="issAltName" >
-            <property name="toolTip" >
-             <string>DNS: IP: URI: email: RID:</string>
-            </property>
-            <property name="whatsThis" >
-             <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3" >
+          <widget class="QPushButton" name="editCrlDist" >
+           <property name="text" >
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" >
+          <widget class="QLabel" name="TextLabel1_2_2_3" >
+           <property name="text" >
+            <string>subject alternative name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="3" >
+          <widget class="QPushButton" name="editAuthInfAcc" >
+           <property name="text" >
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2" >
+          <widget class="QLineEdit" name="issAltName" >
+           <property name="toolTip" >
+            <string>DNS: IP: URI: email: RID:</string>
+           </property>
+           <property name="whatsThis" >
+            <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
-      <widget class="QWidget" name="widget_3" />
+      <widget class="QWidget" native="1" name="widget_3" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>100</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab_3" >
       <attribute name="title" >
@@ -1017,7 +1024,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         <number>6</number>
        </property>
        <item>
-        <widget class="QWidget" name="widget_4_3" />
+        <widget class="QWidget" native="1" name="widget_4_3" />
        </item>
        <item>
         <layout class="QHBoxLayout" >
@@ -1167,7 +1174,16 @@ Example:
         </widget>
        </item>
       </layout>
-      <widget class="QWidget" name="widget_4" />
+      <widget class="QWidget" native="1" name="widget_4" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>100</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab_4" >
       <attribute name="title" >
@@ -1291,94 +1307,110 @@ Example:
         </layout>
        </item>
        <item>
-        <widget class="QWidget" name="widget_4_2" >
-         <layout class="QGridLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item row="3" column="1" >
-           <widget class="QLineEdit" name="nsRenewalUrl" />
-          </item>
-          <item row="4" column="1" >
-           <widget class="QLineEdit" name="nsCaPolicyUrl" />
-          </item>
-          <item row="2" column="0" >
-           <widget class="QLabel" name="TextLabel2_2_4" >
-            <property name="text" >
-             <string>CA Revocation URL</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1" >
-           <widget class="QLineEdit" name="nsSslServerName" />
-          </item>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="TextLabel4_2_2_3" >
-            <property name="text" >
-             <string>Revocation URL</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0" >
-           <widget class="QLabel" name="TextLabel7_2_3" >
-            <property name="text" >
-             <string>SSL server name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="QLineEdit" name="nsBaseUrl" />
-          </item>
-          <item row="2" column="1" >
-           <widget class="QLineEdit" name="nsCARevocationUrl" />
-          </item>
-          <item row="3" column="0" >
-           <widget class="QLabel" name="TextLabel3_2_4" >
-            <property name="text" >
-             <string>Certificate renewal URL</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0" >
-           <widget class="QLabel" name="TextLabel8" >
-            <property name="text" >
-             <string>Comment</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0" >
-           <widget class="QLabel" name="TextLabel6_2_3" >
-            <property name="text" >
-             <string>CA policy URL</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="TextLabel1_3_2_3" >
-            <property name="text" >
-             <string>Base URL</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" >
-           <widget class="QLineEdit" name="nsRevocationUrl" />
-          </item>
-          <item row="6" column="1" >
-           <widget class="QLineEdit" name="nsComment" >
-            <property name="toolTip" >
-             <string>If you know a more pretty one tell me</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+        <layout class="QGridLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item row="3" column="1" >
+          <widget class="QLineEdit" name="nsRenewalUrl" />
+         </item>
+         <item row="4" column="1" >
+          <widget class="QLineEdit" name="nsCaPolicyUrl" />
+         </item>
+         <item row="2" column="0" >
+          <widget class="QLabel" name="TextLabel2_2_4" >
+           <property name="text" >
+            <string>CA Revocation URL</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1" >
+          <widget class="QLineEdit" name="nsSslServerName" />
+         </item>
+         <item row="1" column="0" >
+          <widget class="QLabel" name="TextLabel4_2_2_3" >
+           <property name="text" >
+            <string>Revocation URL</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" >
+          <widget class="QLabel" name="TextLabel7_2_3" >
+           <property name="text" >
+            <string>SSL server name</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" >
+          <widget class="QLineEdit" name="nsBaseUrl" />
+         </item>
+         <item row="2" column="1" >
+          <widget class="QLineEdit" name="nsCARevocationUrl" />
+         </item>
+         <item row="3" column="0" >
+          <widget class="QLabel" name="TextLabel3_2_4" >
+           <property name="text" >
+            <string>Certificate renewal URL</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" >
+          <widget class="QLabel" name="TextLabel8" >
+           <property name="text" >
+            <string>Comment</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" >
+          <widget class="QLabel" name="TextLabel6_2_3" >
+           <property name="text" >
+            <string>CA policy URL</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" >
+          <widget class="QLabel" name="TextLabel1_3_2_3" >
+           <property name="text" >
+            <string>Base URL</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" >
+          <widget class="QLineEdit" name="nsRevocationUrl" />
+         </item>
+         <item row="6" column="1" >
+          <widget class="QLineEdit" name="nsComment" >
+           <property name="toolTip" >
+            <string>If you know a more pretty one tell me</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
-      <widget class="QWidget" name="widget_3_2" />
-      <widget class="QWidget" name="widget_5" />
+      <widget class="QWidget" native="1" name="widget_3_2" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>100</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QWidget" native="1" name="widget_5" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>100</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
     </widget>
    </item>
@@ -1437,14 +1469,12 @@ Example:
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>Validity</class>
    <extends>QWidget</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>

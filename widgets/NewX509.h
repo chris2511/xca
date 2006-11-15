@@ -83,6 +83,7 @@ class NewX509: public QDialog, public Ui::NewX509
 	X509V3_CTX ext_ctx;
 	void editV3ext(QLineEdit *le, QString types, int n);
 	enum pki_type pt;
+	void templateChanged(QString templatename);
    public:
 	NewX509(QWidget *parent);
 	virtual ~NewX509();
@@ -90,7 +91,6 @@ class NewX509: public QDialog, public Ui::NewX509
 	void setRequest(); // reduce to request form
 	void setTemp(pki_temp *temp); // reduce to template form
 	void setCert(); // reduce to certificate form
-	//void showPage(QWidget *page);
 	void toTemplate(pki_temp *temp);
 	void fromTemplate(pki_temp *temp);
 	void defineTemplate(pki_temp *temp);
@@ -99,7 +99,6 @@ class NewX509: public QDialog, public Ui::NewX509
 	int lb2int(QListWidget *lb);
 	void int2lb(QListWidget *lb, int x);
 	void templateChanged(pki_temp *templ);
-	void templateChanged(QString templatename);
 	pki_key *getSelectedKey();
 	pki_x509 *getSelectedSigner();
 	pki_x509req *getSelectedReq();
@@ -131,9 +130,6 @@ class NewX509: public QDialog, public Ui::NewX509
 	void on_keyList_highlighted(const QString &keyname);
 	void toggleOkBut();
 	void newKeyDone(QString name);
-	//void switchExtended();
-	void templateChanged();
-	void signerChanged();
 	void helpClicked();
 	void on_extDNadd_clicked();
 	void on_extDNdel_clicked();
@@ -148,6 +144,8 @@ class NewX509: public QDialog, public Ui::NewX509
 	void on_showReqBut_clicked();
 	void on_description_textChanged(QString text);
 	void on_countryName_textChanged(QString);
+	void on_certList_highlighted();
+	void on_applyTemplate_clicked();
    signals:
 	void genKey();
 	void showReq(QString req);

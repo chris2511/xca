@@ -78,6 +78,7 @@ class db_temp: public db_base
 	void store();
 	void certFromTemp();
 	void reqFromTemp();
+	void alterTemp();
     signals:
 	void newReq(pki_temp *);
 	void newCert(pki_temp *);

@@ -63,7 +63,6 @@ pki_temp::pki_temp(const pki_temp *pk)
 	pkiType=pk->pkiType;
 	cols=pk->cols;
 
-	type=pk->type;
 	xname=pk->xname;
 	subAltName=pk->subAltName;
 	issAltName=pk->issAltName;
@@ -84,8 +83,6 @@ pki_temp::pki_temp(const pki_temp *pk)
 	eKeyUseCrit=pk->eKeyUseCrit;
 	subKey=pk->subKey;
 	authKey=pk->authKey;
-	subAltCp=pk->subAltCp;
-	issAltCp=pk->issAltCp;
 	pathLen=pk->pathLen;
 	validN=pk->validN;
 	validM=pk->validM;
@@ -98,11 +95,10 @@ pki_temp::pki_temp(const QString d)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
-	dataVersion=1;
+	dataVersion=2;
 	pkiType=tmpl;
 	cols=2;
 
-	type=0;
 	subAltName="";
 	issAltName="";
 	crlDist="";
@@ -122,8 +118,6 @@ pki_temp::pki_temp(const QString d)
 	eKeyUseCrit=false;
 	subKey=false;
 	authKey=false;
-	subAltCp=false;
-	issAltCp=false;
 	validMidn=false;
 	pathLen=0;
 	validN=365;
@@ -145,15 +139,14 @@ void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 void pki_temp::fromData(const unsigned char *p, int size, int version)
 {
 	const unsigned char *p1 = p;
+	int type;
 
-	type=db::intFromData(&p1);
+	destination = db::stringFromData(&p1);
 	bcCrit=db::boolFromData(&p1);
 	keyUseCrit=db::boolFromData(&p1);
 	eKeyUseCrit=db::boolFromData(&p1);
 	subKey=db::boolFromData(&p1);
 	authKey=db::boolFromData(&p1);
-	subAltCp=db::boolFromData(&p1);
-	issAltCp=db::boolFromData(&p1);
 	ca =db:: intFromData(&p1);
 	pathLen=db::intFromData(&p1);
 	validN =db::intFromData(&p1);
@@ -189,14 +182,12 @@ unsigned char *pki_temp::toData(int *size)
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
 
-	db::intToData(&p1, type);
+	db::stringToData(&p1, destination);
 	db::boolToData(&p1, bcCrit);
 	db::boolToData(&p1, keyUseCrit);
 	db::boolToData(&p1, eKeyUseCrit);
 	db::boolToData(&p1, subKey);
 	db::boolToData(&p1, authKey);
-	db::boolToData(&p1, subAltCp);
-	db::boolToData(&p1, issAltCp);
 	db::intToData(&p1, ca);
 	db::intToData(&p1, pathLen);
 	db::intToData(&p1, validN);
@@ -314,15 +305,21 @@ bool pki_temp::compare(pki_base *ref)
  // are stored in the database ...
 	return false;
 }
+QString pki_temp::type2Text(int type)
+{
+	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
+	if (type >= 0 && type < 4)
+		type = 0;
+	return typec[type];
+}
 
 QVariant pki_temp::column_data(int col)
 {
-	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
 	switch (col) {
 		case 0:
 			return QVariant(getIntName());
 		case 1:
-			return QVariant(typec[type]);
+			return QVariant(destination);
 	}
 	return QVariant();
 }
@@ -335,8 +332,11 @@ QVariant pki_temp::getIcon()
 void pki_temp::oldFromData(unsigned char *p, int size )
 {
 	const unsigned char *p1 = p;
+	int type;
+
 	version=intFromData(&p1);
 	type=intFromData(&p1);
+	destination = type2Text(type);
 	if (version == 1) {
 		ca = 2;
 		bool mca = intFromData(&p1);
@@ -347,8 +347,6 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 	eKeyUseCrit=db::boolFromData(&p1);
 	subKey=db::boolFromData(&p1);
 	authKey=db::boolFromData(&p1);
-	subAltCp=db::boolFromData(&p1);
-	issAltCp=db::boolFromData(&p1);
 	if (version >= 2) {
 		ca = intFromData(&p1);
 	}

@@ -64,10 +64,9 @@ class pki_temp: public pki_base
 		x509name xname;
 		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
 		QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
-			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName;
-		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, subAltCp,
-			issAltCp, validMidn;
-		int type, nsCertType, pathLen, keyUse, eKeyUse, ca;
+			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName, destination;
+		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, validMidn;
+		int nsCertType, pathLen, keyUse, eKeyUse, ca;
 		int validN, validM;
 
 		// methods
@@ -87,6 +86,7 @@ class pki_temp: public pki_base
 		void writeTemp(QString fname);
 		QVariant column_data(int col);
 		QVariant getIcon();
+		QString type2Text(int type);
 };
 
 #endif

@@ -111,8 +111,9 @@ NewX509::NewX509(QWidget *parent)
 	hashAlgo->setCurrentIndex(2);
 	if (!strings.isEmpty())
 		on_keyList_highlighted(strings[0]);
-#if OPENSSL_VERSION_NUMBER >= 0x00908000L
-	hashAlgo->addItem(tr("NewX509", "SHA 256", 0, QApplication::UnicodeUTF8));
+#ifdef HAS_SHA256
+	hashAlgo->addItem(tr("SHA 256"));
+	hashAlgo->addItem(tr("SHA 512"));
 #endif
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
@@ -142,10 +143,6 @@ NewX509::NewX509(QWidget *parent)
 	// settings for the templates ....
 	strings.clear();
 	strings = MainWindow::temps->getDesc();
-	strings.prepend(tr("Server Template"));
-	strings.prepend(tr("Client Template"));
-	strings.prepend(tr("CA Template"));
-	strings.prepend(tr("Empty Template"));
 	tempList->insertItems(0, strings);
 
 	// setup Extended keyusage
@@ -174,10 +171,10 @@ NewX509::NewX509(QWidget *parent)
 	name_ptr[6] = emailAddress;
 
 	// last polish
-	signerChanged();
+	on_certList_highlighted();
 	checkAuthKeyId();
 	toggleOkBut();
-
+	tabWidget->setCurrentIndex(0);
 	pt = none;
 }
 
@@ -187,7 +184,6 @@ void NewX509::setRequest()
 	signerBox->setEnabled(false);
 	validityBox->setEnabled(false);
 	rangeBox->setEnabled(false);
-	tabWidget->setCurrentIndex(1);
 	tText=tr("Certificate signing request");
 	setImage(MainWindow::csrImg);
 	//keyIdentBox->setEnabled(false);
@@ -207,7 +203,6 @@ void NewX509::setTemp(pki_temp *temp)
 		tText += tr(" change");
 	}
 	tabWidget->removeTab(0);
-	tabWidget->setCurrentIndex(1);
 	privKeyBox->setEnabled(false);
 	validityBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
@@ -288,6 +283,7 @@ void NewX509::int2lb(QListWidget *lb, int x)
 
 void NewX509::fromTemplate(pki_temp *temp)
 {
+	printf("TEMP Setting values from %s\n", CCHAR(temp->getIntName()));
 	setX509name(temp->xname);
 	subAltName->setText(temp->subAltName);
 	issAltName->setText(temp->issAltName);
@@ -309,8 +305,6 @@ void NewX509::fromTemplate(pki_temp *temp)
 	ekuCritical->setChecked(temp->eKeyUseCrit);
 	subKey->setChecked(temp->subKey);
 	authKey->setChecked(temp->authKey);
-	//subAltCp->setCheckState(temp->subAltCp);
-	//issAltCp->setChecked(temp->issAltCp);
 	int2lb(keyUsage, temp->keyUse);
 	int2lb(ekeyUsage, temp->eKeyUse);
 	validNumber->setText(QString::number(temp->validN));
@@ -346,8 +340,6 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->eKeyUseCrit = ekuCritical->isChecked();
 	temp->subKey = subKey->isChecked();
 	temp->authKey = authKey->isChecked();
-//	temp->subAltCp = subAltCp->isChecked();
-//	temp->issAltCp = issAltCp->isChecked();
 	temp->keyUse = lb2int(keyUsage);
 	temp->eKeyUse = lb2int(ekeyUsage);
 	temp->validN = validNumber->text().toInt();
@@ -366,11 +358,8 @@ void NewX509::on_fromReqCB_clicked()
 		tabWidget->insertTab(1, tab_1, tr("Subject"));
 
 	reqList->setEnabled(request);
-	//distNameBox->setEnabled( ! request);
-	//privKeyBox->setEnabled( ! request);
 	copyReqExtCB->setEnabled(request);
 	showReqBut->setEnabled(request);
-	//keyIdentBox->setEnabled(false);
 }
 
 
@@ -411,69 +400,13 @@ void NewX509::on_genKeyBUT_clicked()
 	emit genKey();
 }
 
-#if 0
-void NewX509::showPage(QWidget *page)
-{
-
-	if (page == page0) {
-		signerChanged();
-		switchExtended();
-		toggleFromRequest();
-	}
-	else if ( page == page2 ) {
-		if (keyList->isEnabled() && keyList->count() == 0 ) {
-			emit genKey();
-		}
-		toggleOkBut();
-	}
-
-	if (page == page7) {
-		QString issn, subn;
-		if (fromReqCB->isChecked()) {
-			pki_x509req *req = getSelectedReq();
-			if (req) {
-				subn = req->getSubject().oneLine();
-			}
-		}
-		else
-			subn = getX509name().oneLine();
-
-		pki_x509 *issuer = getSelectedSigner();
-		if (issuer && foreignSignRB->isChecked())
-			issn = issuer->getSubject().oneLine();
-		else
-			issn = subn;
-
-		subn = "<p><b>Subject:</b> " + subn;
-		issn = "<p><b>Issuer:</b> " + issn;
-		if (!appropriate(page1)) issn = "";
-
-		v3Extensions->setText( subn + issn + "<p>" + createRequestText() );
-	}
-
-	if (page == page4) {
-		checkAuthKeyId();
-	}
-
-	Q3Wizard::showPage(page);
-
-	if ( page == page2 ) {
-		description->setFocus();
-	}
-	else if (page == page4) {
-		basicCA->setFocus();
-	}
-
-
-}
-#endif
-
-void NewX509::signerChanged()
+void NewX509::on_certList_highlighted()
 {
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
 
-	if (!cert) return;
+	if (!cert)
+		return;
 
 	QString templ = cert->getTemplate();
 	snb = cert->getNotBefore();
@@ -483,7 +416,8 @@ void NewX509::signerChanged()
 	if (sna < notAfter->getDate())
 		notAfter->setDate(sna);
 
-	if (templ.isEmpty()) return;
+	if (templ.isEmpty())
+		return;
 
 	templateChanged(templ);
 }
@@ -491,10 +425,13 @@ void NewX509::signerChanged()
 
 void NewX509::templateChanged(QString tempname)
 {
-	if (!tempList->isEnabled()) return;
-#warning set current Item
-	//tempList->setCurrentItem(0, tempname);
-	templateChanged();
+	int index;
+	if (!tempList->isEnabled())
+		return;
+	if ((index = tempList->findText(tempname)) <0)
+		return;
+
+	tempList->setCurrentIndex(index);
 }
 
 
@@ -504,30 +441,18 @@ void NewX509::templateChanged(pki_temp *templ)
 	templateChanged(tempname);
 }
 
-
-void NewX509::templateChanged()
+void NewX509::on_applyTemplate_clicked()
 {
-#if 0
 	pki_temp *temp = NULL;
-	int item;
-	if (!tempList->isEnabled()) return;
-	if ((item = tempList->currentIndex())<4) {
-		temp = new pki_temp("temp",item);
-		if (temp) {
-			fromTemplate(temp);
-			delete (temp);
-		}
+	if (!tempList->isEnabled())
 		return;
-	}
 	QString name = tempList->currentText();
-	if (name.isEmpty()) return;
+	if (name.isEmpty())
+		return;
 	temp = (pki_temp *)MainWindow::temps->getByName(name);
-	if (!temp) return;
+	if (!temp)
+		return;
 	fromTemplate(temp);
-#else
-#warning templateChanged
-#endif
-
 }
 
 void NewX509::checkAuthKeyId()
@@ -558,7 +483,6 @@ void NewX509::newKeyDone(QString name)
 	keyList->setCurrentIndex(0);
 	on_keyList_highlighted(name);
 	toggleOkBut();
-	printf("NEW KEY DONE\n");
 }
 
 void NewX509::helpClicked()
@@ -653,7 +577,11 @@ void NewX509::on_extDNdel_clicked()
 
 const EVP_MD *NewX509::getHashAlgo()
 {
-	const EVP_MD *ha[] = { EVP_md2(), EVP_md5(), EVP_sha1(), EVP_sha256() };
+	const EVP_MD *ha[] = { EVP_md2(), EVP_md5(), EVP_sha1()
+#ifdef HAS_SHA256
+		, EVP_sha256(), EVP_sha512()
+#endif
+	};
 	return ha[hashAlgo->currentIndex()];
 }
 

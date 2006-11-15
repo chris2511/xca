@@ -61,7 +61,7 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 	delete rootItem;
 	rootItem = newPKI();
 	headertext << "Name" << "Type";
-	delete_txt = tr("Delete the key(s)");
+	delete_txt = tr("Delete the Template(s)");
 	view = mw->tempView;
 	loadContainer();
 }
@@ -180,6 +180,14 @@ void db_temp::reqFromTemp()
 	emit newReq(temp);
 }
 
+void db_temp::alterTemp()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+	alterTemp(temp);
+}
+
 void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
@@ -191,8 +199,9 @@ void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Change"), this, SLOT(alterTemp()));
-		menu->addAction(tr("Delete"), this, SLOT(deleteItem()));
-		menu->addAction(tr("Create certificate"), this, SLOT(certFromTemp()));
+		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
+		menu->addAction(tr("Create certificate"), this,
+				SLOT(certFromTemp()));
 		menu->addAction(tr("Create request"), this, SLOT(reqFromTemp()));
 	}
 	menu->exec(e->globalPos());
