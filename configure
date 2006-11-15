@@ -27,6 +27,7 @@ done
 
 DIRS="$QTDIR $DIRS /usr /usr/X11R6 /usr/local"
 
+CC=${CC:=gcc}
 CF="-I. -I.."
 LIBS=
 LDIRS=
@@ -129,7 +130,7 @@ main(){
 }
 EOF
 
-if g++ $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log ; then
+if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log ; then
   ./conftest || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest conftest.log
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
@@ -183,7 +184,7 @@ MOC=$MOC
 UIC=$UIC
 LRELEASE=$LRELEASE
 
-CC=${CC:=gcc}
+CC=${CC}
 LD=${LD:=ld}
 STRIP=${STRIP:=strip}
 

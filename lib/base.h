@@ -19,6 +19,7 @@
 #else
 #define D2I_CLASH(f, a, PP, s) f(a,(unsigned char **)PP,s)
 #define D2I_CLASHT(f, t, a, PP, s) f(t,a,(unsigned char **)PP,s)
+#define EVP_sha256()
 #endif
 
 #define CCHAR(x) ((const char *)(x).toAscii().constData())

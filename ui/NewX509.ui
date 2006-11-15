@@ -9,7 +9,7 @@
     <x>0</x>
     <y>0</y>
     <width>496</width>
-    <height>520</height>
+    <height>630</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -79,7 +79,10 @@
    </item>
    <item>
     <widget class="QTabWidget" name="tabWidget" >
-     <widget class="QWidget" name="tab" >
+     <property name="currentIndex" >
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tab_0" >
       <attribute name="title" >
        <string>Source</string>
       </attribute>
@@ -1438,7 +1441,7 @@ Example:
  <customwidgets>
   <customwidget>
    <class>Validity</class>
-   <extends></extends>
+   <extends>QWidget</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
    <pixmap></pixmap>

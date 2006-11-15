@@ -349,7 +349,7 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 	authKey=db::boolFromData(&p1);
 	subAltCp=db::boolFromData(&p1);
 	issAltCp=db::boolFromData(&p1);
-	if (version >= 2) { 
+	if (version >= 2) {
 		ca = intFromData(&p1);
 	}
 	pathLen=intFromData(&p1);

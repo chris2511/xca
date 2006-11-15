@@ -410,13 +410,6 @@ void MainWindow::setPath(QString str)
 	mydb.set((const unsigned char *)CCHAR(str), str.length()+1, 1, setting, "workingdir");
 }
 
-NewX509 *MainWindow::newX509()
-{
-#if 0
-	return new NewX509(NULL, 0, true);
-#endif
-}
-
 void MainWindow::connNewX509(NewX509 *nx)
 {
 	printf("CONNECTING NewX509\n");
@@ -425,9 +418,14 @@ void MainWindow::connNewX509(NewX509 *nx)
 	connect( nx, SIGNAL(showReq(QString)), reqs, SLOT(showItem(QString)));
 }
 
+#if 0
+NewX509 *MainWindow::newX509()
+{
+	return new NewX509(NULL, 0, true);
+}
+
 void MainWindow::changeView()
 {
-#if 0
 	certList->changeView(BNviewState);
-#endif
 }
+#endif

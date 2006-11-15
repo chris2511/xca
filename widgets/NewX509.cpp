@@ -111,7 +111,9 @@ NewX509::NewX509(QWidget *parent)
 	hashAlgo->setCurrentIndex(2);
 	if (!strings.isEmpty())
 		on_keyList_highlighted(strings[0]);
-
+#if OPENSSL_VERSION_NUMBER >= 0x00908000L
+	hashAlgo->addItem(tr("NewX509", "SHA 256", 0, QApplication::UnicodeUTF8));
+#endif
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
 	if (strings.isEmpty()) {
@@ -204,8 +206,8 @@ void NewX509::setTemp(pki_temp *temp)
 		description->setText(temp->getIntName());
 		tText += tr(" change");
 	}
-	//tabWidget->removeTab(0);
-	tabWidget->setCurrentIndex(0);
+	tabWidget->removeTab(0);
+	tabWidget->setCurrentIndex(1);
 	privKeyBox->setEnabled(false);
 	validityBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
@@ -358,13 +360,17 @@ void NewX509::on_fromReqCB_clicked()
 {
 	bool request = fromReqCB->isChecked();
 
+	if (request)
+		tabWidget->removeTab(1);
+	else
+		tabWidget->insertTab(1, tab_1, tr("Subject"));
+
 	reqList->setEnabled(request);
-	distNameBox->setEnabled( ! request);
-	privKeyBox->setEnabled( ! request);
+	//distNameBox->setEnabled( ! request);
+	//privKeyBox->setEnabled( ! request);
 	copyReqExtCB->setEnabled(request);
 	showReqBut->setEnabled(request);
 	//keyIdentBox->setEnabled(false);
-	//tabWidget->setTabEnabled(1,false);
 }
 
 
@@ -647,7 +653,7 @@ void NewX509::on_extDNdel_clicked()
 
 const EVP_MD *NewX509::getHashAlgo()
 {
-	const EVP_MD *ha[] = {EVP_md2(), EVP_md5(), EVP_sha1()};
+	const EVP_MD *ha[] = { EVP_md2(), EVP_md5(), EVP_sha1(), EVP_sha256() };
 	return ha[hashAlgo->currentIndex()];
 }
 

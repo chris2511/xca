@@ -101,7 +101,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	int initPass();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-	static NewX509 *newX509();
+//	static NewX509 *newX509();
 	//static void Qt::SocketError(errorEx &err);
 	static void Error(errorEx &err);
 	void cmd_help(const char* msg);
@@ -117,7 +117,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	void close_database();
 	void dump_database();
 	void connNewX509(NewX509 *nx);
-	void changeView();
+//	void changeView();
 	void about();
 	void help();
 	void import_dbdump();
