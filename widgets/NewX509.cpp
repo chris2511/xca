@@ -147,15 +147,15 @@ NewX509::NewX509(QWidget *parent)
 
 	// setup Extended keyusage
 	for (i=0; i < eku_nid.count(); i++)
-		ekeyUsage->insertItem(0, OBJ_nid2ln(eku_nid[i]));
+		ekeyUsage->addItem(OBJ_nid2ln(eku_nid[i]));
 
 	// setup Distinguished Name
 	for (i=0; i < dn_nid.count(); i++)
-		extDNobj->insertItem(0, OBJ_nid2ln(dn_nid[i]));
+		extDNobj->addItem(OBJ_nid2ln(dn_nid[i]));
 
 	// setup Authority Info Access
 	for (i=0; i < aia_nid.count(); i++)
-		aiaOid->insertItem(0, OBJ_nid2ln(aia_nid[i]));
+		aiaOid->addItem(OBJ_nid2ln(aia_nid[i]));
 
 	// init the X509 v3 context
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
@@ -186,7 +186,6 @@ void NewX509::setRequest()
 	rangeBox->setEnabled(false);
 	tText=tr("Certificate signing request");
 	setImage(MainWindow::csrImg);
-	//keyIdentBox->setEnabled(false);
 	pt = x509_req;
 }
 
@@ -207,10 +206,13 @@ void NewX509::setTemp(pki_temp *temp)
 	validityBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
 
+#if 1
 	QStringList sl;
 	sl << "Typef" << "Contentf";
-	printf("Set Ext DN list\n");
+	printf("Setaaaaaa Ext DN list\n");
+	extDNlist->setColumnCount(2);
 	extDNlist->setHorizontalHeaderLabels(sl);
+#endif
 	pt = tmpl;
 }
 
@@ -283,7 +285,6 @@ void NewX509::int2lb(QListWidget *lb, int x)
 
 void NewX509::fromTemplate(pki_temp *temp)
 {
-	printf("TEMP Setting values from %s\n", CCHAR(temp->getIntName()));
 	setX509name(temp->xname);
 	subAltName->setText(temp->subAltName);
 	issAltName->setText(temp->issAltName);
@@ -351,10 +352,11 @@ void NewX509::toTemplate(pki_temp *temp)
 void NewX509::on_fromReqCB_clicked()
 {
 	bool request = fromReqCB->isChecked();
+	bool subj_tab_present = tabWidget->widget(1) == tab_1;
 
-	if (request)
+	if (request && subj_tab_present)
 		tabWidget->removeTab(1);
-	else
+	else if (!request && !subj_tab_present)
 		tabWidget->insertTab(1, tab_1, tr("Subject"));
 
 	reqList->setEnabled(request);

@@ -184,30 +184,9 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 	ownPass = 0;
 	ucount = pk->ucount;
-	//printf("EVP_PKEY_COPY (no error)\n");
 	EVP_PKEY_free(key);
 	key = pk->decryptKey();
-#if 0
-	if ( EVP_PKEY_type(pk->key->type) == EVP_PKEY_RSA)
-		EVP_PKEY_assign_RSA(key, EVP_PKEY_get1_RSA(pk->key));
-	else if ( EVP_PKEY_type(pk->key->type) == EVP_PKEY_DSA)
-		EVP_PKEY_assign_DSA(key, EVP_PKEY_get1_DSA(pk->key));
-	else
-		throw errorEx("Unknown Key type",class_name);
-#endif
-#if 0
-	key->type = EVP_PKEY_type(pk->key->type);
-	if (key->type == EVP_PKEY_RSA) {
-		//rsakey = RSA_dup(pk->key->pkey.rsa);
-		key->pkey.rsa=((RSA *)ASN1_dup( (int (*)())i2d_RSAPrivateKey, (char *(*)())d2i_RSAPrivateKey,(char *)pk->key->pkey.rsa));
-	}
-	if (key->type == EVP_PKEY_DSA) {
-		key->pkey.dsa=((DSA *)ASN1_dup( (int(*)())i2d_DSAPrivateKey, (char *(*)())d2i_DSAPrivateKey,(char *)pk->key->pkey.dsa));
-	}
-#endif
 	openssl_error();
-	encryptKey();
-	//printf("EVP_PKEY_COPY (no other error)\n");
 }
 
 pki_key::pki_key(const QString name, int type )

@@ -99,16 +99,21 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		openssl_error();
 		if (mykey) {
 			key = new pki_key(mykey);
+			key->encryptKey();
 		}
 		if (mycert) {
+#if 0
 			char b[256];
-			i2t_ASN1_OBJECT(b, 256, (ASN1_OBJECT*)mycert->aux->alias);
+			if (mycert->aux){
+				i2t_ASN1_OBJECT(b, 256, (ASN1_OBJECT*)mycert->aux->alias);
+			}
 			printf("Alias: %s %x %x %x %x\n", b,
 					((char*)mycert->aux->alias)[0],
 					((char*)mycert->aux->alias)[1],
 					((char*)mycert->aux->alias)[2],
 					((char*)mycert->aux->alias)[3]
 			);
+#endif
 			cert = new pki_x509(mycert);
 			cert->autoIntName();
 		}
@@ -170,8 +175,10 @@ int pki_pkcs12::numCa() {
 }
 
 
-pki_key *pki_pkcs12::getKey() {
-	if (!key) return NULL;
+pki_key *pki_pkcs12::getKey()
+{
+	if (!key)
+		return NULL;
 	pki_key *k = new pki_key(key);
 	k->encryptKey();
 	return k;
@@ -179,7 +186,8 @@ pki_key *pki_pkcs12::getKey() {
 
 
 pki_x509 *pki_pkcs12::getCert() {
-	if (!cert) return NULL;
+	if (!cert)
+		return NULL;
 	pki_x509 *c = new pki_x509(cert);
 	c->autoIntName();
 	return c;

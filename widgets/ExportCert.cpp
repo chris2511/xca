@@ -68,7 +68,8 @@ ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey,
 		"PKCS #7 all trusted Certificates" <<"PKCS #7 all Certificates";
 
 	if (hasKey) {
-		sl << "PKCS #12" << "PKCS #12 with Certificate chain";
+		sl << "PKCS #12" << "PKCS #12 with Certificate chain" <<
+			"PEM Cert/key file" ;
 	}
 	exportFormat->addItems(sl);
 	dirPath = dpath;
@@ -101,7 +102,7 @@ void ExportCert::on_fileBut_clicked()
 
 void ExportCert::on_exportFormat_activated(int)
 {
-	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p7b", "p7b", "p7b", "p7b", "p12", "p12"};
+	char *suffix[] = {"crt", "crt", "crt", "crt", "cer", "p7b", "p7b", "p7b", "p7b", "p12", "p12", "pem"};
 	int selected = exportFormat->currentIndex();
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];

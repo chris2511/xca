@@ -25,5 +25,5 @@
 #define CCHAR(x) ((const char *)(x).toAscii().constData())
 #endif
 
-//#define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
-#define TRACE
+#define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
+//#define TRACE

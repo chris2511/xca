@@ -653,7 +653,7 @@ void db_x509::store()
                 return;
         }
 	try {
-	  switch (dlg->exportFormat->currentIndex()) {
+		switch (dlg->exportFormat->currentIndex()) {
 		case 0: // PEM
 			crt->writeCert(fname,true,false);
 			break;
@@ -691,8 +691,17 @@ void db_x509::store()
 		case 10: // P12 + cert chain
 			writePKCS12(crt,fname,true);
 			break;
-
-	  }
+		case 11: // Certificate and Key in PEM format for apache
+			pki_key *privkey = crt->getRefKey();
+			if (!privkey || privkey->isPubKey()) {
+				QMessageBox::warning(mainwin, tr(XCA_TITLE),
+					tr("There was no key found for the Certificate: ") +
+					crt->getIntName() );
+				return;
+			}
+			privkey->writeKey(fname, NULL, NULL, true);
+			crt->writeCert(fname, true, true);
+		}
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
@@ -738,7 +747,8 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
 
     try {
 		p7 =  new pki_pkcs7("");
-		if ( type == P7_CHAIN ) {
+		switch (type) {
+		case P7_CHAIN:
 			while (cert != NULL) {
 				p7->addCert(cert);
 				if (cert->getSigner() == cert)
@@ -746,21 +756,18 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
 				else
 					cert = cert->getSigner();
 			}
-		}
-		if ( type == P7_ONLY ) {
+			break;
+		case P7_ONLY:
 			p7->addCert(cert);
-		}
-		if (type == P7_TRUSTED) {
+			break;
+		case P7_TRUSTED:
+		case P7_ALL:
 			FOR_ALL_pki(cer, pki_x509) {
-				if (cer->getTrust() == 2)
+				if ((type == P7_ALL) || (cer->getTrust() == 2))
 					p7->addCert(cer);
 			}
-		}
-		if (type == P7_ALL) {
-			FOR_ALL_pki(cer, pki_x509)
-				p7->addCert((pki_x509 *)cer);
-		}
 		p7->writeP7(s, false);
+		}
     }
     catch (errorEx &err) {
 		MainWindow::Error(err);

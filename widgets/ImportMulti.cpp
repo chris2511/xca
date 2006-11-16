@@ -83,7 +83,8 @@ ImportMulti::ImportMulti(MainWindow *parent)
 void ImportMulti::addItem(pki_base *pki)
 {
 	printf("Add item\n");
-	if (!pki) return;
+	if (!pki)
+		return;
 	QString cn = pki->getClassName();
 	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ||
 			cn == "pki_crl"  || cn == "pki_temp" ) {
