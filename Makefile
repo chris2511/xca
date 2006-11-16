@@ -5,8 +5,11 @@
 
 TAG=RELEASE.$(TVERSION)
 TARGET=xca-$(TVERSION)
+VERSION=$(shell cat VERSION)
 
 export TOPDIR=$(shell pwd)
+
+sinclude Local.mak
 
 SUBDIRS=lib widgets
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
@@ -15,14 +18,14 @@ CLEANDIRS=lang doc ui
 
 bindir=bin
 
-all: headers xca docs
+all: headers xca$(SUFFIX) docs
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 re: clean all
 
 xca.o: $(OBJECTS)
 	$(LD) $(LDFLAGS) $(OBJECTS) $(SLIBS) -r -o $@
 
-xca: xca.o
+xca$(SUFFIX): xca.o
 	$(CC) $(LDFLAGS) $< $(LIBS) -o $@
 
 docs:
@@ -47,7 +50,6 @@ dist:
 	git checkout -r $(TAG) -d $(TARGET) xca && \
 	(cd $(TARGET) && \
 	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
-	cat misc/xca.nsi |sed s/VERSION/$(TVERSION)/g >misc/$(TARGET).nsi && \
 	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
 	tar zcf $(TARGET).tar.gz $(TARGET) && \
 	(cd $(TARGET) && dpkg-buildpackage -rfakeroot )
@@ -76,9 +78,13 @@ xca.dmg: xca.app
 	test -x hdiutil
 	hdiutil create -ov -srcfolder $< $@
 
+setup.exe: xca$(SUFFIX) misc/xca.nsi
+	$(MAKE) -C lang
+	$(STRIP) xca$(SUFFIX)
+	$(MAKENSIS) /DOPENSSL=$(OPENSSLDIR_DOS) /DQTDIR=$(QTDIR_DOS) \
+		/DVERSION=$(VERSION) /NOCD misc/xca.nsi
 .PHONY: $(SUBDIRS) xca.app
 
 Local.mak: configure
 	./configure
 
-sinclude Local.mak

@@ -1,29 +1,41 @@
-
 ; xca.nsi
 ;
 ; This is the .nsi script for creating the nullsoft windows installer
 
 ; The name of the installer
-Name "X CA"
-Caption "X Certification Authority"
-
-; The licenseagreement
-LicenseText "You must accept the following BSD like license to continue."
-LicenseData COPYRIGHT
+Name "XCA"
+Caption "XCA ${VERSION} Setup"
 
 ; The file to write
-OutFile "xca-VERSION.exe"
+OutFile "setup.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\xca
-; Registry key to check for directory (so if you install again, it will 
+; Registry key to check for directory (so if you install again, it will
 ; overwrite the old one automatically)
 InstallDirRegKey HKLM SOFTWARE\xca "Install_Dir"
 
 ; The text to prompt the user to enter a directory
-ComponentText "This will install the X Certification Authority (c) 2002 by Christian@Hohnstaedt.de"
+;ComponentText "This will install the XCA ${VERSION} (c) 2002 - 2006 by Christian Hohnstaedt"
 ; The text to prompt the user to enter a directory
-DirText "Choose a directory to install in to:"
+;DirText "Choose a directory to install in to:"
+
+;SetCompressor /SOLID lzma
+
+!include "MUI.nsh"
+
+!define MUI_ABORTWARNING
+
+!insertmacro MUI_PAGE_LICENSE "COPYRIGHT"
+!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+
+!insertmacro MUI_LANGUAGE "English"
+
 
 ; The stuff to install
 Section "xca (required)"
@@ -34,17 +46,17 @@ Section "xca (required)"
   UserInfo::GetAccountType
   Pop $0
   StrCmp $0 "Admin" 0 +3
-  	SetShellVarContext all
-  	Goto done
-  	SetShellVarContext current
+	SetShellVarContext all
+	Goto done
+	SetShellVarContext current
   Win9x:
-  	SetShellVarContext current
+	SetShellVarContext current
   done:
 
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
   ; Put file there
-  File "Release\xca.exe"
+  File "xca.exe"
   File "misc\dn.txt"
   File "misc\eku.txt"
   File "misc\oids.txt"
@@ -69,13 +81,11 @@ Section "xca (required)"
   File "img\validcert.png"
   File "img\validcertkey.png"
   File "img\crl.png"
-  File "Release\libdb41.dll"
-  File "Release\SSLeay32.dll"
-  File "Release\libeay32.dll"
-  File "Release\msvcrt.dll"
-  File "Release\msvcp60.dll"
-  File "Release\qt-mt230nc.dll"
   File "doc\*.html"
+
+  File "${OPENSSL}\libeay32.dll"
+  File "${QTDIR}\QtGui4.dll"
+  File "${QTDIR}\QtCore4.dll"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
 
@@ -94,7 +104,7 @@ SectionEnd
 
 ; uninstall stuff
 
-UninstallText "This will uninstall xca. Hit next to continue."
+UninstallText "This will uninstall XCA ${VERSION}. Hit next to continue."
 
 ; special uninstall section.
 Section "Uninstall"
@@ -122,18 +132,18 @@ Section "Uninstall"
   UserInfo::GetAccountType
   Pop $0
   StrCmp $0 "Admin" 0 +3
-  	SetShellVarContext all
-  	Goto done
-  	SetShellVarContext current
+	SetShellVarContext all
+	Goto done
+	SetShellVarContext current
   Win9x:
-  	SetShellVarContext current
+	SetShellVarContext current
   done:
 
-  
+
   ; remove shortcuts, if any.
   Delete "$SMPROGRAMS\xca\*.*"
   ; remove directories used.
-  RMDir "$SMPROGRAMS\xca" 
+  RMDir "$SMPROGRAMS\xca"
 SectionEnd
 
 ; eof

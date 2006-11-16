@@ -33,7 +33,8 @@ moc_%.cpp: %.h %.cpp
 	$(UIC) -o $@ $<
 
 # default compile rule
-%.o: %.cpp $(TOPDIR)/Local.mak
+#%.o: %.cpp $(TOPDIR)/Local.mak
+%.o: %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
 
 # partial linking of objects in one directory

@@ -1,0 +1,30 @@
+QTDIR=/D/qt/4.1.1
+OPENSSLDIR=/D/openssl-0.9.8d
+MAKENSIS=wine /D/nsis/makensis.exe
+
+QTDIR_DOS=d:\\qt\\4.1.1\\bin
+OPENSSLDIR_DOS=d:\\openssl-0.9.8d
+
+CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc
+CFLAGS=-Wall -g -ggdb
+
+LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib
+
+# List of all libs to be compiled statically
+#SLIBS= -lcrypto
+
+# list of dynamic libraries
+LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32
+
+MOC=wine $(QTDIR)/bin/moc
+UIC=wine $(QTDIR)/bin/uic
+
+LRELEASE=lrelease
+
+CC=i586-mingw32msvc-gcc
+LD=i586-mingw32msvc-ld
+STRIP=i586-mingw32msvc-strip
+SUFFIX=.exe
+
+prefix=/usr/local
+basedir=
