@@ -236,7 +236,7 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 		//		head_offset, len, ntohl(head.len), head.name,
 		//		ntohs(head.flags));
 		lseek(fd, head_offset, SEEK_SET);
-		if (len != ntohl(head.len) - sizeof(db_header_t)) {
+		if (len != (int)(ntohl(head.len) - sizeof(db_header_t))) {
 			//printf("## Found and len unequal %d, %d\n",
 			//	len, ntohl(head.len) - sizeof(db_header_t));
 			int flags;

@@ -127,6 +127,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	void on_reqView_doubleClicked(const QModelIndex &m);
 	void on_certView_doubleClicked(const QModelIndex &m);
 	void on_tempView_doubleClicked(const QModelIndex &m);
+	void on_crlView_doubleClicked(const QModelIndex &m);
 
 	void on_BNnewKey_clicked(void);
 	void on_BNdeleteKey_clicked(void);

@@ -224,6 +224,12 @@ void MainWindow::on_tempView_doubleClicked(const QModelIndex &m)
 		temps->showItem(m);
 }
 
+void MainWindow::on_crlView_doubleClicked(const QModelIndex &m)
+{
+	if (crls)
+		crls->showItem(m);
+}
+
 void MainWindow::on_BNimportPFX_clicked(void)
 {
 	if(certs)

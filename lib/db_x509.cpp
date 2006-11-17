@@ -535,13 +535,6 @@ void db_x509::newCert(NewX509 *dlg)
 
 }
 
-void db_x509::showItem()
-{
-	if (!currentIdx.isValid())
-		return;
-	showItem(currentIdx);
-}
-
 void db_x509::showItem(const QModelIndex &index)
 {
 	pki_x509 *crt = static_cast<pki_x509*>(index.internalPointer());
@@ -557,7 +550,7 @@ void db_x509::showItem(const QModelIndex &index)
 void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
-	QMenu *subExport, *subCa, *subP7;
+	QMenu *subExport, *subCa;
 	QAction *itemReq, *itemtca, *itemTemplate, *itemRevoke, *itemExtend,
 			*itemTrust;
 	bool parentCanSign, canSign, hasTemplates, hasPrivkey;
@@ -585,10 +578,11 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subCa = menu->addMenu(tr("CA"));
 		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
 		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
-
-		subP7 = menu->addMenu(tr("PKCS#7"));
+#if 0
+		QMenu *subP7 = menu->addMenu(tr("PKCS#7"));
 		subP7->addAction(tr("Sign"), this, SLOT(signP7()));
 		subP7->addAction(tr("Encrypt"), this, SLOT(encryptP7()));
+#endif
 		menu->addSeparator();
 		itemExtend = menu->addAction(tr("Renewal"),
 				this, SLOT(extendCert()));
@@ -611,8 +605,9 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subCa->setEnabled(canSign);
 		itemReq->setEnabled(hasPrivkey);
 		itemtca->setEnabled(canSign);
+#if 0
 		subP7->setEnabled(hasPrivkey);
-
+#endif
 	}
 	menu->exec(e->globalPos());
 	delete menu;

@@ -310,16 +310,6 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 
 }
 
-/* Save the Certificate to data and back:
- * Version 1:
- *	int Version
- *	int size of cert
- *	cert
- *	int trust
- *	int size of revTime
- *	revocationtime
- */
-
 void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 {
 	int version, size;
@@ -418,18 +408,18 @@ bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 
 bool pki_x509::verify(pki_x509 *signer)
 {
-	if (psigner == signer) return true;
-	if ((psigner != NULL )||( signer == NULL)) return false;
+	if (psigner == signer)
+		return true;
+	if ((psigner != NULL )||( signer == NULL))
+		return false;
 	X509_NAME *subject =  X509_get_subject_name(signer->cert);
 	X509_NAME *issuer = X509_get_issuer_name(cert);
 	openssl_error();
 	if (X509_NAME_cmp(subject, issuer)) {
 		return false;
 	}
-	pki_key *pkey = signer->getPubKey();
-	int i = X509_verify(cert,pkey->getPubKey());
+	int i = X509_verify(cert, X509_get_pubkey(signer->cert));
 	ign_openssl_error();
-	delete(pkey);
 	if (i>0) {
 		psigner = signer;
 		return true;

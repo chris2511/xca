@@ -73,7 +73,6 @@ class db_temp: public db_base
 	void newItem();
 	void changeTemp();
 	void showItem(const QModelIndex &index);
-	void showItem();
 	void load();
 	void store();
 	void certFromTemp();

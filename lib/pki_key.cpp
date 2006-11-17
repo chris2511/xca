@@ -706,15 +706,15 @@ QString pki_key::md5passwd(const char *pass, char *md5, int *len)
 
 	EVP_MD_CTX mdctx;
 	QString str;
-	unsigned int n;
+	int n;
 	int j;
 	char zs[4];
 	unsigned char m[EVP_MAX_MD_SIZE];
 	EVP_DigestInit(&mdctx, EVP_md5());
 	EVP_DigestUpdate(&mdctx, pass, strlen(pass));
-	EVP_DigestFinal(&mdctx, m, &n);
-	for (j=0; j<(int)n; j++) {
-		sprintf(zs, "%02X%c",m[j], (j+1 == (int)n) ?'\0':':');
+	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
+	for (j=0; j<n; j++) {
+		sprintf(zs, "%02X%c",m[j], (j+1 == n) ?'\0':':');
 		str += zs;
 	}
 	if (md5 && len) {

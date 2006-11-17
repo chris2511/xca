@@ -8,17 +8,20 @@ OPENSSLDIR_DOS=d:\\openssl-0.9.8d
 CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc
 CFLAGS=-Wall -g -ggdb
 
-LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib
-
-# List of all libs to be compiled statically
-#SLIBS= -lcrypto
+LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib -mthreads \
+	-Wl,-enable-stdcall-fixup -Wl,-enable-auto-import \
+	-Wl,-enable-runtime-pseudo-reloc -mwindows
 
 # list of dynamic libraries
 LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32
 
-MOC=wine $(QTDIR)/bin/moc
-UIC=wine $(QTDIR)/bin/uic
-
+# As long as the linux uic and moc are version compatible to the W32 ones
+# we use the native tools, because they are much faster than the wine's
+#MOC=wine $(QTDIR)/bin/moc
+#UIC=wine $(QTDIR)/bin/uic
+#LRELEASE=wine $(QTDIR)/bin/lrelease
+MOC=moc-qt4
+UIC=uic-qt4
 LRELEASE=lrelease
 
 CC=i586-mingw32msvc-gcc

@@ -5,7 +5,6 @@
 
 TAG=RELEASE.$(TVERSION)
 TARGET=xca-$(TVERSION)
-VERSION=$(shell cat VERSION)
 
 export TOPDIR=$(shell pwd)
 

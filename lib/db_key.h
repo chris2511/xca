@@ -75,10 +75,9 @@ class db_key: public db_base
 	void showContextMenu(QContextMenuEvent * e, const QModelIndex &index);
 
     public slots:
-	void newItem(void);
-	void load(void);
+	void newItem();
+	void load();
 	void store();
-	void showItem();
 	void showItem(const QModelIndex &index);
 	void setOwnPass();
 	void resetOwnPass();

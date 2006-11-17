@@ -133,7 +133,7 @@ QString x509v3ext::getValue() const
 {
 #define V3_BUF 100
 	QString text = "";
-	int len,cn=0;
+	int len;
 	char buffer[V3_BUF+1];
 	BIO *bio = BIO_new(BIO_s_mem());
 	if(!X509V3_EXT_print(bio, ext, X509V3_EXT_PARSE_UNKNOWN, 0))

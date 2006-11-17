@@ -139,7 +139,6 @@ void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 void pki_temp::fromData(const unsigned char *p, int size, int version)
 {
 	const unsigned char *p1 = p;
-	int type;
 
 	destination = db::stringFromData(&p1);
 	bcCrit=db::boolFromData(&p1);

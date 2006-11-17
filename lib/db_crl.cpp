@@ -128,11 +128,9 @@ pki_base *db_crl::insert(pki_base *item)
 	return crl;
 }
 
-void db_crl::showItem()
+void db_crl::showItem(const QModelIndex &index)
 {
-	if (!currentIdx.isValid())
-		return;
-	pki_crl *crl = static_cast<pki_crl*>(currentIdx.internalPointer());
+	pki_crl *crl = static_cast<pki_crl*>(index.internalPointer());
 	CrlDetail *dlg;
 
 	dlg = new CrlDetail(mainwin);

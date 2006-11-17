@@ -143,14 +143,6 @@ void db_x509req::showItem(pki_x509req *req)
 	}
 }
 
-void db_x509req::showItem()
-{
-	if (!currentIdx.isValid())
-		return;
-
-	showItem(currentIdx);
-}
-
 void db_x509req::showItem(const QModelIndex &index)
 {
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());

@@ -517,3 +517,10 @@ void db_base::edit()
 	view->edit(currentIdx);
 }
 
+void db_base::showItem()
+{
+	if (!currentIdx.isValid())
+		return;
+	showItem(currentIdx);
+}
+

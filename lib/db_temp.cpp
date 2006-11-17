@@ -114,13 +114,6 @@ bool db_temp::alterTemp(pki_temp *temp)
 	return true;
 }
 
-void db_temp::showItem()
-{
-	if (!currentIdx.isValid())
-		return;
-	showItem(currentIdx);
-}
-
 void db_temp::showItem(const QModelIndex &index)
 {
 	pki_temp *temp = static_cast<pki_temp*>(index.internalPointer());

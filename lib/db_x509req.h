@@ -69,14 +69,13 @@ class db_x509req: public db_x509super
 
     public slots:
 	void newItem(pki_temp *temp = NULL);
-	void store_pem(void) {store(true);}
-	void store_der(void) {store(false);}
-	void load(void);
-	void showItem(void);
+	void store_pem() {store(true);}
+	void store_der() {store(false);}
+	void load();
 	void showItem(QString descr);
 	void showItem(pki_x509req *req);
 	void showItem(const QModelIndex &index);
-	void signReq(void);
+	void signReq();
     signals:
 	void newCert(pki_x509req *req);
 };

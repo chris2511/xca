@@ -212,13 +212,6 @@ void db_key::showItem(const QModelIndex &index)
 	}
 }
 
-void db_key::showItem()
-{
-	if (!currentIdx.isValid())
-		return;
-	showItem(currentIdx);
-}
-
 void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);

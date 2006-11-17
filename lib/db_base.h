@@ -38,7 +38,6 @@
  *	http://www.trolltech.com
  *
  *
- *
  * http://www.hohnstaedt.de/xca
  * email: christian@hohnstaedt.de
  *
@@ -100,18 +99,6 @@ class db_base: public QAbstractItemModel
 	virtual void inToCont(pki_base *pki);
 	virtual void remFromCont(QModelIndex &idx);
 
-#if 0
-	void *getData(void* key, int length, int *dsize);
-	void *getData(QString key, int *dsize);
-	QString getString(QString key);
-	QString getString(char *key);
-	int getInt(QString key);
-	void putData(void *key, int keylen, void *dat, int datalen);
-	void putString(QString key, void *dat, int datalen);
-	void putString(QString key, QString dat);
-	void putString(char *key, QString dat);
-	void putInt(QString key, int dat);
-#endif
 	QPixmap *loadImg(const char *name);
 	void writeAll(void);
 	void dump(QString dirname);
@@ -133,13 +120,14 @@ class db_base: public QAbstractItemModel
 	void storeSelectedItems(QAbstractItemView *view);
 	void load_default(load_base &load);
 	void insertSortChild(pki_base *parent, pki_base *child);
+	virtual void showItem(const QModelIndex &index) {};
 
     public slots:
 	void deletePKI();
 	void delete_ask();
 	void edit();
+	virtual void showItem();
 	virtual void store(){};
-	virtual void showItem(){};
 };
 
 #endif

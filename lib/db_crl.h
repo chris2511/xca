@@ -69,7 +69,7 @@ class db_crl: public db_base
 	void inToCont(pki_base *pki);
 	pki_base *insert(pki_base *item);
 	void load();
-	void showItem();
+	void showItem(const QModelIndex &index);
 	pki_crl *newItem(pki_x509 *cert);
     signals:
 	void updateCertView();
