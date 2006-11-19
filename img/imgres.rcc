@@ -1,0 +1,22 @@
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource>
+    <file>bigcert.png</file>
+    <file>bigcrl.png</file>
+    <file>bigcsr.png</file>
+    <file>bigkey.png</file>
+    <file>bigtemp.png</file>
+    <file>crl.png</file>
+    <file>halfkey.png</file>
+    <file>invalidcertkey.png</file>
+    <file>invalidcert.png</file>
+    <file>key.png</file>
+    <file>netscape.png</file>
+    <file>reqkey.png</file>
+    <file>req.png</file>
+    <file>revoked.png</file>
+    <file>spki.png</file>
+    <file>template.png</file>
+    <file>validcertkey.png</file>
+    <file>validcert.png</file>
+  </qresource>
+</RCC>

@@ -1,16 +1,20 @@
-QTDIR=/D/qt/4.1.1
+HOST=w32
+QTDIR=/D/qt/4.2.1
 OPENSSLDIR=/D/openssl-0.9.8d
-MAKENSIS=wine /D/nsis/makensis.exe
+MAKENSIS=/D/nsis/makensis.exe
+#CROSS=i586-mingw32msvc-
 
-QTDIR_DOS=d:\\qt\\4.1.1\\bin
+QTDIR_DOS=d:\\qt\\4.2.1\\bin
 OPENSSLDIR_DOS=d:\\openssl-0.9.8d
 
 CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc
-CFLAGS=-Wall -g -ggdb
+#CFLAGS=-Wall -g -ggdb -mthreads -mwindows
+CFLAGS=-Wall -g -ggdb -mthreads -mno-cygwin
+#CFLAGS=-Wall -g -ggdb -mthreads -mconsole
 
-LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib -mthreads \
+LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib \
 	-Wl,-enable-stdcall-fixup -Wl,-enable-auto-import \
-	-Wl,-enable-runtime-pseudo-reloc -mwindows
+	-Wl,-enable-runtime-pseudo-reloc
 
 # list of dynamic libraries
 LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32
@@ -20,13 +24,19 @@ LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32
 #MOC=wine $(QTDIR)/bin/moc
 #UIC=wine $(QTDIR)/bin/uic
 #LRELEASE=wine $(QTDIR)/bin/lrelease
-MOC=moc-qt4
-UIC=uic-qt4
-LRELEASE=lrelease
+#MOC=moc-qt4
+#UIC=uic-qt4
+#RCC=rcc
+#LRELEASE=lrelease
+MOC=$(QTDIR)/bin/moc
+UIC=$(QTDIR)/bin/uic
+RCC=$(QTDIR)/bin/rcc
+LRELEASE=$(QTDIR)/bin/lrelease
 
-CC=i586-mingw32msvc-gcc
-LD=i586-mingw32msvc-ld
-STRIP=i586-mingw32msvc-strip
+CC=$(CROSS)gcc
+LD=$(CROSS)ld
+STRIP=$(CROSS)strip
+WINDRES=$(CROSS)windres
 SUFFIX=.exe
 
 prefix=/usr/local

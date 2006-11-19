@@ -10,10 +10,10 @@ export TOPDIR=$(shell pwd)
 
 sinclude Local.mak
 
-SUBDIRS=lib widgets
+SUBDIRS=lib widgets img
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
-INSTDIR=img misc lang doc
-CLEANDIRS=lang doc ui
+INSTDIR=misc lang doc
+CLEANDIRS=lang doc ui img
 
 bindir=bin
 
@@ -37,7 +37,7 @@ headers:
 
 clean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} clean; done
-	rm -f *~ xca xca.o
+	rm -f *~ xca$(SUFFIX) xca.o
 
 distclean: clean
 	rm -f Local.mak conftest conftest.log

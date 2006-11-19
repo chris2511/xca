@@ -5,40 +5,44 @@
 ; The name of the installer
 Name "XCA"
 Caption "XCA ${VERSION} Setup"
-
-; The file to write
 OutFile "setup.exe"
 
-; The default installation directory
 InstallDir $PROGRAMFILES\xca
 ; Registry key to check for directory (so if you install again, it will
 ; overwrite the old one automatically)
 InstallDirRegKey HKLM SOFTWARE\xca "Install_Dir"
 
-; The text to prompt the user to enter a directory
-;ComponentText "This will install the XCA ${VERSION} (c) 2002 - 2006 by Christian Hohnstaedt"
-; The text to prompt the user to enter a directory
-;DirText "Choose a directory to install in to:"
-
 ;SetCompressor /SOLID lzma
 
+;-----------------------------------
 !include "MUI.nsh"
 
 !define MUI_ABORTWARNING
+
+!define MUI_FINISHPAGE_TEXT $(DESC_donation)
+!define MUI_FINISHPAGE_NOREBOOTSUPPORT
+!define MUI_FINISHPAGE_RUN xca.exe
+
+;-----------------------------------
+; Pagelist
 
 !insertmacro MUI_PAGE_LICENSE "COPYRIGHT"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
 
+!insertmacro MUI_RESERVEFILE_LANGDLL
+
 !insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "German"
 
-
+;-----------------------------------
 ; The stuff to install
-Section "xca (required)"
+Section "xca (required)" SecMain
 
   ClearErrors
   UserInfo::GetName
@@ -96,7 +100,7 @@ Section "xca (required)"
 SectionEnd
 
 ; optional section
-Section "Start Menu Shortcuts"
+Section "Start Menu Shortcuts" SecShortcut
   CreateDirectory "$SMPROGRAMS\xca"
   CreateShortCut "$SMPROGRAMS\xca\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   CreateShortCut "$SMPROGRAMS\xca\xca.lnk" "$INSTDIR\xca.exe" "" "$INSTDIR\xca.exe" 0
@@ -104,7 +108,7 @@ SectionEnd
 
 ; uninstall stuff
 
-UninstallText "This will uninstall XCA ${VERSION}. Hit next to continue."
+;UninstallText "This will uninstall XCA ${VERSION}. Hit next to continue."
 
 ; special uninstall section.
 Section "Uninstall"
@@ -145,5 +149,44 @@ Section "Uninstall"
   ; remove directories used.
   RMDir "$SMPROGRAMS\xca"
 SectionEnd
+
+;-----------------------------------
+;Descriptions
+
+  ;Language strings
+  LangString DESC_SecMain ${LANG_ENGLISH} "XCA main application."
+  LangString DESC_SecMain ${LANG_GERMAN} "XCA Applikation."
+  LangString DESC_SecShortcut ${LANG_ENGLISH} \
+	  "Shortcuts on the desktop and the menu."
+  LangString DESC_SecShortcut ${LANG_GERMAN} \
+	  "Programmgruppe auf dem Desktop und im Menu."
+
+  ;Assign language strings to sections
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecShortcut)
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+
+LangString DESC_Donation ${LANG_ENGLISH} \
+"Please consider donating for XCA.\r\n\r\n\
+If this application saves you time and money, consider returning \
+a small share back to me.\r\n\r\n \
+Please use the PayPal account christian@hohnstaedt.de"
+
+LangString DESC_Donation ${LANG_GERMAN} \
+"Bitte ziehen sie eine Spende in Betracht.\r\n\r\n\
+Wenn Ihnen dieses Programm Zeit und Geld spart, \
+ziehen Sie bitte die Möglichkeit in Betracht mir einen kleinen \
+Teil davon abzugeben. \
+\r\n\r\nBitte verwenden Sie dafür das PayPal Konto christian@hohnstaedt.de"
+
+;-----------------------------------
+ 
+Function .onInit
+  !insertMacro MUI_LANGDLL_DISPLAY
+FunctionEnd
+Function un.onInit
+  !insertMacro MUI_UNGETLANGUAGE
+FunctionEnd
 
 ; eof

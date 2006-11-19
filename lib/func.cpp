@@ -64,8 +64,8 @@
 
 QPixmap *loadImg(const char *name )
 {
-	QString path = getPrefix();
-	path += QDir::separator();
+	QString path = ":";
+//	path += QDir::separator();
 	return new QPixmap(path + name);
 }
 

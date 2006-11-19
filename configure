@@ -6,7 +6,7 @@
 #
 # it is MUCH faster, smaller and does what I want. :-)
 #
-# If you have openssl or the Berkeley db installed in
+# If you have openssl installed in
 # an unusual directory like /home/me/install/ssl
 # just give it as argument to ./configure
 # it then searches for headers in /home/me/install/ssl/include
@@ -20,12 +20,25 @@
 #######################################################
 
 DIRS=""
+HOST=linux
+test cygtest >/dev/null 2>&1 || HOST=w32
 
 for dir in $@; do
   DIRS="$DIRS `cd $dir; pwd`"
 done
 
-DIRS="$QTDIR $DIRS /usr /usr/X11R6 /usr/local"
+DIRS="$QTDIR $DIRS"
+if test "$HOST" = "linux"; then
+  DIRS="$DIRS /usr /usr/X11R6 /usr/local"
+  STDINC="-I/usr/include"
+  STDLIB="-L/usr/lib"
+  prefix=${prefix:=/usr/local}
+fi
+if test "$HOST" = "w32"; then
+  LIBS="-lqtmain -lws2_32 -lwsock32 -lgdi32"
+  SUFFIX=.exe
+  LDFLAGS=
+fi
 
 CC=${CC:=gcc}
 CF="-I. -I.."
@@ -44,7 +57,7 @@ err() {
 
 #adds an includedir to $CF
 add_include() {
-  for _dir in -I/usr/include ${CF}; do
+  for _dir in $STDINC ${CF}; do
     if test "-I$1" = "${_dir}"; then
       return 0
     fi
@@ -72,12 +85,14 @@ add_lib() {
 search_includes() {
   for dir in ${DIRS};  do
     for dbn in "" ${subdirs}; do
-      if test -r ${dir}/include${dbn}/$1; then
-          add_include ${dir}/include${dbn}
-	  test -z "${dbn}" || add_include ${dir}/include
-          echo Found:  $1 at ${dir}/include${dbn}
+      for include in outinc include; do
+        if test -r ${dir}/${include}${dbn}/$1; then
+          add_include ${dir}/${include}${dbn}
+	  test -z "${dbn}" || add_include ${dir}/${include}
+          echo Found:  $1 at ${dir}/${include}${dbn}
           return 0
-      fi
+        fi
+      done
     done
   done
   return 1
@@ -88,11 +103,13 @@ search_lib() {
   for dir in ${DIRS};  do
     for dbn in $@; do
       for suffix in so dylib obj a; do
-        if test -r ${dir}/lib/lib${dbn}.${suffix}; then
-          add_lib ${dir}/lib ${dbn} ${suffix};
-	  echo Found: lib${dbn}.${suffix} at ${dir}/lib
-          return 0
-	fi
+        for lib in lib out; do
+          if test -r ${dir}/${lib}/lib${dbn}.${suffix}; then
+            add_lib ${dir}/${lib} ${dbn} ${suffix};
+	    echo Found: lib${dbn}.${suffix} at ${dir}/${lib}
+            return 0
+	  fi
+	done
       done
     done
   done
@@ -130,49 +147,31 @@ main(){
 }
 EOF
 
-if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest &>conftest.log ; then
-  ./conftest || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest conftest.log
+if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX} &>conftest.log ; then
+  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest conftest.log
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi
 
+findapp() {
+  for app in `which $@`; do
+    if test -x "$app"; then
+      echo "$app"
+      break
+    fi
+  done
+}
 
-for moc in $QTDIR/bin/moc `which moc4 moc-qt4 moc`; do
-  if test -x "$moc"; then
-    MOC="$moc"
-    break
-  fi
-done
-
-for uic in $QTDIR/bin/uic `which uic4 uic-qt4 uic`; do
-  if test -x "$uic"; then
-    UIC="$uic"
-    break
-  fi
-done
-
-for lrelease in $QTDIR/bin/lrelease `which lrelease4 lrelease-qt4 lrelease`; do
-  if test -x "$lrelease"; then
-    LRELEASE="$lrelease"
-    break
-  fi
-done
-
-echo
-echo "LDFLAGS   :${LIBS}${LDIRS}"
-echo "PREFIX    :${prefix:=/usr/local}"
-echo "CPPFLAGS  :${CF}"
-echo "CFLAGS    :${CFLAGS:=-Wall -g -ggdb}"
-echo
-
-D_SRC="`pwd``dirname $0`"
-D_DST="`pwd`"
+MOC=`findapp $QTDIR/bin/moc moc4 moc-qt4 moc`
+UIC=`findapp $QTDIR/bin/uic uic4 uic-qt4 uic`
+RCC=`findapp $QTDIR/bin/rcc rcc4 rcc-qt4 rcc`
+LRELEASE=`findapp $QTDIR/bin/lrelease lrelease4 lrelease-qt4 lrelease`
 
 cat >Local.mak <<EOF
 CPPFLAGS=$CF
 CFLAGS=${CFLAGS}
 
-LDFLAGS=$LDIRS
+LDFLAGS=$LDFLAGS $LDIRS
 
 # List of all libs to be compiled statically
 SLIBS=$SLIBS
@@ -182,16 +181,18 @@ LIBS=$LIBS
 
 MOC=$MOC
 UIC=$UIC
+RCC=$RCC
 LRELEASE=$LRELEASE
 
 CC=${CC}
 LD=${LD:=ld}
 STRIP=${STRIP:=strip}
+WINDRES=${WINDRES:=windres}
 
+SUFFIX=${SUFFIX}
+HOST=${HOST}
 prefix=${prefix}
 basedir=${basedir}
-D_SRC=${D_SRC}
-D_DST=${D_DST}
 
 EOF
 
