@@ -21,7 +21,7 @@
 
 DIRS=""
 HOST=linux
-test cygtest >/dev/null 2>&1 || HOST=w32
+#test cygcheck.exe -V >/dev/null 2>&1 || HOST=w32
 
 for dir in $@; do
   DIRS="$DIRS `cd $dir; pwd`"
@@ -33,16 +33,18 @@ if test "$HOST" = "linux"; then
   STDINC="-I/usr/include"
   STDLIB="-L/usr/lib"
   prefix=${prefix:=/usr/local}
+  CFLAGS=${CFLAGS}
 fi
 if test "$HOST" = "w32"; then
-  LIBS="-lqtmain -lws2_32 -lwsock32 -lgdi32"
+  LIBS="-lQtCore4 -lstdc++ -lqtmain -lws2_32 -lwsock32 -lgdi32"
   SUFFIX=.exe
-  LDFLAGS=
+  CFLAGS="-Wall -g -ggdb -mthreads -mno-cygwin"
+  LDFLAGS="-Wl,-enable-stdcall-fixup -Wl,-enable-auto-import \
+	-Wl,-enable-runtime-pseudo-reloc"
 fi
 
 CC=${CC:=gcc}
 CF="-I. -I.."
-LIBS=
 LDIRS=
 MOC=moc
 UIC=uic
@@ -121,7 +123,7 @@ echo -e "\n\nConfiguring XCA `cat VERSION`\n----------------------------"
 ######################### QT
 subdirs="/qt /qt4"
 search_includes Qt/qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
-search_lib QtGui qt qt-mt || err "The QT library was not found. Try installing qt-dev"
+search_lib QtGui4 QtGui || err "The QT library was not found."
 search_lib c_r || true
 
 ###################### OpenSSL
@@ -154,7 +156,7 @@ else
 fi
 
 findapp() {
-  for app in `which $@`; do
+  for app in `which $@ 2>/dev/null`; do
     if test -x "$app"; then
       echo "$app"
       break
@@ -162,10 +164,15 @@ findapp() {
   done
 }
 
+if test "$HOST" = "w32"; then
+  LIBS="-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32"
+  SLIBS=""
+fi
 MOC=`findapp $QTDIR/bin/moc moc4 moc-qt4 moc`
 UIC=`findapp $QTDIR/bin/uic uic4 uic-qt4 uic`
 RCC=`findapp $QTDIR/bin/rcc rcc4 rcc-qt4 rcc`
 LRELEASE=`findapp $QTDIR/bin/lrelease lrelease4 lrelease-qt4 lrelease`
+
 
 cat >Local.mak <<EOF
 CPPFLAGS=$CF
@@ -188,6 +195,7 @@ CC=${CC}
 LD=${LD:=ld}
 STRIP=${STRIP:=strip}
 WINDRES=${WINDRES:=windres}
+MAKENSIS=${MAKENSIS}
 
 SUFFIX=${SUFFIX}
 HOST=${HOST}
@@ -195,14 +203,18 @@ prefix=${prefix}
 basedir=${basedir}
 
 EOF
-
-for dirs in /bin /usr/bin /usr/local/bin /sw/bin; do
-  for make in gmake make; do
-    if ${dirs}/${make} -v 2>/dev/null | grep GNU; then
-      mak=${dirs}/${make}
-    fi
+find_make() {
+  for dirs in /usr/local/bin /sw/bin /bin /usr/bin; do
+    for make in gmake make; do
+      if ${dirs}/${make} -v 2>/dev/null | grep GNU; then
+	mak=${dirs}/${make}
+	return
+      fi
+    done
   done
-done
+}
+
+find_make
 
 echo
 if test ! -z "${mak}"; then
