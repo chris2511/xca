@@ -19,4 +19,4 @@ ifeq ($(DEP), yes)
 endif
 
 db_dump: db_dump.cpp db.o db.h
-	gcc $(CPPFLAGS) $(CFLAGS) db_dump.cpp db.o -lQtCore -g -o $@
+	gcc $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) db_dump.cpp db.o $(LIBS) -g -o $@

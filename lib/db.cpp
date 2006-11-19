@@ -19,8 +19,8 @@
 db::db(QString filename, int mode)
 {
 	name = filename;
-	fd = open(CCHAR(filename), O_RDWR | O_CREAT, mode);
-	if (fd<0) {
+	file.setFileName(filename);
+	if (!file.open(QIODevice::ReadWrite)) {
 		fileIOerr("open");
 	} else {
 		first();
@@ -29,13 +29,12 @@ db::db(QString filename, int mode)
 
 db::~db()
 {
-	if (fd>=0)
-		close(fd);
+	file.close();
 }
 
 void db::fileIOerr(QString s)
 {
-	errstr = QString("DB ") + s + "() '" + name + "'";
+	errstr = QString("DB ") + s + "() '" + file.fileName() + "'";
 	dberrno = errno;
 	throw errorEx(errstr, strerror(errno));
 }
@@ -104,8 +103,9 @@ void db::first(void)
 {
 	int ret;
 	memset(&head, 0, sizeof(db_header_t) );
-	head_offset = lseek(fd, 0, SEEK_SET );
-	ret = read(fd, &head, sizeof(db_header_t) );
+	head_offset = 0;
+	file.seek(0);
+	ret = file.read((char*)&head, sizeof(db_header_t) );
 	if (ret < 0 )
 		fileIOerr("read");
 	if (ret==0) {
@@ -125,8 +125,10 @@ int db::next(void)
 	if (head_offset == OFF_EOF)
 		return 1;
 
-	head_offset = lseek(fd, head_offset + ntohl(head.len), SEEK_SET );
-	ret = read(fd, &head, sizeof(db_header_t) );
+	TRACE
+	head_offset += ntohl(head.len);
+	file.seek(head_offset);
+	ret = file.read((char*)&head, sizeof(db_header_t) );
 	if (ret==0) {
 		//printf("Next: EOF at %lu\n", head_offset);
 		head_offset = OFF_EOF;
@@ -139,7 +141,7 @@ int db::next(void)
 	if (ret != sizeof(db_header_t)) {
 		printf("Length broken: %d instead of %d\n", ret,
 				sizeof(db_header_t) );
-		ftruncate(fd, head_offset);
+		//ftruncate(fd, head_offset);
 		head_offset = OFF_EOF;
 		return -1;
 	}
@@ -158,25 +160,34 @@ int db::rename(enum pki_type type, const char *name, const char *n)
 {
 	int ret;
 
+	TRACE
 	first();
 	if (find(type, n) == 0) {
+	TRACE
 		printf("New name: %s already in use\n", n);
 		return -1;
 	}
+	TRACE
 	first();
 	if (find(type, name) != 0) {
+	TRACE
 		printf("Entry to rename not found: %s\n", name);
 		return -1;
 	}
 	printf("Off = %lu\n", head_offset);
+	TRACE
 	strncpy(head.name, n, NAMELEN);
+	TRACE
 	head.name[NAMELEN-1] = '\0';
-	lseek(fd, head_offset, SEEK_SET);
-	ret = write(fd, &head, sizeof(head));
+	file.seek(head_offset);
+	TRACE
+	ret = file.write((char*)&head, sizeof(head));
+	TRACE
 	if (ret < 0) {
 		fileIOerr("write");
 	}
 	if (ret != sizeof(head)) {
+	TRACE
 		printf("DB: Write error %d - %d\n", ret, sizeof(head));
 		return -1;
 	}
@@ -207,13 +218,13 @@ int db::add(const unsigned char *p, int len, int ver, enum pki_type type,
 	db_header_t db;
 
 	init_header(&db, ver, len, type, name);
-	lseek(fd, 0, SEEK_END);
+	file.seek(file.size());
 
-	if (write(fd, &db, sizeof(db)) != sizeof(db)) {
+	if (file.write((char*)&db, sizeof(db)) != sizeof(db)) {
 		fileIOerr("write");
 		return -1;
 	}
-	if (write(fd, p, len) != len) {
+	if (file.write((char*)p, len) != len) {
 		fileIOerr("write");
 		return -1;
 	}
@@ -235,7 +246,7 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 		//printf("offs = %x, len=%d, head.len=%d name = %s flags=%x\n",
 		//		head_offset, len, ntohl(head.len), head.name,
 		//		ntohs(head.flags));
-		lseek(fd, head_offset, SEEK_SET);
+		file.seek(head_offset);
 		if (len != (int)(ntohl(head.len) - sizeof(db_header_t))) {
 			//printf("## Found and len unequal %d, %d\n",
 			//	len, ntohl(head.len) - sizeof(db_header_t));
@@ -243,16 +254,16 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 			flags = head.flags;
 			head.flags |= htons(DBFLAG_DELETED | DBFLAG_OUTDATED);
 
-			if (write(fd, &head, sizeof(db_header_t)) !=
+			if (file.write((char*)&head, sizeof(db_header_t)) !=
 					sizeof(db_header_t))
 			{
 				fileIOerr("write");
 				return -1;
 			}
 			if (add(p, len, ver, type, name) < 0) {
-				lseek(fd, head_offset, SEEK_SET);
+				file.seek(head_offset);
 				head.flags = flags;
-				ret = write(fd, &head, sizeof(db_header_t));
+				ret = file.write((char*)&head, sizeof(db_header_t));
 				if (ret != sizeof(db_header_t))
 					fileIOerr("write");
 			}
@@ -260,12 +271,12 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 		}
 		//printf("## Overwriting entry at %u\n", head_offset);
 		head.version = htons(ver);
-		if (write(fd, &head, sizeof(db_header_t)) !=
+		if (file.write((char*)&head, sizeof(db_header_t)) !=
 						sizeof(db_header_t)) {
 			fileIOerr("write");
 			return -1;
 		}
-		if (write(fd, p, len) != len) {
+		if (file.write((char*)p, len) != len) {
 			fileIOerr("write");
 			return -1;
 		}
@@ -277,25 +288,28 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 unsigned char *db::load(db_header_t *u_header)
 {
 	uint32_t size;
-	int ret;
+	unsigned ret;
 	unsigned char *data;
 
+	TRACE
+	printf("Head offs: %x\n", head_offset);
 	if (head_offset == OFF_EOF)
 		return NULL;
 	size = ntohl(head.len) - sizeof(db_header_t);
 	data = (unsigned char *)malloc(size);
-	lseek(fd, head_offset + sizeof(db_header_t), SEEK_SET);
-	ret = read(fd, data, size);
-	if ((unsigned)ret == size) {
+	file.seek(head_offset + sizeof(db_header_t));
+	ret = file.read((char*)data, size);
+	printf("ret=%x, size=%x, offs=%x\n", ret, size, head_offset + sizeof(db_header_t));
+	if (ret == size) {
 		if (u_header)
 			convert_header(u_header);
 		return data;
-
 	} else {
 		free(data);
 		fileIOerr("read");
 		return NULL;
 	}
+	TRACE
 }
 
 int db::erase(void)
@@ -305,8 +319,8 @@ int db::erase(void)
 
 	head.flags |= htons(DBFLAG_DELETED);
 
-	lseek(fd, head_offset, SEEK_SET);
-	if (write(fd, &head, sizeof(db_header_t)) != sizeof(db_header_t)) {
+	file.seek(head_offset);
+	if (file.write((char*)&head, sizeof(db_header_t)) != sizeof(db_header_t)) {
 		fileIOerr("write");
 		return -1;
 	}
@@ -325,16 +339,16 @@ int db::shrink(int flags)
 		fileIOerr("open");
 		return 1;
 	}
-	lseek(fd, 0, SEEK_SET);
+	file.reset();
 
-	while ((ret = read(fd, &head, sizeof(head))) > 0) {
+	while ((ret = file.read((char*)&head, sizeof(head))) > 0) {
 		if (!verify_magic())
 			return 1;
 		head_offset = ntohl(head.len) - sizeof(head);
 		if ((ntohs(head.flags) & flags)) {
 			//printf("Skip Entry\n");
 			/* FF to the next entry */
-			offs = lseek(fd, head_offset, SEEK_CUR);
+			offs = file.seek(head_offset + file.pos());
 			//printf("Seeking to %d\n", offs);
 			if (head_offset == -1)
 				break;
@@ -345,7 +359,7 @@ int db::shrink(int flags)
 			break;
 		offs = head_offset;
 		while (offs) {
-			ret = read(fd, buf, (offs > BUFSIZ) ? BUFSIZ : offs);
+			ret = file.read((char*)buf, (offs > BUFSIZ) ? BUFSIZ : offs);
 			if (ret<=0)
 				break;
 			ret = write(fdn, buf, ret);
@@ -362,8 +376,7 @@ int db::shrink(int flags)
 		unlink(CCHAR(filename));
 		return 1;
 	}
-	close(fd);
-	fd=-1;
+	file.close();
 	// use the global rename()  function and not the method of this class
 	::rename(CCHAR(filename), CCHAR(name));
 	return 0;

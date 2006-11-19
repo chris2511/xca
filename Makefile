@@ -22,10 +22,10 @@ all: headers xca$(SUFFIX) docs
 re: clean all
 
 xca.o: $(OBJECTS)
-	$(LD) $(LDFLAGS) $(OBJECTS) $(SLIBS) -r -o $@
+	$(LD) $(OBJECTS) $(SLIBS) -r -o $@
 
 xca$(SUFFIX): xca.o
-	$(CC) $(LDFLAGS) $< $(LIBS) -o $@
+	$(CC) $(LDFLAGS) $(CFLAGS) $< $(LIBS) -o $@
 
 docs:
 	$(MAKE) -C doc

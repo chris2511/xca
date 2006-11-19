@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <Qt/qstring.h>
+#include <Qt/qfile.h>
 
 #define XCA_MAGIC 0xcadb1969
 #define NAMELEN 80
@@ -39,7 +40,7 @@ typedef struct db_header_t {
 class db
 {
     private:
-	int fd;
+	QFile file;
 	QString name;
 	QString errstr;
 	int dberrno;

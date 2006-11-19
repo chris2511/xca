@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>PassWrite</class>
  <widget class="QDialog" name="PassWrite" >
   <property name="geometry" >
@@ -121,17 +118,6 @@
           <height>32767</height>
          </size>
         </property>
-        <property name="font" >
-         <font>
-          <family></family>
-          <pointsize>9</pointsize>
-          <weight>50</weight>
-          <italic>false</italic>
-          <bold>false</bold>
-          <underline>false</underline>
-          <strikeout>false</strikeout>
-         </font>
-        </property>
         <property name="text" >
          <string>Repeat password</string>
         </property>
@@ -206,7 +192,6 @@
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <tabstops>
   <tabstop>passA</tabstop>
   <tabstop>passB</tabstop>

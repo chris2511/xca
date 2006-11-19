@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>ExportCert</class>
  <widget class="QDialog" name="ExportCert" >
   <property name="geometry" >
@@ -104,10 +101,10 @@
    <item>
     <widget class="QFrame" name="frame_2" >
      <property name="frameShape" >
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Box</enum>
      </property>
      <property name="frameShadow" >
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >
