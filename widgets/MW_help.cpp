@@ -115,10 +115,8 @@ void MainWindow::help()
 	QDialog *h = new QDialog(this, 0);
 	Ui::Help ui;
 	ui.setupUi(h);
-	QStringList path;
-	path << PREFIX "/share/xca";
-	//ui.textbox->setSearchPaths(path);
-	ui.textbox->setSource(QUrl("file://" PREFIX "/share/xca/xca.html"));
+	QString path = QString("file://" + getPrefix() + "/xca.html");
+	ui.textbox->setSource(QUrl(path));
 	h->setWindowTitle(tr(XCA_TITLE));
 	h->exec();
 }

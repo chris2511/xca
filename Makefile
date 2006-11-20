@@ -40,7 +40,7 @@ clean:
 	rm -f *~ xca$(SUFFIX) xca.o
 
 distclean: clean
-	rm -f Local.mak conftest conftest.log
+	rm -f Local.mak conftest conftest.log xca.pro
 
 dist:
 	test ! -z "$(TVERSION)"
@@ -82,7 +82,8 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) /DOPENSSL=$(OPENSSLDIR_DOS) /DQTDIR=$(QTDIR_DOS) \
 		/DVERSION=$(VERSION) /NOCD misc/xca.nsi
-.PHONY: $(SUBDIRS) xca.app
+
+.PHONY: $(SUBDIRS) xca.app setup.exe
 
 Local.mak: configure
 	./configure

@@ -1,3 +1,7 @@
+  * add build support for cygwin and mingw-cross
+  * delete rpm/ and debian/ subdirs
+  * Port to QT4 and openssl 0.9.8
+    remove the need of Berkeley DB
   * finish support for Mac OS X
   * add X509 V3 extensions to PKCS#10 requests
   * add "validation" function for editable extensions below

@@ -60,6 +60,7 @@ pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_pass
 {
 	class_name="pki_pkcs12";
 	key = new pki_key(akey);
+	key->encryptKey();
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
 	passcb = cb;
@@ -84,7 +85,9 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		fclose(fp);
 		openssl_error();
-		if (passcb(pass, 30, 0, &p) < 0) {
+		if (PKCS12_verify_mac(pkcs12, "", 0) || PKCS12_verify_mac(pkcs12, NULL, 0))
+			pass[0] = '\0';
+		else if (passcb(pass, 30, 0, &p) < 0) {
 			/* cancel pressed */
 			PKCS12_free(pkcs12);
 			throw errorEx("","");
@@ -102,17 +105,18 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 			key->encryptKey();
 		}
 		if (mycert) {
-#if 0
+#if 1
 			char b[256];
-			if (mycert->aux){
-				i2t_ASN1_OBJECT(b, 256, (ASN1_OBJECT*)mycert->aux->alias);
-			}
+			if (mycert->aux && mycert->aux->alias){
+				//i2t_ASN1_OBJECT(b, 256, (ASN1_OBJECT*)mycert->aux->alias);
+
 			printf("Alias: %s %x %x %x %x\n", b,
 					((char*)mycert->aux->alias)[0],
 					((char*)mycert->aux->alias)[1],
 					((char*)mycert->aux->alias)[2],
 					((char*)mycert->aux->alias)[3]
 			);
+			}
 #endif
 			cert = new pki_x509(mycert);
 			cert->autoIntName();

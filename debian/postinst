@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ "$1" = "configure" ]; then
-  if [ -d /usr/doc -a ! -e /usr/doc/pkg -a -d /usr/share/doc/pkg ]; then
-    ln -sf ../share/doc/pkg /usr/doc/pkg
-  fi
-fi
-
-test -x /usr/bin/update-menus && update-menus

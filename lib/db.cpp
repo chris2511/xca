@@ -125,7 +125,6 @@ int db::next(void)
 	if (head_offset == OFF_EOF)
 		return 1;
 
-	TRACE
 	head_offset += ntohl(head.len);
 	file.seek(head_offset);
 	ret = file.read((char*)&head, sizeof(db_header_t) );
@@ -160,34 +159,24 @@ int db::rename(enum pki_type type, const char *name, const char *n)
 {
 	int ret;
 
-	TRACE
 	first();
 	if (find(type, n) == 0) {
-	TRACE
 		printf("New name: %s already in use\n", n);
 		return -1;
 	}
-	TRACE
 	first();
 	if (find(type, name) != 0) {
-	TRACE
 		printf("Entry to rename not found: %s\n", name);
 		return -1;
 	}
-	printf("Off = %lu\n", head_offset);
-	TRACE
 	strncpy(head.name, n, NAMELEN);
-	TRACE
 	head.name[NAMELEN-1] = '\0';
 	file.seek(head_offset);
-	TRACE
 	ret = file.write((char*)&head, sizeof(head));
-	TRACE
 	if (ret < 0) {
 		fileIOerr("write");
 	}
 	if (ret != sizeof(head)) {
-	TRACE
 		printf("DB: Write error %d - %d\n", ret, sizeof(head));
 		return -1;
 	}
@@ -291,15 +280,12 @@ unsigned char *db::load(db_header_t *u_header)
 	unsigned ret;
 	unsigned char *data;
 
-	TRACE
-	printf("Head offs: %x\n", head_offset);
 	if (head_offset == OFF_EOF)
 		return NULL;
 	size = ntohl(head.len) - sizeof(db_header_t);
 	data = (unsigned char *)malloc(size);
 	file.seek(head_offset + sizeof(db_header_t));
 	ret = file.read((char*)data, size);
-	printf("ret=%x, size=%x, offs=%x\n", ret, size, head_offset + sizeof(db_header_t));
 	if (ret == size) {
 		if (u_header)
 			convert_header(u_header);
@@ -309,7 +295,6 @@ unsigned char *db::load(db_header_t *u_header)
 		fileIOerr("read");
 		return NULL;
 	}
-	TRACE
 }
 
 int db::erase(void)
