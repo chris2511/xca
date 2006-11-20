@@ -167,7 +167,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		}
 		crl->addV3ext(e.create(NID_authority_key_identifier,
 			"keyid,issuer", &ext_ctx));
-		if (cert->hasSubAltName()) {
+		if (cert->hasExtension(NID_subject_alt_name)) {
 			crl->addV3ext(e.create(NID_issuer_alt_name,
 				"issuer:copy", &ext_ctx));
 		}

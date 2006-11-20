@@ -66,6 +66,7 @@ class pki_pkcs12: public pki_base
     friend class pki_x509;
     friend class pki_key;
     protected:
+	QString alias;
 	pki_x509 *cert;
 	pki_key *key;
 	STACK_OF(X509) *certstack;
@@ -75,16 +76,12 @@ class pki_pkcs12: public pki_base
 	pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb);
 	pki_pkcs12(const QString fname, pem_password_cb *cb);
 
-	/* destructor */
 	~pki_pkcs12();
 	void addCaCert(pki_x509 *acert);
 	pki_key *getKey();
 	pki_x509 *getCert();
 	pki_x509 *getCa(int x);
 	int numCa(); // number of ca certs;
-	//bool fromData(unsigned char *p, int size);
-	//unsigned char *toData(int *size);
-	//bool compare(pki_base *ref);
 	void writePKCS12(const QString fname);
 };
 

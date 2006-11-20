@@ -171,7 +171,7 @@ NewX509::NewX509(QWidget *parent)
 	name_ptr[6] = emailAddress;
 
 	// last polish
-	on_certList_highlighted();
+	on_certList_currentIndexChanged(0);
 	checkAuthKeyId();
 	toggleOkBut();
 	tabWidget->setCurrentIndex(0);
@@ -402,7 +402,7 @@ void NewX509::on_genKeyBUT_clicked()
 	emit genKey();
 }
 
-void NewX509::on_certList_highlighted()
+void NewX509::on_certList_currentIndexChanged(int index)
 {
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
@@ -418,6 +418,7 @@ void NewX509::on_certList_highlighted()
 	if (sna < notAfter->getDate())
 		notAfter->setDate(sna);
 
+	checkAuthKeyId();
 	if (templ.isEmpty())
 		return;
 
@@ -462,8 +463,9 @@ void NewX509::checkAuthKeyId()
 	bool enabled = false;
 
 	if (foreignSignRB->isChecked()) {
-		if (getSelectedSigner()->hasSubAltName())
-		enabled = true;
+		if (getSelectedSigner()->hasExtension(NID_subject_key_identifier)) {
+			enabled = true;
+		}
 	}
 	else { // Self signed
 		if (subKey->isChecked() && subKey->isEnabled() && pt != x509_req)
@@ -472,7 +474,7 @@ void NewX509::checkAuthKeyId()
 	authKey->setEnabled(enabled);
 }
 
-void NewX509::on_foreignSignRB_clicked(){
+void NewX509::on_foreignSignRB_toggled(bool checked){
 	checkAuthKeyId();
 }
 void NewX509::on_subKey_clicked(){

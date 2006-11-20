@@ -138,13 +138,13 @@ class NewX509: public QDialog, public Ui::NewX509
 	void on_editIssAlt_clicked();
 	void on_editCrlDist_clicked();
 	void on_editAuthInfAcc_clicked();
-	void on_foreignSignRB_clicked();
+	void on_foreignSignRB_toggled(bool checked);
 	void on_subKey_clicked();
 	void on_genKeyBUT_clicked();
 	void on_showReqBut_clicked();
 	void on_description_textChanged(QString text);
 	void on_countryName_textChanged(QString);
-	void on_certList_highlighted();
+	void on_certList_currentIndexChanged(int index);
 	void on_applyTemplate_clicked();
    signals:
 	void genKey();

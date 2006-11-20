@@ -100,26 +100,23 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		}
 
 		openssl_error();
+		if (mycert) {
+			if (mycert->aux && mycert->aux->alias){
+				ASN1_UTF8STRING *s = mycert->aux->alias;
+				alias = QString::fromUtf8((char*)s->data, s->length);
+			}
+			cert = new pki_x509(mycert);
+			if (alias.isEmpty()) {
+				cert->autoIntName();
+			} else {
+				cert->setIntName(alias);
+			}
+			alias = cert->getIntName();
+		}
 		if (mykey) {
 			key = new pki_key(mykey);
 			key->encryptKey();
-		}
-		if (mycert) {
-#if 1
-			char b[256];
-			if (mycert->aux && mycert->aux->alias){
-				//i2t_ASN1_OBJECT(b, 256, (ASN1_OBJECT*)mycert->aux->alias);
-
-			printf("Alias: %s %x %x %x %x\n", b,
-					((char*)mycert->aux->alias)[0],
-					((char*)mycert->aux->alias)[1],
-					((char*)mycert->aux->alias)[2],
-					((char*)mycert->aux->alias)[3]
-			);
-			}
-#endif
-			cert = new pki_x509(mycert);
-			cert->autoIntName();
+			key->setIntName(alias + "_key");
 		}
 		PKCS12_free(pkcs12);
 	}
@@ -193,7 +190,6 @@ pki_x509 *pki_pkcs12::getCert() {
 	if (!cert)
 		return NULL;
 	pki_x509 *c = new pki_x509(cert);
-	c->autoIntName();
 	return c;
 }
 
@@ -202,7 +198,11 @@ pki_x509 *pki_pkcs12::getCa(int x) {
 	X509 *crt = X509_dup(sk_X509_value(certstack, x));
 	if (crt) {
 		cert = new pki_x509(crt);
-		cert->autoIntName();
+		if (alias.isEmpty()) {
+			cert->autoIntName();
+		} else {
+			cert->setIntName(QString(alias + "_ca_%1").arg(x));
+		}
 	}
 	openssl_error();
 	return cert;

@@ -134,7 +134,7 @@ class pki_x509 : public pki_x509super
 	   int getCrlDays();
 	   void setLastCrl(const a1time &time);
 	   int resetTimes(pki_x509 *signer);
-	   bool hasSubAltName();
+	   bool hasExtension(int nid);
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);
 	   QString tinyCAfname();
 	   void updateView();

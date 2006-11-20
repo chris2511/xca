@@ -280,21 +280,27 @@ bool pki_x509::canSign()
 {
 	BASIC_CONSTRAINTS *bc;
 	int crit;
-	if (!privkey || privkey->isPubKey()) return false;
+	if (!privkey || privkey->isPubKey())
+		return false;
 	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
 	openssl_error();
-	if (!bc || !bc->ca) return false;
+	if (!bc || !bc->ca)
+		return false;
 	return true;
 }
 
-bool pki_x509::hasSubAltName()
+bool pki_x509::hasExtension(int nid)
 {
-	STACK_OF(GENERAL_NAME) *subAlt;
-	int crit;
-	subAlt = (STACK_OF(GENERAL_NAME) *)X509_get_ext_d2i(cert, NID_subject_alt_name, &crit, NULL);
-	openssl_error();
-	if (sk_GENERAL_NAME_num(subAlt) < 1) return false;
-	return true;
+	int i;
+	STACK_OF(X509_EXTENSION) *x = cert->cert_info->extensions;
+
+	for(i = 0; i < sk_X509_EXTENSION_num(x); i++) {
+		X509_EXTENSION *ex = sk_X509_EXTENSION_value(x, i);
+		if (OBJ_obj2nid(ex->object) == nid) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
