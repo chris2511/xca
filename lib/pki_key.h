@@ -108,9 +108,10 @@ class pki_key: public pki_base
         QString subprime();
         QString pubkey();
 	void writeKey(const QString fname, const EVP_CIPHER *enc,
-			pem_password_cb *cb, bool PEM);
-	void writePublic(const QString fname, bool PEM);
-	void writePKCS8(const QString fname, pem_password_cb *cb);
+			pem_password_cb *cb, bool pem);
+	void writePublic(const QString fname, bool pem);
+	void writePKCS8(const QString fname, const EVP_CIPHER *enc,
+			pem_password_cb *cb, bool pem);
 	bool isPrivKey();
 	bool isPubKey();
 	int verify();

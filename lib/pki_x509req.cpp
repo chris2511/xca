@@ -139,15 +139,14 @@ void pki_x509req::fload(const QString fname)
 		fopen_error(fname);
 	fclose(fp);
 
-	autoIntName();
-	if (getIntName().isEmpty())
-		setIntName(rmslashdot(fname));
-	openssl_error();
-
 	if( _req ) {
 		X509_REQ_free(request);
 		request = _req;
 	}
+	autoIntName();
+	if (getIntName().isEmpty())
+		setIntName(rmslashdot(fname));
+	openssl_error();
 }
 
 void pki_x509req::fromData(const unsigned char *p, db_header_t *head )

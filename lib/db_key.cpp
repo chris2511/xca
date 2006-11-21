@@ -69,6 +69,7 @@ db_key::db_key(QString db, MainWindow *mw)
 	delete_txt = tr("Delete the key(s)");
 	view = mw->keyView;
 	loadContainer();
+	class_name = "keys";
 }
 
 pki_base *db_key::newPKI(){
@@ -239,7 +240,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 
 void db_key::store()
 {
-	bool PEM = false;
+	bool pem;
 	const EVP_CIPHER *enc = NULL;
 
 	if (!currentIdx.isValid())
@@ -264,16 +265,19 @@ void db_key::store()
 		return;
 	}
 	try {
-		if (dlg->exportFormat->currentText() == "PEM") PEM = true;
-		if (dlg->exportFormat->currentText() == "PKCS#8")
-			targetKey->writePKCS8(fname, &MainWindow::passWrite);
-		else if (dlg->exportPrivate->isChecked()) {
+		pem = dlg->exportFormat->currentText() == "PEM" ? true : false;
+		if (dlg->exportPrivate->isChecked()) {
 			if (dlg->encryptKey->isChecked())
 				enc = EVP_des_ede3_cbc();
-			targetKey->writeKey(fname, enc, &MainWindow::passWrite, PEM);
+
+			if (dlg->exportPkcs8->isChecked()) {
+				targetKey->writePKCS8(fname, enc, &MainWindow::passWrite, pem);
+			} else {
+				targetKey->writeKey(fname, enc, &MainWindow::passWrite, pem);
+			}
 		}
 		else {
-			targetKey->writePublic(fname, PEM);
+			targetKey->writePublic(fname, pem);
 		}
 	}
 	catch (errorEx &err) {

@@ -106,7 +106,7 @@ void MainWindow::dump_database()
 
 	QFileDialog *dlg = new QFileDialog(this);
 	dlg->setWindowTitle(tr("Dump to directory"));
-	dlg->setFileMode(QFileDialog::AnyFile);
+	dlg->setFileMode(QFileDialog::DirectoryOnly);
 	if (dlg->exec()) {
 		dirname = dlg->selectedFiles()[0];
 	}
@@ -122,6 +122,7 @@ void MainWindow::dump_database()
 		return;
 	}
 
+	printf("Dumping to %s\n", CCHAR(dirname));
 	try {
 		keys->dump(dirname);
 		certs->dump(dirname);
@@ -159,6 +160,8 @@ void MainWindow::close_database()
 	temps = NULL;
 	keys = NULL;
 	settings = NULL;
+
+	pki_key::erasePasswd();
 
 	if (!crls)
 		return;

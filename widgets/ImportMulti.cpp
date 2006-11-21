@@ -69,11 +69,8 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::certImg);
-	//itemView->addColumn(tr("Internal name"));
-	//itemView->addColumn(tr("Common name"));
-	//itemView->addColumn(tr("Serial"));
+	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	mcont = new db_base("/dev/null", parent);
-	///cont.setAutoDelete(false);
 	listView->setModel(mcont);
 	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(on_butDetails_clicked()));
@@ -82,14 +79,12 @@ ImportMulti::ImportMulti(MainWindow *parent)
 
 void ImportMulti::addItem(pki_base *pki)
 {
-	printf("Add item\n");
 	if (!pki)
 		return;
 	QString cn = pki->getClassName();
 	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ||
 			cn == "pki_crl"  || cn == "pki_temp" ) {
 		mcont->inToCont(pki);
-		printf("Content items:%d\n", mcont->rootItem->childCount());
 	}
 	else if (cn == "pki_pkcs7") {
 		pki_pkcs7 *p7 = ( pki_pkcs7 *)pki;
@@ -113,19 +108,6 @@ void ImportMulti::addItem(pki_base *pki)
 	}
 }
 
-#if 0
-void ImportMulti::showPopupMenu(Q3ListViewItem *item, const QPoint &pt, int x)
-{
-	Q3PopupMenu *menu = new Q3PopupMenu(this);
-
-	menu->insertItem(tr("Import"), this, SLOT(import()));
-	menu->insertItem(tr("Details"), this, SLOT(details()));
-	menu->insertItem(tr("Remove"), this, SLOT(remove()));
-	menu->exec(pt);
-	delete menu;
-}
-#endif
-
 void ImportMulti::on_butRemove_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
@@ -142,16 +124,6 @@ void ImportMulti::on_butRemove_clicked()
 	}
 }
 
-#if 0
-pki_base *ImportMulti::search(Q3ListViewItem *current)
-{
-	for (pki_base *pki = cont.first(); pki != 0; pki = cont.next() ) {
-		if (current == pki->getLvi()) return pki;
-	}
-	return NULL;
-}
-#endif
-
 void ImportMulti::on_butOk_clicked()
 {
 	while (mcont->rootItem->childCount()) {
@@ -166,7 +138,6 @@ void ImportMulti::on_butImport_clicked()
 	QItemSelectionModel *selectionModel = listView->selectionModel();
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 	QModelIndex index;
-	QString items;
 
 	foreach(index, indexes) {
 		if (index.column() != 0)
@@ -180,7 +151,6 @@ void ImportMulti::import(QModelIndex &idx)
 
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 
-	printf("Import items: %d\n", mcont->rootItem->childCount());
 	if (!pki)
 		return;
 	QString cn = pki->getClassName();
@@ -211,9 +181,13 @@ void ImportMulti::import(QModelIndex &idx)
 
 void ImportMulti::on_butDetails_clicked()
 {
-#warning FIXME
-	pki_base *pki = NULL;
-	if (!pki) return;
+	QItemSelectionModel *selectionModel = listView->selectionModel();
+	QModelIndex index = selectionModel->selectedIndexes().first();
+
+	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+
+	if (!pki)
+		return;
 	QString cn = pki->getClassName();
 	try {
 		if (cn == "pki_x509"){
@@ -267,7 +241,6 @@ ImportMulti::~ImportMulti()
 	while (idx != QModelIndex()) {
 		mcont->remFromCont(idx);
 		pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
-		printf("Import Multi delete: %p\n", pki);
 		delete pki;
 		idx = listView->currentIndex();
 	}

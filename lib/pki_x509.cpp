@@ -113,22 +113,24 @@ void pki_x509::fload(const QString fname)
 {
 	FILE *fp = fopen(fname.toAscii(),"r");
 	X509 *_cert;
-	if (fp != NULL) {
-		_cert = PEM_read_X509(fp, NULL, NULL, NULL);
-		if (!_cert) {
-			ign_openssl_error();
-			rewind(fp);
-			_cert = d2i_X509_fp(fp, NULL);
-		}
-		openssl_error();
-		autoIntName();
-		if (getIntName().isEmpty())
-			setIntName(rmslashdot(fname));
+	if (!fp) {
+		fopen_error(fname);
+		return;
 	}
-	else fopen_error(fname);
+	_cert = PEM_read_X509(fp, NULL, NULL, NULL);
+	if (!_cert) {
+		ign_openssl_error();
+		rewind(fp);
+		_cert = d2i_X509_fp(fp, NULL);
+	}
+	openssl_error();
+
 	fclose(fp);
 	X509_free(cert);
 	cert = _cert;
+	autoIntName();
+	if (getIntName().isEmpty())
+			setIntName(rmslashdot(fname));
 	trust = 1;
 	efftrust = 1;
 }

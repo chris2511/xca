@@ -469,16 +469,20 @@ pki_key::~pki_key()
 }
 
 
-void pki_key::writePKCS8(const QString fname, pem_password_cb *cb)
+void pki_key::writePKCS8(const QString fname, const EVP_CIPHER *enc,
+		pem_password_cb *cb, bool pem)
 {
 	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password protecting the PKCS#8 key"));
+	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+				"Please enter the password protecting the PKCS#8 key"));
 	FILE *fp = fopen(fname.toAscii(),"w");
 	if (fp != NULL) {
 		if (key){
 			pkey = decryptKey();
-			PEM_write_PKCS8PrivateKey_nid(fp, pkey,
-						NID_pbeWithMD5AndDES_CBC, NULL, 0, cb, &p);
+			if (pem)
+				PEM_write_PKCS8PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
+			else
+				i2d_PKCS8PrivateKey_fp(fp, pkey, enc, NULL, 0, cb, &p);
 			EVP_PKEY_free(pkey);
 			openssl_error();
 	   }
@@ -500,12 +504,12 @@ void pki_key::writeDefault(const QString fname)
 }
 
 void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
-			pem_password_cb *cb, bool PEM)
+			pem_password_cb *cb, bool pem)
 {
 	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the export password for the private key"));
 	if (isPubKey()) {
-		writePublic(fname, PEM);
+		writePublic(fname, pem);
 		return;
 	}
 	FILE *fp = fopen(CCHAR(fname), "w");
@@ -515,7 +519,7 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 	}
 	if (key){
 		pkey = decryptKey();
-		if (PEM) {
+		if (pem) {
 			PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
 		} else {
 			i2d_PrivateKey_fp(fp, pkey);
@@ -526,14 +530,14 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 	fclose(fp);
 }
 
-void pki_key::writePublic(const QString fname, bool PEM)
+void pki_key::writePublic(const QString fname, bool pem)
 {
 	FILE *fp = fopen(fname.toAscii(),"w");
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;
 	}
-	if (PEM)
+	if (pem)
 		PEM_write_PUBKEY(fp, key);
 	else
 		i2d_PUBKEY_fp(fp, key);

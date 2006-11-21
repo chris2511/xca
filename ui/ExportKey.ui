@@ -1,15 +1,12 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>ExportKey</class>
  <widget class="QDialog" name="ExportKey" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>388</height>
+    <width>419</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +14,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <property name="margin" >
-    <number>8</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
@@ -198,11 +195,18 @@ PKCS#8 is an encrypted official Key-exchange format</string>
      </property>
      <layout class="QVBoxLayout" >
       <property name="margin" >
-       <number>8</number>
+       <number>9</number>
       </property>
       <property name="spacing" >
        <number>6</number>
       </property>
+      <item>
+       <widget class="QCheckBox" name="exportPkcs8" >
+        <property name="text" >
+         <string>Export as PKCS#8</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QCheckBox" name="exportPrivate" >
         <property name="toolTip" >
@@ -268,7 +272,6 @@ PKCS#8 is an encrypted official Key-exchange format</string>
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <tabstops>
   <tabstop>filename</tabstop>
   <tabstop>exportPrivate</tabstop>

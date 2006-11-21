@@ -79,6 +79,7 @@ class db_base: public QAbstractItemModel
 	QList<QVariant> headertext;
 	MainWindow *mainwin;
 	XcaTreeView *view;
+	QString class_name;
 
     public:
 	pki_base *rootItem;

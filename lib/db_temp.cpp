@@ -63,6 +63,7 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 	headertext << "Name" << "Type";
 	delete_txt = tr("Delete the Template(s)");
 	view = mw->tempView;
+	class_name = "templates";
 	loadContainer();
 }
 

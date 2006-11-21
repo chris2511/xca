@@ -88,26 +88,34 @@ pki_key *pki_x509super::getRefKey() const
 
 void pki_x509super::setRefKey(pki_key *ref)
 {
-	if (ref == NULL || ref->isPubKey() || privkey != NULL ) return;
+	if (ref == NULL || ref->isPubKey() || privkey != NULL )
+		return;
 	pki_key *mk = getPubKey();
 	if (ref->compare(mk)) {
 		// this is our key
 		privkey = ref;
 		ref->incUcount();
-		//updateView();
 	}
 	delete mk;
 }
 
 void pki_x509super::delRefKey(pki_key *ref)
 {
-	if (ref != privkey || ref == NULL) return;
+	if (ref != privkey || ref == NULL)
+		return;
 	ref->decUcount();
 	privkey = NULL;
-	//updateView();
 }
 
 void pki_x509super::autoIntName()
 {
-	setIntName(getSubject().getEntryByNid(NID_commonName));
+	x509name subject = getSubject();
+	QString s;
+
+	s = subject.getEntryByNid(NID_commonName);
+	if (s.isEmpty())
+		s = subject.getEntryByNid(NID_pkcs9_emailAddress);
+	if (s.isEmpty())
+		s = subject.getEntry(0);
+	setIntName(s);
 }

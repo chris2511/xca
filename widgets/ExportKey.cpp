@@ -72,7 +72,6 @@ ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
 	}
 	else {
 		exportPrivate->setChecked(true);
-		exportFormat->addItem("PKCS#8");
 	}
 	canEncrypt();
 	dirPath = dpath;

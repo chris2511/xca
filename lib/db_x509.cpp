@@ -70,6 +70,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 
 	delete_txt = tr("Delete the certificates(s)");
 	view = mw->certView;
+	class_name = "certificates";
 	loadContainer();
 }
 
@@ -626,6 +627,8 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 void db_x509::store()
 {
 	QStringList filt;
+	bool pkcs8 = false;
+
 	if (!currentIdx.isValid())
 		return;
 
@@ -688,6 +691,8 @@ void db_x509::store()
 		case 10: // P12 + cert chain
 			writePKCS12(crt,fname,true);
 			break;
+		case 12: // Certificate and Key in PKCS8 format
+			pkcs8 = true;
 		case 11: // Certificate and Key in PEM format for apache
 			pki_key *privkey = crt->getRefKey();
 			if (!privkey || privkey->isPubKey()) {
@@ -696,7 +701,11 @@ void db_x509::store()
 					crt->getIntName() );
 				return;
 			}
-			privkey->writeKey(fname, NULL, NULL, true);
+			if (pkcs8) {
+				privkey->writePKCS8(fname, NULL, NULL, true);
+			} else {
+				privkey->writeKey(fname, NULL, NULL, true);
+			}
 			crt->writeCert(fname, true, true);
 		}
 	}

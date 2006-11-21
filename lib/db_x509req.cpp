@@ -65,6 +65,7 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	delete_txt = tr("Delete the request(s)");
 	loadContainer();
 	view = mw->reqView;
+	class_name = "requests";
 }
 
 pki_base *db_x509req::newPKI()

@@ -95,10 +95,7 @@ void MainWindow::load_database()
 	if (fname.isEmpty())
 		return;
 	dbfile = fname;
-	printf("Before close\n");
 	close_database();
-	fprintf(stderr, "Dir: %s, File: %s\n", CCHAR(baseDir),  CCHAR(dbfile));
-	printf("Before init\n");
 	init_database();
 }
 

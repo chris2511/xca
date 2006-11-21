@@ -62,6 +62,7 @@ db_crl::db_crl(QString db, MainWindow *mw)
 	headertext << "Name" << "Common name" << "revoked";
 	delete_txt = tr("Delete the revokation list(s)");
 	view = mw->crlView;
+	class_name = "crls";
 	loadContainer();
 }
 

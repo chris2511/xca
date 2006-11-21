@@ -74,6 +74,7 @@ db_base::db_base(QString db, MainWindow *mw)
 	mainwin = mw;
 	currentIdx = QModelIndex();
 	view = NULL;
+	class_name = "base";
 }
 
 db_base::~db_base()
@@ -336,9 +337,9 @@ void db_base::writeAll(void)
 
 void db_base::dump(QString dirname)
 {
-	dirname += QDir::separator() + dbName;
+	dirname += QDir::separator() + class_name;
 	QDir d(dirname);
-if ( ! d.exists() && !d.mkdir(dirname)) {
+	if ( ! d.exists() && !d.mkdir(dirname)) {
 		throw errorEx("Could not create directory '" + dirname + "'");
 	}
 
