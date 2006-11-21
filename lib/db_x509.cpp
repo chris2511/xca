@@ -390,6 +390,8 @@ void db_x509::newCert(NewX509 *dlg)
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
 	    clientkey = dlg->getSelectedKey();
+		if (!clientkey)
+			return;
 	    subject = dlg->getX509name();
 	    intname = dlg->description->text();
 	}

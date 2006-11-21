@@ -296,7 +296,6 @@ void db_base::inToCont(pki_base *pki)
 
 pki_base *db_base::getByName(QString desc)
 {
-	if (desc == "" ) return NULL;
 	FOR_ALL_pki(pki, pki_base) {
 		if (pki->getIntName() == desc)
 			return pki;

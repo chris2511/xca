@@ -111,5 +111,22 @@
  </widget>
  <pixmapfunction></pixmapfunction>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>butCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>ImportMulti</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>373</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>287</x>
+     <y>358</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
