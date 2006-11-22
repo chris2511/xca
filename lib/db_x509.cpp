@@ -249,9 +249,11 @@ pki_x509 *db_x509::getByIssSerial(const pki_x509 *issuer, const a1int &a)
 
 void db_x509::writeAllCerts(const QString fname, bool onlyTrusted)
 {
+	bool append = false;
 	FOR_ALL_pki(pki, pki_x509) {
 		if (onlyTrusted && pki->getTrust() != 2) continue;
-		pki->writeCert(fname.toAscii(),true,true);
+		pki->writeCert(fname.toAscii(), true, append);
+		append = true;
 	}
 }
 
@@ -627,7 +629,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 void db_x509::store()
 {
 	QStringList filt;
-	bool pkcs8 = false;
+	bool pkcs8 = false, append;
 
 	if (!currentIdx.isValid())
 		return;
@@ -658,8 +660,10 @@ void db_x509::store()
 			crt->writeCert(fname,true,false);
 			break;
 		case 1: // PEM with chain
+			append = false;
 			while(crt && crt != oldcrt) {
-				crt->writeCert(fname,true,true);
+				crt->writeCert(fname, true, append);
+				append = true;
 				oldcrt = crt;
 				crt = crt->getSigner();
 			}
@@ -772,8 +776,8 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
 				if ((type == P7_ALL) || (cer->getTrust() == 2))
 					p7->addCert(cer);
 			}
-		p7->writeP7(s, false);
 		}
+		p7->writeP7(s, false);
     }
     catch (errorEx &err) {
 		MainWindow::Error(err);
@@ -1005,69 +1009,6 @@ void db_x509::toRequest()
 		mainwin->Error(err);
 	}
 }
-
-#if 0
-void db_x509::setSerial()
-{
-	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
-	if (!cert) return;
-	a1int serial = cert->getCaSerial();
-	try {
-		bool ok;
-		QString s = QInputDialog::getText (tr(XCA_TITLE),
-			tr("Please enter the new Serial for signing"),
-			QLineEdit::Normal, serial.toHex(), &ok, this );
-		if (!ok) return;
-		a1int nserial;
-		nserial.setHex(s);
-		if (nserial > serial) {
-			cert->setCaSerial(nserial);
-			updatePKI(cert);
-		}
-	}
-	catch (errorEx &err) {
-		Error(err);
-	}
-}
-
-void db_x509::setCrlDays()
-{
-	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
-	if (!cert) return;
-	int crlDays = cert->getCrlDays();
-	bool ok;
-	int nCrlDays = QInputDialog::getInteger (tr(XCA_TITLE),
-			tr("Please enter the CRL renewal periode in days"),
-			crlDays, 1, 2147483647, 1, &ok, this );
-	if (ok && (crlDays != nCrlDays)) {
-	int crlDays = cert->getCrlDays();
-		cert->setCrlDays(nCrlDays);
-		db->updatePKI(cert);
-	}
-}
-
-void db_x509::setTemplate()
-{
-	pki_x509 *cert = (pki_x509 *)getSelected();
-	if (!cert) return;
-	QString templ = cert->getTemplate();
-	QStringList tempList = MainWindow::temps->getDesc();
-	unsigned int i, sel=0;
-	bool ok;
-	for (i=0; i<tempList.count(); i++) {
-		if (tempList[i] == templ) {
-			sel = i;
-		}
-	}
-	QString nTempl = QInputDialog::getItem (tr(XCA_TITLE),
-			tr("Please select the default Template for signing"),
-			tempList, sel, false, &ok, this );
-	if (ok && (templ != nTempl)) {
-		cert->setTemplate(nTempl);
-		db->updatePKI(cert);
-	}
-}
-#endif
 
 void db_x509::caProperties()
 {

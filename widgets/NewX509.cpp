@@ -114,6 +114,7 @@ NewX509::NewX509(QWidget *parent)
 #ifdef HAS_SHA256
 	hashAlgo->addItem(tr("SHA 256"));
 	hashAlgo->addItem(tr("SHA 512"));
+	hashAlgo->setCurrentIndex(3);
 #endif
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
