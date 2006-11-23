@@ -63,7 +63,7 @@ install: xca
 	  $(MAKE) -C $$d install; \
 	done
 
-xca.app: xca
+xca.app: xca docs
 	rm -rf xca.app
 	mkdir -p xca.app/Contents/MacOS
 	mkdir -p xca.app/Contents/Resources
@@ -77,11 +77,11 @@ xca.dmg: xca.app
 	test -x hdiutil
 	hdiutil create -ov -srcfolder $< $@
 
-setup.exe: xca$(SUFFIX) misc/xca.nsi
+setup.exe: xca$(SUFFIX) misc/xca.nsi docs
 	$(MAKE) -C lang
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) /DOPENSSL=$(OPENSSLDIR_DOS) /DQTDIR=$(QTDIR_DOS) \
-		/DVERSION=$(VERSION) /NOCD misc/xca.nsi
+		/DVERSION=$(VERSION) /NOCD /V2 misc/xca.nsi
 
 .PHONY: $(SUBDIRS) xca.app setup.exe
 

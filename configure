@@ -200,7 +200,6 @@ MAKENSIS=${MAKENSIS:=makensis.exe}
 SUFFIX=${SUFFIX}
 HOST=${HOST}
 prefix=${prefix}
-basedir=${basedir}
 
 EOF
 find_make() {
