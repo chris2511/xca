@@ -194,7 +194,7 @@ void pki_crl::sign(pki_key *key, const EVP_MD *md)
 
 void pki_crl::writeDefault(const QString fname)
 {
-	writeCrl(fname + QDir::separator() + getIntName() + ".crl", true);
+	writeCrl(fname + QDir::separator() + getUnderlinedName() + ".crl", true);
 }
 
 void pki_crl::writeCrl(const QString fname, bool pem)

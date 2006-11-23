@@ -252,7 +252,7 @@ void x509name::write_fp(FILE *fp) const
 	int cnt = entryCount();
 	for (int i=0; i<cnt; i++) {
 		QStringList sl = entryList(i);
-		fprintf(fp, "%s=%s\n",sl[0].data(), sl[2].data());
+		fprintf(fp, "%s=%s\n",CCHAR(sl[0]), CCHAR(sl[2]));
 	}
 }
 

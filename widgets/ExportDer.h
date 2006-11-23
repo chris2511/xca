@@ -46,36 +46,26 @@
  *
  */
 
+#ifndef __EXPORTDER_H
+#define __EXPORTDER_H
 
-#include "db_key.h"
-#include "db_x509super.h"
-#include "pki_temp.h"
-#include "widgets/MainWindow.h"
+#include "ui/ExportDer.h"
 
-#ifndef DB_X509REQ_H
-#define DB_X509REQ_H
-
-
-class db_x509req: public db_x509super
+class ExportDer: public QDialog, public Ui::ExportDer
 {
 	Q_OBJECT
 
-    public:
-	db_x509req(QString DBfile, MainWindow *mw);
-	pki_base* insert(pki_base *item);
-	pki_base *newPKI();
-	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+   private:
+	QString filter;
 
-    public slots:
-	void newItem(pki_temp *temp = NULL);
-	void load();
-	void store();
-	void showItem(QString descr);
-	void showItem(pki_x509req *req);
-	void showItem(const QModelIndex &index);
-	void signReq();
-    signals:
-	void newCert(pki_x509req *req);
+   public:
+	ExportDer(QWidget *parent, QString fname, QString dpath,
+			QString _filter);
+	QString dirPath;
+
+   public slots:
+	void on_fileBut_clicked();
+	void on_exportFormat_activated(int);
 };
 
 #endif

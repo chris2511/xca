@@ -1,16 +1,15 @@
 HOST=w32
 QTDIR=/D/qt/4.2.1
 OPENSSLDIR=/D/openssl-0.9.8d
-MAKENSIS=/D/nsis/makensis.exe
-#CROSS=i586-mingw32msvc-
+MAKENSIS=wine /D/nsis/makensis.exe
+CROSS=i586-mingw32msvc-
 
 QTDIR_DOS=d:\\qt\\4.2.1\\bin
 OPENSSLDIR_DOS=d:\\openssl-0.9.8d
-
+#CONSOLE=-mwindows
+CONSOLE=-mconsole
 CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc
-#CFLAGS=-Wall -g -ggdb -mthreads -mwindows
-CFLAGS=-Wall -g -ggdb -mthreads -mno-cygwin
-#CFLAGS=-Wall -g -ggdb -mthreads -mconsole
+CFLAGS=-Wall -g -ggdb -mthreads -mno-cygwin $(CONSOLE)
 
 LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib \
 	-Wl,-enable-stdcall-fixup -Wl,-enable-auto-import \
@@ -23,15 +22,12 @@ LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32
 # we use the native tools, because they are much faster than the wine's
 #MOC=wine $(QTDIR)/bin/moc
 #UIC=wine $(QTDIR)/bin/uic
+#RCC=wine $(QTDIR)/bin/rcc
 #LRELEASE=wine $(QTDIR)/bin/lrelease
-#MOC=moc-qt4
-#UIC=uic-qt4
-#RCC=rcc
-#LRELEASE=lrelease
-MOC=$(QTDIR)/bin/moc
-UIC=$(QTDIR)/bin/uic
-RCC=$(QTDIR)/bin/rcc
-LRELEASE=$(QTDIR)/bin/lrelease
+MOC=moc-qt4
+UIC=uic-qt4
+RCC=rcc
+LRELEASE=lrelease
 
 CC=$(CROSS)gcc
 LD=$(CROSS)ld

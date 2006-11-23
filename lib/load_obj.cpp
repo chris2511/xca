@@ -190,7 +190,7 @@ pki_base * load_temp::loadItem(QString s)
 load_crl::load_crl()
 	:load_base()
 {
-	filter.prepend(QObject::tr("Revocation lists ( *.pem *.crl )"));
+	filter.prepend(QObject::tr("Revocation lists ( *.pem *.der *.crl )"));
 	caption = QObject::tr("Import Certificate Revocation List");
 }
 

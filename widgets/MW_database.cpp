@@ -357,6 +357,11 @@ void MainWindow::on_BNimportCrl_clicked(void)
 	if (crls)
 		crls->load();
 }
+void MainWindow::on_BNexportCrl_clicked(void)
+{
+	if (crls)
+		crls->storeSelectedItems(crlView);
+}
 void MainWindow::on_BNdetailsCrl_clicked(void)
 {
 	if(crls)

@@ -155,5 +155,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	void on_BNdeleteCrl_clicked(void);
 	void on_BNdetailsCrl_clicked(void);
 	void on_BNimportCrl_clicked(void);
+	void on_BNexportCrl_clicked(void);
 };
 #endif

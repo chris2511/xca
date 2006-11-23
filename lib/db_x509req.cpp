@@ -157,15 +157,36 @@ void db_x509req::showItem(QString descr)
 	showItem(req);
 }
 
-void db_x509req::store(bool pem)
+
+void db_x509req::store()
 {
 	if (!currentIdx.isValid())
 		return;
 
 	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
+	if (!req)
+		return;
 
-	req->writeReq(req->getUnderlinedName(), pem);
+	ExportDer *dlg = new ExportDer(mainwin, req->getUnderlinedName() + ".pem",
+			  mainwin->getPath(), tr("Certificate request ( *.pem *.der *.crl )") );
+	dlg->image->setPixmap(*MainWindow::csrImg);
+	dlg->label->setText(tr("Certificate request export"));
+	int dlgret = dlg->exec();
+
+	if (!dlgret) {
+		delete dlg;
+		return;
+	}
+	mainwin->setPath(dlg->dirPath);
+	QString fname = dlg->filename->text();
+	bool pem = dlg->exportFormat->currentIndex() == 0 ? true : false;
+	delete dlg;
+	if (fname == "") {
+		return;
+	}
+	req->writeReq(fname, pem);
 }
+
 
 void db_x509req::signReq()
 {
@@ -179,7 +200,7 @@ void db_x509req::signReq()
 void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
-	QMenu *subExport;
+	QAction *expItem;
 	currentIdx = index;
 
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
@@ -190,11 +211,9 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
-		subExport = menu->addMenu(tr("Export"));
-		subExport->addAction(tr("PEM"), this, SLOT(store_pem()));
-		subExport->addAction(tr("DER"), this, SLOT(store_der()));
+		expItem = menu->addAction(tr("Export"), this, SLOT(store()));
+		expItem->setEnabled(! req->isSpki());
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-		subExport->setEnabled(! req->isSpki());
 	}
 	menu->exec(e->globalPos());
 	delete menu;

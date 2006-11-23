@@ -651,10 +651,10 @@ void db_x509::store()
 	}
 	mainwin->setPath(dlg->dirPath);
 	QString fname = dlg->filename->text();
-        if (fname == "") {
-                delete dlg;
-                return;
-        }
+	if (fname == "") {
+		delete dlg;
+		return;
+	}
 	try {
 		switch (dlg->exportFormat->currentIndex()) {
 		case 0: // PEM

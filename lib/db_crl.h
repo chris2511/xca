@@ -48,8 +48,10 @@
 
 #include "db_x509.h"
 #include "pki_crl.h"
+#include "widgets/ExportDer.h"
 #include <Qt/qobject.h>
 #include <Qt/qpixmap.h>
+#include <Qt/qevent.h>
 
 #ifndef DB_CRL_H
 #define DB_CRL_H
@@ -68,9 +70,12 @@ class db_crl: public db_base
 	void preprocess();
 	void inToCont(pki_base *pki);
 	pki_base *insert(pki_base *item);
-	void load();
 	void showItem(const QModelIndex &index);
 	pki_crl *newItem(pki_x509 *cert);
+	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+    public slots:
+	void store();
+	void load();
     signals:
 	void updateCertView();
 };

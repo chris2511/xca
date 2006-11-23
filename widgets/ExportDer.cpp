@@ -47,35 +47,60 @@
  */
 
 
-#include "db_key.h"
-#include "db_x509super.h"
-#include "pki_temp.h"
-#include "widgets/MainWindow.h"
+#include "ExportDer.h"
+#include "lib/base.h"
 
-#ifndef DB_X509REQ_H
-#define DB_X509REQ_H
+#include <Qt/qcombobox.h>
+#include <Qt/qlineedit.h>
+#include <Qt/qfiledialog.h>
 
-
-class db_x509req: public db_x509super
+ExportDer::ExportDer(QWidget *parent, QString fname, QString dpath,
+		QString _filter)
+	:QDialog(parent)
 {
-	Q_OBJECT
+	setupUi(this);
+	filename->setText(fname);
+	setWindowTitle(tr(XCA_TITLE));
+	QStringList sl;
+	sl << "PEM" << "DER";
 
-    public:
-	db_x509req(QString DBfile, MainWindow *mw);
-	pki_base* insert(pki_base *item);
-	pki_base *newPKI();
-	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+	exportFormat->addItems(sl);
+	dirPath = dpath;
+	filter = _filter;
+}
 
-    public slots:
-	void newItem(pki_temp *temp = NULL);
-	void load();
-	void store();
-	void showItem(QString descr);
-	void showItem(pki_x509req *req);
-	void showItem(const QModelIndex &index);
-	void signReq();
-    signals:
-	void newCert(pki_x509req *req);
-};
+void ExportDer::on_fileBut_clicked()
+{
+	QStringList filt;
+	filt.append(filter);
+	filt.append(tr("All Files ( *.* )"));
+	QString s = "", fn;
+	QFileDialog *dlg = new QFileDialog(this);
+	dlg->setWindowTitle(tr("Save as"));
+	dlg->setFilters(filt);
+	dlg->setFileMode( QFileDialog::AnyFile );
+	fn = filename->text();
+	fn = fn.mid(fn.lastIndexOf(QDir::separator()) +1, -1);
+	dlg->selectFile( fn );
+	dlg->setDirectory(dirPath);
+	if (dlg->exec())
+		if (!dlg->selectedFiles().isEmpty())
+			s = dlg->selectedFiles()[0];
+	if (! s.isEmpty()) {
+		QDir::convertSeparators(s);
+		filename->setText(s);
+	}
+	dirPath = dlg->directory().path();
+	on_exportFormat_activated(0);
+	delete dlg;
+}
 
-#endif
+void ExportDer::on_exportFormat_activated(int)
+{
+	char *suffix[] = { "pem", "der" };
+	int selected = exportFormat->currentIndex();
+	QString fn = filename->text();
+	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];
+	filename->setText(nfn);
+}
+

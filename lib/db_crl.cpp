@@ -53,6 +53,8 @@
 #include "widgets/MainWindow.h"
 #include "widgets/CrlDetail.h"
 #include <Qt/qmessagebox.h>
+#include <Qt/qevent.h>
+
 
 db_crl::db_crl(QString db, MainWindow *mw)
 	:db_base(db,mw)
@@ -142,6 +144,35 @@ void db_crl::showItem(const QModelIndex &index)
 	}
 }
 
+void db_crl::store()
+{
+	if (!currentIdx.isValid())
+		return;
+
+	pki_crl *crl = static_cast<pki_crl*>(currentIdx.internalPointer());
+	if (!crl)
+		return;
+
+	ExportDer *dlg = new ExportDer(mainwin, crl->getUnderlinedName() + ".pem",
+			  mainwin->getPath(), tr("CRL ( *.pem *.der *.crl )") );
+	dlg->image->setPixmap(*MainWindow::csrImg);
+	dlg->label->setText(tr("Revokation list export"));
+	int dlgret = dlg->exec();
+
+	if (!dlgret) {
+		delete dlg;
+		return;
+	}
+	mainwin->setPath(dlg->dirPath);
+	QString fname = dlg->filename->text();
+	bool pem = dlg->exportFormat->currentIndex() == 0 ? true : false;
+	delete dlg;
+	if (fname == "") {
+		return;
+	}
+	crl->writeCrl(fname, pem);
+}
+
 pki_crl *db_crl::newItem(pki_x509 *cert)
 {
 	if (!cert)
@@ -186,3 +217,19 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 	return crl;
 }
 
+void db_crl::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
+{
+	QMenu *menu = new QMenu(mainwin);
+	currentIdx = index;
+
+	menu->addAction(tr("Import"), this, SLOT(load()));
+	if (index != QModelIndex()) {
+		menu->addAction(tr("Rename"), this, SLOT(edit()));
+		menu->addAction(tr("Export"), this, SLOT(store()));
+		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
+	}
+	menu->exec(e->globalPos());
+	delete menu;
+	currentIdx = QModelIndex();
+	return;
+}
