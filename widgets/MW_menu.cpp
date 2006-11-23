@@ -61,8 +61,6 @@ void MainWindow::init_menu()
 	QMenu *help;
 
 	file = menuBar()->addMenu(tr("&File"));
-	file->addAction(tr("&Open default DataBase"),  this,
-				SLOT(load_def_database()), Qt::CTRL+Qt::Key_O );
 	file->addAction(tr("Open &DataBase"),  this,
 				SLOT(load_database()), Qt::CTRL+Qt::Key_L );
 	file->addAction(tr("&Close DataBase"), this,
@@ -87,7 +85,7 @@ void MainWindow::load_database()
 	dlg->setWindowTitle(l.caption);
 	dlg->setFilters(l.filter);
 	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->setDirectory(baseDir);
+	dlg->setDirectory(workingdir);
 	if (dlg->exec()) {
 		fname = dlg->selectedFiles()[0];
 	}
@@ -97,13 +95,6 @@ void MainWindow::load_database()
 	dbfile = fname;
 	close_database();
 	init_database();
-}
-
-void MainWindow::load_def_database()
-{
-	dbfile = baseDir + QDir::separator() + DBFILE;
-	close_database();
-    init_database();
 }
 
 void MainWindow::import_dbdump()

@@ -248,7 +248,7 @@ void db_key::store()
 
 	pki_key *targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
 
-	QString fn = targetKey->getIntName() + ".pem";
+	QString fn = targetKey->getUnderlinedName() + ".pem";
 
 	ExportKey *dlg = new ExportKey(mainwin, fn,
 			targetKey->isPubKey(), mainwin->getPath() );

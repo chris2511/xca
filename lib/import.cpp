@@ -112,7 +112,7 @@ int read_dump(const char *filename, db_base **dbs, char *md5)
 	int fd, ret, retlen=0;
 	off_t offs;
 	int kv=0;
-	pki_base *pki;
+	pki_base *pki = NULL;
 	db_base *db;
 
 	database = -1;

@@ -82,13 +82,15 @@ void ExportKey::on_fileBut_clicked()
 	QStringList filt;
 	filt.append(tr("RSA Keys ( *.pem *.der *.pk8 )"));
 	filt.append(tr("All Files ( *.* )"));
-	QString s = "";
+	QString s = "", fn;
 	QFileDialog *dlg = new QFileDialog(this);
 	dlg->setWindowTitle(tr("Save RSA key as"));
 	dlg->setFilters(filt);
 	dlg->setFileMode( QFileDialog::AnyFile );
 	dlg->setDirectory(dirPath);
-	dlg->selectFile( filename->text() );
+	fn = filename->text();
+	fn = fn.mid(fn.lastIndexOf(QDir::separator()) +1, -1);
+	dlg->selectFile(fn);
 	if (dlg->exec()) {
 		if (!dlg->selectedFiles().isEmpty())
 			s = dlg->selectedFiles()[0];

@@ -6,10 +6,6 @@ ifneq ($(prefix),)
   CFLAGS+= -DPREFIX=\"$(prefix)\"
 endif
 
-ifneq ($(basedir),)
-  CFLAGS+= -DBASEDIR=\"$(basedir)\"
-endif
-
 ifneq ($(etc),)
   CFLAGS+= -DETC=\"$(etc)\"
 else

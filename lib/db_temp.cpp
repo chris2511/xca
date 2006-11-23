@@ -141,7 +141,7 @@ void db_temp::store()
 	dlg->setWindowTitle(tr("Export Template"));
 	dlg->setFilters(filt);
 	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->selectFile( temp->getIntName() + ".xca" );
+	dlg->selectFile( temp->getUnderlinedName() + ".xca" );
 	dlg->setDirectory(mainwin->getPath());
 	if (dlg->exec()) {
 		if( !dlg->selectedFiles().isEmpty())
@@ -149,6 +149,8 @@ void db_temp::store()
 		mainwin->setPath(dlg->directory().path());
 	}
 	delete dlg;
+	if (s.isEmpty())
+		return;
 	s=QDir::convertSeparators(s);
 	try {
 		temp->writeTemp(s);

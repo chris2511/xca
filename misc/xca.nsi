@@ -59,32 +59,13 @@ Section "xca (required)" SecMain
 
   ; Set output path to the installation directory.
   SetOutPath $INSTDIR
-  ; Put file there
+  ; Put files there
   File "xca.exe"
   File "misc\dn.txt"
   File "misc\eku.txt"
   File "misc\oids.txt"
   File "misc\aia.txt"
   File "lang\*.qm"
-  File "img\bigcert.png"
-  File "img\bigcrl.png"
-  File "img\bigcsr.png"
-  File "img\bigkey.png"
-  File "img\bigtemp.png"
-  File "img\halfkey.png"
-  File "img\invalidcert.png"
-  File "img\invalidcertkey.png"
-  File "img\key.png"
-  File "img\key.ico"
-  File "img\key.xpm"
-  File "img\netscape.png"
-  File "img\req.png"
-  File "img\reqkey.png"
-  File "img\revoked.png"
-  File "img\template.png"
-  File "img\validcert.png"
-  File "img\validcertkey.png"
-  File "img\crl.png"
   File "doc\*.html"
 
   File "${OPENSSL}\libeay32.dll"
@@ -94,7 +75,7 @@ Section "xca (required)" SecMain
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
 
   ; Write the uninstall keys for Windows
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "DisplayName" "X CA (remove only)"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "DisplayName" "XCA (remove only)"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteUninstaller "uninstall.exe"
 SectionEnd
@@ -108,8 +89,6 @@ SectionEnd
 
 ; uninstall stuff
 
-;UninstallText "This will uninstall XCA ${VERSION}. Hit next to continue."
-
 ; special uninstall section.
 Section "Uninstall"
   ; remove registry keys
@@ -118,11 +97,7 @@ Section "Uninstall"
   DeleteRegKey HKCU "SOFTWARE\xca"
   ; remove files
   Delete $INSTDIR\xca.exe
-  Delete $INSTDIR\*.png
   Delete $INSTDIR\*.dll
-  Delete $INSTDIR\*.ico
-  Delete $INSTDIR\*.xpm
-  Delete $INSTDIR\*.log
   Delete $INSTDIR\*.txt
   Delete $INSTDIR\*.qm
   Delete $INSTDIR\*.html

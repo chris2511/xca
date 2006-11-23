@@ -88,7 +88,7 @@ int main( int argc, char *argv[] )
 	a.installTranslator( &qtTr );
 	a.installTranslator( &xcaTr );
 	fprintf(stderr, "Locale: %s\nPrefix:%s\n",
-		locale.data(), getPrefix().data());
+		locale.data(), CCHAR(getPrefix()));
 
 	mw = new MainWindow( NULL);
 	if (mw->exitApp == 0) {

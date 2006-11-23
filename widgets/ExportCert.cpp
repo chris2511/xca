@@ -81,12 +81,14 @@ void ExportCert::on_fileBut_clicked()
 	QStringList filt;
 	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )"));
 	filt.append(tr("All Files ( *.* )"));
-	QString s = "";
+	QString s = "", fn;
 	QFileDialog *dlg = new QFileDialog(this);
 	dlg->setWindowTitle(tr("Save Certificate as"));
 	dlg->setFilters(filt);
 	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->selectFile( filename->text() );
+	fn = filename->text();
+	fn = fn.mid(fn.lastIndexOf(QDir::separator()) +1, -1);
+	dlg->selectFile( fn );
 	dlg->setDirectory(dirPath);
 	if (dlg->exec())
 		if (!dlg->selectedFiles().isEmpty())

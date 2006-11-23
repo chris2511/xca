@@ -98,6 +98,21 @@ void MainWindow::init_database()
 	certView->setModel(certs);
 	tempView->setModel(temps);
 	crlView->setModel(crls);
+
+	try {
+		db mydb(dbfile);
+		char *p;
+		if (!mydb.find(setting, "workingdir")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				workingdir = p;
+				free(p);
+			}
+		}
+	} catch (errorEx &err) {
+		Error(err);
+		return;
+	}
+	setWindowTitle(tr(XCA_TITLE));
 }
 
 void MainWindow::dump_database()

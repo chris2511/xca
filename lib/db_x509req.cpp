@@ -92,7 +92,7 @@ pki_base *db_x509req::insert(pki_base *item)
 
 void db_x509req::newItem(pki_temp *temp)
 {
-	pki_x509req *req;
+	pki_x509req *req = NULL;
 	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
 
@@ -120,7 +120,8 @@ void db_x509req::newItem(pki_temp *temp)
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
-		delete req;
+		if (req)
+			delete req;
 	}
 }
 
@@ -163,7 +164,7 @@ void db_x509req::store(bool pem)
 
 	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 
-	req->writeReq(req->getIntName(), pem);
+	req->writeReq(req->getUnderlinedName(), pem);
 }
 
 void db_x509req::signReq()

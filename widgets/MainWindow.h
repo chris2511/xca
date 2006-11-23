@@ -77,7 +77,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	void init_images();
 	void read_cmdline();
 	void init_menu();
-	void init_baseDir();
 	int force_load;
 	NIDlist *read_nidlist(QString name);
 	QLabel *statusLabel;
@@ -92,7 +91,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
 	static NIDlist *eku_nid, *dn_nid, *aia_nid;
 	int exitApp;
-	QString baseDir, dbfile, dbdir;
+	QString dbfile;
 
 	MainWindow(QWidget *parent);
 	virtual ~MainWindow();
@@ -101,7 +100,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	int initPass();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-//	static NewX509 *newX509();
 	//static void Qt::SocketError(errorEx &err);
 	static void Error(errorEx &err);
 	void cmd_help(const char* msg);
@@ -113,11 +111,9 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
   public slots:
 	void init_database();
 	void load_database();
-	void load_def_database();
 	void close_database();
 	void dump_database();
 	void connNewX509(NewX509 *nx);
-//	void changeView();
 	void about();
 	void help();
 	void import_dbdump();

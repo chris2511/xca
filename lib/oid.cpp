@@ -64,9 +64,12 @@ static void readOIDs(QString fname)
 	FILE *fp;
 	int line = 0;
 	QStringList sl;
-	//fprintf(stderr, "FILE: %s\n", fname.toAscii());
+
+	fprintf(stderr, "Reading OIDS from: %s\n", CCHAR(fname));
 	fp = fopen(fname.toAscii(), "r");
-	if (fp == NULL) return;
+	if (fp == NULL)
+		return;
+
 	while (fgets(buff, 127, fp)) {
 		line++;
 		pb = buff;
@@ -76,30 +79,30 @@ static void readOIDs(QString fname)
 		sl = pb.split(':');
 		if (sl.count() != 3) {
 			QMessageBox::warning(NULL, QString(XCA_TITLE),
-				QString("Error reading config file: ") + fname + " Line: " + QString::number(line) );
+				QString("Error reading config file: ") + fname + " Line: " +
+				QString::number(line) );
+			fclose(fp);
 			return;
 		}
 		else {
 			OBJ_create(sl[0].trimmed().toAscii(),
-			   	sl[1].trimmed().toAscii(),
-			   	sl[2].trimmed().toAscii());
+				sl[1].trimmed().toAscii(),
+				sl[2].trimmed().toAscii());
 		}
 	}
 	fclose(fp);
 }
 
-void initOIDs(QString baseDir)
+void initOIDs()
 {
-	QString oids = QString(QDir::separator());
-	oids += "oids.txt";
+	QString oids = QString(QDir::separator()) + "oids.txt";
 	QString dir = getPrefix();
 
 	readOIDs(dir + oids);
 #ifndef WIN32
-	QString etc = ETC;
-	readOIDs(etc + oids);
+	readOIDs(QString(ETC) + oids);
+	readOIDs(QDir::homePath() + QDir::separator() + ".xca" + oids);
 #endif
-	readOIDs(baseDir + oids);
 }
 
 /* reads a list of OIDs/SNs from a file and turns them into a QValueList

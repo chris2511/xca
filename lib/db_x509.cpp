@@ -556,7 +556,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subExport, *subCa;
-	QAction *itemReq, *itemtca, *itemTemplate, *itemRevoke, *itemExtend,
+	QAction *itemReq, *itemtca, *itemRevoke, *itemExtend,
 			*itemTrust;
 	bool parentCanSign, canSign, hasTemplates, hasPrivkey;
 	currentIdx = index;
@@ -639,7 +639,7 @@ void db_x509::store()
 	if (!crt)
 		return;
 	pki_key *privkey = crt->getRefKey();
-	ExportCert *dlg = new ExportCert(mainwin, crt->getIntName() + ".crt",
+	ExportCert *dlg = new ExportCert(mainwin, crt->getUnderlinedName() + ".crt",
 			  (privkey && privkey->isPrivKey()),
 			  mainwin->getPath(), crt->tinyCAfname() );
 	dlg->image->setPixmap(*MainWindow::certImg);
@@ -649,6 +649,7 @@ void db_x509::store()
 		delete dlg;
 		return;
 	}
+	mainwin->setPath(dlg->dirPath);
 	QString fname = dlg->filename->text();
         if (fname == "") {
                 delete dlg;
@@ -882,7 +883,7 @@ void db_x509::setMultiTrust(QAbstractItemView* view)
 
 void db_x509::setTrust()
 {
-	int state, newstate;
+	int state, newstate = 0;
 	Ui::TrustState ui;
 	printf("Trust UI\n");
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());

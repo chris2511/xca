@@ -135,8 +135,10 @@ void pki_x509req::fload(const QString fname)
 			load_spkac(fname);
 			openssl_error();
 		}
-	} else
+	} else {
 		fopen_error(fname);
+		return;
+	}
 	fclose(fp);
 
 	if( _req ) {

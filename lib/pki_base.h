@@ -84,27 +84,28 @@ class pki_base : public QObject
 	virtual void oldFromData(unsigned char *p, int size);
 	virtual unsigned char *toData(int *size){return NULL;}
 	virtual bool compare(pki_base *ref){return false;}
-	virtual ~pki_base(void);
-        QString getIntName(void) const;
+	virtual ~pki_base();
+        QString getIntName() const;
+	QString getUnderlinedName() const;
         void setIntName(const QString &d);
-	QString getClassName(void);
+	QString getClassName();
 	static QString rmslashdot(const QString &fname);
 	//virtual void updateView();
 
-	int getVersion(void);
-	enum pki_type getType(void);
+	int getVersion();
+	enum pki_type getType();
 	void setParent(pki_base *p);
 	virtual pki_base *getParent();
 	pki_base *child(int row);
 	void append(pki_base *item);
 	void insert(int row, pki_base *item);
-	int childCount(void);
-	int row(void) const;
+	int childCount();
+	int row() const;
 	pki_base *iterate(pki_base *pki = NULL);
 	void takeChild(pki_base *pki);
-	pki_base *takeFirst(void);
+	pki_base *takeFirst();
 	int alphabeticRow(QString name);
-	int columns(void);
+	int columns();
 	virtual QVariant column_data(int col);
 	virtual QVariant getIcon();
 	const char *className() { return class_name; };

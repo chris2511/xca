@@ -64,9 +64,7 @@
 
 QPixmap *loadImg(const char *name )
 {
-	QString path = ":";
-//	path += QDir::separator();
-	return new QPixmap(path + name);
+	return new QPixmap(QString(":") + name);
 }
 
 /* returns e.g. /usr/local/share/xca for unix systems
@@ -76,37 +74,30 @@ QPixmap *loadImg(const char *name )
 
 QString getPrefix()
 {
-
 #ifdef WIN32
-static unsigned char inst_dir[100]="";
-if (inst_dir[0] == '\0') {
-	/* if we already once discovered the directory
-	 * we need not doing it again
-	 */
+	static char inst_dir[100] = "";
+	ULONG dwLength = 100;
 	LONG lRc;
 	HKEY hKey;
-	lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
-	if(lRc!= ERROR_SUCCESS){
-		/* No key error */
-		QMessageBox::warning(NULL,XCA_TITLE,
-			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
-                inst_dir[0] = '\0';
-	}
-	else{
-	ULONG dwLength = 100;
-                lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, inst_dir, &dwLength);
-		if(lRc!= ERROR_SUCCESS){
-			/* No key error */
-	                QMessageBox::warning(NULL, XCA_TITLE,
-			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
-	inst_dir[0] = '\0';
-		}
-	}
-        lRc=RegCloseKey(hKey);
-}
 
-QString ret = (char *)inst_dir;
-return ret;
+	if (inst_dir[0] != '\0') {
+		/* if we already once discovered the directory just return it */
+		return QString(inst_dir);
+	}
+	lRc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0, KEY_READ, &hKey);
+	if (lRc != ERROR_SUCCESS) {
+		QMessageBox::warning(NULL,XCA_TITLE,
+				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
+		return QString(inst_dir);
+	}
+	lRc = RegQueryValueEx(hKey, "Install_Dir", NULL, NULL,
+			(unsigned char *)inst_dir, &dwLength);
+	if (lRc != ERROR_SUCCESS){
+		QMessageBox::warning(NULL, XCA_TITLE, "Registry Key: "
+				"'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
+	}
+	lRc = RegCloseKey(hKey);
+	return QString(inst_dir);
 
 #elif __APPLE_CC__
 	QDir d;
@@ -123,6 +114,7 @@ return ret;
 
 }
 
+#if 0
 /* This function returns the baseDirectory for storing private data.
  * on Unix:		$HOME/xca
  * on WIN 98/ME:	c:\Program Files\xca
@@ -141,94 +133,61 @@ QString getBaseDir()
     HKEY hKey;
 	DWORD dwDisposition;
 	DWORD dwLength = 255;
-    lRc=RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca",0,KEY_READ, &hKey);
-    if(lRc!= ERROR_SUCCESS){
-		QMessageBox::warning(NULL, XCA_TITLE,
-			"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found. ReInstall Xca.");
-		qFatal("Installation problem");
+	BOOL firstrun = false;
+
+	lRc = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\xca", 0, KEY_ALL_ACCESS,
+			&hKey);
+    if (lRc != ERROR_SUCCESS) {
+		// First run for current user
+		RegCloseKey(hKey);
+		RegCreateKeyEx(HKEY_CURRENT_USER, "Software\\xca", 0, NULL,
+				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey,
+				&dwDisposition);
+		firstrun = true;
 	}
-    else {
-		lRc=RegQueryValueEx(hKey,"Install_Dir",NULL,NULL, reg_path_buf, &dwLength);
-        if(lRc!= ERROR_SUCCESS){
-			QMessageBox::warning(NULL, XCA_TITLE,
-				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found. ReInstall Xca.");
-			qFatal("Installation problem");
-		}
-		lRc=RegCloseKey(hKey);
+	dwLength = sizeof(data_path_buf);
+	lRc = RegQueryValueEx(hKey, "data_path", NULL, NULL, (BYTE*)data_path_buf,
+			&dwLength);
+	if ((lRc == ERROR_SUCCESS)) {
+		// We're done, everything is OK
+		return QString::fromLocal8Bit(data_path_buf);
 	}
-	lRc=RegOpenKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,KEY_ALL_ACCESS, &hKey);
-    if(lRc!= ERROR_SUCCESS)
-    {
-		//First run for current user
-		lRc=RegCloseKey(hKey);
-		lRc=RegCreateKeyEx(HKEY_CURRENT_USER,"Software\\xca",0,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,
-		NULL,&hKey, &dwDisposition);
 
-		//setup data dir for current user
-		OSVERSIONINFOEX osvi;
-		BOOL bOsVersionInfoEx;
-		LPITEMIDLIST pidl=NULL;
+	// There was no registry entry -> discover and create it
+	OSVERSIONINFOEX osvi;
+	BOOL bOsVersionInfoEx;
+	LPITEMIDLIST pidl = NULL;
 
-		ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-		osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+	if (!firstrun) {
+		// Strange.. "Software\xca" was there, but no "data_path"
+		QMessageBox::warning(NULL,XCA_TITLE, "Registry Key: "
+				"'HKEY_CURRENT_USER->Software->xca->data_path' not found. "
+				"I will create it for you now.");
+	}
+	// setup data dir for current user
+	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
+	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 
-		if(!(bOsVersionInfoEx=GetVersionEx((OSVERSIONINFO*)&osvi))){
-			osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-			if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) ) return FALSE;
-		}
-		if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
-			if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
-				SHGetPathFromIDList(pidl,data_path_buf);
-				lstrcat(data_path_buf, "\\xca");
-			}
-		}else{
-			strncpy(data_path_buf,(char *)reg_path_buf,255);
-			strcat(data_path_buf,"\\data");
+	if(!(bOsVersionInfoEx=GetVersionEx((OSVERSIONINFO*)&osvi))){
+		osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
+		if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) )
+			return baseDir;
+	}
+	if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
+		// NT, W2K, XP: use "Application Data"
+		if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
+			SHGetPathFromIDList(pidl, data_path_buf);
+			lstrcat(data_path_buf, "\\xca");
 		}
 		baseDir = QString::fromLocal8Bit(data_path_buf);
-		// save in registry
-		lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
-		lRc=RegCloseKey(hKey);
-		QMessageBox::warning(NULL,XCA_TITLE, QString::fromLatin1("New data dir create:")+ baseDir);
-		QMessageBox::warning(NULL,XCA_TITLE, QString::fromLatin1("WARNING: If you have updated your 'xca' application \n you have to copy your 'xca.db' from 'C:\\PROGAM FILES\\XCA\\' to ") + baseDir + QString::fromLatin1(" \n or change HKEY_CURRENT_USER->Software->xca->data_path key"));
-        }
-	else{
-		dwLength = sizeof(data_path_buf);
-		lRc=RegQueryValueEx(hKey,"data_path",NULL,NULL, (BYTE*)data_path_buf, &dwLength);
-		if ((lRc != ERROR_SUCCESS)) {
-			QMessageBox::warning(NULL,XCA_TITLE, "Registry Key: 'HKEY_CURRENT_USER->Software->xca->data_path' not found.");
-			//recreate data dir for current user
-			OSVERSIONINFOEX osvi;
-			BOOL bOsVersionInfoEx;
-			LPITEMIDLIST pidl=NULL;
-
-			ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-			osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-			if(!(bOsVersionInfoEx=GetVersionEx((OSVERSIONINFO*)&osvi))){
-				osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-				if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) ) return FALSE;
-			}
-			if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
-				if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
-					SHGetPathFromIDList(pidl,data_path_buf);
-					lstrcat(data_path_buf, "\\xca");
-				}
-			}else{
-				strncpy(data_path_buf,(char *)reg_path_buf,255);
-				strcat(data_path_buf,"\\data");
-			}
-			baseDir = QString::fromLocal8Bit(data_path_buf);
-			// save in registry
-			lRc=RegSetValueEx(hKey,"data_path",0,REG_SZ,(BYTE*)data_path_buf, 255);
-			lRc=RegCloseKey(hKey);
-			QMessageBox::warning(NULL,XCA_TITLE, QString::fromLatin1("data dir:")+ baseDir);
-		}
-
-		lRc=RegCloseKey(hKey);
-		baseDir = QString::fromLocal8Bit(data_path_buf);
+	} else {
+		// WIN98, ME: use installation dir
+		baseDir = getPrefix() + "\\data";
+		strncpy(data_path_buf, CCHAR(baseDir), 255)
 	}
-//
+	// save in registry
+	RegSetValueEx(hKey,"data_path", 0, REG_SZ, (BYTE*)data_path_buf, 255);
+	RegCloseKey(hKey);
 
 #elif __APPLE_CC__
 	baseDir = getPrefix() + "/xca";
@@ -243,6 +202,8 @@ QString getBaseDir()
 #endif
 	return baseDir;
 }
+#endif
+
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na)
 {

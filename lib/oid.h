@@ -54,7 +54,7 @@ class QString;
 typedef QList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */
 
-void initOIDs(QString baseDir);
+void initOIDs();
 
 /* reads a list of OIDs/SNs from a file and turns them into a QValueList
  * of integers, representing the NIDs. Usually to be used by NewX509 for

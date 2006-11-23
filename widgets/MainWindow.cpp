@@ -94,9 +94,6 @@ MainWindow::MainWindow(QWidget *parent )
 	setWindowTitle(tr(XCA_TITLE));
 	force_load = 0;
 
-	baseDir = getBaseDir();
-	dbfile = baseDir + QDir::separator() + DBFILE;
-
 	setupUi(this);
 
 	init_menu();
@@ -113,70 +110,39 @@ MainWindow::MainWindow(QWidget *parent )
 	OpenSSL_add_all_algorithms();
 
 	read_cmdline();
-	if (exitApp) return;
-
-	init_baseDir();
-
-	try {
-		db mydb(dbfile);
-		char *p;
-		if (!mydb.find(setting, "workingdir")) {
-			if ((p = (char *)mydb.load(NULL))) {
-				workingdir = p;
-				free(p);
-			}
-		}
-	} catch (errorEx &err) {
-		Error(err);
+	if (exitApp)
 		return;
-	}
-	init_database();
+
+	/* read in all our own OIDs */
+	initOIDs();
+
+	eku_nid = read_nidlist("eku.txt");
+	dn_nid = read_nidlist("dn.txt");
+	aia_nid = read_nidlist("aia.txt");
+
+	//init_database();
 }
 
 /* creates a new nid list from the given filename */
 NIDlist *MainWindow::read_nidlist(QString name)
 {
 	NIDlist nl;
-	QString prefix = getPrefix();
 	name = QDir::separator() + name;
 
-	/* first try $HOME/xca/ */
-	nl = readNIDlist(baseDir + name);
-
 #ifndef WIN32
-	if (nl.count() == 0){ /* next is /etx/xca/... */
-		QString unix_etc = ETC;
-		nl = readNIDlist(unix_etc + name);
+	/* first try $HOME/xca/ */
+	nl = readNIDlist(QDir::homePath() + QDir::separator() + ".xca" + name);
+
+	if (nl.count() == 0){
+		/* next is /etx/xca/... */
+		nl = readNIDlist(QString(ETC) + name);
 	}
 #endif
-
-	if (nl.count() == 0) /* look at /usr/(local/)share/xca/ */
-		nl = readNIDlist(prefix + name);
-
-	return new NIDlist(nl);
-}
-
-void MainWindow::init_baseDir()
-{
-	static bool done = false;
-	if (done)
-		return;
-	fprintf(stderr, "base Dir: %s\n", CCHAR(baseDir));
-	QDir d(baseDir);
-	if ( ! d.exists() && !d.mkdir(baseDir)) {
-		QMessageBox::warning(this,tr(XCA_TITLE),
-			QString::fromLatin1("Could not create: ") + baseDir);
-		qFatal("Could not create base dir");
+	if (nl.count() == 0) {
+		/* look at /usr/(local/)share/xca/ */
+		nl = readNIDlist(getPrefix() + name);
 	}
-	done = true;
-
-	/* read in all our own OIDs */
-	initOIDs(baseDir);
-
-	eku_nid = read_nidlist("eku.txt");
-	dn_nid = read_nidlist("dn.txt");
-	aia_nid = read_nidlist("aia.txt");
-
+	return new NIDlist(nl);
 }
 
 void MainWindow::init_images()
@@ -210,7 +176,7 @@ void MainWindow::init_images()
 
 void MainWindow::read_cmdline()
 {
-	int cnt = 1, opt = 0 , type = 1;
+	int cnt = 1, opt = 0;
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;
@@ -220,8 +186,9 @@ void MainWindow::read_cmdline()
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
-			if (lb) delete lb;
-			opt = 1; lb = NULL; type = 1;
+			if (lb)
+				delete lb;
+			opt = 1; lb = NULL;
 			switch (arg[1]) {
 				case 'c' : lb = new load_cert(); break;
 				case 'r' : lb = new load_req(); break;
@@ -230,8 +197,7 @@ void MainWindow::read_cmdline()
 				case '7' : lb = new load_pkcs7(); break;
 				case 'l' : lb = new load_crl(); break;
 				case 't' : lb = new load_temp(); break;
-				case 'd' : type = 1; force_load=1; break;
-				case 'b' : type = 2; break;
+				case 'd' : force_load=1; break;
 				case 'v' : fprintf(stderr, XCA_TITLE " Version " VER "\n");
 						   opt=0; exitApp=1; break;
 				case 'x' : exitApp = 1; opt=0; break;
@@ -257,13 +223,9 @@ void MainWindow::read_cmdline()
 					item = NULL;
 				}
 			}
-		}
-		else {
-			switch (type) {
-				case 1 : dbfile = arg; break;
-				case 2 : baseDir = arg; init_baseDir(); break;
-				default  : cmd_help("I'm puzzled: this should not happen ! " );
-			}
+		} else {
+			dbfile = arg;
+			init_database();
 		}
 
 		cnt++;
