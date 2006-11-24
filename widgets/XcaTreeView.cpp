@@ -59,11 +59,41 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
+	setSortingEnabled(true);
+
+	proxy = new QSortFilterProxyModel(this);
+	proxy->setDynamicSortFilter(true);
+}
+
+XcaTreeView::~XcaTreeView()
+{
+	delete proxy;
 }
 
 void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )
 {
-	db_base *dbb = (db_base*)model();
-	dbb->showContextMenu(e, indexAt(e->pos()));
+	basemodel->showContextMenu(e, getIndex(indexAt(e->pos())));
 }
 
+void XcaTreeView::setModel(QAbstractItemModel *model)
+{
+	basemodel = (db_base *)model;
+	proxy->setSourceModel(model);
+	QTreeView::setModel(proxy);
+}
+
+QModelIndex XcaTreeView::getIndex(const QModelIndex &index)
+{
+	return proxy->mapToSource(index);
+}
+
+QModelIndex XcaTreeView::getProxyIndex(const QModelIndex &index)
+{
+	return proxy->mapFromSource(index);
+}
+
+QModelIndexList XcaTreeView::getSelectedIndexes()
+{
+	QItemSelection indexes = selectionModel()->selection();
+	return proxy->mapSelectionToSource(indexes).indexes();
+}

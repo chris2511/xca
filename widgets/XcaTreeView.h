@@ -50,14 +50,25 @@
 #define _XCATREEVIEW_H
 
 #include <Qt/qtreeview.h>
+#include <Qt/qitemselectionmodel.h>
+#include <Qt/qsortfilterproxymodel.h>
+#include "lib/db_base.h"
 
+class db_base;
 class XcaTreeView: public QTreeView
 {
 	Q_OBJECT
-
+   protected:
+	db_base *basemodel;
+	QSortFilterProxyModel *proxy;
    public:
 	XcaTreeView(QWidget *parent = 0);
+	~XcaTreeView();
 	void contextMenuEvent(QContextMenuEvent * e);
+	void setModel(QAbstractItemModel *model);
+	QModelIndex getIndex(const QModelIndex &index);
+	QModelIndex getProxyIndex(const QModelIndex &index);
+	QModelIndexList getSelectedIndexes();
 };
 
 #endif

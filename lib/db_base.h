@@ -64,6 +64,7 @@
 
 class MainWindow;
 class QContextMenuEvent;
+class XcaTreeView;
 
 class db_base: public QAbstractItemModel
 {
@@ -116,9 +117,9 @@ class db_base: public QAbstractItemModel
 			int role) const;
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	bool setData(const QModelIndex &index, const QVariant &value, int role);
-	void deleteSelectedItems(QAbstractItemView* view);
-	void showSelectedItems(QAbstractItemView *view);
-	void storeSelectedItems(QAbstractItemView *view);
+	void deleteSelectedItems(XcaTreeView* view);
+	void showSelectedItems(XcaTreeView *view);
+	void storeSelectedItems(XcaTreeView *view);
 	void load_default(load_base &load);
 	void insertSortChild(pki_base *parent, pki_base *child);
 	virtual void showItem(const QModelIndex &index) {};

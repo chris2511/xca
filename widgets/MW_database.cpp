@@ -221,31 +221,31 @@ void MainWindow::on_BNexportKey_clicked(void)
 void MainWindow::on_keyView_doubleClicked(const QModelIndex &m)
 {
 	if (keys)
-		keys->showItem(m);
+		keys->showItem(keyView->getIndex(m));
 }
 
 void MainWindow::on_reqView_doubleClicked(const QModelIndex &m)
 {
 	if (reqs)
-		reqs->showItem(m);
+		reqs->showItem(reqView->getIndex(m));
 }
 
 void MainWindow::on_certView_doubleClicked(const QModelIndex &m)
 {
 	if (certs)
-		certs->showItem(m);
+		certs->showItem(certView->getIndex(m));
 }
 
 void MainWindow::on_tempView_doubleClicked(const QModelIndex &m)
 {
 	if (temps)
-		temps->showItem(m);
+		temps->showItem(tempView->getIndex(m));
 }
 
 void MainWindow::on_crlView_doubleClicked(const QModelIndex &m)
 {
 	if (crls)
-		crls->showItem(m);
+		crls->showItem(crlView->getIndex(m));
 }
 
 void MainWindow::on_BNimportPFX_clicked(void)

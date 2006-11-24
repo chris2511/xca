@@ -208,10 +208,9 @@ void db_base::updatePKI(pki_base *pki)
 	}
 }
 
-void db_base::deleteSelectedItems(QAbstractItemView* view)
+void db_base::deleteSelectedItems(XcaTreeView* view)
 {
-	QItemSelectionModel *selectionModel = view->selectionModel();
-	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndexList indexes = view->getSelectedIndexes();
 	QModelIndex index;
 	QString items;
 
@@ -236,10 +235,9 @@ void db_base::deleteSelectedItems(QAbstractItemView* view)
 	currentIdx = QModelIndex();
 }
 
-void db_base::showSelectedItems(QAbstractItemView* view)
+void db_base::showSelectedItems(XcaTreeView* view)
 {
-	QItemSelectionModel *selectionModel = view->selectionModel();
-	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndexList indexes = view->getSelectedIndexes();
 	QModelIndex index;
 	QString items;
 
@@ -252,10 +250,9 @@ void db_base::showSelectedItems(QAbstractItemView* view)
 	currentIdx = QModelIndex();
 }
 
-void db_base::storeSelectedItems(QAbstractItemView* view)
+void db_base::storeSelectedItems(XcaTreeView* view)
 {
-	QItemSelectionModel *selectionModel = view->selectionModel();
-	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndexList indexes = view->getSelectedIndexes();
 	QModelIndex index;
 	QString items;
 
@@ -514,7 +511,7 @@ void db_base::edit()
 {
 	if (!currentIdx.isValid())
 		return;
-	view->edit(currentIdx);
+	view->edit(view->getProxyIndex(currentIdx));
 }
 
 void db_base::showItem()
