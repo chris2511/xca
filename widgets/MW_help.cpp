@@ -116,6 +116,8 @@ void MainWindow::help()
 	Ui::Help ui;
 	ui.setupUi(h);
 	QString path = QString("file://" + getPrefix() + "/xca.html");
+	printf("Help URI = '%s'\n",
+			CCHAR( QString("file://" + getPrefix() + "/xca.html")));
 	ui.textbox->setSource(QUrl(path));
 	h->setWindowTitle(tr(XCA_TITLE));
 	h->exec();

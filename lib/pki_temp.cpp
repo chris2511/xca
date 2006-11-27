@@ -332,6 +332,7 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 {
 	const unsigned char *p1 = p;
 	int type;
+	bool dummy;
 
 	version=intFromData(&p1);
 	type=intFromData(&p1);
@@ -346,10 +347,12 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 	eKeyUseCrit=db::boolFromData(&p1);
 	subKey=db::boolFromData(&p1);
 	authKey=db::boolFromData(&p1);
+	dummy = db::boolFromData(&p1);
+	dummy = db::boolFromData(&p1);
 	if (version >= 2) {
 		ca = intFromData(&p1);
 	}
-	pathLen=intFromData(&p1);
+	pathLen= intFromData(&p1);
 	validN = intFromData(&p1);
 	validM = intFromData(&p1);
 	keyUse=intFromData(&p1);

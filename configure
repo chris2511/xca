@@ -21,7 +21,7 @@
 
 DIRS=""
 HOST=linux
-test cygcheck.exe -V >/dev/null 2>&1 && HOST=w32
+cygcheck.exe -V >/dev/null 2>&1 && HOST=w32
 
 for dir in $@; do
   DIRS="$DIRS `cd $dir; pwd`"

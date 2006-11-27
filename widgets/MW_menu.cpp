@@ -107,16 +107,19 @@ void MainWindow::import_dbdump()
 		return;
 	QStringList filt;
 	QString file, pass;
-	load_db l;
 	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(l.caption);
-	dlg->setFilters(l.filter);
+	dlg->setWindowTitle(tr(XCA_TITLE));
+	dlg->setFilter("Database dump ( *.dump )");
+	dlg->setFilter("All files ( *.* )");
 	dlg->setFileMode( QFileDialog::ExistingFile );
 	dlg->setDirectory(getPath());
 	if (dlg->exec()) {
 		if (!dlg->selectedFiles().isEmpty())
 			file = dlg->selectedFiles()[0];
+	} else {
+		delete dlg;
 	}
+
 	pass_info p(tr("New Password"),
 		tr("Please enter the password of the old database"));
 	if (passRead(buf, 50, 0, &p) <0)
@@ -136,4 +139,5 @@ void MainWindow::import_dbdump()
 	} catch (errorEx &err) {
 		Error(err);
 	}
+	delete dlg;
 }
