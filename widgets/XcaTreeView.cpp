@@ -51,6 +51,7 @@
 #include "lib/db_base.h"
 #include <Qt/qabstractitemmodel.h>
 #include <Qt/qabstractitemview.h>
+#include <Qt/qheaderview.h>
 #include <Qt/qevent.h>
 
 XcaTreeView::XcaTreeView(QWidget *parent)
@@ -59,10 +60,15 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
-	setSortingEnabled(true);
 
 	proxy = new QSortFilterProxyModel(this);
+#if QT_VERSION >= 0x040200
+	setSortingEnabled(true);
 	proxy->setDynamicSortFilter(true);
+#else
+	header()->setClickable(true);
+	header()->setSortIndicatorShown(true);
+#endif
 }
 
 XcaTreeView::~XcaTreeView()
