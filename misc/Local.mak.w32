@@ -1,11 +1,17 @@
 HOST=w32
 QTDIR=/D/qt/4.2.1
 OPENSSLDIR=/D/openssl-0.9.8d
-MAKENSIS=wine /D/nsis/makensis.exe
+MAKENSIS=makensis
 CROSS=i586-mingw32msvc-
 
-QTDIR_DOS=d:\\qt\\4.2.1\\bin
-OPENSSLDIR_DOS=d:\\openssl-0.9.8d
+QTDIR_DOS=$(QTDIR)/bin
+OPENSSLDIR_DOS=$(OPENSSLDIR)
+DBDUMP=/D/db_dump.exe
+
+#QTDIR_DOS=d:\\qt\\4.2.1\\bin
+#OPENSSLDIR_DOS=d:\\openssl-0.9.8d
+#DBDUMP=d:\\db_dump.exe
+
 #CONSOLE=-mwindows
 CONSOLE=-mconsole
 CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc

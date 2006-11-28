@@ -81,8 +81,10 @@ xca.dmg: xca.app
 setup.exe: xca$(SUFFIX) misc/xca.nsi docs
 	$(MAKE) -C lang
 	$(STRIP) xca$(SUFFIX)
-	$(MAKENSIS) /DOPENSSL=$(OPENSSLDIR_DOS) /DQTDIR=$(QTDIR_DOS) \
-		/DVERSION=$(VERSION) /NOCD /V2 misc/xca.nsi
+#	$(MAKENSIS) /DOPENSSL=$(OPENSSLDIR_DOS) /DQTDIR=$(QTDIR_DOS) \
+#		/DVERSION=$(VERSION) /DDBDUMP=$(DBDUMP) /NOCD /V2 misc/xca.nsi
+	$(MAKENSIS) -DOPENSSL=$(OPENSSLDIR_DOS) -DQTDIR=$(QTDIR_DOS) \
+		-DVERSION=$(VERSION) -DDBDUMP=$(DBDUMP) -NOCD -V2 misc/xca.nsi
 
 .PHONY: $(SUBDIRS) xca.app setup.exe
 

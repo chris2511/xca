@@ -91,7 +91,7 @@ Section "Update" SecUpdate
 
   StrCpy $3 ""
   SetOutPath $INSTDIR
-  File "db_dump.exe"
+  File "${DBDUMP}"
   FindFirst $0 $1 $LOCALAPPDATA\*.db
   loop:
     StrCmp $1 "" done
@@ -159,7 +159,7 @@ SectionEnd
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecShortcut)
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecUpdate)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecUpdate} $(DESC_SecUpdate)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 LangString DESC_Donation ${LANG_ENGLISH} \
