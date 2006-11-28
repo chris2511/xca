@@ -54,7 +54,7 @@
 #include "widgets/CrlDetail.h"
 #include <Qt/qmessagebox.h>
 #include <Qt/qevent.h>
-
+#include <ui/NewCrl.h>
 
 db_crl::db_crl(QString db, MainWindow *mw)
 	:db_base(db,mw)
@@ -180,11 +180,41 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 	QList<pki_x509*> list;
 	a1time time;
 	pki_crl *crl = NULL;
+	Ui::NewCrl ui;
+	const EVP_MD *dgst;
+	const EVP_MD *algolist[] = { EVP_md2(), EVP_md5(), EVP_sha1()
+#ifdef HAS_SHA256
+			,EVP_sha256(), EVP_sha512()
+#endif
+	};
 	x509v3ext e;
 	X509V3_CTX ext_ctx;
 	X509V3_set_ctx(&ext_ctx, cert->getCert() , NULL, NULL, NULL, 0);
 	X509V3_set_ctx_nodb((&ext_ctx));
+	QDialog *dlg = new QDialog(mainwin);
+	ui.setupUi(dlg);
+	ui.image->setPixmap(*MainWindow::revImg);
+#ifdef HAS_SHA256
+	ui.hashAlgo->addItem(tr("SHA 256"));
+	ui.hashAlgo->addItem(tr("SHA 512"));
+	ui.hashAlgo->setCurrentIndex(3);
+#endif
+	ui.lastUpdate->setDate(time.now());
+	ui.nextUpdate->setDate(time.now(cert->getCrlDays() *60*60*24));
 
+	if (cert->getRefKey()->getType() == EVP_PKEY_DSA)
+		ui.hashAlgo->setEnabled(false);
+	else
+		ui.hashAlgo->setEnabled(true);
+
+	if (cert->hasExtension(NID_subject_alt_name))
+		ui.subAltName->setEnabled(true);
+	else
+		ui.subAltName->setEnabled(false);
+	if (!dlg->exec()) {
+		delete dlg;
+		return NULL;
+	}
 	try {
 		crl = new pki_crl();
 		crl->createCrl(cert->getIntName(), cert);
@@ -196,16 +226,26 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 			}
 		}
 
-		crl->addV3ext(e.create(NID_authority_key_identifier,
-			"keyid,issuer", &ext_ctx));
-		if (cert->hasExtension(NID_subject_alt_name)) {
-			crl->addV3ext(e.create(NID_issuer_alt_name,
-				"issuer:copy", &ext_ctx));
+		if (ui.authKeyId->isChecked()) {
+			crl->addV3ext(e.create(NID_authority_key_identifier,
+				"keyid,issuer", &ext_ctx));
 		}
-		crl->setLastUpdate(time.now());
-		crl->setNextUpdate(time.now(60*60*24*cert->getCrlDays()));
-		cert->setLastCrl(time);
-		crl->sign(cert->getRefKey(), EVP_sha1());
+		if (ui.subAltName->isChecked()) {
+			if (cert->hasExtension(NID_subject_alt_name)) {
+				crl->addV3ext(e.create(NID_issuer_alt_name,
+					"issuer:copy", &ext_ctx));
+			}
+		}
+
+		crl->setLastUpdate(ui.lastUpdate->getDate());
+		crl->setNextUpdate(ui.nextUpdate->getDate());
+		cert->setLastCrl(ui.nextUpdate->getDate());
+		if (cert->getRefKey()->getType() == EVP_PKEY_DSA)
+			dgst = EVP_dss1();
+		else
+			dgst = algolist[ui.hashAlgo->currentIndex()];
+
+		crl->sign(cert->getRefKey(), dgst);
 		mainwin->certs->updatePKI(cert);
 #warning  FIXME: set Last update
 		insert(crl);

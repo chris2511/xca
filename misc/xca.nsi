@@ -64,12 +64,15 @@ Section "xca (required)" SecMain
   File "misc\eku.txt"
   File "misc\oids.txt"
   File "misc\aia.txt"
-  File "lang\*.qm"
+  File /nonfatal "lang\*.qm"
   File "doc\*.html"
+  File "../mingwm10.dll"
 
   File "${OPENSSL}\libeay32.dll"
   File "${QTDIR}\QtGui4.dll"
   File "${QTDIR}\QtCore4.dll"
+  ; remove old images
+  Delete "$INSTDIR\*.png"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
 
@@ -89,18 +92,24 @@ SectionEnd
 ;----------------------------------------
 Section "Update" SecUpdate
 
-  StrCpy $3 ""
   SetOutPath $INSTDIR
   File "${DBDUMP}"
-  FindFirst $0 $1 $LOCALAPPDATA\*.db
-  loop:
-    StrCmp $1 "" done
-    Exec '"$INSTDIR\db_dump.exe" -f "$LOCALAPPDATA\$1.dump" "$LOCALAPPDATA\$1"'
-    StrCpy $3 "$3 $LOCALAPPDATA\$1.dump\n"
+  FindFirst $0 $1 $APPDATA\xca\*.db
+  loop1:
+    StrCmp $1 "" done1
+    Exec '"$INSTDIR\db_dump.exe" -f "$APPDATA\xca\$1.dump" "$APPDATA\xca\$1"'
+    MessageBox MB_OK "Dumping $APPDATA\xca\$1 to $APPDATA\xca\$1.dump"
     FindNext $0 $1
-    Goto loop
-    MessageBox MB_OK "You can use the Menu entry 'Import old db dump' to import the following dumps: $3"
-  done:
+    Goto loop1
+  done1:
+  FindFirst $0 $1 $INSTDIR\*.db
+  loop2:
+    StrCmp $1 "" done2
+    Exec '"$INSTDIR\db_dump.exe" -f "$INSTDIR\$1.dump" "$INSTDIR\$1"'
+    MessageBox MB_OK "Dumping $INSTDIR\$1 to $INSTDIR\$1.dump"
+    FindNext $0 $1
+    Goto loop2
+  done2:
 SectionEnd
 
 
