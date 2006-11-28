@@ -60,7 +60,6 @@
 #define MAX_KEY_LENGTH 4096
 #define MAX_PASS_LENGTH 40
 
-
 class pki_key: public pki_base
 {
 
@@ -80,6 +79,9 @@ class pki_key: public pki_base
 	static char passwd[MAX_PASS_LENGTH];
 	static char oldpasswd[MAX_PASS_LENGTH];
 	static void erasePasswd();
+	static void eraseOldPasswd();
+	static void setPasswd(const char *pass);
+	static void setOldPasswd(const char *pass);
 	static QString md5passwd(const char *pass,
 			char *md5 = NULL, int *len = NULL);
 	void generate(int bits, int type, QProgressBar *progress);

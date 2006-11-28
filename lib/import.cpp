@@ -105,7 +105,7 @@ static void handle_option(QString opt)
 	}
 }
 
-int read_dump(const char *filename, db_base **dbs, char *md5)
+int read_dump(const char *filename, db_base **dbs, char *md5, int md5_len)
 {
 	char *p;
 	int ret = -1, retlen = 0;
@@ -158,7 +158,7 @@ int read_dump(const char *filename, db_base **dbs, char *md5)
 					if (kv)
 						md5sum = (!strcmp(p, "pwhash")) ? true : false;
 					if (!kv && md5sum) {
-						strncpy(md5, p, 50);
+						strncpy(md5, p, md5_len);
 						ret = 0;
 						break;
 					}

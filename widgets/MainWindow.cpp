@@ -268,7 +268,7 @@ int MainWindow::initPass()
 		}
 	}
 	if (pki_key::passHash.isEmpty()) {
-		int keylen = passWrite((char *)pki_key::passwd, 25, 0, &p);
+		int keylen = passWrite((char *)pki_key::passwd, MAX_PASS_LENGTH-1, 0, &p);
 		if (keylen < 0)
 			return 0;
 		pki_key::passwd[keylen]='\0';
@@ -283,7 +283,7 @@ int MainWindow::initPass()
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database"));
-			keylen = passRead(pki_key::passwd, 25, 0, &p);
+			keylen = passRead(pki_key::passwd, MAX_PASS_LENGTH-1, 0, &p);
 			if (keylen < 0)
 				return 0;
 			pki_key::passwd[keylen]='\0';

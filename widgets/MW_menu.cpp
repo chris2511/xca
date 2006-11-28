@@ -99,7 +99,7 @@ void MainWindow::load_database()
 
 void MainWindow::import_dbdump()
 {
-	extern int read_dump(const char *filename, db_base **dbs, char*buf);
+	extern int read_dump(const char *, db_base **, char *, int);
 	char buf[50];
 
 	db_base *dbl[] = { keys, reqs, certs, temps, crls };
@@ -126,7 +126,7 @@ void MainWindow::import_dbdump()
 		return;
 	pass = buf;
 	try {
-		read_dump(CCHAR(file), dbl, buf);
+		read_dump(CCHAR(file), dbl, buf, 50);
 		//printf("MD5:%s, r:%s\n", CCHAR(pki_key::md5passwd(CCHAR(pass))),buf);
 		if (pki_key::md5passwd(CCHAR(pass)) != buf) {
 			int ret = QMessageBox::warning(this, tr(XCA_TITLE),
@@ -135,8 +135,9 @@ void MainWindow::import_dbdump()
 			if (ret)
 				return;
 		}
-		strncpy(pki_key::oldpasswd, CCHAR(pass), 40);
-		read_dump(CCHAR(file), dbl, NULL);
+		pki_key::setOldPasswd(CCHAR(pass));
+		read_dump(CCHAR(file), dbl, NULL, 0);
+		pki_key::eraseOldPasswd();
 	} catch (errorEx &err) {
 		Error(err);
 	}

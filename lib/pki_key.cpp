@@ -58,15 +58,35 @@
 #include <Qt/qdir.h>
 #include <widgets/MainWindow.h>
 
-char pki_key::passwd[40]={0,};
-char pki_key::oldpasswd[40]={0,};
+char pki_key::passwd[MAX_PASS_LENGTH]={0,};
+char pki_key::oldpasswd[MAX_PASS_LENGTH]={0,};
+
 QString pki_key::passHash = QString();
 
 QPixmap *pki_key::icon[2]= { NULL, NULL };
 
-void pki_key::erasePasswd(){
-	for (int i=0; i<40; i++)
+void pki_key::erasePasswd()
+{
+	for (int i=0; i<MAX_PASS_LENGTH; i++)
 		passwd[i] = 0;
+}
+
+void pki_key::eraseOldPasswd()
+{
+	for (int i=0; i<MAX_PASS_LENGTH; i++)
+		oldpasswd[i] = 0;
+}
+
+void pki_key::setPasswd(const char *pass)
+{
+	strncpy(passwd, pass, MAX_PASS_LENGTH);
+	passwd[MAX_PASS_LENGTH-1] = '\0';
+}
+
+void pki_key::setOldPasswd(const char *pass)
+{
+	strncpy(oldpasswd, pass, MAX_PASS_LENGTH);
+	oldpasswd[MAX_PASS_LENGTH-1] = '\0';
 }
 
 void pki_key::init(int type)
