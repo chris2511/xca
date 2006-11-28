@@ -384,7 +384,7 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 	if (version >= 3) {
 		authInfAcc=db::stringFromData(&p1);
 		certPol=db::stringFromData(&p1);
-		validMidn=db::intFromData(&p1);
+		validMidn=db::boolFromData(&p1);
 	}
 
 	if (p1-p != size) {

@@ -59,7 +59,7 @@
 #include <widgets/MainWindow.h>
 
 char pki_key::passwd[40]={0,};
-char pki_key::oldpasswd[40]={ 'p', 'a', 's', 's', 0,};
+char pki_key::oldpasswd[40]={0,};
 QString pki_key::passHash = QString();
 
 QPixmap *pki_key::icon[2]= { NULL, NULL };

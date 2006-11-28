@@ -33,7 +33,7 @@ if test "$HOST" = "linux"; then
   STDINC="-I/usr/include"
   STDLIB="-L/usr/lib"
   prefix=${prefix:=/usr/local}
-  CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
+  CFLAGS=${CFLAGS:=-Wall -ggdb}
 fi
 if test "$HOST" = "w32"; then
   LIBS="-lQtCore4 -lstdc++ -lqtmain -lws2_32 -lwsock32 -lgdi32"

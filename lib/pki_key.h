@@ -93,7 +93,7 @@ class pki_key: public pki_base
 	/* destructor */
 	~pki_key();
 
-	QString pki_key::getTypeString(void);
+	QString getTypeString(void);
 	QString getIntNameWithType(void);
 	static QString removeTypeFromIntName(QString n);
 	void fload(const QString fname);

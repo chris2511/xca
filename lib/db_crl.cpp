@@ -117,7 +117,7 @@ void db_crl::inToCont(pki_base *pki)
 
 pki_base *db_crl::insert(pki_base *item)
 {
-	pki_crl * crl = (pki_crl *)item;
+	pki_crl *crl = (pki_crl *)item;
 	pki_crl *oldcrl = (pki_crl *)getByReference(crl);
 	if (oldcrl) {
 		QMessageBox::information(NULL, XCA_TITLE,
@@ -190,13 +190,12 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		crl->createCrl(cert->getIntName(), cert);
 
 		list = mainwin->certs->getIssuedCerts(cert);
-		if (!list.isEmpty()) {
-			for (int i =0; i<list.size(); i++) {
-				if (list.at(i)->isRevoked() ) {
-					crl->addRev(list.at(i)->getRev());
-				}
+		for (int i =0; i<list.size(); i++) {
+			if (list.at(i)->isRevoked() ) {
+				crl->addRev(list.at(i)->getRev());
 			}
 		}
+
 		crl->addV3ext(e.create(NID_authority_key_identifier,
 			"keyid,issuer", &ext_ctx));
 		if (cert->hasExtension(NID_subject_alt_name)) {

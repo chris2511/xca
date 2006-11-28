@@ -120,21 +120,22 @@ void MainWindow::import_dbdump()
 		delete dlg;
 	}
 
-	pass_info p(tr("New Password"),
+	pass_info p(tr("Import password"),
 		tr("Please enter the password of the old database"));
 	if (passRead(buf, 50, 0, &p) <0)
 		return;
 	pass = buf;
 	try {
 		read_dump(CCHAR(file), dbl, buf);
-		printf("MD5:%s, r:%s\n", CCHAR(pki_key::md5passwd(CCHAR(pass))),buf);
-		if (pki_key::md5passwd("pass") != buf) {
+		//printf("MD5:%s, r:%s\n", CCHAR(pki_key::md5passwd(CCHAR(pass))),buf);
+		if (pki_key::md5passwd(CCHAR(pass)) != buf) {
 			int ret = QMessageBox::warning(this, tr(XCA_TITLE),
 				tr("Password verification error. Ignore keys ?"),
 				tr("Import anyway"), tr("Cancel"));
 			if (ret)
 				return;
 		}
+		strncpy(pki_key::oldpasswd, CCHAR(pass), 40);
 		read_dump(CCHAR(file), dbl, NULL);
 	} catch (errorEx &err) {
 		Error(err);
