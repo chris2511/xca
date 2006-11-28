@@ -44,15 +44,15 @@ distclean: clean
 
 dist:
 	test ! -z "$(TVERSION)"
-	rm -rf $(TARGET)
-	exit 1
-	git checkout -r $(TAG) -d $(TARGET) xca && \
-	(cd $(TARGET) && \
+	rm -rf /tmp/$(TARGET)
+	cd /tmp && git clone $(TOPDIR) $(TARGET) && \
+	(cd /tmp/$(TARGET) && \
+	git-checkout $(TAG) && \
+	rm -rf /tmp/$(TARGET)/.git && \
 	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
 	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
-	tar zcf $(TARGET).tar.gz $(TARGET) && \
-	(cd $(TARGET) && dpkg-buildpackage -rfakeroot )
-	#rm -rf ../$(TARGET)
+	rm -f /tmp/$(TARGET)/Local.mak
+	cd /tmp && tar zcf $(TARGET).tar.gz $(TARGET)
 
 install: xca
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
