@@ -49,10 +49,9 @@ Section "xca (required)" SecMain
   IfErrors Win9x
   UserInfo::GetAccountType
   Pop $0
-  StrCmp $0 "Admin" 0 +3
+  StrCmp $0 "Admin" 0 Win9x
 	SetShellVarContext all
 	Goto done
-	SetShellVarContext current
   Win9x:
 	SetShellVarContext current
   done:
@@ -80,16 +79,33 @@ Section "xca (required)" SecMain
   WriteUninstaller "uninstall.exe"
 SectionEnd
 
-; optional section
+;----------------------------------------
 Section "Start Menu Shortcuts" SecShortcut
   CreateDirectory "$SMPROGRAMS\xca"
   CreateShortCut "$SMPROGRAMS\xca\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   CreateShortCut "$SMPROGRAMS\xca\xca.lnk" "$INSTDIR\xca.exe" "" "$INSTDIR\xca.exe" 0
 SectionEnd
 
-; uninstall stuff
+;----------------------------------------
+Section "Update" SecUpdate
 
-; special uninstall section.
+  StrCpy $3 ""
+  SetOutPath $INSTDIR
+  File "db_dump.exe"
+  FindFirst $0 $1 $LOCALAPPDATA\*.db
+  loop:
+    StrCmp $1 "" done
+    Exec '"$INSTDIR\db_dump.exe" -f "$LOCALAPPDATA\$1.dump" "$LOCALAPPDATA\$1"'
+    StrCpy $3 "$3 $LOCALAPPDATA\$1.dump\n"
+    FindNext $0 $1
+    Goto loop
+    MessageBox MB_OK "You can use the Menu entry 'Import old db dump' to import the following dumps: $3"
+  done:
+SectionEnd
+
+
+; uninstall stuff
+;----------------------------------------
 Section "Uninstall"
   ; remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\xca"
@@ -132,14 +148,18 @@ SectionEnd
   LangString DESC_SecMain ${LANG_ENGLISH} "XCA main application."
   LangString DESC_SecMain ${LANG_GERMAN} "XCA Applikation."
   LangString DESC_SecShortcut ${LANG_ENGLISH} \
-	  "Shortcuts on the desktop and the menu."
+    "Shortcuts on the desktop and the menu."
   LangString DESC_SecShortcut ${LANG_GERMAN} \
-	  "Programmgruppe auf dem Desktop und im Menu."
-
+    "Programmgruppe auf dem Desktop und im Menu."
+  LangString DESC_SecUpdate ${LANG_GERMAN} \
+    "Exportiert eine alte Datenbank < 0.5.1 in ein ASCII format, das mit dieser Version von XCA importiert werden kann."
+  LangString DESC_SecUpdate ${LANG_ENGLISH} \
+    "Dumps an old database < 0.5.1 into an ASCII format, that can be imported by the current Version of XCA."
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecShortcut)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecUpdate)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 LangString DESC_Donation ${LANG_ENGLISH} \
