@@ -90,6 +90,7 @@ void MainWindow::about()
 	"<p>Copyright 2002 - 2006 by Christian Hohnst&auml;dt\n"
 	"<p>Version : <b>" VER "</b>"
 	"<p>%s<br>QT: %s"
+	"<p>Donations may be send to &lt;christian@hohnstaedt.de&gt;"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"

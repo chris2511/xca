@@ -6,6 +6,7 @@
 TAG=RELEASE.$(TVERSION)
 TARGET=xca-$(TVERSION)
 
+VERSION=$(shell cat $(TOPDIR)/VERSION )
 export TOPDIR=$(shell pwd)
 
 sinclude Local.mak
