@@ -62,7 +62,7 @@ class db_key: public db_base
 {
 	Q_OBJECT
     private:
-	void __setOwnPass(int x);
+	void __setOwnPass(enum pki_key::passType);
     public:
 	db_key(QString db, MainWindow *mw);
 	pki_base *newPKI();

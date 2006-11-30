@@ -60,7 +60,6 @@ pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_pass
 {
 	class_name="pki_pkcs12";
 	key = new pki_key(akey);
-	key->encryptKey();
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
 	passcb = cb;
@@ -115,8 +114,8 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		}
 		if (mykey) {
 			key = new pki_key(mykey);
-			key->encryptKey();
 			key->setIntName(alias + "_key");
+			key->bogusEncryptKey();
 		}
 		PKCS12_free(pkcs12);
 	}
@@ -180,17 +179,14 @@ pki_key *pki_pkcs12::getKey()
 {
 	if (!key)
 		return NULL;
-	pki_key *k = new pki_key(key);
-	k->encryptKey();
-	return k;
+	return  new pki_key(key);
 }
 
 
 pki_x509 *pki_pkcs12::getCert() {
 	if (!cert)
 		return NULL;
-	pki_x509 *c = new pki_x509(cert);
-	return c;
+	return new pki_x509(cert);
 }
 
 pki_x509 *pki_pkcs12::getCa(int x) {

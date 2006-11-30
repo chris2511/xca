@@ -95,9 +95,7 @@ MainWindow::MainWindow(QWidget *parent )
 	force_load = 0;
 
 	setupUi(this);
-
 	init_menu();
-
 	init_images();
 
 #ifdef MDEBUG
@@ -109,18 +107,12 @@ MainWindow::MainWindow(QWidget *parent )
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
-	read_cmdline();
-	if (exitApp)
-		return;
-
 	/* read in all our own OIDs */
 	initOIDs();
 
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
-
-	//init_database();
 }
 
 /* creates a new nid list from the given filename */
@@ -260,7 +252,7 @@ int MainWindow::initPass()
 	pki_key::passHash = QString();
 
 	pass_info p(tr("New Password"),
-		tr("Please enter a password, that will be used to encrypt your private keys in the database-file"));
+		tr("Please enter a password, that will be used to encrypt your private keys in the database-file"), this);
 	if (!mydb.find(setting, "pwhash")) {
 		if ((pass = (char *)mydb.load(NULL))) {
 			pki_key::passHash = pass;
@@ -299,16 +291,13 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
 	Ui::PassRead ui;
-	QDialog *dlg = new QDialog(qApp->activeWindow());
+	QDialog *dlg = new QDialog(p->getWidget());
 	ui.setupUi(dlg);
 	if (p != NULL) {
 		ui.image->setPixmap( *keyImg );
 		ui.description->setText(p->getDescription());
 		dlg->setWindowTitle(p->getTitle());
 	}
-	dlg->show();
-	dlg->activateWindow();
-	ui.pass->setFocus();
 
 	if (dlg->exec()) {
 	   QString x = ui.pass->text();
@@ -325,7 +314,7 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
 	Ui::PassWrite ui;
-	QDialog *dlg = new QDialog(qApp->activeWindow());
+	QDialog *dlg = new QDialog(p->getWidget());
 	ui.setupUi(dlg);
 	if (p != NULL) {
 		ui.image->setPixmap( *keyImg );
@@ -374,20 +363,8 @@ void MainWindow::setPath(QString str)
 
 void MainWindow::connNewX509(NewX509 *nx)
 {
-	printf("CONNECTING NewX509\n");
 	connect( nx, SIGNAL(genKey()), keys, SLOT(newItem()) );
 	connect( keys, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
 	connect( nx, SIGNAL(showReq(QString)), reqs, SLOT(showItem(QString)));
 }
 
-#if 0
-NewX509 *MainWindow::newX509()
-{
-	return new NewX509(NULL, 0, true);
-}
-
-void MainWindow::changeView()
-{
-	certList->changeView(BNviewState);
-}
-#endif

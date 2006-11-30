@@ -97,10 +97,10 @@ void pki_key::init(int type)
 	class_name = "pki_key";
 	encKey = NULL;
 	encKey_len = 0;
-	ownPass = 0;
+	ownPass = ptCommon;
 	dataVersion=1;
 	pkiType=asym_key;
-	cols=4;
+	cols=5;
 }
 
 void pki_key::incProgress(int a, int b, void *progress)
@@ -148,15 +148,17 @@ QString pki_key::removeTypeFromIntName(QString n)
 	return n;
 }
 
-void pki_key::setOwnPass(int x)
+void pki_key::setOwnPass(enum passType x)
 {
 	EVP_PKEY *pk, *pk_back;
-	//printf("Set own pass: %d -> %d\n",ownPass,x);
-	if (x) x=1;
-	if (ownPass == x) return;
+	int oldOwnPass = x;
+
+	if (ownPass == x)
+		return;
 
 	pk = decryptKey();
-	if (pk == NULL) return;
+	if (pk == NULL)
+		return;
 
 	pk_back = key;
 	key = pk;
@@ -167,7 +169,7 @@ void pki_key::setOwnPass(int x)
 	catch (errorEx &err) {
 		EVP_PKEY_free(key);
 		key = pk_back;
-		ownPass ^= 1;
+		ownPass = oldOwnPass;
 		throw(err);
 	}
 	EVP_PKEY_free(pk_back);
@@ -200,13 +202,25 @@ void pki_key::generate(int bits, int type, QProgressBar *progress)
 pki_key::pki_key(const pki_key *pk)
 	:pki_base(pk->desc)
 {
-	init();
+	int keylen;
+	unsigned char *der_key, *p;
+
+	init(pk->key->type);
 	openssl_error();
-	ownPass = 0;
+	ownPass = pk->ownPass;
 	ucount = pk->ucount;
-	EVP_PKEY_free(key);
-	key = pk->decryptKey();
+	encKey_len = pk->encKey_len;
+	if (encKey_len) {
+		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
+		memcpy(encKey, pk->encKey, encKey_len);
+	}
+	keylen = i2d_PublicKey(pk->key, NULL);
+	der_key = (unsigned char *)OPENSSL_malloc(keylen);
+	p = der_key;
+	i2d_PublicKey(pk->key, &p);
+	D2I_CLASHT(d2i_PublicKey, pk->key->type, &key, &der_key, keylen);
 	openssl_error();
+	OPENSSL_free(der_key);
 }
 
 pki_key::pki_key(const QString name, int type )
@@ -259,7 +273,7 @@ void pki_key::fload(const QString fname)
 				EVP_PKEY_free(key);
 			key = pkey;
 			if (priv)
-				encryptKey();
+				bogusEncryptKey();
 			setIntName(rmslashdot(fname));
 		}
 
@@ -310,7 +324,7 @@ EVP_PKEY *pki_key::decryptKey() const
 	char ownPassBuf[MAX_PASS_LENGTH] = "";
 
 	/* This key has its own password */
-	if (ownPass == 1) {
+	if (ownPass == ptPrivate) {
 		int ret;
 		pass_info pi(XCA_TITLE, qApp->translate("MainWindow",
 			"Please enter the password to decrypt the private key: '") +
@@ -318,8 +332,9 @@ EVP_PKEY *pki_key::decryptKey() const
 		ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
 		if (ret < 0)
 			throw errorEx("Password input aborted", class_name);
-	}
-	else {
+	} else if (ownPass == ptBogus) { // BOGUS pass
+		ownPassBuf[0] = '\0';
+	} else {
 		if (md5passwd(passwd) != passHash) {
 			//printf("Orig password: '%s' len:%d\n", passwd, strlen(passwd));
 			while (md5passwd(ownPassBuf) != passHash) {
@@ -399,7 +414,7 @@ void pki_key::encryptKey()
 	char ownPassBuf[MAX_PASS_LENGTH];
 
 	/* This key has its own, private password ? */
-	if (ownPass == 1) {
+	if (ownPass == ptPrivate) {
 		int ret;
 		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 			"Please enter the password to protect the private key: '") +
@@ -407,8 +422,9 @@ void pki_key::encryptKey()
 		ret = MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
 		if (ret < 0)
 			throw errorEx("Password input aborted", class_name);
-	}
-	else {
+	} else if (ownPass == ptBogus) { // BOGUS password
+		ownPassBuf[0] = '\0';
+	} else {
 		if (md5passwd(passwd) != passHash) {
 			int ret = 0;
 			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
@@ -478,7 +494,11 @@ void pki_key::encryptKey()
 	return;
 }
 
-
+void pki_key::bogusEncryptKey()
+{
+	ownPass = ptBogus;
+	encryptKey();
+}
 
 pki_key::~pki_key()
 {
@@ -706,6 +726,8 @@ const EVP_MD *pki_key::getDefaultMD(){
 
 QVariant pki_key::column_data(int col)
 {
+	QStringList sl;
+	sl << tr("Common") << tr("Private") << tr("Bogus");
 	switch (col) {
 		case 0:
 			return QVariant(getIntName());
@@ -715,6 +737,10 @@ QVariant pki_key::column_data(int col)
 			return QVariant(length());
 		case 3:
 			return QVariant(getUcount());
+		case 4:
+			if (ownPass<0 || ownPass>2)
+				return QVariant("Holla die Waldfee");
+			return QVariant(sl[ownPass]);
 	}
 	return QVariant();
 }

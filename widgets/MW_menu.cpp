@@ -121,7 +121,7 @@ void MainWindow::import_dbdump()
 	}
 
 	pass_info p(tr("Import password"),
-		tr("Please enter the password of the old database"));
+		tr("Please enter the password of the old database"), this);
 	if (passRead(buf, 50, 0, &p) <0)
 		return;
 	pass = buf;

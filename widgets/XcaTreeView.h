@@ -69,6 +69,8 @@ class XcaTreeView: public QTreeView
 	QModelIndex getIndex(const QModelIndex &index);
 	QModelIndex getProxyIndex(const QModelIndex &index);
 	QModelIndexList getSelectedIndexes();
+	void columnsResize();
+
 };
 
 #endif

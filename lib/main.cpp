@@ -91,10 +91,12 @@ int main( int argc, char *argv[] )
 		locale.data(), CCHAR(getPrefix()));
 
 	mw = new MainWindow( NULL);
+	mw->show();
+	mw->read_cmdline();
 	if (mw->exitApp == 0) {
-		mw->show();
 		ret = a.exec();
 	}
+
 	delete mw;
 
 	pkictr =  pki_base::get_pki_counter();

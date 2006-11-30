@@ -65,7 +65,7 @@ db_key::db_key(QString db, MainWindow *mw)
 {
 	delete rootItem;
 	rootItem = newPKI();
-	headertext << "Name" << "Type" << "Size" << "Use counter";
+	headertext << "Name" << "Type" << "Size" << "Use" << "Password";
 	delete_txt = tr("Delete the key(s)");
 	view = mw->keyView;
 	loadContainer();
@@ -290,7 +290,7 @@ void db_key::store()
 void db_key::setOwnPass()
 {
 	try {
-		__setOwnPass(1);
+		__setOwnPass(pki_key::ptPrivate);
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);
@@ -300,14 +300,14 @@ void db_key::setOwnPass()
 void db_key::resetOwnPass()
 {
 	try {
-		__setOwnPass(0);
+		__setOwnPass(pki_key::ptCommon);
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
 }
 
-void db_key::__setOwnPass(int x)
+void db_key::__setOwnPass(enum pki_key::passType x)
 {
 	pki_key *targetKey;
 	if (!currentIdx.isValid())

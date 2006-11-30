@@ -48,6 +48,8 @@
 
 #include <Qt/qstring.h>
 #include <Qt/qwidget.h>
+#include <Qt/qapplication.h>
+
 #include "pass_info.h"
 
 pass_info::pass_info(QString t, QString d, QWidget *w)
@@ -55,6 +57,8 @@ pass_info::pass_info(QString t, QString d, QWidget *w)
 	title=t;
 	description=d;
 	widget=w;
+	if (!widget)
+		widget=qApp->activeWindow();
 }
 
 QString pass_info::getTitle()

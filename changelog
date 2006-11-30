@@ -98,7 +98,7 @@ xca 0.4.3
     [ 739726 ] extend description of -p option
     [ 775529 ] Import of PKCS#7 item not shown
   * made the details dialogs internal name read only
-  * some segmentation faults removed 
+  * some segmentation faults removed
   * VPN OIDs added to Ext. Keyusage
 
 xca 0.4.2
@@ -124,7 +124,7 @@ xca 0.4.1
     [ 770120 ] Attempting to export private key results in no file exported
   * implemented feature request:
     [ 755599 ] add PFX import button to Keytab
-  
+
 xca 0.4.0
 
   * Solved bugs:
@@ -172,7 +172,7 @@ xca 0.2.12
   * PKCS#7 encryption and signing of files added
   * First attempt of documentation added
   * Several export targets added
-  * Certificate renewal repaired 
+  * Certificate renewal repaired
 
 xca 0.2.11
 
@@ -226,7 +226,7 @@ xca 0.2.6
 xca 0.2.5
 
   *  Certificate and Template Wizard completed
-  *  CA-serial can be changed and is stored with the cert 
+  *  CA-serial can be changed and is stored with the cert
   *  Passwordboxes set focus right (Andrey Brindeew <abr@abr.pp.ru>)
   *  configure enhanced with  error and success messages
   *  x509 v3 extensions completed inc. Netscape extensions
@@ -256,11 +256,11 @@ xca 0.2.2
   * Signatures can be done with requests and from scratch
   * Certificate for signing can be self or foreign,
   * password is saved as md5sum
-   
+
 xca 0.1.12
 
-  * icons added 
-  * treeview for Certificates 
+  * icons added
+  * treeview for Certificates
   * private keys are triple DES encrypted in db
   * program asks for initial password on startup
   * some segfaulting bugs removed

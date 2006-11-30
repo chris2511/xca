@@ -1,4 +1,7 @@
 <ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow" >
   <property name="geometry" >
@@ -15,7 +18,7 @@
   <widget class="QWidget" name="centralWidget" >
    <layout class="QVBoxLayout" >
     <property name="margin" >
-     <number>8</number>
+     <number>9</number>
     </property>
     <property name="spacing" >
      <number>6</number>
@@ -40,7 +43,7 @@
          <widget class="XcaTreeView" name="keyView" />
         </item>
         <item>
-         <widget class="QFrame" name="Frame4" >
+         <widget class="QFrame" name="keyButtons" >
           <property name="sizePolicy" >
            <sizepolicy>
             <hsizetype>1</hsizetype>
@@ -160,7 +163,7 @@
          <widget class="XcaTreeView" name="reqView" />
         </item>
         <item>
-         <widget class="QFrame" name="Frame6" >
+         <widget class="QFrame" name="reqButtons" >
           <property name="sizePolicy" >
            <sizepolicy>
             <hsizetype>1</hsizetype>
@@ -266,7 +269,7 @@
          <widget class="XcaTreeView" name="certView" />
         </item>
         <item>
-         <widget class="QFrame" name="Frame6_2" >
+         <widget class="QFrame" name="certButtons" >
           <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
@@ -389,7 +392,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QFrame" name="FrameAA" >
+         <widget class="QFrame" name="tempButtons" >
           <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
@@ -478,7 +481,7 @@
        </attribute>
        <layout class="QHBoxLayout" >
         <property name="margin" >
-         <number>8</number>
+         <number>9</number>
         </property>
         <property name="spacing" >
          <number>6</number>
@@ -487,7 +490,7 @@
          <widget class="XcaTreeView" name="crlView" />
         </item>
         <item>
-         <widget class="QFrame" name="FrameAA_2" >
+         <widget class="QFrame" name="crlButtons" >
           <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
@@ -496,11 +499,18 @@
           </property>
           <layout class="QVBoxLayout" >
            <property name="margin" >
-            <number>11</number>
+            <number>9</number>
            </property>
            <property name="spacing" >
             <number>6</number>
            </property>
+           <item>
+            <widget class="QPushButton" name="BNexportCrl" >
+             <property name="text" >
+              <string>&amp;Export</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QPushButton" name="BNimportCrl" >
              <property name="text" >
@@ -561,11 +571,14 @@
    </layout>
   </widget>
  </widget>
+ <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>XcaTreeView</class>
    <extends>QTreeView</extends>
    <header>widgets/XcaTreeView.h</header>
+   <container>0</container>
+   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>

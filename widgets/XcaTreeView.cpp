@@ -86,6 +86,7 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 	basemodel = (db_base *)model;
 	proxy->setSourceModel(model);
 	QTreeView::setModel(proxy);
+	columnsResize();
 }
 
 QModelIndex XcaTreeView::getIndex(const QModelIndex &index)
@@ -102,4 +103,14 @@ QModelIndexList XcaTreeView::getSelectedIndexes()
 {
 	QItemSelection indexes = selectionModel()->selection();
 	return proxy->mapSelectionToSource(indexes).indexes();
+}
+
+void XcaTreeView::columnsResize()
+{
+	int cnt, i;
+	if (basemodel) {
+		cnt = basemodel->columnCount(QModelIndex());
+		for (i=0; i<cnt; i++)
+			resizeColumnToContents(i);
+	}
 }

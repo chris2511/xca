@@ -161,6 +161,7 @@ void ImportMulti::import(QModelIndex &idx)
 		MainWindow::certs->insert(pki);
 	}
 	else if (cn == "pki_key") {
+		((pki_key*)pki)->setOwnPass(pki_key::ptCommon);
 		MainWindow::keys->insert(pki);
 	}
 	else if (cn == "pki_x509req") {

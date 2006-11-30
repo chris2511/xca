@@ -90,14 +90,14 @@ void MainWindow::about()
 	"<p>Copyright 2002 - 2006 by Christian Hohnst&auml;dt\n"
 	"<p>Version : <b>" VER "</b>"
 	"<p>%s<br>QT: %s"
-	"<p>Donations may be send to &lt;christian@hohnstaedt.de&gt;"
+	"<p>Donations are welcome on my PayPal account: &lt;christian@hohnstaedt.de&gt;"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
 	"<tr><th align=left>Kerstin Steinhauff</th><td><u>&lt;tine@kerstine.de&gt;</td></u></tr>"
 	"<tr><td></td><td>Arts and Graphics</td></tr>"
 	"<tr><th align=left>Ilya Kozhevnikov</th><td><u>&lt;ilya@ef.unn.ru&gt;</u></td></tr>"
-	"<tr><td></td><td>Windows binaries and Registry stuff</td></tr>"
+	"<tr><td></td><td>Windows registry stuff</td></tr>"
 	"<tr><th align=left>Wolfgang Glas</th><td><u>&lt;wolfgang.glas@ev-i.at&gt;</u></td></tr>"
 	"<tr><td></td><td>SPKAC support and Testing</td></tr>"
 	"</table><hr><center><u><b>General support</b></u></center>"
@@ -114,11 +114,12 @@ void MainWindow::about()
 void MainWindow::help()
 {
 	QDialog *h = new QDialog(this, 0);
+	QString path;
 	Ui::Help ui;
 	ui.setupUi(h);
-	QString path = QString("file://" + getPrefix() + "/xca.html");
-	printf("Help URI = '%s'\n",
-			CCHAR( QString("file://" + getPrefix() + "/xca.html")));
+
+	path = QString("file://" + getPrefix() + QDir::separator() +"xca.html");
+	printf("Help URI = '%s'\n",	CCHAR(path));
 	ui.textbox->setSource(QUrl(path));
 	h->setWindowTitle(tr(XCA_TITLE));
 	h->exec();

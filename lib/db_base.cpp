@@ -402,12 +402,12 @@ int db_base::rowCount(const QModelIndex &parent) const
 int db_base::columnCount(const QModelIndex &parent) const
 {
 	pki_base *item;
-	if (parent.isValid())
-		item = static_cast<pki_base*>(parent.internalPointer());
-	else
+	if (!parent.isValid()) {
+		if (headertext.count())
+			return headertext.count();
 		item = rootItem;
-
-	//printf("%s columns=%d\n", CCHAR(item->getIntName()), item->columns());
+	}
+	item = static_cast<pki_base*>(parent.internalPointer());
 	return item->columns();
 }
 

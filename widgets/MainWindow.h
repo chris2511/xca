@@ -75,7 +75,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
   protected:
 	void init_images();
-	void read_cmdline();
 	void init_menu();
 	int force_load;
 	NIDlist *read_nidlist(QString name);
@@ -98,6 +97,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	void loadSettings();
 	void saveSettings();
 	int initPass();
+	void read_cmdline();
 	static int passRead(char *buf, int size, int rwflag, void *userdata);
 	static int passWrite(char *buf, int size, int rwflag, void *userdata);
 	//static void Qt::SocketError(errorEx &err);
