@@ -66,13 +66,12 @@ Section "xca (required)" SecMain
   File "misc\aia.txt"
   File /nonfatal "lang\*.qm"
   File "doc\*.html"
-  File "../mingwm10.dll"
+  File "${BDIR}/mingwm10.dll"
 
   File "${OPENSSL}\libeay32.dll"
   File "${QTDIR}\QtGui4.dll"
   File "${QTDIR}\QtCore4.dll"
   ; remove old images
-  Delete "$INSTDIR\*.png"
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
 
@@ -93,7 +92,7 @@ SectionEnd
 Section "Update" SecUpdate
 
   SetOutPath $INSTDIR
-  File "${DBDUMP}"
+  File "${BDIR}/db_dump.exe"
   FindFirst $0 $1 $APPDATA\xca\*.db
   loop1:
     StrCmp $1 "" done1
@@ -126,6 +125,7 @@ Section "Uninstall"
   Delete $INSTDIR\*.txt
   Delete $INSTDIR\*.qm
   Delete $INSTDIR\*.html
+  Delete $INSTDIR\*.png
   ; MUST REMOVE UNINSTALLER, too
   Delete $INSTDIR\uninstall.exe
   RMDir $INSTDIR

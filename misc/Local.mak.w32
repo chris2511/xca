@@ -1,21 +1,16 @@
 HOST=w32
-QTDIR=/D/qt/4.2.1
-OPENSSLDIR=/D/openssl-0.9.8d
+BDIR=/D
+
+QTDIR=$(BDIR)/qt/4.2.1
+OPENSSLDIR=$(BDIR)/openssl-0.9.8d
 MAKENSIS=makensis
 CROSS=i586-mingw32msvc-
 
-QTDIR_DOS=$(QTDIR)/bin
-OPENSSLDIR_DOS=$(OPENSSLDIR)
-DBDUMP=/D/db_dump.exe
+CONSOLE=-mwindows
+#CONSOLE=-mconsole
 
-#QTDIR_DOS=d:\\qt\\4.2.1\\bin
-#OPENSSLDIR_DOS=d:\\openssl-0.9.8d
-#DBDUMP=d:\\db_dump.exe
-
-#CONSOLE=-mwindows
-CONSOLE=-mconsole
 CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc
-CFLAGS=-Wall -g -ggdb -mthreads -mno-cygwin $(CONSOLE)
+CFLAGS=-Wall -g -O2 -mthreads -mno-cygwin $(CONSOLE)
 
 LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib \
 	-Wl,-enable-stdcall-fixup -Wl,-enable-auto-import \
@@ -26,14 +21,18 @@ LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32
 
 # As long as the linux uic and moc are version compatible to the W32 ones
 # we use the native tools, because they are much faster than the wine's
-#MOC=wine $(QTDIR)/bin/moc
-#UIC=wine $(QTDIR)/bin/uic
-#RCC=wine $(QTDIR)/bin/rcc
-#LRELEASE=wine $(QTDIR)/bin/lrelease
+USE_HOSTTOOLS=yes
+ifneq ($(USE_HOSTTOOLS), yes)
+MOC=wine $(QTDIR)/bin/moc
+UIC=wine $(QTDIR)/bin/uic
+RCC=wine $(QTDIR)/bin/rcc
+LRELEASE=wine $(QTDIR)/bin/lrelease
+else
 MOC=moc-qt4
 UIC=uic-qt4
 RCC=rcc
 LRELEASE=lrelease
+endif
 
 CC=$(CROSS)gcc
 LD=$(CROSS)ld
@@ -41,5 +40,5 @@ STRIP=$(CROSS)strip
 WINDRES=$(CROSS)windres
 SUFFIX=.exe
 
-prefix=/usr/local
+prefix=
 basedir=
