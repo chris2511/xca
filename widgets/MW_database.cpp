@@ -56,6 +56,9 @@ void MainWindow::init_database()
 {
 	fprintf(stderr, "Opening database: %s\n", CCHAR(dbfile));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
+
+	certView->setRootIsDecorated(db_x509::treeview);
+
 	try {
 		initPass();
 		keys = new db_key(dbfile, this);
@@ -93,6 +96,13 @@ void MainWindow::init_database()
 		reqs, SLOT(newItem(pki_temp *)) );
 
 	statusBar()->showMessage(tr("Database") + ":" + dbfile);
+
+	keyView->setIconSize(pki_key::icon[0]->size());
+	reqView->setIconSize(pki_x509req::icon[0]->size());
+	certView->setIconSize(pki_x509::icon[0]->size());
+	tempView->setIconSize(pki_temp::icon->size());
+	crlView->setIconSize(pki_crl::icon->size());
+
 	keyView->setModel(keys);
 	reqView->setModel(reqs);
 	certView->setModel(certs);
@@ -323,6 +333,7 @@ void MainWindow::on_BNviewState_clicked(void)
 {
 	if(certs)
 		certs->changeView();
+	 certView->setRootIsDecorated(db_x509::treeview);
 }
 
 /* Template buttons */

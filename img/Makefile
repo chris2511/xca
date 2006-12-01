@@ -17,6 +17,7 @@ all: target.obj
 imgres.cpp: imgres.rcc
 	$(RCC) -o $@ $<
 
+imgres.rcc: bigcert.png bigcrl.png bigcsr.png bigkey.png bigtemp.png crl.png halfkey.png invalidcertkey.png invalidcert.png key.png netscape.png reqkey.png req.png revoked.png spki.png template.png validcertkey.png validcert.png
 w32res.o: w32res.rc
 	$(WINDRES) $< $@
 

@@ -60,6 +60,8 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
+	setRootIsDecorated(false);
+	setUniformRowHeights (true);
 
 	proxy = new QSortFilterProxyModel(this);
 #if QT_VERSION >= 0x040200
@@ -69,6 +71,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	header()->setClickable(true);
 	header()->setSortIndicatorShown(true);
 #endif
+	QSize s = iconSize();
 }
 
 XcaTreeView::~XcaTreeView()

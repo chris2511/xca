@@ -82,7 +82,8 @@ pki_base *db_x509::newPKI(){
 pki_x509 *db_x509::findSigner(pki_x509 *client)
 {
 	pki_x509 *signer;
-	if ((signer = client->getSigner()) != NULL) return signer;
+	if ((signer = client->getSigner()) != NULL)
+		return signer;
 	// first check for self-signed
 	if (client->verify(client)) {
 		return client;
@@ -155,15 +156,16 @@ void db_x509::changeView()
 {
 	pki_base *temproot = new pki_base();
 	int rows = rowCount(QModelIndex());
+
 	beginRemoveRows(QModelIndex(), 0, rows);
 	pki_base *pki = rootItem;
 	pki_base *parent;
-	while(pki && pki->childCount()) {
+	while(pki->childCount()) {
 		pki = pki->takeFirst();
 		while(pki != rootItem && !pki->childCount()) {
 			parent = pki->getParent();
 			temproot->append(pki);
-			printf("Processing %s\n",CCHAR(pki->getIntName()));
+			//printf("Processing %s\n",CCHAR(pki->getIntName()));
 			pki = parent;
 		}
 	}
@@ -175,9 +177,13 @@ void db_x509::changeView()
 	else
 		mainwin->BNviewState->setText(tr("Tree View"));
 
-	printf("ChildCount=%d\n", temproot->childCount());
-	while((temproot->childCount()))
-		inToCont(temproot->takeFirst());
+	//printf("ChildCount=%d\n", temproot->childCount());
+	while ((temproot->childCount())) {
+		pki = temproot->takeFirst();
+		//printf("Inserting %s\n", CCHAR(pki->getIntName()));
+		inToCont(pki);
+	}
+	delete temproot;
 }
 
 void db_x509::calcEffTrust()

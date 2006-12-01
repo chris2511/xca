@@ -450,17 +450,14 @@ Qt::ItemFlags db_base::flags(const QModelIndex &index) const
 
 bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-	const char *n=NULL, *oldn=NULL;
 	QString on, nn;
 	pki_base *item;
 	if (index.isValid() && role == Qt::EditRole) {
 		nn = value.toString();
-		n = CCHAR(nn);
-		printf("New name: '%s', %p, %p\n", n, n, oldn);
 		db mydb(dbName);
 		item = static_cast<pki_base*>(index.internalPointer());
 		on = item->getIntName();
-		printf("New name: '%s', old name: '%s' %p %p\n", n, oldn, n, oldn);
+		printf("New name: '%s', old name: '%s'\n", CCHAR(nn),  CCHAR(on));
 		if (mydb.rename(item->getType(), CCHAR(on), CCHAR(nn)) == 0) {
 			item->setIntName(nn);
 			emit dataChanged(index, index);

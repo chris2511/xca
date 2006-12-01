@@ -66,9 +66,9 @@ class db_x509: public db_x509super
 
 	protected:
 		QPixmap *certicon[4];
-		static bool treeview;
 
     public:
+		static bool treeview;
 		db_x509(QString DBfile, MainWindow *mw);
 		pki_base *newPKI();
 		pki_x509 *findSigner(pki_x509 *client);
