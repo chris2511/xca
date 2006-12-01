@@ -79,6 +79,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		int force_load;
 		NIDlist *read_nidlist(QString name);
 		QLabel *statusLabel;
+		QString homedir;
 
 	public:
 		static db_x509 *certs;

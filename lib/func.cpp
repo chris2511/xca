@@ -204,6 +204,28 @@ QString getBaseDir()
 }
 #endif
 
+QString getHomeDir()
+{
+	QString hd;
+#ifdef WIN32
+	LPITEMIDLIST pidl = NULL;
+	TCHAR buf[255] = "";
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_MYDOCUMENTS, &pidl))) {
+		SHGetPathFromIDList(pidl, buf);
+	}
+	hd = buf;
+#elif __APPLE_CC__
+	hd = getPrefix() + "/xca";
+#else
+#ifdef BASEDIR
+	hd = BASEDIR;
+#else
+	hd = QDir::homePath();
+#endif
+#endif
+	return hd;
+}
+
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na)
 {

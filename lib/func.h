@@ -57,6 +57,7 @@ class Validity;
 QPixmap *loadImg(const char *name);
 QString getPrefix();
 //QString getBaseDir();
+QString getHomeDir();
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na);
 

@@ -97,6 +97,7 @@ MainWindow::MainWindow(QWidget *parent )
 	setupUi(this);
 	init_menu();
 	init_images();
+	homedir = getHomeDir();
 
 #ifdef MDEBUG
 	CRYPTO_malloc_debug_init();

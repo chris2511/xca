@@ -85,9 +85,10 @@ void MainWindow::load_database()
 	dlg->setWindowTitle(l.caption);
 	dlg->setFilters(l.filter);
 	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->setDirectory(workingdir);
+	dlg->setDirectory(homedir);
 	if (dlg->exec()) {
 		fname = dlg->selectedFiles()[0];
+		homedir = dlg->directory().path();
 	}
 	delete dlg;
 	if (fname.isEmpty())
