@@ -65,51 +65,53 @@ class db_x509: public db_x509super
 	Q_OBJECT
 
 	protected:
-	QPixmap *certicon[4];
+		QPixmap *certicon[4];
+		static bool treeview;
 
     public:
-	db_x509(QString DBfile, MainWindow *mw);
-	pki_base *newPKI();
-	pki_x509 *findSigner(pki_x509 *client);
-	bool updateView();
-	void updateViewAll();
-	void updateViewPKI(pki_base *pki);
-	void remFromCont(QModelIndex &idx);
-	void preprocess();
-	QStringList getPrivateDesc();
-	QStringList getSignerDesc();
-	void calcEffTrust();
-	QList<pki_x509*> getIssuedCerts(const pki_x509 *issuer);
-	QList<pki_x509*> getCerts(bool onlyTrusted);
-	a1int searchSerial(pki_x509 *signer);
-	void writeAllCerts(const QString fname, bool onlyTrusted);
-	pki_x509 *getByIssSerial(const pki_x509 *issuer, const a1int &a);
-	pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
-	pki_base *insert(pki_base *item);
-	void newCert(NewX509 *dlg);
-	void writePKCS12(pki_x509 *cert, QString s, bool chain);
-    void writePKCS7(pki_x509 *cert, QString s, int type);
-	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
-	void inToCont(pki_base *pki);
+		db_x509(QString DBfile, MainWindow *mw);
+		pki_base *newPKI();
+		pki_x509 *findSigner(pki_x509 *client);
+		bool updateView();
+		void updateViewAll();
+		void updateViewPKI(pki_base *pki);
+		void remFromCont(QModelIndex &idx);
+		void preprocess();
+		QStringList getPrivateDesc();
+		QStringList getSignerDesc();
+		void calcEffTrust();
+		QList<pki_x509*> getIssuedCerts(const pki_x509 *issuer);
+		QList<pki_x509*> getCerts(bool onlyTrusted);
+		a1int searchSerial(pki_x509 *signer);
+		void writeAllCerts(const QString fname, bool onlyTrusted);
+		pki_x509 *getByIssSerial(const pki_x509 *issuer, const a1int &a);
+		pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
+		pki_base *insert(pki_base *item);
+		void newCert(NewX509 *dlg);
+		void writePKCS12(pki_x509 *cert, QString s, bool chain);
+		void writePKCS7(pki_x509 *cert, QString s, int type);
+		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+		void inToCont(pki_base *pki);
+		void changeView();
 
     public slots:
-	void load(void);
-	void newItem(void);
-	void revokeCert(const x509rev &revok, const pki_x509 *issuer);
-	void store();
-	void showItem(const QModelIndex &index);
-	void setMultiTrust(QAbstractItemView* view);
-	void setTrust();
-	void extendCert();
-	void revoke();
-	void unRevoke();
-	void genCrl();
-	void caProperties();
-	void toRequest();
-	void newCert(pki_temp *);
-	void newCert(pki_x509req *);
-	void loadPKCS12();
-	void loadPKCS7();
+		void load(void);
+		void newItem(void);
+		void revokeCert(const x509rev &revok, const pki_x509 *issuer);
+		void store();
+		void showItem(const QModelIndex &index);
+		void setMultiTrust(QAbstractItemView* view);
+		void setTrust();
+		void extendCert();
+		void revoke();
+		void unRevoke();
+		void genCrl();
+		void caProperties();
+		void toRequest();
+		void newCert(pki_temp *);
+		void newCert(pki_x509req *);
+		void loadPKCS12();
+		void loadPKCS7();
 };
 
 #endif

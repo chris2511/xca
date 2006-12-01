@@ -78,6 +78,8 @@ enum pki_type pki_base::getType()
 
 pki_base::~pki_base(void)
 {
+	while((childCount()))
+			delete takeFirst();
 	pki_counter--;
 }
 
@@ -196,19 +198,6 @@ void pki_base::insert(int row, pki_base *item)
 int pki_base::childCount()
 {
 	return childItems.count();
-}
-
-int pki_base::alphabeticRow(QString name)
-{
-	int i;
-	for (i=0; i< childItems.size(); i++) {
-		//printf("CMP: '%s:%s'\n", CCHAR(childItems.at(i)->getIntName()),
-		//		CCHAR(name));
-		if (childItems.at(i)->getIntName() > name) {
-			break;
-		}
-	}
-	return i;
 }
 
 int pki_base::row(void) const

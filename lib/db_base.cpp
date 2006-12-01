@@ -79,10 +79,10 @@ db_base::db_base(QString db, MainWindow *mw)
 
 db_base::~db_base()
 {
-	FOR_ALL_pki(pki, pki_base) {
-		rootItem->takeChild(pki);
-		delete pki;
-	}
+//	FOR_ALL_pki(pki, pki_base) {
+//		rootItem->takeChild(pki);
+//		delete pki;
+//	}
 	delete rootItem;
 }
 
@@ -270,7 +270,7 @@ void db_base::storeSelectedItems(XcaTreeView* view)
 	currentIdx = QModelIndex();
 }
 
-void db_base::insertSortChild(pki_base *parent, pki_base *child)
+void db_base::insertChild(pki_base *parent, pki_base *child)
 {
 	int row;
 	QModelIndex idx = QModelIndex();
@@ -281,15 +281,14 @@ void db_base::insertSortChild(pki_base *parent, pki_base *child)
 	if (parent != rootItem)
 		idx = index(parent);
 
-	row = parent->alphabeticRow(child->getIntName());
-	beginInsertRows(idx, row, row);
-	parent->insert(row, child);
+	beginInsertRows(idx, 0, 0);
+	parent->append(child);
 	endInsertRows();
 }
 
 void db_base::inToCont(pki_base *pki)
 {
-	insertSortChild(rootItem, pki);
+	insertChild(rootItem, pki);
 }
 
 pki_base *db_base::getByName(QString desc)
@@ -406,8 +405,9 @@ int db_base::columnCount(const QModelIndex &parent) const
 		if (headertext.count())
 			return headertext.count();
 		item = rootItem;
+	} else {
+		item = static_cast<pki_base*>(parent.internalPointer());
 	}
-	item = static_cast<pki_base*>(parent.internalPointer());
 	return item->columns();
 }
 

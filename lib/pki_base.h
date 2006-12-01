@@ -104,7 +104,6 @@ class pki_base : public QObject
 	pki_base *iterate(pki_base *pki = NULL);
 	void takeChild(pki_base *pki);
 	pki_base *takeFirst();
-	int alphabeticRow(QString name);
 	int columns();
 	virtual QVariant column_data(int col);
 	virtual QVariant getIcon();

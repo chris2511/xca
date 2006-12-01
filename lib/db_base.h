@@ -121,7 +121,7 @@ class db_base: public QAbstractItemModel
 	void showSelectedItems(XcaTreeView *view);
 	void storeSelectedItems(XcaTreeView *view);
 	void load_default(load_base &load);
-	void insertSortChild(pki_base *parent, pki_base *child);
+	void insertChild(pki_base *parent, pki_base *child);
 	virtual void showItem(const QModelIndex &index) {};
 
     public slots:

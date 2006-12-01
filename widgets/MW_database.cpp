@@ -319,6 +319,12 @@ void MainWindow::on_BNimportPKCS7_clicked(void)
 		certs->loadPKCS7();
 }
 
+void MainWindow::on_BNviewState_clicked(void)
+{
+	if(certs)
+		certs->changeView();
+}
+
 /* Template buttons */
 void MainWindow::on_BNdeleteTemp_clicked(void)
 {

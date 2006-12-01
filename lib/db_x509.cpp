@@ -59,6 +59,7 @@
 #include <Qt/qevent.h>
 #include <Qt/qaction.h>
 
+bool db_x509::treeview = true;
 
 db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
@@ -135,7 +136,7 @@ void db_x509::remFromCont(QModelIndex &idx)
 		printf("Child: %s\n", CCHAR(child->getIntName()));
 		child->delSigner((pki_x509*)pki);
 		new_parent = findSigner(child);
-		insertSortChild(new_parent, child);
+		insertChild(new_parent, child);
 	}
 	return;
 }
@@ -150,6 +151,34 @@ void db_x509::preprocess()
 
 }
 
+void db_x509::changeView()
+{
+	pki_base *temproot = new pki_base();
+	int rows = rowCount(QModelIndex());
+	beginRemoveRows(QModelIndex(), 0, rows);
+	pki_base *pki = rootItem;
+	pki_base *parent;
+	while(pki && pki->childCount()) {
+		pki = pki->takeFirst();
+		while(pki != rootItem && !pki->childCount()) {
+			parent = pki->getParent();
+			temproot->append(pki);
+			printf("Processing %s\n",CCHAR(pki->getIntName()));
+			pki = parent;
+		}
+	}
+	endRemoveRows();
+
+	treeview = !treeview;
+	if (treeview)
+		mainwin->BNviewState->setText(tr("Plain View"));
+	else
+		mainwin->BNviewState->setText(tr("Tree View"));
+
+	printf("ChildCount=%d\n", temproot->childCount());
+	while((temproot->childCount()))
+		inToCont(temproot->takeFirst());
+}
 
 void db_x509::calcEffTrust()
 {
@@ -157,42 +186,33 @@ void db_x509::calcEffTrust()
 		pki->calcEffTrust();
 }
 
-#if 0
-void db_x509::insertPKI(pki_base *refpki)
-{
-	pki_x509 *x = (pki_x509 *)refpki;
-	findSigner(x); /* sets the signer if found for this cert */
-	FOR_ALL_pki(pki, pki_x509) /* sets this cert as signer the certs */
-		pki->verify(x);
-	db_base::insertPKI(refpki);
-}
-#endif
 void db_x509::inToCont(pki_base *pki)
 {
 	pki_x509 *cert = (pki_x509*)pki;
 
 	findSigner(cert);
 	pki_base *root = cert->getSigner();
-	QModelIndex idx = QModelIndex();
+	if (!treeview)
+		root = rootItem;
 
-	insertSortChild(root, pki);
+	insertChild(root, pki);
+	if (treeview) {
+		/* search for dangling certificates, which signer this is */
+		// printf("New Certificate: %s\n", CCHAR(pki->getIntName()));
+		FOR_ALL_pki(client, pki_x509) {
+			//printf("client %s ?\n", CCHAR(client->getIntName()));
+			if (client->getSigner() == NULL) {
+				//printf("examining client %s\n", CCHAR(client->getIntName()));
+				if (client->verify(cert)) {
+					int row = client->row();
+					// printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
+					beginRemoveRows(QModelIndex(), row, row);
+					rootItem->takeChild(client);
+					endRemoveRows();
 
-	idx = index(pki);
-	/* search for dangling certificates, which signer this is */
-	// printf("New Certificate: %s\n", CCHAR(pki->getIntName()));
-	FOR_ALL_pki(client, pki_x509) {
-		//printf("client %s ?\n", CCHAR(client->getIntName()));
-		if (client->getSigner() == NULL) {
-			//printf("examining client %s\n", CCHAR(client->getIntName()));
-			if (client->verify(cert)) {
-				int row = client->row();
-				// printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
-				beginRemoveRows(QModelIndex(), row, row);
-				rootItem->takeChild(client);
-				endRemoveRows();
-
-				insertSortChild(pki, client);
-				client = (pki_x509*)rootItem->iterate();
+					insertChild(pki, client);
+					client = (pki_x509*)rootItem->iterate();
+				}
 			}
 		}
 	}

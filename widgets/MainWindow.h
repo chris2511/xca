@@ -70,91 +70,92 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 {
 	Q_OBJECT
 
-  private:
-	QString workingdir;
+	private:
+		QString workingdir;
 
-  protected:
-	void init_images();
-	void init_menu();
-	int force_load;
-	NIDlist *read_nidlist(QString name);
-	QLabel *statusLabel;
+	protected:
+		void init_images();
+		void init_menu();
+		int force_load;
+		NIDlist *read_nidlist(QString name);
+		QLabel *statusLabel;
 
-  public:
-	static db_x509 *certs;
-	static db_x509req *reqs;
-	static db_key *keys;
-	static db_temp *temps;
-	static db_crl *crls;
-	static db_base *settings;
-	static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
-	static NIDlist *eku_nid, *dn_nid, *aia_nid;
-	int exitApp;
-	QString dbfile;
+	public:
+		static db_x509 *certs;
+		static db_x509req *reqs;
+		static db_key *keys;
+		static db_temp *temps;
+		static db_crl *crls;
+		static db_base *settings;
+		static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
+		static NIDlist *eku_nid, *dn_nid, *aia_nid;
+		int exitApp;
+		QString dbfile;
 
-	MainWindow(QWidget *parent);
-	virtual ~MainWindow();
-	void loadSettings();
-	void saveSettings();
-	int initPass();
-	void read_cmdline();
-	static int passRead(char *buf, int size, int rwflag, void *userdata);
-	static int passWrite(char *buf, int size, int rwflag, void *userdata);
-	//static void Qt::SocketError(errorEx &err);
-	static void Error(errorEx &err);
-	void cmd_help(const char* msg);
+		MainWindow(QWidget *parent);
+		virtual ~MainWindow();
+		void loadSettings();
+		void saveSettings();
+		int initPass();
+		void read_cmdline();
+		static int passRead(char *buf, int size, int rwflag, void *userdata);
+		static int passWrite(char *buf, int size, int rwflag, void *userdata);
+		//static void Qt::SocketError(errorEx &err);
+		static void Error(errorEx &err);
+		void cmd_help(const char* msg);
 
-	QString getPath();
-	void setPath(QString path);
-	bool mkDir(QString dir);
+		QString getPath();
+		void setPath(QString path);
+		bool mkDir(QString dir);
 
-  public slots:
-	void init_database();
-	void load_database();
-	void close_database();
-	void dump_database();
-	void connNewX509(NewX509 *nx);
-	void about();
-	void help();
-	void import_dbdump();
+	public slots:
+		void init_database();
+		void load_database();
+		void close_database();
+		void dump_database();
+		void connNewX509(NewX509 *nx);
+		void about();
+		void help();
+		void import_dbdump();
 
-  private slots:
-	void on_keyView_doubleClicked(const QModelIndex &m);
-	void on_reqView_doubleClicked(const QModelIndex &m);
-	void on_certView_doubleClicked(const QModelIndex &m);
-	void on_tempView_doubleClicked(const QModelIndex &m);
-	void on_crlView_doubleClicked(const QModelIndex &m);
+	private slots:
+		void on_keyView_doubleClicked(const QModelIndex &m);
+		void on_reqView_doubleClicked(const QModelIndex &m);
+		void on_certView_doubleClicked(const QModelIndex &m);
+		void on_tempView_doubleClicked(const QModelIndex &m);
+		void on_crlView_doubleClicked(const QModelIndex &m);
 
-	void on_BNnewKey_clicked(void);
-	void on_BNdeleteKey_clicked(void);
-	void on_BNdetailsKey_clicked(void);
-	void on_BNimportKey_clicked(void);
-	void on_BNexportKey_clicked(void);
-	void on_BNimportPFX_clicked(void);
+		void on_BNnewKey_clicked(void);
+		void on_BNdeleteKey_clicked(void);
+		void on_BNdetailsKey_clicked(void);
+		void on_BNimportKey_clicked(void);
+		void on_BNexportKey_clicked(void);
+		void on_BNimportPFX_clicked(void);
 
-	void on_BNnewReq_clicked(void);
-	void on_BNdeleteReq_clicked(void);
-	void on_BNdetailsReq_clicked(void);
-	void on_BNimportReq_clicked(void);
-	void on_BNexportReq_clicked(void);
+		void on_BNnewReq_clicked(void);
+		void on_BNdeleteReq_clicked(void);
+		void on_BNdetailsReq_clicked(void);
+		void on_BNimportReq_clicked(void);
+		void on_BNexportReq_clicked(void);
 
-	void on_BNnewCert_clicked(void);
-	void on_BNdeleteCert_clicked(void);
-	void on_BNdetailsCert_clicked(void);
-	void on_BNimportCert_clicked(void);
-	void on_BNexportCert_clicked(void);
-	void on_BNimportPKCS12_clicked(void);
-	void on_BNimportPKCS7_clicked(void);
+		void on_BNnewCert_clicked(void);
+		void on_BNdeleteCert_clicked(void);
+		void on_BNdetailsCert_clicked(void);
+		void on_BNimportCert_clicked(void);
+		void on_BNexportCert_clicked(void);
+		void on_BNimportPKCS12_clicked(void);
+		void on_BNimportPKCS7_clicked(void);
+		void on_BNviewState_clicked(void);
 
-	void on_BNnewTemp_clicked(void);
-	void on_BNdeleteTemp_clicked(void);
-	void on_BNchangeTemp_clicked(void);
-	void on_BNimportTemp_clicked(void);
-	void on_BNexportTemp_clicked(void);
+		void on_BNnewTemp_clicked(void);
+		void on_BNdeleteTemp_clicked(void);
+		void on_BNchangeTemp_clicked(void);
+		void on_BNimportTemp_clicked(void);
+		void on_BNexportTemp_clicked(void);
 
-	void on_BNdeleteCrl_clicked(void);
-	void on_BNdetailsCrl_clicked(void);
-	void on_BNimportCrl_clicked(void);
-	void on_BNexportCrl_clicked(void);
+		void on_BNdeleteCrl_clicked(void);
+		void on_BNdetailsCrl_clicked(void);
+		void on_BNimportCrl_clicked(void);
+		void on_BNexportCrl_clicked(void);
 };
 #endif
