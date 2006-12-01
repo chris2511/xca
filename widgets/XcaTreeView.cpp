@@ -71,7 +71,6 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	header()->setClickable(true);
 	header()->setSortIndicatorShown(true);
 #endif
-	QSize s = iconSize();
 }
 
 XcaTreeView::~XcaTreeView()
