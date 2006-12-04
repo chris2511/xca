@@ -67,6 +67,7 @@ ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
 	exportFormat->addItem("DER");
 	if (onlyPub) {
 		exportPrivate->setDisabled(true);
+		exportPkcs8->setDisabled(true);
 		encryptKey->setDisabled(true);
 	}
 	else {
@@ -102,10 +103,16 @@ void ExportKey::on_fileBut_clicked()
 	delete dlg;
 }
 
+void ExportKey::on_exportPkcs8_stateChanged()
+{
+	canEncrypt();
+}
+
 void ExportKey::canEncrypt()
 {
-	if (exportFormat->currentText() == "DER" &&
-			!exportPkcs8->isChecked())
+	if ((exportFormat->currentText() == "DER" &&
+			!exportPkcs8->isChecked()) ||
+			onlyPub || !exportPrivate->isChecked())
 	{
 		encryptKey->setDisabled(true);
 	} else {
@@ -146,14 +153,11 @@ void ExportKey::on_exportFormat_activated(int c)
 
 void ExportKey::on_exportPrivate_stateChanged()
 {
-	if (exportPrivate->isChecked() &&
-			exportFormat->currentText() != "DER" && !onlyPub)
-	{
-		encryptKey->setEnabled(true);
+	if (exportPrivate->isChecked()) {
 		exportPkcs8->setEnabled(true);
-	}
-	else {
-		encryptKey->setEnabled(false);
+	} else {
 		exportPkcs8->setEnabled(false);
+		exportPkcs8->setChecked(false);
 	}
+	canEncrypt();
 }

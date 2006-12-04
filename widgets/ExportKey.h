@@ -64,5 +64,6 @@ class ExportKey: public QDialog, public Ui::ExportKey
 	void canEncrypt();
 	void on_exportFormat_activated(int);
 	void on_exportPrivate_stateChanged();
+	void on_exportPkcs8_stateChanged();
 };
 #endif
