@@ -11,12 +11,11 @@
                          <!-- nidx means the indexed word is not in output of main text, only in the index -->
 
 This application is intended for creating and managing X.509 certificates
-and RSA keys (DSA keys maybe supported in a later release
-since they are not wideley used in PKI cryptography).
+, private keys RSA and DSA.
 Everything that is needed for a CA is implemented.
 All CAs can sign sub-CAs recursively. These certificate chains are shown clearly in a list-view.
 For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
-All crypto data is stored in a local Berkeley database. 
+All crypto data is stored in a local portable file format.
 </abstract>
 
 
@@ -132,7 +131,7 @@ Kerstin Steinhauff &lt;tine (at) kerstine.de&gt;
         Arts and graphics
 
 Ilya Kozhevnikov &lt;ilya (at) ef.unn.ru&gt;
-        Compiling and testing the WIN32-port
+        Registry stuff for WIN32
 
 Paul Kirner &lt;kirner (at) fhwgt.de&gt;
 	Providing compile and test hardware
@@ -150,6 +149,39 @@ Thank you very much.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
+<sect>Updating from older versions
+<p>
+Older versions of XCA used a Berkely database for storing the crypto items.
+Starting from version 0.6.0 this has changed to a simple file format
+for several reasons:
+<itemize>
+<item>The Berkeley db API was a moving target and every distribution had different versions installed. Handling all versions well ended up in an "ifdef hell"
+where every second build failure was based on a different API in an other db version.
+<item>I do not need the transactions and all usual features of a database,
+since the application handles them in RAM.
+<item>The database got corrupted if a log.0000001 file was deleted.
+<item>copying a database from one place to another was only possible, if
+the log file was also copied. This breaks the approach of having
+one single, simpe file containing the crypto items.
+</itemize>
+<p>
+Since XCA 0.6.0 is not compiled with Berkeley DB support it cannot read old
+file formats. The extension of files has changed from *.db to *.xdb .
+Importing old databases is done by the following steps:
+<itemize>
+<item>Use db_dump of your distribution to dump the database to an ASCII file.
+ (Windows users will find a db_dump.exe in the XCA installation dir).
+ The command is: db_dump -f xca.db.dump xca.db
+<item>Start XCA and open a new database (e.g. xca.xdb). XCA asks for a
+password for this new, empty database.
+<item>Point your mouse to "File->Import old db_dump" and select the file "xca.db.dump"
+<item>XCA now asks for the password of the ORIGINAL database, since the ASCII
+dump still contains the private keys encrypted with the password.
+<item>Enjoy XCA 0.6.0
+</itemize>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
 <sect>Command line options
 <p>
 Usage: <em>xca dbname.db &lt;options&gt;</em>
@@ -164,7 +196,6 @@ Next to the usual X command line options. There are the following
 <item>-7 expect all following non-option arguments to be PKCS#7 files
 <item>-l expect all following non-option arguments to be Revocation lists
 <item>-t expect all following non-option arguments to be Xca templates
-<item>-b set the database base-directory
 <item>-d set the database filename
 <item>-x Exit after processing all command line options
 </itemize>

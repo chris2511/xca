@@ -363,7 +363,23 @@ int db::shrink(int flags)
 	}
 	file.close();
 	// use the global rename()  function and not the method of this class
+#ifdef WIN32
+	// here we try to reimplement the simple "mv" command on unix
+	// atomic renaming fails on WIN32 platforms and
+	// forces us to work with temporary files :-(
+	QString tempn = "$" + name + "orig";
+	unlink(CCHAR(tempn));
+	if (!::rename(CCHAR(name), CCHAR(tempn))) {
+		if (!::rename(CCHAR(filename), CCHAR(name))) {
+			unlink(CCHAR(tempn));
+		} else {
+			::rename(CCHAR(tempn), CCHAR(name));
+			unlink(CCHAR(filename));
+		}
+	}
+#else
 	::rename(CCHAR(filename), CCHAR(name));
+#endif
 	return 0;
 }
 

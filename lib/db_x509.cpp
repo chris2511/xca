@@ -908,7 +908,6 @@ void db_x509::setTrust()
 {
 	int state, newstate = 0;
 	Ui::TrustState ui;
-	printf("Trust UI\n");
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	if (!cert)
 		return;
@@ -1038,7 +1037,6 @@ void db_x509::caProperties()
 {
 	Ui::CaProperties ui;
 	int i;
-	printf("CA Prop UI\n");
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	if (!cert)
 		return;
