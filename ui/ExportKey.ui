@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>419</width>
-    <height>454</height>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -201,19 +201,19 @@ PKCS#8 is an encrypted official Key-exchange format</string>
        <number>6</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="exportPkcs8" >
-        <property name="text" >
-         <string>Export as PKCS#8</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QCheckBox" name="exportPrivate" >
         <property name="toolTip" >
          <string>When exporting the private part, it should be encrypted.</string>
         </property>
         <property name="text" >
          <string>E&amp;xport the private part of the Key too</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="exportPkcs8" >
+        <property name="text" >
+         <string>Export as PKCS#8</string>
         </property>
        </widget>
       </item>

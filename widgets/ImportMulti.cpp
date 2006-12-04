@@ -72,6 +72,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	mcont = new db_base("/dev/null", parent);
 	listView->setModel(mcont);
+	listView->setIconSize(pki_key::icon[0]->size());
 	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(on_butDetails_clicked()));
 

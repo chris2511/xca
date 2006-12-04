@@ -266,17 +266,15 @@ void db_key::store()
 	}
 	try {
 		pem = dlg->exportFormat->currentText() == "PEM" ? true : false;
+		if (dlg->encryptKey->isChecked())
+			enc = EVP_des_ede3_cbc();
 		if (dlg->exportPrivate->isChecked()) {
-			if (dlg->encryptKey->isChecked())
-				enc = EVP_des_ede3_cbc();
-
 			if (dlg->exportPkcs8->isChecked()) {
 				targetKey->writePKCS8(fname, enc, &MainWindow::passWrite, pem);
 			} else {
 				targetKey->writeKey(fname, enc, &MainWindow::passWrite, pem);
 			}
-		}
-		else {
+		} else {
 			targetKey->writePublic(fname, pem);
 		}
 	}

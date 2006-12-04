@@ -66,7 +66,6 @@ ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
 	exportFormat->addItem("PEM");
 	exportFormat->addItem("DER");
 	if (onlyPub) {
-		privFrame->setDisabled(true);
 		exportPrivate->setDisabled(true);
 		encryptKey->setDisabled(true);
 	}
@@ -80,11 +79,11 @@ ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
 void ExportKey::on_fileBut_clicked()
 {
 	QStringList filt;
-	filt.append(tr("RSA Keys ( *.pem *.der *.pk8 )"));
+	filt.append(tr("Private keys ( *.pem *.der *.pk8 )"));
 	filt.append(tr("All Files ( *.* )"));
 	QString s = "", fn;
 	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(tr("Save RSA key as"));
+	dlg->setWindowTitle(tr("Save key as"));
 	dlg->setFilters(filt);
 	dlg->setFileMode( QFileDialog::AnyFile );
 	dlg->setDirectory(dirPath);
@@ -105,15 +104,15 @@ void ExportKey::on_fileBut_clicked()
 
 void ExportKey::canEncrypt()
 {
-	printf("canEncrypt\n");
-	if (exportFormat->currentText() == "PKCS#8") {
-		printf("PKCS#8\n");
-		exportPrivate->setChecked(true);
-		exportPrivate->setDisabled(true);
-		encryptKey->setChecked(true);
+	if (exportFormat->currentText() == "DER" &&
+			!exportPkcs8->isChecked())
+	{
 		encryptKey->setDisabled(true);
+	} else {
+		encryptKey->setEnabled(true);
 	}
-	else if (exportFormat->currentText() == "PEM" && !onlyPub) {
+#if 0
+	if (exportFormat->currentText() == "PEM" && !onlyPub) {
 		printf("PEM\n");
 		exportPrivate->setEnabled(true);
 		on_exportPrivate_stateChanged();
@@ -132,11 +131,12 @@ void ExportKey::canEncrypt()
 		encryptKey->setChecked(false);
 		encryptKey->setDisabled(true);
 	}
+#endif
 }
 
 void ExportKey::on_exportFormat_activated(int c)
 {
-	char *suffix[] = { "pem", "der", "pk8" };
+	char *suffix[] = { "pem", "der" };
 
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[c];
@@ -150,8 +150,10 @@ void ExportKey::on_exportPrivate_stateChanged()
 			exportFormat->currentText() != "DER" && !onlyPub)
 	{
 		encryptKey->setEnabled(true);
+		exportPkcs8->setEnabled(true);
 	}
 	else {
 		encryptKey->setEnabled(false);
+		exportPkcs8->setEnabled(false);
 	}
 }

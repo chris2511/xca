@@ -157,7 +157,7 @@ void db_x509::changeView()
 	pki_base *temproot = new pki_base();
 	int rows = rowCount(QModelIndex());
 
-	beginRemoveRows(QModelIndex(), 0, rows);
+	beginRemoveRows(QModelIndex(), 0, rows -1);
 	pki_base *pki = rootItem;
 	pki_base *parent;
 	while(pki->childCount()) {
