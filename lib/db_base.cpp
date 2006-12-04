@@ -272,7 +272,6 @@ void db_base::storeSelectedItems(XcaTreeView* view)
 
 void db_base::insertChild(pki_base *parent, pki_base *child)
 {
-	int row;
 	QModelIndex idx = QModelIndex();
 
 	if (parent == child || parent == NULL)

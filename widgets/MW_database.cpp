@@ -88,8 +88,6 @@ void MainWindow::init_database()
 
 	connect( reqs, SIGNAL(newCert(pki_x509req *)),
 		certs, SLOT(newCert(pki_x509req *)) );
-	connect( certs, SIGNAL(genCrl(pki_x509 *)),
-		crls, SLOT(newItem(pki_x509 *)) );
 	connect( temps, SIGNAL(newCert(pki_temp *)),
 		certs, SLOT(newCert(pki_temp *)) );
 	connect( temps, SIGNAL(newReq(pki_temp *)),

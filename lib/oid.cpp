@@ -65,7 +65,6 @@ static void readOIDs(QString fname)
 	int line = 0;
 	QStringList sl;
 
-	fprintf(stderr, "Reading OIDS from: %s\n", CCHAR(fname));
 	fp = fopen(fname.toAscii(), "r");
 	if (fp == NULL)
 		return;

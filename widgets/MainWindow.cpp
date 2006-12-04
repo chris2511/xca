@@ -99,6 +99,9 @@ MainWindow::MainWindow(QWidget *parent )
 	init_images();
 	homedir = getHomeDir();
 
+	// FIXME: Change pass isn't functional yet.
+	BNchangePass->setDisabled(true);
+
 #ifdef MDEBUG
 	CRYPTO_malloc_debug_init();
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
@@ -218,6 +221,7 @@ void MainWindow::read_cmdline()
 			}
 		} else {
 			dbfile = arg;
+			homedir = dbfile.left(dbfile.lastIndexOf(QDir::separator()));
 			init_database();
 		}
 

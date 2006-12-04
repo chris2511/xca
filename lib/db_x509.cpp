@@ -582,7 +582,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subExport, *subCa;
-	QAction *itemReq, *itemtca, *itemRevoke, *itemExtend,
+	QAction *itemReq, *itemRevoke, *itemExtend,
 			*itemTrust;
 	bool parentCanSign, canSign, hasTemplates, hasPrivkey;
 	currentIdx = index;
@@ -600,8 +600,6 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subExport->addAction(tr("File"), this, SLOT(store()));
 		itemReq = subExport->addAction(tr("Request"),
 				this, SLOT(toRequest()));
-		itemtca = subExport->addAction(tr("TinyCA"),
-				this, SLOT(toTinyCA()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
@@ -635,7 +633,6 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		itemExtend->setEnabled(parentCanSign);
 		subCa->setEnabled(canSign);
 		itemReq->setEnabled(hasPrivkey);
-		itemtca->setEnabled(canSign);
 #if 0
 		subP7->setEnabled(hasPrivkey);
 #endif
