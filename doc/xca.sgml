@@ -5,7 +5,7 @@
 
 <title>XCA <!-- insert your title here -->
 <author>Christian Hohnst&auml;dt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
-<date>$Date$            <!-- always have a version number and a date -->
+<date>0.6.0 05/12/2006
 <abstract>                          <!-- the abstract: a short and precise description -->
 <nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
                          <!-- nidx means the indexed word is not in output of main text, only in the index -->
@@ -76,7 +76,7 @@ published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 <p>
 <tscreen><verb>
 /*
- * Copyright (C) 2001 Christian Hohnstaedt.
+ * Copyright (C) 2002 - 2006  Christian Hohnstaedt.
  *
  *  All rights reserved.
  *
@@ -180,6 +180,12 @@ dump still contains the private keys encrypted with the password.
 <item>Enjoy XCA 0.6.0
 </itemize>
 
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<sect>Download
+<p>
+The most recent version of XCA can be downloaded from
+<url url="http://sourceforge.net/projects/xca" name="XCA download">
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Command line options
