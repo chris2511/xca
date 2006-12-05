@@ -93,8 +93,8 @@ void MainWindow::load_database()
 	delete dlg;
 	if (fname.isEmpty())
 		return;
-	dbfile = fname;
 	close_database();
+	dbfile = fname;
 	init_database();
 }
 

@@ -117,8 +117,11 @@ void MainWindow::help()
 	QString path;
 	Ui::Help ui;
 	ui.setupUi(h);
-
-	path = QString("file://" + getPrefix() + QDir::separator() +"xca.html");
+	path = "file://";
+#ifdef WIN32
+	path += "/";
+#endif
+	path += getPrefix() + "/xca.html";
 	printf("Help URI = '%s'\n",	CCHAR(path));
 	ui.textbox->setSource(QUrl(path));
 	h->setWindowTitle(tr(XCA_TITLE));

@@ -210,7 +210,9 @@ QString getHomeDir()
 #ifdef WIN32
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
-	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_MYDOCUMENTS, &pidl))) {
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL,
+					CSIDL_DESKTOPDIRECTORY, &pidl)))
+	{
 		SHGetPathFromIDList(pidl, buf);
 	}
 	hd = buf;
