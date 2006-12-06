@@ -314,15 +314,13 @@ int db::erase(void)
 
 int db::shrink(int flags)
 {
-	QFile fdn;
-	int ret;
+	int fdn, ret;
 	uint32_t offs;
 	char buf[BUFSIZ];
 
 	QString filename = name + "{new}";
-	fdn.setFileName(filename);
-
-	if (!fdn.open(QIODevice::ReadWrite)) {
+	fdn = open(CCHAR(filename), O_RDWR | O_CREAT, 0644);
+	if (fdn<0) {
 		fileIOerr("open");
 		return 1;
 	}
@@ -341,7 +339,7 @@ int db::shrink(int flags)
 				break;
 			continue;
 		}
-		ret = fdn.write((char*)&head, sizeof(head));
+		ret = write(fdn, &head, sizeof(head));
 		if (ret<0)
 			break;
 		offs = head_offset;
@@ -349,7 +347,7 @@ int db::shrink(int flags)
 			ret = file.read((char*)buf, (offs > BUFSIZ) ? BUFSIZ : offs);
 			if (ret<=0)
 				break;
-			ret = fdn.write(buf, ret);
+			ret = write(fdn, buf, ret);
 			if (ret<0)
 				break;
 			offs -= ret;
@@ -358,7 +356,7 @@ int db::shrink(int flags)
 			break;
 
 	}
-	fdn.close();
+	close(fdn);
 	if (ret) {
 		unlink(CCHAR(filename));
 		return 1;
@@ -369,7 +367,7 @@ int db::shrink(int flags)
 	// here we try to reimplement the simple "mv" command on unix
 	// atomic renaming fails on WIN32 platforms and
 	// forces us to work with temporary files :-(
-	QString tempn = name + ".orig";
+	QString tempn = "$" + name + "orig";
 	unlink(CCHAR(tempn));
 	if (!::rename(CCHAR(name), CCHAR(tempn))) {
 		if (!::rename(CCHAR(filename), CCHAR(name))) {
@@ -378,10 +376,7 @@ int db::shrink(int flags)
 			::rename(CCHAR(tempn), CCHAR(name));
 			unlink(CCHAR(filename));
 		}
-	} else {
-		unlink(CCHAR(filename));
 	}
-
 #else
 	::rename(CCHAR(filename), CCHAR(name));
 #endif

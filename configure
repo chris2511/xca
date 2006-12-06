@@ -88,10 +88,10 @@ search_includes() {
   for dir in ${DIRS};  do
     for dbn in "" ${subdirs}; do
       for include in outinc include; do
-        if test -r ${dir}/${include}${dbn}/$1; then
+        if test -r "${dir}/${include}${dbn}/$1"; then
           add_include ${dir}/${include}${dbn}
 	  test -z "${dbn}" || add_include ${dir}/${include}
-          echo Found:  $1 at ${dir}/${include}${dbn}
+          echo "Found: $1 at ${dir}/${include}${dbn}"
           return 0
         fi
       done
@@ -106,9 +106,9 @@ search_lib() {
     for dbn in $@; do
       for suffix in so dylib obj a; do
         for lib in lib out; do
-          if test -r ${dir}/${lib}/lib${dbn}.${suffix}; then
-            add_lib ${dir}/${lib} ${dbn} ${suffix};
-	    echo Found: lib${dbn}.${suffix} at ${dir}/${lib}
+          if test -r "${dir}/${lib}/lib${dbn}.${suffix}"; then
+            add_lib "${dir}/${lib}" "${dbn}" "${suffix}"
+	    echo "Found: lib${dbn}.${suffix} at ${dir}/${lib}"
             return 0
 	  fi
 	done
@@ -138,7 +138,7 @@ cat >conftest.c <<EOF
 #include <openssl/opensslv.h>
 #include <Qt/qglobal.h>
 
-main(){
+int main(){
   printf("\nThe Versions of the used libraries are:\n\t%s\n\tQT: %s\n",
 	 OPENSSL_VERSION_TEXT, QT_VERSION_STR );
   if (QT_VERSION < 0x040001) {
@@ -149,14 +149,15 @@ main(){
 }
 EOF
 
-if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX} &>conftest.log ; then
+echo "${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX}" >conftest.log
+if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX} >> conftest.log 2>&1; then
   ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest conftest.log
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi
 
 findapp() {
-  for app in `which $@ 2>/dev/null`; do
+  for app in "`which $@ 2>/dev/null`"; do
     if test -x "$app"; then
       echo "$app"
       break
@@ -168,6 +169,7 @@ if test "$HOST" = "w32"; then
   LIBS="-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32"
   SLIBS=""
 fi
+
 MOC=`findapp $QTDIR/bin/moc moc4 moc-qt4 moc`
 UIC=`findapp $QTDIR/bin/uic uic4 uic-qt4 uic`
 RCC=`findapp $QTDIR/bin/rcc rcc4 rcc-qt4 rcc`
@@ -205,8 +207,8 @@ EOF
 find_make() {
   for dirs in /usr/local/bin /sw/bin /bin /usr/bin; do
     for make in gmake make; do
-      if ${dirs}/${make} -v 2>/dev/null | grep GNU; then
-	mak=${dirs}/${make}
+      if "${dirs}/${make}" -v 2>/dev/null | grep GNU; then
+	mak="${dirs}/${make}"
 	return
       fi
     done
@@ -217,14 +219,14 @@ find_make
 
 echo
 if test ! -z "${mak}"; then
-  echo A usable "make" executable was found in ${mak}
+  echo "A usable 'make' executable was found in ${mak}"
 else
-  echo No usable "make" executable found.
+  echo "No usable 'make' executable found."
 fi
 echo
 
 if test "x${err_occ}" = "xY"; then
   echo
-  echo An error occured. Please edit 'Local.mak' manually if compiling fails.
+  echo "An error occured. Please edit 'Local.mak' manually if compiling fails."
 fi
 
