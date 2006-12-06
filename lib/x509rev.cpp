@@ -50,16 +50,14 @@
 #include "x509rev.h"
 
 #if OPENSSL_VERSION_NUMBER >= 0x00908000L
-#define X509_REVOKED_dup(x5r) (X509_REVOKED *)ASN1_dup( \
-		(int (*)(void*,unsigned char**))i2d_X509_REVOKED, \
-		(void *(*)(void**, const unsigned char**, long int))d2i_X509_REVOKED, \
-		(char *)x5r)
+#define X509_REVOKED_dup(x5r) \
+	ASN1_dup_of (X509_REVOKED, i2d_X509_REVOKED, d2i_X509_REVOKED, x5r)
 
 #else
 #define X509_REVOKED_dup(x5r) (X509_REVOKED *)ASN1_dup( \
-		(int (*)())i2d_X509_REVOKED, \
-		(char *(*)())d2i_X509_REVOKED, \
-		(char *)x5r)
+	(int (*)())i2d_X509_REVOKED, \
+	(char *(*)())d2i_X509_REVOKED, \
+	(char *)x5r)
 #endif
 
 x509rev::x509rev()
