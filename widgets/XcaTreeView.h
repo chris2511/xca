@@ -73,4 +73,19 @@ class XcaTreeView: public QTreeView
 
 };
 
+class CertTreeView: public XcaTreeView
+{
+   public:
+	CertTreeView(QWidget *parent = 0);
+};
+
+class XcaProxyModel: public QSortFilterProxyModel
+{
+	Q_OBJECT
+   public:
+	XcaProxyModel(QWidget *parent = 0);
+	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+};
+
+
 #endif

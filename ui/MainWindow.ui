@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow" >
   <property name="geometry" >
@@ -26,7 +23,7 @@
     <item>
      <widget class="QTabWidget" name="tabView" >
       <property name="currentIndex" >
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="RSATab" >
        <attribute name="title" >
@@ -266,7 +263,7 @@
          <number>6</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="certView" />
+         <widget class="CertTreeView" name="certView" />
         </item>
         <item>
          <widget class="QFrame" name="certButtons" >
@@ -571,14 +568,16 @@
    </layout>
   </widget>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>XcaTreeView</class>
    <extends>QTreeView</extends>
    <header>widgets/XcaTreeView.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
+  </customwidget>
+  <customwidget>
+   <class>CertTreeView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/XcaTreeView.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

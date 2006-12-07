@@ -363,13 +363,23 @@ void db_x509::loadPKCS7()
 	load_default(l);
 }
 
+pki_x509 *db_x509::get1SelectedCert()
+{
+	QModelIndexList indexes = mainwin->certView->getSelectedIndexes();
+	QModelIndex index;
+	if (indexes.count())
+		index = indexes[0];
+	if (index == QModelIndex())
+		return NULL;
+	return static_cast<pki_x509*>(index.internalPointer());
+}
 
 void db_x509::newItem()
 {
 	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
 	dlg->setCert();
-	pki_x509 *sigcert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	pki_x509 *sigcert = get1SelectedCert();
 	dlg->defineSigner((pki_x509*)sigcert);
 	if (dlg->exec()) {
 		newCert(dlg);
@@ -381,7 +391,7 @@ void db_x509::newCert(pki_x509req *req)
 {
 	NewX509 *dlg = new NewX509(mainwin);
 	emit connNewX509(dlg);
-	pki_x509 *sigcert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	pki_x509 *sigcert = get1SelectedCert();
 	dlg->setCert();
 	dlg->defineRequest(req);
 	dlg->defineSigner(sigcert);

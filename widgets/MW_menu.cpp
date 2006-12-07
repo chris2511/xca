@@ -57,8 +57,7 @@
 
 void MainWindow::init_menu()
 {
-	QMenu *file;
-	QMenu *help;
+	QMenu *file, *help, *import;
 
 	file = menuBar()->addMenu(tr("&File"));
 	file->addAction(tr("Open &DataBase"),  this,
@@ -71,6 +70,22 @@ void MainWindow::init_menu()
 				SLOT(import_dbdump()), Qt::CTRL+Qt::Key_I );
 	file->addSeparator();
 	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
+
+	import = menuBar()->addMenu(tr("&Import"));
+	import->addAction(tr("Keys"), this,
+				SLOT(on_BNimportKey_clicked()) );
+	import->addAction(tr("Requests"), this,
+				SLOT(on_BNimportReq_clicked()) );
+	import->addAction(tr("Certificates"), this,
+				SLOT(on_BNimportCert_clicked()) );
+	import->addAction(tr("PKCS#12"), this,
+				SLOT(on_BNimportPKCS12_clicked()) );
+	import->addAction(tr("PKCS#7"), this,
+				SLOT(on_BNimportPKCS7_clicked()) );
+	import->addAction(tr("Template"), this,
+				SLOT(on_BNimportTemp_clicked()) );
+	import->addAction(tr("Revocation list"), this,
+				SLOT(on_BNimportCrl_clicked()) );
 
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );

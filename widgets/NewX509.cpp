@@ -238,21 +238,26 @@ void NewX509::defineTemplate(pki_temp *temp)
 
 void NewX509::defineRequest(pki_x509req *req)
 {
-	if (!req) return;
+	if (!req)
+		return;
 	fromReqCB->setEnabled(true);
 	fromReqCB->setChecked(true);
 	QString reqname = req->getIntName();
 	reqList->setCurrentIndex(reqList->findText(reqname));
+	on_fromReqCB_clicked();
 }
 
 void NewX509::defineSigner(pki_x509 *defcert)
 {
-	// suggested from:  Andrey Brindeew <abr@abr.pp.ru>
-	if (defcert  && defcert->canSign() ) {
+	int index;
+	// suggested from: Andrey Brindeew <abr@abr.pp.ru>
+	if (defcert && defcert->canSign() ) {
 		QString name = defcert->getIntName();
-		certList->findText(name);
 		foreignSignRB->setChecked(true);
 		certList->setEnabled(true);
+		if ((index = certList->findText(name)) >= 0) {
+			certList->setCurrentIndex(index);
+		}
 	}
 }
 
@@ -363,6 +368,7 @@ void NewX509::on_fromReqCB_clicked()
 	reqList->setEnabled(request);
 	copyReqExtCB->setEnabled(request);
 	showReqBut->setEnabled(request);
+	toggleOkBut();
 }
 
 
@@ -377,9 +383,10 @@ void NewX509::on_keyList_highlighted(const QString &keyname)
 void NewX509::toggleOkBut()
 {
 	bool ok = description->text() != ""  &&
-				countryName->text().length() !=1 &&
-				(keyList->count() > 0  || !keyList->isEnabled());
-		okButton->setEnabled(ok);
+		countryName->text().length() !=1 &&
+		( keyList->count() > 0  || !keyList->isEnabled() );
+	ok |= fromReqCB->isChecked();
+	okButton->setEnabled(ok);
 }
 
 void NewX509::on_description_textChanged(QString text)

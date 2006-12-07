@@ -53,6 +53,8 @@
 #include <Qt/qabstractitemview.h>
 #include <Qt/qheaderview.h>
 #include <Qt/qevent.h>
+#include <Qt/qvariant.h>
+
 
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)
@@ -115,4 +117,33 @@ void XcaTreeView::columnsResize()
 		for (i=0; i<cnt; i++)
 			resizeColumnToContents(i);
 	}
+}
+
+CertTreeView::CertTreeView(QWidget *parent)
+	:XcaTreeView(parent)
+{
+	delete proxy;
+	proxy = new XcaProxyModel(this);
+}
+
+XcaProxyModel::XcaProxyModel(QWidget *)
+{
+}
+
+bool XcaProxyModel::lessThan(const QModelIndex &left,
+		const QModelIndex &right) const
+{
+	if (left.column() == 2 && right.column() == 2) {
+		int diff;
+		QString l = sourceModel()->data(left).toString();
+		QString r = sourceModel()->data(right).toString();
+		diff = l.size() - r.size();
+		if (diff<0)
+			return true;
+		else if (diff>0)
+			return false;
+		else
+			return l < r;
+	}
+	return QSortFilterProxyModel::lessThan(left, right);
 }
