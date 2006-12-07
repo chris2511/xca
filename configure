@@ -157,7 +157,7 @@ else
 fi
 
 findapp() {
-  for app in "`which $@ 2>/dev/null`"; do
+  for app in `which $@ 2>/dev/null`; do
     if test -x "$app"; then
       echo "$app"
       break
