@@ -60,6 +60,7 @@
 #include <Qt/qlineedit.h>
 #include <Qt/qtextbrowser.h>
 #include <Qt/qstatusbar.h>
+#include <Qt/qlist.h>
 #include "lib/exception.h"
 #include "lib/pki_pkcs12.h"
 #include "lib/load_obj.h"
@@ -95,7 +96,11 @@ MainWindow::MainWindow(QWidget *parent )
 	force_load = 0;
 
 	setupUi(this);
+	wdList << keyButtons << reqButtons << certButtons <<
+		tempButtons <<	crlButtons;
 	init_menu();
+	setEnabled(false);
+
 	init_images();
 	homedir = getHomeDir();
 
@@ -117,6 +122,16 @@ MainWindow::MainWindow(QWidget *parent )
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
+}
+
+void MainWindow::setEnabled(bool enable)
+{
+	foreach(QWidget *w, wdList) {
+		w->setEnabled(enable);
+	}
+	foreach(QAction *a, acList) {
+		a->setEnabled(enable);
+	}
 }
 
 /* creates a new nid list from the given filename */

@@ -62,11 +62,11 @@ void MainWindow::init_menu()
 	file = menuBar()->addMenu(tr("&File"));
 	file->addAction(tr("Open &DataBase"),  this,
 				SLOT(load_database()), Qt::CTRL+Qt::Key_L );
-	file->addAction(tr("&Close DataBase"), this,
+	acList += file->addAction(tr("&Close DataBase"), this,
 				SLOT(close_database()), Qt::CTRL+Qt::Key_C );
-	file->addAction(tr("&Dump DataBase"), this,
+	acList += file->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()), Qt::CTRL+Qt::Key_D );
-	file->addAction(tr("&Import old db_dump"), this,
+	acList += file->addAction(tr("&Import old db_dump"), this,
 				SLOT(import_dbdump()), Qt::CTRL+Qt::Key_I );
 	file->addSeparator();
 	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
@@ -90,6 +90,7 @@ void MainWindow::init_menu()
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );
 	help->addAction(tr("&About"), this, SLOT(about()) );
+	wdList += import;
 }
 
 void MainWindow::load_database()

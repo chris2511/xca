@@ -121,6 +121,7 @@ void MainWindow::init_database()
 		return;
 	}
 	setWindowTitle(tr(XCA_TITLE));
+	setEnabled(true);
 }
 
 void MainWindow::dump_database()
@@ -161,6 +162,8 @@ void MainWindow::dump_database()
 
 void MainWindow::close_database()
 {
+	setEnabled(false);
+
 	keyView->setModel(NULL);
 	reqView->setModel(NULL);
 	certView->setModel(NULL);
