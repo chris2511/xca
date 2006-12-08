@@ -119,10 +119,10 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="Validity" name="lastUpdate" />
+       <widget class="Validity" native="1" name="lastUpdate" />
       </item>
       <item row="1" column="1" >
-       <widget class="Validity" name="nextUpdate" />
+       <widget class="Validity" native="1" name="nextUpdate" />
       </item>
      </layout>
     </widget>
@@ -247,10 +247,18 @@
  <customwidgets>
   <customwidget>
    <class>Validity</class>
-   <extends>QDateTimeEdit</extends>
+   <extends>QWidget</extends>
    <header>widgets/validity.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>hashAlgo</tabstop>
+  <tabstop>authKeyId</tabstop>
+  <tabstop>subAltName</tabstop>
+  <tabstop>okButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

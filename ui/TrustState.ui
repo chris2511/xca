@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>TrustState</class>
  <widget class="QDialog" name="TrustState" >
   <property name="geometry" >
@@ -195,16 +192,20 @@
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>ClickLabel</class>
-   <extends></extends>
+   <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>trust0</tabstop>
+  <tabstop>trust1</tabstop>
+  <tabstop>trust2</tabstop>
+  <tabstop>PushButton4</tabstop>
+  <tabstop>PushButton5</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

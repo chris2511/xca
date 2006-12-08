@@ -151,7 +151,7 @@ QString pki_key::removeTypeFromIntName(QString n)
 void pki_key::setOwnPass(enum passType x)
 {
 	EVP_PKEY *pk, *pk_back;
-	int oldOwnPass = x;
+	int oldOwnPass = ownPass;
 
 	if (ownPass == x || isPubKey())
 		return;
@@ -324,9 +324,6 @@ EVP_PKEY *pki_key::decryptKey() const
 	char ownPassBuf[MAX_PASS_LENGTH] = "";
 
 	if (isPubKey()) {
-#if OPENSSL_VERSION_NUMBER >= 0x00908000L
-		return ASN1_dup_of_const(EVP_PKEY, i2d_PublicKey, d21_PublicKey, pkey);
-#else
 		unsigned char *q;
 		outl = i2d_PublicKey(key, NULL);
 		q = (unsigned char *)OPENSSL_malloc(outl);
@@ -336,7 +333,6 @@ EVP_PKEY *pki_key::decryptKey() const
 		tmpkey = D2I_CLASHT(d2i_PublicKey, key->type, NULL, &p, outl);
 		OPENSSL_free(q);
 		return tmpkey;
-#endif
 	}
 	/* This key has its own password */
 	if (ownPass == ptPrivate) {
