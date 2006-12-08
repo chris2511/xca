@@ -153,17 +153,17 @@ void pki_key::setOwnPass(enum passType x)
 	EVP_PKEY *pk, *pk_back;
 	int oldOwnPass = x;
 
-	if (ownPass == x)
+	if (ownPass == x || isPubKey())
 		return;
 
-	pk = decryptKey();
-	if (pk == NULL)
-		return;
-
-	pk_back = key;
-	key = pk;
-	ownPass = x;
 	try {
+		pk = decryptKey();
+		if (pk == NULL)
+			return;
+
+		pk_back = key;
+		key = pk;
+		ownPass = x;
 		encryptKey();
 	}
 	catch (errorEx &err) {
@@ -323,6 +323,21 @@ EVP_PKEY *pki_key::decryptKey() const
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	char ownPassBuf[MAX_PASS_LENGTH] = "";
 
+	if (isPubKey()) {
+#if OPENSSL_VERSION_NUMBER >= 0x00908000L
+		return ASN1_dup_of_const(EVP_PKEY, i2d_PublicKey, d21_PublicKey, pkey);
+#else
+		unsigned char *q;
+		outl = i2d_PublicKey(key, NULL);
+		q = (unsigned char *)OPENSSL_malloc(outl);
+		p = q;
+		i2d_PublicKey(key, &p);
+		p = q;
+		tmpkey = D2I_CLASHT(d2i_PublicKey, key->type, NULL, &p, outl);
+		OPENSSL_free(q);
+		return tmpkey;
+#endif
+	}
 	/* This key has its own password */
 	if (ownPass == ptPrivate) {
 		int ret;
@@ -402,7 +417,7 @@ unsigned char *pki_key::toData(int *size)
 	return p;
 }
 
-void pki_key::encryptKey()
+void pki_key::encryptKey(const char *password)
 {
 	int outl, keylen;
 	EVP_PKEY *pkey1 = NULL;
@@ -413,7 +428,7 @@ void pki_key::encryptKey()
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
 	char ownPassBuf[MAX_PASS_LENGTH];
 
-	/* This key has its own, private password ? */
+	/* This key has its own, private password */
 	if (ownPass == ptPrivate) {
 		int ret;
 		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
@@ -425,7 +440,10 @@ void pki_key::encryptKey()
 	} else if (ownPass == ptBogus) { // BOGUS password
 		ownPassBuf[0] = '\0';
 	} else {
-		if (md5passwd(passwd) != passHash) {
+		if (password) {
+			/* use the password parameter if this is a common password */
+			strncpy(ownPassBuf, password, MAX_PASS_LENGTH);
+		} else if (md5passwd(passwd) != passHash) {
 			int ret = 0;
 			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 				"Please enter the database password for encrypting the key"));
@@ -668,7 +686,7 @@ bool pki_key::compare(pki_base *ref)
 }
 
 
-bool pki_key::isPubKey()
+bool pki_key::isPubKey() const
 {
 	if (encKey_len == 0 || encKey == NULL) {
 		return true;
@@ -676,7 +694,7 @@ bool pki_key::isPubKey()
 	return false;
 }
 
-bool pki_key::isPrivKey()
+bool pki_key::isPrivKey() const
 {
 	return ! isPubKey();
 }
@@ -738,6 +756,8 @@ QVariant pki_key::column_data(int col)
 		case 3:
 			return QVariant(getUcount());
 		case 4:
+			if (isPubKey())
+				return QVariant(tr("No password"));
 			if (ownPass<0 || ownPass>2)
 				return QVariant("Holla die Waldfee");
 			return QVariant(sl[ownPass]);

@@ -90,7 +90,7 @@ class pki_key: public pki_base
 	int getOwnPass(void) {return ownPass;};
 	pki_key(const QString name = "", int type = EVP_PKEY_RSA);
 	pki_key(EVP_PKEY *pkey);
-	void encryptKey();
+	void encryptKey(const char *password = NULL);
 	void bogusEncryptKey();
 	EVP_PKEY *decryptKey() const;
 	pki_key(const pki_key *pk);
@@ -116,8 +116,8 @@ class pki_key: public pki_base
 	void writePublic(const QString fname, bool pem);
 	void writePKCS8(const QString fname, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool pem);
-	bool isPrivKey();
-	bool isPubKey();
+	bool isPrivKey() const;
+	bool isPubKey() const;
 	int verify();
 	int getType();
 	int incUcount();

@@ -79,10 +79,6 @@ db_base::db_base(QString db, MainWindow *mw)
 
 db_base::~db_base()
 {
-//	FOR_ALL_pki(pki, pki_base) {
-//		rootItem->takeChild(pki);
-//		delete pki;
-//	}
 	delete rootItem;
 }
 
@@ -495,9 +491,7 @@ void db_base::load_default(load_base &load)
 		catch (errorEx &err) {
 			MainWindow::Error(err);
 			delete item;
-			return;
 		}
-		//insert(item);
 	}
 	dlgi->execute();
 	delete dlgi;
