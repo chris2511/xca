@@ -76,7 +76,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	caSerial = crt->caSerial;
 	caTemplate = crt->caTemplate;
 	crlDays = crt->crlDays;
-	lastCrl = crt->lastCrl;
+	crlExpiry = crt->crlExpiry;
 	isrevoked = isrevoked;
 	openssl_error();
 }
@@ -133,7 +133,7 @@ void pki_x509::init()
 	caSerial = 1;
 	caTemplate = "";
 	crlDays = 30;
-	lastCrl.now();
+	crlExpiry.now();
 	class_name = "pki_x509";
 	cert = NULL;
 	isrevoked = false;
@@ -315,7 +315,7 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	caSerial.setHex(db::stringFromData(&p1));
 	caTemplate = db::stringFromData(&p1);
 	crlDays = db::intFromData(&p1);
-	lastCrl.d2i(p1, size - (p1-p));
+	crlExpiry.d2i(p1, size - (p1-p));
 
 	if (cert)
 		X509_free(cert_sik);
@@ -331,7 +331,7 @@ unsigned char *pki_x509::toData(int *size)
 
 	// calculate the needed size
 	*size = i2d_X509(cert, NULL) + 11 + caSerial.toHex().length() +
-		caTemplate.length() + lastCrl.derSize() + revoked.derSize();
+		caTemplate.length() + crlExpiry.derSize() + revoked.derSize();
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;
@@ -347,7 +347,7 @@ unsigned char *pki_x509::toData(int *size)
 	db::stringToData(&p1, caTemplate);
 	// version 3
 	db::intToData(&p1, crlDays); // the CRL period
-	p1 = lastCrl.i2d(p1); // last CRL date
+	p1 = crlExpiry.i2d(p1); // last CRL date
 	openssl_error();
 	if (*size != p1-p) {
 		printf("pki_x509::toData: Size = %d, real size=%d\n", *size, p1-p);
@@ -605,9 +605,9 @@ QString pki_x509::getTemplate(){ return caTemplate; }
 
 void pki_x509::setTemplate(QString s) {if (s.length()>0) caTemplate = s; }
 
-void pki_x509::setLastCrl(const a1time &time)
+void pki_x509::setCrlExpiry(const a1time &time)
 {
-	lastCrl = time;
+	crlExpiry = time;
 	openssl_error();
 }
 
@@ -669,7 +669,8 @@ QVariant pki_x509::column_data(int col)
 		case 5:
 			if (isRevoked())
 				return QVariant(getRevoked().toSortable());
-			break;
+			else if (canSign())
+				return QVariant(tr("CRL expires: ")+ crlExpiry.toSortable());
 	}
 	return QVariant();
 
@@ -722,7 +723,7 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 		if (version == 1) {
 			caTemplate="";
 			caSerial=1;
-			lastCrl = NULL;
+			crlExpiry.now();
 			crlDays=30;
 		}
 
@@ -744,7 +745,7 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 			crlDays = intFromData(&p1);
 			sLastCrl = intFromData(&p1);
 			if (sLastCrl) {
-			   lastCrl.d2i(p1, sLastCrl);
+			   crlExpiry.d2i(p1, sLastCrl);
 			}
 		}
 		// version 4 saves a NULL as revoked

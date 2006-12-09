@@ -61,7 +61,8 @@ db_crl::db_crl(QString db, MainWindow *mw)
 {
 	delete rootItem;
 	rootItem = newPKI();
-	headertext << "Name" << "Common name" << "revoked";
+	headertext << tr("Name") << tr("Signer") << tr("Common name") <<
+		tr("No. revoked") << tr("Next update");
 	delete_txt = tr("Delete the revokation list(s)");
 	view = mw->crlView;
 	class_name = "crls";
@@ -70,18 +71,6 @@ db_crl::db_crl(QString db, MainWindow *mw)
 
 pki_base *db_crl::newPKI(){
 	return new pki_crl();
-}
-
-void db_crl::preprocess()
-{
-#if 0
-	if ( container.isEmpty() ) return ;
-	FOR_ALL_pki(crl, pki_crl) {
-		pki_x509 *iss = MainWindow::certs->getBySubject(crl->getIssuerName());
-		crl->setIssuer(iss);
-		revokeCerts(crl);
-	}
-#endif
 }
 
 void db_crl::load()
@@ -111,7 +100,22 @@ void db_crl::revokeCerts(pki_crl *crl)
 
 void db_crl::inToCont(pki_base *pki)
 {
-	revokeCerts((pki_crl *)pki);
+	pki_crl *crl = (pki_crl *)pki;
+	revokeCerts(crl);
+	if (crl->getIssuer() == NULL) {
+		pki_x509 *iss = NULL, *last = NULL;
+		x509name issname = crl->getIssuerName();
+		while ((iss = mainwin->certs->getBySubject(issname, last)) != NULL) {
+			pki_key *key = iss->getPubKey();
+			if (crl->verify(key)) {
+				delete key;
+				break;
+			}
+			delete key;
+			last = iss;
+		}
+		crl->setIssuer(iss);
+	}
 	db_base::inToCont(pki);
 }
 
@@ -239,7 +243,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 
 		crl->setLastUpdate(ui.lastUpdate->getDate());
 		crl->setNextUpdate(ui.nextUpdate->getDate());
-		cert->setLastCrl(ui.nextUpdate->getDate());
+		cert->setCrlExpiry(ui.nextUpdate->getDate());
 		if (cert->getRefKey()->getType() == EVP_PKEY_DSA)
 			dgst = EVP_dss1();
 		else
@@ -247,7 +251,6 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 
 		crl->sign(cert->getRefKey(), dgst);
 		mainwin->certs->updatePKI(cert);
-#warning  FIXME: set Last update
 		insert(crl);
 	}
 	catch (errorEx &err) {

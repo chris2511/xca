@@ -95,9 +95,6 @@ class db_base: public QAbstractItemModel
 	virtual void loadContainer();
 	QStringList getDesc();
 	virtual pki_base* insert(pki_base *item);
-	/* preprocess should be implemented once to speed up updateView()
-	 * i.e search for signers and keys */
-	virtual void preprocess(){};
 	virtual void inToCont(pki_base *pki);
 	virtual void remFromCont(QModelIndex &idx);
 
