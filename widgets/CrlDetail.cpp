@@ -78,36 +78,51 @@ CrlDetail::CrlDetail(MainWindow *mainwin)
 void CrlDetail::setCrl(pki_crl *crl)
 {
 	int numc, i;
-	pki_x509 *iss, *rev;
+	pki_x509 *iss, *last, *rev;
 	x509rev revit;
 	x509v3ext e1, e2;
 	QStringList sl;
 
-	iss = crl->getIssuer();
+	last = NULL;
+	iss = NULL;
+	if (mw->certs != NULL) {
+		while ((iss = mw->certs->getBySubject(crl->getIssuerName(),
+						last)) != NULL) {
+			pki_key *key = iss->getPubKey();
+			if (crl->verify(key)) {
+				delete key;
+				break;
+			}
+			delete key;
+			last = iss;
+		}
+	}
 	// page 1
 	if (iss != NULL) {
 		issuerIntName->setText(iss->getIntName());
 		pki_key *key = iss->getPubKey();
 		if (crl->verify(key)) {
 			signCheck->setText(tr("Ok"));
-			signCheck->setGreen();
-		} else {
+	signCheck->setGreen();
+	        }
+		else {
 			signCheck->setText(tr("Failed"));
-			signCheck->setRed();
+	signCheck->setRed();
 		}
 		if (key)
 			delete key;
-	} else {
+	}
+	else {
 		issuerIntName->setText(tr("Unknown signer"));
 		issuerIntName->setDisabled(true);
-		signCheck->setText(tr("Verification not possible"));
-		signCheck->setDisabled(true);
+                signCheck->setText(tr("Verification not possible"));
+                signCheck->setDisabled(true);
 	}
 
 	descr->setText(crl->getIntName());
-	lUpdate->setText(crl->getLastUpdate().toPretty());
-	nUpdate->setText(crl->getNextUpdate().toPretty());
-	version->setText((++crl->getVersion()).toHex());
+        lUpdate->setText(crl->getLastUpdate().toPretty());
+        nUpdate->setText(crl->getNextUpdate().toPretty());
+        version->setText((++crl->getVersion()).toHex());
 
 	// page 2
 	issuer->setX509name(crl->getIssuerName());
@@ -117,17 +132,17 @@ void CrlDetail::setCrl(pki_crl *crl)
 	for (i=0; i<numc; i++) {
 		QTreeWidgetItem *current;
 		revit = crl->getRev(i);
-		rev = mw->certs->getByIssSerial(iss, revit.getSerial());
-		current = new QTreeWidgetItem(certList);
-		if (rev != NULL) {
-			current->setText(0, rev->getIntName() );
-		} else {
-			current->setText(0, tr("Unknown certificate"));
-		}
-		current->setIcon(0, *pki_x509::icon[2]);
-		current->setText(1, revit.getSerial().toHex()) ;
-		current->setText(2, revit.getDate().toSortable());
-	}
+			rev = mw->certs->getByIssSerial(iss, revit.getSerial());
+			current = new QTreeWidgetItem(certList);
+			if (rev != NULL) {
+				current->setText(0, rev->getIntName() );
+			} else {
+				current->setText(0, tr("Unknown certificate"));
+			}
+			current->setIcon(0, *pki_x509::icon[2]);
+			current->setText(1, revit.getSerial().toHex()) ;
+			current->setText(2, revit.getDate().toSortable());
+        }
 	// page 4
 	v3extensions->document()->setHtml(crl->printV3ext());
 }

@@ -67,7 +67,7 @@ class pki_x509 : public pki_x509super
 	//friend class db_x509;
 	private:
 	   pki_x509 *psigner;
-	   a1time revoked, crlExpiry;
+	   a1time revoked, lastCrl;
 	   bool isrevoked;
 	   int trust;
 	   int efftrust;
@@ -132,7 +132,7 @@ class pki_x509 : public pki_x509super
 	   QString getTemplate();
 	   void setCrlDays(int s);
 	   int getCrlDays();
-	   void setCrlExpiry(const a1time &time);
+	   void setLastCrl(const a1time &time);
 	   int resetTimes(pki_x509 *signer);
 	   bool hasExtension(int nid);
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);

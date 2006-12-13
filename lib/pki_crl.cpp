@@ -49,6 +49,7 @@
 
 
 #include "pki_crl.h"
+#include "widgets/MainWindow.h"
 #include <Qt/qdir.h>
 
 QPixmap *pki_crl::icon = NULL;
@@ -78,6 +79,11 @@ void pki_crl::fload(const QString fname )
 		fclose(fp);
 		setIntName(rmslashdot(fname));
 		openssl_error();
+		if (MainWindow::certs) {
+			issuer = MainWindow::certs->getBySubject(getIssuerName());
+		}
+		else
+			issuer = NULL;
 	}
 	else fopen_error(fname);
 }
@@ -214,16 +220,16 @@ void pki_crl::setIssuer(pki_x509 *iss) { issuer = iss; }
 a1time pki_crl::getLastUpdate()
 {
 	a1time a;
-	if (crl && crl->crl)
-		a.set(crl->crl->lastUpdate);
+	if (!crl || !crl->crl) return a;
+	a.set(crl->crl->lastUpdate);
 	return a;
 }
 
 a1time pki_crl::getNextUpdate()
 {
 	a1time a;
-	if (crl && crl->crl)
-		a.set(crl->crl->nextUpdate);
+	if (!crl || !crl->crl) return a;
+	a.set(crl->crl->nextUpdate);
 	return a;
 }
 
@@ -291,16 +297,9 @@ QVariant pki_crl::column_data(int col)
 		case 0:
 			return QVariant(getIntName());
 		case 1:
-			if (issuer)
-				return QVariant(getIssuer()->getIntName());
-			else
-				 return QVariant(tr("unknown"));
-		case 2:
 			return QVariant(getIssuerName().getEntryByNid(NID_commonName));
-		case 3:
+		case 2:
 			return QVariant(numRev());
-		case 4:
-			return QVariant(getNextUpdate().toSortable());
 	}
 	return QVariant();
 }
