@@ -77,7 +77,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_0" >
       <attribute name="title" >
@@ -1477,69 +1477,6 @@ Example:
    <container>1</container>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>fromReqCB</tabstop>
-  <tabstop>reqList</tabstop>
-  <tabstop>copyReqExtCB</tabstop>
-  <tabstop>showReqBut</tabstop>
-  <tabstop>selfSignRB</tabstop>
-  <tabstop>serialNr</tabstop>
-  <tabstop>selfQASignRB</tabstop>
-  <tabstop>foreignSignRB</tabstop>
-  <tabstop>certList</tabstop>
-  <tabstop>tempList</tabstop>
-  <tabstop>applyTemplate</tabstop>
-  <tabstop>description</tabstop>
-  <tabstop>countryName</tabstop>
-  <tabstop>stateOrProvinceName</tabstop>
-  <tabstop>localityName</tabstop>
-  <tabstop>organisationName</tabstop>
-  <tabstop>organisationalUnitName</tabstop>
-  <tabstop>commonName</tabstop>
-  <tabstop>emailAddress</tabstop>
-  <tabstop>extDNobj</tabstop>
-  <tabstop>extDNname</tabstop>
-  <tabstop>extDNadd</tabstop>
-  <tabstop>extDNdel</tabstop>
-  <tabstop>extDNlist</tabstop>
-  <tabstop>keyList</tabstop>
-  <tabstop>hashAlgo</tabstop>
-  <tabstop>genKeyBUT</tabstop>
-  <tabstop>basicCA</tabstop>
-  <tabstop>basicPath</tabstop>
-  <tabstop>bcCritical</tabstop>
-  <tabstop>subKey</tabstop>
-  <tabstop>authKey</tabstop>
-  <tabstop>validNumber</tabstop>
-  <tabstop>validRange</tabstop>
-  <tabstop>midnightCB</tabstop>
-  <tabstop>applyTime</tabstop>
-  <tabstop>subAltName</tabstop>
-  <tabstop>editSubAlt</tabstop>
-  <tabstop>issAltName</tabstop>
-  <tabstop>editIssAlt</tabstop>
-  <tabstop>crlDist</tabstop>
-  <tabstop>editCrlDist</tabstop>
-  <tabstop>aiaOid</tabstop>
-  <tabstop>authInfAcc</tabstop>
-  <tabstop>editAuthInfAcc</tabstop>
-  <tabstop>kuCritical</tabstop>
-  <tabstop>keyUsage</tabstop>
-  <tabstop>ekuCritical</tabstop>
-  <tabstop>ekeyUsage</tabstop>
-  <tabstop>certPol</tabstop>
-  <tabstop>nsCertType</tabstop>
-  <tabstop>nsBaseUrl</tabstop>
-  <tabstop>nsRevocationUrl</tabstop>
-  <tabstop>nsCARevocationUrl</tabstop>
-  <tabstop>nsRenewalUrl</tabstop>
-  <tabstop>nsCaPolicyUrl</tabstop>
-  <tabstop>nsSslServerName</tabstop>
-  <tabstop>nsComment</tabstop>
-  <tabstop>okButton</tabstop>
-  <tabstop>cancelButton</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>

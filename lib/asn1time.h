@@ -56,6 +56,9 @@ class a1time
 {
    private:
 	ASN1_TIME *time;
+#if OPENSSL_VERSION_NUMBER < 0x00907000L
+	ASN1_GENERALIZEDTIME *ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out);
+#endif
 	ASN1_UTCTIME *toUTCtime() const;
    public:
 	a1time();

@@ -350,11 +350,8 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <tabstops>
   <tabstop>filename</tabstop>
-  <tabstop>fileBut</tabstop>
-  <tabstop>exportFormat</tabstop>
   <tabstop>PushButton7</tabstop>
   <tabstop>PushButton9</tabstop>
-  <tabstop>tinyCaName</tabstop>
  </tabstops>
  <resources/>
  <connections>

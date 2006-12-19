@@ -61,6 +61,7 @@ class db_x509super: public db_base
 
     public:
 	db_x509super(QString db, MainWindow *mw);
+	void preprocess();
 	pki_key *findKey(pki_x509super *ref);
 	void inToCont(pki_base *pki);
 

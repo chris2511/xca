@@ -67,6 +67,7 @@ class db_crl: public db_base
 	db_crl(QString db, MainWindow *mw);
 	pki_base *newPKI();
 	void revokeCerts(pki_crl *crl);
+	void preprocess();
 	void inToCont(pki_base *pki);
 	pki_base *insert(pki_base *item);
 	void showItem(const QModelIndex &index);

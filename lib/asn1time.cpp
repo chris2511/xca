@@ -268,30 +268,74 @@ int a1time::derSize() const
 
 
 ASN1_UTCTIME *a1time::toUTCtime() const
-{
-	ASN1_UTCTIME *ret;
-	int year=0,i ;
-	// if (!ASN1_TIME_check(t)) return NULL;
-	for (i=0; i<4; i++) {
-		year *= 10;
-		year += time->data[i] - '0';
-	}
-	if (year > 2049 || year <1950)
-		return NULL;
-
-	if (!(ret = ASN1_UTCTIME_new ()))
-		return NULL;
-
-	/* If already UTC Time just copy across */
-	if (time->type == V_ASN1_UTCTIME) {
-		if(!ASN1_STRING_set(ret, time->data, time->length))
+        {
+        ASN1_UTCTIME *ret;
+		int year=0,i ;
+        // if (!ASN1_TIME_check(t)) return NULL;
+		for (i=0; i<4; i++){
+			year *= 10;
+			year += time->data[i] - '0';
+		}
+		if (year > 2049 || year <1950)
 			return NULL;
-		return ret;
-	}
 
-	/* copy w/o 19 or 20 */
-	if (!ASN1_STRING_set(ret, time->data+2, time->length - 2))
-		return NULL;
+        if (!(ret = ASN1_UTCTIME_new ()))
+	return NULL;
 
-	return ret;
-}
+        /* If already UTC Time just copy across */
+        if (time->type == V_ASN1_UTCTIME)
+                {
+                if(!ASN1_STRING_set(ret, time->data, time->length))
+                        return NULL;
+                return ret;
+                }
+
+		/* copy w/o 19 or 20 */
+        if (!ASN1_STRING_set(ret, time->data+2, time->length - 2))
+                return NULL;
+
+        return ret;
+        }
+
+/* this was happily copied from OpenSSL 0.9.7
+ * and is used if linking against 0.9.6
+ */
+
+#if OPENSSL_VERSION_NUMBER < 0x00907000L
+/* Convert an ASN1_TIME structure to GeneralizedTime */
+ASN1_GENERALIZEDTIME *a1time::ASN1_TIME_to_generalizedtime(ASN1_TIME *t, ASN1_GENERALIZEDTIME **out)
+        {
+        ASN1_GENERALIZEDTIME *ret;
+        char *str;
+
+        // if (!ASN1_TIME_check(t)) return NULL;
+
+        if (!out || !*out)
+                {
+                if (!(ret = ASN1_GENERALIZEDTIME_new ()))
+                        return NULL;
+                if (out) *out = ret;
+                }
+        else ret = *out;
+
+        /* If already GeneralizedTime just copy across */
+        if (t->type == V_ASN1_GENERALIZEDTIME)
+                {
+                if(!ASN1_STRING_set(ret, t->data, t->length))
+                        return NULL;
+                return ret;
+                }
+
+        /* grow the string */
+        if (!ASN1_STRING_set(ret, NULL, t->length + 2))
+                return NULL;
+        str = (char *)ret->data;
+        /* Work out the century and prepend */
+        if (t->data[0] >= '5') strcpy(str, "19");
+        else strcpy(str, "20");
+
+        strncat(str, (char *)t->data, t->length);
+
+        return ret;
+        }
+#endif

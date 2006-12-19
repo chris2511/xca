@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>419</width>
-    <height>404</height>
+    <height>396</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -274,10 +274,7 @@ PKCS#8 is an encrypted official Key-exchange format</string>
  </widget>
  <tabstops>
   <tabstop>filename</tabstop>
-  <tabstop>fileBut</tabstop>
-  <tabstop>exportFormat</tabstop>
   <tabstop>exportPrivate</tabstop>
-  <tabstop>exportPkcs8</tabstop>
   <tabstop>encryptKey</tabstop>
   <tabstop>PushButton7</tabstop>
   <tabstop>PushButton9</tabstop>
