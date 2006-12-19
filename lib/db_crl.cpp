@@ -98,6 +98,14 @@ void db_crl::revokeCerts(pki_crl *crl)
 	}
 }
 
+void db_crl::removeSigner(pki_base *signer)
+{
+	FOR_ALL_pki(crl, pki_crl) {
+		if (crl->getIssuer() == signer)
+			crl->setIssuer(NULL);
+	}
+}
+
 void db_crl::inToCont(pki_base *pki)
 {
 	pki_crl *crl = (pki_crl *)pki;

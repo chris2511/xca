@@ -140,6 +140,7 @@ void db_x509::remFromCont(QModelIndex &idx)
 		new_parent = findSigner(child);
 		insertChild(new_parent, child);
 	}
+	mainwin->crls->removeSigner(pki);
 	return;
 }
 
@@ -224,10 +225,12 @@ QList<pki_x509*> db_x509::getIssuedCerts(const pki_x509 *issuer)
 {
 	QList<pki_x509*> c;
 	c.clear();
-	if (!issuer) return c;
-	FOR_ALL_pki(pki, pki_x509)
+	if (!issuer)
+		return c;
+	FOR_ALL_pki(pki, pki_x509) {
 		if (pki->getSigner() == issuer)
 			c.append(pki);
+	}
 	return c;
 }
 

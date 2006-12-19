@@ -72,6 +72,7 @@ class db_crl: public db_base
 	void showItem(const QModelIndex &index);
 	pki_crl *newItem(pki_x509 *cert);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+	void removeSigner(pki_base *signer);
     public slots:
 	void store();
 	void load();
