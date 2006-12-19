@@ -97,6 +97,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static NIDlist *eku_nid, *dn_nid, *aia_nid;
 		int exitApp;
 		QString dbfile;
+		QLabel *dbindex;
 
 		MainWindow(QWidget *parent);
 		virtual ~MainWindow();

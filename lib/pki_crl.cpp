@@ -179,7 +179,8 @@ void pki_crl::addV3ext(const x509v3ext &e)
 void pki_crl::sign(pki_key *key, const EVP_MD *md)
 {
 	EVP_PKEY *pkey;
-	if (!key || key->isPubKey()) return;
+	if (!key || key->isPubKey())
+		return;
 	pkey = key->decryptKey();
 	X509_CRL_sign(crl, pkey, md);
 	EVP_PKEY_free(pkey);

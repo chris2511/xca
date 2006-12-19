@@ -380,7 +380,7 @@ EVP_PKEY *pki_key::decryptKey() const
 	EVP_DecryptInit( &ctx, cipher, ckey, iv);
 	EVP_DecryptUpdate( &ctx, p , &outl, encKey + 8, encKey_len - 8 );
 	decsize = outl;
-	EVP_DecryptFinal( &ctx, encKey + decsize , &outl );
+	EVP_DecryptFinal( &ctx, p + decsize , &outl );
 	decsize += outl;
 	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey_len);
 	openssl_error();

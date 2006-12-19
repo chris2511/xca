@@ -90,7 +90,11 @@ NIDlist *MainWindow::aia_nid = NULL;
 MainWindow::MainWindow(QWidget *parent )
 	:QMainWindow(parent)
 {
-	statusBar()->clearMessage();
+	dbindex = new QLabel();
+	dbindex->setFrameStyle(QFrame::Plain | QFrame::NoFrame);
+	dbindex->setMargin(6);
+
+	statusBar()->addWidget(dbindex, 1);
 
 	setWindowTitle(tr(XCA_TITLE));
 	force_load = 0;
@@ -259,6 +263,7 @@ MainWindow::~MainWindow()
 		delete dn_nid;
 	if (aia_nid)
 		delete aia_nid;
+	delete dbindex;
 #ifdef MDEBUG
 	fprintf(stderr, "Memdebug:\n");
 	CRYPTO_mem_leaks_fp(stderr);

@@ -65,6 +65,7 @@ db_key::db_key(QString db, MainWindow *mw)
 {
 	delete rootItem;
 	rootItem = newPKI();
+	rootItem->setIntName("[key root]");
 	headertext << "Name" << "Type" << "Size" << "Use" << "Password";
 	delete_txt = tr("Delete the key(s)");
 	view = mw->keyView;
@@ -180,13 +181,10 @@ void db_key::newItem()
 
 		nkey = new pki_key(ui.keyDesc->text());
 
-		QString m = status->currentMessage();
-		status->clearMessage();
 		status->addPermanentWidget(bar,1);
 		nkey->generate(ksize, keytypes[ui.keyType->currentIndex()], bar );
 		status->removeWidget(bar);
 		delete bar;
-		status->showMessage(m);
 		nkey = (pki_key*)insert(nkey);
 		printf("Emit KeyDone\n");
 		emit keyDone(nkey->getIntNameWithType());

@@ -66,6 +66,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 {
 	delete rootItem;
 	rootItem = newPKI();
+	rootItem->setIntName("[x509 root]");
 	headertext << tr("Internal name") << tr("Common name") << tr("Serial") <<
 			tr("not After") << tr("Trust state") << tr("Revocation");
 
@@ -147,6 +148,8 @@ void db_x509::changeView()
 	pki_base *temproot = new pki_base();
 	int rows = rowCount(QModelIndex());
 
+	mainwin->certView->setModel(NULL);
+
 	beginRemoveRows(QModelIndex(), 0, rows -1);
 	pki_base *pki = rootItem;
 	pki_base *parent;
@@ -174,6 +177,7 @@ void db_x509::changeView()
 		inToCont(pki);
 	}
 	delete temproot;
+	mainwin->certView->setModel(this);
 }
 
 void db_x509::calcEffTrust()
@@ -185,10 +189,9 @@ void db_x509::calcEffTrust()
 void db_x509::inToCont(pki_base *pki)
 {
 	pki_x509 *cert = (pki_x509*)pki;
-
 	findSigner(cert);
 	pki_base *root = cert->getSigner();
-	if (!treeview)
+	if (!treeview || root == cert)
 		root = rootItem;
 
 	insertChild(root, pki);
@@ -563,7 +566,6 @@ void db_x509::newCert(NewX509 *dlg)
 		delete cert;
 		if (tempkey != NULL) delete(tempkey);
     }
-
 }
 
 void db_x509::showItem(const QModelIndex &index)

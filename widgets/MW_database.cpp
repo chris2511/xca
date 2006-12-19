@@ -93,7 +93,7 @@ void MainWindow::init_database()
 	connect( temps, SIGNAL(newReq(pki_temp *)),
 		reqs, SLOT(newItem(pki_temp *)) );
 
-	statusBar()->showMessage(tr("Database") + ":" + dbfile);
+	dbindex->setText(tr("Database") + ":" + dbfile);
 
 	keyView->setIconSize(pki_key::icon[0]->size());
 	reqView->setIconSize(pki_x509req::icon[0]->size());
@@ -163,6 +163,7 @@ void MainWindow::dump_database()
 void MainWindow::close_database()
 {
 	setEnabled(false);
+	dbindex->clear();
 
 	keyView->setModel(NULL);
 	reqView->setModel(NULL);
