@@ -65,6 +65,7 @@
 class MainWindow;
 class QContextMenuEvent;
 class XcaTreeView;
+class NewX509;
 
 class db_base: public QAbstractItemModel
 {
@@ -130,6 +131,9 @@ class db_base: public QAbstractItemModel
 	void edit();
 	virtual void showItem();
 	virtual void store(){};
+
+    signals:
+	void connNewX509(NewX509 *dlg);
 };
 
 #endif

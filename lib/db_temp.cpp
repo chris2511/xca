@@ -74,7 +74,7 @@ pki_base *db_temp::newPKI(){
 bool db_temp::runTempDlg(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(mainwin);
-	mainwin->connNewX509(dlg);
+	emit connNewX509(dlg);
 
 	dlg->setTemp(temp);
 	dlg->fromTemplate(temp);

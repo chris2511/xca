@@ -207,13 +207,6 @@ void NewX509::setTemp(pki_temp *temp)
 	validityBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
 
-#if 1
-	QStringList sl;
-	sl << "Typef" << "Contentf";
-	printf("Setaaaaaa Ext DN list\n");
-	extDNlist->setColumnCount(2);
-	extDNlist->setHorizontalHeaderLabels(sl);
-#endif
 	pt = tmpl;
 }
 
@@ -539,7 +532,11 @@ x509name NewX509::getX509name()
 void NewX509::setX509name(const x509name &n)
 {
 	int j;
+#if QT_VERSION >= 0x040200
+	extDNlist->clearContents();
+#else
 	extDNlist->clear();
+#endif
 	for ( j = 0; j<EXPLICIT_NAME_CNT; j++) {
 		name_ptr[j]->setText("");
 	}
