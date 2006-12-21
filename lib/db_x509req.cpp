@@ -167,8 +167,10 @@ void db_x509req::store()
 	if (!req)
 		return;
 
-	ExportDer *dlg = new ExportDer(mainwin, req->getUnderlinedName() + ".pem",
-			  mainwin->getPath(), tr("Certificate request ( *.pem *.der *.crl )") );
+	QString fn = mainwin->getPath() + QDir::separator() +
+		req->getUnderlinedName() + ".pem";
+	ExportDer *dlg = new ExportDer(mainwin, fn,
+			tr("Certificate request ( *.pem *.der *.crl )") );
 	dlg->image->setPixmap(*MainWindow::csrImg);
 	dlg->label->setText(tr("Certificate request export"));
 	int dlgret = dlg->exec();
@@ -177,13 +179,13 @@ void db_x509req::store()
 		delete dlg;
 		return;
 	}
-	mainwin->setPath(dlg->dirPath);
 	QString fname = dlg->filename->text();
 	bool pem = dlg->exportFormat->currentIndex() == 0 ? true : false;
 	delete dlg;
 	if (fname == "") {
 		return;
 	}
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
 	req->writeReq(fname, pem);
 }
 

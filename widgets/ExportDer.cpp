@@ -54,8 +54,7 @@
 #include <Qt/qlineedit.h>
 #include <Qt/qfiledialog.h>
 
-ExportDer::ExportDer(QWidget *parent, QString fname, QString dpath,
-		QString _filter)
+ExportDer::ExportDer(QWidget *parent, QString fname, QString _filter)
 	:QDialog(parent)
 {
 	setupUi(this);
@@ -65,34 +64,18 @@ ExportDer::ExportDer(QWidget *parent, QString fname, QString dpath,
 	sl << "PEM" << "DER";
 
 	exportFormat->addItems(sl);
-	dirPath = dpath;
 	filter = _filter;
 }
 
 void ExportDer::on_fileBut_clicked()
 {
-	QStringList filt;
-	filt.append(filter);
-	filt.append(tr("All Files ( *.* )"));
-	QString s = "", fn;
-	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(tr("Save as"));
-	dlg->setFilters(filt);
-	dlg->setFileMode( QFileDialog::AnyFile );
-	fn = filename->text();
-	fn = fn.mid(fn.lastIndexOf(QDir::separator()) +1, -1);
-	dlg->selectFile( fn );
-	dlg->setDirectory(dirPath);
-	if (dlg->exec())
-		if (!dlg->selectedFiles().isEmpty())
-			s = dlg->selectedFiles()[0];
+	QString s = QFileDialog::getSaveFileName(this, QString(),
+			filename->text(), filter + ";;All files ( *.* )" );
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
-	dirPath = dlg->directory().path();
 	on_exportFormat_activated(0);
-	delete dlg;
 }
 
 void ExportDer::on_exportFormat_activated(int)

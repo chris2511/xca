@@ -55,7 +55,7 @@
 #include <Qt/qfiledialog.h>
 
 ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey,
-		QString dpath, const QString tcafn)
+		const QString tcafn)
 	:QDialog(parent)
 {
 	setupUi(this);
@@ -72,34 +72,19 @@ ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey,
 			"PEM Cert + key" << "PEM Cert + PKCS8 key";
 	}
 	exportFormat->addItems(sl);
-	dirPath = dpath;
 	tinyCAfname = tcafn;
 }
 
 void ExportCert::on_fileBut_clicked()
 {
-	QStringList filt;
-	filt.append(tr("X509 Certificates ( *.cer *.crt *.p12 )"));
-	filt.append(tr("All Files ( *.* )"));
-	QString s = "", fn;
-	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(tr("Save Certificate as"));
-	dlg->setFilters(filt);
-	dlg->setFileMode( QFileDialog::AnyFile );
-	fn = filename->text();
-	fn = fn.mid(fn.lastIndexOf(QDir::separator()) +1, -1);
-	dlg->selectFile( fn );
-	dlg->setDirectory(dirPath);
-	if (dlg->exec())
-		if (!dlg->selectedFiles().isEmpty())
-			s = dlg->selectedFiles()[0];
+	QString s = QFileDialog::getSaveFileName(this, tr("Save key as"),
+		filename->text(),
+		tr("X509 Certificates ( *.cer *.crt *.p12 );;All files ( *.* )"));
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
-	dirPath= dlg->directory().path();
 	on_exportFormat_activated(0);
-	delete dlg;
 }
 
 void ExportCert::on_exportFormat_activated(int)

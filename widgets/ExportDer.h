@@ -59,9 +59,7 @@ class ExportDer: public QDialog, public Ui::ExportDer
 	QString filter;
 
    public:
-	ExportDer(QWidget *parent, QString fname, QString dpath,
-			QString _filter);
-	QString dirPath;
+	ExportDer(QWidget *parent, QString fname, QString _filter);
 
    public slots:
 	void on_fileBut_clicked();

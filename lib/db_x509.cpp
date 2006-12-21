@@ -677,9 +677,10 @@ void db_x509::store()
 	if (!crt)
 		return;
 	pki_key *privkey = crt->getRefKey();
-	ExportCert *dlg = new ExportCert(mainwin, crt->getUnderlinedName() + ".crt",
-			  (privkey && privkey->isPrivKey()),
-			  mainwin->getPath(), crt->tinyCAfname() );
+	QString fn = mainwin->getPath() + QDir::separator() +
+			crt->getUnderlinedName() + ".crt";
+	ExportCert *dlg = new ExportCert(mainwin, fn,
+			(privkey && privkey->isPrivKey()), crt->tinyCAfname() );
 	dlg->image->setPixmap(*MainWindow::certImg);
 	int dlgret = dlg->exec();
 
@@ -687,12 +688,12 @@ void db_x509::store()
 		delete dlg;
 		return;
 	}
-	mainwin->setPath(dlg->dirPath);
 	QString fname = dlg->filename->text();
 	if (fname == "") {
 		delete dlg;
 		return;
 	}
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
 	try {
 		switch (dlg->exportFormat->currentIndex()) {
 		case 0: // PEM

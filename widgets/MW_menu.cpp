@@ -60,6 +60,8 @@ void MainWindow::init_menu()
 	QMenu *file, *help, *import;
 
 	file = menuBar()->addMenu(tr("&File"));
+	file->addAction(tr("New &DataBase"),  this,
+				SLOT(new_database()), Qt::CTRL+Qt::Key_N );
 	file->addAction(tr("Open &DataBase"),  this,
 				SLOT(load_database()), Qt::CTRL+Qt::Key_L );
 	acList += file->addAction(tr("&Close DataBase"), this,
@@ -93,22 +95,31 @@ void MainWindow::init_menu()
 	wdList += import;
 }
 
+void MainWindow::new_database()
+{
+	load_db l;
+	QString fname = QFileDialog::getSaveFileName(this, l.caption, homedir,
+			l.filter);
+
+	if (fname.isEmpty())
+		return;
+
+	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()) );
+	dbfile = fname;
+	close_database();
+	init_database();
+}
+
 void MainWindow::load_database()
 {
 	load_db l;
-	QString fname;
-	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(l.caption);
-	dlg->setFilters(l.filter);
-	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->setDirectory(homedir);
-	if (dlg->exec()) {
-		fname = dlg->selectedFiles()[0];
-		homedir = dlg->directory().path();
-	}
-	delete dlg;
+	QString fname = QFileDialog::getOpenFileName(this, l.caption, homedir,
+			l.filter);
+
 	if (fname.isEmpty())
 		return;
+
+	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()) );
 	dbfile = fname;
 	close_database();
 	init_database();
@@ -122,20 +133,12 @@ void MainWindow::import_dbdump()
 	db_base *dbl[] = { keys, reqs, certs, temps, crls };
 	if (!keys)
 		return;
-	QStringList filt;
-	QString file, pass;
-	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(tr(XCA_TITLE));
-	dlg->setFilter("Database dump ( *.dump )");
-	dlg->setFilter("All files ( *.* )");
-	dlg->setFileMode( QFileDialog::ExistingFile );
-	dlg->setDirectory(getPath());
-	if (dlg->exec()) {
-		if (!dlg->selectedFiles().isEmpty())
-			file = dlg->selectedFiles()[0];
-	} else {
-		delete dlg;
-	}
+	QString pass;
+	QString file = QFileDialog::getOpenFileName(this, tr(XCA_TITLE), homedir,
+			tr("Database dump ( *.dump );;All files ( *.* )"));
+
+	if (file.isEmpty())
+		return;
 
 	pass_info p(tr("Import password"),
 		tr("Please enter the password of the old database"), this);
@@ -158,5 +161,4 @@ void MainWindow::import_dbdump()
 	} catch (errorEx &err) {
 		Error(err);
 	}
-	delete dlg;
 }

@@ -464,22 +464,16 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 
 void db_base::load_default(load_base &load)
 {
-	QStringList slist;
+	QStringList slist = QFileDialog::getOpenFileNames(mainwin, load.caption,
+			mainwin->getPath(), load.filter);
 
-	QFileDialog *dlg = new QFileDialog(mainwin);
+	if (!slist.count())
+		return;
 
-	dlg->setWindowTitle(load.caption);
-	dlg->setFilters(load.filter);
-	dlg->setFileMode( QFileDialog::ExistingFiles );
-	dlg->setDirectory(mainwin->getPath());
-	if (dlg->exec()) {
-		slist = dlg->selectedFiles();
-		mainwin->setPath(dlg->directory().path());
-	}
-	delete dlg;
+	QString fn = QDir::convertSeparators(slist[0]);
+	mainwin->setPath(fn.mid(0, fn.lastIndexOf(QDir::separator()) ));
 
-	ImportMulti *dlgi = NULL;
-	dlgi = new ImportMulti(mainwin);
+	ImportMulti *dlgi = new ImportMulti(mainwin);
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
 		QString s = *it;
 		s = QDir::convertSeparators(s);

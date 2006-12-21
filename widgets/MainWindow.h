@@ -118,6 +118,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
 	public slots:
 		void init_database();
+		void new_database();
 		void load_database();
 		void close_database();
 		void dump_database();

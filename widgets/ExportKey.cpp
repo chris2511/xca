@@ -56,7 +56,7 @@
 #include <Qt/qcombobox.h>
 #include <Qt/qfiledialog.h>
 
-ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
+ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
 	:QDialog(parent)
 {
 	setupUi(this);
@@ -74,33 +74,17 @@ ExportKey::ExportKey(QWidget *parent,QString fname,bool onlypub,QString dpath)
 		exportPrivate->setChecked(true);
 	}
 	canEncrypt();
-	dirPath = dpath;
 }
 
 void ExportKey::on_fileBut_clicked()
 {
-	QStringList filt;
-	filt.append(tr("Private keys ( *.pem *.der *.pk8 )"));
-	filt.append(tr("All Files ( *.* )"));
-	QString s = "", fn;
-	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(tr("Save key as"));
-	dlg->setFilters(filt);
-	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->setDirectory(dirPath);
-	fn = filename->text();
-	fn = fn.mid(fn.lastIndexOf(QDir::separator()) +1, -1);
-	dlg->selectFile(fn);
-	if (dlg->exec()) {
-		if (!dlg->selectedFiles().isEmpty())
-			s = dlg->selectedFiles()[0];
-	}
+	QString s = QFileDialog::getSaveFileName(this, tr("Save key as"),
+		filename->text(),
+		tr("Private keys ( *.pem *.der *.pk8 );;All files ( *.* )"));
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
-	dirPath = dlg->directory().path();
-	delete dlg;
 }
 
 void ExportKey::on_exportPkcs8_stateChanged()
@@ -118,27 +102,6 @@ void ExportKey::canEncrypt()
 	} else {
 		encryptKey->setEnabled(true);
 	}
-#if 0
-	if (exportFormat->currentText() == "PEM" && !onlyPub) {
-		printf("PEM\n");
-		exportPrivate->setEnabled(true);
-		on_exportPrivate_stateChanged();
-	}
-	else {
-		printf("else DER\n");
-		encryptKey->setDisabled(true);
-		encryptKey->setChecked(false);
-		exportPrivate->setEnabled(true);
-	}
-
-	if (onlyPub) {
-		printf("onlyPub\n");
-		exportPrivate->setChecked(false);
-		exportPrivate->setDisabled(true);
-		encryptKey->setChecked(false);
-		encryptKey->setDisabled(true);
-	}
-#endif
 }
 
 void ExportKey::on_exportFormat_activated(int c)

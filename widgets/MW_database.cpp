@@ -126,15 +126,8 @@ void MainWindow::init_database()
 
 void MainWindow::dump_database()
 {
-	QString dirname;
-
-	QFileDialog *dlg = new QFileDialog(this);
-	dlg->setWindowTitle(tr("Dump to directory"));
-	dlg->setFileMode(QFileDialog::DirectoryOnly);
-	if (dlg->exec()) {
-		dirname = dlg->selectedFiles()[0];
-	}
-	delete dlg;
+	QString dirname = QFileDialog::getExistingDirectory(this, tr(XCA_TITLE),
+			getPath());
 
 	if (dirname.isEmpty())
 		return;

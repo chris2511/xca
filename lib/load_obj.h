@@ -57,7 +57,7 @@ class pki_base;
 class load_base
 {
 	public:
-		QStringList filter;
+		QString filter;
 		QString caption;
 		virtual pki_base * loadItem(QString s);
 		load_base();

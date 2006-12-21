@@ -57,8 +57,7 @@ class ExportKey: public QDialog, public Ui::ExportKey
    private:
 	bool onlyPub;
    public:
-	ExportKey(QWidget *parent, QString fname, bool onlypub, QString dpath);
-	QString dirPath;
+	ExportKey(QWidget *parent, QString fname, bool onlypub);
    public slots:
 	void on_fileBut_clicked();
 	void canEncrypt();

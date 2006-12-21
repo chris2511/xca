@@ -57,8 +57,7 @@
 
 load_base::load_base()
 {
-	filter.clear();
-	filter.prepend( QObject::tr("All Files ( *.* )") );
+	filter = QObject::tr("All files ( *.* )");
 	caption = "";
 }
 
@@ -75,8 +74,8 @@ load_base::~load_base()
 load_key::load_key()
 	:load_base()
 {
-	filter.prepend( "PKCS#8 Keys ( *.p8 *.pk8 )");
-	filter.prepend( "PKI Keys ( *.pem *.der *.key )");
+	filter = QObject::tr("PKCS#8 Keys ( *.p8 *.pk8 );;"
+			"PKI Keys ( *.pem *.der *.key );;") + filter;
 	caption = QObject::tr("Import RSA key");
 }
 
@@ -91,8 +90,8 @@ pki_base * load_key::loadItem(QString s)
 load_req::load_req()
 	:load_base()
 {
-	filter.prepend( QObject::tr("Netscape Request ( *.spkac *.spc )"));
-	filter.prepend( QObject::tr("PKCS#10 CSR ( *.pem *.der *.csr )"));
+	filter = QObject::tr("Netscape Request ( *.spkac *.spc );;"
+			"PKCS#10 CSR ( *.pem *.der *.csr );;") + filter;
 	caption = QObject::tr("Import Request");
 }
 
@@ -113,7 +112,7 @@ pki_base * load_req::loadItem(QString s)
 load_cert::load_cert()
 	:load_base()
 {
-	filter.prepend(QObject::tr("Certificates ( *.pem *.der *.crt *.cer )"));
+	filter = QObject::tr("Certificates ( *.pem *.der *.crt *.cer );;") + filter;
 	caption = QObject::tr("Import X.509 Certificate");
 }
 
@@ -134,7 +133,7 @@ pki_base * load_cert::loadItem(QString s)
 load_pkcs7::load_pkcs7()
 	:load_base()
 {
-	filter.prepend(QObject::tr("PKCS#7 data ( *.p7s *.p7m *.p7b )"));
+	filter = QObject::tr("PKCS#7 data ( *.p7s *.p7m *.p7b );;") + filter;
 	caption = QObject::tr("Import PKCS#7 Certificates");
 }
 
@@ -155,7 +154,7 @@ pki_base * load_pkcs7::loadItem(QString s)
 load_pkcs12::load_pkcs12()
 	:load_base()
 {
-	filter.prepend(QObject::tr("PKCS#12 Certificates ( *.p12 *.pfx )"));
+	filter = QObject::tr("PKCS#12 Certificates ( *.p12 *.pfx );;") + filter;
 	caption = QObject::tr("Import PKCS#12 Private Certificate");
 }
 
@@ -169,7 +168,7 @@ pki_base * load_pkcs12::loadItem(QString s)
 load_temp::load_temp()
 	:load_base()
 {
-	filter.prepend(QObject::tr("XCA templates ( *.xca )"));
+	filter = QObject::tr("XCA templates ( *.xca );;") + filter;
 	caption = QObject::tr("Import XCA Templates");
 }
 
@@ -190,7 +189,7 @@ pki_base * load_temp::loadItem(QString s)
 load_crl::load_crl()
 	:load_base()
 {
-	filter.prepend(QObject::tr("Revocation lists ( *.pem *.der *.crl )"));
+	filter = QObject::tr("Revocation lists ( *.pem *.der *.crl );;") + filter;
 	caption = QObject::tr("Import Certificate Revocation List");
 }
 
@@ -211,6 +210,6 @@ pki_base * load_crl::loadItem(QString s)
 load_db::load_db()
 	:load_base()
 {
-	filter.prepend(QObject::tr("XCA Databases ( *.xdb )"));
+	filter = QObject::tr("XCA Databases ( *.xdb );;") + filter;
 	caption = QObject::tr("Open XCA Database");
 }

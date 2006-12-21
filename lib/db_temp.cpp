@@ -133,25 +133,15 @@ void db_temp::store()
 		return;
 	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
 
-	QStringList filt;
-	filt.append("XCA Templates ( *.xca )");
-	filt.append("All Files ( *.* )");
-	QString s="";
-	QFileDialog *dlg = new QFileDialog(mainwin);
-	dlg->setWindowTitle(tr("Export Template"));
-	dlg->setFilters(filt);
-	dlg->setFileMode( QFileDialog::AnyFile );
-	dlg->selectFile( temp->getUnderlinedName() + ".xca" );
-	dlg->setDirectory(mainwin->getPath());
-	if (dlg->exec()) {
-		if( !dlg->selectedFiles().isEmpty())
-			s = dlg->selectedFiles()[0];
-		mainwin->setPath(dlg->directory().path());
-	}
-	delete dlg;
+	QString fn = mainwin->getPath() + QDir::separator() +
+		temp->getUnderlinedName() + ".pem";
+	QString s = QFileDialog::getSaveFileName(mainwin,
+		tr("Save template as"),	fn,
+		tr("XCA templates ( *.xca);; All files ( *.* )"));
 	if (s.isEmpty())
 		return;
-	s=QDir::convertSeparators(s);
+	s = QDir::convertSeparators(s);
+	mainwin->setPath(s.mid(0, s.lastIndexOf(QDir::separator()) ));
 	try {
 		temp->writeTemp(s);
 	}

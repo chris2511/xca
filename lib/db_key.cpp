@@ -251,22 +251,22 @@ void db_key::store()
 
 	pki_key *targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
 
-	QString fn = targetKey->getUnderlinedName() + ".pem";
+	QString fn = mainwin->getPath() + QDir::separator() +
+			targetKey->getUnderlinedName() + ".pem";
 
-	ExportKey *dlg = new ExportKey(mainwin, fn,
-			targetKey->isPubKey(), mainwin->getPath() );
+	ExportKey *dlg = new ExportKey(mainwin, fn, targetKey->isPubKey());
 	dlg->image->setPixmap(*MainWindow::keyImg);
 
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
-	mainwin->setPath(dlg->dirPath);
 	QString fname = dlg->filename->text();
 	if (fname.isEmpty()) {
 		delete dlg;
 		return;
 	}
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
 	try {
 		pem = dlg->exportFormat->currentText() == "PEM" ? true : false;
 		if (dlg->encryptKey->isChecked())

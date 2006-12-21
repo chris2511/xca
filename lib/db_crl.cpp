@@ -161,8 +161,10 @@ void db_crl::store()
 	if (!crl)
 		return;
 
-	ExportDer *dlg = new ExportDer(mainwin, crl->getUnderlinedName() + ".pem",
-			  mainwin->getPath(), tr("CRL ( *.pem *.der *.crl )") );
+	QString fn = mainwin->getPath() + QDir::separator() +
+		crl->getUnderlinedName() + ".pem";
+	ExportDer *dlg = new ExportDer(mainwin, fn,
+			tr("CRL ( *.pem *.der *.crl )"));
 	dlg->image->setPixmap(*MainWindow::revImg);
 	dlg->label->setText(tr("Revokation list export"));
 	int dlgret = dlg->exec();
@@ -171,13 +173,13 @@ void db_crl::store()
 		delete dlg;
 		return;
 	}
-	mainwin->setPath(dlg->dirPath);
 	QString fname = dlg->filename->text();
 	bool pem = dlg->exportFormat->currentIndex() == 0 ? true : false;
 	delete dlg;
 	if (fname == "") {
 		return;
 	}
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
 	crl->writeCrl(fname, pem);
 }
 
