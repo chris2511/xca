@@ -73,6 +73,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	header()->setClickable(true);
 	header()->setSortIndicatorShown(true);
 #endif
+	basemodel = NULL;
 }
 
 XcaTreeView::~XcaTreeView()
@@ -82,7 +83,8 @@ XcaTreeView::~XcaTreeView()
 
 void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )
 {
-	basemodel->showContextMenu(e, getIndex(indexAt(e->pos())));
+	if (basemodel)
+		basemodel->showContextMenu(e, getIndex(indexAt(e->pos())));
 }
 
 void XcaTreeView::setModel(QAbstractItemModel *model)
