@@ -114,103 +114,17 @@ QString getPrefix()
 
 }
 
-#if 0
-/* This function returns the baseDirectory for storing private data.
- * on Unix:		$HOME/xca
- * on WIN 98/ME:	c:\Program Files\xca
- * on NT, W2K,XP	c:\Documents and Settings\%USER%\Application Data\xca
- */
-
-QString getBaseDir()
-{
-	QString baseDir = "";
-#ifdef WIN32
-	unsigned char reg_path_buf[255] = "";
-	TCHAR data_path_buf[255];
-
-	// verification registry keys
-	LONG lRc;
-    HKEY hKey;
-	DWORD dwDisposition;
-	DWORD dwLength = 255;
-	BOOL firstrun = false;
-
-	lRc = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\xca", 0, KEY_ALL_ACCESS,
-			&hKey);
-    if (lRc != ERROR_SUCCESS) {
-		// First run for current user
-		RegCloseKey(hKey);
-		RegCreateKeyEx(HKEY_CURRENT_USER, "Software\\xca", 0, NULL,
-				REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey,
-				&dwDisposition);
-		firstrun = true;
-	}
-	dwLength = sizeof(data_path_buf);
-	lRc = RegQueryValueEx(hKey, "data_path", NULL, NULL, (BYTE*)data_path_buf,
-			&dwLength);
-	if ((lRc == ERROR_SUCCESS)) {
-		// We're done, everything is OK
-		return QString::fromLocal8Bit(data_path_buf);
-	}
-
-	// There was no registry entry -> discover and create it
-	OSVERSIONINFOEX osvi;
-	BOOL bOsVersionInfoEx;
-	LPITEMIDLIST pidl = NULL;
-
-	if (!firstrun) {
-		// Strange.. "Software\xca" was there, but no "data_path"
-		QMessageBox::warning(NULL,XCA_TITLE, "Registry Key: "
-				"'HKEY_CURRENT_USER->Software->xca->data_path' not found. "
-				"I will create it for you now.");
-	}
-	// setup data dir for current user
-	ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-
-	if(!(bOsVersionInfoEx=GetVersionEx((OSVERSIONINFO*)&osvi))){
-		osvi.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
-		if (! GetVersionEx ( (OSVERSIONINFO *) &osvi) )
-			return baseDir;
-	}
-	if (osvi.dwPlatformId == VER_PLATFORM_WIN32_NT){
-		// NT, W2K, XP: use "Application Data"
-		if(SUCCEEDED(SHGetSpecialFolderLocation(NULL,CSIDL_APPDATA,&pidl))){
-			SHGetPathFromIDList(pidl, data_path_buf);
-			lstrcat(data_path_buf, "\\xca");
-		}
-		baseDir = QString::fromLocal8Bit(data_path_buf);
-	} else {
-		// WIN98, ME: use installation dir
-		baseDir = getPrefix() + "\\data";
-		strncpy(data_path_buf, CCHAR(baseDir), 255)
-	}
-	// save in registry
-	RegSetValueEx(hKey,"data_path", 0, REG_SZ, (BYTE*)data_path_buf, 255);
-	RegCloseKey(hKey);
-
-#elif __APPLE_CC__
-	baseDir = getPrefix() + "/xca";
-#else
-#ifdef BASEDIR
-	baseDir = BASEDIR;
-#else
-	baseDir = QDir::homePath();
-	baseDir += QDir::separator();
-	baseDir += ".xca";
-#endif
-#endif
-	return baseDir;
-}
-#endif
-
 QString getHomeDir()
 {
 	QString hd;
 #ifdef WIN32
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
+#ifdef CSIDL_MYDOCUMENTS
 	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_MYDOCUMENTS, &pidl))) {
+#else
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_COMMON_DOCUMENTS, &pidl))) {
+#endif
 		SHGetPathFromIDList(pidl, buf);
 	}
 	hd = buf;

@@ -114,7 +114,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString getPath();
 		void setPath(QString path);
 		bool mkDir(QString dir);
-		void setEnabled(bool enable);
+		void setItemEnabled(bool enable);
 
 	public slots:
 		void init_database();

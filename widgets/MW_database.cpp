@@ -121,7 +121,7 @@ void MainWindow::init_database()
 		return;
 	}
 	setWindowTitle(tr(XCA_TITLE));
-	setEnabled(true);
+	setItemEnabled(true);
 }
 
 void MainWindow::dump_database()
@@ -155,7 +155,7 @@ void MainWindow::dump_database()
 
 void MainWindow::close_database()
 {
-	setEnabled(false);
+	setItemEnabled(false);
 	dbindex->clear();
 
 	keyView->setModel(NULL);

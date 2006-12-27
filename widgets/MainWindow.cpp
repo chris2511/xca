@@ -103,7 +103,7 @@ MainWindow::MainWindow(QWidget *parent )
 	wdList << keyButtons << reqButtons << certButtons <<
 		tempButtons <<	crlButtons;
 	init_menu();
-	setEnabled(false);
+	setItemEnabled(false);
 
 	init_images();
 	homedir = getHomeDir();
@@ -128,7 +128,7 @@ MainWindow::MainWindow(QWidget *parent )
 	aia_nid = read_nidlist("aia.txt");
 }
 
-void MainWindow::setEnabled(bool enable)
+void MainWindow::setItemEnabled(bool enable)
 {
 	foreach(QWidget *w, wdList) {
 		w->setEnabled(enable);
