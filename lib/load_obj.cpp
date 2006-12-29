@@ -82,7 +82,8 @@ load_key::load_key()
 pki_base * load_key::loadItem(QString s)
 {
 	pki_key *lkey = new pki_key();
-	lkey->fload(s);
+	if (lkey)
+		lkey->fload(s);
 	return lkey;
 };
 
@@ -98,6 +99,8 @@ load_req::load_req()
 pki_base * load_req::loadItem(QString s)
 {
 	pki_x509req *req = new pki_x509req(s);
+	if (!req)
+		return NULL;
 	try {
 		req->fload(s);
 	}
@@ -119,6 +122,8 @@ load_cert::load_cert()
 pki_base * load_cert::loadItem(QString s)
 {
 	pki_x509 *crt = new pki_x509(s);
+	if (!crt)
+		return NULL;
 	try {
 		crt->fload(s);
 	}
@@ -140,6 +145,8 @@ load_pkcs7::load_pkcs7()
 pki_base * load_pkcs7::loadItem(QString s)
 {
 	pki_pkcs7 *p7 = new pki_pkcs7(s);
+	if (!p7)
+		return NULL;
 	try {
 		p7->fload(s);
 	}
@@ -175,6 +182,8 @@ load_temp::load_temp()
 pki_base * load_temp::loadItem(QString s)
 {
 	pki_temp *temp = new pki_temp(s);
+	if (!temp)
+		return NULL;
 	try {
 		temp->loadTemp(s);
 	}
@@ -196,6 +205,8 @@ load_crl::load_crl()
 pki_base * load_crl::loadItem(QString s)
 {
 	pki_crl *crl = new pki_crl(s);
+	if (!crl)
+		return NULL;
 	try {
 		crl->fload(s);
 	}
