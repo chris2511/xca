@@ -393,3 +393,11 @@ void MainWindow::connNewX509(NewX509 *nx)
 	connect( nx, SIGNAL(showReq(QString)), reqs, SLOT(showItem(QString)));
 }
 
+/* Dear code reader,
+ * this is an evil hack. Originally I compiled MW_menu.cpp separately
+ * and linked it to the application, but the mingw32 linker
+ * segfaults. Thus I include the file here and remove it from the Makefile
+ * and the linker works.
+ * There is a FIXME and a warning */
+#warning inclde "MW_menu.cpp"
+#include "MW_menu.cpp"
