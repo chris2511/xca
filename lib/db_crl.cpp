@@ -257,7 +257,6 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 
 		crl->sign(cert->getRefKey(), dgst);
 		mainwin->certs->updatePKI(cert);
-#warning  FIXME: set Last update
 		insert(crl);
 	}
 	catch (errorEx &err) {

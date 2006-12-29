@@ -33,7 +33,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 This program links to software with different licenses from:
 
-	http://www.openssl.orgwhich includes cryptographic software
+	http://www.openssl.org which includes cryptographic software
 	written by Eric Young (eay@cryptsoft.com)"
 
 	http://www.trolltech.com

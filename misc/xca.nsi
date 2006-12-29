@@ -69,8 +69,8 @@ Section "xca (required)" SecMain
   File "${BDIR}/mingwm10.dll"
 
   File "${OPENSSL}\libeay32.dll"
-  File "${QTDIR}\QtGui4.dll"
-  File "${QTDIR}\QtCore4.dll"
+  File "${QTDIR}\bin\QtGui4.dll"
+  File "${QTDIR}\bin\QtCore4.dll"
   ; remove old images
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"
