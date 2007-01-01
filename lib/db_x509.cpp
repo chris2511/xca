@@ -144,16 +144,6 @@ void db_x509::remFromCont(QModelIndex &idx)
 	return;
 }
 
-void db_x509::preprocess()
-{
-	FOR_ALL_pki(pki, pki_x509) {
-		findSigner(pki);
-		findKey(pki);
-	}
-	calcEffTrust();
-
-}
-
 void db_x509::changeView()
 {
 	pki_base *temproot = new pki_base();

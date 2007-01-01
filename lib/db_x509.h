@@ -77,7 +77,6 @@ class db_x509: public db_x509super
 		void updateViewAll();
 		void updateViewPKI(pki_base *pki);
 		void remFromCont(QModelIndex &idx);
-		void preprocess();
 		QStringList getPrivateDesc();
 		QStringList getSignerDesc();
 		void calcEffTrust();

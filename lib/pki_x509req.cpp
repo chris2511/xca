@@ -293,13 +293,9 @@ extList pki_x509req::getV3Ext()
 */
 void pki_x509req::setSPKIFromData(const unsigned char *p, int size)
 {
-	NETSCAPE_SPKI *spki = NULL;
-
-	spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &p, size);
-	if (spki == NULL) goto err;
-
-	set_spki (spki);
- err:
+	NETSCAPE_SPKI *spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &p, size);
+	if (spki)
+		set_spki (spki);
 	openssl_error();
 }
 
@@ -310,13 +306,9 @@ void pki_x509req::setSPKIFromData(const unsigned char *p, int size)
 */
 void pki_x509req::setSPKIBase64(const char *p)
 {
-	NETSCAPE_SPKI *spki = NULL;
-
-	spki = NETSCAPE_SPKI_b64_decode(p, -1);
-	if (spki == NULL) goto err;
-
-	set_spki (spki);
- err:
+	NETSCAPE_SPKI *spki = NETSCAPE_SPKI_b64_decode(p, -1);
+	if (spki)
+		set_spki (spki);
 	openssl_error();
 }
 
@@ -335,22 +327,26 @@ void pki_x509req::set_spki(NETSCAPE_SPKI *_spki)
 	  Now extract the key from the SPKI structure and
 	   check the signature.
 	 */
-
+	openssl_error();
 	pktmp=NETSCAPE_SPKI_get_pubkey(_spki);
-	if (pktmp == NULL) goto err;
+	if (pktmp == NULL)
+		goto err;
 
-	if (NETSCAPE_SPKI_verify(_spki, pktmp) <= 0) goto err;
+	if (NETSCAPE_SPKI_verify(_spki, pktmp) <= 0)
+		goto err;
 
-	X509_REQ_set_pubkey(request,pktmp);
+	X509_REQ_set_pubkey(request, pktmp);
 
 	// replace the internally stored spki structure.
 	if (spki)
 		NETSCAPE_SPKI_free(spki);
 	spki=_spki;
+	openssl_error();
 	return;
  err:
 	NETSCAPE_SPKI_free(_spki);
-	if (pktmp != NULL) EVP_PKEY_free(pktmp);
+	if (pktmp != NULL)
+		EVP_PKEY_free(pktmp);
 	openssl_error();
 }
 
@@ -383,15 +379,14 @@ void pki_x509req::load_spkac(const QString filename)
 
 		sk=CONF_get_section(parms, "default");
 		if (sk_CONF_VALUE_num(sk) == 0)
-			openssl_error(QString("no name/value pairs found in %1\n").arg(filename));
+			openssl_error(tr("no key/value pairs found in %1\n").arg(filename));
 
 		/*
 		 * Build up the subject name set.
 		 */
-		for (i = 0; ; i++)
-			{
-			if (sk_CONF_VALUE_num(sk) <= i) break;
-
+		for (i = 0; ; i++) {
+			if (sk_CONF_VALUE_num(sk) <= i)
+				break;
 			cv=sk_CONF_VALUE_value(sk,i);
 			type=cv->name;
 			/* Skip past any leading X. X: X, etc to allow for
@@ -409,6 +404,7 @@ void pki_x509req::load_spkac(const QString filename)
 			// check for a valid DN component.
 			if ((nid=OBJ_txt2nid(type)) == NID_undef)
 				{
+				ign_openssl_error();
 				// ... or a SPKAC tag.
 				if (strcmp(type, "SPKAC") == 0)
 					setSPKIBase64(cv->value);
@@ -421,7 +417,7 @@ void pki_x509req::load_spkac(const QString filename)
 			else
 				// gather all values in the x509name subject.
 				subject.addEntryByNid(nid,cv->value);
-			}
+		}
 		if (!spki_found)
 			openssl_error(QString("No Netscape SPKAC structure found in %1\n").arg(filename));
 

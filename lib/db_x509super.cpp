@@ -63,11 +63,6 @@ void db_x509super::newKey(pki_key *newkey)
 	 FOR_ALL_pki(pki,pki_x509super) { pki->setRefKey(newkey); }
 }
 
-void db_x509super::preprocess()
-{
-	 FOR_ALL_pki(pki,pki_x509super) { findKey(pki); }
-}
-
 pki_key *db_x509super::findKey(pki_x509super *ref)
 {
 	pki_key *key, *refkey;

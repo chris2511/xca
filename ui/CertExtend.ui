@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>CertExtend</class>
  <widget class="QDialog" name="CertExtend" >
   <property name="geometry" >
@@ -146,10 +143,10 @@
            </widget>
           </item>
           <item row="0" column="1" >
-           <widget class="Validity" name="notBefore" />
+           <widget class="Validity" native="1" name="notBefore" />
           </item>
           <item row="1" column="1" >
-           <widget class="Validity" name="notAfter" />
+           <widget class="Validity" native="1" name="notAfter" />
           </item>
          </layout>
         </item>
@@ -305,16 +302,22 @@
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>Validity</class>
-   <extends></extends>
+   <extends>QWidget</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>validNumber</tabstop>
+  <tabstop>validRange</tabstop>
+  <tabstop>midnightCB</tabstop>
+  <tabstop>applyTime</tabstop>
+  <tabstop>PushButton2</tabstop>
+  <tabstop>PushButton3</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
