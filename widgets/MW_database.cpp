@@ -69,6 +69,7 @@ void MainWindow::init_database()
 	}
 	catch (errorEx &err) {
 		Error(err);
+		dbfile = "";
 		return;
 	}
 
@@ -92,8 +93,6 @@ void MainWindow::init_database()
 		certs, SLOT(newCert(pki_temp *)) );
 	connect( temps, SIGNAL(newReq(pki_temp *)),
 		reqs, SLOT(newItem(pki_temp *)) );
-
-	dbindex->setText(tr("Database") + ":" + dbfile);
 
 	keyView->setIconSize(pki_key::icon[0]->size());
 	reqView->setIconSize(pki_x509req::icon[0]->size());
@@ -122,6 +121,7 @@ void MainWindow::init_database()
 	}
 	setWindowTitle(tr(XCA_TITLE));
 	setItemEnabled(true);
+	dbindex->setText(tr("Database") + ":" + dbfile);
 }
 
 void MainWindow::dump_database()

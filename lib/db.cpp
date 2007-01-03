@@ -68,7 +68,9 @@ bool db::verify_magic(void)
 {
 	if (head_offset != OFF_EOF)
 		if (ntohl(head.magic) != XCA_MAGIC) {
-			printf("database error at %lu\n", head_offset);
+			throw errorEx(QString("database error '") +
+				file.fileName() +"'",
+				"at: " + QString::number(head_offset));
 			return false;
 		}
 	return true;
