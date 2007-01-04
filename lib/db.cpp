@@ -193,9 +193,7 @@ QString db::uniq_name(QString s, enum pki_type type)
 	first();
 	for (i=1;;i++) {
 		if (find(type, CCHAR(myname)) == 0) {
-			printf("duplicate entry found at %lx\n", head_offset);
 			myname = QString("%1_%2").arg(s).arg(i);
-			printf("Trying '%s'\n", CCHAR(myname));
 		} else {
 			break;
 		}

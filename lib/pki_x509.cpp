@@ -358,7 +358,8 @@ unsigned char *pki_x509::toData(int *size)
 
 void pki_x509::writeDefault(const QString fname)
 {
-	writeCert(fname + QDir::separator() + getIntName() + ".crt", true, false);
+	writeCert(fname + QDir::separator() + getIntName() + ".crt",
+			true, false);
 }
 
 void pki_x509::writeCert(const QString fname, bool PEM, bool append)

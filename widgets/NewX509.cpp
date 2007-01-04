@@ -68,10 +68,6 @@
 #include "lib/oid.h"
 #include "lib/func.h"
 
-#if 0
-#define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
-#define TRACE
-#endif
 int NewX509::name_nid[] = {
 	NID_commonName,
 	NID_countryName,
@@ -94,7 +90,6 @@ NewX509::NewX509(QWidget *parent)
 	setupUi(this);
 
 	sl << "Type" << "Content";
-	printf("Set Ext DN list\n");
 	extDNlist->setColumnCount(2);
 	extDNlist->setHorizontalHeaderLabels(sl);
 	setWindowTitle(tr(XCA_TITLE));

@@ -93,7 +93,6 @@ QStringList db_key::get0PrivateDesc()
 	QStringList x;
 	x.clear();
 	FOR_ALL_pki(pki, pki_key) {
-		//printf("0Privatre desc: %s: priv:%d, cnt:%d\n", CCHAR(pki->getIntName()),	pki->isPrivKey() ,pki->getUcount());
 		if (pki->isPrivKey() && pki->getUcount() == 0)
 			x.append(pki->getIntNameWithType());
 	}
@@ -186,7 +185,6 @@ void db_key::newItem()
 		status->removeWidget(bar);
 		delete bar;
 		nkey = (pki_key*)insert(nkey);
-		printf("Emit KeyDone\n");
 		emit keyDone(nkey->getIntNameWithType());
 	}
 	delete dlg;

@@ -134,7 +134,7 @@ void db_temp::store()
 	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
 
 	QString fn = mainwin->getPath() + QDir::separator() +
-		temp->getUnderlinedName() + ".pem";
+		temp->getUnderlinedName() + ".xca";
 	QString s = QFileDialog::getSaveFileName(mainwin,
 		tr("Save template as"),	fn,
 		tr("XCA templates ( *.xca);; All files ( *.* )"));

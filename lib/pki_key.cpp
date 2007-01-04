@@ -194,8 +194,6 @@ void pki_key::generate(int bits, int type, QProgressBar *progress)
 	}
 	openssl_error();
 	encryptKey();
-
-	//printf("encryption  DONE\n");
 }
 
 pki_key::pki_key(const pki_key *pk)
