@@ -68,6 +68,7 @@ ClickLabel::ClickLabel(QWidget *parent)
 void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
 {
 	QWidget::mouseDoubleClickEvent(e);
+	printf("DOUBLE CLICK\n");
 	emit doubleClicked(text());
 }
 

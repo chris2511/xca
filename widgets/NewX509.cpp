@@ -284,7 +284,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	issAltName->setText(temp->issAltName);
 	crlDist->setText(temp->crlDist);
 	setAuthInfAcc_string(temp->authInfAcc);
-	certPol->setText(temp->certPol);
+	//certPol->setText(temp->certPol);
 	nsComment->setText(temp->nsComment);
 	nsBaseUrl->setText(temp->nsBaseUrl);
 	nsRevocationUrl->setText(temp->nsRevocationUrl);
@@ -320,7 +320,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->issAltName = issAltName->text();
 	temp->crlDist = crlDist->text();
 	temp->authInfAcc = getAuthInfAcc_string();
-	temp->certPol = certPol->text();
+	//temp->certPol = certPol->text();
 	temp->nsComment = nsComment->text();
 	temp->nsBaseUrl = nsBaseUrl->text();
 	temp->nsRevocationUrl = nsRevocationUrl->text();

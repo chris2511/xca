@@ -1,0 +1,43 @@
+
+This is a short overview of how to build
+XCA for windows.
+
+This is for debian hosts, cross-compiling a windows binary.
+
+Needed packages:
+  mingw cross compiler
+  makensis cross tool
+
+# apt-get install mingw32 mingw32-binutils mingw32-runtime nsis
+
+create a new, empty directory say xca-w32
+unpack xca there
+Use a W32 host to execute and install the selfextracting QT4....exe
+copy the installed tree to xca-w32/qt/
+$ cp openssl-0.9.8X.tar.gz xca-w32/
+$ tar zxf openssl-0.9.8X.tar.gz
+apply openssl-cross-patch:
+$ cd openssl-0.9.8X
+$ patch -p1 < ../xca/misc/openssl-0.9.8d-mingw32-cross.patch
+compile openssl with:
+$ sh ms/mingw32-cross.sh
+compile xca:
+$ cd xca
+$ cp misc/Local.mak.w32 Local.mak
+Edit Local.mak:
+ set BDIR to /FULLPATH/xca-w32
+ set OPENSSLDIR and QTDIR
+ if your linux-qt is the same version as the w32 one,
+ keep USE_HOSTTOOLS at "yes" otherwise set it to "no"
+ and say make
+$ make
+
+
+get the mingw runtime lib:
+$ zcat /usr/share/doc/mingw32-runtime/mingwm10.dll.gz >mingwm10.dll
+get the precompiled from an other XCA installation
+$ cp db_dump.exe xca-w32
+
+create the setup.exe;
+$ make setup.exe
+
