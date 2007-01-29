@@ -95,11 +95,11 @@ MainWindow::MainWindow(QWidget *parent )
 	dbindex->setMargin(6);
 
 	statusBar()->addWidget(dbindex, 1);
-
-	setWindowTitle(tr(XCA_TITLE));
 	force_load = 0;
 
 	setupUi(this);
+	setWindowTitle(tr(XCA_TITLE));
+
 	wdList << keyButtons << reqButtons << certButtons <<
 		tempButtons <<	crlButtons;
 	init_menu();

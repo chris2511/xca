@@ -115,10 +115,9 @@ bool db_temp::alterTemp(pki_temp *temp)
 	return true;
 }
 
-void db_temp::showItem(const QModelIndex &index)
+void db_temp::showPki(pki_base *pki)
 {
-	pki_temp *temp = static_cast<pki_temp*>(index.internalPointer());
-	alterTemp(temp);
+	alterTemp((pki_temp *)pki);
 }
 
 void db_temp::load()

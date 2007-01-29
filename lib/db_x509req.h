@@ -70,9 +70,7 @@ class db_x509req: public db_x509super
 	void newItem(pki_temp *temp = NULL);
 	void load();
 	void store();
-	void showItem(QString descr);
-	void showItem(pki_x509req *req);
-	void showItem(const QModelIndex &index);
+	void showPki(pki_base *pki);
 	void signReq();
     signals:
 	void newCert(pki_x509req *req);

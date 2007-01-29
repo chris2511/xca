@@ -51,6 +51,7 @@
 #include "lib/exception.h"
 #include <Qt/qdir.h>
 #include <Qt/qstatusbar.h>
+#include "lib/db_base.h"
 
 void MainWindow::init_database()
 {

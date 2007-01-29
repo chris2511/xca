@@ -69,13 +69,13 @@ class db_crl: public db_base
 	void revokeCerts(pki_crl *crl);
 	void inToCont(pki_base *pki);
 	pki_base *insert(pki_base *item);
-	void showItem(const QModelIndex &index);
 	pki_crl *newItem(pki_x509 *cert);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 	void removeSigner(pki_base *signer);
     public slots:
 	void store();
 	void load();
+	void showPki(pki_base *pki);
     signals:
 	void updateCertView();
 };

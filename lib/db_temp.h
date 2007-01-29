@@ -72,7 +72,7 @@ class db_temp: public db_base
     public slots:
 	void newItem();
 	void changeTemp();
-	void showItem(const QModelIndex &index);
+	void showPki(pki_base *pki);
 	void load();
 	void store();
 	void certFromTemp();

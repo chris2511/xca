@@ -143,9 +143,9 @@ pki_base *db_crl::insert(pki_base *item)
 	return crl;
 }
 
-void db_crl::showItem(const QModelIndex &index)
+void db_crl::showPki(pki_base *pki)
 {
-	pki_crl *crl = static_cast<pki_crl*>(index.internalPointer());
+	pki_crl *crl = (pki_crl *)pki;
 	CrlDetail *dlg;
 
 	dlg = new CrlDetail(mainwin);

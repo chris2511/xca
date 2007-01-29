@@ -131,32 +131,19 @@ void db_x509req::load(void)
 	load_default(l);
 }
 
-void db_x509req::showItem(pki_x509req *req)
+void db_x509req::showPki(pki_base *pki)
 {
-	if (!req)
-		return;
-
+	pki_x509req *req = (pki_x509req *)pki;
 	ReqDetail *dlg;
 	dlg = new ReqDetail(mainwin);
 	if (dlg) {
 		dlg->setReq(req);
+		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ),
+			mainwin->keys, SLOT( showKey(QString) ));
 		dlg->exec();
 		delete dlg;
 	}
 }
-
-void db_x509req::showItem(const QModelIndex &index)
-{
-	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
-	showItem(req);
-}
-
-void db_x509req::showItem(QString descr)
-{
-	pki_x509req *req = (pki_x509req*)getByName(descr);
-	showItem(req);
-}
-
 
 void db_x509req::store()
 {

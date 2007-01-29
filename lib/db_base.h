@@ -120,7 +120,6 @@ class db_base: public QAbstractItemModel
 	void storeSelectedItems(XcaTreeView *view);
 	void load_default(load_base &load);
 	void insertChild(pki_base *parent, pki_base *child);
-	virtual void showItem(const QModelIndex &index) {};
 
     public slots:
 	void deletePKI();
@@ -128,6 +127,9 @@ class db_base: public QAbstractItemModel
 	void edit();
 	virtual void showItem();
 	virtual void store(){};
+	virtual void showPki(pki_base *pki) { };
+	virtual void showItem(const QModelIndex &index);
+	virtual void showItem(const QString keyname);
 
     signals:
 	void connNewX509(NewX509 *dlg);

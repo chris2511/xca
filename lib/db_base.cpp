@@ -266,6 +266,18 @@ void db_base::storeSelectedItems(XcaTreeView* view)
 	currentIdx = QModelIndex();
 }
 
+void db_base::showItem(const QModelIndex &index)
+{
+	showPki(static_cast<pki_key*>(index.internalPointer()));
+}
+
+void db_base::showItem(const QString name)
+{
+	pki_base *pki = getByName(name);
+	if (pki)
+		showPki(pki);
+}
+
 void db_base::insertChild(pki_base *parent, pki_base *child)
 {
 	QModelIndex idx = QModelIndex();

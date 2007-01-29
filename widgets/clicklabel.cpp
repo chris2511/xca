@@ -68,7 +68,6 @@ ClickLabel::ClickLabel(QWidget *parent)
 void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
 {
 	QWidget::mouseDoubleClickEvent(e);
-	printf("DOUBLE CLICK\n");
 	emit doubleClicked(text());
 }
 
@@ -82,10 +81,10 @@ void ClickLabel::setColor(const QColor &col)
 
 void ClickLabel::setRed()
 {
-	setColor( QColor( 192, 0, 0) );
+	setColor( QColor( 192, 32, 32) );
 }
 
 void ClickLabel::setGreen()
 {
-	setColor( QColor( 0, 192, 0) );
+	setColor( QColor( 32, 192, 32) );
 }

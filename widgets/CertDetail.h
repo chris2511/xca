@@ -53,7 +53,7 @@
 
 class pki_x509;
 
-class CertDetail: public QDialog, private Ui::CertDetail
+class CertDetail: public QDialog, public Ui::CertDetail
 {
 		Q_OBJECT
 

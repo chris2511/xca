@@ -196,12 +196,10 @@ void db_key::load(void)
 	load_default(l);
 }
 
-void db_key::showItem(const QModelIndex &index)
+void db_key::showPki(pki_base *pki)
 {
-	pki_key *key = static_cast<pki_key*>(index.internalPointer());
-	KeyDetail *dlg;
-
-	dlg = new KeyDetail(mainwin);
+	pki_key *key = (pki_key *)pki;
+	KeyDetail *dlg = new KeyDetail(mainwin);
 	if (dlg) {
 		dlg->setKey(key);
 		dlg->exec();

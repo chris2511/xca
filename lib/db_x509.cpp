@@ -571,13 +571,17 @@ void db_x509::newCert(NewX509 *dlg)
     }
 }
 
-void db_x509::showItem(const QModelIndex &index)
+void db_x509::showPki(pki_base *pki)
 {
-	pki_x509 *crt = static_cast<pki_x509*>(index.internalPointer());
+	pki_x509 *crt = (pki_x509 *)pki;
 	CertDetail *dlg;
 	dlg = new CertDetail(mainwin);
 	if (dlg) {
 		dlg->setCert(crt);
+		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ),
+			mainwin->keys, SLOT( showItem(QString) ));
+		connect( dlg->signCert, SIGNAL( doubleClicked(QString) ),
+			this, SLOT( showItem(QString) ));
 		dlg->exec();
 		delete dlg;
 	}
