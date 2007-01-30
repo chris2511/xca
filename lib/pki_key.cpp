@@ -166,7 +166,8 @@ void pki_key::setOwnPass(enum passType x)
 		encryptKey();
 	}
 	catch (errorEx &err) {
-		EVP_PKEY_free(key);
+		if (pk)
+			EVP_PKEY_free(pk);
 		key = pk_back;
 		ownPass = oldOwnPass;
 		throw(err);
@@ -532,15 +533,17 @@ void pki_key::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 				"Please enter the password protecting the PKCS#8 key"));
 	FILE *fp = fopen(fname.toAscii(),"w");
 	if (fp != NULL) {
-		if (key){
+		if (key) {
 			pkey = decryptKey();
-			if (pem)
-				PEM_write_PKCS8PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
-			else
-				i2d_PKCS8PrivateKey_fp(fp, pkey, enc, NULL, 0, cb, &p);
-			EVP_PKEY_free(pkey);
-			openssl_error();
-	   }
+			if (pkey) {
+				if (pem)
+					PEM_write_PKCS8PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
+				else
+					i2d_PKCS8PrivateKey_fp(fp, pkey, enc, NULL, 0, cb, &p);
+				EVP_PKEY_free(pkey);
+				openssl_error();
+			}
+		}
 	}
 	else fopen_error(fname);
 	fclose(fp);
@@ -574,12 +577,14 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 	}
 	if (key){
 		pkey = decryptKey();
-		if (pem) {
-			PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
-		} else {
-			i2d_PrivateKey_fp(fp, pkey);
-        }
-		EVP_PKEY_free(pkey);
+		if (pkey) {
+			if (pem) {
+				PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
+			} else {
+				i2d_PrivateKey_fp(fp, pkey);
+        	}
+			EVP_PKEY_free(pkey);
+		}
 		openssl_error();
 	}
 	fclose(fp);

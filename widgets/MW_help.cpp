@@ -112,7 +112,7 @@ void MainWindow::about()
 void MainWindow::help()
 {
 	QDialog *h = new QDialog(this, 0);
-	QString path;
+	QString path, uri;
 	Ui::Help ui;
 	ui.setupUi(h);
 
@@ -120,10 +120,12 @@ void MainWindow::help()
 #ifdef WIN32
 	path += "/";
 #endif
-	path += getPrefix() + QDir::separator() +"xca.html";
+	path += getPrefix();
+	uri = path + QDir::separator() +"xca.html";
 
 	printf("Help URI = '%s'\n",	CCHAR(path));
-	ui.textbox->setSource(QUrl(path));
+	ui.textbox->setSource(QUrl(uri));
+	ui.textbox->setSearchPaths(QStringList(path));
 	h->setWindowTitle(tr(XCA_TITLE));
 	h->exec();
 }

@@ -35,9 +35,9 @@ $ make
 
 get the mingw runtime lib:
 $ zcat /usr/share/doc/mingw32-runtime/mingwm10.dll.gz >mingwm10.dll
-get the precompiled from an other XCA installation
+get the precompiled db_dump.exe from an other XCA installation
 $ cp db_dump.exe xca-w32
 
-create the setup.exe;
+create the setup.exe
 $ make setup.exe
 

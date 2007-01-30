@@ -151,6 +151,8 @@ void db_crl::showPki(pki_base *pki)
 	dlg = new CrlDetail(mainwin);
 	if (dlg) {
 		dlg->setCrl(crl);
+		connect( dlg->issuerIntName, SIGNAL( doubleClicked(QString) ),
+		            mainwin->certs, SLOT( showItem(QString) ));
 		dlg->exec();
 		delete dlg;
 	}

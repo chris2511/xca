@@ -55,7 +55,7 @@
 class pki_crl;
 class MainWindow;
 
-class CrlDetail: public QDialog, private Ui::CrlDetail
+class CrlDetail: public QDialog, public Ui::CrlDetail
 {
 	Q_OBJECT
 	private:

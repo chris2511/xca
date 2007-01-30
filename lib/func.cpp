@@ -120,11 +120,10 @@ QString getHomeDir()
 #ifdef WIN32
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
-#ifdef CSIDL_MYDOCUMENTS
-	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_MYDOCUMENTS, &pidl))) {
-#else
-	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_COMMON_DOCUMENTS, &pidl))) {
+#ifndef CSIDL_MYDOCUMENTS
+#define CSIDL_MYDOCUMENTS 0x0c
 #endif
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_MYDOCUMENTS, &pidl))) {
 		SHGetPathFromIDList(pidl, buf);
 	}
 	hd = buf;
