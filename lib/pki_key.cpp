@@ -150,7 +150,7 @@ QString pki_key::removeTypeFromIntName(QString n)
 
 void pki_key::setOwnPass(enum passType x)
 {
-	EVP_PKEY *pk, *pk_back = key;
+	EVP_PKEY *pk=NULL, *pk_back = key;
 	int oldOwnPass = ownPass;
 
 	if (ownPass == x || isPubKey())
