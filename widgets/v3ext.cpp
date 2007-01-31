@@ -91,7 +91,6 @@ void v3ext::addItem(QString list)
 	int i;
 	QStringList sl;
 	sl = list.split(',');
-	printf("List count = %d\n",  sl.count());
 	for (i=0; i< sl.count(); i++)
 		addEntry(sl[i]);
 }

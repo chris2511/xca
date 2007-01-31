@@ -92,7 +92,6 @@ void db_temp::newItem()
 	pki_temp *temp = new pki_temp("--");
 	if (runTempDlg(temp)) {
 		insertPKI(temp);
-		printf("Insert PKI temp\n");
 	}
 	else {
 		delete temp;
@@ -105,6 +104,16 @@ void db_temp::changeTemp()
 		return;
 	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
 	alterTemp(temp);
+}
+
+void db_temp::duplicateTemp()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+	pki_temp *newtemp = new pki_temp(temp);
+	newtemp->setIntName(newtemp->getIntName() + " " + tr("copy"));
+	insertPKI(newtemp);
 }
 
 bool db_temp::alterTemp(pki_temp *temp)
@@ -185,6 +194,7 @@ void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Change"), this, SLOT(alterTemp()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
+		menu->addAction(tr("Duplicate"), this, SLOT(duplicateTemp()));
 		menu->addAction(tr("Create certificate"), this,
 				SLOT(certFromTemp()));
 		menu->addAction(tr("Create request"), this, SLOT(reqFromTemp()));

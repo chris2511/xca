@@ -69,12 +69,12 @@
 #include "lib/func.h"
 
 int NewX509::name_nid[] = {
-	NID_commonName,
 	NID_countryName,
-	NID_localityName,
 	NID_stateOrProvinceName,
+	NID_localityName,
 	NID_organizationName,
 	NID_organizationalUnitName,
+	NID_commonName,
 	NID_pkcs9_emailAddress
 };
 
@@ -93,7 +93,6 @@ NewX509::NewX509(QWidget *parent)
 	extDNlist->setColumnCount(2);
 	extDNlist->setHorizontalHeaderLabels(sl);
 	setWindowTitle(tr(XCA_TITLE));
-	fixtemp = NULL;
 
 	nsImg->setPixmap(*MainWindow::nsImg);
 	//setFont( tFont );
@@ -158,12 +157,12 @@ NewX509::NewX509(QWidget *parent)
 	X509V3_set_ctx_nodb((&ext_ctx));
 
 	// setup the list of x509nameEntrys
-	name_ptr[0] = commonName;
-	name_ptr[1] = countryName;
+	name_ptr[0] = countryName;
+	name_ptr[1] = stateOrProvinceName;
 	name_ptr[2] = localityName;
-	name_ptr[3] = stateOrProvinceName;
-	name_ptr[4] = organisationName;
-	name_ptr[5] = organisationalUnitName;
+	name_ptr[3] = organisationName;
+	name_ptr[4] = organisationalUnitName;
+	name_ptr[5] = commonName;
 	name_ptr[6] = emailAddress;
 
 	// last polish
@@ -180,7 +179,7 @@ void NewX509::setRequest()
 	signerBox->setEnabled(false);
 	validityBox->setEnabled(false);
 	rangeBox->setEnabled(false);
-	tText=tr("Certificate signing request");
+	capt->setText(tr("Create Certificate signing request"));
 	setImage(MainWindow::csrImg);
 	pt = x509_req;
 }
@@ -192,29 +191,31 @@ NewX509::~NewX509()
 
 void NewX509::setTemp(pki_temp *temp)
 {
-	tText=tr("Template");
+	QString text = tr("Create ");
 	if (temp->getIntName() != "--") {
 		description->setText(temp->getIntName());
-		tText += tr(" change");
+		description->setDisabled(true);
+		text = tr("Edit ");
 	}
+	capt->setText(text + tr("XCA template"));
 	tabWidget->removeTab(0);
 	privKeyBox->setEnabled(false);
 	validityBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
-
 	pt = tmpl;
+	toggleOkBut();
 }
 
 void NewX509::setCert()
 {
-	tText=tr("Certificate");
+	capt->setText(tr("Create x509 Certificate"));
 	setImage(MainWindow::certImg);
 	pt = x509;
 }
 
-void NewX509::setImage(QPixmap *image)
+void NewX509::setImage(QPixmap *img)
 {
-	bigImg->setPixmap(*image);
+	image->setPixmap(*img);
 }
 
 void NewX509::defineTemplate(pki_temp *temp)
@@ -370,7 +371,7 @@ void NewX509::on_keyList_highlighted(const QString &keyname)
 
 void NewX509::toggleOkBut()
 {
-	bool ok = description->text() != ""  &&
+	bool ok = ! description->text().isEmpty()  &&
 		countryName->text().length() !=1 &&
 		( keyList->count() > 0  || !keyList->isEnabled() );
 	ok |= fromReqCB->isChecked();
@@ -526,19 +527,19 @@ x509name NewX509::getX509name()
 
 void NewX509::setX509name(const x509name &n)
 {
-	int j;
+	int i,j;
 #if QT_VERSION >= 0x040200
 	extDNlist->clearContents();
 #else
 	extDNlist->clear();
 #endif
-	for ( j = 0; j<EXPLICIT_NAME_CNT; j++) {
+	for (j=0; j<EXPLICIT_NAME_CNT; j++) {
 		name_ptr[j]->setText("");
 	}
-	for ( int i=0; i< n.entryCount(); i++) {
+	for (i=0, j=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
 		QStringList sl = n.entryList(i);
-		for ( j = 0; j<EXPLICIT_NAME_CNT; j++) {
+		for ( ; j<EXPLICIT_NAME_CNT; j++) {
 			if (nid == name_nid[j] && name_ptr[j]->text().isEmpty()) {
 				name_ptr[j]->setText(sl[2]);
 				break;

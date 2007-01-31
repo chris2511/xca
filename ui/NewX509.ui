@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>596</width>
-    <height>634</height>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -28,31 +28,20 @@
       <number>6</number>
      </property>
      <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLabel" name="capt" >
+       <property name="font" >
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
+        </font>
        </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="bigImg" >
-       <property name="minimumSize" >
-        <size>
-         <width>200</width>
-         <height>94</height>
-        </size>
-       </property>
-       <property name="scaledContents" >
-        <bool>true</bool>
+       <property name="text" >
+        <string>Create</string>
        </property>
       </widget>
      </item>
@@ -71,6 +60,25 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="image" >
+       <property name="minimumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="scaledContents" >
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

@@ -291,7 +291,7 @@ int pki_temp::dataSize()
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
 	12 ) * sizeof(char);
-	printf("Size of template = %d\n", s);
+	//printf("Size of template = %d\n", s);
 	return s;
 }
 

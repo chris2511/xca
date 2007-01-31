@@ -72,8 +72,6 @@ class NewX509: public QDialog, public Ui::NewX509
 {
 	Q_OBJECT
    private:
-	pki_temp *fixtemp;
-	QString startText_h, startText_b, endText, tText;
 	NIDlist eku_nid;
 	NIDlist dn_nid;
 	NIDlist aia_nid;
