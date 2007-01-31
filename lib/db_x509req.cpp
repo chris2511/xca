@@ -139,7 +139,7 @@ void db_x509req::showPki(pki_base *pki)
 	if (dlg) {
 		dlg->setReq(req);
 		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ),
-			mainwin->keys, SLOT( showKey(QString) ));
+			mainwin->keys, SLOT( showItem(QString) ));
 		dlg->exec();
 		delete dlg;
 	}
@@ -172,7 +172,7 @@ void db_x509req::store()
 	if (fname == "") {
 		return;
 	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
 	req->writeReq(fname, pem);
 }
 

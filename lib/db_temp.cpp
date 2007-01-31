@@ -140,7 +140,7 @@ void db_temp::store()
 	if (s.isEmpty())
 		return;
 	s = QDir::convertSeparators(s);
-	mainwin->setPath(s.mid(0, s.lastIndexOf(QDir::separator()) ));
+	mainwin->setPath(s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
 		temp->writeTemp(s);
 	}

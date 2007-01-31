@@ -185,7 +185,7 @@ void db_crl::store()
 	if (fname == "") {
 		return;
 	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
 	crl->writeCrl(fname, pem);
 }
 

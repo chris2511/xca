@@ -190,11 +190,9 @@ unsigned char *pki_x509req::toData(int *size)
 {
 	unsigned char *p, *p1;
 	*size = i2d_X509_REQ(request, NULL);
-	printf("Size=%d\n", *size);
 	if (spki) {
 		*size += i2d_NETSCAPE_SPKI(spki, NULL);
 	}
-	printf("Size=%d\n", *size);
 	openssl_error();
 	p = (unsigned char*)OPENSSL_malloc(*size);
 	p1 = p;

@@ -251,7 +251,6 @@ void pki_temp::loadTemp(QString fname)
 		openssl_error(tr("Template file content error"));
 	size = db::intFromData(&p1);
 	version = db::intFromData(&p1);
-	printf("Size=%d, Version=%d\n", size, version);
 
 	if (size > 65535 || size <0)
 		openssl_error(tr("Template file content error"));
@@ -261,7 +260,6 @@ void pki_temp::loadTemp(QString fname)
 		OPENSSL_free(p);
 		openssl_error(tr("Template file content error"));
 	}
-	printf("read Size=%d , size=%d\n",s , size);
 	fromData(p, size, version);
 	OPENSSL_free(p);
 

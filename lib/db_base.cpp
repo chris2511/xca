@@ -483,7 +483,7 @@ void db_base::load_default(load_base &load)
 		return;
 
 	QString fn = QDir::convertSeparators(slist[0]);
-	mainwin->setPath(fn.mid(0, fn.lastIndexOf(QDir::separator()) ));
+	mainwin->setPath(fn.mid(0, fn.lastIndexOf(QRegExp("[/\\\\]")) ));
 
 	ImportMulti *dlgi = new ImportMulti(mainwin);
 	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {

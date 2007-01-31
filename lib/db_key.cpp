@@ -262,7 +262,7 @@ void db_key::store()
 		delete dlg;
 		return;
 	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
 		pem = dlg->exportFormat->currentText() == "PEM" ? true : false;
 		if (dlg->encryptKey->isChecked())

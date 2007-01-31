@@ -687,7 +687,7 @@ void db_x509::store()
 		delete dlg;
 		return;
 	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QDir::separator()) ));
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
 		switch (dlg->exportFormat->currentIndex()) {
 		case 0: // PEM
