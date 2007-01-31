@@ -210,6 +210,9 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 	QModelIndex index;
 	QString items;
 
+	if (indexes.count() == 0)
+		return;
+
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
