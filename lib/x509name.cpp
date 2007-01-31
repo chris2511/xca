@@ -105,16 +105,17 @@ QString x509name::getEntry(int i) const
 	QString s, ret;
 	ASN1_STRING *d;
 
-	if ( i<0 || i>entryCount() ) return s;
+	if ( i<0 || i>entryCount() )
+		return s;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
 
 	if (d==NULL)
 		return ret;
 
 	if (d->type == V_ASN1_BMPSTRING) {
-	  for (int i=0;i<d->length;i+=2)
-		ret+=QChar((unsigned short)d->data[i]*256+
-			   (unsigned short)d->data[i+1]   );
+		for (int i=0; i<d->length; i+=2)
+			ret += QChar((unsigned short)d->data[i] * 256 +
+					(unsigned short)d->data[i+1]   );
 	}
 	else if (d->type == V_ASN1_UTF8STRING)
 		ret=QString::fromUtf8((const char *)d->data,d->length);
@@ -146,7 +147,6 @@ int x509name::nid(int i) const
 
 	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
 	nid = OBJ_obj2nid(ne->object);
-	//X509_NAME_ENTRY_free(ne);
 	return nid;
 }
 
@@ -245,22 +245,4 @@ X509_NAME *x509name::get() const
 int x509name::derSize() const
 {
 	return i2d_X509_NAME(xn, NULL);
-}
-
-void x509name::write_fp(FILE *fp) const
-{
-	int cnt = entryCount();
-	for (int i=0; i<cnt; i++) {
-		QStringList sl = entryList(i);
-		fprintf(fp, "%s=%s\n",CCHAR(sl[0]), CCHAR(sl[2]));
-	}
-}
-
-void x509name::read_fp(FILE *fp)
-{
-	char buf[180];
-	QStringList sl;
-	QString line = fgets(buf, 180, fp);
-	sl = line.split('=');
-	addEntryByNid(OBJ_sn2nid(sl[0].toAscii()), sl[1]);
 }

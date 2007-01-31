@@ -181,8 +181,8 @@ LangString DESC_Donation ${LANG_GERMAN} \
 "Bitte ziehen sie eine Spende in Betracht.\r\n\r\n\
 Wenn Ihnen dieses Programm Zeit und Geld spart, \
 ziehen Sie bitte die Möglichkeit in Betracht mir einen kleinen \
-Teil davon abzugeben. \
-\r\n\r\nBitte verwenden Sie dafür das PayPal Konto christian@hohnstaedt.de"
+Teil davon abzugeben.\r\n\r\n \
+Bitte verwenden Sie dafür das PayPal Konto christian@hohnstaedt.de"
 
 ;-----------------------------------
  

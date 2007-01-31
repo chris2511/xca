@@ -79,10 +79,6 @@ class x509name
 	void delEntry(int i);
 	X509_NAME *get() const;
 	int derSize() const;
-	void write_fp(FILE *fp) const;
-	void read_fp(FILE *fp);
-
-
 };
 
 #endif

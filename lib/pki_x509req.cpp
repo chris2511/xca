@@ -69,7 +69,7 @@ pki_x509req::pki_x509req(const QString name)
 	spki = NULL;
 	dataVersion=1;
 	pkiType=x509_req;
-	cols=3;
+	cols=2;
 }
 
 pki_x509req::~pki_x509req()
@@ -246,6 +246,9 @@ int pki_x509req::verify()
 	if ( !x  && spki != NULL) {
 		ign_openssl_error();
 		x = NETSCAPE_SPKI_verify(spki, pkey) >= 0;
+	}
+	if (x) {
+		ign_openssl_error();
 	}
 	EVP_PKEY_free(pkey);
 	try {

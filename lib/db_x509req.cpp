@@ -61,7 +61,7 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 {
 	delete rootItem;
 	rootItem = newPKI();
-	headertext << "Name" << "Subject" << "Serial" ;
+	headertext << "Name" << "Subject";
 	delete_txt = tr("Delete the request(s)");
 	loadContainer();
 	view = mw->reqView;
