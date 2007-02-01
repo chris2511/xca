@@ -1,8 +1,17 @@
+  * correct and fixate the order of x509name entries
+  * Add CRL properties dialog to select the dates and the
+    signing algo
+  * Add SHA256 and SHA512
+  * Certificate export for apache and OpenSSH+X509
+  * Default templates for client, server, CA removed
+  * template duplication added
   * sort serial numbers numerically and not lexicographically
+    Bug [1166075]
   * add build support for cygwin and mingw-cross
   * delete rpm/ and debian/ subdirs
   * Port to QT4 and openssl 0.9.8
     remove the need of Berkeley DB
+    importing of old database dump possible
   * finish support for Mac OS X
   * add X509 V3 extensions to PKCS#10 requests
   * add "validation" function for editable extensions below

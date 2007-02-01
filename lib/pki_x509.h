@@ -136,7 +136,6 @@ class pki_x509 : public pki_x509super
 	   int resetTimes(pki_x509 *signer);
 	   bool hasExtension(int nid);
 	   bool cmpIssuerAndSerial(pki_x509 *refcert);
-	   QString tinyCAfname();
 	   void updateView();
 	   x509rev getRev();
 	   QString getSigAlg();

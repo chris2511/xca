@@ -92,6 +92,7 @@ void MainWindow::init_menu()
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );
 	help->addAction(tr("&About"), this, SLOT(about()) );
+	help->addAction(tr("Donations"), this, SLOT(donations()) );
 	wdList += import;
 }
 

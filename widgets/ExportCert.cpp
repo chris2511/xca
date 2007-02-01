@@ -54,8 +54,7 @@
 #include <Qt/qlineedit.h>
 #include <Qt/qfiledialog.h>
 
-ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey,
-		const QString tcafn)
+ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey)
 	:QDialog(parent)
 {
 	setupUi(this);
@@ -72,7 +71,6 @@ ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey,
 			"PEM Cert + key" << "PEM Cert + PKCS8 key";
 	}
 	exportFormat->addItems(sl);
-	tinyCAfname = tcafn;
 }
 
 void ExportCert::on_fileBut_clicked()
@@ -95,10 +93,5 @@ void ExportCert::on_exportFormat_activated(int)
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];
 	filename->setText(nfn);
-}
-
-void ExportCert::on_tinyCaName_clicked()
-{
-	filename->setText(tinyCAfname);
 }
 

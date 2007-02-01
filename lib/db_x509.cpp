@@ -674,7 +674,7 @@ void db_x509::store()
 	QString fn = mainwin->getPath() + QDir::separator() +
 			crt->getUnderlinedName() + ".crt";
 	ExportCert *dlg = new ExportCert(mainwin, fn,
-			(privkey && privkey->isPrivKey()), crt->tinyCAfname() );
+			(privkey && privkey->isPrivKey()) );
 	dlg->image->setPixmap(*MainWindow::certImg);
 	int dlgret = dlg->exec();
 

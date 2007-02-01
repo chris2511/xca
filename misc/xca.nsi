@@ -66,7 +66,7 @@ Section "xca (required)" SecMain
   File "misc\aia.txt"
   File /nonfatal "lang\*.qm"
   File "doc\*.html"
-  File "${BDIR}/mingwm10.dll"
+  File "${BDIR}\mingwm10.dll"
 
   File "${OPENSSL}\libeay32.dll"
   File "${QTDIR}\bin\QtGui4.dll"
@@ -111,6 +111,24 @@ Section "Update" SecUpdate
   done2:
 SectionEnd
 
+;----------------------------------------
+Section "File association" SecFiles
+  ReadRegStr $1 HKCR ".xdb" ""
+  StrCmp $1 "" NoBackup
+    StrCmp $1 "OptionsFile" NoBackup
+    WriteRegStr HKCR ".xdb" "backup_val" $1
+NoBackup:
+  WriteRegStr HKCR ".xdb" "" "xca_db"
+  ReadRegStr $0 HKCR "xca_db" ""
+  StrCmp $0 "" 0 Skip
+	WriteRegStr HKCR "xca_db" "" "XCA database"
+	WriteRegStr HKCR "xca_db\shell" "" "open"
+	WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,0"
+Skip:
+  WriteRegStr HKCR "xca_db\shell\open\command" "" \
+    '$INSTDIR\xca.exe -d "%1"'
+;  System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
+SectionEnd
 
 ; uninstall stuff
 ;----------------------------------------
@@ -135,14 +153,26 @@ Section "Uninstall"
   IfErrors Win9x
   UserInfo::GetAccountType
   Pop $0
-  StrCmp $0 "Admin" 0 +3
+  StrCmp $0 "Admin" 0 Win9x
 	SetShellVarContext all
 	Goto done
-	SetShellVarContext current
   Win9x:
 	SetShellVarContext current
   done:
 
+  ReadRegStr $1 HKCR ".xdb" ""
+  StrCmp $1 "xca_db" 0 Skip
+    ReadRegStr $1 HKCR ".xdb" "backup_val"
+    StrCmp $1 "" 0 Restore ; if backup="" then delete the whole key
+      DeleteRegKey HKCR ".xdb"
+    Goto Skip
+Restore:
+    WriteRegStr HKCR ".xdb" "" $1
+    DeleteRegValue HKCR ".xdb" "backup_val"
+    DeleteRegKey HKCR "xca_db" ;Delete key with association settings
+ 
+;    System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
+Skip:
 
   ; remove shortcuts, if any.
   Delete "$SMPROGRAMS\xca\*.*"
@@ -164,11 +194,14 @@ SectionEnd
     "Exportiert eine alte Datenbank < 0.5.1 in ein ASCII format, das mit dieser Version von XCA importiert werden kann."
   LangString DESC_SecUpdate ${LANG_ENGLISH} \
     "Dumps an old database < 0.5.1 into an ASCII format, that can be imported by the current Version of XCA."
+  LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb"
+  LangString DESC_SecFiles ${LANG_GERMAN} "Registrierung der Dateiendung *.xdb."
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecShortcut)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecUpdate} $(DESC_SecUpdate)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecFiles} $(DESC_SecFiles)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 LangString DESC_Donation ${LANG_ENGLISH} \

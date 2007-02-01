@@ -612,37 +612,6 @@ void pki_x509::setCrlExpiry(const a1time &time)
 	openssl_error();
 }
 
-QString pki_x509::tinyCAfname()
-{
-	QString col;
-	const char *s;
-	x509name x = getSubject();
-	col = x.getEntryByNid(NID_commonName)
-	    +(x.getEntryByNid(NID_commonName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_pkcs9_emailAddress)
-	    +(x.getEntryByNid(NID_pkcs9_emailAddress) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_organizationalUnitName)
-	    +(x.getEntryByNid(NID_organizationalUnitName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_organizationName)
-	    +(x.getEntryByNid(NID_organizationName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_localityName)
-	    +(x.getEntryByNid(NID_localityName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_stateOrProvinceName)
-	    +(x.getEntryByNid(NID_stateOrProvinceName) == "" ? " :" : ":")
-	    + x.getEntryByNid(NID_countryName)
-	    +(x.getEntryByNid(NID_countryName) == "" ? " :" : ":");
-
-	int len = col.length();
-	s = col.toAscii();
-	unsigned char *buf = (unsigned char *)OPENSSL_malloc(len * 2 + 3);
-
-	EVP_EncodeBlock(buf, (const unsigned char *)s, len );
-	col = (char *)buf;
-	OPENSSL_free(buf);
-	col += ".pem";
-	return col;
-}
-
 x509rev pki_x509::getRev()
 {
 	x509rev a;

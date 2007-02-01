@@ -161,24 +161,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2" colspan="2" >
-       <widget class="QPushButton" name="tinyCaName" >
-        <property name="sizePolicy" >
-         <sizepolicy>
-          <hsizetype>1</hsizetype>
-          <vsizetype>0</vsizetype>
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip" >
-         <string>Set the filename to the one used by TinyCA</string>
-        </property>
-        <property name="text" >
-         <string>TinyCA filename</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -354,7 +336,6 @@
   <tabstop>exportFormat</tabstop>
   <tabstop>PushButton7</tabstop>
   <tabstop>PushButton9</tabstop>
-  <tabstop>tinyCaName</tabstop>
  </tabstops>
  <resources/>
  <connections>

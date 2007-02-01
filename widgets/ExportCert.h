@@ -59,13 +59,11 @@ class ExportCert: public QDialog, public Ui::ExportCert
 	QString tinyCAfname;
 
    public:
-	ExportCert(QWidget *parent, QString fname, bool hasKey,
-			const QString tcafn);
+	ExportCert(QWidget *parent, QString fname, bool hasKey);
 
    public slots:
 	void on_fileBut_clicked();
 	void on_exportFormat_activated(int);
-	void on_tinyCaName_clicked();
 };
 
 #endif
