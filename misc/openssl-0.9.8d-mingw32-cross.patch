@@ -1,0 +1,166 @@
+diff -Nur openssl-0.9.8d.orig/ms/mingw32-cross.sh openssl-0.9.8d/ms/mingw32-cross.sh
+--- openssl-0.9.8d.orig/ms/mingw32-cross.sh	1970-01-01 01:00:00.000000000 +0100
++++ openssl-0.9.8d/ms/mingw32-cross.sh	2006-11-16 21:24:03.000000000 +0100
+@@ -0,0 +1,41 @@
++#!/bin/sh
++# Mingw32 on Linux + GNU as
++# ---------------------------
++
++CROSS=i586-mingw32msvc-
++
++sh Configure mingw $@
++
++if echo $@ | grep 'no-asm' >/dev/null 2>&1; then
++  echo No assembler will be used
++else
++  echo Generating x86 for GNU assember
++  for name in `find -name "*586.pl"` ./crypto/x86cpuid.pl; do
++    n=`basename $name`
++    t=`echo $n | sed 's/\.pl/-win32.s/'`
++    echo Creating $t from $n
++    (cd `dirname $name` && perl $n gaswin > $t )
++  done
++fi
++
++echo Generating makefile
++perl util/mkfiles.pl >MINFO
++perl util/mk1mf.pl gaswin $@ Mingw32-cross >ms/mingw32-cross.mak
++
++echo Generating DLL definition files
++perl util/mkdef.pl 32 libeay >ms/libeay32.def
++perl util/mkdef.pl 32 ssleay >ms/ssleay32.def
++
++echo Building the libraries
++make -f ms/mingw32-cross.mak CROSS=${CROSS}
++
++echo Generating the DLLs and input libraries
++${CROSS}dllwrap --dllname libeay32.dll --output-lib out/libeay32.a --def ms/libeay32.def out/libcrypto.a -lwsock32 -lgdi32
++
++${CROSS}dllwrap --dllname libssl32.dll --output-lib out/libssl32.a --def ms/ssleay32.def out/libssl.a out/libeay32.a
++
++
++echo Done compiling OpenSSL
++
++
++
+diff -Nur openssl-0.9.8d.orig/util/mk1mf.pl openssl-0.9.8d/util/mk1mf.pl
+--- openssl-0.9.8d.orig/util/mk1mf.pl	2006-06-09 17:42:21.000000000 +0200
++++ openssl-0.9.8d/util/mk1mf.pl	2006-11-16 21:22:26.000000000 +0100
+@@ -35,6 +35,7 @@
+ 	"VC-CE",   "Microsoft eMbedded Visual C++ 3.0 - Windows CE ONLY",
+ 	"VC-NT",   "Microsoft Visual C++ [4-6] - Windows NT ONLY",
+ 	"Mingw32", "GNU C++ - Windows NT or 9x",
++	"Mingw32-cross", "GNU C++ Linux cross compiling",
+ 	"Mingw32-files", "Create files with DOS copy ...",
+ 	"BC-NT",   "Borland C++ 4.5 - Windows NT",
+ 	"linux-elf","Linux elf",
+@@ -141,6 +142,10 @@
+ 	{
+ 	require 'Mingw32.pl';
+ 	}
++elsif ($platform eq "Mingw32-cross")
++	{
++	require 'Mingw32-cross.pl';
++	}
+ elsif ($platform eq "Mingw32-files")
+ 	{
+ 	require 'Mingw32f.pl';
+diff -Nur openssl-0.9.8d.orig/util/pl/Mingw32-cross.pl openssl-0.9.8d/util/pl/Mingw32-cross.pl
+--- openssl-0.9.8d.orig/util/pl/Mingw32-cross.pl	1970-01-01 01:00:00.000000000 +0100
++++ openssl-0.9.8d/util/pl/Mingw32-cross.pl	2006-11-16 21:27:24.000000000 +0100
+@@ -0,0 +1,95 @@
++#!/usr/local/bin/perl
++#
++# Mingw32.pl -- Mingw
++#
++
++$o='/';
++$cp='cp';
++$rm='rm -f';
++$mkdir='mkdir -p';
++
++# C compiler stuff
++
++$cc='$(CROSS)gcc';
++if ($debug)
++	{ $cflags="-DL_ENDIAN -DDSO_WIN32 -g2 -ggdb -DCURSOR_SHOWING=1"; }
++else
++	{ $cflags="-DL_ENDIAN -DDSO_WIN32 -fomit-frame-pointer -O3 -march=i586 -Wall -DCURSOR_SHOWING=1 -DOPENSSL_BN_ASM_PART_WORDS"; }
++
++if ($gaswin and !$no_asm)
++	{
++        $bn_asm_obj='$(OBJ_D)//bn-586-win32.o';
++        $bn_asm_src='crypto/bn/asm/bn-586-win32.s';
++        $bnco_asm_obj='$(OBJ_D)/co-586-win32.o';
++        $bnco_asm_src='crypto/bn/asm/co-586-win32.s';
++        $des_enc_obj='$(OBJ_D)/crypt586-win32.o $(OBJ_D)/des-586-win32.o';
++        $des_enc_src='crypto/des/asm/crypt586-win32.s crypto/des/asm/des-586-win32.s';
++        $bf_enc_obj='$(OBJ_D)/bf-586-win32.o';
++        $bf_enc_src='crypto/bf/asm/bf-586-win32.s';
++#       $cast_enc_obj='$(OBJ_D)/cast-586-win32.o';
++#       $cast_enc_src='crypto/cast/asm/cast-586-win32.s';
++        $rc4_enc_obj='$(OBJ_D)/rc4-586-win32.o';
++        $rc4_enc_src='crypto/rc4/asm/rc4-586-win32.s';
++        $rc5_enc_obj='$(OBJ_D)/rc5-586-win32.o';
++        $rc5_enc_src='crypto/rc5/asm/rc5-586-win32.s';
++        $md5_asm_obj='$(OBJ_D)/md5-586-win32.o';
++        $md5_asm_src='crypto/md5/asm/md5-586-win32.s';
++        $rmd160_asm_obj='$(OBJ_D)/rmd-586-win32.o';
++        $rmd160_asm_src='crypto/ripemd/asm/rmd-586-win32.s';
++        $sha1_asm_obj='$(OBJ_D)/sha1-586-win32.o';
++        $sha1_asm_src='crypto/sha/asm/sha1-586-win32.s';
++	$cpuid_asm_obj='$(OBJ_D)\x86cpuid-win32.o';
++	$cpuid_asm_src='crypto/x86cpuid-win32.s';
++	$cflags.=" -DBN_ASM -DMD5_ASM -DSHA1_ASM";
++	}
++
++
++$obj='.o';
++$ofile='-o ';
++
++# EXE linking stuff
++$link='${CC}';
++$lflags='${CFLAGS}';
++$efile='-o ';
++$exep='.exe';
++$ex_libs="-lwsock32 -lgdi32";
++
++# static library stuff
++$mklib='$(CROSS)ar r';
++$mlflags='';
++$ranlib='$(CROSS)ranlib';
++$plib='lib';
++$libp=".a";
++$shlibp=".a";
++$lfile='';
++
++$asm='$(CROSS)as';
++$afile='-o ';
++
++sub do_lib_rule
++	{
++	local($obj,$target,$name,$shlib)=@_;
++	local($ret,$_,$Name);
++
++	$target =~ s/\//$o/g if $o ne '/';
++	$target="$target";
++	($Name=$name) =~ tr/a-z/A-Z/;
++
++	$ret.="$target: \$(${Name}OBJ)\n";
++	$ret.="\trm -f $target\n";
++	$ret.="\t\$(MKLIB) $target \$(${Name}OBJ)\n";
++	$ret.="\t\$(RANLIB) $target\n\n";
++	}
++
++sub do_link_rule
++	{
++	local($target,$files,$dep_libs,$libs)=@_;
++	local($ret,$_);
++
++	$file =~ s/\//$o/g if $o ne '/';
++	$n=&bname($target);
++	$ret.="$target: $files $dep_libs\n";
++	$ret.="\t\$(LINK) ${efile}$target \$(LFLAGS) $files $libs\n\n";
++	return($ret);
++	}
++1;

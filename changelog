@@ -1,3 +1,4 @@
+xca 0.6.0-beta02
   * correct and fixate the order of x509name entries
   * Add CRL properties dialog to select the dates and the
     signing algo

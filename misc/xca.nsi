@@ -92,7 +92,7 @@ SectionEnd
 Section "Update" SecUpdate
 
   SetOutPath $INSTDIR
-  File "${BDIR}/db_dump.exe"
+  File "${BDIR}\db_dump.exe"
   FindFirst $0 $1 $APPDATA\xca\*.db
   loop1:
     StrCmp $1 "" done1
@@ -115,19 +115,18 @@ SectionEnd
 Section "File association" SecFiles
   ReadRegStr $1 HKCR ".xdb" ""
   StrCmp $1 "" NoBackup
-    StrCmp $1 "OptionsFile" NoBackup
+  StrCmp $1 "xca_db" NoBackup
     WriteRegStr HKCR ".xdb" "backup_val" $1
 NoBackup:
   WriteRegStr HKCR ".xdb" "" "xca_db"
   ReadRegStr $0 HKCR "xca_db" ""
   StrCmp $0 "" 0 Skip
-	WriteRegStr HKCR "xca_db" "" "XCA database"
-	WriteRegStr HKCR "xca_db\shell" "" "open"
-	WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,0"
+    WriteRegStr HKCR "xca_db" "" "XCA database"
+    WriteRegStr HKCR "xca_db\shell" "" "open"
+    WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,0"
+    WriteRegStr HKCR "xca_db\shell\open\command" "" '$INSTDIR\xca.exe -d "%1"'
 Skip:
-  WriteRegStr HKCR "xca_db\shell\open\command" "" \
-    '$INSTDIR\xca.exe -d "%1"'
-;  System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
+  System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
 SectionEnd
 
 ; uninstall stuff
@@ -139,6 +138,9 @@ Section "Uninstall"
   DeleteRegKey HKCU "SOFTWARE\xca"
   ; remove files
   Delete $INSTDIR\xca.exe
+  Delete $INSTDIR\db_dump.exe
+  Delete $INSTDIR\key.ico
+  Delete $INSTDIR\key.xpm
   Delete $INSTDIR\*.dll
   Delete $INSTDIR\*.txt
   Delete $INSTDIR\*.qm
@@ -165,14 +167,13 @@ Section "Uninstall"
     ReadRegStr $1 HKCR ".xdb" "backup_val"
     StrCmp $1 "" 0 Restore ; if backup="" then delete the whole key
       DeleteRegKey HKCR ".xdb"
-    Goto Skip
+      Goto Skip
 Restore:
     WriteRegStr HKCR ".xdb" "" $1
-    DeleteRegValue HKCR ".xdb" "backup_val"
-    DeleteRegKey HKCR "xca_db" ;Delete key with association settings
- 
-;    System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
 Skip:
+  DeleteRegValue HKCR ".xdb" "backup_val"
+  DeleteRegKey HKCR "xca_db" ;Delete key with association settings
+  System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
 
   ; remove shortcuts, if any.
   Delete "$SMPROGRAMS\xca\*.*"
@@ -207,15 +208,13 @@ SectionEnd
 LangString DESC_Donation ${LANG_ENGLISH} \
 "Please consider donating for XCA.\r\n\r\n\
 If this application saves you time and money, consider returning \
-a small share back to me.\r\n\r\n \
-Please use the PayPal account christian@hohnstaedt.de"
+a small share back to me."
 
 LangString DESC_Donation ${LANG_GERMAN} \
 "Bitte ziehen sie eine Spende in Betracht.\r\n\r\n\
 Wenn Ihnen dieses Programm Zeit und Geld spart, \
 ziehen Sie bitte die Möglichkeit in Betracht mir einen kleinen \
-Teil davon abzugeben.\r\n\r\n \
-Bitte verwenden Sie dafür das PayPal Konto christian@hohnstaedt.de"
+Teil davon abzugeben."
 
 ;-----------------------------------
  
