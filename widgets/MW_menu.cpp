@@ -105,9 +105,9 @@ void MainWindow::new_database()
 	if (fname.isEmpty())
 		return;
 
+	close_database();
 	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()) );
 	dbfile = fname;
-	close_database();
 	init_database();
 }
 
@@ -120,9 +120,9 @@ void MainWindow::load_database()
 	if (fname.isEmpty())
 		return;
 
+	close_database();
 	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()) );
 	dbfile = fname;
-	close_database();
 	init_database();
 }
 
