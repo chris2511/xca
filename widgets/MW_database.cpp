@@ -223,7 +223,6 @@ void MainWindow::close_database()
 	certs = NULL;
 	temps = NULL;
 	keys = NULL;
-	settings = NULL;
 
 	pki_key::erasePasswd();
 

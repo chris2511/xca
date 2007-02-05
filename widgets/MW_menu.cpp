@@ -102,7 +102,7 @@ void MainWindow::new_database()
 {
 	load_db l;
 	QString fname = QFileDialog::getSaveFileName(this, l.caption, homedir,
-			l.filter);
+			l.filter, 0, QFileDialog::DontConfirmOverwrite);
 
 	if (fname.isEmpty())
 		return;

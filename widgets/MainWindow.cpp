@@ -79,7 +79,6 @@ db_key *MainWindow::keys = NULL;
 db_x509req *MainWindow::reqs = NULL;
 db_x509	*MainWindow::certs = NULL;
 db_temp	*MainWindow::temps = NULL;
-db_base	*MainWindow::settings = NULL;
 db_crl	*MainWindow::crls = NULL;
 
 NIDlist *MainWindow::eku_nid = NULL;

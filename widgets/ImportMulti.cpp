@@ -73,6 +73,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	mcont = new db_base("/dev/null", parent);
 	listView->setModel(mcont);
 	listView->setIconSize(pki_key::icon[0]->size());
+	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(on_butDetails_clicked()));
 
@@ -154,9 +155,16 @@ void ImportMulti::import(QModelIndex &idx)
 
 	if (!pki)
 		return;
+	if (!mainwin->keys) {
+		mainwin->load_database();
+	}
+	
 	QString cn = pki->getClassName();
-
 	mcont->remFromCont(idx);
+	if (!mainwin->keys) {
+		delete pki;
+		return;
+	}
 
 	if (cn == "pki_x509") {
 		MainWindow::certs->insert(pki);
