@@ -250,13 +250,18 @@ ImportMulti::~ImportMulti()
 	delete mcont;
 }
 
+int ImportMulti::entries()
+{
+	return mcont->rootItem->childCount();
+}
+
 void ImportMulti::execute(int force)
 {
 	/* if there is nothing to import don't pop up */
-	if (mcont->rootItem->childCount() == 0)
+	if (entries() == 0)
 		return;
 	/* if there is only 1 item and force is 0 import it silently */
-	if (mcont->rootItem->childCount() == 1 && force == 0) {
+	if (entries() == 1 && force == 0) {
 		on_butOk_clicked();
 		return;
 	}

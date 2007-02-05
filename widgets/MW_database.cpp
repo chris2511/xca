@@ -51,7 +51,9 @@
 #include "lib/exception.h"
 #include <Qt/qdir.h>
 #include <Qt/qstatusbar.h>
+#include <Qt/qmessagebox.h>
 #include "lib/db_base.h"
+#include "widgets/ImportMulti.h"
 
 void MainWindow::init_database()
 {
@@ -151,6 +153,47 @@ void MainWindow::dump_database()
 	catch (errorEx &err) {
 		MainWindow::Error(err);
 	}
+}
+
+void MainWindow::undelete()
+{
+	ImportMulti *dlgi = new ImportMulti(this);
+	db_header_t head;
+	db mydb(dbfile);
+	int items = 0;
+
+	for (mydb.first(DBFLAG_OUTDATED); !mydb.eof(); mydb.next(DBFLAG_OUTDATED)) {
+		mydb.get_header(&head);
+		if (head.flags & DBFLAG_DELETED) {
+			pki_base *item;
+			unsigned char *p = NULL;
+
+			switch (head.type) {
+			case asym_key: item = new pki_key(head.name); break;
+			case x509_req: item = new pki_x509req(head.name); break;
+			case x509: item = new pki_x509(head.name); break;
+			case revokation: item = new pki_crl(head.name); break;
+			case tmpl: item = new pki_temp(head.name); break;
+			default: continue;
+			}
+			try {
+				p = mydb.load(&head);
+				item->fromData(p, &head);
+				dlgi->addItem(item);
+			}
+			catch (errorEx &err) {
+				Error(err);
+				delete item;
+			}
+			free(p);
+		}
+	}
+	if (dlgi->entries() > 0) {
+		dlgi->execute(1);
+	} else {
+		QMessageBox::information(this, XCA_TITLE, tr("No deleted items found"));
+	}
+	delete dlgi;
 }
 
 

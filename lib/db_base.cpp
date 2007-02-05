@@ -134,6 +134,7 @@ void db_base::loadContainer()
 			delete pki;
 			pki = NULL;
 		}
+		free(p);
 		if (pki)
 			inToCont(pki);
 next:

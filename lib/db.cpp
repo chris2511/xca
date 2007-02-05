@@ -66,7 +66,7 @@ void db::convert_header(db_header_t *h)
 
 bool db::verify_magic(void)
 {
-	if (head_offset != OFF_EOF)
+	if (!eof())
 		if (ntohl(head.magic) != XCA_MAGIC) {
 			throw errorEx(QString("database error '") +
 				file.fileName() +"'",
@@ -76,11 +76,16 @@ bool db::verify_magic(void)
 	return true;
 }
 
+bool db::eof()
+{
+	return (head_offset == OFF_EOF);
+}
+
 int db::find(enum pki_type type, const char *name)
 {
 	//int len, ret=0;
 
-	while (head_offset != OFF_EOF) {
+	while (!eof()) {
 		//printf("Comparing %s -> %s at %lu\n", head.name, name,
 				//head_offset);
 		if (ntohs(head.type) == type) {
@@ -101,7 +106,7 @@ int db::find(enum pki_type type, const char *name)
 	return 1;
 }
 
-void db::first(void)
+void db::first(int flag)
 {
 	int ret;
 	memset(&head, 0, sizeof(db_header_t) );
@@ -116,15 +121,15 @@ void db::first(void)
 	}
 	if (!verify_magic())
 		return;
-	if (ntohs(head.flags) & DBFLAG_DELETED)
-		next();
+	if (ntohs(head.flags) & flag)
+		next(flag);
 }
 
-int db::next(void)
+int db::next(int flag)
 {
 	int ret;
 
-	if (head_offset == OFF_EOF)
+	if (eof())
 		return 1;
 
 	head_offset += ntohl(head.len);
@@ -149,10 +154,10 @@ int db::next(void)
 	if (!verify_magic()){
 		printf("Garbage found at %lu\n", head_offset);
 		head_offset+=4;
-		return next();
+		return next(flag);
 	}
-	if (ntohs(head.flags) & DBFLAG_DELETED)
-		return next();
+	if (ntohs(head.flags) & flag)
+		return next(flag);
 
 	return 0;
 }
@@ -280,7 +285,7 @@ unsigned char *db::load(db_header_t *u_header)
 	unsigned ret;
 	unsigned char *data;
 
-	if (head_offset == OFF_EOF)
+	if (eof())
 		return NULL;
 	size = ntohl(head.len) - sizeof(db_header_t);
 	data = (unsigned char *)malloc(size);
@@ -297,9 +302,17 @@ unsigned char *db::load(db_header_t *u_header)
 	}
 }
 
+bool db::get_header(db_header_t *u_header)
+{
+	if (eof())
+		return false;
+	convert_header(u_header);
+	return true;
+}
+
 int db::erase(void)
 {
-	if (head_offset == OFF_EOF)
+	if (eof())
 		return -1;
 
 	head.flags |= htons(DBFLAG_DELETED);

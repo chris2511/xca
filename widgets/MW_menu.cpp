@@ -70,6 +70,8 @@ void MainWindow::init_menu()
 				SLOT(dump_database()), Qt::CTRL+Qt::Key_D );
 	acList += file->addAction(tr("&Import old db_dump"), this,
 				SLOT(import_dbdump()), Qt::CTRL+Qt::Key_I );
+	acList += file->addAction(tr("&Undelete items"), this,
+				SLOT(undelete()), Qt::CTRL+Qt::Key_U );
 	file->addSeparator();
 	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
 

@@ -14,8 +14,8 @@
 #define FNAMLEN 256
 #define OFF_EOF ((off_t)-1)
 
-#define DBFLAG_DELETED 1
-#define DBFLAG_OUTDATED 2
+#define DBFLAG_DELETED  0x1
+#define DBFLAG_OUTDATED 0x2
 
 enum pki_type {
 	none,
@@ -56,9 +56,10 @@ class db
 	off_t head_offset;
 	db(QString, int mode = S_IRUSR | S_IWUSR);
 	~db();
-	void first(void);
+	bool eof();
+	void first(int flag = DBFLAG_DELETED);
 	int find(enum pki_type type, const char *name);
-	int next(void);
+	int next(int flag = DBFLAG_DELETED);
 	QString uniq_name(QString s, enum pki_type type);
 	int rename(enum pki_type type, const char *name, const char *n);
 	int add(const unsigned char *p, int len, int ver, enum pki_type type,
@@ -66,6 +67,7 @@ class db
 	int set(const unsigned char *p, int len, int ver, enum pki_type type,
 		const char *name);
 	unsigned char *load(db_header_t *u_header);
+	bool get_header(db_header_t *u_header);
 	int erase(void);
 	int shrink(int flags);
 

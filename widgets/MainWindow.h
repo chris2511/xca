@@ -127,6 +127,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void donations();
 		void help();
 		void import_dbdump();
+		void undelete();
 
 	private slots:
 		void on_keyView_doubleClicked(const QModelIndex &m);

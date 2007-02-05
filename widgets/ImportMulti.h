@@ -68,13 +68,12 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		ImportMulti(MainWindow *parent);
 		~ImportMulti();
 		void addItem(pki_base *pki);
-		//pki_base *search(Q3ListViewItem *current);
 		pki_base *getSelected();
 		void import(QModelIndex &idx);
 		void execute(int force=0);
+		int entries();
 
 	public slots:
-		// void showPopupMenu(Q3ListViewItem *item, const QPoint &pt, int x);
 		void on_butRemove_clicked();
 		void on_butImport_clicked();
 		void on_butDetails_clicked();

@@ -1,4 +1,8 @@
+  * add undelete feature for deleted items
+  * fix database shrinking of curent db during opening of new db
+
 xca 0.6.0-beta02
+
   * correct and fixate the order of x509name entries
   * Add CRL properties dialog to select the dates and the
     signing algo

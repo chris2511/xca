@@ -13,13 +13,13 @@ int main(int argc, char *argv[])
 	int i=0;
 	char type[] = "NKRCLTSXX";
 
-	mydb.first();
-	while (mydb.head_offset != OFF_EOF) {
+	mydb.first(0);
+	while (!mydb.eof()) {
 		p = mydb.load(&h);
 		free(p);
-		printf("%3d: %c V%d O:%6d, L:%5d %s\n",
+		printf("%3d: %c V%d O:%6d, F:%x L:%5d %s\n",
 			i++, type[h.type], h.version, mydb.head_offset,
-			h.len, h.name);
-		mydb.next();
+			h.flags, h.len, h.name);
+		mydb.next(0);
 	}
 }
