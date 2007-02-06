@@ -59,8 +59,6 @@
 db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
-	delete rootItem;
-	rootItem = newPKI();
 	headertext << "Name" << "Subject";
 	delete_txt = tr("Delete the request(s)");
 	loadContainer();

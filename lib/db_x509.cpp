@@ -64,8 +64,6 @@ bool db_x509::treeview = true;
 db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
-	delete rootItem;
-	rootItem = newPKI();
 	rootItem->setIntName("[x509 root]");
 	headertext << tr("Internal name") << tr("Common name") << tr("Serial") <<
 			tr("not After") << tr("Trust state") << tr("Revocation");

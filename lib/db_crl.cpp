@@ -59,8 +59,6 @@
 db_crl::db_crl(QString db, MainWindow *mw)
 	:db_base(db,mw)
 {
-	delete rootItem;
-	rootItem = newPKI();
 	headertext << tr("Name") << tr("Signer") << tr("Common name") <<
 		tr("No. revoked") << tr("Next update");
 	delete_txt = tr("Delete the revokation list(s)");

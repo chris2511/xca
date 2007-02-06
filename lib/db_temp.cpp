@@ -48,23 +48,53 @@
 
 
 #include "db_temp.h"
+#include "func.h"
 #include <widgets/NewX509.h>
 #include <widgets/MainWindow.h>
 #include <Qt/qfiledialog.h>
 #include <Qt/qdir.h>
 #include <Qt/qevent.h>
 #include <Qt/qaction.h>
+#include <Qt/qinputdialog.h>
+#include <Qt/qmessagebox.h>
 
 db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_base(DBfile, mw)
 {
-	delete rootItem;
-	rootItem = newPKI();
 	headertext << "Name" << "Type";
 	delete_txt = tr("Delete the Template(s)");
 	view = mw->tempView;
 	class_name = "templates";
 	loadContainer();
+
+	predefs = newPKI();
+	QDir dir;
+	if (!dir.cd(getPrefix()))
+		return;
+	dir.setFilter(QDir::Files | QDir::NoSymLinks);
+	QFileInfoList list = dir.entryInfoList();
+	load_temp l;
+	pki_base *tmpl;
+	for (int i = 0; i < list.size(); ++i) {
+		QFileInfo fileInfo = list.at(i);
+		QString name = getPrefix() + QDir::separator() +
+				fileInfo.fileName();
+		if (!name.endsWith(".xca", Qt::CaseInsensitive))
+			continue;
+		try {
+			tmpl = l.loadItem(name);
+			if (tmpl)
+				predefs->append(tmpl);
+		} catch(errorEx &err) {
+			QMessageBox::warning(mainwin, tr(XCA_TITLE),
+				tr("Bad template: ") + name);
+		}
+	}
+}
+
+db_temp::~db_temp()
+{
+	delete predefs;
 }
 
 pki_base *db_temp::newPKI(){
@@ -89,13 +119,39 @@ bool db_temp::runTempDlg(pki_temp *temp)
 
 void db_temp::newItem()
 {
-	pki_temp *temp = new pki_temp("--");
-	if (runTempDlg(temp)) {
-		insertPKI(temp);
+	pki_temp *temp = NULL;
+	QStringList sl;
+	QString type;
+	bool ok;
+	int i, len;
+	len = predefs->childCount();
+	sl << tr("Nothing");
+	for (i=0; i<len; i++) {
+		sl << predefs->child(i)->getIntName();
 	}
-	else {
-		delete temp;
+	type = QInputDialog::getItem(mainwin, tr(XCA_TITLE),
+		tr("Preset Template values"), sl, 0, false, &ok, 0 );
+	if (ok) {
+		if (type == sl[0]) {
+			temp = new pki_temp("");
+		} else {
+			for (i=0; i<len; i++) {
+				pki_temp *t = (pki_temp *)predefs->child(i);
+				if (type == t->getIntName()) {
+					temp = new pki_temp(t);
+					break;
+				}
+			}
+		}
+		if (!temp)
+			return;
+		temp->setIntName("--");
+		if (runTempDlg(temp)) {
+			insertPKI(temp);
+			return;
+		}
 	}
+	delete temp;
 }
 
 void db_temp::changeTemp()

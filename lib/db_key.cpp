@@ -63,8 +63,6 @@
 db_key::db_key(QString db, MainWindow *mw)
 	:db_base(db, mw)
 {
-	delete rootItem;
-	rootItem = newPKI();
 	rootItem->setIntName("[key root]");
 	headertext << "Name" << "Type" << "Size" << "Use" << "Password";
 	delete_txt = tr("Delete the key(s)");

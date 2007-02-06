@@ -62,8 +62,10 @@ class db_temp: public db_base
 	Q_OBJECT
     protected:
 	QPixmap *keyicon;
+	pki_base *predefs;
     public:
 	db_temp(QString DBfile, MainWindow *mw);
+	~db_temp();
 	pki_base *newPKI();
 	bool runTempDlg(pki_temp *temp);
 	bool alterTemp(pki_temp *temp);
