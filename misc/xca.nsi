@@ -64,6 +64,7 @@ Section "xca (required)" SecMain
   File "misc\eku.txt"
   File "misc\oids.txt"
   File "misc\aia.txt"
+  File "misc\*.xca"
   File /nonfatal "lang\*.qm"
   File "doc\*.html"
   File "${BDIR}\mingwm10.dll"
@@ -142,6 +143,7 @@ Section "Uninstall"
   Delete $INSTDIR\key.ico
   Delete $INSTDIR\key.xpm
   Delete $INSTDIR\*.dll
+  Delete $INSTDIR\*.xca
   Delete $INSTDIR\*.txt
   Delete $INSTDIR\*.qm
   Delete $INSTDIR\*.html
