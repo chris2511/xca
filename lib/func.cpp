@@ -76,6 +76,7 @@ QString getPrefix()
 {
 #ifdef WIN32
 	static char inst_dir[100] = "";
+	char *p;
 	ULONG dwLength = 100;
 	LONG lRc;
 	HKEY hKey;
@@ -84,6 +85,16 @@ QString getPrefix()
 		/* if we already once discovered the directory just return it */
 		return QString(inst_dir);
 	}
+	// fallback: directory of xca.exe 
+	GetModuleFileName(0, inst_dir, dwLength - 1);
+	p = strrchr(inst_dir, '\\');
+	if (p) {
+		*p = '\0';
+		return QString(inst_dir);
+	}
+	p = inst_dir;
+	*p = '\0';
+	QMessageBox::information(NULL, XCA_TITLE, QString(inst_dir), "OK");
 	lRc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0, KEY_READ, &hKey);
 	if (lRc != ERROR_SUCCESS) {
 		QMessageBox::warning(NULL,XCA_TITLE,
@@ -111,7 +122,6 @@ QString getPrefix()
 	return ret;
 #endif
 
-
 }
 
 QString getHomeDir()
@@ -120,10 +130,7 @@ QString getHomeDir()
 #ifdef WIN32
 	LPITEMIDLIST pidl = NULL;
 	TCHAR buf[255] = "";
-#ifndef CSIDL_MYDOCUMENTS
-#define CSIDL_MYDOCUMENTS 0x0c
-#endif
-	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_MYDOCUMENTS, &pidl))) {
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_PERSONAL, &pidl))) {
 		SHGetPathFromIDList(pidl, buf);
 	}
 	hd = buf;

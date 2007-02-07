@@ -115,21 +115,48 @@ SectionEnd
 ;----------------------------------------
 Section "File association" SecFiles
   ReadRegStr $1 HKCR ".xdb" ""
-  StrCmp $1 "" NoBackup
-  StrCmp $1 "xca_db" NoBackup
+  StrCmp $1 "" NoBackup1
+  StrCmp $1 "xca_db" NoBackup1
     WriteRegStr HKCR ".xdb" "backup_val" $1
-NoBackup:
+NoBackup1:
   WriteRegStr HKCR ".xdb" "" "xca_db"
   ReadRegStr $0 HKCR "xca_db" ""
-  StrCmp $0 "" 0 Skip
+  StrCmp $0 "" 0 Skip1
     WriteRegStr HKCR "xca_db" "" "XCA database"
     WriteRegStr HKCR "xca_db\shell" "" "open"
     WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,0"
     WriteRegStr HKCR "xca_db\shell\open\command" "" '$INSTDIR\xca.exe -d "%1"'
-Skip:
+Skip1:
+  ReadRegStr $1 HKCR ".xca" ""
+  StrCmp $1 "" NoBackup2
+  StrCmp $1 "xca_template" NoBackup2
+    WriteRegStr HKCR ".xca" "backup_val" $1
+NoBackup2:
+  WriteRegStr HKCR ".xca" "" "xca_template"
+  ReadRegStr $0 HKCR "xca_template" ""
+  StrCmp $0 "" 0 Skip2
+    WriteRegStr HKCR "xca_template" "" "XCA Template"
+    WriteRegStr HKCR "xca_template\shell" "" "open"
+    WriteRegStr HKCR "xca_template\DefaultIcon" "" "$INSTDIR\xca.exe,0"
+    WriteRegStr HKCR "xca_template\shell\open\command" "" '$INSTDIR\xca.exe -t "%1"'
+Skip2:
   ReadRegStr $1 HKCR ".crt" ""
-  StrCmp $1 "" +2
-    WriteRegStr HKCR "$1\shell\open with XCA\command" "" '$INSTDIR\xca.exe -c "%1"'
+  StrCmp $1 "" +3
+    WriteRegStr HKCR "$1\shell\open_xca" "" "Open with XCA"
+    WriteRegStr HKCR "$1\shell\open_xca\command" "" '$INSTDIR\xca.exe -c "%1"'
+  ReadRegStr $1 HKCR ".crl" ""
+  StrCmp $1 "" +3
+    WriteRegStr HKCR "$1\shell\open_xca" "" "Open with XCA"
+    WriteRegStr HKCR "$1\shell\open_xca\command" "" '$INSTDIR\xca.exe -l "%1"'
+  ReadRegStr $1 HKCR ".pfx" ""
+  StrCmp $1 "" +3
+    WriteRegStr HKCR "$1\shell\open_xca" "" "Open with XCA"
+    WriteRegStr HKCR "$1\shell\open_xca\command" "" '$INSTDIR\xca.exe -p "%1"'
+  ReadRegStr $1 HKCR ".p7b" ""
+  StrCmp $1 "" +3
+    WriteRegStr HKCR "$1\shell\open_xca" "" "Open with XCA"
+    WriteRegStr HKCR "$1\shell\open_xca\command" "" '$INSTDIR\xca.exe -7 "%1"'
+
   System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
 SectionEnd
 
@@ -167,17 +194,45 @@ Section "Uninstall"
 	SetShellVarContext current
   done:
 
+;--------------------------------------
   ReadRegStr $1 HKCR ".xdb" ""
   StrCmp $1 "xca_db" 0 Skip
     ReadRegStr $1 HKCR ".xdb" "backup_val"
-    StrCmp $1 "" 0 Restore ; if backup="" then delete the whole key
+    StrCmp $1 "" 0 Restore
       DeleteRegKey HKCR ".xdb"
       Goto Skip
 Restore:
     WriteRegStr HKCR ".xdb" "" $1
 Skip:
   DeleteRegValue HKCR ".xdb" "backup_val"
-  DeleteRegKey HKCR "xca_db" ;Delete key with association settings
+  DeleteRegKey HKCR "xca_db"
+
+;--------------------------------------
+  ReadRegStr $1 HKCR ".xca" ""
+  StrCmp $1 "xca_template" 0 Skip1
+    ReadRegStr $1 HKCR ".xca" "backup_val"
+    StrCmp $1 "" 0 Restore1
+      DeleteRegKey HKCR ".xca"
+      Goto Skip1
+Restore1:
+    WriteRegStr HKCR ".xca" "" $1
+Skip1:
+  DeleteRegValue HKCR ".xca" "backup_val"
+  DeleteRegKey HKCR "xca_template"
+;--------------------------------------
+  ReadRegStr $1 HKCR ".crt" ""
+  StrCmp $1 "" +2
+    DeleteRegKey HKCR "$1\shell\open_xca"
+  ReadRegStr $1 HKCR ".crl" ""
+  StrCmp $1 "" +2
+    DeleteRegKey HKCR "$1\shell\open_xca"
+  ReadRegStr $1 HKCR ".pfx" ""
+  StrCmp $1 "" +2
+    DeleteRegKey HKCR "$1\shell\open_xca"
+  ReadRegStr $1 HKCR ".p7b" ""
+  StrCmp $1 "" +2
+    DeleteRegKey HKCR "$1\shell\open_xca"
+
   System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
 
   ; remove shortcuts, if any.
