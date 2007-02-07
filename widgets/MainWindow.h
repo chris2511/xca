@@ -66,7 +66,6 @@
 
 #define DBFILE "xca.xdb"
 
-
 class db_x509;
 
 class MainWindow: public QMainWindow, public Ui::MainWindow
@@ -127,6 +126,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void help();
 		void import_dbdump();
 		void undelete();
+		void loadPem();
 
 	private slots:
 		void on_keyView_doubleClicked(const QModelIndex &m);

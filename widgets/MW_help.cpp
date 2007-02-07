@@ -70,6 +70,7 @@ fprintf(stderr, " -v show version information and exit\n"
 " -7 expect all following non-option arguments to be PKCS#7 files\n"
 " -l expect all following non-option arguments to be Revocation lists\n"
 " -t expect all following non-option arguments to be XCA templates\n"
+" -P expect all following non-option arguments to be PEM encoded 'thingies'\n"
 " -d expect the following argument to be the database name to use\n"
 " -x Exit after processing all commandline options\n\n");
 

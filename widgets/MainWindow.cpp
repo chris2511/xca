@@ -195,8 +195,7 @@ void MainWindow::read_cmdline()
 	pki_base *item = NULL;
 	load_base *lb = NULL;
 	exitApp = 0;
-	ImportMulti *dlgi = NULL;
-	dlgi = new ImportMulti(this);
+	ImportMulti *dlgi = new ImportMulti(this);
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
@@ -211,6 +210,7 @@ void MainWindow::read_cmdline()
 				case '7' : lb = new load_pkcs7(); break;
 				case 'l' : lb = new load_crl(); break;
 				case 't' : lb = new load_temp(); break;
+				case 'P' : lb = new load_pem(); break;
 				case 'd' : force_load=1; break;
 				case 'v' : fprintf(stderr, XCA_TITLE " Version " VER "\n");
 						   opt=0; exitApp=1; break;
@@ -249,6 +249,12 @@ void MainWindow::read_cmdline()
 	delete dlgi;
 }
 
+void MainWindow::loadPem()
+{
+	load_pem l;
+	if (keys)
+		keys->load_default(l);
+}
 
 MainWindow::~MainWindow()
 {

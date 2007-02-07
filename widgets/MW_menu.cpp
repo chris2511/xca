@@ -90,6 +90,8 @@ void MainWindow::init_menu()
 				SLOT(on_BNimportTemp_clicked()) );
 	import->addAction(tr("Revocation list"), this,
 				SLOT(on_BNimportCrl_clicked()) );
+	import->addAction(tr("PEM file"), this,
+				SLOT(loadPem()) );
 
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );

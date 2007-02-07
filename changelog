@@ -1,3 +1,4 @@
+  * autodetect and load any type of PEM files
   * fix version number in exported *.xca template
   * fix import of older XCA templates
   * add support for predefined templates as there was in 0.5.1

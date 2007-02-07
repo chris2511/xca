@@ -119,4 +119,11 @@ class load_db: public load_base
 		load_db();
 };
 
+class load_pem: public load_base
+{
+	public:
+		load_pem();
+		pki_base * loadItem(QString s);
+};
+
 #endif

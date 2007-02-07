@@ -224,3 +224,87 @@ load_db::load_db()
 	filter = QObject::tr("XCA Databases ( *.xdb );;") + filter;
 	caption = QObject::tr("Open XCA Database");
 }
+
+/* General PEM loader */
+static load_base *getload(QString text)
+{
+	int pos;
+#define D5 "-----"
+	pos = text.indexOf(D5 "BEGIN ");
+	if (pos <0)
+		return NULL;
+	text = text.remove(0, pos + 11);
+	printf("Text B: %s\n", CCHAR(text));
+	if (text.startsWith(PEM_STRING_X509_OLD D5) ||
+				text.startsWith(PEM_STRING_X509 D5) ||
+				text.startsWith(PEM_STRING_X509_TRUSTED D5))
+		return new load_cert();
+
+	if (text.startsWith(PEM_STRING_PKCS7 D5))
+		return new load_pkcs7();
+	
+	if (text.startsWith(PEM_STRING_X509_REQ_OLD D5) ||
+				text.startsWith(PEM_STRING_X509_REQ D5))
+		return new load_req();
+
+	if (text.startsWith(PEM_STRING_X509_CRL D5))
+		return new load_crl();
+
+	if (text.startsWith(PEM_STRING_EVP_PKEY D5) ||
+				text.startsWith(PEM_STRING_PUBLIC D5) ||
+				text.startsWith(PEM_STRING_RSA D5) ||
+				text.startsWith(PEM_STRING_RSA_PUBLIC D5) ||
+				text.startsWith(PEM_STRING_DSA D5) ||
+				text.startsWith(PEM_STRING_DSA_PUBLIC D5) ||
+				text.startsWith(PEM_STRING_PKCS8 D5) ||
+				text.startsWith(PEM_STRING_PKCS8INF D5))
+		return new load_key();
+
+	return NULL;
+}
+
+load_pem::load_pem()
+	:load_base()
+{
+	filter = QObject::tr("Pem files ( *.pem );;") + filter;
+	caption = QObject::tr("Load PEM encoded file");
+}
+
+pki_base * load_pem::loadItem(QString fname)
+{
+	char buf[100];
+	int len;
+	FILE * fp;
+	QString text;
+	pki_base *item = NULL;
+	load_base *lb = NULL;
+
+	try {
+		fp = fopen(CCHAR(fname), "r");
+		if (!fp) 
+			throw errorEx(QObject::tr("File open error: ") + fname);
+		len = fread(buf, 1, 99, fp);
+		fclose(fp);
+		if (len < 11)
+			throw errorEx(QObject::tr("File corrupted: ") + fname);
+		buf[len] = '\0';
+		text = buf;
+		lb = getload(text);
+		if (!lb)
+			throw errorEx(QObject::tr("Unknown PEM file: ") + fname);
+		printf("CAPTION = '%s' for %s \n", CCHAR(lb->caption),
+			CCHAR(fname));
+		item = lb->loadItem(fname);
+		delete lb;
+		printf("LOAD success: %s\n", CCHAR(fname));
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+		if (item)
+			delete item;
+		item = NULL;
+		if (lb)
+			delete lb;
+	}
+	return item;
+};
