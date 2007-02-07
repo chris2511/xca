@@ -1,0 +1,14 @@
+.depend
+*.o
+*.obj
+*.rej
+*.orig
+*.dll
+moc_*
+Local.mak
+conftest
+conftest.c
+conftest.log
+xca
+xca.exe
+setup.exe
