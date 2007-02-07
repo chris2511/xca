@@ -126,6 +126,9 @@ NoBackup:
     WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,0"
     WriteRegStr HKCR "xca_db\shell\open\command" "" '$INSTDIR\xca.exe -d "%1"'
 Skip:
+  ReadRegStr $1 HKCR ".crt" ""
+  StrCmp $1 "" +2
+    WriteRegStr HKCR "$1\shell\open with XCA\command" "" '$INSTDIR\xca.exe -c "%1"'
   System::Call 'Shell32::SHChangeNotify(i 0x8000000, i 0, i 0, i 0)'
 SectionEnd
 
