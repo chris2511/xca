@@ -1,3 +1,5 @@
+  * fix version number in exported *.xca template
+  * fix import of older XCA templates
   * add support for predefined templates as there was in 0.5.1
   * fix cmdline import of crypto items
   * add undelete feature for deleted items

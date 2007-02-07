@@ -230,7 +230,7 @@ void pki_temp::writeTemp(QString fname)
 	}
 	p = toData(&size);
 	db::intToData(&p1, size);
-	db::intToData(&p1, version);
+	db::intToData(&p1, dataVersion);
 	fwrite(buf, 2*sizeof(int), 1, fp);
 	fwrite(p, 1, size, fp);
 	OPENSSL_free(p);
@@ -239,7 +239,8 @@ void pki_temp::writeTemp(QString fname)
 
 void pki_temp::loadTemp(QString fname)
 {
-	int size, s;
+	int size, s, version;
+	bool oldimport;
 	unsigned char *p, buf[2*sizeof(int)];
 	const unsigned char *p1 = buf;
 	FILE *fp = fopen(CCHAR(fname),"r");
@@ -248,19 +249,35 @@ void pki_temp::loadTemp(QString fname)
 		return;
 	}
 	if (fread(buf, 2*sizeof(int), 1, fp) != 1)
-		openssl_error(tr("Template file content error"));
+		openssl_error(tr("Template file content error (too small)"));
 	size = db::intFromData(&p1);
 	version = db::intFromData(&p1);
 
-	if (size > 65535 || size <0)
-		openssl_error(tr("Template file content error"));
-
-	p = (unsigned char *)OPENSSL_malloc(size);
-	if ((s=fread(p, 1, size, fp)) != size) {
-		OPENSSL_free(p);
-		openssl_error(tr("Template file content error"));
+	if (size > 65535 || size <0) {
+		fseek(fp, sizeof(int), SEEK_SET);
+		p1 = buf;
+		size = intFromData(&p1);
+		if (size > 65535 || size <0) {
+			fclose(fp);
+			openssl_error(tr("Template file content error (bad size)"));
+		}
+		oldimport = true;
+	} else {
+		oldimport = false;
 	}
-	fromData(p, size, version);
+	p = (unsigned char *)OPENSSL_malloc(size);
+	if (p) {
+		if ((s=fread(p, 1, size, fp)) != size) {
+			OPENSSL_free(p);
+			fclose(fp);
+			openssl_error(tr("Template file content error (bad length)"));
+		}
+	}
+	if (oldimport) {
+		oldFromData(p, size);
+	} else {
+		fromData(p, size, version);
+	}
 	OPENSSL_free(p);
 
 	setIntName(rmslashdot(fname));
@@ -291,7 +308,6 @@ int pki_temp::dataSize()
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
 	12 ) * sizeof(char);
-	//printf("Size of template = %d\n", s);
 	return s;
 }
 
@@ -301,13 +317,6 @@ bool pki_temp::compare(pki_base *ref)
  // we don't care if templates with identical contents
  // are stored in the database ...
 	return false;
-}
-QString pki_temp::type2Text(int type)
-{
-	QString typec[]={tr("Empty"), tr("CA"), tr("Client"), tr("Server")};
-	if (type >= 0 && type < 4)
-		type = 0;
-	return typec[type];
 }
 
 QVariant pki_temp::column_data(int col)
@@ -329,12 +338,11 @@ QVariant pki_temp::getIcon()
 void pki_temp::oldFromData(unsigned char *p, int size )
 {
 	const unsigned char *p1 = p;
-	int type;
+	int type, version;
 	bool dummy;
 
 	version=intFromData(&p1);
 	type=intFromData(&p1);
-	destination = type2Text(type);
 	if (version == 1) {
 		ca = 2;
 		bool mca = intFromData(&p1);
@@ -388,8 +396,5 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 	if (p1-p != size) {
 		openssl_error("Wrong Size");
 	}
-
-	//set version to 3
-	version = 3;
 }
 
