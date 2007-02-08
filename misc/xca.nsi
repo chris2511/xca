@@ -124,7 +124,7 @@ NoBackup1:
   StrCmp $0 "" 0 Skip1
     WriteRegStr HKCR "xca_db" "" "XCA database"
     WriteRegStr HKCR "xca_db\shell" "" "open"
-    WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,0"
+    WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,1"
     WriteRegStr HKCR "xca_db\shell\open\command" "" '$INSTDIR\xca.exe -d "%1"'
 Skip1:
 
@@ -138,7 +138,7 @@ NoBackup2:
   StrCmp $0 "" 0 Skip2
     WriteRegStr HKCR "xca_template" "" "XCA Template"
     WriteRegStr HKCR "xca_template\shell" "" "open"
-    WriteRegStr HKCR "xca_template\DefaultIcon" "" "$INSTDIR\xca.exe,0"
+    WriteRegStr HKCR "xca_template\DefaultIcon" "" "$INSTDIR\xca.exe,2"
     WriteRegStr HKCR "xca_template\shell\open\command" "" '$INSTDIR\xca.exe -t "%1"'
 Skip2:
 
@@ -280,11 +280,11 @@ SectionEnd
   LangString DESC_SecShortcut ${LANG_GERMAN} \
     "Programmgruppe auf dem Desktop und im Menu."
   LangString DESC_SecUpdate ${LANG_GERMAN} \
-    "Exportiert eine alte Datenbank < 0.5.1 in ein ASCII format, das mit dieser Version von XCA importiert werden kann."
+    "Exportiert eine alte Datenbank <= 0.5.1 in ein ASCII format, das mit dieser Version von XCA importiert werden kann."
   LangString DESC_SecUpdate ${LANG_ENGLISH} \
-    "Dumps an old database < 0.5.1 into an ASCII format, that can be imported by the current Version of XCA."
-  LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb"
-  LangString DESC_SecFiles ${LANG_GERMAN} "Registrierung der Dateiendung *.xdb."
+    "Dumps an old database <= 0.5.1 into an ASCII format, that can be imported by the current Version of XCA."
+  LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb *.xca *.pem and 'open with' for *.crt *.crl *.pfx *.p7b *.cer"
+  LangString DESC_SecFiles ${LANG_GERMAN} "Registrierung der Dateiendung *.xdb *.xca *.pem und 'open with' für *.crt *.crl *.pfx *.p7b *.cer"
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
@@ -299,7 +299,7 @@ If this application saves you time and money, consider returning \
 a small share back to me."
 
 LangString DESC_Donation ${LANG_GERMAN} \
-"Bitte ziehen sie eine Spende in Betracht.\r\n\r\n\
+"Bitte ziehen Sie eine Spende in Betracht.\r\n\r\n\
 Wenn Ihnen dieses Programm Zeit und Geld spart, \
 ziehen Sie bitte die Möglichkeit in Betracht mir einen kleinen \
 Teil davon abzugeben."

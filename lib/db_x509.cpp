@@ -131,9 +131,7 @@ void db_x509::remFromCont(QModelIndex &idx)
 	endRemoveRows();
 
 	while (pki->childCount()) {
-		printf("Insert dangling children: %d\n", pki->childCount());
 		child = (pki_x509*)pki->childItems.takeFirst();
-		printf("Child: %s\n", CCHAR(child->getIntName()));
 		child->delSigner((pki_x509*)pki);
 		new_parent = findSigner(child);
 		insertChild(new_parent, child);
@@ -157,7 +155,6 @@ void db_x509::changeView()
 		while(pki != rootItem && !pki->childCount()) {
 			parent = pki->getParent();
 			temproot->append(pki);
-			//printf("Processing %s\n",CCHAR(pki->getIntName()));
 			pki = parent;
 		}
 	}
@@ -169,10 +166,8 @@ void db_x509::changeView()
 	else
 		mainwin->BNviewState->setText(tr("Tree View"));
 
-	//printf("ChildCount=%d\n", temproot->childCount());
 	while ((temproot->childCount())) {
 		pki = temproot->takeFirst();
-		//printf("Inserting %s\n", CCHAR(pki->getIntName()));
 		inToCont(pki);
 	}
 	delete temproot;

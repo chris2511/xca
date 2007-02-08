@@ -99,7 +99,8 @@ void MainWindow::about()
 	"<tr><th align=left>Wolfgang Glas</th><td><u>&lt;wolfgang.glas@ev-i.at&gt;</u></td></tr>"
 	"<tr><td></td><td>SPKAC support and Testing</td></tr>"
 	"</table><hr><center><u><b>General support</b></u></center>"
-	"<p><b>Mark Foster</b> <u>&lt;mark@foster.cc&gt;</u>",
+	"<p><b>Mark Foster</b> <u>&lt;mark@foster.cc&gt;</u><br>"
+	"<b>Thorsten Weiss</b> <u>&lt;weiss2@gmx.de&gt;</u>",
 	OPENSSL_VERSION_TEXT, QT_VERSION_STR );
 
 	about->setWindowTitle(tr(XCA_TITLE));

@@ -652,14 +652,22 @@ void NewX509::on_okButton_clicked()
 	if (notBefore->getDate().get_utc() == NULL ||
 				notAfter->getDate().get_utc() == NULL) {
 		if (QMessageBox::warning(this, tr(XCA_TITLE),
-			tr("The Validity dates are out of range (1950 - 2049) to create "
+			tr("The validity dates are out of range (1950 - 2049) to create "
 			"valid certificates. If you continue, your client may "
-			"reject the certificate"), tr("Change validity times"),
-			tr("Continue to issue")))
+			"reject the certificate."), tr("Continue to issue"),
+			tr("Change validity times")))
 		{
-			accept();
+			return;
 		}
-	} else {
-		accept();
 	}
+	if (notBefore->getDate() > notAfter->getDate()) {
+		if (QMessageBox::warning(this, tr(XCA_TITLE),
+			tr("The certificate will be out of date before it becomes valid. "
+			"You most probably mixed up both dates."),
+			tr("Continue to issue"), tr("Change validity times")))
+		{
+			return;
+		}
+	}
+	accept();
 }
