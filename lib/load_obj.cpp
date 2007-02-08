@@ -234,7 +234,6 @@ static load_base *getload(QString text)
 	if (pos <0)
 		return NULL;
 	text = text.remove(0, pos + 11);
-	printf("Text B: %s\n", CCHAR(text));
 	if (text.startsWith(PEM_STRING_X509_OLD D5) ||
 				text.startsWith(PEM_STRING_X509 D5) ||
 				text.startsWith(PEM_STRING_X509_TRUSTED D5))
@@ -242,7 +241,7 @@ static load_base *getload(QString text)
 
 	if (text.startsWith(PEM_STRING_PKCS7 D5))
 		return new load_pkcs7();
-	
+
 	if (text.startsWith(PEM_STRING_X509_REQ_OLD D5) ||
 				text.startsWith(PEM_STRING_X509_REQ D5))
 		return new load_req();
@@ -266,7 +265,7 @@ static load_base *getload(QString text)
 load_pem::load_pem()
 	:load_base()
 {
-	filter = QObject::tr("Pem files ( *.pem );;") + filter;
+	filter = QObject::tr("PEM files ( *.pem );;") + filter;
 	caption = QObject::tr("Load PEM encoded file");
 }
 
@@ -281,7 +280,7 @@ pki_base * load_pem::loadItem(QString fname)
 
 	try {
 		fp = fopen(CCHAR(fname), "r");
-		if (!fp) 
+		if (!fp)
 			throw errorEx(QObject::tr("File open error: ") + fname);
 		len = fread(buf, 1, 99, fp);
 		fclose(fp);
@@ -292,11 +291,8 @@ pki_base * load_pem::loadItem(QString fname)
 		lb = getload(text);
 		if (!lb)
 			throw errorEx(QObject::tr("Unknown PEM file: ") + fname);
-		printf("CAPTION = '%s' for %s \n", CCHAR(lb->caption),
-			CCHAR(fname));
 		item = lb->loadItem(fname);
 		delete lb;
-		printf("LOAD success: %s\n", CCHAR(fname));
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
