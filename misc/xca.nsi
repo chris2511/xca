@@ -127,6 +127,7 @@ NoBackup1:
     WriteRegStr HKCR "xca_db\DefaultIcon" "" "$INSTDIR\xca.exe,0"
     WriteRegStr HKCR "xca_db\shell\open\command" "" '$INSTDIR\xca.exe -d "%1"'
 Skip1:
+
   ReadRegStr $1 HKCR ".xca" ""
   StrCmp $1 "" NoBackup2
   StrCmp $1 "xca_template" NoBackup2
@@ -140,6 +141,21 @@ NoBackup2:
     WriteRegStr HKCR "xca_template\DefaultIcon" "" "$INSTDIR\xca.exe,0"
     WriteRegStr HKCR "xca_template\shell\open\command" "" '$INSTDIR\xca.exe -t "%1"'
 Skip2:
+
+  ReadRegStr $1 HKCR ".pem" ""
+  StrCmp $1 "" NoBackup3
+  StrCmp $1 "pem_file" NoBackup3
+    WriteRegStr HKCR ".pem" "backup_val" $1
+NoBackup3:
+  WriteRegStr HKCR ".pem" "" "pem_file"
+  ReadRegStr $0 HKCR "pem_file" ""
+  StrCmp $0 "" 0 Skip3
+    WriteRegStr HKCR "pem_file" "" "Privacy Enhanced Mail"
+    WriteRegStr HKCR "pem_file\shell" "" "open"
+    WriteRegStr HKCR "pem_file\DefaultIcon" "" "$INSTDIR\xca.exe,0"
+    WriteRegStr HKCR "pem_file\shell\open\command" "" '$INSTDIR\xca.exe -P "%1"'
+Skip3:
+
   ReadRegStr $1 HKCR ".crt" ""
   StrCmp $1 "" +3
     WriteRegStr HKCR "$1\shell\open_xca" "" "Open with XCA"
@@ -219,6 +235,18 @@ Restore1:
 Skip1:
   DeleteRegValue HKCR ".xca" "backup_val"
   DeleteRegKey HKCR "xca_template"
+;--------------------------------------
+  ReadRegStr $1 HKCR ".pem" ""
+  StrCmp $1 "pem_file" 0 Skip2
+    ReadRegStr $1 HKCR ".pem" "backup_val"
+    StrCmp $1 "" 0 Restore2
+      DeleteRegKey HKCR ".pem"
+      Goto Skip2
+Restore2:
+    WriteRegStr HKCR ".pem" "" $1
+Skip2:
+  DeleteRegValue HKCR ".pem" "backup_val"
+  DeleteRegKey HKCR "pem_file"
 ;--------------------------------------
   ReadRegStr $1 HKCR ".crt" ""
   StrCmp $1 "" +2
