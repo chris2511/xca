@@ -148,10 +148,12 @@ void MainWindow::help()
 #ifdef WIN32
 	path += "/";
 #endif
-	path += getPrefix();
-	uri = path + QDir::separator() +"xca.html";
+	path += getPrefix() + "/";
+#ifdef WIN32
+	path = path.replace("\\","/");
+#endif
+	uri = path + "xca.html";
 
-	printf("Help URI = '%s'\n",	CCHAR(path));
 	ui.textbox->setSource(QUrl(uri));
 	ui.textbox->setSearchPaths(QStringList(path));
 	h->setWindowTitle(tr(XCA_TITLE));
