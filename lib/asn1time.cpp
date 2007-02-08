@@ -110,29 +110,9 @@ a1time &a1time::set(time_t t)
 
 a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
 {
-	char *p;
-	if (mon < 1 || mon > 12 ||
-	    d < 1 || d > 31 ||
-	    h < 0 || h >23 ||
-	    m < 0 || m > 59 ||
-	    s < 0 || s > 59 ) {
-	}
-	if (time->length < 16) {
-		p = (char *)OPENSSL_malloc(20);
-		if (p == NULL) goto this_err;
-		if (time->data != NULL)
-			OPENSSL_free(time->data);
-		time->data=(unsigned char *)p;
-	}
-
-
-	time->length = sprintf((char *)time->data, "%04d%02d%02d%02d%02d%02dZ",
-		       y, mon, d, h, m ,s);
-	time->type=V_ASN1_GENERALIZEDTIME;
-	return *this;
-this_err:
-	ASN1err(ASN1_F_D2I_ASN1_GENERALIZEDTIME,ASN1_R_INVALID_TIME_FORMAT);
-	return *this;
+	QString gt;
+	gt.sprintf("%04d%02d%02d%02d%02d%02dZ",	y, mon, d, h, m ,s);
+	return set(gt);
 }
 
 

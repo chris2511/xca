@@ -1020,151 +1020,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_3" >
-      <attribute name="title" >
-       <string>Key Usage</string>
-      </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>8</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item>
-        <widget class="QWidget" native="1" name="widget_4_3" />
-       </item>
-       <item>
-        <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item>
-          <widget class="QGroupBox" name="groupBox_12" >
-           <property name="title" >
-            <string>Key usage</string>
-           </property>
-           <layout class="QVBoxLayout" >
-            <property name="margin" >
-             <number>8</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="kuCritical" >
-              <property name="text" >
-               <string>&amp;Critical</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QListWidget" name="keyUsage" >
-              <property name="selectionMode" >
-               <enum>QAbstractItemView::MultiSelection</enum>
-              </property>
-              <property name="selectionBehavior" >
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-              <item>
-               <property name="text" >
-                <string>Digital Signature</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Non Repudiation</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Key Encipherment</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Data Encipherment</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Key Agreement</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Certificate Sign</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>CRL Sign</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Encipher Only</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Decipher Only</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_11" >
-           <property name="title" >
-            <string>Extended key usage</string>
-           </property>
-           <layout class="QVBoxLayout" >
-            <property name="margin" >
-             <number>8</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="ekuCritical" >
-              <property name="text" >
-               <string>C&amp;ritical</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QListWidget" name="ekeyUsage" >
-              <property name="selectionMode" >
-               <enum>QAbstractItemView::MultiSelection</enum>
-              </property>
-              <property name="selectionBehavior" >
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-      <widget class="QWidget" native="1" name="widget_4" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>100</width>
-         <height>30</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
      <widget class="QWidget" name="tab_4" >
       <attribute name="title" >
        <string>Netscape</string>
@@ -1392,6 +1247,151 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </property>
       </widget>
      </widget>
+     <widget class="QWidget" name="tab_3" >
+      <attribute name="title" >
+       <string>Key Usage</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QWidget" native="1" name="widget_4_3" />
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_12" >
+           <property name="title" >
+            <string>Key usage</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="kuCritical" >
+              <property name="text" >
+               <string>&amp;Critical</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="keyUsage" >
+              <property name="selectionMode" >
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <item>
+               <property name="text" >
+                <string>Digital Signature</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Non Repudiation</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Key Encipherment</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Data Encipherment</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Key Agreement</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Certificate Sign</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>CRL Sign</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Encipher Only</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Decipher Only</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_11" >
+           <property name="title" >
+            <string>Extended key usage</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="ekuCritical" >
+              <property name="text" >
+               <string>C&amp;ritical</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="ekeyUsage" >
+              <property name="selectionMode" >
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+      <widget class="QWidget" native="1" name="widget_4" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>100</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </item>
    <item>
@@ -1522,30 +1522,14 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
  <resources/>
  <connections>
   <connection>
-   <sender>okButton</sender>
-   <signal>clicked()</signal>
-   <receiver>NewX509</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>485</x>
-     <y>509</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>96</x>
-     <y>254</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>cancelButton</sender>
    <signal>clicked()</signal>
    <receiver>NewX509</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>86</x>
-     <y>509</y>
+     <x>96</x>
+     <y>569</y>
     </hint>
     <hint type="destinationlabel" >
      <x>179</x>

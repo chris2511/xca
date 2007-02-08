@@ -76,6 +76,7 @@ class pki_x509 : public pki_x509super
 	   QString caTemplate;
 	   X509 *cert;
 	   void init();
+	   void set_date(ASN1_TIME **a, const a1time &a1);
 	public:
 	   static QPixmap *icon[4];
 	   pki_x509(X509 *c);

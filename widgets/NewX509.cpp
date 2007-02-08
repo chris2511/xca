@@ -647,3 +647,19 @@ void NewX509::on_editAuthInfAcc_clicked()
 	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
 }
 
+void NewX509::on_okButton_clicked()
+{
+	if (notBefore->getDate().get_utc() == NULL ||
+				notAfter->getDate().get_utc() == NULL) {
+		if (QMessageBox::warning(this, tr(XCA_TITLE),
+			tr("The Validity dates are out of range (1950 - 2049) to create "
+			"valid certificates. If you continue, your client may "
+			"reject the certificate"), tr("Change validity times"),
+			tr("Continue to issue")))
+		{
+			accept();
+		}
+	} else {
+		accept();
+	}
+}

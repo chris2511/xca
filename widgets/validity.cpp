@@ -64,7 +64,7 @@ Validity::~Validity()
 a1time Validity::getDate() const
 {
 	a1time date;
-	date.set(dateTime().toTime_t());
+	date.set(dateTime().toString("yyyyMMddhhmmss") + "Z");
 	return date;
 }
 

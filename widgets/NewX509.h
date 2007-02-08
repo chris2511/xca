@@ -144,6 +144,7 @@ class NewX509: public QDialog, public Ui::NewX509
 	void on_countryName_textChanged(QString);
 	void on_certList_currentIndexChanged(int index);
 	void on_applyTemplate_clicked();
+	void on_okButton_clicked();
    signals:
 	void genKey();
 	void showReq(QString req);

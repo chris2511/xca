@@ -160,11 +160,13 @@ a1int pki_x509::getSerial() const
 a1int pki_x509::hashInfo(const EVP_MD *md) const
 {
 	unsigned char digest[EVP_MAX_MD_SIZE];
-        unsigned len = 0;
-	if (!ASN1_item_digest(ASN1_ITEM_rptr(X509_CINF),md,(char*)cert->cert_info,digest,&len)) openssl_error();
-        a1int a;
-        a.setRaw(digest,len);
-        return a;
+	unsigned len = 0;
+	if (!ASN1_item_digest(ASN1_ITEM_rptr(X509_CINF), md,
+				(char*)cert->cert_info,digest,&len))
+		openssl_error();
+	a1int a;
+	a.setRaw(digest,len);
+	return a;
 }
 
 a1int pki_x509::getQASerial(const a1int &secret) const
@@ -172,9 +174,9 @@ a1int pki_x509::getQASerial(const a1int &secret) const
 	ASN1_INTEGER *hold = cert->cert_info->serialNumber;
 	cert->cert_info->serialNumber = secret.get();
 	a1int ret = hashInfo(EVP_md5());
-        ASN1_INTEGER_free(cert->cert_info->serialNumber);
-        cert->cert_info->serialNumber = hold;
-        return ret;
+	ASN1_INTEGER_free(cert->cert_info->serialNumber);
+	cert->cert_info->serialNumber = hold;
+	return ret;
 }
 
 bool pki_x509::verifyQASerial(const a1int &secret) const
@@ -182,26 +184,26 @@ bool pki_x509::verifyQASerial(const a1int &secret) const
 	return getQASerial(secret) == getSerial();
 }
 
+void pki_x509::set_date(ASN1_TIME **a, const a1time &a1)
+{
+	if (*a != NULL )
+		ASN1_TIME_free(*a);
+
+	*a = a1.get_utc();
+	if (*a == NULL)
+		*a = a1.get();
+
+	openssl_error();
+}
+
 void pki_x509::setNotBefore(const a1time &a1)
 {
-	if (X509_get_notBefore(cert) != NULL ) {
-		ASN1_TIME_free(X509_get_notBefore(cert));
-	}
-	X509_get_notBefore(cert) = a1.get_utc();
-	if (X509_get_notBefore(cert) == NULL)
-		X509_get_notBefore(cert) = a1.get();
-	openssl_error();
+	set_date(&X509_get_notBefore(cert), a1);
 }
 
 void pki_x509::setNotAfter(const a1time &a1)
 {
-	if (X509_get_notAfter(cert) != NULL ) {
-		ASN1_TIME_free(X509_get_notAfter(cert));
-	}
-	X509_get_notAfter(cert) = a1.get_utc();
-	if (X509_get_notAfter(cert) == NULL)
-		X509_get_notAfter(cert) = a1.get();
-	openssl_error();
+	set_date(&X509_get_notAfter(cert), a1);
 }
 
 a1time pki_x509::getNotBefore() const

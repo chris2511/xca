@@ -1,3 +1,4 @@
+  * fix date generation and warn if generalized time is used
   * autodetect and load any type of PEM files
   * fix version number in exported *.xca template
   * fix import of older XCA templates
