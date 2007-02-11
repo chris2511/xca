@@ -55,6 +55,7 @@
 #include "widgets/ExportCert.h"
 #include "ui/TrustState.h"
 #include "ui/CaProperties.h"
+#include "ui/PassWrite.h"
 #include <Qt/qmessagebox.h>
 #include <Qt/qevent.h>
 #include <Qt/qaction.h>
@@ -451,38 +452,37 @@ void db_x509::newCert(NewX509 *dlg)
 		serial = signcert->getIncCaSerial();
 		signkey = signcert->getRefKey();
 		cert->setTrust(1);
-	}
-#if 0
-	else if (dlg->selfQASignRB->isChecked()){
+	} else if (dlg->selfQASignRB->isChecked()){
+		Ui::PassWrite ui;
+		QDialog *dlg1 = new QDialog(mainwin);
+		ui.setupUi(dlg1);
+		ui.image->setPixmap( *MainWindow::keyImg );
+		ui.description->setText(tr("Please enter the new hexadecimal secret number for the QA process."));
+		dlg1->setWindowTitle(XCA_TITLE);
+		ui.passA->setFocus();
+		ui.passA->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),
+				ui.passA));
+		ui.passB->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),
+				ui.passB));
+		QString A = "x", B="";
 
-                PassWrite_UI *dlg1 = new PassWrite_UI(NULL, 0, true);
-                dlg1->image->setPixmap( *MainWindow::keyImg );
-                dlg1->title->setText(XCA_TITLE);
-                dlg1->description->setText(tr("Please enter the new hexadecimal secret number for the QA process."));
-                dlg1->passA->setFocus();
-                dlg1->passA->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),dlg1->passA));
-                dlg1->passB->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),dlg1->passB));
-                dlg1->setCaption(XCA_TITLE);
-                QString A = "x", B="";
-
-                while (dlg1->exec())
-                  {
-                    A = dlg1->passA->text();
-                    B = dlg1->passB->text();
-                    if (A==B) break;
-                    else
-                      QMessageBox::warning(mainwin, XCA_TITLE, tr("The two secret numbers don't match."));
-                    }
-                delete dlg1;
-                if (A!=B)
-                  throw errorEx(tr("The QA process has been terminated by the user."));
+		while (dlg1->exec()) {
+			A = ui.passA->text();
+			B = ui.passB->text();
+			if (A==B)
+				break;
+			else
+				QMessageBox::warning(mainwin, XCA_TITLE,
+						tr("The two secret numbers don't match."));
+		}
+		delete dlg1;
+		if (A!=B)
+			throw errorEx(tr("The QA process has been terminated by the user."));
 		signcert = cert;
 		signkey = clientkey;
-                serial.setHex(A);
+		serial.setHex(A);
 		cert->setTrust(2);
-	}
-#endif
-	else {
+	} else {
 		signcert = cert;
 		signkey = clientkey;
 		serial.setHex(dlg->serialNr->text());
@@ -539,16 +539,15 @@ void db_x509::newCert(NewX509 *dlg)
 	const EVP_MD *hashAlgo = dlg->getHashAlgo();
 	if (signkey->getType() == EVP_PKEY_DSA)
 		hashAlgo = EVP_dss1();
-#if 0
-	if (dlg->selfQASignRB->isChecked())
-          {
-            // sign the request intermediately in order to finally fill
-            // up the cert_info substructure.
-            cert->sign(signkey, hashAlgo);
-            // now set the QA serial.
-            cert->setSerial(cert->hashInfo(EVP_md5()));
-          }
-#endif
+
+	if (dlg->selfQASignRB->isChecked()) {
+		// sign the request intermediately in order to finally fill
+		// up the cert_info substructure.
+		cert->sign(signkey, hashAlgo);
+		// now set the QA serial.
+		cert->setSerial(cert->hashInfo(EVP_md5()));
+	}
+
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
 	insert(cert);

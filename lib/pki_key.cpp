@@ -186,12 +186,15 @@ void pki_key::generate(int bits, int type, QProgressBar *progress)
 
 	if (type == EVP_PKEY_RSA) {
 		rsakey = RSA_generate_key(bits, 0x10001, &incProgress, progress);
-		if (rsakey) EVP_PKEY_set1_RSA(key, rsakey);
+		if (rsakey)
+			EVP_PKEY_set1_RSA(key, rsakey);
 	} else if (type == EVP_PKEY_DSA) {
 		progress->setMaximum(500);
-		dsakey = DSA_generate_parameters(bits,NULL,0,NULL,NULL,&incProgress, progress);
+		dsakey = DSA_generate_parameters(bits, NULL, 0, NULL, NULL,
+				&incProgress, progress);
 		DSA_generate_key(dsakey);
-		if(dsakey) EVP_PKEY_set1_DSA(key,dsakey);
+		if(dsakey)
+			EVP_PKEY_set1_DSA(key,dsakey);
 	}
 	openssl_error();
 	encryptKey();
@@ -602,8 +605,8 @@ void pki_key::writePublic(const QString fname, bool pem)
 	else
 		i2d_PUBKEY_fp(fp, key);
 
-	openssl_error();
 	fclose(fp);
+	openssl_error();
 }
 
 
@@ -611,7 +614,7 @@ QString pki_key::length()
 {
 	char st[64];
 	QString x;
-	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p==NULL) {
+	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL) {
 		return x="???";
 	}
 	sprintf(st,"%i bit",  EVP_PKEY_bits(key) );

@@ -99,17 +99,16 @@ NewX509::NewX509(QWidget *parent)
 	serialNr->setValidator( new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
 	QStringList strings;
 
-	// are there any useable private keys  ?
-	strings = MainWindow::keys->get0PrivateDesc();
-	keyList->insertItems(0, strings);
 	hashAlgo->setCurrentIndex(2);
-	if (!strings.isEmpty())
-		on_keyList_highlighted(strings[0]);
 #ifdef HAS_SHA256
 	hashAlgo->addItem(tr("SHA 256"));
 	hashAlgo->addItem(tr("SHA 512"));
 	hashAlgo->setCurrentIndex(3);
 #endif
+	// are there any useable private keys  ?
+	strings = MainWindow::keys->get0PrivateDesc();
+	keyList->insertItems(0, strings);
+
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
 	if (strings.isEmpty()) {
@@ -125,11 +124,18 @@ NewX509::NewX509(QWidget *parent)
 	strings = MainWindow::certs->getSignerDesc();
 	if (strings.isEmpty()) {
 		foreignSignRB->setDisabled(true);
-		certList->setDisabled(true);
 	} else {
 		certList->insertItems(0, strings);
 	}
-
+#ifdef WG_QA_SERIAL
+	selfQASignRB = new QRadioButton(signerBox);
+	setTabOrder(serialNr, selfQASignRB);
+	setTabOrder(selfQASignRB, foreignSignRB);
+	selfQASignRB->setText(tr(
+			"Create a &self signed certificate with a MD5-hashed QA serial"));
+	QBoxLayout *l = (QBoxLayout *)signerBox->layout(); 
+	l->insertWidget(1, selfQASignRB);
+#endif
 	// set dates to now and now + 1 year
 	a1time a;
 	notBefore->setDate(a.now());
@@ -167,6 +173,7 @@ NewX509::NewX509(QWidget *parent)
 
 	// last polish
 	on_certList_currentIndexChanged(0);
+	certList->setDisabled(true);
 	checkAuthKeyId();
 	toggleOkBut();
 	tabWidget->setCurrentIndex(0);
@@ -357,16 +364,52 @@ void NewX509::on_fromReqCB_clicked()
 	reqList->setEnabled(request);
 	copyReqExtCB->setEnabled(request);
 	showReqBut->setEnabled(request);
+	switchHashAlgo();
 	toggleOkBut();
 }
 
 
-void NewX509::on_keyList_highlighted(const QString &keyname)
+void NewX509::on_keyList_currentIndexChanged(const QString &)
 {
-	if ( keyname.right(5) == "(DSA)" )
-		hashAlgo->setDisabled(true);
+	switchHashAlgo();
+}
+
+void NewX509::on_reqList_currentIndexChanged(const QString &)
+{
+	switchHashAlgo();
+}
+
+void NewX509::switchHashAlgo()
+{
+	static int h_index = 0;
+	pki_key *key;
+	pki_x509super *sig;
+	bool disable;
+
+	if (foreignSignRB->isChecked())
+		sig = getSelectedSigner();
+	else if (fromReqCB->isChecked())
+		sig = getSelectedReq();
 	else
-		hashAlgo->setDisabled(false);
+		sig = NULL;
+
+	key = sig ? sig->getRefKey() : getSelectedKey();
+	disable = (key && key->getType() == EVP_PKEY_DSA) ? true : false;
+
+	if (disable) {
+		if (hashAlgo->isEnabled()) {
+			/* backup */
+			h_index = hashAlgo->currentIndex();
+			hashAlgo->setCurrentIndex(2);
+			hashAlgo->setDisabled(true);
+		}
+	} else {
+		if (!hashAlgo->isEnabled()) {
+			/* restore */
+			hashAlgo->setCurrentIndex(h_index);
+			hashAlgo->setDisabled(false);
+		}
+	}
 }
 
 void NewX509::toggleOkBut()
@@ -403,6 +446,8 @@ void NewX509::on_certList_currentIndexChanged(int index)
 {
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();
+
+	switchHashAlgo();
 
 	if (!cert)
 		return;
@@ -471,10 +516,20 @@ void NewX509::checkAuthKeyId()
 	authKey->setEnabled(enabled);
 }
 
-void NewX509::on_foreignSignRB_toggled(bool checked){
+void NewX509::on_foreignSignRB_toggled(bool checked)
+{
 	checkAuthKeyId();
+	switchHashAlgo();
+	certList->setEnabled(checked);
 }
-void NewX509::on_subKey_clicked(){
+
+void NewX509::on_selfSignRB_toggled(bool checked)
+{
+	serialNr->setEnabled(checked);
+}
+
+void NewX509::on_subKey_clicked()
+{
 	checkAuthKeyId();
 }
 
@@ -482,13 +537,8 @@ void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(0, name);
 	keyList->setCurrentIndex(0);
-	on_keyList_highlighted(name);
+	//on_keyList_highlighted(name);
 	toggleOkBut();
-}
-
-void NewX509::helpClicked()
-{
-	//Q3WhatsThis::enterWhatsThisMode();
 }
 
 pki_key *NewX509::getSelectedKey()

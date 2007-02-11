@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>596</width>
-    <height>580</height>
+    <height>542</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -181,59 +181,108 @@ Of course you need the private key of the CSR if you want to create a self-signe
        <item>
         <widget class="QGroupBox" name="signerBox" >
          <property name="title" >
-          <string>Signer</string>
+          <string>Signing</string>
          </property>
-         <layout class="QGridLayout" >
+         <layout class="QVBoxLayout" >
           <property name="margin" >
-           <number>8</number>
+           <number>9</number>
           </property>
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="1" column="0" colspan="3" >
-           <widget class="QRadioButton" name="selfQASignRB" >
-            <property name="text" >
-             <string>Create a &amp;self signed certificate with a MD5-hashed QA serial</string>
+          <item>
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
+             <number>0</number>
             </property>
-           </widget>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QRadioButton" name="selfSignRB" >
+              <property name="text" >
+               <string>Create a &amp;self signed certificate with the serial</string>
+              </property>
+              <property name="checked" >
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="serialNr" >
+              <property name="toolTip" >
+               <string>If you leave this blank the serial 00 will be used</string>
+              </property>
+              <property name="text" >
+               <string>1</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-          <item row="2" column="2" >
-           <widget class="QComboBox" name="certList" >
-            <property name="toolTip" >
-             <string>All certificates in your database that can create valid signatures</string>
+          <item>
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
+             <number>0</number>
             </property>
-            <property name="whatsThis" >
-             <string>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QRadioButton" name="foreignSignRB" >
+              <property name="text" >
+               <string>Use &amp;this Certificate for for signing</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="certList" >
+              <property name="toolTip" >
+               <string>All certificates in your database that can create valid signatures</string>
+              </property>
+              <property name="whatsThis" >
+               <string>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
 If this list is disabled, you only can create a self-signed certificate.</string>
-            </property>
-           </widget>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-          <item row="2" column="0" colspan="2" >
-           <widget class="QRadioButton" name="foreignSignRB" >
-            <property name="text" >
-             <string>Use &amp;this Certificate for for signing</string>
+          <item>
+           <layout class="QHBoxLayout" >
+            <property name="margin" >
+             <number>0</number>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="0" >
-           <widget class="QRadioButton" name="selfSignRB" >
-            <property name="text" >
-             <string>Create a &amp;self signed certificate with the serial</string>
+            <property name="spacing" >
+             <number>6</number>
             </property>
-            <property name="checked" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="2" >
-           <widget class="QLineEdit" name="serialNr" >
-            <property name="toolTip" >
-             <string>If you leave this blank the serial 00 will be used</string>
-            </property>
-            <property name="text" >
-             <string>1</string>
-            </property>
-           </widget>
+            <item>
+             <widget class="QLabel" name="label" >
+              <property name="text" >
+               <string>Signature algorithm</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="hashAlgo" >
+              <item>
+               <property name="text" >
+                <string>MD 2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>MD 5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>SHA 1</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -287,9 +336,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
              <string>All available templates</string>
             </property>
             <property name="whatsThis" >
-             <string>This list contains all templates from the toplevel template Tab. 
-Additionally it contains 4 default templates:
-Empy, CA, client, server</string>
+             <string>This list contains all templates from the toplevel template Tab</string>
             </property>
            </widget>
           </item>
@@ -327,7 +374,7 @@ Empy, CA, client, server</string>
       </attribute>
       <layout class="QVBoxLayout" >
        <property name="margin" >
-        <number>8</number>
+        <number>9</number>
        </property>
        <property name="spacing" >
         <number>6</number>
@@ -524,43 +571,14 @@ Empy, CA, client, server</string>
          <property name="title" >
           <string>Private key</string>
          </property>
-         <layout class="QGridLayout" >
+         <layout class="QHBoxLayout" >
           <property name="margin" >
-           <number>8</number>
+           <number>9</number>
           </property>
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="0" column="3" >
-           <widget class="QPushButton" name="genKeyBUT" >
-            <property name="toolTip" >
-             <string>This funny button creates a key. Go figure.</string>
-            </property>
-            <property name="text" >
-             <string>&amp;Generate a new key</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="QComboBox" name="hashAlgo" >
-            <item>
-             <property name="text" >
-              <string>MD 2</string>
-             </property>
-            </item>
-            <item>
-             <property name="text" >
-              <string>MD 5</string>
-             </property>
-            </item>
-            <item>
-             <property name="text" >
-              <string>SHA 1</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="0" column="0" >
+          <item>
            <widget class="QComboBox" name="keyList" >
             <property name="sizePolicy" >
              <sizepolicy>
@@ -575,7 +593,7 @@ Empy, CA, client, server</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="2" >
+          <item>
            <spacer>
             <property name="orientation" >
              <enum>Qt::Horizontal</enum>
@@ -590,6 +608,16 @@ Empy, CA, client, server</string>
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genKeyBUT" >
+            <property name="toolTip" >
+             <string>This funny button creates a key. Go figure.</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Generate a new key</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -1020,6 +1048,151 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </property>
       </widget>
      </widget>
+     <widget class="QWidget" name="tab_3" >
+      <attribute name="title" >
+       <string>Key Usage</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>8</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QWidget" native="1" name="widget_4_3" />
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="groupBox_12" >
+           <property name="title" >
+            <string>Key usage</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="kuCritical" >
+              <property name="text" >
+               <string>&amp;Critical</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="keyUsage" >
+              <property name="selectionMode" >
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <item>
+               <property name="text" >
+                <string>Digital Signature</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Non Repudiation</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Key Encipherment</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Data Encipherment</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Key Agreement</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Certificate Sign</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>CRL Sign</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Encipher Only</string>
+               </property>
+              </item>
+              <item>
+               <property name="text" >
+                <string>Decipher Only</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_11" >
+           <property name="title" >
+            <string>Extended key usage</string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <property name="margin" >
+             <number>8</number>
+            </property>
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="ekuCritical" >
+              <property name="text" >
+               <string>C&amp;ritical</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="ekeyUsage" >
+              <property name="selectionMode" >
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="selectionBehavior" >
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+      <widget class="QWidget" native="1" name="widget_4" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>100</width>
+         <height>30</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
      <widget class="QWidget" name="tab_4" >
       <attribute name="title" >
        <string>Netscape</string>
@@ -1247,151 +1420,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_3" >
-      <attribute name="title" >
-       <string>Key Usage</string>
-      </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>8</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item>
-        <widget class="QWidget" native="1" name="widget_4_3" />
-       </item>
-       <item>
-        <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item>
-          <widget class="QGroupBox" name="groupBox_12" >
-           <property name="title" >
-            <string>Key usage</string>
-           </property>
-           <layout class="QVBoxLayout" >
-            <property name="margin" >
-             <number>8</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="kuCritical" >
-              <property name="text" >
-               <string>&amp;Critical</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QListWidget" name="keyUsage" >
-              <property name="selectionMode" >
-               <enum>QAbstractItemView::MultiSelection</enum>
-              </property>
-              <property name="selectionBehavior" >
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-              <item>
-               <property name="text" >
-                <string>Digital Signature</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Non Repudiation</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Key Encipherment</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Data Encipherment</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Key Agreement</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Certificate Sign</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>CRL Sign</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Encipher Only</string>
-               </property>
-              </item>
-              <item>
-               <property name="text" >
-                <string>Decipher Only</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_11" >
-           <property name="title" >
-            <string>Extended key usage</string>
-           </property>
-           <layout class="QVBoxLayout" >
-            <property name="margin" >
-             <number>8</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="ekuCritical" >
-              <property name="text" >
-               <string>C&amp;ritical</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QListWidget" name="ekeyUsage" >
-              <property name="selectionMode" >
-               <enum>QAbstractItemView::MultiSelection</enum>
-              </property>
-              <property name="selectionBehavior" >
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-      <widget class="QWidget" native="1" name="widget_4" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>100</width>
-         <height>30</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
     </widget>
    </item>
    <item>
@@ -1465,7 +1493,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
   <tabstop>showReqBut</tabstop>
   <tabstop>selfSignRB</tabstop>
   <tabstop>serialNr</tabstop>
-  <tabstop>selfQASignRB</tabstop>
   <tabstop>foreignSignRB</tabstop>
   <tabstop>certList</tabstop>
   <tabstop>tempList</tabstop>
@@ -1484,7 +1511,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
   <tabstop>extDNdel</tabstop>
   <tabstop>extDNlist</tabstop>
   <tabstop>keyList</tabstop>
-  <tabstop>hashAlgo</tabstop>
   <tabstop>genKeyBUT</tabstop>
   <tabstop>basicCA</tabstop>
   <tabstop>basicPath</tabstop>

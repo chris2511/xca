@@ -83,6 +83,7 @@ class NewX509: public QDialog, public Ui::NewX509
 	enum pki_type pt;
 	void templateChanged(QString templatename);
    public:
+	QRadioButton *selfQASignRB;
 	NewX509(QWidget *parent);
 	virtual ~NewX509();
 	void initCtx();
@@ -123,12 +124,13 @@ class NewX509: public QDialog, public Ui::NewX509
 	void setExt(const x509v3ext &ext);
 	QString createRequestText();
 	void checkAuthKeyId();
+	void switchHashAlgo();
    public slots:
 	void on_fromReqCB_clicked();
-	void on_keyList_highlighted(const QString &keyname);
+	void on_keyList_currentIndexChanged(const QString &);
+	void on_reqList_currentIndexChanged(const QString &);
 	void toggleOkBut();
 	void newKeyDone(QString name);
-	void helpClicked();
 	void on_extDNadd_clicked();
 	void on_extDNdel_clicked();
 	void on_applyTime_clicked();
@@ -137,6 +139,7 @@ class NewX509: public QDialog, public Ui::NewX509
 	void on_editCrlDist_clicked();
 	void on_editAuthInfAcc_clicked();
 	void on_foreignSignRB_toggled(bool checked);
+	void on_selfSignRB_toggled(bool checked);
 	void on_subKey_clicked();
 	void on_genKeyBUT_clicked();
 	void on_showReqBut_clicked();

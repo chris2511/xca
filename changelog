@@ -1,3 +1,5 @@
+  * move hash algo into signer box [ 1656260 ]
+  * make QA serial a compile time option
   * fix date generation and warn if generalized time is used
   * autodetect and load any type of PEM files
   * fix version number in exported *.xca template
