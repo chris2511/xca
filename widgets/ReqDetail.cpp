@@ -96,7 +96,6 @@ void ReqDetail::setReq(pki_x509req *req)
 
 	// Algorithm
 	sigAlgo->setText(req->getSigAlg());
-	sigAlgo->setReadOnly(true);
 
 	// The extensions
 	extList el = req->getV3Ext();

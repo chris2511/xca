@@ -52,7 +52,6 @@
 #include "distname.h"
 #include "clicklabel.h"
 #include <Qt/qlabel.h>
-//#include <Qt/qtextview.h>
 #include <Qt/qpushbutton.h>
 #include <Qt/qlineedit.h>
 
@@ -139,5 +138,4 @@ void CertDetail::setCert(pki_x509 *cert)
 
 	// Algorithm
 	sigAlgo->setText(cert->getSigAlg());
-	sigAlgo->setReadOnly(true);
 }
