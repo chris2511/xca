@@ -102,11 +102,11 @@ QString x509name::getEntryByNid(int nid) const
 
 QString x509name::getEntry(int i) const
 {
-	QString s, ret;
+	QString ret;
 	ASN1_STRING *d;
 
 	if ( i<0 || i>entryCount() )
-		return s;
+		return ret;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
 
 	if (d==NULL)
@@ -125,6 +125,22 @@ QString x509name::getEntry(int i) const
 	return ret;
 }
 
+QString x509name::getEntryTag(int i) const
+{
+	QString s = "Invalid";
+	ASN1_STRING *d;
+
+	if ( i<0 || i>entryCount() )
+		return s;
+	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
+
+	if (d==NULL)
+		return s;
+
+	s = ASN1_tag2str(d->type);
+	return s;
+}
+
 void x509name::delEntry(int i)
 {
 	X509_NAME_delete_entry(xn, i);
@@ -137,6 +153,7 @@ QStringList x509name::entryList(int i) const
 	sl += OBJ_nid2sn(n);
 	sl += OBJ_nid2ln(n);
 	sl += getEntry(i);
+	sl += getEntryTag(i);
 	return sl;
 }
 

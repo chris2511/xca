@@ -71,6 +71,7 @@ class x509name
 	QStringList entryList(int i) const;
 	QString getEntryByNid(int nid ) const;
 	QString getEntry(int i) const;
+	QString getEntryTag(int i) const;
 	int entryCount() const;
 	x509name &operator = (const x509name &x);
 	bool operator == (const x509name &x) const;

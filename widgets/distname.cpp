@@ -64,21 +64,26 @@ DistName::DistName(QWidget* parent)
 
 void DistName::setX509name(const x509name &n)
 {
-	QLabel *lb;
-	QLineEdit *le;
+	QLabel *l1, *l2;
 	QStringList sl;
 	for (int i=0; i<n.entryCount(); i++) {
-		lb = new QLabel( this );
-		le = new QLineEdit( this );
+		l1 = new QLabel( this );
+		l2 = new QLabel( this );
 		sl = n.entryList(i);
-		lb->setText(sl[1]);
-		if (lb->text().isEmpty())
-			lb->setText(sl[0]);
-		le->setText(sl[2]);
-		le->setReadOnly(true);
-		DistNameLayout->addWidget( lb, i, 0 );
-		DistNameLayout->addWidget( le, i, 1 );
+		l1->setText(sl[1]);
+		if (l1->text().isEmpty())
+			l1->setText(sl[0]);
+		l2->setText(sl[2]);
+		l2->setFrameShape(QFrame::Panel);
+		l2->setFrameShadow(QFrame::Sunken);
+
+		l1->setToolTip(sl[0]);
+		l2->setToolTip(sl[3]);
+
+		DistNameLayout->addWidget( l1, i, 0 );
+		DistNameLayout->addWidget( l2, i, 1 );
 	}
+	resize(size().expandedTo(minimumSizeHint()));
 }
 
 DistName::~DistName()

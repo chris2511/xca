@@ -138,4 +138,5 @@ void CertDetail::setCert(pki_x509 *cert)
 
 	// Algorithm
 	sigAlgo->setText(cert->getSigAlg());
+	resize(size().expandedTo(minimumSizeHint()));
 }

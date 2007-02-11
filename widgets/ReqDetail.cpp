@@ -100,5 +100,7 @@ void ReqDetail::setReq(pki_x509req *req)
 	// The extensions
 	extList el = req->getV3Ext();
 	v3extensions->document()->setHtml(el.getHtml("<br>"));
+
+	resize(size().expandedTo(minimumSizeHint()));
 }
 
