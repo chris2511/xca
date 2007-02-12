@@ -71,6 +71,7 @@ class pki_base : public QObject
 	pki_base *parent;
 
 	void openssl_error(const QString myerr = "") const;
+	void my_error(const QString myerr) const;
 	void fopen_error(const QString fname);
 	bool ign_openssl_error() const;
 

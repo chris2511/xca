@@ -90,7 +90,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	STACK_OF(X509_EXTENSION) *sk;
 
 	if (key->isPubKey()) {
-		openssl_error("key not valid");
+		my_error(tr("Signing key not valid (public key)"));
 		return;
 	}
 
@@ -133,13 +133,13 @@ void pki_x509req::fload(const QString fname)
 			ign_openssl_error();
 			rewind(fp);
 			load_spkac(fname);
-			openssl_error();
 		}
+		fclose(fp);
+		openssl_error(fname);
 	} else {
 		fopen_error(fname);
 		return;
 	}
-	fclose(fp);
 
 	if( _req ) {
 		X509_REQ_free(request);
@@ -148,7 +148,7 @@ void pki_x509req::fload(const QString fname)
 	autoIntName();
 	if (getIntName().isEmpty())
 		setIntName(rmslashdot(fname));
-	openssl_error();
+	openssl_error(fname);
 }
 
 void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
@@ -375,12 +375,12 @@ void pki_x509req::load_spkac(const QString filename)
 	try { // be aware of any exceptions
 		parms = CONF_load(NULL, CCHAR(filename),&errline);
 		if (parms == NULL)
-			openssl_error(QString("error on line %1 of %2\n")
+			my_error(QString("error on line %1 of %2\n")
 				      .arg(errline).arg(filename));
 
 		sk=CONF_get_section(parms, "default");
 		if (sk_CONF_VALUE_num(sk) == 0)
-			openssl_error(tr("no key/value pairs found in %1\n").arg(filename));
+			my_error(tr("no key/value pairs found in %1\n").arg(filename));
 
 		/*
 		 * Build up the subject name set.
@@ -410,8 +410,9 @@ void pki_x509req::load_spkac(const QString filename)
 				if (strcmp(type, "SPKAC") == 0)
 					setSPKIBase64(cv->value);
 				else
-				  // ... or throw an error.
-					openssl_error(QString("Unknown name tag %1 found in %2\n").arg(type).arg(filename));
+					// ... or throw an error.
+					my_error(tr("Unknown name tag %1 found in %2\n")
+							.arg(type).arg(filename));
 
 				spki_found=true;
 				}
@@ -420,7 +421,7 @@ void pki_x509req::load_spkac(const QString filename)
 				subject.addEntryByNid(nid,cv->value);
 		}
 		if (!spki_found)
-			openssl_error(QString("No Netscape SPKAC structure found in %1\n").arg(filename));
+			my_error(tr("No Netscape SPKAC structure found in %1\n").arg(filename));
 
 		/*
 		 * Now set the subject.

@@ -152,7 +152,7 @@ void pki_pkcs12::writePKCS12(const QString fname)
 	strncpy(desc, CCHAR(getIntName()), 100);
 	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
 	if (cert == NULL || key == NULL) {
-		openssl_error("No key or no Cert and no pkcs12....");
+		my_error(tr("No key or no Cert and no pkcs12"));
 	}
 
 	FILE *fp = fopen(CCHAR(fname),"wb");

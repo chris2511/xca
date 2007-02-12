@@ -77,7 +77,7 @@ void pki_crl::fload(const QString fname )
 		}
 		fclose(fp);
 		setIntName(rmslashdot(fname));
-		openssl_error();
+		openssl_error(fname);
 	}
 	else fopen_error(fname);
 }
@@ -87,7 +87,8 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 {
 	setIntName(d);
 	issuer = iss;
-	if (!iss) openssl_error("no issuer");
+	if (!iss)
+		my_error(tr("No issuer given"));
 	crl->crl->issuer = issuer->getSubject().get();
 	crl->crl->revoked = sk_X509_REVOKED_new_null();
 	a1int version = 1; /* version 2 CRL */

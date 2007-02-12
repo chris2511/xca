@@ -82,8 +82,15 @@ load_key::load_key()
 pki_base * load_key::loadItem(QString s)
 {
 	pki_key *lkey = new pki_key();
-	if (lkey)
+	if (!lkey)
+		return NULL;
+	try {
 		lkey->fload(s);
+	}
+	catch (errorEx &err){
+		delete lkey;
+		throw err;
+	}
 	return lkey;
 };
 

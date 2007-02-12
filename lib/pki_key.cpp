@@ -247,11 +247,20 @@ void pki_key::fload(const QString fname)
 		+ "\n'" + fname + "'");
 	pem_password_cb *cb = MainWindow::passRead;
 	FILE *fp = fopen(CCHAR(fname), "r");
-	EVP_PKEY *pkey = NULL;
+	EVP_PKEY *pkey;
 	bool priv = true;
 
+	ign_openssl_error();
 	if (fp != NULL) {
 		pkey = PEM_read_PrivateKey(fp, NULL, cb, &p);
+		if (!pkey) {
+			if (ERR_get_error() == 0x06065064) {
+				fclose(fp);
+				ign_openssl_error();
+				throw errorEx(tr("Failed to decrypt the key (bad password) ") +
+						fname, class_name);
+			}
+		}
 		if (!pkey) {
 			ign_openssl_error();
 			rewind(fp);
@@ -277,12 +286,10 @@ void pki_key::fload(const QString fname)
 				bogusEncryptKey();
 			setIntName(rmslashdot(fname));
 		}
-
-		openssl_error();
+		fclose(fp);
+		openssl_error(fname);
 	} else
 		fopen_error(fname);
-
-	fclose(fp);
 }
 
 void pki_key::fromData(const unsigned char *p, db_header_t *head )

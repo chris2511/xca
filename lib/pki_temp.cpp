@@ -169,7 +169,7 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	validMidn=db::boolFromData(&p1);
 
 	if (p1-p != size) {
-		openssl_error("Wrong Size");
+		my_error(tr("Wrong Size of template: ") + getIntName());
 	}
 }
 
@@ -249,7 +249,7 @@ void pki_temp::loadTemp(QString fname)
 		return;
 	}
 	if (fread(buf, 2*sizeof(int), 1, fp) != 1)
-		openssl_error(tr("Template file content error (too small)"));
+		my_error(tr("Template file content error (too small) ") +fname);
 	size = db::intFromData(&p1);
 	version = db::intFromData(&p1);
 
@@ -259,7 +259,7 @@ void pki_temp::loadTemp(QString fname)
 		size = intFromData(&p1);
 		if (size > 65535 || size <0) {
 			fclose(fp);
-			openssl_error(tr("Template file content error (bad size)"));
+			my_error(tr("Template file content error (bad size) ") +fname);
 		}
 		oldimport = true;
 	} else {
@@ -270,7 +270,7 @@ void pki_temp::loadTemp(QString fname)
 		if ((s=fread(p, 1, size, fp)) != size) {
 			OPENSSL_free(p);
 			fclose(fp);
-			openssl_error(tr("Template file content error (bad length)"));
+			my_error(tr("Template file content error (bad length) ") + fname);
 		}
 	}
 	if (oldimport) {

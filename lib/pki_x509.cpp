@@ -104,9 +104,9 @@ void pki_x509::fload(const QString fname)
 		rewind(fp);
 		_cert = d2i_X509_fp(fp, NULL);
 	}
-	openssl_error();
-
 	fclose(fp);
+	openssl_error(fname);
+
 	X509_free(cert);
 	cert = _cert;
 	autoIntName();
@@ -292,13 +292,12 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 {
 	EVP_PKEY *tkey;
 	if (!signkey) {
-		openssl_error("There is no key for signing !");
+		my_error(tr("There is no key for signing !"));
 	}
 	tkey = signkey->decryptKey();
 	X509_sign(cert, tkey, digest);
 	EVP_PKEY_free(tkey);
 	openssl_error();
-
 }
 
 void pki_x509::fromData(const unsigned char *p, db_header_t *head)
