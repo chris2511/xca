@@ -192,8 +192,12 @@ void ImportMulti::import(QModelIndex &idx)
 void ImportMulti::on_butDetails_clicked()
 {
 	QItemSelectionModel *selectionModel = listView->selectionModel();
-	QModelIndex index = selectionModel->selectedIndexes().first();
+	QModelIndex index;
 
+	if (!selectionModel->selectedIndexes().count())
+	        return;
+
+	index = selectionModel->selectedIndexes().first();
 	pki_base *pki = static_cast<pki_base*>(index.internalPointer());
 
 	if (!pki)
