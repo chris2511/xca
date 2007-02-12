@@ -133,7 +133,7 @@ NewX509::NewX509(QWidget *parent)
 	setTabOrder(selfQASignRB, foreignSignRB);
 	selfQASignRB->setText(tr(
 			"Create a &self signed certificate with a MD5-hashed QA serial"));
-	QBoxLayout *l = (QBoxLayout *)signerBox->layout(); 
+	QBoxLayout *l = (QBoxLayout *)signerBox->layout();
 	l->insertWidget(1, selfQASignRB);
 #endif
 	// set dates to now and now + 1 year

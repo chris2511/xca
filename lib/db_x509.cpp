@@ -452,6 +452,7 @@ void db_x509::newCert(NewX509 *dlg)
 		serial = signcert->getIncCaSerial();
 		signkey = signcert->getRefKey();
 		cert->setTrust(1);
+#ifdef WG_QA_SERIAL
 	} else if (dlg->selfQASignRB->isChecked()){
 		Ui::PassWrite ui;
 		QDialog *dlg1 = new QDialog(mainwin);
@@ -482,6 +483,7 @@ void db_x509::newCert(NewX509 *dlg)
 		signkey = clientkey;
 		serial.setHex(A);
 		cert->setTrust(2);
+#endif
 	} else {
 		signcert = cert;
 		signkey = clientkey;
@@ -539,7 +541,7 @@ void db_x509::newCert(NewX509 *dlg)
 	const EVP_MD *hashAlgo = dlg->getHashAlgo();
 	if (signkey->getType() == EVP_PKEY_DSA)
 		hashAlgo = EVP_dss1();
-
+#ifdef WG_QA_SERIAL
 	if (dlg->selfQASignRB->isChecked()) {
 		// sign the request intermediately in order to finally fill
 		// up the cert_info substructure.
@@ -547,7 +549,7 @@ void db_x509::newCert(NewX509 *dlg)
 		// now set the QA serial.
 		cert->setSerial(cert->hashInfo(EVP_md5()));
 	}
-
+#endif
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
 	insert(cert);
