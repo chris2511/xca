@@ -4,6 +4,7 @@
 *.rej
 *.orig
 *.dll
+*.h.gch
 moc_*
 Local.mak
 conftest

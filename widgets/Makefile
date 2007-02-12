@@ -1,15 +1,7 @@
-#
-# $Id$
-#
-############################################################################
 
 ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
-
-#MOC_NAMES=CertDetail ExportKey KeyDetail distname CrlDetail ExportTinyCA \
-	MainWindow ReqDetail validity ExportCert ImportMulti NewX509 \
-	CertExtend clicklabel v3ext
 
 MOC_NAMES=MainWindow KeyDetail clicklabel XcaTreeView ExportKey NewX509 \
 	validity v3ext ReqDetail distname CertDetail CertExtend ExportCert \

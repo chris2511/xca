@@ -15,6 +15,10 @@ endif
 CFLAGS+= -DVER=\"$(shell cat $(TOPDIR)/VERSION)\"
 
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))
+HEADERS=$(shell ls *.h)
+GCH=$(patsubst %, %.gch, $(HEADERS))
+
+pheaders: $(GCH)
 
 # recompile all
 re: clean all
@@ -36,12 +40,16 @@ moc_%.cpp: %.h %.cpp
 target.obj: $(OBJS)
 	$(LD) -r -o $@ $(OBJS)
 
+# precompiled header
+%.h.gch: %.h
+	$(CC) $(CPPFLAGS) -xc++ -c $< -o $@
+
 # delete the crap
 clean:
-	rm -f *~ *.o *.obj $(DELFILES) .depend
+	rm -f *~ *.o *.obj $(DELFILES)
 
 distclean: clean
-	rm -f -r .depend
+	rm -f -r .depend *.h.gch
 
 .depend: $(SRCS)
 	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $(SRCS) > $@

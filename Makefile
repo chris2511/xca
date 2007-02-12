@@ -15,6 +15,7 @@ SUBDIRS=lib widgets img
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
 INSTDIR=misc lang doc
 CLEANDIRS=lang doc ui img
+HDRDIRS=lib widgets ui
 
 bindir=bin
 
@@ -33,6 +34,9 @@ docs:
 headers:
 	$(MAKE) -C ui $@
 
+pheaders: headers
+	for d in $(HDRDIRS); do $(MAKE) -C $$d pheaders; done
+
 %/target.obj: headers
 	$(MAKE) DEP=yes -C $* target.obj
 
@@ -41,6 +45,7 @@ clean:
 	rm -f *~ xca$(SUFFIX) xca.o
 
 distclean: clean
+	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} distclean; done
 	rm -f Local.mak conftest conftest.log xca.pro
 
 dist:
@@ -59,7 +64,6 @@ install: xca
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
 	install -m 755 xca $(destdir)$(prefix)/$(bindir)
 	$(STRIP) $(destdir)$(prefix)/$(bindir)/xca
-
 	for d in $(INSTDIR); do \
 	  $(MAKE) -C $$d install; \
 	done
