@@ -537,7 +537,6 @@ void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(0, name);
 	keyList->setCurrentIndex(0);
-	//on_keyList_highlighted(name);
 	toggleOkBut();
 }
 
@@ -677,14 +676,18 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 
 void NewX509::on_editSubAlt_clicked()
 {
-	editV3ext(subAltName, "email,email:copy,RID,URI,DNS,IP,otherName",
-			NID_subject_alt_name);
+	QString s = "email,RID,URI,DNS,IP,otherName";
+	if (pt != x509_req)
+		s = QString("email:copy,") + s;
+	editV3ext(subAltName, s, NID_subject_alt_name);
 }
 
 void NewX509::on_editIssAlt_clicked()
 {
-	editV3ext(issAltName, "email,RID,URI,DNS,IP,issuer:copy,otherName",
-			NID_issuer_alt_name);
+	QString s = "email,RID,URI,DNS,IP,otherName";
+	if (pt != x509_req)
+	        s = QString("issuer:copy,");
+	editV3ext(issAltName, s, NID_issuer_alt_name);
 }
 
 void NewX509::on_editCrlDist_clicked()

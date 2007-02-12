@@ -155,14 +155,32 @@ x509v3ext NewX509::getEkeyUsage()
 x509v3ext NewX509::getSubAltName()
 {
 	x509v3ext ext;
-	ext.create(NID_subject_alt_name, subAltName->text(), &ext_ctx);
+	QString s = subAltName->text();
+	if (pt == x509_req) {
+		QStringList sn, sl = s.split(',');
+		foreach (QString str, sl) {
+			if (str != "email:copy")
+				sn += str;
+		}
+		s = sn.join(",");
+	}
+	ext.create(NID_subject_alt_name, s, &ext_ctx);
 	return ext;
 }
 
 x509v3ext NewX509::getIssAltName()
 {
 	x509v3ext ext;
-	ext.create(NID_issuer_alt_name, issAltName->text(), &ext_ctx);
+	QString s = issAltName->text();
+	if (pt == x509_req) {
+		QStringList sn, sl = s.split(',');
+		foreach (QString str, sl) {
+			if (str != "issuer:copy")
+				sn += str;
+		}
+		s = sn.join(",");
+	}
+	ext.create(NID_issuer_alt_name, s, &ext_ctx);
 	return ext;
 }
 
