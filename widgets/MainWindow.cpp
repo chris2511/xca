@@ -307,7 +307,7 @@ int MainWindow::initPass()
 			p.setDescription(tr("Please enter the password for unlocking the database"));
 			keylen = passRead(pki_key::passwd, MAX_PASS_LENGTH-1, 0, &p);
 			if (keylen < 0)
-				return 0;
+				return 1;
 			pki_key::passwd[keylen]='\0';
 	    }
 	}
@@ -355,12 +355,15 @@ int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
 	dlg->activateWindow();
 	ui.passA->setFocus();
 
-	if (dlg->exec()) {
+	while (dlg->exec()) {
 		QString A = ui.passA->text();
 		QString B = ui.passB->text();
 		if (A == B) {
 			strncpy(buf, A.toAscii(), size);
 			ret = A.length();
+			break;
+		} else {
+			QMessageBox::warning(p->getWidget(), tr(XCA_TITLE), tr("Password missmatch"));
 		}
 	}
 	delete dlg;

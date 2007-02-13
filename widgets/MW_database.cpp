@@ -63,7 +63,8 @@ void MainWindow::init_database()
 	certView->setRootIsDecorated(db_x509::treeview);
 
 	try {
-		initPass();
+		if (!initPass())
+			return;
 		keys = new db_key(dbfile, this);
 		reqs = new db_x509req(dbfile, this);
 		certs = new db_x509(dbfile, this);

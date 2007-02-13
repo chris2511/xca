@@ -77,18 +77,12 @@ QString readLine(QFile *file)
 
 static int set_db(const char *name)
 {
-	if (!strcmp(name, "keydb"))
-		return 0;
-	if (!strcmp(name, "reqdb"))
-		return 1;
-	if (!strcmp(name, "certdb"))
-		return 2;
-	if (!strcmp(name, "tempdb"))
-		return 3;
-	if (!strcmp(name, "crldb"))
-		return 4;
-	if (!strcmp(name, "settings"))
-		return 5;
+	QStringList sl;
+	sl << "keydb" << "reqdb" << "certdb" << "tempdb" << "crldb" << "settings";
+	for (int i=0; i<sl.count(); i++) {
+		if (sl[i] == name)
+			return i;
+	}
 	return -1;
 }
 
@@ -100,7 +94,6 @@ static void handle_option(QString opt)
 		return;
 	}
 	if (!sl[0].compare("database")) {
-		printf("\nSwitching to database '%s'\n", CCHAR(sl[1]));
 		database = set_db(CCHAR(sl[1]));
 	}
 }
