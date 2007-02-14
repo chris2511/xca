@@ -686,7 +686,7 @@ void NewX509::on_editIssAlt_clicked()
 {
 	QString s = "email,RID,URI,DNS,IP,otherName";
 	if (pt != x509_req)
-	        s = QString("issuer:copy,");
+	        s = QString("issuer:copy,") +s ;
 	editV3ext(issAltName, s, NID_issuer_alt_name);
 }
 
