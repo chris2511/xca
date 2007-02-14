@@ -19,7 +19,7 @@ HDRDIRS=lib widgets ui
 
 bindir=bin
 
-all: headers xca$(SUFFIX) docs
+all: headers xca$(SUFFIX) doc lang
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 re: clean all
 
@@ -29,8 +29,10 @@ xca.o: $(OBJECTS)
 xca$(SUFFIX): xca.o
 	$(CC) $(LDFLAGS) $(CFLAGS) $< $(LIBS) -o $@
 
-docs:
+doc: 
 	$(MAKE) -C doc
+lang: 
+	$(MAKE) -C lang
 headers:
 	$(MAKE) -C ui $@
 
@@ -48,19 +50,12 @@ distclean: clean
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} distclean; done
 	rm -f Local.mak conftest conftest.log xca.pro
 
-dist:
+dist: lang doc
 	test ! -z "$(TVERSION)"
-	rm -rf /tmp/$(TARGET)
-	cd /tmp && git clone $(TOPDIR) $(TARGET) && \
-	(cd /tmp/$(TARGET) && \
-	git-checkout $(TAG) && \
-	rm -rf /tmp/$(TARGET)/.git && \
-	./mkxcapro.sh && lrelease xca.pro || echo 'lrelease not found !!' && \
-	cd doc && linuxdoc -B html xca.sgml || echo "no linuxdoc found -> continuing"; ) && \
-	rm -f /tmp/$(TARGET)/Local.mak
-	cd /tmp && tar zcf $(TARGET).tar.gz $(TARGET)
+	git archive --format=tar --prefix=$(TARGET)/ $(TAG) | \
+		gzip -9 > $(TARGET).tar.gz
 
-install: xca
+install: xca$(SUFFIX)
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
 	install -m 755 xca $(destdir)$(prefix)/$(bindir)
 	$(STRIP) $(destdir)$(prefix)/$(bindir)/xca
@@ -68,7 +63,7 @@ install: xca
 	  $(MAKE) -C $$d install; \
 	done
 
-xca.app: xca docs
+xca.app: xca$(SUFFIX)
 	rm -rf xca.app
 	mkdir -p xca.app/Contents/MacOS
 	mkdir -p xca.app/Contents/Resources
@@ -82,13 +77,13 @@ xca.dmg: xca.app
 	test -x hdiutil
 	hdiutil create -ov -srcfolder $< $@
 
-setup.exe: xca$(SUFFIX) misc/xca.nsi docs
+setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 	$(MAKE) -C lang
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DOPENSSL=$(OPENSSLDIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -NOCD -V2 misc/xca.nsi
 
-.PHONY: $(SUBDIRS) xca.app setup.exe
+.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe
 
 Local.mak: configure
 	./configure

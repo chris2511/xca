@@ -16,7 +16,7 @@ install: $(QM_FILES)
 
 app:
 	mkdir -p $(APPDIR)/Resources
-	#install -m 644 $(QM_FILES) $(APPDIR)/Resources
+	install -m 644 $(QM_FILES) $(APPDIR)/Resources
 
 clean:
 	$(RM) $(QM_FILES)
