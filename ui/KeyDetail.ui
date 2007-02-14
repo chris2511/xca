@@ -1,7 +1,4 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>KeyDetail</class>
  <widget class="QDialog" name="KeyDetail" >
   <property name="geometry" >
@@ -297,7 +294,7 @@
     </layout>
    </item>
   </layout>
-  <widget class="QWidget" name="widget" >
+  <widget class="QWidget" native="1" name="widget" >
    <property name="geometry" >
     <rect>
      <x>0</x>
@@ -308,14 +305,11 @@
    </property>
   </widget>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>ClickLabel</class>
-   <extends>QWidget</extends>
+   <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>

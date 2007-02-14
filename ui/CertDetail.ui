@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>556</width>
-    <height>492</height>
+    <width>450</width>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -148,16 +148,7 @@
              <number>6</number>
             </property>
             <item>
-             <widget class="ClickLabel" name="privKey" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>13</hsizetype>
-                <vsizetype>13</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
+             <widget class="ClickLabel" name="privKey" />
             </item>
             <item>
              <widget class="QLabel" name="TextLabel1_3" >
@@ -223,16 +214,7 @@
              <widget class="ClickLabel" name="signCert" />
             </item>
             <item>
-             <widget class="ClickLabel" name="trustState" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>13</hsizetype>
-                <vsizetype>13</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
+             <widget class="ClickLabel" name="trustState" />
             </item>
            </layout>
           </item>

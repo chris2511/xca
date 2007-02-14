@@ -83,7 +83,7 @@ void DistName::setX509name(const x509name &n)
 		DistNameLayout->addWidget( l1, i, 0 );
 		DistNameLayout->addWidget( l2, i, 1 );
 	}
-	resize(size().expandedTo(minimumSizeHint()));
+	updateGeometry();
 }
 
 DistName::~DistName()

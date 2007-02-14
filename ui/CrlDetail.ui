@@ -1,15 +1,12 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>CrlDetail</class>
  <widget class="QDialog" name="CrlDetail" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>473</height>
+    <width>488</width>
+    <height>352</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -87,6 +84,9 @@
    </item>
    <item>
     <widget class="QTabWidget" name="tabview" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="unnamed" >
       <attribute name="title" >
        <string>&amp;Status</string>
@@ -138,16 +138,7 @@
              <number>6</number>
             </property>
             <item>
-             <widget class="ClickLabel" name="signCheck" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>13</hsizetype>
-                <vsizetype>13</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
+             <widget class="ClickLabel" name="signCheck" />
             </item>
             <item>
              <widget class="QLabel" name="TextLabel1_3" >
@@ -232,6 +223,14 @@
           </property>
           <item row="1" column="1" >
            <widget class="QLabel" name="nUpdate" >
+            <property name="sizePolicy" >
+             <sizepolicy>
+              <hsizetype>3</hsizetype>
+              <vsizetype>5</vsizetype>
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="frameShape" >
              <enum>QFrame::Panel</enum>
             </property>
@@ -244,8 +243,8 @@
            <widget class="QLabel" name="lUpdate" >
             <property name="sizePolicy" >
              <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
+              <hsizetype>3</hsizetype>
+              <vsizetype>5</vsizetype>
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -305,7 +304,7 @@
         <number>6</number>
        </property>
        <item>
-        <widget class="DistName" name="issuer" />
+        <widget class="DistName" native="1" name="issuer" />
        </item>
       </layout>
      </widget>
@@ -436,7 +435,7 @@
     </layout>
    </item>
   </layout>
-  <widget class="QWidget" name="widget" >
+  <widget class="QWidget" native="1" name="widget" >
    <property name="geometry" >
     <rect>
      <x>0</x>
@@ -447,21 +446,17 @@
    </property>
   </widget>
  </widget>
- <pixmapfunction></pixmapfunction>
  <customwidgets>
   <customwidget>
    <class>DistName</class>
-   <extends></extends>
+   <extends>QWidget</extends>
    <header>widgets/distname.h</header>
    <container>1</container>
-   <pixmap></pixmap>
   </customwidget>
   <customwidget>
    <class>ClickLabel</class>
-   <extends>QWidget</extends>
+   <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
-   <container>0</container>
-   <pixmap></pixmap>
   </customwidget>
  </customwidgets>
  <resources/>

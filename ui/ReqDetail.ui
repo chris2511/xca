@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>513</width>
-    <height>376</height>
+    <width>441</width>
+    <height>279</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" >
@@ -80,23 +80,10 @@
     </layout>
    </item>
    <item>
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>495</width>
-       <height>16</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
     <widget class="QTabWidget" name="TabWidget3" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="unnamed" >
       <attribute name="title" >
        <string>S&amp;tatus</string>
@@ -218,16 +205,7 @@
         <number>6</number>
        </property>
        <item>
-        <widget class="DistName" native="1" name="subject" >
-         <property name="sizePolicy" >
-          <sizepolicy>
-           <hsizetype>13</hsizetype>
-           <vsizetype>13</vsizetype>
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
+        <widget class="DistName" native="1" name="subject" />
        </item>
       </layout>
      </widget>
@@ -252,22 +230,6 @@
       </layout>
      </widget>
     </widget>
-   </item>
-   <item>
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>495</width>
-       <height>16</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" >
