@@ -90,27 +90,32 @@ Section "Start Menu Shortcuts" SecShortcut
 SectionEnd
 
 ;----------------------------------------
+Function dump_old_db
+  FindFirst $0 $1 $2\*.db
+  loop:
+    StrCmp $1 "" done
+    Exec '"$INSTDIR\db_dump.exe" -f "$2\$1.dump" "$2\$1"'
+    MessageBox MB_OK "Dumping $2\$1 to $2\$1.dump"
+    FindNext $0 $1
+    Goto loop
+  done:
+FunctionEnd
+
 Section "Update" SecUpdate
 
   SetOutPath $INSTDIR
   File "${BDIR}\db_dump.exe"
-  FindFirst $0 $1 $APPDATA\xca\*.db
-  loop1:
-    StrCmp $1 "" done1
-    Exec '"$INSTDIR\db_dump.exe" -f "$APPDATA\xca\$1.dump" "$APPDATA\xca\$1"'
-    MessageBox MB_OK "Dumping $APPDATA\xca\$1 to $APPDATA\xca\$1.dump"
-    FindNext $0 $1
-    Goto loop1
-  done1:
-  FindFirst $0 $1 $INSTDIR\*.db
-  loop2:
-    StrCmp $1 "" done2
-    Exec '"$INSTDIR\db_dump.exe" -f "$INSTDIR\$1.dump" "$INSTDIR\$1"'
-    MessageBox MB_OK "Dumping $INSTDIR\$1 to $INSTDIR\$1.dump"
-    FindNext $0 $1
-    Goto loop2
-  done2:
+  SetShellVarContext current
+  StrCpy $2 "$APPDATA\xca"
+  Call dump_old_db
+  SetShellVarContext all
+  StrCpy $2 "$APPDATA\xca"
+  Call dump_old_db
+  StrCpy $2 "$INSTDIR"
+  Call dump_old_db
+
 SectionEnd
+
 
 ;----------------------------------------
 Section "File association" SecFiles
