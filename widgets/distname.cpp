@@ -49,6 +49,7 @@
 #include "distname.h"
 
 #include <Qt/qlabel.h>
+#include <Qt/qpushbutton.h>
 #include <Qt/qlineedit.h>
 #include "lib/x509name.h"
 #include "lib/base.h"
@@ -56,10 +57,24 @@
 DistName::DistName(QWidget* parent)
     : QWidget(parent)
 {
-	DistNameLayout = new QGridLayout(this);
+	QHBoxLayout *h = new QHBoxLayout();
+	QVBoxLayout *v = new QVBoxLayout(this);
+	QLabel *l = new QLabel(QString("RFC 2253:"), this);
+	lineEdit = new QLineEdit(this);
+
+	DistNameLayout = new QGridLayout();
 	DistNameLayout->setAlignment( Qt::AlignTop );
-	DistNameLayout->setSpacing( 6 );
-	DistNameLayout->setMargin( 11 );
+	DistNameLayout->setSpacing(6);
+	DistNameLayout->setMargin(11);
+	v->setSpacing(6);
+	v->setMargin(11);
+	v->addLayout(DistNameLayout);
+	v->addLayout(h);
+
+	v->setSpacing(6);
+	h->addWidget(l);
+	h->addWidget(lineEdit);
+	lineEdit->setReadOnly(true);
 }
 
 void DistName::setX509name(const x509name &n)
@@ -83,6 +98,8 @@ void DistName::setX509name(const x509name &n)
 		DistNameLayout->addWidget( l1, i, 0 );
 		DistNameLayout->addWidget( l2, i, 1 );
 	}
+	lineEdit->setText(n.oneLine(XN_FLAG_RFC2253));
+	lineEdit->setCursorPosition(0);
 	updateGeometry();
 }
 

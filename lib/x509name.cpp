@@ -81,11 +81,16 @@ x509name &x509name::set(const X509_NAME *n)
 }
 
 
-QString x509name::oneLine() const
+QString x509name::oneLine(unsigned long flags) const
 {
-	char *x = X509_NAME_oneline(xn, NULL ,0);
-	QString ret = x;
-	OPENSSL_free(x);
+	QString ret;
+	long l;
+	const char *p;
+	BIO *mem = BIO_new(BIO_s_mem());
+	X509_NAME_print_ex(mem, xn, 0, flags);
+	l = BIO_get_mem_data(mem, &p);
+	ret = ret.fromUtf8(p,l);
+	BIO_free(mem);
 	return ret;
 }
 

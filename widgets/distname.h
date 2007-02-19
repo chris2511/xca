@@ -69,6 +69,7 @@ class DistName : public QWidget
 
   protected:
 	QGridLayout* DistNameLayout;
+	QLineEdit *lineEdit;
 	void resizeEvent( QResizeEvent *e);
 
 };

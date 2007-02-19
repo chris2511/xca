@@ -56,30 +56,30 @@
 
 class x509name
 {
-   private:
-	X509_NAME *xn;
-   public:
-	x509name();
-	x509name(const X509_NAME *n);
-	x509name(const x509name &n);
-	~x509name();
-	x509name &set(const X509_NAME *n);
-	QString oneLine() const;
-	int nid(int i) const;
-	unsigned char *d2i(const unsigned char *p, int size);
-	unsigned char *i2d(unsigned char *p);
-	QStringList entryList(int i) const;
-	QString getEntryByNid(int nid ) const;
-	QString getEntry(int i) const;
-	QString getEntryTag(int i) const;
-	int entryCount() const;
-	x509name &operator = (const x509name &x);
-	bool operator == (const x509name &x) const;
-	static int getNidByName(const QString &nid_name);
-	void addEntryByNid(int nid, const QString entry);
-	void delEntry(int i);
-	X509_NAME *get() const;
-	int derSize() const;
+	private:
+		X509_NAME *xn;
+	public:
+		x509name();
+		x509name(const X509_NAME *n);
+		x509name(const x509name &n);
+		~x509name();
+		x509name &set(const X509_NAME *n);
+		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
+		int nid(int i) const;
+		unsigned char *d2i(const unsigned char *p, int size);
+		unsigned char *i2d(unsigned char *p);
+		QStringList entryList(int i) const;
+		QString getEntryByNid(int nid ) const;
+		QString getEntry(int i) const;
+		QString getEntryTag(int i) const;
+		int entryCount() const;
+		x509name &operator = (const x509name &x);
+		bool operator == (const x509name &x) const;
+		static int getNidByName(const QString &nid_name);
+		void addEntryByNid(int nid, const QString entry);
+		void delEntry(int i);
+		X509_NAME *get() const;
+		int derSize() const;
 };
 
 #endif
