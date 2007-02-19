@@ -1,4 +1,4 @@
-<!doctype linuxdoc systtt>
+<!doctype linuxdoc system>
 
 
 <article>
@@ -58,10 +58,10 @@ and is always shown in the first column.
 There are several default file-formats to exchange cryptographic data with
 other applications.
 <itemize>
-<ittt><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding <bf>R</bf>ules is the binary ASN.1 encoding of the data.
-<ittt><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail is the base64 encoded version of the 
+<item><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding <bf>R</bf>ules is the binary ASN.1 encoding of the data.
+<item><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail is the base64 encoded version of the 
 	<bf>DER</bf> formated data with additional header and footer lines to be transported via e.g. E-mail
-<ittt><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards 
+<item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards 
 published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 
 </itemize>
@@ -69,8 +69,8 @@ published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 <sect1>Further reading <label id="otherdoc">
 <p>
 <enum>
-<ittt><url url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/" name="SSL Certificates HOWTO">
-<ittt><url url="http://ospkibook.sourceforge.net/" name="OS-PKI book">
+<item><url url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/" name="SSL Certificates HOWTO">
+<item><url url="http://ospkibook.sourceforge.net/" name="OS-PKI book">
 </enum>
 
 <sect1>Copyright
@@ -156,11 +156,11 @@ Older versions of XCA used a Berkely database for storing the crypto items.
 Starting from version 0.6.0 this has changed to a simple
 endian independent file format for several reasons:
 <itemize>
-<ittt>The Berkeley db API was a moving target and every distribution had different versions installed.
+<item>The Berkeley db API was a moving target and every distribution had different versions installed.
 Handling all versions well ended up in an "#ifdef hell"
 where every second build failure was based on a different API in an other db version.
-<ittt>The database got corrupted if a log.0000001 file was deleted.
-<ittt>copying a database from one place to another was only possible, if
+<item>The database got corrupted if a log.0000001 file was deleted.
+<item>copying a database from one place to another was only possible, if
 the log file was also copied. This breaks the approach of having
 one single, simpe file containing the crypto items.
 </itemize>
@@ -169,15 +169,15 @@ Since XCA 0.6.0 is not compiled with Berkeley DB support it cannot read old
 file formats. The extension of files has changed from *.db to *.xdb .
 Importing old databases is done by the following steps:
 <itemize>
-<ittt>Use db_dump of your distribution to dump the database to an ASCII file.
+<item>Use db_dump of your distribution to dump the database to an ASCII file.
  (Windows users will find a db_dump.exe in the XCA installation dir).
  The command is: db_dump -f xca.db.dump xca.db
-<ittt>Start XCA and open a new database (e.g. xca.xdb). XCA asks for a
+<item>Start XCA and open a new database (e.g. xca.xdb). XCA asks for a
 password for this new, empty database.
-<ittt>Point your mouse to "File->Import old db_dump" and select the file "xca.db.dump"
-<ittt>XCA now asks for the password of the ORIGINAL database, since the ASCII
+<item>Point your mouse to "File->Import old db_dump" and select the file "xca.db.dump"
+<item>XCA now asks for the password of the ORIGINAL database, since the ASCII
 dump still contains the private keys encrypted with the password.
-<ittt>Enjoy XCA 0.6.0
+<item>Enjoy XCA 0.6.0
 </itemize>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -193,18 +193,18 @@ The most recent version of XCA can be downloaded from
 Usage: <tt>xca [dbname.xdb] &lt;options&gt;</tt>
 Next to the usual X command line options. There are the following
 <itemize>
-<ittt>-v show version information and exit
-<ittt>-k expect all following non-option arguments to be RSA keys
-<ittt>-r expect all following non-option arguments to be
+<item>-v show version information and exit
+<item>-k expect all following non-option arguments to be RSA keys
+<item>-r expect all following non-option arguments to be
 	Certificate signing requests or SPKAC requests
-<ittt>-c expect all following non-option arguments to be Certificates
-<ittt>-p expect all following non-option arguments to be PKCS#12 files
-<ittt>-7 expect all following non-option arguments to be PKCS#7 files
-<ittt>-l expect all following non-option arguments to be Revocation lists
-<ittt>-t expect all following non-option arguments to be Xca templates
-<ittt>-P expect all following non-option arguments to be a PEM formated file
-<ittt>-d set the database filename
-<ittt>-x Exit after processing all command line options
+<item>-c expect all following non-option arguments to be Certificates
+<item>-p expect all following non-option arguments to be PKCS#12 files
+<item>-7 expect all following non-option arguments to be PKCS#7 files
+<item>-l expect all following non-option arguments to be Revocation lists
+<item>-t expect all following non-option arguments to be Xca templates
+<item>-P expect all following non-option arguments to be a PEM formated file
+<item>-d set the database filename
+<item>-x Exit after processing all command line options
 </itemize>
 
 <p>
@@ -229,9 +229,9 @@ or via the context menu available by right clicking into the list.
 The import function is smart enough to probe all known formats independent
 of the file extension:
 <itemize>
-<ittt><tt>Keys:</tt>  PEM private key, PEM public key, DER private key, DER public key, PKCS#8 private key.
-<ittt><tt>Requests</tt> DER request, PEM request, Netscape SPKAC request.
-<ittt><tt>Certificates</tt> DER certificate, PEM certificate
+<item><tt>Keys:</tt>  PEM private key, PEM public key, DER private key, DER public key, PKCS#8 private key.
+<item><tt>Requests</tt> DER request, PEM request, Netscape SPKAC request.
+<item><tt>Certificates</tt> DER certificate, PEM certificate
 (PKCS#12 and PKCS#7 certificates must be imported with an extra button,
  because they can contain more than one certificate and key)
 </itemize>
