@@ -64,6 +64,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
 	setRootIsDecorated(false);
 	setUniformRowHeights (true);
+	//setAnimated(true);
 
 	proxy = new QSortFilterProxyModel(this);
 #if QT_VERSION >= 0x040200
@@ -74,6 +75,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	header()->setSortIndicatorShown(true);
 #endif
 	basemodel = NULL;
+	sortByColumn(0, Qt::AscendingOrder);
 }
 
 XcaTreeView::~XcaTreeView()
