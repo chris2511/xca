@@ -1,6 +1,8 @@
+xca 0.6.0
+
   * set initial sorting to ascending order
   * add RFC2253 representation of subject and issuer
-  * to copy&paste
+    to copy & paste
   * fix dialog sizes for long DNs
   * move hash algo into signer box [ 1656260 ]
   * make QA serial a compile time option
