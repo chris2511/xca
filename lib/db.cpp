@@ -233,6 +233,7 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 	first();
 	ret = find(type, name);
 	if (ret == 1) {
+		printf("## Name not found -> add\n");
 		return add(p, len, ver, type, name);
 	}
 	if (ret == 0) {
