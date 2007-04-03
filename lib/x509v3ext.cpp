@@ -195,8 +195,8 @@ QString extList::getHtml(const QString &sep)
 {
 	x509v3ext e;
 	QStringList s;
-	for (int i=0; i< count(); i++)
-		s << operator[](i).getHtml();
+	for (int i=0; i< size(); i++)
+		s << at(i).getHtml();
 	QString a = s.join(sep);
 	return a;
 }
@@ -204,11 +204,9 @@ QString extList::getHtml(const QString &sep)
 int extList::delByNid(int nid)
 {
 	int removed=0;
-	extList::Iterator it;
-	for( it = begin(); it != end(); ++it ) {
-		if ((*it).nid() == nid) {
-			remove(it);
-			it = begin();
+	for(int i = 0; i< size(); i++) {
+		if (at(i).nid() == nid) {
+			removeAt(i);
 			removed=1;
 		}
 	}
@@ -218,14 +216,11 @@ int extList::delByNid(int nid)
 int extList::delInvalid(void)
 {
 	int removed=0;
-	extList::Iterator it;
-	for( it = begin(); it != end(); ) {
-		if (!(*it).isValid()) {
-			remove(it);
-			it = begin();
+	for(int i = 0; i<size(); i++) {
+		if (!at(i).isValid()) {
+			removeAt(i);
 			removed=1;
-		} else {
-			++it;
+			i--;
 		}
 	}
 	return removed;

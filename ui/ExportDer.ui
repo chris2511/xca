@@ -249,7 +249,6 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <tabstops>
   <tabstop>filename</tabstop>
   <tabstop>fileBut</tabstop>

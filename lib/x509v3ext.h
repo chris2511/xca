@@ -49,7 +49,7 @@
 #ifndef X509V3EXT_H
 #define X509V3EXT_H
 
-#include <Qt/q3valuelist.h>
+#include <Qt/qlist.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
@@ -78,7 +78,7 @@ class x509v3ext
 	void *d2i();
 };
 
-class extList : public Q3ValueList<x509v3ext>
+class extList : public QList<x509v3ext>
 {
     public:
 	void setStack(STACK_OF(X509_EXTENSION) *st);

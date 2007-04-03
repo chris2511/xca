@@ -240,7 +240,6 @@
    </item>
   </layout>
  </widget>
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <tabstops>
   <tabstop>keyDesc</tabstop>
   <tabstop>keyLength</tabstop>
