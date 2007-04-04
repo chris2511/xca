@@ -581,10 +581,8 @@ int pki_x509::calcEffTrust()
 	}
 	//we must look at the parent certs
 	pki_x509 *signer = getSigner();
-	pki_x509 *prevsigner = this;
-	while (mytrust==1 && signer != NULL && signer != prevsigner) {
+	while (mytrust == 1 && signer && signer != this) {
 		mytrust = signer->getTrust();
-		prevsigner = signer;
 		signer = signer->getSigner();
 	}
 

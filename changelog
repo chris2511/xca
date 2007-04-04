@@ -1,3 +1,5 @@
+  * recognize certificates with circular references
+    [ xca-Bugs-1693027 ]
   * be compatibile to QT-4.1 (thanks Tamas TEVESZ)
   * remove all usages of QT3 backward lib 
     [ xca-Feature Requests-1692800 ]

@@ -184,6 +184,8 @@ void db_x509::calcEffTrust()
 void db_x509::inToCont(pki_base *pki)
 {
 	pki_x509 *cert = (pki_x509*)pki;
+	cert->setParent(NULL);
+	cert->delSigner(cert->getSigner());
 	findSigner(cert);
 	pki_base *root = cert->getSigner();
 	if (!treeview || root == cert)
@@ -199,6 +201,18 @@ void db_x509::inToCont(pki_base *pki)
 				//printf("examining client %s\n", CCHAR(client->getIntName()));
 				if (client->verify(cert)) {
 					int row = client->row();
+					pki_x509 *s;
+					/* recursive signing check */
+					for (s = cert; s; s = s->getSigner()) {
+						if (s == client) {
+							printf("Recursive signing: '%s' <-> '%s'\n",
+										CCHAR(client->getIntName()),
+										CCHAR(cert->getIntName()));
+							break;
+						}
+					}
+					if (s)
+						continue;
 					// printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
 					beginRemoveRows(QModelIndex(), row, row);
 					rootItem->takeChild(client);
