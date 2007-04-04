@@ -70,12 +70,13 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 #if QT_VERSION >= 0x040200
 	setSortingEnabled(true);
 	proxy->setDynamicSortFilter(true);
+	sortByColumn(0, Qt::AscendingOrder);
 #else
 	header()->setClickable(true);
 	header()->setSortIndicatorShown(true);
+	sortByColumn(0);
 #endif
 	basemodel = NULL;
-	sortByColumn(0, Qt::AscendingOrder);
 }
 
 XcaTreeView::~XcaTreeView()

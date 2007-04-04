@@ -1,4 +1,4 @@
-
+  * be compatibile to QT-4.1 (thanks Tamas TEVESZ)
   * remove all usages of QT3 backward lib 
     [ xca-Feature Requests-1692800 ]
 
