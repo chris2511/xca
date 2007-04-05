@@ -1,3 +1,6 @@
+xca 0.6.1
+
+  * minor documentation updates
   * Fix openssl-cross patch 
   * recognize certificates with circular references
     [ xca-Bugs-1693027 ]

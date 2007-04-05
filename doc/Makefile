@@ -13,7 +13,7 @@ xca.1: xca.man
 	cat $^ | sed s/MY_VERSION/$(VERSION)/g > $@
 
 xca.html: xca.sgml
-	linuxdoc -B html $< || touch xca.html
+	$(LINUXDOC) -B html $< || touch xca.html
 
 install: xca.1.gz xca.html
 	install -m 755 -d $(destdir)$(prefix)/share/xca \

@@ -83,7 +83,7 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 	$(MAKENSIS) -DOPENSSL=$(OPENSSLDIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -NOCD -V2 misc/xca.nsi
 
-.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe
+.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang
 
 Local.mak: configure
 	./configure

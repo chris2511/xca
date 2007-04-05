@@ -198,6 +198,7 @@ LD=${LD:=ld}
 STRIP=${STRIP:=strip}
 WINDRES=${WINDRES:=windres}
 MAKENSIS=${MAKENSIS:=makensis.exe}
+LINUXDOC=${LINUXDOC:=linuxdoc}
 
 SUFFIX=${SUFFIX}
 HOST=${HOST}

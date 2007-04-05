@@ -468,7 +468,6 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 		db mydb(dbName);
 		item = static_cast<pki_base*>(index.internalPointer());
 		on = item->getIntName();
-		printf("New name: '%s', old name: '%s'\n", CCHAR(nn),  CCHAR(on));
 		if (mydb.rename(item->getType(), CCHAR(on), CCHAR(nn)) == 0) {
 			item->setIntName(nn);
 			emit dataChanged(index, index);

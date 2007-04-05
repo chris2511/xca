@@ -8,7 +8,6 @@
 <date>0.6.0 28/01/2007
 <abstract>                          <!-- the abstract: a short and precise description -->
 <nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
-                         <!-- nidx means the indexed word is not in output of main text, only in the index -->
 
 This application is intended for creating and managing X.509 certificates, certificate requests, RSA and DSA private keys and CRLs.
 Everything that is needed for a CA is implemented.
@@ -308,6 +307,12 @@ Additionally, the desired signing algorithm can be adjusted.
 The drop-down list contains all <ref id="ca_cert" name="CA certificates">
 with an available private key.
 
+<sect2>Signature algorithm
+<p>
+Usually SHA256 or higher should be used, but
+since older windows versions including XP can not handle them,
+Windows users should consider using SHA1.
+
 <sect2>Templates
 <p>
 The fields of the certificate can be preset by the values of a template
@@ -336,13 +341,13 @@ even if the input dialog is canceled. The drop-down list of the keys
 only contains keys that were not used by any other certificates or
 requests. The key-list is not available for creating or changing templates.
 <p>
-This tab does not appear when signing a request, because the request does
-contain all needed data from this tab.
+This tab does not appear when signing a request, because the request
+contains all needed data from this tab.
 
 <sect1>X509v3 Extensions
 <p>
-The next 3 atbs contain all fields for adjusting the certificate extensions.
-It is not in the focus of this document to explain them in detail.
+The next 3 tabs contain all fields for adjusting the certificate extensions.
+It is not in the focus of this document to explain them all in detail.
 The most important are the <tt>Basic Constraints</tt> and the <tt>Validity</tt> range.
 <p>
 For more information consult the documents in <ref id="otherdoc">.
@@ -355,8 +360,8 @@ If the type is set to <tt>Certification Authority</tt>,
 the certificate is recognized by XCA and other
 instances as issuer for other certificates.
 Server-certificates or E-Mail certificates should set this extension to
-<tt>End entity</tt> or disable it completely by setting it to
-<tt>Not defined</tt>
+<tt>End entity</tt> (strongly recommended)
+or disable it completely by setting it to <tt>Not defined</tt>
 
 <sect2>Validity Range
 <p>
@@ -397,8 +402,9 @@ Keys can be exported by either selecting the key and pressing <em>Export</em>
 or by using the context-menu. This opens a Dialogbox where the following settings can be adjusted:
 <itemize>
 <item>filename
-<item>Output format ( DER, PEM, PKCS#8 )
+<item>Output format ( DER, PEM )
 <item>Public or Private Key
+<item>PKCS&num;8 format
 <item>Encryption of the exported file (yes/no)
 </itemize>
 
@@ -435,7 +441,7 @@ In this case all needed data is copied from the certificate and the Wizard is no
 
 <sect1>Request export
 <p>
-Requests can be exportednly by the context-menu or by the button on the right.
+Requests can be exported by the context-menu or by the button on the right.
 The filename and type can be selected in the next dialog.
 
 <sect1>Request details
@@ -461,7 +467,9 @@ If there is a corresponding private key, the <tt>CA</tt>
 submenu in the context-menu is enabled.
 
 <p>
-For building the chains the CA flag is disregarded instead it consideres the issuer name and the signature to decide which certificate is the issuer.
+For building the chains the CA flag is disregarded, because there are some
+CAs without this flag.
+Instead it consideres the issuer name and the signature to decide which certificate is the issuer.
 
 <sect1>Generating certificates
 <p>
@@ -482,6 +490,9 @@ The validity is set to <em>valid</em> if the certificate's dates are valid
 or to <em>Not valid</em> if they are not, regarding to the internal time and date of the OS.
 <p>
 If the certificate is revoked, the revocation date will be shown instead.
+<p>
+On the <em>Subject</em> and <em>Issuer</em> tab the distinguished name is
+also displayd in a format define in RFC2253 for copy&amp;paste.
 
 <sect1>Certificate trust
 <p>
@@ -519,6 +530,7 @@ private key
 <item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate, the corresponding
 private key and the chain of all issuers certificates.
 <item><bf>PEM cert + key</bf> - concatenation of the private key and certificate in a format used by apache or the X509 patch for OpenSSH.
+<item><bf>PEM cert + PKCS8 key</bf> - concatenation of the private key in PKCS&num;8 format and certificate.
 </itemize>
 <p>
 When exporting PKCS#12 structures you are asked later for an encryption
