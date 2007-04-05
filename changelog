@@ -1,3 +1,4 @@
+  * Fix openssl-cross patch 
   * recognize certificates with circular references
     [ xca-Bugs-1693027 ]
   * be compatibile to QT-4.1 (thanks Tamas TEVESZ)

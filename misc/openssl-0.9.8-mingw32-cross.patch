@@ -1,6 +1,31 @@
-diff -Nur openssl-0.9.8d.orig/ms/mingw32-cross.sh openssl-0.9.8d/ms/mingw32-cross.sh
---- openssl-0.9.8d.orig/ms/mingw32-cross.sh	1970-01-01 01:00:00.000000000 +0100
-+++ openssl-0.9.8d/ms/mingw32-cross.sh	2006-11-16 21:24:03.000000000 +0100
+diff -Nur openssl-0.9.8e.orig/crypto/pqueue/pqueue.c openssl-0.9.8e/crypto/pqueue/pqueue.c
+--- openssl-0.9.8e.orig/crypto/pqueue/pqueue.c	2005-06-28 14:53:33.000000000 +0200
++++ openssl-0.9.8e/crypto/pqueue/pqueue.c	2007-04-05 10:31:26.000000000 +0200
+@@ -199,10 +199,10 @@
+ 	return found;
+ 	}
+ 
+-#if PQ_64BIT_IS_INTEGER
+ void
+ pqueue_print(pqueue_s *pq)
+ 	{
++#if PQ_64BIT_IS_INTEGER
+ 	pitem *item = pq->items;
+ 
+ 	while(item != NULL)
+@@ -210,8 +210,8 @@
+ 		printf("item\t" PQ_64BIT_PRINT "\n", item->priority);
+ 		item = item->next;
+ 		}
+-	}
+ #endif
++	}
+ 
+ pitem *
+ pqueue_iterator(pqueue_s *pq)
+diff -Nur openssl-0.9.8e.orig/ms/mingw32-cross.sh openssl-0.9.8e/ms/mingw32-cross.sh
+--- openssl-0.9.8e.orig/ms/mingw32-cross.sh	1970-01-01 01:00:00.000000000 +0100
++++ openssl-0.9.8e/ms/mingw32-cross.sh	2007-04-05 10:30:27.000000000 +0200
 @@ -0,0 +1,41 @@
 +#!/bin/sh
 +# Mingw32 on Linux + GNU as
@@ -43,9 +68,9 @@ diff -Nur openssl-0.9.8d.orig/ms/mingw32-cross.sh openssl-0.9.8d/ms/mingw32-cros
 +
 +
 +
-diff -Nur openssl-0.9.8d.orig/util/mk1mf.pl openssl-0.9.8d/util/mk1mf.pl
---- openssl-0.9.8d.orig/util/mk1mf.pl	2006-06-09 17:42:21.000000000 +0200
-+++ openssl-0.9.8d/util/mk1mf.pl	2006-11-16 21:22:26.000000000 +0100
+diff -Nur openssl-0.9.8e.orig/util/mk1mf.pl openssl-0.9.8e/util/mk1mf.pl
+--- openssl-0.9.8e.orig/util/mk1mf.pl	2006-11-30 14:04:43.000000000 +0100
++++ openssl-0.9.8e/util/mk1mf.pl	2007-04-05 10:30:27.000000000 +0200
 @@ -35,6 +35,7 @@
  	"VC-CE",   "Microsoft eMbedded Visual C++ 3.0 - Windows CE ONLY",
  	"VC-NT",   "Microsoft Visual C++ [4-6] - Windows NT ONLY",
@@ -65,9 +90,9 @@ diff -Nur openssl-0.9.8d.orig/util/mk1mf.pl openssl-0.9.8d/util/mk1mf.pl
  elsif ($platform eq "Mingw32-files")
  	{
  	require 'Mingw32f.pl';
-diff -Nur openssl-0.9.8d.orig/util/pl/Mingw32-cross.pl openssl-0.9.8d/util/pl/Mingw32-cross.pl
---- openssl-0.9.8d.orig/util/pl/Mingw32-cross.pl	1970-01-01 01:00:00.000000000 +0100
-+++ openssl-0.9.8d/util/pl/Mingw32-cross.pl	2006-11-16 21:27:24.000000000 +0100
+diff -Nur openssl-0.9.8e.orig/util/pl/Mingw32-cross.pl openssl-0.9.8e/util/pl/Mingw32-cross.pl
+--- openssl-0.9.8e.orig/util/pl/Mingw32-cross.pl	1970-01-01 01:00:00.000000000 +0100
++++ openssl-0.9.8e/util/pl/Mingw32-cross.pl	2007-04-05 10:30:27.000000000 +0200
 @@ -0,0 +1,95 @@
 +#!/usr/local/bin/perl
 +#
