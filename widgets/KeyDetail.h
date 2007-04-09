@@ -49,7 +49,7 @@
 #ifndef __KEYDETAIL_H
 #define __KEYDETAIL_H
 
-#include "ui/KeyDetail.h"
+#include "ui_KeyDetail.h"
 
 class pki_key;
 

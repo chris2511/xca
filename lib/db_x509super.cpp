@@ -47,6 +47,7 @@
  */
 
 #include "db_x509super.h"
+#include "widgets/MainWindow.h"
 
 db_x509super::db_x509super(QString db, MainWindow *mw)
 	:db_base(db, mw)

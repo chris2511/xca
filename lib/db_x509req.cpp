@@ -51,6 +51,7 @@
 #include "db_x509req.h"
 #include "pki_x509req.h"
 #include "widgets/ReqDetail.h"
+#include "widgets/MainWindow.h"
 #include <Qt/qmessagebox.h>
 #include <Qt/qevent.h>
 #include <Qt/qaction.h>

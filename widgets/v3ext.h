@@ -50,7 +50,7 @@
 #ifndef IMPORTMULTI_H
 #define IMPORTMULTI_H
 
-#include "ui/v3ext.h"
+#include "ui_v3ext.h"
 #include "lib/pki_base.h"
 #include <Qt/qlineedit.h>
 #include <Qt/qstringlist.h>

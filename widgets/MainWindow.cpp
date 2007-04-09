@@ -66,8 +66,8 @@
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
-#include "ui/PassRead.h"
-#include "ui/PassWrite.h"
+#include "ui_PassRead.h"
+#include "ui_PassWrite.h"
 
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,

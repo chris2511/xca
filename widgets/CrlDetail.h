@@ -50,7 +50,7 @@
 #ifndef __CRLDETAIL_H
 #define __CRLDETAIL_H
 
-#include "ui/CrlDetail.h"
+#include "ui_CrlDetail.h"
 
 class pki_crl;
 class MainWindow;

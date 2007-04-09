@@ -49,7 +49,7 @@
 #ifndef __EXPORTCERT_H
 #define __EXPORTCERT_H
 
-#include "ui/ExportCert.h"
+#include "ui_ExportCert.h"
 
 class ExportCert: public QDialog, public Ui::ExportCert
 {

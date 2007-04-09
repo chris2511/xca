@@ -50,7 +50,7 @@
 #ifndef __IMPORTMULTI_H
 #define __IMPORTMULTI_H
 
-#include "ui/ImportMulti.h"
+#include "ui_ImportMulti.h"
 #include "lib/db_base.h"
 #include <Qt/qlist.h>
 

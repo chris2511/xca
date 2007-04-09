@@ -47,14 +47,13 @@
  */
 
 
-#include "db_key.h"
-#include "db_x509super.h"
-#include "pki_temp.h"
-#include "widgets/MainWindow.h"
-
 #ifndef DB_X509REQ_H
 #define DB_X509REQ_H
 
+#include "db_key.h"
+#include "db_x509super.h"
+#include "pki_temp.h"
+#include "pki_x509req.h"
 
 class db_x509req: public db_x509super
 {

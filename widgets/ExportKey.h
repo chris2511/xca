@@ -49,7 +49,7 @@
 #ifndef __EXPORTKEY_H
 #define __EXPORTKEY_H
 
-#include "ui/ExportKey.h"
+#include "ui_ExportKey.h"
 
 class ExportKey: public QDialog, public Ui::ExportKey
 {

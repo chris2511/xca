@@ -49,7 +49,7 @@
 #ifndef _REQDETAIL_H
 #define _REQDETAIL_H
 
-#include "ui/ReqDetail.h"
+#include "ui_ReqDetail.h"
 #include <Qt/qdialog.h>
 
 class pki_x509req;

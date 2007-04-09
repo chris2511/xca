@@ -46,6 +46,9 @@
  *
  */
 
+#ifndef DB_CRL_H
+#define DB_CRL_H
+
 #include "db_x509.h"
 #include "pki_crl.h"
 #include "widgets/ExportDer.h"
@@ -53,10 +56,6 @@
 #include <Qt/qpixmap.h>
 #include <Qt/qevent.h>
 
-#ifndef DB_CRL_H
-#define DB_CRL_H
-
-class db_x509;
 class db_crl: public db_base
 {
 	Q_OBJECT

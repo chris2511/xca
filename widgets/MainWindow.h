@@ -51,7 +51,7 @@
 #define _MAINWINDOW_H
 
 #include "NewX509.h"
-#include "ui/MainWindow.h"
+#include "ui_MainWindow.h"
 #include "lib/db_key.h"
 #include "lib/db_x509req.h"
 #include "lib/db_x509.h"

@@ -49,7 +49,7 @@
 #ifndef __CERTDETAIL_H
 #define __CERTDETAIL_H
 
-#include "ui/CertDetail.h"
+#include "ui_CertDetail.h"
 
 class pki_x509;
 

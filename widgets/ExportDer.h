@@ -49,7 +49,7 @@
 #ifndef __EXPORTDER_H
 #define __EXPORTDER_H
 
-#include "ui/ExportDer.h"
+#include "ui_ExportDer.h"
 
 class ExportDer: public QDialog, public Ui::ExportDer
 {

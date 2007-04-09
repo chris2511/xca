@@ -54,7 +54,7 @@
 #include "widgets/CrlDetail.h"
 #include <Qt/qmessagebox.h>
 #include <Qt/qevent.h>
-#include <ui/NewCrl.h>
+#include "ui_NewCrl.h"
 
 db_crl::db_crl(QString db, MainWindow *mw)
 	:db_base(db,mw)

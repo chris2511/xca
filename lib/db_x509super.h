@@ -47,14 +47,12 @@
  */
 
 
-#include "db_key.h"
-#include "pki_x509super.h"
-#include "widgets/MainWindow.h"
-
 #ifndef DB_X509SUPER_H
 #define DB_X509SUPER_H
 
-class NewX509;
+#include "db_key.h"
+#include "pki_x509super.h"
+
 class db_x509super: public db_base
 {
 	Q_OBJECT

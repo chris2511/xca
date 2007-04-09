@@ -54,7 +54,7 @@
 #include <Qt/qstatusbar.h>
 #include <Qt/qevent.h>
 #include "exception.h"
-#include "ui/NewKey.h"
+#include "ui_NewKey.h"
 
 #include "widgets/MainWindow.h"
 #include "widgets/ExportKey.h"

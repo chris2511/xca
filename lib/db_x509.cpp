@@ -53,9 +53,10 @@
 #include "widgets/CertDetail.h"
 #include "widgets/CertExtend.h"
 #include "widgets/ExportCert.h"
-#include "ui/TrustState.h"
-#include "ui/CaProperties.h"
-#include "ui/PassWrite.h"
+#include "widgets/MainWindow.h"
+#include "ui_TrustState.h"
+#include "ui_CaProperties.h"
+#include "ui_PassWrite.h"
 #include <Qt/qmessagebox.h>
 #include <Qt/qevent.h>
 #include <Qt/qaction.h>

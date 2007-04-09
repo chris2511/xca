@@ -54,8 +54,8 @@
 #include <Qt/q3textbrowser.h>
 #include <Qt/qpixmap.h>
 #include <Qt/qlabel.h>
-#include "ui/About.h"
-#include "ui/Help.h"
+#include "ui_About.h"
+#include "ui_Help.h"
 #include "lib/func.h"
 
 

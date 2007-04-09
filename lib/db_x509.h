@@ -58,7 +58,7 @@
 #include "db_x509super.h"
 #include "pki_x509.h"
 #include "pki_crl.h"
-
+#include "pki_temp.h"
 
 class db_x509: public db_x509super
 {
