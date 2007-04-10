@@ -6,10 +6,12 @@ ifneq ($(prefix),)
   CFLAGS+= -DPREFIX=\"$(prefix)\"
 endif
 
-ifneq ($(etc),)
-  CFLAGS+= -DETC=\"$(etc)\"
-else
-  CFLAGS+= -DETC=\"/etc/xca\"
+ifneq ($(HOST),w32)
+  ifneq ($(etc),)
+    CFLAGS+= -DETC=\"$(etc)\"
+  else
+    CFLAGS+= -DETC=\"/etc/xca\"
+  endif
 endif
 
 CFLAGS+= -DVER=\"$(shell cat $(TOPDIR)/VERSION)\"
