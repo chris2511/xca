@@ -7,6 +7,7 @@ TARGET = xca
 DEPENDPATH += . lang lib ui widgets
 INCLUDEPATH += . lib widgets
 
+CONFIG += warn_off
 RESOURCES = img/imgres.rcc
 RC_FILE = img/w32res.rc
 

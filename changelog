@@ -1,3 +1,8 @@
+xca 0.6.2
+
+  * break endless loop in chain building
+    Bug [ 1696878 ]
+
 xca 0.6.1
 
   * minor documentation updates

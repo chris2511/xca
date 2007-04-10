@@ -205,6 +205,10 @@ void db_x509::inToCont(pki_base *pki)
 					pki_x509 *s;
 					/* recursive signing check */
 					for (s = cert; s; s = s->getSigner()) {
+						if (s == s->getSigner()) {
+							s = NULL;
+							break;
+						}
 						if (s == client) {
 							printf("Recursive signing: '%s' <-> '%s'\n",
 										CCHAR(client->getIntName()),

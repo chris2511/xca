@@ -39,6 +39,7 @@ LD=$(CROSS)ld
 STRIP=$(CROSS)strip
 WINDRES=$(CROSS)windres
 SUFFIX=.exe
+LINUXDOC=linuxdoc
 
 prefix=
 basedir=
