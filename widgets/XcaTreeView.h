@@ -49,9 +49,9 @@
 #ifndef _XCATREEVIEW_H
 #define _XCATREEVIEW_H
 
-#include <Qt/qtreeview.h>
-#include <Qt/qitemselectionmodel.h>
-#include <Qt/qsortfilterproxymodel.h>
+#include <qtreeview.h>
+#include <qitemselectionmodel.h>
+#include <qsortfilterproxymodel.h>
 #include "lib/db_base.h"
 
 class db_base;

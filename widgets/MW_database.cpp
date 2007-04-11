@@ -49,9 +49,9 @@
 
 #include "MainWindow.h"
 #include "lib/exception.h"
-#include <Qt/qdir.h>
-#include <Qt/qstatusbar.h>
-#include <Qt/qmessagebox.h>
+#include <qdir.h>
+#include <qstatusbar.h>
+#include <qmessagebox.h>
 #include "lib/db_base.h"
 #include "widgets/ImportMulti.h"
 

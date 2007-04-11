@@ -49,9 +49,9 @@
 
 #include "clicklabel.h"
 
-#include <Qt/qtooltip.h>
-#include <Qt/qpalette.h>
-#include <Qt/qcolor.h>
+#include <qtooltip.h>
+#include <qpalette.h>
+#include <qcolor.h>
 
 ClickLabel::ClickLabel(QWidget *parent)
 	:QLabel(parent)

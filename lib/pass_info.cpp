@@ -46,9 +46,9 @@
  *
  */
 
-#include <Qt/qstring.h>
-#include <Qt/qwidget.h>
-#include <Qt/qapplication.h>
+#include <qstring.h>
+#include <qwidget.h>
+#include <qapplication.h>
 
 #include "pass_info.h"
 

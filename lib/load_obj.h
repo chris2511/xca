@@ -50,7 +50,7 @@
 #ifndef LOAD_OBJ_H
 #define LOAD_OBJ_H
 
-#include <Qt/qstringlist.h>
+#include <qstringlist.h>
 
 class pki_base;
 

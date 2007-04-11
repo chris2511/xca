@@ -49,7 +49,7 @@
 
 #include "validity.h"
 
-#include <Qt/qdatetime.h>
+#include <qdatetime.h>
 #include "lib/asn1time.h"
 
 Validity::Validity( QWidget* parent )

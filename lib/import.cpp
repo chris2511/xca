@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
-#include <Qt/qfile.h>
+#include <qfile.h>
 
 #define RESIZE 1024
 #define RDBUF 256

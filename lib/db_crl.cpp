@@ -52,8 +52,8 @@
 #include "exception.h"
 #include "widgets/MainWindow.h"
 #include "widgets/CrlDetail.h"
-#include <Qt/qmessagebox.h>
-#include <Qt/qevent.h>
+#include <qmessagebox.h>
+#include <qevent.h>
 #include "ui_NewCrl.h"
 
 db_crl::db_crl(QString db, MainWindow *mw)

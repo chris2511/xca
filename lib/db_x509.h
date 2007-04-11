@@ -51,9 +51,9 @@
 #ifndef DB_X509_H
 #define DB_X509_H
 
-#include <Qt/qlistview.h>
-#include <Qt/qobject.h>
-#include <Qt/qpixmap.h>
+#include <qlistview.h>
+#include <qobject.h>
+#include <qpixmap.h>
 #include "db_key.h"
 #include "db_x509super.h"
 #include "pki_x509.h"

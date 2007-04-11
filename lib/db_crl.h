@@ -52,9 +52,9 @@
 #include "db_x509.h"
 #include "pki_crl.h"
 #include "widgets/ExportDer.h"
-#include <Qt/qobject.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qevent.h>
+#include <qobject.h>
+#include <qpixmap.h>
+#include <qevent.h>
 
 class db_crl: public db_base
 {

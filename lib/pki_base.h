@@ -50,8 +50,8 @@
 #define PKI_BASE_H
 
 #include <openssl/err.h>
-#include <Qt/qstring.h>
-#include <Qt/qlistview.h>
+#include <qstring.h>
+#include <qlistview.h>
 #include "db.h"
 #include "base.h"
 

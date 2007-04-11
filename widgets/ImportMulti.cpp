@@ -58,9 +58,9 @@
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/ReqDetail.h"
-#include <Qt/qpushbutton.h>
-#include <Qt/qmessagebox.h>
-#include <Qt/qlabel.h>
+#include <qpushbutton.h>
+#include <qmessagebox.h>
+#include <qlabel.h>
 
 ImportMulti::ImportMulti(MainWindow *parent)
 	:QDialog(parent)

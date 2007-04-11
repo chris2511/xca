@@ -51,12 +51,12 @@
 #include "func.h"
 #include <widgets/NewX509.h>
 #include <widgets/MainWindow.h>
-#include <Qt/qfiledialog.h>
-#include <Qt/qdir.h>
-#include <Qt/qevent.h>
-#include <Qt/qaction.h>
-#include <Qt/qinputdialog.h>
-#include <Qt/qmessagebox.h>
+#include <qfiledialog.h>
+#include <qdir.h>
+#include <qevent.h>
+#include <qaction.h>
+#include <qinputdialog.h>
+#include <qmessagebox.h>
 
 db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_base(DBfile, mw)

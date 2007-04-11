@@ -51,9 +51,9 @@
 #include "MainWindow.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
-#include <Qt/qapplication.h>
-#include <Qt/qmenubar.h>
-#include <Qt/qmessagebox.h>
+#include <qapplication.h>
+#include <qmenubar.h>
+#include <qmessagebox.h>
 
 void MainWindow::init_menu()
 {

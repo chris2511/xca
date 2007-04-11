@@ -50,9 +50,9 @@
 /* here we have the possibility to add our own OIDS */
 
 #include <openssl/objects.h>
-#include <Qt/qstringlist.h>
-#include <Qt/qmessagebox.h>
-#include <Qt/qdir.h>
+#include <qstringlist.h>
+#include <qmessagebox.h>
+#include <qdir.h>
 #include "func.h"
 #include "oid.h"
 

@@ -50,7 +50,7 @@
 #ifndef X509REV_H
 #define X509REV_H
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 #include <openssl/x509.h>
 #include "asn1time.h"
 #include "asn1int.h"

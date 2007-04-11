@@ -57,9 +57,9 @@
 #include "ui_TrustState.h"
 #include "ui_CaProperties.h"
 #include "ui_PassWrite.h"
-#include <Qt/qmessagebox.h>
-#include <Qt/qevent.h>
-#include <Qt/qaction.h>
+#include <qmessagebox.h>
+#include <qevent.h>
+#include <qaction.h>
 
 bool db_x509::treeview = true;
 

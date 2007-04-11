@@ -52,7 +52,7 @@
 
 #include "ui_ImportMulti.h"
 #include "lib/db_base.h"
-#include <Qt/qlist.h>
+#include <qlist.h>
 
 class pki_x509;
 class pki_key;

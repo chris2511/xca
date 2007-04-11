@@ -49,8 +49,8 @@
 #ifndef PKI_KEY_H
 #define PKI_KEY_H
 
-#include <Qt/qstring.h>
-#include <Qt/qprogressbar.h>
+#include <qstring.h>
+#include <qprogressbar.h>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
 #include <openssl/pem.h>

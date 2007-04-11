@@ -53,9 +53,9 @@
 #include "func.h"
 #include "db.h"
 #include <openssl/rand.h>
-#include <Qt/qprogressdialog.h>
-#include <Qt/qapplication.h>
-#include <Qt/qdir.h>
+#include <qprogressdialog.h>
+#include <qapplication.h>
+#include <qdir.h>
 #include <widgets/MainWindow.h>
 
 char pki_key::passwd[MAX_PASS_LENGTH]={0,};

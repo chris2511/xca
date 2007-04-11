@@ -52,8 +52,8 @@
 #include "distname.h"
 #include "clicklabel.h"
 #include "lib/pki_x509req.h"
-#include <Qt/qlabel.h>
-#include <Qt/qlineedit.h>
+#include <qlabel.h>
+#include <qlineedit.h>
 
 ReqDetail::ReqDetail(QWidget *parent)
 	:QDialog(parent)

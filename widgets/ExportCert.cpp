@@ -50,9 +50,9 @@
 #include "ExportCert.h"
 #include "lib/base.h"
 
-#include <Qt/qcombobox.h>
-#include <Qt/qlineedit.h>
-#include <Qt/qfiledialog.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
+#include <qfiledialog.h>
 
 ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey)
 	:QDialog(parent)

@@ -49,11 +49,10 @@
 
 
 #include "MainWindow.h"
-#include <Qt/qapplication.h>
-#include <Qt/qmime.h>
-#include <Qt/q3textbrowser.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qlabel.h>
+#include <qapplication.h>
+#include <qmime.h>
+#include <qpixmap.h>
+#include <qlabel.h>
 #include "ui_About.h"
 #include "ui_Help.h"
 #include "lib/func.h"

@@ -49,8 +49,8 @@
 #ifndef DISTNAME_H
 #define DISTNAME_H
 
-#include <Qt/qwidget.h>
-#include <Qt/qgridlayout.h>
+#include <qwidget.h>
+#include <qgridlayout.h>
 
 class x509name;
 class QLabel;

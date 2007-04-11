@@ -50,11 +50,11 @@
 #include "ExportKey.h"
 #include "lib/base.h"
 
-#include <Qt/qfiledialog.h>
-#include <Qt/qcheckbox.h>
-#include <Qt/qlineedit.h>
-#include <Qt/qcombobox.h>
-#include <Qt/qfiledialog.h>
+#include <qfiledialog.h>
+#include <qcheckbox.h>
+#include <qlineedit.h>
+#include <qcombobox.h>
+#include <qfiledialog.h>
 
 ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
 	:QDialog(parent)

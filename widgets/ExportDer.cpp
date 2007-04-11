@@ -50,9 +50,9 @@
 #include "ExportDer.h"
 #include "lib/base.h"
 
-#include <Qt/qcombobox.h>
-#include <Qt/qlineedit.h>
-#include <Qt/qfiledialog.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
+#include <qfiledialog.h>
 
 ExportDer::ExportDer(QWidget *parent, QString fname, QString _filter)
 	:QDialog(parent)

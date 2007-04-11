@@ -6,8 +6,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <Qt/qstring.h>
-#include <Qt/qfile.h>
+#include <qstring.h>
+#include <qfile.h>
 
 #define XCA_MAGIC 0xcadb1969
 #define NAMELEN 80

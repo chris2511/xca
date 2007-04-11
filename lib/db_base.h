@@ -51,11 +51,11 @@
 #include "db.h"
 #include "base.h"
 #include "load_obj.h"
-#include <Qt/qlistview.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qstringlist.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qabstractitemmodel.h>
+#include <qlistview.h>
+#include <qpixmap.h>
+#include <qstringlist.h>
+#include <qpixmap.h>
+#include <qabstractitemmodel.h>
 #include "pki_base.h"
 #include "widgets/XcaTreeView.h"
 

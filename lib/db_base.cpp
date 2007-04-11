@@ -50,10 +50,10 @@
 
 #include "db_base.h"
 #include "exception.h"
-#include <Qt/qmessagebox.h>
-#include <Qt/qdir.h>
-#include <Qt/qlistview.h>
-#include <Qt/qdir.h>
+#include <qmessagebox.h>
+#include <qdir.h>
+#include <qlistview.h>
+#include <qdir.h>
 #ifdef WIN32
 #include <direct.h>     // to define mkdir function
 #include <windows.h>    // to define mkdir function

@@ -50,7 +50,7 @@
 #include "pki_x509.h"
 #include "func.h"
 #include "base.h"
-#include <Qt/qdir.h>
+#include <qdir.h>
 
 QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
 

@@ -53,9 +53,9 @@
 #include "lib/pki_key.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
-#include <Qt/qlabel.h>
-#include <Qt/qpushbutton.h>
-#include <Qt/qlineedit.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qlineedit.h>
 
 KeyDetail::KeyDetail(QWidget *parent)
 	:QDialog(parent)

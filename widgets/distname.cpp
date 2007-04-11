@@ -48,9 +48,9 @@
 
 #include "distname.h"
 
-#include <Qt/qlabel.h>
-#include <Qt/qpushbutton.h>
-#include <Qt/qlineedit.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qlineedit.h>
 #include "lib/x509name.h"
 #include "lib/base.h"
 

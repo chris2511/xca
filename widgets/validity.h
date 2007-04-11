@@ -49,7 +49,7 @@
 #ifndef VALIDITY_H
 #define VALIDITY_H
 
-#include <Qt/qdatetimeedit.h>
+#include <qdatetimeedit.h>
 #include <lib/asn1time.h>
 
 class Validity : public QDateTimeEdit

@@ -50,7 +50,7 @@
 #ifndef CLICKLABEL_H
 #define CLICKLABEL_H
 
-#include <Qt/qlabel.h>
+#include <qlabel.h>
 
 class QMouseEvent;
 

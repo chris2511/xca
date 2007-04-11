@@ -49,7 +49,7 @@
 
 
 #include "pki_crl.h"
-#include <Qt/qdir.h>
+#include <qdir.h>
 
 QPixmap *pki_crl::icon = NULL;
 

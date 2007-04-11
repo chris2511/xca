@@ -49,7 +49,7 @@
 #ifndef X509V3EXT_H
 #define X509V3EXT_H
 
-#include <Qt/qlist.h>
+#include <qlist.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 

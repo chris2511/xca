@@ -47,11 +47,11 @@
  *
  */
 
-#include <Qt/qapplication.h>
-#include <Qt/qtranslator.h>
-#include <Qt/qtextcodec.h>
-#include <Qt/qdir.h>
-#include <Qt/qtranslator.h>
+#include <qapplication.h>
+#include <qtranslator.h>
+#include <qtextcodec.h>
+#include <qdir.h>
+#include <qtranslator.h>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
 #ifdef WIN32

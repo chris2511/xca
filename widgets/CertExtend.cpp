@@ -53,10 +53,10 @@
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
 #include "widgets/MainWindow.h"
-#include <Qt/qlabel.h>
-#include <Qt/qlineedit.h>
-#include <Qt/qcombobox.h>
-#include <Qt/qcheckbox.h>
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qcombobox.h>
+#include <qcheckbox.h>
 
 
 CertExtend::CertExtend(QWidget *parent)

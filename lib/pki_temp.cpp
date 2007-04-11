@@ -51,7 +51,7 @@
 #include "pki_temp.h"
 #include "func.h"
 #include "db.h"
-#include <Qt/qdir.h>
+#include <qdir.h>
 
 QPixmap *pki_temp::icon=  NULL;
 

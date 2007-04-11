@@ -50,7 +50,7 @@
 #include "x509v3ext.h"
 #include <openssl/x509v3.h>
 #include <openssl/stack.h>
-#include <Qt/qstringlist.h>
+#include <qstringlist.h>
 #include "base.h"
 
 x509v3ext::x509v3ext()

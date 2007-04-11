@@ -49,10 +49,10 @@
 
 
 #include "db_key.h"
-#include <Qt/qmessagebox.h>
-#include <Qt/qprogressbar.h>
-#include <Qt/qstatusbar.h>
-#include <Qt/qevent.h>
+#include <qmessagebox.h>
+#include <qprogressbar.h>
+#include <qstatusbar.h>
+#include <qevent.h>
 #include "exception.h"
 #include "ui_NewKey.h"
 

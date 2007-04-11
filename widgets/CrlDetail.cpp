@@ -53,9 +53,9 @@
 #include "lib/pki_crl.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
-#include <Qt/qlabel.h>
-#include <Qt/qtextedit.h>
-#include <Qt/qlineedit.h>
+#include <qlabel.h>
+#include <qtextedit.h>
+#include <qlineedit.h>
 
 CrlDetail::CrlDetail(MainWindow *mainwin)
 	:QDialog(mainwin)

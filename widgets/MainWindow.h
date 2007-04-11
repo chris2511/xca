@@ -59,10 +59,10 @@
 #include "lib/db_crl.h"
 #include "lib/exception.h"
 #include "lib/oid.h"
-#include <Qt/qpixmap.h>
-#include <Qt/qfiledialog.h>
-#include <Qt/qmenubar.h>
-#include <Qt/qlist.h>
+#include <qpixmap.h>
+#include <qfiledialog.h>
+#include <qmenubar.h>
+#include <qlist.h>
 
 #define DBFILE "xca.xdb"
 

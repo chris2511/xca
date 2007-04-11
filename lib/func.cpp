@@ -50,12 +50,12 @@
 #include "func.h"
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
-#include <Qt/qdir.h>
-#include <Qt/qlabel.h>
-#include <Qt/qlineedit.h>
-#include <Qt/qcombobox.h>
-#include <Qt/qmessagebox.h>
-#include <Qt/qapplication.h>
+#include <qdir.h>
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qcombobox.h>
+#include <qmessagebox.h>
+#include <qapplication.h>
 
 #ifdef WIN32
 #include <windows.h>

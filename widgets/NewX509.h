@@ -54,7 +54,7 @@
 #include "lib/oid.h"
 #include "lib/db.h"
 #include <openssl/x509v3.h>
-#include <Qt/qlistwidget.h>
+#include <qlistwidget.h>
 
 class MainWindow;
 class extList;

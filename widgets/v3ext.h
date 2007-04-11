@@ -52,8 +52,8 @@
 
 #include "ui_v3ext.h"
 #include "lib/pki_base.h"
-#include <Qt/qlineedit.h>
-#include <Qt/qstringlist.h>
+#include <qlineedit.h>
+#include <qstringlist.h>
 #include <openssl/x509v3.h>
 
 class pki_x509;

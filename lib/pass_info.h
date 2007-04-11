@@ -49,9 +49,9 @@
 #ifndef PASS_INFO_H
 #define PASS_INFO_H
 
-#include <Qt/qstring.h>
-#include <Qt/qobject.h>
-#include <Qt/qwidget.h>
+#include <qstring.h>
+#include <qobject.h>
+#include <qwidget.h>
 
 class pass_info: public QObject
 {

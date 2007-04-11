@@ -49,15 +49,15 @@
 
 
 #include "NewX509.h"
-#include <Qt/qcheckbox.h>
-#include <Qt/qcombobox.h>
-#include <Qt/qradiobutton.h>
-#include <Qt/qmessagebox.h>
-#include <Qt/qlineedit.h>
-#include <Qt/qlabel.h>
-#include <Qt/qpixmap.h>
-#include <Qt/qpushbutton.h>
-#include <Qt/qvalidator.h>
+#include <qcheckbox.h>
+#include <qcombobox.h>
+#include <qradiobutton.h>
+#include <qmessagebox.h>
+#include <qlineedit.h>
+#include <qlabel.h>
+#include <qpixmap.h>
+#include <qpushbutton.h>
+#include <qvalidator.h>
 #include "MainWindow.h"
 #include "v3ext.h"
 #include "lib/x509name.h"

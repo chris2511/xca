@@ -51,8 +51,8 @@
 
 #include "db_base.h"
 #include "pki_key.h"
-#include <Qt/qstringlist.h>
-#include <Qt/qobject.h>
+#include <qstringlist.h>
+#include <qobject.h>
 
 class MainWindow;
 class QModelIndex;

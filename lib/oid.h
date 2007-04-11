@@ -49,7 +49,7 @@
 
 
 class QString;
-#include <Qt/qlist.h>
+#include <qlist.h>
 
 typedef QList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */

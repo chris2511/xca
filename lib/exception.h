@@ -49,7 +49,7 @@
 #ifndef PKI_EXCEPTION_H
 #define PKI_EXCEPTION_H
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 #include "base.h"
 
 class errorEx

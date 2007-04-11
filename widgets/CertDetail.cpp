@@ -51,9 +51,9 @@
 #include "MainWindow.h"
 #include "distname.h"
 #include "clicklabel.h"
-#include <Qt/qlabel.h>
-#include <Qt/qpushbutton.h>
-#include <Qt/qlineedit.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qlineedit.h>
 
 CertDetail::CertDetail(QWidget *parent)
 	:QDialog(parent)

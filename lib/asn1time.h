@@ -49,7 +49,7 @@
 #ifndef ASN1TIME_H
 #define ASN1TIME_H
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 #include <openssl/asn1.h>
 
 class a1time

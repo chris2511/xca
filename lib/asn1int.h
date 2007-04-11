@@ -49,7 +49,7 @@
 #ifndef ASN1INTEGER_H
 #define ASN1INTEGER_H
 
-#include <Qt/qstring.h>
+#include <qstring.h>
 #include <openssl/asn1.h>
 
 class a1int

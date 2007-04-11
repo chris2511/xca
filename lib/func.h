@@ -49,7 +49,7 @@
 #ifndef FUNC_H
 #define FUNC_H
 
-#include <Qt/qpixmap.h>
+#include <qpixmap.h>
 #include "base.h"
 
 class Validity;
