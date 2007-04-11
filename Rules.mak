@@ -3,7 +3,7 @@ include $(TOPDIR)/Local.mak
 all: target.obj
 
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))
-HEADERS=$(shell ls *.h)
+HEADERS=$(shell ls *.h 2>/dev/null)
 GCH=$(patsubst %, %.gch, $(HEADERS))
 
 pheaders: $(GCH)

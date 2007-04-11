@@ -1,15 +1,18 @@
-HOST=w32
-BDIR=/D
+#### Change the following settings
+# BDIR=/D
+# QTDIR=$(BDIR)/qt/4.2.1
+# OPENSSLDIR=$(BDIR)/openssl-0.9.8d
 
-QTDIR=$(BDIR)/qt/4.2.1
-OPENSSLDIR=$(BDIR)/openssl-0.9.8d
+
+HOST=w32
 MAKENSIS=makensis
 CROSS=i586-mingw32msvc-
 
 CONSOLE=-mwindows
 #CONSOLE=-mconsole
 
-CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc
+CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc \
+	-I$(QTDIR)/include/Qt -I$(TOPDIR)/ui
 CFLAGS=-Wall -g -O2 -mthreads -mno-cygwin $(CONSOLE)
 
 LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib \

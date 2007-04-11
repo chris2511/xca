@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+BDIR=`cd ..; pwd`
+
+SSL=`find "$BDIR" -type d -name openssl-* |tail -n1`
+QT=`find "$BDIR"/qt -type d -name 4.* |tail -n1`
+
+echo "OpenSSL: '$SSL'"
+echo "QT:      '$QT'"
+if test -z "$SSL" -o -z "$QT"; then
+  cat << EOF
+OpenSSL or QT not found:
+please look at INSTALL.w32
+EOF
+fi
+
+cat > Local.mak << EOF
+BDIR=$BDIR
+OPENSSLDIR=$SSL
+QTDIR=$QT
+EOF
+
+cat misc/Local.mak.w32 >> Local.mak
+echo "#define VER \"`cat VERSION`\"" >local.h
+
+echo
+echo success, type 'make'

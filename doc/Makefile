@@ -9,11 +9,8 @@ doc: xca.1.gz xca.html
 xca.1.gz: xca.1
 	gzip -9 <$^ >$@
 
-xca.1: xca.man
-	cat $^ | sed s/MY_VERSION/$(VERSION)/g > $@
-
 xca.html: xca.sgml
-	$(LINUXDOC) -B html $< || touch xca.html
+	$(LINUXDOC) -B html $<
 
 install: xca.1.gz xca.html
 	install -m 755 -d $(destdir)$(prefix)/share/xca \
