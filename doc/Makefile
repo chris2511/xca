@@ -19,7 +19,7 @@ install: xca.1.gz xca.html
 	install xca.1.gz $(destdir)$(prefix)/$(mandir)/man1
 
 clean:
-	$(RM) xca.1.gz xca.1
+	$(RM) xca.1.gz
 
 app: xca.html
 	mkdir -p $(APPDIR)/Resources

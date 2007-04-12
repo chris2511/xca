@@ -1,4 +1,11 @@
-/* vi: set sw=4 ts=4: */
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
+
 #include "exception.h"
 #include "db_base.h"
 #include <errno.h>

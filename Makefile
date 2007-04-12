@@ -48,7 +48,7 @@ clean:
 
 distclean: clean
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} distclean; done
-	rm -f Local.mak conftest conftest.log xca.pro
+	rm -f Local.mak conftest conftest.log
 
 dist: lang doc
 	test ! -z "$(TVERSION)"
@@ -85,6 +85,6 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 
 .PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang
 
-Local.mak: configure
+Local.mak local.h: configure
 	./configure
 

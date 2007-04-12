@@ -1,5 +1,5 @@
 
-Copyright (C) 2001 - 2006 Christian Hohnstaedt.
+Copyright (C) 2001 - 2007 Christian Hohnstaedt.
 
  All rights reserved.
 
@@ -33,8 +33,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 This program links to software with different licenses from:
 
-	http://www.openssl.org which includes cryptographic software
-	written by Eric Young (eay@cryptsoft.com)"
+ - http://www.openssl.org which includes cryptographic software
+   written by Eric Young (eay@cryptsoft.com)"
 
-	http://www.trolltech.com
+ - http://www.trolltech.com
+
 

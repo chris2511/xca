@@ -1,3 +1,10 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
 #ifndef _XCA_DB_H_
 #define _XCA_DB_H_
 
