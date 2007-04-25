@@ -120,7 +120,6 @@ void MainWindow::undelete()
 	ImportMulti *dlgi = new ImportMulti(this);
 	db_header_t head;
 	db mydb(dbfile);
-	int items = 0;
 
 	for (mydb.first(DBFLAG_OUTDATED); !mydb.eof(); mydb.next(DBFLAG_OUTDATED)) {
 		mydb.get_header(&head);

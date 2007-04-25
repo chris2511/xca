@@ -37,20 +37,19 @@ class pki_base : public QObject
 	public:
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
-		virtual void fload(const QString name){};
-		virtual void writeDefault(const QString fname){};
+		//virtual void fload(const QString name);
+		virtual void writeDefault(const QString){};
 		static int get_pki_counter(void);
-		virtual void fromData(const unsigned char *p, db_header_t *head){};
+		virtual void fromData(const unsigned char *, db_header_t *){};
 		virtual void oldFromData(unsigned char *p, int size);
-		virtual unsigned char *toData(int *size){return NULL;}
-		virtual bool compare(pki_base *ref){return false;}
+		virtual unsigned char *toData(int *) { return NULL; }
+		virtual bool compare(pki_base *) { return false; };
 		virtual ~pki_base();
 			QString getIntName() const;
 		QString getUnderlinedName() const;
 			void setIntName(const QString &d);
 		QString getClassName();
 		static QString rmslashdot(const QString &fname);
-		//virtual void updateView();
 
 		int getVersion();
 		enum pki_type getType();

@@ -379,12 +379,12 @@ void NewX509::toggleOkBut()
 	okButton->setEnabled(ok);
 }
 
-void NewX509::on_description_textChanged(QString text)
+void NewX509::on_description_textChanged(QString)
 {
 	toggleOkBut();
 }
 
-void NewX509::on_countryName_textChanged(QString text)
+void NewX509::on_countryName_textChanged(QString)
 {
 	toggleOkBut();
 }
@@ -400,7 +400,7 @@ void NewX509::on_genKeyBUT_clicked()
 	emit genKey();
 }
 
-void NewX509::on_certList_currentIndexChanged(int index)
+void NewX509::on_certList_currentIndexChanged(int)
 {
 	a1time snb, sna;
 	pki_x509 *cert = getSelectedSigner();

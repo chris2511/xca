@@ -274,7 +274,7 @@ int MainWindow::initPass()
 
 // Static Password Callback functions
 
-int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
+int MainWindow::passRead(char *buf, int size, int, void *userdata)
 {
 	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
@@ -297,7 +297,7 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 }
 
 
-int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
+int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 {
 	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
@@ -365,5 +365,5 @@ void MainWindow::connNewX509(NewX509 *nx)
  * segfaults. Thus I include the file here and remove it from the Makefile
  * and the linker works.
  * There is a FIXME and a warning */
-#warning inclde "MW_menu.cpp"
+#warning include "MW_menu.cpp"
 #include "MW_menu.cpp"

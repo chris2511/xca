@@ -20,7 +20,7 @@ load_base::load_base()
 	caption = "";
 }
 
-pki_base * load_base::loadItem(QString s)
+pki_base * load_base::loadItem(QString)
 {
 	return NULL;
 }

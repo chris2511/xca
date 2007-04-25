@@ -94,7 +94,7 @@ void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 	fromData(p, size, version);
 }
 
-void pki_temp::fromData(const unsigned char *p, int size, int version)
+void pki_temp::fromData(const unsigned char *p, int size, int)
 {
 	const unsigned char *p1 = p;
 
@@ -251,8 +251,8 @@ pki_temp::~pki_temp()
 int pki_temp::dataSize()
 {
 	int s = 9 * sizeof(int) +
-	       8 * sizeof(char) +
-	       xname.derSize() + (
+			8 * sizeof(char) +
+		xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
 	crlDist.length() +
@@ -270,10 +270,10 @@ int pki_temp::dataSize()
 }
 
 
-bool pki_temp::compare(pki_base *ref)
+bool pki_temp::compare(pki_base *)
 {
- // we don't care if templates with identical contents
- // are stored in the database ...
+	// we don't care if templates with identical contents
+	// are stored in the database ...
 	return false;
 }
 

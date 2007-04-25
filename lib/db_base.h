@@ -62,8 +62,8 @@ class db_base: public QAbstractItemModel
 		QPixmap *loadImg(const char *name);
 		void writeAll(void);
 		void dump(QString dirname);
-		virtual void showContextMenu(QContextMenuEvent * e,
-				const QModelIndex &index){};
+		virtual void showContextMenu(QContextMenuEvent * ,
+				const QModelIndex &) {};
 
 		QModelIndex index(int row, int column, const QModelIndex &parent)const;
 		QModelIndex index(pki_base *pki)const;
@@ -87,7 +87,7 @@ class db_base: public QAbstractItemModel
 		void edit();
 		virtual void showItem();
 		virtual void store(){};
-		virtual void showPki(pki_base *pki) { };
+		virtual void showPki(pki_base *) {};
 		virtual void showItem(const QModelIndex &index);
 		virtual void showItem(const QString keyname);
 

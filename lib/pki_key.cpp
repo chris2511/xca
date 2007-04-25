@@ -61,7 +61,7 @@ void pki_key::init(int type)
 	cols=5;
 }
 
-void pki_key::incProgress(int a, int b, void *progress)
+void pki_key::incProgress(int, int, void *progress)
 {
 	int i = ((QProgressBar *)progress)->value();
 			((QProgressBar *)progress)->setValue(++i);
@@ -517,7 +517,7 @@ void pki_key::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 	fclose(fp);
 }
 
-static int mycb(char *buf, int size, int rwflag, void *userdata)
+static int mycb(char *buf, int size, int, void *)
 {
 	strncpy(buf, pki_key::passwd, size);
 	return strlen(pki_key::passwd);
