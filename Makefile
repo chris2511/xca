@@ -24,10 +24,10 @@ all: headers xca$(SUFFIX) doc lang
 re: clean all
 
 xca.o: $(OBJECTS)
-	$(LD)  $(LDFLAGS) $(OBJECTS) -r -o $@ $(SLIBS)
+	$(LD) $(LDFLAGS) $(OBJECTS) -r -o $@ $(SLIBS)
 
 xca$(SUFFIX): xca.o
-	$(CC) -static $(LDFLAGS) $(CFLAGS) $< $(LIBS) -o $@
+	$(CC) $(LDFLAGS) $(CFLAGS) $< $(LIBS) -o $@
 
 doc: 
 	$(MAKE) -C doc
