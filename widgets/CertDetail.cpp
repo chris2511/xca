@@ -83,10 +83,12 @@ void CertDetail::setCert(pki_x509 *cert)
 	if ( cert->getSigner() == NULL) {
 		signCert->setText(tr("Signer unknown"));
 		signCert->setDisabled(true);
+		signCert->disableToolTip();
 	}
 	else if ( cert == cert->getSigner())  {
 		signCert->setText(tr("Self signed"));
 		signCert->setGreen();
+		signCert->disableToolTip();
 	}
 
 	else {
@@ -95,6 +97,7 @@ void CertDetail::setCert(pki_x509 *cert)
 	}
 
 	// check trust state
+	trustState->disableToolTip();
 	if (cert->getEffTrust() == 0) {
 		trustState->setText(tr("Not trusted"));
 		trustState->setRed();
@@ -116,6 +119,7 @@ void CertDetail::setCert(pki_x509 *cert)
 	notAfter->setText(cert->getNotAfter().toPretty());
 
 	// validation of the Date
+	dateValid->disableToolTip();
 	if (cert->isRevoked()) {
 		dateValid->setText(tr("Revoked: ") +
 		cert->getRevoked().toPretty());

@@ -1,3 +1,5 @@
+  * remove missleading tooltips 
+    Bug [ 1704700 ]
   * fix segfault
   * switch string handling to UTF8
 

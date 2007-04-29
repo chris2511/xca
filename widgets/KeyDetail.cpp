@@ -70,13 +70,15 @@ void KeyDetail::setKey(pki_key *key)
 {
 	keyDesc->setText( key->getIntName() );
 	keyLength->setText( key->length() );
+
+	keyPrivEx->disableToolTip();
 	if (key->isPubKey()) {
 		keyPrivEx->setText(tr("Not available") );
-		keyPrivEx->setDisabled(true);
+		keyPrivEx->setRed();
 	}
 	else {
 		keyPrivEx->setText(tr("Available") );
-		keyPrivEx->setDisabled(false);
+		keyPrivEx->setGreen();
 	}
 	switch (key->getType()) {
 		case EVP_PKEY_RSA:
@@ -84,14 +86,14 @@ void KeyDetail::setKey(pki_key *key)
 			keyModulus->setText( key->modulus());
 			break;
 		case EVP_PKEY_DSA:
-			tlPubEx->setText("Sub prime");
-			tlModulus->setText("Public key");
-			tlHeader->setText("Details of the DSA key");
-			tlPrivEx->setText("Private key");
+			tlPubEx->setText(tr("Sub prime"));
+			tlModulus->setText(tr("Public key"));
+			tlHeader->setText(tr("Details of the DSA key"));
+			tlPrivEx->setText(tr("Private key"));
 			keyPubEx->setText( key->subprime() );
 			keyModulus->setText( key->pubkey());
 			break;
 		default:
-			tlHeader->setText("UNKNOWN Key");
+			tlHeader->setText(tr("UNKNOWN Key"));
 	}
 }

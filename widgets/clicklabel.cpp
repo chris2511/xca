@@ -63,6 +63,12 @@ ClickLabel::ClickLabel(QWidget *parent)
 	setFrameShadow( QLabel::Sunken );
 	setAlignment( Qt::AlignCenter );
 	setToolTip( tr("Double click for details") );
+
+	QPalette pal = palette();
+	QColor col = QColor(200, 200, 200);
+	pal.setColor(QPalette::Normal, QPalette::Background, col );
+	pal.setColor(QPalette::Inactive, QPalette::Background, col );
+	setPalette( pal );
 }
 
 void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
@@ -87,4 +93,9 @@ void ClickLabel::setRed()
 void ClickLabel::setGreen()
 {
 	setColor( QColor( 32, 192, 32) );
+}
+
+void ClickLabel::disableToolTip()
+{
+	setToolTip(QString());
 }

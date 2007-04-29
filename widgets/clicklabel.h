@@ -62,6 +62,7 @@ class ClickLabel : public QLabel
 	ClickLabel(QWidget *parent);
 	void setRed();
 	void setGreen();
+	void disableToolTip();
 
   protected:
 	void mouseDoubleClickEvent ( QMouseEvent * e );

@@ -81,6 +81,7 @@ void ReqDetail::setReq(pki_x509req *req)
 			verify->setText("PKCS#10");
 		}
 	}
+	verify->disableToolTip();
 	// look for the private key
 	pki_key *key =req->getRefKey();
 	if (key) {
@@ -90,6 +91,7 @@ void ReqDetail::setReq(pki_x509req *req)
 	else {
 		privKey->setText(tr("Not available"));
 		privKey->setDisabled(true);
+		privKey->disableToolTip();
 	}
 	// the subject
 	subject->setX509name(req->getSubject());

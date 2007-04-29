@@ -84,7 +84,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 	QStringList sl;
 
 	iss = crl->getIssuer();
-	// page 1
+	signCheck->disableToolTip();
 	if (iss != NULL) {
 		issuerIntName->setText(iss->getIntName());
 		issuerIntName->setGreen();
@@ -101,6 +101,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 	} else {
 		issuerIntName->setText(tr("Unknown signer"));
 		issuerIntName->setDisabled(true);
+		issuerIntName->disableToolTip();
 		signCheck->setText(tr("Verification not possible"));
 		signCheck->setDisabled(true);
 	}
@@ -110,10 +111,8 @@ void CrlDetail::setCrl(pki_crl *crl)
 	nUpdate->setText(crl->getNextUpdate().toPretty());
 	version->setText((++crl->getVersion()).toHex());
 
-	// page 2
 	issuer->setX509name(crl->getIssuerName());
 
-	// page 3
 	numc = crl->numRev();
 	for (i=0; i<numc; i++) {
 		QTreeWidgetItem *current;
@@ -129,6 +128,5 @@ void CrlDetail::setCrl(pki_crl *crl)
 		current->setText(1, revit.getSerial().toHex()) ;
 		current->setText(2, revit.getDate().toSortable());
 	}
-	// page 4
 	v3extensions->document()->setHtml(crl->printV3ext());
 }
