@@ -107,7 +107,7 @@ void db_base::loadContainer()
 
 	pki_base *pb, *pki;
 	pb = newPKI();
-	while ( mydb.find(pb->getType(), NULL) == 0 ) {
+	while ( mydb.find(pb->getType(), QString()) == 0 ) {
 		QString s;
 		p = mydb.load(&head);
 		if (!p) {
@@ -122,14 +122,13 @@ void db_base::loadContainer()
 			goto next;
 		}
 		pki = newPKI();
-		s = head.name;
-		pki->setIntName(s);
+		pki->setIntName(QString::fromUtf8(head.name));
 
 		try {
 			pki->fromData(p, &head);
 		}
 		catch (errorEx &err) {
-			err.appendString(s);
+			err.appendString(pki->getIntName());
 			mainwin->Error(err);
 			delete pki;
 			pki = NULL;
@@ -156,7 +155,7 @@ void db_base::insertPKI(pki_base *pki)
 	if (p) {
 		name = mydb.uniq_name(pki->getIntName(), pki->getType());
 		pki->setIntName(name);
-		mydb.add(p, size, pki->getVersion(), pki->getType(), name.toAscii());
+		mydb.add(p, size, pki->getVersion(), pki->getType(), name);
 		OPENSSL_free(p);
 	}
 	inToCont(pki);
@@ -185,7 +184,7 @@ void db_base::deletePKI()
 	remFromCont(currentIdx);
 
 	db mydb(dbName);
-	mydb.find(pki->getType(), CCHAR(pki->getIntName()));
+	mydb.find(pki->getType(), pki->getIntName());
 	mydb.erase();
 	delete pki;
 }
@@ -199,8 +198,7 @@ void db_base::updatePKI(pki_base *pki)
 	p = pki->toData(&size);
 
 	if (p) {
-		mydb.set(p, size, pki->getVersion(), pki->getType(),
-				CCHAR(pki->getIntName()));
+		mydb.set(p, size, pki->getVersion(), pki->getType(), pki->getIntName());
 		OPENSSL_free(p);
 	}
 }
@@ -468,7 +466,7 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 		db mydb(dbName);
 		item = static_cast<pki_base*>(index.internalPointer());
 		on = item->getIntName();
-		if (mydb.rename(item->getType(), CCHAR(on), CCHAR(nn)) == 0) {
+		if (mydb.rename(item->getType(), on, nn) == 0) {
 			item->setIntName(nn);
 			emit dataChanged(index, index);
 			return true;

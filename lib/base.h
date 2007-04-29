@@ -22,7 +22,6 @@
 #define D2I_CLASHT(f, t, a, PP, s) f(t,a,(unsigned char **)PP,s)
 #endif
 
-//#define CCHAR(x) ((const char *)(x).toAscii().constData())
 #define CCHAR(x) qPrintable(x)
 #endif
 

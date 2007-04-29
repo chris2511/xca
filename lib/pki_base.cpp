@@ -127,9 +127,15 @@ void pki_base::fopen_error(const QString fname)
 void pki_base::my_error(const QString error)  const
 {
 	if (!error.isEmpty()) {
-		fprintf(stderr, "Error: %s\n", CCHAR(error));
+		fprintf(stderr, "%s\n", CCHAR(tr("Error :") + error));
 		throw errorEx(error, class_name);
 	}
+}
+
+void pki_base::check_oom(const void *ptr) const
+{
+	if (!ptr)
+		my_error(tr("Out of memory"));
 }
 
 void pki_base::openssl_error(const QString txt)  const

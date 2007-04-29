@@ -47,7 +47,7 @@ class db
 	db_header_t head;
 
 	void init_header(db_header_t *db, int ver, int len, enum pki_type type,
-		const char *name);
+		QString name);
 	bool verify_magic(void);
 	void convert_header(db_header_t *h);
 	void fileIOerr(QString s);
@@ -58,14 +58,14 @@ class db
 	~db();
 	bool eof();
 	void first(int flag = DBFLAG_DELETED);
-	int find(enum pki_type type, const char *name);
+	int find(enum pki_type type, QString name);
 	int next(int flag = DBFLAG_DELETED);
 	QString uniq_name(QString s, enum pki_type type);
-	int rename(enum pki_type type, const char *name, const char *n);
+	int rename(enum pki_type type, QString name, QString n);
 	int add(const unsigned char *p, int len, int ver, enum pki_type type,
-		const char *name);
+		QString name);
 	int set(const unsigned char *p, int len, int ver, enum pki_type type,
-		const char *name);
+		QString name);
 	unsigned char *load(db_header_t *u_header);
 	bool get_header(db_header_t *u_header);
 	int erase(void);

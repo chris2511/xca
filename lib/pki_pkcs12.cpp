@@ -51,6 +51,7 @@
 #include "pki_pkcs12.h"
 #include "pass_info.h"
 #include "exception.h"
+#include "func.h"
 #include <openssl/err.h>
 #include <Qt/qmessagebox.h>
 
@@ -101,8 +102,7 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		openssl_error();
 		if (mycert) {
 			if (mycert->aux && mycert->aux->alias){
-				ASN1_UTF8STRING *s = mycert->aux->alias;
-				alias = QString::fromUtf8((char*)s->data, s->length);
+				alias = asn1ToQString(mycert->aux->alias);
 			}
 			cert = new pki_x509(mycert);
 			if (alias.isEmpty()) {
@@ -149,7 +149,7 @@ void pki_pkcs12::writePKCS12(const QString fname)
 {
 	char pass[30];
 	char desc[100];
-	strncpy(desc, CCHAR(getIntName()), 100);
+	strncpy(desc, getIntName().toLocal8Bit(), 100);
 	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
 	if (cert == NULL || key == NULL) {
 		my_error(tr("No key or no Cert and no pkcs12"));

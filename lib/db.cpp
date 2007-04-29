@@ -1,6 +1,7 @@
 #include "db.h"
 #include "base.h"
 #include "exception.h"
+#include <Qt/qstringlist.h>
 #ifdef __WIN32__
 #include <windows.h>
 #else
@@ -40,7 +41,7 @@ void db::fileIOerr(QString s)
 }
 
 void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
-		const char *name)
+		QString name)
 {
 	memset(db, 0, sizeof(db_header_t));
 	db->magic = htonl(XCA_MAGIC);
@@ -49,7 +50,7 @@ void db::init_header(db_header_t *db, int ver, int len, enum pki_type type,
 	db->type = htons(type);
 	db->version = htons(ver);
 	db->flags = 0;
-	strncpy(db->name, name, NAMELEN);
+	strncpy(db->name, name.toUtf8(), NAMELEN);
 	db->name[NAMELEN-1] = '\0';
 }
 
@@ -81,7 +82,7 @@ bool db::eof()
 	return (head_offset == OFF_EOF);
 }
 
-int db::find(enum pki_type type, const char *name)
+int db::find(enum pki_type type, QString name)
 {
 	//int len, ret=0;
 
@@ -89,10 +90,10 @@ int db::find(enum pki_type type, const char *name)
 		//printf("Comparing %s -> %s at %lu\n", head.name, name,
 				//head_offset);
 		if (ntohs(head.type) == type) {
-			if (name == NULL) { /* only compare type */
+			if (name.isEmpty()) { /* only compare type */
 				//printf("typematch: %d\n", type);
 				return 0;
-			} else if (!strncmp(head.name, name, NAMELEN)) {
+			} else if (QString::fromUtf8(head.name) == name) {
 				//printf("namematch: %s\n", name);
 				return 0;
 			}
@@ -162,21 +163,21 @@ int db::next(int flag)
 	return 0;
 }
 
-int db::rename(enum pki_type type, const char *name, const char *n)
+int db::rename(enum pki_type type, QString name, QString n)
 {
 	int ret;
 
 	first();
 	if (find(type, n) == 0) {
-		printf("New name: %s already in use\n", n);
+		printf("New name: %s already in use\n", CCHAR(n));
 		return -1;
 	}
 	first();
 	if (find(type, name) != 0) {
-		printf("Entry to rename not found: %s\n", name);
+		printf("Entry to rename not found: %s\n", CCHAR(name));
 		return -1;
 	}
-	strncpy(head.name, n, NAMELEN);
+	strncpy(head.name, n.toUtf8(), NAMELEN);
 	head.name[NAMELEN-1] = '\0';
 	file.seek(head_offset);
 	ret = file.write((char*)&head, sizeof(head));
@@ -193,12 +194,20 @@ int db::rename(enum pki_type type, const char *name, const char *n)
 QString db::uniq_name(QString s, enum pki_type type)
 {
 	int i;
-	QString myname = s;
+	QString myname;
+	QStringList sl;
+	bool ok;
 
-	first();
-	for (i=1;;i++) {
-		if (find(type, CCHAR(myname)) == 0) {
-			myname = QString("%1_%2").arg(s).arg(i);
+	sl = s.split("_");
+	sl.last().toUInt(&ok, 10);
+	if (ok) {
+		sl.removeLast();
+		s = sl.join("_");
+	}
+	for (i=1, myname = s; ; i++) {
+		first();
+		if (find(type, myname) == 0) {
+			myname = s + QString("_%1").arg(i);
 		} else {
 			break;
 		}
@@ -207,7 +216,7 @@ QString db::uniq_name(QString s, enum pki_type type)
 }
 
 int db::add(const unsigned char *p, int len, int ver, enum pki_type type,
-		const char *name)
+		QString name)
 {
 	db_header_t db;
 
@@ -226,7 +235,7 @@ int db::add(const unsigned char *p, int len, int ver, enum pki_type type,
 }
 
 int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
-		                const char *name)
+		                QString name)
 {
 	int ret;
 

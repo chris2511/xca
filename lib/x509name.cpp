@@ -49,6 +49,7 @@
 
 #include "x509name.h"
 #include "base.h"
+#include "func.h"
 #include <openssl/asn1.h>
 
 x509name::x509name()
@@ -112,34 +113,22 @@ QString x509name::getEntry(int i) const
 
 	if ( i<0 || i>entryCount() )
 		return ret;
+
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
 
-	if (d==NULL)
-		return ret;
-
-	if (d->type == V_ASN1_BMPSTRING) {
-		for (int i=0; i<d->length; i+=2)
-			ret += QChar((unsigned short)d->data[i] * 256 +
-					(unsigned short)d->data[i+1]   );
-	}
-	else if (d->type == V_ASN1_UTF8STRING)
-		ret=QString::fromUtf8((const char *)d->data,d->length);
-	else
-		ret=QString::fromLatin1((const char *)d->data,d->length);
-
-	return ret;
+	return asn1ToQString(d);
 }
 
 QString x509name::getEntryTag(int i) const
 {
-	QString s = "Invalid";
+	QString s = QObject::tr("Invalid");
 	ASN1_STRING *d;
 
 	if ( i<0 || i>entryCount() )
 		return s;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
 
-	if (d==NULL)
+	if (!d)
 		return s;
 
 	s = ASN1_tag2str(d->type);

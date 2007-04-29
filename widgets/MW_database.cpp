@@ -168,13 +168,13 @@ void MainWindow::undelete()
 		if (head.flags & DBFLAG_DELETED) {
 			pki_base *item;
 			unsigned char *p = NULL;
-
+			QString name = QString::fromUtf8(head.name);
 			switch (head.type) {
-			case asym_key: item = new pki_key(head.name); break;
-			case x509_req: item = new pki_x509req(head.name); break;
-			case x509: item = new pki_x509(head.name); break;
-			case revokation: item = new pki_crl(head.name); break;
-			case tmpl: item = new pki_temp(head.name); break;
+			case asym_key: item = new pki_key(name); break;
+			case x509_req: item = new pki_x509req(name); break;
+			case x509: item = new pki_x509(name); break;
+			case revokation: item = new pki_crl(name); break;
+			case tmpl: item = new pki_temp(name); break;
 			default: continue;
 			}
 			try {

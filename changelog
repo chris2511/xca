@@ -1,3 +1,6 @@
+  * fix segfault
+  * switch string handling to UTF8
+
 xca 0.6.2
 
   * break endless loop in chain building

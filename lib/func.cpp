@@ -56,6 +56,8 @@
 #include <Qt/qcombobox.h>
 #include <Qt/qmessagebox.h>
 #include <Qt/qapplication.h>
+/* for htons() */
+#include <netinet/in.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -171,4 +173,32 @@ void applyTD(QWidget *parent, int number, int range, bool mnc,
     }
     nb->setDate(a.now(), midnight);
     na->setDate(a.now(delta * d_fac), midnight* (-1));
+}
+
+QString asn1ToQString(const ASN1_STRING *str)
+{
+	QString qs;
+	unsigned short *bmp;
+	int i;
+
+	if (!str)
+		return qs;
+
+	switch (str->type) {
+		case V_ASN1_BMPSTRING:
+			bmp = (unsigned short*)str->data;
+			for (i = 0; i < str->length/2; i++)
+				qs += QChar(ntohs(bmp[i]));
+			break;
+		case V_ASN1_UTF8STRING:
+			qs = QString::fromUtf8((const char*)str->data, str->length);
+			break;
+		case V_ASN1_T61STRING:
+			qs = QString::fromLocal8Bit((const char*)str->data, str->length);
+			break;
+		default:
+			qs = QString::fromLatin1((const char*)str->data, str->length);
+	}
+	//printf("Convert %s string to '%s'\n", ASN1_tag2str(str->type),CCHAR(qs));
+	return qs;
 }

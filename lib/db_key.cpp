@@ -165,8 +165,6 @@ void db_key::newItem()
 	ui.image->setPixmap(*MainWindow::keyImg);
 
 	if (dlg->exec()) {
-		db mydb(dbName);
-
 		QString ksizes = ui.keyLength->currentText();
 		ksizes.replace( QRegExp("[^0-9]"), "" );
 		int ksize = ksizes.toInt();

@@ -213,13 +213,16 @@ pki_key::pki_key(const pki_key *pk)
 	encKey_len = pk->encKey_len;
 	if (encKey_len) {
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
+		check_oom(encKey);
 		memcpy(encKey, pk->encKey, encKey_len);
 	}
 	keylen = i2d_PublicKey(pk->key, NULL);
 	der_key = (unsigned char *)OPENSSL_malloc(keylen);
+	check_oom(der_key);
 	p = der_key;
 	i2d_PublicKey(pk->key, &p);
-	D2I_CLASHT(d2i_PublicKey, pk->key->type, &key, &der_key, keylen);
+	p = der_key;
+	D2I_CLASHT(d2i_PublicKey, pk->key->type, &key, &p, keylen);
 	openssl_error();
 	OPENSSL_free(der_key);
 }
@@ -313,6 +316,7 @@ void pki_key::fromData(const unsigned char *p, db_header_t *head )
 	encKey_len = size - (p1-p);
 	if (encKey_len) {
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
+		check_oom(encKey);
 		memcpy(encKey, p1 ,encKey_len);
 	}
 
@@ -338,6 +342,7 @@ EVP_PKEY *pki_key::decryptKey() const
 		unsigned char *q;
 		outl = i2d_PublicKey(key, NULL);
 		q = (unsigned char *)OPENSSL_malloc(outl);
+		check_oom(q);
 		p = q;
 		i2d_PublicKey(key, &p);
 		p = q;
@@ -376,6 +381,7 @@ EVP_PKEY *pki_key::decryptKey() const
 	}
 	//printf("Using decrypt Pass: %s\n", ownPassBuf);
 	p = (unsigned char *)OPENSSL_malloc(encKey_len);
+	check_oom(p);
 	openssl_error();
 	p1 = p;
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
@@ -411,6 +417,7 @@ unsigned char *pki_key::toData(int *size)
 	pubsize = i2d_PublicKey(key, NULL);
 	*size = pubsize + encKey_len + (2*sizeof(int));
 	p = (unsigned char *)OPENSSL_malloc(*size);
+	check_oom(p);
 	openssl_error();
 	p1 = p;
 	db::intToData(&p1, key->type);
@@ -479,7 +486,9 @@ void pki_key::encryptKey(const char *password)
 	/* reserve space for unencrypted and encrypted key */
 	keylen = i2d_PrivateKey(key, NULL);
 	encKey = (unsigned char *)OPENSSL_malloc(keylen + EVP_MAX_KEY_LENGTH + 8);
+	check_oom(encKey);
 	punenc = (unsigned char *)OPENSSL_malloc(keylen);
+	check_oom(punenc);
 	openssl_error();
 	punencc = punenc1 = punenc;
 	memcpy(encKey, iv, 8); /* store the iv */
@@ -638,6 +647,7 @@ QString pki_key::BN2QString(BIGNUM *bn)
 	int j;
 	int size = BN_num_bytes(bn);
 	unsigned char *buf = (unsigned char *)OPENSSL_malloc(size);
+	check_oom(buf);
 	BN_bn2bin(bn, buf);
 	for (j = 0; j< size; j++) {
 		sprintf(zs, "%02X%c",buf[j], ((j+1)%16 == 0) ?'\n':':');
@@ -817,11 +827,12 @@ void pki_key::veryOldFromData(unsigned char *p, int size )
 	EVP_CIPHER_CTX ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	sik = (unsigned char *)OPENSSL_malloc(size);
+	check_oom(sik);
 	openssl_error();
 	pdec = (unsigned char *)OPENSSL_malloc(size);
 	if (pdec == NULL ) {
 		OPENSSL_free(sik);
-		openssl_error();
+		check_oom(pdec);
 	}
 	pdec1=pdec;
 	sik1=sik;
@@ -880,6 +891,7 @@ void pki_key::oldFromData(unsigned char *p, int size )
 	encKey_len = size - (p1-p);
 	if (encKey_len) {
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
+		check_oom(encKey);
 		memcpy(encKey, p1 ,encKey_len);
 	}
 
