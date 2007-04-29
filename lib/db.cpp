@@ -1,3 +1,10 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
 #include "db.h"
 #include "base.h"
 #include "exception.h"
@@ -11,7 +18,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <malloc.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>

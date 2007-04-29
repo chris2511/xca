@@ -2,22 +2,8 @@ include $(TOPDIR)/Local.mak
 
 all: target.obj
 
-ifneq ($(prefix),)
-  CFLAGS+= -DPREFIX=\"$(prefix)\"
-endif
-
-ifneq ($(HOST),w32)
-  ifneq ($(etc),)
-    CFLAGS+= -DETC=\"$(etc)\"
-  else
-    CFLAGS+= -DETC=\"/etc/xca\"
-  endif
-endif
-
-CFLAGS+= -DVER=\"$(shell cat $(TOPDIR)/VERSION)\"
-
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))
-HEADERS=$(shell ls *.h)
+HEADERS=$(shell ls *.h 2>/dev/null)
 GCH=$(patsubst %, %.gch, $(HEADERS))
 
 pheaders: $(GCH)
@@ -30,7 +16,7 @@ moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@
 
 # how to create the headerfile from the *.ui
-%.h: %.ui
+ui_%.h: %.ui
 	$(UIC) -o $@ $<
 
 # default compile rule

@@ -33,7 +33,7 @@ if test "$HOST" = "linux"; then
   STDINC="-I/usr/include"
   STDLIB="-L/usr/lib"
   prefix=${prefix:=/usr/local}
-  CFLAGS=${CFLAGS:=-Wall -ggdb}
+  CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
 fi
 if test "$HOST" = "w32"; then
   LIBS="-lQtCore4 -lstdc++ -lqtmain -lws2_32 -lwsock32 -lgdi32"
@@ -44,7 +44,7 @@ if test "$HOST" = "w32"; then
 fi
 
 CC=${CC:=gcc}
-CF="-I. -I.."
+CF="-I. -I.. -I\$(TOPDIR)/ui"
 LDIRS=
 MOC=moc
 UIC=uic
@@ -123,6 +123,8 @@ echo -e "\n\nConfiguring XCA `cat VERSION`\n----------------------------"
 ######################### QT
 subdirs="/qt /qt4"
 search_includes Qt/qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
+subdirs="/qt/Qt /qt4/Qt"
+search_includes qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
 search_lib QtGui4 QtGui || err "The QT library was not found."
 search_lib c_r || true
 
@@ -205,6 +207,14 @@ HOST=${HOST}
 prefix=${prefix}
 
 EOF
+test -z "$etc" && etc=/etc/xca
+
+cat >local.h <<EOF
+#define PREFIX "$prefix"
+#define ETC "$etc"
+#define VER "`cat VERSION`"
+EOF
+
 find_make() {
   for dirs in /usr/local/bin /sw/bin /bin /usr/bin; do
     for make in gmake make; do

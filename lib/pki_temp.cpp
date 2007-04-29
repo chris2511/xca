@@ -1,57 +1,15 @@
-/* vi: set sw=4 ts=4: */
-/*
- * Copyright (C) 2001 Christian Hohnstaedt.
+/* vi: set sw=4 ts=4:
  *
- *  All rights reserved.
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
  *
- *
- *  Redistribution and use in source and binary forms, with or without
- *  modification, are permitted provided that the following conditions are met:
- *
- *  - Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be
- *    used to endorse or promote products derived from this software without
- *    specific prior written permission.
- *
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- *
- * This program links to software with different licenses from:
- *
- *	http://www.openssl.org which includes cryptographic software
- *	written by Eric Young (eay@cryptsoft.com)"
- *
- *	http://www.trolltech.com
- *
- *
- *
- * http://www.hohnstaedt.de/xca
- * email: christian@hohnstaedt.de
- *
- * $Id$
- *
+ * All rights reserved.
  */
 
 
 #include "pki_temp.h"
 #include "func.h"
 #include "db.h"
-#include <Qt/qdir.h>
+#include <qdir.h>
 
 QPixmap *pki_temp::icon=  NULL;
 
@@ -136,7 +94,7 @@ void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 	fromData(p, size, version);
 }
 
-void pki_temp::fromData(const unsigned char *p, int size, int version)
+void pki_temp::fromData(const unsigned char *p, int size, int)
 {
 	const unsigned char *p1 = p;
 
@@ -293,8 +251,8 @@ pki_temp::~pki_temp()
 int pki_temp::dataSize()
 {
 	int s = 9 * sizeof(int) +
-	       8 * sizeof(char) +
-	       xname.derSize() + (
+			8 * sizeof(char) +
+		xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
 	crlDist.length() +
@@ -312,10 +270,10 @@ int pki_temp::dataSize()
 }
 
 
-bool pki_temp::compare(pki_base *ref)
+bool pki_temp::compare(pki_base *)
 {
- // we don't care if templates with identical contents
- // are stored in the database ...
+	// we don't care if templates with identical contents
+	// are stored in the database ...
 	return false;
 }
 

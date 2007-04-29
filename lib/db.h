@@ -1,3 +1,10 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
 #ifndef _XCA_DB_H_
 #define _XCA_DB_H_
 
@@ -6,8 +13,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <Qt/qstring.h>
-#include <Qt/qfile.h>
+#include <qstring.h>
+#include <qfile.h>
 
 #define XCA_MAGIC 0xcadb1969
 #define NAMELEN 80

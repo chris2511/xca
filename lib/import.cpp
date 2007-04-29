@@ -1,4 +1,11 @@
-/* vi: set sw=4 ts=4: */
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
+
 #include "exception.h"
 #include "db_base.h"
 #include <errno.h>
@@ -9,7 +16,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
-#include <Qt/qfile.h>
+#include <qfile.h>
 
 #define RESIZE 1024
 #define RDBUF 256

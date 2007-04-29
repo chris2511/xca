@@ -15,6 +15,7 @@ unpack xca there
 Use a W32 host to execute and install the selfextracting QT4....exe
 
 copy the installed tree to xca-w32/qt/
+
 $ cp openssl-0.9.8X.tar.gz xca-w32/
 $ tar zxf openssl-0.9.8X.tar.gz
 
@@ -26,11 +27,9 @@ compile openssl with:
 $ sh ms/mingw32-cross.sh
 
 compile xca:
-$ cd xca
-$ cp misc/Local.mak.w32 Local.mak
-Edit Local.mak:
- set BDIR to /FULLPATH/xca-w32
- set OPENSSLDIR and QTDIR
+$ cd xca-0.6.X
+$ ./configure.w32
+Edit Local.mak if needed:
  if your linux-qt is the same version as the w32 one,
  keep USE_HOSTTOOLS at "yes" otherwise set it to "no"
  and say make

@@ -1,11 +1,17 @@
-/* base definitions */
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
 
 #ifndef BASE_H
 #define BASE_H
 
 #define XCA_TITLE "X Certificate and Key management"
 
-#include <Qt/qglobal.h>
+#include <qglobal.h>
+#include "local.h"
 
 #ifdef WIN32
 #include <windows.h>

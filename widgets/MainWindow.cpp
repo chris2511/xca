@@ -1,73 +1,31 @@
-/* vi: set sw=4 ts=4: */
-/*
- * Copyright (C) 2001 Christian Hohnstaedt.
+/* vi: set sw=4 ts=4:
  *
- *  All rights reserved.
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
  *
- *
- *  Redistribution and use in source and binary forms, with or without
- *  modification, are permitted provided that the following conditions are met:
- *
- *  - Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be
- *    used to endorse or promote products derived from this software without
- *    specific prior written permission.
- *
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- *
- * This program links to software with different licenses from:
- *
- *	http://www.openssl.org which includes cryptographic software
- *	written by Eric Young (eay@cryptsoft.com)"
- *
- *	http://www.trolltech.com
- *
- *
- *
- * http://www.hohnstaedt.de/xca
- * email: christian@hohnstaedt.de
- *
- * $Id$
- *
+ * All rights reserved.
  */
 
 
 //#define MDEBUG
 #include "MainWindow.h"
 #include "ImportMulti.h"
-#include <Qt/qapplication.h>
-#include <Qt/qclipboard.h>
-#include <Qt/qmessagebox.h>
-#include <Qt/qlabel.h>
-#include <Qt/qpushbutton.h>
-#include <Qt/qlistview.h>
-#include <Qt/qlineedit.h>
-#include <Qt/qtextbrowser.h>
-#include <Qt/qstatusbar.h>
-#include <Qt/qlist.h>
+#include <qapplication.h>
+#include <qclipboard.h>
+#include <qmessagebox.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qlistview.h>
+#include <qlineedit.h>
+#include <qtextbrowser.h>
+#include <qstatusbar.h>
+#include <qlist.h>
 #include "lib/exception.h"
 #include "lib/pki_pkcs12.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
-#include "ui/PassRead.h"
-#include "ui/PassWrite.h"
+#include "ui_PassRead.h"
+#include "ui_PassWrite.h"
 
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
@@ -316,7 +274,7 @@ int MainWindow::initPass()
 
 // Static Password Callback functions
 
-int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
+int MainWindow::passRead(char *buf, int size, int, void *userdata)
 {
 	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
@@ -339,7 +297,7 @@ int MainWindow::passRead(char *buf, int size, int rwflag, void *userdata)
 }
 
 
-int MainWindow::passWrite(char *buf, int size, int rwflag, void *userdata)
+int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 {
 	int ret = -1;
 	pass_info *p = (pass_info *)userdata;
@@ -407,5 +365,5 @@ void MainWindow::connNewX509(NewX509 *nx)
  * segfaults. Thus I include the file here and remove it from the Makefile
  * and the linker works.
  * There is a FIXME and a warning */
-#warning inclde "MW_menu.cpp"
+#warning include "MW_menu.cpp"
 #include "MW_menu.cpp"
