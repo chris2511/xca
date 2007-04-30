@@ -1,3 +1,5 @@
+  * fix background color of clicklabels
+    Bug [ 1704699 ]
   * remove missleading tooltips 
     Bug [ 1704700 ]
   * fix segfault

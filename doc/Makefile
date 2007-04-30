@@ -2,6 +2,7 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
+DELFILES=*.html xca.1.gz 
 all: doc
 mandir=man
 doc: xca.1.gz xca.html

@@ -22,10 +22,11 @@ ClickLabel::ClickLabel(QWidget *parent)
 	setAlignment( Qt::AlignCenter );
 	setToolTip( tr("Double click for details") );
 
+	setAutoFillBackground(true);
 	QPalette pal = palette();
-	QColor col = QColor(200, 200, 200);
-	pal.setColor(QPalette::Normal, QPalette::Background, col );
-	pal.setColor(QPalette::Inactive, QPalette::Background, col );
+	QColor col = QColor(0xff, 0xff, 0xff);
+	pal.setColor(QPalette::Normal, QPalette::Window, col );
+	pal.setColor(QPalette::Inactive, QPalette::Window, col );
 	setPalette( pal );
 }
 
@@ -38,8 +39,8 @@ void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
 void ClickLabel::setColor(const QColor &col)
 {
 	QPalette pal = palette();
-	pal.setColor(QPalette::Normal, QPalette::Foreground, col );
-	pal.setColor(QPalette::Inactive, QPalette::Foreground, col );
+	pal.setColor(QPalette::Normal, QPalette::WindowText, col );
+	pal.setColor(QPalette::Inactive, QPalette::WindowText, col );
 	setPalette( pal );
 }
 

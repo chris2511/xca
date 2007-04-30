@@ -36,6 +36,7 @@ void CertDetail::setCert(pki_x509 *cert)
 	else {
 		privKey->setText(tr("Not available"));
 		privKey->setDisabled(true);
+		privKey->disableToolTip();
 	}
 
 	// examine the signature
