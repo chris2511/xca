@@ -30,4 +30,12 @@ class ClickLabel : public QLabel
 	void doubleClicked(QString text);
 };
 
+class CopyLabel : public QLabel
+{
+  Q_OBJECT
+
+  public:
+	CopyLabel(QWidget *parent);
+};
+
 #endif

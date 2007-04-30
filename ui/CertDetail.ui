@@ -254,16 +254,22 @@
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="1" column="1" >
-           <widget class="QLabel" name="fpSHA1" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="TextLabel2_2" >
+            <property name="text" >
+             <string>SHA1</string>
             </property>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="TextLabel1_2" >
+            <property name="text" >
+             <string>MD5</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="CopyLabel" name="fpSHA1" >
             <property name="toolTip" >
              <string>A SHA-1 hashsum of the certificate</string>
             </property>
@@ -276,15 +282,7 @@
            </widget>
           </item>
           <item row="0" column="1" >
-           <widget class="QLabel" name="fpMD5" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="CopyLabel" name="fpMD5" >
             <property name="toolTip" >
              <string>An md5 hashsum of the certificate</string>
             </property>
@@ -293,20 +291,6 @@
             </property>
             <property name="frameShadow" >
              <enum>QFrame::Sunken</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="TextLabel2_2" >
-            <property name="text" >
-             <string>SHA1</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="TextLabel1_2" >
-            <property name="text" >
-             <string>MD5</string>
             </property>
            </widget>
           </item>
@@ -326,15 +310,7 @@
            <number>6</number>
           </property>
           <item>
-           <widget class="QLabel" name="notBefore" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="CopyLabel" name="notBefore" >
             <property name="toolTip" >
              <string>The time since the certificate is valid</string>
             </property>
@@ -347,15 +323,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="notAfter" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>7</hsizetype>
-              <vsizetype>1</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="CopyLabel" name="notAfter" >
             <property name="toolTip" >
              <string>The time until the certificate is valid</string>
             </property>
@@ -507,15 +475,20 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>DistName</class>
-   <extends>QWidget</extends>
-   <header>widgets/distname.h</header>
-   <container>1</container>
+   <class>CopyLabel</class>
+   <extends>QLabel</extends>
+   <header>widgets/clicklabel.h</header>
   </customwidget>
   <customwidget>
    <class>ClickLabel</class>
    <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DistName</class>
+   <extends>QWidget</extends>
+   <header>widgets/distname.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

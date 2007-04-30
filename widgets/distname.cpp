@@ -12,6 +12,7 @@
 #include <qlineedit.h>
 #include "lib/x509name.h"
 #include "lib/base.h"
+#include "widgets/clicklabel.h"
 
 DistName::DistName(QWidget* parent)
     : QWidget(parent)
@@ -42,7 +43,7 @@ void DistName::setX509name(const x509name &n)
 	QStringList sl;
 	for (int i=0; i<n.entryCount(); i++) {
 		l1 = new QLabel( this );
-		l2 = new QLabel( this );
+		l2 = new CopyLabel( this );
 		sl = n.entryList(i);
 		l1->setText(sl[1]);
 		if (l1->text().isEmpty())

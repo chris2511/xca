@@ -221,42 +221,6 @@
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="1" column="1" >
-           <widget class="QLabel" name="nUpdate" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>3</hsizetype>
-              <vsizetype>5</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="frameShape" >
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow" >
-             <enum>QFrame::Sunken</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="QLabel" name="lUpdate" >
-            <property name="sizePolicy" >
-             <sizepolicy>
-              <hsizetype>3</hsizetype>
-              <vsizetype>5</vsizetype>
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="frameShape" >
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow" >
-             <enum>QFrame::Sunken</enum>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0" >
            <widget class="QLabel" name="TextLabel2_2" >
             <property name="text" >
@@ -268,6 +232,26 @@
            <widget class="QLabel" name="TextLabel1_2" >
             <property name="text" >
              <string>Last Update</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="CopyLabel" name="nUpdate" >
+            <property name="frameShape" >
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow" >
+             <enum>QFrame::Sunken</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="CopyLabel" name="lUpdate" >
+            <property name="frameShape" >
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow" >
+             <enum>QFrame::Sunken</enum>
             </property>
            </widget>
           </item>
@@ -305,6 +289,29 @@
        </property>
        <item>
         <widget class="DistName" native="1" name="issuer" />
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="unnamed_1" >
+      <attribute name="title" >
+       <string>&amp;Extensions</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>11</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QTextEdit" name="v3extensions" >
+         <property name="acceptDrops" >
+          <bool>false</bool>
+         </property>
+         <property name="readOnly" >
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -351,29 +358,6 @@
            <string>2</string>
           </property>
          </column>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="unnamed_1" >
-      <attribute name="title" >
-       <string>&amp;Extensions</string>
-      </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>11</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item>
-        <widget class="QTextEdit" name="v3extensions" >
-         <property name="acceptDrops" >
-          <bool>false</bool>
-         </property>
-         <property name="readOnly" >
-          <bool>true</bool>
-         </property>
         </widget>
        </item>
       </layout>
@@ -448,15 +432,20 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>DistName</class>
-   <extends>QWidget</extends>
-   <header>widgets/distname.h</header>
-   <container>1</container>
+   <class>CopyLabel</class>
+   <extends>QLabel</extends>
+   <header>widgets/clicklabel.h</header>
   </customwidget>
   <customwidget>
    <class>ClickLabel</class>
    <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DistName</class>
+   <extends>QWidget</extends>
+   <header>widgets/distname.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
