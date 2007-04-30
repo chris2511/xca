@@ -16,8 +16,8 @@ CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(OPENSSLDIR)/outinc \
 CFLAGS=-Wall -g -O2 -mthreads -mno-cygwin $(CONSOLE)
 
 LDFLAGS= -L$(OPENSSLDIR)/out -L$(QTDIR)/lib \
-	-Wl,-enable-stdcall-fixup -Wl,-enable-auto-import \
-	-Wl,-enable-runtime-pseudo-reloc
+	-enable-stdcall-fixup -enable-auto-import \
+	-enable-runtime-pseudo-reloc
 
 # list of dynamic libraries
 LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32

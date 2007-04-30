@@ -26,7 +26,7 @@ ui_%.h: %.ui
 
 # partial linking of objects in one directory
 target.obj: $(OBJS)
-	$(LD) -r -o $@ $(OBJS)
+	$(LD) $(LDFLAGS) -r -o $@ $(OBJS)
 
 # precompiled header
 %.h.gch: %.h

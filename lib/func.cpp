@@ -9,8 +9,6 @@
 #include "func.h"
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
-/* for htons() */
-#include <netinet/in.h>
 
 #include <qdir.h>
 #include <qlabel.h>
@@ -22,6 +20,9 @@
 #ifdef WIN32
 #include <windows.h>
 #include <shlobj.h>
+#else
+/* for htons() */
+#include <netinet/in.h>
 #endif
 
 QPixmap *loadImg(const char *name )
