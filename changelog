@@ -1,3 +1,4 @@
+  * Add options dialog 
   * make cert, crl and key details copy&paste able
   * fix background color of clicklabels
     Bug [ 1704699 ]

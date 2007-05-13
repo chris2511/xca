@@ -78,6 +78,12 @@ void MainWindow::init_database()
 				free(p);
 			}
 		}
+		if (!mydb.find(setting, "default_hash")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				hashBox::setDefault(p);
+				free(p);
+			}
+		}
 	} catch (errorEx &err) {
 		Error(err);
 		return;

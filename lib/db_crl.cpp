@@ -153,31 +153,22 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 	a1time time;
 	pki_crl *crl = NULL;
 	Ui::NewCrl ui;
-	const EVP_MD *dgst;
-	const EVP_MD *algolist[] = { EVP_md2(), EVP_md5(), EVP_sha1()
-#ifdef HAS_SHA256
-			,EVP_sha256(), EVP_sha512()
-#endif
-	};
+
 	x509v3ext e;
 	X509V3_CTX ext_ctx;
 	X509V3_set_ctx(&ext_ctx, cert->getCert() , NULL, NULL, NULL, 0);
 	X509V3_set_ctx_nodb((&ext_ctx));
 	QDialog *dlg = new QDialog(mainwin);
+
 	ui.setupUi(dlg);
 	ui.image->setPixmap(*MainWindow::revImg);
-#ifdef HAS_SHA256
-	ui.hashAlgo->addItem(tr("SHA 256"));
-	ui.hashAlgo->addItem(tr("SHA 512"));
-	ui.hashAlgo->setCurrentIndex(3);
-#endif
 	ui.lastUpdate->setDate(time.now());
 	ui.nextUpdate->setDate(time.now(cert->getCrlDays() *60*60*24));
 
 	if (cert->getRefKey()->getType() == EVP_PKEY_DSA)
-		ui.hashAlgo->setEnabled(false);
+		ui.hashAlgo->setDsa(true);
 	else
-		ui.hashAlgo->setEnabled(true);
+		ui.hashAlgo->setDsa(false);
 
 	if (cert->hasExtension(NID_subject_alt_name))
 		ui.subAltName->setEnabled(true);
@@ -212,12 +203,8 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		crl->setLastUpdate(ui.lastUpdate->getDate());
 		crl->setNextUpdate(ui.nextUpdate->getDate());
 		cert->setCrlExpiry(ui.nextUpdate->getDate());
-		if (cert->getRefKey()->getType() == EVP_PKEY_DSA)
-			dgst = EVP_dss1();
-		else
-			dgst = algolist[ui.hashAlgo->currentIndex()];
 
-		crl->sign(cert->getRefKey(), dgst);
+		crl->sign(cert->getRefKey(), ui.hashAlgo->currentHash());
 		mainwin->certs->updatePKI(cert);
 		insert(crl);
 	}

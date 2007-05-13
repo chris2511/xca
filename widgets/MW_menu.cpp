@@ -7,8 +7,11 @@
 
 
 #include "MainWindow.h"
+#include "Options.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
+#include "ui_Options.h"
+#include "widgets/hashBox.h"
 #include <qapplication.h>
 #include <qmenubar.h>
 #include <qmessagebox.h>
@@ -31,6 +34,8 @@ void MainWindow::init_menu()
 	acList += file->addAction(tr("&Undelete items"), this,
 				SLOT(undelete()), Qt::CTRL+Qt::Key_U );
 	file->addSeparator();
+	file->addAction(tr("Options"), this, SLOT(setOptions()) );
+	file->addSeparator();
 	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
 
 	import = menuBar()->addMenu(tr("&Import"));
@@ -50,6 +55,7 @@ void MainWindow::init_menu()
 				SLOT(on_BNimportCrl_clicked()) );
 	import->addAction(tr("PEM file"), this,
 				SLOT(loadPem()) );
+
 
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );
@@ -124,4 +130,23 @@ void MainWindow::import_dbdump()
 	} catch (errorEx &err) {
 		Error(err);
 	}
+}
+
+void MainWindow::setOptions()
+{
+	Options *opt = new Options(this);
+
+	if (!opt->exec())
+		return;
+
+	QString alg = opt->hashAlgo->currentHashName();
+	db mydb(dbfile);
+	mydb.set((const unsigned char *)CCHAR(alg), alg.length()+1, 1,
+			setting, "default_hash");
+	hashBox::setDefault(alg);
+	
+	QString mandatory = opt->getDnString();
+	printf("DNString = %s\n", CCHAR(mandatory));
+	mydb.set((const unsigned char *)CCHAR(mandatory), mandatory.length()+1, 1,
+	             setting, "mandatory_dn");
 }

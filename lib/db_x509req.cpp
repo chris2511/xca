@@ -62,17 +62,14 @@ void db_x509req::newItem(pki_temp *temp)
 		return;
 	}
 	try {
-		const EVP_MD *hashAlgo = dlg->getHashAlgo();
 		pki_key *key = dlg->getSelectedKey();
 		x509name xn = dlg->getX509name();
 		req = new pki_x509req();
 
 		req->setIntName(dlg->description->text());
-		if (key->getType() == EVP_PKEY_DSA)
-			hashAlgo = EVP_dss1();
 
 		dlg->initCtx(NULL, NULL, req);
-		req->createReq(key, xn, hashAlgo, dlg->getAllExt());
+		req->createReq(key, xn, dlg->hashAlgo->currentHash(), dlg->getAllExt());
 		insert(req);
 	}
 	catch (errorEx &err) {

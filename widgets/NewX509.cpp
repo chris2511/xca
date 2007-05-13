@@ -57,12 +57,6 @@ NewX509::NewX509(QWidget *parent)
 	serialNr->setValidator( new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
 	QStringList strings;
 
-	hashAlgo->setCurrentIndex(2);
-#ifdef HAS_SHA256
-	hashAlgo->addItem(tr("SHA 256"));
-	hashAlgo->addItem(tr("SHA 512"));
-	hashAlgo->setCurrentIndex(3);
-#endif
 	// are there any useable private keys  ?
 	strings = MainWindow::keys->get0PrivateDesc();
 	keyList->insertItems(0, strings);
@@ -339,10 +333,8 @@ void NewX509::on_reqList_currentIndexChanged(const QString &)
 
 void NewX509::switchHashAlgo()
 {
-	static int h_index = 0;
 	pki_key *key;
 	pki_x509super *sig;
-	bool disable;
 
 	if (foreignSignRB->isChecked())
 		sig = getSelectedSigner();
@@ -352,22 +344,10 @@ void NewX509::switchHashAlgo()
 		sig = NULL;
 
 	key = sig ? sig->getRefKey() : getSelectedKey();
-	disable = (key && key->getType() == EVP_PKEY_DSA) ? true : false;
-
-	if (disable) {
-		if (hashAlgo->isEnabled()) {
-			/* backup */
-			h_index = hashAlgo->currentIndex();
-			hashAlgo->setCurrentIndex(2);
-			hashAlgo->setDisabled(true);
-		}
-	} else {
-		if (!hashAlgo->isEnabled()) {
-			/* restore */
-			hashAlgo->setCurrentIndex(h_index);
-			hashAlgo->setDisabled(false);
-		}
-	}
+	if (key && key->getType() == EVP_PKEY_DSA)
+		hashAlgo->setDsa(true);
+	else
+		hashAlgo->setDsa(false);
 }
 
 void NewX509::toggleOkBut()
@@ -585,16 +565,6 @@ void NewX509::on_extDNadd_clicked()
 void NewX509::on_extDNdel_clicked()
 {
 	extDNlist->removeRow(extDNlist->currentRow());
-}
-
-const EVP_MD *NewX509::getHashAlgo()
-{
-	const EVP_MD *ha[] = { EVP_md2(), EVP_md5(), EVP_sha1()
-#ifdef HAS_SHA256
-		, EVP_sha256(), EVP_sha512()
-#endif
-	};
-	return ha[hashAlgo->currentIndex()];
 }
 
 void NewX509::on_applyTime_clicked()

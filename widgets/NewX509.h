@@ -77,7 +77,6 @@ class NewX509: public QDialog, public Ui::NewX509
 	x509v3ext getCertPol();
 	extList getNetscapeExt();
 	extList getAllExt();
-	const EVP_MD *getHashAlgo();
 	void initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req);
 	void setBasicConstraints(const x509v3ext &e);
 	void setExt(const x509v3ext &ext);

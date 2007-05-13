@@ -280,23 +280,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="hashAlgo" >
-           <item>
-            <property name="text" >
-             <string>MD 2</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>MD 5</string>
-            </property>
-           </item>
-           <item>
-            <property name="text" >
-             <string>SHA 1</string>
-            </property>
-           </item>
-          </widget>
+          <widget class="hashBox" name="hashAlgo" />
          </item>
         </layout>
        </item>
@@ -1491,6 +1475,11 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>hashBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/hashBox.h</header>
+  </customwidget>
   <customwidget>
    <class>Validity</class>
    <extends>QWidget</extends>

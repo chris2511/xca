@@ -515,9 +515,7 @@ void db_x509::newCert(NewX509 *dlg)
 	for (int i=0; i<m; i++)
 		 cert->addV3ext(ne[i]);
 
-	const EVP_MD *hashAlgo = dlg->getHashAlgo();
-	if (signkey->getType() == EVP_PKEY_DSA)
-		hashAlgo = EVP_dss1();
+	const EVP_MD *hashAlgo = dlg->hashAlgo->currentHash();
 #ifdef WG_QA_SERIAL
 	if (dlg->selfQASignRB->isChecked()) {
 		// sign the request intermediately in order to finally fill

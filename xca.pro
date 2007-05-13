@@ -49,10 +49,12 @@ HEADERS += lib/asn1int.h \
            widgets/ExportCert.h \
            widgets/ExportDer.h \
            widgets/ExportKey.h \
+           widgets/hashBox.h \
            widgets/ImportMulti.h \
            widgets/KeyDetail.h \
            widgets/MainWindow.h \
            widgets/NewX509.h \
+	   widgets/Options.h \
            widgets/ReqDetail.h \
            widgets/v3ext.h \
            widgets/validity.h \
@@ -73,6 +75,7 @@ FORMS += ui/About.ui \
          ui/NewCrl.ui \
          ui/NewKey.ui \
          ui/NewX509.ui \
+         ui/Options.ui \
          ui/PassRead.ui \
          ui/PassWrite.ui \
          ui/ReqDetail.ui \
@@ -114,6 +117,7 @@ SOURCES += lib/asn1int.cpp \
            widgets/ExportCert.cpp \
            widgets/ExportDer.cpp \
            widgets/ExportKey.cpp \
+           widgets/hashBox.cpp \
            widgets/ImportMulti.cpp \
            widgets/KeyDetail.cpp \
            widgets/MainWindow.cpp \
@@ -122,6 +126,7 @@ SOURCES += lib/asn1int.cpp \
            widgets/MW_menu.cpp \
            widgets/NewX509.cpp \
            widgets/NewX509_ext.cpp \
+	   Widgets/Options.cpp \
            widgets/ReqDetail.cpp \
            widgets/v3ext.cpp \
            widgets/validity.cpp \
