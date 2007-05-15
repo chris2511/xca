@@ -34,6 +34,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString workingdir;
 		QList<QWidget*> wdList;
 		QList<QAction*> acList;
+		QString mandatory_dn;
 
 	protected:
 		void init_images();
@@ -54,6 +55,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		int exitApp;
 		QString dbfile;
 		QLabel *dbindex;
+		bool multiple_key_use;
 
 		MainWindow(QWidget *parent);
 		virtual ~MainWindow();

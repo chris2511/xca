@@ -49,7 +49,7 @@ QStringList db_key::get0PrivateDesc()
 	QStringList x;
 	x.clear();
 	FOR_ALL_pki(pki, pki_key) {
-		if (pki->isPrivKey() && pki->getUcount() == 0)
+		if (pki->isPrivKey() && (pki->getUcount() == 0 || mainwin->multiple_key_use))
 			x.append(pki->getIntNameWithType());
 	}
 	return x;

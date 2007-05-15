@@ -78,9 +78,24 @@ void MainWindow::init_database()
 				free(p);
 			}
 		}
+		mydb.first();
 		if (!mydb.find(setting, "default_hash")) {
 			if ((p = (char *)mydb.load(NULL))) {
 				hashBox::setDefault(p);
+				free(p);
+			}
+		}
+		mydb.first();
+		if (!mydb.find(setting, "mandatory_dn")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				mandatory_dn = p;
+				free(p);
+			}
+		}
+		mydb.first();
+		if (!mydb.find(setting, "multiple_key_use")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				multiple_key_use = *p ? true : false;
 				free(p);
 			}
 		}

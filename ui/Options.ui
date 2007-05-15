@@ -112,7 +112,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox" >
+    <widget class="QCheckBox" name="multiple_use" >
      <property name="text" >
       <string>Allow multiple use of keys</string>
      </property>

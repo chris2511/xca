@@ -134,8 +134,10 @@ void MainWindow::import_dbdump()
 
 void MainWindow::setOptions()
 {
-	Options *opt = new Options(this);
+	unsigned char bol;
+	Options *opt = new Options(this, mandatory_dn);
 
+	opt->multiple_use->setChecked(multiple_key_use);
 	if (!opt->exec())
 		return;
 
@@ -145,8 +147,13 @@ void MainWindow::setOptions()
 			setting, "default_hash");
 	hashBox::setDefault(alg);
 	
-	QString mandatory = opt->getDnString();
-	printf("DNString = %s\n", CCHAR(mandatory));
-	mydb.set((const unsigned char *)CCHAR(mandatory), mandatory.length()+1, 1,
-	             setting, "mandatory_dn");
+	mandatory_dn = opt->getDnString();
+	printf("DNString = %s\n", CCHAR(mandatory_dn));
+	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
+			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
+
+	
+	multiple_key_use = opt->multiple_use->isChecked();
+	bol = multiple_key_use ? 1 : 0;
+	mydb.set(&bol, sizeof(bol), 1, setting, "multiple_key_use");
 }

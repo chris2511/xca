@@ -17,7 +17,7 @@ class Options: public QDialog, public Ui::Options
 {
 		Q_OBJECT
 	public:
-		Options(QWidget *parent);
+		Options(QWidget *parent, QString dn);
 	public slots:
 		void on_extDNadd_clicked();
 		void on_extDNdel_clicked();
