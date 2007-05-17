@@ -27,6 +27,7 @@ class pki_crl: public pki_base
 		/* destructor */
 		~pki_crl();
 		void fload(const QString fname);
+		QString getSigAlg();
 		void writeDefault(const QString fname);
 		static QPixmap *icon;
 		void createCrl(const QString d, pki_x509 *iss);

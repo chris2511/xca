@@ -112,7 +112,7 @@ NewX509::NewX509(QWidget *parent)
 
 	// init the X509 v3 context
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
-	X509V3_set_ctx_nodb((&ext_ctx));
+	X509V3_set_ctx_nodb(&ext_ctx);
 
 	// setup the list of x509nameEntrys
 	name_ptr[0] = countryName;
@@ -356,7 +356,7 @@ void NewX509::toggleOkBut()
 		countryName->text().length() !=1 &&
 		( keyList->count() > 0  || !keyList->isEnabled() );
 	ok |= fromReqCB->isChecked();
-	okButton->setEnabled(ok);
+	//okButton->setEnabled(ok);
 }
 
 void NewX509::on_description_textChanged(QString)
@@ -628,26 +628,113 @@ void NewX509::on_editAuthInfAcc_clicked()
 	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
 }
 
+QString NewX509::mandatoryDnRemain()
+{
+	QStringList dnl = MainWindow::mandatory_dn.split(",");
+	x509name n;
+	int i;
+
+	if (fromReqCB->isChecked())
+		n = getSelectedReq()->getSubject();
+	else
+		n = getX509name();
+
+	for (i=0; i< n.entryCount(); i++) {
+		int j = dnl.indexOf(QString(OBJ_nid2sn(n.nid(i))));
+		if (j>=0)
+			dnl.removeAt(j);
+	}
+	return dnl.join(",");
+}
+
 void NewX509::on_okButton_clicked()
 {
+	if (description->text().isEmpty() && !fromReqCB->isChecked()) {
+		if (commonName->text().isEmpty()) {
+			if (QMessageBox::warning(this, tr(XCA_TITLE),
+					tr("The internal name and the common name are empty.\n"
+					"Please set at least the internal name."),
+					tr("Ok"), tr("Abort rollout")) == 1)
+			{
+				reject();
+			}
+			return;
+		} else {
+			description->setText(commonName->text());
+		}
+	}
+
+	if (countryName->text().length() == 1) {
+		if (QMessageBox::warning(this, tr(XCA_TITLE),
+				tr("The Country name must be either empty or 2 digits long."),
+				tr("Ok"), tr("Abort rollout")) == 1)
+		{
+			reject();
+		}
+		return;
+	}
+
+	if ( keyList->count() == 0 &&
+		keyList->isEnabled() &&
+		!fromReqCB->isChecked())
+	{
+		if (QMessageBox::warning(this, tr(XCA_TITLE),
+				tr("There is no Key selected for signing."),
+				tr("Ok"), tr("Abort rollout")) == 1)
+		{
+			reject();
+		}
+		return;
+	}
+
+	QString unsetDN;
+	if (pt != tmpl)
+		unsetDN = mandatoryDnRemain();
+	if (!unsetDN.isEmpty())
+	{
+		switch (QMessageBox::warning(this, tr(XCA_TITLE),
+				tr("The following distinguished name entries are empty,\n"
+					"though you have declared them as mandatory "
+					"in the options menu:\n") + unsetDN,
+				tr("Ok"), tr("Abort rollout"),
+				tr("Continue rollout")))
+		{
+			case -1:
+			case 0:
+				return;
+			case 1:
+				reject();
+				return;
+		}
+	}
 	if (notBefore->getDate().get_utc() == NULL ||
 				notAfter->getDate().get_utc() == NULL) {
-		if (QMessageBox::warning(this, tr(XCA_TITLE),
+		switch (QMessageBox::warning(this, tr(XCA_TITLE),
 			tr("The validity dates are out of range (1950 - 2049) to create "
-			"valid certificates. If you continue, your client may "
-			"reject the certificate."), tr("Continue to issue"),
-			tr("Change validity times")))
+				"valid certificates. If you continue, your client may "
+				"reject the certificate."),
+			tr("Ok"), tr("Abort rollout"), tr("Continue rollout")))
 		{
-			return;
+			case -1:
+			case 0:
+				return;
+			case 1:
+				reject();
+				return;
 		}
 	}
 	if (notBefore->getDate() > notAfter->getDate()) {
-		if (QMessageBox::warning(this, tr(XCA_TITLE),
+		switch (QMessageBox::warning(this, tr(XCA_TITLE),
 			tr("The certificate will be out of date before it becomes valid. "
-			"You most probably mixed up both dates."),
-			tr("Continue to issue"), tr("Change validity times")))
+				"You most probably mixed up both dates."),
+			tr("Ok"), tr("Abort rollout"), tr("Continue rollout")))
 		{
-			return;
+			case -1:
+			case 0:
+				return;
+			case 1:
+				reject();
+				return;
 		}
 	}
 	accept();

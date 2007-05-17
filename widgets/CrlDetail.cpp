@@ -48,7 +48,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 		issuerIntName->setGreen();
 		pki_key *key = iss->getPubKey();
 		if (crl->verify(key)) {
-			signCheck->setText(tr("Ok"));
+			signCheck->setText(crl->getSigAlg());
 			signCheck->setGreen();
 		} else {
 			signCheck->setText(tr("Failed"));

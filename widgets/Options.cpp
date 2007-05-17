@@ -8,19 +8,20 @@
 #include "Options.h"
 #include <openssl/objects.h>
 
-Options::Options(QWidget *parent, QString dn)
+Options::Options(QWidget *parent)
 	:QDialog(parent)
 {
-	QStringList dnl = dn.split(",");
-	if (dn.isEmpty())
-		dnl.clear();
+	QStringList dnl;
+	if (!MainWindow::mandatory_dn.isEmpty())
+		dnl = MainWindow::mandatory_dn.split(",");
+
 	NIDlist dn_nid = *MainWindow::dn_nid;
 	setWindowTitle(tr(XCA_TITLE));
 	setupUi(this);
 
 	for (int i=0; i < dn_nid.count(); i++)
 		extDNobj->addItem(OBJ_nid2ln(dn_nid[i]));
-	
+
 	for (int i=0; i < dnl.count(); i++) {
 		int nid;
 		nid = OBJ_sn2nid(CCHAR(dnl[i]));

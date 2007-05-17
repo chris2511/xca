@@ -40,6 +40,11 @@ void pki_crl::fload(const QString fname )
 	else fopen_error(fname);
 }
 
+QString pki_crl::getSigAlg()
+{
+	QString alg = OBJ_nid2ln(OBJ_obj2nid(crl->sig_alg->algorithm));
+	return alg;
+}
 
 void pki_crl::createCrl(const QString d, pki_x509 *iss )
 {

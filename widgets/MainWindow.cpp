@@ -43,6 +43,7 @@ NIDlist *MainWindow::eku_nid = NULL;
 NIDlist *MainWindow::dn_nid = NULL;
 NIDlist *MainWindow::aia_nid = NULL;
 
+QString MainWindow::mandatory_dn;
 
 MainWindow::MainWindow(QWidget *parent )
 	:QMainWindow(parent)

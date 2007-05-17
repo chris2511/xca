@@ -34,7 +34,7 @@ void MainWindow::init_menu()
 	acList += file->addAction(tr("&Undelete items"), this,
 				SLOT(undelete()), Qt::CTRL+Qt::Key_U );
 	file->addSeparator();
-	file->addAction(tr("Options"), this, SLOT(setOptions()) );
+	acList += file->addAction(tr("Options"), this, SLOT(setOptions()) );
 	file->addSeparator();
 	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
 
@@ -135,7 +135,7 @@ void MainWindow::import_dbdump()
 void MainWindow::setOptions()
 {
 	unsigned char bol;
-	Options *opt = new Options(this, mandatory_dn);
+	Options *opt = new Options(this);
 
 	opt->multiple_use->setChecked(multiple_key_use);
 	if (!opt->exec())
@@ -146,13 +146,12 @@ void MainWindow::setOptions()
 	mydb.set((const unsigned char *)CCHAR(alg), alg.length()+1, 1,
 			setting, "default_hash");
 	hashBox::setDefault(alg);
-	
+
 	mandatory_dn = opt->getDnString();
-	printf("DNString = %s\n", CCHAR(mandatory_dn));
 	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
 			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
 
-	
+
 	multiple_key_use = opt->multiple_use->isChecked();
 	bol = multiple_key_use ? 1 : 0;
 	mydb.set(&bol, sizeof(bol), 1, setting, "multiple_key_use");

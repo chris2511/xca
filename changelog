@@ -1,4 +1,9 @@
-  * Add options dialog 
+xca 0.6.3
+
+  * show CRL signature algorithm information
+  * Add options dialog to set the default hash algo,
+    mandatory distinguished name entries and allow duplicate key use
+    as requested by some users
   * make cert, crl and key details copy&paste able
   * fix background color of clicklabels
     Bug [ 1704699 ]
@@ -322,6 +327,6 @@ xca 0.1.11
 
   * RSA Keys are generated and stored to or loaded from a file
     in either DER or PEM format.
-  * They get stored in a local Bercley DB.
+  * They get stored in a local Berkeley DB.
   * Changing their description and viewing their contents, as well
     as deleting them from local DB is possible.

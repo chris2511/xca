@@ -126,7 +126,7 @@ SOURCES += lib/asn1int.cpp \
            widgets/MW_menu.cpp \
            widgets/NewX509.cpp \
            widgets/NewX509_ext.cpp \
-	   Widgets/Options.cpp \
+	   widgets/Options.cpp \
            widgets/ReqDetail.cpp \
            widgets/v3ext.cpp \
            widgets/validity.cpp \
