@@ -48,7 +48,7 @@ QString getPrefix()
 		/* if we already once discovered the directory just return it */
 		return QString(inst_dir);
 	}
-	// fallback: directory of xca.exe 
+	// fallback: directory of xca.exe
 	GetModuleFileName(0, inst_dir, dwLength - 1);
 	p = strrchr(inst_dir, '\\');
 	if (p) {

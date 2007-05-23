@@ -116,7 +116,7 @@ void ImportMulti::import(QModelIndex &idx)
 	if (!mainwin->keys) {
 		mainwin->load_database();
 	}
-	
+
 	QString cn = pki->getClassName();
 	mcont->remFromCont(idx);
 	if (!mainwin->keys) {

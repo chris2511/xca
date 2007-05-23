@@ -559,7 +559,7 @@ void pki_key::writeKey(const QString fname, const EVP_CIPHER *enc,
 				PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
 			} else {
 				i2d_PrivateKey_fp(fp, pkey);
-        	}
+			}
 			EVP_PKEY_free(pkey);
 		}
 		openssl_error();

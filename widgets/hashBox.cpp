@@ -53,7 +53,7 @@ void hashBox::setDsa(bool new_dsa)
 		setDisabled(false);
         }
 }
-		
+
 const EVP_MD *hashBox::currentHash()
 {
 	if (dsa)
