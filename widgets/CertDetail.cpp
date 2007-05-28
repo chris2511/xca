@@ -98,7 +98,12 @@ void CertDetail::setCert(pki_x509 *cert)
 	fpSHA1->setText(cert->fingerprint(EVP_sha1()));
 
 	// V3 extensions
-	v3extensions->document()->setHtml(cert->printV3ext());
+	QString cert_ext = cert->printV3ext();
+	if (cert_ext.isEmpty()) {
+		tabwidget->removeTab(3);
+	} else {
+		v3extensions->document()->setHtml(cert_ext);
+	}
 
 	// Algorithm
 	sigAlgo->setText(cert->getSigAlg());

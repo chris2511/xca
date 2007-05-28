@@ -61,7 +61,7 @@ x509v3ext NewX509::getAuthKeyIdent()
 		if (foreignSignRB->isChecked())
 			ext.create(NID_authority_key_identifier,
 				"keyid,issuer:always", &ext_ctx);
-                else
+		else
 			ext.create(NID_authority_key_identifier,
 				"keyid:always", &ext_ctx);
 	}
@@ -171,7 +171,8 @@ void NewX509::setAuthInfAcc_string(QString aia_txt)
 
 	aia = aia_txt.split(';');
 
-	if (aia.count() != 2) return;
+	if (aia.count() != 2)
+		return;
 
 	nid = OBJ_sn2nid(CCHAR(aia[0]));
 
@@ -217,6 +218,8 @@ extList NewX509::getAllExt()
 	ne << getSubAltName();
 	ne << getIssAltName();
 	ne << getCrlDist();
+	ne << getAuthInfAcc();
+	ne << getCertPol();
 	ne += getNetscapeExt();
 	return ne;
 
@@ -272,19 +275,3 @@ void NewX509::setExt(const x509v3ext &ext)
 	}
 }
 
-QString NewX509::createRequestText()
-{
-	return "---";
-	extList ne;
-
-	ne << getBasicConstraints();
-	ne << getSubKeyIdent();
-	ne << getAuthKeyIdent();
-	ne << getKeyUsage();
-	ne << getEkeyUsage();
-	ne << getSubAltName();
-	ne << getIssAltName();
-	ne << getCrlDist();
-
-	return ne.getHtml("<br>") + getNetscapeExt().getHtml("<br>");
-}

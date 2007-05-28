@@ -1,15 +1,12 @@
 <ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
  <class>v3ext</class>
  <widget class="QDialog" name="v3ext" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>424</width>
-    <height>203</height>
+    <width>386</width>
+    <height>232</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -22,6 +19,9 @@
    <property name="spacing" >
     <number>6</number>
    </property>
+   <item>
+    <widget class="QWidget" native="1" name="widget" />
+   </item>
    <item>
     <layout class="QHBoxLayout" >
      <property name="margin" >
@@ -37,6 +37,12 @@
       <widget class="QLineEdit" name="value" />
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QWidget" native="1" name="widget_2" />
+   </item>
+   <item>
+    <widget class="QWidget" native="1" name="widget_3" />
    </item>
    <item>
     <layout class="QHBoxLayout" >
@@ -160,36 +166,6 @@
     </layout>
    </item>
   </layout>
-  <widget class="QWidget" name="widget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QWidget" name="widget_2" >
-   <property name="geometry" >
-    <rect>
-     <x>9</x>
-     <y>40</y>
-     <width>406</width>
-     <height>110</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QWidget" name="widget_3" >
-   <property name="geometry" >
-    <rect>
-     <x>360</x>
-     <y>41</y>
-     <width>54</width>
-     <height>108</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections>

@@ -125,6 +125,20 @@ void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
 	openssl_error();
 }
 
+void pki_x509req::addAttribute(int nid, QString content)
+{
+	if (content.isEmpty())
+		return;
+
+	ASN1_STRING *a = QStringToAsn1(content, nid);
+	if (!a) {
+		openssl_error();
+		return;
+	}
+	X509_REQ_add1_attr_by_NID(request, nid, a->type, a->data, a->length);
+	ASN1_STRING_free(a);
+}
+
 x509name pki_x509req::getSubject() const
 {
 	x509name x(X509_REQ_get_subject_name(request));

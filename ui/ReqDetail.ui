@@ -80,7 +80,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QTabWidget" name="TabWidget3" >
+    <widget class="QTabWidget" name="tabwidget" >
      <property name="currentIndex" >
       <number>0</number>
      </property>
@@ -206,6 +206,22 @@
        </property>
        <item>
         <widget class="DistName" native="1" name="subject" />
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2" >
+      <attribute name="title" >
+       <string>Attributes</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <property name="margin" >
+        <number>9</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QWidget" native="1" name="attributes" />
        </item>
       </layout>
      </widget>

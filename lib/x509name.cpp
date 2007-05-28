@@ -9,6 +9,8 @@
 #include "base.h"
 #include "func.h"
 #include <openssl/asn1.h>
+#include <openssl/err.h>
+#include "exception.h"
 
 x509name::x509name()
 {
@@ -119,7 +121,7 @@ int x509name::nid(int i) const
 	return nid;
 }
 
-unsigned char *x509name::d2i(const unsigned char *p, int size)
+const unsigned char *x509name::d2i(const unsigned char *p, int size)
 {
 	X509_NAME *xn_sik = xn;
 	xn = D2I_CLASH(d2i_X509_NAME, NULL, &p, size);
@@ -127,14 +129,13 @@ unsigned char *x509name::d2i(const unsigned char *p, int size)
 		xn = xn_sik;
 	else
 		X509_NAME_free(xn_sik);
-	return (unsigned char *)p;
+	return p;
 }
 
 unsigned char *x509name::i2d(unsigned char *p)
 {
-	unsigned char *mp = p;
-	i2d_X509_NAME(xn, &mp);
-	return mp;
+	i2d_X509_NAME(xn, &p);
+	return p;
 }
 
 bool x509name::operator == (const x509name &x) const
@@ -158,52 +159,23 @@ int x509name::getNidByName(const QString &nid_name)
 	return OBJ_txt2nid(nid_name.toAscii());
 }
 
-static int fix_data(int nid, int *type)
-{
-	if (nid == NID_pkcs9_emailAddress)
-		*type=V_ASN1_IA5STRING;
-	if ((nid == NID_commonName) && (*type == V_ASN1_IA5STRING))
-		*type=V_ASN1_T61STRING;
-	if ((nid == NID_pkcs9_challengePassword) && (*type == V_ASN1_IA5STRING))
-		*type=V_ASN1_T61STRING;
-	if ((nid == NID_pkcs9_unstructuredName) && (*type == V_ASN1_T61STRING))
-		return(0);
-	if (nid == NID_pkcs9_unstructuredName)
-		*type=V_ASN1_IA5STRING;
-	return 1;
-}
-
 void x509name::addEntryByNid(int nid, const QString entry)
 {
-	if (entry.isEmpty()) return;
-
-	// check for a UNICODE-String.
-	bool need_uc=false;
-
-	for (int i=0;i<entry.length();i++)
-		if(entry.at(i).unicode()>127) { need_uc=true; break; }
-
-	if (need_uc) {
-		unsigned char *data = (unsigned char *)OPENSSL_malloc(entry.length()*2);
-
-		for (int i=0;i<entry.length();i++) {
-			data[2*i] = entry.at(i).unicode() >> 8;
-			data[2*i+1] = entry.at(i).unicode() & 0xff;
+	if (entry.isEmpty())
+		return;
+	ASN1_STRING *a = QStringToAsn1(entry, nid);
+	if (!a) {
+		QString error = QString(OBJ_nid2ln(nid)) + ":\n";
+		while (int i = ERR_get_error() ) {
+			fprintf(stderr, "OpenSSL error: %s\n", ERR_error_string(i ,NULL) );
+			error += ERR_error_string(i, NULL);
+			error += "\n";
 		}
-
-		X509_NAME_add_entry_by_NID(xn, nid, V_ASN1_BMPSTRING,
-					   data,entry.length()*2,-1,0);
-		OPENSSL_free(data);
+		throw errorEx(error, "x509name");
+		return;
 	}
-	else {
-		unsigned char *x = (unsigned char*)CCHAR(entry);
-		int type = ASN1_PRINTABLE_type(x,-1);
-
-		if (fix_data(nid, &type) == 0)
-			return;
-
-		X509_NAME_add_entry_by_NID(xn, nid, type, x,-1,-1,0);
-	}
+	X509_NAME_add_entry_by_NID(xn, nid, a->type, a->data, a->length, -1, 0);
+	ASN1_STRING_free(a);
 }
 
 X509_NAME *x509name::get() const

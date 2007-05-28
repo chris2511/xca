@@ -11,6 +11,7 @@
 #include "distname.h"
 #include "clicklabel.h"
 #include "lib/pki_x509req.h"
+#include "lib/func.h"
 #include <qlabel.h>
 #include <qlineedit.h>
 
@@ -60,7 +61,59 @@ void ReqDetail::setReq(pki_x509req *req)
 
 	// The extensions
 	extList el = req->getV3Ext();
-	v3extensions->document()->setHtml(el.getHtml("<br>"));
+	if (el.count() == 0) {
+		tabwidget->removeTab(3);
+	} else {
+		v3extensions->document()->setHtml(el.getHtml("<br>"));
+	}
 
+	// The non extension attributes
+	int cnt = X509_REQ_get_attr_count(req->getReq());
+	int added = 0;
+	QGridLayout *attrLayout = new QGridLayout(attributes);
+	attrLayout->setAlignment(Qt::AlignTop);
+	attrLayout->setSpacing(6);
+	attrLayout->setMargin(11);
+
+	for (int i = 0; i<cnt; i++) {
+		int nid;
+		QLabel *label;
+		X509_ATTRIBUTE *att = X509_REQ_get_attr(req->getReq(), i);
+		nid = OBJ_obj2nid(att->object);
+		if (X509_REQ_extension_nid(nid)) {
+			continue;
+		}
+		label = new QLabel(this);
+		label->setText(QString(OBJ_nid2ln(nid)));
+		label->setToolTip(QString(OBJ_nid2sn(nid)));
+		attrLayout->addWidget(label, i, 0);
+		added++;
+
+		if (att->single) {
+			label = labelFromAsn1Type(att->value.single);
+			attrLayout->addWidget(label, i, 1);
+			continue;
+		}
+		int count = sk_ASN1_TYPE_num(att->value.set);
+		for (int j=0; j<count; j++) {
+			label = labelFromAsn1Type(sk_ASN1_TYPE_value(att->value.set, j));
+			attrLayout->addWidget(label, i, j +1);
+		}
+	}
+	if (!added) {
+		tabwidget->removeTab(2);
+	}
 }
 
+QLabel *ReqDetail::labelFromAsn1Type(ASN1_TYPE *at)
+{
+	QLabel *label;
+	ASN1_STRING *st = at->value.asn1_string;
+
+	label = new CopyLabel(this);
+	label->setText(asn1ToQString(st));
+	label->setToolTip(QString(ASN1_tag2str(st->type)));
+	label->setFrameShape(QFrame::Panel);
+	label->setFrameShadow(QFrame::Sunken);
+	return label;
+}

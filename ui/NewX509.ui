@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>596</width>
-    <height>580</height>
+    <width>587</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -119,44 +119,68 @@
          <property name="title" >
           <string>Signing request</string>
          </property>
-         <layout class="QGridLayout" >
+         <layout class="QVBoxLayout" >
           <property name="margin" >
-           <number>8</number>
+           <number>9</number>
           </property>
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="0" column="0" >
-           <widget class="QCheckBox" name="fromReqCB" >
-            <property name="text" >
-             <string>Sign this Certificate signing &amp;request</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" >
-           <widget class="QCheckBox" name="copyReqExtCB" >
-            <property name="text" >
-             <string>Copy extensions from the request</string>
-            </property>
-            <property name="checked" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="QComboBox" name="reqList" >
-            <property name="whatsThis" >
-             <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
+          <item>
+           <widget class="QWidget" native="1" name="reqWidget" >
+            <layout class="QGridLayout" >
+             <property name="margin" >
+              <number>0</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <item row="0" column="1" >
+              <widget class="QComboBox" name="reqList" >
+               <property name="whatsThis" >
+                <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
 Getting signed by a CA certificate, whoes certificate of course must be in the database
 Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
-            </property>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" >
+              <widget class="QPushButton" name="showReqBut" >
+               <property name="text" >
+                <string>Show request</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" >
+              <widget class="QCheckBox" name="fromReqCB" >
+               <property name="text" >
+                <string>Sign this Certificate signing &amp;request</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" >
+              <widget class="QCheckBox" name="copyReqExtCB" >
+               <property name="text" >
+                <string>Copy extensions from the request</string>
+               </property>
+               <property name="checked" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="1" column="1" >
-           <widget class="QPushButton" name="showReqBut" >
-            <property name="text" >
-             <string>Show request</string>
-            </property>
+          <item>
+           <widget class="QWidget" native="1" name="attrWidget" >
+            <layout class="QHBoxLayout" >
+             <property name="margin" >
+              <number>0</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -627,7 +651,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
       </attribute>
       <layout class="QVBoxLayout" >
        <property name="margin" >
-        <number>8</number>
+        <number>9</number>
        </property>
        <property name="spacing" >
         <number>6</number>
@@ -792,103 +816,105 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         </spacer>
        </item>
        <item>
-        <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item>
-          <widget class="QGroupBox" name="validityBox" >
-           <property name="title" >
-            <string>Validity</string>
-           </property>
-           <layout class="QGridLayout" >
-            <property name="margin" >
-             <number>8</number>
+        <widget class="QWidget" native="1" name="timewidget" >
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>9</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QGroupBox" name="validityBox" >
+            <property name="title" >
+             <string>Validity</string>
             </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item row="0" column="1" >
-             <widget class="Validity" native="1" name="notBefore" />
-            </item>
-            <item row="1" column="1" >
-             <widget class="Validity" native="1" name="notAfter" />
-            </item>
-            <item row="0" column="0" >
-             <widget class="QLabel" name="TextLabel1_2_3_2" >
-              <property name="text" >
-               <string>Not before</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" >
-             <widget class="QLabel" name="TextLabel2_4_2" >
-              <property name="text" >
-               <string>Not after</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="rangeBox" >
-           <property name="title" >
-            <string>Time range</string>
-           </property>
-           <layout class="QGridLayout" >
-            <property name="margin" >
-             <number>8</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item row="1" column="1" >
-             <widget class="QPushButton" name="applyTime" >
-              <property name="text" >
-               <string>Apply</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" >
-             <widget class="QComboBox" name="validRange" >
-              <item>
+            <layout class="QGridLayout" >
+             <property name="margin" >
+              <number>8</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <item row="0" column="1" >
+              <widget class="Validity" native="1" name="notBefore" />
+             </item>
+             <item row="1" column="1" >
+              <widget class="Validity" native="1" name="notAfter" />
+             </item>
+             <item row="0" column="0" >
+              <widget class="QLabel" name="TextLabel1_2_3_2" >
                <property name="text" >
-                <string>Days</string>
+                <string>Not before</string>
                </property>
-              </item>
-              <item>
+              </widget>
+             </item>
+             <item row="1" column="0" >
+              <widget class="QLabel" name="TextLabel2_4_2" >
                <property name="text" >
-                <string>Months</string>
+                <string>Not after</string>
                </property>
-              </item>
-              <item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="rangeBox" >
+            <property name="title" >
+             <string>Time range</string>
+            </property>
+            <layout class="QGridLayout" >
+             <property name="margin" >
+              <number>8</number>
+             </property>
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <item row="1" column="1" >
+              <widget class="QPushButton" name="applyTime" >
                <property name="text" >
-                <string>Years</string>
+                <string>Apply</string>
                </property>
-              </item>
-             </widget>
-            </item>
-            <item row="1" column="0" >
-             <widget class="QCheckBox" name="midnightCB" >
-              <property name="toolTip" >
-               <string>Set the time to 00:00:00 and 23:59:59 respectively</string>
-              </property>
-              <property name="text" >
-               <string>Midnight</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" >
-             <widget class="QLineEdit" name="validNumber" />
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
+              </widget>
+             </item>
+             <item row="0" column="1" >
+              <widget class="QComboBox" name="validRange" >
+               <item>
+                <property name="text" >
+                 <string>Days</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>Months</string>
+                </property>
+               </item>
+               <item>
+                <property name="text" >
+                 <string>Years</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="0" >
+              <widget class="QCheckBox" name="midnightCB" >
+               <property name="toolTip" >
+                <string>Set the time to 00:00:00 and 23:59:59 respectively</string>
+               </property>
+               <property name="text" >
+                <string>Midnight</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" >
+              <widget class="QLineEdit" name="validNumber" />
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
         <spacer>
@@ -1034,16 +1060,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </layout>
        </item>
       </layout>
-      <widget class="QWidget" native="1" name="widget_3" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>100</width>
-         <height>30</height>
-        </rect>
-       </property>
-      </widget>
      </widget>
      <widget class="QWidget" name="tab_3" >
       <attribute name="title" >

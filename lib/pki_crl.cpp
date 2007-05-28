@@ -25,7 +25,7 @@ pki_crl::pki_crl(const QString name )
 
 void pki_crl::fload(const QString fname )
 {
-	FILE * fp = fopen(CCHAR(fname), "r");
+	FILE *fp = fopen(CCHAR(fname), "r");
 	if (fp != NULL) {
 		crl = PEM_read_X509_CRL(fp, &crl, NULL, NULL);
 		if (!crl) {

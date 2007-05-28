@@ -579,6 +579,37 @@ then a Certificate Revocation List should be created and will be stored in the
 database. 
 <p>
 
+<sect>Options
+<p>
+The options dialog can be found in the file menu. All options are saved
+in the database and do not depend on the operating systems registry or
+configuration files.
+<p>
+
+<sect1>Mandatory subject entries
+<p>
+A list of mandatory distinguished name entries may be specified to
+get a warning, whenever issuing a certificate with one of the listed
+entry is empty. This requirement is not checked when editing templates,
+because templates may have empty entries that will be filled during
+the rollout of the certificate.
+<p>
+
+<sect1>Allow multiple use of keys
+<p>
+When creating certificates or requests the list of keys only contains unused keys
+to avoid a duplicate use of keys. This option allows the user to shoot herself
+into the foot. If this option is checked, the key list will contain
+all available keys. Usually, you don't want to enable this.
+<p>
+
+<sect1>Default hash algorithm
+<p>
+Older Windows versions and OpenSSL versions can not handle
+SHA256 and SHA512. This option allows to set the hash algorithm to SHA1
+for instance.
+<p>
+
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Object IDs
 <p>

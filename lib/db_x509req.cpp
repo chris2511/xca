@@ -69,6 +69,7 @@ void db_x509req::newItem(pki_temp *temp)
 		req->setIntName(dlg->description->text());
 
 		dlg->initCtx(NULL, NULL, req);
+		dlg->addReqAttributes(req);
 		req->createReq(key, xn, dlg->hashAlgo->currentHash(), dlg->getAllExt());
 		insert(req);
 	}

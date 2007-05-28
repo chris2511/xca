@@ -9,6 +9,8 @@
 #include "func.h"
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
+#include <openssl/objects.h>
+#include <openssl/asn1.h>
 
 #include <qdir.h>
 #include <qlabel.h>
@@ -163,3 +165,11 @@ QString asn1ToQString(const ASN1_STRING *str)
 	//printf("Convert %s string to '%s'\n", ASN1_tag2str(str->type),CCHAR(qs));
 	return qs;
 }
+
+/* returns an encoded ASN1 string from QString for a special nid*/
+ASN1_STRING *QStringToAsn1(const QString s, int nid)
+{
+	const unsigned char *utf8 = (const unsigned char *)s.toUtf8().constData();
+	ASN1_STRING_set_by_NID(NULL, utf8, -1, MBSTRING_UTF8, nid);
+}
+

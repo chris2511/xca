@@ -1,3 +1,9 @@
+  * remove extension and attribute tab in details dialog if
+    no extensions or attributes available
+  * documentation updated
+  * X509 request attributes (like challange password) can be set
+    and viewed.
+
 xca 0.6.3
 
   * show CRL signature algorithm information

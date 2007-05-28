@@ -83,7 +83,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QTabWidget" name="Widget" >
+    <widget class="QTabWidget" name="tabwidget" >
      <property name="currentIndex" >
       <number>0</number>
      </property>
@@ -475,11 +475,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CopyLabel</class>
-   <extends>QLabel</extends>
-   <header>widgets/clicklabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>ClickLabel</class>
    <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
@@ -489,6 +484,11 @@
    <extends>QWidget</extends>
    <header>widgets/distname.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CopyLabel</class>
+   <extends>QLabel</extends>
+   <header>widgets/clicklabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

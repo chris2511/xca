@@ -23,7 +23,7 @@ DistName::DistName(QWidget* parent)
 	lineEdit = new QLineEdit(this);
 
 	DistNameLayout = new QGridLayout();
-	DistNameLayout->setAlignment( Qt::AlignTop );
+	DistNameLayout->setAlignment(Qt::AlignTop);
 	DistNameLayout->setSpacing(6);
 	DistNameLayout->setMargin(11);
 	v->setSpacing(6);

@@ -24,7 +24,7 @@ class x509name
 		x509name &set(const X509_NAME *n);
 		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
 		int nid(int i) const;
-		unsigned char *d2i(const unsigned char *p, int size);
+		const unsigned char *d2i(const unsigned char *p, int size);
 		unsigned char *i2d(unsigned char *p);
 		QStringList entryList(int i) const;
 		QString getEntryByNid(int nid ) const;

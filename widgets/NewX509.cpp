@@ -43,6 +43,8 @@ NewX509::NewX509(QWidget *parent)
 	eku_nid = *MainWindow::eku_nid;
 	dn_nid = *MainWindow::dn_nid;
 	aia_nid = *MainWindow::aia_nid;
+	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
+
 	QStringList sl;
 
 	setupUi(this);
@@ -123,21 +125,42 @@ NewX509::NewX509(QWidget *parent)
 	name_ptr[5] = commonName;
 	name_ptr[6] = emailAddress;
 
+	// Setup Request Attributes
+	if (attrWidget->layout())
+		delete attrWidget->layout();
+	QGridLayout *attrLayout = new QGridLayout(attrWidget);
+	attrLayout->setAlignment(Qt::AlignTop);
+	attrLayout->setSpacing(6);
+	attrLayout->setMargin(0);
+	attr_edit.clear();
+	for (i=0; i < attr_nid.count(); i++) {
+		QLabel *label;
+		QLineEdit *edit;
+		int nid = attr_nid[i];
+		label = new QLabel(this);
+		label->setText(QString(OBJ_nid2ln(nid)));
+		label->setToolTip(QString(OBJ_nid2sn(nid)));
+		edit = new QLineEdit(this);
+		attr_edit << edit;
+		attrLayout->addWidget(label, i, 0);
+		attrLayout->addWidget(edit, i, 1);
+	}
 	// last polish
 	on_certList_currentIndexChanged(0);
 	certList->setDisabled(true);
 	checkAuthKeyId();
-	toggleOkBut();
 	tabWidget->setCurrentIndex(0);
+	attrWidget->hide();
 	pt = none;
 }
 
 void NewX509::setRequest()
 {
-	requestBox->setEnabled(false);
+	reqWidget->hide();
+	attrWidget->show();
+
 	signerBox->setEnabled(false);
-	validityBox->setEnabled(false);
-	rangeBox->setEnabled(false);
+	timewidget->setEnabled(false);
 	capt->setText(tr("Create Certificate signing request"));
 	setImage(MainWindow::csrImg);
 	pt = x509_req;
@@ -146,6 +169,13 @@ void NewX509::setRequest()
 NewX509::~NewX509()
 {
 
+}
+
+void NewX509::addReqAttributes(pki_x509req *req)
+{
+	for (int i=0; i < attr_nid.count(); i++) {
+		req->addAttribute(attr_nid[i], attr_edit[i]->text());
+	}
 }
 
 void NewX509::setTemp(pki_temp *temp)
@@ -162,7 +192,6 @@ void NewX509::setTemp(pki_temp *temp)
 	validityBox->setEnabled(false);
 	setImage(MainWindow::tempImg);
 	pt = tmpl;
-	toggleOkBut();
 }
 
 void NewX509::setCert()
@@ -317,7 +346,6 @@ void NewX509::on_fromReqCB_clicked()
 	copyReqExtCB->setEnabled(request);
 	showReqBut->setEnabled(request);
 	switchHashAlgo();
-	toggleOkBut();
 }
 
 
@@ -348,25 +376,6 @@ void NewX509::switchHashAlgo()
 		hashAlgo->setDsa(true);
 	else
 		hashAlgo->setDsa(false);
-}
-
-void NewX509::toggleOkBut()
-{
-	bool ok = ! description->text().isEmpty()  &&
-		countryName->text().length() !=1 &&
-		( keyList->count() > 0  || !keyList->isEnabled() );
-	ok |= fromReqCB->isChecked();
-	//okButton->setEnabled(ok);
-}
-
-void NewX509::on_description_textChanged(QString)
-{
-	toggleOkBut();
-}
-
-void NewX509::on_countryName_textChanged(QString)
-{
-	toggleOkBut();
 }
 
 void NewX509::on_showReqBut_clicked()
@@ -475,7 +484,6 @@ void NewX509::newKeyDone(QString name)
 {
 	keyList->insertItem(0, name);
 	keyList->setCurrentIndex(0);
-	toggleOkBut();
 }
 
 pki_key *NewX509::getSelectedKey()
@@ -494,20 +502,28 @@ pki_x509req *NewX509::getSelectedReq()
 	return (pki_x509req *)MainWindow::reqs->getByName(reqList->currentText());
 }
 
-x509name NewX509::getX509name()
+x509name NewX509::getX509name(int _throw)
 {
 	x509name x;
-	int j, row;
+	int j, row, nid;
 
-	for (j = 0; j<EXPLICIT_NAME_CNT; j++) {
-		x.addEntryByNid(name_nid[j], name_ptr[j]->text());
-	}
-
-	row = extDNlist->rowCount();
-	for (j=0; j<row; j++) {
-		int nid;
-		nid = OBJ_ln2nid(CCHAR(extDNlist->item(j,0)->text()));
-		x.addEntryByNid(nid, CCHAR(extDNlist->item(j,1)->text()));
+	try {
+		for (j = 0; j<EXPLICIT_NAME_CNT; j++) {
+			nid = name_nid[j];
+			x.addEntryByNid(nid, name_ptr[j]->text());
+		}
+		row = extDNlist->rowCount();
+		for (j=0; j<row; j++) {
+			nid = OBJ_ln2nid(CCHAR(extDNlist->item(j,0)->text()));
+			x.addEntryByNid(nid, extDNlist->item(j,1)->text());
+		}
+	} catch (errorEx &err) {
+		if (!err.isEmpty()) {
+			if (_throw)
+				throw err;
+			else
+				QMessageBox::warning(this, XCA_TITLE, err.getString());
+		}
 	}
 	return x;
 }
@@ -649,6 +665,17 @@ QString NewX509::mandatoryDnRemain()
 
 void NewX509::on_okButton_clicked()
 {
+	try {
+		getX509name(1);
+	} catch (errorEx &err) {
+		if (QMessageBox::warning(this, tr(XCA_TITLE), err.getString(),
+				tr("Ok"), tr("Abort rollout")) == 1)
+		{
+			reject();
+		}
+		return;
+	}
+
 	if (description->text().isEmpty() && !fromReqCB->isChecked()) {
 		if (commonName->text().isEmpty()) {
 			if (QMessageBox::warning(this, tr(XCA_TITLE),
@@ -662,16 +689,6 @@ void NewX509::on_okButton_clicked()
 		} else {
 			description->setText(commonName->text());
 		}
-	}
-
-	if (countryName->text().length() == 1) {
-		if (QMessageBox::warning(this, tr(XCA_TITLE),
-				tr("The Country name must be either empty or 2 digits long."),
-				tr("Ok"), tr("Abort rollout")) == 1)
-		{
-			reject();
-		}
-		return;
 	}
 
 	if ( keyList->count() == 0 &&

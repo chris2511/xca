@@ -20,4 +20,5 @@ QString getHomeDir();
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na);
 QString asn1ToQString(const ASN1_STRING *str);
+ASN1_STRING *QStringToAsn1(QString s, int nid);
 #endif

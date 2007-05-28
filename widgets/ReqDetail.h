@@ -10,6 +10,7 @@
 
 #include "ui_ReqDetail.h"
 #include <qdialog.h>
+#include <openssl/asn1.h>
 
 class pki_x509req;
 
@@ -20,6 +21,7 @@ class ReqDetail: public QDialog, public Ui::ReqDetail
    public:
 	ReqDetail( QWidget *parent);
 	void setReq(pki_x509req *req);
+	QLabel *labelFromAsn1Type(ASN1_TYPE *at);
 };
 
 #endif

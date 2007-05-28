@@ -500,17 +500,7 @@ void db_x509::newCert(NewX509 *dlg)
 			cert->addV3ext(el[i]);
 	}
 
-	cert->addV3ext(dlg->getBasicConstraints());
-	cert->addV3ext(dlg->getSubKeyIdent());
-	cert->addV3ext(dlg->getAuthKeyIdent());
-	cert->addV3ext(dlg->getKeyUsage());
-	cert->addV3ext(dlg->getEkeyUsage());
-	cert->addV3ext(dlg->getSubAltName());
-	cert->addV3ext(dlg->getIssAltName());
-	cert->addV3ext(dlg->getCrlDist());
-	cert->addV3ext(dlg->getAuthInfAcc());
-	cert->addV3ext(dlg->getCertPol());
-	extList ne = dlg->getNetscapeExt();
+	extList ne = dlg->getAllExt();
 	int m = ne.count();
 	for (int i=0; i<m; i++)
 		 cert->addV3ext(ne[i]);
@@ -536,7 +526,8 @@ void db_x509::newCert(NewX509 *dlg)
     catch (errorEx &err) {
 		mainwin->Error(err);
 		delete cert;
-		if (tempkey != NULL) delete(tempkey);
+		if (tempkey != NULL)
+			delete(tempkey);
     }
 }
 
