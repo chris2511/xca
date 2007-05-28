@@ -134,10 +134,9 @@ void MainWindow::import_dbdump()
 
 void MainWindow::setOptions()
 {
-	unsigned char bol;
 	Options *opt = new Options(this);
 
-	opt->multiple_use->setChecked(multiple_key_use);
+	opt->setStringOpt(string_opt);
 	if (!opt->exec())
 		return;
 
@@ -151,8 +150,8 @@ void MainWindow::setOptions()
 	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
 			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
 
-
-	multiple_key_use = opt->multiple_use->isChecked();
-	bol = multiple_key_use ? 1 : 0;
-	mydb.set(&bol, sizeof(bol), 1, setting, "multiple_key_use");
+	string_opt = opt->getStringOpt();
+	ASN1_STRING_set_default_mask_asc((char *)CCHAR(string_opt));
+	mydb.set((const unsigned char *)CCHAR(string_opt),
+			string_opt.length()+1, 1, setting, "string_opt");
 }

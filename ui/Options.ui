@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>379</width>
-    <height>294</height>
+    <height>327</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -112,13 +112,6 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="multiple_use" >
-     <property name="text" >
-      <string>Allow multiple use of keys</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QHBoxLayout" >
      <property name="margin" >
       <number>0</number>
@@ -135,6 +128,26 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <widget class="hashBox" name="hashAlgo" />
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>String types</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="mbstring" />
      </item>
     </layout>
    </item>

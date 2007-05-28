@@ -44,6 +44,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		enum pki_type pt;
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
+		QStringList private_keys, private_keys0;
 	public:
 		QRadioButton *selfQASignRB;
 		NewX509(QWidget *parent);
@@ -106,6 +107,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_certList_currentIndexChanged(int index);
 		void on_applyTemplate_clicked();
 		void on_okButton_clicked();
+		void on_usedKeysToo_toggled(bool checked);
 	signals:
 		void genKey();
 		void showReq(QString req);

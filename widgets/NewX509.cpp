@@ -60,8 +60,7 @@ NewX509::NewX509(QWidget *parent)
 	QStringList strings;
 
 	// are there any useable private keys  ?
-	strings = MainWindow::keys->get0PrivateDesc();
-	keyList->insertItems(0, strings);
+	newKeyDone("");
 
 	// any PKCS#10 requests to be used ?
 	strings = MainWindow::reqs->getDesc();
@@ -482,8 +481,33 @@ void NewX509::on_subKey_clicked()
 
 void NewX509::newKeyDone(QString name)
 {
-	keyList->insertItem(0, name);
-	keyList->setCurrentIndex(0);
+	QStringList keys;
+	private_keys = MainWindow::keys->get0PrivateDesc(true);
+	private_keys0 = MainWindow::keys->get0PrivateDesc(false);
+	keyList->clear();
+	if (usedKeysToo->isChecked())
+		keys = private_keys;
+	else
+		keys = private_keys0;
+
+	keyList->insertItems(0, keys);
+	if (name.isEmpty() && keys.count() >0)
+		name = keys[0];
+	keyList->setCurrentIndex(keys.indexOf(name));
+}
+
+void NewX509::on_usedKeysToo_toggled(bool checked)
+{
+	QString cur = keyList->currentText();
+	QStringList keys;
+	keyList->clear();
+	if (usedKeysToo->isChecked())
+		keys = private_keys;
+	else
+		keys = private_keys0;
+
+	keyList->insertItems(0, keys);
+	keyList->setCurrentIndex(keys.indexOf(cur));
 }
 
 pki_key *NewX509::getSelectedKey()

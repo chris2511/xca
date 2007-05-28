@@ -32,6 +32,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
 	private:
 		QString workingdir;
+		QString string_opt;
 		QList<QWidget*> wdList;
 		QList<QAction*> acList;
 
@@ -55,7 +56,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		int exitApp;
 		QString dbfile;
 		QLabel *dbindex;
-		bool multiple_key_use;
 
 		MainWindow(QWidget *parent);
 		virtual ~MainWindow();

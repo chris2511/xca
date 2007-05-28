@@ -16,12 +16,16 @@
 class Options: public QDialog, public Ui::Options
 {
 		Q_OBJECT
+	private:
+		QStringList string_opts;
 	public:
 		Options(QWidget *parent);
 	public slots:
 		void on_extDNadd_clicked();
 		void on_extDNdel_clicked();
 		QString getDnString();
+		void setStringOpt(const QString string_opt);
+		QString getStringOpt();
 };
 
 #endif

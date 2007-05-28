@@ -92,10 +92,16 @@ void MainWindow::init_database()
 				free(p);
 			}
 		}
+		// what a stupid idea....
 		mydb.first();
 		if (!mydb.find(setting, "multiple_key_use")) {
+			mydb.erase();
+		}
+		mydb.first();
+		if (!mydb.find(setting, "string_opt")) {
 			if ((p = (char *)mydb.load(NULL))) {
-				multiple_key_use = *p ? true : false;
+				string_opt = p;
+				ASN1_STRING_set_default_mask_asc(p);
 				free(p);
 			}
 		}

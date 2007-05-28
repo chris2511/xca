@@ -27,6 +27,13 @@ Options::Options(QWidget *parent)
 		nid = OBJ_sn2nid(CCHAR(dnl[i]));
 		extDNlist->insertItem(0, OBJ_nid2ln(nid));
 	}
+	string_opts << "default" << "nobmp" << "pkix" << "utf8only";
+	QStringList s;
+	s << tr("Default: automatically detect String type")
+	  << tr("NO BMPstrings, only printable and T61")
+	  << tr("PKIX recommendation in RFC2459")
+	  << tr("UTF8Strings only (RFC2459 recommendation for 2004)");
+	mbstring->addItems(s);
 }
 
 void Options::on_extDNadd_clicked()
@@ -48,3 +55,17 @@ QString Options::getDnString()
     }
 	return dn.join(",");
 }
+
+void Options::setStringOpt(const QString string_opt)
+{
+	int index = string_opts.indexOf(string_opt);
+	if (index < 0)
+		index = 0;
+	mbstring->setCurrentIndex(index);
+}
+
+QString Options::getStringOpt()
+{
+	return string_opts[mbstring->currentIndex()];
+}
+

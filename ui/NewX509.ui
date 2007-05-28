@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>587</width>
-    <height>610</height>
+    <height>598</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -615,20 +615,11 @@ If this list is disabled, you only can create a self-signed certificate.</string
            </widget>
           </item>
           <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
+           <widget class="QCheckBox" name="usedKeysToo" >
+            <property name="text" >
+             <string>Used keys too</string>
             </property>
-            <property name="sizeType" >
-             <enum>QSizePolicy::Expanding</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="genKeyBUT" >
@@ -1492,15 +1483,15 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>hashBox</class>
-   <extends>QComboBox</extends>
-   <header>widgets/hashBox.h</header>
-  </customwidget>
-  <customwidget>
    <class>Validity</class>
    <extends>QWidget</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>hashBox</class>
+   <extends>QComboBox</extends>
+   <header>widgets/hashBox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
