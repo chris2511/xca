@@ -27,12 +27,12 @@ Options::Options(QWidget *parent)
 		nid = OBJ_sn2nid(CCHAR(dnl[i]));
 		extDNlist->insertItem(0, OBJ_nid2ln(nid));
 	}
-	string_opts << "default" << "nobmp" << "pkix" << "utf8only";
+	string_opts << "default" << "nombstr" << "pkix" << "utf8only";
 	QStringList s;
-	s << tr("Default: automatically detect String type")
-	  << tr("NO BMPstrings, only printable and T61")
+	s << tr("automatic detection (default)")
+	  << tr("No BMP strings: only printable and T61")
 	  << tr("PKIX recommendation in RFC2459")
-	  << tr("UTF8Strings only (RFC2459 recommendation for 2004)");
+	  << tr("UTF8 strings only (RFC2459)");
 	mbstring->addItems(s);
 }
 

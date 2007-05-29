@@ -150,8 +150,10 @@ void MainWindow::setOptions()
 	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
 			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
 
-	string_opt = opt->getStringOpt();
-	ASN1_STRING_set_default_mask_asc((char *)CCHAR(string_opt));
-	mydb.set((const unsigned char *)CCHAR(string_opt),
-			string_opt.length()+1, 1, setting, "string_opt");
+	if (opt->getStringOpt() != string_opt) {
+		string_opt = opt->getStringOpt();
+		ASN1_STRING_set_default_mask_asc((char *)CCHAR(string_opt));
+		mydb.set((const unsigned char *)CCHAR(string_opt),
+				string_opt.length()+1, 1, setting, "string_opt");
+	}
 }

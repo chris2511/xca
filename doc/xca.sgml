@@ -595,12 +595,20 @@ because templates may have empty entries that will be filled during
 the rollout of the certificate.
 <p>
 
-<sect1>Allow multiple use of keys
+<sect1>String settings
 <p>
-When creating certificates or requests the list of keys only contains unused keys
-to avoid a duplicate use of keys. This option allows the user to shoot herself
-into the foot. If this option is checked, the key list will contain
-all available keys. Usually, you don't want to enable this.
+This option applies to all strings converted to ASN1 strings.
+<itemize>
+<item><bf>Default</bf> The selected string type is automatically set to
+  the smallest possible, covering all contained characters.
+<item><bf>No BMP strings</bf> All strings containing non printable
+  characters are regarded as errors.
+<item><bf>PKIX in RFC2459</bf> All string types are set as described in
+  RFC2459
+<item><bf>PKIX UTF8 only</bf> All string types are selected according to
+  RFC2459 for entities issued after 2004, which means that almost all
+  distinguished name entry types are set to UTF8.
+</itemize>
 <p>
 
 <sect1>Default hash algorithm
