@@ -13,8 +13,8 @@
 
 #else
 #define X509_REVOKED_dup(x5r) (X509_REVOKED *)ASN1_dup( \
-	(int (*)())i2d_X509_REVOKED, \
-	(char *(*)())d2i_X509_REVOKED, \
+	(int (*)(...))i2d_X509_REVOKED, \
+	(char *(*)(...))d2i_X509_REVOKED, \
 	(char *)x5r)
 #endif
 

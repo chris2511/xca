@@ -8,7 +8,7 @@
 #include "db.h"
 #include "base.h"
 #include "exception.h"
-#include <Qt/qstringlist.h>
+#include <qstringlist.h>
 #ifdef __WIN32__
 #include <windows.h>
 #else

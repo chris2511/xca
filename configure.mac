@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cat > local.h <<EOF
+#define PREFIX "/usr/local"
+#define ETC "/etc/xca"
+#define VER "`cat VERSION`"
+EOF
+
