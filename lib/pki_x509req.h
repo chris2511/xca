@@ -31,7 +31,7 @@ class pki_x509req : public pki_x509super
 		NETSCAPE_SPKI *spki;
 
 	public:
-		extList getV3Ext();
+		extList getV3ext();
 		static QPixmap *icon[3];
 		pki_x509req(QString name = "");
 		void fload(const QString fname);

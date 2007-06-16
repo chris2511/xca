@@ -435,13 +435,11 @@ int pki_x509::resetTimes(pki_x509 *signer)
 	return ret;
 }
 
-QString pki_x509::printV3ext()
+extList pki_x509::getV3ext()
 {
 	extList el;
 	el.setStack(cert->cert_info->extensions);
-	QString text = el.getHtml("<br>");
-	openssl_error();
-	return text;
+	return el;
 }
 
 x509v3ext pki_x509::getExtByNid(int nid)

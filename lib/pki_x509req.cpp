@@ -249,7 +249,7 @@ QString pki_x509req::getSigAlg()
 	return alg;
 }
 
-extList pki_x509req::getV3Ext()
+extList pki_x509req::getV3ext()
 {
 	extList el;
 	STACK_OF(X509_EXTENSION) *sk;

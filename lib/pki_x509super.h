@@ -12,6 +12,7 @@
 #include <openssl/pem.h>
 #include "pki_key.h"
 #include "x509name.h"
+#include "x509v3ext.h"
 
 class pki_x509;
 
@@ -22,9 +23,11 @@ class pki_x509super : public pki_base
 	public:
 		pki_x509super(const QString name = "");
 		virtual ~pki_x509super();
-		virtual x509name getSubject() const;
-		virtual int verify();
-		virtual pki_key *getPubKey() const;
+		virtual x509name getSubject() const { return x509name(); };
+		virtual int verify() { return -1; };
+		virtual pki_key *getPubKey() const { return NULL; };
+		virtual extList getV3ext() { return extList(); };
+
 		pki_key *getRefKey() const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);

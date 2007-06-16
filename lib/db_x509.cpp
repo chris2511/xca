@@ -494,7 +494,7 @@ void db_x509::newCert(NewX509 *dlg)
 
 	// STEP 4 handle extensions
 	if (dlg->copyReqExtCB->isChecked() && dlg->fromReqCB->isChecked()) {
-		extList el = req->getV3Ext();
+		extList el = req->getV3ext();
 		int m = el.count();
 		for (int i=0; i<m; i++)
 			cert->addV3ext(el[i]);

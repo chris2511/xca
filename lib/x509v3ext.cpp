@@ -89,20 +89,17 @@ int x509v3ext::getCritical() const
 
 QString x509v3ext::getValue() const
 {
-#define V3_BUF 100
 	QString text = "";
-	int len;
-	char buffer[V3_BUF+1];
+	int ret;
+	char *p = NULL;
 	BIO *bio = BIO_new(BIO_s_mem());
-	if(!X509V3_EXT_print(bio, ext, X509V3_EXT_PARSE_UNKNOWN, 0))
-		return text;
-	do {
-		len = BIO_read(bio, buffer, V3_BUF);
-		if (len < 0) break;
-		buffer[len] = '\0';
-		text+=buffer;
-	} while (len == V3_BUF);
-#undef V3_BUF
+
+	ret = X509V3_EXT_print(bio, ext, X509V3_EXT_DEFAULT, 0);
+	if (ret) {
+		long len = BIO_get_mem_data(bio, &p);
+		text = QString::fromLocal8Bit(p, len);
+	}
+	BIO_free(bio);
 	return text;
 }
 

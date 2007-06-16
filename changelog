@@ -1,3 +1,4 @@
+  * check for certificate errors and display them instead of crashing
   * move used-keys-button form options to NewX509 dialog
   * Set string options in options dialog
   * remove extension and attribute tab in details dialog if

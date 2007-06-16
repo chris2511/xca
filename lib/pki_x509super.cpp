@@ -20,26 +20,6 @@ pki_x509super::~pki_x509super()
 	privkey = NULL;
 }
 
-x509name pki_x509super::getSubject() const
-{
-	x509name x;
-	printf("ERROR VIRTUAL getSubject() %s\n", class_name);
-	openssl_error();
-	return x;
-}
-
-
-int pki_x509super::verify()
-{
-	 return -1;
-}
-
-pki_key *pki_x509super::getPubKey() const
-{
-	 printf("ERROR VIRTUAL getPubKey() %s\n", class_name);
-	 return NULL;
-}
-
 pki_key *pki_x509super::getRefKey() const
 {
 	return privkey;

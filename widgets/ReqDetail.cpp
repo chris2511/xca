@@ -14,6 +14,7 @@
 #include "lib/func.h"
 #include <qlabel.h>
 #include <qlineedit.h>
+#include <qmessagebox.h>
 
 ReqDetail::ReqDetail(QWidget *parent)
 	:QDialog(parent)
@@ -26,82 +27,87 @@ ReqDetail::ReqDetail(QWidget *parent)
 
 void ReqDetail::setReq(pki_x509req *req)
 {
-	// internal name and verification
-	descr->setText(req->getIntName());
-	if (!req->verify() ) {
-		verify->setRed();
-		verify->setText("Failed");
-	}
-	else {
-		verify->setGreen();
-		if (req->isSpki()) {
-			verify->setText("SPKAC");
+	try {
+		// internal name and verification
+		descr->setText(req->getIntName());
+		if (!req->verify() ) {
+			verify->setRed();
+			verify->setText("Failed");
 		}
 		else {
-			verify->setText("PKCS#10");
+			verify->setGreen();
+			if (req->isSpki()) {
+				verify->setText("SPKAC");
+			}
+			else {
+				verify->setText("PKCS#10");
+			}
 		}
-	}
-	verify->disableToolTip();
-	// look for the private key
-	pki_key *key =req->getRefKey();
-	if (key) {
-		privKey->setText(key->getIntName());
-		privKey->setGreen();
-	}
-	else {
-		privKey->setText(tr("Not available"));
-		privKey->setDisabled(true);
-		privKey->disableToolTip();
-	}
-	// the subject
-	subject->setX509name(req->getSubject());
-
-	// Algorithm
-	sigAlgo->setText(req->getSigAlg());
-
-	// The extensions
-	extList el = req->getV3Ext();
-	if (el.count() == 0) {
-		tabwidget->removeTab(3);
-	} else {
-		v3extensions->document()->setHtml(el.getHtml("<br>"));
-	}
-
-	// The non extension attributes
-	int cnt = X509_REQ_get_attr_count(req->getReq());
-	int added = 0;
-	QGridLayout *attrLayout = new QGridLayout(attributes);
-	attrLayout->setAlignment(Qt::AlignTop);
-	attrLayout->setSpacing(6);
-	attrLayout->setMargin(11);
-
-	for (int i = 0; i<cnt; i++) {
-		int nid;
-		QLabel *label;
-		X509_ATTRIBUTE *att = X509_REQ_get_attr(req->getReq(), i);
-		nid = OBJ_obj2nid(att->object);
-		if (X509_REQ_extension_nid(nid)) {
-			continue;
+		verify->disableToolTip();
+		// look for the private key
+		pki_key *key =req->getRefKey();
+		if (key) {
+			privKey->setText(key->getIntName());
+			privKey->setGreen();
 		}
-		label = new QLabel(this);
-		label->setText(QString(OBJ_nid2ln(nid)));
-		label->setToolTip(QString(OBJ_nid2sn(nid)));
-		attrLayout->addWidget(label, i, 0);
-		added++;
+		else {
+			privKey->setText(tr("Not available"));
+			privKey->setDisabled(true);
+			privKey->disableToolTip();
+		}
+		// the subject
+		subject->setX509name(req->getSubject());
 
-		if (att->single) {
-			label = labelFromAsn1Type(att->value.single);
-			attrLayout->addWidget(label, i, 1);
-			continue;
+		// Algorithm
+		sigAlgo->setText(req->getSigAlg());
+
+		// The extensions
+		extList el = req->getV3ext();
+		if (el.count() == 0) {
+			tabwidget->removeTab(3);
+		} else {
+			v3extensions->document()->setHtml(el.getHtml("<br>"));
 		}
-		int count = sk_ASN1_TYPE_num(att->value.set);
-		for (int j=0; j<count; j++) {
-			label = labelFromAsn1Type(sk_ASN1_TYPE_value(att->value.set, j));
-			attrLayout->addWidget(label, i, j +1);
+
+		// The non extension attributes
+		int cnt = X509_REQ_get_attr_count(req->getReq());
+		int added = 0;
+		QGridLayout *attrLayout = new QGridLayout(attributes);
+		attrLayout->setAlignment(Qt::AlignTop);
+		attrLayout->setSpacing(6);
+		attrLayout->setMargin(11);
+
+		for (int i = 0; i<cnt; i++) {
+			int nid;
+			QLabel *label;
+			X509_ATTRIBUTE *att = X509_REQ_get_attr(req->getReq(), i);
+			nid = OBJ_obj2nid(att->object);
+			if (X509_REQ_extension_nid(nid)) {
+				continue;
+			}
+			label = new QLabel(this);
+			label->setText(QString(OBJ_nid2ln(nid)));
+			label->setToolTip(QString(OBJ_nid2sn(nid)));
+			attrLayout->addWidget(label, i, 0);
+			added++;
+
+			if (att->single) {
+				label = labelFromAsn1Type(att->value.single);
+				attrLayout->addWidget(label, i, 1);
+				continue;
+			}
+			int count = sk_ASN1_TYPE_num(att->value.set);
+			for (int j=0; j<count; j++) {
+				label = labelFromAsn1Type(sk_ASN1_TYPE_value(att->value.set, j));
+				attrLayout->addWidget(label, i, j +1);
+			}
 		}
-	}
-	if (!added) {
-		tabwidget->removeTab(2);
+		if (!added) {
+			tabwidget->removeTab(2);
+		}
+		req->openssl_error();
+	} catch (errorEx &err) {
+		QMessageBox::warning(this, tr(XCA_TITLE), err.getString());
 	}
 }
 

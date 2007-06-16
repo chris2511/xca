@@ -29,7 +29,6 @@ class pki_base : public QObject
 		/* model data */
 		pki_base *parent;
 
-		void openssl_error(const QString myerr = "") const;
 		void my_error(const QString myerr) const;
 		void check_oom(const void *ptr) const;
 		void fopen_error(const QString fname);
@@ -52,6 +51,7 @@ class pki_base : public QObject
 		QString getClassName();
 		static QString rmslashdot(const QString &fname);
 
+		void openssl_error(const QString myerr = "") const;
 		int getVersion();
 		enum pki_type getType();
 		void setParent(pki_base *p);
