@@ -84,8 +84,8 @@ QString x509name::getEntryTag(int i) const
 	QString s = QObject::tr("Invalid");
 	ASN1_STRING *d;
 
-	if ( i<0 || i>entryCount() )
-		return s;
+	if (i<0 || i>=entryCount())
+		i = entryCount() - 1;
 	d = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(xn,i));
 
 	if (!d)
