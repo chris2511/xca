@@ -48,9 +48,7 @@ pki_x509 *db_x509::findSigner(pki_x509 *client)
 		return client;
 	}
 	FOR_ALL_pki(pki, pki_x509) {
-		//printf("TRYING Signer of '%s' to be '%s' ??\n", CCHAR(client->getIntName()), CCHAR(pki->getIntName()));
 		if (client->verify(pki)) {
-			//printf("Signer of %s = %s\n", CCHAR(client->getIntName()), CCHAR(pki->getIntName()));
 			return pki;
 		}
 	}
@@ -151,39 +149,33 @@ void db_x509::inToCont(pki_base *pki)
 		root = rootItem;
 
 	insertChild(root, pki);
-	if (treeview) {
-		/* search for dangling certificates, which signer this is */
-		// printf("New Certificate: %s\n", CCHAR(pki->getIntName()));
-		FOR_ALL_pki(client, pki_x509) {
-			//printf("client %s ?\n", CCHAR(client->getIntName()));
-			if (client->getSigner() == NULL) {
-				//printf("examining client %s\n", CCHAR(client->getIntName()));
-				if (client->verify(cert)) {
-					int row = client->row();
-					pki_x509 *s;
-					/* recursive signing check */
-					for (s = cert; s; s = s->getSigner()) {
-						if (s == s->getSigner()) {
-							s = NULL;
-							break;
-						}
-						if (s == client) {
-							printf("Recursive signing: '%s' <-> '%s'\n",
-										CCHAR(client->getIntName()),
-										CCHAR(cert->getIntName()));
-							break;
-						}
+	/* search for dangling certificates, which signer this is */
+	FOR_ALL_pki(client, pki_x509) {
+		if (client->getSigner() == NULL) {
+			if (client->verify(cert) && treeview ) {
+				int row = client->row();
+				pki_x509 *s;
+				/* recursive signing check */
+				for (s = cert; s; s = s->getSigner()) {
+					if (s == s->getSigner()) {
+						s = NULL;
+						break;
 					}
-					if (s)
-						continue;
-					// printf("Client cert found: %s(%d)%p -> %s(%d)%p\n", CCHAR(pki->getIntName()), pki->childCount(), pki, CCHAR(client->getIntName()), client->childCount(), client);
-					beginRemoveRows(QModelIndex(), row, row);
-					rootItem->takeChild(client);
-					endRemoveRows();
-
-					insertChild(pki, client);
-					client = (pki_x509*)rootItem->iterate();
+					if (s == client) {
+						printf("Recursive signing: '%s' <-> '%s'\n",
+									CCHAR(client->getIntName()),
+									CCHAR(cert->getIntName()));
+						break;
+					}
 				}
+				if (s)
+					continue;
+				beginRemoveRows(QModelIndex(), row, row);
+				rootItem->takeChild(client);
+				endRemoveRows();
+
+				insertChild(pki, client);
+				client = (pki_x509*)rootItem;
 			}
 		}
 	}

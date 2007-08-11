@@ -1,3 +1,4 @@
+  * Bug "tree view loose track" fixed
   * check for certificate errors and display them instead of crashing
   * move used-keys-button form options to NewX509 dialog
   * Set string options in options dialog

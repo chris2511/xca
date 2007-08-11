@@ -180,19 +180,17 @@ int pki_base::row(void) const
 
 pki_base *pki_base::iterate(pki_base *pki)
 {
-	//printf("Iterate start, %p=%s, %p=%s childs:%d\n", this, CCHAR(this->getIntName()), pki, pki? CCHAR(pki->getIntName()):"--", this->childCount());
 	if (pki == NULL)
 		pki = (childItems.isEmpty()) ? NULL : childItems.first();
 	else
 		pki = childItems.value(pki->row()+1);
-	//printf("Iterate middle, %p, %p\n", this, pki);
+
 	if (pki) {
-		//printf("Subchild %p\n", pki);
 		return pki;
 	}
-	//printf("Parent = %p\n", parent);
-	if (!parent)
+	if (!parent) {
 		return NULL;
+	}
 	return parent->iterate(this);
 }
 
