@@ -85,17 +85,6 @@ QString pki_key::getTypeString()
 
 QString pki_key::getIntNameWithType()
 {
-	QString postfix;
-	switch (key->type) {
-		case EVP_PKEY_RSA:
-			postfix = " (RSA)";
-			break;
-		case EVP_PKEY_DSA:
-			postfix = " (DSA)";
-			break;
-		default:
-			postfix = " (---)";
-	}
 	return getIntName() + " (" + getTypeString() + ")";
 }
 

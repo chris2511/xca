@@ -29,6 +29,8 @@ class db_temp: public db_base
 	bool runTempDlg(pki_temp *temp);
 	bool alterTemp(pki_temp *temp);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+	pki_base *getByName(QString desc);
+	QStringList getDescPredefs();
 
     public slots:
 	void newItem();

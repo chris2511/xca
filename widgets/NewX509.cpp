@@ -96,7 +96,7 @@ NewX509::NewX509(QWidget *parent)
 
 	// settings for the templates ....
 	strings.clear();
-	strings = MainWindow::temps->getDesc();
+	strings = MainWindow::temps->getDescPredefs();
 	tempList->insertItems(0, strings);
 
 	// setup Extended keyusage

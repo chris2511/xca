@@ -60,6 +60,31 @@ pki_base *db_temp::newPKI(){
 	return new pki_temp("");
 }
 
+QStringList db_temp::getDescPredefs()
+{
+	QStringList x;
+	x.clear();
+	for(pki_temp *pki=(pki_temp*)predefs->iterate(); pki;
+			pki=(pki_temp*)pki->iterate()) {
+		x.append(QString("[default] ") + pki->getIntName());
+	}
+	x += getDesc();
+	return x;
+}
+
+pki_base *db_temp::getByName(QString desc)
+{
+	if (!desc.startsWith("[default] "))
+		return db_base::getByName(desc);
+	desc.remove(0, 10); // "[default] "
+	for(pki_temp *pki=(pki_temp*)predefs->iterate(); pki;
+	            pki=(pki_temp*)pki->iterate()) {
+		if (pki->getIntName() == desc)
+			return pki;
+	}
+	return NULL;
+}
+
 bool db_temp::runTempDlg(pki_temp *temp)
 {
 	NewX509 *dlg = new NewX509(mainwin);
