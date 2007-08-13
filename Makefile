@@ -82,6 +82,7 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DOPENSSL=$(OPENSSLDIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -NOCD -V2 misc/xca.nsi
+	cp setup.exe setup_xca-$(VERSION).exe
 
 .PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang
 

@@ -5,7 +5,7 @@
 
 <title>XCA <!-- insert your title here -->
 <author>Christian Hohnst&auml;dt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
-<date>0.6.0 28/01/2007
+<date>08/13/07
 <abstract>                          <!-- the abstract: a short and precise description -->
 <nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
 
@@ -75,51 +75,45 @@ published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 <sect1>Copyright
 <p>
 <tscreen><verb>
-/*
- * Copyright (C) 2002 - 2006  Christian Hohnstaedt.
- *
- *  All rights reserved.
- *
- *
- *  Redistribution and use in source and binary forms, with or without 
- *  modification, are permitted provided that the following conditions are met:
- *
- *  - Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *  - Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *  - Neither the name of the author nor the names of its contributors may be 
- *    used to endorse or promote products derived from this software without
- *    specific prior written permission.
- *
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- *
- * This program links to software with different licenses from:
- *
- *	http://www.openssl.org which includes cryptographic software
- *	written by Eric Young (eay@cryptsoft.com)"
- *
- *	http://www.trolltech.com
- *
- *
- *
- * http://www.hohnstaedt.de/xca
- * email: christian@hohnstaedt.de
- *
- */
+
+Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+
+ All rights reserved.
+
+
+ Redistribution and use in source and binary forms, with or without 
+ modification, are permitted provided that the following conditions are met:
+
+ - Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+ - Neither the name of the author nor the names of its contributors may be 
+   used to endorse or promote products derived from this software without
+   specific prior written permission.
+
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+This program links to software with different licenses from:
+
+ - http://www.openssl.org which includes cryptographic software
+   written by Eric Young (eay@cryptsoft.com)"
+
+ - http://www.trolltech.com
 
 </verb></tscreen>
 
@@ -291,6 +285,7 @@ Requests and Templates. It will be invoked whenever such an item is going
 to be created or, in case of a Template, is altered.
 
 <sect1>Source
+<p>
 This page is not shown when creating or changing templates.
 
 <sect2>Signing request
@@ -377,10 +372,11 @@ rounded down and up to midnight.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Asymetric keys <label id="keys">
+<sect>RSA and DSA keys <label id="keys">
 <p>
-For asynchronous encryption and signing keys are needed.
+For creating certificates, keys are needed.
 All keys are stored encrypted in the database using the 3DES algorithm.
+The password can be changed for each certificate.
 
 <p>
 All keys carry a use counter which counts the times it is used. For new
