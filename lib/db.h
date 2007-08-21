@@ -75,6 +75,7 @@ class db
 	bool get_header(db_header_t *u_header);
 	int erase(void);
 	int shrink(int flags);
+	int mv(QFile &new_file);
 
 	static int intToData(unsigned char **p, uint32_t val);
 	static uint32_t intFromData(const unsigned char **p);

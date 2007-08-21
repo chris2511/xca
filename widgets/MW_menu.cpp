@@ -38,7 +38,7 @@ void MainWindow::init_menu()
 	file->addSeparator();
 	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
 
-	import = menuBar()->addMenu(tr("&Import"));
+	import = menuBar()->addMenu(tr("I&mport"));
 	import->addAction(tr("Keys"), this,
 				SLOT(on_BNimportKey_clicked()) );
 	import->addAction(tr("Requests"), this,

@@ -103,16 +103,16 @@ pki_base* db_key::insert(pki_base *item)
 void db_key::newItem()
 {
 	const int sizeList[] = { 512, 1024, 2048, 4096, 0 };
-
 	QDialog *dlg = new QDialog(qApp->activeWindow());
 	Ui::NewKey ui;
 	ui.setupUi(dlg);
-	QProgressBar *bar = new QProgressBar();
+	QProgressBar *bar;
 	QStatusBar *status = mainwin->statusBar();
-
 	pki_key *nkey = NULL;
 	QString x;
 	int keytypes[] = {EVP_PKEY_RSA, EVP_PKEY_DSA };
+	bool ret;
+
 	ui.keyLength->setEditable(true);
 	for (int i=0; sizeList[i] != 0; i++ ) {
 		ui.keyLength->addItem( x.number(sizeList[i]) +" bit");
@@ -121,26 +121,35 @@ void db_key::newItem()
 	ui.keyDesc->setFocus();
 
 	ui.image->setPixmap(*MainWindow::keyImg);
+	ret = dlg->exec();
 
-	if (dlg->exec()) {
-		QString ksizes = ui.keyLength->currentText();
-		ksizes.replace( QRegExp("[^0-9]"), "" );
-		int ksize = ksizes.toInt();
-		if (ksize < 32) throw errorEx(tr("Key size too small !"));
-		if (ksize < 512 || ksize > 4096)
-			if (!QMessageBox::warning(NULL, XCA_TITLE, tr("You are sure to create a key of the size: ")
-				+QString::number(ksize) + " ?", tr("Cancel"), tr("Create") ))
-					return;
-
-		nkey = new pki_key(ui.keyDesc->text());
-
-		status->addPermanentWidget(bar,1);
-		nkey->generate(ksize, keytypes[ui.keyType->currentIndex()], bar );
-		status->removeWidget(bar);
-		delete bar;
-		nkey = (pki_key*)insert(nkey);
-		emit keyDone(nkey->getIntNameWithType());
+	if (!ret) {
+		delete dlg;
+		return;
 	}
+	QString ksizes = ui.keyLength->currentText();
+	ksizes.replace( QRegExp("[^0-9]"), "" );
+	int ksize = ksizes.toInt();
+	if (ksize < 32) throw errorEx(tr("Key size too small !"));
+	if (ksize < 512 || ksize > 4096)
+		if (!QMessageBox::warning(NULL, XCA_TITLE,
+			tr("You are sure to create a key of the size: ")
+			+QString::number(ksize) + " ?", tr("Cancel"),
+			tr("Create") ))
+		{
+			delete dlg;
+			return;
+		}
+	mainwin->repaint();
+	nkey = new pki_key(ui.keyDesc->text());
+
+	bar = new QProgressBar();
+	status->addPermanentWidget(bar,1);
+	nkey->generate(ksize, keytypes[ui.keyType->currentIndex()], bar );
+	status->removeWidget(bar);
+	delete bar;
+	nkey = (pki_key*)insert(nkey);
+	emit keyDone(nkey->getIntNameWithType());
 	delete dlg;
 }
 

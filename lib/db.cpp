@@ -90,17 +90,11 @@ bool db::eof()
 
 int db::find(enum pki_type type, QString name)
 {
-	//int len, ret=0;
-
 	while (!eof()) {
-		//printf("Comparing %s -> %s at %lu\n", head.name, name,
-				//head_offset);
 		if (ntohs(head.type) == type) {
 			if (name.isEmpty()) { /* only compare type */
-				//printf("typematch: %d\n", type);
 				return 0;
 			} else if (QString::fromUtf8(head.name) == name) {
-				//printf("namematch: %s\n", name);
 				return 0;
 			}
 		}
@@ -109,7 +103,6 @@ int db::find(enum pki_type type, QString name)
 		}
 		next();
 	}
-	//printf("Returning 1\n");
 	return 1;
 }
 
@@ -388,6 +381,11 @@ int db::shrink(int flags)
 		return 1;
 	}
 	file.close();
+	return mv(new_file);
+}
+
+int db::mv(QFile &new_file)
+{
 #ifdef WIN32
 	// here we try to reimplement the simple "mv" command on unix
 	// atomic renaming fails on WIN32 platforms and
@@ -400,13 +398,14 @@ int db::shrink(int flags)
 		} else {
 			QFile::rename(tempn, name);
 			QFile::remove(new_file.fileName());
+			return 1;
 		}
 	}
+	return 0;
 #else
 	// use the global rename()  function and not the method of this class
-	::rename(CCHAR(new_file.fileName()), CCHAR(name));
+	return ::rename(CCHAR(new_file.fileName()), CCHAR(name)) == -1;
 #endif
-	return 0;
 }
 
 int db::intToData(unsigned char **p, uint32_t val)
