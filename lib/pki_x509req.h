@@ -34,6 +34,7 @@ class pki_x509req : public pki_x509super
 		extList getV3ext();
 		static QPixmap *icon[3];
 		pki_x509req(QString name = "");
+		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		void writeDefault(const QString fname);
 		~pki_x509req();

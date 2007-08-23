@@ -42,12 +42,20 @@ static pki_base *pkiByPEM(QString text, int *skip)
 {
 	int pos;
 #define D5 "-----"
-	pos = text.indexOf(D5 "BEGIN ");
-	if (pos <0)
+#define BEGIN D5 "BEGIN "
+	pos = text.indexOf(BEGIN);
+	if (pos <0) {
+		if (skip)
+			*skip = text.length() - (sizeof(BEGIN)-1);
 		return NULL;
-	if (skip)
+	}
+	if (skip) {
 		*skip = pos;
-	text = text.remove(0, pos + 11);
+		if (pos) /* if we are not at the beginning, retry */
+			return NULL;
+	}
+
+	text = text.remove(0, pos + sizeof(BEGIN)-1);
 	if (text.startsWith(PEM_STRING_X509_OLD D5) ||
 				text.startsWith(PEM_STRING_X509 D5) ||
 				text.startsWith(PEM_STRING_X509_TRUSTED D5))
@@ -76,16 +84,16 @@ static pki_base *pkiByPEM(QString text, int *skip)
 	return NULL;
 }
 
+#define BUFLEN 1024
 void pki_multi::fload(const QString fname)
 {
-	char buf[100];
+	char buf[BUFLEN];
 	int len, startpos;
 	FILE * fp;
 	QString text;
 	pki_base *item = NULL;
 	BIO *bio = NULL;
 
-	printf("FLOAD\n");
 	try {
 		fp = fopen(CCHAR(fname), "r");
 		if (!fp) {
@@ -95,27 +103,25 @@ void pki_multi::fload(const QString fname)
 		bio = BIO_new_fp(fp, BIO_CLOSE);
 		for (;;) {
 			int pos = BIO_tell(bio);
-			printf("1 Filepos is %d\n", pos);
-			len = BIO_read(bio, buf, 99);
-			if (len < 11) {
-				if (!multi.count())
-					throw errorEx(QObject::tr("File corrupted: ") + fname);
-				break;
-			}
+			len = BIO_read(bio, buf, BUFLEN-1);
 			buf[len] = '\0';
 			text = buf;
 			item = pkiByPEM(text, &startpos);
 			if (!item) {
-				BIO_seek(bio, pos + 88);
+				if (startpos <= 0)
+					break;
+				BIO_seek(bio, pos + startpos);
 				continue;
 			}
 			pos += startpos;
 			BIO_seek(bio, pos);
-			printf("2 Filepos is %d\n", BIO_tell(bio));
 			item->fromPEM_BIO(bio, fname);
 			if (pos == BIO_tell(bio)) {
 				/* No progress, do it manually */
-				BIO_seek(bio, pos + 11);
+				BIO_seek(bio, pos + 1);
+				printf("Could not load: %s\n",
+						CCHAR(item->getClassName()));
+				delete item;
 				continue;
 			}
 			openssl_error();

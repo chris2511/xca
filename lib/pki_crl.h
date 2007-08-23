@@ -26,6 +26,7 @@ class pki_crl: public pki_base
 		pki_crl(const QString name = "");
 		/* destructor */
 		~pki_crl();
+		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		QString getSigAlg();
 		void writeDefault(const QString fname);

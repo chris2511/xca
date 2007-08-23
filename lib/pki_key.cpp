@@ -205,9 +205,16 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 void pki_key::fromPEM_BIO(BIO *bio, QString name)
 {
 	EVP_PKEY *pkey;
+	int pos;
 	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 			"Please enter the password to decrypt the private key."));
+	pos = BIO_tell(bio);
 	pkey = PEM_read_bio_PrivateKey(bio, NULL, MainWindow::passRead, &p);
+	if (!pkey){
+		ign_openssl_error();
+		BIO_seek(bio, pos);
+		pkey = PEM_read_bio_PUBKEY(bio, NULL, MainWindow::passRead, &p);
+	}
 	if (pkey){
 		if (key)
 			EVP_PKEY_free(key);

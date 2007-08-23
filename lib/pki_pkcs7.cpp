@@ -99,18 +99,18 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 void pki_pkcs7::writeP7(QString fname,bool PEM)
 {
 	FILE *fp;
-        fp = fopen(CCHAR(fname),"w");
-        if (fp != NULL) {
-           if (p7){
-                if (PEM)
-                   PEM_write_PKCS7(fp, p7);
-                else
-                   i2d_PKCS7_fp(fp, p7);
-                openssl_error();
-           }
-        }
-        else fopen_error(fname);
-        fclose(fp);
+	fp = fopen(CCHAR(fname),"w");
+	if (fp != NULL) {
+		if (p7){
+			if (PEM)
+				PEM_write_PKCS7(fp, p7);
+			else
+				i2d_PKCS7_fp(fp, p7);
+			openssl_error();
+			fclose(fp);
+		}
+	}
+	else fopen_error(fname);
 }
 
 pki_x509 *pki_pkcs7::getCert(int x)
@@ -129,19 +129,34 @@ int pki_pkcs7::numCert()
 	return n;
 }
 
+
+void pki_pkcs7::fromPEM_BIO(BIO *bio, QString name)
+{
+	PKCS7 *_p7;
+	_p7 = PEM_read_bio_PKCS7(bio, NULL, NULL, NULL);
+	openssl_error(name);
+	PKCS7_free(p7);
+	p7 = _p7;
+	setIntName(rmslashdot(name));
+}
+
 void pki_pkcs7::fload(const QString fname)
 {
 	FILE *fp;
+	PKCS7 *_p7;
 	fp = fopen(CCHAR(fname), "rb");
 	if (fp) {
-		p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);
-	if (!p7) {
+		_p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);
+		if (!_p7) {
 			ign_openssl_error();
 			rewind(fp);
-			p7 = d2i_PKCS7_fp(fp, &p7);
+			_p7 = d2i_PKCS7_fp(fp, NULL);
 		}
 		fclose(fp);
 		openssl_error();
+		if(p7)
+			PKCS7_free(p7);
+		p7 = _p7;
 	}
 	else fopen_error(fname);
 }

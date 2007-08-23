@@ -26,7 +26,6 @@ pki_base *load_base::loadItem(QString s)
 	pki_base *pki = newItem();
 	if (!pki)
 		return NULL;
-	printf("newItem: %s\n", CCHAR(pki->getClassName()));
 	try {
 		pki->fload(s);
 	}

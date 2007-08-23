@@ -23,17 +23,32 @@ pki_crl::pki_crl(const QString name )
 	cols=3;
 }
 
+void pki_crl::fromPEM_BIO(BIO *bio, QString name)
+{
+	X509_CRL*_crl;
+	_crl = PEM_read_bio_X509_CRL(bio, NULL, NULL, NULL);
+	openssl_error(name);
+	X509_CRL_free(crl);
+	crl = _crl;
+	setIntName(rmslashdot(name));
+}
+
 void pki_crl::fload(const QString fname )
 {
 	FILE *fp = fopen(CCHAR(fname), "r");
+	X509_CRL *_crl;
 	if (fp != NULL) {
-		crl = PEM_read_X509_CRL(fp, &crl, NULL, NULL);
-		if (!crl) {
+		_crl = PEM_read_X509_CRL(fp, NULL, NULL, NULL);
+		if (!_crl) {
 			ign_openssl_error();
 			rewind(fp);
-			crl = d2i_X509_CRL_fp(fp, &crl);
+			_crl = d2i_X509_CRL_fp(fp, NULL);
 		}
 		fclose(fp);
+		openssl_error();
+		if (crl)
+			X509_CRL_free(crl);
+		crl = _crl;
 		setIntName(rmslashdot(fname));
 		openssl_error(fname);
 	}

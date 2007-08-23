@@ -73,14 +73,25 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	EVP_PKEY_free(privkey);
 }
 
+
+void pki_x509req::fromPEM_BIO(BIO *bio, QString name)
+{
+	X509_REQ *req;
+	req = PEM_read_bio_X509_REQ(bio, NULL, NULL, NULL);
+	openssl_error(name);
+	X509_REQ_free(request);
+	request = req;
+	autoIntName();
+	if (getIntName().isEmpty())
+		setIntName(rmslashdot(name));
+}
+
 void pki_x509req::fload(const QString fname)
 {
-	// request file section
 	FILE *fp = fopen(CCHAR(fname), "r");
 	X509_REQ *_req;
 	if (fp != NULL) {
 		_req = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
-		// if DER format
 		if (!_req) {
 			ign_openssl_error();
 			rewind(fp);
