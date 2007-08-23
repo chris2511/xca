@@ -18,58 +18,59 @@ class load_base
 	public:
 		QString filter;
 		QString caption;
-		virtual pki_base * loadItem(QString s);
 		load_base();
 		virtual ~load_base();
+		virtual pki_base *loadItem(QString s);
+		virtual pki_base *newItem();
 };
 
 class load_key: public load_base
 {
 	public:
 		load_key();
-		pki_base * loadItem(QString s);
+		pki_base *newItem();
 };
 
 class load_req: public load_base
 {
 	public:
 		load_req();
-		pki_base * loadItem(QString s);
+		pki_base *newItem();
 };
 
 class load_cert: public load_base
 {
 	public:
 		load_cert();
-		pki_base * loadItem(QString s);
+		pki_base *newItem();
 };
 
 class load_pkcs7: public load_base
 {
 	public:
 		load_pkcs7();
-		pki_base * loadItem(QString s);
+		pki_base *newItem();
 };
 
 class load_pkcs12: public load_base
 {
 	public:
 		load_pkcs12();
-		pki_base * loadItem(QString s);
+		pki_base *loadItem(QString s);
 };
 
 class load_temp: public load_base
 {
 	public:
 		load_temp();
-		pki_base * loadItem(QString s);
+		pki_base *newItem();
 };
 
 class load_crl: public load_base
 {
 	public:
 		load_crl();
-		pki_base * loadItem(QString s);
+		pki_base *newItem();
 };
 
 class load_db: public load_base
@@ -82,7 +83,7 @@ class load_pem: public load_base
 {
 	public:
 		load_pem();
-		pki_base * loadItem(QString s);
+		pki_base *newItem();
 };
 
 #endif

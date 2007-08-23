@@ -70,7 +70,7 @@ void pki_key::incProgress(int, int, void *progress)
 QString pki_key::getTypeString()
 {
 	QString type;
-	switch (key->type) {
+	switch (EVP_PKEY_type(key->type)) {
 		case EVP_PKEY_RSA:
 			type = "RSA";
 			break;
@@ -191,6 +191,34 @@ pki_key::pki_key(EVP_PKEY *pkey)
 	key = pkey;
 }
 
+static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
+{
+	switch (EVP_PKEY_type(key->type)) {
+		case EVP_PKEY_RSA:
+			return key->pkey.rsa->d ? true: false;
+		case EVP_PKEY_DSA:
+			return key->pkey.dsa->priv_key ? true: false;
+	}
+	return false;
+}
+
+void pki_key::fromPEM_BIO(BIO *bio, QString name)
+{
+	EVP_PKEY *pkey;
+	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+			"Please enter the password to decrypt the private key."));
+	pkey = PEM_read_bio_PrivateKey(bio, NULL, MainWindow::passRead, &p);
+	if (pkey){
+		if (key)
+			EVP_PKEY_free(key);
+		key = pkey;
+		if (EVP_PKEY_isPrivKey(key))
+			bogusEncryptKey();
+		setIntName(rmslashdot(name));
+	}
+	openssl_error(name);
+}
+
 void pki_key::fload(const QString fname)
 {
 	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the password to decrypt the private key.")
@@ -198,7 +226,6 @@ void pki_key::fload(const QString fname)
 	pem_password_cb *cb = MainWindow::passRead;
 	FILE *fp = fopen(CCHAR(fname), "r");
 	EVP_PKEY *pkey;
-	bool priv = true;
 
 	ign_openssl_error();
 	if (fp != NULL) {
@@ -220,19 +247,17 @@ void pki_key::fload(const QString fname)
 			ign_openssl_error();
 			rewind(fp);
 			pkey = PEM_read_PUBKEY(fp, NULL, cb, &p);
-			if (pkey) priv=false;
 		}
 		if (!pkey) {
 			ign_openssl_error();
 			rewind(fp);
 			pkey = d2i_PUBKEY_fp(fp, NULL);
-			if (pkey) priv=false;
 		}
 		if (pkey){
 			if (key)
 				EVP_PKEY_free(key);
 			key = pkey;
-			if (priv)
+			if (EVP_PKEY_isPrivKey(key))
 				bogusEncryptKey();
 			setIntName(rmslashdot(fname));
 		}

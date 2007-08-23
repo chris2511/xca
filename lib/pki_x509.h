@@ -42,6 +42,7 @@ class pki_x509 : public pki_x509super
 		~pki_x509();
 
 		void fload(const QString fname);
+		void fromPEM_BIO(BIO *bio, QString name);
 		void writeDefault(const QString fname);
 		a1int hashInfo(const EVP_MD *md) const;
 		a1int getQASerial(const a1int &secret) const;

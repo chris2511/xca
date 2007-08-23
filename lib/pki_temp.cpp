@@ -195,7 +195,7 @@ void pki_temp::writeTemp(QString fname)
 	fclose(fp);
 }
 
-void pki_temp::loadTemp(QString fname)
+void pki_temp::fload(QString fname)
 {
 	int size, s, version;
 	bool oldimport;

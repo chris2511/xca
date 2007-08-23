@@ -49,6 +49,20 @@ pki_x509::pki_x509(const QString name)
 	openssl_error();
 }
 
+void pki_x509::fromPEM_BIO(BIO *bio, QString name)
+{
+	X509 *_cert;
+	_cert = PEM_read_bio_X509(bio, NULL, NULL, NULL);
+	openssl_error(name);
+	X509_free(cert);
+	cert = _cert;
+	autoIntName();
+	if (getIntName().isEmpty())
+		setIntName(rmslashdot(name));
+	trust = 1;
+	efftrust = 1;
+}
+
 void pki_x509::fload(const QString fname)
 {
 	FILE *fp = fopen(fname.toAscii(),"r");

@@ -30,8 +30,8 @@ class pki_temp: public pki_base
 		// methods
 
 		pki_temp(const pki_temp *pk);
-		pki_temp(const QString d);
-		void loadTemp(const QString fname);
+		pki_temp(const QString d = QString());
+		void fload(const QString fname);
 		void writeDefault(const QString fname);
 		/* destructor */
 		~pki_temp();

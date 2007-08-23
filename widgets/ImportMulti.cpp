@@ -12,6 +12,7 @@
 #include "lib/pki_pkcs7.h"
 #include "lib/pki_pkcs12.h"
 #include "lib/pki_crl.h"
+#include "lib/pki_multi.h"
 #include "widgets/CrlDetail.h"
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
@@ -42,6 +43,7 @@ void ImportMulti::addItem(pki_base *pki)
 	if (!pki)
 		return;
 	QString cn = pki->getClassName();
+	printf("Import Multi: %s\n", CCHAR(cn));
 	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ||
 			cn == "pki_crl"  || cn == "pki_temp" ) {
 		mcont->inToCont(pki);
@@ -61,6 +63,13 @@ void ImportMulti::addItem(pki_base *pki)
 			addItem(p12->getCa(i));
 		}
 		delete p12;
+	}
+	else if (cn == "pki_multi") {
+		pki_multi *pm = (pki_multi*)pki;
+		pki_base *inner;
+		while ((inner = pm->pull()))
+			addItem(inner);
+		delete pm;
 	}
 	else  {
 		QMessageBox::warning(this, XCA_TITLE,

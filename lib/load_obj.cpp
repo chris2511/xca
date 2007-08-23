@@ -12,6 +12,7 @@
 #include "pki_x509req.h"
 #include "pki_pkcs7.h"
 #include "pki_pkcs12.h"
+#include "pki_multi.h"
 #include "widgets/MainWindow.h"
 
 load_base::load_base()
@@ -20,7 +21,23 @@ load_base::load_base()
 	caption = "";
 }
 
-pki_base * load_base::loadItem(QString)
+pki_base *load_base::loadItem(QString s)
+{
+	pki_base *pki = newItem();
+	if (!pki)
+		return NULL;
+	printf("newItem: %s\n", CCHAR(pki->getClassName()));
+	try {
+		pki->fload(s);
+	}
+	catch (errorEx &err){
+		delete pki;
+		throw err;
+	}
+	return pki;
+}
+
+pki_base * load_base::newItem()
 {
 	return NULL;
 }
@@ -38,20 +55,10 @@ load_key::load_key()
 	caption = QObject::tr("Import RSA key");
 }
 
-pki_base * load_key::loadItem(QString s)
+pki_base * load_key::newItem()
 {
-	pki_key *lkey = new pki_key();
-	if (!lkey)
-		return NULL;
-	try {
-		lkey->fload(s);
-	}
-	catch (errorEx &err){
-		delete lkey;
-		throw err;
-	}
-	return lkey;
-};
+	return new pki_key();
+}
 
 /* Requests */
 load_req::load_req()
@@ -62,20 +69,10 @@ load_req::load_req()
 	caption = QObject::tr("Import Request");
 }
 
-pki_base * load_req::loadItem(QString s)
+pki_base * load_req::newItem()
 {
-	pki_x509req *req = new pki_x509req(s);
-	if (!req)
-		return NULL;
-	try {
-		req->fload(s);
-	}
-	catch (errorEx &err){
-		delete req;
-		throw err;
-	}
-	return req;
-};
+	return new pki_x509req();
+}
 
 /* Certificates */
 load_cert::load_cert()
@@ -85,20 +82,10 @@ load_cert::load_cert()
 	caption = QObject::tr("Import X.509 Certificate");
 }
 
-pki_base * load_cert::loadItem(QString s)
+pki_base * load_cert::newItem()
 {
-	pki_x509 *crt = new pki_x509(s);
-	if (!crt)
-		return NULL;
-	try {
-		crt->fload(s);
-	}
-	catch (errorEx &err){
-		delete crt;
-		throw err;
-	}
-	return crt;
-};
+	return new pki_x509();
+}
 
 /* PKCS#7 Certificates */
 load_pkcs7::load_pkcs7()
@@ -108,20 +95,10 @@ load_pkcs7::load_pkcs7()
 	caption = QObject::tr("Import PKCS#7 Certificates");
 }
 
-pki_base * load_pkcs7::loadItem(QString s)
+pki_base * load_pkcs7::newItem()
 {
-	pki_pkcs7 *p7 = new pki_pkcs7(s);
-	if (!p7)
-		return NULL;
-	try {
-		p7->fload(s);
-	}
-	catch (errorEx &err){
-		delete p7;
-		throw err;
-	}
-	return p7;
-};
+	return new pki_pkcs7();
+}
 
 /* PKCS#12 Certificates */
 load_pkcs12::load_pkcs12()
@@ -135,7 +112,7 @@ pki_base * load_pkcs12::loadItem(QString s)
 {
 	pki_base *p12 = new pki_pkcs12(s, MainWindow::passRead);
 	return p12;
-};
+}
 
 /* Templates */
 load_temp::load_temp()
@@ -145,20 +122,10 @@ load_temp::load_temp()
 	caption = QObject::tr("Import XCA Templates");
 }
 
-pki_base * load_temp::loadItem(QString s)
+pki_base * load_temp::newItem()
 {
-	pki_temp *temp = new pki_temp(s);
-	if (!temp)
-		return NULL;
-	try {
-		temp->loadTemp(s);
-	}
-	catch (errorEx &err){
-		delete temp;
-		throw err;
-	}
-	return temp;
-};
+	return new pki_temp();
+}
 
 /* CRLs */
 load_crl::load_crl()
@@ -168,20 +135,10 @@ load_crl::load_crl()
 	caption = QObject::tr("Import Certificate Revocation List");
 }
 
-pki_base * load_crl::loadItem(QString s)
+pki_base * load_crl::newItem()
 {
-	pki_crl *crl = new pki_crl(s);
-	if (!crl)
-		return NULL;
-	try {
-		crl->fload(s);
-	}
-	catch (errorEx &err){
-		delete crl;
-		throw err;
-	}
-	return crl;
-};
+	return new pki_crl();
+}
 
 /* Database */
 load_db::load_db()
@@ -192,42 +149,6 @@ load_db::load_db()
 }
 
 /* General PEM loader */
-static load_base *getload(QString text)
-{
-	int pos;
-#define D5 "-----"
-	pos = text.indexOf(D5 "BEGIN ");
-	if (pos <0)
-		return NULL;
-	text = text.remove(0, pos + 11);
-	if (text.startsWith(PEM_STRING_X509_OLD D5) ||
-				text.startsWith(PEM_STRING_X509 D5) ||
-				text.startsWith(PEM_STRING_X509_TRUSTED D5))
-		return new load_cert();
-
-	if (text.startsWith(PEM_STRING_PKCS7 D5))
-		return new load_pkcs7();
-
-	if (text.startsWith(PEM_STRING_X509_REQ_OLD D5) ||
-				text.startsWith(PEM_STRING_X509_REQ D5))
-		return new load_req();
-
-	if (text.startsWith(PEM_STRING_X509_CRL D5))
-		return new load_crl();
-
-	if (text.startsWith(PEM_STRING_EVP_PKEY D5) ||
-				text.startsWith(PEM_STRING_PUBLIC D5) ||
-				text.startsWith(PEM_STRING_RSA D5) ||
-				text.startsWith(PEM_STRING_RSA_PUBLIC D5) ||
-				text.startsWith(PEM_STRING_DSA D5) ||
-				text.startsWith(PEM_STRING_DSA_PUBLIC D5) ||
-				text.startsWith(PEM_STRING_PKCS8 D5) ||
-				text.startsWith(PEM_STRING_PKCS8INF D5))
-		return new load_key();
-
-	return NULL;
-}
-
 load_pem::load_pem()
 	:load_base()
 {
@@ -235,38 +156,7 @@ load_pem::load_pem()
 	caption = QObject::tr("Load PEM encoded file");
 }
 
-pki_base * load_pem::loadItem(QString fname)
+pki_base *load_pem::newItem()
 {
-	char buf[100];
-	int len;
-	FILE * fp;
-	QString text;
-	pki_base *item = NULL;
-	load_base *lb = NULL;
-
-	try {
-		fp = fopen(CCHAR(fname), "r");
-		if (!fp)
-			throw errorEx(QObject::tr("File open error: ") + fname);
-		len = fread(buf, 1, 99, fp);
-		fclose(fp);
-		if (len < 11)
-			throw errorEx(QObject::tr("File corrupted: ") + fname);
-		buf[len] = '\0';
-		text = buf;
-		lb = getload(text);
-		if (!lb)
-			throw errorEx(QObject::tr("Unknown PEM file: ") + fname);
-		item = lb->loadItem(fname);
-		delete lb;
-	}
-	catch (errorEx &err) {
-		MainWindow::Error(err);
-		if (item)
-			delete item;
-		item = NULL;
-		if (lb)
-			delete lb;
-	}
-	return item;
-};
+	return new pki_multi();
+}

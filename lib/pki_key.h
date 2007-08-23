@@ -59,6 +59,7 @@ class pki_key: public pki_base
 		QString getTypeString(void);
 		QString getIntNameWithType(void);
 		static QString removeTypeFromIntName(QString n);
+		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		void writeDefault(const QString fname);
 		void fromData(const unsigned char *p, db_header_t *head);
