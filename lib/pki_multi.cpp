@@ -84,24 +84,30 @@ static pki_base *pkiByPEM(QString text, int *skip)
 	return NULL;
 }
 
-#define BUFLEN 1024
 void pki_multi::fload(const QString fname)
 {
-	char buf[BUFLEN];
-	int len, startpos;
 	FILE * fp;
-	QString text;
-	pki_base *item = NULL;
 	BIO *bio = NULL;
 
-	try {
-		fp = fopen(CCHAR(fname), "r");
-		if (!fp) {
-			fopen_error(fname);
-			return;
-		}
-		bio = BIO_new_fp(fp, BIO_CLOSE);
-		for (;;) {
+	fp = fopen(CCHAR(fname), "r");
+	if (!fp) {
+		fopen_error(fname);
+		return;
+	}
+	bio = BIO_new_fp(fp, BIO_CLOSE);
+	fromPEM_BIO(bio, fname);
+	BIO_free(bio);
+};
+
+#define BUFLEN 1024
+void pki_multi::fromPEM_BIO(BIO *bio, QString name)
+{
+	QString text;
+	pki_base *item = NULL;
+	char buf[BUFLEN];
+	int len, startpos;
+	for (;;) {
+		try {
 			int pos = BIO_tell(bio);
 			len = BIO_read(bio, buf, BUFLEN-1);
 			buf[len] = '\0';
@@ -115,7 +121,7 @@ void pki_multi::fload(const QString fname)
 			}
 			pos += startpos;
 			BIO_seek(bio, pos);
-			item->fromPEM_BIO(bio, fname);
+			item->fromPEM_BIO(bio, name);
 			if (pos == BIO_tell(bio)) {
 				/* No progress, do it manually */
 				BIO_seek(bio, pos + 1);
@@ -126,12 +132,11 @@ void pki_multi::fload(const QString fname)
 			}
 			openssl_error();
 			multi.append(item);
+		} catch (errorEx &err) {
+			MainWindow::Error(err);
+			if (item)
+				delete item;
+			item = NULL;
 		}
-	} catch (errorEx &err) {
-		MainWindow::Error(err);
-		if (item)
-			delete item;
-		item = NULL;
 	}
-	BIO_free(bio);
-};
+}

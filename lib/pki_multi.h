@@ -22,6 +22,7 @@ class pki_multi: public pki_base
 	public:
 		pki_multi(const QString name = "");
 		~pki_multi();
+		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
 		pki_base *pull();
 };

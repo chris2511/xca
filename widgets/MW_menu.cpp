@@ -55,6 +55,8 @@ void MainWindow::init_menu()
 				SLOT(on_BNimportCrl_clicked()) );
 	import->addAction(tr("PEM file"), this,
 				SLOT(loadPem()) );
+	import->addAction(tr("paste PEM file"), this,
+				SLOT(pastePem()) );
 
 
 	help = menuBar()->addMenu(tr("&Help") );

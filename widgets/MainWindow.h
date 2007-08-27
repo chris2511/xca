@@ -87,6 +87,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void import_dbdump();
 		void undelete();
 		void loadPem();
+		void pastePem();
 
 	private slots:
 		void setOptions();

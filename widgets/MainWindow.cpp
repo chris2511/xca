@@ -19,13 +19,17 @@
 #include <qtextbrowser.h>
 #include <qstatusbar.h>
 #include <qlist.h>
+#include <qtemporaryfile.h>
+
 #include "lib/exception.h"
 #include "lib/pki_pkcs12.h"
+#include "lib/pki_multi.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
 #include "ui_PassRead.h"
 #include "ui_PassWrite.h"
+#include "ui_About.h"
 
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
@@ -215,6 +219,40 @@ void MainWindow::loadPem()
 	load_pem l;
 	if (keys)
 		keys->load_default(l);
+}
+
+void MainWindow::pastePem()
+{
+	Ui::About ui;
+	QDialog *input = new QDialog(this, 0);
+
+	ui.setupUi(input);
+	delete ui.textbox;
+	QTextEdit *textbox = new QTextEdit(input);
+	ui.vboxLayout->addWidget(textbox);
+	ui.button->setText(tr("Import PEM data"));
+	input->setWindowTitle(tr(XCA_TITLE));
+	if (input->exec()) {
+		QString txt = textbox->toPlainText();
+		QTemporaryFile f;
+		f.open();
+		f.write(textbox->toPlainText().toAscii());
+		f.flush();
+		pki_multi *pem = NULL;
+		ImportMulti *dlgi = NULL;
+		try {
+			pem = new pki_multi();
+			dlgi = new ImportMulti(this);
+			pem->fload(f.fileName());
+			dlgi->addItem(pem);
+			dlgi->execute(1);
+		}
+		catch (errorEx &err) {
+			Error(err);
+		}
+		delete dlgi;
+	}
+	delete input;
 }
 
 MainWindow::~MainWindow()
