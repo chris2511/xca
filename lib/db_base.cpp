@@ -306,8 +306,13 @@ void db_base::dump(QString dirname)
 		throw errorEx("Could not create directory '" + dirname + "'");
 	}
 
-	FOR_ALL_pki(pki, pki_base) {
-		pki->writeDefault(dirname);
+	try {
+		FOR_ALL_pki(pki, pki_base) {
+			pki->writeDefault(dirname);
+		}
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
 	}
 }
 

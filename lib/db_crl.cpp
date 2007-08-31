@@ -142,7 +142,12 @@ void db_crl::store()
 		return;
 	}
 	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
-	crl->writeCrl(fname, pem);
+	try {
+		crl->writeCrl(fname, pem);
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
+	}
 }
 
 pki_crl *db_crl::newItem(pki_x509 *cert)

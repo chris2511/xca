@@ -79,7 +79,7 @@ void pki_base::setIntName(const QString &d)
 void pki_base::fopen_error(const QString fname)
 {
 	QString txt = "Error opening file: '" + fname + "'";
-	openssl_error(txt);
+	throw errorEx(txt, class_name);
 }
 
 void pki_base::my_error(const QString error)  const

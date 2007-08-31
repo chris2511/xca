@@ -1,3 +1,7 @@
+  * fix item-export error handling
+  * add PEM paste import feature
+  * extend PEM import t5o import all items from a PEM file
+
 xca 0.6.4
 
   * Bug "tree view loose track" fixed

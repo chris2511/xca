@@ -128,7 +128,12 @@ void db_x509req::store()
 		return;
 	}
 	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
-	req->writeReq(fname, pem);
+	try {
+		req->writeReq(fname, pem);
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
+	}
 }
 
 

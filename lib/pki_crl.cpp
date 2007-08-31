@@ -51,8 +51,8 @@ void pki_crl::fload(const QString fname )
 		crl = _crl;
 		setIntName(rmslashdot(fname));
 		openssl_error(fname);
-	}
-	else fopen_error(fname);
+	} else
+		fopen_error(fname);
 }
 
 QString pki_crl::getSigAlg()
@@ -175,16 +175,16 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 {
 	FILE *fp = fopen(CCHAR(fname), "w");
 	if (fp != NULL) {
-	   if (crl){
-		if (pem)
-			PEM_write_X509_CRL(fp, crl);
-		else
-			i2d_X509_CRL_fp(fp, crl);
+		if (crl){
+			if (pem)
+				PEM_write_X509_CRL(fp, crl);
+			else
+				i2d_X509_CRL_fp(fp, crl);
+		}
+		fclose(fp);
 		openssl_error();
-	   }
-	}
-	else fopen_error(fname);
-	fclose(fp);
+	} else
+		fopen_error(fname);
 }
 
 pki_x509 *pki_crl::getIssuer() { return issuer; }

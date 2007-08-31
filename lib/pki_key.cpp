@@ -539,12 +539,12 @@ void pki_key::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 				else
 					i2d_PKCS8PrivateKey_fp(fp, pkey, enc, NULL, 0, cb, &p);
 				EVP_PKEY_free(pkey);
-				openssl_error();
 			}
 		}
-	}
-	else fopen_error(fname);
-	fclose(fp);
+		fclose(fp);
+		openssl_error();
+	} else
+		fopen_error(fname);
 }
 
 static int mycb(char *buf, int size, int, void *)

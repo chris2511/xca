@@ -200,9 +200,9 @@ void pki_x509req::writeReq(const QString fname, bool pem)
 				PEM_write_X509_REQ(fp, request);
 			else
 				i2d_X509_REQ_fp(fp, request);
-			fclose(fp);
-			openssl_error();
 		}
+		fclose(fp);
+		openssl_error();
 	} else
 		fopen_error(fname);
 }

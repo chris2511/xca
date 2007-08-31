@@ -348,11 +348,11 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 				PEM_write_X509(fp, cert);
 			else
 				i2d_X509_fp(fp, cert);
-			openssl_error();
 		}
-	}
-	else fopen_error(fname);
-	fclose(fp);
+		fclose(fp);
+		openssl_error();
+	} else
+		fopen_error(fname);
 }
 
 bool pki_x509::compare(pki_base *ref)
