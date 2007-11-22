@@ -65,7 +65,7 @@ void ExportKey::canEncrypt()
 
 void ExportKey::on_exportFormat_activated(int c)
 {
-	char *suffix[] = { "pem", "der" };
+	const char *suffix[] = { "pem", "der" };
 
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[c];

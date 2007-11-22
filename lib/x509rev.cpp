@@ -7,16 +7,23 @@
 
 #include "x509rev.h"
 
-#if OPENSSL_VERSION_NUMBER >= 0x00908000L
-#define X509_REVOKED_dup(x5r) \
-	ASN1_dup_of (X509_REVOKED, i2d_X509_REVOKED, d2i_X509_REVOKED, x5r)
 
-#else
-#define X509_REVOKED_dup(x5r) (X509_REVOKED *)ASN1_dup( \
-	(int (*)(...))i2d_X509_REVOKED, \
-	(char *(*)(...))d2i_X509_REVOKED, \
-	(char *)x5r)
-#endif
+static X509_REVOKED *X509_REVOKED_dup(const X509_REVOKED *n)
+{
+        int len;
+        X509_REVOKED *ret;
+	unsigned char *buf, *p;
+	const unsigned char *cp;
+
+        len = i2d_X509_REVOKED((X509_REVOKED *)n, NULL);
+	buf = (unsigned char *)OPENSSL_malloc(len);
+        p = buf;
+        i2d_X509_REVOKED((X509_REVOKED *)n, &p);
+        cp = buf;
+        ret = d2i_X509_REVOKED(NULL, &cp, len);
+        OPENSSL_free(buf);
+        return(ret);
+}
 
 x509rev::x509rev()
 {
@@ -25,7 +32,7 @@ x509rev::x509rev()
 
 x509rev::x509rev(const X509_REVOKED *n)
 {
-	rev = X509_REVOKED_dup((X509_REVOKED *)n);
+	rev = X509_REVOKED_dup(n);
 }
 
 x509rev::x509rev(const x509rev &n)
@@ -43,7 +50,7 @@ x509rev &x509rev::set(const X509_REVOKED *n)
 {
 	if (rev != NULL)
 		X509_REVOKED_free(rev);
-	rev = X509_REVOKED_dup((X509_REVOKED *)n);
+	rev = X509_REVOKED_dup(n);
 	return *this;
 }
 

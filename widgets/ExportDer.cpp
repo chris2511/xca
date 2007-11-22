@@ -39,7 +39,7 @@ void ExportDer::on_fileBut_clicked()
 
 void ExportDer::on_exportFormat_activated(int)
 {
-	char *suffix[] = { "pem", "der" };
+	const char *suffix[] = { "pem", "der" };
 	int selected = exportFormat->currentIndex();
 	QString fn = filename->text();
 	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];

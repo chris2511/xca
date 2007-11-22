@@ -17,7 +17,7 @@ int hashBox::default_md = 2; /* SHA1 */
 #endif
 
 static struct {
-	char *name;
+	const char *name;
 	const EVP_MD *md;
 } hashalgos[] = {
 	{ "MD 2", EVP_md2() },

@@ -339,8 +339,9 @@ void pki_x509::writeDefault(const QString fname)
 void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 {
 	FILE *fp;
-	char *_a = "a", *_w="w", *p = _w;
-	if (append) p=_a;
+	const char *p = "w";
+	if (append)
+		p = "a";
 	fp = fopen(fname.toAscii(), p);
 	if (fp != NULL) {
 		if (cert){

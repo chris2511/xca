@@ -46,7 +46,7 @@ void ExportCert::on_fileBut_clicked()
 
 void ExportCert::on_exportFormat_activated(int)
 {
-	char *suffix[] = { "crt", "crt", "crt", "crt", "cer",
+	const char *suffix[] = { "crt", "crt", "crt", "crt", "cer",
 		"p7b", "p7b", "p7b", "p7b", "p12", "p12", "pem", "pem" };
 	int selected = exportFormat->currentIndex();
 	QString fn = filename->text();

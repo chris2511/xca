@@ -141,8 +141,8 @@ cat >conftest.c <<EOF
 #include <Qt/qglobal.h>
 
 int main(){
-  printf("\nThe Versions of the used libraries are:\n\t%s\n\tQT: %s\n",
-	 OPENSSL_VERSION_TEXT, QT_VERSION_STR );
+  printf("\nThe Versions of the used libraries are:\n\t%s 0x%lxL\n\tQT: %s\n",
+	 OPENSSL_VERSION_TEXT, OPENSSL_VERSION_NUMBER, QT_VERSION_STR );
   if (QT_VERSION < 0x040001) {
 	printf("You need Qt 4 or higher\n");
 	return 1;
