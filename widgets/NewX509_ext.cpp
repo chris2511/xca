@@ -195,15 +195,41 @@ x509v3ext NewX509::getAuthInfAcc()
 	return ext;
 }
 
-x509v3ext NewX509::getCertPol()
+extList NewX509::getAdvanced()
 {
-	x509v3ext ext;
-#if 0
-	if (!certPol->text().isEmpty()) {
-		ext.create(NID_certificate_policies, certPol->text(), &ext_ctx);
+	QString conf_str;
+	CONF *conf;
+	BIO *bio;
+	extList elist;
+	long err_line=0;
+	STACK_OF(X509_EXTENSION) *sk;
+	char ext_name[] = "ext";
+	int ret, i;
+
+	conf_str = nconf_data->toPlainText();
+	if (conf_str.isEmpty())
+		return elist;
+
+	QStringList list = conf_str.split("\n", QString::SkipEmptyParts);
+
+	conf_str = QString("[") + ext_name + "]\n";
+	for (i=0; i< list.count(); i++) {
+		conf_str += list[i].trimmed() + "\n";
 	}
-#endif
-	return ext;
+	bio = BIO_new_mem_buf((void*)CCHAR(conf_str), conf_str.length());
+	if (!bio)
+		return elist;
+	conf = NCONF_new(NULL);
+	ret = NCONF_load_bio(conf, bio , &err_line);
+	BIO_free(bio);
+	if (ret != 1)
+		printf("Ret: %d, ERRLINE=%ld\n", ret, err_line);
+	X509V3_set_nconf(&ext_ctx, conf);
+	X509V3_EXT_add_nconf_sk(conf, &ext_ctx, ext_name, &sk);
+	elist.setStack(sk);
+	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
+	X509V3_set_nconf(&ext_ctx, NULL);
+	return elist;
 }
 
 extList NewX509::getAllExt()
@@ -219,7 +245,7 @@ extList NewX509::getAllExt()
 	ne << getIssAltName();
 	ne << getCrlDist();
 	ne << getAuthInfAcc();
-	ne << getCertPol();
+	ne += getAdvanced();
 	ne += getNetscapeExt();
 	return ne;
 

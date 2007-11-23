@@ -78,8 +78,8 @@ class NewX509: public QDialog, public Ui::NewX509
 		x509v3ext getIssAltName();
 		x509v3ext getCrlDist();
 		x509v3ext getAuthInfAcc();
-		x509v3ext getCertPol();
 		extList getNetscapeExt();
+		extList getAdvanced();
 		extList getAllExt();
 		void initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req);
 		void setBasicConstraints(const x509v3ext &e);
