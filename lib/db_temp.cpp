@@ -21,7 +21,7 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_base(DBfile, mw)
 {
 	headertext << "Name" << "Type";
-	delete_txt = tr("Delete the Template(s)");
+	delete_txt = tr("Delete the template(s)");
 	view = mw->tempView;
 	class_name = "templates";
 	loadContainer();

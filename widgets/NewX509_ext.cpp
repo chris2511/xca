@@ -12,6 +12,7 @@
 #include <qradiobutton.h>
 #include <qlineedit.h>
 #include <qlistwidget.h>
+#include <qmessagebox.h>
 #include "MainWindow.h"
 #include "lib/x509v3ext.h"
 
@@ -202,7 +203,7 @@ extList NewX509::getAdvanced()
 	BIO *bio;
 	extList elist;
 	long err_line=0;
-	STACK_OF(X509_EXTENSION) *sk;
+	STACK_OF(X509_EXTENSION) *sk = NULL;
 	char ext_name[] = "ext";
 	int ret, i;
 
@@ -222,8 +223,17 @@ extList NewX509::getAdvanced()
 	conf = NCONF_new(NULL);
 	ret = NCONF_load_bio(conf, bio , &err_line);
 	BIO_free(bio);
-	if (ret != 1)
-		printf("Ret: %d, ERRLINE=%ld\n", ret, err_line);
+	if (ret != 1) {
+		int i = ERR_get_error();
+		printf("Ret: %d, ERRLINE=%ld: %s\n", ret, err_line,
+			ERR_error_string(i ,NULL));
+
+		QMessageBox::warning(this, XCA_TITLE,
+			tr("Advanced Settings Error: ") +
+			ERR_error_string(i ,NULL), tr("OK"));
+
+		return elist;
+	}
 	X509V3_set_nconf(&ext_ctx, conf);
 	X509V3_EXT_add_nconf_sk(conf, &ext_ctx, ext_name, &sk);
 	elist.setStack(sk);

@@ -28,7 +28,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 	headertext << tr("Internal name") << tr("Common name") << tr("Serial") <<
 			tr("not After") << tr("Trust state") << tr("Revocation");
 
-	delete_txt = tr("Delete the certificates(s)");
+	delete_txt = tr("Delete the certificate(s)");
 	view = mw->certView;
 	class_name = "certificates";
 	loadContainer();
