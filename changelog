@@ -1,3 +1,7 @@
+
+  * add nconf input field for arbitrary OpenSSL extensions
+    and a "validate" button to check the settings before applying
+  * fix xca.desktop Bug [ 1837956 ]
   * fix item-export error handling
   * add PEM paste import feature
   * extend PEM import t5o import all items from a PEM file

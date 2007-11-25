@@ -231,7 +231,6 @@ extList NewX509::getAdvanced()
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("Advanced Settings Error: ") +
 			ERR_error_string(i ,NULL), tr("OK"));
-
 		return elist;
 	}
 	X509V3_set_nconf(&ext_ctx, conf);
@@ -242,7 +241,7 @@ extList NewX509::getAdvanced()
 	return elist;
 }
 
-extList NewX509::getAllExt()
+extList NewX509::getGuiExt()
 {
 	extList ne;
 
@@ -255,6 +254,13 @@ extList NewX509::getAllExt()
 	ne << getIssAltName();
 	ne << getCrlDist();
 	ne << getAuthInfAcc();
+	return ne;
+}
+
+extList NewX509::getAllExt()
+{
+	extList ne;
+	ne = getGuiExt();
 	ne += getAdvanced();
 	ne += getNetscapeExt();
 	return ne;

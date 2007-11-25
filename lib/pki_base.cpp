@@ -114,7 +114,7 @@ void pki_base::openssl_error(const QString txt)  const
 }
 
 
-bool pki_base::ign_openssl_error() const
+bool pki_base::ign_openssl_error()
 {
 	// ignore openssl errors
 	QString errtxt;

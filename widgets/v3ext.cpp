@@ -32,7 +32,7 @@ v3ext::~v3ext()
 }
 
 void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
-		X509 *s, X509 *s1)
+		X509V3_CTX *ctx)
 {
 	type->addItems(sl);
 	nid = n;
@@ -40,8 +40,7 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 	if (le)
 		addItem(le->text());
 
-	memset(&ext_ctx, 0, sizeof(X509V3_CTX));
-	X509V3_set_ctx(&ext_ctx, s, s1, NULL, NULL, 0);
+	ext_ctx = ctx;
 }
 
 void v3ext::addItem(QString list)
@@ -121,7 +120,7 @@ bool v3ext::__validate(bool showSuccess)
 	}
 	str += toString();
 
-	ext.create(nid, str, &ext_ctx);
+	ext.create(nid, str, ext_ctx);
 	while (int i = ERR_get_error() ) {
 		error += ERR_error_string(i ,NULL);
 		error += "\n";
@@ -129,7 +128,7 @@ bool v3ext::__validate(bool showSuccess)
 	if (! error.isEmpty()) {
 		QMessageBox::warning(this, XCA_TITLE, tr("Validation failed:")
 			+ "\n'" + str + "'\n" + error, tr("&OK"));
-		 return false;
+		return false;
 	}
 	if (showSuccess) {
 		QMessageBox::information(this, XCA_TITLE,

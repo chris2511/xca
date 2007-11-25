@@ -45,6 +45,8 @@ class NewX509: public QDialog, public Ui::NewX509
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
 		QStringList private_keys, private_keys0;
+		pki_x509 *ctx_cert;
+		QString v3ext_backup;
 	public:
 		QRadioButton *selfQASignRB;
 		NewX509(QWidget *parent);
@@ -78,9 +80,11 @@ class NewX509: public QDialog, public Ui::NewX509
 		x509v3ext getIssAltName();
 		x509v3ext getCrlDist();
 		x509v3ext getAuthInfAcc();
+		extList getGuiExt();
 		extList getNetscapeExt();
 		extList getAdvanced();
 		extList getAllExt();
+		void setupTmpCtx();
 		void initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req);
 		void setBasicConstraints(const x509v3ext &e);
 		void setExt(const x509v3ext &ext);
@@ -107,6 +111,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_certList_currentIndexChanged(int index);
 		void on_applyTemplate_clicked();
 		void on_okButton_clicked();
+		void on_adv_validate_clicked();
 		void on_usedKeysToo_toggled(bool checked);
 	signals:
 		void genKey();

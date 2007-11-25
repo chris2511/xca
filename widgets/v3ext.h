@@ -23,7 +23,7 @@ class v3ext: public QDialog, public Ui::v3ext
 	private:
 		QLineEdit *le;
 		int nid;
-		X509V3_CTX ext_ctx;
+		X509V3_CTX *ext_ctx;
 		bool __validate(bool showSuccess);
 	public:
 		v3ext( QWidget *parent);
@@ -32,7 +32,7 @@ class v3ext: public QDialog, public Ui::v3ext
 		void addEntry(QString list);
 		QString toString();
 		void addInfo(QLineEdit *myle, const QStringList &sl, int n,
-				X509 *s, X509 *s1);
+				X509V3_CTX *ctx);
 
 	public slots:
 		void on_delEntry_clicked();

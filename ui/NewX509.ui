@@ -1748,9 +1748,46 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
       <attribute name="title" >
        <string>Advanced</string>
       </attribute>
-      <layout class="QHBoxLayout" >
+      <layout class="QVBoxLayout" >
        <item>
         <widget class="QTextEdit" name="nconf_data" />
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="adv_validate" >
+           <property name="text" >
+            <string>Validate</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

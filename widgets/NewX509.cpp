@@ -49,6 +49,9 @@ NewX509::NewX509(QWidget *parent)
 
 	setupUi(this);
 
+	/* temporary storage for creating temporary X509V3_CTX */
+	ctx_cert = NULL;
+
 	sl << "Type" << "Content";
 	extDNlist->setColumnCount(2);
 	extDNlist->setHorizontalHeaderLabels(sl);
@@ -167,7 +170,8 @@ void NewX509::setRequest()
 
 NewX509::~NewX509()
 {
-
+	if (ctx_cert)
+		delete(ctx_cert);
 }
 
 void NewX509::addReqAttributes(pki_x509req *req)
@@ -272,7 +276,6 @@ void NewX509::fromTemplate(pki_temp *temp)
 	issAltName->setText(temp->issAltName);
 	crlDist->setText(temp->crlDist);
 	setAuthInfAcc_string(temp->authInfAcc);
-	//certPol->setText(temp->certPol);
 	nsComment->setText(temp->nsComment);
 	nsBaseUrl->setText(temp->nsBaseUrl);
 	nsRevocationUrl->setText(temp->nsRevocationUrl);
@@ -308,7 +311,6 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->issAltName = issAltName->text();
 	temp->crlDist = crlDist->text();
 	temp->authInfAcc = getAuthInfAcc_string();
-	//temp->certPol = certPol->text();
 	temp->nsComment = nsComment->text();
 	temp->nsBaseUrl = nsBaseUrl->text();
 	temp->nsRevocationUrl = nsRevocationUrl->text();
@@ -613,33 +615,75 @@ void NewX509::on_applyTime_clicked()
 			midnightCB->isChecked(), notBefore, notAfter);
 }
 
-void NewX509::editV3ext(QLineEdit *le, QString types, int n)
+void NewX509::setupTmpCtx()
 {
-	v3ext *dlg;
-	pki_x509 *cert, *signcert;
-	pki_x509req *req;
+	pki_x509 *signcert;
+	pki_x509req *req = NULL;
 
-	// initially create cert
-	cert = new pki_x509();
+	// initially create temporary ctx cert
+	if (ctx_cert)
+		delete(ctx_cert);
+	ctx_cert = new pki_x509();
 	if (fromReqCB->isChecked()) {
 		req = getSelectedReq();
-		cert->setSubject(req->getSubject());
+		ctx_cert->setSubject(req->getSubject());
 	} else {
-		cert->setSubject(getX509name());
+		ctx_cert->setSubject(getX509name());
 	}
 	// Step 2 - select Signing
 	if (foreignSignRB->isChecked()) {
 		signcert = getSelectedSigner();
 	} else {
-		signcert = cert;
+		signcert = ctx_cert;
+		ctx_cert->setIssuer(ctx_cert->getSubject());
 	}
+	initCtx(ctx_cert, signcert, req);
+}
+
+void NewX509::editV3ext(QLineEdit *le, QString types, int n)
+{
+	v3ext *dlg;
 
 	dlg = new v3ext(this);
-	dlg->addInfo(le, types.split(',' ), n,
-			signcert->getCert(), cert->getCert());
+	setupTmpCtx();
+	dlg->addInfo(le, types.split(',' ), n, &ext_ctx);
 	dlg->exec();
 	delete(dlg);
-	delete(cert);
+}
+
+void NewX509::on_adv_validate_clicked()
+{
+	if (!nconf_data->isReadOnly()) {
+		QString errtxt;
+		extList el;
+		pki_base::ign_openssl_error();
+		QString result = "<h2><center>Result</center></h2><hr>\n";
+		setupTmpCtx();
+		v3ext_backup = nconf_data->toPlainText();
+		el = getGuiExt();
+		el += getNetscapeExt();
+		el.delInvalid();
+		if (el.size() >0) {
+			result += el.getHtml("<br>") + "<hr>";
+		}
+		result += getAdvanced().getHtml("<br>");
+		nconf_data->document()->setHtml(result);
+		nconf_data->setReadOnly(true);
+		while (int i = ERR_get_error() ) {
+			errtxt += ERR_error_string(i ,NULL);
+		}
+		if (!errtxt.isEmpty()) {
+			errorEx e = errorEx(errtxt, "Advanced V3");
+			MainWindow::Error(e);
+		}
+
+		adv_validate->setText(tr("Edit"));
+	} else {
+		nconf_data->document()->setPlainText(v3ext_backup);
+		nconf_data->setReadOnly(false);
+		adv_validate->setText(tr("Validate"));
+	}
+	pki_base::ign_openssl_error();
 }
 
 void NewX509::on_editSubAlt_clicked()
@@ -689,6 +733,10 @@ QString NewX509::mandatoryDnRemain()
 
 void NewX509::on_okButton_clicked()
 {
+	/* reset advanced tab to original text */
+	if (nconf_data->isReadOnly())
+		on_adv_validate_clicked();
+
 	try {
 		getX509name(1);
 	} catch (errorEx &err) {

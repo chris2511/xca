@@ -121,7 +121,8 @@ X509_EXTENSION *x509v3ext::get() const
 
 bool x509v3ext::isValid() const
 {
-	return ext->value->length > 0;
+	return ext->value->length > 0 &&
+		OBJ_obj2nid(ext->object) != NID_undef;
 }
 
 /*************************************************************/
