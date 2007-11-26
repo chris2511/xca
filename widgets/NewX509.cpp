@@ -667,15 +667,16 @@ void NewX509::on_adv_validate_clicked()
 			result += el.getHtml("<br>") + "<hr>";
 		}
 		result += getAdvanced().getHtml("<br>");
-		nconf_data->document()->setHtml(result);
-		nconf_data->setReadOnly(true);
 		while (int i = ERR_get_error() ) {
-			errtxt += ERR_error_string(i ,NULL);
+			errtxt += ERR_error_string(i, NULL);
+			errtxt += "<br>\n";
 		}
 		if (!errtxt.isEmpty()) {
-			errorEx e = errorEx(errtxt, "Advanced V3");
-			MainWindow::Error(e);
+			result += "<h2><center>Errors</center></h2><hr>\n";
+			result += errtxt;
 		}
+		nconf_data->document()->setHtml(result);
+		nconf_data->setReadOnly(true);
 
 		adv_validate->setText(tr("Edit"));
 	} else {
@@ -712,6 +713,13 @@ void NewX509::on_editAuthInfAcc_clicked()
 	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
 }
 
+void NewX509::on_tabWidget_currentChanged(int idx)
+{
+	/* reset advanced tab to editable text */
+	if (nconf_data->isReadOnly())
+		on_adv_validate_clicked();
+}
+
 QString NewX509::mandatoryDnRemain()
 {
 	QStringList dnl = MainWindow::mandatory_dn.split(",");
@@ -733,9 +741,7 @@ QString NewX509::mandatoryDnRemain()
 
 void NewX509::on_okButton_clicked()
 {
-	/* reset advanced tab to original text */
-	if (nconf_data->isReadOnly())
-		on_adv_validate_clicked();
+	on_tabWidget_currentChanged(0);
 
 	try {
 		getX509name(1);

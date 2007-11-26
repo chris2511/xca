@@ -113,6 +113,8 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_okButton_clicked();
 		void on_adv_validate_clicked();
 		void on_usedKeysToo_toggled(bool checked);
+		void on_tabWidget_currentChanged(int idx);
+
 	signals:
 		void genKey();
 		void showReq(QString req);
