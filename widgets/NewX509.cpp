@@ -457,10 +457,6 @@ void NewX509::checkAuthKeyId()
 			enabled = true;
 		}
 	}
-	else { // Self signed
-		if (subKey->isChecked() && subKey->isEnabled() && pt != x509_req)
-			enabled = true;
-	}
 	authKey->setEnabled(enabled);
 }
 
@@ -619,6 +615,7 @@ void NewX509::setupTmpCtx()
 {
 	pki_x509 *signcert;
 	pki_x509req *req = NULL;
+	a1int serial;
 
 	// initially create temporary ctx cert
 	if (ctx_cert)
@@ -633,11 +630,15 @@ void NewX509::setupTmpCtx()
 	// Step 2 - select Signing
 	if (foreignSignRB->isChecked()) {
 		signcert = getSelectedSigner();
+		serial = signcert->getCaSerial();
 	} else {
 		signcert = ctx_cert;
 		ctx_cert->setIssuer(ctx_cert->getSubject());
+		serial.setHex(serialNr->text());
 	}
+	ctx_cert->setSerial(serial);
 	initCtx(ctx_cert, signcert, req);
+	ctx_cert->addV3ext(getSubKeyIdent());
 }
 
 void NewX509::editV3ext(QLineEdit *le, QString types, int n)
@@ -657,22 +658,31 @@ void NewX509::on_adv_validate_clicked()
 		QString errtxt;
 		extList el;
 		pki_base::ign_openssl_error();
-		QString result = "<h2><center>Result</center></h2><hr>\n";
+		QString result;
 		setupTmpCtx();
 		v3ext_backup = nconf_data->toPlainText();
 		el = getGuiExt();
 		el += getNetscapeExt();
 		el.delInvalid();
-		if (el.size() >0) {
-			result += el.getHtml("<br>") + "<hr>";
+		if (el.size() > 0) {
+			result = "<h2><center>Other Tabs</center></h2><p>\n";
+			result += el.getHtml("<br>");
 		}
-		result += getAdvanced().getHtml("<br>");
+		el = getAdvanced();
+		if (el.size() > 0) {
+			if (!result.isEmpty())
+				result += "\n<hr>\n";
+			result += "<h2><center>Advanced Tab</center></h2><p>\n";
+			result += el.getHtml("<br>");
+		}
 		while (int i = ERR_get_error() ) {
 			errtxt += ERR_error_string(i, NULL);
 			errtxt += "<br>\n";
 		}
 		if (!errtxt.isEmpty()) {
-			result += "<h2><center>Errors</center></h2><hr>\n";
+			if (!result.isEmpty())
+				result += "\n<hr>\n";
+			result += "<h2><center>Errors</center></h2><p>\n";
 			result += errtxt;
 		}
 		nconf_data->document()->setHtml(result);

@@ -210,7 +210,7 @@ extList NewX509::getAdvanced()
 	conf_str = nconf_data->toPlainText();
 	if (conf_str.isEmpty())
 		return elist;
-
+	conf_str += "\n";
 	QStringList list = conf_str.split("\n", QString::SkipEmptyParts);
 
 	conf_str = QString("[") + ext_name + "]\n";
