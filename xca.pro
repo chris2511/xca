@@ -38,6 +38,7 @@ HEADERS += lib/asn1int.h \
            lib/pki_x509.h \
            lib/pki_x509req.h \
            lib/pki_x509super.h \
+           lib/pki_multi.h \
            lib/x509name.h \
            lib/x509rev.h \
            lib/x509v3ext.h \
@@ -106,6 +107,7 @@ SOURCES += lib/asn1int.cpp \
            lib/pki_x509.cpp \
            lib/pki_x509req.cpp \
            lib/pki_x509super.cpp \
+           lib/pki_multi.cpp \
            lib/x509name.cpp \
            lib/x509rev.cpp \
            lib/x509v3ext.cpp \

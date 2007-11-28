@@ -494,7 +494,7 @@ void NewX509::newKeyDone(QString name)
 	keyList->setCurrentIndex(keys.indexOf(name));
 }
 
-void NewX509::on_usedKeysToo_toggled(bool checked)
+void NewX509::on_usedKeysToo_toggled(bool)
 {
 	QString cur = keyList->currentText();
 	QStringList keys;
@@ -723,7 +723,7 @@ void NewX509::on_editAuthInfAcc_clicked()
 	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
 }
 
-void NewX509::on_tabWidget_currentChanged(int idx)
+void NewX509::on_tabWidget_currentChanged(int)
 {
 	/* reset advanced tab to editable text */
 	if (nconf_data->isReadOnly())

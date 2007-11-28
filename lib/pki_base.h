@@ -37,7 +37,7 @@ class pki_base : public QObject
 		static bool ign_openssl_error();
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
-		virtual void fload(const QString name) {};
+		virtual void fload(const QString) {};
 		virtual void writeDefault(const QString){};
 		static int get_pki_counter(void);
 		virtual void fromData(const unsigned char *, db_header_t *){};
@@ -69,7 +69,7 @@ class pki_base : public QObject
 		virtual QVariant getIcon();
 		const char *className() { return class_name; };
 		uint32_t intFromData(const unsigned char **p);
-		virtual void fromPEM_BIO(BIO *bio, QString name) {};
+		virtual void fromPEM_BIO(BIO *, QString) {};
 };
 
 #endif
