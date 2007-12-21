@@ -299,6 +299,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	if (temp->pathLen) {
 		basicPath->setText(QString::number(temp->pathLen));
 	}
+	nconf_data->document()->setPlainText(temp->adv_ext);
 	notBefore->setNow();
 	on_applyTime_clicked();
 }
@@ -331,6 +332,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->validM = validRange->currentIndex();
 	temp->pathLen = basicPath->text().toInt();
 	temp->validMidn = midnightCB->isChecked();
+	temp->adv_ext = nconf_data->toPlainText();
 }
 
 void NewX509::on_fromReqCB_clicked()

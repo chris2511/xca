@@ -47,13 +47,14 @@ pki_temp::pki_temp(const pki_temp *pk)
 	validMidn=pk->validMidn;
 	keyUse=pk->keyUse;
 	eKeyUse=pk->eKeyUse;
+	adv_ext=pk->adv_ext;
 }
 
 pki_temp::pki_temp(const QString d)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
-	dataVersion=2;
+	dataVersion=3;
 	pkiType=tmpl;
 	cols=2;
 
@@ -82,6 +83,7 @@ pki_temp::pki_temp(const QString d)
 	validM=0;
 	keyUse=0;
 	eKeyUse=0;
+	adv_ext="";
 }
 
 
@@ -94,7 +96,7 @@ void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 	fromData(p, size, version);
 }
 
-void pki_temp::fromData(const unsigned char *p, int size, int)
+void pki_temp::fromData(const unsigned char *p, int size, int version)
 {
 	const unsigned char *p1 = p;
 
@@ -125,7 +127,8 @@ void pki_temp::fromData(const unsigned char *p, int size, int)
 	authInfAcc=db::stringFromData(&p1);
 	certPol=db::stringFromData(&p1);
 	validMidn=db::boolFromData(&p1);
-
+	if (version>2)
+		adv_ext=db::stringFromData(&p1);
 	if (p1-p != size) {
 		my_error(tr("Wrong Size of template: ") + getIntName());
 	}
@@ -166,6 +169,7 @@ unsigned char *pki_temp::toData(int *size)
 	db::stringToData(&p1, authInfAcc);
 	db::stringToData(&p1, certPol);
 	db::boolToData(&p1, validMidn);
+	db::stringToData(&p1, adv_ext);
 
 	*size = p1-p;
 	return p;
@@ -250,9 +254,8 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	int s = 9 * sizeof(int) +
-			8 * sizeof(char) +
-		xname.derSize() + (
+	int s = 9 * sizeof(int) + 8 * sizeof(char) +
+	xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
 	crlDist.length() +
@@ -265,7 +268,8 @@ int pki_temp::dataSize()
 	nsRenewalUrl.length() +
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
-	12 ) * sizeof(char);
+	adv_ext.length() +
+	13 ) * sizeof(char);
 	return s;
 }
 

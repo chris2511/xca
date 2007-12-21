@@ -15,14 +15,14 @@
 class pki_temp: public pki_base
 {
 	protected:
-		int version;
 		int dataSize();
 	public:
 		static QPixmap *icon;
 		x509name xname;
 		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
 		QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
-			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName, destination;
+			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName, destination,
+			adv_ext;
 		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey, validMidn;
 		int nsCertType, pathLen, keyUse, eKeyUse, ca;
 		int validN, validM;
@@ -33,7 +33,6 @@ class pki_temp: public pki_base
 		pki_temp(const QString d = QString());
 		void fload(const QString fname);
 		void writeDefault(const QString fname);
-		/* destructor */
 		~pki_temp();
 		void fromData(const unsigned char *p, int size, int version);
 		void fromData(const unsigned char *p, db_header_t *head );
