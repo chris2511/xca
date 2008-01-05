@@ -110,12 +110,13 @@ NIDlist *MainWindow::read_nidlist(QString name)
 
 #ifndef WIN32
 	/* first try $HOME/xca/ */
-	nl = readNIDlist(QDir::homePath() + QDir::separator() + ".xca" + name);
-
+	nl = readNIDlist(getUserSettingsDir() + QDir::separator() + name);
+#if !defined(Q_WS_MAC)
 	if (nl.count() == 0){
 		/* next is /etx/xca/... */
 		nl = readNIDlist(QString(ETC) + name);
 	}
+#endif
 #endif
 	if (nl.count() == 0) {
 		/* look at /usr/(local/)share/xca/ */

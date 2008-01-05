@@ -1,8 +1,51 @@
 #!/bin/sh
 
-cat > local.h <<EOF
-#define PREFIX "/usr/local"
-#define ETC "/etc/xca"
-#define VER "`cat VERSION`"
-EOF
+if [ -x "`which qmake`" ]
+then
+    echo "Using qmake: " `qmake -version`
+else
+    echo "Qt and qmake must be installed in order to build xca on Mac OS X."
+    exit
+fi
 
+if [ -e "xca.xcodeproj" ]
+then
+    echo "Backing up existing xca.xcodeproj to xca.xcodeproj~"
+    if [ -d xca.xcodeproj~ ]
+    then
+        rm -rf xca.xcodeproj~
+    fi
+    mv xca.xcodeproj xca.xcodeproj~
+fi
+
+QTDEPLOY=misc/deployqt
+
+if [ -x "`which deployqt`" ]
+then
+    QTDEPLOY=`which deployqt`
+fi
+
+if [ -x "$QTDEPLOY" ]
+then
+    echo "$QTDEPLOY will be used for packaging qt into release builds of the application bundle"
+else
+    echo "No copy of qtdeploy could be found. qtdeploy is highly recommended for building release versions of xca intended for redistribution."
+    echo "The command"
+    echo "curl http://e42.us/binaries/deployqt.bz2 |bzcat - >misc/deployqt && chmod +x misc/deployqt"
+    echo "will fetch a pre-built copy. Otherwise, download and build from here: "
+    echo "http://labs.trolltech.com/blogs/2007/08/23/deploying-mac-applications-without-the-hassle/"
+fi
+
+echo "Generating xca.xcodeproj"
+qmake -o xca -macx xca.pro
+
+echo "Generating local.h"
+cat > local.h <<EOF
+#ifndef __LOCAL_H__
+#define __LOCAL_H__
+
+#define VER "`cat VERSION`"
+
+#endif //!defined(__LOCAL_H__)
+
+EOF

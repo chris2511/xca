@@ -17,6 +17,8 @@ class Validity;
 QPixmap *loadImg(const char *name);
 QString getPrefix();
 QString getHomeDir();
+QString getUserSettingsDir();
+QString getFullFilename(const QString & filename, const QString & selectedFilter);
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na);
 QString asn1ToQString(const ASN1_STRING *str);

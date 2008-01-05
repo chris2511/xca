@@ -29,7 +29,12 @@ ExportDer::ExportDer(QWidget *parent, QString fname, QString _filter)
 void ExportDer::on_fileBut_clicked()
 {
 	QString s = QFileDialog::getSaveFileName(this, QString(),
-			filename->text(), filter + ";;All files ( *.* )" );
+#if defined(Q_WS_MAC)
+											filename->text(), filter + ";;All files ( * )" );
+#else
+											filename->text(), filter + ";;All files ( *.* )" );
+#endif
+
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);

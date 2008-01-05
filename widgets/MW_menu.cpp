@@ -69,15 +69,18 @@ void MainWindow::init_menu()
 void MainWindow::new_database()
 {
 	load_db l;
+	QString selectedFilter;
 	QString fname = QFileDialog::getSaveFileName(this, l.caption, homedir,
-			l.filter, 0, QFileDialog::DontConfirmOverwrite);
+			l.filter, &selectedFilter, QFileDialog::DontConfirmOverwrite);
 
 	if (fname.isEmpty())
 		return;
 
 	close_database();
 	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()) );
-	dbfile = fname;
+	// make sure that, if the 3 letter extension was left selected in Qt's OS X file open dialog,
+	// the filename actually ends with that extension. Otherwise usability breaks in jarring ways.
+	dbfile = getFullFilename(fname,selectedFilter);
 	init_database();
 }
 
@@ -106,7 +109,11 @@ void MainWindow::import_dbdump()
 		return;
 	QString pass;
 	QString file = QFileDialog::getOpenFileName(this, tr(XCA_TITLE), homedir,
+#if defined(Q_WS_MAC)
+			tr("Database dump ( *.dump );;All files ( * )"));
+#else
 			tr("Database dump ( *.dump );;All files ( *.* )"));
+#endif
 
 	if (file.isEmpty())
 		return;

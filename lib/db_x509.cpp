@@ -786,7 +786,11 @@ void ::signP7()
 			cert->getIntName());
 		return;
 	}
-        filt.append("All Files ( *.* )");
+#if defined(Q_WS_MAC)
+		filt.append("All Files ( * )");
+#else
+		filt.append("All Files ( *.* )");
+#endif
 	QString s="";
 	QStringList slist;
 	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);

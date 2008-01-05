@@ -20,7 +20,7 @@ static X509_REVOKED *X509_REVOKED_dup(const X509_REVOKED *n)
         p = buf;
         i2d_X509_REVOKED((X509_REVOKED *)n, &p);
         cp = buf;
-        ret = d2i_X509_REVOKED(NULL, &cp, len);
+        ret = d2i_X509_REVOKED(NULL, &p, len);
         OPENSSL_free(buf);
         return(ret);
 }

@@ -10,6 +10,24 @@ INCLUDEPATH += . lib widgets
 RESOURCES = img/imgres.rcc
 RC_FILE = img/w32res.rc
 
+macx {
+	ICON = img/xca-mac-icon.icns
+	CONFIG += release_and_debug
+	QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.4
+	QMAKE_MAC_SDK=/Developer/SDKs/MacOSX10.4u.sdk
+	# The condition below does not seem to work the way it first appeared to,
+	# qmake doesn't seem to offer any facility to control release -vs- debug within the same xcode
+	# project, so for now all the mac builds will be universal. This has been reported to trolltech.
+	#!debug {
+	CONFIG += x86 ppc
+	#}
+	XCA_RESOURCES.files = misc/oids.txt misc/aia.txt misc/CA.xca misc/dn.txt misc/eku.txt misc/HTTPS_client.xca misc/HTTPS_server.xca
+	# XXX *** I haven't tested the localizations, but I think they'll need to land here to be used based on reading the code
+	XCA_RESOURCES.files += lang/xca_de.ts lang/xca_es.ts
+	XCA_RESOURCES.path = Contents/Resources
+	QMAKE_BUNDLE_DATA += XCA_RESOURCES
+}
+
 LIBS += -lcrypto
 
 # Input

@@ -27,6 +27,13 @@
 #include <netinet/in.h>
 #endif
 
+#ifdef Q_WS_MAC
+/* for CFBundle API */
+#include <CoreFoundation/CoreFoundation.h>
+/* for Folder Manager */
+#include <CoreServices/CoreServices.h>
+#endif
+
 QPixmap *loadImg(const char *name )
 {
 	return new QPixmap(QString(":") + name);
@@ -75,11 +82,15 @@ QString getPrefix()
 	lRc = RegCloseKey(hKey);
 	return QString(inst_dir);
 
-#elif __APPLE_CC__
-	QDir d;
-	d = qApp->applicationDirPath();
-	d.cdUp();
-	return d.canonicalPath() + "/Resources";
+#elif defined(Q_WS_MAC)
+    // since this is platform-specific anyway, this is a more robust way to get the bundle directory
+    CFURLRef bundle = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+    CFStringRef bundlePath = CFURLCopyFileSystemPath(bundle,kCFURLPOSIXPathStyle);
+    QString ret(CFStringGetCStringPtr(bundlePath,CFStringGetSystemEncoding()));
+    CFRelease(bundle);
+    CFRelease(bundlePath);
+    ret += "/Contents/Resources";
+    return ret;
 #else
 
 	QString ret = PREFIX;
@@ -99,8 +110,27 @@ QString getHomeDir()
 		SHGetPathFromIDList(pidl, buf);
 	}
 	hd = buf;
-#elif __APPLE_CC__
-	hd = getPrefix() + "/xca";
+#elif defined(Q_WS_MAC)
+	// the primary purpose of this function (at least as far as I see on Mac) appears to be
+	// selecting a sensible starting point for opening and saving files.
+	// If that read is correct, the user's documents folder is generally a good starting point.
+	FSRef docsLoc;
+	OSErr err = FSFindFolder(kUserDomain, kDocumentsFolderType, kDontCreateFolder, &docsLoc);
+	if(err == noErr) {
+		CFURLRef docsURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &docsLoc);
+		if(docsURL) {
+			CFStringRef docsPath = CFURLCopyFileSystemPath(docsURL,kCFURLPOSIXPathStyle);
+			if(docsPath) {
+				hd = CFStringGetCStringPtr(docsPath,CFStringGetSystemEncoding());
+				CFRelease(docsPath);
+			}
+			CFRelease(docsURL);
+		}
+	}
+	if(hd.isEmpty()) {
+		// if the folder manager didn't give anything, just let Qt decide
+		hd = QDir::homePath();
+	}
 #else
 #ifdef BASEDIR
 	hd = BASEDIR;
@@ -109,6 +139,69 @@ QString getHomeDir()
 #endif
 #endif
 	return hd;
+}
+
+// The intent of this function is to return the proper location for user-controlled settings on the current platform
+// i.e. PROFILE\Application Data\xca on windows, HOME/.xca on UNIX, ~/Library/Preferences/xca on Mac OS X
+QString getUserSettingsDir()
+{
+	QString rv;
+#ifdef WIN32
+	// XXX *** UNTESTED. This is just copied from getHomeDir() above with the constant modified...
+	// If that function works, this one should, but I have not verified this personally.
+	LPITEMIDLIST pidl = NULL;
+	TCHAR buf[255] = "";
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl))) {
+		SHGetPathFromIDList(pidl, buf);
+	}
+	rv = buf;
+	rv += QDir::separator();
+	rv += "xca";
+#elif defined(Q_WS_MAC)
+	FSRef prefsLoc;
+	OSErr err = FSFindFolder(kUserDomain, kPreferencesFolderType, kDontCreateFolder, &prefsLoc);
+	if(err == noErr) {
+		CFURLRef prefsURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &prefsLoc);
+		if(prefsURL) {
+			CFStringRef prefsPath = CFURLCopyFileSystemPath(prefsURL,kCFURLPOSIXPathStyle);
+			if(prefsPath) {
+				rv = CFStringGetCStringPtr(prefsPath,CFStringGetSystemEncoding());
+				CFRelease(prefsPath);
+				rv += QDir::separator();
+				rv += "xca";
+			}
+			CFRelease(prefsURL);
+		}
+	}
+#else
+	rv = QDir::homePath();
+	rv += QDir::separator();
+	rv += ".xca";
+#endif
+	return rv;
+}
+
+// Qt's open and save dialogs result in some undesirable quirks on Mac OS X. This function makes sure that a filename has the
+// user-selected extension on a mac, and just returns the file name passed in on other platforms where, presumably
+// these quirks don't pose the same issues.
+QString getFullFilename(const QString & filename, const QString & selectedFilter)
+{
+	QString rv = filename;
+#if !defined(Q_WS_MAC)
+	return rv;
+#else
+	if(!selectedFilter.isEmpty() && !filename.endsWith(selectedFilter)) {
+		int dot = selectedFilter.indexOf('.');
+		if(dot > 0){
+			int extLen = selectedFilter.lastIndexOf(')') - dot - 1;
+			rv += selectedFilter.mid(dot,extLen);
+		}
+	}
+	// make sure it wasn't a wildcard filter... this seems a little backwards,
+	// but it's the easiest I see way not to worry about languages here.
+	if(rv.endsWith('*')) rv = filename;
+	return rv;
+#endif
 }
 
 void applyTD(QWidget *parent, int number, int range, bool mnc,
@@ -169,6 +262,8 @@ QString asn1ToQString(const ASN1_STRING *str)
 /* returns an encoded ASN1 string from QString for a special nid*/
 ASN1_STRING *QStringToAsn1(const QString s, int nid)
 {
+	// XXX *** GIB TODO: This function is certainly a bug. Need to track down what
+	// it really means to do and whether anything ever trips over it.
 	const unsigned char *utf8 = (const unsigned char *)s.toUtf8().constData();
 	ASN1_STRING_set_by_NID(NULL, utf8, -1, MBSTRING_UTF8, nid);
 }

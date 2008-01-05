@@ -17,7 +17,11 @@
 
 load_base::load_base()
 {
+#if defined(Q_WS_MAC)
+	filter = QObject::tr("All files ( * )");
+#else
 	filter = QObject::tr("All files ( *.* )");
+#endif
 	caption = "";
 }
 
