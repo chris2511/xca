@@ -39,12 +39,7 @@ void ExportKey::on_fileBut_clicked()
 {
 	QString s = QFileDialog::getSaveFileName(this, tr("Save key as"),
 		filename->text(),
-#if defined(Q_WS_MAC)
 		tr("Private keys ( *.pem *.der *.pk8 );;All files ( * )"));
-#else
-		tr("Private keys ( *.pem *.der *.pk8 );;All files ( *.* )"));
-#endif
-
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);

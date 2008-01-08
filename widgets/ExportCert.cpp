@@ -36,11 +36,7 @@ void ExportCert::on_fileBut_clicked()
 {
 	QString s = QFileDialog::getSaveFileName(this, tr("Save key as"),
 		filename->text(),
-#if defined(Q_WS_MAC)
 		tr("X509 Certificates ( *.cer *.crt *.p12 );;All files ( * )"));
-#else
-		tr("X509 Certificates ( *.cer *.crt *.p12 );;All files ( *.* )"));
-#endif
 	if (! s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);

@@ -60,11 +60,7 @@ void initOIDs()
 #if !defined(Q_WS_MAC)
 	readOIDs(QString(ETC) + oids);
 #endif
-	// It doesn't look like this will do the right thing on UNIX either...
-	// by my read, it'll just look for .xcaoids.txt in the home directory rather than
-	// .xca/oids.txt
-	// readOIDs(QDir::homePath() + QDir::separator() + ".xca" + oids);
-	readOIDs(getUserSettingsDir() + QDir::separator() + oids);
+	readOIDs(getUserSettingsDir() + oids);
 #endif
 }
 

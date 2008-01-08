@@ -55,6 +55,8 @@ void MainWindow::about()
 	"<tr><td></td><td>Windows registry stuff</td></tr>"
 	"<tr><th align=left>Wolfgang Glas</th><td><u>&lt;wolfgang.glas@ev-i.at&gt;</u></td></tr>"
 	"<tr><td></td><td>SPKAC support and Testing</td></tr>"
+	"<tr><th align=left>Geoff Beier</th><td><u>&lt;geoffbeier@gmail.com&gt;</u></td></tr>"
+	"<tr><td></td><td>MAC OSX support and Testing</td></tr>"
 	"</table><hr><center><u><b>General support</b></u></center>"
 	"<p><table>"
 	"<tr><td><b>Mark Foster</b></td><td><u>&lt;mark@foster.cc&gt;</u></td></tr>"

@@ -185,11 +185,7 @@ void db_temp::store()
 		temp->getUnderlinedName() + ".xca";
 	QString s = QFileDialog::getSaveFileName(mainwin,
 		tr("Save template as"),	fn,
-#if defined(Q_WS_MAC)
 		tr("XCA templates ( *.xca);; All files ( * )"));
-#else
-		tr("XCA templates ( *.xca);; All files ( *.* )"));
-#endif
 	if (s.isEmpty())
 		return;
 	s = QDir::convertSeparators(s);

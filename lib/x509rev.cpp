@@ -6,23 +6,22 @@
  */
 
 #include "x509rev.h"
-
+#include <lib/base.h>
 
 static X509_REVOKED *X509_REVOKED_dup(const X509_REVOKED *n)
 {
-        int len;
-        X509_REVOKED *ret;
+	int len;
+	X509_REVOKED *ret;
 	unsigned char *buf, *p;
-	const unsigned char *cp;
 
-        len = i2d_X509_REVOKED((X509_REVOKED *)n, NULL);
+	len = i2d_X509_REVOKED((X509_REVOKED *)n, NULL);
 	buf = (unsigned char *)OPENSSL_malloc(len);
-        p = buf;
-        i2d_X509_REVOKED((X509_REVOKED *)n, &p);
-        cp = buf;
-        ret = d2i_X509_REVOKED(NULL, &p, len);
-        OPENSSL_free(buf);
-        return(ret);
+	p = buf;
+	i2d_X509_REVOKED((X509_REVOKED *)n, &p);
+	p = buf;
+	ret = D2I_CLASH(d2i_X509_REVOKED, NULL, &p, len);
+	OPENSSL_free(buf);
+	return(ret);
 }
 
 x509rev::x509rev()

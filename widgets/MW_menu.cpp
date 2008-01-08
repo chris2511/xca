@@ -78,8 +78,10 @@ void MainWindow::new_database()
 
 	close_database();
 	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()) );
-	// make sure that, if the 3 letter extension was left selected in Qt's OS X file open dialog,
-	// the filename actually ends with that extension. Otherwise usability breaks in jarring ways.
+	// make sure that, if the 3 letter extension was left selected
+	// in Qt's OS X file open dialog,
+	// the filename actually ends with that extension.
+	// Otherwise usability breaks in jarring ways.
 	dbfile = getFullFilename(fname,selectedFilter);
 	init_database();
 }
@@ -109,11 +111,7 @@ void MainWindow::import_dbdump()
 		return;
 	QString pass;
 	QString file = QFileDialog::getOpenFileName(this, tr(XCA_TITLE), homedir,
-#if defined(Q_WS_MAC)
 			tr("Database dump ( *.dump );;All files ( * )"));
-#else
-			tr("Database dump ( *.dump );;All files ( *.* )"));
-#endif
 
 	if (file.isEmpty())
 		return;
@@ -125,7 +123,6 @@ void MainWindow::import_dbdump()
 	pass = buf;
 	try {
 		read_dump(CCHAR(file), dbl, buf, 50);
-		//printf("MD5:%s, r:%s\n", CCHAR(pki_key::md5passwd(CCHAR(pass))),buf);
 		if (pki_key::md5passwd(CCHAR(pass)) != buf) {
 			int ret = QMessageBox::warning(this, tr(XCA_TITLE),
 				tr("Password verification error. Ignore keys ?"),
