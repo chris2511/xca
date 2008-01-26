@@ -35,6 +35,7 @@ class db_key: public db_base
 
 	public slots:
 		void newItem();
+		void newItem(QString name);
 		void load();
 		void store();
 		void showPki(pki_base *pki);

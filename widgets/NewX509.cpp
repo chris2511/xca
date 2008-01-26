@@ -238,6 +238,9 @@ void NewX509::defineSigner(pki_x509 *defcert)
 		if ((index = certList->findText(name)) >= 0) {
 			certList->setCurrentIndex(index);
 		}
+		if (!defcert->getTemplate().isEmpty()) {
+			on_applyTemplate_clicked();
+		}
 	}
 }
 
@@ -387,9 +390,14 @@ void NewX509::on_showReqBut_clicked()
 	emit showReq(req);
 }
 
-void NewX509::on_genKeyBUT_clicked()
+void NewX509::on_genKeyBut_clicked()
 {
-	emit genKey();
+	QString name = description->text();
+	if (name.isEmpty())
+		name = commonName->text();
+	if (name.isEmpty())
+		name = emailAddress->text();
+	emit genKey(name);
 }
 
 void NewX509::on_certList_currentIndexChanged(int)

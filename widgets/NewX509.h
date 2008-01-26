@@ -106,7 +106,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_foreignSignRB_toggled(bool checked);
 		void on_selfSignRB_toggled(bool checked);
 		void on_subKey_clicked();
-		void on_genKeyBUT_clicked();
+		void on_genKeyBut_clicked();
 		void on_showReqBut_clicked();
 		void on_certList_currentIndexChanged(int index);
 		void on_applyTemplate_clicked();
@@ -116,7 +116,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_tabWidget_currentChanged(int idx);
 
 	signals:
-		void genKey();
+		void genKey(QString);
 		void showReq(QString req);
 };
 

@@ -396,7 +396,7 @@ void MainWindow::setPath(QString str)
 
 void MainWindow::connNewX509(NewX509 *nx)
 {
-	connect( nx, SIGNAL(genKey()), keys, SLOT(newItem()) );
+	connect( nx, SIGNAL(genKey(QString)), keys, SLOT(newItem(QString)) );
 	connect( keys, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
 	connect( nx, SIGNAL(showReq(QString)), reqs, SLOT(showItem(QString)));
 }

@@ -99,8 +99,11 @@ pki_base* db_key::insert(pki_base *item)
 	return lkey;
 }
 
+void db_key::newItem() {
+	newItem("");
+}
 
-void db_key::newItem()
+void db_key::newItem(QString name)
 {
 	const int sizeList[] = { 512, 1024, 2048, 4096, 0 };
 	QDialog *dlg = new QDialog(qApp->activeWindow());
@@ -121,6 +124,8 @@ void db_key::newItem()
 	ui.keyDesc->setFocus();
 
 	ui.image->setPixmap(*MainWindow::keyImg);
+	if (!name.isEmpty())
+		ui.keyDesc->setText(name);
 	ret = dlg->exec();
 
 	if (!ret) {

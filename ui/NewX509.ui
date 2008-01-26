@@ -768,7 +768,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="genKeyBUT" >
+           <widget class="QPushButton" name="genKeyBut" >
             <property name="toolTip" >
              <string>This funny button creates a key. Go figure.</string>
             </property>
@@ -1892,7 +1892,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
   <tabstop>extDNdel</tabstop>
   <tabstop>extDNlist</tabstop>
   <tabstop>keyList</tabstop>
-  <tabstop>genKeyBUT</tabstop>
+  <tabstop>genKeyBut</tabstop>
   <tabstop>basicCA</tabstop>
   <tabstop>basicPath</tabstop>
   <tabstop>bcCritical</tabstop>
