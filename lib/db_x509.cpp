@@ -100,11 +100,14 @@ void db_x509::remFromCont(QModelIndex &idx)
 
 void db_x509::changeView()
 {
-	pki_base *temproot = new pki_base();
+	pki_base *temproot;
 	int rows = rowCount(QModelIndex());
 
-	mainwin->certView->setModel(NULL);
+	if (!rows)
+		return;
 
+	temproot = new pki_base();
+	mainwin->certView->setModel(NULL);
 	beginRemoveRows(QModelIndex(), 0, rows -1);
 	pki_base *pki = rootItem;
 	pki_base *parent;
