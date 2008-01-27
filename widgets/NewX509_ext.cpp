@@ -221,8 +221,7 @@ extList NewX509::getAdvanced()
 	if (!bio)
 		return elist;
 	conf = NCONF_new(NULL);
-	ret = NCONF_load_bio(conf, bio , &err_line);
-	BIO_free(bio);
+	ret = NCONF_load_bio(conf, bio, &err_line);
 	if (ret != 1) {
 		int i = ERR_get_error();
 		printf("Ret: %d, ERRLINE=%ld: %s\n", ret, err_line,
@@ -231,6 +230,7 @@ extList NewX509::getAdvanced()
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("Advanced Settings Error: ") +
 			ERR_error_string(i ,NULL), tr("OK"));
+		BIO_free(bio);
 		return elist;
 	}
 	X509V3_set_nconf(&ext_ctx, conf);
@@ -238,6 +238,8 @@ extList NewX509::getAdvanced()
 	elist.setStack(sk);
 	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
 	X509V3_set_nconf(&ext_ctx, NULL);
+	NCONF_free(conf);
+	BIO_free(bio);
 	return elist;
 }
 

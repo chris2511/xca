@@ -1,4 +1,6 @@
 
+  * Major changes for MAC OS X
+  * extend template format for nconf settings
   * add nconf input field for arbitrary OpenSSL extensions
     and a "validate" button to check the settings before applying
   * fix xca.desktop Bug [ 1837956 ]

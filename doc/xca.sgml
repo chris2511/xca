@@ -315,14 +315,16 @@ by selecting it and clicking <em>Apply</em>.
 
 <sect1>Personal settings
 
-<sect2>Distinguished Name
+<sect2>Subject
 <p>
 On this Page all personal data like country, name and email address
-can be filled in. Only the <tt>Internal name</tt> is mandatory.
+can be filled in.
 The <tt>Country code</tt> field must either be empty or exactly contain
 two letters representing your country code; e.g. <tt>DE</tt> for Germany.
 If you want to create an SSL-server certificate the <tt>Common name</tt>
 must contain the <tt>DNS</tt> name of the server.
+If the <tt>internal name</tt> is empty, the common name will be used.
+It will also be used, when a new key is created here.
 <p>
 Other rarely used <tt>name-entries</tt> can be selected in the dialog
 below. Only items that were added using the <em>Add</em>
@@ -331,10 +333,14 @@ button are recognized. All items can be added more than once, even those from ab
 <sect2>Private Key
 <p>
 Keys can be generated here <tt>on the fly</tt> by pressing the button.
+The name of the new key will be preset by the common name of the certificate.
 The newly generated key will be stored in the database and stay there,
 even if the input dialog is canceled. The drop-down list of the keys
 only contains keys that were not used by any other certificates or
 requests. The key-list is not available for creating or changing templates.
+By checking <tt>Used keys too</tt> the list contains all available
+keys. Use this with care. You'Re likely doing something wrong when using this
+option.
 <p>
 This tab does not appear when signing a request, because the request
 contains all needed data from this tab.
@@ -369,6 +375,38 @@ Rather the time range is stored and automatically applied when selecting this
 template. Applying the time range means to set notBefore to "now" and notAfter
 to "now + time range". If the <tt>midnight</tt> button is set both dates will be
 rounded down and up to midnight.
+
+<sect2>Advanced
+<p>
+Any extension, not covered on the other tabs can be added here as
+defined in OpenSSL nconf. The validity can be checked by clicking
+<tt>Validate</tt>. All extensions from all tabs will be shown here
+to see them all in their final form. Click on <tt>Edit</tt> to continue
+editing the extensions here.
+
+<sect3>Certificate Policies
+<p>
+The following example of <tt>openssl.txt</tt> also works in the advanced tab
+to define certificate policies
+
+<tscreen><verb>
+
+certificatePolicies=ia5org,1.2.3.4,1.5.6.7.8,@polsect
+
+[polsect]
+
+policyIdentifier = 1.3.5.8
+CPS.1="http://my.host.name/"
+CPS.2="http://my.your.name/"
+userNotice.1=@notice
+
+[notice]
+
+explicitText="Explicit Text Here"
+organization="Organisation Name"
+noticeNumbers=1,2,3,4
+
+</verb></tscreen>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
@@ -634,6 +672,7 @@ The search path for all the files is listed below.
 <item>/etc/xca/
 <item>$HOME/xca/
 </itemize>
+<p>
 <bf>Windows</bf>
 <itemize>
 <item>Installation directory <newline>e.g.: C:\Programs\xca
@@ -657,6 +696,12 @@ numerical OID like <tt>1.3.6.1.5.5.8.2.2</tt>, the short name like
 Lines starting with a <bf>#</bf> are ignored.
 If this files shall contain new inofficial OIDs, they must be also mentioned
 in one of the <tt>oids.txt</tt> files.
+
+<sect>Step by Step guides
+<p>
+Beginners may follow this steps to easily create the first certificates
+and take advantage of the several features.
+
 
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
