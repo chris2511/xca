@@ -671,11 +671,21 @@ void NewX509::on_adv_validate_clicked()
 		QString result;
 		setupTmpCtx();
 		v3ext_backup = nconf_data->toPlainText();
+		if (fromReqCB->isChecked()) {
+			el = getSelectedReq()->getV3ext();
+		}
+		if (el.size() > 0) {
+			result = "<h2><center>"
+				"From PKCS#10 request</center></h2><p>\n";
+			result += el.getHtml("<br>");
+		}
 		el = getGuiExt();
 		el += getNetscapeExt();
 		el.delInvalid();
 		if (el.size() > 0) {
-			result = "<h2><center>Other Tabs</center></h2><p>\n";
+			if (!result.isEmpty())
+				result += "\n<hr>\n";
+			result += "<h2><center>Other Tabs</center></h2><p>\n";
 			result += el.getHtml("<br>");
 		}
 		el = getAdvanced();
