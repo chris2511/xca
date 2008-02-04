@@ -1,4 +1,6 @@
 
+  * change the hashing for the default password.
+    this makes it incompatible to older versions
   * Major changes for MAC OS X
   * extend template format for nconf settings
   * add nconf input field for arbitrary OpenSSL extensions

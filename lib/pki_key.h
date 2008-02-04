@@ -42,8 +42,8 @@ class pki_key: public pki_base
 		static void eraseOldPasswd();
 		static void setPasswd(const char *pass);
 		static void setOldPasswd(const char *pass);
-		static QString md5passwd(const char *pass,
-				char *md5 = NULL, int *len = NULL);
+		static QString md5passwd(const char *pass);
+		static QString sha512passwd(QString pass, QString salt);
 		void generate(int bits, int type, QProgressBar *progress);
 		void setOwnPass(enum passType);
 		int getOwnPass(void) {return ownPass;};

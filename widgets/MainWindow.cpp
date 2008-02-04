@@ -20,6 +20,7 @@
 #include <qstatusbar.h>
 #include <qlist.h>
 #include <qtemporaryfile.h>
+#include <openssl/rand.h>
 
 #include "lib/exception.h"
 #include "lib/pki_pkcs12.h"
@@ -275,14 +276,26 @@ MainWindow::~MainWindow()
 #endif
 }
 
+QString makeSalt(void)
+{
+	unsigned char rand[2];
+	char saltbuf[10];
+
+	RAND_bytes(rand, 2);
+	snprintf(saltbuf, 10, "S%02X%02X", rand[0], rand[1]);
+	return QString(saltbuf);
+}
+
 int MainWindow::initPass()
 {
 	db mydb(dbfile);
 	char *pass;
 	pki_key::passHash = QString();
+	QString salt;
 
-	pass_info p(tr("New Password"),
-		tr("Please enter a password, that will be used to encrypt your private keys in the database-file"), this);
+	pass_info p(tr("New Password"), tr("Please enter a password, "
+			"that will be used to encrypt your private keys "
+			"in the database-file"), this);
 	if (!mydb.find(setting, "pwhash")) {
 		if ((pass = (char *)mydb.load(NULL))) {
 			pki_key::passHash = pass;
@@ -290,17 +303,20 @@ int MainWindow::initPass()
 		}
 	}
 	if (pki_key::passHash.isEmpty()) {
-		int keylen = passWrite((char *)pki_key::passwd, MAX_PASS_LENGTH-1, 0, &p);
+		int keylen = passWrite((char *)pki_key::passwd,
+				MAX_PASS_LENGTH-1, 0, &p);
 		if (keylen < 0)
 			return 0;
 		pki_key::passwd[keylen]='\0';
-		pki_key::passHash = pki_key::md5passwd(pki_key::passwd);
+		salt = makeSalt();
+		pki_key::passHash = pki_key::sha512passwd(pki_key::passwd,salt);
 		mydb.set((const unsigned char *)CCHAR(pki_key::passHash),
-				pki_key::passHash.length()+1, 1, setting, "pwhash");
-	}
-	else {
+			pki_key::passHash.length()+1, 1, setting, "pwhash");
+	} else {
 		int keylen=0;
-		while (pki_key::md5passwd(pki_key::passwd) != pki_key::passHash) {
+		while (pki_key::sha512passwd(pki_key::passwd, pki_key::passHash)
+				!= pki_key::passHash)
+		{
 			if (keylen !=0) QMessageBox::warning(this,tr(XCA_TITLE),
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
@@ -309,7 +325,23 @@ int MainWindow::initPass()
 			if (keylen < 0)
 				return 1;
 			pki_key::passwd[keylen]='\0';
-	    }
+			if (pki_key::passHash.left(1) == "S")
+				continue;
+			/* Start automatic update from md5 to salted sha512
+			 * if the password is correct. my md5 hash does not
+			 * start with 'S', while my new hash does. */
+			if (pki_key::md5passwd(pki_key::passwd) ==
+						pki_key::passHash )
+			{
+				salt = makeSalt();
+				pki_key::passHash = pki_key::sha512passwd(
+						pki_key::passwd, salt);
+				mydb.set((const unsigned char *)CCHAR(
+					pki_key::passHash),
+					pki_key::passHash.length() +1, 1,
+					setting, "pwhash");
+			}
+		}
 	}
 	return 1;
 }

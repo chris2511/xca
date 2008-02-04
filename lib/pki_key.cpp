@@ -315,9 +315,6 @@ EVP_PKEY *pki_key::decryptKey() const
 	char ownPassBuf[MAX_PASS_LENGTH] = "";
 
 	if (isPubKey()) {
-#if 0 //PENSSL_VERSION_NUMBER >= 0x00908000L
-		return ASN1_dup_of_const(EVP_PKEY, i2d_PublicKey, d21_PublicKey, pkey);
-#else
 		unsigned char *q;
 		outl = i2d_PublicKey(key, NULL);
 		q = (unsigned char *)OPENSSL_malloc(outl);
@@ -328,7 +325,6 @@ EVP_PKEY *pki_key::decryptKey() const
 		tmpkey = D2I_CLASHT(d2i_PublicKey, key->type, NULL, &p, outl);
 		OPENSSL_free(q);
 		return tmpkey;
-#endif
 	}
 	/* This key has its own password */
 	if (ownPass == ptPrivate) {
@@ -338,24 +334,23 @@ EVP_PKEY *pki_key::decryptKey() const
 			getIntName() + "'");
 		ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
 		if (ret < 0)
-			throw errorEx("Password input aborted", class_name);
+			throw errorEx(tr("Password input aborted"), class_name);
 	} else if (ownPass == ptBogus) { // BOGUS pass
 		ownPassBuf[0] = '\0';
 	} else {
-		if (md5passwd(passwd) != passHash) {
-			//printf("Orig password: '%s' len:%d\n", passwd, strlen(passwd));
-			while (md5passwd(ownPassBuf) != passHash) {
-				int ret;
-				//printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
-						//CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
-				pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-						"Please enter the default password"));
-				ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
-				if (ret < 0)
-					throw errorEx("Password input aborted", class_name);
-			}
-		} else {
-			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
+		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
+		//printf("Orig password: '%s' len:%d\n", passwd, strlen(passwd));
+		while (md5passwd(ownPassBuf) != passHash &&
+			sha512passwd(ownPassBuf, passHash) != passHash)
+		{
+			int ret;
+			//printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
+				//CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
+			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+					"Please enter the database password for decrypting the key"));
+			ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
+			if (ret < 0)
+				throw errorEx(tr("Password input aborted"), class_name);
 		}
 	}
 	//printf("Using decrypt Pass: %s\n", ownPassBuf);
@@ -437,17 +432,18 @@ void pki_key::encryptKey(const char *password)
 		if (password) {
 			/* use the password parameter if this is a common password */
 			strncpy(ownPassBuf, password, MAX_PASS_LENGTH);
-		} else if (md5passwd(passwd) != passHash) {
+		} else {
 			int ret = 0;
+			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 				"Please enter the database password for encrypting the key"));
-			while (md5passwd(ownPassBuf) != passHash) {
+			while (md5passwd(ownPassBuf) != passHash &&
+				sha512passwd(ownPassBuf, passHash) != passHash )
+			{
 				ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0,&p);
 				if (ret < 0)
 					throw errorEx("Password input aborted", class_name);
 			}
-		} else {
-			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
 		}
 	}
 
@@ -772,25 +768,48 @@ QVariant pki_key::getIcon()
 	return QVariant(*icon[pixnum]);
 }
 
-QString pki_key::md5passwd(const char *pass, char *md5, int *len)
+QString pki_key::md5passwd(const char *pass)
 {
 
 	EVP_MD_CTX mdctx;
 	QString str;
 	int n;
 	int j;
-	char zs[4];
 	unsigned char m[EVP_MAX_MD_SIZE];
 	EVP_DigestInit(&mdctx, EVP_md5());
 	EVP_DigestUpdate(&mdctx, pass, strlen(pass));
 	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
 	for (j=0; j<n; j++) {
+		char zs[4];
 		sprintf(zs, "%02X%c",m[j], (j+1 == n) ?'\0':':');
 		str += zs;
 	}
-	if (md5 && len) {
-		*len = (*len>n) ? n : *len;
-		memcpy(md5, m, *len);
+	return str;
+}
+
+QString pki_key::sha512passwd(QString pass, QString salt)
+{
+
+	EVP_MD_CTX mdctx;
+	QString str;
+	int n;
+	int j;
+	unsigned char m[EVP_MAX_MD_SIZE];
+
+	if (salt.length() <5)
+		abort();
+
+	str = salt.left(5);
+	pass = str + pass;
+
+	EVP_DigestInit(&mdctx, EVP_sha512());
+	EVP_DigestUpdate(&mdctx, CCHAR(pass), pass.size());
+	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
+
+	for (j=0; j<n; j++) {
+		char zs[4];
+		sprintf(zs, "%02X",m[j]);
+		str += zs;
 	}
 	return str;
 }
