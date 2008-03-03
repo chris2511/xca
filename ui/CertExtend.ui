@@ -5,27 +5,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>393</width>
-    <height>333</height>
+    <width>450</width>
+    <height>335</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string/>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>8</number>
-   </property>
    <property name="spacing" >
     <number>6</number>
    </property>
+   <property name="leftMargin" >
+    <number>8</number>
+   </property>
+   <property name="topMargin" >
+    <number>8</number>
+   </property>
+   <property name="rightMargin" >
+    <number>8</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>8</number>
+   </property>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <spacer>
@@ -102,11 +120,20 @@
    </item>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QGroupBox" name="groupBox_2" >
@@ -114,18 +141,39 @@
         <string>Validity</string>
        </property>
        <layout class="QVBoxLayout" >
-        <property name="margin" >
-         <number>8</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
         </property>
+        <property name="leftMargin" >
+         <number>8</number>
+        </property>
+        <property name="topMargin" >
+         <number>8</number>
+        </property>
+        <property name="rightMargin" >
+         <number>8</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>8</number>
+        </property>
         <item>
          <layout class="QGridLayout" >
-          <property name="margin" >
+          <property name="leftMargin" >
            <number>0</number>
           </property>
-          <property name="spacing" >
+          <property name="topMargin" >
+           <number>0</number>
+          </property>
+          <property name="rightMargin" >
+           <number>0</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>0</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing" >
            <number>6</number>
           </property>
           <item row="0" column="0" >
@@ -159,10 +207,22 @@
         <string>Time range</string>
        </property>
        <layout class="QGridLayout" >
-        <property name="margin" >
+        <property name="leftMargin" >
          <number>8</number>
         </property>
-        <property name="spacing" >
+        <property name="topMargin" >
+         <number>8</number>
+        </property>
+        <property name="rightMargin" >
+         <number>8</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>8</number>
+        </property>
+        <property name="horizontalSpacing" >
+         <number>6</number>
+        </property>
+        <property name="verticalSpacing" >
          <number>6</number>
         </property>
         <item row="0" column="1" >
@@ -197,9 +257,7 @@
         <item row="1" column="1" >
          <widget class="QPushButton" name="applyTime" >
           <property name="sizePolicy" >
-           <sizepolicy>
-            <hsizetype>7</hsizetype>
-            <vsizetype>5</vsizetype>
+           <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -232,18 +290,25 @@
    </item>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QPushButton" name="PushButton3" >
        <property name="sizePolicy" >
-        <sizepolicy>
-         <hsizetype>7</hsizetype>
-         <vsizetype>0</vsizetype>
+        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -275,9 +340,7 @@
      <item>
       <widget class="QPushButton" name="PushButton2" >
        <property name="sizePolicy" >
-        <sizepolicy>
-         <hsizetype>7</hsizetype>
-         <vsizetype>0</vsizetype>
+        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>

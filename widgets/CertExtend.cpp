@@ -25,8 +25,9 @@ CertExtend::CertExtend(QWidget *parent)
 	a1time time;
 	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::certImg);
-	notBefore->setDate(time.now());
-	notAfter->setDate(time.now(60 * 60 * 24 * 356));
+	validNumber->setText("1");
+	validRange->setCurrentIndex(2);
+	applyTimeDiff();
 }
 
 void CertExtend::applyTimeDiff()

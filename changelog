@@ -1,4 +1,6 @@
 
+
+  * fix date settings in Certificate renewal dialog
   * change the hashing for the default password.
     this makes it incompatible to older versions
   * Major changes for MAC OS X

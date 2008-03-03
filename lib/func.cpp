@@ -201,27 +201,29 @@ void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na)
 {
 #define d_fac (60 * 60 * 24)
-    int faktor[] = { 1, 30, 365 }, midnight, delta;
-    a1time a;
-    time_t t;
+	int faktor[] = { 1, 30, 365 }, midnight, delta;
+	a1time a;
+	time_t t;
 
-    midnight = mnc? 1:0;
+	midnight = mnc ? 1:0;
 
-    if (range>2 || range<0) range = 0;
-    time(&t);
-    delta = faktor[range] * number;
+	if (range>2 || range<0)
+		range = 0;
+	time(&t);
+	delta = faktor[range] * number;
 
 	// one day less if we go from 0:00:00 to 23:59:59
-	if (mnc) delta -=1;
+	if (mnc)
+		delta -=1;
 
-    t /= d_fac;
-    if (delta + t > 24850){
-        QMessageBox::warning(parent, XCA_TITLE,
-            "Time difference too big\nYou must set it manually." );
-        return;
-    }
-    nb->setDate(a.now(), midnight);
-    na->setDate(a.now(delta * d_fac), midnight* (-1));
+	t /= d_fac;
+	if (delta + t > 24850) {
+		QMessageBox::warning(parent, XCA_TITLE,
+			"Time difference too big\nYou must set it manually." );
+		return;
+	}
+	nb->setDate(a.now(), midnight);
+	na->setDate(a.now(delta * d_fac), midnight* (-1));
 }
 
 QString asn1ToQString(const ASN1_STRING *str)
