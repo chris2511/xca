@@ -32,7 +32,7 @@ enum pki_type {
 	setting,
 };
 
-typedef struct db_header_t {
+typedef struct {
 	uint32_t magic;
 	uint32_t len;		/* length of this entry */
 	uint16_t headver;
@@ -40,7 +40,7 @@ typedef struct db_header_t {
 	uint16_t version;
 	uint16_t flags;
 	char name[NAMELEN];	/* name of the entry */
-};
+} db_header_t ;
 
 class db
 {
