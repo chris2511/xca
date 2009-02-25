@@ -1049,10 +1049,30 @@ It also copies the issuer and serial number from the issuer certificate. Normall
               <number>6</number>
              </property>
              <item row="0" column="1" >
-              <widget class="Validity" native="1" name="notBefore" />
+				 <widget class="Validity" native="1" name="notBefore">
+					 <property name="displayFormat" >
+						 <string>yyyy-MM-dd hh:mm</string>
+					 </property>
+					 <property name="calendarPopup" > 
+						 <bool>true</bool>
+					 </property>
+					 <property name="timeSpec" >
+						 <enum>Qt::UTC</enum>
+					 </property>
+				 </widget>
              </item>
              <item row="1" column="1" >
-              <widget class="Validity" native="1" name="notAfter" />
+				 <widget class="Validity" native="1" name="notAfter">
+					 <property name="displayFormat" >
+						 <string>yyyy-MM-dd hh:mm</string>
+					 </property>
+					 <property name="calendarPopup" > 
+						 <bool>true</bool>
+					 </property>
+					 <property name="timeSpec" >
+						 <enum>Qt::UTC</enum>
+					 </property>
+				 </widget>
              </item>
              <item row="0" column="0" >
               <widget class="QLabel" name="TextLabel1_2_3_2" >
@@ -1856,7 +1876,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
  <customwidgets>
   <customwidget>
    <class>Validity</class>
-   <extends>QWidget</extends>
+   <extends>QDateTimeEdit</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
   </customwidget>

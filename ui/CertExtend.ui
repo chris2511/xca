@@ -191,10 +191,30 @@
            </widget>
           </item>
           <item row="0" column="1" >
-           <widget class="Validity" native="1" name="notBefore" />
+			  <widget class="Validity" native="1" name="notBefore" >
+				  <property name="displayFormat" >
+					  <string>yyyy-MM-dd hh:mm</string>
+				  </property>
+				  <property name="calendarPopup" > 
+					  <bool>true</bool>
+				  </property>
+				  <property name="timeSpec" >
+					  <enum>Qt::UTC</enum>
+				  </property>
+			  </widget>
           </item>
           <item row="1" column="1" >
-           <widget class="Validity" native="1" name="notAfter" />
+			  <widget class="Validity" native="1" name="notAfter">
+				  <property name="displayFormat" >
+					  <string>yyyy-MM-dd hh:mm</string>
+				  </property>
+				  <property name="calendarPopup" > 
+					  <bool>true</bool>
+				  </property>
+				  <property name="timeSpec" >
+					  <enum>Qt::UTC</enum>
+				  </property>
+			  </widget>
           </item>
          </layout>
         </item>
@@ -368,7 +388,7 @@
  <customwidgets>
   <customwidget>
    <class>Validity</class>
-   <extends>QWidget</extends>
+   <extends>QDateTimeEdit</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
   </customwidget>
