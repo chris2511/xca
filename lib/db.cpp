@@ -145,7 +145,7 @@ int db::next(int flag)
 		return -1;
 	}
 	if (ret != sizeof(db_header_t)) {
-		printf("Length broken: %d instead of %z\n", ret,
+		printf("Length broken: %d instead of %zd\n", ret,
 				sizeof(db_header_t) );
 		//ftruncate(fd, head_offset);
 		head_offset = OFF_EOF;
@@ -184,7 +184,7 @@ int db::rename(enum pki_type type, QString name, QString n)
 		fileIOerr("write");
 	}
 	if (ret != sizeof(head)) {
-		printf("DB: Write error %d - %z\n", ret, sizeof(head));
+		printf("DB: Write error %d - %zd\n", ret, sizeof(head));
 		return -1;
 	}
 	return 0;
