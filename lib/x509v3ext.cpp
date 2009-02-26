@@ -51,6 +51,13 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 	}
 	if (!ext)
 		ext = X509_EXTENSION_new();
+	else {
+		if (ctx && ctx->subject_cert) {
+			STACK_OF(X509_EXTENSION) **sk;
+			sk = &ctx->subject_cert->cert_info->extensions;
+			X509v3_add_ext(sk, ext, -1);
+		}
+	}
 	return *this;
 }
 
@@ -127,12 +134,12 @@ bool x509v3ext::isValid() const
 
 /*************************************************************/
 
-void extList::setStack(STACK_OF(X509_EXTENSION) *st)
+void extList::setStack(STACK_OF(X509_EXTENSION) *st, int start)
 {
 	clear();
 	int cnt = sk_X509_EXTENSION_num(st);
 	x509v3ext e;
-	for (int i=0; i<cnt; i++) {
+	for (int i=start; i<cnt; i++) {
 		e.set(sk_X509_EXTENSION_value(st,i));
 		append(e);
 	}

@@ -495,10 +495,9 @@ void db_x509::newCert(NewX509 *dlg)
 			cert->addV3ext(el[i]);
 	}
 
-	extList ne = dlg->getAllExt();
-	int m = ne.count();
-	for (int i=0; i<m; i++)
-		 cert->addV3ext(ne[i]);
+	// apply all extensions to the subject cert in the context
+	dlg->getAllExt();
+	dlg->checkExtDuplicates();
 
 	const EVP_MD *hashAlgo = dlg->hashAlgo->currentHash();
 #ifdef WG_QA_SERIAL

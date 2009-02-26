@@ -88,9 +88,9 @@ class NewX509: public QDialog, public Ui::NewX509
 		void initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req);
 		void setBasicConstraints(const x509v3ext &e);
 		void setExt(const x509v3ext &ext);
-		void checkAuthKeyId();
 		void switchHashAlgo();
 		void addReqAttributes(pki_x509req *req);
+		void checkExtDuplicates();
 	public slots:
 		void on_fromReqCB_clicked();
 		void on_keyList_currentIndexChanged(const QString &);
@@ -105,7 +105,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_editAuthInfAcc_clicked();
 		void on_foreignSignRB_toggled(bool checked);
 		void on_selfSignRB_toggled(bool checked);
-		void on_subKey_clicked();
 		void on_genKeyBut_clicked();
 		void on_showReqBut_clicked();
 		void on_certList_currentIndexChanged(int index);

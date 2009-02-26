@@ -28,7 +28,7 @@ x509v3ext NewX509::getBasicConstraints()
 		cont << ca[basicCA->currentIndex()];
 		if (!basicPath->text().isEmpty())
 			cont << (QString)"pathlen:" + basicPath->text();
-		ext.create(NID_basic_constraints, cont.join(", "));
+		ext.create(NID_basic_constraints, cont.join(", "), &ext_ctx);
 	}
 	return ext;
 }
@@ -64,7 +64,7 @@ x509v3ext NewX509::getAuthKeyIdent()
 				"keyid,issuer:always", &ext_ctx);
 		else
 			ext.create(NID_authority_key_identifier,
-				"keyid:always", &ext_ctx);
+				"keyid,issuer", &ext_ctx);
 	}
 	return ext;
 }
@@ -88,7 +88,7 @@ x509v3ext NewX509::getKeyUsage()
 	}
 	if (kuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
-	ext.create(NID_key_usage, cont.join(", "));
+	ext.create(NID_key_usage, cont.join(", "), &ext_ctx);
 	return ext;
 }
 
@@ -107,7 +107,7 @@ x509v3ext NewX509::getEkeyUsage()
 	}
 	if (ekuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
-	ext.create(NID_ext_key_usage, cont.join(", "));
+	ext.create(NID_ext_key_usage, cont.join(", "), &ext_ctx);
 	return ext;
 }
 
@@ -147,7 +147,7 @@ x509v3ext NewX509::getCrlDist()
 {
 	x509v3ext ext;
 	if (!crlDist->text().isEmpty()) {
-		ext.create(NID_crl_distribution_points, crlDist->text());
+		ext.create(NID_crl_distribution_points, crlDist->text(), &ext_ctx);
 	}
 	return ext;
 }
@@ -191,7 +191,7 @@ x509v3ext NewX509::getAuthInfAcc()
 	QString aia_txt = getAuthInfAcc_string();
 
 	if (!aia_txt.isEmpty()) {
-		ext.create(NID_info_access, aia_txt);
+		ext.create(NID_info_access, aia_txt, &ext_ctx);
 	}
 	return ext;
 }
@@ -203,9 +203,9 @@ extList NewX509::getAdvanced()
 	BIO *bio;
 	extList elist;
 	long err_line=0;
-	STACK_OF(X509_EXTENSION) *sk = NULL;
+	STACK_OF(X509_EXTENSION) **sk, *sk_tmp = NULL;
 	char ext_name[] = "ext";
-	int ret, i;
+	int ret, i, start;
 
 	conf_str = nconf_data->toPlainText();
 	if (conf_str.isEmpty())
@@ -233,10 +233,20 @@ extList NewX509::getAdvanced()
 		BIO_free(bio);
 		return elist;
 	}
+
+	if (ext_ctx.subject_cert) {
+		sk = &ext_ctx.subject_cert->cert_info->extensions;
+		start = *sk ? sk_X509_EXTENSION_num(*sk) : 0;
+	} else {
+		sk = &sk_tmp;
+		start = 0;
+	}
+
 	X509V3_set_nconf(&ext_ctx, conf);
-	X509V3_EXT_add_nconf_sk(conf, &ext_ctx, ext_name, &sk);
-	elist.setStack(sk);
-	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
+	X509V3_EXT_add_nconf_sk(conf, &ext_ctx, ext_name, sk);
+	elist.setStack(*sk, start);
+	if (sk == &sk_tmp)
+		sk_X509_EXTENSION_pop_free(sk_tmp, X509_EXTENSION_free);
 	X509V3_set_nconf(&ext_ctx, NULL);
 	NCONF_free(conf);
 	BIO_free(bio);
@@ -266,7 +276,6 @@ extList NewX509::getAllExt()
 	ne += getAdvanced();
 	ne += getNetscapeExt();
 	return ne;
-
 }
 
 extList NewX509::getNetscapeExt()
@@ -287,14 +296,14 @@ extList NewX509::getNetscapeExt()
 		}
 	}
 
-	el << ext.create(NID_netscape_cert_type, cont.join(", "));
-	el << ext.create(NID_netscape_base_url, nsBaseUrl->text());
-	el << ext.create(NID_netscape_revocation_url, nsRevocationUrl->text());
-	el << ext.create(NID_netscape_ca_revocation_url, nsCARevocationUrl->text());
-	el << ext.create(NID_netscape_renewal_url, nsRenewalUrl->text());
-	el << ext.create(NID_netscape_ca_policy_url, nsCaPolicyUrl->text());
-	el << ext.create(NID_netscape_ssl_server_name, nsSslServerName->text());
-	el << ext.create(NID_netscape_comment, nsComment->text());
+	el << ext.create(NID_netscape_cert_type, cont.join(", "), &ext_ctx);
+	el << ext.create(NID_netscape_base_url, nsBaseUrl->text(), &ext_ctx);
+	el << ext.create(NID_netscape_revocation_url, nsRevocationUrl->text(), &ext_ctx);
+	el << ext.create(NID_netscape_ca_revocation_url, nsCARevocationUrl->text(), &ext_ctx);
+	el << ext.create(NID_netscape_renewal_url, nsRenewalUrl->text(), &ext_ctx);
+	el << ext.create(NID_netscape_ca_policy_url, nsCaPolicyUrl->text(), &ext_ctx);
+	el << ext.create(NID_netscape_ssl_server_name, nsSslServerName->text(), &ext_ctx);
+	el << ext.create(NID_netscape_comment, nsComment->text(), &ext_ctx);
 	return el;
 }
 
@@ -307,8 +316,35 @@ void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req)
 	if (iss) s = iss->getCert();
 	if (req) r = req->getReq();
 
-	memset(&ext_ctx, 0, sizeof(X509V3_CTX));
 	X509V3_set_ctx(&ext_ctx, s, s1, r, NULL, 0);
+}
+
+void NewX509::checkExtDuplicates()
+{
+	int i, start, cnt, n1, n;
+	X509_EXTENSION *e, *e1;
+	STACK_OF(X509_EXTENSION) *sk;
+
+	if (ext_ctx.subject_cert) {
+		sk = ext_ctx.subject_cert->cert_info->extensions;
+	} else
+		return;
+
+	cnt = sk_X509_EXTENSION_num(sk);
+	for (start=0; start<cnt; start++) {
+		e1 = sk_X509_EXTENSION_value(sk, start);
+		n1 = OBJ_obj2nid(X509_EXTENSION_get_object(e1));
+		for (i=start+1; i<cnt; i++) {
+			e = sk_X509_EXTENSION_value(sk, i);
+			n = OBJ_obj2nid(X509_EXTENSION_get_object(e));
+			if (n1 == n) {
+				// DUPLICATE
+				x509v3ext x;
+				x.set(e);
+				printf("DUPLICATE: %d %d, %d:%d %d\n%s\n", n, n1, cnt, start,i, CCHAR(x.getHtml()));
+			}
+		}
+        }
 }
 
 void NewX509::setExt(const x509v3ext &ext)

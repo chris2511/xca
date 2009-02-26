@@ -150,7 +150,6 @@ NewX509::NewX509(QWidget *parent)
 	// last polish
 	on_certList_currentIndexChanged(0);
 	certList->setDisabled(true);
-	checkAuthKeyId();
 	tabWidget->setCurrentIndex(0);
 	attrWidget->hide();
 	pt = none;
@@ -418,7 +417,6 @@ void NewX509::on_certList_currentIndexChanged(int)
 	if (sna < notAfter->getDate())
 		notAfter->setDate(sna);
 
-	checkAuthKeyId();
 	if (templ.isEmpty())
 		return;
 
@@ -458,21 +456,8 @@ void NewX509::on_applyTemplate_clicked()
 	fromTemplate(temp);
 }
 
-void NewX509::checkAuthKeyId()
-{
-	bool enabled = false;
-
-	if (foreignSignRB->isChecked()) {
-		if (getSelectedSigner()->hasExtension(NID_subject_key_identifier)) {
-			enabled = true;
-		}
-	}
-	authKey->setEnabled(enabled);
-}
-
 void NewX509::on_foreignSignRB_toggled(bool checked)
 {
-	checkAuthKeyId();
 	switchHashAlgo();
 	certList->setEnabled(checked);
 }
@@ -480,11 +465,6 @@ void NewX509::on_foreignSignRB_toggled(bool checked)
 void NewX509::on_selfSignRB_toggled(bool checked)
 {
 	serialNr->setEnabled(checked);
-}
-
-void NewX509::on_subKey_clicked()
-{
-	checkAuthKeyId();
 }
 
 void NewX509::newKeyDone(QString name)
@@ -626,6 +606,7 @@ void NewX509::setupTmpCtx()
 	pki_x509 *signcert;
 	pki_x509req *req = NULL;
 	a1int serial;
+	QString errtxt;
 
 	// initially create temporary ctx cert
 	if (ctx_cert)
@@ -648,7 +629,6 @@ void NewX509::setupTmpCtx()
 	}
 	ctx_cert->setSerial(serial);
 	initCtx(ctx_cert, signcert, req);
-	ctx_cert->addV3ext(getSubKeyIdent());
 }
 
 void NewX509::editV3ext(QLineEdit *le, QString types, int n)
@@ -709,6 +689,7 @@ void NewX509::on_adv_validate_clicked()
 		nconf_data->setReadOnly(true);
 
 		adv_validate->setText(tr("Edit"));
+		checkExtDuplicates();
 	} else {
 		nconf_data->document()->setPlainText(v3ext_backup);
 		nconf_data->setReadOnly(false);
