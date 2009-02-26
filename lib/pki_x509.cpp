@@ -11,7 +11,7 @@
 #include "base.h"
 #include <qdir.h>
 
-QPixmap *pki_x509::icon[4] = { NULL, NULL, NULL, NULL };
+QPixmap *pki_x509::icon[5] = { NULL, NULL, NULL, NULL, NULL };
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super()
@@ -324,7 +324,7 @@ unsigned char *pki_x509::toData(int *size)
 	p1 = crlExpiry.i2d(p1); // last CRL date
 	openssl_error();
 	if (*size != p1-p) {
-		printf("pki_x509::toData: Size = %d, real size=%d\n", *size, p1-p);
+		printf("pki_x509::toData: Size = %d, real size=%ld\n", *size, p1-p);
 		//abort();
 	}
 	return p;

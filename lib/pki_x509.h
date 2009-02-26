@@ -35,7 +35,7 @@ class pki_x509 : public pki_x509super
 		void init();
 		void set_date(ASN1_TIME **a, const a1time &a1);
 	public:
-		static QPixmap *icon[4];
+		static QPixmap *icon[5];
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
 		pki_x509(const QString name = "");
