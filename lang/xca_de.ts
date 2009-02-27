@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de">
+<defaultcodec></defaultcodec>
 <context>
     <name>About</name>
     <message>
@@ -482,7 +483,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Export&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Export&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui/ExportDer.ui" line="138"/>
@@ -1262,32 +1263,32 @@ Of course you need the private key of the CSR if you want to create a self-signe
     <message>
         <location filename="../ui/NewX509.ui" line="208"/>
         <source>Signing</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterschreiben</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="228"/>
         <source>Create a &amp;self signed certificate with the serial</source>
-        <translation type="unfinished">Erstelle ein &amp;Selbst signiertes Zertifikat mit der Serien nummer</translation>
+        <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit der Serien nummer</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="238"/>
         <source>If you leave this blank the serial 00 will be used</source>
-        <translation type="unfinished">Wenn Sie dieses Feld frei lassen wird die Seriennummer 00 verwendet</translation>
+        <translation>Wenn Sie dieses Feld frei lassen wird die Seriennummer 00 verwendet</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="241"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="258"/>
         <source>Use &amp;this Certificate for for signing</source>
-        <translation type="unfinished">Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
+        <translation>Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="265"/>
         <source>All certificates in your database that can create valid signatures</source>
-        <translation type="unfinished">Alle Zertifikate aus der Datenbank, die gültige Unterschriften leisten können</translation>
+        <translation>Alle Zertifikate aus der Datenbank, die gültige Unterschriften leisten können</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="268"/>
@@ -1319,92 +1320,92 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
     <message>
         <location filename="../ui/NewX509.ui" line="868"/>
         <source>Apply</source>
-        <translation type="unfinished">Übernehmen</translation>
+        <translation>Übernehmen</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="342"/>
         <source>Subject</source>
-        <translation type="unfinished">Besitzer</translation>
+        <translation>Besitzer</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="406"/>
         <source>Distinguished name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Distinguished name</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="433"/>
         <source>Organisation</source>
-        <translation type="unfinished">Firma</translation>
+        <translation>Firma</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="548"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
-        <translation type="unfinished">Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
+        <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="450"/>
         <source>Must be exactly 2 letter of size (DE, UK)</source>
-        <translation type="unfinished">Muss exakt 2 Zeichen lang sein (DE,UK)</translation>
+        <translation>Muss exakt 2 Zeichen lang sein (DE,UK)</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="467"/>
         <source>Country code</source>
-        <translation type="unfinished">Länder code</translation>
+        <translation>Länder code</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="474"/>
         <source>State or Province</source>
-        <translation type="unfinished">Bundesland, Kreis</translation>
+        <translation>Bundesland, Kreis</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="484"/>
         <source>Locality</source>
-        <translation type="unfinished">Ort</translation>
+        <translation>Ort</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="491"/>
         <source>Organ. unit</source>
-        <translation type="unfinished">Firmenabteilung</translation>
+        <translation>Firmenabteilung</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="498"/>
         <source>Common name</source>
-        <translation type="unfinished">Üblicher Name</translation>
+        <translation>Üblicher Name</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="505"/>
         <source>E-Mail address</source>
-        <translation type="unfinished">E-Mail Adresse</translation>
+        <translation>E-Mail Adresse</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="518"/>
         <source>Internal name</source>
-        <translation type="unfinished">Interner Name</translation>
+        <translation>Interner Name</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="558"/>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="565"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="593"/>
         <source>Private key</source>
-        <translation type="unfinished">Privater Schlüssel</translation>
+        <translation>Privater Schlüssel</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="613"/>
         <source>This list only contains unused keys</source>
-        <translation type="unfinished">Diese Liste enthält nur unbenutzte Schlüssel</translation>
+        <translation>Diese Liste enthält nur unbenutzte Schlüssel</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="620"/>
         <source>Used keys too</source>
-        <translation type="unfinished"></translation>
+        <translation>auch verwendete Schlüssel</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="627"/>
@@ -1414,27 +1415,27 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
     <message>
         <location filename="../ui/NewX509.ui" line="630"/>
         <source>&amp;Generate a new key</source>
-        <translation type="unfinished">&amp;Erstelle einen neuen Schlüssel</translation>
+        <translation>&amp;Erstelle einen neuen Schlüssel</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="641"/>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterungen</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="661"/>
         <source>Basic constrains</source>
-        <translation type="unfinished"></translation>
+        <translation>Grundbeschränkungen</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="681"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="688"/>
         <source>If this will become a CA certificate or not</source>
-        <translation type="unfinished">Ob dies ein CA Zertifikat wird oder nicht</translation>
+        <translation>Ob dies ein CA Zertifikat wird oder nicht</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="691"/>
@@ -1446,27 +1447,27 @@ Self-signed non-CA certificates are unusual although they are possible.</source>
     <message>
         <location filename="../ui/NewX509.ui" line="697"/>
         <source>Not defined</source>
-        <translation type="unfinished">Nicht definiert</translation>
+        <translation>Nicht definiert</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="702"/>
         <source>Certification Authority</source>
-        <translation type="unfinished">Zertifikats Authorität</translation>
+        <translation>Zertifikats Authorität</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="707"/>
         <source>End Entity</source>
-        <translation type="unfinished">End Instanz</translation>
+        <translation>End Instanz</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="725"/>
         <source>Path length</source>
-        <translation type="unfinished">Pfadlänge</translation>
+        <translation>Pfadlänge</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="732"/>
         <source>How much CAs may be below this.</source>
-        <translation type="unfinished">Wieviele CAs in der Kette unter diesem sein dürfen.</translation>
+        <translation>Wieviele CAs in der Kette unter diesem sein dürfen.</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="735"/>
@@ -1482,12 +1483,12 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
     <message>
         <location filename="../ui/NewX509.ui" line="1092"/>
         <source>&amp;Critical</source>
-        <translation type="unfinished">&amp;Critical</translation>
+        <translation>&amp;Kritisch</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="758"/>
         <source>Key identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlüsselidentifikator</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="770"/>
@@ -1497,7 +1498,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
     <message>
         <location filename="../ui/NewX509.ui" line="773"/>
         <source>&amp;Subject Key Identifier</source>
-        <translation type="unfinished">&amp;Subject Key Identifier</translation>
+        <translation>&amp;Subject Key Identifier</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="780"/>
@@ -1513,52 +1514,52 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     <message>
         <location filename="../ui/NewX509.ui" line="787"/>
         <source>&amp;Authority Key Identifier</source>
-        <translation type="unfinished">&amp;Authority Key Identifier</translation>
+        <translation>&amp;Authority Key Identifier</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="821"/>
         <source>Validity</source>
-        <translation type="unfinished">Gültigkeit</translation>
+        <translation>Gültigkeit</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="839"/>
         <source>Not before</source>
-        <translation type="unfinished">Nicht vor dem</translation>
+        <translation>Nicht vor dem</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="846"/>
         <source>Not after</source>
-        <translation type="unfinished">Nicht nach dem</translation>
+        <translation>Nicht nach dem</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="856"/>
         <source>Time range</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeitspanne</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="876"/>
         <source>Days</source>
-        <translation type="unfinished">Tage</translation>
+        <translation>Tage</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="881"/>
         <source>Months</source>
-        <translation type="unfinished">Monate</translation>
+        <translation>Monate</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="886"/>
         <source>Years</source>
-        <translation type="unfinished">Jahre</translation>
+        <translation>Jahre</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="894"/>
         <source>Set the time to 00:00:00 and 23:59:59 respectively</source>
-        <translation type="unfinished">Stell die Zeiten auf 00:00:00 und 23:59:59</translation>
+        <translation>Stell die Zeiten auf 00:00:00 und 23:59:59</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="897"/>
         <source>Midnight</source>
-        <translation type="unfinished">Mitternacht</translation>
+        <translation>Mitternacht</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="934"/>
@@ -1578,7 +1579,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     <message>
         <location filename="../ui/NewX509.ui" line="955"/>
         <source>URI:</source>
-        <translation type="unfinished"></translation>
+        <translation>URI:</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="958"/>
@@ -1599,12 +1600,12 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1034"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1041"/>
         <source>DNS: IP: URI: email: RID:</source>
-        <translation type="unfinished"></translation>
+        <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="995"/>
@@ -1650,7 +1651,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1106"/>
         <source>Digital Signature</source>
-        <translation type="unfinished"></translation>
+        <translation>Digitale Unterschrift</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1111"/>
@@ -1710,37 +1711,37 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1226"/>
         <source>SSL Client</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL Client</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1231"/>
         <source>SSL Server</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL Server</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1236"/>
         <source>S/MIME</source>
-        <translation type="unfinished"></translation>
+        <translation>S/MIME</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1241"/>
         <source>Object Signing</source>
-        <translation type="unfinished"></translation>
+        <translation>Object Signing</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1246"/>
         <source>SSL CA</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL CA</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1251"/>
         <source>S/MIME CA</source>
-        <translation type="unfinished"></translation>
+        <translation>S/MIME CA</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1256"/>
         <source>Object Signing CA</source>
-        <translation type="unfinished"></translation>
+        <translation>Object Signing CA</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1294"/>
@@ -1760,7 +1761,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1355"/>
         <source>SSL server name</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL server name</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1368"/>
@@ -1770,7 +1771,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1375"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1382"/>
@@ -1780,7 +1781,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1389"/>
         <source>Base URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Basis URL</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1399"/>
@@ -1790,17 +1791,17 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location filename="../ui/NewX509.ui" line="1448"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1476"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="88"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="163"/>
@@ -1810,27 +1811,27 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location filename="../widgets/NewX509.cpp" line="182"/>
         <source>Create </source>
-        <translation type="unfinished"></translation>
+        <translation>Erstellen</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="186"/>
         <source>Edit </source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="188"/>
         <source>XCA template</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Vorlage</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="198"/>
         <source>Create x509 Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="771"/>
         <source>Ok</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="771"/>
@@ -1876,7 +1877,7 @@ though you have declared them as mandatory in the options menu:
     <message>
         <location filename="../ui/Options.ui" line="13"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="36"/>
@@ -1884,7 +1885,7 @@ though you have declared them as mandatory in the options menu:
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;XCA Options&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;XCA Optionen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="49"/>
@@ -1894,52 +1895,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/Options.ui" line="98"/>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="105"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="125"/>
         <source>Default hash algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard Hash Algorithmus</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="145"/>
         <source>String types</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkettentyp</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="172"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="192"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="33"/>
         <source>automatic detection (default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische Erkennung (Standard)</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="34"/>
         <source>No BMP strings: only printable and T61</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine BMP Zeichenketten: Nur druckbare und T61</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="35"/>
         <source>PKIX recommendation in RFC2459</source>
-        <translation type="unfinished"></translation>
+        <translation>PKIX Empfehlung aus RFC2459</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="35"/>
         <source>UTF8 strings only (RFC2459)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur UTF8 Zeichenketten (RFC2459)</translation>
     </message>
 </context>
 <context>
@@ -1947,17 +1948,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/PassRead.ui" line="139"/>
         <source>Password</source>
-        <translation type="unfinished">Passwort</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location filename="../ui/PassRead.ui" line="164"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Abbrechen</translation>
     </message>
     <message>
         <location filename="../ui/PassRead.ui" line="187"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -1965,22 +1966,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/PassWrite.ui" line="146"/>
         <source>Password</source>
-        <translation type="unfinished">Passwort</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location filename="../ui/PassWrite.ui" line="122"/>
         <source>Repeat password</source>
-        <translation type="unfinished">Passwort wiederholen</translation>
+        <translation>Passwort wiederholen</translation>
     </message>
     <message>
         <location filename="../ui/PassWrite.ui" line="164"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Abbrechen</translation>
     </message>
     <message>
         <location filename="../ui/PassWrite.ui" line="187"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -2028,77 +2029,77 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/load_obj.cpp" line="19"/>
         <source>All files ( *.* )</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Dateien (*.*)</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="37"/>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKI Schlüssel ( *.pem *.der *.key );;PKCS#8 Schlüssel ( *.p8 *.pk8 );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="61"/>
         <source>PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="84"/>
         <source>Certificates ( *.pem *.der *.crt *.cer );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikate ( *.pem *.der *.crt *.cer );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="107"/>
         <source>PKCS#7 data ( *.p7s *.p7m *.p7b );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#7 Daten ( *.p7s *.p7m *.p7b );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="130"/>
         <source>PKCS#12 Certificates ( *.p12 *.pfx );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#12 Zertifikate ( *.p12 *.pfx );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="144"/>
         <source>XCA templates ( *.xca );;</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Vorlagen ( *.xca);;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="167"/>
         <source>Revocation lists ( *.pem *.der *.crl );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Rücknahmeliste ( *.pem *.der *.crl );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="190"/>
         <source>XCA Databases ( *.xdb );;</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Datenbanken ( *.xdb );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="234"/>
         <source>PEM files ( *.pem );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM Dateien ( *.pem );;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="235"/>
         <source>Load PEM encoded file</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade PEM codierte Datei</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="250"/>
         <source>File open error: </source>
-        <translation type="unfinished"></translation>
+        <translation>Datei öffnen Fehler:</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="254"/>
         <source>File corrupted: </source>
-        <translation type="unfinished"></translation>
+        <translation>Datei beschädigt:</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="259"/>
         <source>Unknown PEM file: </source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekanntee PEM Datei:</translation>
     </message>
     <message>
         <location filename="../lib/x509name.cpp" line="84"/>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültig</translation>
     </message>
 </context>
 <context>
@@ -2111,57 +2112,57 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/ReqDetail.ui" line="41"/>
         <source>Details of the certificate signing request</source>
-        <translation type="unfinished">Details der Unterschriftsanfrage</translation>
+        <translation>Details der Unterschriftsanfrage</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="89"/>
         <source>S&amp;tatus</source>
-        <translation type="unfinished">S&amp;tatus</translation>
+        <translation>S&amp;tatus</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="125"/>
         <source>Internal name of the PKCS#10 signing request</source>
-        <translation type="unfinished">Der interne Name der PKCS#10  Unterschriftsanfrage iin der datenbank</translation>
+        <translation>Der interne Name der PKCS#10  Unterschriftsanfrage iin der datenbank</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="145"/>
         <source>Internal Name</source>
-        <translation type="unfinished">Interner Name</translation>
+        <translation>Interner Name</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="152"/>
         <source>Private key</source>
-        <translation type="unfinished">Privater Schlüssel</translation>
+        <translation>Privater Schlüssel</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="159"/>
         <source>Signature algorithm</source>
-        <translation type="unfinished">Signatur algorithmus</translation>
+        <translation>Signatur algorithmus</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="166"/>
         <source>Signature</source>
-        <translation type="unfinished">Unterschrift</translation>
+        <translation>Unterschrift</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="198"/>
         <source>&amp;Subject</source>
-        <translation type="unfinished">Be&amp;sitzer</translation>
+        <translation>Be&amp;sitzer</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="214"/>
         <source>Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="230"/>
         <source>&amp;Extensions</source>
-        <translation type="unfinished">&amp;Erweiterungen</translation>
+        <translation>&amp;Erweiterungen</translation>
     </message>
     <message>
         <location filename="../ui/ReqDetail.ui" line="285"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -2169,37 +2170,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/TrustState.ui" line="44"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:Arial; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set trustment of the Certificate&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:Arial; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Setze Vertrauen der Zertifikate&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="120"/>
         <source>Trustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertrauen</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="132"/>
         <source>&amp;Never trust this certificate</source>
-        <translation type="unfinished">&amp;Niemals diesem Zertifikat vertrauen</translation>
+        <translation>&amp;Niemals diesem Zertifikat vertrauen</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="139"/>
         <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="unfinished">Nur dann ver&amp;trauen, wenn wir dem Aussteller vertrauen</translation>
+        <translation>Nur dann ver&amp;trauen, wenn wir dem Aussteller vertrauen</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="146"/>
         <source>&amp;Always trust this certificate</source>
-        <translation type="unfinished">Diesem Zertifikat immer vertr&amp;auen</translation>
+        <translation>Diesem Zertifikat immer vertr&amp;auen</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="164"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Abbrechen</translation>
     </message>
     <message>
         <location filename="../ui/TrustState.ui" line="187"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -2207,12 +2208,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_base.cpp" line="182"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../lib/db_base.cpp" line="182"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -2230,17 +2231,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_crl.cpp" line="20"/>
         <source>Name</source>
-        <translation type="unfinished">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="20"/>
         <source>Signer</source>
-        <translation type="unfinished">Aussteller</translation>
+        <translation>Aussteller</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="21"/>
         <source>Common name</source>
-        <translation type="unfinished">Üblicher Name</translation>
+        <translation>Üblicher Name</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="21"/>
@@ -2250,42 +2251,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_crl.cpp" line="21"/>
         <source>Next update</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächstes Update</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="22"/>
         <source>Delete the revokation list(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche Rücknahmeliste(n)</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="129"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished"></translation>
+        <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="131"/>
         <source>Revokation list export</source>
-        <translation type="unfinished"></translation>
+        <translation>Rücknahmeliste exportieren</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="222"/>
         <source>Import</source>
-        <translation type="unfinished">Import</translation>
+        <translation>Import</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="224"/>
         <source>Rename</source>
-        <translation type="unfinished">Umbenennen</translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="225"/>
         <source>Export</source>
-        <translation type="unfinished">Export</translation>
+        <translation>Export</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="226"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
 </context>
 <context>
@@ -2313,67 +2314,67 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_key.cpp" line="26"/>
         <source>Delete the key(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Löschen die Schlüssel</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="129"/>
         <source>Key size too small !</source>
-        <translation type="unfinished">Schlüsselgrösse zu klein !</translation>
+        <translation>Schlüsselgrösse zu klein !</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="132"/>
         <source>You are sure to create a key of the size: </source>
-        <translation type="unfinished">Sie wollen wirklich einen Schlüssel erstellen mit der Länge:</translation>
+        <translation>Sie wollen wirklich einen Schlüssel erstellen mit der Länge:</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="132"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="132"/>
         <source>Create</source>
-        <translation type="unfinished">Erstellen</translation>
+        <translation>Erstellen</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="171"/>
         <source>New Key</source>
-        <translation type="unfinished">Neuer Schlüssel</translation>
+        <translation>Neuer Schlüssel</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="172"/>
         <source>Import</source>
-        <translation type="unfinished">Import</translation>
+        <translation>Import</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="174"/>
         <source>Rename</source>
-        <translation type="unfinished">Umbenennen</translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="175"/>
         <source>Show Details</source>
-        <translation type="unfinished">Details anzeigen</translation>
+        <translation>Details anzeigen</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="176"/>
         <source>Export</source>
-        <translation type="unfinished">Export</translation>
+        <translation>Export</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="177"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="180"/>
         <source>Change password</source>
-        <translation type="unfinished">Passwort ändern</translation>
+        <translation>Passwort ändern</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="183"/>
         <source>Reset password</source>
-        <translation type="unfinished"></translation>
+        <translation>Password zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -2381,17 +2382,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_temp.cpp" line="24"/>
         <source>Delete the Template(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche Vorlage(n)</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="49"/>
         <source>Bad template: </source>
-        <translation type="unfinished"></translation>
+        <translation>Schlechte Vorlage:</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="87"/>
         <source>Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Nichts</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="92"/>
@@ -2401,62 +2402,62 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_temp.cpp" line="130"/>
         <source>copy</source>
-        <translation type="unfinished"></translation>
+        <translation>kopieren</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="162"/>
         <source>Save template as</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlage speichern als</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="163"/>
         <source>XCA templates ( *.xca);; All files ( *.* )</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA Vorlagen ( *.xca);; All Dateien ( *.* )</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="205"/>
         <source>New Template</source>
-        <translation type="unfinished">Neue Vorlage</translation>
+        <translation>Neue Vorlage</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="206"/>
         <source>Import</source>
-        <translation type="unfinished">Import</translation>
+        <translation>Import</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="208"/>
         <source>Rename</source>
-        <translation type="unfinished">Umbenennen</translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="209"/>
         <source>Export</source>
-        <translation type="unfinished">Export</translation>
+        <translation>Export</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="210"/>
         <source>Change</source>
-        <translation type="unfinished">Ändern</translation>
+        <translation>Ändern</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="211"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="212"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="213"/>
         <source>Create certificate</source>
-        <translation type="unfinished">Zertifikat erstellen</translation>
+        <translation>Zertifikat erstellen</translation>
     </message>
     <message>
         <location filename="../lib/db_temp.cpp" line="215"/>
         <source>Create request</source>
-        <translation type="unfinished">Unterschriftsanfrage erstellen</translation>
+        <translation>Unterschriftsanfrage erstellen</translation>
     </message>
 </context>
 <context>
@@ -2474,47 +2475,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_x509.cpp" line="28"/>
         <source>Internal name</source>
-        <translation type="unfinished">Interner Name</translation>
+        <translation>Interner Name</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="28"/>
         <source>Common name</source>
-        <translation type="unfinished">Üblicher Name</translation>
+        <translation>Üblicher Name</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="29"/>
         <source>Serial</source>
-        <translation type="unfinished">Seriennummer</translation>
+        <translation>Seriennummer</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="29"/>
         <source>not After</source>
-        <translation type="unfinished">nicht nach dem</translation>
+        <translation>nicht nach dem</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="29"/>
         <source>Trust state</source>
-        <translation type="unfinished">Vertrauensstatus</translation>
+        <translation>Vertrauensstatus</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="29"/>
         <source>Revocation</source>
-        <translation type="unfinished">Rücknahme</translation>
+        <translation>Rücknahme</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="31"/>
         <source>Delete the certificates(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche das Zertifikat</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="125"/>
         <source>Plain View</source>
-        <translation type="unfinished">Einfache Ansicht</translation>
+        <translation>Einfache Ansicht</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="127"/>
         <source>Tree View</source>
-        <translation type="unfinished">Baumansicht</translation>
+        <translation>Baumansicht</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="438"/>
@@ -2534,132 +2535,132 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_x509.cpp" line="474"/>
         <source>The key you selected for signing is not a private one.</source>
-        <translation type="unfinished">Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
+        <translation>Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="944"/>
         <source>The validity times for the certificate need to get adjusted to not exceed those of the signer</source>
-        <translation type="unfinished">Die Gültigkeitsdaten des Zertifikats müssen angepasst werden um nicht die des Ausstellers zu überschreiten</translation>
+        <translation>Die Gültigkeitsdaten des Zertifikats müssen angepasst werden um nicht die des Ausstellers zu überschreiten</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="945"/>
         <source>Continue creation</source>
-        <translation type="unfinished">Erstellen fortsetzen</translation>
+        <translation>Erstellen fortsetzen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="946"/>
         <source>Abort</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="561"/>
         <source>New Certificate</source>
-        <translation type="unfinished">Neues Zertifikat</translation>
+        <translation>Neues Zertifikat</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="562"/>
         <source>Import</source>
-        <translation type="unfinished">Import</translation>
+        <translation>Import</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="563"/>
         <source>Import PKCS#12</source>
-        <translation type="unfinished">Import PKCS#12</translation>
+        <translation>Import PKCS#12</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="564"/>
         <source>Import from PKCS#7</source>
-        <translation type="unfinished">Import von PKCS #7</translation>
+        <translation>Import von PKCS #7</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="566"/>
         <source>Rename</source>
-        <translation type="unfinished">Umbenennen</translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="567"/>
         <source>Show Details</source>
-        <translation type="unfinished">Details anzeigen</translation>
+        <translation>Details anzeigen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="568"/>
         <source>Export</source>
-        <translation type="unfinished">Export</translation>
+        <translation>Export</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="569"/>
         <source>File</source>
-        <translation type="unfinished">Datei</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="570"/>
         <source>Request</source>
-        <translation type="unfinished">Unterschriftsanfrage</translation>
+        <translation>Unterschriftsanfrage</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="573"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="574"/>
         <source>Trust</source>
-        <translation type="unfinished">Vertrauen</translation>
+        <translation>Vertrauen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="576"/>
         <source>CA</source>
-        <translation type="unfinished">CA</translation>
+        <translation>CA</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="577"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="578"/>
         <source>Generate CRL</source>
-        <translation type="unfinished">CRL erstellen</translation>
+        <translation>CRL erstellen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="580"/>
         <source>PKCS#7</source>
-        <translation type="unfinished">PKCS#7</translation>
+        <translation>PKCS#7</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="581"/>
         <source>Sign</source>
-        <translation type="unfinished">Unterschreiben</translation>
+        <translation>Unterschreiben</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="582"/>
         <source>Encrypt</source>
-        <translation type="unfinished">Verschlüsseln</translation>
+        <translation>Verschlüsseln</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="585"/>
         <source>Renewal</source>
-        <translation type="unfinished">Verlängerung</translation>
+        <translation>Verlängerung</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="588"/>
         <source>Unrevoke</source>
-        <translation type="unfinished">Rücknahme aufheben</translation>
+        <translation>Rücknahme aufheben</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="592"/>
         <source>Revoke</source>
-        <translation type="unfinished">Rücknahme</translation>
+        <translation>Rücknahme</translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="725"/>
         <source>There was no key found for the Certificate: </source>
-        <translation type="unfinished">Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
+        <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="1016"/>
         <source> days</source>
-        <translation type="unfinished"></translation>
+        <translation>Tage</translation>
     </message>
 </context>
 <context>
@@ -2677,52 +2678,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_x509req.cpp" line="22"/>
         <source>Delete the request(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche Anfrage(n)</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="115"/>
         <source>Certificate request ( *.pem *.der *.crl )</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterschriftsanfrage ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="117"/>
         <source>Certificate request export</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterschriftsanfrage exportieren</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="152"/>
         <source>New Request</source>
-        <translation type="unfinished">Neue Unterschriftsanfrage</translation>
+        <translation>Neue Unterschriftsanfrage</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="153"/>
         <source>Import</source>
-        <translation type="unfinished">Import</translation>
+        <translation>Import</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="155"/>
         <source>Rename</source>
-        <translation type="unfinished">Umbenennen</translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="156"/>
         <source>Show Details</source>
-        <translation type="unfinished">Details anzeigen</translation>
+        <translation>Details anzeigen</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="157"/>
         <source>Sign</source>
-        <translation type="unfinished">Unterschreiben</translation>
+        <translation>Unterschreiben</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="158"/>
         <source>Export</source>
-        <translation type="unfinished">Export</translation>
+        <translation>Export</translation>
     </message>
     <message>
         <location filename="../lib/db_x509req.cpp" line="160"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
 </context>
 <context>
@@ -2730,12 +2731,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/pki_base.cpp" line="88"/>
         <source>Error :</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler :</translation>
     </message>
     <message>
         <location filename="../lib/pki_base.cpp" line="96"/>
         <source>Out of memory</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht genügend Speicher</translation>
     </message>
 </context>
 <context>
@@ -2743,12 +2744,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/pki_crl.cpp" line="54"/>
         <source>No issuer given</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Austeller angegeben</translation>
     </message>
     <message>
         <location filename="../lib/pki_crl.cpp" line="262"/>
         <source>unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>unbekannt</translation>
     </message>
 </context>
 <context>
@@ -2766,7 +2767,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/pki_key.cpp" line="728"/>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Privat</translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="728"/>
@@ -2776,7 +2777,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/pki_key.cpp" line="740"/>
         <source>No password</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Passwort</translation>
     </message>
 </context>
 <context>
@@ -2794,7 +2795,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/pki_pkcs12.cpp" line="113"/>
         <source>No key or no Cert and no pkcs12</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Schlüssel or kein Zertifikat und kein PKCS#12</translation>
     </message>
 </context>
 <context>
@@ -2840,12 +2841,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/pki_x509.cpp" line="254"/>
         <source>There is no key for signing !</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
     <message>
         <location filename="../lib/pki_x509.cpp" line="599"/>
         <source>CRL expires: </source>
-        <translation type="unfinished"></translation>
+        <translation>CRL Verfallsdatum:</translation>
     </message>
 </context>
 <context>
@@ -2884,43 +2885,44 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../ui/v3ext.ui" line="85"/>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="92"/>
         <source>Delete</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="124"/>
         <source>Apply</source>
-        <translation type="unfinished">Übernehmen</translation>
+        <translation>Übernehmen</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="131"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation>Überürüfen</translation>
     </message>
     <message>
         <location filename="../ui/v3ext.ui" line="162"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="131"/>
         <source>Validation failed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Überprüfung fehlgeschlagen:</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="136"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="136"/>
         <source>Validation successfull:
 &apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Überprüfung erfolgreich:
+&apos;</translation>
     </message>
 </context>
 <context>
@@ -2928,12 +2930,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lib/db_x509.cpp" line="794"/>
         <source>There was no key found for the Certificate: </source>
-        <translation type="unfinished">Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
+        <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="801"/>
         <source>Import Certificate signing request</source>
-        <translation type="unfinished">Unterschriftsanfrage importieren</translation>
+        <translation>Unterschriftsanfrage importieren</translation>
     </message>
 </context>
 </TS>
