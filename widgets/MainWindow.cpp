@@ -179,10 +179,10 @@ void MainWindow::read_cmdline()
 				case 't' : lb = new load_temp(); break;
 				case 'P' : lb = new load_pem(); break;
 				case 'd' : force_load=1; break;
-				case 'v' : fprintf(stderr, XCA_TITLE " Version " VER "\n");
-						   opt=0; exitApp=1; break;
+				case 'v' : cmd_version(); opt=0; break;
 				case 'x' : exitApp = 1; opt=0; break;
-				default  : cmd_help((char*)(QString(tr("no such option: ")) + arg).data() );
+				case 'h' : cmd_help(NULL); opt=0; break;
+				default  : cmd_help(CCHAR(tr("no such option: ") + arg));
 			}
 			if (arg[2] != '\0' && opt==1) {
 				 arg+=2;
@@ -205,9 +205,13 @@ void MainWindow::read_cmdline()
 				}
 			}
 		} else {
-			dbfile = arg;
-			homedir = dbfile.left(dbfile.lastIndexOf(QDir::separator()));
-			init_database();
+			if (QFile::exists(arg)) {
+				dbfile = arg;
+				homedir = dbfile.left(dbfile.lastIndexOf(QDir::separator()));
+				init_database();
+			} else {
+				cmd_help(CCHAR(tr("Database file does not exist: ") + arg));
+			}
 		}
 
 		cnt++;

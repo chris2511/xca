@@ -15,23 +15,32 @@
 #include "ui_Help.h"
 #include "lib/func.h"
 
+void MainWindow::cmd_version() {
+	fprintf(stderr, XCA_TITLE " Version " VER "\n");
+	exitApp = 1;
+}
 
 void MainWindow::cmd_help(const char* msg) {
+	exitApp = 1;
+	fprintf(stderr, XCA_TITLE " Version " VER "\n"
+		"\n"
+		" -v show version information and exit\n"
+		" -h shows this help screen and exit\n"
+		" -k expect all following non-option arguments to be RSA keys\n"
+		" -r expect all following non-option arguments to be\n"
+		"    Certificate signing requests or SPKAC requests\n"
+		" -c expect all following non-option arguments to be Certificates\n"
+		" -p expect all following non-option arguments to be PKCS#12 files\n"
+		" -7 expect all following non-option arguments to be PKCS#7 files\n"
+		" -l expect all following non-option arguments to be Revocation lists\n"
+		" -t expect all following non-option arguments to be XCA templates\n"
+		" -P expect all following non-option arguments to be PEM encoded 'thingies'\n"
+		" -d expect the following argument to be the database name to use\n"
+		" -x Exit after processing all commandline options\n\n");
 
-fprintf(stderr, " -v show version information and exit\n"
-" -k expect all following non-option arguments to be RSA keys\n"
-" -r expect all following non-option arguments to be\n"
-"    Certificate signing requests or SPKAC requests\n"
-" -c expect all following non-option arguments to be Certificates\n"
-" -p expect all following non-option arguments to be PKCS#12 files\n"
-" -7 expect all following non-option arguments to be PKCS#7 files\n"
-" -l expect all following non-option arguments to be Revocation lists\n"
-" -t expect all following non-option arguments to be XCA templates\n"
-" -P expect all following non-option arguments to be PEM encoded 'thingies'\n"
-" -d expect the following argument to be the database name to use\n"
-" -x Exit after processing all commandline options\n\n");
-
-qFatal("Cmdline Error (%s)\n", msg);
+	if(msg) {
+		fprintf(stderr, "Cmdline Error: %s\n", msg);
+	}
 }
 
 void MainWindow::about()

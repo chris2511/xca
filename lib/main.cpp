@@ -37,21 +37,20 @@ int main( int argc, char *argv[] )
 		default: locale="c";
 	}
 #else
-	locale = "C"; //QTextCodec::locale();
-#warning Fix locale
+	locale = QLocale::system().name();
 #endif
 	qtTr.load( QString( "qt_" ) + locale, "." );
 	xcaTr.load( QString( "xca_" ) + locale, getPrefix() );
 
 	a.installTranslator( &qtTr );
 	a.installTranslator( &xcaTr );
-	fprintf(stderr, "Locale:'%s'; Prefix:'%s'\n",
-		CCHAR(locale), CCHAR(getPrefix()));
 
 	mw = new MainWindow( NULL);
-	mw->show();
 	mw->read_cmdline();
 	if (mw->exitApp == 0) {
+		fprintf(stderr, "Locale:'%s'; Prefix:'%s'\n",
+			CCHAR(locale), CCHAR(getPrefix()));
+		mw->show();
 		ret = a.exec();
 	}
 

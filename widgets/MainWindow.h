@@ -67,6 +67,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static int passWrite(char *buf, int size, int rwflag, void *userdata);
 		//static void Qt::SocketError(errorEx &err);
 		static void Error(errorEx &err);
+		void cmd_version();
 		void cmd_help(const char* msg);
 
 		QString getPath();
