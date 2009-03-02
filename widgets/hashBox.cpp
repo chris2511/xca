@@ -10,7 +10,7 @@
 
 #define DSA_INDEX 2
 
-#ifdef HAS_SHA256
+#if 0  // def HAS_SHA256
 int hashBox::default_md = 3; /* SHA256 */
 #else
 int hashBox::default_md = 2; /* SHA1 */
