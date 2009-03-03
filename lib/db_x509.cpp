@@ -486,7 +486,6 @@ void db_x509::newCert(NewX509 *dlg)
 			throw errorEx("");
 	}
 
-
 	// STEP 4 handle extensions
 	if (dlg->copyReqExtCB->isChecked() && dlg->fromReqCB->isChecked()) {
 		extList el = req->getV3ext();
@@ -497,7 +496,6 @@ void db_x509::newCert(NewX509 *dlg)
 
 	// apply all extensions to the subject cert in the context
 	dlg->getAllExt();
-	dlg->checkExtDuplicates();
 
 	const EVP_MD *hashAlgo = dlg->hashAlgo->currentHash();
 #ifdef WG_QA_SERIAL

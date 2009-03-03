@@ -47,6 +47,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		QStringList private_keys, private_keys0;
 		pki_x509 *ctx_cert;
 		QString v3ext_backup;
+		QString valid_htmltext;
 	public:
 		QRadioButton *selfQASignRB;
 		NewX509(QWidget *parent);
@@ -90,7 +91,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void setExt(const x509v3ext &ext);
 		void switchHashAlgo();
 		void addReqAttributes(pki_x509req *req);
-		void checkExtDuplicates();
+		int checkExtDuplicates();
 	public slots:
 		void on_fromReqCB_clicked();
 		void on_keyList_currentIndexChanged(const QString &);

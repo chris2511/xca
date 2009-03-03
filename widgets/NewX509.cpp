@@ -163,6 +163,7 @@ void NewX509::setRequest()
 	signerBox->setEnabled(false);
 	timewidget->setEnabled(false);
 	capt->setText(tr("Create Certificate signing request"));
+	authKey->setEnabled(false);
 	setImage(MainWindow::csrImg);
 	pt = x509_req;
 }
@@ -651,7 +652,7 @@ void NewX509::on_adv_validate_clicked()
 		QString result;
 		setupTmpCtx();
 		v3ext_backup = nconf_data->toPlainText();
-		if (fromReqCB->isChecked()) {
+		if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
 			el = getSelectedReq()->getV3ext();
 		}
 		if (el.size() > 0) {
@@ -689,11 +690,13 @@ void NewX509::on_adv_validate_clicked()
 		nconf_data->setReadOnly(true);
 
 		adv_validate->setText(tr("Edit"));
+		valid_htmltext = result;
 		checkExtDuplicates();
 	} else {
 		nconf_data->document()->setPlainText(v3ext_backup);
 		nconf_data->setReadOnly(false);
 		adv_validate->setText(tr("Validate"));
+		valid_htmltext = "";
 	}
 	pki_base::ign_openssl_error();
 }
@@ -843,5 +846,21 @@ void NewX509::on_okButton_clicked()
 				return;
 		}
 	}
+	on_adv_validate_clicked();
+	if (checkExtDuplicates()) {
+		switch (QMessageBox::warning(this, tr(XCA_TITLE),
+			tr("The certificate contains duplicated extensions. "
+				"Check the validation on the advanced tab."),
+			tr("Ok"), tr("Abort rollout"), tr("Continue rollout")))
+		{
+			case -1:
+			case 0:
+				return;
+			case 1:
+				reject();
+				return;
+		}
+	}
+
 	accept();
 }

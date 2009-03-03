@@ -177,6 +177,16 @@ int extList::delByNid(int nid)
 	return removed;
 }
 
+int extList::idxByNid(int nid)
+{
+	for(int i = 0; i< size(); i++) {
+		if (at(i).nid() == nid) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 int extList::delInvalid(void)
 {
 	int removed=0;

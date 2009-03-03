@@ -45,5 +45,6 @@ class extList : public QList<x509v3ext>
 	QString getHtml(const QString &sep);
 	int delByNid(int nid);
 	int delInvalid();
+	int idxByNid(int nid);
 };
 #endif

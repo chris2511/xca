@@ -207,6 +207,9 @@ extList NewX509::getAdvanced()
 	char ext_name[] = "ext";
 	int ret, i, start;
 
+	if (nconf_data->isReadOnly()) {
+		on_adv_validate_clicked();
+	}
 	conf_str = nconf_data->toPlainText();
 	if (conf_str.isEmpty())
 		return elist;
@@ -215,7 +218,10 @@ extList NewX509::getAdvanced()
 
 	conf_str = QString("[") + ext_name + "]\n";
 	for (i=0; i< list.count(); i++) {
-		conf_str += list[i].trimmed() + "\n";
+		QString s = list[i].trimmed();
+		if (!s.isEmpty()){
+			conf_str += s + "\n";
+		}
 	}
 	bio = BIO_new_mem_buf((void*)CCHAR(conf_str), conf_str.length());
 	if (!bio)
@@ -319,32 +325,55 @@ void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req)
 	X509V3_set_ctx(&ext_ctx, s, s1, r, NULL, 0);
 }
 
-void NewX509::checkExtDuplicates()
+int NewX509::checkExtDuplicates()
 {
 	int i, start, cnt, n1, n;
-	X509_EXTENSION *e, *e1;
+	x509v3ext e;
 	STACK_OF(X509_EXTENSION) *sk;
+	extList el_dup, el;
+	QString olist;
 
 	if (ext_ctx.subject_cert) {
 		sk = ext_ctx.subject_cert->cert_info->extensions;
 	} else
-		return;
+		return 0;
 
-	cnt = sk_X509_EXTENSION_num(sk);
-	for (start=0; start<cnt; start++) {
-		e1 = sk_X509_EXTENSION_value(sk, start);
-		n1 = OBJ_obj2nid(X509_EXTENSION_get_object(e1));
-		for (i=start+1; i<cnt; i++) {
-			e = sk_X509_EXTENSION_value(sk, i);
-			n = OBJ_obj2nid(X509_EXTENSION_get_object(e));
+	el.setStack(sk, 0);
+	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
+		el += getSelectedReq()->getV3ext();
+	}
+
+	cnt = el.size();
+	for (start=0; start < cnt; start++) {
+		n1 = el[start].nid();
+		for (i = start+1; i<cnt; i++) {
+			e = el[i];
+			n = e.nid();
 			if (n1 == n) {
 				// DUPLICATE
-				x509v3ext x;
-				x.set(e);
-				printf("DUPLICATE: %d %d, %d:%d %d\n%s\n", n, n1, cnt, start,i, CCHAR(x.getHtml()));
+				if (el_dup.idxByNid(n1) ==-1)
+					el_dup << e;
+
 			}
 		}
         }
+	if (el_dup.size() <= 0)
+		return 0;
+
+	tabWidget->setCurrentIndex(tabWidget->count() -1);
+	if (!nconf_data->isReadOnly()) {
+		on_adv_validate_clicked();
+	}
+
+	olist = "<h2><center><font color=\"red\">Error:</font> "
+		"duplicate extensions:</center></h2><p><ul>\n";
+	for(int i = 0; i< el_dup.size(); i++) {
+		olist += "<li>" + el_dup[i].getObject() + "</li>\n";
+	}
+	olist += "</ul>\n<hr>\n";
+	olist += valid_htmltext;
+	nconf_data->document()->setHtml(olist);
+	return el_dup.size();
 }
 
 void NewX509::setExt(const x509v3ext &ext)
