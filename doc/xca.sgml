@@ -665,12 +665,16 @@ The files are:
 <item><bf>aia.txt</bf> Content of <tt>AuthorityInformationAccess</tt>
 </itemize>
 The search path for all the files is listed below.
+All files except <em>oids.txt</em> are searched in the order listed below
+and search stops at the first file found.
+The <em>oids.txt</em> file is searched in reversed order and all
+<em>oids.txt</em> files found are loaded.
 <p>
 <bf>Unix</bf>
 <itemize>
-<item>PREFIX/share/xca/ <newline>PREFIX is usually /usr or /usr/local
+<item>$HOME/.xca/
 <item>/etc/xca/
-<item>$HOME/xca/
+<item>PREFIX/share/xca/ <newline>PREFIX is usually /usr or /usr/local
 </itemize>
 <p>
 <bf>Windows</bf>
