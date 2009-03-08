@@ -14,6 +14,9 @@ DELFILES=imgres.cpp
 all: target.obj
 	echo $(OBJS)
 
+install:
+	install -D -m 644 key.xpm $(destdir)$(prefix)/share/pixmaps/xca-32x32.xpm
+
 imgres.cpp: imgres.rcc
 	$(RCC) -o $@ $<
 

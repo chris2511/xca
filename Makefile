@@ -13,7 +13,7 @@ sinclude Local.mak
 
 SUBDIRS=lib widgets img
 OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
-INSTDIR=misc lang doc
+INSTDIR=misc lang doc img
 CLEANDIRS=lang doc ui img
 HDRDIRS=lib widgets ui
 
