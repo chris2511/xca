@@ -8,4 +8,4 @@ Comment[fi]=Graafinen X.509-varmenteiden hallintatyökalu
 Exec=xca
 Icon=key.xpm
 Terminal=false
-Categories=Application;Utility;QT;
+Categories=Application;Utility;Qt;
