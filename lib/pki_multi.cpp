@@ -116,15 +116,18 @@ void pki_multi::fromPEM_BIO(BIO *bio, QString name)
 			if (!item) {
 				if (startpos <= 0)
 					break;
-				BIO_seek(bio, pos + startpos);
+				if (BIO_seek(bio, pos + startpos) == -1)
+					throw errorEx(tr("Seek failed"));
 				continue;
 			}
 			pos += startpos;
-			BIO_seek(bio, pos);
+			if (BIO_seek(bio, pos))
+				throw errorEx(tr("Seek failed"));
 			item->fromPEM_BIO(bio, name);
 			if (pos == BIO_tell(bio)) {
 				/* No progress, do it manually */
-				BIO_seek(bio, pos + 1);
+				if (BIO_seek(bio, pos + 1))
+					throw errorEx(tr("Seek failed"));
 				printf("Could not load: %s\n",
 						CCHAR(item->getClassName()));
 				delete item;

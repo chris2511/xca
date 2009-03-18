@@ -212,7 +212,7 @@ void pki_key::fromPEM_BIO(BIO *bio, QString name)
 	pkey = PEM_read_bio_PrivateKey(bio, NULL, MainWindow::passRead, &p);
 	if (!pkey){
 		ign_openssl_error();
-		BIO_seek(bio, pos);
+		pos = BIO_seek(bio, pos);
 		pkey = PEM_read_bio_PUBKEY(bio, NULL, MainWindow::passRead, &p);
 	}
 	if (pkey){
