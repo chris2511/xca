@@ -8,19 +8,14 @@
 #include "hashBox.h"
 #include "lib/base.h"
 
-#define DSA_INDEX 2
+#define DSA_INDEX 1
 
-#if 0  // def HAS_SHA256
-int hashBox::default_md = 3; /* SHA256 */
-#else
-int hashBox::default_md = 2; /* SHA1 */
-#endif
+int hashBox::default_md = 1; /* SHA1 */
 
 static struct {
 	const char *name;
 	const EVP_MD *md;
 } hashalgos[] = {
-	{ "MD 2", EVP_md2() },
 	{ "MD 5", EVP_md5() },
 	{ "SHA 1", EVP_sha1() },
 #ifdef HAS_SHA256
@@ -34,7 +29,8 @@ hashBox::hashBox(QWidget *parent)
 	:QComboBox(parent)
 {
 	for (int i=0; hashalgos[i].name; i++)
-		addItem(QString(hashalgos[i].name));
+		if (hashalgos[i].md)
+			addItem(QString(hashalgos[i].name));
 	setDefaultHash();
 	backup = default_md;
 }
