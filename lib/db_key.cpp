@@ -105,7 +105,7 @@ void db_key::newItem() {
 
 void db_key::newItem(QString name)
 {
-	const int sizeList[] = { 512, 1024, 2048, 4096, 0 };
+	const int sizeList[] = { 1024, 2048, 4096, 0 };
 	QDialog *dlg = new QDialog(qApp->activeWindow());
 	Ui::NewKey ui;
 	ui.setupUi(dlg);
@@ -120,7 +120,7 @@ void db_key::newItem(QString name)
 	for (int i=0; sizeList[i] != 0; i++ ) {
 		ui.keyLength->addItem( x.number(sizeList[i]) +" bit");
 	}
-	ui.keyLength->setCurrentIndex(1);
+	ui.keyLength->setCurrentIndex(0);
 	ui.keyDesc->setFocus();
 
 	ui.image->setPixmap(*MainWindow::keyImg);
@@ -136,7 +136,7 @@ void db_key::newItem(QString name)
 	ksizes.replace( QRegExp("[^0-9]"), "" );
 	int ksize = ksizes.toInt();
 	if (ksize < 32) throw errorEx(tr("Key size too small !"));
-	if (ksize < 512 || ksize > 4096)
+	if (ksize < 1024 || ksize > 8192)
 		if (!QMessageBox::warning(NULL, XCA_TITLE,
 			tr("You are sure to create a key of the size: ")
 			+QString::number(ksize) + " ?", tr("Cancel"),
@@ -277,7 +277,7 @@ void db_key::__setOwnPass(enum pki_key::passType x)
 	pki_key *targetKey;
 	if (!currentIdx.isValid())
 		        return;
-    targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
+	targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
 	targetKey->setOwnPass(x);
 	updatePKI(targetKey);
 }
