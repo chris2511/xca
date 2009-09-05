@@ -342,18 +342,29 @@ void NewX509::on_fromReqCB_clicked()
 {
 	bool request = fromReqCB->isChecked();
 	bool subj_tab_present = tabWidget->widget(1) == tab_1;
+	bool subChange = reqSubChange->isChecked();
 
-	if (request && subj_tab_present)
+	if (request && subj_tab_present && !subChange)
 		tabWidget->removeTab(1);
-	else if (!request && !subj_tab_present)
+	else if ((!request || subChange) && !subj_tab_present)
 		tabWidget->insertTab(1, tab_1, tr("Subject"));
 
 	reqList->setEnabled(request);
 	copyReqExtCB->setEnabled(request);
 	showReqBut->setEnabled(request);
+	reqSubChange->setEnabled(request);
 	switchHashAlgo();
 }
 
+void NewX509::on_reqSubChange_clicked()
+{
+	if (reqSubChange->isChecked()) {
+		pki_x509req *req = getSelectedReq();
+		description->setText(req->getIntName());
+		setX509name(req->getSubject());
+	}
+	on_fromReqCB_clicked();
+}
 
 void NewX509::on_keyList_currentIndexChanged(const QString &)
 {
@@ -768,6 +779,17 @@ void NewX509::on_okButton_clicked()
 		return;
 	}
 
+	if (fromReqCB->isChecked()) {
+		 if (!getSelectedReq()->verify()) {
+			if (QMessageBox::warning(this, tr(XCA_TITLE),
+					tr("The verification of the Certificate request failed.\n"
+					"The rollout should be aborted."),
+					tr("Continue anyway"), tr("Abort rollout")) == 1)
+			{
+				reject();
+			}
+		}
+	}
 	if (description->text().isEmpty() && !fromReqCB->isChecked()) {
 		if (commonName->text().isEmpty()) {
 			if (QMessageBox::warning(this, tr(XCA_TITLE),

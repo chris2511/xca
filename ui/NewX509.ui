@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>499</width>
-    <height>513</height>
+    <height>539</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,16 +16,7 @@
    <property name="spacing" >
     <number>6</number>
    </property>
-   <property name="leftMargin" >
-    <number>9</number>
-   </property>
-   <property name="topMargin" >
-    <number>9</number>
-   </property>
-   <property name="rightMargin" >
-    <number>9</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin" >
     <number>9</number>
    </property>
    <item>
@@ -33,16 +24,7 @@
      <property name="spacing" >
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
      <item>
@@ -71,7 +53,7 @@
        <property name="sizeType" >
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>20</width>
          <height>20</height>
@@ -103,7 +85,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>5</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_0" >
       <attribute name="title" >
@@ -113,16 +95,7 @@
        <property name="spacing" >
         <number>6</number>
        </property>
-       <property name="leftMargin" >
-        <number>9</number>
-       </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin" >
         <number>9</number>
        </property>
        <item>
@@ -133,7 +106,7 @@
          <property name="sizeType" >
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>16</height>
@@ -150,37 +123,16 @@
           <property name="spacing" >
            <number>6</number>
           </property>
-          <property name="leftMargin" >
-           <number>9</number>
-          </property>
-          <property name="topMargin" >
-           <number>9</number>
-          </property>
-          <property name="rightMargin" >
-           <number>9</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin" >
            <number>9</number>
           </property>
           <item>
            <widget class="QWidget" native="1" name="reqWidget" >
             <layout class="QGridLayout" >
-             <property name="leftMargin" >
+             <property name="margin" >
               <number>0</number>
              </property>
-             <property name="topMargin" >
-              <number>0</number>
-             </property>
-             <property name="rightMargin" >
-              <number>0</number>
-             </property>
-             <property name="bottomMargin" >
-              <number>0</number>
-             </property>
-             <property name="horizontalSpacing" >
-              <number>6</number>
-             </property>
-             <property name="verticalSpacing" >
+             <property name="spacing" >
               <number>6</number>
              </property>
              <item row="0" column="1" >
@@ -216,6 +168,13 @@ Of course you need the private key of the CSR if you want to create a self-signe
                </property>
               </widget>
              </item>
+             <item row="2" column="0" >
+              <widget class="QCheckBox" name="reqSubChange" >
+               <property name="text" >
+                <string>Modify subject of the request</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -225,16 +184,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
              <property name="spacing" >
               <number>6</number>
              </property>
-             <property name="leftMargin" >
-              <number>0</number>
-             </property>
-             <property name="topMargin" >
-              <number>0</number>
-             </property>
-             <property name="rightMargin" >
-              <number>0</number>
-             </property>
-             <property name="bottomMargin" >
+             <property name="margin" >
               <number>0</number>
              </property>
             </layout>
@@ -251,7 +201,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
          <property name="sizeType" >
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>16</height>
@@ -268,16 +218,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
           <property name="spacing" >
            <number>6</number>
           </property>
-          <property name="leftMargin" >
-           <number>9</number>
-          </property>
-          <property name="topMargin" >
-           <number>9</number>
-          </property>
-          <property name="rightMargin" >
-           <number>9</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin" >
            <number>9</number>
           </property>
           <item>
@@ -285,16 +226,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
             <property name="spacing" >
              <number>6</number>
             </property>
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -324,16 +256,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
             <property name="spacing" >
              <number>6</number>
             </property>
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -364,7 +287,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>16</height>
@@ -377,16 +300,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
          <property name="spacing" >
           <number>6</number>
          </property>
-         <property name="leftMargin" >
-          <number>0</number>
-         </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
          <item>
@@ -409,7 +323,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
          <property name="sizeType" >
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>16</height>
@@ -426,16 +340,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
           <property name="spacing" >
            <number>6</number>
           </property>
-          <property name="leftMargin" >
-           <number>9</number>
-          </property>
-          <property name="topMargin" >
-           <number>9</number>
-          </property>
-          <property name="rightMargin" >
-           <number>9</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin" >
            <number>9</number>
           </property>
           <item>
@@ -479,7 +384,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
          <property name="sizeType" >
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>16</height>
@@ -497,16 +402,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
        <property name="spacing" >
         <number>6</number>
        </property>
-       <property name="leftMargin" >
-        <number>9</number>
-       </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin" >
         <number>9</number>
        </property>
        <item>
@@ -518,36 +414,15 @@ If this list is disabled, you only can create a self-signed certificate.</string
           <property name="spacing" >
            <number>6</number>
           </property>
-          <property name="leftMargin" >
-           <number>8</number>
-          </property>
-          <property name="topMargin" >
-           <number>8</number>
-          </property>
-          <property name="rightMargin" >
-           <number>8</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin" >
            <number>8</number>
           </property>
           <item>
            <layout class="QGridLayout" >
-            <property name="leftMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
-             <number>0</number>
-            </property>
-            <property name="horizontalSpacing" >
-             <number>6</number>
-            </property>
-            <property name="verticalSpacing" >
+            <property name="spacing" >
              <number>6</number>
             </property>
             <item row="3" column="3" >
@@ -666,16 +541,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
             <property name="spacing" >
              <number>6</number>
             </property>
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>0</number>
             </property>
             <item>
@@ -735,16 +601,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
           <property name="spacing" >
            <number>6</number>
           </property>
-          <property name="leftMargin" >
-           <number>9</number>
-          </property>
-          <property name="topMargin" >
-           <number>9</number>
-          </property>
-          <property name="rightMargin" >
-           <number>9</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin" >
            <number>9</number>
           </property>
           <item>
@@ -790,16 +647,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
        <property name="spacing" >
         <number>6</number>
        </property>
-       <property name="leftMargin" >
-        <number>9</number>
-       </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin" >
         <number>9</number>
        </property>
        <item>
@@ -807,16 +655,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
          <property name="spacing" >
           <number>6</number>
          </property>
-         <property name="leftMargin" >
-          <number>0</number>
-         </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
          <item>
@@ -828,16 +667,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
             <property name="spacing" >
              <number>6</number>
             </property>
-            <property name="leftMargin" >
-             <number>8</number>
-            </property>
-            <property name="topMargin" >
-             <number>8</number>
-            </property>
-            <property name="rightMargin" >
-             <number>8</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>8</number>
             </property>
             <item>
@@ -845,16 +675,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
               <property name="spacing" >
                <number>6</number>
               </property>
-              <property name="leftMargin" >
-               <number>0</number>
-              </property>
-              <property name="topMargin" >
-               <number>0</number>
-              </property>
-              <property name="rightMargin" >
-               <number>0</number>
-              </property>
-              <property name="bottomMargin" >
+              <property name="margin" >
                <number>0</number>
               </property>
               <item>
@@ -898,16 +719,7 @@ Self-signed non-CA certificates are unusual although they are possible.</string>
               <property name="spacing" >
                <number>6</number>
               </property>
-              <property name="leftMargin" >
-               <number>0</number>
-              </property>
-              <property name="topMargin" >
-               <number>0</number>
-              </property>
-              <property name="rightMargin" >
-               <number>0</number>
-              </property>
-              <property name="bottomMargin" >
+              <property name="margin" >
                <number>0</number>
               </property>
               <item>
@@ -952,16 +764,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
             <property name="spacing" >
              <number>6</number>
             </property>
-            <property name="leftMargin" >
-             <number>8</number>
-            </property>
-            <property name="topMargin" >
-             <number>8</number>
-            </property>
-            <property name="rightMargin" >
-             <number>8</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>8</number>
             </property>
             <item>
@@ -998,7 +801,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -1012,16 +815,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
           <property name="spacing" >
            <number>6</number>
           </property>
-          <property name="leftMargin" >
-           <number>9</number>
-          </property>
-          <property name="topMargin" >
-           <number>9</number>
-          </property>
-          <property name="rightMargin" >
-           <number>9</number>
-          </property>
-          <property name="bottomMargin" >
+          <property name="margin" >
            <number>9</number>
           </property>
           <item>
@@ -1030,49 +824,37 @@ It also copies the issuer and serial number from the issuer certificate. Normall
              <string>Validity</string>
             </property>
             <layout class="QGridLayout" >
-             <property name="leftMargin" >
+             <property name="margin" >
               <number>8</number>
              </property>
-             <property name="topMargin" >
-              <number>8</number>
-             </property>
-             <property name="rightMargin" >
-              <number>8</number>
-             </property>
-             <property name="bottomMargin" >
-              <number>8</number>
-             </property>
-             <property name="horizontalSpacing" >
-              <number>6</number>
-             </property>
-             <property name="verticalSpacing" >
+             <property name="spacing" >
               <number>6</number>
              </property>
              <item row="0" column="1" >
-				 <widget class="Validity" native="1" name="notBefore">
-					 <property name="displayFormat" >
-						 <string>yyyy-MM-dd hh:mm</string>
-					 </property>
-					 <property name="calendarPopup" > 
-						 <bool>true</bool>
-					 </property>
-					 <property name="timeSpec" >
-						 <enum>Qt::UTC</enum>
-					 </property>
-				 </widget>
+              <widget class="Validity" name="notBefore" >
+               <property name="displayFormat" >
+                <string>yyyy-MM-dd hh:mm</string>
+               </property>
+               <property name="calendarPopup" >
+                <bool>true</bool>
+               </property>
+               <property name="timeSpec" >
+                <enum>Qt::UTC</enum>
+               </property>
+              </widget>
              </item>
              <item row="1" column="1" >
-				 <widget class="Validity" native="1" name="notAfter">
-					 <property name="displayFormat" >
-						 <string>yyyy-MM-dd hh:mm</string>
-					 </property>
-					 <property name="calendarPopup" > 
-						 <bool>true</bool>
-					 </property>
-					 <property name="timeSpec" >
-						 <enum>Qt::UTC</enum>
-					 </property>
-				 </widget>
+              <widget class="Validity" name="notAfter" >
+               <property name="displayFormat" >
+                <string>yyyy-MM-dd hh:mm</string>
+               </property>
+               <property name="calendarPopup" >
+                <bool>true</bool>
+               </property>
+               <property name="timeSpec" >
+                <enum>Qt::UTC</enum>
+               </property>
+              </widget>
              </item>
              <item row="0" column="0" >
               <widget class="QLabel" name="TextLabel1_2_3_2" >
@@ -1097,22 +879,10 @@ It also copies the issuer and serial number from the issuer certificate. Normall
              <string>Time range</string>
             </property>
             <layout class="QGridLayout" >
-             <property name="leftMargin" >
+             <property name="margin" >
               <number>8</number>
              </property>
-             <property name="topMargin" >
-              <number>8</number>
-             </property>
-             <property name="rightMargin" >
-              <number>8</number>
-             </property>
-             <property name="bottomMargin" >
-              <number>8</number>
-             </property>
-             <property name="horizontalSpacing" >
-              <number>6</number>
-             </property>
-             <property name="verticalSpacing" >
+             <property name="spacing" >
               <number>6</number>
              </property>
              <item row="1" column="1" >
@@ -1165,7 +935,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -1175,22 +945,10 @@ It also copies the issuer and serial number from the issuer certificate. Normall
        </item>
        <item>
         <layout class="QGridLayout" >
-         <property name="leftMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
-          <number>0</number>
-         </property>
-         <property name="horizontalSpacing" >
-          <number>6</number>
-         </property>
-         <property name="verticalSpacing" >
+         <property name="spacing" >
           <number>6</number>
          </property>
          <item row="3" column="0" >
@@ -1325,16 +1083,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        <property name="spacing" >
         <number>6</number>
        </property>
-       <property name="leftMargin" >
-        <number>8</number>
-       </property>
-       <property name="topMargin" >
-        <number>8</number>
-       </property>
-       <property name="rightMargin" >
-        <number>8</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin" >
         <number>8</number>
        </property>
        <item>
@@ -1345,16 +1094,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          <property name="spacing" >
           <number>6</number>
          </property>
-         <property name="leftMargin" >
-          <number>0</number>
-         </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
          <item>
@@ -1366,16 +1106,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
             <property name="spacing" >
              <number>6</number>
             </property>
-            <property name="leftMargin" >
-             <number>8</number>
-            </property>
-            <property name="topMargin" >
-             <number>8</number>
-            </property>
-            <property name="rightMargin" >
-             <number>8</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>8</number>
             </property>
             <item>
@@ -1452,16 +1183,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
             <property name="spacing" >
              <number>6</number>
             </property>
-            <property name="leftMargin" >
-             <number>8</number>
-            </property>
-            <property name="topMargin" >
-             <number>8</number>
-            </property>
-            <property name="rightMargin" >
-             <number>8</number>
-            </property>
-            <property name="bottomMargin" >
+            <property name="margin" >
              <number>8</number>
             </property>
             <item>
@@ -1506,16 +1228,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        <property name="spacing" >
         <number>6</number>
        </property>
-       <property name="leftMargin" >
-        <number>8</number>
-       </property>
-       <property name="topMargin" >
-        <number>8</number>
-       </property>
-       <property name="rightMargin" >
-        <number>8</number>
-       </property>
-       <property name="bottomMargin" >
+       <property name="margin" >
         <number>8</number>
        </property>
        <item>
@@ -1523,16 +1236,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          <property name="spacing" >
           <number>6</number>
          </property>
-         <property name="leftMargin" >
-          <number>0</number>
-         </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
          <item>
@@ -1585,7 +1289,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            <property name="sizeType" >
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>20</width>
              <height>20</height>
@@ -1598,16 +1302,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            <property name="spacing" >
             <number>6</number>
            </property>
-           <property name="leftMargin" >
-            <number>0</number>
-           </property>
-           <property name="topMargin" >
-            <number>0</number>
-           </property>
-           <property name="rightMargin" >
-            <number>0</number>
-           </property>
-           <property name="bottomMargin" >
+           <property name="margin" >
             <number>0</number>
            </property>
            <item>
@@ -1634,7 +1329,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
              <property name="sizeType" >
               <enum>QSizePolicy::Expanding</enum>
              </property>
-             <property name="sizeHint" >
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>20</height>
@@ -1648,22 +1343,10 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </item>
        <item>
         <layout class="QGridLayout" >
-         <property name="leftMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
-          <number>0</number>
-         </property>
-         <property name="horizontalSpacing" >
-          <number>6</number>
-         </property>
-         <property name="verticalSpacing" >
+         <property name="spacing" >
           <number>6</number>
          </property>
          <item row="3" column="1" >
@@ -1779,7 +1462,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>40</width>
              <height>20</height>
@@ -1799,7 +1482,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>40</width>
              <height>20</height>
@@ -1818,16 +1501,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
      <property name="spacing" >
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin" >
       <number>0</number>
      </property>
      <item>
@@ -1848,7 +1522,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>311</width>
          <height>31</height>

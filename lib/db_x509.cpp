@@ -406,7 +406,10 @@ void db_x509::newCert(NewX509 *dlg)
 		    clientkey = req->getPubKey();
 		    tempkey = clientkey;
 	    }
-	    subject = req->getSubject();
+	    if (dlg->reqSubChange->isChecked())
+		subject = dlg->getX509name();
+	    else
+	        subject = req->getSubject();
 	    intname = req->getIntName();
 	}
 
