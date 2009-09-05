@@ -92,15 +92,25 @@ void ReqDetail::setReq(pki_x509req *req)
 			added++;
 
 			if (att->single) {
-				label = labelFromAsn1Type(att->value.single);
+				label = labelFromAsn1String(att->value.single->value.asn1_string);
 				attrLayout->addWidget(label, i, 1);
 				continue;
 			}
 			int count = sk_ASN1_TYPE_num(att->value.set);
 			for (int j=0; j<count; j++) {
-				label = labelFromAsn1Type(sk_ASN1_TYPE_value(att->value.set, j));
+				label = labelFromAsn1String(sk_ASN1_TYPE_value(att->value.set, j)->value.asn1_string);
 				attrLayout->addWidget(label, i, j +1);
 			}
+		}
+		ASN1_IA5STRING *chal = req->spki_challange();
+		if (chal) {
+			QLabel *label;
+			label = new QLabel(this);
+			label->setText(QString("SPKI Challenge String"));
+			attrLayout->addWidget(label, 0, 0);
+			label = labelFromAsn1String(chal);
+			attrLayout->addWidget(label, 0, 1);
+			added++;
 		}
 		if (!added) {
 			tabwidget->removeTab(2);
@@ -111,15 +121,14 @@ void ReqDetail::setReq(pki_x509req *req)
 	}
 }
 
-QLabel *ReqDetail::labelFromAsn1Type(ASN1_TYPE *at)
+QLabel *ReqDetail::labelFromAsn1String(ASN1_STRING *s)
 {
 	QLabel *label;
-	ASN1_STRING *st = at->value.asn1_string;
-
 	label = new CopyLabel(this);
-	label->setText(asn1ToQString(st));
-	label->setToolTip(QString(ASN1_tag2str(st->type)));
+	label->setText(asn1ToQString(s));
+	label->setToolTip(QString(ASN1_tag2str(s->type)));
 	label->setFrameShape(QFrame::Panel);
 	label->setFrameShadow(QFrame::Sunken);
 	return label;
 }
+

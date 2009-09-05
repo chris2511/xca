@@ -58,6 +58,7 @@ class pki_x509req : public pki_x509super
 		void setSPKIFromData(const unsigned char *p, int size);
 		void setSPKIBase64(const char *p);
 		void set_spki(NETSCAPE_SPKI *_spki);
+		ASN1_IA5STRING *spki_challange();
 		QVariant column_data(int col);
 		QVariant getIcon();
 };

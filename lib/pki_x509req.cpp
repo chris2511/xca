@@ -209,38 +209,36 @@ void pki_x509req::writeReq(const QString fname, bool pem)
 
 bool pki_x509req::compare(pki_base *refreq)
 {
-	if (!refreq) return false;
 	const EVP_MD *digest=EVP_md5();
 	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];
 	unsigned int d1_len,d2_len;
+
+	if (!refreq)
+		 return false;
 	X509_REQ_digest(request, digest, d1, &d1_len);
 	X509_REQ_digest(((pki_x509req *)refreq)->request, digest, d2, &d2_len);
 	ign_openssl_error();
 	if ((d1_len == d2_len) &&
 	    (d1_len >0) &&
-	    (memcmp(d1,d2,d1_len) == 0) )return true;
+	    (memcmp(d1,d2,d1_len) == 0) )
+	{
+		return true;
+	}
 	return false;
 }
 
 int pki_x509req::verify()
 {
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
-	bool x = (X509_REQ_verify(request,pkey) >= 0);
-	if ( !x  && spki != NULL) {
-		ign_openssl_error();
-		x = NETSCAPE_SPKI_verify(spki, pkey) >= 0;
+	bool x;
+
+	if (spki) {
+		x = NETSCAPE_SPKI_verify(spki, pkey) > 0;
+	} else {
+		x = X509_REQ_verify(request,pkey) > 0;
 	}
-	if (x) {
-		ign_openssl_error();
-	}
+	ign_openssl_error();
 	EVP_PKEY_free(pkey);
-	try {
-		openssl_error();
-	}
-	catch (errorEx &err) {
-		if (!err.isEmpty())
-			printf("Error: %s\n", CCHAR(err.getString()));
-	}
 	return x;
 }
 
@@ -248,7 +246,8 @@ pki_key *pki_x509req::getPubKey() const
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
 	 ign_openssl_error();
-	 if (pkey == NULL) return NULL;
+	 if (pkey == NULL)
+		 return NULL;
 	 pki_key *key = new pki_key(pkey);
 	 openssl_error();
 	 return key;
@@ -256,8 +255,13 @@ pki_key *pki_x509req::getPubKey() const
 
 QString pki_x509req::getSigAlg()
 {
-	QString alg = OBJ_nid2ln(OBJ_obj2nid(request->sig_alg->algorithm));
-	return alg;
+	ASN1_OBJECT *o;
+	if (spki) {
+		o = spki->spkac->pubkey->algor->algorithm;
+	} else {
+		o = request->sig_alg->algorithm;
+	}
+	return QString(OBJ_nid2ln(OBJ_obj2nid(o)));
 }
 
 extList pki_x509req::getV3ext()
@@ -422,6 +426,15 @@ void pki_x509req::load_spkac(const QString filename)
 		if (parms != NULL) CONF_free(parms);
 		throw e;
 		}
+}
+
+ASN1_IA5STRING *pki_x509req::spki_challange()
+{
+	if (spki) {
+		if (spki->spkac->challenge->length >0)
+			return spki->spkac->challenge;
+	}
+	return NULL;
 }
 
 QVariant pki_x509req::column_data(int col)

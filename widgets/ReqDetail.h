@@ -21,7 +21,7 @@ class ReqDetail: public QDialog, public Ui::ReqDetail
    public:
 	ReqDetail( QWidget *parent);
 	void setReq(pki_x509req *req);
-	QLabel *labelFromAsn1Type(ASN1_TYPE *at);
+	QLabel *labelFromAsn1String(ASN1_STRING *s);
 };
 
 #endif
