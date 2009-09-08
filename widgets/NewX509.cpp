@@ -94,8 +94,9 @@ NewX509::NewX509(QWidget *parent)
 #endif
 	// set dates to now and now + 1 year
 	a1time a;
-	notBefore->setDate(a.now());
-	notAfter->setDate(a.now(60*60*24*365));
+	validNumber->setText("1");
+	validRange->setCurrentIndex(2);
+	on_applyTime_clicked();
 
 	// settings for the templates ....
 	strings.clear();
@@ -183,13 +184,13 @@ void NewX509::addReqAttributes(pki_x509req *req)
 
 void NewX509::setTemp(pki_temp *temp)
 {
-	QString text = tr("Create ");
+	QString text = tr("Create");
 	if (temp->getIntName() != "--") {
 		description->setText(temp->getIntName());
 		description->setDisabled(true);
-		text = tr("Edit ");
+		text = tr("Edit");
 	}
-	capt->setText(text + tr("XCA template"));
+	capt->setText(text + " " + tr("XCA template"));
 	tabWidget->removeTab(0);
 	privKeyBox->setEnabled(false);
 	validityBox->setEnabled(false);
@@ -286,7 +287,6 @@ void NewX509::fromTemplate(pki_temp *temp)
 	nsRenewalUrl->setText(temp->nsRenewalUrl);
 	nsCaPolicyUrl->setText(temp->nsCaPolicyUrl);
 	nsSslServerName->setText(temp->nsSslServerName);
-#warning settings
 	int2lb(nsCertType, temp->nsCertType);
 	basicCA->setCurrentIndex(temp->ca);
 	bcCritical->setChecked(temp->bcCrit);
@@ -335,7 +335,11 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->validM = validRange->currentIndex();
 	temp->pathLen = basicPath->text().toInt();
 	temp->validMidn = midnightCB->isChecked();
-	temp->adv_ext = nconf_data->toPlainText();
+	if (nconf_data->isReadOnly()) {
+		temp->adv_ext = v3ext_backup;
+	} else {
+		temp->adv_ext = nconf_data->toPlainText();
+	}
 }
 
 void NewX509::on_fromReqCB_clicked()
