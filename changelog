@@ -1,6 +1,14 @@
+xca 0.7.0
 
-
+  * support modifying the CSR subject during signing
+  * update key images
   * fix date settings in Certificate renewal dialog
+  * fix certificate request verification
+  * check for duplicate x509 v3 extensions
+    Bug  [ 1881482 ] and [ 1998815 ]
+  * make sha1 the default hash to avoid problems with other software
+    Bug [ 1751397 ]
+  * add validation button to see all extensions before creating the cert
   * change the hashing for the default password.
     this makes it incompatible to older versions
   * Major changes for MAC OS X
