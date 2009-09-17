@@ -174,15 +174,12 @@ QString getUserSettingsDir()
 	return rv;
 }
 
-// Qt's open and save dialogs result in some undesirable quirks on Mac OS X. This function makes sure that a filename has the
-// user-selected extension on a mac, and just returns the file name passed in on other platforms where, presumably
-// these quirks don't pose the same issues.
+// Qt's open and save dialogs result in some undesirable quirks.
+// This function makes sure that a filename has the user-selected extension.
 QString getFullFilename(const QString & filename, const QString & selectedFilter)
 {
 	QString rv = filename;
-#if !defined(Q_WS_MAC)
-	return rv;
-#else
+
 	if(!selectedFilter.isEmpty() && !filename.endsWith(selectedFilter)) {
 		int dot = selectedFilter.indexOf('.');
 		if(dot > 0){
@@ -192,9 +189,9 @@ QString getFullFilename(const QString & filename, const QString & selectedFilter
 	}
 	// make sure it wasn't a wildcard filter... this seems a little backwards,
 	// but it's the easiest I see way not to worry about languages here.
-	if(rv.endsWith('*')) rv = filename;
+	if(rv.endsWith('*'))
+		rv = filename;
 	return rv;
-#endif
 }
 
 void applyTD(QWidget *parent, int number, int range, bool mnc,

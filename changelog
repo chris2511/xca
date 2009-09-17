@@ -18,7 +18,7 @@ xca 0.7.0
   * fix xca.desktop Bug [ 1837956 ]
   * fix item-export error handling
   * add PEM paste import feature
-  * extend PEM import t5o import all items from a PEM file
+  * extend PEM import to import all items from a PEM file
 
 xca 0.6.4
 
