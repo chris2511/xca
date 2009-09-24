@@ -37,7 +37,7 @@ class db_base: public QAbstractItemModel
 		void _writePKI(pki_base *pki, bool overwrite );
 		void _removePKI(pki_base *pki );
 		void removeItem(QString k);
-		enum pki_type pkitype;
+		enum pki_type pkitype[4];
 		QList<QVariant> headertext;
 		MainWindow *mainwin;
 		XcaTreeView *view;
@@ -47,7 +47,7 @@ class db_base: public QAbstractItemModel
 		pki_base *rootItem;
 		db_base(QString db, MainWindow *mw);
 		virtual ~db_base();
-		virtual pki_base *newPKI();
+		virtual pki_base *newPKI(db_header_t *head = NULL);
 		virtual void insertPKI(pki_base *pki);
 		virtual void updatePKI(pki_base *pki);
 		pki_base *getByName(QString desc);

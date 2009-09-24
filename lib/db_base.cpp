@@ -33,6 +33,8 @@ db_base::db_base(QString db, MainWindow *mw)
 	currentIdx = QModelIndex();
 	view = NULL;
 	class_name = "base";
+	for (size_t i =0; i<ARRAY_SIZE(pkitype); i++)
+		pkitype[i] = none;
 }
 
 db_base::~db_base()
@@ -40,7 +42,7 @@ db_base::~db_base()
 	delete rootItem;
 }
 
-pki_base *db_base::newPKI(){
+pki_base *db_base::newPKI(db_header_t *head){
 	return new pki_base("rootItem");
 }
 
@@ -62,43 +64,47 @@ void db_base::loadContainer()
 	db mydb(dbName);
 	unsigned char *p = NULL;
 	db_header_t head;
+	pki_base *pki;
 
-	pki_base *pb, *pki;
-	pb = newPKI();
-	while ( mydb.find(pb->getType(), QString()) == 0 ) {
-		QString s;
-		p = mydb.load(&head);
-		if (!p) {
-			printf("Load was empty !\n");
-			goto next;
-		}
-		//printf("load item: %s\n",head.name);
-		if (pb->getVersion() < head.version) {
+	for (int i=0; pkitype[i] != none; i++) {
+		mydb.first();
+		while (mydb.find(pkitype[i], QString()) == 0) {
+			QString s;
+			p = mydb.load(&head);
+			if (!p) {
+				printf("Load was empty !\n");
+				goto next;
+			}
+			pki = newPKI(&head);
+			if (pki->getVersion() < head.version) {
+				printf("Item[%s]: Version %d "
+					"> known version: %d -> ignored\n",
+					head.name, head.version,
+					pki->getVersion()
+				);
+				free(p);
+				delete pki;
+				goto next;
+			}
+			pki->setIntName(QString::fromUtf8(head.name));
+
+			try {
+				pki->fromData(p, &head);
+			}
+			catch (errorEx &err) {
+				err.appendString(pki->getIntName());
+				mainwin->Error(err);
+				delete pki;
+				pki = NULL;
+			}
 			free(p);
-			printf("Item[%s]: Version %d > known version: %d -> ignored\n",
-					head.name, head.version, pb->getVersion() );
-			goto next;
-		}
-		pki = newPKI();
-		pki->setIntName(QString::fromUtf8(head.name));
-
-		try {
-			pki->fromData(p, &head);
-		}
-		catch (errorEx &err) {
-			err.appendString(pki->getIntName());
-			mainwin->Error(err);
-			delete pki;
-			pki = NULL;
-		}
-		free(p);
-		if (pki)
-			inToCont(pki);
+			if (pki)
+				inToCont(pki);
 next:
-		if (mydb.next())
-			break;
+			if (mydb.next())
+				break;
+		}
 	}
-	delete pb;
 }
 
 void db_base::insertPKI(pki_base *pki)

@@ -5,11 +5,13 @@
     <file>bigcsr.png</file>
     <file>bigkey.png</file>
     <file>bigtemp.png</file>
+    <file>bigscard.png</file>
     <file>crl.png</file>
     <file>halfkey.png</file>
     <file>invalidcertkey.png</file>
     <file>invalidcert.png</file>
     <file>key.png</file>
+    <file>scard.png</file>
     <file>netscape.png</file>
     <file>reqkey.png</file>
     <file>req.png</file>

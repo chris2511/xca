@@ -24,9 +24,9 @@ class db_key: public db_base
 		void __setOwnPass(enum pki_key::passType);
 	public:
 		db_key(QString db, MainWindow *mw);
-		pki_base *newPKI();
 		QStringList getPrivateDesc();
 		QStringList get0PrivateDesc(bool all = false);
+		pki_base *newPKI(db_header_t *head = NULL);
 		void inToCont(pki_base *pki);
 		void remFromCont(QModelIndex &idx);
 		pki_base* insert(pki_base *item);
@@ -41,6 +41,7 @@ class db_key: public db_base
 		void showPki(pki_base *pki);
 		void setOwnPass();
 		void resetOwnPass();
+		void importScard();
 
 	signals:
 		void delKey(pki_key *delkey);

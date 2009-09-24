@@ -24,6 +24,8 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 	delete_txt = tr("Delete the template(s)");
 	view = mw->tempView;
 	class_name = "templates";
+	pkitype[0] = tmpl;
+
 	loadContainer();
 
 	predefs = newPKI();
@@ -56,7 +58,8 @@ db_temp::~db_temp()
 	delete predefs;
 }
 
-pki_base *db_temp::newPKI(){
+pki_base *db_temp::newPKI(db_header_t *head)
+{
 	return new pki_temp("");
 }
 

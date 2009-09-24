@@ -20,12 +20,13 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 {
 	headertext << "Name" << "Subject";
 	delete_txt = tr("Delete the request(s)");
-	loadContainer();
 	view = mw->reqView;
 	class_name = "requests";
+	pkitype[0] = x509_req;
+	loadContainer();
 }
 
-pki_base *db_x509req::newPKI()
+pki_base *db_x509req::newPKI(db_header_t *head)
 {
 	return new pki_x509req();
 }

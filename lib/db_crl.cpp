@@ -22,10 +22,12 @@ db_crl::db_crl(QString db, MainWindow *mw)
 	delete_txt = tr("Delete the revokation list(s)");
 	view = mw->crlView;
 	class_name = "crls";
+	pkitype[0] = revokation;
 	loadContainer();
 }
 
-pki_base *db_crl::newPKI(){
+pki_base *db_crl::newPKI(db_header_t *head)
+{
 	return new pki_crl();
 }
 

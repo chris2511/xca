@@ -23,11 +23,13 @@
 #include <openssl/rand.h>
 
 #include "lib/exception.h"
+#include "lib/pki_scard.h"
 #include "lib/pki_pkcs12.h"
 #include "lib/pki_multi.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
 #include "lib/func.h"
+#include "lib/pkcs11.h"
 #include "ui_PassRead.h"
 #include "ui_PassWrite.h"
 #include "ui_About.h"
@@ -36,7 +38,7 @@
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
 	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL,
-	*MainWindow::appIco = NULL;
+	*MainWindow::appIco = NULL, *MainWindow::scardImg = NULL;
 
 db_key *MainWindow::keys = NULL;
 db_x509req *MainWindow::reqs = NULL;
@@ -73,6 +75,7 @@ MainWindow::MainWindow(QWidget *parent )
 	init_images();
 	homedir = getHomeDir();
 
+	pkcs11::load_lib("", true);
 	// FIXME: Change pass isn't functional yet.
 	BNchangePass->setDisabled(true);
 
@@ -134,6 +137,7 @@ void MainWindow::init_images()
 	tempImg = loadImg("bigtemp.png");
 	nsImg = loadImg("netscape.png");
 	revImg = loadImg("bigcrl.png");
+	scardImg = loadImg("bigscard.png");
 	appIco = loadImg("key.xpm");
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
@@ -141,8 +145,9 @@ void MainWindow::init_images()
 	bigTemp->setPixmap(*tempImg);
 	bigRev->setPixmap(*revImg);
 	setWindowIcon(*appIco);
-	pki_key::icon[0] = loadImg("key.png");
-	pki_key::icon[1] = loadImg("halfkey.png");
+	pki_evp::icon[0] = loadImg("key.png");
+	pki_evp::icon[1] = loadImg("halfkey.png");
+	pki_scard::icon[0] = loadImg("scard.png");
 	pki_x509req::icon[0] = loadImg("req.png");
 	pki_x509req::icon[1] = loadImg("reqkey.png");
 	pki_x509req::icon[2] = loadImg("spki.png");
@@ -294,7 +299,7 @@ int MainWindow::initPass()
 {
 	db mydb(dbfile);
 	char *pass;
-	pki_key::passHash = QString();
+	pki_evp::passHash = QString();
 	QString salt;
 
 	pass_info p(tr("New Password"), tr("Please enter a password, "
@@ -302,47 +307,47 @@ int MainWindow::initPass()
 			"in the database-file"), this);
 	if (!mydb.find(setting, "pwhash")) {
 		if ((pass = (char *)mydb.load(NULL))) {
-			pki_key::passHash = pass;
+			pki_evp::passHash = pass;
 			free(pass);
 		}
 	}
-	if (pki_key::passHash.isEmpty()) {
-		int keylen = passWrite((char *)pki_key::passwd,
+	if (pki_evp::passHash.isEmpty()) {
+		int keylen = passWrite((char *)pki_evp::passwd,
 				MAX_PASS_LENGTH-1, 0, &p);
 		if (keylen < 0)
 			return 0;
-		pki_key::passwd[keylen]='\0';
+		pki_evp::passwd[keylen]='\0';
 		salt = makeSalt();
-		pki_key::passHash = pki_key::sha512passwd(pki_key::passwd,salt);
-		mydb.set((const unsigned char *)CCHAR(pki_key::passHash),
-			pki_key::passHash.length()+1, 1, setting, "pwhash");
+		pki_evp::passHash = pki_evp::sha512passwd(pki_evp::passwd,salt);
+		mydb.set((const unsigned char *)CCHAR(pki_evp::passHash),
+			pki_evp::passHash.length()+1, 1, setting, "pwhash");
 	} else {
 		int keylen=0;
-		while (pki_key::sha512passwd(pki_key::passwd, pki_key::passHash)
-				!= pki_key::passHash)
+		while (pki_evp::sha512passwd(pki_evp::passwd, pki_evp::passHash)
+				!= pki_evp::passHash)
 		{
 			if (keylen !=0) QMessageBox::warning(this,tr(XCA_TITLE),
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database"));
-			keylen = passRead(pki_key::passwd, MAX_PASS_LENGTH-1, 0, &p);
+			keylen = passRead(pki_evp::passwd, MAX_PASS_LENGTH-1, 0, &p);
 			if (keylen < 0)
 				return 1;
-			pki_key::passwd[keylen]='\0';
-			if (pki_key::passHash.left(1) == "S")
+			pki_evp::passwd[keylen]='\0';
+			if (pki_evp::passHash.left(1) == "S")
 				continue;
 			/* Start automatic update from md5 to salted sha512
 			 * if the password is correct. my md5 hash does not
 			 * start with 'S', while my new hash does. */
-			if (pki_key::md5passwd(pki_key::passwd) ==
-						pki_key::passHash )
+			if (pki_evp::md5passwd(pki_evp::passwd) ==
+						pki_evp::passHash )
 			{
 				salt = makeSalt();
-				pki_key::passHash = pki_key::sha512passwd(
-						pki_key::passwd, salt);
+				pki_evp::passHash = pki_evp::sha512passwd(
+						pki_evp::passwd, salt);
 				mydb.set((const unsigned char *)CCHAR(
-					pki_key::passHash),
-					pki_key::passHash.length() +1, 1,
+					pki_evp::passHash),
+					pki_evp::passHash.length() +1, 1,
 					setting, "pwhash");
 			}
 		}
@@ -408,7 +413,8 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 
 void MainWindow::Error(errorEx &err)
 {
-	if (err.isEmpty()) return;
+	if (err.isEmpty())
+		 return;
 	QString msg =  tr("The following error occured:") + "\n" + err.getString();
 	int ret = QMessageBox::warning(qApp->activeWindow(), XCA_TITLE,
 			msg, tr("&OK"), tr("Copy to Clipboard"));

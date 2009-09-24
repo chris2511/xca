@@ -8,6 +8,7 @@
 #include "db_x509.h"
 #include "pki_pkcs12.h"
 #include "pki_pkcs7.h"
+#include "pki_evp.h"
 #include "widgets/CertDetail.h"
 #include "widgets/CertExtend.h"
 #include "widgets/ExportCert.h"
@@ -31,10 +32,12 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 	delete_txt = tr("Delete the certificate(s)");
 	view = mw->certView;
 	class_name = "certificates";
+	pkitype[0] = x509;
 	loadContainer();
 }
 
-pki_base *db_x509::newPKI(){
+pki_base *db_x509::newPKI(db_header_t *head)
+{
 	return new pki_x509();
 }
 
@@ -590,7 +593,6 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		parentCanSign = (cert->getSigner() && cert->getSigner()->canSign()
 					&& (cert->getSigner() != cert));
 		canSign = cert->canSign();
-#warning templates
 		hasTemplates = mainwin->temps->getDesc().count() > 0 ;
 		hasPrivkey = cert->getRefKey();
 		itemRevoke->setEnabled(parentCanSign);
@@ -629,7 +631,7 @@ void db_x509::store()
 	QString fn = mainwin->getPath() + QDir::separator() +
 			crt->getUnderlinedName() + ".crt";
 	ExportCert *dlg = new ExportCert(mainwin, fn,
-			(privkey && privkey->isPrivKey()) );
+		(privkey && privkey->isPrivKey()) && !privkey->isScard());
 	dlg->image->setPixmap(*MainWindow::certImg);
 	int dlgret = dlg->exec();
 
@@ -687,13 +689,20 @@ void db_x509::store()
 		case 12: // Certificate and Key in PKCS8 format
 			pkcs8 = true;
 		case 11: // Certificate and Key in PEM format for apache
-			pki_key *privkey = crt->getRefKey();
+			pki_evp *privkey = (pki_evp *)crt->getRefKey();
 			if (!privkey || privkey->isPubKey()) {
 				QMessageBox::warning(mainwin, tr(XCA_TITLE),
 					tr("There was no key found for the Certificate: ") +
 					crt->getIntName() );
 				return;
 			}
+			if (privkey->isScard()) {
+				QMessageBox::warning(mainwin, tr(XCA_TITLE),
+					tr("Not possible for smart card key:") +
+                                        crt->getIntName() );
+                                return;
+                        }
+
 			if (pkcs8) {
 				privkey->writePKCS8(fname, NULL, NULL, true);
 			} else {
@@ -713,10 +722,16 @@ void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
 {
 	QStringList filt;
     try {
-		pki_key *privkey = cert->getRefKey();
+		pki_evp *privkey = (pki_evp *)cert->getRefKey();
 		if (!privkey || privkey->isPubKey()) {
 			QMessageBox::warning(mainwin, tr(XCA_TITLE),
 				tr("There was no key found for the Certificate: ") +
+				cert->getIntName() );
+			return;
+		}
+		if (privkey->isScard()) {
+			QMessageBox::warning(mainwin, tr(XCA_TITLE),
+				tr("Not possible for Smart card key for the Certificate: ") +
 				cert->getIntName() );
 			return;
 		}

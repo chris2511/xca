@@ -23,7 +23,7 @@ class db_crl: public db_base
 		db_x509 *certs;
 	public:
 		db_crl(QString db, MainWindow *mw);
-		pki_base *newPKI();
+		pki_base *newPKI(db_header_t *head = NULL);
 		void revokeCerts(pki_crl *crl);
 		void inToCont(pki_base *pki);
 		pki_base *insert(pki_base *item);

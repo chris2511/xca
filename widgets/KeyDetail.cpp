@@ -8,7 +8,7 @@
 
 #include "KeyDetail.h"
 #include "MainWindow.h"
-#include "lib/pki_key.h"
+#include "lib/pki_evp.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
 #include <qlabel.h>
@@ -24,7 +24,7 @@ KeyDetail::KeyDetail(QWidget *parent)
 	keyDesc->setReadOnly(true);
 }
 
-void KeyDetail::setKey(pki_key *key)
+void KeyDetail::setKey(pki_evp *key)
 {
 	keyDesc->setText( key->getIntName() );
 	keyLength->setText( key->length() );

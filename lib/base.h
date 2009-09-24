@@ -32,4 +32,5 @@
 #endif
 
 #define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
-//#define TRACE
+
+#define ARRAY_SIZE(x) (sizeof(x)/sizeof((x)[0]))

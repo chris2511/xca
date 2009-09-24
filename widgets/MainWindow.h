@@ -50,7 +50,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static db_key *keys;
 		static db_temp *temps;
 		static db_crl *crls;
-		static QPixmap *keyImg, *csrImg, *certImg, *tempImg, *nsImg, *revImg, *appIco;
+		static QPixmap *keyImg, *csrImg, *certImg, *tempImg,
+				*nsImg, *revImg, *appIco, *scardImg;
 		static NIDlist *eku_nid, *dn_nid, *aia_nid;
 		static QString mandatory_dn;
 		int exitApp;
@@ -104,6 +105,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void on_BNimportKey_clicked();
 		void on_BNexportKey_clicked();
 		void on_BNimportPFX_clicked();
+		void on_BNimportScard_clicked();
 
 		void on_BNnewReq_clicked();
 		void on_BNdeleteReq_clicked();

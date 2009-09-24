@@ -25,7 +25,7 @@ class db_temp: public db_base
     public:
 	db_temp(QString DBfile, MainWindow *mw);
 	~db_temp();
-	pki_base *newPKI();
+	pki_base *newPKI(db_header_t *head = NULL);
 	bool runTempDlg(pki_temp *temp);
 	bool alterTemp(pki_temp *temp);
 	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);

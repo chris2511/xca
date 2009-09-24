@@ -31,7 +31,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	mcont = new db_base("/dev/null", parent);
 	listView->setModel(mcont);
-	listView->setIconSize(pki_key::icon[0]->size());
+	listView->setIconSize(pki_evp::icon[0]->size());
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(on_butDetails_clicked()));
@@ -43,7 +43,7 @@ void ImportMulti::addItem(pki_base *pki)
 	if (!pki)
 		return;
 	QString cn = pki->getClassName();
-	if (cn == "pki_x509" || cn == "pki_key" || cn == "pki_x509req" ||
+	if (cn == "pki_x509" || cn == "pki_evp" || cn == "pki_x509req" ||
 			cn == "pki_crl"  || cn == "pki_temp" ) {
 		mcont->inToCont(pki);
 	}
@@ -135,8 +135,8 @@ void ImportMulti::import(QModelIndex &idx)
 	if (cn == "pki_x509") {
 		MainWindow::certs->insert(pki);
 	}
-	else if (cn == "pki_key") {
-		((pki_key*)pki)->setOwnPass(pki_key::ptCommon);
+	else if (cn == "pki_evp") {
+		((pki_evp*)pki)->setOwnPass(pki_evp::ptCommon);
 		MainWindow::keys->insert(pki);
 	}
 	else if (cn == "pki_x509req") {
@@ -177,10 +177,10 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->exec();
 			delete dlg;
 		}
-		else if (cn == "pki_key") {
+		else if (cn == "pki_evp") {
 			KeyDetail *dlg;
 			dlg = new KeyDetail(mainwin);
-			dlg->setKey((pki_key *)pki);
+			dlg->setKey((pki_evp *)pki);
 			dlg->exec();
 			delete dlg;
 		}

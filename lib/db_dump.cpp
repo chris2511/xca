@@ -6,6 +6,7 @@
  */
 
 #include "db.h"
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
@@ -18,13 +19,13 @@ int main(int argc, char *argv[])
 	unsigned char *p;
 	db_header_t h;
 	int i=0;
-	char type[] = "NKRCLTSXX";
+	char type[] = "NKRCLTSUXX";
 
 	mydb.first(0);
 	while (!mydb.eof()) {
 		p = mydb.load(&h);
 		free(p);
-		printf("%3d: %c V%d O:%6d, F:%x L:%5d %s\n",
+		printf("%3d: %c V%d O:%6zd, F:%x L:%5d %s\n",
 			i++, type[h.type], h.version, mydb.head_offset,
 			h.flags, h.len, h.name);
 		mydb.next(0);

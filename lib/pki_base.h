@@ -16,8 +16,6 @@
 
 class pki_base : public QObject
 {
-	Q_OBJECT
-
 	private:
 		static int pki_counter;
 	protected:
@@ -45,9 +43,9 @@ class pki_base : public QObject
 		virtual unsigned char *toData(int *) { return NULL; }
 		virtual bool compare(pki_base *) { return false; };
 		virtual ~pki_base();
-			QString getIntName() const;
+		QString getIntName() const;
 		QString getUnderlinedName() const;
-			void setIntName(const QString &d);
+		void setIntName(const QString &d);
 		QString getClassName();
 		static QString rmslashdot(const QString &fname);
 

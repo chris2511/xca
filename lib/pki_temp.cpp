@@ -140,6 +140,7 @@ unsigned char *pki_temp::toData(int *size)
 	unsigned char *p, *p1;
 	*size = dataSize();
 	p = (unsigned char*)OPENSSL_malloc(*size);
+	check_oom(p);
 	p1 = p;
 
 	db::stringToData(&p1, destination);

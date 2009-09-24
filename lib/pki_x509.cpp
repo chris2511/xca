@@ -7,6 +7,7 @@
 
 
 #include "pki_x509.h"
+#include "pki_evp.h"
 #include "func.h"
 #include "base.h"
 #include <qdir.h>
@@ -397,7 +398,7 @@ pki_key *pki_x509::getPubKey() const
 {
 	EVP_PKEY *pkey = X509_get_pubkey(cert);
 	openssl_error();
-	pki_key *key = new pki_key(pkey);
+	pki_evp *key = new pki_evp(pkey);
 	return key;
 }
 

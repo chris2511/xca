@@ -26,10 +26,10 @@ class db_x509: public db_x509super
 		QPixmap *certicon[4];
 		pki_x509 *get1SelectedCert();
 
-    public:
+	public:
 		static bool treeview;
 		db_x509(QString DBfile, MainWindow *mw);
-		pki_base *newPKI();
+		pki_base *newPKI(db_header_t *head = NULL);
 		pki_x509 *findSigner(pki_x509 *client);
 		bool updateView();
 		void updateViewAll();
@@ -52,7 +52,7 @@ class db_x509: public db_x509super
 		void inToCont(pki_base *pki);
 		void changeView();
 
-    public slots:
+	public slots:
 		void load(void);
 		void newItem(void);
 		void revokeCert(const x509rev &revok, const pki_x509 *issuer);

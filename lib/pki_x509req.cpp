@@ -8,6 +8,7 @@
 
 
 #include "pki_x509.h"
+#include "pki_evp.h"
 #include "func.h"
 #include "x509name.h"
 #include "exception.h"
@@ -248,7 +249,7 @@ pki_key *pki_x509req::getPubKey() const
 	 ign_openssl_error();
 	 if (pkey == NULL)
 		 return NULL;
-	 pki_key *key = new pki_key(pkey);
+	 pki_evp *key = new pki_evp(pkey);
 	 openssl_error();
 	 return key;
 }

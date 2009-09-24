@@ -30,6 +30,7 @@ enum pki_type {
 	revokation,
 	tmpl,
 	setting,
+	smartCard,
 };
 
 typedef struct {

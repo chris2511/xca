@@ -21,7 +21,7 @@ class db_x509req: public db_x509super
 	public:
 		db_x509req(QString DBfile, MainWindow *mw);
 		pki_base* insert(pki_base *item);
-		pki_base *newPKI();
+		pki_base *newPKI(db_header_t *head = NULL);
 		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 
 	public slots:

@@ -126,6 +126,7 @@ search_includes Qt/qobject.h || err "The QT Library headerfiles were not found. 
 subdirs="/qt/Qt /qt4/Qt"
 search_includes qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
 search_lib QtGui4 QtGui || err "The QT library was not found."
+search_lib ltdl || err "Libtool ltdl not found."
 search_lib c_r || true
 
 ###################### OpenSSL
@@ -133,16 +134,26 @@ subdirs=""
 search_includes openssl/opensslv.h || err "The OpenSSL library headerfiles were not found."
 search_lib crypto || err "The OpenSSL library was not found."
 
+###################### OpenSC
+#subdirs=""
+#search_includes opensc/opensc.h || err "The OpenSC library headerfiles were not found."
+#search_lib opensc || err "The OpenSC library was not found."
+
 export LD_LIBRARY_PATH
 ##### Try to compile them all together and show the versions.
 cat >conftest.c <<EOF
 #include <stdio.h>
 #include <openssl/opensslv.h>
+//#include <opensc/opensc.h>
 #include <Qt/qglobal.h>
 
 int main(){
   printf("\nThe Versions of the used libraries are:\n\t%s 0x%lxL\n\tQT: %s\n",
-	 OPENSSL_VERSION_TEXT, OPENSSL_VERSION_NUMBER, QT_VERSION_STR );
+//	 "\tOpenSC: %s\n",
+	 OPENSSL_VERSION_TEXT, OPENSSL_VERSION_NUMBER, QT_VERSION_STR
+//	, sc_get_version()
+	);
+
   if (QT_VERSION < 0x040001) {
 	printf("You need Qt 4 or higher\n");
 	return 1;

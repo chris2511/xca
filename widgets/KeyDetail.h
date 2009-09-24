@@ -10,7 +10,7 @@
 
 #include "ui_KeyDetail.h"
 
-class pki_key;
+class pki_evp;
 
 class KeyDetail: public QDialog, private Ui::KeyDetail
 {
@@ -18,8 +18,7 @@ class KeyDetail: public QDialog, private Ui::KeyDetail
 
    public:
 	KeyDetail(QWidget *parent);
-	void setKey(pki_key *key);
-	void setImport();
+	void setKey(pki_evp *key);
 
 };
 #endif

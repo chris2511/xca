@@ -14,11 +14,11 @@
 #include <qmessagebox.h>
 
 
-pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_key *akey, pem_password_cb *cb):
+pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey, pem_password_cb *cb):
 	pki_base(d)
 {
 	class_name="pki_pkcs12";
-	key = new pki_key(akey);
+	key = new pki_evp(akey);
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
 	passcb = cb;
@@ -71,7 +71,7 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 			alias = cert->getIntName();
 		}
 		if (mykey) {
-			key = new pki_key(mykey);
+			key = new pki_evp(mykey);
 			key->setIntName(alias + "_key");
 			key->bogusEncryptKey();
 		}

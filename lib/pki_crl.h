@@ -18,7 +18,7 @@
 
 class pki_crl: public pki_base
 {
-    friend class pki_x509;
+	friend class pki_x509;
 	protected:
 		pki_x509 *issuer;
 		X509_CRL *crl;

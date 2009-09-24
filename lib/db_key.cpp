@@ -7,16 +7,21 @@
 
 
 #include "db_key.h"
+#include "pki_evp.h"
+
+#include "pki_scard.h"
 #include <qmessagebox.h>
 #include <qprogressbar.h>
 #include <qstatusbar.h>
 #include <qevent.h>
 #include "exception.h"
 #include "ui_NewKey.h"
+#include "pkcs11.h"
 
 #include "widgets/MainWindow.h"
 #include "widgets/ExportKey.h"
 #include "widgets/KeyDetail.h"
+#include "widgets/ScardDetail.h"
 
 db_key::db_key(QString db, MainWindow *mw)
 	:db_base(db, mw)
@@ -25,12 +30,17 @@ db_key::db_key(QString db, MainWindow *mw)
 	headertext << "Name" << "Type" << "Size" << "Use" << "Password";
 	delete_txt = tr("Delete the key(s)");
 	view = mw->keyView;
-	loadContainer();
 	class_name = "keys";
+	pkitype[0] = asym_key;
+	pkitype[1] = smartCard;
+	loadContainer();
 }
 
-pki_base *db_key::newPKI(){
-	return new pki_key("");
+pki_base *db_key::newPKI(db_header_t *head)
+{
+	if (!head || head->type == asym_key)
+		return new pki_evp("");
+	return new pki_scard("");
 }
 
 
@@ -111,7 +121,7 @@ void db_key::newItem(QString name)
 	ui.setupUi(dlg);
 	QProgressBar *bar;
 	QStatusBar *status = mainwin->statusBar();
-	pki_key *nkey = NULL;
+	pki_evp *nkey = NULL;
 	QString x;
 	int keytypes[] = {EVP_PKEY_RSA, EVP_PKEY_DSA };
 	bool ret;
@@ -146,16 +156,45 @@ void db_key::newItem(QString name)
 			return;
 		}
 	mainwin->repaint();
-	nkey = new pki_key(ui.keyDesc->text());
+	nkey = new pki_evp(ui.keyDesc->text());
 
 	bar = new QProgressBar();
 	status->addPermanentWidget(bar,1);
 	nkey->generate(ksize, keytypes[ui.keyType->currentIndex()], bar );
 	status->removeWidget(bar);
 	delete bar;
-	nkey = (pki_key*)insert(nkey);
+	nkey = (pki_evp*)insert(nkey);
 	emit keyDone(nkey->getIntNameWithType());
 	delete dlg;
+}
+
+void db_key::importScard()
+{
+	pkcs11 p11;
+	CK_SLOT_ID *p11_slots = NULL;
+	unsigned long i, num_slots;
+	pki_scard *card = NULL;
+
+	try {
+		p11_slots = p11.getSlotList(&num_slots);
+
+		printf("Num slots: %lu\n", num_slots);
+		for (i=0; i<num_slots; i++) {
+			QStringList sl = p11.tokenInfo(p11_slots[i]);
+			card = new pki_scard("");
+			card->load_token(p11_slots[i]);
+			insert(card);
+			card = NULL;
+
+		}
+	} catch (errorEx &err) {
+		mainwin->Error(err);
+        }
+	if (p11_slots) {
+		free(p11_slots);
+	}
+	if (card)
+		free(card);
 }
 
 void db_key::load(void)
@@ -166,12 +205,22 @@ void db_key::load(void)
 
 void db_key::showPki(pki_base *pki)
 {
-	pki_key *key = (pki_key *)pki;
-	KeyDetail *dlg = new KeyDetail(mainwin);
-	if (dlg) {
-		dlg->setKey(key);
-		dlg->exec();
-		delete dlg;
+	pki_evp *key = (pki_evp *)pki;
+	if (key->isScard()) {
+		pki_scard *card = (pki_scard*)pki;
+		ScardDetail *dlg = new ScardDetail(mainwin);
+		if (dlg) {
+			dlg->setScard(card);
+			dlg->exec();
+			delete dlg;
+		}
+	} else {
+		KeyDetail *dlg = new KeyDetail(mainwin);
+		if (dlg) {
+			dlg->setKey(key);
+			dlg->exec();
+			delete dlg;
+		}
 	}
 }
 
@@ -187,16 +236,20 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	if (index != QModelIndex()) {
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
-		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-		if (key->isPrivKey()) {
-			if (!key->getOwnPass()) {
+		if (key->isPrivKey() && !key->isScard()) {
+			menu->addAction(tr("Export"), this, SLOT(store()));
+			if (!((pki_evp*)key)->getOwnPass()) {
 				menu->addAction(tr("Change password"), this,
 						SLOT(setOwnPass()));
 			} else {
 				menu->addAction(tr("Reset password"), this,
 						SLOT(resetOwnPass()));
 			}
+		}
+		if (key->isScard()) {
+			menu->addAction(tr("Change PIN"), this,
+				SLOT(setOwnPass()));
 		}
 	}
 	menu->exec(e->globalPos());
@@ -213,7 +266,7 @@ void db_key::store()
 	if (!currentIdx.isValid())
 		return;
 
-	pki_key *targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
+	pki_evp *targetKey = static_cast<pki_evp*>(currentIdx.internalPointer());
 
 	QString fn = mainwin->getPath() + QDir::separator() +
 			targetKey->getUnderlinedName() + ".pem";
@@ -274,10 +327,13 @@ void db_key::resetOwnPass()
 
 void db_key::__setOwnPass(enum pki_key::passType x)
 {
-	pki_key *targetKey;
+	pki_evp *targetKey;
 	if (!currentIdx.isValid())
 		        return;
-	targetKey = static_cast<pki_key*>(currentIdx.internalPointer());
+	targetKey = static_cast<pki_evp*>(currentIdx.internalPointer());
+	if (targetKey->isScard()) {
+		throw errorEx(tr("Tried to change password of a smart card"));
+	}
 	targetKey->setOwnPass(x);
 	updatePKI(targetKey);
 }

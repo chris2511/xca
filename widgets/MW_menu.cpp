@@ -123,16 +123,16 @@ void MainWindow::import_dbdump()
 	pass = buf;
 	try {
 		read_dump(CCHAR(file), dbl, buf, 50);
-		if (pki_key::md5passwd(CCHAR(pass)) != buf) {
+		if (pki_evp::md5passwd(CCHAR(pass)) != buf) {
 			int ret = QMessageBox::warning(this, tr(XCA_TITLE),
 				tr("Password verification error. Ignore keys ?"),
 				tr("Import anyway"), tr("Cancel"));
 			if (ret)
 				return;
 		}
-		pki_key::setOldPasswd(CCHAR(pass));
+		pki_evp::setOldPasswd(CCHAR(pass));
 		read_dump(CCHAR(file), dbl, NULL, 0);
-		pki_key::eraseOldPasswd();
+		pki_evp::eraseOldPasswd();
 	} catch (errorEx &err) {
 		Error(err);
 	}

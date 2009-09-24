@@ -8,6 +8,8 @@
 
 #include "MainWindow.h"
 #include "lib/exception.h"
+#include "lib/pki_evp.h"
+#include "lib/pki_scard.h"
 #include <qdir.h>
 #include <qstatusbar.h>
 #include <qmessagebox.h>
@@ -57,7 +59,7 @@ void MainWindow::init_database()
 	connect( temps, SIGNAL(newReq(pki_temp *)),
 		reqs, SLOT(newItem(pki_temp *)) );
 
-	keyView->setIconSize(pki_key::icon[0]->size());
+	keyView->setIconSize(pki_evp::icon[0]->size());
 	reqView->setIconSize(pki_x509req::icon[0]->size());
 	certView->setIconSize(pki_x509::icon[0]->size());
 	tempView->setIconSize(pki_temp::icon->size());
@@ -160,6 +162,7 @@ void MainWindow::undelete()
 			case x509: item = new pki_x509(name); break;
 			case revokation: item = new pki_crl(name); break;
 			case tmpl: item = new pki_temp(name); break;
+			case smartCard: item = new pki_scard(name); break;
 			default: continue;
 			}
 			try {
@@ -210,7 +213,7 @@ void MainWindow::close_database()
 	temps = NULL;
 	keys = NULL;
 
-	pki_key::erasePasswd();
+	pki_evp::erasePasswd();
 
 	if (!crls)
 		return;
@@ -243,12 +246,12 @@ void MainWindow::on_BNdetailsKey_clicked(void)
 }
 void MainWindow::on_BNimportKey_clicked(void)
 {
-	if(keys)
+	if (keys)
 		keys->load();
 }
 void MainWindow::on_BNexportKey_clicked(void)
 {
-	if(keys)
+	if (keys)
 		keys->storeSelectedItems(keyView);
 }
 
@@ -256,6 +259,12 @@ void MainWindow::on_keyView_doubleClicked(const QModelIndex &m)
 {
 	if (keys)
 		keys->showItem(keyView->getIndex(m));
+}
+
+void MainWindow::on_BNimportScard_clicked(void)
+{
+	if (keys)
+		keys->importScard();
 }
 
 void MainWindow::on_reqView_doubleClicked(const QModelIndex &m)
@@ -284,9 +293,10 @@ void MainWindow::on_crlView_doubleClicked(const QModelIndex &m)
 
 void MainWindow::on_BNimportPFX_clicked(void)
 {
-	if(certs)
+	if (certs)
 		certs->loadPKCS12();
 }
+
 /* Certificate request buttons */
 void MainWindow::on_BNnewReq_clicked(void)
 {

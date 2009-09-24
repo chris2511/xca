@@ -14,7 +14,7 @@
 #include "x509name.h"
 #include "x509v3ext.h"
 
-class pki_x509;
+//class pki_x509;
 
 class pki_x509super : public pki_base
 {
