@@ -35,26 +35,32 @@ hashBox::hashBox(QWidget *parent)
 	backup = default_md;
 }
 
-void hashBox::setDsa(bool new_dsa)
+void hashBox::setKeyType(int type)
 {
-	if (dsa == new_dsa)
+	if (key_type == type)
 		return;
-	dsa = new_dsa;
-	if (dsa) {
-		backup = currentIndex();
+	if (type == EVP_PKEY_DSA || type == EVP_PKEY_EC) {
+		if (key_type == EVP_PKEY_RSA)
+			backup = currentIndex();
 		setCurrentIndex(DSA_INDEX);
 		setDisabled(true);
 	} else {
 		setCurrentIndex(backup);
 		setDisabled(false);
-        }
+	}
+	key_type = type;
 }
 
 const EVP_MD *hashBox::currentHash()
 {
-	if (dsa)
+	switch(key_type) {
+	case EVP_PKEY_DSA:
 		return EVP_dss1();
-	return hashalgos[currentIndex()].md;
+	case EVP_PKEY_EC:
+		return EVP_ecdsa();
+	default:
+		return hashalgos[currentIndex()].md;
+	}
 }
 
 QString hashBox::currentHashName()

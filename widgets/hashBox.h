@@ -17,10 +17,10 @@ class hashBox: public QComboBox
 	private:
 		static int default_md;
 		int backup;
-		bool dsa;
+		int key_type;
 	public:
 		hashBox(QWidget *parent);
-		void setDsa(bool dsa);
+		void setKeyType(int type);
 		const EVP_MD *currentHash();
 		QString currentHashName();
 		void setCurrentAsDefault();

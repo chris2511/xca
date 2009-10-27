@@ -23,6 +23,7 @@
 #include <openssl/rand.h>
 
 #include "lib/exception.h"
+#include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
 #include "lib/pki_pkcs12.h"
 #include "lib/pki_multi.h"
@@ -52,6 +53,80 @@ NIDlist *MainWindow::aia_nid = NULL;
 
 QString MainWindow::mandatory_dn;
 
+static const int x962_curve_nids[] = {
+	NID_X9_62_prime192v1,
+	NID_X9_62_prime192v2,
+	NID_X9_62_prime192v3,
+	NID_X9_62_prime239v1,
+	NID_X9_62_prime239v2,
+	NID_X9_62_prime239v3,
+	NID_X9_62_prime256v1,
+	NID_X9_62_c2pnb163v1,
+	NID_X9_62_c2pnb163v2,
+	NID_X9_62_c2pnb163v3,
+	NID_X9_62_c2pnb176v1,
+	NID_X9_62_c2tnb191v1,
+	NID_X9_62_c2tnb191v2,
+	NID_X9_62_c2tnb191v3,
+	NID_X9_62_c2pnb208w1,
+	NID_X9_62_c2tnb239v1,
+	NID_X9_62_c2tnb239v2,
+	NID_X9_62_c2tnb239v3,
+	NID_X9_62_c2pnb272w1,
+	NID_X9_62_c2pnb304w1,
+	NID_X9_62_c2tnb359v1,
+	NID_X9_62_c2pnb368w1,
+	NID_X9_62_c2tnb431r1
+};
+
+static const int other_curve_nids[] = {
+	NID_sect163k1,
+	NID_sect163r2,
+	NID_sect233k1,
+	NID_sect233r1,
+	NID_sect283k1,
+	NID_sect283r1,
+	NID_sect409k1,
+	NID_sect409r1,
+	NID_sect571k1,
+	NID_sect571r1,
+	NID_secp224r1,
+	NID_secp384r1,
+	NID_secp521r1
+};
+
+static void init_curves()
+{
+	pki_evp::num_curves = EC_get_builtin_curves(NULL, 0);
+	pki_evp::curves = (EC_builtin_curve*)OPENSSL_malloc(
+			(int)(sizeof(EC_builtin_curve) *pki_evp::num_curves));
+	if (!pki_evp::curves)
+		return;
+	EC_get_builtin_curves(pki_evp::curves, pki_evp::num_curves);
+	pki_evp::curve_flags = (unsigned char *)OPENSSL_malloc(pki_evp::num_curves);
+	if (!pki_evp::curve_flags)
+		return;
+	for (size_t i=0; i< pki_evp::num_curves; i++) {
+		size_t j;
+
+		pki_evp::curve_flags[i] = 0;
+		for (j=0; j<ARRAY_SIZE(x962_curve_nids); j++) {
+			if (x962_curve_nids[j] == pki_evp::curves[i].nid) {
+				pki_evp::curve_flags[i] = CURVE_X962;
+				break;
+			}
+		}
+		if (pki_evp::curve_flags[i])
+			continue;
+		for (j=0; j<ARRAY_SIZE(other_curve_nids); j++) {
+			if (other_curve_nids[j] == pki_evp::curves[i].nid) {
+				pki_evp::curve_flags[i] = CURVE_OTHER;
+				break;
+			}
+		}
+	}
+}
+
 MainWindow::MainWindow(QWidget *parent )
 	:QMainWindow(parent)
 {
@@ -75,7 +150,9 @@ MainWindow::MainWindow(QWidget *parent )
 	init_images();
 	homedir = getHomeDir();
 
+	init_curves();
 	pkcs11::load_lib("", true);
+
 	// FIXME: Change pass isn't functional yet.
 	BNchangePass->setDisabled(true);
 

@@ -393,10 +393,11 @@ void NewX509::switchHashAlgo()
 		sig = NULL;
 
 	key = sig ? sig->getRefKey() : getSelectedKey();
-	if (key && key->getType() == EVP_PKEY_DSA)
-		hashAlgo->setDsa(true);
+
+	if (key)
+		hashAlgo->setKeyType(key->getKeyType());
 	else
-		hashAlgo->setDsa(false);
+		hashAlgo->setKeyType(EVP_PKEY_RSA);
 }
 
 void NewX509::on_showReqBut_clicked()

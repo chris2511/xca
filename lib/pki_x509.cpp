@@ -269,7 +269,9 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 		my_error(tr("There is no key for signing !"));
 	}
 	tkey = signkey->decryptKey();
+	openssl_error();
 	X509_sign(cert, tkey, digest);
+	openssl_error();
 	EVP_PKEY_free(tkey);
 	openssl_error();
 }

@@ -456,7 +456,7 @@ void db_base::load_default(load_base &load)
 	mainwin->setPath(fn.mid(0, fn.lastIndexOf(QRegExp("[/\\\\]")) ));
 
 	ImportMulti *dlgi = new ImportMulti(mainwin);
-	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
+	for (QStringList::Iterator it = slist.begin(); it != slist.end(); ++it) {
 		QString s = *it;
 		s = QDir::convertSeparators(s);
 		pki_base *item = NULL;

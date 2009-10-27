@@ -172,10 +172,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 	ui.lastUpdate->setDate(time.now());
 	ui.nextUpdate->setDate(time.now(cert->getCrlDays() *60*60*24));
 
-	if (cert->getRefKey()->getType() == EVP_PKEY_DSA)
-		ui.hashAlgo->setDsa(true);
-	else
-		ui.hashAlgo->setDsa(false);
+	ui.hashAlgo->setKeyType(cert->getRefKey()->getKeyType());
 
 	if (cert->hasExtension(NID_subject_alt_name))
 		ui.subAltName->setEnabled(true);

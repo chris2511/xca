@@ -22,6 +22,7 @@
 #include "widgets/ExportKey.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/ScardDetail.h"
+#include "widgets/NewKey.h"
 
 db_key::db_key(QString db, MainWindow *mw)
 	:db_base(db, mw)
@@ -115,52 +116,35 @@ void db_key::newItem() {
 
 void db_key::newItem(QString name)
 {
-	const int sizeList[] = { 1024, 2048, 4096, 0 };
-	QDialog *dlg = new QDialog(qApp->activeWindow());
-	Ui::NewKey ui;
-	ui.setupUi(dlg);
+	NewKey *dlg = new NewKey(qApp->activeWindow(), name);
 	QProgressBar *bar;
 	QStatusBar *status = mainwin->statusBar();
 	pki_evp *nkey = NULL;
-	QString x;
-	int keytypes[] = {EVP_PKEY_RSA, EVP_PKEY_DSA };
-	bool ret;
 
-	ui.keyLength->setEditable(true);
-	for (int i=0; sizeList[i] != 0; i++ ) {
-		ui.keyLength->addItem( x.number(sizeList[i]) +" bit");
-	}
-	ui.keyLength->setCurrentIndex(0);
-	ui.keyDesc->setFocus();
-
-	ui.image->setPixmap(*MainWindow::keyImg);
-	if (!name.isEmpty())
-		ui.keyDesc->setText(name);
-	ret = dlg->exec();
-
-	if (!ret) {
+	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
-	QString ksizes = ui.keyLength->currentText();
-	ksizes.replace( QRegExp("[^0-9]"), "" );
-	int ksize = ksizes.toInt();
-	if (ksize < 32) throw errorEx(tr("Key size too small !"));
-	if (ksize < 1024 || ksize > 8192)
-		if (!QMessageBox::warning(NULL, XCA_TITLE,
-			tr("You are sure to create a key of the size: ")
-			+QString::number(ksize) + " ?", tr("Cancel"),
-			tr("Create") ))
-		{
-			delete dlg;
-			return;
-		}
-	mainwin->repaint();
-	nkey = new pki_evp(ui.keyDesc->text());
+	int ksize = dlg->getKeysize();
+	if (ksize > 0) {
+		if (ksize < 32)
+			 throw errorEx(tr("Key size too small !"));
 
+		if (ksize < 1024 || ksize > 8192)
+			if (!QMessageBox::warning(NULL, XCA_TITLE,
+				tr("You are sure to create a key of the size: ")
+				+QString::number(ksize) + " ?", tr("Cancel"),
+				tr("Create") ))
+			{
+				delete dlg;
+				return;
+			}
+	}
+	mainwin->repaint();
+	nkey = new pki_evp(dlg->keyDesc->text());
 	bar = new QProgressBar();
-	status->addPermanentWidget(bar,1);
-	nkey->generate(ksize, keytypes[ui.keyType->currentIndex()], bar );
+	status->addPermanentWidget(bar, 1);
+	nkey->generate(ksize, dlg->getKeytype(), bar, dlg->getKeyCurve_nid());
 	status->removeWidget(bar);
 	delete bar;
 	nkey = (pki_evp*)insert(nkey);
@@ -239,12 +223,19 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		if (key->isPrivKey() && !key->isScard()) {
 			menu->addAction(tr("Export"), this, SLOT(store()));
-			if (!((pki_evp*)key)->getOwnPass()) {
+			switch (key->getOwnPass()) {
+			case pki_key::ptCommon:
 				menu->addAction(tr("Change password"), this,
 						SLOT(setOwnPass()));
-			} else {
+				break;
+			case pki_key::ptPrivate:
 				menu->addAction(tr("Reset password"), this,
 						SLOT(resetOwnPass()));
+				break;
+			case pki_key::ptPin:
+				menu->addAction(tr("Change PIN"), this,
+                                                SLOT(resetOwnPass()));
+				break;
 			}
 		}
 		if (key->isScard()) {

@@ -55,7 +55,7 @@ load_key::load_key()
 
 pki_base * load_key::newItem()
 {
-	return new pki_key();
+	return new pki_evp();
 }
 
 /* Requests */

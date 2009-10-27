@@ -19,6 +19,9 @@
 #define MAX_KEY_LENGTH 4096
 #define MAX_PASS_LENGTH 40
 
+#define CURVE_X962  1
+#define CURVE_OTHER 2
+
 class pki_evp: public pki_key
 {
 	protected:
@@ -40,7 +43,13 @@ class pki_evp: public pki_key
 		static void setOldPasswd(const char *pass);
 		static QString md5passwd(const char *pass);
 		static QString sha512passwd(QString pass, QString salt);
+		static EC_builtin_curve *curves;
+		static size_t num_curves;
+		static unsigned char *curve_flags;
+
 		void generate(int bits, int type, QProgressBar *progress);
+		void generate(int bits, int type, QProgressBar *progress,
+				int curve_nid);
 		void setOwnPass(enum passType);
 		pki_evp(const QString name = "", int type = EVP_PKEY_RSA);
 		pki_evp(EVP_PKEY *pkey);
@@ -51,6 +60,7 @@ class pki_evp: public pki_key
 		/* destructor */
 		virtual ~pki_evp();
 
+		EVP_PKEY *priv2pub(EVP_PKEY* key);
 		QString getTypeString(void);
 		QString getIntNameWithType(void);
 		static QString removeTypeFromIntName(QString n);
@@ -66,6 +76,8 @@ class pki_evp: public pki_key
 		QString pubEx();
 		QString subprime();
 		QString pubkey();
+		int ecParamNid();
+		QString ecPubKey();
 		void writeKey(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
 		void writePublic(const QString fname, bool pem);
@@ -73,7 +85,7 @@ class pki_evp: public pki_key
 		pem_password_cb *cb, bool pem);
 		bool isPubKey() const;
 		int verify();
-		int getType();
+		int getKeyType();
 		const EVP_MD *getDefaultMD();
 		QVariant column_data(int col);
 		EVP_PKEY *getPubKey() {return key;};

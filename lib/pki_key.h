@@ -38,6 +38,7 @@ class pki_key: public pki_base
 		virtual EVP_PKEY *getPubKey() { return NULL; };
 		virtual bool isScard();
 		virtual QString length() { return tr("Unknown"); };
+		virtual int getKeyType() { return EVP_PKEY_RSA; };
 
 		QString getIntNameWithType(void);
 		static QString removeTypeFromIntName(QString n);

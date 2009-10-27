@@ -77,6 +77,8 @@ static pki_base *pkiByPEM(QString text, int *skip)
 				text.startsWith(PEM_STRING_RSA_PUBLIC D5) ||
 				text.startsWith(PEM_STRING_DSA D5) ||
 				text.startsWith(PEM_STRING_DSA_PUBLIC D5) ||
+				text.startsWith(PEM_STRING_ECDSA_PUBLIC D5) ||
+				text.startsWith(PEM_STRING_ECPRIVATEKEY D5) ||
 				text.startsWith(PEM_STRING_PKCS8 D5) ||
 				text.startsWith(PEM_STRING_PKCS8INF D5))
 		return new pki_key();

@@ -43,8 +43,10 @@ void ImportMulti::addItem(pki_base *pki)
 	if (!pki)
 		return;
 	QString cn = pki->getClassName();
-	if (cn == "pki_x509" || cn == "pki_evp" || cn == "pki_x509req" ||
-			cn == "pki_crl"  || cn == "pki_temp" ) {
+
+	if (cn == "pki_x509" || cn == "pki_evp"  || cn == "pki_x509req" ||
+	    cn == "pki_crl"  || cn == "pki_temp")
+	{
 		mcont->inToCont(pki);
 	}
 	else if (cn == "pki_pkcs7") {
