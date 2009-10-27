@@ -58,9 +58,9 @@ There are several default file-formats to exchange cryptographic data with
 other applications.
 <itemize>
 <item><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding <bf>R</bf>ules is the binary ASN.1 encoding of the data.
-<item><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail is the base64 encoded version of the 
+<item><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail is the base64 encoded version of the
 	<bf>DER</bf> formated data with additional header and footer lines to be transported via e.g. E-mail
-<item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards 
+<item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards
 published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 
 </itemize>
@@ -81,7 +81,7 @@ Copyright (C) 2001 - 2009 Christian Hohnstaedt.
  All rights reserved.
 
 
- Redistribution and use in source and binary forms, with or without 
+ Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
 
  - Redistributions of source code must retain the above copyright notice,
@@ -89,7 +89,7 @@ Copyright (C) 2001 - 2009 Christian Hohnstaedt.
  - Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
- - Neither the name of the author nor the names of its contributors may be 
+ - Neither the name of the author nor the names of its contributors may be
    used to endorse or promote products derived from this software without
    specific prior written permission.
 
@@ -455,7 +455,7 @@ Of course, encryption does not make sense if the private part is not exported.
 <sect>Certificate Signing Requests <label id="csr">
 <p>
 Certificate signing requests are described in PKCS&num;10 standard.
-They are used to supply a Certification Authority with the 
+They are used to supply a Certification Authority with the
 needed information to issue a valid certificate for you,
 without knowing your private key. This
 includes your personal information, your public key and additional extensions.
@@ -533,12 +533,12 @@ also displayd in a format define in RFC2253 for copy&amp;paste.
 The certificate trust can be changed by the context menu of the certificate.
 It can be set to:
 <itemize>
-<item><bf>Not trusted</bf> - never trust this certificate, even if we trust the issuer. 
+<item><bf>Not trusted</bf> - never trust this certificate, even if we trust the issuer.
 This is the default for imported self-signed certificates.
 <item><bf>Trust depends on issuer</bf> - only trust this certificate, if we trust the
 issuer. This is the default for imported and generated non-self-signed certificates.
 <item><bf>Always trust</bf> - always trust this certificate, even if we do not trust
-the issuer's certificate or if it is absent. This is the default for generated 
+the issuer's certificate or if it is absent. This is the default for generated
 self-signed certificates.
 </itemize>
 
@@ -610,7 +610,7 @@ In XCA this can be done by the context-menu of the CA and the
 "revoke" entry in the context-menu of the issued certificate.
 First all invalid certificates are marked as revoked and
 then a Certificate Revocation List should be created and will be stored in the
-database. 
+database.
 <p>
 
 <sect>Options
@@ -703,10 +703,179 @@ in one of the <tt>oids.txt</tt> files.
 
 <sect>Step by Step guides
 <p>
-Beginners may follow this steps to easily create the first certificates
-and take advantage of the several features.
+Beginners may follow these steps to easily create their first certificates.
+This guide shows the minimal requirements for various tasks.  For more
+advanced use of XCA, users are encouraged to familiarize themselves with
+the applicable standards.
 
+<sect1>Setting up a Root CA Certificate
 
+<p>
+<enum>
+  <item>Click the <bf>Certificates</bf> tab.
+  <item>Click the <bf>New Certificate</bf> button.
+  <item>Make sure the <bf>Source</bf> tab is showing, clicking it if necessary.
+    <itemize>
+      <item>At the bottom of the panel, ensure that the
+            <bf>"&#91;default&#93; CA"</bf>
+	    template is showing, and click the <bf>Apply</bf> button.
+            This will fill in appropriate values under the <bf>Extensions</bf>,
+	    <bf>Key Usage</bf>, and <bf>Netscape</bf> tabs.
+    </itemize>
+  <item>Click the <bf>Subject</bf> tab.
+    <itemize>
+      <item>Type in the internal name; this is for display purposes
+	    in the tool, only.
+      <item>Fill in the required fields in the upper Distinguished
+	    Name section (Country code, State/Province, Locality,
+            Organization, Common name, E-Mail address).
+            The common name can be something like "ACME Certificate Authority".
+      <item>If you want to add in any additional parts to the
+            distinguished name, use the drop-down box and <bf>Add</bf> button.
+      <item>Select the desired private key or generate a new one.
+    </itemize>
+    <item>Click the <bf>Extensions</bf> tab.
+    <itemize>
+      <item>The Time Range is probably fine (10 years).  If you want
+	    to change the duration, then change it and click <bf>Apply</bf>.
+      <item>In the event that you need to revoke any certificates in the
+            future, you should designate a certificate revocation list
+            location.  The location must be unique for this root certificate.
+            XCA exports CRLs in either PEM or DER format with appropriate
+            suffixes, so this should be considered when selecting the URL.
+            Selecting a URI something like
+            <tt>http://www.example.com/crl/rootca.pem</tt>
+            is probably suitable.
+
+            On the "CRL distribution point" line, click the <bf>Edit</bf>
+            button.
+            Type in the desired URI, then click <bf>Add</bf>.
+            Add in any additional desired URIs in the same fashion.
+            Click <bf>Validate</bf> and <bf>Apply</bf>.
+            (Alternate mechanisms such as OCSP are beyond the scope of
+            this guide.)
+    </itemize>
+    <item>Click the <bf>OK</bf> button at the bottom.
+</enum>
+
+You may wish to now issue an (initially) empty CRL.  Follow the instructions
+given for issuing CRLs below, except that you do not actually revoke any
+certificate.
+
+</sect1>
+
+<sect1>Creating a CA-Signed Host Certificate
+
+<p>
+
+<enum>
+  <item>Click the <bf>Certificates</bf> tab.
+  <item>Click the <bf>New Certificate</bf> button.
+  <item>Make sure the <bf>Source</bf> tab is showing, clicking it if necessary.
+    <itemize>
+      <item>At the bottom of the panel, select the template
+            <bf>"&#91;default&#93; HTTPS_server"</bf> (or another suitable
+            template, if you have created your own)
+            and click the <bf>Apply</bf> button.
+	    This will fill in appropriate values under the <bf>Extensions</bf>,
+	    <bf>Key Usage</bf>, and <bf>Netscape</bf> tabs.
+      <item>In the Signing section, select the certificate that will
+	    will be used to sign the new certificate.
+    </itemize>
+  <item>Click the <bf>Subject</bf> tab.
+    <itemize>
+	<item>Type in the internal name; this is for display purposes
+	      in the tool, only.  For host certificates, the host
+              FQDN (fully qualified domain name) is not a bad choice.
+	<item>Fill in the required fields in the upper "Distinguished
+	      Name" section (Country code, State/Province, Locality,
+              Organization, Common name, E-Mail address).  For host
+              certificates, the common name must be the FQDN to which you
+              wish users to connect. This need not be the canonical
+              name of the host, but can also be an alias.  For example,
+              if <tt>pluto.example.com</tt> is your web server
+              and it has a DNS CNAME entry of <tt>www.example.com</tt>,
+              then you probably want the Common Name value in the certificate
+              to be
+              <tt>www.example.com</tt>.
+	<item>If you want to add in any additional parts to the
+	      distinguished name, use the drop-down box and <bf>Add</bf>
+              button.
+	<item>Select the desired private key or generate a new one.
+    </itemize>
+  <item>Click the <bf>Extensions</bf> tab.
+    <itemize>
+      <item>Change the Time Range if desired and click <bf>Apply</bf>.
+      <item>Since this certificate will be signed by another certificate,
+            there is no need to fill in the "CRL distribution point" line
+            (the CRL that would be used is associated with the signing
+            CA certificate.
+    </itemize>
+  <item>Click the OK button at the bottom
+</enum>
+
+</sect1>
+
+<sect1>Creating a Self-Signed Host Certificate
+
+<p>
+This procedure is almost identical to that of creating a CA-Signed
+certficate with the following exceptions:
+
+<enum>
+  <item>When creating certificate, select "Create a self signed certificate"
+        under the <bf>Source</bf> tab.
+  <item>Self-signed certificates cannot be revoked, so the CRL URI should
+        be blank.
+</enum>
+
+</sect1>
+
+<sect1>Setting Up A Template
+
+<p>
+If you have, or expect to have, multiple hosts under one domain and
+signed by the same root certificate, then setting up a template for
+your hosts can simplify host certificate creation and improve consistency.
+
+<enum>
+  <item>Click on the <bf>Templates</bf> tab.
+  <item>Click on the <bf>New template</bf> button
+  <item>Select an appropriate value for the Preset Template Values, then
+        click <bf>OK</bf>
+  <item>Under the <bf>Subject</bf> tab, specify an internal name for the
+        template.
+  <item>Fill in (or modify) any values that you wish to be populated when
+        using the template.  Leave the rest blank (notably the "Common Name"
+        field).
+  <item>When all desired fields are filled in, click the <bf>OK</bf> tab
+        at the bottom of the window.
+</enum>
+
+Your template is now ready for use when creating new certificates.
+
+</sect1>
+
+<sect1>Revoking a Certificate issued by a CA
+
+<p>
+
+<enum>
+  <item>Click the <bf>Certificates</bf> tab.
+  <item>Right-click on the certificate that you want to revoke
+        and select <bf>Revoke</bf>
+  <item>Right-click the CA certificate that was used to sign the certificate
+        being revoked.  Select <bf>CA</bf> --> <bf>Generate CRL</bf>
+  <item>Click the <bf>OK</bf> button in the <bf>Create CRL</bf> dialog.
+  <item>Click on the <bf>Revocation lists</bf> tab in the main window.
+  <item>Right-click on the CRL you just generated and select <bf>Export</bf>.
+        Select the desired format (probably PEM) and click <bf>OK</bf>
+  <item>Copy the exported CRL to the location published in the root
+        certificate's CRL Distribution Points.
+  <item>Optionally, delete older CRLs for the same CA certificate.
+</enum>
+
+</sect1>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Appendix
