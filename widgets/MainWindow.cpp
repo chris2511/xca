@@ -343,6 +343,58 @@ void MainWindow::pastePem()
 	delete input;
 }
 
+void MainWindow::importScard()
+{
+	pkcs11 p11;
+	CK_SLOT_ID *p11_slots = NULL;
+	unsigned long i, num_slots;
+	pki_scard *card = NULL;
+	pki_x509 *cert = NULL;
+
+	try {
+		ImportMulti *dlgi = new ImportMulti(this);
+		QList<CK_OBJECT_HANDLE> objects;
+		pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
+		p11_slots = p11.getSlotList(&num_slots);
+
+		printf("Num slots: %lu\n", num_slots);
+		for (i=0; i<num_slots; i++) {
+			p11.startSession(i);
+
+			class_att.setValue(CKO_PUBLIC_KEY);
+			objects = p11.objectList(&class_att);
+
+			printf("OBJ: %d\n", objects.count());
+			for (int j=0; j< objects.count(); j++) {
+				card = new pki_scard("");
+				card->load_token(p11, objects[j]);
+				dlgi->addItem(card);
+				card = NULL;
+			}
+			class_att.setValue(CKO_CERTIFICATE);
+			objects = p11.objectList(&class_att);
+
+			printf("C OBJ: %d\n", objects.count());
+			for (int j=0; j< objects.count(); j++) {
+				cert = new pki_x509("");
+				cert->load_token(p11, objects[j]);
+				cert->setTrust(2);
+				dlgi->addItem(cert);
+				cert = NULL;
+			}
+		}
+		dlgi->execute();
+	} catch (errorEx &err) {
+		Error(err);
+        }
+	if (p11_slots) {
+		free(p11_slots);
+	}
+	if (card)
+		delete card;
+	if (cert)
+		delete cert;
+}
 MainWindow::~MainWindow()
 {
 	close_database();

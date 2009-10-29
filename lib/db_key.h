@@ -41,7 +41,6 @@ class db_key: public db_base
 		void showPki(pki_base *pki);
 		void setOwnPass();
 		void resetOwnPass();
-		void importScard();
 
 	signals:
 		void delKey(pki_key *delkey);

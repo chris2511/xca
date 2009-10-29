@@ -26,10 +26,8 @@ class pki_evp: public pki_key
 {
 	protected:
 		int ownPass;
-		EVP_PKEY *key;
 		unsigned char *encKey;
 		int encKey_len;
-		QString BN2QString(BIGNUM *bn);
 		void init(int type = EVP_PKEY_RSA);
 		void veryOldFromData(unsigned char *p, int size);
 	public:
@@ -70,7 +68,6 @@ class pki_evp: public pki_key
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
 		unsigned char *toData(int *size);
-		bool compare(pki_base *ref);
 		QString length();
 		QString modulus();
 		QString pubEx();
@@ -80,15 +77,12 @@ class pki_evp: public pki_key
 		QString ecPubKey();
 		void writeKey(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
-		void writePublic(const QString fname, bool pem);
 		void writePKCS8(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
 		bool isPubKey() const;
 		int verify();
-		int getKeyType();
 		const EVP_MD *getDefaultMD();
 		QVariant column_data(int col);
-		EVP_PKEY *getPubKey() {return key;};
 		QVariant getIcon();
 };
 

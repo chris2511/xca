@@ -152,35 +152,6 @@ void db_key::newItem(QString name)
 	delete dlg;
 }
 
-void db_key::importScard()
-{
-	pkcs11 p11;
-	CK_SLOT_ID *p11_slots = NULL;
-	unsigned long i, num_slots;
-	pki_scard *card = NULL;
-
-	try {
-		p11_slots = p11.getSlotList(&num_slots);
-
-		printf("Num slots: %lu\n", num_slots);
-		for (i=0; i<num_slots; i++) {
-			QStringList sl = p11.tokenInfo(p11_slots[i]);
-			card = new pki_scard("");
-			card->load_token(p11_slots[i]);
-			insert(card);
-			card = NULL;
-
-		}
-	} catch (errorEx &err) {
-		mainwin->Error(err);
-        }
-	if (p11_slots) {
-		free(p11_slots);
-	}
-	if (card)
-		free(card);
-}
-
 void db_key::load(void)
 {
 	load_key l;
@@ -221,8 +192,8 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
+		menu->addAction(tr("Export"), this, SLOT(store()));
 		if (key->isPrivKey() && !key->isScard()) {
-			menu->addAction(tr("Export"), this, SLOT(store()));
 			switch (key->getOwnPass()) {
 			case pki_key::ptCommon:
 				menu->addAction(tr("Change password"), this,
@@ -257,12 +228,13 @@ void db_key::store()
 	if (!currentIdx.isValid())
 		return;
 
-	pki_evp *targetKey = static_cast<pki_evp*>(currentIdx.internalPointer());
+	pki_key *targetKey =static_cast<pki_evp*>(currentIdx.internalPointer());
 
 	QString fn = mainwin->getPath() + QDir::separator() +
 			targetKey->getUnderlinedName() + ".pem";
 
-	ExportKey *dlg = new ExportKey(mainwin, fn, targetKey->isPubKey());
+	ExportKey *dlg = new ExportKey(mainwin, fn,
+		targetKey->isPubKey() || targetKey->isScard());
 	dlg->image->setPixmap(*MainWindow::keyImg);
 
 	if (!dlg->exec()) {
@@ -279,11 +251,12 @@ void db_key::store()
 		pem = dlg->exportFormat->currentText() == "PEM" ? true : false;
 		if (dlg->encryptKey->isChecked())
 			enc = EVP_des_ede3_cbc();
-		if (dlg->exportPrivate->isChecked()) {
+		if (dlg->exportPrivate->isChecked() && !targetKey->isScard()) {
+			pki_evp *evpKey = (pki_evp *)targetKey;
 			if (dlg->exportPkcs8->isChecked()) {
-				targetKey->writePKCS8(fname, enc, &MainWindow::passWrite, pem);
+				evpKey->writePKCS8(fname, enc, &MainWindow::passWrite, pem);
 			} else {
-				targetKey->writeKey(fname, enc, &MainWindow::passWrite, pem);
+				evpKey->writeKey(fname, enc, &MainWindow::passWrite, pem);
 			}
 		} else {
 			targetKey->writePublic(fname, pem);

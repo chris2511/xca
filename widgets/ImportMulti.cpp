@@ -13,10 +13,13 @@
 #include "lib/pki_pkcs12.h"
 #include "lib/pki_crl.h"
 #include "lib/pki_multi.h"
+#include "lib/pki_scard.h"
+#include "lib/pki_evp.h"
 #include "widgets/CrlDetail.h"
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/ReqDetail.h"
+#include "widgets/ScardDetail.h"
 #include <qpushbutton.h>
 #include <qmessagebox.h>
 #include <qlabel.h>
@@ -45,7 +48,7 @@ void ImportMulti::addItem(pki_base *pki)
 	QString cn = pki->getClassName();
 
 	if (cn == "pki_x509" || cn == "pki_evp"  || cn == "pki_x509req" ||
-	    cn == "pki_crl"  || cn == "pki_temp")
+	    cn == "pki_crl"  || cn == "pki_temp" || cn == "pki_scard")
 	{
 		mcont->inToCont(pki);
 	}
@@ -136,21 +139,18 @@ void ImportMulti::import(QModelIndex &idx)
 
 	if (cn == "pki_x509") {
 		MainWindow::certs->insert(pki);
-	}
-	else if (cn == "pki_evp") {
+	} else if (cn == "pki_evp") {
 		((pki_evp*)pki)->setOwnPass(pki_evp::ptCommon);
 		MainWindow::keys->insert(pki);
-	}
-	else if (cn == "pki_x509req") {
+	} else if (cn == "pki_scard") {
+		MainWindow::keys->insert(pki);
+	} else if (cn == "pki_x509req") {
 		MainWindow::reqs->insert(pki);
-	}
-	else if (cn == "pki_crl") {
+	} else if (cn == "pki_crl") {
 		MainWindow::crls->insert(pki);
-	}
-	else if (cn == "pki_temp") {
+	} else if (cn == "pki_temp") {
 		MainWindow::temps->insert(pki);
-	}
-	else  {
+	} else  {
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
 		delete pki;
@@ -178,34 +178,34 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->setCert((pki_x509 *)pki);
 			dlg->exec();
 			delete dlg;
-		}
-		else if (cn == "pki_evp") {
+		} else if (cn == "pki_evp") {
 			KeyDetail *dlg;
 			dlg = new KeyDetail(mainwin);
 			dlg->setKey((pki_evp *)pki);
 			dlg->exec();
 			delete dlg;
-		}
-		else if (cn == "pki_x509req") {
+		} else if (cn == "pki_scard") {
+			ScardDetail *dlg;
+			dlg = new ScardDetail(mainwin);
+			dlg->setScard((pki_scard *)pki);
+			dlg->exec();
+			delete dlg;
+		} else if (cn == "pki_x509req") {
 			ReqDetail *dlg;
 			dlg = new ReqDetail(mainwin);
 			dlg->setReq((pki_x509req *)pki);
 			dlg->exec();
 			delete dlg;
-		}
-		else if (cn == "pki_crl") {
+		} else if (cn == "pki_crl") {
 			CrlDetail *dlg;
 			dlg = new CrlDetail(mainwin);
 			dlg->setCrl((pki_crl *)pki);
 			dlg->exec();
 			delete dlg;
-		}
-		else if (cn == "pki_temp") {
+		} else if (cn == "pki_temp") {
 			QMessageBox::warning(this, XCA_TITLE,
 				tr("Details of this item cannot be shown: ") + cn, tr("OK"));
-		}
-
-		else
+		} else
 			QMessageBox::warning(this, XCA_TITLE,
 				tr("The type of the Item is not recognized ") + cn, tr("OK"));
 	}

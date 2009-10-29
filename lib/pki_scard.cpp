@@ -83,6 +83,7 @@ pki_scard::pki_scard(const QString name)
 	init();
 }
 
+#if 0
 bool pki_scard::compare(pki_base *ref)
 {
 	if (ref->getType() != getType())
@@ -98,41 +99,40 @@ bool pki_scard::compare(pki_base *ref)
 		return false;
 	return true;
 }
+#endif
 
-void pki_scard::load_token(unsigned long slot)
+void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
-	QList<CK_OBJECT_HANDLE> objects;
-	pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
-	pkcs11 p11;
-
-	QStringList sl = p11.tokenInfo(slot);
+	QStringList sl = p11.tokenInfo();
 	card_label = sl[0];
 	card_manufacturer = sl[1];
 	card_serial = sl[2];
 
-	p11.startSession(slot);
-	class_att.setValue(CKO_PUBLIC_KEY);
-	objects = p11.objectList(&class_att);
+	pk11_attr_ulong bits(CKA_MODULUS_BITS);
+	p11.loadAttribute(bits, object);
+	bit_length.setNum(bits.getValue());
 
-	printf("OBJ: %d\n", objects.count());
-	for (int i=0; i< objects.count(); i++) {
-		CK_OBJECT_HANDLE object = objects[i];
+	pk11_attr_data label(CKA_LABEL);
+	p11.loadAttribute(label, object);
+	slot_label = label.getText();
 
-		pk11_attr_ulong bits(CKA_MODULUS_BITS);
-		p11.loadAttribute(bits, object);
-		bit_length.setNum(bits.getValue());
+	pk11_attr_data id(CKA_ID);
+	p11.loadAttribute(id, object);
+	object_id.setNum(CCHAR(id.getText())[0], 16);
 
-		pk11_attr_data label(CKA_LABEL);
-		p11.loadAttribute(label, object);
-		slot_label = label.getText();
+	pk11_attr_data rsaPub(CKA_VALUE);
+	p11.loadAttribute(rsaPub, object);
+	const unsigned char *p;
+	unsigned long s = rsaPub.getValue(&p);
+	RSA *rsa = d2i_RSAPublicKey(NULL, &p, s);
+	EVP_PKEY_set1_RSA(key, rsa);
 
-		pk11_attr_data id(CKA_ID);
-		p11.loadAttribute(id, object);
-		object_id.setNum(CCHAR(id.getText())[0], 16);
+	printf("OBJ '%s' '%s' '%s'\n EXP: %s\nModulus: %s",
+		CCHAR(slot_label), CCHAR(bit_length), CCHAR(object_id),
+		CCHAR(BN2QString(rsa->e)), CCHAR(BN2QString(rsa->n)));
 
-		printf("OBJ[%d] '%s' '%s' '%s'\n", i, CCHAR(slot_label), CCHAR(bit_length), CCHAR(object_id));
-	}
 	setIntName(card_label + " (" + slot_label + ")");
+	openssl_error();
 }
 
 pki_scard::~pki_scard()
@@ -147,7 +147,7 @@ unsigned char *pki_scard::toData(int *size)
 	s = card_serial.length() + card_manufacturer.length() +
 		card_label.length() + bit_length.length() +
 		slot_label.length() + object_id.length() +
-		7 *sizeof(char);
+		7 *sizeof(char) + i2d_PUBKEY(key, NULL);;
 
 	p = (unsigned char *)OPENSSL_malloc(s);
         check_oom(p);
@@ -160,6 +160,9 @@ unsigned char *pki_scard::toData(int *size)
 	db::stringToData(&p1, slot_label);
 	db::stringToData(&p1, bit_length);
 	db::stringToData(&p1, object_id);
+
+	i2d_PUBKEY(key, &p1);
+	openssl_error();
 
 	*size = p1-p;
 	return p;
@@ -179,6 +182,8 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 	slot_label = db::stringFromData(&p1);
 	bit_length = db::stringFromData(&p1);
 	object_id  = db::stringFromData(&p1);
+
+	d2i_PUBKEY(&key, &p1, size - (p1-p));
 
 	printf("%s: size: %d, read: %ld\n", CCHAR(getIntName()), size, p1-p);
 	if (p1-p != size) {
@@ -214,7 +219,7 @@ bool pki_scard::isScard()
 
 QString pki_scard::length()
 {
-	return bit_length;
+	return bit_length + " bit";
 }
 
 QVariant pki_scard::getIcon()

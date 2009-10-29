@@ -153,6 +153,26 @@ a1int pki_x509::getQASerial(const a1int &secret) const
 	return ret;
 }
 
+void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
+{
+	QStringList sl = p11.tokenInfo();
+
+	pk11_attr_data label(CKA_LABEL);
+	p11.loadAttribute(label, object);
+
+	pk11_attr_data x509(CKA_VALUE);
+	p11.loadAttribute(x509, object);
+	const unsigned char *p;
+	unsigned long s = x509.getValue(&p);
+	if (cert)
+		X509_free(cert);
+	cert = d2i_X509(NULL, &p, s);
+
+	setIntName(sl[0] + " (" + label.getText() + ")");
+	printf("X509 OBJ '%s'\n", CCHAR(getIntName()));
+	openssl_error();
+}
+
 bool pki_x509::verifyQASerial(const a1int &secret) const
 {
 	return getQASerial(secret) == getSerial();

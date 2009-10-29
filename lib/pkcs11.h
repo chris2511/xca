@@ -25,6 +25,7 @@ class pkcs11
 		static void load_lib(QString file, bool silent);
 
 		QStringList tokenInfo(CK_SLOT_ID slot);
+		QStringList tokenInfo();
 		void startSession(unsigned long slot);
 		CK_SLOT_ID *getSlotList(unsigned long *num_slots);
 		void loadAttribute(pk11_attribute &attribute,

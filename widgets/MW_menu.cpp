@@ -82,7 +82,7 @@ void MainWindow::new_database()
 	// in Qt's OS X file open dialog,
 	// the filename actually ends with that extension.
 	// Otherwise usability breaks in jarring ways.
-	dbfile = getFullFilename(fname,selectedFilter);
+	dbfile = getFullFilename(fname, selectedFilter);
 	init_database();
 }
 

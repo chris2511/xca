@@ -75,6 +75,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setPath(QString path);
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
+		void importScard();
 
 	public slots:
 		void init_database();

@@ -264,7 +264,7 @@ void MainWindow::on_keyView_doubleClicked(const QModelIndex &m)
 void MainWindow::on_BNimportScard_clicked(void)
 {
 	if (keys)
-		keys->importScard();
+		importScard();
 }
 
 void MainWindow::on_reqView_doubleClicked(const QModelIndex &m)

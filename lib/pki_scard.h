@@ -12,6 +12,7 @@
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 
+#include "pkcs11.h"
 #include "pki_key.h"
 
 class pki_scard: public pki_key
@@ -29,12 +30,11 @@ class pki_scard: public pki_key
 		pki_scard(const QString name);
 		virtual ~pki_scard();
 		static QPixmap *icon[1];
-		void load_token(unsigned long slot);
+		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		int init_scard(void);
 		void fromData(const unsigned char *p, db_header_t *head);
 		unsigned char *toData(int *size);
 		bool isPubKey() const;
-		bool compare(pki_base *ref);
 		QString getTypeString(void);
 		QString getManufacturer() const { return card_manufacturer; }
 		QString getSerial() const { return card_serial; }

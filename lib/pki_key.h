@@ -22,6 +22,8 @@ class pki_key: public pki_base
 {
 	protected:
 		int ownPass;
+		EVP_PKEY *key;
+		QString BN2QString(BIGNUM *bn);
 	private:
 		int ucount; // usage counter
 	public:
@@ -35,18 +37,20 @@ class pki_key: public pki_base
 		virtual QString length() const { return QString(); };
 		virtual bool isPubKey() const { return true; };
 		virtual const EVP_MD *getDefaultMD() { return NULL; };
-		virtual EVP_PKEY *getPubKey() { return NULL; };
 		virtual bool isScard();
 		virtual QString length() { return tr("Unknown"); };
-		virtual int getKeyType() { return EVP_PKEY_RSA; };
 
 		QString getIntNameWithType(void);
+		void writePublic(const QString fname, bool pem);
+		bool compare(pki_base *ref);
+		int getKeyType();
 		static QString removeTypeFromIntName(QString n);
 		bool isPrivKey() const;
 		int incUcount();
 		int decUcount();
 		int getUcount();
 		int getOwnPass(void) {return ownPass;};
+		EVP_PKEY *getPubKey() {return key;};
 		QVariant column_data(int col);
 };
 

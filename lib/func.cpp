@@ -178,19 +178,13 @@ QString getUserSettingsDir()
 // This function makes sure that a filename has the user-selected extension.
 QString getFullFilename(const QString & filename, const QString & selectedFilter)
 {
-	QString rv = filename;
-
-	if(!selectedFilter.isEmpty() && !filename.endsWith(selectedFilter)) {
-		int dot = selectedFilter.indexOf('.');
-		if(dot > 0){
-			int extLen = selectedFilter.lastIndexOf(')') - dot - 1;
-			rv += selectedFilter.mid(dot,extLen);
-		}
+	QString rv = filename.trimmed(), ext;
+	QRegExp rx(".* \\( ?\\*(.[a-z]{1,3}) ?\\)");
+	rx.indexIn(selectedFilter);
+	ext = rx.cap(1);
+	if (!ext.isEmpty() && !rv.endsWith(ext)) {
+		rv += ext;
 	}
-	// make sure it wasn't a wildcard filter... this seems a little backwards,
-	// but it's the easiest I see way not to worry about languages here.
-	if(rv.endsWith('*'))
-		rv = filename;
 	return rv;
 }
 

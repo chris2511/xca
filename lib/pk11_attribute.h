@@ -11,6 +11,7 @@
 #include <qstring.h>
 #include <opensc/pkcs11.h>
 #include <stdlib.h>
+#include <openssl/bn.h>
 
 #define UTF8QSTRING(x,s) QString::fromUtf8((const char*)(x), s).trimmed();
 
@@ -66,7 +67,7 @@ public:
 		attr.ulValueLen = 0;
 	}
 
-	unsigned long getValue(unsigned char **ptr)
+	unsigned long getValue(const unsigned char **ptr)
 	{
 		*ptr = (unsigned char*)attr.pValue;
 		return attr.ulValueLen;
@@ -79,7 +80,13 @@ public:
 	}
 	QString getText() const
 	{
-		return UTF8QSTRING(attr.pValue,	attr.ulValueLen);
+		return UTF8QSTRING(attr.pValue, attr.ulValueLen);
+	}
+	BIGNUM *getBignum() const
+	{
+		printf("attr.ulValueLen %lu\n", attr.ulValueLen);
+		return BN_bin2bn((unsigned char*)attr.pValue,
+				attr.ulValueLen, NULL);
 	}
 	void load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 };

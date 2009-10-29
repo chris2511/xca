@@ -20,7 +20,7 @@ pkcs11::pkcs11()
 {
 	session = CK_INVALID_HANDLE;
 	object = CK_INVALID_HANDLE;
-	dl_handle = NULL;
+	slot_id = 0;
 
 	if (p11) {
 		CK_RV rv = p11->C_Initialize(NULL);
@@ -37,10 +37,17 @@ pkcs11::~pkcs11()
 
 void pkcs11::startSession(unsigned long slot)
 {
-	CK_RV rv = p11->C_OpenSession(slot, CKF_SERIAL_SESSION,
+	CK_RV rv;
+	if (session != CK_INVALID_HANDLE) {
+		rv = p11->C_CloseSession(session);
+		if (rv != CKR_OK)
+			pk11error("C_OpenSession", rv);
+	}
+	rv = p11->C_OpenSession(slot, CKF_SERIAL_SESSION,
 				NULL, NULL, &session);
         if (rv != CKR_OK)
                 pk11error("C_OpenSession", rv);
+	slot_id = slot;
 }
 
 CK_SLOT_ID *pkcs11::getSlotList(unsigned long *num_slots)
@@ -74,6 +81,11 @@ QStringList pkcs11::tokenInfo(CK_SLOT_ID slot)
 	l << UTF8QSTRING(token_info.manufacturerID, 32);
 	l << UTF8QSTRING(token_info.serialNumber, 16);
 	return l;
+}
+
+QStringList pkcs11::tokenInfo()
+{
+	return tokenInfo(slot_id);
 }
 
 void pkcs11::loadAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)

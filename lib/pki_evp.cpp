@@ -55,7 +55,6 @@ void pki_evp::setOldPasswd(const char *pass)
 
 void pki_evp::init(int type)
 {
-	key = EVP_PKEY_new();
 	key->type = type;
 	class_name = "pki_evp";
 	encKey = NULL;
@@ -182,9 +181,6 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 pki_evp::pki_evp(const pki_evp *pk)
 	:pki_key(pk)
 {
-	int keylen;
-	unsigned char *der_key, *p;
-
 	init(pk->key->type);
 	openssl_error();
 	ownPass = pk->ownPass;
@@ -194,14 +190,6 @@ pki_evp::pki_evp(const pki_evp *pk)
 		check_oom(encKey);
 		memcpy(encKey, pk->encKey, encKey_len);
 	}
-	keylen = i2d_PUBKEY(pk->key, NULL);
-	p = der_key = (unsigned char *)OPENSSL_malloc(keylen);
-	check_oom(der_key);
-	i2d_PUBKEY(pk->key, &p);
-	p = der_key;
-	key = d2i_PUBKEY(NULL, (const unsigned char**)&p, keylen);
-	OPENSSL_free(der_key);
-	openssl_error();
 }
 
 pki_evp::pki_evp(const QString name, int type )
@@ -661,7 +649,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 	}
 	fclose(fp);
 }
-
+#if 0
 void pki_evp::writePublic(const QString fname, bool pem)
 {
 	FILE *fp = fopen(fname.toAscii(),"w");
@@ -677,35 +665,13 @@ void pki_evp::writePublic(const QString fname, bool pem)
 	fclose(fp);
 	openssl_error();
 }
-
-
+#endif
 QString pki_evp::length()
 {
 	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL) {
 		return QString("???");
 	}
 	return QString("%1 bit").arg(EVP_PKEY_bits(key));
-}
-
-QString pki_evp::BN2QString(BIGNUM *bn)
-{
-	if (bn == NULL)
-		return "--";
-	QString x="";
-	char zs[10];
-	int j;
-	int size = BN_num_bytes(bn);
-	unsigned char *buf = (unsigned char *)OPENSSL_malloc(size);
-	check_oom(buf);
-	BN_bn2bin(bn, buf);
-	for (j = 0; j< size; j++) {
-		sprintf(zs, "%02X%c",buf[j], ((j+1)%16 == 0) ? '\n' :
-				j<size-1 ? ':' : ' ');
-		x += zs;
-	}
-	OPENSSL_free(buf);
-	openssl_error();
-	return x;
 }
 
 QString pki_evp::modulus()
@@ -758,7 +724,7 @@ QString pki_evp::ecPubKey()
 	}
 	return pub;
 }
-
+#if 0
 bool pki_evp::compare(pki_base *ref)
 {
 	if (ref->getType() != getType())
@@ -807,8 +773,12 @@ bool pki_evp::compare(pki_base *ref)
 	openssl_error();
 	return true;
 }
+int pki_evp::getKeyType()
+{
+	return key->type;
+}
 
-
+#endif
 bool pki_evp::isPubKey() const
 {
 	if (encKey_len == 0 || encKey == NULL) {
@@ -829,11 +799,6 @@ int pki_evp::verify()
 		veri = true;
 	openssl_error();
 	return veri;
-}
-
-int pki_evp::getKeyType()
-{
-	return key->type;
 }
 
 const EVP_MD *pki_evp::getDefaultMD()

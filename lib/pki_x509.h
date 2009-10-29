@@ -19,6 +19,7 @@
 #include "asn1int.h"
 #include "x509rev.h"
 #include "x509v3ext.h"
+#include "pkcs11.h"
 
 class pki_x509 : public pki_x509super
 {
@@ -42,6 +43,7 @@ class pki_x509 : public pki_x509super
 		~pki_x509();
 
 		void fload(const QString fname);
+		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		void fromPEM_BIO(BIO *bio, QString name);
 		void writeDefault(const QString fname);
 		a1int hashInfo(const EVP_MD *md) const;
