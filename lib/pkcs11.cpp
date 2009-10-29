@@ -92,7 +92,8 @@ QList<CK_OBJECT_HANDLE> pkcs11::objectList(const pk11_attribute *att)
 	if (att)
 		attribute = att->getAttribute();
 
-	rv = p11->C_FindObjectsInit(session, (CK_ATTRIBUTE *)attribute, 1);
+	rv = p11->C_FindObjectsInit(session, (CK_ATTRIBUTE *)attribute,
+				attribute ? 1 : 0);
 	if (rv != CKR_OK)
 		pk11error("C_FindObjectsInit", rv);
 

@@ -36,7 +36,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Details of the RSA key</string>
+        <string>Details of the Smart Card</string>
        </property>
       </widget>
      </item>

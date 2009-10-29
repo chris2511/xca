@@ -22,6 +22,7 @@ class pki_scard: public pki_key
 		QString bit_length;
 		QString card_label;
 		QString slot_label;
+		QString object_id;
 		void init(void);
 
 	public:
@@ -38,6 +39,7 @@ class pki_scard: public pki_key
 		QString getManufacturer() const { return card_manufacturer; }
 		QString getSerial() const { return card_serial; }
 		QString getLabel() const { return slot_label; }
+		QString getId() const { return object_id; }
 		QString getCardLabel() const { return card_label; }
 		EVP_PKEY *decryptKey() const;
 		QString length();

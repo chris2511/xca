@@ -33,4 +33,5 @@ void ScardDetail::setScard(pki_scard *card)
 
 	keyBox->setTitle(tr("Key") + " [" + card->getLabel() + "]");
 	keyLength->setText(card->length());
+	keyID->setText(card->getId());
 }
