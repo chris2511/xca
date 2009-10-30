@@ -1,125 +1,117 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.0" >
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
     <width>702</width>
-    <height>494</height>
+    <height>511</height>
    </rect>
   </property>
-  <property name="windowTitle">
+  <property name="windowTitle" >
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout">
-    <property name="spacing">
+  <widget class="QWidget" name="centralWidget" >
+   <layout class="QVBoxLayout" >
+    <property name="spacing" >
      <number>6</number>
     </property>
-    <property name="margin">
+    <property name="margin" >
      <number>9</number>
     </property>
     <item>
-     <widget class="QTabWidget" name="tabView">
-      <property name="currentIndex">
+     <widget class="QTabWidget" name="tabView" >
+      <property name="currentIndex" >
        <number>0</number>
       </property>
-      <widget class="QWidget" name="RSATab">
-       <attribute name="title">
+      <widget class="QWidget" name="RSATab" >
+       <attribute name="title" >
         <string>Private Keys</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="spacing">
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
          <number>6</number>
         </property>
-        <property name="margin">
+        <property name="margin" >
          <number>8</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="keyView"/>
+         <widget class="XcaTreeView" name="keyView" />
         </item>
         <item>
-         <widget class="QFrame" name="keyButtons">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <widget class="QFrame" name="keyButtons" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="frameShape">
+          <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
-          <property name="frameShadow">
+          <property name="frameShadow" >
            <enum>QFrame::Sunken</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
+          <layout class="QVBoxLayout" name="verticalLayout" >
            <item>
-            <widget class="QPushButton" name="BNnewKey">
-             <property name="text">
+            <widget class="QPushButton" name="BNnewKey" >
+             <property name="text" >
               <string>&amp;New Key</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNexportKey">
-             <property name="text">
+            <widget class="QPushButton" name="BNexportKey" >
+             <property name="text" >
               <string>&amp;Export</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportKey">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportKey" >
+             <property name="text" >
               <string>&amp;Import</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportPFX">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportPFX" >
+             <property name="text" >
               <string>Import PFX (PKCS#12)</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdetailsKey">
-             <property name="text">
+            <widget class="QPushButton" name="BNdetailsKey" >
+             <property name="text" >
               <string>&amp;Show Details</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdeleteKey">
-             <property name="text">
+            <widget class="QPushButton" name="BNdeleteKey" >
+             <property name="text" >
               <string>&amp;Delete</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNchangePass">
-             <property name="text">
+            <widget class="QPushButton" name="BNchangePass" >
+             <property name="text" >
               <string>Change password</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportScard">
-             <property name="text">
-              <string>Import SmartCard</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <spacer>
-             <property name="orientation">
+             <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType">
+             <property name="sizeType" >
               <enum>QSizePolicy::Expanding</enum>
              </property>
-             <property name="sizeHint" stdset="0">
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>20</height>
@@ -128,14 +120,14 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="bigKey">
-             <property name="minimumSize">
+            <widget class="QLabel" name="bigKey" >
+             <property name="minimumSize" >
               <size>
                <width>200</width>
                <height>94</height>
               </size>
              </property>
-             <property name="scaledContents">
+             <property name="scaledContents" >
               <bool>true</bool>
              </property>
             </widget>
@@ -145,85 +137,85 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="CertTab">
-       <attribute name="title">
+      <widget class="QWidget" name="CertTab" >
+       <attribute name="title" >
         <string>Certificate signing requests</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="spacing">
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
          <number>6</number>
         </property>
-        <property name="margin">
+        <property name="margin" >
          <number>8</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="reqView"/>
+         <widget class="XcaTreeView" name="reqView" />
         </item>
         <item>
-         <widget class="QFrame" name="reqButtons">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <widget class="QFrame" name="reqButtons" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="frameShape">
+          <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
-          <property name="frameShadow">
+          <property name="frameShadow" >
            <enum>QFrame::Sunken</enum>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="spacing">
+          <layout class="QVBoxLayout" >
+           <property name="spacing" >
             <number>6</number>
            </property>
-           <property name="margin">
+           <property name="margin" >
             <number>8</number>
            </property>
            <item>
-            <widget class="QPushButton" name="BNnewReq">
-             <property name="text">
+            <widget class="QPushButton" name="BNnewReq" >
+             <property name="text" >
               <string>&amp;New Request</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNexportReq">
-             <property name="text">
+            <widget class="QPushButton" name="BNexportReq" >
+             <property name="text" >
               <string>&amp;Export</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportReq">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportReq" >
+             <property name="text" >
               <string>&amp;Import</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdetailsReq">
-             <property name="text">
+            <widget class="QPushButton" name="BNdetailsReq" >
+             <property name="text" >
               <string>&amp;Show Details</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdeleteReq">
-             <property name="text">
+            <widget class="QPushButton" name="BNdeleteReq" >
+             <property name="text" >
               <string>&amp;Delete</string>
              </property>
             </widget>
            </item>
            <item>
             <spacer>
-             <property name="orientation">
+             <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType">
+             <property name="sizeType" >
               <enum>QSizePolicy::Expanding</enum>
              </property>
-             <property name="sizeHint" stdset="0">
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>20</height>
@@ -232,14 +224,14 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="bigCsr">
-             <property name="minimumSize">
+            <widget class="QLabel" name="bigCsr" >
+             <property name="minimumSize" >
               <size>
                <width>200</width>
                <height>94</height>
               </size>
              </property>
-             <property name="scaledContents">
+             <property name="scaledContents" >
               <bool>true</bool>
              </property>
             </widget>
@@ -249,100 +241,100 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="ReqTab">
-       <attribute name="title">
+      <widget class="QWidget" name="ReqTab" >
+       <attribute name="title" >
         <string>Certificates</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="spacing">
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
          <number>6</number>
         </property>
-        <property name="margin">
+        <property name="margin" >
          <number>8</number>
         </property>
         <item>
-         <widget class="CertTreeView" name="certView"/>
+         <widget class="CertTreeView" name="certView" />
         </item>
         <item>
-         <widget class="QFrame" name="certButtons">
-          <property name="frameShape">
+         <widget class="QFrame" name="certButtons" >
+          <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
-          <property name="frameShadow">
+          <property name="frameShadow" >
            <enum>QFrame::Sunken</enum>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="spacing">
+          <layout class="QVBoxLayout" >
+           <property name="spacing" >
             <number>6</number>
            </property>
-           <property name="margin">
+           <property name="margin" >
             <number>11</number>
            </property>
            <item>
-            <widget class="QPushButton" name="BNnewCert">
-             <property name="text">
+            <widget class="QPushButton" name="BNnewCert" >
+             <property name="text" >
               <string>&amp;New Certificate</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNexportCert">
-             <property name="text">
+            <widget class="QPushButton" name="BNexportCert" >
+             <property name="text" >
               <string>&amp;Export</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportCert">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportCert" >
+             <property name="text" >
               <string>&amp;Import</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdetailsCert">
-             <property name="text">
+            <widget class="QPushButton" name="BNdetailsCert" >
+             <property name="text" >
               <string>&amp;Show Details</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdeleteCert">
-             <property name="text">
+            <widget class="QPushButton" name="BNdeleteCert" >
+             <property name="text" >
               <string>&amp;Delete</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportPKCS12">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportPKCS12" >
+             <property name="text" >
               <string>Import &amp;PKCS#12</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportPKCS7">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportPKCS7" >
+             <property name="text" >
               <string>Import P&amp;KCS#7</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNviewState">
-             <property name="text">
+            <widget class="QPushButton" name="BNviewState" >
+             <property name="text" >
               <string>Plain View</string>
              </property>
             </widget>
            </item>
            <item>
             <spacer>
-             <property name="orientation">
+             <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType">
+             <property name="sizeType" >
               <enum>QSizePolicy::Expanding</enum>
              </property>
-             <property name="sizeHint" stdset="0">
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>20</height>
@@ -351,14 +343,14 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="bigCert">
-             <property name="minimumSize">
+            <widget class="QLabel" name="bigCert" >
+             <property name="minimumSize" >
               <size>
                <width>200</width>
                <height>94</height>
               </size>
              </property>
-             <property name="scaledContents">
+             <property name="scaledContents" >
               <bool>true</bool>
              </property>
             </widget>
@@ -368,83 +360,83 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="CATab">
-       <attribute name="title">
+      <widget class="QWidget" name="CATab" >
+       <attribute name="title" >
         <string>Templates</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="spacing">
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
          <number>6</number>
         </property>
-        <property name="margin">
+        <property name="margin" >
          <number>8</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="tempView">
-          <property name="alternatingRowColors">
+         <widget class="XcaTreeView" name="tempView" >
+          <property name="alternatingRowColors" >
            <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QFrame" name="tempButtons">
-          <property name="frameShape">
+         <widget class="QFrame" name="tempButtons" >
+          <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
-          <property name="frameShadow">
+          <property name="frameShadow" >
            <enum>QFrame::Sunken</enum>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="spacing">
+          <layout class="QVBoxLayout" >
+           <property name="spacing" >
             <number>6</number>
            </property>
-           <property name="margin">
+           <property name="margin" >
             <number>11</number>
            </property>
            <item>
-            <widget class="QPushButton" name="BNnewTemp">
-             <property name="text">
+            <widget class="QPushButton" name="BNnewTemp" >
+             <property name="text" >
               <string>&amp;New template</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNchangeTemp">
-             <property name="text">
+            <widget class="QPushButton" name="BNchangeTemp" >
+             <property name="text" >
               <string>Ch&amp;ange Template</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdeleteTemp">
-             <property name="text">
+            <widget class="QPushButton" name="BNdeleteTemp" >
+             <property name="text" >
               <string>&amp;Delete</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportTemp">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportTemp" >
+             <property name="text" >
               <string>&amp;Import</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNexportTemp">
-             <property name="text">
+            <widget class="QPushButton" name="BNexportTemp" >
+             <property name="text" >
               <string>&amp;Export</string>
              </property>
             </widget>
            </item>
            <item>
             <spacer>
-             <property name="orientation">
+             <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType">
+             <property name="sizeType" >
               <enum>QSizePolicy::Expanding</enum>
              </property>
-             <property name="sizeHint" stdset="0">
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>20</height>
@@ -453,14 +445,14 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="bigTemp">
-             <property name="minimumSize">
+            <widget class="QLabel" name="bigTemp" >
+             <property name="minimumSize" >
               <size>
                <width>200</width>
                <height>94</height>
               </size>
              </property>
-             <property name="scaledContents">
+             <property name="scaledContents" >
               <bool>true</bool>
              </property>
             </widget>
@@ -470,72 +462,72 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="unnamed">
-       <attribute name="title">
+      <widget class="QWidget" name="unnamed" >
+       <attribute name="title" >
         <string>Revocation lists</string>
        </attribute>
-       <layout class="QHBoxLayout">
-        <property name="spacing">
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
          <number>6</number>
         </property>
-        <property name="margin">
+        <property name="margin" >
          <number>9</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="crlView"/>
+         <widget class="XcaTreeView" name="crlView" />
         </item>
         <item>
-         <widget class="QFrame" name="crlButtons">
-          <property name="frameShape">
+         <widget class="QFrame" name="crlButtons" >
+          <property name="frameShape" >
            <enum>QFrame::Box</enum>
           </property>
-          <property name="frameShadow">
+          <property name="frameShadow" >
            <enum>QFrame::Sunken</enum>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="spacing">
+          <layout class="QVBoxLayout" >
+           <property name="spacing" >
             <number>6</number>
            </property>
-           <property name="margin">
+           <property name="margin" >
             <number>9</number>
            </property>
            <item>
-            <widget class="QPushButton" name="BNexportCrl">
-             <property name="text">
+            <widget class="QPushButton" name="BNexportCrl" >
+             <property name="text" >
               <string>&amp;Export</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNimportCrl">
-             <property name="text">
+            <widget class="QPushButton" name="BNimportCrl" >
+             <property name="text" >
               <string>&amp;Import</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdetailsCrl">
-             <property name="text">
+            <widget class="QPushButton" name="BNdetailsCrl" >
+             <property name="text" >
               <string>&amp;Show Details</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="BNdeleteCrl">
-             <property name="text">
+            <widget class="QPushButton" name="BNdeleteCrl" >
+             <property name="text" >
               <string>&amp;Delete</string>
              </property>
             </widget>
            </item>
            <item>
             <spacer>
-             <property name="orientation">
+             <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType">
+             <property name="sizeType" >
               <enum>QSizePolicy::Expanding</enum>
              </property>
-             <property name="sizeHint" stdset="0">
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>20</height>
@@ -544,14 +536,14 @@
             </spacer>
            </item>
            <item>
-            <widget class="QLabel" name="bigRev">
-             <property name="minimumSize">
+            <widget class="QLabel" name="bigRev" >
+             <property name="minimumSize" >
               <size>
                <width>200</width>
                <height>94</height>
               </size>
              </property>
-             <property name="scaledContents">
+             <property name="scaledContents" >
               <bool>true</bool>
              </property>
             </widget>

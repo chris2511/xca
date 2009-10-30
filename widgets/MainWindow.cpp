@@ -357,14 +357,12 @@ void MainWindow::importScard()
 		pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
 		p11_slots = p11.getSlotList(&num_slots);
 
-		printf("Num slots: %lu\n", num_slots);
 		for (i=0; i<num_slots; i++) {
 			p11.startSession(i);
 
 			class_att.setValue(CKO_PUBLIC_KEY);
 			objects = p11.objectList(&class_att);
 
-			printf("OBJ: %d\n", objects.count());
 			for (int j=0; j< objects.count(); j++) {
 				card = new pki_scard("");
 				card->load_token(p11, objects[j]);
@@ -374,7 +372,6 @@ void MainWindow::importScard()
 			class_att.setValue(CKO_CERTIFICATE);
 			objects = p11.objectList(&class_att);
 
-			printf("C OBJ: %d\n", objects.count());
 			for (int j=0; j< objects.count(); j++) {
 				cert = new pki_x509("");
 				cert->load_token(p11, objects[j]);
@@ -395,6 +392,7 @@ void MainWindow::importScard()
 	if (cert)
 		delete cert;
 }
+
 MainWindow::~MainWindow()
 {
 	close_database();

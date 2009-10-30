@@ -261,12 +261,6 @@ void MainWindow::on_keyView_doubleClicked(const QModelIndex &m)
 		keys->showItem(keyView->getIndex(m));
 }
 
-void MainWindow::on_BNimportScard_clicked(void)
-{
-	if (keys)
-		importScard();
-}
-
 void MainWindow::on_reqView_doubleClicked(const QModelIndex &m)
 {
 	if (reqs)
@@ -396,8 +390,8 @@ void MainWindow::on_BNnewTemp_clicked(void)
 	if (temps)
 		temps->newItem();
 }
-/* CRL buttons */
 
+/* CRL buttons */
 void MainWindow::on_BNdeleteCrl_clicked(void)
 {
 	if (crls)

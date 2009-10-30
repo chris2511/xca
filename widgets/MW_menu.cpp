@@ -53,11 +53,12 @@ void MainWindow::init_menu()
 				SLOT(on_BNimportTemp_clicked()) );
 	import->addAction(tr("Revocation list"), this,
 				SLOT(on_BNimportCrl_clicked()) );
+	import->addAction(tr("Read Smard card"), this,
+				SLOT(importScard()));
 	import->addAction(tr("PEM file"), this,
 				SLOT(loadPem()) );
 	import->addAction(tr("paste PEM file"), this,
 				SLOT(pastePem()) );
-
 
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );

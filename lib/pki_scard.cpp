@@ -27,10 +27,10 @@
 
 #if defined(_WIN32) || defined(USE_CYGWIN)
 #define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
-#define ENGINE_LIB			"/usr/lib/engines/engine_pkcs11.so"
+#define ENGINE_LIB			"engine_pkcs11.dll"
 #else
-#define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.so"
-#define ENGINE_LIB			"engine_pkcs11.so"
+#define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
+#define ENGINE_LIB			"/usr/lib/engines/engine_pkcs11.so"
 #endif
 
 QPixmap *pki_scard::icon[1] = { NULL };
@@ -39,29 +39,31 @@ QPixmap *pki_scard::icon[1] = { NULL };
 	do { \
 		if (!ENGINE_ctrl_cmd_string(e, cmd, value, 0)) { \
 			openssl_error(); \
+			ENGINE_free(e); \
 			return 0; \
 		} \
 	} while(0);
 
-int pki_scard::init_scard(void)
+ENGINE *pki_scard::p11_engine = NULL;
+
+int pki_scard::init_p11engine(void) const
 {
 	ENGINE *e;
-	static int initialized = false;
 
-	if (initialized)
+	if (p11_engine)
 		return 1;
 
+	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
+	openssl_error();
 
 	XCA_ENGINE_cmd(e, "SO_PATH",      ENGINE_LIB);
 	XCA_ENGINE_cmd(e, "ID",           "pkcs11");
 	XCA_ENGINE_cmd(e, "LIST_ADD",     "1");
 	XCA_ENGINE_cmd(e, "LOAD",         NULL);
 	XCA_ENGINE_cmd(e, "MODULE_PATH",  PKCS11_DEFAULT_MODULE_NAME);
-	ENGINE_init(e);
 
-	initialized = true;
-	ENGINE_free(e);
+	p11_engine = e;
 	return 1;
 }
 
@@ -82,24 +84,6 @@ pki_scard::pki_scard(const QString name)
 {
 	init();
 }
-
-#if 0
-bool pki_scard::compare(pki_base *ref)
-{
-	if (ref->getType() != getType())
-		return false;
-	pki_scard *card = (pki_scard *)ref;
-	if (card_serial != card->card_serial)
-		return false;
-	if (card_manufacturer != card->card_manufacturer)
-		return false;
-	if (card_label != card->card_label)
-		return false;
-	if (slot_label != card->slot_label)
-		return false;
-	return true;
-}
-#endif
 
 void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
@@ -126,10 +110,6 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	unsigned long s = rsaPub.getValue(&p);
 	RSA *rsa = d2i_RSAPublicKey(NULL, &p, s);
 	EVP_PKEY_set1_RSA(key, rsa);
-
-	printf("OBJ '%s' '%s' '%s'\n EXP: %s\nModulus: %s",
-		CCHAR(slot_label), CCHAR(bit_length), CCHAR(object_id),
-		CCHAR(BN2QString(rsa->e)), CCHAR(BN2QString(rsa->n)));
 
 	setIntName(card_label + " (" + slot_label + ")");
 	openssl_error();
@@ -185,7 +165,6 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 
 	d2i_PUBKEY(&key, &p1, size - (p1-p));
 
-	printf("%s: size: %d, read: %ld\n", CCHAR(getIntName()), size, p1-p);
 	if (p1-p != size) {
 		my_error(tr("Wrong Size of scard: ") + getIntName());
 	}
@@ -203,8 +182,11 @@ QString pki_scard::getTypeString(void)
 
 EVP_PKEY *pki_scard::decryptKey() const
 {
-	// Engine code here
-	return NULL;
+	init_p11engine();
+	ENGINE_init(p11_engine);
+	ign_openssl_error();
+	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, "3:48", NULL, NULL);
+	return pkey;
 }
 
 int pki_scard::verify()

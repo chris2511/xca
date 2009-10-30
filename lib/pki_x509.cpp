@@ -169,7 +169,6 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	cert = d2i_X509(NULL, &p, s);
 
 	setIntName(sl[0] + " (" + label.getText() + ")");
-	printf("X509 OBJ '%s'\n", CCHAR(getIntName()));
 	openssl_error();
 }
 

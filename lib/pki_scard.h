@@ -25,13 +25,14 @@ class pki_scard: public pki_key
 		QString slot_label;
 		QString object_id;
 		void init(void);
+		static ENGINE *p11_engine;
 
 	public:
 		pki_scard(const QString name);
 		virtual ~pki_scard();
 		static QPixmap *icon[1];
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
-		int init_scard(void);
+		int init_p11engine(void) const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		unsigned char *toData(int *size);
 		bool isPubKey() const;

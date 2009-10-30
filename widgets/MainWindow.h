@@ -75,7 +75,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setPath(QString path);
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
-		void importScard();
 
 	public slots:
 		void init_database();
@@ -94,6 +93,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
 	private slots:
 		void setOptions();
+		void importScard();
 		void on_keyView_doubleClicked(const QModelIndex &m);
 		void on_reqView_doubleClicked(const QModelIndex &m);
 		void on_certView_doubleClicked(const QModelIndex &m);
@@ -106,7 +106,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void on_BNimportKey_clicked();
 		void on_BNexportKey_clicked();
 		void on_BNimportPFX_clicked();
-		void on_BNimportScard_clicked();
 
 		void on_BNnewReq_clicked();
 		void on_BNdeleteReq_clicked();
