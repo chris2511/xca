@@ -71,30 +71,6 @@ static void incProgress(int, int, void *progress)
 			((QProgressBar *)progress)->setValue(++i);
 }
 
-QString pki_evp::getTypeString()
-{
-	QString type;
-	switch (EVP_PKEY_type(key->type)) {
-		case EVP_PKEY_RSA:
-			type = "RSA";
-			break;
-		case EVP_PKEY_DSA:
-			type = "DSA";
-			break;
-		case EVP_PKEY_EC:
-			type = "EC";
-			break;
-		default:
-			type = "---";
-	}
-	return type;
-}
-
-QString pki_evp::getIntNameWithType()
-{
-	return getIntName() + " (" + getTypeString() + ")";
-}
-
 QString pki_evp::removeTypeFromIntName(QString n)
 {
 	if (n.right(1) != ")" ) return n;
@@ -649,23 +625,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 	}
 	fclose(fp);
 }
-#if 0
-void pki_evp::writePublic(const QString fname, bool pem)
-{
-	FILE *fp = fopen(fname.toAscii(),"w");
-	if (fp == NULL) {
-		fopen_error(fname);
-		return;
-	}
-	if (pem)
-		PEM_write_PUBKEY(fp, key);
-	else
-		i2d_PUBKEY_fp(fp, key);
 
-	fclose(fp);
-	openssl_error();
-}
-#endif
 QString pki_evp::length()
 {
 	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL) {
@@ -674,111 +634,6 @@ QString pki_evp::length()
 	return QString("%1 bit").arg(EVP_PKEY_bits(key));
 }
 
-QString pki_evp::modulus()
-{
-	if (key->type == EVP_PKEY_RSA)
-		return BN2QString(key->pkey.rsa->n);
-	return QString();
-}
-
-QString pki_evp::pubEx()
-{
-	if (key->type == EVP_PKEY_RSA)
-		return BN2QString(key->pkey.rsa->e);
-	return QString();
-}
-
-QString pki_evp::subprime()
-{
-	if (key->type == EVP_PKEY_DSA)
-		return BN2QString(key->pkey.dsa->q);
-	return QString();
-}
-
-QString pki_evp::pubkey()
-{
-	if (key->type == EVP_PKEY_DSA)
-		return BN2QString(key->pkey.dsa->pub_key);
-	return QString();
-}
-
-int pki_evp::ecParamNid()
-{
-	if (key->type != EVP_PKEY_EC)
-		return 0;
-	return EC_GROUP_get_curve_name(EC_KEY_get0_group(key->pkey.ec));
-}
-
-QString pki_evp::ecPubKey()
-{
-	QString pub;
-	if (key->type == EVP_PKEY_EC) {
-		EC_KEY *ec = key->pkey.ec;
-		BIGNUM  *pub_key = EC_POINT_point2bn(EC_KEY_get0_group(ec),
-				EC_KEY_get0_public_key(ec),
-				EC_KEY_get_conv_form(ec), NULL, NULL);
-		if (pub_key) {
-			pub = BN2QString(pub_key);
-			BN_free(pub_key);
-		}
-	}
-	return pub;
-}
-#if 0
-bool pki_evp::compare(pki_base *ref)
-{
-	if (ref->getType() != getType())
-		return false;
-	pki_evp *kref = (pki_evp *)ref;
-	if (kref->getKeyType() != getKeyType())
-		return false;
-	if (!kref || !kref->key || !key)
-		return false;
-	switch (key->type) {
-	case EVP_PKEY_RSA:
-		if (!kref->key->pkey.rsa->n || !key->pkey.rsa->n)
-			return false;
-		if (BN_cmp(key->pkey.rsa->n, kref->key->pkey.rsa->n) ||
-		    BN_cmp(key->pkey.rsa->e, kref->key->pkey.rsa->e))
-		{
-			openssl_error();
-			return false;
-		}
-		break;
-	case EVP_PKEY_DSA:
-		if (!kref->key->pkey.dsa->pub_key || !key->pkey.dsa->pub_key)
-			return false;
-		if (BN_cmp(key->pkey.dsa->pub_key,
-			   kref->key->pkey.dsa->pub_key))
-		{
-			openssl_error();
-			return false;
-		}
-		break;
-	case EVP_PKEY_EC:
-		EC_KEY *ec = key->pkey.ec, *ec_ref = kref->key->pkey.ec;
-		const EC_GROUP *group = EC_KEY_get0_group(ec);
-
-		if (!ec || !ec_ref)
-			return false;
-		if (EC_GROUP_cmp(EC_KEY_get0_group(ec), group, NULL))
-			return false;
-		openssl_error();
-		if (EC_POINT_cmp(group, EC_KEY_get0_public_key(ec),
-				 EC_KEY_get0_public_key(ec_ref), NULL))
-			return false;
-		if (ign_openssl_error())
-			return false;
-	}
-	openssl_error();
-	return true;
-}
-int pki_evp::getKeyType()
-{
-	return key->type;
-}
-
-#endif
 bool pki_evp::isPubKey() const
 {
 	if (encKey_len == 0 || encKey == NULL) {

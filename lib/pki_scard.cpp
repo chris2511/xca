@@ -198,7 +198,7 @@ bool pki_scard::isPubKey() const
 
 QString pki_scard::getTypeString(void)
 {
-	return QString("SmartCard");
+	return tr("SmartCard") + " " + pki_key::getTypeString();
 }
 
 EVP_PKEY *pki_scard::decryptKey() const

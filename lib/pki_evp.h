@@ -59,8 +59,6 @@ class pki_evp: public pki_key
 		virtual ~pki_evp();
 
 		EVP_PKEY *priv2pub(EVP_PKEY* key);
-		QString getTypeString(void);
-		QString getIntNameWithType(void);
 		static QString removeTypeFromIntName(QString n);
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
@@ -69,12 +67,6 @@ class pki_evp: public pki_key
 		void oldFromData(unsigned char *p, int size);
 		unsigned char *toData(int *size);
 		QString length();
-		QString modulus();
-		QString pubEx();
-		QString subprime();
-		QString pubkey();
-		int ecParamNid();
-		QString ecPubKey();
 		void writeKey(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
 		void writePKCS8(const QString fname, const EVP_CIPHER *enc,

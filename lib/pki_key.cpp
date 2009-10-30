@@ -38,6 +38,25 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 }
 
+QString pki_key::getTypeString()
+{
+	QString type;
+	switch (EVP_PKEY_type(key->type)) {
+		case EVP_PKEY_RSA:
+			type = "RSA";
+			break;
+		case EVP_PKEY_DSA:
+			type = "DSA";
+			break;
+		case EVP_PKEY_EC:
+			type = "EC";
+			break;
+		default:
+			type = "---";
+	}
+	return type;
+}
+
 QString pki_key::getIntNameWithType()
 {
 	return getIntName() + " (" + getTypeString() + ")";
@@ -78,6 +97,62 @@ int pki_key::decUcount()
 int pki_key::getUcount()
 {
 	return ucount;
+}
+
+int pki_key::getKeyType()
+{
+	return key->type;
+}
+
+QString pki_key::modulus()
+{
+	if (key->type == EVP_PKEY_RSA)
+		return BN2QString(key->pkey.rsa->n);
+	return QString();
+}
+
+QString pki_key::pubEx()
+{
+	if (key->type == EVP_PKEY_RSA)
+		return BN2QString(key->pkey.rsa->e);
+	return QString();
+}
+
+QString pki_key::subprime()
+{
+	if (key->type == EVP_PKEY_DSA)
+		return BN2QString(key->pkey.dsa->q);
+	return QString();
+}
+
+QString pki_key::pubkey()
+{
+	if (key->type == EVP_PKEY_DSA)
+		return BN2QString(key->pkey.dsa->pub_key);
+	return QString();
+}
+
+int pki_key::ecParamNid()
+{
+	if (key->type != EVP_PKEY_EC)
+		return 0;
+	return EC_GROUP_get_curve_name(EC_KEY_get0_group(key->pkey.ec));
+}
+
+QString pki_key::ecPubKey()
+{
+	QString pub;
+	if (key->type == EVP_PKEY_EC) {
+		EC_KEY *ec = key->pkey.ec;
+		BIGNUM  *pub_key = EC_POINT_point2bn(EC_KEY_get0_group(ec),
+				EC_KEY_get0_public_key(ec),
+				EC_KEY_get_conv_form(ec), NULL, NULL);
+		if (pub_key) {
+			pub = BN2QString(pub_key);
+			BN_free(pub_key);
+		}
+	}
+	return pub;
 }
 
 bool pki_key::compare(pki_base *ref)
@@ -125,11 +200,6 @@ bool pki_key::compare(pki_base *ref)
 	}
 	openssl_error();
 	return true;
-}
-
-int pki_key::getKeyType()
-{
-	return key->type;
 }
 
 void pki_key::writePublic(const QString fname, bool pem)

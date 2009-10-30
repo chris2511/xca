@@ -19,7 +19,6 @@
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/ReqDetail.h"
-#include "widgets/ScardDetail.h"
 #include <qpushbutton.h>
 #include <qmessagebox.h>
 #include <qlabel.h>
@@ -178,16 +177,10 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->setCert((pki_x509 *)pki);
 			dlg->exec();
 			delete dlg;
-		} else if (cn == "pki_evp") {
+		} else if (cn == "pki_evp" || cn == "pki_scard") {
 			KeyDetail *dlg;
 			dlg = new KeyDetail(mainwin);
-			dlg->setKey((pki_evp *)pki);
-			dlg->exec();
-			delete dlg;
-		} else if (cn == "pki_scard") {
-			ScardDetail *dlg;
-			dlg = new ScardDetail(mainwin);
-			dlg->setScard((pki_scard *)pki);
+			dlg->setKey((pki_key *)pki);
 			dlg->exec();
 			delete dlg;
 		} else if (cn == "pki_x509req") {

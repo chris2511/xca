@@ -9,6 +9,7 @@
 #include "KeyDetail.h"
 #include "MainWindow.h"
 #include "lib/pki_evp.h"
+#include "lib/pki_scard.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
 #include <qlabel.h>
@@ -33,19 +34,32 @@ static QString CurveComment(int nid)
 	return QString();
 }
 
-void KeyDetail::setKey(pki_evp *key)
+void KeyDetail::setKey(pki_key *key)
 {
 	int nid;
+	QString title = tr("Details of the ") +key->getTypeString() +tr(" key");
 
 	keyDesc->setText(key->getIntName());
 	keyLength->setText(key->length());
 
 	keyPrivEx->disableToolTip();
+	if (!key->isScard())
+		cardBox->hide();
+	tlHeader->setText(tr("Details of the") + " " + key->getTypeString() +
+		" " + tr(" key"));
+
 	if (key->isPubKey()) {
 		keyPrivEx->setText(tr("Not available"));
 		keyPrivEx->setRed();
-	}
-	else {
+	} else if (key->isScard()) {
+		image->setPixmap(*MainWindow::scardImg);
+		pki_scard *card = (pki_scard *)key;
+		cardBox->setTitle(tr("Card") +" [" +card->getCardLabel() +"]");
+		cardManufacturer->setText(card->getManufacturer());
+		cardSerial->setText(card->getSerial());
+		keyPrivEx->setText(tr("Smart card ID: ") +card->getId());
+		keyBox->setTitle(tr("Key") + " [" + card->getLabel() + "]");
+	} else {
 		keyPrivEx->setText(tr("Available"));
 		keyPrivEx->setGreen();
 	}
@@ -57,14 +71,12 @@ void KeyDetail::setKey(pki_evp *key)
 		case EVP_PKEY_DSA:
 			tlPubEx->setText(tr("Sub prime"));
 			tlModulus->setText(tr("Public key"));
-			tlHeader->setText(tr("Details of the DSA key"));
 			tlPrivEx->setText(tr("Private key"));
 			keyPubEx->setText(key->subprime());
 			keyModulus->setText(key->pubkey());
 			break;
 		case EVP_PKEY_EC:
 			nid = key->ecParamNid();
-			tlHeader->setText(tr("Details of the EC key"));
 			tlModulus->setText(tr("Public key"));
 			tlPrivEx->setText(tr("Private key"));
 			tlPubEx->setText(tr("Curve name"));

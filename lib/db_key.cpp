@@ -21,7 +21,6 @@
 #include "widgets/MainWindow.h"
 #include "widgets/ExportKey.h"
 #include "widgets/KeyDetail.h"
-#include "widgets/ScardDetail.h"
 #include "widgets/NewKey.h"
 
 db_key::db_key(QString db, MainWindow *mw)
@@ -161,21 +160,11 @@ void db_key::load(void)
 void db_key::showPki(pki_base *pki)
 {
 	pki_evp *key = (pki_evp *)pki;
-	if (key->isScard()) {
-		pki_scard *card = (pki_scard*)pki;
-		ScardDetail *dlg = new ScardDetail(mainwin);
-		if (dlg) {
-			dlg->setScard(card);
-			dlg->exec();
-			delete dlg;
-		}
-	} else {
-		KeyDetail *dlg = new KeyDetail(mainwin);
-		if (dlg) {
-			dlg->setKey(key);
-			dlg->exec();
-			delete dlg;
-		}
+	KeyDetail *dlg = new KeyDetail(mainwin);
+	if (dlg) {
+		dlg->setKey(key);
+		dlg->exec();
+		delete dlg;
 	}
 }
 
