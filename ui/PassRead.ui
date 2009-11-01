@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>PassRead</class>
- <widget class="QDialog" name="PassRead" >
-  <property name="geometry" >
+ <widget class="QDialog" name="PassRead">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,45 +10,27 @@
     <height>192</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Password</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>6</number>
    </property>
-   <property name="leftMargin" >
-    <number>8</number>
-   </property>
-   <property name="topMargin" >
-    <number>8</number>
-   </property>
-   <property name="rightMargin" >
-    <number>8</number>
-   </property>
-   <property name="bottomMargin" >
+   <property name="margin">
     <number>8</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QLabel" name="title" >
-       <property name="font" >
+      <widget class="QLabel" name="title">
+       <property name="font">
         <font>
          <family>Arial</family>
          <pointsize>14</pointsize>
@@ -58,20 +41,20 @@
          <strikeout>false</strikeout>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Password</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -80,20 +63,20 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="image" >
-       <property name="minimumSize" >
+      <widget class="QLabel" name="image">
+       <property name="minimumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="maximumSize" >
+       <property name="maximumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="scaledContents" >
+       <property name="scaledContents">
         <bool>true</bool>
        </property>
       </widget>
@@ -101,46 +84,37 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="description" >
-     <property name="text" >
+    <widget class="QLabel" name="description">
+     <property name="text">
       <string/>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame" >
-     <property name="frameShape" >
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
-     <property name="frameShadow" >
+     <property name="frameShadow">
       <enum>QFrame::Sunken</enum>
      </property>
-     <layout class="QHBoxLayout" >
-      <property name="spacing" >
+     <layout class="QHBoxLayout">
+      <property name="spacing">
        <number>6</number>
       </property>
-      <property name="leftMargin" >
-       <number>8</number>
-      </property>
-      <property name="topMargin" >
-       <number>8</number>
-      </property>
-      <property name="rightMargin" >
-       <number>8</number>
-      </property>
-      <property name="bottomMargin" >
+      <property name="margin">
        <number>8</number>
       </property>
       <item>
-       <widget class="QLabel" name="TextLabel1" >
-        <property name="text" >
+       <widget class="QLabel" name="label">
+        <property name="text">
          <string>Password</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="pass" >
-        <property name="echoMode" >
+       <widget class="QLineEdit" name="pass">
+        <property name="echoMode">
          <enum>QLineEdit::Password</enum>
         </property>
        </widget>
@@ -149,38 +123,29 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="PushButton2" >
-       <property name="text" >
+      <widget class="QPushButton" name="PushButton2">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -189,8 +154,8 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="PushButton1" >
-       <property name="text" >
+      <widget class="QPushButton" name="PushButton1">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
       </widget>
@@ -212,11 +177,11 @@
    <receiver>PassRead</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>148</x>
      <y>123</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>158</x>
      <y>157</y>
     </hint>
@@ -228,11 +193,11 @@
    <receiver>PassRead</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>307</x>
      <y>172</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>258</x>
      <y>162</y>
     </hint>
@@ -244,11 +209,11 @@
    <receiver>PassRead</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>28</x>
      <y>167</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>110</x>
      <y>161</y>
     </hint>

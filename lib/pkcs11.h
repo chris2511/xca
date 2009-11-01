@@ -18,6 +18,7 @@ class pkcs11
 		CK_OBJECT_HANDLE object;
 	public:
 		static CK_FUNCTION_LIST *p11;
+		void init_pkcs11();
 		static void pk11error(QString fmt, int r);
 
 		pkcs11();
@@ -26,11 +27,17 @@ class pkcs11
 
 		QStringList tokenInfo(CK_SLOT_ID slot);
 		QStringList tokenInfo();
-		void startSession(unsigned long slot);
+		void startSession(unsigned long slot, bool rw = false);
 		CK_SLOT_ID *getSlotList(unsigned long *num_slots);
 		void loadAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
 		QList<CK_OBJECT_HANDLE> objectList(const pk11_attribute *att);
+		void login(unsigned long slot,
+			unsigned char *pin, unsigned long pinlen, bool so);
+		void setPin(unsigned char *oldPin, unsigned long oldPinLen,
+			unsigned char *pin, unsigned long pinLen);
+		void initPin(unsigned char *pin, unsigned long pinLen);
+
 
 
 };

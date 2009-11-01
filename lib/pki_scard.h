@@ -33,6 +33,7 @@ class pki_scard: public pki_key
 		static QPixmap *icon[1];
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		int init_p11engine(void) const;
+		int prepare_card() const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		unsigned char *toData(int *size);
 		bool isPubKey() const;
@@ -44,6 +45,7 @@ class pki_scard: public pki_key
 		QString getCardLabel() const { return card_label; }
 		EVP_PKEY *decryptKey() const;
 		QString length();
+		void changePin();
 		int verify();
 		bool isScard();
 		QVariant getIcon();

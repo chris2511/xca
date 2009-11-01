@@ -192,15 +192,11 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 				menu->addAction(tr("Reset password"), this,
 						SLOT(resetOwnPass()));
 				break;
-			case pki_key::ptPin:
-				menu->addAction(tr("Change PIN"), this,
-                                                SLOT(resetOwnPass()));
-				break;
 			}
 		}
 		if (key->isScard()) {
 			menu->addAction(tr("Change PIN"), this,
-				SLOT(setOwnPass()));
+				SLOT(changePin()));
 		}
 	}
 	menu->exec(e->globalPos());
@@ -291,3 +287,18 @@ void db_key::__setOwnPass(enum pki_key::passType x)
 	updatePKI(targetKey);
 }
 
+void db_key::changePin()
+{
+	pki_scard *scard;
+	if (!currentIdx.isValid())
+		        return;
+	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
+	try {
+		if (!scard->isScard()) {
+			throw errorEx(tr("Tried to change password of a smart card"));
+		}
+		scard->changePin();
+	} catch (errorEx &err) {
+		mainwin->Error(err);
+	}
+}

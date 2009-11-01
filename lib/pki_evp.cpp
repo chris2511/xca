@@ -554,8 +554,6 @@ void pki_evp::bogusEncryptKey()
 
 pki_evp::~pki_evp()
 {
-	if (key)
-		EVP_PKEY_free(key);
 	if (encKey)
 		OPENSSL_free(encKey);
 }

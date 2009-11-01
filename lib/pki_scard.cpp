@@ -85,6 +85,21 @@ pki_scard::pki_scard(const QString name)
 	init();
 }
 
+static EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object)
+{
+	const unsigned char *p;
+	unsigned long s;
+
+	pk11_attr_data rsaPub(CKA_VALUE);
+	p11.loadAttribute(rsaPub, object);
+	s = rsaPub.getValue(&p);
+	RSA *rsa = d2i_RSAPublicKey(NULL, &p, s);
+
+	EVP_PKEY *pkey = EVP_PKEY_new();
+	EVP_PKEY_set1_RSA(pkey, rsa);
+	return pkey;
+}
+
 void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
 	QStringList sl = p11.tokenInfo();
@@ -104,15 +119,80 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	p11.loadAttribute(id, object);
 	object_id.setNum(CCHAR(id.getText())[0], 16);
 
-	pk11_attr_data rsaPub(CKA_VALUE);
-	p11.loadAttribute(rsaPub, object);
-	const unsigned char *p;
-	unsigned long s = rsaPub.getValue(&p);
-	RSA *rsa = d2i_RSAPublicKey(NULL, &p, s);
-	EVP_PKEY_set1_RSA(key, rsa);
-
+	EVP_PKEY *pkey = load_pubkey(p11, object);
+	if (pkey) {
+		if (key)
+			EVP_PKEY_free(key);
+		key = pkey;
+	}
 	setIntName(card_label + " (" + slot_label + ")");
 	openssl_error();
+}
+
+/* Assures the correct card is inserted and
+ * returns the slot ID or -1 on error or abort */
+int pki_scard::prepare_card() const
+{
+	pkcs11 p11;
+        CK_SLOT_ID *p11_slots = NULL;
+        unsigned long i, num_slots;
+
+
+	while (1) {
+		p11.init_pkcs11();
+		p11_slots = p11.getSlotList(&num_slots);
+		for (i=0; i<num_slots; i++) {
+			pkcs11 myp11;
+			QStringList sl = myp11.tokenInfo(i);
+			printf("PR: '%s' '%s' : '%s' '%s'\n",
+				CCHAR(sl[1]), CCHAR(sl[2]),
+				CCHAR(card_manufacturer), CCHAR(card_serial));
+			if (sl[0] == card_label &&
+			    sl[1] == card_manufacturer &&
+			    sl[2] == card_serial)
+			{
+				break;
+			}
+		}
+		if (i<num_slots)
+			break;
+		QString msg = tr("Please insert card :'") +
+			card_manufacturer + " [" + card_label +
+			"] " + tr("with Serial: ") + card_serial;
+
+		int r = QMessageBox::warning(NULL, XCA_TITLE, msg,
+			tr("&OK"), tr("Abort"));
+		if (r == 1) {
+			return -1;
+		}
+	}
+
+	pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
+	QList<CK_OBJECT_HANDLE> objects;
+
+	for (i=0; i<num_slots; i++) {
+		p11.startSession(i);
+
+		class_att.setValue(CKO_PUBLIC_KEY);
+		objects = p11.objectList(&class_att);
+
+		for (int j=0; j< objects.count(); j++) {
+			CK_OBJECT_HANDLE object = objects[j];
+			QString cid;
+
+			pk11_attr_data id(CKA_ID);
+			p11.loadAttribute(id, object);
+			cid.setNum(CCHAR(id.getText())[0], 16);
+
+			if (cid == object_id) {
+				EVP_PKEY *pkey = load_pubkey(p11, object);
+				if (EVP_PKEY_cmp(key, pkey) == 1)
+					return i;
+				QMessageBox::warning(NULL, XCA_TITLE, tr("Public Key missmatch. Please re-import card"), tr("&OK"));
+			}
+		}
+	}
+	return -1;
 }
 
 pki_scard::~pki_scard()
@@ -182,11 +262,46 @@ QString pki_scard::getTypeString(void)
 
 EVP_PKEY *pki_scard::decryptKey() const
 {
+	int slot_id = prepare_card();
+
+	if (slot_id == -1)
+		return NULL;
+
+	QString key_id = QString("%1:").arg(slot_id) + object_id;
+	printf("SLOT:ID = '%s'\n", CCHAR(key_id));
 	init_p11engine();
 	ENGINE_init(p11_engine);
 	ign_openssl_error();
-	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, "3:48", NULL, NULL);
+	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
+						NULL, NULL);
 	return pkey;
+}
+
+void pki_scard::changePin()
+{
+	char oldPin[256], newPin[256];
+	int slot;
+
+	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+                        "Please enter the PIN of the token: ")+ getIntName());
+	p.setPin();
+
+	slot = prepare_card();
+	if (slot == -1)
+		return;
+	int oldPinLen = MainWindow::passRead(oldPin, 256, 0, &p);
+
+	pkcs11 p11;
+	p11.init_pkcs11();
+	p11.login(slot, (unsigned char*)oldPin, oldPinLen, false);
+
+	p.setDescription(qApp->translate("MainWindow",
+		"Please enter the new Pin for the token: ") +getIntName());
+
+	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
+
+	p11.setPin((unsigned char*)oldPin, oldPinLen,
+		(unsigned char*)newPin, newPinLen);
 }
 
 int pki_scard::verify()

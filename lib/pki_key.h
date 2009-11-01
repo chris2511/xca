@@ -29,7 +29,7 @@ class pki_key: public pki_base
 	public:
 		pki_key(const QString name = "");
 		pki_key(const pki_key *pk);
-		virtual ~pki_key() { };
+		virtual ~pki_key();
 		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
 
 		virtual EVP_PKEY *decryptKey() const { return NULL; };

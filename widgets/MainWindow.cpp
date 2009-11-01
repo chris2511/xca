@@ -483,7 +483,6 @@ int MainWindow::initPass()
 }
 
 // Static Password Callback functions
-
 int MainWindow::passRead(char *buf, int size, int, void *userdata)
 {
 	int ret = -1;
@@ -492,20 +491,21 @@ int MainWindow::passRead(char *buf, int size, int, void *userdata)
 	QDialog *dlg = new QDialog(p->getWidget());
 	ui.setupUi(dlg);
 	if (p != NULL) {
-		ui.image->setPixmap( *keyImg );
+		ui.image->setPixmap(p->getImage());
 		ui.description->setText(p->getDescription());
+		ui.title->setText(p->getType());
+		ui.label->setText(p->getType());
 		dlg->setWindowTitle(p->getTitle());
 	}
 
 	if (dlg->exec()) {
-	   QString x = ui.pass->text();
-	   strncpy(buf, x.toAscii(), size);
-	   ret = x.length();
+		QString x = ui.pass->text();
+		strncpy(buf, x.toAscii(), size);
+		ret = x.length();
 	}
 	delete dlg;
 	return ret;
 }
-
 
 int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 {
@@ -515,8 +515,11 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 	QDialog *dlg = new QDialog(p->getWidget());
 	ui.setupUi(dlg);
 	if (p != NULL) {
-		ui.image->setPixmap( *keyImg );
+		ui.image->setPixmap(p->getImage()) ;
 		ui.description->setText(p->getDescription());
+		ui.title->setText(p->getType());
+		ui.label->setText(p->getType());
+		ui.repeatLabel->setText(tr("Repeat ") + p->getType());
 		dlg->setWindowTitle(p->getTitle());
 	}
 	dlg->show();
@@ -531,7 +534,7 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 			ret = A.length();
 			break;
 		} else {
-			QMessageBox::warning(p->getWidget(), tr(XCA_TITLE), tr("Password missmatch"));
+			QMessageBox::warning(p->getWidget(), tr(XCA_TITLE), p->getType() + tr(" missmatch"));
 		}
 	}
 	delete dlg;

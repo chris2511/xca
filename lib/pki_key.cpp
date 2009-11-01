@@ -38,6 +38,12 @@ pki_key::pki_key(const pki_key *pk)
 	openssl_error();
 }
 
+pki_key::~pki_key()
+{
+	if (key)
+		EVP_PKEY_free(key);
+}
+
 QString pki_key::getTypeString()
 {
 	QString type;
@@ -158,48 +164,15 @@ QString pki_key::ecPubKey()
 bool pki_key::compare(pki_base *ref)
 {
 	pki_key *kref = (pki_key *)ref;
+
 	if (kref->getKeyType() != getKeyType())
 		return false;
 	if (!kref || !kref->key || !key)
 		return false;
-	switch (key->type) {
-	case EVP_PKEY_RSA:
-		if (!kref->key->pkey.rsa->n || !key->pkey.rsa->n)
-			return false;
-		if (BN_cmp(key->pkey.rsa->n, kref->key->pkey.rsa->n) ||
-		    BN_cmp(key->pkey.rsa->e, kref->key->pkey.rsa->e))
-		{
-			openssl_error();
-			return false;
-		}
-		break;
-	case EVP_PKEY_DSA:
-		if (!kref->key->pkey.dsa->pub_key || !key->pkey.dsa->pub_key)
-			return false;
-		if (BN_cmp(key->pkey.dsa->pub_key,
-			   kref->key->pkey.dsa->pub_key))
-		{
-			openssl_error();
-			return false;
-		}
-		break;
-	case EVP_PKEY_EC:
-		EC_KEY *ec = key->pkey.ec, *ec_ref = kref->key->pkey.ec;
-		const EC_GROUP *group = EC_KEY_get0_group(ec);
 
-		if (!ec || !ec_ref)
-			return false;
-		if (EC_GROUP_cmp(EC_KEY_get0_group(ec), group, NULL))
-			return false;
-		openssl_error();
-		if (EC_POINT_cmp(group, EC_KEY_get0_public_key(ec),
-				 EC_KEY_get0_public_key(ec_ref), NULL))
-			return false;
-		if (ign_openssl_error())
-			return false;
-	}
+	int r = EVP_PKEY_cmp(key, kref->key);
 	openssl_error();
-	return true;
+	return r == 1;
 }
 
 void pki_key::writePublic(const QString fname, bool pem)
