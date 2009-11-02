@@ -46,6 +46,7 @@ class pki_scard: public pki_key
 		EVP_PKEY *decryptKey() const;
 		QString length();
 		void changePin();
+		void initPin();
 		int verify();
 		bool isScard();
 		QVariant getIcon();

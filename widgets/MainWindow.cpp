@@ -496,12 +496,19 @@ int MainWindow::passRead(char *buf, int size, int, void *userdata)
 		ui.title->setText(p->getType());
 		ui.label->setText(p->getType());
 		dlg->setWindowTitle(p->getTitle());
+		if (p->getType() != "PIN")
+			ui.takeHex->hide();
 	}
 
 	if (dlg->exec()) {
 		QString x = ui.pass->text();
-		strncpy(buf, x.toAscii(), size);
-		ret = x.length();
+		if (ui.takeHex->isChecked()) {
+			// PARSE Hex string
+			abort();
+		} else {
+			strncpy(buf, x.toAscii(), size);
+			ret = x.length();
+		}
 	}
 	delete dlg;
 	return ret;
@@ -521,6 +528,8 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 		ui.label->setText(p->getType());
 		ui.repeatLabel->setText(tr("Repeat ") + p->getType());
 		dlg->setWindowTitle(p->getTitle());
+		if (p->getType() != "PIN")
+			ui.takeHex->hide();
 	}
 	dlg->show();
 	dlg->activateWindow();
