@@ -38,24 +38,26 @@ QPixmap *pki_scard::icon[1] = { NULL };
 #define XCA_ENGINE_cmd(e, cmd, value) \
 	do { \
 		if (!ENGINE_ctrl_cmd_string(e, cmd, value, 0)) { \
-			openssl_error(); \
+			printf("FAILED: '%s' : '%s'\n", cmd, value ? value:"");\
 			ENGINE_free(e); \
 			return 0; \
 		} \
+		printf("SUCCESS: '%s' : '%s'\n", cmd, value ? value:""); \
 	} while(0);
 
 ENGINE *pki_scard::p11_engine = NULL;
 
-int pki_scard::init_p11engine(void) const
+int pki_scard::init_p11engine(void)
 {
 	ENGINE *e;
 
 	if (p11_engine)
 		return 1;
 
+	pkcs11::load_lib("", true);
+
 	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
-	openssl_error();
 
 	XCA_ENGINE_cmd(e, "SO_PATH",      ENGINE_LIB);
 	XCA_ENGINE_cmd(e, "ID",           "pkcs11");
@@ -63,6 +65,7 @@ int pki_scard::init_p11engine(void) const
 	XCA_ENGINE_cmd(e, "LOAD",         NULL);
 	XCA_ENGINE_cmd(e, "MODULE_PATH",  PKCS11_DEFAULT_MODULE_NAME);
 
+	ENGINE_init(e);
 	p11_engine = e;
 	return 1;
 }
@@ -137,9 +140,7 @@ int pki_scard::prepare_card() const
         CK_SLOT_ID *p11_slots = NULL;
         unsigned long i, num_slots;
 
-
 	while (1) {
-		p11.init_pkcs11();
 		p11_slots = p11.getSlotList(&num_slots);
 		for (i=0; i<num_slots; i++) {
 			pkcs11 myp11;
@@ -260,20 +261,62 @@ QString pki_scard::getTypeString(void)
 	return tr("SmartCard") + " " + pki_key::getTypeString();
 }
 
+QString pki_scard::scardLogin(pkcs11 &p11, bool so, bool force) const
+{
+	char pin[256];
+	int pinlen;
+	bool need_login;
+
+	QString text = so ?
+		tr("Please enter the SO PIN (PUK) of the token: "):
+		tr("Please enter the PIN of the token: ");
+
+	pass_info p(XCA_TITLE, text + getIntName());
+	p.setPin();
+	need_login = p11.needsLogin(so);
+	if (force || need_login) {
+		if (!need_login)
+			 p11.logout();
+		pinlen = MainWindow::passRead(pin, 256, 0, &p);
+		if (pinlen == -1)
+			return QString();
+		p11.login((unsigned char*)pin, pinlen, so);
+	} else {
+		return QString("");
+	}
+	return QString::fromLocal8Bit(pin, pinlen);
+}
+
 EVP_PKEY *pki_scard::decryptKey() const
 {
-	int slot_id = prepare_card();
+	int slot_id;
+	QString pin;
+	struct {
+	        const void *password;
+		const char *prompt_info;
+        } cb_data = { NULL, NULL };
 
+	pass_info p(XCA_TITLE,
+		pki_scard::tr("Please enter the PIN of the token: ") +
+		getIntName());
+	p.setPin();
+
+	slot_id = prepare_card();
 	if (slot_id == -1)
 		return NULL;
 
 	QString key_id = QString("%1:").arg(slot_id) + object_id;
 	printf("SLOT:ID = '%s'\n", CCHAR(key_id));
-	init_p11engine();
-	ENGINE_init(p11_engine);
-	ign_openssl_error();
+
+	pkcs11 p11;
+	p11.startSession(slot_id, true);
+	pin = scardLogin(p11, false);
+	if (pin.isNull())
+		return NULL;
+	cb_data.password = CCHAR(pin);
 	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
-						NULL, NULL);
+						NULL, &cb_data);
+	openssl_error();
 	return pkey;
 }
 
@@ -282,8 +325,72 @@ void pki_scard::changePin()
 	char oldPin[256], newPin[256];
 	int slot;
 
-	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-                        "Please enter the PIN of the token: ")+ getIntName());
+	pass_info p(XCA_TITLE,
+		pki_scard::tr("Please enter the PIN of the token: ") +
+		getIntName());
+	p.setPin();
+
+	slot = prepare_card();
+	if (slot == -1)
+		return;
+
+	int oldPinLen = MainWindow::passRead(oldPin, 256, 0, &p);
+	if (oldPinLen == -1)
+		return;
+
+	pkcs11 p11;
+	p11.startSession(slot, true);
+	p11.logout();
+	p11.login((unsigned char*)oldPin, oldPinLen, false);
+	p.setDescription(qApp->translate("MainWindow",
+		"Please enter the new Pin for the token: ") +getIntName());
+
+	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
+	if (newPinLen != -1) {
+		p11.setPin((unsigned char*)oldPin, oldPinLen,
+			(unsigned char*)newPin, newPinLen);
+	}
+}
+
+void pki_scard::initPin()
+{
+	char soPin[256], newPin[256];
+	int slot;
+
+	pass_info p(XCA_TITLE,
+		pki_scard::tr("Please enter the SO PIN (PUK) of the token: ") +
+		getIntName());
+	p.setPin();
+
+	slot = prepare_card();
+	if (slot == -1)
+		return;
+	pkcs11 p11;
+	p11.startSession(slot, true);
+	if (p11.needsLogin(true)) {
+		int soPinLen = MainWindow::passRead(soPin, 256, 0, &p);
+		if (soPinLen == -1)
+			return;
+		p11.login((unsigned char*)soPin, soPinLen, true);
+	}
+	p.setDescription(qApp->translate("MainWindow",
+		"Please enter the new Pin for the token: ") +getIntName());
+
+	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
+	if (newPinLen != -1) {
+		p11.initPin((unsigned char*)newPin, newPinLen);
+	}
+	p11.logout();
+}
+
+void pki_scard::changeSoPin()
+{
+	char oldPin[256], newPin[256];
+	int slot;
+
+	pass_info p(XCA_TITLE,
+		pki_scard::tr("Please enter the SO PIN (PUK) of the token: ") +
+		getIntName());
 	p.setPin();
 
 	slot = prepare_card();
@@ -293,48 +400,19 @@ void pki_scard::changePin()
 	if (oldPinLen == -1)
 		return;
 	pkcs11 p11;
-	p11.init_pkcs11();
-	p11.login(slot, (unsigned char*)oldPin, oldPinLen, false);
+	p11.startSession(slot, true);
+	p11.logout();
+	p11.login((unsigned char*)oldPin, oldPinLen, true);
 
 	p.setDescription(qApp->translate("MainWindow",
-		"Please enter the new Pin for the token: ") +getIntName());
+		"Please enter the new SO Pin for the token: ") +getIntName());
 
 	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
-	if (newPinLen == -1)
-		return;
-
-	p11.setPin((unsigned char*)oldPin, oldPinLen,
-		(unsigned char*)newPin, newPinLen);
-}
-
-void pki_scard::initPin()
-{
-	char soPin[256], newPin[256];
-	int slot;
-
-	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-                        "Please enter the SO PIN (PUK) of the token: ") +
-			getIntName());
-	p.setPin();
-
-	slot = prepare_card();
-	if (slot == -1)
-		return;
-	int soPinLen = MainWindow::passRead(soPin, 256, 0, &p);
-	if (soPinLen == -1)
-		return;
-	pkcs11 p11;
-	p11.init_pkcs11();
-	p11.login(slot, (unsigned char*)soPin, soPinLen, true);
-
-	p.setDescription(qApp->translate("MainWindow",
-		"Please enter the new Pin for the token: ") +getIntName());
-
-	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
-	if (newPinLen == -1)
-		return;
-
-	p11.initPin((unsigned char*)newPin, newPinLen);
+	if (newPinLen == -1) {
+		p11.setPin((unsigned char*)oldPin, oldPinLen,
+			(unsigned char*)newPin, newPinLen);
+	}
+	p11.logout();
 }
 
 int pki_scard::verify()

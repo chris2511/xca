@@ -32,6 +32,7 @@ public:
 	{
 		return &attr;
 	}
+	void store(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 };
 
 class pk11_attr_ulong: public pk11_attribute
@@ -45,7 +46,6 @@ public:
 		attr.pValue = &value;
 		attr.ulValueLen = sizeof(value);
 	}
-
 	unsigned long getValue() const
 	{
 		return value;
@@ -66,13 +66,11 @@ public:
 		attr.pValue = NULL;
 		attr.ulValueLen = 0;
 	}
-
 	unsigned long getValue(const unsigned char **ptr)
 	{
 		*ptr = (unsigned char*)attr.pValue;
 		return attr.ulValueLen;
 	}
-
 	~pk11_attr_data()
 	{
 		if (attr.pValue)
@@ -84,11 +82,11 @@ public:
 	}
 	BIGNUM *getBignum() const
 	{
-		printf("attr.ulValueLen %lu\n", attr.ulValueLen);
 		return BN_bin2bn((unsigned char*)attr.pValue,
 				attr.ulValueLen, NULL);
 	}
 	void load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
+	void setValue(const void *ptr, unsigned long len);
 };
 
 #endif

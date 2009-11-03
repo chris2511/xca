@@ -21,17 +21,6 @@ pkcs11::pkcs11()
 	session = CK_INVALID_HANDLE;
 	object = CK_INVALID_HANDLE;
 	slot_id = 0;
-
-	init_pkcs11();
-}
-
-void pkcs11::init_pkcs11()
-{
-	if (p11) {
-		CK_RV rv = p11->C_Initialize(NULL);
-		if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
-			pk11error("C_Initialize", rv);
-	}
 }
 
 pkcs11::~pkcs11()
@@ -59,27 +48,69 @@ void pkcs11::startSession(unsigned long slot, bool rw)
 CK_SLOT_ID *pkcs11::getSlotList(unsigned long *num_slots)
 {
 	CK_RV rv;
-	CK_SLOT_ID *p11_slots;
+	CK_SLOT_ID *p11_slots = NULL;
 
-	rv = p11->C_GetSlotList(CK_TRUE, NULL, num_slots);
-	if (rv != CKR_OK && rv != CKR_BUFFER_TOO_SMALL)
-		pk11error("C_GetSlotList", rv);
-	p11_slots = (CK_SLOT_ID *)malloc(*num_slots *sizeof(CK_SLOT_ID));
-	//oom_check(p11_slots);
-
-	rv = p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);
-	if (rv != CKR_OK)
-		pk11error("C_GetSlotList", rv);
+	p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);
+	do {
+		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);
+		if (rv != CKR_OK && rv != CKR_BUFFER_TOO_SMALL)
+			pk11error("C_GetSlotList", rv);
+		printf("*num_slots = %d\n", *num_slots);
+		if (*num_slots == 0)
+			break;
+		p11_slots = (CK_SLOT_ID *)realloc(p11_slots,
+					*num_slots *sizeof(CK_SLOT_ID));
+		if (!p11_slots)
+			throw errorEx("C_GetSlotList(Out of Memory)");
+	} while (rv == CKR_BUFFER_TOO_SMALL);
 	return p11_slots;
 }
 
-void pkcs11::login(unsigned long slot,
-		   unsigned char *pin, unsigned long pinlen, bool so)
+void pkcs11::logout()
+{
+	CK_RV rv;
+
+	rv = p11->C_Logout(session);
+	if (rv != CKR_OK)
+		pk11error("C_Logout", rv);
+}
+
+bool pkcs11::needsLogin(bool so)
+{
+	CK_SESSION_INFO sinfo;
+	CK_RV rv;
+
+	rv = p11->C_GetSessionInfo(session, &sinfo);
+	if (rv != CKR_OK)
+                pk11error("C_GetSessionInfo", rv);
+	switch (sinfo.state) {
+	case CKS_RO_PUBLIC_SESSION:
+	case CKS_RW_PUBLIC_SESSION:
+		return true;
+	case CKS_RW_SO_FUNCTIONS:
+		if (so) {
+			return false;
+		} else {
+			logout();
+			return true;
+		}
+	case CKS_RO_USER_FUNCTIONS:
+	case CKS_RW_USER_FUNCTIONS:
+		if (!so) {
+			return false;
+		} else {
+			logout();
+			return true;
+		}
+	}
+	return true;
+}
+
+void pkcs11::login(unsigned char *pin, unsigned long pinlen, bool so)
 {
 	unsigned long user = so ? CKU_SO : CKU_USER;
 	CK_RV rv;
 
-	startSession(slot, true);
 	rv = p11->C_Login(session, user, pin, pinlen);
 	if (rv != CKR_OK && rv != CKR_USER_ALREADY_LOGGED_IN)
 		pk11error("C_Login", rv);
@@ -124,6 +155,11 @@ QStringList pkcs11::tokenInfo()
 void pkcs11::loadAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 {
 	attribute.load(session, object);
+}
+
+void pkcs11::storeAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
+{
+	attribute.store(session, object);
 }
 
 QList<CK_OBJECT_HANDLE> pkcs11::objectList(const pk11_attribute *att)

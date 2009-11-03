@@ -8,8 +8,12 @@
 
 #include "pki_x509.h"
 #include "pki_evp.h"
+#include "pki_scard.h"
 #include "func.h"
 #include "base.h"
+#include "exception.h"
+#include "pass_info.h"
+#include "widgets/MainWindow.h"
 #include <qdir.h>
 
 QPixmap *pki_x509::icon[5] = { NULL, NULL, NULL, NULL, NULL };
@@ -172,6 +176,45 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	openssl_error();
 }
 
+void pki_x509::store_token()
+{
+	pki_scard *card = (pki_scard *)privkey;
+	int slot, size;
+	unsigned char*p, *p1;
+	QList<CK_OBJECT_HANDLE> objects;
+
+	if (!privkey || !privkey->isScard())
+		throw errorEx(tr("No associated Smart card"));
+
+	slot = card->prepare_card();
+
+	size = i2d_X509(cert, NULL);
+	openssl_error();
+	p = p1 = (unsigned char*)OPENSSL_malloc(size);
+
+	i2d_X509(cert, &p1);
+	openssl_error();
+	pk11_attr_data x509(CKA_VALUE);
+	x509.setValue(p, size);
+	free(p);
+
+	pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
+	class_att.setValue(CKO_CERTIFICATE);
+
+	pkcs11 p11;
+	p11.startSession(slot, true);
+	objects = p11.objectList(&class_att);
+	if (objects.count() == 0)
+		throw errorEx(tr("No certificate object found"));
+	if (objects.count() > 1)
+		throw errorEx(tr("More than one certificate objects found"));
+
+	if (card->scardLogin(p11, false).isNull())
+		return;
+	p11.storeAttribute(x509, objects[0]);
+	openssl_error();
+}
+
 bool pki_x509::verifyQASerial(const a1int &secret) const
 {
 	return getQASerial(secret) == getSerial();
@@ -329,8 +372,7 @@ unsigned char *pki_x509::toData(int *size)
 	*size = i2d_X509(cert, NULL) + 11 + caSerial.toHex().length() +
 		caTemplate.length() + crlExpiry.derSize() + revoked.derSize();
 	openssl_error();
-	p = (unsigned char*)OPENSSL_malloc(*size);
-	p1 = p;
+	p = p1 = (unsigned char*)OPENSSL_malloc(*size);
 
 	i2d_X509(cert, &p1); // cert
 	db::intToData(&p1, trust); // trust

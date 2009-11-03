@@ -549,10 +549,10 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subExport, *subCa;
-	QAction *itemReq, *itemRevoke, *itemExtend,
-			*itemTrust;
-	bool parentCanSign, canSign, hasTemplates, hasPrivkey;
+	QAction *itemReq, *itemRevoke, *itemExtend, *itemTrust, *itemScard;
+	bool parentCanSign, canSign, hasTemplates;
 	currentIdx = index;
+	pki_key *privkey;
 
 	pki_x509 *cert = static_cast<pki_x509*>(index.internalPointer());
 
@@ -567,6 +567,8 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subExport->addAction(tr("File"), this, SLOT(store()));
 		itemReq = subExport->addAction(tr("Request"),
 				this, SLOT(toRequest()));
+		itemScard = subExport->addAction(tr("Smart Card"),
+				this, SLOT(toScard()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
@@ -594,13 +596,14 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 					&& (cert->getSigner() != cert));
 		canSign = cert->canSign();
 		hasTemplates = mainwin->temps->getDesc().count() > 0 ;
-		hasPrivkey = cert->getRefKey();
+		privkey = cert->getRefKey();
 		itemRevoke->setEnabled(parentCanSign);
 		itemExtend->setEnabled(parentCanSign);
 		subCa->setEnabled(canSign);
-		itemReq->setEnabled(hasPrivkey);
+		itemReq->setEnabled(privkey);
+		itemScard->setEnabled(privkey && privkey->isScard());
 #if 0
-		subP7->setEnabled(hasPrivkey);
+		subP7->setEnabled(privkey);
 #endif
 	}
 	menu->exec(e->globalPos());
@@ -1011,6 +1014,18 @@ void db_x509::toRequest()
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
+}
+
+void db_x509::toScard()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
+		return;
+	try {
+		cert->store_token();
+	} catch (errorEx &err) {
+		mainwin->Error(err);
+        }
 }
 
 void db_x509::caProperties()

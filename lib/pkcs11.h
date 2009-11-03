@@ -31,9 +31,12 @@ class pkcs11
 		CK_SLOT_ID *getSlotList(unsigned long *num_slots);
 		void loadAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
+		void storeAttribute(pk11_attribute &attribute,
+				   CK_OBJECT_HANDLE object);
 		QList<CK_OBJECT_HANDLE> objectList(const pk11_attribute *att);
-		void login(unsigned long slot,
-			unsigned char *pin, unsigned long pinlen, bool so);
+		void login(unsigned char *pin, unsigned long pinlen, bool so);
+		void logout();
+		bool needsLogin(bool so);
 		void setPin(unsigned char *oldPin, unsigned long oldPinLen,
 			unsigned char *pin, unsigned long pinLen);
 		void initPin(unsigned char *pin, unsigned long pinLen);

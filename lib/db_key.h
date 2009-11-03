@@ -42,6 +42,8 @@ class db_key: public db_base
 		void setOwnPass();
 		void resetOwnPass();
 		void changePin();
+		void initPin();
+		void changeSoPin();
 
 	signals:
 		void delKey(pki_key *delkey);

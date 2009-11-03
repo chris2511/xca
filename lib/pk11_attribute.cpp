@@ -37,3 +37,22 @@ void pk11_attr_data::load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 	pkcs11::pk11error("C_GetAttributeValue(data)", rv); \
 }
 
+void pk11_attr_data::setValue(const void *ptr, unsigned long len)
+{
+	if (attr.pValue)
+		free(attr.pValue);
+	attr.pValue = malloc(len);
+	if (!attr.pValue)
+		throw errorEx("Out of Memory");
+	memcpy(attr.pValue, ptr, len);
+	attr.ulValueLen = len;
+}
+
+void pk11_attribute::store(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
+{
+	CK_RV rv;
+	rv = pkcs11::p11->C_SetAttributeValue(sess, obj, &attr, 1);
+	if (rv != CKR_OK)
+		pkcs11::pk11error("C_SetAttributeValue", rv);
+}
+

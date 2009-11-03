@@ -151,7 +151,7 @@ MainWindow::MainWindow(QWidget *parent )
 	homedir = getHomeDir();
 
 	init_curves();
-	pkcs11::load_lib("", true);
+	pki_scard::init_p11engine();
 
 	// FIXME: Change pass isn't functional yet.
 	BNchangePass->setDisabled(true);
@@ -357,6 +357,9 @@ void MainWindow::importScard()
 		pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
 		p11_slots = p11.getSlotList(&num_slots);
 
+		if (num_slots == 0)
+			QMessageBox::warning(this, XCA_TITLE,
+				tr("No Smart card found"));
 		for (i=0; i<num_slots; i++) {
 			p11.startSession(i);
 
@@ -482,6 +485,25 @@ int MainWindow::initPass()
 	return 1;
 }
 
+static int hex2bin(QString &x, char *buf, int buflen)
+{
+	int len = x.length();
+	bool ok = false;
+	if (len % 2)
+		return -1;
+	len /= 2;
+	if (len > buflen)
+		return -1;
+
+	for (int i=0; i<len; i++) {
+		buf[i] = x.mid(i*2, 2).toInt(&ok, 16);
+		if (!ok)
+			return -1;
+	}
+	return len;
+}
+
+static const QString hexwarn = MainWindow::tr("Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it must consist of an even number of characters");
 // Static Password Callback functions
 int MainWindow::passRead(char *buf, int size, int, void *userdata)
 {
@@ -500,15 +522,18 @@ int MainWindow::passRead(char *buf, int size, int, void *userdata)
 			ui.takeHex->hide();
 	}
 
-	if (dlg->exec()) {
+	while (dlg->exec()) {
 		QString x = ui.pass->text();
 		if (ui.takeHex->isChecked()) {
-			// PARSE Hex string
-			abort();
+			ret = hex2bin(x, buf, size);
+			if (ret != -1)
+				break;
 		} else {
 			strncpy(buf, x.toAscii(), size);
 			ret = x.length();
+			break;
 		}
+		QMessageBox::warning(p->getWidget(), XCA_TITLE, hexwarn);
 	}
 	delete dlg;
 	return ret;
@@ -539,13 +564,24 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 		QString A = ui.passA->text();
 		QString B = ui.passB->text();
 		if (A == B) {
-			strncpy(buf, A.toAscii(), size);
-			ret = A.length();
-			break;
+			if (ui.takeHex->isChecked()) {
+				ret = hex2bin(A, buf, size);
+				if (ret != -1)
+					break;
+			} else {
+				strncpy(buf, A.toAscii(), size);
+				ret = A.length();
+				break;
+			}
+			QMessageBox::warning(p->getWidget(), XCA_TITLE,
+						hexwarn);
 		} else {
-			QMessageBox::warning(p->getWidget(), tr(XCA_TITLE), p->getType() + tr(" missmatch"));
+			QMessageBox::warning(p->getWidget(), XCA_TITLE,
+						p->getType() + tr(" missmatch"));
 		}
 	}
+	for (int i=0; i<ret; i++)
+		printf("NewPass[%d] = 0x%02x\n", i, buf[i]);
 	delete dlg;
 	return ret;
 }

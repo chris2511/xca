@@ -66,6 +66,7 @@ class db_x509: public db_x509super
 		void genCrl();
 		void caProperties();
 		void toRequest();
+		void toScard();
 		void newCert(pki_temp *);
 		void newCert(pki_x509req *);
 		void loadPKCS12();

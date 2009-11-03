@@ -197,6 +197,10 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		if (key->isScard()) {
 			menu->addAction(tr("Change PIN"), this,
 				SLOT(changePin()));
+			menu->addAction(tr("Init PIN with SO PIN (PUK)"), this,
+				SLOT(initPin()));
+			menu->addAction(tr("Change SO PIN (PUK)"), this,
+				SLOT(changeSoPin()));
 		}
 	}
 	menu->exec(e->globalPos());
@@ -295,10 +299,43 @@ void db_key::changePin()
 	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
 	try {
 		if (!scard->isScard()) {
-			throw errorEx(tr("Tried to change password of a smart card"));
+			throw errorEx(tr("Tried to change PIN of a key"));
 		}
 		scard->changePin();
 	} catch (errorEx &err) {
 		mainwin->Error(err);
 	}
 }
+
+void db_key::initPin()
+{
+	pki_scard *scard;
+	if (!currentIdx.isValid())
+		        return;
+	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
+	try {
+		if (!scard->isScard()) {
+			throw errorEx(tr("Tried to init PIN of a key"));
+		}
+		scard->initPin();
+	} catch (errorEx &err) {
+		mainwin->Error(err);
+	}
+}
+
+void db_key::changeSoPin()
+{
+	pki_scard *scard;
+	if (!currentIdx.isValid())
+		        return;
+	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
+	try {
+		if (!scard->isScard()) {
+			throw errorEx(tr("Tried to change SO PIN of a key"));
+		}
+		scard->changeSoPin();
+	} catch (errorEx &err) {
+		mainwin->Error(err);
+	}
+}
+
