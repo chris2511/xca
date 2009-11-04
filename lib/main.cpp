@@ -45,11 +45,10 @@ int main( int argc, char *argv[] )
 	a.installTranslator( &qtTr );
 	a.installTranslator( &xcaTr );
 
-	mw = new MainWindow( NULL);
+	mw = new MainWindow(NULL);
 	mw->read_cmdline();
 	if (mw->exitApp == 0) {
-		fprintf(stderr, "Locale:'%s'; Prefix:'%s'\n",
-			CCHAR(locale), CCHAR(getPrefix()));
+		mw->load_engine();
 		mw->show();
 		ret = a.exec();
 	}

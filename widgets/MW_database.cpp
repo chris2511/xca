@@ -81,6 +81,13 @@ void MainWindow::init_database()
 			}
 		}
 		mydb.first();
+		if (!mydb.find(setting, "pkcs11path")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				pkcs11path = p;
+				free(p);
+			}
+		}
+		mydb.first();
 		if (!mydb.find(setting, "default_hash")) {
 			if ((p = (char *)mydb.load(NULL))) {
 				hashBox::setDefault(p);

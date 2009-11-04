@@ -183,6 +183,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		if (key->isPrivKey() && !key->isScard()) {
+			printf("own %d com %d priv %d\n", key->getOwnPass(), pki_key::ptCommon, pki_key::ptPrivate);
 			switch (key->getOwnPass()) {
 			case pki_key::ptCommon:
 				menu->addAction(tr("Change password"), this,
@@ -194,7 +195,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 				break;
 			}
 		}
-		if (key->isScard()) {
+		if (key->isScard() && pkcs11::loaded()) {
 			menu->addAction(tr("Change PIN"), this,
 				SLOT(changePin()));
 			menu->addAction(tr("Init PIN with SO PIN (PUK)"), this,

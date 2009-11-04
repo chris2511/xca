@@ -2,28 +2,34 @@
 #ifndef _XCA_PKCS11_H_
 #define _XCA_PKCS11_H_
 
-#include <opensc/pkcs11.h>
+#include "opensc-pkcs11.h"
 #include <qstring.h>
+#include <qlist.h>
 #include <ltdl.h>
 
 #include "pk11_attribute.h"
 
 class pkcs11
 {
+	friend class pk11_attribute;
+	friend class pk11_attr_ulong;
+	friend class pk11_attr_data;
+
 	private:
 		static lt_dlhandle dl_handle;
+		static CK_FUNCTION_LIST *p11;
 
 		CK_SESSION_HANDLE session;
 		CK_SLOT_ID slot_id;
 		CK_OBJECT_HANDLE object;
 	public:
-		static CK_FUNCTION_LIST *p11;
 		void init_pkcs11();
 		static void pk11error(QString fmt, int r);
+		static bool loaded() { return !!p11; };
 
 		pkcs11();
 		~pkcs11();
-		static void load_lib(QString file, bool silent);
+		static bool load_lib(QString file, bool silent);
 
 		QStringList tokenInfo(CK_SLOT_ID slot);
 		QStringList tokenInfo();
@@ -40,9 +46,7 @@ class pkcs11
 		void setPin(unsigned char *oldPin, unsigned long oldPinLen,
 			unsigned char *pin, unsigned long pinLen);
 		void initPin(unsigned char *pin, unsigned long pinLen);
-
-
-
+		QList<CK_MECHANISM_TYPE> mechanismList(unsigned long slot);
 };
 
 #endif

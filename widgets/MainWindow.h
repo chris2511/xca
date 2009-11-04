@@ -33,8 +33,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	private:
 		QString workingdir;
 		QString string_opt;
+		QString pkcs11path;
 		QList<QWidget*> wdList;
 		QList<QAction*> acList;
+		QAction *scardMenuAction;
 
 	protected:
 		void init_images();
@@ -64,6 +66,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void saveSettings();
 		int initPass();
 		void read_cmdline();
+		void load_engine();
 		static int passRead(char *buf, int size, int rwflag, void *userdata);
 		static int passWrite(char *buf, int size, int rwflag, void *userdata);
 		//static void Qt::SocketError(errorEx &err);

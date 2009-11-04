@@ -9,9 +9,9 @@
 #define PKI_PKCS11_ATTRIBUTE_H
 
 #include <qstring.h>
-#include <opensc/pkcs11.h>
 #include <stdlib.h>
 #include <openssl/bn.h>
+#include "opensc-pkcs11.h"
 
 #define UTF8QSTRING(x,s) QString::fromUtf8((const char*)(x), s).trimmed();
 

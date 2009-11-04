@@ -601,7 +601,9 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		itemExtend->setEnabled(parentCanSign);
 		subCa->setEnabled(canSign);
 		itemReq->setEnabled(privkey);
-		itemScard->setEnabled(privkey && privkey->isScard());
+		itemScard->setEnabled(privkey &&
+				privkey->isScard() &&
+				pkcs11::loaded());
 #if 0
 		subP7->setEnabled(privkey);
 #endif

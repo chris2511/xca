@@ -38,23 +38,32 @@ QPixmap *pki_scard::icon[1] = { NULL };
 #define XCA_ENGINE_cmd(e, cmd, value) \
 	do { \
 		if (!ENGINE_ctrl_cmd_string(e, cmd, value, 0)) { \
-			printf("FAILED: '%s' : '%s'\n", cmd, value ? value:"");\
+			if (!silent) \
+				printf("FAILED: '%s' : '%s'\n", \
+					 cmd, value ? value:"");\
 			ENGINE_free(e); \
-			return 0; \
+			return false; \
 		} \
-		printf("SUCCESS: '%s' : '%s'\n", cmd, value ? value:""); \
+		if (!silent) \
+			printf("SUCCESS: '%s' : '%s'\n", cmd, value?value:"");\
 	} while(0);
 
 ENGINE *pki_scard::p11_engine = NULL;
 
-int pki_scard::init_p11engine(void)
+bool pki_scard::init_p11engine(QString file, bool silent)
 {
 	ENGINE *e;
 
-	if (p11_engine)
-		return 1;
+	if (file.isEmpty())
+                file = PKCS11_DEFAULT_MODULE_NAME;
 
-	pkcs11::load_lib("", true);
+	if (p11_engine) {
+		ENGINE_finish(p11_engine);
+		ENGINE_free(p11_engine);
+	}
+
+	if (!pkcs11::load_lib(file, silent))
+		return false;
 
 	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
@@ -63,7 +72,7 @@ int pki_scard::init_p11engine(void)
 	XCA_ENGINE_cmd(e, "ID",           "pkcs11");
 	XCA_ENGINE_cmd(e, "LIST_ADD",     "1");
 	XCA_ENGINE_cmd(e, "LOAD",         NULL);
-	XCA_ENGINE_cmd(e, "MODULE_PATH",  PKCS11_DEFAULT_MODULE_NAME);
+	XCA_ENGINE_cmd(e, "MODULE_PATH",  CCHAR(file));
 
 	ENGINE_init(e);
 	p11_engine = e;
@@ -132,6 +141,26 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	openssl_error();
 }
 
+QList<int> pki_scard::possibleHashNids()
+{
+	QList<int> nids;
+	int i;
+
+	for (i=0; i< mech_list.count(); i++) {
+		switch (mech_list[i]) {
+		case CKM_MD5_RSA_PKCS:    nids << NID_md5; break;
+		case CKM_DSA_SHA1:
+		case CKM_ECDSA_SHA1:
+		case CKM_SHA1_RSA_PKCS:   nids << NID_sha1; break;
+		case CKM_SHA256_RSA_PKCS: nids << NID_sha256; break;
+		case CKM_SHA384_RSA_PKCS: nids << NID_sha384; break;
+		case CKM_SHA512_RSA_PKCS: nids << NID_sha512; break;
+		case CKM_RIPEMD160_RSA_PKCS: nids << NID_ripemd160; break;
+		}
+	}
+	return nids;
+}
+
 /* Assures the correct card is inserted and
  * returns the slot ID or -1 on error or abort */
 int pki_scard::prepare_card() const
@@ -140,14 +169,13 @@ int pki_scard::prepare_card() const
         CK_SLOT_ID *p11_slots = NULL;
         unsigned long i, num_slots;
 
+	if (!pkcs11::loaded())
+		return -1;
 	while (1) {
 		p11_slots = p11.getSlotList(&num_slots);
 		for (i=0; i<num_slots; i++) {
 			pkcs11 myp11;
 			QStringList sl = myp11.tokenInfo(i);
-			printf("PR: '%s' '%s' : '%s' '%s'\n",
-				CCHAR(sl[1]), CCHAR(sl[2]),
-				CCHAR(card_manufacturer), CCHAR(card_serial));
 			if (sl[0] == card_label &&
 			    sl[1] == card_manufacturer &&
 			    sl[2] == card_serial)
@@ -204,11 +232,13 @@ unsigned char *pki_scard::toData(int *size)
 {
 	size_t s;
 	unsigned char *p, *p1;
+	int i;
 
 	s = card_serial.length() + card_manufacturer.length() +
 		card_label.length() + bit_length.length() +
 		slot_label.length() + object_id.length() +
-		7 *sizeof(char) + i2d_PUBKEY(key, NULL);;
+		7 *sizeof(char) + i2d_PUBKEY(key, NULL) +
+		(mech_list.count() + 1) * sizeof(uint32_t);
 
 	p = (unsigned char *)OPENSSL_malloc(s);
         check_oom(p);
@@ -221,6 +251,9 @@ unsigned char *pki_scard::toData(int *size)
 	db::stringToData(&p1, slot_label);
 	db::stringToData(&p1, bit_length);
 	db::stringToData(&p1, object_id);
+	db::intToData(&p1, mech_list.count());
+	for (i=0; i<mech_list.count(); i++)
+		db::intToData(&p1, mech_list[i]);
 
 	i2d_PUBKEY(key, &p1);
 	openssl_error();
@@ -232,6 +265,7 @@ unsigned char *pki_scard::toData(int *size)
 void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 {
 	int version, size;
+	unsigned long count, i;
 	const unsigned char *p1 = p;
 
 	size = head->len - sizeof(db_header_t);
@@ -243,6 +277,10 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 	slot_label = db::stringFromData(&p1);
 	bit_length = db::stringFromData(&p1);
 	object_id  = db::stringFromData(&p1);
+	count      = db::intFromData(&p1);
+	mech_list.clear();
+	for (i=0; i<count; i++)
+		mech_list << db::intFromData(&p1);
 
 	d2i_PUBKEY(&key, &p1, size - (p1-p));
 
@@ -306,7 +344,6 @@ EVP_PKEY *pki_scard::decryptKey() const
 		return NULL;
 
 	QString key_id = QString("%1:").arg(slot_id) + object_id;
-	printf("SLOT:ID = '%s'\n", CCHAR(key_id));
 
 	pkcs11 p11;
 	p11.startSession(slot_id, true);

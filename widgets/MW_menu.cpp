@@ -10,6 +10,7 @@
 #include "Options.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
+#include "lib/pkcs11.h"
 #include "ui_Options.h"
 #include "widgets/hashBox.h"
 #include <qapplication.h>
@@ -53,7 +54,7 @@ void MainWindow::init_menu()
 				SLOT(on_BNimportTemp_clicked()) );
 	import->addAction(tr("Revocation list"), this,
 				SLOT(on_BNimportCrl_clicked()) );
-	import->addAction(tr("Read Smard card"), this,
+	scardMenuAction = import->addAction(tr("Read Smard card"), this,
 				SLOT(importScard()));
 	import->addAction(tr("PEM file"), this,
 				SLOT(loadPem()) );
@@ -144,6 +145,7 @@ void MainWindow::setOptions()
 	Options *opt = new Options(this);
 
 	opt->setStringOpt(string_opt);
+	opt->pkcs11path->setText(pkcs11path);
 	if (!opt->exec())
 		return;
 
@@ -161,6 +163,23 @@ void MainWindow::setOptions()
 		string_opt = opt->getStringOpt();
 		ASN1_STRING_set_default_mask_asc((char *)CCHAR(string_opt));
 		mydb.set((const unsigned char *)CCHAR(string_opt),
-				string_opt.length()+1, 1, setting, "string_opt");
+				string_opt.length()+1, 1, setting,"string_opt");
 	}
+	QString newpath = opt->pkcs11path->text();
+	QString old_pkcs11path = pkcs11path;
+	if (newpath != pkcs11path || !pkcs11::loaded()) {
+		try {
+			if (newpath.isEmpty())
+				pkcs11path = newpath;
+			if (pki_scard::init_p11engine(newpath, false))
+				pkcs11path = newpath;
+		} catch (errorEx &err) {
+			Error(err);
+		}
+		if (pkcs11path != old_pkcs11path) {
+			mydb.set((const unsigned char *) CCHAR(pkcs11path),
+				pkcs11path.length()+1, 1,setting, "pkcs11path");
+		}
+	}
+	scardMenuAction->setEnabled(pkcs11::loaded());
 }

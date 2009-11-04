@@ -127,6 +127,16 @@ static void init_curves()
 	}
 }
 
+void MainWindow::load_engine()
+{
+	try {
+		pki_scard::init_p11engine(pkcs11path, pkcs11path.isEmpty());
+	} catch (errorEx &err) {
+		Error(err);
+	}
+	scardMenuAction->setEnabled(pkcs11::loaded());
+}
+
 MainWindow::MainWindow(QWidget *parent )
 	:QMainWindow(parent)
 {
@@ -151,7 +161,6 @@ MainWindow::MainWindow(QWidget *parent )
 	homedir = getHomeDir();
 
 	init_curves();
-	pki_scard::init_p11engine();
 
 	// FIXME: Change pass isn't functional yet.
 	BNchangePass->setDisabled(true);
@@ -181,6 +190,7 @@ void MainWindow::setItemEnabled(bool enable)
 	foreach(QAction *a, acList) {
 		a->setEnabled(enable);
 	}
+	scardMenuAction->setEnabled(pkcs11::loaded());
 }
 
 /* creates a new nid list from the given filename */
@@ -351,6 +361,8 @@ void MainWindow::importScard()
 	pki_scard *card = NULL;
 	pki_x509 *cert = NULL;
 
+	if (!pkcs11::loaded())
+		return;
 	try {
 		ImportMulti *dlgi = new ImportMulti(this);
 		QList<CK_OBJECT_HANDLE> objects;
@@ -362,6 +374,7 @@ void MainWindow::importScard()
 				tr("No Smart card found"));
 		for (i=0; i<num_slots; i++) {
 			p11.startSession(i);
+			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(i);
 
 			class_att.setValue(CKO_PUBLIC_KEY);
 			objects = p11.objectList(&class_att);
@@ -369,6 +382,7 @@ void MainWindow::importScard()
 			for (int j=0; j< objects.count(); j++) {
 				card = new pki_scard("");
 				card->load_token(p11, objects[j]);
+				card->setMech_list(ml);
 				dlgi->addItem(card);
 				card = NULL;
 			}
@@ -580,8 +594,6 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 						p->getType() + tr(" missmatch"));
 		}
 	}
-	for (int i=0; i<ret; i++)
-		printf("NewPass[%d] = 0x%02x\n", i, buf[i]);
 	delete dlg;
 	return ret;
 }

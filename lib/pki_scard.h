@@ -24,6 +24,7 @@ class pki_scard: public pki_key
 		QString card_label;
 		QString slot_label;
 		QString object_id;
+		QList<CK_MECHANISM_TYPE> mech_list;
 		void init(void);
 		static ENGINE *p11_engine;
 
@@ -32,7 +33,7 @@ class pki_scard: public pki_key
 		virtual ~pki_scard();
 		static QPixmap *icon[1];
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
-		static int init_p11engine(void);
+		static bool init_p11engine(QString file, bool silent);
 		int prepare_card() const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		unsigned char *toData(int *size);
@@ -52,6 +53,9 @@ class pki_scard: public pki_key
 		int verify();
 		bool isScard();
 		QVariant getIcon();
+		QList<CK_MECHANISM_TYPE> getMech_list() { return mech_list; };
+		void setMech_list(QList<CK_MECHANISM_TYPE> ml) { mech_list = ml; };
+		QList<int> possibleHashNids();
 };
 
 #endif

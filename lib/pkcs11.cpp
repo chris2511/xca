@@ -6,13 +6,6 @@
 #include <qmessagebox.h>
 #include <ltdl.h>
 
-#if defined(_WIN32) || defined(USE_CYGWIN)
-#define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
-#else
-#define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.so"
-#endif
-
-
 CK_FUNCTION_LIST *pkcs11::p11 = NULL;
 lt_dlhandle pkcs11::dl_handle = NULL;
 
@@ -25,7 +18,7 @@ pkcs11::pkcs11()
 
 pkcs11::~pkcs11()
 {
-	if (session != CK_INVALID_HANDLE)
+	if (session != CK_INVALID_HANDLE && p11)
 		p11->C_CloseSession(session);
 }
 
@@ -55,7 +48,6 @@ CK_SLOT_ID *pkcs11::getSlotList(unsigned long *num_slots)
 		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);
 		if (rv != CKR_OK && rv != CKR_BUFFER_TOO_SMALL)
 			pk11error("C_GetSlotList", rv);
-		printf("*num_slots = %d\n", *num_slots);
 		if (*num_slots == 0)
 			break;
 		p11_slots = (CK_SLOT_ID *)realloc(p11_slots,
@@ -66,12 +58,33 @@ CK_SLOT_ID *pkcs11::getSlotList(unsigned long *num_slots)
 	return p11_slots;
 }
 
+QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
+{
+	CK_RV rv;
+	CK_MECHANISM_TYPE *m;
+	QList<CK_MECHANISM_TYPE> ml;
+	unsigned long count;
+
+	rv = p11->C_GetMechanismList(slot, NULL, &count);
+	m = (CK_MECHANISM_TYPE *)malloc(count *sizeof(*m));
+	if (!m)
+		throw errorEx("C_GetMechanismList(Out of Memory)");
+
+	rv = p11->C_GetMechanismList(slot, m, &count);
+	if (rv != CKR_OK)
+		pk11error("C_GetMechanismList", rv);
+	for (unsigned i=0; i<count; i++) {
+		ml << m[i];
+	}
+	return ml;
+}
+
 void pkcs11::logout()
 {
 	CK_RV rv;
 
 	rv = p11->C_Logout(session);
-	if (rv != CKR_OK)
+	if (rv != CKR_OK && rv != CKR_USER_NOT_LOGGED_IN)
 		pk11error("C_Logout", rv);
 }
 
@@ -193,7 +206,7 @@ QList<CK_OBJECT_HANDLE> pkcs11::objectList(const pk11_attribute *att)
 	return list;
 }
 
-void pkcs11::load_lib(QString file, bool silent)
+bool pkcs11::load_lib(QString file, bool silent)
 {
 	CK_RV (*c_get_function_list)(CK_FUNCTION_LIST_PTR_PTR);
 
@@ -202,19 +215,22 @@ void pkcs11::load_lib(QString file, bool silent)
 	if (dl_handle) {
 		if (lt_dlclose(dl_handle) < 0) {
 			if (silent)
-				return;
+				return false;
 			throw errorEx("Failed to close PKCS11 library: " + file);
 		}
 	}
 	p11 = NULL;
 	dl_handle = NULL;
-	if (file.isEmpty())
-		file = PKCS11_DEFAULT_MODULE_NAME;
+	if (file.isEmpty()) {
+		if (silent)
+			return false;
+		throw errorEx("PKCS11 library filename empty");
+	}
 
 	dl_handle = lt_dlopen(CCHAR(file));
 	if (dl_handle == NULL) {
 		if (silent)
-			return;
+			return false;
 		throw errorEx("Failed to open PKCS11 library: " + file);
 	}
 
@@ -223,12 +239,13 @@ void pkcs11::load_lib(QString file, bool silent)
 				lt_dlsym(dl_handle, "C_GetFunctionList");
 	if (c_get_function_list) {
 		if (c_get_function_list(&p11) == CKR_OK)
-			return;
+			return true;
 	}
 	/* This state is always worth an error ! */
 	if (lt_dlclose(dl_handle) == 0)
 		dl_handle = NULL;
 	throw errorEx("Failed to open PKCS11 library: " + file);
+	return false;
 }
 
 static const char *CKR2Str(unsigned long rv)

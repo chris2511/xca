@@ -303,6 +303,8 @@ bool pki_x509::canSign()
 	int crit;
 	if (!privkey || privkey->isPubKey())
 		return false;
+	if (privkey->isScard() && !pkcs11::loaded())
+		return false;
 	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
 	openssl_error();
 	if (!bc || !bc->ca)

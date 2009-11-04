@@ -172,7 +172,9 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 	ui.lastUpdate->setDate(time.now());
 	ui.nextUpdate->setDate(time.now(cert->getCrlDays() *60*60*24));
 
-	ui.hashAlgo->setKeyType(cert->getRefKey()->getKeyType());
+	pki_key *key = cert->getRefKey();
+	ui.hashAlgo->setKeyType(key->getKeyType());
+	ui.hashAlgo->setupHashes(key->possibleHashNids());
 
 	if (cert->hasExtension(NID_subject_alt_name))
 		ui.subAltName->setEnabled(true);

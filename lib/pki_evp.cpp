@@ -198,6 +198,22 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 	return false;
 }
 
+QList<int> pki_evp::possibleHashNids()
+{
+	QList<int> nids;
+
+	switch (EVP_PKEY_type(key->type)) {
+		case EVP_PKEY_RSA:
+			nids << NID_md5 << NID_sha1 << NID_sha256 << NID_sha384 <<
+				NID_sha512 << NID_ripemd160;
+			break;
+		case EVP_PKEY_DSA:
+		case EVP_PKEY_EC:
+			nids << NID_sha1;
+	}
+	return nids;
+};
+
 void pki_evp::fromPEM_BIO(BIO *bio, QString name)
 {
 	EVP_PKEY *pkey;
