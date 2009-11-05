@@ -80,7 +80,7 @@ xca.dmg: xca.app
 setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 	$(MAKE) -C lang
 	$(STRIP) xca$(SUFFIX)
-	$(MAKENSIS) -DOPENSSL=$(OPENSSLDIR) -DQTDIR=$(QTDIR) \
+	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -NOCD -V2 misc/xca.nsi
 	cp setup.exe setup_xca-$(VERSION).exe
 

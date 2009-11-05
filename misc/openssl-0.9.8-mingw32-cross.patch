@@ -24,9 +24,9 @@ diff -Nur openssl-0.9.8e.orig/crypto/pqueue/pqueue.c openssl-0.9.8e/crypto/pqueu
  pitem *
  pqueue_iterator(pqueue_s *pq)
 diff -Nur openssl-0.9.8e.orig/ms/mingw32-cross.sh openssl-0.9.8e/ms/mingw32-cross.sh
---- openssl-0.9.8e.orig/ms/mingw32-cross.sh	1970-01-01 01:00:00.000000000 +0100
-+++ openssl-0.9.8e/ms/mingw32-cross.sh	2007-04-05 10:30:27.000000000 +0200
-@@ -0,0 +1,41 @@
+--- openssl-0.9.8e.orig/ms/mingw32-cross.sh    1970-01-01 01:00:00.000000000 +0100
++++ openssl-0.9.8e/ms/mingw32-cross.sh  2009-11-05 10:07:58.000000000 +0100
+@@ -0,0 +1,45 @@
 +#!/bin/sh
 +# Mingw32 on Linux + GNU as
 +# ---------------------------
@@ -63,10 +63,14 @@ diff -Nur openssl-0.9.8e.orig/ms/mingw32-cross.sh openssl-0.9.8e/ms/mingw32-cros
 +
 +${CROSS}dllwrap --dllname libssl32.dll --output-lib out/libssl32.a --def ms/ssleay32.def out/libssl.a out/libeay32.a
 +
++if test -n "${INSTALL_DIR}"; then
++  mkdir -p ${INSTALL_DIR}/bin
++  cp -r outinc/opensll ${INSTALL_DIR}/include
++  cp *.dll ${INSTALL_DIR}/bin
++  cp out/*.a ${INSTALL_DIR}/lib
++fi
 +
 +echo Done compiling OpenSSL
-+
-+
 +
 diff -Nur openssl-0.9.8e.orig/util/mk1mf.pl openssl-0.9.8e/util/mk1mf.pl
 --- openssl-0.9.8e.orig/util/mk1mf.pl	2006-11-30 14:04:43.000000000 +0100

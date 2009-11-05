@@ -69,9 +69,14 @@ Section "xca (required)" SecMain
   File "doc\*.html"
   File "${BDIR}\mingwm10.dll"
 
-  File "${OPENSSL}\libeay32.dll"
   File "${QTDIR}\bin\QtGui4.dll"
   File "${QTDIR}\bin\QtCore4.dll"
+
+  File "${INSTALLDIR}\bin\libltdl-7.dll"
+  File "${INSTALLDIR}\bin\libeay32.dll"
+  File "${INSTALLDIR}\bin\libp11-1.dll"
+  File "${INSTALLDIR}\lib\engines\engine_pkcs11.dll"
+
   ; remove old images
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\xca "Install_Dir" "$INSTDIR"

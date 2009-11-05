@@ -2,12 +2,29 @@
 
 BDIR=`cd ..; pwd`
 
-SSL=`find "$BDIR" -type d -name openssl-* |tail -n1`
 QT=`find "$BDIR"/qt -type d -name 4.* |tail -n1`
 
-echo "OpenSSL: '$SSL'"
+LIBS="libeay32.a libltdl.a"
+INCS="openssl/opensslv.h ltdl.h"
+
+for l in $LIBS; do
+  if test -f "$INSTALL_DIR/lib/$l"; then
+    echo found "$INSTALL_DIR/lib/$l"
+  else
+    echo NOT found "$INSTALL_DIR/lib/$l"
+  fi
+done
+
+for i in $INCS; do
+  if test -f "$INSTALL_DIR/include/$i"; then
+    echo found "$INSTALL_DIR/include/$i"
+  else
+    echo NOT found "$INSTALL_DIR/include/$i"
+  fi
+done
+
 echo "QT:      '$QT'"
-if test -z "$SSL" -o -z "$QT"; then
+if test -z "$QT"; then
   cat << EOF
 OpenSSL or QT not found:
 please look at INSTALL.w32
@@ -16,8 +33,8 @@ fi
 
 cat > Local.mak << EOF
 BDIR=$BDIR
-OPENSSLDIR=$SSL
 QTDIR=$QT
+INSTALL_DIR=$INSTALL_DIR
 EOF
 
 cat misc/Local.mak.w32 >> Local.mak

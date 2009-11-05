@@ -16,6 +16,8 @@ Use a W32 host to execute and install the selfextracting QT4....exe
 
 copy the installed tree to xca-w32/qt/
 
+$ export INSTALL_DIR=/home/chris/projects/xca-w32/install
+
 $ cp openssl-0.9.8X.tar.gz xca-w32/
 $ tar zxf openssl-0.9.8X.tar.gz
 
@@ -25,6 +27,23 @@ $ patch -p1 < ../xca/misc/openssl-0.9.8-mingw32-cross.patch
 
 compile openssl with:
 $ sh ms/mingw32-cross.sh
+
+unpack libtool-2.2 and cd in libtool-2.2
+$ ./configure --host i586-mingw32msvc
+$ make && make install
+
+unpack libp11-0.2.7 an cd into libp11-0.2.7
+$ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS="-L${INSTALL_DIR}/lib" LTLIB_LIBS="-lltdl" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc -prefix ${INSTALL_DIR}
+$ make && make install
+
+unpack engine_pkcs11-0.1.7.tar,gz and cd into engine_pkcs11-0.1.7
+$ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc -prefix ${INSTALL_DIR}
+$ make && make install
+
+unpack opensc-0.11.11.tar.gz and cd into opensc-0.11.11
+$ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc -prefix ${INSTALL_DIR}
+$ make && make install
+
 
 compile xca:
 $ cd xca-0.6.X
