@@ -301,7 +301,7 @@ QString pki_scard::getTypeString(void)
 
 QString pki_scard::scardLogin(pkcs11 &p11, bool so, bool force) const
 {
-	char pin[256];
+	char _pin[256], *pin = _pin;
 	int pinlen;
 	bool need_login;
 
@@ -315,10 +315,16 @@ QString pki_scard::scardLogin(pkcs11 &p11, bool so, bool force) const
 	if (force || need_login) {
 		if (!need_login)
 			 p11.logout();
-		pinlen = MainWindow::passRead(pin, 256, 0, &p);
-		if (pinlen == -1)
-			return QString();
+		if (p11.protAuthPath()) {
+			pin = NULL;
+			pinlen = 0;
+		} else {
+			pinlen = MainWindow::passRead(pin, 256, 0, &p);
+			if (pinlen == -1)
+				return QString();
+		}
 		p11.login((unsigned char*)pin, pinlen, so);
+		pin = _pin;
 	} else {
 		return QString("");
 	}
@@ -330,14 +336,9 @@ EVP_PKEY *pki_scard::decryptKey() const
 	int slot_id;
 	QString pin;
 	struct {
-	        const void *password;
+		char *password;
 		const char *prompt_info;
         } cb_data = { NULL, NULL };
-
-	pass_info p(XCA_TITLE,
-		pki_scard::tr("Please enter the PIN of the token: ") +
-		getIntName());
-	p.setPin();
 
 	slot_id = prepare_card();
 	if (slot_id == -1)
@@ -350,43 +351,45 @@ EVP_PKEY *pki_scard::decryptKey() const
 	pin = scardLogin(p11, false);
 	if (pin.isNull())
 		return NULL;
-	cb_data.password = CCHAR(pin);
+	cb_data.password = strdup(CCHAR(pin));
+	printf("PASSWORT: '%s'\n", cb_data.password);
 	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
-						NULL, &cb_data);
+				NULL, &cb_data);
+	free(cb_data.password);
 	openssl_error();
 	return pkey;
 }
 
 void pki_scard::changePin()
 {
-	char oldPin[256], newPin[256];
+	char newPin[256], *pinp;
 	int slot;
-
-	pass_info p(XCA_TITLE,
-		pki_scard::tr("Please enter the PIN of the token: ") +
-		getIntName());
-	p.setPin();
+	QString pin;
 
 	slot = prepare_card();
 	if (slot == -1)
 		return;
 
-	int oldPinLen = MainWindow::passRead(oldPin, 256, 0, &p);
-	if (oldPinLen == -1)
-		return;
-
 	pkcs11 p11;
 	p11.startSession(slot, true);
 	p11.logout();
-	p11.login((unsigned char*)oldPin, oldPinLen, false);
-	p.setDescription(qApp->translate("MainWindow",
-		"Please enter the new Pin for the token: ") +getIntName());
+	if (p11.protAuthPath()) {
+		p11.setPin(NULL, 0, NULL ,0);
+	}
+	pin = scardLogin(p11, false, true);
+	if (pin.isNull())
+		return;
+	pass_info p(XCA_TITLE, tr("Please enter the new Pin for the token: ") +
+				getIntName());
+	p.setPin();
 
 	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
+	pinp = strdup(CCHAR(pin));
 	if (newPinLen != -1) {
-		p11.setPin((unsigned char*)oldPin, oldPinLen,
+		p11.setPin((unsigned char*)pinp, pin.length(),
 			(unsigned char*)newPin, newPinLen);
 	}
+	free(pinp);
 }
 
 void pki_scard::initPin()

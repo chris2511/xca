@@ -69,3 +69,16 @@ QString Options::getStringOpt()
 	return string_opts[mbstring->currentIndex()];
 }
 
+void Options::on_fileButton_clicked(void)
+{
+	load_pkcs11 l;
+	QString fname;
+
+	fname = QFileDialog::getOpenFileName(this, l.caption,
+		pkcs11path->text(), l.filter);
+
+	if (fname.isEmpty())
+		return;
+	pkcs11path->setText(fname);
+}
+

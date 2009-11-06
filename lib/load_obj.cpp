@@ -146,6 +146,20 @@ load_db::load_db()
 	caption = QObject::tr("Open XCA Database");
 }
 
+/* Shared library */
+load_pkcs11::load_pkcs11()
+	:load_base()
+{
+#ifdef WIN32
+	filter = QObject::tr("PKCS#11 library ( *.dll );;") + filter;
+#elif defined(Q_WS_MAC)
+	filter = QObject::tr("PKCS#11 library ( *.dylib );;") + filter;
+#else
+	filter = QObject::tr("PKCS#11 library ( *.so );;") + filter;
+#endif
+	caption = QObject::tr("Open PKCS#11 shared library");
+}
+
 /* General PEM loader */
 load_pem::load_pem()
 	:load_base()

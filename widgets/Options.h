@@ -26,6 +26,7 @@ class Options: public QDialog, public Ui::Options
 		QString getDnString();
 		void setStringOpt(const QString string_opt);
 		QString getStringOpt();
+		void on_fileButton_clicked(void);
 };
 
 #endif

@@ -198,10 +198,12 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		if (key->isScard() && pkcs11::loaded()) {
 			menu->addAction(tr("Change PIN"), this,
 				SLOT(changePin()));
+#if 0
 			menu->addAction(tr("Init PIN with SO PIN (PUK)"), this,
 				SLOT(initPin()));
 			menu->addAction(tr("Change SO PIN (PUK)"), this,
 				SLOT(changeSoPin()));
+#endif
 		}
 	}
 	menu->exec(e->globalPos());

@@ -165,6 +165,23 @@ QStringList pkcs11::tokenInfo()
 	return tokenInfo(slot_id);
 }
 
+bool pkcs11::protAuthPath(CK_SLOT_ID slot)
+{
+	CK_TOKEN_INFO token_info;
+	CK_RV rv;
+
+	rv = p11->C_GetTokenInfo(slot, &token_info);
+	if (rv != CKR_OK) {
+		pk11error("C_GetTokenInfo", rv);
+	}
+	return !!(token_info.flags & CKF_PROTECTED_AUTHENTICATION_PATH);
+}
+
+bool pkcs11::protAuthPath()
+{
+	return protAuthPath(slot_id);
+}
+
 void pkcs11::loadAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 {
 	attribute.load(session, object);

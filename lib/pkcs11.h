@@ -33,6 +33,9 @@ class pkcs11
 
 		QStringList tokenInfo(CK_SLOT_ID slot);
 		QStringList tokenInfo();
+		bool protAuthPath(CK_SLOT_ID slot);
+		bool protAuthPath();
+
 		void startSession(unsigned long slot, bool rw = false);
 		CK_SLOT_ID *getSlotList(unsigned long *num_slots);
 		void loadAttribute(pk11_attribute &attribute,

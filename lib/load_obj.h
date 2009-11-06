@@ -79,6 +79,12 @@ class load_db: public load_base
 		load_db();
 };
 
+class load_pkcs11: public load_base
+{
+	public:
+		load_pkcs11();
+};
+
 class load_pem: public load_base
 {
 	public:
