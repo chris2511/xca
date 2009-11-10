@@ -8,6 +8,7 @@
 #ifndef _XCA_DB_H_
 #define _XCA_DB_H_
 
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
