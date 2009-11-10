@@ -40,5 +40,3 @@ EOF
 cat misc/Local.mak.w32 >> Local.mak
 echo "#define VER \"`cat VERSION`\"" >local.h
 
-echo
-echo success, type 'make'

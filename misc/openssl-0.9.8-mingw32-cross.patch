@@ -64,8 +64,8 @@ diff -Nur openssl-0.9.8e.orig/ms/mingw32-cross.sh openssl-0.9.8e/ms/mingw32-cros
 +${CROSS}dllwrap --dllname libssl32.dll --output-lib out/libssl32.a --def ms/ssleay32.def out/libssl.a out/libeay32.a
 +
 +if test -n "${INSTALL_DIR}"; then
-+  mkdir -p ${INSTALL_DIR}/bin
-+  cp -r outinc/opensll ${INSTALL_DIR}/include
++  mkdir -p ${INSTALL_DIR}/bin ${INSTALL_DIR}/lib ${INSTALL_DIR}/include
++  cp -r outinc/openssl ${INSTALL_DIR}/include
 +  cp *.dll ${INSTALL_DIR}/bin
 +  cp out/*.a ${INSTALL_DIR}/lib
 +fi
