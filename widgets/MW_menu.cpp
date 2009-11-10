@@ -11,6 +11,9 @@
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
 #include "lib/pkcs11.h"
+#include "lib/pki_evp.h"
+#include "lib/pki_scard.h"
+#include "lib/func.h"
 #include "ui_Options.h"
 #include "widgets/hashBox.h"
 #include <qapplication.h>
