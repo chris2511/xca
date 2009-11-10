@@ -390,7 +390,7 @@ unsigned char *pki_x509::toData(int *size)
 	p1 = crlExpiry.i2d(p1); // last CRL date
 	openssl_error();
 	if (*size != p1-p) {
-		printf("pki_x509::toData: Size = %d, real size=%ld\n", *size, p1-p);
+		printf("pki_x509::toData: Size = %d, real size=%zd\n", *size, p1-p);
 		//abort();
 	}
 	return p;
