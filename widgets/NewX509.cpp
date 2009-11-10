@@ -366,6 +366,9 @@ void NewX509::on_reqSubChange_clicked()
 		pki_x509req *req = getSelectedReq();
 		description->setText(req->getIntName());
 		setX509name(req->getSubject());
+		usedKeysToo->setEnabled(false);
+		keyList->setEnabled(false);
+		genKeyBut->setEnabled(false);
 	}
 	on_fromReqCB_clicked();
 }
