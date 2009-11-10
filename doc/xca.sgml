@@ -9,11 +9,11 @@
 <abstract>                          <!-- the abstract: a short and precise description -->
 <nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
 
-This application is intended for creating and managing X.509 certificates, certificate requests, RSA and DSA private keys and CRLs.
+This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys and CRLs.
 Everything that is needed for a CA is implemented.
 All CAs can sign sub-CAs recursively. These certificate chains are shown clearly.
 For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
-All crypto data is stored in a local and portable file format.
+All crypto data is stored in a and endian-agnostic file format portable across operating systems.
 </abstract>
 
 
@@ -291,7 +291,7 @@ This page is not shown when creating or changing templates.
 <sect2>Signing request
 <p>
 If it is desired to either enroll a certificat from a PKCS#10 request
-by a CA, or to create a certificate from a request by self-signing it,
+by a local CA, or to create a certificate from a request by self-signing it,
 the request can be selected here. In the later case the private key of
 the request must be available.
 
@@ -323,8 +323,9 @@ The <tt>Country code</tt> field must either be empty or exactly contain
 two letters representing your country code; e.g. <tt>DE</tt> for Germany.
 If you want to create an SSL-server certificate the <tt>Common name</tt>
 must contain the <tt>DNS</tt> name of the server.
-If the <tt>internal name</tt> is empty, the common name will be used.
-It will also be used, when a new key is created here.
+If the <tt>internal name</tt> is empty, the common name will be used
+as internal name.
+It will also be used as default internal name, if a new key is created here.
 <p>
 Other rarely used <tt>name-entries</tt> can be selected in the dialog
 below. Only items that were added using the <em>Add</em>
@@ -339,11 +340,14 @@ even if the input dialog is canceled. The drop-down list of the keys
 only contains keys that were not used by any other certificates or
 requests. The key-list is not available for creating or changing templates.
 By checking <tt>Used keys too</tt> the list contains all available
-keys. Use this with care. You'Re likely doing something wrong when using this
+keys. Use this with care. You're likely doing something wrong when using this
 option.
 <p>
 This tab does not appear when signing a request, because the request
 contains all needed data from this tab.
+Select "Modify subject of the request", if you want to modify it anyway.
+The content of the subject Tab will then be preset with the content of the
+request.
 
 <sect1>X509v3 Extensions
 <p>
@@ -410,7 +414,49 @@ noticeNumbers=1,2,3,4
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>RSA and DSA keys <label id="keys">
+<sect>Smart-cards
+<p>
+Since XCA 0.8.0 the use of Smart cards is supported. It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
+The default is <tt>/usr/lib/opensc-pkcs11.so</tt> and <tt>opensc-pkcs11.dll</tt> in the XCA installation path, depending on your OS.
+<p>
+Once again: This software comes with no warranty at all! If XCA transforms your smart card into a fridge, don't blame me.
+For me everything worked fine and I tested it thoroughly.
+<p>
+On Linux the packages <tt>opensc</tt> and <tt>libengine-pkcs11-openssl</tt> should be installed.
+Please read the opensc documentation for more details.
+Generally if the opensc commandline-tool "pkcs11-tool -L" shows reasonable output, XCA will work.
+Otherwise fix the opensc setup.
+I had a functional setup with a "Reiner SCT" and a DELL keyboard with integrated card reader and TCOS Netkey E4 cards.
+Most probably other cards will work as least as good or better.
+I had no luck on windows, yet (application crashed). I don't know if it is an XCA problem or a PKCS#11.dll one. Please report any success. Thanks.
+<p>
+Before the keys of a Smart-card can be used, they must be imported into XCA.
+This means that XCA reads the Smart-card and stores the card's manufacturer, serial and the public key into the database.
+It is not unusal that a card contains more than one key.
+
+When selecting a Smart-card private key for signing, XCA verifies that the
+correct card is inserted.
+
+The following actions with smart cards are supported:
+<itemize>
+<item>Import Keys from the smart cards.
+<item>Import Certificates from the smart card.
+<item>Everything you can do with other keys can be don with Smart-card key, too.
+<item>On export, only the Public key is exported.
+<item>Change the PIN of a Smart-card key
+</itemize>
+What does not work, yet:
+<itemize>
+<item>Initialize cards.
+<item>Generate keys on a card
+<item>Write a certificate to the card. Actually the driver for my card did
+not support writes to the card. Maybe it works for you. It is available via the context-menu of the certificate, signed by a Smart-card. Click "Export->Smart-card".
+</itemize>
+
+You may ignore the built-in certificates of a Smart-card and create your own CA certificate, self-signed by your Smart-card and issue end-entity certificates containing other RSA, DSA or EC keys or sign imported certificate requests.
+
+
+<sect>RSA, DSA and EC keys <label id="keys">
 <p>
 For creating certificates, keys are needed.
 All keys are stored encrypted in the database using the 3DES algorithm.
@@ -424,7 +470,9 @@ the keys with a use counter of 0.
 <sect1>Generating Keys
 <p>
 The dialog asks for the internal name of the key and the keysize in bits.
-Even if the drop-down list only shows the most usual values, any other value
+For EC keys, a list of curves is shown. It contains all X9.62 curves.
+When importing an EC key with explicit curve parameters, the corresponding curve OID is searched and set if found.
+Even if the drop-down list only shows the most usual key sizes, any other value
 may be set here by editing this box.
 While searching for random prime numbers a progress bar is shown in the
 bottom of the base application.
@@ -471,7 +519,7 @@ all needed information for generating a new Request. See: <ref id="wizard" name=
 <p>
 The request generation can also be invoked by the context menu of a certificate (Export->Request).
 This menu point is only available if the private key of the certificate is available.
-In this case all needed data is copied from the certificate and the Wizard is not invoked.
+In this case all needed data is copied from the certificate and the Certificate dialog is not invoked.
 
 <sect1>Request export
 <p>
@@ -495,10 +543,10 @@ the client certificates can be shown by clicking on the plus sign of the CA cert
 
 <sect1>CA certificates <label id="ca_cert">
 <p>
-XCA recognizes CA certificates if the CA flag in the <tt>Basic Constraints</tt>
+XCA will recognize CA certificates if the CA flag in the <tt>Basic Constraints</tt>
 is set to true.
 If there is a corresponding private key, the <tt>CA</tt>
-submenu in the context-menu is enabled.
+submenu in the context-menu will be enabled.
 
 <p>
 For building the chains the CA flag is disregarded, because there are some
@@ -511,10 +559,10 @@ After clicking on the <tt>New Certificate</tt> button the Certificate input dial
 all needed information for generating a new Certificate. See: <ref id="wizard" name="The Certificate input dialog">
 Certificate creation can also be invoked by the context menu of the certificate list background
 or by the context menu of the request.
-In this case the Wizard is preset with the Request to be signed.
+In this case the Certificate input dialog is preset with the request to be signed.
 <p>
 If a <tt>CA certificate</tt> is selected in the certificate list, this
-certificate is preselected as signer certificate.
+certificate will be preselected as signer certificate.
 
 <sect1>Certificate details
 <p>
@@ -526,7 +574,7 @@ or to <em>Not valid</em> if they are not, regarding to the internal time and dat
 If the certificate is revoked, the revocation date will be shown instead.
 <p>
 On the <em>Subject</em> and <em>Issuer</em> tab the distinguished name is
-also displayd in a format define in RFC2253 for copy&amp;paste.
+also displayed in a format defined in RFC2253 for copy&amp;paste.
 
 <sect1>Certificate trust
 <p>
@@ -584,8 +632,8 @@ with adjusted validity dates.
 
 <sect1>CA special functions
 <p>
-The context menu of CA certificates contains the <em>CA</em> submenu.
-that makes the following functions available:
+The context menu of CA certificates contains the <em>CA</em> submenu,
+which makes the following functions available:
 
 <itemize>
 <item><bf>Serial</bf> The serial number of the next certificate
@@ -624,7 +672,7 @@ configuration files.
 <p>
 A list of mandatory distinguished name entries may be specified to
 get a warning, whenever issuing a certificate with one of the listed
-entry is empty. This requirement is not checked when editing templates,
+entres is empty. This requirement is not checked when editing templates,
 because templates may have empty entries that will be filled during
 the rollout of the certificate.
 <p>
@@ -651,6 +699,11 @@ Older Windows versions and OpenSSL versions can not handle
 SHA256 and SHA512. This option allows to set the hash algorithm to SHA1
 for instance.
 <p>
+<sect1>PKCS#11 library path
+<p>
+Here you can select the path to the PKCS#11 library on your system.
+If it is empty, the default <tt>/usr/lib/opensc-pkcs11.so</tt> will be used.
+On Windows the opensc-pkcs11.dll in the XCA installation directory will be tried.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Object IDs
