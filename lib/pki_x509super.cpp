@@ -48,18 +48,6 @@ void pki_x509super::delRefKey(pki_key *ref)
 
 void pki_x509super::autoIntName()
 {
-	int nids[] = { NID_commonName, NID_pkcs9_emailAddress,
-			NID_organizationalUnitName, NID_organizationName, NID_undef };
-	int i;
 	x509name subject = getSubject();
-	QString s;
-
-	for (i = 0; nids[i] != NID_undef; i++) {
-		s = subject.getEntryByNid(nids[i]);
-		if (!s.isEmpty())
-			break;
-	}
-	if (s.isEmpty())
-		s = subject.getEntry(-1);
-	setIntName(s);
+	setIntName(subject.getMostPopular());
 }

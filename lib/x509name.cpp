@@ -57,13 +57,24 @@ QString x509name::oneLine(unsigned long flags) const
 
 QString x509name::getEntryByNid(int nid) const
 {
-	ASN1_OBJECT *obj;
-	obj=OBJ_nid2obj(nid);
-	if (obj == NULL) return QString::null;
-	int i=X509_NAME_get_index_by_OBJ(xn,obj,-1);
-	ASN1_OBJECT_free(obj);
-	if (i < 0) return QString::null;
+	int i = X509_NAME_get_index_by_NID(xn, nid, -1);
+	if (i < 0)
+		return QString::null;
 	return getEntry(i);
+}
+
+QString x509name::getMostPopular() const
+{
+	static const int nids[] = { NID_commonName, NID_pkcs9_emailAddress,
+			NID_organizationalUnitName, NID_organizationName };
+	int pos = -1;
+
+	for (unsigned i = 0; i < ARRAY_SIZE(nids) && pos < 0; i++) {
+		pos = X509_NAME_get_index_by_NID(xn, nids[i], -1);
+	}
+	if (pos < 0)
+		pos = 0;
+	return getEntry(pos);
 }
 
 QString x509name::getEntry(int i) const

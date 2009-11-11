@@ -9,8 +9,13 @@
 #include "pki_scard.h"
 #include "pass_info.h"
 #include "pk11_attribute.h"
+#include "exception.h"
+#include "db_base.h"
+#include "pkcs11.h"
+#include "x509name.h"
 #include "func.h"
 #include "db.h"
+
 #include <openssl/rand.h>
 #include <openssl/engine.h>
 #include <qprogressdialog.h>
@@ -19,10 +24,6 @@
 #include <widgets/MainWindow.h>
 #include <qmessagebox.h>
 #include <ltdl.h>
-
-#include "exception.h"
-#include "db_base.h"
-#include "pkcs11.h"
 
 #if defined(_WIN32) || defined(USE_CYGWIN)
 #define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
@@ -41,6 +42,7 @@ QPixmap *pki_scard::icon[1] = { NULL };
 				printf("FAILED: '%s' : '%s'\n", \
 					 cmd, value ? value:"");\
 			ENGINE_free(e); \
+			ign_openssl_error(); \
 			return false; \
 		} \
 		if (!silent) \
@@ -52,22 +54,36 @@ ENGINE *pki_scard::p11_engine = NULL;
 bool pki_scard::init_p11engine(QString file, bool silent)
 {
 	ENGINE *e;
+	QString engine_path;
 
+#ifdef WIN32
+	static bool loaded = false;
+	if (loaded)
+		return true;
+	loaded = true;
+#endif
+	silent = false;
 	if (file.isEmpty())
                 file = PKCS11_DEFAULT_MODULE_NAME;
 
 	if (p11_engine) {
 		ENGINE_finish(p11_engine);
 		ENGINE_free(p11_engine);
+		p11_engine = NULL;
 	}
 
 	if (!pkcs11::load_lib(file, silent))
 		return false;
-
+#ifdef WIN32
+	engine_path = QString(".\\") + ENGINE_LIB;
+#else
+	engine_path = ENGINE_LIB;
+#endif
 	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
 
-	XCA_ENGINE_cmd(e, "SO_PATH",      ENGINE_LIB);
+	XCA_ENGINE_cmd(e, "SO_PATH",      CCHAR(engine_path));
+//	XCA_ENGINE_cmd(e, "DIR_ADD",      CCHAR(getPrefix() + "\\"));
 	XCA_ENGINE_cmd(e, "ID",           "pkcs11");
 	XCA_ENGINE_cmd(e, "LIST_ADD",     "1");
 	XCA_ENGINE_cmd(e, "LOAD",         NULL);
@@ -98,18 +114,82 @@ pki_scard::pki_scard(const QString name)
 	init();
 }
 
-static EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object)
+EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 {
 	const unsigned char *p;
-	unsigned long s;
+	unsigned long s, keytype;
+	EVP_PKEY *pkey = NULL;
 
-	pk11_attr_data rsaPub(CKA_VALUE);
-	p11.loadAttribute(rsaPub, object);
-	s = rsaPub.getValue(&p);
-	RSA *rsa = d2i_RSAPublicKey(NULL, &p, s);
+	pk11_attr_ulong type(CKA_KEY_TYPE);
+	p11.loadAttribute(type, object);
+	keytype = type.getValue();
 
-	EVP_PKEY *pkey = EVP_PKEY_new();
-	EVP_PKEY_set1_RSA(pkey, rsa);
+	switch (keytype) {
+	case CKK_RSA: {
+		RSA *rsa = RSA_new();
+
+		pk11_attr_data n(CKA_MODULUS);
+		p11.loadAttribute(n, object);
+		rsa->n = n.getBignum();
+
+		pk11_attr_data e(CKA_PUBLIC_EXPONENT);
+		p11.loadAttribute(e, object);
+		rsa->e = e.getBignum();
+
+		pkey = EVP_PKEY_new();
+		EVP_PKEY_set1_RSA(pkey, rsa);
+		break;
+	}
+	case CKK_DSA: {
+		DSA *dsa = DSA_new();
+
+		pk11_attr_data p(CKA_PRIME);
+		p11.loadAttribute(p, object);
+		dsa->p = p.getBignum();
+
+		pk11_attr_data q(CKA_SUBPRIME);
+		p11.loadAttribute(q, object);
+		dsa->q = q.getBignum();
+
+		pk11_attr_data g(CKA_BASE);
+		p11.loadAttribute(g, object);
+		dsa->g = g.getBignum();
+
+		pk11_attr_data pub(CKA_VALUE);
+		p11.loadAttribute(pub, object);
+		dsa->pub_key = pub.getBignum();
+
+		pkey = EVP_PKEY_new();
+		EVP_PKEY_set1_DSA(pkey, dsa);
+		break;
+	}
+	case CKK_EC: {
+		EC_KEY *ec = EC_KEY_new();
+
+		pk11_attr_data grp(CKA_EC_PARAMS);
+                p11.loadAttribute(grp, object);
+		s = grp.getValue(&p);
+		EC_GROUP *group = d2i_ECPKParameters(NULL, &p, s);
+		EC_GROUP_set_asn1_flag(group, 1);
+		EC_KEY_set_group(ec, group);
+		openssl_error();
+
+		pk11_attr_data pt(CKA_EC_POINT);
+                p11.loadAttribute(pt, object);
+		BIGNUM *bn = pt.getBignum();
+		BN_CTX *ctx = BN_CTX_new();
+		EC_POINT *point = EC_POINT_bn2point(group, bn, NULL, ctx);
+		EC_KEY_set_public_key(ec, point);
+		BN_CTX_free(ctx);
+		openssl_error();
+
+		pkey = EVP_PKEY_new();
+		EVP_PKEY_set1_EC_KEY(pkey, ec);
+		break;
+	}
+	default:
+		throw errorEx(QString("Unsupported CKA_KEY_TYPE: %1\n").arg(keytype));
+	}
 	return pkey;
 }
 
@@ -124,14 +204,34 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	p11.loadAttribute(bits, object);
 	bit_length.setNum(bits.getValue());
 
-	pk11_attr_data label(CKA_LABEL);
-	p11.loadAttribute(label, object);
-	slot_label = label.getText();
-
 	pk11_attr_data id(CKA_ID);
 	p11.loadAttribute(id, object);
 	object_id.setNum(CCHAR(id.getText())[0], 16);
 
+	try {
+		pk11_attr_data label(CKA_LABEL);
+		p11.loadAttribute(label, object);
+		slot_label = label.getText();
+	} catch (errorEx &err) {
+		printf("No PubKey Label: %s\n", err.getCString());
+		// ignore
+	}
+	if (slot_label.isEmpty()) {
+		try{
+			unsigned long s;
+			const unsigned char *p;
+			x509name xn;
+
+			pk11_attr_data subj(CKA_SUBJECT);
+			p11.loadAttribute(subj, object);
+			s = subj.getValue(&p);
+			xn.d2i(p, s);
+			slot_label = xn.getMostPopular();
+		} catch (errorEx &err) {
+			printf("No Pubkey Subject: %s\n", err.getCString());
+			// ignore
+		}
+	}
 	EVP_PKEY *pkey = load_pubkey(p11, object);
 	if (pkey) {
 		if (key)
@@ -167,18 +267,16 @@ QList<int> pki_scard::possibleHashNids()
 int pki_scard::prepare_card() const
 {
 	pkcs11 p11;
-        CK_SLOT_ID *p11_slots = NULL;
-        unsigned long i, num_slots;
+	QList<unsigned long> p11_slots;
+	int i;
 
 	if (!pkcs11::loaded())
 		return -1;
 	while (1) {
-		p11_slots = p11.getSlotList(&num_slots);
-		if (p11_slots)
-			free(p11_slots);
-		for (i=0; i<num_slots; i++) {
+		p11_slots = p11.getSlotList();
+		for (i=0; i<p11_slots.count(); i++) {
 			pkcs11 myp11;
-			QStringList sl = myp11.tokenInfo(i);
+			QStringList sl = myp11.tokenInfo(p11_slots[i]);
 			if (sl[0] == card_label &&
 			    sl[1] == card_manufacturer &&
 			    sl[2] == card_serial)
@@ -186,7 +284,7 @@ int pki_scard::prepare_card() const
 				break;
 			}
 		}
-		if (i<num_slots)
+		if (i < p11_slots.count())
 			break;
 		QString msg = tr("Please insert card :'") +
 			card_manufacturer + " [" + card_label +
@@ -202,8 +300,8 @@ int pki_scard::prepare_card() const
 	pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
 	QList<CK_OBJECT_HANDLE> objects;
 
-	for (i=0; i<num_slots; i++) {
-		p11.startSession(i);
+	for (i=0; i<p11_slots.count(); i++) {
+		p11.startSession(p11_slots[i]);
 
 		class_att.setValue(CKO_PUBLIC_KEY);
 		objects = p11.objectList(&class_att);
@@ -219,7 +317,7 @@ int pki_scard::prepare_card() const
 			if (cid == object_id) {
 				EVP_PKEY *pkey = load_pubkey(p11, object);
 				if (EVP_PKEY_cmp(key, pkey) == 1)
-					return i;
+					return p11_slots[i];
 				QMessageBox::warning(NULL, XCA_TITLE, tr("Public Key missmatch. Please re-import card"), tr("&OK"));
 			}
 		}
@@ -355,7 +453,6 @@ EVP_PKEY *pki_scard::decryptKey() const
 	if (pin.isNull())
 		return NULL;
 	cb_data.password = strdup(CCHAR(pin));
-	printf("PASSWORT: '%s'\n", cb_data.password);
 	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
 				NULL, &cb_data);
 	free(cb_data.password);

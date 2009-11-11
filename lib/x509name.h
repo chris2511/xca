@@ -38,6 +38,8 @@ class x509name
 		void delEntry(int i);
 		X509_NAME *get() const;
 		int derSize() const;
+		QString getMostPopular() const;
+
 };
 
 #endif

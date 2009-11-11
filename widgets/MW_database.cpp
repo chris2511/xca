@@ -121,6 +121,7 @@ void MainWindow::init_database()
 	setWindowTitle(tr(XCA_TITLE));
 	setItemEnabled(true);
 	dbindex->setText(tr("Database") + ":" + dbfile);
+	load_engine();
 }
 
 void MainWindow::dump_database()

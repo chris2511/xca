@@ -356,8 +356,8 @@ void MainWindow::pastePem()
 void MainWindow::importScard()
 {
 	pkcs11 p11;
-	CK_SLOT_ID *p11_slots = NULL;
-	unsigned long i, num_slots;
+	QList<unsigned long> p11_slots;
+	int i;
 	pki_scard *card = NULL;
 	pki_x509 *cert = NULL;
 
@@ -367,13 +367,13 @@ void MainWindow::importScard()
 		ImportMulti *dlgi = new ImportMulti(this);
 		QList<CK_OBJECT_HANDLE> objects;
 		pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
-		p11_slots = p11.getSlotList(&num_slots);
+		p11_slots = p11.getSlotList();
 
-		if (num_slots == 0)
+		if (p11_slots.count() == 0)
 			QMessageBox::warning(this, XCA_TITLE,
 				tr("No Smart card found"));
-		for (i=0; i<num_slots; i++) {
-			p11.startSession(i);
+		for (i=0; i<p11_slots.count(); i++) {
+			p11.startSession(p11_slots[i]);
 			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(i);
 
 			class_att.setValue(CKO_PUBLIC_KEY);
@@ -401,9 +401,6 @@ void MainWindow::importScard()
 	} catch (errorEx &err) {
 		Error(err);
         }
-	if (p11_slots) {
-		free(p11_slots);
-	}
 	if (card)
 		delete card;
 	if (cert)

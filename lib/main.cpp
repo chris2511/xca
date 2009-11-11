@@ -48,7 +48,6 @@ int main( int argc, char *argv[] )
 	mw = new MainWindow(NULL);
 	mw->read_cmdline();
 	if (mw->exitApp == 0) {
-		mw->load_engine();
 		mw->show();
 		ret = a.exec();
 	}

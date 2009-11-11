@@ -191,7 +191,7 @@ void pki_key::writePublic(const QString fname, bool pem)
 	openssl_error();
 }
 
-QString pki_key::BN2QString(BIGNUM *bn)
+QString pki_key::BN2QString(BIGNUM *bn) const
 {
 	if (bn == NULL)
 		return "--";

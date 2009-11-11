@@ -119,8 +119,8 @@ bool pki_base::ign_openssl_error()
 	// ignore openssl errors
 	QString errtxt;
 	while (int i = ERR_get_error() ) {
-	   errtxt = ERR_error_string(i ,NULL);
-	   //fprintf(stderr,"IGNORED: %s\n", CCHAR(errtxt));
+		errtxt = ERR_error_string(i ,NULL);
+		fprintf(stderr,"IGNORED: %s\n", CCHAR(errtxt));
 	}
 	return !errtxt.isEmpty();
 }

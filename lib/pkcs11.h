@@ -37,7 +37,7 @@ class pkcs11
 		bool protAuthPath();
 
 		void startSession(unsigned long slot, bool rw = false);
-		CK_SLOT_ID *getSlotList(unsigned long *num_slots);
+		QList<unsigned long> getSlotList();
 		void loadAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
 		void storeAttribute(pk11_attribute &attribute,

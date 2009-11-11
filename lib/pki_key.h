@@ -23,7 +23,7 @@ class pki_key: public pki_base
 	protected:
 		int ownPass;
 		EVP_PKEY *key;
-		QString BN2QString(BIGNUM *bn);
+		QString BN2QString(BIGNUM *bn) const;
 	private:
 		int ucount; // usage counter
 	public:

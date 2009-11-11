@@ -88,14 +88,11 @@ void Options::on_fileButton_clicked(void)
 
 void Options::on_tryLoadButton_clicked(void)
 {
-	unsigned long num_slots;
-	CK_SLOT_ID *p11_slots = NULL;
-
 	try {
 		QString lib = pkcs11path->text();
 		pki_scard::init_p11engine(lib, false);
 		pkcs11 p11;
-		p11_slots = p11.getSlotList(&num_slots);
+		p11.getSlotList();
 		if (!lib.isEmpty()) {
 			QMessageBox::information(this, XCA_TITLE,
 				tr("Successfully loaded PKCS#11 library: ") + lib,
@@ -104,6 +101,4 @@ void Options::on_tryLoadButton_clicked(void)
 	} catch (errorEx &err) {
 		mw->Error(err);
 	}
-	if (p11_slots)
-		free(p11_slots);
 }

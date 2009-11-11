@@ -38,27 +38,38 @@ void pkcs11::startSession(unsigned long slot, bool rw)
 	slot_id = slot;
 }
 
-CK_SLOT_ID *pkcs11::getSlotList(unsigned long *num_slots)
+QList<unsigned long> pkcs11::getSlotList()
 {
 	CK_RV rv;
 	CK_SLOT_ID *p11_slots = NULL;
+	QList<unsigned long> sl;
+	unsigned long i, num_slots = 0;
 
-	*num_slots = 0;
 	/* This one helps to avoid errors.
 	 * Fist time it fails, 2nd time it works */
-	p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);
-	do {
-		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);
+	p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
+	while (1) {
+		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
 		if (rv != CKR_OK && rv != CKR_BUFFER_TOO_SMALL)
 			pk11error("C_GetSlotList", rv);
-		if (*num_slots == 0)
+
+		if (num_slots == 0)
 			break;
+		if ((rv == CKR_OK) && p11_slots)
+			break;
+
 		p11_slots = (CK_SLOT_ID *)realloc(p11_slots,
-					*num_slots *sizeof(CK_SLOT_ID));
+					num_slots *sizeof(CK_SLOT_ID));
 		if (!p11_slots)
 			throw errorEx("C_GetSlotList(Out of Memory)");
-	} while (rv == CKR_BUFFER_TOO_SMALL);
-	return p11_slots;
+	}
+
+	for (i=0; i<num_slots; i++) {
+		sl << p11_slots[i];
+	}
+	if (p11_slots)
+		free(p11_slots);
+	return sl;
 }
 
 QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
@@ -99,6 +110,8 @@ bool pkcs11::needsLogin(bool so)
 	rv = p11->C_GetSessionInfo(session, &sinfo);
 	if (rv != CKR_OK)
                 pk11error("C_GetSessionInfo", rv);
+        printf("C_GetSessionInfo: %d\n", sinfo.state);
+
 	switch (sinfo.state) {
 	case CKS_RO_PUBLIC_SESSION:
 	case CKS_RW_PUBLIC_SESSION:

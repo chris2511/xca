@@ -160,19 +160,40 @@ a1int pki_x509::getQASerial(const a1int &secret) const
 void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
 	QStringList sl = p11.tokenInfo();
+	const unsigned char *p;
+	unsigned long s;
+	QString desc;
 
-	pk11_attr_data label(CKA_LABEL);
-	p11.loadAttribute(label, object);
-
+	try {
+		pk11_attr_data label(CKA_LABEL);
+		p11.loadAttribute(label, object);
+		desc = label.getText();
+	} catch(errorEx &err) {
+		printf("No Cert Label: %s\n", err.getCString());
+		// IGNORE
+	}
 	pk11_attr_data x509(CKA_VALUE);
 	p11.loadAttribute(x509, object);
-	const unsigned char *p;
-	unsigned long s = x509.getValue(&p);
+	s = x509.getValue(&p);
 	if (cert)
 		X509_free(cert);
 	cert = d2i_X509(NULL, &p, s);
 
-	setIntName(sl[0] + " (" + label.getText() + ")");
+	if (desc.isEmpty()) {
+		try {
+			x509name xn;
+
+			pk11_attr_data subj(CKA_SUBJECT);
+			p11.loadAttribute(subj, object);
+			s = subj.getValue(&p);
+			xn.d2i(p, s);
+			desc = xn.getMostPopular();
+		} catch(errorEx &err) {
+			printf("No Cert Subject: %s\n", err.getCString());
+			// IGNORE
+		}
+	}
+	setIntName(sl[0] + " (" + desc + ")");
 	openssl_error();
 }
 
