@@ -43,6 +43,9 @@ CK_SLOT_ID *pkcs11::getSlotList(unsigned long *num_slots)
 	CK_RV rv;
 	CK_SLOT_ID *p11_slots = NULL;
 
+	*num_slots = 0;
+	/* This one helps to avoid errors.
+	 * Fist time it fails, 2nd time it works */
 	p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);
 	do {
 		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, num_slots);

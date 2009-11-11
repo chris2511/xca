@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>455</height>
+    <width>494</width>
+    <height>398</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -151,7 +151,7 @@ p, li { white-space: pre-wrap; }
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>PKCS11 Library path: </string>
+        <string>PKCS#11 path: </string>
        </property>
       </widget>
      </item>
@@ -175,6 +175,13 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="text">
         <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="tryLoadButton">
+       <property name="text">
+        <string>Load</string>
        </property>
       </widget>
      </item>

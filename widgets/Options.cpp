@@ -6,11 +6,14 @@
  */
 
 #include "Options.h"
+#include "lib/pki_scard.h"
 #include <openssl/objects.h>
+#include <qmessagebox.h>
 
-Options::Options(QWidget *parent)
+Options::Options(MainWindow *parent)
 	:QDialog(parent)
 {
+	mw = parent;
 	QStringList dnl;
 	if (!MainWindow::mandatory_dn.isEmpty())
 		dnl = MainWindow::mandatory_dn.split(",");
@@ -82,3 +85,25 @@ void Options::on_fileButton_clicked(void)
 	pkcs11path->setText(fname);
 }
 
+
+void Options::on_tryLoadButton_clicked(void)
+{
+	unsigned long num_slots;
+	CK_SLOT_ID *p11_slots = NULL;
+
+	try {
+		QString lib = pkcs11path->text();
+		pki_scard::init_p11engine(lib, false);
+		pkcs11 p11;
+		p11_slots = p11.getSlotList(&num_slots);
+		if (!lib.isEmpty()) {
+			QMessageBox::information(this, XCA_TITLE,
+				tr("Successfully loaded PKCS#11 library: ") + lib,
+				tr("Ok"));
+		}
+	} catch (errorEx &err) {
+		mw->Error(err);
+	}
+	if (p11_slots)
+		free(p11_slots);
+}

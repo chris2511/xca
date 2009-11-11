@@ -18,8 +18,9 @@ class Options: public QDialog, public Ui::Options
 		Q_OBJECT
 	private:
 		QStringList string_opts;
+		MainWindow *mw;
 	public:
-		Options(QWidget *parent);
+		Options(MainWindow *parent);
 	public slots:
 		void on_extDNadd_clicked();
 		void on_extDNdel_clicked();
@@ -27,6 +28,7 @@ class Options: public QDialog, public Ui::Options
 		void setStringOpt(const QString string_opt);
 		QString getStringOpt();
 		void on_fileButton_clicked(void);
+		void on_tryLoadButton_clicked(void);
 };
 
 #endif

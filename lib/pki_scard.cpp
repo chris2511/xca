@@ -24,7 +24,6 @@
 #include "db_base.h"
 #include "pkcs11.h"
 
-
 #if defined(_WIN32) || defined(USE_CYGWIN)
 #define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
 #define ENGINE_LIB			"engine_pkcs11.dll"
@@ -75,8 +74,10 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	XCA_ENGINE_cmd(e, "MODULE_PATH",  CCHAR(file));
 
 	ENGINE_init(e);
+	if (ERR_peek_error() != 0)
+		return false;
 	p11_engine = e;
-	return 1;
+	return true;
 }
 
 void pki_scard::init(void)
@@ -173,6 +174,8 @@ int pki_scard::prepare_card() const
 		return -1;
 	while (1) {
 		p11_slots = p11.getSlotList(&num_slots);
+		if (p11_slots)
+			free(p11_slots);
 		for (i=0; i<num_slots; i++) {
 			pkcs11 myp11;
 			QStringList sl = myp11.tokenInfo(i);

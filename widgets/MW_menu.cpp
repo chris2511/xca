@@ -169,19 +169,14 @@ void MainWindow::setOptions()
 				string_opt.length()+1, 1, setting,"string_opt");
 	}
 	QString newpath = opt->pkcs11path->text();
-	QString old_pkcs11path = pkcs11path;
-	if (newpath != pkcs11path || !pkcs11::loaded()) {
+	if (newpath != pkcs11path) {
+		pkcs11path = newpath;
+		mydb.set((const unsigned char *) CCHAR(pkcs11path),
+			pkcs11path.length()+1, 1,setting, "pkcs11path");
 		try {
-			if (newpath.isEmpty())
-				pkcs11path = newpath;
-			if (pki_scard::init_p11engine(newpath, false))
-				pkcs11path = newpath;
+			pki_scard::init_p11engine(pkcs11path, true);
 		} catch (errorEx &err) {
 			Error(err);
-		}
-		if (pkcs11path != old_pkcs11path) {
-			mydb.set((const unsigned char *) CCHAR(pkcs11path),
-				pkcs11path.length()+1, 1,setting, "pkcs11path");
 		}
 	}
 	scardMenuAction->setEnabled(pkcs11::loaded());
