@@ -18,6 +18,7 @@
 
 #include <openssl/rand.h>
 #include <openssl/engine.h>
+#include <openssl/bn.h>
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qdir.h>
@@ -83,7 +84,6 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	e = ENGINE_by_id("dynamic");
 
 	XCA_ENGINE_cmd(e, "SO_PATH",      CCHAR(engine_path));
-//	XCA_ENGINE_cmd(e, "DIR_ADD",      CCHAR(getPrefix() + "\\"));
 	XCA_ENGINE_cmd(e, "ID",           "pkcs11");
 	XCA_ENGINE_cmd(e, "LIST_ADD",     "1");
 	XCA_ENGINE_cmd(e, "LOAD",         NULL);
@@ -190,11 +190,14 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 	default:
 		throw errorEx(QString("Unsupported CKA_KEY_TYPE: %1\n").arg(keytype));
 	}
+	openssl_error();
 	return pkey;
 }
 
 void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
+	BIGNUM *cka_id;
+
 	QStringList sl = p11.tokenInfo();
 	card_label = sl[0];
 	card_manufacturer = sl[1];
@@ -206,7 +209,9 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 
 	pk11_attr_data id(CKA_ID);
 	p11.loadAttribute(id, object);
-	object_id.setNum(CCHAR(id.getText())[0], 16);
+	cka_id = id.getBignum();
+	object_id = BNoneLine(cka_id);
+	BN_free(cka_id);
 
 	try {
 		pk11_attr_data label(CKA_LABEL);
@@ -227,6 +232,7 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 			s = subj.getValue(&p);
 			xn.d2i(p, s);
 			slot_label = xn.getMostPopular();
+			openssl_error();
 		} catch (errorEx &err) {
 			printf("No Pubkey Subject: %s\n", err.getCString());
 			// ignore

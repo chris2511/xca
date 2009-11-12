@@ -188,6 +188,7 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 			s = subj.getValue(&p);
 			xn.d2i(p, s);
 			desc = xn.getMostPopular();
+			openssl_error();
 		} catch(errorEx &err) {
 			printf("No Cert Subject: %s\n", err.getCString());
 			// IGNORE

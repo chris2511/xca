@@ -381,9 +381,14 @@ void MainWindow::importScard()
 
 			for (int j=0; j< objects.count(); j++) {
 				card = new pki_scard("");
-				card->load_token(p11, objects[j]);
-				card->setMech_list(ml);
-				dlgi->addItem(card);
+				try {
+					card->load_token(p11, objects[j]);
+					card->setMech_list(ml);
+					dlgi->addItem(card);
+				} catch (errorEx &err) {
+					Error(err);
+					delete card;
+				}
 				card = NULL;
 			}
 			class_att.setValue(CKO_CERTIFICATE);
@@ -391,9 +396,14 @@ void MainWindow::importScard()
 
 			for (int j=0; j< objects.count(); j++) {
 				cert = new pki_x509("");
-				cert->load_token(p11, objects[j]);
-				cert->setTrust(2);
-				dlgi->addItem(cert);
+				try {
+					cert->load_token(p11, objects[j]);
+					cert->setTrust(2);
+					dlgi->addItem(cert);
+				} catch (errorEx &err) {
+					Error(err);
+					delete cert;
+				}
 				cert = NULL;
 			}
 		}
