@@ -265,6 +265,11 @@ QList<int> pki_scard::possibleHashNids()
 		case CKM_SHA384_RSA_PKCS: nids << NID_sha384; break;
 		case CKM_SHA512_RSA_PKCS: nids << NID_sha512; break;
 		case CKM_RIPEMD160_RSA_PKCS: nids << NID_ripemd160; break;
+		case CKM_RSA_PKCS:
+			QList<int> n; n << NID_md5 << NID_sha1 << NID_sha256 <<
+			NID_sha384 << NID_sha512 << NID_ripemd160;
+			printf("ALL NIDS\n");
+			return n;
 		}
 	}
 	return nids;

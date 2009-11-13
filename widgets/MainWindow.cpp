@@ -375,7 +375,8 @@ void MainWindow::importScard()
 		for (i=0; i<p11_slots.count(); i++) {
 			p11.startSession(p11_slots[i]);
 			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(i);
-
+			if (ml.count() == 0)
+				ml << CKM_SHA1_RSA_PKCS;
 			class_att.setValue(CKO_PUBLIC_KEY);
 			objects = p11.objectList(&class_att);
 

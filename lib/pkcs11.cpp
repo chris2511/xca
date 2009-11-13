@@ -80,15 +80,17 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
 	unsigned long count;
 
 	rv = p11->C_GetMechanismList(slot, NULL, &count);
-	m = (CK_MECHANISM_TYPE *)malloc(count *sizeof(*m));
-	if (!m)
-		throw errorEx("C_GetMechanismList(Out of Memory)");
+	if (count != 0) {
+		m = (CK_MECHANISM_TYPE *)malloc(count *sizeof(*m));
+		if (!m)
+			throw errorEx("C_GetMechanismList(Out of Memory)");
 
-	rv = p11->C_GetMechanismList(slot, m, &count);
-	if (rv != CKR_OK)
-		pk11error("C_GetMechanismList", rv);
-	for (unsigned i=0; i<count; i++) {
-		ml << m[i];
+		rv = p11->C_GetMechanismList(slot, m, &count);
+		if (rv != CKR_OK)
+			pk11error("C_GetMechanismList", rv);
+		for (unsigned i=0; i<count; i++) {
+			ml << m[i];
+		}
 	}
 	return ml;
 }
