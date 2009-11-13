@@ -89,6 +89,8 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	XCA_ENGINE_cmd(e, "LOAD",         NULL);
 	XCA_ENGINE_cmd(e, "MODULE_PATH",  CCHAR(file));
 
+//	XCA_ENGINE_cmd(e, "VERBOSE",      NULL);
+
 	ENGINE_init(e);
 	if (ERR_peek_error() != 0)
 		return false;
@@ -318,7 +320,9 @@ int pki_scard::prepare_card() const
 
 			pk11_attr_data id(CKA_ID);
 			p11.loadAttribute(id, object);
-			cid.setNum(CCHAR(id.getText())[0], 16);
+			BIGNUM *cka_id = id.getBignum();
+			cid = BNoneLine(cka_id);
+			BN_free(cka_id);
 
 			if (cid == object_id) {
 				EVP_PKEY *pkey = load_pubkey(p11, object);
@@ -449,7 +453,7 @@ EVP_PKEY *pki_scard::decryptKey() const
 
 	slot_id = prepare_card();
 	if (slot_id == -1)
-		return NULL;
+		throw errorEx(tr("Failed to find the key on the Smart-card"));
 
 	QString key_id = QString("%1:").arg(slot_id) + object_id;
 
@@ -457,7 +461,7 @@ EVP_PKEY *pki_scard::decryptKey() const
 	p11.startSession(slot_id, true);
 	pin = scardLogin(p11, false);
 	if (pin.isNull())
-		return NULL;
+		throw errorEx(tr("Invalid Pin for Smart-card"));
 	cb_data.password = strdup(CCHAR(pin));
 	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
 				NULL, &cb_data);

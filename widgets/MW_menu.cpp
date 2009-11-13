@@ -178,6 +178,11 @@ void MainWindow::setOptions()
 		} catch (errorEx &err) {
 			Error(err);
 		}
+#ifdef WIN32
+		QMessageBox::information(this, XCA_TITLE,
+			QString("You need to restart XCA to load the new library\n"),
+			tr("Ok"));
+#endif
 	}
 	scardMenuAction->setEnabled(pkcs11::loaded());
 }

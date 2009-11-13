@@ -43,7 +43,21 @@ $ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${C
 $ make && make install
 
 unpack opensc-0.11.11.tar.gz and cd into opensc-0.11.11
-$ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
+$ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR} --enable-openssl \
+                --disable-zlib \
+                --disable-readline \
+                --disable-iconv \
+                --enable-openssl \
+                --disable-openct \
+                --enable-pcsc \
+                --disable-nsplugin \
+                --disable-man \
+                --disable-doc \
+                --with-cygwin-native \
+                --without-xsl-stylesheetsdir \
+                --without-plugindir \
+                --without-pinentry
+
 $ make && make install
 
 

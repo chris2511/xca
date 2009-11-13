@@ -164,6 +164,12 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	unsigned long s;
 	QString desc;
 
+	pk11_attr_ulong type(CKA_CERTIFICATE_TYPE);
+	p11.loadAttribute(type, object);
+	if (type.getValue() != CKC_X_509)
+		throw errorEx(QString("Unsupported Certificate type %1"
+			).arg(type.getValue()));
+
 	try {
 		pk11_attr_data label(CKA_LABEL);
 		p11.loadAttribute(label, object);
