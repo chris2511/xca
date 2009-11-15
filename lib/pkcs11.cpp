@@ -60,8 +60,7 @@ QList<unsigned long> pkcs11::getSlotList()
 
 		p11_slots = (CK_SLOT_ID *)realloc(p11_slots,
 					num_slots *sizeof(CK_SLOT_ID));
-		if (!p11_slots)
-			throw errorEx("C_GetSlotList(Out of Memory)");
+		check_oom(p11_slots);
 	}
 
 	for (i=0; i<num_slots; i++) {
@@ -82,8 +81,7 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
 	rv = p11->C_GetMechanismList(slot, NULL, &count);
 	if (count != 0) {
 		m = (CK_MECHANISM_TYPE *)malloc(count *sizeof(*m));
-		if (!m)
-			throw errorEx("C_GetMechanismList(Out of Memory)");
+		check_oom(m);
 
 		rv = p11->C_GetMechanismList(slot, m, &count);
 		if (rv != CKR_OK)
@@ -112,7 +110,7 @@ bool pkcs11::needsLogin(bool so)
 	rv = p11->C_GetSessionInfo(session, &sinfo);
 	if (rv != CKR_OK)
                 pk11error("C_GetSessionInfo", rv);
-        printf("C_GetSessionInfo: %d\n", sinfo.state);
+        printf("C_GetSessionInfo: %lu\n", sinfo.state);
 
 	switch (sinfo.state) {
 	case CKS_RO_PUBLIC_SESSION:
@@ -210,19 +208,33 @@ void pkcs11::storeAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 	attribute.store(session, object);
 }
 
-QList<CK_OBJECT_HANDLE> pkcs11::objectList(const pk11_attribute *att)
+CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
+{
+	CK_RV rv;
+	CK_ATTRIBUTE *attributes;
+	unsigned long num;
+	CK_OBJECT_HANDLE obj;
+
+	num = attrs.get(&attributes);
+	rv = p11->C_CreateObject(session, attributes, num, &obj);
+	if (rv != CKR_OK) {
+		pk11error("C_CreateObject", rv);
+	}
+	return obj;
+}
+
+QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)
 {
 	CK_RV rv;
 	CK_OBJECT_HANDLE objects[256];
 	QList<CK_OBJECT_HANDLE> list;
-	unsigned long len, i;
-	const CK_ATTRIBUTE *attribute = NULL;
+	unsigned long len, i, att_num;
+	CK_ATTRIBUTE *attribute;
 
-	if (att)
-		attribute = att->getAttribute();
+	att_num = atts.get(&attribute);
 
-	rv = p11->C_FindObjectsInit(session, (CK_ATTRIBUTE *)attribute,
-				attribute ? 1 : 0);
+	rv = p11->C_FindObjectsInit(session, attribute, att_num);
+
 	if (rv != CKR_OK)
 		pk11error("C_FindObjectsInit", rv);
 

@@ -28,7 +28,6 @@ class pki_base : public QObject
 		pki_base *parent;
 
 		void my_error(const QString myerr) const;
-		void check_oom(const void *ptr) const;
 		void fopen_error(const QString fname);
 
 	public:

@@ -44,4 +44,5 @@ class errorEx
 		}
 };
 
+#define check_oom(ptr) if(!ptr){throw errorEx(QObject::tr("Out of Memory"));}
 #endif

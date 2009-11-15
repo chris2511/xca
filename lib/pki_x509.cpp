@@ -207,8 +207,9 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 void pki_x509::store_token()
 {
 	pki_scard *card = (pki_scard *)privkey;
-	int slot, size;
-	unsigned char*p, *p1;
+	int slot, size, id_size;
+	unsigned char *p, *p1, *id;
+	const unsigned char *label;
 	QList<CK_OBJECT_HANDLE> objects;
 
 	if (!privkey || !privkey->isScard())
@@ -219,28 +220,32 @@ void pki_x509::store_token()
 	size = i2d_X509(cert, NULL);
 	openssl_error();
 	p = p1 = (unsigned char*)OPENSSL_malloc(size);
-
 	i2d_X509(cert, &p1);
 	openssl_error();
-	pk11_attr_data x509(CKA_VALUE);
-	x509.setValue(p, size);
-	free(p);
 
-	pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
-	class_att.setValue(CKO_CERTIFICATE);
+	id_size = card->getIdBin(&id);
+	openssl_error();
+	label = (const unsigned char *)desc.toUtf8().constData();
+
+	pk11_attlist p11_atts;
+	p11_atts <<
+		pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
+		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
+		pk11_attr_bool(CKA_TOKEN, true) <<
+		pk11_attr_data(CKA_VALUE, p, size) <<
+		pk11_attr_data(CKA_ID, id, id_size) <<
+		pk11_attr_data(CKA_LABEL, label, strlen((const char*)label));
+
+	free(p);
+	free(id);
 
 	pkcs11 p11;
 	p11.startSession(slot, true);
-	objects = p11.objectList(&class_att);
-	if (objects.count() == 0)
-		throw errorEx(tr("No certificate object found"));
-	if (objects.count() > 1)
-		throw errorEx(tr("More than one certificate objects found"));
 
 	if (card->scardLogin(p11, false).isNull())
 		return;
-	p11.storeAttribute(x509, objects[0]);
-	openssl_error();
+
+	p11.createObject(p11_atts);
 }
 
 bool pki_x509::verifyQASerial(const a1int &secret) const

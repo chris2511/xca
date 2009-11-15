@@ -250,6 +250,17 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	openssl_error();
 }
 
+int pki_scard::getIdBin(unsigned char **to)
+{
+	int l;
+	BIGNUM *bn = NULL;
+	BN_hex2bn(&bn, CCHAR(object_id));
+	l = BN_num_bytes(bn);
+	*to = (unsigned char*)malloc(l);
+	BN_bn2bin(bn, *to);
+	return l;
+}
+
 QList<int> pki_scard::possibleHashNids()
 {
 	QList<int> nids;
@@ -265,12 +276,11 @@ QList<int> pki_scard::possibleHashNids()
 		case CKM_SHA384_RSA_PKCS: nids << NID_sha384; break;
 		case CKM_SHA512_RSA_PKCS: nids << NID_sha512; break;
 		case CKM_RIPEMD160_RSA_PKCS: nids << NID_ripemd160; break;
-		case CKM_RSA_PKCS:
-			QList<int> n; n << NID_md5 << NID_sha1 << NID_sha256 <<
-			NID_sha384 << NID_sha512 << NID_ripemd160;
-			printf("ALL NIDS\n");
-			return n;
 		}
+	}
+	if (nids.count() == 0) {
+		nids << NID_md5 << NID_sha1 << NID_sha256 <<
+			NID_sha384 << NID_sha512 << NID_ripemd160;
 	}
 	return nids;
 }
@@ -310,14 +320,13 @@ int pki_scard::prepare_card() const
 		}
 	}
 
-	pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
 	QList<CK_OBJECT_HANDLE> objects;
 
 	for (i=0; i<p11_slots.count(); i++) {
 		p11.startSession(p11_slots[i]);
 
-		class_att.setValue(CKO_PUBLIC_KEY);
-		objects = p11.objectList(&class_att);
+		pk11_attlist cls (pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
+		objects = p11.objectList(cls);
 
 		for (int j=0; j< objects.count(); j++) {
 			CK_OBJECT_HANDLE object = objects[j];

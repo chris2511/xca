@@ -42,7 +42,7 @@ class pkcs11
 				   CK_OBJECT_HANDLE object);
 		void storeAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
-		QList<CK_OBJECT_HANDLE> objectList(const pk11_attribute *att);
+		QList<CK_OBJECT_HANDLE> objectList(pk11_attlist &atts);
 		void login(unsigned char *pin, unsigned long pinlen, bool so);
 		void logout();
 		bool needsLogin(bool so);
@@ -50,6 +50,7 @@ class pkcs11
 			unsigned char *pin, unsigned long pinLen);
 		void initPin(unsigned char *pin, unsigned long pinLen);
 		QList<CK_MECHANISM_TYPE> mechanismList(unsigned long slot);
+		CK_OBJECT_HANDLE createObject(pk11_attlist &attrs);
 };
 
 #endif

@@ -366,7 +366,6 @@ void MainWindow::importScard()
 	try {
 		ImportMulti *dlgi = new ImportMulti(this);
 		QList<CK_OBJECT_HANDLE> objects;
-		pk11_attr_ulong class_att = pk11_attr_ulong(CKA_CLASS);
 		p11_slots = p11.getSlotList();
 
 		if (p11_slots.count() == 0)
@@ -377,8 +376,10 @@ void MainWindow::importScard()
 			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(i);
 			if (ml.count() == 0)
 				ml << CKM_SHA1_RSA_PKCS;
-			class_att.setValue(CKO_PUBLIC_KEY);
-			objects = p11.objectList(&class_att);
+			pk11_attlist atts(pk11_attr_ulong(CKA_CLASS,
+					CKO_PUBLIC_KEY));
+
+			objects = p11.objectList(atts);
 
 			for (int j=0; j< objects.count(); j++) {
 				card = new pki_scard("");
@@ -392,8 +393,10 @@ void MainWindow::importScard()
 				}
 				card = NULL;
 			}
-			class_att.setValue(CKO_CERTIFICATE);
-			objects = p11.objectList(&class_att);
+			atts.reset();
+			atts << pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
+				pk11_attr_ulong(CKA_CERTIFICATE_TYPE,CKC_X_509);
+			objects = p11.objectList(atts);
 
 			for (int j=0; j< objects.count(); j++) {
 				cert = new pki_x509("");
