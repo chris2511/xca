@@ -35,6 +35,8 @@ $ ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
 $ make && make install
 
 unpack libp11-0.2.7 an cd into libp11-0.2.7
+Apply hack for Aloaha PKCS#11 libraray if intend to use it:
+$ patch -p1 < ../xca/misc/lip11_aloaha_hack.diff
 $ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS="-L${INSTALL_DIR}/lib" LTLIB_LIBS="-lltdl" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
 $ make && make install
 

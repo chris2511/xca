@@ -1,0 +1,47 @@
+diff -ur libp11-0.2.7.orig/src/libp11-int.h libp11-0.2.7/src/libp11-int.h
+--- libp11-0.2.7.orig/src/libp11-int.h	2008-08-28 22:12:43.000000000 +0200
++++ libp11-0.2.7/src/libp11-int.h	2009-11-16 07:51:12.000000000 +0100
+@@ -140,8 +140,20 @@
+ #define key_getattr(key, t, p, s) \
+ 	pkcs11_getattr(KEY2TOKEN((key)), PRIVKEY((key))->object, (t), (p), (s))
+ 
+-#define key_getattr_bn(key, t, bn) \
+-	pkcs11_getattr_bn(KEY2TOKEN((key)), PRIVKEY((key))->object, (t), (bn))
++static inline int
++key_getattr_bn(const PKCS11_KEY *key, CK_ATTRIBUTE_TYPE type, BIGNUM **bn)
++{
++	PKCS11_KEY_private *pkey = PRIVKEY(key);
++	CK_OBJECT_HANDLE object = pkey->object;
++	if (type == CKA_MODULUS || type == CKA_PUBLIC_EXPONENT) {
++		/* 08002003 ->pub
++		 * 08003003 ->priv */
++		// printf("ALOAHA HACK: '%s'\n", pkey->parent->manufacturer);
++		if (!strcmp(pkey->parent->manufacturer, "Aloaha PKCS#11"))
++			object &= ~0x1000UL;
++	}
++	return pkcs11_getattr_bn(pkey->parent, object, type, bn);
++}
+ 
+ typedef int (*pkcs11_i2d_fn) (void *, unsigned char **);
+ extern void pkcs11_addattr(CK_ATTRIBUTE_PTR, int, const void *, size_t);
+diff -ur libp11-0.2.7.orig/src/p11_key.c libp11-0.2.7/src/p11_key.c
+--- libp11-0.2.7.orig/src/p11_key.c	2008-08-28 22:12:43.000000000 +0200
++++ libp11-0.2.7/src/p11_key.c	2009-11-16 07:53:02.000000000 +0100
+@@ -444,15 +444,13 @@
+ }
+ int PKCS11_get_key_modulus(PKCS11_KEY * key, BIGNUM **bn) 
+ {
+-	
+-	if (pkcs11_getattr_bn(KEY2TOKEN(key), PRIVKEY(key)->object, CKA_MODULUS, bn))
++	if (key_getattr_bn(key, CKA_MODULUS, bn))
+ 		return 0;
+ 	return 1;
+ }
+ int PKCS11_get_key_exponent(PKCS11_KEY * key, BIGNUM **bn) 
+ {
+-	
+-	if (pkcs11_getattr_bn(KEY2TOKEN(key), PRIVKEY(key)->object, CKA_PUBLIC_EXPONENT, bn))
++	if (key_getattr_bn(key, CKA_PUBLIC_EXPONENT, bn))
+ 		return 0;
+ 	return 1;
+ }
