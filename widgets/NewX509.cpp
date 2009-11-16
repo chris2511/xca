@@ -507,6 +507,11 @@ void NewX509::newKeyDone(QString name)
 	keyList->setCurrentIndex(keys.indexOf(name));
 }
 
+void NewX509::on_noWellDefinedExpDate_toggled(bool)
+{
+	notAfter->setEnabled(!noWellDefinedExpDate->isChecked());
+}
+
 void NewX509::on_usedKeysToo_toggled(bool)
 {
 	QString cur = keyList->currentText();
@@ -762,7 +767,7 @@ QString NewX509::mandatoryDnRemain()
 	x509name n;
 	int i;
 
-	if (fromReqCB->isChecked())
+	if (fromReqCB->isChecked() && !reqSubChange->isChecked())
 		n = getSelectedReq()->getSubject();
 	else
 		n = getX509name();
@@ -849,23 +854,8 @@ void NewX509::on_okButton_clicked()
 				return;
 		}
 	}
-	if (notBefore->getDate().get_utc() == NULL ||
-				notAfter->getDate().get_utc() == NULL) {
-		switch (QMessageBox::warning(this, tr(XCA_TITLE),
-			tr("The validity dates are out of range (1950 - 2049) to create "
-				"valid certificates. If you continue, your client may "
-				"reject the certificate."),
-			tr("Ok"), tr("Abort rollout"), tr("Continue rollout")))
-		{
-			case -1:
-			case 0:
-				return;
-			case 1:
-				reject();
-				return;
-		}
-	}
-	if (notBefore->getDate() > notAfter->getDate()) {
+	if (notBefore->getDate() > notAfter->getDate() &&
+				!noWellDefinedExpDate->isChecked()) {
 		switch (QMessageBox::warning(this, tr(XCA_TITLE),
 			tr("The certificate will be out of date before it becomes valid. "
 				"You most probably mixed up both dates."),

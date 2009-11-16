@@ -25,6 +25,7 @@ class a1time
 	a1time &set(time_t t);
 	a1time &set(const QString &s);
 	a1time &set(int y, int mon, int d, int h, int m, int s);
+	void setUndefined();
 	QString toPretty() const;
 	QString toPlain() const;
 	QString toSortable() const;

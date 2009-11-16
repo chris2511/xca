@@ -115,6 +115,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_usedKeysToo_toggled(bool checked);
 		void on_tabWidget_currentChanged(int idx);
 		void on_reqSubChange_clicked();
+		void on_noWellDefinedExpDate_toggled(bool);
 
 	signals:
 		void genKey(QString);

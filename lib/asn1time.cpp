@@ -10,6 +10,7 @@
 #include <openssl/x509.h>
 #include <openssl/err.h>
 #include <openssl/opensslv.h>
+#include <qobject.h>
 
 a1time::a1time()
 {
@@ -73,29 +74,31 @@ a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
 	return set(gt);
 }
 
+/* As defined in rfc-5280  4.1.2.5 */
+#define UNDEFINED_DATE "99991231235959Z"
 
 QString a1time::toPretty() const
 {
-        QString t = "";
-        if (!time) return t;
-        BIO * bio = BIO_new(BIO_s_mem());
+        if (!time)
+		return QString();
+	if (QString::fromAscii((char*)time->data, time->length) == UNDEFINED_DATE)
+		return QObject::tr("Undefined");
+
         char buf[200];
+        BIO * bio = BIO_new(BIO_s_mem());
         ASN1_TIME_print(bio, time);
         BIO_gets(bio, buf, 200);
-        t = buf;
         BIO_free(bio);
-        return t;
+        return QString(buf);
 }
 
 QString a1time::toPlain() const
 {
-        QString t = "";
-        char b[15];
-        if (!time) return t;
-        memcpy(b, time->data, time->length);
-        b[time->length] = '\0';
-        t = b;
-        return t;
+	QString t;
+        if (time) {
+		t = QString::fromAscii((char*)time->data, time->length);
+	}
+	return t;
 }
 
 QString a1time::toSortable() const
@@ -117,6 +120,11 @@ a1time &a1time::set(const QString &s)
 	const char *x = s.toAscii();
 	ASN1_GENERALIZEDTIME_set_string(time, (char*)x);
 	return *this;
+}
+
+void a1time::setUndefined()
+{
+	ASN1_GENERALIZEDTIME_set_string(time, UNDEFINED_DATE);
 }
 
 int a1time::ymdg(int *y, int *m, int *d, int *g) const

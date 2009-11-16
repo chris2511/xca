@@ -92,8 +92,10 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 //	XCA_ENGINE_cmd(e, "VERBOSE",      NULL);
 
 	ENGINE_init(e);
-	if (ERR_peek_error() != 0)
+	if (ERR_peek_error() != 0) {
+		ign_openssl_error();
 		return false;
+	}
 	p11_engine = e;
 	return true;
 }

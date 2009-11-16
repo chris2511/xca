@@ -481,8 +481,14 @@ void db_x509::newCert(NewX509 *dlg)
 
 	// Step 3 - Choose the Date
 	// Date handling
-	cert->setNotBefore( dlg->notBefore->getDate() );
-	cert->setNotAfter( dlg->notAfter->getDate() );
+	cert->setNotBefore(dlg->notBefore->getDate());
+	a1time a;
+	if (dlg->noWellDefinedExpDate->isChecked())
+		a.setUndefined();
+	else
+		a = dlg->notAfter->getDate();
+
+	cert->setNotAfter(a);
 
 	if (cert->resetTimes(signcert) > 0) {
 		if (QMessageBox::information(mainwin,tr(XCA_TITLE),
