@@ -137,7 +137,7 @@ pki_key *pki_pkcs12::getKey()
 {
 	if (!key)
 		return NULL;
-	return  new pki_key(key);
+	return new pki_evp(key);
 }
 
 

@@ -81,7 +81,7 @@ static pki_base *pkiByPEM(QString text, int *skip)
 				text.startsWith(PEM_STRING_ECPRIVATEKEY D5) ||
 				text.startsWith(PEM_STRING_PKCS8 D5) ||
 				text.startsWith(PEM_STRING_PKCS8INF D5))
-		return new pki_key();
+		return new pki_evp();
 
 	return NULL;
 }
