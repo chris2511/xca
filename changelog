@@ -1,3 +1,15 @@
+xca 0.8.0
+
+  * add hash algos "ripemd160" and "SHA384"
+  * add the "no well-defined date" from RFC 5280 as checkbox
+  * Feature request [1996192]
+    Include "OCSPSigning" in misc/eku.txt
+  * Support for EC keys
+  * Update Step-by-step documentation
+    Thanks Devin Reade
+  * Support for Smart Cards
+  * set proper file-extension .xdb on opening databases
+
 xca 0.7.0
 
   * support modifying the CSR subject during signing
