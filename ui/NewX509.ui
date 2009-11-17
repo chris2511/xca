@@ -1,29 +1,30 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>NewX509</class>
- <widget class="QDialog" name="NewX509" >
-  <property name="geometry" >
+ <widget class="QDialog" name="NewX509">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>547</width>
+    <width>553</width>
     <height>599</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2" >
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QLabel" name="capt" >
-       <property name="font" >
+      <widget class="QLabel" name="capt">
+       <property name="font">
         <font>
          <family>Arial</family>
          <pointsize>14</pointsize>
@@ -34,20 +35,20 @@
          <strikeout>false</strikeout>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Create</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -56,20 +57,20 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="image" >
-       <property name="minimumSize" >
+      <widget class="QLabel" name="image">
+       <property name="minimumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="maximumSize" >
+       <property name="maximumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="scaledContents" >
+       <property name="scaledContents">
         <bool>true</bool>
        </property>
       </widget>
@@ -77,30 +78,30 @@
     </layout>
    </item>
    <item>
-    <widget class="QTabWidget" name="tabWidget" >
-     <property name="currentIndex" >
-      <number>2</number>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="tab_0" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_0">
+      <attribute name="title">
        <string>Source</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>9</number>
        </property>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>16</height>
@@ -109,62 +110,62 @@
         </spacer>
        </item>
        <item>
-        <widget class="QGroupBox" name="requestBox" >
-         <property name="title" >
+        <widget class="QGroupBox" name="requestBox">
+         <property name="title">
           <string>Signing request</string>
          </property>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>9</number>
           </property>
           <item>
-           <widget class="QWidget" native="1" name="reqWidget" >
-            <layout class="QGridLayout" >
-             <property name="margin" >
+           <widget class="QWidget" name="reqWidget" native="true">
+            <layout class="QGridLayout">
+             <property name="margin">
               <number>0</number>
              </property>
-             <property name="spacing" >
+             <property name="spacing">
               <number>6</number>
              </property>
-             <item row="0" column="1" >
-              <widget class="QComboBox" name="reqList" >
-               <property name="whatsThis" >
+             <item row="0" column="1">
+              <widget class="QComboBox" name="reqList">
+               <property name="whatsThis">
                 <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
 Getting signed by a CA certificate, whoes certificate of course must be in the database
 Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <widget class="QPushButton" name="showReqBut" >
-               <property name="text" >
+             <item row="1" column="1">
+              <widget class="QPushButton" name="showReqBut">
+               <property name="text">
                 <string>Show request</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="0" >
-              <widget class="QCheckBox" name="fromReqCB" >
-               <property name="text" >
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="fromReqCB">
+               <property name="text">
                 <string>Sign this Certificate signing &amp;request</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QCheckBox" name="copyReqExtCB" >
-               <property name="text" >
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="copyReqExtCB">
+               <property name="text">
                 <string>Copy extensions from the request</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" >
-              <widget class="QCheckBox" name="reqSubChange" >
-               <property name="text" >
+             <item row="2" column="0">
+              <widget class="QCheckBox" name="reqSubChange">
+               <property name="text">
                 <string>Modify subject of the request</string>
                </property>
               </widget>
@@ -173,12 +174,12 @@ Of course you need the private key of the CSR if you want to create a self-signe
            </widget>
           </item>
           <item>
-           <widget class="QWidget" native="1" name="attrWidget" >
-            <layout class="QHBoxLayout" >
-             <property name="spacing" >
+           <widget class="QWidget" name="attrWidget" native="true">
+            <layout class="QHBoxLayout">
+             <property name="spacing">
               <number>6</number>
              </property>
-             <property name="margin" >
+             <property name="margin">
               <number>0</number>
              </property>
             </layout>
@@ -189,13 +190,13 @@ Of course you need the private key of the CSR if you want to create a self-signe
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>16</height>
@@ -204,41 +205,41 @@ Of course you need the private key of the CSR if you want to create a self-signe
         </spacer>
        </item>
        <item>
-        <widget class="QGroupBox" name="signerBox" >
-         <property name="title" >
+        <widget class="QGroupBox" name="signerBox">
+         <property name="title">
           <string>Signing</string>
          </property>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>9</number>
           </property>
           <item>
-           <layout class="QHBoxLayout" >
-            <property name="spacing" >
+           <layout class="QHBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>0</number>
             </property>
             <item>
-             <widget class="QRadioButton" name="selfSignRB" >
-              <property name="text" >
+             <widget class="QRadioButton" name="selfSignRB">
+              <property name="text">
                <string>Create a &amp;self signed certificate with the serial</string>
               </property>
-              <property name="checked" >
+              <property name="checked">
                <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="serialNr" >
-              <property name="toolTip" >
+             <widget class="QLineEdit" name="serialNr">
+              <property name="toolTip">
                <string>If you leave this blank the serial 00 will be used</string>
               </property>
-              <property name="text" >
+              <property name="text">
                <string>1</string>
               </property>
              </widget>
@@ -246,26 +247,26 @@ Of course you need the private key of the CSR if you want to create a self-signe
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" >
-            <property name="spacing" >
+           <layout class="QHBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>0</number>
             </property>
             <item>
-             <widget class="QRadioButton" name="foreignSignRB" >
-              <property name="text" >
+             <widget class="QRadioButton" name="foreignSignRB">
+              <property name="text">
                <string>Use &amp;this Certificate for for signing</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="certList" >
-              <property name="toolTip" >
+             <widget class="QComboBox" name="certList">
+              <property name="toolTip">
                <string>All certificates in your database that can create valid signatures</string>
               </property>
-              <property name="whatsThis" >
+              <property name="whatsThis">
                <string>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
 If this list is disabled, you only can create a self-signed certificate.</string>
               </property>
@@ -278,10 +279,10 @@ If this list is disabled, you only can create a self-signed certificate.</string
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>16</height>
@@ -290,34 +291,34 @@ If this list is disabled, you only can create a self-signed certificate.</string
         </spacer>
        </item>
        <item>
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>6</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="label" >
-           <property name="text" >
+          <widget class="QLabel" name="label">
+           <property name="text">
             <string>Signature algorithm</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="hashBox" name="hashAlgo" />
+          <widget class="hashBox" name="hashAlgo"/>
          </item>
         </layout>
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>16</height>
@@ -326,43 +327,43 @@ If this list is disabled, you only can create a self-signed certificate.</string
         </spacer>
        </item>
        <item>
-        <widget class="QGroupBox" name="templBox" >
-         <property name="title" >
+        <widget class="QGroupBox" name="templBox">
+         <property name="title">
           <string>Template</string>
          </property>
-         <layout class="QHBoxLayout" >
-          <property name="spacing" >
+         <layout class="QHBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>9</number>
           </property>
           <item>
-           <widget class="QLabel" name="TextLabel2_3_2" >
-            <property name="text" >
+           <widget class="QLabel" name="TextLabel2_3_2">
+            <property name="text">
              <string>Template for the new certificate</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="tempList" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+           <widget class="QComboBox" name="tempList">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="toolTip" >
+            <property name="toolTip">
              <string>All available templates</string>
             </property>
-            <property name="whatsThis" >
+            <property name="whatsThis">
              <string>This list contains all templates from the toplevel template Tab</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="applyTemplate" >
-            <property name="text" >
+           <widget class="QPushButton" name="applyTemplate">
+            <property name="text">
              <string>Apply</string>
             </property>
            </widget>
@@ -372,13 +373,13 @@ If this list is disabled, you only can create a self-signed certificate.</string
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>16</height>
@@ -388,179 +389,197 @@ If this list is disabled, you only can create a self-signed certificate.</string
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_1" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_1">
+      <attribute name="title">
        <string>Subject</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>9</number>
        </property>
        <item>
-        <widget class="QGroupBox" name="distNameBox" >
-         <property name="title" >
+        <widget class="QGroupBox" name="distNameBox">
+         <property name="title">
           <string>Distinguished name</string>
          </property>
-         <layout class="QVBoxLayout" >
-          <property name="spacing" >
+         <layout class="QVBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>8</number>
           </property>
           <item>
-           <layout class="QGridLayout" >
-            <property name="margin" >
+           <layout class="QGridLayout">
+            <property name="margin">
              <number>0</number>
             </property>
-            <property name="spacing" >
+            <property name="spacing">
              <number>6</number>
             </property>
-            <item row="3" column="3" >
-             <widget class="QLineEdit" name="emailAddress" >
-              <property name="maxLength" >
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="emailAddress">
+              <property name="maxLength">
                <number>60</number>
               </property>
              </widget>
             </item>
-            <item row="0" column="2" >
-             <widget class="QLabel" name="TextLabel4_2_2_2" >
-              <property name="text" >
+            <item row="0" column="2">
+             <widget class="QLabel" name="TextLabel4_2_2_2">
+              <property name="toolTip">
+               <string>O</string>
+              </property>
+              <property name="text">
                <string>Organisation</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1" >
-             <widget class="QLineEdit" name="description" >
-              <property name="toolTip" >
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="description">
+              <property name="toolTip">
                <string>This name is only used internally and does not appear in the resulting certificate</string>
               </property>
-              <property name="maxLength" >
+              <property name="maxLength">
                <number>100</number>
               </property>
              </widget>
             </item>
-            <item row="1" column="1" >
-             <widget class="QLineEdit" name="countryName" >
-              <property name="toolTip" >
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="countryName">
+              <property name="toolTip">
                <string>Must be exactly 2 letter of size (DE, UK)</string>
               </property>
-              <property name="maxLength" >
+              <property name="maxLength">
                <number>2</number>
               </property>
              </widget>
             </item>
-            <item row="2" column="3" >
-             <widget class="QLineEdit" name="commonName" >
-              <property name="maxLength" >
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="commonName">
+              <property name="maxLength">
                <number>64</number>
               </property>
              </widget>
             </item>
-            <item row="1" column="0" >
-             <widget class="QLabel" name="TextLabel2_2_2" >
-              <property name="text" >
+            <item row="1" column="0">
+             <widget class="QLabel" name="TextLabel2_2_2">
+              <property name="toolTip">
+               <string>C</string>
+              </property>
+              <property name="text">
                <string>Country code</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0" >
-             <widget class="QLabel" name="TextLabel3_2_3" >
-              <property name="text" >
+            <item row="2" column="0">
+             <widget class="QLabel" name="TextLabel3_2_3">
+              <property name="toolTip">
+               <string>ST</string>
+              </property>
+              <property name="text">
                <string>State or Province</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1" >
-             <widget class="QLineEdit" name="stateOrProvinceName" />
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="stateOrProvinceName"/>
             </item>
-            <item row="3" column="0" >
-             <widget class="QLabel" name="TextLabel4_3_2" >
-              <property name="text" >
+            <item row="3" column="0">
+             <widget class="QLabel" name="TextLabel4_3_2">
+              <property name="toolTip">
+               <string>L</string>
+              </property>
+              <property name="text">
                <string>Locality</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2" >
-             <widget class="QLabel" name="TextLabel5_2_2" >
-              <property name="text" >
+            <item row="1" column="2">
+             <widget class="QLabel" name="TextLabel5_2_2">
+              <property name="toolTip">
+               <string>OU</string>
+              </property>
+              <property name="text">
                <string>Organ. unit</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="2" >
-             <widget class="QLabel" name="TextLabel6_2_2" >
-              <property name="text" >
+            <item row="2" column="2">
+             <widget class="QLabel" name="TextLabel6_2_2">
+              <property name="toolTip">
+               <string>CN</string>
+              </property>
+              <property name="text">
                <string>Common name</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="2" >
-             <widget class="QLabel" name="TextLabel7_2_2" >
-              <property name="text" >
+            <item row="3" column="2">
+             <widget class="QLabel" name="TextLabel7_2_2">
+              <property name="toolTip">
+               <string>emailAddress</string>
+              </property>
+              <property name="text">
                <string>E-Mail address</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1" >
-             <widget class="QLineEdit" name="localityName" />
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="localityName"/>
             </item>
-            <item row="1" column="3" >
-             <widget class="QLineEdit" name="organisationalUnitName" />
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="organisationalUnitName"/>
             </item>
-            <item row="0" column="0" >
-             <widget class="QLabel" name="TextLabel1_3_2_2" >
-              <property name="text" >
+            <item row="0" column="0">
+             <widget class="QLabel" name="TextLabel1_3_2_2">
+              <property name="text">
                <string>Internal name</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="3" >
-             <widget class="QLineEdit" name="organisationName" />
+            <item row="0" column="3">
+             <widget class="QLineEdit" name="organisationName"/>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="Line" name="Line1_2" >
-            <property name="orientation" >
+           <widget class="Line" name="Line1_2">
+            <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" >
-            <property name="spacing" >
+           <layout class="QHBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>0</number>
             </property>
             <item>
-             <widget class="QComboBox" name="extDNobj" />
+             <widget class="QComboBox" name="extDNobj"/>
             </item>
             <item>
-             <widget class="QLineEdit" name="extDNname" >
-              <property name="toolTip" >
-               <string>This name is only used internally and does not appear in the resulting certificate</string>
-              </property>
-              <property name="maxLength" >
+             <widget class="QLineEdit" name="extDNname">
+              <property name="maxLength">
                <number>100</number>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="extDNadd" >
-              <property name="text" >
+             <widget class="QPushButton" name="extDNadd">
+              <property name="text">
                <string>Add</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="extDNdel" >
-              <property name="text" >
+             <widget class="QPushButton" name="extDNdel">
+              <property name="text">
                <string>Delete</string>
               </property>
              </widget>
@@ -568,17 +587,17 @@ If this list is disabled, you only can create a self-signed certificate.</string
            </layout>
           </item>
           <item>
-           <widget class="QTableWidget" name="extDNlist" >
-            <property name="selectionMode" >
+           <widget class="QTableWidget" name="extDNlist">
+            <property name="selectionMode">
              <enum>QAbstractItemView::SingleSelection</enum>
             </property>
-            <property name="selectionBehavior" >
+            <property name="selectionBehavior">
              <enum>QAbstractItemView::SelectRows</enum>
             </property>
-            <property name="rowCount" >
+            <property name="rowCount">
              <number>0</number>
             </property>
-            <property name="columnCount" >
+            <property name="columnCount">
              <number>0</number>
             </property>
            </widget>
@@ -587,40 +606,40 @@ If this list is disabled, you only can create a self-signed certificate.</string
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="privKeyBox" >
-         <property name="title" >
+        <widget class="QGroupBox" name="privKeyBox">
+         <property name="title">
           <string>Private key</string>
          </property>
-         <layout class="QHBoxLayout" >
-          <property name="spacing" >
+         <layout class="QHBoxLayout">
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>9</number>
           </property>
           <item>
-           <widget class="QComboBox" name="keyList" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+           <widget class="QComboBox" name="keyList">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="toolTip" >
+            <property name="toolTip">
              <string>This list only contains unused keys</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="usedKeysToo" >
-            <property name="text" >
+           <widget class="QCheckBox" name="usedKeysToo">
+            <property name="text">
              <string>Used keys too</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="genKeyBut" >
-            <property name="text" >
+           <widget class="QPushButton" name="genKeyBut">
+            <property name="text">
              <string>&amp;Generate a new key</string>
             </property>
            </widget>
@@ -630,68 +649,68 @@ If this list is disabled, you only can create a self-signed certificate.</string
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
        <string>Extensions</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>6</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBox_8" >
-           <property name="title" >
+          <widget class="QGroupBox" name="groupBox_8">
+           <property name="title">
             <string>Basic constrains</string>
            </property>
-           <layout class="QVBoxLayout" >
-            <property name="spacing" >
+           <layout class="QVBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>8</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" >
-              <property name="spacing" >
+             <layout class="QHBoxLayout">
+              <property name="spacing">
                <number>6</number>
               </property>
-              <property name="margin" >
+              <property name="margin">
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="TextLabel2_2_3" >
-                <property name="text" >
+               <widget class="QLabel" name="TextLabel2_2_3">
+                <property name="text">
                  <string>Type</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="basicCA" >
-                <property name="toolTip" >
+               <widget class="QComboBox" name="basicCA">
+                <property name="toolTip">
                  <string>If this will become a CA certificate or not</string>
                 </property>
-                <property name="whatsThis" >
+                <property name="whatsThis">
                  <string>Set this to TRUE if you want to create a CA certificate that signs other certificates.
 This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
 Self-signed non-CA certificates are unusual although they are possible.</string>
                 </property>
                 <item>
-                 <property name="text" >
+                 <property name="text">
                   <string>Not defined</string>
                  </property>
                 </item>
                 <item>
-                 <property name="text" >
+                 <property name="text">
                   <string>Certification Authority</string>
                  </property>
                 </item>
                 <item>
-                 <property name="text" >
+                 <property name="text">
                   <string>End Entity</string>
                  </property>
                 </item>
@@ -700,37 +719,37 @@ Self-signed non-CA certificates are unusual although they are possible.</string>
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" >
-              <property name="spacing" >
+             <layout class="QHBoxLayout">
+              <property name="spacing">
                <number>6</number>
               </property>
-              <property name="margin" >
+              <property name="margin">
                <number>0</number>
               </property>
               <item>
-               <widget class="QLabel" name="TextLabel3_2_2" >
-                <property name="text" >
+               <widget class="QLabel" name="TextLabel3_2_2">
+                <property name="text">
                  <string>Path length</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="basicPath" >
-                <property name="toolTip" >
+               <widget class="QLineEdit" name="basicPath">
+                <property name="toolTip">
                  <string>How much CAs may be below this.</string>
                 </property>
-                <property name="whatsThis" >
+                <property name="whatsThis">
                  <string>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
 A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="bcCritical" >
-                <property name="toolTip" >
+               <widget class="QCheckBox" name="bcCritical">
+                <property name="toolTip">
                  <string>The basic constraints should always be critical</string>
                 </property>
-                <property name="text" >
+                <property name="text">
                  <string>&amp;Critical</string>
                 </property>
                </widget>
@@ -741,37 +760,37 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="keyIdentBox" >
-           <property name="title" >
+          <widget class="QGroupBox" name="keyIdentBox">
+           <property name="title">
             <string>Key identifier</string>
            </property>
-           <layout class="QVBoxLayout" >
-            <property name="spacing" >
+           <layout class="QVBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>8</number>
             </property>
             <item>
-             <widget class="QCheckBox" name="subKey" >
-              <property name="toolTip" >
+             <widget class="QCheckBox" name="subKey">
+              <property name="toolTip">
                <string>Creates a hash of the key following the PKIX guidelines</string>
               </property>
-              <property name="text" >
+              <property name="text">
                <string>&amp;Subject Key Identifier</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="authKey" >
-              <property name="toolTip" >
+             <widget class="QCheckBox" name="authKey">
+              <property name="toolTip">
                <string>Copy the Subject Key Identifier from the issuer</string>
               </property>
-              <property name="whatsThis" >
+              <property name="whatsThis">
                <string>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
 It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</string>
               </property>
-              <property name="text" >
+              <property name="text">
                <string>&amp;Authority Key Identifier</string>
               </property>
              </widget>
@@ -783,10 +802,10 @@ It also copies the issuer and serial number from the issuer certificate. Normall
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>40</height>
@@ -795,59 +814,59 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         </spacer>
        </item>
        <item>
-        <widget class="QWidget" native="1" name="timewidget" >
-         <property name="enabled" >
+        <widget class="QWidget" name="timewidget" native="true">
+         <property name="enabled">
           <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" >
-          <property name="spacing" >
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
            <number>-1</number>
           </property>
-          <property name="margin" >
+          <property name="margin">
            <number>0</number>
           </property>
           <item>
-           <widget class="QGroupBox" name="validityBox" >
-            <property name="title" >
+           <widget class="QGroupBox" name="validityBox">
+            <property name="title">
              <string>Validity</string>
             </property>
-            <layout class="QGridLayout" name="gridLayout" >
-             <item row="0" column="0" >
-              <widget class="QLabel" name="TextLabel1_2_3_2" >
-               <property name="text" >
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="TextLabel1_2_3_2">
+               <property name="text">
                 <string>Not before</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="Validity" name="notBefore" >
-               <property name="displayFormat" >
+             <item row="0" column="1">
+              <widget class="Validity" name="notBefore">
+               <property name="displayFormat">
                 <string>yyyy-MM-dd hh:mm</string>
                </property>
-               <property name="calendarPopup" >
+               <property name="calendarPopup">
                 <bool>true</bool>
                </property>
-               <property name="timeSpec" >
+               <property name="timeSpec">
                 <enum>Qt::UTC</enum>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QLabel" name="TextLabel2_4_2" >
-               <property name="text" >
+             <item row="1" column="0">
+              <widget class="QLabel" name="TextLabel2_4_2">
+               <property name="text">
                 <string>Not after</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <widget class="Validity" name="notAfter" >
-               <property name="displayFormat" >
+             <item row="1" column="1">
+              <widget class="Validity" name="notAfter">
+               <property name="displayFormat">
                 <string>yyyy-MM-dd hh:mm</string>
                </property>
-               <property name="calendarPopup" >
+               <property name="calendarPopup">
                 <bool>true</bool>
                </property>
-               <property name="timeSpec" >
+               <property name="timeSpec">
                 <enum>Qt::UTC</enum>
                </property>
               </widget>
@@ -856,59 +875,59 @@ It also copies the issuer and serial number from the issuer certificate. Normall
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="rangeBox" >
-            <property name="title" >
+           <widget class="QGroupBox" name="rangeBox">
+            <property name="title">
              <string>Time range</string>
             </property>
-            <layout class="QGridLayout" name="gridLayout_2" >
-             <item row="0" column="0" >
-              <widget class="QLineEdit" name="validNumber" />
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="validNumber"/>
              </item>
-             <item row="0" column="1" >
-              <widget class="QComboBox" name="validRange" >
+             <item row="0" column="1">
+              <widget class="QComboBox" name="validRange">
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>Days</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>Months</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>Years</string>
                 </property>
                </item>
               </widget>
              </item>
-             <item row="0" column="2" >
-              <widget class="QPushButton" name="applyTime" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+             <item row="0" column="2">
+              <widget class="QPushButton" name="applyTime">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Apply</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QCheckBox" name="midnightCB" >
-               <property name="toolTip" >
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="midnightCB">
+               <property name="toolTip">
                 <string>Set the time to 00:00:00 and 23:59:59 respectively</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Midnight</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" colspan="2" >
-              <widget class="QCheckBox" name="noWellDefinedExpDate" >
-               <property name="text" >
+             <item row="1" column="1" colspan="2">
+              <widget class="QCheckBox" name="noWellDefinedExpDate">
+               <property name="text">
                 <string>No well-defined expiration</string>
                </property>
               </widget>
@@ -921,10 +940,10 @@ It also copies the issuer and serial number from the issuer certificate. Normall
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>40</height>
@@ -933,77 +952,77 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         </spacer>
        </item>
        <item>
-        <layout class="QGridLayout" >
-         <property name="margin" >
+        <layout class="QGridLayout">
+         <property name="margin">
           <number>0</number>
          </property>
-         <property name="spacing" >
+         <property name="spacing">
           <number>6</number>
          </property>
-         <item row="3" column="0" >
-          <widget class="QLabel" name="TextLabel1_2_3_2_2_3" >
-           <property name="text" >
+         <item row="3" column="0">
+          <widget class="QLabel" name="TextLabel1_2_3_2_2_3">
+           <property name="text">
             <string>Authority Info Access</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0" >
-          <widget class="QLabel" name="TextLabel1_2_3_2_3" >
-           <property name="text" >
+         <item row="2" column="0">
+          <widget class="QLabel" name="TextLabel1_2_3_2_3">
+           <property name="text">
             <string>CRL distribution point</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" >
-          <widget class="QLabel" name="TextLabel1_2_2_2" >
-           <property name="text" >
+         <item row="1" column="0">
+          <widget class="QLabel" name="TextLabel1_2_2_2">
+           <property name="text">
             <string>issuer alternative name</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1" colspan="2" >
-          <widget class="QLineEdit" name="crlDist" >
-           <property name="toolTip" >
+         <item row="2" column="1" colspan="2">
+          <widget class="QLineEdit" name="crlDist">
+           <property name="toolTip">
             <string>URI:</string>
            </property>
-           <property name="whatsThis" >
+           <property name="whatsThis">
             <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
 Currently each option will set a new DistributionPoint with the fullName field set to the given value.
 Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED> when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
+If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
 Examples:
 URI:http://www.myhost.com/myca.crl
 URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1" >
-          <widget class="QComboBox" name="aiaOid" >
-           <property name="toolTip" >
-            <string>can be altered by the file "aia.txt"</string>
+         <item row="3" column="1">
+          <widget class="QComboBox" name="aiaOid">
+           <property name="toolTip">
+            <string>can be altered by the file &quot;aia.txt&quot;</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="3" >
-          <widget class="QPushButton" name="editSubAlt" >
-           <property name="text" >
+         <item row="0" column="3">
+          <widget class="QPushButton" name="editSubAlt">
+           <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="3" >
-          <widget class="QPushButton" name="editIssAlt" >
-           <property name="text" >
+         <item row="1" column="3">
+          <widget class="QPushButton" name="editIssAlt">
+           <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="2" >
-          <widget class="QLineEdit" name="authInfAcc" >
-           <property name="toolTip" >
+         <item row="3" column="2">
+          <widget class="QLineEdit" name="authInfAcc">
+           <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
-           <property name="whatsThis" >
+           <property name="whatsThis">
             <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
 
 Example:
@@ -1013,47 +1032,47 @@ caIssuers;URI:http://my.ca/ca.html</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" colspan="2" >
-          <widget class="QLineEdit" name="subAltName" >
-           <property name="toolTip" >
+         <item row="0" column="1" colspan="2">
+          <widget class="QLineEdit" name="subAltName">
+           <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
-           <property name="whatsThis" >
-            <string>The subject alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+           <property name="whatsThis">
+            <string>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="3" >
-          <widget class="QPushButton" name="editCrlDist" >
-           <property name="text" >
+         <item row="2" column="3">
+          <widget class="QPushButton" name="editCrlDist">
+           <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0" >
-          <widget class="QLabel" name="TextLabel1_2_2_3" >
-           <property name="text" >
+         <item row="0" column="0">
+          <widget class="QLabel" name="TextLabel1_2_2_3">
+           <property name="text">
             <string>subject alternative name</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="3" >
-          <widget class="QPushButton" name="editAuthInfAcc" >
-           <property name="text" >
+         <item row="3" column="3">
+          <widget class="QPushButton" name="editAuthInfAcc">
+           <property name="text">
             <string>Edit</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" colspan="2" >
-          <widget class="QLineEdit" name="issAltName" >
-           <property name="toolTip" >
+         <item row="1" column="1" colspan="2">
+          <widget class="QLineEdit" name="issAltName">
+           <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
-           <property name="whatsThis" >
-            <string>The issuer alternative name extension allows various literal values to be used. These include "email" (an email address) , "URI" a uniform resource indicator, "DNS" (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
+           <property name="whatsThis">
+            <string>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
 email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
@@ -1064,97 +1083,97 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
        <string>Key Usage</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>8</number>
        </property>
        <item>
-        <widget class="QWidget" native="1" name="widget_4_3" />
+        <widget class="QWidget" name="widget_4_3" native="true"/>
        </item>
        <item>
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>6</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBox_12" >
-           <property name="title" >
+          <widget class="QGroupBox" name="groupBox_12">
+           <property name="title">
             <string>Key usage</string>
            </property>
-           <layout class="QVBoxLayout" >
-            <property name="spacing" >
+           <layout class="QVBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>8</number>
             </property>
             <item>
-             <widget class="QCheckBox" name="kuCritical" >
-              <property name="text" >
+             <widget class="QCheckBox" name="kuCritical">
+              <property name="text">
                <string>&amp;Critical</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="keyUsage" >
-              <property name="selectionMode" >
+             <widget class="QListWidget" name="keyUsage">
+              <property name="selectionMode">
                <enum>QAbstractItemView::MultiSelection</enum>
               </property>
-              <property name="selectionBehavior" >
+              <property name="selectionBehavior">
                <enum>QAbstractItemView::SelectRows</enum>
               </property>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Digital Signature</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Non Repudiation</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Key Encipherment</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Data Encipherment</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Key Agreement</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Certificate Sign</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>CRL Sign</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Encipher Only</string>
                </property>
               </item>
               <item>
-               <property name="text" >
+               <property name="text">
                 <string>Decipher Only</string>
                </property>
               </item>
@@ -1164,30 +1183,30 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_11" >
-           <property name="title" >
+          <widget class="QGroupBox" name="groupBox_11">
+           <property name="title">
             <string>Extended key usage</string>
            </property>
-           <layout class="QVBoxLayout" >
-            <property name="spacing" >
+           <layout class="QVBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
-            <property name="margin" >
+            <property name="margin">
              <number>8</number>
             </property>
             <item>
-             <widget class="QCheckBox" name="ekuCritical" >
-              <property name="text" >
+             <widget class="QCheckBox" name="ekuCritical">
+              <property name="text">
                <string>C&amp;ritical</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="ekeyUsage" >
-              <property name="selectionMode" >
+             <widget class="QListWidget" name="ekeyUsage">
+              <property name="selectionMode">
                <enum>QAbstractItemView::MultiSelection</enum>
               </property>
-              <property name="selectionBehavior" >
+              <property name="selectionBehavior">
                <enum>QAbstractItemView::SelectRows</enum>
               </property>
              </widget>
@@ -1198,8 +1217,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </layout>
        </item>
       </layout>
-      <widget class="QWidget" native="1" name="widget_4" >
-       <property name="geometry" >
+      <widget class="QWidget" name="widget_4" native="true">
+       <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
@@ -1209,62 +1228,62 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="tab_4" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
        <string>Netscape</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
-       <property name="margin" >
+       <property name="margin">
         <number>8</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" >
-         <property name="spacing" >
+        <layout class="QHBoxLayout">
+         <property name="spacing">
           <number>6</number>
          </property>
-         <property name="margin" >
+         <property name="margin">
           <number>0</number>
          </property>
          <item>
-          <widget class="QListWidget" name="nsCertType" >
-           <property name="selectionMode" >
+          <widget class="QListWidget" name="nsCertType">
+           <property name="selectionMode">
             <enum>QAbstractItemView::MultiSelection</enum>
            </property>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>SSL Client</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>SSL Server</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>S/MIME</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>Object Signing</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>SSL CA</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>S/MIME CA</string>
             </property>
            </item>
            <item>
-            <property name="text" >
+            <property name="text">
              <string>Object Signing CA</string>
             </property>
            </item>
@@ -1272,13 +1291,13 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item>
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeType" >
+           <property name="sizeType">
             <enum>QSizePolicy::Expanding</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
              <height>20</height>
@@ -1287,38 +1306,38 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
           </spacer>
          </item>
          <item>
-          <layout class="QVBoxLayout" >
-           <property name="spacing" >
+          <layout class="QVBoxLayout">
+           <property name="spacing">
             <number>6</number>
            </property>
-           <property name="margin" >
+           <property name="margin">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="nsImg" >
-             <property name="minimumSize" >
+            <widget class="QLabel" name="nsImg">
+             <property name="minimumSize">
               <size>
                <width>107</width>
                <height>107</height>
               </size>
              </property>
-             <property name="toolTip" >
+             <property name="toolTip">
               <string>Great picture , heh ?</string>
              </property>
-             <property name="scaledContents" >
+             <property name="scaledContents">
               <bool>true</bool>
              </property>
             </widget>
            </item>
            <item>
             <spacer>
-             <property name="orientation" >
+             <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeType" >
+             <property name="sizeType">
               <enum>QSizePolicy::Expanding</enum>
              </property>
-             <property name="sizeHint" stdset="0" >
+             <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
                <height>20</height>
@@ -1331,83 +1350,83 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </layout>
        </item>
        <item>
-        <layout class="QGridLayout" >
-         <property name="margin" >
+        <layout class="QGridLayout">
+         <property name="margin">
           <number>0</number>
          </property>
-         <property name="spacing" >
+         <property name="spacing">
           <number>6</number>
          </property>
-         <item row="3" column="1" >
-          <widget class="QLineEdit" name="nsRenewalUrl" />
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="nsRenewalUrl"/>
          </item>
-         <item row="4" column="1" >
-          <widget class="QLineEdit" name="nsCaPolicyUrl" />
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="nsCaPolicyUrl"/>
          </item>
-         <item row="2" column="0" >
-          <widget class="QLabel" name="TextLabel2_2_4" >
-           <property name="text" >
+         <item row="2" column="0">
+          <widget class="QLabel" name="TextLabel2_2_4">
+           <property name="text">
             <string>CA Revocation URL</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1" >
-          <widget class="QLineEdit" name="nsSslServerName" />
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="nsSslServerName"/>
          </item>
-         <item row="1" column="0" >
-          <widget class="QLabel" name="TextLabel4_2_2_3" >
-           <property name="text" >
+         <item row="1" column="0">
+          <widget class="QLabel" name="TextLabel4_2_2_3">
+           <property name="text">
             <string>Revocation URL</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="0" >
-          <widget class="QLabel" name="TextLabel7_2_3" >
-           <property name="text" >
+         <item row="5" column="0">
+          <widget class="QLabel" name="TextLabel7_2_3">
+           <property name="text">
             <string>SSL server name</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" >
-          <widget class="QLineEdit" name="nsBaseUrl" />
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="nsBaseUrl"/>
          </item>
-         <item row="2" column="1" >
-          <widget class="QLineEdit" name="nsCARevocationUrl" />
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="nsCARevocationUrl"/>
          </item>
-         <item row="3" column="0" >
-          <widget class="QLabel" name="TextLabel3_2_4" >
-           <property name="text" >
+         <item row="3" column="0">
+          <widget class="QLabel" name="TextLabel3_2_4">
+           <property name="text">
             <string>Certificate renewal URL</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="0" >
-          <widget class="QLabel" name="TextLabel8" >
-           <property name="text" >
+         <item row="6" column="0">
+          <widget class="QLabel" name="TextLabel8">
+           <property name="text">
             <string>Comment</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0" >
-          <widget class="QLabel" name="TextLabel6_2_3" >
-           <property name="text" >
+         <item row="4" column="0">
+          <widget class="QLabel" name="TextLabel6_2_3">
+           <property name="text">
             <string>CA policy URL</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0" >
-          <widget class="QLabel" name="TextLabel1_3_2_3" >
-           <property name="text" >
+         <item row="0" column="0">
+          <widget class="QLabel" name="TextLabel1_3_2_3">
+           <property name="text">
             <string>Base URL</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QLineEdit" name="nsRevocationUrl" />
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="nsRevocationUrl"/>
          </item>
-         <item row="6" column="1" >
-          <widget class="QLineEdit" name="nsComment" >
-           <property name="toolTip" >
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="nsComment">
+           <property name="toolTip">
             <string>If you know a more pretty one tell me</string>
            </property>
           </widget>
@@ -1415,8 +1434,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </layout>
        </item>
       </layout>
-      <widget class="QWidget" native="1" name="widget_3_2" >
-       <property name="geometry" >
+      <widget class="QWidget" name="widget_3_2" native="true">
+       <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
@@ -1425,8 +1444,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </rect>
        </property>
       </widget>
-      <widget class="QWidget" native="1" name="widget_5" >
-       <property name="geometry" >
+      <widget class="QWidget" name="widget_5" native="true">
+       <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
@@ -1436,22 +1455,22 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        </property>
       </widget>
      </widget>
-     <widget class="QWidget" name="Seite" >
-      <attribute name="title" >
+     <widget class="QWidget" name="Seite">
+      <attribute name="title">
        <string>Advanced</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout">
        <item>
-        <widget class="QTextEdit" name="nconf_data" />
+        <widget class="QTextEdit" name="nconf_data"/>
        </item>
        <item>
-        <layout class="QHBoxLayout" >
+        <layout class="QHBoxLayout">
          <item>
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -1460,18 +1479,18 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="adv_validate" >
-           <property name="text" >
+          <widget class="QPushButton" name="adv_validate">
+           <property name="text">
             <string>Validate</string>
            </property>
           </widget>
          </item>
          <item>
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -1486,32 +1505,32 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="margin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="cancelButton" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+      <widget class="QPushButton" name="cancelButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Cancel</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>311</width>
          <height>31</height>
@@ -1520,14 +1539,14 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okButton" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+      <widget class="QPushButton" name="okButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>OK</string>
        </property>
       </widget>
@@ -1617,11 +1636,11 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <receiver>NewX509</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>96</x>
      <y>569</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>179</x>
      <y>282</y>
     </hint>
