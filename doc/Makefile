@@ -11,6 +11,7 @@ xca.1.gz: xca.1
 	gzip -9 <$^ >$@
 
 xca.html: xca.sgml
+	echo '<h1>No documentation generated</h1>' > $@
 	$(LINUXDOC) -B html $<
 
 install: xca.1.gz xca.html
@@ -20,7 +21,7 @@ install: xca.1.gz xca.html
 	install xca.1.gz $(destdir)$(prefix)/$(mandir)/man1
 
 clean:
-	$(RM) xca.1.gz
+	$(RM) xca.1.gz xca*.html
 
 app: xca.html
 	mkdir -p $(APPDIR)/Resources

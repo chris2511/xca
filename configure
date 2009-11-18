@@ -169,6 +169,13 @@ else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi
 
+if which linuxdoc 2>&1; then
+  LINUXDOC="linuxdoc"
+else
+  echo "Application 'linuxdoc' not found. No documentation will be generated"
+  LINUXDOC=":"
+fi
+
 findapp() {
   for app in `which $@ 2>/dev/null`; do
     if test -x "$app"; then

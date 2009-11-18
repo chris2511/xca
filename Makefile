@@ -55,6 +55,11 @@ dist: lang doc
 	git archive --format=tar --prefix=$(TARGET)/ $(TAG) | \
 		gzip -9 > $(TARGET).tar.gz
 
+snapshot: lang doc
+	HASH=$$(git rev-parse HEAD) && \
+	git archive --format=tar --prefix=xca-$${HASH}/ HEAD | \
+		gzip -9 > xca-$${HASH}.tar.gz
+
 install: xca$(SUFFIX)
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
 	install -m 755 xca $(destdir)$(prefix)/$(bindir)
@@ -63,19 +68,6 @@ install: xca$(SUFFIX)
 	  $(MAKE) -C $$d install; \
 	done
 
-xca.app: xca$(SUFFIX)
-	rm -rf xca.app
-	mkdir -p xca.app/Contents/MacOS
-	mkdir -p xca.app/Contents/Resources
-	install -m 755 xca xca.app/Contents/MacOS
-	$(STRIP) xca.app/Contents/MacOS/xca
-	for d in $(INSTDIR); do \
-	  $(MAKE) -C $$d APPDIR=$(TOPDIR)/xca.app/Contents app; \
-	done
-
-xca.dmg: xca.app
-	test -x hdiutil
-	hdiutil create -ov -srcfolder $< $@
 
 setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 	$(MAKE) -C lang
