@@ -32,6 +32,7 @@ class pki_base : public QObject
 
 	public:
 		static bool ign_openssl_error();
+		static void openssl_error(const QString myerr = "");
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
 		virtual void fload(const QString) {};
@@ -48,7 +49,6 @@ class pki_base : public QObject
 		QString getClassName();
 		static QString rmslashdot(const QString &fname);
 
-		void openssl_error(const QString myerr = "") const;
 		int getVersion();
 		enum pki_type getType();
 		void setParent(pki_base *p);

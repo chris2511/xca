@@ -82,7 +82,7 @@ void pki_base::fopen_error(const QString fname)
 	throw errorEx(txt, class_name);
 }
 
-void pki_base::my_error(const QString error)  const
+void pki_base::my_error(const QString error) const
 {
 	if (!error.isEmpty()) {
 		fprintf(stderr, "%s\n", CCHAR(tr("Error :") + error));
@@ -90,10 +90,10 @@ void pki_base::my_error(const QString error)  const
 	}
 }
 
-void pki_base::openssl_error(const QString txt)  const
+void pki_base::openssl_error(const QString txt)
 {
-	QString errtxt = "";
-	QString error = "";
+	QString errtxt;
+	QString error;
 
 	while (int i = ERR_get_error() ) {
 		errtxt = ERR_error_string(i ,NULL);
@@ -103,10 +103,9 @@ void pki_base::openssl_error(const QString txt)  const
 	if (!error.isEmpty()) {
 		if (!txt.isEmpty())
 			error = txt + "\n" + error;
-		throw errorEx(error, class_name);
+		throw errorEx(error);
 	}
 }
-
 
 bool pki_base::ign_openssl_error()
 {

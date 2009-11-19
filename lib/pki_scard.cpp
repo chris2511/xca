@@ -36,18 +36,20 @@
 
 QPixmap *pki_scard::icon[1] = { NULL };
 
-#define XCA_ENGINE_cmd(e, cmd, value) \
+#define XCA_ENGINE_cmd(cmd, value) \
 	do { \
+		QString msg = QString(" '%1' : '%2'\n" \
+					).arg(cmd).arg(value ? value:""); \
 		if (!ENGINE_ctrl_cmd_string(e, cmd, value, 0)) { \
-			if (!silent) \
-				printf("FAILED: '%s' : '%s'\n", \
-					 cmd, value ? value:"");\
 			ENGINE_free(e); \
+			if (!silent) { \
+				log += tr("FAILED:") + msg; \
+				openssl_error(log); \
+			} \
 			ign_openssl_error(); \
 			return false; \
 		} \
-		if (!silent) \
-			printf("SUCCESS: '%s' : '%s'\n", cmd, value?value:"");\
+		log += tr("SUCCESS:") +msg; \
 	} while(0);
 
 ENGINE *pki_scard::p11_engine = NULL;
@@ -56,6 +58,7 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 {
 	ENGINE *e;
 	QString engine_path;
+	QString log;
 
 #ifdef WIN32
 	static bool loaded = false;
@@ -63,18 +66,24 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 		return true;
 	loaded = true;
 #endif
-	silent = false;
 	if (file.isEmpty())
                 file = PKCS11_DEFAULT_MODULE_NAME;
 
 	if (p11_engine) {
+		log += "Unloading old OpenSSL PKCS#11 engine\n";
 		ENGINE_finish(p11_engine);
 		ENGINE_free(p11_engine);
 		p11_engine = NULL;
+		if (!silent) {
+			openssl_error(log);
+		} else {
+			ign_openssl_error();
+		}
 	}
 
 	if (!pkcs11::load_lib(file, silent))
 		return false;
+	log += "Successfully loaded PKCS#11 library: " +file +"\n";
 #ifdef WIN32
 	engine_path = QString(".\\") + ENGINE_LIB;
 #else
@@ -83,18 +92,20 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
 
-	XCA_ENGINE_cmd(e, "SO_PATH",      CCHAR(engine_path));
-	XCA_ENGINE_cmd(e, "ID",           "pkcs11");
-	XCA_ENGINE_cmd(e, "LIST_ADD",     "1");
-	XCA_ENGINE_cmd(e, "LOAD",         NULL);
-	XCA_ENGINE_cmd(e, "MODULE_PATH",  CCHAR(file));
+	XCA_ENGINE_cmd("SO_PATH",      CCHAR(engine_path));
+	XCA_ENGINE_cmd("ID",           "pkcs11");
+	XCA_ENGINE_cmd("LIST_ADD",     "1");
+	XCA_ENGINE_cmd("LOAD",         NULL);
+	XCA_ENGINE_cmd("MODULE_PATH",  CCHAR(file));
 
-//	XCA_ENGINE_cmd(e, "VERBOSE",      NULL);
+//	XCA_ENGINE_cmd("VERBOSE",      NULL);
 
 	ENGINE_init(e);
-	if (ERR_peek_error() != 0) {
-		ign_openssl_error();
-		return false;
+	if (!silent) {
+		openssl_error(log);
+	} else {
+		if (ign_openssl_error())
+			return false;
 	}
 	p11_engine = e;
 	return true;
