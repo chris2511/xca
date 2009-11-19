@@ -1,13 +1,7 @@
 
 -------------------=[ XCA ]=---------------------
 
-
-A graphical userinterface to OpenSSL.
-handling keys, generating Certificate signing requests,
-handling of client and root-certificates,
-as well as handling multiple CAs with signing , CRL
-and certificate templates.
-
+A graphical user interface to OpenSSL.
 
 
 Requirements:
@@ -15,12 +9,11 @@ Requirements:
 
 for compilation, you need the following Libraries:
 
-QT          >=  4.2.1  from http://www.troll.no
-OpenSSL     >=  0.9.7  from http://www.openssl.org
+QT          >=  4.3.1  from http://www.troll.no
+OpenSSL     >=  0.9.8  from http://www.openssl.org
 
 GNU C++ compiler >= 3.1.0
 GNU make
-
 
 
 Installation:
@@ -44,7 +37,8 @@ and installs itself to /opt/xca/bin/
 The header and library files were searched in:
 "$QTDIR /usr /usr/X11R6 /usr/local"
 and all directorys supplied at the commandline of configure.
-The QT installationdir should not be supplied at the CMDline of configure
+
+The QT installation dir should not be supplied at the CMDline of configure
 but rather written to the $QTDIR environment variable as it is done
 with the most distributions.
 
@@ -78,10 +72,8 @@ install  :  installs the app
 headers  :  UICs the headers in ui/ needed by other files.
 clean    :  deletes all builded files
 distclean:  deletes also Local.mak
-xca.exe  :  W32 executable
+xca.exe  :  W32 executable (see INSTALL.w32)
 setup.exe:  W32 installer
-xca.app  :  OS-X application
-xca.dmg  :  OS-X installation image
 
 Installing:
 ------------
