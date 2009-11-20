@@ -110,10 +110,11 @@ void MainWindow::init_database()
 		if (!mydb.find(setting, "string_opt")) {
 			if ((p = (char *)mydb.load(NULL))) {
 				string_opt = p;
-				ASN1_STRING_set_default_mask_asc(p);
 				free(p);
 			}
 		}
+		ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
+		printf("STROPT %s\n", CCHAR(string_opt));
 	} catch (errorEx &err) {
 		Error(err);
 		return;

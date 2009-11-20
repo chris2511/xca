@@ -5,7 +5,7 @@
 
 <title>XCA <!-- insert your title here -->
 <author>Christian Hohnst&auml;dt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
-<date>11/10/2009
+<date>11/19/2009 - Version 0.8.0
 <abstract>                          <!-- the abstract: a short and precise description -->
 <nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
 
@@ -680,16 +680,19 @@ the rollout of the certificate.
 <sect1>String settings
 <p>
 This option applies to all strings converted to ASN1 strings.
+The selected string type is automatically set to
+the smallest possible and allowed type, covering all contained characters.
+<p>
+The list of allowed string types can be selected:
 <itemize>
-<item><bf>Default</bf> The selected string type is automatically set to
-  the smallest possible, covering all contained characters.
+<item><bf>PKIX in RFC2459 (default)</bf>All string types are set as described in
+  RFC2459
 <item><bf>No BMP strings</bf> All strings containing non printable
   characters are regarded as errors.
-<item><bf>PKIX in RFC2459</bf> All string types are set as described in
-  RFC2459
 <item><bf>PKIX UTF8 only</bf> All string types are selected according to
   RFC2459 for entities issued after 2004, which means that almost all
   distinguished name entry types are set to UTF8.
+<item><bf>All strings</bf>All string types are allowed.
 </itemize>
 <p>
 

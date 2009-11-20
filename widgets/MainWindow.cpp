@@ -147,7 +147,7 @@ MainWindow::MainWindow(QWidget *parent )
 	statusBar()->addWidget(dbindex, 1);
 	force_load = 0;
 	mandatory_dn = "";
-	string_opt = "default";
+	string_opt = "pkix";
 
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
