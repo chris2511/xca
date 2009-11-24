@@ -92,10 +92,7 @@ QString getPrefix()
 	ret += "/Contents/Resources";
 	return ret;
 #else
-
-	QString ret = PREFIX;
-	ret += "/share/xca";
-	return ret;
+	return QString(PREFIX) + "/share/xca";
 #endif
 
 }
@@ -131,13 +128,18 @@ QString getHomeDir()
 		hd = QDir::homePath();
 	}
 #else
-#ifdef BASEDIR
-	hd = BASEDIR;
-#else
 	hd = QDir::homePath();
 #endif
-#endif
 	return hd;
+}
+
+QString getDocDir()
+{
+#if defined(WIN32) || defined (Q_WS_MAC)
+	return getPrefix();
+#else
+	return QString(DOCDIR);
+#endif
 }
 
 // The intent of this function is to return the proper location for

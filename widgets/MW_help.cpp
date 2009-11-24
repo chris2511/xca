@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -119,7 +119,7 @@ void MainWindow::help()
 #ifdef WIN32
 	path += "/";
 #endif
-	path += getPrefix() + "/";
+	path += getDocDir() + "/";
 #ifdef WIN32
 	path = path.replace("\\","/");
 #endif

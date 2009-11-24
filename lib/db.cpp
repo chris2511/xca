@@ -9,7 +9,7 @@
 #include "base.h"
 #include "exception.h"
 #include <qstringlist.h>
-#ifdef __WIN32__
+#ifdef WIN32
 #include <windows.h>
 #else
 #include <netinet/in.h>
