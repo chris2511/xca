@@ -14,6 +14,7 @@
 #include "pki_pkcs12.h"
 #include "pki_crl.h"
 #include "exception.h"
+#include "func.h"
 #include "widgets/MainWindow.h"
 
 pki_multi::pki_multi(const QString name)
@@ -91,7 +92,7 @@ void pki_multi::fload(const QString fname)
 	FILE * fp;
 	BIO *bio = NULL;
 
-	fp = fopen(CCHAR(fname), "r");
+	fp = fopen(QString2filename(fname), "r");
 	if (!fp) {
 		fopen_error(fname);
 		return;

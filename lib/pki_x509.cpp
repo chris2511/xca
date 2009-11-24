@@ -70,7 +70,7 @@ void pki_x509::fromPEM_BIO(BIO *bio, QString name)
 
 void pki_x509::fload(const QString fname)
 {
-	FILE *fp = fopen(fname.toAscii(),"r");
+	FILE *fp = fopen(QString2filename(fname), "r");
 	X509 *_cert;
 	if (!fp) {
 		fopen_error(fname);
@@ -441,7 +441,7 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 	const char *p = "w";
 	if (append)
 		p = "a";
-	fp = fopen(fname.toAscii(), p);
+	fp = fopen(QString2filename(fname), p);
 	if (fp != NULL) {
 		if (cert){
 			if (PEM)

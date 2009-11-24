@@ -284,7 +284,7 @@ void MainWindow::read_cmdline()
 		if (lb) {
 			item = NULL;
 			try {
-				item = lb->loadItem(arg);
+				item = lb->loadItem(filename2QString(arg));
 				dlgi->addItem(item);
 			}
 			catch (errorEx &err) {

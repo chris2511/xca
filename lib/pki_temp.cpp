@@ -186,7 +186,7 @@ void pki_temp::writeTemp(QString fname)
 {
 	int size = 0;
 	unsigned char *p, buf[2*sizeof(int)], *p1=buf;
-	FILE *fp = fopen(CCHAR(fname),"w");
+	FILE *fp = fopen(QString2filename(fname),"w");
 
 	if (fp == NULL) {
 		fopen_error(fname);
@@ -207,7 +207,7 @@ void pki_temp::fload(QString fname)
 	bool oldimport;
 	unsigned char *p, buf[2*sizeof(int)];
 	const unsigned char *p1 = buf;
-	FILE *fp = fopen(CCHAR(fname),"r");
+	FILE *fp = fopen(QString2filename(fname),"r");
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;

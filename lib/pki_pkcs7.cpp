@@ -7,6 +7,7 @@
 
 
 #include "pki_pkcs7.h"
+#include "func.h"
 #include "exception.h"
 
 
@@ -99,7 +100,7 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 void pki_pkcs7::writeP7(QString fname,bool PEM)
 {
 	FILE *fp;
-	fp = fopen(CCHAR(fname),"w");
+	fp = fopen(QString2filename(fname),"w");
 	if (fp != NULL) {
 		if (p7){
 			if (PEM)
@@ -144,7 +145,7 @@ void pki_pkcs7::fload(const QString fname)
 {
 	FILE *fp;
 	PKCS7 *_p7;
-	fp = fopen(CCHAR(fname), "rb");
+	fp = fopen(QString2filename(fname), "rb");
 	if (fp) {
 		_p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);
 		if (!_p7) {

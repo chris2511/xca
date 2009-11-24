@@ -89,7 +89,7 @@ void pki_x509req::fromPEM_BIO(BIO *bio, QString name)
 
 void pki_x509req::fload(const QString fname)
 {
-	FILE *fp = fopen(CCHAR(fname), "r");
+	FILE *fp = fopen(QString2filename(fname), "r");
 	X509_REQ *_req;
 	if (fp != NULL) {
 		_req = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
@@ -194,7 +194,7 @@ void pki_x509req::writeDefault(const QString fname)
 
 void pki_x509req::writeReq(const QString fname, bool pem)
 {
-	FILE *fp = fopen(CCHAR(fname), "w");
+	FILE *fp = fopen(QString2filename(fname), "w");
 	if (fp) {
 		if (request){
 			if (pem)

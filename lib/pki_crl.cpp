@@ -7,6 +7,7 @@
 
 
 #include "pki_crl.h"
+#include "func.h"
 #include <qdir.h>
 
 QPixmap *pki_crl::icon = NULL;
@@ -35,7 +36,7 @@ void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 
 void pki_crl::fload(const QString fname )
 {
-	FILE *fp = fopen(CCHAR(fname), "r");
+	FILE *fp = fopen(QString2filename(fname), "r");
 	X509_CRL *_crl;
 	if (fp != NULL) {
 		_crl = PEM_read_X509_CRL(fp, NULL, NULL, NULL);
@@ -173,7 +174,7 @@ void pki_crl::writeDefault(const QString fname)
 
 void pki_crl::writeCrl(const QString fname, bool pem)
 {
-	FILE *fp = fopen(CCHAR(fname), "w");
+	FILE *fp = fopen(QString2filename(fname), "w");
 	if (fp != NULL) {
 		if (crl){
 			if (pem)

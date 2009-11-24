@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -23,7 +23,7 @@ static void readOIDs(QString fname)
 	int line = 0;
 	QStringList sl;
 
-	fp = fopen(fname.toAscii(), "r");
+	fp = fopen(QString2filename(fname), "r");
 	if (fp == NULL)
 		return;
 
@@ -78,7 +78,7 @@ NIDlist readNIDlist(QString fname)
 	int line = 0, nid;
 	NIDlist nl;
 	nl.clear();
-	fp = fopen(CCHAR(fname), "r");
+	fp = fopen(QString2filename(fname), "r");
 	if (fp == NULL) return nl;
 	while (fgets(buff, 127, fp)) {
 		line++;

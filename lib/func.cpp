@@ -190,6 +190,24 @@ QString getFullFilename(const QString & filename, const QString & selectedFilter
 	return rv;
 }
 
+const char *QString2filename(const QString &fname)
+{
+#ifdef WIN32
+	return fname.toLocal8Bit();
+#else
+	return fname.toUtf8();
+#endif
+}
+
+QString filename2QString(const char *fname)
+{
+#ifdef WIN32
+	return QString::fromLocal8Bit(fname);
+#else
+	return QString::fromUtf8(fname);
+#endif
+}
+
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na)
 {

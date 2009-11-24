@@ -19,7 +19,11 @@ QString getPrefix();
 QString getHomeDir();
 QString getDocDir();
 QString getUserSettingsDir();
-QString getFullFilename(const QString & filename, const QString & selectedFilter);
+QString getFullFilename(const QString &filename, const QString &selectedFilter);
+const char *QString2filename(const QString &fname);
+QString filename2QString(const char *fname);
+
+
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na);
 QString asn1ToQString(const ASN1_STRING *str);

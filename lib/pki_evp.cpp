@@ -267,7 +267,7 @@ void pki_evp::fload(const QString fname)
 		"Please enter the password to decrypt the private key.") +
 		"\n'" + fname + "'");
 	pem_password_cb *cb = MainWindow::passRead;
-	FILE *fp = fopen(CCHAR(fname), "r");
+	FILE *fp = fopen(QString2filename(fname), "r");
 	EVP_PKEY *pkey;
 
 	ign_openssl_error();
@@ -586,7 +586,7 @@ void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
 				"Please enter the password protecting the PKCS#8 key"));
-	FILE *fp = fopen(fname.toAscii(),"w");
+	FILE *fp = fopen(QString2filename(fname), "w");
 	if (fp != NULL) {
 		if (key) {
 			pkey = decryptKey();
@@ -625,7 +625,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		writePublic(fname, pem);
 		return;
 	}
-	FILE *fp = fopen(CCHAR(fname), "w");
+	FILE *fp = fopen(QString2filename(fname), "w");
 	if (!fp) {
 		fopen_error(fname);
 		return;

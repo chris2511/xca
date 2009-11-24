@@ -177,7 +177,7 @@ bool pki_key::compare(pki_base *ref)
 
 void pki_key::writePublic(const QString fname, bool pem)
 {
-	FILE *fp = fopen(fname.toAscii(),"w");
+	FILE *fp = fopen(QString2filename(fname), "w");
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;
