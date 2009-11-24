@@ -38,10 +38,10 @@ class a1time
 	unsigned char *d2i(const unsigned char *p, int size);
 	int derSize() const;
 	a1time &operator = (const a1time &a);
-	bool const operator > (const a1time &a);
-	bool const operator < (const a1time &a);
-	bool const operator == (const a1time &a);
-	bool const operator != (const a1time &a);
+	bool operator > (const a1time &a);
+	bool operator < (const a1time &a);
+	bool operator == (const a1time &a);
+	bool operator != (const a1time &a);
 };
 
 #endif

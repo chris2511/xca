@@ -172,22 +172,22 @@ a1time &a1time::operator = (const a1time &a)
 	return *this;
 }
 
-bool const a1time::operator > (const a1time &a)
+bool a1time::operator > (const a1time &a)
 {
 	return (ASN1_STRING_cmp(time, a.time) == 1);
 }
 
-bool const a1time::operator < (const a1time &a)
+bool a1time::operator < (const a1time &a)
 {
 	return (ASN1_STRING_cmp(time, a.time) == -1);
 }
 
-bool const a1time::operator == (const a1time &a)
+bool a1time::operator == (const a1time &a)
 {
 	return (ASN1_STRING_cmp(time, a.time) == 0);
 }
 
-bool const a1time::operator != (const a1time &a)
+bool a1time::operator != (const a1time &a)
 {
 	return (ASN1_STRING_cmp(time, a.time) != 0);
 }
