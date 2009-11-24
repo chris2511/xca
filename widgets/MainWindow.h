@@ -78,6 +78,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setPath(QString path);
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
+		QString updateDbPassword(QString newdb, char *pass);
 
 	public slots:
 		void init_database();
@@ -93,6 +94,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void undelete();
 		void loadPem();
 		void pastePem();
+		void changeDbPass();
 
 	private slots:
 		void setOptions();

@@ -31,14 +31,12 @@ unsigned char *pki_evp::curve_flags = NULL;
 
 void pki_evp::erasePasswd()
 {
-	for (int i=0; i<MAX_PASS_LENGTH; i++)
-		passwd[i] = 0;
+	memset(passwd, 0, MAX_PASS_LENGTH);
 }
 
 void pki_evp::eraseOldPasswd()
 {
-	for (int i=0; i<MAX_PASS_LENGTH; i++)
-		oldpasswd[i] = 0;
+	memset(oldpasswd, 0, MAX_PASS_LENGTH);
 }
 
 void pki_evp::setPasswd(const char *pass)
@@ -560,6 +558,13 @@ void pki_evp::encryptKey(const char *password)
 
 	//printf("Encrypt: encKey_len=%d\n", encKey_len);
 	return;
+}
+
+void pki_evp::set_evp_key(EVP_PKEY *pkey)
+{
+	if (key)
+		free(key);
+	key = pkey;
 }
 
 void pki_evp::bogusEncryptKey()

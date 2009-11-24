@@ -50,6 +50,7 @@ class pki_evp: public pki_key
 		void setOwnPass(enum passType);
 		pki_evp(const QString name = "", int type = EVP_PKEY_RSA);
 		pki_evp(EVP_PKEY *pkey);
+		void set_evp_key(EVP_PKEY *pkey);
 		void encryptKey(const char *password = NULL);
 		void bogusEncryptKey();
 		EVP_PKEY *decryptKey() const;

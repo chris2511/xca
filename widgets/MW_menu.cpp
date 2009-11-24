@@ -25,22 +25,22 @@ void MainWindow::init_menu()
 	QMenu *file, *help, *import;
 
 	file = menuBar()->addMenu(tr("&File"));
-	file->addAction(tr("New &DataBase"),  this,
-				SLOT(new_database()), Qt::CTRL+Qt::Key_N );
-	file->addAction(tr("Open &DataBase"),  this,
-				SLOT(load_database()), Qt::CTRL+Qt::Key_L );
+	file->addAction(tr("&New DataBase"),  this, SLOT(new_database()));
+	file->addAction(tr("&Open DataBase"),  this, SLOT(load_database()));
 	acList += file->addAction(tr("&Close DataBase"), this,
-				SLOT(close_database()), Qt::CTRL+Qt::Key_C );
+			SLOT(close_database()));
 	acList += file->addAction(tr("&Dump DataBase"), this,
-				SLOT(dump_database()), Qt::CTRL+Qt::Key_D );
+				SLOT(dump_database()));
+	acList += file->addAction(tr("C&hange DataBase password"), this,
+				SLOT(changeDbPass()));
 	acList += file->addAction(tr("&Import old db_dump"), this,
-				SLOT(import_dbdump()), Qt::CTRL+Qt::Key_I );
+				SLOT(import_dbdump()));
 	acList += file->addAction(tr("&Undelete items"), this,
-				SLOT(undelete()), Qt::CTRL+Qt::Key_U );
+				SLOT(undelete()));
 	file->addSeparator();
-	acList += file->addAction(tr("Options"), this, SLOT(setOptions()) );
+	acList += file->addAction(tr("Options"), this, SLOT(setOptions()));
 	file->addSeparator();
-	file->addAction(tr("E&xit"),  qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4 );
+	file->addAction(tr("Exit"), qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4);
 
 	import = menuBar()->addMenu(tr("I&mport"));
 	import->addAction(tr("Keys"), this,

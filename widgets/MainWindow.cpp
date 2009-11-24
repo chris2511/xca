@@ -162,9 +162,6 @@ MainWindow::MainWindow(QWidget *parent )
 
 	init_curves();
 
-	// FIXME: Change pass isn't functional yet.
-	BNchangePass->setDisabled(true);
-
 #ifdef MDEBUG
 	CRYPTO_malloc_debug_init();
 	CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);
@@ -448,6 +445,113 @@ QString makeSalt(void)
 	RAND_bytes(rand, 2);
 	snprintf(saltbuf, 10, "S%02X%02X", rand[0], rand[1]);
 	return QString(saltbuf);
+}
+
+void MainWindow::changeDbPass()
+{
+
+	char pass[MAX_PASS_LENGTH];
+	int keylen;
+
+	pass_info p(tr("New Password"), tr("Please enter the new password "
+			"to encrypt your private keys in the database-file"),
+			this);
+
+	keylen = passWrite(pass, MAX_PASS_LENGTH-1, 0, &p);
+	if (keylen < 0)
+		return;
+	memset(pass +keylen, 0, MAX_PASS_LENGTH -keylen);
+
+	QString tempn = dbfile + "{new}";
+	try {
+		if (!QFile::copy(dbfile, tempn))
+			throw errorEx("Could not create temporary file: " +
+				tempn);
+		QString passhash = updateDbPassword(tempn, pass);
+
+		QFile new_file(tempn);
+		db mydb(dbfile);
+		mydb.mv(new_file);
+		close_database();
+		pki_evp::passHash = passhash;
+		memcpy(pki_evp::passwd, pass, MAX_PASS_LENGTH);
+		init_database();
+	} catch (errorEx &ex) {
+		QFile::remove(tempn);
+		Error(ex);
+	}
+}
+
+QString MainWindow::updateDbPassword(QString newdb, char *pass)
+{
+	db mydb(newdb);
+
+	QString salt = makeSalt();
+	QString passhash = pki_evp::sha512passwd(pass, salt);
+	mydb.set((const unsigned char *)CCHAR(passhash),
+		passhash.length()+1, 1, setting, "pwhash");
+
+	QList<pki_evp*> klist;
+	mydb.first();
+	while (mydb.find(asym_key, QString()) == 0) {
+		QString s;
+		pki_evp *key;
+		unsigned char *p;
+		db_header_t head;
+
+		p = mydb.load(&head);
+		if (!p) {
+			printf("Load was empty !\n");
+			goto next;
+		}
+		key = new pki_evp();
+		if (key->getVersion() < head.version) {
+			printf("Item[%s]: Version %d "
+				"> known version: %d -> ignored\n",
+				head.name, head.version,
+				key->getVersion()
+			);
+			free(p);
+			delete key;
+			goto next;
+		}
+		key->setIntName(QString::fromUtf8(head.name));
+
+		try {
+			key->fromData(p, &head);
+		}
+		catch (errorEx &err) {
+			err.appendString(key->getIntName());
+			Error(err);
+			delete key;
+			key = NULL;
+		}
+		free(p);
+		if (key && key->getOwnPass() == pki_key::ptCommon &&
+			!key->isPubKey())
+		{
+			EVP_PKEY *evp = key->decryptKey();
+			key->set_evp_key(evp);
+			key->encryptKey(pass);
+			klist << key;
+		} else if (key)
+			delete key;
+next:
+		if (mydb.next())
+			break;
+	}
+	for (int i=0; i< klist.count(); i++) {
+		int size;
+		unsigned char *p;
+		pki_evp *key = klist[i];
+		p = key->toData(&size);
+		check_oom(p);
+		mydb.set(p, size, key->getVersion(),
+			 key->getType(), key->getIntName());
+		OPENSSL_free(p);
+		delete key;
+	}
+	return passhash;
 }
 
 int MainWindow::initPass()
