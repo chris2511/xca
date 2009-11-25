@@ -37,6 +37,18 @@ MOC=moc
 UIC=uic
 LRELEASE=lrelease
 
+if test -x /sbin/ldconfig; then
+  STDLIB=$(
+  /sbin/ldconfig -p | sed 's,.* => \(/.*/\)[^/]*\.so.*,\1,' | grep "^/" | sort -u | \
+  while read lib; do
+    echo -n "-L${lib} "
+  done
+  echo "$DIR"
+  )
+fi
+
+echo "STDLIB = '$STDLIB'"
+
 err() {
   echo
   echo ERROR: $1
@@ -61,7 +73,7 @@ add_lib() {
   else
     LIBS="$LIBS -l$2"
   fi
-  for _libs in -L/usr/lib ${LDIRS}; do
+  for _libs in ${STDLIB} ${LDIRS}; do
     if test "-L$1" = "${_libs}"; then
       return 0
     fi
@@ -151,10 +163,11 @@ EOF
 
 echo "${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX}" >conftest.log
 if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX} >> conftest.log 2>&1; then
-  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest conftest.log
+  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest${SUFFIX} conftest.log
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi
+
 
 if which linuxdoc 2>&1; then
   LINUXDOC="linuxdoc"
