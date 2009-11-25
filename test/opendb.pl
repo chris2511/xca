@@ -6,12 +6,16 @@ my $db = "__x.xdb";
 unlink $db;
 
 
-StartApp("./xca $db");
+StartApp("./xca");
 my ($xcaId) = WaitWindowViewable("X Certificate and Key management");
 
+SendKeys("%(fn)");
+WaitWindowViewable("Open XCA Database");
+SendKeys($db . "{ENT}");
+WaitWindowViewable("New Password");
 SendKeys($password . "{TAB}" . $password . "{ENT}");
-SendKeys("^(c)");
-SendKeys("^(l)");
+SendKeys("%(fc)");
+SendKeys("%(fo)");
 WaitWindowViewable("Open XCA Database");
 SendKeys($db . "{ENT}");
 WaitWindowViewable("Password");
