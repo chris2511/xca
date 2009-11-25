@@ -2,6 +2,7 @@
 #include "pk11_attribute.h"
 #include "exception.h"
 #include "db_base.h"
+#include "func.h"
 
 #include <qmessagebox.h>
 #include <ltdl.h>
@@ -110,7 +111,6 @@ bool pkcs11::needsLogin(bool so)
 	rv = p11->C_GetSessionInfo(session, &sinfo);
 	if (rv != CKR_OK)
                 pk11error("C_GetSessionInfo", rv);
-        printf("C_GetSessionInfo: %lu\n", sinfo.state);
 
 	switch (sinfo.state) {
 	case CKS_RO_PUBLIC_SESSION:
@@ -274,7 +274,7 @@ bool pkcs11::load_lib(QString file, bool silent)
 		throw errorEx("PKCS11 library filename empty");
 	}
 
-	dl_handle = lt_dlopen(CCHAR(file));
+	dl_handle = lt_dlopen(QString2filename(file));
 	if (dl_handle == NULL) {
 		if (silent)
 			return false;

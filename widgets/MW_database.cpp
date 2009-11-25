@@ -14,11 +14,12 @@
 #include <qstatusbar.h>
 #include <qmessagebox.h>
 #include "lib/db_base.h"
+#include "lib/func.h"
 #include "widgets/ImportMulti.h"
 
 void MainWindow::init_database()
 {
-	fprintf(stderr, "Opening database: %s\n", CCHAR(dbfile));
+	fprintf(stderr, "Opening database: %s\n", QString2filename(dbfile));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
 	certView->setRootIsDecorated(db_x509::treeview);

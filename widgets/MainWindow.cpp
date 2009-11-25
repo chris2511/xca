@@ -137,15 +137,27 @@ void MainWindow::load_engine()
 	scardMenuAction->setEnabled(pkcs11::loaded());
 }
 
+static QByteArray fileNameEncoderFunc(const QString &fileName)
+{
+	return QByteArray(QString2filename(fileName));
+}
+
+static QString fileNAmeDecoderFunc(const QByteArray &localFileName)
+{
+	return filename2QString(localFileName.constData());
+}
+
 MainWindow::MainWindow(QWidget *parent )
 	:QMainWindow(parent)
 {
+	QFile::setEncodingFunction(fileNameEncoderFunc);
+	QFile::setDecodingFunction(fileNAmeDecoderFunc);
+
 	dbindex = new QLabel();
 	dbindex->setFrameStyle(QFrame::Plain | QFrame::NoFrame);
 	dbindex->setMargin(6);
 
 	statusBar()->addWidget(dbindex, 1);
-	force_load = 0;
 	mandatory_dn = "";
 	string_opt = "pkix";
 
@@ -246,7 +258,7 @@ void MainWindow::init_images()
 
 void MainWindow::read_cmdline()
 {
-	int cnt = 1, opt = 0;
+	int cnt = 1, opt = 0, force_load = 0;
 	char *arg = NULL;
 	pki_base *item = NULL;
 	load_base *lb = NULL;
@@ -275,16 +287,16 @@ void MainWindow::read_cmdline()
 			}
 			if (arg[2] != '\0' && opt==1) {
 				 arg+=2;
-			}
-			else {
+			} else {
 				cnt++;
 				continue;
 			}
 		}
+		QString file = filename2QString(arg);
 		if (lb) {
 			item = NULL;
 			try {
-				item = lb->loadItem(filename2QString(arg));
+				item = lb->loadItem(file);
 				dlgi->addItem(item);
 			}
 			catch (errorEx &err) {
@@ -294,8 +306,8 @@ void MainWindow::read_cmdline()
 				}
 			}
 		} else {
-			if (QFile::exists(arg)) {
-				dbfile = arg;
+			if (QFile::exists(file) || force_load) {
+				dbfile = file;
 				homedir = dbfile.left(dbfile.lastIndexOf(QDir::separator()));
 				init_database();
 			} else {

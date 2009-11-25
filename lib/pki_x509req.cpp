@@ -361,7 +361,7 @@ void pki_x509req::load_spkac(const QString filename)
 	bool spki_found =false;
 
 	try { // be aware of any exceptions
-		parms = CONF_load(NULL, CCHAR(filename),&errline);
+		parms = CONF_load(NULL, QString2filename(filename), &errline);
 		if (parms == NULL)
 			my_error(QString("error on line %1 of %2\n")
 				      .arg(errline).arg(filename));

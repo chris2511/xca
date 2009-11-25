@@ -12,14 +12,7 @@
 #include <qdir.h>
 #include <qlistview.h>
 #include <qdir.h>
-#ifdef WIN32
-#include <direct.h>     // to define mkdir function
-#include <windows.h>    // to define mkdir function
-#else
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#endif
+
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
 
@@ -308,7 +301,7 @@ void db_base::dump(QString dirname)
 {
 	dirname += QDir::separator() + class_name;
 	QDir d(dirname);
-	if ( ! d.exists() && !d.mkdir(dirname)) {
+	if (!d.exists() && !d.mkdir(dirname)) {
 		throw errorEx("Could not create directory '" + dirname + "'");
 	}
 
@@ -351,12 +344,14 @@ QModelIndex db_base::parent(const QModelIndex &idx) const
 
 	pki_base *childItem = static_cast<pki_base*>(idx.internalPointer());
 	pki_base *parentItem = childItem->getParent();
+#if 0
 	if (parentItem == NULL) {
 		printf("Item: (%s) %s: parent == NULL\n",
-				childItem->className(), CCHAR(childItem->getIntName()));
+			childItem->className(), CCHAR(childItem->getIntName()));
 	}
-	// printf("Parent of:%s(%p) %p %p\n",
-	// CCHAR(childItem->getIntName()), childItem, parentItem, rootItem);
+	printf("Parent of:%s(%p) %p %p\n",
+	CCHAR(childItem->getIntName()), childItem, parentItem, rootItem);
+#endif
 	if (parentItem == rootItem || parentItem == NULL)
 		return QModelIndex();
 
@@ -435,10 +430,13 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 		db mydb(dbName);
 		item = static_cast<pki_base*>(index.internalPointer());
 		on = item->getIntName();
-		if (mydb.rename(item->getType(), on, nn) == 0) {
+		try {
+			mydb.rename(item->getType(), on, nn);
 			item->setIntName(nn);
 			emit dataChanged(index, index);
 			return true;
+		} catch (errorEx &err) {
+			mainwin->Error(err);
 		}
 	}
 	return false;

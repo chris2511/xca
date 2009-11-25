@@ -126,9 +126,12 @@ void db_key::newItem(QString name)
 	}
 	int ksize = dlg->getKeysize();
 	if (ksize > 0) {
-		if (ksize < 32)
-			 throw errorEx(tr("Key size too small !"));
-
+		if (ksize < 32) {
+			QMessageBox::warning(NULL, XCA_TITLE,
+				tr("Key size too small !"));
+			delete dlg;
+			return;
+		}
 		if (ksize < 1024 || ksize > 8192)
 			if (!QMessageBox::warning(NULL, XCA_TITLE,
 				tr("You are sure to create a key of the size: ")
@@ -143,11 +146,16 @@ void db_key::newItem(QString name)
 	nkey = new pki_evp(dlg->keyDesc->text());
 	bar = new QProgressBar();
 	status->addPermanentWidget(bar, 1);
-	nkey->generate(ksize, dlg->getKeytype(), bar, dlg->getKeyCurve_nid());
+	try {
+		nkey->generate(ksize, dlg->getKeytype(), bar,dlg->getKeyCurve_nid());
+		nkey = (pki_evp*)insert(nkey);
+		emit keyDone(nkey->getIntNameWithType());
+	} catch (errorEx &err) {
+		delete nkey;
+		mainwin->Error(err);
+	}
 	status->removeWidget(bar);
 	delete bar;
-	nkey = (pki_evp*)insert(nkey);
-	emit keyDone(nkey->getIntNameWithType());
 	delete dlg;
 }
 

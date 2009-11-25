@@ -7,6 +7,7 @@
 
 #include "db.h"
 #include "base.h"
+#include "func.h"
 #include "exception.h"
 #include <qstringlist.h>
 #ifdef WIN32
@@ -162,19 +163,17 @@ int db::next(int flag)
 	return 0;
 }
 
-int db::rename(enum pki_type type, QString name, QString n)
+void db::rename(enum pki_type type, QString name, QString n)
 {
 	int ret;
 
 	first();
 	if (find(type, n) == 0) {
-		printf("New name: %s already in use\n", CCHAR(n));
-		return -1;
+		throw errorEx(QObject::tr("DB: Rename: '%1' already in use").arg(n));
 	}
 	first();
 	if (find(type, name) != 0) {
-		printf("Entry to rename not found: %s\n", CCHAR(name));
-		return -1;
+		throw errorEx(QObject::tr("DB: Entry to rename not found: %1").arg(name));
 	}
 	strncpy(head.name, n.toUtf8(), NAMELEN);
 	head.name[NAMELEN-1] = '\0';
@@ -184,10 +183,9 @@ int db::rename(enum pki_type type, QString name, QString n)
 		fileIOerr("write");
 	}
 	if (ret != sizeof(head)) {
-		printf("DB: Write error %d - %zd\n", ret, sizeof(head));
-		return -1;
+		throw errorEx(QObject::tr("DB: Write error %1 - %1"
+				).arg(ret).arg(sizeof(head)));
 	}
-	return 0;
 }
 
 QString db::uniq_name(QString s, enum pki_type type)
@@ -377,7 +375,7 @@ int db::shrink(int flags)
 	}
 	new_file.close();
 	if (ret) {
-		unlink(CCHAR(new_file.fileName()));
+		unlink(QString2filename(new_file.fileName()));
 		return 1;
 	}
 	file.close();
@@ -404,7 +402,8 @@ int db::mv(QFile &new_file)
 	return 0;
 #else
 	// use the global rename()  function and not the method of this class
-	return ::rename(CCHAR(new_file.fileName()), CCHAR(name)) == -1;
+	return ::rename(QString2filename(new_file.fileName()),
+			QString2filename(name)) == -1;
 #endif
 }
 

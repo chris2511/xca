@@ -92,11 +92,11 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
 
-	XCA_ENGINE_cmd("SO_PATH",      CCHAR(engine_path));
+	XCA_ENGINE_cmd("SO_PATH",      QString2filename(engine_path));
 	XCA_ENGINE_cmd("ID",           "pkcs11");
 	XCA_ENGINE_cmd("LIST_ADD",     "1");
 	XCA_ENGINE_cmd("LOAD",         NULL);
-	XCA_ENGINE_cmd("MODULE_PATH",  CCHAR(file));
+	XCA_ENGINE_cmd("MODULE_PATH",  QString2filename(file));
 
 //	XCA_ENGINE_cmd("VERBOSE",      NULL);
 

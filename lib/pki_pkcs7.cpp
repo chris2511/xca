@@ -30,7 +30,7 @@ pki_pkcs7::~pki_pkcs7()
 void pki_pkcs7::encryptFile(pki_x509 *crt, QString filename)
 {
 	BIO *bio = NULL;
-	bio = BIO_new_file(CCHAR(filename), "r");
+	bio = BIO_new_file(QString2filename(filename), "r");
         openssl_error();
 	encryptBio(crt, bio);
 	BIO_free(bio);
@@ -80,7 +80,7 @@ void pki_pkcs7::signFile(pki_x509 *crt, QString filename)
 {
 	BIO *bio = NULL;
 	if (!crt) return;
-	bio = BIO_new_file(CCHAR(filename), "r");
+	bio = BIO_new_file(QString2filename(filename), "r");
         openssl_error();
 	signBio(crt, bio);
 	BIO_free(bio);
