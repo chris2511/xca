@@ -16,3 +16,4 @@ role
 generationQualifier
 x500UniqueIdentifier
 pseudonym
+serialNumber
