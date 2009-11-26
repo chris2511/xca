@@ -60,6 +60,12 @@ $
 This writes all found settings, vars and headers to
 "Local.mak".
 
+the variables "prefix" and "docdir" may be set while invoking
+configure, like:
+
+$ prefix=/usr docdir=/usr/share/doc/xca ./configure
+If docdir is unset, $prefix/share/xca will be used.
+
 After Local.mak was created by configure it can be used
 and modified for your needs.
 

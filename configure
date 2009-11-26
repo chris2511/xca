@@ -47,8 +47,6 @@ if test -x /sbin/ldconfig; then
   )
 fi
 
-echo "STDLIB = '$STDLIB'"
-
 err() {
   echo
   echo ERROR: $1
