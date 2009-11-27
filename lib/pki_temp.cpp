@@ -49,13 +49,14 @@ pki_temp::pki_temp(const pki_temp *pk)
 	keyUse=pk->keyUse;
 	eKeyUse=pk->eKeyUse;
 	adv_ext=pk->adv_ext;
+	noWellDefined=pk->noWellDefined;
 }
 
 pki_temp::pki_temp(const QString d)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
-	dataVersion=3;
+	dataVersion=4;
 	pkiType=tmpl;
 	cols=2;
 
@@ -85,6 +86,7 @@ pki_temp::pki_temp(const QString d)
 	keyUse=0;
 	eKeyUse=0;
 	adv_ext="";
+	noWellDefined=false;
 }
 
 
@@ -130,6 +132,8 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	validMidn=db::boolFromData(&p1);
 	if (version>2)
 		adv_ext=db::stringFromData(&p1);
+	if (version>3)
+		noWellDefined=db::boolFromData(&p1);
 	if (p1-p != size) {
 		my_error(tr("Wrong Size of template: ") + getIntName());
 	}
@@ -172,7 +176,7 @@ unsigned char *pki_temp::toData(int *size)
 	db::stringToData(&p1, certPol);
 	db::boolToData(&p1, validMidn);
 	db::stringToData(&p1, adv_ext);
-
+	db::boolToData(&p1, noWellDefined);
 	*size = p1-p;
 	return p;
 }
@@ -256,7 +260,7 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	int s = 9 * sizeof(int) + 8 * sizeof(char) +
+	int s = 9 * sizeof(int) + 9 * sizeof(char) +
 	xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +

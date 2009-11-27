@@ -303,6 +303,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 		basicPath->setText(QString::number(temp->pathLen));
 	}
 	nconf_data->document()->setPlainText(temp->adv_ext);
+	noWellDefinedExpDate->setChecked(temp->noWellDefined);
 	notBefore->setNow();
 	on_applyTime_clicked();
 }
@@ -340,6 +341,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	} else {
 		temp->adv_ext = nconf_data->toPlainText();
 	}
+	temp->noWellDefined = noWellDefinedExpDate->isChecked();
 }
 
 void NewX509::on_fromReqCB_clicked()
