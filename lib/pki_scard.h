@@ -52,7 +52,7 @@ class pki_scard: public pki_key
 		void changeSoPin();
 		int verify();
 		bool isScard();
-		QVariant getIcon();
+		QVariant getIcon(int column);
 		QList<CK_MECHANISM_TYPE> getMech_list() { return mech_list; };
 		void setMech_list(QList<CK_MECHANISM_TYPE> ml) { mech_list = ml; };
 		QList<int> possibleHashNids();

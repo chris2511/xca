@@ -607,8 +607,8 @@ QString pki_scard::length()
 	return bit_length + " bit";
 }
 
-QVariant pki_scard::getIcon()
+QVariant pki_scard::getIcon(int column)
 {
-	return QVariant(*icon[0]);
+	return column == 0 ? QVariant(*icon[0]) : QVariant();
 }
 

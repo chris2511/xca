@@ -247,6 +247,7 @@ void MainWindow::init_images()
 	pki_x509req::icon[0] = loadImg("req.png");
 	pki_x509req::icon[1] = loadImg("reqkey.png");
 	pki_x509req::icon[2] = loadImg("spki.png");
+	pki_x509req::icon[3] = loadImg("done.png");
 	pki_x509::icon[0] = loadImg("validcert.png");
 	pki_x509::icon[1] = loadImg("validcertkey.png");
 	pki_x509::icon[2] = loadImg("invalidcert.png");

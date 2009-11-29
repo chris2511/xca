@@ -21,5 +21,6 @@
     <file>template.png</file>
     <file>validcertkey.png</file>
     <file>validcert.png</file>
+    <file>done.png</file>
   </qresource>
 </RCC>

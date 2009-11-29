@@ -186,6 +186,12 @@ void db_x509::inToCont(pki_base *pki)
 		}
 	}
 	findKey(cert);
+	pki_key *pub = cert->getPubKey();
+	pki_x509req *req = (pki_x509req *)mainwin->reqs->findByByPubKey(pub);
+	delete pub;
+	if (req) {
+		req->setDone();
+	}
 	calcEffTrust();
 }
 

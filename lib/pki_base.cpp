@@ -206,7 +206,7 @@ QVariant pki_base::column_data(int col)
 {
 	return QVariant("invalid");
 }
-QVariant pki_base::getIcon()
+QVariant pki_base::getIcon(int column)
 {
 	return QVariant();
 }

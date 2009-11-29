@@ -710,8 +710,10 @@ QVariant pki_evp::column_data(int col)
 	return QVariant();
 }
 
-QVariant pki_evp::getIcon()
+QVariant pki_evp::getIcon(int column)
 {
+	if (column != 0)
+		return QVariant();
 	int pixnum= isPubKey() ? 1 : 0;
 	return QVariant(*icon[pixnum]);
 }

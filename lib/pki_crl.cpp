@@ -286,9 +286,9 @@ QVariant pki_crl::column_data(int col)
 	return QVariant();
 }
 
-QVariant pki_crl::getIcon()
+QVariant pki_crl::getIcon(int column)
 {
-	return QVariant(*icon);
+	return column == 0 ? QVariant(*icon) : QVariant();
 }
 
 void pki_crl::oldFromData(unsigned char *p, int size)

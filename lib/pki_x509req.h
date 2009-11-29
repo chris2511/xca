@@ -29,10 +29,11 @@ class pki_x509req : public pki_x509super
 	protected:
 		X509_REQ *request;
 		NETSCAPE_SPKI *spki;
+		bool done;
 
 	public:
 		extList getV3ext();
-		static QPixmap *icon[3];
+		static QPixmap *icon[4];
 		pki_x509req(QString name = "");
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
@@ -60,7 +61,9 @@ class pki_x509req : public pki_x509super
 		void set_spki(NETSCAPE_SPKI *_spki);
 		ASN1_IA5STRING *spki_challange();
 		QVariant column_data(int col);
-		QVariant getIcon();
+		QVariant getIcon(int column);
+		void setDone() { done = true; }
+		bool getDone() { return done; }
 };
 
 #endif

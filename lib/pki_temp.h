@@ -43,7 +43,7 @@ class pki_temp: public pki_base
 		bool compare(pki_base *ref);
 		void writeTemp(QString fname);
 		QVariant column_data(int col);
-		QVariant getIcon();
+		QVariant getIcon(int column);
 };
 
 #endif

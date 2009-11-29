@@ -395,8 +395,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 		case Qt::DisplayRole:
 			return item->column_data(index.column());
 		case Qt::DecorationRole:
-			if (!index.column())
-				return item->getIcon();
+			return item->getIcon(index.column());
 	}
 	return QVariant();
 }

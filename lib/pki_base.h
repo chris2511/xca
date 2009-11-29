@@ -63,7 +63,7 @@ class pki_base : public QObject
 		pki_base *takeFirst();
 		int columns();
 		virtual QVariant column_data(int col);
-		virtual QVariant getIcon();
+		virtual QVariant getIcon(int column);
 		const char *className() { return class_name; };
 		uint32_t intFromData(const unsigned char **p);
 		virtual void fromPEM_BIO(BIO *, QString) {};

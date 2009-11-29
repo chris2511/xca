@@ -56,7 +56,7 @@ class pki_crl: public pki_base
 		x509v3ext getExtByNid(int nid);
 		a1int getVersion();
 		QVariant column_data(int col);
-		QVariant getIcon();
+		QVariant getIcon(int column);
 };
 
 #endif

@@ -44,9 +44,16 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	return key;
 }
 
-void db_x509super::inToCont(pki_base *pki)
+pki_x509super *db_x509super::findByByPubKey(pki_key *refkey)
 {
-	db_base::inToCont(pki);
-	findKey((pki_x509super *)pki);
+	FOR_ALL_pki(pki, pki_x509super) {
+		pki_key *key = pki->getPubKey();
+		if (!key)
+			continue;
+		bool match = refkey->compare(key);
+		delete key;
+		if (match)
+			return pki;
+	}
+	return NULL;
 }
-

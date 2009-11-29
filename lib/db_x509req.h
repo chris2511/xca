@@ -23,6 +23,7 @@ class db_x509req: public db_x509super
 		pki_base* insert(pki_base *item);
 		pki_base *newPKI(db_header_t *head = NULL);
 		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+		void inToCont(pki_base *pki);
 
 	public slots:
 		void newItem(pki_temp *temp = NULL);

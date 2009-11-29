@@ -716,9 +716,11 @@ QVariant pki_x509::column_data(int col)
 
 }
 
-QVariant pki_x509::getIcon()
+QVariant pki_x509::getIcon(int column)
 {
 	int pixnum = 0;
+	if (column != 0)
+		return QVariant();
 
 	if (getRefKey()) {
 		pixnum += 1;

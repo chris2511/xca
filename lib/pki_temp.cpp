@@ -298,9 +298,9 @@ QVariant pki_temp::column_data(int col)
 	return QVariant();
 }
 
-QVariant pki_temp::getIcon()
+QVariant pki_temp::getIcon(int column)
 {
-	return QVariant(*icon);
+	return column == 0 ? QVariant(*icon) : QVariant();
 }
 
 void pki_temp::oldFromData(unsigned char *p, int size )

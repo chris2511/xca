@@ -18,7 +18,7 @@
 db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
-	headertext << "Name" << "Subject";
+	headertext << tr("Name") << tr("Subject") << tr("Signed");
 	delete_txt = tr("Delete the request(s)");
 	view = mw->reqView;
 	class_name = "requests";
@@ -78,6 +78,21 @@ void db_x509req::newItem(pki_temp *temp)
 		MainWindow::Error(err);
 		if (req)
 			delete req;
+	}
+}
+
+void db_x509req::inToCont(pki_base *pki)
+{
+	pki_x509req *req = (pki_x509req *)pki;
+	db_base::inToCont(pki);
+	findKey(req);
+	if (!mainwin->certs)
+		return;
+	pki_key *pub = req->getPubKey();
+	pki_x509super *cert = mainwin->certs->findByByPubKey(pub);
+	delete pub;
+	if (cert) {
+		req->setDone();
 	}
 }
 

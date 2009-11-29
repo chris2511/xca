@@ -16,7 +16,7 @@
 #include <openssl/err.h>
 #include <qdir.h>
 
-QPixmap *pki_x509req::icon[3] = { NULL, NULL, NULL };
+QPixmap *pki_x509req::icon[4] = { NULL, NULL, NULL, NULL };
 
 pki_x509req::pki_x509req(const QString name)
 	: pki_x509super(name)
@@ -28,7 +28,8 @@ pki_x509req::pki_x509req(const QString name)
 	spki = NULL;
 	dataVersion=1;
 	pkiType=x509_req;
-	cols=2;
+	cols=3;
+	done = false;
 }
 
 pki_x509req::~pki_x509req()
@@ -445,14 +446,30 @@ QVariant pki_x509req::column_data(int col)
 			return QVariant(getIntName());
 		case 1:
 			return QVariant(getSubject().getEntryByNid(NID_commonName));
+		case 2:
+			return QVariant(done ? tr("Signed") : tr("Unhandled"));
 	}
 	return QVariant();
 }
-QVariant pki_x509req::getIcon()
+QVariant pki_x509req::getIcon(int column)
 {
-	int pixnum = 0;
-	if (getRefKey() != NULL ) pixnum = 1;
-	if (spki != NULL) pixnum = 2;
+	int pixnum = -1;
+
+	switch (column) {
+	case 0:
+		pixnum = 0;
+		if (getRefKey() != NULL )
+			pixnum = 1;
+		if (spki != NULL)
+			 pixnum = 2;
+		break;
+	case 2:
+		if (done)
+			pixnum = 3;
+		break;
+	}
+	if (pixnum == -1)
+		return QVariant();
 	return QVariant(*icon[pixnum]);
 }
 
