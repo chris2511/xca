@@ -11,6 +11,7 @@
 #include <qlist.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
+#include <qstringlist.h>
 
 class QString;
 
@@ -35,6 +36,8 @@ class x509v3ext
 	bool isValid() const;
 	int nid() const;
 	void *d2i();
+	QString i2s();
+	QStringList i2v();
 };
 
 class extList : public QList<x509v3ext>

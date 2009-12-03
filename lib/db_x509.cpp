@@ -581,6 +581,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 				this, SLOT(toRequest()));
 		itemScard = subExport->addAction(tr("Smart Card"),
 				this, SLOT(toScard()));
+		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
@@ -1020,9 +1021,10 @@ void db_x509::toRequest()
 
 	try {
 		pki_x509req *req = new pki_x509req();
+		check_oom(req);
 		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(),
-			cert->getRefKey()->getDefaultMD(), cert->getExt());
+			cert->getRefKey()->getDefaultMD(), cert->getV3ext());
 		mainwin->reqs->insert(req);
 	}
 	catch (errorEx &err) {
@@ -1040,6 +1042,24 @@ void db_x509::toScard()
 	} catch (errorEx &err) {
 		mainwin->Error(err);
         }
+}
+
+void db_x509::toTemplate()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
+		return;
+
+	try {
+		pki_temp *temp = new pki_temp();
+		check_oom(temp);
+		temp->setIntName(cert->getIntName());
+		temp->fromCert(cert);
+		mainwin->temps->insert(temp);
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
+	}
 }
 
 void db_x509::caProperties()

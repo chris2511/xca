@@ -111,6 +111,70 @@ QString x509v3ext::getValue() const
 	return text;
 }
 
+static void *ext_str_new(X509_EXTENSION *ext)
+{
+	const X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
+	const unsigned char *p = ext->value->data;
+	void *ext_str;
+
+	if(method->it)
+		ext_str = ASN1_item_d2i(NULL, &p, ext->value->length, ASN1_ITEM_ptr(method->it));
+        else
+		ext_str = method->d2i(NULL, &p, ext->value->length);
+	return ext_str;
+}
+
+static void ext_str_free(X509_EXTENSION *ext, void *ext_str)
+{
+	const X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
+
+	if (method->it)
+		ASN1_item_free((ASN1_VALUE*)ext_str,ASN1_ITEM_ptr(method->it));
+	else
+		method->ext_free(ext_str);
+}
+
+QString x509v3ext::i2s()
+{
+	QString str;
+	X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
+	void *ext_str = ext_str_new(ext);
+
+	if (!ext_str)
+		return str;
+	if (method->i2s)
+		str = QString(method->i2s(method, ext_str));
+
+	ext_str_free(ext, ext_str);
+	return str;
+}
+
+QStringList x509v3ext::i2v()
+{
+	X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
+	void *ext_str = ext_str_new(ext);
+	QStringList sl;
+
+	if (!ext_str)
+		return sl;
+	if (method->i2v) {
+		STACK_OF(CONF_VALUE) *val = method->i2v(method, ext_str, NULL);
+		for (int i = 0; i < sk_CONF_VALUE_num(val); i++) {
+			CONF_VALUE *nval = sk_CONF_VALUE_value(val, i);
+			if (!nval->name)
+				sl << QString(nval->value);
+			else if (!nval->value)
+				sl << QString(nval->name);
+			else
+				sl << QString("%1:%2").arg(nval->name).arg(nval->value);
+		}
+		sk_CONF_VALUE_pop_free(val, X509V3_conf_free);
+	}
+
+	ext_str_free(ext, ext_str);
+	return sl;
+}
+
 QString x509v3ext::getHtml() const
 {
 	QString html;

@@ -89,6 +89,48 @@ pki_temp::pki_temp(const QString d)
 	noWellDefined=false;
 }
 
+static QString extVtoString(extList &el, int nid)
+{
+	int i = el.idxByNid(nid);
+	if (i != -1) {
+		QStringList sl = el[i].i2v();
+		printf("extVtoString: %d '%s'\n", nid, CCHAR(sl.join(", ")));
+		el.removeAt(i);
+		return sl.join(", ");
+	}
+	return QString();
+}
+
+static QString extToString(extList &el, int nid)
+{
+	int i = el.idxByNid(nid);
+	if (i != -1) {
+		QString s = el[i].i2s();
+		printf("extToString: %d '%s'\n", nid, CCHAR(s));
+		el.removeAt(i);
+		return s;
+	}
+	return QString();
+}
+
+void pki_temp::fromCert(pki_x509 *cert)
+{
+	extList el = cert->getV3ext();
+
+	xname = cert->getSubject();
+	subAltName = extVtoString(el, NID_subject_alt_name);
+	issAltName = extVtoString(el, NID_issuer_alt_name);
+	crlDist = extVtoString(el, NID_crl_distribution_points);
+	authInfAcc = extVtoString(el, NID_info_access);
+
+	nsComment = extToString(el, NID_netscape_comment);
+	nsBaseUrl = extToString(el, NID_netscape_base_url);
+	nsRevocationUrl = extToString(el, NID_netscape_revocation_url);
+	nsCARevocationUrl = extToString(el, NID_netscape_ca_revocation_url);
+	nsRenewalUrl = extToString(el, NID_netscape_renewal_url);
+	nsCaPolicyUrl = extToString(el, NID_netscape_ca_policy_url);
+	nsSslServerName = extToString(el, NID_netscape_ssl_server_name);
+}
 
 void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 {
@@ -257,7 +299,6 @@ pki_temp::~pki_temp()
 
 }
 
-
 int pki_temp::dataSize()
 {
 	int s = 9 * sizeof(int) + 9 * sizeof(char) +
@@ -278,7 +319,6 @@ int pki_temp::dataSize()
 	13 ) * sizeof(char);
 	return s;
 }
-
 
 bool pki_temp::compare(pki_base *)
 {

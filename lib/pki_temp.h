@@ -11,6 +11,7 @@
 #include "pki_base.h"
 #include "x509name.h"
 #include "asn1time.h"
+#include "pki_x509.h"
 
 class pki_temp: public pki_base
 {
@@ -29,6 +30,7 @@ class pki_temp: public pki_base
 		int validN, validM;
 
 		// methods
+		void fromCert(pki_x509 *cert);
 
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d = QString());

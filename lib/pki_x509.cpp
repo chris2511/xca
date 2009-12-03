@@ -558,21 +558,12 @@ extList pki_x509::getV3ext()
 
 x509v3ext pki_x509::getExtByNid(int nid)
 {
-	extList el = getExt();
-	x509v3ext e;
+	extList el = getV3ext();
+	int i = el.idxByNid(nid);
 
-	for (int i=0; i< el.count(); i++){
-		if (el[i].nid() == nid) return el[i];
-	}
-	return e;
-}
-
-extList pki_x509::getExt()
-{
-	extList el;
-	el.setStack(cert->cert_info->extensions);
-
-	return el;
+	if (i == -1)
+		return x509v3ext();
+	return el[i];
 }
 
 pki_x509 *pki_x509::getSigner()
@@ -605,7 +596,6 @@ void pki_x509::setEffTrust(int t)
 	if (t>= 0 && t<= 2)
 		efftrust = t;
 }
-
 
 bool pki_x509::isRevoked()
 {
