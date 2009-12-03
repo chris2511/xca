@@ -57,7 +57,7 @@ ENGINE *pki_scard::p11_engine = NULL;
 bool pki_scard::init_p11engine(QString file, bool silent)
 {
 	ENGINE *e;
-	QString engine_path;
+	const char *engine_path;
 	QString log;
 
 #ifdef WIN32
@@ -85,14 +85,14 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 		return false;
 	log += "Successfully loaded PKCS#11 library: " +file +"\n";
 #ifdef WIN32
-	engine_path = QString(".\\") + ENGINE_LIB;
+	engine_path = ".\\" ENGINE_LIB;
 #else
 	engine_path = ENGINE_LIB;
 #endif
 	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
 
-	XCA_ENGINE_cmd("SO_PATH",      QString2filename(engine_path));
+	XCA_ENGINE_cmd("SO_PATH",      engine_path);
 	XCA_ENGINE_cmd("ID",           "pkcs11");
 	XCA_ENGINE_cmd("LIST_ADD",     "1");
 	XCA_ENGINE_cmd("LOAD",         NULL);

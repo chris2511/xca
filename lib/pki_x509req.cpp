@@ -278,19 +278,6 @@ extList pki_x509req::getV3ext()
 
 /*!
    Sets the public key of this request to the public key of the
-   DER-encoded Netscape SPKI structure contained in the supplied
-   raw data array.
-*/
-void pki_x509req::setSPKIFromData(const unsigned char *p, int size)
-{
-	NETSCAPE_SPKI *spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &p, size);
-	if (spki)
-		set_spki (spki);
-	openssl_error();
-}
-
-/*!
-   Sets the public key of this request to the public key of the
    base64-encoded Netscape SPKI structure contained in the supplied
    null-terminated string.
 */
@@ -349,6 +336,9 @@ void pki_x509req::set_spki(NETSCAPE_SPKI *_spki)
    of the openssl package.
 */
 
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#define LHASH LHASH_OF(CONF_VALUE)
+#endif
 void pki_x509req::load_spkac(const QString filename)
 {
 	STACK_OF(CONF_VALUE) *sk=NULL;
@@ -407,7 +397,7 @@ void pki_x509req::load_spkac(const QString filename)
 				}
 			else
 				// gather all values in the x509name subject.
-				subject.addEntryByNid(nid,cv->value);
+				subject.addEntryByNid(nid, filename2QString(cv->value));
 		}
 		if (!spki_found)
 			my_error(tr("No Netscape SPKAC structure found in %1\n").arg(filename));
