@@ -30,7 +30,7 @@ class pki_temp: public pki_base
 		int validN, validM;
 
 		// methods
-		extList fromCert(pki_x509 *cert);
+		extList fromCert(pki_x509super *cert_or_req);
 
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d = QString());

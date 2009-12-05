@@ -273,7 +273,7 @@ static void int2lb(QListWidget *lb, int x)
 
 static void QString2lb(QListWidget *lb, QString x)
 {
-	QStringList li = x.split(",");
+	QStringList li = x.split(", ");
 	QList<QListWidgetItem *> items;
 
 	for (int i=0; i<li.size(); i++) {

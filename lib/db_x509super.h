@@ -24,6 +24,7 @@ class db_x509super: public db_base
 	public slots:
 		void delKey(pki_key *delkey);
 		void newKey(pki_key *newKey);
+		void toTemplate();
 
 };
 

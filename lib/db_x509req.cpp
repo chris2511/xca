@@ -166,6 +166,7 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	QAction *expItem;
+	QMenu *subExport;
 	currentIdx = index;
 
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
@@ -176,9 +177,12 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
-		expItem = menu->addAction(tr("Export"), this, SLOT(store()));
-		expItem->setEnabled(! req->isSpki());
+		subExport = menu->addMenu(tr("Export"));
+		expItem = subExport->addAction(tr("File"), this, SLOT(store()));
+		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
+
+		expItem->setEnabled(!req->isSpki());
 	}
 	menu->exec(e->globalPos());
 	delete menu;

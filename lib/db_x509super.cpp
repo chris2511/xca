@@ -7,6 +7,7 @@
 
 #include "db_x509super.h"
 #include "widgets/MainWindow.h"
+#include "ui_About.h"
 
 db_x509super::db_x509super(QString db, MainWindow *mw)
 	:db_base(db, mw)
@@ -57,3 +58,38 @@ pki_x509super *db_x509super::findByByPubKey(pki_key *refkey)
 	}
 	return NULL;
 }
+
+void db_x509super::toTemplate()
+{
+	pki_x509super *pki = static_cast<pki_x509super*>(currentIdx.internalPointer());
+	if (!pki)
+		return;
+
+	try {
+		pki_temp *temp = new pki_temp();
+		check_oom(temp);
+		temp->setIntName(pki->getIntName());
+		extList el = temp->fromCert(pki);
+		if (el.size()) {
+			Ui::About ui;
+			QString etext;
+		        QDialog *d = new QDialog(mainwin, 0);
+		        ui.setupUi(d);
+			etext = QString("<h3>") +
+				tr("The following extensions were not ported into the template") +
+				QString("</h3><hr>") +
+				el.getHtml("<br>");
+			ui.textbox->setHtml(etext);
+			d->setWindowTitle(XCA_TITLE);
+			ui.image->setPixmap(*MainWindow::tempImg);
+			ui.image1->setPixmap(*MainWindow::certImg);
+		        d->exec();
+		        delete d;
+		}
+		mainwin->temps->insert(temp);
+	}
+	catch (errorEx &err) {
+		mainwin->Error(err);
+	}
+}
+

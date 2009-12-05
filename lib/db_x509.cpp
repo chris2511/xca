@@ -1045,40 +1045,6 @@ void db_x509::toScard()
         }
 }
 
-void db_x509::toTemplate()
-{
-	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
-	if (!cert)
-		return;
-
-	try {
-		pki_temp *temp = new pki_temp();
-		check_oom(temp);
-		temp->setIntName(cert->getIntName());
-		extList el = temp->fromCert(cert);
-		if (el.size()) {
-			Ui::About ui;
-			QString etext;
-		        QDialog *d = new QDialog(mainwin, 0);
-		        ui.setupUi(d);
-			etext = QString("<h3>") +
-				tr("The following extensions were not ported into the template") +
-				QString("</h3><hr>") +
-				el.getHtml("<br>");
-			ui.textbox->setHtml(etext);
-			d->setWindowTitle(XCA_TITLE);
-			ui.image->setPixmap(*MainWindow::tempImg);
-			ui.image1->setPixmap(*MainWindow::certImg);
-		        d->exec();
-		        delete d;
-		}
-		mainwin->temps->insert(temp);
-	}
-	catch (errorEx &err) {
-		mainwin->Error(err);
-	}
-}
-
 void db_x509::caProperties()
 {
 	Ui::CaProperties ui;

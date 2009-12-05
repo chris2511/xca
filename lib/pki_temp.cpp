@@ -129,7 +129,7 @@ static int bitsToInt(extList &el, int nid, bool *crit)
 		ASN1_BIT_STRING *bits;
 		bits = (ASN1_BIT_STRING *)el[i].d2i();
 
-		for (int j=0; j<8; j++) {
+		for (int j=0; j<9; j++) {
 			if (ASN1_BIT_STRING_get_bit(bits, j))
 				ret |= 1 << j;
 		}
@@ -138,13 +138,13 @@ static int bitsToInt(extList &el, int nid, bool *crit)
 	return ret;
 }
 
-extList pki_temp::fromCert(pki_x509 *cert)
+extList pki_temp::fromCert(pki_x509super *cert_or_req)
 {
 	int i;
 	x509name n;
-	extList el = cert->getV3ext();
+	extList el = cert_or_req->getV3ext();
 
-	n = cert->getSubject();
+	n = cert_or_req->getSubject();
 	for (i=0; i<EXPLICIT_NAME_CNT; i++) {
 		int nid = NewX509::name_nid[i];
 		QString ne = n.popEntryByNid(nid);
@@ -200,6 +200,9 @@ extList pki_temp::fromCert(pki_x509 *cert)
 		subKey = true;
 	}
 	nsCertType = bitsToInt(el, NID_netscape_cert_type, NULL);
+	/* bit 4 is unused. Move higher bits down. */
+	nsCertType = (nsCertType & 0xf) | ((nsCertType & 0xf0) >> 1);
+
 	keyUse = bitsToInt(el, NID_key_usage, &keyUseCrit);
 
 	QStringList sl = extVlistToString(el, NID_ext_key_usage, &eKeyUseCrit);
@@ -207,34 +210,37 @@ extList pki_temp::fromCert(pki_x509 *cert)
 		sl[i] = OBJ_ln2sn(CCHAR(sl[i]));
 	eKeyUse = sl.join(", ");
 
-	if (cert->getNotAfter().isUndefined()) {
-		noWellDefined = true;
-	} else {
-		struct tm nb, na;
+	if (cert_or_req->getType() == x509) {
+		pki_x509 *cert = (pki_x509*)cert_or_req;
+		if (cert->getNotAfter().isUndefined()) {
+			noWellDefined = true;
+		} else {
+			struct tm nb, na;
 
-		a1time notBefore = cert->getNotBefore();
-		a1time notAfter  = cert->getNotAfter();
+			a1time notBefore = cert->getNotBefore();
+			a1time notAfter  = cert->getNotAfter();
 
-		if (notBefore.toPlain().endsWith("000000Z") &&
-		    notAfter.toPlain().endsWith("235959Z"))
-		{
-			validMidn = true;
-		}
-		if (!notBefore.ymdg(&nb) &&
-		    !notAfter.ymdg(&na))
-		{
-			time_t diff = mktime(&na) - mktime(&nb);
-			diff /= SECONDS_PER_DAY;
-			validM = 0;
-			if (diff >60) {
-				validM = 1;
-				diff /= 30;
-				if (diff >24) {
-					validM = 2;
-					diff /= 12;
-				}
+			if (notBefore.toPlain().endsWith("000000Z") &&
+			    notAfter.toPlain().endsWith("235959Z"))
+			{
+				validMidn = true;
 			}
-			validN = diff;
+			if (!notBefore.ymdg(&nb) &&
+			    !notAfter.ymdg(&na))
+			{
+				time_t diff = mktime(&na) - mktime(&nb);
+				diff /= SECONDS_PER_DAY;
+				validM = 0;
+				if (diff >60) {
+					validM = 1;
+					diff /= 30;
+					if (diff >24) {
+						validM = 2;
+						diff /= 12;
+					}
+				}
+				validN = diff;
+			}
 		}
 	}
 	return el;
