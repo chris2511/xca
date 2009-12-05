@@ -11,3 +11,4 @@
 2.5.4.44:		generationQualifier: generation Qualifier
 2.5.4.45:		x500UniqueIdentifier: x500 Unique Identifier
 2.5.4.65:		pseudonym:	pseudonym
+0.2.262.1.10.7.20:	nameDistinguisher: Name distinguisher

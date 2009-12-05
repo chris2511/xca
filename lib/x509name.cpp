@@ -120,21 +120,37 @@ QStringList x509name::entryList(int i) const
 {
 	QStringList sl;
 	int n = nid(i);
-	sl += OBJ_nid2sn(n);
-	sl += OBJ_nid2ln(n);
-	sl += getEntry(i);
-	sl += getEntryTag(i);
+	if (n == NID_undef) {
+		QString oid = getOid(i);
+		sl << oid << oid;
+	} else {
+		sl << OBJ_nid2sn(n) << OBJ_nid2ln(n);
+	}
+	sl << getEntry(i) << getEntryTag(i);
 	return sl;
 }
 
 int x509name::nid(int i) const
 {
 	X509_NAME_ENTRY *ne;
-	int nid;
 
 	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
-	nid = OBJ_obj2nid(ne->object);
-	return nid;
+	if (ne == NULL)
+		return NID_undef;
+	return OBJ_obj2nid(ne->object);
+}
+
+QString x509name::getOid(int i) const
+{
+	X509_NAME_ENTRY *ne;
+	char buf[256];
+	int len;
+
+	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
+	if (ne == NULL)
+		return QString();
+	len = OBJ_obj2txt(buf, 256, ne->object, 1);
+	return QString::fromAscii(buf, len);
 }
 
 const unsigned char *x509name::d2i(const unsigned char *p, int size)
