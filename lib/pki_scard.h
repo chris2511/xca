@@ -58,6 +58,7 @@ class pki_scard: public pki_key
 		QList<int> possibleHashNids();
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;
 		int getIdBin(unsigned char **to);
+		const EVP_MD *getDefaultMD();
 
 };
 
