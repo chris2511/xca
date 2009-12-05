@@ -29,7 +29,7 @@ QString filename2QString(const char *fname)
 
 static QByteArray fileNameEncoderFunc(const QString &fileName)
 {
-	return QByteArray(QString2filename(fileName));
+	return filename2bytearray(fileName);
 }
 
 static QString fileNAmeDecoderFunc(const QByteArray &localFileName)

@@ -190,13 +190,26 @@ QString getFullFilename(const QString & filename, const QString & selectedFilter
 	return rv;
 }
 
-const char *QString2filename(const QString &fname)
+QByteArray filename2bytearray(const QString &fname)
 {
 #ifdef WIN32
 	return fname.toLocal8Bit();
 #else
 	return fname.toUtf8();
 #endif
+}
+
+const char *QString2filename(const QString &fname)
+{
+	static char buf[4096];
+	QByteArray b = filename2bytearray(fname);
+
+	int l = b.size();
+	if (l>=4096)
+		l = 4095;
+	memcpy(buf, b.constData(), l);
+	buf[l] = 0;
+	return buf;
 }
 
 QString filename2QString(const char *fname)
