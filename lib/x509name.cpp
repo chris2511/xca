@@ -106,9 +106,14 @@ QString x509name::getEntryTag(int i) const
 	return s;
 }
 
-void x509name::delEntry(int i)
+QString x509name::popEntryByNid(int nid)
 {
+	int i = X509_NAME_get_index_by_NID(xn, nid, -1);
+	if (i < 0)
+		return QString::null;
+	QString n = getEntry(i);
 	X509_NAME_delete_entry(xn, i);
+	return n;
 }
 
 QStringList x509name::entryList(int i) const

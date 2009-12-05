@@ -35,7 +35,7 @@ class x509name
 		bool operator == (const x509name &x) const;
 		static int getNidByName(const QString &nid_name);
 		void addEntryByNid(int nid, const QString entry);
-		void delEntry(int i);
+		QString popEntryByNid(int nid);
 		X509_NAME *get() const;
 		int derSize() const;
 		QString getMostPopular() const;

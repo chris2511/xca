@@ -6,6 +6,7 @@
  */
 
 #include "base.h"
+#include <time.h>
 #include "asn1time.h"
 #include <openssl/x509.h>
 #include <openssl/err.h>
@@ -74,14 +75,11 @@ a1time &a1time::set(int y, int mon, int d, int h, int m, int s)
 	return set(gt);
 }
 
-/* As defined in rfc-5280  4.1.2.5 */
-#define UNDEFINED_DATE "99991231235959Z"
-
 QString a1time::toPretty() const
 {
         if (!time)
 		return QString();
-	if (QString::fromAscii((char*)time->data, time->length) == UNDEFINED_DATE)
+	if (isUndefined())
 		return QObject::tr("Undefined");
 
         char buf[200];
@@ -103,16 +101,21 @@ QString a1time::toPlain() const
 
 QString a1time::toSortable() const
 {
-        int y,m,d,g;
-        QString t = "";
-        if (!time) return t;
-        if (ymdg( &y ,&m ,&d ,&g)) {
+	int g;
+	struct tm tm;
+	QLatin1Char c('0');
+
+	if (!time)
+		 return QString();
+        if (ymdg(&tm, &g)) {
                 // openssl_error("time error");
         }
-        char buf[20];
-        sprintf(buf, "%04d-%02d-%02d %s",y,m,d,(g==1)?"GMT":"");
-        t = buf;
-        return t;
+
+        return QString("%1-%2-%3 %4").
+		arg(tm.tm_year, 4, 10, c).
+		arg((unsigned)tm.tm_mon +1, 2, 10, c).
+		arg((unsigned)tm.tm_mday, 2, 10, c).
+		arg(g==1 ? "GMT" : "");
 }
 
 a1time &a1time::set(const QString &s)
@@ -122,15 +125,18 @@ a1time &a1time::set(const QString &s)
 	return *this;
 }
 
+/* As defined in rfc-5280  4.1.2.5 */
+#define UNDEFINED_DATE "99991231235959Z"
+
 void a1time::setUndefined()
 {
 	ASN1_GENERALIZEDTIME_set_string(time, UNDEFINED_DATE);
 }
 
-int a1time::ymdg(int *y, int *m, int *d, int *g) const
+bool a1time::isUndefined() const
 {
-	int h, M, s;
-	return ymdg(y,m,d, &h, &M, &s, g);
+	return QString::fromAscii((char*)time->data, time->length) ==
+			UNDEFINED_DATE;
 }
 
 int a1time::ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const
@@ -158,6 +164,18 @@ int a1time::ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const
         *s= (v[12]-'0')*10+(v[13]-'0');
         if ((*s > 59) || (*s < 0)) return 1;
         return 0;
+}
+
+int a1time::ymdg(struct tm *tm, int *g) const
+{
+	int ret, gl;
+
+	if (!g)
+		g = &gl;
+	ret = ymdg(&tm->tm_year, &tm->tm_mon, &tm->tm_mday,
+		   &tm->tm_hour, &tm->tm_min, &tm->tm_sec, g);
+	tm->tm_mon--;
+	return ret;
 }
 
 a1time &a1time::now(int delta)

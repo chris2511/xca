@@ -161,12 +161,19 @@ QStringList x509v3ext::i2v()
 		STACK_OF(CONF_VALUE) *val = method->i2v(method, ext_str, NULL);
 		for (int i = 0; i < sk_CONF_VALUE_num(val); i++) {
 			CONF_VALUE *nval = sk_CONF_VALUE_value(val, i);
-			if (!nval->name)
+			const char *name = nval->name;
+			if (name) {
+				if (!strcmp(name, "IP Address"))
+					name = "IP";
+				else if (!strcmp(name, "Registered ID"))
+					name = "RID";
+			}
+			if (!name)
 				sl << QString(nval->value);
 			else if (!nval->value)
-				sl << QString(nval->name);
+				sl << QString(name);
 			else
-				sl << QString("%1:%2").arg(nval->name).arg(nval->value);
+				sl << QString("%1:%2").arg(name).arg(nval->value);
 		}
 		sk_CONF_VALUE_pop_free(val, X509V3_conf_free);
 	}

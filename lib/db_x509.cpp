@@ -16,6 +16,7 @@
 #include "ui_TrustState.h"
 #include "ui_CaProperties.h"
 #include "ui_PassWrite.h"
+#include "ui_About.h"
 #include <qmessagebox.h>
 #include <qevent.h>
 #include <qaction.h>
@@ -1054,7 +1055,23 @@ void db_x509::toTemplate()
 		pki_temp *temp = new pki_temp();
 		check_oom(temp);
 		temp->setIntName(cert->getIntName());
-		temp->fromCert(cert);
+		extList el = temp->fromCert(cert);
+		if (el.size()) {
+			Ui::About ui;
+			QString etext;
+		        QDialog *d = new QDialog(mainwin, 0);
+		        ui.setupUi(d);
+			etext = QString("<h3>") +
+				tr("The following extensions were not ported into the template") +
+				QString("</h3><hr>") +
+				el.getHtml("<br>");
+			ui.textbox->setHtml(etext);
+			d->setWindowTitle(XCA_TITLE);
+			ui.image->setPixmap(*MainWindow::tempImg);
+			ui.image1->setPixmap(*MainWindow::certImg);
+		        d->exec();
+		        delete d;
+		}
 		mainwin->temps->insert(temp);
 	}
 	catch (errorEx &err) {

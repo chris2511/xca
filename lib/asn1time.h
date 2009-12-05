@@ -11,6 +11,8 @@
 #include <qstring.h>
 #include <openssl/asn1.h>
 
+#define SECONDS_PER_DAY (60*60*24)
+
 class a1time
 {
    private:
@@ -26,10 +28,11 @@ class a1time
 	a1time &set(const QString &s);
 	a1time &set(int y, int mon, int d, int h, int m, int s);
 	void setUndefined();
+	bool isUndefined() const;
 	QString toPretty() const;
 	QString toPlain() const;
 	QString toSortable() const;
-	int ymdg(int *y, int *m, int *d, int *g) const;
+	int ymdg(struct tm *tm, int *g = NULL) const;
 	int ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const;
 	ASN1_TIME *get() const;
 	ASN1_TIME *get_utc() const;

@@ -211,7 +211,6 @@ QString filename2QString(const char *fname)
 void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na)
 {
-#define d_fac (60 * 60 * 24)
 	int faktor[] = { 1, 30, 365 }, midnight, delta;
 	a1time a;
 	time_t t;
@@ -227,14 +226,14 @@ void applyTD(QWidget *parent, int number, int range, bool mnc,
 	if (mnc)
 		delta -=1;
 
-	t /= d_fac;
+	t /= SECONDS_PER_DAY;
 	if (delta + t > 24850) {
 		QMessageBox::warning(parent, XCA_TITLE,
 			"Time difference too big\nYou must set it manually." );
 		return;
 	}
 	nb->setDate(a.now(), midnight);
-	na->setDate(a.now(delta * d_fac), midnight* (-1));
+	na->setDate(a.now(delta * SECONDS_PER_DAY), midnight* (-1));
 }
 
 QString asn1ToQString(const ASN1_STRING *str)
@@ -270,5 +269,15 @@ ASN1_STRING *QStringToAsn1(const QString s, int nid)
 {
 	const unsigned char *utf8 = (const unsigned char *)s.toUtf8().constData();
 	return ASN1_STRING_set_by_NID(NULL, utf8, -1, MBSTRING_UTF8, nid);
+}
+
+const char *OBJ_ln2sn(const char *ln)
+{
+	return OBJ_nid2sn(OBJ_ln2nid(ln));
+}
+
+const char *OBJ_sn2ln(const char *sn)
+{
+	return OBJ_nid2ln(OBJ_sn2nid(sn));
 }
 

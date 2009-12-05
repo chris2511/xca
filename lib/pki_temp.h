@@ -21,16 +21,16 @@ class pki_temp: public pki_base
 		static QPixmap *icon;
 		x509name xname;
 		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
-		QString nsComment, nsBaseUrl, nsRevocationUrl, nsCARevocationUrl,
-			nsRenewalUrl, nsCaPolicyUrl, nsSslServerName, destination,
-			adv_ext;
+		QString nsComment, nsBaseUrl, nsRevocationUrl,
+			nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl,
+			nsSslServerName, destination, adv_ext, eKeyUse;
 		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey,
 			validMidn, noWellDefined;
-		int nsCertType, pathLen, keyUse, eKeyUse, ca;
+		int nsCertType, pathLen, keyUse, ca;
 		int validN, validM;
 
 		// methods
-		void fromCert(pki_x509 *cert);
+		extList fromCert(pki_x509 *cert);
 
 		pki_temp(const pki_temp *pk);
 		pki_temp(const QString d = QString());

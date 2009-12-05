@@ -37,7 +37,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		NIDlist attr_nid;
 		QList<QLineEdit*> attr_edit;
 		#define EXPLICIT_NAME_CNT 7
-		static int name_nid[EXPLICIT_NAME_CNT];
 		QLineEdit *name_ptr[EXPLICIT_NAME_CNT];
 		X509V3_CTX ext_ctx;
 		void editV3ext(QLineEdit *le, QString types, int n);
@@ -49,6 +48,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		QString v3ext_backup;
 		QString valid_htmltext;
 	public:
+		static int name_nid[EXPLICIT_NAME_CNT];
 		QRadioButton *selfQASignRB;
 		NewX509(QWidget *parent);
 		virtual ~NewX509();
@@ -61,8 +61,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		void defineTemplate(pki_temp *temp);
 		void defineRequest(pki_x509req *req);
 		void defineSigner(pki_x509 *defcert);
-		int lb2int(QListWidget *lb);
-		void int2lb(QListWidget *lb, int x);
 		void templateChanged(pki_temp *templ);
 		pki_key *getSelectedKey();
 		pki_x509 *getSelectedSigner();
@@ -87,7 +85,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		extList getAllExt();
 		void setupTmpCtx();
 		void initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req);
-		void setBasicConstraints(const x509v3ext &e);
 		void setExt(const x509v3ext &ext);
 		void switchHashAlgo();
 		void addReqAttributes(pki_x509req *req);

@@ -79,6 +79,7 @@ void MainWindow::about()
 	ui.image1->setPixmap( *certImg );
 	ui.textbox->setHtml(cont);
 	about->exec();
+	delete about;
 }
 
 void MainWindow::donations()

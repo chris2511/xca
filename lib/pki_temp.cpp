@@ -11,6 +11,7 @@
 #include "db.h"
 #include "exception.h"
 #include <qdir.h>
+#include "widgets/MainWindow.h"
 
 QPixmap *pki_temp::icon=  NULL;
 
@@ -56,7 +57,7 @@ pki_temp::pki_temp(const QString d)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
-	dataVersion=4;
+	dataVersion=5;
 	pkiType=tmpl;
 	cols=2;
 
@@ -84,21 +85,27 @@ pki_temp::pki_temp(const QString d)
 	validN=365;
 	validM=0;
 	keyUse=0;
-	eKeyUse=0;
+	eKeyUse="";
 	adv_ext="";
 	noWellDefined=false;
 }
 
-static QString extVtoString(extList &el, int nid)
+static QStringList extVlistToString(extList &el, int nid, bool *crit)
 {
 	int i = el.idxByNid(nid);
+	QStringList sl;
 	if (i != -1) {
-		QStringList sl = el[i].i2v();
-		printf("extVtoString: %d '%s'\n", nid, CCHAR(sl.join(", ")));
+		if (crit)
+			*crit = el[i].getCritical();
+		sl = el[i].i2v();
 		el.removeAt(i);
-		return sl.join(", ");
 	}
-	return QString();
+	return sl;
+}
+
+static QString extVtoString(extList &el, int nid, bool *crit)
+{
+	return extVlistToString(el, nid, crit).join(", ");
 }
 
 static QString extToString(extList &el, int nid)
@@ -106,22 +113,60 @@ static QString extToString(extList &el, int nid)
 	int i = el.idxByNid(nid);
 	if (i != -1) {
 		QString s = el[i].i2s();
-		printf("extToString: %d '%s'\n", nid, CCHAR(s));
 		el.removeAt(i);
 		return s;
 	}
 	return QString();
 }
 
-void pki_temp::fromCert(pki_x509 *cert)
+static int bitsToInt(extList &el, int nid, bool *crit)
 {
+	int ret = 0, i = el.idxByNid(nid);
+
+	if (i != -1) {
+		if (crit)
+			*crit = el[i].getCritical();
+		ASN1_BIT_STRING *bits;
+		bits = (ASN1_BIT_STRING *)el[i].d2i();
+
+		for (int j=0; j<8; j++) {
+			if (ASN1_BIT_STRING_get_bit(bits, j))
+				ret |= 1 << j;
+		}
+		el.removeAt(i);
+	}
+	return ret;
+}
+
+extList pki_temp::fromCert(pki_x509 *cert)
+{
+	int i;
+	x509name n;
 	extList el = cert->getV3ext();
 
-	xname = cert->getSubject();
-	subAltName = extVtoString(el, NID_subject_alt_name);
-	issAltName = extVtoString(el, NID_issuer_alt_name);
-	crlDist = extVtoString(el, NID_crl_distribution_points);
-	authInfAcc = extVtoString(el, NID_info_access);
+	n = cert->getSubject();
+	for (i=0; i<EXPLICIT_NAME_CNT; i++) {
+		int nid = NewX509::name_nid[i];
+		QString ne = n.popEntryByNid(nid);
+		if (!ne.isNull())
+			xname.addEntryByNid(nid, ne);
+	}
+	for (int i=0; i<n.entryCount(); i++) {
+		int nid = n.nid(i);
+		if (nid != NID_undef)
+			xname.addEntryByNid(nid, n.getEntry(i));
+	}
+
+	subAltName = extVtoString(el, NID_subject_alt_name, NULL);
+	issAltName = extVtoString(el, NID_issuer_alt_name, NULL);
+	crlDist = extVtoString(el, NID_crl_distribution_points, NULL);
+
+	authInfAcc = extVtoString(el, NID_info_access, NULL);
+	if (!authInfAcc.isEmpty()) {
+		authInfAcc.replace(QRegExp(" - "), ";");
+		authInfAcc.replace(QRegExp(";IP Address"), ";IP");
+		authInfAcc.replace(QRegExp(";Registered ID"), ";RID");
+	}
 
 	nsComment = extToString(el, NID_netscape_comment);
 	nsBaseUrl = extToString(el, NID_netscape_base_url);
@@ -130,6 +175,69 @@ void pki_temp::fromCert(pki_x509 *cert)
 	nsRenewalUrl = extToString(el, NID_netscape_renewal_url);
 	nsCaPolicyUrl = extToString(el, NID_netscape_ca_policy_url);
 	nsSslServerName = extToString(el, NID_netscape_ssl_server_name);
+
+	i = el.idxByNid(NID_basic_constraints);
+	if (i != -1) {
+		BASIC_CONSTRAINTS *bc;
+		bc = (BASIC_CONSTRAINTS *)el[i].d2i();
+	        if (bc) {
+			bcCrit = el[i].getCritical();
+			ca = (bc->ca ? 0 : 1) +1;
+			a1int pl(bc->pathlen);
+			pathLen = pl.getLong();
+			BASIC_CONSTRAINTS_free(bc);
+		}
+		el.removeAt(i);
+        }
+	i = el.idxByNid(NID_authority_key_identifier);
+	if (i != -1) {
+		el.removeAt(i);
+		authKey = true;
+	}
+	i = el.idxByNid(NID_subject_key_identifier);
+	if (i != -1) {
+		el.removeAt(i);
+		subKey = true;
+	}
+	nsCertType = bitsToInt(el, NID_netscape_cert_type, NULL);
+	keyUse = bitsToInt(el, NID_key_usage, &keyUseCrit);
+
+	QStringList sl = extVlistToString(el, NID_ext_key_usage, &eKeyUseCrit);
+	for (i=0; i<sl.size(); i++)
+		sl[i] = OBJ_ln2sn(CCHAR(sl[i]));
+	eKeyUse = sl.join(", ");
+
+	if (cert->getNotAfter().isUndefined()) {
+		noWellDefined = true;
+	} else {
+		struct tm nb, na;
+
+		a1time notBefore = cert->getNotBefore();
+		a1time notAfter  = cert->getNotAfter();
+
+		if (notBefore.toPlain().endsWith("000000Z") &&
+		    notAfter.toPlain().endsWith("235959Z"))
+		{
+			validMidn = true;
+		}
+		if (!notBefore.ymdg(&nb) &&
+		    !notAfter.ymdg(&na))
+		{
+			time_t diff = mktime(&na) - mktime(&nb);
+			diff /= SECONDS_PER_DAY;
+			validM = 0;
+			if (diff >60) {
+				validM = 1;
+				diff /= 30;
+				if (diff >24) {
+					validM = 2;
+					diff /= 12;
+				}
+			}
+			validN = diff;
+		}
+	}
+	return el;
 }
 
 void pki_temp::fromData(const unsigned char *p, db_header_t *head )
@@ -139,6 +247,19 @@ void pki_temp::fromData(const unsigned char *p, db_header_t *head )
 	size = head->len - sizeof(db_header_t);
 	version = head->version;
 	fromData(p, size, version);
+}
+
+static QString old_eKeyUse2QString(int old)
+{
+	QStringList sl;
+	NIDlist eku_nid = *MainWindow::eku_nid;
+
+        for (int i=0; i<eku_nid.count(); i++) {
+		if (old & (1<<i)) {
+			sl << OBJ_nid2sn(eku_nid[i]);
+		}
+	}
+	return sl.join(", ");
 }
 
 void pki_temp::fromData(const unsigned char *p, int size, int version)
@@ -156,7 +277,12 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	validN =db::intFromData(&p1);
 	validM =db::intFromData(&p1);
 	keyUse=db::intFromData(&p1);
-	eKeyUse=db::intFromData(&p1);
+	if (version > 4) {
+		eKeyUse=db::stringFromData(&p1);
+	} else {
+		int old=db::intFromData(&p1);
+		eKeyUse = old_eKeyUse2QString(old);
+	}
 	nsCertType=db::intFromData(&p1);
 	subAltName=db::stringFromData(&p1);
 	issAltName=db::stringFromData(&p1);
@@ -201,7 +327,7 @@ unsigned char *pki_temp::toData(int *size)
 	db::intToData(&p1, validN);
 	db::intToData(&p1, validM);
 	db::intToData(&p1, keyUse);
-	db::intToData(&p1, eKeyUse);
+	db::stringToData(&p1, eKeyUse);
 	db::intToData(&p1, nsCertType);
 	db::stringToData(&p1, subAltName);
 	db::stringToData(&p1, issAltName);
@@ -301,7 +427,7 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	int s = 9 * sizeof(int) + 9 * sizeof(char) +
+	int s = 8 * sizeof(int) + 9 * sizeof(char) +
 	xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
@@ -316,6 +442,7 @@ int pki_temp::dataSize()
 	nsCaPolicyUrl.length() +
 	nsSslServerName.length() +
 	adv_ext.length() +
+	eKeyUse.length() +
 	13 ) * sizeof(char);
 	return s;
 }
@@ -370,7 +497,8 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 	validN = intFromData(&p1);
 	validM = intFromData(&p1);
 	keyUse=intFromData(&p1);
-	eKeyUse=intFromData(&p1);
+	int old=db::intFromData(&p1);
+	eKeyUse = old_eKeyUse2QString(old);
 	nsCertType=intFromData(&p1);
 	if (version == 1) {
 		xname.addEntryByNid(OBJ_sn2nid("C"), db::stringFromData(&p1));

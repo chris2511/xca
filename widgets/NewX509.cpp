@@ -246,7 +246,7 @@ void NewX509::defineSigner(pki_x509 *defcert)
 }
 
 
-int NewX509::lb2int(QListWidget *lb)
+static int lb2int(QListWidget *lb)
 {
 	int i, x=0, c=lb->count();
 	QListWidgetItem *item;
@@ -260,8 +260,7 @@ int NewX509::lb2int(QListWidget *lb)
 	return x;
 }
 
-
-void NewX509::int2lb(QListWidget *lb, int x)
+static void int2lb(QListWidget *lb, int x)
 {
 	int i, c=lb->count();
 	QListWidgetItem *item;
@@ -272,6 +271,31 @@ void NewX509::int2lb(QListWidget *lb, int x)
 	}
 }
 
+static void QString2lb(QListWidget *lb, QString x)
+{
+	QStringList li = x.split(",");
+	QList<QListWidgetItem *> items;
+
+	for (int i=0; i<li.size(); i++) {
+		QString lname = OBJ_sn2ln(CCHAR(li[i]));
+		items = lb->findItems(lname, Qt::MatchExactly);
+		if (items.size() > 0)
+			lb->setItemSelected(items[0], 1);
+	}
+}
+
+static QString lb2QString(QListWidget *lb)
+{
+	QStringList sl;
+
+	for (int i=0; i<lb->count(); i++) {
+		QListWidgetItem *item = lb->item(i);
+		if (lb->isItemSelected(item)) {
+			sl << QString(OBJ_ln2sn(CCHAR(item->text())));
+		}
+	}
+	return sl.join(", ");
+}
 
 void NewX509::fromTemplate(pki_temp *temp)
 {
@@ -295,7 +319,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	subKey->setChecked(temp->subKey);
 	authKey->setChecked(temp->authKey);
 	int2lb(keyUsage, temp->keyUse);
-	int2lb(ekeyUsage, temp->eKeyUse);
+	QString2lb(ekeyUsage, temp->eKeyUse);
 	validNumber->setText(QString::number(temp->validN));
 	validRange->setCurrentIndex(temp->validM);
 	midnightCB->setChecked(temp->validMidn);
@@ -331,7 +355,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->subKey = subKey->isChecked();
 	temp->authKey = authKey->isChecked();
 	temp->keyUse = lb2int(keyUsage);
-	temp->eKeyUse = lb2int(ekeyUsage);
+	temp->eKeyUse = lb2QString(ekeyUsage);
 	temp->validN = validNumber->text().toInt();
 	temp->validM = validRange->currentIndex();
 	temp->pathLen = basicPath->text().toInt();

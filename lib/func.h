@@ -28,4 +28,8 @@ void applyTD(QWidget *parent, int number, int range, bool mnc,
 		Validity *nb, Validity *na);
 QString asn1ToQString(const ASN1_STRING *str);
 ASN1_STRING *QStringToAsn1(QString s, int nid);
+
+const char *OBJ_ln2sn(const char *ln);
+const char *OBJ_sn2ln(const char *sn);
+
 #endif

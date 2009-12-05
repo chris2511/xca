@@ -170,7 +170,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 	ui.setupUi(dlg);
 	ui.image->setPixmap(*MainWindow::revImg);
 	ui.lastUpdate->setDate(time.now());
-	ui.nextUpdate->setDate(time.now(cert->getCrlDays() *60*60*24));
+	ui.nextUpdate->setDate(time.now(cert->getCrlDays() * SECONDS_PER_DAY));
 
 	pki_key *key = cert->getRefKey();
 	ui.hashAlgo->setKeyType(key->getKeyType());
