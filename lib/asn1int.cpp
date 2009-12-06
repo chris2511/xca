@@ -65,7 +65,7 @@ a1int &a1int::set(long l)
 
 QString a1int::toHex() const
 {
-	QString r = "--";
+	QString r;
 	if (in->length == 0) {
 		return r;
 	}
@@ -79,7 +79,7 @@ QString a1int::toHex() const
 
 QString a1int::toDec() const
 {
-	QString r = "--";
+	QString r;
 	if (in->length == 0) {
 		return r;
 	}

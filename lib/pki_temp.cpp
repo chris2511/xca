@@ -57,7 +57,7 @@ pki_temp::pki_temp(const QString d)
 	:pki_base(d)
 {
 	class_name = "pki_temp";
-	dataVersion=5;
+	dataVersion=6;
 	pkiType=tmpl;
 	cols=2;
 
@@ -81,7 +81,7 @@ pki_temp::pki_temp(const QString d)
 	subKey=false;
 	authKey=false;
 	validMidn=false;
-	pathLen=0;
+	pathLen="";
 	validN=365;
 	validM=0;
 	keyUse=0;
@@ -184,7 +184,7 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			bcCrit = el[i].getCritical();
 			ca = (bc->ca ? 0 : 1) +1;
 			a1int pl(bc->pathlen);
-			pathLen = pl.getLong();
+			pathLen = pl.toDec();
 			BASIC_CONSTRAINTS_free(bc);
 		}
 		el.removeAt(i);
@@ -279,7 +279,13 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	subKey=db::boolFromData(&p1);
 	authKey=db::boolFromData(&p1);
 	ca =db:: intFromData(&p1);
-	pathLen=db::intFromData(&p1);
+	if (version > 5) {
+		pathLen=db::stringFromData(&p1);
+	} else {
+		pathLen=QString::number(db::intFromData(&p1));
+		if (pathLen == "0")
+			pathLen = "";
+	}
 	validN =db::intFromData(&p1);
 	validM =db::intFromData(&p1);
 	keyUse=db::intFromData(&p1);
@@ -329,7 +335,7 @@ unsigned char *pki_temp::toData(int *size)
 	db::boolToData(&p1, subKey);
 	db::boolToData(&p1, authKey);
 	db::intToData(&p1, ca);
-	db::intToData(&p1, pathLen);
+	db::stringToData(&p1, pathLen);
 	db::intToData(&p1, validN);
 	db::intToData(&p1, validM);
 	db::intToData(&p1, keyUse);
@@ -363,7 +369,7 @@ void pki_temp::writeDefault(const QString fname)
 void pki_temp::writeTemp(QString fname)
 {
 	int size = 0;
-	unsigned char *p, buf[2*sizeof(int)], *p1=buf;
+	unsigned char *p, buf[2*sizeof(uint32_t)], *p1=buf;
 	FILE *fp = fopen(QString2filename(fname),"w");
 
 	if (fp == NULL) {
@@ -373,7 +379,7 @@ void pki_temp::writeTemp(QString fname)
 	p = toData(&size);
 	db::intToData(&p1, size);
 	db::intToData(&p1, dataVersion);
-	fwrite(buf, 2*sizeof(int), 1, fp);
+	fwrite(buf, 2*sizeof(uint32_t), 1, fp);
 	fwrite(p, 1, size, fp);
 	OPENSSL_free(p);
 	fclose(fp);
@@ -433,7 +439,7 @@ pki_temp::~pki_temp()
 
 int pki_temp::dataSize()
 {
-	int s = 8 * sizeof(int) + 9 * sizeof(char) +
+	int s = 5 * sizeof(uint32_t) + 7 * sizeof(char) +
 	xname.derSize() + (
 	subAltName.length() +
 	issAltName.length() +
@@ -449,7 +455,8 @@ int pki_temp::dataSize()
 	nsSslServerName.length() +
 	adv_ext.length() +
 	eKeyUse.length() +
-	13 ) * sizeof(char);
+	pathLen.length() +
+	16 ) * sizeof(char);
 	return s;
 }
 
@@ -499,7 +506,9 @@ void pki_temp::oldFromData(unsigned char *p, int size )
 	if (version >= 2) {
 		ca = intFromData(&p1);
 	}
-	pathLen= intFromData(&p1);
+	pathLen = QString::number(db::intFromData(&p1));
+	if (pathLen == "0")
+		pathLen = "";
 	validN = intFromData(&p1);
 	validM = intFromData(&p1);
 	keyUse=intFromData(&p1);

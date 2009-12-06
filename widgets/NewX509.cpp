@@ -323,9 +323,7 @@ void NewX509::fromTemplate(pki_temp *temp)
 	validNumber->setText(QString::number(temp->validN));
 	validRange->setCurrentIndex(temp->validM);
 	midnightCB->setChecked(temp->validMidn);
-	if (temp->pathLen) {
-		basicPath->setText(QString::number(temp->pathLen));
-	}
+	basicPath->setText(temp->pathLen);
 	nconf_data->document()->setPlainText(temp->adv_ext);
 	noWellDefinedExpDate->setChecked(temp->noWellDefined);
 	notBefore->setNow();
@@ -358,7 +356,7 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->eKeyUse = lb2QString(ekeyUsage);
 	temp->validN = validNumber->text().toInt();
 	temp->validM = validRange->currentIndex();
-	temp->pathLen = basicPath->text().toInt();
+	temp->pathLen = basicPath->text();
 	temp->validMidn = midnightCB->isChecked();
 	if (nconf_data->isReadOnly()) {
 		temp->adv_ext = v3ext_backup;

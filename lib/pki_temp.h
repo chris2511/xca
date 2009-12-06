@@ -23,10 +23,10 @@ class pki_temp: public pki_base
 		QString subAltName, issAltName, crlDist, authInfAcc, certPol;
 		QString nsComment, nsBaseUrl, nsRevocationUrl,
 			nsCARevocationUrl, nsRenewalUrl, nsCaPolicyUrl,
-			nsSslServerName, destination, adv_ext, eKeyUse;
+			nsSslServerName, destination, adv_ext, eKeyUse, pathLen;
 		bool bcCrit, keyUseCrit, eKeyUseCrit, subKey, authKey,
 			validMidn, noWellDefined;
-		int nsCertType, pathLen, keyUse, ca;
+		int nsCertType, keyUse, ca;
 		int validN, validM;
 
 		// methods
