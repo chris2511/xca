@@ -644,6 +644,25 @@ signed by this issuer.
 and their revocation date.
 </itemize>
 
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<sect>Templates
+<p>
+Templates are special to XCA and not interchangeable with other applications.
+They store all informations to create certificates or requests.
+<p>
+To use templates, just create a new certificate or request and apply one
+of the templates in the <tt>Source</tt> Tab.
+<p>
+Next to the 3 default templates for CA, HTTPS server and client
+certificates, customized templates may be created. Templates are not signed,
+they are just a collection of common values for different certificates.
+Therefore XCA does not care if any duplicates exist in the list of templates.
+<p>
+An easy way to create templates is to export an existing certificate or
+PKCS#10 request to a template. Just select <tt>Export->Template</tt>
+in the context-menu of the item.
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Certificate Revocation Lists
 <p>
 All certificates are issued for a restricted timeperiod of validity.
