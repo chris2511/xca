@@ -33,4 +33,8 @@ ASN1_STRING *QStringToAsn1(QString s, int nid);
 const char *OBJ_ln2sn(const char *ln);
 const char *OBJ_sn2ln(const char *sn);
 
+QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
+				int selected);
+bool mayWriteFile(const QString &fname);
+
 #endif

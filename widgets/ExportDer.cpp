@@ -8,10 +8,13 @@
 
 #include "ExportDer.h"
 #include "lib/base.h"
+#include "lib/func.h"
 
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qfiledialog.h>
+#include <qmessagebox.h>
+#include <qstringlist.h>
 
 ExportDer::ExportDer(QWidget *parent, QString fname, QString _filter)
 	:QDialog(parent)
@@ -29,20 +32,27 @@ ExportDer::ExportDer(QWidget *parent, QString fname, QString _filter)
 void ExportDer::on_fileBut_clicked()
 {
 	QString s = QFileDialog::getSaveFileName(this, QString(),
-	filename->text(), filter + ";;All files ( * )" );
-	if (! s.isEmpty()) {
+		filename->text(), filter + ";;All files ( * )", NULL,
+		QFileDialog::DontConfirmOverwrite);
+
+	if (!s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
 	on_exportFormat_activated(0);
 }
 
-void ExportDer::on_exportFormat_activated(int)
+void ExportDer::on_exportFormat_activated(int c)
 {
-	const char *suffix[] = { "pem", "der" };
-	int selected = exportFormat->currentIndex();
-	QString fn = filename->text();
-	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];
-	filename->setText(nfn);
+	QStringList suffix;
+	suffix << "pem" << "der";
+
+	filename->setText(changeFilenameSuffix(filename->text(), suffix, c));
+}
+
+void ExportDer::on_okButton_clicked()
+{
+	if (mayWriteFile(filename->text()))
+		accept();
 }
 

@@ -8,10 +8,13 @@
 
 #include "ExportCert.h"
 #include "lib/base.h"
+#include "lib/func.h"
 
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qfiledialog.h>
+#include <qmessagebox.h>
+#include <qstringlist.h>
 
 ExportCert::ExportCert(QWidget *parent, QString fname, bool hasKey)
 	:QDialog(parent)
@@ -36,21 +39,27 @@ void ExportCert::on_fileBut_clicked()
 {
 	QString s = QFileDialog::getSaveFileName(this, tr("Save key as"),
 		filename->text(),
-		tr("X509 Certificates ( *.cer *.crt *.p12 );;All files ( * )"));
-	if (! s.isEmpty()) {
+		tr("X509 Certificates ( *.cer *.crt *.p12 );;All files ( * )"),
+		NULL, QFileDialog::DontConfirmOverwrite);
+
+	if (!s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
 	on_exportFormat_activated(0);
 }
 
-void ExportCert::on_exportFormat_activated(int)
+void ExportCert::on_exportFormat_activated(int c)
 {
-	const char *suffix[] = { "crt", "crt", "crt", "crt", "cer",
-		"p7b", "p7b", "p7b", "p7b", "p12", "p12", "pem", "pem" };
-	int selected = exportFormat->currentIndex();
-	QString fn = filename->text();
-	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[selected];
-	filename->setText(nfn);
+	QStringList suffix;
+	suffix << "crt" << "crt" << "crt" << "crt" << "cer" << "p7b" <<
+		"p7b" << "p7b" << "p7b" << "p12" << "p12" << "pem" << "pem";
+
+	filename->setText(changeFilenameSuffix(filename->text(), suffix, c));
 }
 
+void ExportCert::on_okButton_clicked()
+{
+	if (mayWriteFile(filename->text()))
+		accept();
+}

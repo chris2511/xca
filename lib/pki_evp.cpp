@@ -584,8 +584,7 @@ void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem)
 {
 	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-				"Please enter the password protecting the PKCS#8 key"));
+	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key") + " '" + getIntName() + "'");
 	FILE *fp = fopen(QString2filename(fname), "w");
 	if (fp != NULL) {
 		if (key) {
@@ -620,7 +619,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool pem)
 {
 	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, qApp->translate("MainWindow", "Please enter the export password for the private key"));
+	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key") + " '" + getIntName() + "'");
 	if (isPubKey()) {
 		writePublic(fname, pem);
 		return;

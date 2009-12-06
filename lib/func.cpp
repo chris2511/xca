@@ -18,6 +18,8 @@
 #include <qcombobox.h>
 #include <qmessagebox.h>
 #include <qapplication.h>
+#include <qfile.h>
+#include <qstringlist.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -294,3 +296,32 @@ const char *OBJ_sn2ln(const char *sn)
 	return OBJ_nid2ln(OBJ_sn2nid(sn));
 }
 
+QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
+				int selected)
+{
+	if (selected <0 || selected >= suffixlist.size())
+		return fn;
+
+	foreach(QString suffix, suffixlist) {
+		if (fn.endsWith(QString(".") +suffix)) {
+			return fn.left(fn.length() -suffix.length()) +
+				suffixlist[selected];
+		}
+	}
+	return fn;
+}
+
+bool mayWriteFile(const QString &fname)
+{
+        if (QFile::exists(fname)) {
+		if (QMessageBox::information(NULL, XCA_TITLE,
+			QObject::tr("The file: ") + fname +
+			QObject::tr(" already exists"),
+			QObject::tr("Do not overwrite"),
+			QObject::tr("Overwrite")) != 1)
+	        {
+			return false;
+	        }
+	}
+	return true;
+}

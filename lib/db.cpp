@@ -401,9 +401,12 @@ int db::mv(QFile &new_file)
 	}
 	return 0;
 #else
-	// use the global rename()  function and not the method of this class
-	return ::rename(QString2filename(new_file.fileName()),
-			QString2filename(name)) == -1;
+	// use the global rename() function and not the method of this class
+	char *newfile = strdup(filename2bytearray(new_file.fileName()));
+	check_oom(newfile);
+	int ret = ::rename(newfile, QString2filename(name)) == -1;
+	free(newfile);
+	return ret;
 #endif
 }
 

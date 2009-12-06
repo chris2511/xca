@@ -8,12 +8,14 @@
 
 #include "ExportKey.h"
 #include "lib/base.h"
+#include "lib/func.h"
 
 #include <qfiledialog.h>
 #include <qcheckbox.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qfiledialog.h>
+#include <qstringlist.h>
 
 ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
 	:QDialog(parent)
@@ -39,8 +41,10 @@ void ExportKey::on_fileBut_clicked()
 {
 	QString s = QFileDialog::getSaveFileName(this, tr("Save key as"),
 		filename->text(),
-		tr("Private keys ( *.pem *.der *.pk8 );;All files ( * )"));
-	if (! s.isEmpty()) {
+		tr("Private keys ( *.pem *.der *.pk8 );;All files ( * )"),
+		NULL, QFileDialog::DontConfirmOverwrite);
+
+	if (!s.isEmpty()) {
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
@@ -65,11 +69,11 @@ void ExportKey::canEncrypt()
 
 void ExportKey::on_exportFormat_activated(int c)
 {
-	const char *suffix[] = { "pem", "der" };
+	QStringList suffix;
+	suffix << "pem" << "der";
 
-	QString fn = filename->text();
-	QString nfn = fn.left(fn.lastIndexOf('.')+1) + suffix[c];
-	filename->setText(nfn);
+	filename->setText(changeFilenameSuffix(filename->text(), suffix, c));
+
 	canEncrypt();
 }
 
@@ -83,3 +87,10 @@ void ExportKey::on_exportPrivate_stateChanged()
 	}
 	canEncrypt();
 }
+
+void ExportKey::on_okButton_clicked()
+{
+	if (mayWriteFile(filename->text()))
+		accept();
+}
+

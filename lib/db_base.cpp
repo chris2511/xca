@@ -98,6 +98,7 @@ next:
 				break;
 		}
 	}
+	view->columnsResize();
 }
 
 void db_base::insertPKI(pki_base *pki)
@@ -116,6 +117,7 @@ void db_base::insertPKI(pki_base *pki)
 		OPENSSL_free(p);
 	}
 	inToCont(pki);
+	view->columnsResize();
 }
 
 void db_base::delete_ask()

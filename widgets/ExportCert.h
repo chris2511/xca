@@ -23,6 +23,7 @@ class ExportCert: public QDialog, public Ui::ExportCert
    public slots:
 	void on_fileBut_clicked();
 	void on_exportFormat_activated(int);
+	void on_okButton_clicked();
 };
 
 #endif
