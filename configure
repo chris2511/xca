@@ -38,13 +38,14 @@ UIC=uic
 LRELEASE=lrelease
 
 if test -x /sbin/ldconfig; then
-  STDLIB=$(
+  EXTRALIB=$(
   /sbin/ldconfig -p | sed 's,.* => \(/.*/\)[^/]*\.so.*,\1,' | grep "^/" | sort -u | \
   while read lib; do
     echo -n "-L${lib} "
   done
   echo "$DIR"
   )
+  STDLIB="$STDLIB $EXTRALIB"
 fi
 
 err() {
