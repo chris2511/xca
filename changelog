@@ -1,5 +1,6 @@
 xca 0.8.0
 
+  * improve file-dialog handling
   * Generate Template from certificate or PKCS#10 request
     -> Feature request [2213094] and [1108304]
   * add hash algos "ripemd160" and "SHA384"
