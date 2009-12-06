@@ -175,6 +175,7 @@ int a1time::ymdg(struct tm *tm, int *g) const
 	ret = ymdg(&tm->tm_year, &tm->tm_mon, &tm->tm_mday,
 		   &tm->tm_hour, &tm->tm_min, &tm->tm_sec, g);
 	tm->tm_mon--;
+	tm->tm_year -= 1900;
 	return ret;
 }
 
