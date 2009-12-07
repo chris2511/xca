@@ -108,7 +108,7 @@ QString x509v3ext::getValue() const
 		text = QString::fromLocal8Bit(p, len);
 	}
 	BIO_free(bio);
-	return text;
+	return text.trimmed();
 }
 
 static void *ext_str_new(X509_EXTENSION *ext)
@@ -134,10 +134,16 @@ static void ext_str_free(X509_EXTENSION *ext, void *ext_str)
 		method->ext_free(ext_str);
 }
 
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+#define C_X509V3_EXT_METHOD const X509V3_EXT_METHOD
+#else
+#define C_X509V3_EXT_METHOD X509V3_EXT_METHOD
+#endif
+
 QString x509v3ext::i2s()
 {
 	QString str;
-	X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
+	C_X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
 	void *ext_str = ext_str_new(ext);
 
 	if (!ext_str)
@@ -151,7 +157,7 @@ QString x509v3ext::i2s()
 
 QStringList x509v3ext::i2v()
 {
-	X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
+	C_X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
 	void *ext_str = ext_str_new(ext);
 	QStringList sl;
 

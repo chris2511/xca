@@ -112,7 +112,7 @@ QString a1time::toSortable() const
         }
 
         return QString("%1-%2-%3 %4").
-		arg(tm.tm_year, 4, 10, c).
+		arg(tm.tm_year +1900, 4, 10, c).
 		arg((unsigned)tm.tm_mon +1, 2, 10, c).
 		arg((unsigned)tm.tm_mday, 2, 10, c).
 		arg(g==1 ? "GMT" : "");
