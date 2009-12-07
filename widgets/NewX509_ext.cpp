@@ -26,8 +26,10 @@ x509v3ext NewX509::getBasicConstraints()
 		if (bcCritical->isChecked())
 			cont << "critical";
 		cont << ca[basicCA->currentIndex()];
-		if (!basicPath->text().isEmpty())
-			cont << QString("pathlen:") + basicPath->text();
+		if (!basicPath->text().isEmpty()) {
+			cont << QString("pathlen:") +
+				QString::number(basicPath->text().toInt());
+		}
 		ext.create(NID_basic_constraints, cont.join(", "), &ext_ctx);
 	}
 	return ext;
