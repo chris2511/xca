@@ -21,7 +21,6 @@ bindir=bin
 
 all: headers xca$(SUFFIX) doc lang
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
-re: clean all
 
 xca.o: $(OBJECTS)
 	$(LD) $(LDFLAGS) $(OBJECTS) -r -o $@ $(SLIBS)
@@ -33,6 +32,7 @@ doc:
 	$(MAKE) -C doc
 lang: 
 	$(MAKE) -C lang
+
 headers:
 	$(MAKE) -C ui $@
 
@@ -46,16 +46,16 @@ clean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} clean; done
 	rm -f *~ xca$(SUFFIX) xca.o
 
-distclean: clean
+distclean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} distclean; done
-	rm -f Local.mak conftest conftest.log
+	rm -f conftest conftest.log local.h Local.mak *~
 
-dist: lang doc
+dist:
 	test ! -z "$(TVERSION)"
 	git archive --format=tar --prefix=$(TARGET)/ $(TAG) | \
 		gzip -9 > $(TARGET).tar.gz
 
-snapshot: lang doc
+snapshot:
 	HASH=$$(git rev-parse HEAD) && \
 	git archive --format=tar --prefix=xca-$${HASH}/ HEAD | \
 		gzip -9 > xca-$${HASH}.tar.gz
@@ -78,6 +78,8 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 
 .PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang
 
-Local.mak local.h: configure
+doc lang headers: local.h
+
+local.h: configure
 	./configure
 

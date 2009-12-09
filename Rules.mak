@@ -1,4 +1,4 @@
-include $(TOPDIR)/Local.mak
+sinclude $(TOPDIR)/Local.mak
 
 all: target.obj
 
