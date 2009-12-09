@@ -263,8 +263,10 @@ QString asn1ToQString(const ASN1_STRING *str)
 	switch (str->type) {
 		case V_ASN1_BMPSTRING:
 			bmp = (unsigned short*)str->data;
-			for (i = 0; i < str->length/2; i++)
-				qs += QChar(ntohs(bmp[i]));
+			for (i = 0; i < str->length/2; i++) {
+				unsigned short s = ntohs(bmp[i]);
+				qs += QString::fromUtf16(&s, 1);
+			}
 			break;
 		case V_ASN1_UTF8STRING:
 			qs = QString::fromUtf8((const char*)str->data, str->length);
