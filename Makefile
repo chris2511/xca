@@ -80,6 +80,6 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 
 doc lang headers: local.h
 
-local.h: configure
+Local.mak local.h: configure
 	./configure
 
