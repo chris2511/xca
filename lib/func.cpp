@@ -161,19 +161,6 @@ QByteArray filename2bytearray(const QString &fname)
 #endif
 }
 
-const char *QString2filename(const QString &fname)
-{
-	static char buf[4096];
-	QByteArray b = filename2bytearray(fname);
-
-	int l = b.size();
-	if (l>=4096)
-		l = 4095;
-	memcpy(buf, b.constData(), l);
-	buf[l] = 0;
-	return buf;
-}
-
 QString filename2QString(const char *fname)
 {
 #ifdef WIN32
@@ -237,14 +224,15 @@ QString asn1ToQString(const ASN1_STRING *str)
 		default:
 			qs = QString::fromLatin1((const char*)str->data, str->length);
 	}
-	//printf("Convert %s string to '%s'\n", ASN1_tag2str(str->type),CCHAR(qs));
+	//printf("Convert %s string to '%s' len %d\n", ASN1_tag2str(str->type),CCHAR(qs), str->length);
 	return qs;
 }
 
 /* returns an encoded ASN1 string from QString for a special nid*/
 ASN1_STRING *QStringToAsn1(const QString s, int nid)
 {
-	const unsigned char *utf8 = (const unsigned char *)s.toUtf8().constData();
+	QByteArray ba = s.toUtf8();
+	const unsigned char *utf8 = (const unsigned char *)ba.constData();
 	return ASN1_STRING_set_by_NID(NULL, utf8, -1, MBSTRING_UTF8, nid);
 }
 

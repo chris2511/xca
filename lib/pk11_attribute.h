@@ -93,6 +93,10 @@ public:
 	{
 		setValue(v, len);
 	}
+	pk11_attr_data(unsigned long type, QByteArray ba) :pk11_attribute(type)
+	{
+		setValue((const unsigned char *)ba.constData(), ba.size());
+	}
 	unsigned long getValue(const unsigned char **ptr)
 	{
 		*ptr = (unsigned char*)attr.pValue;

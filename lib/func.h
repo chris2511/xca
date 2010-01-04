@@ -22,7 +22,6 @@ QString getUserSettingsDir();
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
 
 QByteArray filename2bytearray(const QString &fname);
-const char *QString2filename(const QString &fname);
 QString filename2QString(const char *fname);
 
 void applyTD(QWidget *parent, int number, int range, bool mnc,
@@ -37,4 +36,5 @@ QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
 				int selected);
 bool mayWriteFile(const QString &fname);
 
+#define QString2filename(str) filename2bytearray(str).constData()
 #endif

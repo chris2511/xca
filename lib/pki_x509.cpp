@@ -209,7 +209,6 @@ void pki_x509::store_token()
 	pki_scard *card = (pki_scard *)privkey;
 	int slot, size, id_size;
 	unsigned char *p, *p1, *id;
-	const unsigned char *label;
 	QList<CK_OBJECT_HANDLE> objects;
 
 	if (!privkey || !privkey->isScard())
@@ -225,7 +224,6 @@ void pki_x509::store_token()
 
 	id_size = card->getIdBin(&id);
 	openssl_error();
-	label = (const unsigned char *)desc.toUtf8().constData();
 
 	pk11_attlist p11_atts;
 	p11_atts <<
@@ -234,7 +232,7 @@ void pki_x509::store_token()
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_data(CKA_VALUE, p, size) <<
 		pk11_attr_data(CKA_ID, id, id_size) <<
-		pk11_attr_data(CKA_LABEL, label, strlen((const char*)label));
+		pk11_attr_data(CKA_LABEL, desc.toUtf8());
 
 	free(p);
 	free(id);

@@ -120,8 +120,7 @@ QString a1time::toSortable() const
 
 a1time &a1time::set(const QString &s)
 {
-	const char *x = s.toAscii();
-	ASN1_GENERALIZEDTIME_set_string(time, (char*)x);
+	ASN1_GENERALIZEDTIME_set_string(time, s.toAscii());
 	return *this;
 }
 
