@@ -29,13 +29,6 @@
 #include <netinet/in.h>
 #endif
 
-#ifdef Q_WS_MAC
-/* for CFBundle API */
-#include <CoreFoundation/CoreFoundation.h>
-/* for Folder Manager */
-#include <CoreServices/CoreServices.h>
-#endif
-
 QPixmap *loadImg(const char *name )
 {
 	return new QPixmap(QString(":") + name);
@@ -85,14 +78,13 @@ QString getPrefix()
 	return QString(inst_dir);
 
 #elif defined(Q_WS_MAC)
-	// since this is platform-specific anyway, this is a more robust way to get the bundle directory
-	CFURLRef bundle = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-	CFStringRef bundlePath = CFURLCopyFileSystemPath(bundle,kCFURLPOSIXPathStyle);
-	QString ret(CFStringGetCStringPtr(bundlePath,CFStringGetSystemEncoding()));
-	CFRelease(bundle);
-	CFRelease(bundlePath);
+	// since this is platform-specific anyway,
+	// this is a more robust way to get the bundle directory
+	QDir bundleDir(qApp->applicationDirPath());
+	bundleDir.cdUp();
+	bundleDir.cdUp();
 	ret += "/Contents/Resources";
-	return ret;
+	return bundleDir.absolutePath() + "/Contents/Resources";
 #else
 	return QString(PREFIX) + "/share/xca";
 #endif
@@ -109,26 +101,6 @@ QString getHomeDir()
 		SHGetPathFromIDList(pidl, buf);
 	}
 	hd = buf;
-#elif defined(Q_WS_MAC)
-	// selecting a sensible starting point for opening and saving files.
-	// The user's documents folder is generally a good starting point.
-	FSRef docsLoc;
-	OSErr err = FSFindFolder(kUserDomain, kDocumentsFolderType, kDontCreateFolder, &docsLoc);
-	if(err == noErr) {
-		CFURLRef docsURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &docsLoc);
-		if(docsURL) {
-			CFStringRef docsPath = CFURLCopyFileSystemPath(docsURL,kCFURLPOSIXPathStyle);
-			if(docsPath) {
-				hd = CFStringGetCStringPtr(docsPath,CFStringGetSystemEncoding());
-				CFRelease(docsPath);
-			}
-			CFRelease(docsURL);
-		}
-	}
-	if(hd.isEmpty()) {
-		// if the folder manager didn't give anything, just let Qt decide
-		hd = QDir::homePath();
-	}
 #else
 	hd = QDir::homePath();
 #endif
@@ -155,21 +127,9 @@ QString getUserSettingsDir()
 	/* not called on WIN32 platforms */
 	QMessageBox::warning(NULL, XCA_TITLE, "No not to be called");
 #elif defined(Q_WS_MAC)
-	FSRef prefsLoc;
-	OSErr err = FSFindFolder(kUserDomain, kPreferencesFolderType, kDontCreateFolder, &prefsLoc);
-	if(err == noErr) {
-		CFURLRef prefsURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &prefsLoc);
-		if(prefsURL) {
-			CFStringRef prefsPath = CFURLCopyFileSystemPath(prefsURL,kCFURLPOSIXPathStyle);
-			if(prefsPath) {
-				rv = CFStringGetCStringPtr(prefsPath,CFStringGetSystemEncoding());
-				CFRelease(prefsPath);
-				rv += QDir::separator();
-				rv += "xca";
-			}
-			CFRelease(prefsURL);
-		}
-	}
+	rv = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+	rv.insert(rv.count() - QCoreApplication::applicationName().count(),
+		QCoreApplication::organizationName() + "/");
 #else
 	rv = QDir::homePath();
 	rv += QDir::separator();
