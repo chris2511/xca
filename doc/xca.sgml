@@ -5,7 +5,7 @@
 
 <title>XCA <!-- insert your title here -->
 <author>Christian Hohnst&auml;dt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
-<date>"December 2009 - Version 0.8.0
+<date>December 2009 - Version 0.8.0
 <abstract>                          <!-- the abstract: a short and precise description -->
 <nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
 
@@ -428,7 +428,6 @@ Generally if the opensc commandline-tool "pkcs11-tool -L" shows reasonable outpu
 Otherwise fix the opensc setup.
 I had a functional setup with a "Reiner SCT" and a DELL keyboard with integrated card reader and TCOS Netkey E4 cards.
 Most probably other cards will work as least as good or better.
-I had no luck on windows, yet (application crashed). I don't know if it is an XCA problem or a PKCS#11.dll one. Please report any success. Thanks.
 <p>
 Before the keys of a Smart-card can be used, they must be imported into XCA.
 This means that XCA reads the Smart-card and stores the card's manufacturer, serial and the public key into the database.
