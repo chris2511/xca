@@ -1,3 +1,7 @@
+xca 0.8.1
+
+  * fix string conversion from QString to ASN1
+
 xca 0.8.0
 
   * improve documentation
