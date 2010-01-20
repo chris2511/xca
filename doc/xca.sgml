@@ -440,7 +440,7 @@ The following actions with smart cards are supported:
 <itemize>
 <item>Import Keys from the smart cards.
 <item>Import Certificates from the smart card.
-<item>Everything you can do with other keys can be don with Smart-card key, too.
+<item>Everything you can do with other keys can be done with Smart-card key, too.
 <item>On export, only the Public key is exported.
 <item>Change the PIN of a Smart-card key
 </itemize>
