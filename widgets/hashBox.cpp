@@ -56,6 +56,7 @@ const EVP_MD *hashBox::currentHash()
 
 void hashBox::setupHashes(QList<int> nids)
 {
+	QString md = currentText();
 	clear();
 	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
 		if (nids.contains(hashalgos[i].md->type)) {
@@ -63,14 +64,17 @@ void hashBox::setupHashes(QList<int> nids)
 		}
 	}
 	setDefaultHash();
+	setCurrentIndex(findText(md));
 }
 
 void hashBox::setupAllHashes()
 {
+	QString md = currentText();
 	clear();
 	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
 		addItem(QString(hashalgos[i].name));
 	}
+	setCurrentIndex(findText(md));
 }
 
 QString hashBox::currentHashName()
