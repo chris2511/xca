@@ -8,6 +8,7 @@
 
 #include "pki_crl.h"
 #include "func.h"
+#include "exception.h"
 #include <qdir.h>
 
 QPixmap *pki_crl::icon = NULL;
@@ -46,7 +47,11 @@ void pki_crl::fload(const QString fname )
 			_crl = d2i_X509_CRL_fp(fp, NULL);
 		}
 		fclose(fp);
-		openssl_error();
+		if (ign_openssl_error()) {
+			if (_crl)
+				X509_CRL_free(_crl);
+			throw errorEx(tr("Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
+		}
 		if (crl)
 			X509_CRL_free(crl);
 		crl = _crl;

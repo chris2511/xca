@@ -154,12 +154,16 @@ void pki_pkcs7::fload(const QString fname)
 			_p7 = d2i_PKCS7_fp(fp, NULL);
 		}
 		fclose(fp);
-		openssl_error();
-		if(p7)
+		if (ign_openssl_error()) {
+			if (_p7)
+				PKCS7_free(_p7);
+			throw errorEx(tr("Unable to load the PKCS#7 file %1. Tried PEM and DER format.").arg(fname));
+		}
+		if (p7)
 			PKCS7_free(p7);
 		p7 = _p7;
-	}
-	else fopen_error(fname);
+	} else
+		fopen_error(fname);
 }
 
 

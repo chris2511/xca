@@ -300,6 +300,11 @@ void pki_evp::fload(const QString fname)
 		pkey = d2i_PUBKEY_fp(fp, NULL);
 	}
 	fclose(fp);
+	if (ign_openssl_error()) {
+		if (pkey)
+			EVP_PKEY_free(pkey);
+		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private and public key types.").arg(fname));
+	}
 	if (pkey){
 		if (pkey->type == EVP_PKEY_EC)
 			search_ec_oid(pkey->pkey.ec);
@@ -310,7 +315,6 @@ void pki_evp::fload(const QString fname)
 			bogusEncryptKey();
 		setIntName(rmslashdot(fname));
 	}
-	openssl_error(fname);
 }
 
 void pki_evp::fromData(const unsigned char *p, db_header_t *head )

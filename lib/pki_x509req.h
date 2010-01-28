@@ -22,7 +22,7 @@ class pki_x509req : public pki_x509super
 {
 	private:
 		//loading spkac file and convert it to a request
-		void load_spkac(const QString filename);
+		int load_spkac(const QString filename);
 		//for checking spkac content-fields
 		int fix_data(int nid, int *type);
 
@@ -56,8 +56,6 @@ class pki_x509req : public pki_x509super
 		QString getSigAlg();
 		void setSubject(const x509name &n);
 		/* SPKAC special functions */
-		void setSPKIBase64(const char *p);
-		void set_spki(NETSCAPE_SPKI *_spki);
 		ASN1_IA5STRING *spki_challange();
 		QVariant column_data(int col);
 		QVariant getIcon(int column);

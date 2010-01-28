@@ -83,8 +83,11 @@ void pki_x509::fload(const QString fname)
 		_cert = d2i_X509_fp(fp, NULL);
 	}
 	fclose(fp);
-	openssl_error(fname);
-
+	if (ign_openssl_error() ) {
+		if (_cert)
+			X509_free(_cert);
+		throw errorEx(tr("Unable to load the certificate in file %1. Tried PEM and DER certificate.").arg(fname));
+	}
 	X509_free(cert);
 	cert = _cert;
 	autoIntName();
