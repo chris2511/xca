@@ -29,7 +29,7 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	:pki_base(fname)
 {
 	FILE *fp;
-	char pass[30];
+	char pass[MAX_PASS_LENGTH];
 	EVP_PKEY *mykey = NULL;
 	X509 *mycert = NULL;
 	key=NULL; cert=NULL;
@@ -45,7 +45,7 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		openssl_error();
 		if (PKCS12_verify_mac(pkcs12, "", 0) || PKCS12_verify_mac(pkcs12, NULL, 0))
 			pass[0] = '\0';
-		else if (passcb(pass, 30, 0, &p) < 0) {
+		else if (passcb(pass, MAX_PASS_LENGTH, 0, &p) < 0) {
 			/* cancel pressed */
 			PKCS12_free(pkcs12);
 			throw errorEx("","");
@@ -105,9 +105,7 @@ void pki_pkcs12::addCaCert(pki_x509 *ca)
 
 void pki_pkcs12::writePKCS12(const QString fname)
 {
-	char pass[30];
-	char desc[100];
-	strncpy(desc, getIntName().toLocal8Bit(), 100);
+	char pass[MAX_PASS_LENGTH];
 	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
 	if (cert == NULL || key == NULL) {
 		my_error(tr("No key or no Cert and no pkcs12"));
@@ -115,8 +113,10 @@ void pki_pkcs12::writePKCS12(const QString fname)
 
 	FILE *fp = fopen(QString2filename(fname), "wb");
 	if (fp != NULL) {
-		passcb(pass, 30, 0, &p);
-		PKCS12 *pkcs12 = PKCS12_create(pass, desc, key->decryptKey(),
+		passcb(pass, MAX_PASS_LENGTH, 0, &p);
+		PKCS12 *pkcs12 = PKCS12_create(pass,
+			filename2bytearray(getIntName()).data(),
+			key->decryptKey(),
 			cert->getCert(), certstack, 0, 0, 0, 0, 0);
 		i2d_PKCS12_fp(fp, pkcs12);
 		openssl_error();

@@ -16,9 +16,6 @@
 #include <openssl/evp.h>
 #include "pki_key.h"
 
-#define MAX_KEY_LENGTH 4096
-#define MAX_PASS_LENGTH 40
-
 #define CURVE_X962  1
 #define CURVE_OTHER 2
 
