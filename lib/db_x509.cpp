@@ -291,7 +291,7 @@ pki_base *db_x509::insert(pki_base *item)
 		QMessageBox::information(mainwin, XCA_TITLE,
 		tr("The certificate already exists in the database as") +":\n'" +
 		oldcert->getIntName() +
-		"'\n" + tr("and so it was not imported"), "OK");
+		"'\n" + tr("and so it was not imported"));
 		delete(cert);
 		return oldcert;
 	}
@@ -498,7 +498,7 @@ void db_x509::newCert(NewX509 *dlg)
 	cert->setNotAfter(a);
 
 	if (cert->resetTimes(signcert) > 0) {
-		if (QMessageBox::information(mainwin,tr(XCA_TITLE),
+		if (QMessageBox::information(mainwin, XCA_TITLE,
 			tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
 			tr("Continue creation"), tr("Abort")
 		))
@@ -562,8 +562,9 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subExport, *subCa;
-	QAction *itemReq, *itemRevoke, *itemExtend, *itemTrust, *itemScard;
-	bool parentCanSign, canSign, hasTemplates;
+	QAction *itemReq, *itemRevoke, *itemExtend, *itemTrust, *itemScard,
+		*itemDelScard;
+	bool parentCanSign, canSign, hasTemplates, hasScard;
 	currentIdx = index;
 	pki_key *privkey;
 
@@ -580,11 +581,13 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subExport->addAction(tr("File"), this, SLOT(store()));
 		itemReq = subExport->addAction(tr("Request"),
 				this, SLOT(toRequest()));
-		itemScard = subExport->addAction(tr("Smart Card"),
-				this, SLOT(toScard()));
+		itemScard = subExport->addAction(tr("Security token"),
+				this, SLOT(toToken()));
 		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
+		itemDelScard = menu->addAction(tr("Delete from Security token"),
+				this, SLOT(deleteFromToken()));
 		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
 		menu->addSeparator();
 		subCa = menu->addMenu(tr("CA"));
@@ -611,13 +614,14 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		canSign = cert->canSign();
 		hasTemplates = mainwin->temps->getDesc().count() > 0 ;
 		privkey = cert->getRefKey();
+		hasScard = privkey && privkey->isToken() && pkcs11::loaded();
+
 		itemRevoke->setEnabled(parentCanSign);
 		itemExtend->setEnabled(parentCanSign);
 		subCa->setEnabled(canSign);
 		itemReq->setEnabled(privkey);
-		itemScard->setEnabled(privkey &&
-				privkey->isScard() &&
-				pkcs11::loaded());
+		itemScard->setEnabled(hasScard);
+		itemDelScard->setEnabled(hasScard);
 #if 0
 		subP7->setEnabled(privkey);
 #endif
@@ -650,7 +654,7 @@ void db_x509::store()
 	QString fn = mainwin->getPath() + QDir::separator() +
 			crt->getUnderlinedName() + ".crt";
 	ExportCert *dlg = new ExportCert(mainwin, fn,
-		(privkey && privkey->isPrivKey()) && !privkey->isScard());
+		(privkey && privkey->isPrivKey()) && !privkey->isToken());
 	dlg->image->setPixmap(*MainWindow::certImg);
 	int dlgret = dlg->exec();
 
@@ -715,7 +719,7 @@ void db_x509::store()
 					crt->getIntName() );
 				return;
 			}
-			if (privkey->isScard()) {
+			if (privkey->isToken()) {
 				QMessageBox::warning(mainwin, tr(XCA_TITLE),
 					tr("Not possible for smart card key:") +
                                         crt->getIntName() );
@@ -748,9 +752,9 @@ void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
 				cert->getIntName() );
 			return;
 		}
-		if (privkey->isScard()) {
+		if (privkey->isToken()) {
 			QMessageBox::warning(mainwin, tr(XCA_TITLE),
-				tr("Not possible for Smart card key for the Certificate: ") +
+				tr("Not possible for a token-key for the Certificate: ") +
 				cert->getIntName() );
 			return;
 		}
@@ -903,6 +907,14 @@ void db_x509::setMultiTrust(QAbstractItemView* view)
 	currentIdx = QModelIndex();
 }
 
+void db_x509::deleteFromToken()
+{
+	if (!currentIdx.isValid())
+		return;
+	pki_x509 *pki = static_cast<pki_x509*>(currentIdx.internalPointer());
+	pki->deleteFromToken();
+}
+
 void db_x509::setTrust()
 {
 	int state, newstate = 0;
@@ -969,7 +981,7 @@ void db_x509::extendCert()
 		newcert->setNotAfter(dlg->notAfter->getDate());
 
 		if (newcert->resetTimes(signer) > 0) {
-			if (QMessageBox::information(mainwin, tr(XCA_TITLE),
+			if (QMessageBox::information(mainwin, XCA_TITLE,
 				tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
 				tr("Continue creation"), tr("Abort")
 			))
@@ -1033,7 +1045,7 @@ void db_x509::toRequest()
 	}
 }
 
-void db_x509::toScard()
+void db_x509::toToken()
 {
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	if (!cert)

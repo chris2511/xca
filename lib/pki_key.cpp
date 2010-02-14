@@ -79,7 +79,7 @@ QString pki_key::removeTypeFromIntName(QString n)
 	return n;
 }
 
-bool pki_key::isScard()
+bool pki_key::isToken()
 {
 	return false;
 }

@@ -3,11 +3,11 @@
 
 <article>
 
-<title>XCA <!-- insert your title here -->
-<author>Christian Hohnst&auml;dt, <tt/christian@hohnstaedt.de/ <!-- insert your name here -->
-<date>December 2009 - Version 0.8.0
-<abstract>                          <!-- the abstract: a short and precise description -->
-<nidx>(your index root)</nidx>    <!-- add indexing keywords as you go along -->
+<title>XCA
+<author>(c) by Christian Hohnst&auml;dt, <tt>/christian@hohnstaedt.de/</tt>
+<date>February 2010 - Version 0.8.2
+<abstract>
+<nidx>(your index root)</nidx>
 
 This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys and CRLs.
 Everything that is needed for a CA is implemented.
@@ -16,13 +16,7 @@ For an easy company-wide use there are customiseable templates that can be used 
 All crypto data is stored in a and endian-agnostic file format portable across operating systems.
 </abstract>
 
-
-
-<!-- Table of contents -->
 <toc>
-
-<!-- Begin the document -->
-
 
 <sect>Introduction
 
@@ -127,9 +121,6 @@ Kerstin Steinhauff &lt;tine (at) kerstine.de&gt;
 Ilya Kozhevnikov &lt;ilya (at) ef.unn.ru&gt;
         Registry stuff for WIN32
 
-Paul Kirner &lt;kirner (at) fhwgt.de&gt;
-	Providing compile and test hardware
-
 Wolfgang Glas &lt;wolfgang.glas (at) ev-i.at&gt;
 	Implementation of SPKAC and UTF8 support
 
@@ -143,7 +134,7 @@ Thank you very much.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Updating from older versions
+<sect>Updating from older versions (older than 0.6.0)
 <p>
 Older versions of XCA used a Berkely database for storing the crypto items.
 Starting from version 0.6.0 this has changed to a simple
@@ -414,46 +405,47 @@ noticeNumbers=1,2,3,4
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Smart-cards
+<sect>Smart-cards (Security tokens)
 <p>
-Since XCA 0.8.0 the use of Smart cards is supported. It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
+Since XCA 0.8.0 the use of Smart cards (Security tokens) is supported.
+It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
+This is not restricted to Smart cards but includes all type of security tokens like USB sticks.
 The default is <tt>/usr/lib/opensc-pkcs11.so</tt> and <tt>opensc-pkcs11.dll</tt> in the XCA installation path, depending on your OS.
 <p>
-Once again: This software comes with no warranty at all! If XCA transforms your smart card into a fridge, don't blame me.
+Once again: This software comes with no warranty at all! If XCA transforms your security token into a fridge, don't blame me.
 For me everything worked fine and I tested it thoroughly.
 <p>
 On Linux the packages <tt>opensc</tt> and <tt>libengine-pkcs11-openssl</tt> should be installed.
 Please read the opensc documentation for more details.
-Generally if the opensc commandline-tool "pkcs11-tool -L" shows reasonable output, XCA will work.
+Generally: if the opensc commandline-tool "pkcs11-tool -L" shows reasonable output, XCA will work.
 Otherwise fix the opensc setup.
 I had a functional setup with a "Reiner SCT" and a DELL keyboard with integrated card reader and TCOS Netkey E4 cards.
-Most probably other cards will work as least as good or better.
+I also used Aladdin Etoken very successfully (Thanks for support!). The Aladdin PKCS#11 library supports all needed features very well.
+Most probably other cards/tokens will work as least as good or better.
 <p>
-Before the keys of a Smart-card can be used, they must be imported into XCA.
-This means that XCA reads the Smart-card and stores the card's manufacturer, serial and the public key into the database.
-It is not unusal that a card contains more than one key.
-
-When selecting a Smart-card private key for signing, XCA verifies that the
-correct card is inserted.
+Before the keys of a token can be used, they must be imported into XCA.
+This means that XCA reads the token and stores the card's manufacturer, serial and the public key into the database.
+It is not unusal that a token contains more than one key.
+It is of course possible to create your own keys on the token.
+When selecting a token-key for signing, XCA verifies that the
+correct token is available.
 
 The following actions with smart cards are supported:
 <itemize>
-<item>Import Keys from the smart cards.
-<item>Import Certificates from the smart card.
-<item>Everything you can do with other keys can be done with Smart-card key, too.
+<item>Import keys and certificates from the token. (Import->Read Security token)
+<item>Everything you can do with other keys can be done with tokens, too.
 <item>On export, only the Public key is exported.
-<item>Change the PIN of a Smart-card key
+<item>Change the PIN of a token.
+<item>Create a key on the token. (Button New Key)
+<item>Store an existing key on the token. (Context menu of the key)
+<item>Delete certificates and keys from the token. (Context menu of the item)
 </itemize>
 What does not work, yet:
 <itemize>
 <item>Initialize cards.
-<item>Generate keys on a card
-<item>Write a certificate to the card. Actually the driver for my card did
-not support writes to the card. Maybe it works for you. It is available via the context-menu of the certificate, signed by a Smart-card. Click "Export->Smart-card".
 </itemize>
 
-You may ignore the built-in certificates of a Smart-card and create your own CA certificate, self-signed by your Smart-card and issue end-entity certificates containing other RSA, DSA or EC keys or sign imported certificate requests.
-
+You may ignore existing built-in certificates of a Smart-card and create your own CA certificate, self-signed by your Smart-card and issue end-entity certificates containing other RSA, DSA or EC keys or sign imported certificate requests.
 
 <sect>RSA, DSA and EC keys <label id="keys">
 <p>

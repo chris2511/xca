@@ -60,13 +60,14 @@ class db_x509: public db_x509super
 		void showPki(pki_base *pki);
 		void setMultiTrust(QAbstractItemView* view);
 		void setTrust();
+		void deleteFromToken();
 		void extendCert();
 		void revoke();
 		void unRevoke();
 		void genCrl();
 		void caProperties();
 		void toRequest();
-		void toScard();
+		void toToken();
 		void newCert(pki_temp *);
 		void newCert(pki_x509req *);
 		void loadPKCS12();

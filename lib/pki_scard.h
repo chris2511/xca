@@ -34,7 +34,7 @@ class pki_scard: public pki_key
 		static QPixmap *icon[1];
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		static bool init_p11engine(QString file, bool silent);
-		int prepare_card() const;
+		int prepare_card(bool verifyPubkey=true) const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		unsigned char *toData(int *size);
 		bool isPubKey() const;
@@ -43,6 +43,7 @@ class pki_scard: public pki_key
 		QString getSerial() const { return card_serial; }
 		QString getLabel() const { return slot_label; }
 		QString getId() const { return object_id; }
+		pk11_attr_data getIdAttr() const;
 		QString getCardLabel() const { return card_label; }
 		EVP_PKEY *decryptKey() const;
 		QString length();
@@ -51,15 +52,16 @@ class pki_scard: public pki_key
 		void initPin();
 		void changeSoPin();
 		int verify();
-		bool isScard();
+		bool isToken();
 		QVariant getIcon(int column);
 		QList<CK_MECHANISM_TYPE> getMech_list() { return mech_list; };
 		void setMech_list(QList<CK_MECHANISM_TYPE> ml) { mech_list = ml; };
 		QList<int> possibleHashNids();
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;
-		int getIdBin(unsigned char **to);
 		const EVP_MD *getDefaultMD();
-
+		void generateKey_card(unsigned long slot, int size, QProgressBar *bar);
+		void deleteFromToken();
+		void store_token(unsigned int slot, EVP_PKEY *pkey);
 };
 
 #endif

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewKey</class>
- <widget class="QDialog" name="NewKey">
+ <class>SelectToken</class>
+ <widget class="QDialog" name="SelectToken">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>449</width>
-    <height>297</height>
+    <width>369</width>
+    <height>159</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>New key</string>
+   <string>Select Token</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -36,7 +36,7 @@
         </font>
        </property>
        <property name="text">
-        <string>New key</string>
+        <string>Security token</string>
        </property>
       </widget>
      </item>
@@ -83,104 +83,15 @@
    <item>
     <widget class="QLabel" name="TextLabel1">
      <property name="text">
-      <string>Please give a name to the new key and select the desired keysize</string>
+      <string>Please select the security token</string>
      </property>
-     <property name="wordWrap">
-      <bool>true</bool>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Key properties</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="TextLabel5">
-        <property name="text">
-         <string>Name</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" rowspan="2">
-       <widget class="QLineEdit" name="keyDesc">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>32767</width>
-          <height>32767</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>The internal name of the new key</string>
-        </property>
-        <property name="text">
-         <string>New Key</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QComboBox" name="keyType">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="2">
-       <widget class="QComboBox" name="curveBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLabel" name="curveLabel">
-        <property name="text">
-         <string>Curve</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLabel" name="keySizeLabel">
-        <property name="text">
-         <string>Keysize</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QComboBox" name="keyLength">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>Usually 1024 or 2048 bit keys are used</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="TextLabel1_2">
-        <property name="text">
-         <string>Keytype</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+    <widget class="QComboBox" name="tokenBox"/>
    </item>
    <item>
     <spacer>
@@ -232,7 +143,7 @@
      <item>
       <widget class="QPushButton" name="PushButton1">
        <property name="text">
-        <string>C&amp;reate</string>
+        <string>&amp;Store</string>
        </property>
       </widget>
      </item>
@@ -241,7 +152,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>keyDesc</tabstop>
   <tabstop>PushButton2</tabstop>
  </tabstops>
  <resources/>
@@ -249,7 +159,7 @@
   <connection>
    <sender>PushButton1</sender>
    <signal>clicked()</signal>
-   <receiver>NewKey</receiver>
+   <receiver>SelectToken</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -265,7 +175,7 @@
   <connection>
    <sender>PushButton2</sender>
    <signal>clicked()</signal>
-   <receiver>NewKey</receiver>
+   <receiver>SelectToken</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -110,7 +110,7 @@
    <item>
     <widget class="QGroupBox" name="cardBox">
      <property name="title">
-      <string>Smart card</string>
+      <string>Security token</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">

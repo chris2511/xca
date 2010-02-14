@@ -170,6 +170,18 @@ unsigned char *x509name::i2d(unsigned char *p)
 	return p;
 }
 
+QByteArray x509name::i2d()
+{
+	unsigned char *p;
+	int size = derSize();
+	p = (unsigned char *)OPENSSL_malloc(size);
+	check_oom(p);
+	i2d(p);
+	QByteArray ba((const char*)p, size);
+	OPENSSL_free(p);
+	return ba;
+}
+
 bool x509name::operator == (const x509name &x) const
 {
 	return (X509_NAME_cmp(xn, x.xn) == 0);

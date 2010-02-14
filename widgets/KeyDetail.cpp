@@ -43,7 +43,7 @@ void KeyDetail::setKey(pki_key *key)
 	keyLength->setText(key->length());
 
 	keyPrivEx->disableToolTip();
-	if (!key->isScard())
+	if (!key->isToken())
 		cardBox->hide();
 	tlHeader->setText(tr("Details of the") + " " + key->getTypeString() +
 		" " + tr(" key"));
@@ -51,13 +51,13 @@ void KeyDetail::setKey(pki_key *key)
 	if (key->isPubKey()) {
 		keyPrivEx->setText(tr("Not available"));
 		keyPrivEx->setRed();
-	} else if (key->isScard()) {
+	} else if (key->isToken()) {
 		image->setPixmap(*MainWindow::scardImg);
 		pki_scard *card = (pki_scard *)key;
-		cardBox->setTitle(tr("Card") +" [" +card->getCardLabel() +"]");
+		cardBox->setTitle(tr("Token") +" [" +card->getCardLabel() +"]");
 		cardManufacturer->setText(card->getManufacturer());
 		cardSerial->setText(card->getSerial());
-		keyPrivEx->setText(tr("Smart card ID: ") +card->getId());
+		keyPrivEx->setText(tr("via Security token; ID: ") +card->getId());
 		keyBox->setTitle(tr("Key") + " [" + card->getLabel() + "]");
 	} else {
 		keyPrivEx->setText(tr("Available"));

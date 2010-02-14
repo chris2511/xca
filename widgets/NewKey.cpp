@@ -11,6 +11,7 @@
 #include "lib/pki_evp.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
+#include "lib/pkcs11.h"
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlineedit.h>
@@ -26,12 +27,60 @@ static const struct typelist typeList[] = {
 	{ "EC",  EVP_PKEY_EC  },
 };
 
+class keyListItem
+{
+    protected:
+	const struct typelist *tl;
+
+    public:
+	bool card;
+	QString printname;
+	unsigned long slot;
+	keyListItem(pkcs11 *p11, unsigned long nslot, CK_MECHANISM_TYPE m)
+	{
+		// assert(m == CKM_RSA_PKCS_KEY_PAIR_GEN);
+		slot = nslot;
+		CK_MECHANISM_INFO mechinfo;
+		p11->mechanismInfo(slot, m, &mechinfo);
+		QStringList info = p11->tokenInfo(slot);
+		tl = typeList; //idx of EVP_PKEY_RSA
+		printname = QString("%1 #%2 (%3 Key of %4 - %5 bits)").
+			arg(info[0]).arg(info[2]).
+			arg(tl->name).
+			arg(mechinfo.ulMinKeySize).
+			arg(mechinfo.ulMaxKeySize);
+		card = true;
+	}
+	keyListItem(const struct typelist *t=typeList)
+	{
+		tl = t;
+		printname = QString(tl->name);
+		card = false;
+		slot = 0;
+	}
+	keyListItem(const keyListItem &k)
+	{
+		tl = k.tl;
+		printname = k.printname;
+		card = k.card;
+		slot = k.slot;
+	}
+	int type()
+	{
+		return tl->type;
+	}
+};
+
+Q_DECLARE_METATYPE(keyListItem);
+
 NewKey::NewKey(QWidget *parent, QString name)
 	:QDialog(parent)
 {
 	static const char* const sizeList[] = { "1024", "2048", "4096" };
 	size_t i;
 	QStringList curve_x962, curve_other;
+	QList<unsigned long> p11_slots;
+	QList<keyListItem> keytypes;
 
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
@@ -45,7 +94,8 @@ NewKey::NewKey(QWidget *parent, QString name)
 		keyLength->addItem(QString(sizeList[i]) + " bit");
 	}
 	for (i=0; i < ARRAY_SIZE(typeList); i++ ) {
-		keyType->addItem(QString(typeList[i].name));
+		keyListItem gk(typeList +i);
+		keytypes << gk;
 	}
 
 	for (i = 0; i<pki_evp::num_curves; i++) {
@@ -67,6 +117,27 @@ NewKey::NewKey(QWidget *parent, QString name)
 	curveBox->addItems(curve_other);
 	keyLength->setCurrentIndex(0);
 	keyDesc->setFocus();
+	if (pkcs11::loaded()) try {
+		pkcs11 p11;
+		p11_slots = p11.getSlotList();
+
+		for (int i=0; i<p11_slots.count(); i++) {
+			unsigned long slot = p11_slots[i];
+			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
+			if (ml.contains(CKM_RSA_PKCS_KEY_PAIR_GEN)) {
+				keyListItem tk(&p11, slot, CKM_RSA_PKCS_KEY_PAIR_GEN);
+				printf("'%s'\n", CCHAR(tk.printname));
+				keytypes << tk;
+			}
+		}
+	} catch (errorEx &err) {
+		p11_slots.clear();
+	}
+	for (int i=0; i<keytypes.count(); i++) {
+		QVariant q;
+		q.setValue(keytypes[i]);
+		keyType->addItem(keytypes[i].printname, q);
+	}
 }
 
 void NewKey::on_keyType_currentIndexChanged(int idx)
@@ -80,9 +151,15 @@ void NewKey::on_keyType_currentIndexChanged(int idx)
 	keyLength->setVisible(!curve_enabled);
 }
 
+static keyListItem currentKey(QComboBox *keyType)
+{
+	QVariant q = keyType->itemData(keyType->currentIndex());
+	return q.value<keyListItem>();
+}
+
 int NewKey::getKeytype()
 {
-	return typeList[keyType->currentIndex()].type;
+	return currentKey(keyType).type();
 }
 
 int NewKey::getKeysize()
@@ -104,3 +181,14 @@ int NewKey::getKeyCurve_nid()
 	return OBJ_sn2nid(CCHAR(desc));
 }
 
+bool NewKey::isToken()
+{
+	keyListItem k = currentKey(keyType);
+	return k.card;
+}
+
+unsigned long NewKey::getKeyCardSlot()
+{
+	keyListItem k = currentKey(keyType);
+	return k.slot;
+}

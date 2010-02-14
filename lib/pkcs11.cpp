@@ -4,6 +4,7 @@
 #include "db_base.h"
 #include "func.h"
 
+#include <openssl/rand.h>
 #include <qmessagebox.h>
 #include <ltdl.h>
 
@@ -85,13 +86,25 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
 		check_oom(m);
 
 		rv = p11->C_GetMechanismList(slot, m, &count);
-		if (rv != CKR_OK)
+		if (rv != CKR_OK) {
+			free(m);
 			pk11error("C_GetMechanismList", rv);
+		}
 		for (unsigned i=0; i<count; i++) {
 			ml << m[i];
 		}
+		free(m);
 	}
 	return ml;
+}
+
+void pkcs11::mechanismInfo(unsigned long slot, CK_MECHANISM_TYPE m, CK_MECHANISM_INFO *info)
+{
+	CK_RV rv;
+	rv = p11->C_GetMechanismInfo(slot, m, info);
+	if (rv != CKR_OK) {
+		pk11error("C_GetMechanismInfo", rv);
+	}
 }
 
 void pkcs11::logout()
@@ -211,16 +224,85 @@ void pkcs11::storeAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
 {
 	CK_RV rv;
-	CK_ATTRIBUTE *attributes;
-	unsigned long num;
 	CK_OBJECT_HANDLE obj;
 
-	num = attrs.get(&attributes);
-	rv = p11->C_CreateObject(session, attributes, num, &obj);
+	rv = p11->C_CreateObject(session, attrs.getAttributes(), attrs.length(), &obj);
 	if (rv != CKR_OK) {
 		pk11error("C_CreateObject", rv);
 	}
 	return obj;
+}
+
+int pkcs11::deleteObjects(pk11_attlist &atts)
+{
+	CK_RV rv;
+	QList<CK_OBJECT_HANDLE> objects;
+
+	objects = objectList(atts);
+	for (int i=0; i< objects.count(); i++) {
+		rv = p11->C_DestroyObject(session, objects[i]);
+		if (rv != CKR_OK) {
+			pk11error("C_DestroyObject", rv);
+		}
+	}
+	return objects.count();
+}
+
+pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
+{
+	pk11_attr_data id(CKA_ID);
+	pk11_attr_ulong class_att(CKA_CLASS, oclass);
+
+	while (1) {
+		unsigned char buf[4];
+		pk11_attlist atts(class_att);
+		RAND_pseudo_bytes(buf, 4);
+		id.setValue(buf, 4);
+		atts << id;
+		if (objectList(atts).count() == 0)
+			break;
+	}
+	return id;
+}
+
+pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
+{
+	CK_RV rv;
+	CK_OBJECT_HANDLE pubkey, privkey;
+	pk11_attlist priv_atts, pub_atts;
+	CK_MECHANISM mechanism = {CKM_RSA_PKCS_KEY_PAIR_GEN, NULL_PTR, 0};
+	pk11_attr_data label(CKA_LABEL, name.toUtf8());
+
+	pk11_attr_data new_id = findUniqueID(CKO_PUBLIC_KEY);
+
+        pub_atts <<
+		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
+		pk11_attr_bool(CKA_TOKEN, true) <<
+		pk11_attr_bool(CKA_ENCRYPT, true) <<
+		pk11_attr_bool(CKA_VERIFY, true) <<
+		pk11_attr_bool(CKA_WRAP, true) <<
+		pk11_attr_ulong(CKA_MODULUS_BITS, bits) <<
+		pk11_attr_data(CKA_PUBLIC_EXPONENT, 0x10001) <<
+		label << new_id;
+
+	priv_atts <<
+		pk11_attr_ulong(CKA_CLASS, CKO_PRIVATE_KEY) <<
+		pk11_attr_bool(CKA_TOKEN, true) <<
+		pk11_attr_bool(CKA_PRIVATE, true) <<
+		pk11_attr_bool(CKA_SENSITIVE, true) <<
+		pk11_attr_bool(CKA_DECRYPT, true) <<
+		pk11_attr_bool(CKA_SIGN, true) <<
+		pk11_attr_bool(CKA_UNWRAP, true) <<
+		label << new_id;
+
+	rv = p11->C_GenerateKeyPair(session, &mechanism,
+		pub_atts.getAttributes(), pub_atts.length(),
+		priv_atts.getAttributes(), priv_atts.length(),
+		&pubkey, &privkey);
+	if (rv != CKR_OK) {
+		pk11error("C_GenerateKeyPair", rv);
+	}
+	return new_id;
 }
 
 QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)

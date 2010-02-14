@@ -126,10 +126,11 @@ void db_base::delete_ask()
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 
-	if (QMessageBox::information(mainwin, tr(XCA_TITLE),
-				delete_txt + ": " + pki->getIntName() + " ?\n" ,
-				tr("Delete"), tr("Cancel"))
-		) return;
+	if (QMessageBox::information(mainwin, XCA_TITLE,
+				delete_txt + ": " + pki->getIntName() + " ?\n",
+				QMessageBox::Ok | QMessageBox::Cancel) !=
+				QMessageBox::Ok)
+		 return;
 
 	deletePKI();
 }
@@ -139,13 +140,18 @@ void db_base::deletePKI()
 	if (!currentIdx.isValid())
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+	try {
+		pki->deleteFromToken();
 
-	remFromCont(currentIdx);
+		remFromCont(currentIdx);
 
-	db mydb(dbName);
-	mydb.find(pki->getType(), pki->getIntName());
-	mydb.erase();
-	delete pki;
+		db mydb(dbName);
+		mydb.find(pki->getType(), pki->getIntName());
+		mydb.erase();
+		delete pki;
+	} catch (errorEx &err) {
+		MainWindow::Error(err);
+	}
 }
 
 void db_base::updatePKI(pki_base *pki)
@@ -178,10 +184,11 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 		items += "'" + pki->getIntName() + "' ";
 	}
 
-	if (QMessageBox::information(mainwin, tr(XCA_TITLE),
+	if (QMessageBox::information(mainwin, XCA_TITLE,
 				delete_txt + ": " + items + " ?\n" ,
-				tr("Delete"), tr("Cancel"))
-        ) return;
+				QMessageBox::Ok | QMessageBox::Cancel) !=
+				QMessageBox::Ok)
+		return;
 
 	foreach(index, indexes) {
 		if (index.column() != 0)

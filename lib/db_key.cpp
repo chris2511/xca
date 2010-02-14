@@ -14,8 +14,14 @@
 #include <qprogressbar.h>
 #include <qstatusbar.h>
 #include <qevent.h>
+
+#include <qdialog.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+
 #include "exception.h"
 #include "ui_NewKey.h"
+#include "ui_SelectToken.h"
 #include "pkcs11.h"
 
 #include "widgets/MainWindow.h"
@@ -86,18 +92,18 @@ pki_base* db_key::insert(pki_base *item)
 	oldkey = (pki_key *)getByReference(lkey);
 	if (oldkey != NULL) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) || lkey->isPubKey()){
-			QMessageBox::information(NULL, tr(XCA_TITLE),
+			QMessageBox::information(mainwin, XCA_TITLE,
 			tr("The key is already in the database as") +":\n'" +
-			oldkey->getIntName() +
-			"'\n" + tr("and is not going to be imported"), "OK");
+				oldkey->getIntName() +
+				"'\n" + tr("and is not going to be imported"));
 			delete(lkey);
 			return oldkey;
 		}
 		else {
-			QMessageBox::information(NULL,tr(XCA_TITLE),
+			QMessageBox::information(mainwin, XCA_TITLE,
 			tr("The database already contains the public part of the imported key as") +":\n'" +
 			oldkey->getIntName() +
-			"'\n" + tr("and will be completed by the new, private part of the key"), "OK");
+			"'\n" + tr("and will be completed by the new, private part of the key"));
 			lkey->setIntName(oldkey->getIntName());
 			currentIdx = index(oldkey->row(), 0, QModelIndex());
 			deletePKI();
@@ -119,6 +125,8 @@ void db_key::newItem(QString name)
 	QProgressBar *bar;
 	QStatusBar *status = mainwin->statusBar();
 	pki_evp *nkey = NULL;
+	pki_scard *cardkey = NULL;
+	pki_key *key = NULL;
 
 	if (!dlg->exec()) {
 		delete dlg;
@@ -143,15 +151,22 @@ void db_key::newItem(QString name)
 			}
 	}
 	mainwin->repaint();
-	nkey = new pki_evp(dlg->keyDesc->text());
 	bar = new QProgressBar();
 	status->addPermanentWidget(bar, 1);
 	try {
-		nkey->generate(ksize, dlg->getKeytype(), bar,dlg->getKeyCurve_nid());
-		nkey = (pki_evp*)insert(nkey);
-		emit keyDone(nkey->getIntNameWithType());
+		if (dlg->isToken()) {
+			key = cardkey = new pki_scard(dlg->keyDesc->text());
+			cardkey->generateKey_card(dlg->getKeyCardSlot(),
+						 ksize, bar);
+		} else {
+			key = nkey = new pki_evp(dlg->keyDesc->text());
+			nkey->generate(ksize, dlg->getKeytype(), bar,
+				dlg->getKeyCurve_nid());
+		}
+		key = (pki_key*)insert(key);
+		emit keyDone(key->getIntNameWithType());
 	} catch (errorEx &err) {
-		delete nkey;
+		delete key;
 		mainwin->Error(err);
 	}
 	status->removeWidget(bar);
@@ -163,6 +178,51 @@ void db_key::load(void)
 {
 	load_key l;
 	load_default(l);
+}
+
+void db_key::toToken()
+{
+	pki_key *key = static_cast<pki_scard*>(currentIdx.internalPointer());
+	if (!key || !pkcs11::loaded() || key->isToken())
+		return;
+	try {
+		pkcs11 p11;
+		QList<unsigned long> p11_slots = p11.getSlotList();
+		if (p11_slots.count() == 0) {
+			QMessageBox::warning(mainwin, XCA_TITLE,
+				tr("No Security token found"));
+			return;
+		}
+		QStringList slotnames;
+		for (int i=0; i<p11_slots.count(); i++) {
+			QStringList info = p11.tokenInfo(p11_slots[i]);
+			slotnames << QString("%1 (#%2)").
+				arg(info[0]).arg(info[2]);
+		}
+		Ui::SelectToken ui;
+		QDialog *select_slot = new QDialog(mainwin);
+		ui.setupUi(select_slot);
+		ui.image->setPixmap(*MainWindow::scardImg);
+		ui.tokenBox->addItems(slotnames);
+		if (select_slot->exec() == 0) {
+			delete select_slot;
+			return;
+		}
+		unsigned int slot = p11_slots[ui.tokenBox->currentIndex()];
+		delete select_slot;
+		pki_scard *card = new pki_scard(key->getIntName());
+		card->store_token(slot, key->decryptKey());
+		QString msg = tr("Shall the original key '%1' be replaced by the key on the token?\nThis will delete the key '%1' and make it unexportable").
+			arg(key->getIntName());
+		if (QMessageBox::question(mainwin, XCA_TITLE, msg,
+		    QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+		{
+			deletePKI();
+			insertPKI(card);
+		}
+	} catch (errorEx &err) {
+		mainwin->Error(err);
+        }
 }
 
 void db_key::showPki(pki_base *pki)
@@ -190,7 +250,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		menu->addAction(tr("Export"), this, SLOT(store()));
-		if (key->isPrivKey() && !key->isScard()) {
+		if (key->isPrivKey() && !key->isToken()) {
 			switch (key->getOwnPass()) {
 			case pki_key::ptCommon:
 				menu->addAction(tr("Change password"), this,
@@ -202,7 +262,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 				break;
 			}
 		}
-		if (key->isScard() && pkcs11::loaded()) {
+		if (key->isToken() && pkcs11::loaded()) {
 			menu->addAction(tr("Change PIN"), this,
 				SLOT(changePin()));
 #if 0
@@ -211,6 +271,10 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 			menu->addAction(tr("Change SO PIN (PUK)"), this,
 				SLOT(changeSoPin()));
 #endif
+		}
+		if (!key->isToken() && pkcs11::loaded()) {
+			menu->addAction(tr("Store on Security token"),
+				this, SLOT(toToken()));
 		}
 	}
 	menu->exec(e->globalPos());
@@ -233,7 +297,7 @@ void db_key::store()
 			targetKey->getUnderlinedName() + ".pem";
 
 	ExportKey *dlg = new ExportKey(mainwin, fn,
-		targetKey->isPubKey() || targetKey->isScard());
+		targetKey->isPubKey() || targetKey->isToken());
 	dlg->image->setPixmap(*MainWindow::keyImg);
 
 	if (!dlg->exec()) {
@@ -250,7 +314,7 @@ void db_key::store()
 		pem = dlg->exportFormat->currentText() == "PEM" ? true : false;
 		if (dlg->encryptKey->isChecked())
 			enc = EVP_des_ede3_cbc();
-		if (dlg->exportPrivate->isChecked() && !targetKey->isScard()) {
+		if (dlg->exportPrivate->isChecked() && !targetKey->isToken()) {
 			pki_evp *evpKey = (pki_evp *)targetKey;
 			if (dlg->exportPkcs8->isChecked()) {
 				evpKey->writePKCS8(fname, enc, &MainWindow::passWrite, pem);
@@ -294,7 +358,7 @@ void db_key::__setOwnPass(enum pki_key::passType x)
 	if (!currentIdx.isValid())
 		        return;
 	targetKey = static_cast<pki_evp*>(currentIdx.internalPointer());
-	if (targetKey->isScard()) {
+	if (targetKey->isToken()) {
 		throw errorEx(tr("Tried to change password of a smart card"));
 	}
 	targetKey->setOwnPass(x);
@@ -308,7 +372,7 @@ void db_key::changePin()
 		        return;
 	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
 	try {
-		if (!scard->isScard()) {
+		if (!scard->isToken()) {
 			throw errorEx(tr("Tried to change PIN of a key"));
 		}
 		scard->changePin();
@@ -324,7 +388,7 @@ void db_key::initPin()
 		        return;
 	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
 	try {
-		if (!scard->isScard()) {
+		if (!scard->isToken()) {
 			throw errorEx(tr("Tried to init PIN of a key"));
 		}
 		scard->initPin();
@@ -340,7 +404,7 @@ void db_key::changeSoPin()
 		        return;
 	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
 	try {
-		if (!scard->isScard()) {
+		if (!scard->isToken()) {
 			throw errorEx(tr("Tried to change SO PIN of a key"));
 		}
 		scard->changeSoPin();

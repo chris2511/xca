@@ -189,7 +189,8 @@ void MainWindow::undelete()
 	if (dlgi->entries() > 0) {
 		dlgi->execute(1);
 	} else {
-		QMessageBox::information(this, XCA_TITLE, tr("No deleted items found"));
+		QMessageBox::information(this, XCA_TITLE,
+			tr("No deleted items found"));
 	}
 	delete dlgi;
 }

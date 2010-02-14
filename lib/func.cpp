@@ -61,8 +61,6 @@ QString getPrefix()
 	}
 	p = inst_dir;
 	*p = '\0';
-	QMessageBox::information(NULL, XCA_TITLE, QString(inst_dir), "OK");
-	lRc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0, KEY_READ, &hKey);
 	if (lRc != ERROR_SUCCESS) {
 		QMessageBox::warning(NULL,XCA_TITLE,
 				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");

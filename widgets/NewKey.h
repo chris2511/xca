@@ -9,6 +9,7 @@
 #define __NEWKEY_H
 
 #include "ui_NewKey.h"
+#include <qstringlist.h>
 
 class NewKey: public QDialog, public Ui::NewKey
 {
@@ -19,6 +20,8 @@ class NewKey: public QDialog, public Ui::NewKey
 		int getKeytype();
 		int getKeysize();
 		int getKeyCurve_nid();
+		unsigned long getKeyCardSlot();
+		bool isToken();
 	public slots:
 		void on_keyType_currentIndexChanged(int);
 

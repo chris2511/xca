@@ -380,10 +380,10 @@ void MainWindow::importScard()
 
 		if (p11_slots.count() == 0)
 			QMessageBox::warning(this, XCA_TITLE,
-				tr("No Smart card found"));
+				tr("No Security token found"));
 		for (i=0; i<p11_slots.count(); i++) {
 			p11.startSession(p11_slots[i]);
-			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(i);
+			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(p11_slots[i]);
 			if (ml.count() == 0)
 				ml << CKM_SHA1_RSA_PKCS;
 			pk11_attlist atts(pk11_attr_ulong(CKA_CLASS,

@@ -98,7 +98,7 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	XCA_ENGINE_cmd("LOAD",         NULL);
 	XCA_ENGINE_cmd("MODULE_PATH",  QString2filename(file));
 
-//	XCA_ENGINE_cmd("VERBOSE",      NULL);
+	XCA_ENGINE_cmd("VERBOSE",      NULL);
 
 	ENGINE_init(e);
 	if (!silent) {
@@ -152,7 +152,7 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		rsa->e = e.getBignum();
 
 		pkey = EVP_PKEY_new();
-		EVP_PKEY_set1_RSA(pkey, rsa);
+		EVP_PKEY_assign_RSA(pkey, rsa);
 		break;
 	}
 	case CKK_DSA: {
@@ -175,7 +175,7 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		dsa->pub_key = pub.getBignum();
 
 		pkey = EVP_PKEY_new();
-		EVP_PKEY_set1_DSA(pkey, dsa);
+		EVP_PKEY_assign_DSA(pkey, dsa);
 		break;
 	}
 	case CKK_EC: {
@@ -199,34 +199,31 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		openssl_error();
 
 		pkey = EVP_PKEY_new();
-		EVP_PKEY_set1_EC_KEY(pkey, ec);
+		EVP_PKEY_assign_EC_KEY(pkey, ec);
 		break;
 	}
 	default:
 		throw errorEx(QString("Unsupported CKA_KEY_TYPE: %1\n").arg(keytype));
 	}
+
 	openssl_error();
 	return pkey;
 }
 
 void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
-	BIGNUM *cka_id;
-
 	QStringList sl = p11.tokenInfo();
 	card_label = sl[0];
 	card_manufacturer = sl[1];
 	card_serial = sl[2];
 
-	pk11_attr_ulong bits(CKA_MODULUS_BITS);
-	p11.loadAttribute(bits, object);
-	bit_length.setNum(bits.getValue());
-
 	pk11_attr_data id(CKA_ID);
 	p11.loadAttribute(id, object);
-	cka_id = id.getBignum();
-	object_id = BNoneLine(cka_id);
-	BN_free(cka_id);
+	if (id.getAttribute()->ulValueLen > 0) {
+		BIGNUM *cka_id = id.getBignum();
+		object_id = BNoneLine(cka_id);
+		BN_free(cka_id);
+	}
 
 	try {
 		pk11_attr_data label(CKA_LABEL);
@@ -258,20 +255,133 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 		if (key)
 			EVP_PKEY_free(key);
 		key = pkey;
+		bit_length.setNum(EVP_PKEY_bits(pkey));
 	}
 	setIntName(card_label + " (" + slot_label + ")");
 	openssl_error();
 }
 
-int pki_scard::getIdBin(unsigned char **to)
+pk11_attr_data pki_scard::getIdAttr() const
 {
-	int l;
+	pk11_attr_data id(CKA_ID);
+	if (object_id.isEmpty())
+		return id;
 	BIGNUM *bn = NULL;
 	BN_hex2bn(&bn, CCHAR(object_id));
-	l = BN_num_bytes(bn);
-	*to = (unsigned char*)malloc(l);
-	BN_bn2bin(bn, *to);
-	return l;
+	id.setBignum(bn, true);
+	return id;
+}
+
+void pki_scard::deleteFromToken()
+{
+	if (QMessageBox::question(NULL, XCA_TITLE,
+			tr("Delete the private key '%1' from the token?").
+			arg(getIntName()),
+			QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
+		return;
+
+	int slot = prepare_card();
+	if (slot == -1)
+		return;
+
+	pkcs11 p11;
+	p11.startSession(slot, true);
+
+	if (scardLogin(p11, false).isNull())
+		return;
+
+	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
+		attrs << getIdAttr();
+	pk11_attlist priv_attrs(pk11_attr_ulong(CKA_CLASS, CKO_PRIVATE_KEY));
+		priv_attrs << getIdAttr();
+
+	if (EVP_PKEY_type(key->type) == EVP_PKEY_RSA) {
+		pk11_attr_data modulus(CKA_MODULUS, key->pkey.rsa->n, false);
+		attrs << modulus;
+		priv_attrs << modulus;
+	}
+	p11.deleteObjects(attrs);
+	p11.deleteObjects(priv_attrs);
+}
+
+void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
+{
+	pk11_attlist pub_atts;
+	pk11_attlist priv_atts;
+	QList<CK_OBJECT_HANDLE> objects;
+
+	if (EVP_PKEY_type(pkey->type) != EVP_PKEY_RSA)
+		return;
+
+	RSA *rsakey = pkey->pkey.rsa;
+
+	pub_atts <<
+		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
+		pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
+		pk11_attr_data(CKA_MODULUS, rsakey->n, false);
+
+	priv_atts <<
+		pk11_attr_ulong(CKA_CLASS, CKO_PRIVATE_KEY) <<
+		pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
+		pk11_attr_data(CKA_MODULUS, rsakey->n, false);
+
+	pkcs11 p11;
+	p11.startSession(slot, true);
+
+	QList<CK_OBJECT_HANDLE> objs = p11.objectList(pub_atts);
+	if (objs.count() == 0)
+		objs = p11.objectList(priv_atts);
+	if (objs.count() != 0) {
+		QMessageBox::information(NULL, XCA_TITLE,
+			tr("This Key is already on the token"));
+		load_token(p11, objs[0]);
+		return;
+	}
+	pk11_attr_data new_id = p11.findUniqueID(CKO_PUBLIC_KEY);
+
+	pub_atts <<
+		pk11_attr_bool(CKA_TOKEN, true) <<
+		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
+		new_id <<
+		pk11_attr_data(CKA_PUBLIC_EXPONENT, rsakey->e, false) <<
+		pk11_attr_bool(CKA_ENCRYPT, true) <<
+		pk11_attr_bool(CKA_VERIFY, true);
+
+	priv_atts <<
+		pk11_attr_bool(CKA_TOKEN, true) <<
+		pk11_attr_bool(CKA_PRIVATE, true) <<
+		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
+		new_id <<
+		pk11_attr_data(CKA_PUBLIC_EXPONENT, rsakey->e, false) <<
+		pk11_attr_data(CKA_PRIVATE_EXPONENT, rsakey->d, false) <<
+		pk11_attr_data(CKA_PRIME_1, rsakey->p, false) <<
+		pk11_attr_data(CKA_PRIME_2, rsakey->q, false) <<
+		pk11_attr_data(CKA_EXPONENT_1, rsakey->dmp1, false) <<
+		pk11_attr_data(CKA_EXPONENT_2, rsakey->dmq1, false) <<
+		pk11_attr_data(CKA_COEFFICIENT, rsakey->iqmp, false) <<
+		pk11_attr_bool(CKA_DECRYPT, true) <<
+		pk11_attr_bool(CKA_SIGN, true);
+
+	QStringList sl = p11.tokenInfo();
+	setIntName(sl[0] + " (" + desc + ")");
+	if (scardLogin(p11, false).isNull())
+		return;
+
+	p11.createObject(pub_atts);
+	p11.createObject(priv_atts);
+
+	pub_atts.reset();
+	pub_atts <<
+		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
+                pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
+		new_id <<
+                pk11_attr_data(CKA_MODULUS, rsakey->n, false);
+
+	objs = p11.objectList(pub_atts);
+	if (objs.count() == 0)
+		throw errorEx(tr("Unable to find copied key on the token"));
+
+	load_token(p11, objs[0]);
 }
 
 QList<int> pki_scard::possibleHashNids()
@@ -323,7 +433,7 @@ const EVP_MD *pki_scard::getDefaultMD()
 
 /* Assures the correct card is inserted and
  * returns the slot ID or -1 on error or abort */
-int pki_scard::prepare_card() const
+int pki_scard::prepare_card(bool verifyPubkey) const
 {
 	pkcs11 p11;
 	QList<unsigned long> p11_slots;
@@ -356,33 +466,56 @@ int pki_scard::prepare_card() const
 		}
 	}
 
+	if (!verifyPubkey)
+		return p11_slots[i];
+
 	QList<CK_OBJECT_HANDLE> objects;
 
-	for (i=0; i<p11_slots.count(); i++) {
-		p11.startSession(p11_slots[i]);
+	p11.startSession(p11_slots[i]);
 
-		pk11_attlist cls (pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
-		objects = p11.objectList(cls);
+	pk11_attlist cls (pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
+	cls << getIdAttr();
 
-		for (int j=0; j< objects.count(); j++) {
-			CK_OBJECT_HANDLE object = objects[j];
-			QString cid;
+	objects = p11.objectList(cls);
 
-			pk11_attr_data id(CKA_ID);
-			p11.loadAttribute(id, object);
-			BIGNUM *cka_id = id.getBignum();
-			cid = BNoneLine(cka_id);
-			BN_free(cka_id);
-
-			if (cid == object_id) {
-				EVP_PKEY *pkey = load_pubkey(p11, object);
-				if (EVP_PKEY_cmp(key, pkey) == 1)
-					return p11_slots[i];
-				QMessageBox::warning(NULL, XCA_TITLE, tr("Public Key missmatch. Please re-import card"), tr("&OK"));
-			}
-		}
+	for (int j=0; j< objects.count(); j++) {
+		CK_OBJECT_HANDLE object = objects[j];
+		EVP_PKEY *pkey = load_pubkey(p11, object);
+		if (EVP_PKEY_cmp(key, pkey) == 1)
+			return p11_slots[i];
+		if (!object_id.isEmpty())
+			QMessageBox::warning(NULL, XCA_TITLE,
+				tr("Public Key missmatch. Please re-import card"), tr("&OK"));
 	}
 	return -1;
+}
+
+void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar)
+{
+	pk11_attlist atts;
+
+	pkcs11 p11;
+	p11.startSession(slot, true);
+	QString name = getIntName();
+
+	QStringList sl = p11.tokenInfo();
+	setIntName(sl[0] + " (" + name + ")");
+
+	if (scardLogin(p11, false).isNull())
+		return;
+
+	bar->setValue(bar->value()+1);
+	pk11_attr_data id = p11.generateRSAKey(name, size);
+	atts << pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) << id;
+
+	QList<CK_OBJECT_HANDLE> objects = p11.objectList(atts);
+	if (objects.count() != 1)
+		printf("OBJECTS found: %d\n",objects.count());
+
+	if (objects.count() == 0)
+		throw errorEx(tr("Unable to find generated key on card"));
+
+	load_token(p11, objects[0]);
 }
 
 pki_scard::~pki_scard()
@@ -457,7 +590,7 @@ bool pki_scard::isPubKey() const
 
 QString pki_scard::getTypeString(void)
 {
-	return tr("SmartCard") + " " + pki_key::getTypeString();
+	return tr("Token") + " " + pki_key::getTypeString();
 }
 
 QString pki_scard::scardLogin(pkcs11 &p11, bool so, bool force) const
@@ -495,7 +628,7 @@ QString pki_scard::scardLogin(pkcs11 &p11, bool so, bool force) const
 EVP_PKEY *pki_scard::decryptKey() const
 {
 	int slot_id;
-	QString pin;
+	QString pin, key_id;
 	struct {
 		char *password;
 		const char *prompt_info;
@@ -503,15 +636,18 @@ EVP_PKEY *pki_scard::decryptKey() const
 
 	slot_id = prepare_card();
 	if (slot_id == -1)
-		throw errorEx(tr("Failed to find the key on the Smart-card"));
+		throw errorEx(tr("Failed to find the key on the token"));
 
-	QString key_id = QString("%1:").arg(slot_id) + object_id;
+	if (!object_id.isEmpty())
+		key_id = QString("%1:%2").arg(slot_id).arg(object_id);
+	else
+		key_id = QString("slot_%1-label_%2").arg(slot_id).arg(slot_label);
 
 	pkcs11 p11;
 	p11.startSession(slot_id, true);
 	pin = scardLogin(p11, false);
 	if (pin.isNull())
-		throw errorEx(tr("Invalid Pin for Smart-card"));
+		throw errorEx(tr("Invalid Pin for the token"));
 	cb_data.password = strdup(CCHAR(pin));
 	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
 				NULL, &cb_data);
@@ -620,7 +756,7 @@ int pki_scard::verify()
 	return true;
 }
 
-bool pki_scard::isScard()
+bool pki_scard::isToken()
 {
 	return true;
 }

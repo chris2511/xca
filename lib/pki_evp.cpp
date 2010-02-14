@@ -117,7 +117,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 	case EVP_PKEY_RSA:
 		rsakey = RSA_generate_key(bits, 0x10001, &incProgress,progress);
 		if (rsakey)
-			EVP_PKEY_set1_RSA(key, rsakey);
+			EVP_PKEY_assign_RSA(key, rsakey);
 		break;
 	case EVP_PKEY_DSA:
 		progress->setMaximum(500);
@@ -125,7 +125,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 				&incProgress, progress);
 		DSA_generate_key(dsakey);
 		if (dsakey)
-			EVP_PKEY_set1_DSA(key, dsakey);
+			EVP_PKEY_assign_DSA(key, dsakey);
 		break;
 	case EVP_PKEY_EC:
 		EC_GROUP *group = EC_GROUP_new_by_curve_name(curve_nid);
@@ -139,7 +139,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 		EC_GROUP_set_asn1_flag(group, 1);
 		if (EC_KEY_set_group(eckey, group)) {
 			if (EC_KEY_generate_key(eckey)) {
-				EVP_PKEY_set1_EC_KEY(key, eckey);
+				EVP_PKEY_assign_EC_KEY(key, eckey);
 				EC_GROUP_free(group);
 				break;
 			}

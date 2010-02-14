@@ -67,6 +67,7 @@ class pki_base : public QObject
 		const char *className() { return class_name; };
 		uint32_t intFromData(const unsigned char **p);
 		virtual void fromPEM_BIO(BIO *, QString) {};
+		virtual void deleteFromToken() { };
 };
 
 #endif

@@ -37,10 +37,10 @@ pki_base *db_x509req::insert(pki_base *item)
 	req = (pki_x509req *)item;
 	oldreq = (pki_x509req *)getByReference(req);
 	if (oldreq) {
-		QMessageBox::information(NULL,tr(XCA_TITLE),
+		QMessageBox::information(mainwin, XCA_TITLE,
 		tr("The certificate signing request already exists in the database as") +":\n'" +
 		oldreq->getIntName() +
-		"'\n" + tr("and thus was not stored"), "OK");
+		"'\n" + tr("and thus was not stored"));
 		delete(req);
 		return oldreq;
 	}

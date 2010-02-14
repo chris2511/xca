@@ -50,7 +50,12 @@ class pkcs11
 			unsigned char *pin, unsigned long pinLen);
 		void initPin(unsigned char *pin, unsigned long pinLen);
 		QList<CK_MECHANISM_TYPE> mechanismList(unsigned long slot);
+		void mechanismInfo(unsigned long slot, CK_MECHANISM_TYPE m,
+			CK_MECHANISM_INFO *info);
 		CK_OBJECT_HANDLE createObject(pk11_attlist &attrs);
+		pk11_attr_data findUniqueID(unsigned long oclass);
+		pk11_attr_data generateRSAKey(QString name, unsigned long bits);
+		int deleteObjects(pk11_attlist &atts);
 };
 
 #endif

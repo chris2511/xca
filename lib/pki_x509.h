@@ -105,6 +105,8 @@ class pki_x509 : public pki_x509super
 		const EVP_MD *getDigest();
 		QVariant column_data(int col);
 		QVariant getIcon(int column);
+		QByteArray i2d();
+		void deleteFromToken();
 };
 
 #endif

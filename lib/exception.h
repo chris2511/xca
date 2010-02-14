@@ -9,6 +9,7 @@
 #define PKI_EXCEPTION_H
 
 #include <qstring.h>
+#include <qobject.h>
 #include "base.h"
 
 class errorEx

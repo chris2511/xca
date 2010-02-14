@@ -26,6 +26,7 @@ class x509name
 		int nid(int i) const;
 		QString getOid(int i) const;
 		const unsigned char *d2i(const unsigned char *p, int size);
+		QByteArray i2d();
 		unsigned char *i2d(unsigned char *p);
 		QStringList entryList(int i) const;
 		QString getEntryByNid(int nid ) const;

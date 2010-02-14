@@ -95,8 +95,7 @@ void Options::on_tryLoadButton_clicked(void)
 		p11.getSlotList();
 		if (!lib.isEmpty()) {
 			QMessageBox::information(this, XCA_TITLE,
-				tr("Successfully loaded PKCS#11 library: ") + lib,
-				tr("Ok"));
+				tr("Successfully loaded PKCS#11 library: ") + lib);
 		}
 	} catch (errorEx &err) {
 		mw->Error(err);

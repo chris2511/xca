@@ -44,6 +44,7 @@ class db_key: public db_base
 		void changePin();
 		void initPin();
 		void changeSoPin();
+		void toToken();
 
 	signals:
 		void delKey(pki_key *delkey);

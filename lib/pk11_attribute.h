@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <openssl/bn.h>
 #include "opensc-pkcs11.h"
+#include "exception.h"
 
 #define UTF8QSTRING(x,s) QString::fromUtf8((const char*)(x), s).trimmed();
 
@@ -34,8 +35,23 @@ public:
 	{
 		return &attr;
 	}
+	unsigned long type() const
+	{
+		return attr.type;
+	}
 	virtual void store(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 	virtual void load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
+	bool cmp(const pk11_attribute &other) const
+	{
+		return (attr.type == other.attr.type) &&
+			(attr.ulValueLen == other.attr.ulValueLen) &&
+			!memcmp(attr.pValue, other.attr.pValue,
+					attr.ulValueLen);
+	}
+	bool operator == (const pk11_attribute &other) const
+	{
+		return cmp(other);
+	}
 };
 
 class pk11_attr_bool: public pk11_attribute
@@ -50,6 +66,13 @@ public:
 		attr.pValue = &value;
 		attr.ulValueLen = sizeof(value);
 		setValue(v);
+	}
+	pk11_attr_bool(const pk11_attr_bool &p)
+			:pk11_attribute(p.type())
+	{
+		attr.pValue = &value;
+		attr.ulValueLen = sizeof(value);
+		setValue(p.value);
 	}
 	bool getValue() const
 	{
@@ -74,6 +97,13 @@ public:
 		attr.ulValueLen = sizeof(value);
 		setValue(v);
 	}
+	pk11_attr_ulong(const pk11_attr_ulong &p)
+			:pk11_attribute(p.type())
+	{
+		attr.pValue = &value;
+		attr.ulValueLen = sizeof(value);
+		setValue(p.value);
+	}
 	unsigned long getValue() const
 	{
 		return value;
@@ -93,13 +123,38 @@ public:
 	{
 		setValue(v, len);
 	}
-	pk11_attr_data(unsigned long type, QByteArray ba) :pk11_attribute(type)
+	pk11_attr_data(const pk11_attr_data &p)
+		:pk11_attribute(p.type())
+	{
+		const unsigned char *ptr;
+		unsigned long size = p.getValue(&ptr);
+		setValue(ptr, size);
+	}
+	pk11_attr_data(unsigned long type, QByteArray ba)
+		:pk11_attribute(type)
 	{
 		setValue((const unsigned char *)ba.constData(), ba.size());
 	}
-	unsigned long getValue(const unsigned char **ptr)
+	pk11_attr_data(unsigned long type, BIGNUM *bn, bool consume=true)
+		:pk11_attribute(type)
 	{
-		*ptr = (unsigned char*)attr.pValue;
+		setBignum(bn, consume);
+	}
+	pk11_attr_data(unsigned long type, unsigned long value)
+		:pk11_attribute(type)
+	{
+		setULong(value);
+	}
+	void setULong(unsigned long value)
+	{
+		BIGNUM *bn = BN_new();
+		check_oom(bn);
+		check_oom(BN_set_word(bn, value));
+		setBignum(bn, true);
+	}
+	unsigned long getValue(const unsigned char **ptr) const
+	{
+		*ptr = (const unsigned char*)attr.pValue;
 		return attr.ulValueLen;
 	}
 	~pk11_attr_data()
@@ -116,6 +171,7 @@ public:
 		return BN_bin2bn((unsigned char*)attr.pValue,
 				attr.ulValueLen, NULL);
 	}
+	void setBignum(BIGNUM *bn, bool consume=true);
 	void load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 	void setValue(const unsigned char *ptr, unsigned long len);
 };
@@ -155,6 +211,12 @@ class pk11_attlist {
 		{
 			addAttribute(a);
 			return *this;
+		}
+		CK_ATTRIBUTE *getAttributes() {
+			return attributes;
+		}
+		unsigned long length() {
+			return attlen;
 		}
 		void reset();
 };

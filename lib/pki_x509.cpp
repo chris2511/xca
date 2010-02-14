@@ -15,6 +15,7 @@
 #include "pass_info.h"
 #include "widgets/MainWindow.h"
 #include <qdir.h>
+#include <qmessagebox.h>
 
 QPixmap *pki_x509::icon[5] = { NULL, NULL, NULL, NULL, NULL };
 
@@ -207,46 +208,92 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	openssl_error();
 }
 
+QByteArray pki_x509::i2d()
+{
+	unsigned char *p, *p1;
+	int size = i2d_X509(cert, NULL);
+	p1 = p = (unsigned char *)OPENSSL_malloc(size);
+	check_oom(p);
+	i2d_X509(cert, &p1);
+	openssl_error();
+	QByteArray ba((const char*)p, size);
+	OPENSSL_free(p);
+	return ba;
+}
+
 void pki_x509::store_token()
 {
 	pki_scard *card = (pki_scard *)privkey;
-	int slot, size, id_size;
-	unsigned char *p, *p1, *id;
+	int slot;
+	x509name xname;
 	QList<CK_OBJECT_HANDLE> objects;
 
-	if (!privkey || !privkey->isScard())
-		throw errorEx(tr("No associated Smart card"));
+	if (!privkey || !privkey->isToken())
+		throw errorEx(tr("No associated security token"));
 
 	slot = card->prepare_card();
-
-	size = i2d_X509(cert, NULL);
-	openssl_error();
-	p = p1 = (unsigned char*)OPENSSL_malloc(size);
-	i2d_X509(cert, &p1);
-	openssl_error();
-
-	id_size = card->getIdBin(&id);
-	openssl_error();
 
 	pk11_attlist p11_atts;
 	p11_atts <<
 		pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
 		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
-		pk11_attr_bool(CKA_TOKEN, true) <<
-		pk11_attr_data(CKA_VALUE, p, size) <<
-		pk11_attr_data(CKA_ID, id, id_size) <<
-		pk11_attr_data(CKA_LABEL, desc.toUtf8());
-
-	free(p);
-	free(id);
+		pk11_attr_data(CKA_VALUE, i2d());
 
 	pkcs11 p11;
 	p11.startSession(slot, true);
+
+	QList<CK_OBJECT_HANDLE> objs = p11.objectList(p11_atts);
+	if (objs.count() != 0) {
+		QMessageBox::warning(NULL, XCA_TITLE,
+		    tr("This certificate is already on the security token"));
+		return;
+	}
+	p11_atts <<
+		pk11_attr_bool(CKA_TOKEN, true) <<
+		pk11_attr_data(CKA_SUBJECT, getSubject().i2d()) <<
+		pk11_attr_data(CKA_LABEL, desc.toUtf8());
 
 	if (card->scardLogin(p11, false).isNull())
 		return;
 
 	p11.createObject(p11_atts);
+}
+
+void pki_x509::deleteFromToken()
+{
+	pki_scard *card = (pki_scard *)privkey;
+	pk11_attlist attrs;
+	int slot;
+
+	if (!privkey || !privkey->isToken())
+		return;
+
+	slot = card->prepare_card();
+	if (slot == -1)
+		return;
+
+	attrs <<
+		pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
+		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
+		pk11_attr_data(CKA_VALUE, i2d());
+
+	pkcs11 p11;
+	p11.startSession(slot, true);
+
+	QList<CK_OBJECT_HANDLE> objs = p11.objectList(attrs);
+	if (objs.count() == 0)
+		return;
+
+	if (QMessageBox::question(NULL, XCA_TITLE,
+			tr("Delete the certificate '%1' from the token ?").
+			arg(getIntName()),
+			QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
+		return;
+
+	if (card->scardLogin(p11, false).isNull())
+		return;
+
+	p11.deleteObjects(attrs);
 }
 
 bool pki_x509::verifyQASerial(const a1int &secret) const
@@ -337,7 +384,7 @@ bool pki_x509::canSign()
 	int crit;
 	if (!privkey || privkey->isPubKey())
 		return false;
-	if (privkey->isScard() && !pkcs11::loaded())
+	if (privkey->isToken() && !pkcs11::loaded())
 		return false;
 	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
 	openssl_error();

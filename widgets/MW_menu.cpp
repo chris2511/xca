@@ -57,7 +57,7 @@ void MainWindow::init_menu()
 				SLOT(on_BNimportTemp_clicked()) );
 	import->addAction(tr("Revocation list"), this,
 				SLOT(on_BNimportCrl_clicked()) );
-	scardMenuAction = import->addAction(tr("Read Smard card"), this,
+	scardMenuAction = import->addAction(tr("Read Security token"), this,
 				SLOT(importScard()));
 	import->addAction(tr("PEM file"), this,
 				SLOT(loadPem()) );
@@ -180,8 +180,7 @@ void MainWindow::setOptions()
 		}
 #ifdef WIN32
 		QMessageBox::information(this, XCA_TITLE,
-			QString("You need to restart XCA to load the new library\n"),
-			tr("Ok"));
+			tr("You need to restart XCA to load the new library"));
 #endif
 	}
 	scardMenuAction->setEnabled(pkcs11::loaded());

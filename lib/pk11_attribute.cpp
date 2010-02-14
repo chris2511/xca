@@ -47,6 +47,18 @@ void pk11_attr_data::setValue(const unsigned char *ptr, unsigned long len)
 	attr.ulValueLen = len;
 }
 
+void pk11_attr_data::setBignum(BIGNUM *bn, bool consume)
+{
+	attr.ulValueLen = BN_num_bytes(bn);
+	if (attr.pValue)
+		free(attr.pValue);
+	attr.pValue = malloc(attr.ulValueLen);
+	check_oom(attr.pValue);
+	attr.ulValueLen = BN_bn2bin(bn, (unsigned char *)attr.pValue);
+	if (consume)
+		BN_free(bn);
+}
+
 void pk11_attribute::store(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 {
 	CK_RV rv;

@@ -38,7 +38,7 @@ class pki_key: public pki_base
 		virtual QString length() const { return QString(); };
 		virtual bool isPubKey() const { return true; };
 		virtual const EVP_MD *getDefaultMD() { return NULL; };
-		virtual bool isScard();
+		virtual bool isToken();
 		virtual QString length() { return tr("Unknown"); };
 		virtual QString getTypeString(void);
 		virtual QString getIntNameWithType(void);
