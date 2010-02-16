@@ -34,7 +34,7 @@ class pki_scard: public pki_key
 		static QPixmap *icon[1];
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
 		static bool init_p11engine(QString file, bool silent);
-		int prepare_card(bool verifyPubkey=true) const;
+		bool prepare_card(unsigned long *slot, bool verifyPubkey=true) const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		unsigned char *toData(int *size);
 		bool isPubKey() const;

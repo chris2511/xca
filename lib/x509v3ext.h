@@ -30,7 +30,7 @@ class x509v3ext
 	// bool operator == (const x509v3ext &x) const;
 	QString getObject() const;
 	int getCritical() const;
-	QString getValue() const;
+	QString getValue(bool html=false) const;
 	QString getHtml() const;
 	X509_EXTENSION *get() const;
 	bool isValid() const;

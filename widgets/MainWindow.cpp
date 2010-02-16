@@ -20,6 +20,7 @@
 #include <qstatusbar.h>
 #include <qlist.h>
 #include <qtemporaryfile.h>
+#include <qinputdialog.h>
 #include <openssl/rand.h>
 
 #include "lib/exception.h"
@@ -34,6 +35,7 @@
 #include "ui_PassRead.h"
 #include "ui_PassWrite.h"
 #include "ui_About.h"
+#include "ui_SelectToken.h"
 
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
@@ -363,6 +365,65 @@ void MainWindow::pastePem()
 	delete input;
 }
 
+void MainWindow::initToken()
+{
+	if (!pkcs11::loaded())
+		return;
+	try {
+		pkcs11 p11;
+		QList<unsigned long> p11_slots = p11.getSlotList();
+		if (p11_slots.count() == 0) {
+			QMessageBox::warning(this, XCA_TITLE,
+				tr("No Security token found"));
+			return;
+		}
+		QStringList slotnames;
+		for (int i=0; i<p11_slots.count(); i++) {
+			QStringList info = p11.tokenInfo(p11_slots[i]);
+			slotnames << QString("%1 (#%2)").
+				arg(info[0]).arg(info[2]);
+		}
+		Ui::SelectToken ui;
+		QDialog *select_slot = new QDialog(this);
+		ui.setupUi(select_slot);
+		ui.image->setPixmap(*MainWindow::scardImg);
+		ui.tokenBox->addItems(slotnames);
+		if (select_slot->exec() == 0) {
+			delete select_slot;
+			return;
+		}
+		int selected = ui.tokenBox->currentIndex();
+		unsigned int slot = p11_slots[selected];
+		delete select_slot;
+
+		pass_info p(XCA_TITLE,
+			tr("Please enter the SO PIN (PUK) of the token '%1'").
+			arg(slotnames[selected]));
+		p.setPin();
+		char pin[MAX_PASS_LENGTH];
+		int pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
+		if (pinlen < 0)
+			return;
+		QString label = QInputDialog::getText(this, XCA_TITLE,
+			tr("The new label of the token '%1'").
+			arg(slotnames[selected]));
+		p11.initToken(slot, (unsigned char*)pin, pinlen, label);
+		p11.startSession(slot, true);
+		p11.login((unsigned char*)pin, pinlen, true);
+
+		p.setDescription(
+			tr("Please enter the new Pin for the token '%1'").
+			arg(label));
+
+		pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
+		if (pinlen != -1) {
+			p11.initPin((unsigned char*)pin, pinlen);
+		}
+	} catch (errorEx &err) {
+		Error(err);
+        }
+}
+
 void MainWindow::importScard()
 {
 	pkcs11 p11;
@@ -463,7 +524,7 @@ QString makeSalt(void)
 void MainWindow::changeDbPass()
 {
 
-	char pass[MAX_PASS_LENGTH];
+	char pass[MAX_PASS_LENGTH] = { 0, };
 	int keylen;
 
 	pass_info p(tr("New Password"), tr("Please enter the new password "
@@ -473,8 +534,7 @@ void MainWindow::changeDbPass()
 	keylen = passWrite(pass, MAX_PASS_LENGTH-1, 0, &p);
 	if (keylen < 0)
 		return;
-	memset(pass +keylen, 0, MAX_PASS_LENGTH -keylen);
-
+	pass[keylen] = '\0';
 	QString tempn = dbfile + "{new}";
 	try {
 		if (!QFile::copy(dbfile, tempn))
@@ -487,7 +547,7 @@ void MainWindow::changeDbPass()
 		mydb.mv(new_file);
 		close_database();
 		pki_evp::passHash = passhash;
-		memcpy(pki_evp::passwd, pass, MAX_PASS_LENGTH);
+		strncpy(pki_evp::passwd, pass, MAX_PASS_LENGTH);
 		init_database();
 	} catch (errorEx &ex) {
 		QFile::remove(tempn);

@@ -95,7 +95,7 @@ int x509v3ext::getCritical() const
 	return X509_EXTENSION_get_critical(ext);
 }
 
-QString x509v3ext::getValue() const
+QString x509v3ext::getValue(bool html) const
 {
 	QString text = "";
 	int ret;
@@ -108,6 +108,11 @@ QString x509v3ext::getValue() const
 		text = QString::fromLocal8Bit(p, len);
 	}
 	BIO_free(bio);
+	if (html) {
+		text.replace(QRegExp("<"), "&lt;");
+		text.replace(QRegExp(">"), "&gt;");
+		text.replace(QRegExp("&"), "&amp;");
+	}
 	return text.trimmed();
 }
 
@@ -194,7 +199,7 @@ QString x509v3ext::getHtml() const
 	html = "<b><u>" + getObject();
 	if (getCritical() != 0)
 		html += " <font color=\"red\">critical</font>";
-	html += ":</u></b><br><tt>" + getValue() + "</tt>";
+	html += ":</u></b><br><tt>" + getValue(true) + "</tt>";
 	return html;
 }
 

@@ -99,6 +99,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 	private slots:
 		void setOptions();
 		void importScard();
+		void initToken();
 		void on_keyView_doubleClicked(const QModelIndex &m);
 		void on_reqView_doubleClicked(const QModelIndex &m);
 		void on_certView_doubleClicked(const QModelIndex &m);

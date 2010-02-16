@@ -43,9 +43,11 @@ class pkcs11
 		void storeAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
 		QList<CK_OBJECT_HANDLE> objectList(pk11_attlist &atts);
-		void login(unsigned char *pin, unsigned long pinlen, bool so);
-		void logout();
+		QString tokenLogin(QString name, bool so, bool force=false);
+		void logout() const;
 		bool needsLogin(bool so);
+		void login(unsigned char *pin, unsigned long pinlen, bool so);
+
 		void setPin(unsigned char *oldPin, unsigned long oldPinLen,
 			unsigned char *pin, unsigned long pinLen);
 		void initPin(unsigned char *pin, unsigned long pinLen);
@@ -56,6 +58,8 @@ class pkcs11
 		pk11_attr_data findUniqueID(unsigned long oclass);
 		pk11_attr_data generateRSAKey(QString name, unsigned long bits);
 		int deleteObjects(pk11_attlist &atts);
+		void initToken(unsigned long slot, unsigned char *pin,
+			int pinlen, QString label);
 };
 
 #endif

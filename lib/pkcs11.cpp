@@ -3,6 +3,7 @@
 #include "exception.h"
 #include "db_base.h"
 #include "func.h"
+#include "pass_info.h"
 
 #include <openssl/rand.h>
 #include <qmessagebox.h>
@@ -107,7 +108,7 @@ void pkcs11::mechanismInfo(unsigned long slot, CK_MECHANISM_TYPE m, CK_MECHANISM
 	}
 }
 
-void pkcs11::logout()
+void pkcs11::logout() const
 {
 	CK_RV rv;
 
@@ -158,6 +159,37 @@ void pkcs11::login(unsigned char *pin, unsigned long pinlen, bool so)
 		pk11error("C_Login", rv);
 }
 
+QString pkcs11::tokenLogin(QString name, bool so, bool force)
+{
+	char _pin[256], *pin = _pin;
+	int pinlen;
+	bool need_login;
+
+	QString text = so ?
+		QObject::tr("Please enter the SO PIN (PUK) of the token: "):
+		QObject::tr("Please enter the PIN of the token: ");
+
+	pass_info p(XCA_TITLE, text + name);
+	p.setPin();
+	need_login = needsLogin(so);
+	if (force || need_login) {
+		if (!need_login)
+			 logout();
+		if (protAuthPath()) {
+			pin = NULL;
+			pinlen = 0;
+		} else {
+			pinlen = MainWindow::passRead(pin, 256, 0, &p);
+			if (pinlen == -1)
+				return QString();
+		}
+		login((unsigned char*)pin, pinlen, so);
+	} else {
+		return QString("");
+	}
+	return QString::fromLocal8Bit(pin, pinlen);
+}
+
 void pkcs11::setPin(unsigned char *oldPin, unsigned long oldPinLen,
 	    unsigned char *pin, unsigned long pinLen)
 {
@@ -171,6 +203,17 @@ void pkcs11::initPin(unsigned char *pin, unsigned long pinLen)
 	CK_RV rv = p11->C_InitPIN(session, pin, pinLen);
 	if (rv != CKR_OK)
 		pk11error("C_InitPIN", rv);
+}
+
+void pkcs11::initToken(unsigned long slot, unsigned char *pin, int pinlen,
+		QString label)
+{
+	unsigned char clabel[32] = {' ', };
+	QByteArray ba = label.toUtf8().left(32);
+	memcpy(clabel, ba.constData(), ba.size());
+	CK_RV rv = p11->C_InitToken(slot, pin, pinlen, clabel);
+	if (rv != CKR_OK)
+		pk11error("C_InitToken", rv);
 }
 
 QStringList pkcs11::tokenInfo(CK_SLOT_ID slot)

@@ -224,14 +224,15 @@ QByteArray pki_x509::i2d()
 void pki_x509::store_token()
 {
 	pki_scard *card = (pki_scard *)privkey;
-	int slot;
+	unsigned long slot;
 	x509name xname;
 	QList<CK_OBJECT_HANDLE> objects;
 
 	if (!privkey || !privkey->isToken())
 		throw errorEx(tr("No associated security token"));
 
-	slot = card->prepare_card();
+	if (!card->prepare_card(&slot))
+		return;
 
 	pk11_attlist p11_atts;
 	p11_atts <<
@@ -253,7 +254,7 @@ void pki_x509::store_token()
 		pk11_attr_data(CKA_SUBJECT, getSubject().i2d()) <<
 		pk11_attr_data(CKA_LABEL, desc.toUtf8());
 
-	if (card->scardLogin(p11, false).isNull())
+	if (p11.tokenLogin(getIntName(), false).isNull())
 		return;
 
 	p11.createObject(p11_atts);
@@ -263,37 +264,47 @@ void pki_x509::deleteFromToken()
 {
 	pki_scard *card = (pki_scard *)privkey;
 	pk11_attlist attrs;
-	int slot;
 
-	if (!privkey || !privkey->isToken())
-		return;
-
-	slot = card->prepare_card();
-	if (slot == -1)
-		return;
+	QList<unsigned long> p11_slots;
+	if (privkey && privkey->isToken()) {
+		unsigned long slot;
+		if (!card->prepare_card(&slot))
+			return;
+		p11_slots << slot;
+	} else {
+		pkcs11 p11;
+		p11_slots = p11.getSlotList();
+	}
 
 	attrs <<
 		pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
 		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
 		pk11_attr_data(CKA_VALUE, i2d());
 
-	pkcs11 p11;
-	p11.startSession(slot, true);
+	int certs = 0;
+	for (int i=0; i<p11_slots.count(); i++) {
+		unsigned long slot = p11_slots[i];
+		pkcs11 p11;
+		p11.startSession(slot, true);
 
-	QList<CK_OBJECT_HANDLE> objs = p11.objectList(attrs);
-	if (objs.count() == 0)
-		return;
+		QList<CK_OBJECT_HANDLE> objs = p11.objectList(attrs);
+		certs += objs.count();
+		if (!objs.count())
+			continue;
 
-	if (QMessageBox::question(NULL, XCA_TITLE,
-			tr("Delete the certificate '%1' from the token ?").
-			arg(getIntName()),
-			QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
-		return;
+		QStringList info = p11.tokenInfo(slot);
+		if (QMessageBox::question(NULL, XCA_TITLE,
+			tr("Delete the certificate '%1' from the token '%1 (#%2)' ?").
+			arg(getIntName()).arg(info[0]).arg(info[2]),
+			QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
+		{
+			continue;
+		}
+		if (p11.tokenLogin(info[0], false).isNull())
+			continue;
 
-	if (card->scardLogin(p11, false).isNull())
-		return;
-
-	p11.deleteObjects(attrs);
+		p11.deleteObjects(attrs);
+	}
 }
 
 bool pki_x509::verifyQASerial(const a1int &secret) const

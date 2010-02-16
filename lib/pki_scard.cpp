@@ -274,20 +274,20 @@ pk11_attr_data pki_scard::getIdAttr() const
 
 void pki_scard::deleteFromToken()
 {
+	unsigned long slot;
 	if (QMessageBox::question(NULL, XCA_TITLE,
 			tr("Delete the private key '%1' from the token?").
 			arg(getIntName()),
 			QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
 		return;
 
-	int slot = prepare_card();
-	if (slot == -1)
+	if (!prepare_card(&slot))
 		return;
 
 	pkcs11 p11;
 	p11.startSession(slot, true);
 
-	if (scardLogin(p11, false).isNull())
+	if (p11.tokenLogin(getIntName(), false).isNull())
 		return;
 
 	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
@@ -364,7 +364,7 @@ void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 
 	QStringList sl = p11.tokenInfo();
 	setIntName(sl[0] + " (" + desc + ")");
-	if (scardLogin(p11, false).isNull())
+	if (p11.tokenLogin(getIntName(), false).isNull())
 		return;
 
 	p11.createObject(pub_atts);
@@ -433,14 +433,14 @@ const EVP_MD *pki_scard::getDefaultMD()
 
 /* Assures the correct card is inserted and
  * returns the slot ID or -1 on error or abort */
-int pki_scard::prepare_card(bool verifyPubkey) const
+bool pki_scard::prepare_card(unsigned long *slot, bool verifyPubkey) const
 {
 	pkcs11 p11;
 	QList<unsigned long> p11_slots;
 	int i;
 
 	if (!pkcs11::loaded())
-		return -1;
+		return false;
 	while (1) {
 		p11_slots = p11.getSlotList();
 		for (i=0; i<p11_slots.count(); i++) {
@@ -462,12 +462,13 @@ int pki_scard::prepare_card(bool verifyPubkey) const
 		int r = QMessageBox::warning(NULL, XCA_TITLE, msg,
 			tr("&OK"), tr("Abort"));
 		if (r == 1) {
-			return -1;
+			return false;
 		}
 	}
 
+	*slot = p11_slots[i];
 	if (!verifyPubkey)
-		return p11_slots[i];
+		return true;
 
 	QList<CK_OBJECT_HANDLE> objects;
 
@@ -482,12 +483,12 @@ int pki_scard::prepare_card(bool verifyPubkey) const
 		CK_OBJECT_HANDLE object = objects[j];
 		EVP_PKEY *pkey = load_pubkey(p11, object);
 		if (EVP_PKEY_cmp(key, pkey) == 1)
-			return p11_slots[i];
+			return true;
 		if (!object_id.isEmpty())
 			QMessageBox::warning(NULL, XCA_TITLE,
 				tr("Public Key missmatch. Please re-import card"), tr("&OK"));
 	}
-	return -1;
+	return false;
 }
 
 void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar)
@@ -501,7 +502,7 @@ void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar
 	QStringList sl = p11.tokenInfo();
 	setIntName(sl[0] + " (" + name + ")");
 
-	if (scardLogin(p11, false).isNull())
+	if (p11.tokenLogin(getIntName(), false).isNull())
 		return;
 
 	bar->setValue(bar->value()+1);
@@ -593,49 +594,16 @@ QString pki_scard::getTypeString(void)
 	return tr("Token") + " " + pki_key::getTypeString();
 }
 
-QString pki_scard::scardLogin(pkcs11 &p11, bool so, bool force) const
-{
-	char _pin[256], *pin = _pin;
-	int pinlen;
-	bool need_login;
-
-	QString text = so ?
-		tr("Please enter the SO PIN (PUK) of the token: "):
-		tr("Please enter the PIN of the token: ");
-
-	pass_info p(XCA_TITLE, text + getIntName());
-	p.setPin();
-	need_login = p11.needsLogin(so);
-	if (force || need_login) {
-		if (!need_login)
-			 p11.logout();
-		if (p11.protAuthPath()) {
-			pin = NULL;
-			pinlen = 0;
-		} else {
-			pinlen = MainWindow::passRead(pin, 256, 0, &p);
-			if (pinlen == -1)
-				return QString();
-		}
-		p11.login((unsigned char*)pin, pinlen, so);
-		pin = _pin;
-	} else {
-		return QString("");
-	}
-	return QString::fromLocal8Bit(pin, pinlen);
-}
-
 EVP_PKEY *pki_scard::decryptKey() const
 {
-	int slot_id;
+	unsigned long slot_id;
 	QString pin, key_id;
 	struct {
 		char *password;
 		const char *prompt_info;
         } cb_data = { NULL, NULL };
 
-	slot_id = prepare_card();
-	if (slot_id == -1)
+	if (!prepare_card(&slot_id))
 		throw errorEx(tr("Failed to find the key on the token"));
 
 	if (!object_id.isEmpty())
@@ -645,7 +613,7 @@ EVP_PKEY *pki_scard::decryptKey() const
 
 	pkcs11 p11;
 	p11.startSession(slot_id, true);
-	pin = scardLogin(p11, false);
+	pin = p11.tokenLogin(getIntName(), false);
 	if (pin.isNull())
 		throw errorEx(tr("Invalid Pin for the token"));
 	cb_data.password = strdup(CCHAR(pin));
@@ -658,12 +626,11 @@ EVP_PKEY *pki_scard::decryptKey() const
 
 void pki_scard::changePin()
 {
-	char newPin[256], *pinp;
-	int slot;
+	char newPin[MAX_PASS_LENGTH], *pinp;
+	unsigned long slot;
 	QString pin;
 
-	slot = prepare_card();
-	if (slot == -1)
+	if (!prepare_card(&slot))
 		return;
 
 	pkcs11 p11;
@@ -672,14 +639,14 @@ void pki_scard::changePin()
 	if (p11.protAuthPath()) {
 		p11.setPin(NULL, 0, NULL ,0);
 	}
-	pin = scardLogin(p11, false, true);
+	pin = p11.tokenLogin(getIntName(), false, true);
 	if (pin.isNull())
 		return;
 	pass_info p(XCA_TITLE, tr("Please enter the new Pin for the token: ") +
 				getIntName());
 	p.setPin();
 
-	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
+	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
 	pinp = strdup(CCHAR(pin));
 	if (newPinLen != -1) {
 		p11.setPin((unsigned char*)pinp, pin.length(),
@@ -690,21 +657,20 @@ void pki_scard::changePin()
 
 void pki_scard::initPin()
 {
-	char soPin[256], newPin[256];
-	int slot;
+	char soPin[MAX_PASS_LENGTH], newPin[MAX_PASS_LENGTH];
+	unsigned long slot;
 
 	pass_info p(XCA_TITLE,
 		pki_scard::tr("Please enter the SO PIN (PUK) of the token: ") +
 		getIntName());
 	p.setPin();
 
-	slot = prepare_card();
-	if (slot == -1)
+	if (!prepare_card(&slot))
 		return;
 	pkcs11 p11;
 	p11.startSession(slot, true);
 	if (p11.needsLogin(true)) {
-		int soPinLen = MainWindow::passRead(soPin, 256, 0, &p);
+		int soPinLen = MainWindow::passRead(soPin, MAX_PASS_LENGTH, 0, &p);
 		if (soPinLen == -1)
 			return;
 		p11.login((unsigned char*)soPin, soPinLen, true);
@@ -712,7 +678,7 @@ void pki_scard::initPin()
 	p.setDescription(qApp->translate("MainWindow",
 		"Please enter the new Pin for the token: ") +getIntName());
 
-	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
+	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
 	if (newPinLen != -1) {
 		p11.initPin((unsigned char*)newPin, newPinLen);
 	}
@@ -721,18 +687,17 @@ void pki_scard::initPin()
 
 void pki_scard::changeSoPin()
 {
-	char oldPin[256], newPin[256];
-	int slot;
+	char oldPin[MAX_PASS_LENGTH], newPin[MAX_PASS_LENGTH];
+	unsigned long slot;
 
 	pass_info p(XCA_TITLE,
 		pki_scard::tr("Please enter the SO PIN (PUK) of the token: ") +
 		getIntName());
 	p.setPin();
 
-	slot = prepare_card();
-	if (slot == -1)
+	if (!prepare_card(&slot))
 		return;
-	int oldPinLen = MainWindow::passRead(oldPin, 256, 0, &p);
+	int oldPinLen = MainWindow::passRead(oldPin, MAX_PASS_LENGTH, 0, &p);
 	if (oldPinLen == -1)
 		return;
 	pkcs11 p11;
@@ -743,7 +708,7 @@ void pki_scard::changeSoPin()
 	p.setDescription(qApp->translate("MainWindow",
 		"Please enter the new SO Pin for the token: ") +getIntName());
 
-	int newPinLen = MainWindow::passWrite(newPin, 256, 0, &p);
+	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
 	if (newPinLen == -1) {
 		p11.setPin((unsigned char*)oldPin, oldPinLen,
 			(unsigned char*)newPin, newPinLen);
