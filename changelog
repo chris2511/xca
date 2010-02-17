@@ -1,3 +1,10 @@
+
+  * improve token support
+    - token initializing
+    - creating keys on a token
+    - store existing keys on a token
+    - delete keys and certs from a token
+
 xca 0.8.1
 
   * fix string conversion from QString to ASN1
