@@ -59,8 +59,9 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 
 		openssl_error();
 		if (mycert) {
-			if (mycert->aux && mycert->aux->alias){
+			if (mycert->aux && mycert->aux->alias) {
 				alias = asn1ToQString(mycert->aux->alias);
+				alias = QString::fromUtf8(alias.toAscii());
 			}
 			cert = new pki_x509(mycert);
 			if (alias.isEmpty()) {
@@ -115,7 +116,7 @@ void pki_pkcs12::writePKCS12(const QString fname)
 	if (fp != NULL) {
 		passcb(pass, MAX_PASS_LENGTH, 0, &p);
 		PKCS12 *pkcs12 = PKCS12_create(pass,
-			filename2bytearray(getIntName()).data(),
+			getIntName().toUtf8().data(),
 			key->decryptKey(),
 			cert->getCert(), certstack, 0, 0, 0, 0, 0);
 		i2d_PKCS12_fp(fp, pkcs12);

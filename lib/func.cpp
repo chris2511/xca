@@ -222,7 +222,12 @@ QString asn1ToQString(const ASN1_STRING *str)
 		default:
 			qs = QString::fromLatin1((const char*)str->data, str->length);
 	}
-	//printf("Convert %s string to '%s' len %d\n", ASN1_tag2str(str->type),CCHAR(qs), str->length);
+#if 0
+	printf("Convert %s (%d %d) string to '%s' len %d:", ASN1_tag2str(str->type), str->type, V_ASN1_UTF8STRING, CCHAR(qs), str->length);
+	for (int i=0; i< str->length; i++)
+		printf(" %02x", str->data[i]);
+	printf("\n");
+#endif
 	return qs;
 }
 
