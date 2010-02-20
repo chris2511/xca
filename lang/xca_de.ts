@@ -1,5 +1,6 @@
-<!DOCTYPE TS><TS>
-<defaultcodec></defaultcodec>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="en_US">
 <context>
     <name>About</name>
     <message>
@@ -9,14 +10,6 @@
 </context>
 <context>
     <name>CaProperties</name>
-    <message>
-        <source>Dialog</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation></translation>
-    </message>
     <message>
         <source>CA properties</source>
         <translation>CA Einstellungen</translation>
@@ -31,7 +24,7 @@
     </message>
     <message>
         <source>Default template</source>
-        <translation></translation>
+        <translation>Standard Template</translation>
     </message>
     <message>
         <source>OK</source>
@@ -54,7 +47,7 @@
     </message>
     <message>
         <source>Self signed</source>
-        <translation>Selbst signiert</translation>
+        <translation>Selbstsigniert</translation>
     </message>
     <message>
         <source>Not trusted</source>
@@ -138,11 +131,11 @@
     </message>
     <message>
         <source>The time since the certificate is valid</source>
-        <translation>Wann die Gültigkeit des Zertifikats beginnt</translation>
+        <translation>Beginn der Zertifikatsgültigkeit</translation>
     </message>
     <message>
         <source>The time until the certificate is valid</source>
-        <translation>Wann die Gültigkeit des Zertifikats endet</translation>
+        <translation>Ablaufdatum des Zertifikats</translation>
     </message>
     <message>
         <source>&amp;Subject</source>
@@ -213,7 +206,39 @@
     </message>
     <message>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished"></translation>
+        <translation>dd.MM.yyyy hh:mm</translation>
+    </message>
+    <message>
+        <source>Certificate renewal</source>
+        <translation>Zertifikatsverlängerung</translation>
+    </message>
+    <message>
+        <source>No well-defined expiration</source>
+        <translation>Undefiniertes Ablaufdatum</translation>
+    </message>
+    <message>
+        <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
+        <translation>Das Zertifikat is früher gültig als der Aussteller. Dies ist wahrscheinlich ungewollt.</translation>
+    </message>
+    <message>
+        <source>Edit times</source>
+        <translation>Zeiten einstellen</translation>
+    </message>
+    <message>
+        <source>Abort rollout</source>
+        <translation>Ausstellung abbrechen</translation>
+    </message>
+    <message>
+        <source>Continue rollout</source>
+        <translation>Ausstellung fortführen</translation>
+    </message>
+    <message>
+        <source>Adjust date and continue</source>
+        <translation>Datum anpassen und fortführen</translation>
+    </message>
+    <message>
+        <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
+        <translation>Das Zertifikat ist länger gültig als der Aussteller. Dies ist wahrscheinlich nicht gewollt.</translation>
     </message>
 </context>
 <context>
@@ -263,10 +288,6 @@
     <message>
         <source>Unknown certificate</source>
         <translation>Unbekanntes Zertifikat</translation>
-    </message>
-    <message>
-        <source>CrlDetail_UI</source>
-        <translation>CrlDetail_UI</translation>
     </message>
     <message>
         <source>Details of the Revocation list</source>
@@ -319,14 +340,6 @@
     <message>
         <source>0</source>
         <translation>0</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation>1</translation>
-    </message>
-    <message>
-        <source>2</source>
-        <translation>2</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -384,23 +397,12 @@
         <translation>Schlüssel speichern als</translation>
     </message>
     <message>
-        <source>X509 Certificates ( *.cer *.crt *.p12 );;All files ( *.* )</source>
-        <translation type="obsolete">X509 Zertifikate ( *.cer *.crt *.p12 );;Alle Dateien ( *.* )</translation>
-    </message>
-    <message>
         <source>X509 Certificates ( *.cer *.crt *.p12 );;All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>X509 Zertifikate ( *.cer *.crt *.p12 );;Alle Dateien ( * )</translation>
     </message>
 </context>
 <context>
     <name>ExportDer</name>
-    <message>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Export&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Export&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
     <message>
         <source>Filename</source>
         <translation>Dateiname</translation>
@@ -421,13 +423,13 @@ p, li { white-space: pre-wrap; }
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>Export</source>
+        <translation>Export</translation>
+    </message>
 </context>
 <context>
     <name>ExportKey</name>
-    <message>
-        <source>ExportKey</source>
-        <translation>ExportKey</translation>
-    </message>
     <message>
         <source>Key export</source>
         <translation>Schlüssel export</translation>
@@ -489,12 +491,8 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Schlüssel speichern als</translation>
     </message>
     <message>
-        <source>Private keys ( *.pem *.der *.pk8 );;All files ( *.* )</source>
-        <translation type="obsolete">Private Schlüssel ( *.pem *.der *.pk8 );;Alle Dateien ( *.* )</translation>
-    </message>
-    <message>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>Private Schlüssel ( *.pem *.der *.pk8 );;Alle Dateien ( * )</translation>
     </message>
 </context>
 <context>
@@ -515,32 +513,12 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
 <context>
     <name>ImportMulti</name>
     <message>
-        <source>The type of the Item is not recognized: </source>
-        <translation>Unbekannter Typ:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
         <source>Details</source>
         <translation>Details</translation>
     </message>
     <message>
-        <source>Details of this item cannot be shown: </source>
-        <translation>Details von diesem Typ können nicht angezeigt werden:</translation>
-    </message>
-    <message>
-        <source>The type of the Item is not recognized </source>
-        <translation>Unbekannter Typ</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Fehler</translation>
-    </message>
-    <message>
-        <source>ImportMulti_UI</source>
-        <translation>ImportMulti_UI</translation>
     </message>
     <message>
         <source>Import &amp;All</source>
@@ -558,6 +536,18 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <source>&amp;Remove</source>
         <translation>Entfe&amp;rnen</translation>
     </message>
+    <message>
+        <source>The type of the Item &apos;%1&apos; is not recognized</source>
+        <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <source>Details of the item &apos;%1&apos; cannot be shown</source>
+        <translation>Details von &apos;%1&apos; können nicht angezeigt werden</translation>
+    </message>
+    <message>
+        <source>The type of the item &apos;%1&apos; is not recognized</source>
+        <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
+    </message>
 </context>
 <context>
     <name>KeyDetail</name>
@@ -568,14 +558,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <source>Available</source>
         <translation>Verfügbar</translation>
-    </message>
-    <message>
-        <source>KeyDetail</source>
-        <translation>KeyDetail</translation>
-    </message>
-    <message>
-        <source>Details of the RSA key</source>
-        <translation>Details des RSA Schlüssels</translation>
     </message>
     <message>
         <source>Name</source>
@@ -614,15 +596,43 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Öffentlicher Schlüssel</translation>
     </message>
     <message>
-        <source>Details of the DSA key</source>
-        <translation>Details des DSA Schlüssels</translation>
-    </message>
-    <message>
         <source>Private key</source>
         <translation>Privater Schlüssel</translation>
     </message>
     <message>
-        <source>UNKNOWN Key</source>
+        <source>Security token</source>
+        <translation>Smartcard</translation>
+    </message>
+    <message>
+        <source>Manufacturer</source>
+        <translation>Hersteller</translation>
+    </message>
+    <message>
+        <source>Serial</source>
+        <translation>Seriennummer</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>Schlüssel</translation>
+    </message>
+    <message>
+        <source>Token</source>
+        <translation>Smartcard</translation>
+    </message>
+    <message>
+        <source>Curve name</source>
+        <translation>Kurvenname</translation>
+    </message>
+    <message>
+        <source>Details of the %1 key</source>
+        <translation>Details des %1 Schlüssels</translation>
+    </message>
+    <message>
+        <source>Security token ID:%1</source>
+        <translation>Smartcard ID:%1</translation>
+    </message>
+    <message>
+        <source>Unknown key</source>
         <translation>Unbekannter Schlüssel</translation>
     </message>
 </context>
@@ -661,16 +671,8 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>In die Zwischenablage</translation>
     </message>
     <message>
-        <source>no such option: </source>
-        <translation>Es gib keine Option:</translation>
-    </message>
-    <message>
         <source>&amp;Close DataBase</source>
         <translation>Datenbank s&amp;chliessen</translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>&amp;Beenden</translation>
     </message>
     <message>
         <source>&amp;Content</source>
@@ -687,42 +689,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
-    </message>
-    <message>
-        <source>Open &amp;DataBase</source>
-        <translation>&amp;Datenbank öffnen</translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key.</source>
-        <translation>Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key: &apos;</source>
-        <translation>Passwort zur Entschlüsselung des privaten Schlüssels: &apos; </translation>
-    </message>
-    <message>
-        <source>Please enter the default password</source>
-        <translation type="obsolete">Bitte das Standard passwort eingeben</translation>
-    </message>
-    <message>
-        <source>Please enter the password to protect the private key: &apos;</source>
-        <translation>Das Passwort zur Verschlüsselung des privaten Schlüssels: &apos;</translation>
-    </message>
-    <message>
-        <source>Please enter the database password for encrypting the key</source>
-        <translation>Bitte geben sie das Datenbankpasswort zur Verschlüsselung des Schlüssels ein</translation>
-    </message>
-    <message>
-        <source>Please enter the password protecting the PKCS#8 key</source>
-        <translation>Bitte geben Sie das Passwort zur Verschlüsselung des PKCS#8 Schlüssels an</translation>
-    </message>
-    <message>
-        <source>Please enter the export password for the private key</source>
-        <translation>Bitte geben sie das Exportpasswort für den privaten Schlüssel ein</translation>
-    </message>
-    <message>
-        <source>MainWindow</source>
-        <translation>MainWindow</translation>
     </message>
     <message>
         <source>Private Keys</source>
@@ -751,10 +717,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
-    </message>
-    <message>
-        <source>Change password</source>
-        <translation>Passwort ändern</translation>
     </message>
     <message>
         <source>Certificate signing requests</source>
@@ -809,10 +771,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Keine gelöschten Einträge gefunden</translation>
     </message>
     <message>
-        <source>New &amp;DataBase</source>
-        <translation>Neue &amp;Datenbank</translation>
-    </message>
-    <message>
         <source>&amp;Dump DataBase</source>
         <translation>&amp;Datenbank ausgeben</translation>
     </message>
@@ -861,10 +819,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Spenden</translation>
     </message>
     <message>
-        <source>Database dump ( *.dump );;All files ( *.* )</source>
-        <translation type="obsolete">Datenbank dump ( *.dump );;Alle Dateien ( *.* )</translation>
-    </message>
-    <message>
         <source>Import password</source>
         <translation>Import Passwort</translation>
     </message>
@@ -885,40 +839,96 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>Password missmatch</source>
-        <translation>Passworte stimmen nicht überein</translation>
-    </message>
-    <message>
         <source>I&amp;mport</source>
-        <translation type="unfinished"></translation>
+        <translation>I&amp;mport</translation>
     </message>
     <message>
         <source>paste PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM datei (copy+paste)</translation>
     </message>
     <message>
         <source>Database dump ( *.dump );;All files ( * )</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the database password for decrypting the key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Database file does not exist: </source>
-        <translation type="unfinished"></translation>
+        <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
     <message>
         <source>Import PEM data</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM daten importieren</translation>
+    </message>
+    <message>
+        <source>No Security token found</source>
+        <translation>Keine Smartcard gefunden</translation>
+    </message>
+    <message>
+        <source>Please enter the SO PIN (PUK) of the token &apos;%1&apos;</source>
+        <translation>Bitte die SO PIN (PUK) der Smartcard &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>The new label of the token &apos;%1&apos;</source>
+        <translation>Die neue Bezeichnung der Smartcard &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <source>Please enter the new Pin for the token &apos;%1&apos;</source>
+        <translation>Bitte die neue Pin der Smartcard &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>Please enter the new password to encrypt your private keys in the database-file</source>
+        <translation>Bitte das neue Passwort zur Verschlüsselung der privaten Schlüssel in der Datenbank eingeben</translation>
+    </message>
+    <message>
+        <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Repeat </source>
+        <translation>Wiederholen </translation>
+    </message>
+    <message>
+        <source>&amp;New DataBase</source>
+        <translation>&amp;Neue Datenbank</translation>
+    </message>
+    <message>
+        <source>&amp;Open DataBase</source>
+        <translation>Datenbank &amp;Öffnen</translation>
+    </message>
+    <message>
+        <source>&amp;Init Security token</source>
+        <translation>Smartcard &amp;initialisieren</translation>
+    </message>
+    <message>
+        <source>C&amp;hange DataBase password</source>
+        <translation>Datenbankpasswort ändern</translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation>Beenden</translation>
+    </message>
+    <message>
+        <source>Read Security token</source>
+        <translation>Smartcard auslesen</translation>
+    </message>
+    <message>
+        <source>You need to restart XCA to load the new library</source>
+        <translation>XCA muss neu gestartet werden um die neue PKCS#11 DLL zu laden</translation>
+    </message>
+    <message>
+        <source>Database file does not exist: &apos;%1&apos;</source>
+        <translation>Die Datenbankdatei &apos;%1&apos; existiert nicht</translation>
+    </message>
+    <message>
+        <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
+        <translation>Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>no such option: %1</source>
+        <translation>unbekannte option: %1</translation>
+    </message>
+    <message>
+        <source>%1 missmatch</source>
+        <translation>Keine %1 übereinstimmung</translation>
     </message>
 </context>
 <context>
     <name>NewCrl</name>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
     <message>
         <source>Create CRL</source>
         <translation>CRL erstellen</translation>
@@ -961,7 +971,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     </message>
     <message>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished"></translation>
+        <translation>dd.MM.yyyy hh:mm</translation>
     </message>
 </context>
 <context>
@@ -987,14 +997,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Schlüssellänge</translation>
     </message>
     <message>
-        <source>RSA</source>
-        <translation>RSA</translation>
-    </message>
-    <message>
-        <source>DSA</source>
-        <translation>DSA</translation>
-    </message>
-    <message>
         <source>Usually 1024 or 2048 bit keys are used</source>
         <translation>Normalerweise werden 1024 oder 2048 bit Schlüssel verwendet</translation>
     </message>
@@ -1018,16 +1020,16 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <source>C&amp;reate</source>
         <translation>E&amp;rstellen</translation>
     </message>
+    <message>
+        <source>Curve</source>
+        <translation>Kurve</translation>
+    </message>
 </context>
 <context>
     <name>NewX509</name>
     <message>
         <source>Template</source>
         <translation>Vorlage</translation>
-    </message>
-    <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
     </message>
     <message>
         <source>Create</source>
@@ -1045,7 +1047,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
 Getting signed by a CA certificate, whoes certificate of course must be in the database
 Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ein CSR (Signaturanfrage) kann unterschrieben werden, auch wenn der private Schlüssel des Requests nicht verfügbar ist. Dies ist die Aufgabe eines CSR.</translation>
     </message>
     <message>
         <source>Show request</source>
@@ -1057,7 +1059,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
     </message>
     <message>
         <source>Copy extensions from the request</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterungen vom PKCS#10-request kopieren</translation>
     </message>
     <message>
         <source>Signing</source>
@@ -1086,24 +1088,24 @@ Of course you need the private key of the CSR if you want to create a self-signe
     <message>
         <source>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
 If this list is disabled, you only can create a self-signed certificate.</source>
-        <translation type="unfinished">Diese Liste enthält alle Zertifikate mit dem CA-flag gesetzt und dessen privater Schlüssel verfügbar ist.
+        <translation>Diese Liste enthält alle Zertifikate mit dem CA-flag gesetzt und dessen privater Schlüssel verfügbar ist.
 Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifikat erstellt werden. </translation>
     </message>
     <message>
         <source>Signature algorithm</source>
-        <translation type="unfinished">Signatur algorithmus</translation>
+        <translation>Signatur algorithmus</translation>
     </message>
     <message>
         <source>Template for the new certificate</source>
-        <translation type="unfinished">Vorlage für das neue Zertifikat</translation>
+        <translation>Vorlage für das neue Zertifikat</translation>
     </message>
     <message>
         <source>All available templates</source>
-        <translation type="unfinished">Alle verfügbaren Vorlagen</translation>
+        <translation>Alle verfügbaren Vorlagen</translation>
     </message>
     <message>
         <source>This list contains all templates from the toplevel template Tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Diese Liste enthält alle Vorlagen</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -1118,40 +1120,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation type="unfinished">Distinguished name</translation>
     </message>
     <message>
-        <source>Organisation</source>
-        <translation>Firma</translation>
-    </message>
-    <message>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
     <message>
         <source>Must be exactly 2 letter of size (DE, UK)</source>
         <translation>Muss exakt 2 Zeichen lang sein (DE,UK)</translation>
-    </message>
-    <message>
-        <source>Country code</source>
-        <translation>Länder code</translation>
-    </message>
-    <message>
-        <source>State or Province</source>
-        <translation>Bundesland, Kreis</translation>
-    </message>
-    <message>
-        <source>Locality</source>
-        <translation>Ort</translation>
-    </message>
-    <message>
-        <source>Organ. unit</source>
-        <translation>Firmenabteilung</translation>
-    </message>
-    <message>
-        <source>Common name</source>
-        <translation>Üblicher Name</translation>
-    </message>
-    <message>
-        <source>E-Mail address</source>
-        <translation>E-Mail Adresse</translation>
     </message>
     <message>
         <source>Internal name</source>
@@ -1176,10 +1150,6 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
     <message>
         <source>Used keys too</source>
         <translation>auch verwendete Schlüssel</translation>
-    </message>
-    <message>
-        <source>This funny button creates a key. Go figure.</source>
-        <translation type="unfinished">Dieser lustige Knopf erstellt einen Schlüssel, stell Dir vor.</translation>
     </message>
     <message>
         <source>&amp;Generate a new key</source>
@@ -1329,7 +1299,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
-        <translation type="unfinished">Kann in der Datei &quot;aia.txt&quot; angepasst werden</translation>
+        <translation>Kann in der Datei &quot;aia.txt&quot; angepasst werden</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -1416,7 +1386,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     </message>
     <message>
         <source>C&amp;ritical</source>
-        <translation type="unfinished">C&amp;ritical</translation>
+        <translation>C&amp;ritical</translation>
     </message>
     <message>
         <source>Netscape</source>
@@ -1449,10 +1419,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <source>Object Signing CA</source>
         <translation>Object Signing CA</translation>
-    </message>
-    <message>
-        <source>Great picture , heh ?</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>CA Revocation URL</source>
@@ -1511,12 +1477,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation>OK</translation>
-    </message>
-    <message>
         <source>Abort rollout</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausstellung abbrechen</translation>
     </message>
     <message>
         <source>The internal name and the common name are empty.
@@ -1528,18 +1490,8 @@ Please set at least the internal name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The following distinguished name entries are empty,
-though you have declared them as mandatory in the options menu:
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Continue rollout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The validity dates are out of range (1950 - 2049) to create valid certificates. If you continue, your client may reject the certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausstellung fortführen</translation>
     </message>
     <message>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
@@ -1551,11 +1503,11 @@ though you have declared them as mandatory in the options menu:
     </message>
     <message>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Erweitert</translation>
     </message>
     <message>
         <source>Validate</source>
@@ -1564,37 +1516,73 @@ though you have declared them as mandatory in the options menu:
     <message>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Die Validierung des Requests ist fehlgeschlagen. Die Zertifikatserstellung sollte abgebrochen werden.</translation>
     </message>
     <message>
         <source>Continue anyway</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Trotzdem fortfahren</translation>
     </message>
     <message>
         <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Zertifikat enthält duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
     </message>
     <message>
-        <source>Advanced Settings Error: </source>
+        <source>No well-defined expiration</source>
+        <translation type="unfinished">Undefiniertes Ablaufdatum</translation>
+    </message>
+    <message>
+        <source>Edit name</source>
+        <translation type="unfinished">Namen editieren</translation>
+    </message>
+    <message>
+        <source>Select key</source>
+        <translation type="unfinished">Schlüssel auswählen</translation>
+    </message>
+    <message>
+        <source>The following distinguished name entries are empty:
+%1
+though you have declared them as mandatory in the options menu.</source>
+        <translation type="unfinished">Die folgenden Subject-name Einträge sind leer:
+%1, obwohl sie im Optionen-menu als notwendig deklariert wurden.</translation>
+    </message>
+    <message>
+        <source>Edit subject</source>
+        <translation type="unfinished">Subject editieren</translation>
+    </message>
+    <message>
+        <source>Edit dates</source>
+        <translation type="unfinished">Zeiten einstellen</translation>
+    </message>
+    <message>
+        <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
+        <translation type="unfinished">Das Zertifikat is früher gültig als der Aussteller. Dies ist wahrscheinlich ungewollt.</translation>
+    </message>
+    <message>
+        <source>Edit times</source>
+        <translation type="unfinished">Zeiten einstellen</translation>
+    </message>
+    <message>
+        <source>Adjust date and continue</source>
+        <translation type="unfinished">Datum anpassen und fortführen</translation>
+    </message>
+    <message>
+        <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
+        <translation type="unfinished">Das Zertifikat ist länger gültig als der Aussteller. Dies ist wahrscheinlich nicht gewollt.</translation>
+    </message>
+    <message>
+        <source>Edit extensions</source>
+        <translation type="unfinished">Extensions editieren</translation>
+    </message>
+    <message>
+        <source>Advanced Settings Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Options</name>
     <message>
-        <source>Dialog</source>
-        <translation>Dialog</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;XCA Options&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;XCA Optionen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Mandatory subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Pflichtfelder im subject-name</translation>
     </message>
     <message>
         <source>Add</source>
@@ -1621,20 +1609,40 @@ p, li { white-space: pre-wrap; }
         <translation>OK</translation>
     </message>
     <message>
-        <source>automatic detection (default)</source>
-        <translation>Automatische Erkennung (Standard)</translation>
-    </message>
-    <message>
-        <source>No BMP strings: only printable and T61</source>
-        <translation>Keine BMP Zeichenketten: Nur druckbare und T61</translation>
-    </message>
-    <message>
-        <source>PKIX recommendation in RFC2459</source>
-        <translation>PKIX Empfehlung aus RFC2459</translation>
-    </message>
-    <message>
         <source>UTF8 strings only (RFC2459)</source>
         <translation>Nur UTF8 Zeichenketten (RFC2459)</translation>
+    </message>
+    <message>
+        <source>PKCS#11 path: </source>
+        <translation>PKCS#11 pfad:</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>PKIX recommendation in RFC2459 (default)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>No BMP strings, only printable and T61</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>All strings</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Successfully loaded PKCS#11 library: </source>
+        <translation>PKCS#11 datei erfolgreich geladen:</translation>
+    </message>
+    <message>
+        <source>XCA Options</source>
+        <translation>XCA Optionen</translation>
     </message>
 </context>
 <context>
@@ -1650,6 +1658,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
+        <translation>Das Passwort wird als 2selliger hex-code interpretiert. Er muss eine gradstellige Anzahl der Ziffern 0-9 und a-f enthalten</translation>
+    </message>
+    <message>
+        <source>Take as HEX string</source>
+        <translation>Als HEX Zeichenkette interpretieren</translation>
     </message>
 </context>
 <context>
@@ -1669,6 +1685,14 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
+        <translation>Das Passwort wird als 2 stelliger hex-code interpretiert. Er muss eine grade Anzahl an Ziffern enthalten (0-9 und a-f)</translation>
+    </message>
+    <message>
+        <source>Take as HEX string</source>
+        <translation>Als HEX Zeichenkette interpretieren</translation>
     </message>
 </context>
 <context>
@@ -1704,10 +1728,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Import Certificate Revocation List</source>
         <translation>Importiere Zertifikatsrücknahmeliste</translation>
-    </message>
-    <message>
-        <source>All files ( *.* )</source>
-        <translation type="obsolete">Alle Dateien (*.*)</translation>
     </message>
     <message>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
@@ -1750,24 +1770,82 @@ p, li { white-space: pre-wrap; }
         <translation>Lade PEM codierte Datei</translation>
     </message>
     <message>
-        <source>File open error: </source>
-        <translation type="obsolete">Datei öffnen Fehler:</translation>
-    </message>
-    <message>
-        <source>File corrupted: </source>
-        <translation type="obsolete">Datei beschädigt:</translation>
-    </message>
-    <message>
-        <source>Unknown PEM file: </source>
-        <translation type="obsolete">Unbekanntee PEM Datei:</translation>
-    </message>
-    <message>
         <source>Invalid</source>
         <translation>Ungültig</translation>
     </message>
     <message>
         <source>All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Dateien ( * )</translation>
+    </message>
+    <message>
+        <source>Out of Memory</source>
+        <translation>Speicherfehler</translation>
+    </message>
+    <message>
+        <source>Undefined</source>
+        <translation>Undefiniert</translation>
+    </message>
+    <message>
+        <source>DB: Rename: &apos;%1&apos; already in use</source>
+        <translation>DB: Rename: &apos;%1&apos; wird bereits verwendet</translation>
+    </message>
+    <message>
+        <source>DB: Entry to rename not found: %1</source>
+        <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
+    </message>
+    <message>
+        <source>Do not overwrite</source>
+        <translation>Nicht überschreiben</translation>
+    </message>
+    <message>
+        <source>Overwrite</source>
+        <translation>Überschreiben</translation>
+    </message>
+    <message>
+        <source>PKCS#11 library ( *.dll );;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>PKCS#11 library ( *.dylib );;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>PKCS#11 library ( *.so );;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Open PKCS#11 shared library</source>
+        <translation>PKCS#11 library öffnen</translation>
+    </message>
+    <message>
+        <source>Time difference too big
+You must set it manually.</source>
+        <translation>Zeitdifferenz zu gross.
+Bitte die Zeiten manuell einstellen.</translation>
+    </message>
+    <message>
+        <source>The file: &apos;%1&apos; already exists!</source>
+        <translation>Die Datei &apos;%1&apos; existiert bereits!</translation>
+    </message>
+    <message>
+        <source>Please enter the new SO Pin for the token: &apos;%1&apos;</source>
+        <translation>Bitte die neue SO Pin der Smartcard: &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>Please enter the password to decrypt the private key.</source>
+        <translation>Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
+    </message>
+    <message>
+        <source>DB: Write error %1 - %2</source>
+        <translation>Datenbank: Schreibfehler %1 - %2</translation>
+    </message>
+    <message>
+        <source>Please enter the SO PIN (PUK) of the token %1</source>
+        <translation>Bitte die SO PIN (PUK) der Smartcard %1 eingeben</translation>
+    </message>
+    <message>
+        <source>Please enter the PIN of the token %1</source>
+        <translation>Bitte die PIN der Smartcard %1 eingeben</translation>
     </message>
 </context>
 <context>
@@ -1822,6 +1900,29 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>SelectToken</name>
+    <message>
+        <source>Select Token</source>
+        <translation>Smartcard auswählen</translation>
+    </message>
+    <message>
+        <source>Security token</source>
+        <translation>Smartcard</translation>
+    </message>
+    <message>
+        <source>Please select the security token</source>
+        <translation>Bitte wählen Sie die Smartcard</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Store</source>
+        <translation>&amp;Speichern</translation>
+    </message>
+</context>
+<context>
     <name>TrustState</name>
     <message>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:Arial; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set trustment of the Certificate&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -1853,26 +1954,7 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>db_base</name>
-    <message>
-        <source>Delete</source>
-        <translation>Löschen</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-</context>
-<context>
     <name>db_crl</name>
-    <message>
-        <source>The revokation list already exists in the database as</source>
-        <translation>Die CRL existiert bereits in der Datenbank als</translation>
-    </message>
-    <message>
-        <source>and so it was not imported</source>
-        <translation>und wird daher nicht importiert</translation>
-    </message>
     <message>
         <source>Name</source>
         <translation>Name</translation>
@@ -1887,15 +1969,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>No. revoked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anzahl</translation>
     </message>
     <message>
         <source>Next update</source>
         <translation>Nächstes Update</translation>
-    </message>
-    <message>
-        <source>Delete the revokation list(s)</source>
-        <translation>Lösche Rücknahmeliste(n)</translation>
     </message>
     <message>
         <source>CRL ( *.pem *.der *.crl )</source>
@@ -1921,44 +1999,28 @@ p, li { white-space: pre-wrap; }
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
+    <message>
+        <source>Delete the revokation list &apos;%1&apos; ?</source>
+        <translation>Die Sperrliste (CRL) &apos;%1&apos; löschen ?</translation>
+    </message>
+    <message>
+        <source>Delete the %1 revokation lists: %2 ?</source>
+        <translation>Die %1 Sperrlisten: %2 löschen ?</translation>
+    </message>
+    <message>
+        <source>The revokation list already exists in the database as:
+&apos;%1&apos;
+and so it was not imported</source>
+        <translation>Die Sperrliste existiert bereits in der Datenbank als:
+&apos;%1&apos;
+daher wurde ssie nicht importiert</translation>
+    </message>
 </context>
 <context>
     <name>db_key</name>
     <message>
-        <source>The key is already in the database as</source>
-        <translation>Der Schlüssel befindet sich bereits in der Datenbank als</translation>
-    </message>
-    <message>
-        <source>and is not going to be imported</source>
-        <translation>und wird daher nicht importiert</translation>
-    </message>
-    <message>
-        <source>The database already contains the public part of the imported key as</source>
-        <translation>Die Datenbank enthält bereits den öffentlichen Teil des importierten Schlüssels unter</translation>
-    </message>
-    <message>
-        <source>and will be completed by the new, private part of the key</source>
-        <translation>und wird durch den importierten privaten Teil vervollständigt</translation>
-    </message>
-    <message>
-        <source>Delete the key(s)</source>
-        <translation>Löschen die Schlüssel</translation>
-    </message>
-    <message>
         <source>Key size too small !</source>
         <translation>Schlüsselgrösse zu klein !</translation>
-    </message>
-    <message>
-        <source>You are sure to create a key of the size: </source>
-        <translation>Sie wollen wirklich einen Schlüssel erstellen mit der Länge:</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <source>Create</source>
-        <translation>Erstellen</translation>
     </message>
     <message>
         <source>New Key</source>
@@ -1992,24 +2054,86 @@ p, li { white-space: pre-wrap; }
         <source>Reset password</source>
         <translation>Password zurücksetzen</translation>
     </message>
+    <message>
+        <source>No Security token found</source>
+        <translation>Keine Smartcard gefunden</translation>
+    </message>
+    <message>
+        <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
+This will delete the key &apos;%1&apos; and make it unexportable</source>
+        <translation>Soll der Originalschlüssel &apos;%1&apos; durch den Smartcard Schlüssel ersetzt werden?
+Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</translation>
+    </message>
+    <message>
+        <source>Change PIN</source>
+        <translation>PIN ändern</translation>
+    </message>
+    <message>
+        <source>Init PIN with SO PIN (PUK)</source>
+        <translation>PIN mithilfe der SO PIN (PUK) initialisieren</translation>
+    </message>
+    <message>
+        <source>Change SO PIN (PUK)</source>
+        <translation>SO PIN (PUK) ändern</translation>
+    </message>
+    <message>
+        <source>Store on Security token</source>
+        <translation>Auf Smartcard speichern</translation>
+    </message>
+    <message>
+        <source>Tried to change password of a smart card</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Tried to change PIN of a key</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Tried to init PIN of a key</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Tried to change SO PIN of a key</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Delete the key &apos;%1&apos; ?</source>
+        <translation>Den Schlüssel &apos;%1&apos; löschen ?</translation>
+    </message>
+    <message>
+        <source>Delete the %1 keys: %2 ?</source>
+        <translation>Die %1 Schlüssel: %2 löschen ?</translation>
+    </message>
+    <message>
+        <source>The key is already in the database as:
+&apos;%1&apos;
+and is not going to be imported</source>
+        <translation>Der Schlüssel ist bereits in der Datenbank als:
+&apos;%1&apos;
+und wird daher nicht importiert</translation>
+    </message>
+    <message>
+        <source>The database already contains the public part of the imported key as
+&apos;%1
+and will be completed by the new, private part of the key</source>
+        <translation>Die Datenbank enthält schon den öffentlichen Schlüssel
+&apos;%1&apos;
+und wird duch den importierten, privaten Teil vervollständigt</translation>
+    </message>
+    <message>
+        <source>You are sure to create a key of the size: %1 ?</source>
+        <translation>Soll wirklich ein Schlüssel der Grösse %1 erstellt werden ?</translation>
+    </message>
 </context>
 <context>
     <name>db_temp</name>
-    <message>
-        <source>Delete the Template(s)</source>
-        <translation type="obsolete">Lösche Vorlage(n)</translation>
-    </message>
-    <message>
-        <source>Bad template: </source>
-        <translation>Schlechte Vorlage:</translation>
-    </message>
     <message>
         <source>Nothing</source>
         <translation>Nichts</translation>
     </message>
     <message>
         <source>Preset Template values</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlagenwerte voreinstellen</translation>
     </message>
     <message>
         <source>copy</source>
@@ -2018,10 +2142,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Save template as</source>
         <translation>Vorlage speichern als</translation>
-    </message>
-    <message>
-        <source>XCA templates ( *.xca);; All files ( *.* )</source>
-        <translation type="obsolete">XCA Vorlagen ( *.xca);; All Dateien ( *.* )</translation>
     </message>
     <message>
         <source>New Template</source>
@@ -2060,24 +2180,24 @@ p, li { white-space: pre-wrap; }
         <translation>Unterschriftsanfrage erstellen</translation>
     </message>
     <message>
-        <source>Delete the template(s)</source>
-        <translation type="unfinished"></translation>
+        <source>XCA templates ( *.xca);; All files ( * )</source>
+        <translation>XCA Vorlagen ( *.xca);; All files ( * )</translation>
     </message>
     <message>
-        <source>XCA templates ( *.xca);; All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <source>Delete the template &apos;%1&apos; ?</source>
+        <translation>Die Vorlage &apos;%1&apos; löschen ?</translation>
+    </message>
+    <message>
+        <source>Delete the %1 templates: %2 ?</source>
+        <translation>Die %1 Vorlagen: %2 löschen ?</translation>
+    </message>
+    <message>
+        <source>Bad template: %1</source>
+        <translation>Ungültige Vorlage %1</translation>
     </message>
 </context>
 <context>
     <name>db_x509</name>
-    <message>
-        <source>The certificate already exists in the database as</source>
-        <translation>Das Zertifikat befindet sich bereits in der Datenbank als</translation>
-    </message>
-    <message>
-        <source>and so it was not imported</source>
-        <translation>und wird daher nicht importiert</translation>
-    </message>
     <message>
         <source>Internal name</source>
         <translation>Interner Name</translation>
@@ -2103,10 +2223,6 @@ p, li { white-space: pre-wrap; }
         <translation>Rücknahme</translation>
     </message>
     <message>
-        <source>Delete the certificates(s)</source>
-        <translation type="obsolete">Lösche das Zertifikat</translation>
-    </message>
-    <message>
         <source>Plain View</source>
         <translation>Einfache Ansicht</translation>
     </message>
@@ -2116,31 +2232,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Please enter the new hexadecimal secret number for the QA process.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The two secret numbers don&apos;t match.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The QA process has been terminated by the user.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
-    </message>
-    <message>
-        <source>The validity times for the certificate need to get adjusted to not exceed those of the signer</source>
-        <translation>Die Gültigkeitsdaten des Zertifikats müssen angepasst werden um nicht die des Ausstellers zu überschreiten</translation>
-    </message>
-    <message>
-        <source>Continue creation</source>
-        <translation>Erstellen fortsetzen</translation>
-    </message>
-    <message>
-        <source>Abort</source>
-        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>New Certificate</source>
@@ -2223,32 +2327,52 @@ p, li { white-space: pre-wrap; }
         <translation>Rücknahme</translation>
     </message>
     <message>
-        <source>There was no key found for the Certificate: </source>
-        <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
-    </message>
-    <message>
         <source> days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <source>Delete the certificate(s)</source>
-        <translation type="unfinished"></translation>
+        <source>Security token</source>
+        <translation>Smartcard</translation>
+    </message>
+    <message>
+        <source>Template</source>
+        <translation>Vorlage</translation>
+    </message>
+    <message>
+        <source>Delete from Security token</source>
+        <translation>Von der Smartcard löschen</translation>
+    </message>
+    <message>
+        <source>Delete the certificate &apos;%1&apos; ?</source>
+        <translation>Das Zertifikat &apos;%1&apos; löschen ?</translation>
+    </message>
+    <message>
+        <source>Delete the %1 certificates: %2 ?</source>
+        <translation>Die %1 Zertifikate: %2 löschen ?</translation>
+    </message>
+    <message>
+        <source>The certificate already exists in the database as:
+&apos;%1&apos;
+and so it was not imported</source>
+        <translation>Das Zertifikat existiert bereits in der Datenbank als:
+&apos;%1&apos;
+und wurde daher nicht importiert</translation>
+    </message>
+    <message>
+        <source>There was no key found for the Certificate: &apos;%1&apos;</source>
+        <translation>Es wurde kein Schlüssel für das Zertifikat: &apos;%1&apos; gefunden</translation>
+    </message>
+    <message>
+        <source>Not possible for smart card key: &apos;%1&apos;</source>
+        <translation>Nicht möglich für den Smartcard Schlüssel &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
+        <translation>Nicht möglich für das Smartcard Zertifikat &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
     <name>db_x509req</name>
-    <message>
-        <source>The certificate signing request already exists in the database as</source>
-        <translation>Die Unterschriftsanfrage befindet sich bereits in der Datenbank als</translation>
-    </message>
-    <message>
-        <source>and thus was not stored</source>
-        <translation>und wird daher nicht importiert</translation>
-    </message>
-    <message>
-        <source>Delete the request(s)</source>
-        <translation>Lösche Anfrage(n)</translation>
-    </message>
     <message>
         <source>Certificate request ( *.pem *.der *.crl )</source>
         <translation>Unterschriftsanfrage ( *.pem *.der *.crl )</translation>
@@ -2285,6 +2409,60 @@ p, li { white-space: pre-wrap; }
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation>Besitzer</translation>
+    </message>
+    <message>
+        <source>Signed</source>
+        <translation>Signiert</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Datei</translation>
+    </message>
+    <message>
+        <source>Template</source>
+        <translation>Vorlage</translation>
+    </message>
+    <message>
+        <source>Delete the %1 requests: %2 ?</source>
+        <translation>Die %1 Requests: %2 löschen ?</translation>
+    </message>
+    <message>
+        <source>The certificate signing request already exists in the database as
+&apos;%1&apos;
+and thus was not stored</source>
+        <translation>Der Request existiert bereits in der Datenbank als
+&apos;%1&apos;
+und wurde daher nicht importiert</translation>
+    </message>
+    <message>
+        <source>Delete the request &apos;%1&apos; ?</source>
+        <translation>Den request &apos;%1&apos; löschen ?</translation>
+    </message>
+</context>
+<context>
+    <name>db_x509super</name>
+    <message>
+        <source>The following extensions were not ported into the template</source>
+        <translation>Die folgenden Extensions wurden nicht ins Template übertragen</translation>
+    </message>
+</context>
+<context>
+    <name>pass_info</name>
+    <message>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+    <message>
+        <source>PIN</source>
+        <translation>PIN</translation>
+    </message>
 </context>
 <context>
     <name>pki_base</name>
@@ -2293,8 +2471,8 @@ p, li { white-space: pre-wrap; }
         <translation>Fehler :</translation>
     </message>
     <message>
-        <source>Out of memory</source>
-        <translation>Nicht genügend Speicher</translation>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation>Öffnen der Datei %1 fehlgeschlagen: %2</translation>
     </message>
 </context>
 <context>
@@ -2307,39 +2485,94 @@ p, li { white-space: pre-wrap; }
         <source>unknown</source>
         <translation>unbekannt</translation>
     </message>
+    <message>
+        <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
+        <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
+    </message>
 </context>
 <context>
-    <name>pki_key</name>
+    <name>pki_evp</name>
     <message>
         <source>Failed to decrypt the key (bad password) </source>
-        <translation type="unfinished"></translation>
+        <translation>Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort)</translation>
+    </message>
+    <message>
+        <source>Unable to load the private key in file %1. Tried PEM and DER private and public key types.</source>
+        <translation>Konnte den privaten Schlüssel %1 nicht laden. Ist weder im PEM (private/public) noch im DER (private/public) Format.</translation>
+    </message>
+    <message>
+        <source>Password input aborted</source>
+        <translation>Passworteingabe abgebrochen</translation>
     </message>
     <message>
         <source>Common</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard</translation>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished">Privat</translation>
+        <translation>Privat</translation>
     </message>
     <message>
         <source>Bogus</source>
-        <translation type="unfinished"></translation>
+        <translation>Nichts</translation>
     </message>
     <message>
         <source>No password</source>
         <translation>Kein Passwort</translation>
     </message>
     <message>
-        <source>Password input aborted</source>
-        <translation type="unfinished"></translation>
+        <source>Please enter the database password for decrypting the key</source>
+        <translation>Bitte das Datenbankpasswort zur Entschlüsselung eingeben</translation>
+    </message>
+    <message>
+        <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
+        <translation>Bitte geben sie das Passwort zur Verschlüsselung des privaten Schlüssels: &apos;%1&apos; ein</translation>
+    </message>
+    <message>
+        <source>Please enter the database password for encrypting the key</source>
+        <translation>Bitte geben sie das Datenbankpasswort zur Verschlüsselung des Schlüssels ein</translation>
+    </message>
+    <message>
+        <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
+        <translation>Bitte das Passwort zum Schutz des PKCS#8 Schlüssels &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>Please enter the export password for the private key &apos;%1&apos;</source>
+        <translation>Bitte das Passwort zum Schutz des privaten Schlüssels &apos;%1&apos; eingeben</translation>
+    </message>
+</context>
+<context>
+    <name>pki_key</name>
+    <message>
+        <source>Common</source>
+        <translation>Standard</translation>
+    </message>
+    <message>
+        <source>Private</source>
+        <translation>Privat</translation>
+    </message>
+    <message>
+        <source>Bogus</source>
+        <translation>Nichts</translation>
+    </message>
+    <message>
+        <source>No password</source>
+        <translation>Kein Passwort</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Unbekannt</translation>
+    </message>
+    <message>
+        <source>PIN</source>
+        <translation>PIN</translation>
     </message>
 </context>
 <context>
     <name>pki_multi</name>
     <message>
         <source>Seek failed</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2358,22 +2591,80 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>pki_pkcs7</name>
+    <message>
+        <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
+        <translation>Konnte die PKCS#7 Datei %1 nicht laden. Ist weder im PEM noch im DER Format.</translation>
+    </message>
+</context>
+<context>
+    <name>pki_scard</name>
+    <message>
+        <source>Delete the private key &apos;%1&apos; from the token?</source>
+        <translation>Den privaten Schlüssel &apos;%1&apos; von der Smartcard löschen?</translation>
+    </message>
+    <message>
+        <source>This Key is already on the token</source>
+        <translation>Der Schlüssel ist bereits auf der SmartCard</translation>
+    </message>
+    <message>
+        <source>Unable to find copied key on the token</source>
+        <translation>Kann den eben kopierten Schlüssel auf der Smartcard nicht finden</translation>
+    </message>
+    <message>
+        <source>Public Key missmatch. Please re-import card</source>
+        <translation>Öffentlicher Schlüssel passt nicht. Bitte Smartcard neu importieren</translation>
+    </message>
+    <message>
+        <source>Unable to find generated key on card</source>
+        <translation>Kann den erstellten Schlüssel auf der Karte nicht finden</translation>
+    </message>
+    <message>
+        <source>Token</source>
+        <translation>Smartcard</translation>
+    </message>
+    <message>
+        <source>Failed to find the key on the token</source>
+        <translation>Konnte den Schlüssel auf der Smartcard nicht finden</translation>
+    </message>
+    <message>
+        <source>Invalid Pin for the token</source>
+        <translation>Ungültige Pin für die Smartcard</translation>
+    </message>
+    <message>
+        <source>Please enter the new Pin for the token &apos;%1&apos;</source>
+        <translation>Bitte die neue Pin der Smartcard &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>Please enter the SO PIN (PUK) of the token &apos;%1&apos;</source>
+        <translation>Bitte die SO PIN (PUK) der Smartcard &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>Please insert card: %1 [%2] with Serial: %3</source>
+        <translation>Bitte die Smartcard: %1 [%2] mit Seriennummer: %3 einlegen</translation>
+    </message>
+    <message>
+        <source>Wrong Size of scard: %1</source>
+        <translation>Grössenfehler beim laden der Karte: %1</translation>
+    </message>
+</context>
+<context>
     <name>pki_temp</name>
     <message>
         <source>Wrong Size of template: </source>
-        <translation type="unfinished"></translation>
+        <translation>Falsche Templategrösse:</translation>
     </message>
     <message>
-        <source>Template file content error (too small) </source>
-        <translation type="unfinished"></translation>
+        <source>Template file content error (too small): %1</source>
+        <translation>Template zu klein: %1</translation>
     </message>
     <message>
-        <source>Template file content error (bad size) </source>
-        <translation type="unfinished"></translation>
+        <source>Template file content error (bad size): %1</source>
+        <translation>Templatefehler: ungültige Grösse: %1</translation>
     </message>
     <message>
-        <source>Template file content error (bad length) </source>
-        <translation type="unfinished"></translation>
+        <source>Template file content error (bad length) :%1</source>
+        <translation>Templatefile ungültig (länge): %1</translation>
     </message>
 </context>
 <context>
@@ -2395,38 +2686,47 @@ p, li { white-space: pre-wrap; }
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
     <message>
-        <source>CRL expires: </source>
-        <translation>CRL Verfallsdatum:</translation>
+        <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
+        <translation>Das Zertifikat aus der Datei %1 konnte nicht geladen werden. Ist weder PEM noch DER.</translation>
+    </message>
+    <message>
+        <source>No associated security token</source>
+        <translation>Keine zugehörige Smartcard</translation>
+    </message>
+    <message>
+        <source>This certificate is already on the security token</source>
+        <translation>Dieses Zertifikat ist bereits auf der Smartcard</translation>
+    </message>
+    <message>
+        <source>CRL expires: %1</source>
+        <translation>CRL ungültig ab: %1</translation>
+    </message>
+    <message>
+        <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
+        <translation>Das Zertifikat &apos;%1&apos; von der Smartcard &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
 </context>
 <context>
     <name>pki_x509req</name>
     <message>
         <source>Signing key not valid (public key)</source>
-        <translation type="unfinished"></translation>
+        <translation>Signaturschlüssel ungültig (public key)</translation>
     </message>
     <message>
-        <source>no key/value pairs found in %1
-</source>
-        <translation type="unfinished"></translation>
+        <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
+        <translation>Konnte die Zertifikatsanfrage aus der Datei %1 nicht laden. Versuchte Formate PEM, DER und SPKAC.</translation>
     </message>
     <message>
-        <source>Unknown name tag %1 found in %2
-</source>
-        <translation type="unfinished"></translation>
+        <source>Signed</source>
+        <translation>Signiert</translation>
     </message>
     <message>
-        <source>No Netscape SPKAC structure found in %1
-</source>
-        <translation type="unfinished"></translation>
+        <source>Unhandled</source>
+        <translation>Unbehandelt</translation>
     </message>
 </context>
 <context>
     <name>v3ext</name>
-    <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Add</source>
         <translation>Hinzufügen</translation>
@@ -2448,18 +2748,14 @@ p, li { white-space: pre-wrap; }
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>Validation failed:</source>
-        <translation>Überprüfung fehlgeschlagen:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Validation failed:
+&apos;%1&apos;</source>
+        <translation>Überprüfung fehlgeschlagen: &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Validation successfull:
-&apos;</source>
-        <translation>Überprüfung erfolgreich:
-&apos;</translation>
+&apos;%1&apos;</source>
+        <translation>Überprüfung erfolgreich: &apos;%1&apos;</translation>
     </message>
 </context>
 <context>

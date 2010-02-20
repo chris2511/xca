@@ -37,7 +37,6 @@ static QString CurveComment(int nid)
 void KeyDetail::setKey(pki_key *key)
 {
 	int nid;
-	QString title = tr("Details of the ") +key->getTypeString() +tr(" key");
 
 	keyDesc->setText(key->getIntName());
 	keyLength->setText(key->length());
@@ -45,8 +44,7 @@ void KeyDetail::setKey(pki_key *key)
 	keyPrivEx->disableToolTip();
 	if (!key->isToken())
 		cardBox->hide();
-	tlHeader->setText(tr("Details of the") + " " + key->getTypeString() +
-		" " + tr(" key"));
+	tlHeader->setText(tr("Details of the %1 key").arg(key->getTypeString()));
 
 	if (key->isPubKey()) {
 		keyPrivEx->setText(tr("Not available"));
@@ -57,7 +55,7 @@ void KeyDetail::setKey(pki_key *key)
 		cardBox->setTitle(tr("Token") +" [" +card->getCardLabel() +"]");
 		cardManufacturer->setText(card->getManufacturer());
 		cardSerial->setText(card->getSerial());
-		keyPrivEx->setText(tr("via Security token; ID: ") +card->getId());
+		keyPrivEx->setText(tr("Security token ID:%1").arg(card->getId()));
 		keyBox->setTitle(tr("Key") + " [" + card->getLabel() + "]");
 	} else {
 		keyPrivEx->setText(tr("Available"));
@@ -85,6 +83,6 @@ void KeyDetail::setKey(pki_key *key)
 			keyModulus->setText(key->ecPubKey());
 			break;
 		default:
-			tlHeader->setText(tr("UNKNOWN Key"));
+			tlHeader->setText(tr("Unknown key"));
 	}
 }

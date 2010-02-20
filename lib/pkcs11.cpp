@@ -166,10 +166,10 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 	bool need_login;
 
 	QString text = so ?
-		QObject::tr("Please enter the SO PIN (PUK) of the token: "):
-		QObject::tr("Please enter the PIN of the token: ");
+		QObject::tr("Please enter the SO PIN (PUK) of the token %1"):
+		QObject::tr("Please enter the PIN of the token %1");
 
-	pass_info p(XCA_TITLE, text + name);
+	pass_info p(XCA_TITLE, text.arg(name));
 	p.setPin();
 	need_login = needsLogin(so);
 	if (force || need_login) {

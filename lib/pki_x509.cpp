@@ -294,7 +294,7 @@ void pki_x509::deleteFromToken()
 
 		QStringList info = p11.tokenInfo(slot);
 		if (QMessageBox::question(NULL, XCA_TITLE,
-			tr("Delete the certificate '%1' from the token '%1 (#%2)' ?").
+			tr("Delete the certificate '%1' from the token '%2 (#%3)' ?").
 			arg(getIntName()).arg(info[0]).arg(info[2]),
 			QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
 		{
@@ -590,24 +590,6 @@ int pki_x509::checkDate()
 	return ret;
 }
 
-int pki_x509::resetTimes(pki_x509 *signer)
-{
-	int ret = 0;
-	if (!signer) return -1;
-	if (getNotAfter() > signer->getNotAfter()) {
-		// client cert is longer valid....
-		setNotAfter(signer->getNotAfter());
-		ret=1;
-	}
-	if (getNotBefore() < signer->getNotBefore()) {
-		// client cert is longer valid....
-		setNotBefore(signer->getNotBefore());
-		ret=2;
-	}
-	openssl_error();
-	return ret;
-}
-
 extList pki_x509::getV3ext()
 {
 	extList el;
@@ -711,20 +693,6 @@ int pki_x509::calcEffTrust()
 	return mytrust;
 }
 
-a1int pki_x509::getIncCaSerial() { return caSerial++; }
-
-a1int pki_x509::getCaSerial() { return caSerial; }
-
-void pki_x509::setCaSerial(a1int s) { caSerial = s; }
-
-int pki_x509::getCrlDays() {return crlDays;}
-
-void pki_x509::setCrlDays(int s){if (s>0) crlDays = s;}
-
-QString pki_x509::getTemplate(){ return caTemplate; }
-
-void pki_x509::setTemplate(QString s) {if (s.length()>0) caTemplate = s; }
-
 void pki_x509::setCrlExpiry(const a1time &time)
 {
 	crlExpiry = time;
@@ -759,7 +727,8 @@ QVariant pki_x509::column_data(int col)
 			if (isRevoked())
 				return QVariant(getRevoked().toSortable());
 			else if (canSign())
-				return QVariant(tr("CRL expires: ")+ crlExpiry.toSortable());
+				return QVariant(tr("CRL expires: %1").
+					arg(crlExpiry.toSortable()));
 	}
 	return QVariant();
 

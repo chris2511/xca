@@ -19,7 +19,8 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
 	headertext << tr("Name") << tr("Subject") << tr("Signed");
-	delete_txt = tr("Delete the request(s)");
+	delete_txt = tr("Delete the request '%1' ?");
+	delete_multi_txt = tr("Delete the %1 requests: %2 ?");
 	view = mw->reqView;
 	class_name = "requests";
 	pkitype[0] = x509_req;
@@ -38,9 +39,7 @@ pki_base *db_x509req::insert(pki_base *item)
 	oldreq = (pki_x509req *)getByReference(req);
 	if (oldreq) {
 		QMessageBox::information(mainwin, XCA_TITLE,
-		tr("The certificate signing request already exists in the database as") +":\n'" +
-		oldreq->getIntName() +
-		"'\n" + tr("and thus was not stored"));
+		tr("The certificate signing request already exists in the database as\n'%1'\nand thus was not stored").arg(oldreq->getIntName()));
 		delete(req);
 		return oldreq;
 	}

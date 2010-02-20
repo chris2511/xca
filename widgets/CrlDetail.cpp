@@ -76,6 +76,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 		QTreeWidgetItem *current;
 		revit = crl->getRev(i);
 		rev = mw->certs->getByIssSerial(iss, revit.getSerial());
+		certList->setColumnCount(3);
 		current = new QTreeWidgetItem(certList);
 		if (rev != NULL) {
 			current->setText(0, rev->getIntName() );

@@ -10,9 +10,6 @@
     <height>428</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>KeyDetail</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QWidget" name="widget" native="true"/>
@@ -335,12 +332,12 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CopyLabel</class>
+   <class>ClickLabel</class>
    <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
   </customwidget>
   <customwidget>
-   <class>ClickLabel</class>
+   <class>CopyLabel</class>
    <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
   </customwidget>

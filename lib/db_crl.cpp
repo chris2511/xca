@@ -19,7 +19,8 @@ db_crl::db_crl(QString db, MainWindow *mw)
 {
 	headertext << tr("Name") << tr("Signer") << tr("Common name") <<
 		tr("No. revoked") << tr("Next update");
-	delete_txt = tr("Delete the revokation list(s)");
+	delete_txt = tr("Delete the revokation list '%1' ?");
+	delete_multi_txt = tr("Delete the %1 revokation lists: %2 ?");
 	view = mw->crlView;
 	class_name = "crls";
 	pkitype[0] = revokation;
@@ -91,9 +92,7 @@ pki_base *db_crl::insert(pki_base *item)
 	pki_crl *oldcrl = (pki_crl *)getByReference(crl);
 	if (oldcrl) {
 		QMessageBox::information(mainwin, XCA_TITLE,
-			tr("The revokation list already exists in the database as") +
-			":\n'" + oldcrl->getIntName() +
-			"'\n" + tr("and so it was not imported"));
+			tr("The revokation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
 		delete(crl);
 		return oldcrl;
 	}

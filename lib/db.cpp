@@ -183,7 +183,7 @@ void db::rename(enum pki_type type, QString name, QString n)
 		fileIOerr("write");
 	}
 	if (ret != sizeof(head)) {
-		throw errorEx(QObject::tr("DB: Write error %1 - %1"
+		throw errorEx(QObject::tr("DB: Write error %1 - %2"
 				).arg(ret).arg(sizeof(head)));
 	}
 }

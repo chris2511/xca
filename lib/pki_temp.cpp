@@ -397,7 +397,8 @@ void pki_temp::fload(QString fname)
 		return;
 	}
 	if (fread(buf, 2*sizeof(int), 1, fp) != 1)
-		my_error(tr("Template file content error (too small) ") +fname);
+		my_error(tr("Template file content error (too small): %1").
+			arg(fname));
 	size = db::intFromData(&p1);
 	version = db::intFromData(&p1);
 
@@ -407,7 +408,7 @@ void pki_temp::fload(QString fname)
 		size = intFromData(&p1);
 		if (size > 65535 || size <0) {
 			fclose(fp);
-			my_error(tr("Template file content error (bad size) ") +fname);
+			my_error(tr("Template file content error (bad size): %1").arg(fname));
 		}
 		oldimport = true;
 	} else {
@@ -418,7 +419,7 @@ void pki_temp::fload(QString fname)
 		if ((s=fread(p, 1, size, fp)) != size) {
 			OPENSSL_free(p);
 			fclose(fp);
-			my_error(tr("Template file content error (bad length) ") + fname);
+			my_error(tr("Template file content error (bad length) :%1").arg(fname));
 		}
 	}
 	if (oldimport) {

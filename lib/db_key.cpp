@@ -34,7 +34,8 @@ db_key::db_key(QString db, MainWindow *mw)
 {
 	rootItem->setIntName("[key root]");
 	headertext << "Name" << "Type" << "Size" << "Use" << "Password";
-	delete_txt = tr("Delete the key(s)");
+	delete_txt = tr("Delete the key '%1' ?");
+	delete_multi_txt = tr("Delete the %1 keys: %2 ?");
 	view = mw->keyView;
 	class_name = "keys";
 	pkitype[0] = asym_key;
@@ -93,17 +94,13 @@ pki_base* db_key::insert(pki_base *item)
 	if (oldkey != NULL) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) || lkey->isPubKey()){
 			QMessageBox::information(mainwin, XCA_TITLE,
-			tr("The key is already in the database as") +":\n'" +
-				oldkey->getIntName() +
-				"'\n" + tr("and is not going to be imported"));
+			tr("The key is already in the database as:\n'%1'\nand is not going to be imported").arg(oldkey->getIntName()));
 			delete(lkey);
 			return oldkey;
 		}
 		else {
 			QMessageBox::information(mainwin, XCA_TITLE,
-			tr("The database already contains the public part of the imported key as") +":\n'" +
-			oldkey->getIntName() +
-			"'\n" + tr("and will be completed by the new, private part of the key"));
+			tr("The database already contains the public part of the imported key as\n'%1\nand will be completed by the new, private part of the key").arg(oldkey->getIntName()));
 			lkey->setIntName(oldkey->getIntName());
 			currentIdx = index(oldkey->row(), 0, QModelIndex());
 			deletePKI();
@@ -141,10 +138,10 @@ void db_key::newItem(QString name)
 			return;
 		}
 		if (ksize < 1024 || ksize > 8192)
-			if (!QMessageBox::warning(NULL, XCA_TITLE,
-				tr("You are sure to create a key of the size: ")
-				+QString::number(ksize) + " ?", tr("Cancel"),
-				tr("Create") ))
+			if (QMessageBox::warning(NULL, XCA_TITLE,
+				tr("You are sure to create a key of the size: %1 ?").arg(ksize),
+				QMessageBox::Yes | QMessageBox::No) !=
+				QMessageBox::Yes)
 			{
 				delete dlg;
 				return;

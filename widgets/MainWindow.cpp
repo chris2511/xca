@@ -286,7 +286,7 @@ void MainWindow::read_cmdline()
 				case 'v' : cmd_version(); opt=0; break;
 				case 'x' : exitApp = 1; opt=0; break;
 				case 'h' : cmd_help(NULL); opt=0; break;
-				default  : cmd_help(CCHAR(tr("no such option: ") + arg));
+				default  : cmd_help(CCHAR(tr("no such option: %1").arg(arg)));
 			}
 			if (arg[2] != '\0' && opt==1) {
 				 arg+=2;
@@ -314,7 +314,7 @@ void MainWindow::read_cmdline()
 				homedir = dbfile.left(dbfile.lastIndexOf(QDir::separator()));
 				init_database();
 			} else {
-				cmd_help(CCHAR(tr("Database file does not exist: ") + arg));
+				cmd_help(CCHAR(tr("Database file does not exist: '%1'").arg(arg)));
 			}
 		}
 
@@ -779,7 +779,7 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 						hexwarn);
 		} else {
 			QMessageBox::warning(p->getWidget(), XCA_TITLE,
-						p->getType() + tr(" missmatch"));
+					tr("%1 missmatch").arg(p->getType()));
 		}
 	}
 	delete dlg;
@@ -791,9 +791,10 @@ void MainWindow::Error(errorEx &err)
 	if (err.isEmpty())
 		 return;
 	QString msg =  tr("The following error occured:") + "\n" + err.getString();
-	int ret = QMessageBox::warning(qApp->activeWindow(), XCA_TITLE,
-			msg, tr("&OK"), tr("Copy to Clipboard"));
-	if (ret == 1) {
+	QMessageBox box(QMessageBox::Warning, XCA_TITLE,
+		msg, QMessageBox::Ok, NULL);
+	box.addButton(QMessageBox::Apply)->setText(tr("Copy to Clipboard"));
+	if (box.exec() == QMessageBox::Apply) {
 		QClipboard *cb = QApplication::clipboard();
 		cb->setText(msg);
 	}

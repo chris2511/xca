@@ -9,14 +9,6 @@
 <context>
     <name>CaProperties</name>
     <message>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>CA properties</source>
         <translation type="unfinished"></translation>
     </message>
@@ -214,6 +206,38 @@
         <source>yyyy-MM-dd hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Certificate renewal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No well-defined expiration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abort rollout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Continue rollout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust date and continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CertView</name>
@@ -261,10 +285,6 @@
     </message>
     <message>
         <source>Unknown certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CrlDetail_UI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -317,14 +337,6 @@
     </message>
     <message>
         <source>0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -390,13 +402,6 @@
 <context>
     <name>ExportDer</name>
     <message>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Export&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Filename</source>
         <translation type="unfinished"></translation>
     </message>
@@ -416,13 +421,13 @@ p, li { white-space: pre-wrap; }
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ExportKey</name>
-    <message>
-        <source>ExportKey</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Key export</source>
         <translation type="unfinished">Exportar clave</translation>
@@ -506,31 +511,11 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
 <context>
     <name>ImportMulti</name>
     <message>
-        <source>The type of the Item is not recognized: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Details of this item cannot be shown: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The type of the Item is not recognized </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ImportMulti_UI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -549,6 +534,18 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <source>&amp;Remove</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The type of the Item &apos;%1&apos; is not recognized</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Details of the item &apos;%1&apos; cannot be shown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The type of the item &apos;%1&apos; is not recognized</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>KeyDetail</name>
@@ -558,14 +555,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>KeyDetail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Details of the RSA key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -605,15 +594,43 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Details of the DSA key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Private key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>UNKNOWN Key</source>
+        <source>Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manufacturer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Curve name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Details of the %1 key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security token ID:%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown key</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -628,15 +645,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished">Contraeña incorrecta, inténtelo de nuevo</translation>
     </message>
     <message>
-        <source>Open &amp;DataBase</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Close DataBase</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -653,10 +662,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>no such option: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -681,34 +686,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key: &apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password to protect the private key: &apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the database password for encrypting the key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password protecting the PKCS#8 key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the export password for the private key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>MainWindow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -737,10 +714,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Change password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -793,10 +766,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>No deleted items found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New &amp;DataBase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -868,10 +837,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished">Cancelar</translation>
     </message>
     <message>
-        <source>Password missmatch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>I&amp;mport</source>
         <translation type="unfinished"></translation>
     </message>
@@ -884,24 +849,84 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter the database password for decrypting the key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Database file does not exist: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import PEM data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Security token found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the SO PIN (PUK) of the token &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The new label of the token &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the new Pin for the token &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the new password to encrypt your private keys in the database-file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repeat </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Init Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange DataBase password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to restart XCA to load the new library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Database file does not exist: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>no such option: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 missmatch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NewCrl</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Create CRL</source>
         <translation type="unfinished"></translation>
@@ -970,14 +995,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished">Tamaño de clave</translation>
     </message>
     <message>
-        <source>RSA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DSA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Usually 1024 or 2048 bit keys are used</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1001,15 +1018,15 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <source>C&amp;reate</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewX509</name>
     <message>
         <source>Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1100,39 +1117,11 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Organisation</source>
-        <translation type="unfinished">Organización</translation>
-    </message>
-    <message>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Must be exactly 2 letter of size (DE, UK)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Country code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>State or Province</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locality</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organ. unit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Common name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E-Mail address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1157,10 +1146,6 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>Used keys too</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This funny button creates a key. Go figure.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1433,10 +1418,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Great picture , heh ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>CA Revocation URL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1493,10 +1474,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Abort rollout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1510,17 +1487,7 @@ Please set at least the internal name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The following distinguished name entries are empty,
-though you have declared them as mandatory in the options menu:
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Continue rollout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The validity dates are out of range (1950 - 2049) to create valid certificates. If you continue, your client may reject the certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1557,23 +1524,58 @@ The rollout should be aborted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Advanced Settings Error: </source>
+        <source>No well-defined expiration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following distinguished name entries are empty:
+%1
+though you have declared them as mandatory in the options menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit subject</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit dates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit times</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust date and continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Settings Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Options</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;XCA Options&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Mandatory subject entries</source>
         <translation type="unfinished"></translation>
@@ -1603,19 +1605,39 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>automatic detection (default)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No BMP strings: only printable and T61</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PKIX recommendation in RFC2459</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>UTF8 strings only (RFC2459)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#11 path: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKIX recommendation in RFC2459 (default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No BMP strings, only printable and T61</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All strings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Successfully loaded PKCS#11 library: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XCA Options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1631,6 +1653,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Take as HEX string</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1650,6 +1680,14 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Take as HEX string</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1735,6 +1773,75 @@ p, li { white-space: pre-wrap; }
         <source>All files ( * )</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Out of Memory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undefined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DB: Rename: &apos;%1&apos; already in use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DB: Entry to rename not found: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not overwrite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overwrite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#11 library ( *.dll );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#11 library ( *.dylib );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#11 library ( *.so );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open PKCS#11 shared library</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time difference too big
+You must set it manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file: &apos;%1&apos; already exists!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the new SO Pin for the token: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password to decrypt the private key.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DB: Write error %1 - %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the SO PIN (PUK) of the token %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the PIN of the token %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReqDetail</name>
@@ -1788,6 +1895,29 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>SelectToken</name>
+    <message>
+        <source>Select Token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select the security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TrustState</name>
     <message>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:Arial; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set trustment of the Certificate&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -1819,26 +1949,7 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>db_base</name>
-    <message>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
-    </message>
-</context>
-<context>
     <name>db_crl</name>
-    <message>
-        <source>The revokation list already exists in the database as</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>and so it was not imported</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Name</source>
         <translation type="unfinished">Nombre</translation>
@@ -1857,10 +1968,6 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Next update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete the revokation list(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1887,43 +1994,25 @@ p, li { white-space: pre-wrap; }
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Delete the revokation list &apos;%1&apos; ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the %1 revokation lists: %2 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The revokation list already exists in the database as:
+&apos;%1&apos;
+and so it was not imported</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>db_key</name>
     <message>
-        <source>The key is already in the database as</source>
-        <translation type="unfinished">La clave ya aparece en la base de datos como</translation>
-    </message>
-    <message>
-        <source>and is not going to be imported</source>
-        <translation type="unfinished">y no va a ser importada</translation>
-    </message>
-    <message>
-        <source>The database already contains the public part of the imported key as</source>
-        <translation type="unfinished">La base de datos ya contiene la parte pública de la clave importada como</translation>
-    </message>
-    <message>
-        <source>and will be completed by the new, private part of the key</source>
-        <translation type="unfinished">y será completada por la nueva parte secreta de la clave</translation>
-    </message>
-    <message>
-        <source>Delete the key(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Key size too small !</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are sure to create a key of the size: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
-    </message>
-    <message>
-        <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1958,13 +2047,74 @@ p, li { white-space: pre-wrap; }
         <source>Reset password</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No Security token found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
+This will delete the key &apos;%1&apos; and make it unexportable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Init PIN with SO PIN (PUK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change SO PIN (PUK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Store on Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to change password of a smart card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to change PIN of a key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to init PIN of a key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to change SO PIN of a key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the key &apos;%1&apos; ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the %1 keys: %2 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The key is already in the database as:
+&apos;%1&apos;
+and is not going to be imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The database already contains the public part of the imported key as
+&apos;%1
+and will be completed by the new, private part of the key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are sure to create a key of the size: %1 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>db_temp</name>
-    <message>
-        <source>Bad template: </source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Nothing</source>
         <translation type="unfinished"></translation>
@@ -2018,24 +2168,24 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete the template(s)</source>
+        <source>XCA templates ( *.xca);; All files ( * )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>XCA templates ( *.xca);; All files ( * )</source>
+        <source>Delete the template &apos;%1&apos; ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the %1 templates: %2 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bad template: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>db_x509</name>
-    <message>
-        <source>The certificate already exists in the database as</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>and so it was not imported</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Internal name</source>
         <translation type="unfinished"></translation>
@@ -2082,18 +2232,6 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>The key you selected for signing is not a private one.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The validity times for the certificate need to get adjusted to not exceed those of the signer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Continue creation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Abort</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2177,32 +2315,50 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There was no key found for the Certificate: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> days</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete the certificate(s)</source>
+        <source>Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete from Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the certificate &apos;%1&apos; ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the %1 certificates: %2 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The certificate already exists in the database as:
+&apos;%1&apos;
+and so it was not imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There was no key found for the Certificate: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not possible for smart card key: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>db_x509req</name>
-    <message>
-        <source>The certificate signing request already exists in the database as</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>and thus was not stored</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete the request(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Certificate request ( *.pem *.der *.crl )</source>
         <translation type="unfinished"></translation>
@@ -2239,6 +2395,58 @@ p, li { white-space: pre-wrap; }
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished">Nombre</translation>
+    </message>
+    <message>
+        <source>Subject</source>
+        <translation type="unfinished">Sujeto</translation>
+    </message>
+    <message>
+        <source>Signed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the %1 requests: %2 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The certificate signing request already exists in the database as
+&apos;%1&apos;
+and thus was not stored</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the request &apos;%1&apos; ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>db_x509super</name>
+    <message>
+        <source>The following extensions were not ported into the template</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>pass_info</name>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Contraseña</translation>
+    </message>
+    <message>
+        <source>PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_base</name>
@@ -2247,7 +2455,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Out of memory</source>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2261,11 +2469,23 @@ p, li { white-space: pre-wrap; }
         <source>unknown</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>pki_key</name>
+    <name>pki_evp</name>
     <message>
         <source>Failed to decrypt the key (bad password) </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to load the private key in file %1. Tried PEM and DER private and public key types.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password input aborted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2285,7 +2505,50 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Password input aborted</source>
+        <source>Please enter the database password for decrypting the key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the database password for encrypting the key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the export password for the private key &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>pki_key</name>
+    <message>
+        <source>Common</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bogus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PIN</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2312,21 +2575,79 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>pki_pkcs7</name>
+    <message>
+        <source>Unable to load the PKCS#7 file %1. Tried PEM and DER format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>pki_scard</name>
+    <message>
+        <source>Delete the private key &apos;%1&apos; from the token?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This Key is already on the token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find copied key on the token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Public Key missmatch. Please re-import card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find generated key on card</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to find the key on the token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid Pin for the token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the new Pin for the token &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the SO PIN (PUK) of the token &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please insert card: %1 [%2] with Serial: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrong Size of scard: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>pki_temp</name>
     <message>
         <source>Wrong Size of template: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Template file content error (too small) </source>
+        <source>Template file content error (too small): %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Template file content error (bad size) </source>
+        <source>Template file content error (bad size): %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Template file content error (bad length) </source>
+        <source>Template file content error (bad length) :%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2349,7 +2670,23 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>CRL expires: </source>
+        <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No associated security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This certificate is already on the security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CRL expires: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2360,27 +2697,20 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>no key/value pairs found in %1
-</source>
+        <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unknown name tag %1 found in %2
-</source>
+        <source>Signed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No Netscape SPKAC structure found in %1
-</source>
+        <source>Unhandled</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>v3ext</name>
-    <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Add</source>
         <translation type="unfinished"></translation>
@@ -2402,16 +2732,13 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished">Cancelar</translation>
     </message>
     <message>
-        <source>Validation failed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
+        <source>Validation failed:
+&apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Validation successfull:
-&apos;</source>
+&apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

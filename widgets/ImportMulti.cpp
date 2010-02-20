@@ -76,7 +76,8 @@ void ImportMulti::addItem(pki_base *pki)
 	}
 	else  {
 		QMessageBox::warning(this, XCA_TITLE,
-			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
+			tr("The type of the Item '%1' is not recognized").
+			arg(cn));
 	}
 }
 
@@ -151,7 +152,8 @@ void ImportMulti::import(QModelIndex &idx)
 		MainWindow::temps->insert(pki);
 	} else  {
 		QMessageBox::warning(this, XCA_TITLE,
-			tr("The type of the Item is not recognized: ") + cn, tr("OK"));
+			tr("The type of the Item '%1' is not recognized").
+			arg(cn));
 		delete pki;
 	}
 }
@@ -197,15 +199,17 @@ void ImportMulti::on_butDetails_clicked()
 			delete dlg;
 		} else if (cn == "pki_temp") {
 			QMessageBox::warning(this, XCA_TITLE,
-				tr("Details of this item cannot be shown: ") + cn, tr("OK"));
+				tr("Details of the item '%1' cannot be shown").
+				arg(cn));
 		} else
 			QMessageBox::warning(this, XCA_TITLE,
-				tr("The type of the Item is not recognized ") + cn, tr("OK"));
+				tr("The type of the item '%1' is not recognized").
+				arg(cn));
 	}
 	catch (errorEx &err) {
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("Error") + pki->getClassName() +
-			err.getString(), tr("OK"));
+			err.getString());
 	}
 
 }

@@ -21,7 +21,8 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_base(DBfile, mw)
 {
 	headertext << "Name" << "Type";
-	delete_txt = tr("Delete the template(s)");
+	delete_txt = tr("Delete the template '%1' ?");
+	delete_multi_txt = tr("Delete the %1 templates: %2 ?");
 	view = mw->tempView;
 	class_name = "templates";
 	pkitype[0] = tmpl;
@@ -48,7 +49,7 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 				predefs->append(tmpl);
 		} catch(errorEx &err) {
 			QMessageBox::warning(mainwin, tr(XCA_TITLE),
-				tr("Bad template: ") + name);
+				tr("Bad template: %1").arg(name));
 		}
 	}
 }

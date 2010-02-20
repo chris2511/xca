@@ -1,116 +1,95 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CertExtend</class>
- <widget class="QDialog" name="CertExtend" >
-  <property name="geometry" >
+ <widget class="QDialog" name="CertExtend">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>335</height>
+    <width>512</width>
+    <height>275</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="spacing" >
-    <number>6</number>
-   </property>
-   <property name="leftMargin" >
-    <number>8</number>
-   </property>
-   <property name="topMargin" >
-    <number>8</number>
-   </property>
-   <property name="rightMargin" >
-    <number>8</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>8</number>
-   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
-      <number>6</number>
-     </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
-      <number>0</number>
-     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLabel" name="capt">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
+        </font>
        </property>
-       <property name="sizeType" >
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="image" >
-       <property name="minimumSize" >
-        <size>
-         <width>200</width>
-         <height>94</height>
-        </size>
-       </property>
-       <property name="scaledContents" >
-        <bool>true</bool>
+       <property name="text">
+        <string>Certificate renewal</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
+         <width>78</width>
          <height>20</height>
         </size>
        </property>
       </spacer>
      </item>
+     <item>
+      <widget class="QLabel" name="image">
+       <property name="minimumSize">
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="TextLabel1" >
-     <property name="text" >
+    <widget class="QLabel" name="TextLabel1">
+     <property name="text">
       <string>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>368</width>
        <height>16</height>
@@ -119,102 +98,72 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QGroupBox" name="groupBox_2" >
-       <property name="title" >
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
         <string>Validity</string>
        </property>
-       <layout class="QVBoxLayout" >
-        <property name="spacing" >
+       <layout class="QVBoxLayout">
+        <property name="spacing">
          <number>6</number>
         </property>
-        <property name="leftMargin" >
-         <number>8</number>
-        </property>
-        <property name="topMargin" >
-         <number>8</number>
-        </property>
-        <property name="rightMargin" >
-         <number>8</number>
-        </property>
-        <property name="bottomMargin" >
+        <property name="margin">
          <number>8</number>
         </property>
         <item>
-         <layout class="QGridLayout" >
-          <property name="leftMargin" >
+         <layout class="QGridLayout">
+          <property name="margin">
            <number>0</number>
           </property>
-          <property name="topMargin" >
-           <number>0</number>
-          </property>
-          <property name="rightMargin" >
-           <number>0</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>0</number>
-          </property>
-          <property name="horizontalSpacing" >
+          <property name="spacing">
            <number>6</number>
           </property>
-          <property name="verticalSpacing" >
-           <number>6</number>
-          </property>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="TextLabel1_2" >
-            <property name="text" >
+          <item row="0" column="0">
+           <widget class="QLabel" name="TextLabel1_2">
+            <property name="text">
              <string>Not before</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="TextLabel2_4" >
-            <property name="text" >
+          <item row="1" column="0">
+           <widget class="QLabel" name="TextLabel2_4">
+            <property name="text">
              <string>Not after</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1" >
-			  <widget class="Validity" native="1" name="notBefore" >
-				  <property name="displayFormat" >
-					  <string>yyyy-MM-dd hh:mm</string>
-				  </property>
-				  <property name="calendarPopup" > 
-					  <bool>true</bool>
-				  </property>
-				  <property name="timeSpec" >
-					  <enum>Qt::UTC</enum>
-				  </property>
-			  </widget>
+          <item row="0" column="1">
+           <widget class="Validity" name="notBefore">
+            <property name="displayFormat">
+             <string>yyyy-MM-dd hh:mm</string>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+            <property name="timeSpec">
+             <enum>Qt::UTC</enum>
+            </property>
+           </widget>
           </item>
-          <item row="1" column="1" >
-			  <widget class="Validity" native="1" name="notAfter">
-				  <property name="displayFormat" >
-					  <string>yyyy-MM-dd hh:mm</string>
-				  </property>
-				  <property name="calendarPopup" > 
-					  <bool>true</bool>
-				  </property>
-				  <property name="timeSpec" >
-					  <enum>Qt::UTC</enum>
-				  </property>
-			  </widget>
+          <item row="1" column="1">
+           <widget class="Validity" name="notAfter">
+            <property name="displayFormat">
+             <string>yyyy-MM-dd hh:mm</string>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+            <property name="timeSpec">
+             <enum>Qt::UTC</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -222,68 +171,51 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox" >
-       <property name="title" >
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
         <string>Time range</string>
        </property>
-       <layout class="QGridLayout" >
-        <property name="leftMargin" >
-         <number>8</number>
-        </property>
-        <property name="topMargin" >
-         <number>8</number>
-        </property>
-        <property name="rightMargin" >
-         <number>8</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>8</number>
-        </property>
-        <property name="horizontalSpacing" >
-         <number>6</number>
-        </property>
-        <property name="verticalSpacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="1" >
-         <widget class="QComboBox" name="validRange" >
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="validNumber"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="validRange">
           <item>
-           <property name="text" >
+           <property name="text">
             <string>Days</string>
            </property>
           </item>
           <item>
-           <property name="text" >
+           <property name="text">
             <string>Months</string>
            </property>
           </item>
           <item>
-           <property name="text" >
+           <property name="text">
             <string>Years</string>
            </property>
           </item>
          </widget>
         </item>
-        <item row="1" column="0" >
-         <widget class="QCheckBox" name="midnightCB" >
-          <property name="text" >
+        <item row="0" column="2">
+         <widget class="QPushButton" name="applyTime">
+          <property name="text">
+           <string>Apply</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="midnightCB">
+          <property name="text">
            <string>Midnight</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0" >
-         <widget class="QLineEdit" name="validNumber" />
-        </item>
-        <item row="1" column="1" >
-         <widget class="QPushButton" name="applyTime" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text" >
-           <string>Apply</string>
+        <item row="1" column="1" colspan="2">
+         <widget class="QCheckBox" name="noWellDefinedExpDate">
+          <property name="text">
+           <string>No well-defined expiration</string>
           </property>
          </widget>
         </item>
@@ -294,13 +226,13 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeType" >
+     <property name="sizeType">
       <enum>QSizePolicy::Expanding</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>368</width>
        <height>16</height>
@@ -309,47 +241,32 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
-     <property name="leftMargin" >
-      <number>0</number>
-     </property>
-     <property name="topMargin" >
-      <number>0</number>
-     </property>
-     <property name="rightMargin" >
-      <number>0</number>
-     </property>
-     <property name="bottomMargin" >
+     <property name="margin">
       <number>0</number>
      </property>
      <item>
-      <widget class="QPushButton" name="PushButton3" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text" >
+      <widget class="QPushButton" name="PushButton3">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
-       <property name="shortcut" >
+       <property name="shortcut">
         <number>276824131</number>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -358,14 +275,8 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="PushButton2" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="font" >
+      <widget class="QPushButton" name="PushButton2">
+       <property name="font">
         <font>
          <family>Sans Serif</family>
          <pointsize>9</pointsize>
@@ -376,7 +287,7 @@
          <strikeout>false</strikeout>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;OK</string>
        </property>
       </widget>
@@ -409,13 +320,13 @@
    <receiver>CertExtend</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>322</x>
-     <y>307</y>
+    <hint type="sourcelabel">
+     <x>501</x>
+     <y>264</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>222</x>
-     <y>302</y>
+     <y>274</y>
     </hint>
    </hints>
   </connection>
@@ -425,13 +336,13 @@
    <receiver>CertExtend</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>112</x>
-     <y>302</y>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>264</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>158</x>
-     <y>299</y>
+     <y>274</y>
     </hint>
    </hints>
   </connection>
@@ -441,13 +352,45 @@
    <receiver>CertExtend</receiver>
    <slot>applyTimeDiff()</slot>
    <hints>
-    <hint type="sourcelabel" >
-     <x>306</x>
-     <y>249</y>
+    <hint type="sourcelabel">
+     <x>490</x>
+     <y>167</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>380</x>
-     <y>281</y>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noWellDefinedExpDate</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>notAfter</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>372</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>151</x>
+     <y>189</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>noWellDefinedExpDate</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>notAfter</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>407</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>188</y>
     </hint>
    </hints>
   </connection>

@@ -102,17 +102,15 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_editCrlDist_clicked();
 		void on_editAuthInfAcc_clicked();
 		void on_foreignSignRB_toggled(bool checked);
-		void on_selfSignRB_toggled(bool checked);
 		void on_genKeyBut_clicked();
 		void on_showReqBut_clicked();
 		void on_certList_currentIndexChanged(int index);
 		void on_applyTemplate_clicked();
-		void on_okButton_clicked();
 		void on_adv_validate_clicked();
 		void on_usedKeysToo_toggled(bool checked);
 		void on_tabWidget_currentChanged(int idx);
 		void on_reqSubChange_clicked();
-		void on_noWellDefinedExpDate_toggled(bool);
+		void accept();
 
 	signals:
 		void genKey(QString);

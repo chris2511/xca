@@ -10,9 +10,6 @@
     <height>404</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>ExportKey</string>
-  </property>
   <layout class="QVBoxLayout">
    <property name="spacing">
     <number>6</number>

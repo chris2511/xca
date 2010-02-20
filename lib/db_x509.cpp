@@ -30,7 +30,8 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 	headertext << tr("Internal name") << tr("Common name") << tr("Serial") <<
 			tr("not After") << tr("Trust state") << tr("Revocation");
 
-	delete_txt = tr("Delete the certificate(s)");
+	delete_txt = tr("Delete the certificate '%1' ?");
+	delete_multi_txt =tr("Delete the %1 certificates: %2 ?");
 	view = mw->certView;
 	class_name = "certificates";
 	pkitype[0] = x509;
@@ -289,9 +290,7 @@ pki_base *db_x509::insert(pki_base *item)
 	pki_x509 *oldcert = (pki_x509 *)getByReference(cert);
 	if (oldcert) {
 		QMessageBox::information(mainwin, XCA_TITLE,
-		tr("The certificate already exists in the database as") +":\n'" +
-		oldcert->getIntName() +
-		"'\n" + tr("and so it was not imported"));
+		tr("The certificate already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcert->getIntName()));
 		delete(cert);
 		return oldcert;
 	}
@@ -459,7 +458,7 @@ void db_x509::newCert(NewX509 *dlg)
 				break;
 			else
 				QMessageBox::warning(mainwin, XCA_TITLE,
-						tr("The two secret numbers don't match."));
+				  tr("The two secret numbers don't match."));
 		}
 		delete dlg1;
 		if (A!=B)
@@ -496,14 +495,6 @@ void db_x509::newCert(NewX509 *dlg)
 		a = dlg->notAfter->getDate();
 
 	cert->setNotAfter(a);
-
-	if (cert->resetTimes(signcert) > 0) {
-		if (QMessageBox::information(mainwin, XCA_TITLE,
-			tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
-			tr("Continue creation"), tr("Abort")
-		))
-			throw errorEx("");
-	}
 
 	// STEP 4 handle extensions
 	if (dlg->copyReqExtCB->isChecked() && dlg->fromReqCB->isChecked()) {
@@ -714,15 +705,15 @@ void db_x509::store()
 		case 11: // Certificate and Key in PEM format for apache
 			pki_evp *privkey = (pki_evp *)crt->getRefKey();
 			if (!privkey || privkey->isPubKey()) {
-				QMessageBox::warning(mainwin, tr(XCA_TITLE),
-					tr("There was no key found for the Certificate: ") +
-					crt->getIntName() );
+				QMessageBox::warning(mainwin, XCA_TITLE,
+					tr("There was no key found for the Certificate: '%1'").
+					arg(crt->getIntName()));
 				return;
 			}
 			if (privkey->isToken()) {
-				QMessageBox::warning(mainwin, tr(XCA_TITLE),
-					tr("Not possible for smart card key:") +
-                                        crt->getIntName() );
+				QMessageBox::warning(mainwin, XCA_TITLE,
+					tr("Not possible for smart card key: '%1'").
+					arg(crt->getIntName()));
                                 return;
                         }
 
@@ -747,15 +738,14 @@ void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
     try {
 		pki_evp *privkey = (pki_evp *)cert->getRefKey();
 		if (!privkey || privkey->isPubKey()) {
-			QMessageBox::warning(mainwin, tr(XCA_TITLE),
-				tr("There was no key found for the Certificate: ") +
-				cert->getIntName() );
+			QMessageBox::warning(mainwin, XCA_TITLE,
+				tr("There was no key found for the Certificate: '%1'").arg(cert->getIntName()));
 			return;
 		}
 		if (privkey->isToken()) {
-			QMessageBox::warning(mainwin, tr(XCA_TITLE),
-				tr("Not possible for a token-key for the Certificate: ") +
-				cert->getIntName() );
+			QMessageBox::warning(mainwin, XCA_TITLE,
+				tr("Not possible for the token-key Certificate '%1'").
+				arg(cert->getIntName()));
 			return;
 		}
 		if (s.isEmpty())
@@ -912,7 +902,11 @@ void db_x509::deleteFromToken()
 	if (!currentIdx.isValid())
 		return;
 	pki_x509 *pki = static_cast<pki_x509*>(currentIdx.internalPointer());
-	pki->deleteFromToken();
+	try {
+		pki->deleteFromToken();
+	} catch (errorEx &err) {
+		mainwin->Error(err);
+	}
 }
 
 void db_x509::setTrust()
@@ -955,17 +949,18 @@ void db_x509::extendCert()
 	a1time time;
 	a1int serial;
 	try {
-		CertExtend *dlg = new CertExtend(mainwin);
-		if (!dlg->exec()) {
-			delete dlg;
-			return;
-		}
 		oldcert = static_cast<pki_x509*>(currentIdx.internalPointer());
 		if (!oldcert ||
 				!(signer = oldcert->getSigner()) ||
 				!(signkey = signer->getRefKey()) ||
 				signkey->isPubKey())
 			return;
+
+		CertExtend *dlg = new CertExtend(mainwin, signer);
+		if (!dlg->exec()) {
+			delete dlg;
+			return;
+		}
 		newcert = new pki_x509(oldcert);
 		serial = signer->getIncCaSerial();
 
@@ -978,17 +973,15 @@ void db_x509::extendCert()
 		// change date and serial
 		newcert->setSerial(serial);
 		newcert->setNotBefore(dlg->notBefore->getDate());
-		newcert->setNotAfter(dlg->notAfter->getDate());
+		a1time a;
+		if (dlg->noWellDefinedExpDate->isChecked())
+			a.setUndefined();
+		else
+			a = dlg->notAfter->getDate();
 
-		if (newcert->resetTimes(signer) > 0) {
-			if (QMessageBox::information(mainwin, XCA_TITLE,
-				tr("The validity times for the certificate need to get adjusted to not exceed those of the signer"),
-				tr("Continue creation"), tr("Abort")
-			))
-				throw errorEx("");
-		}
+		newcert->setNotAfter(a);
 
-		// and finally sign the request
+		// and finally sign the cert
 		newcert->sign(signkey, oldcert->getDigest());
 		insert(newcert);
 		delete dlg;

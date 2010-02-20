@@ -223,8 +223,8 @@ extList NewX509::getAdvanced()
 			ERR_error_string(i ,NULL));
 
 		QMessageBox::warning(this, XCA_TITLE,
-			tr("Advanced Settings Error: ") +
-			ERR_error_string(i ,NULL), tr("OK"));
+			tr("Advanced Settings Error: %1").
+			arg(ERR_error_string(i ,NULL)));
 		BIO_free(bio);
 		return elist;
 	}

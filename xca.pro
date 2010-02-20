@@ -92,7 +92,8 @@ FORMS += ui/About.ui \
          ui/PassWrite.ui \
          ui/ReqDetail.ui \
          ui/TrustState.ui \
-         ui/v3ext.ui
+         ui/v3ext.ui \
+         ui/SelectToken.ui
 SOURCES += lib/asn1int.cpp \
            lib/asn1time.cpp \
            lib/db.cpp \

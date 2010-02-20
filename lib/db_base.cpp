@@ -127,7 +127,7 @@ void db_base::delete_ask()
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 
 	if (QMessageBox::information(mainwin, XCA_TITLE,
-				delete_txt + ": " + pki->getIntName() + " ?\n",
+				delete_txt.arg(pki->getIntName()),
 				QMessageBox::Ok | QMessageBox::Cancel) !=
 				QMessageBox::Ok)
 		 return;
@@ -172,7 +172,8 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 {
 	QModelIndexList indexes = view->getSelectedIndexes();
 	QModelIndex index;
-	QString items;
+	QString items, single, msg;
+	int count = 0;
 
 	if (indexes.count() == 0)
 		return;
@@ -182,10 +183,15 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 			continue;
 		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
 		items += "'" + pki->getIntName() + "' ";
+		single = pki->getIntName();
+		count++;
 	}
+	if (count == 1)
+		msg = delete_txt.arg(single);
+	else
+		msg = delete_multi_txt.arg(count).arg(items);
 
-	if (QMessageBox::information(mainwin, XCA_TITLE,
-				delete_txt + ": " + items + " ?\n" ,
+	if (QMessageBox::information(mainwin, XCA_TITLE, msg,
 				QMessageBox::Ok | QMessageBox::Cancel) !=
 				QMessageBox::Ok)
 		return;

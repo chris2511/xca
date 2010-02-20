@@ -16,6 +16,7 @@
 
 class pki_base : public QObject
 {
+		Q_OBJECT
 	private:
 		static int pki_counter;
 	protected:

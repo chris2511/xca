@@ -216,7 +216,7 @@ void pki_evp::fromPEM_BIO(BIO *bio, QString name)
 {
 	EVP_PKEY *pkey;
 	int pos;
-	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
+	pass_info p(XCA_TITLE, QObject::tr(
 			"Please enter the password to decrypt the private key."));
 	pos = BIO_tell(bio);
 	pkey = PEM_read_bio_PrivateKey(bio, NULL, MainWindow::passRead, &p);
@@ -264,8 +264,8 @@ static void search_ec_oid(EC_KEY *ec)
 void pki_evp::fload(const QString fname)
 {
 	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-		"Please enter the password to decrypt the private key.") +
-		"\n'" + fname + "'");
+		"Please enter the password to decrypt the private key: '%1'").
+		arg(fname));
 	pem_password_cb *cb = MainWindow::passRead;
 	FILE *fp = fopen(QString2filename(fname), "r");
 	EVP_PKEY *pkey;
@@ -375,8 +375,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 	if (ownPass == ptPrivate) {
 		int ret;
 		pass_info pi(XCA_TITLE, qApp->translate("MainWindow",
-			"Please enter the password to decrypt the private key: '") +
-			getIntName() + "'");
+			"Please enter the password to decrypt the private key: '%1'").arg(getIntName()));
 		ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
 		if (ret < 0)
 			throw errorEx(tr("Password input aborted"), class_name);
@@ -391,8 +390,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 			int ret;
 			//printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
 				//CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
-			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-					"Please enter the database password for decrypting the key"));
+			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key"));
 			ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
 			if (ret < 0)
 				throw errorEx(tr("Password input aborted"), class_name);
@@ -484,9 +482,8 @@ void pki_evp::encryptKey(const char *password)
 	/* This key has its own, private password */
 	if (ownPass == ptPrivate) {
 		int ret;
-		pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-			"Please enter the password to protect the private key: '") +
-			getIntName() + "'");
+		pass_info p(XCA_TITLE, tr("Please enter the password to protect the private key: '%1'").
+			arg(getIntName()));
 		ret = MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
 		if (ret < 0)
 			throw errorEx("Password input aborted", class_name);
@@ -499,8 +496,7 @@ void pki_evp::encryptKey(const char *password)
 		} else {
 			int ret = 0;
 			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
-			pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-				"Please enter the database password for encrypting the key"));
+			pass_info p(XCA_TITLE, tr("Please enter the database password for encrypting the key"));
 			while (md5passwd(ownPassBuf) != passHash &&
 				sha512passwd(ownPassBuf, passHash) != passHash )
 			{
@@ -588,7 +584,7 @@ void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem)
 {
 	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key") + " '" + getIntName() + "'");
+	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key '%1'").arg(getIntName()));
 	FILE *fp = fopen(QString2filename(fname), "w");
 	if (fp != NULL) {
 		if (key) {
@@ -623,7 +619,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 			pem_password_cb *cb, bool pem)
 {
 	EVP_PKEY *pkey;
-	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key") + " '" + getIntName() + "'");
+	pass_info p(XCA_TITLE, tr("Please enter the export password for the private key '%1'").arg(getIntName()));
 	if (isPubKey()) {
 		writePublic(fname, pem);
 		return;

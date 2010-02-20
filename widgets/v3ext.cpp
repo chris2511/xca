@@ -126,13 +126,14 @@ bool v3ext::__validate(bool showSuccess)
 		error += "\n";
 	}
 	if (! error.isEmpty()) {
-		QMessageBox::warning(this, XCA_TITLE, tr("Validation failed:")
-			+ "\n'" + str + "'\n" + error, tr("&OK"));
+		QMessageBox::warning(this, XCA_TITLE,
+			tr("Validation failed:\n'%1'").arg(str));
 		return false;
 	}
 	if (showSuccess) {
 		QMessageBox::information(this, XCA_TITLE,
-			tr("Validation successfull:\n'") + ext.getValue() + "'", tr("&OK"));
+			tr("Validation successfull:\n'%1'").
+			arg(ext.getValue()));
 	}
 	return true;
 }

@@ -1,10 +1,8 @@
-<ui version="4.0" >
- <author></author>
- <comment></comment>
- <exportmacro></exportmacro>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CaProperties</class>
- <widget class="QDialog" name="CaProperties" >
-  <property name="geometry" >
+ <widget class="QDialog" name="CaProperties">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -12,33 +10,30 @@
     <height>375</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Dialog</string>
-  </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>6</number>
    </property>
+   <property name="margin">
+    <number>9</number>
+   </property>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
+     </property>
+     <property name="margin">
+      <number>0</number>
      </property>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -47,27 +42,27 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="image" >
-       <property name="minimumSize" >
+      <widget class="QLabel" name="image">
+       <property name="minimumSize">
         <size>
          <width>200</width>
          <height>94</height>
         </size>
        </property>
-       <property name="scaledContents" >
+       <property name="scaledContents">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -79,10 +74,10 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>20</height>
@@ -91,8 +86,8 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLabel" name="certName" >
-     <property name="font" >
+    <widget class="QLabel" name="certName">
+     <property name="font">
       <font>
        <family>Arial</family>
        <pointsize>14</pointsize>
@@ -103,17 +98,14 @@
        <strikeout>false</strikeout>
       </font>
      </property>
-     <property name="text" >
-      <string>TextLabel</string>
-     </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>20</height>
@@ -122,43 +114,43 @@
     </spacer>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="title" >
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
       <string>CA properties</string>
      </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
+     <layout class="QGridLayout">
+      <property name="margin">
        <number>9</number>
       </property>
-      <property name="spacing" >
+      <property name="spacing">
        <number>6</number>
       </property>
-      <item row="0" column="1" >
-       <widget class="QLineEdit" name="serial" />
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="serial"/>
       </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="label_3" >
-        <property name="text" >
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
          <string>Next serial for signing</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1" >
-       <widget class="QSpinBox" name="days" />
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="days"/>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="label" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
          <string>Days until next CRL issuing</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1" >
-       <widget class="QComboBox" name="temp" />
+      <item row="2" column="1">
+       <widget class="QComboBox" name="temp"/>
       </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="label_2" >
-        <property name="text" >
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
          <string>Default template</string>
         </property>
        </widget>
@@ -168,10 +160,10 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -180,19 +172,19 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
+     </property>
+     <property name="margin">
+      <number>0</number>
      </property>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>131</width>
          <height>31</height>
@@ -201,15 +193,15 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="okButton">
+       <property name="text">
         <string>OK</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="cancelButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
         <string>Cancel</string>
        </property>
       </widget>
@@ -218,7 +210,6 @@
    </item>
   </layout>
  </widget>
- <pixmapfunction></pixmapfunction>
  <resources/>
  <connections>
   <connection>
@@ -227,11 +218,11 @@
    <receiver>CaProperties</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>278</x>
      <y>253</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>96</x>
      <y>254</y>
     </hint>
@@ -243,11 +234,11 @@
    <receiver>CaProperties</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>369</x>
      <y>253</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>179</x>
      <y>282</y>
     </hint>

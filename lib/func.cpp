@@ -20,6 +20,7 @@
 #include <qapplication.h>
 #include <qfile.h>
 #include <qstringlist.h>
+#include <qpushbutton.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -189,7 +190,7 @@ void applyTD(QWidget *parent, int number, int range, bool mnc,
 	t /= SECONDS_PER_DAY;
 	if (delta + t > 24850) {
 		QMessageBox::warning(parent, XCA_TITLE,
-			"Time difference too big\nYou must set it manually." );
+		   QObject::tr("Time difference too big\nYou must set it manually."));
 		return;
 	}
 	nb->setDate(a.now(), midnight);
@@ -267,11 +268,14 @@ QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
 bool mayWriteFile(const QString &fname)
 {
         if (QFile::exists(fname)) {
-		if (QMessageBox::information(NULL, XCA_TITLE,
-			QObject::tr("The file: ") + fname +
-			QObject::tr(" already exists"),
-			QObject::tr("Do not overwrite"),
-			QObject::tr("Overwrite")) != 1)
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+			QObject::tr("The file: '%1' already exists!").
+			arg(fname));
+		msg.addButton(QMessageBox::Ok)->setText(
+			QObject::tr("Overwrite"));
+		msg.addButton(QMessageBox::Cancel)->setText(
+			QObject::tr("Do not overwrite"));
+		if (msg.exec() != QMessageBox::Ok)
 	        {
 			return false;
 	        }

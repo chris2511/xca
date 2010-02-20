@@ -37,7 +37,7 @@ enum pki_type pki_base::getType()
 pki_base::~pki_base(void)
 {
 	while((childCount()))
-			delete takeFirst();
+		delete takeFirst();
 	pki_counter--;
 }
 
@@ -78,8 +78,8 @@ void pki_base::setIntName(const QString &d)
 
 void pki_base::fopen_error(const QString fname)
 {
-	QString txt = tr("Error opening file:") + " '" + fname + "' " +
-			strerror(errno);
+	QString txt = tr("Error opening file: '%1': %2").arg(fname).
+			arg(strerror(errno));
 	throw errorEx(txt, class_name);
 }
 

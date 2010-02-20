@@ -112,6 +112,6 @@ void CertDetail::setCert(pki_x509 *cert)
 
 		cert->openssl_error();
 	} catch (errorEx &err) {
-		QMessageBox::warning(this, tr(XCA_TITLE), err.getString());
+		QMessageBox::warning(this, XCA_TITLE, err.getString());
 	}
 }

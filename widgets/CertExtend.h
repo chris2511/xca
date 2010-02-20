@@ -9,6 +9,7 @@
 #define __CERTEXTEND_H
 
 #include "ui_CertExtend.h"
+#include "lib/pki_x509.h"
 
 class pki_key;
 
@@ -16,10 +17,13 @@ class CertExtend: public QDialog, public Ui::CertExtend
 {
 	Q_OBJECT
 
+	pki_x509 *signer;
+
    public:
-	CertExtend(QWidget *parent);
+	CertExtend(QWidget *parent, pki_x509 *s);
    public slots:
 	void applyTimeDiff();
+	void accept();
 
 };
 #endif

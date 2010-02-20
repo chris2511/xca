@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CrlDetail</class>
- <widget class="QDialog" name="CrlDetail" >
-  <property name="geometry" >
+ <widget class="QDialog" name="CrlDetail">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,27 +10,24 @@
     <height>352</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>CrlDetail_UI</string>
-  </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>8</number>
-   </property>
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>6</number>
    </property>
+   <property name="margin">
+    <number>8</number>
+   </property>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
+     <property name="margin">
+      <number>0</number>
+     </property>
      <item>
-      <widget class="QLabel" name="TextLabel1" >
-       <property name="font" >
+      <widget class="QLabel" name="TextLabel1">
+       <property name="font">
         <font>
          <family>Arial</family>
          <pointsize>14</pointsize>
@@ -40,20 +38,20 @@
          <strikeout>false</strikeout>
         </font>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Details of the Revocation list</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -62,20 +60,20 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="image" >
-       <property name="minimumSize" >
+      <widget class="QLabel" name="image">
+       <property name="minimumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="maximumSize" >
+       <property name="maximumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="scaledContents" >
+       <property name="scaledContents">
         <bool>true</bool>
        </property>
       </widget>
@@ -83,30 +81,30 @@
     </layout>
    </item>
    <item>
-    <widget class="QTabWidget" name="tabview" >
-     <property name="currentIndex" >
-      <number>0</number>
+    <widget class="QTabWidget" name="tabview">
+     <property name="currentIndex">
+      <number>3</number>
      </property>
-     <widget class="QWidget" name="unnamed" >
-      <attribute name="title" >
+     <widget class="QWidget" name="unnamed">
+      <attribute name="title">
        <string>&amp;Status</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>8</number>
-       </property>
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
+       </property>
+       <property name="margin">
+        <number>8</number>
        </property>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -115,142 +113,138 @@
         </spacer>
        </item>
        <item>
-        <widget class="QFrame" name="frame" >
-         <property name="frameShape" >
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
           <enum>QFrame::Box</enum>
          </property>
-         <property name="frameShadow" >
+         <property name="frameShadow">
           <enum>QFrame::Sunken</enum>
          </property>
-         <layout class="QGridLayout" >
-          <property name="margin" >
+         <layout class="QGridLayout">
+          <property name="margin">
            <number>8</number>
           </property>
-          <property name="spacing" >
+          <property name="spacing">
            <number>6</number>
           </property>
-          <item row="2" column="1" >
-           <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
-            <property name="spacing" >
+          <item row="2" column="1">
+           <layout class="QHBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
             <item>
-             <widget class="ClickLabel" name="signCheck" />
+             <widget class="ClickLabel" name="signCheck"/>
             </item>
             <item>
-             <widget class="QLabel" name="TextLabel1_3" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>0</hsizetype>
-                <vsizetype>1</vsizetype>
+             <widget class="QLabel" name="TextLabel1_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="text" >
+              <property name="text">
                <string>Version</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="version" >
-              <property name="sizePolicy" >
-               <sizepolicy>
-                <hsizetype>1</hsizetype>
-                <vsizetype>1</vsizetype>
+             <widget class="QLabel" name="version">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="frameShape" >
+              <property name="frameShape">
                <enum>QFrame::Panel</enum>
               </property>
-              <property name="frameShadow" >
+              <property name="frameShadow">
                <enum>QFrame::Sunken</enum>
               </property>
              </widget>
             </item>
            </layout>
           </item>
-          <item row="2" column="0" >
-           <widget class="QLabel" name="TextLabel6" >
-            <property name="text" >
+          <item row="2" column="0">
+           <widget class="QLabel" name="TextLabel6">
+            <property name="text">
              <string>Signature</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="TextLabel4" >
-            <property name="text" >
+          <item row="1" column="0">
+           <widget class="QLabel" name="TextLabel4">
+            <property name="text">
              <string>Signed by</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="TextLabel2" >
-            <property name="text" >
+          <item row="0" column="0">
+           <widget class="QLabel" name="TextLabel2">
+            <property name="text">
              <string>Name</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1" >
-           <widget class="QLineEdit" name="descr" >
-            <property name="toolTip" >
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="descr">
+            <property name="toolTip">
              <string>The internal name of the CRL in the database</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1" >
-           <widget class="ClickLabel" name="issuerIntName" />
+          <item row="1" column="1">
+           <widget class="ClickLabel" name="issuerIntName"/>
           </item>
          </layout>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox" >
-         <property name="title" >
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
           <string>issuing dates</string>
          </property>
-         <layout class="QGridLayout" >
-          <property name="margin" >
+         <layout class="QGridLayout">
+          <property name="margin">
            <number>8</number>
           </property>
-          <property name="spacing" >
+          <property name="spacing">
            <number>6</number>
           </property>
-          <item row="1" column="0" >
-           <widget class="QLabel" name="TextLabel2_2" >
-            <property name="text" >
+          <item row="1" column="0">
+           <widget class="QLabel" name="TextLabel2_2">
+            <property name="text">
              <string>Next Update</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="TextLabel1_2" >
-            <property name="text" >
+          <item row="0" column="0">
+           <widget class="QLabel" name="TextLabel1_2">
+            <property name="text">
              <string>Last Update</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1" >
-           <widget class="CopyLabel" name="nUpdate" >
-            <property name="frameShape" >
+          <item row="1" column="1">
+           <widget class="CopyLabel" name="nUpdate">
+            <property name="frameShape">
              <enum>QFrame::Panel</enum>
             </property>
-            <property name="frameShadow" >
+            <property name="frameShadow">
              <enum>QFrame::Sunken</enum>
             </property>
            </widget>
           </item>
-          <item row="0" column="1" >
-           <widget class="CopyLabel" name="lUpdate" >
-            <property name="frameShape" >
+          <item row="0" column="1">
+           <widget class="CopyLabel" name="lUpdate">
+            <property name="frameShape">
              <enum>QFrame::Panel</enum>
             </property>
-            <property name="frameShadow" >
+            <property name="frameShadow">
              <enum>QFrame::Sunken</enum>
             </property>
            </widget>
@@ -260,13 +254,13 @@
        </item>
        <item>
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>20</height>
@@ -276,86 +270,73 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="Widget9" >
-      <attribute name="title" >
+     <widget class="QWidget" name="Widget9">
+      <attribute name="title">
        <string>&amp;Issuer</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>11</number>
-       </property>
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
+       <property name="margin">
+        <number>11</number>
+       </property>
        <item>
-        <widget class="DistName" native="1" name="issuer" />
+        <widget class="DistName" name="issuer" native="true"/>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="unnamed_1" >
-      <attribute name="title" >
+     <widget class="QWidget" name="unnamed_1">
+      <attribute name="title">
        <string>&amp;Extensions</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>11</number>
-       </property>
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
+       <property name="margin">
+        <number>11</number>
+       </property>
        <item>
-        <widget class="QTextEdit" name="v3extensions" >
-         <property name="acceptDrops" >
+        <widget class="QTextEdit" name="v3extensions">
+         <property name="acceptDrops">
           <bool>false</bool>
          </property>
-         <property name="readOnly" >
+         <property name="readOnly">
           <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>&amp;Revocation list</string>
       </attribute>
-      <layout class="QVBoxLayout" >
-       <property name="margin" >
-        <number>11</number>
-       </property>
-       <property name="spacing" >
+      <layout class="QVBoxLayout">
+       <property name="spacing">
         <number>6</number>
        </property>
+       <property name="margin">
+        <number>11</number>
+       </property>
        <item>
-        <widget class="QTreeWidget" name="certList" >
-         <property name="alternatingRowColors" >
+        <widget class="QTreeWidget" name="certList">
+         <property name="alternatingRowColors">
           <bool>true</bool>
          </property>
-         <property name="selectionMode" >
+         <property name="selectionMode">
           <enum>QAbstractItemView::NoSelection</enum>
          </property>
-         <property name="rootIsDecorated" >
+         <property name="rootIsDecorated">
           <bool>false</bool>
          </property>
-         <property name="uniformRowHeights" >
+         <property name="uniformRowHeights">
           <bool>true</bool>
          </property>
-         <property name="columnCount" >
-          <number>3</number>
-         </property>
          <column>
-          <property name="text" >
+          <property name="text">
            <string>0</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>1</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>2</string>
           </property>
          </column>
         </widget>
@@ -365,22 +346,22 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
+     </property>
+     <property name="margin">
+      <number>0</number>
      </property>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>81</width>
          <height>40</height>
@@ -389,26 +370,24 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="but_ok" >
-       <property name="sizePolicy" >
-        <sizepolicy>
-         <hsizetype>3</hsizetype>
-         <vsizetype>0</vsizetype>
+      <widget class="QPushButton" name="but_ok">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>&amp;OK</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -419,8 +398,8 @@
     </layout>
    </item>
   </layout>
-  <widget class="QWidget" native="1" name="widget" >
-   <property name="geometry" >
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
@@ -432,11 +411,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CopyLabel</class>
-   <extends>QLabel</extends>
-   <header>widgets/clicklabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>ClickLabel</class>
    <extends>QLabel</extends>
    <header>widgets/clicklabel.h</header>
@@ -447,6 +421,11 @@
    <header>widgets/distname.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>CopyLabel</class>
+   <extends>QLabel</extends>
+   <header>widgets/clicklabel.h</header>
+  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -456,11 +435,11 @@
    <receiver>CrlDetail</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>367</x>
      <y>452</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>520</x>
      <y>428</y>
     </hint>

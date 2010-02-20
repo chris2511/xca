@@ -1,4 +1,5 @@
 
+  * improve messages, usability and german translation
   * improve token support
     - token initializing
     - creating keys on a token

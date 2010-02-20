@@ -77,7 +77,10 @@ class pki_x509 : public pki_x509super
 		int checkDate();
 		void addV3ext(const x509v3ext &e);
 		void sign(pki_key *signkey, const EVP_MD *digest);
-		X509 *getCert(){ return cert;}
+		X509 *getCert()
+		{
+			return cert;
+		}
 		int getTrust();
 		void setTrust(int t);
 		int getEffTrust();
@@ -87,15 +90,37 @@ class pki_x509 : public pki_x509super
 		a1time &getRevoked();
 		bool isRevoked();
 		int calcEffTrust();
-		a1int getIncCaSerial();
-		a1int getCaSerial();
-		void setCaSerial(a1int s);
-		void setTemplate(QString s);
-		QString getTemplate();
-		void setCrlDays(int s);
-		int getCrlDays();
+		a1int getIncCaSerial()
+		{
+			return caSerial++;
+		}
+		a1int getCaSerial()
+		{
+			return caSerial;
+		}
+		void setCaSerial(a1int s)
+		{
+			caSerial = s;
+		}
+		void setTemplate(QString s)
+		{
+			if (s.length() > 0)
+				caTemplate = s;
+		}
+		QString getTemplate()
+		{
+			return caTemplate;
+		}
+		void setCrlDays(int s)
+		{
+			if (s > 0)
+				crlDays = s;
+		}
+		int getCrlDays()
+		{
+			return crlDays;
+		}
 		void setCrlExpiry(const a1time &time);
-		int resetTimes(pki_x509 *signer);
 		bool hasExtension(int nid);
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
 		void updateView();

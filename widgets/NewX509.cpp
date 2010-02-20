@@ -119,15 +119,16 @@ NewX509::NewX509(QWidget *parent)
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
 	X509V3_set_ctx_nodb(&ext_ctx);
 
-	// setup the list of x509nameEntrys
-	name_ptr[0] = countryName;
-	name_ptr[1] = stateOrProvinceName;
-	name_ptr[2] = localityName;
-	name_ptr[3] = organisationName;
-	name_ptr[4] = organisationalUnitName;
-	name_ptr[5] = commonName;
-	name_ptr[6] = emailAddress;
+	QList<QLabel *> nameLabel;
+	nameLabel << LcountryName << LstateOrProvinceName << LlocalityName <<
+	LorganisationName << LorganisationalUnitName << LcommonName <<
+	LemailAddress;
 
+	for(int i=0; i<nameLabel.count(); i++) {
+		nameLabel[i]->setText(OBJ_nid2ln(name_nid[i]));
+		nameLabel[i]->setToolTip(OBJ_nid2sn(name_nid[i]));
+		name_ptr[i] = (QLineEdit *)nameLabel[i]->buddy();
+	}
 	// Setup Request Attributes
 	if (attrWidget->layout())
 		delete attrWidget->layout();
@@ -509,11 +510,6 @@ void NewX509::on_foreignSignRB_toggled(bool checked)
 	certList->setEnabled(checked);
 }
 
-void NewX509::on_selfSignRB_toggled(bool checked)
-{
-	serialNr->setEnabled(checked);
-}
-
 void NewX509::newKeyDone(QString name)
 {
 	QStringList keys;
@@ -529,11 +525,6 @@ void NewX509::newKeyDone(QString name)
 	if (name.isEmpty() && keys.count() >0)
 		name = keys[0];
 	keyList->setCurrentIndex(keys.indexOf(name));
-}
-
-void NewX509::on_noWellDefinedExpDate_toggled(bool)
-{
-	notAfter->setEnabled(!noWellDefinedExpDate->isChecked());
 }
 
 void NewX509::on_usedKeysToo_toggled(bool)
@@ -804,39 +795,43 @@ QString NewX509::mandatoryDnRemain()
 	return dnl.join(",");
 }
 
-void NewX509::on_okButton_clicked()
+void NewX509::accept()
 {
-	on_tabWidget_currentChanged(0);
+	int tabsub = tabWidget->count() != 5 ? 0 : 1;
 
+	on_tabWidget_currentChanged(0);
 	try {
 		getX509name(1);
 	} catch (errorEx &err) {
-		if (QMessageBox::warning(this, tr(XCA_TITLE), err.getString(),
-				tr("Ok"), tr("Abort rollout")) == 1)
-		{
+		tabWidget->setCurrentIndex(1);
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE, err.getString(),
+			QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok);
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		if (msg.exec() == QMessageBox::Close) {
 			reject();
 		}
 		return;
 	}
-
-	if (fromReqCB->isChecked()) {
-		 if (!getSelectedReq()->verify()) {
-			if (QMessageBox::warning(this, tr(XCA_TITLE),
-					tr("The verification of the Certificate request failed.\n"
-					"The rollout should be aborted."),
-					tr("Continue anyway"), tr("Abort rollout")) == 1)
-			{
-				reject();
-			}
+	if (fromReqCB->isChecked() && !getSelectedReq()->verify()) {
+		tabWidget->setCurrentIndex(0);
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+			tr("The verification of the Certificate request failed.\nThe rollout should be aborted."),
+			QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Continue anyway"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		if (msg.exec() == QMessageBox::Close) {
+			reject();
 		}
 	}
 	if (description->text().isEmpty() && !fromReqCB->isChecked()) {
 		if (commonName->text().isEmpty()) {
-			if (QMessageBox::warning(this, tr(XCA_TITLE),
-					tr("The internal name and the common name are empty.\n"
-					"Please set at least the internal name."),
-					tr("Ok"), tr("Abort rollout")) == 1)
-			{
+			tabWidget->setCurrentIndex(1);
+			QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+				tr("The internal name and the common name are empty.\nPlease set at least the internal name."), QMessageBox::NoButton, this);
+			msg.addButton(QMessageBox::Ok)->setText(tr("Edit name"));
+			msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+			if (msg.exec() == QMessageBox::Close) {
 				reject();
 			}
 			return;
@@ -844,70 +839,130 @@ void NewX509::on_okButton_clicked()
 			description->setText(commonName->text());
 		}
 	}
-
-	if ( keyList->count() == 0 &&
-		keyList->isEnabled() &&
-		!fromReqCB->isChecked())
+	if ( keyList->count() == 0 && keyList->isEnabled() &&
+				!fromReqCB->isChecked())
 	{
-		if (QMessageBox::warning(this, tr(XCA_TITLE),
-				tr("There is no Key selected for signing."),
-				tr("Ok"), tr("Abort rollout")) == 1)
-		{
+		tabWidget->setCurrentIndex(1);
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+			tr("There is no Key selected for signing."), QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Select key"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		if (msg.exec() == QMessageBox::Close) {
 			reject();
 		}
 		return;
 	}
-
 	QString unsetDN;
 	if (pt != tmpl)
 		unsetDN = mandatoryDnRemain();
-	if (!unsetDN.isEmpty())
-	{
-		switch (QMessageBox::warning(this, tr(XCA_TITLE),
-				tr("The following distinguished name entries are empty,\n"
-					"though you have declared them as mandatory "
-					"in the options menu:\n") + unsetDN,
-				tr("Ok"), tr("Abort rollout"),
-				tr("Continue rollout")))
+	if (!unsetDN.isEmpty()) {
+		tabWidget->setCurrentIndex(1);
+		QString text = tr("The following distinguished name entries are empty:\n%1\nthough you have declared them as mandatory in the options menu.").arg(unsetDN);
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+					text, QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit subject"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		switch (msg.exec())
 		{
-			case -1:
-			case 0:
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
 				return;
-			case 1:
+			case QMessageBox::Close:
 				reject();
 				return;
+			case QMessageBox::Apply:
+				break;
 		}
 	}
-	if (notBefore->getDate() > notAfter->getDate() &&
-				!noWellDefinedExpDate->isChecked()) {
-		switch (QMessageBox::warning(this, tr(XCA_TITLE),
-			tr("The certificate will be out of date before it becomes valid. "
-				"You most probably mixed up both dates."),
-			tr("Ok"), tr("Abort rollout"), tr("Continue rollout")))
+	if (notBefore->getDate() > notAfter->getDate()) {
+		tabWidget->setCurrentIndex(2-tabsub);
+		QString text = tr("The certificate will be out of date before it becomes valid. You most probably mixed up both dates.");
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+					text, QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText("Continue rollout");
+		switch (msg.exec())
 		{
-			case -1:
-			case 0:
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
 				return;
-			case 1:
+			case QMessageBox::Close:
 				reject();
 				return;
+			case QMessageBox::Apply:
+				break;
+		}
+	}
+	pki_x509 *signer = getSelectedSigner();
+	if (notBefore->getDate() < signer->getNotBefore() && !selfSignRB->isChecked()) {
+		tabWidget->setCurrentIndex(2-tabsub);
+		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+					text, QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit times"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		msg.addButton(QMessageBox::Yes)->setText(tr("Adjust date and continue"));
+		switch (msg.exec())
+		{
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
+				return;
+			case QMessageBox::Close:
+				reject();
+				return;
+			case QMessageBox::Apply:
+				break;
+			case QMessageBox::Yes:
+				notBefore->setDate(signer->getNotBefore());
+		}
+	}
+	if (notAfter->getDate() > signer->getNotAfter() &&
+				!noWellDefinedExpDate->isChecked() && !selfSignRB->isChecked()) {
+		tabWidget->setCurrentIndex(2-tabsub);
+		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+					text, QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit times"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		msg.addButton(QMessageBox::Yes)->setText(tr("Adjust date and continue"));
+		switch (msg.exec())
+		{
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
+				return;
+			case QMessageBox::Close:
+				reject();
+				return;
+			case QMessageBox::Apply:
+				break;
+			case QMessageBox::Yes:
+				notAfter->setDate(signer->getNotAfter());
 		}
 	}
 	on_adv_validate_clicked();
 	if (checkExtDuplicates()) {
-		switch (QMessageBox::warning(this, tr(XCA_TITLE),
-			tr("The certificate contains duplicated extensions. "
-				"Check the validation on the advanced tab."),
-			tr("Ok"), tr("Abort rollout"), tr("Continue rollout")))
+		tabWidget->setCurrentIndex(5-tabsub);
+		QString text = tr("The certificate contains duplicated extensions. Check the validation on the advanced tab.");
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+					text, QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit extensions"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		switch (msg.exec())
 		{
-			case -1:
-			case 0:
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
 				return;
-			case 1:
+			case QMessageBox::Close:
 				reject();
 				return;
+			case QMessageBox::Apply:
+				break;
 		}
 	}
-
-	accept();
+	QDialog::accept();
 }
