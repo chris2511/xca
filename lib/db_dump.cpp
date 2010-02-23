@@ -8,8 +8,9 @@
 #include "db.h"
 #include "exception.h"
 #include <stdlib.h>
+#include <qbytearray.h>
 
-const char *QString2filename(const QString &fname)
+QByteArray filename2bytearray(const QString &fname)
 {
 #ifdef WIN32
 	return fname.toLocal8Bit();
