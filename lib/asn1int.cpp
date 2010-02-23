@@ -96,8 +96,8 @@ void a1int::openssl_error()  const
 	QString errtxt;
 	QString error = "asn1 Integer error:";
 	while (int i = ERR_get_error() ) {
-	   errtxt = ERR_error_string(i ,NULL);
-	   error += errtxt + "\n";
+		errtxt = ERR_error_string(i ,NULL);
+		error += errtxt + "\n";
 	}
 	throw errorEx(error, "a1int");
 }
@@ -106,7 +106,7 @@ a1int &a1int::setHex(const QString &s)
 {
 	BIGNUM *bn=0;
 	if (!BN_hex2bn(&bn,s.toAscii()))
-	  openssl_error();
+		openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);
 	BN_free(bn);
 	return *this;
@@ -116,7 +116,7 @@ a1int &a1int::setDec(const QString &s)
 {
 	BIGNUM *bn=0;
 	if (!BN_dec2bn(&bn,s.toAscii()))
-	  openssl_error();
+		openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);
 	BN_free(bn);
 	return *this;
@@ -124,8 +124,9 @@ a1int &a1int::setDec(const QString &s)
 
 a1int &a1int::setRaw(const unsigned char *data, unsigned len)
 {
-	BIGNUM *bn=BN_bin2bn(data,len,NULL);
-	if (!bn) openssl_error();
+	BIGNUM *bn = BN_bin2bn(data, len, NULL);
+	if (!bn)
+		openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);
 	BN_free(bn);
 	return *this;
