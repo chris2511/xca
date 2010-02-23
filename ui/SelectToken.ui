@@ -141,7 +141,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="PushButton1">
+      <widget class="QPushButton" name="applyButton">
        <property name="text">
         <string>&amp;Store</string>
        </property>
@@ -157,7 +157,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>PushButton1</sender>
+   <sender>applyButton</sender>
    <signal>clicked()</signal>
    <receiver>SelectToken</receiver>
    <slot>accept()</slot>

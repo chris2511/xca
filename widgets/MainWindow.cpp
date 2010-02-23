@@ -388,6 +388,7 @@ void MainWindow::initToken()
 		ui.setupUi(select_slot);
 		ui.image->setPixmap(*MainWindow::scardImg);
 		ui.tokenBox->addItems(slotnames);
+		ui.applyButton->setText(tr("Select"));
 		if (select_slot->exec() == 0) {
 			delete select_slot;
 			return;

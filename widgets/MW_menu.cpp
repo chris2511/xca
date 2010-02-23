@@ -27,11 +27,12 @@ void MainWindow::init_menu()
 	file = menuBar()->addMenu(tr("&File"));
 	file->addAction(tr("&New DataBase"),  this, SLOT(new_database()));
 	file->addAction(tr("&Open DataBase"),  this, SLOT(load_database()));
-	file->addAction(tr("&Init Security token"),  this, SLOT(initToken()));
 	acList += file->addAction(tr("&Close DataBase"), this,
 			SLOT(close_database()));
 	acList += file->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()));
+	acList += file->addAction(tr("&Init Security token"),  this,
+				SLOT(initToken()));
 	acList += file->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
 	acList += file->addAction(tr("&Import old db_dump"), this,
