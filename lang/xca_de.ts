@@ -12,7 +12,7 @@
     <name>CaProperties</name>
     <message>
         <source>CA properties</source>
-        <translation>CA Einstellungen</translation>
+        <translation type="obsolete">CA Einstellungen</translation>
     </message>
     <message>
         <source>Next serial for signing</source>
@@ -33,6 +33,14 @@
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>CA Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use random Serial numbers</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -664,7 +672,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Copy to Clipboard</source>
@@ -926,6 +934,10 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <source>%1 missmatch</source>
         <translation>Keine %1 übereinstimmung</translation>
     </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewCrl</name>
@@ -1052,6 +1064,34 @@ Of course you need the private key of the CSR if you want to create a self-signe
     <message>
         <source>Show request</source>
         <translation>Request anzeigen</translation>
+    </message>
+    <message>
+        <source>Country code</source>
+        <translation>Länder code</translation>
+    </message>
+    <message>
+        <source>State or Province</source>
+        <translation>Bundesland, Kreis</translation>
+    </message>
+    <message>
+        <source>Locality</source>
+        <translation>Ort</translation>
+    </message>
+    <message>
+        <source>Organisation</source>
+        <translation>Firma</translation>
+    </message>
+    <message>
+        <source>Organisational unit</source>
+        <translation>Firmenabteilung</translation>
+    </message>
+    <message>
+        <source>Common name</source>
+        <translation>Üblicher Name</translation>
+    </message>
+    <message>
+        <source>E-Mail address</source>
+        <translation>E-Mail Adresse</translation>
     </message>
     <message>
         <source>Sign this Certificate signing &amp;request</source>
@@ -1575,6 +1615,10 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <source>Advanced Settings Error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organisational unit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

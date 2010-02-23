@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>About</name>
     <message>
@@ -8,10 +10,6 @@
 </context>
 <context>
     <name>CaProperties</name>
-    <message>
-        <source>CA properties</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Next serial for signing</source>
         <translation type="unfinished"></translation>
@@ -31,6 +29,14 @@
     <message>
         <source>Cancel</source>
         <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <source>CA Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use random Serial numbers</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -681,10 +687,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Copy to Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -922,6 +924,10 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>%1 missmatch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1571,6 +1577,34 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <source>Advanced Settings Error: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organisation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Country code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State or Province</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organisational unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E-Mail address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Common name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

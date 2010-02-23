@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>NewX509</class>
  <widget class="QDialog" name="NewX509">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>598</width>
+    <height>613</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QHBoxLayout">
@@ -418,6 +426,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </item>
             <item row="0" column="2">
              <widget class="QLabel" name="LorganisationName">
+              <property name="toolTip">
+               <string>Organisation</string>
+              </property>
               <property name="buddy">
                <cstring>organisationName</cstring>
               </property>
@@ -452,6 +463,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="LcountryName">
+              <property name="toolTip">
+               <string>Country code</string>
+              </property>
               <property name="buddy">
                <cstring>countryName</cstring>
               </property>
@@ -459,6 +473,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="LstateOrProvinceName">
+              <property name="toolTip">
+               <string>State or Province</string>
+              </property>
               <property name="buddy">
                <cstring>stateOrProvinceName</cstring>
               </property>
@@ -469,6 +486,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="LlocalityName">
+              <property name="toolTip">
+               <string>Locality</string>
+              </property>
               <property name="buddy">
                <cstring>localityName</cstring>
               </property>
@@ -476,6 +496,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </item>
             <item row="1" column="2">
              <widget class="QLabel" name="LorganisationalUnitName">
+              <property name="toolTip">
+               <string>Organisational unit</string>
+              </property>
               <property name="buddy">
                <cstring>organisationalUnitName</cstring>
               </property>
@@ -483,6 +506,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </item>
             <item row="3" column="2">
              <widget class="QLabel" name="LemailAddress">
+              <property name="toolTip">
+               <string>E-Mail address</string>
+              </property>
               <property name="buddy">
                <cstring>emailAddress</cstring>
               </property>
@@ -509,6 +535,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </item>
             <item row="2" column="2">
              <widget class="QLabel" name="LcommonName">
+              <property name="toolTip">
+               <string>Common name</string>
+              </property>
               <property name="buddy">
                <cstring>commonName</cstring>
               </property>
@@ -579,15 +608,6 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </attribute>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>true</bool>
-            </attribute>
-            <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="horizontalHeaderVisible">
-             <bool>false</bool>
             </attribute>
            </widget>
           </item>
@@ -1624,7 +1644,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <hints>
     <hint type="sourcelabel">
      <x>89</x>
-     <y>518</y>
+     <y>599</y>
     </hint>
     <hint type="destinationlabel">
      <x>179</x>
@@ -1639,8 +1659,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>771</x>
-     <y>520</y>
+     <x>587</x>
+     <y>599</y>
     </hint>
     <hint type="destinationlabel">
      <x>304</x>
@@ -1655,12 +1675,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>289</y>
+     <x>291</x>
+     <y>324</y>
     </hint>
     <hint type="destinationlabel">
-     <x>324</x>
-     <y>287</y>
+     <x>565</x>
+     <y>326</y>
     </hint>
    </hints>
   </connection>
@@ -1671,12 +1691,28 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>656</x>
-     <y>298</y>
+     <x>566</x>
+     <y>341</y>
     </hint>
     <hint type="destinationlabel">
-     <x>162</x>
-     <y>302</y>
+     <x>226</x>
+     <y>343</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>foreignSignRB</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>certList</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>342</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>342</y>
     </hint>
    </hints>
   </connection>

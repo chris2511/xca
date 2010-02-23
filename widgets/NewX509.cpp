@@ -126,7 +126,9 @@ NewX509::NewX509(QWidget *parent)
 
 	for(int i=0; i<nameLabel.count(); i++) {
 		nameLabel[i]->setText(OBJ_nid2ln(name_nid[i]));
-		nameLabel[i]->setToolTip(OBJ_nid2sn(name_nid[i]));
+		QString tt = nameLabel[i]->toolTip();
+		nameLabel[i]->setToolTip(QString("[%1] %2").
+			arg(OBJ_nid2sn(name_nid[i])).arg(tt));
 		name_ptr[i] = (QLineEdit *)nameLabel[i]->buddy();
 	}
 	// Setup Request Attributes
