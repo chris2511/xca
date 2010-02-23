@@ -75,6 +75,10 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	EVP_PKEY_free(privkey);
 }
 
+QString pki_x509req::getFriendlyClassName()
+{
+	return isSpki() ? tr("SPKAC request") : tr("PKCS#10 request");
+}
 
 void pki_x509req::fromPEM_BIO(BIO *bio, QString name)
 {

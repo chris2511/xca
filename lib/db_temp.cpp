@@ -136,6 +136,7 @@ void db_temp::newItem()
 		temp->setIntName("--");
 		if (runTempDlg(temp)) {
 			insertPKI(temp);
+			createSuccess(temp);
 			return;
 		}
 	}

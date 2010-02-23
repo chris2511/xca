@@ -56,6 +56,11 @@ pki_x509::pki_x509(const QString name)
 	openssl_error();
 }
 
+QString pki_x509::getFriendlyClassName()
+{
+	return tr("certificate");
+}
+
 void pki_x509::fromPEM_BIO(BIO *bio, QString name)
 {
 	X509 *_cert;

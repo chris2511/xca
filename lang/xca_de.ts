@@ -11,10 +11,6 @@
 <context>
     <name>CaProperties</name>
     <message>
-        <source>CA properties</source>
-        <translation type="obsolete">CA Einstellungen</translation>
-    </message>
-    <message>
         <source>Next serial for signing</source>
         <translation>Nächste Seriennummer beim signieren</translation>
     </message>
@@ -36,11 +32,11 @@
     </message>
     <message>
         <source>CA Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>CA Einstellungen</translation>
     </message>
     <message>
         <source>Use random Serial numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende zufällige Seriennummern</translation>
     </message>
 </context>
 <context>
@@ -556,6 +552,10 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
     </message>
+    <message>
+        <source>Successfully imported the %1 &apos;%2&apos;</source>
+        <translation>%1 erfolgreich importiert als &apos;%2&apos;</translation>
+    </message>
 </context>
 <context>
     <name>KeyDetail</name>
@@ -669,10 +669,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <source>The following error occured:</source>
         <translation>Der folgende Fehler ist aufgetreten:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Copy to Clipboard</source>
@@ -937,6 +933,10 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <source>Select</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Using or exporting private keys will not be possible without providing the correct password</source>
+        <translation>Die Benutzung oder der Export privater Schlüssel ist nur mit dem richtigen Datenbankpasswort möglich</translation>
     </message>
 </context>
 <context>
@@ -1617,10 +1617,6 @@ though you have declared them as mandatory in the options menu.</source>
         <source>Advanced Settings Error: %1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Organisational unit</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Options</name>
@@ -1998,6 +1994,13 @@ Bitte die Zeiten manuell einstellen.</translation>
     </message>
 </context>
 <context>
+    <name>db_base</name>
+    <message>
+        <source>Successfully created the %1 &apos;%2&apos;</source>
+        <translation>%1 erfolgreich erstellt als &apos;%2&apos;</translation>
+    </message>
+</context>
+<context>
     <name>db_crl</name>
     <message>
         <source>Name</source>
@@ -2013,7 +2016,7 @@ Bitte die Zeiten manuell einstellen.</translation>
     </message>
     <message>
         <source>No. revoked</source>
-        <translation type="unfinished">Anzahl</translation>
+        <translation>Anzahl</translation>
     </message>
     <message>
         <source>Next update</source>
@@ -2533,6 +2536,10 @@ und wurde daher nicht importiert</translation>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
+    <message>
+        <source>certificate revokation list</source>
+        <translation>Zertifikatssperrliste</translation>
+    </message>
 </context>
 <context>
     <name>pki_evp</name>
@@ -2565,10 +2572,6 @@ und wurde daher nicht importiert</translation>
         <translation>Kein Passwort</translation>
     </message>
     <message>
-        <source>Please enter the database password for decrypting the key</source>
-        <translation>Bitte das Datenbankpasswort zur Entschlüsselung eingeben</translation>
-    </message>
-    <message>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Bitte geben sie das Passwort zur Verschlüsselung des privaten Schlüssels: &apos;%1&apos; ein</translation>
     </message>
@@ -2583,6 +2586,10 @@ und wurde daher nicht importiert</translation>
     <message>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Bitte das Passwort zum Schutz des privaten Schlüssels &apos;%1&apos; eingeben</translation>
+    </message>
+    <message>
+        <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
+        <translation>Bitte das Datenbankpasswort zur Entschlüsselung des Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
 </context>
 <context>
@@ -2610,6 +2617,14 @@ und wurde daher nicht importiert</translation>
     <message>
         <source>PIN</source>
         <translation>PIN</translation>
+    </message>
+    <message>
+        <source>%1 public key</source>
+        <translation>Öffentlicher %1 Schlüssel</translation>
+    </message>
+    <message>
+        <source>%1 private key</source>
+        <translation>Privater %1 Schlüssel</translation>
     </message>
 </context>
 <context>
@@ -2710,6 +2725,10 @@ und wurde daher nicht importiert</translation>
         <source>Template file content error (bad length) :%1</source>
         <translation>Templatefile ungültig (länge): %1</translation>
     </message>
+    <message>
+        <source>XCA template</source>
+        <translation>XCA Vorlage</translation>
+    </message>
 </context>
 <context>
     <name>pki_x509</name>
@@ -2749,6 +2768,10 @@ und wurde daher nicht importiert</translation>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Das Zertifikat &apos;%1&apos; von der Smartcard &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
+    <message>
+        <source>certificate</source>
+        <translation>Zertifikat</translation>
+    </message>
 </context>
 <context>
     <name>pki_x509req</name>
@@ -2767,6 +2790,14 @@ und wurde daher nicht importiert</translation>
     <message>
         <source>Unhandled</source>
         <translation>Unbehandelt</translation>
+    </message>
+    <message>
+        <source>SPKAC request</source>
+        <translation>SPKAC Zertifikatsanfrage</translation>
+    </message>
+    <message>
+        <source>PKCS#10 request</source>
+        <translation>PKCS#10 Zertifikatsanfrage</translation>
     </message>
 </context>
 <context>

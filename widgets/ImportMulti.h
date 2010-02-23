@@ -27,7 +27,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		~ImportMulti();
 		void addItem(pki_base *pki);
 		pki_base *getSelected();
-		void import(QModelIndex &idx);
+		pki_base *import(QModelIndex &idx);
 		void execute(int force=0);
 		int entries();
 

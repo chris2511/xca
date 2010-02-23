@@ -57,6 +57,7 @@ class pki_crl: public pki_base
 		a1int getVersion();
 		QVariant column_data(int col);
 		QVariant getIcon(int column);
+		virtual QString getFriendlyClassName();
 };
 
 #endif

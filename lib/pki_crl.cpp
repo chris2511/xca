@@ -35,6 +35,11 @@ void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 	setIntName(rmslashdot(name));
 }
 
+QString pki_crl::getFriendlyClassName()
+{
+	return tr("certificate revokation list");
+}
+
 void pki_crl::fload(const QString fname )
 {
 	FILE *fp = fopen(QString2filename(fname), "r");

@@ -96,7 +96,7 @@ pki_base* db_key::insert(pki_base *item)
 			QMessageBox::information(mainwin, XCA_TITLE,
 			tr("The key is already in the database as:\n'%1'\nand is not going to be imported").arg(oldkey->getIntName()));
 			delete(lkey);
-			return oldkey;
+			return NULL;
 		}
 		else {
 			QMessageBox::information(mainwin, XCA_TITLE,
@@ -162,6 +162,8 @@ void db_key::newItem(QString name)
 		}
 		key = (pki_key*)insert(key);
 		emit keyDone(key->getIntNameWithType());
+		createSuccess(key);
+
 	} catch (errorEx &err) {
 		delete key;
 		mainwin->Error(err);

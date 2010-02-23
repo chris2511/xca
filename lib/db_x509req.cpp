@@ -41,7 +41,7 @@ pki_base *db_x509req::insert(pki_base *item)
 		QMessageBox::information(mainwin, XCA_TITLE,
 		tr("The certificate signing request already exists in the database as\n'%1'\nand thus was not stored").arg(oldreq->getIntName()));
 		delete(req);
-		return oldreq;
+		return NULL;
 	}
 	insertPKI(req);
 	return req;
@@ -71,7 +71,7 @@ void db_x509req::newItem(pki_temp *temp)
 		dlg->initCtx(NULL, NULL, req);
 		dlg->addReqAttributes(req);
 		req->createReq(key, xn, dlg->hashAlgo->currentHash(), dlg->getAllExt());
-		insert(req);
+		createSuccess(insert(req));
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);

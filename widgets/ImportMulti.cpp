@@ -119,13 +119,13 @@ void ImportMulti::on_butImport_clicked()
 	}
 }
 
-void ImportMulti::import(QModelIndex &idx)
+pki_base *ImportMulti::import(QModelIndex &idx)
 {
 
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 
 	if (!pki)
-		return;
+		return NULL;
 	if (!mainwin->keys) {
 		mainwin->load_database();
 	}
@@ -134,28 +134,30 @@ void ImportMulti::import(QModelIndex &idx)
 	mcont->remFromCont(idx);
 	if (!mainwin->keys) {
 		delete pki;
-		return;
+		return NULL;
 	}
 
 	if (cn == "pki_x509") {
-		MainWindow::certs->insert(pki);
+		pki = MainWindow::certs->insert(pki);
 	} else if (cn == "pki_evp") {
 		((pki_evp*)pki)->setOwnPass(pki_evp::ptCommon);
-		MainWindow::keys->insert(pki);
+		pki = MainWindow::keys->insert(pki);
 	} else if (cn == "pki_scard") {
-		MainWindow::keys->insert(pki);
+		pki = MainWindow::keys->insert(pki);
 	} else if (cn == "pki_x509req") {
-		MainWindow::reqs->insert(pki);
+		pki = MainWindow::reqs->insert(pki);
 	} else if (cn == "pki_crl") {
-		MainWindow::crls->insert(pki);
+		pki = MainWindow::crls->insert(pki);
 	} else if (cn == "pki_temp") {
-		MainWindow::temps->insert(pki);
+		pki = MainWindow::temps->insert(pki);
 	} else  {
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("The type of the Item '%1' is not recognized").
 			arg(cn));
 		delete pki;
+		return NULL;
 	}
+	return pki;
 }
 
 void ImportMulti::on_butDetails_clicked()
@@ -239,7 +241,14 @@ void ImportMulti::execute(int force)
 		return;
 	/* if there is only 1 item and force is 0 import it silently */
 	if (entries() == 1 && force == 0) {
-		on_butOk_clicked();
+		QModelIndex idx = mcont->index(0, 0, QModelIndex());
+		pki_base *pki = import(idx);
+		if (pki)
+			QMessageBox::information(this, XCA_TITLE,
+				tr("Successfully imported the %1 '%2'").
+				arg(pki->getFriendlyClassName()).
+				arg(pki->getIntName()));
+		accept();
 		return;
 	}
 	/* the behavoiour for more than one item */

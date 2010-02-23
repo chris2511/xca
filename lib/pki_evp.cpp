@@ -390,7 +390,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 			int ret;
 			//printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
 				//CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
-			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key"));
+			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key '%1'").arg(getIntName()));
 			ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
 			if (ret < 0)
 				throw errorEx(tr("Password input aborted"), class_name);

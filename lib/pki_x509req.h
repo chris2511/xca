@@ -46,7 +46,10 @@ class pki_x509req : public pki_x509super
 		x509name getSubject() const;
 		bool isSpki() const;
 		void writeReq(const QString fname, bool pem);
-		X509_REQ *getReq() {return request;}
+		X509_REQ *getReq()
+		{
+			return request;
+		}
 		void addAttribute(int nid, QString content);
 
 		int verify();
@@ -59,8 +62,16 @@ class pki_x509req : public pki_x509super
 		ASN1_IA5STRING *spki_challange();
 		QVariant column_data(int col);
 		QVariant getIcon(int column);
-		void setDone() { done = true; }
-		bool getDone() { return done; }
+		void setDone()
+		{
+			done = true;
+		}
+		bool getDone()
+		{
+			return done;
+		}
+		virtual QString getFriendlyClassName();
+
 };
 
 #endif

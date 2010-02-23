@@ -86,7 +86,7 @@ void db_x509super::toTemplate()
 		        d->exec();
 		        delete d;
 		}
-		mainwin->temps->insert(temp);
+		createSuccess(mainwin->temps->insert(temp));
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);

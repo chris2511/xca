@@ -44,6 +44,8 @@ class pki_key: public pki_base
 		virtual QString getIntNameWithType(void);
 		virtual QList<int> possibleHashNids()
 			{ return QList<int>(); };
+		virtual QString getFriendlyClassName();
+
 
 		void writePublic(const QString fname, bool pem);
 		bool compare(pki_base *ref);

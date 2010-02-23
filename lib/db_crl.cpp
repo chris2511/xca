@@ -94,7 +94,7 @@ pki_base *db_crl::insert(pki_base *item)
 		QMessageBox::information(mainwin, XCA_TITLE,
 			tr("The revokation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
 		delete(crl);
-		return oldcrl;
+		return NULL;
 	}
 	insertPKI(crl);
 	return crl;
@@ -211,7 +211,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 
 		crl->sign(cert->getRefKey(), ui.hashAlgo->currentHash());
 		mainwin->certs->updatePKI(cert);
-		insert(crl);
+		createSuccess(insert(crl));
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);

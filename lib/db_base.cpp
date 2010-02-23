@@ -39,6 +39,17 @@ pki_base *db_base::newPKI(db_header_t *head){
 	return new pki_base("rootItem");
 }
 
+void db_base::createSuccess(pki_base *pki)
+{
+	if (!pki)
+		return;
+
+	QMessageBox::information(mainwin, XCA_TITLE,
+		tr("Successfully created the %1 '%2'").
+		arg(pki->getFriendlyClassName()).
+		arg(pki->getIntName()));
+}
+
 void db_base::remFromCont(QModelIndex &idx)
 {
 	if (!idx.isValid())

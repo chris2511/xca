@@ -63,6 +63,12 @@ QString pki_key::getTypeString()
 	return type;
 }
 
+QString pki_key::getFriendlyClassName()
+{
+	QString txt = isPubKey() ? tr("%1 public key") : tr("%1 private key");
+	return txt.arg(getTypeString());
+}
+
 QString pki_key::getIntNameWithType()
 {
 	return getIntName() + " (" + getTypeString() + ")";

@@ -137,6 +137,7 @@ class pki_x509 : public pki_x509super
 		QVariant getIcon(int column);
 		QByteArray i2d();
 		void deleteFromToken();
+		virtual QString getFriendlyClassName();
 };
 
 #endif

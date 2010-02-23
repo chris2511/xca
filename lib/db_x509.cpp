@@ -315,7 +315,7 @@ pki_base *db_x509::insert(pki_base *item)
 		QMessageBox::information(mainwin, XCA_TITLE,
 		tr("The certificate already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcert->getIntName()));
 		delete(cert);
-		return oldcert;
+		return NULL;
 	}
 	cert->setCaSerial((cert->getSerial()));
 	insertPKI(cert);
@@ -542,7 +542,7 @@ void db_x509::newCert(NewX509 *dlg)
 #endif
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
-	insert(cert);
+	createSuccess(insert(cert));
 	updatePKI(signcert);
 	if (tempkey != NULL)
 		delete(tempkey);
@@ -1048,7 +1048,7 @@ void db_x509::toRequest()
 		req->setIntName(cert->getIntName());
 		req->createReq(cert->getRefKey(), cert->getSubject(),
 			cert->getRefKey()->getDefaultMD(), cert->getV3ext());
-		mainwin->reqs->insert(req);
+		createSuccess(mainwin->reqs->insert(req));
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);

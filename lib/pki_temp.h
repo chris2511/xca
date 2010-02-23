@@ -46,6 +46,8 @@ class pki_temp: public pki_base
 		void writeTemp(QString fname);
 		QVariant column_data(int col);
 		QVariant getIcon(int column);
+		virtual QString getFriendlyClassName();
+
 };
 
 #endif

@@ -90,6 +90,11 @@ pki_temp::pki_temp(const QString d)
 	noWellDefined=false;
 }
 
+QString pki_temp::getFriendlyClassName()
+{
+	return tr("XCA template");
+}
+
 static QStringList extVlistToString(extList &el, int nid, bool *crit)
 {
 	int i = el.idxByNid(nid);

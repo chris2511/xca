@@ -37,19 +37,28 @@ class pki_base : public QObject
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
 		virtual void fload(const QString) {};
-		virtual void writeDefault(const QString){};
+		virtual void writeDefault(const QString) {};
 		static int get_pki_counter(void);
-		virtual void fromData(const unsigned char *, db_header_t *){};
+		virtual void fromData(const unsigned char *, db_header_t *) {};
 		virtual void oldFromData(unsigned char *p, int size);
-		virtual unsigned char *toData(int *) { return NULL; }
-		virtual bool compare(pki_base *) { return false; };
+		virtual unsigned char *toData(int *)
+		{
+			return NULL;
+		}
+		virtual bool compare(pki_base *)
+		{
+			return false;
+		};
 		virtual ~pki_base();
 		QString getIntName() const;
 		QString getUnderlinedName() const;
 		void setIntName(const QString &d);
 		QString getClassName();
 		static QString rmslashdot(const QString &fname);
-
+		virtual QString getFriendlyClassName()
+		{
+			return QString("---");
+		};
 		int getVersion();
 		enum pki_type getType();
 		void setParent(pki_base *p);
@@ -65,7 +74,10 @@ class pki_base : public QObject
 		int columns();
 		virtual QVariant column_data(int col);
 		virtual QVariant getIcon(int column);
-		const char *className() { return class_name; };
+		const char *className()
+		{
+			return class_name;
+		};
 		uint32_t intFromData(const unsigned char **p);
 		virtual void fromPEM_BIO(BIO *, QString) {};
 		virtual void deleteFromToken() { };

@@ -552,6 +552,10 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Successfully imported the %1 &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>KeyDetail</name>
@@ -928,6 +932,10 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1983,6 +1991,13 @@ You must set it manually.</source>
     </message>
 </context>
 <context>
+    <name>db_base</name>
+    <message>
+        <source>Successfully created the %1 &apos;%2&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>db_crl</name>
     <message>
         <source>Name</source>
@@ -2507,6 +2522,10 @@ and thus was not stored</source>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>certificate revokation list</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_evp</name>
@@ -2539,10 +2558,6 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter the database password for decrypting the key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2556,6 +2571,10 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2583,6 +2602,14 @@ and thus was not stored</source>
     </message>
     <message>
         <source>PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 private key</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2684,6 +2711,10 @@ and thus was not stored</source>
         <source>Template file content error (bad length) :%1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>XCA template</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_x509</name>
@@ -2723,6 +2754,10 @@ and thus was not stored</source>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_x509req</name>
@@ -2740,6 +2775,14 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Unhandled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SPKAC request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -121,6 +121,10 @@ void MainWindow::init_database()
 	}
 	setWindowTitle(tr(XCA_TITLE));
 	setItemEnabled(true);
+	if (pki_evp::passwd[0] == '\0')
+		QMessageBox::information(this, XCA_TITLE,
+			tr("Using or exporting private keys will not be possible without providing the correct password"));
+
 	dbindex->setText(tr("Database") + ":" + dbfile);
 	load_engine();
 }
