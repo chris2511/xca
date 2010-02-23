@@ -293,7 +293,6 @@ a1int db_x509::getUniqueSerial(pki_x509 *signer)
 	do {
 		dup = false;
 		serial = signer->getIncCaSerial();
-		printf("SERIAL: %lu\n", serial.getLong());
 		FOR_ALL_pki(pki, pki_x509)
 			if (pki->getSigner() == signer)  {
 				if (serial == pki->getSerial()) {

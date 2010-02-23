@@ -137,7 +137,7 @@ void db_base::delete_ask()
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 
-	if (QMessageBox::information(mainwin, XCA_TITLE,
+	if (QMessageBox::question(mainwin, XCA_TITLE,
 				delete_txt.arg(pki->getIntName()),
 				QMessageBox::Ok | QMessageBox::Cancel) !=
 				QMessageBox::Ok)
@@ -202,7 +202,7 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 	else
 		msg = delete_multi_txt.arg(count).arg(items);
 
-	if (QMessageBox::information(mainwin, XCA_TITLE, msg,
+	if (QMessageBox::question(mainwin, XCA_TITLE, msg,
 				QMessageBox::Ok | QMessageBox::Cancel) !=
 				QMessageBox::Ok)
 		return;

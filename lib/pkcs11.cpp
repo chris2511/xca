@@ -291,16 +291,17 @@ int pkcs11::deleteObjects(pk11_attlist &atts)
 	return objects.count();
 }
 
+#define ID_LEN 8
 pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
 {
 	pk11_attr_data id(CKA_ID);
 	pk11_attr_ulong class_att(CKA_CLASS, oclass);
 
 	while (1) {
-		unsigned char buf[4];
+		unsigned char buf[ID_LEN];
 		pk11_attlist atts(class_att);
-		RAND_pseudo_bytes(buf, 4);
-		id.setValue(buf, 4);
+		RAND_pseudo_bytes(buf, ID_LEN);
+		id.setValue(buf, ID_LEN);
 		atts << id;
 		if (objectList(atts).count() == 0)
 			break;

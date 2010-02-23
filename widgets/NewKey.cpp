@@ -126,7 +126,6 @@ NewKey::NewKey(QWidget *parent, QString name)
 			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
 			if (ml.contains(CKM_RSA_PKCS_KEY_PAIR_GEN)) {
 				keyListItem tk(&p11, slot, CKM_RSA_PKCS_KEY_PAIR_GEN);
-				printf("'%s'\n", CCHAR(tk.printname));
 				keytypes << tk;
 			}
 		}

@@ -264,12 +264,10 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		if (key->isToken() && pkcs11::loaded()) {
 			menu->addAction(tr("Change PIN"), this,
 				SLOT(changePin()));
-#if 0
 			menu->addAction(tr("Init PIN with SO PIN (PUK)"), this,
 				SLOT(initPin()));
 			menu->addAction(tr("Change SO PIN (PUK)"), this,
 				SLOT(changeSoPin()));
-#endif
 		}
 		if (!key->isToken() && pkcs11::loaded()) {
 			menu->addAction(tr("Store on Security token"),

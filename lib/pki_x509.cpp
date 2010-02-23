@@ -271,7 +271,8 @@ void pki_x509::store_token()
 	p11_atts <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_data(CKA_SUBJECT, getSubject().i2d()) <<
-		pk11_attr_data(CKA_LABEL, desc.toUtf8());
+		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
+		card->getIdAttr();
 
 	if (p11.tokenLogin(getIntName(), false).isNull())
 		return;
