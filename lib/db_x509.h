@@ -51,6 +51,7 @@ class db_x509: public db_x509super
 		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 		void inToCont(pki_base *pki);
 		void changeView();
+		a1int getUniqueSerial(pki_x509 *signer);
 
 	public slots:
 		void load(void);

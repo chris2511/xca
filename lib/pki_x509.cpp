@@ -16,6 +16,7 @@
 #include "widgets/MainWindow.h"
 #include <qdir.h>
 #include <qmessagebox.h>
+#include <openssl/rand.h>
 
 QPixmap *pki_x509::icon[5] = { NULL, NULL, NULL, NULL, NULL };
 
@@ -119,9 +120,10 @@ void pki_x509::init()
 	class_name = "pki_x509";
 	cert = NULL;
 	isrevoked = false;
-	dataVersion=1;
-	pkiType=x509;
-	cols=6;
+	dataVersion = 2;
+	pkiType = x509;
+	cols = 6;
+	randomSerial = false;
 }
 
 void pki_x509::setSerial(const a1int &serial)
@@ -137,6 +139,18 @@ a1int pki_x509::getSerial() const
 {
 	a1int a(X509_get_serialNumber(cert));
 	return a;
+}
+
+#define SERIAL_LEN 8
+a1int pki_x509::getIncCaSerial()
+{
+	unsigned char buf[SERIAL_LEN];
+	if (!randomSerial)
+		return caSerial++;
+	RAND_pseudo_bytes(buf, SERIAL_LEN);
+	a1int serial;
+	serial.setRaw(buf, SERIAL_LEN);
+	return serial;
 }
 
 a1int pki_x509::hashInfo(const EVP_MD *md) const
@@ -448,8 +462,11 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	caSerial.setHex(db::stringFromData(&p1));
 	caTemplate = db::stringFromData(&p1);
 	crlDays = db::intFromData(&p1);
-	crlExpiry.d2i(p1, size - (p1-p));
-
+	p1 = crlExpiry.d2i(p1, size - (p1-p));
+	if (version > 1)
+		randomSerial = db::boolFromData(&p1);
+	else
+		randomSerial = false;
 	if (cert)
 		X509_free(cert_sik);
 	else
@@ -463,7 +480,7 @@ unsigned char *pki_x509::toData(int *size)
 	unsigned char *p, *p1;
 
 	// calculate the needed size
-	*size = i2d_X509(cert, NULL) + 11 + caSerial.toHex().length() +
+	*size = i2d_X509(cert, NULL) + 12 + caSerial.toHex().length() +
 		caTemplate.length() + crlExpiry.derSize() + revoked.derSize();
 	openssl_error();
 	p = p1 = (unsigned char*)OPENSSL_malloc(*size);
@@ -480,6 +497,7 @@ unsigned char *pki_x509::toData(int *size)
 	// version 3
 	db::intToData(&p1, crlDays); // the CRL period
 	p1 = crlExpiry.i2d(p1); // last CRL date
+	db::boolToData(&p1, randomSerial);
 	openssl_error();
 	if (*size != p1-p) {
 		printf("pki_x509::toData: Size = %d, real size=%zd\n", *size, p1-p);

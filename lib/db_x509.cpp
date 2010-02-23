@@ -272,16 +272,39 @@ a1int db_x509::searchSerial(pki_x509 *signer)
 	// returns the highest certificate serial
 	// of all certs with this signer (itself too)
 	a1int sserial, myserial;
-	if (!signer) return sserial;
+	if (!signer)
+		return sserial;
 	sserial = signer->getCaSerial();
 	FOR_ALL_pki(pki, pki_x509)
 		if (pki->getSigner() == signer)  {
 			myserial = pki->getSerial();
-			if (sserial < myserial ) {
+			if (sserial < myserial) {
 				sserial = myserial;
 			}
 		}
 	return sserial;
+}
+
+a1int db_x509::getUniqueSerial(pki_x509 *signer)
+{
+	// returnes an unused unique serial
+	a1int serial;
+	bool dup;
+	do {
+		dup = false;
+		serial = signer->getIncCaSerial();
+		printf("SERIAL: %lu\n", serial.getLong());
+		FOR_ALL_pki(pki, pki_x509)
+			if (pki->getSigner() == signer)  {
+				if (serial == pki->getSerial()) {
+					dup = true;
+					break;
+				}
+			}
+	} while (dup);
+	if (!signer->usesRandomSerial())
+		updatePKI(signer);
+	return serial;
 }
 
 pki_base *db_x509::insert(pki_base *item)
@@ -433,7 +456,7 @@ void db_x509::newCert(NewX509 *dlg)
 		signcert = dlg->getSelectedSigner();
 		if (!signcert)
 			return;
-		serial = signcert->getIncCaSerial();
+		serial = getUniqueSerial(signcert);
 		signkey = signcert->getRefKey();
 		cert->setTrust(1);
 #ifdef WG_QA_SERIAL
@@ -962,13 +985,7 @@ void db_x509::extendCert()
 			return;
 		}
 		newcert = new pki_x509(oldcert);
-		serial = signer->getIncCaSerial();
-
-		// get signers own serial to avoid having the same
-		if (serial == signer->getSerial()) {
-			serial = signer->getIncCaSerial(); // just take the next one
-		}
-		updatePKI(signer);
+		serial = getUniqueSerial(signer);
 
 		// change date and serial
 		newcert->setSerial(serial);
@@ -1060,6 +1077,8 @@ void db_x509::caProperties()
 	QDialog *dlg = new QDialog(mainwin);
 	ui.setupUi(dlg);
 	ui.serial->setText(cert->getCaSerial().toHex());
+	ui.serial->setDisabled(cert->usesRandomSerial());
+	ui.randomSerial->setChecked(cert->usesRandomSerial());
 	ui.days->setSuffix(tr(" days"));
 	ui.days->setMaximum(1000000);
 	ui.days->setValue(cert->getCrlDays());
@@ -1072,14 +1091,14 @@ void db_x509::caProperties()
 	}
 	ui.temp->addItems(tempList);
 	ui.temp->setCurrentIndex(i);
-	ui.certName->setText(cert->getIntName());
+	ui.certName->setTitle(cert->getIntName());
 	if (dlg->exec()) {
 		a1int nserial;
 		cert->setCrlDays(ui.days->value());
 		nserial.setHex(ui.serial->text());
-		if (nserial > cert->getCaSerial())
-			cert->setCaSerial(nserial);
+		cert->setCaSerial(nserial);
 		cert->setTemplate(ui.temp->currentText());
+		cert->setUseRandomSerial(ui.randomSerial->isChecked());
 		updatePKI(cert);
 	}
 	delete dlg;

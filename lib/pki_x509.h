@@ -26,7 +26,7 @@ class pki_x509 : public pki_x509super
 	private:
 		pki_x509 *psigner;
 		a1time revoked, crlExpiry;
-		bool isrevoked;
+		bool isrevoked, randomSerial;
 		int trust;
 		int efftrust;
 		a1int caSerial;
@@ -90,10 +90,7 @@ class pki_x509 : public pki_x509super
 		a1time &getRevoked();
 		bool isRevoked();
 		int calcEffTrust();
-		a1int getIncCaSerial()
-		{
-			return caSerial++;
-		}
+		a1int getIncCaSerial();
 		a1int getCaSerial()
 		{
 			return caSerial;
@@ -119,6 +116,14 @@ class pki_x509 : public pki_x509super
 		int getCrlDays()
 		{
 			return crlDays;
+		}
+		bool usesRandomSerial()
+		{
+			return randomSerial;
+		}
+		void setUseRandomSerial(bool r)
+		{
+			randomSerial = r;
 		}
 		void setCrlExpiry(const a1time &time);
 		bool hasExtension(int nid);
