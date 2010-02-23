@@ -898,7 +898,8 @@ void NewX509::accept()
 		}
 	}
 	pki_x509 *signer = getSelectedSigner();
-	if (notBefore->getDate() < signer->getNotBefore() && !selfSignRB->isChecked()) {
+	if (signer && notBefore->getDate() < signer->getNotBefore() &&
+					!selfSignRB->isChecked()) {
 		tabWidget->setCurrentIndex(2-tabsub);
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
@@ -921,8 +922,9 @@ void NewX509::accept()
 				notBefore->setDate(signer->getNotBefore());
 		}
 	}
-	if (notAfter->getDate() > signer->getNotAfter() &&
-				!noWellDefinedExpDate->isChecked() && !selfSignRB->isChecked()) {
+	if (signer && notAfter->getDate() > signer->getNotAfter() &&
+				!noWellDefinedExpDate->isChecked() &&
+				!selfSignRB->isChecked()) {
 		tabWidget->setCurrentIndex(2-tabsub);
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
