@@ -89,6 +89,10 @@ class NewX509: public QDialog, public Ui::NewX509
 		void switchHashAlgo();
 		void addReqAttributes(pki_x509req *req);
 		int checkExtDuplicates();
+		void subjectFromTemplate(pki_temp *temp);
+		void extensionsFromTemplate(pki_temp *temp);
+		pki_temp *currentTemplate();
+
 	public slots:
 		void on_fromReqCB_clicked();
 		void on_keyList_currentIndexChanged(const QString &);
@@ -106,6 +110,8 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_showReqBut_clicked();
 		void on_certList_currentIndexChanged(int index);
 		void on_applyTemplate_clicked();
+		void on_applySubject_clicked();
+		void on_applyExtensionse_clicked();
 		void on_adv_validate_clicked();
 		void on_usedKeysToo_toggled(bool checked);
 		void on_tabWidget_currentChanged(int idx);

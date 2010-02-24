@@ -300,9 +300,16 @@ static QString lb2QString(QListWidget *lb)
 	return sl.join(", ");
 }
 
-void NewX509::fromTemplate(pki_temp *temp)
+void NewX509::subjectFromTemplate(pki_temp *temp)
 {
-	setX509name(temp->xname);
+	if (temp)
+		setX509name(temp->xname);
+}
+
+void NewX509::extensionsFromTemplate(pki_temp *temp)
+{
+	if (!temp)
+		return;
 	subAltName->setText(temp->subAltName);
 	issAltName->setText(temp->issAltName);
 	crlDist->setText(temp->crlDist);
@@ -331,6 +338,12 @@ void NewX509::fromTemplate(pki_temp *temp)
 	noWellDefinedExpDate->setChecked(temp->noWellDefined);
 	notBefore->setNow();
 	on_applyTime_clicked();
+}
+
+void NewX509::fromTemplate(pki_temp *temp)
+{
+	subjectFromTemplate(temp);
+	extensionsFromTemplate(temp);
 }
 
 void NewX509::toTemplate(pki_temp *temp)
@@ -492,18 +505,30 @@ void NewX509::templateChanged(pki_temp *templ)
 	templateChanged(tempname);
 }
 
-void NewX509::on_applyTemplate_clicked()
+pki_temp *NewX509::currentTemplate()
 {
 	pki_temp *temp = NULL;
 	if (!tempList->isEnabled())
-		return;
+		return NULL;
 	QString name = tempList->currentText();
 	if (name.isEmpty())
-		return;
-	temp = (pki_temp *)MainWindow::temps->getByName(name);
-	if (!temp)
-		return;
-	fromTemplate(temp);
+		return NULL;
+	return (pki_temp *)MainWindow::temps->getByName(name);
+}
+
+void NewX509::on_applyTemplate_clicked()
+{
+	fromTemplate(currentTemplate());
+}
+
+void NewX509::on_applySubject_clicked()
+{
+	subjectFromTemplate(currentTemplate());
+}
+
+void NewX509::on_applyExtensionse_clicked()
+{
+	extensionsFromTemplate(currentTemplate());
 }
 
 void NewX509::on_foreignSignRB_toggled(bool checked)
