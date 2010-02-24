@@ -31,8 +31,10 @@ void MainWindow::init_menu()
 			SLOT(close_database()));
 	acList += file->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()));
-	acList += file->addAction(tr("&Init Security token"),  this,
+	if (pkcs11::loaded()) {
+		acList += file->addAction(tr("&Init Security token"),  this,
 				SLOT(initToken()));
+	}
 	acList += file->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
 	acList += file->addAction(tr("&Import old db_dump"), this,

@@ -8,6 +8,7 @@
 #include <openssl/rand.h>
 #include <qmessagebox.h>
 #include <ltdl.h>
+#include "ui_SelectToken.h"
 
 CK_FUNCTION_LIST *pkcs11::p11 = NULL;
 lt_dlhandle pkcs11::dl_handle = NULL;
@@ -188,6 +189,35 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 		return QString("");
 	}
 	return QString::fromLocal8Bit(pin, pinlen);
+}
+
+bool pkcs11::selectToken(unsigned long *slot, QWidget *w)
+{
+	QList<unsigned long> p11_slots = getSlotList();
+	if (p11_slots.count() == 0) {
+		QMessageBox::warning(w, XCA_TITLE,
+			QObject::tr("No Security token found"));
+		return false;
+	}
+	QStringList slotnames;
+	for (int i=0; i<p11_slots.count(); i++) {
+		QStringList info = tokenInfo(p11_slots[i]);
+		slotnames << QString("%1 (#%2)").
+			arg(info[0]).arg(info[2]);
+	}
+	Ui::SelectToken ui;
+	QDialog *select_slot = new QDialog(w);
+	ui.setupUi(select_slot);
+	ui.image->setPixmap(*MainWindow::scardImg);
+	ui.tokenBox->addItems(slotnames);
+	if (select_slot->exec() == 0) {
+		delete select_slot;
+		return false;
+	}
+	int selected = ui.tokenBox->currentIndex();
+	*slot = p11_slots[selected];
+	delete select_slot;
+	return true;
 }
 
 void pkcs11::setPin(unsigned char *oldPin, unsigned long oldPinLen,

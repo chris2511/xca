@@ -1,4 +1,10 @@
 
+  * PIN and PUK changing implemented
+  * apply partial template-contents
+    - applying the subject only or the extensions only is possible now
+  * add informational messageboxes
+    - whenever an item was successfully created or imported
+  * add support for random serial numbers
   * improve messages, usability and german translation
   * improve token support
     - token initializing

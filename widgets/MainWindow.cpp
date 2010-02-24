@@ -35,7 +35,6 @@
 #include "ui_PassRead.h"
 #include "ui_PassWrite.h"
 #include "ui_About.h"
-#include "ui_SelectToken.h"
 
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
@@ -371,35 +370,18 @@ void MainWindow::initToken()
 		return;
 	try {
 		pkcs11 p11;
-		QList<unsigned long> p11_slots = p11.getSlotList();
-		if (p11_slots.count() == 0) {
-			QMessageBox::warning(this, XCA_TITLE,
-				tr("No Security token found"));
+		unsigned long slot;
+
+		if (!p11.selectToken(&slot, this))
 			return;
-		}
-		QStringList slotnames;
-		for (int i=0; i<p11_slots.count(); i++) {
-			QStringList info = p11.tokenInfo(p11_slots[i]);
-			slotnames << QString("%1 (#%2)").
-				arg(info[0]).arg(info[2]);
-		}
-		Ui::SelectToken ui;
-		QDialog *select_slot = new QDialog(this);
-		ui.setupUi(select_slot);
-		ui.image->setPixmap(*MainWindow::scardImg);
-		ui.tokenBox->addItems(slotnames);
-		ui.applyButton->setText(tr("Select"));
-		if (select_slot->exec() == 0) {
-			delete select_slot;
-			return;
-		}
-		int selected = ui.tokenBox->currentIndex();
-		unsigned int slot = p11_slots[selected];
-		delete select_slot;
+
+		QStringList info = p11.tokenInfo(slot);
+		QString slotname = QString("%1 (#%2)").
+			arg(info[0]).arg(info[2]);
 
 		pass_info p(XCA_TITLE,
 			tr("Please enter the SO PIN (PUK) of the token '%1'").
-			arg(slotnames[selected]));
+			arg(slotname));
 		p.setPin();
 		char pin[MAX_PASS_LENGTH];
 		int pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
@@ -407,7 +389,7 @@ void MainWindow::initToken()
 			return;
 		QString label = QInputDialog::getText(this, XCA_TITLE,
 			tr("The new label of the token '%1'").
-			arg(slotnames[selected]));
+			arg(slotname));
 		p11.initToken(slot, (unsigned char*)pin, pinlen, label);
 		p11.startSession(slot, true);
 		p11.login((unsigned char*)pin, pinlen, true);

@@ -21,7 +21,6 @@
 
 #include "exception.h"
 #include "ui_NewKey.h"
-#include "ui_SelectToken.h"
 #include "pkcs11.h"
 
 #include "widgets/MainWindow.h"
@@ -186,29 +185,10 @@ void db_key::toToken()
 		return;
 	try {
 		pkcs11 p11;
-		QList<unsigned long> p11_slots = p11.getSlotList();
-		if (p11_slots.count() == 0) {
-			QMessageBox::warning(mainwin, XCA_TITLE,
-				tr("No Security token found"));
+		unsigned long slot;
+
+		if (!p11.selectToken(&slot, mainwin))
 			return;
-		}
-		QStringList slotnames;
-		for (int i=0; i<p11_slots.count(); i++) {
-			QStringList info = p11.tokenInfo(p11_slots[i]);
-			slotnames << QString("%1 (#%2)").
-				arg(info[0]).arg(info[2]);
-		}
-		Ui::SelectToken ui;
-		QDialog *select_slot = new QDialog(mainwin);
-		ui.setupUi(select_slot);
-		ui.image->setPixmap(*MainWindow::scardImg);
-		ui.tokenBox->addItems(slotnames);
-		if (select_slot->exec() == 0) {
-			delete select_slot;
-			return;
-		}
-		unsigned int slot = p11_slots[ui.tokenBox->currentIndex()];
-		delete select_slot;
 		pki_scard *card = new pki_scard(key->getIntName());
 		card->store_token(slot, key->decryptKey());
 		QString msg = tr("Shall the original key '%1' be replaced by the key on the token?\nThis will delete the key '%1' and make it unexportable").

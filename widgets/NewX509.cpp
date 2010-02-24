@@ -507,7 +507,6 @@ void NewX509::templateChanged(pki_temp *templ)
 
 pki_temp *NewX509::currentTemplate()
 {
-	pki_temp *temp = NULL;
 	if (!tempList->isEnabled())
 		return NULL;
 	QString name = tempList->currentText();

@@ -242,16 +242,21 @@ QByteArray pki_x509::i2d()
 
 void pki_x509::store_token()
 {
-	pki_scard *card = (pki_scard *)privkey;
-	unsigned long slot;
+	pki_scard *card = NULL;
+	unsigned long slot = 0;
 	x509name xname;
 	QList<CK_OBJECT_HANDLE> objects;
 
-	if (!privkey || !privkey->isToken())
-		throw errorEx(tr("No associated security token"));
+	pkcs11 p11;
 
-	if (!card->prepare_card(&slot))
-		return;
+	if (!privkey || !privkey->isToken()) {
+		if (!p11.selectToken(&slot, NULL))
+			return;
+	} else {
+		card = (pki_scard *)privkey;
+		if (!card->prepare_card(&slot))
+			return;
+	}
 
 	pk11_attlist p11_atts;
 	p11_atts <<
@@ -259,7 +264,6 @@ void pki_x509::store_token()
 		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
 		pk11_attr_data(CKA_VALUE, i2d());
 
-	pkcs11 p11;
 	p11.startSession(slot, true);
 
 	QList<CK_OBJECT_HANDLE> objs = p11.objectList(p11_atts);
@@ -268,11 +272,12 @@ void pki_x509::store_token()
 		    tr("This certificate is already on the security token"));
 		return;
 	}
+
 	p11_atts <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_data(CKA_SUBJECT, getSubject().i2d()) <<
 		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
-		card->getIdAttr();
+		(card ? card->getIdAttr() : p11.findUniqueID(CKO_CERTIFICATE));
 
 	if (p11.tokenLogin(getIntName(), false).isNull())
 		return;

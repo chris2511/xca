@@ -627,7 +627,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		canSign = cert->canSign();
 		hasTemplates = mainwin->temps->getDesc().count() > 0 ;
 		privkey = cert->getRefKey();
-		hasScard = privkey && privkey->isToken() && pkcs11::loaded();
+		hasScard = pkcs11::loaded();
 
 		itemRevoke->setEnabled(parentCanSign);
 		itemExtend->setEnabled(parentCanSign);

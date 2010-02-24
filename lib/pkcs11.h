@@ -60,6 +60,7 @@ class pkcs11
 		int deleteObjects(pk11_attlist &atts);
 		void initToken(unsigned long slot, unsigned char *pin,
 			int pinlen, QString label);
+		bool selectToken(unsigned long *slot, QWidget *w);
 };
 
 #endif
