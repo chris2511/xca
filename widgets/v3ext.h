@@ -13,6 +13,7 @@
 #include <qlineedit.h>
 #include <qstringlist.h>
 #include <openssl/x509v3.h>
+#include "widgets/kvView.h"
 
 class pki_x509;
 class pki_key;
@@ -27,7 +28,6 @@ class v3ext: public QDialog, public Ui::v3ext
 		bool __validate(bool showSuccess);
 	public:
 		v3ext( QWidget *parent);
-		~v3ext();
 		void addItem(QString list);
 		void addEntry(QString list);
 		QString toString();
@@ -35,8 +35,6 @@ class v3ext: public QDialog, public Ui::v3ext
 				X509V3_CTX *ctx);
 
 	public slots:
-		void on_delEntry_clicked();
-		void on_addEntry_clicked();
 		void on_apply_clicked();
 		void on_validate_clicked();
 };

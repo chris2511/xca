@@ -14,6 +14,7 @@
 #include "lib/db.h"
 #include <openssl/x509v3.h>
 #include <qlistwidget.h>
+#include "widgets/kvView.h"
 
 class MainWindow;
 class extList;
@@ -47,6 +48,8 @@ class NewX509: public QDialog, public Ui::NewX509
 		pki_x509 *ctx_cert;
 		QString v3ext_backup;
 		QString valid_htmltext;
+		kvmodel *extDNmodel;
+
 	public:
 		static int name_nid[EXPLICIT_NAME_CNT];
 		QRadioButton *selfQASignRB;
@@ -98,8 +101,6 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_keyList_currentIndexChanged(const QString &);
 		void on_reqList_currentIndexChanged(const QString &);
 		void newKeyDone(QString name);
-		void on_extDNadd_clicked();
-		void on_extDNdel_clicked();
 		void on_applyTime_clicked();
 		void on_editSubAlt_clicked();
 		void on_editIssAlt_clicked();
@@ -111,7 +112,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_certList_currentIndexChanged(int index);
 		void on_applyTemplate_clicked();
 		void on_applySubject_clicked();
-		void on_applyExtensionse_clicked();
+		void on_applyExtensions_clicked();
 		void on_adv_validate_clicked();
 		void on_usedKeysToo_toggled(bool checked);
 		void on_tabWidget_currentChanged(int idx);

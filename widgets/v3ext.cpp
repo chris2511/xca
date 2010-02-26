@@ -5,7 +5,6 @@
  * All rights reserved.
  */
 
-
 #include "v3ext.h"
 #include <qlabel.h>
 #include <qlistwidget.h>
@@ -20,27 +19,18 @@ v3ext::v3ext(QWidget *parent)
 	:QDialog(parent)
 {
 	setupUi(this);
-	QStringList sl;
-	sl << "Type" << "Content";
-	tableWidget->setColumnCount(2);
-	tableWidget->setHorizontalHeaderLabels(sl);
-	setWindowTitle(tr(XCA_TITLE));
-}
-
-v3ext::~v3ext()
-{
+	setWindowTitle(XCA_TITLE);
 }
 
 void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 		X509V3_CTX *ctx)
 {
-	type->addItems(sl);
 	nid = n;
 	le = myle;
 	if (le)
 		addItem(le->text());
-
 	ext_ctx = ctx;
+	tab->setKeys(sl);
 }
 
 void v3ext::addItem(QString list)
@@ -55,57 +45,27 @@ void v3ext::addItem(QString list)
 /* for one TYPE:Content String */
 void v3ext::addEntry(QString line)
 {
-	int i, row;
-	QTableWidgetItem *tw;
-
-	i = line.indexOf(':');
-	if (i<0 || line.isEmpty())
-		return;
-
-	row = tableWidget->rowCount();
-	tableWidget->setRowCount(row+1);
-
-	tw = new QTableWidgetItem(line.left(i));
-	tableWidget->setItem(row, 0, tw);
-
-	tw = new QTableWidgetItem(line.right(line.length()-(i+1)));
-	tableWidget->setItem(row, 1, tw);
+	QStringList s = line.split(':');
+	if (s.count() > 1)
+		tab->addRow(s[0], s[1]);
 }
 
 QString v3ext::toString()
 {
 	QStringList str;
-	int i, row = tableWidget->rowCount();
+	int i, row = tab->rowCount();
 
 	for (i=0; i<row; i++) {
-		QString s;
-		s = tableWidget->item(i,0)->text().trimmed();
-		if (!s.contains(':'))
-			s += ":" + tableWidget->item(i,1)->text().trimmed();
-		str += s;
+		QStringList s = tab->getRow(i);
+		str += s[0] + ":" +s[1];
 	}
 	return str.join(",");
 }
 
-
-void v3ext::on_delEntry_clicked()
-{
-	tableWidget->removeRow(tableWidget->currentRow());
-}
-
-void v3ext::on_addEntry_clicked()
-{
-	QString line;
-
-	line = type->currentText();
-	if ( ! line.contains(':') )
-		line += ":" + value->text();
-	addEntry(line);
-}
-
 void v3ext::on_apply_clicked()
 {
-	le->setText(toString());
+	if (le)
+		le->setText(toString());
 	__validate(false);
 	accept();
 }

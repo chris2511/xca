@@ -9,7 +9,6 @@
 #include "db_base.h"
 #include "exception.h"
 #include <qmessagebox.h>
-#include <qdir.h>
 #include <qlistview.h>
 #include <qdir.h>
 

@@ -420,13 +420,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
          <property name="title">
           <string>Distinguished name</string>
          </property>
-         <layout class="QVBoxLayout">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="margin">
-           <number>8</number>
-          </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
            <layout class="QGridLayout">
             <property name="margin">
@@ -571,63 +565,61 @@ If this list is disabled, you only can create a self-signed certificate.</string
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="margin">
-             <number>0</number>
-            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QComboBox" name="extDNobj"/>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="extDNname">
-              <property name="maxLength">
-               <number>100</number>
+             <widget class="kvView" name="extDNlist">
+              <property name="editTriggers">
+               <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
               </property>
+              <property name="alternatingRowColors">
+               <bool>true</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SingleSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>200</number>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="extDNadd">
-              <property name="text">
-               <string>Add</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="extDNdel">
-              <property name="text">
-               <string>Delete</string>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <widget class="QPushButton" name="extDNadd">
+                <property name="text">
+                 <string>Add</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="extDNdel">
+                <property name="text">
+                 <string>Delete</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </item>
            </layout>
-          </item>
-          <item>
-           <widget class="QTableWidget" name="extDNlist">
-            <property name="selectionMode">
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <property name="rowCount">
-             <number>0</number>
-            </property>
-            <property name="columnCount">
-             <number>0</number>
-            </property>
-            <attribute name="horizontalHeaderVisible">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-             <bool>true</bool>
-            </attribute>
-            <attribute name="horizontalHeaderStretchLastSection">
-             <bool>true</bool>
-            </attribute>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -1591,6 +1583,15 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <extends>QComboBox</extends>
    <header>widgets/hashBox.h</header>
   </customwidget>
+  <customwidget>
+   <class>kvView</class>
+   <extends>QTableView</extends>
+   <header>widgets/kvView.h</header>
+   <slots>
+    <slot>addKvRow()</slot>
+    <slot>deleteCurrentRow()</slot>
+   </slots>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>tabWidget</tabstop>
@@ -1612,11 +1613,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
   <tabstop>organisationalUnitName</tabstop>
   <tabstop>commonName</tabstop>
   <tabstop>emailAddress</tabstop>
-  <tabstop>extDNobj</tabstop>
-  <tabstop>extDNname</tabstop>
   <tabstop>extDNadd</tabstop>
   <tabstop>extDNdel</tabstop>
-  <tabstop>extDNlist</tabstop>
   <tabstop>keyList</tabstop>
   <tabstop>genKeyBut</tabstop>
   <tabstop>basicCA</tabstop>
@@ -1747,6 +1745,38 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
     <hint type="destinationlabel">
      <x>402</x>
      <y>147</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>extDNdel</sender>
+   <signal>clicked()</signal>
+   <receiver>extDNlist</receiver>
+   <slot>deleteCurrentRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>641</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>530</x>
+     <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>extDNadd</sender>
+   <signal>clicked()</signal>
+   <receiver>extDNlist</receiver>
+   <slot>addKvRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>621</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>493</x>
+     <y>261</y>
     </hint>
    </hints>
   </connection>

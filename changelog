@@ -1,4 +1,5 @@
 
+  * improve key-value table input for "additional DN entries"
   * PIN and PUK changing implemented
   * apply partial template-contents
     - applying the subject only or the extensions only is possible now

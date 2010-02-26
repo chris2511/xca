@@ -45,21 +45,21 @@ NewX509::NewX509(QWidget *parent)
 	aia_nid = *MainWindow::aia_nid;
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
 
-	QStringList sl;
+	QStringList keys;
 
 	setupUi(this);
 
 	/* temporary storage for creating temporary X509V3_CTX */
 	ctx_cert = NULL;
 
-	sl << "Type" << "Content";
-	extDNlist->setColumnCount(2);
-	extDNlist->setHorizontalHeaderLabels(sl);
-	setWindowTitle(tr(XCA_TITLE));
+	for (i=0; i < dn_nid.count(); i++)
+		keys << QString(OBJ_nid2ln(dn_nid[i]));
+
+	extDNlist->setKeys(keys);
+	setWindowTitle(XCA_TITLE);
 
 	nsImg->setPixmap(*MainWindow::nsImg);
-	//setFont( tFont );
-	serialNr->setValidator( new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
+	serialNr->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
 	QStringList strings;
 
 	// are there any useable private keys  ?
@@ -106,10 +106,6 @@ NewX509::NewX509(QWidget *parent)
 	// setup Extended keyusage
 	for (i=0; i < eku_nid.count(); i++)
 		ekeyUsage->addItem(OBJ_nid2ln(eku_nid[i]));
-
-	// setup Distinguished Name
-	for (i=0; i < dn_nid.count(); i++)
-		extDNobj->addItem(OBJ_nid2ln(dn_nid[i]));
 
 	// setup Authority Info Access
 	for (i=0; i < aia_nid.count(); i++)
@@ -525,7 +521,7 @@ void NewX509::on_applySubject_clicked()
 	subjectFromTemplate(currentTemplate());
 }
 
-void NewX509::on_applyExtensionse_clicked()
+void NewX509::on_applyExtensions_clicked()
 {
 	extensionsFromTemplate(currentTemplate());
 }
@@ -595,8 +591,9 @@ x509name NewX509::getX509name(int _throw)
 		}
 		row = extDNlist->rowCount();
 		for (j=0; j<row; j++) {
-			nid = OBJ_ln2nid(CCHAR(extDNlist->item(j,0)->text()));
-			x.addEntryByNid(nid, extDNlist->item(j,1)->text());
+			QStringList l = extDNlist->getRow(j);
+			nid = OBJ_ln2nid(CCHAR(l[0]));
+			x.addEntryByNid(nid, l[1]);
 		}
 	} catch (errorEx &err) {
 		if (!err.isEmpty()) {
@@ -612,11 +609,8 @@ x509name NewX509::getX509name(int _throw)
 void NewX509::setX509name(const x509name &n)
 {
 	int i,j;
-#if QT_VERSION >= 0x040200
-	extDNlist->clearContents();
-#else
-	extDNlist->clear();
-#endif
+
+	extDNlist->deleteAllRows();
 	for (j=0; j<EXPLICIT_NAME_CNT; j++) {
 		name_ptr[j]->setText("");
 	}
@@ -630,40 +624,22 @@ void NewX509::setX509name(const x509name &n)
 			}
 		}
 		if (j == EXPLICIT_NAME_CNT) {
-			QTableWidgetItem *tw;
-			int row;
-
-			row = extDNlist->rowCount();
-			extDNlist->setRowCount(row+1);
-
-			for (int i=0; i<2; i++) {
-				tw = new QTableWidgetItem(sl[i+1]);
-				extDNlist->setItem(row, i, tw);
-			}
+			sl << sl[1] << sl[2];
+			extDNlist->addRow(sl[1], sl[2]);
 		}
 	}
 }
-
+#if 0
 void NewX509::on_extDNadd_clicked()
 {
-	QTableWidgetItem *tw;
-	int row;
-
-	row = extDNlist->rowCount();
-	extDNlist->setRowCount(row+1);
-
-	tw = new QTableWidgetItem(extDNobj->currentText());
-	extDNlist->setItem(row, 0, tw);
-
-	tw = new QTableWidgetItem(extDNname->text());
-	extDNlist->setItem(row, 1, tw);
+	extDNlismodel->addRow(QString("commonName"), QString());
 }
 
 void NewX509::on_extDNdel_clicked()
 {
-	extDNlist->removeRow(extDNlist->currentRow());
+	extDNmodel->removeRows(extDNlist->currentIndex().row(), 1, QModelIndex());
 }
-
+#endif
 void NewX509::on_applyTime_clicked()
 {
 	applyTD(this, validNumber->text().toInt(), validRange->currentIndex(),
@@ -772,16 +748,12 @@ void NewX509::on_adv_validate_clicked()
 void NewX509::on_editSubAlt_clicked()
 {
 	QString s = "email,RID,URI,DNS,IP,otherName";
-	if (pt != x509_req)
-		s = QString("email:copy,") + s;
 	editV3ext(subAltName, s, NID_subject_alt_name);
 }
 
 void NewX509::on_editIssAlt_clicked()
 {
 	QString s = "email,RID,URI,DNS,IP,otherName";
-	if (pt != x509_req)
-	        s = QString("issuer:copy,") +s ;
 	editV3ext(issAltName, s, NID_issuer_alt_name);
 }
 

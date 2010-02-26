@@ -465,7 +465,7 @@ void MainWindow::importScard()
 				cert = NULL;
 			}
 		}
-		dlgi->execute();
+		dlgi->execute(true);
 	} catch (errorEx &err) {
 		Error(err);
         }
