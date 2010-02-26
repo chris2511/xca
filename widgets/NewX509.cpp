@@ -58,6 +58,10 @@ NewX509::NewX509(QWidget *parent)
 	extDNlist->setKeys(keys);
 	setWindowTitle(XCA_TITLE);
 
+	for (i=0; i<tabWidget->count(); i++) {
+		tabnames << tabWidget->tabText(i);
+	}
+
 	nsImg->setPixmap(*MainWindow::nsImg);
 	serialNr->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"), this));
 	QStringList strings;
@@ -793,15 +797,23 @@ QString NewX509::mandatoryDnRemain()
 	return dnl.join(",");
 }
 
+void NewX509::gotoTab(int tab)
+{
+	for (int i=0; i<tabWidget->count(); i++) {
+		if (tabWidget->tabText(i) == tabnames[tab]) {
+			tabWidget->setCurrentIndex(i);
+			break;
+		}
+	}
+}
+
 void NewX509::accept()
 {
-	int tabsub = tabWidget->count() != 5 ? 0 : 1;
-
 	on_tabWidget_currentChanged(0);
 	try {
 		getX509name(1);
 	} catch (errorEx &err) {
-		tabWidget->setCurrentIndex(1);
+		gotoTab(1);
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE, err.getString(),
 			QMessageBox::NoButton, this);
 		msg.addButton(QMessageBox::Ok);
@@ -812,7 +824,7 @@ void NewX509::accept()
 		return;
 	}
 	if (fromReqCB->isChecked() && !getSelectedReq()->verify()) {
-		tabWidget->setCurrentIndex(0);
+		gotoTab(0);
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 			tr("The verification of the Certificate request failed.\nThe rollout should be aborted."),
 			QMessageBox::NoButton, this);
@@ -824,7 +836,7 @@ void NewX509::accept()
 	}
 	if (description->text().isEmpty() && !fromReqCB->isChecked()) {
 		if (commonName->text().isEmpty()) {
-			tabWidget->setCurrentIndex(1);
+			gotoTab(1);
 			QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 				tr("The internal name and the common name are empty.\nPlease set at least the internal name."), QMessageBox::NoButton, this);
 			msg.addButton(QMessageBox::Ok)->setText(tr("Edit name"));
@@ -837,10 +849,10 @@ void NewX509::accept()
 			description->setText(commonName->text());
 		}
 	}
-	if ( keyList->count() == 0 && keyList->isEnabled() &&
+	if (keyList->count() == 0 && keyList->isEnabled() &&
 				!fromReqCB->isChecked())
 	{
-		tabWidget->setCurrentIndex(1);
+		gotoTab(1);
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 			tr("There is no Key selected for signing."), QMessageBox::NoButton, this);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Select key"));
@@ -854,7 +866,7 @@ void NewX509::accept()
 	if (pt != tmpl)
 		unsetDN = mandatoryDnRemain();
 	if (!unsetDN.isEmpty()) {
-		tabWidget->setCurrentIndex(1);
+		gotoTab(1);
 		QString text = tr("The following distinguished name entries are empty:\n%1\nthough you have declared them as mandatory in the options menu.").arg(unsetDN);
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);
@@ -874,7 +886,7 @@ void NewX509::accept()
 		}
 	}
 	if (notBefore->getDate() > notAfter->getDate()) {
-		tabWidget->setCurrentIndex(2-tabsub);
+		gotoTab(2);
 		QString text = tr("The certificate will be out of date before it becomes valid. You most probably mixed up both dates.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);
@@ -896,7 +908,7 @@ void NewX509::accept()
 	pki_x509 *signer = getSelectedSigner();
 	if (signer && notBefore->getDate() < signer->getNotBefore() &&
 					!selfSignRB->isChecked()) {
-		tabWidget->setCurrentIndex(2-tabsub);
+		gotoTab(2);
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);
@@ -921,7 +933,7 @@ void NewX509::accept()
 	if (signer && notAfter->getDate() > signer->getNotAfter() &&
 				!noWellDefinedExpDate->isChecked() &&
 				!selfSignRB->isChecked()) {
-		tabWidget->setCurrentIndex(2-tabsub);
+		gotoTab(2);
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);
@@ -945,7 +957,7 @@ void NewX509::accept()
 	}
 	on_adv_validate_clicked();
 	if (checkExtDuplicates()) {
-		tabWidget->setCurrentIndex(5-tabsub);
+		gotoTab(5);
 		QString text = tr("The certificate contains duplicated extensions. Check the validation on the advanced tab.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);

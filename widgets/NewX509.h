@@ -44,7 +44,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		enum pki_type pt;
 		void templateChanged(QString templatename);
 		QString mandatoryDnRemain();
-		QStringList private_keys, private_keys0;
+		QStringList private_keys, private_keys0, tabnames;
 		pki_x509 *ctx_cert;
 		QString v3ext_backup;
 		QString valid_htmltext;
@@ -95,6 +95,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void subjectFromTemplate(pki_temp *temp);
 		void extensionsFromTemplate(pki_temp *temp);
 		pki_temp *currentTemplate();
+		void gotoTab(int tab);
 
 	public slots:
 		void on_fromReqCB_clicked();
