@@ -109,9 +109,9 @@ QString x509v3ext::getValue(bool html) const
 	}
 	BIO_free(bio);
 	if (html) {
+		text.replace(QRegExp("&"), "&amp;");
 		text.replace(QRegExp("<"), "&lt;");
 		text.replace(QRegExp(">"), "&gt;");
-		text.replace(QRegExp("&"), "&amp;");
 	}
 	return text.trimmed();
 }

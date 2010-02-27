@@ -37,6 +37,7 @@ class v3ext: public QDialog, public Ui::v3ext
 	public slots:
 		void on_apply_clicked();
 		void on_validate_clicked();
+		void setupLineEdit(const QString &s, QLineEdit *l);
 };
 
 #endif

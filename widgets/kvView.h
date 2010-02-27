@@ -6,8 +6,10 @@
 #include <qtableview.h>
 #include <qcombobox.h>
 #include <qitemdelegate.h>
+#include <qlabel.h>
 #include "lib/base.h"
 
+class kvView;
 class comboDelegate : public QItemDelegate
 {
 	QStringList keys;
@@ -31,6 +33,34 @@ public:
 		editor->setGeometry(option.rect);
 	}
 };
+
+class lineDelegate : public QItemDelegate
+{
+	Q_OBJECT
+
+	QLabel *infoLabel;
+public:
+	lineDelegate(QLabel *lbl = 0, QObject *parent = 0)
+			:QItemDelegate(parent)
+	{
+		infoLabel = lbl;
+	}
+	QWidget *createEditor(QWidget *parent,
+		const QStyleOptionViewItem &option,
+		const QModelIndex &index) const;
+	void setEditorData(QWidget *editor, const QModelIndex &index) const;
+	void setModelData(QWidget *editor, QAbstractItemModel *model,
+			const QModelIndex &index) const;
+	void updateEditorGeometry(QWidget *editor,
+		const QStyleOptionViewItem &option,
+		const QModelIndex &index) const
+	{
+		editor->setGeometry(option.rect);
+	}
+signals:
+	void setupLineEdit(const QString &s, QLineEdit *l) const;
+};
+
 
 class kvmodel: public QAbstractTableModel
 {
@@ -75,6 +105,8 @@ class kvView: public QTableView
 
 	kvmodel *mymodel;
 	QStringList keys;
+	QLabel *infoLabel;
+
 public:
 	kvView(QWidget *parent = 0);
 	~kvView();
@@ -95,12 +127,18 @@ public:
 	{
 		mymodel->removeRows(0, rowCount(), QModelIndex());
 	}
+	void setInfoLabel(QLabel *lbl)
+	{
+		infoLabel = lbl;
+		initLineDelegate();
+	}
+	void initLineDelegate();
 private slots:
 	void moveRow(int logical, int oldi, int newi);
+	void editorExited();
 public slots:
 	void addKvRow();
 	void deleteCurrentRow();
-
 };
 
 #endif

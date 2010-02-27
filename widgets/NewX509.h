@@ -96,6 +96,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void extensionsFromTemplate(pki_temp *temp);
 		pki_temp *currentTemplate();
 		void gotoTab(int tab);
+		void setupLineEditByNid(int nid, QLineEdit *l);
 
 	public slots:
 		void on_fromReqCB_clicked();
@@ -119,6 +120,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_tabWidget_currentChanged(int idx);
 		void on_reqSubChange_clicked();
 		void accept();
+		void setupExtDNwidget(const QString &s, QLineEdit *w);
 
 	signals:
 		void genKey(QString);

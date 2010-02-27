@@ -12,13 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
-     </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
+    <layout class="QHBoxLayout" name="_4">
      <item>
       <widget class="QLabel" name="capt">
        <property name="font">
@@ -77,7 +71,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tab_0">
       <attribute name="title">
@@ -418,17 +412,11 @@ If this list is disabled, you only can create a self-signed certificate.</string
        <item>
         <widget class="QGroupBox" name="distNameBox">
          <property name="title">
-          <string>Distinguished name</string>
+          <string notr="true">Distinguished name</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="_2">
           <item>
-           <layout class="QGridLayout">
-            <property name="margin">
-             <number>0</number>
-            </property>
-            <property name="spacing">
-             <number>6</number>
-            </property>
+           <layout class="QGridLayout" name="_3">
             <item row="3" column="3">
              <widget class="QLineEdit" name="emailAddress">
               <property name="maxLength">
@@ -568,18 +556,6 @@ If this list is disabled, you only can create a self-signed certificate.</string
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="kvView" name="extDNlist">
-              <property name="editTriggers">
-               <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-              </property>
-              <property name="alternatingRowColors">
-               <bool>true</bool>
-              </property>
-              <property name="selectionMode">
-               <enum>QAbstractItemView::SingleSelection</enum>
-              </property>
-              <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
               <attribute name="horizontalHeaderDefaultSectionSize">
                <number>200</number>
               </attribute>
@@ -620,6 +596,16 @@ If this list is disabled, you only can create a self-signed certificate.</string
              </layout>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="extDNinfo">
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -674,17 +660,11 @@ If this list is disabled, you only can create a self-signed certificate.</string
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
-         <property name="margin">
-          <number>0</number>
-         </property>
+        <layout class="QHBoxLayout" name="_6">
          <item>
           <widget class="QGroupBox" name="groupBox_8">
            <property name="title">
-            <string>Basic constrains</string>
+            <string notr="true">Basic constrains</string>
            </property>
            <layout class="QVBoxLayout">
             <property name="spacing">
@@ -694,13 +674,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
              <number>8</number>
             </property>
             <item>
-             <layout class="QHBoxLayout">
-              <property name="spacing">
-               <number>6</number>
-              </property>
-              <property name="margin">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="_9">
               <item>
                <widget class="QLabel" name="TextLabel2_2_3">
                 <property name="text">
@@ -738,13 +712,7 @@ Self-signed non-CA certificates are unusual although they are possible.</string>
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout">
-              <property name="spacing">
-               <number>6</number>
-              </property>
-              <property name="margin">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="_7">
               <item>
                <widget class="QLabel" name="TextLabel3_2_2">
                 <property name="text">
@@ -769,7 +737,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
                  <string>The basic constraints should always be critical</string>
                 </property>
                 <property name="text">
-                 <string>&amp;Critical</string>
+                 <string notr="true">&amp;Critical</string>
                 </property>
                </widget>
               </item>
@@ -781,7 +749,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
          <item>
           <widget class="QGroupBox" name="keyIdentBox">
            <property name="title">
-            <string>Key identifier</string>
+            <string notr="true">Key identifier</string>
            </property>
            <layout class="QVBoxLayout">
             <property name="spacing">
@@ -796,7 +764,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
                <string>Creates a hash of the key following the PKIX guidelines</string>
               </property>
               <property name="text">
-               <string>&amp;Subject Key Identifier</string>
+               <string notr="true">&amp;Subject Key Identifier</string>
               </property>
              </widget>
             </item>
@@ -810,7 +778,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
 It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</string>
               </property>
               <property name="text">
-               <string>&amp;Authority Key Identifier</string>
+               <string notr="true">&amp;Authority Key Identifier</string>
               </property>
              </widget>
             </item>
@@ -971,31 +939,25 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         </spacer>
        </item>
        <item>
-        <layout class="QGridLayout">
-         <property name="margin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>6</number>
-         </property>
+        <layout class="QGridLayout" name="_8">
          <item row="3" column="0">
           <widget class="QLabel" name="TextLabel1_2_3_2_2_3">
            <property name="text">
-            <string>Authority Info Access</string>
+            <string notr="true">Authority Info Access</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="TextLabel1_2_3_2_3">
            <property name="text">
-            <string>CRL distribution point</string>
+            <string notr="true">CRL distribution point</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="TextLabel1_2_2_2">
            <property name="text">
-            <string>issuer alternative name</string>
+            <string notr="true">issuer alternative name</string>
            </property>
           </widget>
          </item>
@@ -1104,7 +1066,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>Key Usage</string>
+       <string>Key usage</string>
       </attribute>
       <layout class="QVBoxLayout">
        <property name="spacing">
@@ -1113,9 +1075,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
        <property name="margin">
         <number>8</number>
        </property>
-       <item>
-        <widget class="QWidget" name="widget_4_3" native="true"/>
-       </item>
        <item>
         <layout class="QHBoxLayout">
          <property name="spacing">
@@ -1139,7 +1098,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
             <item>
              <widget class="QCheckBox" name="kuCritical">
               <property name="text">
-               <string>&amp;Critical</string>
+               <string notr="true">&amp;Critical</string>
               </property>
              </widget>
             </item>
@@ -1153,47 +1112,47 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
               </property>
               <item>
                <property name="text">
-                <string>Digital Signature</string>
+                <string notr="true">Digital Signature</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Non Repudiation</string>
+                <string notr="true">Non Repudiation</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Key Encipherment</string>
+                <string notr="true">Key Encipherment</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Data Encipherment</string>
+                <string notr="true">Data Encipherment</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Key Agreement</string>
+                <string notr="true">Key Agreement</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Certificate Sign</string>
+                <string notr="true">Certificate Sign</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>CRL Sign</string>
+                <string notr="true">CRL Sign</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Encipher Only</string>
+                <string notr="true">Encipher Only</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Decipher Only</string>
+                <string notr="true">Decipher Only</string>
                </property>
               </item>
              </widget>
@@ -1216,7 +1175,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
             <item>
              <widget class="QCheckBox" name="ekuCritical">
               <property name="text">
-               <string>C&amp;ritical</string>
+               <string notr="true">C&amp;ritical</string>
               </property>
              </widget>
             </item>
@@ -1236,16 +1195,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </layout>
        </item>
       </layout>
-      <widget class="QWidget" name="widget_4" native="true">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>100</width>
-         <height>30</height>
-        </rect>
-       </property>
-      </widget>
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
@@ -1273,37 +1222,37 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            </property>
            <item>
             <property name="text">
-             <string>SSL Client</string>
+             <string notr="true">SSL Client</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>SSL Server</string>
+             <string notr="true">SSL Server</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>S/MIME</string>
+             <string notr="true">S/MIME</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Object Signing</string>
+             <string notr="true">Object Signing</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>SSL CA</string>
+             <string notr="true">SSL CA</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>S/MIME CA</string>
+             <string notr="true">S/MIME CA</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Object Signing CA</string>
+             <string notr="true">Object Signing CA</string>
             </property>
            </item>
           </widget>
@@ -1382,7 +1331,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          <item row="2" column="0">
           <widget class="QLabel" name="TextLabel2_2_4">
            <property name="text">
-            <string>CA Revocation URL</string>
+            <string notr="true">CA Revocation URL</string>
            </property>
           </widget>
          </item>
@@ -1392,14 +1341,14 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          <item row="1" column="0">
           <widget class="QLabel" name="TextLabel4_2_2_3">
            <property name="text">
-            <string>Revocation URL</string>
+            <string notr="true">Revocation URL</string>
            </property>
           </widget>
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="TextLabel7_2_3">
            <property name="text">
-            <string>SSL server name</string>
+            <string notr="true">SSL server name</string>
            </property>
           </widget>
          </item>
@@ -1412,28 +1361,28 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          <item row="3" column="0">
           <widget class="QLabel" name="TextLabel3_2_4">
            <property name="text">
-            <string>Certificate renewal URL</string>
+            <string notr="true">Certificate renewal URL</string>
            </property>
           </widget>
          </item>
          <item row="6" column="0">
           <widget class="QLabel" name="TextLabel8">
            <property name="text">
-            <string>Comment</string>
+            <string notr="true">Comment</string>
            </property>
           </widget>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="TextLabel6_2_3">
            <property name="text">
-            <string>CA policy URL</string>
+            <string notr="true">CA policy URL</string>
            </property>
           </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="TextLabel1_3_2_3">
            <property name="text">
-            <string>Base URL</string>
+            <string notr="true">Base URL</string>
            </property>
           </widget>
          </item>
@@ -1521,13 +1470,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
-     </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
+    <layout class="QHBoxLayout" name="_5">
      <item>
       <widget class="QPushButton" name="cancelButton">
        <property name="sizePolicy">
@@ -1685,22 +1628,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    </hints>
   </connection>
   <connection>
-   <sender>selfSignRB</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>serialNr</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>308</x>
-     <y>311</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>679</x>
-     <y>313</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>noWellDefinedExpDate</sender>
    <signal>clicked(bool)</signal>
    <receiver>notAfter</receiver>
@@ -1713,22 +1640,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
     <hint type="destinationlabel">
      <x>226</x>
      <y>343</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>foreignSignRB</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>certList</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>208</x>
-     <y>342</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>673</x>
-     <y>345</y>
     </hint>
    </hints>
   </connection>
@@ -1777,6 +1688,38 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
     <hint type="destinationlabel">
      <x>493</x>
      <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selfSignRB</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>serialNr</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>326</x>
+     <y>301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>foreignSignRB</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>certList</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>233</x>
+     <y>329</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>332</y>
     </hint>
    </hints>
   </connection>

@@ -931,10 +931,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1040,10 +1036,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
 <context>
     <name>NewX509</name>
     <message>
-        <source>Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1127,10 +1119,6 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished">Sujeto</translation>
     </message>
     <message>
-        <source>Distinguished name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1168,10 +1156,6 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Basic constrains</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1218,19 +1202,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Critical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key identifier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Creates a hash of the key following the PKIX guidelines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Subject Key Identifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1240,10 +1212,6 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
     <message>
         <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
 It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Authority Key Identifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1280,18 +1248,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     </message>
     <message>
         <source>Midnight</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Authority Info Access</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CRL distribution point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>issuer alternative name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1348,47 +1304,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key Usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Key usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Digital Signature</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Non Repudiation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key Encipherment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Data Encipherment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key Agreement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate Sign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CRL Sign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Encipher Only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Decipher Only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1396,67 +1312,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>C&amp;ritical</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Netscape</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSL Client</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSL Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S/MIME</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object Signing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSL CA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S/MIME CA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object Signing CA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CA Revocation URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Revocation URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSL server name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate renewal URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CA policy URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Base URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1568,10 +1424,6 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit times</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Adjust date and continue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1613,6 +1465,50 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <source>Common name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply subject</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>minimum size: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>maximum size: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>only a-z A-Z 0-9 &apos;()+,-./:=?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>only 7-bit clean characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PKCS#10 request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Errors</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1884,6 +1780,10 @@ You must set it manually.</source>
         <source>Please enter the PIN of the token %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No Security token found</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReqDetail</name>
@@ -1955,7 +1855,7 @@ You must set it manually.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Store</source>
+        <source>&amp;Select</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2094,10 +1994,6 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Reset password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Security token found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2739,10 +2635,6 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>No associated security token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This certificate is already on the security token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2816,6 +2708,38 @@ and thus was not stored</source>
     <message>
         <source>Validation successfull:
 &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An email address or &apos;copy&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An email address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a registered ID: OBJECT IDENTIFIER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a uniform resource indicator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a DNS domain name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>an IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the value should be the OID followed by a semicolon and the content in standard ASN1_generate_nconf() format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No editing. Only &apos;copy&apos; allowed here</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

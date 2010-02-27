@@ -900,7 +900,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     </message>
     <message>
         <source>C&amp;hange DataBase password</source>
-        <translation>Datenbankpasswort ändern</translation>
+        <translation>Da&amp;tenbankpasswort ändern</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -929,10 +929,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <source>%1 missmatch</source>
         <translation>Keine %1 übereinstimmung</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
@@ -1039,10 +1035,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
 </context>
 <context>
     <name>NewX509</name>
-    <message>
-        <source>Template</source>
-        <translation>Vorlage</translation>
-    </message>
     <message>
         <source>Create</source>
         <translation>Erstellen</translation>
@@ -1156,10 +1148,6 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Besitzer</translation>
     </message>
     <message>
-        <source>Distinguished name</source>
-        <translation type="unfinished">Distinguished name</translation>
-    </message>
-    <message>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
@@ -1198,10 +1186,6 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
     <message>
         <source>Extensions</source>
         <translation>Erweiterungen</translation>
-    </message>
-    <message>
-        <source>Basic constrains</source>
-        <translation>Grundbeschränkungen</translation>
     </message>
     <message>
         <source>Type</source>
@@ -1244,36 +1228,20 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
     </message>
     <message>
         <source>The basic constraints should always be critical</source>
-        <translation type="unfinished">Die &quot;grundlegenden Einschränkungen&quot; sollten immer &quot;critical&quot; sein </translation>
-    </message>
-    <message>
-        <source>&amp;Critical</source>
-        <translation>&amp;Kritisch</translation>
-    </message>
-    <message>
-        <source>Key identifier</source>
-        <translation>Schlüsselidentifikator</translation>
+        <translation>Die &quot;basic constraints&quot; sollten immer &quot;critical&quot; sein</translation>
     </message>
     <message>
         <source>Creates a hash of the key following the PKIX guidelines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Subject Key Identifier</source>
-        <translation>&amp;Subject Key Identifier</translation>
+        <translation>Erstellt eine hashsumme nach PKIX Vorgaben</translation>
     </message>
     <message>
         <source>Copy the Subject Key Identifier from the issuer</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiere den &quot;Subject key identifier&quot; vom Aussteller</translation>
     </message>
     <message>
         <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
 It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Authority Key Identifier</source>
-        <translation>&amp;Authority Key Identifier</translation>
     </message>
     <message>
         <source>Validity</source>
@@ -1310,18 +1278,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     <message>
         <source>Midnight</source>
         <translation>Mitternacht</translation>
-    </message>
-    <message>
-        <source>Authority Info Access</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CRL distribution point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>issuer alternative name</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>URI:</source>
@@ -1377,47 +1333,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key Usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Key usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Digital Signature</source>
-        <translation>Digitale Unterschrift</translation>
-    </message>
-    <message>
-        <source>Non Repudiation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key Encipherment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Data Encipherment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key Agreement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate Sign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CRL Sign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Encipher Only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Decipher Only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1425,68 +1341,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>C&amp;ritical</source>
-        <translation>C&amp;ritical</translation>
-    </message>
-    <message>
         <source>Netscape</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSL Client</source>
-        <translation>SSL Client</translation>
-    </message>
-    <message>
-        <source>SSL Server</source>
-        <translation>SSL Server</translation>
-    </message>
-    <message>
-        <source>S/MIME</source>
-        <translation>S/MIME</translation>
-    </message>
-    <message>
-        <source>Object Signing</source>
-        <translation>Object Signing</translation>
-    </message>
-    <message>
-        <source>SSL CA</source>
-        <translation>SSL CA</translation>
-    </message>
-    <message>
-        <source>S/MIME CA</source>
-        <translation>S/MIME CA</translation>
-    </message>
-    <message>
-        <source>Object Signing CA</source>
-        <translation>Object Signing CA</translation>
-    </message>
-    <message>
-        <source>CA Revocation URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Revocation URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSL server name</source>
-        <translation>SSL server name</translation>
-    </message>
-    <message>
-        <source>Certificate renewal URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation>Kommentar</translation>
-    </message>
-    <message>
-        <source>CA policy URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Base URL</source>
-        <translation>Basis URL</translation>
+        <translation>Netscape</translation>
     </message>
     <message>
         <source>If you know a more pretty one tell me</source>
@@ -1506,7 +1362,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     </message>
     <message>
         <source>Create Certificate signing request</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstelle eine Zertifikatsanfrage</translation>
     </message>
     <message>
         <source>XCA template</source>
@@ -1523,11 +1379,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der interne Name und der commonName sind leer.
+Bitte mindestens den internen Namen setzen.</translation>
     </message>
     <message>
         <source>There is no Key selected for signing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist kein Schlüssel zum Signieren ausgewählt.</translation>
     </message>
     <message>
         <source>Continue rollout</source>
@@ -1535,32 +1392,32 @@ Please set at least the internal name.</source>
     </message>
     <message>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
         <source>Modify subject of the request</source>
-        <translation type="unfinished"></translation>
+        <translation>Das &quot;subject&quot; der Zertifikatsanfrage ändern</translation>
     </message>
     <message>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished">dd.MM.yyyy hh:mm</translation>
+        <translation>dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="unfinished">Erweitert</translation>
+        <translation>Erweitert</translation>
     </message>
     <message>
         <source>Validate</source>
-        <translation type="unfinished">Überprüfen</translation>
+        <translation>Überprüfen</translation>
     </message>
     <message>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
-        <translation type="unfinished">Die Validierung des Requests ist fehlgeschlagen. Die Zertifikatserstellung sollte abgebrochen werden.</translation>
+        <translation>Die Validierung des Requests ist fehlgeschlagen. Die Zertifikatserstellung sollte abgebrochen werden.</translation>
     </message>
     <message>
         <source>Continue anyway</source>
-        <translation type="unfinished">Trotzdem fortfahren</translation>
+        <translation>Trotzdem fortfahren</translation>
     </message>
     <message>
         <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
@@ -1568,54 +1425,94 @@ The rollout should be aborted.</source>
     </message>
     <message>
         <source>No well-defined expiration</source>
-        <translation type="unfinished">Undefiniertes Ablaufdatum</translation>
+        <translation>Undefiniertes Ablaufdatum</translation>
     </message>
     <message>
         <source>Edit name</source>
-        <translation type="unfinished">Namen editieren</translation>
+        <translation>Namen editieren</translation>
     </message>
     <message>
         <source>Select key</source>
-        <translation type="unfinished">Schlüssel auswählen</translation>
+        <translation>Schlüssel auswählen</translation>
     </message>
     <message>
         <source>The following distinguished name entries are empty:
 %1
 though you have declared them as mandatory in the options menu.</source>
-        <translation type="unfinished">Die folgenden Subject-name Einträge sind leer:
+        <translation>Die folgenden Subject-name Einträge sind leer:
 %1, obwohl sie im Optionen-menu als notwendig deklariert wurden.</translation>
     </message>
     <message>
         <source>Edit subject</source>
-        <translation type="unfinished">Subject editieren</translation>
+        <translation>Subject editieren</translation>
     </message>
     <message>
         <source>Edit dates</source>
-        <translation type="unfinished">Zeiten einstellen</translation>
+        <translation>Zeiten einstellen</translation>
     </message>
     <message>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation type="unfinished">Das Zertifikat is früher gültig als der Aussteller. Dies ist wahrscheinlich ungewollt.</translation>
-    </message>
-    <message>
-        <source>Edit times</source>
-        <translation type="unfinished">Zeiten einstellen</translation>
+        <translation>Das Zertifikat is früher gültig als der Aussteller. Dies ist wahrscheinlich ungewollt.</translation>
     </message>
     <message>
         <source>Adjust date and continue</source>
-        <translation type="unfinished">Datum anpassen und fortführen</translation>
+        <translation>Datum anpassen und fortführen</translation>
     </message>
     <message>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
-        <translation type="unfinished">Das Zertifikat ist länger gültig als der Aussteller. Dies ist wahrscheinlich nicht gewollt.</translation>
+        <translation>Das Zertifikat ist länger gültig als der Aussteller. Dies ist wahrscheinlich nicht gewollt.</translation>
     </message>
     <message>
         <source>Edit extensions</source>
-        <translation type="unfinished">Extensions editieren</translation>
+        <translation>Extensions editieren</translation>
     </message>
     <message>
         <source>Advanced Settings Error: %1</source>
+        <translation>Fehler in den erweiterten Einstellungen: %1</translation>
+    </message>
+    <message>
+        <source>Apply extensions</source>
+        <translation>Erweiterungen übernehmen</translation>
+    </message>
+    <message>
+        <source>Apply subject</source>
+        <translation>Subject übernehmen</translation>
+    </message>
+    <message>
+        <source>Apply all</source>
+        <translation>Alles übernehmen</translation>
+    </message>
+    <message>
+        <source>minimum size: %1</source>
+        <translation>Mindestlänge: %1</translation>
+    </message>
+    <message>
+        <source>maximum size: %1</source>
+        <translation>Maximallänge: %1</translation>
+    </message>
+    <message>
+        <source>only a-z A-Z 0-9 &apos;()+,-./:=?</source>
+        <translation>nur die Zeichen a-z A-Z 0-9 &apos;()+,-./:=?</translation>
+    </message>
+    <message>
+        <source>only 7-bit clean characters</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From PKCS#10 request</source>
+        <translation>Aus der PKCS#10 Zertifikatsanfrage</translation>
+    </message>
+    <message>
+        <source>Other Tabs</source>
+        <translation>Andere Tabs</translation>
+    </message>
+    <message>
+        <source>Advanced Tab</source>
+        <translation>Erweiterter Tab</translation>
+    </message>
+    <message>
+        <source>Errors</source>
+        <translation>Fehler</translation>
     </message>
 </context>
 <context>
@@ -1887,6 +1784,10 @@ Bitte die Zeiten manuell einstellen.</translation>
         <source>Please enter the PIN of the token %1</source>
         <translation>Bitte die PIN der Smartcard %1 eingeben</translation>
     </message>
+    <message>
+        <source>No Security token found</source>
+        <translation>Keine Smartcard gefunden</translation>
+    </message>
 </context>
 <context>
     <name>ReqDetail</name>
@@ -1958,8 +1859,8 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
-        <source>&amp;Store</source>
-        <translation>&amp;Speichern</translation>
+        <source>&amp;Select</source>
+        <translation>&amp;Select</translation>
     </message>
 </context>
 <context>
@@ -2100,10 +2001,6 @@ daher wurde ssie nicht importiert</translation>
     <message>
         <source>Reset password</source>
         <translation>Password zurücksetzen</translation>
-    </message>
-    <message>
-        <source>No Security token found</source>
-        <translation>Keine Smartcard gefunden</translation>
     </message>
     <message>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
@@ -2753,10 +2650,6 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat aus der Datei %1 konnte nicht geladen werden. Ist weder PEM noch DER.</translation>
     </message>
     <message>
-        <source>No associated security token</source>
-        <translation>Keine zugehörige Smartcard</translation>
-    </message>
-    <message>
         <source>This certificate is already on the security token</source>
         <translation>Dieses Zertifikat ist bereits auf der Smartcard</translation>
     </message>
@@ -2831,6 +2724,38 @@ und wurde daher nicht importiert</translation>
         <source>Validation successfull:
 &apos;%1&apos;</source>
         <translation>Überprüfung erfolgreich: &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <source>An email address or &apos;copy&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An email address</source>
+        <translation>Eine email Adresse</translation>
+    </message>
+    <message>
+        <source>a registered ID: OBJECT IDENTIFIER</source>
+        <translation>Eine OID numerisch oder als Text</translation>
+    </message>
+    <message>
+        <source>a uniform resource indicator</source>
+        <translation>Ein Uniform Resource Identifier</translation>
+    </message>
+    <message>
+        <source>a DNS domain name</source>
+        <translation>Ein DNS domain Name</translation>
+    </message>
+    <message>
+        <source>an IP address</source>
+        <translation>Eine IP Adresse</translation>
+    </message>
+    <message>
+        <source>the value should be the OID followed by a semicolon and the content in standard ASN1_generate_nconf() format</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>No editing. Only &apos;copy&apos; allowed here</source>
+        <translation>Kein Editieren. Nur &apos;copy&apos; möglich, um Subject alternative name vom Aussteller zu kopieren</translation>
     </message>
 </context>
 <context>

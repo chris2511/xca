@@ -56,6 +56,10 @@ NewX509::NewX509(QWidget *parent)
 		keys << QString(OBJ_nid2ln(dn_nid[i]));
 
 	extDNlist->setKeys(keys);
+	extDNlist->setInfoLabel(extDNinfo);
+	connect(extDNlist->itemDelegateForColumn(1),
+		SIGNAL(setupLineEdit(const QString &, QLineEdit *)),
+		this, SLOT(setupExtDNwidget(const QString &, QLineEdit *)));
 	setWindowTitle(XCA_TITLE);
 
 	for (i=0; i<tabWidget->count(); i++) {
@@ -130,6 +134,7 @@ NewX509::NewX509(QWidget *parent)
 		nameLabel[i]->setToolTip(QString("[%1] %2").
 			arg(OBJ_nid2sn(name_nid[i])).arg(tt));
 		name_ptr[i] = (QLineEdit *)nameLabel[i]->buddy();
+		setupLineEditByNid(name_nid[i], name_ptr[i]);
 	}
 	// Setup Request Attributes
 	if (attrWidget->layout())
@@ -150,6 +155,7 @@ NewX509::NewX509(QWidget *parent)
 		attr_edit << edit;
 		attrLayout->addWidget(label, i, 0);
 		attrLayout->addWidget(edit, i, 1);
+		setupLineEditByNid(nid, edit);
 	}
 	// last polish
 	on_certList_currentIndexChanged(0);
@@ -176,6 +182,37 @@ NewX509::~NewX509()
 {
 	if (ctx_cert)
 		delete(ctx_cert);
+}
+
+void NewX509::setupExtDNwidget(const QString &s, QLineEdit *l)
+{
+	setupLineEditByNid(OBJ_txt2nid(CCHAR(s)), l);
+}
+
+void NewX509::setupLineEditByNid(int nid, QLineEdit *l)
+{
+	ASN1_STRING_TABLE *tab = ASN1_STRING_TABLE_get(nid);
+	QValidator *validator = NULL;
+	QStringList info;
+
+	info << QString("[%1]").arg(OBJ_nid2sn(nid));
+
+	if (tab) {
+		l->setMaxLength(tab->maxsize);
+		if (tab->minsize > 1)
+			info << tr("minimum size: %1").arg(tab->minsize);
+		if (tab->maxsize != -1)
+			info << tr("maximum size: %1").arg(tab->maxsize);
+		if (tab->mask == B_ASN1_PRINTABLESTRING) {
+			info << tr("only a-z A-Z 0-9 '()+,-./:=?");
+			QRegExp rx("[a-zA-Z0-9'()+,-./:=?]+");
+			validator = new QRegExpValidator(rx, this);
+		} else if (tab->mask == B_ASN1_IA5STRING) {
+			info << tr("only 7-bit clean characters");
+		}
+	}
+	l->setToolTip(info.join(" "));
+	l->setValidator(validator);
 }
 
 void NewX509::addReqAttributes(pki_x509req *req)
@@ -533,7 +570,6 @@ void NewX509::on_applyExtensions_clicked()
 void NewX509::on_foreignSignRB_toggled(bool checked)
 {
 	switchHashAlgo();
-	certList->setEnabled(checked);
 }
 
 void NewX509::newKeyDone(QString name)
@@ -704,8 +740,9 @@ void NewX509::on_adv_validate_clicked()
 			el = getSelectedReq()->getV3ext();
 		}
 		if (el.size() > 0) {
-			result = "<h2><center>"
-				"From PKCS#10 request</center></h2><p>\n";
+			result = "<h2><center>";
+			result += tr("From PKCS#10 request") +
+				"</center></h2><p>\n";
 			result += el.getHtml("<br>");
 		}
 		el = getGuiExt();
@@ -714,14 +751,16 @@ void NewX509::on_adv_validate_clicked()
 		if (el.size() > 0) {
 			if (!result.isEmpty())
 				result += "\n<hr>\n";
-			result += "<h2><center>Other Tabs</center></h2><p>\n";
+			result += "<h2><center>";
+			result += tr("Other Tabs") + "</center></h2><p>\n";
 			result += el.getHtml("<br>");
 		}
 		el = getAdvanced();
 		if (el.size() > 0) {
 			if (!result.isEmpty())
 				result += "\n<hr>\n";
-			result += "<h2><center>Advanced Tab</center></h2><p>\n";
+			result += "<h2><center>";
+			result += tr("Advanced Tab") + "</center></h2><p>\n";
 			result += el.getHtml("<br>");
 		}
 		while (int i = ERR_get_error() ) {
@@ -731,7 +770,8 @@ void NewX509::on_adv_validate_clicked()
 		if (!errtxt.isEmpty()) {
 			if (!result.isEmpty())
 				result += "\n<hr>\n";
-			result += "<h2><center>Errors</center></h2><p>\n";
+			result += "<h2><center>";
+			result += tr("Errors") + "</center></h2><p>\n";
 			result += errtxt;
 		}
 		nconf_data->document()->setHtml(result);
@@ -757,7 +797,7 @@ void NewX509::on_editSubAlt_clicked()
 
 void NewX509::on_editIssAlt_clicked()
 {
-	QString s = "email,RID,URI,DNS,IP,otherName";
+	QString s = "email,RID,URI,DNS,IP,otherName,issuer";
 	editV3ext(issAltName, s, NID_issuer_alt_name);
 }
 
@@ -912,7 +952,7 @@ void NewX509::accept()
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit times"));
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
 		msg.addButton(QMessageBox::Yes)->setText(tr("Adjust date and continue"));
@@ -937,7 +977,7 @@ void NewX509::accept()
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit times"));
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
 		msg.addButton(QMessageBox::Yes)->setText(tr("Adjust date and continue"));

@@ -6,15 +6,36 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>386</width>
-    <height>232</height>
+    <width>473</width>
+    <height>233</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QCheckBox" name="critical">
+     <property name="text">
+      <string notr="true">Critical</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="kvView" name="tab"/>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="kvView" name="tab"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="infoLabel">
+         <property name="frameShape">
+          <enum>QFrame::Panel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QVBoxLayout">
