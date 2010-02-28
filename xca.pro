@@ -17,6 +17,7 @@ macx {
 }
 
 LIBS += -lcrypto -lltdl
+CFLAGS := --no-warn-unused
 
 # Input
 HEADERS += local.h \
@@ -71,7 +72,8 @@ HEADERS += local.h \
            widgets/v3ext.h \
            widgets/validity.h \
            widgets/NewKey.h \
-           widgets/XcaTreeView.h
+           widgets/XcaTreeView.h \
+           widgets/kvView.h
 FORMS += ui/About.ui \
          ui/CaProperties.ui \
          ui/CertDetail.ui \
@@ -148,5 +150,6 @@ SOURCES += lib/asn1int.cpp \
            widgets/v3ext.cpp \
            widgets/validity.cpp \
            widgets/XcaTreeView.cpp \
-           widgets/MW_menu.cpp
+           widgets/MW_menu.cpp \
+           widgets/kvView.cpp
 TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts
