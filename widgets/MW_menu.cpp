@@ -31,10 +31,8 @@ void MainWindow::init_menu()
 			SLOT(close_database()));
 	acList += file->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()));
-	if (pkcs11::loaded()) {
-		acList += file->addAction(tr("&Init Security token"),  this,
+	scardMenuActions << file->addAction(tr("&Init Security token"),  this,
 				SLOT(initToken()));
-	}
 	acList += file->addAction(tr("C&hange DataBase password"), this,
 				SLOT(changeDbPass()));
 	acList += file->addAction(tr("&Import old db_dump"), this,
@@ -61,7 +59,7 @@ void MainWindow::init_menu()
 				SLOT(on_BNimportTemp_clicked()) );
 	import->addAction(tr("Revocation list"), this,
 				SLOT(on_BNimportCrl_clicked()) );
-	scardMenuAction = import->addAction(tr("Read Security token"), this,
+	scardMenuActions << import->addAction(tr("Read Security token"), this,
 				SLOT(importScard()));
 	import->addAction(tr("PEM file"), this,
 				SLOT(loadPem()) );
@@ -187,5 +185,5 @@ void MainWindow::setOptions()
 			tr("You need to restart XCA to load the new library"));
 #endif
 	}
-	scardMenuAction->setEnabled(pkcs11::loaded());
+	enableTokenMenu(pkcs11::loaded());
 }

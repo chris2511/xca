@@ -238,9 +238,11 @@ void pkcs11::initPin(unsigned char *pin, unsigned long pinLen)
 void pkcs11::initToken(unsigned long slot, unsigned char *pin, int pinlen,
 		QString label)
 {
-	unsigned char clabel[32] = {' ', };
+	unsigned char clabel[32];
 	QByteArray ba = label.toUtf8().left(32);
+	memset(clabel, ' ', 32);
 	memcpy(clabel, ba.constData(), ba.size());
+
 	CK_RV rv = p11->C_InitToken(slot, pin, pinlen, clabel);
 	if (rv != CKR_OK)
 		pk11error("C_InitToken", rv);

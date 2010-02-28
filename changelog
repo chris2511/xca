@@ -1,4 +1,5 @@
 
+  * improve token handling and PIN changing dialogs
   * improve key-value table input for "additional DN entries"
   * PIN and PUK changing implemented
   * apply partial template-contents

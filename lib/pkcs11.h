@@ -25,6 +25,19 @@ public:
 	void set(const CK_TOKEN_INFO *ti)
 	{
 		memcpy(&token_info, ti, sizeof(token_info));
+		// sanitize strings
+		for (int i=0; i<32; i++) {
+			if (token_info.label[i] == 0)
+				token_info.label[i] = ' ';
+			if (token_info.manufacturerID[i] == 0)
+				token_info.manufacturerID[i] = ' ';
+		}
+		for (int i=0; i<16; i++) {
+			if (token_info.model[i] == 0)
+				token_info.model[i] = ' ';
+			if (token_info.serialNumber[i] == 0)
+				token_info.serialNumber[i] = ' ';
+		}
 	}
 	QString label() const
 	{
@@ -45,6 +58,12 @@ public:
 	bool protAuthPath() const
 	{
 		return !!(token_info.flags & CKF_PROTECTED_AUTHENTICATION_PATH);
+	}
+	QString pinInfo() const
+	{
+		return QObject::tr("Required PIN size: %1 - %2").
+			arg(token_info.ulMinPinLen).
+			arg(token_info.ulMaxPinLen);
 	}
 };
 

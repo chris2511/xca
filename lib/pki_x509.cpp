@@ -278,7 +278,7 @@ void pki_x509::store_token()
 		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
 		(card ? card->getIdAttr() : p11.findUniqueID(CKO_CERTIFICATE));
 
-	if (p11.tokenLogin(getIntName(), false).isNull())
+	if (p11.tokenLogin(p11.tokenInfo().label(), false).isNull())
 		return;
 
 	p11.createObject(p11_atts);

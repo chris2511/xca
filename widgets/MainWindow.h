@@ -36,7 +36,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString pkcs11path;
 		QList<QWidget*> wdList;
 		QList<QAction*> acList;
-		QAction *scardMenuAction;
+		QList<QAction*> scardMenuActions;
 
 	protected:
 		void init_images();
@@ -79,6 +79,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
 		QString updateDbPassword(QString newdb, char *pass);
+		void enableTokenMenu(bool enable);
 
 	public slots:
 		void init_database();

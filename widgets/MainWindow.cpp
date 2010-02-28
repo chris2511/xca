@@ -128,6 +128,12 @@ static void init_curves()
 	}
 }
 
+void MainWindow::enableTokenMenu(bool enable)
+{
+	for (int i = 0; i<scardMenuActions.count(); i++)
+		scardMenuActions[i]->setEnabled(enable);
+}
+
 void MainWindow::load_engine()
 {
 	try {
@@ -135,7 +141,7 @@ void MainWindow::load_engine()
 	} catch (errorEx &err) {
 		Error(err);
 	}
-	scardMenuAction->setEnabled(pkcs11::loaded());
+	enableTokenMenu(pkcs11::loaded());
 }
 
 static QByteArray fileNameEncoderFunc(const QString &fileName)
@@ -200,7 +206,7 @@ void MainWindow::setItemEnabled(bool enable)
 	foreach(QAction *a, acList) {
 		a->setEnabled(enable);
 	}
-	scardMenuAction->setEnabled(pkcs11::loaded());
+	enableTokenMenu(pkcs11::loaded());
 }
 
 /* creates a new nid list from the given filename */
@@ -381,7 +387,7 @@ void MainWindow::initToken()
 
 		pass_info p(XCA_TITLE,
 			tr("Please enter the SO PIN (PUK) of the token '%1'").
-			arg(slotname));
+			arg(slotname) + "\n" + ti.pinInfo());
 		p.setPin();
 		char pin[MAX_PASS_LENGTH];
 		int pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
@@ -392,11 +398,12 @@ void MainWindow::initToken()
 			arg(slotname));
 		p11.initToken(slot, (unsigned char*)pin, pinlen, label);
 		p11.startSession(slot, true);
+		ti = p11.tokenInfo();
 		p11.login((unsigned char*)pin, pinlen, true);
 
 		p.setDescription(
 			tr("Please enter the new Pin for the token '%1'").
-			arg(label));
+			arg(label) + "\n" + ti.pinInfo());
 
 		pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
 		if (pinlen != -1) {

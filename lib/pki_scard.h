@@ -62,6 +62,7 @@ class pki_scard: public pki_key
 		void generateKey_card(unsigned long slot, int size, QProgressBar *bar);
 		void deleteFromToken();
 		void store_token(unsigned int slot, EVP_PKEY *pkey);
+
 };
 
 #endif

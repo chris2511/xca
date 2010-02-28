@@ -641,14 +641,16 @@ void pki_scard::changePin()
 	pkcs11 p11;
 	p11.startSession(slot, true);
 	p11.logout();
-	if (p11.tokenInfo().protAuthPath()) {
+	tkInfo ti = p11.tokenInfo();
+
+	if (ti.protAuthPath()) {
 		p11.setPin(NULL, 0, NULL ,0);
 	}
 	pin = p11.tokenLogin(card_label, false, true);
 	if (pin.isNull())
 		return;
 	pass_info p(XCA_TITLE, tr("Please enter the new Pin for the token '%1'").
-		arg(getIntName()));
+		arg(card_label) + "\n" + ti.pinInfo());
 	p.setPin();
 
 	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
@@ -665,15 +667,15 @@ void pki_scard::initPin()
 	char soPin[MAX_PASS_LENGTH], newPin[MAX_PASS_LENGTH];
 	unsigned long slot;
 
-	pass_info p(XCA_TITLE,
-		pki_scard::tr("Please enter the SO PIN (PUK) of the token '%1'").
-		arg(getIntName()));
-	p.setPin();
-
 	if (!prepare_card(&slot))
 		return;
 	pkcs11 p11;
 	p11.startSession(slot, true);
+	pass_info p(XCA_TITLE,
+		pki_scard::tr("Please enter the SO PIN (PUK) of the token '%1'").
+		arg(card_label));
+	p.setPin();
+
 	if (p11.needsLogin(true)) {
 		int soPinLen = MainWindow::passRead(soPin, MAX_PASS_LENGTH, 0, &p);
 		if (soPinLen == -1)
@@ -681,7 +683,8 @@ void pki_scard::initPin()
 		p11.login((unsigned char*)soPin, soPinLen, true);
 	}
 	p.setDescription(qApp->translate("MainWindow",
-		"Please enter the new Pin for the token '%1'").arg(getIntName()));
+		"Please enter the new Pin for the token '%1'").
+		arg(card_label) + "\n" + p11.tokenInfo().pinInfo());
 
 	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
 	if (newPinLen != -1) {
@@ -695,24 +698,27 @@ void pki_scard::changeSoPin()
 	char oldPin[MAX_PASS_LENGTH], newPin[MAX_PASS_LENGTH];
 	unsigned long slot;
 
-	pass_info p(XCA_TITLE,
-		pki_scard::tr("Please enter the SO PIN (PUK) of the token '%1'").
-		arg(getIntName()));
-	p.setPin();
-
 	if (!prepare_card(&slot))
 		return;
+
+	pass_info p(XCA_TITLE,
+		pki_scard::tr("Please enter the SO PIN (PUK) of the token '%1'").
+		arg(card_label));
+	p.setPin();
+
 	int oldPinLen = MainWindow::passRead(oldPin, MAX_PASS_LENGTH, 0, &p);
 	if (oldPinLen == -1)
 		return;
+
 	pkcs11 p11;
 	p11.startSession(slot, true);
+	tkInfo ti = p11.tokenInfo();
 	p11.logout();
 	p11.login((unsigned char*)oldPin, oldPinLen, true);
 
 	p.setDescription(QObject::tr(
 		"Please enter the new SO Pin for the token: '%1'").
-		arg(getIntName()));
+		arg(card_label) + "\n" + ti.pinInfo());
 
 	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
 	if (newPinLen == -1) {
