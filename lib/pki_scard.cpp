@@ -316,7 +316,7 @@ void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 	QList<CK_OBJECT_HANDLE> objects;
 
 	if (EVP_PKEY_type(pkey->type) != EVP_PKEY_RSA)
-		return;
+		throw errorEx(tr("only RSA keys can be stored on tokens"));
 
 	RSA *rsakey = pkey->pkey.rsa;
 
@@ -369,7 +369,7 @@ void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 
 	tkInfo ti = p11.tokenInfo();
 	if (p11.tokenLogin(ti.label(), false).isNull())
-		return;
+		throw errorEx(tr("PIN input aborted"));
 
 	p11.createObject(pub_atts);
 	p11.createObject(priv_atts);

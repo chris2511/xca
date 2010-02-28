@@ -183,13 +183,15 @@ void db_key::toToken()
 	pki_key *key = static_cast<pki_scard*>(currentIdx.internalPointer());
 	if (!key || !pkcs11::loaded() || key->isToken())
 		return;
+
+	pki_scard *card = NULL;
 	try {
 		pkcs11 p11;
 		unsigned long slot;
 
 		if (!p11.selectToken(&slot, mainwin))
 			return;
-		pki_scard *card = new pki_scard(key->getIntName());
+		card = new pki_scard(key->getIntName());
 		card->store_token(slot, key->decryptKey());
 		QString msg = tr("Shall the original key '%1' be replaced by the key on the token?\nThis will delete the key '%1' and make it unexportable").
 			arg(key->getIntName());
@@ -198,10 +200,13 @@ void db_key::toToken()
 		{
 			deletePKI();
 			insertPKI(card);
+			card = NULL;
 		}
 	} catch (errorEx &err) {
 		mainwin->Error(err);
         }
+	if (card)
+		delete card;
 }
 
 void db_key::showPki(pki_base *pki)
