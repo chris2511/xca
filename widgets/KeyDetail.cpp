@@ -53,7 +53,8 @@ void KeyDetail::setKey(pki_key *key)
 		image->setPixmap(*MainWindow::scardImg);
 		pki_scard *card = (pki_scard *)key;
 		cardBox->setTitle(tr("Token") +" [" +card->getCardLabel() +"]");
-		cardManufacturer->setText(card->getManufacturer());
+		cardManufacturer->setText(card->getManufacturer() + " " +
+					card->getModel());
 		cardSerial->setText(card->getSerial());
 		keyPrivEx->setText(tr("Security token ID:%1").arg(card->getId()));
 		keyBox->setTitle(tr("Key") + " [" + card->getLabel() + "]");

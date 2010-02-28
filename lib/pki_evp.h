@@ -64,7 +64,6 @@ class pki_evp: public pki_key
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
 		unsigned char *toData(int *size);
-		QString length();
 		void writeKey(const QString fname, const EVP_CIPHER *enc,
 		pem_password_cb *cb, bool pem);
 		void writePKCS8(const QString fname, const EVP_CIPHER *enc,

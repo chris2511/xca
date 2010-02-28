@@ -71,7 +71,8 @@ static void incProgress(int, int, void *progress)
 
 QString pki_evp::removeTypeFromIntName(QString n)
 {
-	if (n.right(1) != ")" ) return n;
+	if (n.right(1) != ")" )
+		return n;
 	n.truncate(n.length() - 6);
 	return n;
 }
@@ -642,14 +643,6 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		openssl_error();
 	}
 	fclose(fp);
-}
-
-QString pki_evp::length()
-{
-	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL) {
-		return QString("???");
-	}
-	return QString("%1 bit").arg(EVP_PKEY_bits(key));
 }
 
 bool pki_evp::isPubKey() const

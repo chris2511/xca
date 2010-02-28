@@ -375,9 +375,9 @@ void MainWindow::initToken()
 		if (!p11.selectToken(&slot, this))
 			return;
 
-		QStringList info = p11.tokenInfo(slot);
+		tkInfo ti = p11.tokenInfo(slot);
 		QString slotname = QString("%1 (#%2)").
-			arg(info[0]).arg(info[2]);
+			arg(ti.label()).arg(ti.serial());
 
 		pass_info p(XCA_TITLE,
 			tr("Please enter the SO PIN (PUK) of the token '%1'").

@@ -20,7 +20,7 @@ class pki_scard: public pki_key
 	protected:
 		QString card_serial;
 		QString card_manufacturer;
-		QString bit_length;
+		QString card_model;
 		QString card_label;
 		QString slot_label;
 		QString object_id;
@@ -41,12 +41,12 @@ class pki_scard: public pki_key
 		QString getTypeString(void);
 		QString getManufacturer() const { return card_manufacturer; }
 		QString getSerial() const { return card_serial; }
+		QString getModel() const { return card_model; }
 		QString getLabel() const { return slot_label; }
 		QString getId() const { return object_id; }
 		pk11_attr_data getIdAttr() const;
 		QString getCardLabel() const { return card_label; }
 		EVP_PKEY *decryptKey() const;
-		QString length();
 		QString scardLogin(pkcs11 &p11, bool so, bool force=false)const;
 		void changePin();
 		void initPin();

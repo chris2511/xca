@@ -42,10 +42,10 @@ class keyListItem
 		slot = nslot;
 		CK_MECHANISM_INFO mechinfo;
 		p11->mechanismInfo(slot, m, &mechinfo);
-		QStringList info = p11->tokenInfo(slot);
+		tkInfo ti = p11->tokenInfo(slot);
 		tl = typeList; //idx of EVP_PKEY_RSA
 		printname = QString("%1 #%2 (%3 Key of %4 - %5 bits)").
-			arg(info[0]).arg(info[2]).
+			arg(ti.label()).arg(ti.serial()).
 			arg(tl->name).
 			arg(mechinfo.ulMinKeySize).
 			arg(mechinfo.ulMaxKeySize);

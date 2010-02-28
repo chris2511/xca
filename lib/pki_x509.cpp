@@ -182,7 +182,6 @@ a1int pki_x509::getQASerial(const a1int &secret) const
 
 void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
-	QStringList sl = p11.tokenInfo();
 	const unsigned char *p;
 	unsigned long s;
 	QString desc;
@@ -223,7 +222,7 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 			// IGNORE
 		}
 	}
-	setIntName(sl[0] + " (" + desc + ")");
+	setIntName(desc);
 	openssl_error();
 }
 
@@ -317,15 +316,15 @@ void pki_x509::deleteFromToken()
 		if (!objs.count())
 			continue;
 
-		QStringList info = p11.tokenInfo(slot);
+		tkInfo ti = p11.tokenInfo(slot);
 		if (QMessageBox::question(NULL, XCA_TITLE,
 			tr("Delete the certificate '%1' from the token '%2 (#%3)' ?").
-			arg(getIntName()).arg(info[0]).arg(info[2]),
+			arg(getIntName()).arg(ti.label()).arg(ti.serial()),
 			QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
 		{
 			continue;
 		}
-		if (p11.tokenLogin(info[0], false).isNull())
+		if (p11.tokenLogin(ti.label(), false).isNull())
 			continue;
 
 		p11.deleteObjects(attrs);

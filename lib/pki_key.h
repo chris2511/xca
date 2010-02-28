@@ -39,13 +39,12 @@ class pki_key: public pki_base
 		virtual bool isPubKey() const { return true; };
 		virtual const EVP_MD *getDefaultMD() { return NULL; };
 		virtual bool isToken();
-		virtual QString length() { return tr("Unknown"); };
 		virtual QString getTypeString(void);
 		virtual QString getIntNameWithType(void);
 		virtual QList<int> possibleHashNids()
 			{ return QList<int>(); };
 		virtual QString getFriendlyClassName();
-
+		virtual QString length();
 
 		void writePublic(const QString fname, bool pem);
 		bool compare(pki_base *ref);

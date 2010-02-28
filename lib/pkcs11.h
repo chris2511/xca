@@ -9,6 +9,45 @@
 
 #include "pk11_attribute.h"
 
+class tkInfo
+{
+private:
+	CK_TOKEN_INFO token_info;
+public:
+	tkInfo(const CK_TOKEN_INFO *ti)
+	{
+		set(ti);
+	}
+	tkInfo(const tkInfo &tk)
+	{
+		set(&tk.token_info);
+	}
+	void set(const CK_TOKEN_INFO *ti)
+	{
+		memcpy(&token_info, ti, sizeof(token_info));
+	}
+	QString label() const
+	{
+		return UTF8QSTRING(token_info.label, 32);
+	}
+	QString manufacturerID() const
+	{
+		return UTF8QSTRING(token_info.manufacturerID, 32);
+	}
+	QString model() const
+	{
+		return UTF8QSTRING(token_info.model, 16);
+	}
+	QString serial() const
+	{
+		return ASCIIQSTRING(token_info.serialNumber, 16);
+	}
+	bool protAuthPath() const
+	{
+		return !!(token_info.flags & CKF_PROTECTED_AUTHENTICATION_PATH);
+	}
+};
+
 class pkcs11
 {
 	friend class pk11_attribute;
@@ -23,18 +62,18 @@ class pkcs11
 		CK_SLOT_ID slot_id;
 		CK_OBJECT_HANDLE object;
 	public:
-		void init_pkcs11();
 		static void pk11error(QString fmt, int r);
-		static bool loaded() { return !!p11; };
+		static bool loaded()
+		{
+			return !!p11;
+		};
 
 		pkcs11();
 		~pkcs11();
 		static bool load_lib(QString file, bool silent);
 
-		QStringList tokenInfo(CK_SLOT_ID slot);
-		QStringList tokenInfo();
-		bool protAuthPath(CK_SLOT_ID slot);
-		bool protAuthPath();
+		tkInfo tokenInfo(CK_SLOT_ID slot);
+		tkInfo tokenInfo();
 
 		void startSession(unsigned long slot, bool rw = false);
 		QList<unsigned long> getSlotList();
@@ -61,6 +100,7 @@ class pkcs11
 		void initToken(unsigned long slot, unsigned char *pin,
 			int pinlen, QString label);
 		bool selectToken(unsigned long *slot, QWidget *w);
+		QString driverInfo();
 };
 
 #endif

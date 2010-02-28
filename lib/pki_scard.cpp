@@ -84,6 +84,7 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	if (!pkcs11::load_lib(file, silent))
 		return false;
 	log += "Successfully loaded PKCS#11 library: " +file +"\n";
+
 #ifdef WIN32
 	engine_path = ".\\" ENGINE_LIB;
 #else
@@ -101,6 +102,10 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	XCA_ENGINE_cmd("VERBOSE",      NULL);
 
 	ENGINE_init(e);
+
+	pkcs11 p11;
+	log += p11.driverInfo();
+
 	if (!silent) {
 		openssl_error(log);
 	} else {
@@ -115,12 +120,12 @@ void pki_scard::init(void)
 {
 	class_name = "pki_scard";
 	ownPass = ptPin;
-	dataVersion = 1;
+	dataVersion = 2;
 	pkiType = smartCard;
 	cols = 5;
 
 	card_serial = card_manufacturer = card_label = "";
-	bit_length = slot_label = "";
+	card_model = slot_label = "";
 }
 
 pki_scard::pki_scard(const QString name)
@@ -212,10 +217,11 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 
 void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
-	QStringList sl = p11.tokenInfo();
-	card_label = sl[0];
-	card_manufacturer = sl[1];
-	card_serial = sl[2];
+	tkInfo ti = p11.tokenInfo();
+	card_label = ti.label();
+	card_manufacturer = ti.manufacturerID();
+	card_serial = ti.serial();
+	card_model = ti.model();
 
 	pk11_attr_data id(CKA_ID);
 	p11.loadAttribute(id, object);
@@ -255,9 +261,8 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 		if (key)
 			EVP_PKEY_free(key);
 		key = pkey;
-		bit_length.setNum(EVP_PKEY_bits(pkey));
 	}
-	setIntName(card_label + " (" + slot_label + ")");
+	setIntName(slot_label);
 	openssl_error();
 }
 
@@ -287,7 +292,7 @@ void pki_scard::deleteFromToken()
 	pkcs11 p11;
 	p11.startSession(slot, true);
 
-	if (p11.tokenLogin(getIntName(), false).isNull())
+	if (p11.tokenLogin(card_label, false).isNull())
 		return;
 
 	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
@@ -341,7 +346,7 @@ void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 
 	pub_atts <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
-		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
+		pk11_attr_data(CKA_LABEL, getIntName().toUtf8()) <<
 		new_id <<
 		pk11_attr_data(CKA_PUBLIC_EXPONENT, rsakey->e, false) <<
 		pk11_attr_bool(CKA_ENCRYPT, true) <<
@@ -362,9 +367,8 @@ void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 		pk11_attr_bool(CKA_DECRYPT, true) <<
 		pk11_attr_bool(CKA_SIGN, true);
 
-	QStringList sl = p11.tokenInfo();
-	setIntName(sl[0] + " (" + desc + ")");
-	if (p11.tokenLogin(getIntName(), false).isNull())
+	tkInfo ti = p11.tokenInfo();
+	if (p11.tokenLogin(ti.label(), false).isNull())
 		return;
 
 	p11.createObject(pub_atts);
@@ -445,18 +449,20 @@ bool pki_scard::prepare_card(unsigned long *slot, bool verifyPubkey) const
 		p11_slots = p11.getSlotList();
 		for (i=0; i<p11_slots.count(); i++) {
 			pkcs11 myp11;
-			QStringList sl = myp11.tokenInfo(p11_slots[i]);
-			if (sl[0] == card_label &&
-			    sl[1] == card_manufacturer &&
-			    sl[2] == card_serial)
+			tkInfo ti = myp11.tokenInfo(p11_slots[i]);
+			if (ti.label() == card_label &&
+			    ti.manufacturerID() == card_manufacturer &&
+			    ti.serial() == card_serial &&
+			    (card_model.isEmpty() || ti.model() == card_model))
 			{
 				break;
 			}
 		}
 		if (i < p11_slots.count())
 			break;
-		QString msg = tr("Please insert card: %1 [%2] with Serial: %3").
-			arg(card_manufacturer).arg(card_label).arg(card_serial);
+		QString msg = tr("Please insert card: %1 %2 [%3] with Serial: %4").
+			arg(card_manufacturer).arg(card_model).
+			arg(card_label).arg(card_serial);
 
 		int r = QMessageBox::warning(NULL, XCA_TITLE, msg,
 			QMessageBox::Cancel | QMessageBox::Ok);
@@ -496,16 +502,14 @@ void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar
 
 	pkcs11 p11;
 	p11.startSession(slot, true);
-	QString name = getIntName();
 
-	QStringList sl = p11.tokenInfo();
-	setIntName(sl[0] + " (" + name + ")");
+	tkInfo ti = p11.tokenInfo();
 
-	if (p11.tokenLogin(getIntName(), false).isNull())
+	if (p11.tokenLogin(ti.label(), false).isNull())
 		return;
 
 	bar->setValue(bar->value()+1);
-	pk11_attr_data id = p11.generateRSAKey(name, size);
+	pk11_attr_data id = p11.generateRSAKey(getIntName(), size);
 	atts << pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) << id;
 
 	QList<CK_OBJECT_HANDLE> objects = p11.objectList(atts);
@@ -529,7 +533,7 @@ unsigned char *pki_scard::toData(int *size)
 	int i;
 
 	s = card_serial.length() + card_manufacturer.length() +
-		card_label.length() + bit_length.length() +
+		card_label.length() + card_model.length() +
 		slot_label.length() + object_id.length() +
 		7 *sizeof(char) + i2d_PUBKEY(key, NULL) +
 		(mech_list.count() + 1) * sizeof(uint32_t);
@@ -543,7 +547,7 @@ unsigned char *pki_scard::toData(int *size)
 	db::stringToData(&p1, card_manufacturer);
 	db::stringToData(&p1, card_label);
 	db::stringToData(&p1, slot_label);
-	db::stringToData(&p1, bit_length);
+	db::stringToData(&p1, card_model);
 	db::stringToData(&p1, object_id);
 	db::intToData(&p1, mech_list.count());
 	for (i=0; i<mech_list.count(); i++)
@@ -569,7 +573,9 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 	card_manufacturer = db::stringFromData(&p1);
 	card_label = db::stringFromData(&p1);
 	slot_label = db::stringFromData(&p1);
-	bit_length = db::stringFromData(&p1);
+	card_model = db::stringFromData(&p1);
+	if (version < 2)
+		card_model.clear();
 	object_id  = db::stringFromData(&p1);
 	count      = db::intFromData(&p1);
 	mech_list.clear();
@@ -612,7 +618,7 @@ EVP_PKEY *pki_scard::decryptKey() const
 
 	pkcs11 p11;
 	p11.startSession(slot_id, true);
-	pin = p11.tokenLogin(getIntName(), false);
+	pin = p11.tokenLogin(card_label, false);
 	if (pin.isNull())
 		throw errorEx(tr("Invalid Pin for the token"));
 	cb_data.password = strdup(CCHAR(pin));
@@ -635,10 +641,10 @@ void pki_scard::changePin()
 	pkcs11 p11;
 	p11.startSession(slot, true);
 	p11.logout();
-	if (p11.protAuthPath()) {
+	if (p11.tokenInfo().protAuthPath()) {
 		p11.setPin(NULL, 0, NULL ,0);
 	}
-	pin = p11.tokenLogin(getIntName(), false, true);
+	pin = p11.tokenLogin(card_label, false, true);
 	if (pin.isNull())
 		return;
 	pass_info p(XCA_TITLE, tr("Please enter the new Pin for the token '%1'").
@@ -724,11 +730,6 @@ int pki_scard::verify()
 bool pki_scard::isToken()
 {
 	return true;
-}
-
-QString pki_scard::length()
-{
-	return bit_length + " bit";
 }
 
 QVariant pki_scard::getIcon(int column)

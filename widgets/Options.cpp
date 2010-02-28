@@ -90,12 +90,20 @@ void Options::on_tryLoadButton_clicked(void)
 {
 	try {
 		QString lib = pkcs11path->text();
+#ifdef WIN32
+		pkcs11::load_lib(lib, false);
+#else
 		pki_scard::init_p11engine(lib, false);
-		pkcs11 p11;
-		p11.getSlotList();
+#endif
+		QString info;
+		if (pkcs11::loaded()) {
+			pkcs11 p11;
+			info = p11.driverInfo();
+		}
 		if (!lib.isEmpty()) {
 			QMessageBox::information(this, XCA_TITLE,
-				tr("Successfully loaded PKCS#11 library: ") + lib);
+				tr("Successfully loaded PKCS#11 library: %1\n").
+				arg(lib) + info);
 		}
 	} catch (errorEx &err) {
 		mw->Error(err);

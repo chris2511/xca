@@ -44,6 +44,14 @@ pki_key::~pki_key()
 		EVP_PKEY_free(key);
 }
 
+QString pki_key::length()
+{
+	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL) {
+		return QString("???");
+	}
+	return QString("%1 bit").arg(EVP_PKEY_bits(key));
+}
+
 QString pki_key::getTypeString()
 {
 	QString type;

@@ -176,7 +176,7 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 	if (force || need_login) {
 		if (!need_login)
 			 logout();
-		if (protAuthPath()) {
+		if (tokenInfo().protAuthPath()) {
 			pin = NULL;
 			pinlen = 0;
 		} else {
@@ -201,9 +201,9 @@ bool pkcs11::selectToken(unsigned long *slot, QWidget *w)
 	}
 	QStringList slotnames;
 	for (int i=0; i<p11_slots.count(); i++) {
-		QStringList info = tokenInfo(p11_slots[i]);
+		tkInfo info = tokenInfo(p11_slots[i]);
 		slotnames << QString("%1 (#%2)").
-			arg(info[0]).arg(info[2]);
+			arg(info.label()).arg(info.serial());
 	}
 	Ui::SelectToken ui;
 	QDialog *select_slot = new QDialog(w);
@@ -246,9 +246,8 @@ void pkcs11::initToken(unsigned long slot, unsigned char *pin, int pinlen,
 		pk11error("C_InitToken", rv);
 }
 
-QStringList pkcs11::tokenInfo(CK_SLOT_ID slot)
+tkInfo pkcs11::tokenInfo(CK_SLOT_ID slot)
 {
-	QStringList l;
 	CK_TOKEN_INFO token_info;
 	CK_RV rv;
 
@@ -256,32 +255,32 @@ QStringList pkcs11::tokenInfo(CK_SLOT_ID slot)
 	if (rv != CKR_OK) {
 		pk11error("C_GetTokenInfo", rv);
 	}
-	l << UTF8QSTRING(token_info.label, 32);
-	l << UTF8QSTRING(token_info.manufacturerID, 32);
-	l << UTF8QSTRING(token_info.serialNumber, 16);
-	return l;
+	return tkInfo(&token_info);
 }
 
-QStringList pkcs11::tokenInfo()
+QString pkcs11::driverInfo()
+{
+	CK_INFO info;
+	CK_RV rv;
+
+	rv = p11->C_GetInfo(&info);
+	if (rv != CKR_OK) {
+		pk11error("C_GetInfo", rv);
+	}
+
+	return QString(
+	"Cryptoki version: %1.%2\n"
+	"Manufacturer:     %3\n"
+	"Library:          %4 (%5.%6)\n").
+	arg(info.cryptokiVersion.major).arg(info.cryptokiVersion.minor).
+	arg(UTF8QSTRING(info.manufacturerID, 32)).
+	arg(UTF8QSTRING(info.libraryDescription, 32)).
+	arg(info.libraryVersion.major).arg(info.libraryVersion.minor);
+}
+
+tkInfo pkcs11::tokenInfo()
 {
 	return tokenInfo(slot_id);
-}
-
-bool pkcs11::protAuthPath(CK_SLOT_ID slot)
-{
-	CK_TOKEN_INFO token_info;
-	CK_RV rv;
-
-	rv = p11->C_GetTokenInfo(slot, &token_info);
-	if (rv != CKR_OK) {
-		pk11error("C_GetTokenInfo", rv);
-	}
-	return !!(token_info.flags & CKF_PROTECTED_AUTHENTICATION_PATH);
-}
-
-bool pkcs11::protAuthPath()
-{
-	return protAuthPath(slot_id);
 }
 
 void pkcs11::loadAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
