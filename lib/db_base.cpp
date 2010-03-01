@@ -34,7 +34,8 @@ db_base::~db_base()
 	delete rootItem;
 }
 
-pki_base *db_base::newPKI(db_header_t *head){
+pki_base *db_base::newPKI(db_header_t *)
+{
 	return new pki_base("rootItem");
 }
 

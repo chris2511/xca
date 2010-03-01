@@ -59,6 +59,10 @@ public:
 	{
 		return !!(token_info.flags & CKF_PROTECTED_AUTHENTICATION_PATH);
 	}
+	bool tokenInitialized() const
+	{
+		return !!(token_info.flags & CKF_TOKEN_INITIALIZED);
+	}
 	QString pinInfo() const
 	{
 		return QObject::tr("Required PIN size: %1 - %2").

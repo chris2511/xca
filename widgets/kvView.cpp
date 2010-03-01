@@ -4,8 +4,8 @@
 #include <qlineedit.h>
 
 QWidget *comboDelegate::createEditor(QWidget *parent,
-	const QStyleOptionViewItem &option,
-	const QModelIndex &index) const
+	const QStyleOptionViewItem &,
+	const QModelIndex &) const
 {
 	QComboBox *editor = new QComboBox(parent);
 	editor->addItems(keys);
@@ -28,8 +28,8 @@ void comboDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 }
 
 QWidget *lineDelegate::createEditor(QWidget *parent,
-	const QStyleOptionViewItem &option,
-	const QModelIndex &index) const
+	const QStyleOptionViewItem &,
+	const QModelIndex &) const
 {
 	return new QLineEdit(parent);
 }
@@ -105,7 +105,7 @@ QVariant kvmodel::headerData(int section, Qt::Orientation orientation,
 	return QVariant();
 }
 
-bool kvmodel::insertRows(int row, int count, const QModelIndex &parent)
+bool kvmodel::insertRows(int row, int count, const QModelIndex &)
 {
 	beginInsertRows(QModelIndex(), row, row+count-1);
 	for (int i=0; i< count; i++) {
@@ -116,7 +116,7 @@ bool kvmodel::insertRows(int row, int count, const QModelIndex &parent)
 	return true;
 }
 
-bool kvmodel::removeRows(int row, int count, const QModelIndex &parent)
+bool kvmodel::removeRows(int row, int count, const QModelIndex &)
 {
 	beginRemoveRows(QModelIndex(), row, row+count-1);
 	for (int i=0; i< count; i++) {
@@ -190,7 +190,7 @@ void kvView::setKeys(const QStringList &k)
 	setItemDelegateForColumn(0, d);
 }
 
-void kvView::moveRow(int logical, int oldi, int newi)
+void kvView::moveRow(int, int oldi, int newi)
 {
 	static int moving = 0;
 

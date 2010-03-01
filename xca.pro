@@ -17,7 +17,7 @@ macx {
 }
 
 LIBS += -lcrypto -lltdl
-CFLAGS := --no-warn-unused
+QMAKE_CFLAGS = -Wno-unused-parameters
 
 # Input
 HEADERS += local.h \

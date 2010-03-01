@@ -377,6 +377,8 @@ void MainWindow::initToken()
 	try {
 		pkcs11 p11;
 		unsigned long slot;
+		char pin[MAX_PASS_LENGTH];
+		int pinlen;
 
 		if (!p11.selectToken(&slot, this))
 			return;
@@ -386,11 +388,16 @@ void MainWindow::initToken()
 			arg(ti.label()).arg(ti.serial());
 
 		pass_info p(XCA_TITLE,
-			tr("Please enter the SO PIN (PUK) of the token '%1'").
+			tr("Please enter the original SO PIN (PUK) of the token '%1'").
 			arg(slotname) + "\n" + ti.pinInfo());
 		p.setPin();
-		char pin[MAX_PASS_LENGTH];
-		int pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
+		if (ti.tokenInitialized()) {
+			pinlen = passRead(pin, MAX_PASS_LENGTH, 0, &p);
+		} else {
+			p.setDescription(tr("Please enter the new SO PIN (PUK) of the token '%1'").
+			arg(slotname) + "\n" + ti.pinInfo());
+			pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
+		}
 		if (pinlen < 0)
 			return;
 		QString label = QInputDialog::getText(this, XCA_TITLE,

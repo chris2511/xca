@@ -30,6 +30,7 @@ public:
 		const QStyleOptionViewItem &option,
 		const QModelIndex &index) const
 	{
+		(void)index;
 		editor->setGeometry(option.rect);
 	}
 };
@@ -55,6 +56,7 @@ public:
 		const QStyleOptionViewItem &option,
 		const QModelIndex &index) const
 	{
+		(void)index;
 		editor->setGeometry(option.rect);
 	}
 signals:
@@ -78,6 +80,7 @@ public:
 	QModelIndex index(int row, int column,
 			const QModelIndex &parent = QModelIndex()) const
 	{
+		(void)parent;
 		return createIndex(row, column, row*2 +column);
 	}
 	QVariant data(const QModelIndex &index, int role) const;
@@ -89,10 +92,12 @@ public:
 				const QModelIndex & parent = QModelIndex());
 	int rowCount(const QModelIndex &parent) const
 	{
+		(void)parent;
 		return items.count()/2;
 	}
 	int columnCount(const QModelIndex &parent) const
 	{
+		(void)parent;
 		return 2;
 	}
 	bool setData(const QModelIndex &index, const QVariant &value, int role);

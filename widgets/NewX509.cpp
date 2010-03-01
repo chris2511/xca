@@ -567,7 +567,7 @@ void NewX509::on_applyExtensions_clicked()
 	extensionsFromTemplate(currentTemplate());
 }
 
-void NewX509::on_foreignSignRB_toggled(bool checked)
+void NewX509::on_foreignSignRB_toggled(bool)
 {
 	switchHashAlgo();
 }
