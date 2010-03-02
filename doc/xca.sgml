@@ -4,8 +4,8 @@
 <article>
 
 <title>XCA
-<author>(c) by Christian Hohnst&auml;dt, <tt>/christian@hohnstaedt.de/</tt>
-<date>February 2010 - Version 0.8.2
+<author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
+<date>March 2010 - Version 0.8.2
 <abstract>
 <nidx>(your index root)</nidx>
 
@@ -405,7 +405,7 @@ noticeNumbers=1,2,3,4
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Smart-cards (Security tokens)
+<sect>Smart cards (Security tokens)
 <p>
 Since XCA 0.8.0 the use of Smart cards (Security tokens) is supported.
 It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
@@ -435,17 +435,78 @@ The following actions with smart cards are supported:
 <item>Import keys and certificates from the token. (Import->Read Security token)
 <item>Everything you can do with other keys can be done with tokens, too.
 <item>On export, only the Public key is exported.
-<item>Change the PIN of a token.
+<item>Change the PIN and SO PIN of a token.
 <item>Create a key on the token. (Button New Key)
-<item>Store an existing key on the token. (Context menu of the key)
+<item>Store an existing key or certificate on the token.
+	(Context menu of the item)
 <item>Delete certificates and keys from the token. (Context menu of the item)
-</itemize>
-What does not work, yet:
-<itemize>
-<item>Initialize cards.
+<item>Initialize cards and the user PIN via SO PIN
 </itemize>
 
 You may ignore existing built-in certificates of a Smart-card and create your own CA certificate, self-signed by your Smart-card and issue end-entity certificates containing other RSA, DSA or EC keys or sign imported certificate requests.
+<p>
+A new menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and initialized.
+<sect1>Initializing Smart cards
+<p>
+If not done by an other mechanism, the token can be initialized via <tt>Init Security token</tt>.
+If the token was never initialized before, you must provide a new SO PIN (which is not always true, see opencryptoki)
+otherwise the old SO PIN must be provided.
+XCA also asks for a new label for the token.
+<p>
+Afterwards the User PIN should be initialized via <tt>Init PIN</tt>.
+
+<sect1>Managing Smart cards
+<p>
+The menu item <tt>Manage Security token</tt> shows a list of all certificates and public keys fond on the token.
+The keys and certificates can be imported via the Multi-import dialog.
+To delete certificates or keys from the token they must be first imported into the XCA databse and deleted afterwards. XCA will then ask wether the item shall also be removed from the token.
+<sect2>Changing PINs
+<p>
+The User PIN and SO PIN can be changed via the <tt>Token</tt> menu and also via the key context-menu. In this case the correct token containing the key will be enforced.
+
+<sect1>Tested providers
+<p>
+I used the following providers for testing:
+<itemize>
+<item>Default provider for a lot of different cards and readers.
+The support of Netkey 4E cards is currently restricted. Only import and using the keys is possible. For other cards the support is probably better.
+<item>Aladdin eToken PKIclient-5.1: Works perfectly:
+Read public keys from the token, write private keys to the token, generate keys on the token, write certificates to the token and delete them from the token.
+<item>Linux only: OpenCryptoki [IBM]: may be used as a pure software token, but also supports TPMs and other IBM crypto processors
+</itemize>
+
+<sect1>Tested compatibility with other applications
+<p>
+For interoperabilitytests I used the Aladdin eToken together with the
+Aladdin PKIclient 5.1 software.
+I initialized the token as follows:
+<itemize>
+<item>Generate CA certificate with software key
+<item>Generate server certificate with software key
+<item>Generate client certificate with a key generated on the token
+<item>Generate 2nd client certificate with software key
+<item>Copy the software-key of the 2nd client certificate onto the token
+<item>Copy the 2 client certificates onto the token
+<item>Export CA certificate as PEM
+<item>Export server cert as PKCS12 without password
+<item>Export server cert as "PEM Cert + key" without password for Apache2
+</itemize>
+<sect2>Firefox / Mozilla -> Apache
+<itemize>
+<item>Enable PKCS#11 token in firefox: Edit->Preferences->Advanced: [SecurityDevices]: [Load] Load PKCS#11 Device: /usr/lib/libeTPkcs11.so
+<item>Import CA certificate: Edit->Preferences->Advanced: [View Certificates] [Authorities]: [Import]
+<item>Prepare apache config with:
+<itemize>
+<item>SSLEngine on
+<item>SSLCertificateFile    /etc/apache2/ssl/dalek.pem
+<item>SSLCertificateKeyFile /etc/apache2/ssl/dalek.pem
+<item>SSLCertificateChainFile /etc/apache2/ssl/my_CA.crt
+<item>SSLCACertificateFile /etc/apache2/ssl/my_CA.crt
+<item>SSLVerifyClient require
+<item>SSLVerifyDepth  10
+</itemize>
+<item>Connect with firefox to the server. Firefox will prompt you to select one of the 2 client certificates. Both work.
+</itemize>
 
 <sect>RSA, DSA and EC keys <label id="keys">
 <p>
@@ -468,6 +529,8 @@ may be set here by editing this box.
 While searching for random prime numbers a progress bar is shown in the
 bottom of the base application.
 After the key generation is done the key will be stored in the database.
+<p>
+For every token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown contain ing the name of the token and the valid key-sizes.
 
 <sect1>Key export
 <p>

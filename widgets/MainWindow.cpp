@@ -130,8 +130,11 @@ static void init_curves()
 
 void MainWindow::enableTokenMenu(bool enable)
 {
-	for (int i = 0; i<scardMenuActions.count(); i++)
-		scardMenuActions[i]->setEnabled(enable);
+	foreach(QAction* a, scardMenuActions)
+		a->setEnabled(enable);
+	foreach(QWidget *w, scardList) {
+		w->setEnabled(enable);
+	}
 }
 
 void MainWindow::load_engine()
@@ -404,82 +407,113 @@ void MainWindow::initToken()
 			tr("The new label of the token '%1'").
 			arg(slotname));
 		p11.initToken(slot, (unsigned char*)pin, pinlen, label);
-		p11.startSession(slot, true);
-		ti = p11.tokenInfo();
-		p11.login((unsigned char*)pin, pinlen, true);
-
-		p.setDescription(
-			tr("Please enter the new Pin for the token '%1'").
-			arg(label) + "\n" + ti.pinInfo());
-
-		pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
-		if (pinlen != -1) {
-			p11.initPin((unsigned char*)pin, pinlen);
-		}
 	} catch (errorEx &err) {
 		Error(err);
         }
 }
 
-void MainWindow::importScard()
+void MainWindow::changePin(bool so)
 {
-	pkcs11 p11;
-	QList<unsigned long> p11_slots;
-	int i;
-	pki_scard *card = NULL;
-	pki_x509 *cert = NULL;
-
 	if (!pkcs11::loaded())
 		return;
 	try {
+		pkcs11 p11;
+		unsigned long slot;
+
+		if (!p11.selectToken(&slot, this))
+			return;
+		p11.changePin(slot, so);
+	} catch (errorEx &err) {
+		Error(err);
+        }
+}
+
+void MainWindow::changeSoPin()
+{
+	changePin(true);
+}
+
+void MainWindow::initPin()
+{
+	if (!pkcs11::loaded())
+		return;
+	try {
+		pkcs11 p11;
+		unsigned long slot;
+
+		if (!p11.selectToken(&slot, this))
+			return;
+		p11.initPin(slot);
+	} catch (errorEx &err) {
+		Error(err);
+        }
+}
+
+
+void MainWindow::importScard()
+{
+	pkcs11 p11;
+	unsigned long slot;
+	pki_scard *card = NULL;
+	pki_x509 *cert = NULL;
+	ImportMulti *dlgi = NULL;
+
+	if (!pkcs11::loaded())
+		return;
+
+	try {
+		if (!p11.selectToken(&slot, this))
+			return;
+
 		ImportMulti *dlgi = new ImportMulti(this);
 		QList<CK_OBJECT_HANDLE> objects;
-		p11_slots = p11.getSlotList();
 
-		if (p11_slots.count() == 0)
-			QMessageBox::warning(this, XCA_TITLE,
-				tr("No Security token found"));
-		for (i=0; i<p11_slots.count(); i++) {
-			p11.startSession(p11_slots[i]);
-			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(p11_slots[i]);
-			if (ml.count() == 0)
-				ml << CKM_SHA1_RSA_PKCS;
-			pk11_attlist atts(pk11_attr_ulong(CKA_CLASS,
-					CKO_PUBLIC_KEY));
+		p11.startSession(slot);
+		QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
+		if (ml.count() == 0)
+			ml << CKM_SHA1_RSA_PKCS;
+		pk11_attlist atts(pk11_attr_ulong(CKA_CLASS,
+				CKO_PUBLIC_KEY));
 
-			objects = p11.objectList(atts);
+		objects = p11.objectList(atts);
 
-			for (int j=0; j< objects.count(); j++) {
-				card = new pki_scard("");
-				try {
-					card->load_token(p11, objects[j]);
-					card->setMech_list(ml);
-					dlgi->addItem(card);
-				} catch (errorEx &err) {
-					Error(err);
-					delete card;
-				}
-				card = NULL;
+		for (int j=0; j< objects.count(); j++) {
+			card = new pki_scard("");
+			try {
+				card->load_token(p11, objects[j]);
+				card->setMech_list(ml);
+				dlgi->addItem(card);
+			} catch (errorEx &err) {
+				Error(err);
+				delete card;
 			}
-			atts.reset();
-			atts << pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
-				pk11_attr_ulong(CKA_CERTIFICATE_TYPE,CKC_X_509);
-			objects = p11.objectList(atts);
-
-			for (int j=0; j< objects.count(); j++) {
-				cert = new pki_x509("");
-				try {
-					cert->load_token(p11, objects[j]);
-					cert->setTrust(2);
-					dlgi->addItem(cert);
-				} catch (errorEx &err) {
-					Error(err);
-					delete cert;
-				}
-				cert = NULL;
-			}
+			card = NULL;
 		}
-		dlgi->execute(true);
+		atts.reset();
+		atts << pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
+			pk11_attr_ulong(CKA_CERTIFICATE_TYPE,CKC_X_509);
+		objects = p11.objectList(atts);
+
+		for (int j=0; j< objects.count(); j++) {
+			cert = new pki_x509("");
+			try {
+				cert->load_token(p11, objects[j]);
+				cert->setTrust(2);
+				dlgi->addItem(cert);
+			} catch (errorEx &err) {
+				Error(err);
+				delete cert;
+			}
+			cert = NULL;
+		}
+		if (dlgi->entries() == 0) {
+			tkInfo ti = p11.tokenInfo();
+			QMessageBox::information(this, XCA_TITLE,
+				tr("The token '%1' did not contain any keys or certificates").
+                                arg(ti.label()));
+		} else {
+			dlgi->execute(true);
+		}
 	} catch (errorEx &err) {
 		Error(err);
         }
@@ -487,6 +521,8 @@ void MainWindow::importScard()
 		delete card;
 	if (cert)
 		delete cert;
+	if (dlgi)
+		delete dlgi;
 }
 
 MainWindow::~MainWindow()
@@ -750,7 +786,7 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 		ui.description->setText(p->getDescription());
 		ui.title->setText(p->getType());
 		ui.label->setText(p->getType());
-		ui.repeatLabel->setText(tr("Repeat ") + p->getType());
+		ui.repeatLabel->setText(tr("Repeat %1").arg(p->getType()));
 		dlg->setWindowTitle(p->getTitle());
 		if (p->getType() != "PIN")
 			ui.takeHex->hide();

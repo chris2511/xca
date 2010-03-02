@@ -35,6 +35,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString string_opt;
 		QString pkcs11path;
 		QList<QWidget*> wdList;
+		QList<QWidget*> scardList;
 		QList<QAction*> acList;
 		QList<QAction*> scardMenuActions;
 
@@ -101,6 +102,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setOptions();
 		void importScard();
 		void initToken();
+		void changePin(bool so=false);
+		void changeSoPin();
+		void initPin();
+
 		void on_keyView_doubleClicked(const QModelIndex &m);
 		void on_reqView_doubleClicked(const QModelIndex &m);
 		void on_certView_doubleClicked(const QModelIndex &m);

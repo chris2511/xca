@@ -112,7 +112,6 @@ class pkcs11
 
 		void setPin(unsigned char *oldPin, unsigned long oldPinLen,
 			unsigned char *pin, unsigned long pinLen);
-		void initPin(unsigned char *pin, unsigned long pinLen);
 		QList<CK_MECHANISM_TYPE> mechanismList(unsigned long slot);
 		void mechanismInfo(unsigned long slot, CK_MECHANISM_TYPE m,
 			CK_MECHANISM_INFO *info);
@@ -124,6 +123,8 @@ class pkcs11
 			int pinlen, QString label);
 		bool selectToken(unsigned long *slot, QWidget *w);
 		QString driverInfo();
+		void changePin(unsigned long slot, bool so);
+		void initPin(unsigned long slot);
 };
 
 #endif

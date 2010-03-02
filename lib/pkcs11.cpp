@@ -228,11 +228,70 @@ void pkcs11::setPin(unsigned char *oldPin, unsigned long oldPinLen,
 		pk11error("C_SetPIN", rv);
 }
 
-void pkcs11::initPin(unsigned char *pin, unsigned long pinLen)
+static QString newSoPinTxt = QObject::tr(
+		"Please enter the new SO PIN (PUK) for the token: '%1'");
+static QString newPinTxt = QObject::tr(
+		"Please enter the new PIN for the token: '%1'");
+
+void pkcs11::changePin(unsigned long slot, bool so)
 {
-	CK_RV rv = p11->C_InitPIN(session, pin, pinLen);
-	if (rv != CKR_OK)
-		pk11error("C_InitPIN", rv);
+	char newPin[MAX_PASS_LENGTH], *pinp;
+	QString pin;
+
+	startSession(slot, true);
+	tkInfo ti = tokenInfo();
+
+	if (ti.protAuthPath()) {
+		setPin(NULL, 0, NULL, 0);
+		return;
+        }
+
+	pin = tokenLogin(ti.label(), so, true);
+	if (pin.isNull())
+		return;
+
+	QString msg = so ? newSoPinTxt : newPinTxt;
+	pass_info p(XCA_TITLE, msg.arg(ti.label()) + "\n" + ti.pinInfo());
+	p.setPin();
+
+	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
+	pinp = strdup(CCHAR(pin));
+	if (newPinLen != -1) {
+		setPin((unsigned char*)pinp, pin.length(),
+			(unsigned char*)newPin, newPinLen);
+	}
+	free(pinp);
+	logout();
+}
+
+void pkcs11::initPin(unsigned long slot)
+{
+	char newPin[MAX_PASS_LENGTH], *pinp = NULL;
+	int newPinLen = 0;
+	QString pin;
+
+	startSession(slot, true);
+	tkInfo ti = tokenInfo();
+
+	pin = tokenLogin(ti.label(), true, false);
+	if (pin.isNull())
+		return;
+
+	pass_info p(XCA_TITLE, newPinTxt.arg(ti.label()) + "\n" + ti.pinInfo());
+	p.setPin();
+
+	if (!ti.protAuthPath()) {
+		newPinLen = MainWindow::passWrite(newPin,
+				MAX_PASS_LENGTH, 0, &p);
+		pinp = newPin;
+	}
+	if (newPinLen != -1) {
+		CK_RV rv = p11->C_InitPIN(session,
+					(unsigned char*)pinp, newPinLen);
+		if (rv != CKR_OK)
+			pk11error("C_InitPIN", rv);
+	}
+	logout();
 }
 
 void pkcs11::initToken(unsigned long slot, unsigned char *pin, int pinlen,
