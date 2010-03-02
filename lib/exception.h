@@ -17,7 +17,7 @@ class errorEx
 	private:
 		QString msg;
 	public:
-		errorEx(QString txt, QString className = "")
+		errorEx(QString txt = "", QString className = "")
 		{
 			msg = txt;
 			if (!className.isEmpty())

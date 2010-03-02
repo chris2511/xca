@@ -9,6 +9,9 @@
 
 #include "pk11_attribute.h"
 
+#define WAITCURSOR_START QApplication::setOverrideCursor(QCursor(Qt::WaitCursor))
+#define WAITCURSOR_END QApplication::restoreOverrideCursor()
+
 class tkInfo
 {
 private:

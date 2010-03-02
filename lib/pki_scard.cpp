@@ -24,6 +24,7 @@
 #include <qdir.h>
 #include <widgets/MainWindow.h>
 #include <qmessagebox.h>
+#include <qthread.h>
 #include <ltdl.h>
 
 #if defined(_WIN32) || defined(USE_CYGWIN)
@@ -496,6 +497,26 @@ bool pki_scard::prepare_card(unsigned long *slot, bool verifyPubkey) const
 	return false;
 }
 
+class keygenThread: public QThread
+{
+public:
+	errorEx err;
+	pk11_attr_data id;
+	QString name;
+	int size;
+	pkcs11 *p11;
+
+	keygenThread() : QThread() { };
+	void run()
+	{
+		try {
+			id = p11->generateRSAKey(name, size);
+		} catch (errorEx &e) {
+			err = e;
+		}
+       }
+};
+
 void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar)
 {
 	pk11_attlist atts;
@@ -508,10 +529,23 @@ void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar
 	if (p11.tokenLogin(ti.label(), false).isNull())
 		return;
 
-	bar->setValue(bar->value()+1);
-	pk11_attr_data id = p11.generateRSAKey(getIntName(), size);
-	atts << pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) << id;
+	keygenThread kt;
+	kt.name = getIntName();
+	kt.size = size;
+	kt.p11 = &p11;
+	kt.start();
+	while (!kt.wait(20)) {
+		int value = bar->value();
+		if (value == bar->maximum()) {
+			bar->reset();
+		} else {
+			bar->setValue(value +1);
+		}
+	}
+	if (!kt.err.isEmpty())
+		throw errorEx(kt.err);
 
+	atts << pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) << kt.id;
 	QList<CK_OBJECT_HANDLE> objects = p11.objectList(atts);
 	if (objects.count() != 1)
 		printf("OBJECTS found: %d\n",objects.count());

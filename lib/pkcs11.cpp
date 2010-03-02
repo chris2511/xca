@@ -32,11 +32,15 @@ void pkcs11::startSession(unsigned long slot, bool rw)
 	unsigned long flags = CKF_SERIAL_SESSION | (rw ? CKF_RW_SESSION : 0);
 
 	if (session != CK_INVALID_HANDLE) {
+		WAITCURSOR_START;
 		rv = p11->C_CloseSession(session);
+		WAITCURSOR_END;
 		if (rv != CKR_OK)
 			pk11error("C_OpenSession", rv);
 	}
+	WAITCURSOR_START;
 	rv = p11->C_OpenSession(slot, flags, NULL, NULL, &session);
+	WAITCURSOR_END;
         if (rv != CKR_OK)
                 pk11error("C_OpenSession", rv);
 	slot_id = slot;
@@ -51,7 +55,9 @@ QList<unsigned long> pkcs11::getSlotList()
 
 	/* This one helps to avoid errors.
 	 * Fist time it fails, 2nd time it works */
+	WAITCURSOR_START;
 	p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
+	WAITCURSOR_END;
 	while (1) {
 		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
 		if (rv != CKR_OK && rv != CKR_BUFFER_TOO_SMALL)
@@ -82,12 +88,16 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
 	QList<CK_MECHANISM_TYPE> ml;
 	unsigned long count;
 
+	WAITCURSOR_START;
 	rv = p11->C_GetMechanismList(slot, NULL, &count);
+	WAITCURSOR_END;
 	if (count != 0) {
 		m = (CK_MECHANISM_TYPE *)malloc(count *sizeof(*m));
 		check_oom(m);
 
+		WAITCURSOR_START;
 		rv = p11->C_GetMechanismList(slot, m, &count);
+		WAITCURSOR_END;
 		if (rv != CKR_OK) {
 			free(m);
 			pk11error("C_GetMechanismList", rv);
@@ -103,7 +113,9 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
 void pkcs11::mechanismInfo(unsigned long slot, CK_MECHANISM_TYPE m, CK_MECHANISM_INFO *info)
 {
 	CK_RV rv;
+	WAITCURSOR_START;
 	rv = p11->C_GetMechanismInfo(slot, m, info);
+	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		pk11error("C_GetMechanismInfo", rv);
 	}
@@ -113,7 +125,9 @@ void pkcs11::logout() const
 {
 	CK_RV rv;
 
+	WAITCURSOR_START;
 	rv = p11->C_Logout(session);
+	WAITCURSOR_END;
 	if (rv != CKR_OK && rv != CKR_USER_NOT_LOGGED_IN)
 		pk11error("C_Logout", rv);
 }
@@ -123,7 +137,9 @@ bool pkcs11::needsLogin(bool so)
 	CK_SESSION_INFO sinfo;
 	CK_RV rv;
 
+	WAITCURSOR_START;
 	rv = p11->C_GetSessionInfo(session, &sinfo);
+	WAITCURSOR_END;
 	if (rv != CKR_OK)
                 pk11error("C_GetSessionInfo", rv);
 
@@ -155,7 +171,9 @@ void pkcs11::login(unsigned char *pin, unsigned long pinlen, bool so)
 	unsigned long user = so ? CKU_SO : CKU_USER;
 	CK_RV rv;
 
+	WAITCURSOR_START;
 	rv = p11->C_Login(session, user, pin, pinlen);
+	WAITCURSOR_END;
 	if (rv != CKR_OK && rv != CKR_USER_ALREADY_LOGGED_IN)
 		pk11error("C_Login", rv);
 }
@@ -223,7 +241,9 @@ bool pkcs11::selectToken(unsigned long *slot, QWidget *w)
 void pkcs11::setPin(unsigned char *oldPin, unsigned long oldPinLen,
 	    unsigned char *pin, unsigned long pinLen)
 {
+	WAITCURSOR_START;
 	CK_RV rv = p11->C_SetPIN(session, oldPin, oldPinLen, pin, pinLen);
+	WAITCURSOR_END;
 	if (rv != CKR_OK)
 		pk11error("C_SetPIN", rv);
 }
@@ -286,8 +306,10 @@ void pkcs11::initPin(unsigned long slot)
 		pinp = newPin;
 	}
 	if (newPinLen != -1) {
+		WAITCURSOR_START;
 		CK_RV rv = p11->C_InitPIN(session,
 					(unsigned char*)pinp, newPinLen);
+		WAITCURSOR_END;
 		if (rv != CKR_OK)
 			pk11error("C_InitPIN", rv);
 	}
@@ -302,7 +324,9 @@ void pkcs11::initToken(unsigned long slot, unsigned char *pin, int pinlen,
 	memset(clabel, ' ', 32);
 	memcpy(clabel, ba.constData(), ba.size());
 
+	WAITCURSOR_START;
 	CK_RV rv = p11->C_InitToken(slot, pin, pinlen, clabel);
+	WAITCURSOR_END;
 	if (rv != CKR_OK)
 		pk11error("C_InitToken", rv);
 }
@@ -312,7 +336,9 @@ tkInfo pkcs11::tokenInfo(CK_SLOT_ID slot)
 	CK_TOKEN_INFO token_info;
 	CK_RV rv;
 
+	WAITCURSOR_START;
 	rv = p11->C_GetTokenInfo(slot, &token_info);
+	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		pk11error("C_GetTokenInfo", rv);
 	}
@@ -324,7 +350,9 @@ QString pkcs11::driverInfo()
 	CK_INFO info;
 	CK_RV rv;
 
+	WAITCURSOR_START;
 	rv = p11->C_GetInfo(&info);
+	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		pk11error("C_GetInfo", rv);
 	}
@@ -359,7 +387,9 @@ CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
 	CK_RV rv;
 	CK_OBJECT_HANDLE obj;
 
+	WAITCURSOR_START;
 	rv = p11->C_CreateObject(session, attrs.getAttributes(), attrs.length(), &obj);
+	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		pk11error("C_CreateObject", rv);
 	}
@@ -373,7 +403,9 @@ int pkcs11::deleteObjects(pk11_attlist &atts)
 
 	objects = objectList(atts);
 	for (int i=0; i< objects.count(); i++) {
+		WAITCURSOR_START;
 		rv = p11->C_DestroyObject(session, objects[i]);
+		WAITCURSOR_END;
 		if (rv != CKR_OK) {
 			pk11error("C_DestroyObject", rv);
 		}
@@ -429,10 +461,12 @@ pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
 		pk11_attr_bool(CKA_UNWRAP, true) <<
 		label << new_id;
 
+	WAITCURSOR_START;
 	rv = p11->C_GenerateKeyPair(session, &mechanism,
 		pub_atts.getAttributes(), pub_atts.length(),
 		priv_atts.getAttributes(), priv_atts.length(),
 		&pubkey, &privkey);
+	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		pk11error("C_GenerateKeyPair", rv);
 	}
@@ -449,20 +483,26 @@ QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)
 
 	att_num = atts.get(&attribute);
 
+	WAITCURSOR_START;
 	rv = p11->C_FindObjectsInit(session, attribute, att_num);
+	WAITCURSOR_END;
 
 	if (rv != CKR_OK)
 		pk11error("C_FindObjectsInit", rv);
 
 	do {
+		WAITCURSOR_START;
 		rv = p11->C_FindObjects(session, objects, 256, &len);
+		WAITCURSOR_END;
 		if (rv != CKR_OK)
 			pk11error("C_FindObjects", rv);
 		for (i=0; i<len; i++)
 			list += objects[i];
 	} while (len);
 
+	WAITCURSOR_START;
 	rv = p11->C_FindObjectsFinal(session);
+	WAITCURSOR_END;
 	if (rv != CKR_OK)
 		pk11error("C_FindObjectsFinal", rv);
 

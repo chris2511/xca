@@ -472,7 +472,7 @@ I used the following providers for testing:
 The support of Netkey 4E cards is currently restricted. Only import and using the keys is possible. For other cards the support is probably better.
 <item>Aladdin eToken PKIclient-5.1: Works perfectly:
 Read public keys from the token, write private keys to the token, generate keys on the token, write certificates to the token and delete them from the token.
-<item>Linux only: OpenCryptoki [IBM]: may be used as a pure software token, but also supports TPMs and other IBM crypto processors
+<item>Linux only: OpenCryptoki \[IBM\]: may be used as a pure software token, but also supports TPMs and other IBM crypto processors
 </itemize>
 
 <sect1>Tested compatibility with other applications
@@ -492,19 +492,20 @@ I initialized the token as follows:
 <item>Export server cert as "PEM Cert + key" without password for Apache2
 </itemize>
 <sect2>Firefox / Mozilla -> Apache
+<p>
 <itemize>
 <item>Enable PKCS#11 token in firefox: Edit->Preferences->Advanced: [SecurityDevices]: [Load] Load PKCS#11 Device: /usr/lib/libeTPkcs11.so
 <item>Import CA certificate: Edit->Preferences->Advanced: [View Certificates] [Authorities]: [Import]
 <item>Prepare apache config with:
-<itemize>
-<item>SSLEngine on
-<item>SSLCertificateFile    /etc/apache2/ssl/dalek.pem
-<item>SSLCertificateKeyFile /etc/apache2/ssl/dalek.pem
-<item>SSLCertificateChainFile /etc/apache2/ssl/my_CA.crt
-<item>SSLCACertificateFile /etc/apache2/ssl/my_CA.crt
-<item>SSLVerifyClient require
-<item>SSLVerifyDepth  10
-</itemize>
+<tscreen><verb>
+SSLEngine on
+SSLCertificateFile    /etc/apache2/ssl/dalek.pem
+SSLCertificateKeyFile /etc/apache2/ssl/dalek.pem
+SSLCertificateChainFile /etc/apache2/ssl/my_CA.crt
+SSLCACertificateFile /etc/apache2/ssl/my_CA.crt
+SSLVerifyClient require
+SSLVerifyDepth  10
+</tscreen></verb>
 <item>Connect with firefox to the server. Firefox will prompt you to select one of the 2 client certificates. Both work.
 </itemize>
 

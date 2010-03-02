@@ -41,6 +41,11 @@ void pk11_attr_data::setValue(const unsigned char *ptr, unsigned long len)
 {
 	if (attr.pValue)
 		free(attr.pValue);
+	if (!ptr || len == 0) {
+		attr.ulValueLen = 0;
+		attr.pValue = NULL;
+		return;
+	}
 	attr.pValue = malloc(len);
 	check_oom(attr.pValue);
 	memcpy(attr.pValue, ptr, len);
