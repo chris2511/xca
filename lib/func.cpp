@@ -21,7 +21,9 @@
 #include <qfile.h>
 #include <qstringlist.h>
 #include <qpushbutton.h>
-
+#if defined(Q_WS_MAC)
+#include <qdesktopservices.h>
+#endif
 #ifdef WIN32
 #include <windows.h>
 #include <shlobj.h>
@@ -82,8 +84,7 @@ QString getPrefix()
 	QDir bundleDir(qApp->applicationDirPath());
 	bundleDir.cdUp();
 	bundleDir.cdUp();
-	ret += "/Contents/Resources";
-	return bundleDir.absolutePath() + "/Contents/Resources";
+        return bundleDir.absolutePath() + "/Contents/Resources";
 #else
 	return QString(PREFIX) + "/share/xca";
 #endif
