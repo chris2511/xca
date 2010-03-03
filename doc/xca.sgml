@@ -4,16 +4,19 @@
 <article>
 
 <title>XCA
-<author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
-<date>March 2010 - Version 0.8.2
-<abstract>
-<nidx>(your index root)</nidx>
 
-This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys and CRLs.
+<author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
+
+<date>March 2010 - Version 0.9.0
+
+<abstract>
+
+This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys, Smart cards and CRLs.
 Everything that is needed for a CA is implemented.
 All CAs can sign sub-CAs recursively. These certificate chains are shown clearly.
 For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
-All crypto data is stored in a and endian-agnostic file format portable across operating systems.
+All crypto data is stored in an endian-agnostic file format portable across operating systems.
+
 </abstract>
 
 <toc>
@@ -47,27 +50,37 @@ Every item is identified by an internal name which is unique in one tab-view
 and is always shown in the first column.
 
 <sect1>File formats
+
 <p>
+
 There are several default file-formats to exchange cryptographic data with
 other applications.
-<itemize>
-<item><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding <bf>R</bf>ules is the binary ASN.1 encoding of the data.
-<item><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail is the base64 encoded version of the
-	<bf>DER</bf> formated data with additional header and footer lines to be transported via e.g. E-mail
-<item><bf>PKCS&num;X</bf> <bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography <bf>S</bf>tandards
-published by <url url="http://www.rsasecurity.com" name="RSA Laboratories">
 
+<itemize>
+	<item><bf>DER</bf> <bf>D</bf>istinguished <bf>E</bf>ncoding
+		<bf>R</bf>ules is the binary ASN.1 encoding of the data.
+	<item><bf>PEM</bf> <bf>P</bf>rivacy-<bf>E</bf>nhanced <bf>M</bf>ail
+		is the base64 encoded version of the
+	<bf>DER</bf> formated data with additional header and footer lines
+		to be transported via e.g. E-mail <item><bf>PKCS&num;X</bf>
+		<bf>P</bf>ublic <bf>K</bf>ey <bf>C</bf>ryptography
+		<bf>S</bf>tandards published by
+		<url url="http://www.rsasecurity.com" name="RSA Laboratories">
 </itemize>
 
 <sect1>Further reading <label id="otherdoc">
+
 <p>
+
 <enum>
-<item><url url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/" name="SSL Certificates HOWTO">
-<item><url url="http://ospkibook.sourceforge.net/" name="OS-PKI book">
+	<item><url url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/" name="SSL Certificates HOWTO">
+	<item><url url="http://ospkibook.sourceforge.net/" name="OS-PKI book">
 </enum>
 
 <sect1>Copyright
+
 <p>
+
 <tscreen><verb>
 
 Copyright (C) 2001 - 2009 Christian Hohnstaedt.
@@ -112,9 +125,11 @@ This program links to software with different licenses from:
 </verb></tscreen>
 
 <sect1>Credits
+
 <p>
 
 <tscreen><verb>
+
 Kerstin Steinhauff &lt;tine (at) kerstine.de&gt;
         Arts and graphics
 
@@ -135,63 +150,76 @@ Thank you very much.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Updating from older versions (older than 0.6.0)
+
 <p>
+
 Older versions of XCA used a Berkely database for storing the crypto items.
 Starting from version 0.6.0 this has changed to a simple
 endian independent file format for several reasons:
+
 <itemize>
-<item>The Berkeley db API was a moving target and every distribution had different versions installed.
-Handling all versions well ended up in an "#ifdef hell"
-where every second build failure was based on a different API in an other db version.
-<item>The database got corrupted if a log.0000001 file was deleted.
-<item>copying a database from one place to another was only possible, if
-the log file was also copied. This breaks the approach of having
-one single, simpe file containing the crypto items.
+	<item>The Berkeley db API was a moving target and every distribution had different versions installed.
+	Handling all versions well ended up in an "#ifdef hell"
+	where every second build failure was based on a different API in an other db version.
+	<item>The database got corrupted if a log.0000001 file was deleted.
+	<item>copying a database from one place to another was only possible, if
+	the log file was also copied. This breaks the approach of having
+	one single, simpe file containing the crypto items.
 </itemize>
+
 <p>
+
 Since XCA 0.6.0 is not compiled with Berkeley DB support it cannot read old
 file formats. The extension of files has changed from *.db to *.xdb .
 Importing old databases is done by the following steps:
+
 <itemize>
-<item>Use db_dump of your distribution to dump the database to an ASCII file.
- (Windows users will find a db_dump.exe in the XCA installation dir).
- The command is: db_dump -f xca.db.dump xca.db
-<item>Start XCA and open a new database (e.g. xca.xdb). XCA asks for a
-password for this new, empty database.
-<item>Point your mouse to "File->Import old db_dump" and select the file "xca.db.dump"
-<item>XCA now asks for the password of the ORIGINAL database, since the ASCII
-dump still contains the private keys encrypted with the password.
-<item>Enjoy XCA 0.6.0
+	<item>Use db_dump of your distribution to dump the database to an ASCII file.
+	 (Windows users will find a db_dump.exe in the XCA installation dir).
+	 The command is: db_dump -f xca.db.dump xca.db
+	<item>Start XCA and open a new database (e.g. xca.xdb). XCA asks for a
+	password for this new, empty database.
+	<item>Point your mouse to "File->Import old db_dump" and select the file "xca.db.dump"
+	<item>XCA now asks for the password of the ORIGINAL database, since the ASCII
+	dump still contains the private keys encrypted with the password.
+	<item>Enjoy XCA 0.6.0
 </itemize>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Download
+
 <p>
+
 The most recent version of XCA can be downloaded from
 <url url="http://sourceforge.net/projects/xca" name="XCA download">
+
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Command line options
+
 <p>
+
 Usage: <tt>xca [dbname.xdb] &lt;options&gt;</tt>
 Next to the usual X command line options. There are the following
+
 <itemize>
-<item>-v show version information and exit
-<item>-k expect all following non-option arguments to be RSA keys
-<item>-r expect all following non-option arguments to be
-	Certificate signing requests or SPKAC requests
-<item>-c expect all following non-option arguments to be Certificates
-<item>-p expect all following non-option arguments to be PKCS#12 files
-<item>-7 expect all following non-option arguments to be PKCS#7 files
-<item>-l expect all following non-option arguments to be Revocation lists
-<item>-t expect all following non-option arguments to be Xca templates
-<item>-P expect all following non-option arguments to be a PEM formated file
-<item>-d set the database filename
-<item>-x Exit after processing all command line options
+	<item>-v show version information and exit
+	<item>-k expect all following non-option arguments to be RSA keys
+	<item>-r expect all following non-option arguments to be
+		Certificate signing requests or SPKAC requests
+	<item>-c expect all following non-option arguments to be Certificates
+	<item>-p expect all following non-option arguments to be PKCS#12 files
+	<item>-7 expect all following non-option arguments to be PKCS#7 files
+	<item>-l expect all following non-option arguments to be Revocation lists
+	<item>-t expect all following non-option arguments to be Xca templates
+	<item>-P expect all following non-option arguments to be a PEM formated file
+	<item>-d set the database filename
+	<item>-x Exit after processing all command line options
 </itemize>
 
 <p>
+
 when invoked with one of the -k -r -c -p -7 -l -t options, the application
 will show the details of the items and import them into the database if
 desired.
@@ -202,23 +230,33 @@ PKI items.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Common actions
+
 <p>
+
 Many actions are common to all crypto parts and are mentioned here once for all.
 The goal of this application is to provide an easy to use signing-tool and
 also a common place for all selected PKI items like Requests or Certificates.
+
 <sect1>Importing items
+
 <p>
+
 The import of an item can be done by either clicking the import button on the right
 or via the context menu available by right clicking into the list.
 The import function is smart enough to probe all known formats independent
 of the file extension:
+
 <itemize>
-<item><tt>Keys:</tt>  PEM private key, PEM public key, DER private key, DER public key, PKCS#8 private key.
-<item><tt>Requests</tt> DER request, PEM request, Netscape SPKAC request.
-<item><tt>Certificates</tt> DER certificate, PEM certificate
-(PKCS#12 and PKCS#7 certificates must be imported with an extra button,
- because they can contain more than one certificate and key)
+	<item><tt>Keys:</tt>  PEM private key, PEM public key,
+		DER private key, DER public key, PKCS#8 private key.
+	<item><tt>Requests</tt> DER request, PEM request,
+		Netscape SPKAC request.
+	<item><tt>Certificates</tt> DER certificate, PEM certificate
+		(PKCS#12 and PKCS#7 certificates must be imported with an
+		extra button, because they can contain more than
+		one certificate and key)
 </itemize>
+
 After selecting the filename XCA will probe for the known formats of that item
 and in case of an error it prompts the <tt>last</tt> OpenSSL error message.
 It is possible to select more than one file by selecting them with SHIFT click.
@@ -229,32 +267,40 @@ instead of the filetype. So a PEM file can be any type of private key, crl
 certificate or csr. This import facility discovers the type and loads it.
 
 <p>
+
 When importing more than one Key, CRL, Certificate or Request
 all items are shown in a Multi-import dialog.
 When importing a PKCS#7 or PKCS#12 item, the contained Keys and Certificates are shown in the Multi-import dialog.
 By using the Multi-import dialog the items can be examined, imported or dropped.
 
 <p>
+
 After reading the item it searches for this item in the database and if it
 is unique, the item is stored in the database. Otherwise it shows a message
 containing the internal name of this item in the database.
 
 <sect1>Details of an item
+
 <p>
+
 The details dialog can be accessed by double clicking the item, by the context menu or by
 the button on the right.
 The names of the issuers certificate and the corresponding key are clickable and their
 content will be shown on "double-click"
 
 <sect1>Renaming an item
+
 <p>
+
 An Item can be renamed via the context menu by right-clicking on the item,
 by pressing &lt;F2&gt; or by the <em>Rename</em> button on the right border.
 If the new name of the item already exists in the database a <tt>_01</tt>
 will be appended to keep the internal name unique.
 
 <sect1>Deleting Items
+
 <p>
+
 Items can be deleted by the button on the right or via the context menu.
 If a certificate signed by this application is going to be removed
 the application will warn you once more, because you can not revoke a
@@ -270,44 +316,63 @@ certificate. Multiple items may be selected to delete them all at once.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>The Certificate input dialog<label id="wizard">
+
 <p>
+
 This input dialog is the central part for collecting all data regarding Certificates,
 Requests and Templates. It will be invoked whenever such an item is going
 to be created or, in case of a Template, is altered.
 
 <sect1>Source
+
 <p>
+
 This page is not shown when creating or changing templates.
 
 <sect2>Signing request
+
 <p>
+
 If it is desired to either enroll a certificat from a PKCS#10 request
 by a local CA, or to create a certificate from a request by self-signing it,
 the request can be selected here. In the later case the private key of
 the request must be available.
 
 <sect2>Signing
+
 <p>
+
 Either self-signing or the CA certificate for signing may be selected here.
 Additionally, the desired signing algorithm can be adjusted.
 The drop-down list contains all <ref id="ca_cert" name="CA certificates">
 with an available private key.
 
 <sect2>Signature algorithm
+
 <p>
+
 Usually SHA256 or higher should be used, but
 since older windows versions including XP can not handle them,
 Windows users should consider using SHA1.
 
 <sect2>Templates
+
 <p>
+
 The fields of the certificate can be preset by the values of a template
-by selecting it and clicking <em>Apply</em>.
+by selecting it and clicking <em>Apply all</em>.
+Tamplates can be mixed by applying the subject of one template and then
+applying the extensions of an other by using the
+buttons <em>Apply subject</em> and <em>Apply extensions</em>
 
 <sect1>Personal settings
 
-<sect2>Subject
 <p>
+
+<sect2>Subject
+
+<p>
+
 On this Page all personal data like country, name and email address
 can be filled in.
 The <tt>Country code</tt> field must either be empty or exactly contain
@@ -317,13 +382,21 @@ must contain the <tt>DNS</tt> name of the server.
 If the <tt>internal name</tt> is empty, the common name will be used
 as internal name.
 It will also be used as default internal name, if a new key is created here.
+
 <p>
+
 Other rarely used <tt>name-entries</tt> can be selected in the dialog
-below. Only items that were added using the <em>Add</em>
-button are recognized. All items can be added more than once, even those from above. This is not very usual but allowed.
+below. Only items that have a non-empty value.
+By using this atble instead of the table above, the order of the entries can be adjusted.
+A new line can be added via the <em>Add</em> button.
+The current line can be deleted via the <em>Delete</em> button.
+Existing lines can be exchanged and reordered by moving the row-header (containing the row-number) around.
+All items can be added more than once, even those from above. This is not very usual but allowed.
 
 <sect2>Private Key
+
 <p>
+
 Keys can be generated here <tt>on the fly</tt> by pressing the button.
 The name of the new key will be preset by the common name of the certificate.
 The newly generated key will be stored in the database and stay there,
@@ -333,7 +406,9 @@ requests. The key-list is not available for creating or changing templates.
 By checking <tt>Used keys too</tt> the list contains all available
 keys. Use this with care. You're likely doing something wrong when using this
 option.
+
 <p>
+
 This tab does not appear when signing a request, because the request
 contains all needed data from this tab.
 Select "Modify subject of the request", if you want to modify it anyway.
@@ -341,17 +416,23 @@ The content of the subject Tab will then be preset with the content of the
 request.
 
 <sect1>X509v3 Extensions
+
 <p>
+
 The next 3 tabs contain all fields for adjusting the certificate extensions.
 It is not in the focus of this document to explain them all in detail.
 The most important are the <tt>Basic Constraints</tt> and the <tt>Validity</tt> range.
+
 <p>
+
 For more information consult the documents in <ref id="otherdoc">.
 If you don't know what this is all about please read those documents before
 creating any certificates.
 
 <sect2>Basic Constraints
+
 <p>
+
 If the type is set to <tt>Certification Authority</tt>,
 the certificate is recognized by XCA and other
 instances as issuer for other certificates.
@@ -360,11 +441,15 @@ Server-certificates or E-Mail certificates should set this extension to
 or disable it completely by setting it to <tt>Not defined</tt>
 
 <sect2>Validity Range
+
 <p>
+
 The <tt>not Before</tt> field is set to the current date and time of the
 operating system and the <tt>not After</tt> field is set to the current
 date and time plus the specified time range.
+
 <p>
+
 For templates the specified times are not saved, because it does not make much sense.
 Rather the time range is stored and automatically applied when selecting this
 template. Applying the time range means to set notBefore to "now" and notAfter
@@ -372,7 +457,9 @@ to "now + time range". If the <tt>midnight</tt> button is set both dates will be
 rounded down and up to midnight.
 
 <sect2>Advanced
+
 <p>
+
 Any extension, not covered on the other tabs can be added here as
 defined in OpenSSL nconf. The validity can be checked by clicking
 <tt>Validate</tt>. All extensions from all tabs will be shown here
@@ -380,7 +467,9 @@ to see them all in their final form. Click on <tt>Edit</tt> to continue
 editing the extensions here.
 
 <sect3>Certificate Policies
+
 <p>
+
 The following example of <tt>openssl.txt</tt> also works in the advanced tab
 to define certificate policies
 
@@ -406,15 +495,21 @@ noticeNumbers=1,2,3,4
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Smart cards (Security tokens)
+
 <p>
+
 Since XCA 0.8.0 the use of Smart cards (Security tokens) is supported.
 It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
 This is not restricted to Smart cards but includes all type of security tokens like USB sticks.
 The default is <tt>/usr/lib/opensc-pkcs11.so</tt> and <tt>opensc-pkcs11.dll</tt> in the XCA installation path, depending on your OS.
+
 <p>
+
 Once again: This software comes with no warranty at all! If XCA transforms your security token into a fridge, don't blame me.
 For me everything worked fine and I tested it thoroughly.
+
 <p>
+
 On Linux the packages <tt>opensc</tt> and <tt>libengine-pkcs11-openssl</tt> should be installed.
 Please read the opensc documentation for more details.
 Generally: if the opensc commandline-tool "pkcs11-tool -L" shows reasonable output, XCA will work.
@@ -422,7 +517,9 @@ Otherwise fix the opensc setup.
 I had a functional setup with a "Reiner SCT" and a DELL keyboard with integrated card reader and TCOS Netkey E4 cards.
 I also used Aladdin Etoken very successfully (Thanks for support!). The Aladdin PKCS#11 library supports all needed features very well.
 Most probably other cards/tokens will work as least as good or better.
+
 <p>
+
 Before the keys of a token can be used, they must be imported into XCA.
 This means that XCA reads the token and stores the card's manufacturer, serial and the public key into the database.
 It is not unusal that a token contains more than one key.
@@ -431,72 +528,118 @@ When selecting a token-key for signing, XCA verifies that the
 correct token is available.
 
 The following actions with smart cards are supported:
+
 <itemize>
-<item>Import keys and certificates from the token. (Import->Read Security token)
-<item>Everything you can do with other keys can be done with tokens, too.
-<item>On export, only the Public key is exported.
-<item>Change the PIN and SO PIN of a token.
-<item>Create a key on the token. (Button New Key)
-<item>Store an existing key or certificate on the token.
-	(Context menu of the item)
-<item>Delete certificates and keys from the token. (Context menu of the item)
-<item>Initialize cards and the user PIN via SO PIN
+	<item>Import keys and certificates from the token.
+		(Import->Read Security token)
+	<item>Everything you can do with other keys can be done with tokens,
+		too.
+	<item>On export, only the Public key is exported.
+	<item>Change the PIN and SO PIN of a token.
+	<item>Create a key on the token. (Button New Key)
+	<item>Store an existing key or certificate on the token.
+		(Context menu of the item)
+	<item>Delete certificates and keys from the token.
+		(Context menu of the item)
+	<item>Initialize cards and the user PIN via SO PIN
 </itemize>
 
 You may ignore existing built-in certificates of a Smart-card and create your own CA certificate, self-signed by your Smart-card and issue end-entity certificates containing other RSA, DSA or EC keys or sign imported certificate requests.
+
 <p>
+
 A new menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and initialized.
-<sect1>Initializing Smart cards
-<p>
-If not done by an other mechanism, the token can be initialized via <tt>Init Security token</tt>.
-If the token was never initialized before, you must provide a new SO PIN (which is not always true, see opencryptoki)
-otherwise the old SO PIN must be provided.
-XCA also asks for a new label for the token.
-<p>
-Afterwards the User PIN should be initialized via <tt>Init PIN</tt>.
 
 <sect1>Managing Smart cards
+
 <p>
-The menu item <tt>Manage Security token</tt> shows a list of all certificates and public keys fond on the token.
+
+Security token specific operations are collected below
+the menu-item <tt>Token</tt>
+
+<sect2>Initializing tokens
+
+<p>
+
+Initializing tokens is done via the menu item <tt>Initialize token</tt>. During this process either a new SO PIN must be defined or the old SO PIN must be given. Additionally XCA asks for the label of this token.
+
+<p>
+
+After this operation succeeded, the User PIN is uninitialized and must be initialized via <tt>Init PIN</tt>
+
+<sect2>Importing token items
+
+<p>
+
+The menu item <tt>Manage Security token</tt> shows a list of all certificates and public keys foiund on the token.
 The keys and certificates can be imported via the Multi-import dialog.
-To delete certificates or keys from the token they must be first imported into the XCA databse and deleted afterwards. XCA will then ask wether the item shall also be removed from the token.
-<sect2>Changing PINs
+
+<sect2>Deleting items from the token
+
 <p>
+
+To delete certificates or keys from the token they must be first imported into the XCA databse and deleted afterwards.
+XCA will then ask whether the item shall also be removed from the token.
+
+<sect2>Changing PINs
+
+<p>
+
 The User PIN and SO PIN can be changed via the <tt>Token</tt> menu and also via the key context-menu. In this case the correct token containing the key will be enforced.
 
 <sect1>Tested providers
+
 <p>
+
 I used the following providers for testing:
+
 <itemize>
-<item>Default provider for a lot of different cards and readers.
-The support of Netkey 4E cards is currently restricted. Only import and using the keys is possible. For other cards the support is probably better.
-<item>Aladdin eToken PKIclient-5.1: Works perfectly:
-Read public keys from the token, write private keys to the token, generate keys on the token, write certificates to the token and delete them from the token.
-<item>Linux only: OpenCryptoki \[IBM\]: may be used as a pure software token, but also supports TPMs and other IBM crypto processors
+	<item>OpenSC: default provider for a lot of different cards and
+		readers. The support of Netkey 4E cards is currently crippled.
+		Only import and using the keys is possible. For other cards
+		the support is probably better.
+	<item>Aladdin eToken PKIclient-5.1: Works perfectly.
+		Read public keys from the token, write private keys to the
+		token, generate keys on the token, write certificates to the
+		token and delete them from the token.
+	<item>Linux only: OpenCryptoki (IBM): may be used as a pure software
+		token, but also supports TPMs and other IBM crypto processors
 </itemize>
 
 <sect1>Tested compatibility with other applications
+
 <p>
+
 For interoperabilitytests I used the Aladdin eToken together with the
 Aladdin PKIclient 5.1 software.
 I initialized the token as follows:
+
 <itemize>
-<item>Generate CA certificate with software key
-<item>Generate server certificate with software key
-<item>Generate client certificate with a key generated on the token
-<item>Generate 2nd client certificate with software key
-<item>Copy the software-key of the 2nd client certificate onto the token
-<item>Copy the 2 client certificates onto the token
-<item>Export CA certificate as PEM
-<item>Export server cert as PKCS12 without password
-<item>Export server cert as "PEM Cert + key" without password for Apache2
+	<item>Generate CA certificate with software key
+	<item>Generate server certificate with software key
+	<item>Generate client certificate with a key generated on the token
+	<item>Generate 2nd client certificate with software key
+	<item>Copy the software-key of the 2nd client certificate onto the token
+	<item>Copy the 2 client certificates onto the token
+	<item>Export CA certificate as PEM
+	<item>Export server cert as PKCS12 without password
+	<item>Export server cert as "PEM Cert + key" without password
+		for Apache2
 </itemize>
+
 <sect2>Firefox / Mozilla -> Apache
+
 <p>
+
 <itemize>
-<item>Enable PKCS#11 token in firefox: Edit->Preferences->Advanced: [SecurityDevices]: [Load] Load PKCS#11 Device: /usr/lib/libeTPkcs11.so
-<item>Import CA certificate: Edit->Preferences->Advanced: [View Certificates] [Authorities]: [Import]
-<item>Prepare apache config with:
+	<item>Enable PKCS#11 token in firefox:
+		Edit-&gt;Preferences-&gt;Advanced:
+		(SecurityDevices): (Load) Load PKCS#11 Device:
+		/usr/lib/libeTPkcs11.so
+	<item>Import CA certificate: Edit-&gt;Preferences-&gt;Advanced:
+		(View Certificates) (Authorities): (Import)
+	<item>Prepare apache config with:
+
 <tscreen><verb>
 SSLEngine on
 SSLCertificateFile    /etc/apache2/ssl/dalek.pem
@@ -505,23 +648,54 @@ SSLCertificateChainFile /etc/apache2/ssl/my_CA.crt
 SSLCACertificateFile /etc/apache2/ssl/my_CA.crt
 SSLVerifyClient require
 SSLVerifyDepth  10
-</tscreen></verb>
-<item>Connect with firefox to the server. Firefox will prompt you to select one of the 2 client certificates. Both work.
+</verb></tscreen>
+
+	<item>Connect with firefox to the server. Firefox will prompt you
+		to select one of the 2 client certificates. Both work.
 </itemize>
 
-<sect>RSA, DSA and EC keys <label id="keys">
+<sect2>OpenVPN
+
 <p>
+
+The relevant server config is as follows:
+
+<tscreen><verb>
+pkcs12 server.p12
+</verb></tscreen>
+
+<p>
+
+The client config is:
+
+<tscreen><verb>
+ca ca.crt
+pkcs11-providers /usr/lib/libeTPkcs11.so
+pkcs11-id 'Aladdin\x20Knowledge\x20Systems\x20Ltd\x2E/eToken/002882d2/F\xC3\xBCr\x20den\x20Firefox/D1A7BFF94B86C061'
+</verb></tscreen>
+
+The pkcs11-id can be obtained with the command:
+<tt>openvpn --show-pkcs11-ids /usr/lib/libeTPkcs11.so</tt>
+
+
+<sect>RSA, DSA and EC keys <label id="keys">
+
+<p>
+
 For creating certificates, keys are needed.
 All keys are stored encrypted in the database using the 3DES algorithm.
 The password can be changed for each certificate.
 
 <p>
+
 All keys carry a use counter which counts the times it is used. For new
 requests or certificates the list of available keys is reduced to
 the keys with a use counter of 0.
 
 <sect1>Generating Keys
+
 <p>
+
 The dialog asks for the internal name of the key and the keysize in bits.
 For EC keys, a list of curves is shown. It contains all X9.62 curves.
 When importing an EC key with explicit curve parameters, the corresponding curve OID is searched and set if found.
@@ -530,19 +704,25 @@ may be set here by editing this box.
 While searching for random prime numbers a progress bar is shown in the
 bottom of the base application.
 After the key generation is done the key will be stored in the database.
+
 <p>
-For every token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown contain ing the name of the token and the valid key-sizes.
+
+For every token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown.
+It contains the name of the token and the valid key-sizes.
 
 <sect1>Key export
+
 <p>
+
 Keys can be exported by either selecting the key and pressing <em>Export</em>
 or by using the context-menu. This opens a Dialogbox where the following settings can be adjusted:
+
 <itemize>
-<item>filename
-<item>Output format ( DER, PEM )
-<item>Public or Private Key
-<item>PKCS&num;8 format
-<item>Encryption of the exported file (yes/no)
+	<item>filename
+	<item>Output format ( DER, PEM )
+	<item>Public or Private Key
+	<item>PKCS&num;8 format
+	<item>Encryption of the exported file (yes/no)
 </itemize>
 
 The filename is the internal name plus a <tt>pem</tt>, <tt>der</tt> or <tt>pk8</tt> suffix.
@@ -556,33 +736,45 @@ Of course, encryption does not make sense if the private part is not exported.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Certificate Signing Requests <label id="csr">
+
 <p>
+
 Certificate signing requests are described in PKCS&num;10 standard.
 They are used to supply a Certification Authority with the
 needed information to issue a valid certificate for you,
 without knowing your private key. This
 includes your personal information, your public key and additional extensions.
+
 <p>
+
 Netscape SPKAC files can not be created or exported, but they can be imported and signed.
 This requests are marked in the Signature field as SPKAC and a Netscape icon is
 shown.
 
 <sect1>Generating a new Request
+
 <p>
+
 After clicking on the <tt>New Request</tt> button the Certificate dialog will be started to ask
 all needed information for generating a new Request. See: <ref id="wizard" name="The Certificate input dialog">
+
 <p>
+
 The request generation can also be invoked by the context menu of a certificate (Export->Request).
 This menu point is only available if the private key of the certificate is available.
 In this case all needed data is copied from the certificate and the Certificate dialog is not invoked.
 
 <sect1>Request export
+
 <p>
+
 Requests can be exported by the context-menu or by the button on the right.
 The filename and type can be selected in the next dialog.
 
 <sect1>Request details
+
 <p>
+
 All information contained in the request are shown. If the keystore contains
 the private key corresponding to the request the keys internal name is shown
 in the <tt>Key</tt> field.
@@ -590,136 +782,192 @@ in the <tt>Key</tt> field.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Certificates
+
 <p>
+
 All certificates from the database are displayed in a tree view reflecting
 the chain dependencies.
 If there is a CA certificate and several client certificates signed by this CA,
 the client certificates can be shown by clicking on the plus sign of the CA certificate.
 
 <sect1>CA certificates <label id="ca_cert">
+
 <p>
+
 XCA will recognize CA certificates if the CA flag in the <tt>Basic Constraints</tt>
 is set to true.
 If there is a corresponding private key, the <tt>CA</tt>
 submenu in the context-menu will be enabled.
 
 <p>
+
 For building the chains the CA flag is disregarded, because there are some
 CAs without this flag.
 Instead it consideres the issuer name and the signature to decide which certificate is the issuer.
 
 <sect1>Generating certificates
+
 <p>
+
 After clicking on the <tt>New Certificate</tt> button the Certificate input dialog will be started to ask
 all needed information for generating a new Certificate. See: <ref id="wizard" name="The Certificate input dialog">
 Certificate creation can also be invoked by the context menu of the certificate list background
 or by the context menu of the request.
 In this case the Certificate input dialog is preset with the request to be signed.
+
 <p>
+
 If a <tt>CA certificate</tt> is selected in the certificate list, this
 certificate will be preselected as signer certificate.
 
 <sect1>Certificate details
+
 <p>
+
 The signer is the internal name of the issuers certificate, <em>SELF SIGNED</em> if it is
 self signed or <em>SIGNER UNKNOWN</em> if the issuer's certificate is not available.
 The validity is set to <em>valid</em> if the certificate's dates are valid
 or to <em>Not valid</em> if they are not, regarding to the internal time and date of the OS.
+
 <p>
+
 If the certificate is revoked, the revocation date will be shown instead.
+
 <p>
+
 On the <em>Subject</em> and <em>Issuer</em> tab the distinguished name is
 also displayed in a format defined in RFC2253 for copy&amp;paste.
 
 <sect1>Certificate trust
+
 <p>
+
 The certificate trust can be changed by the context menu of the certificate.
 It can be set to:
+
 <itemize>
-<item><bf>Not trusted</bf> - never trust this certificate, even if we trust the issuer.
-This is the default for imported self-signed certificates.
-<item><bf>Trust depends on issuer</bf> - only trust this certificate, if we trust the
-issuer. This is the default for imported and generated non-self-signed certificates.
-<item><bf>Always trust</bf> - always trust this certificate, even if we do not trust
-the issuer's certificate or if it is absent. This is the default for generated
-self-signed certificates.
+	<item><bf>Not trusted</bf> - never trust this certificate, even if
+		we trust the issuer. This is the default for imported
+		self-signed certificates.
+	<item><bf>Trust depends on issuer</bf> - only trust this certificate,
+		if we trust the issuer. This is the default for imported and
+		generated non-self-signed certificates.
+	<item><bf>Always trust</bf> - always trust this certificate, even if
+		we do not trust the issuer's certificate or if it is absent.
+		This is the default for generated self-signed certificates.
 </itemize>
 
 <sect1>Certificate export
+
 <p>
+
 The filename can be selected in the export dialog and the Export format:
+
 <itemize>
-<item><bf>PEM</bf> - PEM encoded
-<item><bf>PEM with Certificate chain</bf> - PEM encoded certificate and all issuers up to the root certificate in one file
-<item><bf>PEM all trusted Certificates</bf> - List of all PEM encoded certificates
-that are marked als <em>Always trusted</em> (usually all self-signed certificates)
-in one file for e.g. apache as trusted cert store.
-<item><bf>PEM all Certificates</bf> - All PEM encoded certificates in one file.
-<item><bf>DER</bf> - DER encoded certificate.
-<item><bf>PKCS#7</bf> - DER encoded PKCS#7 structure containing the certificate.
-<item><bf>PKCS#7 with Certificate chain</bf> - DER encoded PKCS#7 structure containing the
-	certificate and all issuers up to the root certificate.
-<item><bf>PKCS#7 all trusted Certificates</bf> - DER encoded PKCS#7 structure containing all
-	 certificates that are marked als <em>Always trusted</em>
-<item><bf>PKCS#7 all Certificates</bf> - DER encoded PKCS#7 structure containing all certificates.
-<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate and the corresponding
-private key
-<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate, the corresponding
-private key and the chain of all issuers certificates.
-<item><bf>PEM cert + key</bf> - concatenation of the private key and certificate in a format used by apache or the X509 patch for OpenSSH.
-<item><bf>PEM cert + PKCS8 key</bf> - concatenation of the private key in PKCS&num;8 format and certificate.
+	<item><bf>PEM</bf> - PEM encoded
+	<item><bf>PEM with Certificate chain</bf> - PEM encoded certificate
+		and all issuers up to the root certificate in one file
+	<item><bf>PEM all trusted Certificates</bf> - List of all PEM encoded
+		certificates that are marked als <em>Always trusted</em>
+		(usually all self-signed certificates) in one file for e.g.
+		apache as trusted cert store.
+	<item><bf>PEM all Certificates</bf> - All PEM encoded certificates
+		in one file.
+	<item><bf>DER</bf> - DER encoded certificate.
+	<item><bf>PKCS#7</bf> - DER encoded PKCS#7 structure containing
+		the certificate.
+	<item><bf>PKCS#7 with Certificate chain</bf> - DER encoded
+		PKCS#7 structure containing the
+		certificate and all issuers up to the root certificate.
+	<item><bf>PKCS#7 all trusted Certificates</bf> - DER encoded
+		PKCS#7 structure containing all
+		certificates that are marked als <em>Always trusted</em>
+	<item><bf>PKCS#7 all Certificates</bf> - DER encoded PKCS#7 structure
+		containing all certificates.
+	<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate
+		and the corresponding private key
+	<item><bf>PKCS#12</bf> - PKCS#12 structure containing the certificate,
+		the corresponding private key and the chain of all
+		issuers certificates.
+	<item><bf>PEM cert + key</bf> - concatenation of the private key
+		and certificate in a format used by apache or the
+		X509 patch for OpenSSH.
+	<item><bf>PEM cert + PKCS8 key</bf> - concatenation of the
+		private key in PKCS&num;8 format and certificate.
 </itemize>
+
 <p>
+
 When exporting PKCS#12 structures you are asked later for an encryption
 password.
 
 <sect1>Certificate revocation
+
 <p>
+
 Certificates can only be revoked, if the private key of the issuer's certificate
 is available. The certificate will marked as revoked and the revocation date
 will be stored with the certificate.
 
 <sect1>Certificate renewal
+
 <p>
+
 Certificates can only be renewed, if the private key of the issuer's certificate
 is available. Renewal is done by creating a new certificate as a copy of the original one
 with adjusted validity dates.
 
 <sect1>CA special functions
+
 <p>
+
 The context menu of CA certificates contains the <em>CA</em> submenu,
 which makes the following functions available:
 
 <itemize>
-<item><bf>Serial</bf> The serial number of the next certificate
-signed by this issuer.
-<item><bf>CRL days</bf> The days until the next CRL release.
-<item><bf>Signing Template</bf> The default template for signing certificates.
-<item><bf>Generate CRL</bf> Generate the CRL by collecting all revoked certificates
-and their revocation date.
+	<item><bf>Serial</bf> The serial number of the next certificate
+		signed by this issuer.
+	<item><bf>CRL days</bf> The days until the next CRL release.
+	<item><bf>Signing Template</bf> The default template for
+		signing certificates.
+	<item><bf>Generate CRL</bf> Generate the CRL by collecting all
+		revoked certificates and their revocation date.
 </itemize>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Templates
+
 <p>
+
 Templates are special to XCA and not interchangeable with other applications.
 They store all informations to create certificates or requests.
+
 <p>
+
 To use templates, just create a new certificate or request and apply one
-of the templates in the <tt>Source</tt> Tab.
+of the templates (or parts of it) in the <tt>Source</tt> Tab.
+Usually you have the distinguished name parts, that never change and properties (extensions) that define the use of the certificate.
+You may apply the whole template or only the subject or only the extensions.
+
 <p>
+
 Next to the 3 default templates for CA, HTTPS server and client
 certificates, customized templates may be created. Templates are not signed,
 they are just a collection of common values for different certificates.
 Therefore XCA does not care if any duplicates exist in the list of templates.
+
 <p>
+
 An easy way to create templates is to export an existing certificate or
 PKCS#10 request to a template. Just select <tt>Export->Template</tt>
 in the context-menu of the item.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
 <sect>Certificate Revocation Lists
+
 <p>
+
 All certificates are issued for a restricted timeperiod of validity.
 However it can happen that a certificate shoud not be used / becomes invalid
 before the "not after" time in the certificate is reached. In this case
@@ -727,90 +975,122 @@ the issuing CA should revoke this certificate by putting it on the list of
 revoked certificates, signing and publishing it.
 
 <sect1>Generation of Certificate revocation lists
+
 <p>
+
 In XCA this can be done by the context-menu of the CA and the
 "revoke" entry in the context-menu of the issued certificate.
 First all invalid certificates are marked as revoked and
 then a Certificate Revocation List should be created and will be stored in the
 database.
+
 <p>
 
 <sect>Options
+
 <p>
+
 The options dialog can be found in the file menu. All options are saved
 in the database and do not depend on the operating systems registry or
 configuration files.
+
 <p>
 
 <sect1>Mandatory subject entries
+
 <p>
+
 A list of mandatory distinguished name entries may be specified to
 get a warning, whenever issuing a certificate with one of the listed
 entres is empty. This requirement is not checked when editing templates,
 because templates may have empty entries that will be filled during
 the rollout of the certificate.
+
 <p>
 
 <sect1>String settings
+
 <p>
+
 This option applies to all strings converted to ASN1 strings.
 The selected string type is automatically set to
 the smallest possible and allowed type, covering all contained characters.
+
 <p>
+
 The list of allowed string types can be selected:
+
 <itemize>
-<item><bf>PKIX in RFC2459 (default)</bf>All string types are set as described in
-  RFC2459
-<item><bf>No BMP strings</bf> All strings containing non printable
-  characters are regarded as errors.
-<item><bf>PKIX UTF8 only</bf> All string types are selected according to
-  RFC2459 for entities issued after 2004, which means that almost all
-  distinguished name entry types are set to UTF8.
-<item><bf>All strings</bf>All string types are allowed.
+	<item><bf>PKIX in RFC2459 (default)</bf>All string types are
+		set as described in RFC2459
+	<item><bf>No BMP strings</bf> All strings containing non printable
+	  characters are regarded as errors.
+	<item><bf>PKIX UTF8 only</bf> All string types are selected according to
+	  RFC2459 for entities issued after 2004, which means that almost all
+	  distinguished name entry types are set to UTF8.
+	<item><bf>All strings</bf>All string types are allowed.
 </itemize>
+
 <p>
 
 <sect1>Default hash algorithm
+
 <p>
+
 Older Windows versions and OpenSSL versions can not handle
 SHA256 and SHA512. This option allows to set the hash algorithm to SHA1
 for instance.
+
 <p>
+
 <sect1>PKCS#11 library path
+
 <p>
+
 Here you can select the path to the PKCS#11 library on your system.
 If it is empty, the default <tt>/usr/lib/opensc-pkcs11.so</tt> will be used.
 On Windows the opensc-pkcs11.dll in the XCA installation directory will be tried.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Object IDs
+
 <p>
+
 Private Object IDs and OID lists for the distinguished name or extended key
 usage can be added in files listed below.
 The files are:
+
 <itemize>
-<item><bf>oids.txt</bf> addidtional Object IDs
-<item><bf>eku.txt</bf> Content of <tt>ExtendedKeyUsage</tt>
-<item><bf>dn.txt</bf> Content of <tt>DistinguishedName</tt>
-<item><bf>aia.txt</bf> Content of <tt>AuthorityInformationAccess</tt>
+	<item><bf>oids.txt</bf> addidtional Object IDs
+	<item><bf>eku.txt</bf> Content of <tt>ExtendedKeyUsage</tt>
+	<item><bf>dn.txt</bf> Content of <tt>DistinguishedName</tt>
+	<item><bf>aia.txt</bf> Content of <tt>AuthorityInformationAccess</tt>
 </itemize>
+
 The search path for all the files is listed below.
 All files except <em>oids.txt</em> are searched in the order listed below
 and search stops at the first file found.
 The <em>oids.txt</em> file is searched in reversed order and all
 <em>oids.txt</em> files found are loaded.
+
 <p>
+
 <bf>Unix</bf>
+
 <itemize>
-<item>$HOME/.xca/
-<item>/etc/xca/
-<item>PREFIX/share/xca/ <newline>PREFIX is usually /usr or /usr/local
+	<item>$HOME/.xca/
+	<item>/etc/xca/
+	<item>PREFIX/share/xca/ <newline>PREFIX is usually /usr or /usr/local
 </itemize>
+
 <p>
+
 <bf>Windows</bf>
+
 <itemize>
-<item>Installation directory <newline>e.g.: C:\Programs\xca
+	<item>Installation directory <newline>e.g.: C:\Programs\xca
 </itemize>
+
 All Object IDs that are not official, but belong to your company
 or organisation can be added in the file <tt>oids.txt</tt>.
 All possible locations for this file are searched and all <tt>oids.txt</tt> files
@@ -822,6 +1102,7 @@ Leading and trailing spaces between the colons and the text are ignored.
 Lines starting with a <bf>#</bf> are ignored.
 
 <p>
+
 The files containing OID lists (<tt>eku.txt, dn.txt, aia.txt</tt>)
 are handled in a different way, only the first one found is used.
 The format of this files is one entry per line. The entry can be either the
@@ -832,7 +1113,9 @@ If this files shall contain new inofficial OIDs, they must be also mentioned
 in one of the <tt>oids.txt</tt> files.
 
 <sect>Step by Step guides
+
 <p>
+
 Beginners may follow these steps to easily create their first certificates.
 This guide shows the minimal requirements for various tasks.  For more
 advanced use of XCA, users are encouraged to familiarize themselves with
@@ -848,7 +1131,7 @@ the applicable standards.
     <itemize>
       <item>At the bottom of the panel, ensure that the
             <bf>"&#91;default&#93; CA"</bf>
-	    template is showing, and click the <bf>Apply</bf> button.
+	    template is showing, and click the <bf>Apply all</bf> button.
             This will fill in appropriate values under the <bf>Extensions</bf>,
 	    <bf>Key Usage</bf>, and <bf>Netscape</bf> tabs.
     </itemize>
@@ -857,16 +1140,16 @@ the applicable standards.
       <item>Type in the internal name; this is for display purposes
 	    in the tool, only.
       <item>Fill in the required fields in the upper Distinguished
-	    Name section (Country code, State/Province, Locality,
+	    Name section (Country name, State/Province, Locality,
             Organization, Common name, E-Mail address).
             The common name can be something like "ACME Certificate Authority".
       <item>If you want to add in any additional parts to the
-            distinguished name, use the drop-down box and <bf>Add</bf> button.
+            distinguished name, use the <bf>Add</bf> button.
       <item>Select the desired private key or generate a new one.
     </itemize>
     <item>Click the <bf>Extensions</bf> tab.
     <itemize>
-      <item>The Time Range is probably fine (10 years).  If you want
+      <item>The Time Range is probably fine (10 years). If you want
 	    to change the duration, then change it and click <bf>Apply</bf>.
       <item>In the event that you need to revoke any certificates in the
             future, you should designate a certificate revocation list
@@ -964,9 +1247,18 @@ certficate with the following exceptions:
 <sect1>Setting Up A Template
 
 <p>
+
 If you have, or expect to have, multiple hosts under one domain and
 signed by the same root certificate, then setting up a template for
 your hosts can simplify host certificate creation and improve consistency.
+
+<p>
+
+The values of templates can be applied on the first tab of the
+certificate-generation dialog. It can be selected, whether the subject,
+the extensions or both parts of the template will be applied.
+This way a subject-only template may be defined and later
+applied together with the HTTPS_client or HTTPS_server template.
 
 <enum>
   <item>Click on the <bf>Templates</bf> tab.
@@ -978,7 +1270,7 @@ your hosts can simplify host certificate creation and improve consistency.
   <item>Fill in (or modify) any values that you wish to be populated when
         using the template.  Leave the rest blank (notably the "Common Name"
         field).
-  <item>When all desired fields are filled in, click the <bf>OK</bf> tab
+  <item>When all desired fields are filled in, click the <bf>OK</bf> button
         at the bottom of the window.
 </enum>
 
