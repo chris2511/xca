@@ -1,0 +1,25 @@
+
+This is a short overview of how to build
+XCA for MAC OSX
+
+Currently only SnowLeopard is supported, because it comes with the required
+openssl-0.9.8 library
+
+xcode, the developer tools and QT must be installed
+
+
+Install deployqt
+$ curl http://git.hohnstaedt.de/macdeployqt.bz2 |bzcat - >misc/macdeployqt && chmod +x misc/macdeployqt
+
+Configure:
+$ ./configure.mac
+
+Build:
+startup xcode, select "Release build" and build
+
+fetch the current docs xca.html and xca-?.html from somewhere else like http://xca.sf.net and copy them to doc/ or somewhere else and point HTML_DOCDIR there.
+
+Create the dmg
+$ ./mac-package.sh
+
+

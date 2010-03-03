@@ -45,6 +45,11 @@ int main( int argc, char *argv[] )
 	a.installTranslator( &qtTr );
 	a.installTranslator( &xcaTr );
 
+#ifdef Q_WS_MAC
+	QStringList libp = a.libraryPaths();
+	libp.prepend(a.applicationDirPath() + "/../Plugins");
+	a.setLibraryPaths(libp);
+#endif
 	mw = new MainWindow(NULL);
 	mw->read_cmdline();
 	if (mw->exitApp == 0) {
