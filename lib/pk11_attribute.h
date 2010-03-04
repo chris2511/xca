@@ -166,7 +166,14 @@ public:
 	}
 	QString getText() const
 	{
-		return UTF8QSTRING(attr.pValue, attr.ulValueLen);
+		unsigned long len = attr.ulValueLen;
+		char *p = (char*)attr.pValue;
+
+		/* Fixup 0 padded attributes, returned by some broken
+		   libs like OpenLimit */
+		while (p[len-1] == 0 && len > 0)
+			len--;
+		return UTF8QSTRING(attr.pValue, len);
 	}
 	BIGNUM *getBignum() const
 	{
