@@ -40,7 +40,8 @@ else
     echo "Warning: this release package will require users to have installed Qt on their systems."
 fi
 
-cp COPYRIGHT dmgstage
+cp COPYRIGHT $DMGSTAGELOC/COPYRIGHT.txt
+ln -s /Applications $DMGSTAGELOC
 
 if [ -z "$HTML_DOCDIR" -a -e "doc/xca.html" ]
 then
