@@ -41,7 +41,7 @@ class pki_temp: public pki_base
 		void fromData(const unsigned char *p, db_header_t *head );
 		void oldFromData(unsigned char *p, int size);
 
-		unsigned char *toData(int *size);
+		QByteArray toData();
 		bool compare(pki_base *ref);
 		void writeTemp(QString fname);
 		QVariant column_data(int col);

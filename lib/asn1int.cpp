@@ -7,6 +7,7 @@
 
 
 #include "asn1int.h"
+#include "func.h"
 #include "exception.h"
 #include <openssl/err.h>
 #include <openssl/bn.h>
@@ -89,17 +90,6 @@ QString a1int::toDec() const
 	BN_free(bn);
 	OPENSSL_free(res);
 	return r;
-}
-
-void a1int::openssl_error()  const
-{
-	QString errtxt;
-	QString error = "asn1 Integer error:";
-	while (int i = ERR_get_error() ) {
-		errtxt = ERR_error_string(i ,NULL);
-		error += errtxt + "\n";
-	}
-	throw errorEx(error, "a1int");
 }
 
 a1int &a1int::setHex(const QString &s)

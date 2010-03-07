@@ -320,31 +320,31 @@ void pki_evp::fload(const QString fname)
 
 void pki_evp::fromData(const unsigned char *p, db_header_t *head )
 {
-	const unsigned char *p1;
 	int version, type, size;
 
-	p1 = p;
 	size = head->len - sizeof(db_header_t);
 	version = head->version;
+
+	QByteArray ba((const char*)p, size);
 
 	if (key)
 		EVP_PKEY_free(key);
 
 	key = NULL;
-	type = db::intFromData(&p1);
-	ownPass = db::intFromData(&p1);
+	type = db::intFromData(ba);
+	ownPass = db::intFromData(ba);
 	if (version < 2) {
-		D2I_CLASHT(d2i_PublicKey, type, &key, &p1, size - (2*sizeof(int)));
+		d2i_old(ba, type);
 	} else {
-		d2i_PUBKEY(&key, &p1, size - (2*sizeof(int)));
+		d2i(ba);
 	}
 	openssl_error();
 
-	encKey_len = size - (p1-p);
+	encKey_len = ba.count();
 	if (encKey_len) {
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
 		check_oom(encKey);
-		memcpy(encKey, p1 ,encKey_len);
+		memcpy(encKey, ba.constData(), encKey_len);
 	}
 }
 
@@ -425,29 +425,20 @@ EVP_PKEY *pki_evp::decryptKey() const
 	OPENSSL_free(p);
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	openssl_error();
+	if (EVP_PKEY_type(tmpkey->type) == EVP_PKEY_RSA)
+		RSA_blinding_on(tmpkey->pkey.rsa, NULL);
 	return tmpkey;
 }
 
-unsigned char *pki_evp::toData(int *size)
+QByteArray pki_evp::toData()
 {
-	unsigned char *p, *p1;
-	int pubsize;
+	QByteArray ba;
 
-	pubsize = i2d_PUBKEY(key, NULL);
-	*size = pubsize + encKey_len + (2*sizeof(int));
-	p1 = p = (unsigned char *)OPENSSL_malloc(*size);
-	check_oom(p);
-	openssl_error();
-	db::intToData(&p1, key->type);
-	db::intToData(&p1, ownPass);
-	i2d_PUBKEY(key, &p1);
-	openssl_error();
-	if (encKey_len) {
-		memcpy(p1, encKey, encKey_len);
-	}
-	// printf("To data: pubsize=%d, encKey_len: %d, *size=%d\n",
-			//pubsize, encKey_len, *size);
-	return p;
+	ba += db::intToData(key->type);
+	ba += db::intToData(ownPass);
+	ba += i2d();
+	ba.append((const char*)encKey, encKey_len);
+	return ba;
 }
 
 EVP_PKEY *pki_evp::priv2pub(EVP_PKEY* key)
@@ -809,11 +800,11 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 
 void pki_evp::oldFromData(unsigned char *p, int size )
 {
-	const unsigned char *p1;
 	int version, type;
 
-	p1 = (const unsigned char*)p;
-	version = intFromData(&p1);
+	QByteArray ba;
+
+	version = intFromData(ba);
 	if (version != 1) { // backward compatibility
 		veryOldFromData(p, size);
 		return;
@@ -822,18 +813,17 @@ void pki_evp::oldFromData(unsigned char *p, int size )
 		EVP_PKEY_free(key);
 
 	key = NULL;
-	type = intFromData(&p1);
-	ownPass = intFromData(&p1);
+	type = intFromData(ba);
+	ownPass = intFromData(ba);
 
-	D2I_CLASHT(d2i_PublicKey, type, &key, &p1, size - (2*sizeof(int)));
+	d2i_old(ba, type);
 	openssl_error();
 
-	encKey_len = size - (p1-p);
+	encKey_len = ba.count();
 	if (encKey_len) {
 		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
 		check_oom(encKey);
-		memcpy(encKey, p1 ,encKey_len);
+		memcpy(encKey, ba.constData(), encKey_len);
 	}
-
 }
 

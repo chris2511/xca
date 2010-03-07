@@ -25,9 +25,8 @@ class x509name
 		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
 		int nid(int i) const;
 		QString getOid(int i) const;
-		const unsigned char *d2i(const unsigned char *p, int size);
 		QByteArray i2d();
-		unsigned char *i2d(unsigned char *p);
+		void d2i(QByteArray &ba);
 		QStringList entryList(int i) const;
 		QString getEntryByNid(int nid ) const;
 		QString getEntry(int i) const;
@@ -39,8 +38,8 @@ class x509name
 		void addEntryByNid(int nid, const QString entry);
 		QString popEntryByNid(int nid);
 		X509_NAME *get() const;
-		int derSize() const;
 		QString getMostPopular() const;
+
 
 };
 

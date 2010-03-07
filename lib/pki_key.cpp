@@ -44,6 +44,34 @@ pki_key::~pki_key()
 		EVP_PKEY_free(key);
 }
 
+void pki_key::d2i(QByteArray &ba)
+{
+	EVP_PKEY *k = (EVP_PKEY*)d2i_bytearray(D2I_VOID(d2i_PUBKEY), ba);
+	if (k) {
+		EVP_PKEY_free(key);
+		key = k;
+	}
+}
+
+void pki_key::d2i_old(QByteArray &ba, int type)
+{
+        if (key)
+		EVP_PKEY_free(key);
+
+	const unsigned char *p, *p1;
+	p = p1 = (const unsigned char *)ba.constData();
+
+	key = d2i_PublicKey(type, NULL, &p1, ba.count());
+        ba = ba.mid(p1-p);
+        openssl_error();
+}
+
+QByteArray pki_key::i2d()
+{
+        return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
+}
+
+
 QString pki_key::length()
 {
 	if (key->type == EVP_PKEY_DSA && key->pkey.dsa->p == NULL) {

@@ -242,14 +242,12 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	}
 	if (slot_label.isEmpty()) {
 		try{
-			unsigned long s;
-			const unsigned char *p;
 			x509name xn;
 
 			pk11_attr_data subj(CKA_SUBJECT);
 			p11.loadAttribute(subj, object);
-			s = subj.getValue(&p);
-			xn.d2i(p, s);
+			QByteArray der = subj.getData();
+			xn.d2i(der);
 			slot_label = xn.getMostPopular();
 			openssl_error();
 		} catch (errorEx &err) {
@@ -281,6 +279,7 @@ pk11_attr_data pki_scard::getIdAttr() const
 void pki_scard::deleteFromToken()
 {
 	unsigned long slot;
+
 	if (QMessageBox::question(NULL, XCA_TITLE,
 			tr("Delete the private key '%1' from the token?").
 			arg(getIntName()),
@@ -560,66 +559,50 @@ pki_scard::~pki_scard()
 {
 }
 
-unsigned char *pki_scard::toData(int *size)
+QByteArray pki_scard::toData()
 {
-	size_t s;
-	unsigned char *p, *p1;
-	int i;
+	QByteArray ba;
 
-	s = card_serial.length() + card_manufacturer.length() +
-		card_label.length() + card_model.length() +
-		slot_label.length() + object_id.length() +
-		7 *sizeof(char) + i2d_PUBKEY(key, NULL) +
-		(mech_list.count() + 1) * sizeof(uint32_t);
+	ba += db::stringToData(card_serial);
+	ba += db::stringToData(card_manufacturer);
+	ba += db::stringToData(card_label);
+	ba += db::stringToData(slot_label);
+	ba += db::stringToData(card_model);
+	ba += db::stringToData(object_id);
+	ba += db::intToData(mech_list.count());
+	for (int i=0; i<mech_list.count(); i++)
+		ba += db::intToData(mech_list[i]);
 
-	p = (unsigned char *)OPENSSL_malloc(s);
-        check_oom(p);
-        openssl_error();
-	p1 = p;
-
-	db::stringToData(&p1, card_serial);
-	db::stringToData(&p1, card_manufacturer);
-	db::stringToData(&p1, card_label);
-	db::stringToData(&p1, slot_label);
-	db::stringToData(&p1, card_model);
-	db::stringToData(&p1, object_id);
-	db::intToData(&p1, mech_list.count());
-	for (i=0; i<mech_list.count(); i++)
-		db::intToData(&p1, mech_list[i]);
-
-	i2d_PUBKEY(key, &p1);
-	openssl_error();
-
-	*size = p1-p;
-	return p;
+	ba += i2d();
+	return ba;
 }
 
 void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 {
 	int version, size;
-	unsigned long count, i;
-	const unsigned char *p1 = p;
 
 	size = head->len - sizeof(db_header_t);
         version = head->version;
 
-	card_serial = db::stringFromData(&p1);
-	card_manufacturer = db::stringFromData(&p1);
-	card_label = db::stringFromData(&p1);
-	slot_label = db::stringFromData(&p1);
-	card_model = db::stringFromData(&p1);
+	QByteArray ba((const char*)p, size);
+
+	card_serial = db::stringFromData(ba);
+	card_manufacturer = db::stringFromData(ba);
+	card_label = db::stringFromData(ba);
+	slot_label = db::stringFromData(ba);
+	card_model = db::stringFromData(ba);
 	if (version < 2)
 		card_model.clear();
-	object_id  = db::stringFromData(&p1);
-	count      = db::intFromData(&p1);
+	object_id  = db::stringFromData(ba);
+	int count      = db::intFromData(ba);
 	mech_list.clear();
-	for (i=0; i<count; i++)
-		mech_list << db::intFromData(&p1);
+	for (int i=0; i<count; i++)
+		mech_list << db::intFromData(ba);
 
-	d2i_PUBKEY(&key, &p1, size - (p1-p));
+	d2i(ba);
 
-	if (p1-p != size) {
-		my_error(tr("Wrong Size of scard: %1").arg(getIntName()));
+	if (ba.count() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.count()));
 	}
 }
 

@@ -182,8 +182,6 @@ a1int pki_x509::getQASerial(const a1int &secret) const
 
 void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
-	const unsigned char *p;
-	unsigned long s;
 	QString desc;
 
 	pk11_attr_ulong type(CKA_CERTIFICATE_TYPE);
@@ -202,10 +200,8 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	}
 	pk11_attr_data x509(CKA_VALUE);
 	p11.loadAttribute(x509, object);
-	s = x509.getValue(&p);
-	if (cert)
-		X509_free(cert);
-	cert = d2i_X509(NULL, &p, s);
+	QByteArray der = x509.getData();
+	d2i(der);
 
 	if (desc.isEmpty()) {
 		try {
@@ -213,8 +209,8 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 
 			pk11_attr_data subj(CKA_SUBJECT);
 			p11.loadAttribute(subj, object);
-			s = subj.getValue(&p);
-			xn.d2i(p, s);
+			QByteArray der = subj.getData();
+			xn.d2i(der);
 			desc = xn.getMostPopular();
 			openssl_error();
 		} catch(errorEx &err) {
@@ -226,17 +222,18 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 	openssl_error();
 }
 
+void pki_x509::d2i(QByteArray &ba)
+{
+        X509 *c = (X509*)d2i_bytearray(D2I_VOID(d2i_X509), ba);
+	if (c) {
+		X509_free(cert);
+		cert = c;
+	}
+}
+
 QByteArray pki_x509::i2d()
 {
-	unsigned char *p, *p1;
-	int size = i2d_X509(cert, NULL);
-	p1 = p = (unsigned char *)OPENSSL_malloc(size);
-	check_oom(p);
-	i2d_X509(cert, &p1);
-	openssl_error();
-	QByteArray ba((const char*)p, size);
-	OPENSSL_free(p);
-	return ba;
+	return i2d_bytearray(I2D_VOID(i2d_X509), cert);
 }
 
 void pki_x509::store_token()
@@ -290,6 +287,9 @@ void pki_x509::deleteFromToken()
 	pk11_attlist attrs;
 
 	QList<unsigned long> p11_slots;
+	if (!pkcs11::loaded())
+		return;
+
 	if (privkey && privkey->isToken()) {
 		unsigned long slot;
 		if (!card->prepare_card(&slot))
@@ -459,61 +459,50 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 {
 	int version, size;
-	const unsigned char *p1 = p;
 
-	X509 *cert_sik = cert;
 	version = head->version;
 	size = head->len - sizeof(db_header_t);
 
-	cert = D2I_CLASH(d2i_X509, NULL, &p1, size);
-	trust = db::intFromData(&p1);
-	isrevoked = db::boolFromData(&p1);
-	p1 = revoked.d2i(p1, size - (p1-p));
-	caSerial.setHex(db::stringFromData(&p1));
-	caTemplate = db::stringFromData(&p1);
-	crlDays = db::intFromData(&p1);
-	p1 = crlExpiry.d2i(p1, size - (p1-p));
+	QByteArray ba((const char*)p, size);
+
+	d2i(ba);
+	trust = db::intFromData(ba);
+	isrevoked = db::boolFromData(ba);
+	revoked.d2i(ba);
+	caSerial.setHex(db::stringFromData(ba));
+	caTemplate = db::stringFromData(ba);
+	crlDays = db::intFromData(ba);
+	crlExpiry.d2i(ba);
 	if (version > 1)
-		randomSerial = db::boolFromData(&p1);
+		randomSerial = db::boolFromData(ba);
 	else
 		randomSerial = false;
-	if (cert)
-		X509_free(cert_sik);
-	else
-		cert = cert_sik;
-	openssl_error();
+
+	if (ba.count() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.count()));
+	}
 }
 
 
-unsigned char *pki_x509::toData(int *size)
+QByteArray pki_x509::toData()
 {
-	unsigned char *p, *p1;
+	QByteArray ba;
 
-	// calculate the needed size
-	*size = i2d_X509(cert, NULL) + 12 + caSerial.toHex().length() +
-		caTemplate.length() + crlExpiry.derSize() + revoked.derSize();
-	openssl_error();
-	p = p1 = (unsigned char*)OPENSSL_malloc(*size);
-
-	i2d_X509(cert, &p1); // cert
-	db::intToData(&p1, trust); // trust
-	db::boolToData(&p1, isrevoked);
-	p1 = revoked.i2d(p1); // revokation date
+	ba += i2d(); // cert
+	ba += db::intToData(trust);
+	ba += db::boolToData(isrevoked);
+	ba += revoked.i2d(); // revokation date
 
 	// the serial if this is a CA
-	db::stringToData(&p1, caSerial.toHex());
+	ba += db::stringToData(caSerial.toHex());
 	// the name of the template to use for signing
-	db::stringToData(&p1, caTemplate);
+	ba += db::stringToData(caTemplate);
 	// version 3
-	db::intToData(&p1, crlDays); // the CRL period
-	p1 = crlExpiry.i2d(p1); // last CRL date
-	db::boolToData(&p1, randomSerial);
+	ba += db::intToData(crlDays); // the CRL period
+	ba += crlExpiry.i2d(); // last CRL date
+	ba += db::boolToData(randomSerial);
 	openssl_error();
-	if (*size != p1-p) {
-		printf("pki_x509::toData: Size = %d, real size=%zd\n", *size, p1-p);
-		//abort();
-	}
-	return p;
+	return ba;
 }
 
 void pki_x509::writeDefault(const QString fname)
@@ -791,17 +780,18 @@ const EVP_MD *pki_x509::getDigest()
 void pki_x509::oldFromData(unsigned char *p, int size)
 {
 	int version, sCert, sRev, sLastCrl;
-	const unsigned char *p1 = p;
+	QByteArray ba((char*)p, size);
 	X509 *cert_sik = cert;
-	version = intFromData(&p1);
+	cert = NULL;
+	version = intFromData(ba);
 	if (version >=1 && version <= 5) {
-		sCert = intFromData(&p1);
-		cert = D2I_CLASH(d2i_X509, NULL, &p1, sCert);
-		trust = intFromData(&p1);
-		sRev = intFromData(&p1);
+		sCert = intFromData(ba);
+		d2i(ba);
+		trust = intFromData(ba);
+		sRev = intFromData(ba);
 		if (sRev) {
 			if (version != 3) isrevoked = true;
-			p1 = revoked.d2i(p1, sRev);
+			revoked.d2i(ba);
 		}
 		else {
 		   isrevoked = false;
@@ -817,9 +807,9 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 
 		if (version >= 2 ) {
 			if (version >= 5)
-				caSerial.setHex(db::stringFromData(&p1));
+				caSerial.setHex(db::stringFromData(ba));
 			else {
-				int i = intFromData(&p1);
+				int i = intFromData(ba);
 				if (i>=0)
 					caSerial = i;
 				else {
@@ -827,21 +817,20 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 					++caSerial;
 				}
 			}
-			caTemplate = db::stringFromData(&p1);
+			caTemplate = db::stringFromData(ba);
 		}
 		if (version >= 3 ) {
-			crlDays = intFromData(&p1);
-			sLastCrl = intFromData(&p1);
+			crlDays = intFromData(ba);
+			sLastCrl = intFromData(ba);
 			if (sLastCrl) {
-			   crlExpiry.d2i(p1, sLastCrl);
+			   crlExpiry.d2i(ba);
 			}
 		}
 		// version 4 saves a NULL as revoked
 		// version 3 did save a recent date :-((
 	}
 	else { // old version
-		p1 = p;
-		cert = D2I_CLASH(d2i_X509, NULL, &p1, size);
+		d2i(ba);
 		revoked = NULL;
 		trust = 1;
 		efftrust = 1;
@@ -850,6 +839,9 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 		X509_free(cert_sik);
 	else
 		cert = cert_sik;
-	openssl_error();
+
+	if (ba.count() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.count()));
+	}
 }
 

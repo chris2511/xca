@@ -41,7 +41,7 @@ class pki_x509req : public pki_x509super
 		~pki_x509req();
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
-		unsigned char *toData(int *size);
+		QByteArray toData();
 		bool compare(pki_base *refreq);
 		x509name getSubject() const;
 		bool isSpki() const;
@@ -71,7 +71,10 @@ class pki_x509req : public pki_x509super
 			return done;
 		}
 		virtual QString getFriendlyClassName();
-
+		void d2i(QByteArray &ba);
+		void d2i_spki(QByteArray &ba);
+		QByteArray i2d();
+		QByteArray i2d_spki();
 };
 
 #endif

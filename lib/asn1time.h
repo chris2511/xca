@@ -9,6 +9,7 @@
 #define ASN1TIME_H
 
 #include <qstring.h>
+#include <qbytearray.h>
 #include <openssl/asn1.h>
 
 #define SECONDS_PER_DAY (60*60*24)
@@ -37,9 +38,8 @@ class a1time
 	ASN1_TIME *get() const;
 	ASN1_TIME *get_utc() const;
 	a1time &now(int delta = 0);
-	unsigned char *i2d(unsigned char *p);
-	unsigned char *d2i(const unsigned char *p, int size);
-	int derSize() const;
+	QByteArray i2d() const;
+	void d2i(QByteArray &ba);
 	a1time &operator = (const a1time &a);
 	bool operator > (const a1time &a);
 	bool operator < (const a1time &a);

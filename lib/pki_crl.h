@@ -47,7 +47,7 @@ class pki_crl: public pki_base
 		a1time getLastUpdate();
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
-		unsigned char *toData(int *size);
+		QByteArray toData();
 		bool compare(pki_base *refcrl);
 		int numRev();
 		bool verify(pki_key *pkey);
@@ -58,6 +58,8 @@ class pki_crl: public pki_base
 		QVariant column_data(int col);
 		QVariant getIcon(int column);
 		virtual QString getFriendlyClassName();
+		void d2i(QByteArray &ba);
+		QByteArray i2d();
 };
 
 #endif

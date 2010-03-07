@@ -7,10 +7,12 @@
 
 
 #include "func.h"
+#include "exception.h"
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
 #include <openssl/objects.h>
 #include <openssl/asn1.h>
+#include <openssl/err.h>
 
 #include <qdir.h>
 #include <qlabel.h>
@@ -283,3 +285,57 @@ bool mayWriteFile(const QString &fname)
 	}
 	return true;
 }
+
+QByteArray i2d_bytearray(int(*i2d)(const void*, unsigned char **),
+		const void *data)
+{
+	QByteArray ba;
+
+	ba.resize(i2d(data, NULL));
+	unsigned char *p = (unsigned char*)ba.data();
+	i2d(data, &p);
+	openssl_error();
+	return ba;
+}
+
+void *d2i_bytearray(void *(*d2i)(void *, unsigned char **, long),
+		QByteArray &ba)
+{
+	unsigned char *p, *p1;
+	void *ret;
+	p = p1 = (unsigned char *)ba.constData();
+	ret = d2i(NULL, &p1, ba.count());
+	ba = ba.mid(p1-p);
+	openssl_error();
+	return ret;
+}
+
+void _openssl_error(const QString txt, const char *file, int line)
+{
+	QString error;
+
+	while (int i = ERR_get_error() ) {
+		error += QString(ERR_error_string(i, NULL)) + "\n";
+		fprintf(stderr, "OpenSSL error: %s\n",
+			ERR_error_string(i, NULL));
+	}
+	if (!error.isEmpty()) {
+		if (!txt.isEmpty())
+			error = txt + "\n" + error + "\n" +
+				QString("(%1:%2").arg(file).arg(line);
+		throw errorEx(error);
+	}
+}
+
+bool _ign_openssl_error(const char *file, int line)
+{
+	// ignore openssl errors
+	QString errtxt;
+	while (int i = ERR_get_error() ) {
+		errtxt = ERR_error_string(i, NULL);
+		fprintf(stderr, CCHAR(QString("IGNORED (%1:%2) : %3\n").
+			arg(file).arg(line).arg(errtxt)));
+	}
+	return !errtxt.isEmpty();
+}
+

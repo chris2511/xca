@@ -115,7 +115,7 @@ void ReqDetail::setReq(pki_x509req *req)
 		if (!added) {
 			tabwidget->removeTab(2);
 		}
-		req->openssl_error();
+		openssl_error();
 	} catch (errorEx &err) {
 		QMessageBox::warning(this, tr(XCA_TITLE), err.getString());
 	}

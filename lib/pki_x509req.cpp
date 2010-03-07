@@ -132,20 +132,43 @@ void pki_x509req::fload(const QString fname)
 	openssl_error(fname);
 }
 
+void pki_x509req::d2i(QByteArray &ba)
+{
+	X509_REQ *r= (X509_REQ*)d2i_bytearray(D2I_VOID(d2i_X509_REQ), ba);
+	if (r) {
+		X509_REQ_free(request);
+		request = r;
+	}
+}
+
+void pki_x509req::d2i_spki(QByteArray &ba)
+{
+	NETSCAPE_SPKI *s = (NETSCAPE_SPKI*)d2i_bytearray(
+				D2I_VOID(d2i_NETSCAPE_SPKI), ba);
+        if (s) {
+		NETSCAPE_SPKI_free(spki);
+		spki = s;
+	}
+}
+
+QByteArray pki_x509req::i2d()
+{
+	return i2d_bytearray(I2D_VOID(i2d_X509_REQ), request);
+}
+
+QByteArray pki_x509req::i2d_spki()
+{
+	return i2d_bytearray(I2D_VOID(i2d_NETSCAPE_SPKI), spki);
+}
+
 void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
 {
-	const unsigned char *ps = p;
 	int version, size;
 
 	size = head->len - sizeof(db_header_t);
 	version = head->version;
 
-	privkey = NULL;
-	request = D2I_CLASH(d2i_X509_REQ, &request, &ps, size);
-	openssl_error();
-	if (ps - p < size)
-		spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &ps , size + p - ps);
-	openssl_error();
+	oldFromData((unsigned char *)p, size);
 }
 
 void pki_x509req::addAttribute(int nid, QString content)
@@ -181,22 +204,16 @@ bool pki_x509req::isSpki() const
 	return spki != NULL;
 }
 
-unsigned char *pki_x509req::toData(int *size)
+QByteArray pki_x509req::toData()
 {
-	unsigned char *p, *p1;
-	*size = i2d_X509_REQ(request, NULL);
+	QByteArray ba;
+
+	ba += i2d();
 	if (spki) {
-		*size += i2d_NETSCAPE_SPKI(spki, NULL);
+		ba += i2d_spki();
 	}
 	openssl_error();
-	p = (unsigned char*)OPENSSL_malloc(*size);
-	p1 = p;
-	i2d_X509_REQ(request, &p1);
-	if (spki) {
-		i2d_NETSCAPE_SPKI(spki, &p1);
-	}
-	openssl_error();
-	return p;
+	return ba;
 }
 void pki_x509req::writeDefault(const QString fname)
 {
@@ -401,11 +418,15 @@ QVariant pki_x509req::getIcon(int column)
 
 void pki_x509req::oldFromData(unsigned char *p, int size)
 {
-	const unsigned char *ps = p;
+	QByteArray ba((const char *)p, size);
 	privkey = NULL;
-	request = D2I_CLASH(d2i_X509_REQ, &request, &ps, size);
-	if (ps - p < size)
-		spki = D2I_CLASH(d2i_NETSCAPE_SPKI, NULL, &ps , size + p - ps);
-	openssl_error();
+
+	d2i(ba);
+	if (ba.count() > 0)
+		d2i_spki(ba);
+
+	if (ba.count() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.count()));
+	}
 }
 

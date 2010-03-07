@@ -16,7 +16,6 @@ class a1int
    private:
 	ASN1_INTEGER *in;
 	ASN1_INTEGER *dup(const ASN1_INTEGER *a) const;
-	void openssl_error()  const;
    public:
 	a1int();
 	a1int(const ASN1_INTEGER *i);

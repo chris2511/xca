@@ -732,7 +732,7 @@ void NewX509::on_adv_validate_clicked()
 	if (!nconf_data->isReadOnly()) {
 		QString errtxt;
 		extList el;
-		pki_base::ign_openssl_error();
+		ign_openssl_error();
 		QString result;
 		setupTmpCtx();
 		v3ext_backup = nconf_data->toPlainText();
@@ -786,7 +786,7 @@ void NewX509::on_adv_validate_clicked()
 		adv_validate->setText(tr("Validate"));
 		valid_htmltext = "";
 	}
-	pki_base::ign_openssl_error();
+	ign_openssl_error();
 }
 
 void NewX509::on_editSubAlt_clicked()

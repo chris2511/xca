@@ -61,7 +61,7 @@ class pki_x509 : public pki_x509super
 		void setSubject(const x509name &n);
 		void setIssuer(const x509name &n);
 
-		unsigned char *toData(int *size);
+		QByteArray toData();
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
 		bool compare(pki_base *refcert);
@@ -136,6 +136,7 @@ class pki_x509 : public pki_x509super
 		QVariant column_data(int col);
 		QVariant getIcon(int column);
 		QByteArray i2d();
+		void d2i(QByteArray &ba);
 		void deleteFromToken();
 		virtual QString getFriendlyClassName();
 };

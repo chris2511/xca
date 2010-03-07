@@ -36,16 +36,34 @@ class pki_scard: public pki_key
 		static bool init_p11engine(QString file, bool silent);
 		bool prepare_card(unsigned long *slot, bool verifyPubkey=true) const;
 		void fromData(const unsigned char *p, db_header_t *head);
-		unsigned char *toData(int *size);
+		QByteArray toData();
 		bool isPubKey() const;
 		QString getTypeString(void);
-		QString getManufacturer() const { return card_manufacturer; }
-		QString getSerial() const { return card_serial; }
-		QString getModel() const { return card_model; }
-		QString getLabel() const { return slot_label; }
-		QString getId() const { return object_id; }
+		QString getManufacturer() const
+		{
+			return card_manufacturer;
+		}
+		QString getSerial() const
+		{
+			return card_serial;
+		}
+		QString getModel() const
+		{
+			return card_model;
+		}
+		QString getLabel() const
+		{
+			return slot_label;
+		}
+		QString getId() const
+		{
+			return object_id;
+		}
 		pk11_attr_data getIdAttr() const;
-		QString getCardLabel() const { return card_label; }
+		QString getCardLabel() const
+		{
+			return card_label;
+		}
 		EVP_PKEY *decryptKey() const;
 		QString scardLogin(pkcs11 &p11, bool so, bool force=false)const;
 		void changePin();
@@ -54,7 +72,10 @@ class pki_scard: public pki_key
 		int verify();
 		bool isToken();
 		QVariant getIcon(int column);
-		QList<CK_MECHANISM_TYPE> getMech_list() { return mech_list; };
+		QList<CK_MECHANISM_TYPE> getMech_list()
+		{
+			return mech_list;
+		}
 		void setMech_list(QList<CK_MECHANISM_TYPE> ml) { mech_list = ml; };
 		QList<int> possibleHashNids();
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;

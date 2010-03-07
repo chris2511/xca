@@ -647,14 +647,10 @@ next:
 			break;
 	}
 	for (int i=0; i< klist.count(); i++) {
-		int size;
-		unsigned char *p;
 		pki_evp *key = klist[i];
-		p = key->toData(&size);
-		check_oom(p);
-		mydb.set(p, size, key->getVersion(),
-			 key->getType(), key->getIntName());
-		OPENSSL_free(p);
+		QByteArray ba = key->toData();
+		mydb.set((const unsigned char*)ba.constData(), ba.count(),
+			key->getVersion(), key->getType(), key->getIntName());
 		delete key;
 	}
 	return passhash;

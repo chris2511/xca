@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "distname.h"
 #include "clicklabel.h"
+#include "lib/func.h"
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlineedit.h>
@@ -110,7 +111,7 @@ void CertDetail::setCert(pki_x509 *cert)
 		// Algorithm
 		sigAlgo->setText(cert->getSigAlg());
 
-		cert->openssl_error();
+		openssl_error();
 	} catch (errorEx &err) {
 		QMessageBox::warning(this, XCA_TITLE, err.getString());
 	}

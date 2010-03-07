@@ -40,6 +40,10 @@ public:
 	{
 		return attr.type;
 	}
+	QByteArray getData() const
+	{
+		return QByteArray((char*)attr.pValue, attr.ulValueLen);
+	}
 	virtual void store(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 	virtual void load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 	bool cmp(const pk11_attribute &other) const

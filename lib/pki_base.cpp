@@ -86,37 +86,9 @@ void pki_base::fopen_error(const QString fname)
 void pki_base::my_error(const QString error) const
 {
 	if (!error.isEmpty()) {
-		fprintf(stderr, "%s\n", CCHAR(tr("Error :") + error));
+		fprintf(stderr, "%s\n", CCHAR(tr("Error: ") + error));
 		throw errorEx(error, class_name);
 	}
-}
-
-void pki_base::openssl_error(const QString txt)
-{
-	QString errtxt;
-	QString error;
-
-	while (int i = ERR_get_error() ) {
-		errtxt = ERR_error_string(i ,NULL);
-		fprintf(stderr, "OpenSSL error: %s\n", ERR_error_string(i ,NULL) );
-		error += errtxt + "\n";
-	}
-	if (!error.isEmpty()) {
-		if (!txt.isEmpty())
-			error = txt + "\n" + error;
-		throw errorEx(error);
-	}
-}
-
-bool pki_base::ign_openssl_error()
-{
-	// ignore openssl errors
-	QString errtxt;
-	while (int i = ERR_get_error() ) {
-		errtxt = ERR_error_string(i ,NULL);
-		fprintf(stderr,"IGNORED: %s\n", CCHAR(errtxt));
-	}
-	return !errtxt.isEmpty();
 }
 
 QString pki_base::rmslashdot(const QString &s)
@@ -215,13 +187,16 @@ void pki_base::oldFromData(unsigned char *p, int size)
 {
 }
 
-uint32_t pki_base::intFromData(const unsigned char **p)
+uint32_t pki_base::intFromData(QByteArray &ba)
 {
 	/* For import "oldFromData" use the endian dependent version */
-	int s = sizeof(uint32_t);
 	uint32_t ret;
-	memcpy(&ret, *p, s);
-	*p += s;
+	if ((unsigned)(ba.count()) < sizeof(uint32_t)) {
+		ba.clear();
+		return 0;
+	}
+	memcpy(&ret, ba.constData(), sizeof(uint32_t));
+	ba = ba.mid(sizeof(uint32_t));
 	return ret;
 }
 

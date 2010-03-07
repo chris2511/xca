@@ -153,33 +153,18 @@ QString x509name::getOid(int i) const
 	return QString::fromAscii(buf, len);
 }
 
-const unsigned char *x509name::d2i(const unsigned char *p, int size)
+void x509name::d2i(QByteArray &ba)
 {
-	X509_NAME *xn_sik = xn;
-	xn = D2I_CLASH(d2i_X509_NAME, NULL, &p, size);
-	if (xn == NULL)
-		xn = xn_sik;
-	else
-		X509_NAME_free(xn_sik);
-	return p;
-}
-
-unsigned char *x509name::i2d(unsigned char *p)
-{
-	i2d_X509_NAME(xn, &p);
-	return p;
+	X509_NAME *n = (X509_NAME*)d2i_bytearray(D2I_VOID(d2i_X509_NAME), ba);
+	if (n) {
+		X509_NAME_free(xn);
+		xn = n;
+	}
 }
 
 QByteArray x509name::i2d()
 {
-	unsigned char *p;
-	int size = derSize();
-	p = (unsigned char *)OPENSSL_malloc(size);
-	check_oom(p);
-	i2d(p);
-	QByteArray ba((const char*)p, size);
-	OPENSSL_free(p);
-	return ba;
+	 return i2d_bytearray(I2D_VOID(i2d_X509_NAME), xn);
 }
 
 bool x509name::operator == (const x509name &x) const
@@ -227,7 +212,3 @@ X509_NAME *x509name::get() const
 	return X509_NAME_dup(xn);
 }
 
-int x509name::derSize() const
-{
-	return i2d_X509_NAME(xn, NULL);
-}

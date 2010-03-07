@@ -34,15 +34,29 @@ class pki_key: public pki_base
 		virtual ~pki_key();
 		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
 
-		virtual EVP_PKEY *decryptKey() const { return NULL; };
-		virtual QString length() const { return QString(); };
-		virtual bool isPubKey() const { return true; };
-		virtual const EVP_MD *getDefaultMD() { return NULL; };
+		virtual EVP_PKEY *decryptKey() const
+		{
+			return NULL;
+		}
+		virtual QString length() const
+		{
+			return QString();
+		}
+		virtual bool isPubKey() const
+		{
+			return true;
+		}
+		virtual const EVP_MD *getDefaultMD()
+		{
+			return NULL;
+		}
 		virtual bool isToken();
 		virtual QString getTypeString(void);
 		virtual QString getIntNameWithType(void);
 		virtual QList<int> possibleHashNids()
-			{ return QList<int>(); };
+		{
+			return QList<int>();
+		}
 		virtual QString getFriendlyClassName();
 		virtual QString length();
 
@@ -54,8 +68,14 @@ class pki_key: public pki_base
 		int incUcount();
 		int decUcount();
 		int getUcount();
-		int getOwnPass(void) {return ownPass;};
-		EVP_PKEY *getPubKey() {return key;};
+		int getOwnPass(void)
+		{
+			return ownPass;
+		}
+		EVP_PKEY *getPubKey()
+		{
+			return key;
+		}
 		QVariant column_data(int col);
 		QString modulus();
 		QString pubEx();
@@ -63,6 +83,9 @@ class pki_key: public pki_base
 		QString pubkey();
 		int ecParamNid();
 		QString ecPubKey();
+		void d2i(QByteArray &ba);
+		void d2i_old(QByteArray &ba, int type);
+		QByteArray i2d();
 };
 
 #endif

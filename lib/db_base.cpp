@@ -114,18 +114,15 @@ next:
 
 void db_base::insertPKI(pki_base *pki)
 {
-	unsigned char *p;
-	int size;
 	QString name;
 	db mydb(dbName);
+	QByteArray ba = pki->toData();
 
-	p = pki->toData(&size);
-
-	if (p) {
+	if (ba.count() > 0) {
 		name = mydb.uniq_name(pki->getIntName(), pki->getType());
 		pki->setIntName(name);
-		mydb.add(p, size, pki->getVersion(), pki->getType(), name);
-		OPENSSL_free(p);
+		mydb.add((const unsigned char*)ba.constData(), ba.count(),
+			pki->getVersion(), pki->getType(), name);
 	}
 	inToCont(pki);
 	view->columnsResize();
@@ -167,15 +164,13 @@ void db_base::deletePKI()
 
 void db_base::updatePKI(pki_base *pki)
 {
-	unsigned char *p;
-	int size;
 	db mydb(dbName);
 
-	p = pki->toData(&size);
+	QByteArray ba = pki->toData();
 
-	if (p) {
-		mydb.set(p, size, pki->getVersion(), pki->getType(), pki->getIntName());
-		OPENSSL_free(p);
+	if (ba.count() > 0) {
+		mydb.set((const unsigned char*)ba.constData(), ba.count(),
+			pki->getVersion(), pki->getType(), pki->getIntName());
 	}
 }
 

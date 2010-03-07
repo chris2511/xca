@@ -6,6 +6,7 @@
  */
 
 #include "base.h"
+#include "func.h"
 #include <time.h>
 #include "asn1time.h"
 #include <openssl/x509.h>
@@ -210,26 +211,19 @@ bool a1time::operator != (const a1time &a)
 	return (ASN1_STRING_cmp(time, a.time) != 0);
 }
 
-unsigned char *a1time::d2i(const unsigned char *p, int size)
+void a1time::d2i(QByteArray &ba)
 {
-	if (time)
+	ASN1_TIME *n = (ASN1_TIME*)d2i_bytearray( D2I_VOID(d2i_ASN1_TIME), ba);
+	if (n) {
 		ASN1_TIME_free(time);
-	time = D2I_CLASH(d2i_ASN1_TIME, NULL, &p, size);
-	return (unsigned char *)p;
+		time = n;
+	}
 }
 
-unsigned char *a1time::i2d(unsigned char *p)
+QByteArray a1time::i2d() const
 {
-	unsigned char *mp = p;
-	i2d_ASN1_TIME(time, &mp);
-	return mp;
+	return i2d_bytearray(I2D_VOID(i2d_ASN1_TIME), time);
 }
-
-int a1time::derSize() const
-{
-	return i2d_ASN1_TIME(time, NULL);
-}
-
 
 ASN1_UTCTIME *a1time::toUTCtime() const
 {

@@ -79,12 +79,12 @@ class db
 	int shrink(int flags);
 	int mv(QFile &new_file);
 
-	static int intToData(unsigned char **p, uint32_t val);
-	static uint32_t intFromData(const unsigned char **p);
-	static int boolToData(unsigned char **p, bool val);
-	static bool boolFromData(const unsigned char **p);
-	static int stringToData(unsigned char **p, const QString val);
-	static QString stringFromData(const unsigned char **p);
+	static QByteArray intToData(uint32_t val);
+	static uint32_t intFromData(QByteArray &ba);
+	static QByteArray boolToData(bool val);
+	static bool boolFromData(QByteArray &ba);
+	static QByteArray stringToData(const QString val);
+	static QString stringFromData(QByteArray &ba);
 };
 
 #endif

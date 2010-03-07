@@ -410,52 +410,59 @@ int db::mv(QFile &new_file)
 #endif
 }
 
-int db::intToData(unsigned char **p, uint32_t val)
+QByteArray db::intToData(uint32_t val)
 {
-	int s = sizeof(uint32_t);
 	uint32_t v = htonl(val);
-	memcpy(*p, &v, s);
-	*p += s;
-	return s;
+	return QByteArray((char*)&v, sizeof(uint32_t));
 }
 
-uint32_t db::intFromData(const unsigned char **p)
+uint32_t db::intFromData(QByteArray &ba)
 {
-	int s = sizeof(uint32_t);
 	uint32_t ret;
-	memcpy(&ret, *p, s);
-	*p += s;
+	if ((unsigned)(ba.count()) < sizeof(uint32_t)) {
+		throw errorEx(QObject::tr("Out of data"));
+	}
+	memcpy(&ret, ba.constData(), sizeof(uint32_t));
+	ba = ba.mid(sizeof(uint32_t));
 	return ntohl(ret);
 }
 
-int db::boolToData(unsigned char **p, bool val)
+QByteArray db::boolToData(bool val)
 {
-	unsigned char c = val ? 1 : 0;
-	*(*p)++ = c;
-	return 1;
+	char c = val ? 1 : 0;
+	return QByteArray(&c, 1);
 }
 
-bool db::boolFromData(const unsigned char **p)
+bool db::boolFromData(QByteArray &ba)
 {
-	unsigned char c = *(*p)++;
+	unsigned char c;
+	if (ba.count() < 1)
+		throw errorEx(QObject::tr("Out of data"));
+
+	c = ba.constData()[0];
+	ba = ba.mid(1);
 	return c ? true : false;
 }
 
-int db::stringToData(unsigned char **p, const QString val)
+QByteArray db::stringToData(const QString val)
 {
-	int s = (val.length() +1) * sizeof(char);
-	memcpy(*p, val.toAscii(), s);
-	*p += s;
-	return s;
+	QByteArray ba = val.toUtf8();
+	int idx = ba.indexOf('\0');
+	if (idx == -1)
+		ba += '\0';
+	else
+		ba.truncate(idx +1);
+	return ba;
 }
 
-QString db::stringFromData(const unsigned char **p)
+QString db::stringFromData(QByteArray &ba)
 {
-	QString ret="";
-	while(**p) {
-		ret +=(char)**p;
-		*p += sizeof(char);
-	}
-	*p += sizeof(char);
+	int idx = ba.indexOf('\0');
+
+	if (idx == -1)
+		throw errorEx(QObject::tr("Error finding endmarker of string"));
+
+	QString ret = QString::fromUtf8(ba.constData(), idx);
+	ba = ba.mid(idx+1);
 	return ret;
 }

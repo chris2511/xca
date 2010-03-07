@@ -112,32 +112,40 @@ pki_crl::~pki_crl()
 	X509_CRL_free(crl);
 }
 
+void pki_crl::d2i(QByteArray &ba)
+{
+	X509_CRL *c = (X509_CRL*)d2i_bytearray(D2I_VOID(d2i_X509_CRL), ba);
+	if (c) {
+		X509_CRL_free(crl);
+		crl = c;
+	}
+}
+
+QByteArray pki_crl::i2d()
+{
+	return i2d_bytearray(I2D_VOID(i2d_X509_CRL), crl);
+}
+
 void pki_crl::fromData(const unsigned char *p, db_header_t *head)
 {
-	X509_CRL *crl_sik = crl;
 	int version, size;
 
 	size = head->len - sizeof(db_header_t);
 	version = head->version;
 
-	crl = D2I_CLASH(d2i_X509_CRL, NULL, &p, size);
-	if (crl)
-		X509_CRL_free(crl_sik);
-	else
-		crl = crl_sik;
-	openssl_error();
+	QByteArray ba((const char*)p, size);
+	d2i(ba);
+
+	if (ba.count() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.count()));
+	}
 }
 
-unsigned char *pki_crl::toData(int *size)
+QByteArray pki_crl::toData()
 {
-	unsigned char *p, *p1;
-	*size = i2d_X509_CRL(crl, NULL);
+	QByteArray ba = i2d();
 	openssl_error();
-	p = (unsigned char*)OPENSSL_malloc(*size);
-	p1 = p;
-	i2d_X509_CRL(crl, &p1);
-	openssl_error();
-	return p;
+	return ba;
 }
 
 bool pki_crl::compare(pki_base *refcrl)
@@ -303,12 +311,10 @@ QVariant pki_crl::getIcon(int column)
 
 void pki_crl::oldFromData(unsigned char *p, int size)
 {
-	X509_CRL *crl_sik = crl;
-	const unsigned char *p1 = p;
-	crl = D2I_CLASH(d2i_X509_CRL, NULL, &p1, size);
-	if (crl)
-		X509_CRL_free(crl_sik);
-	else
-		crl = crl_sik;
-	openssl_error();
+	QByteArray ba((const char *)p, size);
+	d2i(ba);
+
+	if (ba.count() > 0) {
+		my_error(tr("Wrong Size %1").arg(ba.count()));
+	}
 }
