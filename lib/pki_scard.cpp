@@ -634,7 +634,7 @@ EVP_PKEY *pki_scard::decryptKey() const
 		key_id = QString("slot_%1-label_%2").arg(slot_id).arg(slot_label);
 
 	pkcs11 p11;
-	p11.startSession(slot_id, true);
+	p11.startSession(slot_id);
 	pin = p11.tokenLogin(card_label, false);
 	if (pin.isNull())
 		throw errorEx(tr("Invalid Pin for the token"));
