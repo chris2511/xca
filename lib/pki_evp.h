@@ -22,8 +22,7 @@
 class pki_evp: public pki_key
 {
 	protected:
-		unsigned char *encKey;
-		int encKey_len;
+		QByteArray encKey;
 		void init(int type = EVP_PKEY_RSA);
 		void veryOldFromData(unsigned char *p, int size);
 	public:

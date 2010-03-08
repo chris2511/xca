@@ -55,8 +55,6 @@ void pki_evp::init(int type)
 {
 	key->type = type;
 	class_name = "pki_evp";
-	encKey = NULL;
-	encKey_len = 0;
 	ownPass = ptCommon;
 	dataVersion=2;
 	pkiType=asym_key;
@@ -159,12 +157,7 @@ pki_evp::pki_evp(const pki_evp *pk)
 	init(pk->key->type);
 	openssl_error();
 	ownPass = pk->ownPass;
-	encKey_len = pk->encKey_len;
-	if (encKey_len) {
-		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
-		check_oom(encKey);
-		memcpy(encKey, pk->encKey, encKey_len);
-	}
+	encKey = pk->encKey;
 }
 
 pki_evp::pki_evp(const QString name, int type )
@@ -340,12 +333,7 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head )
 	}
 	openssl_error();
 
-	encKey_len = ba.count();
-	if (encKey_len) {
-		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
-		check_oom(encKey);
-		memcpy(encKey, ba.constData(), encKey_len);
-	}
+	encKey = ba;
 }
 
 EVP_PKEY *pki_evp::decryptKey() const
@@ -398,13 +386,13 @@ EVP_PKEY *pki_evp::decryptKey() const
 		}
 	}
 	//printf("Using decrypt Pass: %s\n", ownPassBuf);
-	p = (unsigned char *)OPENSSL_malloc(encKey_len);
+	p = (unsigned char *)OPENSSL_malloc(encKey.count());
 	check_oom(p);
 	openssl_error();
 	p1 = p;
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 
-	memcpy(iv, encKey, 8); /* recover the iv */
+	memcpy(iv, encKey.constData(), 8); /* recover the iv */
 	/* generate the key */
 	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)ownPassBuf,
 		strlen(ownPassBuf), 1, ckey,NULL);
@@ -414,7 +402,9 @@ EVP_PKEY *pki_evp::decryptKey() const
 	 */
 	EVP_CIPHER_CTX_init(&ctx);
 	EVP_DecryptInit(&ctx, cipher, ckey, iv);
-	EVP_DecryptUpdate(&ctx, p , &outl, encKey +8, encKey_len -8);
+	EVP_DecryptUpdate(&ctx, p , &outl,
+		(const unsigned char*)encKey.constData() +8, encKey.count() -8);
+
 	decsize = outl;
 	EVP_DecryptFinal(&ctx, p + decsize , &outl);
 	decsize += outl;
@@ -437,7 +427,7 @@ QByteArray pki_evp::toData()
 	ba += db::intToData(key->type);
 	ba += db::intToData(ownPass);
 	ba += i2d();
-	ba.append((const char*)encKey, encKey_len);
+	ba += encKey;
 	return ba;
 }
 
@@ -506,20 +496,16 @@ void pki_evp::encryptKey(const char *password)
 			strlen(ownPassBuf), 1, ckey, NULL);
 	EVP_CIPHER_CTX_init (&ctx);
 	openssl_error();
-	if (encKey)
-		OPENSSL_free(encKey);
-	encKey_len = 0;
 
 	/* reserve space for unencrypted and encrypted key */
 	keylen = i2d_PrivateKey(key, NULL);
-	encKey = (unsigned char *)OPENSSL_malloc(keylen + EVP_MAX_KEY_LENGTH + 8);
-	check_oom(encKey);
+	encKey.resize(keylen + EVP_MAX_KEY_LENGTH + 8);
 	punenc1 = punenc = (unsigned char *)OPENSSL_malloc(keylen);
 	check_oom(punenc);
 	keylen = i2d_PrivateKey(key, &punenc1);
 	openssl_error();
 
-	memcpy(encKey, iv, 8); /* store the iv */
+	memcpy(encKey.data(), iv, 8); /* store the iv */
 	/*
 	 * Now DER version of privkey is in punenc
 	 * and privkey is still in key
@@ -527,12 +513,12 @@ void pki_evp::encryptKey(const char *password)
 
 	/* do the encryption */
 	/* store key right after the iv */
-	EVP_EncryptInit( &ctx, cipher, ckey, iv);
-	EVP_EncryptUpdate(&ctx, encKey + 8, &outl, punenc, keylen);
-	encKey_len = outl;
-	EVP_EncryptFinal(&ctx, encKey + encKey_len + 8, &outl);
-	encKey_len += outl + 8;
-
+	EVP_EncryptInit(&ctx, cipher, ckey, iv);
+	unsigned char *penc = (unsigned char *)encKey.data() +8;
+	EVP_EncryptUpdate(&ctx, penc, &outl, punenc, keylen);
+	int encKey_len = outl;
+	EVP_EncryptFinal(&ctx, penc + encKey_len, &outl);
+	encKey.resize(encKey_len + outl +8);
 	/* Cleanup */
 	EVP_CIPHER_CTX_cleanup(&ctx);
 	/* wipe out the memory */
@@ -567,8 +553,6 @@ void pki_evp::bogusEncryptKey()
 
 pki_evp::~pki_evp()
 {
-	if (encKey)
-		OPENSSL_free(encKey);
 }
 
 
@@ -638,7 +622,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 
 bool pki_evp::isPubKey() const
 {
-	if (encKey_len == 0 || encKey == NULL) {
+	if (encKey.count() == 0) {
 		return true;
 	}
 	return false;
@@ -819,11 +803,6 @@ void pki_evp::oldFromData(unsigned char *p, int size )
 	d2i_old(ba, type);
 	openssl_error();
 
-	encKey_len = ba.count();
-	if (encKey_len) {
-		encKey = (unsigned char *)OPENSSL_malloc(encKey_len);
-		check_oom(encKey);
-		memcpy(encKey, ba.constData(), encKey_len);
-	}
+	encKey = ba;
 }
 
