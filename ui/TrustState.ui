@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TrustState</class>
- <widget class="QDialog" name="TrustState" >
-  <property name="geometry" >
+ <widget class="QDialog" name="TrustState">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,27 +10,27 @@
     <height>288</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string/>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>8</number>
-   </property>
-   <property name="spacing" >
+  <layout class="QVBoxLayout">
+   <property name="spacing">
     <number>6</number>
    </property>
+   <property name="margin">
+    <number>8</number>
+   </property>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
+     <property name="margin">
+      <number>0</number>
+     </property>
      <item>
-      <widget class="QLabel" name="TextLabel1" >
-       <property name="font" >
+      <widget class="QLabel" name="TextLabel1">
+       <property name="font">
         <font>
          <family>Arial</family>
          <pointsize>14</pointsize>
@@ -40,20 +41,20 @@
          <strikeout>false</strikeout>
         </font>
        </property>
-       <property name="text" >
-        <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:Arial; font-size:14pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Set trustment of the Certificate&lt;/p>&lt;/body>&lt;/html></string>
+       <property name="text">
+        <string>Set trustment of the Certificate</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -62,23 +63,23 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="image" >
-       <property name="minimumSize" >
+      <widget class="QLabel" name="image">
+       <property name="minimumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="maximumSize" >
+       <property name="maximumSize">
         <size>
          <width>95</width>
          <height>40</height>
         </size>
        </property>
-       <property name="text" >
+       <property name="text">
         <string/>
        </property>
-       <property name="scaledContents" >
+       <property name="scaledContents">
         <bool>true</bool>
        </property>
       </widget>
@@ -87,10 +88,10 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -99,14 +100,14 @@
     </spacer>
    </item>
    <item>
-    <widget class="ClickLabel" name="certName" />
+    <widget class="ClickLabel" name="certName"/>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -115,34 +116,34 @@
     </spacer>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="title" >
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
       <string>Trustment</string>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>8</number>
-      </property>
-      <property name="spacing" >
+     <layout class="QVBoxLayout">
+      <property name="spacing">
        <number>6</number>
       </property>
+      <property name="margin">
+       <number>8</number>
+      </property>
       <item>
-       <widget class="QRadioButton" name="trust0" >
-        <property name="text" >
+       <widget class="QRadioButton" name="trust0">
+        <property name="text">
          <string>&amp;Never trust this certificate</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="trust1" >
-        <property name="text" >
+       <widget class="QRadioButton" name="trust1">
+        <property name="text">
          <string>Only &amp;trust this certificate, if we trust the signer</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="trust2" >
-        <property name="text" >
+       <widget class="QRadioButton" name="trust2">
+        <property name="text">
          <string>&amp;Always trust this certificate</string>
         </property>
        </widget>
@@ -151,29 +152,29 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>6</number>
      </property>
+     <property name="margin">
+      <number>0</number>
+     </property>
      <item>
-      <widget class="QPushButton" name="PushButton5" >
-       <property name="text" >
+      <widget class="QPushButton" name="PushButton5">
+       <property name="text">
         <string>&amp;Cancel</string>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeType" >
+       <property name="sizeType">
         <enum>QSizePolicy::Expanding</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
          <height>20</height>
@@ -182,8 +183,8 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="PushButton4" >
-       <property name="text" >
+      <widget class="QPushButton" name="PushButton4">
+       <property name="text">
         <string>&amp;OK</string>
        </property>
       </widget>
@@ -214,11 +215,11 @@
    <receiver>TrustState</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>66</x>
      <y>258</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>171</x>
      <y>251</y>
     </hint>
@@ -230,11 +231,11 @@
    <receiver>TrustState</receiver>
    <slot>accept()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>383</x>
      <y>247</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>238</x>
      <y>247</y>
     </hint>
