@@ -575,8 +575,9 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *subExport, *subCa;
-	QAction *itemReq, *itemRevoke, *itemExtend, *itemTrust, *itemScard,
-		*itemDelScard;
+	QAction *itemReq, *itemRevoke, *itemExtend, *itemTrust, *action;
+	QList<QAction*> scardItems;
+
 	bool parentCanSign, canSign, hasTemplates, hasScard;
 	currentIdx = index;
 	pki_key *privkey;
@@ -594,14 +595,17 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subExport->addAction(tr("File"), this, SLOT(store()));
 		itemReq = subExport->addAction(tr("Request"),
 				this, SLOT(toRequest()));
-		itemScard = subExport->addAction(tr("Security token"),
+		scardItems += subExport->addAction(tr("Security token"),
 				this, SLOT(toToken()));
+		scardItems += subExport->addAction(tr("Other token"),
+				this, SLOT(toOtherToken()));
 		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-		itemDelScard = menu->addAction(tr("Delete from Security token"),
+		scardItems += menu->addAction(
+				tr("Delete from Security token"),
 				this, SLOT(deleteFromToken()));
-		itemTrust = menu->addAction(tr("Trust"), this, SLOT(setTrust()));
+		itemTrust = menu->addAction(tr("Trust"), this,SLOT(setTrust()));
 		menu->addSeparator();
 		subCa = menu->addMenu(tr("CA"));
 		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
@@ -633,8 +637,9 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		itemExtend->setEnabled(parentCanSign);
 		subCa->setEnabled(canSign);
 		itemReq->setEnabled(privkey);
-		itemScard->setEnabled(hasScard);
-		itemDelScard->setEnabled(hasScard);
+
+		foreach(action, scardItems)
+			action->setEnabled(hasScard);
 #if 0
 		subP7->setEnabled(privkey);
 #endif
@@ -1054,16 +1059,26 @@ void db_x509::toRequest()
 	}
 }
 
-void db_x509::toToken()
+void db_x509::myToToken(bool alwaysSelect)
 {
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	if (!cert)
 		return;
 	try {
-		cert->store_token();
+		cert->store_token(alwaysSelect);
 	} catch (errorEx &err) {
 		mainwin->Error(err);
         }
+}
+
+void db_x509::toToken()
+{
+	myToToken(false);
+}
+
+void db_x509::toOtherToken()
+{
+	myToToken(true);
 }
 
 void db_x509::caProperties()

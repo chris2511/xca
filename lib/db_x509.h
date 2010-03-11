@@ -52,6 +52,7 @@ class db_x509: public db_x509super
 		void inToCont(pki_base *pki);
 		void changeView();
 		a1int getUniqueSerial(pki_x509 *signer);
+		void myToToken(bool alwaysSelect);
 
 	public slots:
 		void load(void);
@@ -69,6 +70,7 @@ class db_x509: public db_x509super
 		void caProperties();
 		void toRequest();
 		void toToken();
+		void toOtherToken();
 		void newCert(pki_temp *);
 		void newCert(pki_x509req *);
 		void loadPKCS12();

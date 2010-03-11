@@ -236,7 +236,7 @@ QByteArray pki_x509::i2d()
 	return i2d_bytearray(I2D_VOID(i2d_X509), cert);
 }
 
-void pki_x509::store_token()
+void pki_x509::store_token(bool alwaysSelect)
 {
 	pki_scard *card = NULL;
 	unsigned long slot = 0;
@@ -245,7 +245,7 @@ void pki_x509::store_token()
 
 	pkcs11 p11;
 
-	if (!privkey || !privkey->isToken()) {
+	if (!privkey || !privkey->isToken() || alwaysSelect) {
 		if (!p11.selectToken(&slot, NULL))
 			return;
 	} else {
