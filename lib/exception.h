@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef PKI_EXCEPTION_H
-#define PKI_EXCEPTION_H
+#ifndef __PKI_EXCEPTION_H
+#define __PKI_EXCEPTION_H
 
 #include <qstring.h>
 #include <qobject.h>

@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef _XCA_DB_H_
-#define _XCA_DB_H_
+#ifndef __XCA_DB_H
+#define __XCA_DB_H
 
 #include <stdint.h>
 #include <sys/types.h>

@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef FUNC_H
-#define FUNC_H
+#ifndef __FUNC_H
+#define __FUNC_H
 
 #include <openssl/asn1.h>
 #include <qpixmap.h>

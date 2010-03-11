@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef VALIDITY_H
-#define VALIDITY_H
+#ifndef __VALIDITY_H
+#define __VALIDITY_H
 
 #include <qdatetimeedit.h>
 #include <lib/asn1time.h>

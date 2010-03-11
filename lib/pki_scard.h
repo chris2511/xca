@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2009 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef PKI_SCARD_H
-#define PKI_SCARD_H
+#ifndef __PKI_SCARD_H
+#define __PKI_SCARD_H
 
 #include <qstring.h>
 #include <openssl/pem.h>

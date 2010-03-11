@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef PASS_INFO_H
-#define PASS_INFO_H
+#ifndef __PASS_INFO_H
+#define __PASS_INFO_H
 
 #include <qstring.h>
 #include <qobject.h>

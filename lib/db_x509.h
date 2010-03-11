@@ -1,13 +1,13 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
 
-#ifndef DB_X509_H
-#define DB_X509_H
+#ifndef __DB_X509_H
+#define __DB_X509_H
 
 #include <qlistview.h>
 #include <qobject.h>

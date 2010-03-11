@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef PKI_TEMP_H
-#define PKI_TEMP_H
+#ifndef __PKI_TEMP_H
+#define __PKI_TEMP_H
 
 #include "pki_base.h"
 #include "x509name.h"

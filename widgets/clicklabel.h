@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef CLICKLABEL_H
-#define CLICKLABEL_H
+#ifndef __CLICKLABEL_H
+#define __CLICKLABEL_H
 
 #include <qlabel.h>
 

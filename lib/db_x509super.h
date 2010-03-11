@@ -6,8 +6,8 @@
  */
 
 
-#ifndef DB_X509SUPER_H
-#define DB_X509SUPER_H
+#ifndef __DB_X509SUPER_H
+#define __DB_X509SUPER_H
 
 #include "db_key.h"
 #include "pki_x509super.h"

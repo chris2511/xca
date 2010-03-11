@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef DB_BASE_H
-#define DB_BASE_H
+#ifndef __DB_BASE_H
+#define __DB_BASE_H
 
 #include "db.h"
 #include "base.h"

@@ -6,8 +6,8 @@
  */
 
 
-#ifndef DB_TEMP_H
-#define DB_TEMP_H
+#ifndef __DB_TEMP_H
+#define __DB_TEMP_H
 
 #include "db_base.h"
 #include "pki_temp.h"

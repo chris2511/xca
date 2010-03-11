@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef OPTIONS_H
-#define OPTIONS_H
+#ifndef __OPTIONS_H
+#define __OPTIONS_H
 
 #include "ui_Options.h"
 #include <qdialog.h>

@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef _XCATREEVIEW_H
-#define _XCATREEVIEW_H
+#ifndef __XCATREEVIEW_H
+#define __XCATREEVIEW_H
 
 #include <qtreeview.h>
 #include <qitemselectionmodel.h>

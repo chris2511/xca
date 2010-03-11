@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef _REQDETAIL_H
-#define _REQDETAIL_H
+#ifndef __REQDETAIL_H
+#define __REQDETAIL_H
 
 #include "ui_ReqDetail.h"
 #include <qdialog.h>

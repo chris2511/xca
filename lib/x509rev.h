@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef X509REV_H
-#define X509REV_H
+#ifndef __X509REV_H
+#define __X509REV_H
 
 #include <qstring.h>
 #include <openssl/x509.h>

@@ -1,3 +1,10 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2009 - 2010 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
 #include "pkcs11.h"
 #include "pk11_attribute.h"
 #include "exception.h"

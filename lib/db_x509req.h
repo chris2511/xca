@@ -6,8 +6,8 @@
  */
 
 
-#ifndef DB_X509REQ_H
-#define DB_X509REQ_H
+#ifndef __DB_X509REQ_H
+#define __DB_X509REQ_H
 
 #include "db_key.h"
 #include "db_x509super.h"

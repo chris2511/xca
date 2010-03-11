@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef PKI_X509_H
-#define PKI_X509_H
+#ifndef __PKI_X509_H
+#define __PKI_X509_H
 
 #include <stdio.h>
 #include <openssl/x509.h>

@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef X509NAME_H
-#define X509NAME_H
+#ifndef __X509NAME_H
+#define __X509NAME_H
 
 #include <qstring.h>
 #include <qstringlist.h>

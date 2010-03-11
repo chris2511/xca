@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef ASN1INTEGER_H
-#define ASN1INTEGER_H
+#ifndef __ASN1INTEGER_H
+#define __ASN1INTEGER_H
 
 #include <qstring.h>
 #include <openssl/asn1.h>

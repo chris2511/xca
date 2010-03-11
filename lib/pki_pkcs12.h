@@ -1,10 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
+#ifndef __PKI_PKCS12_H
+#define __PKI_PKCS12_H
 
 #include <iostream>
 #include <openssl/pem.h>
@@ -14,9 +16,6 @@
 #include <openssl/pkcs12.h>
 #include "pki_evp.h"
 #include "pki_x509.h"
-
-#ifndef PKI_PKCS12_H
-#define PKI_PKCS12_H
 
 class pki_pkcs12: public pki_base
 {

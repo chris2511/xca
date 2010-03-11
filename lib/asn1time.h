@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef ASN1TIME_H
-#define ASN1TIME_H
+#ifndef __ASN1TIME_H
+#define __ASN1TIME_H
 
 #include <qstring.h>
 #include <qbytearray.h>

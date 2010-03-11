@@ -6,8 +6,8 @@
  */
 
 
-#ifndef PKI_MULTI_H
-#define PKI_MULTI_H
+#ifndef __PKI_MULTI_H
+#define __PKI_MULTI_H
 
 #include <openssl/pem.h>
 #include "pki_x509.h"

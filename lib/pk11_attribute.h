@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2009 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef PKI_PKCS11_ATTRIBUTE_H
-#define PKI_PKCS11_ATTRIBUTE_H
+#ifndef __PKI_PKCS11_ATTRIBUTE_H
+#define __PKI_PKCS11_ATTRIBUTE_H
 
 #include <qstring.h>
 #include <stdlib.h>

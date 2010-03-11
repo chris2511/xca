@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef DB_CRL_H
-#define DB_CRL_H
+#ifndef __DB_CRL_H
+#define __DB_CRL_H
 
 #include "db_x509.h"
 #include "pki_crl.h"

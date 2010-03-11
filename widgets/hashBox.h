@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef HASH_BOX_H
-#define HASH_BOX_H
+#ifndef __HASH_BOX_H
+#define __HASH_BOX_H
 
 #include <qcombobox.h>
 #include <openssl/evp.h>

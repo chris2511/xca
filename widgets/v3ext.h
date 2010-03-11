@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef IMPORTMULTI_H
-#define IMPORTMULTI_H
+#ifndef __V3EXT_H
+#define __V3EXT_H
 
 #include "ui_v3ext.h"
 #include "lib/pki_base.h"

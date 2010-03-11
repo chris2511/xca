@@ -5,16 +5,14 @@
  * All rights reserved.
  */
 
-#ifndef PKI_X509SUPER_H
-#define PKI_X509SUPER_H
+#ifndef __PKI_X509SUPER_H
+#define __PKI_X509SUPER_H
 
 #include <openssl/x509.h>
 #include <openssl/pem.h>
 #include "pki_key.h"
 #include "x509name.h"
 #include "x509v3ext.h"
-
-//class pki_x509;
 
 class pki_x509super : public pki_base
 {

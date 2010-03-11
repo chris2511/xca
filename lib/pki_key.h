@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef PKI_KEY_H
-#define PKI_KEY_H
+#ifndef __PKI_KEY_H
+#define __PKI_KEY_H
 
 #include <qstring.h>
 #include <qprogressbar.h>

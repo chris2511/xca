@@ -1,6 +1,12 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2009 - 2010 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
 
-#ifndef _XCA_PKCS11_H_
-#define _XCA_PKCS11_H_
+#ifndef __XCA_PKCS11_H
+#define __XCA_PKCS11_H
 
 #include "opensc-pkcs11.h"
 #include <qstring.h>

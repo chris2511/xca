@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef DISTNAME_H
-#define DISTNAME_H
+#ifndef __DISTNAME_H
+#define __DISTNAME_H
 
 #include <qwidget.h>
 #include <qgridlayout.h>

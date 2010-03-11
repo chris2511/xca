@@ -1,6 +1,12 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2010 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
 
-#ifndef _KVVIEW_H
-#define _KVVIEW_H
+#ifndef __KVVIEW_H
+#define __KVVIEW_H
 
 #include <qabstractitemmodel.h>
 #include <qtableview.h>

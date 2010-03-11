@@ -1,12 +1,12 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
 
-#ifndef X509V3EXT_H
-#define X509V3EXT_H
+#ifndef __X509V3EXT_H
+#define __X509V3EXT_H
 
 #include <qlist.h>
 #include <openssl/x509.h>

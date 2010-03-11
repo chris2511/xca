@@ -5,8 +5,8 @@
  * All rights reserved.
  */
 
-#ifndef BASE_H
-#define BASE_H
+#ifndef __BASE_H
+#define __BASE_H
 
 #define XCA_TITLE "X Certificate and Key management"
 
