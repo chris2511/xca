@@ -92,6 +92,7 @@ void Options::on_tryLoadButton_clicked(void)
 		QString lib = pkcs11path->text();
 #ifdef WIN32
 		pkcs11::load_lib(lib, false);
+		pkcs11::initialize();
 #else
 		pki_scard::init_p11engine(lib, false);
 #endif
@@ -100,6 +101,10 @@ void Options::on_tryLoadButton_clicked(void)
 			pkcs11 p11;
 			info = p11.driverInfo();
 		}
+#ifdef WIN32
+		pkcs11::finalize();
+		pkcs11::load_lib(QString(), true);
+#endif
 		if (!lib.isEmpty()) {
 			QMessageBox::information(this, XCA_TITLE,
 				tr("Successfully loaded PKCS#11 library: %1\n").

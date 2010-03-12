@@ -160,9 +160,11 @@ void MainWindow::setOptions()
 
 	opt->setStringOpt(string_opt);
 	opt->pkcs11path->setText(pkcs11path);
-	if (!opt->exec())
+	if (!opt->exec()) {
+		delete opt;
+		enableTokenMenu(pkcs11::loaded());
 		return;
-
+	}
 	QString alg = opt->hashAlgo->currentHashName();
 	db mydb(dbfile);
 	mydb.set((const unsigned char *)CCHAR(alg), alg.length()+1, 1,
@@ -195,4 +197,5 @@ void MainWindow::setOptions()
 #endif
 	}
 	enableTokenMenu(pkcs11::loaded());
+	delete opt;
 }

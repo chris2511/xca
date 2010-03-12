@@ -103,6 +103,8 @@ class pkcs11
 		pkcs11();
 		~pkcs11();
 		static bool load_lib(QString file, bool silent);
+		static void initialize();
+		static void finalize();
 
 		tkInfo tokenInfo(CK_SLOT_ID slot);
 		tkInfo tokenInfo();

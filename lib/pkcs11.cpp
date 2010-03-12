@@ -33,6 +33,20 @@ pkcs11::~pkcs11()
 		p11->C_CloseSession(session);
 }
 
+void pkcs11::initialize()
+{
+	CK_RV rv = p11->C_Initialize(NULL);
+	if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
+		pk11error("C_Initialize", rv);
+}
+
+void pkcs11::finalize()
+{
+	CK_RV rv = p11->C_Finalize(NULL);
+	if (rv != CKR_OK && rv != CKR_CRYPTOKI_NOT_INITIALIZED)
+		pk11error("C_Finalize", rv);
+}
+
 void pkcs11::startSession(unsigned long slot, bool rw)
 {
 	CK_RV rv;
@@ -526,7 +540,7 @@ bool pkcs11::load_lib(QString file, bool silent)
 		if (lt_dlclose(dl_handle) < 0) {
 			if (silent)
 				return false;
-			throw errorEx("Failed to close PKCS11 library: " + file);
+			throw errorEx(QObject::tr("Failed to close PKCS11 library: %1").arg(file));
 		}
 	}
 	p11 = NULL;
@@ -534,14 +548,15 @@ bool pkcs11::load_lib(QString file, bool silent)
 	if (file.isEmpty()) {
 		if (silent)
 			return false;
-		throw errorEx("PKCS11 library filename empty");
+		throw errorEx(QObject::tr("PKCS11 library filename empty"));
 	}
 
 	dl_handle = lt_dlopen(QString2filename(file));
 	if (dl_handle == NULL) {
 		if (silent)
 			return false;
-		throw errorEx("Failed to open PKCS11 library: " + file);
+		throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
+				arg(file));
 	}
 
 	/* Get the list of function pointers */
@@ -554,7 +569,8 @@ bool pkcs11::load_lib(QString file, bool silent)
 	/* This state is always worth an error ! */
 	if (lt_dlclose(dl_handle) == 0)
 		dl_handle = NULL;
-	throw errorEx("Failed to open PKCS11 library: " + file);
+	throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
+			arg(file));
 	return false;
 }
 
