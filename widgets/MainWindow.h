@@ -100,7 +100,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 
 	private slots:
 		void setOptions();
-		void importScard();
+		void manageToken();
 		void initToken();
 		void changePin(bool so=false);
 		void changeSoPin();

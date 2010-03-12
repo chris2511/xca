@@ -380,8 +380,8 @@ QString pkcs11::driverInfo()
 
 	return QString(
 	"Cryptoki version: %1.%2\n"
-	"Manufacturer:     %3\n"
-	"Library:          %4 (%5.%6)\n").
+	"Manufacturer: %3\n"
+	"Library: %4 (%5.%6)\n").
 	arg(info.cryptokiVersion.major).arg(info.cryptokiVersion.minor).
 	arg(UTF8QSTRING(info.manufacturerID, 32)).
 	arg(UTF8QSTRING(info.libraryDescription, 32)).

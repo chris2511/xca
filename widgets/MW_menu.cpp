@@ -64,7 +64,7 @@ void MainWindow::init_menu()
 
 	token = menuBar()->addMenu(tr("&Token"));
 	token->addAction(tr("&Manage Security token"), this,
-				SLOT(importScard()));
+				SLOT(manageToken()));
 	token->addAction(tr("&Init Security token"),  this,
 				SLOT(initToken()));
 	token->addAction(tr("&Change PIN"), this,

@@ -450,7 +450,7 @@ void MainWindow::initPin()
 }
 
 
-void MainWindow::importScard()
+void MainWindow::manageToken()
 {
 	pkcs11 p11;
 	unsigned long slot;
@@ -466,9 +466,15 @@ void MainWindow::importScard()
 			return;
 
 		ImportMulti *dlgi = new ImportMulti(this);
-		QList<CK_OBJECT_HANDLE> objects;
 
 		p11.startSession(slot);
+		QString info = p11.driverInfo();
+		tkInfo ti = p11.tokenInfo();
+		info += tr("\nName: %1\nModel: %2\nSerial: %3").
+			arg(ti.label()).arg(ti.model()).arg(ti.serial());
+		dlgi->tokenInfo(info);
+		QList<CK_OBJECT_HANDLE> objects;
+
 		QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
 		if (ml.count() == 0)
 			ml << CKM_SHA1_RSA_PKCS;

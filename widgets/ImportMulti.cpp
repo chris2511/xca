@@ -28,7 +28,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 {
 	mainwin = parent;
 	setupUi(this);
-	setWindowTitle(tr(XCA_TITLE));
+	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::certImg);
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	mcont = new db_base("/dev/null", parent);
@@ -37,7 +37,17 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(on_butDetails_clicked()));
+	deleteToken->hide();
+	slotInfo->hide();
+}
 
+void ImportMulti::tokenInfo(QString &info)
+{
+	deleteToken->show();
+	slotInfo->show();
+	slotInfo->setText(info);
+	image->setPixmap(*MainWindow::scardImg);
+	heading->setText(tr("Manage security token"));
 }
 
 void ImportMulti::addItem(pki_base *pki)
@@ -116,6 +126,27 @@ void ImportMulti::on_butImport_clicked()
 		if (index.column() != 0)
 			continue;
 		import(index);
+	}
+}
+
+void ImportMulti::on_deleteToken_clicked()
+{
+	QItemSelectionModel *selectionModel = listView->selectionModel();
+	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndex index;
+	QString items;
+
+	foreach(index, indexes) {
+		if (index.column() != 0)
+			continue;
+		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+		try {
+			pki->deleteFromToken();
+			mcont->remFromCont(index);
+			delete pki;
+		} catch (errorEx &err) {
+			mainwin->Error(err);
+		}
 	}
 }
 
@@ -209,9 +240,7 @@ void ImportMulti::on_butDetails_clicked()
 				arg(cn));
 	}
 	catch (errorEx &err) {
-		QMessageBox::warning(this, XCA_TITLE,
-			tr("Error") + pki->getClassName() +
-			err.getString());
+		mainwin->Error(err);
 	}
 
 }

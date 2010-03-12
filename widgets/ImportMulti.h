@@ -30,12 +30,14 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		pki_base *import(QModelIndex &idx);
 		void execute(int force=0);
 		int entries();
+		void tokenInfo(QString &info);
 
 	public slots:
 		void on_butRemove_clicked();
 		void on_butImport_clicked();
 		void on_butDetails_clicked();
 		void on_butOk_clicked();
+		void on_deleteToken_clicked();
 
 };
 
