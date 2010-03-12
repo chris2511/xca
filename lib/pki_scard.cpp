@@ -438,7 +438,7 @@ const EVP_MD *pki_scard::getDefaultMD()
 }
 
 /* Assures the correct card is inserted and
- * returns the slot ID or -1 on error or abort */
+ * returns the slot ID in slot true on success */
 bool pki_scard::prepare_card(unsigned long *slot, bool verifyPubkey) const
 {
 	pkcs11 p11;

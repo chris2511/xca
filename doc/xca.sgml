@@ -3,7 +3,7 @@
 
 <article>
 
-<title>XCA
+<title>XCA - X Certificate and key management
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
@@ -83,7 +83,7 @@ other applications.
 
 <tscreen><verb>
 
-Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+Copyright (C) 2001 - 2010 Christian Hohnstaedt.
 
  All rights reserved.
 
@@ -333,7 +333,7 @@ This page is not shown when creating or changing templates.
 
 <p>
 
-If it is desired to either enroll a certificat from a PKCS#10 request
+If it is desired to either enroll a certificate from a PKCS#10 request
 by a local CA, or to create a certificate from a request by self-signing it,
 the request can be selected here. In the later case the private key of
 the request must be available.
@@ -361,7 +361,7 @@ Windows users should consider using SHA1.
 
 The fields of the certificate can be preset by the values of a template
 by selecting it and clicking <em>Apply all</em>.
-Tamplates can be mixed by applying the subject of one template and then
+Templates can be mixed by applying the subject of one template and then
 applying the extensions of an other by using the
 buttons <em>Apply subject</em> and <em>Apply extensions</em>
 
@@ -386,7 +386,7 @@ It will also be used as default internal name, if a new key is created here.
 <p>
 
 Other rarely used <tt>name-entries</tt> can be selected in the dialog
-below. Only items that have a non-empty value.
+below.
 By using this atble instead of the table above, the order of the entries can be adjusted.
 A new line can be added via the <em>Add</em> button.
 The current line can be deleted via the <em>Delete</em> button.
@@ -401,8 +401,8 @@ Keys can be generated here <tt>on the fly</tt> by pressing the button.
 The name of the new key will be preset by the common name of the certificate.
 The newly generated key will be stored in the database and stay there,
 even if the input dialog is canceled. The drop-down list of the keys
-only contains keys that were not used by any other certificates or
-requests. The key-list is not available for creating or changing templates.
+only contains keys that were not used by any other certificate or
+request. The key-list is not available for creating or changing templates.
 By checking <tt>Used keys too</tt> the list contains all available
 keys. Use this with care. You're likely doing something wrong when using this
 option.
@@ -500,7 +500,7 @@ noticeNumbers=1,2,3,4
 
 Since XCA 0.8.0 the use of Smart cards (Security tokens) is supported.
 It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
-This is not restricted to Smart cards but includes all type of security tokens like USB sticks.
+This is not restricted to Smart cards but includes all type of security tokens like USB tokens.
 The default is <tt>/usr/lib/opensc-pkcs11.so</tt> and <tt>opensc-pkcs11.dll</tt> in the XCA installation path, depending on your OS.
 
 <p>
@@ -516,22 +516,22 @@ Generally: if the opensc commandline-tool "pkcs11-tool -L" shows reasonable outp
 Otherwise fix the opensc setup.
 I had a functional setup with a "Reiner SCT" and a DELL keyboard with integrated card reader and TCOS Netkey E4 cards.
 I also used Aladdin Etoken very successfully (Thanks for support!). The Aladdin PKCS#11 library supports all needed features very well.
-Most probably other cards/tokens will work as least as good or better.
 
 <p>
 
 Before the keys of a token can be used, they must be imported into XCA.
-This means that XCA reads the token and stores the card's manufacturer, serial and the public key into the database.
-It is not unusal that a token contains more than one key.
+This means that XCA reads the token and shows the keys and certificates on the token. They can then be imported partially or completely
+via the Multi-import dialog.
+It is not unusal that a token contains more than one key or certificate.
 It is of course possible to create your own keys on the token.
 When selecting a token-key for signing, XCA verifies that the
-correct token is available.
+corresponding token is available.
 
 The following actions with smart cards are supported:
 
 <itemize>
 	<item>Import keys and certificates from the token.
-		(Import->Read Security token)
+		(Import->Manage Security token)
 	<item>Everything you can do with other keys can be done with tokens,
 		too.
 	<item>On export, only the Public key is exported.
@@ -571,7 +571,7 @@ After this operation succeeded, the User PIN is uninitialized and must be initia
 
 <p>
 
-The menu item <tt>Manage Security token</tt> shows a list of all certificates and public keys foiund on the token.
+The menu item <tt>Manage Security token</tt> shows a list of all certificates and public keys found on the token.
 The keys and certificates can be imported via the Multi-import dialog.
 
 <sect2>Deleting items from the token
@@ -595,9 +595,13 @@ I used the following providers for testing:
 
 <itemize>
 	<item>OpenSC: default provider for a lot of different cards and
-		readers. The support of Netkey 4E cards is currently crippled.
+		readers.
+		<itemize>
+		<item>The support of Netkey 4E cards is currently weak.
 		Only import and using the keys is possible. For other cards
 		the support is probably better.
+		<item>Feitian PKI cards work like a charm.
+		</itemize>
 	<item>Aladdin eToken PKIclient-5.1: Works perfectly.
 		Read public keys from the token, write private keys to the
 		token, generate keys on the token, write certificates to the
@@ -611,7 +615,11 @@ I used the following providers for testing:
 <p>
 
 For interoperabilitytests I used the Aladdin eToken together with the
-Aladdin PKIclient 5.1 software.
+Aladdin PKIclient 5.1 software and OpenSC with the feitian PKI-card.
+<itemize>
+<item>Aladdin: /usr/lib/libeTPkcs11.so
+<item>Feitian: /usr/lib/opensc-pkcs11.so (default)
+</itemize>
 I initialized the token as follows:
 
 <itemize>
@@ -621,10 +629,10 @@ I initialized the token as follows:
 	<item>Generate 2nd client certificate with software key
 	<item>Copy the software-key of the 2nd client certificate onto the token
 	<item>Copy the 2 client certificates onto the token
-	<item>Export CA certificate as PEM
-	<item>Export server cert as PKCS12 without password
+	<item>Export CA certificate as PEM (ca.crt)
+	<item>Export server cert as PKCS12 without password (server.p12)
 	<item>Export server cert as "PEM Cert + key" without password
-		for Apache2
+			 (server.pem) for Apache2
 </itemize>
 
 <sect2>Firefox / Mozilla -> Apache
@@ -642,12 +650,12 @@ I initialized the token as follows:
 
 <tscreen><verb>
 SSLEngine on
-SSLCertificateFile    /etc/apache2/ssl/dalek.pem
-SSLCertificateKeyFile /etc/apache2/ssl/dalek.pem
-SSLCertificateChainFile /etc/apache2/ssl/my_CA.crt
-SSLCACertificateFile /etc/apache2/ssl/my_CA.crt
-SSLVerifyClient require
-SSLVerifyDepth  10
+SSLCertificateFile      /etc/apache2/ssl/server.pem
+SSLCertificateKeyFile   /etc/apache2/ssl/server.pem
+SSLCertificateChainFile /etc/apache2/ssl/ca.crt
+SSLCACertificateFile    /etc/apache2/ssl/ca.crt
+SSLVerifyClient         require
+SSLVerifyDepth          10
 </verb></tscreen>
 
 	<item>Connect with firefox to the server. Firefox will prompt you
@@ -684,8 +692,12 @@ The pkcs11-id can be obtained with the command:
 
 For creating certificates, keys are needed.
 All keys are stored encrypted in the database using the 3DES algorithm.
-The password can be changed for each certificate.
-
+The password can be changed for each certificate. The password type means:
+<itemize>
+<item>common: The database password provided during database load
+<item>private: The key has its own password, which is not stored by XCA. This can be set and reset via the context menu of the key
+<item>PIN: Security tokens are usually protected by a PIN
+</itemize>
 <p>
 
 All keys carry a use counter which counts the times it is used. For new
@@ -707,7 +719,7 @@ After the key generation is done the key will be stored in the database.
 
 <p>
 
-For every token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown.
+For every connected token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown.
 It contains the name of the token and the valid key-sizes.
 
 <sect1>Key export
@@ -726,7 +738,7 @@ or by using the context-menu. This opens a Dialogbox where the following setting
 </itemize>
 
 The filename is the internal name plus a <tt>pem</tt>, <tt>der</tt> or <tt>pk8</tt> suffix.
-When changing the fileformat, the suffix of the filename changes accordingly
+When changing the fileformat, the suffix of the filename changes accordingly.
 Only PKCS&num;8 or PEM files can be encrypted, because
 the DER format (although it could be encrypted)
 does not support a way to supply the encryption algorithm
@@ -932,6 +944,7 @@ which makes the following functions available:
 		signing certificates.
 	<item><bf>Generate CRL</bf> Generate the CRL by collecting all
 		revoked certificates and their revocation date.
+	<item><bf>Use random serial numbers</bf> generates an 8 byte unique serial number for every newly issued certificate
 </itemize>
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -960,7 +973,8 @@ Therefore XCA does not care if any duplicates exist in the list of templates.
 
 An easy way to create templates is to export an existing certificate or
 PKCS#10 request to a template. Just select <tt>Export->Template</tt>
-in the context-menu of the item.
+in the context-menu of the item. The private key of the
+Certificate or Request is not needed.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
@@ -1001,8 +1015,8 @@ configuration files.
 <p>
 
 A list of mandatory distinguished name entries may be specified to
-get a warning, whenever issuing a certificate with one of the listed
-entres is empty. This requirement is not checked when editing templates,
+get a warning, whenever issuing a certificate that lacks one or more listed
+entries. This requirement is not checked when editing templates,
 because templates may have empty entries that will be filled during
 the rollout of the certificate.
 

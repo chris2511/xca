@@ -52,7 +52,7 @@ void MainWindow::about()
 
 	QString cont;
 	cont.sprintf("<p><h3><center><u>XCA</u></center></h3>"
-	"<p>Copyright 2001 - 2009 by Christian Hohnst&auml;dt\n"
+	"<p>Copyright 2001 - 2010 by Christian Hohnst&auml;dt\n"
 	"<p>Version : <b>" VER "</b>"
 	"<p>%s<br>QT: %s"
 	"<hr><table border=0>"
