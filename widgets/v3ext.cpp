@@ -75,8 +75,8 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 		tt = tr("an IP address");
 		QRegExp rx("[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}");
 		v = new QRegExpValidator(rx, this);
-	} else if (s == "othername") {
-		tt = tr("the value should be the OID followed by a semicolon and the content in standard ASN1_generate_nconf() format");
+	} else if (s == "otherName") {
+		tt = tr("Syntax: <OID>;TYPE:text like '1.2.3.4:UTF8:name'");
 		QRegExp rx("[a-zA-Z0-9.]+;.*");
 		v = new QRegExpValidator(rx, this);
 	} else if (s == "issuer") {
@@ -93,9 +93,16 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 /* for one TYPE:Content String */
 void v3ext::addEntry(QString line)
 {
-	QStringList s = line.split(':');
-	if (s.count() > 1)
-		tab->addRow(s[0], s[1]);
+	int idx = line.indexOf(':');
+	QString type, value;
+	if (idx == -1) {
+		type = line;
+		value = "";
+	} else {
+		type = line.left(idx);
+		value = line.mid(idx+1);
+	}
+	tab->addRow(type, value);
 }
 
 QString v3ext::toString()
@@ -136,9 +143,10 @@ bool v3ext::__validate(bool showSuccess)
 		error += ERR_error_string(i ,NULL);
 		error += "\n";
 	}
-	if (! error.isEmpty()) {
+	if (!error.isEmpty()) {
 		QMessageBox::warning(this, XCA_TITLE,
-			tr("Validation failed:\n'%1'").arg(str));
+			tr("Validation failed:\n'%1'\n%2").
+				arg(str).arg(error));
 		return false;
 	}
 	if (showSuccess) {
