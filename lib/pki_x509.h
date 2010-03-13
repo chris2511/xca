@@ -138,6 +138,7 @@ class pki_x509 : public pki_x509super
 		QByteArray i2d();
 		void d2i(QByteArray &ba);
 		void deleteFromToken();
+		void deleteFromToken(unsigned long slot);
 		virtual QString getFriendlyClassName();
 };
 

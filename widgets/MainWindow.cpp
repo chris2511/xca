@@ -467,12 +467,7 @@ void MainWindow::manageToken()
 
 		ImportMulti *dlgi = new ImportMulti(this);
 
-		p11.startSession(slot);
-		QString info = p11.driverInfo();
-		tkInfo ti = p11.tokenInfo();
-		info += tr("\nName: %1\nModel: %2\nSerial: %3").
-			arg(ti.label()).arg(ti.model()).arg(ti.serial());
-		dlgi->tokenInfo(info);
+		dlgi->tokenInfo(slot);
 		QList<CK_OBJECT_HANDLE> objects;
 
 		QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
@@ -481,6 +476,7 @@ void MainWindow::manageToken()
 		pk11_attlist atts(pk11_attr_ulong(CKA_CLASS,
 				CKO_PUBLIC_KEY));
 
+		p11.startSession(slot);
 		objects = p11.objectList(atts);
 
 		for (int j=0; j< objects.count(); j++) {

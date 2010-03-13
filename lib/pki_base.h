@@ -80,6 +80,7 @@ class pki_base : public QObject
 		uint32_t intFromData(QByteArray &ba);
 		virtual void fromPEM_BIO(BIO *, QString) {};
 		virtual void deleteFromToken() { };
+		virtual void deleteFromToken(unsigned long slot) { };
 };
 
 #endif

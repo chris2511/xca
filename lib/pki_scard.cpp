@@ -282,17 +282,22 @@ void pki_scard::deleteFromToken()
 {
 	unsigned long slot;
 
-	if (QMessageBox::question(NULL, XCA_TITLE,
-			tr("Delete the private key '%1' from the token?").
-			arg(getIntName()),
-			QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
-		return;
-
 	if (!prepare_card(&slot))
 		return;
+	deleteFromToken(slot);
+}
 
+void pki_scard::deleteFromToken(unsigned long slot)
+{
 	pkcs11 p11;
 	p11.startSession(slot, true);
+
+	tkInfo ti = p11.tokenInfo();
+	if (QMessageBox::question(NULL, XCA_TITLE,
+			tr("Delete the private key '%1' from the token '%2 (#%3)' ?").
+			arg(getIntName()).arg(ti.label()).arg(ti.serial()),
+			QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
+		return;
 
 	if (p11.tokenLogin(card_label, false).isNull())
 		return;

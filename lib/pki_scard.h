@@ -82,6 +82,7 @@ class pki_scard: public pki_key
 		const EVP_MD *getDefaultMD();
 		void generateKey_card(unsigned long slot, int size, QProgressBar *bar);
 		void deleteFromToken();
+		void deleteFromToken(unsigned long slot);
 		void store_token(unsigned int slot, EVP_PKEY *pkey);
 
 };

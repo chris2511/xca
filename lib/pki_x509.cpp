@@ -284,9 +284,8 @@ void pki_x509::store_token(bool alwaysSelect)
 void pki_x509::deleteFromToken()
 {
 	pki_scard *card = (pki_scard *)privkey;
-	pk11_attlist attrs;
-
 	QList<unsigned long> p11_slots;
+
 	if (!pkcs11::loaded())
 		return;
 
@@ -299,36 +298,38 @@ void pki_x509::deleteFromToken()
 		pkcs11 p11;
 		p11_slots = p11.getSlotList();
 	}
+	for (int i=0; i<p11_slots.count(); i++) {
+		deleteFromToken(p11_slots[i]);
+	}
+}
 
+void pki_x509::deleteFromToken(unsigned long slot)
+{
+	pk11_attlist attrs;
 	attrs <<
 		pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
 		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
 		pk11_attr_data(CKA_VALUE, i2d());
 
-	int certs = 0;
-	for (int i=0; i<p11_slots.count(); i++) {
-		unsigned long slot = p11_slots[i];
-		pkcs11 p11;
-		p11.startSession(slot, true);
+	pkcs11 p11;
+	p11.startSession(slot, true);
 
-		QList<CK_OBJECT_HANDLE> objs = p11.objectList(attrs);
-		certs += objs.count();
-		if (!objs.count())
-			continue;
+	QList<CK_OBJECT_HANDLE> objs = p11.objectList(attrs);
+	if (!objs.count())
+		return;
 
-		tkInfo ti = p11.tokenInfo(slot);
-		if (QMessageBox::question(NULL, XCA_TITLE,
-			tr("Delete the certificate '%1' from the token '%2 (#%3)' ?").
-			arg(getIntName()).arg(ti.label()).arg(ti.serial()),
-			QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
-		{
-			continue;
-		}
-		if (p11.tokenLogin(ti.label(), false).isNull())
-			continue;
-
-		p11.deleteObjects(attrs);
+	tkInfo ti = p11.tokenInfo();
+	if (QMessageBox::question(NULL, XCA_TITLE,
+		tr("Delete the certificate '%1' from the token '%2 (#%3)' ?").
+		arg(getIntName()).arg(ti.label()).arg(ti.serial()),
+		QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
+	{
+		return;
 	}
+	if (p11.tokenLogin(ti.label(), false).isNull())
+		return;
+
+	p11.deleteObjects(attrs);
 }
 
 bool pki_x509::verifyQASerial(const a1int &secret) const

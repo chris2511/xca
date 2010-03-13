@@ -39,12 +39,21 @@ ImportMulti::ImportMulti(MainWindow *parent)
 		this, SLOT(on_butDetails_clicked()));
 	deleteToken->hide();
 	slotInfo->hide();
+	slot = 0;
 }
 
-void ImportMulti::tokenInfo(QString &info)
+void ImportMulti::tokenInfo(unsigned long s)
 {
+	slot = s;
 	deleteToken->show();
 	slotInfo->show();
+	pkcs11 p11;
+
+	QString info = p11.driverInfo();
+	tkInfo ti = p11.tokenInfo(slot);
+	info += tr("\nName: %1\nModel: %2\nSerial: %3").
+		arg(ti.label()).arg(ti.model()).arg(ti.serial());
+
 	slotInfo->setText(info);
 	image->setPixmap(*MainWindow::scardImg);
 	heading->setText(tr("Manage security token"));
@@ -141,7 +150,7 @@ void ImportMulti::on_deleteToken_clicked()
 			continue;
 		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
 		try {
-			pki->deleteFromToken();
+			pki->deleteFromToken(slot);
 			mcont->remFromCont(index);
 			delete pki;
 		} catch (errorEx &err) {
