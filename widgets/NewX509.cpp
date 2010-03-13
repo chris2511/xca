@@ -755,17 +755,18 @@ void NewX509::on_adv_validate_clicked()
 			result += tr("Other Tabs") + "</center></h2><p>\n";
 			result += el.getHtml("<br>");
 		}
-		el = getAdvanced();
+		try {
+			el = getAdvanced();
+		} catch (errorEx &err) {
+			errtxt = err.getString();
+			el.clear();
+		}
 		if (el.size() > 0) {
 			if (!result.isEmpty())
 				result += "\n<hr>\n";
 			result += "<h2><center>";
 			result += tr("Advanced Tab") + "</center></h2><p>\n";
 			result += el.getHtml("<br>");
-		}
-		while (int i = ERR_get_error() ) {
-			errtxt += ERR_error_string(i, NULL);
-			errtxt += "<br>\n";
 		}
 		if (!errtxt.isEmpty()) {
 			if (!result.isEmpty())

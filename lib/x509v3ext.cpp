@@ -72,12 +72,6 @@ void *x509v3ext::d2i()
 	return X509V3_EXT_d2i(ext);
 }
 
-/*
-bool x509v3ext::operator == (const x509v3ext &x) const
-{
-	return (X509_EXTENSION_cmp(ext, x.ext) == 0);
-}
-*/
 x509v3ext &x509v3ext::operator = (const x509v3ext &x)
 {
 	set(x.ext);
@@ -112,6 +106,7 @@ QString x509v3ext::getValue(bool html) const
 		text.replace(QRegExp("&"), "&amp;");
 		text.replace(QRegExp("<"), "&lt;");
 		text.replace(QRegExp(">"), "&gt;");
+		text.replace(QRegExp("\n"), "<br>\n");
 	}
 	return text.trimmed();
 }
@@ -173,18 +168,32 @@ QStringList x509v3ext::i2v()
 		for (int i = 0; i < sk_CONF_VALUE_num(val); i++) {
 			CONF_VALUE *nval = sk_CONF_VALUE_value(val, i);
 			const char *name = nval->name;
+			QString final;
 			if (name) {
+				const char *prep = strstr(name, " - ");
+				if (prep) {
+					final = QString::fromAscii(name,
+							prep -name);
+					name = prep +3;
+				}
 				if (!strcmp(name, "IP Address"))
 					name = "IP";
 				else if (!strcmp(name, "Registered ID"))
 					name = "RID";
+				if (!final.isEmpty()) {
+					int nid = OBJ_txt2nid(CCHAR(final));
+					final = OBJ_nid2sn(nid);
+					final += ";";
+				}
+				final += name;
 			}
 			if (!name)
 				sl << QString(nval->value);
 			else if (!nval->value)
-				sl << QString(name);
+				sl << QString(final);
 			else
-				sl << QString("%1:%2").arg(name).arg(nval->value);
+				sl << QString("%1:%2").arg(final).
+					arg(nval->value);
 		}
 		sk_CONF_VALUE_pop_free(val, X509V3_conf_free);
 	}

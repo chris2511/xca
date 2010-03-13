@@ -15,6 +15,7 @@
 #include <qmessagebox.h>
 #include "MainWindow.h"
 #include "lib/x509v3ext.h"
+#include "lib/func.h"
 
 
 x509v3ext NewX509::getBasicConstraints()
@@ -156,22 +157,18 @@ QString NewX509::getAuthInfAcc_string()
 
 void NewX509::setAuthInfAcc_string(QString aia_txt)
 {
-	QStringList aia;
-	int nid;
+	int nid, idx;
 
-	aia = aia_txt.split(';');
+	idx = aia_txt.indexOf(';');
 
-	if (aia.count() != 2)
-		return;
-
-	nid = OBJ_sn2nid(CCHAR(aia[0]));
+	nid = OBJ_sn2nid(CCHAR(aia_txt.left(idx)));
 
 	for (int i=0; i < aia_nid.count(); i++) {
 		if (aia_nid[i] == nid) {
 			aiaOid->setCurrentIndex(i);
 		}
 	}
-	authInfAcc->setText(aia[1]);
+	authInfAcc->setText(aia_txt.mid(idx +1));
 }
 
 x509v3ext NewX509::getAuthInfAcc()
@@ -193,8 +190,8 @@ extList NewX509::getAdvanced()
 	extList elist;
 	long err_line=0;
 	STACK_OF(X509_EXTENSION) **sk, *sk_tmp = NULL;
-	char ext_name[] = "ext";
-	int ret, i, start;
+	const char *ext_name = "default";
+	int ret, start;
 
 	if (nconf_data->isReadOnly()) {
 		on_adv_validate_clicked();
@@ -202,30 +199,17 @@ extList NewX509::getAdvanced()
 	conf_str = nconf_data->toPlainText();
 	if (conf_str.isEmpty())
 		return elist;
-	conf_str += "\n";
-	QStringList list = conf_str.split("\n", QString::SkipEmptyParts);
 
-	conf_str = QString("[") + ext_name + "]\n";
-	for (i=0; i< list.count(); i++) {
-		QString s = list[i].trimmed();
-		if (!s.isEmpty()){
-			conf_str += s + "\n";
-		}
-	}
-	bio = BIO_new_mem_buf((void*)CCHAR(conf_str), conf_str.length());
+	QByteArray cs = conf_str.toAscii();
+	bio = BIO_new_mem_buf(cs.data(), cs.length());
 	if (!bio)
 		return elist;
 	conf = NCONF_new(NULL);
 	ret = NCONF_load_bio(conf, bio, &err_line);
 	if (ret != 1) {
-		int i = ERR_get_error();
-		printf("Ret: %d, ERRLINE=%ld: %s\n", ret, err_line,
-			ERR_error_string(i ,NULL));
-
-		QMessageBox::warning(this, XCA_TITLE,
-			tr("Advanced Settings Error: %1").
-			arg(ERR_error_string(i ,NULL)));
 		BIO_free(bio);
+		openssl_error(tr("Configfile error on line %1\n").
+				arg(err_line));
 		return elist;
 	}
 
@@ -238,13 +222,17 @@ extList NewX509::getAdvanced()
 	}
 
 	X509V3_set_nconf(&ext_ctx, conf);
-	X509V3_EXT_add_nconf_sk(conf, &ext_ctx, ext_name, sk);
+
+	if (X509V3_EXT_add_nconf_sk(conf, &ext_ctx, (char *)ext_name, sk)) {
+		openssl_error();
+	}
 	elist.setStack(*sk, start);
 	if (sk == &sk_tmp)
 		sk_X509_EXTENSION_pop_free(sk_tmp, X509_EXTENSION_free);
 	X509V3_set_nconf(&ext_ctx, NULL);
 	NCONF_free(conf);
 	BIO_free(bio);
+	openssl_error();
 	return elist;
 }
 

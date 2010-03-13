@@ -108,9 +108,28 @@ static QStringList extVlistToString(extList &el, int nid, bool *crit)
 	return sl;
 }
 
-static QString extVtoString(extList &el, int nid, bool *crit)
+static QString extVtoString(extList &el, int nid, QString *adv)
 {
-	return extVlistToString(el, nid, crit).join(", ");
+	bool crit;
+	QString critical;
+	const char *tag = OBJ_nid2sn(nid);
+
+	QStringList vlist = extVlistToString(el, nid, &crit);
+	if (crit)
+		critical = "critical,";
+	if (!vlist.join("").contains(","))
+		return critical + vlist.join(", ");
+
+	*adv = QString("%1=%2@%1_sect\n").arg(tag).arg(critical) + *adv +
+		QString("\n[%1_sect]\n").arg(tag);
+
+	for (int i=0; i<vlist.count(); i++) {
+		QString s = vlist[i];
+		int eq = s.indexOf(":");
+		*adv += QString("%1.%2=%3\n").arg(s.left(eq)).
+			arg(i).arg(s.mid(eq+1));
+	}
+	return QString();
 }
 
 static QString extToString(extList &el, int nid)
@@ -162,16 +181,11 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			xname.addEntryByNid(nid, n.getEntry(i));
 	}
 
-	subAltName = extVtoString(el, NID_subject_alt_name, NULL);
-	issAltName = extVtoString(el, NID_issuer_alt_name, NULL);
-	crlDist = extVtoString(el, NID_crl_distribution_points, NULL);
+	subAltName = extVtoString(el, NID_subject_alt_name, &adv_ext);
+	issAltName = extVtoString(el, NID_issuer_alt_name, &adv_ext);
+	crlDist = extVtoString(el, NID_crl_distribution_points, &adv_ext);
 
-	authInfAcc = extVtoString(el, NID_info_access, NULL);
-	if (!authInfAcc.isEmpty()) {
-		authInfAcc.replace(QRegExp(" - "), ";");
-		authInfAcc.replace(QRegExp(";IP Address"), ";IP");
-		authInfAcc.replace(QRegExp(";Registered ID"), ";RID");
-	}
+	authInfAcc = extVtoString(el, NID_info_access, &adv_ext);
 
 	nsComment = extToString(el, NID_netscape_comment);
 	nsBaseUrl = extToString(el, NID_netscape_base_url);
