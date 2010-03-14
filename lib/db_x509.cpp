@@ -9,6 +9,7 @@
 #include "pki_pkcs12.h"
 #include "pki_pkcs7.h"
 #include "pki_evp.h"
+#include "pki_scard.h"
 #include "widgets/CertDetail.h"
 #include "widgets/CertExtend.h"
 #include "widgets/ExportCert.h"
@@ -421,27 +422,26 @@ void db_x509::newCert(NewX509 *dlg)
 
 	// Step 1 - Subject and key
 	if (!dlg->fromReqCB->isChecked()) {
-	    clientkey = dlg->getSelectedKey();
+		clientkey = dlg->getSelectedKey();
 		if (!clientkey)
 			return;
-	    subject = dlg->getX509name();
-	    intname = dlg->description->text();
-	}
-	else {
-	    // A PKCS#10 Request was selected
-	    req = dlg->getSelectedReq();
-	    if (!req)
-			return;
-	    clientkey = req->getRefKey();
-	    if (clientkey == NULL) {
-		    clientkey = req->getPubKey();
-		    tempkey = clientkey;
-	    }
-	    if (dlg->reqSubChange->isChecked())
 		subject = dlg->getX509name();
-	    else
-	        subject = req->getSubject();
-	    intname = req->getIntName();
+		intname = dlg->description->text();
+	} else {
+		// A PKCS#10 Request was selected
+		req = dlg->getSelectedReq();
+		if (!req)
+			return;
+		clientkey = req->getRefKey();
+		if (clientkey == NULL) {
+			clientkey = req->getPubKey();
+			tempkey = clientkey;
+		}
+		if (dlg->reqSubChange->isChecked())
+			subject = dlg->getX509name();
+		else
+			subject = req->getSubject();
+		intname = req->getIntName();
 	}
 
 	// initially create cert
@@ -541,8 +541,20 @@ void db_x509::newCert(NewX509 *dlg)
 #endif
 	// and finally sign the request
 	cert->sign(signkey, hashAlgo);
-	createSuccess(insert(cert));
+
+	cert = (pki_x509*)insert(cert);
+	createSuccess(cert);
 	updatePKI(signcert);
+	if (cert && clientkey->isToken()) {
+		pki_scard *card = (pki_scard*)clientkey;
+		if (QMessageBox::information(mainwin, XCA_TITLE,
+			tr("Store the certificate to the key on the token '%1 (#%2)' ?").
+			arg(card->getCardLabel()).arg(card->getSerial()),
+			QMessageBox::Yes | QMessageBox::No))
+		{
+			cert->store_token(false);
+		}
+	}
 	if (tempkey != NULL)
 		delete(tempkey);
     }

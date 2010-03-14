@@ -216,7 +216,7 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 		if (!need_login)
 			 logout();
 		if (tokenInfo().protAuthPath()) {
-			pin = "";
+			pin[0] = '\0';
 			pinlen = 0;
 		} else {
 			pinlen = MainWindow::passRead(pin, 256, 0, &p);
