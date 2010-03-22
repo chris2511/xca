@@ -40,7 +40,7 @@ QString pki_crl::getFriendlyClassName()
 	return tr("certificate revokation list");
 }
 
-void pki_crl::fload(const QString fname )
+void pki_crl::fload(const QString fname)
 {
 	FILE *fp = fopen(QString2filename(fname), "r");
 	X509_CRL *_crl;

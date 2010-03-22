@@ -99,7 +99,7 @@ void pki_x509::fload(const QString fname)
 	cert = _cert;
 	autoIntName();
 	if (getIntName().isEmpty())
-			setIntName(rmslashdot(fname));
+		setIntName(rmslashdot(fname));
 	trust = 1;
 	efftrust = 1;
 }

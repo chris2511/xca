@@ -25,6 +25,7 @@
 #define DBFILE "xca.xdb"
 
 class db_x509;
+class pki_multi;
 
 class MainWindow: public QMainWindow, public Ui::MainWindow
 {
@@ -46,6 +47,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		NIDlist *read_nidlist(QString name);
 		QLabel *statusLabel;
 		QString homedir;
+		void changeDB(QString fname);
 
 	public:
 		static db_x509 *certs;
@@ -81,6 +83,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setItemEnabled(bool enable);
 		QString updateDbPassword(QString newdb, char *pass);
 		void enableTokenMenu(bool enable);
+		pki_multi *probeAnything(QString file);
 
 	public slots:
 		void init_database();

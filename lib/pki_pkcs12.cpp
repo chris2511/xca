@@ -77,8 +77,8 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 			key->bogusEncryptKey();
 		}
 		PKCS12_free(pkcs12);
-	}
-	else fopen_error(fname);
+	} else
+		fopen_error(fname);
 }
 
 pki_pkcs12::~pki_pkcs12()

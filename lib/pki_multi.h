@@ -24,7 +24,9 @@ class pki_multi: public pki_base
 		~pki_multi();
 		void fromPEM_BIO(BIO *bio, QString name);
 		void fload(const QString fname);
+		void probeAnything(const QString fname);
 		pki_base *pull();
+
 };
 
 #endif

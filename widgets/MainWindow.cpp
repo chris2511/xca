@@ -271,30 +271,39 @@ void MainWindow::read_cmdline()
 {
 	int cnt = 1, opt = 0, force_load = 0;
 	char *arg = NULL;
-	pki_base *item = NULL;
-	load_base *lb = NULL;
 	exitApp = 0;
 	ImportMulti *dlgi = new ImportMulti(this);
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
 		if (arg[0] == '-') { // option
-			if (lb)
-				delete lb;
-			opt = 1; lb = NULL;
+			opt = 1;
 			switch (arg[1]) {
-				case 'c' : lb = new load_cert(); break;
-				case 'r' : lb = new load_req(); break;
-				case 'k' : lb = new load_key(); break;
-				case 'p' : lb = new load_pkcs12(); break;
-				case '7' : lb = new load_pkcs7(); break;
-				case 'l' : lb = new load_crl(); break;
-				case 't' : lb = new load_temp(); break;
-				case 'P' : lb = new load_pem(); break;
-				case 'd' : force_load=1; break;
-				case 'v' : cmd_version(); opt=0; break;
-				case 'x' : exitApp = 1; opt=0; break;
-				case 'h' : cmd_help(NULL); opt=0; break;
-				default  : cmd_help(CCHAR(tr("no such option: %1").arg(arg)));
+				case 'c':
+				case 'r':
+				case 'k':
+				case 'p':
+				case '7':
+				case 'l':
+				case 't':
+				case 'P':
+					break;
+				case 'd':
+					force_load=1;
+					break;
+				case 'v':
+					cmd_version();
+					opt=0;
+					break;
+				case 'x':
+					exitApp = 1;
+					opt=0;
+					break;
+				case 'h':
+					cmd_help(NULL);
+					opt=0;
+					break;
+				default:
+					 cmd_help(CCHAR(tr("no such option: %1").arg(arg)));
 			}
 			if (arg[2] != '\0' && opt==1) {
 				 arg+=2;
@@ -304,28 +313,12 @@ void MainWindow::read_cmdline()
 			}
 		}
 		QString file = filename2QString(arg);
-		if (lb) {
-			item = NULL;
-			try {
-				item = lb->loadItem(file);
-				dlgi->addItem(item);
-			}
-			catch (errorEx &err) {
-				if (item) {
-					delete item;
-					item = NULL;
-				}
-			}
+		if (force_load) {
+			changeDB(file);
 		} else {
-			if (QFile::exists(file) || force_load) {
-				dbfile = file;
-				homedir = dbfile.left(dbfile.lastIndexOf(QDir::separator()));
-				init_database();
-			} else {
-				cmd_help(CCHAR(tr("Database file does not exist: '%1'").arg(arg)));
-			}
+			pki_multi *pki = probeAnything(file);
+			dlgi->addItem(pki);
 		}
-
 		cnt++;
 	}
 	dlgi->execute(1); /* force showing of import dialog */
@@ -848,5 +841,22 @@ void MainWindow::connNewX509(NewX509 *nx)
 	connect( nx, SIGNAL(genKey(QString)), keys, SLOT(newItem(QString)) );
 	connect( keys, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
 	connect( nx, SIGNAL(showReq(QString)), reqs, SLOT(showItem(QString)));
+}
+
+pki_multi *MainWindow::probeAnything(QString file)
+{
+	pki_multi *pki = new pki_multi();
+
+	if (file.endsWith(".xdb")) {
+		try {
+			db mydb(file);
+			mydb.verify_magic();
+			changeDB(file);
+			return pki;
+		} catch (errorEx &err) {
+		}
+	}
+	pki->probeAnything(file);
+	return pki;
 }
 

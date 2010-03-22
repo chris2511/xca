@@ -13,9 +13,11 @@
 #include "pki_pkcs7.h"
 #include "pki_pkcs12.h"
 #include "pki_crl.h"
+#include "load_obj.h"
 #include "exception.h"
 #include "func.h"
 #include "widgets/MainWindow.h"
+#include <qlist.h>
 
 pki_multi::pki_multi(const QString name)
 	:pki_base(name)
@@ -145,4 +147,34 @@ void pki_multi::fromPEM_BIO(BIO *bio, QString name)
 			item = NULL;
 		}
 	}
+}
+
+void pki_multi::probeAnything(const QString fname)
+{
+	pki_base *item = NULL;
+	load_base *lb;
+	QList<load_base *> lbs;
+
+	lbs << new load_cert() << new load_pkcs7() << new load_pkcs12()
+		<< new load_crl() << new load_req() << new load_key();
+
+	fload(fname);
+	if (multi.count() > 0)
+		return;
+
+	foreach(lb, lbs) {
+		try {
+			item = lb->loadItem(fname);
+			if (item) {
+				multi.append(item);
+				return;
+			}
+		} catch (errorEx &err) {
+			; // ignore
+		}
+	}
+	while (!lbs.isEmpty())
+		delete lbs.takeFirst();
+
+#warning delete lbs
 }

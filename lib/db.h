@@ -55,11 +55,11 @@ class db
 
 	void init_header(db_header_t *db, int ver, int len, enum pki_type type,
 		QString name);
-	bool verify_magic(void);
 	void convert_header(db_header_t *h);
 	void fileIOerr(QString s);
 
     public:
+	bool verify_magic(void);
 	off_t head_offset;
 	db(QString, int mode = S_IRUSR | S_IWUSR);
 	~db();
