@@ -541,12 +541,7 @@ void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar
 	kt.p11 = &p11;
 	kt.start();
 	while (!kt.wait(20)) {
-		int value = bar->value();
-		if (value == bar->maximum()) {
-			bar->reset();
-		} else {
-			bar->setValue(value +1);
-		}
+		inc_progress_bar(0, 0, bar);
 	}
 	if (!kt.err.isEmpty())
 		throw errorEx(kt.err);

@@ -108,6 +108,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void changePin(bool so=false);
 		void changeSoPin();
 		void initPin();
+		void generateDHparam();
 
 		void on_keyView_doubleClicked(const QModelIndex &m);
 		void on_reqView_doubleClicked(const QModelIndex &m);

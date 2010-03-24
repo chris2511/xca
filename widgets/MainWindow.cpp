@@ -860,3 +860,48 @@ pki_multi *MainWindow::probeAnything(QString file)
 	return pki;
 }
 
+void MainWindow::generateDHparam()
+{
+	DH *dh = NULL;
+	FILE *fp = NULL;
+	QProgressBar *bar = NULL;
+	bool ok;
+	int num = QInputDialog::getInt(this, XCA_TITLE, tr("DH parameter bits"),
+		1024, 1024, 4096, 1024, &ok);
+
+	if (!ok)
+		return;
+	try {
+		QStatusBar *status = statusBar();
+		bar = new QProgressBar();
+		check_oom(bar);
+		bar->setMinimum(0);
+		bar->setMaximum(100);
+		status->addPermanentWidget(bar, 1);
+		dh = DH_generate_parameters(num, 2, inc_progress_bar, bar);
+		status->removeWidget(bar);
+		openssl_error();
+
+		QString fname = QString("%1/dh%2.pem").arg(homedir).arg(num);
+		fname = QFileDialog::getSaveFileName(this, QString(),
+			fname, "All files ( * )", NULL);
+		if (fname == "")
+			throw errorEx("");
+		fp = fopen(QString2filename(fname), "w");
+		if (fp == NULL) {
+			throw errorEx(tr("Error opening file: '%1': %2").
+				arg(fname).arg(strerror(errno)));
+		}
+		PEM_write_DHparams(fp, dh);
+		openssl_error();
+	} catch (errorEx &err) {
+		Error(err);
+	}
+	if (dh)
+		DH_free(dh);
+	if (fp)
+		fclose(fp);
+	if (bar)
+		delete bar;
+}
+

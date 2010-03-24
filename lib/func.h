@@ -37,6 +37,7 @@ QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
 				int selected);
 
 bool mayWriteFile(const QString &fname);
+void inc_progress_bar(int, int, void *p);
 
 #define openssl_error(x) _openssl_error(QString(x), __FILE__, __LINE__)
 #define ign_openssl_error() _ign_openssl_error(__FILE__, __LINE__)

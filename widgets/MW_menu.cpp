@@ -25,10 +25,12 @@ void MainWindow::init_menu()
 	QMenu *file, *help, *import, *token;
 
 	file = menuBar()->addMenu(tr("&File"));
-	file->addAction(tr("&New DataBase"),  this, SLOT(new_database()));
-	file->addAction(tr("&Open DataBase"),  this, SLOT(load_database()));
+	file->addAction(tr("&New DataBase"), this, SLOT(new_database()));
+	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()));
+	file->addAction(tr("Generate DH parameter"), this,
+				 SLOT(generateDHparam()));
 	acList += file->addAction(tr("&Close DataBase"), this,
-			SLOT(close_database()));
+				SLOT(close_database()));
 	acList += file->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()));
 	acList += file->addAction(tr("C&hange DataBase password"), this,

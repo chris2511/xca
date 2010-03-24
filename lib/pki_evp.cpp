@@ -61,12 +61,6 @@ void pki_evp::init(int type)
 	cols=5;
 }
 
-static void incProgress(int, int, void *progress)
-{
-	int i = ((QProgressBar *)progress)->value();
-			((QProgressBar *)progress)->setValue(++i);
-}
-
 QString pki_evp::removeTypeFromIntName(QString n)
 {
 	if (n.right(1) != ")" )
@@ -114,14 +108,15 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 
 	switch (type) {
 	case EVP_PKEY_RSA:
-		rsakey = RSA_generate_key(bits, 0x10001, &incProgress,progress);
+		rsakey = RSA_generate_key(bits, 0x10001, inc_progress_bar,
+			progress);
 		if (rsakey)
 			EVP_PKEY_assign_RSA(key, rsakey);
 		break;
 	case EVP_PKEY_DSA:
 		progress->setMaximum(500);
 		dsakey = DSA_generate_parameters(bits, NULL, 0, NULL, NULL,
-				&incProgress, progress);
+				inc_progress_bar, progress);
 		DSA_generate_key(dsakey);
 		if (dsakey)
 			EVP_PKEY_assign_DSA(key, dsakey);

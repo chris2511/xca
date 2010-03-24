@@ -175,6 +175,4 @@ void pki_multi::probeAnything(const QString fname)
 	}
 	while (!lbs.isEmpty())
 		delete lbs.takeFirst();
-
-#warning delete lbs
 }

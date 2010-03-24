@@ -23,6 +23,7 @@
 #include <qfile.h>
 #include <qstringlist.h>
 #include <qpushbutton.h>
+#include <qprogressbar.h>
 #if defined(Q_WS_MAC)
 #include <qdesktopservices.h>
 #endif
@@ -337,5 +338,17 @@ bool _ign_openssl_error(const char *file, int line)
 			arg(file).arg(line).arg(errtxt)));
 	}
 	return !errtxt.isEmpty();
+}
+
+void inc_progress_bar(int, int, void *p)
+{
+	QProgressBar *bar = (QProgressBar *)p;
+	int value = bar->value();
+
+	if (value == bar->maximum()) {
+		bar->reset();
+	} else {
+		bar->setValue(value +1);
+	}
 }
 
