@@ -472,6 +472,7 @@ void MainWindow::manageToken()
 		p11.startSession(slot);
 		objects = p11.objectList(atts);
 
+		printf("Count: %d\n", objects.count());
 		for (int j=0; j< objects.count(); j++) {
 			card = new pki_scard("");
 			try {

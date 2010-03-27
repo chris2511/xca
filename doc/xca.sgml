@@ -466,6 +466,8 @@ defined in OpenSSL nconf. The validity can be checked by clicking
 to see them all in their final form. Click on <tt>Edit</tt> to continue
 editing the extensions here.
 
+Refer to the OpenSSL X509v3 configuration for more details: <url url="http://www.openssl.org/docs/apps/x509v3_config.html">
+
 <sect3>Certificate Policies
 
 <p>

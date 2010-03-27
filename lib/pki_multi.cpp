@@ -155,8 +155,9 @@ void pki_multi::probeAnything(const QString fname)
 	load_base *lb;
 	QList<load_base *> lbs;
 
-	lbs << new load_cert() << new load_pkcs7() << new load_pkcs12()
-		<< new load_crl() << new load_req() << new load_key();
+	lbs <<  new load_cert() << new load_pkcs7() << new load_pkcs12() <<
+		new load_crl() <<  new load_req() <<   new load_key() <<
+		new load_temp();
 
 	fload(fname);
 	if (multi.count() > 0)
@@ -167,7 +168,7 @@ void pki_multi::probeAnything(const QString fname)
 			item = lb->loadItem(fname);
 			if (item) {
 				multi.append(item);
-				return;
+				break;
 			}
 		} catch (errorEx &err) {
 			; // ignore

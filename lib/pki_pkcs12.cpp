@@ -42,7 +42,11 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 	if (fp) {
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		fclose(fp);
-		openssl_error();
+		if (ign_openssl_error()) {
+			if (pkcs12)
+				PKCS12_free(pkcs12);
+			throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.").arg(fname));
+		}
 		if (PKCS12_verify_mac(pkcs12, "", 0) || PKCS12_verify_mac(pkcs12, NULL, 0))
 			pass[0] = '\0';
 		else if (passcb(pass, MAX_PASS_LENGTH, 0, &p) < 0) {
@@ -51,12 +55,12 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 			throw errorEx("","");
 		}
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
-		if ( ERR_peek_error() != 0) {
+		int error = ERR_peek_error();
+		if (error) {
 			ign_openssl_error();
 			PKCS12_free(pkcs12);
-			throw errorEx(getClassName(),"The supplied password was wrong");
+			throw errorEx(getClassName(), tr("The supplied password was wrong (%1)").arg(ERR_reason_error_string(error)));
 		}
-
 		openssl_error();
 		if (mycert) {
 			if (mycert->aux && mycert->aux->alias) {

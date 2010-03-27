@@ -317,8 +317,8 @@ void _openssl_error(const QString txt, const char *file, int line)
 
 	while (int i = ERR_get_error() ) {
 		error += QString(ERR_error_string(i, NULL)) + "\n";
-		fprintf(stderr, "OpenSSL error: %s\n",
-			ERR_error_string(i, NULL));
+		fprintf(stderr, CCHAR(QString("OpenSSL error (%1:%2) : %3\n").
+			arg(file).arg(line).arg(ERR_error_string(i, NULL))));
 	}
 	if (!error.isEmpty()) {
 		if (!txt.isEmpty())
