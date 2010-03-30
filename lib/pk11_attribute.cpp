@@ -46,10 +46,11 @@ void pk11_attr_data::setValue(const unsigned char *ptr, unsigned long len)
 		attr.pValue = NULL;
 		return;
 	}
-	attr.pValue = malloc(len);
+	attr.pValue = malloc(len+1);
 	check_oom(attr.pValue);
 	memcpy(attr.pValue, ptr, len);
 	attr.ulValueLen = len;
+	((char*)attr.pValue)[len] = 0;
 }
 
 void pk11_attr_data::setBignum(BIGNUM *bn, bool consume)
@@ -109,8 +110,10 @@ void pk11_attlist::addAttribute(const pk11_attribute &a)
 	attr = attributes + attlen++;
 	attr->type = a.attr.type;
 	attr->ulValueLen = a.attr.ulValueLen;
-	attr->pValue = malloc(attr->ulValueLen);
+	attr->pValue = malloc(attr->ulValueLen +1);
+	check_oom(attr->pValue);
 	memcpy(attr->pValue, a.attr.pValue, attr->ulValueLen);
+	((char*)attr->pValue)[attr->ulValueLen] = 0;
 }
 
 void pk11_attlist::reset()
