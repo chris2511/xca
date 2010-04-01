@@ -417,12 +417,9 @@ CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
 	return obj;
 }
 
-int pkcs11::deleteObjects(pk11_attlist &atts)
+int pkcs11::deleteObjects(QList<CK_OBJECT_HANDLE> objects)
 {
 	CK_RV rv;
-	QList<CK_OBJECT_HANDLE> objects;
-
-	objects = objectList(atts);
 	for (int i=0; i< objects.count(); i++) {
 		WAITCURSOR_START;
 		rv = p11->C_DestroyObject(session, objects[i]);

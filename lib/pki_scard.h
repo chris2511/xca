@@ -76,6 +76,7 @@ class pki_scard: public pki_key
 		{
 			return mech_list;
 		}
+		pk11_attlist objectAttributes(bool priv);
 		void setMech_list(QList<CK_MECHANISM_TYPE> ml) { mech_list = ml; };
 		QList<int> possibleHashNids();
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;

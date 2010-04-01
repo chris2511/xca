@@ -125,6 +125,7 @@ class pki_x509 : public pki_x509super
 		{
 			randomSerial = r;
 		}
+		pk11_attlist objectAttributes();
 		void setCrlExpiry(const a1time &time);
 		bool hasExtension(int nid);
 		bool cmpIssuerAndSerial(pki_x509 *refcert);

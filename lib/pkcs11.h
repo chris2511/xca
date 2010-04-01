@@ -129,7 +129,7 @@ class pkcs11
 		CK_OBJECT_HANDLE createObject(pk11_attlist &attrs);
 		pk11_attr_data findUniqueID(unsigned long oclass);
 		pk11_attr_data generateRSAKey(QString name, unsigned long bits);
-		int deleteObjects(pk11_attlist &atts);
+		int deleteObjects(QList<CK_OBJECT_HANDLE> objects);
 		void initToken(unsigned long slot, unsigned char *pin,
 			int pinlen, QString label);
 		bool selectToken(unsigned long *slot, QWidget *w);

@@ -303,18 +303,23 @@ void pki_x509::deleteFromToken()
 	}
 }
 
-void pki_x509::deleteFromToken(unsigned long slot)
+pk11_attlist pki_x509::objectAttributes()
 {
 	pk11_attlist attrs;
-	attrs <<
-		pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
-		pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
-		pk11_attr_data(CKA_VALUE, i2d());
+        attrs <<
+                pk11_attr_ulong(CKA_CLASS, CKO_CERTIFICATE) <<
+                pk11_attr_ulong(CKA_CERTIFICATE_TYPE, CKC_X_509) <<
+                pk11_attr_data(CKA_VALUE, i2d());
+	return attrs;
+}
 
+void pki_x509::deleteFromToken(unsigned long slot)
+{
 	pkcs11 p11;
 	p11.startSession(slot, true);
 
-	QList<CK_OBJECT_HANDLE> objs = p11.objectList(attrs);
+	pk11_attlist atts = objectAttributes();
+	QList<CK_OBJECT_HANDLE> objs = p11.objectList(atts);
 	if (!objs.count())
 		return;
 
@@ -329,7 +334,7 @@ void pki_x509::deleteFromToken(unsigned long slot)
 	if (p11.tokenLogin(ti.label(), false).isNull())
 		return;
 
-	p11.deleteObjects(attrs);
+	p11.deleteObjects(objs);
 }
 
 bool pki_x509::verifyQASerial(const a1int &secret) const

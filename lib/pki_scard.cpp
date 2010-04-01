@@ -287,6 +287,19 @@ void pki_scard::deleteFromToken()
 	deleteFromToken(slot);
 }
 
+pk11_attlist pki_scard::objectAttributes(bool priv)
+{
+	unsigned long cka_class = priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY;
+
+	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS, cka_class));
+	attrs << getIdAttr();
+
+	if (EVP_PKEY_type(key->type) == EVP_PKEY_RSA) {
+		attrs << pk11_attr_data(CKA_MODULUS, key->pkey.rsa->n, false);
+	}
+	return attrs;
+}
+
 void pki_scard::deleteFromToken(unsigned long slot)
 {
 	pkcs11 p11;
@@ -302,18 +315,13 @@ void pki_scard::deleteFromToken(unsigned long slot)
 	if (p11.tokenLogin(card_label, false).isNull())
 		return;
 
-	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY));
-		attrs << getIdAttr();
-	pk11_attlist priv_attrs(pk11_attr_ulong(CKA_CLASS, CKO_PRIVATE_KEY));
-		priv_attrs << getIdAttr();
+	pk11_attlist atts = objectAttributes(true);
+	QList<CK_OBJECT_HANDLE> priv_objects = p11.objectList(atts);
+	atts = objectAttributes(false);
+	QList<CK_OBJECT_HANDLE> pub_objects = p11.objectList(atts);
 
-	if (EVP_PKEY_type(key->type) == EVP_PKEY_RSA) {
-		pk11_attr_data modulus(CKA_MODULUS, key->pkey.rsa->n, false);
-		attrs << modulus;
-		priv_attrs << modulus;
-	}
-	p11.deleteObjects(attrs);
-	p11.deleteObjects(priv_attrs);
+	p11.deleteObjects(priv_objects);
+	p11.deleteObjects(pub_objects);
 }
 
 void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
