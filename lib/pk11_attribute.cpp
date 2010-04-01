@@ -84,9 +84,11 @@ pk11_attlist::pk11_attlist(const pk11_attlist &a)
 		memcpy(attributes, a.attributes, attlen *sizeof(*attributes));
 	}
 	for (unsigned long i=0; i<attlen; i++) {
-		void *p = malloc(attributes[i].ulValueLen);
+		void *p = malloc(attributes[i].ulValueLen +1);
 		check_oom(p);
-		memcpy(p, attributes[i].pValue, attributes[i].ulValueLen);
+		memcpy(p, a.attributes[i].pValue, attributes[i].ulValueLen);
+		((char*)p)[attributes[i].ulValueLen] = '\0';
+		attributes[i].pValue = p;
 	}
 }
 
