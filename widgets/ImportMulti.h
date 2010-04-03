@@ -39,6 +39,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		void on_butDetails_clicked();
 		void on_butOk_clicked();
 		void on_deleteToken_clicked();
+		void on_renameToken_clicked();
 
 };
 

@@ -22,6 +22,7 @@
 #include <qpushbutton.h>
 #include <qmessagebox.h>
 #include <qlabel.h>
+#include <qinputdialog.h>
 
 ImportMulti::ImportMulti(MainWindow *parent)
 	:QDialog(parent)
@@ -38,6 +39,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	connect( listView, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(on_butDetails_clicked()));
 	deleteToken->hide();
+	renameToken->hide();
 	slotInfo->hide();
 	slot = 0;
 }
@@ -46,6 +48,7 @@ void ImportMulti::tokenInfo(unsigned long s)
 {
 	slot = s;
 	deleteToken->show();
+	renameToken->show();
 	slotInfo->show();
 	pkcs11 p11;
 
@@ -153,6 +156,29 @@ void ImportMulti::on_deleteToken_clicked()
 			pki->deleteFromToken(slot);
 			mcont->remFromCont(index);
 			delete pki;
+		} catch (errorEx &err) {
+			mainwin->Error(err);
+		}
+	}
+}
+void ImportMulti::on_renameToken_clicked()
+{
+	QItemSelectionModel *selectionModel = listView->selectionModel();
+	QModelIndexList indexes = selectionModel->selectedIndexes();
+	QModelIndex index;
+	QString items;
+
+        foreach(index, indexes) {
+                if (index.column() != 0)
+                        continue;
+                pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+                try {
+			QString label = QInputDialog::getText(this, XCA_TITLE,
+				tr("The new name of the %1 '%2'").
+				arg(pki->getFriendlyClassName()).
+				arg(pki->getIntName()));
+			if (pki->renameOnToken(slot, label))
+				pki->setIntName(label);
 		} catch (errorEx &err) {
 			mainwin->Error(err);
 		}

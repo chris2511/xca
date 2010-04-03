@@ -141,6 +141,7 @@ class pki_x509 : public pki_x509super
 		void deleteFromToken();
 		void deleteFromToken(unsigned long slot);
 		virtual QString getFriendlyClassName();
+		virtual int renameOnToken(unsigned long slot, QString name);
 };
 
 #endif

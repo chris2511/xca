@@ -81,6 +81,10 @@ class pki_base : public QObject
 		virtual void fromPEM_BIO(BIO *, QString) {};
 		virtual void deleteFromToken() { };
 		virtual void deleteFromToken(unsigned long slot) { };
+		virtual int renameOnToken(unsigned long slot, QString name)
+		{
+			return 0;
+		};
 };
 
 #endif

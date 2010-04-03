@@ -85,6 +85,7 @@ class pki_scard: public pki_key
 		void deleteFromToken();
 		void deleteFromToken(unsigned long slot);
 		void store_token(unsigned int slot, EVP_PKEY *pkey);
+		virtual int renameOnToken(unsigned long slot, QString name);
 
 };
 

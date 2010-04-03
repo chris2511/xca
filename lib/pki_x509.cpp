@@ -337,6 +337,25 @@ void pki_x509::deleteFromToken(unsigned long slot)
 	p11.deleteObjects(objs);
 }
 
+int pki_x509::renameOnToken(unsigned long slot, QString name)
+{
+
+	pkcs11 p11;
+	p11.startSession(slot, true);
+	pk11_attlist attrs = objectAttributes();
+
+	QList<CK_OBJECT_HANDLE> objs = p11.objectList(attrs);
+	if (!objs.count())
+		return 0;
+
+	pk11_attr_data label(CKA_LABEL, name.toUtf8());
+	tkInfo ti = p11.tokenInfo();
+	if (p11.tokenLogin(ti.label(), false).isNull())
+                return 0;
+	p11.storeAttribute(label, objs[0]);
+	return 1;
+}
+
 bool pki_x509::verifyQASerial(const a1int &secret) const
 {
 	return getQASerial(secret) == getSerial();

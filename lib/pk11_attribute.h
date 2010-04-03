@@ -239,6 +239,12 @@ class pk11_attlist {
 		unsigned long length() {
 			return attlen;
 		}
+		pk11_attlist &operator = (const pk11_attlist &a)
+		{
+			copy(a);
+			return *this;
+		}
+		void copy(const pk11_attlist &a);
 		void reset();
 };
 #endif

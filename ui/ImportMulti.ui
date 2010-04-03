@@ -131,6 +131,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="renameToken">
+          <property name="text">
+           <string>Rename on token</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer>
           <property name="orientation">
            <enum>Qt::Vertical</enum>

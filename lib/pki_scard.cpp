@@ -324,6 +324,33 @@ void pki_scard::deleteFromToken(unsigned long slot)
 	p11.deleteObjects(pub_objects);
 }
 
+int pki_scard::renameOnToken(unsigned long slot, QString name)
+{
+	pkcs11 p11;
+	p11.startSession(slot, true);
+	QList<CK_OBJECT_HANDLE> objs;
+
+	if (p11.tokenLogin(card_label, false).isNull())
+		return 0;
+	pk11_attr_data label(CKA_LABEL, name.toUtf8());
+
+	/* Private key */
+	pk11_attlist attrs = objectAttributes(true);
+
+	objs = p11.objectList(attrs);
+	if (!objs.count())
+		return 0;
+	p11.storeAttribute(label, objs[0]);
+
+	/* Public key */
+	attrs = objectAttributes(false);
+	objs = p11.objectList(attrs);
+	if (objs.count())
+		p11.storeAttribute(label, objs[0]);
+
+	return 1;
+}
+
 void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 {
 	pk11_attlist pub_atts;
