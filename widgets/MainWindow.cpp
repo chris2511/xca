@@ -368,6 +368,7 @@ void MainWindow::pastePem()
 
 void MainWindow::initToken()
 {
+	bool ok;
 	if (!pkcs11::loaded())
 		return;
 	try {
@@ -398,7 +399,9 @@ void MainWindow::initToken()
 			return;
 		QString label = QInputDialog::getText(this, XCA_TITLE,
 			tr("The new label of the token '%1'").
-			arg(slotname));
+			arg(slotname), QLineEdit::Normal, QString(), &ok);
+		if (!ok)
+			return;
 		p11.initToken(slot, (unsigned char*)pin, pinlen, label);
 	} catch (errorEx &err) {
 		Error(err);

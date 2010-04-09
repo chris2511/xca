@@ -167,6 +167,7 @@ void ImportMulti::on_renameToken_clicked()
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 	QModelIndex index;
 	QString items;
+	bool ok;
 
         foreach(index, indexes) {
                 if (index.column() != 0)
@@ -176,9 +177,13 @@ void ImportMulti::on_renameToken_clicked()
 			QString label = QInputDialog::getText(this, XCA_TITLE,
 				tr("The new name of the %1 '%2'").
 				arg(pki->getFriendlyClassName()).
-				arg(pki->getIntName()));
+				arg(pki->getIntName()), QLineEdit::Normal,
+				pki->getIntName(), &ok);
+			if (!ok)
+				continue;
 			if (pki->renameOnToken(slot, label))
 				pki->setIntName(label);
+			listView->update();
 		} catch (errorEx &err) {
 			mainwin->Error(err);
 		}
