@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>March 2010 - Version 0.9.0
+<date>April 2010 - Version 0.9.0
 
 <abstract>
 
@@ -533,7 +533,7 @@ The following actions with smart cards are supported:
 
 <itemize>
 	<item>Import keys and certificates from the token.
-		(Import->Manage Security token)
+		(Token->Manage Security token)
 	<item>Everything you can do with other keys can be done with tokens,
 		too.
 	<item>On export, only the Public key is exported.
@@ -559,6 +559,15 @@ A new menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded an
 Security token specific operations are collected below
 the menu-item <tt>Token</tt>
 
+<sect2>Manage Security token
+
+<p>
+
+This is the Multi import dialog, which allows to view and select the items to be imported.
+When started it reads the content of the selected token.
+Additionally, it shows token information in the bottom-right corner and allows to delete and rename
+items directly on the token.
+
 <sect2>Initializing tokens
 
 <p>
@@ -580,8 +589,8 @@ The keys and certificates can be imported via the Multi-import dialog.
 
 <p>
 
-To delete certificates or keys from the token they must be first imported into the XCA databse and deleted afterwards.
-XCA will then ask whether the item shall also be removed from the token.
+Just delete the item as usual. XCA will then ask whether the item shall also be removed from the token.
+Items on the token that were not yet imported can be deleted via the "Manage security token" menu.
 
 <sect2>Changing PINs
 
@@ -593,21 +602,30 @@ The User PIN and SO PIN can be changed via the <tt>Token</tt> menu and also via 
 
 <p>
 
-I used the following providers for testing:
+The following providers were used for testing:
 
 <itemize>
 	<item>OpenSC: default provider for a lot of different cards and
 		readers.
 		<itemize>
-		<item>The support of Netkey 4E cards is currently weak.
-		Only import and using the keys is possible. For other cards
-		the support is probably better.
-		<item>Feitian PKI cards work like a charm.
+		<item>The support of Netkey 4E cards is currently restricted.
+			Only import and using the keys and certificates
+			is possible.
+		<item>Feitian PKI cards work with the following restrictions:
+			<itemize>
+			<item>The cards must be initialized outside XCA with
+				<tt>pkcs15-init</tt>
+			<item>Storing keys onto the card crashes because of
+				<tt>assert(0)</tt> in card-entersafe.c in
+				opensc-0.11.13
+			<item>Deleting items does not work, because it is not
+				implemented in opensc-0.11.13/card-entersafe.c.
+			</itemize>
 		</itemize>
 	<item>Aladdin eToken PKIclient-5.1: Works perfectly.
 		Read public keys from the token, write private keys to the
 		token, generate keys on the token, write certificates to the
-		token and delete them from the token.
+		token and delete them from the token or delete them.
 	<item>Linux only: OpenCryptoki (IBM): may be used as a pure software
 		token, but also supports TPMs and other IBM crypto processors
 </itemize>
@@ -616,8 +634,8 @@ I used the following providers for testing:
 
 <p>
 
-For interoperabilitytests I used the Aladdin eToken together with the
-Aladdin PKIclient 5.1 software and OpenSC with the feitian PKI-card.
+For interoperability tests I used the Aladdin eToken together with the
+Aladdin PKIclient 5.1 software and OpenSC with the Feitian PKI-card.
 <itemize>
 <item>Aladdin: /usr/lib/libeTPkcs11.so
 <item>Feitian: /usr/lib/opensc-pkcs11.so (default)
