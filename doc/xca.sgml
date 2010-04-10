@@ -200,32 +200,26 @@ The most recent version of XCA can be downloaded from
 
 <p>
 
-Usage: <tt>xca [dbname.xdb] &lt;options&gt;</tt>
+Usage: <tt>xca [-d new.xdb] [-v] [-x] &lt;files&gt;</tt>
+
 Next to the usual X command line options. There are the following
 
 <itemize>
 	<item>-v show version information and exit
-	<item>-k expect all following non-option arguments to be RSA keys
-	<item>-r expect all following non-option arguments to be
-		Certificate signing requests or SPKAC requests
-	<item>-c expect all following non-option arguments to be Certificates
-	<item>-p expect all following non-option arguments to be PKCS#12 files
-	<item>-7 expect all following non-option arguments to be PKCS#7 files
-	<item>-l expect all following non-option arguments to be Revocation lists
-	<item>-t expect all following non-option arguments to be Xca templates
-	<item>-P expect all following non-option arguments to be a PEM formated file
-	<item>-d set the database filename
-	<item>-x Exit after processing all command line options
+	<item>-d set the database filename (only needed to create a new db)
+	<item>-x exit after processing all command line options
 </itemize>
+
+There are some deprecated legacy options: [ -k ] [ -r ] [ -c ] [ -p ] [ -7 ] [ -l ] [ -t ] [ -P ]
+
+Before XCA 0.9.0, the type of the items had to be given. This was removed since. Just put all keys, certs, requests and the database unsorted on the commandline. For backwards compatibility those options are ignored when found.
 
 <p>
 
-when invoked with one of the -k -r -c -p -7 -l -t options, the application
-will show the details of the items and import them into the database if
-desired.
-If the application should exit afterwards, just supply the -x option.
-This behaviour enables xca to be used as default application for viewing
-PKI items.
+Usually after importing the items from commandline
+the application will startup as usual. With the
+.I -x
+option given it will exit after finishing the import dialog. This is useful if xca is used as default application for viewing certificates, keys or requests.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 

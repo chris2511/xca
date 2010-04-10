@@ -315,6 +315,7 @@ void MainWindow::read_cmdline()
 		QString file = filename2QString(arg);
 		if (force_load) {
 			changeDB(file);
+			force_load = 0;
 		} else {
 			pki_multi *pki = probeAnything(file);
 			dlgi->addItem(pki);
