@@ -546,7 +546,33 @@ The following actions with smart cards are supported:
 	<item>Initialize cards and the user PIN via SO PIN
 </itemize>
 
-You may ignore existing built-in certificates of a Smart-card and create your own CA certificate, self-signed by your Smart-card and issue end-entity certificates containing other RSA, DSA or EC keys or sign imported certificate requests.
+Existing, non-deletable, built-in certificates of Smart-cards may be ignored.
+A new CA certificate can be created, self-signed by the Smart-card key.
+It can then be used to issue end-entity certificates, containing other RSA, DSA or EC keys or sign imported certificate requests.
+
+<sect1>How keys on a token are handled
+
+<p>
+
+XCA assumes for every private key on the card a corresponding public key.
+When managing cards, only the public keys are searched for,
+so there is no need to enter a PIN. When using the the key for signing
+the corresponding private key on the card is selected and a PIN must be entered.
+
+<p>
+
+Accordingly, every time a key is generated on the card,
+a public/private keypair is generated.
+Every time a key is stored on the card, XCA creates a public
+and a private key object.
+
+<p>
+
+Firefox always only looks for private keys on the card.
+If XCA does not show a key, which is however recognized by firefox
+a missing public-key object is the cause.
+
+<sect>The token menu
 
 <p>
 
@@ -606,7 +632,7 @@ The following providers were used for testing:
 
 <itemize>
 	<item>OpenSC: default provider for a lot of different cards and
-		readers.
+		readers. Deleting keys or certs is currently not supported.
 		<itemize>
 		<item>The support of Netkey 4E cards is currently restricted.
 			Only import and using the keys and certificates
