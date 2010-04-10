@@ -850,16 +850,20 @@ pki_multi *MainWindow::probeAnything(QString file)
 {
 	pki_multi *pki = new pki_multi();
 
-	if (file.endsWith(".xdb")) {
-		try {
-			db mydb(file);
-			mydb.verify_magic();
-			changeDB(file);
-			return pki;
-		} catch (errorEx &err) {
+	try {
+		if (file.endsWith(".xdb")) {
+			try {
+				db mydb(file);
+				mydb.verify_magic();
+				changeDB(file);
+				return pki;
+			} catch (errorEx &err) {
+			}
 		}
+		pki->probeAnything(file);
+	} catch (errorEx &err) {
+		Error(err);
 	}
-	pki->probeAnything(file);
 	return pki;
 }
 
