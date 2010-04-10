@@ -20,12 +20,14 @@ copy the installed tree to ./qt/
 
 $ export INSTALL_DIR=`pwd`/install
 
+OpenSSL 0.9.8 and 1.0.0 are supported.
 $ cp openssl-0.9.8X.tar.gz .
 $ tar zxf openssl-0.9.8X.tar.gz
 
 apply openssl-cross-patch:
 $ cd openssl-0.9.8X
 $ patch -p1 < ../xca/misc/openssl-0.9.8-mingw32-cross.patch
+(For openssl 1.0.0, use the ../xca/misc/openssl-1.0.0-mingw32-cross.patch)
 
 compile openssl with:
 $ sh ms/mingw32-cross.sh
