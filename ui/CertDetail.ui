@@ -128,17 +128,7 @@
            <number>6</number>
           </property>
           <item row="3" column="1">
-           <widget class="QLabel" name="sigAlgo">
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
+           <widget class="CopyLabel" name="sigAlgo"/>
           </item>
           <item row="2" column="1">
            <layout class="QHBoxLayout">
@@ -165,7 +155,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="serialNr">
+             <widget class="CopyLabel" name="serialNr">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                 <horstretch>0</horstretch>
@@ -174,12 +164,6 @@
               </property>
               <property name="toolTip">
                <string>The serial number of the certificate</string>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Panel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Sunken</enum>
               </property>
              </widget>
             </item>
@@ -270,24 +254,12 @@
             <property name="toolTip">
              <string>A SHA-1 hashsum of the certificate</string>
             </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="CopyLabel" name="fpMD5">
             <property name="toolTip">
              <string>An md5 hashsum of the certificate</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
             </property>
            </widget>
           </item>
@@ -311,24 +283,12 @@
             <property name="toolTip">
              <string>The time since the certificate is valid</string>
             </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
            </widget>
           </item>
           <item>
            <widget class="CopyLabel" name="notAfter">
             <property name="toolTip">
              <string>The time until the certificate is valid</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
             </property>
            </widget>
           </item>

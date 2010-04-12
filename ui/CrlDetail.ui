@@ -152,18 +152,12 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="version">
+             <widget class="CopyLabel" name="version">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Panel</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Sunken</enum>
               </property>
              </widget>
             </item>
@@ -230,24 +224,10 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="CopyLabel" name="nUpdate">
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
-           </widget>
+           <widget class="CopyLabel" name="nUpdate"/>
           </item>
           <item row="0" column="1">
-           <widget class="CopyLabel" name="lUpdate">
-            <property name="frameShape">
-             <enum>QFrame::Panel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
-           </widget>
+           <widget class="CopyLabel" name="lUpdate"/>
           </item>
          </layout>
         </widget>

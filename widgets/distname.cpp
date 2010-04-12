@@ -49,8 +49,6 @@ void DistName::setX509name(const x509name &n)
 		if (l1->text().isEmpty())
 			l1->setText(sl[0]);
 		l2->setText(sl[2]);
-		l2->setFrameShape(QFrame::Panel);
-		l2->setFrameShadow(QFrame::Sunken);
 
 		l1->setToolTip(sl[0]);
 		l2->setToolTip(sl[3]);

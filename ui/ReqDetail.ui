@@ -83,7 +83,7 @@
    <item>
     <widget class="QTabWidget" name="tabwidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="unnamed">
       <attribute name="title">
@@ -128,17 +128,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLabel" name="sigAlgo">
-           <property name="frameShape">
-            <enum>QFrame::WinPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
+          <widget class="CopyLabel" name="sigAlgo"/>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="TextLabel2">
@@ -307,6 +297,11 @@
    <extends>QWidget</extends>
    <header>widgets/distname.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CopyLabel</class>
+   <extends>QLabel</extends>
+   <header>widgets/clicklabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -63,9 +63,14 @@ void ClickLabel::disableToolTip()
 CopyLabel::CopyLabel(QWidget *parent)
 	:QLabel(parent)
 {
+	setFrameShape(QFrame::Panel);
+	setFrameShadow(QFrame::Sunken);
+
 #if QT_VERSION >= 0x040200
 	setTextInteractionFlags(
-			Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+		Qt::TextSelectableByMouse |
+		Qt::TextSelectableByKeyboard
+	);
 #endif
 }
 

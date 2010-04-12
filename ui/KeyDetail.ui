@@ -157,14 +157,7 @@
          </widget>
         </item>
         <item>
-         <widget class="CopyLabel" name="keyPubEx">
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
-         </widget>
+         <widget class="CopyLabel" name="keyPubEx"/>
         </item>
         <item>
          <spacer>
@@ -190,18 +183,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="keyLength">
+         <widget class="CopyLabel" name="keyLength">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
           </property>
          </widget>
         </item>
@@ -254,15 +241,6 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Panel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Sunken</enum>
-        </property>
-        <property name="text">
-         <string/>
         </property>
        </widget>
       </item>

@@ -127,8 +127,6 @@ QLabel *ReqDetail::labelFromAsn1String(ASN1_STRING *s)
 	label = new CopyLabel(this);
 	label->setText(asn1ToQString(s));
 	label->setToolTip(QString(ASN1_tag2str(s->type)));
-	label->setFrameShape(QFrame::Panel);
-	label->setFrameShadow(QFrame::Sunken);
 	return label;
 }
 
