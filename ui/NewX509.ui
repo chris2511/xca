@@ -817,7 +817,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
             <property name="title">
              <string>Validity</string>
             </property>
-            <layout class="QGridLayout" name="gridLayout">
+            <layout class="QGridLayout" name="gridLayout_1">
              <item row="0" column="0">
               <widget class="QLabel" name="TextLabel1_2_3_2">
                <property name="text">
