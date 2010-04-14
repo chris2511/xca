@@ -391,6 +391,7 @@ void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 		pk11_attr_data(CKA_LABEL, getIntName().toUtf8()) <<
 		new_id <<
 		pk11_attr_data(CKA_PUBLIC_EXPONENT, rsakey->e, false) <<
+		pk11_attr_bool(CKA_WRAP, true) <<
 		pk11_attr_bool(CKA_ENCRYPT, true) <<
 		pk11_attr_bool(CKA_VERIFY, true);
 
@@ -406,6 +407,7 @@ void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
 		pk11_attr_data(CKA_EXPONENT_1, rsakey->dmp1, false) <<
 		pk11_attr_data(CKA_EXPONENT_2, rsakey->dmq1, false) <<
 		pk11_attr_data(CKA_COEFFICIENT, rsakey->iqmp, false) <<
+		pk11_attr_bool(CKA_UNWRAP, true) <<
 		pk11_attr_bool(CKA_DECRYPT, true) <<
 		pk11_attr_bool(CKA_SIGN, true);
 
