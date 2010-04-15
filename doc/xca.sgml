@@ -217,8 +217,7 @@ Before XCA 0.9.0, the type of the items had to be given. This was removed since.
 <p>
 
 Usually after importing the items from commandline
-the application will startup as usual. With the
-.I -x
+the application will startup as usual. With the -x
 option given it will exit after finishing the import dialog. This is useful if xca is used as default application for viewing certificates, keys or requests.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
@@ -381,7 +380,7 @@ It will also be used as default internal name, if a new key is created here.
 
 Other rarely used <tt>name-entries</tt> can be selected in the dialog
 below.
-By using this atble instead of the table above, the order of the entries can be adjusted.
+By using this table instead of the table above, the order of the entries can be adjusted.
 A new line can be added via the <em>Add</em> button.
 The current line can be deleted via the <em>Delete</em> button.
 Existing lines can be exchanged and reordered by moving the row-header (containing the row-number) around.
@@ -566,20 +565,20 @@ Firefox always only looks for private keys on the card.
 If XCA does not show a key, which is however recognized by firefox
 a missing public-key object is the cause.
 
-<sect>The token menu
+<sect1>The token menu
 
 <p>
 
 A new menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and initialized.
 
-<sect1>Managing Smart cards
+<sect2>Managing Smart cards
 
 <p>
 
 Security token specific operations are collected below
 the menu-item <tt>Token</tt>
 
-<sect2>Manage Security token
+<sect3>Manage Security token
 
 <p>
 
@@ -588,37 +587,30 @@ When started it reads the content of the selected token.
 Additionally, it shows token information in the bottom-right corner and allows to delete and rename
 items directly on the token.
 
-<sect2>Initializing tokens
+<sect3>Initializing tokens
 
 <p>
 
-Initializing tokens is done via the menu item <tt>Initialize token</tt>. During this process either a new SO PIN must be defined or the old SO PIN must be given. Additionally XCA asks for the label of this token.
+Initializing tokens is done via the menu item <tt>Initialize token</tt>. During this process either a new SO PIN must be supplied or the old SO PIN must be given. Additionally XCA asks for the label of this token.
 
 <p>
 
 After this operation succeeded, the User PIN is uninitialized and must be initialized via <tt>Init PIN</tt>
 
-<sect2>Importing token items
-
-<p>
-
-The menu item <tt>Manage Security token</tt> shows a list of all certificates and public keys found on the token.
-The keys and certificates can be imported via the Multi-import dialog.
-
-<sect2>Deleting items from the token
+<sect3>Deleting items from the token
 
 <p>
 
 Just delete the item as usual. XCA will then ask whether the item shall also be removed from the token.
 Items on the token that were not yet imported can be deleted via the "Manage security token" menu.
 
-<sect2>Changing PINs
+<sect3>Changing PINs
 
 <p>
 
 The User PIN and SO PIN can be changed via the <tt>Token</tt> menu and also via the key context-menu. In this case the correct token containing the key will be enforced.
 
-<sect1>Tested providers
+<sect2>Tested providers
 
 <p>
 
@@ -645,12 +637,12 @@ The following providers were used for testing:
 	<item>Aladdin eToken PKIclient-5.1: Works perfectly.
 		Read public keys from the token, write private keys to the
 		token, generate keys on the token, write certificates to the
-		token and delete them from the token or delete them.
+		token and delete them from the token.
 	<item>Linux only: OpenCryptoki (IBM): may be used as a pure software
 		token, but also supports TPMs and other IBM crypto processors
 </itemize>
 
-<sect1>Tested compatibility with other applications
+<sect2>Tested compatibility with other applications
 
 <p>
 

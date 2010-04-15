@@ -254,7 +254,6 @@ void NewX509::defineTemplate(pki_temp *temp)
 {
 	fromTemplate(temp);
 	templateChanged(temp);
-	tempList->setEnabled(false);
 }
 
 void NewX509::defineRequest(pki_x509req *req)
