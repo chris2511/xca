@@ -495,9 +495,7 @@ bool pki_scard::prepare_card(unsigned long *slot, bool verifyPubkey) const
 			pkcs11 myp11;
 			tkInfo ti = myp11.tokenInfo(p11_slots[i]);
 			if (ti.label() == card_label &&
-			    ti.manufacturerID() == card_manufacturer &&
-			    ti.serial() == card_serial &&
-			    (card_model.isEmpty() || ti.model() == card_model))
+			    ti.serial() == card_serial)
 			{
 				break;
 			}
