@@ -191,8 +191,13 @@ Importing old databases is done by the following steps:
 
 <p>
 
-The most recent version of XCA can be downloaded from
+The most recent stable version of XCA can be downloaded from
 <url url="http://sourceforge.net/projects/xca" name="XCA download">
+
+<p>
+
+The current (unstable) HEAD of development can be downloaded and tested via
+<url url="http://xca.git.sourceforge.net/git/gitweb.cgi?p=xca/xca;a=snapshot;h=HEAD;sf=tgz" name="XCA devel">
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
