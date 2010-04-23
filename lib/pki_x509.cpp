@@ -58,7 +58,8 @@ pki_x509::pki_x509(const QString name)
 
 QString pki_x509::getFriendlyClassName()
 {
-	return tr("certificate");
+	/* used in sentences like: "Successfully created %1 '%2'" */
+	return tr("the certificate");
 }
 
 void pki_x509::fromPEM_BIO(BIO *bio, QString name)

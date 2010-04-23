@@ -101,7 +101,8 @@ QString pki_key::getTypeString()
 
 QString pki_key::getFriendlyClassName()
 {
-	QString txt = isPubKey() ? tr("%1 public key") : tr("%1 private key");
+	/* used in sentences like: "Successfully created %1 '%2'" */
+	QString txt = isPubKey() ? tr("the %1 public key") : tr("the %1 private key");
 	return txt.arg(getTypeString());
 }
 

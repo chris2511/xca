@@ -92,7 +92,8 @@ pki_temp::pki_temp(const QString d)
 
 QString pki_temp::getFriendlyClassName()
 {
-	return tr("XCA template");
+	/* used in sentences like: "Successfully created %1 '%2'" */
+	return tr("the XCA template");
 }
 
 static QStringList extVlistToString(extList &el, int nid, bool *crit)

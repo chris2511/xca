@@ -45,7 +45,9 @@ void db_base::createSuccess(pki_base *pki)
 		return;
 
 	QMessageBox::information(mainwin, XCA_TITLE,
-		tr("Successfully created the %1 '%2'").
+		/* %1 resolves to "the certificate" or
+		   "the Smart card RSA private key" */
+		tr("Successfully created %1 '%2'").
 		arg(pki->getFriendlyClassName()).
 		arg(pki->getIntName()));
 }

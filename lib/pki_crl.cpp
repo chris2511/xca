@@ -37,7 +37,8 @@ void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 
 QString pki_crl::getFriendlyClassName()
 {
-	return tr("certificate revokation list");
+	/* used in sentences like: "Successfully created %1 '%2'" */
+	return tr("the certificate revokation list");
 }
 
 void pki_crl::fload(const QString fname)

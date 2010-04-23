@@ -175,7 +175,9 @@ void ImportMulti::on_renameToken_clicked()
                 pki_base *pki = static_cast<pki_base*>(index.internalPointer());
                 try {
 			QString label = QInputDialog::getText(this, XCA_TITLE,
-				tr("The new name of the %1 '%2'").
+				/* %1 resolves to "the certificate" or
+				   "the Smart card RSA private key" */
+				tr("The new name of %1 '%2'").
 				arg(pki->getFriendlyClassName()).
 				arg(pki->getIntName()), QLineEdit::Normal,
 				pki->getIntName(), &ok);

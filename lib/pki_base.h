@@ -32,7 +32,6 @@ class pki_base : public QObject
 		void fopen_error(const QString fname);
 
 	public:
-		static void openssl_error(const QString myerr = "");
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
 		virtual void fload(const QString) {};
