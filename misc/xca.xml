@@ -4,4 +4,8 @@
 		<comment>XCA database</comment>
 		<glob pattern="*.xdb"/>
 	</mime-type>
+	<mime-type type="application/x-xca-template">
+		<comment>XCA template</comment>
+		<glob pattern="*.xca"/>
+	</mime-type>
 </mime-info>

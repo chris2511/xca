@@ -9,3 +9,4 @@ Exec=xca
 Icon=xca-32x32.xpm
 Terminal=false
 Categories=Application;Utility;Qt;
+MimeType=application/x-xca-database;application/x-xca-template;application/x-x509-ca-cert;application/pkcs10;application/x-pkcs7-certificates;application/x-pkcs12;
