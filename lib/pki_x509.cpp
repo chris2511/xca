@@ -456,16 +456,7 @@ bool pki_x509::canSign()
 
 bool pki_x509::hasExtension(int nid)
 {
-	int i;
-	STACK_OF(X509_EXTENSION) *x = cert->cert_info->extensions;
-
-	for(i = 0; i < sk_X509_EXTENSION_num(x); i++) {
-		X509_EXTENSION *ex = sk_X509_EXTENSION_value(x, i);
-		if (OBJ_obj2nid(ex->object) == nid) {
-			return true;
-		}
-	}
-	return false;
+	return getV3ext().idxByNid(nid) != -1;
 }
 
 void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
