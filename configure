@@ -103,7 +103,7 @@ search_lib() {
   for dir in ${DIRS};  do
     for dbn in $@; do
       for suffix in so dylib obj a; do
-        for lib in lib out; do
+        for lib in lib lib64 lib32 out; do
           if test -r "${dir}/${lib}/lib${dbn}.${suffix}"; then
             add_lib "${dir}/${lib}" "${dbn}" "${suffix}"
 	    echo "Found: lib${dbn}.${suffix} at ${dir}/${lib}"
