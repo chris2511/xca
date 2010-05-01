@@ -281,6 +281,21 @@ void pki_evp::fload(const QString fname)
 	if (!pkey) {
 		ign_openssl_error();
 		rewind(fp);
+		pkey = d2i_PKCS8PrivateKey_fp(fp, NULL, cb, &p);
+	}
+	if (!pkey) {
+		PKCS8_PRIV_KEY_INFO *p8inf;
+		ign_openssl_error();
+		rewind(fp);
+		p8inf = d2i_PKCS8_PRIV_KEY_INFO_fp(fp, NULL);
+		if (p8inf) {
+			pkey = EVP_PKCS82PKEY(p8inf);
+			PKCS8_PRIV_KEY_INFO_free(p8inf);
+		}
+	}
+	if (!pkey) {
+		ign_openssl_error();
+		rewind(fp);
 		pkey = PEM_read_PUBKEY(fp, NULL, cb, &p);
 	}
 	if (!pkey) {
@@ -292,7 +307,7 @@ void pki_evp::fload(const QString fname)
 	if (ign_openssl_error()) {
 		if (pkey)
 			EVP_PKEY_free(pkey);
-		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private and public key types.").arg(fname));
+		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.").arg(fname));
 	}
 	if (pkey){
 		if (pkey->type == EVP_PKEY_EC)

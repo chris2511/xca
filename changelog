@@ -1,4 +1,5 @@
 
+  * support loading DER formatted PKCS#8 keys
   * ease commandline use
   * add DH param generation menu entry
   * improve token handling and PIN changing dialogs
