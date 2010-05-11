@@ -3,7 +3,7 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
-QM_FILES=xca_de.qm xca_es.qm
+QM_FILES=xca_de.qm xca_es.qm xca_ru.qm
 
 %.qm: %.ts
 	$(LRELEASE) $< -qm $@
