@@ -65,17 +65,12 @@ Section "xca (required)" SecMain
   File "misc\oids.txt"
   File "misc\aia.txt"
   File "misc\*.xca"
-  File /nonfatal "lang\*.qm"
   File "doc\*.html"
   File "${BDIR}\mingwm10.dll"
 
   File "${QTDIR}\bin\QtGui4.dll"
   File "${QTDIR}\bin\QtCore4.dll"
   File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
-
-  File "${QTDIR}\translations\qt_de.qm"
-  File "${QTDIR}\translations\qt_es.qm"
-  File "${QTDIR}\translations\qt_ru.qm"
 
   File "${INSTALLDIR}\bin\libltdl-7.dll"
   File "${INSTALLDIR}\bin\libeay32.dll"
@@ -132,6 +127,15 @@ Section "OpenSC PKCS#11 library" SecSmartCard
   File "${INSTALLDIR}\bin\libscconf-2.dll"
   File "${INSTALLDIR}\bin\libopensc-2.dll"
   File "${INSTALLDIR}\bin\libpkcs15init-2.dll"
+
+SectionEnd
+
+Section "Translations" SecTrans
+
+  File /nonfatal "lang\*.qm"
+  File /nonfatal "${QTDIR}\translations\qt_de.qm"
+  File /nonfatal "${QTDIR}\translations\qt_es.qm"
+  File /nonfatal "${QTDIR}\translations\qt_ru.qm"
 
 SectionEnd
 
@@ -297,19 +301,23 @@ SectionEnd
 
   ;Language strings
   LangString DESC_SecMain ${LANG_ENGLISH} "XCA main application."
-  LangString DESC_SecMain ${LANG_GERMAN} "XCA Applikation."
-  LangString DESC_SecShortcut ${LANG_ENGLISH} \
-    "Shortcuts on the desktop and the menu."
-  LangString DESC_SecShortcut ${LANG_GERMAN} \
-    "Programmgruppe auf dem Desktop und im Menu."
-  LangString DESC_SecUpdate ${LANG_GERMAN} \
-    "Exportiert eine alte Datenbank <= 0.5.1 in ein ASCII format, das mit dieser Version von XCA importiert werden kann."
-  LangString DESC_SecUpdate ${LANG_ENGLISH} \
-    "Dumps an old database <= 0.5.1 into an ASCII format, that can be imported by the current Version of XCA."
+  LangString DESC_SecMain ${LANG_GERMAN}  "XCA Applikation."
+
+  LangString DESC_SecShortcut ${LANG_ENGLISH} "Shortcuts on the desktop and the menu."
+  LangString DESC_SecShortcut ${LANG_GERMAN}  "Programmgruppe auf dem Desktop und im Menu."
+
+  LangString DESC_SecUpdate ${LANG_ENGLISH} "Dumps an old database <= 0.5.1 into an ASCII format, that can be imported by the current Version of XCA."
+  LangString DESC_SecUpdate ${LANG_GERMAN}  "Exportiert eine alte Datenbank <= 0.5.1 in ein ASCII format, das mit dieser Version von XCA importiert werden kann."
+
   LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb *.xca *.pem and 'open with' for *.crt *.crl *.pfx *.p7b *.cer"
-  LangString DESC_SecFiles ${LANG_GERMAN} "Registrierung der Dateiendung *.xdb *.xca *.pem und 'open with' für *.crt *.crl *.pfx *.p7b *.cer"
+  LangString DESC_SecFiles ${LANG_GERMAN}  "Registrierung der Dateiendung *.xdb *.xca *.pem und 'open with' für *.crt *.crl *.pfx *.p7b *.cer"
+
   LangString DESC_SecSmartCard ${LANG_ENGLISH} "Install Opensc PKCS#11 library. Not needed if you have your own PKCS#11 library or don't need Smart Card support at all."
-  LangString DESC_SecSmartCard ${LANG_GERMAN} "Installiert die Opensc PKCS#11 Bibliothek. Wird nicht benötigt, wenn Sie eine eigene PKCS#11 Bibliothek verwenden möchten, oder gar keine Smart card Unterstützung brauchen."
+  LangString DESC_SecSmartCard ${LANG_GERMAN}  "Installiert die Opensc PKCS#11 Bibliothek. Wird nicht benötigt, wenn Sie eine eigene PKCS#11 Bibliothek verwenden möchten, oder gar keine Smart card Unterstützung brauchen."
+
+  LangString DESC_SecTrans ${LANG_ENGLISH} "Translations for german, russian and spanish."
+  LangString DESC_SecTrans ${LANG_GERMAN}  "Übersetzungen in deutsch, russisch und spanisch."
+
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
@@ -317,6 +325,7 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${SecUpdate} $(DESC_SecUpdate)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecFiles} $(DESC_SecFiles)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecSmartCard} $(DESC_SecSmartCard)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecTrans} $(DESC_SecTrans)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 LangString DESC_Donation ${LANG_ENGLISH} \
