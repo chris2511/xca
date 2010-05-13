@@ -152,4 +152,4 @@ SOURCES += lib/asn1int.cpp \
            widgets/XcaTreeView.cpp \
            widgets/MW_menu.cpp \
            widgets/kvView.cpp
-TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts
+TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts

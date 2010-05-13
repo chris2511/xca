@@ -71,6 +71,10 @@ void MainWindow::about()
 	"<tr><td><b>Mark Foster</b></td><td><u>&lt;mark@foster.cc&gt;</u></td></tr>"
 	"<tr><td><b>Thorsten Weiss</b></td><td><u>&lt;weiss2@gmx.de&gt;</u></td></tr>"
 	"<tr><td><b>Oobj</b></td><td><u>&lt;www.oobj.com.br&gt;</u></td></tr>"
+	"</table><hr><center><u><b>Translations</b></u></center>"
+	"<p><table>"
+	"<tr><th>German</th><td>Christian Hohnst&auml;dt</td></tr>"
+	"<tr><th>Russian</th><td>Pavel Belly &lt;pavel.belly@gmail.com&gt;</td></tr>"
 	"</table>",
 	OPENSSL_VERSION_TEXT, QT_VERSION_STR );
 
