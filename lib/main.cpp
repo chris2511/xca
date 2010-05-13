@@ -20,30 +20,29 @@ int main( int argc, char *argv[] )
 {
 	int ret = 0, pkictr;
 	QString locale;
-	QTranslator qtTr( 0 );
-	QTranslator xcaTr( 0 );
+	QTranslator qtTr;
+	QTranslator xcaTr;
 	MainWindow *mw;
 	QApplication a( argc, argv );
 
-#ifdef WIN32
-	LANGID LangId = PRIMARYLANGID(GetUserDefaultLangID());
-	switch (LangId) {
-		case 0x07: locale="de"; break; //German
-		case 0x0a: locale="es"; break; //Spanish
-		case 0x0b: locale="fi"; break; //Finn
-		case 0x0c: locale="fr"; break; //French
-		case 0x0e: locale="hu"; break; //Hungarian
-		case 0x19: locale="ru"; break; //Russian
-		default: locale="c";
-	}
-#else
 	locale = QLocale::system().name();
-#endif
-	qtTr.load( QString( "qt_" ) + locale, "." );
-	xcaTr.load( QString( "xca_" ) + locale, getPrefix() );
 
-	a.installTranslator( &qtTr );
-	a.installTranslator( &xcaTr );
+	QStringList dirs;
+	dirs    << getPrefix()
+		<< "/usr/local/share/qt4/translations/"
+		<< "/usr/share/qt4/translations/"
+		<< "/usr/share/qt/translations/"
+		<< ".";
+
+	foreach(QString dir, dirs) {
+		if (qtTr.load(QString("qt_%1").arg(locale), dir)) {
+			break;
+		}
+	}
+	xcaTr.load(QString("xca_%1").arg(locale), getPrefix());
+
+	a.installTranslator(&qtTr);
+	a.installTranslator(&xcaTr);
 
 #ifdef Q_WS_MAC
 	QStringList libp = a.libraryPaths();

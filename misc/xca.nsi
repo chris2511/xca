@@ -5,7 +5,7 @@
 ; The name of the installer
 Name "XCA"
 Caption "XCA ${VERSION} Setup"
-OutFile "setup.exe"
+OutFile "setup_xca-${VERSION}.exe"
 
 InstallDir $PROGRAMFILES\xca
 ; Registry key to check for directory (so if you install again, it will
@@ -71,6 +71,11 @@ Section "xca (required)" SecMain
 
   File "${QTDIR}\bin\QtGui4.dll"
   File "${QTDIR}\bin\QtCore4.dll"
+  File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
+
+  File "${QTDIR}\translations\qt_de.qm"
+  File "${QTDIR}\translations\qt_es.qm"
+  File "${QTDIR}\translations\qt_ru.qm"
 
   File "${INSTALLDIR}\bin\libltdl-7.dll"
   File "${INSTALLDIR}\bin\libeay32.dll"

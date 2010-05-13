@@ -44,7 +44,7 @@ pheaders: headers
 
 clean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} clean; done
-	rm -f *~ xca$(SUFFIX) xca.o
+	rm -f *~ xca$(SUFFIX) xca.o setup_xca*.exe
 
 distclean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} distclean; done
@@ -74,7 +74,6 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -NOCD -V2 misc/xca.nsi
-	cp setup.exe setup_xca-$(VERSION).exe
 
 .PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang
 
