@@ -28,14 +28,14 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 {
 	nid = n;
 	le = myle;
-	if (le)
-		addItem(le->text());
 	ext_ctx = ctx;
 	tab->setKeys(sl);
 	tab->setInfoLabel(infoLabel);
 	connect(tab->itemDelegateForColumn(1),
 		SIGNAL(setupLineEdit(const QString &, QLineEdit *)),
 		this, SLOT(setupLineEdit(const QString &, QLineEdit *)));
+	if (le && !le->text().trimmed().isEmpty())
+		addItem(le->text());
 }
 
 void v3ext::addItem(QString list)

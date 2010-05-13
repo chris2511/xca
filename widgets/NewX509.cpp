@@ -631,7 +631,7 @@ x509name NewX509::getX509name(int _throw)
 		row = extDNlist->rowCount();
 		for (j=0; j<row; j++) {
 			QStringList l = extDNlist->getRow(j);
-			nid = OBJ_ln2nid(CCHAR(l[0]));
+			nid = OBJ_txt2nid(CCHAR(l[0]));
 			x.addEntryByNid(nid, l[1]);
 		}
 	} catch (errorEx &err) {
@@ -663,7 +663,6 @@ void NewX509::setX509name(const x509name &n)
 			}
 		}
 		if (j == EXPLICIT_NAME_CNT) {
-			sl << sl[1] << sl[2];
 			extDNlist->addRow(sl[1], sl[2]);
 		}
 	}

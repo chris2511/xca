@@ -26,6 +26,11 @@ public:
 	{
 		keys = k;
 	}
+	void addKey(QString &key)
+	{
+		if (!key.isEmpty() && (keys.count() == 0 || !keys.contains(key)))
+			keys << key;
+	}
 	QWidget *createEditor(QWidget *parent,
 		const QStyleOptionViewItem &option,
 		const QModelIndex &index) const;
@@ -130,10 +135,7 @@ public:
 	{
 		return mymodel->getRow(i);
 	}
-	void addRow(QString &k, QString &v)
-	{
-		mymodel->addRow(k, v);
-	}
+	void addRow(QString &k, QString &v);
 	void deleteAllRows()
 	{
 		mymodel->removeRows(0, rowCount(), QModelIndex());

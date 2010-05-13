@@ -209,6 +209,13 @@ void kvView::moveRow(int, int oldi, int newi)
 	moving = 0;
 }
 
+void kvView::addRow(QString &k, QString &v)
+{
+	QString key = k.trimmed();
+	static_cast<comboDelegate*>(itemDelegateForColumn(0))->addKey(key);
+	mymodel->addRow(k, v);
+}
+
 void kvView::addKvRow()
 {
 	QString k, v;
