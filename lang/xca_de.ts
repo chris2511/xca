@@ -1707,7 +1707,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+35"/>
         <location line="+14"/>
         <location filename="../widgets/NewX509.cpp" line="-199"/>
-        <location line="+549"/>
+        <location line="+548"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -1781,7 +1781,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-682"/>
+        <location filename="../widgets/NewX509.cpp" line="-681"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
@@ -1801,7 +1801,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+617"/>
+        <location line="+616"/>
         <location line="+12"/>
         <location line="+11"/>
         <location line="+16"/>
@@ -1948,7 +1948,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-801"/>
+        <location filename="../widgets/NewX509.cpp" line="-800"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -1968,7 +1968,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+532"/>
+        <location line="+531"/>
         <source>From PKCS#10 request</source>
         <translation>Aus der PKCS#10 Zertifikatsanfrage</translation>
     </message>

@@ -289,13 +289,13 @@
         <location line="-22"/>
         <location line="+23"/>
         <source>Abort rollout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прервать выгрузку</translation>
     </message>
     <message>
         <location line="-22"/>
         <location line="+23"/>
         <source>Continue rollout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Продолжить выгрузку</translation>
     </message>
     <message>
         <location line="-22"/>
@@ -1667,7 +1667,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+35"/>
         <location line="+14"/>
         <location filename="../widgets/NewX509.cpp" line="-199"/>
-        <location line="+549"/>
+        <location line="+548"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -1741,7 +1741,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-682"/>
+        <location filename="../widgets/NewX509.cpp" line="-681"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1761,7 +1761,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Создать x509 сертификат</translation>
     </message>
     <message>
-        <location line="+617"/>
+        <location line="+616"/>
         <location line="+12"/>
         <location line="+11"/>
         <location line="+16"/>
@@ -1806,7 +1806,7 @@ Please set at least the internal name.</source>
         <location line="+677"/>
         <location line="+20"/>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">yyyy-MM-dd hh:mm</translation>
     </message>
     <message>
         <location line="+574"/>
@@ -1941,7 +1941,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Применить все</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-801"/>
+        <location filename="../widgets/NewX509.cpp" line="-800"/>
         <source>minimum size: %1</source>
         <translation type="unfinished">минимальный размер: %1</translation>
     </message>
@@ -1961,7 +1961,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+532"/>
+        <location line="+531"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1998,12 +1998,12 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+49"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -2018,12 +2018,12 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+74"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отмена</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ОК</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="+37"/>
@@ -2505,7 +2505,7 @@ You must set it manually.</source>
     <message>
         <location filename="../lib/db_crl.cpp" line="+20"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Имя</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2515,7 +2515,7 @@ You must set it manually.</source>
     <message>
         <location line="+0"/>
         <source>Common name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Общее имя</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2550,12 +2550,12 @@ You must set it manually.</source>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экспорт</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить</translation>
     </message>
     <message>
         <location line="-209"/>
@@ -2585,7 +2585,7 @@ and so it was not imported</source>
     <message>
         <location line="+95"/>
         <source>New Key</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Новый ключ</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2605,12 +2605,12 @@ and so it was not imported</source>
     <message>
         <location line="+2"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экспорт</translation>
     </message>
     <message>
         <location line="-1"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2738,7 +2738,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экспорт</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2748,7 +2748,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+1"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2791,17 +2791,17 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="-875"/>
         <source>Internal name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Common name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Общее имя</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Серийный номер</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2816,7 +2816,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+0"/>
         <source>Revocation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Аннулирован</translation>
     </message>
     <message>
         <location line="+100"/>
@@ -2881,7 +2881,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экспорт</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2896,7 +2896,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+8"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3032,7 +3032,7 @@ and so it was not imported</source>
     <message>
         <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished">Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3052,27 +3052,27 @@ and so it was not imported</source>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экспорт</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить</translation>
     </message>
     <message>
         <location line="-161"/>
         <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation type="unfinished">Имя</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Subject</source>
-        <translation type="unfinished">Sujeto</translation>
+        <translation type="unfinished">Субъект</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Signed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подписанный</translation>
     </message>
     <message>
         <location line="+159"/>
@@ -3515,27 +3515,27 @@ and thus was not stored</source>
     <message>
         <location filename="../ui/v3ext.ui" line="+51"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Применить</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Утвердить</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отмена</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="+154"/>
