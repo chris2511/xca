@@ -25,12 +25,14 @@ void MainWindow::init_menu()
 	QMenu *file, *help, *import, *token;
 
 	file = menuBar()->addMenu(tr("&File"));
-	file->addAction(tr("&New DataBase"), this, SLOT(new_database()));
-	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()));
+	file->addAction(tr("&New DataBase"), this, SLOT(new_database()),
+		QKeySequence::New);
+	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
+		QKeySequence::Open);
 	file->addAction(tr("Generate DH parameter"), this,
 				 SLOT(generateDHparam()));
 	acList += file->addAction(tr("&Close DataBase"), this,
-				SLOT(close_database()));
+		SLOT(close_database()), QKeySequence(QKeySequence::Close));
 	acList += file->addAction(tr("&Dump DataBase"), this,
 				SLOT(dump_database()));
 	acList += file->addAction(tr("C&hange DataBase password"), this,
@@ -77,7 +79,8 @@ void MainWindow::init_menu()
 				SLOT(initPin()) );
 
 	help = menuBar()->addMenu(tr("&Help") );
-	help->addAction(tr("&Content"), this, SLOT(help()), Qt::Key_F1 );
+	help->addAction(tr("&Content"), this, SLOT(help()),
+			QKeySequence::HelpContents);
 	help->addAction(tr("&About"), this, SLOT(about()) );
 	help->addAction(tr("Donations"), this, SLOT(donations()) );
 	wdList += import;
