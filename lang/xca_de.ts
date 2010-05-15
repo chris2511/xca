@@ -723,10 +723,6 @@ Seriennummer: %3</translation>
         <source>Manage security token</source>
         <translation>Smart card verwalten</translation>
     </message>
-    <message>
-        <source>The new name of the %1 &apos;%2&apos;</source>
-        <translation type="obsolete">%1 &apos;%2&apos; umbenennen in</translation>
-    </message>
 </context>
 <context>
     <name>KeyDetail</name>
@@ -2502,10 +2498,6 @@ Bitte die Zeiten manuell einstellen.</translation>
 <context>
     <name>db_base</name>
     <message>
-        <source>Successfully created the %1 &apos;%2&apos;</source>
-        <translation type="obsolete">%1 erfolgreich erstellt als &apos;%2&apos;</translation>
-    </message>
-    <message>
         <location filename="../lib/db_base.cpp" line="+50"/>
         <source>Successfully created %1 &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
@@ -3194,10 +3186,6 @@ und wurde daher nicht importiert</translation>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
     <message>
-        <source>certificate revokation list</source>
-        <translation type="obsolete">Zertifikatssperrliste</translation>
-    </message>
-    <message>
         <location line="+82"/>
         <location line="+178"/>
         <source>Wrong Size %1</source>
@@ -3210,10 +3198,6 @@ und wurde daher nicht importiert</translation>
         <location filename="../lib/pki_evp.cpp" line="+64"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation>Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort)</translation>
-    </message>
-    <message>
-        <source>Unable to load the private key in file %1. Tried PEM and DER private and public key types.</source>
-        <translation type="obsolete">Konnte den privaten Schlüssel %1 nicht laden. Ist weder im PEM (private/public) noch im DER (private/public) Format.</translation>
     </message>
     <message>
         <location line="+108"/>
@@ -3308,14 +3292,6 @@ und wurde daher nicht importiert</translation>
         <location line="-12"/>
         <source>PIN</source>
         <translation>PIN</translation>
-    </message>
-    <message>
-        <source>%1 public key</source>
-        <translation type="obsolete">Öffentlicher %1 Schlüssel</translation>
-    </message>
-    <message>
-        <source>%1 private key</source>
-        <translation type="obsolete">Privater %1 Schlüssel</translation>
     </message>
 </context>
 <context>
@@ -3445,10 +3421,6 @@ und wurde daher nicht importiert</translation>
         <translation>Templatefile ungültig (länge): %1</translation>
     </message>
     <message>
-        <source>XCA template</source>
-        <translation type="obsolete">XCA Vorlage</translation>
-    </message>
-    <message>
         <location line="-104"/>
         <location line="+208"/>
         <source>Wrong Size %1</source>
@@ -3508,10 +3480,6 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Smartcard &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
     <message>
-        <source>certificate</source>
-        <translation type="obsolete">Zertifikat</translation>
-    </message>
-    <message>
         <location line="+170"/>
         <location line="+362"/>
         <source>Wrong Size %1</source>
@@ -3549,14 +3517,6 @@ und wurde daher nicht importiert</translation>
         <location line="+0"/>
         <source>Unhandled</source>
         <translation>Unbehandelt</translation>
-    </message>
-    <message>
-        <source>SPKAC request</source>
-        <translation type="obsolete">SPKAC Zertifikatsanfrage</translation>
-    </message>
-    <message>
-        <source>PKCS#10 request</source>
-        <translation type="obsolete">PKCS#10 Zertifikatsanfrage</translation>
     </message>
     <message>
         <location line="+36"/>

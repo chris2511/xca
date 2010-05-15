@@ -138,7 +138,7 @@
     <message>
         <location line="+10"/>
         <source>Fingerprints</source>
-        <translation>Контрольные суммы</translation>
+        <translation type="unfinished">Хэш-суммы</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -178,7 +178,7 @@
     <message>
         <location line="+34"/>
         <source>&amp;Subject</source>
-        <translation>&amp;Субъект</translation>
+        <translation type="unfinished">&amp;Владелец</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -206,17 +206,17 @@
     <message>
         <location line="+34"/>
         <source>Validity</source>
-        <translation type="unfinished">Действителен</translation>
+        <translation>Действителен</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Not before</source>
-        <translation type="unfinished">Не раньше, чем</translation>
+        <translation>Не раньше, чем</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Not after</source>
-        <translation type="unfinished">Не позже</translation>
+        <translation>Не позже, чем</translation>
     </message>
     <message>
         <location line="+38"/>
@@ -241,7 +241,7 @@
     <message>
         <location line="+15"/>
         <source>Midnight</source>
-        <translation type="unfinished">Полночь</translation>
+        <translation>Полночь</translation>
     </message>
     <message>
         <location line="-7"/>
@@ -267,7 +267,7 @@
     <message>
         <location line="-125"/>
         <source>Certificate renewal</source>
-        <translation type="unfinished">Сертификат обновлен</translation>
+        <translation>Сертификат обновлен</translation>
     </message>
     <message>
         <location line="+185"/>
@@ -289,13 +289,13 @@
         <location line="-22"/>
         <location line="+23"/>
         <source>Abort rollout</source>
-        <translation type="unfinished">Прервать выгрузку</translation>
+        <translation>Прервать</translation>
     </message>
     <message>
         <location line="-22"/>
         <location line="+23"/>
         <source>Continue rollout</source>
-        <translation type="unfinished">Продолжить выгрузку</translation>
+        <translation>Продолжить</translation>
     </message>
     <message>
         <location line="-22"/>
@@ -445,7 +445,7 @@
     <message>
         <location filename="../ui/ExportCert.ui" line="+45"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Экспорт сертификата</translation>
+        <translation>Экспорт сертификата</translation>
     </message>
     <message>
         <location line="+81"/>
@@ -460,32 +460,32 @@
     <message>
         <location line="+16"/>
         <source>Please enter the filename for the certificate.</source>
-        <translation type="unfinished">Пожалуйста, введите имя файла для сертификата.</translation>
+        <translation>Введите имя файла для сертификата.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>DER is a binary format of the Certificate</source>
-        <translation type="unfinished">DER - это двоичный формат</translation>
+        <translation>DER - двоичная кодировкасертификата</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>PEM is a base64 encoded Certificate</source>
-        <translation type="unfinished">PEM - это base64 формат</translation>
+        <translation>PEM -  base64 кодировка сертификата</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>PKCS#7 is an official Certificate exchange format</source>
-        <translation type="unfinished">PKCS#7 - это официальный формат обмена сертификатами</translation>
+        <translation>PKCS#7 - стандартный формат передачи сертификата</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>PKCS#12 is an encrypted official Key-Certificate exchange format</source>
-        <translation type="unfinished">PKCS#12 - это официальный свозможностья шифрования формат обмены сертификатами с закрытыми ключами внутри</translation>
+        <translation>PKCS#12 - стандартный форматпередачи зашифрованного сертификата с закрытым ключем</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Export Format</source>
-        <translation type="unfinished">Формат экспорта</translation>
+        <translation>Формат экспорта</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -651,17 +651,17 @@ PKCS#8 - это официальный с возможностью шифров�
     <message>
         <location line="-28"/>
         <source>Import &amp;All</source>
-        <translation type="unfinished">Импортировать &amp;Всё</translation>
+        <translation>Восстановить &amp;всё</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Импортировать</translation>
+        <translation>&amp;Восстановить</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Done</source>
-        <translation type="unfinished">&amp;Закрыть</translation>
+        <translation>&amp;Закрыть</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -844,7 +844,7 @@ Serial: %3</source>
     <message>
         <location line="-1"/>
         <source>Password verify error, please try again</source>
-        <translation type="unfinished">Ошибка проверки пароля, попробуйте еще раз</translation>
+        <translation>Неверный пароль, попробуйте еще раз</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="+32"/>
@@ -880,17 +880,17 @@ Serial: %3</source>
     <message>
         <location line="+0"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database-file</source>
-        <translation type="unfinished">Пожалуйста, введите пароль, который будет использоваться для шифрования закрытых ключей в базе данных</translation>
+        <translation type="unfinished">Ввведите пароль, для шифрования закрытых ключей в базе данных</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Please enter the password for unlocking the database</source>
-        <translation type="unfinished">Пожалуйста, введите пароль для разблокировки базы данных</translation>
+        <translation>Пожалуйста, введите пароль для разблокировки базы данных</translation>
     </message>
     <message>
         <location line="+129"/>
         <source>The following error occured:</source>
-        <translation type="unfinished">Произошла следующая ошибка:</translation>
+        <translation>Внимание произошла ошибка:</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -905,7 +905,7 @@ Serial: %3</source>
     <message>
         <location line="+30"/>
         <source>&amp;New Key</source>
-        <translation>&amp;Новый Ключ</translation>
+        <translation>&amp;Новый ключ</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -928,7 +928,7 @@ Serial: %3</source>
     <message>
         <location line="-416"/>
         <source>Import PFX (PKCS#12)</source>
-        <translation type="unfinished">Импорт PFX (PKCS#12)</translation>
+        <translation>Импорт PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -936,7 +936,7 @@ Serial: %3</source>
         <location line="+98"/>
         <location line="+214"/>
         <source>&amp;Show Details</source>
-        <translation>&amp;Показать детали</translation>
+        <translation type="unfinished">&amp;Посмотреть детали</translation>
     </message>
     <message>
         <location line="-409"/>
@@ -950,7 +950,7 @@ Serial: %3</source>
     <message>
         <location line="-376"/>
         <source>Certificate signing requests</source>
-        <translation>Запросы на подписание Сертификата</translation>
+        <translation type="unfinished">Запросы на сертификаты</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -961,7 +961,7 @@ Serial: %3</source>
         <location line="+68"/>
         <location filename="../widgets/MW_menu.cpp" line="-27"/>
         <source>Certificates</source>
-        <translation type="unfinished">Сертификаты</translation>
+        <translation>Сертификаты</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -981,7 +981,7 @@ Serial: %3</source>
     <message>
         <location line="+7"/>
         <source>Plain View</source>
-        <translation>Простой Вид</translation>
+        <translation>Список</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -996,12 +996,12 @@ Serial: %3</source>
     <message>
         <location line="+7"/>
         <source>Ch&amp;ange Template</source>
-        <translation type="unfinished">Из&amp;менить Шаблон</translation>
+        <translation>Из&amp;менить шаблон</translation>
     </message>
     <message>
         <location line="+61"/>
         <source>Revocation lists</source>
-        <translation type="unfinished">Списки отзыва</translation>
+        <translation>Списки отозванных сертификатов</translation>
     </message>
     <message>
         <location filename="../widgets/MW_database.cpp" line="+129"/>
@@ -1011,7 +1011,7 @@ Serial: %3</source>
     <message>
         <location line="+69"/>
         <source>No deleted items found</source>
-        <translation type="unfinished">Нет удаленных записей</translation>
+        <translation>Нет удаленных записей</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-18"/>
@@ -1021,12 +1021,12 @@ Serial: %3</source>
     <message>
         <location line="+4"/>
         <source>&amp;Import old db_dump</source>
-        <translation type="unfinished">&amp;Импорт дампа базы данных</translation>
+        <translation>&amp;Импорт дампа базы данных</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Undelete items</source>
-        <translation type="unfinished">&amp;Восстановить удаленные записи</translation>
+        <translation>&amp;Восстановить удаленные записи</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1061,7 +1061,7 @@ Serial: %3</source>
     <message>
         <location line="+2"/>
         <source>Revocation list</source>
-        <translation type="unfinished">Аннулированные списки</translation>
+        <translation>Аннулированные списки</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1071,7 +1071,7 @@ Serial: %3</source>
     <message>
         <location line="+20"/>
         <source>Donations</source>
-        <translation type="unfinished">Пожертвование</translation>
+        <translation>Пожертвование</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -1081,12 +1081,12 @@ Serial: %3</source>
     <message>
         <location line="+1"/>
         <source>Please enter the password of the old database</source>
-        <translation type="unfinished">Пожалуйста, введите пароль старой базы данных</translation>
+        <translation>Пожалуйста, введите пароль от старой базы данных</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Password verification error. Ignore keys ?</source>
-        <translation type="unfinished">Ошибка проверки пароля. Игнорировать ключи?</translation>
+        <translation>Неверный пароль. Игнорировать ключи?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1126,12 +1126,12 @@ Serial: %3</source>
     <message>
         <location line="+160"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
-        <translation type="unfinished">Пожалуйста, введите новый пароль для шифрования закрытых ключей в базе данных</translation>
+        <translation>Пожалуйста, введите новый пароль для шифрования закрытых ключей в базе данных</translation>
     </message>
     <message>
         <location line="+174"/>
         <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
-        <translation type="unfinished">Hex пароль должен содержать символы &apos;0 &apos;- &apos;9&apos; и &apos;a&apos; - &apos;f&apos; и должен состоять из четного числа символов</translation>
+        <translation>Hex пароль должен содержать символы &apos;0 &apos;- &apos;9&apos; и &apos;a&apos; - &apos;f&apos; и должен состоять из четного числа символов</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-100"/>
@@ -1146,7 +1146,7 @@ Serial: %3</source>
     <message>
         <location line="+41"/>
         <source>&amp;Init Security token</source>
-        <translation type="unfinished">&amp;Инициализировать Токен безопасности</translation>
+        <translation>&amp;Инициализировать Токен</translation>
     </message>
     <message>
         <location line="-34"/>
@@ -1161,13 +1161,13 @@ Serial: %3</source>
     <message>
         <location line="+149"/>
         <source>You need to restart XCA to load the new library</source>
-        <translation type="unfinished">Вам необходимо перезапустить XCA, чтобы загрузить новую библиотеку</translation>
+        <translation>Необходимо перезапустить XCA, чтобы загрузить новую библиотеку</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="+255"/>
         <location line="+121"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
-        <translation type="unfinished">Пожалуйста, введите пароль для расшифровки закрытого ключа: &apos;%1&apos;</translation>
+        <translation>Пожалуйста, введите пароль для расшифровки закрытого ключа: &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="-430"/>
@@ -1227,7 +1227,7 @@ Serial: %3</source>
     <message>
         <location line="+1"/>
         <source>&amp;Manage Security token</source>
-        <translation type="unfinished">&amp;Управление Токенами безопасности</translation>
+        <translation type="unfinished">&amp;Управление Токенами</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1280,12 +1280,12 @@ Serial: %3</source>
     <message>
         <location line="+12"/>
         <source>Authority key identifier</source>
-        <translation>Авторизация ключевго идентификатора</translation>
+        <translation type="unfinished">Авторизация идентификатора ключа</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Subject alternative name</source>
-        <translation>Альтернативное название субъекта</translation>
+        <translation type="unfinished">Альтернативное имя владельца</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -1315,7 +1315,7 @@ Serial: %3</source>
     <message>
         <location line="+47"/>
         <source>Please give a name to the new key and select the desired keysize</source>
-        <translation>Пожалуйста, введите название и выберите размер нового ключа</translation>
+        <translation type="unfinished">Введите название и задайте тип и размер нового ключа</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1379,12 +1379,12 @@ Serial: %3</source>
     <message>
         <location line="+48"/>
         <source>Source</source>
-        <translation type="unfinished">Источник</translation>
+        <translation>Источник</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Signing request</source>
-        <translation type="unfinished">Запрос на подписание</translation>
+        <translation>Подписанный запрос</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -1401,22 +1401,22 @@ Of course you need the private key of the CSR if you want to create a self-signe
     <message>
         <location line="+7"/>
         <source>Sign this Certificate signing &amp;request</source>
-        <translation type="unfinished">Подписать этот сертификат подписью в &amp;запросе</translation>
+        <translation type="unfinished">Использавать подписанный &amp;запрос на сертификат</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Copy extensions from the request</source>
-        <translation type="unfinished">Копировать дополнительные сведенния из запроса</translation>
+        <translation type="unfinished">Копировать расширения из запроса</translation>
     </message>
     <message>
         <location line="+51"/>
         <source>Signing</source>
-        <translation type="unfinished">Подписание</translation>
+        <translation>Подписание</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Create a &amp;self signed certificate with the serial</source>
-        <translation>Создать &amp;самоподписанный сертификат с серыйным номером</translation>
+        <translation>Создать &amp;самоподписанный сертификат с серийным номером</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1431,7 +1431,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
     <message>
         <location line="+17"/>
         <source>Use &amp;this Certificate for for signing</source>
-        <translation type="unfinished">Использовать &amp;этот сертификат для подписи</translation>
+        <translation>Использовать &amp;этот сертификат для подписи</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1447,12 +1447,12 @@ If this list is disabled, you only can create a self-signed certificate.</source
     <message>
         <location line="+34"/>
         <source>Signature algorithm</source>
-        <translation type="unfinished">Алгоритм подписи</translation>
+        <translation>Алгоритм подписи</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Template for the new certificate</source>
-        <translation type="unfinished">Шаблон для нового сертификата</translation>
+        <translation>Шаблон для нового сертификата</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1473,7 +1473,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <location line="-498"/>
         <location filename="../widgets/NewX509.cpp" line="+203"/>
         <source>Subject</source>
-        <translation type="unfinished">Субъект</translation>
+        <translation>Владелец</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1488,7 +1488,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
     <message>
         <location line="+76"/>
         <source>Internal name</source>
-        <translation type="unfinished">Внутреннее имя</translation>
+        <translation>Внутреннее имя</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -1513,17 +1513,17 @@ If this list is disabled, you only can create a self-signed certificate.</source
     <message>
         <location line="+7"/>
         <source>Used keys too</source>
-        <translation type="unfinished">Использовать также ключи</translation>
+        <translation type="unfinished">Отобрвжвть уже использованные ключи</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&amp;Generate a new key</source>
-        <translation type="unfinished">&amp;Генерировать новый ключ</translation>
+        <translation>&amp;Создать новый ключ</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Extensions</source>
-        <translation type="unfinished">Дополнительные данные</translation>
+        <translation>Расширения</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -1586,8 +1586,8 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
     <message>
         <location line="+10"/>
         <source>Copy the Subject Key Identifier from the issuer</source>
-        <translatorcomment>Дополнение Subject Key Identifier (идентификатор ключа субъекта) используется для того, чтобы различать ключи подписи в сертификатах одного и того же владельца</translatorcomment>
-        <translation type="unfinished">Копировать идентификатор ключа субъекта из издателя</translation>
+        <translatorcomment>Идентификатор ключа владельца используется для того, чтобы различать ключи подписи в сертификатах одного и того же владельца</translatorcomment>
+        <translation type="unfinished">Копировать идентификатор ключа владельца из издателя</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1603,12 +1603,12 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     <message>
         <location line="+6"/>
         <source>Not before</source>
-        <translation type="unfinished">C</translation>
+        <translation>Не раньше,чем</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Not after</source>
-        <translation type="unfinished">По</translation>
+        <translation>Не позже, чем</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -1618,12 +1618,12 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     <message>
         <location line="+10"/>
         <source>Days</source>
-        <translation type="unfinished">Дни</translation>
+        <translation>Дни</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Months</source>
-        <translation>Месяца</translation>
+        <translation>Месяцы</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1638,7 +1638,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     <message>
         <location line="+3"/>
         <source>Midnight</source>
-        <translation type="unfinished">Полночь</translation>
+        <translation>Полночь</translation>
     </message>
     <message>
         <location line="+56"/>
@@ -1699,7 +1699,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location line="+17"/>
         <source>subject alternative name</source>
-        <translation type="unfinished"></translation>
+        <translation>альтернативное имя владельца</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1713,12 +1713,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <location line="+13"/>
         <location line="+20"/>
         <source>Key usage</source>
-        <translation type="unfinished">Использовать ключ</translation>
+        <translation type="unfinished">Использовать ключ для </translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Extended key usage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дополнительно использовать ключ для</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -1748,7 +1748,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location line="+77"/>
         <source>Create Certificate signing request</source>
-        <translation>Создать запрос на подпись сертификата</translation>
+        <translation>Создание запроса на сертификат</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -1758,7 +1758,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location line="+10"/>
         <source>Create x509 Certificate</source>
-        <translation>Создать x509 сертификат</translation>
+        <translation>Издание x509 сертификата</translation>
     </message>
     <message>
         <location line="+616"/>
@@ -1771,7 +1771,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <location line="+25"/>
         <location line="+24"/>
         <source>Abort rollout</source>
-        <translation type="unfinished">Прервать выгрузку</translation>
+        <translation type="unfinished">Прервать</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1790,7 +1790,7 @@ Please set at least the internal name.</source>
         <location line="+25"/>
         <location line="+24"/>
         <source>Continue rollout</source>
-        <translation type="unfinished">Продолжить выгрузку</translation>
+        <translation type="unfinished">Продолжить</translation>
     </message>
     <message>
         <location line="-76"/>
@@ -1800,7 +1800,7 @@ Please set at least the internal name.</source>
     <message>
         <location filename="../ui/NewX509.ui" line="-1355"/>
         <source>Modify subject of the request</source>
-        <translation type="unfinished">Изменить субъект в запросе</translation>
+        <translation type="unfinished">Изменить владельца в запросе</translation>
     </message>
     <message>
         <location line="+677"/>
@@ -1860,7 +1860,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+3"/>
         <source>Edit subject</source>
-        <translation type="unfinished">Изменить Субъект</translation>
+        <translation type="unfinished">Изменить владельца</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -1888,32 +1888,32 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+27"/>
         <source>Edit extensions</source>
-        <translation type="unfinished">Изменить дополнительные данные</translation>
+        <translation type="unfinished">Изменить расширения</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="-488"/>
         <source>Organisation</source>
-        <translation type="unfinished">Организация</translation>
+        <translation type="unfinished">Организация (O)</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Country code</source>
-        <translation>Код страны</translation>
+        <translation>Код страны (C)</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>State or Province</source>
-        <translation type="unfinished">Штат или Область</translation>
+        <translation>Республика, край, область (ST)</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Locality</source>
-        <translation type="unfinished">Местонахождение</translation>
+        <translation>Город, поселок, село</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Organisational unit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Департамент, отдел (OU)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1923,7 +1923,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+29"/>
         <source>Common name</source>
-        <translation type="unfinished">Общее имя</translation>
+        <translation>Общее имя (CN)</translation>
     </message>
     <message>
         <location line="-185"/>
@@ -1933,7 +1933,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+7"/>
         <source>Apply subject</source>
-        <translation type="unfinished">Применить субъект</translation>
+        <translation type="unfinished">Применить владельца</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -2023,7 +2023,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+20"/>
         <source>OK</source>
-        <translation type="unfinished">ОК</translation>
+        <translation>ОК</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="+37"/>
@@ -2043,7 +2043,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+13"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Загрузить</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="-2"/>
@@ -2058,12 +2058,12 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+2"/>
         <source>All strings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Все строки</translation>
     </message>
     <message>
         <location filename="../ui/Options.ui" line="-156"/>
         <source>XCA Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Опции XCA</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="+72"/>
@@ -2142,32 +2142,32 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../lib/load_obj.cpp" line="+53"/>
         <source>Import RSA key</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт RSA ключа</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Import Request</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт запроса</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Import X.509 Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт X.509 сертификата</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Import PKCS#7 Certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт сертификата PKCS#7</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Import PKCS#12 Private Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт закрытого сертификата PKCS#12</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Import XCA Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт XCA шаблонов</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -2177,12 +2177,12 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+13"/>
         <source>Open XCA Database</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть базу данных XCA</translation>
     </message>
     <message>
         <location line="-95"/>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKI ключи ( *.pem *.der *.key );;PKCS#8 ключи ( *.p8 *.pk8 );;</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -2192,7 +2192,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+14"/>
         <source>Certificates ( *.pem *.der *.crt *.cer );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Сертификаты ( *.pem *.der *.crt *.cer );;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -2207,7 +2207,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+14"/>
         <source>XCA templates ( *.xca );;</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA шаблоны ( *.xca );;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -2217,12 +2217,12 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+13"/>
         <source>XCA Databases ( *.xdb );;</source>
-        <translation type="unfinished"></translation>
+        <translation>Базы данных XCA ( *.xdb );;</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>PEM files ( *.pem );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM файлы ( *.pem );;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2237,7 +2237,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../lib/load_obj.cpp" line="-149"/>
         <source>All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>Все файлы ( * )</translation>
     </message>
     <message>
         <location filename="../lib/asn1time.cpp" line="+84"/>
@@ -2408,7 +2408,7 @@ You must set it manually.</source>
     <message>
         <location line="+32"/>
         <source>&amp;Subject</source>
-        <translation type="unfinished">&amp;Субъект</translation>
+        <translation type="unfinished">&amp;Владелец</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -2505,7 +2505,7 @@ You must set it manually.</source>
     <message>
         <location filename="../lib/db_crl.cpp" line="+20"/>
         <source>Name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2515,7 +2515,7 @@ You must set it manually.</source>
     <message>
         <location line="+0"/>
         <source>Common name</source>
-        <translation type="unfinished">Общее имя</translation>
+        <translation>Общее имя</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2530,7 +2530,7 @@ You must set it manually.</source>
     <message>
         <location line="+109"/>
         <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2540,17 +2540,17 @@ You must set it manually.</source>
     <message>
         <location line="+95"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Переименовать</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Экспорт</translation>
+        <translation>Экспорт</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2585,37 +2585,37 @@ and so it was not imported</source>
     <message>
         <location line="+95"/>
         <source>New Key</source>
-        <translation type="unfinished">Новый ключ</translation>
+        <translation>Новый ключ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Переименовать</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Посмотреть детали</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Export</source>
-        <translation type="unfinished">Экспорт</translation>
+        <translation>Экспорт</translation>
     </message>
     <message>
         <location line="-1"/>
         <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Change password</source>
-        <translation type="unfinished"></translation>
+        <translation>Сменить пароль</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2631,7 +2631,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+54"/>
         <source>Change PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Сменить PIN</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2641,7 +2641,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+2"/>
         <source>Change SO PIN (PUK)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сменить SO PIN (PUK)</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2671,7 +2671,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="-354"/>
         <source>Delete the key &apos;%1&apos; ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить ключ &apos;%1&apos; ?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2703,77 +2703,77 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_temp.cpp" line="+116"/>
         <source>Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ничего</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Preset Template values</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предустановленные значения шаблона</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>copy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">копировать</translation>
     </message>
     <message>
         <location line="+32"/>
         <source>Save template as</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить шаблон как</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>New Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый шаблон</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Переименовать</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Экспорт</translation>
+        <translation>Экспорт</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Изменение</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дублировать</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Create certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать сертификат</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Create request</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать запрос</translation>
     </message>
     <message>
         <location line="-52"/>
         <source>XCA templates ( *.xca);; All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA шаблоны ( *.xca);; Всеl файлы ( * )</translation>
     </message>
     <message>
         <location line="-169"/>
         <source>Delete the template &apos;%1&apos; ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить шаблон &apos;%1&apos; ?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2783,7 +2783,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+27"/>
         <source>Bad template: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неправильный шаблон: %1</translation>
     </message>
 </context>
 <context>
@@ -2791,12 +2791,12 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location filename="../lib/db_x509.cpp" line="-875"/>
         <source>Internal name</source>
-        <translation type="unfinished">Внутреннее имя</translation>
+        <translation>Внутреннее имя</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Common name</source>
-        <translation type="unfinished">Общее имя</translation>
+        <translation>Общее имя</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2806,7 +2806,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+1"/>
         <source>not After</source>
-        <translation type="unfinished"></translation>
+        <translation>Не позже, чем</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2821,12 +2821,12 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+100"/>
         <source>Plain View</source>
-        <translation type="unfinished">Простой Вид</translation>
+        <translation>Список</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Tree View</source>
-        <translation type="unfinished"></translation>
+        <translation>Дерево</translation>
     </message>
     <message>
         <location line="+333"/>
@@ -2851,42 +2851,42 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+99"/>
         <source>New Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый сертификат</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import PKCS#12</source>
-        <translation type="unfinished"></translation>
+        <translation>Ипорт PKCS#12</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import from PKCS#7</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт из PKCS#7</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Переименовать</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Посмотреть детали</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Экспорт</translation>
+        <translation>Экспорт</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2896,12 +2896,12 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+8"/>
         <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Trust</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Доверие</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2911,17 +2911,17 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+1"/>
         <source>Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Свойства</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generate CRL</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать CRL</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PKCS#7</source>
-        <translation type="unfinished">PKCS#7</translation>
+        <translation>PKCS#7</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2936,17 +2936,17 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+3"/>
         <source>Renewal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обновить</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Unrevoke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вернуть</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Revoke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отозвать</translation>
     </message>
     <message>
         <location line="+470"/>
@@ -2956,12 +2956,12 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="-498"/>
         <source>Security token</source>
-        <translation type="unfinished"></translation>
+        <translation>Токен</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Template</source>
-        <translation type="unfinished">Шаблон</translation>
+        <translation>Шаблон</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2971,7 +2971,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="-587"/>
         <source>Delete the certificate &apos;%1&apos; ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить сертификат &apos;%1&apos; ?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3017,32 +3017,32 @@ and so it was not imported</source>
     <message>
         <location filename="../lib/db_x509req.cpp" line="+130"/>
         <source>Certificate request ( *.pem *.der *.crl )</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запросы на сертификат ( *.pem *.der *.crl )</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Certificate request export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экспорт запроса на сертификат</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>New Request</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый запрос</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Переименовать</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Посмотреть детали</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3052,22 +3052,22 @@ and so it was not imported</source>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Экспорт</translation>
+        <translation>Экспорт</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location line="-161"/>
         <source>Name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Subject</source>
-        <translation type="unfinished">Субъект</translation>
+        <translation>Владелец</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3077,12 +3077,12 @@ and so it was not imported</source>
     <message>
         <location line="+159"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Template</source>
-        <translation type="unfinished">Шаблон</translation>
+        <translation>Шаблон</translation>
     </message>
     <message>
         <location line="-158"/>
@@ -3099,7 +3099,7 @@ and thus was not stored</source>
     <message>
         <location line="-20"/>
         <source>Delete the request &apos;%1&apos; ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить запрос &apos;%1&apos; ?</translation>
     </message>
 </context>
 <context>
@@ -3107,7 +3107,7 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/db_x509super.cpp" line="+79"/>
         <source>The following extensions were not ported into the template</source>
-        <translation type="unfinished">Следующие дополнительные сведения не были перенесены в шаблон</translation>
+        <translation>Следующие расширения не были перенесены в шаблон</translation>
     </message>
 </context>
 <context>
@@ -3443,7 +3443,7 @@ and thus was not stored</source>
     <message>
         <location line="-404"/>
         <source>the certificate</source>
-        <translation type="unfinished">сертификат</translation>
+        <translation>сертификат</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -3453,7 +3453,7 @@ and thus was not stored</source>
     <message>
         <location line="+172"/>
         <source>This certificate is already on the security token</source>
-        <translation type="unfinished">Этот сертификат уже есть на Токене безопасности</translation>
+        <translation>Этот сертификат уже есть на Токене</translation>
     </message>
     <message>
         <location line="+495"/>
@@ -3463,7 +3463,7 @@ and thus was not stored</source>
     <message>
         <location line="-435"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
-        <translation type="unfinished">Удалить сертификат &apos;%1&apos; из Токена безопасности &apos;%2 (#%3)&apos; ?</translation>
+        <translation type="unfinished">Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
         <location line="+170"/>
