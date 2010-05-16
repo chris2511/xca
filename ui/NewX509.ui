@@ -71,7 +71,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>5</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_0">
       <attribute name="title">
@@ -666,82 +666,68 @@ If this list is disabled, you only can create a self-signed certificate.</string
            <property name="title">
             <string notr="true">Basic constrains</string>
            </property>
-           <layout class="QVBoxLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="margin">
-             <number>8</number>
-            </property>
-            <item>
-             <layout class="QHBoxLayout" name="_9">
-              <item>
-               <widget class="QLabel" name="TextLabel2_2_3">
-                <property name="text">
-                 <string>Type</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="basicCA">
-                <property name="toolTip">
-                 <string>If this will become a CA certificate or not</string>
-                </property>
-                <property name="whatsThis">
-                 <string>Set this to TRUE if you want to create a CA certificate that signs other certificates.
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="TextLabel2_2_3">
+              <property name="text">
+               <string>Type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="basicCA">
+              <property name="toolTip">
+               <string>If this will become a CA certificate or not</string>
+              </property>
+              <property name="whatsThis">
+               <string>Set this to TRUE if you want to create a CA certificate that signs other certificates.
 This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
 Self-signed non-CA certificates are unusual although they are possible.</string>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Not defined</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Certification Authority</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>End Entity</string>
-                 </property>
-                </item>
-               </widget>
+              </property>
+              <item>
+               <property name="text">
+                <string>Not defined</string>
+               </property>
               </item>
-             </layout>
+              <item>
+               <property name="text">
+                <string>Certification Authority</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>End Entity</string>
+               </property>
+              </item>
+             </widget>
             </item>
-            <item>
-             <layout class="QHBoxLayout" name="_7">
-              <item>
-               <widget class="QLabel" name="TextLabel3_2_2">
-                <property name="text">
-                 <string>Path length</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="basicPath">
-                <property name="toolTip">
-                 <string>How much CAs may be below this.</string>
-                </property>
-                <property name="whatsThis">
-                 <string>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
+            <item row="1" column="0">
+             <widget class="QLabel" name="TextLabel3_2_2">
+              <property name="text">
+               <string>Path length</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="basicPath">
+              <property name="toolTip">
+               <string>How much CAs may be below this.</string>
+              </property>
+              <property name="whatsThis">
+               <string>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
 A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="bcCritical">
-                <property name="toolTip">
-                 <string>The basic constraints should always be critical</string>
-                </property>
-                <property name="text">
-                 <string notr="true">&amp;Critical</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QCheckBox" name="bcCritical">
+              <property name="toolTip">
+               <string>The basic constraints should always be critical</string>
+              </property>
+              <property name="text">
+               <string notr="true">&amp;Critical</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
