@@ -669,18 +669,13 @@ PKCS#8 - это официальный с возможностью шифров�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+101"/>
-        <location line="+135"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+105"/>
+        <location line="+120"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>Rename &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+105"/>
+        <location line="+49"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -705,7 +700,7 @@ PKCS#8 - это официальный с возможностью шифров�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-232"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-217"/>
         <source>
 Name: %1
 Model: %2
@@ -1460,12 +1455,12 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+569"/>
+        <location line="+555"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-484"/>
         <location filename="../widgets/NewX509.cpp" line="+203"/>
         <source>Subject</source>
         <translation>Владелец</translation>
@@ -1521,7 +1516,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation>Расширения</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+14"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
@@ -1553,7 +1548,7 @@ Self-signed non-CA certificates are unusual although they are possible.</source>
         <translation type="unfinished">Конечный объект</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+8"/>
         <source>Path length</source>
         <translation type="unfinished">Длинна пути</translation>
     </message>
@@ -1574,7 +1569,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+25"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1793,12 +1788,12 @@ Please set at least the internal name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1355"/>
+        <location filename="../ui/NewX509.ui" line="-1341"/>
         <source>Modify subject of the request</source>
         <translation type="unfinished">Изменить владельца в запросе</translation>
     </message>
     <message>
-        <location line="+677"/>
+        <location line="+663"/>
         <location line="+20"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation type="unfinished">yyyy-MM-dd hh:mm</translation>
@@ -1886,7 +1881,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Изменить расширения</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-488"/>
+        <location filename="../ui/NewX509.ui" line="-474"/>
         <source>Organisation</source>
         <translation type="unfinished">Организация (O)</translation>
     </message>

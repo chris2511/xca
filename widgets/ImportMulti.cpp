@@ -23,6 +23,7 @@
 #include <qmessagebox.h>
 #include <qlabel.h>
 #include <qinputdialog.h>
+#include "lib/db_token.h"
 
 ImportMulti::ImportMulti(MainWindow *parent)
 	:QDialog(parent)
@@ -32,7 +33,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::certImg);
 	listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	mcont = new db_base("/dev/null", parent);
+	mcont = new db_token("/dev/null", parent);
 	listView->setModel(mcont);
 	listView->setIconSize(pki_evp::icon[0]->size());
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -47,9 +48,12 @@ ImportMulti::ImportMulti(MainWindow *parent)
 void ImportMulti::tokenInfo(unsigned long s)
 {
 	slot = s;
+	mcont->setSlot(slot);
 	deleteToken->show();
 	renameToken->show();
 	slotInfo->show();
+	listView->setEditTriggers(QAbstractItemView::EditKeyPressed);
+
 	pkcs11 p11;
 
 	QString info = p11.driverInfo();
@@ -167,27 +171,12 @@ void ImportMulti::on_renameToken_clicked()
 	QModelIndexList indexes = selectionModel->selectedIndexes();
 	QModelIndex index;
 	QString items;
-	bool ok;
 
         foreach(index, indexes) {
                 if (index.column() != 0)
                         continue;
-                pki_base *pki = static_cast<pki_base*>(index.internalPointer());
-                try {
-			QString label = QInputDialog::getText(this, XCA_TITLE,
-				/* %1 resolves to "the certificate" or
-				   "the Smart card RSA private key" */
-				tr("Rename '%1'").
-				arg(pki->getIntName()), QLineEdit::Normal,
-				pki->getIntName(), &ok);
-			if (!ok)
-				continue;
-			if (pki->renameOnToken(slot, label))
-				pki->setIntName(label);
-			listView->update();
-		} catch (errorEx &err) {
-			mainwin->Error(err);
-		}
+		listView->edit(index);
+		break;
 	}
 }
 

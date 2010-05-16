@@ -667,18 +667,13 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Entfe&amp;rnen</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+101"/>
-        <location line="+135"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+105"/>
+        <location line="+120"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>Rename &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+105"/>
+        <location line="+49"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Details von &apos;%1&apos; können nicht angezeigt werden</translation>
     </message>
@@ -703,7 +698,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Auf der Chipkarte umbenennen</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-232"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-217"/>
         <source>
 Name: %1
 Model: %2
@@ -1497,12 +1492,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation type="unfinished">Diese Liste enthält alle Vorlagen</translation>
     </message>
     <message>
-        <location line="+569"/>
+        <location line="+555"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-484"/>
         <location filename="../widgets/NewX509.cpp" line="+203"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
@@ -1558,7 +1553,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Erweiterungen</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+14"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
@@ -1590,7 +1585,7 @@ Self-signed non-CA certificates are unusual although they are possible.</source>
         <translation>End Instanz</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+8"/>
         <source>Path length</source>
         <translation>Pfadlänge</translation>
     </message>
@@ -1611,7 +1606,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
         <translation>Die &quot;basic constraints&quot; sollten immer &quot;critical&quot; sein</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+25"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>Erstellt eine hashsumme nach PKIX Vorgaben</translation>
     </message>
@@ -1830,12 +1825,12 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1355"/>
+        <location filename="../ui/NewX509.ui" line="-1341"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
     <message>
-        <location line="+677"/>
+        <location line="+663"/>
         <location line="+20"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>dd.MM.yyyy hh:mm</translation>
@@ -1924,7 +1919,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-564"/>
+        <location filename="../ui/NewX509.ui" line="-550"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>

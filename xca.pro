@@ -32,6 +32,7 @@ HEADERS += local.h \
            lib/db_x509.h \
            lib/db_x509req.h \
            lib/db_x509super.h \
+           lib/db_token.h \
            lib/exception.h \
            lib/func.h \
            lib/load_obj.h \
@@ -106,6 +107,7 @@ SOURCES += lib/asn1int.cpp \
            lib/db_x509.cpp \
            lib/db_x509req.cpp \
            lib/db_x509super.cpp \
+           lib/db_token.cpp \
            lib/func.cpp \
            lib/import.cpp \
            lib/load_obj.cpp \

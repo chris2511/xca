@@ -9,7 +9,7 @@
 #define __IMPORTMULTI_H
 
 #include "ui_ImportMulti.h"
-#include "lib/db_base.h"
+#include "lib/db_token.h"
 #include <qlist.h>
 
 class pki_x509;
@@ -21,7 +21,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 
 	private:
 		unsigned long slot;
-		db_base *mcont;
+		db_token *mcont;
 		MainWindow *mainwin;
 	public:
 		ImportMulti(MainWindow *parent);

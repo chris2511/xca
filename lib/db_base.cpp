@@ -180,7 +180,7 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 	QModelIndex index;
 	QString items, msg;
 	int count = 0;
-	pki_base *pki;
+	pki_base *pki = NULL;
 
 	if (indexes.count() == 0)
 		return;
