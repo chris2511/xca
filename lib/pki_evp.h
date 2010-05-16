@@ -21,6 +21,7 @@
 
 class pki_evp: public pki_key
 {
+		Q_OBJECT
 	protected:
 		QByteArray encKey;
 		void init(int type = EVP_PKEY_RSA);

@@ -99,11 +99,36 @@ QString pki_key::getTypeString()
 	return type;
 }
 
-QString pki_key::getFriendlyClassName()
+QString pki_key::getMsg(msg_type msg)
 {
-	/* used in sentences like: "Successfully created %1 '%2'" */
-	QString txt = isPubKey() ? tr("the %1 public key") : tr("the %1 private key");
-	return txt.arg(getTypeString());
+	/*
+	 * We do not construct english sentences (just a little bit)
+	 * from fragments to allow proper translations.
+	 * The drawback are all the slightly different duplicated messages
+	 *
+	 * %1 will be replaced by "RSA", "DSA", "EC"
+	 * %2 is the internal name of the key
+	 */
+	QString ktype = getTypeString();
+	if (isPubKey()) {
+		switch (msg) {
+		case msg_import: return tr("Successfully imported the %1 public key '%2'").arg(ktype);
+		case msg_delete: return tr("Delete the %1 public key '%2'?").arg(ktype);
+		default: break;
+		}
+	} else {
+		switch (msg) {
+		case msg_import: return tr("Successfully imported the %1 private key '%2'").arg(ktype);
+		case msg_delete: return tr("Delete the %1 private key '%2'?").arg(ktype);
+		case msg_create: return tr("Successfully created the %1 private key '%2'").arg(ktype);
+		default: break;
+		}
+	}
+	if (msg == msg_delete_multi) {
+		/* %1: Number of keys; %2: list of keynames */
+		return tr("Delete the %1 keys: %2?");
+	}
+	return pki_base::getMsg(msg);
 }
 
 QString pki_key::getIntNameWithType()

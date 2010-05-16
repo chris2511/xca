@@ -20,6 +20,7 @@ class pki_x509;
 
 class pki_x509req : public pki_x509super
 {
+		Q_OBJECT
 	private:
 		//loading spkac file and convert it to a request
 		int load_spkac(const QString filename);
@@ -70,7 +71,7 @@ class pki_x509req : public pki_x509super
 		{
 			return done;
 		}
-		virtual QString getFriendlyClassName();
+		virtual QString getMsg(msg_type msg);
 		void d2i(QByteArray &ba);
 		void d2i_spki(QByteArray &ba);
 		QByteArray i2d();

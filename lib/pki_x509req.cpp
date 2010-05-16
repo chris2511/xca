@@ -75,10 +75,27 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	EVP_PKEY_free(privkey);
 }
 
-QString pki_x509req::getFriendlyClassName()
+QString pki_x509req::getMsg(msg_type msg)
 {
-	/* used in sentences like: "Successfully created %1 '%2'" */
-	return isSpki() ? tr("the SPKAC request") : tr("the PKCS#10 request");
+	/*
+	 * We do not construct english sentences from fragments
+	 * to allow proper translations.
+	 * The drawback are all the slightly different duplicated messages
+	 *
+	 * %1 will be replaced by either "SPKAC" or "PKCS#10"
+	 * %2 will be replaced by the internal name of the request
+	 */
+
+	QString type = isSpki() ? "SPKAC" : "PKCS#10";
+
+	switch (msg) {
+	case msg_import: return tr("Successfully imported the %1 certificate request '%2'").arg(type);
+	case msg_delete: return tr("Delete the %1 certificate request '%2'?").arg(type);
+	case msg_create: return tr("Successfully created the %1 certificate request '%2'").arg(type);
+	/* %1: Number of requests; %2: list of request names */
+	case msg_delete_multi: return tr("Delete the %1 certificate requests: %2?");
+	}
+	return pki_base::getMsg(msg);
 }
 
 void pki_x509req::fromPEM_BIO(BIO *bio, QString name)

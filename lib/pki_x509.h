@@ -23,6 +23,7 @@
 
 class pki_x509 : public pki_x509super
 {
+		Q_OBJECT
 	private:
 		pki_x509 *psigner;
 		a1time revoked, crlExpiry;
@@ -140,7 +141,7 @@ class pki_x509 : public pki_x509super
 		void d2i(QByteArray &ba);
 		void deleteFromToken();
 		void deleteFromToken(unsigned long slot);
-		virtual QString getFriendlyClassName();
+		virtual QString getMsg(msg_type msg);
 		virtual int renameOnToken(unsigned long slot, QString name);
 };
 

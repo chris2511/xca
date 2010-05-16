@@ -45,11 +45,8 @@ void db_base::createSuccess(pki_base *pki)
 		return;
 
 	QMessageBox::information(mainwin, XCA_TITLE,
-		/* %1 resolves to "the certificate" or
-		   "the Smart card RSA private key" */
-		tr("Successfully created %1 '%2'").
-		arg(pki->getFriendlyClassName()).
-		arg(pki->getIntName()));
+		pki->getMsg(pki_base::msg_create).
+			arg(pki->getIntName()));
 }
 
 void db_base::remFromCont(QModelIndex &idx)
@@ -137,7 +134,8 @@ void db_base::delete_ask()
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 
 	if (QMessageBox::question(mainwin, XCA_TITLE,
-				delete_txt.arg(pki->getIntName()),
+				pki->getMsg(pki_base::msg_delete)
+					.arg(pki->getIntName()),
 				QMessageBox::Ok | QMessageBox::Cancel) !=
 				QMessageBox::Ok)
 		 return;
@@ -180,8 +178,9 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 {
 	QModelIndexList indexes = view->getSelectedIndexes();
 	QModelIndex index;
-	QString items, single, msg;
+	QString items, msg;
 	int count = 0;
+	pki_base *pki;
 
 	if (indexes.count() == 0)
 		return;
@@ -189,15 +188,15 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 	foreach(index, indexes) {
 		if (index.column() != 0)
 			continue;
-		pki_base *pki = static_cast<pki_base*>(index.internalPointer());
+		pki = static_cast<pki_base*>(index.internalPointer());
 		items += "'" + pki->getIntName() + "' ";
-		single = pki->getIntName();
 		count++;
 	}
 	if (count == 1)
-		msg = delete_txt.arg(single);
+		msg = pki->getMsg(pki_base::msg_delete).arg(pki->getIntName());
 	else
-		msg = delete_multi_txt.arg(count).arg(items);
+		msg = pki->getMsg(pki_base::msg_delete_multi).arg(count).
+				arg(items);
 
 	if (QMessageBox::question(mainwin, XCA_TITLE, msg,
 				QMessageBox::Ok | QMessageBox::Cancel) !=

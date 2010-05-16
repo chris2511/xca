@@ -111,6 +111,7 @@ SOURCES += lib/asn1int.cpp \
            lib/load_obj.cpp \
            lib/main.cpp \
            lib/oid.cpp \
+           lib/pass_info.cpp \
            lib/pki_base.cpp \
            lib/pki_crl.cpp \
            lib/pki_key.cpp \

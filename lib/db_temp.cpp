@@ -20,9 +20,7 @@
 db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_base(DBfile, mw)
 {
-	headertext << "Name" << "Type";
-	delete_txt = tr("Delete the template '%1' ?");
-	delete_multi_txt = tr("Delete the %1 templates: %2 ?");
+	headertext << tr("Name") << tr("Type");
 	view = mw->tempView;
 	class_name = "templates";
 	pkitype[0] = tmpl;

@@ -28,11 +28,9 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
 	rootItem->setIntName("[x509 root]");
-	headertext << tr("Internal name") << tr("Common name") << tr("Serial") <<
-			tr("not After") << tr("Trust state") << tr("Revocation");
+	headertext << tr("Internal name") << tr("Common name") << tr("Serial")
+		   << tr("Expiry date") << tr("Trust state") << tr("Revocation");
 
-	delete_txt = tr("Delete the certificate '%1' ?");
-	delete_multi_txt =tr("Delete the %1 certificates: %2 ?");
 	view = mw->certView;
 	class_name = "certificates";
 	pkitype[0] = x509;
@@ -754,7 +752,7 @@ void db_x509::store()
 			}
 			if (privkey->isToken()) {
 				QMessageBox::warning(mainwin, XCA_TITLE,
-					tr("Not possible for smart card key: '%1'").
+					tr("Not possible for a token key: '%1'").
 					arg(crt->getIntName()));
                                 return;
                         }

@@ -17,6 +17,7 @@
 
 class pki_scard: public pki_key
 {
+		Q_OBJECT
 	protected:
 		QString card_serial;
 		QString card_manufacturer;
@@ -86,7 +87,7 @@ class pki_scard: public pki_key
 		void deleteFromToken(unsigned long slot);
 		void store_token(unsigned int slot, EVP_PKEY *pkey);
 		virtual int renameOnToken(unsigned long slot, QString name);
-
+		virtual QString getMsg(msg_type msg);
 };
 
 #endif

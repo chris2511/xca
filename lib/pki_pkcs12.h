@@ -19,6 +19,7 @@
 
 class pki_pkcs12: public pki_base
 {
+		Q_OBJECT
 	friend class pki_x509;
 	    friend class pki_evp;
 

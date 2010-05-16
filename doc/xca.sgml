@@ -11,7 +11,7 @@
 
 <abstract>
 
-This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys, Smart cards and CRLs.
+This application is intended for creating and managing X.509 certificates, certificate requests, RSA, DSA and EC private keys, Smartcards and CRLs.
 Everything that is needed for a CA is implemented.
 All CAs can sign sub-CAs recursively. These certificate chains are shown clearly.
 For an easy company-wide use there are customiseable templates that can be used for certificate or request generation.
@@ -494,13 +494,13 @@ noticeNumbers=1,2,3,4
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Smart cards (Security tokens)
+<sect>Smartcards (Security tokens)
 
 <p>
 
-Since XCA 0.8.0 the use of Smart cards (Security tokens) is supported.
+Since XCA 0.8.0 the use of Smartcards (Security tokens) is supported.
 It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
-This is not restricted to Smart cards but includes all type of security tokens like USB tokens.
+This is not restricted to Smartcards but includes all type of security tokens like USB tokens.
 The default is <tt>/usr/lib/opensc-pkcs11.so</tt> and <tt>opensc-pkcs11.dll</tt> in the XCA installation path, depending on your OS.
 
 <p>
@@ -527,7 +527,7 @@ It is of course possible to create your own keys on the token.
 When selecting a token-key for signing, XCA verifies that the
 corresponding token is available.
 
-The following actions with smart cards are supported:
+The following actions with smartcards are supported:
 
 <itemize>
 	<item>Import keys and certificates from the token.
@@ -576,7 +576,7 @@ a missing public-key object is the cause.
 
 A new menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and initialized.
 
-<sect2>Managing Smart cards
+<sect2>Managing Smartcards
 
 <p>
 

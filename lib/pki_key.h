@@ -20,6 +20,7 @@
 
 class pki_key: public pki_base
 {
+		Q_OBJECT
 	protected:
 		int ownPass;
 		EVP_PKEY *key;
@@ -57,7 +58,7 @@ class pki_key: public pki_base
 		{
 			return QList<int>();
 		}
-		virtual QString getFriendlyClassName();
+		virtual QString getMsg(msg_type msg);
 		virtual QString length();
 
 		void writePublic(const QString fname, bool pem);

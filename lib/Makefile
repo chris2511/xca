@@ -3,11 +3,12 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
-MOCNAMES=db_crl db_key db_temp db_x509 db_x509req db_x509super db_base pki_base
-NAMES=$(MOCNAMES) asn1int oid pki_pkcs7 x509rev asn1time \
-	pki_temp x509v3ext pki_x509 func pki_crl pki_x509req \
-	load_obj pki_key pki_x509super main pki_pkcs12 x509name db import \
-	pki_multi pki_evp pki_scard pk11_attribute pkcs11
+MOCNAMES=db_crl db_key db_temp db_x509 db_x509req db_x509super db_base pki_base \
+	pki_temp pki_x509 pki_crl pki_x509req pki_key pki_x509super pki_pkcs12 \
+	pki_multi pki_evp pki_scard pass_info pki_pkcs7
+NAMES=$(MOCNAMES) asn1int oid x509rev asn1time \
+	x509v3ext func load_obj main x509name db import \
+	pk11_attribute pkcs11
 
 
 OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))

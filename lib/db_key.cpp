@@ -32,9 +32,8 @@ db_key::db_key(QString db, MainWindow *mw)
 	:db_base(db, mw)
 {
 	rootItem->setIntName("[key root]");
-	headertext << "Name" << "Type" << "Size" << "Use" << "Password";
-	delete_txt = tr("Delete the key '%1' ?");
-	delete_multi_txt = tr("Delete the %1 keys: %2 ?");
+	headertext << tr("Name") << tr("Type") << tr("Size")
+		   << tr("Use") << tr("Password");
 	view = mw->keyView;
 	class_name = "keys";
 	pkitype[0] = asym_key;
@@ -341,7 +340,7 @@ void db_key::__setOwnPass(enum pki_key::passType x)
 		        return;
 	targetKey = static_cast<pki_evp*>(currentIdx.internalPointer());
 	if (targetKey->isToken()) {
-		throw errorEx(tr("Tried to change password of a smart card"));
+		throw errorEx(tr("Tried to change password of a token"));
 	}
 	targetKey->setOwnPass(x);
 	updatePKI(targetKey);

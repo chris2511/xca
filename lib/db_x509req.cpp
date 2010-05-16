@@ -19,8 +19,6 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
 	headertext << tr("Name") << tr("Subject") << tr("Signed");
-	delete_txt = tr("Delete the request '%1' ?");
-	delete_multi_txt = tr("Delete the %1 requests: %2 ?");
 	view = mw->reqView;
 	class_name = "requests";
 	pkitype[0] = x509_req;

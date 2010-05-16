@@ -18,6 +18,7 @@
 
 class pki_crl: public pki_base
 {
+		Q_OBJECT
 	friend class pki_x509;
 	protected:
 		pki_x509 *issuer;
@@ -57,7 +58,7 @@ class pki_crl: public pki_base
 		a1int getVersion();
 		QVariant column_data(int col);
 		QVariant getIcon(int column);
-		virtual QString getFriendlyClassName();
+		virtual QString getMsg(msg_type msg);
 		void d2i(QByteArray &ba);
 		QByteArray i2d();
 };

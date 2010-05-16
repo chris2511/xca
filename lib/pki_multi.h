@@ -17,6 +17,7 @@
 
 class pki_multi: public pki_base
 {
+		Q_OBJECT
 	protected:
 		QList<pki_base*> multi;
 	public:

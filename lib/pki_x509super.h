@@ -16,6 +16,7 @@
 
 class pki_x509super : public pki_base
 {
+		Q_OBJECT
 	protected:
 		pki_key *privkey;
 	public:

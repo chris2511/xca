@@ -16,6 +16,7 @@
 
 class pass_info: public QObject
 {
+		Q_OBJECT
    private:
 	QString title;
 	QString description;
@@ -24,16 +25,7 @@ class pass_info: public QObject
 	QPixmap *pixmap;
 
    public:
-	pass_info(QString t, QString d, QWidget *w = NULL)
-	{
-		title = t;
-		description = d;
-		widget = w;
-		if (!widget)
-			widget = qApp->activeWindow();
-		type = tr("Password");
-		pixmap = MainWindow::keyImg;
-	}
+	pass_info(QString t, QString d, QWidget *w = NULL);
 	QString getTitle()
 	{
 		return title;
@@ -66,11 +58,7 @@ class pass_info: public QObject
 	{
 		widget = w;
 	}
-	void setPin()
-	{
-		type = tr("PIN");
-		pixmap = MainWindow::scardImg;
-	}
+	void setPin();
 };
 
 #endif

@@ -177,8 +177,7 @@ void ImportMulti::on_renameToken_clicked()
 			QString label = QInputDialog::getText(this, XCA_TITLE,
 				/* %1 resolves to "the certificate" or
 				   "the Smart card RSA private key" */
-				tr("The new name of %1 '%2'").
-				arg(pki->getFriendlyClassName()).
+				tr("Rename '%1'").
 				arg(pki->getIntName()), QLineEdit::Normal,
 				pki->getIntName(), &ok);
 			if (!ok)
@@ -192,10 +191,28 @@ void ImportMulti::on_renameToken_clicked()
 	}
 }
 
+static db_base *select_db(QString cn)
+{
+	if (cn == "pki_x509")
+		return MainWindow::certs;
+	if (cn == "pki_evp")
+		return MainWindow::keys;
+	if (cn == "pki_scard")
+		return MainWindow::keys;
+	if (cn == "pki_x509req")
+		return MainWindow::reqs;
+	if (cn == "pki_crl")
+		return MainWindow::crls;
+	if (cn == "pki_temp")
+		return MainWindow::temps;
+	return NULL;
+}
+
 pki_base *ImportMulti::import(QModelIndex &idx)
 {
 
 	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
+	db_base *db;
 
 	if (!pki)
 		return NULL;
@@ -210,27 +227,18 @@ pki_base *ImportMulti::import(QModelIndex &idx)
 		return NULL;
 	}
 
-	if (cn == "pki_x509") {
-		pki = MainWindow::certs->insert(pki);
-	} else if (cn == "pki_evp") {
+	if (cn == "pki_evp")
 		((pki_evp*)pki)->setOwnPass(pki_evp::ptCommon);
-		pki = MainWindow::keys->insert(pki);
-	} else if (cn == "pki_scard") {
-		pki = MainWindow::keys->insert(pki);
-	} else if (cn == "pki_x509req") {
-		pki = MainWindow::reqs->insert(pki);
-	} else if (cn == "pki_crl") {
-		pki = MainWindow::crls->insert(pki);
-	} else if (cn == "pki_temp") {
-		pki = MainWindow::temps->insert(pki);
-	} else  {
+
+	db = select_db(cn);
+	if (!db) {
 		QMessageBox::warning(this, XCA_TITLE,
 			tr("The type of the Item '%1' is not recognized").
 			arg(cn));
 		delete pki;
 		return NULL;
 	}
-	return pki;
+	return db->insert(pki);
 }
 
 void ImportMulti::on_butDetails_clicked()
@@ -316,12 +324,11 @@ void ImportMulti::execute(int force)
 		pki_base *pki = import(idx);
 		if (pki)
 			QMessageBox::information(this, XCA_TITLE,
-				tr("Successfully imported the %1 '%2'").
-				arg(pki->getFriendlyClassName()).
+				pki->getMsg(pki_base::msg_import).
 				arg(pki->getIntName()));
 		accept();
 		return;
 	}
-	/* the behavoiour for more than one item */
+	/* the behaviour for more than one item */
 	exec();
 }

@@ -32,6 +32,12 @@ class pki_base : public QObject
 		void fopen_error(const QString fname);
 
 	public:
+		enum msg_type {
+			msg_import,
+			msg_delete,
+			msg_delete_multi,
+			msg_create,
+		};
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
 		virtual void fload(const QString) {};
@@ -53,9 +59,10 @@ class pki_base : public QObject
 		void setIntName(const QString &d);
 		QString getClassName();
 		static QString rmslashdot(const QString &fname);
-		virtual QString getFriendlyClassName()
+		virtual QString getMsg(msg_type msg)
 		{
-			return QString("---");
+			return tr("Internal error: Unexpected message: %1 %2").
+				arg(class_name).arg(msg);
 		};
 		int getVersion();
 		enum pki_type getType();

@@ -56,10 +56,23 @@ pki_x509::pki_x509(const QString name)
 	openssl_error();
 }
 
-QString pki_x509::getFriendlyClassName()
+QString pki_x509::getMsg(msg_type msg)
 {
-	/* used in sentences like: "Successfully created %1 '%2'" */
-	return tr("the certificate");
+	/*
+	 * We do not construct english sentences from fragments
+	 * to allow proper translations.
+	 * The drawback are all the slightly different duplicated messages
+	 *
+	 * %1 will be replaced by the internal name of the certificate
+	 */
+	switch (msg) {
+	case msg_import: return tr("Successfully imported the certificate '%1'");
+	case msg_delete: return tr("Delete the certificate '%1'?");
+	case msg_create: return tr("Successfully created the certificate '%1'");
+	/* %1: Number of certs; %2: list of cert ames */
+	case msg_delete_multi: return tr("Delete the %1 certificates: %2?");
+	}
+	return pki_base::getMsg(msg);
 }
 
 void pki_x509::fromPEM_BIO(BIO *bio, QString name)
@@ -326,7 +339,7 @@ void pki_x509::deleteFromToken(unsigned long slot)
 
 	tkInfo ti = p11.tokenInfo();
 	if (QMessageBox::question(NULL, XCA_TITLE,
-		tr("Delete the certificate '%1' from the token '%2 (#%3)' ?").
+		tr("Delete the certificate '%1' from the token '%2 (#%3)'?").
 		arg(getIntName()).arg(ti.label()).arg(ti.serial()),
 		QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
 	{

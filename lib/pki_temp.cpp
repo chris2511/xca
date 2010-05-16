@@ -90,10 +90,22 @@ pki_temp::pki_temp(const QString d)
 	noWellDefined=false;
 }
 
-QString pki_temp::getFriendlyClassName()
+QString pki_temp::getMsg(msg_type msg)
 {
-	/* used in sentences like: "Successfully created %1 '%2'" */
-	return tr("the XCA template");
+	/*
+	 * We do not construct english sentences from fragments
+	 * to allow proper translations.
+	 *
+	 * %1 will be replaced by the internal name of the template
+	 */
+	switch (msg) {
+	case msg_import: return tr("Successfully imported the XCA template '%1'");
+	case msg_delete: return tr("Delete the XCA template '%1'?");
+	case msg_create: return tr("Successfully created the XCA template '%1'");
+	/* %1: Number of ktemplates; %2: list of templatenames */
+	case msg_delete_multi: return tr("Delete the %1 XCA templates: %2?");
+	}
+	return pki_base::getMsg(msg);
 }
 
 static QStringList extVlistToString(extList &el, int nid, bool *crit)

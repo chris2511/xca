@@ -32,9 +32,9 @@ class db_base: public QAbstractItemModel
 	Q_OBJECT
 
 	protected:
-		QString dbName, delete_txt, delete_multi_txt;
+		QString dbName;
 		QModelIndex currentIdx;
-		void _writePKI(pki_base *pki, bool overwrite );
+		void _writePKI(pki_base *pki, bool overwrite);
 		void _removePKI(pki_base *pki );
 		void removeItem(QString k);
 		enum pki_type pkitype[4];

@@ -19,8 +19,6 @@ db_crl::db_crl(QString db, MainWindow *mw)
 {
 	headertext << tr("Name") << tr("Signer") << tr("Common name") <<
 		tr("No. revoked") << tr("Next update");
-	delete_txt = tr("Delete the revokation list '%1' ?");
-	delete_multi_txt = tr("Delete the %1 revokation lists: %2 ?");
 	view = mw->crlView;
 	class_name = "crls";
 	pkitype[0] = revokation;

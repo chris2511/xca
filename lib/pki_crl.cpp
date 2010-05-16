@@ -35,10 +35,22 @@ void pki_crl::fromPEM_BIO(BIO *bio, QString name)
 	setIntName(rmslashdot(name));
 }
 
-QString pki_crl::getFriendlyClassName()
+QString pki_crl::getMsg(msg_type msg)
 {
-	/* used in sentences like: "Successfully created %1 '%2'" */
-	return tr("the certificate revokation list");
+	/*
+	 * We do not construct english sentences from fragments
+	 * to allow proper translations.
+	 *
+	 * %1 will be replaced by the internal name of the CRL
+	 */
+	switch (msg) {
+	case msg_import: return tr("Successfully imported the revokation list '%1'");
+	case msg_delete: return tr("Delete the revokation list '%1'?");
+	case msg_create: return tr("Successfully created the revokation list '%1'");
+	/* %1: Number of CRLs; %2: list of CRL names */
+	case msg_delete_multi: return tr("Delete the %1 revokation lists: %2?");
+	}
+	return pki_base::getMsg(msg);
 }
 
 void pki_crl::fload(const QString fname)

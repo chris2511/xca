@@ -137,6 +137,24 @@ pki_scard::pki_scard(const QString name)
 	init();
 }
 
+QString pki_scard::getMsg(msg_type msg)
+{
+	/*
+	 * We do not construct english sentences from fragments
+	 * to allow proper translations.
+	 *
+	 * %1 will be replaced by the name of the smartcard
+	 */
+	switch (msg) {
+	case msg_import: return tr("Successfully imported the token key '%1'");
+	case msg_delete: return tr("Delete the token key '%1'?");
+	case msg_create: return tr("Successfully created the token key '%1'");
+	/* %1: Number of ktemplates; %2: list of templatenames */
+	case msg_delete_multi: return tr("Delete the %1 keys: %2?");
+	}
+	return pki_base::getMsg(msg);
+}
+
 EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 {
 	const unsigned char *p;
@@ -650,7 +668,7 @@ bool pki_scard::isPubKey() const
 
 QString pki_scard::getTypeString(void)
 {
-	return tr("Token") + " " + pki_key::getTypeString();
+	return tr("Token %1").arg(pki_key::getTypeString());
 }
 
 EVP_PKEY *pki_scard::decryptKey() const

@@ -12,6 +12,7 @@
 
 class pki_pkcs7: public pki_base
 {
+		Q_OBJECT
 	friend class pki_x509;
 	protected:
 		PKCS7 *p7;
