@@ -323,6 +323,8 @@ void MainWindow::read_cmdline()
 		cnt++;
 	}
 	dlgi->execute(1); /* force showing of import dialog */
+	if (dlgi->result() == QDialog::Rejected)
+		exitApp = 1;
 	delete dlgi;
 }
 

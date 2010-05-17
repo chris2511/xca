@@ -305,8 +305,10 @@ int ImportMulti::entries()
 void ImportMulti::execute(int force)
 {
 	/* if there is nothing to import don't pop up */
-	if (entries() == 0)
+	if (entries() == 0) {
+		accept();
 		return;
+	}
 	/* if there is only 1 item and force is 0 import it silently */
 	if (entries() == 1 && force == 0) {
 		QModelIndex idx = mcont->index(0, 0, QModelIndex());
