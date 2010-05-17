@@ -21,7 +21,7 @@ InstallDirRegKey HKLM SOFTWARE\xca "Install_Dir"
 
 !define MUI_FINISHPAGE_TEXT $(DESC_donation)
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
-!define MUI_FINISHPAGE_RUN xca.exe
+!define MUI_FINISHPAGE_RUN "$INSTDIR\xca.exe"
 
 ;-----------------------------------
 ; Pagelist
