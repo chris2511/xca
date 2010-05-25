@@ -828,7 +828,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+691"/>
+        <location filename="../widgets/MainWindow.cpp" line="+693"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -1161,12 +1161,12 @@ Seriennummer: %3</translation>
         <translation>Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-430"/>
+        <location filename="../widgets/MainWindow.cpp" line="-432"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
     </message>
     <message>
-        <location line="+504"/>
+        <location line="+506"/>
         <source>%1 missmatch</source>
         <translation>Keine %1 übereinstimmung</translation>
     </message>
@@ -1492,12 +1492,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation type="unfinished">Diese Liste enthält alle Vorlagen</translation>
     </message>
     <message>
-        <location line="+555"/>
+        <location line="+567"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-484"/>
+        <location line="-496"/>
         <location filename="../widgets/NewX509.cpp" line="+203"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
@@ -1518,7 +1518,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+52"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -1553,7 +1553,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Erweiterungen</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+8"/>
+        <source>Basic constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
@@ -1606,7 +1611,12 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
         <translation>Die &quot;basic constraints&quot; sollten immer &quot;critical&quot; sein</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+13"/>
+        <source>Key identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>Erstellt eine hashsumme nach PKIX Vorgaben</translation>
     </message>
@@ -1667,7 +1677,22 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation>Mitternacht</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+35"/>
+        <source>Authority Info Access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>CRL distribution point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>issuer alternative name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
@@ -1691,21 +1716,21 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+7"/>
         <location line="+7"/>
         <location line="+35"/>
-        <location line="+14"/>
+        <location line="+17"/>
         <location filename="../widgets/NewX509.cpp" line="-199"/>
         <location line="+548"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location line="-42"/>
+        <location line="-45"/>
         <location line="+15"/>
-        <location line="+34"/>
+        <location line="+37"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-46"/>
+        <location line="-49"/>
         <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
 
 Example:
@@ -1728,7 +1753,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+20"/>
         <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
@@ -1752,7 +1777,42 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Netscape</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+133"/>
+        <source>CA Revocation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Revocation URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>SSL server name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Certificate renewal URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>CA policy URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Base URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>If you know a more pretty one tell me</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1825,18 +1885,18 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1341"/>
+        <location filename="../ui/NewX509.ui" line="-1386"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
     <message>
-        <location line="+663"/>
+        <location line="+675"/>
         <location line="+20"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
-        <location line="+574"/>
+        <location line="+607"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -1863,7 +1923,7 @@ The rollout should be aborted.</source>
         <translation>Das Zertifikat enthält duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-531"/>
+        <location filename="../ui/NewX509.ui" line="-564"/>
         <source>No well-defined expiration</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
@@ -1919,7 +1979,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-550"/>
+        <location filename="../ui/NewX509.ui" line="-562"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>
@@ -3246,7 +3306,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+117"/>
+        <location filename="../lib/pki_key.cpp" line="+115"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Der öffentliche %1 Schlüssel &apos;%2&apos; wurde erfolgreich importiert</translation>
     </message>

@@ -562,6 +562,12 @@ If this list is disabled, you only can create a self-signed certificate.</string
               <attribute name="horizontalHeaderStretchLastSection">
                <bool>true</bool>
               </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>200</number>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -663,8 +669,11 @@ If this list is disabled, you only can create a self-signed certificate.</string
         <layout class="QHBoxLayout" name="_6">
          <item>
           <widget class="QGroupBox" name="groupBox_8">
+           <property name="toolTip">
+            <string>Basic constraints</string>
+           </property>
            <property name="title">
-            <string notr="true">Basic constrains</string>
+            <string notr="true">Basic constraints</string>
            </property>
            <layout class="QGridLayout" name="gridLayout">
             <item row="0" column="0">
@@ -734,6 +743,9 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
          </item>
          <item>
           <widget class="QGroupBox" name="keyIdentBox">
+           <property name="toolTip">
+            <string>Key identifier</string>
+           </property>
            <property name="title">
             <string notr="true">Key identifier</string>
            </property>
@@ -928,6 +940,9 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <layout class="QGridLayout" name="_8">
          <item row="3" column="0">
           <widget class="QLabel" name="TextLabel1_2_3_2_2_3">
+           <property name="toolTip">
+            <string>Authority Info Access</string>
+           </property>
            <property name="text">
             <string notr="true">Authority Info Access</string>
            </property>
@@ -935,6 +950,9 @@ It also copies the issuer and serial number from the issuer certificate. Normall
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="TextLabel1_2_3_2_3">
+           <property name="toolTip">
+            <string>CRL distribution point</string>
+           </property>
            <property name="text">
             <string notr="true">CRL distribution point</string>
            </property>
@@ -942,6 +960,9 @@ It also copies the issuer and serial number from the issuer certificate. Normall
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="TextLabel1_2_2_2">
+           <property name="toolTip">
+            <string>issuer alternative name</string>
+           </property>
            <property name="text">
             <string notr="true">issuer alternative name</string>
            </property>
@@ -1021,8 +1042,11 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="TextLabel1_2_2_3">
-           <property name="text">
+           <property name="toolTip">
             <string>subject alternative name</string>
+           </property>
+           <property name="text">
+            <string notr="true">subject alternative name</string>
            </property>
           </widget>
          </item>
@@ -1316,6 +1340,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="TextLabel2_2_4">
+           <property name="toolTip">
+            <string>CA Revocation URL</string>
+           </property>
            <property name="text">
             <string notr="true">CA Revocation URL</string>
            </property>
@@ -1326,6 +1353,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="TextLabel4_2_2_3">
+           <property name="toolTip">
+            <string>Revocation URL</string>
+           </property>
            <property name="text">
             <string notr="true">Revocation URL</string>
            </property>
@@ -1333,6 +1363,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="TextLabel7_2_3">
+           <property name="toolTip">
+            <string>SSL server name</string>
+           </property>
            <property name="text">
             <string notr="true">SSL server name</string>
            </property>
@@ -1346,6 +1379,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="TextLabel3_2_4">
+           <property name="toolTip">
+            <string>Certificate renewal URL</string>
+           </property>
            <property name="text">
             <string notr="true">Certificate renewal URL</string>
            </property>
@@ -1353,6 +1389,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="6" column="0">
           <widget class="QLabel" name="TextLabel8">
+           <property name="toolTip">
+            <string>Comment</string>
+           </property>
            <property name="text">
             <string notr="true">Comment</string>
            </property>
@@ -1360,6 +1399,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="TextLabel6_2_3">
+           <property name="toolTip">
+            <string>CA policy URL</string>
+           </property>
            <property name="text">
             <string notr="true">CA policy URL</string>
            </property>
@@ -1367,6 +1409,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="TextLabel1_3_2_3">
+           <property name="toolTip">
+            <string>Base URL</string>
+           </property>
            <property name="text">
             <string notr="true">Base URL</string>
            </property>
