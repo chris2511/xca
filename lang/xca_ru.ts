@@ -178,7 +178,7 @@
     <message>
         <location line="+34"/>
         <source>&amp;Subject</source>
-        <translation type="unfinished">&amp;Владелец</translation>
+        <translation>&amp;Владелец</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -417,7 +417,7 @@
     <message>
         <location line="+33"/>
         <source>&amp;Issuer</source>
-        <translation type="unfinished">&amp;Издатель</translation>
+        <translation>&amp;Издатель</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -666,7 +666,7 @@ PKCS#8 - это официальный с возможностью шифров�
     <message>
         <location line="+7"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Убрать</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="+105"/>
@@ -728,7 +728,7 @@ Serial: %3</source>
     <message>
         <location filename="../ui/KeyDetail.ui" line="+91"/>
         <source>Name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -738,17 +738,17 @@ Serial: %3</source>
     <message>
         <location line="+83"/>
         <source>Keysize</source>
-        <translation type="unfinished">Размер ключа</translation>
+        <translation>Длинна ключа</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Private Exponent</source>
-        <translation type="unfinished">Закрытая Экспонента</translation>
+        <translation>Закрытая Экспонента</translation>
     </message>
     <message>
         <location line="-53"/>
         <source>Public Exponent</source>
-        <translation type="unfinished">Открытая Экспонента</translation>
+        <translation>Открытая Экспонента</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -758,7 +758,7 @@ Serial: %3</source>
     <message>
         <location line="+54"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="+21"/>
@@ -769,18 +769,18 @@ Serial: %3</source>
         <location line="+1"/>
         <location line="+7"/>
         <source>Public key</source>
-        <translation type="unfinished">Открытый ключ</translation>
+        <translation>Открытый ключ</translation>
     </message>
     <message>
         <location line="-6"/>
         <location line="+7"/>
         <source>Private key</source>
-        <translation type="unfinished">Закрытый ключ</translation>
+        <translation>Закрытый ключ</translation>
     </message>
     <message>
         <location filename="../ui/KeyDetail.ui" line="-177"/>
         <source>Security token</source>
-        <translation type="unfinished">Маркер безопасности</translation>
+        <translation>Токен</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -796,12 +796,12 @@ Serial: %3</source>
         <location line="+17"/>
         <location filename="../widgets/KeyDetail.cpp" line="-20"/>
         <source>Key</source>
-        <translation type="unfinished">Ключ</translation>
+        <translation>Ключ</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="-5"/>
         <source>Token</source>
-        <translation type="unfinished">Маркер</translation>
+        <translation>Токен</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -811,12 +811,12 @@ Serial: %3</source>
     <message>
         <location line="-34"/>
         <source>Details of the %1 key</source>
-        <translation type="unfinished">Детали %1 ключа</translation>
+        <translation type="unfinished">Характеристики %1 ключа</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>Security token ID:%1</source>
-        <translation type="unfinished">ID маркера безопасности:%1</translation>
+        <translation>ID Токена:%1</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -926,7 +926,7 @@ Serial: %3</source>
         <location line="+98"/>
         <location line="+214"/>
         <source>&amp;Show Details</source>
-        <translation type="unfinished">&amp;Посмотреть детали</translation>
+        <translation>&amp;Посмотреть детали</translation>
     </message>
     <message>
         <location line="-409"/>
@@ -940,7 +940,7 @@ Serial: %3</source>
     <message>
         <location line="-376"/>
         <source>Certificate signing requests</source>
-        <translation type="unfinished">Запросы на сертификаты</translation>
+        <translation>Запросы на сертификаты</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -1046,7 +1046,7 @@ Serial: %3</source>
     <message>
         <location line="+2"/>
         <source>Template</source>
-        <translation>Шаблон</translation>
+        <translation>Шаблоны</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1056,7 +1056,7 @@ Serial: %3</source>
     <message>
         <location line="+2"/>
         <source>PEM file</source>
-        <translation>PEM файл</translation>
+        <translation>PEM файлы</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -1096,7 +1096,7 @@ Serial: %3</source>
     <message>
         <location line="+17"/>
         <source>paste PEM file</source>
-        <translation type="unfinished">вставить PEM файл</translation>
+        <translation>Вставить PEM данные</translation>
     </message>
     <message>
         <location line="+65"/>
@@ -1106,12 +1106,12 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="-479"/>
         <source>Import PEM data</source>
-        <translation type="unfinished">Импорт PEM данных</translation>
+        <translation>Импорт</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>The new label of the token &apos;%1&apos;</source>
-        <translation type="unfinished">Новое название маркера &apos;%1&apos;</translation>
+        <translation>Новое название Токена &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -1177,12 +1177,12 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="-421"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
-        <translation type="unfinished">Пожалуйста, введите первоначальный PIN SO (PUK) для маркера &apos;%1&apos;</translation>
+        <translation type="unfinished">Пожалуйста, введите первоначальный PIN SO (PUK) для Токена &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Please enter the new SO PIN (PUK) of the token &apos;%1&apos;</source>
-        <translation type="unfinished">Пожалуйста, введите новый PIN SO (PUK) для маркера &apos;%1&apos;</translation>
+        <translation type="unfinished">Пожалуйста, введите новый PIN SO (PUK) для Токена &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+116"/>
@@ -1197,7 +1197,7 @@ Serial: %3</source>
     <message>
         <location line="+93"/>
         <source>DH parameter bits</source>
-        <translation type="unfinished">DH параметр битов</translation>
+        <translation type="unfinished">Бит DH параметра</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -1207,7 +1207,7 @@ Serial: %3</source>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-165"/>
         <source>Generate DH parameter</source>
-        <translation type="unfinished">Генерировать DH параметр</translation>
+        <translation type="unfinished">Создать DH параметр</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -1217,7 +1217,7 @@ Serial: %3</source>
     <message>
         <location line="+1"/>
         <source>&amp;Manage Security token</source>
-        <translation type="unfinished">&amp;Управление Токенами</translation>
+        <translation>&amp;Управление Токенами</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1305,7 +1305,7 @@ Serial: %3</source>
     <message>
         <location line="+47"/>
         <source>Please give a name to the new key and select the desired keysize</source>
-        <translation type="unfinished">Введите название и задайте тип и размер нового ключа</translation>
+        <translation>Введите название и задайте тип и размер нового ключа</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1315,17 +1315,17 @@ Serial: %3</source>
     <message>
         <location line="+6"/>
         <source>Name</source>
-        <translation>Имя</translation>
+        <translation>Имя ключа</translation>
     </message>
     <message>
         <location line="+56"/>
         <source>Keysize</source>
-        <translation>Размер ключа</translation>
+        <translation>Длинна ключа</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Usually 1024 or 2048 bit keys are used</source>
-        <translation type="unfinished">Обычно используются 1024 или 2048 битные ключи</translation>
+        <translation>Обычно используют 1024 или 2048 битные ключи</translation>
     </message>
     <message>
         <location line="-50"/>
@@ -1703,17 +1703,17 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <location line="+13"/>
         <location line="+20"/>
         <source>Key usage</source>
-        <translation type="unfinished">Использовать ключ для </translation>
+        <translation>Область применения ключа</translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Extended key usage</source>
-        <translation type="unfinished">Дополнительно использовать ключ для</translation>
+        <translation>Расширенная область применения ключа</translation>
     </message>
     <message>
         <location line="+35"/>
         <source>Netscape</source>
-        <translation type="unfinished"></translation>
+        <translation>Netscape</translation>
     </message>
     <message>
         <location line="+194"/>
@@ -1728,7 +1728,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location line="+26"/>
         <source>OK</source>
-        <translation>ОК</translation>
+        <translation>Создать</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="-681"/>
@@ -1748,7 +1748,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     <message>
         <location line="+10"/>
         <source>Create x509 Certificate</source>
-        <translation>Издание x509 сертификата</translation>
+        <translation type="unfinished">Создание x509 сертификата</translation>
     </message>
     <message>
         <location line="+616"/>
@@ -2368,17 +2368,17 @@ You must set it manually.</source>
     <message>
         <location line="+36"/>
         <source>Internal name of the PKCS#10 signing request</source>
-        <translation type="unfinished">Внутреннее имя PKCS#10 запроса на подписание</translation>
+        <translation type="unfinished">Внутреннее имя PKCS#10 запроса</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Internal Name</source>
-        <translation type="unfinished">Внутреннее имя</translation>
+        <translation>Внутреннее имя</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Private key</source>
-        <translation type="unfinished">Закрытый ключ</translation>
+        <translation>Закрытый ключ</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2393,22 +2393,22 @@ You must set it manually.</source>
     <message>
         <location line="+32"/>
         <source>&amp;Subject</source>
-        <translation type="unfinished">&amp;Владелец</translation>
+        <translation>&amp;Владелец</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Attributes</source>
-        <translation type="unfinished">Атрибуты</translation>
+        <translation>Атрибуты</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>&amp;Extensions</source>
-        <translation type="unfinished">&amp;Расширения</translation>
+        <translation>&amp;Расширения</translation>
     </message>
     <message>
         <location line="+47"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
 </context>
 <context>
@@ -2421,12 +2421,12 @@ You must set it manually.</source>
     <message>
         <location line="+25"/>
         <source>Security token</source>
-        <translation>Токен безопасности</translation>
+        <translation>Токен</translation>
     </message>
     <message>
         <location line="+47"/>
         <source>Please select the security token</source>
-        <translation>Пожалуйста, выберите Токен безопасности</translation>
+        <translation>Пожалуйста, выберите Токен</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2436,7 +2436,7 @@ You must set it manually.</source>
     <message>
         <location line="+23"/>
         <source>&amp;Select</source>
-        <translation type="unfinished">&amp;Выбор</translation>
+        <translation>&amp;ОК</translation>
     </message>
 </context>
 <context>
@@ -2569,7 +2569,7 @@ and so it was not imported</source>
     <message>
         <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished">Переименовать</translation>
+        <translation>Переименовать</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2594,7 +2594,7 @@ and so it was not imported</source>
     <message>
         <location line="+4"/>
         <source>Reset password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить пароль</translation>
     </message>
     <message>
         <location line="-48"/>
@@ -2615,12 +2615,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+0"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Размер</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Use</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использован раз</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2706,7 +2706,7 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+91"/>
         <source>Nothing</source>
-        <translation type="unfinished">Ничего</translation>
+        <translation type="unfinished">Новый</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3130,7 +3130,7 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pki_base.cpp" line="+81"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation>Возникла ошибка при открытии файла: &apos;%1&apos;: %2</translation>
+        <translation>Произошла ошибка при открытии файла: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3167,28 +3167,28 @@ and thus was not stored</source>
     <message>
         <location line="-24"/>
         <source>Successfully imported the revokation list &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Список отзыва &apos;%1&apos; импортирован успешно</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the revokation list &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить список отзыва &apos;%1&apos;?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the revokation list &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Список отзыва &apos;%1&apos; создан успешно</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Delete the %1 revokation lists: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить %1 списки отзыва: %2?</translation>
     </message>
     <message>
         <location line="+102"/>
         <location line="+178"/>
         <source>Wrong Size %1</source>
-        <translation>Неверный размер %1</translation>
+        <translation>Неправильный размер %1</translation>
     </message>
 </context>
 <context>
@@ -3268,37 +3268,37 @@ and thus was not stored</source>
     <message>
         <location filename="../lib/pki_key.cpp" line="+117"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Открытый %1 ключ &apos;%2&apos; импортирован успешно</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить открытый %1 ключ &apos;%2&apos;?</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закрытый %1 ключ &apos;%2&apos; импортирован успешно</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить закрытый %1 ключ &apos;%2&apos;?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Закрытый %1 ключ &apos;%2&apos; создан успешно</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить %1 ключ: %2?</translation>
     </message>
     <message>
         <location line="+169"/>
         <source>Common</source>
-        <translation type="unfinished">Общий</translation>
+        <translation>Общий</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3479,22 +3479,22 @@ and thus was not stored</source>
     <message>
         <location line="-457"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA шаблон &apos;%1&apos; ипортирован успешно</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить XCA шаблон &apos;%1&apos;?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the XCA template &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA шаблон &apos;%1&apos; создан успешно</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Delete the %1 XCA templates: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить %1 XCA шаблоны: %2?</translation>
     </message>
     <message>
         <location line="+340"/>
@@ -3597,37 +3597,37 @@ and thus was not stored</source>
     <message>
         <location line="+39"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%1 запрос &apos;%2&apos; импортирован успешно</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete the %1 certificate request &apos;%2&apos;?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить %1 запрос: %2?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Successfully created the %1 certificate request &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запрос %1 на создание сертификата &apos;%2&apos; создан успешно</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Delete the %1 certificate requests: %2?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить %1 запрос: %2?</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
-        <translation type="unfinished">Не удается загрузить запрос на создание сертификата из файла %1. Формат файла должен быть  PEM или DER.</translation>
+        <translation type="unfinished">Не удается загрузить запрос на создание сертификата из файла %1. Формат файла должен быть PEM или DER.</translation>
     </message>
     <message>
         <location line="+275"/>
         <source>Signed</source>
-        <translation type="unfinished">Подписанный</translation>
+        <translation>Подписан</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Unhandled</source>
-        <translation type="unfinished">Необработанные</translation>
+        <translation>Необработан</translation>
     </message>
     <message>
         <location line="+36"/>
