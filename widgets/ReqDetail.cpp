@@ -12,9 +12,9 @@
 #include "clicklabel.h"
 #include "lib/pki_x509req.h"
 #include "lib/func.h"
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qmessagebox.h>
+#include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
+#include <QtGui/QMessageBox>
 
 ReqDetail::ReqDetail(QWidget *parent)
 	:QDialog(parent)

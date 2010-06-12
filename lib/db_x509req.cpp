@@ -10,9 +10,9 @@
 #include "pki_x509req.h"
 #include "widgets/ReqDetail.h"
 #include "widgets/MainWindow.h"
-#include <qmessagebox.h>
-#include <qevent.h>
-#include <qaction.h>
+#include <QtGui/QMessageBox>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QAction>
 
 
 db_x509req::db_x509req(QString DBfile, MainWindow *mw)

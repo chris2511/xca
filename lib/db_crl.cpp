@@ -10,8 +10,8 @@
 #include "exception.h"
 #include "widgets/MainWindow.h"
 #include "widgets/CrlDetail.h"
-#include <qmessagebox.h>
-#include <qevent.h>
+#include <QtGui/QMessageBox>
+#include <QtGui/QContextMenuEvent>
 #include "ui_NewCrl.h"
 
 db_crl::db_crl(QString db, MainWindow *mw)

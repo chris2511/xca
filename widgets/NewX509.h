@@ -12,9 +12,9 @@
 #include "ui_NewX509.h"
 #include "lib/oid.h"
 #include "lib/db.h"
-#include <openssl/x509v3.h>
-#include <qlistwidget.h>
 #include "widgets/kvView.h"
+#include <openssl/x509v3.h>
+#include <QtGui/QListWidget>
 
 class MainWindow;
 class extList;

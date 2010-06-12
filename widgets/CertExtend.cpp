@@ -12,11 +12,11 @@
 #include "lib/asn1time.h"
 #include "widgets/validity.h"
 #include "widgets/MainWindow.h"
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qmessagebox.h>
+#include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
+#include <QtGui/QComboBox>
+#include <QtGui/QCheckBox>
+#include <QtGui/QMessageBox>
 
 
 CertExtend::CertExtend(QWidget *parent, pki_x509 *s)

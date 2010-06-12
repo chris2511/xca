@@ -8,10 +8,9 @@
 
 #include "db_base.h"
 #include "exception.h"
-#include <qmessagebox.h>
-#include <qlistview.h>
-#include <qdir.h>
-
+#include <QtGui/QMessageBox>
+#include <QtGui/QListView>
+#include <QtCore/QDir>
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
 

@@ -12,7 +12,7 @@
 #include <openssl/x509.h>
 #include <openssl/err.h>
 #include <openssl/opensslv.h>
-#include <qobject.h>
+#include <QtCore/QObject>
 
 a1time::a1time()
 {

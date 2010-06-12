@@ -10,7 +10,8 @@
 
 #include "ui_ImportMulti.h"
 #include "lib/db_token.h"
-#include <qlist.h>
+#include "lib/db_base.h"
+#include <QtCore/QList>
 
 class pki_x509;
 class pki_key;

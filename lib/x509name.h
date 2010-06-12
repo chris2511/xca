@@ -8,8 +8,8 @@
 #ifndef __X509NAME_H
 #define __X509NAME_H
 
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <openssl/x509.h>
 
 class x509name

@@ -15,16 +15,17 @@
 #include "x509name.h"
 #include "func.h"
 #include "db.h"
+#include "widgets/MainWindow.h"
 
 #include <openssl/rand.h>
 #include <openssl/engine.h>
 #include <openssl/bn.h>
-#include <qprogressdialog.h>
-#include <qapplication.h>
-#include <qdir.h>
-#include <widgets/MainWindow.h>
-#include <qmessagebox.h>
-#include <qthread.h>
+
+#include <QtGui/QProgressDialog>
+#include <QtGui/QApplication>
+#include <QtCore/QDir>
+#include <QtGui/QMessageBox>
+#include <QtCore/QThread>
 #include <ltdl.h>
 
 #if defined(_WIN32) || defined(USE_CYGWIN)

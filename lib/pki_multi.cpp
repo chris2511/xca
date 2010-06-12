@@ -17,7 +17,7 @@
 #include "exception.h"
 #include "func.h"
 #include "widgets/MainWindow.h"
-#include <qlist.h>
+#include <QtCore/QList>
 
 pki_multi::pki_multi(const QString name)
 	:pki_base(name)

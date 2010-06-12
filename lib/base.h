@@ -10,7 +10,7 @@
 
 #define XCA_TITLE "X Certificate and Key management"
 
-#include <qglobal.h>
+#include <QtCore/qglobal.h>
 #include "local.h"
 
 #ifdef WIN32

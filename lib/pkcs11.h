@@ -9,8 +9,9 @@
 #define __XCA_PKCS11_H
 
 #include "opensc-pkcs11.h"
-#include <qstring.h>
-#include <qlist.h>
+#include <QtCore/QString>
+#include <QtCore/QList>
+
 #include <ltdl.h>
 
 #include "pk11_attribute.h"

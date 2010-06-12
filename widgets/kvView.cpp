@@ -6,8 +6,8 @@
  */
 
 #include "widgets/kvView.h"
-#include <qheaderview.h>
-#include <qlineedit.h>
+#include <QtGui/QHeaderView>
+#include <QtGui/QLineEdit>
 
 QWidget *comboDelegate::createEditor(QWidget *parent,
 	const QStyleOptionViewItem &,

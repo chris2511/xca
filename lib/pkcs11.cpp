@@ -13,7 +13,7 @@
 #include "pass_info.h"
 
 #include <openssl/rand.h>
-#include <qmessagebox.h>
+#include <QtGui/QMessageBox>
 #include <ltdl.h>
 #include "ui_SelectToken.h"
 

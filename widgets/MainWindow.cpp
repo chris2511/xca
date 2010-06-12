@@ -9,19 +9,21 @@
 //#define MDEBUG
 #include "MainWindow.h"
 #include "ImportMulti.h"
-#include <qapplication.h>
-#include <qclipboard.h>
-#include <qmessagebox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlistview.h>
-#include <qlineedit.h>
-#include <qtextbrowser.h>
-#include <qstatusbar.h>
-#include <qlist.h>
-#include <qtemporaryfile.h>
-#include <qinputdialog.h>
+
 #include <openssl/rand.h>
+
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
+#include <QtGui/QMessageBox>
+#include <QtGui/QLabel>
+#include <QtGui/QPushButton>
+#include <QtGui/QListView>
+#include <QtGui/QLineEdit>
+#include <QtGui/QTextBrowser>
+#include <QtGui/QStatusBar>
+#include <QtCore/QList>
+#include <QtCore/QTemporaryFile>
+#include <QtGui/QInputDialog>
 
 #include "lib/exception.h"
 #include "lib/pki_evp.h"

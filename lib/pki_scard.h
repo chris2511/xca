@@ -8,7 +8,7 @@
 #ifndef __PKI_SCARD_H
 #define __PKI_SCARD_H
 
-#include <qstring.h>
+#include <QtCore/QString>
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 

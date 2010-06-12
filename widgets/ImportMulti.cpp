@@ -19,11 +19,11 @@
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/ReqDetail.h"
-#include <qpushbutton.h>
-#include <qmessagebox.h>
-#include <qlabel.h>
-#include <qinputdialog.h>
-#include "lib/db_token.h"
+#include <QtGui/QPushButton>
+#include <QtGui/QMessageBox>
+#include <QtGui/QLabel>
+#include <QtGui/QInputDialog>
+
 
 ImportMulti::ImportMulti(MainWindow *parent)
 	:QDialog(parent)

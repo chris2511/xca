@@ -16,9 +16,9 @@
 #include "lib/func.h"
 #include "ui_Options.h"
 #include "widgets/hashBox.h"
-#include <qapplication.h>
-#include <qmenubar.h>
-#include <qmessagebox.h>
+#include <QtGui/QApplication>
+#include <QtGui/QMenuBar>
+#include <QtGui/QMessageBox>
 
 void MainWindow::init_menu()
 {

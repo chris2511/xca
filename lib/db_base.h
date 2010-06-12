@@ -11,11 +11,10 @@
 #include "db.h"
 #include "base.h"
 #include "load_obj.h"
-#include <qlistview.h>
-#include <qpixmap.h>
-#include <qstringlist.h>
-#include <qpixmap.h>
-#include <qabstractitemmodel.h>
+#include <QtGui/QListView>
+#include <QtGui/QPixmap>
+#include <QtCore/QStringList>
+#include <QtCore/QAbstractItemModel>
 #include "pki_base.h"
 #include "widgets/XcaTreeView.h"
 

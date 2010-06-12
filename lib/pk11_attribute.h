@@ -8,7 +8,7 @@
 #ifndef __PKI_PKCS11_ATTRIBUTE_H
 #define __PKI_PKCS11_ATTRIBUTE_H
 
-#include <qstring.h>
+#include <QtCore/QString>
 #include <stdlib.h>
 #include <openssl/bn.h>
 #include "opensc-pkcs11.h"

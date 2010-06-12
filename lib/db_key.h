@@ -10,8 +10,8 @@
 
 #include "db_base.h"
 #include "pki_key.h"
-#include <qstringlist.h>
-#include <qobject.h>
+#include <QtCore/QStringList>
+#include <QtCore/QObject>
 
 class MainWindow;
 class QModelIndex;

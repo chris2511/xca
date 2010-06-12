@@ -11,10 +11,10 @@
 #include "distname.h"
 #include "clicklabel.h"
 #include "lib/func.h"
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
-#include <qmessagebox.h>
+#include <QtGui/QLabel>
+#include <QtGui/QPushButton>
+#include <QtGui/QLineEdit>
+#include <QtGui/QMessageBox>
 
 CertDetail::CertDetail(QWidget *parent)
 	:QDialog(parent)

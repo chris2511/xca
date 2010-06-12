@@ -14,8 +14,8 @@
 #include "exception.h"
 #include "pass_info.h"
 #include "widgets/MainWindow.h"
-#include <qdir.h>
-#include <qmessagebox.h>
+#include <QtGui/QMessageBox>
+#include <QtCore/QDir>
 #include <openssl/rand.h>
 
 QPixmap *pki_x509::icon[5] = { NULL, NULL, NULL, NULL, NULL };

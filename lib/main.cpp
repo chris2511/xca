@@ -5,11 +5,10 @@
  * All rights reserved.
  */
 
-#include <qapplication.h>
-#include <qtranslator.h>
-#include <qtextcodec.h>
-#include <qdir.h>
-#include <qtranslator.h>
+#include <QtGui/QApplication>
+#include <QtCore/QTranslator>
+#include <QtCore/QTextCodec>
+#include <QtCore/QDir>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
 #ifdef WIN32

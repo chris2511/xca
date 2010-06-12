@@ -8,8 +8,8 @@
 #ifndef __PKI_EXCEPTION_H
 #define __PKI_EXCEPTION_H
 
-#include <qstring.h>
-#include <qobject.h>
+#include <QtCore/QString>
+#include <QtCore/QObject>
 #include "base.h"
 
 class errorEx

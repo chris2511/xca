@@ -9,7 +9,7 @@
 #define __OPTIONS_H
 
 #include "ui_Options.h"
-#include <qdialog.h>
+#include <QtGui/QDialog>
 #include "lib/base.h"
 #include "widgets/MainWindow.h"
 

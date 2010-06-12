@@ -15,7 +15,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
-#include <qfile.h>
+#include <QtCore/QFile>
 
 #define RESIZE 1024
 #define RDBUF 256

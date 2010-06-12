@@ -8,7 +8,7 @@
 #ifndef __VALIDITY_H
 #define __VALIDITY_H
 
-#include <qdatetimeedit.h>
+#include <QtGui/QDateTimeEdit>
 #include <lib/asn1time.h>
 
 class Validity : public QDateTimeEdit

@@ -8,9 +8,9 @@
 /* here we have the possibility to add our own OIDS */
 
 #include <openssl/objects.h>
-#include <qstringlist.h>
-#include <qmessagebox.h>
-#include <qdir.h>
+#include <QtCore/QStringList>
+#include <QtGui/QMessageBox>
+#include <QtCore/QDir>
 #include "func.h"
 #include "oid.h"
 

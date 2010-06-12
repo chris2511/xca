@@ -10,12 +10,12 @@
 #include "func.h"
 #include <widgets/NewX509.h>
 #include <widgets/MainWindow.h>
-#include <qfiledialog.h>
-#include <qdir.h>
-#include <qevent.h>
-#include <qaction.h>
-#include <qinputdialog.h>
-#include <qmessagebox.h>
+#include <QtGui/QFileDialog>
+#include <QtCore/QDir>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QAction>
+#include <QtGui/QInputDialog>
+#include <QtGui/QMessageBox>
 
 db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_base(DBfile, mw)

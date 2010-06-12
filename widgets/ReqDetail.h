@@ -9,7 +9,7 @@
 #define __REQDETAIL_H
 
 #include "ui_ReqDetail.h"
-#include <qdialog.h>
+#include <QtGui/QDialog>
 #include <openssl/asn1.h>
 
 class pki_x509req;

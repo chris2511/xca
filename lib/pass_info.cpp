@@ -1,3 +1,13 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
+
+#include <QtCore/QString>
+#include <QtGui/QWidget>
+#include <QtGui/QApplication>
 
 #include "pass_info.h"
 

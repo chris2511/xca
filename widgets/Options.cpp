@@ -8,7 +8,7 @@
 #include "Options.h"
 #include "lib/pki_scard.h"
 #include <openssl/objects.h>
-#include <qmessagebox.h>
+#include <QtGui/QMessageBox>
 
 Options::Options(MainWindow *parent)
 	:QDialog(parent)

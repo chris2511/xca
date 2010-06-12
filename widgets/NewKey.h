@@ -9,7 +9,7 @@
 #define __NEWKEY_H
 
 #include "ui_NewKey.h"
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 
 class NewKey: public QDialog, public Ui::NewKey
 {

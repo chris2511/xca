@@ -11,8 +11,8 @@
 
 #include "db_base.h"
 #include "pki_temp.h"
-#include <qobject.h>
-#include <qpixmap.h>
+#include <QtCore/QObject>
+#include <QtGui/QPixmap>
 
 class Mainwin;
 

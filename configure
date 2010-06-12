@@ -120,9 +120,7 @@ echo -e "\n\nConfiguring XCA `cat VERSION`\n----------------------------"
 
 ######################### QT
 subdirs="/qt /qt4"
-search_includes Qt/qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
-subdirs="/qt/Qt /qt4/Qt /Qt"
-search_includes qobject.h || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
+search_includes QtCore/QObject || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
 search_lib QtGui4 QtGui || err "The QT library was not found."
 search_lib ltdl || err "Libtool ltdl not found."
 search_lib c_r || true

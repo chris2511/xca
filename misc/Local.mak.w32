@@ -10,8 +10,7 @@ CROSS=i586-mingw32msvc-
 CONSOLE=-mwindows
 #CONSOLE=-mconsole
 
-CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(INSTALL_DIR)/include \
-	-I$(QTDIR)/include/Qt -I$(TOPDIR)/ui
+CPPFLAGS=-I. -I.. -I$(QTDIR)/include -I$(INSTALL_DIR)/include -I$(TOPDIR)/ui
 CFLAGS=-Wall -g -O2 -mthreads -mno-cygwin $(CONSOLE) -mnop-fun-dllimport -Wno-strict-aliasing
 
 LDFLAGS= -L$(QTDIR)/lib -L$(INSTALL_DIR)/lib \

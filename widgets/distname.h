@@ -8,8 +8,8 @@
 #ifndef __DISTNAME_H
 #define __DISTNAME_H
 
-#include <qwidget.h>
-#include <qgridlayout.h>
+#include <QtGui/QWidget>
+#include <QtGui/QGridLayout>
 
 class x509name;
 class QLabel;

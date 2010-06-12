@@ -17,10 +17,10 @@
 #include "lib/db_crl.h"
 #include "lib/exception.h"
 #include "lib/oid.h"
-#include <qpixmap.h>
-#include <qfiledialog.h>
-#include <qmenubar.h>
-#include <qlist.h>
+#include <QtGui/QPixmap>
+#include <QtGui/QFileDialog>
+#include <QtGui/QMenuBar>
+#include <QtCore/QList>
 
 #define DBFILE "xca.xdb"
 

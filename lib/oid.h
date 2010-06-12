@@ -9,7 +9,7 @@
 #define __OID_H
 
 class QString;
-#include <qlist.h>
+#include <QtCore/QList>
 
 typedef QList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */

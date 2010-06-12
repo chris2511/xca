@@ -10,12 +10,12 @@
 #include "lib/base.h"
 #include "lib/func.h"
 
-#include <qfiledialog.h>
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qfiledialog.h>
-#include <qstringlist.h>
+#include <QtGui/QFileDialog>
+#include <QtGui/QCheckBox>
+#include <QtGui/QLineEdit>
+#include <QtGui/QComboBox>
+#include <QtCore/QStringList>
+
 
 ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
 	:QDialog(parent)

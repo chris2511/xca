@@ -8,11 +8,11 @@
 
 #include "XcaTreeView.h"
 #include "lib/db_base.h"
-#include <qabstractitemmodel.h>
-#include <qabstractitemview.h>
-#include <qheaderview.h>
-#include <qevent.h>
-#include <qvariant.h>
+#include <QtCore/QAbstractItemModel>
+#include <QtGui/QAbstractItemView>
+#include <QtGui/QHeaderView>
+#include <QtGui/QContextMenuEvent>
+#include <QtCore/QVariant>
 
 
 XcaTreeView::XcaTreeView(QWidget *parent)

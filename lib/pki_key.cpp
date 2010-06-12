@@ -9,7 +9,10 @@
 #include "pki_key.h"
 #include "func.h"
 #include "db.h"
-#include <qapplication.h>
+#include <openssl/rand.h>
+#include <QtGui/QProgressDialog>
+#include <QtGui/QApplication>
+#include <QtCore/QDir>
 #include <widgets/MainWindow.h>
 
 pki_key::pki_key(const QString name)

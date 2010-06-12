@@ -7,9 +7,9 @@
 
 #include "distname.h"
 
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
+#include <QtGui/QLabel>
+#include <QtGui/QPushButton>
+#include <QtGui/QLineEdit>
 #include "lib/x509name.h"
 #include "lib/base.h"
 #include "widgets/clicklabel.h"

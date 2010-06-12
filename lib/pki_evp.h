@@ -8,8 +8,8 @@
 #ifndef __PKI_EVP_H
 #define __PKI_EVP_H
 
-#include <qstring.h>
-#include <qprogressbar.h>
+#include <QtCore/QString>
+#include <QtGui/QProgressBar>
 #include <openssl/rsa.h>
 #include <openssl/bn.h>
 #include <openssl/pem.h>

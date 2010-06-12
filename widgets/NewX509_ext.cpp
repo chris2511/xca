@@ -7,12 +7,13 @@
 
 
 #include "NewX509.h"
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qradiobutton.h>
-#include <qlineedit.h>
-#include <qlistwidget.h>
-#include <qmessagebox.h>
+#include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
+#include <QtGui/QRadioButton>
+#include <QtGui/QLineEdit>
+#include <QtGui/QListWidget>
+#include <QtGui/QMessageBox>
+
 #include "MainWindow.h"
 #include "lib/x509v3ext.h"
 #include "lib/func.h"

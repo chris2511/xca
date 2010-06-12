@@ -9,8 +9,8 @@
 #define __FUNC_H
 
 #include <openssl/asn1.h>
-#include <qpixmap.h>
-#include <qbytearray.h>
+#include <QtGui/QPixmap>
+#include <QtCore/QByteArray>
 #include "base.h"
 
 class Validity;

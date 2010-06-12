@@ -14,19 +14,20 @@
 #include <openssl/asn1.h>
 #include <openssl/err.h>
 
-#include <qdir.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qmessagebox.h>
-#include <qapplication.h>
-#include <qfile.h>
-#include <qstringlist.h>
-#include <qpushbutton.h>
-#include <qprogressbar.h>
 #if defined(Q_WS_MAC)
-#include <qdesktopservices.h>
+#include <QtGui/QDesktopServices>
 #endif
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QStringList>
+#include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
+#include <QtGui/QComboBox>
+#include <QtGui/QMessageBox>
+#include <QtGui/QApplication>
+#include <QtGui/QPushButton>
+#include <QtGui/QProgressBar>
+
 #ifdef WIN32
 #include <windows.h>
 #include <shlobj.h>

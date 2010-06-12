@@ -10,13 +10,15 @@
 #include "pass_info.h"
 #include "func.h"
 #include "db.h"
+#include "widgets/MainWindow.h"
+
 #include <openssl/rand.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
-#include <qprogressdialog.h>
-#include <qapplication.h>
-#include <qdir.h>
-#include <widgets/MainWindow.h>
+
+#include <QtGui/QProgressDialog>
+#include <QtGui/QApplication>
+#include <QtCore/QDir>
 
 char pki_evp::passwd[MAX_PASS_LENGTH]={0,};
 char pki_evp::oldpasswd[MAX_PASS_LENGTH]={0,};

@@ -9,7 +9,7 @@
 #include "base.h"
 #include "func.h"
 #include "exception.h"
-#include <qstringlist.h>
+#include <QtCore/QStringList>
 #ifdef WIN32
 #include <windows.h>
 #else

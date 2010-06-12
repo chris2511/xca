@@ -11,9 +11,9 @@
 #include "db_x509.h"
 #include "pki_crl.h"
 #include "widgets/ExportDer.h"
-#include <qobject.h>
-#include <qpixmap.h>
-#include <qevent.h>
+#include <QtCore/QObject>
+#include <QtGui/QPixmap>
+#include <QtGui/QContextMenuEvent>
 
 class db_crl: public db_base
 {

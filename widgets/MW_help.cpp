@@ -7,10 +7,10 @@
 
 
 #include "MainWindow.h"
-#include <qapplication.h>
-#include <qmime.h>
-#include <qpixmap.h>
-#include <qlabel.h>
+#include <QtGui/QApplication>
+#include <QtGui/QMimeSource>
+#include <QtGui/QPixmap>
+#include <QtGui/QLabel>
 #include "ui_About.h"
 #include "ui_Help.h"
 #include "lib/func.h"

@@ -10,14 +10,14 @@
 #include "pki_evp.h"
 
 #include "pki_scard.h"
-#include <qmessagebox.h>
-#include <qprogressbar.h>
-#include <qstatusbar.h>
-#include <qevent.h>
+#include <QtGui/QDialog>
+#include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
+#include <QtGui/QMessageBox>
+#include <QtGui/QProgressBar>
+#include <QtGui/QStatusBar>
+#include <QtGui/QContextMenuEvent>
 
 #include "exception.h"
 #include "ui_NewKey.h"

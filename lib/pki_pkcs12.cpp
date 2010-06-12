@@ -11,7 +11,7 @@
 #include "exception.h"
 #include "func.h"
 #include <openssl/err.h>
-#include <qmessagebox.h>
+#include <QtGui/QMessageBox>
 
 
 pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey, pem_password_cb *cb):

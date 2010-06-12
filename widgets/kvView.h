@@ -8,11 +8,12 @@
 #ifndef __KVVIEW_H
 #define __KVVIEW_H
 
-#include <qabstractitemmodel.h>
-#include <qtableview.h>
-#include <qcombobox.h>
-#include <qitemdelegate.h>
-#include <qlabel.h>
+#include <QtCore/QAbstractItemModel>
+#include <QtGui/QTableView>
+#include <QtGui/QComboBox>
+#include <QtGui/QItemDelegate>
+#include <QtGui/QLabel>
+
 #include "lib/base.h"
 
 class kvView;

@@ -9,8 +9,8 @@
 #define __PKI_BASE_H
 
 #include <openssl/err.h>
-#include <qstring.h>
-#include <qlistview.h>
+#include <QtCore/QString>
+#include <QtGui/QListView>
 #include "db.h"
 #include "base.h"
 

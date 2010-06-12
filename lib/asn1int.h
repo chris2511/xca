@@ -8,7 +8,7 @@
 #ifndef __ASN1INTEGER_H
 #define __ASN1INTEGER_H
 
-#include <qstring.h>
+#include <QtCore/QString>
 #include <openssl/asn1.h>
 
 class a1int

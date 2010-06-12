@@ -10,9 +10,9 @@
 #include "lib/exception.h"
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
-#include <qdir.h>
-#include <qstatusbar.h>
-#include <qmessagebox.h>
+#include <QtCore/QDir>
+#include <QtGui/QStatusBar>
+#include <QtGui/QMessageBox>
 #include "lib/db_base.h"
 #include "lib/func.h"
 #include "widgets/ImportMulti.h"

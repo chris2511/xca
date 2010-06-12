@@ -10,8 +10,8 @@
 
 #include "ui_v3ext.h"
 #include "lib/pki_base.h"
-#include <qlineedit.h>
-#include <qstringlist.h>
+#include <QtGui/QLineEdit>
+#include <QtCore/QStringList>
 #include <openssl/x509v3.h>
 #include "widgets/kvView.h"
 

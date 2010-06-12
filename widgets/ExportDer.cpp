@@ -10,11 +10,11 @@
 #include "lib/base.h"
 #include "lib/func.h"
 
-#include <qcombobox.h>
-#include <qlineedit.h>
-#include <qfiledialog.h>
-#include <qmessagebox.h>
-#include <qstringlist.h>
+#include <QtGui/QComboBox>
+#include <QtGui/QLineEdit>
+#include <QtGui/QFileDialog>
+#include <QtGui/QMessageBox>
+#include <QtCore/QStringList>
 
 ExportDer::ExportDer(QWidget *parent, QString fname, QString _filter)
 	:QDialog(parent)
