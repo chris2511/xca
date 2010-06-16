@@ -88,8 +88,7 @@ QString getPrefix()
 	// this is a more robust way to get the bundle directory
 	QDir bundleDir(qApp->applicationDirPath());
 	bundleDir.cdUp();
-	bundleDir.cdUp();
-        return bundleDir.absolutePath() + "/Contents/Resources";
+        return bundleDir.canonicalPath() + "/Resources";
 #else
 	return QString(PREFIX) + "/share/xca";
 #endif

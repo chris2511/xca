@@ -24,4 +24,8 @@ imgres.rcc: bigcert.png bigcrl.png bigcsr.png bigkey.png bigtemp.png crl.png hal
 w32res.o: w32res.rc key.ico xca.ico xdb.ico
 	$(WINDRES) $< $@
 
+app:
+	mkdir -p $(APPDIR)/Resources
+	install -m 644 xca-mac-icon.icns $(APPDIR)/Resources
+
 include $(TOPDIR)/Rules.mak

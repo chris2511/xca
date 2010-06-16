@@ -29,11 +29,14 @@
 #include <ltdl.h>
 
 #if defined(_WIN32) || defined(USE_CYGWIN)
-#define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
-#define ENGINE_LIB			"engine_pkcs11.dll"
+#define PKCS11_DEFAULT_MODULE_NAME	"opensc-pkcs11.dll"
+#define ENGINE_LIB			".\\engine_pkcs11.dll"
+#elif defined(Q_WS_MAC)
+#define PKCS11_DEFAULT_MODULE_NAME	"/Library/OpenSC/lib/opensc-pkcs11.so"
+#define ENGINE_LIB			 "/engine_pkcs11.so"
 #else
 #define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
-#define ENGINE_LIB			"/usr/lib/engines/engine_pkcs11.so"
+#define ENGINE_LIB			"/usr/lib/engines/EEengine_pkcs11.so"
 #endif
 
 QPixmap *pki_scard::icon[1] = { NULL };
@@ -59,7 +62,7 @@ ENGINE *pki_scard::p11_engine = NULL;
 bool pki_scard::init_p11engine(QString file, bool silent)
 {
 	ENGINE *e;
-	const char *engine_path;
+	QString engine_path = ENGINE_LIB;
 	QString log;
 
 #ifdef WIN32
@@ -68,6 +71,18 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 		return true;
 	loaded = true;
 #endif
+
+#if defined(Q_WS_MAC)
+	engine_path = getPrefix() + engine_path;
+#endif
+
+	if (!QFile::exists(engine_path)) {
+		if (silent)
+			return false;
+		throw errorEx(tr("PKCS#11 engine: '%1' not found\n").
+			arg(engine_path));
+	}
+
 	if (file.isEmpty())
                 file = PKCS11_DEFAULT_MODULE_NAME;
 
@@ -87,17 +102,13 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 		return false;
 	log += "Successfully loaded PKCS#11 library: " +file +"\n";
 
-#ifdef WIN32
-	engine_path = ".\\" ENGINE_LIB;
-#else
-	engine_path = ENGINE_LIB;
-#endif
 	QByteArray ba = filename2bytearray(file);
+	QByteArray en = engine_path.toAscii();
 
 	ENGINE_load_dynamic();
 	e = ENGINE_by_id("dynamic");
 
-	XCA_ENGINE_cmd("SO_PATH",      engine_path);
+	XCA_ENGINE_cmd("SO_PATH",      en.constData());
 	XCA_ENGINE_cmd("ID",           "pkcs11");
 	XCA_ENGINE_cmd("LIST_ADD",     "1");
 	XCA_ENGINE_cmd("LOAD",         NULL);

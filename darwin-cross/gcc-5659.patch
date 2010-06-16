@@ -1,0 +1,133 @@
+diff -Nur gcc-5659.orig/configure gcc-5659/configure
+--- gcc-5659.orig/configure	2010-05-11 22:44:13.000000000 +0200
++++ gcc-5659/configure	2010-06-15 10:27:03.000000000 +0200
+@@ -1808,6 +1808,7 @@
+   # APPLE LOCAL begin dynamic-no-pic
+   i[3456789]86-*-darwin*)
+     host_makefile_frag="config/mh-x86-darwin"
++    noconfigdirs="$noconfigdirs target-newlib target-libgloss"
+     # gcc can default to x86_64 code generation, avoid that
+     if test "${build}" = "${host}"; then
+       CC="${CC-gcc} -m32"
+@@ -3014,7 +3015,7 @@
+ 
+ # Some systems (e.g., one of the i386-aix systems the gas testers are
+ # using) don't handle "\$" correctly, so don't use it here.
+-tooldir='${exec_prefix}'/${target_alias}
++tooldir='${exec_prefix}'
+ build_tooldir=${tooldir}
+ 
+ # Create a .gdbinit file which runs the one in srcdir
+diff -Nur gcc-5659.orig/gcc/config/i386/t-darwin gcc-5659/gcc/config/i386/t-darwin
+--- gcc-5659.orig/gcc/config/i386/t-darwin	2010-05-11 22:44:49.000000000 +0200
++++ gcc-5659/gcc/config/i386/t-darwin	2010-06-13 14:35:34.000000000 +0200
+@@ -4,11 +4,6 @@
+ LIB1ASMFUNCS = _get_pc_thunk_ax _get_pc_thunk_dx _get_pc_thunk_cx _get_pc_thunk_bx _get_pc_thunk_si _get_pc_thunk_di _get_pc_thunk_bp
+ # APPLE LOCAL end 4099000
+ # APPLE LOCAL avoid try fat on thin system
+-ifneq ($(shell lipo -info /usr/lib/libSystem.B.dylib | grep x86_64),)
+-MULTILIB_OPTIONS = m64
+-MULTILIB_DIRNAMES = x86_64
+-# APPLE LOCAL avoid try fat on thin system
+-endif
+ LIB2_SIDITI_CONV_FUNCS=yes
+ LIB2FUNCS_EXTRA = $(srcdir)/config/darwin-64.c
+ 
+diff -Nur gcc-5659.orig/gcc/cppdefault.c gcc-5659/gcc/cppdefault.c
+--- gcc-5659.orig/gcc/cppdefault.c	2010-05-11 22:45:02.000000000 +0200
++++ gcc-5659/gcc/cppdefault.c	2010-06-15 16:44:13.000000000 +0200
+@@ -53,42 +53,42 @@
+ = {
+ #ifdef GPLUSPLUS_INCLUDE_DIR
+     /* Pick up GNU C++ generic include files.  */
+-    { GPLUSPLUS_INCLUDE_DIR, "G++", 1, 1, 1, 0 },
++    { GPLUSPLUS_INCLUDE_DIR, "G++", 1, 1, 0, 0 },
+ #endif
+ #ifdef GPLUSPLUS_TOOL_INCLUDE_DIR
+     /* Pick up GNU C++ target-dependent include files.  */
+-    { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1, 1, 1 },
++    { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1, 0, 1 },
+ #endif
+ #ifdef GPLUSPLUS_BACKWARD_INCLUDE_DIR
+     /* Pick up GNU C++ backward and deprecated include files.  */
+-    { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1, 1, 0 },
++    { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1, 0, 0 },
+ #endif
+ #ifdef LOCAL_INCLUDE_DIR
+     /* /usr/local/include comes before the fixincluded header files.  */
+-    { LOCAL_INCLUDE_DIR, 0, 0, 1, 1, 0 },
++    { LOCAL_INCLUDE_DIR, 0, 0, 1, 0, 0 },
+ #endif
+ #ifdef PREFIX_INCLUDE_DIR
+-    { PREFIX_INCLUDE_DIR, 0, 0, 1, 1, 0 },
++    { PREFIX_INCLUDE_DIR, 0, 0, 1, 0, 0 },
+ #endif
+ #ifdef GCC_INCLUDE_DIR
+     /* This is the dir for fixincludes and for gcc's private headers.  */
+-    { GCC_INCLUDE_DIR, "GCC", 0, 0, 1, 0 },
++    { GCC_INCLUDE_DIR, "GCC", 0, 0, 0, 0 },
+ #endif
+ #ifdef CROSS_INCLUDE_DIR
+     /* One place the target system's headers might be.  */
+-    { CROSS_INCLUDE_DIR, "GCC", 0, 0, 1, 0 },
++    { CROSS_INCLUDE_DIR, "GCC", 0, 0, 0, 0 },
+ #endif
+ #ifdef TOOL_INCLUDE_DIR
+     /* Another place the target system's headers might be.  */
+-    { TOOL_INCLUDE_DIR, "BINUTILS", 0, 1, 1, 0 },
++    { TOOL_INCLUDE_DIR, "BINUTILS", 0, 1, 0, 0 },
+ #endif
+ #ifdef SYSTEM_INCLUDE_DIR
+     /* Some systems have an extra dir of include files.  */
+-    { SYSTEM_INCLUDE_DIR, 0, 0, 0, 1, 0 },
++    { SYSTEM_INCLUDE_DIR, 0, 0, 0, 0, 0 },
+ #endif
+ #ifdef STANDARD_INCLUDE_DIR
+     /* /usr/include comes dead last.  */
+-    { STANDARD_INCLUDE_DIR, STANDARD_INCLUDE_COMPONENT, 0, 0, 1, 0 },
++    { STANDARD_INCLUDE_DIR, STANDARD_INCLUDE_COMPONENT, 0, 0, 0, 0 },
+ #endif
+     { 0, 0, 0, 0, 0, 0 }
+   };
+diff -Nur gcc-5659.orig/gcc/Makefile.in gcc-5659/gcc/Makefile.in
+--- gcc-5659.orig/gcc/Makefile.in	2010-05-11 22:44:38.000000000 +0200
++++ gcc-5659/gcc/Makefile.in	2010-06-15 12:21:36.000000000 +0200
+@@ -1472,6 +1472,7 @@
+ 	D128PBIT_FUNCS='$(D128PBIT_FUNCS)' \
+ 	APPLE_LOCAL='APPLE LOCAL libcc_kext' \
+ 	MULTILIBS="`$(GCC_FOR_TARGET) --print-multi-lib` static;@static@fno-pic kext;@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT@static@fno-pic@fno-exceptions@fno-non-call-exceptions$(KEXT_EXTRA_FLAGS) $(if $(findstring i686,$(target)),kext64;@mkernel@m64@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT$(KEXT_EXTRA_FLAGS))" \
++	MULTILIBS="`$(GCC_FOR_TARGET) --print-multi-lib` static;@static@fno-pic kext;@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT@static@fno-pic@fno-exceptions@fno-non-call-exceptions$(KEXT_EXTRA_FLAGS)" \
+ 	EXTRA_MULTILIB_PARTS='$(EXTRA_MULTILIB_PARTS)' \
+ 	SHLIB_LINK='$(SHLIB_LINK)' \
+ 	SHLIB_INSTALL='$(SHLIB_INSTALL)' \
+@@ -1488,6 +1489,8 @@
+ 	  $(SHELL) mklibgcc > tmp-libgcc.mk
+ 	mv tmp-libgcc.mk libgcc.mk
+ 
++#MULTILIBS="`$(GCC_FOR_TARGET) --print-multi-lib` static;@static@fno-pic kext;@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT@static@fno-pic@fno-exceptions@fno-non-call-exceptions$(KEXT_EXTRA_FLAGS) $(if $(findstring i686,$(target)),kext64;@mkernel@m64@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT$(KEXT_EXTRA_FLAGS))" \
++
+ # All the things that might cause us to want to recompile bits of libgcc.
+ LIBGCC_DEPS = $(GCC_PASSES) stmp-int-hdrs $(STMP_FIXPROTO) \
+ 	libgcc.mk $(srcdir)/libgcc2.c $(srcdir)/libgcov.c $(TCONFIG_H) \
+diff -Nur gcc-5659.orig/gcc/unwind-sjlj.c gcc-5659/gcc/unwind-sjlj.c
+--- gcc-5659.orig/gcc/unwind-sjlj.c	2010-05-11 23:06:29.000000000 +0200
++++ gcc-5659/gcc/unwind-sjlj.c	2010-06-15 14:10:03.000000000 +0200
+@@ -325,4 +325,6 @@
+ 
+ #include "unwind.inc"
+ 
++#else
++const int ___just_a_symbol_to_make_ranlib_happy=0;
+ #endif /* USING_SJLJ_EXCEPTIONS */
+diff -Nur gcc-5659.orig/Makefile.in gcc-5659/Makefile.in
+--- gcc-5659.orig/Makefile.in	2010-05-11 22:44:09.000000000 +0200
++++ gcc-5659/Makefile.in	2010-06-13 14:37:29.000000000 +0200
+@@ -341,7 +341,7 @@
+ # CFLAGS will be just -g.  We want to ensure that TARGET libraries
+ # (which we know are built with gcc) are built with optimizations so
+ # prepend -O2 when setting CFLAGS_FOR_TARGET.
+-CFLAGS_FOR_TARGET = -O2 $(CFLAGS) $(SYSROOT_CFLAGS_FOR_TARGET)
++CFLAGS_FOR_TARGET = -O2 $(SYSROOT_CFLAGS_FOR_TARGET)
+ SYSROOT_CFLAGS_FOR_TARGET = @SYSROOT_CFLAGS_FOR_TARGET@
+ CXXFLAGS_FOR_TARGET = $(CXXFLAGS) $(SYSROOT_CFLAGS_FOR_TARGET)
+ LIBCFLAGS_FOR_TARGET = $(CFLAGS_FOR_TARGET)

@@ -24,6 +24,7 @@
 #define D2I_CLASHT(f, t, a, PP, s) f(t,a,(const unsigned char **)PP,s)
 #define HAS_SHA256
 #else
+#error GEHTNICH
 #define D2I_CLASH(f, a, PP, s) f(a,(unsigned char **)PP,s)
 #define D2I_CLASHT(f, t, a, PP, s) f(t,a,(unsigned char **)PP,s)
 #endif

@@ -18,23 +18,6 @@ then
     mv xca.xcodeproj xca.xcodeproj~
 fi
 
-QTDEPLOY=misc/macdeployqt
-
-if [ -x "`which deployqt`" ]
-then
-    QTDEPLOY=`which deployqt`
-fi
-
-if [ -x "$QTDEPLOY" ]
-then
-    echo "$QTDEPLOY will be used for packaging qt into release builds of the application bundle"
-else
-    echo "No copy of qtdeploy could be found. qtdeploy is highly recommended for building release versions of xca intended for redistribution."
-    echo "The command"
-    echo "curl http://git.hohnstaedt.de/macdeployqt.bz2 |bzcat - >misc/macdeployqt && chmod +x misc/macdeployqt"
-    echo "will fetch a pre-built copy. Otherwise, download and build from here: "
-    echo "http://labs.trolltech.com/blogs/2007/08/23/deploying-mac-applications-without-the-hassle/"
-fi
 
 echo "Generating xca.xcodeproj"
 qmake -o xca -macx xca.pro

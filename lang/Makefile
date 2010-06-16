@@ -3,22 +3,26 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
-QM_FILES=xca_de.qm xca_es.qm xca_ru.qm
+LANGUAGES=de es ru
+QM_XCA=$(patsubst %, xca_%.qm, $(LANGUAGES))
+QM_QT=$(patsubst %, qt_%.qm, $(LANGUAGES))
 
 %.qm: %.ts
 	$(LRELEASE) $< -qm $@
 
-all: $(QM_FILES)
+all: $(QM_XCA)
 
-install: $(QM_FILES)
+install: $(QM_XCA)
 	install -m 755 -d $(destdir)$(prefix)/share/xca
-	install -m 644 $(QM_FILES) $(destdir)$(prefix)/share/xca
+	install -m 644 $(QM_XCA) $(destdir)$(prefix)/share/xca
 
 app:
 	mkdir -p $(APPDIR)/Resources
-	install -m 644 $(QM_FILES) $(APPDIR)/Resources
+	install -m 644 $(QM_XCA) $(APPDIR)/Resources
+	(cd $(SYSROOT)/Developer/Applications/Qt/translations && \
+		install $(QM_QT) $(APPDIR)/Resources )
 
 clean:
-	$(RM) $(QM_FILES)
+	$(RM) $(QM_XCA)
 
 include $(TOPDIR)/Local.mak

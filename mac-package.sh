@@ -3,30 +3,33 @@
 VERSION=$(cat VERSION)
 echo "Creating distribution disk image for xca $VERSION"
 
-QTDEPLOY=misc/macdeployqt
+QTDEPLOY=/usr/bin/macdeployqt
 
-if [ -x "`which deployqt`" ]
+if [ -x "`which macdeployqt`" ]
 then
-    QTDEPLOY=`which deployqt`
+    QTDEPLOY=`which macdeployqt`
 fi
 
 if [ -x "$QTDEPLOY" ]
 then
     echo "$QTDEPLOY will be used for packaging qt into release builds of the application bundle"
 else
-    echo "No copy of qtdeploy could be found. qtdeploy is highly recommended for building release versions of xca intended for redistribution."
-    echo "The command"
-    echo "curl http://git.hohnstaedt.de/macdeployqt.bz2 |bzcat - >misc/macdeployqt && chmod +x misc/macdeployqt"
-    echo "will fetch a pre-built copy. Otherwise, download and build from here: "
-    echo "http://labs.trolltech.com/blogs/2007/08/23/deploying-mac-applications-without-the-hassle/"
+    echo "macdeployqt was not found. Unable to package."
+    exit 1
+fi
+
+if [ -f xca-$VERSION.dmg ]
+then
+    echo "xca-$VERSION.dmg already exists. Move it out of the way to repackage."
+    exit 1
 fi
 
 if [ ! -d "build/Release/xca.app" ]
 then
     echo "No release build was found. This script only makes sense for packaging release builds."
-    exit
+    exit 1
 fi
-DMGSTAGELOC=dmgstage/xca
+DMGSTAGELOC=./dmgstage/xca
 rm -rf $DMGSTAGELOC
 mkdir -p $DMGSTAGELOC
 if ! cp -r build/Release/xca.app $DMGSTAGELOC
@@ -35,12 +38,15 @@ then
     exit
 fi
 if [ -x "$QTDEPLOY" ]; then
-     $QTDEPLOY $DMGSTAGELOC/xca.app /Developer/Applications/Qt/plugins
+    CWD=`pwd`
+    cd $DMGSTAGELOC
+    $QTDEPLOY xca.app
+    cd $CWD
 else
     echo "Warning: this release package will require users to have installed Qt on their systems."
 fi
 
-cp COPYRIGHT dmgstage
+cp COPYRIGHT $DMGSTAGELOC
 
 if [ -z "$HTML_DOCDIR" -a -e "doc/xca.html" ]
 then

@@ -1,0 +1,51 @@
+--- odcctools.orig/include/foreign/mach/machine/vm_types.h	2010-06-12 15:46:07.000000000 +0200
++++ odcctools/include/foreign/mach/machine/vm_types.h	2010-06-15 15:11:25.000000000 +0200
+@@ -3,8 +3,13 @@
+ 
+ #include <stdint.h>
+ 
++#if __WORDSIZE == 64
++typedef uint64_t        natural_t;
++typedef int64_t         integer_t;
++#else
+ typedef uint32_t        natural_t;
+ typedef int32_t         integer_t;
++#endif
+ 
+ typedef natural_t       vm_offset_t;
+ typedef natural_t       vm_size_t;
+--- odcctools.orig/otool/print_objc.c	2010-06-15 17:48:47.000000000 +0200
++++ odcctools/otool/print_objc.c	2010-06-13 14:16:17.000000000 +0200
+@@ -23,7 +23,7 @@
+ #include "stdio.h"
+ #include "string.h"
+ #include "mach-o/loader.h"
+-#include "objc/objc-runtime.h"
++//#include "objc/objc-runtime.h"
+ #include "stuff/allocate.h"
+ #include "stuff/bytesex.h"
+ #include "stuff/symbol.h"
+@@ -136,7 +136,7 @@
+     uint32_t characters;	/* char * (32-bit pointer) */
+     uint32_t _length;
+ };
+-typedef struct objc_string_object_t NXConstantString;
++//typedef struct objc_string_object_t NXConstantString;
+ 
+ #define SIZEHASHTABLE 821
+ struct _hashEntry_t {
+@@ -491,6 +491,14 @@
+     enum byte_sex host_byte_sex,
+     enum bool swapped);
+ 
++#define CLS_GETINFO(cls,infomask)        ((cls)->info & (infomask))
++#define CLS_SETINFO(cls,infomask)        ((cls)->info |= (infomask))
++
++// class is not a metaclass
++#define CLS_CLASS               0x1
++// class is a metaclass
++#define CLS_META                0x2
++
+ /*
+  * Print the objc segment.
+  */
