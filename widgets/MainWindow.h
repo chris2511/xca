@@ -84,6 +84,9 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString updateDbPassword(QString newdb, char *pass);
 		void enableTokenMenu(bool enable);
 		pki_multi *probeAnything(QString file);
+		void importAnything(QString file);
+		void dropEvent(QDropEvent *event);
+		void dragEnterEvent(QDragEnterEvent *event);
 
 	public slots:
 		void init_database();

@@ -201,6 +201,29 @@ MainWindow::MainWindow(QWidget *parent )
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
+	setAcceptDrops(true);
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+	QList<QUrl> urls = event->mimeData()->urls();
+	QUrl u;
+	ImportMulti *dlgi = new ImportMulti(this);
+
+	foreach(u, urls) {
+		QString s = u.toLocalFile();
+		fprintf(stderr, "URL: '%s'\n", CCHAR(s));
+	        pki_multi *pki = probeAnything(s);
+	        dlgi->addItem(pki);
+	}
+	dlgi->execute(1);
+	delete dlgi;
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+	if (event->mimeData()->hasUrls())
+		event->acceptProposedAction();
 }
 
 void MainWindow::setItemEnabled(bool enable)
@@ -849,6 +872,15 @@ void MainWindow::connNewX509(NewX509 *nx)
 	connect( nx, SIGNAL(genKey(QString)), keys, SLOT(newItem(QString)) );
 	connect( keys, SIGNAL(keyDone(QString)), nx, SLOT(newKeyDone(QString)) );
 	connect( nx, SIGNAL(showReq(QString)), reqs, SLOT(showItem(QString)));
+}
+
+void MainWindow::importAnything(QString file)
+{
+	ImportMulti *dlgi = new ImportMulti(this);
+	pki_multi *pki = probeAnything(file);
+	dlgi->addItem(pki);
+	dlgi->execute(1);
+	delete dlgi;
 }
 
 pki_multi *MainWindow::probeAnything(QString file)

@@ -32,6 +32,6 @@
 #define CCHAR(x) qPrintable(x)
 #endif
 
-#define TRACE printf("File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
+#define TRACE fprintf(stderr, "File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
 
 #define ARRAY_SIZE(x) (sizeof(x)/sizeof((x)[0]))

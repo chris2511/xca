@@ -15,18 +15,30 @@
 #include <windows.h>
 #endif
 
-int main( int argc, char *argv[] )
+class XCA_application : public QApplication
 {
-	int ret = 0, pkictr;
+
+	MainWindow *mainw;
+public:
+	XCA_application(int &argc, char *argv[]);
+	void setMainwin(MainWindow *m)
+	{
+		mainw = m;
+	}
+protected:
+	bool event(QEvent *ev);
+};
+
+XCA_application::XCA_application(int &argc, char *argv[])
+	:QApplication(argc, argv)
+{
 	QString locale;
 	QTranslator qtTr;
 	QTranslator xcaTr;
-	MainWindow *mw;
-	QApplication a( argc, argv );
+	QStringList dirs;
 
 	locale = QLocale::system().name();
 
-	QStringList dirs;
 	dirs    << getPrefix()
 		<< "/usr/local/share/qt4/translations/"
 		<< "/usr/share/qt4/translations/"
@@ -40,15 +52,37 @@ int main( int argc, char *argv[] )
 	}
 	xcaTr.load(QString("xca_%1").arg(locale), getPrefix());
 
-	a.installTranslator(&qtTr);
-	a.installTranslator(&xcaTr);
+	installTranslator(&qtTr);
+	installTranslator(&xcaTr);
 
 #ifdef Q_WS_MAC
-	QStringList libp = a.libraryPaths();
-	libp.prepend(a.applicationDirPath() + "/../Plugins");
-	a.setLibraryPaths(libp);
+	QStringList libp = libraryPaths();
+	libp.prepend(applicationDirPath() + "/../Plugins");
+	setLibraryPaths(libp);
 #endif
+}
+
+bool XCA_application::event(QEvent *ev)
+{
+	if (ev->type() == QEvent::FileOpen) {
+		QString file = static_cast<QFileOpenEvent *>(ev)->file();
+		if (mainw)
+			mainw->importAnything(file);
+
+		return true;
+	}
+	return QApplication::event(ev);
+}
+
+int main( int argc, char *argv[] )
+{
+	int ret = 0, pkictr;
+	MainWindow *mw;
+
+	XCA_application a( argc, argv );
+
 	mw = new MainWindow(NULL);
+	a.setMainwin(mw);
 	mw->read_cmdline();
 	if (mw->exitApp == 0) {
 		mw->show();
@@ -59,7 +93,7 @@ int main( int argc, char *argv[] )
 
 	pkictr =  pki_base::get_pki_counter();
 	if (pkictr)
-		printf("PKI Counter (%d)\n", pkictr);
+		fprintf(stderr, "PKI Counter (%d)\n", pkictr);
 
 	return ret;
 }
