@@ -36,7 +36,7 @@
 #define ENGINE_LIB			 "/engine_pkcs11.so"
 #else
 #define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
-#define ENGINE_LIB			"/usr/lib/engines/EEengine_pkcs11.so"
+#define ENGINE_LIB			"/usr/lib/engines/engine_pkcs11.so"
 #endif
 
 QPixmap *pki_scard::icon[1] = { NULL };
