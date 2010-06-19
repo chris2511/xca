@@ -209,14 +209,16 @@ void MainWindow::dropEvent(QDropEvent *event)
 	QList<QUrl> urls = event->mimeData()->urls();
 	QUrl u;
 	ImportMulti *dlgi = new ImportMulti(this);
+	QStringList failed;
 
 	foreach(u, urls) {
 		QString s = u.toLocalFile();
-		fprintf(stderr, "URL: '%s'\n", CCHAR(s));
 	        pki_multi *pki = probeAnything(s);
+		if (!pki->count())
+			failed << s;
 	        dlgi->addItem(pki);
 	}
-	dlgi->execute(1);
+	dlgi->execute(1, failed);
 	delete dlgi;
 }
 
@@ -297,6 +299,7 @@ void MainWindow::read_cmdline()
 	int cnt = 1, opt = 0, force_load = 0;
 	char *arg = NULL;
 	exitApp = 0;
+	QStringList failed;
 	ImportMulti *dlgi = new ImportMulti(this);
 	while (cnt < qApp->argc()) {
 		arg = qApp->argv()[cnt];
@@ -343,11 +346,13 @@ void MainWindow::read_cmdline()
 			force_load = 0;
 		} else {
 			pki_multi *pki = probeAnything(file);
+			if (!pki->count())
+				failed << file;
 			dlgi->addItem(pki);
 		}
 		cnt++;
 	}
-	dlgi->execute(1); /* force showing of import dialog */
+	dlgi->execute(1, failed); /* force showing of import dialog */
 	if (dlgi->result() == QDialog::Rejected)
 		exitApp = 1;
 	delete dlgi;
@@ -877,9 +882,12 @@ void MainWindow::connNewX509(NewX509 *nx)
 void MainWindow::importAnything(QString file)
 {
 	ImportMulti *dlgi = new ImportMulti(this);
+	QStringList failed;
 	pki_multi *pki = probeAnything(file);
+	if (!pki->count())
+		failed << file;
 	dlgi->addItem(pki);
-	dlgi->execute(1);
+	dlgi->execute(1, failed);
 	delete dlgi;
 }
 

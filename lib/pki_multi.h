@@ -27,6 +27,10 @@ class pki_multi: public pki_base
 		void fload(const QString fname);
 		void probeAnything(const QString fname);
 		pki_base *pull();
+		int count() const
+		{
+			return multi.count();
+		}
 
 };
 
