@@ -18,21 +18,6 @@ diff -Nur gcc-5659.orig/configure gcc-5659/configure
  build_tooldir=${tooldir}
  
  # Create a .gdbinit file which runs the one in srcdir
-diff -Nur gcc-5659.orig/gcc/config/i386/t-darwin gcc-5659/gcc/config/i386/t-darwin
---- gcc-5659.orig/gcc/config/i386/t-darwin	2010-05-11 22:44:49.000000000 +0200
-+++ gcc-5659/gcc/config/i386/t-darwin	2010-06-13 14:35:34.000000000 +0200
-@@ -4,11 +4,6 @@
- LIB1ASMFUNCS = _get_pc_thunk_ax _get_pc_thunk_dx _get_pc_thunk_cx _get_pc_thunk_bx _get_pc_thunk_si _get_pc_thunk_di _get_pc_thunk_bp
- # APPLE LOCAL end 4099000
- # APPLE LOCAL avoid try fat on thin system
--ifneq ($(shell lipo -info /usr/lib/libSystem.B.dylib | grep x86_64),)
--MULTILIB_OPTIONS = m64
--MULTILIB_DIRNAMES = x86_64
--# APPLE LOCAL avoid try fat on thin system
--endif
- LIB2_SIDITI_CONV_FUNCS=yes
- LIB2FUNCS_EXTRA = $(srcdir)/config/darwin-64.c
- 
 diff -Nur gcc-5659.orig/gcc/cppdefault.c gcc-5659/gcc/cppdefault.c
 --- gcc-5659.orig/gcc/cppdefault.c	2010-05-11 22:45:02.000000000 +0200
 +++ gcc-5659/gcc/cppdefault.c	2010-06-15 16:44:13.000000000 +0200
@@ -89,36 +74,6 @@ diff -Nur gcc-5659.orig/gcc/cppdefault.c gcc-5659/gcc/cppdefault.c
  #endif
      { 0, 0, 0, 0, 0, 0 }
    };
-diff -Nur gcc-5659.orig/gcc/Makefile.in gcc-5659/gcc/Makefile.in
---- gcc-5659.orig/gcc/Makefile.in	2010-05-11 22:44:38.000000000 +0200
-+++ gcc-5659/gcc/Makefile.in	2010-06-15 12:21:36.000000000 +0200
-@@ -1472,6 +1472,7 @@
- 	D128PBIT_FUNCS='$(D128PBIT_FUNCS)' \
- 	APPLE_LOCAL='APPLE LOCAL libcc_kext' \
- 	MULTILIBS="`$(GCC_FOR_TARGET) --print-multi-lib` static;@static@fno-pic kext;@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT@static@fno-pic@fno-exceptions@fno-non-call-exceptions$(KEXT_EXTRA_FLAGS) $(if $(findstring i686,$(target)),kext64;@mkernel@m64@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT$(KEXT_EXTRA_FLAGS))" \
-+	MULTILIBS="`$(GCC_FOR_TARGET) --print-multi-lib` static;@static@fno-pic kext;@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT@static@fno-pic@fno-exceptions@fno-non-call-exceptions$(KEXT_EXTRA_FLAGS)" \
- 	EXTRA_MULTILIB_PARTS='$(EXTRA_MULTILIB_PARTS)' \
- 	SHLIB_LINK='$(SHLIB_LINK)' \
- 	SHLIB_INSTALL='$(SHLIB_INSTALL)' \
-@@ -1488,6 +1489,8 @@
- 	  $(SHELL) mklibgcc > tmp-libgcc.mk
- 	mv tmp-libgcc.mk libgcc.mk
- 
-+#MULTILIBS="`$(GCC_FOR_TARGET) --print-multi-lib` static;@static@fno-pic kext;@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT@static@fno-pic@fno-exceptions@fno-non-call-exceptions$(KEXT_EXTRA_FLAGS) $(if $(findstring i686,$(target)),kext64;@mkernel@m64@Dmalloc=kern_os_malloc@Dfree=kern_os_free@DLIBCC_KEXT$(KEXT_EXTRA_FLAGS))" \
-+
- # All the things that might cause us to want to recompile bits of libgcc.
- LIBGCC_DEPS = $(GCC_PASSES) stmp-int-hdrs $(STMP_FIXPROTO) \
- 	libgcc.mk $(srcdir)/libgcc2.c $(srcdir)/libgcov.c $(TCONFIG_H) \
-diff -Nur gcc-5659.orig/gcc/unwind-sjlj.c gcc-5659/gcc/unwind-sjlj.c
---- gcc-5659.orig/gcc/unwind-sjlj.c	2010-05-11 23:06:29.000000000 +0200
-+++ gcc-5659/gcc/unwind-sjlj.c	2010-06-15 14:10:03.000000000 +0200
-@@ -325,4 +325,6 @@
- 
- #include "unwind.inc"
- 
-+#else
-+const int ___just_a_symbol_to_make_ranlib_happy=0;
- #endif /* USING_SJLJ_EXCEPTIONS */
 diff -Nur gcc-5659.orig/Makefile.in gcc-5659/Makefile.in
 --- gcc-5659.orig/Makefile.in	2010-05-11 22:44:09.000000000 +0200
 +++ gcc-5659/Makefile.in	2010-06-13 14:37:29.000000000 +0200

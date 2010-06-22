@@ -86,9 +86,10 @@ cd odcctools
 patch -p1 < ../../odcctools.diff
 
 ./configure \
-	--prefix=/opt/mac \
+	--prefix=${PREFIX} \
 	--target=${TARGET} \
-	--with-sysroot=${SDK}
+	--with-sysroot=${SDK} \
+	--enable-as-targets="i386 x86_64"
 
 make -j3 && make install
 
@@ -117,7 +118,7 @@ cd $_
 	--disable-multilib \
 	--enable-version-specific-runtime-libs \
 	--with-gxx-include-dir=${SDK}/usr/include/c++/4.2.1 \
-	--with-arch=pentium-m --with-tune=prescott
+	--without-libgloss --without-newlib
 
 make -j3 && make install
 
