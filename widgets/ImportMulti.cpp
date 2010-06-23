@@ -304,20 +304,20 @@ int ImportMulti::entries()
 
 void ImportMulti::execute(int force, QStringList failed)
 {
+	if (failed.count() == 1) {
+		QMessageBox::information(this, XCA_TITLE,
+			tr("The file '%1' did not contain PKI data").
+			arg(failed[0]));
+	} else if (failed.count() > 1) {
+		QMessageBox::information(this, XCA_TITLE,
+			tr("The %1 files: '%2' did not contain PKI data").
+			arg(failed.count()).
+			arg(failed.join("', '")));
+	}
 	/* if there is nothing to import don't pop up */
 	if (entries() == 0) {
 		accept();
 		return;
-	}
-	if (failed.count() == 1) {
-		QMessageBox::information(this, XCA_TITLE,
-			tr("Failed to open the file: '%1'").
-			arg(failed[0]));
-	} else if (failed.count() > 1) {
-		QMessageBox::information(this, XCA_TITLE,
-			tr("Failed to open the %1 files: '%2'").
-			arg(failed.count()).
-			arg(failed.join("', '")));
 	}
 	/* if there is only 1 item and force is 0 import it silently */
 	if (entries() == 1 && force == 0) {

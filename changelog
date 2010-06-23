@@ -1,4 +1,5 @@
 
+  * Support dropping files onto the application
   * russian translation by Pavel Belly
   * support loading DER formatted PKCS#8 keys
   * ease commandline use

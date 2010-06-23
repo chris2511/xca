@@ -214,7 +214,7 @@ void MainWindow::dropEvent(QDropEvent *event)
 	foreach(u, urls) {
 		QString s = u.toLocalFile();
 	        pki_multi *pki = probeAnything(s);
-		if (!pki->count())
+		if (pki && !pki->count())
 			failed << s;
 	        dlgi->addItem(pki);
 	}
@@ -346,7 +346,7 @@ void MainWindow::read_cmdline()
 			force_load = 0;
 		} else {
 			pki_multi *pki = probeAnything(file);
-			if (!pki->count())
+			if (pki && !pki->count())
 				failed << file;
 			dlgi->addItem(pki);
 		}
@@ -884,7 +884,7 @@ void MainWindow::importAnything(QString file)
 	ImportMulti *dlgi = new ImportMulti(this);
 	QStringList failed;
 	pki_multi *pki = probeAnything(file);
-	if (!pki->count())
+	if (pki && !pki->count())
 		failed << file;
 	dlgi->addItem(pki);
 	dlgi->execute(1, failed);
@@ -901,7 +901,8 @@ pki_multi *MainWindow::probeAnything(QString file)
 				db mydb(file);
 				mydb.verify_magic();
 				changeDB(file);
-				return pki;
+				delete pki;
+				return NULL;
 			} catch (errorEx &err) {
 			}
 		}
