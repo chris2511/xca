@@ -79,7 +79,7 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	if (!QFile::exists(engine_path)) {
 		if (silent)
 			return false;
-		throw errorEx(tr("PKCS#11 engine: '%1' not found\n").
+		throw errorEx(tr("PKCS#11 engine: '%1' not found").
 			arg(engine_path));
 	}
 
