@@ -685,6 +685,16 @@ PKCS#8 - это официальный формат обмена ключами 
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+31"/>
+        <source>The file &apos;%1&apos; did not contain PKI data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../ui/ImportMulti.ui" line="-79"/>
         <source>Import PKI Items</source>
         <translation type="unfinished"></translation>
@@ -700,7 +710,7 @@ PKCS#8 - это официальный формат обмена ключами 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-217"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-252"/>
         <source>
 Name: %1
 Model: %2
@@ -827,7 +837,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+693"/>
+        <location filename="../widgets/MainWindow.cpp" line="+723"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -1154,18 +1164,18 @@ Serial: %3</source>
         <translation>Необходимо перезапустить XCA, чтобы загрузить новую библиотеку</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+255"/>
+        <location filename="../lib/pki_evp.cpp" line="+257"/>
         <location line="+121"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Пожалуйста, введите пароль для расшифровки закрытого ключа: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-432"/>
+        <location filename="../widgets/MainWindow.cpp" line="-434"/>
         <source>no such option: %1</source>
         <translation type="unfinished">нет таких вариантов: %1</translation>
     </message>
     <message>
-        <location line="+506"/>
+        <location line="+508"/>
         <source>%1 missmatch</source>
         <translation type="unfinished">Несоответствие %1</translation>
     </message>
@@ -1195,7 +1205,7 @@ Serial: %3</source>
         <translation type="unfinished">Повторить %1</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+106"/>
         <source>DH parameter bits</source>
         <translation type="unfinished">Бит DH параметра</translation>
     </message>
@@ -2031,7 +2041,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Ошибки</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+211"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+212"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished">Ошибка кофигурационного файла в строке %1
@@ -2265,7 +2275,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Базы данных XCA ( *.xdb );;</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+11"/>
+        <source>PKCS#11 library ( *.dylib *.so );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>PEM files ( *.pem );;</source>
         <translation>PEM файлы ( *.pem );;</translation>
     </message>
@@ -2300,7 +2315,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+281"/>
+        <location filename="../lib/func.cpp" line="+282"/>
         <source>Do not overwrite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2315,12 +2330,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>PKCS#11 library ( *.dylib );;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>PKCS#11 library ( *.so );;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3102,7 +3112,7 @@ and so it was not imported</source>
     <message>
         <location line="+1"/>
         <source>Sign</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подпись</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3175,7 +3185,7 @@ and thus was not stored</source>
 <context>
     <name>pass_info</name>
     <message>
-        <location filename="../lib/pass_info.cpp" line="+11"/>
+        <location filename="../lib/pass_info.cpp" line="+21"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -3326,7 +3336,7 @@ and thus was not stored</source>
         <translation type="obsolete">%1 закрытый ключ</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+115"/>
+        <location filename="../lib/pki_key.cpp" line="+118"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation type="unfinished">Открытый %1 ключ &apos;%2&apos; импортирован успешно</translation>
     </message>
@@ -3430,7 +3440,7 @@ and thus was not stored</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+401"/>
+        <location filename="../lib/pki_scard.cpp" line="+413"/>
         <source>This Key is already on the token</source>
         <translation type="unfinished">Этот ключ уже есть на Токене безопасности</translation>
     </message>
@@ -3469,7 +3479,12 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-179"/>
+        <location line="-258"/>
+        <source>PKCS#11 engine: &apos;%1&apos; not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+79"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>

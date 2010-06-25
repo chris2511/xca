@@ -683,6 +683,16 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
     </message>
     <message>
+        <location line="+31"/>
+        <source>The file &apos;%1&apos; did not contain PKI data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../ui/ImportMulti.ui" line="-79"/>
         <source>Import PKI Items</source>
         <translation>Importieren</translation>
@@ -698,7 +708,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Auf der Chipkarte umbenennen</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-217"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-252"/>
         <source>
 Name: %1
 Model: %2
@@ -828,7 +838,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+693"/>
+        <location filename="../widgets/MainWindow.cpp" line="+723"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -1155,18 +1165,18 @@ Seriennummer: %3</translation>
         <translation>XCA muss neu gestartet werden um die neue PKCS#11 DLL zu laden</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+255"/>
+        <location filename="../lib/pki_evp.cpp" line="+257"/>
         <location line="+121"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-432"/>
+        <location filename="../widgets/MainWindow.cpp" line="-434"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
     </message>
     <message>
-        <location line="+506"/>
+        <location line="+508"/>
         <source>%1 missmatch</source>
         <translation>Keine %1 übereinstimmung</translation>
     </message>
@@ -1196,7 +1206,7 @@ Seriennummer: %3</translation>
         <translation>%1 wiederholen</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+106"/>
         <source>DH parameter bits</source>
         <translation>DH parameter bits</translation>
     </message>
@@ -2034,7 +2044,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+211"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+212"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished">Fehler in der Konfigurationsdatei in Zeile %1</translation>
@@ -2268,7 +2278,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>XCA Datenbanken ( *.xdb );;</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+11"/>
+        <source>PKCS#11 library ( *.dylib *.so );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>PEM files ( *.pem );;</source>
         <translation>PEM Dateien ( *.pem );;</translation>
     </message>
@@ -2303,7 +2318,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+281"/>
+        <location filename="../lib/func.cpp" line="+282"/>
         <source>Do not overwrite</source>
         <translation>Nicht überschreiben</translation>
     </message>
@@ -2318,12 +2333,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>PKCS#11 library ( *.dylib );;</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="+4"/>
         <source>PKCS#11 library ( *.so );;</source>
         <translation></translation>
     </message>
@@ -3167,7 +3177,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pass_info</name>
     <message>
-        <location filename="../lib/pass_info.cpp" line="+11"/>
+        <location filename="../lib/pass_info.cpp" line="+21"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -3306,7 +3316,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+115"/>
+        <location filename="../lib/pki_key.cpp" line="+118"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Der öffentliche %1 Schlüssel &apos;%2&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -3410,7 +3420,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+401"/>
+        <location filename="../lib/pki_scard.cpp" line="+413"/>
         <source>This Key is already on the token</source>
         <translation>Der Schlüssel ist bereits auf der SmartCard</translation>
     </message>
@@ -3445,7 +3455,12 @@ und wurde daher nicht importiert</translation>
         <translation>Soll der private Schlüssel &apos;%1&apos; von der Chipkarte &apos;%2&apos; mit der Seriennummer %3 gelöscht werden ?</translation>
     </message>
     <message>
-        <location line="-179"/>
+        <location line="-258"/>
+        <source>PKCS#11 engine: &apos;%1&apos; not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+79"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>Der Chipkartenschlüssel &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
