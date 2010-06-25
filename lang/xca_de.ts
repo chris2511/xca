@@ -685,12 +685,12 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     <message>
         <location line="+31"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei &apos;%1&apos; enthielt keine verwendbaren Daten</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
-        <translation type="unfinished"></translation>
+        <translation>Die %1 Dateien: &apos;%2&apos; enthielten keine verwendbaren Daten</translation>
     </message>
     <message>
         <location filename="../ui/ImportMulti.ui" line="-79"/>
@@ -2280,7 +2280,7 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+11"/>
         <source>PKCS#11 library ( *.dylib *.so );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#11 Bibliothek ( *.dylib *.so );;</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -3457,7 +3457,7 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="-258"/>
         <source>PKCS#11 engine: &apos;%1&apos; not found</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#11 engine: &apos;%1&apos; nicht gefunden</translation>
     </message>
     <message>
         <location line="+79"/>
