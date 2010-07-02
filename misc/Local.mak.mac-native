@@ -1,0 +1,30 @@
+
+CPPFLAGS=-I. -I.. -I$(TOPDIR)/ui -FQtCore -FQtGui
+CFLAGS=-Wall -g -O2 -m32
+LDFLAGS=-framework QtCore -framework QtGui -arch i386
+
+# list of dynamic libraries
+LIBS=-lstdc++ -lcrypto -lltdl -lgcc_eh
+
+# This are the linux host tools
+# The QT versions of the Framework and the linux host must match
+ 
+MOC=moc
+UIC=uic
+RCC=rcc
+LRELEASE=lrelease
+QMAKE=qmake
+
+CC=$(CROSS)gcc
+LD=$(CROSS)ld
+STRIP=$(CROSS)strip
+WINDRES=$(CROSS)windres
+OTOOL=$(CROSS)otool
+NAME_TOOL=$(CROSS)install_name_tool
+MACDEPLOYQT=macdeployqt-4.6
+
+SUFFIX=
+LINUXDOC=:
+
+prefix=
+basedir=

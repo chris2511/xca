@@ -84,7 +84,9 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 
 DMGSTAGE=xca-$(VERSION)
 
-xca.app: xca$(SUFFIX) macdeployqt/macdeployqt
+xca.app: $(DMGSTAGE)
+
+$(DMGSTAGE): xca$(SUFFIX)
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
@@ -101,11 +103,12 @@ xca.app: xca$(SUFFIX) macdeployqt/macdeployqt
 	test ! -f engine_pkcs11.so || \
 	   install -m 755 engine_pkcs11.so $(DMGSTAGE)/xca.app/Contents/Resources
 	SYSROOT=$(SYSROOT) OTOOL=$(OTOOL) NAME_TOOL=$(NAME_TOOL)\
-		macdeployqt/macdeployqt $(DMGSTAGE)/xca.app
+		 $(MACDEPLOYQT) $(DMGSTAGE)/xca.app
 	tar zcf $(DMGSTAGE)-SnowLeopard.tar.gz $(DMGSTAGE)
 
-xca.dmg: xca.app
-	test -x hdiutil
+xca.dmg: xca-$(VERSION)-SnowLeopard.dmg
+
+xca-$(VERSION)-SnowLeopard.dmg: $(DMGSTAGE)
 	hdiutil create -ov -srcfolder $< $@
 
 .PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt

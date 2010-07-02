@@ -13,6 +13,7 @@ xca.1.gz: xca.1
 	gzip -9 <$^ >$@
 
 xca.html: xca.sgml
+	rm -f xca*.html
 	echo '<h1>No documentation generated</h1>' > $@
 	$(LINUXDOC) -B html $<
 
