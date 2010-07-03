@@ -193,7 +193,7 @@ void x509name::addEntryByNid(int nid, const QString entry)
 	if (entry.isEmpty())
 		return;
 	ASN1_STRING *a = QStringToAsn1(entry, nid);
-	check_oom(a);
+	openssl_error();
 	X509_NAME_add_entry_by_NID(xn, nid, a->type, a->data, a->length, -1, 0);
 	ASN1_STRING_free(a);
 	openssl_error(OBJ_nid2ln(nid));
