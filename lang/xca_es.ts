@@ -876,17 +876,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Please enter a password, that will be used to encrypt your private keys in the database-file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Please enter the password for unlocking the database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+129"/>
+        <location line="+156"/>
         <source>The following error occured:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1198,7 +1188,17 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+273"/>
+        <location line="+154"/>
+        <source>Please enter a password, that will be used to encrypt your private keys in the database file: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Please enter the password for unlocking the database: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+92"/>
         <source>Repeat %1</source>
         <translation type="unfinished"></translation>
     </message>

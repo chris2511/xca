@@ -696,7 +696,7 @@ int MainWindow::initPass()
 
 	pass_info p(tr("New Password"), tr("Please enter a password, "
 			"that will be used to encrypt your private keys "
-			"in the database-file"), this);
+			"in the database file: '%1'").arg(dbfile), this);
 	if (!mydb.find(setting, "pwhash")) {
 		if ((pass = (char *)mydb.load(NULL))) {
 			pki_evp::passHash = pass;
@@ -721,7 +721,7 @@ int MainWindow::initPass()
 			if (keylen !=0) QMessageBox::warning(this,tr(XCA_TITLE),
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
-			p.setDescription(tr("Please enter the password for unlocking the database"));
+			p.setDescription(tr("Please enter the password for unlocking the database: '%1'").arg(dbfile));
 			keylen = passRead(pki_evp::passwd, MAX_PASS_LENGTH-1, 0, &p);
 			if (keylen < 0)
 				return 1;

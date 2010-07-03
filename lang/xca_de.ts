@@ -848,17 +848,15 @@ Seriennummer: %3</translation>
         <translation>Die Passwort überprüfung ist fehlgeschlagen</translation>
     </message>
     <message>
-        <location line="-25"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database-file</source>
-        <translation>Bitte geben Sie ein Passwort an um die privaten Schlüssel in der Datenbank zu verschlüsseln</translation>
+        <translation type="obsolete">Bitte geben Sie ein Passwort an um die privaten Schlüssel in der Datenbank zu verschlüsseln</translation>
     </message>
     <message>
-        <location line="+27"/>
         <source>Please enter the password for unlocking the database</source>
-        <translation>Bitte geben Sie das Passwort ein um die Datenbank zu öffnen</translation>
+        <translation type="obsolete">Bitte geben Sie das Passwort ein um die Datenbank zu öffnen</translation>
     </message>
     <message>
-        <location line="-130"/>
+        <location line="-128"/>
         <location line="+103"/>
         <source>New Password</source>
         <translation>Neues Passwort</translation>
@@ -1201,7 +1199,17 @@ Seriennummer: %3</translation>
         <translation>Die Chipkarte &apos;%1&apos; enthält keine Schlüssel oder Zertifikate</translation>
     </message>
     <message>
-        <location line="+273"/>
+        <location line="+154"/>
+        <source>Please enter a password, that will be used to encrypt your private keys in the database file: &apos;%1&apos;</source>
+        <translation>Bitte geben Sie ein Passwort an um die privaten Schlüssel in der Datenbank &apos;%1&apos; zu verschlüsseln</translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Please enter the password for unlocking the database: &apos;%1&apos;</source>
+        <translation>Bitte geben Sie das Passwort ein um die Datenbank &apos;%1&apos; zu öffnen</translation>
+    </message>
+    <message>
+        <location line="+92"/>
         <source>Repeat %1</source>
         <translation>%1 wiederholen</translation>
     </message>
