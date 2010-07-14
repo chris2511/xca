@@ -101,7 +101,6 @@ NewX509::NewX509(QWidget *parent)
 	l->insertWidget(1, selfQASignRB);
 #endif
 	// set dates to now and now + 1 year
-	a1time a;
 	validNumber->setText("1");
 	validRange->setCurrentIndex(2);
 	on_applyTime_clicked();
@@ -163,6 +162,7 @@ NewX509::NewX509(QWidget *parent)
 	tabWidget->setCurrentIndex(0);
 	attrWidget->hide();
 	pt = none;
+	notAfter->setEndDate(true);
 }
 
 void NewX509::setRequest()
@@ -372,7 +372,6 @@ void NewX509::extensionsFromTemplate(pki_temp *temp)
 	basicPath->setText(temp->pathLen);
 	nconf_data->document()->setPlainText(temp->adv_ext);
 	noWellDefinedExpDate->setChecked(temp->noWellDefined);
-	notBefore->setNow();
 	on_applyTime_clicked();
 }
 
@@ -667,21 +666,11 @@ void NewX509::setX509name(const x509name &n)
 		}
 	}
 }
-#if 0
-void NewX509::on_extDNadd_clicked()
-{
-	extDNlismodel->addRow(QString("commonName"), QString());
-}
 
-void NewX509::on_extDNdel_clicked()
-{
-	extDNmodel->removeRows(extDNlist->currentIndex().row(), 1, QModelIndex());
-}
-#endif
 void NewX509::on_applyTime_clicked()
 {
-	applyTD(this, validNumber->text().toInt(), validRange->currentIndex(),
-			midnightCB->isChecked(), notBefore, notAfter);
+	notAfter->setDiff(notBefore, validNumber->text().toInt(),
+				     validRange->currentIndex());
 }
 
 void NewX509::setupTmpCtx()

@@ -35,7 +35,6 @@ class pki_x509 : public pki_x509super
 		QString caTemplate;
 		X509 *cert;
 		void init();
-		void set_date(ASN1_TIME **a, const a1time &a1);
 	public:
 		static QPixmap *icon[5];
 		pki_x509(X509 *c);
@@ -53,8 +52,8 @@ class pki_x509 : public pki_x509super
 		bool verifyQASerial(const a1int &secret) const;
 		void setSerial(const a1int &serial);
 		a1int getSerial() const;
-		void setNotBefore(const a1time &a1);
-		void setNotAfter(const a1time &a1);
+		void setNotBefore(const a1time &a);
+		void setNotAfter(const a1time &a);
 		a1time getNotBefore() const;
 		a1time getNotAfter() const;
 		x509name getSubject() const;

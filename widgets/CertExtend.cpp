@@ -9,7 +9,6 @@
 #include "CertExtend.h"
 #include "lib/base.h"
 #include "lib/func.h"
-#include "lib/asn1time.h"
 #include "widgets/validity.h"
 #include "widgets/MainWindow.h"
 #include <QtGui/QLabel>
@@ -23,19 +22,19 @@ CertExtend::CertExtend(QWidget *parent, pki_x509 *s)
 	:QDialog(parent)
 {
 	setupUi(this);
-	a1time time;
-	setWindowTitle(tr(XCA_TITLE));
+	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::certImg);
 	validNumber->setText("1");
 	validRange->setCurrentIndex(2);
-	applyTimeDiff();
+	on_applyTime_clicked();
 	signer = s;
+	notAfter->setEndDate(true);
 }
 
-void CertExtend::applyTimeDiff()
+void CertExtend::on_applyTime_clicked()
 {
-	applyTD(this, validNumber->text().toInt(), validRange->currentIndex(),
-		midnightCB->isChecked(), notBefore, notAfter);
+	notAfter->setDiff(notBefore, validNumber->text().toInt(),
+				     validRange->currentIndex());
 }
 
 void CertExtend::accept()

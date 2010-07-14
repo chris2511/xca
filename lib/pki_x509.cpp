@@ -375,26 +375,14 @@ bool pki_x509::verifyQASerial(const a1int &secret) const
 	return getQASerial(secret) == getSerial();
 }
 
-void pki_x509::set_date(ASN1_TIME **a, const a1time &a1)
+void pki_x509::setNotBefore(const a1time &a)
 {
-	if (*a != NULL )
-		ASN1_TIME_free(*a);
-
-	*a = a1.get_utc();
-	if (*a == NULL)
-		*a = a1.get();
-
-	openssl_error();
+	a.set_date(&X509_get_notBefore(cert));
 }
 
-void pki_x509::setNotBefore(const a1time &a1)
+void pki_x509::setNotAfter(const a1time &a)
 {
-	set_date(&X509_get_notBefore(cert), a1);
-}
-
-void pki_x509::setNotAfter(const a1time &a1)
-{
-	set_date(&X509_get_notAfter(cert), a1);
+	a.set_date(&X509_get_notAfter(cert));
 }
 
 a1time pki_x509::getNotBefore() const

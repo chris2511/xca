@@ -63,6 +63,18 @@ a1time &a1time::set(const ASN1_TIME *a)
 	return *this;
 }
 
+void a1time::set_date(ASN1_TIME **a) const
+{
+	if (*a != NULL )
+		ASN1_TIME_free(*a);
+
+	*a = get_utc();
+	if (*a == NULL)
+		*a = get();
+
+        openssl_error();
+}
+
 a1time &a1time::set(time_t t)
 {
 	ASN1_GENERALIZEDTIME_set(time, t);

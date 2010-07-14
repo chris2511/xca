@@ -174,34 +174,6 @@ QString filename2QString(const char *fname)
 #endif
 }
 
-void applyTD(QWidget *parent, int number, int range, bool mnc,
-		Validity *nb, Validity *na)
-{
-	int faktor[] = { 1, 30, 365 }, midnight, delta;
-	a1time a;
-	time_t t;
-
-	midnight = mnc ? 1:0;
-
-	if (range>2 || range<0)
-		range = 0;
-	time(&t);
-	delta = faktor[range] * number;
-
-	// one day less if we go from 0:00:00 to 23:59:59
-	if (mnc)
-		delta -=1;
-
-	t /= SECONDS_PER_DAY;
-	if (delta + t > 24850) {
-		QMessageBox::warning(parent, XCA_TITLE,
-		   QObject::tr("Time difference too big\nYou must set it manually."));
-		return;
-	}
-	nb->setDate(a.now(), midnight);
-	na->setDate(a.now(delta * SECONDS_PER_DAY), midnight* (-1));
-}
-
 QString asn1ToQString(const ASN1_STRING *str)
 {
 	QString qs;

@@ -6,12 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>275</height>
+    <width>597</width>
+    <height>274</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -141,27 +138,15 @@
           </item>
           <item row="0" column="1">
            <widget class="Validity" name="notBefore">
-            <property name="displayFormat">
-             <string>yyyy-MM-dd hh:mm</string>
-            </property>
             <property name="calendarPopup">
              <bool>true</bool>
-            </property>
-            <property name="timeSpec">
-             <enum>Qt::UTC</enum>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
            <widget class="Validity" name="notAfter">
-            <property name="displayFormat">
-             <string>yyyy-MM-dd hh:mm</string>
-            </property>
             <property name="calendarPopup">
              <bool>true</bool>
-            </property>
-            <property name="timeSpec">
-             <enum>Qt::UTC</enum>
             </property>
            </widget>
           </item>
@@ -176,8 +161,19 @@
         <string>Time range</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_1">
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="validNumber"/>
+        <item row="1" column="1" colspan="2">
+         <widget class="QCheckBox" name="noWellDefinedExpDate">
+          <property name="text">
+           <string>No well-defined expiration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="applyTime">
+          <property name="text">
+           <string>Apply</string>
+          </property>
+         </widget>
         </item>
         <item row="0" column="1">
          <widget class="QComboBox" name="validRange">
@@ -198,24 +194,13 @@
           </item>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="applyTime">
-          <property name="text">
-           <string>Apply</string>
-          </property>
-         </widget>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="validNumber"/>
         </item>
         <item row="1" column="0">
          <widget class="QCheckBox" name="midnightCB">
           <property name="text">
            <string>Midnight</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="QCheckBox" name="noWellDefinedExpDate">
-          <property name="text">
-           <string>No well-defined expiration</string>
           </property>
          </widget>
         </item>
@@ -296,12 +281,16 @@
    </item>
   </layout>
  </widget>
+ <layoutdefault spacing="6" margin="9"/>
  <customwidgets>
   <customwidget>
    <class>Validity</class>
    <extends>QDateTimeEdit</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
+   <slots>
+    <slot>hideTimeCheck(int)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -331,6 +320,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>notAfter</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>277</x>
+     <y>192</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>PushButton3</sender>
    <signal>clicked()</signal>
    <receiver>CertExtend</receiver>
@@ -347,38 +352,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>applyTime</sender>
-   <signal>clicked()</signal>
-   <receiver>CertExtend</receiver>
-   <slot>applyTimeDiff()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>490</x>
-     <y>167</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>380</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>noWellDefinedExpDate</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>notAfter</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>372</x>
-     <y>182</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>151</x>
-     <y>189</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>noWellDefinedExpDate</sender>
    <signal>clicked(bool)</signal>
    <receiver>notAfter</receiver>
@@ -391,6 +364,22 @@
     <hint type="destinationlabel">
      <x>188</x>
      <y>188</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>notBefore</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>293</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>157</y>
     </hint>
    </hints>
   </connection>

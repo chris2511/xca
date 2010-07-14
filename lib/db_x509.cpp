@@ -988,6 +988,8 @@ void db_x509::extendCert()
 	pki_key *signkey = NULL;
 	a1time time;
 	a1int serial;
+	CertExtend *dlg = NULL;
+
 	try {
 		oldcert = static_cast<pki_x509*>(currentIdx.internalPointer());
 		if (!oldcert ||
@@ -1017,14 +1019,16 @@ void db_x509::extendCert()
 
 		// and finally sign the cert
 		newcert->sign(signkey, oldcert->getDigest());
-		insert(newcert);
-		delete dlg;
+		newcert = (pki_x509 *)insert(newcert);
+		createSuccess(newcert);
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
 		if (newcert)
 			delete newcert;
 	}
+	if (dlg)
+		delete dlg;
 }
 
 

@@ -218,7 +218,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+26"/>
         <source>Time range</source>
         <translation type="unfinished"></translation>
     </message>
@@ -258,23 +258,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-146"/>
-        <location line="+13"/>
-        <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-125"/>
+        <location line="-246"/>
         <source>Certificate renewal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+173"/>
         <source>No well-defined expiration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="+44"/>
+        <location filename="../widgets/CertExtend.cpp" line="+45"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1266,7 +1260,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+32"/>
         <source>Hashing algorithm</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1293,12 +1287,6 @@ Serial: %3</source>
     <message>
         <location line="+20"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-119"/>
-        <location line="+13"/>
-        <source>yyyy-MM-dd hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1463,13 +1451,13 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+567"/>
+        <location line="+549"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-496"/>
-        <location filename="../widgets/NewX509.cpp" line="+203"/>
+        <location line="-478"/>
+        <location filename="../widgets/NewX509.cpp" line="+202"/>
         <source>Subject</source>
         <translation type="unfinished">Sujeto</translation>
     </message>
@@ -1489,7 +1477,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+46"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1613,12 +1601,12 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+14"/>
         <source>Not after</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+17"/>
         <source>Time range</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1688,8 +1676,8 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+7"/>
         <location line="+35"/>
         <location line="+17"/>
-        <location filename="../widgets/NewX509.cpp" line="-199"/>
-        <location line="+548"/>
+        <location filename="../widgets/NewX509.cpp" line="-198"/>
+        <location line="+537"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1798,7 +1786,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-681"/>
+        <location filename="../widgets/NewX509.cpp" line="-670"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1818,7 +1806,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+616"/>
+        <location line="+605"/>
         <location line="+12"/>
         <location line="+11"/>
         <location line="+16"/>
@@ -1855,18 +1843,12 @@ Please set at least the internal name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1386"/>
+        <location filename="../ui/NewX509.ui" line="-1368"/>
         <source>Modify subject of the request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+675"/>
-        <location line="+20"/>
-        <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+607"/>
+        <location line="+1284"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1948,7 +1930,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-486"/>
+        <location filename="../ui/NewX509.ui" line="-468"/>
         <source>Organisation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1998,7 +1980,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-800"/>
+        <location filename="../widgets/NewX509.cpp" line="-789"/>
         <source>minimum size: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2018,7 +2000,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+531"/>
+        <location line="+520"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2136,7 +2118,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Contraseña</translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+116"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2164,7 +2146,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Contraseña</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+126"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2307,7 +2289,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+282"/>
+        <location filename="../lib/func.cpp" line="+254"/>
         <source>Do not overwrite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2332,13 +2314,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="-82"/>
-        <source>Time difference too big
-You must set it manually.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+79"/>
+        <location filename="../lib/func.cpp" line="-3"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2536,6 +2512,14 @@ You must set it manually.</source>
     <message>
         <location line="-143"/>
         <source>Set trustment of the Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Validity</name>
+    <message>
+        <location filename="../widgets/validity.cpp" line="+18"/>
+        <source>yyyy-MM-dd hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -15,14 +15,29 @@ class Validity : public QDateTimeEdit
 {
     Q_OBJECT
 
+	bool midnight, endDate;
+	QString formatDate;
+
+  protected:
+	QTime mytime;
+
   public:
 	Validity( QWidget* parent);
 	~Validity();
 	a1time getDate() const;
-	void setDate(const a1time &t, int midnight = 0);
+	void setDate(const a1time &a);
+	void setDiff(const Validity *start, int number, int range);
+	void hideTime(bool hide);
+	void setEndDate(bool ed)
+	{
+		endDate = ed;
+	}
+  protected slots:
+	void setMyTime(const QTime & time);
+
   public slots:
 	void setNow();
-
+	void hideTimeCheck(int state);
 };
 
 #endif

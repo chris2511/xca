@@ -21,8 +21,9 @@ class CertExtend: public QDialog, public Ui::CertExtend
 
    public:
 	CertExtend(QWidget *parent, pki_x509 *s);
+
    public slots:
-	void applyTimeDiff();
+	void on_applyTime_clicked();
 	void accept();
 
 };

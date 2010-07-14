@@ -1,4 +1,6 @@
 
+  * improve date handling. "notBefore" is not reset to now anymore
+    when applyiong a time range
   * Support dropping files onto the application
   * russian translation by Pavel Belly
   * support loading DER formatted PKCS#8 keys

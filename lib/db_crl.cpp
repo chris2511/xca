@@ -10,6 +10,7 @@
 #include "exception.h"
 #include "widgets/MainWindow.h"
 #include "widgets/CrlDetail.h"
+#include "widgets/NewCrl.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QContextMenuEvent>
 #include "ui_NewCrl.h"
@@ -153,67 +154,56 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 {
 	if (!cert)
 		return NULL;
-	QList<pki_x509*> list;
-	a1time time;
+
 	pki_crl *crl = NULL;
-	Ui::NewCrl ui;
+	NewCrl *dlg = new NewCrl(mainwin, cert);
 
-	x509v3ext e;
-	X509V3_CTX ext_ctx;
-	X509V3_set_ctx(&ext_ctx, cert->getCert() , NULL, NULL, NULL, 0);
-	X509V3_set_ctx_nodb((&ext_ctx));
-	QDialog *dlg = new QDialog(mainwin);
-
-	ui.setupUi(dlg);
-	ui.image->setPixmap(*MainWindow::revImg);
-	ui.lastUpdate->setDate(time.now());
-	ui.nextUpdate->setDate(time.now(cert->getCrlDays() * SECONDS_PER_DAY));
-
-	pki_key *key = cert->getRefKey();
-	ui.hashAlgo->setKeyType(key->getKeyType());
-	ui.hashAlgo->setupHashes(key->possibleHashNids());
-
-	if (cert->hasExtension(NID_subject_alt_name))
-		ui.subAltName->setEnabled(true);
-	else
-		ui.subAltName->setEnabled(false);
 	if (!dlg->exec()) {
 		delete dlg;
 		return NULL;
 	}
 	try {
+		x509v3ext e;
+		X509V3_CTX ext_ctx;
+		X509V3_set_ctx(&ext_ctx, cert->getCert(), NULL, NULL, NULL, 0);
+		X509V3_set_ctx_nodb(&ext_ctx);
+
 		crl = new pki_crl();
 		crl->createCrl(cert->getIntName(), cert);
 
-		list = mainwin->certs->getIssuedCerts(cert);
+		QList<pki_x509*> list = mainwin->certs->getIssuedCerts(cert);
 		for (int i =0; i<list.size(); i++) {
 			if (list.at(i)->isRevoked() ) {
 				crl->addRev(list.at(i)->getRev());
 			}
 		}
 
-		if (ui.authKeyId->isChecked()) {
+		if (dlg->authKeyId->isChecked()) {
 			crl->addV3ext(e.create(NID_authority_key_identifier,
 				"keyid,issuer", &ext_ctx));
 		}
-		if (ui.subAltName->isChecked()) {
+		if (dlg->subAltName->isChecked()) {
 			if (cert->hasExtension(NID_subject_alt_name)) {
 				crl->addV3ext(e.create(NID_issuer_alt_name,
 					"issuer:copy", &ext_ctx));
 			}
 		}
 
-		crl->setLastUpdate(ui.lastUpdate->getDate());
-		crl->setNextUpdate(ui.nextUpdate->getDate());
-		cert->setCrlExpiry(ui.nextUpdate->getDate());
+		crl->setLastUpdate(dlg->lastUpdate->getDate());
+		crl->setNextUpdate(dlg->nextUpdate->getDate());
+		cert->setCrlExpiry(dlg->nextUpdate->getDate());
 
-		crl->sign(cert->getRefKey(), ui.hashAlgo->currentHash());
+		crl->sign(cert->getRefKey(), dlg->hashAlgo->currentHash());
 		mainwin->certs->updatePKI(cert);
 		createSuccess(insert(crl));
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
+		if (crl)
+			delete crl;
+		crl = NULL;
 	}
+	delete dlg;
 	return crl;
 }
 

@@ -562,12 +562,6 @@ If this list is disabled, you only can create a self-signed certificate.</string
               <attribute name="horizontalHeaderStretchLastSection">
                <bool>true</bool>
               </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>true</bool>
-              </attribute>
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>200</number>
-              </attribute>
              </widget>
             </item>
             <item>
@@ -825,14 +819,8 @@ It also copies the issuer and serial number from the issuer certificate. Normall
              </item>
              <item row="0" column="1">
               <widget class="Validity" name="notBefore">
-               <property name="displayFormat">
-                <string>yyyy-MM-dd hh:mm</string>
-               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
-               </property>
-               <property name="timeSpec">
-                <enum>Qt::UTC</enum>
                </property>
               </widget>
              </item>
@@ -845,14 +833,8 @@ It also copies the issuer and serial number from the issuer certificate. Normall
              </item>
              <item row="1" column="1">
               <widget class="Validity" name="notAfter">
-               <property name="displayFormat">
-                <string>yyyy-MM-dd hh:mm</string>
-               </property>
                <property name="calendarPopup">
                 <bool>true</bool>
-               </property>
-               <property name="timeSpec">
-                <enum>Qt::UTC</enum>
                </property>
               </widget>
              </item>
@@ -1551,6 +1533,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <extends>QDateTimeEdit</extends>
    <header>widgets/validity.h</header>
    <container>1</container>
+   <slots>
+    <slot>hideTimeCheck(int)</slot>
+   </slots>
   </customwidget>
   <customwidget>
    <class>hashBox</class>
@@ -1697,12 +1682,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <slot>deleteCurrentRow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>641</x>
-     <y>301</y>
+     <x>678</x>
+     <y>331</y>
     </hint>
     <hint type="destinationlabel">
-     <x>530</x>
-     <y>308</y>
+     <x>131</x>
+     <y>298</y>
     </hint>
    </hints>
   </connection>
@@ -1713,12 +1698,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <slot>addKvRow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>621</x>
-     <y>261</y>
+     <x>678</x>
+     <y>297</y>
     </hint>
     <hint type="destinationlabel">
-     <x>493</x>
-     <y>261</y>
+     <x>131</x>
+     <y>298</y>
     </hint>
    </hints>
   </connection>
@@ -1733,8 +1718,8 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
      <y>301</y>
     </hint>
     <hint type="destinationlabel">
-     <x>326</x>
-     <y>301</y>
+     <x>664</x>
+     <y>321</y>
     </hint>
    </hints>
   </connection>
@@ -1745,11 +1730,43 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>233</x>
-     <y>329</y>
+     <x>256</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
+     <y>332</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>notBefore</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>339</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>248</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>notAfter</receiver>
+   <slot>hideTimeCheck(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>324</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>216</x>
      <y>332</y>
     </hint>
    </hints>

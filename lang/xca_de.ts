@@ -218,7 +218,7 @@
         <translation>Nicht nach dem</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+26"/>
         <source>Time range</source>
         <translation>Zeitspanne</translation>
     </message>
@@ -258,23 +258,21 @@
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <location line="-146"/>
-        <location line="+13"/>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation>dd.MM.yyyy hh:mm</translation>
+        <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
-        <location line="-125"/>
+        <location line="-246"/>
         <source>Certificate renewal</source>
         <translation>Zertifikatsverlängerung</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+173"/>
         <source>No well-defined expiration</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="+44"/>
+        <location filename="../widgets/CertExtend.cpp" line="+45"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Das Zertifikat is früher gültig als der Aussteller. Dies ist wahrscheinlich ungewollt.</translation>
     </message>
@@ -1277,7 +1275,7 @@ Seriennummer: %3</translation>
         <translation>Letztes Update</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+32"/>
         <source>Hashing algorithm</source>
         <translation>Hash algorithmus</translation>
     </message>
@@ -1307,10 +1305,8 @@ Seriennummer: %3</translation>
         <translation>OK</translation>
     </message>
     <message>
-        <location line="-119"/>
-        <location line="+13"/>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation>dd.MM.yyyy hh:mm</translation>
+        <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
 </context>
 <context>
@@ -1510,13 +1506,13 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation type="unfinished">Diese Liste enthält alle Vorlagen</translation>
     </message>
     <message>
-        <location line="+567"/>
+        <location line="+549"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-496"/>
-        <location filename="../widgets/NewX509.cpp" line="+203"/>
+        <location line="-478"/>
+        <location filename="../widgets/NewX509.cpp" line="+202"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
     </message>
@@ -1536,7 +1532,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+46"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -1660,12 +1656,12 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation>Nicht vor dem</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+14"/>
         <source>Not after</source>
         <translation>Nicht nach dem</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+17"/>
         <source>Time range</source>
         <translation>Zeitspanne</translation>
     </message>
@@ -1735,8 +1731,8 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+7"/>
         <location line="+35"/>
         <location line="+17"/>
-        <location filename="../widgets/NewX509.cpp" line="-199"/>
-        <location line="+548"/>
+        <location filename="../widgets/NewX509.cpp" line="-198"/>
+        <location line="+537"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -1845,7 +1841,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-681"/>
+        <location filename="../widgets/NewX509.cpp" line="-670"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
@@ -1865,7 +1861,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+616"/>
+        <location line="+605"/>
         <location line="+12"/>
         <location line="+11"/>
         <location line="+16"/>
@@ -1903,18 +1899,16 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1386"/>
+        <location filename="../ui/NewX509.ui" line="-1368"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
     <message>
-        <location line="+675"/>
-        <location line="+20"/>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation>dd.MM.yyyy hh:mm</translation>
+        <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
-        <location line="+607"/>
+        <location line="+1284"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -1997,7 +1991,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-562"/>
+        <location filename="../ui/NewX509.ui" line="-544"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>
@@ -2012,7 +2006,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-800"/>
+        <location filename="../widgets/NewX509.cpp" line="-789"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2032,7 +2026,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+531"/>
+        <location line="+520"/>
         <source>From PKCS#10 request</source>
         <translation>Aus dem PKCS#10 Zertifikatsantrag</translation>
     </message>
@@ -2151,7 +2145,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+116"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -2183,7 +2177,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="obsolete">Passwort wiederholen</translation>
     </message>
     <message>
-        <location line="+123"/>
+        <location line="+126"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -2326,7 +2320,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+282"/>
+        <location filename="../lib/func.cpp" line="+254"/>
         <source>Do not overwrite</source>
         <translation>Nicht überschreiben</translation>
     </message>
@@ -2351,14 +2345,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>PKCS#11 library öffnen</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="-82"/>
         <source>Time difference too big
 You must set it manually.</source>
-        <translation>Zeitdifferenz zu gross.
+        <translation type="obsolete">Zeitdifferenz zu gross.
 Bitte die Zeiten manuell einstellen.</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location filename="../lib/func.cpp" line="-3"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Die Datei &apos;%1&apos; existiert bereits!</translation>
     </message>
@@ -2557,6 +2550,14 @@ Bitte die Zeiten manuell einstellen.</translation>
         <location line="-143"/>
         <source>Set trustment of the Certificate</source>
         <translation>Vertrauenseinstellung des Zertifikats</translation>
+    </message>
+</context>
+<context>
+    <name>Validity</name>
+    <message>
+        <location filename="../widgets/validity.cpp" line="+18"/>
+        <source>yyyy-MM-dd hh:mm</source>
+        <translation>dd.MM.yyyy hh:mm</translation>
     </message>
 </context>
 <context>
