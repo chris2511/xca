@@ -171,7 +171,7 @@ MainWindow::MainWindow(QWidget *parent )
 
 	statusBar()->addWidget(dbindex, 1);
 	mandatory_dn = "";
-	string_opt = "pkix";
+	string_opt = "MASK:0x2002";
 
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
