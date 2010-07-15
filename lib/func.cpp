@@ -213,8 +213,11 @@ QString asn1ToQString(const ASN1_STRING *str)
 ASN1_STRING *QStringToAsn1(const QString s, int nid)
 {
 	QByteArray ba = s.toUtf8();
+	ASN1_STRING *ret;
 	const unsigned char *utf8 = (const unsigned char *)ba.constData();
-	return ASN1_STRING_set_by_NID(NULL, utf8, -1, MBSTRING_UTF8, nid);
+	ret = ASN1_STRING_set_by_NID(NULL, utf8, -1, MBSTRING_UTF8, nid);
+	openssl_error(QString("'%1' (%2)").arg(s).arg(OBJ_nid2ln(nid)));
+	return ret;
 }
 
 const char *OBJ_ln2sn(const char *ln)
@@ -296,7 +299,7 @@ void _openssl_error(const QString txt, const char *file, int line)
 	if (!error.isEmpty()) {
 		if (!txt.isEmpty())
 			error = txt + "\n" + error + "\n" +
-				QString("(%1:%2").arg(file).arg(line);
+				QString("(%1:%2)").arg(file).arg(line);
 		throw errorEx(error);
 	}
 }
