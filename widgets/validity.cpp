@@ -83,18 +83,7 @@ void Validity::hideTime(bool hide)
 
 void Validity::setDate(const a1time &a)
 {
-	QDate date;
-	QTime time;
-	QString S;
-	int y, m, d, h, min, s, g;
-
-	a.ymdg(&y, &m, &d, &h, &min, &s, &g);
-
-	date.setYMD(y,m,d);
-	time.setHMS(h,min,s);
-
-	QDateTimeEdit::setDate(date);
-	setTime(time);
+	setDateTime(a.qDateTime());
 }
 
 void Validity::setDiff(const Validity *start, int number, int range)

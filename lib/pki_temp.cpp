@@ -247,8 +247,6 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 		if (cert->getNotAfter().isUndefined()) {
 			noWellDefined = true;
 		} else {
-			struct tm nb, na;
-
 			a1time notBefore = cert->getNotBefore();
 			a1time notAfter  = cert->getNotAfter();
 
@@ -257,22 +255,20 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			{
 				validMidn = true;
 			}
-			if (!notBefore.ymdg(&nb) &&
-			    !notAfter.ymdg(&na))
-			{
-				time_t diff = mktime(&na) - mktime(&nb);
-				diff /= SECONDS_PER_DAY;
-				validM = 0;
-				if (diff >60) {
-					validM = 1;
-					diff /= 30;
-					if (diff >24) {
-						validM = 2;
-						diff /= 12;
-					}
+			QDateTime nb = notBefore.qDateTime();
+			QDateTime na = notAfter.qDateTime();
+
+			int diff = nb.daysTo(na);
+			validM = 0;
+			if (diff > 60) {
+				validM = 1;
+				diff /= 30;
+				if (diff > 24) {
+					validM = 2;
+					diff /= 12;
 				}
-				validN = diff;
 			}
+			validN = diff;
 		}
 	}
 	return el;

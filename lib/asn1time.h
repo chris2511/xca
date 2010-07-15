@@ -9,6 +9,7 @@
 #define __ASN1TIME_H
 
 #include <QtCore/QString>
+#include <QtCore/QDateTime>
 #include <openssl/asn1.h>
 
 #define SECONDS_PER_DAY (60*60*24)
@@ -40,6 +41,7 @@ class a1time
 	a1time &now(int delta = 0);
 	QByteArray i2d() const;
 	void d2i(QByteArray &ba);
+	QDateTime qDateTime() const;
 	a1time &operator = (const a1time &a);
 	bool operator > (const a1time &a);
 	bool operator < (const a1time &a);

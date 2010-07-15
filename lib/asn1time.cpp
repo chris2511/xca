@@ -131,6 +131,24 @@ QString a1time::toSortable() const
 		arg(g==1 ? "GMT" : "");
 }
 
+QDateTime a1time::qDateTime() const
+{
+	QDate date;
+	QTime time;
+	QDateTime dt;
+	int y, m, d, h, min, s, g;
+
+	if (ymdg(&y, &m, &d, &h, &min, &s, &g))
+		return dt;
+
+	date.setDate(y,m,d);
+	time.setHMS(h,min,s);
+
+	dt.setDate(date);
+	dt.setTime(time);
+	return dt;
+}
+
 a1time &a1time::set(const QString &s)
 {
 	ASN1_GENERALIZEDTIME_set_string(time, s.toAscii());
