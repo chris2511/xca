@@ -198,7 +198,7 @@
 <context>
     <name>CertExtend</name>
     <message>
-        <location filename="../ui/CertExtend.ui" line="+77"/>
+        <location filename="../ui/CertExtend.ui" line="+74"/>
         <source>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</source>
         <translation>Hiermit wird ein neues Zertifikat als Kopie des alten Zeertifikats erstellt, mit neuer Seriennummer und aktueller Gültigkeit.</translation>
     </message>
@@ -223,7 +223,7 @@
         <translation>Zeitspanne</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+21"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
@@ -238,17 +238,17 @@
         <translation>Jahre</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+11"/>
         <source>Midnight</source>
         <translation>Mitternacht</translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-29"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+65"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
@@ -267,12 +267,12 @@
         <translation>Zertifikatsverlängerung</translation>
     </message>
     <message>
-        <location line="+173"/>
+        <location line="+137"/>
         <source>No well-defined expiration</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="+45"/>
+        <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Das Zertifikat is früher gültig als der Aussteller. Dies ist wahrscheinlich ungewollt.</translation>
     </message>
@@ -1255,7 +1255,7 @@ Seriennummer: %3</translation>
 <context>
     <name>NewCrl</name>
     <message>
-        <location filename="../ui/NewCrl.ui" line="+42"/>
+        <location filename="../ui/NewCrl.ui" line="+36"/>
         <source>Create CRL</source>
         <translation>CRL erstellen</translation>
     </message>
@@ -1265,22 +1265,47 @@ Seriennummer: %3</translation>
         <translation>Zeiten</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+22"/>
         <source>next update</source>
         <translation>Nächstes Update</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>last update</source>
         <translation>Letztes Update</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+43"/>
+        <source>Days</source>
+        <translation>Tage</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Months</source>
+        <translation>Monate</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Years</source>
+        <translation>Jahre</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Midnight</source>
+        <translation>Mitternacht</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Apply</source>
+        <translation>Übernehmen</translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Hashing algorithm</source>
         <translation>Hash algorithmus</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+17"/>
         <source>Extensions</source>
         <translation>Erweiterungen</translation>
     </message>
@@ -2090,7 +2115,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+37"/>
+        <location filename="../widgets/Options.cpp" line="+39"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation>Nur UTF8 Zeichenketten (RFC2459)</translation>
     </message>
@@ -2110,8 +2135,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Laden</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="-2"/>
-        <source>PKIX recommendation in RFC2459 (default)</source>
+        <location filename="../widgets/Options.cpp" line="-3"/>
+        <source>Printable string or UTF8 (default)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKIX recommendation in RFC2459</source>
         <translation></translation>
     </message>
     <message>
@@ -2305,7 +2335,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alle Dateien ( * )</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+84"/>
+        <location filename="../lib/asn1time.cpp" line="+96"/>
         <source>Undefined</source>
         <translation>Undefiniert</translation>
     </message>
@@ -2563,7 +2593,7 @@ Bitte die Zeiten manuell einstellen.</translation>
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+20"/>
+        <location filename="../lib/db_crl.cpp" line="+21"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
@@ -2598,7 +2628,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Rücknahmeliste exportieren</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+84"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
@@ -2618,7 +2648,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-125"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3026,12 +3056,12 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Nicht möglich für einen Chipkartenschlüssel &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+354"/>
+        <location line="+358"/>
         <source> days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-502"/>
         <source>Security token</source>
         <translation>Chipkarte</translation>
     </message>
@@ -3237,12 +3267,12 @@ und wurde daher nicht importiert</translation>
         <translation>Keine Austeller angegeben</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+210"/>
         <source>unknown</source>
         <translation>unbekannt</translation>
     </message>
     <message>
-        <location line="-238"/>
+        <location line="-232"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
@@ -3252,7 +3282,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die Sperrliste &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+100"/>
         <location line="+178"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
@@ -3522,7 +3552,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die XCA Vorlage &apos;%1&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+326"/>
+        <location line="+322"/>
         <source>Template file content error (too small): %1</source>
         <translation>Template zu klein: %1</translation>
     </message>
@@ -3538,7 +3568,7 @@ und wurde daher nicht importiert</translation>
         <translation>Ungültige Größe %1</translation>
     </message>
     <message>
-        <location line="-457"/>
+        <location line="-453"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Die XCA Vorlage &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -3553,7 +3583,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 XCA Vorlagen: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+340"/>
+        <location line="+336"/>
         <source>Template file content error (bad size): %1 </source>
         <translation>Templatefile ungültig (Größe): %1</translation>
     </message>
@@ -3561,7 +3591,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+760"/>
+        <location filename="../lib/pki_x509.cpp" line="+748"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -3581,7 +3611,7 @@ und wurde daher nicht importiert</translation>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
     <message>
-        <location line="-409"/>
+        <location line="-397"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
         <translation>Das Zertifikat &apos;%1&apos; löschen?</translation>
     </message>
@@ -3611,7 +3641,7 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+435"/>
+        <location line="+423"/>
         <source>CRL expires: %1</source>
         <translation>CRL ungültig ab: %1</translation>
     </message>
@@ -3620,12 +3650,12 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
     <message>
-        <location line="-708"/>
+        <location line="-696"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
-        <location line="+443"/>
+        <location line="+431"/>
         <location line="+362"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>

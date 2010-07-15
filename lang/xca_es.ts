@@ -198,7 +198,7 @@
 <context>
     <name>CertExtend</name>
     <message>
-        <location filename="../ui/CertExtend.ui" line="+77"/>
+        <location filename="../ui/CertExtend.ui" line="+74"/>
         <source>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -223,7 +223,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+21"/>
         <source>Days</source>
         <translation type="unfinished"></translation>
     </message>
@@ -238,17 +238,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+11"/>
         <source>Midnight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-29"/>
         <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+65"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -263,12 +263,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+173"/>
+        <location line="+137"/>
         <source>No well-defined expiration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="+45"/>
+        <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1240,7 +1240,7 @@ Serial: %3</source>
 <context>
     <name>NewCrl</name>
     <message>
-        <location filename="../ui/NewCrl.ui" line="+42"/>
+        <location filename="../ui/NewCrl.ui" line="+36"/>
         <source>Create CRL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1250,22 +1250,47 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+22"/>
         <source>next update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>last update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+32"/>
-        <source>Hashing algorithm</source>
+        <location line="+43"/>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Midnight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+12"/>
+        <source>Hashing algorithm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2064,7 +2089,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+37"/>
+        <location filename="../widgets/Options.cpp" line="+39"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2084,8 +2109,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="-2"/>
-        <source>PKIX recommendation in RFC2459 (default)</source>
+        <location filename="../widgets/Options.cpp" line="-3"/>
+        <source>Printable string or UTF8 (default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PKIX recommendation in RFC2459</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2274,7 +2304,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+84"/>
+        <location filename="../lib/asn1time.cpp" line="+96"/>
         <source>Undefined</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2526,7 +2556,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+20"/>
+        <location filename="../lib/db_crl.cpp" line="+21"/>
         <source>Name</source>
         <translation type="unfinished">Nombre</translation>
     </message>
@@ -2561,7 +2591,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+84"/>
         <source>Import</source>
         <translation type="unfinished">Importar</translation>
     </message>
@@ -2581,7 +2611,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-136"/>
+        <location line="-125"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -2982,12 +3012,12 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+354"/>
+        <location line="+358"/>
         <source> days</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-498"/>
+        <location line="-502"/>
         <source>Security token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3170,12 +3200,12 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+210"/>
         <source>unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-238"/>
+        <location line="-232"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3200,7 +3230,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+96"/>
         <location line="+178"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
@@ -3465,7 +3495,7 @@ and thus was not stored</source>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+429"/>
+        <location filename="../lib/pki_temp.cpp" line="+425"/>
         <source>Template file content error (too small): %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3481,7 +3511,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-457"/>
+        <location line="-453"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3501,7 +3531,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+340"/>
+        <location line="+336"/>
         <source>Template file content error (bad size): %1 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3534,7 +3564,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+418"/>
+        <location line="+406"/>
         <source>Not trusted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3554,7 +3584,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-369"/>
+        <location line="-357"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3564,7 +3594,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+495"/>
+        <location line="+483"/>
         <source>CRL expires: %1</source>
         <translation type="unfinished"></translation>
     </message>
