@@ -30,7 +30,7 @@ xca.o: $(OBJECTS)
 	$(LD) $(LDFLAGS) $(OBJECTS) -r -o $@ $(SLIBS)
 
 xca$(SUFFIX): xca.o
-	$(CC) $(GCCLDFLAGS) $< $(LIBS) -o $@
+	$(CC) $(CFLAGS) $(GCCLDFLAGS) $< $(LIBS) -o $@
 
 doc: 
 	$(MAKE) -C doc

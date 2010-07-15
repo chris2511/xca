@@ -30,7 +30,7 @@
 
 #if defined(_WIN32) || defined(USE_CYGWIN)
 #define PKCS11_DEFAULT_MODULE_NAME	"opensc-pkcs11.dll"
-#define ENGINE_LIB			".\\engine_pkcs11.dll"
+#define ENGINE_LIB			"\\engine_pkcs11.dll"
 #elif defined(Q_WS_MAC)
 #define PKCS11_DEFAULT_MODULE_NAME	"/Library/OpenSC/lib/opensc-pkcs11.so"
 #define ENGINE_LIB			 "/engine_pkcs11.so"
@@ -72,7 +72,7 @@ bool pki_scard::init_p11engine(QString file, bool silent)
 	loaded = true;
 #endif
 
-#if defined(Q_WS_MAC)
+#if defined(Q_WS_MAC) || defined(WIN32)
 	engine_path = getPrefix() + engine_path;
 #endif
 
