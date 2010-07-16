@@ -198,7 +198,6 @@ void NewX509::setupLineEditByNid(int nid, QLineEdit *l)
 	info << QString("[%1]").arg(OBJ_nid2sn(nid));
 
 	if (tab) {
-		l->setMaxLength(tab->maxsize);
 		if (tab->minsize > 1)
 			info << tr("minimum size: %1").arg(tab->minsize);
 		if (tab->maxsize != -1)
@@ -837,9 +836,10 @@ void NewX509::gotoTab(int tab)
 
 void NewX509::accept()
 {
+	x509name xn;
 	on_tabWidget_currentChanged(0);
 	try {
-		getX509name(1);
+		xn = getX509name(1);
 	} catch (errorEx &err) {
 		gotoTab(1);
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE, err.getString(),
@@ -850,6 +850,28 @@ void NewX509::accept()
 			reject();
 		}
 		return;
+	}
+	QString lenErr = xn.checkLength();
+	if (!lenErr.isEmpty()) {
+		gotoTab(1);
+		lenErr = tr("The following length restrictions of RFC3280 are violated:") +
+			"\n" + lenErr;
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+					lenErr, QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit subject"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
+		switch (msg.exec())
+		{
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
+				return;
+			case QMessageBox::Close:
+				reject();
+				return;
+			case QMessageBox::Apply:
+				break;
+		}
 	}
 	if (fromReqCB->isChecked() && !getSelectedReq()->verify()) {
 		gotoTab(0);

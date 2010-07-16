@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include <QtGui/QMessageBox>
 #include "x509name.h"
 #include "base.h"
 #include "func.h"
@@ -186,6 +187,34 @@ int x509name::entryCount() const
 int x509name::getNidByName(const QString &nid_name)
 {
 	return OBJ_txt2nid(nid_name.toAscii());
+}
+
+QString x509name::checkLength() const
+{
+	ASN1_STRING_TABLE *tab;
+	int i, max = entryCount();
+	QString warn;
+
+	for (i=0; i<max; i++) {
+		int n = nid(i);
+		QString entry;
+
+		tab = ASN1_STRING_TABLE_get(n);
+		if (!tab)
+			continue;
+		entry = getEntry(i);
+		if (tab->minsize > entry.size()) {
+			warn += QObject::tr("%1 is shorter than %2 bytes: '%3'").
+				arg(OBJ_nid2ln(n)).arg(tab->maxsize).arg(entry);
+			warn += "\n";
+		}
+		if ((tab->maxsize != -1) && (tab->maxsize < entry.size())) {
+			warn += QObject::tr("%1 is longer than %2 bytes: '%3'").
+				arg(OBJ_nid2ln(n)).arg(tab->maxsize).arg(entry);
+			warn += "\n";
+		}
+	}
+	return warn;
 }
 
 void x509name::addEntryByNid(int nid, const QString entry)

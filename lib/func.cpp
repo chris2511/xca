@@ -213,11 +213,21 @@ QString asn1ToQString(const ASN1_STRING *str)
 ASN1_STRING *QStringToAsn1(const QString s, int nid)
 {
 	QByteArray ba = s.toUtf8();
-	ASN1_STRING *ret;
 	const unsigned char *utf8 = (const unsigned char *)ba.constData();
-	ret = ASN1_STRING_set_by_NID(NULL, utf8, -1, MBSTRING_UTF8, nid);
+	unsigned long global_mask = ASN1_STRING_get_default_mask();
+	unsigned long mask = DIRSTRING_TYPE & global_mask;
+	ASN1_STRING *out = NULL;
+	ASN1_STRING_TABLE *tbl;
+
+	tbl = ASN1_STRING_TABLE_get(nid);
+	if (tbl) {
+		mask = tbl->mask;
+		if (!(tbl->flags & STABLE_NO_MASK))
+			mask &= global_mask;
+	}
+	ASN1_mbstring_copy(&out, utf8, -1, MBSTRING_UTF8, mask);
 	openssl_error(QString("'%1' (%2)").arg(s).arg(OBJ_nid2ln(nid)));
-	return ret;
+	return out;
 }
 
 const char *OBJ_ln2sn(const char *ln)
