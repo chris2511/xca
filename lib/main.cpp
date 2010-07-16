@@ -17,8 +17,10 @@
 
 class XCA_application : public QApplication
 {
-
 	MainWindow *mainw;
+	QTranslator qtTr;
+	QTranslator xcaTr;
+
 public:
 	XCA_application(int &argc, char *argv[]);
 	void setMainwin(MainWindow *m)
@@ -33,8 +35,6 @@ XCA_application::XCA_application(int &argc, char *argv[])
 	:QApplication(argc, argv)
 {
 	QString locale;
-	QTranslator qtTr;
-	QTranslator xcaTr;
 	QStringList dirs;
 
 	locale = QLocale::system().name();
