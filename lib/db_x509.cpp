@@ -548,11 +548,13 @@ void db_x509::newCert(NewX509 *dlg)
 		if (QMessageBox::information(mainwin, XCA_TITLE,
 			tr("Store the certificate to the key on the token '%1 (#%2)' ?").
 			arg(card->getCardLabel()).arg(card->getSerial()),
-			QMessageBox::Yes | QMessageBox::No))
-		try {
-			cert->store_token(false);
-		} catch (errorEx &err) {
-			mainwin->Error(err);
+			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+		{
+			try {
+				cert->store_token(false);
+			} catch (errorEx &err) {
+				mainwin->Error(err);
+			}
 		}
 	}
 	if (tempkey != NULL)
