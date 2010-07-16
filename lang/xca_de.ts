@@ -309,7 +309,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+896"/>
+        <location filename="../lib/db_x509.cpp" line="+898"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -1402,7 +1402,7 @@ Seriennummer: %3</translation>
     <name>NewX509</name>
     <message>
         <location filename="../ui/NewX509.ui" line="+30"/>
-        <location filename="../widgets/NewX509.cpp" line="+227"/>
+        <location filename="../widgets/NewX509.cpp" line="+226"/>
         <source>Create</source>
         <translation>Erstellen</translation>
     </message>
@@ -1866,7 +1866,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-670"/>
+        <location filename="../widgets/NewX509.cpp" line="-669"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
@@ -1876,7 +1876,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle einen Zertifikatsantrag</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+57"/>
         <source>XCA template</source>
         <translation>XCA Vorlage</translation>
     </message>
@@ -1886,8 +1886,9 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+605"/>
-        <location line="+12"/>
+        <location line="+606"/>
+        <location line="+14"/>
+        <location line="+20"/>
         <location line="+11"/>
         <location line="+16"/>
         <location line="+15"/>
@@ -1899,7 +1900,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Ausstellung abbrechen</translation>
     </message>
     <message>
-        <location line="-124"/>
+        <location line="-158"/>
+        <source>The following length restrictions of RFC3280 are violated:</source>
+        <translation>Die folgenden Längenbeschränkungen aus RFC3280 werden verletzt:</translation>
+    </message>
+    <message>
+        <location line="+34"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation>Der interne Name und der commonName sind leer.
@@ -1911,7 +1917,8 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Es ist kein Schlüssel zum Signieren ausgewählt.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="-44"/>
+        <location line="+62"/>
         <location line="+42"/>
         <location line="+25"/>
         <location line="+24"/>
@@ -1939,12 +1946,12 @@ Bitte mindestens den internen Namen setzen.</translation>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-144"/>
+        <location filename="../widgets/NewX509.cpp" line="-167"/>
         <source>Validate</source>
         <translation>Überprüfen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+83"/>
+        <location filename="../widgets/NewX509.cpp" line="+106"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Die Validierung des Requests ist fehlgeschlagen. Die Zertifikatserstellung sollte abgebrochen werden.</translation>
@@ -1983,7 +1990,8 @@ though you have declared them as mandatory in the options menu.</source>
 %1, obwohl sie im Optionen-menu als notwendig deklariert wurden.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="-59"/>
+        <location line="+62"/>
         <source>Edit subject</source>
         <translation>Subject editieren</translation>
     </message>
@@ -2031,7 +2039,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-789"/>
+        <location filename="../widgets/NewX509.cpp" line="-812"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2325,9 +2333,19 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Lade PEM codierte Datei</translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="+95"/>
+        <location filename="../lib/x509name.cpp" line="+96"/>
         <source>Invalid</source>
         <translation>Ungültig</translation>
+    </message>
+    <message>
+        <location line="+111"/>
+        <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
+        <translation>%1 ist kürzer als %2 bytes: &apos;%3&apos;</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>%1 is longer than %2 bytes: &apos;%3&apos;</source>
+        <translation>%1 ist länger als %2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="-149"/>
@@ -2350,7 +2368,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+254"/>
+        <location filename="../lib/func.cpp" line="+267"/>
         <source>Do not overwrite</source>
         <translation>Nicht überschreiben</translation>
     </message>
@@ -2891,7 +2909,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-873"/>
+        <location filename="../lib/db_x509.cpp" line="-875"/>
         <source>Internal name</source>
         <translation>Interner Name</translation>
     </message>
@@ -2951,7 +2969,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+101"/>
         <source>New Certificate</source>
         <translation>Neues Zertifikat</translation>
     </message>
@@ -3076,7 +3094,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Von der Chipkarte löschen</translation>
     </message>
     <message>
-        <location line="-305"/>
+        <location line="-307"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3085,7 +3103,7 @@ and so it was not imported</source>
 und wurde daher nicht importiert</translation>
     </message>
     <message>
-        <location line="+435"/>
+        <location line="+437"/>
         <location line="+33"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Es wurde kein Schlüssel für das Zertifikat: &apos;%1&apos; gefunden</translation>
@@ -3100,12 +3118,12 @@ und wurde daher nicht importiert</translation>
         <translation>Nicht möglich für das Chipkartenzertifikat &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-238"/>
+        <location line="-240"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Soll das Zertifikat zum privaten Schlüssel auf der Chipkarte &apos;%1&apos; mit der Seriennummer %2 abgelegt werden ?</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+66"/>
         <source>Other token</source>
         <translation>Andere Chipkarte</translation>
     </message>
@@ -3694,7 +3712,7 @@ und wurde daher nicht importiert</translation>
         <translation>Konnte den Zertifikatsantrag aus der Datei %1 nicht laden. Versuchte Formate PEM, DER und SPKAC.</translation>
     </message>
     <message>
-        <location line="+275"/>
+        <location line="+272"/>
         <source>Signed</source>
         <translation>Signiert</translation>
     </message>
@@ -3737,7 +3755,7 @@ und wurde daher nicht importiert</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="+154"/>
+        <location filename="../widgets/v3ext.cpp" line="+155"/>
         <source>Validation successfull:
 &apos;%1&apos;</source>
         <translation>Überprüfung erfolgreich: &apos;%1&apos;</translation>
