@@ -919,8 +919,8 @@ void MainWindow::generateDHparam()
 	FILE *fp = NULL;
 	QProgressBar *bar = NULL;
 	bool ok;
-	int num = QInputDialog::getInt(this, XCA_TITLE, tr("DH parameter bits"),
-		1024, 1024, 4096, 1024, &ok);
+	int num = QInputDialog::getDouble(this, XCA_TITLE, tr("DH parameter bits"),
+		1024, 1024, 4096, 0, &ok);
 
 	if (!ok)
 		return;

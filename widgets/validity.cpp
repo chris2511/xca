@@ -16,8 +16,9 @@ Validity::Validity( QWidget* parent )
 {
 	endDate = false;
 	formatDate = tr("yyyy-MM-dd hh:mm");
+#if QT_VERSION >= 0x040400
 	setTimeSpec(Qt::UTC);
-
+#endif
 	setNow();
 	hideTime(false);
 	connect(this, SIGNAL(timeChanged(const QTime &)),

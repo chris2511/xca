@@ -10,6 +10,7 @@
 #include <QtGui/QListWidget>
 #include <QtGui/QComboBox>
 #include <QtGui/QLineEdit>
+#include <QtGui/QHeaderView>
 #include <QtCore/QStringList>
 #include <QtGui/QMessageBox>
 #include "MainWindow.h"
