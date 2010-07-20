@@ -36,8 +36,16 @@ class x509v3ext
 	bool isValid() const;
 	int nid() const;
 	void *d2i();
-	QString i2s();
-	QStringList i2v();
+	bool genConf(QString *single, QString *adv) const;
+    protected:
+	QString parse_critical() const;
+	bool parse_certpol(QString *single, QString *adv) const;
+	bool parse_ainfo(QString *single, QString *adv) const;
+	bool parse_Crldp(QString *single, QString *adv) const;
+	bool parse_eku(QString *single, QString *adv) const;
+	bool parse_generalName(QString *single, QString *adv) const;
+	bool parse_i2s(QString *single, QString *adv) const;
+	bool parse_bc(QString *single, QString *adv) const;
 };
 
 class extList : public QList<x509v3ext>
@@ -46,8 +54,9 @@ class extList : public QList<x509v3ext>
 	void setStack(STACK_OF(X509_EXTENSION) *st, int start=0);
 	STACK_OF(X509_EXTENSION) *getStack();
 	QString getHtml(const QString &sep);
-	int delByNid(int nid);
+	bool delByNid(int nid);
 	int delInvalid();
 	int idxByNid(int nid);
+	bool genConf(int nid, QString *single, QString *adv = NULL);
 };
 #endif

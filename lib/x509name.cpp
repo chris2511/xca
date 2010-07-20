@@ -23,6 +23,17 @@ x509name::x509name(const X509_NAME *n)
 	xn = X509_NAME_dup((X509_NAME *)n);
 }
 
+x509name::x509name(STACK_OF(X509_NAME_ENTRY) *entries)
+{
+	X509_NAME *n = X509_NAME_new();
+	STACK_OF(X509_NAME_ENTRY) *ba = n->entries;
+	xn = NULL;
+	n->entries = entries;
+	set(n);
+	n->entries = ba;
+	X509_NAME_free(n);
+}
+
 x509name::x509name(const x509name &n)
 {
 	xn = NULL;
@@ -41,7 +52,6 @@ x509name &x509name::set(const X509_NAME *n)
 	xn = X509_NAME_dup((X509_NAME *)n);
 	return *this;
 }
-
 
 QString x509name::oneLine(unsigned long flags) const
 {
@@ -144,14 +154,11 @@ int x509name::nid(int i) const
 QString x509name::getOid(int i) const
 {
 	X509_NAME_ENTRY *ne;
-	char buf[256];
-	int len;
 
 	ne = sk_X509_NAME_ENTRY_value(xn->entries, i);
 	if (ne == NULL)
 		return QString();
-	len = OBJ_obj2txt(buf, 256, ne->object, 1);
-	return QString::fromAscii(buf, len);
+	return OBJ_obj2QString(ne->object, 1);
 }
 
 void x509name::d2i(QByteArray &ba)
@@ -215,6 +222,19 @@ QString x509name::checkLength() const
 		}
 	}
 	return warn;
+}
+
+QString x509name::taggedValues() const
+{
+	int i, max = entryCount();
+	QString ret;
+
+	for (i=0; i<max; i++) {
+		int n = nid(i);
+		ret += QString("%1.%2=%3\n").
+			arg(i).arg(OBJ_nid2sn(n)).arg(getEntry(i));
+	}
+	return ret;
 }
 
 void x509name::addEntryByNid(int nid, const QString entry)

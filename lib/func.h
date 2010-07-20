@@ -25,11 +25,13 @@ QString getFullFilename(const QString &filename, const QString &selectedFilter);
 QByteArray filename2bytearray(const QString &fname);
 QString filename2QString(const char *fname);
 
-QString asn1ToQString(const ASN1_STRING *str);
+QString asn1ToQString(const ASN1_STRING *str, bool quote = false);
 ASN1_STRING *QStringToAsn1(QString s, int nid);
 
 const char *OBJ_ln2sn(const char *ln);
 const char *OBJ_sn2ln(const char *sn);
+const char *OBJ_obj2sn(ASN1_OBJECT *a);
+QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name = 0);
 
 QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
 				int selected);

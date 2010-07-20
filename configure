@@ -29,7 +29,7 @@ DIRS="$QTDIR $DIRS /usr /usr/X11R6 /usr/local"
 STDINC="-I/usr/include"
 STDLIB="-L/usr/lib"
 prefix=${prefix:=/usr/local}
-CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
+CFLAGS=${CFLAGS:=-Wall -ggdb -O0}
 CC=${CC:=gcc}
 CF="-I. -I.. -I\$(TOPDIR)/ui"
 LDIRS=
@@ -191,9 +191,9 @@ test -z "$docdir" && docdir="${prefix}/share/xca"
 
 cat >Local.mak <<EOF
 CPPFLAGS=$CF
-CFLAGS=${CFLAGS}
+CFLAGS=${CFLAGS} $LDIRS
 
-LDFLAGS=$LDFLAGS $LDIRS
+LDFLAGS=$LDFLAGS
 
 # List of all libs to be compiled statically
 SLIBS=$SLIBS

@@ -108,54 +108,6 @@ QString pki_temp::getMsg(msg_type msg)
 	return pki_base::getMsg(msg);
 }
 
-static QStringList extVlistToString(extList &el, int nid, bool *crit)
-{
-	int i = el.idxByNid(nid);
-	QStringList sl;
-	if (i != -1) {
-		if (crit)
-			*crit = el[i].getCritical();
-		sl = el[i].i2v();
-		el.removeAt(i);
-	}
-	return sl;
-}
-
-static QString extVtoString(extList &el, int nid, QString *adv)
-{
-	bool crit;
-	QString critical;
-	const char *tag = OBJ_nid2sn(nid);
-
-	QStringList vlist = extVlistToString(el, nid, &crit);
-	if (crit)
-		critical = "critical,";
-	if (!vlist.join("").contains(","))
-		return critical + vlist.join(", ");
-
-	*adv = QString("%1=%2@%1_sect\n").arg(tag).arg(critical) + *adv +
-		QString("\n[%1_sect]\n").arg(tag);
-
-	for (int i=0; i<vlist.count(); i++) {
-		QString s = vlist[i];
-		int eq = s.indexOf(":");
-		*adv += QString("%1.%2=%3\n").arg(s.left(eq)).
-			arg(i).arg(s.mid(eq+1));
-	}
-	return QString();
-}
-
-static QString extToString(extList &el, int nid)
-{
-	int i = el.idxByNid(nid);
-	if (i != -1) {
-		QString s = el[i].i2s();
-		el.removeAt(i);
-		return s;
-	}
-	return QString();
-}
-
 static int bitsToInt(extList &el, int nid, bool *crit)
 {
 	int ret = 0, i = el.idxByNid(nid);
@@ -181,6 +133,8 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 	x509name n;
 	extList el = cert_or_req->getV3ext();
 
+	nsComment = "";
+
 	n = cert_or_req->getSubject();
 	for (i=0; i<EXPLICIT_NAME_CNT; i++) {
 		int nid = NewX509::name_nid[i];
@@ -194,53 +148,46 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			xname.addEntryByNid(nid, n.getEntry(i));
 	}
 
-	subAltName = extVtoString(el, NID_subject_alt_name, &adv_ext);
-	issAltName = extVtoString(el, NID_issuer_alt_name, &adv_ext);
-	crlDist = extVtoString(el, NID_crl_distribution_points, &adv_ext);
+	el.genConf(NID_subject_alt_name, &subAltName, &adv_ext);
+	el.genConf(NID_issuer_alt_name, &issAltName, &adv_ext);
+	el.genConf(NID_crl_distribution_points, &crlDist, &adv_ext);
+	el.genConf(NID_info_access, &authInfAcc, &adv_ext);
 
-	authInfAcc = extVtoString(el, NID_info_access, &adv_ext);
+	el.genConf(NID_netscape_comment, &nsComment);
+	el.genConf(NID_netscape_base_url, &nsBaseUrl);
+	el.genConf(NID_netscape_revocation_url, &nsRevocationUrl);
+	el.genConf(NID_netscape_ca_revocation_url, &nsCARevocationUrl);
+	el.genConf(NID_netscape_renewal_url, &nsRenewalUrl);
+	el.genConf(NID_netscape_ca_policy_url, &nsCaPolicyUrl);
+	el.genConf(NID_netscape_ssl_server_name, &nsSslServerName);
 
-	nsComment = extToString(el, NID_netscape_comment);
-	nsBaseUrl = extToString(el, NID_netscape_base_url);
-	nsRevocationUrl = extToString(el, NID_netscape_revocation_url);
-	nsCARevocationUrl = extToString(el, NID_netscape_ca_revocation_url);
-	nsRenewalUrl = extToString(el, NID_netscape_renewal_url);
-	nsCaPolicyUrl = extToString(el, NID_netscape_ca_policy_url);
-	nsSslServerName = extToString(el, NID_netscape_ssl_server_name);
+	el.genConf(NID_certificate_policies, NULL, &adv_ext);
 
-	i = el.idxByNid(NID_basic_constraints);
-	if (i != -1) {
-		BASIC_CONSTRAINTS *bc;
-		bc = (BASIC_CONSTRAINTS *)el[i].d2i();
-	        if (bc) {
-			bcCrit = el[i].getCritical();
-			ca = (bc->ca ? 0 : 1) +1;
-			a1int pl(bc->pathlen);
-			pathLen = pl.toDec();
-			BASIC_CONSTRAINTS_free(bc);
-		}
-		el.removeAt(i);
-        }
-	i = el.idxByNid(NID_authority_key_identifier);
-	if (i != -1) {
-		el.removeAt(i);
-		authKey = true;
+	QString r;
+	if (el.genConf(NID_basic_constraints, &r)) {
+		QStringList sl = r.split(",");
+		if (sl.contains("critical"))
+			bcCrit = true;
+		ca = sl.contains("CA:TRUE") ? 2 : 1;
+		pathLen = sl.filter("pathlen:").join("").mid(8, -1);
+	} else {
+		bcCrit = false;
+		ca = 0;
 	}
-	i = el.idxByNid(NID_subject_key_identifier);
-	if (i != -1) {
-		el.removeAt(i);
-		subKey = true;
-	}
+	authKey = el.delByNid(NID_authority_key_identifier);
+	subKey =  el.delByNid(NID_subject_key_identifier);
+
 	nsCertType = bitsToInt(el, NID_netscape_cert_type, NULL);
 	/* bit 4 is unused. Move higher bits down. */
 	nsCertType = (nsCertType & 0xf) | ((nsCertType & 0xf0) >> 1);
 
 	keyUse = bitsToInt(el, NID_key_usage, &keyUseCrit);
 
-	QStringList sl = extVlistToString(el, NID_ext_key_usage, &eKeyUseCrit);
-	for (i=0; i<sl.size(); i++)
-		sl[i] = OBJ_ln2sn(CCHAR(sl[i]));
-	eKeyUse = sl.join(", ");
+	el.genConf(NID_ext_key_usage, &eKeyUse);
+	if (eKeyUse.startsWith("critical,")) {
+		eKeyUseCrit = true;
+		eKeyUse = eKeyUse.mid(9, -1);
+	}
 
 	if (cert_or_req->getType() == x509) {
 		pki_x509 *cert = (pki_x509*)cert_or_req;

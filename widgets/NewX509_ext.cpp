@@ -161,8 +161,10 @@ void NewX509::setAuthInfAcc_string(QString aia_txt)
 	int nid, idx;
 
 	idx = aia_txt.indexOf(';');
+	if (idx == -1)
+		return;
 
-	nid = OBJ_sn2nid(CCHAR(aia_txt.left(idx)));
+	nid = OBJ_txt2nid(CCHAR(aia_txt.left(idx)));
 
 	for (int i=0; i < aia_nid.count(); i++) {
 		if (aia_nid[i] == nid) {

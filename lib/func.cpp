@@ -174,7 +174,7 @@ QString filename2QString(const char *fname)
 #endif
 }
 
-QString asn1ToQString(const ASN1_STRING *str)
+QString asn1ToQString(const ASN1_STRING *str, bool quote)
 {
 	QString qs;
 	unsigned short *bmp;
@@ -206,6 +206,8 @@ QString asn1ToQString(const ASN1_STRING *str)
 		printf(" %02x", str->data[i]);
 	printf("\n");
 #endif
+	if (quote)
+		qs.replace('\n', "\\n\\");
 	return qs;
 }
 
@@ -238,6 +240,23 @@ const char *OBJ_ln2sn(const char *ln)
 const char *OBJ_sn2ln(const char *sn)
 {
 	return OBJ_nid2ln(OBJ_sn2nid(sn));
+}
+
+const char *OBJ_obj2sn(ASN1_OBJECT *a)
+{
+	OBJ_obj2nid(a);
+	openssl_error();
+	return OBJ_nid2sn(OBJ_obj2nid(a));
+}
+
+QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name)
+{
+	char buf[512];
+	int len;
+
+	len = OBJ_obj2txt(buf, 256, a, no_name);
+	openssl_error();
+	return QString::fromAscii(buf, len);
 }
 
 QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,

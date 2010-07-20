@@ -1,4 +1,7 @@
 
+  * improve creating templates from cert
+    - enhance parsing of CRL-DP, SAN, IAN and AuthInfoAcc
+    - add support for CertificatePolicies
   * improve date handling. "notBefore" is not reset to now anymore
     when applyiong a time range
   * Support dropping files onto the application

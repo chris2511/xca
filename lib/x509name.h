@@ -20,6 +20,7 @@ class x509name
 		x509name();
 		x509name(const X509_NAME *n);
 		x509name(const x509name &n);
+		x509name(STACK_OF(X509_NAME_ENTRY) *entries);
 		~x509name();
 		x509name &set(const X509_NAME *n);
 		QString oneLine(unsigned long flags = XN_FLAG_ONELINE) const;
@@ -40,8 +41,7 @@ class x509name
 		QString popEntryByNid(int nid);
 		X509_NAME *get() const;
 		QString getMostPopular() const;
-
-
+		QString taggedValues() const;
 };
 
 #endif
