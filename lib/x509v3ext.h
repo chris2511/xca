@@ -35,8 +35,9 @@ class x509v3ext
 	X509_EXTENSION *get() const;
 	bool isValid() const;
 	int nid() const;
-	void *d2i();
+	void *d2i() const;
 	bool genConf(QString *single, QString *adv) const;
+	bool parse_generic(QString *single, QString *adv) const;
     protected:
 	QString parse_critical() const;
 	bool parse_certpol(QString *single, QString *adv) const;
@@ -44,8 +45,9 @@ class x509v3ext
 	bool parse_Crldp(QString *single, QString *adv) const;
 	bool parse_eku(QString *single, QString *adv) const;
 	bool parse_generalName(QString *single, QString *adv) const;
-	bool parse_i2s(QString *single, QString *adv) const;
+	bool parse_ia5(QString *single, QString *adv) const;
 	bool parse_bc(QString *single, QString *adv) const;
+	bool parse_bitstring(QString *single, QString *adv) const;
 };
 
 class extList : public QList<x509v3ext>
@@ -58,5 +60,6 @@ class extList : public QList<x509v3ext>
 	int delInvalid();
 	int idxByNid(int nid);
 	bool genConf(int nid, QString *single, QString *adv = NULL);
+	void genGenericConf(QString *adv);
 };
 #endif

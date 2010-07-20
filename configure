@@ -29,7 +29,7 @@ DIRS="$QTDIR $DIRS /usr /usr/X11R6 /usr/local"
 STDINC="-I/usr/include"
 STDLIB="-L/usr/lib"
 prefix=${prefix:=/usr/local}
-CFLAGS=${CFLAGS:=-Wall -ggdb -O0}
+CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
 CC=${CC:=gcc}
 CF="-I. -I.. -I\$(TOPDIR)/ui"
 LDIRS=

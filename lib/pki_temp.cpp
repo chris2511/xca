@@ -161,14 +161,12 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 	el.genConf(NID_netscape_ca_policy_url, &nsCaPolicyUrl);
 	el.genConf(NID_netscape_ssl_server_name, &nsSslServerName);
 
-	el.genConf(NID_certificate_policies, NULL, &adv_ext);
-
 	QString r;
 	if (el.genConf(NID_basic_constraints, &r)) {
 		QStringList sl = r.split(",");
 		if (sl.contains("critical"))
 			bcCrit = true;
-		ca = sl.contains("CA:TRUE") ? 2 : 1;
+		ca = sl.contains("CA:TRUE") ? 1 : 2;
 		pathLen = sl.filter("pathlen:").join("").mid(8, -1);
 	} else {
 		bcCrit = false;
@@ -188,6 +186,7 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 		eKeyUseCrit = true;
 		eKeyUse = eKeyUse.mid(9, -1);
 	}
+	el.genGenericConf(&adv_ext);
 
 	if (cert_or_req->getType() == x509) {
 		pki_x509 *cert = (pki_x509*)cert_or_req;

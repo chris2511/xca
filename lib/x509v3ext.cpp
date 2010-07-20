@@ -70,7 +70,7 @@ int x509v3ext::nid() const
 	return OBJ_obj2nid(obj);
 }
 
-void *x509v3ext::d2i()
+void *x509v3ext::d2i() const
 {
 	return X509V3_EXT_d2i(ext);
 }
@@ -83,8 +83,7 @@ x509v3ext &x509v3ext::operator = (const x509v3ext &x)
 
 QString x509v3ext::getObject() const
 {
-	QString a = OBJ_nid2ln(nid());
-	return a;
+	return OBJ_obj2QString(X509_EXTENSION_get_object(ext));
 }
 
 int x509v3ext::getCritical() const
@@ -131,97 +130,126 @@ static QString vlist2Section(QStringList vlist, QString tag, QString *sect)
 	return QString("@%1_sect\n").arg(tag);
 }
 
-static void *ext_str_new(X509_EXTENSION *ext)
+bool x509v3ext::parse_ia5(QString *single, QString *adv) const
 {
-	const X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
-	const unsigned char *p = ext->value->data;
-	void *ext_str;
-
-	if(method->it)
-		ext_str = ASN1_item_d2i(NULL, &p, ext->value->length, ASN1_ITEM_ptr(method->it));
-        else
-		ext_str = method->d2i(NULL, &p, ext->value->length);
-	return ext_str;
-}
-
-static void ext_str_free(X509_EXTENSION *ext, void *ext_str)
-{
-	const X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
-
-	if (method->it)
-		ASN1_item_free((ASN1_VALUE*)ext_str,ASN1_ITEM_ptr(method->it));
-	else
-		method->ext_free(ext_str);
-}
-
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
-#define C_X509V3_EXT_METHOD const X509V3_EXT_METHOD
-#else
-#define C_X509V3_EXT_METHOD X509V3_EXT_METHOD
-#endif
-
-bool x509v3ext::parse_i2s(QString *single, QString *adv) const
-{
-	C_X509V3_EXT_METHOD *method = X509V3_EXT_get(ext);
-	void *ext_str;
+	ASN1_STRING *str = (ASN1_STRING *)d2i();
 	QString ret;
 
-	if (!method->i2s)
+	if (!str)
 		return false;
-	ext_str = ext_str_new(ext);
-	if (!ext_str)
-		return false;
-	ret = QString(method->i2s(method, ext_str));
+	ret = QString(asn1ToQString(str));
 	if (single)
 		*single = ret;
-	else
-		*adv = QString("%1=%2").arg(OBJ_nid2sn(nid())).arg(ret);
+	else if (adv)
+		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).arg(ret) +*adv;
 
-	ext_str_free(ext, ext_str);
+	ASN1_STRING_free(str);
 	return true;
 }
 
-static bool genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
+
+static const char *asn1Type2Name(int type)
+{
+#define ASN1_GEN_STR(x,y) { x,y }
+	struct {
+	        const char *strnam;
+		int tag;
+	} tags[] = {
+		ASN1_GEN_STR("BOOL", V_ASN1_BOOLEAN),
+		ASN1_GEN_STR("NULL", V_ASN1_NULL),
+		ASN1_GEN_STR("INT", V_ASN1_INTEGER),
+		ASN1_GEN_STR("ENUM", V_ASN1_ENUMERATED),
+		ASN1_GEN_STR("OID", V_ASN1_OBJECT),
+		ASN1_GEN_STR("UTC", V_ASN1_UTCTIME),
+		ASN1_GEN_STR("GENTIME", V_ASN1_GENERALIZEDTIME),
+		ASN1_GEN_STR("OCT", V_ASN1_OCTET_STRING),
+		ASN1_GEN_STR("BITSTR", V_ASN1_BIT_STRING),
+		ASN1_GEN_STR("UNIV", V_ASN1_UNIVERSALSTRING),
+		ASN1_GEN_STR("IA5", V_ASN1_IA5STRING),
+		ASN1_GEN_STR("UTF8", V_ASN1_UTF8STRING),
+		ASN1_GEN_STR("BMP", V_ASN1_BMPSTRING),
+		ASN1_GEN_STR("VISIBLE", V_ASN1_VISIBLESTRING),
+		ASN1_GEN_STR("PRINTABLE", V_ASN1_PRINTABLESTRING),
+		ASN1_GEN_STR("T61", V_ASN1_T61STRING),
+		ASN1_GEN_STR("GENSTR", V_ASN1_GENERALSTRING),
+		ASN1_GEN_STR("NUMERIC", V_ASN1_NUMERICSTRING),
+	};
+	for (unsigned i=0; i< ARRAY_SIZE(tags); i++) {
+		if (tags[i].tag == type)
+			return tags[i].strnam;
+	}
+	return NULL;
+}
+
+static bool asn1TypePrintable(int type)
+{
+	switch (type) {
+	case V_ASN1_IA5STRING:
+	case V_ASN1_UTF8STRING:
+	case V_ASN1_BMPSTRING:
+	case V_ASN1_VISIBLESTRING:
+	case V_ASN1_PRINTABLESTRING:
+	case V_ASN1_T61STRING:
+	case V_ASN1_GENERALSTRING:
+		return true;
+	}
+	return false;
+}
+
+static bool
+genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 {
 	unsigned char *p;
 	QString ret;
 
 	switch (gen->type) {
-		case GEN_EMAIL: ret = "email:%1"; break;
-		case GEN_DNS:   ret = "DNS:%1"; break;
-		case GEN_URI:   ret = "URI:%1"; break;
+	case GEN_EMAIL: ret = "email:%1"; break;
+	case GEN_DNS:   ret = "DNS:%1"; break;
+	case GEN_URI:   ret = "URI:%1"; break;
 
-		case GEN_DIRNAME: {
-			tag += "_dirname";
-			x509name xn(gen->d.dirn);
-			*sect += QString("\n[%1]\n"). arg(tag);
-			*sect += xn.taggedValues();
-			*single = QString("dirName:") + tag;
-			printf("GENN: '%s'\n'%s'\n", CCHAR(*single), CCHAR(*sect));
+	case GEN_DIRNAME: {
+		tag += "_dirname";
+		x509name xn(gen->d.dirn);
+		*sect += QString("\n[%1]\n"). arg(tag);
+		*sect += xn.taggedValues();
+		*single = QString("dirName:") + tag;
+		return true;
+	}
+	case GEN_IPADD:
+		p = gen->d.ip->data;
+		if (gen->d.ip->length == 4) {
+			*single = QString("IP:%1.%2.%3.%4").
+				arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]);
 			return true;
 		}
-		case GEN_IPADD:
-			p = gen->d.ip->data;
-			if (gen->d.ip->length == 4) {
-				*single = QString("IP:%1.%2.%3.%4").
-						arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]);
-				return true;
-			}
-			return false;
+		return false;
 
-		case GEN_RID:
-			*single = QString("RID:%1").arg(OBJ_obj2QString(gen->d.rid));
-			return true;
-		case GEN_OTHERNAME:
-			if (gen->d.otherName->value->type != V_ASN1_UTF8STRING)
-				return false;
-			*single = QString("othername:%1;UTF8:%2").
-				arg(OBJ_obj2QString(gen->d.otherName->type_id)).
-				arg(asn1ToQString(
-					gen->d.otherName->value->value.asn1_string, true));
-			return true;
-		default:
-			return false;
+	case GEN_RID:
+		*single = QString("RID:%1").
+				arg(OBJ_obj2QString(gen->d.rid));
+		return true;
+	case GEN_OTHERNAME: {
+		int type = gen->d.otherName->value->type;
+		ASN1_STRING *a;
+		a = gen->d.otherName->value->value.asn1_string;
+		if (asn1TypePrintable(type)) {
+			*single = QString("otherName:%1;%2:%3").
+			arg(OBJ_obj2QString(gen->d.otherName->type_id)).
+			arg(asn1Type2Name(type)).
+			arg(asn1ToQString(a, true));
+		} else {
+			*single = QString("otherName:%1;FORMAT:HEX,%2").
+			arg(OBJ_obj2QString(gen->d.otherName->type_id)).
+			arg(asn1Type2Name(type));
+			for (int i=0; i<a->length; i++) {
+				*single += QString(":%1").
+				arg((int)(a->data[i]), 2, 16, QChar('0'));
+			}
+		}
+		return true;
+	}
+	default:
+		return false;
 	}
 	if (!ret.isEmpty())
 		*single = ret.arg(asn1ToQString(gen->d.ia5, true));
@@ -256,22 +284,23 @@ bool x509v3ext::parse_generalName(QString *single, QString *adv) const
 	bool retval = true;
 	QString sect, ret;
 	QString tag = OBJ_nid2sn(nid());
-	STACK_OF(GENERAL_NAME) *gens = (STACK_OF(GENERAL_NAME) *)ext_str_new(ext);
+	STACK_OF(GENERAL_NAME) *gens = (STACK_OF(GENERAL_NAME) *)d2i();
 
 	if (!genNameStack2conf(gens, tag, &ret, &sect))
 		retval = false;
 	else if (sect.isEmpty() && single) {
 		*single = parse_critical() + ret;
-	} else {
-		*adv = tag + "=" + parse_critical() + ret + *adv + sect;
+	} else if (adv) {
+		*adv = QString("%1=%2\n").arg(tag).
+			arg(parse_critical() +ret) + *adv + sect;
 	}
-	ext_str_free(ext, gens);
+	sk_GENERAL_NAME_free(gens);
 	return retval;
 }
 
 bool x509v3ext::parse_eku(QString *single, QString *adv) const
 {
-	EXTENDED_KEY_USAGE *eku = ( EXTENDED_KEY_USAGE *)ext_str_new(ext);
+	EXTENDED_KEY_USAGE *eku = (EXTENDED_KEY_USAGE *)d2i();
 	QStringList sl;
 	int i;
 
@@ -281,8 +310,10 @@ bool x509v3ext::parse_eku(QString *single, QString *adv) const
 	QString r = parse_critical() + sl.join(", ");
 	if (single)
 		*single = r;
-	else
-		*adv = QString("%1=%2").arg(OBJ_nid2sn(nid())).arg(r);
+	else if (adv)
+		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).arg(r) + *adv;
+
+	EXTENDED_KEY_USAGE_free(eku);
 	return true;
 }
 
@@ -294,7 +325,7 @@ bool x509v3ext::parse_ainfo(QString *single, QString *adv) const
 	QStringList sl;
 	int i;
 
-	AUTHORITY_INFO_ACCESS *ainfo = (AUTHORITY_INFO_ACCESS *)ext_str_new(ext);
+	AUTHORITY_INFO_ACCESS *ainfo = (AUTHORITY_INFO_ACCESS *)d2i();
 
 	for (i = 0; i < sk_ACCESS_DESCRIPTION_num(ainfo); i++) {
 		QString one;
@@ -309,13 +340,14 @@ bool x509v3ext::parse_ainfo(QString *single, QString *adv) const
 	}
 	if (retval) {
 		ret = vlist2Section(sl, tag, &sect);
-		if (sect.isEmpty() && sk_ACCESS_DESCRIPTION_num(ainfo) == 1) {
+		if (sect.isEmpty() && sk_ACCESS_DESCRIPTION_num(ainfo) == 1 && single) {
 			*single = parse_critical() + ret;
-		} else {
-			*adv = tag + "=" + parse_critical() + ret + *adv + sect;
+		} else if (adv) {
+			*adv = QString("%1=%2\n").arg(tag).
+				arg(parse_critical() + ret) + *adv + sect;
 		}
 	}
-	ext_str_free(ext, ainfo);
+	AUTHORITY_INFO_ACCESS_free(ainfo);
 	return retval;
 }
 
@@ -332,14 +364,25 @@ static const BIT_STRING_BITNAME reason_flags[] = {
 {-1, NULL, NULL}
 };
 
+static QString parse_bits(const BIT_STRING_BITNAME *flags,
+				ASN1_BIT_STRING *str)
+{
+	const BIT_STRING_BITNAME *pbn;
+	QStringList r;
+	for (pbn = flags; pbn->sname; pbn++) {
+		if (ASN1_BIT_STRING_get_bit(str, pbn->bitnum))
+			r << QString(pbn->sname);
+	}
+	return r.join(", ");
+}
+
 bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 {
 	QString othersect;
 	QStringList crldps;
-	int i;
 
-	STACK_OF(DIST_POINT) *crld = (STACK_OF(DIST_POINT)*)ext_str_new(ext);
-	if (sk_DIST_POINT_num(crld) == 1) {
+	STACK_OF(DIST_POINT) *crld = (STACK_OF(DIST_POINT)*)d2i();
+	if (sk_DIST_POINT_num(crld) == 1 && single) {
 		DIST_POINT *point = sk_DIST_POINT_value(crld, 0);
 		if (point->distpoint && !point->reasons && !point->CRLissuer &&
 		    !point->distpoint->type && single)
@@ -355,8 +398,7 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 			}
 		}
 	}
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
-	for(i = 0; i < sk_DIST_POINT_num(crld); i++) {
+	for(int i = 0; i < sk_DIST_POINT_num(crld); i++) {
 		DIST_POINT *point = sk_DIST_POINT_value(crld, i);
 		QString tag = QString("crlDistributionPoint%1_sect").arg(i);
 		QString crldpsect = QString("\n[%1]\n").arg(tag);
@@ -377,14 +419,8 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 			}
 		}
 		if (point->reasons) {
-			const BIT_STRING_BITNAME *pbn;
-			QStringList r;
-			for (pbn = reason_flags; pbn->lname; pbn++) {
-				if (ASN1_BIT_STRING_get_bit(point->reasons,
-								pbn->bitnum))
-					r += pbn->sname;
-			}
-			crldpsect += "reasons=" + r.join(", ") + "\n";
+			crldpsect += QString("reasons=%1\n").
+				arg(parse_bits(reason_flags, point->reasons));
 		}
 		if (point->CRLissuer) {
 			QString ret;
@@ -396,16 +432,23 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 		crldps << tag;
 		othersect = crldpsect + othersect;
 	}
-	ext_str_free(ext, crld);
+	sk_DIST_POINT_free(crld);
 	if (crldps.size() == 0)
 		return true;
-	*adv = "crlDistributionPoints=" + parse_critical() +
-		crldps.join(", ") + "\n" + *adv + othersect;
+	if (adv) {
+		*adv = "crlDistributionPoints=" + parse_critical() +
+			crldps.join(", ") + "\n" + *adv + othersect;
+#if OPENSSL_VERSION_NUMBER < 0x10000000L
+		*adv = QString( "\n"
+			"# This syntax only works for openssl >= 1.0.0\n"
+			"# But this is %1\n"
+			"# ").arg(OPENSSL_VERSION_TEXT) + *adv;
+#endif
+	}
 	return true;
 
 could_not_parse:
-#endif
-	ext_str_free(ext, crld);
+	sk_DIST_POINT_free(crld);
 	return false;
 }
 
@@ -435,9 +478,12 @@ static void gen_cpol_notice(QString tag, USERNOTICE *notice, QString *adv)
 static bool gen_cpol_qual_sect(QString tag, POLICYINFO *pinfo, QString *adv)
 {
 	QString polsect = QString("\n[%1]\n").arg(tag);
-	QString noticetag;
+	QString noticetag, _adv;
 	STACK_OF(POLICYQUALINFO) *quals = pinfo->qualifiers;
 	int i;
+
+	if (!adv)
+		adv = &_adv;
 
 	polsect += QString("policyIdentifier=%1\n").
 			arg(OBJ_obj2QString(pinfo->policyid));
@@ -469,7 +515,7 @@ bool x509v3ext::parse_certpol(QString *single, QString *adv) const
 	bool retval = true;
 	QStringList pols;
 	QString myadv;
-	STACK_OF(POLICYINFO) *pol = (STACK_OF(POLICYINFO) *)ext_str_new(ext);
+	STACK_OF(POLICYINFO) *pol = (STACK_OF(POLICYINFO) *)d2i();
 	int i;
 	for (i = 0; i < sk_POLICYINFO_num(pol); i++) {
 		POLICYINFO *pinfo = sk_POLICYINFO_value(pol, i);
@@ -484,24 +530,92 @@ bool x509v3ext::parse_certpol(QString *single, QString *adv) const
 			break;
 		}
 	}
-	if (retval)
+	if (retval && adv)
 		*adv = QString("certificatePolicies=ia5org,%1\n").
 		arg(pols.join(", ")) + *adv + myadv;
-	ext_str_free(ext, pol);
+	sk_POLICYINFO_free(pol);
 	return retval;
 }
 
 bool x509v3ext::parse_bc(QString *single, QString *adv) const
 {
-	BASIC_CONSTRAINTS *bc = (BASIC_CONSTRAINTS *)ext_str_new(ext);
+	BASIC_CONSTRAINTS *bc = (BASIC_CONSTRAINTS *)d2i();
 	QString ret = a1int(bc->pathlen).toDec();
 	if (!ret.isEmpty())
 		ret = ",pathlen:" + ret;
-	ret = parse_critical() + (bc->ca ? "CA:FALSE" : "CA:TRUE") + ret;
+	ret = parse_critical() + (bc->ca ? "CA:TRUE" : "CA:FALSE") + ret;
 	if (single)
 		*single = ret;
+	else if (adv)
+		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).arg(ret) +*adv;
+	BASIC_CONSTRAINTS_free(bc);
+	return true;
+}
+
+static const BIT_STRING_BITNAME key_usage_type_table[] = {
+{0, "Digital Signature", "digitalSignature"},
+{1, "Non Repudiation", "nonRepudiation"},
+{2, "Key Encipherment", "keyEncipherment"},
+{3, "Data Encipherment", "dataEncipherment"},
+{4, "Key Agreement", "keyAgreement"},
+{5, "Certificate Sign", "keyCertSign"},
+{6, "CRL Sign", "cRLSign"},
+{7, "Encipher Only", "encipherOnly"},
+{8, "Decipher Only", "decipherOnly"},
+{-1, NULL, NULL}
+};
+
+static const BIT_STRING_BITNAME ns_cert_type_table[] = {
+{0, "SSL Client", "client"},
+{1, "SSL Server", "server"},
+{2, "S/MIME", "email"},
+{3, "Object Signing", "objsign"},
+{4, "Unused", "reserved"},
+{5, "SSL CA", "sslCA"},
+{6, "S/MIME CA", "emailCA"},
+{7, "Object Signing CA", "objCA"},
+{-1, NULL, NULL}
+};
+
+bool x509v3ext::parse_bitstring(QString *single, QString *adv) const
+{
+	ASN1_BIT_STRING *bs;
+	const BIT_STRING_BITNAME *bnames;
+	int n = nid();
+
+	switch (n) {
+	case NID_key_usage: bnames = key_usage_type_table; break;
+	case NID_netscape_cert_type: bnames = ns_cert_type_table; break;
+	default: return false;
+	}
+	bs = (ASN1_BIT_STRING *)d2i();
+	QString ret = parse_critical() + parse_bits(bnames, bs);
+	if (single)
+		*single = ret;
+	else if (adv)
+		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).arg(ret) +*adv;
+	ASN1_BIT_STRING_free(bs);
+        return true;
+}
+
+bool x509v3ext::parse_generic(QString *single, QString *adv) const
+{
+	QString der, obj;
+	int n = nid();
+
+	if (n == NID_undef)
+		obj = OBJ_obj2QString(X509_EXTENSION_get_object(ext));
+	else
+		obj = OBJ_nid2sn(n);
+
+	ASN1_OCTET_STRING *v = ext->value;
+	for (int i=0; i<v->length; i++)
+		der += QString(":%1").arg((int)(v->data[i]), 2, 16, QChar('0'));
+
 	if (adv)
-		*adv = QString("%1=%2").arg(OBJ_nid2sn(nid())).arg(*adv);
+		*adv = QString("%1=%2DER%3\n").arg(obj).
+				arg(parse_critical()).arg(der) +
+			*adv;
 	return true;
 }
 
@@ -527,9 +641,14 @@ bool x509v3ext::genConf(QString *single, QString *adv) const
 	case NID_netscape_renewal_url:
 	case NID_netscape_ca_policy_url:
 	case NID_netscape_ssl_server_name:
-		return parse_i2s(single, adv);
+		return parse_ia5(single, adv);
 	case NID_basic_constraints:
 		return parse_bc(single, adv);
+	case NID_key_usage:
+	case NID_netscape_cert_type:
+		return parse_bitstring(single, adv);
+	default:
+		return parse_generic(single, adv);
 	}
 	return false;
 }
@@ -567,6 +686,17 @@ bool extList::genConf(int nid, QString *single, QString *adv)
 		return true;
 	}
 	return false;
+}
+
+void extList::genGenericConf(QString *adv)
+{
+	for (int i=0; i< size();) {
+		if (at(i).genConf(NULL, adv) || at(i).parse_generic(NULL, adv))
+			removeAt(i);
+		else
+			i++;
+		ign_openssl_error();
+	}
 }
 
 void extList::setStack(STACK_OF(X509_EXTENSION) *st, int start)

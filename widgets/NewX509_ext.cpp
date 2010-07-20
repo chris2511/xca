@@ -93,7 +93,7 @@ x509v3ext NewX509::getEkeyUsage()
 		//QListWidgetItem *li = ekeyUsage->item(i);
 		//printf("rows = %d, ekeyUsage = %d, %p\n", rows, i, li);
 		if (ekeyUsage->isItemSelected(ekeyUsage->item(i))) {
-			cont << (QString)OBJ_nid2sn(eku_nid[i]);
+			cont << QString(OBJ_nid2sn(eku_nid[i]));
 		}
 	}
 	if (ekuCritical->isChecked() && cont.count() > 0)
