@@ -23,8 +23,22 @@ CertDetail::CertDetail(QWidget *parent)
 	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::certImg);
 	descr->setReadOnly(true);
+	showConf = false;
 }
 
+void CertDetail::on_showExt_clicked()
+{
+	if (showConf) {
+		showConf = false;
+		v3extensions->document()->setHtml(exts);
+		showExt->setText(tr("Show config"));
+	} else {
+		showConf = true;
+		v3extensions->document()->setPlainText(conf);
+		showExt->setText(tr("Show extensions"));
+	}
+
+}
 void CertDetail::setCert(pki_x509 *cert)
 {
 	try {
@@ -105,9 +119,10 @@ void CertDetail::setCert(pki_x509 *cert)
 		if (el.count() == 0) {
 			tabwidget->removeTab(3);
 		} else {
-			v3extensions->document()->setHtml(el.getHtml("<br>"));
+			exts = el.getHtml("<br>");
+			el.genGenericConf(&conf);
+			v3extensions->document()->setHtml(exts);
 		}
-
 		// Algorithm
 		sigAlgo->setText(cert->getSigAlg());
 

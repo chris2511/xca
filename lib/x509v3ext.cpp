@@ -598,6 +598,29 @@ bool x509v3ext::parse_bitstring(QString *single, QString *adv) const
         return true;
 }
 
+bool x509v3ext::parse_sKeyId(QString *single, QString *adv) const
+{
+	if (adv)
+		*adv = QString("%1=hash\n").arg(OBJ_nid2sn(nid())) + *adv;
+	return true;
+}
+
+bool x509v3ext::parse_aKeyId(QString *single, QString *adv) const
+{
+	QStringList ret;
+	AUTHORITY_KEYID *akeyid = (AUTHORITY_KEYID *)d2i();
+
+	if (akeyid->keyid)
+		ret << "keyid";
+	if (akeyid->issuer)
+		ret << "issuer";
+	if (adv)
+		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).
+			arg(ret.join(", ")) + *adv;
+	AUTHORITY_KEYID_free(akeyid);
+	return true;
+}
+
 bool x509v3ext::parse_generic(QString *single, QString *adv) const
 {
 	QString der, obj;
@@ -647,6 +670,10 @@ bool x509v3ext::genConf(QString *single, QString *adv) const
 	case NID_key_usage:
 	case NID_netscape_cert_type:
 		return parse_bitstring(single, adv);
+	case NID_subject_key_identifier:
+		return parse_sKeyId(single, adv);
+	case NID_authority_key_identifier:
+		return parse_aKeyId(single, adv);
 	default:
 		return parse_generic(single, adv);
 	}

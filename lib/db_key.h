@@ -25,7 +25,7 @@ class db_key: public db_base
 	public:
 		db_key(QString db, MainWindow *mw);
 		QStringList getPrivateDesc();
-		QStringList get0PrivateDesc(bool all = false);
+		QStringList get0KeyDesc(bool all = false);
 		pki_base *newPKI(db_header_t *head = NULL);
 		void inToCont(pki_base *pki);
 		void remFromCont(QModelIndex &idx);

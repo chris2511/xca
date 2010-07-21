@@ -572,8 +572,8 @@ void NewX509::on_foreignSignRB_toggled(bool)
 void NewX509::newKeyDone(QString name)
 {
 	QStringList keys;
-	private_keys = MainWindow::keys->get0PrivateDesc(true);
-	private_keys0 = MainWindow::keys->get0PrivateDesc(false);
+	private_keys = MainWindow::keys->get0KeyDesc(true);
+	private_keys0 = MainWindow::keys->get0KeyDesc(false);
 	keyList->clear();
 	if (usedKeysToo->isChecked())
 		keys = private_keys;
@@ -676,6 +676,7 @@ void NewX509::setupTmpCtx()
 {
 	pki_x509 *signcert;
 	pki_x509req *req = NULL;
+	pki_key *key = NULL;
 	a1int serial;
 	QString errtxt;
 
@@ -686,9 +687,14 @@ void NewX509::setupTmpCtx()
 	if (fromReqCB->isChecked()) {
 		req = getSelectedReq();
 		ctx_cert->setSubject(req->getSubject());
+		if (req)
+			key = req->getRefKey();
 	} else {
 		ctx_cert->setSubject(getX509name());
+		key = getSelectedKey();
 	}
+	if (key)
+		ctx_cert->setPubKey(key);
 	// Step 2 - select Signing
 	if (foreignSignRB->isChecked()) {
 		signcert = getSelectedSigner();
@@ -731,9 +737,14 @@ void NewX509::on_adv_validate_clicked()
 				"</center></h2><p>\n";
 			result += el.getHtml("<br>");
 		}
-		el = getGuiExt();
-		el += getNetscapeExt();
-		el.delInvalid();
+		try {
+			el = getGuiExt();
+			el += getNetscapeExt();
+			el.delInvalid();
+		} catch (errorEx &err) {
+			errtxt = err.getString();
+			el.clear();
+		}
 		if (el.size() > 0) {
 			if (!result.isEmpty())
 				result += "\n<hr>\n";
@@ -744,7 +755,7 @@ void NewX509::on_adv_validate_clicked()
 		try {
 			el = getAdvanced();
 		} catch (errorEx &err) {
-			errtxt = err.getString();
+			errtxt += err.getString();
 			el.clear();
 		}
 		if (el.size() > 0) {

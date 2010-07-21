@@ -356,17 +356,18 @@
       <attribute name="title">
        <string>&amp;Extensions</string>
       </attribute>
-      <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="margin">
-        <number>11</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QTextEdit" name="v3extensions">
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="showExt">
+         <property name="text">
+          <string>Show config</string>
          </property>
         </widget>
        </item>

@@ -15,10 +15,14 @@ class pki_x509;
 class CertDetail: public QDialog, public Ui::CertDetail
 {
 		Q_OBJECT
+		bool showConf;
+		QString conf, exts;
 
 	public:
 		CertDetail( QWidget *parent);
 		void setCert(pki_x509 *cert);
+	private slots:
+		void on_showExt_clicked();
 };
 
 #endif

@@ -34,6 +34,7 @@ x509v3ext NewX509::getBasicConstraints()
 		}
 		ext.create(NID_basic_constraints, cont.join(", "), &ext_ctx);
 	}
+	openssl_error();
 	return ext;
 }
 
@@ -42,6 +43,7 @@ x509v3ext NewX509::getSubKeyIdent()
 	x509v3ext ext;
 	if (subKey->isChecked())
 		ext.create(NID_subject_key_identifier, "hash", &ext_ctx);
+	openssl_error();
 	return ext;
 }
 
@@ -49,14 +51,17 @@ x509v3ext NewX509::getSubKeyIdent()
 x509v3ext NewX509::getAuthKeyIdent()
 {
 	x509v3ext ext;
-	if (authKey->isChecked() && authKey->isEnabled()) {
-		if (foreignSignRB->isChecked())
-			ext.create(NID_authority_key_identifier,
-				"keyid,issuer:always", &ext_ctx);
-		else
-			ext.create(NID_authority_key_identifier,
-				"keyid,issuer", &ext_ctx);
+	if (!authKey->isChecked())
+		return ext;
+
+	QString x = "keyid,issuer:always";
+	if (ext_ctx.issuer_cert && X509_get_ext_by_NID(ext_ctx.issuer_cert,
+				NID_subject_key_identifier, -1) != -1)
+	{
+		x = "keyid:always,issuer:always";
 	}
+	ext.create(NID_authority_key_identifier, x, &ext_ctx);
+	openssl_error();
 	return ext;
 }
 
@@ -80,6 +85,7 @@ x509v3ext NewX509::getKeyUsage()
 	if (kuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_key_usage, cont.join(", "), &ext_ctx);
+	openssl_error();
 	return ext;
 }
 
@@ -99,6 +105,7 @@ x509v3ext NewX509::getEkeyUsage()
 	if (ekuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_ext_key_usage, cont.join(", "), &ext_ctx);
+	openssl_error();
 	return ext;
 }
 
@@ -115,6 +122,7 @@ x509v3ext NewX509::getSubAltName()
 		s = sn.join(",");
 	}
 	ext.create(NID_subject_alt_name, s, &ext_ctx);
+	openssl_error();
 	return ext;
 }
 
@@ -131,6 +139,7 @@ x509v3ext NewX509::getIssAltName()
 		s = sn.join(",");
 	}
 	ext.create(NID_issuer_alt_name, s, &ext_ctx);
+	openssl_error();
 	return ext;
 }
 
@@ -140,6 +149,7 @@ x509v3ext NewX509::getCrlDist()
 	if (!crlDist->text().isEmpty()) {
 		ext.create(NID_crl_distribution_points, crlDist->text(), &ext_ctx);
 	}
+	openssl_error();
 	return ext;
 }
 
@@ -153,6 +163,7 @@ QString NewX509::getAuthInfAcc_string()
 		rval = OBJ_nid2sn(aia_nid[aiaOid->currentIndex()]);
 		rval += ";" + aia_txt;
 	}
+	openssl_error();
 	return rval;
 }
 
@@ -182,6 +193,7 @@ x509v3ext NewX509::getAuthInfAcc()
 	if (!aia_txt.isEmpty()) {
 		ext.create(NID_info_access, aia_txt, &ext_ctx);
 	}
+	openssl_error();
 	return ext;
 }
 

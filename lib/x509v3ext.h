@@ -48,6 +48,8 @@ class x509v3ext
 	bool parse_ia5(QString *single, QString *adv) const;
 	bool parse_bc(QString *single, QString *adv) const;
 	bool parse_bitstring(QString *single, QString *adv) const;
+	bool parse_sKeyId(QString *single, QString *adv) const;
+	bool parse_aKeyId(QString *single, QString *adv) const;
 };
 
 class extList : public QList<x509v3ext>

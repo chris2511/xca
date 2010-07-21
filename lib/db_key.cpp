@@ -59,12 +59,11 @@ QStringList db_key::getPrivateDesc()
 	return x;
 }
 
-QStringList db_key::get0PrivateDesc(bool all)
+QStringList db_key::get0KeyDesc(bool all)
 {
 	QStringList x;
-	x.clear();
 	FOR_ALL_pki(pki, pki_key) {
-		if (pki->isPrivKey() && ((pki->getUcount() == 0) || all))
+		if ((pki->getUcount() == 0) || all)
 			x.append(pki->getIntNameWithType());
 	}
 	return x;
