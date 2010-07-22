@@ -51,7 +51,12 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+40"/>
+        <location filename="../widgets/CertDetail.cpp" line="+38"/>
+        <source>Show extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Not available</source>
         <translation type="unfinished">Недоступный</translation>
     </message>
@@ -131,9 +136,13 @@
         <translation type="unfinished">Подписан</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Private key</source>
-        <translation>Закрытый ключ</translation>
+        <translation type="obsolete">Закрытый ключ</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Key</source>
+        <translation type="unfinished">Ключ</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -191,7 +200,13 @@
         <translation type="unfinished">&amp;Расширения</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+13"/>
+        <location filename="../widgets/CertDetail.cpp" line="-80"/>
+        <source>Show config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>&amp;OK</source>
         <translation>&amp;ОК</translation>
     </message>
@@ -310,7 +325,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+898"/>
+        <location filename="../lib/db_x509.cpp" line="+901"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Не найден ключ для сетификата: </translation>
     </message>
@@ -1721,7 +1736,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+35"/>
         <location line="+17"/>
         <location filename="../widgets/NewX509.cpp" line="-198"/>
-        <location line="+537"/>
+        <location line="+548"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -1830,7 +1845,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Создать</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-669"/>
+        <location filename="../widgets/NewX509.cpp" line="-680"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1850,21 +1865,22 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished">Создание x509 сертификата</translation>
     </message>
     <message>
-        <location line="+606"/>
+        <location line="+617"/>
         <location line="+14"/>
         <location line="+20"/>
         <location line="+11"/>
-        <location line="+16"/>
+        <location line="+17"/>
         <location line="+15"/>
         <location line="+20"/>
-        <location line="+22"/>
-        <location line="+25"/>
+        <location line="+30"/>
+        <location line="+12"/>
+        <location line="+24"/>
         <location line="+24"/>
         <source>Abort rollout</source>
         <translation type="unfinished">Прервать</translation>
     </message>
     <message>
-        <location line="-158"/>
+        <location line="-178"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1881,15 +1897,15 @@ Please set at least the internal name.</source>
     </message>
     <message>
         <location line="-44"/>
+        <location line="+63"/>
         <location line="+62"/>
-        <location line="+42"/>
-        <location line="+25"/>
+        <location line="+24"/>
         <location line="+24"/>
         <source>Continue rollout</source>
         <translation type="unfinished">Продолжить</translation>
     </message>
     <message>
-        <location line="-76"/>
+        <location line="-95"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1909,7 +1925,7 @@ Please set at least the internal name.</source>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-167"/>
+        <location filename="../widgets/NewX509.cpp" line="-168"/>
         <source>Validate</source>
         <translation type="unfinished">Утвердить</translation>
     </message>
@@ -1925,7 +1941,7 @@ The rollout should be aborted.</source>
         <translation type="unfinished">Продолжать в любом случае</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+150"/>
         <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1935,12 +1951,12 @@ The rollout should be aborted.</source>
         <translation>Нет четко определенного срока</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-119"/>
+        <location filename="../widgets/NewX509.cpp" line="-139"/>
         <source>Edit name</source>
         <translation type="unfinished">Изменить имя</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Select key</source>
         <translation type="unfinished">Выберете ключ</translation>
     </message>
@@ -1952,26 +1968,41 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-59"/>
-        <location line="+62"/>
+        <location line="-60"/>
+        <location line="+63"/>
         <source>Edit subject</source>
         <translation type="unfinished">Изменить владельца</translation>
     </message>
     <message>
         <location line="+20"/>
-        <location line="+22"/>
-        <location line="+25"/>
+        <location line="+42"/>
+        <location line="+24"/>
         <source>Edit dates</source>
         <translation type="unfinished">Изменить дату</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-39"/>
+        <source>The key you selected for signing is not a private one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Select other signer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Select other key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Adjust date and continue</source>
         <translation type="unfinished">Скорректировать дату и продолжить</translation>
     </message>
@@ -2036,7 +2067,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Применить все</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-812"/>
+        <location filename="../widgets/NewX509.cpp" line="-843"/>
         <source>minimum size: %1</source>
         <translation type="unfinished">минимальный размер: %1</translation>
     </message>
@@ -2056,12 +2087,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+520"/>
+        <location line="+526"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+16"/>
         <source>Other Tabs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2076,7 +2107,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Ошибки</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+212"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+226"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished">Ошибка кофигурационного файла в строке %1
@@ -2334,12 +2365,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="+96"/>
+        <location filename="../lib/x509name.cpp" line="+106"/>
         <source>Invalid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+108"/>
         <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2369,7 +2400,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+267"/>
+        <location filename="../lib/func.cpp" line="+286"/>
         <source>Do not overwrite</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2469,7 +2500,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>ReqDetail</name>
     <message>
-        <location filename="../widgets/ReqDetail.cpp" line="+54"/>
+        <location filename="../widgets/ReqDetail.cpp" line="+55"/>
         <source>Not available</source>
         <translation type="unfinished">Недоступный</translation>
     </message>
@@ -2678,7 +2709,7 @@ and so it was not imported</source>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+134"/>
+        <location filename="../lib/db_key.cpp" line="+133"/>
         <source>Key size too small !</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2729,7 +2760,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-159"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
@@ -2754,7 +2785,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location line="+213"/>
+        <location line="+212"/>
         <source>Change PIN</source>
         <translation>Сменить PIN</translation>
     </message>
@@ -2912,7 +2943,7 @@ and will be completed by the new, private part of the key</source>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-875"/>
+        <location filename="../lib/db_x509.cpp" line="-878"/>
         <source>Internal name</source>
         <translation>Внутреннее имя</translation>
     </message>
@@ -2996,7 +3027,7 @@ and will be completed by the new, private part of the key</source>
         <translation>Импорт из PKCS#7</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Rename</source>
         <translation>Переименовать</translation>
     </message>
@@ -3006,7 +3037,12 @@ and will be completed by the new, private part of the key</source>
         <translation>Посмотреть детали</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Extract public Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
@@ -3076,7 +3112,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">Отозвать</translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+115"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3086,7 +3122,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">дней</translation>
     </message>
     <message>
-        <location line="-502"/>
+        <location line="-501"/>
         <source>Security token</source>
         <translation>Токен</translation>
     </message>
@@ -3105,14 +3141,14 @@ and will be completed by the new, private part of the key</source>
         <translation type="obsolete">Удалить сертификат &apos;%1&apos; ?</translation>
     </message>
     <message>
-        <location line="-307"/>
+        <location line="-311"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+437"/>
+        <location line="+440"/>
         <location line="+33"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
@@ -3123,12 +3159,12 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-240"/>
+        <location line="-243"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+70"/>
         <source>Other token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3156,6 +3192,11 @@ and so it was not imported</source>
         <translation>Импорт</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Extract public Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+2"/>
         <source>Rename</source>
         <translation>Переименовать</translation>
@@ -3181,7 +3222,7 @@ and so it was not imported</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location line="-159"/>
+        <location line="-162"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
@@ -3196,7 +3237,7 @@ and so it was not imported</source>
         <translation type="unfinished">Подписанный</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+160"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -3206,7 +3247,7 @@ and so it was not imported</source>
         <translation>Шаблон</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location line="-142"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
@@ -3220,7 +3261,7 @@ and thus was not stored</source>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+79"/>
+        <location filename="../lib/db_x509super.cpp" line="+93"/>
         <source>The following extensions were not ported into the template</source>
         <translation>Следующие расширения не были перенесены в шаблон</translation>
     </message>
@@ -3422,7 +3463,12 @@ and thus was not stored</source>
         <translation type="unfinished">Удалить %1 ключ: %2?</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+8"/>
+        <source>public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+162"/>
         <source>Common</source>
         <translation>Общий</translation>
     </message>
@@ -3592,7 +3638,7 @@ and thus was not stored</source>
         <translation type="obsolete">XCA шаблон</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+425"/>
+        <location filename="../lib/pki_temp.cpp" line="+371"/>
         <source>Template file content error (too small): %1</source>
         <translation>Содержимое файл-шаблона ошибочно (слишком мал) :%1</translation>
     </message>
@@ -3608,7 +3654,7 @@ and thus was not stored</source>
         <translation>Неправильный размер %1</translation>
     </message>
     <message>
-        <location line="-453"/>
+        <location line="-399"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>XCA шаблон &apos;%1&apos; ипортирован успешно</translation>
     </message>
@@ -3628,7 +3674,7 @@ and thus was not stored</source>
         <translation>Удалить %1 XCA шаблоны: %2?</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+282"/>
         <source>Template file content error (bad size): %1 </source>
         <translation>Содержимое файл-шаблона ошибочно (неверный размер) :%1</translation>
     </message>
@@ -3850,7 +3896,7 @@ and thus was not stored</source>
 <context>
     <name>void</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+243"/>
+        <location filename="../lib/db_x509.cpp" line="+242"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Не найден ключ для сетификата: </translation>
     </message>

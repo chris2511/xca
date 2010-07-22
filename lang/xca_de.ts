@@ -50,7 +50,12 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+40"/>
+        <location filename="../widgets/CertDetail.cpp" line="+38"/>
+        <source>Show extensions</source>
+        <translation>Erweiterungen anzeigen</translation>
+    </message>
+    <message>
+        <location line="+19"/>
         <source>Not available</source>
         <translation>Nicht verfügbar</translation>
     </message>
@@ -130,9 +135,13 @@
         <translation>Unterschrieben von</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Private key</source>
-        <translation>Privater Schlüssel</translation>
+        <translation type="obsolete">Privater Schlüssel</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Key</source>
+        <translation>Schlüssel</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -190,7 +199,13 @@
         <translation>&amp;Erweiterungen</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+13"/>
+        <location filename="../widgets/CertDetail.cpp" line="-80"/>
+        <source>Show config</source>
+        <translation>Konfiguration anzeigen</translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -309,7 +324,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+898"/>
+        <location filename="../lib/db_x509.cpp" line="+901"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -1757,7 +1772,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+35"/>
         <location line="+17"/>
         <location filename="../widgets/NewX509.cpp" line="-198"/>
-        <location line="+537"/>
+        <location line="+548"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -1866,7 +1881,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-669"/>
+        <location filename="../widgets/NewX509.cpp" line="-680"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
@@ -1886,21 +1901,22 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+606"/>
+        <location line="+617"/>
         <location line="+14"/>
         <location line="+20"/>
         <location line="+11"/>
-        <location line="+16"/>
+        <location line="+17"/>
         <location line="+15"/>
         <location line="+20"/>
-        <location line="+22"/>
-        <location line="+25"/>
+        <location line="+30"/>
+        <location line="+12"/>
+        <location line="+24"/>
         <location line="+24"/>
         <source>Abort rollout</source>
         <translation>Ausstellung abbrechen</translation>
     </message>
     <message>
-        <location line="-158"/>
+        <location line="-178"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Die folgenden Längenbeschränkungen aus RFC3280 werden verletzt:</translation>
     </message>
@@ -1918,15 +1934,15 @@ Bitte mindestens den internen Namen setzen.</translation>
     </message>
     <message>
         <location line="-44"/>
+        <location line="+63"/>
         <location line="+62"/>
-        <location line="+42"/>
-        <location line="+25"/>
+        <location line="+24"/>
         <location line="+24"/>
         <source>Continue rollout</source>
         <translation>Ausstellung fortführen</translation>
     </message>
     <message>
-        <location line="-76"/>
+        <location line="-95"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
@@ -1946,7 +1962,7 @@ Bitte mindestens den internen Namen setzen.</translation>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-167"/>
+        <location filename="../widgets/NewX509.cpp" line="-168"/>
         <source>Validate</source>
         <translation>Überprüfen</translation>
     </message>
@@ -1962,7 +1978,7 @@ The rollout should be aborted.</source>
         <translation>Trotzdem fortfahren</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+150"/>
         <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
         <translation>Das Zertifikat enthält duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
     </message>
@@ -1972,12 +1988,12 @@ The rollout should be aborted.</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-119"/>
+        <location filename="../widgets/NewX509.cpp" line="-139"/>
         <source>Edit name</source>
         <translation>Namen editieren</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>Select key</source>
         <translation>Schlüssel auswählen</translation>
     </message>
@@ -1990,26 +2006,41 @@ though you have declared them as mandatory in the options menu.</source>
 %1, obwohl sie im Optionen-menu als notwendig deklariert wurden.</translation>
     </message>
     <message>
-        <location line="-59"/>
-        <location line="+62"/>
+        <location line="-60"/>
+        <location line="+63"/>
         <source>Edit subject</source>
         <translation>Subject editieren</translation>
     </message>
     <message>
         <location line="+20"/>
-        <location line="+22"/>
-        <location line="+25"/>
+        <location line="+42"/>
+        <location line="+24"/>
         <source>Edit dates</source>
         <translation>Zeiten einstellen</translation>
     </message>
     <message>
-        <location line="-28"/>
+        <location line="-39"/>
+        <source>The key you selected for signing is not a private one.</source>
+        <translation type="unfinished">Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Select other signer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Select other key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Das Zertifikat is früher gültig als der Aussteller. Dies ist wahrscheinlich ungewollt.</translation>
     </message>
     <message>
         <location line="+6"/>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Adjust date and continue</source>
         <translation>Datum anpassen und fortführen</translation>
     </message>
@@ -2039,7 +2070,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-812"/>
+        <location filename="../widgets/NewX509.cpp" line="-843"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2059,12 +2090,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+520"/>
+        <location line="+526"/>
         <source>From PKCS#10 request</source>
         <translation>Aus dem PKCS#10 Zertifikatsantrag</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+16"/>
         <source>Other Tabs</source>
         <translation>Andere Tabs</translation>
     </message>
@@ -2079,7 +2110,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+212"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+226"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished">Fehler in der Konfigurationsdatei in Zeile %1</translation>
@@ -2333,12 +2364,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Lade PEM codierte Datei</translation>
     </message>
     <message>
-        <location filename="../lib/x509name.cpp" line="+96"/>
+        <location filename="../lib/x509name.cpp" line="+106"/>
         <source>Invalid</source>
         <translation>Ungültig</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+108"/>
         <source>%1 is shorter than %2 bytes: &apos;%3&apos;</source>
         <translation>%1 ist kürzer als %2 bytes: &apos;%3&apos;</translation>
     </message>
@@ -2368,7 +2399,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+267"/>
+        <location filename="../lib/func.cpp" line="+286"/>
         <source>Do not overwrite</source>
         <translation>Nicht überschreiben</translation>
     </message>
@@ -2474,7 +2505,7 @@ Bitte die Zeiten manuell einstellen.</translation>
 <context>
     <name>ReqDetail</name>
     <message>
-        <location filename="../widgets/ReqDetail.cpp" line="+54"/>
+        <location filename="../widgets/ReqDetail.cpp" line="+55"/>
         <source>Not available</source>
         <translation>Nicht verfügbar</translation>
     </message>
@@ -2678,7 +2709,7 @@ daher wurde ssie nicht importiert</translation>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+134"/>
+        <location filename="../lib/db_key.cpp" line="+133"/>
         <source>Key size too small !</source>
         <translation>Schlüsselgrösse zu klein !</translation>
     </message>
@@ -2730,7 +2761,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-159"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
@@ -2755,7 +2786,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Passwort</translation>
     </message>
     <message>
-        <location line="+213"/>
+        <location line="+212"/>
         <source>Change PIN</source>
         <translation>PIN ändern</translation>
     </message>
@@ -2909,7 +2940,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-875"/>
+        <location filename="../lib/db_x509.cpp" line="-878"/>
         <source>Internal name</source>
         <translation>Interner Name</translation>
     </message>
@@ -2989,7 +3020,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Import von PKCS #7</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
@@ -2999,7 +3030,12 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Details anzeigen</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
+        <source>Extract public Key</source>
+        <translation>Öffentlichen Schlüssel extrahieren</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
@@ -3069,7 +3105,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Rücknahme</translation>
     </message>
     <message>
-        <location line="+116"/>
+        <location line="+115"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Nicht möglich für einen Chipkartenschlüssel &apos;%1&apos;</translation>
     </message>
@@ -3079,7 +3115,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Tage</translation>
     </message>
     <message>
-        <location line="-502"/>
+        <location line="-501"/>
         <source>Security token</source>
         <translation>Chipkarte</translation>
     </message>
@@ -3094,7 +3130,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Von der Chipkarte löschen</translation>
     </message>
     <message>
-        <location line="-307"/>
+        <location line="-311"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3103,7 +3139,7 @@ and so it was not imported</source>
 und wurde daher nicht importiert</translation>
     </message>
     <message>
-        <location line="+437"/>
+        <location line="+440"/>
         <location line="+33"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Es wurde kein Schlüssel für das Zertifikat: &apos;%1&apos; gefunden</translation>
@@ -3118,12 +3154,12 @@ und wurde daher nicht importiert</translation>
         <translation>Nicht möglich für das Chipkartenzertifikat &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-240"/>
+        <location line="-243"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Soll das Zertifikat zum privaten Schlüssel auf der Chipkarte &apos;%1&apos; mit der Seriennummer %2 abgelegt werden ?</translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+70"/>
         <source>Other token</source>
         <translation>Andere Chipkarte</translation>
     </message>
@@ -3151,6 +3187,11 @@ und wurde daher nicht importiert</translation>
         <translation>Import</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Extract public Key</source>
+        <translation>Öffentlichen Schlüssel extrahieren</translation>
+    </message>
+    <message>
         <location line="+2"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
@@ -3176,7 +3217,7 @@ und wurde daher nicht importiert</translation>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location line="-159"/>
+        <location line="-162"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
@@ -3191,7 +3232,7 @@ und wurde daher nicht importiert</translation>
         <translation>Signiert</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+160"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -3201,7 +3242,7 @@ und wurde daher nicht importiert</translation>
         <translation>Vorlage</translation>
     </message>
     <message>
-        <location line="-139"/>
+        <location line="-142"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
@@ -3213,7 +3254,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+79"/>
+        <location filename="../lib/db_x509super.cpp" line="+93"/>
         <source>The following extensions were not ported into the template</source>
         <translation>Die folgenden Extensions wurden nicht ins Template übertragen</translation>
     </message>
@@ -3403,7 +3444,12 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 Schlüssel: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+8"/>
+        <source>public key</source>
+        <translation>öffentlicher Schlüssel</translation>
+    </message>
+    <message>
+        <location line="+162"/>
         <source>Common</source>
         <translation>Standard</translation>
     </message>
@@ -3570,7 +3616,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die XCA Vorlage &apos;%1&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+322"/>
+        <location line="+268"/>
         <source>Template file content error (too small): %1</source>
         <translation>Template zu klein: %1</translation>
     </message>
@@ -3586,7 +3632,7 @@ und wurde daher nicht importiert</translation>
         <translation>Ungültige Größe %1</translation>
     </message>
     <message>
-        <location line="-453"/>
+        <location line="-399"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Die XCA Vorlage &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -3601,7 +3647,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 XCA Vorlagen: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+336"/>
+        <location line="+282"/>
         <source>Template file content error (bad size): %1 </source>
         <translation>Templatefile ungültig (Größe): %1</translation>
     </message>
@@ -3813,7 +3859,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>void</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+243"/>
+        <location filename="../lib/db_x509.cpp" line="+242"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
