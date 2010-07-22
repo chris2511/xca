@@ -947,26 +947,6 @@ void NewX509::accept()
 				break;
 		}
 	}
-	if (notBefore->getDate() > notAfter->getDate()) {
-		gotoTab(2);
-		QString text = tr("The certificate will be out of date before it becomes valid. You most probably mixed up both dates.");
-		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
-					text, QMessageBox::NoButton, this);
-		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
-		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText("Continue rollout");
-		switch (msg.exec())
-		{
-			case QMessageBox::Ok:
-			case QMessageBox::Cancel:
-				return;
-			case QMessageBox::Close:
-				reject();
-				return;
-			case QMessageBox::Apply:
-				break;
-		}
-	}
 	pki_x509 *signer = NULL;
 	if (!selfSignRB->isChecked())
 		signer = getSelectedSigner();
@@ -1034,6 +1014,26 @@ void NewX509::accept()
 				break;
 			case QMessageBox::Yes:
 				notAfter->setDate(signer->getNotAfter());
+		}
+	}
+	if (notBefore->getDate() > notAfter->getDate()) {
+		gotoTab(2);
+		QString text = tr("The certificate will be out of date before it becomes valid. You most probably mixed up both dates.");
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+					text, QMessageBox::NoButton, this);
+		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		msg.addButton(QMessageBox::Apply)->setText("Continue rollout");
+		switch (msg.exec())
+		{
+			case QMessageBox::Ok:
+			case QMessageBox::Cancel:
+				return;
+			case QMessageBox::Close:
+				reject();
+				return;
+			case QMessageBox::Apply:
+				break;
 		}
 	}
 	on_adv_validate_clicked();
