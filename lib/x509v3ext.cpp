@@ -380,12 +380,13 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 {
 	QString othersect;
 	QStringList crldps;
+	const char *sn = OBJ_nid2sn(nid());
 
 	STACK_OF(DIST_POINT) *crld = (STACK_OF(DIST_POINT)*)d2i();
 	if (sk_DIST_POINT_num(crld) == 1 && single) {
 		DIST_POINT *point = sk_DIST_POINT_value(crld, 0);
 		if (point->distpoint && !point->reasons && !point->CRLissuer &&
-		    !point->distpoint->type && single)
+		    !point->distpoint->type)
 		{
 			QString sect, ret;
 			if (!genNameStack2conf(point->distpoint->name.fullname,
@@ -393,7 +394,11 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 				goto could_not_parse;
 
 			if (sect.isEmpty()) {
-				*single = parse_critical() +ret;
+				if (single)
+					*single = parse_critical() +ret;
+				else if (adv)
+					*adv = QString("%1=%2\n").arg(sn).
+					       arg(parse_critical() +ret) +*adv;
 				return true;
 			}
 		}
@@ -436,8 +441,10 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 	if (crldps.size() == 0)
 		return true;
 	if (adv) {
-		*adv = "crlDistributionPoints=" + parse_critical() +
-			crldps.join(", ") + "\n" + *adv + othersect;
+		*adv = QString("%1=%2\n").arg(sn).
+			arg(parse_critical() + crldps.join(", ")) +
+			*adv + othersect;
+
 #if OPENSSL_VERSION_NUMBER < 0x10000000L
 		*adv = QString( "\n"
 			"# This syntax only works for openssl >= 1.0.0\n"

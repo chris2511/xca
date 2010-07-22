@@ -27,7 +27,7 @@ pki_key *pki_x509super::getRefKey() const
 
 void pki_x509super::setRefKey(pki_key *ref)
 {
-	if (ref == NULL || ref->isPubKey() || privkey != NULL )
+	if (ref == NULL || privkey != NULL )
 		return;
 	pki_key *mk = getPubKey();
 	if (ref->compare(mk)) {

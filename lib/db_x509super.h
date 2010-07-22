@@ -25,7 +25,7 @@ class db_x509super: public db_base
 		void delKey(pki_key *delkey);
 		void newKey(pki_key *newKey);
 		void toTemplate();
-
+		void extractPubkey();
 };
 
 #endif

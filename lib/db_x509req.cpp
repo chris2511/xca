@@ -171,6 +171,9 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("New Request"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
+		if (!req->getRefKey())
+			menu->addAction(tr("Extract public Key"),
+				this, SLOT(extractPubkey()));
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));

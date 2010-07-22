@@ -604,8 +604,12 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("Import PKCS#12"), this, SLOT(loadPKCS12()));
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	if (index != QModelIndex()) {
+		privkey = cert->getRefKey();
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
+		if (!privkey)
+			menu->addAction(tr("Extract public Key"),
+				this, SLOT(extractPubkey()));
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("File"), this, SLOT(store()));
 		itemReq = subExport->addAction(tr("Request"),
@@ -645,7 +649,6 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 					&& (cert->getSigner() != cert));
 		canSign = cert->canSign();
 		hasTemplates = mainwin->temps->getDesc().count() > 0 ;
-		privkey = cert->getRefKey();
 		hasScard = pkcs11::loaded();
 
 		itemRevoke->setEnabled(parentCanSign);

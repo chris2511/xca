@@ -33,13 +33,11 @@ void ReqDetail::setReq(pki_x509req *req)
 		if (!req->verify() ) {
 			verify->setRed();
 			verify->setText("Failed");
-		}
-		else {
+		} else {
 			verify->setGreen();
 			if (req->isSpki()) {
 				verify->setText("SPKAC");
-			}
-			else {
+			} else {
 				verify->setText("PKCS#10");
 			}
 		}
@@ -48,9 +46,12 @@ void ReqDetail::setReq(pki_x509req *req)
 		pki_key *key =req->getRefKey();
 		if (key) {
 			privKey->setText(key->getIntName());
-			privKey->setGreen();
-		}
-		else {
+			if (key->isPrivKey()) {
+				privKey->setGreen();
+			} else {
+				privKey->setRed();
+			}
+		} else {
 			privKey->setText(tr("Not available"));
 			privKey->setDisabled(true);
 			privKey->disableToolTip();

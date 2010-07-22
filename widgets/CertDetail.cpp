@@ -46,11 +46,14 @@ void CertDetail::setCert(pki_x509 *cert)
 
 		// examine the key
 		pki_key *key= cert->getRefKey();
-		if (key && key->isPrivKey()) {
+		if (key) {
 			privKey->setText(key->getIntName());
-			privKey->setGreen();
-		}
-		else {
+			if (key->isPrivKey()) {
+				privKey->setGreen();
+			} else {
+				privKey->setRed();
+			}
+		} else {
 			privKey->setText(tr("Not available"));
 			privKey->setDisabled(true);
 			privKey->disableToolTip();

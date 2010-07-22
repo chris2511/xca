@@ -216,7 +216,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="TextLabel6">
             <property name="text">
-             <string>Private key</string>
+             <string>Key</string>
             </property>
            </widget>
           </item>

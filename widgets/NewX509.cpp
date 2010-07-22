@@ -915,7 +915,8 @@ void NewX509::accept()
 	{
 		gotoTab(1);
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
-			tr("There is no Key selected for signing."), QMessageBox::NoButton, this);
+			tr("There is no Key selected for signing."),
+			QMessageBox::NoButton, this);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Select key"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
 		if (msg.exec() == QMessageBox::Close) {
@@ -966,9 +967,29 @@ void NewX509::accept()
 				break;
 		}
 	}
-	pki_x509 *signer = getSelectedSigner();
-	if (signer && notBefore->getDate() < signer->getNotBefore() &&
-					!selfSignRB->isChecked()) {
+	pki_x509 *signer = NULL;
+	if (!selfSignRB->isChecked())
+		signer = getSelectedSigner();
+
+	pki_key *signkey = getSelectedKey();
+	if (signer)
+		signkey = signer->getRefKey();
+
+	if (!signkey || signkey->isPubKey()) {
+		QString txt;
+		gotoTab(signer ? 0 : 1);
+		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+			tr("The key you selected for signing is not a private one."),
+			QMessageBox::NoButton, this);
+		txt = signer ? tr("Select other signer"):tr("Select other key");
+		msg.addButton(QMessageBox::Ok)->setText(txt);
+		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
+		if (msg.exec() == QMessageBox::Close) {
+			reject();
+		}
+		return;
+        }
+	if (signer && notBefore->getDate() < signer->getNotBefore()) {
 		gotoTab(2);
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
@@ -992,8 +1013,7 @@ void NewX509::accept()
 		}
 	}
 	if (signer && notAfter->getDate() > signer->getNotAfter() &&
-				!noWellDefinedExpDate->isChecked() &&
-				!selfSignRB->isChecked()) {
+				!noWellDefinedExpDate->isChecked()) {
 		gotoTab(2);
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,

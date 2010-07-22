@@ -8,6 +8,7 @@
 #include "db_x509super.h"
 #include "widgets/MainWindow.h"
 #include "ui_About.h"
+#include <QtGui/QMessageBox>
 
 db_x509super::db_x509super(QString db, MainWindow *mw)
 	:db_base(db, mw)
@@ -35,13 +36,9 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	if (!refkey)
 		return NULL;
 	key = (pki_key *)mainwin->keys->getByReference(refkey);
-	if (key && key->isPubKey()) {
-		key = NULL;
-	} else {
-		ref->setRefKey(key);
-	}
-	if (refkey)
-		delete(refkey);
+	ref->setRefKey(key);
+	delete(refkey);
+
 	return key;
 }
 
@@ -57,6 +54,23 @@ pki_x509super *db_x509super::findByByPubKey(pki_key *refkey)
 			return pki;
 	}
 	return NULL;
+}
+
+void db_x509super::extractPubkey()
+{
+	pki_key *key;
+	pki_x509super *pki = static_cast<pki_x509super*>(currentIdx.internalPointer());
+	if (!pki)
+		return;
+	key = pki->getPubKey();
+	key->setIntName(pki->getIntName());
+	if (!key)
+		return;
+	key = (pki_key*)mainwin->keys->insert(key);
+	if (!key)
+		return;
+	QMessageBox::information(mainwin, XCA_TITLE,
+		key->getMsg(pki_base::msg_import).arg(pki->getIntName()));
 }
 
 void db_x509super::toTemplate()
