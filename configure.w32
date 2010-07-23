@@ -2,7 +2,7 @@
 
 BDIR=`cd ..; pwd`
 
-QT=`find "$BDIR"/qt -name 4.* |tail -n1`
+QT=`find "$BDIR"/qt/ -name 4.* |tail -n1`
 
 LIBS="libeay32.a libltdl.a"
 INCS="openssl/opensslv.h ltdl.h"

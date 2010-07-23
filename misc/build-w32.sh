@@ -91,13 +91,12 @@ do_XCA()
 {(
   cd $XCA_DIR
   ./configure.w32
-  USE_HOSTTOOLS=yes make -j5
-  make setup.exe
+  make -j5 USE_HOSTTOOLS=no setup.exe
 )}
 
 if ! test -f db_dump.exe; then
-  if !curl "curl http://git.hohnstaedt.de/db_dump.exe" -o "db_dump.exe"; then
-    echo d_dump.exe missing
+  if ! curl "http://git.hohnstaedt.de/db_dump.exe" -o "db_dump.exe"; then
+    echo db_dump.exe missing
     exit 1
   fi
 fi

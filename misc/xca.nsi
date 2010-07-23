@@ -70,7 +70,7 @@ Section "xca (required)" SecMain
 
   File "${QTDIR}\bin\QtGui4.dll"
   File "${QTDIR}\bin\QtCore4.dll"
-  File "${QTDIR}\bin\libgcc_s_dw2-1.dll"
+  File /nonfatal "${QTDIR}\bin\libgcc_s_dw2-1.dll"
 
   File "${INSTALLDIR}\bin\libltdl-7.dll"
   File "${INSTALLDIR}\bin\libeay32.dll"
