@@ -221,6 +221,24 @@ genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 			*single = QString("IP:%1.%2.%3.%4").
 				arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]);
 			return true;
+		} else if(gen->d.ip->length == 16) {
+			int skip = 0;
+			*single = "IP";
+			for (int i = 0; i < 8; i++, p+=2) {
+				int x = p[0] << 8 | p[1];
+				switch (!x*4 + skip) {
+				case 4: // start reduction
+					*single += QString(":");
+					skip = 1;
+				case 5: // skip repeated 0
+					break;
+				case 1: // end of reduction
+					skip = 2;
+				default:
+					*single += QString(":%1").arg(x,0,16);
+				}
+			}
+			return true;
 		}
 		return false;
 
