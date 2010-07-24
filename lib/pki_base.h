@@ -14,6 +14,10 @@
 #include "db.h"
 #include "base.h"
 
+#define __ME QString("(%1:%2)").arg(class_name).arg(getIntName())
+#define pki_openssl_error() _openssl_error(__ME, __FILE__, __LINE__)
+#define pki_ign_openssl_error() _ign_openssl_error(__ME, __FILE__, __LINE__)
+
 class pki_base : public QObject
 {
 		Q_OBJECT

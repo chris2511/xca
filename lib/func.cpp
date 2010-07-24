@@ -333,10 +333,12 @@ void _openssl_error(const QString txt, const char *file, int line)
 	}
 }
 
-bool _ign_openssl_error(const char *file, int line)
+bool _ign_openssl_error(const QString txt, const char *file, int line)
 {
 	// ignore openssl errors
 	QString errtxt;
+	if (!txt.isEmpty() && ERR_peek_error())
+		fprintf(stderr, "%s\n", CCHAR(txt));
 	while (int i = ERR_get_error() ) {
 		errtxt = ERR_error_string(i, NULL);
 		fprintf(stderr, CCHAR(QString("IGNORED (%1:%2) : %3\n").

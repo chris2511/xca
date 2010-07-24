@@ -38,7 +38,7 @@ pki_key::pki_key(const pki_key *pk)
 	p = der_key;
 	key = d2i_PUBKEY(NULL, (const unsigned char**)&p, keylen);
 	OPENSSL_free(der_key);
-	openssl_error();
+	pki_openssl_error();
 }
 
 pki_key::~pki_key()
@@ -66,7 +66,7 @@ void pki_key::d2i_old(QByteArray &ba, int type)
 
 	key = d2i_PublicKey(type, NULL, &p1, ba.count());
         ba = ba.mid(p1-p);
-        openssl_error();
+        pki_openssl_error();
 }
 
 QByteArray pki_key::i2d()
@@ -243,7 +243,7 @@ bool pki_key::compare(pki_base *ref)
 		return false;
 
 	int r = EVP_PKEY_cmp(key, kref->key);
-	openssl_error();
+	pki_openssl_error();
 	return r == 1;
 }
 
@@ -260,7 +260,7 @@ void pki_key::writePublic(const QString fname, bool pem)
 		i2d_PUBKEY_fp(fp, key);
 
 	fclose(fp);
-	openssl_error();
+	pki_openssl_error();
 }
 
 QString pki_key::BNoneLine(BIGNUM *bn) const
@@ -270,7 +270,7 @@ QString pki_key::BNoneLine(BIGNUM *bn) const
 		char *hex = BN_bn2hex(bn);
 		x = hex;
 		OPENSSL_free(hex);
-		openssl_error();
+		pki_openssl_error();
 	}
 	return x;
 }
@@ -292,7 +292,7 @@ QString pki_key::BN2QString(BIGNUM *bn) const
 		x += zs;
 	}
 	OPENSSL_free(buf);
-	openssl_error();
+	pki_openssl_error();
 	return x;
 }
 

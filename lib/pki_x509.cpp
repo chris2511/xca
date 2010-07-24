@@ -25,7 +25,7 @@ pki_x509::pki_x509(X509 *c)
 {
 	init();
 	cert = c;
-	openssl_error();
+	pki_openssl_error();
 }
 
 pki_x509::pki_x509(const pki_x509 *crt)
@@ -33,7 +33,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 {
 	init();
 	cert = X509_dup(crt->cert);
-	openssl_error();
+	pki_openssl_error();
 	psigner = crt->psigner;
 	setRefKey(crt->getRefKey());
 	trust = crt->trust;
@@ -44,7 +44,7 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	crlDays = crt->crlDays;
 	crlExpiry = crt->crlExpiry;
 	isrevoked = isrevoked;
-	openssl_error();
+	pki_openssl_error();
 }
 
 pki_x509::pki_x509(const QString name)
@@ -53,7 +53,7 @@ pki_x509::pki_x509(const QString name)
 	init();
 	cert = X509_new();
 	X509_set_version(cert, 2);
-	openssl_error();
+	pki_openssl_error();
 }
 
 QString pki_x509::getMsg(msg_type msg)
@@ -99,12 +99,12 @@ void pki_x509::fload(const QString fname)
 	}
 	_cert = PEM_read_X509(fp, NULL, NULL, NULL);
 	if (!_cert) {
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		rewind(fp);
 		_cert = d2i_X509_fp(fp, NULL);
 	}
 	fclose(fp);
-	if (ign_openssl_error() ) {
+	if (pki_ign_openssl_error() ) {
 		if (_cert)
 			X509_free(_cert);
 		throw errorEx(tr("Unable to load the certificate in file %1. Tried PEM and DER certificate.").arg(fname));
@@ -123,7 +123,7 @@ pki_x509::~pki_x509()
 	if (cert) {
 		X509_free(cert);
 	}
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_x509::init()
@@ -151,7 +151,7 @@ void pki_x509::setSerial(const a1int &serial)
 		ASN1_INTEGER_free(cert->cert_info->serialNumber);
 	}
 	cert->cert_info->serialNumber = serial.get();
-	openssl_error();
+	pki_openssl_error();
 }
 
 a1int pki_x509::getSerial() const
@@ -178,7 +178,7 @@ a1int pki_x509::hashInfo(const EVP_MD *md) const
 	unsigned len = 0;
 	if (!ASN1_item_digest(ASN1_ITEM_rptr(X509_CINF), md,
 				(char*)cert->cert_info,digest,&len))
-		openssl_error();
+		pki_openssl_error();
 	a1int a;
 	a.setRaw(digest,len);
 	return a;
@@ -226,14 +226,14 @@ void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 			QByteArray der = subj.getData();
 			xn.d2i(der);
 			desc = xn.getMostPopular();
-			openssl_error();
+			pki_openssl_error();
 		} catch(errorEx &err) {
 			printf("No Cert Subject: %s\n", err.getCString());
 			// IGNORE
 		}
 	}
 	setIntName(desc);
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_x509::d2i(QByteArray &ba)
@@ -400,14 +400,14 @@ a1time pki_x509::getNotAfter() const
 x509name pki_x509::getSubject() const
 {
 	x509name x(cert->cert_info->subject);
-	openssl_error();
+	pki_openssl_error();
 	return x;
 }
 
 x509name pki_x509::getIssuer() const
 {
 	x509name x(cert->cert_info->issuer);
-	openssl_error();
+	pki_openssl_error();
 	return x;
 }
 
@@ -431,7 +431,7 @@ void pki_x509::addV3ext(const x509v3ext &e)
 	X509_EXTENSION *ext = e.get();
 	X509_add_ext(cert, ext, -1);
 	X509_EXTENSION_free(ext);
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_x509::delSigner(pki_base *s)
@@ -449,7 +449,7 @@ bool pki_x509::canSign()
 	if (privkey->isToken() && !pkcs11::loaded())
 		return false;
 	bc = (BASIC_CONSTRAINTS *)X509_get_ext_d2i(cert, NID_basic_constraints, &crit, NULL);
-	openssl_error();
+	pki_openssl_error();
 	if (!bc || !bc->ca)
 		return false;
 	return true;
@@ -467,11 +467,11 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 		my_error(tr("There is no key for signing !"));
 	}
 	tkey = signkey->decryptKey();
-	openssl_error();
+	pki_openssl_error();
 	X509_sign(cert, tkey, digest);
-	openssl_error();
+	pki_openssl_error();
 	EVP_PKEY_free(tkey);
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_x509::fromData(const unsigned char *p, db_header_t *head)
@@ -519,7 +519,7 @@ QByteArray pki_x509::toData()
 	ba += db::intToData(crlDays); // the CRL period
 	ba += crlExpiry.i2d(); // last CRL date
 	ba += db::boolToData(randomSerial);
-	openssl_error();
+	pki_openssl_error();
 	return ba;
 }
 
@@ -544,7 +544,7 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 				i2d_X509_fp(fp, cert);
 		}
 		fclose(fp);
-		openssl_error();
+		pki_openssl_error();
 	} else
 		fopen_error(fname);
 }
@@ -552,14 +552,14 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 bool pki_x509::compare(pki_base *ref)
 {
 	bool ret = !X509_cmp(cert, ((pki_x509 *)ref)->cert);
-	ign_openssl_error();
+	pki_ign_openssl_error();
 	return ret;
 }
 
 bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 {
 	bool ret =  X509_issuer_and_serial_cmp(cert, refcert->cert);
-	openssl_error();
+	pki_openssl_error();
 	return ret;
 
 }
@@ -572,12 +572,12 @@ bool pki_x509::verify(pki_x509 *signer)
 		return false;
 	X509_NAME *subject =  X509_get_subject_name(signer->cert);
 	X509_NAME *issuer = X509_get_issuer_name(cert);
-	openssl_error();
+	pki_openssl_error();
 	if (X509_NAME_cmp(subject, issuer)) {
 		return false;
 	}
 	int i = X509_verify(cert, X509_get_pubkey(signer->cert));
-	ign_openssl_error();
+	pki_ign_openssl_error();
 	if (i>0) {
 		psigner = signer;
 		return true;
@@ -589,7 +589,7 @@ bool pki_x509::verify(pki_x509 *signer)
 pki_key *pki_x509::getPubKey() const
 {
 	EVP_PKEY *pkey = X509_get_pubkey(cert);
-	openssl_error();
+	pki_openssl_error();
 	pki_evp *key = new pki_evp(pkey);
 	return key;
 }
@@ -607,7 +607,7 @@ QString pki_x509::fingerprint(const EVP_MD *digest)
 	unsigned int n;
 	unsigned char md[EVP_MAX_MD_SIZE];
 	X509_digest(cert, digest, md, &n);
-	openssl_error();
+	pki_openssl_error();
 	for (j=0; j<(int)n; j++) {
 		sprintf(zs, "%02X%c",md[j], (j+1 == (int)n) ?'\0':':');
 		fp += zs;
@@ -621,7 +621,7 @@ int pki_x509::checkDate()
 	int ret = 0;
 	if (getNotAfter() <  a) ret = -1;
 	if (getNotBefore() > a) ret = 1;
-	openssl_error();
+	pki_openssl_error();
 	return ret;
 }
 
@@ -684,10 +684,10 @@ void pki_x509::setRevoked(bool rev)
 		setEffTrust(0);
 		setTrust(0);
 		revoked.now();
-		openssl_error();
+		pki_openssl_error();
 	}
 	isrevoked = rev;
-	openssl_error();
+	pki_openssl_error();
 }
 
 a1time &pki_x509::getRevoked()
@@ -701,7 +701,7 @@ void pki_x509::setRevoked(const a1time &when)
 	revoked = when;
 	setEffTrust(0);
 	setTrust(0);
-	openssl_error();
+	pki_openssl_error();
 }
 
 int pki_x509::calcEffTrust()
@@ -731,7 +731,7 @@ int pki_x509::calcEffTrust()
 void pki_x509::setCrlExpiry(const a1time &time)
 {
 	crlExpiry = time;
-	openssl_error();
+	pki_openssl_error();
 }
 
 x509rev pki_x509::getRev()

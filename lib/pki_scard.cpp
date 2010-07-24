@@ -225,7 +225,7 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		EC_GROUP *group = d2i_ECPKParameters(NULL, &p, s);
 		EC_GROUP_set_asn1_flag(group, 1);
 		EC_KEY_set_group(ec, group);
-		openssl_error();
+		pki_openssl_error();
 
 		pk11_attr_data pt(CKA_EC_POINT);
                 p11.loadAttribute(pt, object);
@@ -234,7 +234,7 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		EC_POINT *point = EC_POINT_bn2point(group, bn, NULL, ctx);
 		EC_KEY_set_public_key(ec, point);
 		BN_CTX_free(ctx);
-		openssl_error();
+		pki_openssl_error();
 
 		pkey = EVP_PKEY_new();
 		EVP_PKEY_assign_EC_KEY(pkey, ec);
@@ -244,7 +244,7 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 		throw errorEx(QString("Unsupported CKA_KEY_TYPE: %1\n").arg(keytype));
 	}
 
-	openssl_error();
+	pki_openssl_error();
 	return pkey;
 }
 
@@ -281,7 +281,7 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 			QByteArray der = subj.getData();
 			xn.d2i(der);
 			slot_label = xn.getMostPopular();
-			openssl_error();
+			pki_openssl_error();
 		} catch (errorEx &err) {
 			printf("No Pubkey Subject: %s\n", err.getCString());
 			// ignore
@@ -294,7 +294,7 @@ void pki_scard::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 		key = pkey;
 	}
 	setIntName(slot_label);
-	openssl_error();
+	pki_openssl_error();
 }
 
 pk11_attr_data pki_scard::getIdAttr() const
@@ -709,7 +709,7 @@ EVP_PKEY *pki_scard::decryptKey() const
 	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
 				NULL, &cb_data);
 	free(cb_data.password);
-	openssl_error();
+	pki_openssl_error();
 	return pkey;
 }
 

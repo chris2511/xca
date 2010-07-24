@@ -40,9 +40,9 @@ bool mayWriteFile(const QString &fname);
 void inc_progress_bar(int, int, void *p);
 
 #define openssl_error(x) _openssl_error(QString(x), __FILE__, __LINE__)
-#define ign_openssl_error() _ign_openssl_error(__FILE__, __LINE__)
+#define ign_openssl_error(x) _ign_openssl_error(QString(x), __FILE__, __LINE__)
 void _openssl_error(const QString txt, const char *file, int line);
-bool _ign_openssl_error(const char *file, int line);
+bool _ign_openssl_error(const QString txt, const char *file, int line);
 
 QByteArray i2d_bytearray(int(*i2d)(const void*, unsigned char**), const void*);
 void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),

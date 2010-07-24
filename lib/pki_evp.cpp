@@ -144,7 +144,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 		EC_GROUP_free(group);
 		break;
 	}
-	openssl_error();
+	pki_openssl_error();
 	encryptKey();
 }
 
@@ -152,7 +152,7 @@ pki_evp::pki_evp(const pki_evp *pk)
 	:pki_key(pk)
 {
 	init(pk->key->type);
-	openssl_error();
+	pki_openssl_error();
 	ownPass = pk->ownPass;
 	encKey = pk->encKey;
 }
@@ -161,7 +161,7 @@ pki_evp::pki_evp(const QString name, int type )
 	:pki_key(name)
 {
 	init(type);
-	openssl_error();
+	pki_openssl_error();
 }
 
 pki_evp::pki_evp(EVP_PKEY *pkey)
@@ -212,7 +212,7 @@ void pki_evp::fromPEM_BIO(BIO *bio, QString name)
 	pos = BIO_tell(bio);
 	pkey = PEM_read_bio_PrivateKey(bio, NULL, MainWindow::passRead, &p);
 	if (!pkey){
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		pos = BIO_seek(bio, pos);
 		pkey = PEM_read_bio_PUBKEY(bio, NULL, MainWindow::passRead, &p);
 	}
@@ -261,7 +261,7 @@ void pki_evp::fload(const QString fname)
 	FILE *fp = fopen(QString2filename(fname), "r");
 	EVP_PKEY *pkey;
 
-	ign_openssl_error();
+	pki_ign_openssl_error();
 	if (!fp) {
 		fopen_error(fname);
 		return;
@@ -270,24 +270,24 @@ void pki_evp::fload(const QString fname)
 	if (!pkey) {
 		if (ERR_get_error() == 0x06065064) {
 			fclose(fp);
-			ign_openssl_error();
+			pki_ign_openssl_error();
 			throw errorEx(tr("Failed to decrypt the key (bad password) ") +
 					fname, class_name);
 		}
 	}
 	if (!pkey) {
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		rewind(fp);
 		pkey = d2i_PrivateKey_fp(fp, NULL);
 	}
 	if (!pkey) {
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		rewind(fp);
 		pkey = d2i_PKCS8PrivateKey_fp(fp, NULL, cb, &p);
 	}
 	if (!pkey) {
 		PKCS8_PRIV_KEY_INFO *p8inf;
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		rewind(fp);
 		p8inf = d2i_PKCS8_PRIV_KEY_INFO_fp(fp, NULL);
 		if (p8inf) {
@@ -296,17 +296,17 @@ void pki_evp::fload(const QString fname)
 		}
 	}
 	if (!pkey) {
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		rewind(fp);
 		pkey = PEM_read_PUBKEY(fp, NULL, cb, &p);
 	}
 	if (!pkey) {
-		ign_openssl_error();
+		pki_ign_openssl_error();
 		rewind(fp);
 		pkey = d2i_PUBKEY_fp(fp, NULL);
 	}
 	fclose(fp);
-	if (ign_openssl_error()) {
+	if (pki_ign_openssl_error()) {
 		if (pkey)
 			EVP_PKEY_free(pkey);
 		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.").arg(fname));
@@ -343,7 +343,7 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head )
 	} else {
 		d2i(ba);
 	}
-	openssl_error();
+	pki_openssl_error();
 
 	encKey = ba;
 }
@@ -400,7 +400,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 	//printf("Using decrypt Pass: %s\n", ownPassBuf);
 	p = (unsigned char *)OPENSSL_malloc(encKey.count());
 	check_oom(p);
-	openssl_error();
+	pki_openssl_error();
 	p1 = p;
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 
@@ -421,12 +421,12 @@ EVP_PKEY *pki_evp::decryptKey() const
 	EVP_DecryptFinal(&ctx, p + decsize , &outl);
 	decsize += outl;
 	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey_len);
-	openssl_error();
+	pki_openssl_error();
 	tmpkey = D2I_CLASHT(d2i_PrivateKey, key->type, NULL, &p1, decsize);
-	openssl_error();
+	pki_openssl_error();
 	OPENSSL_free(p);
 	EVP_CIPHER_CTX_cleanup(&ctx);
-	openssl_error();
+	pki_openssl_error();
 	if (EVP_PKEY_type(tmpkey->type) == EVP_PKEY_RSA)
 		RSA_blinding_on(tmpkey->pkey.rsa, NULL);
 	return tmpkey;
@@ -455,11 +455,11 @@ EVP_PKEY *pki_evp::priv2pub(EVP_PKEY* key)
 
 	/* convert rsa/dsa/ec to Pubkey */
 	keylen = i2d_PUBKEY(key, &p);
-	openssl_error();
+	pki_openssl_error();
 	p = p1;
 	pubkey = d2i_PUBKEY(NULL, (const unsigned char**)&p, keylen);
 	OPENSSL_free(p1);
-	openssl_error();
+	pki_openssl_error();
 	return pubkey;
 }
 
@@ -507,7 +507,7 @@ void pki_evp::encryptKey(const char *password)
 	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)ownPassBuf,
 			strlen(ownPassBuf), 1, ckey, NULL);
 	EVP_CIPHER_CTX_init (&ctx);
-	openssl_error();
+	pki_openssl_error();
 
 	/* reserve space for unencrypted and encrypted key */
 	keylen = i2d_PrivateKey(key, NULL);
@@ -515,7 +515,7 @@ void pki_evp::encryptKey(const char *password)
 	punenc1 = punenc = (unsigned char *)OPENSSL_malloc(keylen);
 	check_oom(punenc);
 	keylen = i2d_PrivateKey(key, &punenc1);
-	openssl_error();
+	pki_openssl_error();
 
 	memcpy(encKey.data(), iv, 8); /* store the iv */
 	/*
@@ -536,13 +536,13 @@ void pki_evp::encryptKey(const char *password)
 	/* wipe out the memory */
 	memset(punenc, 0, keylen);
 	OPENSSL_free(punenc);
-	openssl_error();
+	pki_openssl_error();
 
 	pkey1 = priv2pub(key);
 	check_oom(pkey1);
 	EVP_PKEY_free(key);
 	key = pkey1;
-	openssl_error();
+	pki_openssl_error();
 
 	//CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_OFF);
 
@@ -586,7 +586,7 @@ void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 			}
 		}
 		fclose(fp);
-		openssl_error();
+		pki_openssl_error();
 	} else
 		fopen_error(fname);
 }
@@ -627,7 +627,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 			}
 			EVP_PKEY_free(pkey);
 		}
-		openssl_error();
+		pki_openssl_error();
 	}
 	fclose(fp);
 }
@@ -650,7 +650,7 @@ int pki_evp::verify()
 	}
 	if (isPrivKey())
 		veri = true;
-	openssl_error();
+	pki_openssl_error();
 	return veri;
 }
 
@@ -755,7 +755,7 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	sik = (unsigned char *)OPENSSL_malloc(size);
 	check_oom(sik);
-	openssl_error();
+	pki_openssl_error();
 	pdec = (unsigned char *)OPENSSL_malloc(size);
 	if (pdec == NULL ) {
 		OPENSSL_free(sik);
@@ -777,20 +777,20 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 	decsize = outl;
 	EVP_DecryptFinal( &ctx, pdec + decsize , &outl );
 	decsize += outl;
-	openssl_error();
+	pki_openssl_error();
 	memcpy(sik, pdec, decsize);
 	if (key->type == EVP_PKEY_RSA) {
 		rsakey=d2i_RSAPrivateKey(NULL,(const unsigned char **)&pdec, decsize);
-		if (ign_openssl_error()) {
+		if (pki_ign_openssl_error()) {
 			rsakey=D2I_CLASH(d2i_RSA_PUBKEY, NULL, &sik, decsize);
 		}
-		openssl_error();
+		pki_openssl_error();
 		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
 	}
 	OPENSSL_free(sik1);
 	OPENSSL_free(pdec1);
 	EVP_CIPHER_CTX_cleanup(&ctx);
-	openssl_error();
+	pki_openssl_error();
 	encryptKey();
 }
 
@@ -813,7 +813,7 @@ void pki_evp::oldFromData(unsigned char *p, int size )
 	ownPass = intFromData(ba);
 
 	d2i_old(ba, type);
-	openssl_error();
+	pki_openssl_error();
 
 	encKey = ba;
 }

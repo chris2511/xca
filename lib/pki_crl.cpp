@@ -19,7 +19,7 @@ pki_crl::pki_crl(const QString name )
 	issuer = NULL;
 	crl = X509_CRL_new();
 	class_name="pki_crl";
-	openssl_error();
+	pki_openssl_error();
 	dataVersion=1;
 	pkiType=revokation;
 	cols=3;
@@ -60,12 +60,12 @@ void pki_crl::fload(const QString fname)
 	if (fp != NULL) {
 		_crl = PEM_read_X509_CRL(fp, NULL, NULL, NULL);
 		if (!_crl) {
-			ign_openssl_error();
+			pki_ign_openssl_error();
 			rewind(fp);
 			_crl = d2i_X509_CRL_fp(fp, NULL);
 		}
 		fclose(fp);
-		if (ign_openssl_error()) {
+		if (pki_ign_openssl_error()) {
 			if (_crl)
 				X509_CRL_free(_crl);
 			throw errorEx(tr("Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
@@ -74,7 +74,7 @@ void pki_crl::fload(const QString fname)
 			X509_CRL_free(crl);
 		crl = _crl;
 		setIntName(rmslashdot(fname));
-		openssl_error(fname);
+		pki_openssl_error();
 	} else
 		fopen_error(fname);
 }
@@ -95,7 +95,7 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	crl->crl->revoked = sk_X509_REVOKED_new_null();
 	a1int version = 1; /* version 2 CRL */
 	crl->crl->version = version.get();
-	openssl_error();
+	pki_openssl_error();
 }
 
 a1int pki_crl::getVersion()
@@ -151,7 +151,7 @@ void pki_crl::fromData(const unsigned char *p, db_header_t *head)
 QByteArray pki_crl::toData()
 {
 	QByteArray ba = i2d();
-	openssl_error();
+	pki_openssl_error();
 	return ba;
 }
 
@@ -161,7 +161,7 @@ bool pki_crl::compare(pki_base *refcrl)
 	ret = X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0 &&
 		getLastUpdate() == ((pki_crl *)refcrl)->getLastUpdate() &&
 		getNextUpdate() == ((pki_crl *)refcrl)->getNextUpdate() ;
-	openssl_error();
+	pki_openssl_error();
 	return ret;
 }
 
@@ -169,7 +169,7 @@ bool pki_crl::compare(pki_base *refcrl)
 void pki_crl::addRev(const x509rev &xrev)
 {
 	sk_X509_REVOKED_push(crl->crl->revoked, xrev.get());
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_crl::addV3ext(const x509v3ext &e)
@@ -177,7 +177,7 @@ void pki_crl::addV3ext(const x509v3ext &e)
 	X509_EXTENSION *ext = e.get();
 	X509_CRL_add_ext(crl, ext, -1);
 	X509_EXTENSION_free(ext);
-	openssl_error();
+	pki_openssl_error();
 }
 
 
@@ -189,7 +189,7 @@ void pki_crl::sign(pki_key *key, const EVP_MD *md)
 	pkey = key->decryptKey();
 	X509_CRL_sign(crl, pkey, md);
 	EVP_PKEY_free(pkey);
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_crl::writeDefault(const QString fname)
@@ -208,7 +208,7 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 				i2d_X509_CRL_fp(fp, crl);
 		}
 		fclose(fp);
-		openssl_error();
+		pki_openssl_error();
 	} else
 		fopen_error(fname);
 }
@@ -246,7 +246,7 @@ x509rev pki_crl::getRev(int num)
 	x509rev ret;
 	if (crl && crl->crl && crl->crl->revoked) {
 		ret.set(sk_X509_REVOKED_value(crl->crl->revoked, num));
-		openssl_error();
+		pki_openssl_error();
 	}
 	return ret;
 }
@@ -265,7 +265,7 @@ bool pki_crl::verify(pki_key *key)
 	bool ret=false;
 	if (crl && crl->crl && key) {
 		ret = (X509_CRL_verify(crl , key->getPubKey()) == 1);
-		ign_openssl_error();
+		pki_ign_openssl_error();
 	}
 	return ret ;
 }
@@ -287,7 +287,7 @@ QString pki_crl::printV3ext()
 	extList el;
 	el.setStack(crl->crl->extensions);
 	QString text = el.getHtml("<br>");
-	openssl_error();
+	pki_openssl_error();
 	return text;
 }
 
