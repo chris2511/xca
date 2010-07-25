@@ -661,7 +661,7 @@ void NewX509::setX509name(const x509name &n)
 			}
 		}
 		if (j == EXPLICIT_NAME_CNT) {
-			extDNlist->addRow(sl[1], sl[2]);
+			extDNlist->addRow(sl.mid(1, 2));
 		}
 	}
 }

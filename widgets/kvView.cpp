@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include "lib/func.h"
 #include "widgets/kvView.h"
 #include <QtGui/QHeaderView>
 #include <QtGui/QLineEdit>
@@ -66,23 +67,29 @@ void lineDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 	model->setData(index, l->text(), Qt::EditRole);
 }
 
-kvmodel::kvmodel(QStringList heads)
+kvmodel::kvmodel(QStringList &heads)
 {
 	header = heads;
+	myCols = heads.size();
 }
 
 QStringList kvmodel::getRow(int i)
 {
 	QStringList sl;
-	sl << items[i*2] << items[i*2+1];
+	sl << items[i*myCols] << items[i *myCols +1];
 	return sl;
 }
 
-void kvmodel::addRow(QString &type, QString &value)
+void kvmodel::addRow(const QStringList &newrow)
 {
 	int row = rowCount(QModelIndex());
 	beginInsertRows(QModelIndex(), row, row);
-	items << type.trimmed() << value.trimmed();
+	for (int i = 0; i<myCols; i++) {
+		if (i >= newrow.size())
+			items << QString();
+		else
+			items << newrow[i].trimmed();
+	}
 	endInsertRows();
 }
 
@@ -114,9 +121,8 @@ QVariant kvmodel::headerData(int section, Qt::Orientation orientation,
 bool kvmodel::insertRows(int row, int count, const QModelIndex &)
 {
 	beginInsertRows(QModelIndex(), row, row+count-1);
-	for (int i=0; i< count; i++) {
-		items.insert(row*2, QString());
-		items.insert(row*2, QString());
+	for (int i=0; i< count *myCols; i++) {
+		items.insert(row*myCols, QString());
 	}
 	endInsertRows();
 	return true;
@@ -125,9 +131,8 @@ bool kvmodel::insertRows(int row, int count, const QModelIndex &)
 bool kvmodel::removeRows(int row, int count, const QModelIndex &)
 {
 	beginRemoveRows(QModelIndex(), row, row+count-1);
-	for (int i=0; i< count; i++) {
-		items.removeAt(row*2);
-		items.removeAt(row*2);
+	for (int i=0; i< count*myCols; i++) {
+		items.removeAt(row*myCols);
 	}
 	endRemoveRows();
 	return true;
@@ -145,12 +150,11 @@ bool kvmodel::setData(const QModelIndex &index, const QVariant &value, int role)
 
 void kvmodel::moveRow(int oldi, int newi)
 {
-	QString k = items[oldi*2];
-	QString v = items[oldi*2 +1];
+	QStringList line = items.mid(oldi*myCols, myCols);
 	removeRows(oldi, 1);
 	insertRows(newi, 1);
-	items[newi*2] = k;
-	items[newi*2+1] = v;
+	for (int i=0; i<myCols; i++)
+		items[newi*myCols +i] = line[i];
 }
 
 kvView::kvView(QWidget *parent)
@@ -158,8 +162,7 @@ kvView::kvView(QWidget *parent)
 {
 	QStringList sl;
 	sl << tr("Type") << tr("Content");
-	mymodel = new kvmodel(sl);
-	setModel(mymodel);
+	initCols(sl);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setSelectionBehavior(QAbstractItemView::SelectRows);
 	setAlternatingRowColors(true);
@@ -175,25 +178,33 @@ kvView::kvView(QWidget *parent)
 	initLineDelegate();
 }
 
-kvView::~kvView()
+void kvView::initCols(QStringList &heads)
 {
-	delete mymodel;
+	QAbstractItemModel *m = model();
+	setModel(new kvmodel(heads));
+	delete m;
 }
 
-void kvView::initLineDelegate()
+kvView::~kvView()
+{
+	delete model();
+}
+
+void kvView::initLineDelegate(int col)
 {
 	lineDelegate *d = new lineDelegate(infoLabel, this);
-	setItemDelegateForColumn(1, d);
+	setItemDelegateForColumn(col, d);
 	connect(static_cast<QItemDelegate*>(d),
 	   SIGNAL(closeEditor(QWidget *, QAbstractItemDelegate::EndEditHint)),
 	   this, SLOT(editorExited()));
 }
 
-void kvView::setKeys(const QStringList &k)
+void kvView::setKeys(const QStringList &k, int col)
 {
-	keys = k;
-	comboDelegate *d = new comboDelegate(keys, this);
-	setItemDelegateForColumn(0, d);
+	if (!col)
+		keys0 = k;
+	comboDelegate *d = new comboDelegate(k, this);
+	setItemDelegateForColumn(col, d);
 }
 
 void kvView::moveRow(int, int oldi, int newi)
@@ -204,29 +215,32 @@ void kvView::moveRow(int, int oldi, int newi)
 		return;
 	moving = 1;
 	verticalHeader()->moveSection(newi, oldi);
-	mymodel->moveRow(oldi, newi);
+	static_cast<kvmodel*>(model())->moveRow(oldi, newi);
 	repaint();
 	moving = 0;
 }
 
-void kvView::addRow(QString &k, QString &v)
+void kvView::addRow(const QStringList &newrow)
 {
-	QString key = k.trimmed();
-	static_cast<comboDelegate*>(itemDelegateForColumn(0))->addKey(key);
-	mymodel->addRow(k, v);
+	int max = MIN(model()->columnCount(QModelIndex()), newrow.size());
+	for (int i = 0; i<max; i++) {
+		QString key = newrow[i].trimmed();
+		static_cast<kvDelegate*>(itemDelegateForColumn(i))->addKey(key);
+	}
+	static_cast<kvmodel*>(model())->addRow(newrow);
 }
 
 void kvView::addKvRow()
 {
-	QString k, v;
-	if (keys.count() > 0)
-		k = keys[rowCount() % keys.count()];
-	addRow(k, v);
+	QString k;
+	if (keys0.count() > 0)
+		k = keys0[rowCount() % keys0.count()];
+	addRow(QStringList(k));
 }
 
 void kvView::deleteCurrentRow()
 {
-	mymodel->removeRows(currentIndex().row(), 1, QModelIndex());
+	model()->removeRows(currentIndex().row(), 1, QModelIndex());
 }
 
 void kvView::editorExited()

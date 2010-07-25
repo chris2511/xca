@@ -103,7 +103,7 @@ void v3ext::addEntry(QString line)
 		type = line.left(idx);
 		value = line.mid(idx+1);
 	}
-	tab->addRow(type, value);
+	tab->addRow(QStringList(type) << value);
 }
 
 QString v3ext::toString()

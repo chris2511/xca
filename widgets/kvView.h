@@ -17,13 +17,24 @@
 #include "lib/base.h"
 
 class kvView;
-class comboDelegate : public QItemDelegate
+
+class kvDelegate : public QItemDelegate
+{
+public:
+	kvDelegate(QObject *parent)
+		:QItemDelegate(parent)
+	{
+	}
+	virtual void addKey(QString &key) {};
+};
+
+class comboDelegate : public kvDelegate
 {
 	QStringList keys;
 
 public:
 	comboDelegate(QStringList k, QObject *parent = 0)
-			:QItemDelegate(parent)
+			:kvDelegate(parent)
 	{
 		keys = k;
 	}
@@ -47,14 +58,14 @@ public:
 	}
 };
 
-class lineDelegate : public QItemDelegate
+class lineDelegate : public kvDelegate
 {
 	Q_OBJECT
 
 	QLabel *infoLabel;
 public:
 	lineDelegate(QLabel *lbl = 0, QObject *parent = 0)
-			:QItemDelegate(parent)
+			:kvDelegate(parent)
 	{
 		infoLabel = lbl;
 	}
@@ -80,11 +91,12 @@ class kvmodel: public QAbstractTableModel
 {
 	QStringList items;
 	QStringList header;
+	int myCols;
 
 public:
-	kvmodel(QStringList heads);
+	kvmodel(QStringList &heads);
 	QStringList getRow(int i);
-	void addRow(QString &type, QString &value);
+	void addRow(const QStringList &newrow);
 	Qt::ItemFlags flags(const QModelIndex &index) const
 	{
 		return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
@@ -93,7 +105,7 @@ public:
 			const QModelIndex &parent = QModelIndex()) const
 	{
 		(void)parent;
-		return createIndex(row, column, row*2 +column);
+		return createIndex(row, column, row*myCols +column);
 	}
 	QVariant data(const QModelIndex &index, int role) const;
 	QVariant headerData(int section, Qt::Orientation orientation,
@@ -105,12 +117,12 @@ public:
 	int rowCount(const QModelIndex &parent) const
 	{
 		(void)parent;
-		return items.count()/2;
+		return items.count()/myCols;
 	}
 	int columnCount(const QModelIndex &parent) const
 	{
 		(void)parent;
-		return 2;
+		return myCols;
 	}
 	bool setData(const QModelIndex &index, const QVariant &value, int role);
 	void moveRow(int oldi, int newi);
@@ -120,33 +132,33 @@ class kvView: public QTableView
 {
 	Q_OBJECT
 
-	kvmodel *mymodel;
-	QStringList keys;
+	QStringList keys0;
 	QLabel *infoLabel;
 
 public:
 	kvView(QWidget *parent = 0);
 	~kvView();
-	void setKeys(const QStringList &k);
 	int rowCount()
 	{
-		return mymodel->rowCount(QModelIndex());
+		return model()->rowCount(QModelIndex());
 	}
 	QStringList getRow(int i)
 	{
-		return mymodel->getRow(i);
+		return static_cast<kvmodel*>(model())->getRow(i);
 	}
-	void addRow(QString &k, QString &v);
+	void addRow(const QStringList &newrow);
 	void deleteAllRows()
 	{
-		mymodel->removeRows(0, rowCount(), QModelIndex());
+		model()->removeRows(0, rowCount(), QModelIndex());
 	}
-	void setInfoLabel(QLabel *lbl)
+	void setInfoLabel(QLabel *lbl, int col = 1)
 	{
 		infoLabel = lbl;
-		initLineDelegate();
+		initLineDelegate(col);
 	}
-	void initLineDelegate();
+	void initLineDelegate(int col = 1);
+	void setKeys(const QStringList &k, int col = 0);
+	void initCols(QStringList &heads);
 private slots:
 	void moveRow(int logical, int oldi, int newi);
 	void editorExited();
