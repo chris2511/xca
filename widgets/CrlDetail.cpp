@@ -26,7 +26,8 @@ CrlDetail::CrlDetail(MainWindow *mainwin)
 	certList->setColumnCount(3);
 
 	QStringList sl;
-	sl << tr("Name") << tr("Serial") << tr("Revocation");
+	sl << tr("Name") << tr("Serial") << tr("Revocation") << tr("Reason") <<
+		tr("Invalidation");
 	certList->setHeaderLabels(sl);
 
 	image->setPixmap(*MainWindow::revImg);
@@ -74,9 +75,10 @@ void CrlDetail::setCrl(pki_crl *crl)
 	numc = crl->numRev();
 	for (i=0; i<numc; i++) {
 		QTreeWidgetItem *current;
+		a1time a;
 		revit = crl->getRev(i);
 		rev = mw->certs->getByIssSerial(iss, revit.getSerial());
-		certList->setColumnCount(3);
+		certList->setColumnCount(5);
 		current = new QTreeWidgetItem(certList);
 		if (rev != NULL) {
 			current->setText(0, rev->getIntName() );
@@ -86,6 +88,12 @@ void CrlDetail::setCrl(pki_crl *crl)
 		current->setIcon(0, *pki_x509::icon[2]);
 		current->setText(1, revit.getSerial().toHex()) ;
 		current->setText(2, revit.getDate().toSortable());
+		current->setText(3, revit.getReason());
+		a = revit.getInvalDate();
+		if (!a.isUndefined())
+			current->setText(4, a.toSortable());
 	}
+	for (i=0; i<5; i++)
+		certList->resizeColumnToContents(i);
 	v3extensions->document()->setHtml(crl->printV3ext());
 }

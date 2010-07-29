@@ -18,6 +18,7 @@
 #include "ui_CaProperties.h"
 #include "ui_PassWrite.h"
 #include "ui_About.h"
+#include "ui_Revoke.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QAction>
@@ -1042,8 +1043,16 @@ void db_x509::revoke()
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	if (!cert)
 		return;
-	cert->setRevoked(true);
-	updatePKI(cert);
+	Ui::Revoke ui;
+	QDialog *revoke = new QDialog(mainwin, 0);
+	ui.setupUi(revoke);
+	ui.invalid->setNow();
+	ui.reason->addItems(x509rev::crlreasons());
+	if (revoke->exec()) {
+		cert->setRevoked(true, ui.invalid->getDate(),
+					ui.reason->currentText());
+		updatePKI(cert);
+	}
 }
 
 void db_x509::unRevoke()

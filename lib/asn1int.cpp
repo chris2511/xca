@@ -95,6 +95,9 @@ QString a1int::toDec() const
 a1int &a1int::setHex(const QString &s)
 {
 	BIGNUM *bn=0;
+	if (s.isEmpty()) {
+		return *this;
+	}
 	if (!BN_hex2bn(&bn,s.toAscii()))
 		openssl_error();
 	BN_to_ASN1_INTEGER(bn, in);

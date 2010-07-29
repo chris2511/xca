@@ -61,6 +61,7 @@ class pki_crl: public pki_base
 		virtual QString getMsg(msg_type msg);
 		void d2i(QByteArray &ba);
 		QByteArray i2d();
+		void setCrlNumber(a1int num);
 };
 
 #endif

@@ -38,6 +38,7 @@ class a1time
 	int ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const;
 	ASN1_TIME *get() const;
 	ASN1_TIME *get_utc() const;
+	ASN1_GENERALIZEDTIME *get_generalized() const;
 	a1time &now(int delta = 0);
 	QByteArray i2d() const;
 	void d2i(QByteArray &ba);

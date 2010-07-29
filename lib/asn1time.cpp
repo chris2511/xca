@@ -47,6 +47,14 @@ ASN1_TIME *a1time::get_utc() const
 	return toUTCtime();
 }
 
+ASN1_GENERALIZEDTIME *a1time::get_generalized() const
+{
+	ASN1_GENERALIZEDTIME *g;
+	g = ASN1_TIME_to_generalizedtime(time, NULL);
+	openssl_error();
+	return g;
+}
+
 a1time &a1time::set(const ASN1_TIME *a)
 {
 	if (a == NULL) {

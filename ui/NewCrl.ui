@@ -6,11 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>433</height>
+    <width>451</width>
+    <height>503</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <layout class="QHBoxLayout">
      <property name="spacing">
@@ -177,16 +177,11 @@
      <property name="title">
       <string>Hashing algorithm</string>
      </property>
-     <widget class="hashBox" name="hashAlgo">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>30</y>
-        <width>205</width>
-        <height>26</height>
-       </rect>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="hashBox" name="hashAlgo"/>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -194,13 +189,7 @@
      <property name="title">
       <string>Extensions</string>
      </property>
-     <layout class="QVBoxLayout">
-      <property name="spacing">
-       <number>6</number>
-      </property>
-      <property name="margin">
-       <number>9</number>
-      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QCheckBox" name="authKeyId">
         <property name="text">
@@ -212,6 +201,26 @@
        <widget class="QCheckBox" name="subAltName">
         <property name="text">
          <string>Subject alternative name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="crlNumber">
+        <property name="text">
+         <string>CRL Number</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="revokationReasons">
+        <property name="text">
+         <string>Revokation reasons</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

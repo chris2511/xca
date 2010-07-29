@@ -6,7 +6,33 @@
  */
 
 #include "x509rev.h"
-#include <lib/base.h>
+#include "base.h"
+#include "func.h"
+#include <openssl/x509v3.h>
+#include <QtCore/QStringList>
+
+static ENUMERATED_NAMES crl_reasons[] = {
+{CRL_REASON_UNSPECIFIED,         "Unspecified", "unspecified"},
+{CRL_REASON_KEY_COMPROMISE,      "Key Compromise", "keyCompromise"},
+{CRL_REASON_CA_COMPROMISE,       "CA Compromise", "CACompromise"},
+{CRL_REASON_AFFILIATION_CHANGED, "Affiliation Changed", "affiliationChanged"},
+{CRL_REASON_SUPERSEDED,          "Superseded", "superseded"},
+{CRL_REASON_CESSATION_OF_OPERATION,
+                        "Cessation Of Operation", "cessationOfOperation"},
+{CRL_REASON_CERTIFICATE_HOLD,    "Certificate Hold", "certificateHold"},
+{CRL_REASON_REMOVE_FROM_CRL,     "Remove From CRL", "removeFromCRL"},
+{CRL_REASON_PRIVILEGE_WITHDRAWN, "Privilege Withdrawn", "privilegeWithdrawn"},
+{CRL_REASON_AA_COMPROMISE,       "AA Compromise", "AACompromise"},
+{-1, NULL, NULL}
+};
+
+QStringList x509rev::crlreasons()
+{
+	QStringList l;
+	for (int i=0; crl_reasons[i].lname; i++)
+		l << crl_reasons[i].lname;
+	return l;
+}
 
 static X509_REVOKED *X509_REVOKED_dup(const X509_REVOKED *n)
 {
@@ -89,6 +115,71 @@ a1time x509rev::getDate() const
 {
 	a1time t(rev->revocationDate);
 	return t;
+}
+
+void x509rev::setInvalDate(const a1time &date)
+{
+	ASN1_GENERALIZEDTIME *g = date.get_generalized();
+	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date, g, 0, 0);
+	ASN1_GENERALIZEDTIME_free(g);
+	openssl_error();
+}
+
+void x509rev::setReason(const QString &reason)
+{
+	/* RFC says to not add the extension if it is "unspecified" */
+	if (reason == crl_reasons[0].lname)
+		return;
+	ASN1_ENUMERATED *a = ASN1_ENUMERATED_new();
+	openssl_error();
+
+	for (int i=0; crl_reasons[i].lname; i++) {
+		if (reason == crl_reasons[i].lname) {
+			ASN1_ENUMERATED_set(a, crl_reasons[i].bitnum);
+                        break;
+		}
+	}
+	openssl_error();
+	X509_REVOKED_add1_ext_i2d(rev, NID_crl_reason, a, 0, 0);
+	openssl_error();
+	ASN1_ENUMERATED_free(a);
+}
+
+QString x509rev::getReason() const
+{
+	ASN1_ENUMERATED *reason;
+	int j, r;
+	reason = (ASN1_ENUMERATED *)X509_REVOKED_get_ext_d2i(rev,
+					NID_crl_reason, &j, NULL);
+	openssl_error();
+	if (j == -1)
+		return QString(crl_reasons[0].lname);
+	r = ASN1_ENUMERATED_get(reason);
+	openssl_error();
+	ASN1_ENUMERATED_free(reason);
+	for (int i=0; crl_reasons[i].lname; i++) {
+		if (r == crl_reasons[i].bitnum) {
+			return QString(crl_reasons[i].lname);
+		}
+	}
+	return QString();
+}
+
+a1time x509rev::getInvalDate() const
+{
+	ASN1_TIME *at;
+	a1time a;
+	int j;
+	at = (ASN1_TIME *)X509_REVOKED_get_ext_d2i(rev,
+			NID_invalidity_date, &j, NULL);
+	openssl_error();
+	if (j == -1) {
+		a.setUndefined();
+		return a;
+	}
+	a.set(at);
+	ASN1_GENERALIZEDTIME_free(at);
+	return a;
 }
 
 X509_REVOKED *x509rev::get() const

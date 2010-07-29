@@ -139,10 +139,11 @@ void pki_x509::init()
 	class_name = "pki_x509";
 	cert = NULL;
 	isrevoked = false;
-	dataVersion = 2;
+	dataVersion = 3;
 	pkiType = x509;
 	cols = 6;
 	randomSerial = false;
+	revoke_reason = "";
 }
 
 void pki_x509::setSerial(const a1int &serial)
@@ -495,7 +496,11 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 		randomSerial = db::boolFromData(ba);
 	else
 		randomSerial = false;
-
+	if (version > 2) {
+		crlNumber.setHex(db::stringFromData(ba));
+		revoke_reason = db::stringFromData(ba);
+		invalDate.d2i(ba);
+	}
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
 	}
@@ -519,6 +524,9 @@ QByteArray pki_x509::toData()
 	ba += db::intToData(crlDays); // the CRL period
 	ba += crlExpiry.i2d(); // last CRL date
 	ba += db::boolToData(randomSerial);
+	ba += db::stringToData(crlNumber.toHex());
+	ba += db::stringToData(revoke_reason);
+	ba += invalDate.i2d();
 	pki_openssl_error();
 	return ba;
 }
@@ -678,13 +686,15 @@ bool pki_x509::isRevoked()
 	return isrevoked ;
 }
 
-void pki_x509::setRevoked(bool rev)
+void pki_x509::setRevoked(bool rev, a1time inval, QString reason)
 {
 	if (rev) {
 		setEffTrust(0);
 		setTrust(0);
 		revoked.now();
 		pki_openssl_error();
+		revoke_reason = reason;
+		invalDate = inval;
 	}
 	isrevoked = rev;
 	pki_openssl_error();
@@ -739,6 +749,8 @@ x509rev pki_x509::getRev()
 	x509rev a;
 	a.setDate(getRevoked());
 	a.setSerial(getSerial());
+	a.setReason(revoke_reason);
+	a.setInvalDate(invalDate);
 	return a;
 }
 

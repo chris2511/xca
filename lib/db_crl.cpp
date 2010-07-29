@@ -188,11 +188,12 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 					"issuer:copy", &ext_ctx));
 			}
 		}
-
+		if (dlg->crlNumber->isChecked()) {
+			crl->setCrlNumber(cert->getIncCrlNumber());
+		}
 		crl->setLastUpdate(dlg->lastUpdate->getDate());
 		crl->setNextUpdate(dlg->nextUpdate->getDate());
 		cert->setCrlExpiry(dlg->nextUpdate->getDate());
-
 		crl->sign(cert->getRefKey(), dlg->hashAlgo->currentHash());
 		mainwin->certs->updatePKI(cert);
 		createSuccess(insert(crl));

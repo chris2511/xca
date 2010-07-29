@@ -186,6 +186,7 @@ void pki_crl::sign(pki_key *key, const EVP_MD *md)
 	EVP_PKEY *pkey;
 	if (!key || key->isPubKey())
 		return;
+//	X509_CRL_sort(crl);
 	pkey = key->decryptKey();
 	X509_CRL_sign(crl, pkey, md);
 	EVP_PKEY_free(pkey);
@@ -268,6 +269,15 @@ bool pki_crl::verify(pki_key *key)
 		pki_ign_openssl_error();
 	}
 	return ret ;
+}
+
+void pki_crl::setCrlNumber(a1int num)
+{
+	ASN1_INTEGER *tmpser = num.get();
+	pki_openssl_error();
+	X509_CRL_add1_ext_i2d(crl, NID_crl_number, tmpser, 0, 0);
+	ASN1_INTEGER_free(tmpser);
+	pki_openssl_error();
 }
 
 x509v3ext pki_crl::getExtByNid(int nid)

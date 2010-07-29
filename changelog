@@ -1,4 +1,5 @@
 
+  * Improve CRL generation [3035294] CRLNumber, CRLReason
   * improve creating templates from cert
     - enhance parsing of CRL-DP, SAN, IAN and AuthInfoAcc
     - add support for CertificatePolicies

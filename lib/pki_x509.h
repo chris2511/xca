@@ -26,14 +26,16 @@ class pki_x509 : public pki_x509super
 		Q_OBJECT
 	private:
 		pki_x509 *psigner;
-		a1time revoked, crlExpiry;
+		a1time revoked, crlExpiry, invalDate;
 		bool isrevoked, randomSerial;
 		int trust;
 		int efftrust;
 		a1int caSerial;
+		a1int crlNumber;
 		int crlDays;
 		QString caTemplate;
 		X509 *cert;
+		QString revoke_reason;
 		void init();
 	public:
 		static QPixmap *icon[5];
@@ -85,7 +87,8 @@ class pki_x509 : public pki_x509super
 		void setTrust(int t);
 		int getEffTrust();
 		void setEffTrust(int t);
-		void setRevoked(bool rev);
+		void setRevoked(bool rev, a1time inval = a1time(),
+				QString reason = QString());
 		void setRevoked(const a1time &when);
 		a1time &getRevoked();
 		bool isRevoked();
@@ -98,6 +101,10 @@ class pki_x509 : public pki_x509super
 		void setCaSerial(a1int s)
 		{
 			caSerial = s;
+		}
+		a1int getIncCrlNumber()
+		{
+			return ++crlNumber;
 		}
 		void setTemplate(QString s)
 		{
