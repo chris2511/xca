@@ -13,7 +13,7 @@
 #include "asn1time.h"
 #include "pki_x509.h"
 
-class pki_temp: public pki_base
+class pki_temp: public pki_x509name
 {
 		Q_OBJECT
 	protected:
@@ -45,10 +45,10 @@ class pki_temp: public pki_base
 		QByteArray toData();
 		bool compare(pki_base *ref);
 		void writeTemp(QString fname);
-		QVariant column_data(int col);
-		QVariant getIcon(int column);
+		QVariant column_data(int id);
+		QVariant getIcon(int id);
 		virtual QString getMsg(msg_type msg);
-
+		x509name getSubject() const;
 };
 
 #endif

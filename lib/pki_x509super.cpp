@@ -8,7 +8,7 @@
 #include "pki_x509super.h"
 
 pki_x509super::pki_x509super(const QString name)
-	: pki_base(name)
+	: pki_x509name(name)
 {
 	privkey = NULL;
 }
@@ -46,8 +46,24 @@ void pki_x509super::delRefKey(pki_key *ref)
 	privkey = NULL;
 }
 
-void pki_x509super::autoIntName()
+// Start class  pki_x509name
+
+pki_x509name::pki_x509name(const QString name)
+	: pki_base(name)
+{
+}
+
+void pki_x509name::autoIntName()
 {
 	x509name subject = getSubject();
 	setIntName(subject.getMostPopular());
+}
+
+QVariant pki_x509name::column_data(int id)
+{
+	if (id == HD_subject_name)
+		return QVariant(getSubject().oneLine(XN_FLAG_ONELINE));
+	if (dbheader::isNid(id))
+		return QVariant(getSubject().getEntryByNid(id));
+	return pki_base::column_data(id);
 }

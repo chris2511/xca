@@ -244,7 +244,7 @@
          <number>8</number>
         </property>
         <item>
-         <widget class="CertTreeView" name="certView"/>
+         <widget class="XcaTreeView" name="certView"/>
         </item>
         <item>
          <widget class="QFrame" name="certButtons">
@@ -552,11 +552,6 @@
  <customwidgets>
   <customwidget>
    <class>XcaTreeView</class>
-   <extends>QTreeView</extends>
-   <header>widgets/XcaTreeView.h</header>
-  </customwidget>
-  <customwidget>
-   <class>CertTreeView</class>
    <extends>QTreeView</extends>
    <header>widgets/XcaTreeView.h</header>
   </customwidget>

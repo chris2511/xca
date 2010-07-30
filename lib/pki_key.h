@@ -77,7 +77,7 @@ class pki_key: public pki_base
 		{
 			return key;
 		}
-		QVariant column_data(int col);
+		QVariant column_data(int id);
 		QString modulus();
 		QString pubEx();
 		QString subprime();

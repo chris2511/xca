@@ -18,7 +18,7 @@
 #include <QtCore/QDir>
 #include <openssl/rand.h>
 
-QPixmap *pki_x509::icon[5] = { NULL, NULL, NULL, NULL, NULL };
+QPixmap *pki_x509::icon[6] = { NULL, NULL, NULL, NULL, NULL, NULL };
 
 pki_x509::pki_x509(X509 *c)
 	:pki_x509super()
@@ -141,7 +141,6 @@ void pki_x509::init()
 	isrevoked = false;
 	dataVersion = 3;
 	pkiType = x509;
-	cols = 6;
 	randomSerial = false;
 	revoke_reason = "";
 }
@@ -754,44 +753,82 @@ x509rev pki_x509::getRev()
 	return a;
 }
 
-QVariant pki_x509::column_data(int col)
+bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen)
+{
+	x509v3ext e = getExtByNid(NID_basic_constraints);
+	if (e.nid() != NID_basic_constraints)
+		return false;
+	BASIC_CONSTRAINTS *bc = (BASIC_CONSTRAINTS *)e.d2i();
+	if (hasLen)
+		*hasLen = bc->pathlen ? true : false;
+	if (pathlen && bc->pathlen)
+		pathlen->set(bc->pathlen);
+	if (ca)
+		*ca = bc->ca;
+	BASIC_CONSTRAINTS_free(bc);
+	return true;
+}
+
+QVariant pki_x509::column_data(int id)
 {
 	QString truststatus[] =
 		{ tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
 
-	switch (col) {
-		case 0:
-			return QVariant(getIntName());
-		case 1:
-			return QVariant(getSubject().getEntryByNid(NID_commonName));
-		case 2:
+	switch (id) {
+		case HD_cert_serial:
 			return QVariant(getSerial().toHex());
-		case 3:
-			return QVariant(getNotAfter().toSortable());
-		case 4:
-			return QVariant(truststatus[ getTrust() ]);
-		case 5:
+		case HD_cert_notBefore:
+			return QVariant(getNotBefore().qDateTime());
+		case HD_cert_notAfter:
+			return QVariant(getNotAfter().qDateTime());
+		case HD_cert_trust:
+			return QVariant(truststatus[getTrust()]);
+		case HD_cert_revokation:
 			if (isRevoked())
 				return QVariant(getRevoked().toSortable());
 			else if (canSign())
 				return QVariant(tr("CRL expires: %1").
 					arg(crlExpiry.toSortable()));
+			return QVariant();
+		case HD_cert_md5fp:
+			return QVariant(fingerprint(EVP_md5()));
+		case HD_cert_sha1fp:
+			return QVariant(fingerprint(EVP_sha1()));
+		case HD_cert_ca: {
+			a1int len;
+			bool ca, haslen;
+			if (caAndPathLen(&ca, &len, &haslen))
+				if (ca && haslen)
+					return QVariant(len.toDec());
+			return QVariant();
+		}
 	}
-	return QVariant();
-
+	return pki_x509super::column_data(id);
 }
 
-QVariant pki_x509::getIcon(int column)
+QVariant pki_x509::getIcon(int id)
 {
 	int pixnum = 0;
-	if (column != 0)
-		return QVariant();
+	bool ca;
 
-	if (getRefKey()) {
-		pixnum += 1;
-	}
-	if (calcEffTrust() == 0){
-		pixnum += 2;
+	switch (id) {
+	case HD_cert_ca:
+		if (!caAndPathLen(&ca, NULL, NULL))
+			return QVariant();
+		if (!ca)
+			return QVariant();
+		pixnum = 5;
+		break;
+	case HD_internal_name:
+		if (getRefKey()) {
+			pixnum += 1;
+		}
+		if (calcEffTrust() == 0){
+			pixnum += 2;
+		}
+		break;
+	default:
+		return QVariant();
 	}
 	return QVariant(*icon[pixnum]);
 }

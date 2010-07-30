@@ -13,6 +13,7 @@
 #include <QtGui/QListView>
 #include "db.h"
 #include "base.h"
+#include "headerlist.h"
 
 #define __ME QString("(%1:%2)").arg(class_name).arg(getIntName())
 #define pki_openssl_error() _openssl_error(__ME, __FILE__, __LINE__)
@@ -24,7 +25,6 @@ class pki_base : public QObject
 	private:
 		static int pki_counter;
 	protected:
-		int cols;
 		const char *class_name;
 		QString desc;
 		int dataVersion;
@@ -80,9 +80,8 @@ class pki_base : public QObject
 		pki_base *iterate(pki_base *pki = NULL);
 		void takeChild(pki_base *pki);
 		pki_base *takeFirst();
-		int columns();
-		virtual QVariant column_data(int col);
-		virtual QVariant getIcon(int column);
+		virtual QVariant column_data(int id);
+		virtual QVariant getIcon(int id);
 		const char *className()
 		{
 			return class_name;

@@ -16,7 +16,7 @@
 #include "asn1time.h"
 #include "asn1int.h"
 
-class pki_crl: public pki_base
+class pki_crl: public pki_x509name
 {
 		Q_OBJECT
 	friend class pki_x509;
@@ -41,7 +41,7 @@ class pki_crl: public pki_base
 		void writeCrl(const QString fname, bool pem = true);
 		pki_x509 *getIssuer();
 		void setIssuer(pki_x509 *iss);
-		x509name getIssuerName();
+		x509name getSubject() const;
 		void setLastUpdate(const a1time &t);
 		void setNextUpdate(const a1time &t);
 		a1time getNextUpdate();
@@ -56,12 +56,13 @@ class pki_crl: public pki_base
 		QString printV3ext();
 		x509v3ext getExtByNid(int nid);
 		a1int getVersion();
-		QVariant column_data(int col);
-		QVariant getIcon(int column);
+		QVariant column_data(int id);
+		QVariant getIcon(int id);
 		virtual QString getMsg(msg_type msg);
 		void d2i(QByteArray &ba);
 		QByteArray i2d();
 		void setCrlNumber(a1int num);
+		bool getCrlNumber(a1int *num);
 };
 
 #endif

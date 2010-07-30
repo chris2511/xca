@@ -32,12 +32,15 @@ db_key::db_key(QString db, MainWindow *mw)
 	:db_base(db, mw)
 {
 	rootItem->setIntName("[key root]");
-	headertext << tr("Name") << tr("Type") << tr("Size")
-		   << tr("Use") << tr("Password");
 	view = mw->keyView;
 	class_name = "keys";
 	pkitype[0] = asym_key;
 	pkitype[1] = smartCard;
+	allHeaders <<
+		new dbheader(HD_key_type,   true, tr("Type")) <<
+		new dbheader(HD_key_size,   true, tr("Size")) <<
+		new dbheader(HD_key_use,    true, tr("Use")) <<
+		new dbheader(HD_key_passwd, true, tr("Password"));
 	loadContainer();
 }
 

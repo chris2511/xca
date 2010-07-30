@@ -14,7 +14,19 @@
 #include "x509name.h"
 #include "x509v3ext.h"
 
-class pki_x509super : public pki_base
+class pki_x509name : public pki_base
+{
+    public:
+	pki_x509name(const QString name = "");
+	virtual x509name getSubject() const
+	{
+		return x509name();
+	};
+	void autoIntName();
+	QVariant column_data(int id);
+};
+
+class pki_x509super : public pki_x509name
 {
 		Q_OBJECT
 	protected:
@@ -30,7 +42,6 @@ class pki_x509super : public pki_base
 		pki_key *getRefKey() const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);
-		void autoIntName();
 };
 
 #endif

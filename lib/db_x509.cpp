@@ -29,8 +29,17 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
 	rootItem->setIntName("[x509 root]");
-	headertext << tr("Internal name") << tr("Common name") << tr("Serial")
-		   << tr("Expiry date") << tr("Trust state") << tr("Revocation");
+	allHeaders <<
+		new dbheader(HD_cert_ca,	true, tr("CA")) <<
+		new dbheader(HD_cert_serial,	true, tr("Serial")) <<
+		new dbheader(HD_cert_md5fp,	false,tr("md5 fingerprint")) <<
+		new dbheader(HD_cert_sha1fp,	false,tr("sha1 fingerprint")) <<
+		new dbheader(HD_cert_notBefore, false,tr("Start date"),
+				tr("not Before")) <<
+		new dbheader(HD_cert_notAfter,	true, tr("Expiry date"),
+				tr("not After")) <<
+		new dbheader(HD_cert_trust,	true, tr("Trust state")) <<
+		new dbheader(HD_cert_revokation,true, tr("Revocation"));
 
 	view = mw->certView;
 	class_name = "certificates";

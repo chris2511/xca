@@ -18,6 +18,7 @@
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)
 {
+	setHeader(new XcaHeaderView());
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
@@ -25,16 +26,10 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setUniformRowHeights (true);
 	//setAnimated(true);
 
-	proxy = new QSortFilterProxyModel(this);
-#if QT_VERSION >= 0x040200
+	proxy = new XcaProxyModel(this);
 	setSortingEnabled(true);
 	proxy->setDynamicSortFilter(true);
 	sortByColumn(0, Qt::AscendingOrder);
-#else
-	header()->setClickable(true);
-	header()->setSortIndicatorShown(true);
-	sortByColumn(0);
-#endif
 	basemodel = NULL;
 }
 
@@ -45,16 +40,39 @@ XcaTreeView::~XcaTreeView()
 
 void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )
 {
-	if (basemodel)
-		basemodel->showContextMenu(e, getIndex(indexAt(e->pos())));
+	if (!basemodel)
+		return;
+	basemodel->showContextMenu(e, getIndex(indexAt(e->pos())));
+}
+
+void XcaTreeView::showHideSections()
+{
+	if (!basemodel)
+		return;
+	int i, max = basemodel->columnCount(QModelIndex());
+	for (i=0; i<max; i++) {
+		if (basemodel->columnHidden(i))
+			header()->hideSection(i);
+		else
+			header()->showSection(i);
+	}
+	columnsResize();
 }
 
 void XcaTreeView::setModel(QAbstractItemModel *model)
 {
 	basemodel = (db_base *)model;
+	if (basemodel)
+		connect(basemodel, SIGNAL(resetHeader()),
+			header(), SLOT(resetMoves()));
 	proxy->setSourceModel(model);
 	QTreeView::setModel(proxy);
-	columnsResize();
+	showHideSections();
+}
+void XcaTreeView::headerEvent(QContextMenuEvent *e, int col)
+{
+	basemodel->showHeaderMenu(e, col);
+	showHideSections();
 }
 
 QModelIndex XcaTreeView::getIndex(const QModelIndex &index)
@@ -83,21 +101,21 @@ void XcaTreeView::columnsResize()
 	}
 }
 
-CertTreeView::CertTreeView(QWidget *parent)
-	:XcaTreeView(parent)
-{
-	delete proxy;
-	proxy = new XcaProxyModel(this);
-}
-
-XcaProxyModel::XcaProxyModel(QWidget *)
+XcaProxyModel::XcaProxyModel(QWidget *parent)
+	:QSortFilterProxyModel(parent)
 {
 }
 
 bool XcaProxyModel::lessThan(const QModelIndex &left,
 		const QModelIndex &right) const
 {
-	if (left.column() == 2 && right.column() == 2) {
+	db_base *db = (db_base *)sourceModel();
+	if (!db)
+		return QSortFilterProxyModel::lessThan(left, right);
+
+	if (db->isNumericCol(left.column()) &&
+	    db->isNumericCol(right.column()))
+	{
 		int diff;
 		QString l = sourceModel()->data(left).toString();
 		QString r = sourceModel()->data(right).toString();
@@ -110,4 +128,21 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 			return l < r;
 	}
 	return QSortFilterProxyModel::lessThan(left, right);
+}
+
+void XcaHeaderView::contextMenuEvent(QContextMenuEvent * e)
+{
+	XcaTreeView *tv = (XcaTreeView *)parentWidget();
+	if (tv)
+		tv->headerEvent(e, logicalIndexAt(e->pos()));
+}
+
+void XcaHeaderView::resetMoves()
+{
+	for (int i=0; i<count(); i++) {
+		if (i != visualIndex(i)) {
+			moveSection(visualIndex(i), i);
+			i=0;
+		}
+	}
 }

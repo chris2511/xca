@@ -137,7 +137,6 @@ void pki_scard::init(void)
 	ownPass = ptPin;
 	dataVersion = 2;
 	pkiType = smartCard;
-	cols = 5;
 
 	card_serial = card_manufacturer = card_label = "";
 	card_model = slot_label = "";
@@ -756,8 +755,8 @@ bool pki_scard::isToken()
 	return true;
 }
 
-QVariant pki_scard::getIcon(int column)
+QVariant pki_scard::getIcon(int id)
 {
-	return column == 0 ? QVariant(*icon[0]) : QVariant();
+	return id == HD_internal_name ? QVariant(*icon[0]) : QVariant();
 }
 

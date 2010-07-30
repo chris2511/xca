@@ -18,9 +18,9 @@
 #include <QtGui/QMessageBox>
 
 db_temp::db_temp(QString DBfile, MainWindow *mw)
-	:db_base(DBfile, mw)
+	:db_x509name(DBfile, mw)
 {
-	headertext << tr("Name") << tr("Type");
+	allHeaders << new dbheader(HD_temp_type, true, tr("Type"));
 	view = mw->tempView;
 	class_name = "templates";
 	pkitype[0] = tmpl;

@@ -11,12 +11,13 @@
 
 #include "db_base.h"
 #include "pki_temp.h"
+#include "db_x509super.h"
 #include <QtCore/QObject>
 #include <QtGui/QPixmap>
 
 class Mainwin;
 
-class db_temp: public db_base
+class db_temp: public db_x509name
 {
 	Q_OBJECT
     protected:

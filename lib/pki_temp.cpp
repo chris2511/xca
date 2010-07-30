@@ -16,12 +16,11 @@
 QPixmap *pki_temp::icon=  NULL;
 
 pki_temp::pki_temp(const pki_temp *pk)
-	:pki_base(pk->desc)
+	:pki_x509name(pk->desc)
 {
 	class_name = pk->class_name;
 	dataVersion=pk->dataVersion;
 	pkiType=pk->pkiType;
-	cols=pk->cols;
 
 	xname=pk->xname;
 	subAltName=pk->subAltName;
@@ -54,12 +53,11 @@ pki_temp::pki_temp(const pki_temp *pk)
 }
 
 pki_temp::pki_temp(const QString d)
-	:pki_base(d)
+	:pki_x509name(d)
 {
 	class_name = "pki_temp";
 	dataVersion=6;
 	pkiType=tmpl;
-	cols=2;
 
 	subAltName="";
 	issAltName="";
@@ -106,6 +104,11 @@ QString pki_temp::getMsg(msg_type msg)
 	case msg_delete_multi: return tr("Delete the %1 XCA templates: %2?");
 	}
 	return pki_base::getMsg(msg);
+}
+
+x509name pki_temp::getSubject() const
+{
+	return xname;
 }
 
 static int bitsToInt(extList &el, int nid, bool *crit)
@@ -419,20 +422,18 @@ bool pki_temp::compare(pki_base *)
 	return false;
 }
 
-QVariant pki_temp::column_data(int col)
+QVariant pki_temp::column_data(int id)
 {
-	switch (col) {
-		case 0:
-			return QVariant(getIntName());
-		case 1:
+	switch (id) {
+		case HD_temp_type:
 			return QVariant(destination);
 	}
-	return QVariant();
+	return pki_x509name::column_data(id);
 }
 
-QVariant pki_temp::getIcon(int column)
+QVariant pki_temp::getIcon(int id)
 {
-	return column == 0 ? QVariant(*icon) : QVariant();
+	return id == HD_internal_name ? QVariant(*icon) : QVariant();
 }
 
 void pki_temp::oldFromData(unsigned char *p, int size)

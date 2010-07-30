@@ -19,13 +19,13 @@ db_base::db_base(QString db, MainWindow *mw)
 {
 	dbName = db;
 	rootItem = newPKI();
-	headertext.clear();
 	mainwin = mw;
 	currentIdx = QModelIndex();
 	view = NULL;
 	class_name = "base";
 	for (size_t i =0; i<ARRAY_SIZE(pkitype); i++)
 		pkitype[i] = none;
+	allHeaders << new dbheader(HD_internal_name, true, tr("Internal name"));
 }
 
 db_base::~db_base()
@@ -394,29 +394,21 @@ int db_base::rowCount(const QModelIndex &parent) const
 
 int db_base::columnCount(const QModelIndex &parent) const
 {
-	pki_base *item;
-	if (!parent.isValid()) {
-		if (headertext.count())
-			return headertext.count();
-		item = rootItem;
-	} else {
-		item = static_cast<pki_base*>(parent.internalPointer());
-	}
-	return item->columns();
+	return allHeaders.count();
 }
 
 QVariant db_base::data(const QModelIndex &index, int role) const
 {
 	if (!index.isValid())
 		return QVariant();
-
+	dbheader *hd = allHeaders[index.column()];
 	pki_base *item = static_cast<pki_base*>(index.internalPointer());
 	switch (role) {
 		case Qt::EditRole:
 		case Qt::DisplayRole:
-			return item->column_data(index.column());
+			return item->column_data(hd->id);
 		case Qt::DecorationRole:
-			return item->getIcon(index.column());
+			return item->getIcon(hd->id);
 	}
 	return QVariant();
 }
@@ -424,9 +416,14 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 QVariant db_base::headerData(int section, Qt::Orientation orientation,
 		int role) const
 {
-	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
-		return headertext[section];
-
+	if (orientation == Qt::Horizontal) {
+		switch (role) {
+		case Qt::DisplayRole:
+			return QVariant(allHeaders[section]->name);
+		case Qt::ToolTipRole:
+			return QVariant(allHeaders[section]->tooltip);
+		}
+	}
 	return QVariant();
 }
 
@@ -505,3 +502,57 @@ void db_base::showItem()
 	showItem(currentIdx);
 }
 
+bool db_base::columnHidden(int col) const
+{
+	return !allHeaders[col]->show;
+}
+
+void db_base::columnResetDefaults()
+{
+	dbheader *hd;
+	foreach(hd, allHeaders) {
+		hd->show = hd->showDefault;
+		if (hd->action)
+			hd->action->setChecked(hd->show);
+	}
+	emit resetHeader();
+}
+
+bool db_base::isNumericCol(int col) const
+{
+	return allHeaders[col]->isNumeric();
+}
+
+void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
+{
+	int shown = 0;
+	QMenu *menu = new QMenu(mainwin);
+	QMenu *dn = NULL;
+	QAction *a;
+	dbheader *hd;
+	menu->addAction(tr("Reset"), this, SLOT(columnResetDefaults()));
+	menu->addSeparator();
+	foreach(hd, allHeaders) {
+		if (hd->isNid()) {
+			if (!dn)
+				dn = menu->addMenu(tr("Subject"));
+			a = dn->addAction(hd->name);
+		} else {
+			a = menu->addAction(hd->name);
+		}
+		a->setCheckable(true);
+		a->setChecked(hd->show);
+		if (!hd->tooltip.isEmpty())
+			a->setToolTip(hd->tooltip);
+		hd->action = a;
+	}
+	menu->exec(e->globalPos());
+	foreach(hd, allHeaders) {
+		hd->show = hd->action->isChecked();
+		shown += hd->show ? 1 : 0;
+		hd->action = NULL;
+	}
+	if (!shown)
+		allHeaders[0]->show = true;
+        delete menu;
+}

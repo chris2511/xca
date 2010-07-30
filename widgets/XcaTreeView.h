@@ -11,9 +11,26 @@
 #include <QtGui/QTreeView>
 #include <QtGui/QItemSelectionModel>
 #include <QtGui/QSortFilterProxyModel>
+#include <QtGui/QHeaderView>
 #include "lib/db_base.h"
 
 class db_base;
+
+class XcaHeaderView: public QHeaderView
+{
+	Q_OBJECT
+    public:
+	XcaHeaderView()
+		:QHeaderView(Qt::Horizontal)
+	{
+		setStretchLastSection(true);
+		setMovable(true);
+	}
+	void contextMenuEvent(QContextMenuEvent *e);
+    public slots:
+	void resetMoves();
+};
+
 class XcaTreeView: public QTreeView
 {
 	Q_OBJECT
@@ -23,19 +40,14 @@ class XcaTreeView: public QTreeView
    public:
 	XcaTreeView(QWidget *parent = 0);
 	~XcaTreeView();
-	void contextMenuEvent(QContextMenuEvent * e);
+	void contextMenuEvent(QContextMenuEvent *e);
 	void setModel(QAbstractItemModel *model);
 	QModelIndex getIndex(const QModelIndex &index);
 	QModelIndex getProxyIndex(const QModelIndex &index);
 	QModelIndexList getSelectedIndexes();
 	void columnsResize();
-
-};
-
-class CertTreeView: public XcaTreeView
-{
-   public:
-	CertTreeView(QWidget *parent = 0);
+	void headerEvent(QContextMenuEvent *e, int col);
+	void showHideSections();
 };
 
 class XcaProxyModel: public QSortFilterProxyModel
@@ -45,6 +57,5 @@ class XcaProxyModel: public QSortFilterProxyModel
 	XcaProxyModel(QWidget *parent = 0);
 	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
 };
-
 
 #endif

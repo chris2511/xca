@@ -14,7 +14,7 @@
 QPixmap *pki_crl::icon = NULL;
 
 pki_crl::pki_crl(const QString name )
-	:pki_base(name)
+	:pki_x509name(name)
 {
 	issuer = NULL;
 	crl = X509_CRL_new();
@@ -22,7 +22,6 @@ pki_crl::pki_crl(const QString name )
 	pki_openssl_error();
 	dataVersion=1;
 	pkiType=revokation;
-	cols=3;
 }
 
 void pki_crl::fromPEM_BIO(BIO *bio, QString name)
@@ -252,7 +251,7 @@ x509rev pki_crl::getRev(int num)
 	return ret;
 }
 
-x509name pki_crl::getIssuerName()
+x509name pki_crl::getSubject() const
 {
 	x509name x;
 	if (crl && crl->crl && crl->crl->issuer) {
@@ -280,6 +279,19 @@ void pki_crl::setCrlNumber(a1int num)
 	pki_openssl_error();
 }
 
+bool pki_crl::getCrlNumber(a1int *num)
+{
+	int j;
+	ASN1_INTEGER *i;
+	i = (ASN1_INTEGER *)X509_CRL_get_ext_d2i(crl, NID_crl_number, &j, NULL);
+	pki_openssl_error();
+	if (j == -1)
+		return false;
+	num->set(i);
+	ASN1_INTEGER_free(i);
+	return true;
+}
+
 x509v3ext pki_crl::getExtByNid(int nid)
 {
 	extList el;
@@ -301,29 +313,32 @@ QString pki_crl::printV3ext()
 	return text;
 }
 
-QVariant pki_crl::column_data(int col)
+QVariant pki_crl::column_data(int id)
 {
-	switch (col) {
-		case 0:
-			return QVariant(getIntName());
-		case 1:
+	switch (id) {
+		case HD_crl_signer:
 			if (issuer)
 				return QVariant(getIssuer()->getIntName());
 			else
-				 return QVariant(tr("unknown"));
-		case 2:
-			return QVariant(getIssuerName().getEntryByNid(NID_commonName));
-		case 3:
+				return QVariant(tr("unknown"));
+		case HD_crl_revoked:
 			return QVariant(numRev());
-		case 4:
+		case HD_crl_lastUpdate:
+			return QVariant(getLastUpdate().toSortable());
+		case HD_crl_nextUpdate:
 			return QVariant(getNextUpdate().toSortable());
+		case HD_crl_crlnumber:
+			a1int a;
+			if (getCrlNumber(&a))
+				return QVariant(a.toDec());
+			return QVariant();
 	}
-	return QVariant();
+	return pki_x509name::column_data(id);
 }
 
-QVariant pki_crl::getIcon(int column)
+QVariant pki_crl::getIcon(int id)
 {
-	return column == 0 ? QVariant(*icon) : QVariant();
+	return id == HD_internal_name ? QVariant(*icon) : QVariant();
 }
 
 void pki_crl::oldFromData(unsigned char *p, int size)

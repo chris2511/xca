@@ -38,7 +38,7 @@ class pki_x509 : public pki_x509super
 		QString revoke_reason;
 		void init();
 	public:
-		static QPixmap *icon[5];
+		static QPixmap *icon[6];
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
 		pki_x509(const QString name = "");
@@ -62,6 +62,7 @@ class pki_x509 : public pki_x509super
 		x509name getIssuer() const;
 		void setSubject(const x509name &n);
 		void setIssuer(const x509name &n);
+		bool caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen);
 
 		QByteArray toData();
 		void fromData(const unsigned char *p, db_header_t *head);
@@ -141,8 +142,8 @@ class pki_x509 : public pki_x509super
 		QString getSigAlg();
 		x509v3ext getExtByNid(int nid);
 		const EVP_MD *getDigest();
-		QVariant column_data(int col);
-		QVariant getIcon(int column);
+		QVariant column_data(int id);
+		QVariant getIcon(int id);
 		QByteArray i2d();
 		void d2i(QByteArray &ba);
 		void deleteFromToken();

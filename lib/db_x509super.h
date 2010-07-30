@@ -12,7 +12,14 @@
 #include "db_key.h"
 #include "pki_x509super.h"
 
-class db_x509super: public db_base
+class db_x509name: public db_base
+{
+	Q_OBJECT
+	public:
+		db_x509name(QString db, MainWindow *mw);
+};
+
+class db_x509super: public db_x509name
 {
 	Q_OBJECT
 

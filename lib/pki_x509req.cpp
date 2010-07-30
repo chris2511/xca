@@ -28,7 +28,6 @@ pki_x509req::pki_x509req(const QString name)
 	spki = NULL;
 	dataVersion=1;
 	pkiType=x509_req;
-	cols=3;
 	done = false;
 }
 
@@ -397,31 +396,28 @@ ASN1_IA5STRING *pki_x509req::spki_challange()
 	return NULL;
 }
 
-QVariant pki_x509req::column_data(int col)
+QVariant pki_x509req::column_data(int id)
 {
-	switch (col) {
-		case 0:
-			return QVariant(getIntName());
-		case 1:
-			return QVariant(getSubject().getEntryByNid(NID_commonName));
-		case 2:
+	switch (id) {
+		case HD_req_signed:
 			return QVariant(done ? tr("Signed") : tr("Unhandled"));
 	}
-	return QVariant();
+	return pki_x509super::column_data(id);
 }
-QVariant pki_x509req::getIcon(int column)
+
+QVariant pki_x509req::getIcon(int id)
 {
 	int pixnum = -1;
 
-	switch (column) {
-	case 0:
+	switch (id) {
+	case HD_internal_name:
 		pixnum = 0;
 		if (getRefKey() != NULL )
 			pixnum = 1;
 		if (spki != NULL)
 			 pixnum = 2;
 		break;
-	case 2:
+	case HD_req_signed:
 		if (done)
 			pixnum = 3;
 		break;

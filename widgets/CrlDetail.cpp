@@ -70,7 +70,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 	nUpdate->setText(crl->getNextUpdate().toPretty());
 	version->setText((++crl->getVersion()).toHex());
 
-	issuer->setX509name(crl->getIssuerName());
+	issuer->setX509name(crl->getSubject());
 
 	numc = crl->numRev();
 	for (i=0; i<numc; i++) {

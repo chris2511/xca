@@ -296,26 +296,24 @@ QString pki_key::BN2QString(BIGNUM *bn) const
 	return x;
 }
 
-QVariant pki_key::column_data(int col)
+QVariant pki_key::column_data(int id)
 {
 	QStringList sl;
 	sl << tr("Common") << tr("Private") << tr("Bogus") << tr("PIN");
-	switch (col) {
-		case 0:
-			return QVariant(getIntName());
-		case 1:
+	switch (id) {
+		case HD_key_type:
 			return QVariant(getTypeString());
-		case 2:
+		case HD_key_size:
 			return QVariant(length());
-		case 3:
+		case HD_key_use:
 			return QVariant(getUcount());
-		case 4:
+		case HD_key_passwd:
 			if (isPubKey())
 				return QVariant(tr("No password"));
 			if (ownPass<0 || ownPass>3)
 				return QVariant("Holla die Waldfee");
 			return QVariant(sl[ownPass]);
 	}
-	return QVariant();
+	return pki_base::column_data(id);
 }
 

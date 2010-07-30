@@ -71,8 +71,7 @@ class pki_evp: public pki_key
 		bool isPubKey() const;
 		int verify();
 		const EVP_MD *getDefaultMD();
-		QVariant column_data(int col);
-		QVariant getIcon(int column);
+		QVariant getIcon(int id);
 };
 
 #endif

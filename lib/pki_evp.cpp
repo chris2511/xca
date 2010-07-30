@@ -60,7 +60,6 @@ void pki_evp::init(int type)
 	ownPass = ptCommon;
 	dataVersion=2;
 	pkiType=asym_key;
-	cols=5;
 }
 
 QString pki_evp::removeTypeFromIntName(QString n)
@@ -666,32 +665,9 @@ const EVP_MD *pki_evp::getDefaultMD()
 	return md;
 }
 
-QVariant pki_evp::column_data(int col)
+QVariant pki_evp::getIcon(int id)
 {
-	QStringList sl;
-	sl << tr("Common") << tr("Private") << tr("Bogus");
-	switch (col) {
-		case 0:
-			return QVariant(getIntName());
-		case 1:
-			return QVariant(getTypeString());
-		case 2:
-			return QVariant(length());
-		case 3:
-			return QVariant(getUcount());
-		case 4:
-			if (isPubKey())
-				return QVariant(tr("No password"));
-			if (ownPass<0 || ownPass>2)
-				return QVariant("Holla die Waldfee");
-			return QVariant(sl[ownPass]);
-	}
-	return QVariant();
-}
-
-QVariant pki_evp::getIcon(int column)
-{
-	if (column != 0)
+	if (id != HD_internal_name)
 		return QVariant();
 	int pixnum= isPubKey() ? 1 : 0;
 	return QVariant(*icon[pixnum]);

@@ -13,6 +13,7 @@
 #include "load_obj.h"
 #include <QtGui/QListView>
 #include <QtGui/QPixmap>
+#include <QtGui/QContextMenuEvent>
 #include <QtCore/QStringList>
 #include <QtCore/QAbstractItemModel>
 #include "pki_base.h"
@@ -37,11 +38,10 @@ class db_base: public QAbstractItemModel
 		void _removePKI(pki_base *pki );
 		void removeItem(QString k);
 		enum pki_type pkitype[4];
-		QList<QVariant> headertext;
 		MainWindow *mainwin;
 		XcaTreeView *view;
 		QString class_name;
-
+		dbheaderList allHeaders;
 	public:
 		pki_base *rootItem;
 		db_base(QString db, MainWindow *mw);
@@ -80,11 +80,15 @@ class db_base: public QAbstractItemModel
 		void load_default(load_base &load);
 		void insertChild(pki_base *parent, pki_base *child);
 		void createSuccess(pki_base *pki);
+		void showHeaderMenu(QContextMenuEvent *e, int sect);
+		bool columnHidden(int col) const;
+		bool isNumericCol(int col) const;
 
 	public slots:
 		void deletePKI();
 		void delete_ask();
 		void edit();
+		void columnResetDefaults();
 		virtual void showItem();
 		virtual void store(){};
 		virtual void showPki(pki_base *) {};
@@ -93,6 +97,7 @@ class db_base: public QAbstractItemModel
 
 	signals:
 		void connNewX509(NewX509 *dlg);
+		void resetHeader();
 };
 
 #endif

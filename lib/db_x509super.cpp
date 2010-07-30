@@ -10,8 +10,20 @@
 #include "ui_About.h"
 #include <QtGui/QMessageBox>
 
-db_x509super::db_x509super(QString db, MainWindow *mw)
+db_x509name::db_x509name(QString db, MainWindow *mw)
 	:db_base(db, mw)
+{
+	NIDlist dn_nid = *MainWindow::dn_nid;
+	allHeaders << new dbheader(HD_subject_name, false, tr("Full name"),
+			tr("Complete distinguished name"));
+	for (int i=0; i < dn_nid.count(); i++) {
+		int nid = dn_nid[i];
+		allHeaders << new dbheader(nid, nid == NID_commonName);
+	}
+}
+
+db_x509super::db_x509super(QString db, MainWindow *mw)
+	:db_x509name(db, mw)
 {
 }
 

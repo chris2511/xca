@@ -15,7 +15,7 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QContextMenuEvent>
 
-class db_crl: public db_base
+class db_crl: public db_x509name
 {
 		Q_OBJECT
 	protected:

@@ -21,7 +21,6 @@ pki_base::pki_base(const QString name, pki_base *p)
 	childItems.clear();
 	dataVersion=0;
 	pkiType=none;
-	cols=1;
 }
 
 int pki_base::getVersion()
@@ -170,19 +169,20 @@ pki_base *pki_base::takeFirst()
 	return childItems.takeFirst();
 }
 
-int pki_base::columns(void)
+QVariant pki_base::column_data(int id)
 {
-	return cols;
+	switch (id) {
+	case HD_internal_name:
+		return QVariant(getIntName());
+	}
+	return QVariant();
 }
 
-QVariant pki_base::column_data(int col)
-{
-	return QVariant("invalid");
-}
 QVariant pki_base::getIcon(int column)
 {
 	return QVariant();
 }
+
 void pki_base::oldFromData(unsigned char *p, int size)
 {
 }

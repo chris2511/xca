@@ -61,8 +61,8 @@ class pki_x509req : public pki_x509super
 		void setSubject(const x509name &n);
 		/* SPKAC special functions */
 		ASN1_IA5STRING *spki_challange();
-		QVariant column_data(int col);
-		QVariant getIcon(int column);
+		QVariant column_data(int id);
+		QVariant getIcon(int id);
 		void setDone()
 		{
 			done = true;

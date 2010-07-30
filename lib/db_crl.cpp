@@ -16,10 +16,15 @@
 #include "ui_NewCrl.h"
 
 db_crl::db_crl(QString db, MainWindow *mw)
-	:db_base(db,mw)
+	:db_x509name(db,mw)
 {
-	headertext << tr("Name") << tr("Signer") << tr("Common name") <<
-		tr("No. revoked") << tr("Next update");
+	allHeaders <<
+		new dbheader(HD_crl_signer,	true, tr("Signer")) <<
+		new dbheader(HD_crl_revoked,	true, tr("No. revoked")) <<
+		new dbheader(HD_crl_lastUpdate, false,tr("Last update")) <<
+		new dbheader(HD_crl_nextUpdate,	true, tr("Next update")) <<
+		new dbheader(HD_crl_crlnumber,	false,tr("CRL number"));
+
 	view = mw->crlView;
 	class_name = "crls";
 	pkitype[0] = revokation;
@@ -70,7 +75,7 @@ void db_crl::inToCont(pki_base *pki)
 	revokeCerts(crl);
 	if (crl->getIssuer() == NULL) {
 		pki_x509 *iss = NULL, *last = NULL;
-		x509name issname = crl->getIssuerName();
+		x509name issname = crl->getSubject();
 		while ((iss = mainwin->certs->getBySubject(issname, last)) != NULL) {
 			pki_key *key = iss->getPubKey();
 			if (crl->verify(key)) {

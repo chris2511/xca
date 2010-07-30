@@ -18,7 +18,8 @@
 db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
-	headertext << tr("Name") << tr("Subject") << tr("Signed");
+	allHeaders << new dbheader(HD_req_signed, true, tr("Signed"),
+			tr("whether the request is already signed or not"));
 	view = mw->reqView;
 	class_name = "requests";
 	pkitype[0] = x509_req;
