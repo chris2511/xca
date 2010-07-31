@@ -396,11 +396,36 @@ ASN1_IA5STRING *pki_x509req::spki_challange()
 	return NULL;
 }
 
+static QString getAttribute(X509_REQ *req, int nid)
+{
+	int n;
+	n = X509_REQ_get_attr_by_NID(req, nid, -1);
+	if (n == -1)
+		return QString();
+	X509_ATTRIBUTE *att = X509_REQ_get_attr(req, n);
+	if (!att)
+		return QString();
+	if (att->single)
+		return asn1ToQString(att->value.single->value.asn1_string);
+
+	int count = sk_ASN1_TYPE_num(att->value.set);
+	QStringList ret;
+	for (int j=0; j<count; j++) {
+		ret << asn1ToQString(sk_ASN1_TYPE_value(att->value.set, j)->
+					value.asn1_string);
+	}
+	return ret.join(", ");
+}
+
 QVariant pki_x509req::column_data(int id)
 {
 	switch (id) {
-		case HD_req_signed:
-			return QVariant(done ? tr("Signed") : tr("Unhandled"));
+	case HD_req_signed:
+		return QVariant(done ? tr("Signed") : tr("Unhandled"));
+	case HD_req_unstr_name:
+		return getAttribute(request, NID_pkcs9_unstructuredName);
+	case HD_req_chall_pass:
+		return getAttribute(request, NID_pkcs9_challengePassword);
 	}
 	return pki_x509super::column_data(id);
 }

@@ -94,6 +94,10 @@ class pki_base : public QObject
 		{
 			return 0;
 		};
+		QByteArray i2d()
+		{
+			return QByteArray();
+		}
 };
 
 #endif

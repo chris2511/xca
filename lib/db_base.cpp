@@ -7,6 +7,7 @@
 
 
 #include "db_base.h"
+#include "func.h"
 #include "exception.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QListView>
@@ -17,6 +18,7 @@
 db_base::db_base(QString db, MainWindow *mw)
 	:QAbstractItemModel(NULL)
 {
+	fixedHeaders= false;
 	dbName = db;
 	rootItem = newPKI();
 	mainwin = mw;
@@ -67,6 +69,7 @@ void db_base::loadContainer()
 	unsigned char *p = NULL;
 	db_header_t head;
 	pki_base *pki;
+	bool loaded = false;
 
 	for (int i=0; pkitype[i] != none; i++) {
 		mydb.first();
@@ -100,14 +103,50 @@ void db_base::loadContainer()
 				pki = NULL;
 			}
 			free(p);
-			if (pki)
+			if (pki) {
 				inToCont(pki);
+				loaded = true;
+			}
 next:
 			if (mydb.next())
 				break;
 		}
 	}
+	if (!loaded)
+		fixedHeaders = false;
 	view->columnsResize();
+}
+
+bool db_base::loadHeaderState(QHeaderView *hv)
+{
+	QByteArray ba;
+	db_header_t u_header;
+	db mydb(dbName);
+	char *p;
+	if (!mydb.find(setting, class_name + "_hdView")) {
+		if ((p = (char *)mydb.load(&u_header))) {
+			ba = QByteArray(p, u_header.len - sizeof(db_header_t));
+			free(p);
+		}
+		if (!((XcaHeaderView*)hv)->setState(ba))
+			return false;
+		int max = MIN(hv->count(), allHeaders.count());
+		for (int i=0; i<max; i++) {
+			allHeaders[i]->show = !hv->isSectionHidden(i);
+		}
+		if (rootItem->childCount())
+			fixedHeaders = true;
+		return true;
+	}
+	return false;
+}
+
+void db_base::saveHeaderState(QHeaderView *hv)
+{
+	QByteArray ba = hv->saveState();
+	db mydb(dbName);
+	mydb.set((const unsigned char *)ba.constData(), ba.size(), 1,
+		setting, class_name + "_hdView");
 }
 
 void db_base::insertPKI(pki_base *pki)
@@ -409,6 +448,13 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 			return item->column_data(hd->id);
 		case Qt::DecorationRole:
 			return item->getIcon(hd->id);
+		case Qt::TextAlignmentRole:
+			return hd->isNumeric() ? Qt::AlignRight : Qt::AlignLeft;
+		case Qt::FontRole: {
+			if (hd->isNumeric())
+				return QVariant(QFont("Monospace"));
+			return QVariant(QApplication::font());
+		}
 	}
 	return QVariant();
 }
@@ -525,6 +571,11 @@ bool db_base::isNumericCol(int col) const
 
 void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 {
+	contextMenu(e, NULL, sect);
+}
+
+void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int sect)
+{
 	int shown = 0;
 	QMenu *menu = new QMenu(mainwin);
 	QMenu *dn = NULL;
@@ -535,7 +586,7 @@ void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 	foreach(hd, allHeaders) {
 		if (hd->isNid()) {
 			if (!dn)
-				dn = menu->addMenu(tr("Subject"));
+				dn = menu->addMenu(tr("Subject entries"));
 			a = dn->addAction(hd->name);
 		} else {
 			a = menu->addAction(hd->name);
@@ -546,8 +597,16 @@ void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 			a->setToolTip(hd->tooltip);
 		hd->action = a;
 	}
-	menu->exec(e->globalPos());
+
+	if (parent) {
+		parent->addMenu(menu)->setText(tr("Columns"));
+		parent->exec(e->globalPos());
+	} else {
+		menu->exec(e->globalPos());
+	}
 	foreach(hd, allHeaders) {
+		if (!hd->action)
+			continue;
 		hd->show = hd->action->isChecked();
 		shown += hd->show ? 1 : 0;
 		hd->action = NULL;
@@ -555,4 +614,7 @@ void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 	if (!shown)
 		allHeaders[0]->show = true;
         delete menu;
+	if (parent)
+		delete parent;
+	emit updateHeader();
 }

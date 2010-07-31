@@ -43,6 +43,7 @@ class db_base: public QAbstractItemModel
 		QString class_name;
 		dbheaderList allHeaders;
 	public:
+		bool fixedHeaders;
 		pki_base *rootItem;
 		db_base(QString db, MainWindow *mw);
 		virtual ~db_base();
@@ -83,6 +84,10 @@ class db_base: public QAbstractItemModel
 		void showHeaderMenu(QContextMenuEvent *e, int sect);
 		bool columnHidden(int col) const;
 		bool isNumericCol(int col) const;
+		bool loadHeaderState(QHeaderView *hv);
+		void saveHeaderState(QHeaderView *hv);
+		void contextMenu(QContextMenuEvent *e,
+			QMenu *parent = NULL, int sect = -1);
 
 	public slots:
 		void deletePKI();
@@ -98,6 +103,7 @@ class db_base: public QAbstractItemModel
 	signals:
 		void connNewX509(NewX509 *dlg);
 		void resetHeader();
+		void updateHeader();
 };
 
 #endif

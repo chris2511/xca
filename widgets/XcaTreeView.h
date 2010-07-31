@@ -19,14 +19,17 @@ class db_base;
 class XcaHeaderView: public QHeaderView
 {
 	Q_OBJECT
+	QByteArray setting;
+    protected:
+	void showEvent(QShowEvent *event);
     public:
 	XcaHeaderView()
 		:QHeaderView(Qt::Horizontal)
 	{
-		setStretchLastSection(true);
 		setMovable(true);
 	}
 	void contextMenuEvent(QContextMenuEvent *e);
+	bool setState(const QByteArray &state);
     public slots:
 	void resetMoves();
 };
@@ -47,7 +50,9 @@ class XcaTreeView: public QTreeView
 	QModelIndexList getSelectedIndexes();
 	void columnsResize();
 	void headerEvent(QContextMenuEvent *e, int col);
+   public slots:
 	void showHideSections();
+	void columnsForceResize();
 };
 
 class XcaProxyModel: public QSortFilterProxyModel

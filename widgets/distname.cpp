@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2007 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -17,24 +17,32 @@
 DistName::DistName(QWidget* parent)
     : QWidget(parent)
 {
-	QHBoxLayout *h = new QHBoxLayout();
-	QVBoxLayout *v = new QVBoxLayout(this);
-	QLabel *l = new QLabel(QString("RFC 2253:"), this);
-	lineEdit = new QLineEdit(this);
-
 	DistNameLayout = new QGridLayout();
 	DistNameLayout->setAlignment(Qt::AlignTop);
 	DistNameLayout->setSpacing(6);
 	DistNameLayout->setMargin(11);
+
+	QGridLayout *g = new QGridLayout();
+	g->setAlignment(Qt::AlignTop);
+	g->setSpacing(6);
+	g->setMargin(11);
+
+	QVBoxLayout *v = new QVBoxLayout(this);
 	v->setSpacing(6);
 	v->setMargin(11);
 	v->addLayout(DistNameLayout);
-	v->addLayout(h);
+	v->addStretch();
+	v->addLayout(g);
 
-	v->setSpacing(6);
-	h->addWidget(l);
-	h->addWidget(lineEdit);
-	lineEdit->setReadOnly(true);
+	rfc2253 = new QLineEdit(this);
+	rfc2253->setReadOnly(true);
+	g->addWidget(new QLabel(QString("RFC 2253:"), this), 0, 0);
+	g->addWidget(rfc2253, 0, 1);
+
+	namehash = new QLineEdit(this);
+	namehash->setReadOnly(true);
+	g->addWidget(new QLabel(QString("Hash:"), this), 1, 0);
+	g->addWidget(namehash, 1, 1);
 }
 
 void DistName::setX509name(const x509name &n)
@@ -56,17 +64,8 @@ void DistName::setX509name(const x509name &n)
 		DistNameLayout->addWidget( l1, i, 0 );
 		DistNameLayout->addWidget( l2, i, 1 );
 	}
-	lineEdit->setText(n.oneLine(XN_FLAG_RFC2253));
-	lineEdit->setCursorPosition(0);
+	rfc2253->setText(n.oneLine(XN_FLAG_RFC2253));
+	rfc2253->setCursorPosition(0);
+	namehash->setText(n.hash());
 	updateGeometry();
-}
-
-DistName::~DistName()
-{
-    // no need to delete child widgets, Qt does it all for us
-}
-
-void DistName::resizeEvent( QResizeEvent *e)
-{
-	QWidget::resizeEvent(e);
 }

@@ -778,9 +778,9 @@ QVariant pki_x509::column_data(int id)
 		case HD_cert_serial:
 			return QVariant(getSerial().toHex());
 		case HD_cert_notBefore:
-			return QVariant(getNotBefore().qDateTime());
+			return QVariant(getNotBefore().toSortable());
 		case HD_cert_notAfter:
-			return QVariant(getNotAfter().qDateTime());
+			return QVariant(getNotAfter().toSortable());
 		case HD_cert_trust:
 			return QVariant(truststatus[getTrust()]);
 		case HD_cert_revokation:
@@ -797,9 +797,12 @@ QVariant pki_x509::column_data(int id)
 		case HD_cert_ca: {
 			a1int len;
 			bool ca, haslen;
-			if (caAndPathLen(&ca, &len, &haslen))
+			if (caAndPathLen(&ca, &len, &haslen)) {
 				if (ca && haslen)
 					return QVariant(len.toDec());
+				if (!ca)
+					return QVariant(tr("No"));
+			}
 			return QVariant();
 		}
 	}

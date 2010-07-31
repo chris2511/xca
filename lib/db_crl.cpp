@@ -198,8 +198,8 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		}
 		crl->setLastUpdate(dlg->lastUpdate->getDate());
 		crl->setNextUpdate(dlg->nextUpdate->getDate());
-		cert->setCrlExpiry(dlg->nextUpdate->getDate());
 		crl->sign(cert->getRefKey(), dlg->hashAlgo->currentHash());
+		cert->setCrlExpiry(dlg->nextUpdate->getDate());
 		mainwin->certs->updatePKI(cert);
 		createSuccess(insert(crl));
 	}
@@ -224,8 +224,7 @@ void db_crl::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Export"), this, SLOT(store()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 	}
-	menu->exec(e->globalPos());
-	delete menu;
+	contextMenu(e, menu);
 	currentIdx = QModelIndex();
 	return;
 }

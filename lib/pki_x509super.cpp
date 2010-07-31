@@ -61,9 +61,15 @@ void pki_x509name::autoIntName()
 
 QVariant pki_x509name::column_data(int id)
 {
-	if (id == HD_subject_name)
-		return QVariant(getSubject().oneLine(XN_FLAG_ONELINE));
-	if (dbheader::isNid(id))
-		return QVariant(getSubject().getEntryByNid(id));
+	switch (id) {
+	case HD_subject_name:
+		return QVariant(getSubject().oneLine(
+				XN_FLAG_ONELINE & ~ASN1_STRFLGS_ESC_MSB));
+	case HD_subject_hash:
+		return  QVariant(getSubject().hash());
+	default:
+		if (dbheader::isNid(id))
+			return QVariant(getSubject().getEntryByNid(id));
+	}
 	return pki_base::column_data(id);
 }

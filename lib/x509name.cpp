@@ -127,6 +127,11 @@ QString x509name::popEntryByNid(int nid)
 	return n;
 }
 
+QString x509name::hash() const
+{
+	return QString("%1").arg(X509_NAME_hash(xn), 8, 16, QChar('0'));
+}
+
 QStringList x509name::entryList(int i) const
 {
 	QStringList sl;

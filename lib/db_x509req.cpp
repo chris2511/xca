@@ -19,7 +19,9 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
 	allHeaders << new dbheader(HD_req_signed, true, tr("Signed"),
-			tr("whether the request is already signed or not"));
+			tr("whether the request is already signed or not")) <<
+		new dbheader(HD_req_unstr_name, false, tr("Unstructured name")) <<
+		new dbheader(HD_req_chall_pass, false, tr("Challange password"));
 	view = mw->reqView;
 	class_name = "requests";
 	pkitype[0] = x509_req;
@@ -185,8 +187,7 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 
 		expItem->setEnabled(!req->isSpki());
 	}
-	menu->exec(e->globalPos());
-	delete menu;
+	contextMenu(e, menu);
 	currentIdx = QModelIndex();
 	return;
 }

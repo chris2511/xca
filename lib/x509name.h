@@ -42,6 +42,7 @@ class x509name
 		X509_NAME *get() const;
 		QString getMostPopular() const;
 		QString taggedValues() const;
+		QString hash() const;
 };
 
 #endif

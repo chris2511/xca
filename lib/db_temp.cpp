@@ -242,8 +242,7 @@ void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 				SLOT(certFromTemp()));
 		menu->addAction(tr("Create request"), this, SLOT(reqFromTemp()));
 	}
-	menu->exec(e->globalPos());
-	delete menu;
+	contextMenu(e, menu);
 	currentIdx = QModelIndex();
 	return;
 }

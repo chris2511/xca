@@ -31,6 +31,9 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	proxy->setDynamicSortFilter(true);
 	sortByColumn(0, Qt::AscendingOrder);
 	basemodel = NULL;
+	connect(header(), SIGNAL(sectionHandleDoubleClicked(int)),
+		this, SLOT(resizeColumnToContents(int)));
+	header()->setClickable(true);
 }
 
 XcaTreeView::~XcaTreeView()
@@ -38,7 +41,7 @@ XcaTreeView::~XcaTreeView()
 	delete proxy;
 }
 
-void XcaTreeView::contextMenuEvent(QContextMenuEvent * e )
+void XcaTreeView::contextMenuEvent(QContextMenuEvent * e)
 {
 	if (!basemodel)
 		return;
@@ -57,22 +60,34 @@ void XcaTreeView::showHideSections()
 			header()->showSection(i);
 	}
 	columnsResize();
+	header()->update();
 }
 
 void XcaTreeView::setModel(QAbstractItemModel *model)
 {
-	basemodel = (db_base *)model;
+	QByteArray ba;
 	if (basemodel)
+		basemodel->saveHeaderState(header());
+
+	basemodel = (db_base *)model;
+
+	if (basemodel) {
 		connect(basemodel, SIGNAL(resetHeader()),
 			header(), SLOT(resetMoves()));
+		connect(basemodel, SIGNAL(resetHeader()),
+			this, SLOT(columnsForceResize()));
+		connect(basemodel, SIGNAL(updateHeader()),
+			this, SLOT(showHideSections()));
+		basemodel->loadHeaderState(header());
+	}
 	proxy->setSourceModel(model);
 	QTreeView::setModel(proxy);
 	showHideSections();
 }
+
 void XcaTreeView::headerEvent(QContextMenuEvent *e, int col)
 {
 	basemodel->showHeaderMenu(e, col);
-	showHideSections();
 }
 
 QModelIndex XcaTreeView::getIndex(const QModelIndex &index)
@@ -91,7 +106,7 @@ QModelIndexList XcaTreeView::getSelectedIndexes()
 	return proxy->mapSelectionToSource(indexes).indexes();
 }
 
-void XcaTreeView::columnsResize()
+void XcaTreeView::columnsForceResize()
 {
 	int cnt, i;
 	if (basemodel) {
@@ -99,6 +114,12 @@ void XcaTreeView::columnsResize()
 		for (i=0; i<cnt; i++)
 			resizeColumnToContents(i);
 	}
+}
+
+void XcaTreeView::columnsResize()
+{
+	if (basemodel && !basemodel->fixedHeaders)
+		columnsForceResize();
 }
 
 XcaProxyModel::XcaProxyModel(QWidget *parent)
@@ -144,5 +165,20 @@ void XcaHeaderView::resetMoves()
 			moveSection(visualIndex(i), i);
 			i=0;
 		}
+	}
+}
+
+bool XcaHeaderView::setState(const QByteArray &state)
+{
+	setting = state;
+	return QHeaderView::restoreState(setting);
+}
+
+void XcaHeaderView::showEvent(QShowEvent *event)
+{
+	if (setting.size()) {
+		if (QHeaderView::restoreState(setting))
+			setting.clear();
+		setStretchLastSection(false);
 	}
 }

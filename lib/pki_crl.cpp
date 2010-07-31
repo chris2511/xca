@@ -157,13 +157,10 @@ QByteArray pki_crl::toData()
 bool pki_crl::compare(pki_base *refcrl)
 {
 	bool ret;
-	ret = X509_CRL_cmp(crl, ((pki_crl *)refcrl)->crl) == 0 &&
-		getLastUpdate() == ((pki_crl *)refcrl)->getLastUpdate() &&
-		getNextUpdate() == ((pki_crl *)refcrl)->getNextUpdate() ;
+	ret = i2d() != refcrl->i2d();
 	pki_openssl_error();
 	return ret;
 }
-
 
 void pki_crl::addRev(const x509rev &xrev)
 {

@@ -7,6 +7,7 @@
 #define HD_undef NID_undef
 #define HD_internal_name -2
 #define HD_subject_name -3
+#define HD_subject_hash -4
 
 #define HD_cert_serial -10
 #define HD_cert_notBefore -11
@@ -18,6 +19,8 @@
 #define HD_cert_sha1fp   -17
 
 #define HD_req_signed -20
+#define HD_req_unstr_name -21
+#define HD_req_chall_pass -22
 #define HD_temp_type -30
 
 #define HD_crl_signer -40
@@ -82,6 +85,9 @@ class dbheader
 		case HD_cert_serial:
 		case HD_crl_revoked:
 		case HD_crl_crlnumber:
+		case HD_subject_hash:
+		case HD_cert_md5fp:
+		case HD_cert_sha1fp:
 			return true;
 		}
 		return false;

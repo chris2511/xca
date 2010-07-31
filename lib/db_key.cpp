@@ -260,8 +260,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 				this, SLOT(toToken()));
 		}
 	}
-	menu->exec(e->globalPos());
-	delete menu;
+	contextMenu(e, menu);
 	currentIdx = QModelIndex();
 	return;
 }

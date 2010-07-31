@@ -38,7 +38,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 				tr("not Before")) <<
 		new dbheader(HD_cert_notAfter,	true, tr("Expiry date"),
 				tr("not After")) <<
-		new dbheader(HD_cert_trust,	true, tr("Trust state")) <<
+		new dbheader(HD_cert_trust,	false,tr("Trust state")) <<
 		new dbheader(HD_cert_revokation,true, tr("Revocation"));
 
 	view = mw->certView;
@@ -121,6 +121,7 @@ void db_x509::changeView()
 		return;
 
 	temproot = new pki_base();
+	mainwin->certView->hide();
 	mainwin->certView->setModel(NULL);
 	beginRemoveRows(QModelIndex(), 0, rows -1);
 	pki_base *pki = rootItem;
@@ -147,6 +148,7 @@ void db_x509::changeView()
 	}
 	delete temproot;
 	mainwin->certView->setModel(this);
+	mainwin->certView->show();
 }
 
 void db_x509::calcEffTrust()
@@ -672,8 +674,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subP7->setEnabled(privkey);
 #endif
 	}
-	menu->exec(e->globalPos());
-	delete menu;
+	contextMenu(e, menu);
 	currentIdx = QModelIndex();
 	return;
 }

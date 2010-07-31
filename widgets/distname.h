@@ -22,14 +22,12 @@ class DistName : public QWidget
     Q_OBJECT
 
   public:
-	DistName(QWidget* parent);
-	~DistName();
+	DistName(QWidget *parent);
 	void setX509name(const x509name &n);
 
   protected:
 	QGridLayout* DistNameLayout;
-	QLineEdit *lineEdit;
-	void resizeEvent( QResizeEvent *e);
-
+	QLineEdit *rfc2253;
+	QLineEdit *namehash;
 };
 #endif
