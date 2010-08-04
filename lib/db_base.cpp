@@ -144,6 +144,8 @@ next:
 void db_base::saveHeaderState()
 {
 	QByteArray ba;
+	if (dbName.isEmpty())
+		return;
 	int max = allHeaders.count();
 	for (int i=0; i<max; i++) {
 		ba += allHeaders[i]->toData();

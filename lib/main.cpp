@@ -80,17 +80,19 @@ int main( int argc, char *argv[] )
 	MainWindow *mw;
 
 	XCA_application a( argc, argv );
-
 	mw = new MainWindow(NULL);
-	a.setMainwin(mw);
-	mw->read_cmdline();
-	if (mw->exitApp == 0) {
-		mw->show();
-		ret = a.exec();
+	try {
+		a.setMainwin(mw);
+		mw->read_cmdline();
+		if (mw->exitApp == 0) {
+			mw->show();
+			ret = a.exec();
+		}
+	} catch (errorEx &ex) {
+		mw->Error(ex);
 	}
 
 	delete mw;
-
 	pkictr =  pki_base::get_pki_counter();
 	if (pkictr)
 		fprintf(stderr, "PKI Counter (%d)\n", pkictr);
