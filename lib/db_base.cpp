@@ -18,10 +18,10 @@
 db_base::db_base(QString db, MainWindow *mw)
 	:QAbstractItemModel(NULL)
 {
-	fixedHeaders= false;
 	dbName = db;
 	rootItem = newPKI();
 	mainwin = mw;
+	colResizing = 0;
 	currentIdx = QModelIndex();
 	view = NULL;
 	class_name = "base";
@@ -32,6 +32,7 @@ db_base::db_base(QString db, MainWindow *mw)
 
 db_base::~db_base()
 {
+	saveHeaderState();
 	delete rootItem;
 }
 
@@ -61,6 +62,7 @@ void db_base::remFromCont(QModelIndex &idx)
 	beginRemoveRows(parent(idx), row, row);
 	parent_pki->takeChild(pki);
 	endRemoveRows();
+	view->columnsResize();
 }
 
 void db_base::loadContainer()
@@ -69,7 +71,6 @@ void db_base::loadContainer()
 	unsigned char *p = NULL;
 	db_header_t head;
 	pki_base *pki;
-	bool loaded = false;
 
 	for (int i=0; pkitype[i] != none; i++) {
 		mydb.first();
@@ -105,48 +106,97 @@ void db_base::loadContainer()
 			free(p);
 			if (pki) {
 				inToCont(pki);
-				loaded = true;
 			}
 next:
 			if (mydb.next())
 				break;
 		}
 	}
-	if (!loaded)
-		fixedHeaders = false;
-	view->columnsResize();
-}
 
-bool db_base::loadHeaderState(QHeaderView *hv)
-{
-	QByteArray ba;
-	db_header_t u_header;
-	db mydb(dbName);
-	char *p;
+	int max = allHeaders.count();
+	mydb.first();
 	if (!mydb.find(setting, class_name + "_hdView")) {
-		if ((p = (char *)mydb.load(&u_header))) {
-			ba = QByteArray(p, u_header.len - sizeof(db_header_t));
+		QByteArray ba;
+		char *p;
+		if ((p = (char *)mydb.load(&head))) {
+			ba = QByteArray(p, head.len - sizeof(db_header_t));
 			free(p);
 		}
-		if (!((XcaHeaderView*)hv)->setState(ba))
-			return false;
-		int max = MIN(hv->count(), allHeaders.count());
+		if (head.version != 4)
+			return;
 		for (int i=0; i<max; i++) {
-			allHeaders[i]->show = !hv->isSectionHidden(i);
+			if (ba.size() == 0)
+				break;
+			try {
+				allHeaders[i]->fromData(ba);
+			}  catch (errorEx()) {
+				for (int j=0; j<=i; i++) {
+					allHeaders[i]->reset();
+				}
+				break;
+			}
 		}
-		if (rootItem->childCount())
-			fixedHeaders = true;
-		return true;
 	}
-	return false;
+	view->columnsResize();
+	return;
 }
 
-void db_base::saveHeaderState(QHeaderView *hv)
+void db_base::saveHeaderState()
 {
-	QByteArray ba = hv->saveState();
+	QByteArray ba;
+	int max = allHeaders.count();
+	for (int i=0; i<max; i++) {
+		ba += allHeaders[i]->toData();
+	}
 	db mydb(dbName);
-	mydb.set((const unsigned char *)ba.constData(), ba.size(), 1,
+	mydb.set((const unsigned char *)ba.constData(), ba.size(), 4,
 		setting, class_name + "_hdView");
+}
+
+void db_base::setVisualIndex(int i, int visualIndex)
+{
+	if (colResizing)
+		return;
+	allHeaders[i]->visualIndex = visualIndex;
+}
+
+void db_base::sectionResized(int i, int old, int newSize)
+{
+	if (!allHeaders[i]->show || newSize <= 0 || colResizing)
+		return;
+	allHeaders[i]->size = newSize;
+}
+
+bool db_base::fixedHeaderSize(int sect)
+{
+	return allHeaders[sect]->size != -1;
+}
+
+void db_base::initHeaderView(QHeaderView *hv)
+{
+	int max = allHeaders.count();
+	colResizeStart();
+	for (int i=0; i<max; i++) {
+		allHeaders[i]->setupHeaderView(i, hv);
+	}
+	for (int i=0; i<max; i++) {
+		if (allHeaders[i]->visualIndex == -1)
+			continue;
+		if (hv->visualIndex(i) != allHeaders[i]->visualIndex) {
+			hv->moveSection(hv->visualIndex(i),
+					allHeaders[i]->visualIndex);
+		}
+	}
+	colResizeEnd();
+}
+
+void db_base::sortIndicatorChanged(int logicalIndex, Qt::SortOrder order)
+{
+	int max = allHeaders.count();
+	for (int i=0; i<max; i++) {
+		allHeaders[i]->sortIndicator = -1;
+	}
+	allHeaders[logicalIndex]->sortIndicator = order;
 }
 
 void db_base::insertPKI(pki_base *pki)
@@ -458,7 +508,14 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 	}
 	return QVariant();
 }
-
+#if 0
+static QString getHeaderViewInfo(int sect, dbheader *h)
+{
+	return QString("H[%1] Show:%2%3 Size:%4 VI:%5 Indi:%6").
+		arg(sect).arg(h->show).arg(h->showDefault).arg(h->size).
+		arg(h->visualIndex).arg(h->sortIndicator);
+}
+#endif
 QVariant db_base::headerData(int section, Qt::Orientation orientation,
 		int role) const
 {
@@ -467,6 +524,9 @@ QVariant db_base::headerData(int section, Qt::Orientation orientation,
 		case Qt::DisplayRole:
 			return QVariant(allHeaders[section]->name);
 		case Qt::ToolTipRole:
+#if 0
+			return getHeaderViewInfo(section, allHeaders[section]);
+#endif
 			return QVariant(allHeaders[section]->tooltip);
 		}
 	}
@@ -557,9 +617,7 @@ void db_base::columnResetDefaults()
 {
 	dbheader *hd;
 	foreach(hd, allHeaders) {
-		hd->show = hd->showDefault;
-		if (hd->action)
-			hd->action->setChecked(hd->show);
+		hd->reset();
 	}
 	emit resetHeader();
 }
@@ -605,9 +663,8 @@ void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int sect)
 		menu->exec(e->globalPos());
 	}
 	foreach(hd, allHeaders) {
-		if (!hd->action)
-			continue;
-		hd->show = hd->action->isChecked();
+		if (hd->action)
+			hd->show = hd->action->isChecked();
 		shown += hd->show ? 1 : 0;
 		hd->action = NULL;
 	}

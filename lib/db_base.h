@@ -42,8 +42,8 @@ class db_base: public QAbstractItemModel
 		XcaTreeView *view;
 		QString class_name;
 		dbheaderList allHeaders;
+		int colResizing;
 	public:
-		bool fixedHeaders;
 		pki_base *rootItem;
 		db_base(QString db, MainWindow *mw);
 		virtual ~db_base();
@@ -84,10 +84,20 @@ class db_base: public QAbstractItemModel
 		void showHeaderMenu(QContextMenuEvent *e, int sect);
 		bool columnHidden(int col) const;
 		bool isNumericCol(int col) const;
-		bool loadHeaderState(QHeaderView *hv);
-		void saveHeaderState(QHeaderView *hv);
+		void saveHeaderState();
 		void contextMenu(QContextMenuEvent *e,
 			QMenu *parent = NULL, int sect = -1);
+		void initHeaderView(QHeaderView *hv);
+		void setVisualIndex(int i, int visualIndex);
+		bool fixedHeaderSize(int sect);
+		void colResizeStart()
+		{
+			colResizing++;
+		}
+		void colResizeEnd()
+		{
+			colResizing--;
+		}
 
 	public slots:
 		void deletePKI();
@@ -99,6 +109,8 @@ class db_base: public QAbstractItemModel
 		virtual void showPki(pki_base *) {};
 		virtual void showItem(const QModelIndex &index);
 		virtual void showItem(const QString keyname);
+		void sectionResized(int i, int, int newSize);
+		void sortIndicatorChanged(int logicalIndex, Qt::SortOrder order);
 
 	signals:
 		void connNewX509(NewX509 *dlg);

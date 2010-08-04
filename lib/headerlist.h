@@ -1,13 +1,16 @@
 
+#include "db.h"
 #include <QtCore/QString>
 #include <QtCore/QList>
 #include <QtGui/QAction>
+#include <QtGui/QHeaderView>
 #include <openssl/objects.h>
 
 #define HD_undef NID_undef
 #define HD_internal_name -2
 #define HD_subject_name -3
 #define HD_subject_hash -4
+#define HD_x509key_name -5
 
 #define HD_cert_serial -10
 #define HD_cert_notBefore -11
@@ -36,6 +39,16 @@
 
 class dbheader
 {
+    private:
+	void init()
+	{
+		id = HD_undef;
+		action = NULL;
+		show = showDefault = false;
+		size = -1;
+		visualIndex = -1;
+		sortIndicator = -1;
+	}
     public:
 	int id;
 	bool show;
@@ -43,16 +56,19 @@ class dbheader
 	QString name;
 	QString tooltip;
 	QAction *action;
+	int size;
+	int visualIndex;
+	int sortIndicator;
+
 	dbheader(QString aname = QString())
 	{
-		id = HD_undef;
+		init();
 		name = aname;
-		action = NULL;
-		show = showDefault = false;
 	}
 	dbheader(int aid, bool ashow = false,
 		QString aname = QString(), QString atip = QString())
 	{
+		init();
 		id = aid;
 		name = aname;
 		tooltip = atip;
@@ -60,7 +76,6 @@ class dbheader
 			name = OBJ_nid2ln(aid);
 			tooltip = OBJ_nid2sn(aid);
 		}
-		action = NULL;
 		show = showDefault = ashow;
 	}
 	bool operator == (const dbheader *h) const
@@ -91,6 +106,40 @@ class dbheader
 			return true;
 		}
 		return false;
+	}
+	QByteArray toData()
+	{
+		QByteArray ba;
+		ba += db::intToData(visualIndex);
+		ba += db::intToData(sortIndicator);
+		ba += db::intToData(size);
+		ba += db::boolToData(show);
+		return ba;
+	}
+	void fromData(QByteArray &ba)
+	{
+		visualIndex = db::intFromData(ba);
+		sortIndicator = db::intFromData(ba);
+		size = db::intFromData(ba);
+		show = db::boolFromData(ba);
+	}
+	void setupHeaderView(int sect, QHeaderView *hv)
+	{
+		hv->setSectionHidden(sect, !show);
+		if (size != -1)
+			hv->resizeSection(sect, size);
+		if (sortIndicator != -1) {
+			hv->setSortIndicator(sect, sortIndicator ?
+				Qt::DescendingOrder : Qt::AscendingOrder);
+		}
+	}
+	void reset()
+	{
+		action = NULL;
+		show = showDefault;
+		size = -1;
+		visualIndex = -1;
+		sortIndicator = -1;
 	}
 };
 

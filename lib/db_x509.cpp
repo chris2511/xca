@@ -30,7 +30,8 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 {
 	rootItem->setIntName("[x509 root]");
 	allHeaders <<
-		new dbheader(HD_cert_ca,	true, tr("CA")) <<
+		new dbheader(HD_cert_ca,	true, tr("CA"),
+			tr("reflects the basic Constraints extension")) <<
 		new dbheader(HD_cert_serial,	true, tr("Serial")) <<
 		new dbheader(HD_cert_md5fp,	false,tr("md5 fingerprint")) <<
 		new dbheader(HD_cert_sha1fp,	false,tr("sha1 fingerprint")) <<

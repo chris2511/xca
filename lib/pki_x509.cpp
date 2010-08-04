@@ -802,8 +802,10 @@ QVariant pki_x509::column_data(int id)
 					return QVariant(len.toDec());
 				if (!ca)
 					return QVariant(tr("No"));
+				else
+					return QVariant(tr("Yes"));
 			}
-			return QVariant();
+			return QVariant("");
 		}
 	}
 	return pki_x509super::column_data(id);

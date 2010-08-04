@@ -53,35 +53,41 @@ void XcaTreeView::showHideSections()
 	if (!basemodel)
 		return;
 	int i, max = basemodel->columnCount(QModelIndex());
+	basemodel->colResizeStart();
 	for (i=0; i<max; i++) {
 		if (basemodel->columnHidden(i))
 			header()->hideSection(i);
 		else
 			header()->showSection(i);
 	}
+	basemodel->colResizeEnd();
 	columnsResize();
-	header()->update();
 }
 
 void XcaTreeView::setModel(QAbstractItemModel *model)
 {
 	QByteArray ba;
-	if (basemodel)
-		basemodel->saveHeaderState(header());
 
 	basemodel = (db_base *)model;
+
+	proxy->setSourceModel(model);
+	QTreeView::setModel(proxy);
 
 	if (basemodel) {
 		connect(basemodel, SIGNAL(resetHeader()),
 			header(), SLOT(resetMoves()));
 		connect(basemodel, SIGNAL(resetHeader()),
-			this, SLOT(columnsForceResize()));
+			this, SLOT(columnsResize()));
 		connect(basemodel, SIGNAL(updateHeader()),
 			this, SLOT(showHideSections()));
-		basemodel->loadHeaderState(header());
+		connect(header(), SIGNAL(sectionMoved(int,int,int)),
+			this, SLOT(sectionMoved(int,int,int)));
+		connect(header(), SIGNAL(sectionResized(int,int,int)),
+			basemodel, SLOT(sectionResized(int,int,int)));
+		connect(header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),
+			basemodel, SLOT(sortIndicatorChanged(int,Qt::SortOrder)));
+		basemodel->initHeaderView(header());
 	}
-	proxy->setSourceModel(model);
-	QTreeView::setModel(proxy);
 	showHideSections();
 }
 
@@ -106,20 +112,27 @@ QModelIndexList XcaTreeView::getSelectedIndexes()
 	return proxy->mapSelectionToSource(indexes).indexes();
 }
 
-void XcaTreeView::columnsForceResize()
-{
-	int cnt, i;
-	if (basemodel) {
-		cnt = basemodel->columnCount(QModelIndex());
-		for (i=0; i<cnt; i++)
-			resizeColumnToContents(i);
-	}
-}
-
 void XcaTreeView::columnsResize()
 {
-	if (basemodel && !basemodel->fixedHeaders)
-		columnsForceResize();
+	int cnt, i;
+	if (!basemodel)
+		return;
+	cnt = basemodel->columnCount(QModelIndex());
+	basemodel->colResizeStart();
+	for (i=0; i<cnt; i++) {
+		if (!basemodel->fixedHeaderSize(i)) {
+			resizeColumnToContents(i);
+		}
+	}
+	basemodel->colResizeEnd();
+}
+
+void XcaTreeView::sectionMoved(int idx, int oldI, int newI)
+{
+	int cnt = header()->count();
+	for (int i=0; i<cnt; i++) {
+		basemodel->setVisualIndex(i, header()->visualIndex(i));
+	}
 }
 
 XcaProxyModel::XcaProxyModel(QWidget *parent)
@@ -168,17 +181,3 @@ void XcaHeaderView::resetMoves()
 	}
 }
 
-bool XcaHeaderView::setState(const QByteArray &state)
-{
-	setting = state;
-	return QHeaderView::restoreState(setting);
-}
-
-void XcaHeaderView::showEvent(QShowEvent *event)
-{
-	if (setting.size()) {
-		if (QHeaderView::restoreState(setting))
-			setting.clear();
-		setStretchLastSection(false);
-	}
-}

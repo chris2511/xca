@@ -28,6 +28,8 @@ db_x509name::db_x509name(QString db, MainWindow *mw)
 db_x509super::db_x509super(QString db, MainWindow *mw)
 	:db_x509name(db, mw)
 {
+	allHeaders << new dbheader(HD_x509key_name, false, tr("Key name"),
+			tr("Internal name of the key"));
 }
 
 void db_x509super::delKey(pki_key *delkey)

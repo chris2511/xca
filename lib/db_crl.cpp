@@ -19,8 +19,10 @@ db_crl::db_crl(QString db, MainWindow *mw)
 	:db_x509name(db,mw)
 {
 	allHeaders <<
-		new dbheader(HD_crl_signer,	true, tr("Signer")) <<
-		new dbheader(HD_crl_revoked,	true, tr("No. revoked")) <<
+		new dbheader(HD_crl_signer,	true, tr("Signer"),
+			tr("Internal name of the signer")) <<
+		new dbheader(HD_crl_revoked,	true, tr("No. revoked"),
+			tr("Number of revoked certificates")) <<
 		new dbheader(HD_crl_lastUpdate, false,tr("Last update")) <<
 		new dbheader(HD_crl_nextUpdate,	true, tr("Next update")) <<
 		new dbheader(HD_crl_crlnumber,	false,tr("CRL number"));

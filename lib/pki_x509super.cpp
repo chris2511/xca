@@ -46,6 +46,17 @@ void pki_x509super::delRefKey(pki_key *ref)
 	privkey = NULL;
 }
 
+QVariant pki_x509super::column_data(int id)
+{
+	switch (id) {
+	case HD_x509key_name:
+		if (!privkey)
+			return QVariant("");
+		return QVariant(privkey->getIntName());
+	}
+	return pki_x509name::column_data(id);
+}
+
 // Start class  pki_x509name
 
 pki_x509name::pki_x509name(const QString name)

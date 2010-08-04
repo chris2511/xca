@@ -401,10 +401,10 @@ static QString getAttribute(X509_REQ *req, int nid)
 	int n;
 	n = X509_REQ_get_attr_by_NID(req, nid, -1);
 	if (n == -1)
-		return QString();
+		return QString("");
 	X509_ATTRIBUTE *att = X509_REQ_get_attr(req, n);
 	if (!att)
-		return QString();
+		return QString("");
 	if (att->single)
 		return asn1ToQString(att->value.single->value.asn1_string);
 

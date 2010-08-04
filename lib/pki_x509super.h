@@ -42,6 +42,7 @@ class pki_x509super : public pki_x509name
 		pki_key *getRefKey() const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);
+		QVariant column_data(int id);
 };
 
 #endif
