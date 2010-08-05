@@ -116,6 +116,24 @@ void MainWindow::init_database()
 			}
 		}
 		ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
+		mydb.first();
+		if (!mydb.find(setting, "mw_geometry")) {
+			db_header_t h;
+			if ((p = (char *)mydb.load(&h))) {
+				if (h.version == 1) {
+					QByteArray ba;
+					ba = QByteArray::fromRawData(p, h.len);
+					int w, h, i;
+					w = db::intFromData(ba);
+					h = db::intFromData(ba);
+					i = db::intFromData(ba);
+					resize(w,h);
+					if (i != -1)
+						tabView->setCurrentIndex(i);
+					}
+				free(p);
+			}
+		}
 	} catch (errorEx &err) {
 		Error(err);
 		return;
@@ -203,6 +221,15 @@ void MainWindow::undelete()
 
 void MainWindow::close_database()
 {
+	QByteArray ba;
+	if (!dbfile.isEmpty()) {
+		ba += db::intToData(size().width());
+		ba += db::intToData(size().height());
+		ba += db::intToData(tabView->currentIndex());
+		db mydb(dbfile);
+		mydb.set((const unsigned char *)ba.constData(), ba.size(), 1,
+			setting, "mw_geometry");
+	}
 	setItemEnabled(false);
 	dbindex->clear();
 
@@ -233,6 +260,7 @@ void MainWindow::close_database()
 	if (!crls)
 		return;
 	crls = NULL;
+
 
 	try {
 		db mydb(dbfile);
