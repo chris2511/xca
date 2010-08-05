@@ -43,7 +43,6 @@ class pki_x509req : public pki_x509super
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
 		QByteArray toData();
-		bool compare(pki_base *refreq);
 		x509name getSubject() const;
 		bool isSpki() const;
 		void writeReq(const QString fname, bool pem);

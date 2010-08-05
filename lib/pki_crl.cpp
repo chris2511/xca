@@ -154,14 +154,6 @@ QByteArray pki_crl::toData()
 	return ba;
 }
 
-bool pki_crl::compare(pki_base *refcrl)
-{
-	bool ret;
-	ret = i2d() != refcrl->i2d();
-	pki_openssl_error();
-	return ret;
-}
-
 void pki_crl::addRev(const x509rev &xrev)
 {
 	sk_X509_REVOKED_push(crl->crl->revoked, xrev.get());

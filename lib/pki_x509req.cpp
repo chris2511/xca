@@ -250,26 +250,6 @@ void pki_x509req::writeReq(const QString fname, bool pem)
 		fopen_error(fname);
 }
 
-bool pki_x509req::compare(pki_base *refreq)
-{
-	const EVP_MD *digest=EVP_md5();
-	unsigned char d1[EVP_MAX_MD_SIZE], d2[EVP_MAX_MD_SIZE];
-	unsigned int d1_len,d2_len;
-
-	if (!refreq)
-		 return false;
-	X509_REQ_digest(request, digest, d1, &d1_len);
-	X509_REQ_digest(((pki_x509req *)refreq)->request, digest, d2, &d2_len);
-	ign_openssl_error();
-	if ((d1_len == d2_len) &&
-	    (d1_len >0) &&
-	    (memcmp(d1,d2,d1_len) == 0) )
-	{
-		return true;
-	}
-	return false;
-}
-
 int pki_x509req::verify()
 {
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);

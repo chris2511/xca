@@ -53,10 +53,7 @@ class pki_base : public QObject
 		{
 			return QByteArray();
 		}
-		virtual bool compare(pki_base *)
-		{
-			return false;
-		};
+		virtual bool compare(pki_base *);
 		virtual ~pki_base();
 		QString getIntName() const;
 		QString getUnderlinedName() const;
@@ -94,7 +91,7 @@ class pki_base : public QObject
 		{
 			return 0;
 		};
-		QByteArray i2d()
+		virtual QByteArray i2d()
 		{
 			return QByteArray();
 		}

@@ -556,13 +556,6 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 		fopen_error(fname);
 }
 
-bool pki_x509::compare(pki_base *ref)
-{
-	bool ret = !X509_cmp(cert, ((pki_x509 *)ref)->cert);
-	pki_ign_openssl_error();
-	return ret;
-}
-
 bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 {
 	bool ret =  X509_issuer_and_serial_cmp(cert, refcert->cert);

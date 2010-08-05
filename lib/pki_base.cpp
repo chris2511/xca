@@ -6,6 +6,7 @@
  */
 
 
+#include "func.h"
 #include "pki_base.h"
 #include "exception.h"
 #include <QtCore/QString>
@@ -200,3 +201,10 @@ uint32_t pki_base::intFromData(QByteArray &ba)
 	return ret;
 }
 
+bool pki_base::compare(pki_base *refcrl)
+{
+	bool ret;
+	ret = (i2d() == refcrl->i2d());
+	pki_openssl_error();
+	return ret;
+}

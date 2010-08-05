@@ -49,7 +49,6 @@ class pki_crl: public pki_x509name
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
 		QByteArray toData();
-		bool compare(pki_base *refcrl);
 		int numRev();
 		bool verify(pki_key *pkey);
 		x509rev getRev(int num);
