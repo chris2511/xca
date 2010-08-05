@@ -21,7 +21,6 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_x509name(DBfile, mw)
 {
 	allHeaders << new dbheader(HD_temp_type, true, tr("Type"));
-	view = mw->tempView;
 	class_name = "templates";
 	pkitype[0] = tmpl;
 

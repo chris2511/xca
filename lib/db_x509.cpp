@@ -42,7 +42,6 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 		new dbheader(HD_cert_trust,	false,tr("Trust state")) <<
 		new dbheader(HD_cert_revokation,true, tr("Revocation"));
 
-	view = mw->certView;
 	class_name = "certificates";
 	pkitype[0] = x509;
 	loadContainer();

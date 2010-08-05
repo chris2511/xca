@@ -17,7 +17,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QAbstractItemModel>
 #include "pki_base.h"
-#include "widgets/XcaTreeView.h"
+//#include "widgets/XcaTreeView.h"
 
 #define FOR_ALL_pki(pki, pki_type) \
 	for(pki_type *pki=(pki_type*)rootItem->iterate(); pki; pki=(pki_type*)pki->iterate())
@@ -39,7 +39,6 @@ class db_base: public QAbstractItemModel
 		void removeItem(QString k);
 		enum pki_type pkitype[4];
 		MainWindow *mainwin;
-		XcaTreeView *view;
 		QString class_name;
 		dbheaderList allHeaders;
 		int colResizing;
@@ -116,6 +115,8 @@ class db_base: public QAbstractItemModel
 		void connNewX509(NewX509 *dlg);
 		void resetHeader();
 		void updateHeader();
+		void columnsContentChanged();
+		void editItem(const QModelIndex &);
 };
 
 #endif

@@ -27,7 +27,6 @@ db_crl::db_crl(QString db, MainWindow *mw)
 		new dbheader(HD_crl_nextUpdate,	true, tr("Next update")) <<
 		new dbheader(HD_crl_crlnumber,	false,tr("CRL number"));
 
-	view = mw->crlView;
 	class_name = "crls";
 	pkitype[0] = revokation;
 	loadContainer();

@@ -23,7 +23,6 @@ db_base::db_base(QString db, MainWindow *mw)
 	mainwin = mw;
 	colResizing = 0;
 	currentIdx = QModelIndex();
-	view = NULL;
 	class_name = "base";
 	for (size_t i =0; i<ARRAY_SIZE(pkitype); i++)
 		pkitype[i] = none;
@@ -62,7 +61,7 @@ void db_base::remFromCont(QModelIndex &idx)
 	beginRemoveRows(parent(idx), row, row);
 	parent_pki->takeChild(pki);
 	endRemoveRows();
-	view->columnsResize();
+	emit columnsContentChanged();
 }
 
 void db_base::loadContainer()
@@ -137,7 +136,7 @@ next:
 			}
 		}
 	}
-	view->columnsResize();
+	emit columnsContentChanged();
 	return;
 }
 
@@ -214,7 +213,7 @@ void db_base::insertPKI(pki_base *pki)
 			pki->getVersion(), pki->getType(), name);
 	}
 	inToCont(pki);
-	view->columnsResize();
+	emit columnsContentChanged();
 }
 
 void db_base::delete_ask()
@@ -600,7 +599,7 @@ void db_base::edit()
 {
 	if (!currentIdx.isValid())
 		return;
-	view->edit(view->getProxyIndex(currentIdx));
+	emit editItem(currentIdx);
 }
 
 void db_base::showItem()

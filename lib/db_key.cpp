@@ -32,7 +32,6 @@ db_key::db_key(QString db, MainWindow *mw)
 	:db_base(db, mw)
 {
 	rootItem->setIntName("[key root]");
-	view = mw->keyView;
 	class_name = "keys";
 	pkitype[0] = asym_key;
 	pkitype[1] = smartCard;

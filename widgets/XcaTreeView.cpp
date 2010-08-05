@@ -86,6 +86,11 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 			basemodel, SLOT(sectionResized(int,int,int)));
 		connect(header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)),
 			basemodel, SLOT(sortIndicatorChanged(int,Qt::SortOrder)));
+		connect(basemodel, SIGNAL(columnsContentChanged()),
+			this, SLOT(columnsResize()));
+		connect(basemodel, SIGNAL(editItem(const QModelIndex &)),
+			this, SLOT(edit(const QModelIndex &)));
+
 		basemodel->initHeaderView(header());
 	}
 	showHideSections();

@@ -22,7 +22,6 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 			tr("whether the request is already signed or not")) <<
 		new dbheader(HD_req_unstr_name, false, tr("Unstructured name")) <<
 		new dbheader(HD_req_chall_pass, false, tr("Challange password"));
-	view = mw->reqView;
 	class_name = "requests";
 	pkitype[0] = x509_req;
 	loadContainer();
