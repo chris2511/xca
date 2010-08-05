@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>April 2010 - Version 0.9.0
+<date>August 2010 - Version 0.9.0
 
 <abstract>
 
@@ -234,6 +234,21 @@ option given it will exit after finishing the import dialog. This is useful if x
 Many actions are common to all crypto parts and are mentioned here once for all.
 The goal of this application is to provide an easy to use signing-tool and
 also a common place for all selected PKI items like Requests or Certificates.
+
+<sect1>Column handling
+
+<p>
+
+Column visibility can be changed by the context menu of the table header
+or the "columns" submenu of the table context menu.
+It shows all available Columns with checkboxes to show or hide them.
+
+<p>
+
+Columns can be resized and rearranged.
+This configuration is stored in the database and will be reassigned next time
+this database is opened.
+
 
 <sect1>Importing items
 
@@ -491,6 +506,11 @@ organization="Organisation Name"
 noticeNumbers=1,2,3,4
 
 </verb></tscreen>
+
+<p>
+
+When exporting existing Certificates to templates, the extensions will
+be translated to OpenSSL config file format.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
@@ -955,8 +975,12 @@ password.
 <p>
 
 Certificates can only be revoked, if the private key of the issuer's certificate
-is available. The certificate will marked as revoked and the revocation date
+is available. The certificate will be marked as revoked and the revocation date
 will be stored with the certificate.
+
+<p>
+
+To generate a CRL, revoke the appropriate certificates and select CA->GenerateCRL in the context-menu of the signing certificate.
 
 <sect1>Certificate renewal
 

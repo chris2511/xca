@@ -1,14 +1,15 @@
 
   * Add de/selection of columns and add a lot of new possible columns
     All Subject entries, the subject hash and whole name,
-    Certificate fingerprints, dates, CA info, CRL number
+    Certificate fingerprints, dates, CA info, CRL number,
+    corresponding key of certs and requests
   * Improve CRL generation [3035294] CRLNumber, CRLReason
   * improve creating templates from cert
     - enhance parsing of CRL-DP, SAN, IAN and AuthInfoAcc
     - add support for CertificatePolicies
     - unknown extension are written as generic DER
   * improve date handling. "notBefore" is not reset to now anymore
-    when applyiong a time range
+    when applying a time range
   * Support dropping files onto the application
   * russian translation by Pavel Belly
   * support loading DER formatted PKCS#8 keys
