@@ -28,7 +28,9 @@ x509v3ext NewX509::getBasicConstraints()
 		if (bcCritical->isChecked())
 			cont << "critical";
 		cont << ca[basicCA->currentIndex()];
-		if (!basicPath->text().isEmpty()) {
+		if (basicCA->currentIndex() == 1 &&
+		   !basicPath->text().isEmpty())
+		{
 			cont << QString("pathlen:") +
 				QString::number(basicPath->text().toInt());
 		}
