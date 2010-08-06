@@ -51,7 +51,7 @@ x509v3ext NewX509::getSubKeyIdent()
 x509v3ext NewX509::getAuthKeyIdent()
 {
 	x509v3ext ext;
-	if (!authKey->isChecked())
+	if (!authKey->isChecked() || !authKey->isEnabled())
 		return ext;
 
 	QString x = "keyid,issuer:always";
