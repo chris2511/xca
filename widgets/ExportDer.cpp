@@ -50,9 +50,9 @@ void ExportDer::on_exportFormat_activated(int c)
 	filename->setText(changeFilenameSuffix(filename->text(), suffix, c));
 }
 
-void ExportDer::on_okButton_clicked()
+void ExportDer::accept()
 {
 	if (mayWriteFile(filename->text()))
-		accept();
+		QDialog::accept();
 }
 

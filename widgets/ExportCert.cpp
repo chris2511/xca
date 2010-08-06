@@ -58,8 +58,8 @@ void ExportCert::on_exportFormat_activated(int c)
 	filename->setText(changeFilenameSuffix(filename->text(), suffix, c));
 }
 
-void ExportCert::on_okButton_clicked()
+void ExportCert::accept()
 {
 	if (mayWriteFile(filename->text()))
-		accept();
+		QDialog::accept();
 }

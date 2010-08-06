@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>369</width>
-    <height>159</height>
+    <height>162</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,81 +110,45 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="PushButton2">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="applyButton">
-       <property name="text">
-        <string>&amp;Select</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </widget>
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>PushButton2</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>applyButton</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>SelectToken</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>395</x>
-     <y>228</y>
+     <x>222</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>244</x>
-     <y>211</y>
+     <x>90</x>
+     <y>114</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>PushButton2</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
    <receiver>SelectToken</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>29</x>
-     <y>227</y>
+     <x>331</x>
+     <y>129</y>
     </hint>
     <hint type="destinationlabel">
-     <x>107</x>
-     <y>200</y>
+     <x>144</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>

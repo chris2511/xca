@@ -127,87 +127,20 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="PushButton2">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="PushButton1">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
   <tabstop>passA</tabstop>
   <tabstop>passB</tabstop>
-  <tabstop>PushButton1</tabstop>
-  <tabstop>PushButton2</tabstop>
  </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>PushButton1</sender>
-   <signal>clicked()</signal>
-   <receiver>PassWrite</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>442</x>
-     <y>212</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>379</x>
-     <y>212</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>PushButton2</sender>
-   <signal>clicked()</signal>
-   <receiver>PassWrite</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>45</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>170</x>
-     <y>207</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>passB</sender>
    <signal>returnPressed()</signal>
@@ -215,12 +148,44 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>207</x>
-     <y>178</y>
+     <x>238</x>
+     <y>159</y>
     </hint>
     <hint type="destinationlabel">
      <x>252</x>
      <y>42</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>PassWrite</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>219</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>PassWrite</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>294</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>66</x>
+     <y>198</y>
     </hint>
    </hints>
   </connection>

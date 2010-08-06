@@ -10,13 +10,10 @@
     <height>352</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout">
-   <property name="spacing">
-    <number>6</number>
-   </property>
-   <property name="margin">
-    <number>8</number>
-   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QWidget" name="widget" native="true"/>
+   </item>
    <item>
     <layout class="QHBoxLayout">
      <property name="spacing">
@@ -326,62 +323,13 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok</set>
      </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>81</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="but_ok">
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
+    </widget>
    </item>
   </layout>
-  <widget class="QWidget" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>100</width>
-     <height>30</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <customwidgets>
   <customwidget>
@@ -404,18 +352,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>but_ok</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>CrlDetail</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>367</x>
-     <y>452</y>
+     <x>349</x>
+     <y>321</y>
     </hint>
     <hint type="destinationlabel">
-     <x>520</x>
-     <y>428</y>
+     <x>169</x>
+     <y>308</y>
     </hint>
    </hints>
   </connection>

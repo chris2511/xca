@@ -88,9 +88,9 @@ void ExportKey::on_exportPrivate_stateChanged()
 	canEncrypt();
 }
 
-void ExportKey::on_okButton_clicked()
+void ExportKey::accept()
 {
 	if (mayWriteFile(filename->text()))
-		accept();
+		QDialog::accept();
 }
 

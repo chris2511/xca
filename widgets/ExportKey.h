@@ -23,6 +23,6 @@ class ExportKey: public QDialog, public Ui::ExportKey
 	void on_exportFormat_activated(int);
 	void on_exportPrivate_stateChanged();
 	void on_exportPkcs8_stateChanged();
-	void on_okButton_clicked();
+	void accept();
 };
 #endif

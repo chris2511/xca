@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>494</width>
-    <height>398</height>
+    <height>426</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -195,41 +195,11 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="cancelButton">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>21</width>
-         <height>21</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="okButton">
-       <property name="text">
-        <string>OK</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -242,40 +212,38 @@
  </customwidgets>
  <tabstops>
   <tabstop>hashAlgo</tabstop>
-  <tabstop>okButton</tabstop>
-  <tabstop>cancelButton</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>okButton</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
    <receiver>Options</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>332</y>
+     <x>370</x>
+     <y>406</y>
     </hint>
     <hint type="destinationlabel">
-     <x>96</x>
-     <y>254</y>
+     <x>109</x>
+     <y>380</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>cancelButton</sender>
-   <signal>clicked()</signal>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
    <receiver>Options</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>305</x>
-     <y>332</y>
+     <x>447</x>
+     <y>394</y>
     </hint>
     <hint type="destinationlabel">
-     <x>179</x>
-     <y>282</y>
+     <x>194</x>
+     <y>374</y>
     </hint>
    </hints>
   </connection>

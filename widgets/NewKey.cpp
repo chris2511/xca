@@ -137,6 +137,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 		q.setValue(keytypes[i]);
 		keyType->addItem(keytypes[i].printname, q);
 	}
+	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Create"));
 }
 
 void NewKey::on_keyType_currentIndexChanged(int idx)

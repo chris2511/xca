@@ -226,58 +226,11 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="PushButton3">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-       <property name="shortcut">
-        <number>276824131</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="PushButton2">
-       <property name="font">
-        <font>
-         <family>Sans Serif</family>
-         <pointsize>9</pointsize>
-         <weight>50</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-         <underline>false</underline>
-         <strikeout>false</strikeout>
-        </font>
-       </property>
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -298,27 +251,9 @@
   <tabstop>validRange</tabstop>
   <tabstop>midnightCB</tabstop>
   <tabstop>applyTime</tabstop>
-  <tabstop>PushButton2</tabstop>
-  <tabstop>PushButton3</tabstop>
  </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>PushButton2</sender>
-   <signal>clicked()</signal>
-   <receiver>CertExtend</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>501</x>
-     <y>264</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>222</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>midnightCB</sender>
    <signal>stateChanged(int)</signal>
@@ -332,22 +267,6 @@
     <hint type="destinationlabel">
      <x>231</x>
      <y>187</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>PushButton3</sender>
-   <signal>clicked()</signal>
-   <receiver>CertExtend</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>89</x>
-     <y>264</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>158</x>
-     <y>274</y>
     </hint>
    </hints>
   </connection>
@@ -380,6 +299,38 @@
     <hint type="destinationlabel">
      <x>239</x>
      <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CertExtend</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>28</x>
+     <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CertExtend</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>217</x>
+     <y>257</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>74</x>
+     <y>220</y>
     </hint>
    </hints>
   </connection>

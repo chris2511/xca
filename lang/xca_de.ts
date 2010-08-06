@@ -27,17 +27,15 @@
         <translation>Standard Template</translation>
     </message>
     <message>
-        <location line="+56"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
-        <location line="-145"/>
+        <location line="-82"/>
         <source>CA Properties</source>
         <translation>CA Einstellungen</translation>
     </message>
@@ -95,7 +93,7 @@
         <translation>Gültig</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="+45"/>
+        <location filename="../ui/CertDetail.ui" line="+39"/>
         <source>Details of the Certificate</source>
         <translation>Details des Zertifikates</translation>
     </message>
@@ -205,9 +203,8 @@
         <translation>Konfiguration anzeigen</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -263,21 +260,19 @@
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="+65"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Abbrechen</translation>
+        <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
-        <location line="+37"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>yyyy-MM-dd hh:mm</source>
         <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
-        <location line="-246"/>
+        <location line="-144"/>
         <source>Certificate renewal</source>
         <translation>Zertifikatsverlängerung</translation>
     </message>
@@ -324,7 +319,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+913"/>
+        <location filename="../lib/db_x509.cpp" line="+912"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -345,7 +340,7 @@
 <context>
     <name>CrlDetail</name>
     <message>
-        <location filename="../ui/CrlDetail.ui" line="+183"/>
+        <location filename="../ui/CrlDetail.ui" line="+180"/>
         <location filename="../widgets/CrlDetail.cpp" line="+29"/>
         <source>Name</source>
         <translation>Name</translation>
@@ -456,15 +451,14 @@
         <translation>0</translation>
     </message>
     <message>
-        <location line="+36"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
 </context>
 <context>
     <name>ExportCert</name>
     <message>
-        <location filename="../ui/ExportCert.ui" line="+45"/>
+        <location filename="../ui/ExportCert.ui" line="+39"/>
         <source>Certificate export</source>
         <translation>Zertifikatsexport</translation>
     </message>
@@ -509,14 +503,12 @@
         <translation>Exportformat</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <location filename="../widgets/ExportCert.cpp" line="+40"/>
@@ -532,7 +524,7 @@
 <context>
     <name>ExportDer</name>
     <message>
-        <location filename="../ui/ExportDer.ui" line="+134"/>
+        <location filename="../ui/ExportDer.ui" line="+128"/>
         <source>Filename</source>
         <translation>Dateiname</translation>
     </message>
@@ -547,17 +539,15 @@
         <translation>Exportformat</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-122"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
@@ -565,7 +555,7 @@
 <context>
     <name>ExportKey</name>
     <message>
-        <location filename="../ui/ExportKey.ui" line="+42"/>
+        <location filename="../ui/ExportKey.ui" line="+36"/>
         <source>Key export</source>
         <translation>Schlüssel export</translation>
     </message>
@@ -624,14 +614,12 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>D&amp;en Schlüssel mit einem Passwort sichern</translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Abbrechen</translation>
+        <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="../widgets/ExportKey.cpp" line="+42"/>
@@ -790,9 +778,8 @@ Seriennummer: %3</translation>
         <translation>Modulus</translation>
     </message>
     <message>
-        <location line="+54"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location filename="../widgets/KeyDetail.cpp" line="+9"/>
@@ -812,7 +799,7 @@ Seriennummer: %3</translation>
         <translation>Privater Schlüssel</translation>
     </message>
     <message>
-        <location filename="../ui/KeyDetail.ui" line="-177"/>
+        <location filename="../ui/KeyDetail.ui" line="-123"/>
         <source>Security token</source>
         <translation>Chipkarte</translation>
     </message>
@@ -1026,7 +1013,7 @@ Seriennummer: %3</translation>
         <translation>Rücknahmelisten</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+129"/>
+        <location filename="../widgets/MW_database.cpp" line="+147"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
@@ -1355,14 +1342,12 @@ Seriennummer: %3</translation>
         <translation>Rückzugsgrund</translation>
     </message>
     <message>
-        <location line="+34"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>yyyy-MM-dd hh:mm</source>
@@ -1418,19 +1403,22 @@ Seriennummer: %3</translation>
         <translation>Schlüsseltyp</translation>
     </message>
     <message>
-        <location line="+34"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+        <translation type="obsolete">&amp;Cancel</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>C&amp;reate</source>
-        <translation>E&amp;rstellen</translation>
+        <translation type="obsolete">E&amp;rstellen</translation>
     </message>
     <message>
-        <location line="-84"/>
+        <location line="-27"/>
         <source>Curve</source>
         <translation>Kurve</translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewKey.cpp" line="+140"/>
+        <source>Create</source>
+        <translation>Erstellen</translation>
     </message>
 </context>
 <context>
@@ -1456,7 +1444,7 @@ Seriennummer: %3</translation>
         <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
 Getting signed by a CA certificate, whoes certificate of course must be in the database
 Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
-        <translation type="unfinished">Ein CSR (Zertifikatsantrag) kann unterschrieben werden, auch wenn der private Schlüssel des Antrags nicht verfügbar ist. Dies ist die Aufgabe eines CSR.</translation>
+        <translation>Ein CSR (Zertifikatsantrag) kann unterschrieben werden, auch wenn der private Schlüssel des Antrags nicht verfügbar ist. Dies ist die Aufgabe eines CSR.</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1566,12 +1554,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Diese Liste enthält alle Vorlagen</translation>
     </message>
     <message>
-        <location line="+549"/>
+        <location line="+555"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-478"/>
+        <location line="-484"/>
         <location filename="../widgets/NewX509.cpp" line="+202"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
@@ -1592,7 +1580,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+52"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -1891,14 +1879,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+88"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
-        <location line="+26"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <location filename="../widgets/NewX509.cpp" line="-680"/>
@@ -1967,7 +1953,7 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1368"/>
+        <location filename="../ui/NewX509.ui" line="-1260"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
@@ -1976,7 +1962,7 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
-        <location line="+1284"/>
+        <location line="+1290"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -2075,7 +2061,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-544"/>
+        <location filename="../ui/NewX509.ui" line="-550"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>
@@ -2165,14 +2151,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Zeichenkettentyp</translation>
     </message>
     <message>
-        <location line="+74"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="+39"/>
@@ -2180,7 +2164,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Nur UTF8 Zeichenketten (RFC2459)</translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-80"/>
+        <location filename="../ui/Options.ui" line="+14"/>
         <source>PKCS#11 path: </source>
         <translation>PKCS#11 pfad:</translation>
     </message>
@@ -2235,17 +2219,15 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location line="+116"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Abbrechen</translation>
+        <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="+95"/>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
         <translation>Das Passwort wird als 2stelliger hex-code interpretiert. Er muss eine gradstellige Anzahl der Ziffern 0-9 und a-f enthalten</translation>
     </message>
@@ -2267,17 +2249,15 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="obsolete">Passwort wiederholen</translation>
     </message>
     <message>
-        <location line="+126"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Abbrechen</translation>
+        <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="+105"/>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
         <translation>Das Passwort wird als 2 stelliger hex-code interpretiert. Er muss eine grade Anzahl an Ziffern enthalten (0-9 und a-f)</translation>
     </message>
@@ -2497,7 +2477,12 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Fehlerhafter String</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+34"/>
+        <location filename="../lib/pkcs11.cpp" line="+14"/>
+        <source>Select</source>
+        <translation>Auswählen</translation>
+    </message>
+    <message>
+        <location line="+21"/>
         <source>Please enter the new SO PIN (PUK) for the token: &apos;%1&apos;</source>
         <translation>Bitte die neue SO PIN (PUK) für die Chipkarte &apos;%1&apos; eingeben</translation>
     </message>
@@ -2531,7 +2516,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="../ui/ReqDetail.ui" line="+42"/>
+        <location filename="../ui/ReqDetail.ui" line="+36"/>
         <source>Details of the certificate signing request</source>
         <translation>Details des Zertifikatsantrags</translation>
     </message>
@@ -2581,9 +2566,8 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>&amp;Erweiterungen</translation>
     </message>
     <message>
-        <location line="+47"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -2604,20 +2588,18 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Bitte wählen Sie die Chipkarte</translation>
     </message>
     <message>
-        <location line="+37"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Abbrechen</translation>
+        <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>&amp;Select</source>
-        <translation>&amp;Select</translation>
+        <translation type="obsolete">&amp;Select</translation>
     </message>
 </context>
 <context>
     <name>TrustState</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+121"/>
+        <location filename="../ui/TrustState.ui" line="+115"/>
         <source>Trustment</source>
         <translation>Vertrauen</translation>
     </message>
@@ -2637,17 +2619,15 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Diesem Zertifikat immer vertr&amp;auen</translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>&amp;Cancel</source>
-        <translation>&amp;Abbrechen</translation>
+        <translation type="obsolete">&amp;Abbrechen</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location line="-143"/>
+        <location line="-102"/>
         <source>Set trustment of the Certificate</source>
         <translation>Vertrauenseinstellung des Zertifikats</translation>
     </message>
@@ -2663,7 +2643,7 @@ Bitte die Zeiten manuell einstellen.</translation>
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+30"/>
+        <location filename="../lib/db_base.cpp" line="+29"/>
         <source>Internal name</source>
         <translation>Interner Name</translation>
     </message>
@@ -2729,7 +2709,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>CRL Nummer</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+107"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
@@ -2771,7 +2751,7 @@ daher wurde ssie nicht importiert</translation>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+136"/>
+        <location filename="../lib/db_key.cpp" line="+135"/>
         <source>Key size too small !</source>
         <translation>Schlüsselgrösse zu klein !</translation>
     </message>
@@ -2922,7 +2902,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Typ</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+90"/>
         <source>Nothing</source>
         <translation>Nichts</translation>
     </message>
@@ -3008,7 +2988,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation type="obsolete">Üblicher Name</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-886"/>
+        <location filename="../lib/db_x509.cpp" line="-885"/>
         <source>Serial</source>
         <translation>Seriennummer</translation>
     </message>
@@ -3053,7 +3033,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Rücknahme</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+98"/>
         <source>Plain View</source>
         <translation>Einfache Ansicht</translation>
     </message>
@@ -3143,18 +3123,18 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Vertrauen</translation>
     </message>
     <message>
-        <location line="-607"/>
-        <location line="+609"/>
+        <location line="-606"/>
+        <location line="+608"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-608"/>
+        <location line="-607"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Zeigt den Inhalt der basic constraints erweiterung</translation>
     </message>
     <message>
-        <location line="+609"/>
+        <location line="+608"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
@@ -3279,7 +3259,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>db_x509req</name>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="+131"/>
+        <location filename="../lib/db_x509req.cpp" line="+130"/>
         <source>Certificate request ( *.pem *.der *.crl )</source>
         <translation>Zertifikatsantrag ( *.pem *.der *.crl )</translation>
     </message>
@@ -3337,7 +3317,7 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Inhaber</translation>
     </message>
     <message>
-        <location line="-165"/>
+        <location line="-164"/>
         <source>Signed</source>
         <translation>Signiert</translation>
     </message>
@@ -3357,7 +3337,7 @@ und wurde daher nicht importiert</translation>
         <translation>Challange password</translation>
     </message>
     <message>
-        <location line="+160"/>
+        <location line="+159"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -3423,7 +3403,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+80"/>
+        <location filename="../lib/pki_base.cpp" line="+81"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Öffnen der Datei %1 fehlgeschlagen: %2</translation>
     </message>
@@ -3433,7 +3413,7 @@ und wurde daher nicht importiert</translation>
         <translation>Fehler: </translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.h" line="+68"/>
+        <location filename="../lib/pki_base.h" line="+65"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interner Fehler: Unerwartete Nachricht: %1 %2</translation>
     </message>
@@ -3461,12 +3441,12 @@ und wurde daher nicht importiert</translation>
         <translation>Keine Austeller angegeben</translation>
     </message>
     <message>
-        <location line="+228"/>
+        <location line="+220"/>
         <source>unknown</source>
         <translation>unbekannt</translation>
     </message>
     <message>
-        <location line="-250"/>
+        <location line="-242"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
@@ -3477,7 +3457,7 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="+100"/>
-        <location line="+201"/>
+        <location line="+193"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
@@ -3786,7 +3766,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+775"/>
+        <location filename="../lib/pki_x509.cpp" line="+768"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -3801,7 +3781,7 @@ und wurde daher nicht importiert</translation>
         <translation>Immer Vertraut</translation>
     </message>
     <message>
-        <location line="-308"/>
+        <location line="-301"/>
         <source>There is no key for signing !</source>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
@@ -3836,7 +3816,7 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+448"/>
+        <location line="+441"/>
         <source>CRL expires: %1</source>
         <translation>CRL ungültig ab: %1</translation>
     </message>
@@ -3855,13 +3835,13 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
     <message>
-        <location line="-737"/>
+        <location line="-730"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
         <location line="+435"/>
-        <location line="+412"/>
+        <location line="+405"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
@@ -3899,7 +3879,7 @@ und wurde daher nicht importiert</translation>
         <translation>Konnte den Zertifikatsantrag aus der Datei %1 nicht laden. Versuchte Formate PEM, DER und SPKAC.</translation>
     </message>
     <message>
-        <location line="+289"/>
+        <location line="+269"/>
         <source>Signed</source>
         <translation>Signiert</translation>
     </message>

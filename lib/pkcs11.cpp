@@ -249,6 +249,7 @@ bool pkcs11::selectToken(unsigned long *slot, QWidget *w)
 	ui.setupUi(select_slot);
 	ui.image->setPixmap(*MainWindow::scardImg);
 	ui.tokenBox->addItems(slotnames);
+	ui.buttonBox->button(QDialogButtonBox::Ok)->setText(QObject::tr("Select"));
 	if (select_slot->exec() == 0) {
 		delete select_slot;
 		return false;

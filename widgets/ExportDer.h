@@ -23,7 +23,7 @@ class ExportDer: public QDialog, public Ui::ExportDer
    public slots:
 	void on_fileBut_clicked();
 	void on_exportFormat_activated(int);
-	void on_okButton_clicked();
+	void accept();
 };
 
 #endif
