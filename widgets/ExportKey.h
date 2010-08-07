@@ -9,20 +9,20 @@
 #define __EXPORTKEY_H
 
 #include "ui_ExportKey.h"
+#include "ExportDialog.h"
 
-class ExportKey: public QDialog, public Ui::ExportKey
+class ExportKey: public ExportDialog, public Ui::ExportKey
 {
 	Q_OBJECT
+
    private:
 	bool onlyPub;
+
    public:
 	ExportKey(QWidget *parent, QString fname, bool onlypub);
+
    public slots:
-	void on_fileBut_clicked();
 	void canEncrypt();
-	void on_exportFormat_activated(int);
-	void on_exportPrivate_stateChanged();
-	void on_exportPkcs8_stateChanged();
-	void accept();
 };
+
 #endif

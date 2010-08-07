@@ -8,76 +8,48 @@
 
 #include "ExportKey.h"
 #include "lib/base.h"
-#include "lib/func.h"
 
-#include <QtGui/QFileDialog>
 #include <QtGui/QCheckBox>
-#include <QtGui/QLineEdit>
 #include <QtGui/QComboBox>
 #include <QtCore/QStringList>
 
-
 ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
-	:QDialog(parent)
+	:ExportDialog(parent, fname)
 {
-	setupUi(this);
-	filename->setText(fname);
-	setWindowTitle(tr(XCA_TITLE));
 	onlyPub = onlypub;
-	exportFormat->addItem("PEM");
-	exportFormat->addItem("DER");
+
+	QStringList sl; sl << "PEM" << "DER";
+	exportFormat->addItems(sl);
+	suffixes << "pem" << "der";
+
+        filter = tr("Private keys ( *.pem *.der *.pk8 );;All files ( * )");
+
+	formatLabel->setText(tr(
+		"DER is a binary format of the key without encryption\n"
+		"PEM is a base64 encoded key with optional encryption\n"
+		"PKCS#8 is an encrypted official Key-exchange format"));
+
+	filenameLabel->setText(tr(
+		"Please enter the filename for the key."));
+
+	Ui::ExportKey::setupUi(extraFrame);
 	if (onlyPub) {
-		exportPrivate->setDisabled(true);
-		exportPkcs8->setDisabled(true);
-		encryptKey->setDisabled(true);
-	}
-	else {
+		label->setText(tr("Public key export"));
+		extraFrame->hide();
+	} else {
+		label->setText(tr("Key export"));
 		exportPrivate->setChecked(true);
+		connect(exportPkcs8, SIGNAL(stateChanged(int)),
+			this, SLOT(canEncrypt()));
+		connect(exportPrivate, SIGNAL(stateChanged(int)),
+			this, SLOT(canEncrypt()));
+		connect(exportFormat, SIGNAL(currentIndexChanged(int)),
+			this, SLOT(canEncrypt()));
+		canEncrypt();
 	}
-	canEncrypt();
-}
-
-void ExportKey::on_fileBut_clicked()
-{
-	QString s = QFileDialog::getSaveFileName(this, tr("Save key as"),
-		filename->text(),
-		tr("Private keys ( *.pem *.der *.pk8 );;All files ( * )"),
-		NULL, QFileDialog::DontConfirmOverwrite);
-
-	if (!s.isEmpty()) {
-		QDir::convertSeparators(s);
-		filename->setText(s);
-	}
-}
-
-void ExportKey::on_exportPkcs8_stateChanged()
-{
-	canEncrypt();
 }
 
 void ExportKey::canEncrypt()
-{
-	if ((exportFormat->currentText() == "DER" &&
-			!exportPkcs8->isChecked()) ||
-			onlyPub || !exportPrivate->isChecked())
-	{
-		encryptKey->setDisabled(true);
-	} else {
-		encryptKey->setEnabled(true);
-	}
-}
-
-void ExportKey::on_exportFormat_activated(int c)
-{
-	QStringList suffix;
-	suffix << "pem" << "der";
-
-	filename->setText(changeFilenameSuffix(filename->text(), suffix, c));
-
-	canEncrypt();
-}
-
-void ExportKey::on_exportPrivate_stateChanged()
 {
 	if (exportPrivate->isChecked()) {
 		exportPkcs8->setEnabled(true);
@@ -85,12 +57,12 @@ void ExportKey::on_exportPrivate_stateChanged()
 		exportPkcs8->setEnabled(false);
 		exportPkcs8->setChecked(false);
 	}
-	canEncrypt();
+	if ((exportFormat->currentText() == "PEM" &&
+		exportPrivate->isChecked()) ||
+	    (exportPkcs8->isEnabled() && exportPkcs8->isChecked()))
+	{
+		encryptKey->setEnabled(true);
+	} else {
+		encryptKey->setDisabled(true);
+	}
 }
-
-void ExportKey::accept()
-{
-	if (mayWriteFile(filename->text()))
-		QDialog::accept();
-}
-

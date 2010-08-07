@@ -33,10 +33,6 @@ const char *OBJ_sn2ln(const char *sn);
 const char *OBJ_obj2sn(ASN1_OBJECT *a);
 QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name = 0);
 
-QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
-				int selected);
-
-bool mayWriteFile(const QString &fname);
 void inc_progress_bar(int, int, void *p);
 
 #define openssl_error(x) _openssl_error(QString(x), __FILE__, __LINE__)

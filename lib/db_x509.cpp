@@ -12,7 +12,7 @@
 #include "pki_scard.h"
 #include "widgets/CertDetail.h"
 #include "widgets/CertExtend.h"
-#include "widgets/ExportCert.h"
+#include "widgets/ExportDialog.h"
 #include "widgets/MainWindow.h"
 #include "ui_TrustState.h"
 #include "ui_CaProperties.h"

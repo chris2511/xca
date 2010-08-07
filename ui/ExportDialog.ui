@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ExportCert</class>
- <widget class="QDialog" name="ExportCert">
+ <class>ExportDialog</class>
+ <widget class="QDialog" name="ExportDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>510</width>
-    <height>329</height>
+    <height>277</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QLabel" name="TextLabel12">
+      <widget class="QLabel" name="label">
        <property name="font">
         <font>
          <family>Arial</family>
@@ -34,9 +34,6 @@
          <underline>false</underline>
          <strikeout>false</strikeout>
         </font>
-       </property>
-       <property name="text">
-        <string>Certificate export</string>
        </property>
       </widget>
      </item>
@@ -138,7 +135,7 @@
        <widget class="QLineEdit" name="filename"/>
       </item>
       <item row="0" column="0" colspan="2">
-       <widget class="QLabel" name="TextLabel13">
+       <widget class="QLabel" name="filenameLabel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -146,7 +143,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Please enter the filename for the certificate.</string>
+         <string>Please enter the filename</string>
         </property>
        </widget>
       </item>
@@ -169,7 +166,7 @@
        <number>8</number>
       </property>
       <item>
-       <widget class="QLabel" name="TextLabel3">
+       <widget class="QLabel" name="formatLabel">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -177,46 +174,10 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>DER is a binary format of the Certificate</string>
+         <string/>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="TextLabel3_3">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>PEM is a base64 encoded Certificate</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="TextLabel3_2">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>PKCS#7 is an official Certificate exchange format</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="TextLabel3_3_2">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>PKCS#12 is an encrypted official Key-Certificate exchange format</string>
+        <property name="wordWrap">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -248,6 +209,16 @@
        </layout>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="extraFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
     </widget>
    </item>
    <item>
@@ -285,7 +256,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>ExportCert</receiver>
+   <receiver>ExportDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -301,7 +272,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>ExportCert</receiver>
+   <receiver>ExportDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

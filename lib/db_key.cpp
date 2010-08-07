@@ -279,7 +279,11 @@ void db_key::store()
 
 	ExportKey *dlg = new ExportKey(mainwin, fn,
 		targetKey->isPubKey() || targetKey->isToken());
-	dlg->image->setPixmap(*MainWindow::keyImg);
+	if (targetKey->isToken())
+		dlg->image->setPixmap(*MainWindow::scardImg);
+	else
+		dlg->image->setPixmap(*MainWindow::keyImg);
+
 
 	if (!dlg->exec()) {
 		delete dlg;

@@ -808,6 +808,7 @@ QVariant pki_x509::getIcon(int id)
 {
 	int pixnum = 0;
 	bool ca;
+	pki_key *k;
 
 	switch (id) {
 	case HD_cert_ca:
@@ -818,7 +819,8 @@ QVariant pki_x509::getIcon(int id)
 		pixnum = 5;
 		break;
 	case HD_internal_name:
-		if (getRefKey()) {
+		k = getRefKey();
+		if (k && k->isPrivKey()) {
 			pixnum += 1;
 		}
 		if (calcEffTrust() == 0){

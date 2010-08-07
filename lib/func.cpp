@@ -259,39 +259,6 @@ QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name)
 	return QString::fromAscii(buf, len);
 }
 
-QString changeFilenameSuffix(QString fn, const QStringList &suffixlist,
-				int selected)
-{
-	if (selected <0 || selected >= suffixlist.size())
-		return fn;
-
-	foreach(QString suffix, suffixlist) {
-		if (fn.endsWith(QString(".") +suffix)) {
-			return fn.left(fn.length() -suffix.length()) +
-				suffixlist[selected];
-		}
-	}
-	return fn;
-}
-
-bool mayWriteFile(const QString &fname)
-{
-        if (QFile::exists(fname)) {
-		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
-			QObject::tr("The file: '%1' already exists!").
-			arg(fname));
-		msg.addButton(QMessageBox::Ok)->setText(
-			QObject::tr("Overwrite"));
-		msg.addButton(QMessageBox::Cancel)->setText(
-			QObject::tr("Do not overwrite"));
-		if (msg.exec() != QMessageBox::Ok)
-	        {
-			return false;
-	        }
-	}
-	return true;
-}
-
 QByteArray i2d_bytearray(int(*i2d)(const void*, unsigned char **),
 		const void *data)
 {

@@ -413,11 +413,13 @@ QVariant pki_x509req::column_data(int id)
 QVariant pki_x509req::getIcon(int id)
 {
 	int pixnum = -1;
+	pki_key *k;
 
 	switch (id) {
 	case HD_internal_name:
 		pixnum = 0;
-		if (getRefKey() != NULL )
+		k = getRefKey();
+		if (k && k->isPrivKey())
 			pixnum = 1;
 		if (spki != NULL)
 			 pixnum = 2;
