@@ -95,5 +95,6 @@ void CrlDetail::setCrl(pki_crl *crl)
 	}
 	for (i=0; i<5; i++)
 		certList->resizeColumnToContents(i);
+	certList->setSortingEnabled(true);
 	v3extensions->document()->setHtml(crl->printV3ext());
 }
