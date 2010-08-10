@@ -88,6 +88,8 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 			basemodel, SLOT(sortIndicatorChanged(int,Qt::SortOrder)));
 		connect(basemodel, SIGNAL(columnsContentChanged()),
 			this, SLOT(columnsResize()));
+		connect(basemodel, SIGNAL(columnsContentChanged()),
+			proxy, SLOT(invalidate()));
 		connect(basemodel, SIGNAL(editItem(const QModelIndex &)),
 			this, SLOT(editIdx(const QModelIndex &)));
 
