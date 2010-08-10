@@ -74,8 +74,6 @@ Section "xca (required)" SecMain
 
   File "${INSTALLDIR}\bin\libltdl-7.dll"
   File "${INSTALLDIR}\bin\libeay32.dll"
-  File "${INSTALLDIR}\bin\libp11-1.dll"
-  File "${INSTALLDIR}\lib\engines\engine_pkcs11.dll"
 
   ; remove old images
   ; Write the installation path into the registry

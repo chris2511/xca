@@ -100,8 +100,6 @@ $(DMGSTAGE): xca$(SUFFIX)
         done
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
-	test ! -f engine_pkcs11.so || \
-	   install -m 755 engine_pkcs11.so $(DMGSTAGE)/xca.app/Contents/Resources
 	SYSROOT=$(SYSROOT) OTOOL=$(OTOOL) NAME_TOOL=$(NAME_TOOL)\
 		 $(MACDEPLOYQT) $(DMGSTAGE)/xca.app
 	tar zcf $(DMGSTAGE)-SnowLeopard.tar.gz $(DMGSTAGE)

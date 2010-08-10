@@ -18,7 +18,6 @@
 #include "widgets/MainWindow.h"
 
 #include <openssl/rand.h>
-#include <openssl/engine.h>
 #include <openssl/bn.h>
 
 #include <QtGui/QProgressDialog>
@@ -28,108 +27,7 @@
 #include <QtCore/QThread>
 #include <ltdl.h>
 
-#if defined(_WIN32) || defined(USE_CYGWIN)
-#define PKCS11_DEFAULT_MODULE_NAME	"opensc-pkcs11.dll"
-#define ENGINE_LIB			"\\engine_pkcs11.dll"
-#elif defined(Q_WS_MAC)
-#define PKCS11_DEFAULT_MODULE_NAME	"/Library/OpenSC/lib/opensc-pkcs11.so"
-#define ENGINE_LIB			 "/engine_pkcs11.so"
-#else
-#define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
-#define ENGINE_LIB			"/usr/lib/engines/engine_pkcs11.so"
-#endif
-
 QPixmap *pki_scard::icon[1] = { NULL };
-
-#define XCA_ENGINE_cmd(cmd, value) \
-	do { \
-		QString msg = QString(" '%1' : '%2'\n" \
-					).arg(cmd).arg(value ? value:""); \
-		if (!ENGINE_ctrl_cmd_string(e, cmd, value, 0)) { \
-			ENGINE_free(e); \
-			if (!silent) { \
-				log += QString("FAILED:") + msg; \
-				openssl_error(log); \
-			} \
-			ign_openssl_error(); \
-			return false; \
-		} \
-		log += QString("SUCCESS:") +msg; \
-	} while(0);
-
-ENGINE *pki_scard::p11_engine = NULL;
-
-bool pki_scard::init_p11engine(QString file, bool silent)
-{
-	ENGINE *e;
-	QString engine_path = ENGINE_LIB;
-	QString log;
-
-#ifdef WIN32
-	static bool loaded = false;
-	if (loaded)
-		return true;
-	loaded = true;
-#endif
-
-#if defined(Q_WS_MAC) || defined(WIN32)
-	engine_path = getPrefix() + engine_path;
-#endif
-
-	if (!QFile::exists(engine_path)) {
-		if (silent)
-			return false;
-		throw errorEx(tr("PKCS#11 engine: '%1' not found").
-			arg(engine_path));
-	}
-
-	if (file.isEmpty())
-                file = PKCS11_DEFAULT_MODULE_NAME;
-
-	if (p11_engine) {
-		log += "Unloading old OpenSSL PKCS#11 engine\n";
-		ENGINE_finish(p11_engine);
-		ENGINE_free(p11_engine);
-		p11_engine = NULL;
-		if (!silent) {
-			openssl_error(log);
-		} else {
-			ign_openssl_error();
-		}
-	}
-
-	if (!pkcs11::load_lib(file, silent))
-		return false;
-	log += "Successfully loaded PKCS#11 library: " +file +"\n";
-
-	QByteArray ba = filename2bytearray(file);
-	QByteArray en = engine_path.toAscii();
-
-	ENGINE_load_dynamic();
-	e = ENGINE_by_id("dynamic");
-
-	XCA_ENGINE_cmd("SO_PATH",      en.constData());
-	XCA_ENGINE_cmd("ID",           "pkcs11");
-	XCA_ENGINE_cmd("LIST_ADD",     "1");
-	XCA_ENGINE_cmd("LOAD",         NULL);
-	XCA_ENGINE_cmd("MODULE_PATH",  ba.constData());
-
-	XCA_ENGINE_cmd("VERBOSE",      NULL);
-
-	ENGINE_init(e);
-
-	pkcs11 p11;
-	log += p11.driverInfo();
-
-	if (!silent) {
-		openssl_error(log);
-	} else {
-		if (ign_openssl_error())
-			return false;
-	}
-	p11_engine = e;
-	return true;
-}
 
 void pki_scard::init(void)
 {
@@ -316,7 +214,7 @@ void pki_scard::deleteFromToken()
 	deleteFromToken(slot);
 }
 
-pk11_attlist pki_scard::objectAttributes(bool priv)
+pk11_attlist pki_scard::objectAttributes(bool priv) const
 {
 	unsigned long cka_class = priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY;
 
@@ -686,28 +584,26 @@ EVP_PKEY *pki_scard::decryptKey() const
 {
 	unsigned long slot_id;
 	QString pin, key_id;
-	struct {
-		char *password;
-		const char *prompt_info;
-        } cb_data = { NULL, NULL };
 
 	if (!prepare_card(&slot_id))
 		throw errorEx(tr("Failed to find the key on the token"));
 
-	if (!object_id.isEmpty())
-		key_id = QString("%1:%2").arg(slot_id).arg(object_id);
-	else
-		key_id = QString("slot_%1-label_%2").arg(slot_id).arg(slot_label);
-
-	pkcs11 p11;
-	p11.startSession(slot_id);
-	pin = p11.tokenLogin(card_label, false);
-	if (pin.isNull())
+	pkcs11 *p11 = new pkcs11();
+	p11->startSession(slot_id);
+	pin = p11->tokenLogin(card_label, false);
+	if (pin.isNull()) {
+		delete p11;
 		throw errorEx(tr("Invalid Pin for the token"));
-	cb_data.password = strdup(CCHAR(pin));
-	EVP_PKEY *pkey = ENGINE_load_private_key(p11_engine, CCHAR(key_id),
-				NULL, &cb_data);
-	free(cb_data.password);
+	}
+	pk11_attlist atts = objectAttributes(true);
+	QList<CK_OBJECT_HANDLE> priv_objects = p11->objectList(atts);
+	if (priv_objects.count() != 1)
+		throw errorEx(tr("Failed to find the key on the token"));
+	EVP_PKEY *pkey = p11->getPrivateKey(key, priv_objects[0]);
+
+	if (!pkey)
+		delete p11;
+
 	pki_openssl_error();
 	return pkey;
 }

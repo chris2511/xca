@@ -93,7 +93,7 @@ class pkcs11
 
 		CK_SESSION_HANDLE session;
 		CK_SLOT_ID slot_id;
-		CK_OBJECT_HANDLE object;
+		CK_OBJECT_HANDLE p11obj;
 	public:
 		static void pk11error(QString fmt, int r);
 		static bool loaded()
@@ -104,6 +104,7 @@ class pkcs11
 		pkcs11();
 		~pkcs11();
 		static bool load_lib(QString file, bool silent);
+		static bool load_default_lib(QString file, bool silent);
 		static void initialize();
 		static void finalize();
 
@@ -137,6 +138,12 @@ class pkcs11
 		QString driverInfo();
 		void changePin(unsigned long slot, bool so);
 		void initPin(unsigned long slot);
+		EVP_PKEY *getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj);
+		int encrypt(int flen, const unsigned char *from,
+					unsigned char *to, int tolen);
+		int decrypt(int flen, const unsigned char *from,
+					unsigned char *to, int tolen);
+
 };
 
 #endif

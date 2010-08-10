@@ -123,48 +123,10 @@ cd $_
 make -j3 && make install
 
 #
-# libp11
-#################################
-
-CFLAGS="-I${SDK}/usr/include" LDFLAGS="-L${SDK}/usr/lib" ./configure --host ${TARGET} --prefix ${INSTALL_DIR} --enable-shared=no
-
-make
-make install
-
-#
-# engine
-###################################
-
-CFLAGS="-I${SDK}/usr/include -I${INSTALL_DIR}/include" LDFLAGS="-L${SDK}/usr/lib -L${INSTALL_DIR}/lib" LIBP11_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11 -lltdl" ./configure --host ${TARGET} --prefix ${INSTALL_DIR}
-
-
-
-CFLAGS="-I${SDK}/usr/include -I${INSTALL_DIR}/include" \
-LDFLAGS="-L${SDK}/usr/lib -L${INSTALL_DIR}/lib" \
-LIBP11_CFLAGS=${CFLAGS} \
-LIBP11_LIBS="-lp11" ./configure --host ${TARGET} \
-	--disable-readline \
-	--enable-openssl \
-	--disable-openct \
-	--enable-pcsc \
-	--disable-zlib \
-	--disable-iconv \
-	--disable-nsplugin \
-	--disable-man \
-	--disable-doc \
-	--without-xsl-stylesheetsdir \
-	--without-plugindir \
-	--prefix ${INSTALL_DIR} \
-	--without-pinentry
-
-make -j3 && make install
-
-#
 # XCA
 ###########################
 
 cd xca
-cp $INSTALL_DIR/lib/engines/engine_pkcs11.so .
 
 cp misc/Local.mak.mac Local.mak
 # edit Local.mak if needed

@@ -188,14 +188,11 @@ void MainWindow::setOptions()
 		mydb.set((const unsigned char *) CCHAR(pkcs11path),
 			pkcs11path.length()+1, 1,setting, "pkcs11path");
 		try {
-			pki_scard::init_p11engine(pkcs11path, true);
+			if (pkcs11::load_default_lib(pkcs11path, false))
+				pkcs11::initialize();
 		} catch (errorEx &err) {
 			Error(err);
 		}
-#ifdef WIN32
-		QMessageBox::information(this, XCA_TITLE,
-			tr("You need to restart XCA to load the new library"));
-#endif
 	}
 	enableTokenMenu(pkcs11::loaded());
 	delete opt;

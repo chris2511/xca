@@ -530,7 +530,7 @@ For me everything worked fine and I tested it thoroughly.
 
 <p>
 
-On Linux the packages <tt>opensc</tt> and <tt>libengine-pkcs11-openssl</tt> should be installed.
+On Linux the package <tt>opensc</tt> should be installed.
 Please read the opensc documentation for more details.
 Generally: if the opensc commandline-tool "pkcs11-tool -L" shows reasonable output, XCA will work.
 Otherwise fix the opensc setup.

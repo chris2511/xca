@@ -142,7 +142,8 @@ void MainWindow::enableTokenMenu(bool enable)
 void MainWindow::load_engine()
 {
 	try {
-		pki_scard::init_p11engine(pkcs11path, pkcs11path.isEmpty());
+		if (pkcs11::load_default_lib(pkcs11path, false))
+			pkcs11::initialize();
 	} catch (errorEx &err) {
 		Error(err);
 	}

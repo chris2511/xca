@@ -2,15 +2,6 @@
 
 XCA_DIR="`pwd`"/xca
 
-ENGINE_DIR="engine_pkcs11-0.1.8"
-ENGINE_GZ="${ENGINE_DIR}".tar.gz
-ENGINE_DL="http://www.opensc-project.org/files/engine_pkcs11/${ENGINE_GZ}"
-
-LIBP11_DIR="libp11-0.2.7"
-LIBP11_GZ="${LIBP11_DIR}".tar.gz
-LIBP11_DL="http://www.opensc-project.org/files/libp11/${LIBP11_GZ}"
-LIBP11_PATCH="$XCA_DIR/misc/libp11-static-win.patch"
-
 OPENSC_DIR="opensc-0.11.13"
 OPENSC_GZ="${OPENSC_DIR}".tar.gz
 OPENSC_DL="http://www.opensc-project.org/files/opensc/${OPENSC_GZ}"
@@ -48,21 +39,6 @@ do_libtool()
 {(
 unpack LIBTOOL
 ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
-make && make install
-)}
-
-do_libp11()
-{(
-unpack LIBP11
-CFLAGS=-I${INSTALL_DIR}/include LDFLAGS="-L${INSTALL_DIR}/lib" LTLIB_LIBS="-lltdl" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
-make && make install
-)}
-
-### Engine PKCS#11
-do_engine()
-{(
-unpack ENGINE
-CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
 make && make install
 )}
 
@@ -112,7 +88,5 @@ export INSTALL_DIR=`pwd`/install
 
 do_openssl
 do_libtool
-do_libp11
-do_engine
 do_OpenSC
 do_XCA

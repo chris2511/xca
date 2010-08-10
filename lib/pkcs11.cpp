@@ -20,10 +20,20 @@
 CK_FUNCTION_LIST *pkcs11::p11 = NULL;
 lt_dlhandle pkcs11::dl_handle = NULL;
 
+#if defined(_WIN32) || defined(USE_CYGWIN)
+#define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
+#elif defined(Q_WS_MAC)
+#define PKCS11_DEFAULT_MODULE_NAME      "/Library/OpenSC/lib/opensc-pkcs11.so"
+#else
+#define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
+#endif
+
+static const char *CKR2Str(unsigned long rv);
+
 pkcs11::pkcs11()
 {
 	session = CK_INVALID_HANDLE;
-	object = CK_INVALID_HANDLE;
+	p11obj = CK_INVALID_HANDLE;
 	slot_id = 0;
 }
 
@@ -42,6 +52,8 @@ void pkcs11::initialize()
 
 void pkcs11::finalize()
 {
+	if (!loaded)
+		return;
 	CK_RV rv = p11->C_Finalize(NULL);
 	if (rv != CKR_OK && rv != CKR_CRYPTOKI_NOT_INITIALIZED)
 		pk11error("C_Finalize", rv);
@@ -535,6 +547,8 @@ bool pkcs11::load_lib(QString file, bool silent)
 	lt_dlinit();
 
 	if (dl_handle) {
+		if (p11)
+			finalize();
 		if (lt_dlclose(dl_handle) < 0) {
 			if (silent)
 				return false;
@@ -570,6 +584,112 @@ bool pkcs11::load_lib(QString file, bool silent)
 	throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
 			arg(file));
 	return false;
+}
+
+bool pkcs11::load_default_lib(QString file, bool silent)
+{
+	if (file.isEmpty()) {
+		file = QString(PKCS11_DEFAULT_MODULE_NAME);
+		silent = true;
+	}
+	return load_lib(file, silent);
+}
+
+int pkcs11::decrypt(int flen, const unsigned char *from,
+				unsigned char *to, int tolen)
+{
+	CK_MECHANISM mech;
+	CK_ULONG size = tolen;
+	CK_RV rv;
+
+	memset(&mech, 0, sizeof(mech));
+	mech.mechanism = CKM_RSA_PKCS;
+
+	rv = p11->C_DecryptInit(session, &mech, p11obj);
+	if (rv == CKR_OK)
+		rv = p11->C_Decrypt(session, (CK_BYTE *)from, flen, to, &size);
+
+	if (rv != CKR_OK) {
+		fprintf(stderr, "Error: C_Decrypt(init): %s\n", CKR2Str(rv));
+		return -1;
+	}
+	return size;
+}
+
+int pkcs11::encrypt(int flen, const unsigned char *from,
+				unsigned char *to, int tolen)
+{
+	CK_MECHANISM mech;
+	CK_ULONG size = tolen;
+	CK_RV rv;
+
+	memset(&mech, 0, sizeof(mech));
+	mech.mechanism = CKM_RSA_PKCS;
+
+	rv = p11->C_SignInit(session, &mech, p11obj);
+	if (rv == CKR_OK)
+		rv = p11->C_Sign(session, (CK_BYTE *)from, flen, to, &size);
+	if (rv != CKR_OK) {
+		fprintf(stderr, "Error: C_Sign(init): %s\n", CKR2Str(rv));
+		return -1;
+	}
+	return size;
+}
+
+static int rsa_privdata_free(RSA *rsa)
+{
+	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
+	delete priv;
+	return 0;
+}
+
+static int rsa_encrypt(int flen, const unsigned char *from,
+			unsigned char *to, RSA * rsa, int padding)
+{
+	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
+
+	if (padding != RSA_PKCS1_PADDING) {
+		return -1;
+	}
+	return priv->encrypt(flen, from, to, BN_num_bytes(rsa->n));
+}
+
+static int rsa_decrypt(int flen, const unsigned char *from,
+			unsigned char *to, RSA * rsa, int padding)
+{
+	pkcs11 *priv = (pkcs11*)RSA_get_app_data(rsa);
+
+	if (padding != RSA_PKCS1_PADDING) {
+		return -1;
+	}
+	return priv->decrypt(flen, from, to, flen);
+}
+
+EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
+{
+	static RSA_METHOD rsa_meth, *ops = NULL;
+	RSA *rsa;
+	EVP_PKEY *evp;
+
+	if (EVP_PKEY_type(pub->type) != EVP_PKEY_RSA)
+		return NULL;
+
+	rsa = RSAPublicKey_dup(pub->pkey.rsa);
+	openssl_error();
+	if (!ops) {
+		rsa_meth = *RSA_get_default_method();
+		rsa_meth.rsa_priv_enc = rsa_encrypt;
+		rsa_meth.rsa_priv_dec = rsa_decrypt;
+		rsa_meth.finish = rsa_privdata_free;
+		ops = &rsa_meth;
+	}
+	p11obj = obj;
+	RSA_set_method(rsa, ops);
+	RSA_set_app_data(rsa, this);
+	evp = EVP_PKEY_new();
+	openssl_error();
+	EVP_PKEY_assign_RSA(evp, rsa);
+	return evp;
 }
 
 static const char *CKR2Str(unsigned long rv)

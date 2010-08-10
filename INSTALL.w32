@@ -36,16 +36,6 @@ unpack libtool-2.2 and cd in libtool-2.2
 $ ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
 $ make && make install
 
-unpack libp11-0.2.7 an cd into libp11-0.2.7
-Apply hack for Aloaha PKCS#11 libraray if intend to use it:
-$ patch -p1 < ../xca/misc/lip11_aloaha_hack.diff
-$ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS="-L${INSTALL_DIR}/lib" LTLIB_LIBS="-lltdl" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
-$ make && make install
-
-unpack engine_pkcs11-0.1.7.tar,gz and cd into engine_pkcs11-0.1.7
-$ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
-$ make && make install
-
 unpack opensc-0.11.11.tar.gz and cd into opensc-0.11.11
 $ CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR} --enable-openssl \
                 --disable-zlib \
