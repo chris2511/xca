@@ -50,6 +50,7 @@ class XcaTreeView: public QTreeView
 	void showHideSections();
 	void sectionMoved(int idx, int oldI, int newI);
 	void columnsResize();
+	void editIdx(const QModelIndex &idx);
 };
 
 class XcaProxyModel: public QSortFilterProxyModel

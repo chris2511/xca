@@ -89,7 +89,7 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 		connect(basemodel, SIGNAL(columnsContentChanged()),
 			this, SLOT(columnsResize()));
 		connect(basemodel, SIGNAL(editItem(const QModelIndex &)),
-			this, SLOT(edit(const QModelIndex &)));
+			this, SLOT(editIdx(const QModelIndex &)));
 
 		basemodel->initHeaderView(header());
 	}
@@ -138,6 +138,11 @@ void XcaTreeView::sectionMoved(int idx, int oldI, int newI)
 	for (int i=0; i<cnt; i++) {
 		basemodel->setVisualIndex(i, header()->visualIndex(i));
 	}
+}
+
+void XcaTreeView::editIdx(const QModelIndex &idx)
+{
+	edit(proxy->mapFromSource(idx));
 }
 
 XcaProxyModel::XcaProxyModel(QWidget *parent)
