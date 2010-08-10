@@ -551,9 +551,11 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 	pki_base *item;
 	if (index.isValid() && role == Qt::EditRole) {
 		nn = value.toString();
-		db mydb(dbName);
 		item = static_cast<pki_base*>(index.internalPointer());
 		on = item->getIntName();
+		if (nn == on)
+			return true;
+		db mydb(dbName);
 		try {
 			mydb.rename(item->getType(), on, nn);
 			item->setIntName(nn);
