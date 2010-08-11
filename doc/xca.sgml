@@ -241,7 +241,7 @@ also a common place for all selected PKI items like Requests or Certificates.
 
 Column visibility can be changed by the context menu of the table header
 or the "columns" submenu of the table context menu.
-It shows all available Columns with checkboxes to show or hide them.
+It shows all available columns with checkboxes to show or hide them.
 
 <p>
 
@@ -519,7 +519,8 @@ be translated to OpenSSL config file format.
 <p>
 
 Since XCA 0.8.0 the use of Smartcards (Security tokens) is supported.
-It is based on the PKCS#11 standard. The Options dialog contains an input field to select a PKCS#11 library.
+It is based on the PKCS#11 standard. The Options dialog contains a list
+to add one or more PKCS#11 providers (libraries).
 This is not restricted to Smartcards but includes all type of security tokens like USB tokens.
 The default is <tt>/usr/lib/opensc-pkcs11.so</tt> and <tt>opensc-pkcs11.dll</tt> in the XCA installation path, depending on your OS.
 
@@ -565,7 +566,7 @@ The following actions with smartcards are supported:
 </itemize>
 
 Existing, non-deletable, built-in certificates of Smart-cards may be ignored.
-A new CA certificate can be created, self-signed by the Smart-card key.
+A new CA certificate can be created and self-signed by the Smart-card key.
 It can then be used to issue end-entity certificates, containing other RSA, DSA or EC keys or sign imported certificate requests.
 
 <sect1>How keys on a token are handled
@@ -573,8 +574,8 @@ It can then be used to issue end-entity certificates, containing other RSA, DSA 
 <p>
 
 XCA assumes for every private key on the card a corresponding public key.
-When managing cards, only the public keys are searched for,
-so there is no need to enter a PIN. When using the the key for signing
+When managing cards, XCA only searches for public keys.
+There is thus no need to enter a PIN. When using the the key for signing
 the corresponding private key on the card is selected and a PIN must be entered.
 
 <p>
@@ -594,7 +595,7 @@ a missing public-key object is the cause.
 
 <p>
 
-A new menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and initialized.
+The menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and initialized.
 
 <sect2>Managing Smartcards
 
@@ -754,6 +755,7 @@ The password can be changed for each certificate. The password type means:
 <item>common: The database password provided during database load
 <item>private: The key has its own password, which is not stored by XCA. This can be set and reset via the context menu of the key
 <item>PIN: Security tokens are usually protected by a PIN
+<item>No password: Public keys don't need a password
 </itemize>
 <p>
 
