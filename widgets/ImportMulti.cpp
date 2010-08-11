@@ -42,10 +42,9 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	deleteToken->hide();
 	renameToken->hide();
 	slotInfo->hide();
-	slot = 0;
 }
 
-void ImportMulti::tokenInfo(unsigned long s)
+void ImportMulti::tokenInfo(slotid s)
 {
 	slot = s;
 	mcont->setSlot(slot);
@@ -56,7 +55,7 @@ void ImportMulti::tokenInfo(unsigned long s)
 
 	pkcs11 p11;
 
-	QString info = p11.driverInfo();
+	QString info = p11.driverInfo(slot);
 	tkInfo ti = p11.tokenInfo(slot);
 	info += tr("\nName: %1\nModel: %2\nSerial: %3").
 		arg(ti.label()).arg(ti.model()).arg(ti.serial());

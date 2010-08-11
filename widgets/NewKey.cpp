@@ -35,8 +35,8 @@ class keyListItem
     public:
 	bool card;
 	QString printname;
-	unsigned long slot;
-	keyListItem(pkcs11 *p11, unsigned long nslot, CK_MECHANISM_TYPE m)
+	slotid slot;
+	keyListItem(pkcs11 *p11, slotid nslot, CK_MECHANISM_TYPE m)
 	{
 		// assert(m == CKM_RSA_PKCS_KEY_PAIR_GEN);
 		slot = nslot;
@@ -56,7 +56,7 @@ class keyListItem
 		tl = t;
 		printname = QString(tl->name);
 		card = false;
-		slot = 0;
+		slot = slotid();
 	}
 	keyListItem(const keyListItem &k)
 	{
@@ -79,7 +79,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 	static const char* const sizeList[] = { "1024", "2048", "4096" };
 	size_t i;
 	QStringList curve_x962, curve_other;
-	QList<unsigned long> p11_slots;
+	slotidList p11_slots;
 	QList<keyListItem> keytypes;
 
 	setupUi(this);
@@ -121,8 +121,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 		pkcs11 p11;
 		p11_slots = p11.getSlotList();
 
-		for (int i=0; i<p11_slots.count(); i++) {
-			unsigned long slot = p11_slots[i];
+		foreach(slotid slot, p11_slots) {
 			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
 			if (ml.contains(CKM_RSA_PKCS_KEY_PAIR_GEN)) {
 				keyListItem tk(&p11, slot, CKM_RSA_PKCS_KEY_PAIR_GEN);
@@ -187,7 +186,7 @@ bool NewKey::isToken()
 	return k.card;
 }
 
-unsigned long NewKey::getKeyCardSlot()
+slotid NewKey::getKeyCardSlot()
 {
 	keyListItem k = currentKey(keyType);
 	return k.slot;

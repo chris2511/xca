@@ -21,7 +21,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 	Q_OBJECT
 
 	private:
-		unsigned long slot;
+		slotid slot;
 		db_token *mcont;
 		MainWindow *mainwin;
 	public:
@@ -32,7 +32,7 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		pki_base *import(QModelIndex &idx);
 		void execute(int force=0, QStringList failed = QStringList());
 		int entries();
-		void tokenInfo(unsigned long s);
+		void tokenInfo(slotid s);
 
 	public slots:
 		void on_butRemove_clicked();

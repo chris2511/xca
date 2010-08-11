@@ -8,7 +8,9 @@
 #ifndef __XCA_PKCS11_H
 #define __XCA_PKCS11_H
 
+#include "pkcs11_lib.h"
 #include "opensc-pkcs11.h"
+#include <QtCore/QStringList>
 #include <QtCore/QString>
 #include <QtCore/QList>
 
@@ -88,56 +90,85 @@ class pkcs11
 	friend class pk11_attr_data;
 
 	private:
-		static lt_dlhandle dl_handle;
-		static CK_FUNCTION_LIST *p11;
-
+		static pkcs11_lib_list libs;
+		slotid p11slot;
 		CK_SESSION_HANDLE session;
-		CK_SLOT_ID slot_id;
 		CK_OBJECT_HANDLE p11obj;
-	public:
-		static void pk11error(QString fmt, int r);
-		static bool loaded()
-		{
-			return !!p11;
-		};
 
+	public:
 		pkcs11();
 		~pkcs11();
-		static bool load_lib(QString file, bool silent);
-		static bool load_default_lib(QString file, bool silent);
-		static void initialize();
-		static void finalize();
 
-		tkInfo tokenInfo(CK_SLOT_ID slot);
-		tkInfo tokenInfo();
+		static bool loaded() {
+			return libs.count() != 0;
+		}
+		static pkcs11_lib *load_lib(QString fname, bool silent);
+		static pkcs11_lib *get_lib(QString fname)
+		{
+			return libs.get_lib(fname);
+		}
+		static bool remove_lib(QString fname)
+		{
+			return libs.remove_lib(fname);
+		}
+		static void load_libs(QString list, bool silent)
+		{
+			QStringList errs;
+			foreach(QString l, list.split('\n')) {
+				try {
+					pkcs11::load_lib(l, silent);
+				} catch (errorEx &err) {
+					errs << err.getString();
+				}
+			}
+			if (errs.count())
+				throw errorEx(errs.join("\n"));
+		}
+		static pkcs11_lib_list get_libs()
+		{
+			return libs;
+		}
+		tkInfo tokenInfo(slotid slot);
+		tkInfo tokenInfo()
+		{
+			return tokenInfo(p11slot);
+		}
+		QString driverInfo(slotid slot)
+		{
+			return slot.lib->driverInfo();
+		}
+		slotidList getSlotList()
+		{
+			return libs.getSlotList();
+		}
 
-		void startSession(unsigned long slot, bool rw = false);
-		QList<unsigned long> getSlotList();
+		bool selectToken(slotid *slot, QWidget *w);
+		void changePin(slotid slot, bool so);
+		void initPin(slotid slot);
+		void initToken(slotid slot, unsigned char *pin,
+			int pinlen, QString label);
+		QList<CK_MECHANISM_TYPE> mechanismList(slotid slot);
+		void mechanismInfo(slotid slot, CK_MECHANISM_TYPE m,
+			CK_MECHANISM_INFO *info);
+		void startSession(slotid slot, bool rw = false);
+
+		/* Session based functions */
 		void loadAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
 		void storeAttribute(pk11_attribute &attribute,
 				   CK_OBJECT_HANDLE object);
 		QList<CK_OBJECT_HANDLE> objectList(pk11_attlist &atts);
 		QString tokenLogin(QString name, bool so, bool force=false);
-		void logout() const;
+		void logout();
 		bool needsLogin(bool so);
 		void login(unsigned char *pin, unsigned long pinlen, bool so);
 
 		void setPin(unsigned char *oldPin, unsigned long oldPinLen,
 			unsigned char *pin, unsigned long pinLen);
-		QList<CK_MECHANISM_TYPE> mechanismList(unsigned long slot);
-		void mechanismInfo(unsigned long slot, CK_MECHANISM_TYPE m,
-			CK_MECHANISM_INFO *info);
 		CK_OBJECT_HANDLE createObject(pk11_attlist &attrs);
 		pk11_attr_data findUniqueID(unsigned long oclass);
 		pk11_attr_data generateRSAKey(QString name, unsigned long bits);
 		int deleteObjects(QList<CK_OBJECT_HANDLE> objects);
-		void initToken(unsigned long slot, unsigned char *pin,
-			int pinlen, QString label);
-		bool selectToken(unsigned long *slot, QWidget *w);
-		QString driverInfo();
-		void changePin(unsigned long slot, bool so);
-		void initPin(unsigned long slot);
 		EVP_PKEY *getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj);
 		int encrypt(int flen, const unsigned char *from,
 					unsigned char *to, int tolen);

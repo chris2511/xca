@@ -21,14 +21,17 @@ class Options: public QDialog, public Ui::Options
 		MainWindow *mw;
 	public:
 		Options(MainWindow *parent);
+		void setupPkcs11Provider(QString list);
+		void setStringOpt(const QString string_opt);
+		QString getDnString();
+		QString getStringOpt();
+		QString getPkcs11Provider();
+
 	public slots:
 		void on_extDNadd_clicked();
 		void on_extDNdel_clicked();
-		QString getDnString();
-		void setStringOpt(const QString string_opt);
-		QString getStringOpt();
-		void on_fileButton_clicked(void);
-		void on_tryLoadButton_clicked(void);
+		void on_addButton_clicked(void);
+		void on_removeButton_clicked(void);
 };
 
 #endif

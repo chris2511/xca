@@ -187,7 +187,7 @@ void db_key::toToken()
 	pki_scard *card = NULL;
 	try {
 		pkcs11 p11;
-		unsigned long slot;
+		slotid slot;
 
 		if (!p11.selectToken(&slot, mainwin))
 			return;

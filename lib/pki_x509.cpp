@@ -253,7 +253,7 @@ QByteArray pki_x509::i2d()
 void pki_x509::store_token(bool alwaysSelect)
 {
 	pki_scard *card = NULL;
-	unsigned long slot = 0;
+	slotid slot;
 	x509name xname;
 	QList<CK_OBJECT_HANDLE> objects;
 
@@ -298,13 +298,13 @@ void pki_x509::store_token(bool alwaysSelect)
 void pki_x509::deleteFromToken()
 {
 	pki_scard *card = (pki_scard *)privkey;
-	QList<unsigned long> p11_slots;
+	slotidList p11_slots;
 
 	if (!pkcs11::loaded())
 		return;
 
 	if (privkey && privkey->isToken()) {
-		unsigned long slot;
+		slotid slot;
 		if (!card->prepare_card(&slot))
 			return;
 		p11_slots << slot;
@@ -327,7 +327,7 @@ pk11_attlist pki_x509::objectAttributes()
 	return attrs;
 }
 
-void pki_x509::deleteFromToken(unsigned long slot)
+void pki_x509::deleteFromToken(slotid slot)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -351,7 +351,7 @@ void pki_x509::deleteFromToken(unsigned long slot)
 	p11.deleteObjects(objs);
 }
 
-int pki_x509::renameOnToken(unsigned long slot, QString name)
+int pki_x509::renameOnToken(slotid slot, QString name)
 {
 
 	pkcs11 p11;

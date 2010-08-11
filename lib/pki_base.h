@@ -11,6 +11,7 @@
 #include <openssl/err.h>
 #include <QtCore/QString>
 #include <QtGui/QListView>
+#include "pkcs11_lib.h"
 #include "db.h"
 #include "base.h"
 #include "headerlist.h"
@@ -86,8 +87,8 @@ class pki_base : public QObject
 		uint32_t intFromData(QByteArray &ba);
 		virtual void fromPEM_BIO(BIO *, QString) {};
 		virtual void deleteFromToken() { };
-		virtual void deleteFromToken(unsigned long slot) { };
-		virtual int renameOnToken(unsigned long slot, QString name)
+		virtual void deleteFromToken(slotid slot) { };
+		virtual int renameOnToken(slotid slot, QString name)
 		{
 			return 0;
 		};

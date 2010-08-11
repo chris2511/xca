@@ -42,7 +42,8 @@
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
 	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL,
-	*MainWindow::appIco = NULL, *MainWindow::scardImg = NULL;
+	*MainWindow::appIco = NULL, *MainWindow::scardImg = NULL,
+	*MainWindow::doneIco = NULL;
 
 db_key *MainWindow::keys = NULL;
 db_x509req *MainWindow::reqs = NULL;
@@ -142,8 +143,7 @@ void MainWindow::enableTokenMenu(bool enable)
 void MainWindow::load_engine()
 {
 	try {
-		if (pkcs11::load_default_lib(pkcs11path, false))
-			pkcs11::initialize();
+		pkcs11::load_libs(pkcs11path, false);
 	} catch (errorEx &err) {
 		Error(err);
 	}
@@ -273,6 +273,7 @@ void MainWindow::init_images()
 	revImg = loadImg("bigcrl.png");
 	scardImg = loadImg("bigscard.png");
 	appIco = loadImg("key.xpm");
+	doneIco = loadImg("done.png");
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);
@@ -285,13 +286,13 @@ void MainWindow::init_images()
 	pki_x509req::icon[0] = loadImg("req.png");
 	pki_x509req::icon[1] = loadImg("reqkey.png");
 	pki_x509req::icon[2] = loadImg("spki.png");
-	pki_x509req::icon[3] = loadImg("done.png");
+	pki_x509req::icon[3] = doneIco;
 	pki_x509::icon[0] = loadImg("validcert.png");
 	pki_x509::icon[1] = loadImg("validcertkey.png");
 	pki_x509::icon[2] = loadImg("invalidcert.png");
 	pki_x509::icon[3] = loadImg("invalidcertkey.png");
 	pki_x509::icon[4] = loadImg("revoked.png");
-	pki_x509::icon[5] = loadImg("done.png");
+	pki_x509::icon[5] = doneIco;
 	pki_temp::icon = loadImg("template.png");
 	pki_crl::icon = loadImg("crl.png");
 }
@@ -408,7 +409,7 @@ void MainWindow::initToken()
 		return;
 	try {
 		pkcs11 p11;
-		unsigned long slot;
+		slotid slot;
 		char pin[MAX_PASS_LENGTH];
 		int pinlen;
 
@@ -449,7 +450,7 @@ void MainWindow::changePin(bool so)
 		return;
 	try {
 		pkcs11 p11;
-		unsigned long slot;
+		slotid slot;
 
 		if (!p11.selectToken(&slot, this))
 			return;
@@ -470,7 +471,7 @@ void MainWindow::initPin()
 		return;
 	try {
 		pkcs11 p11;
-		unsigned long slot;
+		slotid slot;
 
 		if (!p11.selectToken(&slot, this))
 			return;
@@ -484,7 +485,7 @@ void MainWindow::initPin()
 void MainWindow::manageToken()
 {
 	pkcs11 p11;
-	unsigned long slot;
+	slotid slot;
 	pki_scard *card = NULL;
 	pki_x509 *cert = NULL;
 	ImportMulti *dlgi = NULL;

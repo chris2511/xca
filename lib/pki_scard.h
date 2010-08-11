@@ -33,7 +33,7 @@ class pki_scard: public pki_key
 		virtual ~pki_scard();
 		static QPixmap *icon[1];
 		void load_token(pkcs11 &p11, CK_OBJECT_HANDLE object);
-		bool prepare_card(unsigned long *slot, bool verifyPubkey=true) const;
+		bool prepare_card(slotid *slot, bool verifyPubkey=true) const;
 		void fromData(const unsigned char *p, db_header_t *head);
 		QByteArray toData();
 		bool isPubKey() const;
@@ -80,11 +80,11 @@ class pki_scard: public pki_key
 		QList<int> possibleHashNids();
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;
 		const EVP_MD *getDefaultMD();
-		void generateKey_card(unsigned long slot, int size, QProgressBar *bar);
+		void generateKey_card(slotid slot, int size, QProgressBar *bar);
 		void deleteFromToken();
-		void deleteFromToken(unsigned long slot);
-		void store_token(unsigned int slot, EVP_PKEY *pkey);
-		virtual int renameOnToken(unsigned long slot, QString name);
+		void deleteFromToken(slotid slot);
+		void store_token(slotid slot, EVP_PKEY *pkey);
+		virtual int renameOnToken(slotid slot, QString name);
 		virtual QString getMsg(msg_type msg);
 };
 

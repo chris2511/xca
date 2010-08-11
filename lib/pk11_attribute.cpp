@@ -10,15 +10,17 @@
 #include "exception.h"
 #include <QtCore/QObject>
 
-void pk11_attribute::load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
+void pk11_attribute::load(slotid slot,
+			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 {
 	CK_RV rv;
-	rv = pkcs11::p11->C_GetAttributeValue(sess, obj, &attr, 1);
+	rv = slot.p11()->C_GetAttributeValue(sess, obj, &attr, 1);
 	if (rv != CKR_OK)
-		pkcs11::pk11error("C_GetAttribute()", rv);
+		pk11error("C_GetAttribute()", rv);
 }
 
-void pk11_attr_data::load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
+void pk11_attr_data::load(slotid slot,
+			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 {
 	CK_RV rv;
 	if (attr.pValue) {
@@ -26,15 +28,15 @@ void pk11_attr_data::load(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 		attr.pValue = NULL;
 	}
 	attr.ulValueLen = 0;
-	rv = pkcs11::p11->C_GetAttributeValue(sess, obj, &attr, 1);
+	rv = slot.p11()->C_GetAttributeValue(sess, obj, &attr, 1);
 	if (rv == CKR_OK) {
 		attr.pValue = malloc(attr.ulValueLen +1);
 		check_oom(attr.pValue);
-		rv = pkcs11::p11->C_GetAttributeValue(sess, obj, &attr, 1); \
+		rv = slot.p11()->C_GetAttributeValue(sess, obj, &attr, 1); \
 		if (rv == CKR_OK)
 			return;
 	}
-	pkcs11::pk11error("C_GetAttributeValue(data)", rv); \
+	pk11error("C_GetAttributeValue(data)", rv); \
 }
 
 void pk11_attr_data::setValue(const unsigned char *ptr, unsigned long len)
@@ -65,12 +67,13 @@ void pk11_attr_data::setBignum(BIGNUM *bn, bool consume)
 		BN_free(bn);
 }
 
-void pk11_attribute::store(CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
+void pk11_attribute::store(slotid slot,
+			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)
 {
 	CK_RV rv;
-	rv = pkcs11::p11->C_SetAttributeValue(sess, obj, &attr, 1);
+	rv = slot.p11()->C_SetAttributeValue(sess, obj, &attr, 1);
 	if (rv != CKR_OK)
-		pkcs11::pk11error("C_SetAttributeValue", rv);
+		pk11error("C_SetAttributeValue", rv);
 }
 
 void pk11_attlist::copy(const pk11_attlist &a)

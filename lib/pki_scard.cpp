@@ -207,7 +207,7 @@ pk11_attr_data pki_scard::getIdAttr() const
 
 void pki_scard::deleteFromToken()
 {
-	unsigned long slot;
+	slotid slot;
 
 	if (!prepare_card(&slot))
 		return;
@@ -227,7 +227,7 @@ pk11_attlist pki_scard::objectAttributes(bool priv) const
 	return attrs;
 }
 
-void pki_scard::deleteFromToken(unsigned long slot)
+void pki_scard::deleteFromToken(slotid slot)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -251,7 +251,7 @@ void pki_scard::deleteFromToken(unsigned long slot)
 	p11.deleteObjects(pub_objects);
 }
 
-int pki_scard::renameOnToken(unsigned long slot, QString name)
+int pki_scard::renameOnToken(slotid slot, QString name)
 {
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -278,7 +278,7 @@ int pki_scard::renameOnToken(unsigned long slot, QString name)
 	return 1;
 }
 
-void pki_scard::store_token(unsigned int slot, EVP_PKEY *pkey)
+void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 {
 	pk11_attlist pub_atts;
 	pk11_attlist priv_atts;
@@ -408,10 +408,10 @@ const EVP_MD *pki_scard::getDefaultMD()
 
 /* Assures the correct card is inserted and
  * returns the slot ID in slot true on success */
-bool pki_scard::prepare_card(unsigned long *slot, bool verifyPubkey) const
+bool pki_scard::prepare_card(slotid *slot, bool verifyPubkey) const
 {
 	pkcs11 p11;
-	QList<unsigned long> p11_slots;
+	slotidList p11_slots;
 	int i;
 
 	if (!pkcs11::loaded())
@@ -485,7 +485,7 @@ public:
        }
 };
 
-void pki_scard::generateKey_card(unsigned long slot, int size, QProgressBar *bar)
+void pki_scard::generateKey_card(slotid slot, int size, QProgressBar *bar)
 {
 	pk11_attlist atts;
 
@@ -582,7 +582,7 @@ QString pki_scard::getTypeString(void)
 
 EVP_PKEY *pki_scard::decryptKey() const
 {
-	unsigned long slot_id;
+	slotid slot_id;
 	QString pin, key_id;
 
 	if (!prepare_card(&slot_id))
@@ -610,7 +610,7 @@ EVP_PKEY *pki_scard::decryptKey() const
 
 void pki_scard::changePin()
 {
-	unsigned long slot;
+	slotid slot;
 
 	if (!prepare_card(&slot))
 		return;
@@ -621,7 +621,7 @@ void pki_scard::changePin()
 
 void pki_scard::changeSoPin()
 {
-	unsigned long slot;
+	slotid slot;
 
 	if (!prepare_card(&slot))
 		return;
@@ -632,7 +632,7 @@ void pki_scard::changeSoPin()
 
 void pki_scard::initPin()
 {
-	unsigned long slot;
+	slotid slot;
 
 	if (!prepare_card(&slot))
 		return;

@@ -7,7 +7,6 @@ db_token::db_token(QString db, MainWindow *mw)
         :db_base(db, mw)
 {
 	class_name = "manageTokens";
-	slot = 0;
 }
 
 bool db_token::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -18,6 +17,8 @@ bool db_token::setData(const QModelIndex &index, const QVariant &value, int role
 		nn = value.toString();
 		item = static_cast<pki_base*>(index.internalPointer());
 		on = item->getIntName();
+		if (on == nn)
+			return true;
 		try {
 			if (item->renameOnToken(slot, nn)) {
 				item->setIntName(nn);

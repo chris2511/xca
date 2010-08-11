@@ -1,4 +1,6 @@
 
+  * remove the need for engine_pkcs11
+    now more than one PKCS#11 library can be loaded and used in parallel
   * Add de/selection of columns and add a lot of new possible columns
     All Subject entries, the subject hash and whole name,
     Certificate fingerprints, dates, CA info, CRL number,

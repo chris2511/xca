@@ -74,37 +74,69 @@ QString Options::getStringOpt()
 	return string_opts[mbstring->currentIndex()];
 }
 
-void Options::on_fileButton_clicked(void)
+void Options::on_addButton_clicked(void)
 {
 	load_pkcs11 l;
-	QString fname;
+	pkcs11_lib *lib;
+	QString fname, status;
 
 	fname = QFileDialog::getOpenFileName(this, l.caption,
-		pkcs11path->text(), l.filter);
+		QString(), l.filter);
 
-	if (fname.isEmpty())
+	if (fname.isEmpty() || pkcs11::get_lib(fname))
 		return;
-	pkcs11path->setText(fname);
+	try {
+		lib = pkcs11::load_lib(fname, false);
+		if (lib)
+			status = lib->driverInfo();
+	} catch (errorEx &ex) {
+		lib = NULL;
+		status = ex.getString();
+	}
+	QListWidgetItem *item = new QListWidgetItem(fname);
+	item->setToolTip(status);
+	if (lib)
+		item->setIcon(*MainWindow::doneIco);
+	pkcs11List->addItem(item);
 }
 
-
-void Options::on_tryLoadButton_clicked(void)
+void Options::on_removeButton_clicked(void)
 {
+	QListWidgetItem *item = pkcs11List->takeItem(pkcs11List->currentRow());
+	if (!item)
+		return;
 	try {
-		QString lib = pkcs11path->text();
-		if (pkcs11::load_lib(lib, false))
-			pkcs11::initialize();
-		QString info;
-		if (pkcs11::loaded()) {
-			pkcs11 p11;
-			info = p11.driverInfo();
-		}
-		if (!lib.isEmpty()) {
-			QMessageBox::information(this, XCA_TITLE,
-				tr("Successfully loaded PKCS#11 library: %1\n").
-				arg(lib) + info);
-		}
+		pkcs11::remove_lib(item->text());
 	} catch (errorEx &err) {
 		mw->Error(err);
 	}
+}
+
+void Options::setupPkcs11Provider(QString list)
+{
+	pkcs11::load_libs(list, true);
+	pkcs11_lib_list libs = pkcs11::get_libs();
+
+	foreach(pkcs11_lib *l, libs) {
+		QListWidgetItem *item = new QListWidgetItem(l->filename());
+		item->setIcon(*MainWindow::doneIco);
+		item->setToolTip(l->driverInfo());
+		pkcs11List->addItem(item);
+	}
+	foreach(QString libname, list.split('\n')) {
+		if (libs.get_lib(libname))
+			continue;
+		QListWidgetItem *item = new QListWidgetItem(libname);
+		item->setToolTip(tr("Load failed"));
+		pkcs11List->addItem(item);
+	}
+}
+
+QString Options::getPkcs11Provider()
+{
+	QStringList prov;
+	for (int j=0; j<pkcs11List->count(); j++) {
+		prov << pkcs11List->item(j)->text();
+	}
+	return prov.join("\n");
 }

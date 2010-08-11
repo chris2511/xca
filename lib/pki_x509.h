@@ -146,9 +146,9 @@ class pki_x509 : public pki_x509super
 		QByteArray i2d();
 		void d2i(QByteArray &ba);
 		void deleteFromToken();
-		void deleteFromToken(unsigned long slot);
+		void deleteFromToken(slotid slot);
 		virtual QString getMsg(msg_type msg);
-		virtual int renameOnToken(unsigned long slot, QString name);
+		virtual int renameOnToken(slotid slot, QString name);
 };
 
 #endif

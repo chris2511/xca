@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include "pkcs11_lib.h"
 #include "pkcs11.h"
 #include "pk11_attribute.h"
 #include "exception.h"
@@ -17,8 +18,7 @@
 #include <ltdl.h>
 #include "ui_SelectToken.h"
 
-CK_FUNCTION_LIST *pkcs11::p11 = NULL;
-lt_dlhandle pkcs11::dl_handle = NULL;
+pkcs11_lib_list pkcs11::libs;
 
 #if defined(_WIN32) || defined(USE_CYGWIN)
 #define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
@@ -28,93 +28,57 @@ lt_dlhandle pkcs11::dl_handle = NULL;
 #define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
 #endif
 
-static const char *CKR2Str(unsigned long rv);
-
 pkcs11::pkcs11()
 {
 	session = CK_INVALID_HANDLE;
 	p11obj = CK_INVALID_HANDLE;
-	slot_id = 0;
 }
 
 pkcs11::~pkcs11()
 {
-	if (session != CK_INVALID_HANDLE && p11)
-		p11->C_CloseSession(session);
+	if (session != CK_INVALID_HANDLE && p11slot.p11())
+		p11slot.p11()->C_CloseSession(session);
 }
 
-void pkcs11::initialize()
+pkcs11_lib *pkcs11::load_lib(QString fname, bool silent)
 {
-	CK_RV rv = p11->C_Initialize(NULL);
-	if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
-		pk11error("C_Initialize", rv);
+	pkcs11_lib *l;
+	if (fname.isEmpty()) {
+		fname = PKCS11_DEFAULT_MODULE_NAME;
+		silent = true;
+	}
+	try {
+		l = libs.add_lib(fname);
+	} catch (errorEx &ex) {
+		if (silent)
+			return NULL;
+		throw ex;
+	}
+	return l;
 }
 
-void pkcs11::finalize()
-{
-	if (!loaded)
-		return;
-	CK_RV rv = p11->C_Finalize(NULL);
-	if (rv != CKR_OK && rv != CKR_CRYPTOKI_NOT_INITIALIZED)
-		pk11error("C_Finalize", rv);
-}
-
-void pkcs11::startSession(unsigned long slot, bool rw)
+void pkcs11::startSession(slotid slot, bool rw)
 {
 	CK_RV rv;
 	unsigned long flags = CKF_SERIAL_SESSION | (rw ? CKF_RW_SESSION : 0);
 
 	if (session != CK_INVALID_HANDLE) {
 		WAITCURSOR_START;
-		rv = p11->C_CloseSession(session);
+		rv = slot.p11()->C_CloseSession(session);
 		WAITCURSOR_END;
+		session = CK_INVALID_HANDLE;
 		if (rv != CKR_OK)
-			pk11error("C_OpenSession", rv);
+			pk11error(slot, "C_CloseSession", rv);
 	}
 	WAITCURSOR_START;
-	rv = p11->C_OpenSession(slot, flags, NULL, NULL, &session);
+	rv = slot.p11()->C_OpenSession(slot.id, flags, NULL, NULL, &session);
 	WAITCURSOR_END;
         if (rv != CKR_OK)
-                pk11error("C_OpenSession", rv);
-	slot_id = slot;
+                pk11error(slot, "C_OpenSession", rv);
+	p11slot = slot;
 }
 
-QList<unsigned long> pkcs11::getSlotList()
-{
-	CK_RV rv;
-	CK_SLOT_ID *p11_slots = NULL;
-	QList<unsigned long> sl;
-	unsigned long i, num_slots = 0;
-
-	/* This one helps to avoid errors.
-	 * Fist time it fails, 2nd time it works */
-	WAITCURSOR_START;
-	p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
-	WAITCURSOR_END;
-	while (1) {
-		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
-		if (rv != CKR_OK && rv != CKR_BUFFER_TOO_SMALL)
-			pk11error("C_GetSlotList", rv);
-
-		if (num_slots == 0)
-			break;
-		if ((rv == CKR_OK) && p11_slots)
-			break;
-
-		p11_slots = (CK_SLOT_ID *)realloc(p11_slots,
-					num_slots *sizeof(CK_SLOT_ID));
-		check_oom(p11_slots);
-	}
-
-	for (i=0; i<num_slots; i++) {
-		sl << p11_slots[i];
-	}
-	if (p11_slots)
-		free(p11_slots);
-	return sl;
-}
-
-QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
+QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(slotid slot)
 {
 	CK_RV rv;
 	CK_MECHANISM_TYPE *m;
@@ -122,18 +86,18 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
 	unsigned long count;
 
 	WAITCURSOR_START;
-	rv = p11->C_GetMechanismList(slot, NULL, &count);
+	rv = slot.p11()->C_GetMechanismList(slot.id, NULL, &count);
 	WAITCURSOR_END;
 	if (count != 0) {
 		m = (CK_MECHANISM_TYPE *)malloc(count *sizeof(*m));
 		check_oom(m);
 
 		WAITCURSOR_START;
-		rv = p11->C_GetMechanismList(slot, m, &count);
+		rv = slot.p11()->C_GetMechanismList(slot.id, m, &count);
 		WAITCURSOR_END;
 		if (rv != CKR_OK) {
 			free(m);
-			pk11error("C_GetMechanismList", rv);
+			pk11error(slot, "C_GetMechanismList", rv);
 		}
 		for (unsigned i=0; i<count; i++) {
 			ml << m[i];
@@ -143,23 +107,22 @@ QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(unsigned long slot)
 	return ml;
 }
 
-void pkcs11::mechanismInfo(unsigned long slot, CK_MECHANISM_TYPE m, CK_MECHANISM_INFO *info)
+void pkcs11::mechanismInfo(slotid slot, CK_MECHANISM_TYPE m, CK_MECHANISM_INFO *info)
 {
 	CK_RV rv;
 	WAITCURSOR_START;
-	rv = p11->C_GetMechanismInfo(slot, m, info);
+	rv = slot.p11()->C_GetMechanismInfo(slot.id, m, info);
 	WAITCURSOR_END;
 	if (rv != CKR_OK) {
-		pk11error("C_GetMechanismInfo", rv);
+		pk11error(slot, "C_GetMechanismInfo", rv);
 	}
 }
 
-void pkcs11::logout() const
+void pkcs11::logout()
 {
 	CK_RV rv;
-
 	WAITCURSOR_START;
-	rv = p11->C_Logout(session);
+	rv = p11slot.p11()->C_Logout(session);
 	WAITCURSOR_END;
 	if (rv != CKR_OK && rv != CKR_USER_NOT_LOGGED_IN)
 		pk11error("C_Logout", rv);
@@ -171,7 +134,7 @@ bool pkcs11::needsLogin(bool so)
 	CK_RV rv;
 
 	WAITCURSOR_START;
-	rv = p11->C_GetSessionInfo(session, &sinfo);
+	rv = p11slot.p11()->C_GetSessionInfo(session, &sinfo);
 	WAITCURSOR_END;
 	if (rv != CKR_OK)
                 pk11error("C_GetSessionInfo", rv);
@@ -205,7 +168,7 @@ void pkcs11::login(unsigned char *pin, unsigned long pinlen, bool so)
 	CK_RV rv;
 
 	WAITCURSOR_START;
-	rv = p11->C_Login(session, user, pin, pinlen);
+	rv = p11slot.p11()->C_Login(session, user, pin, pinlen);
 	WAITCURSOR_END;
 	if (rv != CKR_OK && rv != CKR_USER_ALREADY_LOGGED_IN)
 		pk11error("C_Login", rv);
@@ -242,9 +205,9 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 	return QString::fromLocal8Bit(pin, pinlen);
 }
 
-bool pkcs11::selectToken(unsigned long *slot, QWidget *w)
+bool pkcs11::selectToken(slotid *slot, QWidget *w)
 {
-	QList<unsigned long> p11_slots = getSlotList();
+	slotidList p11_slots = getSlotList();
 	if (p11_slots.count() == 0) {
 		QMessageBox::warning(w, XCA_TITLE,
 			QObject::tr("No Security token found"));
@@ -252,9 +215,14 @@ bool pkcs11::selectToken(unsigned long *slot, QWidget *w)
 	}
 	QStringList slotnames;
 	for (int i=0; i<p11_slots.count(); i++) {
-		tkInfo info = tokenInfo(p11_slots[i]);
-		slotnames << QString("%1 (#%2)").
-			arg(info.label()).arg(info.serial());
+		try {
+			tkInfo info = tokenInfo(p11_slots[i]);
+			slotnames << QString("%1 (#%2)").
+				arg(info.label()).arg(info.serial());
+		} catch (errorEx &e) {
+			QMessageBox::warning(w, XCA_TITLE,
+				QString("Error: %1").arg(e.getString()));
+		}
 	}
 	Ui::SelectToken ui;
 	QDialog *select_slot = new QDialog(w);
@@ -276,7 +244,7 @@ void pkcs11::setPin(unsigned char *oldPin, unsigned long oldPinLen,
 	    unsigned char *pin, unsigned long pinLen)
 {
 	WAITCURSOR_START;
-	CK_RV rv = p11->C_SetPIN(session, oldPin, oldPinLen, pin, pinLen);
+	CK_RV rv = p11slot.p11()->C_SetPIN(session, oldPin, oldPinLen, pin, pinLen);
 	WAITCURSOR_END;
 	if (rv != CKR_OK)
 		pk11error("C_SetPIN", rv);
@@ -287,7 +255,7 @@ static QString newSoPinTxt = QObject::tr(
 static QString newPinTxt = QObject::tr(
 		"Please enter the new PIN for the token: '%1'");
 
-void pkcs11::changePin(unsigned long slot, bool so)
+void pkcs11::changePin(slotid slot, bool so)
 {
 	char newPin[MAX_PASS_LENGTH], *pinp;
 	QString pin;
@@ -318,7 +286,7 @@ void pkcs11::changePin(unsigned long slot, bool so)
 	logout();
 }
 
-void pkcs11::initPin(unsigned long slot)
+void pkcs11::initPin(slotid slot)
 {
 	char newPin[MAX_PASS_LENGTH], *pinp = NULL;
 	int newPinLen = 0;
@@ -341,7 +309,7 @@ void pkcs11::initPin(unsigned long slot)
 	}
 	if (newPinLen != -1) {
 		WAITCURSOR_START;
-		CK_RV rv = p11->C_InitPIN(session,
+		CK_RV rv = p11slot.p11()->C_InitPIN(session,
 					(unsigned char*)pinp, newPinLen);
 		WAITCURSOR_END;
 		if (rv != CKR_OK)
@@ -350,7 +318,7 @@ void pkcs11::initPin(unsigned long slot)
 	logout();
 }
 
-void pkcs11::initToken(unsigned long slot, unsigned char *pin, int pinlen,
+void pkcs11::initToken(slotid slot, unsigned char *pin, int pinlen,
 		QString label)
 {
 	unsigned char clabel[32];
@@ -359,61 +327,34 @@ void pkcs11::initToken(unsigned long slot, unsigned char *pin, int pinlen,
 	memcpy(clabel, ba.constData(), ba.size());
 
 	WAITCURSOR_START;
-	CK_RV rv = p11->C_InitToken(slot, pin, pinlen, clabel);
+	CK_RV rv = slot.p11()->C_InitToken(slot.id, pin, pinlen, clabel);
 	WAITCURSOR_END;
 	if (rv != CKR_OK)
-		pk11error("C_InitToken", rv);
+		pk11error(slot, "C_InitToken", rv);
 }
 
-tkInfo pkcs11::tokenInfo(CK_SLOT_ID slot)
+tkInfo pkcs11::tokenInfo(slotid slot)
 {
 	CK_TOKEN_INFO token_info;
 	CK_RV rv;
 
 	WAITCURSOR_START;
-	rv = p11->C_GetTokenInfo(slot, &token_info);
+	rv = slot.p11()->C_GetTokenInfo(slot.id, &token_info);
 	WAITCURSOR_END;
 	if (rv != CKR_OK) {
-		pk11error("C_GetTokenInfo", rv);
+		pk11error(slot, "C_GetTokenInfo", rv);
 	}
 	return tkInfo(&token_info);
 }
 
-QString pkcs11::driverInfo()
-{
-	CK_INFO info;
-	CK_RV rv;
-
-	WAITCURSOR_START;
-	rv = p11->C_GetInfo(&info);
-	WAITCURSOR_END;
-	if (rv != CKR_OK) {
-		pk11error("C_GetInfo", rv);
-	}
-
-	return QString(
-	"Cryptoki version: %1.%2\n"
-	"Manufacturer: %3\n"
-	"Library: %4 (%5.%6)\n").
-	arg(info.cryptokiVersion.major).arg(info.cryptokiVersion.minor).
-	arg(UTF8QSTRING(info.manufacturerID, 32)).
-	arg(UTF8QSTRING(info.libraryDescription, 32)).
-	arg(info.libraryVersion.major).arg(info.libraryVersion.minor);
-}
-
-tkInfo pkcs11::tokenInfo()
-{
-	return tokenInfo(slot_id);
-}
-
 void pkcs11::loadAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 {
-	attribute.load(session, object);
+	attribute.load(p11slot, session, object);
 }
 
 void pkcs11::storeAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 {
-	attribute.store(session, object);
+	attribute.store(p11slot, session, object);
 }
 
 CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
@@ -422,7 +363,7 @@ CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
 	CK_OBJECT_HANDLE obj;
 
 	WAITCURSOR_START;
-	rv = p11->C_CreateObject(session, attrs.getAttributes(), attrs.length(), &obj);
+	rv = p11slot.p11()->C_CreateObject(session, attrs.getAttributes(), attrs.length(), &obj);
 	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		pk11error("C_CreateObject", rv);
@@ -433,9 +374,10 @@ CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
 int pkcs11::deleteObjects(QList<CK_OBJECT_HANDLE> objects)
 {
 	CK_RV rv;
+
 	for (int i=0; i< objects.count(); i++) {
 		WAITCURSOR_START;
-		rv = p11->C_DestroyObject(session, objects[i]);
+		rv = p11slot.p11()->C_DestroyObject(session, objects[i]);
 		WAITCURSOR_END;
 		if (rv != CKR_OK) {
 			pk11error("C_DestroyObject", rv);
@@ -493,7 +435,7 @@ pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
 		label << new_id;
 
 	WAITCURSOR_START;
-	rv = p11->C_GenerateKeyPair(session, &mechanism,
+	rv = p11slot.p11()->C_GenerateKeyPair(session, &mechanism,
 		pub_atts.getAttributes(), pub_atts.length(),
 		priv_atts.getAttributes(), priv_atts.length(),
 		&pubkey, &privkey);
@@ -515,7 +457,7 @@ QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)
 	att_num = atts.get(&attribute);
 
 	WAITCURSOR_START;
-	rv = p11->C_FindObjectsInit(session, attribute, att_num);
+	rv = p11slot.p11()->C_FindObjectsInit(session, attribute, att_num);
 	WAITCURSOR_END;
 
 	if (rv != CKR_OK)
@@ -523,7 +465,7 @@ QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)
 
 	do {
 		WAITCURSOR_START;
-		rv = p11->C_FindObjects(session, objects, 256, &len);
+		rv = p11slot.p11()->C_FindObjects(session, objects, 256, &len);
 		WAITCURSOR_END;
 		if (rv != CKR_OK)
 			pk11error("C_FindObjects", rv);
@@ -532,67 +474,12 @@ QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)
 	} while (len);
 
 	WAITCURSOR_START;
-	rv = p11->C_FindObjectsFinal(session);
+	rv = p11slot.p11()->C_FindObjectsFinal(session);
 	WAITCURSOR_END;
 	if (rv != CKR_OK)
 		pk11error("C_FindObjectsFinal", rv);
 
 	return list;
-}
-
-bool pkcs11::load_lib(QString file, bool silent)
-{
-	CK_RV (*c_get_function_list)(CK_FUNCTION_LIST_PTR_PTR);
-
-	lt_dlinit();
-
-	if (dl_handle) {
-		if (p11)
-			finalize();
-		if (lt_dlclose(dl_handle) < 0) {
-			if (silent)
-				return false;
-			throw errorEx(QObject::tr("Failed to close PKCS11 library: %1").arg(file));
-		}
-	}
-	p11 = NULL;
-	dl_handle = NULL;
-	if (file.isEmpty()) {
-		if (silent)
-			return false;
-		throw errorEx(QObject::tr("PKCS11 library filename empty"));
-	}
-
-	dl_handle = lt_dlopen(QString2filename(file));
-	if (dl_handle == NULL) {
-		if (silent)
-			return false;
-		throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
-				arg(file));
-	}
-
-	/* Get the list of function pointers */
-	c_get_function_list = (CK_RV (*)(CK_FUNCTION_LIST_PTR_PTR))
-				lt_dlsym(dl_handle, "C_GetFunctionList");
-	if (c_get_function_list) {
-		if (c_get_function_list(&p11) == CKR_OK)
-			return true;
-	}
-	/* This state is always worth an error ! */
-	if (lt_dlclose(dl_handle) == 0)
-		dl_handle = NULL;
-	throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
-			arg(file));
-	return false;
-}
-
-bool pkcs11::load_default_lib(QString file, bool silent)
-{
-	if (file.isEmpty()) {
-		file = QString(PKCS11_DEFAULT_MODULE_NAME);
-		silent = true;
-	}
-	return load_lib(file, silent);
 }
 
 int pkcs11::decrypt(int flen, const unsigned char *from,
@@ -605,12 +492,13 @@ int pkcs11::decrypt(int flen, const unsigned char *from,
 	memset(&mech, 0, sizeof(mech));
 	mech.mechanism = CKM_RSA_PKCS;
 
-	rv = p11->C_DecryptInit(session, &mech, p11obj);
+	rv = p11slot.p11()->C_DecryptInit(session, &mech, p11obj);
 	if (rv == CKR_OK)
-		rv = p11->C_Decrypt(session, (CK_BYTE *)from, flen, to, &size);
+		rv = p11slot.p11()->C_Decrypt(session, (CK_BYTE *)from, flen, to, &size);
 
 	if (rv != CKR_OK) {
-		fprintf(stderr, "Error: C_Decrypt(init): %s\n", CKR2Str(rv));
+		fprintf(stderr, "Error: C_Decrypt(init): %s\n",
+			pk11errorString(rv));
 		return -1;
 	}
 	return size;
@@ -626,11 +514,12 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	memset(&mech, 0, sizeof(mech));
 	mech.mechanism = CKM_RSA_PKCS;
 
-	rv = p11->C_SignInit(session, &mech, p11obj);
+	rv = p11slot.p11()->C_SignInit(session, &mech, p11obj);
 	if (rv == CKR_OK)
-		rv = p11->C_Sign(session, (CK_BYTE *)from, flen, to, &size);
+		rv = p11slot.p11()->C_Sign(session, (CK_BYTE *)from, flen, to, &size);
 	if (rv != CKR_OK) {
-		fprintf(stderr, "Error: C_Sign(init): %s\n", CKR2Str(rv));
+		fprintf(stderr, "Error: C_Sign(init): %s\n",
+			pk11errorString(rv));
 		return -1;
 	}
 	return size;
@@ -691,105 +580,3 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 	EVP_PKEY_assign_RSA(evp, rsa);
 	return evp;
 }
-
-static const char *CKR2Str(unsigned long rv)
-{
-#define PK11_ERR(x) case x : return #x;
-
-	switch (rv) {
-		PK11_ERR(CKR_OK)
-		PK11_ERR(CKR_CANCEL)
-		PK11_ERR(CKR_HOST_MEMORY)
-		PK11_ERR(CKR_SLOT_ID_INVALID)
-		PK11_ERR(CKR_GENERAL_ERROR)
-		PK11_ERR(CKR_FUNCTION_FAILED)
-		PK11_ERR(CKR_ARGUMENTS_BAD)
-		PK11_ERR(CKR_NO_EVENT)
-		PK11_ERR(CKR_NEED_TO_CREATE_THREADS)
-		PK11_ERR(CKR_CANT_LOCK)
-		PK11_ERR(CKR_ATTRIBUTE_READ_ONLY)
-		PK11_ERR(CKR_ATTRIBUTE_SENSITIVE)
-		PK11_ERR(CKR_ATTRIBUTE_TYPE_INVALID)
-		PK11_ERR(CKR_ATTRIBUTE_VALUE_INVALID)
-		PK11_ERR(CKR_DATA_INVALID)
-		PK11_ERR(CKR_DATA_LEN_RANGE)
-		PK11_ERR(CKR_DEVICE_ERROR)
-		PK11_ERR(CKR_DEVICE_MEMORY)
-		PK11_ERR(CKR_DEVICE_REMOVED)
-		PK11_ERR(CKR_ENCRYPTED_DATA_INVALID)
-		PK11_ERR(CKR_ENCRYPTED_DATA_LEN_RANGE)
-		PK11_ERR(CKR_FUNCTION_CANCELED)
-		PK11_ERR(CKR_FUNCTION_NOT_PARALLEL)
-		PK11_ERR(CKR_FUNCTION_NOT_SUPPORTED)
-		PK11_ERR(CKR_KEY_HANDLE_INVALID)
-		PK11_ERR(CKR_KEY_SIZE_RANGE)
-		PK11_ERR(CKR_KEY_TYPE_INCONSISTENT)
-		PK11_ERR(CKR_KEY_NOT_NEEDED)
-		PK11_ERR(CKR_KEY_CHANGED)
-		PK11_ERR(CKR_KEY_NEEDED)
-		PK11_ERR(CKR_KEY_INDIGESTIBLE)
-		PK11_ERR(CKR_KEY_FUNCTION_NOT_PERMITTED)
-		PK11_ERR(CKR_KEY_NOT_WRAPPABLE)
-		PK11_ERR(CKR_KEY_UNEXTRACTABLE)
-		PK11_ERR(CKR_MECHANISM_INVALID)
-		PK11_ERR(CKR_MECHANISM_PARAM_INVALID)
-		PK11_ERR(CKR_OBJECT_HANDLE_INVALID)
-		PK11_ERR(CKR_OPERATION_ACTIVE)
-		PK11_ERR(CKR_OPERATION_NOT_INITIALIZED)
-		PK11_ERR(CKR_PIN_INCORRECT)
-		PK11_ERR(CKR_PIN_INVALID)
-		PK11_ERR(CKR_PIN_LEN_RANGE)
-		PK11_ERR(CKR_PIN_EXPIRED)
-		PK11_ERR(CKR_PIN_LOCKED)
-		PK11_ERR(CKR_SESSION_CLOSED)
-		PK11_ERR(CKR_SESSION_COUNT)
-		PK11_ERR(CKR_SESSION_HANDLE_INVALID)
-		PK11_ERR(CKR_SESSION_PARALLEL_NOT_SUPPORTED)
-		PK11_ERR(CKR_SESSION_READ_ONLY)
-		PK11_ERR(CKR_SESSION_EXISTS)
-		PK11_ERR(CKR_SESSION_READ_ONLY_EXISTS)
-		PK11_ERR(CKR_SESSION_READ_WRITE_SO_EXISTS)
-		PK11_ERR(CKR_SIGNATURE_INVALID)
-		PK11_ERR(CKR_SIGNATURE_LEN_RANGE)
-		PK11_ERR(CKR_TEMPLATE_INCOMPLETE)
-		PK11_ERR(CKR_TEMPLATE_INCONSISTENT)
-		PK11_ERR(CKR_TOKEN_NOT_PRESENT)
-		PK11_ERR(CKR_TOKEN_NOT_RECOGNIZED)
-		PK11_ERR(CKR_TOKEN_WRITE_PROTECTED)
-		PK11_ERR(CKR_UNWRAPPING_KEY_HANDLE_INVALID)
-		PK11_ERR(CKR_UNWRAPPING_KEY_SIZE_RANGE)
-		PK11_ERR(CKR_UNWRAPPING_KEY_TYPE_INCONSISTENT)
-		PK11_ERR(CKR_USER_ALREADY_LOGGED_IN)
-		PK11_ERR(CKR_USER_NOT_LOGGED_IN)
-		PK11_ERR(CKR_USER_PIN_NOT_INITIALIZED)
-		PK11_ERR(CKR_USER_TYPE_INVALID)
-		PK11_ERR(CKR_USER_ANOTHER_ALREADY_LOGGED_IN)
-		PK11_ERR(CKR_USER_TOO_MANY_TYPES)
-		PK11_ERR(CKR_WRAPPED_KEY_INVALID)
-		PK11_ERR(CKR_WRAPPED_KEY_LEN_RANGE)
-		PK11_ERR(CKR_WRAPPING_KEY_HANDLE_INVALID)
-		PK11_ERR(CKR_WRAPPING_KEY_SIZE_RANGE)
-		PK11_ERR(CKR_WRAPPING_KEY_TYPE_INCONSISTENT)
-		PK11_ERR(CKR_RANDOM_SEED_NOT_SUPPORTED)
-		PK11_ERR(CKR_RANDOM_NO_RNG)
-		PK11_ERR(CKR_DOMAIN_PARAMS_INVALID)
-		PK11_ERR(CKR_BUFFER_TOO_SMALL)
-		PK11_ERR(CKR_SAVED_STATE_INVALID)
-		PK11_ERR(CKR_INFORMATION_SENSITIVE)
-		PK11_ERR(CKR_STATE_UNSAVEABLE)
-		PK11_ERR(CKR_CRYPTOKI_NOT_INITIALIZED)
-		PK11_ERR(CKR_CRYPTOKI_ALREADY_INITIALIZED)
-		PK11_ERR(CKR_MUTEX_BAD)
-		PK11_ERR(CKR_MUTEX_NOT_LOCKED)
-		PK11_ERR(CKR_VENDOR_DEFINED)
-	}
-	return "unknown PKCS11 error";
-}
-
-void pkcs11::pk11error(QString func, int rv)
-{
-	errorEx err("PKCS#11 function " + func + " failed: " +
-		CKR2Str(rv) + "\n");
-	throw err;
-}
-

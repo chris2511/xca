@@ -160,7 +160,7 @@ void MainWindow::setOptions()
 	Options *opt = new Options(this);
 
 	opt->setStringOpt(string_opt);
-	opt->pkcs11path->setText(pkcs11path);
+	opt->setupPkcs11Provider(pkcs11path);
 	if (!opt->exec()) {
 		delete opt;
 		enableTokenMenu(pkcs11::loaded());
@@ -182,17 +182,11 @@ void MainWindow::setOptions()
 		mydb.set((const unsigned char *)CCHAR(string_opt),
 				string_opt.length()+1, 1, setting,"string_opt");
 	}
-	QString newpath = opt->pkcs11path->text();
+	QString newpath = opt->getPkcs11Provider();
 	if (newpath != pkcs11path) {
 		pkcs11path = newpath;
 		mydb.set((const unsigned char *) CCHAR(pkcs11path),
 			pkcs11path.length()+1, 1,setting, "pkcs11path");
-		try {
-			if (pkcs11::load_default_lib(pkcs11path, false))
-				pkcs11::initialize();
-		} catch (errorEx &err) {
-			Error(err);
-		}
 	}
 	enableTokenMenu(pkcs11::loaded());
 	delete opt;

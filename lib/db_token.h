@@ -12,18 +12,19 @@
 #include <QtGui/QPixmap>
 #include <QtCore/QEvent>
 
+#include "pkcs11_lib.h"
 #include "db_base.h"
 
 class db_token: public db_base
 {
 		Q_OBJECT
 	private:
-		unsigned long slot;
+		slotid slot;
 	public:
 		db_token(QString db, MainWindow *mw);
 		bool setData(const QModelIndex &index,
 			const QVariant &value, int role);
-		void setSlot(unsigned long s)
+		void setSlot(slotid s)
 		{
 			slot = s;
 		}
