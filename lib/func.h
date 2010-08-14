@@ -18,6 +18,7 @@ class Validity;
 QPixmap *loadImg(const char *name);
 QString getPrefix();
 QString getHomeDir();
+QString getLibDir();
 QString getDocDir();
 QString getUserSettingsDir();
 QString getFullFilename(const QString &filename, const QString &selectedFilter);

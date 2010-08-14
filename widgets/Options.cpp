@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include "lib/func.h"
 #include "Options.h"
 #include "lib/pki_scard.h"
 #include <openssl/objects.h>
@@ -81,7 +82,7 @@ void Options::on_addButton_clicked(void)
 	QString fname, status;
 
 	fname = QFileDialog::getOpenFileName(this, l.caption,
-		QString(), l.filter);
+		getLibDir(), l.filter);
 
 	if (fname.isEmpty() || pkcs11::get_lib(fname))
 		return;

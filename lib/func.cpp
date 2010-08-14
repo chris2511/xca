@@ -111,6 +111,22 @@ QString getHomeDir()
 	return hd;
 }
 
+QString getLibDir()
+{
+	QString hd;
+#ifdef WIN32
+	LPITEMIDLIST pidl = NULL;
+	TCHAR buf[255] = "";
+		if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_SYSTEM, &pidl))) {
+		SHGetPathFromIDList(pidl, buf);
+	}
+	hd = buf;
+#else
+	hd = QString("/usr/lib");
+#endif
+	return hd;
+}
+
 QString getDocDir()
 {
 #if defined(WIN32) || defined (Q_WS_MAC)

@@ -13,5 +13,6 @@ Makefile.qt: macdeployqt.pro
 
 clean:
 	rm -f *.o Makefile.qt macdeployqt
+distclean: clean
 
 include $(TOPDIR)/Local.mak
