@@ -458,49 +458,60 @@
 <context>
     <name>ExportCert</name>
     <message>
-        <location filename="../ui/ExportCert.ui" line="+39"/>
         <source>Certificate export</source>
-        <translation>Zertifikatsexport</translation>
+        <translation type="obsolete">Zertifikatsexport</translation>
     </message>
     <message>
-        <location line="+81"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Filename</source>
-        <translation>Dateiname</translation>
+        <translation type="obsolete">Dateiname</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location filename="../widgets/ExportDialog.h" line="+78"/>
+        <source>X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )</source>
+        <translation>X509 Zertifikate ( *.cer *.crt *.p12 *.p7b);;Alle Dateien ( * )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DER is a binary format of the Certificate
+PEM is a base64 encoded Certificate
+PKCS#7 is an official Certificate exchange format
+PKCS#12 is an encrypted official Key-Certificate exchange format
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Please enter the filename for the certificate.</source>
         <translation>Bitte geben sie den Dateinamen des Zertifikats ein.</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+2"/>
+        <source>Certifikate export</source>
+        <translation>Zertifikatsexport</translation>
+    </message>
+    <message>
         <source>DER is a binary format of the Certificate</source>
-        <translation>DER ist ein binärformat des Zertifikats</translation>
+        <translation type="obsolete">DER ist ein binärformat des Zertifikats</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>PEM is a base64 encoded Certificate</source>
-        <translation>PEM ist ein base64 kodiertes Zertifikat</translation>
+        <translation type="obsolete">PEM ist ein base64 kodiertes Zertifikat</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>PKCS#7 is an official Certificate exchange format</source>
-        <translation>PKCS#7 ist ein offizielles Zertifikats austausch format</translation>
+        <translation type="obsolete">PKCS#7 ist ein offizielles Zertifikats austausch format</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>PKCS#12 is an encrypted official Key-Certificate exchange format</source>
-        <translation>PKCS#12 ist ein verschlüsseltes Schlüssel/Zertifikats format</translation>
+        <translation type="obsolete">PKCS#12 ist ein verschlüsseltes Schlüssel/Zertifikats format</translation>
     </message>
     <message>
-        <location line="+15"/>
         <source>Export Format</source>
-        <translation>Exportformat</translation>
+        <translation type="obsolete">Exportformat</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -511,32 +522,27 @@
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportCert.cpp" line="+40"/>
         <source>Save key as</source>
-        <translation>Schlüssel speichern als</translation>
+        <translation type="obsolete">Schlüssel speichern als</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>X509 Certificates ( *.cer *.crt *.p12 );;All files ( * )</source>
-        <translation>X509 Zertifikate ( *.cer *.crt *.p12 );;Alle Dateien ( * )</translation>
+        <translation type="obsolete">X509 Zertifikate ( *.cer *.crt *.p12 );;Alle Dateien ( * )</translation>
     </message>
 </context>
 <context>
     <name>ExportDer</name>
     <message>
-        <location filename="../ui/ExportDer.ui" line="+128"/>
         <source>Filename</source>
-        <translation>Dateiname</translation>
+        <translation type="obsolete">Dateiname</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Export Format</source>
-        <translation>Exportformat</translation>
+        <translation type="obsolete">Exportformat</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -547,35 +553,87 @@
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location line="-122"/>
         <source>Export</source>
-        <translation>Export</translation>
+        <translation type="obsolete">Export</translation>
+    </message>
+    <message>
+        <location line="-45"/>
+        <source>All files ( * )</source>
+        <translation>Alle Dateien ( * )</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DER is a binary format
+PEM is a base64 encoded DER file
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ExportKey</name>
+    <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportKey.ui" line="+36"/>
-        <source>Key export</source>
-        <translation>Schlüssel export</translation>
+        <location filename="../ui/ExportDialog.ui" line="+117"/>
+        <source>...</source>
+        <translation>...</translation>
     </message>
     <message>
-        <location line="+44"/>
-        <source>Please enter the filename for the key.</source>
-        <translation>Bitte geben Sie den Dateinamen für den Schlüssel ein.</translation>
-    </message>
-    <message>
-        <location line="+22"/>
+        <location line="+13"/>
         <source>Filename</source>
         <translation>Dateiname</translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>...</source>
-        <translation>...</translation>
+        <source>Please enter the filename</source>
+        <translation>Bitte den Dateinamen eingeben</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+49"/>
+        <source>Export Format</source>
+        <translation>Exportformat</translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="+61"/>
+        <source>The file: &apos;%1&apos; already exists!</source>
+        <translation>Die Datei &apos;%1&apos; existiert bereits!</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Overwrite</source>
+        <translation>Überschreiben</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Do not overwrite</source>
+        <translation>Nicht überschreiben</translation>
+    </message>
+</context>
+<context>
+    <name>ExportKey</name>
+    <message>
+        <location filename="../widgets/ExportKey.cpp" line="+37"/>
+        <source>Public key export</source>
+        <translation>Export des öffentlichen Schlüssels</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Key export</source>
+        <translation>Schlüssel export</translation>
+    </message>
+    <message>
+        <location line="-8"/>
+        <source>Please enter the filename for the key.</source>
+        <translation>Bitte geben Sie den Dateinamen für den Schlüssel ein.</translation>
+    </message>
+    <message>
+        <source>Filename</source>
+        <translation type="obsolete">Dateiname</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="obsolete">...</translation>
+    </message>
+    <message>
+        <location line="-5"/>
         <source>DER is a binary format of the key without encryption
 PEM is a base64 encoded key with optional encryption
 PKCS#8 is an encrypted official Key-exchange format</source>
@@ -584,17 +642,16 @@ PEM ist ein base64 codierter Schlüssel mit optionaler Passwort sicherung
 PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</translation>
     </message>
     <message>
-        <location line="+24"/>
         <source>Export Format</source>
-        <translation>Exportformat</translation>
+        <translation type="obsolete">Exportformat</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location filename="../ui/ExportKey.ui" line="+23"/>
         <source>When exporting the private key it should be encrypted.</source>
         <translation>Der Private Schlüssel sollte beim Export durch ein Passwort geschützt werden.</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+7"/>
         <source>When exporting the private part, it should be encrypted.</source>
         <translation>Wenn der private Teil mit exportiert wird, sollte er verschlüsselt werden.</translation>
     </message>
@@ -622,12 +679,11 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="+42"/>
         <source>Save key as</source>
-        <translation>Schlüssel speichern als</translation>
+        <translation type="obsolete">Schlüssel speichern als</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location filename="../widgets/ExportKey.cpp" line="-2"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
         <translation>Private Schlüssel ( *.pem *.der *.pk8 );;Alle Dateien ( * )</translation>
     </message>
@@ -678,7 +734,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Entfe&amp;rnen</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+105"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+104"/>
         <location line="+120"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
@@ -848,7 +904,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+724"/>
+        <location filename="../widgets/MainWindow.cpp" line="+726"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -1168,9 +1224,8 @@ Seriennummer: %3</translation>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location line="+150"/>
         <source>You need to restart XCA to load the new library</source>
-        <translation>XCA muss neu gestartet werden um die neue PKCS#11 DLL zu laden</translation>
+        <translation type="obsolete">XCA muss neu gestartet werden um die neue PKCS#11 DLL zu laden</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="+256"/>
@@ -1234,7 +1289,7 @@ Seriennummer: %3</translation>
         <translation>Öffnen der Datei &apos;%1&apos; fehlgeschlagen: %2</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-165"/>
+        <location filename="../widgets/MW_menu.cpp" line="-15"/>
         <source>Generate DH parameter</source>
         <translation>DH Parameter erstellen</translation>
     </message>
@@ -1416,7 +1471,7 @@ Seriennummer: %3</translation>
         <translation>Kurve</translation>
     </message>
     <message>
-        <location filename="../widgets/NewKey.cpp" line="+140"/>
+        <location filename="../widgets/NewKey.cpp" line="+139"/>
         <source>Create</source>
         <translation>Erstellen</translation>
     </message>
@@ -2116,7 +2171,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+226"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+228"/>
         <source>Configfile error on line %1
 </source>
         <translation>Fehler in der Konfigurationsdatei in Zeile %1
@@ -2131,17 +2186,18 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Pflichtfelder im subject-name</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+24"/>
+        <location line="+89"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-82"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+33"/>
         <source>Default hash algorithm</source>
         <translation>Standard Hash Algorithmus</translation>
     </message>
@@ -2149,6 +2205,16 @@ though you have declared them as mandatory in the options menu.</source>
         <location line="+20"/>
         <source>String types</source>
         <translation>Zeichenkettentyp</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>PKCS#11 provider</source>
+        <translation>PKCS#11 anbieter</translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2159,27 +2225,24 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+39"/>
+        <location filename="../widgets/Options.cpp" line="+40"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation>Nur UTF8 Zeichenketten (RFC2459)</translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="+14"/>
         <source>PKCS#11 path: </source>
-        <translation>PKCS#11 pfad:</translation>
+        <translation type="obsolete">PKCS#11 pfad:</translation>
     </message>
     <message>
-        <location line="+23"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Load</source>
-        <translation>Laden</translation>
+        <translation type="obsolete">Laden</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="-3"/>
+        <location line="-3"/>
         <source>Printable string or UTF8 (default)</source>
         <translation></translation>
     </message>
@@ -2199,15 +2262,19 @@ though you have declared them as mandatory in the options menu.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-156"/>
+        <location line="+90"/>
+        <source>Load failed</source>
+        <translation>Laden fehlgeschlagen</translation>
+    </message>
+    <message>
+        <location filename="../ui/Options.ui" line="-136"/>
         <source>XCA Options</source>
         <translation>XCA Optionen</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+72"/>
         <source>Successfully loaded PKCS#11 library: %1
 </source>
-        <translation>Die PKCS#11 Bibliothek %1 wurde erfolgreich geladen
+        <translation type="obsolete">Die PKCS#11 Bibliothek %1 wurde erfolgreich geladen
 </translation>
     </message>
 </context>
@@ -2400,14 +2467,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+286"/>
         <source>Do not overwrite</source>
-        <translation>Nicht überschreiben</translation>
+        <translation type="obsolete">Nicht überschreiben</translation>
     </message>
     <message>
-        <location line="-2"/>
         <source>Overwrite</source>
-        <translation>Überschreiben</translation>
+        <translation type="obsolete">Überschreiben</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="+135"/>
@@ -2431,9 +2496,8 @@ You must set it manually.</source>
 Bitte die Zeiten manuell einstellen.</translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="-3"/>
         <source>The file: &apos;%1&apos; already exists!</source>
-        <translation>Die Datei &apos;%1&apos; existiert bereits!</translation>
+        <translation type="obsolete">Die Datei &apos;%1&apos; existiert bereits!</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="-168"/>
@@ -2446,7 +2510,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Datenbank: Schreibfehler %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+209"/>
+        <location filename="../lib/pkcs11.cpp" line="+184"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation>Bitte die SO PIN (PUK) der Chipkarte %1 eingeben</translation>
     </message>
@@ -2477,7 +2541,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Fehlerhafter String</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+14"/>
+        <location filename="../lib/pkcs11.cpp" line="+19"/>
         <source>Select</source>
         <translation>Auswählen</translation>
     </message>
@@ -2492,20 +2556,36 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Bitte die neue PIN der Chipkarte %1 eingeben</translation>
     </message>
     <message>
-        <location line="+266"/>
         <source>Failed to close PKCS11 library: %1</source>
-        <translation>Die PKCS#11 Bibliothek %1 konnte nicht geschlossen werden</translation>
+        <translation type="obsolete">Die PKCS#11 Bibliothek %1 konnte nicht geschlossen werden</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>PKCS11 library filename empty</source>
-        <translation>PKCs#11 Bibliotheksdateiname ist leer</translation>
+        <translation type="obsolete">PKCs#11 Bibliotheksdateiname ist leer</translation>
+    </message>
+    <message>
+        <location filename="../lib/pkcs11_lib.cpp" line="+62"/>
+        <source>Failed to open PKCS11 library: %1</source>
+        <translation>Die PKCS#11 Bibliothek %1 konnte nicht geöffnet werden</translation>
+    </message>
+    <message>
+        <location line="+218"/>
+        <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
+        <translation>PKCS#11 Funktion &apos;%1&apos; fehlgeschlagen: %2</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+14"/>
-        <source>Failed to open PKCS11 library: %1</source>
-        <translation>Die PKCS#11 Bibliothek %1 konnte nicht geöffnet werden</translation>
+        <source>PKCS#11 function &apos;%1&apos; failed: %2
+In library %3
+%4</source>
+        <translation>PKCS#11 Funktion &apos;%1&apos; fehlgeschlagen: %2
+in Bibliothek %3
+%4</translation>
+    </message>
+    <message>
+        <location filename="../lib/pkcs11.h" line="+80"/>
+        <source>Required PIN size: %1 - %2</source>
+        <translation>Benötigte PIN länge: %1 - %2</translation>
     </message>
 </context>
 <context>
@@ -2568,6 +2648,24 @@ Bitte die Zeiten manuell einstellen.</translation>
     <message>
         <source>&amp;OK</source>
         <translation type="obsolete">&amp;OK</translation>
+    </message>
+</context>
+<context>
+    <name>Revoke</name>
+    <message>
+        <location filename="../ui/Revoke.ui" line="+17"/>
+        <source>Revokation details</source>
+        <translation>Details der Rücknahmeliste</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Invalid since</source>
+        <translation>Ungültig seit</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Revokation reason</source>
+        <translation>Rücknahmegrund</translation>
     </message>
 </context>
 <context>
@@ -2648,7 +2746,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+614"/>
+        <location line="+616"/>
         <source>Reset</source>
         <translation>Reset</translation>
     </message>
@@ -2847,7 +2945,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Auf der Chipkarte speichern</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+89"/>
         <source>Tried to change password of a token</source>
         <translation></translation>
     </message>
@@ -2867,7 +2965,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation></translation>
     </message>
     <message>
-        <location line="-293"/>
+        <location line="-297"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -3413,7 +3511,7 @@ und wurde daher nicht importiert</translation>
         <translation>Fehler: </translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.h" line="+65"/>
+        <location filename="../lib/pki_base.h" line="+66"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interner Fehler: Unerwartete Nachricht: %1 %2</translation>
     </message>
@@ -3634,7 +3732,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+412"/>
+        <location filename="../lib/pki_scard.cpp" line="+310"/>
         <source>This Key is already on the token</source>
         <translation>Der Schlüssel ist bereits auf der SmartCard</translation>
     </message>
@@ -3654,27 +3752,27 @@ und wurde daher nicht importiert</translation>
         <translation>Kann den erstellten Schlüssel auf der Karte nicht finden</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+72"/>
+        <location line="+12"/>
         <source>Failed to find the key on the token</source>
         <translation>Konnte den Schlüssel auf der Chipkarte nicht finden</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="-5"/>
         <source>Invalid Pin for the token</source>
         <translation>Ungültige Pin für die Chipkarte</translation>
     </message>
     <message>
-        <location line="-367"/>
+        <location line="-359"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Soll der private Schlüssel &apos;%1&apos; von der Chipkarte &apos;%2&apos; mit der Seriennummer %3 gelöscht werden ?</translation>
     </message>
     <message>
-        <location line="-257"/>
         <source>PKCS#11 engine: &apos;%1&apos; not found</source>
-        <translation>PKCS#11 engine: &apos;%1&apos; nicht gefunden</translation>
+        <translation type="obsolete">PKCS#11 engine: &apos;%1&apos; nicht gefunden</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="-179"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>Der Chipkartenschlüssel &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -3841,7 +3939,7 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="+435"/>
-        <location line="+405"/>
+        <location line="+407"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
@@ -3889,7 +3987,7 @@ und wurde daher nicht importiert</translation>
         <translation>Unbehandelt</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+43"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>

@@ -430,116 +430,122 @@
 <context>
     <name>ExportCert</name>
     <message>
-        <location filename="../ui/ExportCert.ui" line="+39"/>
-        <source>Certificate export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+81"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <source>Filename</source>
+        <location filename="../widgets/ExportDialog.h" line="+78"/>
+        <source>X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+1"/>
+        <source>DER is a binary format of the Certificate
+PEM is a base64 encoded Certificate
+PKCS#7 is an official Certificate exchange format
+PKCS#12 is an encrypted official Key-Certificate exchange format
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
         <source>Please enter the filename for the certificate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+31"/>
-        <source>DER is a binary format of the Certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>PEM is a base64 encoded Certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>PKCS#7 is an official Certificate exchange format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>PKCS#12 is an encrypted official Key-Certificate exchange format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+15"/>
-        <source>Export Format</source>
+        <location line="+2"/>
+        <source>Certifikate export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
-    </message>
-    <message>
-        <location filename="../widgets/ExportCert.cpp" line="+40"/>
-        <source>Save key as</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>X509 Certificates ( *.cer *.crt *.p12 );;All files ( * )</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ExportDer</name>
     <message>
-        <location filename="../ui/ExportDer.ui" line="+128"/>
-        <source>Filename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>Export Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location line="-122"/>
-        <source>Export</source>
+        <location line="-45"/>
+        <source>All files ( * )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DER is a binary format
+PEM is a base64 encoded DER file
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ExportDialog</name>
+    <message>
+        <location filename="../ui/ExportDialog.ui" line="+117"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Please enter the filename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
+        <source>Export Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportDialog.cpp" line="+61"/>
+        <source>The file: &apos;%1&apos; already exists!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Overwrite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Do not overwrite</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ExportKey</name>
     <message>
-        <location filename="../ui/ExportKey.ui" line="+36"/>
+        <location filename="../widgets/ExportKey.cpp" line="+37"/>
+        <source>Public key export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Key export</source>
         <translation type="unfinished">Exportar clave</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="-8"/>
         <source>Please enter the filename for the key.</source>
         <translation type="unfinished">Introduzca nombre de fichero que contendrá la clave.</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <source>Filename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-5"/>
         <source>DER is a binary format of the key without encryption
 PEM is a base64 encoded key with optional encryption
 PKCS#8 is an encrypted official Key-exchange format</source>
@@ -548,17 +554,12 @@ PEM es un formato texto bas64 con cifrado opcional
 PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <source>Export Format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+20"/>
+        <location filename="../ui/ExportKey.ui" line="+23"/>
         <source>When exporting the private key it should be encrypted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+7"/>
         <source>When exporting the private part, it should be encrypted.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -578,12 +579,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="+42"/>
-        <source>Save key as</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location filename="../widgets/ExportKey.cpp" line="-2"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
         <translation type="unfinished"></translation>
     </message>
@@ -634,7 +630,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+105"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+104"/>
         <location line="+120"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
@@ -797,7 +793,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+724"/>
+        <location filename="../widgets/MainWindow.cpp" line="+726"/>
         <source>Password</source>
         <translation type="unfinished">Contraseña</translation>
     </message>
@@ -1109,11 +1105,6 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+150"/>
-        <source>You need to restart XCA to load the new library</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="+256"/>
         <location line="+121"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
@@ -1175,7 +1166,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-165"/>
+        <location filename="../widgets/MW_menu.cpp" line="-15"/>
         <source>Generate DH parameter</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1341,7 +1332,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewKey.cpp" line="+140"/>
+        <location filename="../widgets/NewKey.cpp" line="+139"/>
         <source>Create</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2030,7 +2021,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+226"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+228"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished"></translation>
@@ -2044,17 +2035,18 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+24"/>
+        <location line="+89"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-82"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+33"/>
         <source>Default hash algorithm</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2064,31 +2056,30 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+12"/>
+        <source>PKCS#11 provider</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+39"/>
+        <location filename="../widgets/Options.cpp" line="+40"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="+14"/>
-        <source>PKCS#11 path: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+23"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation type="obsolete">...</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <source>Load</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/Options.cpp" line="-3"/>
+        <location line="-3"/>
         <source>Printable string or UTF8 (default)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2108,14 +2099,13 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-156"/>
-        <source>XCA Options</source>
+        <location line="+90"/>
+        <source>Load failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+72"/>
-        <source>Successfully loaded PKCS#11 library: %1
-</source>
+        <location filename="../ui/Options.ui" line="-136"/>
+        <source>XCA Options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2288,16 +2278,6 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="+286"/>
-        <source>Do not overwrite</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-2"/>
-        <source>Overwrite</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/load_obj.cpp" line="+135"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation type="unfinished"></translation>
@@ -2313,11 +2293,6 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/func.cpp" line="-3"/>
-        <source>The file: &apos;%1&apos; already exists!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../lib/pki_evp.cpp" line="-168"/>
         <source>Please enter the password to decrypt the private key.</source>
         <translation type="unfinished"></translation>
@@ -2328,7 +2303,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+209"/>
+        <location filename="../lib/pkcs11.cpp" line="+184"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2359,7 +2334,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+14"/>
+        <location filename="../lib/pkcs11.cpp" line="+19"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2374,19 +2349,25 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+266"/>
-        <source>Failed to close PKCS11 library: %1</source>
+        <location filename="../lib/pkcs11.h" line="+80"/>
+        <source>Required PIN size: %1 - %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>PKCS11 library filename empty</source>
+        <location filename="../lib/pkcs11_lib.cpp" line="+62"/>
+        <source>Failed to open PKCS11 library: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+218"/>
+        <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+14"/>
-        <source>Failed to open PKCS11 library: %1</source>
+        <source>PKCS#11 function &apos;%1&apos; failed: %2
+In library %3
+%4</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2445,6 +2426,24 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location line="+16"/>
         <source>&amp;Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Revoke</name>
+    <message>
+        <location filename="../ui/Revoke.ui" line="+17"/>
+        <source>Revokation details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Invalid since</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Revokation reason</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2510,7 +2509,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+614"/>
+        <location line="+616"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2702,7 +2701,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+89"/>
         <source>Tried to change password of a token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2722,7 +2721,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-293"/>
+        <location line="-297"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -3248,7 +3247,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.h" line="+65"/>
+        <location filename="../lib/pki_base.h" line="+66"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3453,7 +3452,7 @@ and thus was not stored</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+412"/>
+        <location filename="../lib/pki_scard.cpp" line="+310"/>
         <source>This Key is already on the token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3473,27 +3472,23 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+72"/>
+        <location line="+12"/>
         <source>Failed to find the key on the token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="-5"/>
         <source>Invalid Pin for the token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-367"/>
+        <location line="-359"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-257"/>
-        <source>PKCS#11 engine: &apos;%1&apos; not found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+78"/>
+        <location line="-179"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3656,7 +3651,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="-279"/>
-        <location line="+405"/>
+        <location line="+407"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3704,7 +3699,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+43"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>

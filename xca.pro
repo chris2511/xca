@@ -55,13 +55,14 @@ HEADERS += local.h \
            lib/pk11_attribute.h \
            lib/pki_evp.h \
            lib/pki_scard.h \
+           lib/pkcs11.h \
+           lib/pkcs11_lib.h \
            widgets/CertDetail.h \
            widgets/CertExtend.h \
            widgets/clicklabel.h \
            widgets/CrlDetail.h \
            widgets/distname.h \
-           widgets/ExportCert.h \
-           widgets/ExportDer.h \
+           widgets/ExportDialog.h \
            widgets/ExportKey.h \
            widgets/hashBox.h \
            widgets/ImportMulti.h \
@@ -74,14 +75,14 @@ HEADERS += local.h \
            widgets/validity.h \
            widgets/NewKey.h \
            widgets/XcaTreeView.h \
+           widgets/NewCrl.h \
            widgets/kvView.h
 FORMS += ui/About.ui \
          ui/CaProperties.ui \
          ui/CertDetail.ui \
          ui/CertExtend.ui \
          ui/CrlDetail.ui \
-         ui/ExportCert.ui \
-         ui/ExportDer.ui \
+         ui/ExportDialog.ui \
          ui/ExportKey.ui \
          ui/Help.ui \
          ui/ImportMulti.ui \
@@ -96,6 +97,7 @@ FORMS += ui/About.ui \
          ui/ReqDetail.ui \
          ui/TrustState.ui \
          ui/v3ext.ui \
+         ui/Revoke.ui \
          ui/SelectToken.ui
 SOURCES += lib/asn1int.cpp \
            lib/asn1time.cpp \
@@ -129,6 +131,7 @@ SOURCES += lib/asn1int.cpp \
            lib/x509v3ext.cpp \
            lib/pk11_attribute.cpp \
            lib/pkcs11.cpp \
+           lib/pkcs11_lib.cpp \
            lib/pki_evp.cpp \
            lib/pki_scard.cpp \
            widgets/NewKey.cpp \
@@ -137,8 +140,7 @@ SOURCES += lib/asn1int.cpp \
            widgets/clicklabel.cpp \
            widgets/CrlDetail.cpp \
            widgets/distname.cpp \
-           widgets/ExportCert.cpp \
-           widgets/ExportDer.cpp \
+           widgets/ExportDialog.cpp \
            widgets/ExportKey.cpp \
            widgets/hashBox.cpp \
            widgets/ImportMulti.cpp \
@@ -154,5 +156,6 @@ SOURCES += lib/asn1int.cpp \
            widgets/validity.cpp \
            widgets/XcaTreeView.cpp \
            widgets/MW_menu.cpp \
+           widgets/NewCrl.cpp \
            widgets/kvView.cpp
 TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts

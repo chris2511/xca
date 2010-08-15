@@ -10,9 +10,6 @@
     <height>116</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Frame</string>
-  </property>
   <property name="frameShape">
    <enum>QFrame::Box</enum>
   </property>
