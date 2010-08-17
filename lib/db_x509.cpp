@@ -111,7 +111,7 @@ void db_x509::remFromCont(QModelIndex &idx)
 	mainwin->crls->removeSigner(pki);
 	pki_key *pub = ((pki_x509*)pki)->getPubKey();
 	pki_x509req *req = (pki_x509req *)mainwin->reqs->findByPubKey(pub);
-	if (!mainwin->certs->findByPubKey(pub))
+	if (req && !mainwin->certs->findByPubKey(pub))
 		req->setDone(false);
 	delete pub;
 	return;
