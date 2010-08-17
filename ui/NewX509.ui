@@ -242,7 +242,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
             <item>
              <widget class="QRadioButton" name="foreignSignRB">
               <property name="text">
-               <string>Use &amp;this Certificate for for signing</string>
+               <string>Use &amp;this Certificate for signing</string>
               </property>
              </widget>
             </item>
