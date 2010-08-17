@@ -109,6 +109,11 @@ void db_x509::remFromCont(QModelIndex &idx)
 		insertChild(new_parent, child);
 	}
 	mainwin->crls->removeSigner(pki);
+	pki_key *pub = ((pki_x509*)pki)->getPubKey();
+	pki_x509req *req = (pki_x509req *)mainwin->reqs->findByPubKey(pub);
+	if (!mainwin->certs->findByPubKey(pub))
+		req->setDone(false);
+	delete pub;
 	return;
 }
 
@@ -200,7 +205,7 @@ void db_x509::inToCont(pki_base *pki)
 	}
 	findKey(cert);
 	pki_key *pub = cert->getPubKey();
-	pki_x509req *req = (pki_x509req *)mainwin->reqs->findByByPubKey(pub);
+	pki_x509req *req = (pki_x509req *)mainwin->reqs->findByPubKey(pub);
 	delete pub;
 	if (req) {
 		req->setDone();

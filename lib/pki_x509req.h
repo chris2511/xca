@@ -62,9 +62,9 @@ class pki_x509req : public pki_x509super
 		ASN1_IA5STRING *spki_challange();
 		QVariant column_data(int id);
 		QVariant getIcon(int id);
-		void setDone()
+		void setDone(bool d = true)
 		{
-			done = true;
+			done = d;
 		}
 		bool getDone()
 		{

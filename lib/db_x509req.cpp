@@ -88,7 +88,7 @@ void db_x509req::inToCont(pki_base *pki)
 	if (!mainwin->certs)
 		return;
 	pki_key *pub = req->getPubKey();
-	pki_x509super *cert = mainwin->certs->findByByPubKey(pub);
+	pki_x509super *cert = mainwin->certs->findByPubKey(pub);
 	delete pub;
 	if (cert) {
 		req->setDone();

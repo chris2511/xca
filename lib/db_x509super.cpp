@@ -59,7 +59,7 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	return key;
 }
 
-pki_x509super *db_x509super::findByByPubKey(pki_key *refkey)
+pki_x509super *db_x509super::findByPubKey(pki_key *refkey)
 {
 	FOR_ALL_pki(pki, pki_x509super) {
 		pki_key *key = pki->getPubKey();
