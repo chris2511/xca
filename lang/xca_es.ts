@@ -295,7 +295,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+912"/>
+        <location filename="../lib/db_x509.cpp" line="+917"/>
         <source>There was no key found for the Certificate: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1398,12 +1398,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
-        <source>Use &amp;this Certificate for for signing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+24"/>
         <source>All certificates in your database that can create valid signatures</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1445,7 +1440,12 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished">Sujeto</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="-158"/>
+        <source>Use &amp;this Certificate for signing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+195"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2830,7 +2830,7 @@ and will be completed by the new, private part of the key</source>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-885"/>
+        <location filename="../lib/db_x509.cpp" line="-890"/>
         <source>Serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2880,7 +2880,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+105"/>
         <source>Plain View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2970,8 +2970,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-606"/>
-        <location line="+608"/>
+        <location line="-611"/>
+        <location line="+613"/>
         <source>CA</source>
         <translation type="unfinished"></translation>
     </message>

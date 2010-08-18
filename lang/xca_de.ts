@@ -319,7 +319,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+912"/>
+        <location filename="../lib/db_x509.cpp" line="+917"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -1572,12 +1572,11 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <translation>1</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Use &amp;this Certificate for for signing</source>
-        <translation>Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
+        <translation type="obsolete">Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+24"/>
         <source>All certificates in your database that can create valid signatures</source>
         <translation>Alle Zertifikate aus der Datenbank, die gültige Unterschriften leisten können</translation>
     </message>
@@ -1620,7 +1619,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Inhaber</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="-158"/>
+        <source>Use &amp;this Certificate for signing</source>
+        <translation>Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
+    </message>
+    <message>
+        <location line="+195"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
@@ -3086,7 +3090,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation type="obsolete">Üblicher Name</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-885"/>
+        <location filename="../lib/db_x509.cpp" line="-890"/>
         <source>Serial</source>
         <translation>Seriennummer</translation>
     </message>
@@ -3131,7 +3135,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Rücknahme</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+103"/>
         <source>Plain View</source>
         <translation>Einfache Ansicht</translation>
     </message>
@@ -3221,18 +3225,18 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Vertrauen</translation>
     </message>
     <message>
-        <location line="-606"/>
-        <location line="+608"/>
+        <location line="-611"/>
+        <location line="+613"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-607"/>
+        <location line="-612"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Zeigt den Inhalt der basic constraints erweiterung</translation>
     </message>
     <message>
-        <location line="+608"/>
+        <location line="+613"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
