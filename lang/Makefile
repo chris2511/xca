@@ -3,9 +3,11 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
-LANGUAGES=de es ru
+PO_LANGUAGES=es
+LANGUAGES=de ru $(PO_LANGUAGES)
 QM_XCA=$(patsubst %, xca_%.qm, $(LANGUAGES))
 QM_QT=$(patsubst %, qt_%.qm, $(LANGUAGES))
+TS_XCA=$(patsubst %, xca_%.ts, $(PO_LANGUAGES))
 
 %.qm: %.ts
 	$(LRELEASE) $< -qm $@
@@ -21,6 +23,14 @@ app:
 	install -m 644 $(QM_XCA) $(APPDIR)/Resources
 	(cd $(SYSROOT)/Developer/Applications/Qt/translations && \
 		install $(QM_QT) $(APPDIR)/Resources )
+
+
+po2ts: $(TS_XCA)
+xca_%.ts: %.po
+	lconvert -i $< -of ts -o $@
+
+xca.pot: xca.ts
+	lconvert -i $< -of po -o $@
 
 clean:
 	$(RM) $(QM_XCA)
