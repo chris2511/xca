@@ -59,18 +59,18 @@ pki_key *db_x509super::findKey(pki_x509super *ref)
 	return key;
 }
 
-pki_x509super *db_x509super::findByPubKey(pki_key *refkey)
+QList<pki_x509super *> db_x509super::findByPubKey(pki_key *refkey)
 {
+	QList<pki_x509super *> list;
 	FOR_ALL_pki(pki, pki_x509super) {
 		pki_key *key = pki->getPubKey();
 		if (!key)
 			continue;
-		bool match = refkey->compare(key);
+		if (refkey->compare(key))
+			list << pki;
 		delete key;
-		if (match)
-			return pki;
 	}
-	return NULL;
+	return list;
 }
 
 void db_x509super::extractPubkey()

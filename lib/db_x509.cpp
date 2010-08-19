@@ -110,9 +110,11 @@ void db_x509::remFromCont(QModelIndex &idx)
 	}
 	mainwin->crls->removeSigner(pki);
 	pki_key *pub = ((pki_x509*)pki)->getPubKey();
-	pki_x509req *req = (pki_x509req *)mainwin->reqs->findByPubKey(pub);
-	if (req && !mainwin->certs->findByPubKey(pub))
-		req->setDone(false);
+	if (mainwin->certs->findByPubKey(pub).count() == 0) {
+		QList<pki_x509super *> reqs = mainwin->reqs->findByPubKey(pub);
+		foreach(pki_x509super *r, reqs)
+			((pki_x509req*)r)->setDone(false);
+	}
 	delete pub;
 	return;
 }
@@ -205,10 +207,10 @@ void db_x509::inToCont(pki_base *pki)
 	}
 	findKey(cert);
 	pki_key *pub = cert->getPubKey();
-	pki_x509req *req = (pki_x509req *)mainwin->reqs->findByPubKey(pub);
+	QList<pki_x509super *> reqs = mainwin->reqs->findByPubKey(pub);
 	delete pub;
-	if (req) {
-		req->setDone();
+	foreach (pki_x509super *r, reqs) {
+		((pki_x509req*)r)->setDone();
 	}
 	calcEffTrust();
 }
