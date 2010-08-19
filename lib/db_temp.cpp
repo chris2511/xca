@@ -22,7 +22,7 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 {
 	allHeaders << new dbheader(HD_temp_type, true, tr("Type"));
 	class_name = "templates";
-	pkitype[0] = tmpl;
+	pkitype << tmpl;
 
 	loadContainer();
 

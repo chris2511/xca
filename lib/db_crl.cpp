@@ -28,7 +28,7 @@ db_crl::db_crl(QString db, MainWindow *mw)
 		new dbheader(HD_crl_crlnumber,	false,tr("CRL number"));
 
 	class_name = "crls";
-	pkitype[0] = revokation;
+	pkitype << revokation;
 	loadContainer();
 }
 

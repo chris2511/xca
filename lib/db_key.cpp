@@ -33,8 +33,7 @@ db_key::db_key(QString db, MainWindow *mw)
 {
 	rootItem->setIntName("[key root]");
 	class_name = "keys";
-	pkitype[0] = asym_key;
-	pkitype[1] = smartCard;
+	pkitype << asym_key << smartCard;
 	allHeaders <<
 		new dbheader(HD_key_type,   true, tr("Type")) <<
 		new dbheader(HD_key_size,   true, tr("Size")) <<

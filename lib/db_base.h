@@ -37,7 +37,7 @@ class db_base: public QAbstractItemModel
 		void _writePKI(pki_base *pki, bool overwrite);
 		void _removePKI(pki_base *pki );
 		void removeItem(QString k);
-		enum pki_type pkitype[4];
+		QList<enum pki_type> pkitype;
 		MainWindow *mainwin;
 		QString class_name;
 		dbheaderList allHeaders;

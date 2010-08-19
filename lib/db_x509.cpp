@@ -43,7 +43,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 		new dbheader(HD_cert_revokation,true, tr("Revocation"));
 
 	class_name = "certificates";
-	pkitype[0] = x509;
+	pkitype << x509;
 	loadContainer();
 }
 

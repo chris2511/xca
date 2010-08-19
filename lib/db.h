@@ -67,7 +67,7 @@ class db
 	void first(int flag = DBFLAG_DELETED);
 	int find(enum pki_type type, QString name);
 	int next(int flag = DBFLAG_DELETED);
-	QString uniq_name(QString s, enum pki_type type);
+	QString uniq_name(QString s, QList<enum pki_type> types);
 	void rename(enum pki_type type, QString name, QString n);
 	int add(const unsigned char *p, int len, int ver, enum pki_type type,
 		QString name);

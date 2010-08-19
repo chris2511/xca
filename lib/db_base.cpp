@@ -24,8 +24,6 @@ db_base::db_base(QString db, MainWindow *mw)
 	colResizing = 0;
 	currentIdx = QModelIndex();
 	class_name = "base";
-	for (size_t i =0; i<ARRAY_SIZE(pkitype); i++)
-		pkitype[i] = none;
 	allHeaders << new dbheader(HD_internal_name, true, tr("Internal name"));
 }
 
@@ -71,7 +69,7 @@ void db_base::loadContainer()
 	db_header_t head;
 	pki_base *pki;
 
-	for (int i=0; pkitype[i] != none; i++) {
+	for (int i=0; i < pkitype.count(); i++) {
 		mydb.first();
 		while (mydb.find(pkitype[i], QString()) == 0) {
 			QString s;
@@ -207,7 +205,7 @@ void db_base::insertPKI(pki_base *pki)
 	QByteArray ba = pki->toData();
 
 	if (ba.count() > 0) {
-		name = mydb.uniq_name(pki->getIntName(), pki->getType());
+		name = mydb.uniq_name(pki->getIntName(), pkitype);
 		pki->setIntName(name);
 		mydb.add((const unsigned char*)ba.constData(), ba.count(),
 			pki->getVersion(), pki->getType(), name);

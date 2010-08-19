@@ -188,7 +188,7 @@ void db::rename(enum pki_type type, QString name, QString n)
 	}
 }
 
-QString db::uniq_name(QString s, enum pki_type type)
+QString db::uniq_name(QString s, QList<enum pki_type> types)
 {
 	int i;
 	QString myname;
@@ -202,12 +202,17 @@ QString db::uniq_name(QString s, enum pki_type type)
 		s = sl.join("_");
 	}
 	for (i=1, myname = s; ; i++) {
-		first();
-		if (find(type, myname) == 0) {
-			myname = s + QString("_%1").arg(i);
-		} else {
-			break;
+		bool found = false;
+		foreach (enum pki_type type, types) {
+			first();
+			if (find(type, myname) == 0) {
+				myname = s + QString("_%1").arg(i);
+				found = true;
+				break;
+			}
 		}
+		if (!found)
+			break;
 	}
 	return myname;
 }
