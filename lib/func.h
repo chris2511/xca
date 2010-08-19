@@ -49,5 +49,4 @@ void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),
 #define D2I_VOID(a) ((void *(*)(void *, unsigned char **, long))(a))
 
 #define QString2filename(str) filename2bytearray(str).constData()
-#define MIN(a,b) ((a)<(b)) ? (a) : (b)
 #endif

@@ -421,7 +421,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 	decsize += outl;
 	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey_len);
 	pki_openssl_error();
-	tmpkey = D2I_CLASHT(d2i_PrivateKey, key->type, NULL, &p1, decsize);
+	tmpkey = d2i_PrivateKey(key->type, NULL, &p1, decsize);
 	pki_openssl_error();
 	OPENSSL_free(p);
 	EVP_CIPHER_CTX_cleanup(&ctx);
@@ -758,7 +758,7 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 	if (key->type == EVP_PKEY_RSA) {
 		rsakey=d2i_RSAPrivateKey(NULL,(const unsigned char **)&pdec, decsize);
 		if (pki_ign_openssl_error()) {
-			rsakey=D2I_CLASH(d2i_RSA_PUBKEY, NULL, &sik, decsize);
+			rsakey = d2i_RSA_PUBKEY(NULL, (const unsigned char **)&sik, decsize);
 		}
 		pki_openssl_error();
 		if (rsakey) EVP_PKEY_assign_RSA(key, rsakey);
