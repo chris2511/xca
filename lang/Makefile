@@ -27,10 +27,12 @@ app:
 
 po2ts: $(TS_XCA)
 xca_%.ts: %.po
-	lconvert -i $< -of ts -o $@
+	po2ts $< $@
+	#lconvert -i $< -of ts -o $@
 
 xca.pot: xca.ts
-	lconvert -i $< -of po -o $@
+	ts2po -P $< $@
+	#lconvert -i $< -of po -o $@
 
 clean:
 	$(RM) $(QM_XCA)

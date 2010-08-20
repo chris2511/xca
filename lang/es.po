@@ -1,510 +1,387 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"X-Virgin-Header: remove this line if you change anything in the header.\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-08-20 08:17+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.7.0\n"
 
-#. ts-context About
-#: ../ui/About.ui:89
-#, fuzzy
+#: About#1
 msgid "Done"
-msgstr ""
+msgstr "Getan"
 
-#. ts-context CaProperties
-#: ../ui/CaProperties.ui:122
-#, fuzzy
-msgid "Next serial for signing"
-msgstr ""
-
-#. ts-context CaProperties
-#: ../ui/CaProperties.ui:102
-#, fuzzy
-msgid "Days until next CRL issuing"
-msgstr ""
-
-#. ts-context CaProperties
-#: ../ui/CaProperties.ui:112
-#, fuzzy
-msgid "Default template"
-msgstr ""
-
-#. ts-context CaProperties
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#. ts-context CaProperties
-#: ../ui/CaProperties.ui:30
-#, fuzzy
+#: CaProperties#1
 msgid "CA Properties"
 msgstr ""
 
-#. ts-context CaProperties
-#: ../ui/CaProperties.ui:95
-#, fuzzy
+#: CaProperties#2
 msgid "Use random Serial numbers"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:38
-#, fuzzy
-msgid "Show extensions"
+#: CaProperties#3
+msgid "Days until next CRL issuing"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:57
-#, fuzzy
-msgid "Not available"
+#: CaProperties#4
+msgid "Default template"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:64
-#, fuzzy
-msgid "Signer unknown"
+#: CaProperties#5
+msgid "Next serial for signing"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:69
-#, fuzzy
-msgid "Self signed"
-msgstr ""
-
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:82
-#, fuzzy
-msgid "Not trusted"
-msgstr ""
-
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:86
-#, fuzzy
-msgid "Trusted"
-msgstr ""
-
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:104
-#, fuzzy
-msgid "Revoked: "
-msgstr ""
-
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:109
-#, fuzzy
-msgid "Not valid"
-msgstr ""
-
-#. ts-context CertDetail
-#: ../widgets/CertDetail.cpp:114
-#, fuzzy
-msgid "Valid"
-msgstr ""
-
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:39
+#: CertDetail#1
 #, fuzzy
 msgid "Details of the Certificate"
 msgstr "Detalles del Certificado"
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:87
-#, fuzzy
+#: CertDetail#2
+msgctxt "CertDetail#2"
 msgid "S&tatus"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:147
-#, fuzzy
+#: CertDetail#3
+msgctxt "CertDetail#3"
 msgid "Serial"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:160
-#, fuzzy
+#: CertDetail#4
 msgid "The serial number of the certificate"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:169
-#, fuzzy
+#: CertDetail#5
 msgid "The internal name of the certificate in the database"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:176
-#, fuzzy
+#: CertDetail#6
+msgctxt "CertDetail#6"
 msgid "Internal name"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:199
+#: CertDetail#7
 #, fuzzy
+msgctxt "CertDetail#7"
 msgid "Signature algorithm"
-msgstr ""
+msgstr "Firma"
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:206
-#, fuzzy
+#: CertDetail#8
+msgctxt "CertDetail#8"
 msgid "Signed by"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:213
-#, fuzzy
+#: CertDetail#9
+msgctxt "CertDetail#9"
 msgid "Key"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:223
-#, fuzzy
+#: CertDetail#10
 msgid "Fingerprints"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:235
-#, fuzzy
+#: CertDetail#11
 msgid "SHA1"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:242
-#, fuzzy
+#: CertDetail#12
 msgid "MD5"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:249
-#, fuzzy
+#: CertDetail#13
 msgid "A SHA-1 hashsum of the certificate"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:256
-#, fuzzy
+#: CertDetail#14
 msgid "An md5 hashsum of the certificate"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:266
+#: CertDetail#15
 #, fuzzy
+msgctxt "CertDetail#15"
 msgid "Validity"
 msgstr "Validez"
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:278
-#, fuzzy
+#: CertDetail#16
 msgid "The time since the certificate is valid"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:285
-#, fuzzy
+#: CertDetail#17
 msgid "The time until the certificate is valid"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:319
+#: CertDetail#18
 #, fuzzy
+msgctxt "CertDetail#18"
 msgid "&Subject"
-msgstr ""
+msgstr "Sujeto"
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:335
-#, fuzzy
+#: CertDetail#19
+msgctxt "CertDetail#19"
 msgid "&Issuer"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:351
-#, fuzzy
+#: CertDetail#20
+msgctxt "CertDetail#20"
 msgid "&Extensions"
 msgstr ""
 
-#. ts-context CertDetail
-#: ../ui/CertDetail.ui:364 ../widgets/CertDetail.cpp:34
-#, fuzzy
+#: CertDetail#21
 msgid "Show config"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:74
+#: CertDetail#22
+msgid "Show extensions"
+msgstr ""
+
+#: CertDetail#23
 #, fuzzy
+msgctxt "CertDetail#23"
+msgid "Not available"
+msgstr "Disponible"
+
+#: CertDetail#24
+msgid "Signer unknown"
+msgstr ""
+
+#: CertDetail#25
+msgid "Self signed"
+msgstr ""
+
+#: CertDetail#26
+msgctxt "CertDetail#26"
+msgid "Not trusted"
+msgstr ""
+
+#: CertDetail#27
+msgid "Trusted"
+msgstr ""
+
+#: CertDetail#28
+msgid "Revoked: "
+msgstr ""
+
+#: CertDetail#29
+msgid "Not valid"
+msgstr ""
+
+#: CertDetail#30
+msgid "Valid"
+msgstr ""
+
+#: CertExtend#1
+msgid "Certificate renewal"
+msgstr ""
+
+#: CertExtend#2
 msgid ""
 "This will create a new certificate as a copy of the old one with a new "
 "serial number and adjusted validity values."
 msgstr ""
 
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:108
+#: CertExtend#3
 #, fuzzy
+msgctxt "CertExtend#3"
 msgid "Validity"
 msgstr "Validez"
 
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:128
-#, fuzzy
+#: CertExtend#4
+msgctxt "CertExtend#4"
 msgid "Not before"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:135
-#, fuzzy
+#: CertExtend#5
+msgctxt "CertExtend#5"
 msgid "Not after"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:161
-#, fuzzy
+#: CertExtend#6
+msgctxt "CertExtend#6"
 msgid "Time range"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:182
-#, fuzzy
-msgid "Days"
-msgstr ""
-
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:187
-#, fuzzy
-msgid "Months"
-msgstr ""
-
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:192
-#, fuzzy
-msgid "Years"
-msgstr ""
-
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:203
-#, fuzzy
-msgid "Midnight"
-msgstr ""
-
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:174
-#, fuzzy
-msgid "Apply"
-msgstr ""
-
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:30
-#, fuzzy
-msgid "Certificate renewal"
-msgstr ""
-
-#. ts-context CertExtend
-#: ../ui/CertExtend.ui:167
-#, fuzzy
+#: CertExtend#7
+msgctxt "CertExtend#7"
 msgid "No well-defined expiration"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../widgets/CertExtend.cpp:43
-#, fuzzy
+#: CertExtend#8
+msgctxt "CertExtend#8"
+msgid "Apply"
+msgstr ""
+
+#: CertExtend#9
+msgctxt "CertExtend#9"
+msgid "Days"
+msgstr ""
+
+#: CertExtend#10
+msgctxt "CertExtend#10"
+msgid "Months"
+msgstr ""
+
+#: CertExtend#11
+msgctxt "CertExtend#11"
+msgid "Years"
+msgstr ""
+
+#: CertExtend#12
+msgctxt "CertExtend#12"
+msgid "Midnight"
+msgstr ""
+
+#: CertExtend#13
+msgctxt "CertExtend#13"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#. ts-context CertExtend
-#: ../widgets/CertExtend.cpp:46 ../widgets/CertExtend.cpp:69
-#, fuzzy
+#: CertExtend#14
 msgid "Edit times"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../widgets/CertExtend.cpp:47 ../widgets/CertExtend.cpp:70
-#, fuzzy
+#: CertExtend#15
+msgctxt "CertExtend#15"
 msgid "Abort rollout"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../widgets/CertExtend.cpp:48 ../widgets/CertExtend.cpp:71
-#, fuzzy
+#: CertExtend#16
+msgctxt "CertExtend#16"
 msgid "Continue rollout"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../widgets/CertExtend.cpp:49 ../widgets/CertExtend.cpp:72
-#, fuzzy
+#: CertExtend#17
+msgctxt "CertExtend#17"
 msgid "Adjust date and continue"
 msgstr ""
 
-#. ts-context CertExtend
-#: ../widgets/CertExtend.cpp:66
-#, fuzzy
+#: CertExtend#18
+msgctxt "CertExtend#18"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#. ts-context CertView
-#: ../lib/db_x509.cpp:917
-#, fuzzy
+#: CertView#1
+msgctxt "CertView#1"
 msgid "There was no key found for the Certificate: "
 msgstr ""
 
-#. ts-context CertView
-#: ../lib/db_x509.cpp:925
-#, fuzzy
+#: CertView#2
+msgctxt "CertView#2"
 msgid "Import Certificate signing request"
 msgstr ""
 
-#. ts-context ClickLabel
-#: ../widgets/clicklabel.cpp:23
-#, fuzzy
+#: ClickLabel#1
 msgid "Double click for details"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:180 ../widgets/CrlDetail.cpp:29
-#, fuzzy
-msgid "Name"
-msgstr "Nombre"
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:29
-#, fuzzy
-msgid "Serial"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:29
-#, fuzzy
-msgid "Revocation"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:29
-#, fuzzy
-msgid "Reason"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:30
-#, fuzzy
-msgid "Invalidation"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:55
-#, fuzzy
-msgid "Failed"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:61
-#, fuzzy
-msgid "Unknown signer"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:64
-#, fuzzy
-msgid "Verification not possible"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../widgets/CrlDetail.cpp:86
-#, fuzzy
-msgid "Unknown certificate"
-msgstr ""
-
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:39
-#, fuzzy
+#: CrlDetail#1
 msgid "Details of the Revocation list"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:87
-#, fuzzy
+#: CrlDetail#2
 msgid "&Status"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:147
-#, fuzzy
+#: CrlDetail#3
 msgid "Version"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:166
+#: CrlDetail#4
 #, fuzzy
+msgctxt "CrlDetail#4"
 msgid "Signature"
 msgstr "Firma"
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:173
-#, fuzzy
+#: CrlDetail#5
+msgctxt "CrlDetail#5"
 msgid "Signed by"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:187
+#: CrlDetail#6
 #, fuzzy
+msgctxt "CrlDetail#6"
+msgid "Name"
+msgstr "Nombre"
+
+#: CrlDetail#7
 msgid "The internal name of the CRL in the database"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:200
-#, fuzzy
+#: CrlDetail#8
 msgid "issuing dates"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:212
-#, fuzzy
+#: CrlDetail#9
 msgid "Next Update"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:219
-#, fuzzy
+#: CrlDetail#10
 msgid "Last Update"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:252
-#, fuzzy
+#: CrlDetail#11
+msgctxt "CrlDetail#11"
 msgid "&Issuer"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:268
-#, fuzzy
+#: CrlDetail#12
+msgctxt "CrlDetail#12"
 msgid "&Extensions"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:291
-#, fuzzy
+#: CrlDetail#13
 msgid "&Revocation list"
 msgstr ""
 
-#. ts-context CrlDetail
-#: ../ui/CrlDetail.ui:316
-#, fuzzy
+#: CrlDetail#14
 msgid "0"
 msgstr ""
 
-#. ts-context ExportCert
-#~ msgid "..."
-#~ msgstr "..."
+#: CrlDetail#15
+msgctxt "CrlDetail#15"
+msgid "Serial"
+msgstr ""
 
-#. ts-context ExportCert
-#: ../widgets/ExportDialog.h:78
-#, fuzzy
+#: CrlDetail#16
+msgctxt "CrlDetail#16"
+msgid "Revocation"
+msgstr ""
+
+#: CrlDetail#17
+msgid "Reason"
+msgstr ""
+
+#: CrlDetail#18
+msgid "Invalidation"
+msgstr ""
+
+#: CrlDetail#19
+msgid "Failed"
+msgstr ""
+
+#: CrlDetail#20
+msgid "Unknown signer"
+msgstr ""
+
+#: CrlDetail#21
+msgid "Verification not possible"
+msgstr ""
+
+#: CrlDetail#22
+msgid "Unknown certificate"
+msgstr ""
+
+#: ExportCert#1
 msgid "X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )"
 msgstr ""
 
-#. ts-context ExportCert
-#: ../widgets/ExportDialog.h:79
-#, fuzzy
+#: ExportCert#2
 msgid ""
 "DER is a binary format of the Certificate\n"
 "PEM is a base64 encoded Certificate\n"
@@ -512,110 +389,79 @@ msgid ""
 "PKCS#12 is an encrypted official Key-Certificate exchange format\n"
 msgstr ""
 
-#. ts-context ExportCert
-#: ../widgets/ExportDialog.h:84
-#, fuzzy
+#: ExportCert#3
 msgid "Please enter the filename for the certificate."
 msgstr ""
 
-#. ts-context ExportCert
-#: ../widgets/ExportDialog.h:86
-#, fuzzy
+#: ExportCert#4
 msgid "Certifikate export"
 msgstr ""
 
-#. ts-context ExportCert
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#. ts-context ExportDer
-#~ msgid "..."
-#~ msgstr "..."
-
-#. ts-context ExportDer
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#. ts-context ExportDer
-#: ../widgets/ExportDialog.h:41
-#, fuzzy
+#: ExportDer#1
+msgctxt "ExportDer#1"
 msgid "All files ( * )"
 msgstr ""
 
-#. ts-context ExportDer
-#: ../widgets/ExportDialog.h:42
-#, fuzzy
+#: ExportDer#2
 msgid ""
 "DER is a binary format\n"
 "PEM is a base64 encoded DER file\n"
 msgstr ""
 
-#. ts-context ExportDialog
-#: ../ui/ExportDialog.ui:117
+#: ExportDialog#1
 #, fuzzy
 msgid "..."
 msgstr "..."
 
-#. ts-context ExportDialog
-#: ../ui/ExportDialog.ui:130
-#, fuzzy
+#: ExportDialog#2
 msgid "Filename"
 msgstr ""
 
-#. ts-context ExportDialog
-#: ../ui/ExportDialog.ui:146
-#, fuzzy
+#: ExportDialog#3
 msgid "Please enter the filename"
 msgstr ""
 
-#. ts-context ExportDialog
-#: ../ui/ExportDialog.ui:195
-#, fuzzy
+#: ExportDialog#4
 msgid "Export Format"
 msgstr ""
 
-#. ts-context ExportDialog
-#: ../widgets/ExportDialog.cpp:61
-#, fuzzy
+#: ExportDialog#5
 msgid "The file: '%1' already exists!"
 msgstr ""
 
-#. ts-context ExportDialog
-#: ../widgets/ExportDialog.cpp:63
-#, fuzzy
+#: ExportDialog#6
 msgid "Overwrite"
 msgstr ""
 
-#. ts-context ExportDialog
-#: ../widgets/ExportDialog.cpp:65
-#, fuzzy
+#: ExportDialog#7
 msgid "Do not overwrite"
 msgstr ""
 
-#. ts-context ExportKey
-#: ../widgets/ExportKey.cpp:37
-#, fuzzy
-msgid "Public key export"
+#: ExportKey#1
+msgid "When exporting the private key it should be encrypted."
 msgstr ""
 
-#. ts-context ExportKey
-#: ../widgets/ExportKey.cpp:40
-#, fuzzy
-msgid "Key export"
-msgstr "Exportar clave"
+#: ExportKey#2
+msgid "When exporting the private part, it should be encrypted."
+msgstr ""
 
-#. ts-context ExportKey
-#: ../widgets/ExportKey.cpp:32
-#, fuzzy
-msgid "Please enter the filename for the key."
-msgstr "Introduzca nombre de fichero que contendrá la clave."
+#: ExportKey#3
+msgid "E&xport the private part of the Key too"
+msgstr ""
 
-#. ts-context ExportKey
-#~ msgid "..."
-#~ msgstr "..."
+#: ExportKey#4
+msgid "Export as PKCS#8"
+msgstr ""
 
-#. ts-context ExportKey
-#: ../widgets/ExportKey.cpp:27
+#: ExportKey#5
+msgid "&Encrypt the Key with a password"
+msgstr ""
+
+#: ExportKey#6
+msgid "Private keys ( *.pem *.der *.pk8 );;All files ( * )"
+msgstr ""
+
+#: ExportKey#7
 #, fuzzy
 msgid ""
 "DER is a binary format of the key without encryption\n"
@@ -626,141 +472,68 @@ msgstr ""
 "PEM es un formato texto bas64 con cifrado opcional\n"
 "PKCS#8 es un formato estandar de intercambio de claves"
 
-#. ts-context ExportKey
-#: ../ui/ExportKey.ui:23
+#: ExportKey#8
 #, fuzzy
-msgid "When exporting the private key it should be encrypted."
+msgid "Please enter the filename for the key."
+msgstr "Introduzca nombre de fichero que contendrá la clave."
+
+#: ExportKey#9
+msgid "Public key export"
 msgstr ""
 
-#. ts-context ExportKey
-#: ../ui/ExportKey.ui:30
+#: ExportKey#10
 #, fuzzy
-msgid "When exporting the private part, it should be encrypted."
-msgstr ""
+msgid "Key export"
+msgstr "Exportar clave"
 
-#. ts-context ExportKey
-#: ../ui/ExportKey.ui:33
-#, fuzzy
-msgid "E&xport the private part of the Key too"
-msgstr ""
-
-#. ts-context ExportKey
-#: ../ui/ExportKey.ui:40
-#, fuzzy
-msgid "Export as PKCS#8"
-msgstr ""
-
-#. ts-context ExportKey
-#: ../ui/ExportKey.ui:50
-#, fuzzy
-msgid "&Encrypt the Key with a password"
-msgstr ""
-
-#. ts-context ExportKey
-#: ../widgets/ExportKey.cpp:25
-#, fuzzy
-msgid "Private keys ( *.pem *.der *.pk8 );;All files ( * )"
-msgstr ""
-
-#. ts-context Help
-#: ../ui/Help.ui:36
-#, fuzzy
+#: Help#1
 msgid "<<"
 msgstr ""
 
-#. ts-context Help
-#: ../ui/Help.ui:46
-#, fuzzy
+#: Help#2
 msgid ">>"
 msgstr ""
 
-#. ts-context Help
-#: ../ui/Help.ui:72
-#, fuzzy
+#: Help#3
+msgctxt "Help#3"
 msgid "&Done"
 msgstr ""
 
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:122
-#, fuzzy
-msgid "Details"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:94
-#, fuzzy
-msgid "Import &All"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:101
-#, fuzzy
-msgid "&Import"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:108
-#, fuzzy
-msgid "&Done"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:115
-#, fuzzy
-msgid "&Remove"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../widgets/ImportMulti.cpp:104 ../widgets/ImportMulti.cpp:224
-#, fuzzy
-msgid "The type of the Item '%1' is not recognized"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../widgets/ImportMulti.cpp:273
-#, fuzzy
-msgid "Details of the item '%1' cannot be shown"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../widgets/ImportMulti.cpp:277
-#, fuzzy
-msgid "The type of the item '%1' is not recognized"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../widgets/ImportMulti.cpp:308
-#, fuzzy
-msgid "The file '%1' did not contain PKI data"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../widgets/ImportMulti.cpp:312
-#, fuzzy
-msgid "The %1 files: '%2' did not contain PKI data"
-msgstr ""
-
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:36
-#, fuzzy
+#: ImportMulti#1
 msgid "Import PKI Items"
 msgstr ""
 
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:129
-#, fuzzy
+#: ImportMulti#2
+msgid "Import &All"
+msgstr ""
+
+#: ImportMulti#3
+msgctxt "ImportMulti#3"
+msgid "&Import"
+msgstr ""
+
+#: ImportMulti#4
+msgctxt "ImportMulti#4"
+msgid "&Done"
+msgstr ""
+
+#: ImportMulti#5
+msgid "&Remove"
+msgstr ""
+
+#: ImportMulti#6
+msgid "Details"
+msgstr ""
+
+#: ImportMulti#7
 msgid "Delete from token"
 msgstr ""
 
-#. ts-context ImportMulti
-#: ../ui/ImportMulti.ui:136
-#, fuzzy
+#: ImportMulti#8
 msgid "Rename on token"
 msgstr ""
 
-#. ts-context ImportMulti
-#: ../widgets/ImportMulti.cpp:60
-#, fuzzy
+#: ImportMulti#9
 msgid ""
 "\n"
 "Name: %1\n"
@@ -768,978 +541,765 @@ msgid ""
 "Serial: %3"
 msgstr ""
 
-#. ts-context ImportMulti
-#: ../widgets/ImportMulti.cpp:65
-#, fuzzy
+#: ImportMulti#10
 msgid "Manage security token"
 msgstr ""
 
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:62
-#, fuzzy
-msgid "Available"
-msgstr "Disponible"
-
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:50
-#, fuzzy
-msgid "Not available"
+#: ImportMulti#11
+msgid "The type of the Item '%1' is not recognized"
 msgstr ""
 
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:91
+#: ImportMulti#12
+msgid "Details of the item '%1' cannot be shown"
+msgstr ""
+
+#: ImportMulti#13
+msgid "The type of the item '%1' is not recognized"
+msgstr ""
+
+#: ImportMulti#14
+msgid "The file '%1' did not contain PKI data"
+msgstr ""
+
+#: ImportMulti#15
+msgid "The %1 files: '%2' did not contain PKI data"
+msgstr ""
+
+#: KeyDetail#1
 #, fuzzy
+msgctxt "KeyDetail#1"
 msgid "Name"
 msgstr "Nombre"
 
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:98
-#, fuzzy
+#: KeyDetail#2
 msgid "The internal name of the key used by xca"
 msgstr ""
 
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:181
-#, fuzzy
-msgid "Keysize"
-msgstr "Tamaño de clave"
+#: KeyDetail#3
+msgctxt "KeyDetail#3"
+msgid "Security token"
+msgstr ""
 
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:208
-#, fuzzy
-msgid "Private Exponent"
-msgstr "Exponente secreto"
+#: KeyDetail#4
+msgid "Manufacturer"
+msgstr ""
 
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:155
+#: KeyDetail#5
+msgctxt "KeyDetail#5"
+msgid "Serial"
+msgstr ""
+
+#: KeyDetail#6
+msgctxt "KeyDetail#6"
+msgid "Key"
+msgstr ""
+
+#: KeyDetail#7
 #, fuzzy
 msgid "Public Exponent"
 msgstr "Exponente público"
 
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:233
+#: KeyDetail#8
+#, fuzzy
+msgctxt "KeyDetail#8"
+msgid "Keysize"
+msgstr "Tamaño de clave"
+
+#: KeyDetail#9
+#, fuzzy
+msgid "Private Exponent"
+msgstr "Exponente secreto"
+
+#: KeyDetail#10
 #, fuzzy
 msgid "Modulus"
 msgstr "Módulo"
 
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:71
-#, fuzzy
-msgid "Sub prime"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:72 ../widgets/KeyDetail.cpp:79
-#, fuzzy
-msgid "Public key"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:73 ../widgets/KeyDetail.cpp:80
-#, fuzzy
-msgid "Private key"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:110
-#, fuzzy
-msgid "Security token"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:116
-#, fuzzy
-msgid "Manufacturer"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:130
-#, fuzzy
-msgid "Serial"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../ui/KeyDetail.ui:147 ../widgets/KeyDetail.cpp:60
-#, fuzzy
-msgid "Key"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:55
-#, fuzzy
-msgid "Token"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:81
-#, fuzzy
-msgid "Curve name"
-msgstr ""
-
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:47
-#, fuzzy
+#: KeyDetail#11
 msgid "Details of the %1 key"
 msgstr ""
 
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:59
+#: KeyDetail#12
 #, fuzzy
+msgctxt "KeyDetail#12"
+msgid "Not available"
+msgstr "Disponible"
+
+#: KeyDetail#13
+msgid "Token"
+msgstr ""
+
+#: KeyDetail#14
 msgid "Security token ID:%1"
 msgstr ""
 
-#. ts-context KeyDetail
-#: ../widgets/KeyDetail.cpp:87
+#: KeyDetail#15
 #, fuzzy
+msgid "Available"
+msgstr "Disponible"
+
+#: KeyDetail#16
+msgid "Sub prime"
+msgstr ""
+
+#: KeyDetail#17
+msgid "Public key"
+msgstr ""
+
+#: KeyDetail#18
+#, fuzzy
+msgctxt "KeyDetail#18"
+msgid "Private key"
+msgstr "Exponente secreto"
+
+#: KeyDetail#19
+msgid "Curve name"
+msgstr ""
+
+#: KeyDetail#20
 msgid "Unknown key"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:726
-#, fuzzy
-msgid "Password"
-msgstr "Contraseña"
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:725
-#, fuzzy
-msgid "Password verify error, please try again"
-msgstr "Contraeña incorrecta, inténtelo de nuevo"
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:34
-#, fuzzy
-msgid "&Close DataBase"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:82
-#, fuzzy
-msgid "&Content"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:84
-#, fuzzy
-msgid "&About"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:27
-#, fuzzy
-msgid "&File"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:81
-#, fuzzy
-msgid "&Help"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:597 ../widgets/MainWindow.cpp:700
-#, fuzzy
-msgid "New Password"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:856
-#, fuzzy
-msgid "The following error occured:"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:859
-#, fuzzy
-msgid "Copy to Clipboard"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:28
-#, fuzzy
+#: MainWindow#1
 msgid "Private Keys"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:58
-#, fuzzy
+#: MainWindow#2
 msgid "&New Key"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:65 ../ui/MainWindow.ui:176 ../ui/MainWindow.ui:274
-#: ../ui/MainWindow.ui:418 ../ui/MainWindow.ui:488
-#, fuzzy
+#: MainWindow#3
 msgid "&Export"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:72 ../ui/MainWindow.ui:183 ../ui/MainWindow.ui:281
-#: ../ui/MainWindow.ui:411 ../ui/MainWindow.ui:495
+#: MainWindow#4
 #, fuzzy
+msgctxt "MainWindow#4"
 msgid "&Import"
-msgstr ""
+msgstr "Importar"
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:79
-#, fuzzy
+#: MainWindow#5
 msgid "Import PFX (PKCS#12)"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:86 ../ui/MainWindow.ui:190 ../ui/MainWindow.ui:288
-#: ../ui/MainWindow.ui:502
-#, fuzzy
+#: MainWindow#6
 msgid "&Show Details"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:93 ../ui/MainWindow.ui:197 ../ui/MainWindow.ui:295
-#: ../ui/MainWindow.ui:404 ../ui/MainWindow.ui:509
-#, fuzzy
+#: MainWindow#7
 msgid "&Delete"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:133
-#, fuzzy
+#: MainWindow#8
 msgid "Certificate signing requests"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:169
-#, fuzzy
+#: MainWindow#9
 msgid "&New Request"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:237 ../widgets/MW_menu.cpp:54
-#, fuzzy
+#: MainWindow#10
 msgid "Certificates"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:267
-#, fuzzy
+#: MainWindow#11
 msgid "&New Certificate"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:302
-#, fuzzy
+#: MainWindow#12
 msgid "Import &PKCS#12"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:309
-#, fuzzy
+#: MainWindow#13
 msgid "Import P&KCS#7"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:316
-#, fuzzy
+#: MainWindow#14
+msgctxt "MainWindow#14"
 msgid "Plain View"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:356
-#, fuzzy
+#: MainWindow#15
 msgid "Templates"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:390
-#, fuzzy
+#: MainWindow#16
 msgid "&New template"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:397
-#, fuzzy
+#: MainWindow#17
 msgid "Ch&ange Template"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../ui/MainWindow.ui:458
-#, fuzzy
+#: MainWindow#18
 msgid "Revocation lists"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MW_database.cpp:147
-#, fuzzy
-msgid "Database"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_database.cpp:216
-#, fuzzy
-msgid "No deleted items found"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:36
-#, fuzzy
-msgid "&Dump DataBase"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:40
-#, fuzzy
-msgid "&Import old db_dump"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:42
-#, fuzzy
-msgid "&Undelete items"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:45
-#, fuzzy
-msgid "Options"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:50
-#, fuzzy
-msgid "Keys"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:52
-#, fuzzy
-msgid "Requests"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:56
-#, fuzzy
-msgid "PKCS#12"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:58
-#, fuzzy
-msgid "PKCS#7"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:60
-#, fuzzy
-msgid "Template"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:62
-#, fuzzy
-msgid "Revocation list"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:64
-#, fuzzy
-msgid "PEM file"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:85
-#, fuzzy
-msgid "Donations"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:136
-#, fuzzy
-msgid "Import password"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:137
-#, fuzzy
-msgid "Please enter the password of the old database"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:145
-#, fuzzy
-msgid "Password verification error. Ignore keys ?"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:146
-#, fuzzy
-msgid "Import anyway"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:146
-#, fuzzy
-msgid "Cancel"
-msgstr "Cancelar"
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:49
-#, fuzzy
-msgid "I&mport"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:66
-#, fuzzy
-msgid "paste PEM file"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:131
-#, fuzzy
-msgid "Database dump ( *.dump );;All files ( * )"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:380
-#, fuzzy
-msgid "Import PEM data"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:437
-#, fuzzy
-msgid "The new label of the token '%1'"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:597
-#, fuzzy
-msgid ""
-"Please enter the new password to encrypt your private keys in the "
-"database-file"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:771
-#, fuzzy
-msgid ""
-"Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
-"must consist of an even number of characters"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:28
-#, fuzzy
-msgid "&New DataBase"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:30
-#, fuzzy
-msgid "&Open DataBase"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:72
-#, fuzzy
-msgid "&Init Security token"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:38
-#, fuzzy
-msgid "C&hange DataBase password"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:47
-#, fuzzy
-msgid "Exit"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../lib/pki_evp.cpp:256 ../lib/pki_evp.cpp:377
-#, fuzzy
+#: MainWindow#19
 msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:337
-#, fuzzy
-msgid "no such option: %1"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:845
-#, fuzzy
-msgid "%1 missmatch"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_database.cpp:145
-#, fuzzy
+#: MainWindow#20
 msgid ""
 "Using or exporting private keys will not be possible without providing the "
 "correct password"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:424
+#: MainWindow#21
+msgid "Database"
+msgstr ""
+
+#: MainWindow#22
+msgid "No deleted items found"
+msgstr ""
+
+#: MainWindow#23
+msgid "&File"
+msgstr ""
+
+#: MainWindow#24
+msgid "&New DataBase"
+msgstr ""
+
+#: MainWindow#25
+msgid "&Open DataBase"
+msgstr ""
+
+#: MainWindow#26
+msgid "Generate DH parameter"
+msgstr ""
+
+#: MainWindow#27
+msgid "&Close DataBase"
+msgstr ""
+
+#: MainWindow#28
+msgid "&Dump DataBase"
+msgstr ""
+
+#: MainWindow#29
+msgid "C&hange DataBase password"
+msgstr ""
+
+#: MainWindow#30
+msgid "&Import old db_dump"
+msgstr ""
+
+#: MainWindow#31
+msgid "&Undelete items"
+msgstr ""
+
+#: MainWindow#32
+msgid "Options"
+msgstr ""
+
+#: MainWindow#33
+msgid "Exit"
+msgstr ""
+
+#: MainWindow#34
+msgid "I&mport"
+msgstr ""
+
+#: MainWindow#35
+msgid "Keys"
+msgstr ""
+
+#: MainWindow#36
+msgid "Requests"
+msgstr ""
+
+#: MainWindow#37
+msgid "PKCS#12"
+msgstr ""
+
+#: MainWindow#38
+msgctxt "MainWindow#38"
+msgid "PKCS#7"
+msgstr ""
+
+#: MainWindow#39
+msgctxt "MainWindow#39"
+msgid "Template"
+msgstr ""
+
+#: MainWindow#40
+msgid "Revocation list"
+msgstr ""
+
+#: MainWindow#41
+msgid "PEM file"
+msgstr ""
+
+#: MainWindow#42
+msgid "paste PEM file"
+msgstr ""
+
+#: MainWindow#43
+msgid "&Token"
+msgstr ""
+
+#: MainWindow#44
+msgid "&Manage Security token"
+msgstr ""
+
+#: MainWindow#45
+msgid "&Init Security token"
+msgstr ""
+
+#: MainWindow#46
+msgid "&Change PIN"
+msgstr ""
+
+#: MainWindow#47
+msgid "Change &SO PIN"
+msgstr ""
+
+#: MainWindow#48
+msgid "Init PIN"
+msgstr ""
+
+#: MainWindow#49
+msgid "&Help"
+msgstr ""
+
+#: MainWindow#50
+msgid "&Content"
+msgstr ""
+
+#: MainWindow#51
+msgid "&About"
+msgstr ""
+
+#: MainWindow#52
+msgid "Donations"
+msgstr ""
+
+#: MainWindow#53
+msgid "Database dump ( *.dump );;All files ( * )"
+msgstr ""
+
+#: MainWindow#54
+msgid "Import password"
+msgstr ""
+
+#: MainWindow#55
+msgid "Please enter the password of the old database"
+msgstr ""
+
+#: MainWindow#56
+msgid "Password verification error. Ignore keys ?"
+msgstr ""
+
+#: MainWindow#57
+msgid "Import anyway"
+msgstr ""
+
+#: MainWindow#58
 #, fuzzy
+msgctxt "MainWindow#58"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: MainWindow#59
+msgid "no such option: %1"
+msgstr ""
+
+#: MainWindow#60
+msgid "Import PEM data"
+msgstr ""
+
+#: MainWindow#61
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:430
-#, fuzzy
+#: MainWindow#62
 msgid "Please enter the new SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:546
-#, fuzzy
+#: MainWindow#63
+msgid "The new label of the token '%1'"
+msgstr ""
+
+#: MainWindow#64
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:700
-#, fuzzy
+#: MainWindow#65
+msgid "New Password"
+msgstr ""
+
+#: MainWindow#66
+msgid ""
+"Please enter the new password to encrypt your private keys in the database-"
+"file"
+msgstr ""
+
+#: MainWindow#67
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file: '%1'"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:727
+#: MainWindow#68
 #, fuzzy
+msgid "Password verify error, please try again"
+msgstr "Contraeña incorrecta, inténtelo de nuevo"
+
+#: MainWindow#69
+#, fuzzy
+msgctxt "MainWindow#69"
+msgid "Password"
+msgstr "Contraseña"
+
+#: MainWindow#70
 msgid "Please enter the password for unlocking the database: '%1'"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:819
-#, fuzzy
+#: MainWindow#71
+msgid ""
+"Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
+"must consist of an even number of characters"
+msgstr ""
+
+#: MainWindow#72
 msgid "Repeat %1"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:925
-#, fuzzy
+#: MainWindow#73
+msgid "%1 missmatch"
+msgstr ""
+
+#: MainWindow#74
+msgid "The following error occured:"
+msgstr ""
+
+#: MainWindow#75
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: MainWindow#76
 msgid "DH parameter bits"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MainWindow.cpp:948
-#, fuzzy
+#: MainWindow#77
+msgctxt "MainWindow#77"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:32
-#, fuzzy
-msgid "Generate DH parameter"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:69
-#, fuzzy
-msgid "&Token"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:70
-#, fuzzy
-msgid "&Manage Security token"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:74
-#, fuzzy
-msgid "&Change PIN"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:76
-#, fuzzy
-msgid "Change &SO PIN"
-msgstr ""
-
-#. ts-context MainWindow
-#: ../widgets/MW_menu.cpp:78
-#, fuzzy
-msgid "Init PIN"
-msgstr ""
-
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:36
-#, fuzzy
+#: NewCrl#1
 msgid "Create CRL"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:90
-#, fuzzy
+#: NewCrl#2
 msgid "Dates"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:112
-#, fuzzy
-msgid "next update"
-msgstr ""
-
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:98
-#, fuzzy
+#: NewCrl#3
 msgid "last update"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:141
-#, fuzzy
+#: NewCrl#4
+msgid "next update"
+msgstr ""
+
+#: NewCrl#5
+msgctxt "NewCrl#5"
 msgid "Days"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:146
-#, fuzzy
+#: NewCrl#6
+msgctxt "NewCrl#6"
 msgid "Months"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:151
-#, fuzzy
+#: NewCrl#7
+msgctxt "NewCrl#7"
 msgid "Years"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:159
-#, fuzzy
+#: NewCrl#8
+msgctxt "NewCrl#8"
 msgid "Midnight"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:166
-#, fuzzy
+#: NewCrl#9
+msgctxt "NewCrl#9"
 msgid "Apply"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:178
-#, fuzzy
+#: NewCrl#10
 msgid "Hashing algorithm"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:190
-#, fuzzy
+#: NewCrl#11
+msgctxt "NewCrl#11"
 msgid "Extensions"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:196
-#, fuzzy
+#: NewCrl#12
 msgid "Authority key identifier"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:203
-#, fuzzy
+#: NewCrl#13
 msgid "Subject alternative name"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:210
-#, fuzzy
+#: NewCrl#14
 msgid "CRL Number"
 msgstr ""
 
-#. ts-context NewCrl
-#: ../ui/NewCrl.ui:220
-#, fuzzy
+#: NewCrl#15
 msgid "Revokation reasons"
 msgstr ""
 
-#. ts-context NewCrl
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#. ts-context NewKey
-#: ../ui/NewKey.ui:14 ../ui/NewKey.ui:39
-#, fuzzy
+#: NewKey#1
 msgid "New key"
 msgstr ""
 
-#. ts-context NewKey
-#: ../ui/NewKey.ui:86
-#, fuzzy
+#: NewKey#2
 msgid "Please give a name to the new key and select the desired keysize"
 msgstr ""
 
-#. ts-context NewKey
-#: ../ui/NewKey.ui:96
-#, fuzzy
+#: NewKey#3
 msgid "Key properties"
 msgstr ""
 
-#. ts-context NewKey
-#: ../ui/NewKey.ui:102
+#: NewKey#4
 #, fuzzy
+msgctxt "NewKey#4"
 msgid "Name"
 msgstr "Nombre"
 
-#. ts-context NewKey
-#: ../ui/NewKey.ui:158
-#, fuzzy
-msgid "Keysize"
-msgstr "Tamaño de clave"
-
-#. ts-context NewKey
-#: ../ui/NewKey.ui:171
-#, fuzzy
-msgid "Usually 1024 or 2048 bit keys are used"
-msgstr ""
-
-#. ts-context NewKey
-#: ../ui/NewKey.ui:121
-#, fuzzy
+#: NewKey#5
 msgid "The internal name of the new key"
 msgstr ""
 
-#. ts-context NewKey
-#: ../ui/NewKey.ui:124
+#: NewKey#6
 #, fuzzy
+msgctxt "NewKey#6"
 msgid "New Key"
 msgstr "Nueva clave"
 
-#. ts-context NewKey
-#: ../ui/NewKey.ui:178
-#, fuzzy
-msgid "Keytype"
-msgstr ""
-
-#. ts-context NewKey
-#: ../ui/NewKey.ui:151
-#, fuzzy
+#: NewKey#7
 msgid "Curve"
 msgstr ""
 
-#. ts-context NewKey
-#: ../widgets/NewKey.cpp:139
+#: NewKey#8
 #, fuzzy
+msgctxt "NewKey#8"
+msgid "Keysize"
+msgstr "Tamaño de clave"
+
+#: NewKey#9
+msgid "Usually 1024 or 2048 bit keys are used"
+msgstr ""
+
+#: NewKey#10
+msgid "Keytype"
+msgstr ""
+
+#: NewKey#11
+msgctxt "NewKey#11"
 msgid "Create"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:30 ../widgets/NewX509.cpp:226
-#, fuzzy
+#: NewX509#1
+msgctxt "NewX509#1"
 msgid "Create"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:78
-#, fuzzy
+#: NewX509#2
 msgid "Source"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:100
-#, fuzzy
+#: NewX509#3
 msgid "Signing request"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:121
-#, fuzzy
+#: NewX509#4
 msgid ""
 "A certificate signing request can be signed, even if the private key of the "
 "request is not available. This is the intention of a CSR:\n"
 "Getting signed by a CA certificate, whoes certificate of course must be in "
 "the database\n"
-"Of course you need the private key of the CSR if you want to create a "
-"self-signed cert from it."
+"Of course you need the private key of the CSR if you want to create a self-"
+"signed cert from it."
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:130
-#, fuzzy
+#: NewX509#5
 msgid "Show request"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:137
-#, fuzzy
+#: NewX509#6
 msgid "Sign this Certificate signing &request"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:144
-#, fuzzy
+#: NewX509#7
 msgid "Copy extensions from the request"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:195
-#, fuzzy
+#: NewX509#8
+msgid "Modify subject of the request"
+msgstr ""
+
+#: NewX509#9
 msgid "Signing"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:215
-#, fuzzy
+#: NewX509#10
 msgid "Create a &self signed certificate with the serial"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:225
-#, fuzzy
+#: NewX509#11
 msgid "If you leave this blank the serial 00 will be used"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:228
-#, fuzzy
+#: NewX509#12
 msgid "1"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:252
-#, fuzzy
+#: NewX509#13
+msgid "Use &this Certificate for signing"
+msgstr ""
+
+#: NewX509#14
 msgid "All certificates in your database that can create valid signatures"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:255
-#, fuzzy
+#: NewX509#15
 msgid ""
 "This list contains all certificates with the CA-flag set to true and whoes "
 "private key is present in the key-database.\n"
 "If this list is disabled, you only can create a self-signed certificate."
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:289
+#: NewX509#16
 #, fuzzy
+msgctxt "NewX509#16"
 msgid "Signature algorithm"
-msgstr ""
+msgstr "Firma"
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:317
-#, fuzzy
+#: NewX509#17
 msgid "Template for the new certificate"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:329
-#, fuzzy
+#: NewX509#18
 msgid "All available templates"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:332
-#, fuzzy
+#: NewX509#19
 msgid "This list contains all templates from the toplevel template Tab"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:887
-#, fuzzy
-msgid "Apply"
+#: NewX509#20
+msgid "Apply extensions"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:403 ../widgets/NewX509.cpp:428
+#: NewX509#21
+msgid "Apply subject"
+msgstr ""
+
+#: NewX509#22
+msgid "Apply all"
+msgstr ""
+
+#: NewX509#23
 #, fuzzy
+msgctxt "NewX509#23"
 msgid "Subject"
 msgstr "Sujeto"
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:245
-#, fuzzy
-msgid "Use &this Certificate for signing"
+#: NewX509#24
+msgid "Organisation"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:440
-#, fuzzy
+#: NewX509#25
 msgid ""
 "This name is only used internally and does not appear in the resulting "
 "certificate"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:450
-#, fuzzy
+#: NewX509#26
 msgid "Must be exactly 2 letter of size (DE, UK)"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:526
-#, fuzzy
+#: NewX509#27
+msgid "Country code"
+msgstr ""
+
+#: NewX509#28
+msgid "State or Province"
+msgstr ""
+
+#: NewX509#29
+msgid "Locality"
+msgstr ""
+
+#: NewX509#30
+msgid "Organisational unit"
+msgstr ""
+
+#: NewX509#31
+msgid "E-Mail address"
+msgstr ""
+
+#: NewX509#32
+msgctxt "NewX509#32"
 msgid "Internal name"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:578
-#, fuzzy
+#: NewX509#33
+msgid "Common name"
+msgstr ""
+
+#: NewX509#34
+msgctxt "NewX509#34"
 msgid "Add"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:585
-#, fuzzy
+#: NewX509#35
+msgctxt "NewX509#35"
 msgid "Delete"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:622
+#: NewX509#36
 #, fuzzy
+msgctxt "NewX509#36"
 msgid "Private key"
-msgstr ""
+msgstr "Exponente secreto"
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:640
-#, fuzzy
+#: NewX509#37
 msgid "This list only contains unused keys"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:647
-#, fuzzy
+#: NewX509#38
 msgid "Used keys too"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:654
-#, fuzzy
+#: NewX509#39
 msgid "&Generate a new key"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:665
-#, fuzzy
+#: NewX509#40
+msgctxt "NewX509#40"
 msgid "Extensions"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:673
-#, fuzzy
+#: NewX509#41
 msgid "Basic constraints"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:682
-#, fuzzy
+#: NewX509#42
+msgctxt "NewX509#42"
 msgid "Type"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:689
-#, fuzzy
+#: NewX509#43
 msgid "If this will become a CA certificate or not"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:692
-#, fuzzy
+#: NewX509#44
 msgid ""
 "Set this to TRUE if you want to create a CA certificate that signs other "
 "certificates.\n"
@@ -1748,39 +1308,27 @@ msgid ""
 "Self-signed non-CA certificates are unusual although they are possible."
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:698
-#, fuzzy
+#: NewX509#45
 msgid "Not defined"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:703
-#, fuzzy
+#: NewX509#46
 msgid "Certification Authority"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:708
-#, fuzzy
+#: NewX509#47
 msgid "End Entity"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:716
-#, fuzzy
+#: NewX509#48
 msgid "Path length"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:723
-#, fuzzy
+#: NewX509#49
 msgid "How much CAs may be below this."
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:726
-#, fuzzy
+#: NewX509#50
 msgid ""
 "If this is left empty the pathlen is not included in the certificate. "
 "Otherwise it distinguishes the count of chained CA certificates below this "
@@ -1790,33 +1338,23 @@ msgid ""
 "your browser or openssl will (should) fail."
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:734
-#, fuzzy
+#: NewX509#51
 msgid "The basic constraints should always be critical"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:747
-#, fuzzy
+#: NewX509#52
 msgid "Key identifier"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:762
-#, fuzzy
+#: NewX509#53
 msgid "Creates a hash of the key following the PKIX guidelines"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:772
-#, fuzzy
+#: NewX509#54
 msgid "Copy the Subject Key Identifier from the issuer"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:775
-#, fuzzy
+#: NewX509#55
 msgid ""
 "If this box is checked an attempt is made to copy the subject key identifier "
 "from the signing certificate.\n"
@@ -1824,87 +1362,78 @@ msgid ""
 "Normally this will only be done if the keyid option fails."
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:816
+#: NewX509#56
 #, fuzzy
+msgctxt "NewX509#56"
 msgid "Validity"
 msgstr "Validez"
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:822
-#, fuzzy
+#: NewX509#57
+msgctxt "NewX509#57"
 msgid "Not before"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:836
-#, fuzzy
+#: NewX509#58
+msgctxt "NewX509#58"
 msgid "Not after"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:853
-#, fuzzy
+#: NewX509#59
+msgctxt "NewX509#59"
 msgid "Time range"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:863
-#, fuzzy
+#: NewX509#60
+msgctxt "NewX509#60"
 msgid "Days"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:868
-#, fuzzy
+#: NewX509#61
+msgctxt "NewX509#61"
 msgid "Months"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:873
-#, fuzzy
+#: NewX509#62
+msgctxt "NewX509#62"
 msgid "Years"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:894
-#, fuzzy
+#: NewX509#63
+msgctxt "NewX509#63"
+msgid "Apply"
+msgstr ""
+
+#: NewX509#64
 msgid "Set the time to 00:00:00 and 23:59:59 respectively"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:897
-#, fuzzy
+#: NewX509#65
+msgctxt "NewX509#65"
 msgid "Midnight"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:932
-#, fuzzy
+#: NewX509#66
+msgctxt "NewX509#66"
+msgid "No well-defined expiration"
+msgstr ""
+
+#: NewX509#67
 msgid "Authority Info Access"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:942
-#, fuzzy
+#: NewX509#68
 msgid "CRL distribution point"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:952
-#, fuzzy
+#: NewX509#69
 msgid "issuer alternative name"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:962
-#, fuzzy
+#: NewX509#70
 msgid "URI:"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:965
-#, fuzzy
+#: NewX509#71
 msgid ""
 "This is a multi-valued extension that supports all the literal options of "
 "subject alternative name. Of the few software packages that currentlyi "
@@ -1921,28 +1450,19 @@ msgid ""
 "URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:978
-#, fuzzy
+#: NewX509#72
 msgid "can be altered by the file \"aia.txt\""
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:985 ../ui/NewX509.ui:992 ../ui/NewX509.ui:1027
-#: ../ui/NewX509.ui:1044 ../widgets/NewX509.cpp:230 ../widgets/NewX509.cpp:778
-#, fuzzy
+#: NewX509#73
 msgid "Edit"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:999 ../ui/NewX509.ui:1014 ../ui/NewX509.ui:1051
-#, fuzzy
+#: NewX509#74
 msgid "DNS: IP: URI: email: RID:"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1002
-#, fuzzy
+#: NewX509#75
 msgid ""
 "The authority information access extension gives details about how to access "
 "certain information relating to the CA. Its syntax is accessOID;location "
@@ -1958,9 +1478,7 @@ msgid ""
 "caIssuers;URI:http://my.ca/ca.html"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1017
-#, fuzzy
+#: NewX509#76
 msgid ""
 "The subject alternative name extension allows various literal values to be "
 "used. These include \"email\" (an email address) , \"URI\" a uniform "
@@ -1971,15 +1489,11 @@ msgid ""
 "email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1034
-#, fuzzy
+#: NewX509#77
 msgid "subject alternative name"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1054
-#, fuzzy
+#: NewX509#78
 msgid ""
 "The issuer alternative name extension allows various literal values to be "
 "used. These include \"email\" (an email address) , \"URI\" a uniform "
@@ -1990,2391 +1504,1765 @@ msgid ""
 "email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1067 ../ui/NewX509.ui:1087
-#, fuzzy
+#: NewX509#79
 msgid "Key usage"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1164
-#, fuzzy
+#: NewX509#80
 msgid "Extended key usage"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1199
-#, fuzzy
+#: NewX509#81
 msgid "Netscape"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1332
-#, fuzzy
+#: NewX509#82
 msgid "CA Revocation URL"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1345
-#, fuzzy
+#: NewX509#83
 msgid "Revocation URL"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1355
-#, fuzzy
+#: NewX509#84
 msgid "SSL server name"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1371
-#, fuzzy
+#: NewX509#85
 msgid "Certificate renewal URL"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1381
-#, fuzzy
+#: NewX509#86
 msgid "Comment"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1391
-#, fuzzy
+#: NewX509#87
 msgid "CA policy URL"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1401
-#, fuzzy
+#: NewX509#88
 msgid "Base URL"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1414
-#, fuzzy
+#: NewX509#89
 msgid "If you know a more pretty one tell me"
 msgstr ""
 
-#. ts-context NewX509
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:98
-#, fuzzy
-msgid "Create a &self signed certificate with a MD5-hashed QA serial"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:175
-#, fuzzy
-msgid "Create Certificate signing request"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:232
-#, fuzzy
-msgid "XCA template"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:242
-#, fuzzy
-msgid "Create x509 Certificate"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:859 ../widgets/NewX509.cpp:873
-#: ../widgets/NewX509.cpp:893 ../widgets/NewX509.cpp:904
-#: ../widgets/NewX509.cpp:921 ../widgets/NewX509.cpp:936
-#: ../widgets/NewX509.cpp:966 ../widgets/NewX509.cpp:978
-#: ../widgets/NewX509.cpp:1002 ../widgets/NewX509.cpp:1025
-#: ../widgets/NewX509.cpp:1046
-#, fuzzy
-msgid "Abort rollout"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:868
-#, fuzzy
-msgid "The following length restrictions of RFC3280 are violated:"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:902
-#, fuzzy
-msgid ""
-"The internal name and the common name are empty.\n"
-"Please set at least the internal name."
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:918
-#, fuzzy
-msgid "There is no Key selected for signing."
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:874 ../widgets/NewX509.cpp:937
-#: ../widgets/NewX509.cpp:979 ../widgets/NewX509.cpp:1003
-#: ../widgets/NewX509.cpp:1047
-#, fuzzy
-msgid "Continue rollout"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:1021
-#, fuzzy
-msgid ""
-"The certificate will be out of date before it becomes valid. You most "
-"probably mixed up both dates."
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:154
-#, fuzzy
-msgid "Modify subject of the request"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1444
-#, fuzzy
+#: NewX509#90
 msgid "Advanced"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:1468 ../widgets/NewX509.cpp:784
-#, fuzzy
+#: NewX509#91
+msgctxt "NewX509#91"
 msgid "Validate"
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:890
-#, fuzzy
+#: NewX509#92
+msgid "Create a &self signed certificate with a MD5-hashed QA serial"
+msgstr ""
+
+#: NewX509#93
+msgid "Create Certificate signing request"
+msgstr ""
+
+#: NewX509#94
+msgid "minimum size: %1"
+msgstr ""
+
+#: NewX509#95
+msgid "maximum size: %1"
+msgstr ""
+
+#: NewX509#96
+msgid "only a-z A-Z 0-9 '()+,-./:=?"
+msgstr ""
+
+#: NewX509#97
+msgid "only 7-bit clean characters"
+msgstr ""
+
+#: NewX509#98
+msgid "XCA template"
+msgstr ""
+
+#: NewX509#99
+msgid "Create x509 Certificate"
+msgstr ""
+
+#: NewX509#100
+msgid "From PKCS#10 request"
+msgstr ""
+
+#: NewX509#101
+msgid "Other Tabs"
+msgstr ""
+
+#: NewX509#102
+msgid "Advanced Tab"
+msgstr ""
+
+#: NewX509#103
+msgid "Errors"
+msgstr ""
+
+#: NewX509#104
+msgctxt "NewX509#104"
+msgid "Abort rollout"
+msgstr ""
+
+#: NewX509#105
+msgid "The following length restrictions of RFC3280 are violated:"
+msgstr ""
+
+#: NewX509#106
+msgid "Edit subject"
+msgstr ""
+
+#: NewX509#107
+msgctxt "NewX509#107"
+msgid "Continue rollout"
+msgstr ""
+
+#: NewX509#108
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:892
-#, fuzzy
+#: NewX509#109
 msgid "Continue anyway"
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:1042
-#, fuzzy
+#: NewX509#110
 msgid ""
-"The certificate contains duplicated extensions. Check the validation on the "
-"advanced tab."
+"The internal name and the common name are empty.\n"
+"Please set at least the internal name."
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:904
-#, fuzzy
-msgid "No well-defined expiration"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:903
-#, fuzzy
+#: NewX509#111
 msgid "Edit name"
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:920
-#, fuzzy
+#: NewX509#112
+msgid "There is no Key selected for signing."
+msgstr ""
+
+#: NewX509#113
 msgid "Select key"
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:932
-#, fuzzy
+#: NewX509#114
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:872 ../widgets/NewX509.cpp:935
-#, fuzzy
-msgid "Edit subject"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:977 ../widgets/NewX509.cpp:1001
-#: ../widgets/NewX509.cpp:1024
-#, fuzzy
-msgid "Edit dates"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:962
-#, fuzzy
+#: NewX509#115
+msgctxt "NewX509#115"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:964
-#, fuzzy
+#: NewX509#116
 msgid "Select other signer"
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:964
-#, fuzzy
+#: NewX509#117
 msgid "Select other key"
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:974
-#, fuzzy
+#: NewX509#118
+msgctxt "NewX509#118"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:980 ../widgets/NewX509.cpp:1004
-#, fuzzy
+#: NewX509#119
+msgid "Edit dates"
+msgstr ""
+
+#: NewX509#120
+msgctxt "NewX509#120"
 msgid "Adjust date and continue"
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:998
-#, fuzzy
+#: NewX509#121
+msgctxt "NewX509#121"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:1045
-#, fuzzy
+#: NewX509#122
+msgid ""
+"The certificate will be out of date before it becomes valid. You most "
+"probably mixed up both dates."
+msgstr ""
+
+#: NewX509#123
+msgid ""
+"The certificate contains duplicated extensions. Check the validation on the "
+"advanced tab."
+msgstr ""
+
+#: NewX509#124
 msgid "Edit extensions"
 msgstr ""
 
-#. ts-context NewX509
-#: ../ui/NewX509.ui:430
-#, fuzzy
-msgid "Organisation"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:467
-#, fuzzy
-msgid "Country code"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:477
-#, fuzzy
-msgid "State or Province"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:490
-#, fuzzy
-msgid "Locality"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:500
-#, fuzzy
-msgid "Organisational unit"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:510
-#, fuzzy
-msgid "E-Mail address"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:539
-#, fuzzy
-msgid "Common name"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:354
-#, fuzzy
-msgid "Apply extensions"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:361
-#, fuzzy
-msgid "Apply subject"
-msgstr ""
-
-#. ts-context NewX509
-#: ../ui/NewX509.ui:374
-#, fuzzy
-msgid "Apply all"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:202
-#, fuzzy
-msgid "minimum size: %1"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:204
-#, fuzzy
-msgid "maximum size: %1"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:206
-#, fuzzy
-msgid "only a-z A-Z 0-9 '()+,-./:=?"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:210
-#, fuzzy
-msgid "only 7-bit clean characters"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:736
-#, fuzzy
-msgid "From PKCS#10 request"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:752
-#, fuzzy
-msgid "Other Tabs"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:765
-#, fuzzy
-msgid "Advanced Tab"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509.cpp:772
-#, fuzzy
-msgid "Errors"
-msgstr ""
-
-#. ts-context NewX509
-#: ../widgets/NewX509_ext.cpp:228
-#, fuzzy
+#: NewX509#125
 msgid "Configfile error on line %1\n"
 msgstr ""
 
-#. ts-context Options
-#: ../ui/Options.ui:38
-#, fuzzy
-msgid "Mandatory subject entries"
-msgstr ""
-
-#. ts-context Options
-#: ../ui/Options.ui:62 ../ui/Options.ui:151
-#, fuzzy
-msgid "Add"
-msgstr ""
-
-#. ts-context Options
-#: ../ui/Options.ui:69
-#, fuzzy
-msgid "Delete"
-msgstr ""
-
-#. ts-context Options
-#: ../ui/Options.ui:102
-#, fuzzy
-msgid "Default hash algorithm"
-msgstr ""
-
-#. ts-context Options
-#: ../ui/Options.ui:122
-#, fuzzy
-msgid "String types"
-msgstr ""
-
-#. ts-context Options
-#: ../ui/Options.ui:134
-#, fuzzy
-msgid "PKCS#11 provider"
-msgstr ""
-
-#. ts-context Options
-#: ../ui/Options.ui:164
-#, fuzzy
-msgid "Remove"
-msgstr ""
-
-#. ts-context Options
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#. ts-context Options
-#: ../widgets/Options.cpp:40
-#, fuzzy
-msgid "UTF8 strings only (RFC2459)"
-msgstr ""
-
-#. ts-context Options
-#~ msgid "..."
-#~ msgstr "..."
-
-#. ts-context Options
-#: ../widgets/Options.cpp:37
-#, fuzzy
-msgid "Printable string or UTF8 (default)"
-msgstr ""
-
-#. ts-context Options
-#: ../widgets/Options.cpp:38
-#, fuzzy
-msgid "PKIX recommendation in RFC2459"
-msgstr ""
-
-#. ts-context Options
-#: ../widgets/Options.cpp:39
-#, fuzzy
-msgid "No BMP strings, only printable and T61"
-msgstr ""
-
-#. ts-context Options
-#: ../widgets/Options.cpp:41
-#, fuzzy
-msgid "All strings"
-msgstr ""
-
-#. ts-context Options
-#: ../widgets/Options.cpp:131
-#, fuzzy
-msgid "Load failed"
-msgstr ""
-
-#. ts-context Options
-#: ../ui/Options.ui:28
-#, fuzzy
+#: Options#1
 msgid "XCA Options"
 msgstr ""
 
-#. ts-context PassRead
-#: ../ui/PassRead.ui:14
+#: Options#2
+msgid "Mandatory subject entries"
+msgstr ""
+
+#: Options#3
+msgctxt "Options#3"
+msgid "Add"
+msgstr ""
+
+#: Options#4
+msgctxt "Options#4"
+msgid "Delete"
+msgstr ""
+
+#: Options#5
+msgid "Default hash algorithm"
+msgstr ""
+
+#: Options#6
+msgid "String types"
+msgstr ""
+
+#: Options#7
+msgid "PKCS#11 provider"
+msgstr ""
+
+#: Options#8
+msgid "Remove"
+msgstr ""
+
+#: Options#9
+msgid "Printable string or UTF8 (default)"
+msgstr ""
+
+#: Options#10
+msgid "PKIX recommendation in RFC2459"
+msgstr ""
+
+#: Options#11
+msgid "No BMP strings, only printable and T61"
+msgstr ""
+
+#: Options#12
+msgid "UTF8 strings only (RFC2459)"
+msgstr ""
+
+#: Options#13
+msgid "All strings"
+msgstr ""
+
+#: Options#14
+msgid "Load failed"
+msgstr ""
+
+#: PassRead#1
 #, fuzzy
+msgctxt "PassRead#1"
 msgid "Password"
 msgstr "Contraseña"
 
-#. ts-context PassRead
-#: ../ui/PassRead.ui:109
-#, fuzzy
+#: PassRead#2
+msgctxt "PassRead#2"
 msgid ""
 "The password is parsed as 2-digit hex code. It must have an equal number of "
 "digits (0-9 and a-f)"
 msgstr ""
 
-#. ts-context PassRead
-#: ../ui/PassRead.ui:112
-#, fuzzy
+#: PassRead#3
+msgctxt "PassRead#3"
 msgid "Take as HEX string"
 msgstr ""
 
-#. ts-context PassWrite
-#: ../ui/PassWrite.ui:14
+#: PassWrite#1
 #, fuzzy
+msgctxt "PassWrite#1"
 msgid "Password"
 msgstr "Contraseña"
 
-#. ts-context PassWrite
-#: ../ui/PassWrite.ui:119
-#, fuzzy
+#: PassWrite#2
+msgctxt "PassWrite#2"
 msgid ""
 "The password is parsed as 2-digit hex code. It must have an equal number of "
 "digits (0-9 and a-f)"
 msgstr ""
 
-#. ts-context PassWrite
-#: ../ui/PassWrite.ui:122
-#, fuzzy
+#: PassWrite#3
+msgctxt "PassWrite#3"
 msgid "Take as HEX string"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/load_obj.cpp:53
-#, fuzzy
-msgid "Import RSA key"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:67
-#, fuzzy
-msgid "Import Request"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:80
-#, fuzzy
-msgid "Import X.509 Certificate"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:93
-#, fuzzy
-msgid "Import PKCS#7 Certificates"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:106
-#, fuzzy
-msgid "Import PKCS#12 Private Certificate"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:120
-#, fuzzy
-msgid "Import XCA Templates"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:133
-#, fuzzy
-msgid "Import Certificate Revocation List"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:146
-#, fuzzy
-msgid "Open XCA Database"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:51
-#, fuzzy
-msgid "PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:65
-#, fuzzy
-msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:79
-#, fuzzy
-msgid "Certificates ( *.pem *.der *.crt *.cer );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:92
-#, fuzzy
-msgid "PKCS#7 data ( *.p7s *.p7m *.p7b );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:105
-#, fuzzy
-msgid "PKCS#12 Certificates ( *.p12 *.pfx );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:119
-#, fuzzy
-msgid "XCA templates ( *.xca );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:132
-#, fuzzy
-msgid "Revocation lists ( *.pem *.der *.crl );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:145
-#, fuzzy
-msgid "XCA Databases ( *.xdb );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:156
-#, fuzzy
-msgid "PKCS#11 library ( *.dylib *.so );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:167
-#, fuzzy
-msgid "PEM files ( *.pem );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:168
-#, fuzzy
-msgid "Load PEM encoded file"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/x509name.cpp:106
-#, fuzzy
-msgid "Invalid"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/x509name.cpp:219
-#, fuzzy
-msgid "%1 is shorter than %2 bytes: '%3'"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/x509name.cpp:224
-#, fuzzy
-msgid "%1 is longer than %2 bytes: '%3'"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:19
-#, fuzzy
-msgid "All files ( * )"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/asn1time.cpp:104
-#, fuzzy
+#: QObject#1
 msgid "Undefined"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/db.cpp:172
-#, fuzzy
+#: QObject#2
 msgid "DB: Rename: '%1' already in use"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/db.cpp:176
-#, fuzzy
+#: QObject#3
 msgid "DB: Entry to rename not found: %1"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/load_obj.cpp:154
-#, fuzzy
-msgid "PKCS#11 library ( *.dll );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:158
-#, fuzzy
-msgid "PKCS#11 library ( *.so );;"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/load_obj.cpp:160
-#, fuzzy
-msgid "Open PKCS#11 shared library"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/pki_evp.cpp:209
-#, fuzzy
-msgid "Please enter the password to decrypt the private key."
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/db.cpp:186
-#, fuzzy
+#: QObject#4
 msgid "DB: Write error %1 - %2"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11.cpp:184
-#, fuzzy
-msgid "Please enter the SO PIN (PUK) of the token %1"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/pkcs11.cpp:185
-#, fuzzy
-msgid "Please enter the PIN of the token %1"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/pkcs11.cpp:213
-#, fuzzy
-msgid "No Security token found"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/exception.h:50
-#, fuzzy
-msgid "Out of Memory at %1:%2"
-msgstr ""
-
-#. ts-context QObject
-#: ../lib/db.cpp:423 ../lib/db.cpp:440
-#, fuzzy
+#: QObject#5
 msgid "Out of data"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/db.cpp:463
-#, fuzzy
+#: QObject#6
 msgid "Error finding endmarker of string"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11.cpp:232
-#, fuzzy
+#: QObject#7
+msgid "Out of Memory at %1:%2"
+msgstr ""
+
+#: QObject#8
+msgctxt "QObject#8"
+msgid "All files ( * )"
+msgstr ""
+
+#: QObject#9
+msgid "PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;"
+msgstr ""
+
+#: QObject#10
+msgid "Import RSA key"
+msgstr ""
+
+#: QObject#11
+msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
+msgstr ""
+
+#: QObject#12
+msgid "Import Request"
+msgstr ""
+
+#: QObject#13
+msgid "Certificates ( *.pem *.der *.crt *.cer );;"
+msgstr ""
+
+#: QObject#14
+msgid "Import X.509 Certificate"
+msgstr ""
+
+#: QObject#15
+msgid "PKCS#7 data ( *.p7s *.p7m *.p7b );;"
+msgstr ""
+
+#: QObject#16
+msgid "Import PKCS#7 Certificates"
+msgstr ""
+
+#: QObject#17
+msgid "PKCS#12 Certificates ( *.p12 *.pfx );;"
+msgstr ""
+
+#: QObject#18
+msgid "Import PKCS#12 Private Certificate"
+msgstr ""
+
+#: QObject#19
+msgid "XCA templates ( *.xca );;"
+msgstr ""
+
+#: QObject#20
+msgid "Import XCA Templates"
+msgstr ""
+
+#: QObject#21
+msgid "Revocation lists ( *.pem *.der *.crl );;"
+msgstr ""
+
+#: QObject#22
+msgid "Import Certificate Revocation List"
+msgstr ""
+
+#: QObject#23
+msgid "XCA Databases ( *.xdb );;"
+msgstr ""
+
+#: QObject#24
+msgid "Open XCA Database"
+msgstr ""
+
+#: QObject#25
+msgid "PKCS#11 library ( *.dll );;"
+msgstr ""
+
+#: QObject#26
+msgid "PKCS#11 library ( *.dylib *.so );;"
+msgstr ""
+
+#: QObject#27
+msgid "PKCS#11 library ( *.so );;"
+msgstr ""
+
+#: QObject#28
+msgid "Open PKCS#11 shared library"
+msgstr ""
+
+#: QObject#29
+msgid "PEM files ( *.pem );;"
+msgstr ""
+
+#: QObject#30
+msgid "Load PEM encoded file"
+msgstr ""
+
+#: QObject#31
+msgid "Please enter the SO PIN (PUK) of the token %1"
+msgstr ""
+
+#: QObject#32
+msgid "Please enter the PIN of the token %1"
+msgstr ""
+
+#: QObject#33
+msgid "No Security token found"
+msgstr ""
+
+#: QObject#34
 msgid "Select"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11.cpp:253
-#, fuzzy
+#: QObject#35
 msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11.cpp:255
-#, fuzzy
+#: QObject#36
 msgid "Please enter the new PIN for the token: '%1'"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11.h:80
-#, fuzzy
+#: QObject#37
 msgid "Required PIN size: %1 - %2"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11_lib.cpp:62
-#, fuzzy
+#: QObject#38
 msgid "Failed to open PKCS11 library: %1"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11_lib.cpp:280
-#, fuzzy
+#: QObject#39
 msgid "PKCS#11 function '%1' failed: %2"
 msgstr ""
 
-#. ts-context QObject
-#: ../lib/pkcs11_lib.cpp:287
-#, fuzzy
+#: QObject#40
 msgid ""
 "PKCS#11 function '%1' failed: %2\n"
 "In library %3\n"
 "%4"
 msgstr ""
 
-#. ts-context ReqDetail
-#: ../widgets/ReqDetail.cpp:55
-#, fuzzy
-msgid "Not available"
+#: QObject#41
+msgid "Please enter the password to decrypt the private key."
 msgstr ""
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:36
+#: QObject#42
+msgid "Invalid"
+msgstr ""
+
+#: QObject#43
+msgid "%1 is shorter than %2 bytes: '%3'"
+msgstr ""
+
+#: QObject#44
+msgid "%1 is longer than %2 bytes: '%3'"
+msgstr ""
+
+#: ReqDetail#1
 #, fuzzy
 msgid "Details of the certificate signing request"
 msgstr "Detalles de la solicitud"
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:84
-#, fuzzy
+#: ReqDetail#2
+msgctxt "ReqDetail#2"
 msgid "S&tatus"
 msgstr ""
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:120
-#, fuzzy
+#: ReqDetail#3
 msgid "Internal name of the PKCS#10 signing request"
 msgstr ""
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:130
-#, fuzzy
+#: ReqDetail#4
 msgid "Internal Name"
 msgstr ""
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:137
+#: ReqDetail#5
 #, fuzzy
+msgctxt "ReqDetail#5"
 msgid "Private key"
-msgstr ""
+msgstr "Exponente secreto"
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:144
+#: ReqDetail#6
 #, fuzzy
+msgctxt "ReqDetail#6"
 msgid "Signature algorithm"
-msgstr ""
+msgstr "Firma"
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:151
+#: ReqDetail#7
 #, fuzzy
+msgctxt "ReqDetail#7"
 msgid "Signature"
 msgstr "Firma"
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:183
+#: ReqDetail#8
 #, fuzzy
+msgctxt "ReqDetail#8"
 msgid "&Subject"
-msgstr ""
+msgstr "Sujeto"
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:199
-#, fuzzy
+#: ReqDetail#9
 msgid "Attributes"
 msgstr ""
 
-#. ts-context ReqDetail
-#: ../ui/ReqDetail.ui:215
-#, fuzzy
+#: ReqDetail#10
+msgctxt "ReqDetail#10"
 msgid "&Extensions"
 msgstr ""
 
-#. ts-context Revoke
-#: ../ui/Revoke.ui:17
+#: ReqDetail#11
 #, fuzzy
+msgctxt "ReqDetail#11"
+msgid "Not available"
+msgstr "Disponible"
+
+#: Revoke#1
 msgid "Revokation details"
 msgstr ""
 
-#. ts-context Revoke
-#: ../ui/Revoke.ui:23
-#, fuzzy
+#: Revoke#2
 msgid "Invalid since"
 msgstr ""
 
-#. ts-context Revoke
-#: ../ui/Revoke.ui:37
-#, fuzzy
+#: Revoke#3
 msgid "Revokation reason"
 msgstr ""
 
-#. ts-context SelectToken
-#: ../ui/SelectToken.ui:14
-#, fuzzy
+#: SelectToken#1
 msgid "Select Token"
 msgstr ""
 
-#. ts-context SelectToken
-#: ../ui/SelectToken.ui:39
-#, fuzzy
+#: SelectToken#2
+msgctxt "SelectToken#2"
 msgid "Security token"
 msgstr ""
 
-#. ts-context SelectToken
-#: ../ui/SelectToken.ui:86
-#, fuzzy
+#: SelectToken#3
 msgid "Please select the security token"
 msgstr ""
 
-#. ts-context TrustState
-#: ../ui/TrustState.ui:115
-#, fuzzy
-msgid "Trustment"
-msgstr ""
-
-#. ts-context TrustState
-#: ../ui/TrustState.ui:127
-#, fuzzy
-msgid "&Never trust this certificate"
-msgstr ""
-
-#. ts-context TrustState
-#: ../ui/TrustState.ui:134
-#, fuzzy
-msgid "Only &trust this certificate, if we trust the signer"
-msgstr ""
-
-#. ts-context TrustState
-#: ../ui/TrustState.ui:141
-#, fuzzy
-msgid "&Always trust this certificate"
-msgstr ""
-
-#. ts-context TrustState
-#: ../ui/TrustState.ui:39
-#, fuzzy
+#: TrustState#1
 msgid "Set trustment of the Certificate"
 msgstr ""
 
-#. ts-context Validity
-#: ../widgets/validity.cpp:18
-#, fuzzy
+#: TrustState#2
+msgid "Trustment"
+msgstr ""
+
+#: TrustState#3
+msgid "&Never trust this certificate"
+msgstr ""
+
+#: TrustState#4
+msgid "Only &trust this certificate, if we trust the signer"
+msgstr ""
+
+#: TrustState#5
+msgid "&Always trust this certificate"
+msgstr ""
+
+#: Validity#1
 msgid "yyyy-MM-dd hh:mm"
 msgstr ""
 
-#. ts-context db_base
-#: ../lib/db_base.cpp:29
-#, fuzzy
+#: db_base#1
+msgctxt "db_base#1"
 msgid "Internal name"
 msgstr ""
 
-#. ts-context db_base
-#: ../lib/db_base.cpp:645
-#, fuzzy
+#: db_base#2
 msgid "Reset"
 msgstr ""
 
-#. ts-context db_base
-#: ../lib/db_base.cpp:650
-#, fuzzy
+#: db_base#3
 msgid "Subject entries"
 msgstr ""
 
-#. ts-context db_base
-#: ../lib/db_base.cpp:663
-#, fuzzy
+#: db_base#4
 msgid "Columns"
 msgstr ""
 
-#. ts-context db_crl
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:22
-#, fuzzy
+#: db_crl#1
 msgid "Signer"
 msgstr ""
 
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:23
-#, fuzzy
+#: db_crl#2
 msgid "Internal name of the signer"
 msgstr ""
 
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:24
-#, fuzzy
+#: db_crl#3
 msgid "No. revoked"
 msgstr ""
 
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:25
-#, fuzzy
+#: db_crl#4
 msgid "Number of revoked certificates"
 msgstr ""
 
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:26
-#, fuzzy
+#: db_crl#5
 msgid "Last update"
 msgstr ""
 
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:27
-#, fuzzy
+#: db_crl#6
 msgid "Next update"
 msgstr ""
 
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:28
-#, fuzzy
+#: db_crl#7
 msgid "CRL number"
 msgstr ""
 
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:135
-#, fuzzy
-msgid "CRL ( *.pem *.der *.crl )"
-msgstr ""
-
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:137
-#, fuzzy
-msgid "Revokation list export"
-msgstr ""
-
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:222
-#, fuzzy
-msgid "Import"
-msgstr "Importar"
-
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:224
-#, fuzzy
-msgid "Rename"
-msgstr ""
-
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:225
-#, fuzzy
-msgid "Export"
-msgstr ""
-
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:226
-#, fuzzy
-msgid "Delete"
-msgstr ""
-
-#. ts-context db_crl
-#: ../lib/db_crl.cpp:100
-#, fuzzy
+#: db_crl#8
 msgid ""
 "The revokation list already exists in the database as:\n"
 "'%1'\n"
 "and so it was not imported"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:135
-#, fuzzy
-msgid "Key size too small !"
+#: db_crl#9
+msgid "CRL ( *.pem *.der *.crl )"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:230
-#, fuzzy
-msgid "New Key"
-msgstr "Nueva clave"
+#: db_crl#10
+msgid "Revokation list export"
+msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:231
+#: db_crl#11
 #, fuzzy
+msgctxt "db_crl#11"
 msgid "Import"
 msgstr "Importar"
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:233
-#, fuzzy
+#: db_crl#12
+msgctxt "db_crl#12"
 msgid "Rename"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:234
-#, fuzzy
-msgid "Show Details"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:236
-#, fuzzy
+#: db_crl#13
+msgctxt "db_crl#13"
 msgid "Export"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:235
-#, fuzzy
+#: db_crl#14
+msgctxt "db_crl#14"
 msgid "Delete"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:240
-#, fuzzy
-msgid "Change password"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:244
-#, fuzzy
-msgid "Reset password"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:196
-#, fuzzy
-msgid ""
-"Shall the original key '%1' be replaced by the key on the token?\n"
-"This will delete the key '%1' and make it unexportable"
-msgstr ""
-
-#. ts-context db_key
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:39
-#, fuzzy
+#: db_key#1
+msgctxt "db_key#1"
 msgid "Type"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:40
-#, fuzzy
+#: db_key#2
 msgid "Size"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:41
-#, fuzzy
+#: db_key#3
 msgid "Use"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:42
+#: db_key#4
 #, fuzzy
+msgctxt "db_key#4"
 msgid "Password"
 msgstr "Contraseña"
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:250
-#, fuzzy
-msgid "Change PIN"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:252
-#, fuzzy
-msgid "Init PIN with SO PIN (PUK)"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:254
-#, fuzzy
-msgid "Change SO PIN (PUK)"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:258
-#, fuzzy
-msgid "Store on Security token"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:347
-#, fuzzy
-msgid "Tried to change password of a token"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:361
-#, fuzzy
-msgid "Tried to change PIN of a key"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:377
-#, fuzzy
-msgid "Tried to init PIN of a key"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:393
-#, fuzzy
-msgid "Tried to change SO PIN of a key"
-msgstr ""
-
-#. ts-context db_key
-#: ../lib/db_key.cpp:96
-#, fuzzy
+#: db_key#5
 msgid ""
 "The key is already in the database as:\n"
 "'%1'\n"
 "and is not going to be imported"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:102
-#, fuzzy
+#: db_key#6
 msgid ""
 "The database already contains the public part of the imported key as\n"
 "'%1\n"
 "and will be completed by the new, private part of the key"
 msgstr ""
 
-#. ts-context db_key
-#: ../lib/db_key.cpp:141
-#, fuzzy
+#: db_key#7
+msgid "Key size too small !"
+msgstr ""
+
+#: db_key#8
 msgid "You are sure to create a key of the size: %1 ?"
 msgstr ""
 
-#. ts-context db_temp
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:23
-#, fuzzy
-msgid "Type"
+#: db_key#9
+msgid ""
+"Shall the original key '%1' be replaced by the key on the token?\n"
+"This will delete the key '%1' and make it unexportable"
 msgstr ""
 
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:113
+#: db_key#10
 #, fuzzy
-msgid "Nothing"
-msgstr ""
+msgctxt "db_key#10"
+msgid "New Key"
+msgstr "Nueva clave"
 
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:118
+#: db_key#11
 #, fuzzy
-msgid "Preset Template values"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:157
-#, fuzzy
-msgid "copy"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:189
-#, fuzzy
-msgid "Save template as"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:232
-#, fuzzy
-msgid "New Template"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:233
-#, fuzzy
+msgctxt "db_key#11"
 msgid "Import"
 msgstr "Importar"
 
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:235
-#, fuzzy
+#: db_key#12
+msgctxt "db_key#12"
 msgid "Rename"
 msgstr ""
 
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:236
-#, fuzzy
-msgid "Export"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:237
-#, fuzzy
-msgid "Change"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:238
-#, fuzzy
-msgid "Delete"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:239
-#, fuzzy
-msgid "Duplicate"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:240
-#, fuzzy
-msgid "Create certificate"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:242
-#, fuzzy
-msgid "Create request"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:190
-#, fuzzy
-msgid "XCA templates ( *.xca);; All files ( * )"
-msgstr ""
-
-#. ts-context db_temp
-#: ../lib/db_temp.cpp:49
-#, fuzzy
-msgid "Bad template: %1"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:35
-#, fuzzy
-msgid "Serial"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:42
-#, fuzzy
-msgid "Trust state"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:43
-#, fuzzy
-msgid "Revocation"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:40
-#, fuzzy
-msgid "Expiry date"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:34
-#, fuzzy
-msgid "reflects the basic Constraints extension"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:36
-#, fuzzy
-msgid "md5 fingerprint"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:37
-#, fuzzy
-msgid "sha1 fingerprint"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:38
-#, fuzzy
-msgid "Start date"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:39
-#, fuzzy
-msgid "not Before"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:41
-#, fuzzy
-msgid "not After"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:146
-#, fuzzy
-msgid "Plain View"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:148
-#, fuzzy
-msgid "Tree View"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:482
-#, fuzzy
-msgid "Please enter the new hexadecimal secret number for the QA process."
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:498
-#, fuzzy
-msgid "The two secret numbers don't match."
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:502
-#, fuzzy
-msgid "The QA process has been terminated by the user."
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:518
-#, fuzzy
-msgid "The key you selected for signing is not a private one."
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:619
-#, fuzzy
-msgid "New Certificate"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:620
-#, fuzzy
-msgid "Import"
-msgstr "Importar"
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:621
-#, fuzzy
-msgid "Import PKCS#12"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:622
-#, fuzzy
-msgid "Import from PKCS#7"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:625
-#, fuzzy
-msgid "Rename"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:626
-#, fuzzy
+#: db_key#13
+msgctxt "db_key#13"
 msgid "Show Details"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:628
-#, fuzzy
-msgid "Extract public Key"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:630
-#, fuzzy
-msgid "Export"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:631
-#, fuzzy
-msgid "File"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:632
-#, fuzzy
-msgid "Request"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:640
-#, fuzzy
+#: db_key#14
+msgctxt "db_key#14"
 msgid "Delete"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:644
+#: db_key#15
 #, fuzzy
-msgid "Trust"
+msgctxt "db_key#15"
+msgid "Export"
+msgstr "Importar"
+
+#: db_key#16
+msgid "Change password"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:33 ../lib/db_x509.cpp:646
+#: db_key#17
+msgid "Reset password"
+msgstr ""
+
+#: db_key#18
+msgid "Change PIN"
+msgstr ""
+
+#: db_key#19
+msgid "Init PIN with SO PIN (PUK)"
+msgstr ""
+
+#: db_key#20
+msgid "Change SO PIN (PUK)"
+msgstr ""
+
+#: db_key#21
+msgid "Store on Security token"
+msgstr ""
+
+#: db_key#22
+msgid "Tried to change password of a token"
+msgstr ""
+
+#: db_key#23
+msgid "Tried to change PIN of a key"
+msgstr ""
+
+#: db_key#24
+msgid "Tried to init PIN of a key"
+msgstr ""
+
+#: db_key#25
+msgid "Tried to change SO PIN of a key"
+msgstr ""
+
+#: db_temp#1
+msgctxt "db_temp#1"
+msgid "Type"
+msgstr ""
+
+#: db_temp#2
+msgid "Bad template: %1"
+msgstr ""
+
+#: db_temp#3
+msgid "Nothing"
+msgstr ""
+
+#: db_temp#4
+msgid "Preset Template values"
+msgstr ""
+
+#: db_temp#5
+msgid "copy"
+msgstr ""
+
+#: db_temp#6
+msgid "Save template as"
+msgstr ""
+
+#: db_temp#7
+msgid "XCA templates ( *.xca);; All files ( * )"
+msgstr ""
+
+#: db_temp#8
+msgid "New Template"
+msgstr ""
+
+#: db_temp#9
 #, fuzzy
+msgctxt "db_temp#9"
+msgid "Import"
+msgstr "Importar"
+
+#: db_temp#10
+msgctxt "db_temp#10"
+msgid "Rename"
+msgstr ""
+
+#: db_temp#11
+#, fuzzy
+msgctxt "db_temp#11"
+msgid "Export"
+msgstr "Importar"
+
+#: db_temp#12
+msgid "Change"
+msgstr ""
+
+#: db_temp#13
+msgctxt "db_temp#13"
+msgid "Delete"
+msgstr ""
+
+#: db_temp#14
+msgid "Duplicate"
+msgstr ""
+
+#: db_temp#15
+msgid "Create certificate"
+msgstr ""
+
+#: db_temp#16
+msgid "Create request"
+msgstr ""
+
+#: db_x509#1
 msgid "CA"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:647
-#, fuzzy
-msgid "Properties"
+#: db_x509#2
+msgid "reflects the basic Constraints extension"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:648
-#, fuzzy
-msgid "Generate CRL"
+#: db_x509#3
+msgctxt "db_x509#3"
+msgid "Serial"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:650
-#, fuzzy
-msgid "PKCS#7"
+#: db_x509#4
+msgid "md5 fingerprint"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:651
-#, fuzzy
-msgid "Sign"
+#: db_x509#5
+msgid "sha1 fingerprint"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:652
-#, fuzzy
-msgid "Encrypt"
+#: db_x509#6
+msgid "Start date"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:655
-#, fuzzy
-msgid "Renewal"
+#: db_x509#7
+msgid "not Before"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:658
-#, fuzzy
-msgid "Unrevoke"
+#: db_x509#8
+msgid "Expiry date"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:662
-#, fuzzy
-msgid "Revoke"
+#: db_x509#9
+msgid "not After"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:776
-#, fuzzy
-msgid "Not possible for a token key: '%1'"
+#: db_x509#10
+msgid "Trust state"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:1142
-#, fuzzy
-msgid " days"
+#: db_x509#11
+msgctxt "db_x509#11"
+msgid "Revocation"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:634
-#, fuzzy
-msgid "Security token"
+#: db_x509#12
+msgctxt "db_x509#12"
+msgid "Plain View"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:638
-#, fuzzy
-msgid "Template"
+#: db_x509#13
+msgid "Tree View"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:642
-#, fuzzy
-msgid "Delete from Security token"
-msgstr ""
-
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:331
-#, fuzzy
+#: db_x509#14
 msgid ""
 "The certificate already exists in the database as:\n"
 "'%1'\n"
 "and so it was not imported"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:770 ../lib/db_x509.cpp:803
-#, fuzzy
-msgid "There was no key found for the Certificate: '%1'"
+#: db_x509#15
+msgid "Please enter the new hexadecimal secret number for the QA process."
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:808
-#, fuzzy
-msgid "Not possible for the token-key Certificate '%1'"
+#: db_x509#16
+msgid "The two secret numbers don't match."
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:566
-#, fuzzy
+#: db_x509#17
+msgid "The QA process has been terminated by the user."
+msgstr ""
+
+#: db_x509#18
+msgctxt "db_x509#18"
+msgid "The key you selected for signing is not a private one."
+msgstr ""
+
+#: db_x509#19
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr ""
 
-#. ts-context db_x509
-#: ../lib/db_x509.cpp:636
-#, fuzzy
-msgid "Other token"
+#: db_x509#20
+msgid "New Certificate"
 msgstr ""
 
-#. ts-context db_x509name
-#: ../lib/db_x509super.cpp:17
+#: db_x509#21
 #, fuzzy
-msgid "Subject"
-msgstr "Sujeto"
-
-#. ts-context db_x509name
-#: ../lib/db_x509super.cpp:18
-#, fuzzy
-msgid "Complete distinguished name"
-msgstr ""
-
-#. ts-context db_x509name
-#: ../lib/db_x509super.cpp:19
-#, fuzzy
-msgid "Subject hash"
-msgstr ""
-
-#. ts-context db_x509name
-#: ../lib/db_x509super.cpp:20
-#, fuzzy
-msgid "Hash to lookup certs in directories"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:130
-#, fuzzy
-msgid "Certificate request ( *.pem *.der *.crl )"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:132
-#, fuzzy
-msgid "Certificate request export"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:173
-#, fuzzy
-msgid "New Request"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:174
-#, fuzzy
+msgctxt "db_x509#21"
 msgid "Import"
 msgstr "Importar"
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:177
-#, fuzzy
-msgid "Extract public Key"
+#: db_x509#22
+msgid "Import PKCS#12"
 msgstr ""
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:179
-#, fuzzy
+#: db_x509#23
+msgid "Import from PKCS#7"
+msgstr ""
+
+#: db_x509#24
+msgctxt "db_x509#24"
 msgid "Rename"
 msgstr ""
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:180
-#, fuzzy
+#: db_x509#25
+msgctxt "db_x509#25"
 msgid "Show Details"
 msgstr ""
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:181
-#, fuzzy
-msgid "Sign"
+#: db_x509#26
+msgctxt "db_x509#26"
+msgid "Extract public Key"
 msgstr ""
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:182
+#: db_x509#27
 #, fuzzy
+msgctxt "db_x509#27"
 msgid "Export"
-msgstr ""
+msgstr "Importar"
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:185
-#, fuzzy
-msgid "Delete"
-msgstr ""
-
-#. ts-context db_x509req
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#. ts-context db_x509req
-#~ msgid "Subject"
-#~ msgstr "Sujeto"
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:21
-#, fuzzy
-msgid "Signed"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:22
-#, fuzzy
-msgid "whether the request is already signed or not"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:23
-#, fuzzy
-msgid "Unstructured name"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:24
-#, fuzzy
-msgid "Challange password"
-msgstr ""
-
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:183
-#, fuzzy
+#: db_x509#28
+msgctxt "db_x509#28"
 msgid "File"
 msgstr ""
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:184
-#, fuzzy
+#: db_x509#29
+msgid "Request"
+msgstr ""
+
+#: db_x509#30
+msgctxt "db_x509#30"
+msgid "Security token"
+msgstr ""
+
+#: db_x509#31
+msgid "Other token"
+msgstr ""
+
+#: db_x509#32
+msgctxt "db_x509#32"
 msgid "Template"
 msgstr ""
 
-#. ts-context db_x509req
-#: ../lib/db_x509req.cpp:42
+#: db_x509#33
+msgctxt "db_x509#33"
+msgid "Delete"
+msgstr ""
+
+#: db_x509#34
+msgid "Delete from Security token"
+msgstr ""
+
+#: db_x509#35
+msgid "Trust"
+msgstr ""
+
+#: db_x509#36
+msgid "Properties"
+msgstr ""
+
+#: db_x509#37
+msgid "Generate CRL"
+msgstr ""
+
+#: db_x509#38
+msgctxt "db_x509#38"
+msgid "PKCS#7"
+msgstr ""
+
+#: db_x509#39
 #, fuzzy
+msgctxt "db_x509#39"
+msgid "Sign"
+msgstr "Firma"
+
+#: db_x509#40
+msgid "Encrypt"
+msgstr ""
+
+#: db_x509#41
+msgid "Renewal"
+msgstr ""
+
+#: db_x509#42
+msgid "Unrevoke"
+msgstr ""
+
+#: db_x509#43
+msgid "Revoke"
+msgstr ""
+
+#: db_x509#44
+msgid "There was no key found for the Certificate: '%1'"
+msgstr ""
+
+#: db_x509#45
+msgid "Not possible for a token key: '%1'"
+msgstr ""
+
+#: db_x509#46
+msgid "Not possible for the token-key Certificate '%1'"
+msgstr ""
+
+#: db_x509#47
+msgid " days"
+msgstr ""
+
+#: db_x509name#1
+#, fuzzy
+msgctxt "db_x509name#1"
+msgid "Subject"
+msgstr "Sujeto"
+
+#: db_x509name#2
+msgid "Complete distinguished name"
+msgstr ""
+
+#: db_x509name#3
+msgid "Subject hash"
+msgstr ""
+
+#: db_x509name#4
+msgid "Hash to lookup certs in directories"
+msgstr ""
+
+#: db_x509req#1
+#, fuzzy
+msgctxt "db_x509req#1"
+msgid "Signed"
+msgstr "Firma"
+
+#: db_x509req#2
+msgid "whether the request is already signed or not"
+msgstr ""
+
+#: db_x509req#3
+msgid "Unstructured name"
+msgstr ""
+
+#: db_x509req#4
+msgid "Challange password"
+msgstr ""
+
+#: db_x509req#5
 msgid ""
 "The certificate signing request already exists in the database as\n"
 "'%1'\n"
 "and thus was not stored"
 msgstr ""
 
-#. ts-context db_x509super
-#: ../lib/db_x509super.cpp:31
+#: db_x509req#6
+msgid "Certificate request ( *.pem *.der *.crl )"
+msgstr ""
+
+#: db_x509req#7
+msgid "Certificate request export"
+msgstr ""
+
+#: db_x509req#8
+msgid "New Request"
+msgstr ""
+
+#: db_x509req#9
 #, fuzzy
+msgctxt "db_x509req#9"
+msgid "Import"
+msgstr "Importar"
+
+#: db_x509req#10
+msgctxt "db_x509req#10"
+msgid "Extract public Key"
+msgstr ""
+
+#: db_x509req#11
+#, fuzzy
+msgctxt "db_x509req#11"
+msgid "Rename"
+msgstr "Nombre"
+
+#: db_x509req#12
+msgctxt "db_x509req#12"
+msgid "Show Details"
+msgstr ""
+
+#: db_x509req#13
+#, fuzzy
+msgctxt "db_x509req#13"
+msgid "Sign"
+msgstr "Firma"
+
+#: db_x509req#14
+#, fuzzy
+msgctxt "db_x509req#14"
+msgid "Export"
+msgstr "Importar"
+
+#: db_x509req#15
+msgctxt "db_x509req#15"
+msgid "File"
+msgstr ""
+
+#: db_x509req#16
+msgctxt "db_x509req#16"
+msgid "Template"
+msgstr ""
+
+#: db_x509req#17
+msgctxt "db_x509req#17"
+msgid "Delete"
+msgstr ""
+
+#: db_x509super#1
 msgid "Key name"
 msgstr ""
 
-#. ts-context db_x509super
-#: ../lib/db_x509super.cpp:32
-#, fuzzy
+#: db_x509super#2
 msgid "Internal name of the key"
 msgstr ""
 
-#. ts-context db_x509super
-#: ../lib/db_x509super.cpp:110
-#, fuzzy
+#: db_x509super#3
 msgid "The following extensions were not ported into the template"
 msgstr ""
 
-#. ts-context kvView
-#: ../widgets/kvView.cpp:164
-#, fuzzy
+#: kvView#1
+msgctxt "kvView#1"
 msgid "Type"
 msgstr ""
 
-#. ts-context kvView
-#: ../widgets/kvView.cpp:164
-#, fuzzy
+#: kvView#2
 msgid "Content"
 msgstr ""
 
-#. ts-context pass_info
-#: ../lib/pass_info.cpp:21
+#: pass_info#1
 #, fuzzy
+msgctxt "pass_info#1"
 msgid "Password"
 msgstr "Contraseña"
 
-#. ts-context pass_info
-#: ../lib/pass_info.cpp:27
-#, fuzzy
+#: pass_info#2
+msgctxt "pass_info#2"
 msgid "PIN"
 msgstr ""
 
-#. ts-context pki_base
-#: ../lib/pki_base.cpp:81
-#, fuzzy
+#: pki_base#1
+msgctxt "pki_base#1"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
-#. ts-context pki_base
-#: ../lib/pki_base.cpp:89
-#, fuzzy
+#: pki_base#2
 msgid "Error: "
 msgstr ""
 
-#. ts-context pki_base
-#: ../lib/pki_base.h:66
-#, fuzzy
+#: pki_base#3
 msgid "Internal error: Unexpected message: %1 %2"
 msgstr ""
 
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:92
-#, fuzzy
-msgid "No issuer given"
+#: pki_crl#1
+msgid "Successfully imported the revokation list '%1'"
 msgstr ""
 
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:312
-#, fuzzy
-msgid "unknown"
+#: pki_crl#2
+msgid "Delete the revokation list '%1'?"
 msgstr ""
 
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:70
-#, fuzzy
+#: pki_crl#3
+msgid "Successfully created the revokation list '%1'"
+msgstr ""
+
+#: pki_crl#4
+msgid "Delete the %1 revokation lists: %2?"
+msgstr ""
+
+#: pki_crl#5
 msgid ""
 "Unable to load the revokation list in file %1. Tried PEM and DER formatted "
 "CRL."
 msgstr ""
 
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:46
-#, fuzzy
-msgid "Successfully imported the revokation list '%1'"
+#: pki_crl#6
+msgid "No issuer given"
 msgstr ""
 
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:47
-#, fuzzy
-msgid "Delete the revokation list '%1'?"
-msgstr ""
-
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:48
-#, fuzzy
-msgid "Successfully created the revokation list '%1'"
-msgstr ""
-
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:50
-#, fuzzy
-msgid "Delete the %1 revokation lists: %2?"
-msgstr ""
-
-#. ts-context pki_crl
-#: ../lib/pki_crl.cpp:146 ../lib/pki_crl.cpp:339
-#, fuzzy
+#: pki_crl#7
+msgctxt "pki_crl#7"
 msgid "Wrong Size %1"
 msgstr ""
 
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:273
-#, fuzzy
+#: pki_crl#8
+msgid "unknown"
+msgstr ""
+
+#: pki_evp#1
 msgid "Failed to decrypt the key (bad password) "
 msgstr ""
 
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:381 ../lib/pki_evp.cpp:396
-#, fuzzy
-msgid "Password input aborted"
-msgstr ""
-
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:478
-#, fuzzy
-msgid "Please enter the password to protect the private key: '%1'"
-msgstr ""
-
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:311
-#, fuzzy
+#: pki_evp#2
 msgid ""
 "Unable to load the private key in file %1. Tried PEM and DER private, public "
 "and PKCS#8 key types."
 msgstr ""
 
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:492
-#, fuzzy
-msgid "Please enter the database password for encrypting the key"
+#: pki_evp#3
+msgid "Password input aborted"
 msgstr ""
 
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:574
-#, fuzzy
-msgid "Please enter the password protecting the PKCS#8 key '%1'"
-msgstr ""
-
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:609
-#, fuzzy
-msgid "Please enter the export password for the private key '%1'"
-msgstr ""
-
-#. ts-context pki_evp
-#: ../lib/pki_evp.cpp:393
-#, fuzzy
+#: pki_evp#4
 msgid "Please enter the database password for decrypting the key '%1'"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:118
-#, fuzzy
+#: pki_evp#5
+msgid "Please enter the password to protect the private key: '%1'"
+msgstr ""
+
+#: pki_evp#6
+msgid "Please enter the database password for encrypting the key"
+msgstr ""
+
+#: pki_evp#7
+msgid "Please enter the password protecting the PKCS#8 key '%1'"
+msgstr ""
+
+#: pki_evp#8
+msgid "Please enter the export password for the private key '%1'"
+msgstr ""
+
+#: pki_key#1
 msgid "Successfully imported the %1 public key '%2'"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:119
-#, fuzzy
+#: pki_key#2
 msgid "Delete the %1 public key '%2'?"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:124
-#, fuzzy
+#: pki_key#3
 msgid "Successfully imported the %1 private key '%2'"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:125
-#, fuzzy
+#: pki_key#4
 msgid "Delete the %1 private key '%2'?"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:126
-#, fuzzy
+#: pki_key#5
 msgid "Successfully created the %1 private key '%2'"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:132
-#, fuzzy
+#: pki_key#6
+msgctxt "pki_key#6"
 msgid "Delete the %1 keys: %2?"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:140
-#, fuzzy
+#: pki_key#7
 msgid "public key"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:302
-#, fuzzy
+#: pki_key#8
 msgid "Common"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:302
-#, fuzzy
+#: pki_key#9
 msgid "Private"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:302
-#, fuzzy
+#: pki_key#10
 msgid "Bogus"
 msgstr ""
 
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:312
-#, fuzzy
-msgid "No password"
-msgstr ""
-
-#. ts-context pki_key
-#: ../lib/pki_key.cpp:302
-#, fuzzy
+#: pki_key#11
+msgctxt "pki_key#11"
 msgid "PIN"
 msgstr ""
 
-#. ts-context pki_multi
-#: ../lib/pki_multi.cpp:125 ../lib/pki_multi.cpp:130 ../lib/pki_multi.cpp:135
-#, fuzzy
+#: pki_key#12
+msgid "No password"
+msgstr ""
+
+#: pki_multi#1
 msgid "Seek failed"
 msgstr ""
 
-#. ts-context pki_pkcs12
-#: ../lib/pki_pkcs12.cpp:39
-#, fuzzy
+#: pki_pkcs12#1
 msgid "Please enter the password to decrypt the PKCS#12 file."
 msgstr ""
 
-#. ts-context pki_pkcs12
-#: ../lib/pki_pkcs12.cpp:114
-#, fuzzy
-msgid "Please enter the password to encrypt the PKCS#12 file"
-msgstr ""
-
-#. ts-context pki_pkcs12
-#: ../lib/pki_pkcs12.cpp:116
-#, fuzzy
-msgid "No key or no Cert and no pkcs12"
-msgstr ""
-
-#. ts-context pki_pkcs12
-#: ../lib/pki_pkcs12.cpp:48
-#, fuzzy
+#: pki_pkcs12#2
 msgid "Unable to load the PKCS#12 (pfx) file %1."
 msgstr ""
 
-#. ts-context pki_pkcs12
-#: ../lib/pki_pkcs12.cpp:62
-#, fuzzy
+#: pki_pkcs12#3
 msgid "The supplied password was wrong (%1)"
 msgstr ""
 
-#. ts-context pki_pkcs7
-#: ../lib/pki_pkcs7.cpp:160
-#, fuzzy
+#: pki_pkcs12#4
+msgid "Please enter the password to encrypt the PKCS#12 file"
+msgstr ""
+
+#: pki_pkcs12#5
+msgid "No key or no Cert and no pkcs12"
+msgstr ""
+
+#: pki_pkcs7#1
 msgid "Unable to load the PKCS#7 file %1. Tried PEM and DER format."
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:310
-#, fuzzy
-msgid "This Key is already on the token"
-msgstr ""
-
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:357
-#, fuzzy
-msgid "Unable to find copied key on the token"
-msgstr ""
-
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:463
-#, fuzzy
-msgid "Public Key missmatch. Please re-import card"
-msgstr ""
-
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:517
-#, fuzzy
-msgid "Unable to find generated key on card"
-msgstr ""
-
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:589 ../lib/pki_scard.cpp:601
-#, fuzzy
-msgid "Failed to find the key on the token"
-msgstr ""
-
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:596
-#, fuzzy
-msgid "Invalid Pin for the token"
-msgstr ""
-
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:237
-#, fuzzy
-msgid "Delete the private key '%1' from the token '%2 (#%3)' ?"
-msgstr ""
-
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:58
-#, fuzzy
+#: pki_scard#1
 msgid "Successfully imported the token key '%1'"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:59
-#, fuzzy
+#: pki_scard#2
 msgid "Delete the token key '%1'?"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:60
-#, fuzzy
+#: pki_scard#3
 msgid "Successfully created the token key '%1'"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:62
-#, fuzzy
+#: pki_scard#4
+msgctxt "pki_scard#4"
 msgid "Delete the %1 keys: %2?"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:288
-#, fuzzy
+#: pki_scard#5
+msgid "Delete the private key '%1' from the token '%2 (#%3)' ?"
+msgstr ""
+
+#: pki_scard#6
 msgid "only RSA keys can be stored on tokens"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:343
-#, fuzzy
+#: pki_scard#7
+msgid "This Key is already on the token"
+msgstr ""
+
+#: pki_scard#8
 msgid "PIN input aborted"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:432
-#, fuzzy
+#: pki_scard#9
+msgid "Unable to find copied key on the token"
+msgstr ""
+
+#: pki_scard#10
 msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:569
-#, fuzzy
+#: pki_scard#11
+msgid "Public Key missmatch. Please re-import card"
+msgstr ""
+
+#: pki_scard#12
+msgid "Unable to find generated key on card"
+msgstr ""
+
+#: pki_scard#13
+msgctxt "pki_scard#13"
 msgid "Wrong Size %1"
 msgstr ""
 
-#. ts-context pki_scard
-#: ../lib/pki_scard.cpp:580
-#, fuzzy
+#: pki_scard#14
 msgid "Token %1"
 msgstr ""
 
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:374
-#, fuzzy
-msgid "Template file content error (too small): %1"
+#: pki_scard#15
+msgid "Failed to find the key on the token"
 msgstr ""
 
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:400
-#, fuzzy
-msgid "Template file content error (bad length) :%1"
+#: pki_scard#16
+msgid "Invalid Pin for the token"
 msgstr ""
 
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:296 ../lib/pki_temp.cpp:502
-#, fuzzy
-msgid "Wrong Size %1"
-msgstr ""
-
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:100
-#, fuzzy
+#: pki_temp#1
 msgid "Successfully imported the XCA template '%1'"
 msgstr ""
 
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:101
-#, fuzzy
+#: pki_temp#2
 msgid "Delete the XCA template '%1'?"
 msgstr ""
 
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:102
-#, fuzzy
+#: pki_temp#3
 msgid "Successfully created the XCA template '%1'"
 msgstr ""
 
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:104
-#, fuzzy
+#: pki_temp#4
 msgid "Delete the %1 XCA templates: %2?"
 msgstr ""
 
-#. ts-context pki_temp
-#: ../lib/pki_temp.cpp:391
-#, fuzzy
+#: pki_temp#5
+msgctxt "pki_temp#5"
+msgid "Wrong Size %1"
+msgstr ""
+
+#: pki_temp#6
+msgid "Template file content error (too small): %1"
+msgstr ""
+
+#: pki_temp#7
 msgid "Template file content error (bad size): %1 "
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:69
-#, fuzzy
+#: pki_temp#8
+msgid "Template file content error (bad length) :%1"
+msgstr ""
+
+#: pki_x509#1
 msgid "Successfully imported the certificate '%1'"
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:70
-#, fuzzy
+#: pki_x509#2
 msgid "Delete the certificate '%1'?"
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:71
-#, fuzzy
+#: pki_x509#3
 msgid "Successfully created the certificate '%1'"
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:73
-#, fuzzy
+#: pki_x509#4
 msgid "Delete the %1 certificates: %2?"
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:342
-#, fuzzy
-msgid "Delete the certificate '%1' from the token '%2 (#%3)'?"
-msgstr ""
-
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:768
-#, fuzzy
-msgid "Not trusted"
-msgstr ""
-
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:768
-#, fuzzy
-msgid "Trust inherited"
-msgstr ""
-
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:768
-#, fuzzy
-msgid "Always Trusted"
-msgstr ""
-
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:797
-#, fuzzy
-msgid "No"
-msgstr ""
-
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:799
-#, fuzzy
-msgid "Yes"
-msgstr ""
-
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:467
-#, fuzzy
-msgid "There is no key for signing !"
-msgstr ""
-
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:110
-#, fuzzy
+#: pki_x509#5
 msgid ""
 "Unable to load the certificate in file %1. Tried PEM and DER certificate."
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:282
-#, fuzzy
+#: pki_x509#6
 msgid "This certificate is already on the security token"
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:783
-#, fuzzy
-msgid "CRL expires: %1"
+#: pki_x509#7
+msgid "Delete the certificate '%1' from the token '%2 (#%3)'?"
 msgstr ""
 
-#. ts-context pki_x509
-#: ../lib/pki_x509.cpp:504 ../lib/pki_x509.cpp:911
-#, fuzzy
+#: pki_x509#8
+msgid "There is no key for signing !"
+msgstr ""
+
+#: pki_x509#9
+msgctxt "pki_x509#9"
 msgid "Wrong Size %1"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:52
-#, fuzzy
+#: pki_x509#10
+msgctxt "pki_x509#10"
+msgid "Not trusted"
+msgstr ""
+
+#: pki_x509#11
+msgid "Trust inherited"
+msgstr ""
+
+#: pki_x509#12
+msgid "Always Trusted"
+msgstr ""
+
+#: pki_x509#13
+msgid "CRL expires: %1"
+msgstr ""
+
+#: pki_x509#14
+msgid "No"
+msgstr ""
+
+#: pki_x509#15
+msgid "Yes"
+msgstr ""
+
+#: pki_x509req#1
 msgid "Signing key not valid (public key)"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:91
-#, fuzzy
+#: pki_x509req#2
 msgid "Successfully imported the %1 certificate request '%2'"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:92
-#, fuzzy
+#: pki_x509req#3
 msgid "Delete the %1 certificate request '%2'?"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:93
-#, fuzzy
+#: pki_x509req#4
 msgid "Successfully created the %1 certificate request '%2'"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:95
-#, fuzzy
+#: pki_x509req#5
 msgid "Delete the %1 certificate requests: %2?"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:135
-#, fuzzy
+#: pki_x509req#6
 msgid ""
 "Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC "
 "format."
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:404
-#, fuzzy
+#: pki_x509req#7
+msgctxt "pki_x509req#7"
 msgid "Signed"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:404
-#, fuzzy
+#: pki_x509req#8
 msgid "Unhandled"
 msgstr ""
 
-#. ts-context pki_x509req
-#: ../lib/pki_x509req.cpp:447
-#, fuzzy
+#: pki_x509req#9
+msgctxt "pki_x509req#9"
 msgid "Wrong Size %1"
 msgstr ""
 
-#. ts-context v3ext
-#: ../ui/v3ext.ui:51
-#, fuzzy
+#: v3ext#1
+msgctxt "v3ext#1"
 msgid "Add"
 msgstr ""
 
-#. ts-context v3ext
-#: ../ui/v3ext.ui:58
-#, fuzzy
+#: v3ext#2
+msgctxt "v3ext#2"
 msgid "Delete"
 msgstr ""
 
-#. ts-context v3ext
-#: ../ui/v3ext.ui:90
-#, fuzzy
+#: v3ext#3
+msgctxt "v3ext#3"
 msgid "Apply"
 msgstr ""
 
-#. ts-context v3ext
-#: ../ui/v3ext.ui:97
-#, fuzzy
+#: v3ext#4
+msgctxt "v3ext#4"
 msgid "Validate"
 msgstr ""
 
-#. ts-context v3ext
-#: ../ui/v3ext.ui:126
+#: v3ext#5
 #, fuzzy
+msgctxt "v3ext#5"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:155
-#, fuzzy
-msgid ""
-"Validation successfull:\n"
-"'%1'"
-msgstr ""
-
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:62
-#, fuzzy
+#: v3ext#6
 msgid "An email address or 'copy'"
 msgstr ""
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:64
-#, fuzzy
+#: v3ext#7
 msgid "An email address"
 msgstr ""
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:66
-#, fuzzy
+#: v3ext#8
 msgid "a registered ID: OBJECT IDENTIFIER"
 msgstr ""
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:70
-#, fuzzy
+#: v3ext#9
 msgid "a uniform resource indicator"
 msgstr ""
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:74
-#, fuzzy
+#: v3ext#10
 msgid "a DNS domain name"
 msgstr ""
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:76
-#, fuzzy
+#: v3ext#11
 msgid "an IP address"
 msgstr ""
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:84
-#, fuzzy
-msgid "No editing. Only 'copy' allowed here"
-msgstr ""
-
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:80
-#, fuzzy
+#: v3ext#12
 msgid "Syntax: <OID>;TYPE:text like '1.2.3.4:UTF8:name'"
 msgstr ""
 
-#. ts-context v3ext
-#: ../widgets/v3ext.cpp:149
-#, fuzzy
+#: v3ext#13
+msgid "No editing. Only 'copy' allowed here"
+msgstr ""
+
+#: v3ext#14
 msgid ""
 "Validation failed:\n"
 "'%1'\n"
 "%2"
 msgstr ""
 
-#. ts-context void
-#: ../lib/db_x509.cpp:877
-#, fuzzy
+#: v3ext#15
+msgid ""
+"Validation successfull:\n"
+"'%1'"
+msgstr ""
+
+#: void#1
+msgctxt "void#1"
 msgid "There was no key found for the Certificate: "
 msgstr ""
 
-#. ts-context void
-#: ../lib/db_x509.cpp:885
-#, fuzzy
+#: void#2
+msgctxt "void#2"
 msgid "Import Certificate signing request"
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "CertExtend#2"
+#~ msgid "Validity"
+#~ msgstr "Validez"
+
+#~ msgctxt "ExportCert#6"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgctxt "ExportDer#1"
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgctxt "ExportDer#2"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#, fuzzy
+#~ msgctxt "ExportDialog#1"
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgctxt "ExportKey#4"
+#~ msgid "..."
+#~ msgstr "..."
+
+#, fuzzy
+#~ msgctxt "KeyDetail#3"
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#, fuzzy
+#~ msgctxt "MainWindow#47"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgctxt "NewCrl#16"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#, fuzzy
+#~ msgctxt "NewKey#5"
+#~ msgid "Keysize"
+#~ msgstr "Tamaño de clave"
+
+#, fuzzy
+#~ msgctxt "NewX509#46"
+#~ msgid "Validity"
+#~ msgstr "Validez"
+
+#~ msgctxt "NewX509#78"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgctxt "Options#8"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgctxt "Options#10"
+#~ msgid "..."
+#~ msgstr "..."
+
+#, fuzzy
+#~ msgctxt "ReqDetail#8"
+#~ msgid "Signature"
+#~ msgstr "Firma"
+
+#~ msgctxt "db_crl#1"
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#, fuzzy
+#~ msgctxt "db_key#2"
+#~ msgid "New Key"
+#~ msgstr "Nueva clave"
+
+#, fuzzy
+#~ msgctxt "db_key#3"
+#~ msgid "Import"
+#~ msgstr "Importar"
+
+#~ msgctxt "db_key#11"
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#, fuzzy
+#~ msgctxt "db_key#15"
+#~ msgid "Password"
+#~ msgstr "Contraseña"
+
+#~ msgctxt "db_temp#1"
+#~ msgid "Name"
+#~ msgstr "Nombre"
+
+#, fuzzy
+#~ msgctxt "db_temp#8"
+#~ msgid "Import"
+#~ msgstr "Importar"
+
+#, fuzzy
+#~ msgctxt "db_x509#18"
+#~ msgid "Import"
+#~ msgstr "Importar"
+
+#, fuzzy
+#~ msgctxt "db_x509req#4"
+#~ msgid "Import"
+#~ msgstr "Importar"
+
+#~ msgctxt "db_x509req#12"
+#~ msgid "Subject"
+#~ msgstr "Sujeto"
