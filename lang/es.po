@@ -13,7 +13,7 @@ msgstr ""
 
 #: About#1
 msgid "Done"
-msgstr "Getan"
+msgstr ""
 
 #: CaProperties#1
 msgid "CA Properties"
@@ -36,7 +36,6 @@ msgid "Next serial for signing"
 msgstr ""
 
 #: CertDetail#1
-#, fuzzy
 msgid "Details of the Certificate"
 msgstr "Detalles del Certificado"
 
@@ -64,7 +63,6 @@ msgid "Internal name"
 msgstr ""
 
 #: CertDetail#7
-#, fuzzy
 msgctxt "CertDetail#7"
 msgid "Signature algorithm"
 msgstr "Firma"
@@ -100,7 +98,6 @@ msgid "An md5 hashsum of the certificate"
 msgstr ""
 
 #: CertDetail#15
-#, fuzzy
 msgctxt "CertDetail#15"
 msgid "Validity"
 msgstr "Validez"
@@ -114,7 +111,6 @@ msgid "The time until the certificate is valid"
 msgstr ""
 
 #: CertDetail#18
-#, fuzzy
 msgctxt "CertDetail#18"
 msgid "&Subject"
 msgstr "Sujeto"
@@ -138,7 +134,6 @@ msgid "Show extensions"
 msgstr ""
 
 #: CertDetail#23
-#, fuzzy
 msgctxt "CertDetail#23"
 msgid "Not available"
 msgstr "Disponible"
@@ -183,7 +178,6 @@ msgid ""
 msgstr ""
 
 #: CertExtend#3
-#, fuzzy
 msgctxt "CertExtend#3"
 msgid "Validity"
 msgstr "Validez"
@@ -293,7 +287,6 @@ msgid "Version"
 msgstr ""
 
 #: CrlDetail#4
-#, fuzzy
 msgctxt "CrlDetail#4"
 msgid "Signature"
 msgstr "Firma"
@@ -304,7 +297,6 @@ msgid "Signed by"
 msgstr ""
 
 #: CrlDetail#6
-#, fuzzy
 msgctxt "CrlDetail#6"
 msgid "Name"
 msgstr "Nombre"
@@ -409,7 +401,6 @@ msgid ""
 msgstr ""
 
 #: ExportDialog#1
-#, fuzzy
 msgid "..."
 msgstr "..."
 
@@ -462,7 +453,6 @@ msgid "Private keys ( *.pem *.der *.pk8 );;All files ( * )"
 msgstr ""
 
 #: ExportKey#7
-#, fuzzy
 msgid ""
 "DER is a binary format of the key without encryption\n"
 "PEM is a base64 encoded key with optional encryption\n"
@@ -473,7 +463,6 @@ msgstr ""
 "PKCS#8 es un formato estandar de intercambio de claves"
 
 #: ExportKey#8
-#, fuzzy
 msgid "Please enter the filename for the key."
 msgstr "Introduzca nombre de fichero que contendrá la clave."
 
@@ -482,7 +471,6 @@ msgid "Public key export"
 msgstr ""
 
 #: ExportKey#10
-#, fuzzy
 msgid "Key export"
 msgstr "Exportar clave"
 
@@ -566,7 +554,6 @@ msgid "The %1 files: '%2' did not contain PKI data"
 msgstr ""
 
 #: KeyDetail#1
-#, fuzzy
 msgctxt "KeyDetail#1"
 msgid "Name"
 msgstr "Nombre"
@@ -595,23 +582,19 @@ msgid "Key"
 msgstr ""
 
 #: KeyDetail#7
-#, fuzzy
 msgid "Public Exponent"
 msgstr "Exponente público"
 
 #: KeyDetail#8
-#, fuzzy
 msgctxt "KeyDetail#8"
 msgid "Keysize"
 msgstr "Tamaño de clave"
 
 #: KeyDetail#9
-#, fuzzy
 msgid "Private Exponent"
 msgstr "Exponente secreto"
 
 #: KeyDetail#10
-#, fuzzy
 msgid "Modulus"
 msgstr "Módulo"
 
@@ -620,7 +603,6 @@ msgid "Details of the %1 key"
 msgstr ""
 
 #: KeyDetail#12
-#, fuzzy
 msgctxt "KeyDetail#12"
 msgid "Not available"
 msgstr "Disponible"
@@ -634,7 +616,6 @@ msgid "Security token ID:%1"
 msgstr ""
 
 #: KeyDetail#15
-#, fuzzy
 msgid "Available"
 msgstr "Disponible"
 
@@ -647,7 +628,6 @@ msgid "Public key"
 msgstr ""
 
 #: KeyDetail#18
-#, fuzzy
 msgctxt "KeyDetail#18"
 msgid "Private key"
 msgstr "Exponente secreto"
@@ -673,7 +653,6 @@ msgid "&Export"
 msgstr ""
 
 #: MainWindow#4
-#, fuzzy
 msgctxt "MainWindow#4"
 msgid "&Import"
 msgstr "Importar"
@@ -896,7 +875,6 @@ msgid "Import anyway"
 msgstr ""
 
 #: MainWindow#58
-#, fuzzy
 msgctxt "MainWindow#58"
 msgid "Cancel"
 msgstr "Cancelar"
@@ -942,12 +920,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow#68
-#, fuzzy
 msgid "Password verify error, please try again"
 msgstr "Contraeña incorrecta, inténtelo de nuevo"
 
 #: MainWindow#69
-#, fuzzy
 msgctxt "MainWindow#69"
 msgid "Password"
 msgstr "Contraseña"
@@ -1066,7 +1042,6 @@ msgid "Key properties"
 msgstr ""
 
 #: NewKey#4
-#, fuzzy
 msgctxt "NewKey#4"
 msgid "Name"
 msgstr "Nombre"
@@ -1076,7 +1051,6 @@ msgid "The internal name of the new key"
 msgstr ""
 
 #: NewKey#6
-#, fuzzy
 msgctxt "NewKey#6"
 msgid "New Key"
 msgstr "Nueva clave"
@@ -1086,7 +1060,6 @@ msgid "Curve"
 msgstr ""
 
 #: NewKey#8
-#, fuzzy
 msgctxt "NewKey#8"
 msgid "Keysize"
 msgstr "Tamaño de clave"
@@ -1175,7 +1148,6 @@ msgid ""
 msgstr ""
 
 #: NewX509#16
-#, fuzzy
 msgctxt "NewX509#16"
 msgid "Signature algorithm"
 msgstr "Firma"
@@ -1205,7 +1177,6 @@ msgid "Apply all"
 msgstr ""
 
 #: NewX509#23
-#, fuzzy
 msgctxt "NewX509#23"
 msgid "Subject"
 msgstr "Sujeto"
@@ -1264,7 +1235,6 @@ msgid "Delete"
 msgstr ""
 
 #: NewX509#36
-#, fuzzy
 msgctxt "NewX509#36"
 msgid "Private key"
 msgstr "Exponente secreto"
@@ -1363,7 +1333,6 @@ msgid ""
 msgstr ""
 
 #: NewX509#56
-#, fuzzy
 msgctxt "NewX509#56"
 msgid "Validity"
 msgstr "Validez"
@@ -1773,7 +1742,6 @@ msgid "Load failed"
 msgstr ""
 
 #: PassRead#1
-#, fuzzy
 msgctxt "PassRead#1"
 msgid "Password"
 msgstr "Contraseña"
@@ -1791,7 +1759,6 @@ msgid "Take as HEX string"
 msgstr ""
 
 #: PassWrite#1
-#, fuzzy
 msgctxt "PassWrite#1"
 msgid "Password"
 msgstr "Contraseña"
@@ -1989,7 +1956,6 @@ msgid "%1 is longer than %2 bytes: '%3'"
 msgstr ""
 
 #: ReqDetail#1
-#, fuzzy
 msgid "Details of the certificate signing request"
 msgstr "Detalles de la solicitud"
 
@@ -2007,25 +1973,21 @@ msgid "Internal Name"
 msgstr ""
 
 #: ReqDetail#5
-#, fuzzy
 msgctxt "ReqDetail#5"
 msgid "Private key"
 msgstr "Exponente secreto"
 
 #: ReqDetail#6
-#, fuzzy
 msgctxt "ReqDetail#6"
 msgid "Signature algorithm"
 msgstr "Firma"
 
 #: ReqDetail#7
-#, fuzzy
 msgctxt "ReqDetail#7"
 msgid "Signature"
 msgstr "Firma"
 
 #: ReqDetail#8
-#, fuzzy
 msgctxt "ReqDetail#8"
 msgid "&Subject"
 msgstr "Sujeto"
@@ -2040,7 +2002,6 @@ msgid "&Extensions"
 msgstr ""
 
 #: ReqDetail#11
-#, fuzzy
 msgctxt "ReqDetail#11"
 msgid "Not available"
 msgstr "Disponible"
@@ -2155,7 +2116,6 @@ msgid "Revokation list export"
 msgstr ""
 
 #: db_crl#11
-#, fuzzy
 msgctxt "db_crl#11"
 msgid "Import"
 msgstr "Importar"
@@ -2189,7 +2149,6 @@ msgid "Use"
 msgstr ""
 
 #: db_key#4
-#, fuzzy
 msgctxt "db_key#4"
 msgid "Password"
 msgstr "Contraseña"
@@ -2223,13 +2182,11 @@ msgid ""
 msgstr ""
 
 #: db_key#10
-#, fuzzy
 msgctxt "db_key#10"
 msgid "New Key"
 msgstr "Nueva clave"
 
 #: db_key#11
-#, fuzzy
 msgctxt "db_key#11"
 msgid "Import"
 msgstr "Importar"
@@ -2250,7 +2207,6 @@ msgid "Delete"
 msgstr ""
 
 #: db_key#15
-#, fuzzy
 msgctxt "db_key#15"
 msgid "Export"
 msgstr "Importar"
@@ -2329,7 +2285,6 @@ msgid "New Template"
 msgstr ""
 
 #: db_temp#9
-#, fuzzy
 msgctxt "db_temp#9"
 msgid "Import"
 msgstr "Importar"
@@ -2340,7 +2295,6 @@ msgid "Rename"
 msgstr ""
 
 #: db_temp#11
-#, fuzzy
 msgctxt "db_temp#11"
 msgid "Export"
 msgstr "Importar"
@@ -2454,7 +2408,6 @@ msgid "New Certificate"
 msgstr ""
 
 #: db_x509#21
-#, fuzzy
 msgctxt "db_x509#21"
 msgid "Import"
 msgstr "Importar"
@@ -2483,7 +2436,6 @@ msgid "Extract public Key"
 msgstr ""
 
 #: db_x509#27
-#, fuzzy
 msgctxt "db_x509#27"
 msgid "Export"
 msgstr "Importar"
@@ -2538,7 +2490,6 @@ msgid "PKCS#7"
 msgstr ""
 
 #: db_x509#39
-#, fuzzy
 msgctxt "db_x509#39"
 msgid "Sign"
 msgstr "Firma"
@@ -2576,7 +2527,6 @@ msgid " days"
 msgstr ""
 
 #: db_x509name#1
-#, fuzzy
 msgctxt "db_x509name#1"
 msgid "Subject"
 msgstr "Sujeto"
@@ -2594,7 +2544,6 @@ msgid "Hash to lookup certs in directories"
 msgstr ""
 
 #: db_x509req#1
-#, fuzzy
 msgctxt "db_x509req#1"
 msgid "Signed"
 msgstr "Firma"
@@ -2631,7 +2580,6 @@ msgid "New Request"
 msgstr ""
 
 #: db_x509req#9
-#, fuzzy
 msgctxt "db_x509req#9"
 msgid "Import"
 msgstr "Importar"
@@ -2642,7 +2590,6 @@ msgid "Extract public Key"
 msgstr ""
 
 #: db_x509req#11
-#, fuzzy
 msgctxt "db_x509req#11"
 msgid "Rename"
 msgstr "Nombre"
@@ -2653,13 +2600,11 @@ msgid "Show Details"
 msgstr ""
 
 #: db_x509req#13
-#, fuzzy
 msgctxt "db_x509req#13"
 msgid "Sign"
 msgstr "Firma"
 
 #: db_x509req#14
-#, fuzzy
 msgctxt "db_x509req#14"
 msgid "Export"
 msgstr "Importar"
@@ -2701,7 +2646,6 @@ msgid "Content"
 msgstr ""
 
 #: pass_info#1
-#, fuzzy
 msgctxt "pass_info#1"
 msgid "Password"
 msgstr "Contraseña"
@@ -3094,7 +3038,6 @@ msgid "Validate"
 msgstr ""
 
 #: v3ext#5
-#, fuzzy
 msgctxt "v3ext#5"
 msgid "Cancel"
 msgstr "Cancelar"
@@ -3154,7 +3097,6 @@ msgctxt "void#2"
 msgid "Import Certificate signing request"
 msgstr ""
 
-#, fuzzy
 #~ msgctxt "CertExtend#2"
 #~ msgid "Validity"
 #~ msgstr "Validez"
@@ -3171,7 +3113,6 @@ msgstr ""
 #~ msgid "Cancel"
 #~ msgstr "Cancelar"
 
-#, fuzzy
 #~ msgctxt "ExportDialog#1"
 #~ msgid "..."
 #~ msgstr "..."
@@ -3180,12 +3121,10 @@ msgstr ""
 #~ msgid "..."
 #~ msgstr "..."
 
-#, fuzzy
 #~ msgctxt "KeyDetail#3"
 #~ msgid "Name"
 #~ msgstr "Nombre"
 
-#, fuzzy
 #~ msgctxt "MainWindow#47"
 #~ msgid "Cancel"
 #~ msgstr "Cancelar"
@@ -3194,12 +3133,10 @@ msgstr ""
 #~ msgid "Cancel"
 #~ msgstr "Cancelar"
 
-#, fuzzy
 #~ msgctxt "NewKey#5"
 #~ msgid "Keysize"
 #~ msgstr "Tamaño de clave"
 
-#, fuzzy
 #~ msgctxt "NewX509#46"
 #~ msgid "Validity"
 #~ msgstr "Validez"
@@ -3216,7 +3153,6 @@ msgstr ""
 #~ msgid "..."
 #~ msgstr "..."
 
-#, fuzzy
 #~ msgctxt "ReqDetail#8"
 #~ msgid "Signature"
 #~ msgstr "Firma"
@@ -3225,12 +3161,10 @@ msgstr ""
 #~ msgid "Name"
 #~ msgstr "Nombre"
 
-#, fuzzy
 #~ msgctxt "db_key#2"
 #~ msgid "New Key"
 #~ msgstr "Nueva clave"
 
-#, fuzzy
 #~ msgctxt "db_key#3"
 #~ msgid "Import"
 #~ msgstr "Importar"
@@ -3239,7 +3173,6 @@ msgstr ""
 #~ msgid "Name"
 #~ msgstr "Nombre"
 
-#, fuzzy
 #~ msgctxt "db_key#15"
 #~ msgid "Password"
 #~ msgstr "Contraseña"
@@ -3248,17 +3181,14 @@ msgstr ""
 #~ msgid "Name"
 #~ msgstr "Nombre"
 
-#, fuzzy
 #~ msgctxt "db_temp#8"
 #~ msgid "Import"
 #~ msgstr "Importar"
 
-#, fuzzy
 #~ msgctxt "db_x509#18"
 #~ msgid "Import"
 #~ msgstr "Importar"
 
-#, fuzzy
 #~ msgctxt "db_x509req#4"
 #~ msgid "Import"
 #~ msgstr "Importar"
