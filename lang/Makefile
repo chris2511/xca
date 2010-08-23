@@ -27,7 +27,7 @@ app:
 
 po2ts: $(TS_XCA)
 xca_%.ts: %.po
-	po2ts $< $@
+	po2ts $< $@ || :
 	#lconvert -i $< -of ts -o $@
 
 xca.pot: xca.ts
