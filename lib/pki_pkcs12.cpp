@@ -56,12 +56,12 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 		}
 		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
 		int error = ERR_peek_error();
-		if (error) {
+		if (ERR_GET_REASON(error) == PKCS12_R_MAC_VERIFY_FAILURE) {
 			ign_openssl_error();
 			PKCS12_free(pkcs12);
 			throw errorEx(getClassName(), tr("The supplied password was wrong (%1)").arg(ERR_reason_error_string(error)));
 		}
-		openssl_error();
+		ign_openssl_error();
 		if (mycert) {
 			if (mycert->aux && mycert->aux->alias) {
 				alias = asn1ToQString(mycert->aux->alias);
