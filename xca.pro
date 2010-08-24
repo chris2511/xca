@@ -70,7 +70,6 @@ HEADERS += local.h \
            widgets/MainWindow.h \
            widgets/NewX509.h \
 	   widgets/Options.h \
-           widgets/ReqDetail.h \
            widgets/v3ext.h \
            widgets/validity.h \
            widgets/NewKey.h \
@@ -94,7 +93,6 @@ FORMS += ui/About.ui \
          ui/Options.ui \
          ui/PassRead.ui \
          ui/PassWrite.ui \
-         ui/ReqDetail.ui \
          ui/TrustState.ui \
          ui/v3ext.ui \
          ui/Revoke.ui \
@@ -151,7 +149,6 @@ SOURCES += lib/asn1int.cpp \
            widgets/NewX509.cpp \
            widgets/NewX509_ext.cpp \
 	   widgets/Options.cpp \
-           widgets/ReqDetail.cpp \
            widgets/v3ext.cpp \
            widgets/validity.cpp \
            widgets/XcaTreeView.cpp \

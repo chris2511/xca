@@ -20,8 +20,7 @@ CertDetail::CertDetail(QWidget *parent)
 	:QDialog(parent)
 {
 	setupUi(this);
-	setWindowTitle(tr(XCA_TITLE));
-	image->setPixmap(*MainWindow::certImg);
+	setWindowTitle(XCA_TITLE);
 	descr->setReadOnly(true);
 	showConf = false;
 }
@@ -39,41 +38,65 @@ void CertDetail::on_showExt_clicked()
 	}
 
 }
+
+void CertDetail::setX509super(pki_x509super *x)
+{
+	descr->setText(x->getIntName());
+
+	// examine the key
+	pki_key *key= x->getRefKey();
+	if (key) {
+		privKey->setText(key->getIntName());
+		if (key->isPrivKey()) {
+			privKey->setGreen();
+		} else {
+			privKey->setRed();
+		}
+	} else {
+		privKey->setText(tr("Not available"));
+		privKey->setDisabled(true);
+		privKey->disableToolTip();
+	}
+
+	// details of the subject
+	subject->setX509name(x->getSubject());
+
+	// V3 extensions
+	extList el = x->getV3ext();
+	if (el.count() == 0) {
+		tabwidget->removeTab(4);
+	} else {
+		exts = el.getHtml("<br>");
+		el.genGenericConf(&conf);
+		v3extensions->document()->setHtml(exts);
+	}
+
+	// Algorithm
+	sigAlgo->setText(x->getSigAlg());
+}
+
 void CertDetail::setCert(pki_x509 *cert)
 {
+	image->setPixmap(*MainWindow::certImg);
+	headerLabel->setText(tr("Details of the certificate"));
 	try {
-		descr->setText(cert->getIntName());
+		setX509super(cert);
 
-		// examine the key
-		pki_key *key= cert->getRefKey();
-		if (key) {
-			privKey->setText(key->getIntName());
-			if (key->isPrivKey()) {
-				privKey->setGreen();
-			} else {
-				privKey->setRed();
-			}
-		} else {
-			privKey->setText(tr("Not available"));
-			privKey->setDisabled(true);
-			privKey->disableToolTip();
-		}
+		// No attributes
+		tabwidget->removeTab(3);
 
 		// examine the signature
 		if ( cert->getSigner() == NULL) {
-			signCert->setText(tr("Signer unknown"));
-			signCert->setDisabled(true);
-			signCert->disableToolTip();
-		}
-		else if ( cert == cert->getSigner())  {
-			signCert->setText(tr("Self signed"));
-			signCert->setGreen();
-			signCert->disableToolTip();
-		}
-
-		else {
-			signCert->setText(cert->getSigner()->getIntName());
-			signCert->setGreen();
+			signature->setText(tr("Signer unknown"));
+			signature->setDisabled(true);
+			signature->disableToolTip();
+		} else if ( cert == cert->getSigner())  {
+			signature->setText(tr("Self signed"));
+			signature->setGreen();
+			signature->disableToolTip();
+		} else {
+			signature->setText(cert->getSigner()->getIntName());
+			signature->setGreen();
 		}
 
 		// check trust state
@@ -90,7 +113,7 @@ void CertDetail::setCert(pki_x509 *cert)
 		// the serial
 		serialNr->setText(cert->getSerial().toHex());
 
-		// details of subject and issuer
+		// details of the issuer
 		subject->setX509name(cert->getSubject());
 		issuer->setX509name(cert->getIssuer());
 
@@ -117,20 +140,98 @@ void CertDetail::setCert(pki_x509 *cert)
 		fpMD5->setText(cert->fingerprint(EVP_md5()));
 		fpSHA1->setText(cert->fingerprint(EVP_sha1()));
 
-		// V3 extensions
-		extList el = cert->getV3ext();
-		if (el.count() == 0) {
-			tabwidget->removeTab(3);
-		} else {
-			exts = el.getHtml("<br>");
-			el.genGenericConf(&conf);
-			v3extensions->document()->setHtml(exts);
-		}
-		// Algorithm
-		sigAlgo->setText(cert->getSigAlg());
-
 		openssl_error();
 	} catch (errorEx &err) {
 		QMessageBox::warning(this, XCA_TITLE, err.getString());
 	}
+}
+
+void CertDetail::setReq(pki_x509req *req)
+{
+	image->setPixmap(*MainWindow::csrImg);
+	headerLabel->setText(tr("Details of the certificate signing request"));
+	try {
+		setX509super(req);
+
+		// No issuer
+		tabwidget->removeTab(2);
+
+		// verification
+		if (!req->verify() ) {
+			signature->setRed();
+			signature->setText("Failed");
+		} else {
+			signature->setGreen();
+			if (req->isSpki()) {
+				signature->setText("SPKAC");
+			} else {
+				signature->setText("PKCS#10");
+			}
+		}
+		signature->disableToolTip();
+		trustState->hide();
+		fingerprints->hide();
+		validity->hide();
+		serialLabel->hide();
+		serialNr->hide();
+
+		// The non extension attributes
+		int cnt = X509_REQ_get_attr_count(req->getReq());
+		int added = 0;
+		QGridLayout *attrLayout = new QGridLayout(attributes);
+		attrLayout->setAlignment(Qt::AlignTop);
+		attrLayout->setSpacing(6);
+		attrLayout->setMargin(11);
+
+		for (int i = 0; i<cnt; i++) {
+			int nid;
+			QLabel *label;
+			X509_ATTRIBUTE *att = X509_REQ_get_attr(req->getReq(), i);
+			nid = OBJ_obj2nid(att->object);
+			if (X509_REQ_extension_nid(nid)) {
+				continue;
+			}
+			label = new QLabel(this);
+			label->setText(QString(OBJ_nid2ln(nid)));
+			label->setToolTip(QString(OBJ_nid2sn(nid)));
+			attrLayout->addWidget(label, i, 0);
+			added++;
+
+			if (att->single) {
+				label = labelFromAsn1String(att->value.single->value.asn1_string);
+				attrLayout->addWidget(label, i, 1);
+				continue;
+			}
+			int count = sk_ASN1_TYPE_num(att->value.set);
+			for (int j=0; j<count; j++) {
+				label = labelFromAsn1String(sk_ASN1_TYPE_value(att->value.set, j)->value.asn1_string);
+				attrLayout->addWidget(label, i, j +1);
+			}
+		}
+		ASN1_IA5STRING *chal = req->spki_challange();
+		if (chal) {
+			QLabel *label;
+			label = new QLabel(this);
+			label->setText(QString("SPKI Challenge String"));
+			attrLayout->addWidget(label, 0, 0);
+			label = labelFromAsn1String(chal);
+			attrLayout->addWidget(label, 0, 1);
+			added++;
+		}
+		if (!added) {
+			tabwidget->removeTab(2);
+		}
+		openssl_error();
+	} catch (errorEx &err) {
+		QMessageBox::warning(this, tr(XCA_TITLE), err.getString());
+	}
+}
+
+QLabel *CertDetail::labelFromAsn1String(ASN1_STRING *s)
+{
+	QLabel *label;
+	label = new CopyLabel(this);
+	label->setText(asn1ToQString(s));
+	label->setToolTip(QString(ASN1_tag2str(s->type)));
+	return label;
 }

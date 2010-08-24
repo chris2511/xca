@@ -598,7 +598,7 @@ void db_x509::showPki(pki_base *pki)
 		dlg->setCert(crt);
 		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ),
 			mainwin->keys, SLOT( showItem(QString) ));
-		connect( dlg->signCert, SIGNAL( doubleClicked(QString) ),
+		connect( dlg->signature, SIGNAL( doubleClicked(QString) ),
 			this, SLOT( showItem(QString) ));
 		dlg->exec();
 		delete dlg;

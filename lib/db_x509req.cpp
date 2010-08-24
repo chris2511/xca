@@ -8,7 +8,7 @@
 
 #include "db_x509req.h"
 #include "pki_x509req.h"
-#include "widgets/ReqDetail.h"
+#include "widgets/CertDetail.h"
 #include "widgets/MainWindow.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QContextMenuEvent>
@@ -104,11 +104,11 @@ void db_x509req::load(void)
 void db_x509req::showPki(pki_base *pki)
 {
 	pki_x509req *req = (pki_x509req *)pki;
-	ReqDetail *dlg;
-	dlg = new ReqDetail(mainwin);
+	CertDetail *dlg;
+	dlg = new CertDetail(mainwin);
 	if (dlg) {
 		dlg->setReq(req);
-		connect( dlg->privKey, SIGNAL( doubleClicked(QString) ),
+		connect(dlg->privKey, SIGNAL( doubleClicked(QString) ),
 			mainwin->keys, SLOT( showItem(QString) ));
 		dlg->exec();
 		delete dlg;

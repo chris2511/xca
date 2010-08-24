@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2009 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -34,11 +34,22 @@ class pki_x509super : public pki_x509name
 	public:
 		pki_x509super(const QString name = "");
 		virtual ~pki_x509super();
-		virtual x509name getSubject() const { return x509name(); };
-		virtual int verify() { return -1; };
-		virtual pki_key *getPubKey() const { return NULL; };
-		virtual extList getV3ext() { return extList(); };
-
+		virtual int verify()
+		{
+			return -1;
+		};
+		virtual pki_key *getPubKey() const
+		{
+			return NULL;
+		};
+		virtual extList getV3ext()
+		{
+			return extList();
+		};
+		virtual QString getSigAlg()
+		{
+			return QString();
+		}
 		pki_key *getRefKey() const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);

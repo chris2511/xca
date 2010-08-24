@@ -18,7 +18,6 @@
 #include "widgets/CrlDetail.h"
 #include "widgets/CertDetail.h"
 #include "widgets/KeyDetail.h"
-#include "widgets/ReqDetail.h"
 #include <QtGui/QPushButton>
 #include <QtGui/QMessageBox>
 #include <QtGui/QLabel>
@@ -282,8 +281,8 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->exec();
 			delete dlg;
 		} else if (cn == "pki_x509req") {
-			ReqDetail *dlg;
-			dlg = new ReqDetail(mainwin);
+			CertDetail *dlg;
+			dlg = new CertDetail(mainwin);
 			dlg->setReq((pki_x509req *)pki);
 			dlg->exec();
 			delete dlg;
