@@ -49,7 +49,7 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+38"/>
+        <location filename="../widgets/CertDetail.cpp" line="+37"/>
         <source>Show extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -59,17 +59,22 @@
         <translation type="unfinished">Недоступный</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+25"/>
+        <source>Details of the certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Signer unknown</source>
         <translation type="unfinished">подписавший неизвестен</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>Self signed</source>
         <translation>Сомоподписанный</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+11"/>
         <source>Not trusted</source>
         <translation type="unfinished">Не доверенный</translation>
     </message>
@@ -92,6 +97,11 @@
         <location line="+5"/>
         <source>Valid</source>
         <translation type="unfinished">Действительный</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Details of the certificate signing request</source>
+        <translation type="unfinished">Подробная информация о пакете запроса на подпись сертификата</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="+39"/>
@@ -129,13 +139,17 @@
         <translation>Алгоритм подписи</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Signed by</source>
-        <translation type="unfinished">Подписан</translation>
+        <translation type="obsolete">Подписан</translation>
     </message>
     <message>
         <source>Private key</source>
         <translation type="obsolete">Закрытый ключ</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Signature</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -194,12 +208,17 @@
     </message>
     <message>
         <location line="+16"/>
+        <source>Attributes</source>
+        <translation type="unfinished">Атрибуты</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>&amp;Extensions</source>
         <translation type="unfinished">&amp;Расширения</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-80"/>
+        <location filename="../widgets/CertDetail.cpp" line="-119"/>
         <source>Show config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -320,7 +339,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+917"/>
+        <location filename="../lib/db_x509.cpp" line="+919"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Не найден ключ для сетификата: </translation>
     </message>
@@ -737,7 +756,7 @@ PKCS#8 - это официальный формат обмена ключами 
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="+104"/>
-        <location line="+120"/>
+        <location line="+144"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -777,7 +796,7 @@ PKCS#8 - это официальный формат обмена ключами 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-252"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-276"/>
         <source>
 Name: %1
 Model: %2
@@ -2516,7 +2535,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+237"/>
+        <location filename="../lib/db.cpp" line="+242"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation type="unfinished"></translation>
@@ -2567,59 +2586,48 @@ In library %3
 <context>
     <name>ReqDetail</name>
     <message>
-        <location filename="../widgets/ReqDetail.cpp" line="+55"/>
         <source>Not available</source>
-        <translation type="unfinished">Недоступный</translation>
+        <translation type="obsolete">Недоступный</translation>
     </message>
     <message>
-        <location filename="../ui/ReqDetail.ui" line="+36"/>
         <source>Details of the certificate signing request</source>
-        <translation type="unfinished">Подробная информация о пакете запроса на подпись сертификата</translation>
+        <translation type="obsolete">Подробная информация о пакете запроса на подпись сертификата</translation>
     </message>
     <message>
-        <location line="+48"/>
         <source>S&amp;tatus</source>
-        <translation>С&amp;татус</translation>
+        <translation type="obsolete">С&amp;татус</translation>
     </message>
     <message>
-        <location line="+36"/>
         <source>Internal name of the PKCS#10 signing request</source>
-        <translation type="unfinished">Внутреннее имя PKCS#10 запроса</translation>
+        <translation type="obsolete">Внутреннее имя PKCS#10 запроса</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Internal Name</source>
-        <translation>Внутреннее имя</translation>
+        <translation type="obsolete">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Private key</source>
-        <translation>Закрытый ключ</translation>
+        <translation type="obsolete">Закрытый ключ</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Signature algorithm</source>
-        <translation type="unfinished">Алгоритм подписи</translation>
+        <translation type="obsolete">Алгоритм подписи</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Signature</source>
-        <translation type="unfinished">Сигнатура</translation>
+        <translation type="obsolete">Сигнатура</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>&amp;Subject</source>
-        <translation>&amp;Владелец</translation>
+        <translation type="obsolete">&amp;Владелец</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Attributes</source>
-        <translation>Атрибуты</translation>
+        <translation type="obsolete">Атрибуты</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>&amp;Extensions</source>
-        <translation>&amp;Расширения</translation>
+        <translation type="obsolete">&amp;Расширения</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2721,7 +2729,7 @@ In library %3
         <translation type="obsolete">Успешно создан %1 &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="+29"/>
+        <location filename="../lib/db_base.cpp" line="+27"/>
         <source>Internal name</source>
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
@@ -2827,7 +2835,7 @@ and so it was not imported</source>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+135"/>
+        <location filename="../lib/db_key.cpp" line="+134"/>
         <source>Key size too small !</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3067,7 +3075,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="obsolete">Общее имя</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-890"/>
+        <location filename="../lib/db_x509.cpp" line="-892"/>
         <source>Serial</source>
         <translation type="unfinished">Серийный номер</translation>
     </message>
@@ -3117,7 +3125,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+109"/>
         <source>Plain View</source>
         <translation>Список</translation>
     </message>
@@ -3207,8 +3215,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">Доверие</translation>
     </message>
     <message>
-        <location line="-611"/>
-        <location line="+613"/>
+        <location line="-613"/>
+        <location line="+615"/>
         <source>CA</source>
         <translation>ЦС</translation>
     </message>

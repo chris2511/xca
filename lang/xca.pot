@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-20 08:25+0200\n"
+"POT-Creation-Date: 2010-08-24 07:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,6 @@ msgid "Details of the Certificate"
 msgstr ""
 
 #: CertDetail#2
-msgctxt "CertDetail#2"
 msgid "S&tatus"
 msgstr ""
 
@@ -69,7 +68,7 @@ msgstr ""
 
 #: CertDetail#8
 msgctxt "CertDetail#8"
-msgid "Signed by"
+msgid "Signature"
 msgstr ""
 
 #: CertDetail#9
@@ -111,7 +110,6 @@ msgid "The time until the certificate is valid"
 msgstr ""
 
 #: CertDetail#18
-msgctxt "CertDetail#18"
 msgid "&Subject"
 msgstr ""
 
@@ -121,50 +119,62 @@ msgid "&Issuer"
 msgstr ""
 
 #: CertDetail#20
-msgctxt "CertDetail#20"
-msgid "&Extensions"
+msgid "Attributes"
 msgstr ""
 
 #: CertDetail#21
-msgid "Show config"
+msgctxt "CertDetail#21"
+msgid "&Extensions"
 msgstr ""
 
 #: CertDetail#22
-msgid "Show extensions"
+msgid "Show config"
 msgstr ""
 
 #: CertDetail#23
-msgctxt "CertDetail#23"
-msgid "Not available"
+msgid "Show extensions"
 msgstr ""
 
 #: CertDetail#24
-msgid "Signer unknown"
+msgctxt "CertDetail#24"
+msgid "Not available"
 msgstr ""
 
 #: CertDetail#25
-msgid "Self signed"
+msgid "Details of the certificate"
 msgstr ""
 
 #: CertDetail#26
-msgctxt "CertDetail#26"
-msgid "Not trusted"
+msgid "Signer unknown"
 msgstr ""
 
 #: CertDetail#27
-msgid "Trusted"
+msgid "Self signed"
 msgstr ""
 
 #: CertDetail#28
-msgid "Revoked: "
+msgctxt "CertDetail#28"
+msgid "Not trusted"
 msgstr ""
 
 #: CertDetail#29
-msgid "Not valid"
+msgid "Trusted"
 msgstr ""
 
 #: CertDetail#30
+msgid "Revoked: "
+msgstr ""
+
+#: CertDetail#31
+msgid "Not valid"
+msgstr ""
+
+#: CertDetail#32
 msgid "Valid"
+msgstr ""
+
+#: CertDetail#33
+msgid "Details of the certificate signing request"
 msgstr ""
 
 #: CertExtend#1
@@ -292,7 +302,6 @@ msgid "Signature"
 msgstr ""
 
 #: CrlDetail#5
-msgctxt "CrlDetail#5"
 msgid "Signed by"
 msgstr ""
 
@@ -1950,57 +1959,6 @@ msgstr ""
 
 #: QObject#44
 msgid "%1 is longer than %2 bytes: '%3'"
-msgstr ""
-
-#: ReqDetail#1
-msgid "Details of the certificate signing request"
-msgstr ""
-
-#: ReqDetail#2
-msgctxt "ReqDetail#2"
-msgid "S&tatus"
-msgstr ""
-
-#: ReqDetail#3
-msgid "Internal name of the PKCS#10 signing request"
-msgstr ""
-
-#: ReqDetail#4
-msgid "Internal Name"
-msgstr ""
-
-#: ReqDetail#5
-msgctxt "ReqDetail#5"
-msgid "Private key"
-msgstr ""
-
-#: ReqDetail#6
-msgctxt "ReqDetail#6"
-msgid "Signature algorithm"
-msgstr ""
-
-#: ReqDetail#7
-msgctxt "ReqDetail#7"
-msgid "Signature"
-msgstr ""
-
-#: ReqDetail#8
-msgctxt "ReqDetail#8"
-msgid "&Subject"
-msgstr ""
-
-#: ReqDetail#9
-msgid "Attributes"
-msgstr ""
-
-#: ReqDetail#10
-msgctxt "ReqDetail#10"
-msgid "&Extensions"
-msgstr ""
-
-#: ReqDetail#11
-msgctxt "ReqDetail#11"
-msgid "Not available"
 msgstr ""
 
 #: Revoke#1

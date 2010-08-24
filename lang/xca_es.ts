@@ -44,7 +44,7 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+38"/>
+        <location filename="../widgets/CertDetail.cpp" line="+37"/>
         <source>Show extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -54,17 +54,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+25"/>
+        <source>Details of the certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Signer unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>Self signed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+11"/>
         <source>Not trusted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -87,6 +92,11 @@
         <location line="+5"/>
         <source>Valid</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Details of the certificate signing request</source>
+        <translation type="unfinished">Detalles de la solicitud</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="+39"/>
@@ -125,8 +135,8 @@
     </message>
     <message>
         <location line="+7"/>
-        <source>Signed by</source>
-        <translation type="unfinished"></translation>
+        <source>Signature</source>
+        <translation type="unfinished">Firma</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -185,12 +195,17 @@
     </message>
     <message>
         <location line="+16"/>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>&amp;Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-80"/>
+        <location filename="../widgets/CertDetail.cpp" line="-119"/>
         <source>Show config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -295,7 +310,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+917"/>
+        <location filename="../lib/db_x509.cpp" line="+919"/>
         <source>There was no key found for the Certificate: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -631,7 +646,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="+104"/>
-        <location line="+120"/>
+        <location line="+144"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -671,7 +686,7 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-252"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-276"/>
         <source>
 Name: %1
 Model: %2
@@ -2323,7 +2338,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+237"/>
+        <location filename="../lib/db.cpp" line="+242"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation type="unfinished"></translation>
@@ -2374,59 +2389,12 @@ In library %3
 <context>
     <name>ReqDetail</name>
     <message>
-        <location filename="../widgets/ReqDetail.cpp" line="+55"/>
-        <source>Not available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/ReqDetail.ui" line="+36"/>
         <source>Details of the certificate signing request</source>
-        <translation type="unfinished">Detalles de la solicitud</translation>
+        <translation type="obsolete">Detalles de la solicitud</translation>
     </message>
     <message>
-        <location line="+48"/>
-        <source>S&amp;tatus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+36"/>
-        <source>Internal name of the PKCS#10 signing request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Internal Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Private key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Signature algorithm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
         <source>Signature</source>
-        <translation type="unfinished">Firma</translation>
-    </message>
-    <message>
-        <location line="+32"/>
-        <source>&amp;Subject</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>Attributes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>&amp;Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Firma</translation>
     </message>
 </context>
 <context>
@@ -2504,7 +2472,7 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+29"/>
+        <location filename="../lib/db_base.cpp" line="+27"/>
         <source>Internal name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2606,7 +2574,7 @@ and so it was not imported</source>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+135"/>
+        <location filename="../lib/db_key.cpp" line="+134"/>
         <source>Key size too small !</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2830,7 +2798,7 @@ and will be completed by the new, private part of the key</source>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-890"/>
+        <location filename="../lib/db_x509.cpp" line="-892"/>
         <source>Serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2880,7 +2848,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+107"/>
         <source>Plain View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2970,8 +2938,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-611"/>
-        <location line="+613"/>
+        <location line="-613"/>
+        <location line="+615"/>
         <source>CA</source>
         <translation type="unfinished"></translation>
     </message>

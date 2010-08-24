@@ -48,7 +48,7 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../widgets/CertDetail.cpp" line="+38"/>
+        <location filename="../widgets/CertDetail.cpp" line="+37"/>
         <source>Show extensions</source>
         <translation>Erweiterungen anzeigen</translation>
     </message>
@@ -58,17 +58,22 @@
         <translation>Nicht verfügbar</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+25"/>
+        <source>Details of the certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Signer unknown</source>
         <translation>Unterzeichner unbekannt</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>Self signed</source>
         <translation>Selbstsigniert</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+11"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -91,6 +96,11 @@
         <location line="+5"/>
         <source>Valid</source>
         <translation>Gültig</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Details of the certificate signing request</source>
+        <translation type="unfinished">Details des Zertifikatsantrags</translation>
     </message>
     <message>
         <location filename="../ui/CertDetail.ui" line="+39"/>
@@ -128,13 +138,17 @@
         <translation>Signatur algorithmus</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Signed by</source>
-        <translation>Unterschrieben von</translation>
+        <translation type="obsolete">Unterschrieben von</translation>
     </message>
     <message>
         <source>Private key</source>
         <translation type="obsolete">Privater Schlüssel</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Signature</source>
+        <translation type="unfinished">Unterschrift</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -193,12 +207,17 @@
     </message>
     <message>
         <location line="+16"/>
+        <source>Attributes</source>
+        <translation type="unfinished">Attribute</translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>&amp;Extensions</source>
         <translation>&amp;Erweiterungen</translation>
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-80"/>
+        <location filename="../widgets/CertDetail.cpp" line="-119"/>
         <source>Show config</source>
         <translation>Konfiguration anzeigen</translation>
     </message>
@@ -319,7 +338,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+917"/>
+        <location filename="../lib/db_x509.cpp" line="+919"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -735,7 +754,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="+104"/>
-        <location line="+120"/>
+        <location line="+144"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
     </message>
@@ -775,7 +794,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Auf der Chipkarte umbenennen</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-252"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-276"/>
         <source>
 Name: %1
 Model: %2
@@ -2534,7 +2553,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Kein Speicher verfügbar %1: %2</translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+237"/>
+        <location filename="../lib/db.cpp" line="+242"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation>zuwenig Daten</translation>
@@ -2595,59 +2614,48 @@ in Bibliothek %3
 <context>
     <name>ReqDetail</name>
     <message>
-        <location filename="../widgets/ReqDetail.cpp" line="+55"/>
         <source>Not available</source>
-        <translation>Nicht verfügbar</translation>
+        <translation type="obsolete">Nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="../ui/ReqDetail.ui" line="+36"/>
         <source>Details of the certificate signing request</source>
-        <translation>Details des Zertifikatsantrags</translation>
+        <translation type="obsolete">Details des Zertifikatsantrags</translation>
     </message>
     <message>
-        <location line="+48"/>
         <source>S&amp;tatus</source>
-        <translation>S&amp;tatus</translation>
+        <translation type="obsolete">S&amp;tatus</translation>
     </message>
     <message>
-        <location line="+36"/>
         <source>Internal name of the PKCS#10 signing request</source>
-        <translation>Der interne Name des PKCS#10 Zertifikatsantrags in der Datenbank</translation>
+        <translation type="obsolete">Der interne Name des PKCS#10 Zertifikatsantrags in der Datenbank</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Internal Name</source>
-        <translation>Interner Name</translation>
+        <translation type="obsolete">Interner Name</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Private key</source>
-        <translation>Privater Schlüssel</translation>
+        <translation type="obsolete">Privater Schlüssel</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Signature algorithm</source>
-        <translation>Signatur algorithmus</translation>
+        <translation type="obsolete">Signatur algorithmus</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Signature</source>
-        <translation>Unterschrift</translation>
+        <translation type="obsolete">Unterschrift</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>&amp;Subject</source>
-        <translation>Inha&amp;ber</translation>
+        <translation type="obsolete">Inha&amp;ber</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Attributes</source>
-        <translation>Attribute</translation>
+        <translation type="obsolete">Attribute</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>&amp;Extensions</source>
-        <translation>&amp;Erweiterungen</translation>
+        <translation type="obsolete">&amp;Erweiterungen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2745,7 +2753,7 @@ in Bibliothek %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+29"/>
+        <location filename="../lib/db_base.cpp" line="+27"/>
         <source>Internal name</source>
         <translation>Interner Name</translation>
     </message>
@@ -2853,7 +2861,7 @@ daher wurde ssie nicht importiert</translation>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+135"/>
+        <location filename="../lib/db_key.cpp" line="+134"/>
         <source>Key size too small !</source>
         <translation>Schlüsselgrösse zu klein !</translation>
     </message>
@@ -3090,7 +3098,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation type="obsolete">Üblicher Name</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-890"/>
+        <location filename="../lib/db_x509.cpp" line="-892"/>
         <source>Serial</source>
         <translation>Seriennummer</translation>
     </message>
@@ -3135,7 +3143,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Rücknahme</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+105"/>
         <source>Plain View</source>
         <translation>Einfache Ansicht</translation>
     </message>
@@ -3225,18 +3233,18 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Vertrauen</translation>
     </message>
     <message>
-        <location line="-611"/>
-        <location line="+613"/>
+        <location line="-613"/>
+        <location line="+615"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-612"/>
+        <location line="-614"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Zeigt den Inhalt der basic constraints erweiterung</translation>
     </message>
     <message>
-        <location line="+613"/>
+        <location line="+615"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
