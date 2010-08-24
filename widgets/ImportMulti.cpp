@@ -23,7 +23,7 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QLabel>
 #include <QtGui/QInputDialog>
-
+#include <QtCore/QUrl>
 
 ImportMulti::ImportMulti(MainWindow *parent)
 	:QDialog(parent)
@@ -42,6 +42,7 @@ ImportMulti::ImportMulti(MainWindow *parent)
 	deleteToken->hide();
 	renameToken->hide();
 	slotInfo->hide();
+	setAcceptDrops(true);
 }
 
 void ImportMulti::tokenInfo(slotid s)
@@ -104,6 +105,30 @@ void ImportMulti::addItem(pki_base *pki)
 			tr("The type of the Item '%1' is not recognized").
 			arg(cn));
 	}
+}
+
+void ImportMulti::dragEnterEvent(QDragEnterEvent *event)
+{
+	if (event->mimeData()->hasUrls())
+		event->acceptProposedAction();
+}
+
+void ImportMulti::dropEvent(QDropEvent *event)
+{
+	QList<QUrl> urls = event->mimeData()->urls();
+	QUrl u;
+	QStringList failed;
+	pki_multi *pki = new pki_multi();
+
+	foreach(u, urls) {
+		QString s = u.toLocalFile();
+		int count = pki->count();
+		pki->probeAnything(s);
+		if (pki->count() == count)
+			failed << s;
+	}
+	importError(failed);
+	addItem(pki);
 }
 
 void ImportMulti::on_butRemove_clicked()
@@ -301,7 +326,7 @@ int ImportMulti::entries()
 	return mcont->rootItem->childCount();
 }
 
-void ImportMulti::execute(int force, QStringList failed)
+void ImportMulti::importError(QStringList failed)
 {
 	if (failed.count() == 1) {
 		QMessageBox::information(this, XCA_TITLE,
@@ -313,6 +338,12 @@ void ImportMulti::execute(int force, QStringList failed)
 			arg(failed.count()).
 			arg(failed.join("', '")));
 	}
+}
+
+void ImportMulti::execute(int force, QStringList failed)
+{
+	importError(failed);
+
 	/* if there is nothing to import don't pop up */
 	if (entries() == 0) {
 		accept();

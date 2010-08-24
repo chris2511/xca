@@ -24,6 +24,8 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		slotid slot;
 		db_token *mcont;
 		MainWindow *mainwin;
+		void importError(QStringList failed);
+
 	public:
 		ImportMulti(MainWindow *parent);
 		~ImportMulti();
@@ -33,6 +35,8 @@ class ImportMulti: public QDialog, private Ui::ImportMulti
 		void execute(int force=0, QStringList failed = QStringList());
 		int entries();
 		void tokenInfo(slotid s);
+		void dragEnterEvent(QDragEnterEvent *event);
+		void dropEvent(QDropEvent *event);
 
 	public slots:
 		void on_butRemove_clicked();
