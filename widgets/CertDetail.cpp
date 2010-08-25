@@ -114,7 +114,6 @@ void CertDetail::setCert(pki_x509 *cert)
 		serialNr->setText(cert->getSerial().toHex());
 
 		// details of the issuer
-		subject->setX509name(cert->getSubject());
 		issuer->setX509name(cert->getIssuer());
 
 		// The dates

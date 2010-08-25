@@ -63,6 +63,7 @@ void ImportMulti::tokenInfo(slotid s)
 	slotInfo->setText(info);
 	image->setPixmap(*MainWindow::scardImg);
 	heading->setText(tr("Manage security token"));
+	setAcceptDrops(false);
 }
 
 void ImportMulti::addItem(pki_base *pki)
