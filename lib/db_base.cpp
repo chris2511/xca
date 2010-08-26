@@ -159,7 +159,7 @@ void db_base::setVisualIndex(int i, int visualIndex)
 	allHeaders[i]->visualIndex = visualIndex;
 }
 
-void db_base::sectionResized(int i, int old, int newSize)
+void db_base::sectionResized(int i, int,  int newSize)
 {
 	if (!allHeaders[i]->show || newSize <= 0 || colResizing)
 		return;
@@ -480,7 +480,7 @@ int db_base::rowCount(const QModelIndex &parent) const
 	return parentItem->childCount();
 }
 
-int db_base::columnCount(const QModelIndex &parent) const
+int db_base::columnCount(const QModelIndex &) const
 {
 	return allHeaders.count();
 }
@@ -633,7 +633,7 @@ void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 	contextMenu(e, NULL, sect);
 }
 
-void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int sect)
+void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 {
 	int shown = 0;
 	QMenu *menu = new QMenu(mainwin);

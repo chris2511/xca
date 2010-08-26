@@ -134,7 +134,7 @@ void XcaTreeView::columnsResize()
 	basemodel->colResizeEnd();
 }
 
-void XcaTreeView::sectionMoved(int idx, int oldI, int newI)
+void XcaTreeView::sectionMoved(int, int, int)
 {
 	int cnt = header()->count();
 	for (int i=0; i<cnt; i++) {

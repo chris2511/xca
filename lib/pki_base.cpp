@@ -179,13 +179,9 @@ QVariant pki_base::column_data(int id)
 	return QVariant();
 }
 
-QVariant pki_base::getIcon(int column)
+QVariant pki_base::getIcon(int)
 {
 	return QVariant();
-}
-
-void pki_base::oldFromData(unsigned char *p, int size)
-{
 }
 
 uint32_t pki_base::intFromData(QByteArray &ba)

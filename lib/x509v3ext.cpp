@@ -535,7 +535,7 @@ static bool gen_cpol_qual_sect(QString tag, POLICYINFO *pinfo, QString *adv)
 }
 
 
-bool x509v3ext::parse_certpol(QString *single, QString *adv) const
+bool x509v3ext::parse_certpol(QString *, QString *adv) const
 {
 	bool retval = true;
 	QStringList pols;
@@ -623,14 +623,14 @@ bool x509v3ext::parse_bitstring(QString *single, QString *adv) const
         return true;
 }
 
-bool x509v3ext::parse_sKeyId(QString *single, QString *adv) const
+bool x509v3ext::parse_sKeyId(QString *, QString *adv) const
 {
 	if (adv)
 		*adv = QString("%1=hash\n").arg(OBJ_nid2sn(nid())) + *adv;
 	return true;
 }
 
-bool x509v3ext::parse_aKeyId(QString *single, QString *adv) const
+bool x509v3ext::parse_aKeyId(QString *, QString *adv) const
 {
 	QStringList ret;
 	AUTHORITY_KEYID *akeyid = (AUTHORITY_KEYID *)d2i();
@@ -646,7 +646,7 @@ bool x509v3ext::parse_aKeyId(QString *single, QString *adv) const
 	return true;
 }
 
-bool x509v3ext::parse_generic(QString *single, QString *adv) const
+bool x509v3ext::parse_generic(QString *, QString *adv) const
 {
 	QString der, obj;
 	int n = nid();

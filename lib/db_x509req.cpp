@@ -27,7 +27,7 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	loadContainer();
 }
 
-pki_base *db_x509req::newPKI(db_header_t *head)
+pki_base *db_x509req::newPKI(db_header_t *)
 {
 	return new pki_x509req();
 }

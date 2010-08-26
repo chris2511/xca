@@ -61,7 +61,7 @@ class db
     public:
 	bool verify_magic(void);
 	off_t head_offset;
-	db(QString, int mode = S_IRUSR | S_IWUSR);
+	db(QString, QFlags<QFile::Permission> perm = QFile::ReadOwner | QFile::WriteOwner);
 	~db();
 	bool eof();
 	void first(int flag = DBFLAG_DELETED);

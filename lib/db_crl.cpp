@@ -32,7 +32,7 @@ db_crl::db_crl(QString db, MainWindow *mw)
 	loadContainer();
 }
 
-pki_base *db_crl::newPKI(db_header_t *head)
+pki_base *db_crl::newPKI(db_header_t *)
 {
 	return new pki_crl();
 }

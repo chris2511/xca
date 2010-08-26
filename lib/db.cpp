@@ -24,14 +24,18 @@
 #include <errno.h>
 #endif
 
-db::db(QString filename, int mode)
+db::db(QString filename, QFlags<QFile::Permission> perm)
 {
 	name = filename;
 	file.setFileName(filename);
+	bool newFile = !file.exists();
+
 	if (!file.open(QIODevice::ReadWrite)) {
 		fileIOerr("open");
 	} else {
 		first();
+		if (newFile)
+			file.setPermissions(perm);
 	}
 }
 

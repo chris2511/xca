@@ -56,7 +56,7 @@ db_temp::~db_temp()
 	delete predefs;
 }
 
-pki_base *db_temp::newPKI(db_header_t *head)
+pki_base *db_temp::newPKI(db_header_t *)
 {
 	return new pki_temp("");
 }
