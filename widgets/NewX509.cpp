@@ -955,7 +955,7 @@ void NewX509::accept()
 	if (signer)
 		signkey = signer->getRefKey();
 
-	if (!signkey || signkey->isPubKey()) {
+	if ((!signkey || signkey->isPubKey()) && pt != tmpl) {
 		QString txt;
 		gotoTab(signer ? 0 : 1);
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
