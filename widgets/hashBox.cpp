@@ -15,11 +15,9 @@ static struct {
 } hashalgos[] = {
 	{ "MD 5", EVP_md5() },
 	{ "SHA 1", EVP_sha1() },
-#ifdef HAS_SHA256
 	{ "SHA 256", EVP_sha256() },
 	{ "SHA 384", EVP_sha384() },
 	{ "SHA 512", EVP_sha512() },
-#endif
 	{ "RIPEMD 160", EVP_ripemd160() },
 };
 
@@ -51,12 +49,25 @@ const EVP_MD *hashBox::currentHash()
 				return hashalgos[i].md;
 		}
 	}
-	return NULL;
+	return hashalgos[1].md; /* SHA1 as fallback */
+}
+
+void hashBox::setCurrentString(QString md)
+{
+	int idx = findText(md);
+	if (idx != -1) {
+		setCurrentIndex(idx);
+		wanted_md = "";
+	} else {
+		wanted_md = md;
+	}
 }
 
 void hashBox::setupHashes(QList<int> nids)
 {
 	QString md = currentText();
+	if (!wanted_md.isEmpty())
+		md = wanted_md;
 	clear();
 	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
 		if (nids.contains(hashalgos[i].md->type)) {
@@ -64,17 +75,19 @@ void hashBox::setupHashes(QList<int> nids)
 		}
 	}
 	setDefaultHash();
-	setCurrentIndex(findText(md));
+	setCurrentString(md);
 }
 
 void hashBox::setupAllHashes()
 {
 	QString md = currentText();
+	if (!wanted_md.isEmpty())
+		md = wanted_md;
 	clear();
 	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
 		addItem(QString(hashalgos[i].name));
 	}
-	setCurrentIndex(findText(md));
+	setCurrentString(md);
 }
 
 QString hashBox::currentHashName()
@@ -84,7 +97,7 @@ QString hashBox::currentHashName()
 
 void hashBox::setDefaultHash()
 {
-	setCurrentIndex(findText(default_md));
+	setCurrentString(default_md);
 }
 
 void hashBox::setCurrentAsDefault()
