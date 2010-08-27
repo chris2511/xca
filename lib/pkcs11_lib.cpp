@@ -17,14 +17,6 @@
 #include <ltdl.h>
 #include "ui_SelectToken.h"
 
-#if defined(_WIN32) || defined(USE_CYGWIN)
-#define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
-#elif defined(Q_WS_MAC)
-#define PKCS11_DEFAULT_MODULE_NAME      "/Library/OpenSC/lib/opensc-pkcs11.so"
-#else
-#define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
-#endif
-
 pkcs11_lib::pkcs11_lib(QString f)
 {
 	CK_RV (*c_get_function_list)(CK_FUNCTION_LIST_PTR_PTR);
@@ -52,10 +44,6 @@ pkcs11_lib::pkcs11_lib(QString f)
 		pk11error("C_Initialize", rv);
 
 	return;
-
-	/* This state is always worth an error ! */
-	if (dl_handle)
-		lt_dlclose(dl_handle);
 
 how_bad:
 	lt_dlexit();
