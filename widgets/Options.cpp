@@ -125,6 +125,8 @@ void Options::setupPkcs11Provider(QString list)
 		pkcs11List->addItem(item);
 	}
 	foreach(QString libname, list.split('\n')) {
+		if (libname.isEmpty())
+			continue;
 		if (libs.get_lib(libname))
 			continue;
 		QListWidgetItem *item = new QListWidgetItem(libname);
