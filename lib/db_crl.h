@@ -20,7 +20,6 @@ class db_crl: public db_x509name
 		Q_OBJECT
 	protected:
 		QPixmap *crlicon;
-		db_x509 *certs;
 	public:
 		db_crl(QString db, MainWindow *mw);
 		pki_base *newPKI(db_header_t *head = NULL);

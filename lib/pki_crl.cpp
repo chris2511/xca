@@ -91,7 +91,6 @@ void pki_crl::createCrl(const QString d, pki_x509 *iss )
 	if (!iss)
 		my_error(tr("No issuer given"));
 	crl->crl->issuer = issuer->getSubject().get();
-	crl->crl->revoked = sk_X509_REVOKED_new_null();
 	a1int version = 1; /* version 2 CRL */
 	crl->crl->version = version.get();
 	pki_openssl_error();
@@ -156,7 +155,7 @@ QByteArray pki_crl::toData()
 
 void pki_crl::addRev(const x509rev &xrev)
 {
-	sk_X509_REVOKED_push(crl->crl->revoked, xrev.get());
+	X509_CRL_add0_revoked(crl, xrev.get());
 	pki_openssl_error();
 }
 
@@ -174,7 +173,7 @@ void pki_crl::sign(pki_key *key, const EVP_MD *md)
 	EVP_PKEY *pkey;
 	if (!key || key->isPubKey())
 		return;
-//	X509_CRL_sort(crl);
+	X509_CRL_sort(crl);
 	pkey = key->decryptKey();
 	X509_CRL_sign(crl, pkey, md);
 	EVP_PKEY_free(pkey);
@@ -201,10 +200,6 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 	} else
 		fopen_error(fname);
 }
-
-pki_x509 *pki_crl::getIssuer() { return issuer; }
-void pki_crl::setIssuer(pki_x509 *iss) { issuer = iss; }
-
 
 a1time pki_crl::getLastUpdate()
 {

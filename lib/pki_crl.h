@@ -39,8 +39,14 @@ class pki_crl: public pki_x509name
 		void addV3ext(const x509v3ext &e);
 		void sign(pki_key *key, const EVP_MD *md = EVP_md5());
 		void writeCrl(const QString fname, bool pem = true);
-		pki_x509 *getIssuer();
-		void setIssuer(pki_x509 *iss);
+		pki_x509 *getIssuer()
+		{
+			return issuer;
+		}
+		void setIssuer(pki_x509 *iss)
+		{
+			 issuer = iss;
+		}
 		x509name getSubject() const;
 		void setLastUpdate(const a1time &t);
 		void setNextUpdate(const a1time &t);

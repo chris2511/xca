@@ -46,19 +46,16 @@ void db_crl::load()
 void db_crl::revokeCerts(pki_crl *crl)
 {
 	int numc, i;
-	certs = mainwin->certs;
-	if (! certs)
+	if (!mainwin->certs)
 		return;
 	x509rev revok;
-	pki_x509 *rev;
+	pki_x509 *signer = crl->getIssuer();
+	if (!signer)
+		return;
 	numc = crl->numRev();
-
 	for (i=0; i<numc; i++) {
 		revok = crl->getRev(i);
-		rev = certs->getByIssSerial(crl->getIssuer(), revok.getSerial());
-		if (rev) {
-			rev->setRevoked(revok.getDate());
-		}
+		mainwin->certs->revokeCert(revok, signer);
 	}
 }
 
@@ -73,7 +70,6 @@ void db_crl::removeSigner(pki_base *signer)
 void db_crl::inToCont(pki_base *pki)
 {
 	pki_crl *crl = (pki_crl *)pki;
-	revokeCerts(crl);
 	if (crl->getIssuer() == NULL) {
 		pki_x509 *iss = NULL, *last = NULL;
 		x509name issname = crl->getSubject();
@@ -88,6 +84,7 @@ void db_crl::inToCont(pki_base *pki)
 		}
 		crl->setIssuer(iss);
 	}
+	revokeCerts(crl);
 	db_base::inToCont(pki);
 }
 
