@@ -474,7 +474,6 @@ public:
 	int size;
 	pkcs11 *p11;
 
-	keygenThread() : QThread() { };
 	void run()
 	{
 		try {
@@ -482,7 +481,7 @@ public:
 		} catch (errorEx &e) {
 			err = e;
 		}
-       }
+	}
 };
 
 void pki_scard::generateKey_card(slotid slot, int size, QProgressBar *bar)

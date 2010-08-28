@@ -15,6 +15,8 @@
 
 #include <openssl/rand.h>
 #include <QtGui/QMessageBox>
+#include <QtCore/QThread>
+
 #include <ltdl.h>
 #include "ui_SelectToken.h"
 
@@ -174,6 +176,42 @@ void pkcs11::login(unsigned char *pin, unsigned long pinlen, bool so)
 		pk11error("C_Login", rv);
 }
 
+class pinPadLoginThread: public QThread
+{
+	bool so;
+	pkcs11 *p11;
+    public:
+	errorEx err;
+	pinPadLoginThread(pkcs11 *_p11, bool _so) : QThread()
+	{
+		so = _so;
+		p11 = _p11;
+	}
+	void run()
+	{
+		try {
+			p11->login(NULL, 0, so);
+		} catch (errorEx &e) {
+			err = e;
+		}
+       }
+};
+
+static QDialog *newPinPadBox()
+{
+	QDialog *box = new QDialog(NULL, Qt::WindowStaysOnTopHint);
+	box->setWindowTitle(XCA_TITLE);
+	QHBoxLayout *h = new QHBoxLayout(box);
+	QLabel *l = new QLabel();
+	l->setPixmap(*MainWindow::scardImg);
+	l->setMaximumSize(QSize(95, 40));
+	l->setScaledContents(true);
+	h->addWidget(l);
+	l = new QLabel(QObject::tr("Please enter the PIN on the PinPad"));
+	h->addWidget(l);
+	return box;
+}
+
 QString pkcs11::tokenLogin(QString name, bool so, bool force)
 {
 	char _pin[256], *pin = _pin;
@@ -189,10 +227,21 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 	need_login = needsLogin(so);
 	if (force || need_login) {
 		if (!need_login)
-			 logout();
+			logout();
 		if (tokenInfo().protAuthPath()) {
 			pin[0] = '\0';
 			pinlen = 0;
+			QDialog *pinpadbox = newPinPadBox();
+			pinpadbox->show();
+			pinPadLoginThread ppt(this, so);
+			ppt.start();
+			while(!ppt.wait(20)) {
+				qApp->processEvents();
+				pinpadbox->raise();
+			}
+			delete pinpadbox;
+			if (!ppt.err.isEmpty())
+				throw errorEx(ppt.err);
 		} else {
 			pinlen = MainWindow::passRead(pin, 256, 0, &p);
 			if (pinlen == -1)
