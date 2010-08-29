@@ -1,5 +1,4 @@
-; xca.nsi
-;
+
 ; This is the .nsi script for creating the nullsoft windows installer
 
 ; The name of the installer
@@ -12,7 +11,7 @@ InstallDir $PROGRAMFILES\xca
 ; overwrite the old one automatically)
 InstallDirRegKey HKLM SOFTWARE\xca "Install_Dir"
 
-;SetCompressor /SOLID lzma
+SetCompressor /SOLID lzma
 
 ;-----------------------------------
 !include "MUI.nsh"
@@ -74,6 +73,10 @@ Section "xca (required)" SecMain
 
   File "${INSTALLDIR}\bin\libltdl-7.dll"
   File "${INSTALLDIR}\bin\libeay32.dll"
+
+  ; delete unneeded engine
+  Delete "$INSTDIR\libp11-1.dll"
+  Delete "$INSTDIR\engine_pkcs11.dll"
 
   ; remove old images
   ; Write the installation path into the registry

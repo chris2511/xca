@@ -1,4 +1,7 @@
 
+xca 0.9.0 Sun Aug 29 08:13:26 2010
+
+  * support loading more than one PKCS#11 library
   * remove the need for engine_pkcs11
     now more than one PKCS#11 library can be loaded and used in parallel
   * Add de/selection of columns and add a lot of new possible columns
