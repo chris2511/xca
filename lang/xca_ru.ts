@@ -84,7 +84,7 @@
         <translation>Доверенный</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+17"/>
         <source>Revoked: </source>
         <translation type="unfinished">Отозванный: </translation>
     </message>
@@ -218,7 +218,7 @@
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-119"/>
+        <location filename="../widgets/CertDetail.cpp" line="-118"/>
         <source>Show config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -755,7 +755,7 @@ PKCS#8 - это официальный формат обмена ключами 
         <translation type="unfinished">&amp;Убрать</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="+104"/>
+        <location filename="../widgets/ImportMulti.cpp" line="+105"/>
         <location line="+144"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
@@ -796,7 +796,7 @@ PKCS#8 - это официальный формат обмена ключами 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-276"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-277"/>
         <source>
 Name: %1
 Model: %2
@@ -2286,7 +2286,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Все строки</translation>
     </message>
     <message>
-        <location line="+90"/>
+        <location line="+92"/>
         <source>Load failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2480,7 +2480,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+172"/>
+        <location filename="../lib/db.cpp" line="+176"/>
         <source>DB: Rename: &apos;%1&apos; already in use</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2515,7 +2515,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+184"/>
+        <location filename="../lib/pkcs11.cpp" line="+210"/>
+        <source>Please enter the PIN on the PinPad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2525,7 +2530,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+39"/>
         <source>No Security token found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2566,7 +2571,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+62"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+50"/>
         <source>Failed to open PKCS11 library: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2795,7 +2800,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+107"/>
+        <location line="+104"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
     </message>
@@ -3517,12 +3522,12 @@ and thus was not stored</source>
         <translation>Данного издателя несуществует</translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+215"/>
         <source>unknown</source>
         <translation>неизвестный</translation>
     </message>
     <message>
-        <location line="-242"/>
+        <location line="-237"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Не удается загрузить список отзыва сертификатов из файла %1. Формат файла, содержащий CRL должен быть PEM или DER.</translation>
     </message>
@@ -3547,8 +3552,8 @@ and thus was not stored</source>
         <translation>Удалить %1 списки отзыва: %2?</translation>
     </message>
     <message>
-        <location line="+96"/>
-        <location line="+193"/>
+        <location line="+95"/>
+        <location line="+189"/>
         <source>Wrong Size %1</source>
         <translation>Неправильный размер %1</translation>
     </message>
@@ -3748,7 +3753,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+53"/>
         <source>Unable to find generated key on card</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3768,7 +3773,7 @@ and thus was not stored</source>
         <translation type="unfinished">Неверный PIN для этого Токена безопасности</translation>
     </message>
     <message>
-        <location line="-359"/>
+        <location line="-358"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3808,7 +3813,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+136"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>
