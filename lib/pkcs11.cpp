@@ -45,10 +45,6 @@ pkcs11::~pkcs11()
 pkcs11_lib *pkcs11::load_lib(QString fname, bool silent)
 {
 	pkcs11_lib *l;
-	if (fname.isEmpty()) {
-		fname = PKCS11_DEFAULT_MODULE_NAME;
-		silent = true;
-	}
 	try {
 		l = libs.add_lib(fname);
 	} catch (errorEx &ex) {
@@ -57,6 +53,26 @@ pkcs11_lib *pkcs11::load_lib(QString fname, bool silent)
 		throw ex;
 	}
 	return l;
+}
+
+void pkcs11::load_libs(QString list, bool silent)
+{
+	QStringList errs;
+	if (list.isNull()) {
+		load_lib(PKCS11_DEFAULT_MODULE_NAME, true);
+		return;
+	}
+	if (!list.isEmpty()) {
+		foreach(QString l, list.split('\n')) {
+			try {
+				pkcs11::load_lib(l, silent);
+			} catch (errorEx &err) {
+				errs << err.getString();
+			}
+		}
+		if (errs.count())
+			throw errorEx(errs.join("\n"));
+	}
 }
 
 void pkcs11::startSession(slotid slot, bool rw)

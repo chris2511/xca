@@ -124,14 +124,14 @@ void Options::setupPkcs11Provider(QString list)
 		item->setToolTip(l->driverInfo());
 		pkcs11List->addItem(item);
 	}
-	foreach(QString libname, list.split('\n')) {
-		if (libname.isEmpty())
-			continue;
-		if (libs.get_lib(libname))
-			continue;
-		QListWidgetItem *item = new QListWidgetItem(libname);
-		item->setToolTip(tr("Load failed"));
-		pkcs11List->addItem(item);
+	if (!list.isEmpty()) {
+		foreach(QString libname, list.split('\n')) {
+			if (libs.get_lib(libname))
+				continue;
+			QListWidgetItem *item = new QListWidgetItem(libname);
+			item->setToolTip(tr("Load failed"));
+			pkcs11List->addItem(item);
+		}
 	}
 }
 
@@ -141,5 +141,7 @@ QString Options::getPkcs11Provider()
 	for (int j=0; j<pkcs11List->count(); j++) {
 		prov << pkcs11List->item(j)->text();
 	}
+	if (prov.count() == 0)
+		return QString("");
 	return prov.join("\n");
 }

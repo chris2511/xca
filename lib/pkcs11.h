@@ -111,19 +111,7 @@ class pkcs11
 		{
 			return libs.remove_lib(fname);
 		}
-		static void load_libs(QString list, bool silent)
-		{
-			QStringList errs;
-			foreach(QString l, list.split('\n')) {
-				try {
-					pkcs11::load_lib(l, silent);
-				} catch (errorEx &err) {
-					errs << err.getString();
-				}
-			}
-			if (errs.count())
-				throw errorEx(errs.join("\n"));
-		}
+		static void load_libs(QString list, bool silent);
 		static pkcs11_lib_list get_libs()
 		{
 			return libs;

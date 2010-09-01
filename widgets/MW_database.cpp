@@ -82,7 +82,7 @@ void MainWindow::init_database()
 			}
 		}
 		mydb.first();
-		pkcs11path = "";
+		pkcs11path = QString();
 		if (!mydb.find(setting, "pkcs11path")) {
 			if ((p = (char *)mydb.load(NULL))) {
 				pkcs11path = p;
