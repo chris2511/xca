@@ -1173,7 +1173,7 @@ or organisation can be added in the file <tt>oids.txt</tt>.
 All possible locations for this file are searched and all <tt>oids.txt</tt> files
 found are loaded. This way the application-installer adds
 some in /usr/share/xca, the Administrator in /etc/xca and the user in
-$HOME/xca. The format of this file is:<newline>
+$HOME/.xca. The format of this file is:<newline>
 <bf>OID</bf>:<bf>shortname</bf>:<bf>longname</bf><newline>
 Leading and trailing spaces between the colons and the text are ignored.
 Lines starting with a <bf>#</bf> are ignored.
