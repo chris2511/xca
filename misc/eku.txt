@@ -17,3 +17,5 @@ ipsecUser
 iKEIntermediate
 msSmartcardLogin
 OCSPSigning
+id-kp-eapOverPPP
+id-kp-eapOverLAN
