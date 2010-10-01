@@ -630,6 +630,8 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 			menu->addAction(tr("Extract public Key"),
 				this, SLOT(extractPubkey()));
 		subExport = menu->addMenu(tr("Export"));
+		subExport->addAction(tr("Clipboard"), this,
+					SLOT(pem2clipboard()));
 		subExport->addAction(tr("File"), this, SLOT(store()));
 		itemReq = subExport->addAction(tr("Request"),
 				this, SLOT(toRequest()));

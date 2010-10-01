@@ -164,7 +164,6 @@ void db_x509req::signReq()
 void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
-	QAction *expItem;
 	QMenu *subExport;
 	currentIdx = index;
 
@@ -180,11 +179,13 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
 		subExport = menu->addMenu(tr("Export"));
-		expItem = subExport->addAction(tr("File"), this, SLOT(store()));
+		subExport->addAction(tr("Clipboard"), this,
+					SLOT(pem2clipboard()));
+		subExport->addAction(tr("File"), this, SLOT(store()));
 		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 
-		expItem->setEnabled(!req->isSpki());
+		subExport->setEnabled(!req->isSpki());
 	}
 	contextMenu(e, menu);
 	currentIdx = QModelIndex();

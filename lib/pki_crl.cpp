@@ -201,6 +201,14 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 		fopen_error(fname);
 }
 
+BIO *pki_crl::pem(BIO *b)
+{
+	if (!b)
+		b = BIO_new(BIO_s_mem());
+	PEM_write_bio_X509_CRL(b, crl);
+	return b;
+}
+
 a1time pki_crl::getLastUpdate()
 {
 	a1time a;

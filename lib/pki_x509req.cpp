@@ -250,6 +250,14 @@ void pki_x509req::writeReq(const QString fname, bool pem)
 		fopen_error(fname);
 }
 
+BIO *pki_x509req::pem(BIO *b)
+{
+	if (!b)
+		b = BIO_new(BIO_s_mem());
+	PEM_write_bio_X509_REQ(b, request);
+	return b;
+}
+
 int pki_x509req::verify()
 {
 	EVP_PKEY *pkey = X509_REQ_get_pubkey(request);

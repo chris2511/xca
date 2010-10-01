@@ -149,6 +149,7 @@ class pki_x509 : public pki_x509super
 		void deleteFromToken(slotid slot);
 		virtual QString getMsg(msg_type msg);
 		virtual int renameOnToken(slotid slot, QString name);
+		BIO *pem(BIO *);
 };
 
 #endif

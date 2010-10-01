@@ -75,6 +75,7 @@ class pki_x509req : public pki_x509super
 		void d2i_spki(QByteArray &ba);
 		QByteArray i2d();
 		QByteArray i2d_spki();
+		BIO *pem(BIO *);
 };
 
 #endif

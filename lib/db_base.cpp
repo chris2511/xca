@@ -11,6 +11,7 @@
 #include "exception.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QListView>
+#include <QtGui/QClipboard>
 #include <QtCore/QDir>
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
@@ -228,6 +229,28 @@ void db_base::delete_ask()
 		 return;
 
 	deletePKI();
+}
+
+void db_base::pem2clipboard()
+{
+	long l;
+        const char *p;
+	QString msg;
+	QClipboard *cb = QApplication::clipboard();
+
+	BIO *bio = BIO_new(BIO_s_mem());
+	if (!currentIdx.isValid())
+		return;
+	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+	pki->pem(bio);
+	openssl_error();
+	l = BIO_get_mem_data(bio, &p);
+	msg = QString::fromUtf8(p, l);
+	BIO_free(bio);
+	if (cb->supportsSelection())
+		cb->setText(msg, QClipboard::Selection);
+	else
+		cb->setText(msg);
 }
 
 void db_base::deletePKI()

@@ -556,6 +556,14 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 		fopen_error(fname);
 }
 
+BIO *pki_x509::pem(BIO *b)
+{
+	if (!b)
+		b = BIO_new(BIO_s_mem());
+	PEM_write_bio_X509(b, cert);
+	return b;
+}
+
 bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 {
 	bool ret =  X509_issuer_and_serial_cmp(cert, refcert->cert);

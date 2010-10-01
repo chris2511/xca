@@ -215,11 +215,15 @@ void db_crl::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
 	currentIdx = index;
+	QMenu *subExport;
 
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
-		menu->addAction(tr("Export"), this, SLOT(store()));
+		subExport = menu->addMenu(tr("Export"));
+		subExport->addAction(tr("Clipboard"), this,
+					SLOT(pem2clipboard()));
+		subExport->addAction(tr("File"), this, SLOT(store()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 	}
 	contextMenu(e, menu);

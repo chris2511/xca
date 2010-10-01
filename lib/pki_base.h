@@ -96,6 +96,10 @@ class pki_base : public QObject
 		{
 			return QByteArray();
 		}
+		virtual BIO *pem(BIO *)
+		{
+			return NULL;
+		}
 };
 
 #endif

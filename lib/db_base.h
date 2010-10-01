@@ -110,6 +110,7 @@ class db_base: public QAbstractItemModel
 		virtual void showItem(const QString keyname);
 		void sectionResized(int i, int, int newSize);
 		void sortIndicatorChanged(int logicalIndex, Qt::SortOrder order);
+		void pem2clipboard();
 
 	signals:
 		void connNewX509(NewX509 *dlg);
