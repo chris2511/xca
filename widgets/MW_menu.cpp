@@ -31,6 +31,8 @@ void MainWindow::init_menu()
 		QKeySequence::Open);
 	file->addAction(tr("Generate DH parameter"), this,
 				 SLOT(generateDHparam()));
+	acList += file->addAction(tr("Set as default DataBase"), this,
+				SLOT(default_database()));
 	acList += file->addAction(tr("&Close DataBase"), this,
 		SLOT(close_database()), QKeySequence(QKeySequence::Close));
 	acList += file->addAction(tr("&Dump DataBase"), this,

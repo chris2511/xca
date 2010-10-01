@@ -84,6 +84,7 @@ int main( int argc, char *argv[] )
 	try {
 		a.setMainwin(mw);
 		mw->read_cmdline();
+		mw->open_default_db();
 		if (mw->exitApp == 0) {
 			mw->show();
 			ret = a.exec();

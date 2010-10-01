@@ -218,6 +218,42 @@ void MainWindow::undelete()
 	delete dlgi;
 }
 
+void MainWindow::open_default_db()
+{
+	if (!dbfile.isEmpty())
+		return;
+	FILE *fp = fopen(QString2filename(getUserSettingsDir() +
+					QDir::separator() + "defaultdb"), "r");
+	if (!fp)
+		return;
+
+	char buff[256];
+	size_t len = fread(buff, 1, 255, fp);
+	fclose(fp);
+	buff[len] = 0;
+	dbfile = filename2QString(buff).trimmed();
+	if (QFile::exists(dbfile))
+		init_database();
+}
+
+void MainWindow::default_database()
+{
+	QFileInfo fi(dbfile);
+	QString dir = getUserSettingsDir();
+	FILE *fp;
+
+	QDir d;
+	d.mkpath(dir);
+
+	fp = fopen(QString2filename(dir +QDir::separator() +"defaultdb"), "w");
+	if (fp) {
+		QByteArray ba;
+		ba = filename2bytearray(fi.canonicalFilePath() + "\n");
+		fwrite(ba.constData(), ba.size(), 1, fp);
+		fclose(fp);
+	}
+
+}
 
 void MainWindow::close_database()
 {

@@ -88,6 +88,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void importAnything(QString file);
 		void dropEvent(QDropEvent *event);
 		void dragEnterEvent(QDragEnterEvent *event);
+		void open_default_db();
 
 	public slots:
 		void init_database();
@@ -95,6 +96,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void load_database();
 		void close_database();
 		void dump_database();
+		void default_database();
 		void connNewX509(NewX509 *nx);
 		void about();
 		void donations();

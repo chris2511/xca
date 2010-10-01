@@ -144,8 +144,14 @@ QString getUserSettingsDir()
 {
 	QString rv;
 #ifdef WIN32
-	/* not called on WIN32 platforms */
-	QMessageBox::warning(NULL, XCA_TITLE, "No not to be called");
+	LPITEMIDLIST pidl = NULL;
+	TCHAR buf[255] = "";
+	if (SUCCEEDED(SHGetSpecialFolderLocation(NULL, CSIDL_APPDATA, &pidl))) {
+	SHGetPathFromIDList(pidl, buf);
+	}
+	rv = buf;
+	rv += QDir::separator();
+	rv += "xca";
 #elif defined(Q_WS_MAC)
 	rv = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 	rv.insert(rv.count() - QCoreApplication::applicationName().count(),
