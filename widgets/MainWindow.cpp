@@ -248,7 +248,7 @@ NIDlist *MainWindow::read_nidlist(QString name)
 
 #ifndef WIN32
 	/* first try $HOME/xca/ */
-	nl = readNIDlist(getUserSettingsDir() + QDir::separator() + name);
+	nl = readNIDlist(getUserSettingsDir() + name);
 #if !defined(Q_WS_MAC)
 	if (nl.count() == 0){
 		/* next is /etx/xca/... */
