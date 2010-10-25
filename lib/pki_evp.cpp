@@ -620,7 +620,23 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		pkey = decryptKey();
 		if (pkey) {
 			if (pem) {
-				PEM_write_PrivateKey(fp, pkey, enc, NULL, 0, cb, &p);
+				switch (pkey->type) {
+				case EVP_PKEY_RSA:
+					PEM_write_RSAPrivateKey(fp,
+					  pkey->pkey.rsa, enc, NULL, 0, cb, &p);
+					break;
+				case EVP_PKEY_DSA:
+					PEM_write_DSAPrivateKey(fp,
+					  pkey->pkey.dsa, enc, NULL, 0, cb, &p);
+					break;
+				case EVP_PKEY_EC:
+					PEM_write_ECPrivateKey(fp,
+					  pkey->pkey.ec, enc, NULL, 0, cb, &p);
+					break;
+				default:
+					PEM_write_PrivateKey(fp, pkey,
+							enc, NULL, 0, cb, &p);
+				}
 			} else {
 				i2d_PrivateKey_fp(fp, pkey);
 			}
