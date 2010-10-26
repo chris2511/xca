@@ -1,4 +1,11 @@
 
+  * Close bug [3091576] Private key export is always PKCS#8 encoded
+  * Feature Request [3058196] Autoload database
+  * Feature Request [3058195] Export directly to the clipboard
+  * Close bug [3062711] Additional OIDs
+  * Close bug [3062708] Invalid user configuration file path name
+  * Fix PKCS#11 library handling
+
 xca 0.9.0 Sun Aug 29 08:13:26 2010
 
   * support loading more than one PKCS#11 library
