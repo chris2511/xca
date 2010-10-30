@@ -38,13 +38,18 @@ pkcs11::pkcs11()
 
 pkcs11::~pkcs11()
 {
-	if (session != CK_INVALID_HANDLE && p11slot.p11())
+	if (session != CK_INVALID_HANDLE && p11slot.p11()) {
+		WAITCURSOR_START;
 		p11slot.p11()->C_CloseSession(session);
+		WAITCURSOR_END;
+	}
 }
 
 pkcs11_lib *pkcs11::load_lib(QString fname, bool silent)
 {
 	pkcs11_lib *l;
+	if (fname.isEmpty())
+		return NULL;
 	try {
 		l = libs.add_lib(fname);
 	} catch (errorEx &ex) {
@@ -139,6 +144,7 @@ void pkcs11::mechanismInfo(slotid slot, CK_MECHANISM_TYPE m, CK_MECHANISM_INFO *
 void pkcs11::logout()
 {
 	CK_RV rv;
+	p11slot.isValid();
 	WAITCURSOR_START;
 	rv = p11slot.p11()->C_Logout(session);
 	WAITCURSOR_END;
@@ -151,6 +157,7 @@ bool pkcs11::needsLogin(bool so)
 	CK_SESSION_INFO sinfo;
 	CK_RV rv;
 
+	p11slot.isValid();
 	WAITCURSOR_START;
 	rv = p11slot.p11()->C_GetSessionInfo(session, &sinfo);
 	WAITCURSOR_END;
@@ -185,6 +192,7 @@ void pkcs11::login(unsigned char *pin, unsigned long pinlen, bool so)
 	unsigned long user = so ? CKU_SO : CKU_USER;
 	CK_RV rv;
 
+	p11slot.isValid();
 	WAITCURSOR_START;
 	rv = p11slot.p11()->C_Login(session, user, pin, pinlen);
 	WAITCURSOR_END;
@@ -308,6 +316,7 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 void pkcs11::setPin(unsigned char *oldPin, unsigned long oldPinLen,
 	    unsigned char *pin, unsigned long pinLen)
 {
+	p11slot.isValid();
 	WAITCURSOR_START;
 	CK_RV rv = p11slot.p11()->C_SetPIN(session, oldPin, oldPinLen, pin, pinLen);
 	WAITCURSOR_END;
@@ -372,6 +381,7 @@ void pkcs11::initPin(slotid slot)
 				MAX_PASS_LENGTH, 0, &p);
 		pinp = newPin;
 	}
+	p11slot.isValid();
 	if (newPinLen != -1) {
 		WAITCURSOR_START;
 		CK_RV rv = p11slot.p11()->C_InitPIN(session,
@@ -414,11 +424,13 @@ tkInfo pkcs11::tokenInfo(slotid slot)
 
 void pkcs11::loadAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 {
+	p11slot.isValid();
 	attribute.load(p11slot, session, object);
 }
 
 void pkcs11::storeAttribute(pk11_attribute &attribute, CK_OBJECT_HANDLE object)
 {
+	p11slot.isValid();
 	attribute.store(p11slot, session, object);
 }
 
@@ -427,6 +439,7 @@ CK_OBJECT_HANDLE pkcs11::createObject(pk11_attlist &attrs)
 	CK_RV rv;
 	CK_OBJECT_HANDLE obj;
 
+	p11slot.isValid();
 	WAITCURSOR_START;
 	rv = p11slot.p11()->C_CreateObject(session, attrs.getAttributes(), attrs.length(), &obj);
 	WAITCURSOR_END;
@@ -440,6 +453,7 @@ int pkcs11::deleteObjects(QList<CK_OBJECT_HANDLE> objects)
 {
 	CK_RV rv;
 
+	p11slot.isValid();
 	for (int i=0; i< objects.count(); i++) {
 		WAITCURSOR_START;
 		rv = p11slot.p11()->C_DestroyObject(session, objects[i]);
@@ -499,6 +513,7 @@ pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
 		pk11_attr_bool(CKA_UNWRAP, true) <<
 		label << new_id;
 
+	p11slot.isValid();
 	WAITCURSOR_START;
 	rv = p11slot.p11()->C_GenerateKeyPair(session, &mechanism,
 		pub_atts.getAttributes(), pub_atts.length(),
@@ -521,6 +536,7 @@ QList<CK_OBJECT_HANDLE> pkcs11::objectList(pk11_attlist &atts)
 
 	att_num = atts.get(&attribute);
 
+	p11slot.isValid();
 	WAITCURSOR_START;
 	rv = p11slot.p11()->C_FindObjectsInit(session, attribute, att_num);
 	WAITCURSOR_END;
@@ -557,10 +573,12 @@ int pkcs11::decrypt(int flen, const unsigned char *from,
 	memset(&mech, 0, sizeof(mech));
 	mech.mechanism = CKM_RSA_PKCS;
 
+	WAITCURSOR_START;
 	rv = p11slot.p11()->C_DecryptInit(session, &mech, p11obj);
 	if (rv == CKR_OK)
-		rv = p11slot.p11()->C_Decrypt(session, (CK_BYTE *)from, flen, to, &size);
-
+		rv = p11slot.p11()->C_Decrypt(session, (CK_BYTE *)from,
+						flen, to, &size);
+	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		fprintf(stderr, "Error: C_Decrypt(init): %s\n",
 			pk11errorString(rv));
@@ -579,9 +597,12 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 	memset(&mech, 0, sizeof(mech));
 	mech.mechanism = CKM_RSA_PKCS;
 
+	WAITCURSOR_START;
 	rv = p11slot.p11()->C_SignInit(session, &mech, p11obj);
 	if (rv == CKR_OK)
-		rv = p11slot.p11()->C_Sign(session, (CK_BYTE *)from, flen, to, &size);
+		rv = p11slot.p11()->C_Sign(session, (CK_BYTE *)from,
+						flen, to, &size);
+	WAITCURSOR_END;
 	if (rv != CKR_OK) {
 		fprintf(stderr, "Error: C_Sign(init): %s\n",
 			pk11errorString(rv));
@@ -628,6 +649,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 	if (EVP_PKEY_type(pub->type) != EVP_PKEY_RSA)
 		return NULL;
 
+	p11slot.isValid();
 	rsa = RSAPublicKey_dup(pub->pkey.rsa);
 	openssl_error();
 	if (!ops) {

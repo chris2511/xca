@@ -8,6 +8,7 @@
 #ifndef __XCA_PKCS11_LIB_H
 #define __XCA_PKCS11_LIB_H
 
+#include "lib/exception.h"
 #include "opensc-pkcs11.h"
 #include <QtCore/QString>
 #include <QtCore/QList>
@@ -57,6 +58,11 @@ class slotid
 		lib = other.lib;
 		id = other.id;
 		return *this;
+	}
+	void isValid()
+	{
+		if (!lib)
+			throw errorEx("InternalError: slotid is invalid");
 	}
 	CK_FUNCTION_LIST *p11()
 	{
