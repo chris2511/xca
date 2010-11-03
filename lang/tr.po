@@ -1,28 +1,33 @@
+# Turkish translation for xca
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the xca package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: xca\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-08-24 07:29+0200\n"
-"PO-Revision-Date: 2010-10-05 22:26+0000\n"
-"Last-Translator: Mauro <Unknown>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2010-10-10 18:19+0000\n"
+"Last-Translator: zeugma <Unknown>\n"
+"Language-Team: Turkish <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-03 05:36+0000\n"
+"X-Launchpad-Export-Date: 2010-10-30 10:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: About#1
 msgid "Done"
-msgstr "Hecho"
+msgstr "Bitti"
 
 #: CaProperties#1
 msgid "CA Properties"
-msgstr "Propiedades de la CA"
+msgstr ""
 
 #: CaProperties#2
 msgid "Use random Serial numbers"
-msgstr "Usar números de Serie aleatorios"
+msgstr ""
 
 #: CaProperties#3
 msgid "Days until next CRL issuing"
@@ -30,7 +35,7 @@ msgstr ""
 
 #: CaProperties#4
 msgid "Default template"
-msgstr "Plantilla predeterminada"
+msgstr ""
 
 #: CaProperties#5
 msgid "Next serial for signing"
@@ -38,20 +43,20 @@ msgstr ""
 
 #: CertDetail#1
 msgid "Details of the Certificate"
-msgstr "Detalles del Certificado"
+msgstr ""
 
 #: CertDetail#2
 msgid "S&tatus"
-msgstr "Estado"
+msgstr "&Durum"
 
 #: CertDetail#3
 msgctxt "CertDetail#3"
 msgid "Serial"
-msgstr "Número de serie"
+msgstr "Seri"
 
 #: CertDetail#4
 msgid "The serial number of the certificate"
-msgstr "El número de serie del certificado"
+msgstr ""
 
 #: CertDetail#5
 msgid "The internal name of the certificate in the database"
@@ -60,17 +65,17 @@ msgstr ""
 #: CertDetail#6
 msgctxt "CertDetail#6"
 msgid "Internal name"
-msgstr ""
+msgstr "Dahili adı"
 
 #: CertDetail#7
 msgctxt "CertDetail#7"
 msgid "Signature algorithm"
-msgstr "Firma"
+msgstr ""
 
 #: CertDetail#8
 msgctxt "CertDetail#8"
 msgid "Signature"
-msgstr ""
+msgstr "İmza"
 
 #: CertDetail#9
 msgctxt "CertDetail#9"
@@ -79,15 +84,15 @@ msgstr ""
 
 #: CertDetail#10
 msgid "Fingerprints"
-msgstr ""
+msgstr "Parmak izleri"
 
 #: CertDetail#11
 msgid "SHA1"
-msgstr ""
+msgstr "SHA1"
 
 #: CertDetail#12
 msgid "MD5"
-msgstr ""
+msgstr "MD5"
 
 #: CertDetail#13
 msgid "A SHA-1 hashsum of the certificate"
@@ -100,7 +105,7 @@ msgstr ""
 #: CertDetail#15
 msgctxt "CertDetail#15"
 msgid "Validity"
-msgstr "Validez"
+msgstr "Geçerlilik"
 
 #: CertDetail#16
 msgid "The time since the certificate is valid"
@@ -112,7 +117,7 @@ msgstr ""
 
 #: CertDetail#18
 msgid "&Subject"
-msgstr ""
+msgstr "&Konu"
 
 #: CertDetail#19
 msgctxt "CertDetail#19"
@@ -130,7 +135,7 @@ msgstr ""
 
 #: CertDetail#22
 msgid "Show config"
-msgstr ""
+msgstr "Yapılandırmayı göster"
 
 #: CertDetail#23
 msgid "Show extensions"
@@ -172,11 +177,11 @@ msgstr ""
 
 #: CertDetail#32
 msgid "Valid"
-msgstr ""
+msgstr "Geçerli"
 
 #: CertDetail#33
 msgid "Details of the certificate signing request"
-msgstr "Detalles de la solicitud"
+msgstr ""
 
 #: CertExtend#1
 msgid "Certificate renewal"
@@ -191,7 +196,7 @@ msgstr ""
 #: CertExtend#3
 msgctxt "CertExtend#3"
 msgid "Validity"
-msgstr "Validez"
+msgstr "Geçerlilik"
 
 #: CertExtend#4
 msgctxt "CertExtend#4"
@@ -216,22 +221,22 @@ msgstr ""
 #: CertExtend#8
 msgctxt "CertExtend#8"
 msgid "Apply"
-msgstr ""
+msgstr "Uygula"
 
 #: CertExtend#9
 msgctxt "CertExtend#9"
 msgid "Days"
-msgstr ""
+msgstr "Gün"
 
 #: CertExtend#10
 msgctxt "CertExtend#10"
 msgid "Months"
-msgstr ""
+msgstr "Ay"
 
 #: CertExtend#11
 msgctxt "CertExtend#11"
 msgid "Years"
-msgstr ""
+msgstr "Yıl"
 
 #: CertExtend#12
 msgctxt "CertExtend#12"
@@ -291,16 +296,16 @@ msgstr ""
 
 #: CrlDetail#2
 msgid "&Status"
-msgstr ""
+msgstr "&Durum"
 
 #: CrlDetail#3
 msgid "Version"
-msgstr ""
+msgstr "Sürüm"
 
 #: CrlDetail#4
 msgctxt "CrlDetail#4"
 msgid "Signature"
-msgstr "Firma"
+msgstr "İmza"
 
 #: CrlDetail#5
 msgid "Signed by"
@@ -309,7 +314,7 @@ msgstr ""
 #: CrlDetail#6
 msgctxt "CrlDetail#6"
 msgid "Name"
-msgstr "Nombre"
+msgstr "İsim"
 
 #: CrlDetail#7
 msgid "The internal name of the CRL in the database"
@@ -325,7 +330,7 @@ msgstr ""
 
 #: CrlDetail#10
 msgid "Last Update"
-msgstr ""
+msgstr "Son Güncelleme"
 
 #: CrlDetail#11
 msgctxt "CrlDetail#11"
@@ -343,12 +348,12 @@ msgstr ""
 
 #: CrlDetail#14
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: CrlDetail#15
 msgctxt "CrlDetail#15"
 msgid "Serial"
-msgstr ""
+msgstr "Seri"
 
 #: CrlDetail#16
 msgctxt "CrlDetail#16"
@@ -365,7 +370,7 @@ msgstr ""
 
 #: CrlDetail#19
 msgid "Failed"
-msgstr ""
+msgstr "Başarısız"
 
 #: CrlDetail#20
 msgid "Unknown signer"
@@ -377,7 +382,7 @@ msgstr ""
 
 #: CrlDetail#22
 msgid "Unknown certificate"
-msgstr ""
+msgstr "Bilinmeyen sertifika"
 
 #: ExportCert#1
 msgid "X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )"
@@ -416,7 +421,7 @@ msgstr "..."
 
 #: ExportDialog#2
 msgid "Filename"
-msgstr ""
+msgstr "Dosya adı"
 
 #: ExportDialog#3
 msgid "Please enter the filename"
@@ -432,7 +437,7 @@ msgstr ""
 
 #: ExportDialog#6
 msgid "Overwrite"
-msgstr ""
+msgstr "Üzerine yaz"
 
 #: ExportDialog#7
 msgid "Do not overwrite"
@@ -468,13 +473,10 @@ msgid ""
 "PEM is a base64 encoded key with optional encryption\n"
 "PKCS#8 is an encrypted official Key-exchange format"
 msgstr ""
-"DER es un formato binario sin cifrado\n"
-"PEM es un formato texto bas64 con cifrado opcional\n"
-"PKCS#8 es un formato estandar de intercambio de claves"
 
 #: ExportKey#8
 msgid "Please enter the filename for the key."
-msgstr "Introduzca nombre de fichero que contendrá la clave."
+msgstr ""
 
 #: ExportKey#9
 msgid "Public key export"
@@ -482,20 +484,20 @@ msgstr ""
 
 #: ExportKey#10
 msgid "Key export"
-msgstr "Exportar clave"
+msgstr ""
 
 #: Help#1
 msgid "<<"
-msgstr ""
+msgstr "<<"
 
 #: Help#2
 msgid ">>"
-msgstr ""
+msgstr ">>"
 
 #: Help#3
 msgctxt "Help#3"
 msgid "&Done"
-msgstr ""
+msgstr "&Bitti"
 
 #: ImportMulti#1
 msgid "Import PKI Items"
@@ -513,15 +515,15 @@ msgstr ""
 #: ImportMulti#4
 msgctxt "ImportMulti#4"
 msgid "&Done"
-msgstr ""
+msgstr "&Bitti"
 
 #: ImportMulti#5
 msgid "&Remove"
-msgstr ""
+msgstr "&Kaldır"
 
 #: ImportMulti#6
 msgid "Details"
-msgstr ""
+msgstr "Detaylar"
 
 #: ImportMulti#7
 msgid "Delete from token"
@@ -566,7 +568,7 @@ msgstr ""
 #: KeyDetail#1
 msgctxt "KeyDetail#1"
 msgid "Name"
-msgstr "Nombre"
+msgstr "İsim"
 
 #: KeyDetail#2
 msgid "The internal name of the key used by xca"
@@ -584,7 +586,7 @@ msgstr ""
 #: KeyDetail#5
 msgctxt "KeyDetail#5"
 msgid "Serial"
-msgstr ""
+msgstr "Seri"
 
 #: KeyDetail#6
 msgctxt "KeyDetail#6"
@@ -593,20 +595,20 @@ msgstr ""
 
 #: KeyDetail#7
 msgid "Public Exponent"
-msgstr "Exponente público"
+msgstr ""
 
 #: KeyDetail#8
 msgctxt "KeyDetail#8"
 msgid "Keysize"
-msgstr "Tamaño de clave"
+msgstr ""
 
 #: KeyDetail#9
 msgid "Private Exponent"
-msgstr "Exponente secreto"
+msgstr ""
 
 #: KeyDetail#10
 msgid "Modulus"
-msgstr "Módulo"
+msgstr ""
 
 #: KeyDetail#11
 msgid "Details of the %1 key"
@@ -615,7 +617,7 @@ msgstr ""
 #: KeyDetail#12
 msgctxt "KeyDetail#12"
 msgid "Not available"
-msgstr "Disponible"
+msgstr ""
 
 #: KeyDetail#13
 msgid "Token"
@@ -627,7 +629,7 @@ msgstr ""
 
 #: KeyDetail#15
 msgid "Available"
-msgstr "Disponible"
+msgstr ""
 
 #: KeyDetail#16
 msgid "Sub prime"
@@ -640,7 +642,7 @@ msgstr ""
 #: KeyDetail#18
 msgctxt "KeyDetail#18"
 msgid "Private key"
-msgstr "Exponente secreto"
+msgstr ""
 
 #: KeyDetail#19
 msgid "Curve name"
@@ -665,7 +667,7 @@ msgstr ""
 #: MainWindow#4
 msgctxt "MainWindow#4"
 msgid "&Import"
-msgstr "Importar"
+msgstr ""
 
 #: MainWindow#5
 msgid "Import PFX (PKCS#12)"
@@ -677,7 +679,7 @@ msgstr ""
 
 #: MainWindow#7
 msgid "&Delete"
-msgstr ""
+msgstr "&Sil"
 
 #: MainWindow#8
 msgid "Certificate signing requests"
@@ -689,7 +691,7 @@ msgstr ""
 
 #: MainWindow#10
 msgid "Certificates"
-msgstr ""
+msgstr "Sertifikalar"
 
 #: MainWindow#11
 msgid "&New Certificate"
@@ -736,7 +738,7 @@ msgstr ""
 
 #: MainWindow#21
 msgid "Database"
-msgstr ""
+msgstr "Veri Tabanı"
 
 #: MainWindow#22
 msgid "No deleted items found"
@@ -744,7 +746,7 @@ msgstr ""
 
 #: MainWindow#23
 msgid "&File"
-msgstr ""
+msgstr "&Dosya"
 
 #: MainWindow#24
 msgid "&New DataBase"
@@ -784,7 +786,7 @@ msgstr ""
 
 #: MainWindow#33
 msgid "Exit"
-msgstr ""
+msgstr "Çıkış"
 
 #: MainWindow#34
 msgid "I&mport"
@@ -850,7 +852,7 @@ msgstr ""
 
 #: MainWindow#49
 msgid "&Help"
-msgstr ""
+msgstr "&Yardım"
 
 #: MainWindow#50
 msgid "&Content"
@@ -858,7 +860,7 @@ msgstr ""
 
 #: MainWindow#51
 msgid "&About"
-msgstr ""
+msgstr "&Hakkında"
 
 #: MainWindow#52
 msgid "Donations"
@@ -887,7 +889,7 @@ msgstr ""
 #: MainWindow#58
 msgctxt "MainWindow#58"
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "İptal"
 
 #: MainWindow#59
 msgid "no such option: %1"
@@ -915,7 +917,7 @@ msgstr ""
 
 #: MainWindow#65
 msgid "New Password"
-msgstr ""
+msgstr "Yeni Parola"
 
 #: MainWindow#66
 msgid ""
@@ -931,12 +933,12 @@ msgstr ""
 
 #: MainWindow#68
 msgid "Password verify error, please try again"
-msgstr "Contraeña incorrecta, inténtelo de nuevo"
+msgstr ""
 
 #: MainWindow#69
 msgctxt "MainWindow#69"
 msgid "Password"
-msgstr "Contraseña"
+msgstr "Parola"
 
 #: MainWindow#70
 msgid "Please enter the password for unlocking the database: '%1'"
@@ -992,17 +994,17 @@ msgstr ""
 #: NewCrl#5
 msgctxt "NewCrl#5"
 msgid "Days"
-msgstr ""
+msgstr "Gün"
 
 #: NewCrl#6
 msgctxt "NewCrl#6"
 msgid "Months"
-msgstr ""
+msgstr "Ay"
 
 #: NewCrl#7
 msgctxt "NewCrl#7"
 msgid "Years"
-msgstr ""
+msgstr "Yıl"
 
 #: NewCrl#8
 msgctxt "NewCrl#8"
@@ -1012,7 +1014,7 @@ msgstr ""
 #: NewCrl#9
 msgctxt "NewCrl#9"
 msgid "Apply"
-msgstr ""
+msgstr "Uygula"
 
 #: NewCrl#10
 msgid "Hashing algorithm"
@@ -1054,7 +1056,7 @@ msgstr ""
 #: NewKey#4
 msgctxt "NewKey#4"
 msgid "Name"
-msgstr "Nombre"
+msgstr "İsim"
 
 #: NewKey#5
 msgid "The internal name of the new key"
@@ -1063,7 +1065,7 @@ msgstr ""
 #: NewKey#6
 msgctxt "NewKey#6"
 msgid "New Key"
-msgstr "Nueva clave"
+msgstr ""
 
 #: NewKey#7
 msgid "Curve"
@@ -1072,7 +1074,7 @@ msgstr ""
 #: NewKey#8
 msgctxt "NewKey#8"
 msgid "Keysize"
-msgstr "Tamaño de clave"
+msgstr ""
 
 #: NewKey#9
 msgid "Usually 1024 or 2048 bit keys are used"
@@ -1085,16 +1087,16 @@ msgstr ""
 #: NewKey#11
 msgctxt "NewKey#11"
 msgid "Create"
-msgstr ""
+msgstr "Oluştur"
 
 #: NewX509#1
 msgctxt "NewX509#1"
 msgid "Create"
-msgstr ""
+msgstr "Oluştur"
 
 #: NewX509#2
 msgid "Source"
-msgstr ""
+msgstr "Kaynak"
 
 #: NewX509#3
 msgid "Signing request"
@@ -1140,7 +1142,7 @@ msgstr ""
 
 #: NewX509#12
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: NewX509#13
 msgid "Use &this Certificate for signing"
@@ -1160,7 +1162,7 @@ msgstr ""
 #: NewX509#16
 msgctxt "NewX509#16"
 msgid "Signature algorithm"
-msgstr "Firma"
+msgstr ""
 
 #: NewX509#17
 msgid "Template for the new certificate"
@@ -1189,11 +1191,11 @@ msgstr ""
 #: NewX509#23
 msgctxt "NewX509#23"
 msgid "Subject"
-msgstr "Sujeto"
+msgstr "Konu"
 
 #: NewX509#24
 msgid "Organisation"
-msgstr ""
+msgstr "Organizasyon"
 
 #: NewX509#25
 msgid ""
@@ -1207,7 +1209,7 @@ msgstr ""
 
 #: NewX509#27
 msgid "Country code"
-msgstr ""
+msgstr "Ülke kodu"
 
 #: NewX509#28
 msgid "State or Province"
@@ -1223,12 +1225,12 @@ msgstr ""
 
 #: NewX509#31
 msgid "E-Mail address"
-msgstr ""
+msgstr "E-posta adresi"
 
 #: NewX509#32
 msgctxt "NewX509#32"
 msgid "Internal name"
-msgstr ""
+msgstr "Dahili adı"
 
 #: NewX509#33
 msgid "Common name"
@@ -1237,17 +1239,17 @@ msgstr ""
 #: NewX509#34
 msgctxt "NewX509#34"
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: NewX509#35
 msgctxt "NewX509#35"
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: NewX509#36
 msgctxt "NewX509#36"
 msgid "Private key"
-msgstr "Exponente secreto"
+msgstr ""
 
 #: NewX509#37
 msgid "This list only contains unused keys"
@@ -1273,7 +1275,7 @@ msgstr ""
 #: NewX509#42
 msgctxt "NewX509#42"
 msgid "Type"
-msgstr ""
+msgstr "Tür"
 
 #: NewX509#43
 msgid "If this will become a CA certificate or not"
@@ -1345,7 +1347,7 @@ msgstr ""
 #: NewX509#56
 msgctxt "NewX509#56"
 msgid "Validity"
-msgstr "Validez"
+msgstr ""
 
 #: NewX509#57
 msgctxt "NewX509#57"
@@ -1365,22 +1367,22 @@ msgstr ""
 #: NewX509#60
 msgctxt "NewX509#60"
 msgid "Days"
-msgstr ""
+msgstr "Gün"
 
 #: NewX509#61
 msgctxt "NewX509#61"
 msgid "Months"
-msgstr ""
+msgstr "Ay"
 
 #: NewX509#62
 msgctxt "NewX509#62"
 msgid "Years"
-msgstr ""
+msgstr "Yıl"
 
 #: NewX509#63
 msgctxt "NewX509#63"
 msgid "Apply"
-msgstr ""
+msgstr "Uygula"
 
 #: NewX509#64
 msgid "Set the time to 00:00:00 and 23:59:59 respectively"
@@ -1435,7 +1437,7 @@ msgstr ""
 
 #: NewX509#73
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: NewX509#74
 msgid "DNS: IP: URI: email: RID:"
@@ -1529,7 +1531,7 @@ msgstr ""
 
 #: NewX509#90
 msgid "Advanced"
-msgstr ""
+msgstr "Gelişmiş"
 
 #: NewX509#91
 msgctxt "NewX509#91"
@@ -1582,7 +1584,7 @@ msgstr ""
 
 #: NewX509#103
 msgid "Errors"
-msgstr ""
+msgstr "Hatalar"
 
 #: NewX509#104
 msgctxt "NewX509#104"
@@ -1620,7 +1622,7 @@ msgstr ""
 
 #: NewX509#111
 msgid "Edit name"
-msgstr ""
+msgstr "İsmi Düzenle"
 
 #: NewX509#112
 msgid "There is no Key selected for signing."
@@ -1754,7 +1756,7 @@ msgstr ""
 #: PassRead#1
 msgctxt "PassRead#1"
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: PassRead#2
 msgctxt "PassRead#2"
@@ -1771,7 +1773,7 @@ msgstr ""
 #: PassWrite#1
 msgctxt "PassWrite#1"
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: PassWrite#2
 msgctxt "PassWrite#2"
@@ -2078,7 +2080,7 @@ msgstr ""
 #: db_crl#11
 msgctxt "db_crl#11"
 msgid "Import"
-msgstr "Importar"
+msgstr ""
 
 #: db_crl#12
 msgctxt "db_crl#12"
@@ -2111,7 +2113,7 @@ msgstr ""
 #: db_key#4
 msgctxt "db_key#4"
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: db_key#5
 msgid ""
@@ -2144,12 +2146,12 @@ msgstr ""
 #: db_key#10
 msgctxt "db_key#10"
 msgid "New Key"
-msgstr "Nueva clave"
+msgstr ""
 
 #: db_key#11
 msgctxt "db_key#11"
 msgid "Import"
-msgstr "Importar"
+msgstr ""
 
 #: db_key#12
 msgctxt "db_key#12"
@@ -2169,7 +2171,7 @@ msgstr ""
 #: db_key#15
 msgctxt "db_key#15"
 msgid "Export"
-msgstr "Importar"
+msgstr ""
 
 #: db_key#16
 msgid "Change password"
@@ -2247,7 +2249,7 @@ msgstr ""
 #: db_temp#9
 msgctxt "db_temp#9"
 msgid "Import"
-msgstr "Importar"
+msgstr ""
 
 #: db_temp#10
 msgctxt "db_temp#10"
@@ -2257,7 +2259,7 @@ msgstr ""
 #: db_temp#11
 msgctxt "db_temp#11"
 msgid "Export"
-msgstr "Importar"
+msgstr ""
 
 #: db_temp#12
 msgid "Change"
@@ -2370,7 +2372,7 @@ msgstr ""
 #: db_x509#21
 msgctxt "db_x509#21"
 msgid "Import"
-msgstr "Importar"
+msgstr ""
 
 #: db_x509#22
 msgid "Import PKCS#12"
@@ -2398,7 +2400,7 @@ msgstr ""
 #: db_x509#27
 msgctxt "db_x509#27"
 msgid "Export"
-msgstr "Importar"
+msgstr ""
 
 #: db_x509#28
 msgctxt "db_x509#28"
@@ -2452,7 +2454,7 @@ msgstr ""
 #: db_x509#39
 msgctxt "db_x509#39"
 msgid "Sign"
-msgstr "Firma"
+msgstr ""
 
 #: db_x509#40
 msgid "Encrypt"
@@ -2489,7 +2491,7 @@ msgstr ""
 #: db_x509name#1
 msgctxt "db_x509name#1"
 msgid "Subject"
-msgstr "Sujeto"
+msgstr ""
 
 #: db_x509name#2
 msgid "Complete distinguished name"
@@ -2506,7 +2508,7 @@ msgstr ""
 #: db_x509req#1
 msgctxt "db_x509req#1"
 msgid "Signed"
-msgstr "Firma"
+msgstr ""
 
 #: db_x509req#2
 msgid "whether the request is already signed or not"
@@ -2542,7 +2544,7 @@ msgstr ""
 #: db_x509req#9
 msgctxt "db_x509req#9"
 msgid "Import"
-msgstr "Importar"
+msgstr ""
 
 #: db_x509req#10
 msgctxt "db_x509req#10"
@@ -2552,7 +2554,7 @@ msgstr ""
 #: db_x509req#11
 msgctxt "db_x509req#11"
 msgid "Rename"
-msgstr "Nombre"
+msgstr ""
 
 #: db_x509req#12
 msgctxt "db_x509req#12"
@@ -2562,12 +2564,12 @@ msgstr ""
 #: db_x509req#13
 msgctxt "db_x509req#13"
 msgid "Sign"
-msgstr "Firma"
+msgstr ""
 
 #: db_x509req#14
 msgctxt "db_x509req#14"
 msgid "Export"
-msgstr "Importar"
+msgstr ""
 
 #: db_x509req#15
 msgctxt "db_x509req#15"
@@ -2608,7 +2610,7 @@ msgstr ""
 #: pass_info#1
 msgctxt "pass_info#1"
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: pass_info#2
 msgctxt "pass_info#2"
@@ -3000,7 +3002,7 @@ msgstr ""
 #: v3ext#5
 msgctxt "v3ext#5"
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr ""
 
 #: v3ext#6
 msgid "An email address or 'copy'"
@@ -3056,131 +3058,3 @@ msgstr ""
 msgctxt "void#2"
 msgid "Import Certificate signing request"
 msgstr ""
-
-#~ msgctxt "ExportCert#6"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "ExportDer#1"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "ExportDer#2"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "ExportKey#4"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "NewCrl#16"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "NewX509#78"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "Options#8"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "Options#10"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "db_crl#1"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "db_key#11"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "db_temp#1"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "db_x509req#12"
-#~ msgid "Subject"
-#~ msgstr "Sujeto"
-
-#~ msgctxt "CertDetail#18"
-#~ msgid "&Subject"
-#~ msgstr "Sujeto"
-
-#~ msgctxt "CertDetail#23"
-#~ msgid "Not available"
-#~ msgstr "Disponible"
-
-#~ msgctxt "ReqDetail#5"
-#~ msgid "Private key"
-#~ msgstr "Exponente secreto"
-
-#~ msgctxt "ReqDetail#6"
-#~ msgid "Signature algorithm"
-#~ msgstr "Firma"
-
-#~ msgctxt "ReqDetail#7"
-#~ msgid "Signature"
-#~ msgstr "Firma"
-
-#~ msgctxt "ReqDetail#8"
-#~ msgid "&Subject"
-#~ msgstr "Sujeto"
-
-#~ msgctxt "ReqDetail#11"
-#~ msgid "Not available"
-#~ msgstr "Disponible"
-
-#~ msgctxt "CertExtend#2"
-#~ msgid "Validity"
-#~ msgstr "Validez"
-
-#~ msgctxt "ExportDialog#1"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "KeyDetail#3"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "MainWindow#47"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "NewKey#5"
-#~ msgid "Keysize"
-#~ msgstr "Tamaño de clave"
-
-#~ msgctxt "NewX509#46"
-#~ msgid "Validity"
-#~ msgstr "Validez"
-
-#~ msgctxt "ReqDetail#8"
-#~ msgid "Signature"
-#~ msgstr "Firma"
-
-#~ msgctxt "db_key#2"
-#~ msgid "New Key"
-#~ msgstr "Nueva clave"
-
-#~ msgctxt "db_key#3"
-#~ msgid "Import"
-#~ msgstr "Importar"
-
-#~ msgctxt "db_key#15"
-#~ msgid "Password"
-#~ msgstr "Contraseña"
-
-#~ msgctxt "db_temp#8"
-#~ msgid "Import"
-#~ msgstr "Importar"
-
-#~ msgctxt "db_x509#18"
-#~ msgid "Import"
-#~ msgstr "Importar"
-
-#~ msgctxt "db_x509req#4"
-#~ msgid "Import"
-#~ msgstr "Importar"

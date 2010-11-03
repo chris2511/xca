@@ -339,7 +339,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+919"/>
+        <location filename="../lib/db_x509.cpp" line="+921"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Не найден ключ для сетификата: </translation>
     </message>
@@ -932,7 +932,7 @@ Serial: %3</source>
         <translation>Неверный пароль, попробуйте еще раз</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+34"/>
+        <location filename="../widgets/MW_menu.cpp" line="+36"/>
         <source>&amp;Close DataBase</source>
         <translation>&amp;Закрыть базу данных</translation>
     </message>
@@ -947,12 +947,12 @@ Serial: %3</source>
         <translation>&amp;О программе</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-59"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+56"/>
         <source>&amp;Help</source>
         <translation>&amp;Помощь</translation>
     </message>
@@ -1217,7 +1217,7 @@ Serial: %3</source>
         <translation>Hex пароль должен содержать символы &apos;0 &apos;- &apos;9&apos; и &apos;a&apos; - &apos;f&apos; и должен состоять из четного числа символов</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-103"/>
+        <location filename="../widgets/MW_menu.cpp" line="-105"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Новая база данных</translation>
     </message>
@@ -1227,7 +1227,7 @@ Serial: %3</source>
         <translation>&amp;Открыть базу данных</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+44"/>
         <source>&amp;Init Security token</source>
         <translation>&amp;Инициализировать Токен</translation>
     </message>
@@ -1307,9 +1307,14 @@ Serial: %3</source>
         <translation type="unfinished">Ошибка открытия файла: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-15"/>
+        <location filename="../widgets/MW_menu.cpp" line="-17"/>
         <source>Generate DH parameter</source>
         <translation type="unfinished">Создать DH параметр</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Set as default DataBase</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2286,7 +2291,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Все строки</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+91"/>
         <source>Load failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2515,7 +2520,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+210"/>
+        <location filename="../lib/pkcs11.cpp" line="+234"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2556,7 +2561,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>Please enter the new SO PIN (PUK) for the token: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2734,12 +2739,12 @@ In library %3
         <translation type="obsolete">Успешно создан %1 &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="+27"/>
+        <location filename="../lib/db_base.cpp" line="+28"/>
         <source>Internal name</source>
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+616"/>
+        <location line="+638"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2810,7 +2815,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+86"/>
         <source>Import</source>
         <translation>Импорт</translation>
     </message>
@@ -2826,11 +2831,21 @@ In library %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation type="unfinished">Файл</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-130"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3080,7 +3095,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="obsolete">Общее имя</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-892"/>
+        <location filename="../lib/db_x509.cpp" line="-894"/>
         <source>Serial</source>
         <translation type="unfinished">Серийный номер</translation>
     </message>
@@ -3201,6 +3216,11 @@ and will be completed by the new, private part of the key</source>
     </message>
     <message>
         <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -3220,8 +3240,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">Доверие</translation>
     </message>
     <message>
-        <location line="-613"/>
-        <location line="+615"/>
+        <location line="-615"/>
+        <location line="+617"/>
         <source>CA</source>
         <translation>ЦС</translation>
     </message>
@@ -3295,14 +3315,14 @@ and will be completed by the new, private part of the key</source>
         <translation type="obsolete">Удалить сертификат &apos;%1&apos; ?</translation>
     </message>
     <message>
-        <location line="-311"/>
+        <location line="-313"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+439"/>
+        <location line="+441"/>
         <location line="+33"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
@@ -3313,12 +3333,12 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-242"/>
+        <location line="-244"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+72"/>
         <source>Other token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3359,7 +3379,7 @@ and so it was not imported</source>
         <translation type="unfinished">Экспорт запроса на сертификат</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+40"/>
         <source>New Request</source>
         <translation>Новый запрос</translation>
     </message>
@@ -3394,7 +3414,12 @@ and so it was not imported</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
@@ -3407,7 +3432,7 @@ and so it was not imported</source>
         <translation type="obsolete">Владелец</translation>
     </message>
     <message>
-        <location line="-164"/>
+        <location line="-165"/>
         <source>Signed</source>
         <translation type="unfinished">Подписанный</translation>
     </message>
@@ -3427,7 +3452,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+160"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -3437,7 +3462,7 @@ and so it was not imported</source>
         <translation>Шаблон</translation>
     </message>
     <message>
-        <location line="-142"/>
+        <location line="-143"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
@@ -3522,12 +3547,12 @@ and thus was not stored</source>
         <translation>Данного издателя несуществует</translation>
     </message>
     <message>
-        <location line="+215"/>
+        <location line="+223"/>
         <source>unknown</source>
         <translation>неизвестный</translation>
     </message>
     <message>
-        <location line="-237"/>
+        <location line="-245"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Не удается загрузить список отзыва сертификатов из файла %1. Формат файла, содержащий CRL должен быть PEM или DER.</translation>
     </message>
@@ -3553,7 +3578,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+95"/>
-        <location line="+189"/>
+        <location line="+197"/>
         <source>Wrong Size %1</source>
         <translation>Неправильный размер %1</translation>
     </message>
@@ -3899,7 +3924,7 @@ and thus was not stored</source>
         <translation>Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+426"/>
+        <location line="+434"/>
         <source>Not trusted</source>
         <translation>Доверия нет</translation>
     </message>
@@ -3924,7 +3949,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-332"/>
+        <location line="-340"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished">Не существует ключа для подписания !</translation>
     </message>
@@ -3943,7 +3968,7 @@ and thus was not stored</source>
         <translation>Этот сертификат уже есть на Токене</translation>
     </message>
     <message>
-        <location line="+501"/>
+        <location line="+509"/>
         <source>CRL expires: %1</source>
         <translation type="unfinished">CRL истекает: %1</translation>
     </message>
@@ -3952,8 +3977,8 @@ and thus was not stored</source>
         <translation type="obsolete">Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="-279"/>
-        <location line="+407"/>
+        <location line="-287"/>
+        <location line="+415"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>
@@ -3999,7 +4024,7 @@ and thus was not stored</source>
         <translation type="unfinished">Не удается загрузить запрос на создание сертификата из файла %1. Формат файла должен быть PEM или DER.</translation>
     </message>
     <message>
-        <location line="+269"/>
+        <location line="+277"/>
         <source>Signed</source>
         <translation>Подписан</translation>
     </message>

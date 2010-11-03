@@ -155,4 +155,4 @@ SOURCES += lib/asn1int.cpp \
            widgets/MW_menu.cpp \
            widgets/NewCrl.cpp \
            widgets/kvView.cpp
-TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts
+TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts

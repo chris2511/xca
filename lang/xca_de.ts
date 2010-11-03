@@ -338,7 +338,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+919"/>
+        <location filename="../lib/db_x509.cpp" line="+921"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -957,7 +957,7 @@ Seriennummer: %3</translation>
         <translation>In die Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+34"/>
+        <location filename="../widgets/MW_menu.cpp" line="+36"/>
         <source>&amp;Close DataBase</source>
         <translation>Datenbank s&amp;chliessen</translation>
     </message>
@@ -972,12 +972,12 @@ Seriennummer: %3</translation>
         <translation>Ü&amp;ber</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-59"/>
         <source>&amp;File</source>
         <translation>D&amp;atei</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+56"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
@@ -1218,7 +1218,7 @@ Seriennummer: %3</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-103"/>
+        <location filename="../widgets/MW_menu.cpp" line="-105"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Neue Datenbank</translation>
     </message>
@@ -1228,7 +1228,7 @@ Seriennummer: %3</translation>
         <translation>Datenbank &amp;Öffnen</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+44"/>
         <source>&amp;Init Security token</source>
         <translation>Chipkarte &amp;initialisieren</translation>
     </message>
@@ -1308,9 +1308,14 @@ Seriennummer: %3</translation>
         <translation>Öffnen der Datei &apos;%1&apos; fehlgeschlagen: %2</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-15"/>
+        <location filename="../widgets/MW_menu.cpp" line="-17"/>
         <source>Generate DH parameter</source>
         <translation>DH Parameter erstellen</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Set as default DataBase</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2285,7 +2290,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+91"/>
         <source>Load failed</source>
         <translation>Laden fehlgeschlagen</translation>
     </message>
@@ -2533,7 +2538,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Datenbank: Schreibfehler %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+210"/>
+        <location filename="../lib/pkcs11.cpp" line="+234"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Bitte die PIN am Lesegerät eingeben</translation>
     </message>
@@ -2574,7 +2579,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Auswählen</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+22"/>
         <source>Please enter the new SO PIN (PUK) for the token: &apos;%1&apos;</source>
         <translation>Bitte die neue SO PIN (PUK) für die Chipkarte &apos;%1&apos; eingeben</translation>
     </message>
@@ -2758,12 +2763,12 @@ in Bibliothek %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+27"/>
+        <location filename="../lib/db_base.cpp" line="+28"/>
         <source>Internal name</source>
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+616"/>
+        <location line="+638"/>
         <source>Reset</source>
         <translation>Reset</translation>
     </message>
@@ -2834,7 +2839,7 @@ in Bibliothek %3
         <translation>Rücknahmeliste exportieren</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+86"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
@@ -2850,11 +2855,21 @@ in Bibliothek %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation type="unfinished">Datei</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-130"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3103,7 +3118,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation type="obsolete">Üblicher Name</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-892"/>
+        <location filename="../lib/db_x509.cpp" line="-894"/>
         <source>Serial</source>
         <translation>Seriennummer</translation>
     </message>
@@ -3219,6 +3234,11 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
     </message>
     <message>
         <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -3238,18 +3258,18 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Vertrauen</translation>
     </message>
     <message>
-        <location line="-613"/>
-        <location line="+615"/>
+        <location line="-615"/>
+        <location line="+617"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-614"/>
+        <location line="-616"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Zeigt den Inhalt der basic constraints erweiterung</translation>
     </message>
     <message>
-        <location line="+615"/>
+        <location line="+617"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
@@ -3314,7 +3334,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Von der Chipkarte löschen</translation>
     </message>
     <message>
-        <location line="-311"/>
+        <location line="-313"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3323,7 +3343,7 @@ and so it was not imported</source>
 und wurde daher nicht importiert</translation>
     </message>
     <message>
-        <location line="+439"/>
+        <location line="+441"/>
         <location line="+33"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Es wurde kein Schlüssel für das Zertifikat: &apos;%1&apos; gefunden</translation>
@@ -3338,12 +3358,12 @@ und wurde daher nicht importiert</translation>
         <translation>Nicht möglich für das Chipkartenzertifikat &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-242"/>
+        <location line="-244"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Soll das Zertifikat zum privaten Schlüssel auf der Chipkarte &apos;%1&apos; mit der Seriennummer %2 abgelegt werden ?</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+72"/>
         <source>Other token</source>
         <translation>Andere Chipkarte</translation>
     </message>
@@ -3384,7 +3404,7 @@ und wurde daher nicht importiert</translation>
         <translation>Zertifikatsantrag exportieren</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+40"/>
         <source>New Request</source>
         <translation>Neuer Zertifikatsantrag</translation>
     </message>
@@ -3419,7 +3439,12 @@ und wurde daher nicht importiert</translation>
         <translation>Export</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
@@ -3432,7 +3457,7 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Inhaber</translation>
     </message>
     <message>
-        <location line="-164"/>
+        <location line="-165"/>
         <source>Signed</source>
         <translation>Signiert</translation>
     </message>
@@ -3452,7 +3477,7 @@ und wurde daher nicht importiert</translation>
         <translation>Challange password</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+160"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -3462,7 +3487,7 @@ und wurde daher nicht importiert</translation>
         <translation>Vorlage</translation>
     </message>
     <message>
-        <location line="-142"/>
+        <location line="-143"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
@@ -3556,12 +3581,12 @@ und wurde daher nicht importiert</translation>
         <translation>Keine Austeller angegeben</translation>
     </message>
     <message>
-        <location line="+215"/>
+        <location line="+223"/>
         <source>unknown</source>
         <translation>unbekannt</translation>
     </message>
     <message>
-        <location line="-237"/>
+        <location line="-245"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
@@ -3572,7 +3597,7 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="+99"/>
-        <location line="+189"/>
+        <location line="+197"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
@@ -3881,7 +3906,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+768"/>
+        <location filename="../lib/pki_x509.cpp" line="+776"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -3896,7 +3921,7 @@ und wurde daher nicht importiert</translation>
         <translation>Immer Vertraut</translation>
     </message>
     <message>
-        <location line="-301"/>
+        <location line="-309"/>
         <source>There is no key for signing !</source>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
@@ -3931,7 +3956,7 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+441"/>
+        <location line="+449"/>
         <source>CRL expires: %1</source>
         <translation>CRL ungültig ab: %1</translation>
     </message>
@@ -3950,13 +3975,13 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
     <message>
-        <location line="-730"/>
+        <location line="-738"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
         <location line="+435"/>
-        <location line="+407"/>
+        <location line="+415"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
@@ -3994,7 +4019,7 @@ und wurde daher nicht importiert</translation>
         <translation>Konnte den Zertifikatsantrag aus der Datei %1 nicht laden. Versuchte Formate PEM, DER und SPKAC.</translation>
     </message>
     <message>
-        <location line="+269"/>
+        <location line="+277"/>
         <source>Signed</source>
         <translation>Signiert</translation>
     </message>

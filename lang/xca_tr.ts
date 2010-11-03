@@ -5,18 +5,18 @@
     <name>About</name>
     <message>
         <source>Done</source>
-        <translation>Hecho</translation>
+        <translation>Bitti</translation>
     </message>
 </context>
 <context>
     <name>CaProperties</name>
     <message>
         <source>CA Properties</source>
-        <translation>Propiedades de la CA</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use random Serial numbers</source>
-        <translation>Usar números de Serie aleatorios</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Days until next CRL issuing</source>
@@ -24,7 +24,7 @@
     </message>
     <message>
         <source>Default template</source>
-        <translation>Plantilla predeterminada</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next serial for signing</source>
@@ -35,19 +35,19 @@
     <name>CertDetail</name>
     <message>
         <source>Details of the Certificate</source>
-        <translation>Detalles del Certificado</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>S&amp;tatus</source>
-        <translation>Estado</translation>
+        <translation>&amp;Durum</translation>
     </message>
     <message>
         <source>Serial</source>
-        <translation>Número de serie</translation>
+        <translation>Seri</translation>
     </message>
     <message>
         <source>The serial number of the certificate</source>
-        <translation>El número de serie del certificado</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The internal name of the certificate in the database</source>
@@ -55,15 +55,15 @@
     </message>
     <message>
         <source>Internal name</source>
-        <translation type="unfinished"></translation>
+        <translation>Dahili adı</translation>
     </message>
     <message>
         <source>Signature algorithm</source>
-        <translation>Firma</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Signature</source>
-        <translation type="unfinished">Firma</translation>
+        <translation>İmza</translation>
     </message>
     <message>
         <source>Key</source>
@@ -71,15 +71,15 @@
     </message>
     <message>
         <source>Fingerprints</source>
-        <translation type="unfinished"></translation>
+        <translation>Parmak izleri</translation>
     </message>
     <message>
         <source>SHA1</source>
-        <translation type="unfinished"></translation>
+        <translation>SHA1</translation>
     </message>
     <message>
         <source>MD5</source>
-        <translation type="unfinished"></translation>
+        <translation>MD5</translation>
     </message>
     <message>
         <source>A SHA-1 hashsum of the certificate</source>
@@ -91,7 +91,7 @@
     </message>
     <message>
         <source>Validity</source>
-        <translation>Validez</translation>
+        <translation>Geçerlilik</translation>
     </message>
     <message>
         <source>The time since the certificate is valid</source>
@@ -103,7 +103,7 @@
     </message>
     <message>
         <source>&amp;Subject</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Konu</translation>
     </message>
     <message>
         <source>&amp;Issuer</source>
@@ -119,7 +119,7 @@
     </message>
     <message>
         <source>Show config</source>
-        <translation type="unfinished"></translation>
+        <translation>Yapılandırmayı göster</translation>
     </message>
     <message>
         <source>Show extensions</source>
@@ -127,7 +127,7 @@
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished">Disponible</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Details of the certificate</source>
@@ -159,11 +159,11 @@
     </message>
     <message>
         <source>Valid</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçerli</translation>
     </message>
     <message>
         <source>Details of the certificate signing request</source>
-        <translation>Detalles de la solicitud</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -178,7 +178,7 @@
     </message>
     <message>
         <source>Validity</source>
-        <translation>Validez</translation>
+        <translation>Geçerlilik</translation>
     </message>
     <message>
         <source>Not before</source>
@@ -198,19 +198,19 @@
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Ay</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <source>Midnight</source>
@@ -267,15 +267,15 @@
     </message>
     <message>
         <source>&amp;Status</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Durum</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Sürüm</translation>
     </message>
     <message>
         <source>Signature</source>
-        <translation>Firma</translation>
+        <translation>İmza</translation>
     </message>
     <message>
         <source>Signed by</source>
@@ -283,7 +283,7 @@
     </message>
     <message>
         <source>Name</source>
-        <translation>Nombre</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <source>The internal name of the CRL in the database</source>
@@ -299,7 +299,7 @@
     </message>
     <message>
         <source>Last Update</source>
-        <translation type="unfinished"></translation>
+        <translation>Son Güncelleme</translation>
     </message>
     <message>
         <source>&amp;Issuer</source>
@@ -315,11 +315,11 @@
     </message>
     <message>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <source>Serial</source>
-        <translation type="unfinished">Número de serie</translation>
+        <translation>Seri</translation>
     </message>
     <message>
         <source>Revocation</source>
@@ -335,7 +335,7 @@
     </message>
     <message>
         <source>Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Başarısız</translation>
     </message>
     <message>
         <source>Unknown signer</source>
@@ -347,7 +347,7 @@
     </message>
     <message>
         <source>Unknown certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilinmeyen sertifika</translation>
     </message>
 </context>
 <context>
@@ -394,7 +394,7 @@ PEM is a base64 encoded DER file
     </message>
     <message>
         <source>Filename</source>
-        <translation type="unfinished"></translation>
+        <translation>Dosya adı</translation>
     </message>
     <message>
         <source>Please enter the filename</source>
@@ -410,7 +410,7 @@ PEM is a base64 encoded DER file
     </message>
     <message>
         <source>Overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Üzerine yaz</translation>
     </message>
     <message>
         <source>Do not overwrite</source>
@@ -447,13 +447,11 @@ PEM is a base64 encoded DER file
         <source>DER is a binary format of the key without encryption
 PEM is a base64 encoded key with optional encryption
 PKCS#8 is an encrypted official Key-exchange format</source>
-        <translation>DER es un formato binario sin cifrado
-PEM es un formato texto bas64 con cifrado opcional
-PKCS#8 es un formato estandar de intercambio de claves</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Please enter the filename for the key.</source>
-        <translation>Introduzca nombre de fichero que contendrá la clave.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Public key export</source>
@@ -461,22 +459,22 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>Key export</source>
-        <translation>Exportar clave</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Help</name>
     <message>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bitti</translation>
     </message>
 </context>
 <context>
@@ -491,19 +489,19 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bitti</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kaldır</translation>
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detaylar</translation>
     </message>
     <message>
         <source>Delete from token</source>
@@ -549,7 +547,7 @@ Serial: %3</source>
     <name>KeyDetail</name>
     <message>
         <source>Name</source>
-        <translation>Nombre</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <source>The internal name of the key used by xca</source>
@@ -565,7 +563,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Serial</source>
-        <translation type="unfinished">Número de serie</translation>
+        <translation>Seri</translation>
     </message>
     <message>
         <source>Key</source>
@@ -573,19 +571,19 @@ Serial: %3</source>
     </message>
     <message>
         <source>Public Exponent</source>
-        <translation>Exponente público</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Keysize</source>
-        <translation>Tamaño de clave</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Private Exponent</source>
-        <translation>Exponente secreto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Modulus</source>
-        <translation>Módulo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Details of the %1 key</source>
@@ -593,7 +591,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Not available</source>
-        <translation>Disponible</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Token</source>
@@ -605,7 +603,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Available</source>
-        <translation>Disponible</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Sub prime</source>
@@ -617,7 +615,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Private key</source>
-        <translation>Exponente secreto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Curve name</source>
@@ -644,7 +642,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import PFX (PKCS#12)</source>
@@ -656,7 +654,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sil</translation>
     </message>
     <message>
         <source>Certificate signing requests</source>
@@ -668,7 +666,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifikalar</translation>
     </message>
     <message>
         <source>&amp;New Certificate</source>
@@ -712,7 +710,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Database</source>
-        <translation type="unfinished"></translation>
+        <translation>Veri Tabanı</translation>
     </message>
     <message>
         <source>No deleted items found</source>
@@ -720,7 +718,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dosya</translation>
     </message>
     <message>
         <source>&amp;New DataBase</source>
@@ -760,7 +758,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Çıkış</translation>
     </message>
     <message>
         <source>I&amp;mport</source>
@@ -824,7 +822,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yardım</translation>
     </message>
     <message>
         <source>&amp;Content</source>
@@ -832,7 +830,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hakkında</translation>
     </message>
     <message>
         <source>Donations</source>
@@ -860,7 +858,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <source>no such option: %1</source>
@@ -888,7 +886,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>New Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni Parola</translation>
     </message>
     <message>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
@@ -900,11 +898,11 @@ Serial: %3</source>
     </message>
     <message>
         <source>Password verify error, please try again</source>
-        <translation>Contraeña incorrecta, inténtelo de nuevo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Contraseña</translation>
+        <translation>Parola</translation>
     </message>
     <message>
         <source>Please enter the password for unlocking the database: &apos;%1&apos;</source>
@@ -963,15 +961,15 @@ Serial: %3</source>
     </message>
     <message>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Ay</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <source>Midnight</source>
@@ -979,7 +977,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <source>Hashing algorithm</source>
@@ -1022,7 +1020,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Name</source>
-        <translation>Nombre</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <source>The internal name of the new key</source>
@@ -1030,7 +1028,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>New Key</source>
-        <translation>Nueva clave</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Curve</source>
@@ -1038,7 +1036,7 @@ Serial: %3</source>
     </message>
     <message>
         <source>Keysize</source>
-        <translation>Tamaño de clave</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Usually 1024 or 2048 bit keys are used</source>
@@ -1050,18 +1048,18 @@ Serial: %3</source>
     </message>
     <message>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Oluştur</translation>
     </message>
 </context>
 <context>
     <name>NewX509</name>
     <message>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Oluştur</translation>
     </message>
     <message>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaynak</translation>
     </message>
     <message>
         <source>Signing request</source>
@@ -1103,7 +1101,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
     </message>
     <message>
         <source>1</source>
-        <translation type="unfinished"></translation>
+        <translation>1</translation>
     </message>
     <message>
         <source>Use &amp;this Certificate for signing</source>
@@ -1120,7 +1118,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>Signature algorithm</source>
-        <translation>Firma</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Template for the new certificate</source>
@@ -1148,11 +1146,11 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>Subject</source>
-        <translation>Sujeto</translation>
+        <translation>Konu</translation>
     </message>
     <message>
         <source>Organisation</source>
-        <translation type="unfinished"></translation>
+        <translation>Organizasyon</translation>
     </message>
     <message>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
@@ -1164,7 +1162,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>Country code</source>
-        <translation type="unfinished"></translation>
+        <translation>Ülke kodu</translation>
     </message>
     <message>
         <source>State or Province</source>
@@ -1180,11 +1178,11 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>E-Mail address</source>
-        <translation type="unfinished"></translation>
+        <translation>E-posta adresi</translation>
     </message>
     <message>
         <source>Internal name</source>
-        <translation type="unfinished"></translation>
+        <translation>Dahili adı</translation>
     </message>
     <message>
         <source>Common name</source>
@@ -1192,15 +1190,15 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekle</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <source>Private key</source>
-        <translation>Exponente secreto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>This list only contains unused keys</source>
@@ -1224,7 +1222,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <source>If this will become a CA certificate or not</source>
@@ -1284,7 +1282,7 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     </message>
     <message>
         <source>Validity</source>
-        <translation>Validez</translation>
+        <translation type="unfinished">Geçerlilik</translation>
     </message>
     <message>
         <source>Not before</source>
@@ -1300,19 +1298,19 @@ It also copies the issuer and serial number from the issuer certificate. Normall
     </message>
     <message>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Gün</translation>
     </message>
     <message>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Ay</translation>
     </message>
     <message>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>Yıl</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Uygula</translation>
     </message>
     <message>
         <source>Set the time to 00:00:00 and 23:59:59 respectively</source>
@@ -1358,7 +1356,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Düzenle</translation>
     </message>
     <message>
         <source>DNS: IP: URI: email: RID:</source>
@@ -1428,7 +1426,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Gelişmiş</translation>
     </message>
     <message>
         <source>Validate</source>
@@ -1480,7 +1478,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
     </message>
     <message>
         <source>Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Hatalar</translation>
     </message>
     <message>
         <source>Abort rollout</source>
@@ -1514,7 +1512,7 @@ Please set at least the internal name.</source>
     </message>
     <message>
         <source>Edit name</source>
-        <translation type="unfinished"></translation>
+        <translation>İsmi Düzenle</translation>
     </message>
     <message>
         <source>There is no Key selected for signing.</source>
@@ -1597,11 +1595,11 @@ caIssuers;URI:http://my.ca/ca.html</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ekle</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sil</translation>
     </message>
     <message>
         <source>Default hash algorithm</source>
@@ -1648,7 +1646,7 @@ caIssuers;URI:http://my.ca/ca.html</source>
     <name>PassRead</name>
     <message>
         <source>Password</source>
-        <translation>Contraseña</translation>
+        <translation type="unfinished">Parola</translation>
     </message>
     <message>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
@@ -1663,7 +1661,7 @@ caIssuers;URI:http://my.ca/ca.html</source>
     <name>PassWrite</name>
     <message>
         <source>Password</source>
-        <translation>Contraseña</translation>
+        <translation type="unfinished">Parola</translation>
     </message>
     <message>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
@@ -1923,7 +1921,7 @@ In library %3
     <name>db_base</name>
     <message>
         <source>Internal name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dahili adı</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -1984,19 +1982,19 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export</source>
-        <translation type="unfinished">Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sil</translation>
     </message>
     <message>
         <source>Clipboard</source>
@@ -2011,7 +2009,7 @@ and so it was not imported</source>
     <name>db_key</name>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tür</translation>
     </message>
     <message>
         <source>Size</source>
@@ -2023,7 +2021,7 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Password</source>
-        <translation>Contraseña</translation>
+        <translation type="unfinished">Parola</translation>
     </message>
     <message>
         <source>The key is already in the database as:
@@ -2052,15 +2050,15 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <source>New Key</source>
-        <translation>Nueva clave</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show Details</source>
@@ -2068,11 +2066,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sil</translation>
     </message>
     <message>
         <source>Export</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change password</source>
@@ -2119,7 +2117,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <name>db_temp</name>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tür</translation>
     </message>
     <message>
         <source>Bad template: %1</source>
@@ -2151,15 +2149,15 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change</source>
@@ -2167,7 +2165,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sil</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -2194,7 +2192,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <source>Serial</source>
-        <translation type="unfinished">Número de serie</translation>
+        <translation type="unfinished">Seri</translation>
     </message>
     <message>
         <source>md5 fingerprint</source>
@@ -2268,7 +2266,7 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Import PKCS#12</source>
@@ -2280,7 +2278,7 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished">Nombre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show Details</source>
@@ -2292,7 +2290,7 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Export</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File</source>
@@ -2316,7 +2314,7 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sil</translation>
     </message>
     <message>
         <source>Delete from Security token</source>
@@ -2340,7 +2338,7 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Sign</source>
-        <translation>Firma</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Encrypt</source>
@@ -2383,7 +2381,7 @@ and so it was not imported</source>
     <name>db_x509name</name>
     <message>
         <source>Subject</source>
-        <translation>Sujeto</translation>
+        <translation type="unfinished">Konu</translation>
     </message>
     <message>
         <source>Complete distinguished name</source>
@@ -2402,7 +2400,7 @@ and so it was not imported</source>
     <name>db_x509req</name>
     <message>
         <source>Signed</source>
-        <translation>Firma</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>whether the request is already signed or not</source>
@@ -2436,7 +2434,7 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Extract public Key</source>
@@ -2444,7 +2442,7 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation>Nombre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show Details</source>
@@ -2452,11 +2450,11 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Sign</source>
-        <translation>Firma</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Export</source>
-        <translation>Importar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File</source>
@@ -2468,7 +2466,7 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sil</translation>
     </message>
     <message>
         <source>Clipboard</source>
@@ -2494,7 +2492,7 @@ and thus was not stored</source>
     <name>kvView</name>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tür</translation>
     </message>
     <message>
         <source>Content</source>
@@ -2505,7 +2503,7 @@ and thus was not stored</source>
     <name>pass_info</name>
     <message>
         <source>Password</source>
-        <translation>Contraseña</translation>
+        <translation type="unfinished">Parola</translation>
     </message>
     <message>
         <source>PIN</source>
@@ -2878,7 +2876,7 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Signed</source>
-        <translation type="unfinished">Firma</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unhandled</source>
@@ -2893,15 +2891,15 @@ and thus was not stored</source>
     <name>v3ext</name>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ekle</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sil</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uygula</translation>
     </message>
     <message>
         <source>Validate</source>
@@ -2909,7 +2907,7 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation type="unfinished">İptal</translation>
     </message>
     <message>
         <source>An email address or &apos;copy&apos;</source>

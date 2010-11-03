@@ -3,7 +3,7 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
-PO_LANGUAGES=es
+PO_LANGUAGES=es tr
 LANGUAGES=de ru $(PO_LANGUAGES)
 QM_XCA=$(patsubst %, xca_%.qm, $(LANGUAGES))
 QM_QT=$(patsubst %, qt_%.qm, $(LANGUAGES))
@@ -27,7 +27,9 @@ app:
 
 po2ts: $(TS_XCA)
 xca_%.ts: %.po
-	po2ts $< $@ || :
+	po2ts -i $< | \
+	  sed 's,^\( *<translation type="unfinished"\)>$$,\1/>,' |\
+	  grep -v '^ *</translation>$$' > $@ || :
 	#lconvert -i $< -of ts -o $@
 
 xca.pot: xca.ts
