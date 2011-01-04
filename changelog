@@ -1,4 +1,5 @@
 
+  * Support building with EC disabled
   * Close bug [3091576] Private key export is always PKCS#8 encoded
   * Feature Request [3058196] Autoload database
   * Feature Request [3058195] Export directly to the clipboard

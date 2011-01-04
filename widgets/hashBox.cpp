@@ -40,8 +40,10 @@ const EVP_MD *hashBox::currentHash()
 	switch(key_type) {
 	case EVP_PKEY_DSA:
 		return EVP_dss1();
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		return EVP_ecdsa();
+#endif
 	default:
 		QString hash = currentText();
 		for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {

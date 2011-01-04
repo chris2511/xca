@@ -37,10 +37,11 @@ class pki_evp: public pki_key
 		static void setOldPasswd(const char *pass);
 		static QString md5passwd(const char *pass);
 		static QString sha512passwd(QString pass, QString salt);
+#ifndef OPENSSL_NO_EC
 		static EC_builtin_curve *curves;
 		static size_t num_curves;
 		static unsigned char *curve_flags;
-
+#endif
 		void generate(int bits, int type, QProgressBar *progress);
 		void generate(int bits, int type, QProgressBar *progress,
 				int curve_nid);

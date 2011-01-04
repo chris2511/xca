@@ -209,7 +209,7 @@ QString pki_key::pubkey()
 		return BN2QString(key->pkey.dsa->pub_key);
 	return QString();
 }
-
+#ifndef OPENSSL_NO_EC
 int pki_key::ecParamNid()
 {
 	if (key->type != EVP_PKEY_EC)
@@ -232,7 +232,7 @@ QString pki_key::ecPubKey()
 	}
 	return pub;
 }
-
+#endif
 bool pki_key::compare(pki_base *ref)
 {
 	pki_key *kref = (pki_key *)ref;

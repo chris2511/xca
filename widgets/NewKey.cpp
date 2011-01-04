@@ -24,7 +24,9 @@ struct typelist {
 static const struct typelist typeList[] = {
 	{ "RSA", EVP_PKEY_RSA },
 	{ "DSA", EVP_PKEY_DSA },
+#ifndef OPENSSL_NO_EC
 	{ "EC",  EVP_PKEY_EC  },
+#endif
 };
 
 class keyListItem
@@ -97,7 +99,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 		keyListItem gk(typeList +i);
 		keytypes << gk;
 	}
-
+#ifndef OPENSSL_NO_EC
 	for (i = 0; i<pki_evp::num_curves; i++) {
 		const char *desc = pki_evp::curves[i].comment;
 		const char *sn = OBJ_nid2sn(pki_evp::curves[i].nid);
@@ -115,6 +117,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 	}
 	curveBox->addItems(curve_x962);
 	curveBox->addItems(curve_other);
+#endif
 	keyLength->setCurrentIndex(0);
 	keyDesc->setFocus();
 	if (pkcs11::loaded()) try {

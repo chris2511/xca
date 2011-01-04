@@ -140,14 +140,12 @@ export LD_LIBRARY_PATH
 cat >conftest.c <<EOF
 #include <stdio.h>
 #include <openssl/opensslv.h>
-//#include <opensc/opensc.h>
+#include <openssl/opensslconf.h>
 #include <Qt/qglobal.h>
 
 int main(){
   printf("\nThe Versions of the used libraries are:\n\t%s 0x%lxL\n\tQT: %s\n",
-//	 "\tOpenSC: %s\n",
 	 OPENSSL_VERSION_TEXT, OPENSSL_VERSION_NUMBER, QT_VERSION_STR
-//	, sc_get_version()
 	);
 
   if (QT_VERSION < 0x040300) {
@@ -158,6 +156,10 @@ int main(){
 	printf("You need OpenSSL >= 0.9.8 or higher\n");
 	return 1;
   }
+#ifdef OPENSSL_NO_EC
+  printf("\n###  This OpenSSL installation has no EC cryptography support\n");
+#endif
+  puts("\n");
   return 0;
 }
 EOF

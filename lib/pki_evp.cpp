@@ -27,9 +27,11 @@ QString pki_evp::passHash = QString();
 
 QPixmap *pki_evp::icon[2]= { NULL, NULL };
 
+#ifndef OPENSSL_NO_EC
 EC_builtin_curve *pki_evp::curves = NULL;
 size_t pki_evp::num_curves = 0;
 unsigned char *pki_evp::curve_flags = NULL;
+#endif
 
 void pki_evp::erasePasswd()
 {
@@ -99,22 +101,20 @@ void pki_evp::setOwnPass(enum passType x)
 
 void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
 {
-	RSA *rsakey;
-	DSA *dsakey;
-	EC_KEY *eckey;
-
 	progress->setMinimum(0);
 	progress->setMaximum(100);
 	progress->setValue(50);
 
 	switch (type) {
 	case EVP_PKEY_RSA:
+		RSA *rsakey;
 		rsakey = RSA_generate_key(bits, 0x10001, inc_progress_bar,
 			progress);
 		if (rsakey)
 			EVP_PKEY_assign_RSA(key, rsakey);
 		break;
 	case EVP_PKEY_DSA:
+		DSA *dsakey;
 		progress->setMaximum(500);
 		dsakey = DSA_generate_parameters(bits, NULL, 0, NULL, NULL,
 				inc_progress_bar, progress);
@@ -122,7 +122,9 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 		if (dsakey)
 			EVP_PKEY_assign_DSA(key, dsakey);
 		break;
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
+		EC_KEY *eckey;
 		EC_GROUP *group = EC_GROUP_new_by_curve_name(curve_nid);
 		if (!group)
 			break;
@@ -142,6 +144,7 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 		EC_KEY_free(eckey);
 		EC_GROUP_free(group);
 		break;
+#endif
 	}
 	pki_openssl_error();
 	encryptKey();
@@ -180,8 +183,10 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 			return key->pkey.rsa->d ? true: false;
 		case EVP_PKEY_DSA:
 			return key->pkey.dsa->priv_key ? true: false;
+#ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
 			return EC_KEY_get0_private_key(key->pkey.ec) ? true: false;
+#endif
 	}
 	return false;
 }
@@ -226,8 +231,14 @@ void pki_evp::fromPEM_BIO(BIO *bio, QString name)
 	openssl_error(name);
 }
 
-static void search_ec_oid(EC_KEY *ec)
+static void search_ec_oid(EVP_PKEY *pkey)
 {
+#ifndef OPENSSL_NO_EC
+	if (pkey->type != EVP_PKEY_EC)
+		return;
+
+	EC_KEY *ec = pkey->pkey.ec;
+
 	const EC_GROUP *ec_group = EC_KEY_get0_group(ec);
 	EC_GROUP *builtin;
 
@@ -249,6 +260,7 @@ static void search_ec_oid(EC_KEY *ec)
 			EC_GROUP_free(builtin);
 		}
 	}
+#endif
 }
 
 void pki_evp::fload(const QString fname)
@@ -311,8 +323,7 @@ void pki_evp::fload(const QString fname)
 		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.").arg(fname));
 	}
 	if (pkey){
-		if (pkey->type == EVP_PKEY_EC)
-			search_ec_oid(pkey->pkey.ec);
+		search_ec_oid(pkey);
 		if (key)
 			EVP_PKEY_free(key);
 		key = pkey;
@@ -629,10 +640,12 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 					PEM_write_DSAPrivateKey(fp,
 					  pkey->pkey.dsa, enc, NULL, 0, cb, &p);
 					break;
+#ifndef OPENSSL_NO_EC
 				case EVP_PKEY_EC:
 					PEM_write_ECPrivateKey(fp,
 					  pkey->pkey.ec, enc, NULL, 0, cb, &p);
 					break;
+#endif
 				default:
 					PEM_write_PrivateKey(fp, pkey,
 							enc, NULL, 0, cb, &p);
@@ -675,7 +688,9 @@ const EVP_MD *pki_evp::getDefaultMD()
 	switch (key->type) {
 		case EVP_PKEY_RSA: md = EVP_sha1(); break;
 		case EVP_PKEY_DSA: md = EVP_dss1(); break;
+#ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:  md = EVP_ecdsa(); break;
+#endif
 		default: md = NULL; break;
 	}
 	return md;

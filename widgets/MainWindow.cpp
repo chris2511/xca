@@ -101,6 +101,7 @@ static const int other_curve_nids[] = {
 
 static void init_curves()
 {
+#ifndef OPENSSL_NO_EC
 	pki_evp::num_curves = EC_get_builtin_curves(NULL, 0);
 	pki_evp::curves = (EC_builtin_curve*)OPENSSL_malloc(
 			(int)(sizeof(EC_builtin_curve) *pki_evp::num_curves));
@@ -129,6 +130,7 @@ static void init_curves()
 			}
 		}
 	}
+#endif
 }
 
 void MainWindow::enableTokenMenu(bool enable)
