@@ -75,11 +75,13 @@ void db_crl::inToCont(pki_base *pki)
 		x509name issname = crl->getSubject();
 		while ((iss = mainwin->certs->getBySubject(issname, last)) != NULL) {
 			pki_key *key = iss->getPubKey();
-			if (crl->verify(key)) {
+			if (key) {
+				if (crl->verify(key)) {
+					delete key;
+					break;
+				}
 				delete key;
-				break;
 			}
-			delete key;
 			last = iss;
 		}
 		crl->setIssuer(iss);

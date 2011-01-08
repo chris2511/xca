@@ -110,12 +110,15 @@ void db_x509::remFromCont(QModelIndex &idx)
 	}
 	mainwin->crls->removeSigner(pki);
 	pki_key *pub = ((pki_x509*)pki)->getPubKey();
-	if (mainwin->certs->findByPubKey(pub).count() == 0) {
-		QList<pki_x509super *> reqs = mainwin->reqs->findByPubKey(pub);
-		foreach(pki_x509super *r, reqs)
-			((pki_x509req*)r)->setDone(false);
+	if (pub) {
+		if (mainwin->certs->findByPubKey(pub).count() == 0) {
+			QList<pki_x509super *> reqs;
+			reqs = mainwin->reqs->findByPubKey(pub);
+			foreach(pki_x509super *r, reqs)
+				((pki_x509req*)r)->setDone(false);
+		}
+		delete pub;
 	}
-	delete pub;
 	return;
 }
 
@@ -207,10 +210,13 @@ void db_x509::inToCont(pki_base *pki)
 	}
 	findKey(cert);
 	pki_key *pub = cert->getPubKey();
-	QList<pki_x509super *> reqs = mainwin->reqs->findByPubKey(pub);
-	delete pub;
-	foreach (pki_x509super *r, reqs) {
-		((pki_x509req*)r)->setDone();
+	if (pub) {
+		QList<pki_x509super *> reqs = mainwin->reqs->findByPubKey(pub);
+		delete pub;
+
+		foreach (pki_x509super *r, reqs) {
+			((pki_x509req*)r)->setDone();
+		}
 	}
 	calcEffTrust();
 }
@@ -460,7 +466,8 @@ void db_x509::newCert(NewX509 *dlg)
 			subject = req->getSubject();
 		intname = req->getIntName();
 	}
-
+	if (clientkey == NULL)
+		throw errorEx(tr("Invalid public key"));
 	// initially create cert
 	cert = new pki_x509();
 	cert->setIntName(intname);

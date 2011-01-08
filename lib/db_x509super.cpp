@@ -80,9 +80,9 @@ void db_x509super::extractPubkey()
 	if (!pki)
 		return;
 	key = pki->getPubKey();
-	key->setIntName(pki->getIntName());
 	if (!key)
 		return;
+	key->setIntName(pki->getIntName());
 	key = (pki_key*)mainwin->keys->insert(key);
 	if (!key)
 		return;

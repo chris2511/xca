@@ -30,6 +30,8 @@ void pki_x509super::setRefKey(pki_key *ref)
 	if (ref == NULL || privkey != NULL )
 		return;
 	pki_key *mk = getPubKey();
+	if (mk == NULL)
+		return;
 	if (ref->compare(mk)) {
 		// this is our key
 		privkey = ref;

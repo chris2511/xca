@@ -24,7 +24,7 @@ pki_x509req::pki_x509req(const QString name)
 	privkey = NULL;
 	class_name = "pki_x509req";
 	request = X509_REQ_new();
-	openssl_error();
+	pki_openssl_error();
 	spki = NULL;
 	dataVersion=1;
 	pkiType=x509_req;
@@ -37,7 +37,7 @@ pki_x509req::~pki_x509req()
 		X509_REQ_free(request);
 	if (spki)
 		NETSCAPE_SPKI_free(spki);
-	openssl_error();
+	pki_openssl_error();
 }
 
 void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, extList el)
@@ -56,7 +56,7 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	X509_REQ_set_version(request, 0L);
 	X509_REQ_set_pubkey(request, key->getPubKey());
 	setSubject(dn);
-	openssl_error();
+	pki_openssl_error();
 
 	for(int i=0; bad_nids[i] != NID_undef; i++)
 		el.delByNid(bad_nids[i]);
@@ -66,11 +66,11 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 	sk = el.getStack();
 	X509_REQ_add_extensions(request, sk);
 	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
-	openssl_error();
+	pki_openssl_error();
 
 	privkey = key->decryptKey();
 	X509_REQ_sign(request, privkey, md);
-	openssl_error();
+	pki_openssl_error();
 	EVP_PKEY_free(privkey);
 }
 
@@ -118,18 +118,18 @@ void pki_x509req::fload(const QString fname)
 	if (fp != NULL) {
 		_req = PEM_read_X509_REQ(fp, NULL, NULL, NULL);
 		if (!_req) {
-			ign_openssl_error();
+			pki_ign_openssl_error();
 			rewind(fp);
 			_req = d2i_X509_REQ_fp(fp, NULL);
 		}
 		// SPKAC
 		if (!_req) {
-			ign_openssl_error();
+			pki_ign_openssl_error();
 			rewind(fp);
 			ret = load_spkac(fname);
 		}
 		fclose(fp);
-		if (ret || ign_openssl_error()) {
+		if (ret || pki_ign_openssl_error()) {
 			if (_req)
 				X509_REQ_free(_req);
 			throw errorEx(tr("Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.").arg(fname));
@@ -202,7 +202,7 @@ void pki_x509req::addAttribute(int nid, QString content)
 x509name pki_x509req::getSubject() const
 {
 	x509name x(X509_REQ_get_subject_name(request));
-	openssl_error();
+	pki_openssl_error();
 	return x;
 }
 
@@ -226,7 +226,7 @@ QByteArray pki_x509req::toData()
 	if (spki) {
 		ba += i2d_spki();
 	}
-	openssl_error();
+	pki_openssl_error();
 	return ba;
 }
 void pki_x509req::writeDefault(const QString fname)
@@ -245,7 +245,7 @@ void pki_x509req::writeReq(const QString fname, bool pem)
 				i2d_X509_REQ_fp(fp, request);
 		}
 		fclose(fp);
-		openssl_error();
+		pki_openssl_error();
 	} else
 		fopen_error(fname);
 }
@@ -268,7 +268,7 @@ int pki_x509req::verify()
 	} else {
 		x = X509_REQ_verify(request,pkey) > 0;
 	}
-	ign_openssl_error();
+	pki_ign_openssl_error();
 	EVP_PKEY_free(pkey);
 	return x;
 }
@@ -276,11 +276,11 @@ int pki_x509req::verify()
 pki_key *pki_x509req::getPubKey() const
 {
 	 EVP_PKEY *pkey = X509_REQ_get_pubkey(request);
-	 ign_openssl_error();
+	 pki_ign_openssl_error();
 	 if (pkey == NULL)
 		 return NULL;
 	 pki_evp *key = new pki_evp(pkey);
-	 openssl_error();
+	 pki_openssl_error();
 	 return key;
 }
 
@@ -315,7 +315,7 @@ int pki_x509req::load_spkac(const QString filename)
 	QFile file;
 	x509name subject;
 	EVP_PKEY *pktmp = NULL;
-	ign_openssl_error();
+	pki_ign_openssl_error();
 
 	file.setFileName(filename);
         if (!file.open(QIODevice::ReadWrite))
@@ -339,7 +339,7 @@ int pki_x509req::load_spkac(const QString filename)
 		if ((nid = OBJ_txt2nid(CCHAR(type))) == NID_undef) {
 			if (type != "SPKAC")
 				goto err;
-			ign_openssl_error();
+			pki_ign_openssl_error();
 			spki = NETSCAPE_SPKI_b64_decode(line, line.size());
 			if (!spki)
 				goto err;

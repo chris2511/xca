@@ -584,7 +584,12 @@ bool pki_x509::verify(pki_x509 *signer)
 	if (X509_NAME_cmp(subject, issuer)) {
 		return false;
 	}
-	int i = X509_verify(cert, X509_get_pubkey(signer->cert));
+	EVP_PKEY *pub = X509_get_pubkey(signer->cert);
+	if (!pub) {
+		pki_ign_openssl_error();
+		return false;
+	}
+	int i = X509_verify(cert, pub);
 	pki_ign_openssl_error();
 	if (i>0) {
 		psigner = signer;
@@ -597,8 +602,11 @@ bool pki_x509::verify(pki_x509 *signer)
 pki_key *pki_x509::getPubKey() const
 {
 	EVP_PKEY *pkey = X509_get_pubkey(cert);
-	pki_openssl_error();
+	pki_ign_openssl_error();
+	if (pkey == NULL)
+		return NULL;
 	pki_evp *key = new pki_evp(pkey);
+	pki_openssl_error();
 	return key;
 }
 
