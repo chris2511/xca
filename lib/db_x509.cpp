@@ -647,6 +647,8 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		scardItems += subExport->addAction(tr("Other token"),
 				this, SLOT(toOtherToken()));
 		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
+		subExport->addAction(tr("OpenSSL config"),
+				this, SLOT(toOpenssl()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		scardItems += menu->addAction(

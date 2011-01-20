@@ -185,6 +185,8 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 					SLOT(pem2clipboard()));
 		subExport->addAction(tr("File"), this, SLOT(store()));
 		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
+		subExport->addAction(tr("OpenSSL config"), this,
+					SLOT(toOpenssl()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 
 		subExport->setEnabled(!req->isSpki());

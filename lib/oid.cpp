@@ -14,6 +14,8 @@
 #include "func.h"
 #include "oid.h"
 
+int first_additional_oid = 0;
+
 /* reads additional OIDs from a file: oid, sn, ln */
 static void readOIDs(QString fname)
 {
@@ -31,7 +33,8 @@ static void readOIDs(QString fname)
 		line++;
 		pb = buff;
 		pb = pb.trimmed();
-		if (pb.startsWith('#') || pb.size() == 0) continue;
+		if (pb.startsWith('#') || pb.size() == 0)
+			continue;
 		sl.clear();
 		sl = pb.split(':');
 		if (sl.count() != 3) {
@@ -40,11 +43,21 @@ static void readOIDs(QString fname)
 				QString::number(line) );
 			fclose(fp);
 			return;
-		}
-		else {
-			OBJ_create(sl[0].trimmed().toAscii(),
-				sl[1].trimmed().toAscii(),
-				sl[2].trimmed().toAscii());
+		} else {
+			QByteArray oid = sl[0].trimmed().toAscii();
+			QByteArray sn = sl[1].trimmed().toAscii();
+			QByteArray ln = sl[2].trimmed().toAscii();
+
+			int nid = OBJ_txt2nid(oid.constData());
+			if ((nid != NID_undef) && (sn != OBJ_nid2sn(nid))) {
+				printf("OID: '%s' SN differs: '%s' '%s'\n",
+					oid.constData(), sn.constData(),
+					OBJ_nid2sn(nid));
+			}
+			if ((nid == NID_undef) || (sn != OBJ_nid2sn(nid))) {
+				OBJ_create(oid.constData(), sn.constData(),
+					ln.constData());
+			}
 		}
 	}
 	fclose(fp);
@@ -55,6 +68,7 @@ void initOIDs()
 	QString oids = QString(QDir::separator()) + "oids.txt";
 	QString dir = getPrefix();
 
+	first_additional_oid = OBJ_new_nid(0);
 	readOIDs(dir + oids);
 #ifndef WIN32
 #if !defined(Q_WS_MAC)

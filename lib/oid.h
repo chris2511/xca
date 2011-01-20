@@ -11,6 +11,8 @@
 class QString;
 #include <QtCore/QList>
 
+extern int first_additional_oid;
+
 typedef QList<int> NIDlist;
 /* reads additional OIDs from a file: oid, sn, ln */
 

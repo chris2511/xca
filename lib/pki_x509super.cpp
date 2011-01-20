@@ -5,6 +5,8 @@
  * All rights reserved.
  */
 
+#include "func.h"
+#include "oid.h"
 #include "pki_x509super.h"
 
 pki_x509super::pki_x509super(const QString name)
@@ -59,6 +61,60 @@ QVariant pki_x509super::column_data(int id)
 	return pki_x509name::column_data(id);
 }
 
+static QString oid_sect()
+{
+	QString ret;
+	int i, max = OBJ_new_nid(0);
+
+	for (i=first_additional_oid; i < max; i++) {
+		const char *sn = OBJ_nid2sn(i);
+		if (!sn)
+			break;
+		ret += QString("%1 = %2\n").
+			arg(OBJ_nid2sn(i)).
+			arg(OBJ_obj2QString(OBJ_nid2obj(i), 1));
+	}
+
+	if (!ret.isEmpty()) {
+		ret = QString("oid_section = xca_oids\n\n"
+			"[ xca_oids ]\n") + ret + "\n";
+	}
+	return ret;
+}
+
+void pki_x509super::opensslConf(QString fname)
+{
+	QString extensions;
+	extList el = getV3ext();
+	x509name n = getSubject();
+	el.genGenericConf(&extensions);
+
+	QString name = n.taggedValues();
+	QString final = oid_sect();
+	final += QString("[ req ]\n"
+		"default_bits = 1024\n"
+		"default_keyfile = privkey.pem\n"
+		"distinguished_name = xca_dn\n"
+		"x509_extensions = xca_extensions\n"
+		"req_extensions = xca_extensions\n"
+		"string_mask = MASK:0x%3\n"
+		"utf8 = yes\n"
+		"prompt = no\n\n"
+		"[ xca_dn ]\n"
+		"%1\n"
+		"[ xca_extensions ]\n"
+		"%2").arg(name).arg(extensions).
+			arg(ASN1_STRING_get_default_mask(), 0, 16);
+
+	FILE *fp = fopen(QString2filename(fname),"w");
+	if (fp == NULL) {
+		fopen_error(fname);
+		return;
+	}
+	QByteArray ba = final.toUtf8();
+	fwrite(ba.constData(), 1, ba.size(), fp);
+	fclose(fp);
+}
 // Start class  pki_x509name
 
 pki_x509name::pki_x509name(const QString name)

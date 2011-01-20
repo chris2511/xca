@@ -1,4 +1,5 @@
 
+  * Export requests or certificates as openssl config file
   * Support building with EC disabled
   * Close bug [3091576] Private key export is always PKCS#8 encoded
   * Feature Request [3058196] Autoload database

@@ -90,6 +90,21 @@ void db_x509super::extractPubkey()
 		key->getMsg(pki_base::msg_import).arg(pki->getIntName()));
 }
 
+void db_x509super::toOpenssl() const
+{
+	pki_x509super *pki = static_cast<pki_x509super*>(currentIdx.internalPointer());
+	QString fn = mainwin->getPath() + QDir::separator() +
+		pki->getUnderlinedName() + ".conf";
+	QString fname = QFileDialog::getSaveFileName(mainwin,
+		tr("Save as OpenSSL config"),	fn,
+		tr("Config files ( *.conf *.cnf);; All files ( * )"));
+	if (fname.isEmpty())
+		return;
+	fname = QDir::convertSeparators(fname);
+	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
+	pki->opensslConf(fname);
+}
+
 void db_x509super::toTemplate()
 {
 	pki_x509super *pki = static_cast<pki_x509super*>(currentIdx.internalPointer());
