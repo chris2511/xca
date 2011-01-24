@@ -20,8 +20,10 @@ db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 {
 	allHeaders << new dbheader(HD_req_signed, true, tr("Signed"),
 			tr("whether the request is already signed or not")) <<
-		new dbheader(HD_req_unstr_name, false, tr("Unstructured name")) <<
-		new dbheader(HD_req_chall_pass, false, tr("Challange password"));
+		new dbheader(HD_req_unstr_name, false, tr("Unstructured name"),
+			QString(OBJ_nid2ln(NID_pkcs9_unstructuredName))) <<
+		new dbheader(HD_req_chall_pass, false, tr("Challenge password"),
+			 QString(OBJ_nid2ln(NID_pkcs9_challengePassword)));
 	class_name = "requests";
 	pkitype << x509_req;
 	loadContainer();

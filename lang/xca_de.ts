@@ -2770,7 +2770,7 @@ in Bibliothek %3
     <message>
         <location line="+638"/>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation>Zurücksetzen</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3469,12 +3469,12 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+1"/>
         <source>Unstructured name</source>
-        <translation>Unstructured name</translation>
+        <translation>unstrukturierter Name</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Challange password</source>
-        <translation>Challange password</translation>
+        <source>Challenge password</source>
+        <translation>Challenge-Passwort</translation>
     </message>
     <message>
         <location line="+160"/>
