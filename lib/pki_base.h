@@ -100,6 +100,7 @@ class pki_base : public QObject
 		{
 			return NULL;
 		}
+		void fwrite_ba(FILE *fp, QByteArray ba, QString fname);
 };
 
 #endif

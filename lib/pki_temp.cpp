@@ -352,7 +352,7 @@ void pki_temp::writeTemp(QString fname)
 	header = db::intToData(data.count());
 	header += db::intToData(dataVersion);
 	header += data;
-	fwrite(header.constData(), 1, header.count(), fp);
+	fwrite_ba(fp, header, fname);
 	fclose(fp);
 }
 

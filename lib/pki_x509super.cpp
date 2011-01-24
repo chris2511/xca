@@ -112,7 +112,7 @@ void pki_x509super::opensslConf(QString fname)
 		return;
 	}
 	QByteArray ba = final.toUtf8();
-	fwrite(ba.constData(), 1, ba.size(), fp);
+	fwrite_ba(fp, ba, fname);
 	fclose(fp);
 }
 // Start class  pki_x509name

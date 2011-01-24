@@ -78,9 +78,18 @@ void pki_base::setIntName(const QString &d)
 
 void pki_base::fopen_error(const QString fname)
 {
-	QString txt = tr("Error opening file: '%1': %2").arg(fname).
-			arg(strerror(errno));
-	throw errorEx(txt, class_name);
+	my_error(tr("Error opening file: '%1': %2").
+			arg(fname).
+			arg(strerror(errno)));
+}
+
+void pki_base::fwrite_ba(FILE *fp, QByteArray ba, QString fname)
+{
+	if (fwrite(ba.constData(), 1, ba.size(), fp) != (size_t)ba.size()) {
+		my_error(tr("Error writing to file: '%1': %2").
+			arg(fname).
+			arg(strerror(errno)));
+        }
 }
 
 void pki_base::my_error(const QString error) const
