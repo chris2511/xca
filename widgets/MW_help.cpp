@@ -47,14 +47,32 @@ void MainWindow::about()
 {
 	Ui::About ui;
 	QDialog *about = new QDialog(this, 0);
+	QString openssl, qt, cont, version;
 
+	openssl = SSLeay_version(SSLEAY_VERSION);
+	qt = qVersion();
+	if (openssl != OPENSSL_VERSION_TEXT ||
+	    qt != QT_VERSION_STR)
+	{
+		version = QString("<table border=0 width=500><tr>"
+				"<td>Compile time:</td>"
+				"<td>"OPENSSL_VERSION_TEXT"</td>"
+				"<td>QT version: "QT_VERSION_STR"</td>"
+				"</tr><tr>"
+				"<td>Run time:</td>"
+				"<td>%1</td>"
+				"<td>QT version: %2</td>"
+				"</tr></table>").arg(openssl).arg(qt);
+	} else {
+		version = QString("%1<br>QT version: %2").arg(openssl).arg(qt);
+	}
 	ui.setupUi(about);
 
-	QString cont;
-	cont.sprintf("<p><h3><center><u>XCA</u></center></h3>"
+	cont = QString(
+	"<p><h3><center><u>XCA</u></center></h3>"
 	"<p>Copyright 2001 - 2010 by Christian Hohnst&auml;dt\n"
 	"<p>Version : <b>" VER "</b>"
-	"<p>%s<br>QT: %s"
+	"<p>%1"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
@@ -76,10 +94,10 @@ void MainWindow::about()
 	"<p><table>"
 	"<tr><th>German</th><td>Christian Hohnst&auml;dt</td></tr>"
 	"<tr><th>Russian</th><td>Pavel Belly &lt;pavel.belly@gmail.com&gt;</td></tr>"
-	"</table>",
-	OPENSSL_VERSION_TEXT, QT_VERSION_STR );
+	"</table>").
+		arg(version);
 
-	about->setWindowTitle(tr(XCA_TITLE));
+	about->setWindowTitle(XCA_TITLE);
 	ui.image->setPixmap( *keyImg );
 	ui.image1->setPixmap( *certImg );
 	ui.textbox->setHtml(cont);
