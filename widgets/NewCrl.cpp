@@ -23,8 +23,8 @@ NewCrl::NewCrl(QWidget *parent, pki_x509 *signer)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::revImg);
-	validNumber->setText("1");
-	validRange->setCurrentIndex(1);
+	validNumber->setText(QString::number(signer->getCrlDays()));
+	validRange->setCurrentIndex(0);
 	on_applyTime_clicked();
 	nextUpdate->setEndDate(true);
 
