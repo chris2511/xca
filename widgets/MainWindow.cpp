@@ -823,9 +823,6 @@ int MainWindow::passWrite(char *buf, int size, int, void *userdata)
 		if (p->getType() != "PIN")
 			ui.takeHex->hide();
 	}
-	dlg->show();
-	dlg->activateWindow();
-	ui.passA->setFocus();
 
 	while (dlg->exec()) {
 		QString A = ui.passA->text();
