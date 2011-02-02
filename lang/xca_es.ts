@@ -498,10 +498,6 @@ PKCS#8 es un formato estandar de intercambio de claves</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
@@ -542,6 +538,10 @@ Serial: %3</source>
     </message>
     <message>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Remove from list</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -700,10 +700,6 @@ Serial: %3</source>
     </message>
     <message>
         <source>Revocation lists</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -895,20 +891,12 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter a password, that will be used to encrypt your private keys in the database file: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Password verify error, please try again</source>
         <translation>Contraeña incorrecta, inténtelo de nuevo</translation>
     </message>
     <message>
         <source>Password</source>
         <translation>Contraseña</translation>
-    </message>
-    <message>
-        <source>Please enter the password for unlocking the database: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
@@ -940,6 +928,16 @@ Serial: %3</source>
     </message>
     <message>
         <source>Set as default DataBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter a password, that will be used to encrypt your private keys in the database file:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password for unlocking the database:
+%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2378,6 +2376,14 @@ and so it was not imported</source>
         <source>Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Invalid public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenSSL config</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>db_x509name</name>
@@ -2410,10 +2416,6 @@ and so it was not imported</source>
     </message>
     <message>
         <source>Unstructured name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Challange password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2474,6 +2476,14 @@ and thus was not stored</source>
         <source>Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Challenge password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenSSL config</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>db_x509super</name>
@@ -2487,6 +2497,14 @@ and thus was not stored</source>
     </message>
     <message>
         <source>The following extensions were not ported into the template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as OpenSSL config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Config files ( *.conf *.cnf);; All files ( * )</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2524,6 +2542,10 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Internal error: Unexpected message: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error writing to file: &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2596,6 +2618,15 @@ and thus was not stored</source>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Please enter the password to decrypt the private key from file:
+%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_key</name>
@@ -2658,10 +2689,6 @@ and thus was not stored</source>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <source>Please enter the password to decrypt the PKCS#12 file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unable to load the PKCS#12 (pfx) file %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2675,6 +2702,11 @@ and thus was not stored</source>
     </message>
     <message>
         <source>No key or no Cert and no pkcs12</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter the password to decrypt the PKCS#12 file:
+%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
