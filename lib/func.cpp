@@ -196,6 +196,31 @@ QString filename2QString(const char *fname)
 #endif
 }
 
+QString compressFilename(QString filename)
+{
+	/* quick and dirty demo for compacting filename */
+	/* there are i compactable path components, but keep the filename */
+	int i = filename.count(QDir::separator()) - 1;
+
+	/* we want to keep the first component,
+	 * so don't count the starting slash */
+	if(filename.startsWith(QDir::separator()))
+		i--;
+
+#define MAX_DISPLAY_LEN 50
+	// start most-right
+	int from, to = filename.lastIndexOf(QDir::separator());
+
+	for (; i > 0 && filename.length() > MAX_DISPLAY_LEN; i--) {
+		from = filename.lastIndexOf(QDir::separator(), to - 1);
+		filename.replace(from + 1 , to-from - 1, "...");
+		to = from;
+	}
+
+	return filename;
+}
+
+
 QString asn1ToQString(const ASN1_STRING *str, bool quote)
 {
 	QString qs;

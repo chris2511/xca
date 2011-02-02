@@ -265,9 +265,8 @@ static void search_ec_oid(EVP_PKEY *pkey)
 
 void pki_evp::fload(const QString fname)
 {
-	pass_info p(XCA_TITLE, qApp->translate("MainWindow",
-		"Please enter the password to decrypt the private key: '%1'").
-		arg(fname));
+	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key from file:\n%1").
+		arg(compressFilename(fname)));
 	pem_password_cb *cb = MainWindow::passRead;
 	FILE *fp = fopen(QString2filename(fname), "r");
 	EVP_PKEY *pkey;
@@ -385,8 +384,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 	/* This key has its own password */
 	if (ownPass == ptPrivate) {
 		int ret;
-		pass_info pi(XCA_TITLE, qApp->translate("MainWindow",
-			"Please enter the password to decrypt the private key: '%1'").arg(getIntName()));
+		pass_info pi(XCA_TITLE, tr("Please enter the password to decrypt the private key: '%1'").arg(getIntName()));
 		ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
 		if (ret < 0)
 			throw errorEx(tr("Password input aborted"), class_name);
