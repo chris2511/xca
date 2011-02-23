@@ -8,6 +8,10 @@ install:
 	install -m 644 *.txt *.xca $(destdir)$(prefix)/share/xca
 	install -m 644 xca.desktop $(destdir)$(prefix)/share/applications
 	install -m 644 xca.xml $(destdir)$(prefix)/share/mime/packages
+	if test -z "$(destdir)"; then \
+	  update-mime-database $(prefix)/share/mime || :; \
+	  update-desktop-database || :; \
+	fi
 
 app:
 	mkdir -p $(APPDIR)/Resources
