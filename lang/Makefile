@@ -3,7 +3,7 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
-PO_LANGUAGES=es tr
+PO_LANGUAGES=es tr fr
 LANGUAGES=de ru $(PO_LANGUAGES)
 QM_XCA=$(patsubst %, xca_%.qm, $(LANGUAGES))
 QM_QT=$(patsubst %, qt_%.qm, $(LANGUAGES))
