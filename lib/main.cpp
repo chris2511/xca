@@ -39,12 +39,12 @@ XCA_application::XCA_application(int &argc, char *argv[])
 
 	locale = QLocale::system().name();
 
-	dirs    << getPrefix()
+	dirs
 #ifdef XCA_DEFAULT_QT_TRANSLATE
 		<< XCA_DEFAULT_QT_TRANSLATE
 #endif
+		<< getPrefix()
 #ifndef WIN32
-
 		<< "/usr/local/share/qt4/translations/"
 		<< "/usr/share/qt4/translations/"
 		<< "/usr/share/qt/translations/"
