@@ -40,10 +40,16 @@ XCA_application::XCA_application(int &argc, char *argv[])
 	locale = QLocale::system().name();
 
 	dirs    << getPrefix()
+#ifdef XCA_DEFAULT_QT_TRANSLATE
+		<< XCA_DEFAULT_QT_TRANSLATE
+#endif
+#ifndef WIN32
+
 		<< "/usr/local/share/qt4/translations/"
 		<< "/usr/share/qt4/translations/"
 		<< "/usr/share/qt/translations/"
-		<< ".";
+#endif
+		;
 
 	foreach(QString dir, dirs) {
 		if (qtTr.load(QString("qt_%1").arg(locale), dir)) {
