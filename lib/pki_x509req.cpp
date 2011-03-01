@@ -180,10 +180,9 @@ QByteArray pki_x509req::i2d_spki()
 
 void pki_x509req::fromData(const unsigned char *p, db_header_t *head )
 {
-	int version, size;
+	int size;
 
 	size = head->len - sizeof(db_header_t);
-	version = head->version;
 
 	oldFromData((unsigned char *)p, size);
 }

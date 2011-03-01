@@ -438,13 +438,12 @@ QVariant pki_temp::getIcon(int id)
 
 void pki_temp::oldFromData(unsigned char *p, int size)
 {
-	int type, version;
-	bool dummy;
+	int version;
 
 	QByteArray ba((const char*)p, size);
 
 	version=intFromData(ba);
-	type=intFromData(ba);
+	intFromData(ba); /* type */
 	if (version == 1) {
 		ca = 2;
 		bool mca = intFromData(ba);
@@ -455,8 +454,8 @@ void pki_temp::oldFromData(unsigned char *p, int size)
 	eKeyUseCrit=db::boolFromData(ba);
 	subKey=db::boolFromData(ba);
 	authKey=db::boolFromData(ba);
-	dummy = db::boolFromData(ba);
-	dummy = db::boolFromData(ba);
+	db::boolFromData(ba);
+	db::boolFromData(ba);
 	if (version >= 2) {
 		ca = intFromData(ba);
 	}

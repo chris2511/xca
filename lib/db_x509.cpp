@@ -619,7 +619,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	QAction *itemReq, *itemRevoke, *itemExtend, *itemTrust, *action;
 	QList<QAction*> scardItems;
 
-	bool parentCanSign, canSign, hasTemplates, hasScard;
+	bool parentCanSign, canSign, hasScard;
 	currentIdx = index;
 	pki_key *privkey;
 
@@ -678,7 +678,6 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		parentCanSign = (cert->getSigner() && cert->getSigner()->canSign()
 					&& (cert->getSigner() != cert));
 		canSign = cert->canSign();
-		hasTemplates = mainwin->temps->getDesc().count() > 0 ;
 		hasScard = pkcs11::loaded();
 
 		itemRevoke->setEnabled(parentCanSign);

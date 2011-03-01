@@ -862,13 +862,13 @@ const EVP_MD *pki_x509::getDigest()
 
 void pki_x509::oldFromData(unsigned char *p, int size)
 {
-	int version, sCert, sRev, sLastCrl;
+	int version, sRev, sLastCrl;
 	QByteArray ba((char*)p, size);
 	X509 *cert_sik = cert;
 	cert = NULL;
 	version = intFromData(ba);
 	if (version >=1 && version <= 5) {
-		sCert = intFromData(ba);
+		intFromData(ba); /* sCert */
 		d2i(ba);
 		trust = intFromData(ba);
 		sRev = intFromData(ba);
