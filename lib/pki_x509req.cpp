@@ -322,14 +322,14 @@ int pki_x509req::load_spkac(const QString filename)
 
 	while (!file.atEnd()) {
 		int idx, nid;
-		QByteArray line = file.readLine().trimmed();
+		QByteArray line = file.readLine();
 		if (line.size() == 0)
 			continue;
 		idx = line.indexOf('=');
 		if (idx == -1)
 			goto err;
-		QString type = line.left(idx);
-		line = line.mid(idx+1);
+		QString type = line.left(idx).trimmed();
+		line = line.mid(idx+1).trimmed();
 
 		idx = type.lastIndexOf(QRegExp("[:,\\.]"));
 		if (idx != -1)
