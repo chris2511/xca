@@ -122,13 +122,12 @@ void pki_x509req::fload(const QString fname)
 			rewind(fp);
 			_req = d2i_X509_REQ_fp(fp, NULL);
 		}
+		fclose(fp);
 		// SPKAC
 		if (!_req) {
 			pki_ign_openssl_error();
-			rewind(fp);
 			ret = load_spkac(fname);
 		}
-		fclose(fp);
 		if (ret || pki_ign_openssl_error()) {
 			if (_req)
 				X509_REQ_free(_req);
@@ -317,7 +316,7 @@ int pki_x509req::load_spkac(const QString filename)
 	pki_ign_openssl_error();
 
 	file.setFileName(filename);
-        if (!file.open(QIODevice::ReadWrite))
+        if (!file.open(QIODevice::ReadOnly))
 		return 1;
 
 	while (!file.atEnd()) {
