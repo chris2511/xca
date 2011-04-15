@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>August 2010 - Version 0.9.0
+<date>April 2011 - Version 0.9.1
 
 <abstract>
 
@@ -1228,23 +1228,10 @@ the applicable standards.
     <itemize>
       <item>The Time Range is probably fine (10 years). If you want
 	    to change the duration, then change it and click <bf>Apply</bf>.
-      <item>In the event that you need to revoke any certificates in the
-            future, you should designate a certificate revocation list
-            location.  The location must be unique for this root certificate.
-            XCA exports CRLs in either PEM or DER format with appropriate
-            suffixes, so this should be considered when selecting the URL.
-            Selecting a URI something like
-            <tt>http://www.example.com/crl/rootca.pem</tt>
-            is probably suitable.
-
-            On the "CRL distribution point" line, click the <bf>Edit</bf>
-            button.
-            Type in the desired URI, then click <bf>Add</bf>.
-            Add in any additional desired URIs in the same fashion.
-            Click <bf>Validate</bf> and <bf>Apply</bf>.
-            (Alternate mechanisms such as OCSP are beyond the scope of
-            this guide.)
     </itemize>
+    <item>The CRL distribtion point will be part of the issued certificates.
+          It should however be thought about a common URL for all of them like
+          <tt>http://www.example.com/crl/crl.der</tt>
     <item>Click the <bf>OK</bf> button at the bottom.
 </enum>
 
@@ -1269,7 +1256,7 @@ certificate.
             and click the <bf>Apply</bf> button.
 	    This will fill in appropriate values under the <bf>Extensions</bf>,
 	    <bf>Key Usage</bf>, and <bf>Netscape</bf> tabs.
-      <item>In the Signing section, select the certificate that will
+      <item>In the Signing section, select the certificate that
 	    will be used to sign the new certificate.
     </itemize>
   <item>Click the <bf>Subject</bf> tab.
@@ -1296,10 +1283,22 @@ certificate.
   <item>Click the <bf>Extensions</bf> tab.
     <itemize>
       <item>Change the Time Range if desired and click <bf>Apply</bf>.
-      <item>Since this certificate will be signed by another certificate,
-            there is no need to fill in the "CRL distribution point" line
-            (the CRL that would be used is associated with the signing
-            CA certificate.
+      <item>In the event that you need to revoke any certificates in the
+            future, you should designate a certificate revocation list
+            location.  The location must be unique for this root certificate.
+            XCA exports CRLs in either PEM or DER format with appropriate
+            suffixes, so this should be considered when selecting the URL.
+            Selecting a URI something like
+            <tt>http://www.example.com/crl/crl.der</tt>
+            is probably suitable.
+
+            On the "CRL distribution point" line, click the <bf>Edit</bf>
+            button.
+            Type in the desired URI, then click <bf>Add</bf>.
+            Add in any additional desired URIs in the same fashion.
+            Click <bf>Validate</bf> and <bf>Apply</bf>.
+            (Alternate mechanisms such as OCSP are beyond the scope of
+            this guide.)
     </itemize>
   <item>Click the OK button at the bottom
 </enum>
@@ -1368,8 +1367,8 @@ Your template is now ready for use when creating new certificates.
   <item>Click the <bf>OK</bf> button in the <bf>Create CRL</bf> dialog.
   <item>Click on the <bf>Revocation lists</bf> tab in the main window.
   <item>Right-click on the CRL you just generated and select <bf>Export</bf>.
-        Select the desired format (probably PEM) and click <bf>OK</bf>
-  <item>Copy the exported CRL to the location published in the root
+        Select the desired format (probably DER) and click <bf>OK</bf>
+  <item>Copy the exported CRL to the location published in the issued
         certificate's CRL Distribution Points.
   <item>Optionally, delete older CRLs for the same CA certificate.
 </enum>
