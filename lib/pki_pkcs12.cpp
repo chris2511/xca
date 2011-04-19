@@ -10,30 +10,29 @@
 #include "pass_info.h"
 #include "exception.h"
 #include "func.h"
+#include "widgets/PwDialog.h"
 #include <openssl/err.h>
 #include <QtGui/QMessageBox>
 
 
-pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey, pem_password_cb *cb):
-	pki_base(d)
+pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
+	:pki_base(d)
 {
 	class_name="pki_pkcs12";
 	key = new pki_evp(akey);
 	cert = new pki_x509(acert);
 	certstack = sk_X509_new_null();
-	passcb = cb;
 	openssl_error();
 }
 
-pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
+pki_pkcs12::pki_pkcs12(const QString fname)
 	:pki_base(fname)
 {
 	FILE *fp;
-	char pass[MAX_PASS_LENGTH];
+	Passwd pass;
 	EVP_PKEY *mykey = NULL;
 	X509 *mycert = NULL;
 	key=NULL; cert=NULL;
-	passcb = cb;
 	class_name="pki_pkcs12";
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file:\n%1").arg(compressFilename(fname)));
@@ -47,18 +46,18 @@ pki_pkcs12::pki_pkcs12(const QString fname, pem_password_cb *cb)
 			throw errorEx(tr("Unable to load the PKCS#12 (pfx) file %1.").arg(fname));
 		}
 		if (PKCS12_verify_mac(pkcs12, "", 0) || PKCS12_verify_mac(pkcs12, NULL, 0))
-			pass[0] = '\0';
-		else if (passcb(pass, MAX_PASS_LENGTH, 0, &p) < 0) {
+			pass.clear();
+		else if (PwDialog::execute(&p, &pass) != 1) {
 			/* cancel pressed */
 			PKCS12_free(pkcs12);
-			throw errorEx("","");
+			throw errorEx("","", E_PASSWD);
 		}
-		PKCS12_parse(pkcs12, pass, &mykey, &mycert, &certstack);
+		PKCS12_parse(pkcs12, pass.constData(), &mykey, &mycert, &certstack);
 		int error = ERR_peek_error();
 		if (ERR_GET_REASON(error) == PKCS12_R_MAC_VERIFY_FAILURE) {
 			ign_openssl_error();
 			PKCS12_free(pkcs12);
-			throw errorEx(getClassName(), tr("The supplied password was wrong (%1)").arg(ERR_reason_error_string(error)));
+			throw errorEx(getClassName(), tr("The supplied password was wrong (%1)").arg(ERR_reason_error_string(error)), E_PASSWD);
 		}
 		ign_openssl_error();
 		if (mycert) {
@@ -109,7 +108,7 @@ void pki_pkcs12::addCaCert(pki_x509 *ca)
 
 void pki_pkcs12::writePKCS12(const QString fname)
 {
-	char pass[MAX_PASS_LENGTH];
+	Passwd pass;
 	pass_info p(XCA_TITLE, tr("Please enter the password to encrypt the PKCS#12 file"));
 	if (cert == NULL || key == NULL) {
 		my_error(tr("No key or no Cert and no pkcs12"));
@@ -117,14 +116,17 @@ void pki_pkcs12::writePKCS12(const QString fname)
 
 	FILE *fp = fopen(QString2filename(fname), "wb");
 	if (fp != NULL) {
-		passcb(pass, MAX_PASS_LENGTH, 0, &p);
-		PKCS12 *pkcs12 = PKCS12_create(pass,
+		if (PwDialog::execute(&p, &pass, true) != 1) {
+			fclose(fp);
+			return;
+		}
+		PKCS12 *pkcs12 = PKCS12_create(pass.data(),
 			getIntName().toUtf8().data(),
 			key->decryptKey(),
 			cert->getCert(), certstack, 0, 0, 0, 0, 0);
 		i2d_PKCS12_fp(fp, pkcs12);
-		openssl_error();
 		fclose (fp);
+		openssl_error();
 		PKCS12_free(pkcs12);
 	}
 	else fopen_error(fname);

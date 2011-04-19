@@ -45,6 +45,7 @@ bool _ign_openssl_error(const QString txt, const char *file, int line);
 QByteArray i2d_bytearray(int(*i2d)(const void*, unsigned char**), const void*);
 void *d2i_bytearray(void *(*d2i)(void*, unsigned char**, long),
 		QByteArray &ba);
+BIO *BIO_QBA_mem_buf(QByteArray &a);
 
 #define I2D_VOID(a) ((int (*)(const void *, unsigned char **))(a))
 #define D2I_VOID(a) ((void *(*)(void *, unsigned char **, long))(a))

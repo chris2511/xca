@@ -91,9 +91,10 @@ int main( int argc, char *argv[] )
 		a.setMainwin(mw);
 		mw->read_cmdline();
 		if (mw->exitApp == 0) {
-			mw->open_default_db();
-			mw->show();
-			ret = a.exec();
+			if (mw->open_default_db() != 2) {
+				mw->show();
+				ret = a.exec();
+			 }
 		}
 	} catch (errorEx &ex) {
 		mw->Error(ex);

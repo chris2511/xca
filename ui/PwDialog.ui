@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PassRead</class>
- <widget class="QDialog" name="PassRead">
+ <class>PwDialog</class>
+ <widget class="QDialog" name="PwDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>220</height>
+    <height>260</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,13 +97,23 @@
        <widget class="QLabel" name="label"/>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="pass">
+       <widget class="QLineEdit" name="passA">
         <property name="echoMode">
          <enum>QLineEdit::Password</enum>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2">
+      <item row="1" column="0">
+       <widget class="QLabel" name="repeatLabel"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="passB">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
        <widget class="QCheckBox" name="takeHex">
         <property name="toolTip">
          <string>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</string>
@@ -126,57 +136,45 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pass</tabstop>
+  <tabstop>passA</tabstop>
+  <tabstop>passB</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>pass</sender>
+   <sender>passB</sender>
    <signal>returnPressed()</signal>
-   <receiver>PassRead</receiver>
+   <receiver>PwDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>123</y>
+     <x>238</x>
+     <y>159</y>
     </hint>
     <hint type="destinationlabel">
-     <x>158</x>
-     <y>157</y>
+     <x>252</x>
+     <y>42</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>PassRead</receiver>
-   <slot>accept()</slot>
+   <signal>clicked(QAbstractButton*)</signal>
+   <receiver>PwDialog</receiver>
+   <slot>buttonPress(QAbstractButton*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>144</x>
-     <y>195</y>
+     <x>113</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
-     <x>5</x>
-     <y>171</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>PassRead</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>241</x>
-     <y>197</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>275</x>
-     <y>78</y>
+     <x>125</x>
+     <y>53</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>buttonPress(QAbstractButton*)</slot>
+ </slots>
 </ui>

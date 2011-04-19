@@ -9,6 +9,7 @@
 //#define MDEBUG
 #include "MainWindow.h"
 #include "ImportMulti.h"
+#include "lib/Passwd.h"
 
 #include <openssl/rand.h>
 
@@ -22,7 +23,6 @@
 #include <QtGui/QTextBrowser>
 #include <QtGui/QStatusBar>
 #include <QtCore/QList>
-#include <QtCore/QTemporaryFile>
 #include <QtGui/QInputDialog>
 
 #include "lib/exception.h"
@@ -34,10 +34,8 @@
 #include "lib/pass_info.h"
 #include "lib/func.h"
 #include "lib/pkcs11.h"
-#include "ui_PassRead.h"
-#include "ui_PassWrite.h"
 #include "ui_About.h"
-
+#include "PwDialog.h"
 
 QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
@@ -347,10 +345,14 @@ void MainWindow::read_cmdline()
 		}
 		QString file = filename2QString(arg);
 		if (force_load) {
-			changeDB(file);
+			if (changeDB(file) == 2)
+				exitApp = 1;
 			force_load = 0;
 		} else {
-			pki_multi *pki = probeAnything(file);
+			int ret;
+			pki_multi *pki = probeAnything(file, &ret);
+			if (!pki && ret == 2)
+				 exitApp = 1;
 			if (pki && !pki->count())
 				failed << file;
 			dlgi->addItem(pki);
@@ -382,24 +384,27 @@ void MainWindow::pastePem()
 	ui.button->setText(tr("Import PEM data"));
 	input->setWindowTitle(tr(XCA_TITLE));
 	if (input->exec()) {
-		QString txt = textbox->toPlainText();
-		QTemporaryFile f;
-		f.open();
-		f.write(textbox->toPlainText().toAscii());
-		f.flush();
+		QByteArray pemdata = textbox->toPlainText().toAscii();
+		BIO *b = BIO_QBA_mem_buf(pemdata);
+		check_oom(b);
 		pki_multi *pem = NULL;
 		ImportMulti *dlgi = NULL;
 		try {
 			pem = new pki_multi();
 			dlgi = new ImportMulti(this);
-			pem->fload(f.fileName());
+			pem->fromPEM_BIO(b, QString("paste"));
 			dlgi->addItem(pem);
+			pem = NULL;
 			dlgi->execute(1);
 		}
 		catch (errorEx &err) {
 			Error(err);
 		}
-		delete dlgi;
+		if (dlgi)
+			delete dlgi;
+		if (pem)
+			delete pem;
+		BIO_free(b);
 	}
 	delete input;
 }
@@ -412,8 +417,8 @@ void MainWindow::initToken()
 	try {
 		pkcs11 p11;
 		slotid slot;
-		char pin[MAX_PASS_LENGTH];
-		int pinlen;
+		Passwd pin;
+		int ret;
 
 		if (!p11.selectToken(&slot, this))
 			return;
@@ -427,20 +432,20 @@ void MainWindow::initToken()
 			arg(slotname) + "\n" + ti.pinInfo());
 		p.setPin();
 		if (ti.tokenInitialized()) {
-			pinlen = passRead(pin, MAX_PASS_LENGTH, 0, &p);
+			ret = PwDialog::execute(&p, &pin, false);
 		} else {
 			p.setDescription(tr("Please enter the new SO PIN (PUK) of the token '%1'").
 			arg(slotname) + "\n" + ti.pinInfo());
-			pinlen = passWrite(pin, MAX_PASS_LENGTH, 0, &p);
+			ret = PwDialog::execute(&p, &pin, true);
 		}
-		if (pinlen < 0)
+		if (ret != 1)
 			return;
 		QString label = QInputDialog::getText(this, XCA_TITLE,
 			tr("The new label of the token '%1'").
 			arg(slotname), QLineEdit::Normal, QString(), &ok);
 		if (!ok)
 			return;
-		p11.initToken(slot, (unsigned char*)pin, pinlen, label);
+		p11.initToken(slot, pin.constUchar(), pin.size(), label);
 	} catch (errorEx &err) {
 		Error(err);
         }
@@ -593,17 +598,14 @@ QString makeSalt(void)
 void MainWindow::changeDbPass()
 {
 
-	char pass[MAX_PASS_LENGTH] = { 0, };
-	int keylen;
+	Passwd pass;
 
 	pass_info p(tr("New Password"), tr("Please enter the new password "
 			"to encrypt your private keys in the database-file"),
 			this);
 
-	keylen = passWrite(pass, MAX_PASS_LENGTH-1, 0, &p);
-	if (keylen < 0)
+	if (PwDialog::execute(&p, &pass, true) != 1)
 		return;
-	pass[keylen] = '\0';
 	QString tempn = dbfile + "{new}";
 	try {
 		if (!QFile::copy(dbfile, tempn))
@@ -616,7 +618,7 @@ void MainWindow::changeDbPass()
 		mydb.mv(new_file);
 		close_database();
 		pki_evp::passHash = passhash;
-		strncpy(pki_evp::passwd, pass, MAX_PASS_LENGTH);
+		pki_evp::passwd = pass;
 		init_database();
 	} catch (errorEx &ex) {
 		QFile::remove(tempn);
@@ -624,7 +626,7 @@ void MainWindow::changeDbPass()
 	}
 }
 
-QString MainWindow::updateDbPassword(QString newdb, char *pass)
+QString MainWindow::updateDbPassword(QString newdb, Passwd pass)
 {
 	db mydb(newdb);
 
@@ -674,7 +676,7 @@ QString MainWindow::updateDbPassword(QString newdb, char *pass)
 		{
 			EVP_PKEY *evp = key->decryptKey();
 			key->set_evp_key(evp);
-			key->encryptKey(pass);
+			key->encryptKey(pass.constData());
 			klist << key;
 		} else if (key)
 			delete key;
@@ -698,10 +700,13 @@ int MainWindow::initPass()
 	char *pass;
 	pki_evp::passHash = QString();
 	QString salt;
+	int ret;
 
 	pass_info p(tr("New Password"), tr("Please enter a password, "
 			"that will be used to encrypt your private keys "
-			"in the database file:\n%1").arg(compressFilename(dbfile)), this);
+			"in the database file:\n%1").
+			arg(compressFilename(dbfile)), this);
+
 	if (!mydb.find(setting, "pwhash")) {
 		if ((pass = (char *)mydb.load(NULL))) {
 			pki_evp::passHash = pass;
@@ -709,28 +714,28 @@ int MainWindow::initPass()
 		}
 	}
 	if (pki_evp::passHash.isEmpty()) {
-		int keylen = passWrite((char *)pki_evp::passwd,
-				MAX_PASS_LENGTH-1, 0, &p);
-		if (keylen < 0)
-			return 0;
-		pki_evp::passwd[keylen]='\0';
+		ret = PwDialog::execute(&p, &pki_evp::passwd, true, true);
+		if (ret != 1)
+			return ret;
 		salt = makeSalt();
 		pki_evp::passHash = pki_evp::sha512passwd(pki_evp::passwd,salt);
 		mydb.set((const unsigned char *)CCHAR(pki_evp::passHash),
 			pki_evp::passHash.length()+1, 1, setting, "pwhash");
 	} else {
-		int keylen=0;
+		ret = 0;
 		while (pki_evp::sha512passwd(pki_evp::passwd, pki_evp::passHash)
 				!= pki_evp::passHash)
 		{
-			if (keylen !=0) QMessageBox::warning(this,tr(XCA_TITLE),
+			if (ret)
+				QMessageBox::warning(this, XCA_TITLE,
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbfile)));
-			keylen = passRead(pki_evp::passwd, MAX_PASS_LENGTH-1, 0, &p);
-			if (keylen < 0)
-				return 1;
-			pki_evp::passwd[keylen]='\0';
+			ret = PwDialog::execute(&p, &pki_evp::passwd,
+						false, true);
+			printf("RET: %d\n", ret);
+			if (ret != 1)
+				return ret;
 			if (pki_evp::passHash.left(1) == "S")
 				continue;
 			/* Start automatic update from md5 to salted sha512
@@ -750,102 +755,6 @@ int MainWindow::initPass()
 		}
 	}
 	return 1;
-}
-
-static int hex2bin(QString &x, char *buf, int buflen)
-{
-	int len = x.length();
-	bool ok = false;
-	if (len % 2)
-		return -1;
-	len /= 2;
-	if (len > buflen)
-		return -1;
-
-	for (int i=0; i<len; i++) {
-		buf[i] = x.mid(i*2, 2).toInt(&ok, 16);
-		if (!ok)
-			return -1;
-	}
-	return len;
-}
-
-static const QString hexwarn = MainWindow::tr("Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it must consist of an even number of characters");
-// Static Password Callback functions
-int MainWindow::passRead(char *buf, int size, int, void *userdata)
-{
-	int ret = -1;
-	pass_info *p = (pass_info *)userdata;
-	Ui::PassRead ui;
-	QDialog *dlg = new QDialog(p->getWidget());
-	ui.setupUi(dlg);
-	if (p != NULL) {
-		ui.image->setPixmap(p->getImage());
-		ui.description->setText(p->getDescription());
-		ui.title->setText(p->getType());
-		ui.label->setText(p->getType());
-		dlg->setWindowTitle(p->getTitle());
-		if (p->getType() != "PIN")
-			ui.takeHex->hide();
-	}
-
-	while (dlg->exec()) {
-		QString x = ui.pass->text();
-		if (ui.takeHex->isChecked()) {
-			ret = hex2bin(x, buf, size);
-			if (ret != -1)
-				break;
-		} else {
-			strncpy(buf, x.toAscii(), size);
-			ret = x.length();
-			break;
-		}
-		QMessageBox::warning(p->getWidget(), XCA_TITLE, hexwarn);
-	}
-	delete dlg;
-	return ret;
-}
-
-int MainWindow::passWrite(char *buf, int size, int, void *userdata)
-{
-	int ret = -1;
-	pass_info *p = (pass_info *)userdata;
-	Ui::PassWrite ui;
-	QDialog *dlg = new QDialog(p->getWidget());
-	ui.setupUi(dlg);
-	if (p != NULL) {
-		ui.image->setPixmap(p->getImage()) ;
-		ui.description->setText(p->getDescription());
-		ui.title->setText(p->getType());
-		ui.label->setText(p->getType());
-		ui.repeatLabel->setText(tr("Repeat %1").arg(p->getType()));
-		dlg->setWindowTitle(p->getTitle());
-		if (p->getType() != "PIN")
-			ui.takeHex->hide();
-	}
-
-	while (dlg->exec()) {
-		QString A = ui.passA->text();
-		QString B = ui.passB->text();
-		if (A == B) {
-			if (ui.takeHex->isChecked()) {
-				ret = hex2bin(A, buf, size);
-				if (ret != -1)
-					break;
-			} else {
-				strncpy(buf, A.toAscii(), size);
-				ret = A.length();
-				break;
-			}
-			QMessageBox::warning(p->getWidget(), XCA_TITLE,
-						hexwarn);
-		} else {
-			QMessageBox::warning(p->getWidget(), XCA_TITLE,
-					tr("%1 missmatch").arg(p->getType()));
-		}
-	}
-	delete dlg;
-	return ret;
 }
 
 void MainWindow::Error(errorEx &err)
@@ -893,17 +802,20 @@ void MainWindow::importAnything(QString file)
 	delete dlgi;
 }
 
-pki_multi *MainWindow::probeAnything(QString file)
+pki_multi *MainWindow::probeAnything(QString file, int *ret)
 {
 	pki_multi *pki = new pki_multi();
 
 	try {
 		if (file.endsWith(".xdb")) {
 			try {
+				int r;
 				db mydb(file);
 				mydb.verify_magic();
-				changeDB(file);
+				r = changeDB(file);
 				delete pki;
+				if (ret)
+					*ret = r;
 				return NULL;
 			} catch (errorEx &err) {
 			}

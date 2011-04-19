@@ -10,13 +10,14 @@
 #include "pki_pkcs7.h"
 #include "pki_evp.h"
 #include "pki_scard.h"
+#include "pass_info.h"
 #include "widgets/CertDetail.h"
 #include "widgets/CertExtend.h"
 #include "widgets/ExportDialog.h"
 #include "widgets/MainWindow.h"
+#include "widgets/PwDialog.h"
 #include "ui_TrustState.h"
 #include "ui_CaProperties.h"
-#include "ui_PassWrite.h"
 #include "ui_About.h"
 #include "ui_Revoke.h"
 #include <QtGui/QMessageBox>
@@ -484,34 +485,19 @@ void db_x509::newCert(NewX509 *dlg)
 		cert->setTrust(1);
 #ifdef WG_QA_SERIAL
 	} else if (dlg->selfQASignRB->isChecked()){
-		Ui::PassWrite ui;
-		QDialog *dlg1 = new QDialog(mainwin);
-		ui.setupUi(dlg1);
-		ui.image->setPixmap( *MainWindow::keyImg );
-		ui.description->setText(tr("Please enter the new hexadecimal secret number for the QA process."));
-		dlg1->setWindowTitle(XCA_TITLE);
-		ui.passA->setFocus();
+		Passwd pass;
+		pass_info p(XCA_TITLE, tr("Please enter the new hexadecimal secret number for the QA process."));
+#if 0
 		ui.passA->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),
 				ui.passA));
 		ui.passB->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),
 				ui.passB));
-		QString A = "x", B="";
-
-		while (dlg1->exec()) {
-			A = ui.passA->text();
-			B = ui.passB->text();
-			if (A==B)
-				break;
-			else
-				QMessageBox::warning(mainwin, XCA_TITLE,
-				  tr("The two secret numbers don't match."));
-		}
-		delete dlg1;
-		if (A!=B)
+#endif
+		if (PwDialog::execute(&p, &pass, true) != 1)
 			throw errorEx(tr("The QA process has been terminated by the user."));
 		signcert = cert;
 		signkey = clientkey;
-		serial.setHex(A);
+		serial.setHex(pass);
 		cert->setTrust(2);
 #endif
 	} else {
@@ -824,8 +810,7 @@ void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
 		if (s.isEmpty())
 			return;
 		s = QDir::convertSeparators(s);
-		pki_pkcs12 *p12 = new pki_pkcs12(cert->getIntName(), cert, privkey,
-				MainWindow::passWrite);
+		pki_pkcs12 *p12 = new pki_pkcs12(cert->getIntName(), cert, privkey);
 		pki_x509 *signer = cert->getSigner();
 		while ((signer != NULL ) && (signer != cert) && chain) {
 			p12->addCaCert(signer);

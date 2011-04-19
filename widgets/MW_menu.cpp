@@ -7,6 +7,7 @@
 
 
 #include "MainWindow.h"
+#include "PwDialog.h"
 #include "Options.h"
 #include "lib/load_obj.h"
 #include "lib/pass_info.h"
@@ -89,14 +90,14 @@ void MainWindow::init_menu()
 	scardList += token;
 }
 
-void MainWindow::changeDB(QString fname)
+int MainWindow::changeDB(QString fname)
 {
 	if (fname.isEmpty())
-		return;
+		return 1;
 	close_database();
 	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()));
 	dbfile = fname;
-	init_database();
+	return init_database();
 }
 
 void MainWindow::new_database()
@@ -123,12 +124,12 @@ void MainWindow::load_database()
 void MainWindow::import_dbdump()
 {
 	extern int read_dump(const char *, db_base **, char *, int);
+	Passwd pass;
 	char buf[50];
 
 	db_base *dbl[] = { keys, reqs, certs, temps, crls };
 	if (!keys)
 		return;
-	QString pass;
 	QString file = QFileDialog::getOpenFileName(this, tr(XCA_TITLE), homedir,
 			tr("Database dump ( *.dump );;All files ( * )"));
 
@@ -137,21 +138,20 @@ void MainWindow::import_dbdump()
 
 	pass_info p(tr("Import password"),
 		tr("Please enter the password of the old database"), this);
-	if (passRead(buf, 50, 0, &p) <0)
+	if (PwDialog::execute(&p, &pass) != 1)
 		return;
-	pass = buf;
 	try {
-		read_dump(CCHAR(file), dbl, buf, 50);
-		if (pki_evp::md5passwd(CCHAR(pass)) != buf) {
+		read_dump(CCHAR(file), dbl, buf, sizeof(buf));
+		if (pki_evp::md5passwd(pass) != buf) {
 			int ret = QMessageBox::warning(this, tr(XCA_TITLE),
 				tr("Password verification error. Ignore keys ?"),
 				tr("Import anyway"), tr("Cancel"));
 			if (ret)
 				return;
 		}
-		pki_evp::setOldPasswd(CCHAR(pass));
+		pki_evp::oldpasswd = pass;
 		read_dump(CCHAR(file), dbl, NULL, 0);
-		pki_evp::eraseOldPasswd();
+		pki_evp::oldpasswd.cleanse();
 	} catch (errorEx &err) {
 		Error(err);
 	}

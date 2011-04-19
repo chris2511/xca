@@ -17,6 +17,7 @@
 #include "lib/db_crl.h"
 #include "lib/exception.h"
 #include "lib/oid.h"
+#include "lib/Passwd.h"
 #include <QtGui/QPixmap>
 #include <QtGui/QFileDialog>
 #include <QtGui/QMenuBar>
@@ -47,7 +48,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		NIDlist *read_nidlist(QString name);
 		QLabel *statusLabel;
 		QString homedir;
-		void changeDB(QString fname);
+		int changeDB(QString fname);
 
 	public:
 		static db_x509 *certs;
@@ -71,9 +72,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		int initPass();
 		void read_cmdline();
 		void load_engine();
-		static int passRead(char *buf, int size, int rwflag, void *userdata);
-		static int passWrite(char *buf, int size, int rwflag, void *userdata);
-		//static void Qt::SocketError(errorEx &err);
 		static void Error(errorEx &err);
 		void cmd_version();
 		void cmd_help(const char* msg);
@@ -82,16 +80,16 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setPath(QString path);
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
-		QString updateDbPassword(QString newdb, char *pass);
+		QString updateDbPassword(QString newdb, Passwd pass);
 		void enableTokenMenu(bool enable);
-		pki_multi *probeAnything(QString file);
+		pki_multi *probeAnything(QString file, int *ret = NULL);
 		void importAnything(QString file);
 		void dropEvent(QDropEvent *event);
 		void dragEnterEvent(QDragEnterEvent *event);
-		void open_default_db();
+		int open_default_db();
 
 	public slots:
-		void init_database();
+		int init_database();
 		void new_database();
 		void load_database();
 		void close_database();

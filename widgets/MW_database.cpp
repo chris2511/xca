@@ -17,16 +17,18 @@
 #include "lib/func.h"
 #include "widgets/ImportMulti.h"
 
-void MainWindow::init_database()
+int MainWindow::init_database()
 {
+	int ret = 2;
 	fprintf(stderr, "Opening database: %s\n", QString2filename(dbfile));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
 	certView->setRootIsDecorated(db_x509::treeview);
 
 	try {
-		if (!initPass())
-			return;
+		ret = initPass();
+		if (ret == 2)
+			return ret;
 		keys = new db_key(dbfile, this);
 		reqs = new db_x509req(dbfile, this);
 		certs = new db_x509(dbfile, this);
@@ -36,7 +38,7 @@ void MainWindow::init_database()
 	catch (errorEx &err) {
 		Error(err);
 		dbfile = "";
-		return;
+		return ret;
 	}
 
 	connect( keys, SIGNAL(newKey(pki_key *)),
@@ -136,16 +138,17 @@ void MainWindow::init_database()
 		}
 	} catch (errorEx &err) {
 		Error(err);
-		return;
+		return ret;
 	}
 	setWindowTitle(tr(XCA_TITLE));
 	setItemEnabled(true);
-	if (pki_evp::passwd[0] == '\0')
+	if (pki_evp::passwd.isEmpty())
 		QMessageBox::information(this, XCA_TITLE,
 			tr("Using or exporting private keys will not be possible without providing the correct password"));
 
 	dbindex->setText(tr("Database") + ":" + dbfile);
 	load_engine();
+	return ret;
 }
 
 void MainWindow::dump_database()
@@ -218,14 +221,14 @@ void MainWindow::undelete()
 	delete dlgi;
 }
 
-void MainWindow::open_default_db()
+int MainWindow::open_default_db()
 {
 	if (!dbfile.isEmpty())
-		return;
+		return 0;
 	FILE *fp = fopen(QString2filename(getUserSettingsDir() +
 					QDir::separator() + "defaultdb"), "r");
 	if (!fp)
-		return;
+		return 0;
 
 	char buff[256];
 	size_t len = fread(buff, 1, 255, fp);
@@ -233,7 +236,8 @@ void MainWindow::open_default_db()
 	buff[len] = 0;
 	dbfile = filename2QString(buff).trimmed();
 	if (QFile::exists(dbfile))
-		init_database();
+		return init_database();
+	return 0;
 }
 
 void MainWindow::default_database()
@@ -291,7 +295,7 @@ void MainWindow::close_database()
 	temps = NULL;
 	keys = NULL;
 
-	pki_evp::erasePasswd();
+	pki_evp::passwd.cleanse();
 
 	if (!crls)
 		return;

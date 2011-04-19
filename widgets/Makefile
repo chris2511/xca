@@ -4,7 +4,7 @@ TOPDIR=..
 endif
 
 MOC_NAMES=MainWindow KeyDetail clicklabel XcaTreeView ExportKey NewX509 \
-	validity v3ext distname CertDetail CertExtend \
+	validity v3ext distname CertDetail CertExtend PwDialog \
 	ImportMulti CrlDetail ExportDialog hashBox Options NewKey kvView NewCrl
 
 NAMES=$(MOC_NAMES) NewX509_ext MW_menu MW_help MW_database

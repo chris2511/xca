@@ -8,9 +8,10 @@
 
 #include "pki_evp.h"
 #include "pass_info.h"
+#include "Passwd.h"
 #include "func.h"
 #include "db.h"
-#include "widgets/MainWindow.h"
+#include "widgets/PwDialog.h"
 
 #include <openssl/rand.h>
 #include <openssl/evp.h>
@@ -20,8 +21,8 @@
 #include <QtGui/QApplication>
 #include <QtCore/QDir>
 
-char pki_evp::passwd[MAX_PASS_LENGTH]={0,};
-char pki_evp::oldpasswd[MAX_PASS_LENGTH]={0,};
+Passwd pki_evp::passwd;
+Passwd pki_evp::oldpasswd;
 
 QString pki_evp::passHash = QString();
 
@@ -32,28 +33,6 @@ EC_builtin_curve *pki_evp::curves = NULL;
 size_t pki_evp::num_curves = 0;
 unsigned char *pki_evp::curve_flags = NULL;
 #endif
-
-void pki_evp::erasePasswd()
-{
-	memset(passwd, 0, MAX_PASS_LENGTH);
-}
-
-void pki_evp::eraseOldPasswd()
-{
-	memset(oldpasswd, 0, MAX_PASS_LENGTH);
-}
-
-void pki_evp::setPasswd(const char *pass)
-{
-	strncpy(passwd, pass, MAX_PASS_LENGTH);
-	passwd[MAX_PASS_LENGTH-1] = '\0';
-}
-
-void pki_evp::setOldPasswd(const char *pass)
-{
-	strncpy(oldpasswd, pass, MAX_PASS_LENGTH);
-	oldpasswd[MAX_PASS_LENGTH-1] = '\0';
-}
 
 void pki_evp::init(int type)
 {
@@ -207,18 +186,32 @@ QList<int> pki_evp::possibleHashNids()
 	return nids;
 };
 
+void pki_evp::openssl_pw_error(QString fname)
+{
+	switch (ERR_peek_error() & 0xff000fff) {
+	case ERR_PACK(ERR_LIB_PEM, 0, PEM_R_BAD_DECRYPT):
+	case ERR_PACK(ERR_LIB_PEM, 0, PEM_R_BAD_PASSWORD_READ):
+	case ERR_PACK(ERR_LIB_EVP, 0, EVP_R_BAD_DECRYPT):
+		pki_ign_openssl_error();
+		throw errorEx(tr("Failed to decrypt the key (bad password) ")+
+				fname, class_name, E_PASSWD);
+	}
+}
+
 void pki_evp::fromPEM_BIO(BIO *bio, QString name)
 {
 	EVP_PKEY *pkey;
 	int pos;
-	pass_info p(XCA_TITLE, QObject::tr(
-			"Please enter the password to decrypt the private key."));
+	pass_info p(XCA_TITLE,
+		tr("Please enter the password to decrypt the private key.") +
+		" " + name);
 	pos = BIO_tell(bio);
-	pkey = PEM_read_bio_PrivateKey(bio, NULL, MainWindow::passRead, &p);
+	pkey = PEM_read_bio_PrivateKey(bio, NULL, PwDialog::pwCallback, &p);
+	openssl_pw_error(name);
 	if (!pkey){
 		pki_ign_openssl_error();
 		pos = BIO_seek(bio, pos);
-		pkey = PEM_read_bio_PUBKEY(bio, NULL, MainWindow::passRead, &p);
+		pkey = PEM_read_bio_PUBKEY(bio, NULL, PwDialog::pwCallback, &p);
 	}
 	if (pkey){
 		if (key)
@@ -267,7 +260,7 @@ void pki_evp::fload(const QString fname)
 {
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key from file:\n%1").
 		arg(compressFilename(fname)));
-	pem_password_cb *cb = MainWindow::passRead;
+	pem_password_cb *cb = PwDialog::pwCallback;
 	FILE *fp = fopen(QString2filename(fname), "r");
 	EVP_PKEY *pkey;
 
@@ -277,13 +270,11 @@ void pki_evp::fload(const QString fname)
 		return;
 	}
 	pkey = PEM_read_PrivateKey(fp, NULL, cb, &p);
-	if (!pkey) {
-		if (ERR_get_error() == 0x06065064) {
-			fclose(fp);
-			pki_ign_openssl_error();
-			throw errorEx(tr("Failed to decrypt the key (bad password) ") +
-					fname, class_name);
-		}
+	try {
+		openssl_pw_error(fname);
+	} catch (errorEx &err) {
+		fclose(fp);
+		throw err;
 	}
 	if (!pkey) {
 		pki_ign_openssl_error();
@@ -368,7 +359,8 @@ EVP_PKEY *pki_evp::decryptKey() const
 	EVP_PKEY *tmpkey;
 	EVP_CIPHER_CTX ctx;
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
-	char ownPassBuf[MAX_PASS_LENGTH] = "";
+	Passwd ownPassBuf;
+	int ret;
 
 	if (isPubKey()) {
 		unsigned char *q;
@@ -383,29 +375,23 @@ EVP_PKEY *pki_evp::decryptKey() const
 	}
 	/* This key has its own password */
 	if (ownPass == ptPrivate) {
-		int ret;
 		pass_info pi(XCA_TITLE, tr("Please enter the password to decrypt the private key: '%1'").arg(getIntName()));
-		ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &pi);
-		if (ret < 0)
+		ret = PwDialog::execute(&pi, &ownPassBuf, false);
+		if (ret != 1)
 			throw errorEx(tr("Password input aborted"), class_name);
 	} else if (ownPass == ptBogus) { // BOGUS pass
-		ownPassBuf[0] = '\0';
+		ownPassBuf = "Bogus";
 	} else {
-		memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
-		//printf("Orig password: '%s' len:%d\n", passwd, strlen(passwd));
+		ownPassBuf = passwd;
 		while (md5passwd(ownPassBuf) != passHash &&
 			sha512passwd(ownPassBuf, passHash) != passHash)
 		{
-			int ret;
-			//printf("Passhash= '%s', new hash= '%s', passwd= '%s'\n",
-				//CCHAR(passHash), CCHAR(md5passwd(ownPassBuf)), ownPassBuf);
 			pass_info p(XCA_TITLE, tr("Please enter the database password for decrypting the key '%1'").arg(getIntName()));
-			ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
-			if (ret < 0)
+			ret = PwDialog::execute(&p, &ownPassBuf, false);
+			if (ret != 1)
 				throw errorEx(tr("Password input aborted"), class_name);
 		}
 	}
-	//printf("Using decrypt Pass: %s\n", ownPassBuf);
 	p = (unsigned char *)OPENSSL_malloc(encKey.count());
 	check_oom(p);
 	pki_openssl_error();
@@ -414,8 +400,9 @@ EVP_PKEY *pki_evp::decryptKey() const
 
 	memcpy(iv, encKey.constData(), 8); /* recover the iv */
 	/* generate the key */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)ownPassBuf,
-		strlen(ownPassBuf), 1, ckey,NULL);
+	EVP_BytesToKey(cipher, EVP_sha1(), iv,
+		ownPassBuf.constUchar(),
+		ownPassBuf.size(), 1, ckey, NULL);
 	/* we use sha1 as message digest,
 	 * because an md5 version of the password is
 	 * stored in the database...
@@ -428,7 +415,7 @@ EVP_PKEY *pki_evp::decryptKey() const
 	decsize = outl;
 	EVP_DecryptFinal(&ctx, p + decsize , &outl);
 	decsize += outl;
-	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey_len);
+	//printf("Decrypt decsize=%d, encKey_len=%d\n", decsize, encKey.count() -8);
 	pki_openssl_error();
 	tmpkey = d2i_PrivateKey(key->type, NULL, &p1, decsize);
 	pki_openssl_error();
@@ -479,30 +466,31 @@ void pki_evp::encryptKey(const char *password)
 	const EVP_CIPHER *cipher = EVP_des_ede3_cbc();
 	unsigned char iv[EVP_MAX_IV_LENGTH], *punenc, *punenc1;
 	unsigned char ckey[EVP_MAX_KEY_LENGTH];
-	char ownPassBuf[MAX_PASS_LENGTH];
+	Passwd ownPassBuf;
 
 	/* This key has its own, private password */
 	if (ownPass == ptPrivate) {
 		int ret;
 		pass_info p(XCA_TITLE, tr("Please enter the password to protect the private key: '%1'").
 			arg(getIntName()));
-		ret = MainWindow::passWrite(ownPassBuf, MAX_PASS_LENGTH, 0, &p);
-		if (ret < 0)
+		ret = PwDialog::execute(&p, &ownPassBuf, true);
+		if (ret != 1)
 			throw errorEx("Password input aborted", class_name);
 	} else if (ownPass == ptBogus) { // BOGUS password
-		ownPassBuf[0] = '\0';
+		ownPassBuf = "Bogus";
 	} else {
 		if (password) {
-			/* use the password parameter if this is a common password */
-			strncpy(ownPassBuf, password, MAX_PASS_LENGTH);
+			/* use the password parameter
+			 * if this is a common password */
+			ownPassBuf = password;
 		} else {
 			int ret = 0;
-			memcpy(ownPassBuf, passwd, MAX_PASS_LENGTH);
+			ownPassBuf = passwd;
 			pass_info p(XCA_TITLE, tr("Please enter the database password for encrypting the key"));
 			while (md5passwd(ownPassBuf) != passHash &&
 				sha512passwd(ownPassBuf, passHash) != passHash )
 			{
-				ret = MainWindow::passRead(ownPassBuf, MAX_PASS_LENGTH, 0,&p);
+				ret = PwDialog::execute(&p, &ownPassBuf, true);
 				if (ret < 0)
 					throw errorEx("Password input aborted", class_name);
 			}
@@ -512,8 +500,9 @@ void pki_evp::encryptKey(const char *password)
 	/* Prepare Encryption */
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
 	RAND_pseudo_bytes(iv,8);      /* Generate a salt */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)ownPassBuf,
-			strlen(ownPassBuf), 1, ckey, NULL);
+	EVP_BytesToKey(cipher, EVP_sha1(), iv,
+			ownPassBuf.constUchar(),
+			ownPassBuf.size(), 1, ckey, NULL);
 	EVP_CIPHER_CTX_init (&ctx);
 	pki_openssl_error();
 
@@ -702,7 +691,7 @@ QVariant pki_evp::getIcon(int id)
 	return QVariant(*icon[pixnum]);
 }
 
-QString pki_evp::md5passwd(const char *pass)
+QString pki_evp::md5passwd(QByteArray pass)
 {
 
 	EVP_MD_CTX mdctx;
@@ -711,7 +700,7 @@ QString pki_evp::md5passwd(const char *pass)
 	int j;
 	unsigned char m[EVP_MAX_MD_SIZE];
 	EVP_DigestInit(&mdctx, EVP_md5());
-	EVP_DigestUpdate(&mdctx, pass, strlen(pass));
+	EVP_DigestUpdate(&mdctx, pass.constData(), pass.size());
 	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
 	for (j=0; j<n; j++) {
 		char zs[4];
@@ -721,7 +710,7 @@ QString pki_evp::md5passwd(const char *pass)
 	return str;
 }
 
-QString pki_evp::sha512passwd(QString pass, QString salt)
+QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 {
 
 	EVP_MD_CTX mdctx;
@@ -734,10 +723,10 @@ QString pki_evp::sha512passwd(QString pass, QString salt)
 		abort();
 
 	str = salt.left(5);
-	pass = str + pass;
+	pass = str.toAscii() + pass;
 
 	EVP_DigestInit(&mdctx, EVP_sha512());
-	EVP_DigestUpdate(&mdctx, CCHAR(pass), pass.size());
+	EVP_DigestUpdate(&mdctx, pass.constData(), pass.size());
 	EVP_DigestFinal(&mdctx, m, (unsigned*)&n);
 
 	for (j=0; j<n; j++) {
@@ -770,8 +759,8 @@ void pki_evp::veryOldFromData(unsigned char *p, int size )
 	sik1=sik;
 	memcpy(iv, p, 8); /* recover the iv */
 	/* generate the key */
-	EVP_BytesToKey(cipher, EVP_sha1(), iv, (unsigned char *)oldpasswd,
-		strlen(oldpasswd), 1, ckey,NULL);
+	EVP_BytesToKey(cipher, EVP_sha1(), iv, oldpasswd.constUchar(),
+		oldpasswd.size(), 1, ckey, NULL);
 	/* we use sha1 as message digest,
 	 * because an md5 version of the password is
 	 * stored in the database...

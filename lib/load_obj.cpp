@@ -12,7 +12,8 @@
 #include "pki_pkcs7.h"
 #include "pki_pkcs12.h"
 #include "pki_multi.h"
-#include "widgets/MainWindow.h"
+#include "pki_temp.h"
+#include "pki_crl.h"
 
 load_base::load_base()
 {
@@ -108,7 +109,7 @@ load_pkcs12::load_pkcs12()
 
 pki_base * load_pkcs12::loadItem(QString s)
 {
-	pki_base *p12 = new pki_pkcs12(s, MainWindow::passRead);
+	pki_base *p12 = new pki_pkcs12(s);
 	return p12;
 }
 

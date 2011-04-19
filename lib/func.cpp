@@ -13,6 +13,8 @@
 #include <openssl/objects.h>
 #include <openssl/asn1.h>
 #include <openssl/err.h>
+#include <openssl/bio.h>
+#include <openssl/buffer.h>
 
 #if defined(Q_WS_MAC)
 #include <QtGui/QDesktopServices>
@@ -336,8 +338,9 @@ void _openssl_error(const QString txt, const char *file, int line)
 
 	while (int i = ERR_get_error() ) {
 		error += QString(ERR_error_string(i, NULL)) + "\n";
-		fprintf(stderr, CCHAR(QString("OpenSSL error (%1:%2) : %3\n").
-			arg(file).arg(line).arg(ERR_error_string(i, NULL))));
+		fputs(CCHAR(QString("OpenSSL error (%1:%2) : %3\n").
+			arg(file).arg(line).arg(ERR_error_string(i, NULL))),
+			stderr);
 	}
 	if (!error.isEmpty()) {
 		if (!txt.isEmpty())
@@ -378,3 +381,45 @@ void inc_progress_bar(int, int, void *p)
 	}
 }
 
+static long mem_ctrl(BIO *b, int cmd, long num, void *ptr)
+{
+	BUF_MEM *bm = (BUF_MEM *)b->ptr;
+	if (!bm->data || !(b->flags & BIO_FLAGS_MEM_RDONLY))
+		return BIO_s_mem()->ctrl(b, cmd, num, ptr);
+
+	switch (cmd) {
+	case BIO_C_FILE_SEEK:
+		if (num > bm->max)
+			num = bm->max;
+		bm->data -= (bm->max - bm->length) - num;
+		bm->length = bm->max - num;
+	case BIO_C_FILE_TELL:
+		return bm->max - bm->length;
+	}
+	return BIO_s_mem()->ctrl(b, cmd, num, ptr);
+}
+
+void BIO_seekable_romem(BIO *b)
+{
+	static BIO_METHOD *mymeth = NULL;
+	static BIO_METHOD _meth;
+
+	if (!(b->flags & BIO_FLAGS_MEM_RDONLY) ||
+	     (b->method->type != BIO_TYPE_MEM))
+	{
+		return;
+	}
+	if (!mymeth) {
+		_meth = *BIO_s_mem();
+		_meth.ctrl = mem_ctrl;
+		mymeth = &_meth;
+	}
+	b->method = mymeth;
+}
+
+BIO *BIO_QBA_mem_buf(QByteArray &a)
+{
+	BIO *b = BIO_new_mem_buf(a.data(), a.size());
+	BIO_seekable_romem(b);
+	return b;
+}

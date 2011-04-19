@@ -12,6 +12,7 @@
 #include "db_base.h"
 #include "func.h"
 #include "pass_info.h"
+#include "Passwd.h"
 
 #include <openssl/rand.h>
 #include <QtGui/QMessageBox>
@@ -19,6 +20,7 @@
 
 #include <ltdl.h>
 #include "ui_SelectToken.h"
+#include "widgets/PwDialog.h"
 
 pkcs11_lib_list pkcs11::libs;
 
@@ -238,8 +240,7 @@ static QDialog *newPinPadBox()
 
 QString pkcs11::tokenLogin(QString name, bool so, bool force)
 {
-	char _pin[256], *pin = _pin;
-	int pinlen;
+	Passwd pin;
 	bool need_login;
 
 	QString text = so ?
@@ -253,8 +254,7 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 		if (!need_login)
 			logout();
 		if (tokenInfo().protAuthPath()) {
-			pin[0] = '\0';
-			pinlen = 0;
+			pin.clear();
 			QDialog *pinpadbox = newPinPadBox();
 			pinpadbox->show();
 			pinPadLoginThread ppt(this, so);
@@ -267,15 +267,14 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 			if (!ppt.err.isEmpty())
 				throw errorEx(ppt.err);
 		} else {
-			pinlen = MainWindow::passRead(pin, 256, 0, &p);
-			if (pinlen == -1)
+			if (PwDialog::execute(&p, &pin, false) != 1)
 				return QString();
 		}
-		login((unsigned char*)pin, pinlen, so);
+		login(pin.constUchar(), pin.size(), so);
 	} else {
 		return QString("");
 	}
-	return QString::fromLocal8Bit(pin, pinlen);
+	return QString(pin);
 }
 
 bool pkcs11::selectToken(slotid *slot, QWidget *w)
@@ -331,7 +330,7 @@ static QString newPinTxt = QObject::tr(
 
 void pkcs11::changePin(slotid slot, bool so)
 {
-	char newPin[MAX_PASS_LENGTH], *pinp;
+	Passwd newPin, pinp;
 	QString pin;
 
 	startSession(slot, true);
@@ -350,20 +349,18 @@ void pkcs11::changePin(slotid slot, bool so)
 	pass_info p(XCA_TITLE, msg.arg(ti.label()) + "\n" + ti.pinInfo());
 	p.setPin();
 
-	int newPinLen = MainWindow::passWrite(newPin, MAX_PASS_LENGTH, 0, &p);
-	pinp = strdup(CCHAR(pin));
-	if (newPinLen != -1) {
-		setPin((unsigned char*)pinp, pin.length(),
-			(unsigned char*)newPin, newPinLen);
+	if (PwDialog::execute(&p, &newPin, true) == 1) {
+		pinp = pin.toAscii();
+		setPin(pinp.constUchar(), pinp.size(),
+			newPin.constUchar(), newPin.size());
 	}
-	free(pinp);
 	logout();
 }
 
 void pkcs11::initPin(slotid slot)
 {
-	char newPin[MAX_PASS_LENGTH], *pinp = NULL;
-	int newPinLen = 0;
+	Passwd newPin, pinp;
+	int ret = 1;
 	QString pin;
 
 	startSession(slot, true);
@@ -377,15 +374,14 @@ void pkcs11::initPin(slotid slot)
 	p.setPin();
 
 	if (!ti.protAuthPath()) {
-		newPinLen = MainWindow::passWrite(newPin,
-				MAX_PASS_LENGTH, 0, &p);
+		ret = PwDialog::execute(&p, &newPin, true);
 		pinp = newPin;
 	}
 	p11slot.isValid();
-	if (newPinLen != -1) {
+	if (ret == 1) {
 		WAITCURSOR_START;
 		CK_RV rv = p11slot.p11()->C_InitPIN(session,
-					(unsigned char*)pinp, newPinLen);
+			pinp.constUchar(), pinp.size());
 		WAITCURSOR_END;
 		if (rv != CKR_OK)
 			pk11error("C_InitPIN", rv);

@@ -13,7 +13,7 @@
 #include <QtGui/QProgressDialog>
 #include <QtGui/QApplication>
 #include <QtCore/QDir>
-#include <widgets/MainWindow.h>
+#include "widgets/PwDialog.h"
 
 pki_key::pki_key(const QString name)
         :pki_base(name)

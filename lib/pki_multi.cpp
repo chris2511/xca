@@ -126,7 +126,7 @@ void pki_multi::fromPEM_BIO(BIO *bio, QString name)
 				continue;
 			}
 			pos += startpos;
-			if (BIO_seek(bio, pos))
+			if (BIO_seek(bio, pos) == -1)
 				throw errorEx(tr("Seek failed"));
 			item->fromPEM_BIO(bio, name);
 			if (pos == BIO_tell(bio)) {
@@ -159,10 +159,6 @@ void pki_multi::probeAnything(const QString fname)
 		new load_crl() <<  new load_req() <<   new load_key() <<
 		new load_temp();
 
-	fload(fname);
-	if (multi.count() > 0)
-		return;
-
 	foreach(lb, lbs) {
 		try {
 			item = lb->loadItem(fname);
@@ -171,7 +167,10 @@ void pki_multi::probeAnything(const QString fname)
 				break;
 			}
 		} catch (errorEx &err) {
-			; // ignore
+			if (err.info == E_PASSWD) {
+				MainWindow::Error(err);
+				break;
+			}
 		}
 	}
 	while (!lbs.isEmpty())

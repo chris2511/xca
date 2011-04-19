@@ -15,6 +15,7 @@
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 #include "pki_key.h"
+#include "Passwd.h"
 
 #define CURVE_X962  1
 #define CURVE_OTHER 2
@@ -26,17 +27,14 @@ class pki_evp: public pki_key
 		QByteArray encKey;
 		void init(int type = EVP_PKEY_RSA);
 		void veryOldFromData(unsigned char *p, int size);
+		void openssl_pw_error(QString fname);
 	public:
 		static QPixmap *icon[2];
 		static QString passHash;
-		static char passwd[MAX_PASS_LENGTH];
-		static char oldpasswd[MAX_PASS_LENGTH];
-		static void erasePasswd();
-		static void eraseOldPasswd();
-		static void setPasswd(const char *pass);
-		static void setOldPasswd(const char *pass);
-		static QString md5passwd(const char *pass);
-		static QString sha512passwd(QString pass, QString salt);
+		static Passwd passwd;
+		static Passwd oldpasswd;
+		static QString md5passwd(QByteArray pass);
+		static QString sha512passwd(QByteArray pass, QString salt);
 #ifndef OPENSSL_NO_EC
 		static EC_builtin_curve *curves;
 		static size_t num_curves;

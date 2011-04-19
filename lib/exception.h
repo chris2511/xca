@@ -12,20 +12,25 @@
 #include <QtCore/QObject>
 #include "base.h"
 
+#define E_PASSWD 1
+
 class errorEx
 {
 	private:
 		QString msg;
 	public:
-		errorEx(QString txt = "", QString className = "")
+		int info;
+		errorEx(QString txt = "", QString className = "", int inf = 0)
 		{
 			msg = txt;
 			if (!className.isEmpty())
 				msg += " (" + className + ")";
+			info = inf;
 		}
 		errorEx(const errorEx &e)
 		{
 			msg = e.msg;
+			info = e.info;
 		}
 		void appendString(QString s)
 		{

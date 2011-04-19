@@ -23,7 +23,7 @@
 #include "ui_NewKey.h"
 #include "pkcs11.h"
 
-#include "widgets/MainWindow.h"
+#include "widgets/PwDialog.h"
 #include "widgets/ExportKey.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/NewKey.h"
@@ -301,9 +301,9 @@ void db_key::store()
 		if (dlg->exportPrivate->isChecked() && !targetKey->isToken()) {
 			pki_evp *evpKey = (pki_evp *)targetKey;
 			if (dlg->exportPkcs8->isChecked()) {
-				evpKey->writePKCS8(fname, enc, &MainWindow::passWrite, pem);
+				evpKey->writePKCS8(fname, enc, PwDialog::pwCallback, pem);
 			} else {
-				evpKey->writeKey(fname, enc, &MainWindow::passWrite, pem);
+				evpKey->writeKey(fname, enc, PwDialog::pwCallback, pem);
 			}
 		} else {
 			targetKey->writePublic(fname, pem);

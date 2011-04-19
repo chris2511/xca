@@ -16,7 +16,6 @@
 #include "pki_base.h"
 
 #define MAX_KEY_LENGTH 4096
-#define MAX_PASS_LENGTH 128
 
 class pki_key: public pki_base
 {
