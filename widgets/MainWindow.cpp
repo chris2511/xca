@@ -375,38 +375,49 @@ void MainWindow::loadPem()
 void MainWindow::pastePem()
 {
 	Ui::About ui;
-	QDialog *input = new QDialog(this, 0);
+	QClipboard *cb = QApplication::clipboard();
+	QString text;
 
-	ui.setupUi(input);
-	delete ui.textbox;
-	QTextEdit *textbox = new QTextEdit(input);
-	ui.vboxLayout->addWidget(textbox);
-	ui.button->setText(tr("Import PEM data"));
-	input->setWindowTitle(tr(XCA_TITLE));
-	if (input->exec()) {
-		QByteArray pemdata = textbox->toPlainText().toAscii();
-		BIO *b = BIO_QBA_mem_buf(pemdata);
-		check_oom(b);
-		pki_multi *pem = NULL;
-		ImportMulti *dlgi = NULL;
-		try {
-			pem = new pki_multi();
-			dlgi = new ImportMulti(this);
-			pem->fromPEM_BIO(b, QString("paste"));
-			dlgi->addItem(pem);
-			pem = NULL;
-			dlgi->execute(1);
-		}
-		catch (errorEx &err) {
-			Error(err);
-		}
-		if (dlgi)
-			delete dlgi;
-		if (pem)
-			delete pem;
-		BIO_free(b);
+	text = cb->text(QClipboard::Selection);
+	if (text.isEmpty())
+		text = cb->text(QClipboard::Clipboard);
+	if (text.isEmpty()) {
+		QDialog *input = new QDialog(this, 0);
+
+		ui.setupUi(input);
+		delete ui.textbox;
+		QTextEdit *textbox = new QTextEdit(input);
+		ui.vboxLayout->addWidget(textbox);
+		ui.button->setText(tr("Import PEM data"));
+		input->setWindowTitle(XCA_TITLE);
+		if (input->exec())
+			text = textbox->toPlainText();
+		delete input;
 	}
-	delete input;
+	if (text.isEmpty())
+		return;
+
+	QByteArray pemdata = text.toAscii();
+	BIO *b = BIO_QBA_mem_buf(pemdata);
+	check_oom(b);
+	pki_multi *pem = NULL;
+	ImportMulti *dlgi = NULL;
+	try {
+		pem = new pki_multi();
+		dlgi = new ImportMulti(this);
+		pem->fromPEM_BIO(b, QString("paste"));
+		dlgi->addItem(pem);
+		pem = NULL;
+		dlgi->execute(1);
+	}
+	catch (errorEx &err) {
+		Error(err);
+	}
+	if (dlgi)
+		delete dlgi;
+	if (pem)
+		delete pem;
+	BIO_free(b);
 }
 
 void MainWindow::initToken()
@@ -733,7 +744,6 @@ int MainWindow::initPass()
 			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbfile)));
 			ret = PwDialog::execute(&p, &pki_evp::passwd,
 						false, true);
-			printf("RET: %d\n", ret);
 			if (ret != 1)
 				return ret;
 			if (pki_evp::passHash.left(1) == "S")
@@ -767,7 +777,10 @@ void MainWindow::Error(errorEx &err)
 	box.addButton(QMessageBox::Apply)->setText(tr("Copy to Clipboard"));
 	if (box.exec() == QMessageBox::Apply) {
 		QClipboard *cb = QApplication::clipboard();
-		cb->setText(msg);
+		if (cb->supportsSelection())
+			cb->setText(msg, QClipboard::Selection);
+		else
+			cb->setText(msg);
 	}
 }
 

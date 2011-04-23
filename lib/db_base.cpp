@@ -681,6 +681,8 @@ void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 	}
 
 	if (parent) {
+		parent->addAction(tr("Paste PEM data"), mainwin,
+				SLOT(pastePem()));
 		parent->addMenu(menu)->setText(tr("Columns"));
 		parent->exec(e->globalPos());
 	} else {

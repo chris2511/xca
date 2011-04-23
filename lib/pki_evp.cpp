@@ -490,8 +490,8 @@ void pki_evp::encryptKey(const char *password)
 			while (md5passwd(ownPassBuf) != passHash &&
 				sha512passwd(ownPassBuf, passHash) != passHash )
 			{
-				ret = PwDialog::execute(&p, &ownPassBuf, true);
-				if (ret < 0)
+				ret = PwDialog::execute(&p, &ownPassBuf, false);
+				if (ret != 1)
 					throw errorEx("Password input aborted", class_name);
 			}
 		}
