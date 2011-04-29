@@ -1,4 +1,7 @@
 
+  * Feature Request [3286442] Make success/import messges optional
+  * improve Password entry
+  * Improve SPKAC import
   * add french translation by Patrick Monnerat
   * Export requests or certificates as openssl config file
   * Support building with EC disabled
