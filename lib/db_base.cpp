@@ -44,6 +44,9 @@ void db_base::createSuccess(pki_base *pki)
 	if (!pki)
 		return;
 
+	if (pki_base::suppress_messages)
+		return;
+
 	QMessageBox::information(mainwin, XCA_TITLE,
 		pki->getMsg(pki_base::msg_create).
 			arg(pki->getIntName()));

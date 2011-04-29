@@ -12,6 +12,7 @@
 #include <QtCore/QString>
 
 int pki_base::pki_counter = 0;
+int pki_base::suppress_messages = 0;
 
 pki_base::pki_base(const QString name, pki_base *p)
 {

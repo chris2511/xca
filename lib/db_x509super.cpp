@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include "pki_base.h"
 #include "db_x509super.h"
 #include "widgets/MainWindow.h"
 #include "ui_About.h"
@@ -85,6 +86,8 @@ void db_x509super::extractPubkey()
 	key->setIntName(pki->getIntName());
 	key = (pki_key*)mainwin->keys->insert(key);
 	if (!key)
+		return;
+	if (pki_base::suppress_messages)
 		return;
 	QMessageBox::information(mainwin, XCA_TITLE,
 		key->getMsg(pki_base::msg_import).arg(pki->getIntName()));

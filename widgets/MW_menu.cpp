@@ -162,6 +162,8 @@ void MainWindow::setOptions()
 
 	opt->setStringOpt(string_opt);
 	opt->setupPkcs11Provider(pkcs11path);
+	opt->suppress->setCheckState(
+		pki_base::suppress_messages ? Qt::Checked : Qt::Unchecked);
 	if (!opt->exec()) {
 		delete opt;
 		enableTokenMenu(pkcs11::loaded());
@@ -176,6 +178,11 @@ void MainWindow::setOptions()
 	mandatory_dn = opt->getDnString();
 	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
 			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
+
+	bool suppress = opt->suppress->checkState();
+	pki_base::suppress_messages = suppress;
+	mydb.set((const unsigned char *)(suppress ? "1" : "0"),
+			2, 1, setting, "suppress");
 
 	if (opt->getStringOpt() != string_opt) {
 		string_opt = opt->getStringOpt();

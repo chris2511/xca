@@ -117,6 +117,15 @@ int MainWindow::init_database()
 				free(p);
 			}
 		}
+		mydb.first();
+		if (!mydb.find(setting, "suppress")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				QString x = p;
+				free(p);
+				if (x == "1")
+					pki_base::suppress_messages = 1;
+			}
+		}
 		ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
 		mydb.first();
 		if (!mydb.find(setting, "mw_geometry")) {

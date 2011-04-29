@@ -353,7 +353,7 @@ void ImportMulti::execute(int force, QStringList failed)
 	if (entries() == 1 && force == 0) {
 		QModelIndex idx = mcont->index(0, 0, QModelIndex());
 		pki_base *pki = import(idx);
-		if (pki)
+		if (pki && !pki_base::suppress_messages)
 			QMessageBox::information(this, XCA_TITLE,
 				pki->getMsg(pki_base::msg_import).
 				arg(pki->getIntName()));

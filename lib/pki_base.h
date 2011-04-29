@@ -43,6 +43,7 @@ class pki_base : public QObject
 			msg_delete_multi,
 			msg_create,
 		};
+		static int suppress_messages;
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
 		virtual void fload(const QString) {};

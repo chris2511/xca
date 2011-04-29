@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>494</width>
-    <height>462</height>
+    <height>495</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -127,6 +127,13 @@
       <widget class="QComboBox" name="mbstring"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="suppress">
+     <property name="text">
+      <string>Suppress success messages</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
