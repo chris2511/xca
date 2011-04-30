@@ -319,6 +319,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	pub_atts <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_data(CKA_LABEL, getIntName().toUtf8()) <<
+		pk11_attr_bool(CKA_PRIVATE, false) <<
 		new_id <<
 		pk11_attr_data(CKA_PUBLIC_EXPONENT, rsakey->e, false) <<
 		pk11_attr_bool(CKA_WRAP, true) <<

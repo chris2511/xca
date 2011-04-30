@@ -492,6 +492,7 @@ pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
         pub_atts <<
 		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
+		pk11_attr_bool(CKA_PRIVATE, false) <<
 		pk11_attr_bool(CKA_ENCRYPT, true) <<
 		pk11_attr_bool(CKA_VERIFY, true) <<
 		pk11_attr_bool(CKA_WRAP, true) <<
