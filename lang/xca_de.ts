@@ -338,7 +338,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+930"/>
+        <location filename="../lib/db_x509.cpp" line="+914"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -927,7 +927,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+728"/>
+        <location filename="../widgets/MainWindow.cpp" line="+743"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -946,12 +946,12 @@ Seriennummer: %3</translation>
     </message>
     <message>
         <location line="-128"/>
-        <location line="+103"/>
+        <location line="+102"/>
         <source>New Password</source>
         <translation>Neues Passwort</translation>
     </message>
     <message>
-        <location line="+153"/>
+        <location line="+58"/>
         <source>The following error occured:</source>
         <translation>Der folgende Fehler ist aufgetreten:</translation>
     </message>
@@ -961,12 +961,12 @@ Seriennummer: %3</translation>
         <translation>In die Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+36"/>
+        <location filename="../widgets/MW_menu.cpp" line="+38"/>
         <source>&amp;Close DataBase</source>
         <translation>Datenbank s&amp;chliessen</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+46"/>
         <source>&amp;Content</source>
         <translation>&amp;Inhalt</translation>
     </message>
@@ -976,12 +976,12 @@ Seriennummer: %3</translation>
         <translation>Ü&amp;ber</translation>
     </message>
     <message>
-        <location line="-59"/>
+        <location line="-57"/>
         <source>&amp;File</source>
         <translation>D&amp;atei</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+54"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
@@ -1047,7 +1047,7 @@ Seriennummer: %3</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="-27"/>
+        <location filename="../widgets/MW_menu.cpp" line="-25"/>
         <source>Certificates</source>
         <translation>Zertifikate</translation>
     </message>
@@ -1092,12 +1092,12 @@ Seriennummer: %3</translation>
         <translation>Rücknahmelisten</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+147"/>
+        <location filename="../widgets/MW_database.cpp" line="+158"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+70"/>
         <source>No deleted items found</source>
         <translation>Keine gelöschten Einträge gefunden</translation>
     </message>
@@ -1157,7 +1157,7 @@ Seriennummer: %3</translation>
         <translation>PEM Datei</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+19"/>
         <source>Donations</source>
         <translation>Spenden</translation>
     </message>
@@ -1172,7 +1172,7 @@ Seriennummer: %3</translation>
         <translation>Bitte das Passwort der alten Datenbank eingeben</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>Password verification error. Ignore keys ?</source>
         <translation>Falsches Passwort. Schlüssel ignorieren ?</translation>
     </message>
@@ -1187,56 +1187,57 @@ Seriennummer: %3</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="-97"/>
+        <location line="-94"/>
         <source>I&amp;mport</source>
         <translation>I&amp;mport</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>paste PEM file</source>
-        <translation>PEM datei (copy+paste)</translation>
+        <translation type="obsolete">PEM datei (copy+paste)</translation>
     </message>
     <message>
-        <location line="+65"/>
+        <location line="+80"/>
         <source>Database dump ( *.dump );;All files ( * )</source>
         <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-476"/>
+        <location filename="../widgets/MainWindow.cpp" line="-386"/>
         <source>Import PEM data</source>
         <translation>PEM daten importieren</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+64"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>Die neue Bezeichnung der Chipkarte &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+160"/>
+        <location line="+159"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Bitte das neue Passwort zur Verschlüsselung der privaten Schlüssel in der Datenbank eingeben</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+102"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
         <translation>Bitte geben Sie ein Passwort an um die privaten Schlüssel in der Datenbank
 %1 zu verschlüsseln</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+28"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
         <translation>Bitte geben Sie das Passwort ein um die Datenbank
 %1 zu öffnen</translation>
     </message>
     <message>
-        <location line="+44"/>
-        <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
-        <translation></translation>
+        <location line="+105"/>
+        <source>Diffie-Hellman paramters are needed for different applications. They are neither used by XCA nor stored in the database. After generating them, XCA will ask for a filename to store the DH parameters
+Please enter the DH parameter bits</source>
+        <translation>Diffie-Hellman Paramter werden von verschiedenen Applikationen benötigt. Weder benötigt XCA diese, noch werden sie in der Datenbank gespeichert. Nach der Erstellung muss der Dateiname angegeben werden unter dem dies gespeichert werden sollen.
+Bitte die D-H Parameter bits angeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-105"/>
+        <location filename="../widgets/MW_menu.cpp" line="-103"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Neue Datenbank</translation>
     </message>
@@ -1246,12 +1247,12 @@ Seriennummer: %3</translation>
         <translation>Datenbank &amp;Öffnen</translation>
     </message>
     <message>
-        <location line="+44"/>
+        <location line="+42"/>
         <source>&amp;Init Security token</source>
         <translation>Chipkarte &amp;initialisieren</translation>
     </message>
     <message>
-        <location line="-34"/>
+        <location line="-32"/>
         <source>C&amp;hange DataBase password</source>
         <translation>Da&amp;tenbankpasswort ändern</translation>
     </message>
@@ -1269,22 +1270,21 @@ Seriennummer: %3</translation>
         <translation type="obsolete">Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-434"/>
+        <location filename="../widgets/MainWindow.cpp" line="-512"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
     </message>
     <message>
-        <location line="+505"/>
         <source>%1 missmatch</source>
-        <translation>Keine %1 übereinstimmung</translation>
+        <translation type="obsolete">Keine %1 übereinstimmung</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="-71"/>
+        <location filename="../widgets/MW_database.cpp" line="-72"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Die Benutzung oder der Export privater Schlüssel ist nur mit dem richtigen Datenbankpasswort möglich</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-418"/>
+        <location filename="../widgets/MainWindow.cpp" line="+105"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>Die alte SO PIN (PUK) für die Chipkarte &apos;%1&apos; eingeben</translation>
     </message>
@@ -1307,17 +1307,15 @@ Seriennummer: %3</translation>
         <translation type="obsolete">Bitte geben Sie das Passwort ein um die Datenbank &apos;%1&apos; zu öffnen</translation>
     </message>
     <message>
-        <location line="+273"/>
         <source>Repeat %1</source>
-        <translation>%1 wiederholen</translation>
+        <translation type="obsolete">%1 wiederholen</translation>
     </message>
     <message>
-        <location line="+103"/>
         <source>DH parameter bits</source>
-        <translation>DH parameter bits</translation>
+        <translation type="obsolete">DH parameter bits</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+308"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Öffnen der Datei &apos;%1&apos; fehlgeschlagen: %2</translation>
     </message>
@@ -1332,7 +1330,7 @@ Seriennummer: %3</translation>
         <translation>Als Standard datenbank</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+35"/>
         <source>&amp;Token</source>
         <translation>&amp;Chipkarte</translation>
     </message>
@@ -2229,12 +2227,12 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+24"/>
-        <location line="+89"/>
+        <location line="+96"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location line="-82"/>
+        <location line="-89"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
@@ -2250,6 +2248,11 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+12"/>
+        <source>Suppress success messages</source>
+        <translation>Erstellungs- und Importnachrichten unterdrücken</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>PKCS#11 provider</source>
         <translation>PKCS#11 anbieter</translation>
     </message>
@@ -2309,7 +2312,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Laden fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-136"/>
+        <location filename="../ui/Options.ui" line="-143"/>
         <source>XCA Options</source>
         <translation>XCA Optionen</translation>
     </message>
@@ -2323,9 +2326,8 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>PassRead</name>
     <message>
-        <location filename="../ui/PassRead.ui" line="+14"/>
         <source>Password</source>
-        <translation>Passwort</translation>
+        <translation type="obsolete">Passwort</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -2336,22 +2338,19 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
-        <location line="+95"/>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-        <translation>Das Passwort wird als 2stelliger hex-code interpretiert. Er muss eine gradstellige Anzahl der Ziffern 0-9 und a-f enthalten</translation>
+        <translation type="obsolete">Das Passwort wird als 2stelliger hex-code interpretiert. Er muss eine gradstellige Anzahl der Ziffern 0-9 und a-f enthalten</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Take as HEX string</source>
-        <translation>Als HEX Zeichenkette interpretieren</translation>
+        <translation type="obsolete">Als HEX Zeichenkette interpretieren</translation>
     </message>
 </context>
 <context>
     <name>PassWrite</name>
     <message>
-        <location filename="../ui/PassWrite.ui" line="+14"/>
         <source>Password</source>
-        <translation>Passwort</translation>
+        <translation type="obsolete">Passwort</translation>
     </message>
     <message>
         <source>Repeat password</source>
@@ -2366,20 +2365,56 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
+        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
+        <translation type="obsolete">Das Passwort wird als 2 stelliger hex-code interpretiert. Er muss eine grade Anzahl an Ziffern enthalten (0-9 und a-f)</translation>
+    </message>
+    <message>
+        <source>Take as HEX string</source>
+        <translation type="obsolete">Als HEX Zeichenkette interpretieren</translation>
+    </message>
+</context>
+<context>
+    <name>PwDialog</name>
+    <message>
+        <location filename="../widgets/PwDialog.cpp" line="+83"/>
+        <source>Repeat %1</source>
+        <translation>%1 wiederholen</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>%1 missmatch</source>
+        <translation>Keine %1 übereinstimmung</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
+        <translation>Das Passwort wird als 2stelliger hex-code interpretiert. Er muss eine gradstellige Anzahl der Zeichen 0-9 und a-f enthalten</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>E&amp;xit</source>
+        <translation>B&amp;eenden</translation>
+    </message>
+    <message>
+        <location filename="../ui/PwDialog.ui" line="+14"/>
+        <source>Password</source>
+        <translation type="unfinished">Passwort</translation>
+    </message>
+    <message>
         <location line="+105"/>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-        <translation>Das Passwort wird als 2 stelliger hex-code interpretiert. Er muss eine grade Anzahl an Ziffern enthalten (0-9 und a-f)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Take as HEX string</source>
-        <translation>Als HEX Zeichenkette interpretieren</translation>
+        <translation type="unfinished">Als HEX Zeichenkette interpretieren</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../lib/load_obj.cpp" line="+53"/>
+        <location filename="../lib/load_obj.cpp" line="+54"/>
         <source>Import RSA key</source>
         <translation>Import von RSA Schlüssel</translation>
     </message>
@@ -2542,9 +2577,8 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation type="obsolete">Die Datei &apos;%1&apos; existiert bereits!</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+214"/>
         <source>Please enter the password to decrypt the private key.</source>
-        <translation>Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
+        <translation type="obsolete">Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
     </message>
     <message>
         <location filename="../lib/db.cpp" line="+10"/>
@@ -2552,12 +2586,12 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Datenbank: Schreibfehler %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+234"/>
+        <location filename="../lib/pkcs11.cpp" line="+236"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Bitte die PIN am Lesegerät eingeben</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation>Bitte die SO PIN (PUK) der Chipkarte %1 eingeben</translation>
     </message>
@@ -2567,12 +2601,12 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Bitte die PIN der Chipkarte %1 eingeben</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+37"/>
         <source>No Security token found</source>
         <translation>Keine Chipkarte gefunden</translation>
     </message>
     <message>
-        <location filename="../lib/exception.h" line="+50"/>
+        <location filename="../lib/exception.h" line="+55"/>
         <source>Out of Memory at %1:%2</source>
         <translation>Kein Speicher verfügbar %1: %2</translation>
     </message>
@@ -2782,7 +2816,7 @@ in Bibliothek %3
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+638"/>
+        <location line="+641"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -2793,6 +2827,11 @@ in Bibliothek %3
     </message>
     <message>
         <location line="+13"/>
+        <source>Paste PEM data</source>
+        <translation>Einfügen (PEM)</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Columns</source>
         <translation>Spalten</translation>
     </message>
@@ -3132,7 +3171,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation type="obsolete">Üblicher Name</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-903"/>
+        <location filename="../lib/db_x509.cpp" line="-886"/>
         <source>Serial</source>
         <translation>Seriennummer</translation>
     </message>
@@ -3192,17 +3231,12 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Ungültiger öffentlicher Schlüssel</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+18"/>
         <source>Please enter the new hexadecimal secret number for the QA process.</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source>The two secret numbers don&apos;t match.</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location line="+4"/>
+        <location line="+8"/>
         <source>The QA process has been terminated by the user.</source>
         <translation></translation>
     </message>
@@ -3282,18 +3316,18 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Vertrauen</translation>
     </message>
     <message>
-        <location line="-624"/>
-        <location line="+626"/>
+        <location line="-609"/>
+        <location line="+611"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="-610"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Zeigt den Inhalt der basic constraints erweiterung</translation>
     </message>
     <message>
-        <location line="+626"/>
+        <location line="+611"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
@@ -3333,17 +3367,17 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Rücknahme</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+113"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Nicht möglich für einen Chipkartenschlüssel &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+366"/>
+        <location line="+365"/>
         <source> days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location line="-510"/>
+        <location line="-508"/>
         <source>Security token</source>
         <translation>Chipkarte</translation>
     </message>
@@ -3358,7 +3392,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Von der Chipkarte löschen</translation>
     </message>
     <message>
-        <location line="-316"/>
+        <location line="-301"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3367,7 +3401,7 @@ and so it was not imported</source>
 und wurde daher nicht importiert</translation>
     </message>
     <message>
-        <location line="+444"/>
+        <location line="+428"/>
         <location line="+33"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Es wurde kein Schlüssel für das Zertifikat: &apos;%1&apos; gefunden</translation>
@@ -3382,7 +3416,7 @@ und wurde daher nicht importiert</translation>
         <translation>Nicht möglich für das Chipkartenzertifikat &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-246"/>
+        <location line="-245"/>
         <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
         <translation>Soll das Zertifikat zum privaten Schlüssel auf der Chipkarte &apos;%1&apos; mit der Seriennummer %2 abgelegt werden ?</translation>
     </message>
@@ -3395,7 +3429,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+17"/>
+        <location filename="../lib/db_x509super.cpp" line="+18"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
     </message>
@@ -3538,7 +3572,7 @@ und wurde daher nicht importiert</translation>
         <translation>Interner name des Schlüssels</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+69"/>
         <source>Save as OpenSSL config</source>
         <translation>OpenSSL Konfiguration speichern</translation>
     </message>
@@ -3582,7 +3616,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+81"/>
+        <location filename="../lib/pki_base.cpp" line="+82"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Öffnen der Datei %1 fehlgeschlagen: %2</translation>
     </message>
@@ -3597,7 +3631,7 @@ und wurde daher nicht importiert</translation>
         <translation>Fehler: </translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.h" line="+66"/>
+        <location filename="../lib/pki_base.h" line="+67"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interner Fehler: Unerwartete Nachricht: %1 %2</translation>
     </message>
@@ -3625,12 +3659,12 @@ und wurde daher nicht importiert</translation>
         <translation>Keine Austeller angegeben</translation>
     </message>
     <message>
-        <location line="+223"/>
+        <location line="+222"/>
         <source>unknown</source>
         <translation>unbekannt</translation>
     </message>
     <message>
-        <location line="-245"/>
+        <location line="-244"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
@@ -3640,7 +3674,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die Sperrliste &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+98"/>
         <location line="+197"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
@@ -3649,13 +3683,13 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+70"/>
+        <location filename="../lib/pki_evp.cpp" line="+196"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation>Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort)</translation>
     </message>
     <message>
-        <location line="+106"/>
-        <location line="+15"/>
+        <location line="+185"/>
+        <location line="+11"/>
         <source>Password input aborted</source>
         <translation>Passworteingabe abgebrochen</translation>
     </message>
@@ -3681,29 +3715,34 @@ und wurde daher nicht importiert</translation>
         <translation>Bitte geben sie das Passwort zur Verschlüsselung des privaten Schlüssels: &apos;%1&apos; ein</translation>
     </message>
     <message>
-        <location line="-165"/>
+        <location line="-161"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
         <translation>Der Schlüssel aus der Datei %1 konnte nicht geladen werden. Private und öffentliche, sowie PKCS#8 Schlüssel im PEM und DER format wurden versucht.</translation>
     </message>
     <message>
-        <location line="-54"/>
+        <location line="-107"/>
+        <source>Please enter the password to decrypt the private key.</source>
+        <translation>Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
+    </message>
+    <message>
+        <location line="+55"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation>Bitte das Passwort zur Entschlüsselung der Schlüsseldatei
 %1 eingeben</translation>
     </message>
     <message>
-        <location line="+119"/>
+        <location line="+117"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location line="+114"/>
+        <location line="+111"/>
         <source>Please enter the database password for encrypting the key</source>
         <translation>Bitte geben sie das Datenbankpasswort zur Verschlüsselung des Schlüssels ein</translation>
     </message>
     <message>
-        <location line="+82"/>
+        <location line="+83"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>Bitte das Passwort zum Schutz des PKCS#8 Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
@@ -3713,7 +3752,7 @@ und wurde daher nicht importiert</translation>
         <translation>Bitte das Passwort zum Schutz des privaten Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location line="-216"/>
+        <location line="-218"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>Bitte das Datenbankpasswort zur Entschlüsselung des Schlüssels &apos;%1&apos; eingeben</translation>
     </message>
@@ -3798,7 +3837,7 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Bitte geben Sie das Passwort zur Entschlüsselung der PKCS#12 Datei an.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_pkcs12.cpp" line="+113"/>
+        <location filename="../lib/pki_pkcs12.cpp" line="+112"/>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
         <translation>Bitte geben Sie das Passwort zur Verschlüsselung der PKCS#12 Datei an</translation>
     </message>
@@ -3940,12 +3979,12 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="-104"/>
-        <location line="+206"/>
+        <location line="+205"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
     <message>
-        <location line="-402"/>
+        <location line="-401"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Die XCA Vorlage &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -4076,12 +4115,12 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 Zertifikatsanträge: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+39"/>
         <source>Unable to load the certificate request in file %1. Tried PEM, DER and SPKAC format.</source>
         <translation>Konnte den Zertifikatsantrag aus der Datei %1 nicht laden. Versuchte Formate PEM, DER und SPKAC.</translation>
     </message>
     <message>
-        <location line="+277"/>
+        <location line="+276"/>
         <source>Signed</source>
         <translation>Signiert</translation>
     </message>
@@ -4182,7 +4221,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>void</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+243"/>
+        <location filename="../lib/db_x509.cpp" line="+241"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>

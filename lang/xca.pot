@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-02 18:26+0200\n"
+"POT-Creation-Date: 2011-04-30 08:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -817,158 +817,144 @@ msgid "PEM file"
 msgstr ""
 
 #: MainWindow#42
-msgid "paste PEM file"
-msgstr ""
-
-#: MainWindow#43
 msgid "&Token"
 msgstr ""
 
-#: MainWindow#44
+#: MainWindow#43
 msgid "&Manage Security token"
 msgstr ""
 
-#: MainWindow#45
+#: MainWindow#44
 msgid "&Init Security token"
 msgstr ""
 
-#: MainWindow#46
+#: MainWindow#45
 msgid "&Change PIN"
 msgstr ""
 
-#: MainWindow#47
+#: MainWindow#46
 msgid "Change &SO PIN"
 msgstr ""
 
-#: MainWindow#48
+#: MainWindow#47
 msgid "Init PIN"
 msgstr ""
 
-#: MainWindow#49
+#: MainWindow#48
 msgid "&Help"
 msgstr ""
 
-#: MainWindow#50
+#: MainWindow#49
 msgid "&Content"
 msgstr ""
 
-#: MainWindow#51
+#: MainWindow#50
 msgid "&About"
 msgstr ""
 
-#: MainWindow#52
+#: MainWindow#51
 msgid "Donations"
 msgstr ""
 
-#: MainWindow#53
+#: MainWindow#52
 msgid "Database dump ( *.dump );;All files ( * )"
 msgstr ""
 
-#: MainWindow#54
+#: MainWindow#53
 msgid "Import password"
 msgstr ""
 
-#: MainWindow#55
+#: MainWindow#54
 msgid "Please enter the password of the old database"
 msgstr ""
 
-#: MainWindow#56
+#: MainWindow#55
 msgid "Password verification error. Ignore keys ?"
 msgstr ""
 
-#: MainWindow#57
+#: MainWindow#56
 msgid "Import anyway"
 msgstr ""
 
-#: MainWindow#58
-msgctxt "MainWindow#58"
+#: MainWindow#57
+msgctxt "MainWindow#57"
 msgid "Cancel"
 msgstr ""
 
-#: MainWindow#59
+#: MainWindow#58
 msgid "no such option: %1"
 msgstr ""
 
-#: MainWindow#60
+#: MainWindow#59
 msgid "Import PEM data"
 msgstr ""
 
-#: MainWindow#61
+#: MainWindow#60
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#62
+#: MainWindow#61
 msgid "Please enter the new SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#63
+#: MainWindow#62
 msgid "The new label of the token '%1'"
 msgstr ""
 
-#: MainWindow#64
+#: MainWindow#63
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
-#: MainWindow#65
+#: MainWindow#64
 msgid "New Password"
 msgstr ""
 
-#: MainWindow#66
+#: MainWindow#65
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
 msgstr ""
 
-#: MainWindow#67
+#: MainWindow#66
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
 "%1"
 msgstr ""
 
+#: MainWindow#67
+msgid "Password verify error, please try again"
+msgstr ""
+
 #: MainWindow#68
+msgctxt "MainWindow#68"
+msgid "Password"
+msgstr ""
+
+#: MainWindow#69
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#69
-msgid "Password verify error, please try again"
-msgstr ""
-
 #: MainWindow#70
-msgctxt "MainWindow#70"
-msgid "Password"
-msgstr ""
-
-#: MainWindow#71
-msgid ""
-"Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
-"must consist of an even number of characters"
-msgstr ""
-
-#: MainWindow#72
-msgid "Repeat %1"
-msgstr ""
-
-#: MainWindow#73
-msgid "%1 missmatch"
-msgstr ""
-
-#: MainWindow#74
 msgid "The following error occured:"
 msgstr ""
 
-#: MainWindow#75
+#: MainWindow#71
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: MainWindow#76
-msgid "DH parameter bits"
+#: MainWindow#72
+msgid ""
+"Diffie-Hellman paramters are needed for different applications. They are "
+"neither used by XCA nor stored in the database. After generating them, XCA "
+"will ask for a filename to store the DH parameters\n"
+"Please enter the DH parameter bits"
 msgstr ""
 
-#: MainWindow#77
-msgctxt "MainWindow#77"
+#: MainWindow#73
+msgctxt "MainWindow#73"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
@@ -1719,69 +1705,72 @@ msgid "String types"
 msgstr ""
 
 #: Options#7
-msgid "PKCS#11 provider"
+msgid "Suppress success messages"
 msgstr ""
 
 #: Options#8
-msgid "Remove"
+msgid "PKCS#11 provider"
 msgstr ""
 
 #: Options#9
-msgid "Printable string or UTF8 (default)"
+msgid "Remove"
 msgstr ""
 
 #: Options#10
-msgid "PKIX recommendation in RFC2459"
+msgid "Printable string or UTF8 (default)"
 msgstr ""
 
 #: Options#11
-msgid "No BMP strings, only printable and T61"
+msgid "PKIX recommendation in RFC2459"
 msgstr ""
 
 #: Options#12
-msgid "UTF8 strings only (RFC2459)"
+msgid "No BMP strings, only printable and T61"
 msgstr ""
 
 #: Options#13
-msgid "All strings"
+msgid "UTF8 strings only (RFC2459)"
 msgstr ""
 
 #: Options#14
+msgid "All strings"
+msgstr ""
+
+#: Options#15
 msgid "Load failed"
 msgstr ""
 
-#: PassRead#1
-msgctxt "PassRead#1"
+#: PwDialog#1
+msgctxt "PwDialog#1"
 msgid "Password"
 msgstr ""
 
-#: PassRead#2
-msgctxt "PassRead#2"
+#: PwDialog#2
 msgid ""
 "The password is parsed as 2-digit hex code. It must have an equal number of "
 "digits (0-9 and a-f)"
 msgstr ""
 
-#: PassRead#3
-msgctxt "PassRead#3"
+#: PwDialog#3
 msgid "Take as HEX string"
 msgstr ""
 
-#: PassWrite#1
-msgctxt "PassWrite#1"
-msgid "Password"
+#: PwDialog#4
+msgid "Repeat %1"
 msgstr ""
 
-#: PassWrite#2
-msgctxt "PassWrite#2"
+#: PwDialog#5
+msgid "%1 missmatch"
+msgstr ""
+
+#: PwDialog#6
 msgid ""
-"The password is parsed as 2-digit hex code. It must have an equal number of "
-"digits (0-9 and a-f)"
+"Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
+"must consist of an even number of characters"
 msgstr ""
 
-#: PassWrite#3
-msgctxt "PassWrite#3"
-msgid "Take as HEX string"
+#: PwDialog#7
+msgid "E&xit"
 msgstr ""
 
 #: QObject#1
@@ -1953,18 +1942,14 @@ msgid ""
 msgstr ""
 
 #: QObject#42
-msgid "Please enter the password to decrypt the private key."
-msgstr ""
-
-#: QObject#43
 msgid "Invalid"
 msgstr ""
 
-#: QObject#44
+#: QObject#43
 msgid "%1 is shorter than %2 bytes: '%3'"
 msgstr ""
 
-#: QObject#45
+#: QObject#44
 msgid "%1 is longer than %2 bytes: '%3'"
 msgstr ""
 
@@ -2031,6 +2016,10 @@ msgid "Subject entries"
 msgstr ""
 
 #: db_base#4
+msgid "Paste PEM data"
+msgstr ""
+
+#: db_base#5
 msgid "Columns"
 msgstr ""
 
@@ -2363,152 +2352,148 @@ msgid "Please enter the new hexadecimal secret number for the QA process."
 msgstr ""
 
 #: db_x509#17
-msgid "The two secret numbers don't match."
-msgstr ""
-
-#: db_x509#18
 msgid "The QA process has been terminated by the user."
 msgstr ""
 
-#: db_x509#19
-msgctxt "db_x509#19"
+#: db_x509#18
+msgctxt "db_x509#18"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: db_x509#20
+#: db_x509#19
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr ""
 
-#: db_x509#21
+#: db_x509#20
 msgid "New Certificate"
 msgstr ""
 
-#: db_x509#22
-msgctxt "db_x509#22"
+#: db_x509#21
+msgctxt "db_x509#21"
 msgid "Import"
 msgstr ""
 
-#: db_x509#23
+#: db_x509#22
 msgid "Import PKCS#12"
 msgstr ""
 
-#: db_x509#24
+#: db_x509#23
 msgid "Import from PKCS#7"
+msgstr ""
+
+#: db_x509#24
+msgctxt "db_x509#24"
+msgid "Rename"
 msgstr ""
 
 #: db_x509#25
 msgctxt "db_x509#25"
-msgid "Rename"
+msgid "Show Details"
 msgstr ""
 
 #: db_x509#26
 msgctxt "db_x509#26"
-msgid "Show Details"
+msgid "Extract public Key"
 msgstr ""
 
 #: db_x509#27
 msgctxt "db_x509#27"
-msgid "Extract public Key"
+msgid "Export"
 msgstr ""
 
 #: db_x509#28
 msgctxt "db_x509#28"
-msgid "Export"
+msgid "Clipboard"
 msgstr ""
 
 #: db_x509#29
 msgctxt "db_x509#29"
-msgid "Clipboard"
-msgstr ""
-
-#: db_x509#30
-msgctxt "db_x509#30"
 msgid "File"
 msgstr ""
 
-#: db_x509#31
+#: db_x509#30
 msgid "Request"
 msgstr ""
 
-#: db_x509#32
-msgctxt "db_x509#32"
+#: db_x509#31
+msgctxt "db_x509#31"
 msgid "Security token"
 msgstr ""
 
-#: db_x509#33
+#: db_x509#32
 msgid "Other token"
+msgstr ""
+
+#: db_x509#33
+msgctxt "db_x509#33"
+msgid "Template"
 msgstr ""
 
 #: db_x509#34
 msgctxt "db_x509#34"
-msgid "Template"
+msgid "OpenSSL config"
 msgstr ""
 
 #: db_x509#35
 msgctxt "db_x509#35"
-msgid "OpenSSL config"
-msgstr ""
-
-#: db_x509#36
-msgctxt "db_x509#36"
 msgid "Delete"
 msgstr ""
 
-#: db_x509#37
+#: db_x509#36
 msgid "Delete from Security token"
 msgstr ""
 
-#: db_x509#38
+#: db_x509#37
 msgid "Trust"
 msgstr ""
 
-#: db_x509#39
+#: db_x509#38
 msgid "Properties"
 msgstr ""
 
-#: db_x509#40
+#: db_x509#39
 msgid "Generate CRL"
+msgstr ""
+
+#: db_x509#40
+msgctxt "db_x509#40"
+msgid "PKCS#7"
 msgstr ""
 
 #: db_x509#41
 msgctxt "db_x509#41"
-msgid "PKCS#7"
-msgstr ""
-
-#: db_x509#42
-msgctxt "db_x509#42"
 msgid "Sign"
 msgstr ""
 
-#: db_x509#43
+#: db_x509#42
 msgid "Encrypt"
 msgstr ""
 
-#: db_x509#44
+#: db_x509#43
 msgid "Renewal"
 msgstr ""
 
-#: db_x509#45
+#: db_x509#44
 msgid "Unrevoke"
 msgstr ""
 
-#: db_x509#46
+#: db_x509#45
 msgid "Revoke"
 msgstr ""
 
-#: db_x509#47
+#: db_x509#46
 msgid "There was no key found for the Certificate: '%1'"
 msgstr ""
 
-#: db_x509#48
+#: db_x509#47
 msgid "Not possible for a token key: '%1'"
 msgstr ""
 
-#: db_x509#49
+#: db_x509#48
 msgid "Not possible for the token-key Certificate '%1'"
 msgstr ""
 
-#: db_x509#50
+#: db_x509#49
 msgid " days"
 msgstr ""
 
@@ -2712,46 +2697,50 @@ msgid "unknown"
 msgstr ""
 
 #: pki_evp#1
+msgid "Failed to decrypt the key (bad password) "
+msgstr ""
+
+#: pki_evp#2
+msgid "Please enter the password to decrypt the private key."
+msgstr ""
+
+#: pki_evp#3
 msgid ""
 "Please enter the password to decrypt the private key from file:\n"
 "%1"
 msgstr ""
 
-#: pki_evp#2
-msgid "Failed to decrypt the key (bad password) "
-msgstr ""
-
-#: pki_evp#3
+#: pki_evp#4
 msgid ""
 "Unable to load the private key in file %1. Tried PEM and DER private, public "
 "and PKCS#8 key types."
 msgstr ""
 
-#: pki_evp#4
+#: pki_evp#5
 msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr ""
 
-#: pki_evp#5
+#: pki_evp#6
 msgid "Password input aborted"
 msgstr ""
 
-#: pki_evp#6
+#: pki_evp#7
 msgid "Please enter the database password for decrypting the key '%1'"
 msgstr ""
 
-#: pki_evp#7
+#: pki_evp#8
 msgid "Please enter the password to protect the private key: '%1'"
 msgstr ""
 
-#: pki_evp#8
+#: pki_evp#9
 msgid "Please enter the database password for encrypting the key"
 msgstr ""
 
-#: pki_evp#9
+#: pki_evp#10
 msgid "Please enter the password protecting the PKCS#8 key '%1'"
 msgstr ""
 
-#: pki_evp#10
+#: pki_evp#11
 msgid "Please enter the export password for the private key '%1'"
 msgstr ""
 

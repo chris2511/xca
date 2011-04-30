@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xca\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-08-24 07:29+0200\n"
-"PO-Revision-Date: 2010-10-10 18:19+0000\n"
-"Last-Translator: zeugma <Unknown>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-04-30 08:24+0200\n"
+"PO-Revision-Date: 2011-04-28 09:11+0000\n"
+"Last-Translator: Mesut YETER <Unknown>\n"
 "Language-Team: Turkish <tr@li.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-30 10:36+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-04-30 05:52+0000\n"
+"X-Generator: Launchpad (build 12915)\n"
 
 #: About#1
 msgid "Done"
@@ -23,11 +24,11 @@ msgstr "Bitti"
 
 #: CaProperties#1
 msgid "CA Properties"
-msgstr ""
+msgstr "CA Özellikleri"
 
 #: CaProperties#2
 msgid "Use random Serial numbers"
-msgstr ""
+msgstr "Değişken Seri numaralar kullan"
 
 #: CaProperties#3
 msgid "Days until next CRL issuing"
@@ -35,15 +36,15 @@ msgstr ""
 
 #: CaProperties#4
 msgid "Default template"
-msgstr ""
+msgstr "Varsayılan şablon"
 
 #: CaProperties#5
 msgid "Next serial for signing"
-msgstr ""
+msgstr "İmza için sonraki seri"
 
 #: CertDetail#1
 msgid "Details of the Certificate"
-msgstr ""
+msgstr "Sertifika bilgileri"
 
 #: CertDetail#2
 msgid "S&tatus"
@@ -56,11 +57,11 @@ msgstr "Seri"
 
 #: CertDetail#4
 msgid "The serial number of the certificate"
-msgstr ""
+msgstr "Sertifika seri numarası"
 
 #: CertDetail#5
 msgid "The internal name of the certificate in the database"
-msgstr ""
+msgstr "Sertifika veritabanındaki isim"
 
 #: CertDetail#6
 msgctxt "CertDetail#6"
@@ -70,7 +71,7 @@ msgstr "Dahili adı"
 #: CertDetail#7
 msgctxt "CertDetail#7"
 msgid "Signature algorithm"
-msgstr ""
+msgstr "İmza algoritması"
 
 #: CertDetail#8
 msgctxt "CertDetail#8"
@@ -80,7 +81,7 @@ msgstr "İmza"
 #: CertDetail#9
 msgctxt "CertDetail#9"
 msgid "Key"
-msgstr ""
+msgstr "Anahtar"
 
 #: CertDetail#10
 msgid "Fingerprints"
@@ -96,11 +97,11 @@ msgstr "MD5"
 
 #: CertDetail#13
 msgid "A SHA-1 hashsum of the certificate"
-msgstr ""
+msgstr "A SHA-1 hashsum sertifikası"
 
 #: CertDetail#14
 msgid "An md5 hashsum of the certificate"
-msgstr ""
+msgstr "An md5 hassum sertifikası"
 
 #: CertDetail#15
 msgctxt "CertDetail#15"
@@ -109,11 +110,11 @@ msgstr "Geçerlilik"
 
 #: CertDetail#16
 msgid "The time since the certificate is valid"
-msgstr ""
+msgstr "Zamana kadar geçerli sertifika"
 
 #: CertDetail#17
 msgid "The time until the certificate is valid"
-msgstr ""
+msgstr "Bu zaman kadar sertifika geçerli"
 
 #: CertDetail#18
 msgid "&Subject"
@@ -122,16 +123,16 @@ msgstr "&Konu"
 #: CertDetail#19
 msgctxt "CertDetail#19"
 msgid "&Issuer"
-msgstr ""
+msgstr "&veren"
 
 #: CertDetail#20
 msgid "Attributes"
-msgstr ""
+msgstr "Nitelikler"
 
 #: CertDetail#21
 msgctxt "CertDetail#21"
 msgid "&Extensions"
-msgstr ""
+msgstr "&Uzantıları"
 
 #: CertDetail#22
 msgid "Show config"
@@ -139,41 +140,41 @@ msgstr "Yapılandırmayı göster"
 
 #: CertDetail#23
 msgid "Show extensions"
-msgstr ""
+msgstr "Uzantıları göster"
 
 #: CertDetail#24
 msgctxt "CertDetail#24"
 msgid "Not available"
-msgstr ""
+msgstr "Kullanılamaz"
 
 #: CertDetail#25
 msgid "Details of the certificate"
-msgstr ""
+msgstr "Sertifika detayları"
 
 #: CertDetail#26
 msgid "Signer unknown"
-msgstr ""
+msgstr "Bilinmeyen imzalayan makam"
 
 #: CertDetail#27
 msgid "Self signed"
-msgstr ""
+msgstr "Kendinden imzalı"
 
 #: CertDetail#28
 msgctxt "CertDetail#28"
 msgid "Not trusted"
-msgstr ""
+msgstr "Güvenilmeyen"
 
 #: CertDetail#29
 msgid "Trusted"
-msgstr ""
+msgstr "Güvenilir"
 
 #: CertDetail#30
 msgid "Revoked: "
-msgstr ""
+msgstr "İptaledilmiş "
 
 #: CertDetail#31
 msgid "Not valid"
-msgstr ""
+msgstr "Geçersiz"
 
 #: CertDetail#32
 msgid "Valid"
@@ -181,17 +182,19 @@ msgstr "Geçerli"
 
 #: CertDetail#33
 msgid "Details of the certificate signing request"
-msgstr ""
+msgstr "sertifika imzalama isteği detayları"
 
 #: CertExtend#1
 msgid "Certificate renewal"
-msgstr ""
+msgstr "Sertifika yenileme"
 
 #: CertExtend#2
 msgid ""
 "This will create a new certificate as a copy of the old one with a new "
 "serial number and adjusted validity values."
 msgstr ""
+"Bu yeni bir seri numarası ve düzeltilmiş geçerlilik değerleri ile eski bir "
+"kopyası olarak yeni bir sertifika oluşturur."
 
 #: CertExtend#3
 msgctxt "CertExtend#3"
@@ -201,22 +204,22 @@ msgstr "Geçerlilik"
 #: CertExtend#4
 msgctxt "CertExtend#4"
 msgid "Not before"
-msgstr ""
+msgstr "Öncedeğil"
 
 #: CertExtend#5
 msgctxt "CertExtend#5"
 msgid "Not after"
-msgstr ""
+msgstr "Sonradeğil"
 
 #: CertExtend#6
 msgctxt "CertExtend#6"
 msgid "Time range"
-msgstr ""
+msgstr "Zaman aralığı"
 
 #: CertExtend#7
 msgctxt "CertExtend#7"
 msgid "No well-defined expiration"
-msgstr ""
+msgstr "Tanımlanmamış son"
 
 #: CertExtend#8
 msgctxt "CertExtend#8"
@@ -241,7 +244,7 @@ msgstr "Yıl"
 #: CertExtend#12
 msgctxt "CertExtend#12"
 msgid "Midnight"
-msgstr ""
+msgstr "Gece Yarısı"
 
 #: CertExtend#13
 msgctxt "CertExtend#13"
@@ -249,10 +252,12 @@ msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
+"Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz "
+"bu değildir."
 
 #: CertExtend#14
 msgid "Edit times"
-msgstr ""
+msgstr "Zamanı düzenle"
 
 #: CertExtend#15
 msgctxt "CertExtend#15"
@@ -267,7 +272,7 @@ msgstr ""
 #: CertExtend#17
 msgctxt "CertExtend#17"
 msgid "Adjust date and continue"
-msgstr ""
+msgstr "Tarihi düzenler ve devam eder"
 
 #: CertExtend#18
 msgctxt "CertExtend#18"
@@ -275,24 +280,26 @@ msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
+"Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz "
+"bu değildir."
 
 #: CertView#1
 msgctxt "CertView#1"
 msgid "There was no key found for the Certificate: "
-msgstr ""
+msgstr "Sertifikadaki anahtar bulunamıyor. "
 
 #: CertView#2
 msgctxt "CertView#2"
 msgid "Import Certificate signing request"
-msgstr ""
+msgstr "Sertifika imzalama isteği"
 
 #: ClickLabel#1
 msgid "Double click for details"
-msgstr ""
+msgstr "Detaylariçin çift tıklayın"
 
 #: CrlDetail#1
 msgid "Details of the Revocation list"
-msgstr ""
+msgstr "İptal listesi için çift tıklayın"
 
 #: CrlDetail#2
 msgid "&Status"
@@ -309,7 +316,7 @@ msgstr "İmza"
 
 #: CrlDetail#5
 msgid "Signed by"
-msgstr ""
+msgstr "İmzalayan:"
 
 #: CrlDetail#6
 msgctxt "CrlDetail#6"
@@ -318,15 +325,15 @@ msgstr "İsim"
 
 #: CrlDetail#7
 msgid "The internal name of the CRL in the database"
-msgstr ""
+msgstr "CRL veritabanındaki isim"
 
 #: CrlDetail#8
 msgid "issuing dates"
-msgstr ""
+msgstr "Verilen tarih"
 
 #: CrlDetail#9
 msgid "Next Update"
-msgstr ""
+msgstr "Sonraki Güncelleme"
 
 #: CrlDetail#10
 msgid "Last Update"
@@ -335,16 +342,16 @@ msgstr "Son Güncelleme"
 #: CrlDetail#11
 msgctxt "CrlDetail#11"
 msgid "&Issuer"
-msgstr ""
+msgstr "&veren"
 
 #: CrlDetail#12
 msgctxt "CrlDetail#12"
 msgid "&Extensions"
-msgstr ""
+msgstr "&Uzantıları"
 
 #: CrlDetail#13
 msgid "&Revocation list"
-msgstr ""
+msgstr "&İptal listesi"
 
 #: CrlDetail#14
 msgid "0"
@@ -358,15 +365,15 @@ msgstr "Seri"
 #: CrlDetail#16
 msgctxt "CrlDetail#16"
 msgid "Revocation"
-msgstr ""
+msgstr "İptal"
 
 #: CrlDetail#17
 msgid "Reason"
-msgstr ""
+msgstr "Neden"
 
 #: CrlDetail#18
 msgid "Invalidation"
-msgstr ""
+msgstr "İptal"
 
 #: CrlDetail#19
 msgid "Failed"
@@ -374,11 +381,11 @@ msgstr "Başarısız"
 
 #: CrlDetail#20
 msgid "Unknown signer"
-msgstr ""
+msgstr "Bilinmeyen imzalayan"
 
 #: CrlDetail#21
 msgid "Verification not possible"
-msgstr ""
+msgstr "Doğrulama mümkün değil"
 
 #: CrlDetail#22
 msgid "Unknown certificate"
@@ -386,7 +393,7 @@ msgstr "Bilinmeyen sertifika"
 
 #: ExportCert#1
 msgid "X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )"
-msgstr ""
+msgstr "X509 sertifikası (*cer *.crt *.p12 *.p7b);;Tüm dosyalar (*)"
 
 #: ExportCert#2
 msgid ""
@@ -395,25 +402,31 @@ msgid ""
 "PKCS#7 is an official Certificate exchange format\n"
 "PKCS#12 is an encrypted official Key-Certificate exchange format\n"
 msgstr ""
+"DER ikili sertifika formatı\n"
+"PEM base64 kodlu sertifika\n"
+"PKCS#7 resmi değişim sertifikası\n"
+"PKCS#12 kriptolu anahtar sertifikası\n"
 
 #: ExportCert#3
 msgid "Please enter the filename for the certificate."
-msgstr ""
+msgstr "Lütfen sertifika ismini giriniz."
 
 #: ExportCert#4
 msgid "Certifikate export"
-msgstr ""
+msgstr "Sertifika dışa aktar"
 
 #: ExportDer#1
 msgctxt "ExportDer#1"
 msgid "All files ( * )"
-msgstr ""
+msgstr "Bütün dosyalar ( * )"
 
 #: ExportDer#2
 msgid ""
 "DER is a binary format\n"
 "PEM is a base64 encoded DER file\n"
 msgstr ""
+"DER ikili biçimdir\n"
+"PEM base64 kodlanmış DER dosyası\n"
 
 #: ExportDialog#1
 msgid "..."
@@ -425,15 +438,15 @@ msgstr "Dosya adı"
 
 #: ExportDialog#3
 msgid "Please enter the filename"
-msgstr ""
+msgstr "Lütfen dosya adını giriniz"
 
 #: ExportDialog#4
 msgid "Export Format"
-msgstr ""
+msgstr "Verme biçimi"
 
 #: ExportDialog#5
 msgid "The file: '%1' already exists!"
-msgstr ""
+msgstr "Dosya: 2%1' zaten var"
 
 #: ExportDialog#6
 msgid "Overwrite"
@@ -441,23 +454,23 @@ msgstr "Üzerine yaz"
 
 #: ExportDialog#7
 msgid "Do not overwrite"
-msgstr ""
+msgstr "Üzerine yazmayın"
 
 #: ExportKey#1
 msgid "When exporting the private key it should be encrypted."
-msgstr ""
+msgstr "Özel anahtar dışa aktarılırken şifreli olmalıdır."
 
 #: ExportKey#2
 msgid "When exporting the private part, it should be encrypted."
-msgstr ""
+msgstr "Özel bölüm aktarılırken şifreli olmalıdır."
 
 #: ExportKey#3
 msgid "E&xport the private part of the Key too"
-msgstr ""
+msgstr "Dışa aktarılan özel bölüm anahtarı çok"
 
 #: ExportKey#4
 msgid "Export as PKCS#8"
-msgstr ""
+msgstr "PKCS#8 olarak aktar"
 
 #: ExportKey#5
 msgid "&Encrypt the Key with a password"
@@ -465,7 +478,7 @@ msgstr ""
 
 #: ExportKey#6
 msgid "Private keys ( *.pem *.der *.pk8 );;All files ( * )"
-msgstr ""
+msgstr "Özel anatarlar (*.pem *.der *.pk8);;Tüm dosyalar ( * )"
 
 #: ExportKey#7
 msgid ""
@@ -510,7 +523,7 @@ msgstr ""
 #: ImportMulti#3
 msgctxt "ImportMulti#3"
 msgid "&Import"
-msgstr ""
+msgstr "&İçe Aktar"
 
 #: ImportMulti#4
 msgctxt "ImportMulti#4"
@@ -518,8 +531,9 @@ msgid "&Done"
 msgstr "&Bitti"
 
 #: ImportMulti#5
-msgid "&Remove"
-msgstr "&Kaldır"
+#, fuzzy
+msgid "&Remove from list"
+msgstr "&İptal listesi"
 
 #: ImportMulti#6
 msgid "Details"
@@ -727,37 +741,37 @@ msgid "Revocation lists"
 msgstr ""
 
 #: MainWindow#19
-msgid "Please enter the password to decrypt the private key: '%1'"
-msgstr ""
-
-#: MainWindow#20
 msgid ""
 "Using or exporting private keys will not be possible without providing the "
 "correct password"
 msgstr ""
 
-#: MainWindow#21
+#: MainWindow#20
 msgid "Database"
 msgstr "Veri Tabanı"
 
-#: MainWindow#22
+#: MainWindow#21
 msgid "No deleted items found"
 msgstr ""
 
-#: MainWindow#23
+#: MainWindow#22
 msgid "&File"
 msgstr "&Dosya"
 
-#: MainWindow#24
+#: MainWindow#23
 msgid "&New DataBase"
 msgstr ""
 
-#: MainWindow#25
+#: MainWindow#24
 msgid "&Open DataBase"
 msgstr ""
 
-#: MainWindow#26
+#: MainWindow#25
 msgid "Generate DH parameter"
+msgstr ""
+
+#: MainWindow#26
+msgid "Set as default DataBase"
 msgstr ""
 
 #: MainWindow#27
@@ -823,155 +837,146 @@ msgid "PEM file"
 msgstr ""
 
 #: MainWindow#42
-msgid "paste PEM file"
-msgstr ""
-
-#: MainWindow#43
 msgid "&Token"
 msgstr ""
 
-#: MainWindow#44
+#: MainWindow#43
 msgid "&Manage Security token"
 msgstr ""
 
-#: MainWindow#45
+#: MainWindow#44
 msgid "&Init Security token"
 msgstr ""
 
-#: MainWindow#46
+#: MainWindow#45
 msgid "&Change PIN"
 msgstr ""
 
-#: MainWindow#47
+#: MainWindow#46
 msgid "Change &SO PIN"
 msgstr ""
 
-#: MainWindow#48
+#: MainWindow#47
 msgid "Init PIN"
 msgstr ""
 
-#: MainWindow#49
+#: MainWindow#48
 msgid "&Help"
 msgstr "&Yardım"
 
-#: MainWindow#50
+#: MainWindow#49
 msgid "&Content"
 msgstr ""
 
-#: MainWindow#51
+#: MainWindow#50
 msgid "&About"
 msgstr "&Hakkında"
 
-#: MainWindow#52
+#: MainWindow#51
 msgid "Donations"
 msgstr ""
 
-#: MainWindow#53
+#: MainWindow#52
 msgid "Database dump ( *.dump );;All files ( * )"
 msgstr ""
 
-#: MainWindow#54
+#: MainWindow#53
 msgid "Import password"
 msgstr ""
 
-#: MainWindow#55
+#: MainWindow#54
 msgid "Please enter the password of the old database"
 msgstr ""
 
-#: MainWindow#56
+#: MainWindow#55
 msgid "Password verification error. Ignore keys ?"
 msgstr ""
 
-#: MainWindow#57
+#: MainWindow#56
 msgid "Import anyway"
 msgstr ""
 
-#: MainWindow#58
-msgctxt "MainWindow#58"
+#: MainWindow#57
+#, fuzzy
+msgctxt "MainWindow#57"
 msgid "Cancel"
 msgstr "İptal"
 
-#: MainWindow#59
+#: MainWindow#58
 msgid "no such option: %1"
 msgstr ""
 
-#: MainWindow#60
+#: MainWindow#59
 msgid "Import PEM data"
 msgstr ""
 
-#: MainWindow#61
+#: MainWindow#60
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#62
+#: MainWindow#61
 msgid "Please enter the new SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#63
+#: MainWindow#62
 msgid "The new label of the token '%1'"
 msgstr ""
 
-#: MainWindow#64
+#: MainWindow#63
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
-#: MainWindow#65
+#: MainWindow#64
 msgid "New Password"
 msgstr "Yeni Parola"
 
-#: MainWindow#66
+#: MainWindow#65
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
 msgstr ""
 
-#: MainWindow#67
+#: MainWindow#66
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
-"the database file: '%1'"
+"the database file:\n"
+"%1"
 msgstr ""
 
-#: MainWindow#68
+#: MainWindow#67
 msgid "Password verify error, please try again"
 msgstr ""
 
-#: MainWindow#69
-msgctxt "MainWindow#69"
+#: MainWindow#68
+#, fuzzy
+msgctxt "MainWindow#68"
 msgid "Password"
 msgstr "Parola"
 
-#: MainWindow#70
-msgid "Please enter the password for unlocking the database: '%1'"
-msgstr ""
-
-#: MainWindow#71
+#: MainWindow#69
 msgid ""
-"Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
-"must consist of an even number of characters"
+"Please enter the password for unlocking the database:\n"
+"%1"
 msgstr ""
 
-#: MainWindow#72
-msgid "Repeat %1"
-msgstr ""
-
-#: MainWindow#73
-msgid "%1 missmatch"
-msgstr ""
-
-#: MainWindow#74
+#: MainWindow#70
 msgid "The following error occured:"
 msgstr ""
 
-#: MainWindow#75
+#: MainWindow#71
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: MainWindow#76
-msgid "DH parameter bits"
+#: MainWindow#72
+msgid ""
+"Diffie-Hellman paramters are needed for different applications. They are "
+"neither used by XCA nor stored in the database. After generating them, XCA "
+"will ask for a filename to store the DH parameters\n"
+"Please enter the DH parameter bits"
 msgstr ""
 
-#: MainWindow#77
-msgctxt "MainWindow#77"
+#: MainWindow#73
+msgctxt "MainWindow#73"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
@@ -1722,69 +1727,73 @@ msgid "String types"
 msgstr ""
 
 #: Options#7
-msgid "PKCS#11 provider"
+msgid "Suppress success messages"
 msgstr ""
 
 #: Options#8
-msgid "Remove"
+msgid "PKCS#11 provider"
 msgstr ""
 
 #: Options#9
-msgid "Printable string or UTF8 (default)"
+msgid "Remove"
 msgstr ""
 
 #: Options#10
-msgid "PKIX recommendation in RFC2459"
+msgid "Printable string or UTF8 (default)"
 msgstr ""
 
 #: Options#11
-msgid "No BMP strings, only printable and T61"
+msgid "PKIX recommendation in RFC2459"
 msgstr ""
 
 #: Options#12
-msgid "UTF8 strings only (RFC2459)"
+msgid "No BMP strings, only printable and T61"
 msgstr ""
 
 #: Options#13
-msgid "All strings"
+msgid "UTF8 strings only (RFC2459)"
 msgstr ""
 
 #: Options#14
+msgid "All strings"
+msgstr ""
+
+#: Options#15
 msgid "Load failed"
 msgstr ""
 
-#: PassRead#1
-msgctxt "PassRead#1"
+#: PwDialog#1
+#, fuzzy
+msgctxt "PwDialog#1"
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
-#: PassRead#2
-msgctxt "PassRead#2"
+#: PwDialog#2
 msgid ""
 "The password is parsed as 2-digit hex code. It must have an equal number of "
 "digits (0-9 and a-f)"
 msgstr ""
 
-#: PassRead#3
-msgctxt "PassRead#3"
+#: PwDialog#3
 msgid "Take as HEX string"
 msgstr ""
 
-#: PassWrite#1
-msgctxt "PassWrite#1"
-msgid "Password"
+#: PwDialog#4
+msgid "Repeat %1"
 msgstr ""
 
-#: PassWrite#2
-msgctxt "PassWrite#2"
+#: PwDialog#5
+msgid "%1 missmatch"
+msgstr ""
+
+#: PwDialog#6
 msgid ""
-"The password is parsed as 2-digit hex code. It must have an equal number of "
-"digits (0-9 and a-f)"
+"Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
+"must consist of an even number of characters"
 msgstr ""
 
-#: PassWrite#3
-msgctxt "PassWrite#3"
-msgid "Take as HEX string"
+#: PwDialog#7
+msgid "E&xit"
 msgstr ""
 
 #: QObject#1
@@ -1829,8 +1838,7 @@ msgid "Import RSA key"
 msgstr ""
 
 #: QObject#11
-msgid ""
-"PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
+msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
 msgstr ""
 
 #: QObject#12
@@ -1910,50 +1918,50 @@ msgid "Load PEM encoded file"
 msgstr ""
 
 #: QObject#31
-msgid "Please enter the SO PIN (PUK) of the token %1"
+msgid "Please enter the PIN on the PinPad"
 msgstr ""
 
 #: QObject#32
-msgid "Please enter the PIN of the token %1"
+msgid "Please enter the SO PIN (PUK) of the token %1"
 msgstr ""
 
 #: QObject#33
-msgid "No Security token found"
+msgid "Please enter the PIN of the token %1"
 msgstr ""
 
 #: QObject#34
-msgid "Select"
+msgid "No Security token found"
 msgstr ""
 
 #: QObject#35
-msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
+msgid "Select"
 msgstr ""
 
 #: QObject#36
-msgid "Please enter the new PIN for the token: '%1'"
+msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
 msgstr ""
 
 #: QObject#37
-msgid "Required PIN size: %1 - %2"
+msgid "Please enter the new PIN for the token: '%1'"
 msgstr ""
 
 #: QObject#38
-msgid "Failed to open PKCS11 library: %1"
+msgid "Required PIN size: %1 - %2"
 msgstr ""
 
 #: QObject#39
-msgid "PKCS#11 function '%1' failed: %2"
+msgid "Failed to open PKCS11 library: %1"
 msgstr ""
 
 #: QObject#40
+msgid "PKCS#11 function '%1' failed: %2"
+msgstr ""
+
+#: QObject#41
 msgid ""
 "PKCS#11 function '%1' failed: %2\n"
 "In library %3\n"
 "%4"
-msgstr ""
-
-#: QObject#41
-msgid "Please enter the password to decrypt the private key."
 msgstr ""
 
 #: QObject#42
@@ -2031,6 +2039,10 @@ msgid "Subject entries"
 msgstr ""
 
 #: db_base#4
+msgid "Paste PEM data"
+msgstr ""
+
+#: db_base#5
 msgid "Columns"
 msgstr ""
 
@@ -2094,6 +2106,16 @@ msgstr ""
 
 #: db_crl#14
 msgctxt "db_crl#14"
+msgid "Clipboard"
+msgstr ""
+
+#: db_crl#15
+msgctxt "db_crl#15"
+msgid "File"
+msgstr ""
+
+#: db_crl#16
+msgctxt "db_crl#16"
 msgid "Delete"
 msgstr ""
 
@@ -2345,11 +2367,11 @@ msgid ""
 msgstr ""
 
 #: db_x509#15
-msgid "Please enter the new hexadecimal secret number for the QA process."
+msgid "Invalid public key"
 msgstr ""
 
 #: db_x509#16
-msgid "The two secret numbers don't match."
+msgid "Please enter the new hexadecimal secret number for the QA process."
 msgstr ""
 
 #: db_x509#17
@@ -2370,9 +2392,10 @@ msgid "New Certificate"
 msgstr ""
 
 #: db_x509#21
+#, fuzzy
 msgctxt "db_x509#21"
 msgid "Import"
-msgstr ""
+msgstr "&İçe Aktar"
 
 #: db_x509#22
 msgid "Import PKCS#12"
@@ -2383,14 +2406,16 @@ msgid "Import from PKCS#7"
 msgstr ""
 
 #: db_x509#24
+#, fuzzy
 msgctxt "db_x509#24"
 msgid "Rename"
-msgstr ""
+msgstr "Dosya adı"
 
 #: db_x509#25
+#, fuzzy
 msgctxt "db_x509#25"
 msgid "Show Details"
-msgstr ""
+msgstr "Detaylar"
 
 #: db_x509#26
 msgctxt "db_x509#26"
@@ -2398,93 +2423,108 @@ msgid "Extract public Key"
 msgstr ""
 
 #: db_x509#27
+#, fuzzy
 msgctxt "db_x509#27"
 msgid "Export"
-msgstr ""
+msgstr "Verme biçimi"
 
 #: db_x509#28
 msgctxt "db_x509#28"
-msgid "File"
+msgid "Clipboard"
 msgstr ""
 
 #: db_x509#29
+#, fuzzy
+msgctxt "db_x509#29"
+msgid "File"
+msgstr "&Dosya"
+
+#: db_x509#30
 msgid "Request"
 msgstr ""
 
-#: db_x509#30
-msgctxt "db_x509#30"
+#: db_x509#31
+msgctxt "db_x509#31"
 msgid "Security token"
 msgstr ""
 
-#: db_x509#31
-msgid "Other token"
-msgstr ""
-
 #: db_x509#32
-msgctxt "db_x509#32"
-msgid "Template"
+msgid "Other token"
 msgstr ""
 
 #: db_x509#33
 msgctxt "db_x509#33"
-msgid "Delete"
+msgid "Template"
 msgstr ""
 
 #: db_x509#34
+#, fuzzy
+msgctxt "db_x509#34"
+msgid "OpenSSL config"
+msgstr "Yapılandırmayı göster"
+
+#: db_x509#35
+#, fuzzy
+msgctxt "db_x509#35"
+msgid "Delete"
+msgstr "Sil"
+
+#: db_x509#36
 msgid "Delete from Security token"
 msgstr ""
 
-#: db_x509#35
+#: db_x509#37
 msgid "Trust"
 msgstr ""
 
-#: db_x509#36
+#: db_x509#38
 msgid "Properties"
 msgstr ""
 
-#: db_x509#37
+#: db_x509#39
 msgid "Generate CRL"
 msgstr ""
 
-#: db_x509#38
-msgctxt "db_x509#38"
+#: db_x509#40
+msgctxt "db_x509#40"
 msgid "PKCS#7"
 msgstr ""
 
-#: db_x509#39
-msgctxt "db_x509#39"
+#: db_x509#41
+#, fuzzy
+msgctxt "db_x509#41"
 msgid "Sign"
-msgstr ""
+msgstr "İmzalayan:"
 
-#: db_x509#40
+#: db_x509#42
 msgid "Encrypt"
 msgstr ""
 
-#: db_x509#41
+#: db_x509#43
 msgid "Renewal"
 msgstr ""
 
-#: db_x509#42
+#: db_x509#44
 msgid "Unrevoke"
 msgstr ""
 
-#: db_x509#43
+#: db_x509#45
 msgid "Revoke"
 msgstr ""
 
-#: db_x509#44
+#: db_x509#46
 msgid "There was no key found for the Certificate: '%1'"
 msgstr ""
 
-#: db_x509#45
+#: db_x509#47
 msgid "Not possible for a token key: '%1'"
 msgstr ""
 
-#: db_x509#46
+#: db_x509#48
 msgid "Not possible for the token-key Certificate '%1'"
 msgstr ""
 
-#: db_x509#47
+#: db_x509#49
 msgid " days"
 msgstr ""
 
@@ -2519,8 +2559,9 @@ msgid "Unstructured name"
 msgstr ""
 
 #: db_x509req#4
-msgid "Challange password"
-msgstr ""
+#, fuzzy
+msgid "Challenge password"
+msgstr "Yeni Parola"
 
 #: db_x509req#5
 msgid ""
@@ -2573,18 +2614,30 @@ msgstr ""
 
 #: db_x509req#15
 msgctxt "db_x509req#15"
-msgid "File"
+msgid "Clipboard"
 msgstr ""
 
 #: db_x509req#16
 msgctxt "db_x509req#16"
-msgid "Template"
+msgid "File"
 msgstr ""
 
 #: db_x509req#17
 msgctxt "db_x509req#17"
-msgid "Delete"
+msgid "Template"
 msgstr ""
+
+#: db_x509req#18
+#, fuzzy
+msgctxt "db_x509req#18"
+msgid "OpenSSL config"
+msgstr "Yapılandırmayı göster"
+
+#: db_x509req#19
+#, fuzzy
+msgctxt "db_x509req#19"
+msgid "Delete"
+msgstr "Sil"
 
 #: db_x509super#1
 msgid "Key name"
@@ -2595,6 +2648,15 @@ msgid "Internal name of the key"
 msgstr ""
 
 #: db_x509super#3
+msgid "Save as OpenSSL config"
+msgstr ""
+
+#: db_x509super#4
+#, fuzzy
+msgid "Config files ( *.conf *.cnf);; All files ( * )"
+msgstr "X509 sertifikası (*cer *.crt *.p12 *.p7b);;Tüm dosyalar (*)"
+
+#: db_x509super#5
 msgid "The following extensions were not ported into the template"
 msgstr ""
 
@@ -2623,10 +2685,14 @@ msgid "Error opening file: '%1': %2"
 msgstr ""
 
 #: pki_base#2
-msgid "Error: "
+msgid "Error writing to file: '%1': %2"
 msgstr ""
 
 #: pki_base#3
+msgid "Error: "
+msgstr ""
+
+#: pki_base#4
 msgid "Internal error: Unexpected message: %1 %2"
 msgstr ""
 
@@ -2670,32 +2736,46 @@ msgid "Failed to decrypt the key (bad password) "
 msgstr ""
 
 #: pki_evp#2
+msgid "Please enter the password to decrypt the private key."
+msgstr ""
+
+#: pki_evp#3
+msgid ""
+"Please enter the password to decrypt the private key from file:\n"
+"%1"
+msgstr ""
+
+#: pki_evp#4
 msgid ""
 "Unable to load the private key in file %1. Tried PEM and DER private, public "
 "and PKCS#8 key types."
 msgstr ""
 
-#: pki_evp#3
-msgid "Password input aborted"
-msgstr ""
-
-#: pki_evp#4
-msgid "Please enter the database password for decrypting the key '%1'"
-msgstr ""
-
 #: pki_evp#5
-msgid "Please enter the password to protect the private key: '%1'"
+msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr ""
 
 #: pki_evp#6
-msgid "Please enter the database password for encrypting the key"
+msgid "Password input aborted"
 msgstr ""
 
 #: pki_evp#7
-msgid "Please enter the password protecting the PKCS#8 key '%1'"
+msgid "Please enter the database password for decrypting the key '%1'"
 msgstr ""
 
 #: pki_evp#8
+msgid "Please enter the password to protect the private key: '%1'"
+msgstr ""
+
+#: pki_evp#9
+msgid "Please enter the database password for encrypting the key"
+msgstr ""
+
+#: pki_evp#10
+msgid "Please enter the password protecting the PKCS#8 key '%1'"
+msgstr ""
+
+#: pki_evp#11
 msgid "Please enter the export password for the private key '%1'"
 msgstr ""
 
@@ -2754,7 +2834,9 @@ msgid "Seek failed"
 msgstr ""
 
 #: pki_pkcs12#1
-msgid "Please enter the password to decrypt the PKCS#12 file."
+msgid ""
+"Please enter the password to decrypt the PKCS#12 file:\n"
+"%1"
 msgstr ""
 
 #: pki_pkcs12#2
@@ -3058,3 +3140,11 @@ msgstr ""
 msgctxt "void#2"
 msgid "Import Certificate signing request"
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "db_x509#36"
+#~ msgid "Delete"
+#~ msgstr "Sil"
+
+#~ msgid "&Remove"
+#~ msgstr "&Kaldır"
