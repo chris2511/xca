@@ -846,7 +846,7 @@ void MainWindow::generateDHparam()
 	FILE *fp = NULL;
 	QProgressBar *bar = NULL;
 	bool ok;
-	int num = QInputDialog::getDouble(this, XCA_TITLE, tr("Diffie-Hellman paramters are needed for different applications. They are neither used by XCA nor stored in the database. After generating them, XCA will ask for a filename to store the DH parameters\nPlease enter the DH parameter bits"),
+	int num = QInputDialog::getDouble(this, XCA_TITLE, tr("Diffie-Hellman parameters are needed for different applications, but not handled by XCA.\nPlease enter the DH parameter bits"),
 		1024, 1024, 4096, 0, &ok);
 
 	if (!ok)

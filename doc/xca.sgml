@@ -149,7 +149,8 @@ Thank you very much.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Updating from older versions (older than 0.6.0)
+<sect>Misc
+<sect1>Updating from older versions (older than 0.6.0)
 
 <p>
 
@@ -187,7 +188,7 @@ Importing old databases is done by the following steps:
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Download
+<sect1>Download
 
 <p>
 
@@ -198,6 +199,16 @@ The most recent stable version of XCA can be downloaded from
 
 The current (unstable) HEAD of development can be downloaded and tested via
 <url url="http://xca.git.sourceforge.net/git/gitweb.cgi?p=xca/xca;a=snapshot;h=HEAD;sf=tgz" name="XCA devel">
+
+<sect1>DH parameters
+
+<p>
+
+Diffie Hellman parameters can be created by XCA.
+It does neither need nor use the parameters.
+Applications like OpenVPN however need them and so XCA provides this
+functionality for users convenience.
+
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 

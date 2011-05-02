@@ -966,7 +966,7 @@ Seriennummer: %3</translation>
         <translation>Datenbank s&amp;chliessen</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+48"/>
         <source>&amp;Content</source>
         <translation>&amp;Inhalt</translation>
     </message>
@@ -976,12 +976,12 @@ Seriennummer: %3</translation>
         <translation>Ü&amp;ber</translation>
     </message>
     <message>
-        <location line="-57"/>
+        <location line="-59"/>
         <source>&amp;File</source>
         <translation>D&amp;atei</translation>
     </message>
     <message>
-        <location line="+54"/>
+        <location line="+56"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
@@ -1047,7 +1047,7 @@ Seriennummer: %3</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="-25"/>
+        <location filename="../widgets/MW_menu.cpp" line="-27"/>
         <source>Certificates</source>
         <translation>Zertifikate</translation>
     </message>
@@ -1157,7 +1157,7 @@ Seriennummer: %3</translation>
         <translation>PEM Datei</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+21"/>
         <source>Donations</source>
         <translation>Spenden</translation>
     </message>
@@ -1187,16 +1187,17 @@ Seriennummer: %3</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location line="-94"/>
+        <location line="-96"/>
         <source>I&amp;mport</source>
         <translation>I&amp;mport</translation>
     </message>
     <message>
+        <location line="+17"/>
         <source>paste PEM file</source>
-        <translation type="obsolete">PEM datei (copy+paste)</translation>
+        <translation>PEM datei (copy+paste)</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+65"/>
         <source>Database dump ( *.dump );;All files ( * )</source>
         <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
@@ -1231,13 +1232,19 @@ Seriennummer: %3</translation>
     </message>
     <message>
         <location line="+105"/>
+        <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
+Please enter the DH parameter bits</source>
+        <translation>Diffie-Hellman Parameter werden von anderen Applikationen benötigt. XCA verwendet oder speichert sie aber nicht.
+Bitte die DH Parameter bits angeben</translation>
+    </message>
+    <message>
         <source>Diffie-Hellman paramters are needed for different applications. They are neither used by XCA nor stored in the database. After generating them, XCA will ask for a filename to store the DH parameters
 Please enter the DH parameter bits</source>
-        <translation>Diffie-Hellman Paramter werden von verschiedenen Applikationen benötigt. Weder benötigt XCA diese, noch werden sie in der Datenbank gespeichert. Nach der Erstellung muss der Dateiname angegeben werden unter dem dies gespeichert werden sollen.
+        <translation type="obsolete">Diffie-Hellman Paramter werden von verschiedenen Applikationen benötigt. Weder benötigt XCA diese, noch werden sie in der Datenbank gespeichert. Nach der Erstellung muss der Dateiname angegeben werden unter dem dies gespeichert werden sollen.
 Bitte die D-H Parameter bits angeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-103"/>
+        <location filename="../widgets/MW_menu.cpp" line="-105"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Neue Datenbank</translation>
     </message>
@@ -1247,12 +1254,12 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation>Datenbank &amp;Öffnen</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="+44"/>
         <source>&amp;Init Security token</source>
         <translation>Chipkarte &amp;initialisieren</translation>
     </message>
     <message>
-        <location line="-32"/>
+        <location line="-34"/>
         <source>C&amp;hange DataBase password</source>
         <translation>Da&amp;tenbankpasswort ändern</translation>
     </message>
@@ -1330,7 +1337,7 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation>Als Standard datenbank</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+37"/>
         <source>&amp;Token</source>
         <translation>&amp;Chipkarte</translation>
     </message>
@@ -3880,7 +3887,7 @@ und wurde daher nicht importiert</translation>
         <translation>Der Schlüssel ist bereits auf der SmartCard</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+48"/>
         <source>Unable to find copied key on the token</source>
         <translation>Kann den eben kopierten Schlüssel auf der Chipkarte nicht finden</translation>
     </message>
@@ -3906,7 +3913,7 @@ und wurde daher nicht importiert</translation>
         <translation>Ungültige Pin für die Chipkarte</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-363"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Soll der private Schlüssel &apos;%1&apos; von der Chipkarte &apos;%2&apos; mit der Seriennummer %3 gelöscht werden ?</translation>
     </message>
@@ -3940,7 +3947,7 @@ und wurde daher nicht importiert</translation>
         <translation>Auf der Chipkarte können nur RSA Schlüssel gespeichert werden</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+56"/>
         <source>PIN input aborted</source>
         <translation>PIN Eingabe abgebrochen</translation>
     </message>
@@ -4007,7 +4014,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+784"/>
+        <location filename="../lib/pki_x509.cpp" line="+785"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -4027,7 +4034,7 @@ und wurde daher nicht importiert</translation>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
     <message>
-        <location line="-397"/>
+        <location line="-398"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
         <translation>Das Zertifikat &apos;%1&apos; löschen?</translation>
     </message>
@@ -4052,7 +4059,7 @@ und wurde daher nicht importiert</translation>
         <translation>Dieses Zertifikat ist bereits auf der Chipkarte</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos;?</source>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
@@ -4076,12 +4083,12 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
     <message>
-        <location line="-746"/>
+        <location line="-747"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
-        <location line="+435"/>
+        <location line="+436"/>
         <location line="+423"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
