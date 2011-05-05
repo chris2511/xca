@@ -62,7 +62,7 @@ if test -n "$DARWIN"; then
   CF="${CF} -FQtCore -FQtGui"
   LIBS="-lstdc++ -lltdl -lgcc_eh"
   MACDEPLOYQT=macdeployqt/macdeployqt
-  for mdq in amacdeployqt amacdeployqt-4.6; do
+  for mdq in macdeployqt macdeployqt-4.6; do
     if which ${mdq}; then
       MACDEPLOYQT=${mdq}
       break
