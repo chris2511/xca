@@ -19,6 +19,14 @@
 #
 #######################################################
 
+cat <<EOF
+
+
+      Configuring XCA `cat VERSION`
+---------------------------------------------
+
+EOF
+
 DIRS=""
 
 for dir in $@; do
@@ -36,6 +44,31 @@ LDIRS=
 MOC=moc
 UIC=uic
 LRELEASE=lrelease
+
+DVERSION="`gcc --version | grep apple-darwin || :`"
+case "$DVERSION" in
+  *-apple-darwin10*) DARWIN="SnowLeopard" ;;
+  *-apple-darwin9*) DARWIN="Leopard" ;;
+  *-apple-darwin*)
+    echo Unsupported Mac OS version $DVERSION
+    exit 1
+    ;;
+esac
+
+if test -n "$DARWIN"; then
+  echo Configuring for Mac OSX $DARWIN
+  LDFLAGS="-framework QtCore -framework QtGui -arch i386"
+  CFLAGS="${CFLAGS} -m32"
+  CF="${CF} -FQtCore -FQtGui"
+  LIBS="-lstdc++ -lltdl -lgcc_eh"
+  MACDEPLOYQT=macdeployqt/macdeployqt
+  for mdq in amacdeployqt amacdeployqt-4.6; do
+    if which ${mdq}; then
+      MACDEPLOYQT=${mdq}
+      break
+    fi
+  done
+fi
 
 if test -x /sbin/ldconfig; then
   EXTRALIB=$(
@@ -116,14 +149,23 @@ search_lib() {
   return 1
 }
 
-echo -e "\n\nConfiguring XCA `cat VERSION`\n----------------------------"
+check_frameworks() {
+  for fw in $@; do
+    test -d /Library/Frameworks/${fw}.framework || return 1
+  done
+  return 0
+}
 
 ######################### QT
-subdirs="/qt /qt4"
-search_includes QtCore/QObject || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
-search_lib QtGui4 QtGui || err "The QT library was not found."
-search_lib ltdl || err "Libtool ltdl not found."
-search_lib c_r || true
+if test -z "$DARWIN"; then
+  subdirs="/qt /qt4"
+  search_includes QtCore/QObject || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
+  search_lib QtGui4 QtGui || err "The QT library was not found."
+  search_lib ltdl || err "Libtool ltdl not found."
+  search_lib c_r || true
+else
+  check_frameworks QtGui QtCore || err "QT Framework not found, needed on Mac OSX, please install QT"
+fi
 
 ###################### OpenSSL
 subdirs=""
@@ -141,7 +183,7 @@ cat >conftest.c <<EOF
 #include <stdio.h>
 #include <openssl/opensslv.h>
 #include <openssl/opensslconf.h>
-#include <Qt/qglobal.h>
+#include <QtCore/qglobal.h>
 
 int main(){
   printf("\nThe Versions of the used libraries are:\n\t%s 0x%lxL\n\tQT: %s\n",
@@ -166,7 +208,7 @@ EOF
 
 echo "${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX}" >conftest.log
 if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX} >> conftest.log 2>&1; then
-  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -f conftest.c conftest${SUFFIX} conftest.log
+  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -rf conftest.c conftest${SUFFIX} conftest.log conftest.dSYM
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi
@@ -175,7 +217,12 @@ fi
 if which linuxdoc 2>&1; then
   LINUXDOC="linuxdoc"
 else
-  echo "Application 'linuxdoc' not found. No documentation will be generated"
+  echo "Application 'linuxdoc' not found."
+  if tar ztf doc/xca-doc.tgz xca.html >/dev/null 2>&1; then
+    echo "But Found a valid documentation package 'doc/xca-doc.tgz'"
+  else
+   echo "No documentation will be generated."
+  fi
   LINUXDOC=":"
 fi
 
@@ -211,6 +258,9 @@ MOC=$MOC
 UIC=$UIC
 RCC=$RCC
 LRELEASE=$LRELEASE
+MACDEPLOYQT=$MACDEPLOYQT
+QMAKE=qmake
+DARWIN=$DARWIN
 
 CC=${CC}
 LD=${LD:=ld}

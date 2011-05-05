@@ -2,24 +2,42 @@
 This is a short overview of how to build
 XCA for MAC OSX
 
-Currently only SnowLeopard is supported, because it comes with the required
-openssl-0.9.8 library
+The developer tools and QT must be installed
+Decide whether OpenSSL 1.0.0 shall be used.
+It is needed if
 
-xcode, the developer tools and QT must be installed
+ - you want the most recent functionality of OpenSSL
+ - you don't have SnowLeopard
+   (Mac OS 10.5 comes with OpenSSL 0.9.7, which is too old for XCA)
 
+Compile OpenSSL 1.0.0:
+----------------------
+# Download the latest OpenSSL sources, unpack them and change into it
+curl http://openssl.org/source/openssl-1.0.0d.tar.gz >openssl-1.0.0d.tar.gz
+tar zxf openssl-1.0.0d.tar.gz
+cd openssl-1.0.0d
 
-Install deployqt
-$ curl http://git.hohnstaedt.de/macdeployqt.bz2 |bzcat - >misc/macdeployqt && chmod +x misc/macdeployqt
+# define the installation dir and the path to the new library
+# it will be installed locally in you home directory
+export OPENSSLINSTALLDIR=$HOME/instopenssl
+export DYLD_LIBRARY_PATH=$OPENSSLINSTALLDIR/lib
 
-Configure:
-$ ./configure.mac
+# configure openssl
+./config shared --prefix=$OPENSSLINSTALLDIR
 
-Build:
-startup xcode, select "Release build" and build
+# build and install OpenSSL
+make && make install
 
-fetch the current docs xca.html and xca-?.html from somewhere else like http://xca.sf.net and copy them to doc/ or somewhere else and point HTML_DOCDIR there.
+# IMPORTANT: you need to change access type of the libs to be writable
+chmod 755 $OPENSSLINSTALLDIR/lib/*.dylib
 
-Create the dmg
-$ ./mac-package.sh
+Compile XCA:
+------------
+# change into the xca-0.9.1 directory and download the documentation
+# (The documentation is not mandatory and XCA will build without it)
+cd xca-0.9.1
+curl http://git.hohnstaedt.de/xca-doc.tgz > doc/xca-doc.tgz
 
-
+# configure XCA and build the DMG file
+./configure $OPENSSLINSTALLDIR
+make -j5

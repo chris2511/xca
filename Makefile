@@ -22,12 +22,22 @@ GCCLDFLAGS="-Wl,`echo $(LDFLAGS) |sed 's/ /,/g'`"
 endif
 
 bindir=bin
+DMGSTAGE=xca-$(VERSION)
+MACTARGET=$(DMGSTAGE)-$(DARWIN)
 
-all: headers xca$(SUFFIX) doc lang
+ifeq ($(SUFFIX), .exe)
+all: setup.exe
+else
+ifneq ($(MACDEPLOYQT),)
+all: $(MACTARGET).dmg
+else
+all: xca$(SUFFIX) doc lang
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
+endif
+endif
 
 xca.o: $(OBJECTS)
-	$(LD) $(LDFLAGS) $(OBJECTS) -r -o $@ $(SLIBS)
+	$(LD) $(LDFLAGS) $(SLIBS) $(OBJECTS) -r -o $@
 
 xca$(SUFFIX): xca.o
 	$(CC) $(CFLAGS) $(GCCLDFLAGS) $< $(LIBS) -o $@
@@ -48,8 +58,8 @@ pheaders: headers
 
 clean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} clean; done
-	rm -f *~ xca$(SUFFIX) xca.o setup_xca*.exe
-	rm -rf dmgstage
+	rm -f *~ xca$(SUFFIX) xca.o setup_xca*.exe $(MACTARGET).dmg $(MACTARGET).tar.gz
+	rm -rf $(DMGSTAGE)
 
 distclean:
 	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} distclean; done
@@ -73,6 +83,8 @@ install: xca$(SUFFIX)
 	  $(MAKE) -C $$d install; \
 	done
 
+$(MACDEPLOYQT):
+
 macdeployqt/macdeployqt:
 	$(MAKE) -C macdeployqt
 
@@ -82,11 +94,9 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -NOCD -V2 misc/xca.nsi
 
-DMGSTAGE=xca-$(VERSION)
-
 xca.app: $(DMGSTAGE)
 
-$(DMGSTAGE): xca$(SUFFIX)
+$(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT) doc lang
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
@@ -100,13 +110,12 @@ $(DMGSTAGE): xca$(SUFFIX)
         done
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
-	SYSROOT=$(SYSROOT) OTOOL=$(OTOOL) NAME_TOOL=$(NAME_TOOL)\
-		 $(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	tar zcf $(DMGSTAGE)-SnowLeopard.tar.gz $(DMGSTAGE)
+	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
+	tar zcf $(MACTARGET).tar.gz $(DMGSTAGE)
 
-xca.dmg: xca-$(VERSION)-SnowLeopard.dmg
+xca.dmg: $(MACTARGET).dmg
 
-xca-$(VERSION)-SnowLeopard.dmg: $(DMGSTAGE)
+$(MACTARGET).dmg: $(DMGSTAGE)
 	hdiutil create -ov -srcfolder $< $@
 
 trans:
