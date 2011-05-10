@@ -106,7 +106,6 @@ SOURCES += lib/asn1int.cpp \
            lib/db_base.cpp \
            lib/db.cpp \
            lib/db_crl.cpp \
-           lib/db_dump.cpp \
            lib/db_key.cpp \
            lib/db_temp.cpp \
            lib/db_token.cpp \
@@ -150,10 +149,6 @@ SOURCES += lib/asn1int.cpp \
            widgets/KeyDetail.cpp \
            widgets/kvView.cpp \
            widgets/MainWindow.cpp \
-           widgets/moc_ExportCert.cpp \
-           widgets/moc_ExportDer.cpp \
-           widgets/moc_ReqDetail.cpp \
-           widgets/moc_ScardDetail.cpp \
            widgets/MW_database.cpp \
            widgets/MW_help.cpp \
            widgets/MW_menu.cpp \

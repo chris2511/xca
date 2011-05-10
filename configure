@@ -58,9 +58,9 @@ esac
 if test -n "$DARWIN"; then
   echo Configuring for Mac OSX $DARWIN
   LDFLAGS="-framework QtCore -framework QtGui -arch i386"
-  CFLAGS="${CFLAGS} -m32"
+  CFLAGS="${CFLAGS} -pipe -gdwarf-2 -arch i386"
   CF="${CF} -FQtCore -FQtGui"
-  LIBS="-lstdc++ -lltdl -lgcc_eh"
+  LIBS="-lltdl -lstdc++"
   MACDEPLOYQT=macdeployqt/macdeployqt
   for mdq in macdeployqt macdeployqt-4.6; do
     if which ${mdq}; then
