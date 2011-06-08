@@ -196,6 +196,42 @@ static bool asn1TypePrintable(int type)
 	return false;
 }
 
+static QString ipv6_from_binary(const unsigned char *p)
+{
+	QString ip;
+	int i, skip =0, skiplen = 0, skippos =0;
+
+	/* find largest gap */
+	for (i = 0; i < 17; i += 2) {
+		if (i==16 || (p[i] | p[i +1])) {
+			if (skiplen < skip) {
+				skiplen = skip;
+				skippos = i - skip;
+			}
+			skip = 0;
+		} else {
+			skip += 2;
+		}
+	}
+	for (i = 0, skip = 0; i < 16; i += 2) {
+		int x = p[i] << 8 | p[i+1];
+		skip += skippos == i;
+		switch (!x*4 + skip) {
+		case 5: // skip first 0
+			skip = 2;
+			ip += ":";
+		case 6: // skip next 0
+			break;
+		default: // no reduction
+			skip = 0;
+			ip += QString("%1%2").arg(i? ":" : "").arg(x,0,16);
+		}
+	}
+	if (skip == 2)
+		ip += ":";
+	return ip;
+}
+
 static bool
 genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 {
@@ -222,22 +258,7 @@ genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 				arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]);
 			return true;
 		} else if(gen->d.ip->length == 16) {
-			int skip = 0;
-			*single = "IP";
-			for (int i = 0; i < 8; i++, p+=2) {
-				int x = p[0] << 8 | p[1];
-				switch (!x*4 + skip) {
-				case 4: // start reduction
-					*single += QString(":");
-					skip = 1;
-				case 5: // skip repeated 0
-					break;
-				case 1: // end of reduction
-					skip = 2;
-				default:
-					*single += QString(":%1").arg(x,0,16);
-				}
-			}
+			*single = "IP:" + ipv6_from_binary(gen->d.ip->data);
 			return true;
 		}
 		return false;
