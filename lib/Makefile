@@ -12,7 +12,6 @@ NAMES=$(MOCNAMES) asn1int oid x509rev asn1time \
 
 
 OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
-DELFILES=$(patsubst %,moc_%.cpp,$(MOCNAMES)) db_dump
 
 include $(TOPDIR)/Rules.mak
 

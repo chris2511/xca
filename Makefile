@@ -6,63 +6,54 @@
 TAG=RELEASE.$(TVERSION)
 TARGET=xca-$(TVERSION)
 
-export VERSION=$(shell cat $(TOPDIR)/VERSION )
 export TOPDIR=$(shell pwd)
+export VERSION=$(shell cat $(TOPDIR)/VERSION )
+export BUILD=$(TOPDIR)/xca_build
 
 sinclude Local.mak
 
 SUBDIRS=lib widgets img
-OBJECTS=$(patsubst %, %/target.obj, $(SUBDIRS))
+OBJECTS=$(patsubst %, $(BUILD)/%/.build-stamp, $(SUBDIRS))
 INSTDIR=misc lang doc img
 CLEANDIRS=lang doc ui img macdeployqt
 HDRDIRS=lib widgets ui
 
-ifneq ($(LDFLAGS),)
-GCCLDFLAGS="-Wl,`echo $(LDFLAGS) |sed 's/ /,/g'`"
-endif
-
 bindir=bin
-DMGSTAGE=xca-$(VERSION)
+DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)-$(DARWIN)
 
 ifeq ($(SUFFIX), .exe)
-all: setup.exe
+all: setup$(SUFFIX)
 else
 ifneq ($(MACDEPLOYQT),)
 all: $(MACTARGET).dmg
 else
-all: xca$(SUFFIX) doc lang
+all: xca$(SUFFIX) do.doc do.lang
 	@echo -e "\n\n\nOk, compilation was successfull. \nNow do as root: 'make install'\n"
 endif
 endif
 
-xca.o: $(OBJECTS)
-	$(LD) $(LDFLAGS) $(SLIBS) $(OBJECTS) -r -o $@
 
-xca$(SUFFIX): xca.o
-	$(CC) $(CFLAGS) $(GCCLDFLAGS) $< $(LIBS) -o $@
+xca$(SUFFIX): $(OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(patsubst %,@%, $^) $(LIBS) -o $@
 
-doc: 
-	$(MAKE) -C doc
-lang: 
-	$(MAKE) -C lang
+do.ui do.doc do.lang: do.%:
+	mkdir -p $(BUILD)/$*
+	$(MAKE) -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* $*
 
-headers:
-	$(MAKE) -C ui $@
+headers: do.ui
 
-pheaders: headers
-	for d in $(HDRDIRS); do $(MAKE) -C $$d pheaders; done
-
-%/target.obj: headers
-	$(MAKE) DEP=yes -C $* target.obj
+$(BUILD)/%/.build-stamp: headers
+	mkdir -p $(BUILD)/$*
+	$(MAKE) DEP=yes -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile \
+		VPATH=$(TOPDIR)/$*
 
 clean:
-	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} clean; done
-	rm -f *~ xca$(SUFFIX) xca.o setup_xca*.exe $(MACTARGET).dmg $(MACTARGET).tar.gz
+	rm -rf $(BUILD)
+	rm -f *~ xca$(SUFFIX) setup_xca*.exe $(MACTARGET).dmg $(MACTARGET).tar.gz
 	rm -rf $(DMGSTAGE)
 
-distclean:
-	for x in $(SUBDIRS) $(CLEANDIRS); do $(MAKE) -C $${x} distclean; done
+distclean: clean
 	rm -f conftest conftest.log local.h Local.mak *~
 
 dist:
@@ -88,15 +79,15 @@ $(MACDEPLOYQT):
 macdeployqt/macdeployqt:
 	$(MAKE) -C macdeployqt
 
-setup.exe: xca$(SUFFIX) misc/xca.nsi doc lang
-	$(MAKE) -C lang
+setup.exe: xca$(SUFFIX) misc/xca.nsi do.doc do.lang
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
-		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -NOCD -V2 misc/xca.nsi
+		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DBUILD=$(BUILD) \
+		-NOCD -V2 misc/xca.nsi
 
 xca.app: $(DMGSTAGE)
 
-$(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT) doc lang
+$(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT) do.doc do.lang
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources

@@ -9,10 +9,10 @@ QM_XCA=$(patsubst %, xca_%.qm, $(LANGUAGES))
 QM_QT=$(patsubst %, qt_%.qm, $(LANGUAGES))
 TS_XCA=$(patsubst %, xca_%.ts, $(PO_LANGUAGES))
 
+lang all: $(QM_XCA)
+
 %.qm: %.ts
 	$(LRELEASE) $< -qm $@
-
-all: $(QM_XCA)
 
 install: $(QM_XCA)
 	install -m 755 -d $(destdir)$(prefix)/share/xca

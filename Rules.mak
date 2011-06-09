@@ -1,12 +1,13 @@
 sinclude $(TOPDIR)/Local.mak
 
-all: target.obj
+all: .build-stamp
+
+.build-stamp: $(OBJS)
+	echo $(patsubst %, $(shell pwd)/%, $(OBJS)) > $@
 
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))
 HEADERS=$(shell ls *.h 2>/dev/null)
 GCH=$(patsubst %, %.gch, $(HEADERS))
-
-pheaders: $(GCH)
 
 # recompile all
 re: clean all
@@ -20,26 +21,10 @@ ui_%.h: %.ui
 	$(UIC) -o $@ $<
 
 # default compile rule
-#%.o: %.cpp $(TOPDIR)/Local.mak
 %.o: %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
 
-# partial linking of objects in one directory
-target.obj: $(OBJS)
-	$(LD) $(LDFLAGS) -r -o $@ $(OBJS)
-
-# precompiled header
-%.h.gch: %.h
-	$(CC) $(CPPFLAGS) -xc++ -c $< -o $@
-
-# delete the crap
-clean:
-	rm -f *~ *.o *.obj $(DELFILES)
-
-distclean: clean
-	rm -f -r .depend *.h.gch
-
 .depend: $(SRCS)
-	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $(SRCS) > $@
+	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $^ > $@
 
 .SECONDARY:

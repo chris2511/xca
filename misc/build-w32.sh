@@ -2,7 +2,7 @@
 
 XCA_DIR="`pwd`"/xca
 
-OPENSC_DIR="opensc-0.11.13"
+OPENSC_DIR="opensc-0.12.1"
 OPENSC_GZ="${OPENSC_DIR}".tar.gz
 OPENSC_DL="http://www.opensc-project.org/files/opensc/${OPENSC_GZ}"
 
@@ -10,7 +10,7 @@ LIBTOOL_DIR="libtool-2.2.6b"
 LIBTOOL_GZ="${LIBTOOL_DIR}".tar.gz
 LIBTOOL_DL="http://ftp.gnu.org/gnu/libtool/${LIBTOOL_GZ}"
 
-OPENSSL_DIR="openssl-1.0.0a"
+OPENSSL_DIR="openssl-1.0.0d"
 OPENSSL_GZ="${OPENSSL_DIR}".tar.gz
 OPENSSL_DL="http://openssl.org/source/${OPENSSL_GZ}"
 OPENSSL_PATCH="$XCA_DIR/misc/openssl-1.0.0-mingw32-cross.patch"
@@ -42,26 +42,6 @@ unpack LIBTOOL
 make && make install
 )}
 
-do_OpenSC()
-{(
-unpack OPENSC
-CFLAGS=-I${INSTALL_DIR}/include LDFLAGS=-L${INSTALL_DIR}/lib LIBP11_CFLAGS=${CFLAGS} OPENSSL_CFLAGS=${CFLAGS} LIBP11_LIBS="-lp11" OPENSSL_LIBS="-leay32" ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR} --enable-openssl \
-                --disable-zlib \
-                --disable-readline \
-                --disable-iconv \
-                --enable-openssl \
-                --disable-openct \
-                --enable-pcsc \
-                --disable-nsplugin \
-                --disable-man \
-                --disable-doc \
-                --with-cygwin-native \
-                --without-xsl-stylesheetsdir \
-                --without-plugindir \
-                --without-pinentry
-
-make && make install
-)}
 
 do_XCA()
 {(
@@ -88,5 +68,4 @@ export INSTALL_DIR=`pwd`/install
 
 do_openssl
 do_libtool
-do_OpenSC
 do_XCA

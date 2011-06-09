@@ -39,7 +39,7 @@ STDLIB="-L/usr/lib"
 prefix=${prefix:=/usr/local}
 CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
 CC=${CC:=gcc}
-CF="-I. -I.. -I\$(TOPDIR)/ui"
+CF="-I\$(TOPDIR) -I\$(BUILD)/ui"
 LDIRS=
 MOC=moc
 UIC=uic

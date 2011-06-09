@@ -40,4 +40,4 @@ curl http://git.hohnstaedt.de/xca-doc.tgz > doc/xca-doc.tgz
 
 # configure XCA and build the DMG file
 ./configure $OPENSSLINSTALLDIR
-make -j5
+make -j5 xca.dmg
