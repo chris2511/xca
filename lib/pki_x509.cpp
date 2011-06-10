@@ -699,7 +699,6 @@ void pki_x509::setRevoked(bool rev, a1time inval, QString reason)
 {
 	if (rev) {
 		setEffTrust(0);
-		setTrust(0);
 		revoked.now();
 		pki_openssl_error();
 		revoke_reason = reason;
@@ -729,6 +728,10 @@ int pki_x509::calcEffTrust()
 	if (mytrust != 1) {
 		efftrust = mytrust;
 		return mytrust;
+	}
+	if (isRevoked()) {
+		efftrust = 0;
+		return 0;
 	}
 	if (getSigner() == this && trust == 1) { // inherit trust, but self signed
 		trust=0;
