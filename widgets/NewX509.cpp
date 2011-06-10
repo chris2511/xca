@@ -406,7 +406,9 @@ void NewX509::toTemplate(pki_temp *temp)
 	temp->eKeyUse = lb2QString(ekeyUsage);
 	temp->validN = validNumber->text().toInt();
 	temp->validM = validRange->currentIndex();
-	temp->pathLen = QString::number(basicPath->text().toInt());
+	temp->pathLen = basicPath->text();
+	if (!temp->pathLen.isEmpty())
+		temp->pathLen = QString::number(temp->pathLen.toInt());
 	temp->validMidn = midnightCB->isChecked();
 	if (nconf_data->isReadOnly()) {
 		temp->adv_ext = v3ext_backup;
