@@ -70,7 +70,7 @@ class pki_scard: public pki_key
 		void changeSoPin();
 		int verify();
 		bool isToken();
-		QVariant getIcon(int id);
+		QVariant getIcon(dbheader *hd);
 		QList<CK_MECHANISM_TYPE> getMech_list()
 		{
 			return mech_list;

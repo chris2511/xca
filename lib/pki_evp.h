@@ -70,7 +70,7 @@ class pki_evp: public pki_key
 		bool isPubKey() const;
 		int verify();
 		const EVP_MD *getDefaultMD();
-		QVariant getIcon(int id);
+		QVariant getIcon(dbheader *hd);
 };
 
 #endif

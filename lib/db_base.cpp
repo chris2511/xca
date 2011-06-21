@@ -114,7 +114,6 @@ next:
 		}
 	}
 
-	int max = allHeaders.count();
 	mydb.first();
 	if (!mydb.find(setting, class_name + "_hdView")) {
 		QByteArray ba;
@@ -123,18 +122,13 @@ next:
 			ba = QByteArray(p, head.len - sizeof(db_header_t));
 			free(p);
 		}
-		if (head.version != 4)
+		if (head.version != 5)
 			return;
-		for (int i=0; i<max; i++) {
-			if (ba.size() == 0)
-				break;
-			try {
-				allHeaders[i]->fromData(ba);
-			}  catch (errorEx()) {
-				for (int j=0; j<=i; i++) {
-					allHeaders[i]->reset();
-				}
-				break;
+		try {
+			allHeaders.fromData(ba);
+		}  catch (errorEx()) {
+			for (int i=0; i< allHeaders.count(); i++) {
+				allHeaders[i]->reset();
 			}
 		}
 	}
@@ -147,12 +141,9 @@ void db_base::saveHeaderState()
 	QByteArray ba;
 	if (dbName.isEmpty())
 		return;
-	int max = allHeaders.count();
-	for (int i=0; i<max; i++) {
-		ba += allHeaders[i]->toData();
-	}
+	ba = allHeaders.toData();
 	db mydb(dbName);
-	mydb.set((const unsigned char *)ba.constData(), ba.size(), 4,
+	mydb.set((const unsigned char *)ba.constData(), ba.size(), 5,
 		setting, class_name + "_hdView");
 }
 
@@ -520,9 +511,9 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 	switch (role) {
 		case Qt::EditRole:
 		case Qt::DisplayRole:
-			return item->column_data(hd->id);
+			return item->column_data(hd);
 		case Qt::DecorationRole:
-			return item->getIcon(hd->id);
+			return item->getIcon(hd);
 		case Qt::TextAlignmentRole:
 			return hd->isNumeric() ? Qt::AlignRight : Qt::AlignLeft;
 		case Qt::FontRole: {
@@ -662,26 +653,40 @@ void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 {
 	int shown = 0;
-	QMenu *menu = new QMenu(mainwin);
-	QMenu *dn = NULL;
-	QAction *a;
+	QMenu *menu, *dn, *v3ext, *current;
+	QAction *a, *sep;
 	dbheader *hd;
+
+	menu = new QMenu(mainwin);
+	dn = new QMenu(tr("Subject entries"));
+	v3ext = new QMenu(tr("X509v3 Extensions"));
 	menu->addAction(tr("Reset"), this, SLOT(columnResetDefaults()));
-	menu->addSeparator();
+	sep = menu->addSeparator();
 	foreach(hd, allHeaders) {
-		if (hd->isNid()) {
-			if (!dn)
-				dn = menu->addMenu(tr("Subject entries"));
-			a = dn->addAction(hd->name);
-		} else {
-			a = menu->addAction(hd->name);
+		switch (hd->type) {
+			case dbheader::hd_x509name:
+				current = dn;
+				break;
+			case dbheader::hd_v3ext:
+				current = v3ext;
+				break;
+			default:
+				current = menu;
+				break;
 		}
+		a = current->addAction(hd->name);
 		a->setCheckable(true);
 		a->setChecked(hd->show);
 		if (!hd->tooltip.isEmpty())
 			a->setToolTip(hd->tooltip);
 		hd->action = a;
 	}
+	if (!dn->isEmpty() || !v3ext->isEmpty())
+		menu->insertSeparator(sep);
+	if (!dn->isEmpty())
+		menu->insertMenu(sep, dn);
+	if (!v3ext->isEmpty())
+		menu->insertMenu(sep, v3ext);
 
 	if (parent) {
 		parent->addAction(tr("Paste PEM data"), mainwin,

@@ -1,5 +1,6 @@
 
 #include "db.h"
+#include "func.h"
 #include <QtCore/QString>
 #include <QtCore/QList>
 #include <QtGui/QAction>
@@ -48,8 +49,14 @@ class dbheader
 		size = -1;
 		visualIndex = -1;
 		sortIndicator = -1;
+		type = hd_default;
 	}
     public:
+	enum hdr_type {
+		hd_default,
+		hd_x509name,
+		hd_v3ext,
+	};
 	int id;
 	bool show;
 	bool showDefault;
@@ -59,6 +66,7 @@ class dbheader
 	int size;
 	int visualIndex;
 	int sortIndicator;
+	enum hdr_type type;
 
 	dbheader(QString aname = QString())
 	{
@@ -72,25 +80,24 @@ class dbheader
 		id = aid;
 		name = aname;
 		tooltip = atip;
-		if (isNid() && name.isEmpty()) {
+		if (id > 0 && name.isEmpty()) {
 			name = OBJ_nid2ln(aid);
 			tooltip = OBJ_nid2sn(aid);
 		}
 		show = showDefault = ashow;
+	}
+	bool mustSave()
+	{
+		return  size != -1 ||
+			visualIndex != -1 ||
+			sortIndicator != -1 ||
+			show != showDefault;
 	}
 	bool operator == (const dbheader *h) const
 	{
 		if (h->id == HD_undef)
 			return name == h->name;
 		return id == h->id;
-	}
-	bool isNid() const
-	{
-		return (id > 0);
-	}
-	static bool isNid(int i)
-	{
-		return (i > 0);
 	}
 	bool isNumeric()
 	{
@@ -103,6 +110,8 @@ class dbheader
 		case HD_subject_hash:
 		case HD_cert_md5fp:
 		case HD_cert_sha1fp:
+		case NID_subject_key_identifier:
+		case NID_authority_key_identifier:
 			return true;
 		}
 		return false;
@@ -143,4 +152,47 @@ class dbheader
 	}
 };
 
-typedef QList<dbheader*> dbheaderList;
+class dbheaderList: public QList<dbheader*>
+{
+    public:
+
+	QByteArray toData()
+	{
+		QByteArray ba;
+		for (int i=0; i<count(); i++) {
+			dbheader *h = at(i);
+			if (!h->mustSave())
+				continue;
+			ba += db::intToData(h->id);
+			if (h->id > 0) {
+				ASN1_OBJECT *o = OBJ_nid2obj(h->id);
+				ba += i2d_bytearray(I2D_VOID(i2d_ASN1_OBJECT), o);
+			}
+			ba += h->toData();
+		}
+		return ba;
+	}
+	void fromData(QByteArray &ba)
+	{
+		while (ba.size()) {
+			int id = db::intFromData(ba);
+			if (id > 0) {
+				ASN1_OBJECT *o = (ASN1_OBJECT*)d2i_bytearray(D2I_VOID(d2i_ASN1_OBJECT), ba);
+				id = OBJ_obj2nid(o);
+				ASN1_OBJECT_free(o);
+			}
+			for (int i=0; i<count(); i++) {
+				dbheader *h = at(i);
+				if (h->id == id) {
+					h->fromData(ba);
+					id = 0;
+					break;
+				}
+			}
+			if (id != 0) {
+				dbheader h("dummy");
+				h.fromData(ba);
+			}
+		}
+	}
+};

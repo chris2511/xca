@@ -23,7 +23,7 @@ class pki_x509name : public pki_base
 		return x509name();
 	};
 	void autoIntName();
-	QVariant column_data(int id);
+	QVariant column_data(dbheader *hd);
 };
 
 class pki_x509super : public pki_x509name
@@ -53,7 +53,7 @@ class pki_x509super : public pki_x509name
 		pki_key *getRefKey() const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);
-		QVariant column_data(int id);
+		QVariant column_data(dbheader *hd);
 		void opensslConf(QString fname);
 };
 

@@ -141,8 +141,8 @@ class pki_x509 : public pki_x509super
 		QString getSigAlg();
 		x509v3ext getExtByNid(int nid);
 		const EVP_MD *getDigest();
-		QVariant column_data(int id);
-		QVariant getIcon(int id);
+		QVariant column_data(dbheader *hd);
+		QVariant getIcon(dbheader *hd);
 		QByteArray i2d();
 		void d2i(QByteArray &ba);
 		void deleteFromToken();

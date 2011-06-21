@@ -296,11 +296,11 @@ QString pki_key::BN2QString(BIGNUM *bn) const
 	return x;
 }
 
-QVariant pki_key::column_data(int id)
+QVariant pki_key::column_data(dbheader *hd)
 {
 	QStringList sl;
 	sl << tr("Common") << tr("Private") << tr("Bogus") << tr("PIN");
-	switch (id) {
+	switch (hd->id) {
 		case HD_key_type:
 			return QVariant(getTypeString());
 		case HD_key_size:
@@ -314,6 +314,6 @@ QVariant pki_key::column_data(int id)
 				return QVariant("Holla die Waldfee");
 			return QVariant(sl[ownPass]);
 	}
-	return pki_base::column_data(id);
+	return pki_base::column_data(hd);
 }
 

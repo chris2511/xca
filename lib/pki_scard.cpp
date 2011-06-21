@@ -658,8 +658,8 @@ bool pki_scard::isToken()
 	return true;
 }
 
-QVariant pki_scard::getIcon(int id)
+QVariant pki_scard::getIcon(dbheader *hd)
 {
-	return id == HD_internal_name ? QVariant(*icon[0]) : QVariant();
+	return hd->id == HD_internal_name ? QVariant(*icon[0]) : QVariant();
 }
 

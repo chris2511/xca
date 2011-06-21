@@ -45,8 +45,8 @@ class pki_temp: public pki_x509name
 		QByteArray toData();
 		bool compare(pki_base *ref);
 		void writeTemp(QString fname);
-		QVariant column_data(int id);
-		QVariant getIcon(int id);
+		QVariant column_data(dbheader *hd);
+		QVariant getIcon(dbheader *hd);
 		virtual QString getMsg(msg_type msg);
 		x509name getSubject() const;
 };

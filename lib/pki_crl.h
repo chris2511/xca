@@ -61,8 +61,8 @@ class pki_crl: public pki_x509name
 		QString printV3ext();
 		x509v3ext getExtByNid(int nid);
 		a1int getVersion();
-		QVariant column_data(int id);
-		QVariant getIcon(int id);
+		QVariant column_data(dbheader *hd);
+		QVariant getIcon(dbheader *hd);
 		virtual QString getMsg(msg_type msg);
 		void d2i(QByteArray &ba);
 		QByteArray i2d();

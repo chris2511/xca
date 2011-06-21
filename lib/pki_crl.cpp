@@ -304,9 +304,9 @@ QString pki_crl::printV3ext()
 	return text;
 }
 
-QVariant pki_crl::column_data(int id)
+QVariant pki_crl::column_data(dbheader *hd)
 {
-	switch (id) {
+	switch (hd->id) {
 		case HD_crl_signer:
 			if (issuer)
 				return QVariant(getIssuer()->getIntName());
@@ -324,12 +324,12 @@ QVariant pki_crl::column_data(int id)
 				return QVariant(a.toDec());
 			return QVariant();
 	}
-	return pki_x509name::column_data(id);
+	return pki_x509name::column_data(hd);
 }
 
-QVariant pki_crl::getIcon(int id)
+QVariant pki_crl::getIcon(dbheader *hd)
 {
-	return id == HD_internal_name ? QVariant(*icon) : QVariant();
+	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }
 
 void pki_crl::oldFromData(unsigned char *p, int size)

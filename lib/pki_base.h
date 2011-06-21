@@ -79,8 +79,8 @@ class pki_base : public QObject
 		pki_base *iterate(pki_base *pki = NULL);
 		void takeChild(pki_base *pki);
 		pki_base *takeFirst();
-		virtual QVariant column_data(int id);
-		virtual QVariant getIcon(int id);
+		virtual QVariant column_data(dbheader *hd);
+		virtual QVariant getIcon(dbheader *hd);
 		const char *className()
 		{
 			return class_name;

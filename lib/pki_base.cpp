@@ -180,16 +180,16 @@ pki_base *pki_base::takeFirst()
 	return childItems.takeFirst();
 }
 
-QVariant pki_base::column_data(int id)
+QVariant pki_base::column_data(dbheader *hd)
 {
-	switch (id) {
+	switch (hd->id) {
 	case HD_internal_name:
 		return QVariant(getIntName());
 	}
 	return QVariant();
 }
 
-QVariant pki_base::getIcon(int)
+QVariant pki_base::getIcon(dbheader *hd)
 {
 	return QVariant();
 }

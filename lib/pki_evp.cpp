@@ -683,9 +683,9 @@ const EVP_MD *pki_evp::getDefaultMD()
 	return md;
 }
 
-QVariant pki_evp::getIcon(int id)
+QVariant pki_evp::getIcon(dbheader *hd)
 {
-	if (id != HD_internal_name)
+	if (hd->id != HD_internal_name)
 		return QVariant();
 	int pixnum= isPubKey() ? 1 : 0;
 	return QVariant(*icon[pixnum]);

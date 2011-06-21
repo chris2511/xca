@@ -50,15 +50,21 @@ void pki_x509super::delRefKey(pki_key *ref)
 	privkey = NULL;
 }
 
-QVariant pki_x509super::column_data(int id)
+QVariant pki_x509super::column_data(dbheader *hd)
 {
-	switch (id) {
-	case HD_x509key_name:
+	if (hd->id == HD_x509key_name) {
 		if (!privkey)
 			return QVariant("");
 		return QVariant(privkey->getIntName());
 	}
-	return pki_x509name::column_data(id);
+	if (hd->type == dbheader::hd_v3ext) {
+		extList el = getV3ext();
+		int idx = el.idxByNid(hd->id);
+		if (idx == -1)
+			return QVariant("");
+		return QVariant(el[idx].getValue(false));
+	}
+	return pki_x509name::column_data(hd);
 }
 
 static QString oid_sect()
@@ -128,17 +134,17 @@ void pki_x509name::autoIntName()
 	setIntName(subject.getMostPopular());
 }
 
-QVariant pki_x509name::column_data(int id)
+QVariant pki_x509name::column_data(dbheader *hd)
 {
-	switch (id) {
+	switch (hd->id) {
 	case HD_subject_name:
 		return QVariant(getSubject().oneLine(
 				XN_FLAG_ONELINE & ~ASN1_STRFLGS_ESC_MSB));
 	case HD_subject_hash:
 		return  QVariant(getSubject().hash());
 	default:
-		if (dbheader::isNid(id))
-			return QVariant(getSubject().getEntryByNid(id));
+		if (hd->type == dbheader::hd_x509name)
+			return QVariant(getSubject().getEntryByNid(hd->id));
 	}
-	return pki_base::column_data(id);
+	return pki_base::column_data(hd);
 }

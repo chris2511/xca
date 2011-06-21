@@ -422,18 +422,18 @@ bool pki_temp::compare(pki_base *)
 	return false;
 }
 
-QVariant pki_temp::column_data(int id)
+QVariant pki_temp::column_data(dbheader *hd)
 {
-	switch (id) {
+	switch (hd->id) {
 		case HD_temp_type:
 			return QVariant(destination);
 	}
-	return pki_x509name::column_data(id);
+	return pki_x509name::column_data(hd);
 }
 
-QVariant pki_temp::getIcon(int id)
+QVariant pki_temp::getIcon(dbheader *hd)
 {
-	return id == HD_internal_name ? QVariant(*icon) : QVariant();
+	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }
 
 void pki_temp::oldFromData(unsigned char *p, int size)

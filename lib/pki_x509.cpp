@@ -782,12 +782,12 @@ bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen)
 	return true;
 }
 
-QVariant pki_x509::column_data(int id)
+QVariant pki_x509::column_data(dbheader *hd)
 {
 	QString truststatus[] =
 		{ tr("Not trusted"), tr("Trust inherited"), tr("Always Trusted") };
 
-	switch (id) {
+	switch (hd->id) {
 		case HD_cert_serial:
 			return QVariant(getSerial().toHex());
 		case HD_cert_notBefore:
@@ -821,16 +821,16 @@ QVariant pki_x509::column_data(int id)
 			return QVariant("");
 		}
 	}
-	return pki_x509super::column_data(id);
+	return pki_x509super::column_data(hd);
 }
 
-QVariant pki_x509::getIcon(int id)
+QVariant pki_x509::getIcon(dbheader *hd)
 {
 	int pixnum = 0;
 	bool ca;
 	pki_key *k;
 
-	switch (id) {
+	switch (hd->id) {
 	case HD_cert_ca:
 		if (!caAndPathLen(&ca, NULL, NULL))
 			return QVariant();

@@ -403,9 +403,9 @@ static QString getAttribute(X509_REQ *req, int nid)
 	return ret.join(", ");
 }
 
-QVariant pki_x509req::column_data(int id)
+QVariant pki_x509req::column_data(dbheader *hd)
 {
-	switch (id) {
+	switch (hd->id) {
 	case HD_req_signed:
 		return QVariant(done ? tr("Signed") : tr("Unhandled"));
 	case HD_req_unstr_name:
@@ -413,15 +413,15 @@ QVariant pki_x509req::column_data(int id)
 	case HD_req_chall_pass:
 		return getAttribute(request, NID_pkcs9_challengePassword);
 	}
-	return pki_x509super::column_data(id);
+	return pki_x509super::column_data(hd);
 }
 
-QVariant pki_x509req::getIcon(int id)
+QVariant pki_x509req::getIcon(dbheader *hd)
 {
 	int pixnum = -1;
 	pki_key *k;
 
-	switch (id) {
+	switch (hd->id) {
 	case HD_internal_name:
 		pixnum = 0;
 		k = getRefKey();
