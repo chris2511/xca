@@ -40,6 +40,8 @@ prefix=${prefix:=/usr/local}
 CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
 CC=${CC:=gcc}
 CF="-I\$(TOPDIR) -I\$(BUILD)/ui"
+LDFLAGS="-Wl,--no-add-needed"
+LIBS="-lstdc++"
 LDIRS=
 MOC=moc
 UIC=uic
@@ -57,10 +59,10 @@ esac
 
 if test -n "$DARWIN"; then
   echo Configuring for Mac OSX $DARWIN
-  LDFLAGS="-framework QtCore -framework QtGui -arch i386"
+  LDFLAGS="${LDFLAGS} -framework QtCore -framework QtGui -arch i386"
   CFLAGS="${CFLAGS} -pipe -gdwarf-2 -arch i386"
   CF="${CF} -FQtCore -FQtGui"
-  LIBS="-lltdl -lstdc++"
+  LIBS="${LIBS} -lltdl"
   MACDEPLOYQT=macdeployqt/macdeployqt
   for mdq in macdeployqt macdeployqt-4.6; do
     if which ${mdq}; then
@@ -160,7 +162,8 @@ check_frameworks() {
 if test -z "$DARWIN"; then
   subdirs="/qt /qt4"
   search_includes QtCore/QObject || err "The QT Library headerfiles were not found. Set QTDIR appropriately."
-  search_lib QtGui4 QtGui || err "The QT library was not found."
+  search_lib QtCore4 QtCore || err "The QT Core library was not found."
+  search_lib QtGui4 QtGui || err "The QT Gui library was not found."
   search_lib ltdl || err "Libtool ltdl not found."
   search_lib c_r || true
 else
