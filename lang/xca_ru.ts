@@ -1607,7 +1607,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <location line="-484"/>
-        <location filename="../widgets/NewX509.cpp" line="+202"/>
+        <location filename="../widgets/NewX509.cpp" line="+204"/>
         <source>Subject</source>
         <translation>Владелец</translation>
     </message>
@@ -1832,8 +1832,8 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+7"/>
         <location line="+35"/>
         <location line="+17"/>
-        <location filename="../widgets/NewX509.cpp" line="-198"/>
-        <location line="+548"/>
+        <location filename="../widgets/NewX509.cpp" line="-200"/>
+        <location line="+550"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -1940,7 +1940,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="obsolete">Создать</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-680"/>
+        <location filename="../widgets/NewX509.cpp" line="-682"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1960,7 +1960,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished">Создание x509 сертификата</translation>
     </message>
     <message>
-        <location line="+617"/>
+        <location line="+619"/>
         <location line="+14"/>
         <location line="+20"/>
         <location line="+11"/>
@@ -2162,7 +2162,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Применить все</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-843"/>
+        <location filename="../widgets/NewX509.cpp" line="-845"/>
         <source>minimum size: %1</source>
         <translation type="unfinished">минимальный размер: %1</translation>
     </message>
@@ -2182,7 +2182,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+526"/>
+        <location line="+528"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2766,17 +2766,22 @@ In library %3
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+641"/>
+        <location line="+635"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-2"/>
         <source>Subject entries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+1"/>
+        <source>X509v3 Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
         <source>Paste PEM data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3513,7 +3518,7 @@ and thus was not stored</source>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+11"/>
+        <location filename="../lib/db_x509super.cpp" line="+31"/>
         <source>Key name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3523,7 +3528,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+75"/>
         <source>Save as OpenSSL config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3997,7 +4002,7 @@ and thus was not stored</source>
         <translation>Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+442"/>
+        <location line="+445"/>
         <source>Not trusted</source>
         <translation>Доверия нет</translation>
     </message>
@@ -4022,7 +4027,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-348"/>
+        <location line="-351"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished">Не существует ключа для подписания !</translation>
     </message>
@@ -4041,7 +4046,7 @@ and thus was not stored</source>
         <translation>Этот сертификат уже есть на Токене</translation>
     </message>
     <message>
-        <location line="+518"/>
+        <location line="+521"/>
         <source>CRL expires: %1</source>
         <translation type="unfinished">CRL истекает: %1</translation>
     </message>
@@ -4050,8 +4055,8 @@ and thus was not stored</source>
         <translation type="obsolete">Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="-295"/>
-        <location line="+423"/>
+        <location line="-298"/>
+        <location line="+426"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>
@@ -4140,8 +4145,8 @@ and thus was not stored</source>
         <translation type="unfinished">Отмена</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="+155"/>
-        <source>Validation successfull:
+        <location filename="../widgets/v3ext.cpp" line="+185"/>
+        <source>Validation successful:
 &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>

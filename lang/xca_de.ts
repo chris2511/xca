@@ -1657,7 +1657,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
     </message>
     <message>
         <location line="-484"/>
-        <location filename="../widgets/NewX509.cpp" line="+202"/>
+        <location filename="../widgets/NewX509.cpp" line="+204"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
     </message>
@@ -1881,8 +1881,8 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <location line="+7"/>
         <location line="+35"/>
         <location line="+17"/>
-        <location filename="../widgets/NewX509.cpp" line="-198"/>
-        <location line="+548"/>
+        <location filename="../widgets/NewX509.cpp" line="-200"/>
+        <location line="+550"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -1989,7 +1989,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-680"/>
+        <location filename="../widgets/NewX509.cpp" line="-682"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
@@ -2009,7 +2009,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+617"/>
+        <location line="+619"/>
         <location line="+14"/>
         <location line="+20"/>
         <location line="+11"/>
@@ -2178,7 +2178,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-843"/>
+        <location filename="../widgets/NewX509.cpp" line="-845"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2198,7 +2198,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+526"/>
+        <location line="+528"/>
         <source>From PKCS#10 request</source>
         <translation>Aus dem PKCS#10 Zertifikatsantrag</translation>
     </message>
@@ -2823,17 +2823,22 @@ in Bibliothek %3
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+641"/>
+        <location line="+635"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-2"/>
         <source>Subject entries</source>
         <translation>Namensteile</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+1"/>
+        <source>X509v3 Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
         <source>Paste PEM data</source>
         <translation>Einfügen (PEM)</translation>
     </message>
@@ -3569,7 +3574,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+11"/>
+        <location filename="../lib/db_x509super.cpp" line="+31"/>
         <source>Key name</source>
         <translation>Schlüsselname</translation>
     </message>
@@ -3579,7 +3584,7 @@ und wurde daher nicht importiert</translation>
         <translation>Interner name des Schlüssels</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+75"/>
         <source>Save as OpenSSL config</source>
         <translation>OpenSSL Konfiguration speichern</translation>
     </message>
@@ -4014,7 +4019,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+785"/>
+        <location filename="../lib/pki_x509.cpp" line="+788"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -4029,7 +4034,7 @@ und wurde daher nicht importiert</translation>
         <translation>Immer Vertraut</translation>
     </message>
     <message>
-        <location line="-317"/>
+        <location line="-320"/>
         <source>There is no key for signing !</source>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
@@ -4064,7 +4069,7 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+457"/>
+        <location line="+460"/>
         <source>CRL expires: %1</source>
         <translation>CRL ungültig ab: %1</translation>
     </message>
@@ -4083,13 +4088,13 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
     <message>
-        <location line="-747"/>
+        <location line="-750"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
         <location line="+436"/>
-        <location line="+423"/>
+        <location line="+426"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
@@ -4170,8 +4175,8 @@ und wurde daher nicht importiert</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="+155"/>
-        <source>Validation successfull:
+        <location filename="../widgets/v3ext.cpp" line="+185"/>
+        <source>Validation successful:
 &apos;%1&apos;</source>
         <translation>Überprüfung erfolgreich: &apos;%1&apos;</translation>
     </message>

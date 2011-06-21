@@ -741,7 +741,8 @@ Numéro de série: %3</translation>
         </message>
         <message>
             <source>Set as default DataBase</source>
-            <translation type="unfinished"/>
+            <translation type="unfinished">
+            </translation>
         </message>
         <message>
             <source>&amp;Close DataBase</source>
@@ -928,7 +929,8 @@ Numéro de série: %3</translation>
         <message>
             <source>Diffie-Hellman paramters are needed for different applications. They are neither used by XCA nor stored in the database. After generating them, XCA will ask for a filename to store the DH parameters
 Please enter the DH parameter bits</source>
-            <translation type="unfinished"/>
+            <translation type="unfinished">
+            </translation>
         </message>
         <message>
             <source>Error opening file: '%1': %2</source>
@@ -1631,7 +1633,8 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         </message>
         <message>
             <source>Suppress success messages</source>
-            <translation type="unfinished"/>
+            <translation type="unfinished">
+            </translation>
         </message>
         <message>
             <source>PKCS#11 provider</source>
@@ -1694,7 +1697,8 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         </message>
         <message>
             <source>E&amp;xit</source>
-            <translation type="unfinished"/>
+            <translation type="unfinished">
+            </translation>
         </message>
     </context>
     <context>
@@ -2531,7 +2535,8 @@ En conséquence, elle n'a pas été chargée</translation>
         </message>
         <message>
             <source>Save as OpenSSL config</source>
-            <translation type="unfinished"/>
+            <translation type="unfinished">
+            </translation>
         </message>
         <message>
             <source>Config files ( *.conf *.cnf);; All files ( * )</source>
@@ -3022,7 +3027,7 @@ En conséquence, elle n'a pas été chargée</translation>
 %2</translation>
         </message>
         <message>
-            <source>Validation successfull:
+            <source>Validation successful:
 '%1'</source>
             <translation>La validation a été effectuée avec succès:
 '%1'</translation>

@@ -182,7 +182,7 @@ bool v3ext::__validate(bool showSuccess)
 	}
 	if (showSuccess) {
 		QMessageBox::information(this, XCA_TITLE,
-			tr("Validation successfull:\n'%1'").
+			tr("Validation successful:\n'%1'").
 			arg(ext.getValue()));
 	}
 	return true;

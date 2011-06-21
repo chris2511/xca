@@ -3102,7 +3102,7 @@ msgstr ""
 
 #: v3ext#15
 msgid ""
-"Validation successfull:\n"
+"Validation successful:\n"
 "'%1'"
 msgstr ""
 
