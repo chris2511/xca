@@ -102,6 +102,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void import_dbdump();
 		void undelete();
 		void loadPem();
+		bool pastePem(QString text);
 		void pastePem();
 		void changeDbPass();
 

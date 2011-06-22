@@ -372,31 +372,9 @@ void MainWindow::loadPem()
 		keys->load_default(l);
 }
 
-void MainWindow::pastePem()
+bool MainWindow::pastePem(QString text)
 {
-	Ui::About ui;
-	QClipboard *cb = QApplication::clipboard();
-	QString text;
-
-	text = cb->text(QClipboard::Selection);
-	if (text.isEmpty())
-		text = cb->text(QClipboard::Clipboard);
-	if (text.isEmpty()) {
-		QDialog *input = new QDialog(this, 0);
-
-		ui.setupUi(input);
-		delete ui.textbox;
-		QTextEdit *textbox = new QTextEdit(input);
-		ui.vboxLayout->addWidget(textbox);
-		ui.button->setText(tr("Import PEM data"));
-		input->setWindowTitle(XCA_TITLE);
-		if (input->exec())
-			text = textbox->toPlainText();
-		delete input;
-	}
-	if (text.isEmpty())
-		return;
-
+	bool success = false;
 	QByteArray pemdata = text.toAscii();
 	BIO *b = BIO_QBA_mem_buf(pemdata);
 	check_oom(b);
@@ -406,6 +384,7 @@ void MainWindow::pastePem()
 		pem = new pki_multi();
 		dlgi = new ImportMulti(this);
 		pem->fromPEM_BIO(b, QString("paste"));
+		success = pem->count() != 0;
 		dlgi->addItem(pem);
 		pem = NULL;
 		dlgi->execute(1);
@@ -418,6 +397,38 @@ void MainWindow::pastePem()
 	if (pem)
 		delete pem;
 	BIO_free(b);
+	return success;
+}
+
+void MainWindow::pastePem()
+{
+	Ui::About ui;
+	QClipboard *cb = QApplication::clipboard();
+	QString text;
+
+	text = cb->text(QClipboard::Selection);
+	if (text.isEmpty())
+		text = cb->text(QClipboard::Clipboard);
+
+	if (!text.isEmpty())
+		if (pastePem(text))
+			return;
+
+	QDialog *input = new QDialog(this, 0);
+
+	ui.setupUi(input);
+	delete ui.textbox;
+	QTextEdit *textbox = new QTextEdit(input);
+	ui.vboxLayout->addWidget(textbox);
+	ui.button->setText(tr("Import PEM data"));
+	input->setWindowTitle(XCA_TITLE);
+	textbox->setPlainText(text);
+	if (input->exec())
+		text = textbox->toPlainText();
+	delete input;
+
+	if (!text.isEmpty())
+		pastePem(text);
 }
 
 void MainWindow::initToken()
