@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: xca 0.9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-04-30 08:24+0200\n"
-"PO-Revision-Date: 2011-02-25 16:20+0100\n"
+"PO-Revision-Date: 2011-06-23 13:50+0200\n"
 "Last-Translator: Patrick Monnerat <pm@datasphere.ch>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Language: \n"
@@ -532,9 +532,8 @@ msgid "&Done"
 msgstr "&OK"
 
 #: ImportMulti#5
-#, fuzzy
 msgid "&Remove from list"
-msgstr "Liste de &révocation"
+msgstr "&Enlever de la liste"
 
 #: ImportMulti#6
 msgid "Details"
@@ -779,7 +778,7 @@ msgstr "Générer le paramètre DH"
 
 #: MainWindow#26
 msgid "Set as default DataBase"
-msgstr ""
+msgstr "Marquer comme base de données par défaut"
 
 #: MainWindow#27
 msgid "&Close DataBase"
@@ -904,7 +903,6 @@ msgid "Import anyway"
 msgstr "Importer quand-même"
 
 #: MainWindow#57
-#, fuzzy
 msgctxt "MainWindow#57"
 msgid "Cancel"
 msgstr "Abandonner"
@@ -946,31 +944,31 @@ msgstr ""
 "fichier de base de données"
 
 #: MainWindow#66
-#, fuzzy
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
 "%1"
 msgstr ""
 "SVP saisir un mot de passe qui sera utilisé pour encrypter les clés privées "
-"dans le fichier de base de données: '%1'"
+"dans le fichier de base de données:\n"
+"%1"
 
 #: MainWindow#67
 msgid "Password verify error, please try again"
 msgstr "La vérification du mot de passe a échoué. SVP essayez encore"
 
 #: MainWindow#68
-#, fuzzy
 msgctxt "MainWindow#68"
 msgid "Password"
 msgstr "Mot de passe"
 
 #: MainWindow#69
-#, fuzzy
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
-msgstr "SVP saisir le mot de passe pour débloquer la base de données: '%1'"
+msgstr ""
+"SVP saisir le mot de passe pour débloquer la base de données:\n"
+"%1"
 
 #: MainWindow#70
 msgid "The following error occured:"
@@ -987,12 +985,16 @@ msgid ""
 "will ask for a filename to store the DH parameters\n"
 "Please enter the DH parameter bits"
 msgstr ""
+"Certaines applications ont besoin des paramètres de Diffie-Hellman. Ces "
+"derniers ne sont ni utilisés par XCA, ni enregistrés dans la base de "
+"données. Après les avoir générés, XCA demandera un nom de fichier dans "
+"lequel il les enregistrera.\n"
+"SVP, saisissez le nombre de bits pour Diffie-Hellman"
 
 #: MainWindow#73
-#, fuzzy
 msgctxt "MainWindow#73"
 msgid "Error opening file: '%1': %2"
-msgstr "Erreur à l'ouverture du fichier '%1': %2"
+msgstr "Erreur à l'ouverture du fichier '%1': %2"
 
 #: NewCrl#1
 msgid "Create CRL"
@@ -1837,7 +1839,7 @@ msgstr "Types de chaînes"
 
 #: Options#7
 msgid "Suppress success messages"
-msgstr ""
+msgstr "Supprimer les messages en cas de succès"
 
 #: Options#8
 msgid "PKCS#11 provider"
@@ -1872,24 +1874,21 @@ msgid "Load failed"
 msgstr "Le chargement a échoué"
 
 #: PwDialog#1
-#, fuzzy
 msgctxt "PwDialog#1"
 msgid "Password"
 msgstr "Mot de passe"
 
 #: PwDialog#2
-#, fuzzy
 msgid ""
 "The password is parsed as 2-digit hex code. It must have an equal number of "
 "digits (0-9 and a-f)"
 msgstr ""
-"Le mot de passe contient des codes hexadécimaux à deux chiffres. Il doit "
-"donc consiter en un nombre pair de chiffres (0-9 et a-f)"
+"Le mot de passe contient des codes hexadécimaux à deux chiffres. Il doit "
+"donc consister en un nombre pair de chiffres (0-9 et a-f)"
 
 #: PwDialog#3
-#, fuzzy
 msgid "Take as HEX string"
-msgstr "Comprendre comme chaîne hexadécimale"
+msgstr "Comprendre comme chaîne hexadécimale"
 
 #: PwDialog#4
 msgid "Repeat %1"
@@ -1909,7 +1908,7 @@ msgstr ""
 
 #: PwDialog#7
 msgid "E&xit"
-msgstr ""
+msgstr "T&erminer"
 
 #: QObject#1
 msgid "Undefined"
@@ -2034,9 +2033,8 @@ msgid "Load PEM encoded file"
 msgstr "Charger un fichier encodé en PEM"
 
 #: QObject#31
-#, fuzzy
 msgid "Please enter the PIN on the PinPad"
-msgstr "SVP saisir le NIP du jeton '%1'"
+msgstr "SVP saisir le NIP sur le clavier d'identification"
 
 #: QObject#32
 msgid "Please enter the SO PIN (PUK) of the token %1"
@@ -2159,9 +2157,8 @@ msgid "Subject entries"
 msgstr "Inscriptions du sujet"
 
 #: db_base#4
-#, fuzzy
 msgid "Paste PEM data"
-msgstr "Importer les données PEM"
+msgstr "Coller les données PEM"
 
 #: db_base#5
 msgid "Columns"
@@ -2229,22 +2226,19 @@ msgid "Export"
 msgstr "Exporter"
 
 #: db_crl#14
-#, fuzzy
 msgctxt "db_crl#14"
 msgid "Clipboard"
-msgstr "Copier dans le presse-papier"
+msgstr "Presse-papier"
 
 #: db_crl#15
-#, fuzzy
 msgctxt "db_crl#15"
 msgid "File"
 msgstr "Fichier"
 
 #: db_crl#16
-#, fuzzy
 msgctxt "db_crl#16"
 msgid "Delete"
-msgstr "Enlever"
+msgstr "Détruire"
 
 #: db_key#1
 msgctxt "db_key#1"
@@ -2508,9 +2502,8 @@ msgstr ""
 "En conséquence, il n'a pas été importé"
 
 #: db_x509#15
-#, fuzzy
 msgid "Invalid public key"
-msgstr "clé publique"
+msgstr "Clé publique invalide"
 
 #: db_x509#16
 msgid "Please enter the new hexadecimal secret number for the QA process."
@@ -2567,13 +2560,11 @@ msgid "Export"
 msgstr "Exporter"
 
 #: db_x509#28
-#, fuzzy
 msgctxt "db_x509#28"
 msgid "Clipboard"
-msgstr "Copier dans le presse-papier"
+msgstr "Presse-papier"
 
 #: db_x509#29
-#, fuzzy
 msgctxt "db_x509#29"
 msgid "File"
 msgstr "Fichier"
@@ -2583,32 +2574,28 @@ msgid "Request"
 msgstr "Requête"
 
 #: db_x509#31
-#, fuzzy
 msgctxt "db_x509#31"
 msgid "Security token"
-msgstr "Jeton de sécurité"
+msgstr "Jeton de sécurité"
 
 #: db_x509#32
 msgid "Other token"
 msgstr "Autre jeton"
 
 #: db_x509#33
-#, fuzzy
 msgctxt "db_x509#33"
 msgid "Template"
-msgstr "Modèle"
+msgstr "Modèle"
 
 #: db_x509#34
-#, fuzzy
 msgctxt "db_x509#34"
 msgid "OpenSSL config"
-msgstr "Afficher la configuration"
+msgstr "Configuration OpenSSL"
 
 #: db_x509#35
-#, fuzzy
 msgctxt "db_x509#35"
 msgid "Delete"
-msgstr "Enlever"
+msgstr "Détruire"
 
 #: db_x509#36
 msgid "Delete from Security token"
@@ -2627,13 +2614,11 @@ msgid "Generate CRL"
 msgstr "Générer la liste de révocation"
 
 #: db_x509#40
-#, fuzzy
 msgctxt "db_x509#40"
 msgid "PKCS#7"
 msgstr "PKCS#7"
 
 #: db_x509#41
-#, fuzzy
 msgctxt "db_x509#41"
 msgid "Sign"
 msgstr "Signer"
@@ -2701,7 +2686,6 @@ msgid "Unstructured name"
 msgstr "Nom non-structuré"
 
 #: db_x509req#4
-#, fuzzy
 msgid "Challenge password"
 msgstr "Mot de passe opposable"
 
@@ -2758,34 +2742,29 @@ msgid "Export"
 msgstr "Exporter"
 
 #: db_x509req#15
-#, fuzzy
 msgctxt "db_x509req#15"
 msgid "Clipboard"
-msgstr "Copier dans le presse-papier"
+msgstr "Presse-papier"
 
 #: db_x509req#16
-#, fuzzy
 msgctxt "db_x509req#16"
 msgid "File"
 msgstr "Fichier"
 
 #: db_x509req#17
-#, fuzzy
 msgctxt "db_x509req#17"
 msgid "Template"
-msgstr "Modèle"
+msgstr "Modèle"
 
 #: db_x509req#18
-#, fuzzy
 msgctxt "db_x509req#18"
 msgid "OpenSSL config"
-msgstr "Afficher la configuration"
+msgstr "Configuration OpenSSL"
 
 #: db_x509req#19
-#, fuzzy
 msgctxt "db_x509req#19"
 msgid "Delete"
-msgstr "Enlever"
+msgstr "Détruire"
 
 #: db_x509super#1
 msgid "Key name"
@@ -2797,12 +2776,11 @@ msgstr "Nom interne de la clé"
 
 #: db_x509super#3
 msgid "Save as OpenSSL config"
-msgstr ""
+msgstr "Enregistrer en format de configuration OpenSSL"
 
 #: db_x509super#4
-#, fuzzy
 msgid "Config files ( *.conf *.cnf);; All files ( * )"
-msgstr "Modèles XCA ( *.xca);; Tous les fichiers ( * )"
+msgstr "Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )"
 
 #: db_x509super#5
 msgid "The following extensions were not ported into the template"
@@ -2833,9 +2811,8 @@ msgid "Error opening file: '%1': %2"
 msgstr "Erreur à l'ouverture du fichier '%1': %2"
 
 #: pki_base#2
-#, fuzzy
 msgid "Error writing to file: '%1': %2"
-msgstr "Erreur à l'ouverture du fichier '%1': %2"
+msgstr "Erreur à l'écriture du fichier '%1': %2"
 
 #: pki_base#3
 msgid "Error: "
@@ -2891,11 +2868,12 @@ msgid "Please enter the password to decrypt the private key."
 msgstr "SVP saisir le mot de passe pour décrypter la clé privée"
 
 #: pki_evp#3
-#, fuzzy
 msgid ""
 "Please enter the password to decrypt the private key from file:\n"
 "%1"
-msgstr "SVP saisir le mot de passe pour décrypter la clé privée: '%1'"
+msgstr ""
+"SVP saisir le mot de passe pour décrypter la clé privée:\n"
+"%1"
 
 #: pki_evp#4
 msgid ""
@@ -2989,11 +2967,12 @@ msgid "Seek failed"
 msgstr "Un \"seek\" a échoué"
 
 #: pki_pkcs12#1
-#, fuzzy
 msgid ""
 "Please enter the password to decrypt the PKCS#12 file:\n"
 "%1"
-msgstr "SVP saisir le mot de passe pour décrypter le fichier en PKCS#12."
+msgstr ""
+"SVP saisir le mot de passe pour décrypter le fichier en PKCS#12:\n"
+"%1"
 
 #: pki_pkcs12#2
 msgid "Unable to load the PKCS#12 (pfx) file %1."
@@ -3331,7 +3310,7 @@ msgstr "Importer une requête de signature"
 #~ "of digits (0-9 and a-f)"
 #~ msgstr ""
 #~ "Le mot de passe contient des codes hexadécimaux à deux chiffres. Il doit "
-#~ "donc consiter en un nombre pair de chiffres (0-9 et a-f)"
+#~ "donc consister en un nombre pair de chiffres (0-9 et a-f)"
 
 #~ msgctxt "PassWrite#3"
 #~ msgid "Take as HEX string"
