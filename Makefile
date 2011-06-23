@@ -15,12 +15,13 @@ sinclude Local.mak
 SUBDIRS=lib widgets img
 OBJECTS=$(patsubst %, $(BUILD)/%/.build-stamp, $(SUBDIRS))
 INSTDIR=misc lang doc img
-CLEANDIRS=lang doc ui img macdeployqt
-HDRDIRS=lib widgets ui
+INSTTARGET=$(patsubst %, install.%, $(INSTDIR))
+APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 
 bindir=bin
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)-$(DARWIN)
+APPDIR=$(DMGSTAGE)/xca.app/Contents
 
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX)
@@ -51,6 +52,16 @@ $(BUILD)/%/.build-stamp: headers
 	$(MAKE) DEP=yes -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$*
 
+$(INSTTARGET): install.%: $(BUILD)/%/.build-stamp
+	mkdir -p $(BUILD)/$*
+	$(MAKE) -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile \
+		VPATH=$(TOPDIR)/$* install
+
+$(APPTARGET): app.%: $(BUILD)/%/.build-stamp
+	mkdir -p $(BUILD)/$*
+	$(MAKE) -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile \
+		VPATH=$(TOPDIR)/$* APPDIR=$(APPDIR) app
+
 clean:
 	rm -rf $(BUILD)
 	rm -f *~ xca$(SUFFIX) setup_xca*.exe $(MACTARGET).dmg $(MACTARGET).tar.gz
@@ -69,13 +80,10 @@ snapshot:
 	git archive --format=tar --prefix=xca-$${HASH}/ HEAD | \
 		gzip -9 > xca-$${HASH}.tar.gz
 
-install: xca$(SUFFIX)
+install: xca$(SUFFIX) $(INSTTARGET)
 	install -m 755 -d $(destdir)$(prefix)/$(bindir)
 	install -m 755 xca $(destdir)$(prefix)/$(bindir)
 	$(STRIP) $(destdir)$(prefix)/$(bindir)/xca
-	for d in $(INSTDIR); do \
-	  $(MAKE) -C $$d install; \
-	done
 
 $(MACDEPLOYQT):
 
@@ -88,9 +96,7 @@ setup.exe: xca$(SUFFIX) misc/xca.nsi do.doc do.lang
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DBUILD=$(BUILD) \
 		-NOCD -V2 misc/xca.nsi
 
-xca.app: $(DMGSTAGE)
-
-$(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT) do.doc do.lang
+$(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT)
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
@@ -99,15 +105,15 @@ $(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT) do.doc do.lang
 	install -m 644 COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
 	install -m 755 xca $(DMGSTAGE)/xca.app/Contents/MacOS
 	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca
-	for d in $(INSTDIR); do \
-          $(MAKE) -C $$d APPDIR=$(TOPDIR)/$(DMGSTAGE)/xca.app/Contents app; \
-        done
+	$(MAKE) $(APPTARGET)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
 	tar zcf $(MACTARGET).tar.gz $(DMGSTAGE)
 
 xca.dmg: $(MACTARGET).dmg
+
+xca.app: $(DMGSTAGE)
 
 $(MACTARGET).dmg: $(DMGSTAGE)
 	hdiutil create -ov -srcfolder $< $@
@@ -117,7 +123,7 @@ trans:
 	lupdate-qt4 $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
-.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt
+.PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE)
 
 doc lang headers: local.h
 

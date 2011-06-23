@@ -28,8 +28,6 @@ app:
 po2ts: $(TS_XCA)
 xca_%.ts: %.po
 	po2ts -i $< > $(@) # | \
-	#  sed 's,^\( *<translation type="unfinished"\)>$$,\1/>,' |\
-	#  grep -v '^ *</translation>$$' > $(@).NEW && mv $(@).NEW $(@) || :
 	#lconvert -i $< -of ts -o $@
 
 xca.pot: xca.ts
