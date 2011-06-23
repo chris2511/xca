@@ -926,7 +926,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+743"/>
+        <location filename="../widgets/MainWindow.cpp" line="+754"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -1201,12 +1201,12 @@ Serial: %3</source>
         <translation>Дамп базы данных ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-386"/>
+        <location filename="../widgets/MainWindow.cpp" line="-365"/>
         <source>Import PEM data</source>
         <translation>Импорт</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+43"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>Новое название Токена &apos;%1&apos;</translation>
     </message>
@@ -1271,7 +1271,7 @@ Please enter the DH parameter bits</source>
         <translation type="obsolete">Пожалуйста, введите пароль для расшифровки закрытого ключа: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-512"/>
+        <location filename="../widgets/MainWindow.cpp" line="-523"/>
         <source>no such option: %1</source>
         <translation type="unfinished">нет таких вариантов: %1</translation>
     </message>
@@ -1285,7 +1285,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Использование или экспорт закрытых ключей будет невозможным без ввода правильного пароля</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+105"/>
+        <location filename="../widgets/MainWindow.cpp" line="+116"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation type="unfinished">Пожалуйста, введите первоначальный PIN SO (PUK) для Токена &apos;%1&apos;</translation>
     </message>

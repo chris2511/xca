@@ -927,7 +927,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+743"/>
+        <location filename="../widgets/MainWindow.cpp" line="+754"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -1202,12 +1202,12 @@ Seriennummer: %3</translation>
         <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-386"/>
+        <location filename="../widgets/MainWindow.cpp" line="-365"/>
         <source>Import PEM data</source>
         <translation>PEM daten importieren</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+43"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>Die neue Bezeichnung der Chipkarte &apos;%1&apos;</translation>
     </message>
@@ -1277,7 +1277,7 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation type="obsolete">Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-512"/>
+        <location filename="../widgets/MainWindow.cpp" line="-523"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
     </message>
@@ -1291,7 +1291,7 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation>Die Benutzung oder der Export privater Schlüssel ist nur mit dem richtigen Datenbankpasswort möglich</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+105"/>
+        <location filename="../widgets/MainWindow.cpp" line="+116"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>Die alte SO PIN (PUK) für die Chipkarte &apos;%1&apos; eingeben</translation>
     </message>
@@ -2405,17 +2405,17 @@ though you have declared them as mandatory in the options menu.</source>
     <message>
         <location filename="../ui/PwDialog.ui" line="+14"/>
         <source>Password</source>
-        <translation type="unfinished">Passwort</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location line="+105"/>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Passwort wird als 2 stelliger hex-code interpretiert. Er muss eine grade Anzahl an Ziffern enthalten (0-9 und a-f)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Take as HEX string</source>
-        <translation type="unfinished">Als HEX Zeichenkette interpretieren</translation>
+        <translation>Als HEX Zeichenkette interpretieren</translation>
     </message>
 </context>
 <context>
@@ -2835,7 +2835,7 @@ in Bibliothek %3
     <message>
         <location line="+1"/>
         <source>X509v3 Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>X509v3 Erweiterungen</translation>
     </message>
     <message>
         <location line="+30"/>

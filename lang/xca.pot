@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 13:29+0200\n"
+"POT-Creation-Date: 2011-06-23 06:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.9.0\n"
+"X-Generator: Translate Toolkit 1.7.0\n"
 
 #: About#1
 msgid "Done"
@@ -927,33 +927,33 @@ msgid ""
 msgstr ""
 
 #: MainWindow#68
+msgid "Password verify error, please try again"
+msgstr ""
+
+#: MainWindow#69
+msgctxt "MainWindow#69"
+msgid "Password"
+msgstr ""
+
+#: MainWindow#70
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#69
+#: MainWindow#71
+msgid "The following error occured:"
+msgstr ""
+
+#: MainWindow#72
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: MainWindow#73
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
 "handled by XCA.\n"
 "Please enter the DH parameter bits"
-msgstr ""
-
-#: MainWindow#70
-msgid "Password verify error, please try again"
-msgstr ""
-
-#: MainWindow#71
-msgctxt "MainWindow#71"
-msgid "Password"
-msgstr ""
-
-#: MainWindow#72
-msgid "The following error occured:"
-msgstr ""
-
-#: MainWindow#73
-msgid "Copy to Clipboard"
 msgstr ""
 
 #: MainWindow#74
@@ -2011,15 +2011,15 @@ msgid "Internal name"
 msgstr ""
 
 #: db_base#2
-msgid "X509v3 Extensions"
-msgstr ""
-
-#: db_base#3
 msgid "Reset"
 msgstr ""
 
-#: db_base#4
+#: db_base#3
 msgid "Subject entries"
+msgstr ""
+
+#: db_base#4
+msgid "X509v3 Extensions"
 msgstr ""
 
 #: db_base#5
