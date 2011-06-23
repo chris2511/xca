@@ -1,4 +1,8 @@
 
+  * Close bug [ 3318203 ] Build failure with GNU gold linker
+  * Add x509v3 extensions to the list of selectable columns
+  * Close bug [ 3314262 ] Incorrect "Path length" template parameter handling
+  * Close bug [ 3314263 ] Unrevoking a certificate does not make it "Trusted"
   * Feature Request [3286442] Make success/import messges optional
   * improve Password entry
   * Improve SPKAC import

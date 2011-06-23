@@ -29,7 +29,10 @@ ifneq ($(MACDEPLOYQT),)
 all: $(MACTARGET).dmg
 else
 all: xca$(SUFFIX) do.doc do.lang
-	@echo "\n\n\nOk, compilation was successful. \nNow do as root: 'make install'\n"
+	@echo
+	@echo "Ok, compilation was successful."
+	@echo "Now do as root: 'make install'"
+	@echo
 endif
 endif
 
