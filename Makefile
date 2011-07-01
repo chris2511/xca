@@ -10,7 +10,11 @@ export TOPDIR=$(shell pwd)
 export VERSION=$(shell cat $(TOPDIR)/VERSION )
 export BUILD=$(TOPDIR)/xca_build
 
+ifneq ($(MAKECMDGOALS), distclean)
+ifneq ($(MAKECMDGOALS), clean)
 sinclude Local.mak
+endif
+endif
 
 SUBDIRS=lib widgets img
 OBJECTS=$(patsubst %, $(BUILD)/%/.build-stamp, $(SUBDIRS))
