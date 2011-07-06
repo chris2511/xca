@@ -1,4 +1,5 @@
-sinclude $(TOPDIR)/Local.mak
+include $(BUILD)/Local.mak
+export VERSION=$(shell cat $(TOPDIR)/VERSION )
 
 all: .build-stamp
 
@@ -9,9 +10,6 @@ SRCS=$(patsubst %.o, %.cpp, $(OBJS))
 HEADERS=$(shell ls *.h 2>/dev/null)
 GCH=$(patsubst %, %.gch, $(HEADERS))
 
-# recompile all
-re: clean all
-
 # how to create a moc_* file
 moc_%.cpp: %.h %.cpp
 	$(MOC) $< -o $@
@@ -21,7 +19,7 @@ ui_%.h: %.ui
 	$(UIC) -o $@ $<
 
 # default compile rule
-%.o: %.cpp
+%.o: %.cpp .depend
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
 
 .depend: $(SRCS)

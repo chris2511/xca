@@ -14,10 +14,7 @@ NAMES=$(MOCNAMES) asn1int oid x509rev asn1time \
 OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
 
 include $(TOPDIR)/Rules.mak
-
-ifeq ($(DEP), yes)
-  sinclude .depend
-endif
+include .depend
 
 db_dump: db_dump.cpp db.o db.h
 	gcc $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) db_dump.cpp db.o $(LIBS) -g -o $@

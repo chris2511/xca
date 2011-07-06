@@ -1,6 +1,8 @@
 #!/bin/sh -e
 
 BDIR=`cd ..; pwd`
+TOPDIR="`cd $(dirname $0) && pwd`"
+read VERSION < ${TOPDIR}/VERSION
 
 QT=`find "$BDIR"/qt/ -name 4.* |tail -n1`
 
@@ -32,11 +34,55 @@ EOF
 fi
 
 cat > Local.mak << EOF
+export TOPDIR=$TOPDIR
+export VERSION=$VERSION
 BDIR=$BDIR
 QTDIR=$QT
 INSTALL_DIR=$INSTALL_DIR
+HOST=w32
+MAKENSIS=makensis
+CROSS=i586-mingw32msvc-
+
+CONSOLE=-mwindows
+#CONSOLE=-mconsole
+
+CPPFLAGS=-I\$(TOPDIR) -I\$(QTDIR)/include -I\$(INSTALL_DIR)/include -I\$(BUILD) -I\$(BUILD)/ui
+CFLAGS=-Wall -g -O2 -mthreads -mno-cygwin \$(CONSOLE) -mnop-fun-dllimport -Wno-strict-aliasing
+
+LDFLAGS= -L\$(QTDIR)/lib -L\$(INSTALL_DIR)/lib \
+        -enable-stdcall-fixup -enable-auto-import \
+        -enable-runtime-pseudo-reloc
+
+# list of dynamic libraries
+LIBS=-lQtGui4 -lQtCore4 -lqtmain -lstdc++ -lws2_32 -lcrypto -lwsock32 -lgdi32 -lltdl
+
+# As long as the linux uic and moc are version compatible to the W32 ones
+# we use the native tools, because they are much faster than the wine's
+USE_HOSTTOOLS=yes
+ifneq (\$(USE_HOSTTOOLS), yes)
+MOC=wine \$(QTDIR)/bin/moc
+UIC=wine \$(QTDIR)/bin/uic
+RCC=wine \$(QTDIR)/bin/rcc
+LRELEASE=wine \$(QTDIR)/bin/lrelease
+else
+MOC=moc-qt4
+UIC=uic-qt4
+RCC=rcc
+LRELEASE=lrelease
+endif
+
+CC=\$(CROSS)gcc
+LD=\$(CROSS)ld
+STRIP=\$(CROSS)strip
+WINDRES=\$(CROSS)windres
+SUFFIX=.exe
+LINUXDOC=linuxdoc
+
+prefix=
+basedir=
+
 EOF
 
-cat misc/Local.mak.w32 >> Local.mak
-echo "#define VER \"`cat VERSION`\"" >local.h
+echo "#define VER \"${VERSION}\"" >local.h
 
+test -f Makefile || ln -s ${TOPDIR}/Makefile

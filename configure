@@ -19,10 +19,13 @@
 #
 #######################################################
 
+TOPDIR="`cd $(dirname $0) && pwd`"
+read VERSION < ${TOPDIR}/VERSION
+
 cat <<EOF
 
 
-      Configuring XCA `cat VERSION`
+      Configuring XCA ${VERSION}
 ---------------------------------------------
 
 EOF
@@ -39,8 +42,8 @@ STDLIB="-L/usr/lib"
 prefix=${prefix:=/usr/local}
 CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
 CC=${CC:=gcc}
-CF="-I\$(TOPDIR) -I\$(BUILD)/ui"
-LDFLAGS="-Wl,--no-add-needed"
+CF="-I\$(TOPDIR) -I\$(BUILD) -I\$(BUILD)/ui"
+LDFLAGS=""
 LIBS="-lstdc++"
 LDIRS=
 MOC=moc
@@ -221,7 +224,7 @@ if which linuxdoc 2>&1; then
   LINUXDOC="linuxdoc"
 else
   echo "Application 'linuxdoc' not found."
-  if tar ztf doc/xca-doc.tgz xca.html >/dev/null 2>&1; then
+  if tar ztf ${TOPDIR}doc/xca-doc.tgz xca.html >/dev/null 2>&1; then
     echo "But Found a valid documentation package 'doc/xca-doc.tgz'"
   else
    echo "No documentation will be generated."
@@ -246,6 +249,8 @@ LRELEASE=`findapp $QTDIR/bin/lrelease lrelease4 lrelease-qt4 lrelease`
 test -z "$docdir" && docdir="${prefix}/share/xca"
 
 cat >Local.mak <<EOF
+export TOPDIR=${TOPDIR}
+export VERSION=${VERSION}
 CPPFLAGS=$CF
 CFLAGS=${CFLAGS} $LDIRS
 
@@ -283,7 +288,7 @@ test -z "$etc" && etc=/etc/xca
 cat >local.h <<EOF
 #define PREFIX "$prefix"
 #define ETC "$etc"
-#define VER "`cat VERSION`"
+#define VER "${VERSION}"
 #define DOCDIR "$docdir"
 EOF
 
@@ -313,3 +318,4 @@ if test "x${err_occ}" = "xY"; then
   echo "An error occured. Please edit 'Local.mak' manually if compiling fails."
 fi
 
+test -f Makefile || ln -s ${TOPDIR}/Makefile

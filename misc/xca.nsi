@@ -25,7 +25,8 @@ SetCompressor /SOLID lzma
 ;-----------------------------------
 ; Pagelist
 
-!insertmacro MUI_PAGE_LICENSE "COPYRIGHT"
+!insertmacro MUI_PAGE_LICENSE "${TOPDIR}/COPYRIGHT"
+
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
@@ -59,12 +60,12 @@ Section "xca (required)" SecMain
   SetOutPath $INSTDIR
   ; Put files there
   File "xca.exe"
-  File "misc\dn.txt"
-  File "misc\eku.txt"
-  File "misc\oids.txt"
-  File "misc\aia.txt"
-  File "misc\*.xca"
-  File "${BUILD}\doc\*.html"
+  File "${TOPDIR}/misc\dn.txt"
+  File "${TOPDIR}/misc\eku.txt"
+  File "${TOPDIR}/misc\oids.txt"
+  File "${TOPDIR}/misc\aia.txt"
+  File "${TOPDIR}/misc\*.xca"
+  File "doc\*.html"
   File "${BDIR}\mingwm10.dll"
 
   File "${QTDIR}\bin\QtGui4.dll"
@@ -124,10 +125,11 @@ SectionEnd
 
 Section "Translations" SecTrans
 
-  File /nonfatal "${BUILD}\lang\*.qm"
+  File /nonfatal "lang\*.qm"
   File /nonfatal "${QTDIR}\translations\qt_de.qm"
   File /nonfatal "${QTDIR}\translations\qt_es.qm"
   File /nonfatal "${QTDIR}\translations\qt_ru.qm"
+  File /nonfatal "${QTDIR}\translations\qt_fr.qm"
 
 SectionEnd
 

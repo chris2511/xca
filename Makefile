@@ -6,18 +6,17 @@
 TAG=RELEASE.$(TVERSION)
 TARGET=xca-$(TVERSION)
 
-export TOPDIR=$(shell pwd)
-export VERSION=$(shell cat $(TOPDIR)/VERSION )
-export BUILD=$(TOPDIR)/xca_build
+export BUILD=$(shell pwd)
 
 ifneq ($(MAKECMDGOALS), distclean)
 ifneq ($(MAKECMDGOALS), clean)
-sinclude Local.mak
+include Local.mak
 endif
 endif
 
+VPATH=$(TOPDIR)
 SUBDIRS=lib widgets img
-OBJECTS=$(patsubst %, $(BUILD)/%/.build-stamp, $(SUBDIRS))
+OBJECTS=$(patsubst %, %/.build-stamp, $(SUBDIRS))
 INSTDIR=misc lang doc img
 INSTTARGET=$(patsubst %, install.%, $(INSTDIR))
 APPTARGET=$(patsubst %, app.%, $(INSTDIR))
@@ -46,33 +45,36 @@ xca$(SUFFIX): $(OBJECTS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(patsubst %,@%, $^) $(LIBS) -o $@
 
 do.ui do.doc do.lang: do.%:
-	mkdir -p $(BUILD)/$*
-	$(MAKE) -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* $*
+	mkdir -p $*
+	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile VPATH=$(TOPDIR)/$* $*
 
 headers: do.ui
 
-$(BUILD)/%/.build-stamp: headers
-	mkdir -p $(BUILD)/$*
-	$(MAKE) DEP=yes -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile \
+%/.build-stamp: headers
+	mkdir -p $*
+	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$*
 
-$(INSTTARGET): install.%: $(BUILD)/%/.build-stamp
-	mkdir -p $(BUILD)/$*
-	$(MAKE) -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile \
+$(INSTTARGET): install.%: %/.build-stamp
+	mkdir -p $*
+	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$* install
 
-$(APPTARGET): app.%: $(BUILD)/%/.build-stamp
-	mkdir -p $(BUILD)/$*
-	$(MAKE) -C $(BUILD)/$* -f $(TOPDIR)/$*/Makefile \
+$(APPTARGET): app.%: %/.build-stamp
+	mkdir -p $*
+	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$* APPDIR=$(APPDIR) app
 
 clean:
-	rm -rf $(BUILD)
-	rm -f *~ xca$(SUFFIX) setup_xca*.exe $(MACTARGET).dmg $(MACTARGET).tar.gz
-	rm -rf $(DMGSTAGE)
+	find lib widgets img -name "*.o" | xargs rm -f
+	find lib widgets img -name ".build-stamp" | xargs rm -f
+	find lib widgets -name "moc_*.cpp" | xargs rm -f
+	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
+	rm -f *~ xca$(SUFFIX) setup_xca*.exe
+	rm -rf xca-*
 
 distclean: clean
-	rm -f conftest conftest.log local.h Local.mak *~
+	rm -f conftest conftest.log local.h Local.mak *~ */.depend
 
 dist:
 	test ! -z "$(TVERSION)"
@@ -94,11 +96,12 @@ $(MACDEPLOYQT):
 macdeployqt/macdeployqt:
 	$(MAKE) -C macdeployqt
 
-setup.exe: xca$(SUFFIX) misc/xca.nsi do.doc do.lang
+setup.exe: xca$(SUFFIX) do.doc do.lang
+setup.exe: misc/xca.nsi
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
-		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DBUILD=$(BUILD) \
-		-NOCD -V2 misc/xca.nsi
+		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
+		-NOCD -V2 $<
 
 $(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT)
 	rm -rf $(DMGSTAGE)
@@ -106,7 +109,7 @@ $(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
 	mkdir -p $(DMGSTAGE)/manual
 	ln -s /Applications $(DMGSTAGE)
-	install -m 644 COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
+	install -m 644 $(TOPDIR)/COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
 	install -m 755 xca $(DMGSTAGE)/xca.app/Contents/MacOS
 	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca
 	$(MAKE) $(APPTARGET)
@@ -129,8 +132,8 @@ trans:
 
 .PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE)
 
-doc lang headers: local.h
+do.doc do.lang headers: local.h
 
-Local.mak local.h: configure
-	./configure
+Local.mak local.h: $(TOPDIR)/configure
+	$(TOPDIR)/configure
 

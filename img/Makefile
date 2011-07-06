@@ -3,14 +3,10 @@ ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
 
-include $(TOPDIR)/Local.mak
-
 OBJS=imgres.o
 ifeq ($(HOST),w32)
   OBJS += w32res.o
 endif
-
-DELFILES=imgres.cpp
 
 include $(TOPDIR)/Rules.mak
 
@@ -28,4 +24,3 @@ w32res.o: w32res.rc key.ico xca.ico xdb.ico
 app: xca-mac-icon.icns
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 $^ $(APPDIR)/Resources
-

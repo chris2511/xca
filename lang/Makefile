@@ -2,6 +2,7 @@
 ifeq ($(TOPDIR),)
 TOPDIR=..
 endif
+include $(TOPDIR)/Rules.mak
 
 PO_LANGUAGES=es tr fr
 LANGUAGES=de ru $(PO_LANGUAGES)
@@ -21,8 +22,10 @@ install: $(QM_XCA)
 app:
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 $(QM_XCA) $(APPDIR)/Resources
-	(cd $(SYSROOT)/Developer/Applications/Qt/translations && \
-		install $(QM_QT) $(APPDIR)/Resources )
+	cd $(SYSROOT)/Developer/Applications/Qt/translations && \
+	  for x in $(QM_QT); do \
+	    test -f "$$x" && install $$x $(APPDIR)/Resources;\
+	  done
 
 
 po2ts: $(TS_XCA)
@@ -34,7 +37,3 @@ xca.pot: xca.ts
 	ts2po -P $< $@
 	#lconvert -i $< -of po -o $@
 
-clean:
-	$(RM) $(QM_XCA)
-
-include $(TOPDIR)/Local.mak

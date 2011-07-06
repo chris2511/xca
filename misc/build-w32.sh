@@ -1,10 +1,7 @@
 #!/bin/sh -e
 
 XCA_DIR="`pwd`"/xca
-
-OPENSC_DIR="opensc-0.12.1"
-OPENSC_GZ="${OPENSC_DIR}".tar.gz
-OPENSC_DL="http://www.opensc-project.org/files/opensc/${OPENSC_GZ}"
+XCA_BUILD="`pwd`"/xca_build
 
 LIBTOOL_DIR="libtool-2.2.6b"
 LIBTOOL_GZ="${LIBTOOL_DIR}".tar.gz
@@ -14,7 +11,6 @@ OPENSSL_DIR="openssl-1.0.0d"
 OPENSSL_GZ="${OPENSSL_DIR}".tar.gz
 OPENSSL_DL="http://openssl.org/source/${OPENSSL_GZ}"
 OPENSSL_PATCH="$XCA_DIR/misc/openssl-1.0.0-mingw32-cross.patch"
-
 
 unpack() {
   eval "dir=\${$1_DIR} gz=\${$1_GZ} dl=\${$1_DL} PATCH=\${$1_PATCH}"
@@ -45,8 +41,9 @@ make && make install
 
 do_XCA()
 {(
-  cd $XCA_DIR
-  ./configure.w32
+  mkdir -p $XCA_BUILD
+  cd $XCA_BUILD
+  $XCA_DIR/configure.w32
   make -j5 USE_HOSTTOOLS=no setup.exe
 )}
 

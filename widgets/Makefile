@@ -12,6 +12,4 @@ OBJS=$(patsubst %,moc_%.o,$(MOC_NAMES)) $(patsubst %,%.o,$(NAMES))
 
 include $(TOPDIR)/Rules.mak
 
-ifeq ($(DEP), yes)
-  sinclude .depend
-endif
+include .depend

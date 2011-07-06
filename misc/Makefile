@@ -3,6 +3,8 @@ SRCPATH=$(VPATH)/
 
 all:
 
+include $(TOPDIR)/Rules.mak
+
 install:
 	install -m 755 -d $(destdir)$(prefix)/share/xca/ \
 		$(destdir)$(prefix)/share/applications \
@@ -21,4 +23,3 @@ app:
 	install -m 644 $(SRCPATH)Info.plist $(SRCPATH)PkgInfo $(APPDIR)
 	install -m 644 $(SRCPATH)*.txt $(SRCPATH)*.xca $(APPDIR)/Resources
 
-include $(TOPDIR)/Local.mak
