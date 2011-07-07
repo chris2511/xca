@@ -1,6 +1,7 @@
 
 ifeq ($(TOPDIR),)
 TOPDIR=..
+BUILD=..
 endif
 include $(TOPDIR)/Rules.mak
 

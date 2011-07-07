@@ -36,10 +36,10 @@ fi
 cat > Local.mak << EOF
 export TOPDIR=$TOPDIR
 export VERSION=$VERSION
+export HOST=w32
 BDIR=$BDIR
 QTDIR=$QT
 INSTALL_DIR=$INSTALL_DIR
-HOST=w32
 MAKENSIS=makensis
 CROSS=i586-mingw32msvc-
 

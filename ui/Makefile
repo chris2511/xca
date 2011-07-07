@@ -1,6 +1,7 @@
 
 ifeq ($(TOPDIR),)
 TOPDIR=..
+BUILD=..
 endif
 
 UI_H = ui_About.h ui_CaProperties.h ui_CertDetail.h ui_CertExtend.h \

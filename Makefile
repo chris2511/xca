@@ -5,6 +5,7 @@
 
 TAG=RELEASE.$(TVERSION)
 TARGET=xca-$(TVERSION)
+MAKEFLAGS += -rR
 
 export BUILD=$(shell pwd)
 

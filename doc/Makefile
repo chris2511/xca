@@ -1,5 +1,6 @@
 ifeq ($(TOPDIR),)
 TOPDIR=..
+BUILD=..
 endif
 
 DELFILES=xca*.html xca.1.gz

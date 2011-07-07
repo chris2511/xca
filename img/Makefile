@@ -1,6 +1,7 @@
 
 ifeq ($(TOPDIR),)
 TOPDIR=..
+BUILD=..
 endif
 
 OBJS=imgres.o
@@ -9,6 +10,7 @@ ifeq ($(HOST),w32)
 endif
 
 include $(TOPDIR)/Rules.mak
+sinclude .depend
 
 install: xca-32x32.xpm
 	install -D -m 644 $^ $(destdir)$(prefix)/share/pixmaps/xca-32x32.xpm
@@ -24,3 +26,6 @@ w32res.o: w32res.rc key.ico xca.ico xdb.ico
 app: xca-mac-icon.icns
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 $^ $(APPDIR)/Resources
+
+w32res.cpp:
+	touch $@

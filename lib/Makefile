@@ -1,6 +1,7 @@
 
 ifeq ($(TOPDIR),)
 TOPDIR=..
+BUILD=..
 endif
 
 MOCNAMES=db_crl db_key db_temp db_x509 db_x509req db_x509super db_base db_token\
@@ -14,7 +15,7 @@ NAMES=$(MOCNAMES) asn1int oid x509rev asn1time \
 OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
 
 include $(TOPDIR)/Rules.mak
-include .depend
+sinclude .depend
 
 db_dump: db_dump.cpp db.o db.h
 	gcc $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) db_dump.cpp db.o $(LIBS) -g -o $@
