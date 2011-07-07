@@ -29,11 +29,12 @@ app:
 
 
 po2ts: $(TS_XCA)
-xca_%.ts: %.po
-	po2ts -i $< > $(@) # | \
-	#lconvert -i $< -of ts -o $@
+xca_%.ts.xml: %.po
+	po2ts -i $< > $(@)
+
+xca_%.ts: indent.xslt xca_%.ts.xml
+	xsltproc -o $@ $^
 
 xca.pot: xca.ts
 	ts2po -P $< $@
-	#lconvert -i $< -of po -o $@
 
