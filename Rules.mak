@@ -19,7 +19,7 @@ ui_%.h: %.ui
 	$(UIC) -o $@ $<
 
 # default compile rule
-%.o: %.cpp .depend
+%.o: %.cpp
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(EXTRA_CFLAGS) -c $< -o $@
 
 .depend: $(SRCS)

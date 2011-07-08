@@ -65,11 +65,13 @@ PwDialog::PwDialog(pass_info *p, bool write)
 {
 	pi = p;
 	setupUi(this);
-	setWindowTitle(XCA_TITLE);
 	image->setPixmap(pi->getImage());
 	description->setText(pi->getDescription());
 	title->setText(pi->getType());
-	setWindowTitle(pi->getTitle());
+	if (!pi->getTitle().isEmpty())
+		setWindowTitle(pi->getTitle());
+	else
+		setWindowTitle(XCA_TITLE);
 	if (pi->getType() != "PIN")
 		takeHex->hide();
 	setRW(write);

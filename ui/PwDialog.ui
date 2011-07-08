@@ -7,13 +7,10 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>260</height>
+    <height>258</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Password</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QHBoxLayout">
      <property name="spacing">
@@ -75,13 +72,16 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="description">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="description">
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -128,6 +128,9 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
@@ -135,28 +138,8 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>passA</tabstop>
-  <tabstop>passB</tabstop>
- </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>passB</sender>
-   <signal>returnPressed()</signal>
-   <receiver>PwDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>238</x>
-     <y>159</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>252</x>
-     <y>42</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>buttonBox</sender>
    <signal>clicked(QAbstractButton*)</signal>
@@ -164,12 +147,12 @@
    <slot>buttonPress(QAbstractButton*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>113</x>
-     <y>231</y>
+     <x>63</x>
+     <y>221</y>
     </hint>
     <hint type="destinationlabel">
-     <x>125</x>
-     <y>53</y>
+     <x>102</x>
+     <y>21</y>
     </hint>
    </hints>
   </connection>
