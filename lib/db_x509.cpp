@@ -510,6 +510,7 @@ void db_x509::newCert(NewX509 *dlg)
 	dlg->initCtx(cert, signcert, NULL);
 	// if we can not sign
 	if (! signkey || signkey->isPubKey()) {
+		free(cert);
 		throw errorEx(tr("The key you selected for signing is not a private one."));
 	}
 
