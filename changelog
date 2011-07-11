@@ -1,4 +1,5 @@
 
+  * fix ASN.1 encoding of PKCS#10 request
   * Close bug [ 3318203 ] Build failure with GNU gold linker
   * Add x509v3 extensions to the list of selectable columns
   * Close bug [ 3314262 ] Incorrect "Path length" template parameter handling

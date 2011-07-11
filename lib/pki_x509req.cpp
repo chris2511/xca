@@ -46,7 +46,6 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 		NID_issuer_alt_name, NID_undef };
 
 	EVP_PKEY *privkey = NULL;
-	STACK_OF(X509_EXTENSION) *sk;
 
 	if (key->isPubKey()) {
 		my_error(tr("Signing key not valid (public key)"));
@@ -63,9 +62,12 @@ void pki_x509req::createReq(pki_key *key, const x509name &dn, const EVP_MD *md, 
 
 	el.delInvalid();
 
-	sk = el.getStack();
-	X509_REQ_add_extensions(request, sk);
-	sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
+	if (el.count() > 0) {
+		STACK_OF(X509_EXTENSION) *sk;
+		sk = el.getStack();
+		X509_REQ_add_extensions(request, sk);
+		sk_X509_EXTENSION_pop_free(sk, X509_EXTENSION_free);
+	}
 	pki_openssl_error();
 
 	privkey = key->decryptKey();
