@@ -670,7 +670,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		itemRevoke->setEnabled(parentCanSign);
 		itemExtend->setEnabled(parentCanSign);
 		subCa->setEnabled(canSign);
-		itemReq->setEnabled(privkey);
+		itemReq->setEnabled(privkey && privkey->isPrivKey());
 
 		foreach(action, scardItems)
 			action->setEnabled(hasScard);
