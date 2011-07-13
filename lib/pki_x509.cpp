@@ -756,13 +756,15 @@ void pki_x509::setCrlExpiry(const a1time &time)
 	pki_openssl_error();
 }
 
-x509rev pki_x509::getRev()
+x509rev pki_x509::getRev(bool reason)
 {
 	x509rev a;
 	a.setDate(getRevoked());
 	a.setSerial(getSerial());
-	a.setReason(revoke_reason);
-	a.setInvalDate(invalDate);
+	if (reason) {
+		a.setReason(revoke_reason);
+		a.setInvalDate(invalDate);
+	}
 	return a;
 }
 

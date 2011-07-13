@@ -177,9 +177,10 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		crl->createCrl(cert->getIntName(), cert);
 
 		QList<pki_x509*> list = mainwin->certs->getIssuedCerts(cert);
+		bool reason = dlg->revokationReasons->isChecked();
 		for (int i =0; i<list.size(); i++) {
 			if (list.at(i)->isRevoked() ) {
-				crl->addRev(list.at(i)->getRev());
+				crl->addRev(list.at(i)->getRev(reason));
 			}
 		}
 

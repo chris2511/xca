@@ -137,7 +137,7 @@ class pki_x509 : public pki_x509super
 		bool hasExtension(int nid);
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
 		void updateView();
-		x509rev getRev();
+		x509rev getRev(bool reason = true);
 		QString getSigAlg();
 		x509v3ext getExtByNid(int nid);
 		const EVP_MD *getDigest();
