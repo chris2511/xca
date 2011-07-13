@@ -185,15 +185,27 @@ search_lib crypto || err "The OpenSSL library was not found."
 
 export LD_LIBRARY_PATH
 ##### Try to compile them all together and show the versions.
-cat >conftest.c <<EOF
+cat >conftest.cpp <<EOF
 #include <stdio.h>
+#include <string.h>
 #include <openssl/opensslv.h>
 #include <openssl/opensslconf.h>
+#include <openssl/crypto.h>
 #include <QtCore/qglobal.h>
-
+#define WARN "###################### WARNING ######################"
 int main(){
-  printf("\nThe Versions of the used libraries are:\n\t%s 0x%lxL\n\tQT: %s\n",
-	 OPENSSL_VERSION_TEXT, OPENSSL_VERSION_NUMBER, QT_VERSION_STR
+  char buf[2048] = "";
+  printf("\nThe Versions of the used libraries are:\n"
+	"Header:\n"
+	"\t%s 0x%lxL\n"
+	"\tQT: %s\n"
+	"Libraries:\n"
+	"\t%s\n"
+	"\tQT: %s\n",
+		OPENSSL_VERSION_TEXT, OPENSSL_VERSION_NUMBER,
+		QT_VERSION_STR,
+		SSLeay_version(SSLEAY_VERSION),
+		qVersion()
 	);
 
   if (QT_VERSION < 0x040300) {
@@ -204,17 +216,22 @@ int main(){
 	printf("You need OpenSSL >= 0.9.8 or higher\n");
 	return 1;
   }
+  if (strcmp(QT_VERSION_STR, qVersion()))
+	strcat(buf, "The versions of the QT headers and library differ\n");
+  if (strcmp(OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION)))
+	strcat(buf, "The versions of the OpenSSL headers and library differ\n");
 #ifdef OPENSSL_NO_EC
-  printf("\n###  This OpenSSL installation has no EC cryptography support\n");
+  strcat(buf, "This OpenSSL installation has no EC cryptography support\n");
 #endif
-  puts("\n");
+  if (buf[0])
+	printf("\n\n" WARN "\n%s" WARN "\n\n", buf);
   return 0;
 }
 EOF
 
-echo "${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX}" >conftest.log
-if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.c -o conftest${SUFFIX} >> conftest.log 2>&1; then
-  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -rf conftest.c conftest${SUFFIX} conftest.log conftest.dSYM
+echo "${CC} $LIBS $LDIRS $CF $CFLAGS conftest.cpp -o conftest${SUFFIX}" >conftest.log
+if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.cpp -o conftest${SUFFIX} >> conftest.log 2>&1; then
+  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" # && rm -rf conftest.cpp conftest${SUFFIX} conftest.log conftest.dSYM
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi

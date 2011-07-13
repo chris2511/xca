@@ -71,6 +71,7 @@ clean:
 	find lib widgets img -name ".build-stamp" | xargs rm -f
 	find lib widgets -name "moc_*.cpp" | xargs rm -f
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
+	rm -f lang/*.xml
 	rm -f *~ xca$(SUFFIX) setup_xca*.exe
 	rm -rf xca-*
 
