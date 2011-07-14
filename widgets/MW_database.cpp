@@ -41,6 +41,19 @@ int MainWindow::init_database()
 		return ret;
 	}
 
+	mandatory_dn = "";
+	string_opt = QString("MASK:0x2002");
+	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
+	hashBox::resetDefault();
+	pkcs11path = getDefaultPkcs11Lib();
+	workingdir = QDir::currentPath();
+	pki_base::suppress_messages = 0;
+	try {
+		pkcs11_lib p(pkcs11path);
+	} catch (errorEx &e) {
+		pkcs11path = QString();
+	}
+
 	connect( keys, SIGNAL(newKey(pki_key *)),
 		certs, SLOT(newKey(pki_key *)) );
 	connect( keys, SIGNAL(delKey(pki_key *)),
@@ -84,7 +97,6 @@ int MainWindow::init_database()
 			}
 		}
 		mydb.first();
-		pkcs11path = QString();
 		if (!mydb.find(setting, "pkcs11path")) {
 			if ((p = (char *)mydb.load(NULL))) {
 				pkcs11path = p;
@@ -318,6 +330,8 @@ void MainWindow::close_database()
 	catch (errorEx &err) {
 		MainWindow::Error(err);
 	}
+	pkcs11::remove_libs();
+	enableTokenMenu(pkcs11::loaded());
 }
 
 /* Asymetric Key buttons */

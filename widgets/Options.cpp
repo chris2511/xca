@@ -115,7 +115,6 @@ void Options::on_removeButton_clicked(void)
 
 void Options::setupPkcs11Provider(QString list)
 {
-	pkcs11::load_libs(list, true);
 	pkcs11_lib_list libs = pkcs11::get_libs();
 
 	foreach(pkcs11_lib *l, libs) {

@@ -39,7 +39,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QList<QWidget*> wdList;
 		QList<QWidget*> scardList;
 		QList<QAction*> acList;
-		QList<QAction*> scardMenuActions;
 
 	protected:
 		void init_images();

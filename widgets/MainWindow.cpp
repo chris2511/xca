@@ -133,8 +133,6 @@ static void init_curves()
 
 void MainWindow::enableTokenMenu(bool enable)
 {
-	foreach(QAction* a, scardMenuActions)
-		a->setEnabled(enable);
 	foreach(QWidget *w, scardList) {
 		w->setEnabled(enable);
 	}
@@ -171,8 +169,6 @@ MainWindow::MainWindow(QWidget *parent )
 	dbindex->setMargin(6);
 
 	statusBar()->addWidget(dbindex, 1);
-	mandatory_dn = "";
-	string_opt = "MASK:0x2002";
 
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));

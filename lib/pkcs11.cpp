@@ -24,14 +24,6 @@
 
 pkcs11_lib_list pkcs11::libs;
 
-#if defined(_WIN32) || defined(USE_CYGWIN)
-#define PKCS11_DEFAULT_MODULE_NAME      "opensc-pkcs11.dll"
-#elif defined(Q_WS_MAC)
-#define PKCS11_DEFAULT_MODULE_NAME      "/Library/OpenSC/lib/opensc-pkcs11.so"
-#else
-#define PKCS11_DEFAULT_MODULE_NAME      "/usr/lib/opensc-pkcs11.so"
-#endif
-
 pkcs11::pkcs11()
 {
 	session = CK_INVALID_HANDLE;
@@ -65,10 +57,6 @@ pkcs11_lib *pkcs11::load_lib(QString fname, bool silent)
 void pkcs11::load_libs(QString list, bool silent)
 {
 	QStringList errs;
-	if (list.isNull()) {
-		load_lib(PKCS11_DEFAULT_MODULE_NAME, true);
-		return;
-	}
 	if (!list.isEmpty()) {
 		foreach(QString l, list.split('\n')) {
 			try {

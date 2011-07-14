@@ -21,7 +21,13 @@ static struct {
 	{ "RIPEMD 160", EVP_ripemd160() },
 };
 
-QString hashBox::default_md = QString(hashalgos[1].name); /* SHA1 */
+QString hashBox::default_md = QString();
+
+void hashBox::resetDefault()
+{
+	/* SHA1 */
+	default_md = QString(hashalgos[1].name);
+}
 
 hashBox::hashBox(QWidget *parent)
 	:QComboBox(parent)

@@ -21,6 +21,7 @@ QString getHomeDir();
 QString getLibDir();
 QString getDocDir();
 QString getUserSettingsDir();
+QString getDefaultPkcs11Lib();
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
 
 QByteArray filename2bytearray(const QString &fname);

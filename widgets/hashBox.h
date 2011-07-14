@@ -30,6 +30,7 @@ class hashBox: public QComboBox
 		void setupAllHashes();
 		void setCurrentString(QString md);
 		static void setDefault(QString def);
+		static void resetDefault();
 };
 
 #endif

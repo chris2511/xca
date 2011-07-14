@@ -111,6 +111,11 @@ class pkcs11
 		{
 			return libs.remove_lib(fname);
 		}
+		static void remove_libs()
+		{
+			while (!libs.isEmpty())
+				delete libs.takeFirst();
+		}
 		static void load_libs(QString list, bool silent);
 		static pkcs11_lib_list get_libs()
 		{
