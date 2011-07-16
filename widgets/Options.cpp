@@ -119,8 +119,12 @@ void Options::setupPkcs11Provider(QString list)
 
 	foreach(pkcs11_lib *l, libs) {
 		QListWidgetItem *item = new QListWidgetItem(l->filename());
-		item->setIcon(*MainWindow::doneIco);
-		item->setToolTip(l->driverInfo());
+		try {
+			item->setToolTip(l->driverInfo());
+			item->setIcon(*MainWindow::doneIco);
+		} catch (errorEx &err) {
+			mw->Error(err);
+		}
 		pkcs11List->addItem(item);
 	}
 	if (!list.isEmpty()) {
