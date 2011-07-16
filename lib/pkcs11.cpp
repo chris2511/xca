@@ -268,21 +268,26 @@ QString pkcs11::tokenLogin(QString name, bool so, bool force)
 bool pkcs11::selectToken(slotid *slot, QWidget *w)
 {
 	slotidList p11_slots = getSlotList();
-	if (p11_slots.count() == 0) {
-		QMessageBox::warning(w, XCA_TITLE,
-			QObject::tr("No Security token found"));
-		return false;
-	}
+
 	QStringList slotnames;
-	for (int i=0; i<p11_slots.count(); i++) {
+	foreach(slotid slot, p11_slots) {
 		try {
-			tkInfo info = tokenInfo(p11_slots[i]);
+			tkInfo info = tokenInfo(slot);
 			slotnames << QString("%1 (#%2)").
 				arg(info.label()).arg(info.serial());
 		} catch (errorEx &e) {
 			QMessageBox::warning(w, XCA_TITLE,
 				QString("Error: %1").arg(e.getString()));
 		}
+	}
+	switch (slotnames.count()) {
+	case 0:
+		QMessageBox::warning(w, XCA_TITLE,
+			QObject::tr("No Security token found"));
+		return false;
+	case 1:
+		*slot = p11_slots[0];
+                return true;
 	}
 	Ui::SelectToken ui;
 	QDialog *select_slot = new QDialog(w);
