@@ -14,7 +14,8 @@ TS_XCA=$(patsubst %, xca_%.ts, $(PO_LANGUAGES))
 lang all: $(QM_XCA)
 
 %.qm: %.ts
-	$(LRELEASE) $< -qm $@
+	@$(PRINT) "  LANG   [$(BASENAME)] $@"
+	$(LRELEASE) -silent $< -qm $@
 
 install: $(QM_XCA)
 	install -m 755 -d $(destdir)$(prefix)/share/xca
@@ -27,7 +28,6 @@ app:
 	  for x in $(QM_QT); do \
 	    test -f "$$x" && install $$x $(APPDIR)/Resources;\
 	  done
-
 
 po2ts: $(TS_XCA)
 xca_%.ts.xml: %.po

@@ -50,6 +50,8 @@ MOC=moc
 UIC=uic
 LRELEASE=lrelease
 
+test -z "$docdir" && docdir="${prefix}/share/xca"
+
 DVERSION="`gcc --version | grep apple-darwin || :`"
 case "$DVERSION" in
   *-apple-darwin10*) DARWIN="SnowLeopard" ;;
@@ -178,12 +180,18 @@ subdirs=""
 search_includes openssl/opensslv.h || err "The OpenSSL library headerfiles were not found."
 search_lib crypto || err "The OpenSSL library was not found."
 
-###################### OpenSC
-#subdirs=""
-#search_includes opensc/opensc.h || err "The OpenSC library headerfiles were not found."
-#search_lib opensc || err "The OpenSC library was not found."
+cat << EOF
+
+CFLAGS=${CFLAGS}
+CPPFLAGS=${CF}
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
+PREFIX=${prefix}
+docdir=${docdir}
+
+EOF
 
 export LD_LIBRARY_PATH
+
 ##### Try to compile them all together and show the versions.
 cat >conftest.cpp <<EOF
 #include <stdio.h>
@@ -262,8 +270,6 @@ MOC=`findapp $QTDIR/bin/moc moc4 moc-qt4 moc`
 UIC=`findapp $QTDIR/bin/uic uic4 uic-qt4 uic`
 RCC=`findapp $QTDIR/bin/rcc rcc4 rcc-qt4 rcc`
 LRELEASE=`findapp $QTDIR/bin/lrelease lrelease4 lrelease-qt4 lrelease`
-
-test -z "$docdir" && docdir="${prefix}/share/xca"
 
 cat >Local.mak <<EOF
 export TOPDIR=${TOPDIR}

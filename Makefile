@@ -41,8 +41,22 @@ all: xca$(SUFFIX) do.doc do.lang
 endif
 endif
 
+ifeq ($(MAKECMDGOALS),)
+MAKEFLAGS += -s
+PRINT=echo
+else
+PRINT=:
+endif
+export PRINT
+
+ifneq ($(TOPDIR), $(BUILD))
+do.ui: clean_topdir
+clean_topdir:
+	$(MAKE) -C $(TOPDIR) clean
+endif
 
 xca$(SUFFIX): $(OBJECTS)
+	@$(PRINT) "  LINK   $@"
 	$(CC) $(CFLAGS) $(LDFLAGS) $(patsubst %,@%, $^) $(LIBS) -o $@
 
 do.ui do.doc do.lang: do.%:

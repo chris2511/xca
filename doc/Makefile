@@ -17,7 +17,8 @@ xca.html: xca.sgml
 	rm -f xca*.html
 	echo '<h1>No documentation generated</h1>' > $@
 	test ! -f xca-doc.tgz || tar zxf xca-doc.tgz
-	$(LINUXDOC) -B html $<
+	@$(PRINT) "  DOC    [$(BASENAME)] $@"
+	$(LINUXDOC) -B html $< >/dev/null
 
 install: xca.1.gz xca.html
 	install -m 755 -d $(destdir)$(docdir) \
