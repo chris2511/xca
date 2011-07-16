@@ -675,7 +675,7 @@ If this list is disabled, you only can create a self-signed certificate.</string
            <property name="title">
             <string notr="true">Basic constraints</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout">
+           <layout class="QGridLayout" name="gridLayout_7">
             <item row="0" column="0">
              <widget class="QLabel" name="TextLabel2_2_3">
               <property name="text">
@@ -1313,7 +1313,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
         </layout>
        </item>
        <item>
-        <layout class="QGridLayout">
+        <layout class="QGridLayout" name="gridLayout_3">
          <property name="margin">
           <number>0</number>
          </property>

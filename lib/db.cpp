@@ -150,8 +150,8 @@ int db::next(int flag)
 		return -1;
 	}
 	if (ret != sizeof(db_header_t)) {
-		printf("Length broken: %d instead of %zd\n", ret,
-				sizeof(db_header_t) );
+		printf("Length broken: %d instead of %ld\n", ret,
+				(long)sizeof(db_header_t) );
 		//ftruncate(fd, head_offset);
 		head_offset = OFF_EOF;
 		return -1;

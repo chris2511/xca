@@ -400,7 +400,7 @@ static long mem_ctrl(BIO *b, int cmd, long num, void *ptr)
 
 	switch (cmd) {
 	case BIO_C_FILE_SEEK:
-		if (num > bm->max)
+		if (num > (long)bm->max)
 			num = bm->max;
 		bm->data -= (bm->max - bm->length) - num;
 		bm->length = bm->max - num;
