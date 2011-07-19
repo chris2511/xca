@@ -11,16 +11,19 @@
 #include "ui_Options.h"
 #include <QtGui/QDialog>
 #include "lib/base.h"
-#include "widgets/MainWindow.h"
+#include "SearchPkcs11.h"
+#include "MainWindow.h"
 
 class Options: public QDialog, public Ui::Options
 {
 		Q_OBJECT
 	private:
+		SearchPkcs11 *searchP11;
 		QStringList string_opts;
 		MainWindow *mw;
 	public:
 		Options(MainWindow *parent);
+		~Options();
 		void setupPkcs11Provider(QString list);
 		void setStringOpt(const QString string_opt);
 		QString getDnString();
@@ -32,6 +35,8 @@ class Options: public QDialog, public Ui::Options
 		void on_extDNdel_clicked();
 		void on_addButton_clicked(void);
 		void on_removeButton_clicked(void);
+		void on_searchPkcs11_clicked(void);
+		void addLib(QString);
 };
 
 #endif

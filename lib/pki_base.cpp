@@ -105,13 +105,7 @@ QString pki_base::rmslashdot(const QString &s)
 {
 	QByteArray a = s.toAscii();
 	int r = a.lastIndexOf('.');
-#ifdef WIN32
-	int l = a.lastIndexOf('\\');
-#else
 	int l = a.lastIndexOf('/');
-#endif
-	//printf("r=%d, l=%d, s='%s', mid='%s'\n",r,l,(const char*)a,
-	//		CCHAR(s.mid(l+1,r-l-1)));
 	return s.mid(l+1,r-l-1);
 }
 

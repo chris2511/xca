@@ -23,10 +23,11 @@ QString getDocDir();
 QString getUserSettingsDir();
 QString getDefaultPkcs11Lib();
 QString getFullFilename(const QString &filename, const QString &selectedFilter);
+QStringList getLibExtensions();
 
 QByteArray filename2bytearray(const QString &fname);
 QString filename2QString(const char *fname);
-QString compressFilename(QString filename);
+QString compressFilename(QString filename, int maxlen = 50);
 
 QString asn1ToQString(const ASN1_STRING *str, bool quote = false);
 ASN1_STRING *QStringToAsn1(QString s, int nid);

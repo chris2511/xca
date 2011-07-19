@@ -7,9 +7,11 @@
 
 #include "lib/func.h"
 #include "Options.h"
+#include "SearchPkcs11.h"
 #include "lib/pki_scard.h"
 #include <openssl/objects.h>
 #include <QtGui/QMessageBox>
+#include <QtGui/QToolTip>
 
 Options::Options(MainWindow *parent)
 	:QDialog(parent)
@@ -40,6 +42,13 @@ Options::Options(MainWindow *parent)
 	  << tr("UTF8 strings only (RFC2459)")
 	  << tr("All strings");
 	mbstring->addItems(s);
+	searchP11 = NULL;
+}
+
+Options::~Options()
+{
+	if (searchP11)
+		delete searchP11;
 }
 
 void Options::on_extDNadd_clicked()
@@ -78,11 +87,20 @@ QString Options::getStringOpt()
 void Options::on_addButton_clicked(void)
 {
 	load_pkcs11 l;
-	pkcs11_lib *lib;
-	QString fname, status;
+	QString fname;
 
 	fname = QFileDialog::getOpenFileName(this, l.caption,
 		getLibDir(), l.filter);
+
+	addLib(fname);
+}
+
+void Options::addLib(QString fname)
+{
+	pkcs11_lib *lib;
+	QString status;
+
+	fname = QFileInfo(fname).canonicalFilePath();
 
 	if (fname.isEmpty() || pkcs11::get_lib(fname))
 		return;
@@ -94,11 +112,15 @@ void Options::on_addButton_clicked(void)
 		lib = NULL;
 		status = ex.getString();
 	}
+	status = status.trimmed();
 	QListWidgetItem *item = new QListWidgetItem(fname);
 	item->setToolTip(status);
 	if (lib)
 		item->setIcon(*MainWindow::doneIco);
 	pkcs11List->addItem(item);
+	if (searchP11)
+		QToolTip::showText(searchP11->mapToGlobal(
+			QPoint(0,0)), status);
 }
 
 void Options::on_removeButton_clicked(void)
@@ -111,6 +133,16 @@ void Options::on_removeButton_clicked(void)
 	} catch (errorEx &err) {
 		mw->Error(err);
 	}
+}
+
+void Options::on_searchPkcs11_clicked(void)
+{
+	if (!searchP11) {
+		searchP11 = new SearchPkcs11(this, QString());
+		connect(searchP11, SIGNAL(addLib(QString)),
+			this, SLOT(addLib(QString)));
+	}
+	searchP11->show();
 }
 
 void Options::setupPkcs11Provider(QString list)

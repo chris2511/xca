@@ -6,7 +6,8 @@ endif
 
 MOC_NAMES=MainWindow KeyDetail clicklabel XcaTreeView ExportKey NewX509 \
 	validity v3ext distname CertDetail CertExtend PwDialog \
-	ImportMulti CrlDetail ExportDialog hashBox Options NewKey kvView NewCrl
+	ImportMulti CrlDetail ExportDialog hashBox Options NewKey kvView \
+	NewCrl SearchPkcs11
 
 NAMES=$(MOC_NAMES) NewX509_ext MW_menu MW_help MW_database
 OBJS=$(patsubst %,moc_%.o,$(MOC_NAMES)) $(patsubst %,%.o,$(NAMES))

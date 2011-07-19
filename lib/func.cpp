@@ -54,6 +54,19 @@ QString getDefaultPkcs11Lib()
 #endif
 }
 
+QStringList getLibExtensions()
+{
+	QStringList l;
+#if defined(_WIN32) || defined(USE_CYGWIN)
+	l << QString("*.dll") << QString("*.DLL");
+#elif defined(Q_WS_MAC)
+	l << QString("*.dylib") << QString("*.so");
+#else
+	l << QString("*.so");
+#endif
+	return l;
+}
+
 /* returns e.g. /usr/local/share/xca for unix systems
  * or HKEY_LOCAL_MACHINE->Software->xca for WIN32
  * (e.g. c:\Program Files\xca )
@@ -209,28 +222,21 @@ QString filename2QString(const char *fname)
 #endif
 }
 
-QString compressFilename(QString filename)
+QString compressFilename(QString filename, int maxlen)
 {
-	/* quick and dirty demo for compacting filename */
-	/* there are i compactable path components, but keep the filename */
-	int i = filename.count(QDir::separator()) - 1;
+	if (filename.length() < maxlen)
+		return filename;
 
-	/* we want to keep the first component,
-	 * so don't count the starting slash */
-	if(filename.startsWith(QDir::separator()))
-		i--;
+	int len, lastslash = filename.lastIndexOf("/");
+	QString base = filename.mid(lastslash);
+	len = base.length();
+	len = maxlen - len -3;
+	if (len < 0)
+		return QString("...") + base.right(maxlen -3);
+	filename = filename.left(len);
+	lastslash = filename.lastIndexOf("/");
 
-#define MAX_DISPLAY_LEN 50
-	// start most-right
-	int from, to = filename.lastIndexOf(QDir::separator());
-
-	for (; i > 0 && filename.length() > MAX_DISPLAY_LEN; i--) {
-		from = filename.lastIndexOf(QDir::separator(), to - 1);
-		filename.replace(from + 1 , to-from - 1, "...");
-		to = from;
-	}
-
-	return filename;
+	return filename.left(lastslash+1) + "..." + base;
 }
 
 

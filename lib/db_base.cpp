@@ -585,19 +585,18 @@ bool db_base::setData(const QModelIndex &index, const QVariant &value, int role)
 
 void db_base::load_default(load_base &load)
 {
+	QString s;
 	QStringList slist = QFileDialog::getOpenFileNames(mainwin, load.caption,
 			mainwin->getPath(), load.filter);
 
 	if (!slist.count())
 		return;
 
-	QString fn = QDir::convertSeparators(slist[0]);
-	mainwin->setPath(fn.mid(0, fn.lastIndexOf(QRegExp("[/\\\\]")) ));
+	QString fn = slist[0];
+	mainwin->setPath(fn.mid(0, fn.lastIndexOf("/")));
 
 	ImportMulti *dlgi = new ImportMulti(mainwin);
-	for (QStringList::Iterator it = slist.begin(); it != slist.end(); ++it) {
-		QString s = *it;
-		s = QDir::convertSeparators(s);
+	foreach(s, slist) {
 		pki_base *item = NULL;
 		try {
 			item = load.loadItem(s);
