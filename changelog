@@ -1,4 +1,6 @@
 
+  * Close bug [ 3372449 ] All numeric names cannot be used
+  * add search functionality for PKCS#11 libraries
   * fix ASN.1 encoding of PKCS#10 request
   * Close bug [ 3318203 ] Build failure with GNU gold linker
   * Add x509v3 extensions to the list of selectable columns

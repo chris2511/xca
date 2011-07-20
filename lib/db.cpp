@@ -201,7 +201,7 @@ QString db::uniq_name(QString s, QList<enum pki_type> types)
 
 	sl = s.split("_");
 	sl.last().toUInt(&ok, 10);
-	if (ok) {
+	if (ok && (sl.count() > 1)) {
 		sl.removeLast();
 		s = sl.join("_");
 	}
