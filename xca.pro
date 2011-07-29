@@ -78,6 +78,7 @@ HEADERS += local.h \
            widgets/PwDialog.h \
            widgets/v3ext.h \
            widgets/validity.h \
+           widgets/SearchPkcs11.h \
            widgets/XcaTreeView.h
 
 FORMS += ui/About.ui \
@@ -99,6 +100,7 @@ FORMS += ui/About.ui \
          ui/Revoke.ui \
          ui/SelectToken.ui \
          ui/TrustState.ui \
+         ui/SearchPkcs11.ui \
          ui/v3ext.ui \
 
 SOURCES += lib/asn1int.cpp \
@@ -160,6 +162,7 @@ SOURCES += lib/asn1int.cpp \
            widgets/PwDialog.cpp \
            widgets/v3ext.cpp \
            widgets/validity.cpp \
+           widgets/SearchPkcs11.cpp \
            widgets/XcaTreeView.cpp
 
 TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts
