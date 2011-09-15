@@ -239,7 +239,7 @@ EOF
 
 echo "${CC} $LIBS $LDIRS $CF $CFLAGS conftest.cpp -o conftest${SUFFIX}" >conftest.log
 if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.cpp -o conftest${SUFFIX} >> conftest.log 2>&1; then
-  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" # && rm -rf conftest.cpp conftest${SUFFIX} conftest.log conftest.dSYM
+  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -rf conftest.cpp conftest${SUFFIX} conftest.log conftest.dSYM
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi
