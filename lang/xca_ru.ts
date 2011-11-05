@@ -339,7 +339,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+914"/>
+        <location filename="../lib/db_x509.cpp" line="+915"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Не найден ключ для сетификата: </translation>
     </message>
@@ -926,7 +926,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+754"/>
+        <location filename="../widgets/MainWindow.cpp" line="+750"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -1091,7 +1091,7 @@ Serial: %3</source>
         <translation>Списки отозванных сертификатов</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+158"/>
+        <location filename="../widgets/MW_database.cpp" line="+170"/>
         <source>Database</source>
         <translation>База данных</translation>
     </message>
@@ -2253,6 +2253,11 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+7"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Cancel</source>
         <translation type="obsolete">Отмена</translation>
     </message>
@@ -2261,7 +2266,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="obsolete">ОК</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+40"/>
+        <location filename="../widgets/Options.cpp" line="+42"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation type="unfinished">Только строки UTF8 (RFC2459)</translation>
     </message>
@@ -2302,12 +2307,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Все строки</translation>
     </message>
     <message>
-        <location line="+91"/>
+        <location line="+124"/>
         <source>Load failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-143"/>
+        <location filename="../ui/Options.ui" line="-150"/>
         <source>XCA Options</source>
         <translation>Опции XCA</translation>
     </message>
@@ -2354,7 +2359,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>PwDialog</name>
     <message>
-        <location filename="../widgets/PwDialog.cpp" line="+83"/>
+        <location filename="../widgets/PwDialog.cpp" line="+85"/>
         <source>Repeat %1</source>
         <translation type="unfinished">Повторить %1</translation>
     </message>
@@ -2374,12 +2379,11 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/PwDialog.ui" line="+14"/>
         <source>Password</source>
-        <translation type="unfinished">Пароль</translation>
+        <translation type="obsolete">Пароль</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location filename="../ui/PwDialog.ui" line="+119"/>
         <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2542,7 +2546,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+236"/>
+        <location filename="../lib/pkcs11.cpp" line="+224"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2557,7 +2561,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+50"/>
         <source>No Security token found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2578,7 +2582,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+19"/>
+        <location filename="../lib/pkcs11.cpp" line="+11"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2685,6 +2689,39 @@ In library %3
     </message>
 </context>
 <context>
+    <name>SearchPkcs11</name>
+    <message>
+        <location filename="../ui/SearchPkcs11.ui" line="+14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>include sub directorys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
+        <source>The following files are possible PKCS#11 libraries</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SelectToken</name>
     <message>
         <location filename="../ui/SelectToken.ui" line="+14"/>
@@ -2766,7 +2803,7 @@ In library %3
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+635"/>
+        <location line="+634"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2847,7 +2884,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+87"/>
         <source>Import</source>
         <translation>Импорт</translation>
     </message>
@@ -2877,7 +2914,7 @@ In library %3
         <translation>Удалить</translation>
     </message>
     <message>
-        <location line="-130"/>
+        <location line="-131"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3127,7 +3164,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="obsolete">Общее имя</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-886"/>
+        <location filename="../lib/db_x509.cpp" line="-887"/>
         <source>Serial</source>
         <translation type="unfinished">Серийный номер</translation>
     </message>
@@ -3202,7 +3239,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3277,8 +3314,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">Доверие</translation>
     </message>
     <message>
-        <location line="-609"/>
-        <location line="+611"/>
+        <location line="-610"/>
+        <location line="+612"/>
         <source>CA</source>
         <translation>ЦС</translation>
     </message>
@@ -3352,14 +3389,14 @@ and will be completed by the new, private part of the key</source>
         <translation type="obsolete">Удалить сертификат &apos;%1&apos; ?</translation>
     </message>
     <message>
-        <location line="-301"/>
+        <location line="-302"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+428"/>
+        <location line="+429"/>
         <location line="+33"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
@@ -4002,7 +4039,7 @@ and thus was not stored</source>
         <translation>Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+445"/>
+        <location line="+447"/>
         <source>Not trusted</source>
         <translation>Доверия нет</translation>
     </message>
@@ -4027,7 +4064,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-351"/>
+        <location line="-353"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished">Не существует ключа для подписания !</translation>
     </message>
@@ -4046,7 +4083,7 @@ and thus was not stored</source>
         <translation>Этот сертификат уже есть на Токене</translation>
     </message>
     <message>
-        <location line="+521"/>
+        <location line="+523"/>
         <source>CRL expires: %1</source>
         <translation type="unfinished">CRL истекает: %1</translation>
     </message>
@@ -4055,8 +4092,8 @@ and thus was not stored</source>
         <translation type="obsolete">Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="-298"/>
-        <location line="+426"/>
+        <location line="-300"/>
+        <location line="+428"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>
@@ -4064,7 +4101,7 @@ and thus was not stored</source>
 <context>
     <name>pki_x509req</name>
     <message>
-        <location filename="../lib/pki_x509req.cpp" line="+52"/>
+        <location filename="../lib/pki_x509req.cpp" line="+51"/>
         <source>Signing key not valid (public key)</source>
         <translation type="unfinished">Ключ для подписи не действителен (открытый ключ)</translation>
     </message>
@@ -4077,7 +4114,7 @@ and thus was not stored</source>
         <translation type="obsolete">PKCS#10 запрос</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location line="+42"/>
         <source>Successfully imported the %1 certificate request &apos;%2&apos;</source>
         <translation type="unfinished">%1 запрос &apos;%2&apos; импортирован успешно</translation>
     </message>

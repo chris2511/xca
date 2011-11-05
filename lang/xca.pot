@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-23 18:04+0200\n"
+"POT-Creation-Date: 2011-10-21 07:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -410,6 +410,7 @@ msgid ""
 msgstr ""
 
 #: ExportDialog#1
+msgctxt "ExportDialog#1"
 msgid "..."
 msgstr ""
 
@@ -1720,59 +1721,59 @@ msgid "Remove"
 msgstr ""
 
 #: Options#10
-msgid "Printable string or UTF8 (default)"
+msgctxt "Options#10"
+msgid "Search"
 msgstr ""
 
 #: Options#11
-msgid "PKIX recommendation in RFC2459"
+msgid "Printable string or UTF8 (default)"
 msgstr ""
 
 #: Options#12
-msgid "No BMP strings, only printable and T61"
+msgid "PKIX recommendation in RFC2459"
 msgstr ""
 
 #: Options#13
-msgid "UTF8 strings only (RFC2459)"
+msgid "No BMP strings, only printable and T61"
 msgstr ""
 
 #: Options#14
-msgid "All strings"
+msgid "UTF8 strings only (RFC2459)"
 msgstr ""
 
 #: Options#15
+msgid "All strings"
+msgstr ""
+
+#: Options#16
 msgid "Load failed"
 msgstr ""
 
 #: PwDialog#1
-msgctxt "PwDialog#1"
-msgid "Password"
-msgstr ""
-
-#: PwDialog#2
 msgid ""
 "The password is parsed as 2-digit hex code. It must have an equal number of "
 "digits (0-9 and a-f)"
 msgstr ""
 
-#: PwDialog#3
+#: PwDialog#2
 msgid "Take as HEX string"
 msgstr ""
 
-#: PwDialog#4
+#: PwDialog#3
 msgid "Repeat %1"
 msgstr ""
 
-#: PwDialog#5
+#: PwDialog#4
 msgid "%1 missmatch"
 msgstr ""
 
-#: PwDialog#6
+#: PwDialog#5
 msgid ""
 "Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
 "must consist of an even number of characters"
 msgstr ""
 
-#: PwDialog#7
+#: PwDialog#6
 msgid "E&xit"
 msgstr ""
 
@@ -1968,6 +1969,32 @@ msgstr ""
 msgid "Revokation reason"
 msgstr ""
 
+#: SearchPkcs11#1
+msgid "Dialog"
+msgstr ""
+
+#: SearchPkcs11#2
+msgid "Directory"
+msgstr ""
+
+#: SearchPkcs11#3
+msgctxt "SearchPkcs11#3"
+msgid "..."
+msgstr ""
+
+#: SearchPkcs11#4
+msgid "include sub directorys"
+msgstr ""
+
+#: SearchPkcs11#5
+msgctxt "SearchPkcs11#5"
+msgid "Search"
+msgstr ""
+
+#: SearchPkcs11#6
+msgid "The following files are possible PKCS#11 libraries"
+msgstr ""
+
 #: SelectToken#1
 msgid "Select Token"
 msgstr ""
@@ -2011,15 +2038,15 @@ msgid "Internal name"
 msgstr ""
 
 #: db_base#2
-msgid "Reset"
-msgstr ""
-
-#: db_base#3
 msgid "Subject entries"
 msgstr ""
 
-#: db_base#4
+#: db_base#3
 msgid "X509v3 Extensions"
+msgstr ""
+
+#: db_base#4
+msgid "Reset"
 msgstr ""
 
 #: db_base#5
