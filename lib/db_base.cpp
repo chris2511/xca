@@ -253,7 +253,11 @@ void db_base::deletePKI()
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 	try {
-		pki->deleteFromToken();
+		try {
+			pki->deleteFromToken();
+		} catch (errorEx &err) {
+			MainWindow::Error(err);
+		}
 
 		remFromCont(currentIdx);
 
