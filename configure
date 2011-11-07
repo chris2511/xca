@@ -42,7 +42,6 @@ STDLIB="-L/usr/lib"
 prefix=${prefix:=/usr/local}
 CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
 CC=${CC:=gcc}
-CF="-I\$(TOPDIR) -I\$(BUILD) -I\$(BUILD)/ui"
 LDFLAGS=""
 LIBS="-lstdc++"
 LDIRS=
@@ -54,6 +53,7 @@ test -z "$docdir" && docdir="${prefix}/share/xca"
 
 DVERSION="`gcc --version | grep apple-darwin || :`"
 case "$DVERSION" in
+  *-apple-darwin11*) DARWIN="Lion" ;;
   *-apple-darwin10*) DARWIN="SnowLeopard" ;;
   *-apple-darwin9*) DARWIN="Leopard" ;;
   *-apple-darwin*)
@@ -237,8 +237,8 @@ int main(){
 }
 EOF
 
-echo "${CC} $LIBS $LDIRS $CF $CFLAGS conftest.cpp -o conftest${SUFFIX}" >conftest.log
-if ${CC} $LIBS $LDIRS $CF $CFLAGS conftest.cpp -o conftest${SUFFIX} >> conftest.log 2>&1; then
+echo "${CC} $LIBS $LDIRS $CF $CFLAGS ${LDFLAGS} conftest.cpp -o conftest${SUFFIX}" >conftest.log
+if ${CC} $LIBS $LDIRS $CF $CFLAGS ${LDFLAGS} conftest.cpp -o conftest${SUFFIX} >> conftest.log 2>&1; then
   ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -rf conftest.cpp conftest${SUFFIX} conftest.log conftest.dSYM
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"

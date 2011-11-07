@@ -27,7 +27,7 @@ app:
 	cd $(SYSROOT)/Developer/Applications/Qt/translations && \
 	  for x in $(QM_QT); do \
 	    test -f "$$x" && install $$x $(APPDIR)/Resources;\
-	  done
+	  done || :
 
 po2ts: $(TS_XCA)
 xca_%.ts.xml: %.po

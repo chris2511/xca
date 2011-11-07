@@ -3,6 +3,8 @@ export VERSION=$(shell cat $(TOPDIR)/VERSION )
 
 BASENAME=$(shell basename `pwd`)
 
+CPPFLAGS += -I\$(TOPDIR) -I\$(BUILD) -I\$(BUILD)/ui
+
 all: .build-stamp
 
 .build-stamp: $(OBJS)

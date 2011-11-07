@@ -1,13 +1,14 @@
 #!/bin/sh -e
 
-XCA_DIR="`pwd`"/xca
+XCA_DIR="`dirname $0`"
+XCA_DIR="`cd $XCA_DIR/.. && pwd`"
 XCA_BUILD="`pwd`"/xca_build
 
 LIBTOOL_DIR="libtool-2.2.6b"
 LIBTOOL_GZ="${LIBTOOL_DIR}".tar.gz
 LIBTOOL_DL="http://ftp.gnu.org/gnu/libtool/${LIBTOOL_GZ}"
 
-OPENSSL_DIR="openssl-1.0.0d"
+OPENSSL_DIR="openssl-1.0.0e"
 OPENSSL_GZ="${OPENSSL_DIR}".tar.gz
 OPENSSL_DL="http://openssl.org/source/${OPENSSL_GZ}"
 OPENSSL_PATCH="$XCA_DIR/misc/openssl-1.0.0-mingw32-cross.patch"

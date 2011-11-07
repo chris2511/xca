@@ -11,7 +11,9 @@ export BUILD=$(shell pwd)
 
 ifneq ($(MAKECMDGOALS), distclean)
 ifneq ($(MAKECMDGOALS), clean)
+ifneq ($(MAKECMDGOALS), dist)
 include Local.mak
+endif
 endif
 endif
 

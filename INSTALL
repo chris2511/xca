@@ -27,6 +27,13 @@ Just the naming and invokation looks like it. Thus the
 usual way to configure and build a Package is the same:
 $ ./configure; make; make install
 
+You can build in a different subdirectory:
+ - cd into the build directory and
+ - call configure by its full path.
+For example, if you ar in the freshly unpacked xca-0.9.1 directory:
+  mkdir Build && cd Build && ../configure && make -j10
+To clean all built files: rm -rf Build
+
 If you have a special setup, you can predefine the following
 variables: CC, LD, STRIP, CFLAGS, prefix. e.g.:
 $ CC="ccache gcc" STRIP=: CFLAGS="-Wall -g" prefix=/opt/xca ./configure
