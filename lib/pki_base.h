@@ -102,6 +102,10 @@ class pki_base : public QObject
 			return NULL;
 		}
 		void fwrite_ba(FILE *fp, QByteArray ba, QString fname);
+		virtual QVariant bg_color(dbheader *hd)
+		{
+			return QVariant();
+		}
 };
 
 #endif

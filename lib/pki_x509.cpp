@@ -866,6 +866,50 @@ const EVP_MD *pki_x509::getDigest()
 	return EVP_get_digestbyobj(cert->sig_alg->algorithm);
 }
 
+QVariant pki_x509::bg_color(dbheader *hd)
+{
+#define BG_RED     QBrush(QColor(255,  0,  0))
+#define BG_YELLOW  QBrush(QColor(255,255,  0))
+#define BG_CYAN    QBrush(QColor(127,255,212))
+
+	QDateTime nb, na, now, certwarn;
+
+	nb = getNotBefore().qDateTime();
+	na = getNotAfter().qDateTime();
+
+	int lifetime = nb.secsTo(na);
+
+	now = QDateTime::currentDateTimeUtc();
+
+	/* warn after 4/5 certificate lifetime */
+	certwarn = na.addSecs(- lifetime /5);
+
+	switch (hd->id) {
+		case HD_cert_notBefore:
+			if (nb > now)
+				return QVariant(BG_RED);
+			break;
+		case HD_cert_notAfter: {
+			if (na < now)
+				return QVariant(BG_RED);
+			if (certwarn < now)
+				return QVariant(BG_YELLOW);
+			break;
+		}
+		case HD_cert_revokation:
+			if (canSign()) {
+				QDateTime crlwarn, crlex;
+				crlex = crlExpiry.qDateTime();
+				crlwarn = crlex.addSecs(-2 *60*60*24);
+				if (crlex < now)
+					return QVariant(BG_RED);
+				if (crlwarn < now)
+					return QVariant(BG_YELLOW);
+			}
+	}
+	return QVariant();
+}
+
 void pki_x509::oldFromData(unsigned char *p, int size)
 {
 	int version, sRev, sLastCrl;

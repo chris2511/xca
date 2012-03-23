@@ -150,6 +150,7 @@ class pki_x509 : public pki_x509super
 		virtual QString getMsg(msg_type msg);
 		virtual int renameOnToken(slotid slot, QString name);
 		BIO *pem(BIO *);
+		virtual QVariant bg_color(dbheader *hd);
 };
 
 #endif
