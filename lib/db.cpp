@@ -199,6 +199,7 @@ QString db::uniq_name(QString s, QList<enum pki_type> types)
 	QStringList sl;
 	bool ok;
 
+	s = s.left(NAMELEN-6);
 	sl = s.split("_");
 	sl.last().toUInt(&ok, 10);
 	if (ok && (sl.count() > 1)) {
