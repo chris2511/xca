@@ -227,14 +227,14 @@ QString compressFilename(QString filename, int maxlen)
 	if (filename.length() < maxlen)
 		return filename;
 
-	int len, lastslash = filename.lastIndexOf("/");
+	int len, lastslash = filename.lastIndexOf(QDir::separator());
 	QString base = filename.mid(lastslash);
 	len = base.length();
 	len = maxlen - len -3;
 	if (len < 0)
 		return QString("...") + base.right(maxlen -3);
 	filename = filename.left(len);
-	lastslash = filename.lastIndexOf("/");
+	lastslash = filename.lastIndexOf(QDir::separator());
 
 	return filename.left(lastslash+1) + "..." + base;
 }
