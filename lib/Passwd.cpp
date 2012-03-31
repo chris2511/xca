@@ -19,6 +19,6 @@ Passwd::~Passwd()
 }
 unsigned char *Passwd::constUchar() const
 {
-	return size() ? (unsigned char *)constData() : NULL;
+	return (unsigned char *)(size() ? constData() : "");
 }
 

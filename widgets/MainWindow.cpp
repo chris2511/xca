@@ -751,8 +751,10 @@ int MainWindow::initPass()
 			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbfile)));
 			ret = PwDialog::execute(&p, &pki_evp::passwd,
 						false, true);
-			if (ret != 1)
+			if (ret != 1) {
+				pki_evp::passwd = QByteArray();
 				return ret;
+			}
 			if (pki_evp::passHash.left(1) == "S")
 				continue;
 			/* Start automatic update from md5 to salted sha512
@@ -771,6 +773,8 @@ int MainWindow::initPass()
 			}
 		}
 	}
+	if (pki_evp::passwd.isNull())
+		pki_evp::passwd = "";
 	return 1;
 }
 

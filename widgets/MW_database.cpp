@@ -163,7 +163,7 @@ int MainWindow::init_database()
 	}
 	setWindowTitle(tr(XCA_TITLE));
 	setItemEnabled(true);
-	if (pki_evp::passwd.isEmpty())
+	if (pki_evp::passwd.isNull())
 		QMessageBox::information(this, XCA_TITLE,
 			tr("Using or exporting private keys will not be possible without providing the correct password"));
 
