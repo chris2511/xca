@@ -26,6 +26,7 @@ class v3ext: public QDialog, public Ui::v3ext
 		int nid;
 		X509V3_CTX *ext_ctx;
 		bool __validate(bool showSuccess);
+		QStringList keys;
 	public:
 		v3ext( QWidget *parent);
 		void addItem(QString list);

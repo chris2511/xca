@@ -47,8 +47,9 @@ class NewX509: public QDialog, public Ui::NewX509
 		QStringList private_keys, private_keys0, tabnames;
 		pki_x509 *ctx_cert;
 		QString v3ext_backup;
-		QString valid_htmltext;
 		kvmodel *extDNmodel;
+		extList getExtDuplicates();
+		void checkIcon(const QString &text, int nid, QLabel*img);
 
 	public:
 		static int name_nid[EXPLICIT_NAME_CNT];
@@ -97,6 +98,9 @@ class NewX509: public QDialog, public Ui::NewX509
 		pki_temp *currentTemplate();
 		void gotoTab(int tab);
 		void setupLineEditByNid(int nid, QLineEdit *l);
+		int validateExtensions(QString nconf, QString &result);
+		int do_validateExtensions();
+		void undo_validateExtensions();
 
 	public slots:
 		void on_fromReqCB_clicked();
@@ -121,6 +125,10 @@ class NewX509: public QDialog, public Ui::NewX509
 		void on_reqSubChange_clicked();
 		void accept();
 		void setupExtDNwidget(const QString &s, QLineEdit *w);
+		void checkSubAltName(const QString & text);
+		void checkIssAltName(const QString & text);
+		void checkCrlDist(const QString & text);
+		void checkAuthInfAcc(const QString & text);
 
 	signals:
 		void genKey(QString);

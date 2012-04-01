@@ -41,7 +41,7 @@ QPixmap *MainWindow::keyImg = NULL, *MainWindow::csrImg = NULL,
 	*MainWindow::certImg = NULL, *MainWindow::tempImg = NULL,
 	*MainWindow::nsImg = NULL, *MainWindow::revImg = NULL,
 	*MainWindow::appIco = NULL, *MainWindow::scardImg = NULL,
-	*MainWindow::doneIco = NULL;
+	*MainWindow::doneIco = NULL, *MainWindow::warnIco = NULL;
 
 db_key *MainWindow::keys = NULL;
 db_x509req *MainWindow::reqs = NULL;
@@ -270,6 +270,7 @@ void MainWindow::init_images()
 	scardImg = loadImg("bigscard.png");
 	appIco = loadImg("key.xpm");
 	doneIco = loadImg("done.png");
+	warnIco = loadImg("warn.png");
 	bigKey->setPixmap(*keyImg);
 	bigCsr->setPixmap(*csrImg);
 	bigCert->setPixmap(*certImg);

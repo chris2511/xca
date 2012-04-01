@@ -61,6 +61,7 @@ void v3ext::addInfo(QLineEdit *myle, const QStringList &sl, int n,
 	le = myle;
 	ext_ctx = ctx;
 	tab->setKeys(sl);
+	keys = sl;
 	tab->setInfoLabel(infoLabel);
 	connect(tab->itemDelegateForColumn(1),
 		SIGNAL(setupLineEdit(const QString &, QLineEdit *)),
@@ -127,11 +128,14 @@ void v3ext::addEntry(QString line)
 	int idx = line.indexOf(':');
 	QString type, value;
 	if (idx == -1) {
-		type = line;
-		value = "";
+		value = line;
 	} else {
 		type = line.left(idx);
 		value = line.mid(idx+1);
+	}
+	if (!keys.contains(type)) {
+		type = keys[0];
+		value = line;
 	}
 	tab->addRow(QStringList(type) << value);
 }

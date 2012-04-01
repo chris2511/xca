@@ -57,7 +57,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		static db_crl *crls;
 		static QPixmap *keyImg, *csrImg, *certImg, *tempImg,
 				*nsImg, *revImg, *appIco, *scardImg,
-				*doneIco;
+				*doneIco, *warnIco;
 		static NIDlist *eku_nid, *dn_nid, *aia_nid;
 		static QString mandatory_dn;
 		int exitApp;

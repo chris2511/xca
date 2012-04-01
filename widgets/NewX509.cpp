@@ -60,6 +60,15 @@ NewX509::NewX509(QWidget *parent)
 	connect(extDNlist->itemDelegateForColumn(1),
 		SIGNAL(setupLineEdit(const QString &, QLineEdit *)),
 		this, SLOT(setupExtDNwidget(const QString &, QLineEdit *)));
+	connect(subAltName, SIGNAL(textChanged(const QString &)),
+                this, SLOT(checkSubAltName(const QString &)));
+	connect(issAltName, SIGNAL(textChanged(const QString &)),
+                this, SLOT(checkIssAltName(const QString &)));
+	connect(crlDist, SIGNAL(textChanged(const QString &)),
+                this, SLOT(checkCrlDist(const QString &)));
+	connect(authInfAcc, SIGNAL(textChanged(const QString &)),
+                this, SLOT(checkAuthInfAcc(const QString &)));
+
 	setWindowTitle(XCA_TITLE);
 
 	for (i=0; i<tabWidget->count(); i++) {
@@ -724,80 +733,163 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 void NewX509::on_adv_validate_clicked()
 {
 	if (!nconf_data->isReadOnly()) {
-		QString errtxt;
-		extList el;
-		ign_openssl_error();
-		QString result;
-		setupTmpCtx();
-		v3ext_backup = nconf_data->toPlainText();
-		if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
-			el = getSelectedReq()->getV3ext();
-		}
-		if (el.size() > 0) {
-			result = "<h2><center>";
-			result += tr("From PKCS#10 request") +
-				"</center></h2><p>\n";
-			result += el.getHtml("<br>");
-		}
-		try {
-			el = getGuiExt();
-			el += getNetscapeExt();
-			el.delInvalid();
-		} catch (errorEx &err) {
-			errtxt = err.getString();
-			el.clear();
-		}
-		if (el.size() > 0) {
-			if (!result.isEmpty())
-				result += "\n<hr>\n";
-			result += "<h2><center>";
-			result += tr("Other Tabs") + "</center></h2><p>\n";
-			result += el.getHtml("<br>");
-		}
-		try {
-			el = getAdvanced();
-		} catch (errorEx &err) {
-			errtxt += err.getString();
-			el.clear();
-		}
-		if (el.size() > 0) {
-			if (!result.isEmpty())
-				result += "\n<hr>\n";
-			result += "<h2><center>";
-			result += tr("Advanced Tab") + "</center></h2><p>\n";
-			result += el.getHtml("<br>");
-		}
-		if (!errtxt.isEmpty()) {
-			if (!result.isEmpty())
-				result += "\n<hr>\n";
-			result += "<h2><center>";
-			result += tr("Errors") + "</center></h2><p>\n";
-			result += errtxt;
-		}
-		nconf_data->document()->setHtml(result);
-		nconf_data->setReadOnly(true);
-
-		adv_validate->setText(tr("Edit"));
-		valid_htmltext = result;
-		checkExtDuplicates();
+		/* switch from edit to display mode */
+		do_validateExtensions();
 	} else {
-		nconf_data->document()->setPlainText(v3ext_backup);
-		nconf_data->setReadOnly(false);
-		adv_validate->setText(tr("Validate"));
-		valid_htmltext = "";
+		/* switch back to edit mode */
+		undo_validateExtensions();
+	}
+}
+
+void NewX509::checkIcon(const QString &text, int nid, QLabel *img)
+{
+	if (text.isEmpty()) {
+		img->clear();
+		return;
 	}
 	ign_openssl_error();
+	switch (nid) {
+	case NID_subject_alt_name:
+		getSubAltName();
+		break;
+	case NID_issuer_alt_name:
+		getIssAltName();
+		break;
+	case NID_crl_distribution_points:
+		getCrlDist();
+		break;
+	case NID_info_access:
+		getAuthInfAcc();
+		break;
+	}
+	if (ign_openssl_error()) {
+		img->setPixmap(*MainWindow::warnIco);
+		return;
+	}
+	img->setPixmap(*MainWindow::doneIco);
+}
+
+void NewX509::checkSubAltName(const QString & text)
+{
+	checkIcon(text, NID_subject_alt_name, subAltIco);
+}
+
+void NewX509::checkIssAltName(const QString & text)
+{
+	checkIcon(text, NID_issuer_alt_name, issAltIco);
+}
+
+void NewX509::checkCrlDist(const QString & text)
+{
+	checkIcon(text, NID_crl_distribution_points, crlDistIco);
+}
+
+void NewX509::checkAuthInfAcc(const QString & text)
+{
+	checkIcon(text, NID_info_access, authInfAccIco);
+}
+
+int NewX509::do_validateExtensions()
+{
+	QString result;
+	int ret = 0;
+
+	if (!nconf_data->isReadOnly()) {
+		v3ext_backup = nconf_data->toPlainText();
+	}
+	ret = validateExtensions(v3ext_backup, result);
+	nconf_data->document()->setHtml(result);
+	nconf_data->setReadOnly(true);
+	adv_validate->setText(tr("Edit"));
+	return ret;
+}
+
+void NewX509::undo_validateExtensions()
+{
+	if (nconf_data->isReadOnly()) {
+		nconf_data->document()->setPlainText(v3ext_backup);
+	}
+	nconf_data->setReadOnly(false);
+	adv_validate->setText(tr("Validate"));
+}
+
+int NewX509::validateExtensions(QString nconf, QString &result)
+{
+	int ret = 0;
+	QStringList errors;
+	extList el;
+	ign_openssl_error();
+	setupTmpCtx();
+	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
+		el = getSelectedReq()->getV3ext();
+	}
+	if (el.size() > 0) {
+		result = "<h2><center>";
+		result += tr("From PKCS#10 request") +"</center></h2><p>\n";
+		result += el.getHtml("<br>");
+	}
+	try {
+		el = getGuiExt();
+		el += getNetscapeExt();
+		el.delInvalid();
+	} catch (errorEx &err) {
+		errors += err.getString();
+		el.clear();
+	}
+	if (el.size() > 0) {
+		if (!result.isEmpty())
+			result += "\n<hr>\n";
+		result += "<h2><center>";
+		result += tr("Other Tabs") + "</center></h2><p>\n";
+		result += el.getHtml("<br>");
+	}
+	try {
+		el = getAdvanced();
+	} catch (errorEx &err) {
+		errors += err.getString();
+		el.clear();
+	}
+	if (el.size() > 0) {
+		if (!result.isEmpty())
+			result += "\n<hr>\n";
+		result += "<h2><center>";
+		result += tr("Advanced Tab") + "</center></h2><p>\n";
+		result += el.getHtml("<br>");
+	}
+	if (errors.size()) {
+		if (!result.isEmpty())
+			result += "\n<hr>\n";
+		result += "<h2><center>";
+		result += tr("Errors") + "</center></h2><p><ul><li>\n";
+		result += errors.join("</li><li>\n");
+		result += "</li></ul>";
+		ret = 1;
+	}
+	el = getExtDuplicates();
+	if (el.size() > 0) {
+		QString errtxt;
+		ret = 1;
+		errtxt = "<h2><center><font color=\"red\">Error:</font>"
+			"duplicate extensions:</center></h2><p><ul>\n";
+		for(int i = 0; i< el.size(); i++) {
+			errtxt += "<li>" +el[i].getObject() +"</li>\n";
+		}
+		errtxt += "</ul>\n<hr>\n";
+		result = errtxt + result;
+	}
+	ign_openssl_error();
+	return ret;
 }
 
 void NewX509::on_editSubAlt_clicked()
 {
-	QString s = "email,RID,URI,DNS,IP,otherName";
+	QString s = "URI,email,RID,DNS,IP,otherName";
 	editV3ext(subAltName, s, NID_subject_alt_name);
 }
 
 void NewX509::on_editIssAlt_clicked()
 {
-	QString s = "email,RID,URI,DNS,IP,otherName,issuer";
+	QString s = "URI,email,RID,DNS,IP,otherName,issuer";
 	editV3ext(issAltName, s, NID_issuer_alt_name);
 }
 
@@ -808,14 +900,13 @@ void NewX509::on_editCrlDist_clicked()
 
 void NewX509::on_editAuthInfAcc_clicked()
 {
-	editV3ext(authInfAcc, "email,RID,URI,DNS,IP", NID_info_access);
+	editV3ext(authInfAcc, "URI,email,RID,DNS,IP", NID_info_access);
 }
 
-void NewX509::on_tabWidget_currentChanged(int)
+void NewX509::on_tabWidget_currentChanged(int tab)
 {
-	/* reset advanced tab to editable text */
-	if (nconf_data->isReadOnly())
-		on_adv_validate_clicked();
+	if (tabWidget->tabText(tab) == tabnames[5])
+		do_validateExtensions();
 }
 
 QString NewX509::mandatoryDnRemain()
@@ -1038,10 +1129,9 @@ void NewX509::accept()
 				break;
 		}
 	}
-	on_adv_validate_clicked();
-	if (checkExtDuplicates()) {
+	if (do_validateExtensions()) {
 		gotoTab(5);
-		QString text = tr("The certificate contains duplicated extensions. Check the validation on the advanced tab.");
+		QString text = tr("The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.");
 		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
 					text, QMessageBox::NoButton, this);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Edit extensions"));

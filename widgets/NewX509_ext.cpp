@@ -36,7 +36,6 @@ x509v3ext NewX509::getBasicConstraints()
 		}
 		ext.create(NID_basic_constraints, cont.join(", "), &ext_ctx);
 	}
-	openssl_error();
 	return ext;
 }
 
@@ -45,7 +44,6 @@ x509v3ext NewX509::getSubKeyIdent()
 	x509v3ext ext;
 	if (subKey->isChecked())
 		ext.create(NID_subject_key_identifier, "hash", &ext_ctx);
-	openssl_error();
 	return ext;
 }
 
@@ -63,7 +61,6 @@ x509v3ext NewX509::getAuthKeyIdent()
 		x = "keyid:always,issuer:always";
 	}
 	ext.create(NID_authority_key_identifier, x, &ext_ctx);
-	openssl_error();
 	return ext;
 }
 
@@ -87,7 +84,6 @@ x509v3ext NewX509::getKeyUsage()
 	if (kuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_key_usage, cont.join(", "), &ext_ctx);
-	openssl_error();
 	return ext;
 }
 
@@ -107,7 +103,6 @@ x509v3ext NewX509::getEkeyUsage()
 	if (ekuCritical->isChecked() && cont.count() > 0)
 		cont.prepend("critical");
 	ext.create(NID_ext_key_usage, cont.join(", "), &ext_ctx);
-	openssl_error();
 	return ext;
 }
 
@@ -124,7 +119,6 @@ x509v3ext NewX509::getSubAltName()
 		s = sn.join(",");
 	}
 	ext.create(NID_subject_alt_name, s, &ext_ctx);
-	openssl_error();
 	return ext;
 }
 
@@ -141,7 +135,6 @@ x509v3ext NewX509::getIssAltName()
 		s = sn.join(",");
 	}
 	ext.create(NID_issuer_alt_name, s, &ext_ctx);
-	openssl_error();
 	return ext;
 }
 
@@ -151,7 +144,6 @@ x509v3ext NewX509::getCrlDist()
 	if (!crlDist->text().isEmpty()) {
 		ext.create(NID_crl_distribution_points, crlDist->text(), &ext_ctx);
 	}
-	openssl_error();
 	return ext;
 }
 
@@ -195,7 +187,6 @@ x509v3ext NewX509::getAuthInfAcc()
 	if (!aia_txt.isEmpty()) {
 		ext.create(NID_info_access, aia_txt, &ext_ctx);
 	}
-	openssl_error();
 	return ext;
 }
 
@@ -211,9 +202,10 @@ extList NewX509::getAdvanced()
 	int ret, start;
 
 	if (nconf_data->isReadOnly()) {
-		on_adv_validate_clicked();
+		conf_str = v3ext_backup;
+	} else {
+		conf_str = nconf_data->toPlainText();
 	}
-	conf_str = nconf_data->toPlainText();
 	if (conf_str.isEmpty())
 		return elist;
 
@@ -266,6 +258,7 @@ extList NewX509::getGuiExt()
 	ne << getIssAltName();
 	ne << getCrlDist();
 	ne << getAuthInfAcc();
+	openssl_error();
 	return ne;
 }
 
@@ -319,7 +312,7 @@ void NewX509::initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req)
 	X509V3_set_ctx(&ext_ctx, s, s1, r, NULL, 0);
 }
 
-int NewX509::checkExtDuplicates()
+extList NewX509::getExtDuplicates()
 {
 	int i, start, cnt, n1, n;
 	x509v3ext e;
@@ -330,7 +323,7 @@ int NewX509::checkExtDuplicates()
 	if (ext_ctx.subject_cert) {
 		sk = ext_ctx.subject_cert->cert_info->extensions;
 	} else
-		return 0;
+		return el_dup;
 
 	el.setStack(sk, 0);
 	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
@@ -351,23 +344,7 @@ int NewX509::checkExtDuplicates()
 			}
 		}
         }
-	if (el_dup.size() <= 0)
-		return 0;
-
-	tabWidget->setCurrentIndex(tabWidget->count() -1);
-	if (!nconf_data->isReadOnly()) {
-		on_adv_validate_clicked();
-	}
-
-	olist = "<h2><center><font color=\"red\">Error:</font> "
-		"duplicate extensions:</center></h2><p><ul>\n";
-	for(int i = 0; i< el_dup.size(); i++) {
-		olist += "<li>" + el_dup[i].getObject() + "</li>\n";
-	}
-	olist += "</ul>\n<hr>\n";
-	olist += valid_htmltext;
-	nconf_data->document()->setHtml(olist);
-	return el_dup.size();
+	return el_dup;
 }
 
 void NewX509::setExt(const x509v3ext &ext)
