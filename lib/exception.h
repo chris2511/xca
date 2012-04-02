@@ -53,7 +53,7 @@ class errorEx
 #define check_oom(ptr) \
 	if(!ptr) { \
 		throw errorEx(QObject::tr("Out of Memory at %1:%2").\
-			arg(__FILE__).arg(__LINE__)); \
+			arg(C_FILE).arg(__LINE__)); \
 	}
 
 #endif

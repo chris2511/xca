@@ -22,7 +22,8 @@
 #define CCHAR(x) qPrintable(x)
 #endif
 
-#define TRACE fprintf(stderr, "File: "__FILE__" Func: %s Line: %d\n",__func__, __LINE__);
+#define C_FILE ((strrchr(__FILE__, '/') ? : __FILE__- 1) + 1)
+#define TRACE fprintf(stderr, "File: %s Func: %s Line: %d\n", C_FILE, __func__, __LINE__);
 
 #define ARRAY_SIZE(x) (sizeof(x)/sizeof((x)[0]))
 #define MIN(a,b) ((a)<(b)) ? (a) : (b)

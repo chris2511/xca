@@ -39,8 +39,8 @@ QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name = 0);
 
 void inc_progress_bar(int, int, void *p);
 
-#define openssl_error(x) _openssl_error(QString(x), __FILE__, __LINE__)
-#define ign_openssl_error(x) _ign_openssl_error(QString(x), __FILE__, __LINE__)
+#define openssl_error(x) _openssl_error(QString(x), C_FILE, __LINE__)
+#define ign_openssl_error(x) _ign_openssl_error(QString(x), C_FILE, __LINE__)
 void _openssl_error(const QString txt, const char *file, int line);
 bool _ign_openssl_error(const QString txt, const char *file, int line);
 
