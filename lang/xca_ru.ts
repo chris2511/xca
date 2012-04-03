@@ -84,12 +84,12 @@
         <translation>Доверенный</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Revoked: </source>
         <translation type="unfinished">Отозванный: </translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>Not valid</source>
         <translation type="unfinished">Не действительный</translation>
     </message>
@@ -218,7 +218,7 @@
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-118"/>
+        <location filename="../widgets/CertDetail.cpp" line="-121"/>
         <source>Show config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -255,7 +255,7 @@
         <translation type="unfinished">Диапозон времяни</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+10"/>
         <source>Days</source>
         <translation type="unfinished">Дней</translation>
     </message>
@@ -270,12 +270,12 @@
         <translation type="unfinished">Лет</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+15"/>
         <source>Midnight</source>
         <translation>Полночь</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-7"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
@@ -292,12 +292,17 @@
         <translation type="obsolete">yyyy-MM-dd hh:mm</translation>
     </message>
     <message>
-        <location line="-144"/>
+        <location line="-159"/>
         <source>Certificate renewal</source>
         <translation>Сертификат обновлен</translation>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+173"/>
+        <source>Local time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>No well-defined expiration</source>
         <translation type="unfinished">No well-defined expiration</translation>
     </message>
@@ -401,7 +406,7 @@
         <translation type="unfinished">Проверка не возможна</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+24"/>
         <source>Unknown certificate</source>
         <translation type="unfinished">Неизвестный сертификат</translation>
     </message>
@@ -926,7 +931,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+750"/>
+        <location filename="../widgets/MainWindow.cpp" line="+751"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -975,7 +980,7 @@ Serial: %3</source>
         <translation type="obsolete">Пожалуйста, введите пароль для разблокировки базы данных</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+62"/>
         <source>The following error occured:</source>
         <translation>Внимание произошла ошибка:</translation>
     </message>
@@ -1201,7 +1206,7 @@ Serial: %3</source>
         <translation>Дамп базы данных ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-365"/>
+        <location filename="../widgets/MainWindow.cpp" line="-369"/>
         <source>Import PEM data</source>
         <translation>Импорт</translation>
     </message>
@@ -1228,7 +1233,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+109"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
@@ -1271,7 +1276,7 @@ Please enter the DH parameter bits</source>
         <translation type="obsolete">Пожалуйста, введите пароль для расшифровки закрытого ключа: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-523"/>
+        <location filename="../widgets/MainWindow.cpp" line="-527"/>
         <source>no such option: %1</source>
         <translation type="unfinished">нет таких вариантов: %1</translation>
     </message>
@@ -1308,7 +1313,7 @@ Please enter the DH parameter bits</source>
         <translation type="obsolete">Бит DH параметра</translation>
     </message>
     <message>
-        <location line="+308"/>
+        <location line="+312"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished">Ошибка открытия файла: &apos;%1&apos;: %2</translation>
     </message>
@@ -1389,6 +1394,11 @@ Please enter the DH parameter bits</source>
         <location line="+8"/>
         <source>Midnight</source>
         <translation type="unfinished">Полночь</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1509,7 +1519,7 @@ Please enter the DH parameter bits</source>
     <name>NewX509</name>
     <message>
         <location filename="../ui/NewX509.ui" line="+30"/>
-        <location filename="../widgets/NewX509.cpp" line="+226"/>
+        <location filename="../widgets/NewX509.cpp" line="+235"/>
         <source>Create</source>
         <translation>Создать</translation>
     </message>
@@ -1601,12 +1611,12 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+555"/>
+        <location line="+549"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location line="-484"/>
+        <location line="-478"/>
         <location filename="../widgets/NewX509.cpp" line="+204"/>
         <source>Subject</source>
         <translation>Владелец</translation>
@@ -1632,7 +1642,7 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation>Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+46"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
@@ -1792,22 +1802,27 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation>Полночь</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+166"/>
         <source>Authority Info Access</source>
         <translation>способ доступа к информации ЦС</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-52"/>
         <source>CRL distribution point</source>
         <translation>пункт распостраненния САС</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-30"/>
         <source>issuer alternative name</source>
         <translation>алтернативное имя издателя</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+59"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
@@ -1823,29 +1838,29 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+49"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation type="unfinished">может быть изменен в файле &quot;aia.txt&quot;</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <location line="+7"/>
-        <location line="+35"/>
-        <location line="+17"/>
+        <location line="-118"/>
+        <location line="+30"/>
+        <location line="+52"/>
+        <location line="+58"/>
         <location filename="../widgets/NewX509.cpp" line="-200"/>
-        <location line="+550"/>
+        <location line="+564"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
     <message>
-        <location line="-45"/>
-        <location line="+15"/>
-        <location line="+37"/>
+        <location line="-153"/>
+        <location line="+30"/>
+        <location line="+108"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-49"/>
+        <location line="+3"/>
         <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
 
 Example:
@@ -1855,7 +1870,7 @@ caIssuers;URI:http://my.ca/ca.html</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-138"/>
         <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
@@ -1863,12 +1878,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-32"/>
         <source>subject alternative name</source>
         <translation>альтернативное имя владельца</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+62"/>
         <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
@@ -1876,7 +1891,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+149"/>
         <location line="+20"/>
         <source>Key usage</source>
         <translation>Область применения ключа</translation>
@@ -1940,7 +1955,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="obsolete">Создать</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-682"/>
+        <location filename="../widgets/NewX509.cpp" line="-696"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1960,7 +1975,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished">Создание x509 сертификата</translation>
     </message>
     <message>
-        <location line="+619"/>
+        <location line="+701"/>
         <location line="+14"/>
         <location line="+20"/>
         <location line="+11"/>
@@ -1970,12 +1985,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <location line="+12"/>
         <location line="+24"/>
         <location line="+23"/>
-        <location line="+21"/>
+        <location line="+20"/>
         <source>Abort rollout</source>
         <translation type="unfinished">Прервать</translation>
     </message>
     <message>
-        <location line="-178"/>
+        <location line="-177"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1995,17 +2010,17 @@ Please set at least the internal name.</source>
         <location line="+63"/>
         <location line="+42"/>
         <location line="+24"/>
-        <location line="+44"/>
+        <location line="+43"/>
         <source>Continue rollout</source>
         <translation type="unfinished">Продолжить</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-25"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1260"/>
+        <location filename="../ui/NewX509.ui" line="-1337"/>
         <source>Modify subject of the request</source>
         <translation type="unfinished">Изменить владельца в запросе</translation>
     </message>
@@ -2014,18 +2029,18 @@ Please set at least the internal name.</source>
         <translation type="obsolete">yyyy-MM-dd hh:mm</translation>
     </message>
     <message>
-        <location line="+1290"/>
+        <location line="+1367"/>
         <source>Advanced</source>
         <translation>Дополнительно</translation>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-237"/>
+        <location filename="../widgets/NewX509.cpp" line="-301"/>
         <source>Validate</source>
         <translation type="unfinished">Утвердить</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+106"/>
+        <location filename="../widgets/NewX509.cpp" line="+170"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation type="unfinished"></translation>
@@ -2036,17 +2051,12 @@ The rollout should be aborted.</source>
         <translation type="unfinished">Продолжать в любом случае</translation>
     </message>
     <message>
-        <location line="+150"/>
-        <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="-564"/>
+        <location filename="../ui/NewX509.ui" line="-640"/>
         <source>No well-defined expiration</source>
         <translation>Нет четко определенного срока</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-139"/>
+        <location filename="../widgets/NewX509.cpp" line="+11"/>
         <source>Edit name</source>
         <translation type="unfinished">Изменить имя</translation>
     </message>
@@ -2107,12 +2117,17 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+43"/>
+        <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Edit extensions</source>
         <translation type="unfinished">Изменить расширения</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-474"/>
+        <location filename="../ui/NewX509.ui" line="-475"/>
         <source>Organisation</source>
         <translation type="unfinished">Организация (O)</translation>
     </message>
@@ -2162,7 +2177,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Применить все</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-845"/>
+        <location filename="../widgets/NewX509.cpp" line="-926"/>
         <source>minimum size: %1</source>
         <translation type="unfinished">минимальный размер: %1</translation>
     </message>
@@ -2182,12 +2197,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+528"/>
+        <location line="+609"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <source>Other Tabs</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2202,7 +2217,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Ошибки</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+228"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+220"/>
         <source>Configfile error on line %1
 </source>
         <translation type="unfinished">Ошибка кофигурационного файла в строке %1
@@ -2511,7 +2526,9 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Все файлы ( * )</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+104"/>
+        <location filename="../lib/asn1time.cpp" line="+111"/>
+        <location line="+8"/>
+        <location line="+15"/>
         <source>Undefined</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2571,7 +2588,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+242"/>
+        <location filename="../lib/db.cpp" line="+243"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation type="unfinished"></translation>
@@ -2684,6 +2701,11 @@ In library %3
     </message>
     <message>
         <location line="+14"/>
+        <source>Local time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Revokation reason</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2786,7 +2808,7 @@ In library %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+18"/>
+        <location filename="../widgets/validity.cpp" line="+94"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation type="unfinished">yyyy-MM-dd hh:mm</translation>
     </message>
@@ -2803,7 +2825,7 @@ In library %3
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+634"/>
+        <location line="+641"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3641,12 +3663,12 @@ and thus was not stored</source>
         <translation>Данного издателя несуществует</translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+224"/>
         <source>unknown</source>
         <translation>неизвестный</translation>
     </message>
     <message>
-        <location line="-244"/>
+        <location line="-246"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Не удается загрузить список отзыва сертификатов из файла %1. Формат файла, содержащий CRL должен быть PEM или DER.</translation>
     </message>
@@ -3671,7 +3693,7 @@ and thus was not stored</source>
         <translation>Удалить %1 списки отзыва: %2?</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+96"/>
         <location line="+197"/>
         <source>Wrong Size %1</source>
         <translation>Неправильный размер %1</translation>
@@ -3970,7 +3992,7 @@ and thus was not stored</source>
         <translation type="obsolete">XCA шаблон</translation>
     </message>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+374"/>
+        <location filename="../lib/pki_temp.cpp" line="+371"/>
         <source>Template file content error (too small): %1</source>
         <translation>Содержимое файл-шаблона ошибочно (слишком мал) :%1</translation>
     </message>
@@ -3986,7 +4008,7 @@ and thus was not stored</source>
         <translation>Неправильный размер %1</translation>
     </message>
     <message>
-        <location line="-401"/>
+        <location line="-399"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>XCA шаблон &apos;%1&apos; ипортирован успешно</translation>
     </message>
@@ -4006,7 +4028,7 @@ and thus was not stored</source>
         <translation>Удалить %1 XCA шаблоны: %2?</translation>
     </message>
     <message>
-        <location line="+287"/>
+        <location line="+285"/>
         <source>Template file content error (bad size): %1 </source>
         <translation>Содержимое файл-шаблона ошибочно (неверный размер) :%1</translation>
     </message>
@@ -4039,7 +4061,7 @@ and thus was not stored</source>
         <translation>Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+447"/>
+        <location line="+449"/>
         <source>Not trusted</source>
         <translation>Доверия нет</translation>
     </message>
@@ -4073,7 +4095,7 @@ and thus was not stored</source>
         <translation type="obsolete">сертификат</translation>
     </message>
     <message>
-        <location line="-358"/>
+        <location line="-360"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Не удается загрузить сертификат из файла %1. Формат файла должен быть PEM или DER.</translation>
     </message>
@@ -4083,7 +4105,7 @@ and thus was not stored</source>
         <translation>Этот сертификат уже есть на Токене</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+525"/>
         <source>CRL expires: %1</source>
         <translation type="unfinished">CRL истекает: %1</translation>
     </message>
@@ -4093,7 +4115,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="-300"/>
-        <location line="+428"/>
+        <location line="+473"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>
@@ -4182,13 +4204,13 @@ and thus was not stored</source>
         <translation type="unfinished">Отмена</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="+185"/>
+        <location filename="../widgets/v3ext.cpp" line="+189"/>
         <source>Validation successful:
 &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-93"/>
+        <location line="-96"/>
         <source>An email address or &apos;copy&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4228,7 +4250,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+72"/>
         <source>Validation failed:
 &apos;%1&apos;
 %2</source>

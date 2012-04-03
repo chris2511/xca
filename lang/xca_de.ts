@@ -83,12 +83,12 @@
         <translation>Vertrauenswürdig</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+19"/>
         <source>Revoked: </source>
         <translation>Zurückgezogen:</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>Not valid</source>
         <translation>Nicht gültig</translation>
     </message>
@@ -217,7 +217,7 @@
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-118"/>
+        <location filename="../widgets/CertDetail.cpp" line="-121"/>
         <source>Show config</source>
         <translation>Konfiguration anzeigen</translation>
     </message>
@@ -231,7 +231,7 @@
     <message>
         <location filename="../ui/CertExtend.ui" line="+74"/>
         <source>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</source>
-        <translation>Hiermit wird ein neues Zertifikat als Kopie des alten Zeertifikats erstellt, mit neuer Seriennummer und aktueller Gültigkeit.</translation>
+        <translation>Hiermit wird ein neues Zertifikat als Kopie des alten Zertifikats erstellt, mit neuer Seriennummer und aktueller Gültigkeit.</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -254,7 +254,7 @@
         <translation>Zeitspanne</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+10"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
@@ -269,12 +269,12 @@
         <translation>Jahre</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+15"/>
         <source>Midnight</source>
         <translation>Mitternacht</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-7"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
@@ -291,12 +291,17 @@
         <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
-        <location line="-144"/>
+        <location line="-159"/>
         <source>Certificate renewal</source>
         <translation>Zertifikatsverlängerung</translation>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+173"/>
+        <source>Local time</source>
+        <translation>Ortszeit</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>No well-defined expiration</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
@@ -400,7 +405,7 @@
         <translation>Unterzeichner unbekannt</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+27"/>
         <source>Unknown certificate</source>
         <translation>Unbekanntes Zertifikat</translation>
     </message>
@@ -927,7 +932,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+750"/>
+        <location filename="../widgets/MainWindow.cpp" line="+751"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -951,7 +956,7 @@ Seriennummer: %3</translation>
         <translation>Neues Passwort</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+62"/>
         <source>The following error occured:</source>
         <translation>Der folgende Fehler ist aufgetreten:</translation>
     </message>
@@ -1202,7 +1207,7 @@ Seriennummer: %3</translation>
         <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-365"/>
+        <location filename="../widgets/MainWindow.cpp" line="-369"/>
         <source>Import PEM data</source>
         <translation>PEM daten importieren</translation>
     </message>
@@ -1231,7 +1236,7 @@ Seriennummer: %3</translation>
 %1 zu öffnen</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+109"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation>Diffie-Hellman Parameter werden von anderen Applikationen benötigt. XCA verwendet oder speichert sie aber nicht.
@@ -1277,7 +1282,7 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation type="obsolete">Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-523"/>
+        <location filename="../widgets/MainWindow.cpp" line="-527"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
     </message>
@@ -1322,7 +1327,7 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation type="obsolete">DH parameter bits</translation>
     </message>
     <message>
-        <location line="+308"/>
+        <location line="+312"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Öffnen der Datei &apos;%1&apos; fehlgeschlagen: %2</translation>
     </message>
@@ -1403,6 +1408,11 @@ Bitte die D-H Parameter bits angeben</translation>
         <location line="+8"/>
         <source>Midnight</source>
         <translation>Mitternacht</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation>Ortszeit</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1523,7 +1533,7 @@ Bitte die D-H Parameter bits angeben</translation>
     <name>NewX509</name>
     <message>
         <location filename="../ui/NewX509.ui" line="+30"/>
-        <location filename="../widgets/NewX509.cpp" line="+226"/>
+        <location filename="../widgets/NewX509.cpp" line="+235"/>
         <source>Create</source>
         <translation>Erstellen</translation>
     </message>
@@ -1651,12 +1661,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Diese Liste enthält alle Vorlagen</translation>
     </message>
     <message>
-        <location line="+555"/>
+        <location line="+549"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-484"/>
+        <location line="-478"/>
         <location filename="../widgets/NewX509.cpp" line="+204"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
@@ -1682,7 +1692,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+46"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -1841,22 +1851,27 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation>Mitternacht</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation>Ortszeit</translation>
+    </message>
+    <message>
+        <location line="+166"/>
         <source>Authority Info Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-52"/>
         <source>CRL distribution point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-30"/>
         <source>issuer alternative name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+59"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
@@ -1872,29 +1887,29 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+49"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>Kann in der Datei &quot;aia.txt&quot; angepasst werden</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <location line="+7"/>
-        <location line="+35"/>
-        <location line="+17"/>
+        <location line="-118"/>
+        <location line="+30"/>
+        <location line="+52"/>
+        <location line="+58"/>
         <location filename="../widgets/NewX509.cpp" line="-200"/>
-        <location line="+550"/>
+        <location line="+564"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location line="-45"/>
-        <location line="+15"/>
-        <location line="+37"/>
+        <location line="-153"/>
+        <location line="+30"/>
+        <location line="+108"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-49"/>
+        <location line="+3"/>
         <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
 
 Example:
@@ -1904,7 +1919,7 @@ caIssuers;URI:http://my.ca/ca.html</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="-138"/>
         <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
@@ -1912,12 +1927,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="-32"/>
         <source>subject alternative name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+62"/>
         <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
 Examples:
 email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
@@ -1925,7 +1940,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+149"/>
         <location line="+20"/>
         <source>Key usage</source>
         <translation type="unfinished"></translation>
@@ -1989,7 +2004,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-682"/>
+        <location filename="../widgets/NewX509.cpp" line="-696"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
@@ -2009,7 +2024,7 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+619"/>
+        <location line="+701"/>
         <location line="+14"/>
         <location line="+20"/>
         <location line="+11"/>
@@ -2019,12 +2034,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <location line="+12"/>
         <location line="+24"/>
         <location line="+23"/>
-        <location line="+21"/>
+        <location line="+20"/>
         <source>Abort rollout</source>
         <translation>Ausstellung abbrechen</translation>
     </message>
     <message>
-        <location line="-178"/>
+        <location line="-177"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Die folgenden Längenbeschränkungen aus RFC3280 werden verletzt:</translation>
     </message>
@@ -2045,17 +2060,17 @@ Bitte mindestens den internen Namen setzen.</translation>
         <location line="+63"/>
         <location line="+42"/>
         <location line="+24"/>
-        <location line="+44"/>
+        <location line="+43"/>
         <source>Continue rollout</source>
         <translation>Ausstellung fortführen</translation>
     </message>
     <message>
-        <location line="-26"/>
+        <location line="-25"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1260"/>
+        <location filename="../ui/NewX509.ui" line="-1337"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
@@ -2064,18 +2079,18 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
-        <location line="+1290"/>
+        <location line="+1367"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-237"/>
+        <location filename="../widgets/NewX509.cpp" line="-301"/>
         <source>Validate</source>
         <translation>Überprüfen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+106"/>
+        <location filename="../widgets/NewX509.cpp" line="+170"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Die Validierung des Requests ist fehlgeschlagen. Die Zertifikatserstellung sollte abgebrochen werden.</translation>
@@ -2086,17 +2101,16 @@ The rollout should be aborted.</source>
         <translation>Trotzdem fortfahren</translation>
     </message>
     <message>
-        <location line="+150"/>
         <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
-        <translation>Das Zertifikat enthält duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
+        <translation type="obsolete">Das Zertifikat enthält duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-564"/>
+        <location filename="../ui/NewX509.ui" line="-640"/>
         <source>No well-defined expiration</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-139"/>
+        <location filename="../widgets/NewX509.cpp" line="+11"/>
         <source>Edit name</source>
         <translation>Namen editieren</translation>
     </message>
@@ -2158,12 +2172,17 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Das Zertifikat ist länger gültig als der Aussteller. Dies ist wahrscheinlich nicht gewollt.</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+43"/>
+        <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
+        <translation>Das Zertifikat enthält ungültige oder duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Edit extensions</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-550"/>
+        <location filename="../ui/NewX509.ui" line="-551"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>
@@ -2178,7 +2197,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-845"/>
+        <location filename="../widgets/NewX509.cpp" line="-926"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2198,12 +2217,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+528"/>
+        <location line="+609"/>
         <source>From PKCS#10 request</source>
         <translation>Aus dem PKCS#10 Zertifikatsantrag</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+15"/>
         <source>Other Tabs</source>
         <translation>Andere Tabs</translation>
     </message>
@@ -2218,7 +2237,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509_ext.cpp" line="+228"/>
+        <location filename="../widgets/NewX509_ext.cpp" line="+220"/>
         <source>Configfile error on line %1
 </source>
         <translation>Fehler in der Konfigurationsdatei in Zeile %1
@@ -2540,7 +2559,9 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alle Dateien ( * )</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+104"/>
+        <location filename="../lib/asn1time.cpp" line="+111"/>
+        <location line="+8"/>
+        <location line="+15"/>
         <source>Undefined</source>
         <translation>Undefiniert</translation>
     </message>
@@ -2622,7 +2643,7 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Kein Speicher verfügbar %1: %2</translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+242"/>
+        <location filename="../lib/db.cpp" line="+243"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation>zuwenig Daten</translation>
@@ -2745,6 +2766,11 @@ in Bibliothek %3
     </message>
     <message>
         <location line="+14"/>
+        <source>Local time</source>
+        <translation>Ortszeit</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Revokation reason</source>
         <translation>Rücknahmegrund</translation>
     </message>
@@ -2847,7 +2873,7 @@ in Bibliothek %3
 <context>
     <name>Validity</name>
     <message>
-        <location filename="../widgets/validity.cpp" line="+18"/>
+        <location filename="../widgets/validity.cpp" line="+94"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>dd.MM.yyyy hh:mm</translation>
     </message>
@@ -2860,7 +2886,7 @@ in Bibliothek %3
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+634"/>
+        <location line="+641"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -3708,12 +3734,12 @@ und wurde daher nicht importiert</translation>
         <translation>Keine Austeller angegeben</translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+224"/>
         <source>unknown</source>
         <translation>unbekannt</translation>
     </message>
     <message>
-        <location line="-244"/>
+        <location line="-246"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
@@ -3723,7 +3749,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die Sperrliste &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+100"/>
         <location line="+197"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
@@ -4012,12 +4038,12 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+101"/>
+        <location filename="../lib/pki_temp.cpp" line="+100"/>
         <source>Delete the XCA template &apos;%1&apos;?</source>
         <translation>Die XCA Vorlage &apos;%1&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+273"/>
+        <location line="+271"/>
         <source>Template file content error (too small): %1</source>
         <translation>Template zu klein: %1</translation>
     </message>
@@ -4033,7 +4059,7 @@ und wurde daher nicht importiert</translation>
         <translation>Ungültige Größe %1</translation>
     </message>
     <message>
-        <location line="-401"/>
+        <location line="-399"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Die XCA Vorlage &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -4048,7 +4074,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 XCA Vorlagen: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+287"/>
+        <location line="+285"/>
         <source>Template file content error (bad size): %1 </source>
         <translation>Templatefile ungültig (Größe): %1</translation>
     </message>
@@ -4056,7 +4082,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+790"/>
+        <location filename="../lib/pki_x509.cpp" line="+792"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -4076,7 +4102,7 @@ und wurde daher nicht importiert</translation>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
     <message>
-        <location line="-398"/>
+        <location line="-400"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
         <translation>Das Zertifikat &apos;%1&apos; löschen?</translation>
     </message>
@@ -4106,7 +4132,7 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+462"/>
+        <location line="+464"/>
         <source>CRL expires: %1</source>
         <translation>CRL ungültig ab: %1</translation>
     </message>
@@ -4125,13 +4151,13 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen ?</translation>
     </message>
     <message>
-        <location line="-752"/>
+        <location line="-754"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
-        <location line="+436"/>
-        <location line="+428"/>
+        <location line="+438"/>
+        <location line="+473"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
@@ -4212,13 +4238,13 @@ und wurde daher nicht importiert</translation>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="+185"/>
+        <location filename="../widgets/v3ext.cpp" line="+189"/>
         <source>Validation successful:
 &apos;%1&apos;</source>
         <translation>Überprüfung erfolgreich: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-93"/>
+        <location line="-96"/>
         <source>An email address or &apos;copy&apos;</source>
         <translation>Eine E-Mail adresse oder &apos;copy&apos;</translation>
     </message>
@@ -4258,7 +4284,7 @@ und wurde daher nicht importiert</translation>
         <translation>Format:&lt;OID&gt;;TYPE Beispiel: &apos;1.2.3.4:UTF8:name&apos;</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+72"/>
         <source>Validation failed:
 &apos;%1&apos;
 %2</source>

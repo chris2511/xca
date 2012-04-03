@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-21 07:24+0200\n"
+"POT-Creation-Date: 2012-04-03 07:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,62 +209,67 @@ msgstr ""
 
 #: CertExtend#7
 msgctxt "CertExtend#7"
-msgid "No well-defined expiration"
+msgid "Days"
 msgstr ""
 
 #: CertExtend#8
 msgctxt "CertExtend#8"
-msgid "Apply"
+msgid "Months"
 msgstr ""
 
 #: CertExtend#9
 msgctxt "CertExtend#9"
-msgid "Days"
+msgid "Years"
 msgstr ""
 
 #: CertExtend#10
 msgctxt "CertExtend#10"
-msgid "Months"
+msgid "Apply"
 msgstr ""
 
 #: CertExtend#11
 msgctxt "CertExtend#11"
-msgid "Years"
+msgid "Midnight"
 msgstr ""
 
 #: CertExtend#12
 msgctxt "CertExtend#12"
-msgid "Midnight"
+msgid "Local time"
 msgstr ""
 
 #: CertExtend#13
 msgctxt "CertExtend#13"
+msgid "No well-defined expiration"
+msgstr ""
+
+#: CertExtend#14
+msgctxt "CertExtend#14"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: CertExtend#14
-msgid "Edit times"
-msgstr ""
-
 #: CertExtend#15
-msgctxt "CertExtend#15"
-msgid "Abort rollout"
+msgid "Edit times"
 msgstr ""
 
 #: CertExtend#16
 msgctxt "CertExtend#16"
-msgid "Continue rollout"
+msgid "Abort rollout"
 msgstr ""
 
 #: CertExtend#17
 msgctxt "CertExtend#17"
-msgid "Adjust date and continue"
+msgid "Continue rollout"
 msgstr ""
 
 #: CertExtend#18
 msgctxt "CertExtend#18"
+msgid "Adjust date and continue"
+msgstr ""
+
+#: CertExtend#19
+msgctxt "CertExtend#19"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
@@ -1000,31 +1005,36 @@ msgstr ""
 
 #: NewCrl#9
 msgctxt "NewCrl#9"
-msgid "Apply"
+msgid "Local time"
 msgstr ""
 
 #: NewCrl#10
-msgid "Hashing algorithm"
+msgctxt "NewCrl#10"
+msgid "Apply"
 msgstr ""
 
 #: NewCrl#11
-msgctxt "NewCrl#11"
-msgid "Extensions"
+msgid "Hashing algorithm"
 msgstr ""
 
 #: NewCrl#12
-msgid "Authority key identifier"
+msgctxt "NewCrl#12"
+msgid "Extensions"
 msgstr ""
 
 #: NewCrl#13
-msgid "Subject alternative name"
+msgid "Authority key identifier"
 msgstr ""
 
 #: NewCrl#14
-msgid "CRL Number"
+msgid "Subject alternative name"
 msgstr ""
 
 #: NewCrl#15
+msgid "CRL Number"
+msgstr ""
+
+#: NewCrl#16
 msgid "Revokation reasons"
 msgstr ""
 
@@ -1382,26 +1392,61 @@ msgstr ""
 
 #: NewX509#66
 msgctxt "NewX509#66"
-msgid "No well-defined expiration"
+msgid "Local time"
 msgstr ""
 
 #: NewX509#67
-msgid "Authority Info Access"
+msgctxt "NewX509#67"
+msgid "No well-defined expiration"
 msgstr ""
 
 #: NewX509#68
-msgid "CRL distribution point"
+msgid "subject alternative name"
 msgstr ""
 
 #: NewX509#69
-msgid "issuer alternative name"
+msgid "DNS: IP: URI: email: RID:"
 msgstr ""
 
 #: NewX509#70
-msgid "URI:"
+msgid ""
+"The subject alternative name extension allows various literal values to be "
+"used. These include \"email\" (an email address) , \"URI\" a uniform resource "
+"indicator, \"DNS\" (a DNS domain name) , RID (a registered ID: OBJECT "
+"IDENTIFIER) and IP (an IP address).\n"
+"Examples:\n"
+"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
+"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
 msgstr ""
 
 #: NewX509#71
+msgid "Edit"
+msgstr ""
+
+#: NewX509#72
+msgid "issuer alternative name"
+msgstr ""
+
+#: NewX509#73
+msgid ""
+"The issuer alternative name extension allows various literal values to be "
+"used. These include \"email\" (an email address) , \"URI\" a uniform resource "
+"indicator, \"DNS\" (a DNS domain name), RID (a registered ID: OBJECT "
+"IDENTIFIER) and IP (an IP address).\n"
+"Examples:\n"
+"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
+"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
+msgstr ""
+
+#: NewX509#74
+msgid "CRL distribution point"
+msgstr ""
+
+#: NewX509#75
+msgid "URI:"
+msgstr ""
+
+#: NewX509#76
 msgid ""
 "This is a multi-valued extension that supports all the literal options of "
 "subject alternative name. Of the few software packages that currentlyi "
@@ -1418,19 +1463,15 @@ msgid ""
 "URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl"
 msgstr ""
 
-#: NewX509#72
+#: NewX509#77
+msgid "Authority Info Access"
+msgstr ""
+
+#: NewX509#78
 msgid "can be altered by the file \"aia.txt\""
 msgstr ""
 
-#: NewX509#73
-msgid "Edit"
-msgstr ""
-
-#: NewX509#74
-msgid "DNS: IP: URI: email: RID:"
-msgstr ""
-
-#: NewX509#75
+#: NewX509#79
 msgid ""
 "The authority information access extension gives details about how to access "
 "certain information relating to the CA. Its syntax is accessOID;location "
@@ -1446,239 +1487,213 @@ msgid ""
 "caIssuers;URI:http://my.ca/ca.html"
 msgstr ""
 
-#: NewX509#76
-msgid ""
-"The subject alternative name extension allows various literal values to be "
-"used. These include \"email\" (an email address) , \"URI\" a uniform resource "
-"indicator, \"DNS\" (a DNS domain name) , RID (a registered ID: OBJECT "
-"IDENTIFIER) and IP (an IP address).\n"
-"Examples:\n"
-"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
-"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
-msgstr ""
-
-#: NewX509#77
-msgid "subject alternative name"
-msgstr ""
-
-#: NewX509#78
-msgid ""
-"The issuer alternative name extension allows various literal values to be "
-"used. These include \"email\" (an email address) , \"URI\" a uniform resource "
-"indicator, \"DNS\" (a DNS domain name), RID (a registered ID: OBJECT "
-"IDENTIFIER) and IP (an IP address).\n"
-"Examples:\n"
-"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
-"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
-msgstr ""
-
-#: NewX509#79
+#: NewX509#80
 msgid "Key usage"
 msgstr ""
 
-#: NewX509#80
+#: NewX509#81
 msgid "Extended key usage"
 msgstr ""
 
-#: NewX509#81
+#: NewX509#82
 msgid "Netscape"
 msgstr ""
 
-#: NewX509#82
+#: NewX509#83
 msgid "CA Revocation URL"
 msgstr ""
 
-#: NewX509#83
+#: NewX509#84
 msgid "Revocation URL"
 msgstr ""
 
-#: NewX509#84
+#: NewX509#85
 msgid "SSL server name"
 msgstr ""
 
-#: NewX509#85
+#: NewX509#86
 msgid "Certificate renewal URL"
 msgstr ""
 
-#: NewX509#86
+#: NewX509#87
 msgid "Comment"
 msgstr ""
 
-#: NewX509#87
+#: NewX509#88
 msgid "CA policy URL"
 msgstr ""
 
-#: NewX509#88
+#: NewX509#89
 msgid "Base URL"
 msgstr ""
 
-#: NewX509#89
+#: NewX509#90
 msgid "If you know a more pretty one tell me"
 msgstr ""
 
-#: NewX509#90
+#: NewX509#91
 msgid "Advanced"
 msgstr ""
 
-#: NewX509#91
-msgctxt "NewX509#91"
+#: NewX509#92
+msgctxt "NewX509#92"
 msgid "Validate"
 msgstr ""
 
-#: NewX509#92
+#: NewX509#93
 msgid "Create a &self signed certificate with a MD5-hashed QA serial"
 msgstr ""
 
-#: NewX509#93
+#: NewX509#94
 msgid "Create Certificate signing request"
 msgstr ""
 
-#: NewX509#94
+#: NewX509#95
 msgid "minimum size: %1"
 msgstr ""
 
-#: NewX509#95
+#: NewX509#96
 msgid "maximum size: %1"
 msgstr ""
 
-#: NewX509#96
+#: NewX509#97
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr ""
 
-#: NewX509#97
+#: NewX509#98
 msgid "only 7-bit clean characters"
 msgstr ""
 
-#: NewX509#98
+#: NewX509#99
 msgid "XCA template"
 msgstr ""
 
-#: NewX509#99
+#: NewX509#100
 msgid "Create x509 Certificate"
 msgstr ""
 
-#: NewX509#100
+#: NewX509#101
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: NewX509#101
+#: NewX509#102
 msgid "Other Tabs"
 msgstr ""
 
-#: NewX509#102
+#: NewX509#103
 msgid "Advanced Tab"
 msgstr ""
 
-#: NewX509#103
+#: NewX509#104
 msgid "Errors"
 msgstr ""
 
-#: NewX509#104
-msgctxt "NewX509#104"
+#: NewX509#105
+msgctxt "NewX509#105"
 msgid "Abort rollout"
 msgstr ""
 
-#: NewX509#105
+#: NewX509#106
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: NewX509#106
+#: NewX509#107
 msgid "Edit subject"
 msgstr ""
 
-#: NewX509#107
-msgctxt "NewX509#107"
+#: NewX509#108
+msgctxt "NewX509#108"
 msgid "Continue rollout"
 msgstr ""
 
-#: NewX509#108
+#: NewX509#109
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: NewX509#109
+#: NewX509#110
 msgid "Continue anyway"
 msgstr ""
 
-#: NewX509#110
+#: NewX509#111
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: NewX509#111
+#: NewX509#112
 msgid "Edit name"
 msgstr ""
 
-#: NewX509#112
+#: NewX509#113
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: NewX509#113
+#: NewX509#114
 msgid "Select key"
 msgstr ""
 
-#: NewX509#114
+#: NewX509#115
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: NewX509#115
-msgctxt "NewX509#115"
+#: NewX509#116
+msgctxt "NewX509#116"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: NewX509#116
+#: NewX509#117
 msgid "Select other signer"
 msgstr ""
 
-#: NewX509#117
+#: NewX509#118
 msgid "Select other key"
 msgstr ""
 
-#: NewX509#118
-msgctxt "NewX509#118"
+#: NewX509#119
+msgctxt "NewX509#119"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#119
-msgid "Edit dates"
-msgstr ""
-
 #: NewX509#120
-msgctxt "NewX509#120"
-msgid "Adjust date and continue"
+msgid "Edit dates"
 msgstr ""
 
 #: NewX509#121
 msgctxt "NewX509#121"
+msgid "Adjust date and continue"
+msgstr ""
+
+#: NewX509#122
+msgctxt "NewX509#122"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#122
+#: NewX509#123
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: NewX509#123
-msgid ""
-"The certificate contains duplicated extensions. Check the validation on the "
-"advanced tab."
-msgstr ""
-
 #: NewX509#124
-msgid "Edit extensions"
+msgid ""
+"The certificate contains invalid or duplicate extensions. Check the "
+"validation on the advanced tab."
 msgstr ""
 
 #: NewX509#125
+msgid "Edit extensions"
+msgstr ""
+
+#: NewX509#126
 msgid "Configfile error on line %1\n"
 msgstr ""
 
@@ -1966,6 +1981,11 @@ msgid "Invalid since"
 msgstr ""
 
 #: Revoke#3
+msgctxt "Revoke#3"
+msgid "Local time"
+msgstr ""
+
+#: Revoke#4
 msgid "Revokation reason"
 msgstr ""
 
