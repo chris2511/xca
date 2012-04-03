@@ -102,14 +102,16 @@ a1int pki_crl::getVersion()
 	return a;
 }
 
-void pki_crl::setLastUpdate(const a1time &t)
+void pki_crl::setLastUpdate(const a1time &a)
 {
-	t.set_date(&crl->crl->lastUpdate);
+	a1time t(a);
+	X509_CRL_set_lastUpdate(crl, t.get_utc());
 }
 
-void pki_crl::setNextUpdate(const a1time &t)
+void pki_crl::setNextUpdate(const a1time &a)
 {
-	t.set_date(&crl->crl->nextUpdate);
+	a1time t(a);
+	X509_CRL_set_nextUpdate(crl, t.get_utc());
 }
 
 pki_crl::~pki_crl()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>597</width>
-    <height>274</height>
+    <width>760</width>
+    <height>288</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -160,22 +160,11 @@
        <property name="title">
         <string>Time range</string>
        </property>
-       <layout class="QGridLayout" name="gridLayout_1">
-        <item row="1" column="1" colspan="2">
-         <widget class="QCheckBox" name="noWellDefinedExpDate">
-          <property name="text">
-           <string>No well-defined expiration</string>
-          </property>
-         </widget>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLineEdit" name="validNumber"/>
         </item>
         <item row="0" column="2">
-         <widget class="QPushButton" name="applyTime">
-          <property name="text">
-           <string>Apply</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
          <widget class="QComboBox" name="validRange">
           <item>
            <property name="text">
@@ -194,13 +183,31 @@
           </item>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="validNumber"/>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="applyTime">
+          <property name="text">
+           <string>Apply</string>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QCheckBox" name="midnightCB">
           <property name="text">
            <string>Midnight</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string>Local time</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" colspan="2">
+         <widget class="QCheckBox" name="noWellDefinedExpDate">
+          <property name="text">
+           <string>No well-defined expiration</string>
           </property>
          </widget>
         </item>
@@ -243,6 +250,7 @@
    <container>1</container>
    <slots>
     <slot>hideTimeCheck(int)</slot>
+    <slot>localTime(int)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -261,8 +269,8 @@
    <slot>hideTimeCheck(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>277</x>
-     <y>192</y>
+     <x>456</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>231</x>
@@ -277,12 +285,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>407</x>
-     <y>185</y>
+     <x>738</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
-     <x>188</x>
-     <y>188</y>
+     <x>351</x>
+     <y>194</y>
     </hint>
    </hints>
   </connection>
@@ -293,8 +301,8 @@
    <slot>hideTimeCheck(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>293</x>
-     <y>189</y>
+     <x>456</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>239</x>
@@ -331,6 +339,54 @@
     <hint type="destinationlabel">
      <x>74</x>
      <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>421</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>notBefore</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>518</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>344</x>
+     <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>notAfter</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>505</x>
+     <y>190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>191</y>
     </hint>
    </hints>
   </connection>

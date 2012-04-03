@@ -131,10 +131,10 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
+        <item row="0" column="0" colspan="2">
          <widget class="QLineEdit" name="validNumber"/>
         </item>
-        <item row="0" column="1">
+        <item row="0" column="2">
          <widget class="QComboBox" name="validRange">
           <item>
            <property name="text">
@@ -161,6 +161,13 @@
          </widget>
         </item>
         <item row="1" column="1">
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string>Local time</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
          <widget class="QPushButton" name="applyTime">
           <property name="text">
            <string>Apply</string>
@@ -257,6 +264,7 @@
    <container>1</container>
    <slots>
     <slot>hideTimeCheck(int)</slot>
+    <slot>localTime(int)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -282,7 +290,7 @@
      <y>220</y>
     </hint>
     <hint type="destinationlabel">
-     <x>429</x>
+     <x>233</x>
      <y>149</y>
     </hint>
    </hints>
@@ -294,11 +302,11 @@
    <slot>hideTimeCheck(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
+     <x>97</x>
      <y>220</y>
     </hint>
     <hint type="destinationlabel">
-     <x>413</x>
+     <x>233</x>
      <y>118</y>
     </hint>
    </hints>
@@ -332,6 +340,54 @@
     <hint type="destinationlabel">
      <x>179</x>
      <y>454</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>nextUpdate</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>212</x>
+     <y>207</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>lastUpdate</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>216</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>midnightCB</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>checkBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>208</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>184</x>
+     <y>211</y>
     </hint>
    </hints>
   </connection>

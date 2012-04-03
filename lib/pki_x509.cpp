@@ -131,11 +131,11 @@ void pki_x509::init()
 	psigner = NULL;
 	trust = 0;
 	efftrust = 0;
-	revoked.now();
+	revoked = a1time::now();
 	caSerial = 1;
 	caTemplate = "";
 	crlDays = 30;
-	crlExpiry.now();
+	crlExpiry = a1time::now();
 	class_name = "pki_x509";
 	cert = NULL;
 	isrevoked = false;
@@ -378,12 +378,14 @@ bool pki_x509::verifyQASerial(const a1int &secret) const
 
 void pki_x509::setNotBefore(const a1time &a)
 {
-	a.set_date(&X509_get_notBefore(cert));
+	a1time t(a);
+	X509_set_notBefore(cert, t.get_utc());
 }
 
 void pki_x509::setNotAfter(const a1time &a)
 {
-	a.set_date(&X509_get_notAfter(cert));
+	a1time t(a);
+	X509_set_notAfter(cert, t.get_utc());
 }
 
 a1time pki_x509::getNotBefore() const
@@ -634,7 +636,7 @@ QString pki_x509::fingerprint(const EVP_MD *digest)
 
 int pki_x509::checkDate()
 {
-	a1time a; a.now();
+	a1time a = a1time::now();
 	int ret = 0;
 	if (getNotAfter() <  a) ret = -1;
 	if (getNotBefore() > a) ret = 1;
@@ -699,7 +701,7 @@ void pki_x509::setRevoked(bool rev, a1time inval, QString reason)
 {
 	if (rev) {
 		setEffTrust(0);
-		revoked.now();
+		revoked = a1time::now();
 		pki_openssl_error();
 		revoke_reason = reason;
 		invalDate = inval;
@@ -872,14 +874,13 @@ QVariant pki_x509::bg_color(dbheader *hd)
 #define BG_YELLOW  QBrush(QColor(255,255,  0))
 #define BG_CYAN    QBrush(QColor(127,255,212))
 
-	QDateTime nb, na, now, certwarn;
+	a1time nb, na, now, certwarn;
 
-	nb = getNotBefore().qDateTime();
-	na = getNotAfter().qDateTime();
+	nb = getNotBefore();
+	na = getNotAfter();
+	now = a1time::now();
 
 	int lifetime = nb.secsTo(na);
-
-	now = QDateTime::currentDateTimeUtc();
 
 	/* warn after 4/5 certificate lifetime */
 	certwarn = na.addSecs(- lifetime /5);
@@ -890,6 +891,8 @@ QVariant pki_x509::bg_color(dbheader *hd)
 				return QVariant(BG_RED);
 			break;
 		case HD_cert_notAfter: {
+			if (na.isUndefined())
+				return QVariant(BG_CYAN);
 			if (na < now)
 				return QVariant(BG_RED);
 			if (certwarn < now)
@@ -899,7 +902,7 @@ QVariant pki_x509::bg_color(dbheader *hd)
 		case HD_cert_revokation:
 			if (canSign()) {
 				QDateTime crlwarn, crlex;
-				crlex = crlExpiry.qDateTime();
+				crlex = crlExpiry;
 				crlwarn = crlex.addSecs(-2 *60*60*24);
 				if (crlex < now)
 					return QVariant(BG_RED);
@@ -927,14 +930,14 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 			revoked.d2i(ba);
 		}
 		else {
-		   isrevoked = false;
-		   revoked.now();
+			isrevoked = false;
+			revoked = a1time::now();
 		}
 
 		if (version == 1) {
 			caTemplate="";
 			caSerial=1;
-			crlExpiry.now();
+			crlExpiry=a1time::now();
 			crlDays=30;
 		}
 

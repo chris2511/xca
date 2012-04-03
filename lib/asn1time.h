@@ -14,40 +14,33 @@
 
 #define SECONDS_PER_DAY (60*60*24)
 
-class a1time
+class a1time : public QDateTime
 {
    private:
-	ASN1_TIME *time;
-	ASN1_UTCTIME *toUTCtime() const;
+	ASN1_TIME *atime;
+	int from_asn1(const ASN1_TIME *a);
+	int set_asn1(QString str, int type);
+
    public:
 	a1time();
+	a1time(const QDateTime &a);
 	a1time(const ASN1_TIME *a);
-	a1time(const a1time &a);
 	~a1time();
 	a1time &set(const ASN1_TIME *a);
-	a1time &set(time_t t);
-	a1time &set(const QString &s);
-	a1time &set(int y, int mon, int d, int h, int m, int s);
-	void set_date(ASN1_TIME **a) const;
 	void setUndefined();
-	bool isUndefined() const;
+	bool isUndefined()
+	{
+		return !isValid();
+	}
 	QString toPretty() const;
+	QString toPrettyGMT() const;
 	QString toPlain() const;
 	QString toSortable() const;
-	int ymdg(struct tm *tm, int *g = NULL) const;
-	int ymdg(int *y, int *m, int *d, int *h, int *M, int *s, int *g) const;
-	ASN1_TIME *get() const;
-	ASN1_TIME *get_utc() const;
-	ASN1_GENERALIZEDTIME *get_generalized() const;
-	a1time &now(int delta = 0);
-	QByteArray i2d() const;
+	ASN1_TIME *get();
+	ASN1_TIME *get_utc();
+	static QDateTime now(int delta = 0);
+	QByteArray i2d();
 	void d2i(QByteArray &ba);
-	QDateTime qDateTime() const;
-	a1time &operator = (const a1time &a);
-	bool operator > (const a1time &a);
-	bool operator < (const a1time &a);
-	bool operator == (const a1time &a);
-	bool operator != (const a1time &a);
 };
 
 #endif

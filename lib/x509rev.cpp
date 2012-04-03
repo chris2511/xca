@@ -111,11 +111,10 @@ void x509rev::setSerial(const a1int &i)
 	rev->serialNumber = i.get();
 }
 
-void x509rev::setDate(const a1time &t)
+void x509rev::setDate(const a1time &a)
 {
-	if (rev->revocationDate != NULL)
-		ASN1_TIME_free(rev->revocationDate);
-	rev->revocationDate = t.get_utc();
+	a1time t(a);
+	X509_REVOKED_set_revocationDate(rev, t.get_utc());
 }
 
 a1int x509rev::getSerial() const
@@ -132,9 +131,8 @@ a1time x509rev::getDate() const
 
 void x509rev::setInvalDate(const a1time &date)
 {
-	ASN1_GENERALIZEDTIME *g = date.get_generalized();
-	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date, g, 0, 0);
-	ASN1_GENERALIZEDTIME_free(g);
+	a1time t(date);
+	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date, t.get(), 0, 0);
 	openssl_error();
 }
 

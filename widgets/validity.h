@@ -16,7 +16,7 @@ class Validity : public QDateTimeEdit
     Q_OBJECT
 
 	bool midnight, endDate;
-	QString formatDate;
+	void updateFormatString();
 
   protected:
 	QTime mytime;
@@ -38,6 +38,7 @@ class Validity : public QDateTimeEdit
   public slots:
 	void setNow();
 	void hideTimeCheck(int state);
+	void localTime(int);
 };
 
 #endif

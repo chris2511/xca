@@ -15,7 +15,6 @@ Validity::Validity( QWidget* parent )
     : QDateTimeEdit( parent )
 {
 	endDate = false;
-	formatDate = tr("yyyy-MM-dd hh:mm");
 #if QT_VERSION >= 0x040400
 	setTimeSpec(Qt::UTC);
 #endif
@@ -23,6 +22,7 @@ Validity::Validity( QWidget* parent )
 	hideTime(false);
 	connect(this, SIGNAL(timeChanged(const QTime &)),
 		this, SLOT(setMyTime(const QTime &)));
+	updateFormatString();
 }
 
 Validity::~Validity()
@@ -31,22 +31,36 @@ Validity::~Validity()
 
 a1time Validity::getDate() const
 {
-	a1time date;
-	QString postfix, format;
+	a1time date(dateTime());
+	QTime time;
 
 	if (midnight) {
-		format = "yyyyMMdd";
-		if (endDate) {
-			postfix = "235959Z";
-		} else {
-			postfix = "000000Z";
-		}
+		time = endDate ? QTime(23,59,59) : QTime(0,0,0);
+		date.setTimeSpec(Qt::UTC);
 	} else {
-		postfix = "00Z";
-		format = "yyyyMMddhhmm";
+		time = date.time();
+		time.setHMS(time.hour(), time.minute(), 0);
 	}
-	date.set(dateTime().toString(format) + postfix);
+	date.setTime(time);
 	return date;
+}
+
+void Validity::localTime(int state)
+{
+	if (midnight)
+		return;
+	switch (state) {
+	case Qt::Checked:
+		setTimeSpec(Qt::LocalTime);
+		setDateTime(dateTime().toLocalTime());
+		break;
+	case Qt::Unchecked:
+		setTimeSpec(Qt::UTC);
+		setDateTime(dateTime().toUTC());
+		break;
+	}
+	updateFormatString();
+	setMyTime(time());
 }
 
 void Validity::hideTimeCheck(int state)
@@ -64,27 +78,42 @@ void Validity::hideTimeCheck(int state)
 void Validity::hideTime(bool hide)
 {
 	if (hide) {
-		QString format;
-		if (!endDate)
-			format = QTime(0,0,0).toString(formatDate);
-		else
-			format = QTime(23,59,59).toString(formatDate);
 		if (!midnight && endDate)
 			setDateTime(dateTime().addDays(-1));
 		midnight = true;
-		setDisplayFormat(format);
 	} else {
-		setDisplayFormat(formatDate);
 		if (midnight && endDate)
 			setDateTime(dateTime().addDays(1));
 		midnight = false;
 		setTime(mytime);
 	}
+	updateFormatString();
+}
+
+void Validity::updateFormatString()
+{
+	QString formatDate = tr("yyyy-MM-dd hh:mm");
+	QString format;
+
+	if (midnight) {
+		if (!endDate)
+			format = QTime(0,0,0).toString(formatDate);
+		else
+			format = QTime(23,59,59).toString(formatDate);
+	} else {
+		format = formatDate;
+	}
+	if (timeSpec() == Qt::UTC || midnight) {
+		format += " 'GMT'";
+	} else {
+		format+= " t";
+	}
+	setDisplayFormat(format);
 }
 
 void Validity::setDate(const a1time &a)
 {
-	setDateTime(a.qDateTime());
+	setDateTime(a);
 }
 
 void Validity::setDiff(const Validity *start, int number, int range)
@@ -102,15 +131,13 @@ void Validity::setDiff(const Validity *start, int number, int range)
 		dt = dt.addDays(-1);
 
 	setDateTime(dt);
-	mytime = start->mytime;
+	setMyTime(start->mytime);
 }
 
 void Validity::setNow()
 {
-	QDateTime dt = QDateTime::currentDateTime().toUTC();
-
-	setDateTime(dt);
-	mytime = dt.time();
+	setDateTime(a1time::now());
+	setMyTime(time());
 }
 
 void Validity::setMyTime(const QTime &time)

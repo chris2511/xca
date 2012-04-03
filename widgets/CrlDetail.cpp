@@ -67,7 +67,9 @@ void CrlDetail::setCrl(pki_crl *crl)
 
 	descr->setText(crl->getIntName());
 	lUpdate->setText(crl->getLastUpdate().toPretty());
+	lUpdate->setToolTip(crl->getLastUpdate().toPrettyGMT());
 	nUpdate->setText(crl->getNextUpdate().toPretty());
+	nUpdate->setToolTip(crl->getNextUpdate().toPrettyGMT());
 	version->setText((++crl->getVersion()).toHex());
 
 	issuer->setX509name(crl->getSubject());

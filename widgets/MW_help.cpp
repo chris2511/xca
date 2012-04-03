@@ -70,7 +70,7 @@ void MainWindow::about()
 
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
-	"<p>Copyright 2001 - 2010 by Christian Hohnst&auml;dt\n"
+	"<p>Copyright 2001 - 2012 by Christian Hohnst&auml;dt\n"
 	"<p>Version : <b>" VER "</b>"
 	"<p>%1"
 	"<hr><table border=0>"

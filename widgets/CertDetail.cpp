@@ -118,7 +118,9 @@ void CertDetail::setCert(pki_x509 *cert)
 
 		// The dates
 		notBefore->setText(cert->getNotBefore().toPretty());
+		notBefore->setToolTip(cert->getNotBefore().toPrettyGMT());
 		notAfter->setText(cert->getNotAfter().toPretty());
+		notAfter->setToolTip(cert->getNotAfter().toPrettyGMT());
 
 		// validation of the Date
 		dateValid->disableToolTip();
@@ -126,6 +128,7 @@ void CertDetail::setCert(pki_x509 *cert)
 			dateValid->setText(tr("Revoked: ") +
 			cert->getRevoked().toPretty());
 			dateValid->setRed();
+			dateValid->setToolTip(cert->getRevoked().toPrettyGMT());
 		}
 		else if (cert->checkDate() != 0) {
 			dateValid->setText(tr("Not valid"));

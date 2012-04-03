@@ -5,7 +5,6 @@
  * All rights reserved.
  */
 
-
 #include "pki_temp.h"
 #include "func.h"
 #include "db.h"
@@ -204,10 +203,8 @@ extList pki_temp::fromCert(pki_x509super *cert_or_req)
 			{
 				validMidn = true;
 			}
-			QDateTime nb = notBefore.qDateTime();
-			QDateTime na = notAfter.qDateTime();
 
-			int diff = nb.daysTo(na);
+			int diff = notBefore.daysTo(notAfter);
 			validM = 0;
 			if (diff > 60) {
 				validM = 1;

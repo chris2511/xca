@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>165</height>
+    <height>195</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,21 +24,28 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2">
+      <item row="0" column="1">
        <widget class="Validity" name="invalid">
         <property name="calendarPopup">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2">
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>Local time</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Revokation reason</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="2" column="1">
        <widget class="QComboBox" name="reason"/>
       </item>
      </layout>
@@ -64,6 +71,7 @@
    <container>1</container>
    <slots>
     <slot>hideTimeCheck(int)</slot>
+    <slot>localTime(int)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -76,12 +84,28 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>137</y>
+     <x>236</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
      <y>164</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>invalid</receiver>
+   <slot>localTime(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>244</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>244</x>
+     <y>55</y>
     </hint>
    </hints>
   </connection>
