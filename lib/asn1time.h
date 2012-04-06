@@ -28,10 +28,7 @@ class a1time : public QDateTime
 	~a1time();
 	a1time &set(const ASN1_TIME *a);
 	void setUndefined();
-	bool isUndefined()
-	{
-		return !isValid();
-	}
+	bool isUndefined() const;
 	QString toPretty() const;
 	QString toPrettyGMT() const;
 	QString toPlain() const;

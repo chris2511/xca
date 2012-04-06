@@ -129,12 +129,10 @@ void CertDetail::setCert(pki_x509 *cert)
 			cert->getRevoked().toPretty());
 			dateValid->setRed();
 			dateValid->setToolTip(cert->getRevoked().toPrettyGMT());
-		}
-		else if (cert->checkDate() != 0) {
+		} else if (!cert->checkDate()) {
 			dateValid->setText(tr("Not valid"));
 			dateValid->setRed();
-		}
-		else {
+		} else {
 			dateValid->setGreen();
 			dateValid->setText(tr("Valid"));
 		}

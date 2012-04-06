@@ -29,6 +29,7 @@ class Options: public QDialog, public Ui::Options
 		QString getDnString();
 		QString getStringOpt();
 		QString getPkcs11Provider();
+		void setDnString(QString dn);
 
 	public slots:
 		void on_extDNadd_clicked();

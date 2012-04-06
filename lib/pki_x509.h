@@ -39,6 +39,7 @@ class pki_x509 : public pki_x509super
 		void init();
 	public:
 		static QPixmap *icon[6];
+		static bool dont_colorize_expiries;
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
 		pki_x509(const QString name = "");
@@ -76,7 +77,7 @@ class pki_x509 : public pki_x509super
 		void delSigner(pki_base *s);
 		QString fingerprint(const EVP_MD *digest);
 		extList getV3ext();
-		int checkDate();
+		bool checkDate();
 		void addV3ext(const x509v3ext &e);
 		void sign(pki_key *signkey, const EVP_MD *digest);
 		X509 *getCert()

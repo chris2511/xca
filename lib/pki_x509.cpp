@@ -18,6 +18,7 @@
 #include <QtCore/QDir>
 #include <openssl/rand.h>
 
+bool pki_x509::dont_colorize_expiries = false;
 QPixmap *pki_x509::icon[6] = { NULL, NULL, NULL, NULL, NULL, NULL };
 
 pki_x509::pki_x509(X509 *c)
@@ -634,14 +635,22 @@ QString pki_x509::fingerprint(const EVP_MD *digest)
 	return fp;
 }
 
-int pki_x509::checkDate()
+bool pki_x509::checkDate()
 {
-	a1time a = a1time::now();
-	int ret = 0;
-	if (getNotAfter() <  a) ret = -1;
-	if (getNotBefore() > a) ret = 1;
+	a1time n, b, a;
+
+	n = a1time::now(),
+	b = getNotBefore();
+	a = getNotAfter();
+
+	if (!a.isValid() || !b.isValid())
+		return false;
+	if (!a.isUndefined() && (a < n))
+		return false;
+	if (b > n)
+		return false;
 	pki_openssl_error();
-	return ret;
+	return true;
 }
 
 extList pki_x509::getV3ext()
@@ -874,6 +883,9 @@ QVariant pki_x509::bg_color(dbheader *hd)
 #define BG_YELLOW  QBrush(QColor(255,255,  0))
 #define BG_CYAN    QBrush(QColor(127,255,212))
 
+	if (dont_colorize_expiries)
+		return QVariant();
+
 	a1time nb, na, now, certwarn;
 
 	nb = getNotBefore();
@@ -887,7 +899,7 @@ QVariant pki_x509::bg_color(dbheader *hd)
 
 	switch (hd->id) {
 		case HD_cert_notBefore:
-			if (nb > now)
+			if (nb > now || !nb.isValid() || nb.isUndefined())
 				return QVariant(BG_RED);
 			break;
 		case HD_cert_notAfter: {
@@ -906,7 +918,7 @@ QVariant pki_x509::bg_color(dbheader *hd)
 				crlwarn = crlex.addSecs(-2 *60*60*24);
 				if (crlex < now)
 					return QVariant(BG_RED);
-				if (crlwarn < now)
+				if (crlwarn < now || !crlex.isValid())
 					return QVariant(BG_YELLOW);
 			}
 	}

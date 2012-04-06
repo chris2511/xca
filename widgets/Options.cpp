@@ -17,9 +17,6 @@ Options::Options(MainWindow *parent)
 	:QDialog(parent)
 {
 	mw = parent;
-	QStringList dnl;
-	if (!MainWindow::mandatory_dn.isEmpty())
-		dnl = MainWindow::mandatory_dn.split(",");
 
 	NIDlist dn_nid = *MainWindow::dn_nid;
 	setWindowTitle(tr(XCA_TITLE));
@@ -28,11 +25,6 @@ Options::Options(MainWindow *parent)
 	for (int i=0; i < dn_nid.count(); i++)
 		extDNobj->addItem(OBJ_nid2ln(dn_nid[i]));
 
-	for (int i=0; i < dnl.count(); i++) {
-		int nid;
-		nid = OBJ_sn2nid(CCHAR(dnl[i]));
-		extDNlist->insertItem(0, OBJ_nid2ln(nid));
-	}
 	string_opts << "MASK:0x2002" << "pkix" << "nombstr" <<
 			"utf8only" << "default";
 	QStringList s;
@@ -60,14 +52,26 @@ void Options::on_extDNdel_clicked()
 	extDNlist->takeItem(extDNlist->currentRow());
 }
 
+void Options::setDnString(QString dn)
+{
+	QStringList dnl;
+
+	if (!dn.isEmpty())
+		dnl = dn.split(",");
+	for (int i=0; i < dnl.count(); i++) {
+		int nid = OBJ_sn2nid(CCHAR(dnl[i]));
+		extDNlist->insertItem(0, OBJ_nid2ln(nid));
+	}
+}
+
 QString Options::getDnString()
 {
 	QStringList dn;
+
 	for (int j=0; j<extDNlist->count(); j++) {
-		int nid;
-		nid = OBJ_ln2nid(CCHAR(extDNlist->item(j)->text()));
+		int nid = OBJ_ln2nid(CCHAR(extDNlist->item(j)->text()));
 		dn << QString(OBJ_nid2sn(nid));
-    }
+	}
 	return dn.join(",");
 }
 

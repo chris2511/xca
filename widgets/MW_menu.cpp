@@ -162,10 +162,14 @@ void MainWindow::setOptions()
 {
 	Options *opt = new Options(this);
 
+	opt->setDnString(mandatory_dn);
 	opt->setStringOpt(string_opt);
 	opt->setupPkcs11Provider(pkcs11path);
 	opt->suppress->setCheckState(
 		pki_base::suppress_messages ? Qt::Checked : Qt::Unchecked);
+	opt->noColorize->setCheckState(
+		pki_x509::dont_colorize_expiries ? Qt::Checked : Qt::Unchecked);
+
 	if (!opt->exec()) {
 		delete opt;
 		enableTokenMenu(pkcs11::loaded());
@@ -181,10 +185,18 @@ void MainWindow::setOptions()
 	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
 			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
 
-	bool suppress = opt->suppress->checkState();
-	pki_base::suppress_messages = suppress;
-	mydb.set((const unsigned char *)(suppress ? "1" : "0"),
-			2, 1, setting, "suppress");
+	QString flags = getOptFlags();
+	pki_base::suppress_messages = opt->suppress->checkState();
+	pki_x509::dont_colorize_expiries = opt->noColorize->checkState();
+
+	if (flags != getOptFlags()) {
+		flags = getOptFlags();
+		mydb.set((const unsigned char *)(CCHAR(flags)),
+				flags.length()+1, 1, setting, "optionflags");
+		mydb.first();
+		if (!mydb.find(setting, "suppress"))
+			mydb.erase();
+	}
 
 	if (opt->getStringOpt() != string_opt) {
 		string_opt = opt->getStringOpt();
@@ -200,4 +212,42 @@ void MainWindow::setOptions()
 	}
 	enableTokenMenu(pkcs11::loaded());
 	delete opt;
+}
+
+/* Documentation of the flags field:
+ * S: Suppress success messages
+ * C: Don't colorize success messages
+ */
+void MainWindow::setOptFlags(QString flags)
+{
+	int s = flags.size(), i;
+	QByteArray b = flags.toAscii();
+
+	pki_base::suppress_messages = false;
+	pki_x509::dont_colorize_expiries = false;
+
+	for (i=0; i<s; i++) {
+		switch (b[i]) {
+		case 'S':
+			pki_base::suppress_messages = true;
+			break;
+		case 'C':
+			pki_x509::dont_colorize_expiries = true;
+			break;
+		default:
+			abort();
+		}
+	}
+}
+
+QString MainWindow::getOptFlags()
+{
+	QString flags;
+
+	if (pki_base::suppress_messages)
+		flags += "S";
+	if (pki_x509::dont_colorize_expiries)
+		flags += "C";
+
+	return flags;
 }

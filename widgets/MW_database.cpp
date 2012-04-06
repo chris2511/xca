@@ -47,7 +47,7 @@ int MainWindow::init_database()
 	hashBox::resetDefault();
 	pkcs11path = getDefaultPkcs11Lib();
 	workingdir = QDir::currentPath();
-	pki_base::suppress_messages = 0;
+	setOptFlags((QString()));
 	try {
 		pkcs11_lib p(pkcs11path);
 	} catch (errorEx &e) {
@@ -136,6 +136,13 @@ int MainWindow::init_database()
 				free(p);
 				if (x == "1")
 					pki_base::suppress_messages = 1;
+			}
+		}
+		mydb.first();
+		if (!mydb.find(setting, "optionflags")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				setOptFlags((QString(p)));
+				free(p);
 			}
 		}
 		ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
@@ -317,6 +324,7 @@ void MainWindow::close_database()
 	keys = NULL;
 
 	pki_evp::passwd.cleanse();
+	pki_evp::passwd = QByteArray();
 
 	if (!crls)
 		return;

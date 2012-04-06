@@ -48,6 +48,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QLabel *statusLabel;
 		QString homedir;
 		int changeDB(QString fname);
+		void setOptFlags(QString flags);
+		QString getOptFlags();
 
 	public:
 		static db_x509 *certs;

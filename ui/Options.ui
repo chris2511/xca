@@ -136,6 +136,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="noColorize">
+     <property name="text">
+      <string>Don't colorize expired certificates</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
       <string>PKCS#11 provider</string>

@@ -7,6 +7,7 @@
 
 #include "base.h"
 #include "func.h"
+#include "exception.h"
 #include <time.h>
 #include "asn1time.h"
 #include <openssl/x509.h>
@@ -16,15 +17,29 @@
 
 /* As defined in rfc-5280  4.1.2.5 */
 #define UNDEFINED_DATE "99991231235959Z"
+
 #define UTC_FORMAT     "yyMMddHHmmss'Z'"
 #define GEN_FORMAT     "yy" UTC_FORMAT
+
+bool a1time::isUndefined() const
+{
+	return toTime_t() == 0;
+}
+
+void a1time::setUndefined()
+{
+	/* This way we handle "Jan 01, 1970 00:00:00"
+	 * like RFC-5280 undefined date. I dare it */
+	setTimeSpec(Qt::UTC);
+	setTime_t(0);
+}
 
 int a1time::from_asn1(const ASN1_TIME *a)
 {
 	ASN1_GENERALIZEDTIME *gt;
 	QString t;
-	QDateTime dt;
 
+	*this = QDateTime();
 	if (!a)
 		return -1;
 	gt = ASN1_TIME_to_generalizedtime((ASN1_TIME*)a, NULL);
@@ -33,11 +48,10 @@ int a1time::from_asn1(const ASN1_TIME *a)
 	t = QString::fromAscii((char*)gt->data, gt->length);
 	ASN1_GENERALIZEDTIME_free(gt);
 	if (t == UNDEFINED_DATE) {
-		*this = QDateTime();
+		setUndefined();
 		return 0;
 	}
-	dt = QDateTime::fromString(t, GEN_FORMAT);
-	*this = dt;
+	*this = QDateTime::fromString(t, GEN_FORMAT);
 	setTimeSpec(Qt::UTC);
 	return 0;
 }
@@ -82,7 +96,7 @@ ASN1_TIME *a1time::get_utc()
 {
 	int year = date().year();
 
-	if (!isValid() || year > 2049 || year < 1950)
+	if (!isValid() || isUndefined() || year > 2049 || year < 1950)
 		return get();
 
 	set_asn1(toUTC().toString(UTC_FORMAT), V_ASN1_UTCTIME);
@@ -91,8 +105,10 @@ ASN1_TIME *a1time::get_utc()
 
 ASN1_TIME *a1time::get()
 {
-	if (!isValid())
+	if (isUndefined())
 		set_asn1(UNDEFINED_DATE, V_ASN1_GENERALIZEDTIME);
+	else if (!isValid())
+		throw errorEx("Invalid Time");
 	else
 		set_asn1(toUTC().toString(GEN_FORMAT),
 			V_ASN1_GENERALIZEDTIME);
@@ -107,37 +123,40 @@ a1time &a1time::set(const ASN1_TIME *a)
 
 QString a1time::toPretty() const
 {
-	if (!isValid())
+	if (isUndefined())
 		return QObject::tr("Undefined");
+	if (!isValid())
+		 return QObject::tr("Broken / Invalid");
 
 	return toLocalTime().toString(Qt::SystemLocaleLongDate);
 }
 
 QString a1time::toPrettyGMT() const
 {
-	if (!isValid())
+	if (isUndefined())
 		return QObject::tr("Undefined");
+	if (!isValid())
+		 return QObject::tr("Broken / Invalid");
 
 	return toUTC().toString(Qt::ISODate) + " GMT";
 }
 
 QString a1time::toPlain() const
 {
-	if (!isValid())
+	if (isUndefined())
 		return QString(UNDEFINED_DATE);
+	if (!isValid())
+		 return QString("Broken-InvalidZ");
 	return toUTC().toString(GEN_FORMAT);
 }
 
 QString a1time::toSortable() const
 {
-	if (!isValid())
+	if (isUndefined())
 		return QObject::tr("Undefined");
+	if (!isValid())
+		 return QObject::tr("Broken / Invalid");
 	return toUTC().toString("yyyy-MM-dd");
-}
-
-void a1time::setUndefined()
-{
-	*this = QDateTime();
 }
 
 QDateTime a1time::now(int delta)
