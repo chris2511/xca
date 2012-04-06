@@ -9,7 +9,7 @@ Requirements:
 
 for compilation, you need the following Libraries:
 
-QT          >=  4.3.0  from http://www.troll.no
+QT          >=  4.4.0  from http://www.troll.no
 OpenSSL     >=  0.9.8  from http://www.openssl.org
 
 GNU C++ compiler >= 3.1.0

@@ -163,7 +163,7 @@ check_frameworks() {
   return 0
 }
 
-if test "$#" = "0" && test -z "$DARWIN" && \
+if test "$#" = "0" && test -z "$DARWIN" && test -z "$QTDIR" && \
    pkg-config QtGui openssl --libs >/dev/null;
 then
   CF="`pkg-config QtGui openssl --cflags`"
