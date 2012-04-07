@@ -50,11 +50,11 @@
     </message>
     <message>
       <source>The internal name of the certificate in the database</source>
-      <translation type="unfinished"/>
+      <translation>El nombre interno del certificado en la base de datos</translation>
     </message>
     <message>
       <source>Internal name</source>
-      <translation type="unfinished"/>
+      <translation>Nombre interno</translation>
     </message>
     <message>
       <source>Signature algorithm</source>
@@ -62,23 +62,23 @@
     </message>
     <message>
       <source>Signature</source>
-      <translation type="unfinished"/>
+      <translation>Firma</translation>
     </message>
     <message>
       <source>Key</source>
-      <translation type="unfinished"/>
+      <translation>Clave</translation>
     </message>
     <message>
       <source>Fingerprints</source>
-      <translation type="unfinished"/>
+      <translation>Huellas digitales</translation>
     </message>
     <message>
       <source>SHA1</source>
-      <translation type="unfinished"/>
+      <translation>SHA1</translation>
     </message>
     <message>
       <source>MD5</source>
-      <translation type="unfinished"/>
+      <translation>MD5</translation>
     </message>
     <message>
       <source>A SHA-1 hashsum of the certificate</source>
@@ -94,15 +94,15 @@
     </message>
     <message>
       <source>The time since the certificate is valid</source>
-      <translation type="unfinished"/>
+      <translation>El momento desde el que el certificado es válido</translation>
     </message>
     <message>
       <source>The time until the certificate is valid</source>
-      <translation type="unfinished"/>
+      <translation>El momento hasta el que el certificado es válido</translation>
     </message>
     <message>
       <source>&amp;Subject</source>
-      <translation type="unfinished"/>
+      <translation>As&amp;unto</translation>
     </message>
     <message>
       <source>&amp;Issuer</source>
@@ -110,27 +110,27 @@
     </message>
     <message>
       <source>Attributes</source>
-      <translation type="unfinished"/>
+      <translation>Atributos</translation>
     </message>
     <message>
       <source>&amp;Extensions</source>
-      <translation type="unfinished"/>
+      <translation>&amp;Extensiones</translation>
     </message>
     <message>
       <source>Show config</source>
-      <translation type="unfinished"/>
+      <translation>Mostrar configuración</translation>
     </message>
     <message>
       <source>Show extensions</source>
-      <translation type="unfinished"/>
+      <translation>Mostrar extensiones</translation>
     </message>
     <message>
       <source>Not available</source>
-      <translation type="unfinished"/>
+      <translation>No disponible</translation>
     </message>
     <message>
       <source>Details of the certificate</source>
-      <translation type="unfinished"/>
+      <translation>Detalles del certificado</translation>
     </message>
     <message>
       <source>Signer unknown</source>
@@ -142,23 +142,23 @@
     </message>
     <message>
       <source>Not trusted</source>
-      <translation type="unfinished"/>
+      <translation>No fiable</translation>
     </message>
     <message>
       <source>Trusted</source>
-      <translation type="unfinished"/>
+      <translation>Fiable</translation>
     </message>
     <message>
       <source>Revoked: </source>
-      <translation type="unfinished"/>
+      <translation>Revocado: </translation>
     </message>
     <message>
       <source>Not valid</source>
-      <translation type="unfinished"/>
+      <translation>No válido</translation>
     </message>
     <message>
       <source>Valid</source>
-      <translation type="unfinished"/>
+      <translation>Válido</translation>
     </message>
     <message>
       <source>Details of the certificate signing request</source>
@@ -169,7 +169,7 @@
     <name>CertExtend</name>
     <message>
       <source>Certificate renewal</source>
-      <translation type="unfinished"/>
+      <translation>Renovación de certificado</translation>
     </message>
     <message>
       <source>This will create a new certificate as a copy of the old one with a new serial number and adjusted validity values.</source>
@@ -181,15 +181,15 @@
     </message>
     <message>
       <source>Not before</source>
-      <translation type="unfinished"/>
+      <translation>No antes de</translation>
     </message>
     <message>
       <source>Not after</source>
-      <translation type="unfinished"/>
+      <translation>No después de</translation>
     </message>
     <message>
       <source>Time range</source>
-      <translation type="unfinished"/>
+      <translation>Rango de tiempo</translation>
     </message>
     <message>
       <source>No well-defined expiration</source>
@@ -197,23 +197,23 @@
     </message>
     <message>
       <source>Apply</source>
-      <translation type="unfinished"/>
+      <translation>Aplicar</translation>
     </message>
     <message>
       <source>Days</source>
-      <translation type="unfinished"/>
+      <translation>Días</translation>
     </message>
     <message>
       <source>Months</source>
-      <translation type="unfinished"/>
+      <translation>Meses</translation>
     </message>
     <message>
       <source>Years</source>
-      <translation type="unfinished"/>
+      <translation>Años</translation>
     </message>
     <message>
       <source>Midnight</source>
-      <translation type="unfinished"/>
+      <translation>Medianoche</translation>
     </message>
     <message>
       <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
@@ -255,7 +255,7 @@
     <name>ClickLabel</name>
     <message>
       <source>Double click for details</source>
-      <translation type="unfinished"/>
+      <translation>Haga doble click para obtener detalles</translation>
     </message>
   </context>
   <context>
@@ -368,7 +368,7 @@ PKCS#12 is an encrypted official Key-Certificate exchange format
       <translation type="unfinished"/>
     </message>
     <message>
-      <source>Certifikate export</source>
+      <source>Certificate export</source>
       <translation type="unfinished"/>
     </message>
   </context>
@@ -794,6 +794,10 @@ Serial: %3</source>
       <translation type="unfinished"/>
     </message>
     <message>
+      <source>paste PEM file</source>
+      <translation type="unfinished"/>
+    </message>
+    <message>
       <source>&amp;Token</source>
       <translation type="unfinished"/>
     </message>
@@ -855,7 +859,7 @@ Serial: %3</source>
     </message>
     <message>
       <source>Cancel</source>
-      <translation type="unfinished">Cancelar</translation>
+      <translation>Cancelar</translation>
     </message>
     <message>
       <source>no such option: %1</source>
@@ -900,7 +904,7 @@ Serial: %3</source>
     </message>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Contraseña</translation>
+      <translation>Contraseña</translation>
     </message>
     <message>
       <source>Please enter the password for unlocking the database:
@@ -916,7 +920,7 @@ Serial: %3</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <source>Diffie-Hellman paramters are needed for different applications. They are neither used by XCA nor stored in the database. After generating them, XCA will ask for a filename to store the DH parameters
+      <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
       <translation type="unfinished"/>
     </message>
@@ -1632,7 +1636,7 @@ though you have declared them as mandatory in the options menu.</source>
     <name>PwDialog</name>
     <message>
       <source>Password</source>
-      <translation type="unfinished">Contraseña</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
@@ -2277,19 +2281,19 @@ and so it was not imported</source>
     </message>
     <message>
       <source>Export</source>
-      <translation>Importar</translation>
+      <translation>Exportar</translation>
     </message>
     <message>
       <source>Clipboard</source>
-      <translation type="unfinished"/>
+      <translation>Portapapeles</translation>
     </message>
     <message>
       <source>File</source>
-      <translation type="unfinished"/>
+      <translation>Archivo</translation>
     </message>
     <message>
       <source>Request</source>
-      <translation type="unfinished"/>
+      <translation>Solicitud</translation>
     </message>
     <message>
       <source>Security token</source>
@@ -2301,7 +2305,7 @@ and so it was not imported</source>
     </message>
     <message>
       <source>Template</source>
-      <translation type="unfinished"/>
+      <translation>Plantilla</translation>
     </message>
     <message>
       <source>OpenSSL config</source>
@@ -2309,7 +2313,7 @@ and so it was not imported</source>
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished"/>
+      <translation>Eliminar</translation>
     </message>
     <message>
       <source>Delete from Security token</source>
@@ -2333,7 +2337,7 @@ and so it was not imported</source>
     </message>
     <message>
       <source>Sign</source>
-      <translation type="unfinished">Firma</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Encrypt</source>
@@ -2403,7 +2407,7 @@ and so it was not imported</source>
     </message>
     <message>
       <source>Challenge password</source>
-      <translation type="unfinished">Cambiar contraseña</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>The certificate signing request already exists in the database as
@@ -2969,7 +2973,7 @@ and thus was not stored</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <source>Validation successful:
+      <source>Validation successfull:
 '%1'</source>
       <translation type="unfinished"/>
     </message>

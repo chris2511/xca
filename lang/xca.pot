@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-03 07:05+0200\n"
+"POT-Creation-Date: 2012-04-07 10:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1191,94 +1191,98 @@ msgid "Subject"
 msgstr ""
 
 #: NewX509#24
-msgid "Organisation"
+msgid "Distinguished name"
 msgstr ""
 
 #: NewX509#25
+msgid "Organisation"
+msgstr ""
+
+#: NewX509#26
 msgid ""
 "This name is only used internally and does not appear in the resulting "
 "certificate"
 msgstr ""
 
-#: NewX509#26
+#: NewX509#27
 msgid "Must be exactly 2 letter of size (DE, UK)"
 msgstr ""
 
-#: NewX509#27
+#: NewX509#28
 msgid "Country code"
 msgstr ""
 
-#: NewX509#28
+#: NewX509#29
 msgid "State or Province"
 msgstr ""
 
-#: NewX509#29
+#: NewX509#30
 msgid "Locality"
 msgstr ""
 
-#: NewX509#30
+#: NewX509#31
 msgid "Organisational unit"
 msgstr ""
 
-#: NewX509#31
+#: NewX509#32
 msgid "E-Mail address"
 msgstr ""
 
-#: NewX509#32
-msgctxt "NewX509#32"
+#: NewX509#33
+msgctxt "NewX509#33"
 msgid "Internal name"
 msgstr ""
 
-#: NewX509#33
-msgid "Common name"
-msgstr ""
-
 #: NewX509#34
-msgctxt "NewX509#34"
-msgid "Add"
+msgid "Common name"
 msgstr ""
 
 #: NewX509#35
 msgctxt "NewX509#35"
-msgid "Delete"
+msgid "Add"
 msgstr ""
 
 #: NewX509#36
 msgctxt "NewX509#36"
-msgid "Private key"
+msgid "Delete"
 msgstr ""
 
 #: NewX509#37
-msgid "This list only contains unused keys"
+msgctxt "NewX509#37"
+msgid "Private key"
 msgstr ""
 
 #: NewX509#38
-msgid "Used keys too"
+msgid "This list only contains unused keys"
 msgstr ""
 
 #: NewX509#39
-msgid "&Generate a new key"
+msgid "Used keys too"
 msgstr ""
 
 #: NewX509#40
-msgctxt "NewX509#40"
-msgid "Extensions"
+msgid "&Generate a new key"
 msgstr ""
 
 #: NewX509#41
-msgid "Basic constraints"
+msgctxt "NewX509#41"
+msgid "Extensions"
 msgstr ""
 
 #: NewX509#42
-msgctxt "NewX509#42"
-msgid "Type"
+msgid "Basic constraints"
 msgstr ""
 
 #: NewX509#43
-msgid "If this will become a CA certificate or not"
+msgctxt "NewX509#43"
+msgid "Type"
 msgstr ""
 
 #: NewX509#44
+msgid "If this will become a CA certificate or not"
+msgstr ""
+
+#: NewX509#45
 msgid ""
 "Set this to TRUE if you want to create a CA certificate that signs other "
 "certificates.\n"
@@ -1287,27 +1291,27 @@ msgid ""
 "Self-signed non-CA certificates are unusual although they are possible."
 msgstr ""
 
-#: NewX509#45
+#: NewX509#46
 msgid "Not defined"
 msgstr ""
 
-#: NewX509#46
+#: NewX509#47
 msgid "Certification Authority"
 msgstr ""
 
-#: NewX509#47
+#: NewX509#48
 msgid "End Entity"
 msgstr ""
 
-#: NewX509#48
+#: NewX509#49
 msgid "Path length"
 msgstr ""
 
-#: NewX509#49
+#: NewX509#50
 msgid "How much CAs may be below this."
 msgstr ""
 
-#: NewX509#50
+#: NewX509#51
 msgid ""
 "If this is left empty the pathlen is not included in the certificate. "
 "Otherwise it distinguishes the count of chained CA certificates below this "
@@ -1317,23 +1321,23 @@ msgid ""
 "your browser or openssl will (should) fail."
 msgstr ""
 
-#: NewX509#51
+#: NewX509#52
 msgid "The basic constraints should always be critical"
 msgstr ""
 
-#: NewX509#52
+#: NewX509#53
 msgid "Key identifier"
 msgstr ""
 
-#: NewX509#53
+#: NewX509#54
 msgid "Creates a hash of the key following the PKIX guidelines"
 msgstr ""
 
-#: NewX509#54
+#: NewX509#55
 msgid "Copy the Subject Key Identifier from the issuer"
 msgstr ""
 
-#: NewX509#55
+#: NewX509#56
 msgid ""
 "If this box is checked an attempt is made to copy the subject key identifier "
 "from the signing certificate.\n"
@@ -1341,74 +1345,74 @@ msgid ""
 "Normally this will only be done if the keyid option fails."
 msgstr ""
 
-#: NewX509#56
-msgctxt "NewX509#56"
-msgid "Validity"
-msgstr ""
-
 #: NewX509#57
 msgctxt "NewX509#57"
-msgid "Not before"
+msgid "Validity"
 msgstr ""
 
 #: NewX509#58
 msgctxt "NewX509#58"
-msgid "Not after"
+msgid "Not before"
 msgstr ""
 
 #: NewX509#59
 msgctxt "NewX509#59"
-msgid "Time range"
+msgid "Not after"
 msgstr ""
 
 #: NewX509#60
 msgctxt "NewX509#60"
-msgid "Days"
+msgid "Time range"
 msgstr ""
 
 #: NewX509#61
 msgctxt "NewX509#61"
-msgid "Months"
+msgid "Days"
 msgstr ""
 
 #: NewX509#62
 msgctxt "NewX509#62"
-msgid "Years"
+msgid "Months"
 msgstr ""
 
 #: NewX509#63
 msgctxt "NewX509#63"
-msgid "Apply"
+msgid "Years"
 msgstr ""
 
 #: NewX509#64
-msgid "Set the time to 00:00:00 and 23:59:59 respectively"
+msgctxt "NewX509#64"
+msgid "Apply"
 msgstr ""
 
 #: NewX509#65
-msgctxt "NewX509#65"
-msgid "Midnight"
+msgid "Set the time to 00:00:00 and 23:59:59 respectively"
 msgstr ""
 
 #: NewX509#66
 msgctxt "NewX509#66"
-msgid "Local time"
+msgid "Midnight"
 msgstr ""
 
 #: NewX509#67
 msgctxt "NewX509#67"
-msgid "No well-defined expiration"
+msgid "Local time"
 msgstr ""
 
 #: NewX509#68
-msgid "subject alternative name"
+msgctxt "NewX509#68"
+msgid "No well-defined expiration"
 msgstr ""
 
 #: NewX509#69
-msgid "DNS: IP: URI: email: RID:"
+msgid "subject alternative name"
 msgstr ""
 
 #: NewX509#70
+msgid "DNS: IP: URI: email: RID:"
+msgstr ""
+
+#: NewX509#71
 msgid ""
 "The subject alternative name extension allows various literal values to be "
 "used. These include \"email\" (an email address) , \"URI\" a uniform resource "
@@ -1419,15 +1423,15 @@ msgid ""
 "email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
 msgstr ""
 
-#: NewX509#71
+#: NewX509#72
 msgid "Edit"
 msgstr ""
 
-#: NewX509#72
+#: NewX509#73
 msgid "issuer alternative name"
 msgstr ""
 
-#: NewX509#73
+#: NewX509#74
 msgid ""
 "The issuer alternative name extension allows various literal values to be "
 "used. These include \"email\" (an email address) , \"URI\" a uniform resource "
@@ -1438,15 +1442,15 @@ msgid ""
 "email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
 msgstr ""
 
-#: NewX509#74
+#: NewX509#75
 msgid "CRL distribution point"
 msgstr ""
 
-#: NewX509#75
+#: NewX509#76
 msgid "URI:"
 msgstr ""
 
-#: NewX509#76
+#: NewX509#77
 msgid ""
 "This is a multi-valued extension that supports all the literal options of "
 "subject alternative name. Of the few software packages that currentlyi "
@@ -1463,15 +1467,15 @@ msgid ""
 "URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl"
 msgstr ""
 
-#: NewX509#77
+#: NewX509#78
 msgid "Authority Info Access"
 msgstr ""
 
-#: NewX509#78
+#: NewX509#79
 msgid "can be altered by the file \"aia.txt\""
 msgstr ""
 
-#: NewX509#79
+#: NewX509#80
 msgid ""
 "The authority information access extension gives details about how to access "
 "certain information relating to the CA. Its syntax is accessOID;location "
@@ -1487,213 +1491,213 @@ msgid ""
 "caIssuers;URI:http://my.ca/ca.html"
 msgstr ""
 
-#: NewX509#80
+#: NewX509#81
 msgid "Key usage"
 msgstr ""
 
-#: NewX509#81
+#: NewX509#82
 msgid "Extended key usage"
 msgstr ""
 
-#: NewX509#82
+#: NewX509#83
 msgid "Netscape"
 msgstr ""
 
-#: NewX509#83
+#: NewX509#84
 msgid "CA Revocation URL"
 msgstr ""
 
-#: NewX509#84
+#: NewX509#85
 msgid "Revocation URL"
 msgstr ""
 
-#: NewX509#85
+#: NewX509#86
 msgid "SSL server name"
 msgstr ""
 
-#: NewX509#86
+#: NewX509#87
 msgid "Certificate renewal URL"
 msgstr ""
 
-#: NewX509#87
+#: NewX509#88
 msgid "Comment"
 msgstr ""
 
-#: NewX509#88
+#: NewX509#89
 msgid "CA policy URL"
 msgstr ""
 
-#: NewX509#89
+#: NewX509#90
 msgid "Base URL"
 msgstr ""
 
-#: NewX509#90
+#: NewX509#91
 msgid "If you know a more pretty one tell me"
 msgstr ""
 
-#: NewX509#91
+#: NewX509#92
 msgid "Advanced"
 msgstr ""
 
-#: NewX509#92
-msgctxt "NewX509#92"
+#: NewX509#93
+msgctxt "NewX509#93"
 msgid "Validate"
 msgstr ""
 
-#: NewX509#93
+#: NewX509#94
 msgid "Create a &self signed certificate with a MD5-hashed QA serial"
 msgstr ""
 
-#: NewX509#94
+#: NewX509#95
 msgid "Create Certificate signing request"
 msgstr ""
 
-#: NewX509#95
+#: NewX509#96
 msgid "minimum size: %1"
 msgstr ""
 
-#: NewX509#96
+#: NewX509#97
 msgid "maximum size: %1"
 msgstr ""
 
-#: NewX509#97
+#: NewX509#98
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr ""
 
-#: NewX509#98
+#: NewX509#99
 msgid "only 7-bit clean characters"
 msgstr ""
 
-#: NewX509#99
+#: NewX509#100
 msgid "XCA template"
 msgstr ""
 
-#: NewX509#100
+#: NewX509#101
 msgid "Create x509 Certificate"
 msgstr ""
 
-#: NewX509#101
+#: NewX509#102
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: NewX509#102
+#: NewX509#103
 msgid "Other Tabs"
 msgstr ""
 
-#: NewX509#103
+#: NewX509#104
 msgid "Advanced Tab"
 msgstr ""
 
-#: NewX509#104
+#: NewX509#105
 msgid "Errors"
 msgstr ""
 
-#: NewX509#105
-msgctxt "NewX509#105"
+#: NewX509#106
+msgctxt "NewX509#106"
 msgid "Abort rollout"
 msgstr ""
 
-#: NewX509#106
+#: NewX509#107
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: NewX509#107
+#: NewX509#108
 msgid "Edit subject"
 msgstr ""
 
-#: NewX509#108
-msgctxt "NewX509#108"
+#: NewX509#109
+msgctxt "NewX509#109"
 msgid "Continue rollout"
 msgstr ""
 
-#: NewX509#109
+#: NewX509#110
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: NewX509#110
+#: NewX509#111
 msgid "Continue anyway"
 msgstr ""
 
-#: NewX509#111
+#: NewX509#112
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: NewX509#112
+#: NewX509#113
 msgid "Edit name"
 msgstr ""
 
-#: NewX509#113
+#: NewX509#114
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: NewX509#114
+#: NewX509#115
 msgid "Select key"
 msgstr ""
 
-#: NewX509#115
+#: NewX509#116
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: NewX509#116
-msgctxt "NewX509#116"
+#: NewX509#117
+msgctxt "NewX509#117"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: NewX509#117
+#: NewX509#118
 msgid "Select other signer"
 msgstr ""
 
-#: NewX509#118
+#: NewX509#119
 msgid "Select other key"
 msgstr ""
 
-#: NewX509#119
-msgctxt "NewX509#119"
+#: NewX509#120
+msgctxt "NewX509#120"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#120
-msgid "Edit dates"
-msgstr ""
-
 #: NewX509#121
-msgctxt "NewX509#121"
-msgid "Adjust date and continue"
+msgid "Edit dates"
 msgstr ""
 
 #: NewX509#122
 msgctxt "NewX509#122"
+msgid "Adjust date and continue"
+msgstr ""
+
+#: NewX509#123
+msgctxt "NewX509#123"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#123
+#: NewX509#124
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: NewX509#124
+#: NewX509#125
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
 "validation on the advanced tab."
 msgstr ""
 
-#: NewX509#125
+#: NewX509#126
 msgid "Edit extensions"
 msgstr ""
 
-#: NewX509#126
+#: NewX509#127
 msgid "Configfile error on line %1\n"
 msgstr ""
 
@@ -1728,39 +1732,43 @@ msgid "Suppress success messages"
 msgstr ""
 
 #: Options#8
-msgid "PKCS#11 provider"
+msgid "Don't colorize expired certificates"
 msgstr ""
 
 #: Options#9
-msgid "Remove"
+msgid "PKCS#11 provider"
 msgstr ""
 
 #: Options#10
-msgctxt "Options#10"
-msgid "Search"
+msgid "Remove"
 msgstr ""
 
 #: Options#11
-msgid "Printable string or UTF8 (default)"
+msgctxt "Options#11"
+msgid "Search"
 msgstr ""
 
 #: Options#12
-msgid "PKIX recommendation in RFC2459"
+msgid "Printable string or UTF8 (default)"
 msgstr ""
 
 #: Options#13
-msgid "No BMP strings, only printable and T61"
+msgid "PKIX recommendation in RFC2459"
 msgstr ""
 
 #: Options#14
-msgid "UTF8 strings only (RFC2459)"
+msgid "No BMP strings, only printable and T61"
 msgstr ""
 
 #: Options#15
-msgid "All strings"
+msgid "UTF8 strings only (RFC2459)"
 msgstr ""
 
 #: Options#16
+msgid "All strings"
+msgstr ""
+
+#: Options#17
 msgid "Load failed"
 msgstr ""
 
@@ -1797,178 +1805,182 @@ msgid "Undefined"
 msgstr ""
 
 #: QObject#2
-msgid "DB: Rename: '%1' already in use"
+msgid "Broken / Invalid"
 msgstr ""
 
 #: QObject#3
-msgid "DB: Entry to rename not found: %1"
+msgid "DB: Rename: '%1' already in use"
 msgstr ""
 
 #: QObject#4
-msgid "DB: Write error %1 - %2"
+msgid "DB: Entry to rename not found: %1"
 msgstr ""
 
 #: QObject#5
-msgid "Out of data"
+msgid "DB: Write error %1 - %2"
 msgstr ""
 
 #: QObject#6
-msgid "Error finding endmarker of string"
+msgid "Out of data"
 msgstr ""
 
 #: QObject#7
-msgid "Out of Memory at %1:%2"
+msgid "Error finding endmarker of string"
 msgstr ""
 
 #: QObject#8
-msgctxt "QObject#8"
-msgid "All files ( * )"
+msgid "Out of Memory at %1:%2"
 msgstr ""
 
 #: QObject#9
-msgid "PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;"
+msgctxt "QObject#9"
+msgid "All files ( * )"
 msgstr ""
 
 #: QObject#10
-msgid "Import RSA key"
+msgid "PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;"
 msgstr ""
 
 #: QObject#11
-msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
+msgid "Import RSA key"
 msgstr ""
 
 #: QObject#12
-msgid "Import Request"
+msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
 msgstr ""
 
 #: QObject#13
-msgid "Certificates ( *.pem *.der *.crt *.cer );;"
+msgid "Import Request"
 msgstr ""
 
 #: QObject#14
-msgid "Import X.509 Certificate"
+msgid "Certificates ( *.pem *.der *.crt *.cer );;"
 msgstr ""
 
 #: QObject#15
-msgid "PKCS#7 data ( *.p7s *.p7m *.p7b );;"
+msgid "Import X.509 Certificate"
 msgstr ""
 
 #: QObject#16
-msgid "Import PKCS#7 Certificates"
+msgid "PKCS#7 data ( *.p7s *.p7m *.p7b );;"
 msgstr ""
 
 #: QObject#17
-msgid "PKCS#12 Certificates ( *.p12 *.pfx );;"
+msgid "Import PKCS#7 Certificates"
 msgstr ""
 
 #: QObject#18
-msgid "Import PKCS#12 Private Certificate"
+msgid "PKCS#12 Certificates ( *.p12 *.pfx );;"
 msgstr ""
 
 #: QObject#19
-msgid "XCA templates ( *.xca );;"
+msgid "Import PKCS#12 Private Certificate"
 msgstr ""
 
 #: QObject#20
-msgid "Import XCA Templates"
+msgid "XCA templates ( *.xca );;"
 msgstr ""
 
 #: QObject#21
-msgid "Revocation lists ( *.pem *.der *.crl );;"
+msgid "Import XCA Templates"
 msgstr ""
 
 #: QObject#22
-msgid "Import Certificate Revocation List"
+msgid "Revocation lists ( *.pem *.der *.crl );;"
 msgstr ""
 
 #: QObject#23
-msgid "XCA Databases ( *.xdb );;"
+msgid "Import Certificate Revocation List"
 msgstr ""
 
 #: QObject#24
-msgid "Open XCA Database"
+msgid "XCA Databases ( *.xdb );;"
 msgstr ""
 
 #: QObject#25
-msgid "PKCS#11 library ( *.dll );;"
+msgid "Open XCA Database"
 msgstr ""
 
 #: QObject#26
-msgid "PKCS#11 library ( *.dylib *.so );;"
+msgid "PKCS#11 library ( *.dll );;"
 msgstr ""
 
 #: QObject#27
-msgid "PKCS#11 library ( *.so );;"
+msgid "PKCS#11 library ( *.dylib *.so );;"
 msgstr ""
 
 #: QObject#28
-msgid "Open PKCS#11 shared library"
+msgid "PKCS#11 library ( *.so );;"
 msgstr ""
 
 #: QObject#29
-msgid "PEM files ( *.pem );;"
+msgid "Open PKCS#11 shared library"
 msgstr ""
 
 #: QObject#30
-msgid "Load PEM encoded file"
+msgid "PEM files ( *.pem );;"
 msgstr ""
 
 #: QObject#31
-msgid "Please enter the PIN on the PinPad"
+msgid "Load PEM encoded file"
 msgstr ""
 
 #: QObject#32
-msgid "Please enter the SO PIN (PUK) of the token %1"
+msgid "Please enter the PIN on the PinPad"
 msgstr ""
 
 #: QObject#33
-msgid "Please enter the PIN of the token %1"
+msgid "Please enter the SO PIN (PUK) of the token %1"
 msgstr ""
 
 #: QObject#34
-msgid "No Security token found"
+msgid "Please enter the PIN of the token %1"
 msgstr ""
 
 #: QObject#35
-msgid "Select"
+msgid "No Security token found"
 msgstr ""
 
 #: QObject#36
-msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
+msgid "Select"
 msgstr ""
 
 #: QObject#37
-msgid "Please enter the new PIN for the token: '%1'"
+msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
 msgstr ""
 
 #: QObject#38
-msgid "Required PIN size: %1 - %2"
+msgid "Please enter the new PIN for the token: '%1'"
 msgstr ""
 
 #: QObject#39
-msgid "Failed to open PKCS11 library: %1"
+msgid "Required PIN size: %1 - %2"
 msgstr ""
 
 #: QObject#40
-msgid "PKCS#11 function '%1' failed: %2"
+msgid "Failed to open PKCS11 library: %1"
 msgstr ""
 
 #: QObject#41
+msgid "PKCS#11 function '%1' failed: %2"
+msgstr ""
+
+#: QObject#42
 msgid ""
 "PKCS#11 function '%1' failed: %2\n"
 "In library %3\n"
 "%4"
 msgstr ""
 
-#: QObject#42
+#: QObject#43
 msgid "Invalid"
 msgstr ""
 
-#: QObject#43
+#: QObject#44
 msgid "%1 is shorter than %2 bytes: '%3'"
 msgstr ""
 
-#: QObject#44
+#: QObject#45
 msgid "%1 is longer than %2 bytes: '%3'"
 msgstr ""
 

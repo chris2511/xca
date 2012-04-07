@@ -27,14 +27,6 @@
         <translation>Standard Template</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
-    </message>
-    <message>
         <location line="-82"/>
         <source>CA Properties</source>
         <translation>CA Einstellungen</translation>
@@ -88,12 +80,12 @@
         <translation>Zurückgezogen:</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+5"/>
         <source>Not valid</source>
         <translation>Nicht gültig</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+4"/>
         <source>Valid</source>
         <translation>Gültig</translation>
     </message>
@@ -136,14 +128,6 @@
         <location line="+23"/>
         <source>Signature algorithm</source>
         <translation>Signatur algorithmus</translation>
-    </message>
-    <message>
-        <source>Signed by</source>
-        <translation type="obsolete">Unterschrieben von</translation>
-    </message>
-    <message>
-        <source>Private key</source>
-        <translation type="obsolete">Privater Schlüssel</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -217,13 +201,9 @@
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-121"/>
+        <location filename="../widgets/CertDetail.cpp" line="-119"/>
         <source>Show config</source>
         <translation>Konfiguration anzeigen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -277,18 +257,6 @@
         <location line="-7"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Abbrechen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>yyyy-MM-dd hh:mm</source>
-        <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
     </message>
     <message>
         <location line="-159"/>
@@ -474,25 +442,9 @@
         <source>0</source>
         <translation>0</translation>
     </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
 </context>
 <context>
     <name>ExportCert</name>
-    <message>
-        <source>Certificate export</source>
-        <translation type="obsolete">Zertifikatsexport</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>Filename</source>
-        <translation type="obsolete">Dateiname</translation>
-    </message>
     <message>
         <location filename="../widgets/ExportDialog.h" line="+78"/>
         <source>X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )</source>
@@ -517,69 +469,9 @@ PKCS#12 is an encrypted official Key-Certificate exchange format
         <source>Certifikate export</source>
         <translation>Zertifikatsexport</translation>
     </message>
-    <message>
-        <source>DER is a binary format of the Certificate</source>
-        <translation type="obsolete">DER ist ein binärformat des Zertifikats</translation>
-    </message>
-    <message>
-        <source>PEM is a base64 encoded Certificate</source>
-        <translation type="obsolete">PEM ist ein base64 kodiertes Zertifikat</translation>
-    </message>
-    <message>
-        <source>PKCS#7 is an official Certificate exchange format</source>
-        <translation type="obsolete">PKCS#7 ist ein offizielles Zertifikats austausch format</translation>
-    </message>
-    <message>
-        <source>PKCS#12 is an encrypted official Key-Certificate exchange format</source>
-        <translation type="obsolete">PKCS#12 ist ein verschlüsseltes Schlüssel/Zertifikats format</translation>
-    </message>
-    <message>
-        <source>Export Format</source>
-        <translation type="obsolete">Exportformat</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Save key as</source>
-        <translation type="obsolete">Schlüssel speichern als</translation>
-    </message>
-    <message>
-        <source>X509 Certificates ( *.cer *.crt *.p12 );;All files ( * )</source>
-        <translation type="obsolete">X509 Zertifikate ( *.cer *.crt *.p12 );;Alle Dateien ( * )</translation>
-    </message>
 </context>
 <context>
     <name>ExportDer</name>
-    <message>
-        <source>Filename</source>
-        <translation type="obsolete">Dateiname</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>Export Format</source>
-        <translation type="obsolete">Exportformat</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Export</source>
-        <translation type="obsolete">Export</translation>
-    </message>
     <message>
         <location line="-45"/>
         <source>All files ( * )</source>
@@ -649,14 +541,6 @@ PEM is a base64 encoded DER file
         <translation>Bitte geben Sie den Dateinamen für den Schlüssel ein.</translation>
     </message>
     <message>
-        <source>Filename</source>
-        <translation type="obsolete">Dateiname</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
         <location line="-5"/>
         <source>DER is a binary format of the key without encryption
 PEM is a base64 encoded key with optional encryption
@@ -664,10 +548,6 @@ PKCS#8 is an encrypted official Key-exchange format</source>
         <translation>DER ist ein binärformat ohne Passwort sicherung
 PEM ist ein base64 codierter Schlüssel mit optionaler Passwort sicherung
 PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</translation>
-    </message>
-    <message>
-        <source>Export Format</source>
-        <translation type="obsolete">Exportformat</translation>
     </message>
     <message>
         <location filename="../ui/ExportKey.ui" line="+23"/>
@@ -693,18 +573,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <location line="+10"/>
         <source>&amp;Encrypt the Key with a password</source>
         <translation>D&amp;en Schlüssel mit einem Passwort sichern</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Abbrechen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>Save key as</source>
-        <translation type="obsolete">Schlüssel speichern als</translation>
     </message>
     <message>
         <location filename="../widgets/ExportKey.cpp" line="-2"/>
@@ -751,10 +619,6 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <location line="+7"/>
         <source>&amp;Done</source>
         <translation>&amp;Fertig</translation>
-    </message>
-    <message>
-        <source>&amp;Remove</source>
-        <translation type="obsolete">Entfe&amp;rnen</translation>
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="+105"/>
@@ -862,10 +726,6 @@ Seriennummer: %3</translation>
         <translation>Modulus</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
         <location filename="../widgets/KeyDetail.cpp" line="+9"/>
         <source>Sub prime</source>
         <translation>Sub prime</translation>
@@ -940,14 +800,6 @@ Seriennummer: %3</translation>
         <location line="-1"/>
         <source>Password verify error, please try again</source>
         <translation>Die Passwort überprüfung ist fehlgeschlagen</translation>
-    </message>
-    <message>
-        <source>Please enter a password, that will be used to encrypt your private keys in the database-file</source>
-        <translation type="obsolete">Bitte geben Sie ein Passwort an um die privaten Schlüssel in der Datenbank zu verschlüsseln</translation>
-    </message>
-    <message>
-        <source>Please enter the password for unlocking the database</source>
-        <translation type="obsolete">Bitte geben Sie das Passwort ein um die Datenbank zu öffnen</translation>
     </message>
     <message>
         <location line="-128"/>
@@ -1097,7 +949,7 @@ Seriennummer: %3</translation>
         <translation>Rücknahmelisten</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+170"/>
+        <location filename="../widgets/MW_database.cpp" line="+177"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
@@ -1243,12 +1095,6 @@ Please enter the DH parameter bits</source>
 Bitte die DH Parameter bits angeben</translation>
     </message>
     <message>
-        <source>Diffie-Hellman paramters are needed for different applications. They are neither used by XCA nor stored in the database. After generating them, XCA will ask for a filename to store the DH parameters
-Please enter the DH parameter bits</source>
-        <translation type="obsolete">Diffie-Hellman Paramter werden von verschiedenen Applikationen benötigt. Weder benötigt XCA diese, noch werden sie in der Datenbank gespeichert. Nach der Erstellung muss der Dateiname angegeben werden unter dem dies gespeichert werden sollen.
-Bitte die D-H Parameter bits angeben</translation>
-    </message>
-    <message>
         <location filename="../widgets/MW_menu.cpp" line="-105"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Neue Datenbank</translation>
@@ -1274,21 +1120,9 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation>Beenden</translation>
     </message>
     <message>
-        <source>You need to restart XCA to load the new library</source>
-        <translation type="obsolete">XCA muss neu gestartet werden um die neue PKCS#11 DLL zu laden</translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
-        <translation type="obsolete">Bitte das Passwort zur Entschlüsselung des privaten Schlüssels: &apos;%1&apos; eingeben</translation>
-    </message>
-    <message>
         <location filename="../widgets/MainWindow.cpp" line="-527"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
-    </message>
-    <message>
-        <source>%1 missmatch</source>
-        <translation type="obsolete">Keine %1 übereinstimmung</translation>
     </message>
     <message>
         <location filename="../widgets/MW_database.cpp" line="-72"/>
@@ -1309,22 +1143,6 @@ Bitte die D-H Parameter bits angeben</translation>
         <location line="+116"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Die Chipkarte &apos;%1&apos; enthält keine Schlüssel oder Zertifikate</translation>
-    </message>
-    <message>
-        <source>Please enter a password, that will be used to encrypt your private keys in the database file: &apos;%1&apos;</source>
-        <translation type="obsolete">Bitte geben Sie ein Passwort an um die privaten Schlüssel in der Datenbank &apos;%1&apos; zu verschlüsseln</translation>
-    </message>
-    <message>
-        <source>Please enter the password for unlocking the database: &apos;%1&apos;</source>
-        <translation type="obsolete">Bitte geben Sie das Passwort ein um die Datenbank &apos;%1&apos; zu öffnen</translation>
-    </message>
-    <message>
-        <source>Repeat %1</source>
-        <translation type="obsolete">%1 wiederholen</translation>
-    </message>
-    <message>
-        <source>DH parameter bits</source>
-        <translation type="obsolete">DH parameter bits</translation>
     </message>
     <message>
         <location line="+312"/>
@@ -1449,18 +1267,6 @@ Bitte die D-H Parameter bits angeben</translation>
         <source>Revokation reasons</source>
         <translation>Rückzugsgrund</translation>
     </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>yyyy-MM-dd hh:mm</source>
-        <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
-    </message>
 </context>
 <context>
     <name>NewKey</name>
@@ -1511,14 +1317,6 @@ Bitte die D-H Parameter bits angeben</translation>
         <translation>Schlüsseltyp</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Cancel</translation>
-    </message>
-    <message>
-        <source>C&amp;reate</source>
-        <translation type="obsolete">E&amp;rstellen</translation>
-    </message>
-    <message>
         <location line="-27"/>
         <source>Curve</source>
         <translation>Kurve</translation>
@@ -1560,7 +1358,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <translation>Request anzeigen</translation>
     </message>
     <message>
-        <location line="+337"/>
+        <location line="+340"/>
         <source>Country code</source>
         <translation>Länder code</translation>
     </message>
@@ -1595,7 +1393,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <translation>E-Mail Adresse</translation>
     </message>
     <message>
-        <location line="-373"/>
+        <location line="-376"/>
         <source>Sign this Certificate signing &amp;request</source>
         <translation>Diesen Zertifikatsant&amp;rag unterschreiben</translation>
     </message>
@@ -1623,10 +1421,6 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <location line="+3"/>
         <source>1</source>
         <translation>1</translation>
-    </message>
-    <message>
-        <source>Use &amp;this Certificate for for signing</source>
-        <translation type="obsolete">Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1661,12 +1455,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Diese Liste enthält alle Vorlagen</translation>
     </message>
     <message>
-        <location line="+549"/>
+        <location line="+552"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-478"/>
+        <location line="-481"/>
         <location filename="../widgets/NewX509.cpp" line="+204"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
@@ -1677,7 +1471,12 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
     </message>
     <message>
-        <location line="+195"/>
+        <location line="+170"/>
+        <source>Distinguished name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
@@ -1996,14 +1795,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
         <location filename="../widgets/NewX509.cpp" line="-696"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
@@ -2070,16 +1861,12 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1337"/>
+        <location filename="../ui/NewX509.ui" line="-1340"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
     <message>
-        <source>yyyy-MM-dd hh:mm</source>
-        <translation type="obsolete">dd.MM.yyyy hh:mm</translation>
-    </message>
-    <message>
-        <location line="+1367"/>
+        <location line="+1370"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -2099,10 +1886,6 @@ The rollout should be aborted.</source>
         <location line="+2"/>
         <source>Continue anyway</source>
         <translation>Trotzdem fortfahren</translation>
-    </message>
-    <message>
-        <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
-        <translation type="obsolete">Das Zertifikat enthält duplizierte Extensions. Bitte prüfen Sie die Validierung auf dem Erweitert Reiter.</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="-640"/>
@@ -2182,7 +1965,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-551"/>
+        <location filename="../ui/NewX509.ui" line="-554"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>
@@ -2253,12 +2036,12 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+24"/>
-        <location line="+96"/>
+        <location line="+103"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location line="-89"/>
+        <location line="-96"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
@@ -2279,6 +2062,11 @@ though you have declared them as mandatory in the options menu.</source>
     </message>
     <message>
         <location line="+7"/>
+        <source>Don&apos;t colorize expired certificates</source>
+        <translation>Abgelaufene Zertifikate nicht farblich markieren</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>PKCS#11 provider</source>
         <translation>PKCS#11 anbieter</translation>
     </message>
@@ -2293,29 +2081,9 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Suchen</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <location filename="../widgets/Options.cpp" line="+42"/>
+        <location filename="../widgets/Options.cpp" line="+34"/>
         <source>UTF8 strings only (RFC2459)</source>
         <translation>Nur UTF8 Zeichenketten (RFC2459)</translation>
-    </message>
-    <message>
-        <source>PKCS#11 path: </source>
-        <translation type="obsolete">PKCS#11 pfad:</translation>
-    </message>
-    <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="obsolete">Laden</translation>
     </message>
     <message>
         <location line="-3"/>
@@ -2338,70 +2106,14 @@ though you have declared them as mandatory in the options menu.</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+124"/>
+        <location line="+136"/>
         <source>Load failed</source>
         <translation>Laden fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-150"/>
+        <location filename="../ui/Options.ui" line="-157"/>
         <source>XCA Options</source>
         <translation>XCA Optionen</translation>
-    </message>
-    <message>
-        <source>Successfully loaded PKCS#11 library: %1
-</source>
-        <translation type="obsolete">Die PKCS#11 Bibliothek %1 wurde erfolgreich geladen
-</translation>
-    </message>
-</context>
-<context>
-    <name>PassRead</name>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Passwort</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Abbrechen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-        <translation type="obsolete">Das Passwort wird als 2stelliger hex-code interpretiert. Er muss eine gradstellige Anzahl der Ziffern 0-9 und a-f enthalten</translation>
-    </message>
-    <message>
-        <source>Take as HEX string</source>
-        <translation type="obsolete">Als HEX Zeichenkette interpretieren</translation>
-    </message>
-</context>
-<context>
-    <name>PassWrite</name>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Passwort</translation>
-    </message>
-    <message>
-        <source>Repeat password</source>
-        <translation type="obsolete">Passwort wiederholen</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Abbrechen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-        <translation type="obsolete">Das Passwort wird als 2 stelliger hex-code interpretiert. Er muss eine grade Anzahl an Ziffern enthalten (0-9 und a-f)</translation>
-    </message>
-    <message>
-        <source>Take as HEX string</source>
-        <translation type="obsolete">Als HEX Zeichenkette interpretieren</translation>
     </message>
 </context>
 <context>
@@ -2425,10 +2137,6 @@ though you have declared them as mandatory in the options menu.</source>
         <location line="+26"/>
         <source>E&amp;xit</source>
         <translation>B&amp;eenden</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Passwort</translation>
     </message>
     <message>
         <location filename="../ui/PwDialog.ui" line="+119"/>
@@ -2559,11 +2267,18 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alle Dateien ( * )</translation>
     </message>
     <message>
-        <location filename="../lib/asn1time.cpp" line="+111"/>
-        <location line="+8"/>
-        <location line="+15"/>
+        <location filename="../lib/asn1time.cpp" line="+127"/>
+        <location line="+10"/>
+        <location line="+19"/>
         <source>Undefined</source>
         <translation>Undefiniert</translation>
+    </message>
+    <message>
+        <location line="-27"/>
+        <location line="+10"/>
+        <location line="+19"/>
+        <source>Broken / Invalid</source>
+        <translation>Ungültig</translation>
     </message>
     <message>
         <location filename="../lib/db.cpp" line="+176"/>
@@ -2574,14 +2289,6 @@ though you have declared them as mandatory in the options menu.</source>
         <location line="+4"/>
         <source>DB: Entry to rename not found: %1</source>
         <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
-    </message>
-    <message>
-        <source>Do not overwrite</source>
-        <translation type="obsolete">Nicht überschreiben</translation>
-    </message>
-    <message>
-        <source>Overwrite</source>
-        <translation type="obsolete">Überschreiben</translation>
     </message>
     <message>
         <location filename="../lib/load_obj.cpp" line="+135"/>
@@ -2597,20 +2304,6 @@ though you have declared them as mandatory in the options menu.</source>
         <location line="+2"/>
         <source>Open PKCS#11 shared library</source>
         <translation>PKCS#11 library öffnen</translation>
-    </message>
-    <message>
-        <source>Time difference too big
-You must set it manually.</source>
-        <translation type="obsolete">Zeitdifferenz zu gross.
-Bitte die Zeiten manuell einstellen.</translation>
-    </message>
-    <message>
-        <source>The file: &apos;%1&apos; already exists!</source>
-        <translation type="obsolete">Die Datei &apos;%1&apos; existiert bereits!</translation>
-    </message>
-    <message>
-        <source>Please enter the password to decrypt the private key.</source>
-        <translation type="obsolete">Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
     </message>
     <message>
         <location filename="../lib/db.cpp" line="+10"/>
@@ -2669,14 +2362,6 @@ Bitte die Zeiten manuell einstellen.</translation>
         <translation>Bitte die neue PIN der Chipkarte %1 eingeben</translation>
     </message>
     <message>
-        <source>Failed to close PKCS11 library: %1</source>
-        <translation type="obsolete">Die PKCS#11 Bibliothek %1 konnte nicht geschlossen werden</translation>
-    </message>
-    <message>
-        <source>PKCS11 library filename empty</source>
-        <translation type="obsolete">PKCs#11 Bibliotheksdateiname ist leer</translation>
-    </message>
-    <message>
         <location filename="../lib/pkcs11_lib.cpp" line="+50"/>
         <source>Failed to open PKCS11 library: %1</source>
         <translation>Die PKCS#11 Bibliothek %1 konnte nicht geöffnet werden</translation>
@@ -2699,57 +2384,6 @@ in Bibliothek %3
         <location filename="../lib/pkcs11.h" line="+80"/>
         <source>Required PIN size: %1 - %2</source>
         <translation>Benötigte PIN länge: %1 - %2</translation>
-    </message>
-</context>
-<context>
-    <name>ReqDetail</name>
-    <message>
-        <source>Not available</source>
-        <translation type="obsolete">Nicht verfügbar</translation>
-    </message>
-    <message>
-        <source>Details of the certificate signing request</source>
-        <translation type="obsolete">Details des Zertifikatsantrags</translation>
-    </message>
-    <message>
-        <source>S&amp;tatus</source>
-        <translation type="obsolete">S&amp;tatus</translation>
-    </message>
-    <message>
-        <source>Internal name of the PKCS#10 signing request</source>
-        <translation type="obsolete">Der interne Name des PKCS#10 Zertifikatsantrags in der Datenbank</translation>
-    </message>
-    <message>
-        <source>Internal Name</source>
-        <translation type="obsolete">Interner Name</translation>
-    </message>
-    <message>
-        <source>Private key</source>
-        <translation type="obsolete">Privater Schlüssel</translation>
-    </message>
-    <message>
-        <source>Signature algorithm</source>
-        <translation type="obsolete">Signatur algorithmus</translation>
-    </message>
-    <message>
-        <source>Signature</source>
-        <translation type="obsolete">Unterschrift</translation>
-    </message>
-    <message>
-        <source>&amp;Subject</source>
-        <translation type="obsolete">Inha&amp;ber</translation>
-    </message>
-    <message>
-        <source>Attributes</source>
-        <translation type="obsolete">Attribute</translation>
-    </message>
-    <message>
-        <source>&amp;Extensions</source>
-        <translation type="obsolete">&amp;Erweiterungen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -2825,14 +2459,6 @@ in Bibliothek %3
         <source>Please select the security token</source>
         <translation>Bitte wählen Sie die Chipkarte</translation>
     </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Abbrechen</translation>
-    </message>
-    <message>
-        <source>&amp;Select</source>
-        <translation type="obsolete">&amp;Select</translation>
-    </message>
 </context>
 <context>
     <name>TrustState</name>
@@ -2855,14 +2481,6 @@ in Bibliothek %3
         <location line="+7"/>
         <source>&amp;Always trust this certificate</source>
         <translation>Diesem Zertifikat immer vertr&amp;auen</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Abbrechen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <location line="-102"/>
@@ -2914,17 +2532,9 @@ in Bibliothek %3
 <context>
     <name>db_crl</name>
     <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
         <location filename="../lib/db_crl.cpp" line="+22"/>
         <source>Signer</source>
         <translation>Aussteller</translation>
-    </message>
-    <message>
-        <source>Common name</source>
-        <translation type="obsolete">Üblicher Name</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3061,10 +2671,6 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
         <location line="-157"/>
         <source>Type</source>
         <translation>Typ</translation>
@@ -3151,10 +2757,6 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
 <context>
     <name>db_temp</name>
     <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
         <location filename="../lib/db_temp.cpp" line="+23"/>
         <source>Type</source>
         <translation>Typ</translation>
@@ -3237,14 +2839,6 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
 </context>
 <context>
     <name>db_x509</name>
-    <message>
-        <source>Internal name</source>
-        <translation type="obsolete">Interner Name</translation>
-    </message>
-    <message>
-        <source>Common name</source>
-        <translation type="obsolete">Üblicher Name</translation>
-    </message>
     <message>
         <location filename="../lib/db_x509.cpp" line="-887"/>
         <source>Serial</source>
@@ -3482,10 +3076,6 @@ und wurde daher nicht importiert</translation>
         <translation>Es wurde kein Schlüssel für das Zertifikat: &apos;%1&apos; gefunden</translation>
     </message>
     <message>
-        <source>Not possible for smart card key: &apos;%1&apos;</source>
-        <translation type="obsolete">Nicht möglich für den Chipkartenschlüssel &apos;%1&apos;</translation>
-    </message>
-    <message>
         <location line="+5"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Nicht möglich für das Chipkartenzertifikat &apos;%1&apos;</translation>
@@ -3585,14 +3175,6 @@ und wurde daher nicht importiert</translation>
         <location line="+2"/>
         <source>Delete</source>
         <translation>Löschen</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>Subject</source>
-        <translation type="obsolete">Inhaber</translation>
     </message>
     <message>
         <location line="-171"/>
@@ -3769,22 +3351,6 @@ und wurde daher nicht importiert</translation>
         <translation>Passworteingabe abgebrochen</translation>
     </message>
     <message>
-        <source>Common</source>
-        <translation type="obsolete">Standard</translation>
-    </message>
-    <message>
-        <source>Private</source>
-        <translation type="obsolete">Privat</translation>
-    </message>
-    <message>
-        <source>Bogus</source>
-        <translation type="obsolete">Nichts</translation>
-    </message>
-    <message>
-        <source>No password</source>
-        <translation type="obsolete">Kein Passwort</translation>
-    </message>
-    <message>
         <location line="+82"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Bitte geben sie das Passwort zur Verschlüsselung des privaten Schlüssels: &apos;%1&apos; ein</translation>
@@ -3908,10 +3474,6 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_pkcs12</name>
     <message>
-        <source>Please enter the password to decrypt the PKCS#12 file.</source>
-        <translation type="obsolete">Bitte geben Sie das Passwort zur Entschlüsselung der PKCS#12 Datei an.</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_pkcs12.cpp" line="+112"/>
         <source>Please enter the password to encrypt the PKCS#12 file</source>
         <translation>Bitte geben Sie das Passwort zur Verschlüsselung der PKCS#12 Datei an</translation>
@@ -3984,10 +3546,6 @@ und wurde daher nicht importiert</translation>
         <location line="-363"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Soll der private Schlüssel &apos;%1&apos; von der Chipkarte &apos;%2&apos; mit der Seriennummer %3 gelöscht werden ?</translation>
-    </message>
-    <message>
-        <source>PKCS#11 engine: &apos;%1&apos; not found</source>
-        <translation type="obsolete">PKCS#11 engine: &apos;%1&apos; nicht gefunden</translation>
     </message>
     <message>
         <location line="-182"/>
@@ -4082,7 +3640,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+792"/>
+        <location filename="../lib/pki_x509.cpp" line="+801"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -4097,7 +3655,7 @@ und wurde daher nicht importiert</translation>
         <translation>Immer Vertraut</translation>
     </message>
     <message>
-        <location line="-322"/>
+        <location line="-330"/>
         <source>There is no key for signing !</source>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
@@ -4132,7 +3690,7 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+464"/>
+        <location line="+472"/>
         <source>CRL expires: %1</source>
         <translation>CRL ungültig ab: %1</translation>
     </message>
@@ -4147,17 +3705,13 @@ und wurde daher nicht importiert</translation>
         <translation>Ja</translation>
     </message>
     <message>
-        <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
-        <translation type="obsolete">Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen ?</translation>
-    </message>
-    <message>
-        <location line="-754"/>
+        <location line="-762"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
         <location line="+438"/>
-        <location line="+473"/>
+        <location line="+484"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>

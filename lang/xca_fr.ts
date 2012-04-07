@@ -372,7 +372,7 @@ PKCS#12 est un format officiel encrypté d'échange de certificat et de clé
       <translation>SVP entrer le nom du fichier pour le certificat.</translation>
     </message>
     <message>
-      <source>Certifikate export</source>
+      <source>Certificate export</source>
       <translation>Exportation de certificat</translation>
     </message>
   </context>
@@ -504,7 +504,7 @@ PKCS#8 est un format officiel d'échange de clé</translation>
     </message>
     <message>
       <source>&amp;Remove from list</source>
-      <translation>&amp;Enlever de la liste</translation>
+      <translation>&amp;Retirer de la liste</translation>
     </message>
     <message>
       <source>Details</source>
@@ -740,7 +740,7 @@ Numéro de série: %3</translation>
     </message>
     <message>
       <source>Set as default DataBase</source>
-      <translation>Marquer comme base de données par défaut</translation>
+      <translation>Définir comme base de données par défaut</translation>
     </message>
     <message>
       <source>&amp;Close DataBase</source>
@@ -801,6 +801,10 @@ Numéro de série: %3</translation>
     <message>
       <source>PEM file</source>
       <translation>Fichier PEM</translation>
+    </message>
+    <message>
+      <source>paste PEM file</source>
+      <translation>Coller un fichier PEM</translation>
     </message>
     <message>
       <source>&amp;Token</source>
@@ -864,7 +868,7 @@ Numéro de série: %3</translation>
     </message>
     <message>
       <source>Cancel</source>
-      <translation>Abandonner</translation>
+      <translation>Annuler</translation>
     </message>
     <message>
       <source>no such option: %1</source>
@@ -901,7 +905,7 @@ Numéro de série: %3</translation>
     <message>
       <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
-      <translation>SVP saisir un mot de passe qui sera utilisé pour encrypter les clés privées dans le fichier de base de données:
+      <translation>Veuillez entrer un mot de passe, qui sera utiliser pour chiffrer vos clés privées dans le fichier de la base de données:
 %1</translation>
     </message>
     <message>
@@ -915,7 +919,7 @@ Numéro de série: %3</translation>
     <message>
       <source>Please enter the password for unlocking the database:
 %1</source>
-      <translation>SVP saisir le mot de passe pour débloquer la base de données:
+      <translation>Veuillez entrer le mot passe pour déverrouiller la base de données:
 %1</translation>
     </message>
     <message>
@@ -927,14 +931,13 @@ Numéro de série: %3</translation>
       <translation>Copier dans le presse-papier</translation>
     </message>
     <message>
-      <source>Diffie-Hellman paramters are needed for different applications. They are neither used by XCA nor stored in the database. After generating them, XCA will ask for a filename to store the DH parameters
+      <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
-      <translation>Certaines applications ont besoin des paramètres de Diffie-Hellman. Ces derniers ne sont ni utilisés par XCA, ni enregistrés dans la base de données. Après les avoir générés, XCA demandera un nom de fichier dans lequel il les enregistrera.
-SVP, saisissez le nombre de bits pour Diffie-Hellman</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Error opening file: '%1': %2</source>
-      <translation>Erreur à l'ouverture du fichier '%1': %2</translation>
+      <translation>Erreur lors de l'ouverture du fichier: '%1': %2</translation>
     </message>
   </context>
   <context>
@@ -1633,7 +1636,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>Suppress success messages</source>
-      <translation>Supprimer les messages en cas de succès</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>PKCS#11 provider</source>
@@ -1676,11 +1679,11 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-      <translation>Le mot de passe contient des codes hexadécimaux à deux chiffres. Il doit donc consister en un nombre pair de chiffres (0-9 et a-f)</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Take as HEX string</source>
-      <translation>Comprendre comme chaîne hexadécimale</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Repeat %1</source>
@@ -1696,7 +1699,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>E&amp;xit</source>
-      <translation>T&amp;erminer</translation>
+      <translation type="unfinished"/>
     </message>
   </context>
   <context>
@@ -1823,7 +1826,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>Please enter the PIN on the PinPad</source>
-      <translation>SVP saisir le NIP sur le clavier d'identification</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Please enter the SO PIN (PUK) of the token %1</source>
@@ -1958,7 +1961,7 @@ Dans la bibliothèque %3
     </message>
     <message>
       <source>Paste PEM data</source>
-      <translation>Coller les données PEM</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Columns</source>
@@ -2033,7 +2036,7 @@ En conséquence, elle n'a pas été importée</translation>
     </message>
     <message>
       <source>Delete</source>
-      <translation>Détruire</translation>
+      <translation>Supprimer</translation>
     </message>
   </context>
   <context>
@@ -2344,7 +2347,7 @@ En conséquence, il n'a pas été importé</translation>
     </message>
     <message>
       <source>Security token</source>
-      <translation>Jeton de sécurité</translation>
+      <translation>Jeton de sécurité</translation>
     </message>
     <message>
       <source>Other token</source>
@@ -2352,7 +2355,7 @@ En conséquence, il n'a pas été importé</translation>
     </message>
     <message>
       <source>Template</source>
-      <translation>Modèle</translation>
+      <translation>Modèle</translation>
     </message>
     <message>
       <source>OpenSSL config</source>
@@ -2360,7 +2363,7 @@ En conséquence, il n'a pas été importé</translation>
     </message>
     <message>
       <source>Delete</source>
-      <translation>Détruire</translation>
+      <translation>Supprimer</translation>
     </message>
     <message>
       <source>Delete from Security token</source>
@@ -2454,7 +2457,7 @@ En conséquence, il n'a pas été importé</translation>
     </message>
     <message>
       <source>Challenge password</source>
-      <translation>Mot de passe opposable</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>The certificate signing request already exists in the database as
@@ -2510,15 +2513,15 @@ En conséquence, elle n'a pas été chargée</translation>
     </message>
     <message>
       <source>Template</source>
-      <translation>Modèle</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>OpenSSL config</source>
-      <translation>Configuration OpenSSL</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Delete</source>
-      <translation>Détruire</translation>
+      <translation type="unfinished"/>
     </message>
   </context>
   <context>
@@ -2533,11 +2536,11 @@ En conséquence, elle n'a pas été chargée</translation>
     </message>
     <message>
       <source>Save as OpenSSL config</source>
-      <translation>Enregistrer en format de configuration OpenSSL</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-      <translation>Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>The following extensions were not ported into the template</source>
@@ -2574,7 +2577,7 @@ En conséquence, elle n'a pas été chargée</translation>
     </message>
     <message>
       <source>Error writing to file: '%1': %2</source>
-      <translation>Erreur à l'écriture du fichier '%1': %2</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Error: </source>
@@ -2624,7 +2627,7 @@ En conséquence, elle n'a pas été chargée</translation>
     <name>pki_evp</name>
     <message>
       <source>Failed to decrypt the key (bad password) </source>
-      <translation>Le décryptage de la clé a échoué (mauvais mot de passe).</translation>
+      <translation>Le décryptage de la clé a échoué (mauvais mot de passe). </translation>
     </message>
     <message>
       <source>Please enter the password to decrypt the private key.</source>
@@ -2633,8 +2636,7 @@ En conséquence, elle n'a pas été chargée</translation>
     <message>
       <source>Please enter the password to decrypt the private key from file:
 %1</source>
-      <translation>SVP saisir le mot de passe pour décrypter la clé privée:
-%1</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
@@ -2732,8 +2734,7 @@ En conséquence, elle n'a pas été chargée</translation>
     <message>
       <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
-      <translation>SVP saisir le mot de passe pour décrypter le fichier en PKCS#12:
-%1</translation>
+      <translation type="unfinished"/>
     </message>
     <message>
       <source>Unable to load the PKCS#12 (pfx) file %1.</source>
@@ -2854,7 +2855,7 @@ En conséquence, elle n'a pas été chargée</translation>
     </message>
     <message>
       <source>Template file content error (bad size): %1 </source>
-      <translation>erreur de contenu du fichier de modèle (mauvaise taille): %1</translation>
+      <translation>erreur de contenu du fichier de modèle (mauvaise taille): %1 </translation>
     </message>
     <message>
       <source>Template file content error (bad length) :%1</source>
@@ -3026,7 +3027,7 @@ En conséquence, elle n'a pas été chargée</translation>
 %2</translation>
     </message>
     <message>
-      <source>Validation successful:
+      <source>Validation successfull:
 '%1'</source>
       <translation>La validation a été effectuée avec succès:
 '%1'</translation>

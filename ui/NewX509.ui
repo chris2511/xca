@@ -411,6 +411,9 @@ If this list is disabled, you only can create a self-signed certificate.</string
        </property>
        <item>
         <widget class="QGroupBox" name="distNameBox">
+         <property name="toolTip">
+          <string>Distinguished name</string>
+         </property>
          <property name="title">
           <string notr="true">Distinguished name</string>
          </property>

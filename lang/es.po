@@ -2,16 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-30 08:24+0200\n"
-"PO-Revision-Date: 2010-12-20 20:48+0000\n"
+"POT-Creation-Date: 2011-05-02 06:51+0200\n"
+"PO-Revision-Date: 2012-04-01 01:28+0000\n"
 "Last-Translator: Fitoschido <fitoschido@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-04-30 06:08+0000\n"
-"X-Generator: Launchpad (build 12915)\n"
+"X-Launchpad-Export-Date: 2012-04-07 05:36+0000\n"
+"X-Generator: Launchpad (build 15060)\n"
+"Language: \n"
 
 #: About#1
 msgid "Done"
@@ -56,12 +56,12 @@ msgstr "El número de serie del certificado"
 
 #: CertDetail#5
 msgid "The internal name of the certificate in the database"
-msgstr ""
+msgstr "El nombre interno del certificado en la base de datos"
 
 #: CertDetail#6
 msgctxt "CertDetail#6"
 msgid "Internal name"
-msgstr ""
+msgstr "Nombre interno"
 
 #: CertDetail#7
 msgctxt "CertDetail#7"
@@ -71,24 +71,24 @@ msgstr "Firma"
 #: CertDetail#8
 msgctxt "CertDetail#8"
 msgid "Signature"
-msgstr ""
+msgstr "Firma"
 
 #: CertDetail#9
 msgctxt "CertDetail#9"
 msgid "Key"
-msgstr ""
+msgstr "Clave"
 
 #: CertDetail#10
 msgid "Fingerprints"
-msgstr ""
+msgstr "Huellas digitales"
 
 #: CertDetail#11
 msgid "SHA1"
-msgstr ""
+msgstr "SHA1"
 
 #: CertDetail#12
 msgid "MD5"
-msgstr ""
+msgstr "MD5"
 
 #: CertDetail#13
 msgid "A SHA-1 hashsum of the certificate"
@@ -105,15 +105,15 @@ msgstr "Validez"
 
 #: CertDetail#16
 msgid "The time since the certificate is valid"
-msgstr ""
+msgstr "El momento desde el que el certificado es válido"
 
 #: CertDetail#17
 msgid "The time until the certificate is valid"
-msgstr ""
+msgstr "El momento hasta el que el certificado es válido"
 
 #: CertDetail#18
 msgid "&Subject"
-msgstr ""
+msgstr "As&unto"
 
 #: CertDetail#19
 msgctxt "CertDetail#19"
@@ -122,29 +122,29 @@ msgstr ""
 
 #: CertDetail#20
 msgid "Attributes"
-msgstr ""
+msgstr "Atributos"
 
 #: CertDetail#21
 msgctxt "CertDetail#21"
 msgid "&Extensions"
-msgstr ""
+msgstr "&Extensiones"
 
 #: CertDetail#22
 msgid "Show config"
-msgstr ""
+msgstr "Mostrar configuración"
 
 #: CertDetail#23
 msgid "Show extensions"
-msgstr ""
+msgstr "Mostrar extensiones"
 
 #: CertDetail#24
 msgctxt "CertDetail#24"
 msgid "Not available"
-msgstr ""
+msgstr "No disponible"
 
 #: CertDetail#25
 msgid "Details of the certificate"
-msgstr ""
+msgstr "Detalles del certificado"
 
 #: CertDetail#26
 msgid "Signer unknown"
@@ -157,23 +157,23 @@ msgstr ""
 #: CertDetail#28
 msgctxt "CertDetail#28"
 msgid "Not trusted"
-msgstr ""
+msgstr "No fiable"
 
 #: CertDetail#29
 msgid "Trusted"
-msgstr ""
+msgstr "Fiable"
 
 #: CertDetail#30
 msgid "Revoked: "
-msgstr ""
+msgstr "Revocado: "
 
 #: CertDetail#31
 msgid "Not valid"
-msgstr ""
+msgstr "No válido"
 
 #: CertDetail#32
 msgid "Valid"
-msgstr ""
+msgstr "Válido"
 
 #: CertDetail#33
 msgid "Details of the certificate signing request"
@@ -181,7 +181,7 @@ msgstr "Detalles de la solicitud"
 
 #: CertExtend#1
 msgid "Certificate renewal"
-msgstr ""
+msgstr "Renovación de certificado"
 
 #: CertExtend#2
 msgid ""
@@ -197,17 +197,17 @@ msgstr "Validez"
 #: CertExtend#4
 msgctxt "CertExtend#4"
 msgid "Not before"
-msgstr ""
+msgstr "No antes de"
 
 #: CertExtend#5
 msgctxt "CertExtend#5"
 msgid "Not after"
-msgstr ""
+msgstr "No después de"
 
 #: CertExtend#6
 msgctxt "CertExtend#6"
 msgid "Time range"
-msgstr ""
+msgstr "Rango de tiempo"
 
 #: CertExtend#7
 msgctxt "CertExtend#7"
@@ -217,27 +217,27 @@ msgstr ""
 #: CertExtend#8
 msgctxt "CertExtend#8"
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: CertExtend#9
 msgctxt "CertExtend#9"
 msgid "Days"
-msgstr ""
+msgstr "Días"
 
 #: CertExtend#10
 msgctxt "CertExtend#10"
 msgid "Months"
-msgstr ""
+msgstr "Meses"
 
 #: CertExtend#11
 msgctxt "CertExtend#11"
 msgid "Years"
-msgstr ""
+msgstr "Años"
 
 #: CertExtend#12
 msgctxt "CertExtend#12"
 msgid "Midnight"
-msgstr ""
+msgstr "Medianoche"
 
 #: CertExtend#13
 msgctxt "CertExtend#13"
@@ -284,7 +284,7 @@ msgstr ""
 
 #: ClickLabel#1
 msgid "Double click for details"
-msgstr ""
+msgstr "Haga doble click para obtener detalles"
 
 #: CrlDetail#1
 msgid "Details of the Revocation list"
@@ -397,7 +397,7 @@ msgid "Please enter the filename for the certificate."
 msgstr ""
 
 #: ExportCert#4
-msgid "Certifikate export"
+msgid "Certificate export"
 msgstr ""
 
 #: ExportDer#1
@@ -822,146 +822,147 @@ msgid "PEM file"
 msgstr ""
 
 #: MainWindow#42
-msgid "&Token"
+msgid "paste PEM file"
 msgstr ""
 
 #: MainWindow#43
-msgid "&Manage Security token"
+msgid "&Token"
 msgstr ""
 
 #: MainWindow#44
-msgid "&Init Security token"
+msgid "&Manage Security token"
 msgstr ""
 
 #: MainWindow#45
-msgid "&Change PIN"
+msgid "&Init Security token"
 msgstr ""
 
 #: MainWindow#46
-msgid "Change &SO PIN"
+msgid "&Change PIN"
 msgstr ""
 
 #: MainWindow#47
-msgid "Init PIN"
+msgid "Change &SO PIN"
 msgstr ""
 
 #: MainWindow#48
-msgid "&Help"
+msgid "Init PIN"
 msgstr ""
 
 #: MainWindow#49
-msgid "&Content"
+msgid "&Help"
 msgstr ""
 
 #: MainWindow#50
-msgid "&About"
+msgid "&Content"
 msgstr ""
 
 #: MainWindow#51
-msgid "Donations"
+msgid "&About"
 msgstr ""
 
 #: MainWindow#52
-msgid "Database dump ( *.dump );;All files ( * )"
+msgid "Donations"
 msgstr ""
 
 #: MainWindow#53
-msgid "Import password"
+msgid "Database dump ( *.dump );;All files ( * )"
 msgstr ""
 
 #: MainWindow#54
-msgid "Please enter the password of the old database"
+msgid "Import password"
 msgstr ""
 
 #: MainWindow#55
-msgid "Password verification error. Ignore keys ?"
+msgid "Please enter the password of the old database"
 msgstr ""
 
 #: MainWindow#56
-msgid "Import anyway"
+msgid "Password verification error. Ignore keys ?"
 msgstr ""
 
 #: MainWindow#57
-#, fuzzy
-msgctxt "MainWindow#57"
+msgid "Import anyway"
+msgstr ""
+
+#: MainWindow#58
+msgctxt "MainWindow#58"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: MainWindow#58
+#: MainWindow#59
 msgid "no such option: %1"
 msgstr ""
 
-#: MainWindow#59
+#: MainWindow#60
 msgid "Import PEM data"
 msgstr ""
 
-#: MainWindow#60
+#: MainWindow#61
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#61
+#: MainWindow#62
 msgid "Please enter the new SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#62
+#: MainWindow#63
 msgid "The new label of the token '%1'"
 msgstr ""
 
-#: MainWindow#63
+#: MainWindow#64
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
-#: MainWindow#64
+#: MainWindow#65
 msgid "New Password"
 msgstr ""
 
-#: MainWindow#65
+#: MainWindow#66
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
 msgstr ""
 
-#: MainWindow#66
+#: MainWindow#67
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#67
+#: MainWindow#68
 msgid "Password verify error, please try again"
 msgstr "Contraeña incorrecta, inténtelo de nuevo"
 
-#: MainWindow#68
-#, fuzzy
-msgctxt "MainWindow#68"
+#: MainWindow#69
+msgctxt "MainWindow#69"
 msgid "Password"
 msgstr "Contraseña"
 
-#: MainWindow#69
+#: MainWindow#70
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#70
+#: MainWindow#71
 msgid "The following error occured:"
 msgstr ""
 
-#: MainWindow#71
+#: MainWindow#72
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: MainWindow#72
+#: MainWindow#73
 msgid ""
-"Diffie-Hellman paramters are needed for different applications. They are "
-"neither used by XCA nor stored in the database. After generating them, XCA "
-"will ask for a filename to store the DH parameters\n"
+"Diffie-Hellman parameters are needed for different applications, but not "
+"handled by XCA.\n"
 "Please enter the DH parameter bits"
 msgstr ""
 
-#: MainWindow#73
-msgctxt "MainWindow#73"
+#: MainWindow#74
+msgctxt "MainWindow#74"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
@@ -1748,10 +1749,9 @@ msgid "Load failed"
 msgstr ""
 
 #: PwDialog#1
-#, fuzzy
 msgctxt "PwDialog#1"
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: PwDialog#2
 msgid ""
@@ -1823,7 +1823,8 @@ msgid "Import RSA key"
 msgstr ""
 
 #: QObject#11
-msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
+msgid ""
+"PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
 msgstr ""
 
 #: QObject#12
@@ -2407,21 +2408,21 @@ msgstr ""
 #: db_x509#27
 msgctxt "db_x509#27"
 msgid "Export"
-msgstr "Importar"
+msgstr "Exportar"
 
 #: db_x509#28
 msgctxt "db_x509#28"
 msgid "Clipboard"
-msgstr ""
+msgstr "Portapapeles"
 
 #: db_x509#29
 msgctxt "db_x509#29"
 msgid "File"
-msgstr ""
+msgstr "Archivo"
 
 #: db_x509#30
 msgid "Request"
-msgstr ""
+msgstr "Solicitud"
 
 #: db_x509#31
 msgctxt "db_x509#31"
@@ -2435,7 +2436,7 @@ msgstr ""
 #: db_x509#33
 msgctxt "db_x509#33"
 msgid "Template"
-msgstr ""
+msgstr "Plantilla"
 
 #: db_x509#34
 msgctxt "db_x509#34"
@@ -2445,7 +2446,7 @@ msgstr ""
 #: db_x509#35
 msgctxt "db_x509#35"
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: db_x509#36
 msgid "Delete from Security token"
@@ -2469,10 +2470,9 @@ msgid "PKCS#7"
 msgstr ""
 
 #: db_x509#41
-#, fuzzy
 msgctxt "db_x509#41"
 msgid "Sign"
-msgstr "Firma"
+msgstr ""
 
 #: db_x509#42
 msgid "Encrypt"
@@ -2537,9 +2537,8 @@ msgid "Unstructured name"
 msgstr ""
 
 #: db_x509req#4
-#, fuzzy
 msgid "Challenge password"
-msgstr "Cambiar contraseña"
+msgstr ""
 
 #: db_x509req#5
 msgid ""
@@ -3102,7 +3101,7 @@ msgstr ""
 
 #: v3ext#15
 msgid ""
-"Validation successful:\n"
+"Validation successfull:\n"
 "'%1'"
 msgstr ""
 
@@ -3115,147 +3114,3 @@ msgstr ""
 msgctxt "void#2"
 msgid "Import Certificate signing request"
 msgstr ""
-
-#~ msgctxt "PassWrite#1"
-#~ msgid "Password"
-#~ msgstr "Contraseña"
-
-#~ msgctxt "ExportCert#6"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "ExportDer#1"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "ExportDer#2"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "ExportKey#4"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "NewCrl#16"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "NewX509#78"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "Options#8"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "Options#10"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "db_crl#1"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "db_key#11"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "db_temp#1"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "db_x509req#12"
-#~ msgid "Subject"
-#~ msgstr "Sujeto"
-
-#~ msgctxt "CertDetail#18"
-#~ msgid "&Subject"
-#~ msgstr "Sujeto"
-
-#~ msgctxt "CertDetail#23"
-#~ msgid "Not available"
-#~ msgstr "Disponible"
-
-#~ msgctxt "MainWindow#58"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "MainWindow#69"
-#~ msgid "Password"
-#~ msgstr "Contraseña"
-
-#~ msgctxt "ReqDetail#5"
-#~ msgid "Private key"
-#~ msgstr "Exponente secreto"
-
-#~ msgctxt "ReqDetail#6"
-#~ msgid "Signature algorithm"
-#~ msgstr "Firma"
-
-#~ msgctxt "ReqDetail#7"
-#~ msgid "Signature"
-#~ msgstr "Firma"
-
-#~ msgctxt "ReqDetail#8"
-#~ msgid "&Subject"
-#~ msgstr "Sujeto"
-
-#~ msgctxt "ReqDetail#11"
-#~ msgid "Not available"
-#~ msgstr "Disponible"
-
-#~ msgctxt "db_x509#39"
-#~ msgid "Sign"
-#~ msgstr "Firma"
-
-#~ msgctxt "CertExtend#2"
-#~ msgid "Validity"
-#~ msgstr "Validez"
-
-#~ msgctxt "ExportDialog#1"
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgctxt "KeyDetail#3"
-#~ msgid "Name"
-#~ msgstr "Nombre"
-
-#~ msgctxt "MainWindow#47"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "NewKey#5"
-#~ msgid "Keysize"
-#~ msgstr "Tamaño de clave"
-
-#~ msgctxt "NewX509#46"
-#~ msgid "Validity"
-#~ msgstr "Validez"
-
-#~ msgctxt "ReqDetail#8"
-#~ msgid "Signature"
-#~ msgstr "Firma"
-
-#~ msgctxt "db_key#2"
-#~ msgid "New Key"
-#~ msgstr "Nueva clave"
-
-#~ msgctxt "db_key#3"
-#~ msgid "Import"
-#~ msgstr "Importar"
-
-#~ msgctxt "db_key#15"
-#~ msgid "Password"
-#~ msgstr "Contraseña"
-
-#~ msgctxt "db_temp#8"
-#~ msgid "Import"
-#~ msgstr "Importar"
-
-#~ msgctxt "db_x509#18"
-#~ msgid "Import"
-#~ msgstr "Importar"
-
-#~ msgctxt "db_x509req#4"
-#~ msgid "Import"
-#~ msgstr "Importar"
