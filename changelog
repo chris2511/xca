@@ -1,3 +1,12 @@
+
+  * Support for Local timezone dates.
+    Differentiate between invalid and undefined dates.
+  * Fix Bug #3461403 Error when create certificate with CRL distribution point
+    User error -> Improve user-friendlyness
+  * Fix Bug #3485139 Exception when creating certificates in passwordless db
+  * Avoid very long names resulting in duplicate names in the database.
+  * Add warning colors for expired dates.
+
 xca 0.9.1 Fri Oct 21 08:13:26 2011
 
   * Close bug [ 3372449 ] All numeric names cannot be used
