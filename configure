@@ -19,8 +19,34 @@
 #
 #######################################################
 
+if test -x reconfigure && test "$RC" != "stop"; then
+  export RC="stop"
+  cat <<EOF
+
+*********************************************************************
+*                                                                   *
+*   Reconfiguring with old settings                                 *
+*   Delete the file "reconfigure" if this is not what you want      *
+*                                                                   *
+*********************************************************************
+EOF
+  exec ./reconfigure
+fi
+
 TOPDIR="`cd $(dirname $0) && pwd`"
 read VERSION < ${TOPDIR}/VERSION
+
+cat <<EOF >reconfigure
+export QTDIR="$QTDIR"
+export CFLAGS="${CFLAGS}"
+export LDFLAGS="${LDFLAGS}"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+export prefix="${prefix}"
+export docdir="${docdir}"
+export RC="stop"
+exec $0 $@
+EOF
+chmod 755 reconfigure
 
 cat <<EOF
 
