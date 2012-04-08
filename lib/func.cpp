@@ -227,18 +227,18 @@ QString compressFilename(QString filename, int maxlen)
 	if (filename.length() < maxlen)
 		return filename;
 
-	int len, lastslash = filename.lastIndexOf(QDir::separator());
+	QString fn = filename.replace("\\", "/");
+	int len, lastslash = fn.lastIndexOf('/');
 	QString base = filename.mid(lastslash);
 	len = base.length();
 	len = maxlen - len -3;
 	if (len < 0)
 		return QString("...") + base.right(maxlen -3);
-	filename = filename.left(len);
-	lastslash = filename.lastIndexOf(QDir::separator());
+	fn = fn.left(len);
+	lastslash = fn.lastIndexOf('/');
 
 	return filename.left(lastslash+1) + "..." + base;
 }
-
 
 QString asn1ToQString(const ASN1_STRING *str, bool quote)
 {

@@ -103,7 +103,7 @@ void pki_base::my_error(const QString error) const
 
 QString pki_base::rmslashdot(const QString &s)
 {
-	QByteArray a = s.toAscii();
+	QByteArray a = s.toAscii().replace("\\", "/");
 	int r = a.lastIndexOf('.');
 	int l = a.lastIndexOf('/');
 	return s.mid(l+1,r-l-1);
