@@ -43,6 +43,13 @@ However, the access to the keys is not possible without supplying the
 correct database password everytime a key is used.
 
 <p>
+When setting an empty password, XCA will never ask again for a password
+when opening this database. This can be useful when playing around with testcertificates or if all private keys are on tokens.
+
+<p>
+The database password can be  changed by the Menu item <em>File->Change DataBase password</em>
+
+<p>
 The different cryptographic parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revocation lists.
 All items can be manipulated either by a context menu available by
 right-clicking on the item, or by using the buttons at the right border.
