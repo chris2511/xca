@@ -1,3 +1,9 @@
+/* vi: set sw=4 ts=4:
+ *
+ * Copyright (C) 2010 - 2012 Christian Hohnstaedt.
+ *
+ * All rights reserved.
+ */
 
 #include "db.h"
 #include "func.h"

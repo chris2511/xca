@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001 - 2010 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2011 Christian Hohnstaedt.
  *
  * All rights reserved.
  */

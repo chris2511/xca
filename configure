@@ -19,20 +19,6 @@
 #
 #######################################################
 
-if test -x reconfigure && test "$RC" != "stop"; then
-  export RC="stop"
-  cat <<EOF
-
-*********************************************************************
-*                                                                   *
-*   Reconfiguring with old settings                                 *
-*   Delete the file "reconfigure" if this is not what you want      *
-*                                                                   *
-*********************************************************************
-EOF
-  exec ./reconfigure
-fi
-
 TOPDIR="`cd $(dirname $0) && pwd`"
 read VERSION < ${TOPDIR}/VERSION
 
