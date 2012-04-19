@@ -157,7 +157,7 @@ int db::next(int flag)
 		return -1;
 	}
 	if (!verify_magic()){
-		printf("Garbage found at %lu\n", head_offset);
+		printf("Garbage found at %lu\n", (unsigned long)head_offset);
 		head_offset+=4;
 		return next(flag);
 	}

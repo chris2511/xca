@@ -129,6 +129,7 @@ void ImportMulti::dropEvent(QDropEvent *event)
 	}
 	importError(failed);
 	addItem(pki);
+	event->acceptProposedAction();
 }
 
 void ImportMulti::on_butRemove_clicked()

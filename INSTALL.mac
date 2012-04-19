@@ -2,8 +2,19 @@
 This is a short overview of how to build
 XCA for MAC OSX
 
-The developer tools and QT must be installed
-Decide whether OpenSSL 1.0.0 shall be used.
+Actually, I'm doing this on 64bit Lion
+It probably also works on older platforms or 32bit.
+
+Please drop me a mail if you experience problems..
+
+The developer tools and QT must be installed.
+Only the < 200MB "Command Line Tools for Xcode" are required
+to build XCA, not the comlete 2GB Xcode binary.
+
+Either Install QT SDK in your home directory, say /Users/XXX/QtSDK
+or install the qt-mac-carbon-opensource-4.7.3.dmg
+
+Decide whether OpenSSL 1.0.x shall be used.
 It is needed if
 
  - you want the most recent functionality of OpenSSL
@@ -25,11 +36,17 @@ export DYLD_LIBRARY_PATH=$OPENSSLINSTALLDIR/lib
 # configure openssl
 ./config shared --prefix=$OPENSSLINSTALLDIR
 
+# If your installation is 64 bit:
+./Configure darwin64-x86_64-cc shared --prefix=$OPENSSLINSTALLDIR
+
 # build and install OpenSSL
 make && make install
 
 # IMPORTANT: you need to change access type of the libs to be writable
 chmod 755 $OPENSSLINSTALLDIR/lib/*.dylib
+
+# If Qt was installed in your home, set QTDIR appropriately:
+export QTDIR=$HOME/QtSDK
 
 Compile XCA:
 ------------

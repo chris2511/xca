@@ -24,7 +24,7 @@ install: $(QM_XCA)
 app:
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 $(QM_XCA) $(APPDIR)/Resources
-	cd $(SYSROOT)/Developer/Applications/Qt/translations && \
+	cd $(TRANSLATIONS) && \
 	  for x in $(QM_QT); do \
 	    test -f "$$x" && install $$x $(APPDIR)/Resources;\
 	  done || :

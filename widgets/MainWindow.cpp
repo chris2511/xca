@@ -217,6 +217,7 @@ void MainWindow::dropEvent(QDropEvent *event)
 	}
 	dlgi->execute(1, failed);
 	delete dlgi;
+	event->acceptProposedAction();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)

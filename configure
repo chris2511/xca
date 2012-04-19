@@ -92,15 +92,21 @@ if test -n "$DARWIN"; then
   echo Configuring for Mac OSX $DARWIN
   LDFLAGS="${LDFLAGS} -framework QtCore -framework QtGui -arch i386"
   CFLAGS="${CFLAGS} -pipe -gdwarf-2 -arch i386"
-  CF="${CF} -FQtCore -FQtGui"
   LIBS="${LIBS} -lltdl"
-  MACDEPLOYQT=macdeployqt/macdeployqt
-  for mdq in macdeployqt macdeployqt-4.6; do
-    if which ${mdq}; then
-      MACDEPLOYQT=${mdq}
-      break
-    fi
-  done
+  if test -d "$QTDIR"; then
+    CF="-F$QTDIR/lib $CF"
+    CFLAGS="-F$QTDIR/lib $CFLAGS"
+    MACDEPLOYQT=$QTDIR/bin/macdeployqt
+    TRANSLATIONS=$QTDIR/translations
+  else
+    for mdq in macdeployqt macdeployqt-4.6; do
+      if which ${mdq}; then
+        MACDEPLOYQT=${mdq}
+        break
+      fi
+    done
+    TRANSLATIONS=/Developer/Applications/Qt/translations
+  fi
 fi
 
 if test -x /sbin/ldconfig; then
@@ -184,9 +190,13 @@ search_lib() {
 
 check_frameworks() {
   for fw in $@; do
-    test -d /Library/Frameworks/${fw}.framework || return 1
+    for dir in $QTDIR/lib /Library/Frameworks; do
+      if test -d $dir/${fw}.framework; then
+        return 0
+      fi
+    done
   done
-  return 0
+  return 1
 }
 
 if test "$#" = "0" && test -z "$DARWIN" && test -z "$QTDIR" && \
@@ -274,9 +284,13 @@ int main(){
 }
 EOF
 
-echo "${CC} $LIBS $LDIRS $CF $CFLAGS ${LDFLAGS} conftest.cpp -o conftest${SUFFIX}" >conftest.log
+echo "${CC} $LDIRS $LIBS $CF $CFLAGS ${LDFLAGS} conftest.cpp -o conftest${SUFFIX}" >conftest.log
 if ${CC} $LIBS $LDIRS $CF $CFLAGS ${LDFLAGS} conftest.cpp -o conftest${SUFFIX} >> conftest.log 2>&1; then
-  ./conftest${SUFFIX} || err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf" && rm -rf conftest.cpp conftest${SUFFIX} conftest.log conftest.dSYM
+  if ! ./conftest${SUFFIX}; then
+    err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf"
+  else
+    rm -rf conftest.cpp conftest${SUFFIX} conftest.log conftest.dSYM
+  fi
 else
   err "Unable to compile a minimal application look at 'conftest.log' for errors"
 fi
@@ -286,7 +300,7 @@ if which linuxdoc 2>&1; then
   LINUXDOC="linuxdoc"
 else
   echo "Application 'linuxdoc' not found."
-  if tar ztf ${TOPDIR}doc/xca-doc.tgz xca.html >/dev/null 2>&1; then
+  if tar ztf ${TOPDIR}/doc/xca-doc.tgz xca.html >/dev/null 2>&1; then
     echo "But Found a valid documentation package 'doc/xca-doc.tgz'"
   else
    echo "No documentation will be generated."
@@ -302,12 +316,17 @@ findapp() {
     fi
   done
 }
-
-MOC=`findapp $QTDIR/bin/moc moc4 moc-qt4 moc`
-UIC=`findapp $QTDIR/bin/uic uic4 uic-qt4 uic`
-RCC=`findapp $QTDIR/bin/rcc rcc4 rcc-qt4 rcc`
-LRELEASE=`findapp $QTDIR/bin/lrelease lrelease4 lrelease-qt4 lrelease`
-
+if test -z "$QTDIR"; then
+  MOC=`findapp moc4 moc-qt4 moc`
+  UIC=`findapp uic4 uic-qt4 uic`
+  RCC=`findapp rcc4 rcc-qt4 rcc`
+  LRELEASE=`findapp lrelease4 lrelease-qt4 lrelease`
+else
+  MOC=$QTDIR/bin/moc
+  UIC=$QTDIR/bin/uic
+  RCC=$QTDIR/bin/rcc
+  LRELEASE=$QTDIR/bin/lrelease
+fi
 cat >Local.mak <<EOF
 export TOPDIR=${TOPDIR}
 export VERSION=${VERSION}
@@ -329,6 +348,7 @@ LRELEASE=$LRELEASE
 MACDEPLOYQT=$MACDEPLOYQT
 QMAKE=qmake
 DARWIN=$DARWIN
+TRANSLATIONS=$TRANSLATIONS
 
 CC=${CC}
 LD=${LD:=ld}
