@@ -7,7 +7,6 @@ It probably also works on older platforms or 32bit.
 
 Please drop me a mail if you experience problems..
 
-The developer tools and QT must be installed.
 Only the < 200MB "Command Line Tools for Xcode" are required
 to build XCA, not the comlete 2GB Xcode binary.
 
@@ -18,15 +17,15 @@ Decide whether OpenSSL 1.0.x shall be used.
 It is needed if
 
  - you want the most recent functionality of OpenSSL
- - you don't have SnowLeopard
+ - you don't have at least SnowLeopard
    (Mac OS 10.5 comes with OpenSSL 0.9.7, which is too old for XCA)
 
-Compile OpenSSL 1.0.0:
+Compile OpenSSL 1.0.1a:
 ----------------------
 # Download the latest OpenSSL sources, unpack them and change into it
-curl http://openssl.org/source/openssl-1.0.0d.tar.gz >openssl-1.0.0d.tar.gz
-tar zxf openssl-1.0.0d.tar.gz
-cd openssl-1.0.0d
+curl http://openssl.org/source/openssl-1.0.1a.tar.gz >openssl-1.0.1a.tar.gz
+tar zxf openssl-1.0.1a.tar.gz
+cd openssl-1.0.1a
 
 # define the installation dir and the path to the new library
 # it will be installed locally in you home directory
@@ -50,9 +49,9 @@ export QTDIR=$HOME/QtSDK
 
 Compile XCA:
 ------------
-# change into the xca-0.9.1 directory and download the documentation
+# change into the xca-0.9.2 directory and download the documentation
 # (The documentation is not mandatory and XCA will build without it)
-cd xca-0.9.1
+cd xca-0.9.2
 curl http://git.hohnstaedt.de/xca-doc.tgz > doc/xca-doc.tgz
 
 # configure XCA and build the DMG file
