@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>April 2012 - Version 0.9.2
+<date>May 2012 - Version 0.9.2
 
 <abstract>
 
@@ -56,7 +56,7 @@ right-clicking on the item, or by using the buttons at the right border.
 Every item is identified by an internal name which is unique in one tab-view
 and is always shown in the first column.
 
-<sect1>File formats
+<sect1>File Formats
 
 <p>
 
@@ -75,7 +75,7 @@ other applications.
 		<url url="http://www.rsasecurity.com" name="RSA Laboratories">
 </itemize>
 
-<sect1>Further reading <label id="otherdoc">
+<sect1>Further Reading <label id="otherdoc">
 
 <p>
 
@@ -90,7 +90,7 @@ other applications.
 
 <tscreen><verb>
 
-Copyright (C) 2001 - 2010 Christian Hohnstaedt.
+Copyright (C) 2001 - 2012 Christian Hohnstaedt.
 
  All rights reserved.
 
@@ -157,7 +157,7 @@ Thank you very much.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Misc
-<sect1>Updating from older versions (older than 0.6.0)
+<sect1>Updating from Older Versions (Older than 0.6.0)
 
 <p>
 
@@ -206,8 +206,9 @@ The most recent stable version of XCA can be downloaded from
 
 The current (unstable) HEAD of development can be downloaded and tested via
 <url url="http://xca.git.sourceforge.net/git/gitweb.cgi?p=xca/xca;a=snapshot;h=HEAD;sf=tgz" name="XCA devel">
+Please do not hesitate to contact me for information about branches.
 
-<sect1>DH parameters
+<sect1>DH Parameters
 
 <p>
 
@@ -219,7 +220,7 @@ functionality for users convenience.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Command line options
+<sect>Command Line Options
 
 <p>
 
@@ -245,7 +246,7 @@ option given it will exit after finishing the import dialog. This is useful if x
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Common actions
+<sect>Common Actions
 
 <p>
 
@@ -253,7 +254,7 @@ Many actions are common to all crypto parts and are mentioned here once for all.
 The goal of this application is to provide an easy to use signing-tool and
 also a common place for all selected PKI items like Requests or Certificates.
 
-<sect1>Column handling
+<sect1>Column Handling
 
 <p>
 
@@ -310,7 +311,7 @@ After reading the item it searches for this item in the database and if it
 is unique, the item is stored in the database. Otherwise it shows a message
 containing the internal name of this item in the database.
 
-<sect1>Details of an item
+<sect1>Details of an Item
 
 <p>
 
@@ -319,7 +320,7 @@ the button on the right.
 The names of the issuers certificate and the corresponding key are clickable and their
 content will be shown on "double-click"
 
-<sect1>Renaming an item
+<sect1>Renaming an Item
 
 <p>
 
@@ -346,7 +347,7 @@ certificate. Multiple items may be selected to delete them all at once.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>The Certificate input dialog<label id="wizard">
+<sect>The Certificate Input Dialog<label id="wizard">
 
 <p>
 
@@ -360,7 +361,7 @@ to be created or, in case of a Template, is altered.
 
 This page is not shown when creating or changing templates.
 
-<sect2>Signing request
+<sect2>Signing Request
 
 <p>
 
@@ -378,7 +379,7 @@ Additionally, the desired signing algorithm can be adjusted.
 The drop-down list contains all <ref id="ca_cert" name="CA certificates">
 with an available private key.
 
-<sect2>Signature algorithm
+<sect2>Signature Algorithm
 
 <p>
 
@@ -396,7 +397,7 @@ Templates can be mixed by applying the subject of one template and then
 applying the extensions of an other by using the
 buttons <em>Apply subject</em> and <em>Apply extensions</em>
 
-<sect1>Personal settings
+<sect1>Personal Settings
 
 <p>
 
@@ -532,7 +533,7 @@ be translated to OpenSSL config file format.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
-<sect>Smartcards (Security tokens)
+<sect>Smartcards (Security Tokens)
 
 <p>
 
@@ -587,7 +588,7 @@ Existing, non-deletable, built-in certificates of Smart-cards may be ignored.
 A new CA certificate can be created and self-signed by the Smart-card key.
 It can then be used to issue end-entity certificates, containing other RSA, DSA or EC keys or sign imported certificate requests.
 
-<sect1>How keys on a token are handled
+<sect1>Key Management on the Token
 
 <p>
 
@@ -609,7 +610,7 @@ Firefox always only looks for private keys on the card.
 If XCA does not show a key, which is however recognized by firefox
 a missing public-key object is the cause.
 
-<sect1>The token menu
+<sect1>The Token Menu
 
 <p>
 
@@ -622,7 +623,7 @@ The menu item: <tt>Token</tt> is accessible if a PKCS#11 library was loaded and 
 Security token specific operations are collected below
 the menu-item <tt>Token</tt>
 
-<sect3>Manage Security token
+<sect3>Manage Security Token
 
 <p>
 
@@ -631,7 +632,7 @@ When started it reads the content of the selected token.
 Additionally, it shows token information in the bottom-right corner and allows to delete and rename
 items directly on the token.
 
-<sect3>Initializing tokens
+<sect3>Initializing Tokens
 
 <p>
 
@@ -641,7 +642,7 @@ Initializing tokens is done via the menu item <tt>Initialize token</tt>. During 
 
 After this operation succeeded, the User PIN is uninitialized and must be initialized via <tt>Init PIN</tt>
 
-<sect3>Deleting items from the token
+<sect3>Deleting Items from the Token
 
 <p>
 
@@ -654,7 +655,7 @@ Items on the token that were not yet imported can be deleted via the "Manage sec
 
 The User PIN and SO PIN can be changed via the <tt>Token</tt> menu and also via the key context-menu. In this case the correct token containing the key will be enforced.
 
-<sect2>Tested providers
+<sect2>Tested Providers
 
 <p>
 
@@ -762,7 +763,7 @@ The pkcs11-id can be obtained with the command:
 <tt>openvpn --show-pkcs11-ids /usr/lib/libeTPkcs11.so</tt>
 
 
-<sect>RSA, DSA and EC keys <label id="keys">
+<sect>RSA, DSA and EC Keys <label id="keys">
 
 <p>
 
@@ -799,7 +800,7 @@ After the key generation is done the key will be stored in the database.
 For every connected token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown.
 It contains the name of the token and the valid key-sizes.
 
-<sect1>Key export
+<sect1>Key Export
 
 <p>
 
@@ -853,14 +854,20 @@ The request generation can also be invoked by the context menu of a certificate 
 This menu point is only available if the private key of the certificate is available.
 In this case all needed data is copied from the certificate and the Certificate dialog is not invoked.
 
-<sect1>Request export
+<sect1>Request Export
 
 <p>
 
 Requests can be exported by the context-menu or by the button on the right.
-The filename and type can be selected in the next dialog.
 
-<sect1>Request details
+<itemize>
+<item><bf>Clipboard</bf> Stores the request in PEM format into the Clipboard and can be pasted into an other application.
+<item><bf>File</bf> Write the request into a file in PEM or DER format.
+<item><bf>Template</bf> Create a XCA template with the values of the request.
+<item><bf>OpenSSL config</bf> Create aand store an OpenSSL config file which can be used to generate a similar request with openssl (openssl req -new -config &lt;file&gt;)
+</itemize>
+
+<sect1>Request Details
 
 <p>
 
@@ -916,7 +923,8 @@ certificate will be preselected as signer certificate.
 The signer is the internal name of the issuers certificate, <em>SELF SIGNED</em> if it is
 self signed or <em>SIGNER UNKNOWN</em> if the issuer's certificate is not available.
 The validity is set to <em>valid</em> if the certificate's dates are valid
-or to <em>Not valid</em> if they are not, regarding to the internal time and date of the OS.
+or to <em>Not valid</em> if they are not, compared to the
+internal time and date of the OS.
 
 <p>
 
@@ -949,9 +957,10 @@ It can be set to:
 <sect1>Certificate export
 
 <p>
-
+<itemize>
+<item><bf>Clipboard</bf> Copy to clipboard as PEM file
+<item><bf>File</bf> Export to external file.
 The filename can be selected in the export dialog and the Export format:
-
 <itemize>
 	<item><bf>PEM</bf> - PEM encoded
 	<item><bf>PEM with Certificate chain</bf> - PEM encoded certificate
@@ -983,6 +992,13 @@ The filename can be selected in the export dialog and the Export format:
 		X509 patch for OpenSSH.
 	<item><bf>PEM cert + PKCS8 key</bf> - concatenation of the
 		private key in PKCS&num;8 format and certificate.
+</itemize>
+
+<item><bf>Request</bf> Create a PKCS#10 request by using the data from the certificate.
+<item><bf>Token</bf> Store certificate on the Security token containing the private key
+<item><bf>Other token</bf> Store certificate on any Security token
+<item><bf>Template</bf> Create a template from the content of this certificate.
+<item><bf>OpenSSL config</bf> Create an OpenSSL config file from the contents of this certificate, which can be used to generate a similar certificate with openssl (openssl req -new -x509 -config &lt;file&gt;)
 </itemize>
 
 <p>
@@ -1018,13 +1034,20 @@ The context menu of CA certificates contains the <em>CA</em> submenu,
 which makes the following functions available:
 
 <itemize>
+	<item><bf>Properties</bf>
+	<item><bf>Generate CRL</bf> Generate the CRL by collecting all
+		revoked certificates and their revocation date.
+</itemize>
+
+<sect2>CA Properties
+<p>
+<itemize>
 	<item><bf>Serial</bf> The serial number of the next certificate
 		signed by this issuer.
+	<item><bf>Use random serial number</bf> Use a 64bit random serial numbers for certificates signed by this issuer.
 	<item><bf>CRL days</bf> The days until the next CRL release.
 	<item><bf>Signing Template</bf> The default template for
 		signing certificates.
-	<item><bf>Generate CRL</bf> Generate the CRL by collecting all
-		revoked certificates and their revocation date.
 	<item><bf>Use random serial numbers</bf> generates an 8 byte unique serial number for every newly issued certificate
 </itemize>
 
@@ -1075,7 +1098,7 @@ revoked certificates, signing and publishing it.
 
 In XCA this can be done by the context-menu of the CA and the
 "revoke" entry in the context-menu of the issued certificate.
-First all invalid certificates are marked as revoked and
+First all invalid certificates must be marked as revoked and
 then a Certificate Revocation List should be created and will be stored in the
 database.
 
@@ -1135,6 +1158,26 @@ The list of allowed string types can be selected:
 Older Windows versions and OpenSSL versions can not handle
 SHA256 and SHA512. This option allows to set the hash algorithm to SHA1
 for instance.
+
+<p>
+
+<sect1>Suppress success messages
+
+<p>
+
+After importing and generating new items a success message is shown.
+This switch disables the messages.
+
+<p>
+
+<sect1>Don't Colorize expired certificates
+
+<p>
+
+Since version 0.9.2 the expiration dates of certificates will be colorized.
+Red means expired or not yet valid. Yellow indicates certificates that only
+have 4/5 of their lifetime until expiration.
+The CRL expiration date will be marked red 2 days before expiration.
 
 <p>
 
