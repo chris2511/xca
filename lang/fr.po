@@ -1,12 +1,13 @@
 #
 # Patrick Monnerat <pm@datasphere.ch>, 2011.
+# demonipuch <Unknown>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xca 0.9.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-05-02 06:51+0200\n"
-"PO-Revision-Date: 2012-01-12 20:18+0000\n"
+"PO-Revision-Date: 2012-05-07 12:37+0200\n"
 "Last-Translator: demonipuch <Unknown>\n"
 "Language-Team: fr <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -461,8 +462,7 @@ msgstr "Il est conseillé d'encrypter la clé privée lors de son exportation."
 
 #: ExportKey#2
 msgid "When exporting the private part, it should be encrypted."
-msgstr ""
-"Il est conseillé d'encrypter la partie privée lors de son exportation."
+msgstr "Il est conseillé d'encrypter la partie privée lors de son exportation."
 
 #: ExportKey#3
 msgid "E&xport the private part of the Key too"
@@ -990,6 +990,9 @@ msgid ""
 "handled by XCA.\n"
 "Please enter the DH parameter bits"
 msgstr ""
+"Les paramètres de Diffie-Hellman sont nécessaires à certaines applications "
+"mais ne sont pas gérés par XCA.\n"
+"Saisir le nombre de bits du paramètre de Diffie-Hellman SVP"
 
 #: MainWindow#74
 msgctxt "MainWindow#74"
@@ -1576,9 +1579,9 @@ msgid ""
 msgstr ""
 "Cette extension contient le nom alternatif du signataire et permet de "
 "regrouper plusieurs valeurs littérales. Celles-ci comprennent \"email\" (un "
-"adresse de courriel), \"URI\" (un indicateur uniforme de ressource), \"DNS\" "
-"(un nom de domaine), \"RID\" (un identifiant d'objet enregistré) et \"IP\" "
-"(une adresse IP).\n"
+"adresse de courriel), \"URI\" (un indicateur uniforme de ressource), \"DNS"
+"\" (un nom de domaine), \"RID\" (un identifiant d'objet enregistré) et \"IP"
+"\" (une adresse IP).\n"
 "Exemples:\n"
 "email:mon@autre.adresse, IP: 1.1.1.1 , URI:http://mon.url.ici/\n"
 "email:mon@autre.adresse, RID:1.2.3.4, DNS: serveur.de.nom.tld"
@@ -1839,7 +1842,7 @@ msgstr "Types de chaînes"
 
 #: Options#7
 msgid "Suppress success messages"
-msgstr ""
+msgstr "Supprimer les messages en cas de succès"
 
 #: Options#8
 msgid "PKCS#11 provider"
@@ -1883,10 +1886,12 @@ msgid ""
 "The password is parsed as 2-digit hex code. It must have an equal number of "
 "digits (0-9 and a-f)"
 msgstr ""
+"Le mot de passe doit être exprimé sous forme d'une suite de chiffres "
+"hexadécimaux. Il doit contenir un nombre pair de chiffres (0-9 et a-f)"
 
 #: PwDialog#3
 msgid "Take as HEX string"
-msgstr ""
+msgstr "Exprimé en hexadécimal"
 
 #: PwDialog#4
 msgid "Repeat %1"
@@ -1906,7 +1911,7 @@ msgstr ""
 
 #: PwDialog#7
 msgid "E&xit"
-msgstr ""
+msgstr "&Quitter"
 
 #: QObject#1
 msgid "Undefined"
@@ -1950,8 +1955,7 @@ msgid "Import RSA key"
 msgstr "Importer une clé RSA"
 
 #: QObject#11
-msgid ""
-"PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
+msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
 msgstr ""
 "Requête PKCS#10 ( *.pem *.der *.csr );;Requête Netscape ( *.spkac *.spc );;"
 
@@ -2033,7 +2037,7 @@ msgstr "Charger un fichier encodé en PEM"
 
 #: QObject#31
 msgid "Please enter the PIN on the PinPad"
-msgstr ""
+msgstr "Saisir le NIP sur le pavé prévu à cet effet SVP"
 
 #: QObject#32
 msgid "Please enter the SO PIN (PUK) of the token %1"
@@ -2157,7 +2161,7 @@ msgstr "Inscriptions du sujet"
 
 #: db_base#4
 msgid "Paste PEM data"
-msgstr ""
+msgstr "Coller les données en format PEM"
 
 #: db_base#5
 msgid "Columns"
@@ -2506,8 +2510,7 @@ msgstr "Clé publique invalide"
 
 #: db_x509#16
 msgid "Please enter the new hexadecimal secret number for the QA process."
-msgstr ""
-"SVP saisir le nouveau nombre secret hexadécimal pour le processus QA."
+msgstr "SVP saisir le nouveau nombre secret hexadécimal pour le processus QA."
 
 #: db_x509#17
 msgid "The QA process has been terminated by the user."
@@ -2687,7 +2690,7 @@ msgstr "Nom non-structuré"
 
 #: db_x509req#4
 msgid "Challenge password"
-msgstr ""
+msgstr "Mot de passe challenge"
 
 #: db_x509req#5
 msgid ""
@@ -2754,17 +2757,17 @@ msgstr "Fichier"
 #: db_x509req#17
 msgctxt "db_x509req#17"
 msgid "Template"
-msgstr ""
+msgstr "Modèle"
 
 #: db_x509req#18
 msgctxt "db_x509req#18"
 msgid "OpenSSL config"
-msgstr ""
+msgstr "Configuration OpenSSL"
 
 #: db_x509req#19
 msgctxt "db_x509req#19"
 msgid "Delete"
-msgstr ""
+msgstr "Détruire"
 
 #: db_x509super#1
 msgid "Key name"
@@ -2776,11 +2779,11 @@ msgstr "Nom interne de la clé"
 
 #: db_x509super#3
 msgid "Save as OpenSSL config"
-msgstr ""
+msgstr "Enregistrer en format de configuration OpenSSL"
 
 #: db_x509super#4
 msgid "Config files ( *.conf *.cnf);; All files ( * )"
-msgstr ""
+msgstr "Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )"
 
 #: db_x509super#5
 msgid "The following extensions were not ported into the template"
@@ -2812,7 +2815,7 @@ msgstr "Erreur à l'ouverture du fichier '%1': %2"
 
 #: pki_base#2
 msgid "Error writing to file: '%1': %2"
-msgstr ""
+msgstr "Erreur à l'écriture du fichier '%1': %2"
 
 #: pki_base#3
 msgid "Error: "
@@ -2872,6 +2875,8 @@ msgid ""
 "Please enter the password to decrypt the private key from file:\n"
 "%1"
 msgstr ""
+"SVP saisir le mot de passe pour décrypter la clé privée du fichier:\n"
+"%1"
 
 #: pki_evp#4
 msgid ""
@@ -2900,8 +2905,7 @@ msgstr "SVP saisir le mot de pass pour protéger la clé privée: '%1'"
 
 #: pki_evp#9
 msgid "Please enter the database password for encrypting the key"
-msgstr ""
-"SVP saisir le mot de passe de la base de données pour encrypter la clé"
+msgstr "SVP saisir le mot de passe de la base de données pour encrypter la clé"
 
 #: pki_evp#10
 msgid "Please enter the password protecting the PKCS#8 key '%1'"
@@ -2970,6 +2974,8 @@ msgid ""
 "Please enter the password to decrypt the PKCS#12 file:\n"
 "%1"
 msgstr ""
+"SVP saisir le mot de passe pour décrypter le fichier en PKCS#12:\n"
+"%1"
 
 #: pki_pkcs12#2
 msgid "Unable to load the PKCS#12 (pfx) file %1."

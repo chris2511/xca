@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-07 10:12+0200\n"
+"POT-Creation-Date: 2012-05-08 06:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1774,7 +1774,7 @@ msgstr ""
 
 #: PwDialog#1
 msgid ""
-"The password is parsed as 2-digit hex code. It must have an equal number of "
+"The password is parsed as 2-digit hex code. It must have an even number of "
 "digits (0-9 and a-f)"
 msgstr ""
 

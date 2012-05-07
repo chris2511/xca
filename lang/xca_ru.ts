@@ -133,7 +133,7 @@
     <message>
         <location line="+7"/>
         <source>Signature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Подпись</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -624,7 +624,7 @@ PKCS#8 - это официальный формат обмена ключами 
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="+105"/>
-        <location line="+144"/>
+        <location line="+145"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation type="unfinished"></translation>
     </message>
@@ -669,7 +669,7 @@ PKCS#8 - это официальный формат обмена ключами 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-277"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-278"/>
         <source>
 Name: %1
 Model: %2
@@ -791,7 +791,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+751"/>
+        <location filename="../widgets/MainWindow.cpp" line="+752"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -2133,8 +2133,8 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/PwDialog.ui" line="+119"/>
-        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
+        <location filename="../ui/PwDialog.ui" line="+118"/>
+        <source>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

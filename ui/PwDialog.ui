@@ -115,7 +115,7 @@
       <item row="2" column="0" colspan="2">
        <widget class="QCheckBox" name="takeHex">
         <property name="toolTip">
-         <string>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</string>
+         <string>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</string>
         </property>
         <property name="text">
          <string>Take as HEX string</string>

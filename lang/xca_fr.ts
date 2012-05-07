@@ -933,7 +933,8 @@ Numéro de série: %3</translation>
     <message>
       <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
-      <translation type="unfinished"/>
+      <translation>Les paramètres de Diffie-Hellman sont nécessaires à certaines applications mais ne sont pas gérés par XCA.
+Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     </message>
     <message>
       <source>Error opening file: '%1': %2</source>
@@ -1636,7 +1637,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>Suppress success messages</source>
-      <translation type="unfinished"/>
+      <translation>Supprimer les messages en cas de succès</translation>
     </message>
     <message>
       <source>PKCS#11 provider</source>
@@ -1679,11 +1680,11 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-      <translation type="unfinished"/>
+      <translation>Le mot de passe doit être exprimé sous forme d'une suite de chiffres hexadécimaux. Il doit contenir un nombre pair de chiffres (0-9 et a-f)</translation>
     </message>
     <message>
       <source>Take as HEX string</source>
-      <translation type="unfinished"/>
+      <translation>Exprimé en hexadécimal</translation>
     </message>
     <message>
       <source>Repeat %1</source>
@@ -1699,7 +1700,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>E&amp;xit</source>
-      <translation type="unfinished"/>
+      <translation>&amp;Quitter</translation>
     </message>
   </context>
   <context>
@@ -1826,7 +1827,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
       <source>Please enter the PIN on the PinPad</source>
-      <translation type="unfinished"/>
+      <translation>Saisir le NIP sur le pavé prévu à cet effet SVP</translation>
     </message>
     <message>
       <source>Please enter the SO PIN (PUK) of the token %1</source>
@@ -1961,7 +1962,7 @@ Dans la bibliothèque %3
     </message>
     <message>
       <source>Paste PEM data</source>
-      <translation type="unfinished"/>
+      <translation>Coller les données en format PEM</translation>
     </message>
     <message>
       <source>Columns</source>
@@ -2457,7 +2458,7 @@ En conséquence, il n'a pas été importé</translation>
     </message>
     <message>
       <source>Challenge password</source>
-      <translation type="unfinished"/>
+      <translation>Mot de passe challenge</translation>
     </message>
     <message>
       <source>The certificate signing request already exists in the database as
@@ -2513,15 +2514,15 @@ En conséquence, elle n'a pas été chargée</translation>
     </message>
     <message>
       <source>Template</source>
-      <translation type="unfinished"/>
+      <translation>Modèle</translation>
     </message>
     <message>
       <source>OpenSSL config</source>
-      <translation type="unfinished"/>
+      <translation>Configuration OpenSSL</translation>
     </message>
     <message>
       <source>Delete</source>
-      <translation type="unfinished"/>
+      <translation>Détruire</translation>
     </message>
   </context>
   <context>
@@ -2536,11 +2537,11 @@ En conséquence, elle n'a pas été chargée</translation>
     </message>
     <message>
       <source>Save as OpenSSL config</source>
-      <translation type="unfinished"/>
+      <translation>Enregistrer en format de configuration OpenSSL</translation>
     </message>
     <message>
       <source>Config files ( *.conf *.cnf);; All files ( * )</source>
-      <translation type="unfinished"/>
+      <translation>Fichiers de configuration (*.conf *.cnf);; Tous les fichiers ( * )</translation>
     </message>
     <message>
       <source>The following extensions were not ported into the template</source>
@@ -2577,7 +2578,7 @@ En conséquence, elle n'a pas été chargée</translation>
     </message>
     <message>
       <source>Error writing to file: '%1': %2</source>
-      <translation type="unfinished"/>
+      <translation>Erreur à l'écriture du fichier '%1': %2</translation>
     </message>
     <message>
       <source>Error: </source>
@@ -2636,7 +2637,8 @@ En conséquence, elle n'a pas été chargée</translation>
     <message>
       <source>Please enter the password to decrypt the private key from file:
 %1</source>
-      <translation type="unfinished"/>
+      <translation>SVP saisir le mot de passe pour décrypter la clé privée du fichier:
+%1</translation>
     </message>
     <message>
       <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
@@ -2734,7 +2736,8 @@ En conséquence, elle n'a pas été chargée</translation>
     <message>
       <source>Please enter the password to decrypt the PKCS#12 file:
 %1</source>
-      <translation type="unfinished"/>
+      <translation>SVP saisir le mot de passe pour décrypter le fichier en PKCS#12:
+%1</translation>
     </message>
     <message>
       <source>Unable to load the PKCS#12 (pfx) file %1.</source>

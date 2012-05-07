@@ -622,7 +622,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
     </message>
     <message>
         <location filename="../widgets/ImportMulti.cpp" line="+105"/>
-        <location line="+144"/>
+        <location line="+145"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation>Unbekannter Typ bei &apos;%1&apos;</translation>
     </message>
@@ -667,7 +667,7 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>Auf der Chipkarte umbenennen</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="-277"/>
+        <location filename="../widgets/ImportMulti.cpp" line="-278"/>
         <source>
 Name: %1
 Model: %2
@@ -792,7 +792,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+751"/>
+        <location filename="../widgets/MainWindow.cpp" line="+752"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -2139,8 +2139,8 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>B&amp;eenden</translation>
     </message>
     <message>
-        <location filename="../ui/PwDialog.ui" line="+119"/>
-        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
+        <location filename="../ui/PwDialog.ui" line="+118"/>
+        <source>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</source>
         <translation>Das Passwort wird als 2 stelliger hex-code interpretiert. Er muss eine grade Anzahl an Ziffern enthalten (0-9 und a-f)</translation>
     </message>
     <message>
