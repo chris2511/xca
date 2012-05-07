@@ -52,6 +52,7 @@ void DistName::setX509name(const x509name &n)
 	for (int i=0; i<n.entryCount(); i++) {
 		l1 = new QLabel( this );
 		l2 = new CopyLabel( this );
+		l1->setTextFormat(Qt::PlainText);
 		sl = n.entryList(i);
 		l1->setText(sl[1]);
 		if (l1->text().isEmpty())

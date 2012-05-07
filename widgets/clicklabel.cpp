@@ -28,6 +28,7 @@ ClickLabel::ClickLabel(QWidget *parent)
 	pal.setColor(QPalette::Normal, QPalette::Window, col );
 	pal.setColor(QPalette::Inactive, QPalette::Window, col );
 	setPalette( pal );
+	setTextFormat(Qt::PlainText);
 }
 
 void ClickLabel::mouseDoubleClickEvent ( QMouseEvent * e )
@@ -65,6 +66,7 @@ CopyLabel::CopyLabel(QWidget *parent)
 {
 	setFrameShape(QFrame::Panel);
 	setFrameShadow(QFrame::Sunken);
+	setTextFormat(Qt::PlainText);
 
 #if QT_VERSION >= 0x040200
 	setTextInteractionFlags(
