@@ -34,7 +34,6 @@ void ExportDialog::on_fileBut_clicked()
 		QDir::convertSeparators(s);
 		filename->setText(s);
 	}
-	on_exportFormat_activated(0);
 }
 
 void ExportDialog::on_exportFormat_activated(int selected)
