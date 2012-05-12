@@ -15,7 +15,7 @@ xca.1.gz: xca.1
 
 xca.html: xca.sgml
 	rm -f xca*.html
-	echo '<h1>No documentation generated</h1>' > $@
+	echo 'The documentation for XCA can be viewed online at: <a href="http://xca.sourceforge.net/">http://xca.sourceforge.net/</a>.' > $@
 	test ! -f xca-doc.tgz || tar zxf xca-doc.tgz
 	@$(PRINT) "  DOC    [$(BASENAME)] $@"
 	$(LINUXDOC) -B html $< >/dev/null

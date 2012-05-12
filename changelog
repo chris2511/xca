@@ -1,4 +1,8 @@
-xca 0.9.2 Sun May 6 08:42:26 2012
+xca 0.9.3 Sat May 12 2012
+
+  * Fix double free in a1time resulting in random crashes
+
+xca 0.9.2 Sun May 6 2012
 
   * Support for Local timezone dates.
     Differentiate between invalid and undefined dates.
@@ -8,7 +12,7 @@ xca 0.9.2 Sun May 6 08:42:26 2012
   * Avoid very long names resulting in duplicate names in the database.
   * Add warning colors for expired dates.
 
-xca 0.9.1 Fri Oct 21 08:13:26 2011
+xca 0.9.1 Fri Oct 21 2011
 
   * Close bug [ 3372449 ] All numeric names cannot be used
   * add search functionality for PKCS#11 libraries
@@ -30,7 +34,7 @@ xca 0.9.1 Fri Oct 21 08:13:26 2011
   * Close bug [3062708] Invalid user configuration file path name
   * Fix PKCS#11 library handling
 
-xca 0.9.0 Sun Aug 29 08:13:26 2010
+xca 0.9.0 Sun Aug 29 2010
 
   * support loading more than one PKCS#11 library
   * remove the need for engine_pkcs11
@@ -66,11 +70,11 @@ xca 0.9.0 Sun Aug 29 08:13:26 2010
     - store existing keys on a token
     - delete keys and certs from a token
 
-xca 0.8.1 Tue Jan 5 07:52:03 2010
+xca 0.8.1 Tue Jan 5 2010
 
   * fix string conversion from QString to ASN1
 
-xca 0.8.0 Thu Dec 10 18:44:03 2009
+xca 0.8.0 Thu Dec 10 2009
 
   * improve documentation
   * improve file-dialog handling
@@ -86,7 +90,7 @@ xca 0.8.0 Thu Dec 10 18:44:03 2009
   * Support for Smart Cards
   * set proper file-extension .xdb on opening databases
 
-xca 0.7.0 Fri Sep 11 07:38:47 2009
+xca 0.7.0 Fri Sep 11 2009
 
   * support modifying the CSR subject during signing
   * update key images
@@ -108,7 +112,7 @@ xca 0.7.0 Fri Sep 11 07:38:47 2009
   * add PEM paste import feature
   * extend PEM import to import all items from a PEM file
 
-xca 0.6.4 Mon Aug 13 16:17:52 2007
+xca 0.6.4 Mon Aug 13 2007
 
   * Bug "tree view loose track" fixed
   * check for certificate errors and display them instead of crashing
@@ -120,7 +124,7 @@ xca 0.6.4 Mon Aug 13 16:17:52 2007
   * X509 request attributes (like challange password) can be set
     and viewed.
 
-xca 0.6.3 Thu May 17 14:02:38 2007
+xca 0.6.3 Thu May 17 2007
 
   * show CRL signature algorithm information
   * Add options dialog to set the default hash algo,
@@ -134,12 +138,12 @@ xca 0.6.3 Thu May 17 14:02:38 2007
   * fix segfault
   * switch string handling to UTF8
 
-xca 0.6.2 Mon Apr 9 21:37:27 2007
+xca 0.6.2 Mon Apr 9 2007
 
   * break endless loop in chain building
     Bug [ 1696878 ]
 
-xca 0.6.1 Thu Apr 5 11:55:22 2007
+xca 0.6.1 Thu Apr 5 2007
 
   * minor documentation updates
   * Fix openssl-cross patch 
@@ -149,7 +153,7 @@ xca 0.6.1 Thu Apr 5 11:55:22 2007
   * remove all usages of QT3 backward lib 
     [ xca-Feature Requests-1692800 ]
 
-xca 0.6.0 Fri Mar 16 20:35:31 2007
+xca 0.6.0 Fri Mar 16 2007
 
   * set initial sorting to ascending order
   * add RFC2253 representation of subject and issuer
@@ -166,7 +170,7 @@ xca 0.6.0 Fri Mar 16 20:35:31 2007
   * add undelete feature for deleted items
   * fix database shrinking of curent db during opening of new db
 
-xca 0.6.0-beta02 Fri Feb 2 00:05:47 2007
+xca 0.6.0-beta02 Fri Feb 2 2007
 
   * correct and fixate the order of x509name entries
   * Add CRL properties dialog to select the dates and the
@@ -194,13 +198,13 @@ xca 0.6.0-beta02 Fri Feb 2 00:05:47 2007
     and the private additionally encrypted.
   * Allow different passwords for keys
 
-xca 0.5.1 Tue Jul 13 19:00:22 2004
+xca 0.5.1 Tue Jul 13 2004
 
   * support for different languages on WIN platform (Thanks Ilya)
   * better installation and deinstallation on WIN platform
   * documentation updated
 
-xca 0.5.0 Sun Jun 13 21:22:24 2004
+xca 0.5.0 Sun Jun 13 2004
 
   * orthographical changes
   * more translations
@@ -208,7 +212,7 @@ xca 0.5.0 Sun Jun 13 21:22:24 2004
   * manpage and documentation updated
   * store "midnight" in template
 
-xca 0.4.7-RC2 Fri Apr 16 21:49:20 2004
+xca 0.4.7-RC2 Fri Apr 16 2004
 
   * open db if explicit mentioned, otherwise do not.
   * Errormessage on a wrong pkcs12 password more comprehensive
@@ -219,7 +223,7 @@ xca 0.4.7-RC2 Fri Apr 16 21:49:20 2004
   * AuthorityInfoAccess enhanced "aia.txt" as oid list added
   * allow empty passwords on PKCS#12 import
 
-xca 0.4.7-RC1 Thu Feb 5 23:05:00 2004
+xca 0.4.7-RC1 Thu Feb 5 2004
 
   * debian menu-entry added
   * Open and closing of different databases
@@ -236,7 +240,7 @@ xca 0.4.7-RC1 Thu Feb 5 23:05:00 2004
   * About dialog and help window added.
   * Requestdetail is now tabdialog
 
-xca 0.4.6 Tue Nov 25 23:06:47 2003
+xca 0.4.6 Tue Nov 25 2003
 
   * Country is State or Province
   * xca.dsp: WIN32 changes from Ilya
@@ -254,7 +258,7 @@ xca 0.4.6 Tue Nov 25 23:06:47 2003
     - Support for UTF8 in x509name
     - Netscape SPKAC support added
 
-xca 0.4.5 Wed Aug 13 21:14:39 2003
+xca 0.4.5 Wed Aug 13 2003
 
   * more german translations
   * [ 737036 ] make error texts copiable from pop-up-windows to clipboard
@@ -264,12 +268,12 @@ xca 0.4.5 Wed Aug 13 21:14:39 2003
     editable to enter arbitrary key sizes.
   * [ 765774 ] change password for database
 
-xca 0.4.4 Wed Aug 6 16:42:37 2003
+xca 0.4.4 Wed Aug 6 2003
 
   * [ 783853 ] renewal uses 'notBefore' as 'notAfter' date
   * [ 783830 ] GeneralizedTime-format breaks browsers
 
-xca 0.4.3 Tue Aug 5 19:57:00 2003
+xca 0.4.3 Tue Aug 5 2003
 
   * remove Certificate creation bug (AuthKeyId)
   * always take the right cert for signing
@@ -281,7 +285,7 @@ xca 0.4.3 Tue Aug 5 19:57:00 2003
   * some segmentation faults removed
   * VPN OIDs added to Ext. Keyusage
 
-xca 0.4.2 Sun Jul 20 21:37:32 2003
+xca 0.4.2 Sun Jul 20 2003
 
   * Memory leak removed
   * Template import and export added
@@ -294,7 +298,7 @@ xca 0.4.2 Sun Jul 20 21:37:32 2003
     reconnected.
   * Authority Key identifier repaired
 
-xca 0.4.1 Tue Jul 15 19:33:49 2003
+xca 0.4.1 Tue Jul 15 2003
 
   * some compiling issues removed
   * Import via commandline repaired,
@@ -305,7 +309,7 @@ xca 0.4.1 Tue Jul 15 19:33:49 2003
   * implemented feature request:
     [ 755599 ] add PFX import button to Keytab
 
-xca 0.4.0 Tue Jul 8 21:24:41 2003
+xca 0.4.0 Tue Jul 8 2003
 
   * Solved bugs:
   * [ 752111 ] Cannot handle dates past 32-bit boundary (2038)
@@ -321,19 +325,19 @@ xca 0.4.0 Tue Jul 8 21:24:41 2003
     key.xpm will be installed as xca.xpm in pixmaps
     ([ 763954 ] xca.desktop file) Thanks to Enrico Scholz
 
-xca 0.3.2 Thu May 15 17:30:56 2003
+xca 0.3.2 Thu May 15 2003
 
   * Optimizations, icon for WIN32 platform
   * MS Registry and %USERPROFILE% support
   * Support for PKCS#7 certs (im/export)
   * small UI changes
 
-xca 0.3.1 Thu Apr 24 22:26:17 2003
+xca 0.3.1 Thu Apr 24 2003
 
   * Tool Tips added
   * CRL handling (import, export, details) added
 
-xca 0.3.0 Fri Apr 25 00:13:58 2003
+xca 0.3.0 Fri Apr 25 2003
 
   * several bugfixes and memoryleaks removed
   * export to TinyCA and "openssl ca" added
@@ -347,21 +351,21 @@ xca 0.3.0 Fri Apr 25 00:13:58 2003
   * changes in configure
   * The wizard invokes the key generation process only if really needed
 
-xca 0.2.12 Mon Jan 6 20:44:49 2003
+xca 0.2.12 Mon Jan 6 2003
 
   * PKCS#7 encryption and signing of files added
   * First attempt of documentation added
   * Several export targets added
   * Certificate renewal repaired
 
-xca 0.2.11 Wed Dec 4 21:46:21 2002
+xca 0.2.11 Wed Dec 4 2002
 
   * Certificate export enhanced, increase signer-serial on certimport.
   * interpretation of serial as hex and not as dezimal.
   * configure continues even if qt lib is absent.
   * $HOME/xca is created if it does not exist.
 
-xca 0.2.10 Tue Oct 29 18:11:12 2002
+xca 0.2.10 Tue Oct 29 2002
 
   * shows not After time and serial in listview
   * some segfaults removed
@@ -371,7 +375,7 @@ xca 0.2.10 Tue Oct 29 18:11:12 2002
   * create request from certificate
   * FreeBSD paths and libs  recognized by configure
 
-xca 0.2.9 Mon Oct 21 19:10:40 2002
+xca 0.2.9 Mon Oct 21 2002
 
   * several segfaults eliminated
   * key-use counter corrected
@@ -381,7 +385,7 @@ xca 0.2.9 Mon Oct 21 19:10:40 2002
   * database transactions activated
   * exception-handling completed
 
-xca 0.2.8 Sun Oct 13 21:31:23 2002
+xca 0.2.8 Sun Oct 13 2002
 
   * consistency checks for Iss-alt-name and Sub-alt-name
   * Check for certificate dates to not exceed those of the signer
@@ -390,12 +394,12 @@ xca 0.2.8 Sun Oct 13 21:31:23 2002
   * package-builder do build without printf-debugging
   * key-use counter works now well
 
-xca 0.2.7 Tue Oct 8 16:36:14 2002
+xca 0.2.7 Tue Oct 8 2002
 
   * segfaults removed
   * minor wizard changes
 
-xca 0.2.6 Mon Sep 30 21:39:36 2002
+xca 0.2.6 Mon Sep 30 2002
 
   * show common name in request list and certificate list
   * CRL generation added
@@ -403,7 +407,7 @@ xca 0.2.6 Mon Sep 30 21:39:36 2002
   * signing-template, CRL date and CRL time interval adjustable
   * Fix for windows filenames
 
-xca 0.2.5 Tue Sep 24 18:01:46 2002
+xca 0.2.5 Tue Sep 24 2002
 
   *  Certificate and Template Wizard completed
   *  CA-serial can be changed and is stored with the cert
@@ -414,12 +418,12 @@ xca 0.2.5 Tue Sep 24 18:01:46 2002
   *  Files for MS Visual C++ added (yes, it compiles on MS Windows)
   *  Windows Installer added (Nullsoft)
 
-xca 0.2.4 Tue Sep 10 17:06:34 2002
+xca 0.2.4 Tue Sep 10 2002
 
   * PKCS#12 import added
   * bugfixes fileview, requestgeneration
 
-xca 0.2.3 Wed Sep 4 19:23:13 2002
+xca 0.2.3 Wed Sep 4 2002
 
   * icons changed
   * context menu on right mousebutton
@@ -429,7 +433,7 @@ xca 0.2.3 Wed Sep 4 19:23:13 2002
   * all dialogs translated to english
   * no more images in *.ui files
 
-xca 0.2.2 Thu Jul 18 19:51:40 2002
+xca 0.2.2 Thu Jul 18 2002
 
   * basic constraints, key usage and subject/authority key identifier
   * signing wizard...
@@ -437,7 +441,7 @@ xca 0.2.2 Thu Jul 18 19:51:40 2002
   * Certificate for signing can be self or foreign,
   * password is saved as md5sum
 
-xca 0.1.12 Thu Jul 11 21:54:04 2002
+xca 0.1.12 Thu Jul 11 2002
 
   * icons added
   * treeview for Certificates
@@ -445,7 +449,7 @@ xca 0.1.12 Thu Jul 11 21:54:04 2002
   * program asks for initial password on startup
   * some segfaulting bugs removed
 
-xca 0.1.11 Wed Jul 3 21:16:01 2002
+xca 0.1.11 Wed Jul 3 2002
 
   * RSA Keys are generated and stored to or loaded from a file
     in either DER or PEM format.
