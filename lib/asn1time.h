@@ -25,6 +25,8 @@ class a1time : public QDateTime
 	a1time();
 	a1time(const QDateTime &a);
 	a1time(const ASN1_TIME *a);
+	a1time(const a1time &a);
+	a1time &operator = (const a1time &a);
 	~a1time();
 	a1time &set(const ASN1_TIME *a);
 	void setUndefined();

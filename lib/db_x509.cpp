@@ -438,7 +438,6 @@ void db_x509::newCert(NewX509 *dlg)
 	pki_x509req *req = NULL;
 	pki_key *signkey = NULL, *clientkey = NULL, *tempkey = NULL;
 	a1int serial;
-	a1time notBefore, notAfter;
 	x509name subject;
 	QString intname;
 

@@ -74,6 +74,21 @@ a1time::a1time(const QDateTime &a)
 	atime = NULL;
 }
 
+a1time::a1time(const a1time &a)
+	: QDateTime(a)
+{
+	atime = NULL;
+}
+
+a1time &a1time::operator = (const a1time &a)
+{
+	if (atime)
+		ASN1_TIME_free(atime);
+	atime = NULL;
+	QDateTime::operator=(a);
+	return *this;
+}
+
 a1time::a1time()
 {
 	atime = NULL;
@@ -179,4 +194,3 @@ QByteArray a1time::i2d()
 	get();
 	return i2d_bytearray(I2D_VOID(i2d_ASN1_TIME), atime);
 }
-
