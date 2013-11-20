@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2012 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2013 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -70,7 +70,7 @@ void MainWindow::about()
 
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
-	"<p>Copyright 2001 - 2012 by Christian Hohnst&auml;dt\n"
+	"<p>Copyright 2001 - 2013 by Christian Hohnst&auml;dt\n"
 	"<p>Version : <b>" VER "</b>"
 	"<p>%1"
 	"<hr><table border=0>"
