@@ -270,8 +270,8 @@ int main(){
 }
 EOF
 
-echo "${CC} $LDIRS $LIBS $CF $CFLAGS ${LDFLAGS} conftest.cpp -o conftest${SUFFIX}" >conftest.log
-if ${CC} $LIBS $LDIRS $CF $CFLAGS ${LDFLAGS} conftest.cpp -o conftest${SUFFIX} >> conftest.log 2>&1; then
+echo "${CC} $LDIRS $CF $CFLAGS ${LDFLAGS} conftest.cpp $LIBS -o conftest${SUFFIX}" >conftest.log
+if ${CC} $LDIRS $CF $CFLAGS ${LDFLAGS} conftest.cpp $LIBS -o conftest${SUFFIX} >> conftest.log 2>&1; then
   if ! ./conftest${SUFFIX}; then
     err "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf"
   else
