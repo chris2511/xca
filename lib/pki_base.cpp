@@ -50,15 +50,7 @@ QString pki_base::getIntName() const
 
 QString pki_base::getUnderlinedName() const
 {
-	QString a = getIntName();
-	int i, l = a.length();
-
-	for (i=0; i<l; i++) {
-		if (a[i] == ' ' || a[i] == '&' || a[i] == ';' || a[i] == '`')
-			a[i] = '_';
-	}
-
-	return a;
+	return getIntName().replace(QRegExp("[ &;`/\\\\]+"), "_");
 }
 
 int pki_base::get_pki_counter()
