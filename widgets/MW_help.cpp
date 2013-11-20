@@ -95,6 +95,7 @@ void MainWindow::about()
 	"<tr><th>German</th><td>Christian Hohnst&auml;dt</td></tr>"
 	"<tr><th>Russian</th><td>Pavel Belly &lt;pavel.belly@gmail.com&gt;</td></tr>"
 	"<tr><th>French</th><td>Patrick Monnerat &lt;Patrick.Monnerat@datasphere.ch&gt;</td></tr>"
+	"<tr><th>Croatian</th><td>Nevenko Bartolincic &lt;nevenko.bartolincic@gmail.com&gt;</td></tr>"
 	"</table>").
 		arg(version);
 

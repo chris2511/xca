@@ -6,7 +6,7 @@ endif
 include $(TOPDIR)/Rules.mak
 
 PO_LANGUAGES=es tr fr
-LANGUAGES=de ru $(PO_LANGUAGES)
+LANGUAGES=de ru hr $(PO_LANGUAGES)
 QM_XCA=$(patsubst %, xca_%.qm, $(LANGUAGES))
 QM_QT=$(patsubst %, qt_%.qm, $(LANGUAGES))
 TS_XCA=$(patsubst %, xca_%.ts, $(PO_LANGUAGES))
