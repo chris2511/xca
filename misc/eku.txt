@@ -19,3 +19,4 @@ msSmartcardLogin
 OCSPSigning
 id-kp-eapOverPPP
 id-kp-eapOverLAN
+id-pkkdcekuoid
