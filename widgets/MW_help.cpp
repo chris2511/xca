@@ -90,6 +90,7 @@ void MainWindow::about()
 	"<tr><td><b>Thorsten Weiss</b></td><td><u>&lt;weiss2@gmx.de&gt;</u></td></tr>"
 	"<tr><td><b>Oobj</b></td><td><u>&lt;www.oobj.com.br&gt;</u></td></tr>"
 	"<tr><td><b>Frank Isemann</b></td><td><u>&lt;isemannf@firflabs.net&gt;</u></td></tr>"
+	"<tr><td><b>Helmut Strobl</b></td><td><u>&lt;helmut.strobl@t-online.de&gt;</u></td></tr>"
 	"</table><hr><center><u><b>Translations</b></u></center>"
 	"<p><table>"
 	"<tr><th>German</th><td>Christian Hohnst&auml;dt</td></tr>"
