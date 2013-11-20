@@ -20,12 +20,12 @@ It is needed if
  - you don't have at least SnowLeopard
    (Mac OS 10.5 comes with OpenSSL 0.9.7, which is too old for XCA)
 
-Compile OpenSSL 1.0.1c:
+Compile OpenSSL 1.0.1e:
 ----------------------
 # Download the latest OpenSSL sources, unpack them and change into it
-curl http://openssl.org/source/openssl-1.0.1c.tar.gz >openssl-1.0.1c.tar.gz
-tar zxf openssl-1.0.1c.tar.gz
-cd openssl-1.0.1c
+curl http://www.openssl.org/source/openssl-1.0.1e.tar.gz >openssl-1.0.1e.tar.gz
+tar zxf openssl-1.0.1e.tar.gz
+cd openssl-1.0.1e
 
 # define the installation dir and the path to the new library
 # it will be installed locally in you home directory
