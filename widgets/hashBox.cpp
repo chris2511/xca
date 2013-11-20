@@ -43,6 +43,7 @@ void hashBox::setKeyType(int type)
 
 const EVP_MD *hashBox::currentHash()
 {
+#if OPENSSL_VERSION_NUMBER < 0x10000000L
 	switch(key_type) {
 	case EVP_PKEY_DSA:
 		return EVP_dss1();
@@ -50,14 +51,14 @@ const EVP_MD *hashBox::currentHash()
 	case EVP_PKEY_EC:
 		return EVP_ecdsa();
 #endif
-	default:
-		QString hash = currentText();
-		for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
-			if (hash == hashalgos[i].name)
-				return hashalgos[i].md;
-		}
 	}
-	return hashalgos[1].md; /* SHA1 as fallback */
+#endif
+	QString hash = currentText();
+	for (unsigned i=0; i<ARRAY_SIZE(hashalgos); i++) {
+		if (hash == hashalgos[i].name)
+			return hashalgos[i].md;
+	}
+	return hashalgos[4].md; /* SHA-256 as fallback */
 }
 
 void hashBox::setCurrentString(QString md)
