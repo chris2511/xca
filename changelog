@@ -1,3 +1,13 @@
+
+ *  Overwite extensions from the PKCS#10 request by local extensions
+    This avoids duplication errors and allows to overwrite some
+    extensions from the request
+ *  SF Bug #78 replace path separators in export filenames
+ *  SF Feature Req. #71 Add KDC Authentication OIDs to default files
+ *  SF Bug #82 Certificate Creation out of Spec
+ *  Add Croatian translation
+ *  SF Bug #83 Inappropriate gcc argument order in configure script
+
 xca 0.9.3 Sat May 12 2012
 
   * Fix double free in a1time resulting in random crashes
