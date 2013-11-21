@@ -78,7 +78,7 @@ class pki_x509 : public pki_x509super
 		QString fingerprint(const EVP_MD *digest);
 		extList getV3ext();
 		bool checkDate();
-		void addV3ext(const x509v3ext &e);
+		bool addV3ext(const x509v3ext &e, bool skip_existing = false);
 		void sign(pki_key *signkey, const EVP_MD *digest);
 		X509 *getCert()
 		{

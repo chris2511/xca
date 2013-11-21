@@ -326,10 +326,6 @@ extList NewX509::getExtDuplicates()
 		return el_dup;
 
 	el.setStack(sk, 0);
-	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
-		el += getSelectedReq()->getV3ext();
-	}
-
 	cnt = el.size();
 	for (start=0; start < cnt; start++) {
 		n1 = el[start].nid();

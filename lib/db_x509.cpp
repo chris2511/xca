@@ -529,15 +529,17 @@ void db_x509::newCert(NewX509 *dlg)
 	cert->setNotAfter(a);
 
 	// STEP 4 handle extensions
+
+	// apply all extensions to the subject cert in the context
+	dlg->getAllExt();
+
+	// apply extensions from CSR if requested
 	if (dlg->copyReqExtCB->isChecked() && dlg->fromReqCB->isChecked()) {
 		extList el = req->getV3ext();
 		int m = el.count();
 		for (int i=0; i<m; i++)
-			cert->addV3ext(el[i]);
+			cert->addV3ext(el[i], true);
 	}
-
-	// apply all extensions to the subject cert in the context
-	dlg->getAllExt();
 
 	const EVP_MD *hashAlgo = dlg->hashAlgo->currentHash();
 #ifdef WG_QA_SERIAL

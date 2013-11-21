@@ -429,13 +429,17 @@ void pki_x509::setIssuer(const x509name &n)
 	cert->cert_info->issuer = n.get();
 }
 
-void pki_x509::addV3ext(const x509v3ext &e)
+bool pki_x509::addV3ext(const x509v3ext &e, bool skip_existing)
 {
-	if (!e.isValid()) return;
+	if (!e.isValid())
+		return false;
+	if (skip_existing && X509_get_ext_by_NID(cert, e.nid(), -1) != -1)
+		return false;
 	X509_EXTENSION *ext = e.get();
 	X509_add_ext(cert, ext, -1);
 	X509_EXTENSION_free(ext);
 	pki_openssl_error();
+	return true;
 }
 
 void pki_x509::delSigner(pki_base *s)

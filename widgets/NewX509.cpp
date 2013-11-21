@@ -817,17 +817,9 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 {
 	int ret = 0;
 	QStringList errors;
-	extList el;
+	extList el, req_el;
 	ign_openssl_error();
 	setupTmpCtx();
-	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
-		el = getSelectedReq()->getV3ext();
-	}
-	if (el.size() > 0) {
-		result = "<h2><center>";
-		result += tr("From PKCS#10 request") +"</center></h2><p>\n";
-		result += el.getHtml("<br>");
-	}
 	try {
 		el = getGuiExt();
 		el += getNetscapeExt();
@@ -837,8 +829,6 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 		el.clear();
 	}
 	if (el.size() > 0) {
-		if (!result.isEmpty())
-			result += "\n<hr>\n";
 		result += "<h2><center>";
 		result += tr("Other Tabs") + "</center></h2><p>\n";
 		result += el.getHtml("<br>");
@@ -864,6 +854,21 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 		result += errors.join("</li><li>\n");
 		result += "</li></ul>";
 		ret = 1;
+	}
+	el.clear();
+	if (fromReqCB->isChecked() && copyReqExtCB->isChecked()) {
+		req_el = getSelectedReq()->getV3ext();
+                for (int i=0; i<req_el.count(); i++) {
+			if (ctx_cert && ctx_cert->addV3ext(req_el[i], true))
+				el += req_el[i];
+		}
+	}
+	if (el.size() > 0) {
+		if (!result.isEmpty())
+			result += "\n<hr>\n";
+		result += "<h2><center>";
+		result += tr("From PKCS#10 request") +"</center></h2><p>\n";
+		result += el.getHtml("<br>");
 	}
 	el = getExtDuplicates();
 	if (el.size() > 0) {
@@ -1040,14 +1045,19 @@ void NewX509::accept()
 				break;
 		}
 	}
+	pki_key *signkey = NULL;
 	pki_x509 *signer = NULL;
-	if (!selfSignRB->isChecked())
+	if (foreignSignRB->isChecked()) {
 		signer = getSelectedSigner();
-
-	pki_key *signkey = getSelectedKey();
-	if (signer)
-		signkey = signer->getRefKey();
-
+		if (signer)
+			signkey = signer->getRefKey();
+	} else if (fromReqCB->isChecked()) {
+		pki_x509req *req = getSelectedReq();
+		if (req)
+			signkey = req->getRefKey();
+	} else {
+		signkey = getSelectedKey();
+	}
 	if ((!signkey || signkey->isPubKey()) && pt != tmpl) {
 		QString txt;
 		gotoTab(signer ? 0 : 1);
