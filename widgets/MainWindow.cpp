@@ -63,6 +63,7 @@ static const int x962_curve_nids[] = {
 	NID_X9_62_prime239v2,
 	NID_X9_62_prime239v3,
 	NID_X9_62_prime256v1,
+
 	NID_X9_62_c2pnb163v1,
 	NID_X9_62_c2pnb163v2,
 	NID_X9_62_c2pnb163v3,
@@ -82,17 +83,36 @@ static const int x962_curve_nids[] = {
 };
 
 static const int other_curve_nids[] = {
+	NID_sect113r1,
+	NID_sect113r2,
+	NID_sect131r1,
+	NID_sect131r2,
 	NID_sect163k1,
+	NID_sect163r1,
 	NID_sect163r2,
+	NID_sect193r1,
+	NID_sect193r2,
 	NID_sect233k1,
 	NID_sect233r1,
+	NID_sect239k1,
 	NID_sect283k1,
 	NID_sect283r1,
 	NID_sect409k1,
 	NID_sect409r1,
 	NID_sect571k1,
 	NID_sect571r1,
+
+	NID_secp112r1,
+	NID_secp112r2,
+	NID_secp128r1,
+	NID_secp128r2,
+	NID_secp160k1,
+	NID_secp160r1,
+	NID_secp160r2,
+	NID_secp192k1,
+	NID_secp224k1,
 	NID_secp224r1,
+	NID_secp256k1,
 	NID_secp384r1,
 	NID_secp521r1
 };
