@@ -13,6 +13,13 @@ to build XCA, not the comlete 2GB Xcode binary.
 Either Install QT SDK in your home directory, say /Users/XXX/QtSDK
 or install the qt-mac-carbon-opensource-4.7.3.dmg
 
+For later versions of QT which don't come as 32/64 bit bundles, i compiled
+QT (4.8.5) with the following command:
+
+ ./configure -no-qt3support -no-xmlpatterns -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-svg -no-webkit -no-javascript-jit -no-script -no-scripttools -no-declarative -arch x86 -opensource -release -prefix $HOME/src/install/Qt485
+
+You should then "export QTDIR=$HOME/src/install/Qt485"
+
 Decide whether OpenSSL 1.0.x shall be used.
 It is needed if
 
@@ -20,7 +27,7 @@ It is needed if
  - you don't have at least SnowLeopard
    (Mac OS 10.5 comes with OpenSSL 0.9.7, which is too old for XCA)
 
-Compile OpenSSL 1.0.1e:
+Compile OpenSSL 1.0.1g:
 ----------------------
 # Download the latest OpenSSL sources, unpack them and change into it
 curl http://www.openssl.org/source/openssl-1.0.1g.tar.gz >openssl-1.0.1g.tar.gz
