@@ -10,6 +10,7 @@
 #include <openssl/objects.h>
 #include <QtCore/QStringList>
 #include <QtGui/QMessageBox>
+#include <QtGui/QTextEdit>
 #include <QtCore/QDir>
 #include "func.h"
 #include "oid.h"
@@ -38,9 +39,8 @@ static void readOIDs(QString fname)
 		sl.clear();
 		sl = pb.split(':');
 		if (sl.count() != 3) {
-			QMessageBox::warning(NULL, QString(XCA_TITLE),
-				QString("Error reading config file: ") + fname + " Line: " +
-				QString::number(line) );
+			XCA_WARN(QString("Error reading config file: ") + fname + " Line: " +
+				QString::number(line));
 			fclose(fp);
 			return;
 		} else {
@@ -105,13 +105,11 @@ NIDlist readNIDlist(QString fname)
 
 		nid = OBJ_txt2nid((char *)pb);
 		if (nid == NID_undef)
-			QMessageBox::warning(NULL, QString(XCA_TITLE),
-				QString("Unknown (flying:-) Object: ") + fname +
-				" Line: " + QString::number(line) );
+			XCA_WARN(QString("Unknown (flying:-) Object: ") + fname +
+				" Line: " + QString::number(line));
 		else
 			nl += nid;
 	}
 	fclose(fp);
 	return nl;
 }
-

@@ -47,9 +47,7 @@ void db_base::createSuccess(pki_base *pki)
 	if (pki_base::suppress_messages)
 		return;
 
-	QMessageBox::information(mainwin, XCA_TITLE,
-		pki->getMsg(pki_base::msg_create).
-			arg(pki->getIntName()));
+	XCA_INFO(pki->getMsg(pki_base::msg_create).arg(pki->getIntName()));
 }
 
 void db_base::remFromCont(QModelIndex &idx)
@@ -215,11 +213,7 @@ void db_base::delete_ask()
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
 
-	if (QMessageBox::question(mainwin, XCA_TITLE,
-				pki->getMsg(pki_base::msg_delete)
-					.arg(pki->getIntName()),
-				QMessageBox::Ok | QMessageBox::Cancel) !=
-				QMessageBox::Ok)
+	if (!XCA_OKCANCEL(pki->getMsg(pki_base::msg_delete).arg(pki->getIntName())))
 		 return;
 
 	deletePKI();
@@ -306,9 +300,7 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 		msg = pki->getMsg(pki_base::msg_delete_multi).arg(count).
 				arg(items);
 
-	if (QMessageBox::question(mainwin, XCA_TITLE, msg,
-				QMessageBox::Ok | QMessageBox::Cancel) !=
-				QMessageBox::Ok)
+	if (!XCA_OKCANCEL(msg))
 		return;
 
 	foreach(index, indexes) {

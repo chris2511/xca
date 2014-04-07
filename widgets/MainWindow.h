@@ -22,11 +22,23 @@
 #include <QtGui/QFileDialog>
 #include <QtGui/QMenuBar>
 #include <QtCore/QList>
+#include <QtGui/QMessageBox>
 
 #define DBFILE "xca.xdb"
 
 class db_x509;
 class pki_multi;
+
+class xcaWarning: public QMessageBox
+{
+	public:
+		xcaWarning(QWidget *w, QString txt)
+			: QMessageBox(QMessageBox::Warning,
+				 XCA_TITLE, txt, QMessageBox::NoButton, w)
+		{
+			setTextFormat(Qt::PlainText);
+		}
+};
 
 class MainWindow: public QMainWindow, public Ui::MainWindow
 {

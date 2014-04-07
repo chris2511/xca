@@ -91,13 +91,13 @@ pki_base* db_key::insert(pki_base *item)
 	oldkey = (pki_key *)getByReference(lkey);
 	if (oldkey != NULL) {
 		if ((oldkey->isPrivKey() && lkey->isPrivKey()) || lkey->isPubKey()){
-			QMessageBox::information(mainwin, XCA_TITLE,
+			XCA_INFO(
 			tr("The key is already in the database as:\n'%1'\nand is not going to be imported").arg(oldkey->getIntName()));
 			delete(lkey);
 			return NULL;
 		}
 		else {
-			QMessageBox::information(mainwin, XCA_TITLE,
+			XCA_INFO(
 			tr("The database already contains the public part of the imported key as\n'%1\nand will be completed by the new, private part of the key").arg(oldkey->getIntName()));
 			lkey->setIntName(oldkey->getIntName());
 			currentIdx = index(oldkey->row(), 0, QModelIndex());
@@ -130,17 +130,12 @@ void db_key::newItem(QString name)
 	int ksize = dlg->getKeysize();
 	if (ksize > 0) {
 		if (ksize < 32) {
-			QMessageBox::warning(NULL, XCA_TITLE,
-				tr("Key size too small !"));
+			XCA_WARN(tr("Key size too small !"));
 			delete dlg;
 			return;
 		}
 		if (ksize < 1024 || ksize > 8192)
-			if (QMessageBox::warning(NULL, XCA_TITLE,
-				tr("You are sure to create a key of the size: %1 ?").arg(ksize),
-				QMessageBox::Yes | QMessageBox::No) !=
-				QMessageBox::Yes)
-			{
+			if (!XCA_YESNO(tr("You are sure to create a key of the size: %1 ?").arg(ksize))) {
 				delete dlg;
 				return;
 			}
@@ -194,9 +189,7 @@ void db_key::toToken()
 		card->store_token(slot, key->decryptKey());
 		QString msg = tr("Shall the original key '%1' be replaced by the key on the token?\nThis will delete the key '%1' and make it unexportable").
 			arg(key->getIntName());
-		if (QMessageBox::question(mainwin, XCA_TITLE, msg,
-		    QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
-		{
+		if (XCA_YESNO(msg)) {
 			deletePKI();
 			insertPKI(card);
 			card = NULL;

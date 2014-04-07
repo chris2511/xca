@@ -95,15 +95,14 @@ void PwDialog::setRW(bool write)
 void PwDialog::accept()
 {
 	if (wrDialog && (passA->text() != passB->text())) {
-		QMessageBox::warning(this, XCA_TITLE,
-			tr("%1 missmatch").arg(pi->getType()));
+		XCA_WARN(tr("%1 missmatch").arg(pi->getType()));
 		return;
 	}
 	QString pw = passB->text();
 	if (takeHex->isChecked()) {
 		int ret = hex2bin(pw, &final);
 		if (ret == -1) {
-			QMessageBox::warning(this, XCA_TITLE, tr("Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it must consist of an even number of characters"));
+			XCA_WARN(tr("Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it must consist of an even number of characters"));
 			return;
 		}
 	} else {

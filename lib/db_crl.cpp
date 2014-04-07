@@ -95,8 +95,7 @@ pki_base *db_crl::insert(pki_base *item)
 	pki_crl *crl = (pki_crl *)item;
 	pki_crl *oldcrl = (pki_crl *)getByReference(crl);
 	if (oldcrl) {
-		QMessageBox::information(mainwin, XCA_TITLE,
-			tr("The revokation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
+		XCA_INFO(tr("The revokation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
 		delete(crl);
 		return NULL;
 	}

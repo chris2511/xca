@@ -45,8 +45,7 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 			if (tmpl)
 				predefs->append(tmpl);
 		} catch(errorEx &err) {
-			QMessageBox::warning(mainwin, tr(XCA_TITLE),
-				tr("Bad template: %1").arg(name));
+			XCA_WARN(tr("Bad template: %1").arg(name));
 		}
 	}
 }

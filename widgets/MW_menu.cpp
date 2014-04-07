@@ -144,10 +144,12 @@ void MainWindow::import_dbdump()
 	try {
 		read_dump(CCHAR(file), dbl, buf, sizeof(buf));
 		if (pki_evp::md5passwd(pass) != buf) {
-			int ret = QMessageBox::warning(this, tr(XCA_TITLE),
-				tr("Password verification error. Ignore keys ?"),
-				tr("Import anyway"), tr("Cancel"));
-			if (ret)
+			xcaWarning msg(this, tr("Password verification error. Ignore keys ?"));
+			msg.addButton(QMessageBox::Cancel);
+			msg.addButton(QMessageBox::Ok)->setText(
+					tr("Import anyway"));
+
+			if (msg.exec() == QMessageBox::Cancel)
 				return;
 		}
 		pki_evp::oldpasswd = pass;

@@ -29,6 +29,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QPushButton>
 #include <QtGui/QProgressBar>
+#include <QtGui/QTextEdit>
 
 #ifdef WIN32
 #include <windows.h>
@@ -96,15 +97,13 @@ QString getPrefix()
 	*p = '\0';
 	lRc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\xca", 0, KEY_READ, &hKey);
 	if (lRc != ERROR_SUCCESS) {
-		QMessageBox::warning(NULL,XCA_TITLE,
-				"Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
+		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca' not found");
 		return QString(inst_dir);
 	}
 	lRc = RegQueryValueEx(hKey, "Install_Dir", NULL, NULL,
 			(unsigned char *)inst_dir, &dwLength);
 	if (lRc != ERROR_SUCCESS){
-		QMessageBox::warning(NULL, XCA_TITLE, "Registry Key: "
-				"'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
+		XCA_WARN("Registry Key: 'HKEY_LOCAL_MACHINE->Software->xca->Install_Dir' not found");
 	}
 	lRc = RegCloseKey(hKey);
 	return QString(inst_dir);

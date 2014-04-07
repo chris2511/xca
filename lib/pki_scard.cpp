@@ -236,10 +236,8 @@ void pki_scard::deleteFromToken(slotid slot)
 	p11.startSession(slot, true);
 
 	tkInfo ti = p11.tokenInfo();
-	if (QMessageBox::question(NULL, XCA_TITLE,
-			tr("Delete the private key '%1' from the token '%2 (#%3)' ?").
-			arg(getIntName()).arg(ti.label()).arg(ti.serial()),
-			QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
+	if (!XCA_YESNO(tr("Delete the private key '%1' from the token '%2 (#%3)' ?").
+			arg(getIntName()).arg(ti.label()).arg(ti.serial())))
 		return;
 
 	if (p11.tokenLogin(card_label, false).isNull())
@@ -309,8 +307,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	if (objs.count() == 0)
 		objs = p11.objectList(priv_atts);
 	if (objs.count() != 0) {
-		QMessageBox::information(NULL, XCA_TITLE,
-			tr("This Key is already on the token"));
+		XCA_INFO(tr("This Key is already on the token"));
 		load_token(p11, objs[0]);
 		return;
 	}
@@ -441,9 +438,7 @@ bool pki_scard::prepare_card(slotid *slot, bool verifyPubkey) const
 			arg(card_manufacturer).arg(card_model).
 			arg(card_label).arg(card_serial);
 
-		int r = QMessageBox::warning(NULL, XCA_TITLE, msg,
-			QMessageBox::Cancel | QMessageBox::Ok);
-		if (r == QMessageBox::Cancel) {
+		if (!XCA_OKCANCEL(msg)) {
 			return false;
 		}
 	}
@@ -467,8 +462,7 @@ bool pki_scard::prepare_card(slotid *slot, bool verifyPubkey) const
 		if (EVP_PKEY_cmp(key, pkey) == 1)
 			return true;
 		if (!object_id.isEmpty())
-			QMessageBox::warning(NULL, XCA_TITLE,
-			   tr("Public Key missmatch. Please re-import card"));
+			XCA_WARN(tr("Public Key missmatch. Please re-import card"));
 	}
 	return false;
 }

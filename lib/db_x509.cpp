@@ -336,8 +336,7 @@ pki_base *db_x509::insert(pki_base *item)
 	pki_x509 *cert = (pki_x509 *)item;
 	pki_x509 *oldcert = (pki_x509 *)getByReference(cert);
 	if (oldcert) {
-		QMessageBox::information(mainwin, XCA_TITLE,
-		tr("The certificate already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcert->getIntName()));
+		XCA_INFO(tr("The certificate already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcert->getIntName()));
 		delete(cert);
 		return NULL;
 	}
@@ -559,10 +558,8 @@ void db_x509::newCert(NewX509 *dlg)
 	updatePKI(signcert);
 	if (cert && clientkey->isToken()) {
 		pki_scard *card = (pki_scard*)clientkey;
-		if (QMessageBox::information(mainwin, XCA_TITLE,
-			tr("Store the certificate to the key on the token '%1 (#%2)' ?").
-			arg(card->getCardLabel()).arg(card->getSerial()),
-			QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+		if (XCA_YESNO(tr("Store the certificate to the key on the token '%1 (#%2)' ?").
+			arg(card->getCardLabel()).arg(card->getSerial())))
 		{
 			try {
 				cert->store_token(false);
@@ -766,14 +763,12 @@ void db_x509::store()
 		case 11: // Certificate and Key in PEM format for apache
 			pki_evp *privkey = (pki_evp *)crt->getRefKey();
 			if (!privkey || privkey->isPubKey()) {
-				QMessageBox::warning(mainwin, XCA_TITLE,
-					tr("There was no key found for the Certificate: '%1'").
+				XCA_WARN(tr("There was no key found for the Certificate: '%1'").
 					arg(crt->getIntName()));
 				return;
 			}
 			if (privkey->isToken()) {
-				QMessageBox::warning(mainwin, XCA_TITLE,
-					tr("Not possible for a token key: '%1'").
+				XCA_WARN(tr("Not possible for a token key: '%1'").
 					arg(crt->getIntName()));
                                 return;
                         }
@@ -799,13 +794,11 @@ void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
     try {
 		pki_evp *privkey = (pki_evp *)cert->getRefKey();
 		if (!privkey || privkey->isPubKey()) {
-			QMessageBox::warning(mainwin, XCA_TITLE,
-				tr("There was no key found for the Certificate: '%1'").arg(cert->getIntName()));
+			XCA_WARN(tr("There was no key found for the Certificate: '%1'").arg(cert->getIntName()));
 			return;
 		}
 		if (privkey->isToken()) {
-			QMessageBox::warning(mainwin, XCA_TITLE,
-				tr("Not possible for the token-key Certificate '%1'").
+			XCA_WARN(tr("Not possible for the token-key Certificate '%1'").
 				arg(cert->getIntName()));
 			return;
 		}
@@ -872,8 +865,7 @@ void ::signP7()
 	if (!cert) return;
 	pki_key *privkey = cert->getRefKey();
 	if (!privkey || privkey->isPubKey()) {
-		QMessageBox::warning(this,tr(XCA_TITLE),
-				tr("There was no key found for the Certificate: ") +
+		XCA_WARN(tr("There was no key found for the Certificate: ") +
 			cert->getIntName());
 		return;
 	}
@@ -912,8 +904,7 @@ void CertView::encryptP7()
 	if (!cert) return;
 	pki_key *privkey = cert->getRefKey();
 	if (!privkey || privkey->isPubKey()) {
-		QMessageBox::warning(this,tr(XCA_TITLE),
-			tr("There was no key found for the Certificate: ") +
+		XCA_WARN(tr("There was no key found for the Certificate: ") +
 			cert->getIntName()) ;
 		return;
 	}

@@ -41,8 +41,7 @@ void CertExtend::accept()
 {
 	if (notBefore->getDate() < signer->getNotBefore()) {
 		QString text = tr("The certificate will be earlier valid than the signer. This is probably not what you want.");
-		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
-					text, QMessageBox::NoButton, this);
+		xcaWarning msg(this, text);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Edit times"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
@@ -64,8 +63,7 @@ void CertExtend::accept()
 	if (notAfter->getDate() > signer->getNotAfter() &&
 				!noWellDefinedExpDate->isChecked()) {
 		QString text = tr("The certificate will be longer valid than the signer. This is probably not what you want.");
-		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
-					text, QMessageBox::NoButton, this);
+		xcaWarning msg(this, text);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Edit times"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
 		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));

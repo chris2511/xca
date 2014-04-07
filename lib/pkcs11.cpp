@@ -276,14 +276,12 @@ bool pkcs11::selectToken(slotid *slot, QWidget *w)
 			slotnames << QString("%1 (#%2)").
 				arg(info.label()).arg(info.serial());
 		} catch (errorEx &e) {
-			QMessageBox::warning(w, XCA_TITLE,
-				QString("Error: %1").arg(e.getString()));
+			XCA_WARN(QString("Error: %1").arg(e.getString()));
 		}
 	}
 	switch (slotnames.count()) {
 	case 0:
-		QMessageBox::warning(w, XCA_TITLE,
-			QObject::tr("No Security token found"));
+		XCA_WARN(QObject::tr("No Security token found"));
 		return false;
 	case 1:
 		*slot = p11_slots[0];

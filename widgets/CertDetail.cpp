@@ -142,7 +142,7 @@ void CertDetail::setCert(pki_x509 *cert)
 
 		openssl_error();
 	} catch (errorEx &err) {
-		QMessageBox::warning(this, XCA_TITLE, err.getString());
+		XCA_WARN(err.getString());
 	}
 }
 
@@ -223,7 +223,7 @@ void CertDetail::setReq(pki_x509req *req)
 		}
 		openssl_error();
 	} catch (errorEx &err) {
-		QMessageBox::warning(this, tr(XCA_TITLE), err.getString());
+		XCA_WARN(err.getString());
 	}
 }
 

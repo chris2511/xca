@@ -7,6 +7,7 @@
 
 
 #include "ExportDialog.h"
+#include "MainWindow.h"
 #include "lib/base.h"
 
 #include <QtGui/QComboBox>
@@ -56,7 +57,7 @@ void ExportDialog::on_exportFormat_activated(int selected)
 bool ExportDialog::mayWriteFile(const QString &fname)
 {
         if (QFile::exists(fname)) {
-		QMessageBox msg(QMessageBox::Warning, XCA_TITLE,
+		xcaWarning msg(NULL,
 			tr("The file: '%1' already exists!").arg(fname));
 		msg.addButton(QMessageBox::Ok)->setText(
 			tr("Overwrite"));

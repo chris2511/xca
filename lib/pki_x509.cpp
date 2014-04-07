@@ -279,8 +279,7 @@ void pki_x509::store_token(bool alwaysSelect)
 
 	QList<CK_OBJECT_HANDLE> objs = p11.objectList(p11_atts);
 	if (objs.count() != 0) {
-		QMessageBox::warning(NULL, XCA_TITLE,
-		    tr("This certificate is already on the security token"));
+		XCA_WARN(tr("This certificate is already on the security token"));
 		return;
 	}
 
@@ -340,10 +339,8 @@ void pki_x509::deleteFromToken(slotid slot)
 		return;
 
 	tkInfo ti = p11.tokenInfo();
-	if (QMessageBox::question(NULL, XCA_TITLE,
-		tr("Delete the certificate '%1' from the token '%2 (#%3)'?").
-		arg(getIntName()).arg(ti.label()).arg(ti.serial()),
-		QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
+	if (!XCA_YESNO(tr("Delete the certificate '%1' from the token '%2 (#%3)'?").
+		arg(getIntName()).arg(ti.label()).arg(ti.serial())))
 	{
 		return;
 	}

@@ -115,8 +115,7 @@ void db_x509super::extractPubkey()
 		return;
 	if (pki_base::suppress_messages)
 		return;
-	QMessageBox::information(mainwin, XCA_TITLE,
-		key->getMsg(pki_base::msg_import).arg(pki->getIntName()));
+	XCA_INFO(key->getMsg(pki_base::msg_import).arg(pki->getIntName()));
 }
 
 void db_x509super::toOpenssl() const

@@ -589,9 +589,7 @@ void MainWindow::manageToken()
 		}
 		if (dlgi->entries() == 0) {
 			tkInfo ti = p11.tokenInfo();
-			QMessageBox::information(this, XCA_TITLE,
-				tr("The token '%1' did not contain any keys or certificates").
-                                arg(ti.label()));
+			XCA_INFO(tr("The token '%1' did not contain any keys or certificates").arg(ti.label()));
 		} else {
 			dlgi->execute(true);
 		}
@@ -767,7 +765,7 @@ int MainWindow::initPass()
 				!= pki_evp::passHash)
 		{
 			if (ret)
-				QMessageBox::warning(this, XCA_TITLE,
+				XCA_WARN(
 				tr("Password verify error, please try again"));
 			p.setTitle(tr("Password"));
 			p.setDescription(tr("Please enter the password for unlocking the database:\n%1").arg(compressFilename(dbfile)));
@@ -805,9 +803,9 @@ void MainWindow::Error(errorEx &err)
 	if (err.isEmpty())
 		 return;
 	QString msg =  tr("The following error occured:") + "\n" + err.getString();
-	QMessageBox box(QMessageBox::Warning, XCA_TITLE,
-		msg, QMessageBox::Ok, NULL);
+	xcaWarning box(NULL, msg);
 	box.addButton(QMessageBox::Apply)->setText(tr("Copy to Clipboard"));
+	box.addButton(QMessageBox::Ok);
 	if (box.exec() == QMessageBox::Apply) {
 		QClipboard *cb = QApplication::clipboard();
 		if (cb->supportsSelection())

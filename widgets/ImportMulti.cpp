@@ -101,8 +101,7 @@ void ImportMulti::addItem(pki_base *pki)
 		delete pm;
 	}
 	else  {
-		QMessageBox::warning(this, XCA_TITLE,
-			tr("The type of the Item '%1' is not recognized").
+		XCA_WARN(tr("The type of the Item '%1' is not recognized").
 			arg(cn));
 	}
 }
@@ -246,8 +245,7 @@ pki_base *ImportMulti::import(QModelIndex &idx)
 
 	db = select_db(cn);
 	if (!db) {
-		QMessageBox::warning(this, XCA_TITLE,
-			tr("The type of the Item '%1' is not recognized").
+		XCA_WARN(tr("The type of the Item '%1' is not recognized").
 			arg(cn));
 		delete pki;
 		return NULL;
@@ -295,13 +293,10 @@ void ImportMulti::on_butDetails_clicked()
 			dlg->exec();
 			delete dlg;
 		} else if (cn == "pki_temp") {
-			QMessageBox::warning(this, XCA_TITLE,
-				tr("Details of the item '%1' cannot be shown").
+			XCA_WARN(tr("Details of the item '%1' cannot be shown").
 				arg(cn));
 		} else
-			QMessageBox::warning(this, XCA_TITLE,
-				tr("The type of the item '%1' is not recognized").
-				arg(cn));
+			XCA_WARN(tr("The type of the item '%1' is not recognized").arg(cn));
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);
@@ -330,12 +325,10 @@ int ImportMulti::entries()
 void ImportMulti::importError(QStringList failed)
 {
 	if (failed.count() == 1) {
-		QMessageBox::information(this, XCA_TITLE,
-			tr("The file '%1' did not contain PKI data").
+		XCA_INFO(tr("The file '%1' did not contain PKI data").
 			arg(failed[0]));
 	} else if (failed.count() > 1) {
-		QMessageBox::information(this, XCA_TITLE,
-			tr("The %1 files: '%2' did not contain PKI data").
+		XCA_INFO(tr("The %1 files: '%2' did not contain PKI data").
 			arg(failed.count()).
 			arg(failed.join("', '")));
 	}
@@ -355,8 +348,7 @@ void ImportMulti::execute(int force, QStringList failed)
 		QModelIndex idx = mcont->index(0, 0, QModelIndex());
 		pki_base *pki = import(idx);
 		if (pki && !pki_base::suppress_messages)
-			QMessageBox::information(this, XCA_TITLE,
-				pki->getMsg(pki_base::msg_import).
+			XCA_INFO(pki->getMsg(pki_base::msg_import).
 				arg(pki->getIntName()));
 		accept();
 		return;

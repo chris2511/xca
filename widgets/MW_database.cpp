@@ -171,8 +171,7 @@ int MainWindow::init_database()
 	setWindowTitle(tr(XCA_TITLE));
 	setItemEnabled(true);
 	if (pki_evp::passwd.isNull())
-		QMessageBox::information(this, XCA_TITLE,
-			tr("Using or exporting private keys will not be possible without providing the correct password"));
+		XCA_INFO(tr("Using or exporting private keys will not be possible without providing the correct password"));
 
 	dbindex->setText(tr("Database") + ":" + dbfile);
 	load_engine();
@@ -243,8 +242,7 @@ void MainWindow::undelete()
 	if (dlgi->entries() > 0) {
 		dlgi->execute(1);
 	} else {
-		QMessageBox::information(this, XCA_TITLE,
-			tr("No deleted items found"));
+		XCA_INFO(tr("No deleted items found"));
 	}
 	delete dlgi;
 }
