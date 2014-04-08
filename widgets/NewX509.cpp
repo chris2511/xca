@@ -725,6 +725,13 @@ void NewX509::editV3ext(QLineEdit *le, QString types, int n)
 
 	dlg = new v3ext(this);
 	setupTmpCtx();
+	if (n == NID_info_access) {
+		int nid, idx = aiaOid->currentIndex();
+		if (idx >= 0 && idx < aia_nid.size()) {
+			nid = aia_nid[idx];
+			dlg->setPrefix(QString(OBJ_nid2sn(nid)) + ";");
+		}
+	}
 	dlg->addInfo(le, types.split(',' ), n, &ext_ctx);
 	dlg->exec();
 	delete(dlg);

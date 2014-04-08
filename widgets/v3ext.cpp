@@ -168,11 +168,7 @@ bool v3ext::__validate(bool showSuccess)
 	x509v3ext ext;
 	QString str, error;
 
-	if (nid==NID_info_access) {
-		str = "OCSP;";
-	}
-	str += toString();
-
+	str = prefix + toString();
 	ext.create(nid, str, ext_ctx);
 	while (int i = ERR_get_error() ) {
 		error += ERR_error_string(i ,NULL);

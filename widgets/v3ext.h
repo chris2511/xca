@@ -27,6 +27,7 @@ class v3ext: public QDialog, public Ui::v3ext
 		X509V3_CTX *ext_ctx;
 		bool __validate(bool showSuccess);
 		QStringList keys;
+		QString prefix;
 	public:
 		v3ext( QWidget *parent);
 		void addItem(QString list);
@@ -34,6 +35,9 @@ class v3ext: public QDialog, public Ui::v3ext
 		QString toString();
 		void addInfo(QLineEdit *myle, const QStringList &sl, int n,
 				X509V3_CTX *ctx);
+		void setPrefix(QString p) {
+			prefix = p;
+		}
 
 	public slots:
 		void on_apply_clicked();
