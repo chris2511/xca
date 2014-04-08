@@ -114,7 +114,36 @@ static const int other_curve_nids[] = {
 	NID_secp224r1,
 	NID_secp256k1,
 	NID_secp384r1,
-	NID_secp521r1
+	NID_secp521r1,
+
+	NID_wap_wsg_idm_ecid_wtls1,
+	NID_wap_wsg_idm_ecid_wtls3,
+	NID_wap_wsg_idm_ecid_wtls4,
+	NID_wap_wsg_idm_ecid_wtls5,
+	NID_wap_wsg_idm_ecid_wtls6,
+	NID_wap_wsg_idm_ecid_wtls7,
+	NID_wap_wsg_idm_ecid_wtls8,
+	NID_wap_wsg_idm_ecid_wtls9,
+	NID_wap_wsg_idm_ecid_wtls10,
+	NID_wap_wsg_idm_ecid_wtls11,
+	NID_wap_wsg_idm_ecid_wtls12,
+
+#if OPENSSL_VERSION_NUMBER >= 0x10002001L
+	NID_brainpoolP160r1,
+	NID_brainpoolP160t1,
+	NID_brainpoolP192r1,
+	NID_brainpoolP192t1,
+	NID_brainpoolP224r1,
+	NID_brainpoolP224t1,
+	NID_brainpoolP256r1,
+	NID_brainpoolP256t1,
+	NID_brainpoolP320r1,
+	NID_brainpoolP320t1,
+	NID_brainpoolP384r1,
+	NID_brainpoolP384t1,
+	NID_brainpoolP512r1,
+	NID_brainpoolP512t1
+#endif
 };
 
 static void init_curves()
