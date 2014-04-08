@@ -15,7 +15,10 @@
 class NewKey: public QDialog, public Ui::NewKey
 {
 	Q_OBJECT
-
+	private:
+		static int defaultType;
+		static int defaultEcNid;
+		static int defaultSize;
 	public:
 		NewKey(QWidget *parent, QString name);
 		int getKeytype();
@@ -23,6 +26,8 @@ class NewKey: public QDialog, public Ui::NewKey
 		int getKeyCurve_nid();
 		slotid getKeyCardSlot();
 		bool isToken();
+		QString getAsString();
+		static int setDefault(QString def);
 	public slots:
 		void on_keyType_currentIndexChanged(int);
 

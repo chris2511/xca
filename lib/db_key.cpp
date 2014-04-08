@@ -161,6 +161,11 @@ void db_key::newItem(QString name)
 		delete key;
 		mainwin->Error(err);
 	}
+	if (dlg->rememberDefault->isChecked()) {
+		QString def = dlg->getAsString();
+		if (dlg->setDefault(def) == 0)
+			mainwin->setDefaultKey(def);
+	}
 	status->removeWidget(bar);
 	delete bar;
 	delete dlg;

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>449</width>
-    <height>297</height>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -180,6 +180,13 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="rememberDefault">
+     <property name="text">
+      <string>Remember as default</string>
+     </property>
     </widget>
    </item>
    <item>

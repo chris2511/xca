@@ -100,6 +100,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void dropEvent(QDropEvent *event);
 		void dragEnterEvent(QDragEnterEvent *event);
 		int open_default_db();
+		void setDefaultKey(QString def);
 
 	public slots:
 		int init_database();

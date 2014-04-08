@@ -16,6 +16,7 @@
 #include "lib/db_base.h"
 #include "lib/func.h"
 #include "widgets/ImportMulti.h"
+#include "widgets/NewKey.h"
 
 int MainWindow::init_database()
 {
@@ -142,6 +143,13 @@ int MainWindow::init_database()
 		if (!mydb.find(setting, "optionflags")) {
 			if ((p = (char *)mydb.load(NULL))) {
 				setOptFlags((QString(p)));
+				free(p);
+			}
+		}
+		mydb.first();
+		if (!mydb.find(setting, "defaultkey")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				NewKey::setDefault((QString(p)));
 				free(p);
 			}
 		}

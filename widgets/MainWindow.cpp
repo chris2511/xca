@@ -827,6 +827,12 @@ void MainWindow::setPath(QString str)
 	mydb.set((const unsigned char *)CCHAR(str), str.length()+1, 1, setting, "workingdir");
 }
 
+void MainWindow::setDefaultKey(QString str)
+{
+	db mydb(dbfile);
+	mydb.set((const unsigned char *)CCHAR(str), str.length()+1, 1, setting, "defaultkey");
+}
+
 void MainWindow::connNewX509(NewX509 *nx)
 {
 	connect( nx, SIGNAL(genKey(QString)), keys, SLOT(newItem(QString)) );

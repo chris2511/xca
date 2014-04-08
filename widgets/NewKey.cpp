@@ -15,6 +15,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
 #include <QtGui/QLineEdit>
+#include <QtCore/QStringList>
 
 struct typelist {
 	const char *name;
@@ -28,6 +29,10 @@ static const struct typelist typeList[] = {
 	{ "EC",  EVP_PKEY_EC  },
 #endif
 };
+
+int NewKey::defaultType = EVP_PKEY_RSA;
+int NewKey::defaultEcNid = NID_undef;
+int NewKey::defaultSize = 2048;
 
 class keyListItem
 {
@@ -71,6 +76,10 @@ class keyListItem
 	{
 		return tl->type;
 	}
+	QString typeName()
+	{
+		return QString(tl->name);
+	}
 };
 
 Q_DECLARE_METATYPE(keyListItem);
@@ -100,6 +109,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 		keytypes << gk;
 	}
 #ifndef OPENSSL_NO_EC
+	QString ec_default;
 	for (i = 0; i<pki_evp::num_curves; i++) {
 		const char *desc = pki_evp::curves[i].comment;
 		const char *sn = OBJ_nid2sn(pki_evp::curves[i].nid);
@@ -109,6 +119,8 @@ NewKey::NewKey(QWidget *parent, QString name)
 		if (desc == NULL)
 			desc = "---";
 		QString p = QString(sn) + ": " + desc;
+		if (pki_evp::curves[i].nid == defaultEcNid)
+			ec_default = p;
 		switch (pki_evp::curve_flags[i]) {
 			case CURVE_X962:  curve_x962  << p; break;
 			case CURVE_OTHER: curve_other << p; break;
@@ -117,8 +129,11 @@ NewKey::NewKey(QWidget *parent, QString name)
 	}
 	curveBox->addItems(curve_x962);
 	curveBox->addItems(curve_other);
+	curveBox->setCurrentIndex(curveBox->findText(ec_default));
+	if (curveBox->currentIndex() == -1)
+		curveBox->setCurrentIndex(0);
 #endif
-	keyLength->setCurrentIndex(0);
+	keyLength->setEditText(QString::number(defaultSize) + " bit");
 	keyDesc->setFocus();
 	if (pkcs11::loaded()) try {
 		pkcs11 p11;
@@ -138,6 +153,8 @@ NewKey::NewKey(QWidget *parent, QString name)
 		QVariant q;
 		q.setValue(keytypes[i]);
 		keyType->addItem(keytypes[i].printname, q);
+		if (!keytypes[i].card && keytypes[i].type() == defaultType)
+			keyType->setCurrentIndex(i);
 	}
 	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Create"));
 }
@@ -193,4 +210,48 @@ slotid NewKey::getKeyCardSlot()
 {
 	keyListItem k = currentKey(keyType);
 	return k.slot;
+}
+
+QString NewKey::getAsString()
+{
+	keyListItem k = currentKey(keyType);
+	QString data;
+
+	if (k.card)
+		return QString();
+	if (k.type() == EVP_PKEY_EC) {
+		data = OBJ_obj2QString(OBJ_nid2obj(getKeyCurve_nid()), 1);
+	} else {
+		data = QString::number(getKeysize());
+	}
+	return QString("%1:%2").arg(currentKey(keyType).typeName()).arg(data);
+}
+
+int NewKey::setDefault(QString def)
+{
+	int type = -1, size = 0, nid = NID_undef;
+	QStringList sl = def.split(':');
+
+	if (sl.size() != 2)
+		return -1;
+	for (unsigned i=0; i < ARRAY_SIZE(typeList); i++ ) {
+		if (sl[0] == typeList[i].name) {
+			type = typeList[i].type;
+		}
+	}
+	if (type == -1)
+		return -2;
+	if (type == EVP_PKEY_EC) {
+		nid = OBJ_txt2nid(sl[1].toAscii());
+		if (nid == NID_undef)
+			return -3;
+		defaultEcNid = nid;
+	} else {
+		size = sl[1].toInt();
+		if (size <= 0)
+			return -4;
+		defaultSize = size;
+	}
+	defaultType = type;
+	return 0;
 }
