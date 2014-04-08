@@ -83,7 +83,7 @@ class ExportCert: public ExportDialog
 			"PKCS#12 is an encrypted official Key-Certificate exchange format\n"));
 		filenameLabel->setText(tr(
 			"Please enter the filename for the certificate."));
-		label->setText(tr("Certifikate export"));
+		label->setText(tr("Certificate export"));
 	}
 };
 

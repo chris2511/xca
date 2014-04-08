@@ -1000,7 +1000,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
       <translation>Numéro de la liste de révocation</translation>
     </message>
     <message>
-      <source>Revokation reasons</source>
+      <source>Revocation reasons</source>
       <translation>Raisons de la révocation</translation>
     </message>
   </context>
@@ -1889,7 +1889,7 @@ Dans la bibliothèque %3
   <context>
     <name>Revoke</name>
     <message>
-      <source>Revokation details</source>
+      <source>Revocation details</source>
       <translation>Détails de la révocation</translation>
     </message>
     <message>
@@ -1897,7 +1897,7 @@ Dans la bibliothèque %3
       <translation>Non-valide depuis</translation>
     </message>
     <message>
-      <source>Revokation reason</source>
+      <source>Revocation reason</source>
       <translation>Raison de la révocation</translation>
     </message>
   </context>
@@ -2012,7 +2012,7 @@ En conséquence, elle n'a pas été importée</translation>
       <translation>Listes de révocation ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-      <source>Revokation list export</source>
+      <source>Revocation list export</source>
       <translation>Exportation d'une liste de révocation</translation>
     </message>
     <message>

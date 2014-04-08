@@ -132,7 +132,7 @@ void db_crl::store()
 	ExportDer *dlg = new ExportDer(mainwin, fn,
 			tr("CRL ( *.pem *.der *.crl )"));
 	dlg->image->setPixmap(*MainWindow::revImg);
-	dlg->label->setText(tr("Revokation list export"));
+	dlg->label->setText(tr("Revocation list export"));
 	int dlgret = dlg->exec();
 
 	if (!dlgret) {

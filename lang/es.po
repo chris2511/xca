@@ -1029,7 +1029,7 @@ msgid "CRL Number"
 msgstr ""
 
 #: NewCrl#15
-msgid "Revokation reasons"
+msgid "Revocation reasons"
 msgstr ""
 
 #: NewKey#1
@@ -1963,7 +1963,7 @@ msgid "%1 is longer than %2 bytes: '%3'"
 msgstr ""
 
 #: Revoke#1
-msgid "Revokation details"
+msgid "Revocation details"
 msgstr ""
 
 #: Revoke#2
@@ -1971,7 +1971,7 @@ msgid "Invalid since"
 msgstr ""
 
 #: Revoke#3
-msgid "Revokation reason"
+msgid "Revocation reason"
 msgstr ""
 
 #: SelectToken#1
@@ -2072,7 +2072,7 @@ msgid "CRL ( *.pem *.der *.crl )"
 msgstr ""
 
 #: db_crl#10
-msgid "Revokation list export"
+msgid "Revocation list export"
 msgstr ""
 
 #: db_crl#11

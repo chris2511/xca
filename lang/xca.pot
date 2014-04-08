@@ -400,7 +400,7 @@ msgid "Please enter the filename for the certificate."
 msgstr ""
 
 #: ExportCert#4
-msgid "Certifikate export"
+msgid "Certificate export"
 msgstr ""
 
 #: ExportDer#1
@@ -1035,7 +1035,7 @@ msgid "CRL Number"
 msgstr ""
 
 #: NewCrl#16
-msgid "Revokation reasons"
+msgid "Revocation reasons"
 msgstr ""
 
 #: NewKey#1
@@ -1985,7 +1985,7 @@ msgid "%1 is longer than %2 bytes: '%3'"
 msgstr ""
 
 #: Revoke#1
-msgid "Revokation details"
+msgid "Revocation details"
 msgstr ""
 
 #: Revoke#2
@@ -1998,7 +1998,7 @@ msgid "Local time"
 msgstr ""
 
 #: Revoke#4
-msgid "Revokation reason"
+msgid "Revocation reason"
 msgstr ""
 
 #: SearchPkcs11#1
@@ -2129,7 +2129,7 @@ msgid "CRL ( *.pem *.der *.crl )"
 msgstr ""
 
 #: db_crl#10
-msgid "Revokation list export"
+msgid "Revocation list export"
 msgstr ""
 
 #: db_crl#11

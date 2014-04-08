@@ -224,7 +224,7 @@
       <item>
        <widget class="QCheckBox" name="revokationReasons">
         <property name="text">
-         <string>Revokation reasons</string>
+         <string>Revocation reasons</string>
         </property>
         <property name="checked">
          <bool>true</bool>

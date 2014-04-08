@@ -372,7 +372,7 @@ PKCS#12 kriptolu anahtar sertifikası
       <translation>Lütfen sertifika ismini giriniz.</translation>
     </message>
     <message>
-      <source>Certifikate export</source>
+      <source>Certificate export</source>
       <translation>Sertifika dışa aktar</translation>
     </message>
   </context>
@@ -988,7 +988,7 @@ Please enter the DH parameter bits</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <source>Revokation reasons</source>
+      <source>Revocation reasons</source>
       <translation type="unfinished"/>
     </message>
   </context>
@@ -1847,7 +1847,7 @@ In library %3
   <context>
     <name>Revoke</name>
     <message>
-      <source>Revokation details</source>
+      <source>Revocation details</source>
       <translation type="unfinished"/>
     </message>
     <message>
@@ -1855,7 +1855,7 @@ In library %3
       <translation type="unfinished"/>
     </message>
     <message>
-      <source>Revokation reason</source>
+      <source>Revocation reason</source>
       <translation type="unfinished"/>
     </message>
   </context>
@@ -1968,7 +1968,7 @@ and so it was not imported</source>
       <translation type="unfinished"/>
     </message>
     <message>
-      <source>Revokation list export</source>
+      <source>Revocation list export</source>
       <translation type="unfinished"/>
     </message>
     <message>

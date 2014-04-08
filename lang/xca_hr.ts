@@ -484,7 +484,7 @@ PKCS#12 je kriptirani format za razmjenu Ključa i Potvrde</translation>
     </message>
     <message>
         <location filename="../widgets/ExportDialog.h" line="86"/>
-        <source>Certifikate export</source>
+        <source>Certificate export</source>
         <translation>Izvoz potvrde</translation>
     </message>
 </context>
@@ -1287,7 +1287,7 @@ Unesite bitove za DH parametre</translation>
     </message>
     <message>
         <location filename="../ui/NewCrl.ui" line="227"/>
-        <source>Revokation reasons</source>
+        <source>Revocation reasons</source>
         <translation>Razlog za opoziv</translation>
     </message>
 </context>
@@ -2450,7 +2450,7 @@ U knjižnici %3
     <name>Revoke</name>
     <message>
         <location filename="../ui/Revoke.ui" line="17"/>
-        <source>Revokation details</source>
+        <source>Revocation details</source>
         <translation>Detalji opoziva</translation>
     </message>
     <message>
@@ -2465,7 +2465,7 @@ U knjižnici %3
     </message>
     <message>
         <location filename="../ui/Revoke.ui" line="44"/>
-        <source>Revokation reason</source>
+        <source>Revocation reason</source>
         <translation>Razlog za opoziv</translation>
     </message>
 </context>
@@ -2642,7 +2642,7 @@ i zbog toga nije uvezen</translation>
     </message>
     <message>
         <location filename="../lib/db_crl.cpp" line="136"/>
-        <source>Revokation list export</source>
+        <source>Revocation list export</source>
         <translation>Izvoz popisa opozvanih potvrda</translation>
     </message>
     <message>

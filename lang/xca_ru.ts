@@ -468,7 +468,7 @@ PKCS#12 is an encrypted official Key-Certificate exchange format
     </message>
     <message>
         <location line="+2"/>
-        <source>Certifikate export</source>
+        <source>Certificate export</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1260,7 +1260,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+10"/>
-        <source>Revokation reasons</source>
+        <source>Revocation reasons</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2382,7 +2382,7 @@ In library %3
     <name>Revoke</name>
     <message>
         <location filename="../ui/Revoke.ui" line="+17"/>
-        <source>Revokation details</source>
+        <source>Revocation details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2397,7 +2397,7 @@ In library %3
     </message>
     <message>
         <location line="+7"/>
-        <source>Revokation reason</source>
+        <source>Revocation reason</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2565,7 +2565,7 @@ In library %3
     </message>
     <message>
         <location line="+2"/>
-        <source>Revokation list export</source>
+        <source>Revocation list export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
