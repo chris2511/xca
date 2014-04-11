@@ -23,9 +23,9 @@ It is needed if
 Compile OpenSSL 1.0.1e:
 ----------------------
 # Download the latest OpenSSL sources, unpack them and change into it
-curl http://www.openssl.org/source/openssl-1.0.1e.tar.gz >openssl-1.0.1e.tar.gz
-tar zxf openssl-1.0.1e.tar.gz
-cd openssl-1.0.1e
+curl http://www.openssl.org/source/openssl-1.0.1g.tar.gz >openssl-1.0.1g.tar.gz
+tar zxf openssl-1.0.1g.tar.gz
+cd openssl-1.0.1g
 
 # define the installation dir and the path to the new library
 # it will be installed locally in you home directory

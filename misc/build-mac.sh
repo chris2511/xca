@@ -2,7 +2,7 @@
 
 do_openssl()
 {
-openssl="openssl-1.0.1e"
+openssl="openssl-1.0.1g"
 test -f "$openssl".tar.gz || curl http://openssl.org/source/"$openssl".tar.gz > "$openssl".tar.gz
 tar zxf "$openssl".tar.gz
 (cd $openssl
