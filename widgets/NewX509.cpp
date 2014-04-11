@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2012 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2014 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -827,6 +827,7 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 	extList el, req_el;
 	ign_openssl_error();
 	setupTmpCtx();
+	(void)nconf;
 	try {
 		el = getGuiExt();
 		el += getNetscapeExt();

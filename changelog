@@ -1,4 +1,10 @@
 
+ *  SF Feature Req. #69 Create "Recent databases..." file menu item
+ *  SF Bug #75 authorityInfoAccess set error
+ *  SF Bug #88 Minor spelling error
+ *  SF Bug #87 Unable to set default key length
+    The Key generation dialog now allows to remember the current settings
+ *  Do not interpret HTML tags in message boxes
  *  Overwite extensions from the PKCS#10 request by local extensions
     This avoids duplication errors and allows to overwrite some
     extensions from the request
