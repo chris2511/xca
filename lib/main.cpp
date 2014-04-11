@@ -91,6 +91,7 @@ int main( int argc, char *argv[] )
 		a.setMainwin(mw);
 		mw->read_cmdline();
 		if (mw->exitApp == 0) {
+			mw->load_history();
 			if (mw->open_default_db() != 2) {
 				mw->show();
 				ret = a.exec();

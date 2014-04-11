@@ -26,11 +26,16 @@ void MainWindow::init_menu()
 {
 	QMenu *file, *help, *import, *token;
 
+	historyMenu = new tipMenu(tr("Recent DataBases") + " ...", this);
+	connect(historyMenu, SIGNAL(triggered(QAction*)),
+                this, SLOT(open_database(QAction*)));
+
 	file = menuBar()->addMenu(tr("&File"));
 	file->addAction(tr("&New DataBase"), this, SLOT(new_database()),
 		QKeySequence::New);
 	file->addAction(tr("&Open DataBase"), this, SLOT(load_database()),
 		QKeySequence::Open);
+	file->addMenu(historyMenu);
 	file->addAction(tr("Generate DH parameter"), this,
 				 SLOT(generateDHparam()));
 	acList += file->addAction(tr("Set as default DataBase"), this,
@@ -99,6 +104,26 @@ int MainWindow::changeDB(QString fname)
 	homedir = fname.mid(0, fname.lastIndexOf(QDir::separator()));
 	dbfile = fname;
 	return init_database();
+}
+
+void MainWindow::update_history_menu()
+{
+	historyMenu->clear();
+	for (int i = 0; i < history.size(); i++) {
+		QAction *a;
+		QString txt = history[i];
+		txt = txt.remove(0, txt.lastIndexOf(QDir::separator()) +1);
+		if (txt.size() > 20)
+			txt = QString("...") + txt.mid(txt.size() - 20);
+		a = historyMenu->addAction(QString("%1 %2").arg(i).arg(txt));
+		a->setData(QVariant(history[i]));
+		a->setToolTip(history[i]);
+	}
+}
+
+void MainWindow::open_database(QAction* a)
+{
+	changeDB(a->data().toString());
 }
 
 void MainWindow::new_database()

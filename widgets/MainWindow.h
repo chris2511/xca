@@ -23,6 +23,8 @@
 #include <QtGui/QMenuBar>
 #include <QtCore/QList>
 #include <QtGui/QMessageBox>
+#include <QtGui/QMenu>
+#include <QtGui/QToolTip>
 
 #define DBFILE "xca.xdb"
 
@@ -40,6 +42,25 @@ class xcaWarning: public QMessageBox
 		}
 };
 
+class tipMenu : public QMenu
+{
+	Q_OBJECT
+
+    public:
+	tipMenu(QString n, QWidget *w) : QMenu(n, w) {}
+	bool event (QEvent * e)
+	{
+		const QHelpEvent *helpEvent = static_cast <QHelpEvent *>(e);
+		if (helpEvent->type() == QEvent::ToolTip && activeAction()) {
+			QToolTip::showText(helpEvent->globalPos(),
+				activeAction()->toolTip());
+		} else {
+			QToolTip::hideText();
+		}
+		return QMenu::event(e);
+	}
+};
+
 class MainWindow: public QMainWindow, public Ui::MainWindow
 {
 	Q_OBJECT
@@ -51,6 +72,9 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QList<QWidget*> wdList;
 		QList<QWidget*> scardList;
 		QList<QAction*> acList;
+		QStringList history;
+		tipMenu *historyMenu;
+		void update_history_menu();
 
 	protected:
 		void init_images();
@@ -101,6 +125,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void dragEnterEvent(QDragEnterEvent *event);
 		int open_default_db();
 		void setDefaultKey(QString def);
+		void load_history();
+		void update_history(QString file);
 
 	public slots:
 		int init_database();
@@ -128,6 +154,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void changeSoPin();
 		void initPin();
 		void generateDHparam();
+		void open_database(QAction* a);
 
 		void on_keyView_doubleClicked(const QModelIndex &m);
 		void on_reqView_doubleClicked(const QModelIndex &m);

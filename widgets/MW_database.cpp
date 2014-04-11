@@ -271,6 +271,7 @@ int MainWindow::open_default_db()
 	dbfile = filename2QString(buff).trimmed();
 	if (QFile::exists(dbfile))
 		return init_database();
+	dbfile = QString();
 	return 0;
 }
 
@@ -344,8 +345,67 @@ void MainWindow::close_database()
 	catch (errorEx &err) {
 		MainWindow::Error(err);
 	}
+	update_history(dbfile);
 	pkcs11::remove_libs();
 	enableTokenMenu(pkcs11::loaded());
+}
+
+void MainWindow::load_history()
+{
+	QFile file;
+	QString name = getUserSettingsDir() + QDir::separator() + "dbhistory";
+
+	file.setFileName(name);
+	if (!file.open(QIODevice::ReadOnly))
+		return;
+
+	history.clear();
+	while (!file.atEnd()) {
+		QString name;
+		char buf[1024];
+		ssize_t size = file.readLine(buf, sizeof buf);
+		if (size <= 0)
+			break;
+		name = filename2QString(buf);
+		name = name.trimmed();
+		if (name.size() == 0)
+			continue;
+		if (history.indexOf(name) == -1)
+			history << name;
+	}
+	file.close();
+	update_history_menu();
+}
+
+void MainWindow::update_history(QString fname)
+{
+	QFile file;
+	int pos;
+	QString name;
+
+	pos = history.indexOf(fname);
+	if (pos == 0)
+		return; /* no changes */
+
+	if (pos > 0)
+		history.removeAt(pos);
+	history.prepend(fname);
+	while (history.size() > 10)
+		history.removeLast();
+
+	name = getUserSettingsDir() + QDir::separator() + "dbhistory";
+	file.setFileName(name);
+	if (!file.open(QIODevice::ReadWrite))
+		return;
+
+	for (pos = 0; pos < history.size(); pos++) {
+		QByteArray ba = filename2bytearray(history[pos]);
+		ba.append('\n');
+		if (file.write(ba) <= 0)
+			break;
+	}
+	file.close();
+	update_history_menu();
 }
 
 /* Asymetric Key buttons */
