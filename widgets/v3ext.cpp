@@ -167,7 +167,7 @@ bool v3ext::__validate(bool showSuccess)
 {
 	x509v3ext ext;
 	QString str, error;
-
+	validate->setFocus(Qt::OtherFocusReason);
 	str = prefix + toString();
 	ext.create(nid, str, ext_ctx);
 	while (int i = ERR_get_error() ) {
