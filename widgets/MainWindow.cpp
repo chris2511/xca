@@ -247,6 +247,8 @@ MainWindow::MainWindow(QWidget *parent )
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
+	connect(this, SIGNAL(newURLs(QStringList &)),
+		this, SLOT(openURLs(QStringList &)));
 	setAcceptDrops(true);
 }
 
@@ -254,11 +256,23 @@ void MainWindow::dropEvent(QDropEvent *event)
 {
 	QList<QUrl> urls = event->mimeData()->urls();
 	QUrl u;
-	ImportMulti *dlgi = new ImportMulti(this);
-	QStringList failed;
+	QStringList files;
 
 	foreach(u, urls) {
 		QString s = u.toLocalFile();
+		files << s;
+	}
+	emit newURLs(files);
+	event->acceptProposedAction();
+}
+
+void MainWindow::openURLs(QStringList &files)
+{
+	QStringList failed;
+	QString s;
+	ImportMulti *dlgi = new ImportMulti(this);
+
+	foreach(s, files) {
 	        pki_multi *pki = probeAnything(s);
 		if (pki && !pki->count())
 			failed << s;
@@ -266,7 +280,6 @@ void MainWindow::dropEvent(QDropEvent *event)
 	}
 	dlgi->execute(1, failed);
 	delete dlgi;
-	event->acceptProposedAction();
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)

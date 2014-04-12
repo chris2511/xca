@@ -11,25 +11,17 @@
 #include <QtCore/QDir>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
+#include "lib/main.h"
 #ifdef WIN32
 #include <windows.h>
 #endif
 
-class XCA_application : public QApplication
+void XCA_application::setMainwin(MainWindow *m)
 {
-	MainWindow *mainw;
-	QTranslator qtTr;
-	QTranslator xcaTr;
-
-public:
-	XCA_application(int &argc, char *argv[]);
-	void setMainwin(MainWindow *m)
-	{
-		mainw = m;
-	}
-protected:
-	bool event(QEvent *ev);
-};
+	mainw = m;
+	connect(this, SIGNAL(openFiles(QStringList &)),
+		m, SLOT(openURLs(QStringList &)));
+}
 
 XCA_application::XCA_application(int &argc, char *argv[])
 	:QApplication(argc, argv)
@@ -71,10 +63,9 @@ XCA_application::XCA_application(int &argc, char *argv[])
 bool XCA_application::event(QEvent *ev)
 {
 	if (ev->type() == QEvent::FileOpen) {
-		QString file = static_cast<QFileOpenEvent *>(ev)->file();
-		if (mainw)
-			mainw->importAnything(file);
-
+		QStringList l;
+		l << static_cast<QFileOpenEvent *>(ev)->file();
+		emit openFiles(l);
 		return true;
 	}
 	return QApplication::event(ev);

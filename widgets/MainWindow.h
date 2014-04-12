@@ -145,6 +145,10 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		bool pastePem(QString text);
 		void pastePem();
 		void changeDbPass();
+		void openURLs(QStringList &files);
+
+	signals:
+		void newURLs(QStringList &);
 
 	private slots:
 		void setOptions();
