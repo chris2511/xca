@@ -15,14 +15,30 @@
 #include <windows.h>
 #endif
 
+class XcaTranslator : public QTranslator
+{
+	Q_OBJECT
+public:
+	XcaTranslator(QObject *p = NULL) : QTranslator(p) { }
+	bool load(const QLocale &locale, const QString &filename,
+		const QString &dir)
+	{
+#if QT_VERSION >= 0x040800
+		return QTranslator::load(locale, filename, "_", dir, ".qm");
+#else
+		return QTranslator::load(QString("%1_%2").arg(filename).arg(locale.name()), dir);
+#endif
+	}
+};
+
 class XCA_application : public QApplication
 {
 	Q_OBJECT
 
 private:
 	MainWindow *mainw;
-	QTranslator qtTr;
-	QTranslator xcaTr;
+	XcaTranslator qtTr;
+	XcaTranslator xcaTr;
 
 public:
 	XCA_application(int &argc, char *argv[]);

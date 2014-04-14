@@ -26,10 +26,8 @@ void XCA_application::setMainwin(MainWindow *m)
 XCA_application::XCA_application(int &argc, char *argv[])
 	:QApplication(argc, argv)
 {
-	QString locale;
+	QLocale sys = QLocale::system();
 	QStringList dirs;
-
-	locale = QLocale::system().name();
 
 	dirs
 #ifdef XCA_DEFAULT_QT_TRANSLATE
@@ -44,11 +42,11 @@ XCA_application::XCA_application(int &argc, char *argv[])
 		;
 
 	foreach(QString dir, dirs) {
-		if (qtTr.load(QString("qt_%1").arg(locale), dir)) {
+		if (qtTr.load(sys, "qt", dir)) {
 			break;
 		}
 	}
-	xcaTr.load(QString("xca_%1").arg(locale), getPrefix());
+	xcaTr.load(sys, "xca", getPrefix());
 
 	installTranslator(&qtTr);
 	installTranslator(&xcaTr);
