@@ -31,7 +31,7 @@ class a1int
         a1int &setRaw(const unsigned char *data, unsigned len);
 	long getLong() const;
 	ASN1_INTEGER *get() const;
-	unsigned char *i2d(unsigned char *p);
+	QByteArray i2d();
 	int derSize() const;
 
 	a1int &operator ++ (void);

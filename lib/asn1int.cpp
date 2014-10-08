@@ -183,11 +183,9 @@ bool a1int::operator != (const a1int &a) const
 	return (ASN1_INTEGER_cmp(in, a.in) != 0);
 }
 
-unsigned char *a1int::i2d(unsigned char *p)
+QByteArray a1int::i2d()
 {
-	unsigned char *mp = p;
-	i2d_ASN1_INTEGER(in, &mp);
-	return mp;
+	return i2d_bytearray(I2D_VOID(i2d_ASN1_INTEGER), in);
 }
 
 int a1int::derSize() const

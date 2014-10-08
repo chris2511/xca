@@ -287,6 +287,8 @@ void pki_x509::store_token(bool alwaysSelect)
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_bool(CKA_PRIVATE, false) <<
 		pk11_attr_data(CKA_SUBJECT, getSubject().i2d()) <<
+		pk11_attr_data(CKA_ISSUER, getIssuer().i2d()) <<
+		pk11_attr_data(CKA_SERIAL_NUMBER, getSerial().i2d()) <<
 		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
 		(card ? card->getIdAttr() : p11.findUniqueID(CKO_CERTIFICATE));
 
