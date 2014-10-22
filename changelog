@@ -1,4 +1,6 @@
+xca 1.0.0 Wed Oct 22 2014
 
+ *  SF Bug #89 Validating CRL distribution point results in error
  *  SF Feature Req. #69 Create "Recent databases..." file menu item
  *  SF Bug #75 authorityInfoAccess set error
  *  SF Bug #88 Minor spelling error
