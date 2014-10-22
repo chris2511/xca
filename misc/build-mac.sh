@@ -2,7 +2,7 @@
 
 do_openssl()
 {
-openssl="openssl-1.0.1g"
+openssl="openssl-1.0.1j"
 test -f "$openssl".tar.gz || curl http://www.openssl.org/source/"$openssl".tar.gz > "$openssl".tar.gz
 tar zxf "$openssl".tar.gz
 (cd $openssl
@@ -36,8 +36,9 @@ XCA_DIR="`cd $XCA_DIR/.. && pwd`"
 doc=$XCA_DIR/doc/xca-doc.tgz
 test -f $doc || curl http://git.hohnstaedt.de/xca-doc.tgz > $doc
 
-do_libtool
-do_openssl
+#do_libtool
+#do_openssl
+export QTDIR=$HOME/src/install/Qt485
 
 # configure XCA and build the DMG file
 rm -rf xca-macbuild
