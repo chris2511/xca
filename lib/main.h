@@ -23,7 +23,7 @@ public:
 	bool load(const QLocale &locale, const QString &filename,
 		const QString &dir)
 	{
-#if QT_VERSION >= 0x040800
+#if 0
 		return QTranslator::load(locale, filename, "_", dir, ".qm");
 #else
 		return QTranslator::load(QString("%1_%2").arg(filename).arg(locale.name()), dir);
