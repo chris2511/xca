@@ -115,24 +115,33 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 #ifndef OPENSSL_NO_EC
 	case CKK_EC: {
 		unsigned long s;
+		long point_len;
+		int tag, xclass;
 		const unsigned char *p;
 		EC_KEY *ec = EC_KEY_new();
 
 		pk11_attr_data grp(CKA_EC_PARAMS);
-                p11.loadAttribute(grp, object);
+		p11.loadAttribute(grp, object);
 		s = grp.getValue(&p);
 		EC_GROUP *group = d2i_ECPKParameters(NULL, &p, s);
+		pki_openssl_error();
+
 		EC_GROUP_set_asn1_flag(group, 1);
 		EC_KEY_set_group(ec, group);
 		pki_openssl_error();
 
 		pk11_attr_data pt(CKA_EC_POINT);
-                p11.loadAttribute(pt, object);
-		BIGNUM *bn = pt.getBignum();
-		BN_CTX *ctx = BN_CTX_new();
-		EC_POINT *point = EC_POINT_bn2point(group, bn, NULL, ctx);
+		p11.loadAttribute(pt, object);
+		s = pt.getValue(&p);
+		ASN1_get_object(&p, &point_len, &tag, &xclass, s);
+		pki_openssl_error();
+		BIGNUM *bn = BN_bin2bn(p, point_len, NULL);
+		pki_openssl_error();
+
+		EC_POINT *point = EC_POINT_bn2point(group, bn, NULL, NULL);
+		pki_openssl_error();
+		BN_free(bn);
 		EC_KEY_set_public_key(ec, point);
-		BN_CTX_free(ctx);
 		pki_openssl_error();
 
 		pkey = EVP_PKEY_new();
@@ -598,8 +607,10 @@ EVP_PKEY *pki_scard::decryptKey() const
 	}
 	pk11_attlist atts = objectAttributes(true);
 	QList<CK_OBJECT_HANDLE> priv_objects = p11->objectList(atts);
-	if (priv_objects.count() != 1)
+	if (priv_objects.count() != 1) {
+		delete p11;
 		throw errorEx(tr("Failed to find the key on the token"));
+	}
 	EVP_PKEY *pkey = p11->getPrivateKey(key, priv_objects[0]);
 
 	if (!pkey)
