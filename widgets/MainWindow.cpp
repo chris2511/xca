@@ -241,6 +241,12 @@ MainWindow::MainWindow(QWidget *parent )
 	ERR_load_crypto_strings();
 	OpenSSL_add_all_algorithms();
 
+	EVP_add_digest_alias(SN_sha1,SN_ecdsa_with_SHA1);
+	EVP_add_digest_alias(SN_sha224,SN_ecdsa_with_SHA224);
+	EVP_add_digest_alias(SN_sha256,SN_ecdsa_with_SHA256);
+	EVP_add_digest_alias(SN_sha256,SN_dsa_with_SHA256);
+	EVP_add_digest_alias(SN_sha384,SN_ecdsa_with_SHA384);
+	EVP_add_digest_alias(SN_sha512,SN_ecdsa_with_SHA512);
 	/* read in all our own OIDs */
 	initOIDs();
 
