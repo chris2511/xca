@@ -164,9 +164,9 @@ class pkcs11
 		int deleteObjects(QList<CK_OBJECT_HANDLE> objects);
 		EVP_PKEY *getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj);
 		int encrypt(int flen, const unsigned char *from,
-					unsigned char *to, int tolen);
+				unsigned char *to, int tolen, unsigned long m);
 		int decrypt(int flen, const unsigned char *from,
-					unsigned char *to, int tolen);
+				unsigned char *to, int tolen, unsigned long m);
 
 };
 
