@@ -83,7 +83,7 @@ QString pki_key::length()
 	return QString("%1 bit").arg(EVP_PKEY_bits(key));
 }
 
-QString pki_key::getTypeString()
+QString pki_key::getTypeString() const
 {
 	QString type;
 	switch (EVP_PKEY_type(key->type)) {

@@ -37,7 +37,7 @@ class pki_scard: public pki_key
 		void fromData(const unsigned char *p, db_header_t *head);
 		QByteArray toData();
 		bool isPubKey() const;
-		QString getTypeString(void);
+		QString getTypeString(void) const;
 		QString getManufacturer() const
 		{
 			return card_manufacturer;

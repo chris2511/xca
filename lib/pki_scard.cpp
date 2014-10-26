@@ -585,7 +585,7 @@ bool pki_scard::isPubKey() const
 	return false;
 }
 
-QString pki_scard::getTypeString(void)
+QString pki_scard::getTypeString(void) const
 {
 	return tr("Token %1").arg(pki_key::getTypeString());
 }
@@ -613,9 +613,10 @@ EVP_PKEY *pki_scard::decryptKey() const
 	}
 	EVP_PKEY *pkey = p11->getPrivateKey(key, priv_objects[0]);
 
-	if (!pkey)
+	if (!pkey) {
 		delete p11;
-
+		throw errorEx(tr("Failed to initialize the key on the token"));
+	}
 	pki_openssl_error();
 	return pkey;
 }

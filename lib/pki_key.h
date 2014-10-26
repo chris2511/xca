@@ -51,7 +51,7 @@ class pki_key: public pki_base
 			return NULL;
 		}
 		virtual bool isToken();
-		virtual QString getTypeString(void);
+		virtual QString getTypeString(void) const;
 		virtual QString getIntNameWithType(void);
 		virtual QList<int> possibleHashNids()
 		{

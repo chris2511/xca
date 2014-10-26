@@ -40,12 +40,16 @@ pkcs11_lib::pkcs11_lib(QString f)
 		goto how_bad;
 
 	rv = p11->C_Initialize(NULL);
+	ign_openssl_error();
 	if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
 		pk11error("C_Initialize", rv);
 
+	ign_openssl_error();
 	return;
 
 how_bad:
+	if (dl_handle)
+		lt_dlclose(dl_handle);
 	lt_dlexit();
 	throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
 			arg(file));
