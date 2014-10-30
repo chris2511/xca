@@ -71,7 +71,10 @@ void MainWindow::about()
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
 	"<p>Copyright 2001 - 2014 by Christian Hohnst&auml;dt\n"
-	"<p>Version : <b>" VER "</b>"
+	"<p>Version: <b>" VER "</b>"
+#ifdef OPENSSL_NO_EC
+	"<p>(Elliptic Curve Cryptography support disabled)"
+#endif
 	"<p>%1"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"

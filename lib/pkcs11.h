@@ -18,8 +18,8 @@
 
 #include "pk11_attribute.h"
 
-#define WAITCURSOR_START QApplication::setOverrideCursor(QCursor(Qt::WaitCursor))
-#define WAITCURSOR_END QApplication::restoreOverrideCursor()
+#define WAITCURSOR_START do { QApplication::setOverrideCursor(QCursor(Qt::WaitCursor)); ign_openssl_error(); } while(0);
+#define WAITCURSOR_END do { QApplication::restoreOverrideCursor(); ign_openssl_error(); } while(0);
 
 class tkInfo
 {
@@ -160,7 +160,8 @@ class pkcs11
 			unsigned char *pin, unsigned long pinLen);
 		CK_OBJECT_HANDLE createObject(pk11_attlist &attrs);
 		pk11_attr_data findUniqueID(unsigned long oclass);
-		pk11_attr_data generateRSAKey(QString name, unsigned long bits);
+		pk11_attr_data generateKey(QString name,
+			unsigned long ec_rsa_mech, unsigned long bits, int nid);
 		int deleteObjects(QList<CK_OBJECT_HANDLE> objects);
 		EVP_PKEY *getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj);
 		int encrypt(int flen, const unsigned char *from,

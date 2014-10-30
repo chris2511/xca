@@ -268,6 +268,14 @@ struct ck_token_info
 #define CKF_SO_PIN_LOCKED			(1 << 22)
 #define CKF_SO_PIN_TO_BE_CHANGED		(1 << 23)
 
+#define CKF_EC_F_P				(1 << 20)
+#define CKF_EC_F_2M				(1 << 21)
+#define CKF_EC_ECPARAMETERS			(1 << 22)
+#define CKF_EC_NAMEDCURVE			(1 << 23)
+#define CKF_EC_UNCOMPRESS			(1 << 24)
+#define CKF_EC_COMPRESS				(1 << 25)
+
+
 #define CK_UNAVAILABLE_INFORMATION	((unsigned long) -1)
 #define CK_EFFECTIVELY_INFINITE		(0)
 

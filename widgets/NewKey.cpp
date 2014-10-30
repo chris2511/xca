@@ -43,19 +43,34 @@ class keyListItem
 	bool card;
 	QString printname;
 	slotid slot;
+	unsigned minKeySize;
+	unsigned maxKeySize;
+	unsigned long ec_flags;
+
 	keyListItem(pkcs11 *p11, slotid nslot, CK_MECHANISM_TYPE m)
 	{
-		// assert(m == CKM_RSA_PKCS_KEY_PAIR_GEN);
 		slot = nslot;
 		CK_MECHANISM_INFO mechinfo;
 		p11->mechanismInfo(slot, m, &mechinfo);
+
+		minKeySize = mechinfo.ulMinKeySize;
+		maxKeySize = mechinfo.ulMaxKeySize;
+
 		tkInfo ti = p11->tokenInfo(slot);
 		tl = typeList; //idx of EVP_PKEY_RSA
+#ifndef OPENSSL_NO_EC
+		if (m == CKM_EC_KEY_PAIR_GEN) {
+			tl = typeList +2;
+			CK_MECHANISM_INFO info;
+			p11->mechanismInfo(slot, m, &info);
+			ec_flags = info.flags & (CKF_EC_F_2M | CKF_EC_F_P);
+		}
+#endif
 		printname = QString("%1 #%2 (%3 Key of %4 - %5 bits)").
 			arg(ti.label()).arg(ti.serial()).
 			arg(tl->name).
-			arg(mechinfo.ulMinKeySize).
-			arg(mechinfo.ulMaxKeySize);
+			arg(minKeySize).
+			arg(maxKeySize);
 		card = true;
 	}
 	keyListItem(const struct typelist *t=typeList)
@@ -64,6 +79,9 @@ class keyListItem
 		printname = QString(tl->name);
 		card = false;
 		slot = slotid();
+		minKeySize = 0;
+		maxKeySize = INT_MAX;
+		ec_flags = 0;
 	}
 	keyListItem(const keyListItem &k)
 	{
@@ -71,6 +89,9 @@ class keyListItem
 		printname = k.printname;
 		card = k.card;
 		slot = k.slot;
+		minKeySize = k.minKeySize;
+		maxKeySize = k.maxKeySize;
+		ec_flags = k.ec_flags;
 	}
 	int type()
 	{
@@ -89,7 +110,6 @@ NewKey::NewKey(QWidget *parent, QString name)
 {
 	static const char* const sizeList[] = { "1024", "2048", "4096" };
 	size_t i;
-	QStringList curve_x962, curve_other;
 	slotidList p11_slots;
 	QList<keyListItem> keytypes;
 
@@ -108,31 +128,7 @@ NewKey::NewKey(QWidget *parent, QString name)
 		keyListItem gk(typeList +i);
 		keytypes << gk;
 	}
-#ifndef OPENSSL_NO_EC
-	QString ec_default;
-	for (i = 0; i<pki_evp::num_curves; i++) {
-		const char *desc = pki_evp::curves[i].comment;
-		const char *sn = OBJ_nid2sn(pki_evp::curves[i].nid);
-
-		if (!sn)
-			continue;
-		if (desc == NULL)
-			desc = "---";
-		QString p = QString(sn) + ": " + desc;
-		if (pki_evp::curves[i].nid == defaultEcNid)
-			ec_default = p;
-		switch (pki_evp::curve_flags[i]) {
-			case CURVE_X962:  curve_x962  << p; break;
-			case CURVE_OTHER: curve_other << p; break;
-		}
-
-	}
-	curveBox->addItems(curve_x962);
-	curveBox->addItems(curve_other);
-	curveBox->setCurrentIndex(curveBox->findText(ec_default));
-	if (curveBox->currentIndex() == -1)
-		curveBox->setCurrentIndex(0);
-#endif
+	updateCurves();
 	keyLength->setEditText(QString::number(defaultSize) + " bit");
 	keyDesc->setFocus();
 	if (pkcs11::loaded()) try {
@@ -145,6 +141,12 @@ NewKey::NewKey(QWidget *parent, QString name)
 				keyListItem tk(&p11, slot, CKM_RSA_PKCS_KEY_PAIR_GEN);
 				keytypes << tk;
 			}
+#ifndef OPENSSL_NO_EC
+			if (ml.contains(CKM_EC_KEY_PAIR_GEN)) {
+				keyListItem tk(&p11, slot, CKM_EC_KEY_PAIR_GEN);
+				keytypes << tk;
+			}
+#endif
 		}
 	} catch (errorEx &err) {
 		p11_slots.clear();
@@ -159,15 +161,61 @@ NewKey::NewKey(QWidget *parent, QString name)
 	buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Create"));
 }
 
+void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
+{
+#ifndef OPENSSL_NO_EC
+	QString ec_default;
+	QStringList curve_x962, curve_other;
+	foreach(builtin_curve curve, pki_key::builtinCurves) {
+		const char *sn = OBJ_nid2sn(curve.nid);
+		unsigned long group_type;
+		QString comment = curve.comment;
+
+		if (!sn || curve.order_size < min || curve.order_size > max)
+			continue;
+		if (ec_flags) {
+			if (curve.type == NID_X9_62_prime_field)
+		                group_type = CKF_EC_F_P;
+			else // ft = NID_X9_62_characteristic_two_field
+				group_type = CKF_EC_F_2M;
+
+			if ((group_type & ec_flags) == 0)
+				continue;
+		}
+		if (comment.isEmpty())
+			comment = "---";
+		QString p = QString(sn) + ": " + comment;
+		if (curve.nid == defaultEcNid)
+			ec_default = p;
+		switch (curve.flags) {
+			case CURVE_X962:  curve_x962  << p; break;
+			case CURVE_OTHER: curve_other << p; break;
+		}
+	}
+	curveBox->clear();
+	curveBox->addItems(curve_x962);
+	curveBox->addItems(curve_other);
+	curveBox->setCurrentIndex(curveBox->findText(ec_default));
+	if (curveBox->currentIndex() == -1)
+		curveBox->setCurrentIndex(0);
+#endif
+}
+
 void NewKey::on_keyType_currentIndexChanged(int idx)
 {
 	bool curve_enabled;
+	keyListItem ki = keyType->itemData(idx).value<keyListItem>();
 
-	curve_enabled = (typeList[idx].type == EVP_PKEY_EC);
+	curve_enabled = (ki.type() == EVP_PKEY_EC);
 	curveBox->setVisible(curve_enabled);
 	curveLabel->setVisible(curve_enabled);
 	keySizeLabel->setVisible(!curve_enabled);
 	keyLength->setVisible(!curve_enabled);
+
+	rememberDefault->setEnabled(!ki.card);
+	if (curve_enabled && ki.card) {
+		updateCurves(ki.minKeySize, ki.maxKeySize, ki.ec_flags);
+	}
 }
 
 static keyListItem currentKey(QComboBox *keyType)
@@ -193,7 +241,7 @@ int NewKey::getKeysize()
 int NewKey::getKeyCurve_nid()
 {
 	if (getKeytype() != EVP_PKEY_EC)
-		return -1;
+		return NID_undef;
 	QString desc = curveBox->currentText();
 	desc.replace(QRegExp("^(X9.62) "), "");
 	desc.replace(QRegExp(":.*"), "");

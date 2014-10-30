@@ -14,6 +14,7 @@
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 #include "pki_base.h"
+#include "lib/builtin_curves.h"
 
 #define MAX_KEY_LENGTH 4096
 
@@ -32,6 +33,7 @@ class pki_key: public pki_base
 		pki_key(const QString name = "");
 		pki_key(const pki_key *pk);
 		virtual ~pki_key();
+		static builtin_curves builtinCurves;
 		enum passType { ptCommon, ptPrivate, ptBogus, ptPin };
 
 		virtual EVP_PKEY *decryptKey() const

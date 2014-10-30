@@ -28,9 +28,9 @@ KeyDetail::KeyDetail(QWidget *parent)
 #ifndef OPENSSL_NO_EC
 static QString CurveComment(int nid)
 {
-	for (size_t i=0; i<pki_evp::num_curves; i++) {
-		if (pki_evp::curves[i].nid == nid)
-			return QString(pki_evp::curves[i].comment);
+	foreach(builtin_curve curve, pki_key::builtinCurves) {
+		if (curve.nid == nid)
+			return curve.comment;
 	}
 	return QString();
 }

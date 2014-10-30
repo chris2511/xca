@@ -19,6 +19,8 @@ class NewKey: public QDialog, public Ui::NewKey
 		static int defaultType;
 		static int defaultEcNid;
 		static int defaultSize;
+		void updateCurves(unsigned min=0, unsigned max=INT_MAX,
+			unsigned long ec_flags=0);
 	public:
 		NewKey(QWidget *parent, QString name);
 		int getKeytype();

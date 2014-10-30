@@ -28,12 +28,6 @@ QString pki_evp::passHash = QString();
 
 QPixmap *pki_evp::icon[2]= { NULL, NULL };
 
-#ifndef OPENSSL_NO_EC
-EC_builtin_curve *pki_evp::curves = NULL;
-size_t pki_evp::num_curves = 0;
-unsigned char *pki_evp::curve_flags = NULL;
-#endif
-
 void pki_evp::init(int type)
 {
 	key->type = type;
@@ -250,17 +244,15 @@ static void search_ec_oid(EVP_PKEY *pkey)
 		return;
 	/* There is an EC_GROUP with a missing OID
 	 * because of explicit parameters */
-	for (size_t i=0; i<pki_evp::num_curves; i++) {
-		int nid = pki_evp::curves[i].nid;
-		builtin = EC_GROUP_new_by_curve_name(nid);
+	foreach(builtin_curve curve, pki_key::builtinCurves) {
+		builtin = EC_GROUP_new_by_curve_name(curve.nid);
 		if (EC_GROUP_cmp(builtin, ec_group, NULL) == 0) {
-			EC_GROUP_set_curve_name((EC_GROUP *)ec_group, nid);
+			EC_GROUP_set_curve_name((EC_GROUP *)ec_group, curve.nid);
 			EC_GROUP_set_asn1_flag((EC_GROUP *)ec_group, 1);
 			EC_GROUP_free(builtin);
 			break;
-		} else {
-			EC_GROUP_free(builtin);
 		}
+		EC_GROUP_free(builtin);
 	}
 #endif
 }

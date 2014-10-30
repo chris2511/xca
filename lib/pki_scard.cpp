@@ -483,19 +483,22 @@ public:
 	pk11_attr_data id;
 	QString name;
 	int size;
+	int curve_nid;
+	int method;
 	pkcs11 *p11;
 
 	void run()
 	{
 		try {
-			id = p11->generateRSAKey(name, size);
+			id = p11->generateKey(name, method, size, curve_nid);
 		} catch (errorEx &e) {
 			err = e;
 		}
 	}
 };
 
-void pki_scard::generateKey_card(slotid slot, int size, QProgressBar *bar)
+void pki_scard::generateKey_card(int type, slotid slot, int size,
+		int curve_nid, QProgressBar *bar)
 {
 	pk11_attlist atts;
 
@@ -504,12 +507,27 @@ void pki_scard::generateKey_card(slotid slot, int size, QProgressBar *bar)
 
 	tkInfo ti = p11.tokenInfo();
 
+	fprintf(stderr, "TYPE: %d (EVP_PKEY_RSA:%d, EVP_PKEY_EC:%d)\n",
+		type, EVP_PKEY_RSA, EVP_PKEY_EC);
 	if (p11.tokenLogin(ti.label(), false).isNull())
 		return;
 
 	keygenThread kt;
 	kt.name = getIntName();
 	kt.size = size;
+	kt.curve_nid = curve_nid;
+	switch (type) {
+	case EVP_PKEY_RSA:
+		kt.method = CKM_RSA_PKCS_KEY_PAIR_GEN;
+		break;
+#ifndef OPENSSL_NO_EC
+	case EVP_PKEY_EC:
+		kt.method = CKM_EC_KEY_PAIR_GEN;
+		break;
+#endif
+	default:
+		throw errorEx(tr("Illegal Key generation method"));
+	}
 	kt.p11 = &p11;
 	kt.start();
 	while (!kt.wait(20)) {

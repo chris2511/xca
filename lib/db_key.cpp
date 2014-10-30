@@ -146,8 +146,9 @@ void db_key::newItem(QString name)
 	try {
 		if (dlg->isToken()) {
 			key = cardkey = new pki_scard(dlg->keyDesc->text());
-			cardkey->generateKey_card(dlg->getKeyCardSlot(),
-						 ksize, bar);
+			cardkey->generateKey_card(dlg->getKeytype(),
+				dlg->getKeyCardSlot(), ksize,
+				dlg->getKeyCurve_nid(), bar);
 		} else {
 			key = nkey = new pki_evp(dlg->keyDesc->text());
 			nkey->generate(ksize, dlg->getKeytype(), bar,

@@ -471,12 +471,13 @@ pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
 	return id;
 }
 
-pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
+pk11_attr_data pkcs11::generateKey(QString name, unsigned long ec_rsa_mech,
+				unsigned long bits, int nid)
 {
 	CK_RV rv;
 	CK_OBJECT_HANDLE pubkey, privkey;
 	pk11_attlist priv_atts, pub_atts;
-	CK_MECHANISM mechanism = {CKM_RSA_PKCS_KEY_PAIR_GEN, NULL_PTR, 0};
+	CK_MECHANISM mechanism = {ec_rsa_mech, NULL_PTR, 0};
 	pk11_attr_data label(CKA_LABEL, name.toUtf8());
 
 	pk11_attr_data new_id = findUniqueID(CKO_PUBLIC_KEY);
@@ -488,8 +489,6 @@ pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
 		pk11_attr_bool(CKA_ENCRYPT, true) <<
 		pk11_attr_bool(CKA_VERIFY, true) <<
 		pk11_attr_bool(CKA_WRAP, true) <<
-		pk11_attr_ulong(CKA_MODULUS_BITS, bits) <<
-		pk11_attr_data(CKA_PUBLIC_EXPONENT, 0x10001) <<
 		label << new_id;
 
 	priv_atts <<
@@ -502,6 +501,33 @@ pk11_attr_data pkcs11::generateRSAKey(QString name, unsigned long bits)
 		pk11_attr_bool(CKA_UNWRAP, true) <<
 		label << new_id;
 
+	if (ec_rsa_mech == CKM_RSA_PKCS_KEY_PAIR_GEN) {
+		pub_atts <<
+		pk11_attr_ulong(CKA_MODULUS_BITS, bits) <<
+		pk11_attr_data(CKA_PUBLIC_EXPONENT, 0x10001);
+	} else if (ec_rsa_mech == CKM_EC_KEY_PAIR_GEN) {
+#ifndef OPENSSL_NO_EC
+		CK_MECHANISM_INFO info;
+		mechanismInfo(p11slot, CKM_EC_KEY_PAIR_GEN, &info);
+
+		EC_GROUP *group = EC_GROUP_new_by_curve_name(nid);
+
+		EC_GROUP_set_asn1_flag(group, info.flags & CKF_EC_NAMEDCURVE ?
+			OPENSSL_EC_NAMED_CURVE : 0);
+
+		/// WORKAROUND:
+		 EC_GROUP_set_asn1_flag(group, OPENSSL_EC_NAMED_CURVE);
+		/// WORKAROUND END:
+		priv_atts << pk11_attr_bool(CKA_DERIVE, true);
+		pub_atts  << pk11_attr_data(CKA_EC_PARAMS,
+			i2d_bytearray(I2D_VOID(i2d_ECPKParameters), group));
+		EC_GROUP_free(group);
+#else
+		throw errorEx(("Unsupported Key generation mechanism"));
+#endif
+	} else {
+		throw errorEx(("Unsupported Key generation mechanism"));
+	}
 	p11slot.isValid();
 	WAITCURSOR_START;
 	rv = p11slot.p11()->C_GenerateKeyPair(session, &mechanism,
@@ -684,8 +710,8 @@ static int eng_finish(ENGINE *e)
 static int eng_destroy(ENGINE *e)
 {
 	printf("ENGINE destroy\n");
-	//pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, 0);
-	//delete p11;
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, 0);
+	delete p11;
 	return 1;
 }
 
@@ -694,9 +720,11 @@ static int eng_pmeth_ctrl_rsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 	switch (type) {
 	case EVP_PKEY_CTRL_RSA_PADDING:
 		return p1 == RSA_PKCS1_PADDING ? 1 : -2;
+#ifndef OPENSSL_NO_EC // WTF ???
 	case EVP_PKEY_CTRL_GET_RSA_PADDING:
 		*(int *)p2 = RSA_PKCS1_PADDING;
 		return 1;
+#endif
 	case EVP_PKEY_CTRL_MD:
 		EVP_PKEY_CTX_set_data(ctx, p2);
 		return 1;
@@ -714,6 +742,7 @@ static int pkey_rsa_ctrl_str(EVP_PKEY_CTX *ctx,
 	return 1;
 }
 
+#ifndef OPENSSL_NO_EC
 static int eng_pmeth_ctrl_ec(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 {
 	switch (type) {
@@ -737,7 +766,7 @@ static int eng_pmeth_ctrl_ec(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 	fprintf(stderr, "EC Don't call me %d\n", type);
 	return -2;
 }
-
+#endif
 
 static unsigned char *create_x509_sig(EVP_PKEY_CTX *ctx, const unsigned char *m,
 		size_t m_len, unsigned int *x509_siglen)
@@ -808,6 +837,7 @@ static int eng_pmeth_sign_rsa(EVP_PKEY_CTX *ctx,
 	return (len < 0) ? -1 : 1;
 }
 
+#ifndef OPENSSL_NO_EC
 static int eng_pmeth_sign_ec(EVP_PKEY_CTX *ctx,
 			unsigned char *sig, size_t *siglen,
 			const unsigned char *tbs, size_t tbslen)
@@ -842,6 +872,7 @@ out:
 	ign_openssl_error();
 	return ret;
 }
+#endif
 
 static int eng_pmeth_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src)
 {
@@ -855,9 +886,11 @@ static int eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
 	static const int my_nids[] = { EVP_PKEY_EC, EVP_PKEY_RSA };
 	if (m) {
 		switch (nid) {
+#ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
 			*m = p11_ec_method;
 			return 1;
+#endif
 		case EVP_PKEY_RSA:
 			*m = p11_rsa_method;
 			return 1;
@@ -893,6 +926,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 				eng_pmeth_ctrl_rsa, pkey_rsa_ctrl_str);
 		EVP_PKEY_meth_set_copy(p11_rsa_method, eng_pmeth_copy);
 	}
+#ifndef OPENSSL_NO_EC
 	if (!p11_ec_method) {
 		p11_ec_method = EVP_PKEY_meth_new(EVP_PKEY_EC, 0);
 		EVP_PKEY_meth_set_sign(p11_ec_method,
@@ -901,11 +935,14 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 				eng_pmeth_ctrl_ec, NULL);
 		EVP_PKEY_meth_set_copy(p11_ec_method, eng_pmeth_copy);
 	}
+#endif
 	p11obj = obj;
 
 	switch (EVP_PKEY_type(pub->type)) {
 	case EVP_PKEY_RSA:
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
+#endif
 		return pub;
 	}
 	return NULL;

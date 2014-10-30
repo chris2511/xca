@@ -80,7 +80,8 @@ class pki_scard: public pki_key
 		QList<int> possibleHashNids();
 		EVP_PKEY *load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const;
 		const EVP_MD *getDefaultMD();
-		void generateKey_card(slotid slot, int size, QProgressBar *bar);
+		void generateKey_card(int type, slotid slot, int size,
+					int curve_nid, QProgressBar *bar);
 		void deleteFromToken();
 		void deleteFromToken(slotid slot);
 		void store_token(slotid slot, EVP_PKEY *pkey);

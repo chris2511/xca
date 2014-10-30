@@ -15,6 +15,8 @@
 #include <QtCore/QDir>
 #include "widgets/PwDialog.h"
 
+builtin_curves pki_key::builtinCurves;
+
 pki_key::pki_key(const QString name)
         :pki_base(name)
 {

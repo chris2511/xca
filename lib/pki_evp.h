@@ -17,9 +17,6 @@
 #include "pki_key.h"
 #include "Passwd.h"
 
-#define CURVE_X962  1
-#define CURVE_OTHER 2
-
 class pki_evp: public pki_key
 {
 		Q_OBJECT
@@ -35,11 +32,6 @@ class pki_evp: public pki_key
 		static Passwd oldpasswd;
 		static QString md5passwd(QByteArray pass);
 		static QString sha512passwd(QByteArray pass, QString salt);
-#ifndef OPENSSL_NO_EC
-		static EC_builtin_curve *curves;
-		static size_t num_curves;
-		static unsigned char *curve_flags;
-#endif
 		void generate(int bits, int type, QProgressBar *progress);
 		void generate(int bits, int type, QProgressBar *progress,
 				int curve_nid);
