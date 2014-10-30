@@ -185,16 +185,20 @@ check_frameworks() {
   return 1
 }
 
-if test "$#" = "0" && test -z "$DARWIN" && test -z "$QTDIR" && \
-   pkg-config QtGui openssl --libs >/dev/null;
+if test "$#" -eq 0; then
+  pkg_openssl="openssl"
+  by_hand=qt
+fi
+if test -z "$DARWIN" && test -z "$QTDIR" && \
+   pkg-config QtGui $pkg_openssl --libs >/dev/null;
 then
-  CF="`pkg-config QtGui openssl --cflags`"
-  LIBS="`pkg-config QtGui openssl --libs` -lltdl"
+  CF="`pkg-config QtGui $pkg_openssl --cflags`"
+  LIBS="`pkg-config QtGui $pkg_openssl --libs` -lltdl"
 else
-  by_hand=true
+  by_hand=both
 fi
 
-if test "$by_hand" = "true"; then
+if test -n "$by_hand"; then
   ######################### QT
   if test -z "$DARWIN"; then
     subdirs="/qt /qt4"
@@ -206,7 +210,10 @@ if test "$by_hand" = "true"; then
   else
     check_frameworks QtGui QtCore || err "QT Framework not found, needed on Mac OSX, please install QT"
   fi
+fi
 
+
+if test -z "$pkg_openssl"; then
   ###################### OpenSSL
   subdirs=""
   search_includes openssl/opensslv.h || err "The OpenSSL library headerfiles were not found."
