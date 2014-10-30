@@ -17,5 +17,6 @@ OBJS=$(patsubst %, %.o, $(NAMES)) $(patsubst %, moc_%.o, $(MOCNAMES))
 include $(TOPDIR)/Rules.mak
 sinclude .depend
 
-db_dump: db_dump.cpp db.o db.h
-	gcc $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) db_dump.cpp db.o $(LIBS) -g -o $@
+db_dump: db_dump.o db.o db.h
+	echo "'$(CPPFLAGS)'"
+	$(CC) $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) db_dump.o db.o $(LIBS) -g -o $@

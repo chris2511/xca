@@ -53,7 +53,7 @@ STDINC="-I/usr/include"
 STDLIB="-L/usr/lib"
 prefix=${prefix:=/usr/local}
 CFLAGS=${CFLAGS:=-Wall -ggdb -O2}
-CC=${CC:=gcc}
+CC=${CC:=g++}
 LDFLAGS=""
 LIBS="-lstdc++"
 LDIRS=

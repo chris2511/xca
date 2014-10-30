@@ -72,6 +72,10 @@ headers: do.ui
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$*
 
+db_dump: lib/.build-stamp
+	$(MAKE) -C lib -f $(TOPDIR)/lib/Makefile \
+		VPATH=$(TOPDIR)/lib db_dump
+
 $(INSTTARGET): install.%: %/.build-stamp
 	mkdir -p $*
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
