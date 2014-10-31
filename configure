@@ -185,20 +185,23 @@ check_frameworks() {
   return 1
 }
 
+if test -z "$QTDIR"; then
+  pkg_qt="QtGui"
+fi
 if test "$#" -eq 0; then
   pkg_openssl="openssl"
-  by_hand=qt
 fi
-if test -z "$DARWIN" && test -z "$QTDIR" && \
-   pkg-config QtGui $pkg_openssl --libs >/dev/null;
+if test -z "$DARWIN" && test -n "${pkg_qt}${pkg_openssl}" && \
+   pkg-config $pkg_qt $pkg_openssl --libs >/dev/null;
 then
   CF="`pkg-config QtGui $pkg_openssl --cflags`"
   LIBS="`pkg-config QtGui $pkg_openssl --libs` -lltdl"
 else
-  by_hand=both
+  pkg_openssl="openssl"
+  pkg_qt="QtGui"
 fi
 
-if test -n "$by_hand"; then
+if test -z "$pkg_qt"; then
   ######################### QT
   if test -z "$DARWIN"; then
     subdirs="/qt /qt4"
