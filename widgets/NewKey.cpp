@@ -55,7 +55,10 @@ class keyListItem
 
 		minKeySize = mechinfo.ulMinKeySize;
 		maxKeySize = mechinfo.ulMaxKeySize;
-
+		if (maxKeySize == 0) {
+			/* Fallback for libraries not filling in the maxKeySize */
+			maxKeySize = INT_MAX;
+		}
 		tkInfo ti = p11->tokenInfo(slot);
 		tl = typeList; //idx of EVP_PKEY_RSA
 #ifndef OPENSSL_NO_EC
@@ -63,7 +66,13 @@ class keyListItem
 			tl = typeList +2;
 			CK_MECHANISM_INFO info;
 			p11->mechanismInfo(slot, m, &info);
-			ec_flags = info.flags & (CKF_EC_F_2M | CKF_EC_F_P);
+			ec_flags = info.flags & (CKF_EC_F_P | CKF_EC_F_2M);
+			if (!ec_flags) {
+				/* Fallback: Assume to support both for
+				 * libraries leaving this flag empty
+				 */
+				ec_flags = CKF_EC_F_P | CKF_EC_F_2M;
+			}
 		}
 #endif
 		printname = QString("%1 #%2 (%3 Key of %4 - %5 bits)").
@@ -168,18 +177,12 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 	QStringList curve_x962, curve_other;
 	foreach(builtin_curve curve, pki_key::builtinCurves) {
 		const char *sn = OBJ_nid2sn(curve.nid);
-		unsigned long group_type;
 		QString comment = curve.comment;
 
 		if (!sn || curve.order_size < min || curve.order_size > max)
 			continue;
 		if (ec_flags) {
-			if (curve.type == NID_X9_62_prime_field)
-		                group_type = CKF_EC_F_P;
-			else // ft = NID_X9_62_characteristic_two_field
-				group_type = CKF_EC_F_2M;
-
-			if ((group_type & ec_flags) == 0)
+			if ((curve.type & ec_flags) == 0)
 				continue;
 		}
 		if (comment.isEmpty())

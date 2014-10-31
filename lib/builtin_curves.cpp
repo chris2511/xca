@@ -7,9 +7,12 @@
 
 #include "builtin_curves.h"
 #include "exception.h"
+#include "func.h"
 
 #ifndef OPENSSL_NO_EC
 #include <openssl/ec.h>
+#include "opensc-pkcs11.h"
+
 static const int x962_curve_nids[] = {
 	NID_X9_62_prime192v1,
 	NID_X9_62_prime192v2,
@@ -117,6 +120,7 @@ builtin_curves::builtin_curves()
 	for (i=0; i< num_curves; i++) {
 		size_t j;
 		int flag = 0, nid = curves[i].nid;
+		unsigned long type = 0;
 
 		for (j=0; j<ARRAY_SIZE(x962_curve_nids); j++) {
 			if (x962_curve_nids[j] == nid) {
@@ -138,10 +142,25 @@ builtin_curves::builtin_curves()
 		EC_GROUP *group = EC_GROUP_new_by_curve_name(nid);
 		EC_GROUP_get_order(group, order, NULL);
 
+		switch (EC_METHOD_get_field_type(EC_GROUP_method_of(group))) {
+		case NID_X9_62_prime_field:
+			type = CKF_EC_F_P;
+			break;
+		case NID_X9_62_characteristic_two_field:
+			type = CKF_EC_F_2M;
+			break;
+		default:
+			continue;
+		}
+#undef PRINT_KNOWN_CURVES
+#ifdef PRINT_KNOWN_CURVES
+		fprintf(stderr, "%50s %27s %20s %s\n",
+			curves[i].comment, OBJ_nid2sn(nid),
+			CCHAR(OBJ_obj2QString(OBJ_nid2obj(nid), 1)),
+			type == CKF_EC_F_P ? "Fp" : "F2m");
+#endif
 		append(builtin_curve(nid, QString(curves[i].comment),
-			BN_num_bits(order), flag,
-			EC_METHOD_get_field_type(EC_GROUP_method_of(group)))
-		);
+			BN_num_bits(order), flag, type));
                 EC_GROUP_free(group);
 	}
 	BN_free(order);

@@ -22,11 +22,8 @@ class builtin_curve
 	QString comment;
 	unsigned order_size;
 	int flags;
-	/* type:
-	 * NID_X9_62_prime_field
-	 * NID_X9_62_characteristic_two_field
-	 */
-	int type;
+	/* type: CKF_EC_F_P || CKF_EC_F_2M */
+	unsigned long type;
 	builtin_curve(int n, QString c, int s, int f, int t) {
 		nid = n;
 		comment = c;
