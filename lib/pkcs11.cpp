@@ -623,8 +623,6 @@ int pkcs11::encrypt(int flen, const unsigned char *from,
 			pk11errorString(rv));
 		return -1;
 	}
-	fprintf(stderr, "RSA ENGINE(%lu): flen:%d tolen: %d, size: %lu\n",
-			m, flen, tolen, size);
 	return size;
 }
 
@@ -737,8 +735,6 @@ static int eng_pmeth_ctrl_rsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 static int pkey_rsa_ctrl_str(EVP_PKEY_CTX *ctx,
                         const char *type, const char *value)
 {
-	fprintf(stderr, "pkey_rsa_ctrl_str('%s', '%s'\n",
-			type, value);
 	return 1;
 }
 
@@ -819,7 +815,6 @@ static int eng_pmeth_sign_rsa(EVP_PKEY_CTX *ctx,
 	int len;
 
 	sigbuf = create_x509_sig(ctx, tbs, tbslen, &x509_len);
-	fprintf(stderr, "RSA TBS len: %zu x509l: %zu\n", tbslen, x509_len);
 	pkey = EVP_PKEY_CTX_get0_pkey(ctx);
 
 	if (EVP_PKEY_type(pkey->type) != EVP_PKEY_RSA)

@@ -507,8 +507,6 @@ void pki_scard::generateKey_card(int type, slotid slot, int size,
 
 	tkInfo ti = p11.tokenInfo();
 
-	fprintf(stderr, "TYPE: %d (EVP_PKEY_RSA:%d, EVP_PKEY_EC:%d)\n",
-		type, EVP_PKEY_RSA, EVP_PKEY_EC);
 	if (p11.tokenLogin(ti.label(), false).isNull())
 		return;
 
