@@ -43,6 +43,7 @@
 #define HD_key_size -51
 #define HD_key_use  -52
 #define HD_key_passwd -53
+#define HD_key_curve -54
 
 class dbheader
 {

@@ -215,7 +215,7 @@ QString pki_key::pubkey()
 int pki_key::ecParamNid()
 {
 	if (key->type != EVP_PKEY_EC)
-		return 0;
+		return NID_undef;
 	return EC_GROUP_get_curve_name(EC_KEY_get0_group(key->pkey.ec));
 }
 
@@ -315,6 +315,13 @@ QVariant pki_key::column_data(dbheader *hd)
 			if (ownPass<0 || ownPass>3)
 				return QVariant("Holla die Waldfee");
 			return QVariant(sl[ownPass]);
+		case HD_key_curve:
+			QString r;
+#ifndef OPENSSL_NO_EC
+			if (key->type == EVP_PKEY_EC)
+				r = OBJ_nid2sn(ecParamNid());
+#endif
+			return QVariant(r);
 	}
 	return pki_base::column_data(hd);
 }
