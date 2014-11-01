@@ -17,12 +17,14 @@
 #include <QtGui/QMessageBox>
 #include <QtCore/QStringList>
 
-ExportDialog::ExportDialog(QWidget *parent, QString fname)
+ExportDialog::ExportDialog(QWidget *parent, QString fname, pki_base *pki)
 	:QDialog(parent)
 {
 	setupUi(this);
 	filename->setText(fname);
 	setWindowTitle(XCA_TITLE);
+	descr->setText(pki->getIntName());
+	descr->setReadOnly(true);
 }
 
 void ExportDialog::on_fileBut_clicked()

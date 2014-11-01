@@ -130,7 +130,7 @@ void db_crl::store()
 	QString fn = mainwin->getPath() + QDir::separator() +
 		crl->getUnderlinedName() + ".pem";
 	ExportDer *dlg = new ExportDer(mainwin, fn,
-			tr("CRL ( *.pem *.der *.crl )"));
+			tr("CRL ( *.pem *.der *.crl )"), crl);
 	dlg->image->setPixmap(*MainWindow::revImg);
 	dlg->label->setText(tr("Revocation list export"));
 	int dlgret = dlg->exec();

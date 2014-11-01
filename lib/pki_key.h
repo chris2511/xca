@@ -78,6 +78,7 @@ class pki_key: public pki_base
 		{
 			return key;
 		}
+		BIO *pem(BIO *);
 		QVariant column_data(dbheader *hd);
 		QString modulus();
 		QString pubEx();

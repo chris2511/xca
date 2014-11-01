@@ -222,6 +222,8 @@ void db_key::showPki(pki_base *pki)
 void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
+	QMenu *subExport;
+
 	currentIdx = index;
 
 	pki_key *key = static_cast<pki_key*>(currentIdx.internalPointer());
@@ -232,7 +234,10 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-		menu->addAction(tr("Export"), this, SLOT(store()));
+		subExport = menu->addMenu(tr("Export"));
+		subExport->addAction(tr("Clipboard"), this,
+					SLOT(pem2clipboard()));
+		subExport->addAction(tr("File"), this, SLOT(store()));
 		if (key->isPrivKey() && !key->isToken()) {
 			switch (key->getOwnPass()) {
 			case pki_key::ptCommon:
@@ -276,13 +281,7 @@ void db_key::store()
 	QString fn = mainwin->getPath() + QDir::separator() +
 			targetKey->getUnderlinedName() + ".pem";
 
-	ExportKey *dlg = new ExportKey(mainwin, fn,
-		targetKey->isPubKey() || targetKey->isToken());
-	if (targetKey->isToken())
-		dlg->image->setPixmap(*MainWindow::scardImg);
-	else
-		dlg->image->setPixmap(*MainWindow::keyImg);
-
+	ExportKey *dlg = new ExportKey(mainwin, fn, targetKey);
 
 	if (!dlg->exec()) {
 		delete dlg;

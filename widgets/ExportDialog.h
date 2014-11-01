@@ -9,6 +9,7 @@
 #define __EXPORTDIALOG_H
 
 #include "ui_ExportDialog.h"
+#include "lib/pki_x509.h"
 
 class ExportDialog: public QDialog, public Ui::ExportDialog
 {
@@ -19,7 +20,7 @@ class ExportDialog: public QDialog, public Ui::ExportDialog
 	QString filter;
 
    public:
-	ExportDialog(QWidget *parent, QString fname);
+	ExportDialog(QWidget *parent, QString fname, pki_base *pki);
 	static bool mayWriteFile(const QString &fname);
 
    public slots:
@@ -32,8 +33,8 @@ class ExportDer: public ExportDialog
 {
         Q_OBJECT
    public:
-	ExportDer(QWidget *parent, QString fname, QString _filter)
-		:ExportDialog(parent, fname)
+	ExportDer(QWidget *parent, QString fname, QString _filter, pki_base *pki)
+		:ExportDialog(parent, fname, pki)
 	{
 		QStringList sl; sl << "PEM" << "DER";
 		exportFormat->addItems(sl);
@@ -50,8 +51,8 @@ class ExportCert: public ExportDialog
 
         Q_OBJECT
    public:
-	ExportCert(QWidget *parent, QString fname, bool hasKey)
-		:ExportDialog(parent, fname)
+	ExportCert(QWidget *parent, QString fname, bool hasKey, pki_x509 *pki)
+		:ExportDialog(parent, fname, pki)
 	{
 		QStringList sl;
 		sl <<   "PEM" <<

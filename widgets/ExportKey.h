@@ -10,6 +10,7 @@
 
 #include "ui_ExportKey.h"
 #include "ExportDialog.h"
+#include "lib/pki_key.h"
 
 class ExportKey: public ExportDialog, public Ui::ExportKey
 {
@@ -19,7 +20,7 @@ class ExportKey: public ExportDialog, public Ui::ExportKey
 	bool onlyPub;
 
    public:
-	ExportKey(QWidget *parent, QString fname, bool onlypub);
+	ExportKey(QWidget *parent, QString fname, pki_key *key);
 
    public slots:
 	void canEncrypt();

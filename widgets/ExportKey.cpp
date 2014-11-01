@@ -7,16 +7,18 @@
 
 
 #include "ExportKey.h"
+#include "MainWindow.h"
 #include "lib/base.h"
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
 #include <QtCore/QStringList>
 
-ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
-	:ExportDialog(parent, fname)
+ExportKey::ExportKey(QWidget *parent, QString fname, pki_key *key)
+	:ExportDialog(parent, fname, key)
 {
-	onlyPub = onlypub;
+	onlyPub = key->isPubKey() || key->isToken();
+	QString lbl;
 
 	QStringList sl; sl << "PEM" << "DER";
 	exportFormat->addItems(sl);
@@ -33,11 +35,17 @@ ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
 		"Please enter the filename for the key."));
 
 	Ui::ExportKey::setupUi(extraFrame);
-	if (onlyPub) {
-		label->setText(tr("Public key export"));
+
+	if (key->isToken())
+		image->setPixmap(*MainWindow::scardImg);
+        else
+		image->setPixmap(*MainWindow::keyImg);
+
+	if (key->isToken() || key->isPubKey()) {
+		lbl = tr("Export public %1 key");
 		extraFrame->hide();
 	} else {
-		label->setText(tr("Key export"));
+		lbl = tr("Export %1 key");
 		exportPrivate->setChecked(true);
 		connect(exportPkcs8, SIGNAL(stateChanged(int)),
 			this, SLOT(canEncrypt()));
@@ -47,6 +55,7 @@ ExportKey::ExportKey(QWidget *parent, QString fname, bool onlypub)
 			this, SLOT(canEncrypt()));
 		canEncrypt();
 	}
+	label->setText(lbl.arg(key->getTypeString()));
 }
 
 void ExportKey::canEncrypt()

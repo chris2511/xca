@@ -130,7 +130,7 @@ void db_x509req::store()
 	QString fn = mainwin->getPath() + QDir::separator() +
 		req->getUnderlinedName() + ".pem";
 	ExportDer *dlg = new ExportDer(mainwin, fn,
-			tr("Certificate request ( *.pem *.der *.crl )") );
+			tr("Certificate request ( *.pem *.der *.crl )"), req);
 	dlg->image->setPixmap(*MainWindow::csrImg);
 	dlg->label->setText(tr("Certificate request export"));
 	int dlgret = dlg->exec();

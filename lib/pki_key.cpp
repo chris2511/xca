@@ -10,10 +10,12 @@
 #include "func.h"
 #include "db.h"
 #include <openssl/rand.h>
+#include <openssl/pem.h>
 #include <QtGui/QProgressDialog>
 #include <QtGui/QApplication>
 #include <QtCore/QDir>
 #include "widgets/PwDialog.h"
+#include "widgets/ExportKey.h"
 
 builtin_curves pki_key::builtinCurves;
 
@@ -74,6 +76,34 @@ QByteArray pki_key::i2d()
         return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
 }
 
+BIO *pki_key::pem(BIO *b)
+{
+	EVP_PKEY *pkey;
+	if (!b)
+		b = BIO_new(BIO_s_mem());
+
+	if (isPubKey() || isToken()) {
+		PEM_write_bio_PUBKEY(b, key);
+		return b;
+	}
+
+	QString text = tr("Do you really want to export the private key unencrypted to the clipboard ?");
+	xcaWarning msg(NULL, text);
+	msg.addButton(QMessageBox::Ok)->setText("Only export the public key");
+	msg.addButton(QMessageBox::Apply)->setText(tr("Export private key unencrypted"));
+
+	switch (msg.exec()) {
+	case QMessageBox::Apply:
+		pkey = decryptKey();
+		PEM_write_bio_PrivateKey(b, pkey, NULL, NULL, 0, NULL, NULL);
+		EVP_PKEY_free(pkey);
+		return b;
+	case QMessageBox::Ok:
+		PEM_write_bio_PUBKEY(b, key);
+		return b;
+	}
+	return b;
+}
 
 QString pki_key::length()
 {
