@@ -16,6 +16,7 @@
 
 #include <openssl/rand.h>
 #include <openssl/engine.h>
+#include <openssl/evp.h>
 #include <QtGui/QMessageBox>
 #include <QtCore/QThread>
 
@@ -505,8 +506,8 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long ec_rsa_mech,
 		pub_atts <<
 		pk11_attr_ulong(CKA_MODULUS_BITS, bits) <<
 		pk11_attr_data(CKA_PUBLIC_EXPONENT, 0x10001);
-	} else if (ec_rsa_mech == CKM_EC_KEY_PAIR_GEN) {
 #ifndef OPENSSL_NO_EC
+	} else if (ec_rsa_mech == CKM_EC_KEY_PAIR_GEN) {
 		CK_MECHANISM_INFO info;
 		mechanismInfo(p11slot, CKM_EC_KEY_PAIR_GEN, &info);
 
@@ -522,8 +523,6 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long ec_rsa_mech,
 		pub_atts  << pk11_attr_data(CKA_EC_PARAMS,
 			i2d_bytearray(I2D_VOID(i2d_ECPKParameters), group));
 		EC_GROUP_free(group);
-#else
-		throw errorEx(("Unsupported Key generation mechanism"));
 #endif
 	} else {
 		throw errorEx(("Unsupported Key generation mechanism"));
@@ -690,26 +689,17 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 }
 #else
 
-EVP_PKEY_METHOD *p11_rsa_method = NULL;
-EVP_PKEY_METHOD *p11_ec_method = NULL;
-
-static int eng_init(ENGINE *e)
-{
-	printf("ENGINE INIT\n");
-	return 1;
-}
+static int eng_idx = -1;
+static EVP_PKEY_METHOD *p11_rsa_method;
+#ifndef OPENSSL_NO_EC
+static EVP_PKEY_METHOD *p11_ec_method;
+#endif
 
 static int eng_finish(ENGINE *e)
 {
-	printf("ENGINE FINISH\n");
-	return 1;
-}
-
-static int eng_destroy(ENGINE *e)
-{
-	printf("ENGINE destroy\n");
-	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, 0);
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(e, eng_idx);
 	delete p11;
+	ENGINE_set_ex_data(e, eng_idx, NULL);
 	return 1;
 }
 
@@ -730,12 +720,6 @@ static int eng_pmeth_ctrl_rsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 		return 1;
 	}
 	return -2;
-}
-
-static int pkey_rsa_ctrl_str(EVP_PKEY_CTX *ctx,
-                        const char *type, const char *value)
-{
-	return 1;
 }
 
 #ifndef OPENSSL_NO_EC
@@ -823,7 +807,7 @@ static int eng_pmeth_sign_rsa(EVP_PKEY_CTX *ctx,
 	if (x509_len > (RSA_size(pkey->pkey.rsa) - RSA_PKCS1_PADDING_SIZE))
 		return -1;
 
-	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(pkey->engine, 0);
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(pkey->engine, eng_idx);
 
 	// siglen is unsigned and can't cope with -1 as return value
 	len = p11->encrypt(x509_len, sigbuf, sig, *siglen, CKM_RSA_PKCS);
@@ -842,7 +826,7 @@ static int eng_pmeth_sign_ec(EVP_PKEY_CTX *ctx,
 	ECDSA_SIG *ec_sig = ECDSA_SIG_new();
 
 	EVP_PKEY *pkey = EVP_PKEY_CTX_get0_pkey(ctx);
-	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(pkey->engine, 0);
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(pkey->engine, eng_idx);
 
 	// siglen is unsigned and can' cope with -1 as return value
 	len = p11->encrypt(tbslen, tbs, rs_buf, sizeof rs_buf, CKM_ECDSA);
@@ -901,36 +885,44 @@ static int eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
 
 EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 {
-	ENGINE *e = ENGINE_new();
-	check_oom(e);
+	static ENGINE *e = NULL;
 
-	ENGINE_set_pkey_meths(e, eng_meths);
-	ENGINE_set_init_function(e, eng_init);
-	ENGINE_set_finish_function(e, eng_finish);
-	ENGINE_set_destroy_function(e, eng_destroy);
-	ENGINE_set_ex_data(e, 0, this);
+	if (!e) {
+		e = ENGINE_new();
+		check_oom(e);
 
-	CRYPTO_add(&pub->references, 1, CRYPTO_LOCK_EVP_PKEY);
-	pub->engine = e;
+		ENGINE_set_pkey_meths(e, eng_meths);
+		ENGINE_set_finish_function(e, eng_finish);
+		if (eng_idx == -1)
+			eng_idx = ENGINE_get_ex_new_index(0, NULL, NULL, NULL, 0);
+		ENGINE_set_ex_data(e, eng_idx, NULL);
 
-	if (!p11_rsa_method) {
-		p11_rsa_method = EVP_PKEY_meth_new(EVP_PKEY_RSA, 0);
-		EVP_PKEY_meth_set_sign(p11_rsa_method,
-				NULL, eng_pmeth_sign_rsa);
-		EVP_PKEY_meth_set_ctrl(p11_rsa_method,
-				eng_pmeth_ctrl_rsa, pkey_rsa_ctrl_str);
-		EVP_PKEY_meth_set_copy(p11_rsa_method, eng_pmeth_copy);
-	}
+		CRYPTO_add(&pub->references, 1, CRYPTO_LOCK_EVP_PKEY);
+		pub->engine = e;
+
+		if (!p11_rsa_method) {
+			p11_rsa_method = EVP_PKEY_meth_new(EVP_PKEY_RSA, 0);
+			EVP_PKEY_meth_set_sign(p11_rsa_method,
+					NULL, eng_pmeth_sign_rsa);
+			EVP_PKEY_meth_set_ctrl(p11_rsa_method,
+					eng_pmeth_ctrl_rsa, NULL);
+			EVP_PKEY_meth_set_copy(p11_rsa_method, eng_pmeth_copy);
+		}
 #ifndef OPENSSL_NO_EC
-	if (!p11_ec_method) {
-		p11_ec_method = EVP_PKEY_meth_new(EVP_PKEY_EC, 0);
-		EVP_PKEY_meth_set_sign(p11_ec_method,
-				 NULL, eng_pmeth_sign_ec);
-		EVP_PKEY_meth_set_ctrl(p11_ec_method,
-				eng_pmeth_ctrl_ec, NULL);
-		EVP_PKEY_meth_set_copy(p11_ec_method, eng_pmeth_copy);
-	}
+		if (!p11_ec_method) {
+			p11_ec_method = EVP_PKEY_meth_new(EVP_PKEY_EC, 0);
+			EVP_PKEY_meth_set_sign(p11_ec_method,
+					 NULL, eng_pmeth_sign_ec);
+			EVP_PKEY_meth_set_ctrl(p11_ec_method,
+					eng_pmeth_ctrl_ec, NULL);
+			EVP_PKEY_meth_set_copy(p11_ec_method, eng_pmeth_copy);
+		}
 #endif
+	}
+	if (ENGINE_get_ex_data(e, eng_idx))
+		fprintf(stderr, "Christian forgot to free the previous Card key. Blame him");
+
+	ENGINE_set_ex_data(e, eng_idx, this);
 	p11obj = obj;
 
 	switch (EVP_PKEY_type(pub->type)) {
@@ -938,7 +930,14 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 #endif
-		return pub;
+		/* The private key is a copy of the public
+		 * key with an engine attached
+		 */
+		QByteArray ba = i2d_bytearray(I2D_VOID(i2d_PUBKEY), pub);
+		EVP_PKEY *priv = (EVP_PKEY*)d2i_bytearray(D2I_VOID(d2i_PUBKEY), ba);
+		ENGINE_init(e);
+		priv->engine = e;
+		return priv;
 	}
 	return NULL;
 }
