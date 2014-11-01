@@ -328,15 +328,15 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head )
 {
 	int version, type, size;
 
+	if (key)
+		EVP_PKEY_free(key);
+	key = NULL;
+
 	size = head->len - sizeof(db_header_t);
 	version = head->version;
 
 	QByteArray ba((const char*)p, size);
 
-	if (key)
-		EVP_PKEY_free(key);
-
-	key = NULL;
 	type = db::intFromData(ba);
 	ownPass = db::intFromData(ba);
 	if (version < 2) {
@@ -345,7 +345,9 @@ void pki_evp::fromData(const unsigned char *p, db_header_t *head )
 		d2i(ba);
 	}
 	pki_openssl_error();
-
+	if (!key || !key->pkey.ptr) {
+		throw errorEx(tr("Ignoring unsupported private key"));
+	}
 	encKey = ba;
 }
 

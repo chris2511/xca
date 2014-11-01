@@ -28,19 +28,12 @@ pki_key::pki_key(const QString name)
 pki_key::pki_key(const pki_key *pk)
 	:pki_base(pk->desc)
 {
-	int keylen;
-	unsigned char *der_key, *p;
-
 	ucount = pk->ucount;
-
-	keylen = i2d_PUBKEY(pk->key, NULL);
-	p = der_key = (unsigned char *)OPENSSL_malloc(keylen);
-	check_oom(der_key);
-	i2d_PUBKEY(pk->key, &p);
-	p = der_key;
-	key = d2i_PUBKEY(NULL, (const unsigned char**)&p, keylen);
-	OPENSSL_free(der_key);
-	pki_openssl_error();
+	key = EVP_PKEY_new();
+	if (pk->key) {
+		QByteArray ba = i2d_bytearray(I2D_VOID(i2d_PUBKEY), pk->key);
+		d2i(ba);
+	}
 }
 
 pki_key::~pki_key()
@@ -52,23 +45,28 @@ pki_key::~pki_key()
 void pki_key::d2i(QByteArray &ba)
 {
 	EVP_PKEY *k = (EVP_PKEY*)d2i_bytearray(D2I_VOID(d2i_PUBKEY), ba);
+        pki_openssl_error();
 	if (k) {
-		EVP_PKEY_free(key);
+		if (key)
+			EVP_PKEY_free(key);
 		key = k;
 	}
 }
 
 void pki_key::d2i_old(QByteArray &ba, int type)
 {
-        if (key)
-		EVP_PKEY_free(key);
-
 	const unsigned char *p, *p1;
 	p = p1 = (const unsigned char *)ba.constData();
+	EVP_PKEY *k = d2i_PublicKey(type, NULL, &p1, ba.count());
 
-	key = d2i_PublicKey(type, NULL, &p1, ba.count());
-        ba = ba.mid(p1-p);
         pki_openssl_error();
+
+	if (k) {
+		if (key)
+			EVP_PKEY_free(key);
+		key = k;
+	}
+        ba = ba.mid(p1-p);
 }
 
 QByteArray pki_key::i2d()

@@ -590,6 +590,9 @@ void pki_scard::fromData(const unsigned char *p, db_header_t *head )
 		mech_list << db::intFromData(ba);
 
 	d2i(ba);
+	if (!key || !key->pkey.ptr) {
+		throw errorEx(tr("Ignoring unsupported token key"));
+	}
 
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
