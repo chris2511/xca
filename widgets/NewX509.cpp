@@ -1125,7 +1125,7 @@ void NewX509::accept()
 		xcaWarning msg(this, text);
 		msg.addButton(QMessageBox::Ok)->setText(tr("Edit dates"));
 		msg.addButton(QMessageBox::Close)->setText(tr("Abort rollout"));
-		msg.addButton(QMessageBox::Apply)->setText("Continue rollout");
+		msg.addButton(QMessageBox::Apply)->setText(tr("Continue rollout"));
 		switch (msg.exec())
 		{
 			case QMessageBox::Ok:

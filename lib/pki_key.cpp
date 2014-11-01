@@ -89,7 +89,7 @@ BIO *pki_key::pem(BIO *b)
 
 	QString text = tr("Do you really want to export the private key unencrypted to the clipboard ?");
 	xcaWarning msg(NULL, text);
-	msg.addButton(QMessageBox::Ok)->setText("Only export the public key");
+	msg.addButton(QMessageBox::Ok)->setText(tr("Only export the public key"));
 	msg.addButton(QMessageBox::Apply)->setText(tr("Export private key unencrypted"));
 
 	switch (msg.exec()) {
