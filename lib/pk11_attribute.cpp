@@ -55,7 +55,7 @@ void pk11_attr_data::setValue(const unsigned char *ptr, unsigned long len)
 	((char*)attr.pValue)[len] = 0;
 }
 
-void pk11_attr_data::setBignum(BIGNUM *bn, bool consume)
+void pk11_attr_data::setConstBignum(const BIGNUM *bn)
 {
 	attr.ulValueLen = BN_num_bytes(bn);
 	if (attr.pValue)
@@ -63,6 +63,11 @@ void pk11_attr_data::setBignum(BIGNUM *bn, bool consume)
 	attr.pValue = malloc(attr.ulValueLen);
 	check_oom(attr.pValue);
 	attr.ulValueLen = BN_bn2bin(bn, (unsigned char *)attr.pValue);
+}
+
+void pk11_attr_data::setBignum(BIGNUM *bn, bool consume)
+{
+	setConstBignum(bn);
 	if (consume)
 		BN_free(bn);
 }

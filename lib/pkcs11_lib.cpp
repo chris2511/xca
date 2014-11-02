@@ -30,6 +30,7 @@ pkcs11_lib::pkcs11_lib(QString f)
 	if (dl_handle == NULL)
 		goto how_bad;
 
+	WAITCURSOR_START;
 	/* Get the list of function pointers */
 	c_get_function_list = (CK_RV (*)(CK_FUNCTION_LIST_PTR_PTR))
 				lt_dlsym(dl_handle, "C_GetFunctionList");
@@ -44,10 +45,11 @@ pkcs11_lib::pkcs11_lib(QString f)
 	if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
 		pk11error("C_Initialize", rv);
 
-	ign_openssl_error();
+	WAITCURSOR_END;
 	return;
 
 how_bad:
+	WAITCURSOR_END;
 	if (dl_handle)
 		lt_dlclose(dl_handle);
 	lt_dlexit();

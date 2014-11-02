@@ -148,6 +148,11 @@ public:
 	{
 		setBignum(bn, consume);
 	}
+	pk11_attr_data(unsigned long type, const BIGNUM *bn)
+		:pk11_attribute(type)
+	{
+		setConstBignum(bn);
+	}
 	pk11_attr_data(unsigned long type, unsigned long value)
 		:pk11_attribute(type)
 	{
@@ -187,6 +192,7 @@ public:
 				attr.ulValueLen, NULL);
 	}
 	void setBignum(BIGNUM *bn, bool consume=true);
+	void setConstBignum(const BIGNUM *bn);
 	void load(slotid slot,
 		CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj);
 	void setValue(const unsigned char *ptr, unsigned long len);

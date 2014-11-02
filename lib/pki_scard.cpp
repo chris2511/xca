@@ -226,16 +226,35 @@ void pki_scard::deleteFromToken()
 	deleteFromToken(slot);
 }
 
-pk11_attlist pki_scard::objectAttributes(bool priv) const
+static pk11_attlist objectAttributesNoId(EVP_PKEY *pk, bool priv)
 {
 	unsigned long cka_class = priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY;
-
 	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS, cka_class));
-	attrs << getIdAttr();
 
-	if (EVP_PKEY_type(key->type) == EVP_PKEY_RSA) {
-		attrs << pk11_attr_data(CKA_MODULUS, key->pkey.rsa->n, false);
+	switch (EVP_PKEY_type(pk->type)) {
+	case EVP_PKEY_RSA: {
+		RSA *rsa = pk->pkey.rsa;
+		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
+			pk11_attr_data(CKA_MODULUS, rsa->n, false) <<
+			pk11_attr_data(CKA_PUBLIC_EXPONENT, rsa->e, false);
+		break;
 	}
+	case EVP_PKEY_EC: {
+		QByteArray ba_param;
+		ba_param = i2d_bytearray(I2D_VOID(i2d_ECPKParameters),
+				EC_KEY_get0_group(pk->pkey.ec));
+		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC) <<
+			pk11_attr_data(CKA_EC_PARAMS, ba_param);
+	}
+	}
+	return attrs;
+}
+
+pk11_attlist pki_scard::objectAttributes(bool priv) const
+{
+
+	pk11_attlist attrs = objectAttributesNoId(key, priv);
+	attrs << getIdAttr();
 	return attrs;
 }
 
@@ -293,21 +312,11 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	pk11_attlist pub_atts;
 	pk11_attlist priv_atts;
 	QList<CK_OBJECT_HANDLE> objects;
-
-	if (EVP_PKEY_type(pkey->type) != EVP_PKEY_RSA)
-		throw errorEx(tr("only RSA keys can be stored on tokens"));
-
 	RSA *rsakey = pkey->pkey.rsa;
+	const BIGNUM *ec_priv;
 
-	pub_atts <<
-		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
-		pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
-		pk11_attr_data(CKA_MODULUS, rsakey->n, false);
-
-	priv_atts <<
-		pk11_attr_ulong(CKA_CLASS, CKO_PRIVATE_KEY) <<
-		pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
-		pk11_attr_data(CKA_MODULUS, rsakey->n, false);
+	pub_atts = objectAttributesNoId(pkey, false);
+	priv_atts = objectAttributesNoId(pkey, true);
 
 	pkcs11 p11;
 	p11.startSession(slot, true);
@@ -327,26 +336,39 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		pk11_attr_data(CKA_LABEL, getIntName().toUtf8()) <<
 		pk11_attr_bool(CKA_PRIVATE, false) <<
 		new_id <<
-		pk11_attr_data(CKA_PUBLIC_EXPONENT, rsakey->e, false) <<
 		pk11_attr_bool(CKA_WRAP, true) <<
 		pk11_attr_bool(CKA_ENCRYPT, true) <<
 		pk11_attr_bool(CKA_VERIFY, true);
 
 	priv_atts <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
-		pk11_attr_bool(CKA_PRIVATE, true) <<
 		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
+		pk11_attr_bool(CKA_PRIVATE, true) <<
 		new_id <<
-		pk11_attr_data(CKA_PUBLIC_EXPONENT, rsakey->e, false) <<
+		pk11_attr_bool(CKA_UNWRAP, true) <<
+		pk11_attr_bool(CKA_DECRYPT, true) <<
+		pk11_attr_bool(CKA_SIGN, true);
+
+	switch (EVP_PKEY_type(pkey->type)) {
+	case EVP_PKEY_RSA:
+		priv_atts <<
 		pk11_attr_data(CKA_PRIVATE_EXPONENT, rsakey->d, false) <<
 		pk11_attr_data(CKA_PRIME_1, rsakey->p, false) <<
 		pk11_attr_data(CKA_PRIME_2, rsakey->q, false) <<
 		pk11_attr_data(CKA_EXPONENT_1, rsakey->dmp1, false) <<
 		pk11_attr_data(CKA_EXPONENT_2, rsakey->dmq1, false) <<
-		pk11_attr_data(CKA_COEFFICIENT, rsakey->iqmp, false) <<
-		pk11_attr_bool(CKA_UNWRAP, true) <<
-		pk11_attr_bool(CKA_DECRYPT, true) <<
-		pk11_attr_bool(CKA_SIGN, true);
+		pk11_attr_data(CKA_COEFFICIENT, rsakey->iqmp, false);
+		break;
+
+	case EVP_PKEY_EC:
+		ec_priv = (BIGNUM *)EC_KEY_get0_private_key(pkey->pkey.ec);
+		priv_atts <<
+		pk11_attr_data(CKA_VALUE, ec_priv);
+		break;
+	default:
+		throw errorEx(tr("Only RSA and EC keys can be stored on tokens"));
+
+	}
 
 	tkInfo ti = p11.tokenInfo();
 	if (p11.tokenLogin(ti.label(), false).isNull())
@@ -356,11 +378,9 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	p11.createObject(priv_atts);
 
 	pub_atts.reset();
-	pub_atts <<
-		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
-                pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
-		new_id <<
-                pk11_attr_data(CKA_MODULUS, rsakey->n, false);
+
+	pub_atts = objectAttributesNoId(pkey, false);
+	pub_atts << new_id;
 
 	objs = p11.objectList(pub_atts);
 	if (objs.count() == 0)
