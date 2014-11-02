@@ -2776,11 +2776,11 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export private key unencrypted</source>
+        <source>Only export the public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Only export the public key</source>
+        <source>Export the private key unencrypted</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2845,10 +2845,6 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>only RSA keys can be stored on tokens</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This Key is already on the token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2898,6 +2894,10 @@ and thus was not stored</source>
     </message>
     <message>
         <source>Failed to initialize the key on the token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only RSA and EC keys can be stored on tokens</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

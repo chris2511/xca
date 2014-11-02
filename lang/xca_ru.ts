@@ -2385,7 +2385,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+54"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+56"/>
         <source>Failed to open PKCS11 library: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3436,7 +3436,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Export private key unencrypted</source>
+        <source>Export the private key unencrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3550,12 +3550,17 @@ and thus was not stored</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+319"/>
+        <location filename="../lib/pki_scard.cpp" line="+328"/>
         <source>This Key is already on the token</source>
         <translation type="unfinished">Этот ключ уже есть на Токене безопасности</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+41"/>
+        <source>Only RSA and EC keys can be stored on tokens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Unable to find copied key on the token</source>
         <translation type="unfinished">Не удается найти копию ключа на Токене безопасности</translation>
     </message>
@@ -3581,12 +3586,12 @@ and thus was not stored</source>
         <translation type="unfinished">Неверный PIN для этого Токена безопасности</translation>
     </message>
     <message>
-        <location line="-377"/>
+        <location line="-378"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-209"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3606,17 +3611,12 @@ and thus was not stored</source>
         <translation type="unfinished">Удалить %1 ключ: %2?</translation>
     </message>
     <message>
-        <location line="+236"/>
-        <source>only RSA keys can be stored on tokens</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+55"/>
+        <location line="+313"/>
         <source>PIN input aborted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation type="unfinished"></translation>
     </message>

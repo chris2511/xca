@@ -2849,11 +2849,11 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Export private key unencrypted</source>
+        <source>Only export the public key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Only export the public key</source>
+        <source>Export the private key unencrypted</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2920,7 +2920,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <source>only RSA keys can be stored on tokens</source>
-        <translation>Seules des clés RSA peuvent être enregistrées sur les jetons</translation>
+        <translation type="obsolete">Seules des clés RSA peuvent être enregistrées sur les jetons</translation>
     </message>
     <message>
         <source>This Key is already on the token</source>
@@ -2972,6 +2972,10 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <source>Failed to initialize the key on the token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only RSA and EC keys can be stored on tokens</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

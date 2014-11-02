@@ -11,7 +11,7 @@ macx {
 	ICON = img/xca-mac-icon.icns
 	CONFIG += release_and_debug
 	XCA_RESOURCES.files = misc/oids.txt misc/aia.txt misc/CA.xca misc/dn.txt misc/eku.txt misc/HTTPS_client.xca misc/HTTPS_server.xca
-	XCA_RESOURCES.files += lang/xca_de.qm lang/xca_es.qm
+	XCA_RESOURCES.files += lang/xca_de.qm lang/xca_es.qm lang/xca_ru.qm lang/xca_fr.qm lang/xca_hr.qm
 	XCA_RESOURCES.path = Contents/Resources
 	QMAKE_BUNDLE_DATA += XCA_RESOURCES
 }
@@ -59,6 +59,7 @@ HEADERS += local.h \
            lib/x509name.h \
            lib/x509rev.h \
            lib/x509v3ext.h \
+           lib/builtin_curves.h \
            widgets/CertDetail.h \
            widgets/CertExtend.h \
            widgets/clicklabel.h \
@@ -139,6 +140,7 @@ SOURCES += lib/asn1int.cpp \
            lib/x509name.cpp \
            lib/x509rev.cpp \
            lib/x509v3ext.cpp \
+           lib/builtin_curves.cpp \
            widgets/CertDetail.cpp \
            widgets/CertExtend.cpp \
            widgets/clicklabel.cpp \
@@ -165,4 +167,4 @@ SOURCES += lib/asn1int.cpp \
            widgets/SearchPkcs11.cpp \
            widgets/XcaTreeView.cpp
 
-TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts
+TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts lang/xca_hr.ts

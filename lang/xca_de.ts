@@ -2390,7 +2390,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Bitte die neue PIN der Chipkarte %1 eingeben</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="+54"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="+56"/>
         <source>Failed to open PKCS11 library: %1</source>
         <translation>Die PKCS#11 Bibliothek %1 konnte nicht geöffnet werden</translation>
     </message>
@@ -3459,9 +3459,13 @@ und wurde daher nicht importiert</translation>
         <translation>Nur den öffentlichen Schlüssel exportieren</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export private key unencrypted</source>
-        <translation>Privaten Schlüssel unverschlüsselt exportieren</translation>
+        <translation type="obsolete">Privaten Schlüssel unverschlüsselt exportieren</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Export the private key unencrypted</source>
+        <translation type="unfinished">Privaten Schlüssel unverschlüsselt exportieren</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -3575,12 +3579,17 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+319"/>
+        <location filename="../lib/pki_scard.cpp" line="+328"/>
         <source>This Key is already on the token</source>
         <translation>Der Schlüssel ist bereits auf der SmartCard</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+41"/>
+        <source>Only RSA and EC keys can be stored on tokens</source>
+        <translation>Auf der Chipkarte können nur RSA oder EC Schlüssel gespeichert werden</translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Unable to find copied key on the token</source>
         <translation>Kann den eben kopierten Schlüssel auf der Chipkarte nicht finden</translation>
     </message>
@@ -3606,12 +3615,12 @@ und wurde daher nicht importiert</translation>
         <translation>Ungültige Pin für die Chipkarte</translation>
     </message>
     <message>
-        <location line="-377"/>
+        <location line="-378"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Soll der private Schlüssel &apos;%1&apos; von der Chipkarte &apos;%2&apos; mit der Seriennummer %3 gelöscht werden ?</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-209"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>Der Chipkartenschlüssel &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -3631,17 +3640,16 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 Schlüssel: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+236"/>
         <source>only RSA keys can be stored on tokens</source>
-        <translation>Auf der Chipkarte können nur RSA Schlüssel gespeichert werden</translation>
+        <translation type="obsolete">Auf der Chipkarte können nur RSA Schlüssel gespeichert werden</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+313"/>
         <source>PIN input aborted</source>
         <translation>PIN Eingabe abgebrochen</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+91"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Bitte die Chipkarte: %1 %2 [%3] mit Seriennummer: %4 einlegen</translation>
     </message>

@@ -293,32 +293,32 @@
         <translation>Početak valjanosti potvrde je prije početka valjanosti potvrde potpisnika (ovjeritelja). To vjerojatno nije ono što ste htjeli.</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="46"/>
-        <location filename="../widgets/CertExtend.cpp" line="69"/>
+        <location filename="../widgets/CertExtend.cpp" line="45"/>
+        <location filename="../widgets/CertExtend.cpp" line="67"/>
         <source>Edit times</source>
         <translation>Uredi vremena</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="47"/>
-        <location filename="../widgets/CertExtend.cpp" line="70"/>
+        <location filename="../widgets/CertExtend.cpp" line="46"/>
+        <location filename="../widgets/CertExtend.cpp" line="68"/>
         <source>Abort rollout</source>
         <translatorcomment>Izdavanju??? teško je reči</translatorcomment>
         <translation>O uvođenju</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="48"/>
-        <location filename="../widgets/CertExtend.cpp" line="71"/>
+        <location filename="../widgets/CertExtend.cpp" line="47"/>
+        <location filename="../widgets/CertExtend.cpp" line="69"/>
         <source>Continue rollout</source>
         <translation>Nastavi uvođenje</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="49"/>
-        <location filename="../widgets/CertExtend.cpp" line="72"/>
+        <location filename="../widgets/CertExtend.cpp" line="48"/>
+        <location filename="../widgets/CertExtend.cpp" line="70"/>
         <source>Adjust date and continue</source>
         <translation>Podesi datum i nastavi</translation>
     </message>
     <message>
-        <location filename="../widgets/CertExtend.cpp" line="66"/>
+        <location filename="../widgets/CertExtend.cpp" line="65"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Kraj valjanosti potvrde je nakon isteka valjanosti potvrde potpisnika (ovjeritelja). To vjerojatno nije ono što ste htjeli.</translation>
     </message>
@@ -326,12 +326,12 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="914"/>
+        <location filename="../lib/db_x509.cpp" line="907"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Nije pronađen ključ za Potvrdu:</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="922"/>
+        <location filename="../lib/db_x509.cpp" line="915"/>
         <source>Import Certificate signing request</source>
         <translation>Uvezi zahtjev za izdavanje Potvrde (CSR)</translation>
     </message>
@@ -461,12 +461,12 @@
 <context>
     <name>ExportCert</name>
     <message>
-        <location filename="../widgets/ExportDialog.h" line="78"/>
+        <location filename="../widgets/ExportDialog.h" line="79"/>
         <source>X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )</source>
         <translation>X509 Potvrda ( *.cer *.crt *.p12 *.p7b);;Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.h" line="79"/>
+        <location filename="../widgets/ExportDialog.h" line="80"/>
         <source>DER is a binary format of the Certificate
 PEM is a base64 encoded Certificate
 PKCS#7 is an official Certificate exchange format
@@ -478,12 +478,12 @@ PKCS#7 is službeni format za razmjenu Potvrda
 PKCS#12 je kriptirani format za razmjenu Ključa i Potvrde</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.h" line="84"/>
+        <location filename="../widgets/ExportDialog.h" line="85"/>
         <source>Please enter the filename for the certificate.</source>
         <translation>Unesite ime datoteke za potvrdu.</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.h" line="86"/>
+        <location filename="../widgets/ExportDialog.h" line="87"/>
         <source>Certificate export</source>
         <translation>Izvoz potvrde</translation>
     </message>
@@ -491,12 +491,12 @@ PKCS#12 je kriptirani format za razmjenu Ključa i Potvrde</translation>
 <context>
     <name>ExportDer</name>
     <message>
-        <location filename="../widgets/ExportDialog.h" line="41"/>
+        <location filename="../widgets/ExportDialog.h" line="42"/>
         <source>All files ( * )</source>
         <translation>Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.h" line="42"/>
+        <location filename="../widgets/ExportDialog.h" line="43"/>
         <source>DER is a binary format
 PEM is a base64 encoded DER file
 </source>
@@ -507,37 +507,47 @@ PEM je base64 kodirana DER datoteka</translation>
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="117"/>
+        <location filename="../ui/ExportDialog.ui" line="98"/>
+        <source>Name</source>
+        <translation type="unfinished">Ime</translation>
+    </message>
+    <message>
+        <location filename="../ui/ExportDialog.ui" line="105"/>
+        <source>The internal name of the CRL in the database</source>
+        <translation type="unfinished">Interno ime popisa povučenih potvrda (u bazi podataka)</translation>
+    </message>
+    <message>
+        <location filename="../ui/ExportDialog.ui" line="148"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="130"/>
+        <location filename="../ui/ExportDialog.ui" line="161"/>
         <source>Filename</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="146"/>
+        <location filename="../ui/ExportDialog.ui" line="177"/>
         <source>Please enter the filename</source>
         <translation>Unesite ime datoteke</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="195"/>
+        <location filename="../ui/ExportDialog.ui" line="226"/>
         <source>Export Format</source>
         <translation>Format izvoza</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="60"/>
+        <location filename="../widgets/ExportDialog.cpp" line="63"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Datoteka: &apos;%1&apos; već postoji!</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="62"/>
+        <location filename="../widgets/ExportDialog.cpp" line="65"/>
         <source>Overwrite</source>
         <translation>Prepiši</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="64"/>
+        <location filename="../widgets/ExportDialog.cpp" line="67"/>
         <source>Do not overwrite</source>
         <translation>Nemoj prepisati</translation>
     </message>
@@ -570,12 +580,12 @@ PEM je base64 kodirana DER datoteka</translation>
         <translation>&amp;Kriptiraj Ključ sa zaporkom</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="25"/>
+        <location filename="../widgets/ExportKey.cpp" line="27"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
         <translation>Privatni ključevi ( *.pem *.der *.pk8 );;Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="27"/>
+        <location filename="../widgets/ExportKey.cpp" line="29"/>
         <source>DER is a binary format of the key without encryption
 PEM is a base64 encoded key with optional encryption
 PKCS#8 is an encrypted official Key-exchange format</source>
@@ -584,19 +594,27 @@ PEM je base64 kodirani ključ s opcionalnom kripcijom
 PKCS#8 je službeni format za razmjenu ključeva</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="32"/>
+        <location filename="../widgets/ExportKey.cpp" line="34"/>
         <source>Please enter the filename for the key.</source>
         <translation>Unesite ime datoteke za ključ.</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="37"/>
-        <source>Public key export</source>
-        <translation>Izvoz javnog ključa</translation>
+        <location filename="../widgets/ExportKey.cpp" line="45"/>
+        <source>Export public %1 key</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="40"/>
+        <location filename="../widgets/ExportKey.cpp" line="48"/>
+        <source>Export %1 key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Public key export</source>
+        <translation type="obsolete">Izvoz javnog ključa</translation>
+    </message>
+    <message>
         <source>Key export</source>
-        <translation>Izvoz ključa</translation>
+        <translation type="obsolete">Izvoz ključa</translation>
     </message>
 </context>
 <context>
@@ -678,28 +696,28 @@ Serijski broj: %3</translation>
         <translation>Upravljaj pametnim tokenom</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="105"/>
-        <location filename="../widgets/ImportMulti.cpp" line="250"/>
+        <location filename="../widgets/ImportMulti.cpp" line="104"/>
+        <location filename="../widgets/ImportMulti.cpp" line="248"/>
         <source>The type of the Item &apos;%1&apos; is not recognized</source>
         <translation>Vrsta stavke &apos;%1&apos; je nepoznata</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="299"/>
+        <location filename="../widgets/ImportMulti.cpp" line="296"/>
         <source>Details of the item &apos;%1&apos; cannot be shown</source>
         <translation>Detalji stavke &apos;%1&apos; ne mogu se prikazani</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="303"/>
+        <location filename="../widgets/ImportMulti.cpp" line="299"/>
         <source>The type of the item &apos;%1&apos; is not recognized</source>
         <translation>Vrsta stavke &apos;%1&apos; je nepoznata</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="334"/>
+        <location filename="../widgets/ImportMulti.cpp" line="328"/>
         <source>The file &apos;%1&apos; did not contain PKI data</source>
         <translation>Datoteka &apos;%1&apos; ne sadrži PKI podatke</translation>
     </message>
     <message>
-        <location filename="../widgets/ImportMulti.cpp" line="338"/>
+        <location filename="../widgets/ImportMulti.cpp" line="331"/>
         <source>The %1 files: &apos;%2&apos; did not contain PKI data</source>
         <translation>Datoteke %1: &apos;%2&apos;ne sadrže PKI podatke</translation>
     </message>
@@ -875,7 +893,7 @@ Serijski broj: %3</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="237"/>
-        <location filename="../widgets/MW_menu.cpp" line="58"/>
+        <location filename="../widgets/MW_menu.cpp" line="63"/>
         <source>Certificates</source>
         <translation>Potvrde</translation>
     </message>
@@ -920,289 +938,293 @@ Serijski broj: %3</translation>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="175"/>
+        <location filename="../widgets/MW_database.cpp" line="182"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Korištenje ili izvoz privatnih ključeva neće biti moguće bez davanja ispravne zaporke</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="177"/>
+        <location filename="../widgets/MW_database.cpp" line="184"/>
         <source>Database</source>
         <translation>Baza podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="247"/>
+        <location filename="../widgets/MW_database.cpp" line="253"/>
         <source>No deleted items found</source>
         <translation>Nisu pronađene obrisane stavke</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="29"/>
+        <source>Recent DataBases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/MW_menu.cpp" line="33"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="30"/>
+        <location filename="../widgets/MW_menu.cpp" line="34"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Nova baza podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="32"/>
+        <location filename="../widgets/MW_menu.cpp" line="36"/>
         <source>&amp;Open DataBase</source>
         <translation>&amp;Otvori bazu podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="34"/>
+        <location filename="../widgets/MW_menu.cpp" line="39"/>
         <source>Generate DH parameter</source>
         <translation>Generiraj DH parametar</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="36"/>
+        <location filename="../widgets/MW_menu.cpp" line="41"/>
         <source>Set as default DataBase</source>
         <translation>Postavi kao osnovnu bazu podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="38"/>
+        <location filename="../widgets/MW_menu.cpp" line="43"/>
         <source>&amp;Close DataBase</source>
         <translation>&amp;Zatvori bazu podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="40"/>
+        <location filename="../widgets/MW_menu.cpp" line="45"/>
         <source>&amp;Dump DataBase</source>
         <translation>I&amp;stovari bazu podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="42"/>
+        <location filename="../widgets/MW_menu.cpp" line="47"/>
         <source>C&amp;hange DataBase password</source>
         <translation>P&amp;romijeni zaporku baze podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="44"/>
+        <location filename="../widgets/MW_menu.cpp" line="49"/>
         <source>&amp;Import old db_dump</source>
         <translation>&amp;Uvezi stari istovar baze podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="46"/>
+        <location filename="../widgets/MW_menu.cpp" line="51"/>
         <source>&amp;Undelete items</source>
         <translation>&amp;Vrati obrisane stavke</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="49"/>
+        <location filename="../widgets/MW_menu.cpp" line="54"/>
         <source>Options</source>
         <translation>Opcije</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="51"/>
+        <location filename="../widgets/MW_menu.cpp" line="56"/>
         <source>Exit</source>
         <translation>Izlaz</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="53"/>
+        <location filename="../widgets/MW_menu.cpp" line="58"/>
         <source>I&amp;mport</source>
         <translation>U&amp;vezi</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="54"/>
+        <location filename="../widgets/MW_menu.cpp" line="59"/>
         <source>Keys</source>
         <translation>Ključevi</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="56"/>
+        <location filename="../widgets/MW_menu.cpp" line="61"/>
         <source>Requests</source>
         <translation>Zahtjevi</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="60"/>
+        <location filename="../widgets/MW_menu.cpp" line="65"/>
         <source>PKCS#12</source>
         <translation>PKCS#12</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="62"/>
+        <location filename="../widgets/MW_menu.cpp" line="67"/>
         <source>PKCS#7</source>
         <translation>PKCS#7</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="64"/>
+        <location filename="../widgets/MW_menu.cpp" line="69"/>
         <source>Template</source>
         <translation>Predložak</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="66"/>
+        <location filename="../widgets/MW_menu.cpp" line="71"/>
         <source>Revocation list</source>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="68"/>
+        <location filename="../widgets/MW_menu.cpp" line="73"/>
         <source>PEM file</source>
         <translation>PEM datoteka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="70"/>
+        <location filename="../widgets/MW_menu.cpp" line="75"/>
         <source>paste PEM file</source>
         <translation>zalijepi PEM datoteku</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="73"/>
+        <location filename="../widgets/MW_menu.cpp" line="78"/>
         <source>&amp;Token</source>
         <translation>&amp;Token</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="74"/>
+        <location filename="../widgets/MW_menu.cpp" line="79"/>
         <source>&amp;Manage Security token</source>
         <translation>&amp;Upravljaj pametnim tokenom</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="76"/>
+        <location filename="../widgets/MW_menu.cpp" line="81"/>
         <source>&amp;Init Security token</source>
         <translation>&amp;Inicijaliziraj pametni token</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="78"/>
+        <location filename="../widgets/MW_menu.cpp" line="83"/>
         <source>&amp;Change PIN</source>
         <translation>&amp;Promijeni PIN</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="80"/>
+        <location filename="../widgets/MW_menu.cpp" line="85"/>
         <source>Change &amp;SO PIN</source>
         <translation>Promijeni &amp;SO PIN</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="82"/>
+        <location filename="../widgets/MW_menu.cpp" line="87"/>
         <source>Init PIN</source>
         <translation>Inicijaliziraj PIN</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="85"/>
+        <location filename="../widgets/MW_menu.cpp" line="90"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoć</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="86"/>
+        <location filename="../widgets/MW_menu.cpp" line="91"/>
         <source>&amp;Content</source>
         <translation>&amp;Sadržaj</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="88"/>
+        <location filename="../widgets/MW_menu.cpp" line="93"/>
         <source>&amp;About</source>
         <translation>&amp;O programu</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="89"/>
+        <location filename="../widgets/MW_menu.cpp" line="94"/>
         <source>Donations</source>
         <translation>Donacije</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="135"/>
+        <location filename="../widgets/MW_menu.cpp" line="160"/>
         <source>Database dump ( *.dump );;All files ( * )</source>
         <translation>Istovari baze podataka ( *.dump );;Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="140"/>
+        <location filename="../widgets/MW_menu.cpp" line="165"/>
         <source>Import password</source>
         <translation>Zaporka za uvoz</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="141"/>
+        <location filename="../widgets/MW_menu.cpp" line="166"/>
         <source>Please enter the password of the old database</source>
         <translation>Unesite zaporku stare baze podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="148"/>
+        <location filename="../widgets/MW_menu.cpp" line="172"/>
         <source>Password verification error. Ignore keys ?</source>
         <translation>Greška provjere zaporke. Ignorirati ključeve?</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="149"/>
+        <location filename="../widgets/MW_menu.cpp" line="175"/>
         <source>Import anyway</source>
         <translation>Ipak uvezi</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="149"/>
         <source>Cancel</source>
-        <translation>Odustani</translation>
+        <translation type="obsolete">Odustani</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="335"/>
+        <location filename="../widgets/MainWindow.cpp" line="277"/>
         <source>no such option: %1</source>
         <translation>nema te opcije: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="421"/>
+        <location filename="../widgets/MainWindow.cpp" line="363"/>
         <source>Import PEM data</source>
         <translation>Uvezi PEM podatke</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="451"/>
+        <location filename="../widgets/MainWindow.cpp" line="393"/>
         <source>Please enter the original SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>Unesi originalni SO PIN (PUK) pametnog tokena &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="457"/>
+        <location filename="../widgets/MainWindow.cpp" line="399"/>
         <source>Please enter the new SO PIN (PUK) of the token &apos;%1&apos;</source>
         <translation>Unesite novi SO PIN (PUK) pametnog tokena &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="464"/>
+        <location filename="../widgets/MainWindow.cpp" line="406"/>
         <source>The new label of the token &apos;%1&apos;</source>
         <translation>Nova oznaka pametnog tokena &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="573"/>
+        <location filename="../widgets/MainWindow.cpp" line="514"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Token &apos;%1&apos; ne sadrži ni jedan ključ ili potvrdu</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="623"/>
-        <location filename="../widgets/MainWindow.cpp" line="725"/>
+        <location filename="../widgets/MainWindow.cpp" line="563"/>
+        <location filename="../widgets/MainWindow.cpp" line="665"/>
         <source>New Password</source>
         <translation>Nova Zaporka</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="623"/>
+        <location filename="../widgets/MainWindow.cpp" line="563"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Unesite novu zaporku za kripciju privatnih ključeva u bazi podataka</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="725"/>
+        <location filename="../widgets/MainWindow.cpp" line="665"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
         <translation>Unesite novu zaporku, koja će se koristiti za kripciju Vaših privatnih ključeva u datoteci baze podataka:
 %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="751"/>
+        <location filename="../widgets/MainWindow.cpp" line="691"/>
         <source>Password verify error, please try again</source>
         <translation>Greška provjere zaporke, pokušajte ponovo</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="752"/>
+        <location filename="../widgets/MainWindow.cpp" line="692"/>
         <source>Password</source>
         <translation>Zaporka</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="753"/>
+        <location filename="../widgets/MainWindow.cpp" line="693"/>
         <source>Please enter the password for unlocking the database:
 %1</source>
         <translation>Unesite zaporku za otključavanje baze podataka:
 %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="787"/>
+        <location filename="../widgets/MainWindow.cpp" line="727"/>
         <source>The following error occured:</source>
         <translation>Desila se sljedeća greška:</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="790"/>
+        <location filename="../widgets/MainWindow.cpp" line="729"/>
         <source>Copy to Clipboard</source>
         <translation>Kopiraj u Clipboard</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="862"/>
+        <location filename="../widgets/MainWindow.cpp" line="808"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation>Diffie-Hellman parametri su potrebni za različite aplikacije, no XCA ih nije obradila.
 Unesite bitove za DH parametre</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="885"/>
+        <location filename="../widgets/MainWindow.cpp" line="831"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
     </message>
@@ -1345,7 +1367,12 @@ Unesite bitove za DH parametre</translation>
         <translation>Vrsta ključa</translation>
     </message>
     <message>
-        <location filename="../widgets/NewKey.cpp" line="142"/>
+        <location filename="../ui/NewKey.ui" line="188"/>
+        <source>Remember as default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/NewKey.cpp" line="170"/>
         <source>Create</source>
         <translation>Stvori</translation>
     </message>
@@ -1747,7 +1774,7 @@ email:moja@druga.adresa, RID:1.2.3.4, DNS: ns.posluzitelj.hr</translation>
         <location filename="../ui/NewX509.ui" line="1060"/>
         <location filename="../ui/NewX509.ui" line="1118"/>
         <location filename="../widgets/NewX509.cpp" line="239"/>
-        <location filename="../widgets/NewX509.cpp" line="803"/>
+        <location filename="../widgets/NewX509.cpp" line="810"/>
         <source>Edit</source>
         <translation>Uredi</translation>
     </message>
@@ -1884,7 +1911,7 @@ caIssuers;URI:http://moj.ca/ca.html</translation>
     </message>
     <message>
         <location filename="../ui/NewX509.ui" line="1548"/>
-        <location filename="../widgets/NewX509.cpp" line="813"/>
+        <location filename="../widgets/NewX509.cpp" line="820"/>
         <source>Validate</source>
         <translation>Potvrditi</translation>
     </message>
@@ -1929,96 +1956,97 @@ caIssuers;URI:http://moj.ca/ca.html</translation>
         <translation>Izradi x509 Potvrdu</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="828"/>
+        <location filename="../widgets/NewX509.cpp" line="878"/>
         <source>From PKCS#10 request</source>
         <translation>Iz PKCS#10 zahtjeva</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="843"/>
+        <location filename="../widgets/NewX509.cpp" line="841"/>
         <source>Other Tabs</source>
         <translation>Druge Kartice</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="856"/>
+        <location filename="../widgets/NewX509.cpp" line="854"/>
         <source>Advanced Tab</source>
         <translation>Kartica Napredno</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="863"/>
+        <location filename="../widgets/NewX509.cpp" line="861"/>
         <source>Errors</source>
         <translation>Greške</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="952"/>
-        <location filename="../widgets/NewX509.cpp" line="966"/>
-        <location filename="../widgets/NewX509.cpp" line="986"/>
-        <location filename="../widgets/NewX509.cpp" line="997"/>
-        <location filename="../widgets/NewX509.cpp" line="1014"/>
-        <location filename="../widgets/NewX509.cpp" line="1029"/>
-        <location filename="../widgets/NewX509.cpp" line="1059"/>
+        <location filename="../widgets/NewX509.cpp" line="964"/>
+        <location filename="../widgets/NewX509.cpp" line="977"/>
+        <location filename="../widgets/NewX509.cpp" line="996"/>
+        <location filename="../widgets/NewX509.cpp" line="1007"/>
+        <location filename="../widgets/NewX509.cpp" line="1023"/>
+        <location filename="../widgets/NewX509.cpp" line="1037"/>
         <location filename="../widgets/NewX509.cpp" line="1071"/>
-        <location filename="../widgets/NewX509.cpp" line="1095"/>
-        <location filename="../widgets/NewX509.cpp" line="1118"/>
-        <location filename="../widgets/NewX509.cpp" line="1138"/>
+        <location filename="../widgets/NewX509.cpp" line="1082"/>
+        <location filename="../widgets/NewX509.cpp" line="1105"/>
+        <location filename="../widgets/NewX509.cpp" line="1127"/>
+        <location filename="../widgets/NewX509.cpp" line="1146"/>
         <source>Abort rollout</source>
         <translation>O uvođenju</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="961"/>
+        <location filename="../widgets/NewX509.cpp" line="973"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Sljedeća ograničenja dužine iz RFC3280 su prekršena:</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="965"/>
-        <location filename="../widgets/NewX509.cpp" line="1028"/>
+        <location filename="../widgets/NewX509.cpp" line="976"/>
+        <location filename="../widgets/NewX509.cpp" line="1036"/>
         <source>Edit subject</source>
         <translation>Uredi subjekt</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="967"/>
-        <location filename="../widgets/NewX509.cpp" line="1030"/>
-        <location filename="../widgets/NewX509.cpp" line="1072"/>
-        <location filename="../widgets/NewX509.cpp" line="1096"/>
-        <location filename="../widgets/NewX509.cpp" line="1139"/>
+        <location filename="../widgets/NewX509.cpp" line="978"/>
+        <location filename="../widgets/NewX509.cpp" line="1038"/>
+        <location filename="../widgets/NewX509.cpp" line="1083"/>
+        <location filename="../widgets/NewX509.cpp" line="1106"/>
+        <location filename="../widgets/NewX509.cpp" line="1128"/>
+        <location filename="../widgets/NewX509.cpp" line="1147"/>
         <source>Continue rollout</source>
         <translation>Nastavi uvođenje</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="983"/>
+        <location filename="../widgets/NewX509.cpp" line="994"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Provjera zahtjeva za izdavanje Potvrde nije uspješna.
 Uvođenje će biti prekinuto.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="985"/>
+        <location filename="../widgets/NewX509.cpp" line="995"/>
         <source>Continue anyway</source>
         <translation>Nastavi bez obzira na sve</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="995"/>
+        <location filename="../widgets/NewX509.cpp" line="1005"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation>Interno ime i uobičajeno ime (CN) nisu popunjeni.
 Molimo vas popunite barem interno ime.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="996"/>
+        <location filename="../widgets/NewX509.cpp" line="1006"/>
         <source>Edit name</source>
         <translation>Uredi ime</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1011"/>
+        <location filename="../widgets/NewX509.cpp" line="1021"/>
         <source>There is no Key selected for signing.</source>
         <translation>Nije odabran Ključ za potpisivanje.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1013"/>
+        <location filename="../widgets/NewX509.cpp" line="1022"/>
         <source>Select key</source>
         <translation>Odaberi ključ</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1025"/>
+        <location filename="../widgets/NewX509.cpp" line="1034"/>
         <source>The following distinguished name entries are empty:
 %1
 though you have declared them as mandatory in the options menu.</source>
@@ -2027,55 +2055,55 @@ though you have declared them as mandatory in the options menu.</source>
 premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1055"/>
+        <location filename="../widgets/NewX509.cpp" line="1068"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Ključ kojeg ste odabrali za potpisivanje nije privatni ključ.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1057"/>
+        <location filename="../widgets/NewX509.cpp" line="1069"/>
         <source>Select other signer</source>
         <translation>Odaberite drugog potpisnika</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1057"/>
+        <location filename="../widgets/NewX509.cpp" line="1069"/>
         <source>Select other key</source>
         <translation>Odaberite drugi ključ</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1067"/>
+        <location filename="../widgets/NewX509.cpp" line="1079"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
         <translation>Početak valjanosti potvrde je prije početka valjanosti potvrde potpisnika (ovjeritelja). To vjerojatno nije ono što ste htjeli.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1070"/>
-        <location filename="../widgets/NewX509.cpp" line="1094"/>
-        <location filename="../widgets/NewX509.cpp" line="1117"/>
+        <location filename="../widgets/NewX509.cpp" line="1081"/>
+        <location filename="../widgets/NewX509.cpp" line="1104"/>
+        <location filename="../widgets/NewX509.cpp" line="1126"/>
         <source>Edit dates</source>
         <translation>Uredi datume</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1073"/>
-        <location filename="../widgets/NewX509.cpp" line="1097"/>
+        <location filename="../widgets/NewX509.cpp" line="1084"/>
+        <location filename="../widgets/NewX509.cpp" line="1107"/>
         <source>Adjust date and continue</source>
         <translation>Podesi datum i nastavi</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1091"/>
+        <location filename="../widgets/NewX509.cpp" line="1102"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Kraj valjanosti potvrde je nakon isteka valjanosti potvrde potpisnika (ovjeritelja). To vjerojatno nije ono što ste htjeli.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1114"/>
+        <location filename="../widgets/NewX509.cpp" line="1124"/>
         <source>The certificate will be out of date before it becomes valid. You most probably mixed up both dates.</source>
         <translation>Potvrda će prestati važiti prije nego što je izdana. Vjerojatno ste zamijenili datume.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1134"/>
+        <location filename="../widgets/NewX509.cpp" line="1143"/>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation>Potvrda sadrži neispravna ili duplicirana proširenja. Provjerite valjanost na Kartici Napredno.</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="1137"/>
+        <location filename="../widgets/NewX509.cpp" line="1145"/>
         <source>Edit extensions</source>
         <translation>Uredi proširenja</translation>
     </message>
@@ -2194,17 +2222,17 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>Ponovi %1</translation>
     </message>
     <message>
-        <location filename="../widgets/PwDialog.cpp" line="99"/>
+        <location filename="../widgets/PwDialog.cpp" line="98"/>
         <source>%1 missmatch</source>
         <translation>%1 je neodgovarajući</translation>
     </message>
     <message>
-        <location filename="../widgets/PwDialog.cpp" line="106"/>
+        <location filename="../widgets/PwDialog.cpp" line="105"/>
         <source>Hex password must only contain the characters &apos;0&apos; - &apos;9&apos; and &apos;a&apos; - &apos;f&apos; and it must consist of an even number of characters</source>
         <translation>Heksadecimalna zaporka smije sadržavati samo znakove  &apos;0&apos; - &apos;9&apos; i &apos;a&apos; - &apos;f&apos; i mora se sastojati od parnog broja znakova </translation>
     </message>
     <message>
-        <location filename="../widgets/PwDialog.cpp" line="132"/>
+        <location filename="../widgets/PwDialog.cpp" line="131"/>
         <source>E&amp;xit</source>
         <translation>I&amp;zlaz</translation>
     </message>
@@ -2372,17 +2400,17 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>Učitaj PEM kodiranu datoteku</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="224"/>
+        <location filename="../lib/pkcs11.cpp" line="226"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Unesite PIN u PinPad</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="235"/>
+        <location filename="../lib/pkcs11.cpp" line="237"/>
         <source>Please enter the SO PIN (PUK) of the token %1</source>
         <translation>Unesite SO PIN (PUK) tokena %1</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="236"/>
+        <location filename="../lib/pkcs11.cpp" line="238"/>
         <source>Please enter the PIN of the token %1</source>
         <translation>Unesite PIN tokena %1</translation>
     </message>
@@ -2412,17 +2440,17 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>Obavezna dužina PIN: %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="50"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="56"/>
         <source>Failed to open PKCS11 library: %1</source>
         <translation>Neuspješno otvaranje PKCS11 knjižnice: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="268"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="274"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>PKSC#11 funkcija &apos;%1&apos;prijavila grešku: %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11_lib.cpp" line="275"/>
+        <location filename="../lib/pkcs11_lib.cpp" line="281"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2
 In library %3
 %4</source>
@@ -2564,27 +2592,27 @@ U knjižnici %3
         <translation>Interno ime</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="667"/>
+        <location filename="../lib/db_base.cpp" line="659"/>
         <source>Subject entries</source>
         <translation>Stavke subjekta</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="668"/>
+        <location filename="../lib/db_base.cpp" line="660"/>
         <source>X509v3 Extensions</source>
         <translation>X509v3 Proširenja</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="669"/>
+        <location filename="../lib/db_base.cpp" line="661"/>
         <source>Reset</source>
         <translation>Vrati na početak</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="698"/>
+        <location filename="../lib/db_base.cpp" line="690"/>
         <source>Paste PEM data</source>
         <translation>Zalijepi PEM podatke</translation>
     </message>
     <message>
-        <location filename="../lib/db_base.cpp" line="700"/>
+        <location filename="../lib/db_base.cpp" line="692"/>
         <source>Columns</source>
         <translation>Stupci</translation>
     </message>
@@ -2627,7 +2655,7 @@ U knjižnici %3
         <translation>Broj CRL</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="99"/>
+        <location filename="../lib/db_crl.cpp" line="98"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -2636,42 +2664,42 @@ and so it was not imported</source>
 i zbog toga nije uvezen</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="134"/>
+        <location filename="../lib/db_crl.cpp" line="133"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>CRL ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="136"/>
+        <location filename="../lib/db_crl.cpp" line="135"/>
         <source>Revocation list export</source>
         <translation>Izvoz popisa opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="223"/>
+        <location filename="../lib/db_crl.cpp" line="222"/>
         <source>Import</source>
         <translation>Uvezi</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="225"/>
+        <location filename="../lib/db_crl.cpp" line="224"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="226"/>
+        <location filename="../lib/db_crl.cpp" line="225"/>
         <source>Export</source>
         <translation>Izvoz</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="227"/>
+        <location filename="../lib/db_crl.cpp" line="226"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="229"/>
+        <location filename="../lib/db_crl.cpp" line="228"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../lib/db_crl.cpp" line="230"/>
+        <location filename="../lib/db_crl.cpp" line="229"/>
         <source>Delete</source>
         <translation>Obriši</translation>
     </message>
@@ -2690,16 +2718,21 @@ i zbog toga nije uvezen</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="40"/>
+        <source>EC Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/db_key.cpp" line="41"/>
         <source>Use</source>
         <translation>Namjena</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="41"/>
+        <location filename="../lib/db_key.cpp" line="42"/>
         <source>Password</source>
         <translation>Zaporka</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="95"/>
+        <location filename="../lib/db_key.cpp" line="96"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -2708,7 +2741,7 @@ and is not going to be imported</source>
 i zbog toga nije uvezen</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="101"/>
+        <location filename="../lib/db_key.cpp" line="102"/>
         <source>The database already contains the public part of the imported key as
 &apos;%1
 and will be completed by the new, private part of the key</source>
@@ -2722,94 +2755,104 @@ i biti će nadopunjena s novim, privatnim dijelom ključa</translation>
         <translation>Prekratki ključ!</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="140"/>
+        <location filename="../lib/db_key.cpp" line="139"/>
         <source>You are sure to create a key of the size: %1 ?</source>
         <translation>Da li stvarno želite izraditi ključ dužine: %1 ?</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="195"/>
+        <location filename="../lib/db_key.cpp" line="197"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Da li da originalni ključ &apos;%1&apos; treba biti zamijenjen ključem s tokena?
 To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="229"/>
+        <location filename="../lib/db_key.cpp" line="231"/>
         <source>New Key</source>
         <translation>Novi ključ</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="230"/>
+        <location filename="../lib/db_key.cpp" line="232"/>
         <source>Import</source>
         <translation>Uvezi</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="232"/>
+        <location filename="../lib/db_key.cpp" line="234"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="233"/>
+        <location filename="../lib/db_key.cpp" line="235"/>
         <source>Show Details</source>
         <translation>Prikaži Detalje</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="234"/>
+        <location filename="../lib/db_key.cpp" line="236"/>
         <source>Delete</source>
         <translation>Obriši</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="235"/>
+        <location filename="../lib/db_key.cpp" line="237"/>
         <source>Export</source>
         <translation>Izvoz</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="239"/>
+        <location filename="../lib/db_key.cpp" line="238"/>
+        <source>Clipboard</source>
+        <translation type="unfinished">Clipboard</translation>
+    </message>
+    <message>
+        <location filename="../lib/db_key.cpp" line="240"/>
+        <source>File</source>
+        <translation type="unfinished">Datoteka</translation>
+    </message>
+    <message>
+        <location filename="../lib/db_key.cpp" line="244"/>
         <source>Change password</source>
         <translation>Promjena zaporke</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="243"/>
+        <location filename="../lib/db_key.cpp" line="248"/>
         <source>Reset password</source>
         <translation>Postavi početnu zaporku</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="249"/>
+        <location filename="../lib/db_key.cpp" line="254"/>
         <source>Change PIN</source>
         <translation>Promijeni PIN</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="251"/>
+        <location filename="../lib/db_key.cpp" line="256"/>
         <source>Init PIN with SO PIN (PUK)</source>
         <translation>Pripremi PIN pomoću SO PIN (PUK)</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="253"/>
+        <location filename="../lib/db_key.cpp" line="258"/>
         <source>Change SO PIN (PUK)</source>
         <translation>Promijeni SO PIN (PUK)</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="257"/>
+        <location filename="../lib/db_key.cpp" line="262"/>
         <source>Store on Security token</source>
         <translation>Spremi na Pametni token</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="346"/>
+        <location filename="../lib/db_key.cpp" line="345"/>
         <source>Tried to change password of a token</source>
         <translation>Pokušaj promjene zaporke tokena</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="360"/>
+        <location filename="../lib/db_key.cpp" line="359"/>
         <source>Tried to change PIN of a key</source>
         <translation>Pokušaj promjene PIN ključa</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="376"/>
+        <location filename="../lib/db_key.cpp" line="375"/>
         <source>Tried to init PIN of a key</source>
         <translation>Pokušaj inicijalizacije PIN ključa</translation>
     </message>
     <message>
-        <location filename="../lib/db_key.cpp" line="392"/>
+        <location filename="../lib/db_key.cpp" line="391"/>
         <source>Tried to change SO PIN of a key</source>
         <translation>Pokušaj inicijalizacije SO PIN ključa</translation>
     </message>
@@ -2822,77 +2865,77 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Vrsta</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="49"/>
+        <location filename="../lib/db_temp.cpp" line="48"/>
         <source>Bad template: %1</source>
         <translation>Loš predložak: %1</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="113"/>
+        <location filename="../lib/db_temp.cpp" line="112"/>
         <source>Nothing</source>
         <translation>Ništa</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="118"/>
+        <location filename="../lib/db_temp.cpp" line="117"/>
         <source>Preset Template values</source>
         <translation>Postavljanje vrijednosti Predloška</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="157"/>
+        <location filename="../lib/db_temp.cpp" line="156"/>
         <source>copy</source>
         <translation>kopiraj</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="189"/>
+        <location filename="../lib/db_temp.cpp" line="188"/>
         <source>Save template as</source>
         <translation>Spremi predložak kao</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="190"/>
+        <location filename="../lib/db_temp.cpp" line="189"/>
         <source>XCA templates ( *.xca);; All files ( * )</source>
         <translation>XCA predlošci ( *.xca );; Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="232"/>
+        <location filename="../lib/db_temp.cpp" line="231"/>
         <source>New Template</source>
         <translation>Novi Predložak</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="233"/>
+        <location filename="../lib/db_temp.cpp" line="232"/>
         <source>Import</source>
         <translation>Uvezi</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="235"/>
+        <location filename="../lib/db_temp.cpp" line="234"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="236"/>
+        <location filename="../lib/db_temp.cpp" line="235"/>
         <source>Export</source>
         <translation>Izvoz</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="237"/>
+        <location filename="../lib/db_temp.cpp" line="236"/>
         <source>Change</source>
         <translation>Promijeni</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="238"/>
+        <location filename="../lib/db_temp.cpp" line="237"/>
         <source>Delete</source>
         <translation>Brisanje</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="239"/>
+        <location filename="../lib/db_temp.cpp" line="238"/>
         <source>Duplicate</source>
         <translation>Podvostruči</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="240"/>
+        <location filename="../lib/db_temp.cpp" line="239"/>
         <source>Create certificate</source>
         <translation>Izradi potvrdu</translation>
     </message>
     <message>
-        <location filename="../lib/db_temp.cpp" line="242"/>
+        <location filename="../lib/db_temp.cpp" line="241"/>
         <source>Create request</source>
         <translation>Izradi zahtjev</translation>
     </message>
@@ -2901,7 +2944,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <name>db_x509</name>
     <message>
         <location filename="../lib/db_x509.cpp" line="34"/>
-        <location filename="../lib/db_x509.cpp" line="645"/>
+        <location filename="../lib/db_x509.cpp" line="644"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
@@ -2966,7 +3009,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Stablast pregled</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="340"/>
+        <location filename="../lib/db_x509.cpp" line="339"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -2975,23 +3018,23 @@ and so it was not imported</source>
 i zbog toga nije uvezena</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="470"/>
+        <location filename="../lib/db_x509.cpp" line="469"/>
         <source>Invalid public key</source>
         <translation>Neispravan javni ključ</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="488"/>
+        <location filename="../lib/db_x509.cpp" line="487"/>
         <source>Please enter the new hexadecimal secret number for the QA process.</source>
         <translatorcomment>!!! Bolji rješenje za QA proces?</translatorcomment>
         <translation>Unesite novi heksadecimalni tajni broj za QA proces.</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="496"/>
+        <location filename="../lib/db_x509.cpp" line="495"/>
         <source>The QA process has been terminated by the user.</source>
         <translation>QA proces je prekinut od strane korisnika.</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="513"/>
+        <location filename="../lib/db_x509.cpp" line="512"/>
         <source>The key you selected for signing is not a private one.</source>
         <translation>Ključ kojeg ste odabrali za potpisivanje nije privatni ključ.</translation>
     </message>
@@ -3001,153 +3044,153 @@ i zbog toga nije uvezena</translation>
         <translation>Spremiti potvrdu k ključu na token &apos;%1 (#%2)&apos; ?</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="614"/>
+        <location filename="../lib/db_x509.cpp" line="613"/>
         <source>New Certificate</source>
         <translation>Nova Potvrda</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="615"/>
+        <location filename="../lib/db_x509.cpp" line="614"/>
         <source>Import</source>
         <translation>Uvezi</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="616"/>
+        <location filename="../lib/db_x509.cpp" line="615"/>
         <source>Import PKCS#12</source>
         <translation>Uvezi PKCS#12</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="617"/>
+        <location filename="../lib/db_x509.cpp" line="616"/>
         <source>Import from PKCS#7</source>
         <translation>Uvezi PKCS#7</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="620"/>
+        <location filename="../lib/db_x509.cpp" line="619"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="621"/>
+        <location filename="../lib/db_x509.cpp" line="620"/>
         <source>Show Details</source>
         <translation>Prikaži Detalje</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="623"/>
+        <location filename="../lib/db_x509.cpp" line="622"/>
         <source>Extract public Key</source>
         <translation>Izdvoji javni ključ</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="625"/>
+        <location filename="../lib/db_x509.cpp" line="624"/>
         <source>Export</source>
         <translation>Izvoz</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="626"/>
+        <location filename="../lib/db_x509.cpp" line="625"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="628"/>
+        <location filename="../lib/db_x509.cpp" line="627"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="629"/>
+        <location filename="../lib/db_x509.cpp" line="628"/>
         <source>Request</source>
         <translation>Zahtjev</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="631"/>
+        <location filename="../lib/db_x509.cpp" line="630"/>
         <source>Security token</source>
         <translation>Pametni token</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="633"/>
+        <location filename="../lib/db_x509.cpp" line="632"/>
         <source>Other token</source>
         <translation>Drugi token</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="635"/>
+        <location filename="../lib/db_x509.cpp" line="634"/>
         <source>Template</source>
         <translation>Predložak</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="636"/>
+        <location filename="../lib/db_x509.cpp" line="635"/>
         <source>OpenSSL config</source>
         <translation>OpenSSL konfiguracija</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="639"/>
+        <location filename="../lib/db_x509.cpp" line="638"/>
         <source>Delete</source>
         <translation>Brisanje</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="641"/>
+        <location filename="../lib/db_x509.cpp" line="640"/>
         <source>Delete from Security token</source>
         <translation>Obriši s pametnog tokena</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="643"/>
+        <location filename="../lib/db_x509.cpp" line="642"/>
         <source>Trust</source>
         <translation>Povjerenje</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="646"/>
+        <location filename="../lib/db_x509.cpp" line="645"/>
         <source>Properties</source>
         <translation>Osobine</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="647"/>
+        <location filename="../lib/db_x509.cpp" line="646"/>
         <source>Generate CRL</source>
         <translation>Izradi CRL</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="649"/>
+        <location filename="../lib/db_x509.cpp" line="648"/>
         <source>PKCS#7</source>
         <translation>PKCS#7</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="650"/>
+        <location filename="../lib/db_x509.cpp" line="649"/>
         <source>Sign</source>
         <translation>Potpiši</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="651"/>
+        <location filename="../lib/db_x509.cpp" line="650"/>
         <source>Encrypt</source>
         <translation>Kriptiraj</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="654"/>
+        <location filename="../lib/db_x509.cpp" line="653"/>
         <source>Renewal</source>
         <translation>Obnovi</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="657"/>
+        <location filename="../lib/db_x509.cpp" line="656"/>
         <source>Unrevoke</source>
         <translation>Nemoj opozvat</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="661"/>
+        <location filename="../lib/db_x509.cpp" line="660"/>
         <source>Revoke</source>
         <translation>Opozovi</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="768"/>
-        <location filename="../lib/db_x509.cpp" line="801"/>
+        <location filename="../lib/db_x509.cpp" line="766"/>
+        <location filename="../lib/db_x509.cpp" line="797"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Nije pronađen ključ za Potvrdu: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="774"/>
+        <location filename="../lib/db_x509.cpp" line="771"/>
         <source>Not possible for a token key: &apos;%1&apos;</source>
         <translation>Nije moguće za ključ s tokena: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="806"/>
+        <location filename="../lib/db_x509.cpp" line="801"/>
         <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
         <translation>Nije moguće za potvrdu s ključem na tokenu &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="1139"/>
+        <location filename="../lib/db_x509.cpp" line="1132"/>
         <source> days</source>
         <translation>ana</translation>
     </message>
@@ -3198,7 +3241,7 @@ i zbog toga nije uvezena</translation>
         <translation>Zaporka za izazov</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="44"/>
+        <location filename="../lib/db_x509req.cpp" line="43"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
@@ -3207,72 +3250,72 @@ and thus was not stored</source>
 i zbog toga nije spreman</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="134"/>
+        <location filename="../lib/db_x509req.cpp" line="133"/>
         <source>Certificate request ( *.pem *.der *.crl )</source>
         <translation>Zahtjev za izdavanje potvrde ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="136"/>
+        <location filename="../lib/db_x509req.cpp" line="135"/>
         <source>Certificate request export</source>
         <translation>Izvoz zahtjeva za izdavanje potvrde</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="176"/>
+        <location filename="../lib/db_x509req.cpp" line="175"/>
         <source>New Request</source>
         <translation>Novi Zahtjev</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="177"/>
+        <location filename="../lib/db_x509req.cpp" line="176"/>
         <source>Import</source>
         <translation>Uvezi</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="180"/>
+        <location filename="../lib/db_x509req.cpp" line="179"/>
         <source>Extract public Key</source>
         <translation>Izdvoji javni ključ</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="182"/>
+        <location filename="../lib/db_x509req.cpp" line="181"/>
         <source>Rename</source>
         <translation>Preimenuj</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="183"/>
+        <location filename="../lib/db_x509req.cpp" line="182"/>
         <source>Show Details</source>
         <translation>Prikaži Detalje</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="184"/>
+        <location filename="../lib/db_x509req.cpp" line="183"/>
         <source>Sign</source>
         <translation>Potpiši</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="185"/>
+        <location filename="../lib/db_x509req.cpp" line="184"/>
         <source>Export</source>
         <translation>Izvoz</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="186"/>
+        <location filename="../lib/db_x509req.cpp" line="185"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="188"/>
+        <location filename="../lib/db_x509req.cpp" line="187"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="189"/>
+        <location filename="../lib/db_x509req.cpp" line="188"/>
         <source>Template</source>
         <translation>Predložak</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="190"/>
+        <location filename="../lib/db_x509req.cpp" line="189"/>
         <source>OpenSSL config</source>
         <translation>OpenSSL konfiguracija</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="192"/>
+        <location filename="../lib/db_x509req.cpp" line="191"/>
         <source>Delete</source>
         <translation>Brisanje</translation>
     </message>
@@ -3290,17 +3333,17 @@ i zbog toga nije spreman</translation>
         <translation>Interno ime ključa</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="128"/>
+        <location filename="../lib/db_x509super.cpp" line="127"/>
         <source>Save as OpenSSL config</source>
         <translation>Spremi kao OpenSSL konfiguraciju</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="129"/>
+        <location filename="../lib/db_x509super.cpp" line="128"/>
         <source>Config files ( *.conf *.cnf);; All files ( * )</source>
         <translation>Konfiguracijske datoteke ( *.conf *.cnf);; Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="154"/>
+        <location filename="../lib/db_x509super.cpp" line="153"/>
         <source>The following extensions were not ported into the template</source>
         <translation>Sljedeća proširenja neće biti uključena u predložak</translation>
     </message>
@@ -3334,17 +3377,17 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="82"/>
+        <location filename="../lib/pki_base.cpp" line="74"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="90"/>
+        <location filename="../lib/pki_base.cpp" line="82"/>
         <source>Error writing to file: &apos;%1&apos;: %2</source>
         <translation>Greška u pisanju u datoteku: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.cpp" line="99"/>
+        <location filename="../lib/pki_base.cpp" line="91"/>
         <source>Error: </source>
         <translation>Greška:</translation>
     </message>
@@ -3401,60 +3444,65 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="196"/>
+        <location filename="../lib/pki_evp.cpp" line="199"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation>Neuspješno dekriptiran ključ (pogrešna zaporka) </translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="206"/>
+        <location filename="../lib/pki_evp.cpp" line="209"/>
         <source>Please enter the password to decrypt the private key.</source>
         <translation>Unesite zaporku za dekripciju privatnog ključa.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="261"/>
+        <location filename="../lib/pki_evp.cpp" line="262"/>
         <source>Please enter the password to decrypt the private key from file:
 %1</source>
         <translation>Unesite zaporku za dekripciju privatnog ključa iz datoteke:
 %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="313"/>
+        <location filename="../lib/pki_evp.cpp" line="314"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
         <translation>Nije moguće učitati privatni ključ u datoteci %1. Probani su PEM i DER privatni, javni i PKCS#8 tip ključeva.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="378"/>
+        <location filename="../lib/pki_evp.cpp" line="349"/>
+        <source>Ignoring unsupported private key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_evp.cpp" line="381"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>Unesite zaporku za dekripciju privatnog ključa: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="381"/>
-        <location filename="../lib/pki_evp.cpp" line="392"/>
+        <location filename="../lib/pki_evp.cpp" line="384"/>
+        <location filename="../lib/pki_evp.cpp" line="395"/>
         <source>Password input aborted</source>
         <translation>Prekinut unos zaporke</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="389"/>
+        <location filename="../lib/pki_evp.cpp" line="392"/>
         <source>Please enter the database password for decrypting the key &apos;%1&apos;</source>
         <translation>Unesite zaporku baze podataka za dekripciju ključa &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="474"/>
+        <location filename="../lib/pki_evp.cpp" line="477"/>
         <source>Please enter the password to protect the private key: &apos;%1&apos;</source>
         <translation>Unesite zaporku za zaštitu privatnog ključa: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="489"/>
+        <location filename="../lib/pki_evp.cpp" line="492"/>
         <source>Please enter the database password for encrypting the key</source>
         <translation>Unesite zaporku baze podataka za kripciju ključa</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="572"/>
+        <location filename="../lib/pki_evp.cpp" line="575"/>
         <source>Please enter the password protecting the PKCS#8 key &apos;%1&apos;</source>
         <translation>Unesite zaporku za zaštitu PKCS#8 ključa &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="607"/>
+        <location filename="../lib/pki_evp.cpp" line="610"/>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>Unesite zaporku za izvoz privatnog ključa &apos;%1&apos;</translation>
     </message>
@@ -3462,62 +3510,77 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="118"/>
+        <location filename="../lib/pki_key.cpp" line="90"/>
+        <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_key.cpp" line="92"/>
+        <source>Only export the public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_key.cpp" line="93"/>
+        <source>Export the private key unencrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_key.cpp" line="148"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Uspješno uvezen %1 javni ključ &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="119"/>
+        <location filename="../lib/pki_key.cpp" line="149"/>
         <source>Delete the %1 public key &apos;%2&apos;?</source>
         <translation>Obrisati %1 javni ključ &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="124"/>
+        <location filename="../lib/pki_key.cpp" line="154"/>
         <source>Successfully imported the %1 private key &apos;%2&apos;</source>
         <translation>Uspješno uvezen %1 privatni ključ &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="125"/>
+        <location filename="../lib/pki_key.cpp" line="155"/>
         <source>Delete the %1 private key &apos;%2&apos;?</source>
         <translation>Obrisati %1 privatni ključ &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="126"/>
+        <location filename="../lib/pki_key.cpp" line="156"/>
         <source>Successfully created the %1 private key &apos;%2&apos;</source>
         <translation>Uspješno izrađen %1 privatni ključ &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="132"/>
+        <location filename="../lib/pki_key.cpp" line="162"/>
         <source>Delete the %1 keys: %2?</source>
         <translation>Obrisati %1 ključ &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="140"/>
+        <location filename="../lib/pki_key.cpp" line="170"/>
         <source>public key</source>
         <translation>javni ključ</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="302"/>
+        <location filename="../lib/pki_key.cpp" line="332"/>
         <source>Common</source>
         <translation>Opće</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="302"/>
+        <location filename="../lib/pki_key.cpp" line="332"/>
         <source>Private</source>
         <translation>Privatno</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="302"/>
+        <location filename="../lib/pki_key.cpp" line="332"/>
         <source>Bogus</source>
         <translation>Lažno</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="302"/>
+        <location filename="../lib/pki_key.cpp" line="332"/>
         <source>PIN</source>
         <translation>PIN</translation>
     </message>
     <message>
-        <location filename="../lib/pki_key.cpp" line="312"/>
+        <location filename="../lib/pki_key.cpp" line="342"/>
         <source>No password</source>
         <translation>Bez zaporke</translation>
     </message>
@@ -3594,65 +3657,84 @@ i zbog toga nije spreman</translation>
         <translation>Obrisati %1 ključ &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="240"/>
+        <location filename="../lib/pki_scard.cpp" line="267"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Obrisati privatni ključ &apos;%1&apos; s tokena &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="291"/>
         <source>only RSA keys can be stored on tokens</source>
-        <translation>samo RSA ključevi mogu biti spremljeni na tokenu</translation>
+        <translation type="obsolete">samo RSA ključevi mogu biti spremljeni na tokenu</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="313"/>
+        <location filename="../lib/pki_scard.cpp" line="328"/>
         <source>This Key is already on the token</source>
         <translation>Ovaj ključ se već nalazi na tokenu</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="347"/>
+        <location filename="../lib/pki_scard.cpp" line="369"/>
+        <source>Only RSA and EC keys can be stored on tokens</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_scard.cpp" line="375"/>
         <source>PIN input aborted</source>
         <translation>Prekinut unos PIN-a</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="361"/>
+        <location filename="../lib/pki_scard.cpp" line="387"/>
         <source>Unable to find copied key on the token</source>
         <translation>Nije moguće naći kopirani ključ na tokenu</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="440"/>
+        <location filename="../lib/pki_scard.cpp" line="466"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Umetnite karticu:  %1 %2 [%3] s sa serijskim brojem: %4</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="471"/>
+        <location filename="../lib/pki_scard.cpp" line="494"/>
         <source>Public Key missmatch. Please re-import card</source>
         <translation>Neodgovarajući javni ključ. Molimo ponovo umetnite karticu</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="524"/>
+        <location filename="../lib/pki_scard.cpp" line="547"/>
+        <source>Illegal Key generation method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_scard.cpp" line="563"/>
         <source>Unable to find generated key on card</source>
         <translation>Nemoguće je pronaći ključ generiran na kartici</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="576"/>
+        <location filename="../lib/pki_scard.cpp" line="614"/>
+        <source>Ignoring unsupported token key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_scard.cpp" line="618"/>
         <source>Wrong Size %1</source>
         <translation>Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="587"/>
+        <location filename="../lib/pki_scard.cpp" line="629"/>
         <source>Token %1</source>
         <translation>Token %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="596"/>
-        <location filename="../lib/pki_scard.cpp" line="608"/>
+        <location filename="../lib/pki_scard.cpp" line="638"/>
+        <location filename="../lib/pki_scard.cpp" line="651"/>
         <source>Failed to find the key on the token</source>
         <translation>Nije moguće naći ključ na tokenu </translation>
     </message>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="603"/>
+        <location filename="../lib/pki_scard.cpp" line="645"/>
         <source>Invalid Pin for the token</source>
         <translation>Pogrešan PIN za token</translation>
+    </message>
+    <message>
+        <location filename="../lib/pki_scard.cpp" line="657"/>
+        <source>Failed to initialize the key on the token</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3727,7 +3809,7 @@ i zbog toga nije spreman</translation>
         <translation>Nije moguće učitati potvrdu u datoteci %1. Proban je PEM i DER format.</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="283"/>
+        <location filename="../lib/pki_x509.cpp" line="282"/>
         <source>This certificate is already on the security token</source>
         <translation>Ova potvrda se već nalazi na pametnom tokenu</translation>
     </message>
@@ -3737,43 +3819,43 @@ i zbog toga nije spreman</translation>
         <translation>Obrisati potvrdu %1 s tokena &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="471"/>
+        <location filename="../lib/pki_x509.cpp" line="474"/>
         <source>There is no key for signing !</source>
         <translation>Nema ključa za potpisivanje !</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="508"/>
-        <location filename="../lib/pki_x509.cpp" line="992"/>
+        <location filename="../lib/pki_x509.cpp" line="511"/>
+        <location filename="../lib/pki_x509.cpp" line="995"/>
         <source>Wrong Size %1</source>
         <translation>Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="801"/>
+        <location filename="../lib/pki_x509.cpp" line="804"/>
         <source>Not trusted</source>
         <translation>Nepouzdan</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="801"/>
+        <location filename="../lib/pki_x509.cpp" line="804"/>
         <source>Trust inherited</source>
         <translation>Povjerenje naslijeđeno</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="801"/>
+        <location filename="../lib/pki_x509.cpp" line="804"/>
         <source>Always Trusted</source>
         <translation>Uvijek vjeruj</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="816"/>
+        <location filename="../lib/pki_x509.cpp" line="819"/>
         <source>CRL expires: %1</source>
         <translation>Popis opozvanih potvrda ističe: %1</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="830"/>
+        <location filename="../lib/pki_x509.cpp" line="833"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="832"/>
+        <location filename="../lib/pki_x509.cpp" line="835"/>
         <source>Yes</source>
         <translation>Da</translation>
     </message>
@@ -3894,7 +3976,7 @@ i zbog toga nije spreman</translation>
         <translation>Nema uređivanja. Samo kopiranje je ovdje dozvoljeno</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="183"/>
+        <location filename="../widgets/v3ext.cpp" line="178"/>
         <source>Validation failed:
 &apos;%1&apos;
 %2</source>
@@ -3903,7 +3985,7 @@ i zbog toga nije spreman</translation>
 %2</translation>
     </message>
     <message>
-        <location filename="../widgets/v3ext.cpp" line="189"/>
+        <location filename="../widgets/v3ext.cpp" line="183"/>
         <source>Validation successful:
 &apos;%1&apos;</source>
         <translation>Provjera uspješna:
@@ -3913,12 +3995,12 @@ i zbog toga nije spreman</translation>
 <context>
     <name>void</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="874"/>
+        <location filename="../lib/db_x509.cpp" line="868"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Nije pronađen ključ za Potvrdu:</translation>
     </message>
     <message>
-        <location filename="../lib/db_x509.cpp" line="882"/>
+        <location filename="../lib/db_x509.cpp" line="876"/>
         <source>Import Certificate signing request</source>
         <translation>Uvezi zahtjev za izdavanje Potvrde (CSR)</translation>
     </message>

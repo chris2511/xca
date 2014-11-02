@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-08 06:53+0200\n"
+"POT-Creation-Date: 2014-11-02 11:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.7.0\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
 
 #: About#1
 msgid "Done"
@@ -316,6 +316,7 @@ msgid "Name"
 msgstr ""
 
 #: CrlDetail#7
+msgctxt "CrlDetail#7"
 msgid "The internal name of the CRL in the database"
 msgstr ""
 
@@ -416,30 +417,40 @@ msgstr ""
 
 #: ExportDialog#1
 msgctxt "ExportDialog#1"
-msgid "..."
+msgid "Name"
 msgstr ""
 
 #: ExportDialog#2
-msgid "Filename"
+msgctxt "ExportDialog#2"
+msgid "The internal name of the CRL in the database"
 msgstr ""
 
 #: ExportDialog#3
-msgid "Please enter the filename"
+msgctxt "ExportDialog#3"
+msgid "..."
 msgstr ""
 
 #: ExportDialog#4
-msgid "Export Format"
+msgid "Filename"
 msgstr ""
 
 #: ExportDialog#5
-msgid "The file: '%1' already exists!"
+msgid "Please enter the filename"
 msgstr ""
 
 #: ExportDialog#6
-msgid "Overwrite"
+msgid "Export Format"
 msgstr ""
 
 #: ExportDialog#7
+msgid "The file: '%1' already exists!"
+msgstr ""
+
+#: ExportDialog#8
+msgid "Overwrite"
+msgstr ""
+
+#: ExportDialog#9
 msgid "Do not overwrite"
 msgstr ""
 
@@ -479,11 +490,11 @@ msgid "Please enter the filename for the key."
 msgstr ""
 
 #: ExportKey#9
-msgid "Public key export"
+msgid "Export public %1 key"
 msgstr ""
 
 #: ExportKey#10
-msgid "Key export"
+msgid "Export %1 key"
 msgstr ""
 
 #: Help#1
@@ -741,154 +752,153 @@ msgid "No deleted items found"
 msgstr ""
 
 #: MainWindow#22
-msgid "&File"
+msgid "Recent DataBases"
 msgstr ""
 
 #: MainWindow#23
-msgid "&New DataBase"
+msgid "&File"
 msgstr ""
 
 #: MainWindow#24
-msgid "&Open DataBase"
+msgid "&New DataBase"
 msgstr ""
 
 #: MainWindow#25
-msgid "Generate DH parameter"
+msgid "&Open DataBase"
 msgstr ""
 
 #: MainWindow#26
-msgid "Set as default DataBase"
+msgid "Generate DH parameter"
 msgstr ""
 
 #: MainWindow#27
-msgid "&Close DataBase"
+msgid "Set as default DataBase"
 msgstr ""
 
 #: MainWindow#28
-msgid "&Dump DataBase"
+msgid "&Close DataBase"
 msgstr ""
 
 #: MainWindow#29
-msgid "C&hange DataBase password"
+msgid "&Dump DataBase"
 msgstr ""
 
 #: MainWindow#30
-msgid "&Import old db_dump"
+msgid "C&hange DataBase password"
 msgstr ""
 
 #: MainWindow#31
-msgid "&Undelete items"
+msgid "&Import old db_dump"
 msgstr ""
 
 #: MainWindow#32
-msgid "Options"
+msgid "&Undelete items"
 msgstr ""
 
 #: MainWindow#33
-msgid "Exit"
+msgid "Options"
 msgstr ""
 
 #: MainWindow#34
-msgid "I&mport"
+msgid "Exit"
 msgstr ""
 
 #: MainWindow#35
-msgid "Keys"
+msgid "I&mport"
 msgstr ""
 
 #: MainWindow#36
-msgid "Requests"
+msgid "Keys"
 msgstr ""
 
 #: MainWindow#37
-msgid "PKCS#12"
+msgid "Requests"
 msgstr ""
 
 #: MainWindow#38
-msgctxt "MainWindow#38"
-msgid "PKCS#7"
+msgid "PKCS#12"
 msgstr ""
 
 #: MainWindow#39
 msgctxt "MainWindow#39"
-msgid "Template"
+msgid "PKCS#7"
 msgstr ""
 
 #: MainWindow#40
-msgid "Revocation list"
+msgctxt "MainWindow#40"
+msgid "Template"
 msgstr ""
 
 #: MainWindow#41
-msgid "PEM file"
+msgid "Revocation list"
 msgstr ""
 
 #: MainWindow#42
-msgid "paste PEM file"
+msgid "PEM file"
 msgstr ""
 
 #: MainWindow#43
-msgid "&Token"
+msgid "paste PEM file"
 msgstr ""
 
 #: MainWindow#44
-msgid "&Manage Security token"
+msgid "&Token"
 msgstr ""
 
 #: MainWindow#45
-msgid "&Init Security token"
+msgid "&Manage Security token"
 msgstr ""
 
 #: MainWindow#46
-msgid "&Change PIN"
+msgid "&Init Security token"
 msgstr ""
 
 #: MainWindow#47
-msgid "Change &SO PIN"
+msgid "&Change PIN"
 msgstr ""
 
 #: MainWindow#48
-msgid "Init PIN"
+msgid "Change &SO PIN"
 msgstr ""
 
 #: MainWindow#49
-msgid "&Help"
+msgid "Init PIN"
 msgstr ""
 
 #: MainWindow#50
-msgid "&Content"
+msgid "&Help"
 msgstr ""
 
 #: MainWindow#51
-msgid "&About"
+msgid "&Content"
 msgstr ""
 
 #: MainWindow#52
-msgid "Donations"
+msgid "&About"
 msgstr ""
 
 #: MainWindow#53
-msgid "Database dump ( *.dump );;All files ( * )"
+msgid "Donations"
 msgstr ""
 
 #: MainWindow#54
-msgid "Import password"
+msgid "Database dump ( *.dump );;All files ( * )"
 msgstr ""
 
 #: MainWindow#55
-msgid "Please enter the password of the old database"
+msgid "Import password"
 msgstr ""
 
 #: MainWindow#56
-msgid "Password verification error. Ignore keys ?"
+msgid "Please enter the password of the old database"
 msgstr ""
 
 #: MainWindow#57
-msgid "Import anyway"
+msgid "Password verification error. Ignore keys ?"
 msgstr ""
 
 #: MainWindow#58
-msgctxt "MainWindow#58"
-msgid "Cancel"
+msgid "Import anyway"
 msgstr ""
 
 #: MainWindow#59
@@ -1082,7 +1092,11 @@ msgid "Keytype"
 msgstr ""
 
 #: NewKey#11
-msgctxt "NewKey#11"
+msgid "Remember as default"
+msgstr ""
+
+#: NewKey#12
+msgctxt "NewKey#12"
 msgid "Create"
 msgstr ""
 
@@ -1577,19 +1591,19 @@ msgid "Create x509 Certificate"
 msgstr ""
 
 #: NewX509#102
-msgid "From PKCS#10 request"
-msgstr ""
-
-#: NewX509#103
 msgid "Other Tabs"
 msgstr ""
 
-#: NewX509#104
+#: NewX509#103
 msgid "Advanced Tab"
 msgstr ""
 
-#: NewX509#105
+#: NewX509#104
 msgid "Errors"
+msgstr ""
+
+#: NewX509#105
+msgid "From PKCS#10 request"
 msgstr ""
 
 #: NewX509#106
@@ -2172,109 +2186,123 @@ msgid "Size"
 msgstr ""
 
 #: db_key#3
-msgid "Use"
+msgid "EC Group"
 msgstr ""
 
 #: db_key#4
-msgctxt "db_key#4"
-msgid "Password"
+msgid "Use"
 msgstr ""
 
 #: db_key#5
+msgctxt "db_key#5"
+msgid "Password"
+msgstr ""
+
+#: db_key#6
 msgid ""
 "The key is already in the database as:\n"
 "'%1'\n"
 "and is not going to be imported"
 msgstr ""
 
-#: db_key#6
+#: db_key#7
 msgid ""
 "The database already contains the public part of the imported key as\n"
 "'%1\n"
 "and will be completed by the new, private part of the key"
 msgstr ""
 
-#: db_key#7
+#: db_key#8
 msgid "Key size too small !"
 msgstr ""
 
-#: db_key#8
+#: db_key#9
 msgid "You are sure to create a key of the size: %1 ?"
 msgstr ""
 
-#: db_key#9
+#: db_key#10
 msgid ""
 "Shall the original key '%1' be replaced by the key on the token?\n"
 "This will delete the key '%1' and make it unexportable"
 msgstr ""
 
-#: db_key#10
-msgctxt "db_key#10"
-msgid "New Key"
-msgstr ""
-
 #: db_key#11
 msgctxt "db_key#11"
-msgid "Import"
+msgid "New Key"
 msgstr ""
 
 #: db_key#12
 msgctxt "db_key#12"
-msgid "Rename"
+msgid "Import"
 msgstr ""
 
 #: db_key#13
 msgctxt "db_key#13"
-msgid "Show Details"
+msgid "Rename"
 msgstr ""
 
 #: db_key#14
 msgctxt "db_key#14"
-msgid "Delete"
+msgid "Show Details"
 msgstr ""
 
 #: db_key#15
 msgctxt "db_key#15"
-msgid "Export"
+msgid "Delete"
 msgstr ""
 
 #: db_key#16
-msgid "Change password"
+msgctxt "db_key#16"
+msgid "Export"
 msgstr ""
 
 #: db_key#17
-msgid "Reset password"
+msgctxt "db_key#17"
+msgid "Clipboard"
 msgstr ""
 
 #: db_key#18
-msgid "Change PIN"
+msgctxt "db_key#18"
+msgid "File"
 msgstr ""
 
 #: db_key#19
-msgid "Init PIN with SO PIN (PUK)"
+msgid "Change password"
 msgstr ""
 
 #: db_key#20
-msgid "Change SO PIN (PUK)"
+msgid "Reset password"
 msgstr ""
 
 #: db_key#21
-msgid "Store on Security token"
+msgid "Change PIN"
 msgstr ""
 
 #: db_key#22
-msgid "Tried to change password of a token"
+msgid "Init PIN with SO PIN (PUK)"
 msgstr ""
 
 #: db_key#23
-msgid "Tried to change PIN of a key"
+msgid "Change SO PIN (PUK)"
 msgstr ""
 
 #: db_key#24
-msgid "Tried to init PIN of a key"
+msgid "Store on Security token"
 msgstr ""
 
 #: db_key#25
+msgid "Tried to change password of a token"
+msgstr ""
+
+#: db_key#26
+msgid "Tried to change PIN of a key"
+msgstr ""
+
+#: db_key#27
+msgid "Tried to init PIN of a key"
+msgstr ""
+
+#: db_key#28
 msgid "Tried to change SO PIN of a key"
 msgstr ""
 
@@ -2783,80 +2811,97 @@ msgid ""
 msgstr ""
 
 #: pki_evp#5
-msgid "Please enter the password to decrypt the private key: '%1'"
+msgid "Ignoring unsupported private key"
 msgstr ""
 
 #: pki_evp#6
-msgid "Password input aborted"
+msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr ""
 
 #: pki_evp#7
-msgid "Please enter the database password for decrypting the key '%1'"
+msgid "Password input aborted"
 msgstr ""
 
 #: pki_evp#8
-msgid "Please enter the password to protect the private key: '%1'"
+msgid "Please enter the database password for decrypting the key '%1'"
 msgstr ""
 
 #: pki_evp#9
-msgid "Please enter the database password for encrypting the key"
+msgid "Please enter the password to protect the private key: '%1'"
 msgstr ""
 
 #: pki_evp#10
-msgid "Please enter the password protecting the PKCS#8 key '%1'"
+msgid "Please enter the database password for encrypting the key"
 msgstr ""
 
 #: pki_evp#11
+msgid "Please enter the password protecting the PKCS#8 key '%1'"
+msgstr ""
+
+#: pki_evp#12
 msgid "Please enter the export password for the private key '%1'"
 msgstr ""
 
 #: pki_key#1
-msgid "Successfully imported the %1 public key '%2'"
+msgid ""
+"Do you really want to export the private key unencrypted to the clipboard ?"
 msgstr ""
 
 #: pki_key#2
-msgid "Delete the %1 public key '%2'?"
+msgid "Only export the public key"
 msgstr ""
 
 #: pki_key#3
-msgid "Successfully imported the %1 private key '%2'"
+msgid "Export the private key unencrypted"
 msgstr ""
 
 #: pki_key#4
-msgid "Delete the %1 private key '%2'?"
+msgid "Successfully imported the %1 public key '%2'"
 msgstr ""
 
 #: pki_key#5
-msgid "Successfully created the %1 private key '%2'"
+msgid "Delete the %1 public key '%2'?"
 msgstr ""
 
 #: pki_key#6
-msgctxt "pki_key#6"
-msgid "Delete the %1 keys: %2?"
+msgid "Successfully imported the %1 private key '%2'"
 msgstr ""
 
 #: pki_key#7
-msgid "public key"
+msgid "Delete the %1 private key '%2'?"
 msgstr ""
 
 #: pki_key#8
-msgid "Common"
+msgid "Successfully created the %1 private key '%2'"
 msgstr ""
 
 #: pki_key#9
-msgid "Private"
+msgctxt "pki_key#9"
+msgid "Delete the %1 keys: %2?"
 msgstr ""
 
 #: pki_key#10
-msgid "Bogus"
+msgid "public key"
 msgstr ""
 
 #: pki_key#11
-msgctxt "pki_key#11"
-msgid "PIN"
+msgid "Common"
 msgstr ""
 
 #: pki_key#12
+msgid "Private"
+msgstr ""
+
+#: pki_key#13
+msgid "Bogus"
+msgstr ""
+
+#: pki_key#14
+msgctxt "pki_key#14"
+msgid "PIN"
+msgstr ""
+
+#: pki_key#15
 msgid "No password"
 msgstr ""
 
@@ -2912,11 +2957,11 @@ msgid "Delete the private key '%1' from the token '%2 (#%3)' ?"
 msgstr ""
 
 #: pki_scard#6
-msgid "only RSA keys can be stored on tokens"
+msgid "This Key is already on the token"
 msgstr ""
 
 #: pki_scard#7
-msgid "This Key is already on the token"
+msgid "Only RSA and EC keys can be stored on tokens"
 msgstr ""
 
 #: pki_scard#8
@@ -2936,24 +2981,36 @@ msgid "Public Key missmatch. Please re-import card"
 msgstr ""
 
 #: pki_scard#12
-msgid "Unable to find generated key on card"
+msgid "Illegal Key generation method"
 msgstr ""
 
 #: pki_scard#13
-msgctxt "pki_scard#13"
-msgid "Wrong Size %1"
+msgid "Unable to find generated key on card"
 msgstr ""
 
 #: pki_scard#14
-msgid "Token %1"
+msgid "Ignoring unsupported token key"
 msgstr ""
 
 #: pki_scard#15
-msgid "Failed to find the key on the token"
+msgctxt "pki_scard#15"
+msgid "Wrong Size %1"
 msgstr ""
 
 #: pki_scard#16
+msgid "Token %1"
+msgstr ""
+
+#: pki_scard#17
+msgid "Failed to find the key on the token"
+msgstr ""
+
+#: pki_scard#18
 msgid "Invalid Pin for the token"
+msgstr ""
+
+#: pki_scard#19
+msgid "Failed to initialize the key on the token"
 msgstr ""
 
 #: pki_temp#1
@@ -3113,7 +3170,6 @@ msgid "Validate"
 msgstr ""
 
 #: v3ext#5
-msgctxt "v3ext#5"
 msgid "Cancel"
 msgstr ""
 
