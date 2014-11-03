@@ -509,12 +509,12 @@ PEM je base64 kodirana DER datoteka</translation>
     <message>
         <location filename="../ui/ExportDialog.ui" line="98"/>
         <source>Name</source>
-        <translation type="unfinished">Ime</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="105"/>
         <source>The internal name of the CRL in the database</source>
-        <translation type="unfinished">Interno ime popisa povučenih potvrda (u bazi podataka)</translation>
+        <translation>Interno ime popisa povučenih potvrda (u bazi podataka)</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="148"/>
@@ -601,20 +601,12 @@ PKCS#8 je službeni format za razmjenu ključeva</translation>
     <message>
         <location filename="../widgets/ExportKey.cpp" line="45"/>
         <source>Export public %1 key</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi javni %1 ključ</translation>
     </message>
     <message>
         <location filename="../widgets/ExportKey.cpp" line="48"/>
         <source>Export %1 key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Public key export</source>
-        <translation type="obsolete">Izvoz javnog ključa</translation>
-    </message>
-    <message>
-        <source>Key export</source>
-        <translation type="obsolete">Izvoz ključa</translation>
+        <translation>Izvezi %1 ključ</translation>
     </message>
 </context>
 <context>
@@ -955,7 +947,7 @@ Serijski broj: %3</translation>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="29"/>
         <source>Recent DataBases</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedavna baza podataka</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="33"/>
@@ -1136,10 +1128,6 @@ Serijski broj: %3</translation>
         <location filename="../widgets/MW_menu.cpp" line="175"/>
         <source>Import anyway</source>
         <translation>Ipak uvezi</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Odustani</translation>
     </message>
     <message>
         <location filename="../widgets/MainWindow.cpp" line="277"/>
@@ -1369,7 +1357,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location filename="../ui/NewKey.ui" line="188"/>
         <source>Remember as default</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapamti kao osnovnu vrijednost</translation>
     </message>
     <message>
         <location filename="../widgets/NewKey.cpp" line="170"/>
@@ -1397,520 +1385,417 @@ Unesite bitove za DH parametre</translation>
         <translation>Zahtjev za izdavanje</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="121"/>
-        <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
-Getting signed by a CA certificate, whoes certificate of course must be in the database
-Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
-        <translation>Zahtjev za izdavanje potvrde može biti potpisan i u situacijama kad privatni ključ koji odgovara zahtjevu nije dostupan. To je i namjena zahtjeva (CSR):
-Biti potpisan od strane CA potvrde, koja naravno mora biti u bazi podataka
-Jasno da trebate imati privatni ključ od zahtjeva (CSR) ako želite od zahtjeva napraviti samopotpisanu potvrdu.</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="130"/>
+        <location filename="../ui/NewX509.ui" line="125"/>
         <source>Show request</source>
         <translatorcomment>Prikaži</translatorcomment>
         <translation>Pokaži zahtjev</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="137"/>
+        <location filename="../ui/NewX509.ui" line="132"/>
         <source>Sign this Certificate signing &amp;request</source>
         <translatorcomment>ovaj - da li treba?</translatorcomment>
         <translation>Potpiši ovaj &amp;zahtjev za izdavanje potvrde</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="144"/>
+        <location filename="../ui/NewX509.ui" line="139"/>
         <source>Copy extensions from the request</source>
         <translation>Kopiraj proširenja iz zahtjeva</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="154"/>
+        <location filename="../ui/NewX509.ui" line="149"/>
         <source>Modify subject of the request</source>
         <translation>Promijeni Subjekt iz zahtjeva</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="195"/>
+        <location filename="../ui/NewX509.ui" line="190"/>
         <source>Signing</source>
         <translation>Potpisivanje</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="215"/>
+        <location filename="../ui/NewX509.ui" line="210"/>
         <source>Create a &amp;self signed certificate with the serial</source>
         <translatorcomment>Stvori ili napravi ili izradi?</translatorcomment>
         <translation>Izradi &amp;samopotpisanu potvrdu s ovim serijskim brojem</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="225"/>
+        <location filename="../ui/NewX509.ui" line="220"/>
         <source>If you leave this blank the serial 00 will be used</source>
         <translation>Ako ovo ne ispunite koristiti će se serijski broj 00</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="228"/>
+        <location filename="../ui/NewX509.ui" line="223"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="245"/>
+        <location filename="../ui/NewX509.ui" line="240"/>
         <source>Use &amp;this Certificate for signing</source>
         <translation>Koristi &amp;ovu Potvrdu za potpisivanje</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="252"/>
+        <location filename="../ui/NewX509.ui" line="247"/>
         <source>All certificates in your database that can create valid signatures</source>
         <translation>Sve potvrde u vašoj bazi podataka koje mogu izraditi valjani potpis</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="255"/>
-        <source>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
-If this list is disabled, you only can create a self-signed certificate.</source>
-        <translation>Ovaj popis sadrži sve potvrde koje imaju postavljenu CA zastavicu i čiji privatni ključ se nalazi u bazi ključeva.
-Ako je ovaj popis onemogućen, možete izraditi samo samopotpisanu potvrdu.</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="289"/>
+        <location filename="../ui/NewX509.ui" line="280"/>
         <source>Signature algorithm</source>
         <translation>Algoritam potpisivanja</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="317"/>
+        <location filename="../ui/NewX509.ui" line="308"/>
         <source>Template for the new certificate</source>
         <translation>Predložak za novu potvrdu</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="329"/>
+        <location filename="../ui/NewX509.ui" line="320"/>
         <source>All available templates</source>
         <translation>Svi raspoloživi predlošci</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="332"/>
-        <source>This list contains all templates from the toplevel template Tab</source>
-        <translatorcomment>Zaguljen prijevod, provjeriti!!!</translatorcomment>
-        <translation>Ovaj popis sadrži sve predloške iz Kartice obrasci s najviše razine menija</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="354"/>
+        <location filename="../ui/NewX509.ui" line="342"/>
         <source>Apply extensions</source>
         <translation>Primijeni proširenja</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="361"/>
+        <location filename="../ui/NewX509.ui" line="349"/>
         <source>Apply subject</source>
         <translation>Primijeni subjekt</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="374"/>
+        <location filename="../ui/NewX509.ui" line="362"/>
         <source>Apply all</source>
         <translation>Primijeni sve</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="403"/>
+        <location filename="../ui/NewX509.ui" line="391"/>
         <location filename="../widgets/NewX509.cpp" line="439"/>
         <source>Subject</source>
         <translation>Subjekt</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="415"/>
+        <location filename="../ui/NewX509.ui" line="403"/>
         <source>Distinguished name</source>
         <translation>Jedinstveno ime (DN)</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="433"/>
+        <location filename="../ui/NewX509.ui" line="421"/>
         <source>Organisation</source>
         <translation>Organizacija</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="443"/>
+        <location filename="../ui/NewX509.ui" line="431"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Ovo ime se samo interno koristi i neće se pojaviti u izrađenoj potvrdi</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="453"/>
+        <location filename="../ui/NewX509.ui" line="441"/>
         <source>Must be exactly 2 letter of size (DE, UK)</source>
         <translation>Mora biti točno 2 velika slova (HR, UK)</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="470"/>
+        <location filename="../ui/NewX509.ui" line="458"/>
         <source>Country code</source>
         <translation>Kod države</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="480"/>
+        <location filename="../ui/NewX509.ui" line="468"/>
         <source>State or Province</source>
         <translatorcomment>U smislu savezna država</translatorcomment>
         <translation>Država ili Pokrajina</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="493"/>
+        <location filename="../ui/NewX509.ui" line="481"/>
         <source>Locality</source>
         <translation>Mjesto</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="503"/>
+        <location filename="../ui/NewX509.ui" line="491"/>
         <source>Organisational unit</source>
         <translation>Organizacijska jedinica</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="513"/>
+        <location filename="../ui/NewX509.ui" line="501"/>
         <source>E-Mail address</source>
         <translation>E-mail adresa</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="529"/>
+        <location filename="../ui/NewX509.ui" line="517"/>
         <source>Internal name</source>
         <translation>Interno ime</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="542"/>
+        <location filename="../ui/NewX509.ui" line="530"/>
         <source>Common name</source>
-        <translation>Uobičajeno ime (CN)</translation>
+        <translation>Uobičajeno ime</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="575"/>
+        <location filename="../ui/NewX509.ui" line="569"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="582"/>
+        <location filename="../ui/NewX509.ui" line="576"/>
         <source>Delete</source>
         <translation>Brisanje</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="619"/>
+        <location filename="../ui/NewX509.ui" line="613"/>
         <source>Private key</source>
         <translation>Privatni ključ</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="637"/>
+        <location filename="../ui/NewX509.ui" line="631"/>
         <source>This list only contains unused keys</source>
         <translation>Ovaj popis sadrži samo neiskorištene ključeve</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="644"/>
+        <location filename="../ui/NewX509.ui" line="638"/>
         <source>Used keys too</source>
         <translation>Korišteni ključevi također</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="651"/>
+        <location filename="../ui/NewX509.ui" line="645"/>
         <source>&amp;Generate a new key</source>
         <translation>&amp;Generiraj novi ključ</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="662"/>
+        <location filename="../ui/NewX509.ui" line="656"/>
         <source>Extensions</source>
         <translation>Proširenja</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="670"/>
+        <location filename="../ui/NewX509.ui" line="664"/>
         <source>Basic constraints</source>
         <translation>Osnovna ograničenja</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="679"/>
+        <location filename="../ui/NewX509.ui" line="673"/>
         <source>Type</source>
         <translation>Vrsta</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="686"/>
+        <location filename="../ui/NewX509.ui" line="680"/>
         <source>If this will become a CA certificate or not</source>
         <translation>Da li će ovo postati CA potvrda ili ne</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="689"/>
-        <source>Set this to TRUE if you want to create a CA certificate that signs other certificates.
-This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
-Self-signed non-CA certificates are unusual although they are possible.</source>
-        <translatorcomment>Da li se TRUE može promijeniti u DA ili TOČNO? !!!</translatorcomment>
-        <translation>Postavite ovo na TRUE ako želite izraditi CA potvrdu koja može potpisati druge potvrde.
-Ovo je uvijek postavljeno na FALSE za klijentske i poslužiteljske potvrde. U večini slučajeva samopotpisane potvrde su CA potvrde.
-Samopotpisane potvrde koje nisu CA potvrde nisu uobičajene premda ih je moguće izraditi.</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="695"/>
+        <location filename="../ui/NewX509.ui" line="684"/>
         <source>Not defined</source>
         <translation>Nije definirano</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="700"/>
+        <location filename="../ui/NewX509.ui" line="689"/>
         <source>Certification Authority</source>
         <translation>Tijelo ovjeravanja (CA)</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="705"/>
+        <location filename="../ui/NewX509.ui" line="694"/>
         <source>End Entity</source>
         <translation>Krajnji subjekt</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="713"/>
+        <location filename="../ui/NewX509.ui" line="702"/>
         <source>Path length</source>
         <translation>Dužina puta</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="720"/>
+        <location filename="../ui/NewX509.ui" line="709"/>
         <source>How much CAs may be below this.</source>
         <translation>Koliko CA može biti ispod ove CA.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="723"/>
-        <source>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
-A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</source>
-        <translation>Ako ovo nije popunjeno dužina puta (pathlen) nije uključena u potvrdu. U suprotnom, određuje broj ulančanih CA potvrda ispod ove CA.
-Dužina puta 0 znači da ova potvrda ne može izdavati podređene CA potvrde. Premda je to moguće, svi algoritmi za provjeru lanca potvrda (npr. u vašem pregledniku ili openssl programu) će (trebali bi) prijaviti grešku.</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="731"/>
+        <location filename="../ui/NewX509.ui" line="716"/>
         <source>The basic constraints should always be critical</source>
         <translation>Osnovna ograničenja bi uvijek trebala biti kritična osobina potvrde</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="744"/>
+        <location filename="../ui/NewX509.ui" line="729"/>
         <source>Key identifier</source>
         <translation>Oznaka ključa</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="759"/>
+        <location filename="../ui/NewX509.ui" line="744"/>
         <source>Creates a hash of the key following the PKIX guidelines</source>
         <translation>Izradi sažetak ključa sljedeći PKIX preporuke</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="769"/>
+        <location filename="../ui/NewX509.ui" line="754"/>
         <source>Copy the Subject Key Identifier from the issuer</source>
         <translation>Kopiraj Oznaku ključa Subjekta iz izdavača</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="772"/>
-        <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
-It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
-        <translatorcomment>!!! keyid da li prevoditi i što staviti</translatorcomment>
-        <translation>Ako je ova kućica označena pokušat će se kopirati oznaka ključa izdavača iz potvrde potpisnika.
-Također će se kopirati izdavač i serijski broj iz potvrde izdavača. Normalno to će biti napravljeno samo keyid opcija ne uspije.</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="813"/>
+        <location filename="../ui/NewX509.ui" line="794"/>
         <source>Validity</source>
         <translatorcomment>Nepobitnost, pravomoćnost, valjanost</translatorcomment>
         <translation>Ispravnost</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="819"/>
+        <location filename="../ui/NewX509.ui" line="800"/>
         <source>Not before</source>
         <translation>Od</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="833"/>
+        <location filename="../ui/NewX509.ui" line="814"/>
         <source>Not after</source>
         <translation>Do</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="850"/>
+        <location filename="../ui/NewX509.ui" line="831"/>
         <source>Time range</source>
         <translation>Vremensko razdoblje</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="860"/>
+        <location filename="../ui/NewX509.ui" line="841"/>
         <source>Days</source>
         <translation>Dana</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="865"/>
+        <location filename="../ui/NewX509.ui" line="846"/>
         <source>Months</source>
         <translation>Mjeseci</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="870"/>
+        <location filename="../ui/NewX509.ui" line="851"/>
         <source>Years</source>
         <translation>Godina</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="884"/>
+        <location filename="../ui/NewX509.ui" line="865"/>
         <source>Apply</source>
         <translation>Primjeni</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="891"/>
+        <location filename="../ui/NewX509.ui" line="872"/>
         <source>Set the time to 00:00:00 and 23:59:59 respectively</source>
         <translation>Postavi vrijeme na 00:00:00 odnosno 23:59:59 </translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="894"/>
+        <location filename="../ui/NewX509.ui" line="875"/>
         <source>Midnight</source>
         <translation>Ponoć</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="901"/>
+        <location filename="../ui/NewX509.ui" line="882"/>
         <source>Local time</source>
         <translation>Lokalno vrijeme</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="908"/>
+        <location filename="../ui/NewX509.ui" line="889"/>
         <source>No well-defined expiration</source>
         <translation>Nejasno definiran istek roka</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="936"/>
+        <location filename="../ui/NewX509.ui" line="917"/>
         <source>subject alternative name</source>
         <translation>Alternativno ime subjekta</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="965"/>
-        <location filename="../ui/NewX509.ui" line="995"/>
-        <location filename="../ui/NewX509.ui" line="1103"/>
+        <location filename="../ui/NewX509.ui" line="946"/>
+        <location filename="../ui/NewX509.ui" line="970"/>
+        <location filename="../ui/NewX509.ui" line="1053"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="968"/>
-        <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translatorcomment>!!! literal values prevesti nekako drugačije???</translatorcomment>
-        <translation>Proširenje &quot;Alternativno ime subjekta&quot; dozvoljava upotrebu različitih doslovnih vrijednosti. To uključuje &quot;email&quot; (email adresu) , &quot;URI&quot; jedinstvenu oznaku resursa, &quot;DNS&quot; (DNS ime domene) , RID (registrirani ID: OBJECT IDENTIFIER) i IP (IP adresa).
-Primjeri:
-email:moja@druga.adresa, IP: 1.1.1.1 , URI:http://moj.url.ovdje/
-email:moja@druga.adresa, RID:1.2.3.4, DNS: ns.posluzitelj.hr</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="978"/>
-        <location filename="../ui/NewX509.ui" line="1008"/>
+        <location filename="../ui/NewX509.ui" line="953"/>
+        <location filename="../ui/NewX509.ui" line="977"/>
+        <location filename="../ui/NewX509.ui" line="1010"/>
         <location filename="../ui/NewX509.ui" line="1060"/>
-        <location filename="../ui/NewX509.ui" line="1118"/>
         <location filename="../widgets/NewX509.cpp" line="239"/>
         <location filename="../widgets/NewX509.cpp" line="810"/>
         <source>Edit</source>
         <translation>Uredi</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="985"/>
+        <location filename="../ui/NewX509.ui" line="960"/>
         <source>issuer alternative name</source>
         <translation>alternativno ime izdavača</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="998"/>
-        <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation>Proširenje &quot;Alternativno ime izdavača&quot; dozvoljava upotrebu različitih doslovnih vrijednosti. To uključuje &quot;email&quot; (email adresu) , &quot;URI&quot; jedinstvenu oznaku resursa, &quot;DNS&quot; (DNS ime domene) , RID (registrirani ID: OBJECT IDENTIFIER) i IP (IP adresa).
-Primjeri:
-email:moja@druga.adresa, IP: 1.1.1.1 , URI:http://moj.url.ovdje/
-email:moja@druga.adresa, RID:1.2.3.4, DNS: ns.posluzitelj.hr</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="1015"/>
+        <location filename="../ui/NewX509.ui" line="1086"/>
         <source>CRL distribution point</source>
         <translation>Točka objave popisa opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1044"/>
+        <location filename="../ui/NewX509.ui" line="1003"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1047"/>
-        <source>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
-Currently each option will set a new DistributionPoint with the fullName field set to the given value.
-Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn&apos;t appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
-Examples:
-URI:http://www.myhost.com/myca.crl
-URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
-        <translation>Ovo proširenje može sadržavati više vrijednosti i podržava sve doslovne opcije za alternativno ime subjekta. Od par programa koji trenutno tumače ovo proširenje većina samo tumači URI opciju.
-Trenutačno svaka opcija će postaviti novu DistributionPoint s poljem fullName postavljenim na danu vrijednost..
-Druga polja poput cRLissuer i razlozi trenutno ne mogu mogu biti postavljenia ili prikazana: trenutno ne postoje primjeri gdje se koriste navedena polja.
-Ako vidite ovo proširenje s &lt;UNSUPPORTED&gt; kada ga pokušate ispisati ili izgleda da se ne ispisuje ispravno tada to prijavite stivu i pošaljite mu i potvrdu (mail steve at openssl dot org).
-Primjeri:
-URI:http://www.mojastrana.hr/myca.crl
-URI:http://www.mojastrana.hr/my.crl, URI:http://www.mojastrana.hr/my.crl</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="1067"/>
+        <location filename="../ui/NewX509.ui" line="1017"/>
         <source>Authority Info Access</source>
         <translation>Dohvat informacija Autoriteta (AIA)</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1096"/>
+        <location filename="../ui/NewX509.ui" line="1046"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>može biti promijenjeno pomoću datoteke &quot;aia.txt&quot;</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1106"/>
-        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-
-Example:
-
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</source>
-        <translatorcomment>!!! što s accessOID calssuer ???</translatorcomment>
-        <translation>Proširenje Dohvat informacija Autoriteta sadrži detalje o tome kako dohvatiti određene informacije vezane uz CA. Sintaksa tog proširenja je accessOID;lokacija gdje &apos;lokacija&apos; ima istu sintaksu kao i alternativno ime subjekta (osim što nije podržano email:copy ). accessOID može biti bilo koji važeći OID no samo neke vrijednosti imaju smisla kao na primjer OCSP i caIssuer. OCSP daje lokaciju OSCP poslužitelja: to se koristi od strane Netscape PSM i drugih programa.
-
-Primjer:
-
-OCSP;URI:http://ocsp.mojposluzitelj/
-caIssuers;URI:http://moj.ca/ca.html</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="1147"/>
-        <location filename="../ui/NewX509.ui" line="1167"/>
+        <location filename="../ui/NewX509.ui" line="1099"/>
+        <location filename="../ui/NewX509.ui" line="1119"/>
         <source>Key usage</source>
         <translation>Namjena ključa</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1244"/>
+        <location filename="../ui/NewX509.ui" line="1199"/>
         <source>Extended key usage</source>
         <translation>Proširena upotreba ključa</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1279"/>
+        <location filename="../ui/NewX509.ui" line="1237"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1412"/>
+        <location filename="../ui/NewX509.ui" line="1370"/>
         <source>CA Revocation URL</source>
         <translation>URL opoziva CA</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1425"/>
+        <location filename="../ui/NewX509.ui" line="1383"/>
         <source>Revocation URL</source>
         <translation>URL opoziva</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1435"/>
+        <location filename="../ui/NewX509.ui" line="1393"/>
         <source>SSL server name</source>
         <translation>SSL ime poslužitelja</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1451"/>
+        <location filename="../ui/NewX509.ui" line="1409"/>
         <source>Certificate renewal URL</source>
         <translation>URL za obnovu potvrde</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1461"/>
+        <location filename="../ui/NewX509.ui" line="1419"/>
         <source>Comment</source>
         <translation>Napomena</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1471"/>
+        <location filename="../ui/NewX509.ui" line="1429"/>
         <source>CA policy URL</source>
         <translation>URL politike CA</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1481"/>
+        <location filename="../ui/NewX509.ui" line="1439"/>
         <source>Base URL</source>
         <translation>Osnovni URL</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1494"/>
+        <location filename="../ui/NewX509.ui" line="1452"/>
         <source>If you know a more pretty one tell me</source>
         <translatorcomment>!!! Ovo vrijedi i za hrvatski prijevod</translatorcomment>
         <translation>Ako znate bolje, javite mi</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1524"/>
+        <location filename="../ui/NewX509.ui" line="1482"/>
         <source>Advanced</source>
         <translation>Napredno</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="1548"/>
+        <location filename="../ui/NewX509.ui" line="1506"/>
         <location filename="../widgets/NewX509.cpp" line="820"/>
         <source>Validate</source>
         <translation>Potvrditi</translation>
@@ -2581,7 +2466,7 @@ U knjižnici %3
     <message>
         <location filename="../widgets/validity.cpp" line="94"/>
         <source>yyyy-MM-dd hh:mm</source>
-        <translation>gggg-MM-dd ss:mm</translation>
+        <translation>yyyy-MM-dd hh:mm</translation>
     </message>
 </context>
 <context>
@@ -2719,7 +2604,7 @@ i zbog toga nije uvezen</translation>
     <message>
         <location filename="../lib/db_key.cpp" line="40"/>
         <source>EC Group</source>
-        <translation type="unfinished"></translation>
+        <translation>EC Grupa</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="41"/>
@@ -2799,12 +2684,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location filename="../lib/db_key.cpp" line="238"/>
         <source>Clipboard</source>
-        <translation type="unfinished">Clipboard</translation>
+        <translation>Clipboard</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="240"/>
         <source>File</source>
-        <translation type="unfinished">Datoteka</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <location filename="../lib/db_key.cpp" line="244"/>
@@ -3468,7 +3353,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location filename="../lib/pki_evp.cpp" line="349"/>
         <source>Ignoring unsupported private key</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignoriram nepodržani privatni ključ</translation>
     </message>
     <message>
         <location filename="../lib/pki_evp.cpp" line="381"/>
@@ -3512,17 +3397,17 @@ i zbog toga nije spreman</translation>
     <message>
         <location filename="../lib/pki_key.cpp" line="90"/>
         <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Da li stvarno želite izvesti u clipboard nekriptirani privatni ključ?</translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="92"/>
         <source>Only export the public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi samo javni ključ</translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="93"/>
         <source>Export the private key unencrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi nekriptirani privatni ključ</translation>
     </message>
     <message>
         <location filename="../lib/pki_key.cpp" line="148"/>
@@ -3662,10 +3547,6 @@ i zbog toga nije spreman</translation>
         <translation>Obrisati privatni ključ &apos;%1&apos; s tokena &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <source>only RSA keys can be stored on tokens</source>
-        <translation type="obsolete">samo RSA ključevi mogu biti spremljeni na tokenu</translation>
-    </message>
-    <message>
         <location filename="../lib/pki_scard.cpp" line="328"/>
         <source>This Key is already on the token</source>
         <translation>Ovaj ključ se već nalazi na tokenu</translation>
@@ -3673,7 +3554,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location filename="../lib/pki_scard.cpp" line="369"/>
         <source>Only RSA and EC keys can be stored on tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Samo RSA i EC ključevi mogu biti spremljeni na tokenu</translation>
     </message>
     <message>
         <location filename="../lib/pki_scard.cpp" line="375"/>
@@ -3698,7 +3579,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location filename="../lib/pki_scard.cpp" line="547"/>
         <source>Illegal Key generation method</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedozvoljeni način generiranja Ključa</translation>
     </message>
     <message>
         <location filename="../lib/pki_scard.cpp" line="563"/>
@@ -3708,7 +3589,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location filename="../lib/pki_scard.cpp" line="614"/>
         <source>Ignoring unsupported token key</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignoriram nepodržani ključ za token</translation>
     </message>
     <message>
         <location filename="../lib/pki_scard.cpp" line="618"/>
@@ -3734,7 +3615,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location filename="../lib/pki_scard.cpp" line="657"/>
         <source>Failed to initialize the key on the token</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće inicijalizirati ključ na tokenu</translation>
     </message>
 </context>
 <context>

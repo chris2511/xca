@@ -117,11 +117,6 @@
              </property>
              <item row="0" column="1">
               <widget class="QComboBox" name="reqList">
-               <property name="whatsThis">
-                <string>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
-Getting signed by a CA certificate, whoes certificate of course must be in the database
-Of course you need the private key of the CSR if you want to create a self-signed cert from it.</string>
-               </property>
               </widget>
              </item>
              <item row="1" column="1">
@@ -251,10 +246,6 @@ Of course you need the private key of the CSR if you want to create a self-signe
               <property name="toolTip">
                <string>All certificates in your database that can create valid signatures</string>
               </property>
-              <property name="whatsThis">
-               <string>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
-If this list is disabled, you only can create a self-signed certificate.</string>
-              </property>
              </widget>
             </item>
            </layout>
@@ -327,9 +318,6 @@ If this list is disabled, you only can create a self-signed certificate.</string
             </property>
             <property name="toolTip">
              <string>All available templates</string>
-            </property>
-            <property name="whatsThis">
-             <string>This list contains all templates from the toplevel template Tab</string>
             </property>
            </widget>
           </item>
@@ -565,6 +553,12 @@ If this list is disabled, you only can create a self-signed certificate.</string
               <attribute name="horizontalHeaderStretchLastSection">
                <bool>true</bool>
               </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>200</number>
+              </attribute>
              </widget>
             </item>
             <item>
@@ -685,11 +679,6 @@ If this list is disabled, you only can create a self-signed certificate.</string
               <property name="toolTip">
                <string>If this will become a CA certificate or not</string>
               </property>
-              <property name="whatsThis">
-               <string>Set this to TRUE if you want to create a CA certificate that signs other certificates.
-This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
-Self-signed non-CA certificates are unusual although they are possible.</string>
-              </property>
               <item>
                <property name="text">
                 <string>Not defined</string>
@@ -718,10 +707,6 @@ Self-signed non-CA certificates are unusual although they are possible.</string>
              <widget class="QLineEdit" name="basicPath">
               <property name="toolTip">
                <string>How much CAs may be below this.</string>
-              </property>
-              <property name="whatsThis">
-               <string>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
-A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</string>
               </property>
              </widget>
             </item>
@@ -767,10 +752,6 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
              <widget class="QCheckBox" name="authKey">
               <property name="toolTip">
                <string>Copy the Subject Key Identifier from the issuer</string>
-              </property>
-              <property name="whatsThis">
-               <string>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
-It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</string>
               </property>
               <property name="text">
                <string notr="true">&amp;Authority Key Identifier</string>
@@ -964,12 +945,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
-           <property name="whatsThis">
-            <string>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
-           </property>
           </widget>
          </item>
          <item row="0" column="4">
@@ -994,28 +969,12 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
-           <property name="whatsThis">
-            <string>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
-           </property>
           </widget>
          </item>
          <item row="1" column="4">
           <widget class="QPushButton" name="editIssAlt">
            <property name="text">
             <string>Edit</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="TextLabel1_2_3_2_3">
-           <property name="toolTip">
-            <string>CRL distribution point</string>
-           </property>
-           <property name="text">
-            <string notr="true">CRL distribution point</string>
            </property>
           </widget>
          </item>
@@ -1042,15 +1001,6 @@ email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</string>
           <widget class="QLineEdit" name="crlDist">
            <property name="toolTip">
             <string>URI:</string>
-           </property>
-           <property name="whatsThis">
-            <string>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
-Currently each option will set a new DistributionPoint with the fullName field set to the given value.
-Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn't appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
-Examples:
-URI:http://www.myhost.com/myca.crl
-URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
            </property>
           </widget>
          </item>
@@ -1102,14 +1052,6 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</string>
            <property name="toolTip">
             <string>DNS: IP: URI: email: RID:</string>
            </property>
-           <property name="whatsThis">
-            <string>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where 'location' has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-
-Example:
-
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</string>
-           </property>
           </widget>
          </item>
          <item row="3" column="4">
@@ -1138,6 +1080,16 @@ caIssuers;URI:http://my.ca/ca.html</string>
            </property>
           </widget>
          </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="TextLabel1_2_3_2_3">
+           <property name="toolTip">
+            <string>CRL distribution point</string>
+           </property>
+           <property name="text">
+            <string notr="true">CRL distribution point</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
@@ -1163,8 +1115,11 @@ caIssuers;URI:http://my.ca/ca.html</string>
          </property>
          <item>
           <widget class="QGroupBox" name="groupBox_12">
-           <property name="title">
+           <property name="toolTip">
             <string>Key usage</string>
+           </property>
+           <property name="title">
+            <string notr="true">Key usage</string>
            </property>
            <layout class="QVBoxLayout">
             <property name="spacing">
@@ -1240,8 +1195,11 @@ caIssuers;URI:http://my.ca/ca.html</string>
          </item>
          <item>
           <widget class="QGroupBox" name="groupBox_11">
-           <property name="title">
+           <property name="toolTip">
             <string>Extended key usage</string>
+           </property>
+           <property name="title">
+            <string notr="true">Extended key usage</string>
            </property>
            <layout class="QVBoxLayout">
             <property name="spacing">

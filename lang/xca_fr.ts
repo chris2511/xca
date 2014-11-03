@@ -474,14 +474,6 @@ PKCS#8 est un format officiel d&apos;échange de clé</translation>
         <translation>SVP saisir le nom du fichier pour la clé.</translation>
     </message>
     <message>
-        <source>Public key export</source>
-        <translation type="obsolete">Exporter la clé publique</translation>
-    </message>
-    <message>
-        <source>Key export</source>
-        <translation type="obsolete">Exporter la clé</translation>
-    </message>
-    <message>
         <source>Export public %1 key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -888,10 +880,6 @@ Numéro de série: %3</translation>
         <translation>Importer quand-même</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuler</translation>
-    </message>
-    <message>
         <source>no such option: %1</source>
         <translation>&apos;%1&apos; n&apos;est pas une option</translation>
     </message>
@@ -1099,14 +1087,6 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Requête de signature</translation>
     </message>
     <message>
-        <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
-Getting signed by a CA certificate, whoes certificate of course must be in the database
-Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
-        <translation>Un requête de signature de certificat peut être signée même si la clé privée de la requête n&apos;est pas disponible. C&apos;est l&apos;intention
-d&apos;une requête de signature: être signée par un certificat d&apos;autorité (CA) qui lui bien-sûr, doit être dans la base de donnée.
-Par contre, la clé privée d&apos;une requête est nécessaire pour créer un certificat auto-signé à partir de celle-ci.</translation>
-    </message>
-    <message>
         <source>Show request</source>
         <translation>Afficher la requête</translation>
     </message>
@@ -1147,12 +1127,6 @@ Par contre, la clé privée d&apos;une requête est nécessaire pour créer un c
         <translation>Tous les certificats dans la base de données qui peuvent produire des signatures valables</translation>
     </message>
     <message>
-        <source>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
-If this list is disabled, you only can create a self-signed certificate.</source>
-        <translation>Cette liste contient tous les certificats qui ont le drapeau CA levé et dont la clé privée est présente dans la base de données.
-Si cette liste est désactivée, seule la création d&apos;un certificat auto-signé est possible.</translation>
-    </message>
-    <message>
         <source>Signature algorithm</source>
         <translation>Algorithme de signature</translation>
     </message>
@@ -1163,10 +1137,6 @@ Si cette liste est désactivée, seule la création d&apos;un certificat auto-si
     <message>
         <source>All available templates</source>
         <translation>Tous les modèles disponibles</translation>
-    </message>
-    <message>
-        <source>This list contains all templates from the toplevel template Tab</source>
-        <translation>Cette liste contient tous les modèles de l&apos;onglet &apos;Modèles&apos;</translation>
     </message>
     <message>
         <source>Apply extensions</source>
@@ -1265,14 +1235,6 @@ Si cette liste est désactivée, seule la création d&apos;un certificat auto-si
         <translation>Si un certificat d&apos;autorité (CA) est en train d&apos;être créé ou non</translation>
     </message>
     <message>
-        <source>Set this to TRUE if you want to create a CA certificate that signs other certificates.
-This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
-Self-signed non-CA certificates are unusual although they are possible.</source>
-        <translation>Sélectionner &quot;VRAI&quot; si vous voulez créer un certificat d&apos;autorité (CA) qui peut signer d&apos;autres certificats.
-&quot;FAUX&quot; doit toujours être séléectionné pour des certificats de clients ou de serveurs. Dans la plupart des cas,
-les certificats auto-signés sont des certificats d&apos;autorité: bien que possibles, les certificats auto-signés non-CA sont rares.</translation>
-    </message>
-    <message>
         <source>Not defined</source>
         <translation>Non défini</translation>
     </message>
@@ -1293,13 +1255,6 @@ les certificats auto-signés sont des certificats d&apos;autorité: bien que pos
         <translation>Combien de niveau de sous-CA peuvent apparaître jusqu&apos;à une entité finale.</translation>
     </message>
     <message>
-        <source>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
-A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</source>
-        <translation>Si ce champ est laissé vide, la distance aux peuilles n&apos;est pas incluse dans le certificat. Sinon il limite le nombre de sous-CA en dessous de celui-ci.
-Une distance aux feuilles de 0 signifie que ce certificat ne peut pas signer de sous-CA. Bien qu&apos;il puisse effectivement le faire, tous les algorithme de vérification de
-chaînage des certificats (p.ex: dans votre navigateur ou openssl) les refuseront.</translation>
-    </message>
-    <message>
         <source>The basic constraints should always be critical</source>
         <translation>Les contraintes basiques doivent toujours être critiques</translation>
     </message>
@@ -1314,12 +1269,6 @@ chaînage des certificats (p.ex: dans votre navigateur ou openssl) les refuseron
     <message>
         <source>Copy the Subject Key Identifier from the issuer</source>
         <translation>Copie l&apos;identifiant de clé du sujet du signataire</translation>
-    </message>
-    <message>
-        <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
-It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
-        <translation>Quand cette case est cochée, l&apos;identifiant de clé est copiée du certificat signataire.
-L&apos;emetteur et le numéro de série du certificat signataire sont aussi copiés: normalement cette copie n&apos;est effectuée que si la copie de l&apos;identifiant de clé échoue.</translation>
     </message>
     <message>
         <source>Validity</source>
@@ -1382,22 +1331,6 @@ L&apos;emetteur et le numéro de série du certificat signataire sont aussi copi
         <translation>URI:</translation>
     </message>
     <message>
-        <source>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
-Currently each option will set a new DistributionPoint with the fullName field set to the given value.
-Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn&apos;t appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
-Examples:
-URI:http://www.myhost.com/myca.crl
-URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
-        <translation>Cette extension est un agrégat de toutes les options littérales du nom alternatif du sujet. Parmi les quelques logiciels qui utilisent cette extension aujourd&apos;hui, la plupart ne traitent uniquement l&apos;option URI.
-Chaque option introduit un nouveau point de distribution qualifié par son nom complet.
-Pour l&apos;instant, les autres champs comme &apos;CRLissuer&apos; et &apos;reasons&apos; ne peuvent pas être saisis ou affichés. Aucun exemple utilisant ces champs n&apos;est disponible aujourd&apos;hui.
-Si cette extension apparaît comme &lt;UNSUPPORTED&gt; ou si le contenu ne semble pas affiché correctement, faites-le savoir a Steve (courriel: steve arobase openssl point org).
-Exemples:
-URI:http://www.monsite.com/monca.crl
-URI:http://www.moi.com/moi.crl, URI:http://www.lui.com/moi.crl</translation>
-    </message>
-    <message>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>peut être altéré par le fichier &quot;aia.txt&quot;</translation>
     </message>
@@ -1410,38 +1343,8 @@ URI:http://www.moi.com/moi.crl, URI:http://www.lui.com/moi.crl</translation>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-Example:
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</source>
-        <translation type="obsolete">L&apos;extension d&apos;accès à l&apos;information de l&apos;autorité indique comment accéder à certaines informations concernant le certificat d&apos;autorité. La syntaxe est accèsOID;emplacement où &apos;emplacement` à la même syntaxe que le nom alternatif du sujet (à part &apos;email:copy&quot; qui n&apos;est pas supporté). N&apos;importe quel OID valide peut être spécifié pour  accèsOID, mais seules certaines valeurs ont un sens, par exemple OCSP et caIssuers. OCSP renseigne sur l&apos;emplacement d&apos;un répondeur OCSP; ceci est untilisé par les navigateurs Web et d&apos;autres logiciels.
-Exemple:
-OCSP;URI:http://ocsp.mon.site/
-caIssuers;URI:http://moi.ca/ca.html</translation>
-    </message>
-    <message>
-        <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation>Cette extension contient le nom alternatif du sujet et permet de regrouper plusieurs valeurs littérales. Celles-ci comprennent &quot;email&quot; (un adresse de courriel), &quot;URI&quot; (un indicateur uniforme de ressource), &quot;DNS&quot; (un nom de domaine), &quot;RID&quot; (un identifiant d&apos;objet enregistré) et &quot;IP&quot; (une adresse IP).
-Exemples:
-email:mon@autre.adresse, IP: 1.1.1.1 , URI:http://mon.url.ici/
-email:mon@autre.adresse, RID:1.2.3.4, DNS: serveur.de.nom.tld</translation>
-    </message>
-    <message>
         <source>subject alternative name</source>
         <translation>nom alternatif du sujet</translation>
-    </message>
-    <message>
-        <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation>Cette extension contient le nom alternatif du signataire et permet de regrouper plusieurs valeurs littérales. Celles-ci comprennent &quot;email&quot; (un adresse de courriel), &quot;URI&quot; (un indicateur uniforme de ressource), &quot;DNS&quot; (un nom de domaine), &quot;RID&quot; (un identifiant d&apos;objet enregistré) et &quot;IP&quot; (une adresse IP).
-Exemples:
-email:mon@autre.adresse, IP: 1.1.1.1 , URI:http://mon.url.ici/
-email:mon@autre.adresse, RID:1.2.3.4, DNS: serveur.de.nom.tld</translation>
     </message>
     <message>
         <source>Key usage</source>
@@ -1628,10 +1531,6 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <translation>Le certificat serait échu avant de devenir actif. Vous avez probablement interverti les deux dates.</translation>
     </message>
     <message>
-        <source>The certificate contains duplicated extensions. Check the validation on the advanced tab.</source>
-        <translation type="obsolete">Le certificat contient des extensions dupliquées. Valider et vérifier sur l&apos;onglet &quot;Avancé&quot;.</translation>
-    </message>
-    <message>
         <source>Edit extensions</source>
         <translation>Modifier les extensions</translation>
     </message>
@@ -1647,15 +1546,6 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     </message>
     <message>
         <source>Local time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-
-Example:
-
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1736,14 +1626,6 @@ caIssuers;URI:http://my.ca/ca.html</source>
 </context>
 <context>
     <name>PwDialog</name>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Mot de passe</translation>
-    </message>
-    <message>
-        <source>The password is parsed as 2-digit hex code. It must have an equal number of digits (0-9 and a-f)</source>
-        <translation type="obsolete">Le mot de passe doit être exprimé sous forme d&apos;une suite de chiffres hexadécimaux. Il doit contenir un nombre pair de chiffres (0-9 et a-f)</translation>
-    </message>
     <message>
         <source>Take as HEX string</source>
         <translation>Exprimé en hexadécimal</translation>
@@ -2919,10 +2801,6 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Détruire la clé privée &apos;%1&apos; sur le jeton &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <source>only RSA keys can be stored on tokens</source>
-        <translation type="obsolete">Seules des clés RSA peuvent être enregistrées sur les jetons</translation>
-    </message>
-    <message>
         <source>This Key is already on the token</source>
         <translation>Cette clé est déjà sur le jeton</translation>
     </message>
@@ -3177,12 +3055,6 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>La validation a échoué:
 &apos;%1&apos;
 %2</translation>
-    </message>
-    <message>
-        <source>Validation successfull:
-&apos;%1&apos;</source>
-        <translation type="obsolete">La validation a été effectuée avec succès:
-&apos;%1&apos;</translation>
     </message>
     <message>
         <source>Validation successful:

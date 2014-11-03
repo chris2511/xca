@@ -871,10 +871,6 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">İptal</translation>
-    </message>
-    <message>
         <source>no such option: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1083,12 +1079,6 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
-Getting signed by a CA certificate, whoes certificate of course must be in the database
-Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1129,11 +1119,6 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
-If this list is disabled, you only can create a self-signed certificate.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Signature algorithm</source>
         <translation type="unfinished">İmza algoritması</translation>
     </message>
@@ -1143,10 +1128,6 @@ If this list is disabled, you only can create a self-signed certificate.</source
     </message>
     <message>
         <source>All available templates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This list contains all templates from the toplevel template Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1246,12 +1227,6 @@ If this list is disabled, you only can create a self-signed certificate.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set this to TRUE if you want to create a CA certificate that signs other certificates.
-This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
-Self-signed non-CA certificates are unusual although they are possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Not defined</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1272,11 +1247,6 @@ Self-signed non-CA certificates are unusual although they are possible.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
-A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The basic constraints should always be critical</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1290,11 +1260,6 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
     </message>
     <message>
         <source>Copy the Subject Key Identifier from the issuer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
-It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1358,16 +1323,6 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
-Currently each option will set a new DistributionPoint with the fullName field set to the given value.
-Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn&apos;t appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
-Examples:
-URI:http://www.myhost.com/myca.crl
-URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1380,21 +1335,7 @@ URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>subject alternative name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1595,15 +1536,6 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-
-Example:
-
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1681,10 +1613,6 @@ caIssuers;URI:http://my.ca/ca.html</source>
 </context>
 <context>
     <name>PwDialog</name>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Parola</translation>
-    </message>
     <message>
         <source>Take as HEX string</source>
         <translation type="unfinished"></translation>

@@ -536,14 +536,6 @@ PEM is a base64 encoded DER file
 <context>
     <name>ExportKey</name>
     <message>
-        <source>Public key export</source>
-        <translation type="obsolete">Export des öffentlichen Schlüssels</translation>
-    </message>
-    <message>
-        <source>Key export</source>
-        <translation type="obsolete">Schlüssel export</translation>
-    </message>
-    <message>
         <location filename="../widgets/ExportKey.cpp" line="+34"/>
         <source>Please enter the filename for the key.</source>
         <translation>Bitte geben Sie den Dateinamen für den Schlüssel ein.</translation>
@@ -1062,10 +1054,6 @@ Seriennummer: %3</translation>
         <translation>Trotzdem importieren</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
-    </message>
-    <message>
         <location line="-117"/>
         <source>I&amp;mport</source>
         <translation>I&amp;mport</translation>
@@ -1373,19 +1361,12 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Zertifikatsantrag</translation>
     </message>
     <message>
-        <location line="+21"/>
-        <source>A certificate signing request can be signed, even if the private key of the request is not available. This is the intention of a CSR:
-Getting signed by a CA certificate, whoes certificate of course must be in the database
-Of course you need the private key of the CSR if you want to create a self-signed cert from it.</source>
-        <translation>Ein CSR (Zertifikatsantrag) kann unterschrieben werden, auch wenn der private Schlüssel des Antrags nicht verfügbar ist. Dies ist die Aufgabe eines CSR.</translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+25"/>
         <source>Show request</source>
         <translation>Request anzeigen</translation>
     </message>
     <message>
-        <location line="+340"/>
+        <location line="+333"/>
         <source>Country code</source>
         <translation>Länder code</translation>
     </message>
@@ -1420,7 +1401,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <translation>E-Mail Adresse</translation>
     </message>
     <message>
-        <location line="-376"/>
+        <location line="-369"/>
         <source>Sign this Certificate signing &amp;request</source>
         <translation>Diesen Zertifikatsant&amp;rag unterschreiben</translation>
     </message>
@@ -1455,14 +1436,7 @@ Of course you need the private key of the CSR if you want to create a self-signe
         <translation>Alle Zertifikate aus der Datenbank, die gültige Unterschriften leisten können</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>This list contains all certificates with the CA-flag set to true and whoes private key is present in the key-database.
-If this list is disabled, you only can create a self-signed certificate.</source>
-        <translation>Diese Liste enthält alle Zertifikate mit dem CA-flag gesetzt und dessen privater Schlüssel verfügbar ist.
-Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifikat erstellt werden. </translation>
-    </message>
-    <message>
-        <location line="+34"/>
+        <location line="+33"/>
         <source>Signature algorithm</source>
         <translation>Signatur algorithmus</translation>
     </message>
@@ -1477,30 +1451,25 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Alle verfügbaren Vorlagen</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>This list contains all templates from the toplevel template Tab</source>
-        <translation>Diese Liste enthält alle Vorlagen</translation>
-    </message>
-    <message>
-        <location line="+552"/>
+        <location line="+545"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-481"/>
+        <location line="-474"/>
         <location filename="../widgets/NewX509.cpp" line="+204"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
     </message>
     <message>
-        <location line="-158"/>
+        <location line="-151"/>
         <source>Use &amp;this Certificate for signing</source>
         <translation>Verwende dieses Zertifika&amp;t zum Unterschreiben</translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+163"/>
         <source>Distinguished name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eindeutiger Name</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -1518,7 +1487,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+52"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
@@ -1555,7 +1524,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
     <message>
         <location line="+8"/>
         <source>Basic constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Grundsätzliche Einschränkungen</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1568,14 +1537,7 @@ Wenn diese Liste ausgeschaltet ist, kann nur ein selbst unterschriebenes Zertifi
         <translation>Ob dies ein CA Zertifikat wird oder nicht</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Set this to TRUE if you want to create a CA certificate that signs other certificates.
-This is always set to FALSE for client or server certificates. In most cases self-signed certificates are CA certificates.
-Self-signed non-CA certificates are unusual although they are possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+4"/>
         <source>Not defined</source>
         <translation>Nicht definiert</translation>
     </message>
@@ -1600,20 +1562,14 @@ Self-signed non-CA certificates are unusual although they are possible.</source>
         <translation>Wieviele CAs in der Kette unter diesem sein dürfen.</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>If this is left empty the pathlen is not included in the certificate. Otherwise it distinguishes the count of chained CA certificates below this one.
-A pathlen of 0 means, that this certificate may not issue other sub-CA certificates. Although it can do it, all chain-checking algorithms in e.g. your browser or openssl will (should) fail.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>The basic constraints should always be critical</source>
         <translation>Die &quot;basic constraints&quot; sollten immer &quot;critical&quot; sein</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Key identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlüsselkennung</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1626,13 +1582,7 @@ A pathlen of 0 means, that this certificate may not issue other sub-CA certifica
         <translation>Kopiere den &quot;Subject key identifier&quot; vom Aussteller</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>If this box is checked an attempt is made to copy the subject key identifier from the signing certificate.
-It also copies the issuer and serial number from the issuer certificate. Normally this will only be done if the keyid option fails.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+41"/>
+        <location line="+40"/>
         <source>Validity</source>
         <translation>Gültigkeit</translation>
     </message>
@@ -1682,139 +1632,102 @@ It also copies the issuer and serial number from the issuer certificate. Normall
         <translation>Ortszeit</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+135"/>
         <source>Authority Info Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-52"/>
+        <location line="+69"/>
         <source>CRL distribution point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-126"/>
         <source>issuer alternative name</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternativer Ausstellername</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+43"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>This is a multi-valued extension that supports all the literal options of subject alternative name. Of the few software packages that currentlyi nterpret this extension most only interpret the URI option.
-Currently each option will set a new DistributionPoint with the fullName field set to the given value.
-Other fields like cRLissuer and reasons cannot currently be set or displayed: at this time no examples were available that used these fields.
-If you see this extension with &lt;UNSUPPORTED&gt; when you attempt to print it out or it doesn&apos;t appear to display correctly then let steve know, including the certificate (mail steve at openssl dot org) .
-Examples:
-URI:http://www.myhost.com/myca.crl
-URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+49"/>
+        <location line="+43"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>Kann in der Datei &quot;aia.txt&quot; angepasst werden</translation>
     </message>
     <message>
-        <location line="-118"/>
-        <location line="+30"/>
-        <location line="+52"/>
-        <location line="+58"/>
+        <location line="-93"/>
+        <location line="+24"/>
+        <location line="+33"/>
+        <location line="+50"/>
         <location filename="../widgets/NewX509.cpp" line="-200"/>
         <location line="+571"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location line="-153"/>
-        <location line="+30"/>
-        <location line="+108"/>
+        <location line="-114"/>
+        <location line="+24"/>
+        <location line="+83"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>The authority information access extension gives details about how to access certain information relating to the CA. Its syntax is accessOID;location where &apos;location&apos; has the same syntax as subject alternative name (except that email:copy is not supported). accessOID can be any valid OID but only certain values are meaningful for example OCSP and caIssuers. OCSP gives the location of an OCSP responder: this is used by Netscape PSM and other software.
-
-Example:
-
-OCSP;URI:http://ocsp.my.host/
-caIssuers;URI:http://my.ca/ca.html</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-138"/>
-        <source>The subject alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name) , RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-32"/>
+        <location line="-136"/>
         <source>subject alternative name</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternativer Eigentümername</translation>
     </message>
     <message>
-        <location line="+62"/>
-        <source>The issuer alternative name extension allows various literal values to be used. These include &quot;email&quot; (an email address) , &quot;URI&quot; a uniform resource indicator, &quot;DNS&quot; (a DNS domain name), RID (a registered ID: OBJECT IDENTIFIER) and IP (an IP address).
-Examples:
-email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/
-email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+149"/>
+        <location line="+182"/>
         <location line="+20"/>
         <source>Key usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlüsselverwendung</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+80"/>
         <source>Extended key usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterte Schlüsselverwendung</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+38"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
     <message>
         <location line="+133"/>
         <source>CA Revocation URL</source>
-        <translation type="unfinished"></translation>
+        <translation>CA Sperrlisten URL</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Revocation URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Sperrlisten URL</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>SSL server name</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL Servername</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Certificate renewal URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikatsverlängerungs URL</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>CA policy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>CA Richtlinien URL</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Base URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Basis URL</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1889,12 +1802,12 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1340"/>
+        <location filename="../ui/NewX509.ui" line="-1303"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
     <message>
-        <location line="+1370"/>
+        <location line="+1333"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -1916,7 +1829,7 @@ The rollout should be aborted.</source>
         <translation>Trotzdem fortfahren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-640"/>
+        <location filename="../ui/NewX509.ui" line="-617"/>
         <source>No well-defined expiration</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
@@ -1993,7 +1906,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-554"/>
+        <location filename="../ui/NewX509.ui" line="-547"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>
@@ -3459,13 +3372,9 @@ und wurde daher nicht importiert</translation>
         <translation>Nur den öffentlichen Schlüssel exportieren</translation>
     </message>
     <message>
-        <source>Export private key unencrypted</source>
-        <translation type="obsolete">Privaten Schlüssel unverschlüsselt exportieren</translation>
-    </message>
-    <message>
         <location line="+1"/>
         <source>Export the private key unencrypted</source>
-        <translation type="unfinished">Privaten Schlüssel unverschlüsselt exportieren</translation>
+        <translation>Privaten Schlüssel unverschlüsselt exportieren</translation>
     </message>
     <message>
         <location line="+55"/>
@@ -3638,10 +3547,6 @@ und wurde daher nicht importiert</translation>
         <location line="+2"/>
         <source>Delete the %1 keys: %2?</source>
         <translation>Die %1 Schlüssel: %2 löschen?</translation>
-    </message>
-    <message>
-        <source>only RSA keys can be stored on tokens</source>
-        <translation type="obsolete">Auf der Chipkarte können nur RSA Schlüssel gespeichert werden</translation>
     </message>
     <message>
         <location line="+313"/>
