@@ -804,7 +804,7 @@ static int eng_pmeth_sign_rsa(EVP_PKEY_CTX *ctx,
 	if (EVP_PKEY_type(pkey->type) != EVP_PKEY_RSA)
 		return -1;
 
-	if (x509_len > (RSA_size(pkey->pkey.rsa) - RSA_PKCS1_PADDING_SIZE))
+	if ((int)x509_len > (RSA_size(pkey->pkey.rsa) - RSA_PKCS1_PADDING_SIZE))
 		return -1;
 
 	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(pkey->engine, eng_idx);
