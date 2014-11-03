@@ -1,4 +1,6 @@
 .depend
+.depend
+.build-stamp
 *.o
 *.obj
 *.rej
@@ -8,9 +10,11 @@
 moc_*
 Local.mak
 local.h
-conftest
-conftest.c
-conftest.log
 xca
 xca.exe
 setup.exe
+aclocal.m4
+autom4te.cache/
+config.log
+config.status
+configure

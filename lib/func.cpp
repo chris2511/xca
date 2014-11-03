@@ -115,7 +115,10 @@ QString getPrefix()
 	bundleDir.cdUp();
         return bundleDir.canonicalPath() + "/Resources";
 #else
-	return QString(PREFIX) + "/share/xca";
+#ifndef XCA_PREFIX
+#define XCA_PREFIX PREFIX "/share/xca"
+#endif
+	return QString(XCA_PREFIX);
 #endif
 
 }

@@ -24,7 +24,6 @@ INSTDIR=misc lang doc img
 INSTTARGET=$(patsubst %, install.%, $(INSTDIR))
 APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 
-bindir=bin
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)-$(DARWIN)
 APPDIR=$(DMGSTAGE)/xca.app/Contents
@@ -98,10 +97,17 @@ clean:
 distclean: clean
 	rm -f conftest conftest.log local.h Local.mak *~ */.depend
 
-dist:
+dist: $(TARGET).tar.gz
+$(TARGET).tar:
 	test ! -z "$(TVERSION)"
-	git archive --format=tar --prefix=$(TARGET)/ $(TAG) | \
-		gzip -9 > $(TARGET).tar.gz
+	git archive --format=tar --prefix=$(TARGET)/ $(TAG) > _$@
+	./bootstrap "$(TARGET)"
+	tar -rf _$@ "$(TARGET)/configure"
+	rm -rf "$(TARGET)"
+	mv _$@ $@
+
+$(TARGET).tar.gz: $(TARGET).tar
+	gzip -9 < $^ > $@
 
 snapshot:
 	HASH=$$(git rev-parse HEAD) && \
@@ -109,9 +115,9 @@ snapshot:
 		gzip -9 > xca-$${HASH}.tar.gz
 
 install: xca$(SUFFIX) $(INSTTARGET)
-	install -m 755 -d $(destdir)$(prefix)/$(bindir)
-	install -m 755 xca $(destdir)$(prefix)/$(bindir)
-	$(STRIP) $(destdir)$(prefix)/$(bindir)/xca
+	install -m 755 -d $(destdir)$(bindir)
+	install -m 755 xca $(destdir)$(bindir)
+	$(STRIP) $(destdir)$(bindir)/xca
 
 $(MACDEPLOYQT):
 
@@ -156,6 +162,5 @@ trans:
 
 do.doc do.lang headers: local.h
 
-Local.mak local.h: $(TOPDIR)/configure
+Local.mak: $(TOPDIR)/configure Local.mak.in
 	$(TOPDIR)/configure
-

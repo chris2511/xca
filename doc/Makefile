@@ -8,8 +8,6 @@ DELFILES=xca*.html xca.1.gz
 doc: xca.1.gz xca.html
 include $(TOPDIR)/Rules.mak
 
-mandir=man
-
 xca.1.gz: xca.1
 	gzip -9 <$^ >$@
 
@@ -21,10 +19,10 @@ xca.html: xca.sgml
 	$(LINUXDOC) -B html $< >/dev/null
 
 install: xca.1.gz xca.html
-	install -m 755 -d $(destdir)$(docdir) \
-		$(destdir)$(prefix)/$(mandir)/man1
-	install -m 644 xca*.html $(destdir)$(docdir)
-	install xca.1.gz $(destdir)$(prefix)/$(mandir)/man1
+	install -m 755 -d $(destdir)$(htmldir) \
+		$(destdir)$(mandir)/man1
+	install -m 644 xca*.html $(destdir)$(htmldir)
+	install xca.1.gz $(destdir)/$(mandir)/man1
 
 app: xca.html
 	mkdir -p $(APPDIR)/Resources

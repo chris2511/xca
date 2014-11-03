@@ -16,13 +16,13 @@
 #include "lib/func.h"
 
 void MainWindow::cmd_version() {
-	fprintf(stderr, XCA_TITLE " Version " VER "\n");
+	fprintf(stderr, XCA_TITLE " Version " PACKAGE_VERSION "\n");
 	exitApp = 1;
 }
 
 void MainWindow::cmd_help(const char* msg) {
 	exitApp = 1;
-	fprintf(stderr, XCA_TITLE " Version " VER "\n"
+	fprintf(stderr, XCA_TITLE " Version " PACKAGE_VERSION "\n"
 		"\n"
 		" -v show version information and exit\n"
 		" -h shows this help screen and exit\n"
@@ -71,7 +71,7 @@ void MainWindow::about()
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
 	"<p>Copyright 2001 - 2014 by Christian Hohnst&auml;dt\n"
-	"<p>Version: <b>" VER "</b>"
+	"<p>Version: <b>" PACKAGE_VERSION "</b>"
 #ifdef OPENSSL_NO_EC
 	"<p>(Elliptic Curve Cryptography support disabled)"
 #endif

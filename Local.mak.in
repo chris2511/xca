@@ -1,0 +1,27 @@
+
+export TOPDIR=@TOPDIR@
+export VERSION=@PACKAGE_VERSION@
+
+CPPFLAGS=-DXCA_PREFIX=\"${xca_prefix}\" -DETC=\"@sysconfdir@\" -DDOCDIR=\"@docdir@\" @CXXFLAGS@
+CFLAGS=-Wall -ggdb -O2
+LIBS=@LIBS@
+
+MOC=@QT_MOC@
+UIC=@QT_UIC@
+RCC=@QT_RCC@
+LRELEASE=@QT_LRELEASE@
+
+CC=@CXX@
+STRIP=@STRIP@
+LINUXDOC=@LINUXDOC@
+
+PACKAGE_TARNAME=@PACKAGE_TARNAME@
+HOST=linux
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+docdir=@docdir@
+htmldir=@htmldir@
+mandir=@mandir@
+bindir=@bindir@
+datarootdir=@datarootdir@
+xca_prefix=${datarootdir}/${PACKAGE_TARNAME}

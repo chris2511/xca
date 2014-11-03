@@ -1,0 +1,8 @@
+/* Filled in version number from the VERSION file */
+#undef PACKAGE_VERSION
+
+/* usually "xca" */
+#undef PACKAGE_TARNAME
+
+/* usually "X Certificate and Key management" */
+#undef PACKAGE_NAME

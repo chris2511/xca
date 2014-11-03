@@ -83,6 +83,11 @@ basedir=
 
 EOF
 
-echo "#define VER \"${VERSION}\"" >local.h
+cat > local.h <<EOF
+#define PACKAGE_VERSION "${VERSION}"
+#define PACKAGE_TARNAME "xca"
+#define PACKAGE_NAME "X Certificate and Key management"
+EOF
+
 
 test -f Makefile || ln -s ${TOPDIR}/Makefile

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if test -n "$1"; then
+  mkdir -p "$1"
+  O="$1/"
+fi
+O="${O}configure"
+
+aclocal -Im4
+exec autoconf -o $O

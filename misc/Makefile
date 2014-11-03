@@ -6,15 +6,15 @@ all:
 include $(TOPDIR)/Rules.mak
 
 install:
-	install -m 755 -d $(destdir)$(prefix)/share/xca/ \
-		$(destdir)$(prefix)/share/applications \
-		$(destdir)$(prefix)/share/mime/packages
+	install -m 755 -d $(destdir)$(xca_prefix) \
+		$(destdir)$(datarootdir)/applications \
+		$(destdir)$(datarootdir)/mime/packages
 	install -m 644 $(SRCPATH)*.txt $(SRCPATH)*.xca \
-			$(destdir)$(prefix)/share/xca
-	install -m 644 $(SRCPATH)xca.desktop $(destdir)$(prefix)/share/applications
-	install -m 644 $(SRCPATH)xca.xml $(destdir)$(prefix)/share/mime/packages
+			$(destdir)$(xca_prefix)
+	install -m 644 $(SRCPATH)xca.desktop $(destdir)$(datarootdir)/applications
+	install -m 644 $(SRCPATH)xca.xml $(destdir)$(datarootdir)/mime/packages
 	if test -z "$(destdir)"; then \
-	  update-mime-database $(prefix)/share/mime || :; \
+	  update-mime-database $(datarootdir)/mime || :; \
 	  update-desktop-database || :; \
 	fi
 
