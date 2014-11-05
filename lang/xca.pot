@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-02 11:21+0200\n"
+"POT-Creation-Date: 2014-11-05 14:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1114,604 +1114,501 @@ msgid "Signing request"
 msgstr ""
 
 #: NewX509#4
-msgid ""
-"A certificate signing request can be signed, even if the private key of the "
-"request is not available. This is the intention of a CSR:\n"
-"Getting signed by a CA certificate, whoes certificate of course must be in "
-"the database\n"
-"Of course you need the private key of the CSR if you want to create a self-"
-"signed cert from it."
-msgstr ""
-
-#: NewX509#5
 msgid "Show request"
 msgstr ""
 
-#: NewX509#6
+#: NewX509#5
 msgid "Sign this Certificate signing &request"
 msgstr ""
 
-#: NewX509#7
+#: NewX509#6
 msgid "Copy extensions from the request"
 msgstr ""
 
-#: NewX509#8
+#: NewX509#7
 msgid "Modify subject of the request"
 msgstr ""
 
-#: NewX509#9
+#: NewX509#8
 msgid "Signing"
 msgstr ""
 
-#: NewX509#10
+#: NewX509#9
 msgid "Create a &self signed certificate with the serial"
 msgstr ""
 
-#: NewX509#11
+#: NewX509#10
 msgid "If you leave this blank the serial 00 will be used"
 msgstr ""
 
-#: NewX509#12
+#: NewX509#11
 msgid "1"
 msgstr ""
 
-#: NewX509#13
+#: NewX509#12
 msgid "Use &this Certificate for signing"
 msgstr ""
 
-#: NewX509#14
+#: NewX509#13
 msgid "All certificates in your database that can create valid signatures"
 msgstr ""
 
-#: NewX509#15
-msgid ""
-"This list contains all certificates with the CA-flag set to true and whoes "
-"private key is present in the key-database.\n"
-"If this list is disabled, you only can create a self-signed certificate."
-msgstr ""
-
-#: NewX509#16
-msgctxt "NewX509#16"
+#: NewX509#14
+msgctxt "NewX509#14"
 msgid "Signature algorithm"
 msgstr ""
 
-#: NewX509#17
+#: NewX509#15
 msgid "Template for the new certificate"
 msgstr ""
 
-#: NewX509#18
+#: NewX509#16
 msgid "All available templates"
 msgstr ""
 
-#: NewX509#19
-msgid "This list contains all templates from the toplevel template Tab"
-msgstr ""
-
-#: NewX509#20
+#: NewX509#17
 msgid "Apply extensions"
 msgstr ""
 
-#: NewX509#21
+#: NewX509#18
 msgid "Apply subject"
 msgstr ""
 
-#: NewX509#22
+#: NewX509#19
 msgid "Apply all"
 msgstr ""
 
-#: NewX509#23
-msgctxt "NewX509#23"
+#: NewX509#20
+msgctxt "NewX509#20"
 msgid "Subject"
 msgstr ""
 
-#: NewX509#24
+#: NewX509#21
 msgid "Distinguished name"
 msgstr ""
 
-#: NewX509#25
+#: NewX509#22
 msgid "Organisation"
 msgstr ""
 
-#: NewX509#26
+#: NewX509#23
 msgid ""
 "This name is only used internally and does not appear in the resulting "
 "certificate"
 msgstr ""
 
-#: NewX509#27
+#: NewX509#24
 msgid "Must be exactly 2 letter of size (DE, UK)"
 msgstr ""
 
-#: NewX509#28
+#: NewX509#25
 msgid "Country code"
 msgstr ""
 
-#: NewX509#29
+#: NewX509#26
 msgid "State or Province"
 msgstr ""
 
-#: NewX509#30
+#: NewX509#27
 msgid "Locality"
 msgstr ""
 
-#: NewX509#31
+#: NewX509#28
 msgid "Organisational unit"
 msgstr ""
 
-#: NewX509#32
+#: NewX509#29
 msgid "E-Mail address"
+msgstr ""
+
+#: NewX509#30
+msgctxt "NewX509#30"
+msgid "Internal name"
+msgstr ""
+
+#: NewX509#31
+msgid "Common name"
+msgstr ""
+
+#: NewX509#32
+msgctxt "NewX509#32"
+msgid "Add"
 msgstr ""
 
 #: NewX509#33
 msgctxt "NewX509#33"
-msgid "Internal name"
-msgstr ""
-
-#: NewX509#34
-msgid "Common name"
-msgstr ""
-
-#: NewX509#35
-msgctxt "NewX509#35"
-msgid "Add"
-msgstr ""
-
-#: NewX509#36
-msgctxt "NewX509#36"
 msgid "Delete"
 msgstr ""
 
-#: NewX509#37
-msgctxt "NewX509#37"
+#: NewX509#34
+msgctxt "NewX509#34"
 msgid "Private key"
 msgstr ""
 
-#: NewX509#38
+#: NewX509#35
 msgid "This list only contains unused keys"
 msgstr ""
 
-#: NewX509#39
+#: NewX509#36
 msgid "Used keys too"
 msgstr ""
 
-#: NewX509#40
+#: NewX509#37
 msgid "&Generate a new key"
 msgstr ""
 
-#: NewX509#41
-msgctxt "NewX509#41"
+#: NewX509#38
+msgctxt "NewX509#38"
 msgid "Extensions"
 msgstr ""
 
-#: NewX509#42
+#: NewX509#39
 msgid "Basic constraints"
 msgstr ""
 
-#: NewX509#43
-msgctxt "NewX509#43"
+#: NewX509#40
+msgctxt "NewX509#40"
 msgid "Type"
 msgstr ""
 
-#: NewX509#44
+#: NewX509#41
 msgid "If this will become a CA certificate or not"
 msgstr ""
 
-#: NewX509#45
-msgid ""
-"Set this to TRUE if you want to create a CA certificate that signs other "
-"certificates.\n"
-"This is always set to FALSE for client or server certificates. In most cases "
-"self-signed certificates are CA certificates.\n"
-"Self-signed non-CA certificates are unusual although they are possible."
-msgstr ""
-
-#: NewX509#46
+#: NewX509#42
 msgid "Not defined"
 msgstr ""
 
-#: NewX509#47
+#: NewX509#43
 msgid "Certification Authority"
 msgstr ""
 
-#: NewX509#48
+#: NewX509#44
 msgid "End Entity"
 msgstr ""
 
-#: NewX509#49
+#: NewX509#45
 msgid "Path length"
 msgstr ""
 
-#: NewX509#50
+#: NewX509#46
 msgid "How much CAs may be below this."
 msgstr ""
 
-#: NewX509#51
-msgid ""
-"If this is left empty the pathlen is not included in the certificate. "
-"Otherwise it distinguishes the count of chained CA certificates below this "
-"one.\n"
-"A pathlen of 0 means, that this certificate may not issue other sub-CA "
-"certificates. Although it can do it, all chain-checking algorithms in e.g. "
-"your browser or openssl will (should) fail."
-msgstr ""
-
-#: NewX509#52
+#: NewX509#47
 msgid "The basic constraints should always be critical"
 msgstr ""
 
-#: NewX509#53
+#: NewX509#48
 msgid "Key identifier"
 msgstr ""
 
-#: NewX509#54
+#: NewX509#49
 msgid "Creates a hash of the key following the PKIX guidelines"
 msgstr ""
 
-#: NewX509#55
+#: NewX509#50
 msgid "Copy the Subject Key Identifier from the issuer"
 msgstr ""
 
+#: NewX509#51
+msgctxt "NewX509#51"
+msgid "Validity"
+msgstr ""
+
+#: NewX509#52
+msgctxt "NewX509#52"
+msgid "Not before"
+msgstr ""
+
+#: NewX509#53
+msgctxt "NewX509#53"
+msgid "Not after"
+msgstr ""
+
+#: NewX509#54
+msgctxt "NewX509#54"
+msgid "Time range"
+msgstr ""
+
+#: NewX509#55
+msgctxt "NewX509#55"
+msgid "Days"
+msgstr ""
+
 #: NewX509#56
-msgid ""
-"If this box is checked an attempt is made to copy the subject key identifier "
-"from the signing certificate.\n"
-"It also copies the issuer and serial number from the issuer certificate. "
-"Normally this will only be done if the keyid option fails."
+msgctxt "NewX509#56"
+msgid "Months"
 msgstr ""
 
 #: NewX509#57
 msgctxt "NewX509#57"
-msgid "Validity"
+msgid "Years"
 msgstr ""
 
 #: NewX509#58
 msgctxt "NewX509#58"
-msgid "Not before"
+msgid "Apply"
 msgstr ""
 
 #: NewX509#59
-msgctxt "NewX509#59"
-msgid "Not after"
+msgid "Set the time to 00:00:00 and 23:59:59 respectively"
 msgstr ""
 
 #: NewX509#60
 msgctxt "NewX509#60"
-msgid "Time range"
+msgid "Midnight"
 msgstr ""
 
 #: NewX509#61
 msgctxt "NewX509#61"
-msgid "Days"
+msgid "Local time"
 msgstr ""
 
 #: NewX509#62
 msgctxt "NewX509#62"
-msgid "Months"
-msgstr ""
-
-#: NewX509#63
-msgctxt "NewX509#63"
-msgid "Years"
-msgstr ""
-
-#: NewX509#64
-msgctxt "NewX509#64"
-msgid "Apply"
-msgstr ""
-
-#: NewX509#65
-msgid "Set the time to 00:00:00 and 23:59:59 respectively"
-msgstr ""
-
-#: NewX509#66
-msgctxt "NewX509#66"
-msgid "Midnight"
-msgstr ""
-
-#: NewX509#67
-msgctxt "NewX509#67"
-msgid "Local time"
-msgstr ""
-
-#: NewX509#68
-msgctxt "NewX509#68"
 msgid "No well-defined expiration"
 msgstr ""
 
-#: NewX509#69
+#: NewX509#63
 msgid "subject alternative name"
 msgstr ""
 
-#: NewX509#70
+#: NewX509#64
 msgid "DNS: IP: URI: email: RID:"
 msgstr ""
 
-#: NewX509#71
-msgid ""
-"The subject alternative name extension allows various literal values to be "
-"used. These include \"email\" (an email address) , \"URI\" a uniform resource "
-"indicator, \"DNS\" (a DNS domain name) , RID (a registered ID: OBJECT "
-"IDENTIFIER) and IP (an IP address).\n"
-"Examples:\n"
-"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
-"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
-msgstr ""
-
-#: NewX509#72
+#: NewX509#65
 msgid "Edit"
 msgstr ""
 
-#: NewX509#73
+#: NewX509#66
 msgid "issuer alternative name"
 msgstr ""
 
-#: NewX509#74
-msgid ""
-"The issuer alternative name extension allows various literal values to be "
-"used. These include \"email\" (an email address) , \"URI\" a uniform resource "
-"indicator, \"DNS\" (a DNS domain name), RID (a registered ID: OBJECT "
-"IDENTIFIER) and IP (an IP address).\n"
-"Examples:\n"
-"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
-"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
-msgstr ""
-
-#: NewX509#75
-msgid "CRL distribution point"
-msgstr ""
-
-#: NewX509#76
+#: NewX509#67
 msgid "URI:"
 msgstr ""
 
-#: NewX509#77
-msgid ""
-"This is a multi-valued extension that supports all the literal options of "
-"subject alternative name. Of the few software packages that currentlyi "
-"nterpret this extension most only interpret the URI option.\n"
-"Currently each option will set a new DistributionPoint with the fullName "
-"field set to the given value.\n"
-"Other fields like cRLissuer and reasons cannot currently be set or "
-"displayed: at this time no examples were available that used these fields.\n"
-"If you see this extension with <UNSUPPORTED> when you attempt to print it "
-"out or it doesn't appear to display correctly then let steve know, including "
-"the certificate (mail steve at openssl dot org) .\n"
-"Examples:\n"
-"URI:http://www.myhost.com/myca.crl\n"
-"URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl"
-msgstr ""
-
-#: NewX509#78
+#: NewX509#68
 msgid "Authority Info Access"
 msgstr ""
 
-#: NewX509#79
+#: NewX509#69
 msgid "can be altered by the file \"aia.txt\""
 msgstr ""
 
-#: NewX509#80
-msgid ""
-"The authority information access extension gives details about how to access "
-"certain information relating to the CA. Its syntax is accessOID;location "
-"where 'location' has the same syntax as subject alternative name (except "
-"that email:copy is not supported). accessOID can be any valid OID but only "
-"certain values are meaningful for example OCSP and caIssuers. OCSP gives the "
-"location of an OCSP responder: this is used by Netscape PSM and other "
-"software.\n"
-"\n"
-"Example:\n"
-"\n"
-"OCSP;URI:http://ocsp.my.host/\n"
-"caIssuers;URI:http://my.ca/ca.html"
+#: NewX509#70
+msgid "CRL distribution point"
 msgstr ""
 
-#: NewX509#81
+#: NewX509#71
 msgid "Key usage"
 msgstr ""
 
-#: NewX509#82
+#: NewX509#72
 msgid "Extended key usage"
 msgstr ""
 
-#: NewX509#83
+#: NewX509#73
 msgid "Netscape"
 msgstr ""
 
-#: NewX509#84
+#: NewX509#74
 msgid "CA Revocation URL"
 msgstr ""
 
-#: NewX509#85
+#: NewX509#75
 msgid "Revocation URL"
 msgstr ""
 
-#: NewX509#86
+#: NewX509#76
 msgid "SSL server name"
 msgstr ""
 
-#: NewX509#87
+#: NewX509#77
 msgid "Certificate renewal URL"
 msgstr ""
 
-#: NewX509#88
+#: NewX509#78
 msgid "Comment"
 msgstr ""
 
-#: NewX509#89
+#: NewX509#79
 msgid "CA policy URL"
 msgstr ""
 
-#: NewX509#90
+#: NewX509#80
 msgid "Base URL"
 msgstr ""
 
-#: NewX509#91
+#: NewX509#81
 msgid "If you know a more pretty one tell me"
 msgstr ""
 
-#: NewX509#92
+#: NewX509#82
 msgid "Advanced"
 msgstr ""
 
-#: NewX509#93
-msgctxt "NewX509#93"
+#: NewX509#83
+msgctxt "NewX509#83"
 msgid "Validate"
 msgstr ""
 
-#: NewX509#94
+#: NewX509#84
 msgid "Create a &self signed certificate with a MD5-hashed QA serial"
 msgstr ""
 
-#: NewX509#95
+#: NewX509#85
 msgid "Create Certificate signing request"
 msgstr ""
 
-#: NewX509#96
+#: NewX509#86
 msgid "minimum size: %1"
 msgstr ""
 
-#: NewX509#97
+#: NewX509#87
 msgid "maximum size: %1"
 msgstr ""
 
-#: NewX509#98
+#: NewX509#88
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr ""
 
-#: NewX509#99
+#: NewX509#89
 msgid "only 7-bit clean characters"
 msgstr ""
 
-#: NewX509#100
+#: NewX509#90
 msgid "XCA template"
 msgstr ""
 
-#: NewX509#101
+#: NewX509#91
 msgid "Create x509 Certificate"
 msgstr ""
 
-#: NewX509#102
+#: NewX509#92
 msgid "Other Tabs"
 msgstr ""
 
-#: NewX509#103
+#: NewX509#93
 msgid "Advanced Tab"
 msgstr ""
 
-#: NewX509#104
+#: NewX509#94
 msgid "Errors"
 msgstr ""
 
-#: NewX509#105
+#: NewX509#95
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: NewX509#106
-msgctxt "NewX509#106"
+#: NewX509#96
+msgctxt "NewX509#96"
 msgid "Abort rollout"
 msgstr ""
 
-#: NewX509#107
+#: NewX509#97
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: NewX509#108
+#: NewX509#98
 msgid "Edit subject"
 msgstr ""
 
-#: NewX509#109
-msgctxt "NewX509#109"
+#: NewX509#99
+msgctxt "NewX509#99"
 msgid "Continue rollout"
 msgstr ""
 
-#: NewX509#110
+#: NewX509#100
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: NewX509#111
+#: NewX509#101
 msgid "Continue anyway"
 msgstr ""
 
-#: NewX509#112
+#: NewX509#102
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: NewX509#113
+#: NewX509#103
 msgid "Edit name"
 msgstr ""
 
-#: NewX509#114
+#: NewX509#104
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: NewX509#115
+#: NewX509#105
 msgid "Select key"
 msgstr ""
 
-#: NewX509#116
+#: NewX509#106
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: NewX509#117
-msgctxt "NewX509#117"
+#: NewX509#107
+msgctxt "NewX509#107"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: NewX509#118
+#: NewX509#108
 msgid "Select other signer"
 msgstr ""
 
-#: NewX509#119
+#: NewX509#109
 msgid "Select other key"
 msgstr ""
 
-#: NewX509#120
-msgctxt "NewX509#120"
+#: NewX509#110
+msgctxt "NewX509#110"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#121
+#: NewX509#111
 msgid "Edit dates"
 msgstr ""
 
-#: NewX509#122
-msgctxt "NewX509#122"
+#: NewX509#112
+msgctxt "NewX509#112"
 msgid "Adjust date and continue"
 msgstr ""
 
-#: NewX509#123
-msgctxt "NewX509#123"
+#: NewX509#113
+msgctxt "NewX509#113"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#124
+#: NewX509#114
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: NewX509#125
+#: NewX509#115
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
 "validation on the advanced tab."
 msgstr ""
 
-#: NewX509#126
+#: NewX509#116
 msgid "Edit extensions"
 msgstr ""
 
-#: NewX509#127
+#: NewX509#117
 msgid "Configfile error on line %1\n"
 msgstr ""
 

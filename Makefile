@@ -155,7 +155,7 @@ $(MACTARGET).dmg: $(DMGSTAGE)
 
 trans:
 	$(MAKE) -C lang po2ts
-	lupdate-qt4 $(TOPDIR)/xca.pro
+	lupdate-qt4 -locations relative $(TOPDIR)/xca.pro
 	$(MAKE) -C lang xca.pot
 
 .PHONY: $(SUBDIRS) $(INSTDIR) xca.app setup.exe doc lang macdeployqt/macdeployqt $(DMGSTAGE)
