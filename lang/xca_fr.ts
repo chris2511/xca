@@ -239,17 +239,7 @@
         <translation>Intervalle de temps</translation>
     </message>
     <message>
-        <location line="+49"/>
-        <source>No well-defined expiration</source>
-        <translation>Date d&apos;expiration mal définie</translation>
-    </message>
-    <message>
-        <location line="-21"/>
-        <source>Apply</source>
-        <translation>Appliquer</translation>
-    </message>
-    <message>
-        <location line="-18"/>
+        <location line="+10"/>
         <source>Days</source>
         <translation>Jours</translation>
     </message>
@@ -264,14 +254,30 @@
         <translation>Années</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+8"/>
+        <source>Apply</source>
+        <translation>Appliquer</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Midnight</source>
         <translation>Minuit</translation>
     </message>
     <message>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation>Heure locale</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>No well-defined expiration</source>
+        <translation>Pas de date d&apos;expiration précise</translation>
+    </message>
+    <message>
         <location filename="../widgets/CertExtend.cpp" line="+43"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
+        <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.
+</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -301,11 +307,6 @@
         <location line="-5"/>
         <source>The certificate will be longer valid than the signer. This is probably not what you want.</source>
         <translation>Le certificat serait valide plus longtemps que son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
-    </message>
-    <message>
-        <location filename="../ui/CertExtend.ui" line="+7"/>
-        <source>Local time</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -494,7 +495,17 @@ PEM est un format encodé en base64
 <context>
     <name>ExportDialog</name>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="+148"/>
+        <location filename="../ui/ExportDialog.ui" line="+98"/>
+        <source>Name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>The internal name of the CRL in the database</source>
+        <translation>Le nom interne de la liste de révocation dans la base de données</translation>
+    </message>
+    <message>
+        <location line="+43"/>
         <source>...</source>
         <translation>...</translation>
     </message>
@@ -527,16 +538,6 @@ PEM est un format encodé en base64
         <location line="+2"/>
         <source>Do not overwrite</source>
         <translation>Ne pas écraser</translation>
-    </message>
-    <message>
-        <location filename="../ui/ExportDialog.ui" line="-128"/>
-        <source>Name</source>
-        <translation type="unfinished">Nom</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>The internal name of the CRL in the database</source>
-        <translation type="unfinished">Le nom interne de la liste de révocation dans la base de données</translation>
     </message>
 </context>
 <context>
@@ -588,12 +589,12 @@ PKCS#8 est un format officiel d&apos;échange de clé</translation>
     <message>
         <location line="+11"/>
         <source>Export public %1 key</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter la clé publique %1</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Export %1 key</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporter la clé %1</translation>
     </message>
 </context>
 <context>
@@ -929,7 +930,12 @@ Numéro de série: %3</translation>
         <translation>Aucun objet détruit n&apos;a été trouvé</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-30"/>
+        <location filename="../widgets/MW_menu.cpp" line="-34"/>
+        <source>Recent DataBases</source>
+        <translation>Bases de données utilisées recemment</translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -1195,11 +1201,6 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
-    <message>
-        <location filename="../widgets/MW_menu.cpp" line="-146"/>
-        <source>Recent DataBases</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>NewCrl</name>
@@ -1244,7 +1245,12 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Minuit</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation>Heure locale</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Apply</source>
         <translation>Appliquer</translation>
     </message>
@@ -1277,11 +1283,6 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <location line="+10"/>
         <source>Revocation reasons</source>
         <translation>Raisons de la révocation</translation>
-    </message>
-    <message>
-        <location line="-61"/>
-        <source>Local time</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1338,14 +1339,14 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Type de clé</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>Remember as default</source>
+        <translation>Enregistrer comme valeur par défaut</translation>
+    </message>
+    <message>
         <location filename="../widgets/NewKey.cpp" line="+170"/>
         <source>Create</source>
         <translation>Créer</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewKey.ui" line="+10"/>
-        <source>Remember as default</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1453,7 +1454,12 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Sujet</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+12"/>
+        <source>Distinguished name</source>
+        <translation>Nom distinctif complet</translation>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>Organisation</source>
         <translation>Organisation</translation>
     </message>
@@ -1515,7 +1521,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location line="+37"/>
         <source>Private key</source>
-        <translation>Clé privée</translation>
+        <translation>Clé privée</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -1600,7 +1606,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location line="+40"/>
         <source>Validity</source>
-        <translation>Validité</translation>
+        <translation>Validité</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1610,7 +1616,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location line="+14"/>
         <source>Not after</source>
-        <translation>Pas après</translation>
+        <translation>Pas après</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -1630,7 +1636,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location line="+5"/>
         <source>Years</source>
-        <translation>Années</translation>
+        <translation>Années</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -1648,37 +1654,29 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Minuit</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+7"/>
+        <source>Local time</source>
+        <translation>Heure locale</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>No well-defined expiration</source>
-        <translation>Date d&apos;expiration mal définie</translation>
+        <translation>Pas de date d&apos;expiration précise</translation>
     </message>
     <message>
-        <location line="+128"/>
-        <source>Authority Info Access</source>
-        <translation>Accès à l&apos;information de l&apos;autorité</translation>
+        <location line="+28"/>
+        <source>subject alternative name</source>
+        <translation>nom alternatif du sujet</translation>
     </message>
     <message>
-        <location line="+69"/>
-        <source>CRL distribution point</source>
-        <translation>Point de distribution de la liste de révocation</translation>
+        <location line="+29"/>
+        <location line="+24"/>
+        <location line="+83"/>
+        <source>DNS: IP: URI: email: RID:</source>
+        <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-126"/>
-        <source>issuer alternative name</source>
-        <translation>Nom alternatif du signataire</translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>URI:</source>
-        <translation>URI:</translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>can be altered by the file &quot;aia.txt&quot;</source>
-        <translation>peut être altéré par le fichier &quot;aia.txt&quot;</translation>
-    </message>
-    <message>
-        <location line="-93"/>
+        <location line="-100"/>
         <location line="+24"/>
         <location line="+33"/>
         <location line="+50"/>
@@ -1688,19 +1686,32 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Modifier</translation>
     </message>
     <message>
-        <location line="-114"/>
-        <location line="+24"/>
-        <location line="+83"/>
-        <source>DNS: IP: URI: email: RID:</source>
-        <translation>DNS: IP: URI: email: RID:</translation>
+        <location line="-100"/>
+        <source>issuer alternative name</source>
+        <translation>Nom alternatif du signataire</translation>
     </message>
     <message>
-        <location line="-136"/>
-        <source>subject alternative name</source>
-        <translation>nom alternatif du sujet</translation>
+        <location line="+43"/>
+        <source>URI:</source>
+        <translation>URI:</translation>
     </message>
     <message>
-        <location line="+182"/>
+        <location line="+14"/>
+        <source>Authority Info Access</source>
+        <translation>Accès à l&apos;information de l&apos;autorité</translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>can be altered by the file &quot;aia.txt&quot;</source>
+        <translation>peut être altéré par le fichier &quot;aia.txt&quot;</translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>CRL distribution point</source>
+        <translation>Point de distribution de la liste de révocation</translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <location line="+20"/>
         <source>Key usage</source>
         <translation>Utilisation de la clé</translation>
@@ -1807,12 +1818,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Créer un certificat x509</translation>
     </message>
     <message>
-        <location line="+627"/>
-        <source>From PKCS#10 request</source>
-        <translation>A partir d&apos;une requête en PKCS#10</translation>
-    </message>
-    <message>
-        <location line="-37"/>
+        <location line="+590"/>
         <source>Other Tabs</source>
         <translation>Autres Onglets</translation>
     </message>
@@ -1827,7 +1833,12 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Erreurs</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+17"/>
+        <source>From PKCS#10 request</source>
+        <translation>A partir d&apos;une requête en PKCS#10</translation>
+    </message>
+    <message>
+        <location line="+86"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+11"/>
@@ -1839,7 +1850,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <location line="+22"/>
         <location line="+19"/>
         <source>Abort rollout</source>
-        <translation>Interrompre le déploiement</translation>
+        <translation>Interrompre le déploiement</translation>
     </message>
     <message>
         <location line="-173"/>
@@ -1860,7 +1871,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <location line="+22"/>
         <location line="+19"/>
         <source>Continue rollout</source>
-        <translation>Continuer le déploiement</translation>
+        <translation>Continuer le déploiement</translation>
     </message>
     <message>
         <location line="-153"/>
@@ -1923,7 +1934,7 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     <message>
         <location line="+10"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
+        <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1949,7 +1960,12 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <translation>Le certificat serait échu avant de devenir actif. Vous avez probablement interverti les deux dates.</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+19"/>
+        <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
+        <translation>Le certificat contient des extensions dupliquées ou invalides. Vérifier la validité sur l&apos;onglet &quot;Avancé&quot;.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Edit extensions</source>
         <translation>Modifier les extensions</translation>
     </message>
@@ -1959,21 +1975,6 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
 </source>
         <translation>Erreur dans le fichier de configuration à la ligne %1
 </translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="-1103"/>
-        <source>Distinguished name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+479"/>
-        <source>Local time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/NewX509.cpp" line="-2"/>
-        <source>The certificate contains invalid or duplicate extensions. Check the validation on the advanced tab.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2015,7 +2016,12 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <translation>Supprimer les messages en cas de succès</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+7"/>
+        <source>Don&apos;t colorize expired certificates</source>
+        <translation>Ne pas coloriser les certificats expirés</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>PKCS#11 provider</source>
         <translation>Fournisseur PKCS#11</translation>
     </message>
@@ -2023,6 +2029,11 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <location line="+30"/>
         <source>Remove</source>
         <translation>Enlever</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Search</source>
+        <translation>Chercher</translation>
     </message>
     <message>
         <location filename="../widgets/Options.cpp" line="+31"/>
@@ -2054,21 +2065,16 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <source>Load failed</source>
         <translation>Le chargement a échoué</translation>
     </message>
-    <message>
-        <location filename="../ui/Options.ui" line="-37"/>
-        <source>Don&apos;t colorize expired certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+44"/>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PwDialog</name>
     <message>
-        <location filename="../ui/PwDialog.ui" line="+121"/>
+        <location filename="../ui/PwDialog.ui" line="+118"/>
+        <source>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</source>
+        <translation>Le mot de passe doit être exprimé sous forme d&apos;une suite de chiffres hexadécimaux. Il doit contenir un nombre pair de chiffres (0-9 et a-f)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Take as HEX string</source>
         <translation>Exprimé en hexadécimal</translation>
     </message>
@@ -2092,11 +2098,6 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <source>E&amp;xit</source>
         <translation>&amp;Quitter</translation>
     </message>
-    <message>
-        <location filename="../ui/PwDialog.ui" line="-3"/>
-        <source>The password is parsed as 2-digit hex code. It must have an even number of digits (0-9 and a-f)</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2106,6 +2107,13 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <location line="+19"/>
         <source>Undefined</source>
         <translation>Indéfini</translation>
+    </message>
+    <message>
+        <location line="-27"/>
+        <location line="+10"/>
+        <location line="+19"/>
+        <source>Broken / Invalid</source>
+        <translation>Invalide</translation>
     </message>
     <message>
         <location filename="../lib/db.cpp" line="+176"/>
@@ -2327,13 +2335,6 @@ Dans la bibliothèque %3
         <source>%1 is longer than %2 bytes: &apos;%3&apos;</source>
         <translation>%1 est plus long que %2 octets: &apos;%3&apos;</translation>
     </message>
-    <message>
-        <location filename="../lib/asn1time.cpp" line="-27"/>
-        <location line="+10"/>
-        <location line="+19"/>
-        <source>Broken / Invalid</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Revoke</name>
@@ -2348,14 +2349,14 @@ Dans la bibliothèque %3
         <translation>Non-valide depuis</translation>
     </message>
     <message>
-        <location line="+21"/>
-        <source>Revocation reason</source>
-        <translation>Raison de la révocation</translation>
+        <location line="+14"/>
+        <source>Local time</source>
+        <translation>Heure locale</translation>
     </message>
     <message>
-        <location line="-7"/>
-        <source>Local time</source>
-        <translation type="unfinished"></translation>
+        <location line="+7"/>
+        <source>Revocation reason</source>
+        <translation>Raison de la révocation</translation>
     </message>
 </context>
 <context>
@@ -2363,32 +2364,32 @@ Dans la bibliothèque %3
     <message>
         <location filename="../ui/SearchPkcs11.ui" line="+14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogue</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>include sub directorys</source>
-        <translation type="unfinished"></translation>
+        <translation>include les sous-dossiers</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Chercher</translation>
     </message>
     <message>
         <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
         <source>The following files are possible PKCS#11 libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Les fichiers suivants sont susceptibles d&apos;être des bibliothèques PKCS#11</translation>
     </message>
 </context>
 <context>
@@ -2453,17 +2454,22 @@ Dans la bibliothèque %3
         <translation>Nom interne</translation>
     </message>
     <message>
-        <location line="+633"/>
-        <source>Reset</source>
-        <translation>Réinitialisation</translation>
-    </message>
-    <message>
-        <location line="-2"/>
+        <location line="+631"/>
         <source>Subject entries</source>
         <translation>Inscriptions du sujet</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+1"/>
+        <source>X509v3 Extensions</source>
+        <translation>Extensions X509v3</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset</source>
+        <translation>Réinitialisation</translation>
+    </message>
+    <message>
+        <location line="+29"/>
         <source>Paste PEM data</source>
         <translation>Coller les données en format PEM</translation>
     </message>
@@ -2471,11 +2477,6 @@ Dans la bibliothèque %3
         <location line="+2"/>
         <source>Columns</source>
         <translation>Colonnes</translation>
-    </message>
-    <message>
-        <location line="-32"/>
-        <source>X509v3 Extensions</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2578,7 +2579,12 @@ En conséquence, elle n&apos;a pas été importée</translation>
         <translation>Taille</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
+        <source>EC Group</source>
+        <translation>Groupe EC</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Use</source>
         <translation>Usage</translation>
     </message>
@@ -2625,7 +2631,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location line="+34"/>
         <source>New Key</source>
-        <translation>Nouvelle clé</translation>
+        <translation>Nouvelle Clé</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2645,7 +2651,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     <message>
         <location line="+1"/>
         <source>Delete</source>
-        <translation>Détruire</translation>
+        <translation>Enlever</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2653,7 +2659,17 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Exporter</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+1"/>
+        <source>Clipboard</source>
+        <translation>Presse-papier</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation>Fichier</translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Change password</source>
         <translation>Changer le mot de passe</translation>
     </message>
@@ -2701,21 +2717,6 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <location line="+16"/>
         <source>Tried to change SO PIN of a key</source>
         <translation>Tentative de changement de PUK d&apos;une clé</translation>
-    </message>
-    <message>
-        <location line="-351"/>
-        <source>EC Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+198"/>
-        <source>Clipboard</source>
-        <translation type="unfinished">Presse-papier</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>File</source>
-        <translation type="unfinished">Fichier</translation>
     </message>
 </context>
 <context>
@@ -3326,7 +3327,12 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Impossible de charger la clé privée du fichier %1. Les formats PEM et DER ainsi que les types de clés privé, public et PKCS#8 ont été essayés.</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+35"/>
+        <source>Ignoring unsupported private key</source>
+        <translation>Clé privée non-supportée: ignorée</translation>
+    </message>
+    <message>
+        <location line="+32"/>
         <source>Please enter the password to decrypt the private key: &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe pour décrypter la clé privée: &apos;%1&apos;</translation>
     </message>
@@ -3361,16 +3367,26 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <source>Please enter the export password for the private key &apos;%1&apos;</source>
         <translation>SVP saisir le mot de passe d&apos;exportation pour la clé privée &apos;%1&apos;</translation>
     </message>
-    <message>
-        <location line="-261"/>
-        <source>Ignoring unsupported private key</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+148"/>
+        <location filename="../lib/pki_key.cpp" line="+90"/>
+        <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
+        <translation>Voulez-vous vraiment exporter la clé privée en clair dans le presse-papier ?</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Only export the public key</source>
+        <translation>N&apos;exporter que la clé publique</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Export the private key unencrypted</source>
+        <translation>Exporter la clé privée en clair</translation>
+    </message>
+    <message>
+        <location line="+55"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Les %1 clés publiques &apos;%2&apos; ont été importées avec succès</translation>
     </message>
@@ -3397,7 +3413,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     <message>
         <location line="+6"/>
         <source>Delete the %1 keys: %2?</source>
-        <translation>Détruire les %1 clés: &apos;%2&apos; ?</translation>
+        <translation>Détruire les %1 clés: &apos;%2&apos;?</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3428,21 +3444,6 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <location line="+10"/>
         <source>No password</source>
         <translation>Pas de mot de passe</translation>
-    </message>
-    <message>
-        <location line="-252"/>
-        <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Only export the public key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Export the private key unencrypted</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3526,7 +3527,12 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Cette clé est déjà sur le jeton</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+41"/>
+        <source>Only RSA and EC keys can be stored on tokens</source>
+        <translation>Seules les clés RSA et EC peuvent être enregistrées sur les jetons</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>PIN input aborted</source>
         <translation>Saisie du NIP abandonnée</translation>
     </message>
@@ -3546,12 +3552,22 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>La clé publique ne correspond pas. Veuillez re-importer la carte</translation>
     </message>
     <message>
-        <location line="+69"/>
+        <location line="+53"/>
+        <source>Illegal Key generation method</source>
+        <translation>Méthode de génération de clé illégale</translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <source>Unable to find generated key on card</source>
         <translation>Impossible de trouver la clé générée sur la carte</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+51"/>
+        <source>Ignoring unsupported token key</source>
+        <translation>La clé non-supportée sur le jeton est ignorée</translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
@@ -3572,24 +3588,9 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>NIP invalide pour le jeton</translation>
     </message>
     <message>
-        <location line="-98"/>
-        <source>Illegal Key generation method</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+67"/>
-        <source>Ignoring unsupported token key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+12"/>
         <source>Failed to initialize the key on the token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-288"/>
-        <source>Only RSA and EC keys can be stored on tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible d&apos;initialiser la clé sur le jeton</translation>
     </message>
 </context>
 <context>
@@ -3680,7 +3681,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+37"/>
-        <location line="+484"/>
+        <location line="+485"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
@@ -3788,7 +3789,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     <message>
         <location line="+29"/>
         <source>Cancel</source>
-        <translation>Abandonner</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../widgets/v3ext.cpp" line="+93"/>
@@ -3843,7 +3844,8 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <location line="+5"/>
         <source>Validation successful:
 &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>La validation a été effectuée avec succès:
+&apos;%1&apos;</translation>
     </message>
 </context>
 <context>

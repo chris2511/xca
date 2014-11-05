@@ -1,21 +1,21 @@
 #
 # Patrick Monnerat <pm@datasphere.ch>, 2011.
-# demonipuch <Unknown>, 2012.
+# demonipuch <Unknown>, 2012, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: xca 0.9.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-02 06:51+0200\n"
-"PO-Revision-Date: 2012-05-07 12:37+0200\n"
+"POT-Creation-Date: 2014-11-05 14:06+0200\n"
+"PO-Revision-Date: 2014-11-05 17:20+0100\n"
 "Last-Translator: demonipuch <Unknown>\n"
 "Language-Team: fr <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2012-04-07 05:36+0000\n"
-"X-Generator: Launchpad (build 15060)\n"
-"Language: \n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: About#1
 msgid "Done"
@@ -218,64 +218,69 @@ msgstr "Intervalle de temps"
 
 #: CertExtend#7
 msgctxt "CertExtend#7"
-msgid "No well-defined expiration"
-msgstr "Date d'expiration mal définie"
-
-#: CertExtend#8
-msgctxt "CertExtend#8"
-msgid "Apply"
-msgstr "Appliquer"
-
-#: CertExtend#9
-msgctxt "CertExtend#9"
 msgid "Days"
 msgstr "Jours"
 
-#: CertExtend#10
-msgctxt "CertExtend#10"
+#: CertExtend#8
+msgctxt "CertExtend#8"
 msgid "Months"
 msgstr "Mois"
 
-#: CertExtend#11
-msgctxt "CertExtend#11"
+#: CertExtend#9
+msgctxt "CertExtend#9"
 msgid "Years"
 msgstr "Années"
 
-#: CertExtend#12
-msgctxt "CertExtend#12"
+#: CertExtend#10
+msgctxt "CertExtend#10"
+msgid "Apply"
+msgstr "Appliquer"
+
+#: CertExtend#11
+msgctxt "CertExtend#11"
 msgid "Midnight"
 msgstr "Minuit"
 
+#: CertExtend#12
+msgctxt "CertExtend#12"
+msgid "Local time"
+msgstr "Heure locale"
+
 #: CertExtend#13
 msgctxt "CertExtend#13"
+msgid "No well-defined expiration"
+msgstr "Pas de date d'expiration précise"
+
+#: CertExtend#14
+msgctxt "CertExtend#14"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 "Le certificat serait valide avant son signataire. Ce n'est probablement pas "
-"ce qui est désiré."
+"ce qui est désiré.\n"
 
-#: CertExtend#14
+#: CertExtend#15
 msgid "Edit times"
 msgstr "Modifier les limites de validité"
 
-#: CertExtend#15
-msgctxt "CertExtend#15"
+#: CertExtend#16
+msgctxt "CertExtend#16"
 msgid "Abort rollout"
 msgstr "Interrompre le déploiement"
 
-#: CertExtend#16
-msgctxt "CertExtend#16"
+#: CertExtend#17
+msgctxt "CertExtend#17"
 msgid "Continue rollout"
 msgstr "Continuer le déploiement"
 
-#: CertExtend#17
-msgctxt "CertExtend#17"
+#: CertExtend#18
+msgctxt "CertExtend#18"
 msgid "Adjust date and continue"
 msgstr "Ajuster la date et continuer"
 
-#: CertExtend#18
-msgctxt "CertExtend#18"
+#: CertExtend#19
+msgctxt "CertExtend#19"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
@@ -324,6 +329,7 @@ msgid "Name"
 msgstr "Nom"
 
 #: CrlDetail#7
+msgctxt "CrlDetail#7"
 msgid "The internal name of the CRL in the database"
 msgstr "Le nom interne de la liste de révocation dans la base de données"
 
@@ -429,30 +435,41 @@ msgstr ""
 "PEM est un format encodé en base64\n"
 
 #: ExportDialog#1
+msgctxt "ExportDialog#1"
+msgid "Name"
+msgstr "Nom"
+
+#: ExportDialog#2
+msgctxt "ExportDialog#2"
+msgid "The internal name of the CRL in the database"
+msgstr "Le nom interne de la liste de révocation dans la base de données"
+
+#: ExportDialog#3
+msgctxt "ExportDialog#3"
 msgid "..."
 msgstr "..."
 
-#: ExportDialog#2
+#: ExportDialog#4
 msgid "Filename"
 msgstr "Nom du fichier"
 
-#: ExportDialog#3
+#: ExportDialog#5
 msgid "Please enter the filename"
 msgstr "SVP saisir le nom du fichier"
 
-#: ExportDialog#4
+#: ExportDialog#6
 msgid "Export Format"
 msgstr "Format d'exportation"
 
-#: ExportDialog#5
+#: ExportDialog#7
 msgid "The file: '%1' already exists!"
 msgstr "Le fichier '%1' existe déjà!"
 
-#: ExportDialog#6
+#: ExportDialog#8
 msgid "Overwrite"
 msgstr "Ecraser"
 
-#: ExportDialog#7
+#: ExportDialog#9
 msgid "Do not overwrite"
 msgstr "Ne pas écraser"
 
@@ -495,12 +512,12 @@ msgid "Please enter the filename for the key."
 msgstr "SVP saisir le nom du fichier pour la clé."
 
 #: ExportKey#9
-msgid "Public key export"
-msgstr "Exporter la clé publique"
+msgid "Export public %1 key"
+msgstr "Exporter la clé publique %1"
 
 #: ExportKey#10
-msgid "Key export"
-msgstr "Exporter la clé"
+msgid "Export %1 key"
+msgstr "Exporter la clé %1"
 
 #: Help#1
 msgid "<<"
@@ -763,155 +780,154 @@ msgid "No deleted items found"
 msgstr "Aucun objet détruit n'a été trouvé"
 
 #: MainWindow#22
+msgid "Recent DataBases"
+msgstr "Bases de données utilisées recemment"
+
+#: MainWindow#23
 msgid "&File"
 msgstr "&Fichier"
 
-#: MainWindow#23
+#: MainWindow#24
 msgid "&New DataBase"
 msgstr "&Nouvelle base de données"
 
-#: MainWindow#24
+#: MainWindow#25
 msgid "&Open DataBase"
 msgstr "&Ouvrir une base de données"
 
-#: MainWindow#25
+#: MainWindow#26
 msgid "Generate DH parameter"
 msgstr "Générer le paramètre DH"
 
-#: MainWindow#26
+#: MainWindow#27
 msgid "Set as default DataBase"
 msgstr "Définir comme base de données par défaut"
 
-#: MainWindow#27
+#: MainWindow#28
 msgid "&Close DataBase"
 msgstr "&Fermer la base de données"
 
-#: MainWindow#28
+#: MainWindow#29
 msgid "&Dump DataBase"
 msgstr "C&licher la base de données"
 
-#: MainWindow#29
+#: MainWindow#30
 msgid "C&hange DataBase password"
 msgstr "C&hanger le mot de passe de la base de données"
 
-#: MainWindow#30
+#: MainWindow#31
 msgid "&Import old db_dump"
 msgstr "&Importer un cliché de base de données en ancien format (db_dump)"
 
-#: MainWindow#31
+#: MainWindow#32
 msgid "&Undelete items"
 msgstr "&Récupérer des objets détruits"
 
-#: MainWindow#32
+#: MainWindow#33
 msgid "Options"
 msgstr "Options"
 
-#: MainWindow#33
+#: MainWindow#34
 msgid "Exit"
 msgstr "Quitter"
 
-#: MainWindow#34
+#: MainWindow#35
 msgid "I&mport"
 msgstr "I&mporter"
 
-#: MainWindow#35
+#: MainWindow#36
 msgid "Keys"
 msgstr "Clés"
 
-#: MainWindow#36
+#: MainWindow#37
 msgid "Requests"
 msgstr "Requêtes"
 
-#: MainWindow#37
+#: MainWindow#38
 msgid "PKCS#12"
 msgstr "PKCS#12"
 
-#: MainWindow#38
-msgctxt "MainWindow#38"
+#: MainWindow#39
+msgctxt "MainWindow#39"
 msgid "PKCS#7"
 msgstr "PKCS#7"
 
-#: MainWindow#39
-msgctxt "MainWindow#39"
+#: MainWindow#40
+msgctxt "MainWindow#40"
 msgid "Template"
 msgstr "Modèle"
 
-#: MainWindow#40
+#: MainWindow#41
 msgid "Revocation list"
 msgstr "Liste de révocation"
 
-#: MainWindow#41
+#: MainWindow#42
 msgid "PEM file"
 msgstr "Fichier PEM"
 
-#: MainWindow#42
+#: MainWindow#43
 msgid "paste PEM file"
 msgstr "Coller un fichier PEM"
 
-#: MainWindow#43
+#: MainWindow#44
 msgid "&Token"
 msgstr "&Jeton"
 
-#: MainWindow#44
+#: MainWindow#45
 msgid "&Manage Security token"
 msgstr "&Gérer le jeton de sécurité"
 
-#: MainWindow#45
+#: MainWindow#46
 msgid "&Init Security token"
 msgstr "&Initialiser le jeton de sécurité"
 
-#: MainWindow#46
+#: MainWindow#47
 msgid "&Change PIN"
 msgstr "&Changer le NIP"
 
-#: MainWindow#47
+#: MainWindow#48
 msgid "Change &SO PIN"
 msgstr "Changer le P&UK"
 
-#: MainWindow#48
+#: MainWindow#49
 msgid "Init PIN"
 msgstr "Initialiser le NIP"
 
-#: MainWindow#49
+#: MainWindow#50
 msgid "&Help"
 msgstr "&Aide"
 
-#: MainWindow#50
+#: MainWindow#51
 msgid "&Content"
 msgstr "&Contenu"
 
-#: MainWindow#51
+#: MainWindow#52
 msgid "&About"
 msgstr "&A propos"
 
-#: MainWindow#52
+#: MainWindow#53
 msgid "Donations"
 msgstr "Dons"
 
-#: MainWindow#53
+#: MainWindow#54
 msgid "Database dump ( *.dump );;All files ( * )"
 msgstr "Cliché de base de données ( *.dump );;Tous les fichiers ( * )"
 
-#: MainWindow#54
+#: MainWindow#55
 msgid "Import password"
 msgstr "Mot de passe d'importation"
 
-#: MainWindow#55
+#: MainWindow#56
 msgid "Please enter the password of the old database"
 msgstr "SVP saisir le mot de passe de l'ancienne base de données"
 
-#: MainWindow#56
+#: MainWindow#57
 msgid "Password verification error. Ignore keys ?"
 msgstr "La vérification du mot de passe a écoué. Ignorer les clés ?"
 
-#: MainWindow#57
+#: MainWindow#58
 msgid "Import anyway"
 msgstr "Importer quand-même"
-
-#: MainWindow#58
-msgctxt "MainWindow#58"
-msgid "Cancel"
-msgstr "Annuler"
 
 #: MainWindow#59
 msgid "no such option: %1"
@@ -1037,31 +1053,36 @@ msgstr "Minuit"
 
 #: NewCrl#9
 msgctxt "NewCrl#9"
+msgid "Local time"
+msgstr "Heure locale"
+
+#: NewCrl#10
+msgctxt "NewCrl#10"
 msgid "Apply"
 msgstr "Appliquer"
 
-#: NewCrl#10
+#: NewCrl#11
 msgid "Hashing algorithm"
 msgstr "Algorithme de hachage"
 
-#: NewCrl#11
-msgctxt "NewCrl#11"
+#: NewCrl#12
+msgctxt "NewCrl#12"
 msgid "Extensions"
 msgstr "Extensions"
 
-#: NewCrl#12
+#: NewCrl#13
 msgid "Authority key identifier"
 msgstr "Identifiant de clé de l'autorité"
 
-#: NewCrl#13
+#: NewCrl#14
 msgid "Subject alternative name"
 msgstr "Nom alternatif du sujet"
 
-#: NewCrl#14
+#: NewCrl#15
 msgid "CRL Number"
 msgstr "Numéro de la liste de révocation"
 
-#: NewCrl#15
+#: NewCrl#16
 msgid "Revocation reasons"
 msgstr "Raisons de la révocation"
 
@@ -1110,7 +1131,11 @@ msgid "Keytype"
 msgstr "Type de clé"
 
 #: NewKey#11
-msgctxt "NewKey#11"
+msgid "Remember as default"
+msgstr "Enregistrer comme valeur par défaut"
+
+#: NewKey#12
+msgctxt "NewKey#12"
 msgid "Create"
 msgstr "Créer"
 
@@ -1128,113 +1153,86 @@ msgid "Signing request"
 msgstr "Requête de signature"
 
 #: NewX509#4
-msgid ""
-"A certificate signing request can be signed, even if the private key of the "
-"request is not available. This is the intention of a CSR:\n"
-"Getting signed by a CA certificate, whoes certificate of course must be in "
-"the database\n"
-"Of course you need the private key of the CSR if you want to create a self-"
-"signed cert from it."
-msgstr ""
-"Un requête de signature de certificat peut être signée même si la clé privée "
-"de la requête n'est pas disponible. C'est l'intention\n"
-"d'une requête de signature: être signée par un certificat d'autorité (CA) "
-"qui lui bien-sûr, doit être dans la base de donnée.\n"
-"Par contre, la clé privée d'une requête est nécessaire pour créer un "
-"certificat auto-signé à partir de celle-ci."
-
-#: NewX509#5
 msgid "Show request"
 msgstr "Afficher la requête"
 
-#: NewX509#6
+#: NewX509#5
 msgid "Sign this Certificate signing &request"
 msgstr "Signer cette &requête"
 
-#: NewX509#7
+#: NewX509#6
 msgid "Copy extensions from the request"
 msgstr "Copier les extensions de la requête"
 
-#: NewX509#8
+#: NewX509#7
 msgid "Modify subject of the request"
 msgstr "Modifier le sujet de la requête"
 
-#: NewX509#9
+#: NewX509#8
 msgid "Signing"
 msgstr "Signer"
 
-#: NewX509#10
+#: NewX509#9
 msgid "Create a &self signed certificate with the serial"
 msgstr "Créer un certificat auto-&signé avec le numéro de série"
 
-#: NewX509#11
+#: NewX509#10
 msgid "If you leave this blank the serial 00 will be used"
 msgstr "Si ce champ est laissé vide, le numéro de série 00 sera utilisé"
 
-#: NewX509#12
+#: NewX509#11
 msgid "1"
 msgstr "1"
 
-#: NewX509#13
+#: NewX509#12
 msgid "Use &this Certificate for signing"
 msgstr "Utiliser &ce certificat pour signer"
 
-#: NewX509#14
+#: NewX509#13
 msgid "All certificates in your database that can create valid signatures"
 msgstr ""
 "Tous les certificats dans la base de données qui peuvent produire des "
 "signatures valables"
 
-#: NewX509#15
-msgid ""
-"This list contains all certificates with the CA-flag set to true and whoes "
-"private key is present in the key-database.\n"
-"If this list is disabled, you only can create a self-signed certificate."
-msgstr ""
-"Cette liste contient tous les certificats qui ont le drapeau CA levé et dont "
-"la clé privée est présente dans la base de données.\n"
-"Si cette liste est désactivée, seule la création d'un certificat auto-signé "
-"est possible."
-
-#: NewX509#16
-msgctxt "NewX509#16"
+#: NewX509#14
+msgctxt "NewX509#14"
 msgid "Signature algorithm"
 msgstr "Algorithme de signature"
 
-#: NewX509#17
+#: NewX509#15
 msgid "Template for the new certificate"
 msgstr "Modèle pour le nouveau certificat"
 
-#: NewX509#18
+#: NewX509#16
 msgid "All available templates"
 msgstr "Tous les modèles disponibles"
 
-#: NewX509#19
-msgid "This list contains all templates from the toplevel template Tab"
-msgstr "Cette liste contient tous les modèles de l'onglet 'Modèles'"
-
-#: NewX509#20
+#: NewX509#17
 msgid "Apply extensions"
 msgstr "Appliquer les extensions"
 
-#: NewX509#21
+#: NewX509#18
 msgid "Apply subject"
 msgstr "Appliquer le sujet"
 
-#: NewX509#22
+#: NewX509#19
 msgid "Apply all"
 msgstr "Appliquer tout"
 
-#: NewX509#23
-msgctxt "NewX509#23"
+#: NewX509#20
+msgctxt "NewX509#20"
 msgid "Subject"
 msgstr "Sujet"
 
-#: NewX509#24
+#: NewX509#21
+msgid "Distinguished name"
+msgstr "Nom distinctif complet"
+
+#: NewX509#22
 msgid "Organisation"
 msgstr "Organisation"
 
-#: NewX509#25
+#: NewX509#23
 msgid ""
 "This name is only used internally and does not appear in the resulting "
 "certificate"
@@ -1242,473 +1240,335 @@ msgstr ""
 "Ce nom est seulement utilisé par xca et n'apparaît pas dans le certificat "
 "exporté"
 
-#: NewX509#26
+#: NewX509#24
 msgid "Must be exactly 2 letter of size (DE, UK)"
 msgstr "Doit contenir exactement deux lettres [FR, UK]"
 
-#: NewX509#27
+#: NewX509#25
 msgid "Country code"
 msgstr "Code du pays"
 
-#: NewX509#28
+#: NewX509#26
 msgid "State or Province"
 msgstr "Etat ou Province"
 
-#: NewX509#29
+#: NewX509#27
 msgid "Locality"
 msgstr "Ville"
 
-#: NewX509#30
+#: NewX509#28
 msgid "Organisational unit"
 msgstr "Unité organisationnlle"
 
-#: NewX509#31
+#: NewX509#29
 msgid "E-Mail address"
 msgstr "Adresse de courriel"
 
-#: NewX509#32
-msgctxt "NewX509#32"
+#: NewX509#30
+msgctxt "NewX509#30"
 msgid "Internal name"
 msgstr "Nom interne"
 
-#: NewX509#33
+#: NewX509#31
 msgid "Common name"
 msgstr "Nom commun"
 
-#: NewX509#34
-msgctxt "NewX509#34"
+#: NewX509#32
+msgctxt "NewX509#32"
 msgid "Add"
 msgstr "Ajouter"
 
-#: NewX509#35
-msgctxt "NewX509#35"
+#: NewX509#33
+msgctxt "NewX509#33"
 msgid "Delete"
 msgstr "Enlever"
 
-#: NewX509#36
-msgctxt "NewX509#36"
+#: NewX509#34
+msgctxt "NewX509#34"
 msgid "Private key"
-msgstr "Clé privée"
+msgstr "Clé privée"
 
-#: NewX509#37
+#: NewX509#35
 msgid "This list only contains unused keys"
 msgstr "Cette liste ne contient que les clés inutilisées"
 
-#: NewX509#38
+#: NewX509#36
 msgid "Used keys too"
 msgstr "Inclure les clés utilisées"
 
-#: NewX509#39
+#: NewX509#37
 msgid "&Generate a new key"
 msgstr "&Générer une nouvelle clé"
 
-#: NewX509#40
-msgctxt "NewX509#40"
+#: NewX509#38
+msgctxt "NewX509#38"
 msgid "Extensions"
 msgstr "Extensions"
 
-#: NewX509#41
+#: NewX509#39
 msgid "Basic constraints"
 msgstr "Contraintes basiques"
 
-#: NewX509#42
-msgctxt "NewX509#42"
+#: NewX509#40
+msgctxt "NewX509#40"
 msgid "Type"
 msgstr "Type"
 
-#: NewX509#43
+#: NewX509#41
 msgid "If this will become a CA certificate or not"
 msgstr "Si un certificat d'autorité (CA) est en train d'être créé ou non"
 
-#: NewX509#44
-msgid ""
-"Set this to TRUE if you want to create a CA certificate that signs other "
-"certificates.\n"
-"This is always set to FALSE for client or server certificates. In most cases "
-"self-signed certificates are CA certificates.\n"
-"Self-signed non-CA certificates are unusual although they are possible."
-msgstr ""
-"Sélectionner \"VRAI\" si vous voulez créer un certificat d'autorité (CA) qui "
-"peut signer d'autres certificats.\n"
-"\"FAUX\" doit toujours être séléectionné pour des certificats de clients ou "
-"de serveurs. Dans la plupart des cas,\n"
-"les certificats auto-signés sont des certificats d'autorité: bien que "
-"possibles, les certificats auto-signés non-CA sont rares."
-
-#: NewX509#45
+#: NewX509#42
 msgid "Not defined"
 msgstr "Non défini"
 
-#: NewX509#46
+#: NewX509#43
 msgid "Certification Authority"
 msgstr "Autorité de Certification"
 
-#: NewX509#47
+#: NewX509#44
 msgid "End Entity"
 msgstr "Entité Finale"
 
-#: NewX509#48
+#: NewX509#45
 msgid "Path length"
 msgstr "Distance aux feuilles"
 
-#: NewX509#49
+#: NewX509#46
 msgid "How much CAs may be below this."
 msgstr ""
 "Combien de niveau de sous-CA peuvent apparaître jusqu'à une entité finale."
 
-#: NewX509#50
-msgid ""
-"If this is left empty the pathlen is not included in the certificate. "
-"Otherwise it distinguishes the count of chained CA certificates below this "
-"one.\n"
-"A pathlen of 0 means, that this certificate may not issue other sub-CA "
-"certificates. Although it can do it, all chain-checking algorithms in e.g. "
-"your browser or openssl will (should) fail."
-msgstr ""
-"Si ce champ est laissé vide, la distance aux peuilles n'est pas incluse dans "
-"le certificat. Sinon il limite le nombre de sous-CA en dessous de celui-ci.\n"
-"Une distance aux feuilles de 0 signifie que ce certificat ne peut pas signer "
-"de sous-CA. Bien qu'il puisse effectivement le faire, tous les algorithme de "
-"vérification de\n"
-"chaînage des certificats (p.ex: dans votre navigateur ou openssl) les "
-"refuseront."
-
-#: NewX509#51
+#: NewX509#47
 msgid "The basic constraints should always be critical"
 msgstr "Les contraintes basiques doivent toujours être critiques"
 
-#: NewX509#52
+#: NewX509#48
 msgid "Key identifier"
 msgstr "Identifiant de clé"
 
-#: NewX509#53
+#: NewX509#49
 msgid "Creates a hash of the key following the PKIX guidelines"
 msgstr "Crée un hachage de la clé conformément aux directives PKIX"
 
-#: NewX509#54
+#: NewX509#50
 msgid "Copy the Subject Key Identifier from the issuer"
 msgstr "Copie l'identifiant de clé du sujet du signataire"
 
-#: NewX509#55
-msgid ""
-"If this box is checked an attempt is made to copy the subject key identifier "
-"from the signing certificate.\n"
-"It also copies the issuer and serial number from the issuer certificate. "
-"Normally this will only be done if the keyid option fails."
-msgstr ""
-"Quand cette case est cochée, l'identifiant de clé est copiée du certificat "
-"signataire.\n"
-"L'emetteur et le numéro de série du certificat signataire sont aussi copiés: "
-"normalement cette copie n'est effectuée que si la copie de l'identifiant de "
-"clé échoue."
-
-#: NewX509#56
-msgctxt "NewX509#56"
+#: NewX509#51
+msgctxt "NewX509#51"
 msgid "Validity"
-msgstr "Validité"
+msgstr "Validité"
 
-#: NewX509#57
-msgctxt "NewX509#57"
+#: NewX509#52
+msgctxt "NewX509#52"
 msgid "Not before"
 msgstr "Pas avant"
 
-#: NewX509#58
-msgctxt "NewX509#58"
+#: NewX509#53
+msgctxt "NewX509#53"
 msgid "Not after"
-msgstr "Pas après"
+msgstr "Pas après"
 
-#: NewX509#59
-msgctxt "NewX509#59"
+#: NewX509#54
+msgctxt "NewX509#54"
 msgid "Time range"
 msgstr "Intervalle de temps"
 
-#: NewX509#60
-msgctxt "NewX509#60"
+#: NewX509#55
+msgctxt "NewX509#55"
 msgid "Days"
 msgstr "Jours"
 
-#: NewX509#61
-msgctxt "NewX509#61"
+#: NewX509#56
+msgctxt "NewX509#56"
 msgid "Months"
 msgstr "Mois"
 
-#: NewX509#62
-msgctxt "NewX509#62"
+#: NewX509#57
+msgctxt "NewX509#57"
 msgid "Years"
-msgstr "Années"
+msgstr "Années"
 
-#: NewX509#63
-msgctxt "NewX509#63"
+#: NewX509#58
+msgctxt "NewX509#58"
 msgid "Apply"
 msgstr "Appliquer"
 
-#: NewX509#64
+#: NewX509#59
 msgid "Set the time to 00:00:00 and 23:59:59 respectively"
 msgstr "Définir les heures à 00:00:00 et 23:59:59 respectivement"
 
-#: NewX509#65
-msgctxt "NewX509#65"
+#: NewX509#60
+msgctxt "NewX509#60"
 msgid "Midnight"
 msgstr "Minuit"
 
-#: NewX509#66
-msgctxt "NewX509#66"
+#: NewX509#61
+msgctxt "NewX509#61"
+msgid "Local time"
+msgstr "Heure locale"
+
+#: NewX509#62
+msgctxt "NewX509#62"
 msgid "No well-defined expiration"
-msgstr "Date d'expiration mal définie"
+msgstr "Pas de date d'expiration précise"
 
-#: NewX509#67
-msgid "Authority Info Access"
-msgstr "Accès à l'information de l'autorité"
-
-#: NewX509#68
-msgid "CRL distribution point"
-msgstr "Point de distribution de la liste de révocation"
-
-#: NewX509#69
-msgid "issuer alternative name"
-msgstr "Nom alternatif du signataire"
-
-#: NewX509#70
-msgid "URI:"
-msgstr "URI:"
-
-#: NewX509#71
-msgid ""
-"This is a multi-valued extension that supports all the literal options of "
-"subject alternative name. Of the few software packages that currentlyi "
-"nterpret this extension most only interpret the URI option.\n"
-"Currently each option will set a new DistributionPoint with the fullName "
-"field set to the given value.\n"
-"Other fields like cRLissuer and reasons cannot currently be set or "
-"displayed: at this time no examples were available that used these fields.\n"
-"If you see this extension with <UNSUPPORTED> when you attempt to print it "
-"out or it doesn't appear to display correctly then let steve know, including "
-"the certificate (mail steve at openssl dot org) .\n"
-"Examples:\n"
-"URI:http://www.myhost.com/myca.crl\n"
-"URI:http://www.my.com/my.crl, URI:http://www.oth.com/my.crl"
-msgstr ""
-"Cette extension est un agrégat de toutes les options littérales du nom "
-"alternatif du sujet. Parmi les quelques logiciels qui utilisent cette "
-"extension aujourd'hui, la plupart ne traitent uniquement l'option URI.\n"
-"Chaque option introduit un nouveau point de distribution qualifié par son "
-"nom complet.\n"
-"Pour l'instant, les autres champs comme 'CRLissuer' et 'reasons' ne peuvent "
-"pas être saisis ou affichés. Aucun exemple utilisant ces champs n'est "
-"disponible aujourd'hui.\n"
-"Si cette extension apparaît comme <UNSUPPORTED> ou si le contenu ne semble "
-"pas affiché correctement, faites-le savoir a Steve (courriel: steve arobase "
-"openssl point org).\n"
-"Exemples:\n"
-"URI:http://www.monsite.com/monca.crl\n"
-"URI:http://www.moi.com/moi.crl, URI:http://www.lui.com/moi.crl"
-
-#: NewX509#72
-msgid "can be altered by the file \"aia.txt\""
-msgstr "peut être altéré par le fichier \"aia.txt\""
-
-#: NewX509#73
-msgid "Edit"
-msgstr "Modifier"
-
-#: NewX509#74
-msgid "DNS: IP: URI: email: RID:"
-msgstr "DNS: IP: URI: email: RID:"
-
-#: NewX509#75
-msgid ""
-"The authority information access extension gives details about how to access "
-"certain information relating to the CA. Its syntax is accessOID;location "
-"where 'location' has the same syntax as subject alternative name (except "
-"that email:copy is not supported). accessOID can be any valid OID but only "
-"certain values are meaningful for example OCSP and caIssuers. OCSP gives the "
-"location of an OCSP responder: this is used by Netscape PSM and other "
-"software.\n"
-"\n"
-"Example:\n"
-"\n"
-"OCSP;URI:http://ocsp.my.host/\n"
-"caIssuers;URI:http://my.ca/ca.html"
-msgstr ""
-"L'extension d'accès à l'information de l'autorité indique comment accéder à "
-"certaines informations concernant le certificat d'autorité. La syntaxe est "
-"accèsOID;emplacement où 'emplacement` à la même syntaxe que le nom "
-"alternatif du sujet (à part 'email:copy\" qui n'est pas supporté). N'importe "
-"quel OID valide peut être spécifié pour  accèsOID, mais seules certaines "
-"valeurs ont un sens, par exemple OCSP et caIssuers. OCSP renseigne sur "
-"l'emplacement d'un répondeur OCSP; ceci est untilisé par les navigateurs Web "
-"et d'autres logiciels.\n"
-"\n"
-"Exemple:\n"
-"\n"
-"OCSP;URI:http://ocsp.mon.site/\n"
-"caIssuers;URI:http://moi.ca/ca.html"
-
-#: NewX509#76
-msgid ""
-"The subject alternative name extension allows various literal values to be "
-"used. These include \"email\" (an email address) , \"URI\" a uniform "
-"resource indicator, \"DNS\" (a DNS domain name) , RID (a registered ID: "
-"OBJECT IDENTIFIER) and IP (an IP address).\n"
-"Examples:\n"
-"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
-"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
-msgstr ""
-"Cette extension contient le nom alternatif du sujet et permet de regrouper "
-"plusieurs valeurs littérales. Celles-ci comprennent \"email\" (un adresse de "
-"courriel), \"URI\" (un indicateur uniforme de ressource), \"DNS\" (un nom de "
-"domaine), \"RID\" (un identifiant d'objet enregistré) et \"IP\" (une adresse "
-"IP).\n"
-"Exemples:\n"
-"email:mon@autre.adresse, IP: 1.1.1.1 , URI:http://mon.url.ici/\n"
-"email:mon@autre.adresse, RID:1.2.3.4, DNS: serveur.de.nom.tld"
-
-#: NewX509#77
+#: NewX509#63
 msgid "subject alternative name"
 msgstr "nom alternatif du sujet"
 
-#: NewX509#78
-msgid ""
-"The issuer alternative name extension allows various literal values to be "
-"used. These include \"email\" (an email address) , \"URI\" a uniform "
-"resource indicator, \"DNS\" (a DNS domain name), RID (a registered ID: "
-"OBJECT IDENTIFIER) and IP (an IP address).\n"
-"Examples:\n"
-"email:my@other.address, IP: 1.1.1.1 , URI:http://my.url.here/\n"
-"email:my@other.address, RID:1.2.3.4, DNS: ns.server.tld"
-msgstr ""
-"Cette extension contient le nom alternatif du signataire et permet de "
-"regrouper plusieurs valeurs littérales. Celles-ci comprennent \"email\" (un "
-"adresse de courriel), \"URI\" (un indicateur uniforme de ressource), \"DNS"
-"\" (un nom de domaine), \"RID\" (un identifiant d'objet enregistré) et \"IP"
-"\" (une adresse IP).\n"
-"Exemples:\n"
-"email:mon@autre.adresse, IP: 1.1.1.1 , URI:http://mon.url.ici/\n"
-"email:mon@autre.adresse, RID:1.2.3.4, DNS: serveur.de.nom.tld"
+#: NewX509#64
+msgid "DNS: IP: URI: email: RID:"
+msgstr "DNS: IP: URI: email: RID:"
 
-#: NewX509#79
+#: NewX509#65
+msgid "Edit"
+msgstr "Modifier"
+
+#: NewX509#66
+msgid "issuer alternative name"
+msgstr "Nom alternatif du signataire"
+
+#: NewX509#67
+msgid "URI:"
+msgstr "URI:"
+
+#: NewX509#68
+msgid "Authority Info Access"
+msgstr "Accès à l'information de l'autorité"
+
+#: NewX509#69
+msgid "can be altered by the file \"aia.txt\""
+msgstr "peut être altéré par le fichier \"aia.txt\""
+
+#: NewX509#70
+msgid "CRL distribution point"
+msgstr "Point de distribution de la liste de révocation"
+
+#: NewX509#71
 msgid "Key usage"
 msgstr "Utilisation de la clé"
 
-#: NewX509#80
+#: NewX509#72
 msgid "Extended key usage"
 msgstr "Utilisation étendue de la clé"
 
-#: NewX509#81
+#: NewX509#73
 msgid "Netscape"
 msgstr "Netscape"
 
-#: NewX509#82
+#: NewX509#74
 msgid "CA Revocation URL"
 msgstr "URL de révocation du certificat CA"
 
-#: NewX509#83
+#: NewX509#75
 msgid "Revocation URL"
 msgstr "URL de révocation"
 
-#: NewX509#84
+#: NewX509#76
 msgid "SSL server name"
 msgstr "Nom du serveur SSL"
 
-#: NewX509#85
+#: NewX509#77
 msgid "Certificate renewal URL"
 msgstr "URL de renouvellement de certificat"
 
-#: NewX509#86
+#: NewX509#78
 msgid "Comment"
 msgstr "Commentaire"
 
-#: NewX509#87
+#: NewX509#79
 msgid "CA policy URL"
 msgstr "URL des conditions générales du CA"
 
-#: NewX509#88
+#: NewX509#80
 msgid "Base URL"
 msgstr "URL de base"
 
-#: NewX509#89
+#: NewX509#81
 msgid "If you know a more pretty one tell me"
 msgstr "Si vous en connaissez un plus joli, faites-le moi savoir"
 
-#: NewX509#90
+#: NewX509#82
 msgid "Advanced"
 msgstr "Avancé"
 
-#: NewX509#91
-msgctxt "NewX509#91"
+#: NewX509#83
+msgctxt "NewX509#83"
 msgid "Validate"
 msgstr "Valider"
 
-#: NewX509#92
+#: NewX509#84
 msgid "Create a &self signed certificate with a MD5-hashed QA serial"
 msgstr ""
 "Créer un certificat auto-&signé avec un numéro de série QA basé sur MD5"
 
-#: NewX509#93
+#: NewX509#85
 msgid "Create Certificate signing request"
 msgstr "Créer une requête de signature de certificat"
 
-#: NewX509#94
+#: NewX509#86
 msgid "minimum size: %1"
 msgstr "taille minimale: %1"
 
-#: NewX509#95
+#: NewX509#87
 msgid "maximum size: %1"
 msgstr "taille maximale: %1"
 
-#: NewX509#96
+#: NewX509#88
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr "seulement a-z A-Z 0-9 '()+,-./:=?"
 
-#: NewX509#97
+#: NewX509#89
 msgid "only 7-bit clean characters"
 msgstr "seulement des caractères 7-bit ASCII imprimables"
 
-#: NewX509#98
+#: NewX509#90
 msgid "XCA template"
 msgstr "modèle XCA"
 
-#: NewX509#99
+#: NewX509#91
 msgid "Create x509 Certificate"
 msgstr "Créer un certificat x509"
 
-#: NewX509#100
-msgid "From PKCS#10 request"
-msgstr "A partir d'une requête en PKCS#10"
-
-#: NewX509#101
+#: NewX509#92
 msgid "Other Tabs"
 msgstr "Autres Onglets"
 
-#: NewX509#102
+#: NewX509#93
 msgid "Advanced Tab"
 msgstr "Onglet Avancé"
 
-#: NewX509#103
+#: NewX509#94
 msgid "Errors"
 msgstr "Erreurs"
 
-#: NewX509#104
-msgctxt "NewX509#104"
-msgid "Abort rollout"
-msgstr "Interrompre le déploiement"
+#: NewX509#95
+msgid "From PKCS#10 request"
+msgstr "A partir d'une requête en PKCS#10"
 
-#: NewX509#105
+#: NewX509#96
+msgctxt "NewX509#96"
+msgid "Abort rollout"
+msgstr "Interrompre le déploiement"
+
+#: NewX509#97
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 "Pour être en conformité avec la RFC3280, les règles de restriction de "
 "longueur suivantes ne sont pas respectées:"
 
-#: NewX509#106
+#: NewX509#98
 msgid "Edit subject"
 msgstr "Modifier le sujet"
 
-#: NewX509#107
-msgctxt "NewX509#107"
+#: NewX509#99
+msgctxt "NewX509#99"
 msgid "Continue rollout"
-msgstr "Continuer le déploiement"
+msgstr "Continuer le déploiement"
 
-#: NewX509#108
+#: NewX509#100
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
@@ -1716,11 +1576,11 @@ msgstr ""
 "La vérification de la requête de signature à échoué.\n"
 "Le déploiement devrait être interrompu."
 
-#: NewX509#109
+#: NewX509#101
 msgid "Continue anyway"
 msgstr "Continuer quand-même"
 
-#: NewX509#110
+#: NewX509#102
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
@@ -1728,19 +1588,19 @@ msgstr ""
 "Le nom interne et le nom commun sont vides.\n"
 "SVP saisir au moins le nom interne."
 
-#: NewX509#111
+#: NewX509#103
 msgid "Edit name"
 msgstr "Modifier le nom"
 
-#: NewX509#112
+#: NewX509#104
 msgid "There is no Key selected for signing."
 msgstr "Aucune clé n'est sélectionnée pour la signature."
 
-#: NewX509#113
+#: NewX509#105
 msgid "Select key"
 msgstr "Sélectionner la clé"
 
-#: NewX509#114
+#: NewX509#106
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
@@ -1750,39 +1610,39 @@ msgstr ""
 "%1\n"
 "bien que vous les avez déclarées comme obligatoires dans le menu des options."
 
-#: NewX509#115
-msgctxt "NewX509#115"
+#: NewX509#107
+msgctxt "NewX509#107"
 msgid "The key you selected for signing is not a private one."
 msgstr "La clé sélectionnée pour la signature n'est pas une clé privée."
 
-#: NewX509#116
+#: NewX509#108
 msgid "Select other signer"
 msgstr "Sélectionner un autre signataire"
 
-#: NewX509#117
+#: NewX509#109
 msgid "Select other key"
 msgstr "Sélectionner une autre clé"
 
-#: NewX509#118
-msgctxt "NewX509#118"
+#: NewX509#110
+msgctxt "NewX509#110"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 "Le certificat serait valide avant son signataire. Ce n'est probablement pas "
-"ce qui est désiré."
+"ce qui est désiré."
 
-#: NewX509#119
+#: NewX509#111
 msgid "Edit dates"
 msgstr "Modifier les limites de validité"
 
-#: NewX509#120
-msgctxt "NewX509#120"
+#: NewX509#112
+msgctxt "NewX509#112"
 msgid "Adjust date and continue"
 msgstr "Ajuster la date et continuer"
 
-#: NewX509#121
-msgctxt "NewX509#121"
+#: NewX509#113
+msgctxt "NewX509#113"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
@@ -1790,7 +1650,7 @@ msgstr ""
 "Le certificat serait valide plus longtemps que son signataire. Ce n'est "
 "probablement pas ce qui est désiré."
 
-#: NewX509#122
+#: NewX509#114
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
@@ -1798,19 +1658,19 @@ msgstr ""
 "Le certificat serait échu avant de devenir actif. Vous avez probablement "
 "interverti les deux dates."
 
-#: NewX509#123
+#: NewX509#115
 msgid ""
-"The certificate contains duplicated extensions. Check the validation on the "
-"advanced tab."
+"The certificate contains invalid or duplicate extensions. Check the "
+"validation on the advanced tab."
 msgstr ""
-"Le certificat contient des extensions dupliquées. Valider et vérifier sur "
-"l'onglet \"Avancé\"."
+"Le certificat contient des extensions dupliquées ou invalides. Vérifier la "
+"validité sur l'onglet \"Avancé\"."
 
-#: NewX509#124
+#: NewX509#116
 msgid "Edit extensions"
 msgstr "Modifier les extensions"
 
-#: NewX509#125
+#: NewX509#117
 msgid "Configfile error on line %1\n"
 msgstr "Erreur dans le fichier de configuration à la ligne %1\n"
 
@@ -1845,63 +1705,67 @@ msgid "Suppress success messages"
 msgstr "Supprimer les messages en cas de succès"
 
 #: Options#8
+msgid "Don't colorize expired certificates"
+msgstr "Ne pas coloriser les certificats expirés"
+
+#: Options#9
 msgid "PKCS#11 provider"
 msgstr "Fournisseur PKCS#11"
 
-#: Options#9
+#: Options#10
 msgid "Remove"
 msgstr "Enlever"
 
-#: Options#10
+#: Options#11
+msgctxt "Options#11"
+msgid "Search"
+msgstr "Chercher"
+
+#: Options#12
 msgid "Printable string or UTF8 (default)"
 msgstr "Chaîne imprimable ou UTF8 (défaut)"
 
-#: Options#11
+#: Options#13
 msgid "PKIX recommendation in RFC2459"
 msgstr "La recommandation PKIX est dans la RFC2459"
 
-#: Options#12
+#: Options#14
 msgid "No BMP strings, only printable and T61"
 msgstr "Pas de chaîne BMP, seulement imprimable et T61"
 
-#: Options#13
+#: Options#15
 msgid "UTF8 strings only (RFC2459)"
 msgstr "Chaînes UTF8 uniquement (RFC2459)"
 
-#: Options#14
+#: Options#16
 msgid "All strings"
 msgstr "Toutes les chaînes"
 
-#: Options#15
+#: Options#17
 msgid "Load failed"
 msgstr "Le chargement a échoué"
 
 #: PwDialog#1
-msgctxt "PwDialog#1"
-msgid "Password"
-msgstr "Mot de passe"
-
-#: PwDialog#2
 msgid ""
-"The password is parsed as 2-digit hex code. It must have an equal number of "
+"The password is parsed as 2-digit hex code. It must have an even number of "
 "digits (0-9 and a-f)"
 msgstr ""
 "Le mot de passe doit être exprimé sous forme d'une suite de chiffres "
 "hexadécimaux. Il doit contenir un nombre pair de chiffres (0-9 et a-f)"
 
-#: PwDialog#3
+#: PwDialog#2
 msgid "Take as HEX string"
 msgstr "Exprimé en hexadécimal"
 
-#: PwDialog#4
+#: PwDialog#3
 msgid "Repeat %1"
 msgstr "Répéter %1"
 
-#: PwDialog#5
+#: PwDialog#4
 msgid "%1 missmatch"
 msgstr "%1 ne correspond pas"
 
-#: PwDialog#6
+#: PwDialog#5
 msgid ""
 "Hex password must only contain the characters '0' - '9' and 'a' - 'f' and it "
 "must consist of an even number of characters"
@@ -1909,7 +1773,7 @@ msgstr ""
 "Un mot de passe hexadécimal peut seulement contenir les caractères '0' à '9' "
 "et 'a' à 'f' et il doit consister en un nombre pair de caractères"
 
-#: PwDialog#7
+#: PwDialog#6
 msgid "E&xit"
 msgstr "&Quitter"
 
@@ -1918,164 +1782,168 @@ msgid "Undefined"
 msgstr "Indéfini"
 
 #: QObject#2
+msgid "Broken / Invalid"
+msgstr "Invalide"
+
+#: QObject#3
 msgid "DB: Rename: '%1' already in use"
 msgstr "DB: Renommer: '%1' déjà en utilisation"
 
-#: QObject#3
+#: QObject#4
 msgid "DB: Entry to rename not found: %1"
 msgstr "DB: l'inscription à renommer n'a pas été trouvée: '%1'"
 
-#: QObject#4
+#: QObject#5
 msgid "DB: Write error %1 - %2"
 msgstr "DB: Erreur d'écriture %1 - %2"
 
-#: QObject#5
+#: QObject#6
 msgid "Out of data"
 msgstr "A court de données"
 
-#: QObject#6
+#: QObject#7
 msgid "Error finding endmarker of string"
 msgstr "Erreur: une marque de fin de chaîne n'a pas été trouvée"
 
-#: QObject#7
+#: QObject#8
 msgid "Out of Memory at %1:%2"
 msgstr "A court de mémoire à %1:%2"
 
-#: QObject#8
-msgctxt "QObject#8"
+#: QObject#9
+msgctxt "QObject#9"
 msgid "All files ( * )"
 msgstr "Tous les fichiers ( * )"
 
-#: QObject#9
+#: QObject#10
 msgid "PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;"
 msgstr "Clés PKI ( *.pem *.der *.key );;Clés PKCS#8 ( *.p8 *.pk8 );;"
 
-#: QObject#10
+#: QObject#11
 msgid "Import RSA key"
 msgstr "Importer une clé RSA"
 
-#: QObject#11
+#: QObject#12
 msgid "PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;"
 msgstr ""
 "Requête PKCS#10 ( *.pem *.der *.csr );;Requête Netscape ( *.spkac *.spc );;"
 
-#: QObject#12
+#: QObject#13
 msgid "Import Request"
 msgstr "Importer une requête"
 
-#: QObject#13
+#: QObject#14
 msgid "Certificates ( *.pem *.der *.crt *.cer );;"
 msgstr "Certificats ( *.pem *.der *.crt *.cer );;"
 
-#: QObject#14
+#: QObject#15
 msgid "Import X.509 Certificate"
 msgstr "Importer un certificat X.509"
 
-#: QObject#15
+#: QObject#16
 msgid "PKCS#7 data ( *.p7s *.p7m *.p7b );;"
 msgstr "Données PKCS#7 ( *.p7s *.p7m *.p7b );;"
 
-#: QObject#16
+#: QObject#17
 msgid "Import PKCS#7 Certificates"
 msgstr "Importer un certificat PKCS#7"
 
-#: QObject#17
+#: QObject#18
 msgid "PKCS#12 Certificates ( *.p12 *.pfx );;"
 msgstr "Certificats PKCS#12 ( *.p12 *.pfx );;"
 
-#: QObject#18
+#: QObject#19
 msgid "Import PKCS#12 Private Certificate"
 msgstr "Importer un certificat privé PKCS#12"
 
-#: QObject#19
+#: QObject#20
 msgid "XCA templates ( *.xca );;"
 msgstr "Modèles XCA ( *.xca );;"
 
-#: QObject#20
+#: QObject#21
 msgid "Import XCA Templates"
 msgstr "Importer des modèles XCA"
 
-#: QObject#21
+#: QObject#22
 msgid "Revocation lists ( *.pem *.der *.crl );;"
 msgstr "Listes de révocation ( *.pem *.der *.crl );;"
 
-#: QObject#22
+#: QObject#23
 msgid "Import Certificate Revocation List"
 msgstr "Importer une liste de révocation de certificats"
 
-#: QObject#23
+#: QObject#24
 msgid "XCA Databases ( *.xdb );;"
 msgstr "Bases de données XCA ( *.xdb );;"
 
-#: QObject#24
+#: QObject#25
 msgid "Open XCA Database"
 msgstr "Ouvrir une Base de Données XCA"
 
-#: QObject#25
+#: QObject#26
 msgid "PKCS#11 library ( *.dll );;"
 msgstr "Bibliothèque PKCS#11 ( *.dll );;"
 
-#: QObject#26
+#: QObject#27
 msgid "PKCS#11 library ( *.dylib *.so );;"
 msgstr "Bibliothèque PKCS#11 ( *.dylib *.so );;"
 
-#: QObject#27
+#: QObject#28
 msgid "PKCS#11 library ( *.so );;"
 msgstr "Bibliothèque PKCS#11 ( *.so );;"
 
-#: QObject#28
+#: QObject#29
 msgid "Open PKCS#11 shared library"
 msgstr "Ouvrir une bibliothèque partagée PKCS#11"
 
-#: QObject#29
+#: QObject#30
 msgid "PEM files ( *.pem );;"
 msgstr "Fichiers PEM ( *.pem );;"
 
-#: QObject#30
+#: QObject#31
 msgid "Load PEM encoded file"
 msgstr "Charger un fichier encodé en PEM"
 
-#: QObject#31
+#: QObject#32
 msgid "Please enter the PIN on the PinPad"
 msgstr "Saisir le NIP sur le pavé prévu à cet effet SVP"
 
-#: QObject#32
+#: QObject#33
 msgid "Please enter the SO PIN (PUK) of the token %1"
 msgstr "SVP saisir le PUK du jeton '%1'"
 
-#: QObject#33
+#: QObject#34
 msgid "Please enter the PIN of the token %1"
 msgstr "SVP saisir le NIP du jeton '%1'"
 
-#: QObject#34
+#: QObject#35
 msgid "No Security token found"
 msgstr "Aucun jeton de sécurité trouvé"
 
-#: QObject#35
+#: QObject#36
 msgid "Select"
 msgstr "Sélectionner"
 
-#: QObject#36
+#: QObject#37
 msgid "Please enter the new SO PIN (PUK) for the token: '%1'"
 msgstr "SVP saisir le nouveau PUK pour le jeton: '%1'"
 
-#: QObject#37
+#: QObject#38
 msgid "Please enter the new PIN for the token: '%1'"
 msgstr "SVP saisir le nouveau NIP pour le jeton: '%1'"
 
-#: QObject#38
+#: QObject#39
 msgid "Required PIN size: %1 - %2"
 msgstr "Taille du NIP requise: %1 - %2"
 
-#: QObject#39
+#: QObject#40
 msgid "Failed to open PKCS11 library: %1"
 msgstr "L'ouverture de la bibliothèque PKCS#11 '%1' a échoué"
 
-#: QObject#40
+#: QObject#41
 msgid "PKCS#11 function '%1' failed: %2"
 msgstr "La fonction PKCS#11 '%1' a échoué: %2"
 
-#: QObject#41
+#: QObject#42
 msgid ""
 "PKCS#11 function '%1' failed: %2\n"
 "In library %3\n"
@@ -2085,15 +1953,15 @@ msgstr ""
 "Dans la bibliothèque %3\n"
 "%4"
 
-#: QObject#42
+#: QObject#43
 msgid "Invalid"
 msgstr "Invalide"
 
-#: QObject#43
+#: QObject#44
 msgid "%1 is shorter than %2 bytes: '%3'"
 msgstr "%1 est plus court que %2 octets: '%3'"
 
-#: QObject#44
+#: QObject#45
 msgid "%1 is longer than %2 bytes: '%3'"
 msgstr "%1 est plus long que %2 octets: '%3'"
 
@@ -2106,8 +1974,40 @@ msgid "Invalid since"
 msgstr "Non-valide depuis"
 
 #: Revoke#3
+msgctxt "Revoke#3"
+msgid "Local time"
+msgstr "Heure locale"
+
+#: Revoke#4
 msgid "Revocation reason"
 msgstr "Raison de la révocation"
+
+#: SearchPkcs11#1
+msgid "Dialog"
+msgstr "Dialogue"
+
+#: SearchPkcs11#2
+msgid "Directory"
+msgstr "Dossier"
+
+#: SearchPkcs11#3
+msgctxt "SearchPkcs11#3"
+msgid "..."
+msgstr "..."
+
+#: SearchPkcs11#4
+msgid "include sub directorys"
+msgstr "include les sous-dossiers"
+
+#: SearchPkcs11#5
+msgctxt "SearchPkcs11#5"
+msgid "Search"
+msgstr "Chercher"
+
+#: SearchPkcs11#6
+msgid "The following files are possible PKCS#11 libraries"
+msgstr ""
+"Les fichiers suivants sont susceptibles d'être des bibliothèques PKCS#11"
 
 #: SelectToken#1
 msgid "Select Token"
@@ -2152,18 +2052,22 @@ msgid "Internal name"
 msgstr "Nom interne"
 
 #: db_base#2
-msgid "Reset"
-msgstr "Réinitialisation"
-
-#: db_base#3
 msgid "Subject entries"
 msgstr "Inscriptions du sujet"
 
+#: db_base#3
+msgid "X509v3 Extensions"
+msgstr "Extensions X509v3"
+
 #: db_base#4
+msgid "Reset"
+msgstr "Réinitialisation"
+
+#: db_base#5
 msgid "Paste PEM data"
 msgstr "Coller les données en format PEM"
 
-#: db_base#5
+#: db_base#6
 msgid "Columns"
 msgstr "Colonnes"
 
@@ -2253,15 +2157,19 @@ msgid "Size"
 msgstr "Taille"
 
 #: db_key#3
+msgid "EC Group"
+msgstr "Groupe EC"
+
+#: db_key#4
 msgid "Use"
 msgstr "Usage"
 
-#: db_key#4
-msgctxt "db_key#4"
+#: db_key#5
+msgctxt "db_key#5"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: db_key#5
+#: db_key#6
 msgid ""
 "The key is already in the database as:\n"
 "'%1'\n"
@@ -2271,7 +2179,7 @@ msgstr ""
 "'%1'\n"
 "En conséquence, elle ne va pas être importée"
 
-#: db_key#6
+#: db_key#7
 msgid ""
 "The database already contains the public part of the imported key as\n"
 "'%1\n"
@@ -2283,15 +2191,15 @@ msgstr ""
 "En conséquence, cette dernière sera complétée par la partie privée de la clé "
 "importée"
 
-#: db_key#7
+#: db_key#8
 msgid "Key size too small !"
 msgstr "Taille de clé trop petite !"
 
-#: db_key#8
+#: db_key#9
 msgid "You are sure to create a key of the size: %1 ?"
 msgstr "Etes-vous sûr de couloir créer une clé de taille %1 ?"
 
-#: db_key#9
+#: db_key#10
 msgid ""
 "Shall the original key '%1' be replaced by the key on the token?\n"
 "This will delete the key '%1' and make it unexportable"
@@ -2300,73 +2208,83 @@ msgstr ""
 "jeton ?\n"
 "Cela détruirait la clé '%1' et la rendrait non-exportable."
 
-#: db_key#10
-msgctxt "db_key#10"
-msgid "New Key"
-msgstr "Nouvelle clé"
-
 #: db_key#11
 msgctxt "db_key#11"
-msgid "Import"
-msgstr "Importer"
+msgid "New Key"
+msgstr "Nouvelle Clé"
 
 #: db_key#12
 msgctxt "db_key#12"
-msgid "Rename"
-msgstr "Renommer"
+msgid "Import"
+msgstr "Importer"
 
 #: db_key#13
 msgctxt "db_key#13"
-msgid "Show Details"
-msgstr "Afficher les Détails"
+msgid "Rename"
+msgstr "Renommer"
 
 #: db_key#14
 msgctxt "db_key#14"
-msgid "Delete"
-msgstr "Détruire"
+msgid "Show Details"
+msgstr "Afficher les Détails"
 
 #: db_key#15
 msgctxt "db_key#15"
+msgid "Delete"
+msgstr "Enlever"
+
+#: db_key#16
+msgctxt "db_key#16"
 msgid "Export"
 msgstr "Exporter"
 
-#: db_key#16
+#: db_key#17
+msgctxt "db_key#17"
+msgid "Clipboard"
+msgstr "Presse-papier"
+
+#: db_key#18
+msgctxt "db_key#18"
+msgid "File"
+msgstr "Fichier"
+
+#: db_key#19
 msgid "Change password"
 msgstr "Changer le mot de passe"
 
-#: db_key#17
+#: db_key#20
 msgid "Reset password"
 msgstr "Effacer le mot de passe"
 
-#: db_key#18
+#: db_key#21
 msgid "Change PIN"
 msgstr "Changer le NIP"
 
-#: db_key#19
+#: db_key#22
 msgid "Init PIN with SO PIN (PUK)"
 msgstr "Initialiser le NIP avec le PUK"
 
-#: db_key#20
+#: db_key#23
 msgid "Change SO PIN (PUK)"
 msgstr "Changer le PUK"
 
-#: db_key#21
+#: db_key#24
 msgid "Store on Security token"
 msgstr "Enregistrer dans le jeton de sécurité"
 
-#: db_key#22
+#: db_key#25
 msgid "Tried to change password of a token"
 msgstr "Tentative de changement de mot de passe d'un jeton de sécurité"
 
-#: db_key#23
+#: db_key#26
 msgid "Tried to change PIN of a key"
 msgstr "Tentative de changement de NIP d'une clé"
 
-#: db_key#24
+#: db_key#27
 msgid "Tried to init PIN of a key"
 msgstr "Tentative d'initialisation du NIP d'une clé"
 
-#: db_key#25
+#: db_key#28
 msgid "Tried to change SO PIN of a key"
 msgstr "Tentative de changement de PUK d'une clé"
 
@@ -2887,81 +2805,99 @@ msgstr ""
 "ainsi que les types de clés privé, public et PKCS#8 ont été essayés."
 
 #: pki_evp#5
+msgid "Ignoring unsupported private key"
+msgstr "Clé privée non-supportée: ignorée"
+
+#: pki_evp#6
 msgid "Please enter the password to decrypt the private key: '%1'"
 msgstr "SVP saisir le mot de passe pour décrypter la clé privée: '%1'"
 
-#: pki_evp#6
+#: pki_evp#7
 msgid "Password input aborted"
 msgstr "Saisie du mot de passe abandonnée"
 
-#: pki_evp#7
+#: pki_evp#8
 msgid "Please enter the database password for decrypting the key '%1'"
 msgstr ""
 "SVP saisir le mot de basse de la base de données pour décrypter la clé '%1'"
 
-#: pki_evp#8
+#: pki_evp#9
 msgid "Please enter the password to protect the private key: '%1'"
 msgstr "SVP saisir le mot de pass pour protéger la clé privée: '%1'"
 
-#: pki_evp#9
+#: pki_evp#10
 msgid "Please enter the database password for encrypting the key"
 msgstr "SVP saisir le mot de passe de la base de données pour encrypter la clé"
 
-#: pki_evp#10
+#: pki_evp#11
 msgid "Please enter the password protecting the PKCS#8 key '%1'"
 msgstr "SVP saisir le mot de passe protégeant la clé en PKCS#8 '%1'"
 
-#: pki_evp#11
+#: pki_evp#12
 msgid "Please enter the export password for the private key '%1'"
 msgstr "SVP saisir le mot de passe d'exportation pour la clé privée '%1'"
 
 #: pki_key#1
+msgid ""
+"Do you really want to export the private key unencrypted to the clipboard ?"
+msgstr ""
+"Voulez-vous vraiment exporter la clé privée en clair dans le presse-papier ?"
+
+#: pki_key#2
+msgid "Only export the public key"
+msgstr "N'exporter que la clé publique"
+
+#: pki_key#3
+msgid "Export the private key unencrypted"
+msgstr "Exporter la clé privée en clair"
+
+#: pki_key#4
 msgid "Successfully imported the %1 public key '%2'"
 msgstr "Les %1 clés publiques '%2' ont été importées avec succès"
 
-#: pki_key#2
+#: pki_key#5
 msgid "Delete the %1 public key '%2'?"
 msgstr "Détruire les %1 clés publiques '%2' ?"
 
-#: pki_key#3
+#: pki_key#6
 msgid "Successfully imported the %1 private key '%2'"
 msgstr "Les %1 clés privées '%2' ont été importées avec succès"
 
-#: pki_key#4
+#: pki_key#7
 msgid "Delete the %1 private key '%2'?"
 msgstr "Détruire les %1 clés privées '%2' ?"
 
-#: pki_key#5
+#: pki_key#8
 msgid "Successfully created the %1 private key '%2'"
 msgstr "Les %1 clés privées '%2' ont été créées avec succès"
 
-#: pki_key#6
-msgctxt "pki_key#6"
+#: pki_key#9
+msgctxt "pki_key#9"
 msgid "Delete the %1 keys: %2?"
-msgstr "Détruire les %1 clés: '%2' ?"
+msgstr "Détruire les %1 clés: '%2'?"
 
-#: pki_key#7
+#: pki_key#10
 msgid "public key"
 msgstr "clé publique"
 
-#: pki_key#8
+#: pki_key#11
 msgid "Common"
 msgstr "Commun"
 
-#: pki_key#9
+#: pki_key#12
 msgid "Private"
 msgstr "Privé"
 
-#: pki_key#10
+#: pki_key#13
 msgid "Bogus"
 msgstr "Erroné"
 
-#: pki_key#11
-msgctxt "pki_key#11"
+#: pki_key#14
+msgctxt "pki_key#14"
 msgid "PIN"
 msgstr "NIP"
 
-#: pki_key#12
+#: pki_key#15
 msgid "No password"
 msgstr "Pas de mot de passe"
 
@@ -3021,12 +2957,12 @@ msgid "Delete the private key '%1' from the token '%2 (#%3)' ?"
 msgstr "Détruire la clé privée '%1' sur le jeton '%2 (#%3)' ?"
 
 #: pki_scard#6
-msgid "only RSA keys can be stored on tokens"
-msgstr "Seules des clés RSA peuvent être enregistrées sur les jetons"
-
-#: pki_scard#7
 msgid "This Key is already on the token"
 msgstr "Cette clé est déjà sur le jeton"
+
+#: pki_scard#7
+msgid "Only RSA and EC keys can be stored on tokens"
+msgstr "Seules les clés RSA et EC peuvent être enregistrées sur les jetons"
 
 #: pki_scard#8
 msgid "PIN input aborted"
@@ -3045,25 +2981,37 @@ msgid "Public Key missmatch. Please re-import card"
 msgstr "La clé publique ne correspond pas. Veuillez re-importer la carte"
 
 #: pki_scard#12
+msgid "Illegal Key generation method"
+msgstr "Méthode de génération de clé illégale"
+
+#: pki_scard#13
 msgid "Unable to find generated key on card"
 msgstr "Impossible de trouver la clé générée sur la carte"
 
-#: pki_scard#13
-msgctxt "pki_scard#13"
+#: pki_scard#14
+msgid "Ignoring unsupported token key"
+msgstr "La clé non-supportée sur le jeton est ignorée"
+
+#: pki_scard#15
+msgctxt "pki_scard#15"
 msgid "Wrong Size %1"
 msgstr "Taille fausse %1"
 
-#: pki_scard#14
+#: pki_scard#16
 msgid "Token %1"
 msgstr "Jeton %1"
 
-#: pki_scard#15
+#: pki_scard#17
 msgid "Failed to find the key on the token"
 msgstr "Impossible de trouver la clé sur le jeton"
 
-#: pki_scard#16
+#: pki_scard#18
 msgid "Invalid Pin for the token"
 msgstr "NIP invalide pour le jeton"
+
+#: pki_scard#19
+msgid "Failed to initialize the key on the token"
+msgstr "Impossible d'initialiser la clé sur le jeton"
 
 #: pki_temp#1
 msgid "Successfully imported the XCA template '%1'"
@@ -3226,9 +3174,8 @@ msgid "Validate"
 msgstr "Valider"
 
 #: v3ext#5
-msgctxt "v3ext#5"
 msgid "Cancel"
-msgstr "Abandonner"
+msgstr "Annuler"
 
 #: v3ext#6
 msgid "An email address or 'copy'"
@@ -3274,7 +3221,7 @@ msgstr ""
 
 #: v3ext#15
 msgid ""
-"Validation successfull:\n"
+"Validation successful:\n"
 "'%1'"
 msgstr ""
 "La validation a été effectuée avec succès:\n"
