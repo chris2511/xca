@@ -33,10 +33,10 @@ int main(){
   if (strcmp(OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION)))
         strcat(buf, C"The versions of the OpenSSL headers and library differ\n");
 #ifdef OPENSSL_NO_EC
-  strcat(buf, "This OpenSSL installation has no EC cryptography support\n");
+  strcat(buf, C"This OpenSSL installation has no EC cryptography support\n");
 #endif
   if (*buf)
-        printf(WARN C "%s" WARN, buf);
+        printf(WARN "%s" WARN, buf);
   return 0;
 }
 ], [ ], [echo "Unable to execute a freshly compiled application, maybe you have to adjust your LD_LIBRARY_PATH or /etc/ld.so.conf"], [echo "Skipping the compile test because of cross-compiling"])

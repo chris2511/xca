@@ -29,7 +29,7 @@ make && make install
 # it will be installed locally in the home directory
 export INSTALL_DIR="`pwd`"/install
 export DYLD_LIBRARY_PATH=$INSTALL_DIR/lib
-export QTDIR=$INSTALL_DIR/Qt485
+export QTDIR=$HOME/src/install/Qt485
 
 XCA_DIR="`dirname $0`"
 XCA_DIR="`cd $XCA_DIR/.. && pwd`"
@@ -38,13 +38,14 @@ test -f $doc || curl http://git.hohnstaedt.de/xca-doc.tgz > $doc
 
 do_libtool
 do_openssl
-export QTDIR=$HOME/src/install/Qt485
 
 # configure XCA and build the DMG file
 rm -rf xca-macbuild
 mkdir -p xca-macbuild/doc
 cd xca-macbuild
-cp "$doc" doc
 
-$XCA_DIR/configure $INSTALL_DIR
+export CXXFLAGS="-arch i386 -I${INSTALL_DIR}/include -L${INSTALL_DIR}/lib"
+
+(cd $XCA_DIR && ./bootstrap)
+$XCA_DIR/configure --with-openssl="$INSTALL_DIR" --with-qt="$QTDIR"
 make -j5 && make xca.dmg

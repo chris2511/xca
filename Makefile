@@ -58,7 +58,7 @@ endif
 
 xca$(SUFFIX): $(OBJECTS)
 	@$(PRINT) "  LINK   $@"
-	$(CC) $(CFLAGS) $(LDFLAGS) $(patsubst %,@%, $^) $(LIBS) -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $(patsubst %,@%, $^) $(LIBS) -o $@
 
 do.ui do.doc do.lang: do.%:
 	mkdir -p $*

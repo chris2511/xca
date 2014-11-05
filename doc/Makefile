@@ -27,5 +27,3 @@ install: xca.1.gz xca.html
 app: xca.html
 	mkdir -p $(APPDIR)/Resources
 	install -m 644 xca*.html $(APPDIR)/Resources
-
-

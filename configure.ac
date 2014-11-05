@@ -10,6 +10,27 @@ AC_PROG_CXX
 AC_LANG(C++)
 AC_CHECK_TOOL(STRIP, [strip], [:])
 
+DVERSION="`${CXX} --version | grep apple-darwin || :`"
+case "$DVERSION" in
+  *-apple-darwin14*) DARWIN="Yosemite" ;;
+  *-apple-darwin13*) DARWIN="Mavericks" ;;
+  *-apple-darwin12*) DARWIN="Mountain Lion" ;;
+  *-apple-darwin11*) DARWIN="Lion" ;;
+  *-apple-darwin10*) DARWIN="SnowLeopard" ;;
+  *-apple-darwin9*) DARWIN="Leopard" ;;
+  *-apple-darwin?)
+    AC_MSG_ERROR([echo Unsupported Mac OSX version $DVERSION])
+    ;;
+esac
+
+if test -n "${DARWIN}"; then
+  AC_MSG_NOTICE([Mac OSX ${DARWIN} detected])
+  CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
+  MACDEPLOYQT=macdeployqt
+fi
+AC_SUBST([DARWIN])
+AC_SUBST([MACDEPLOYQT])
+
 export PKG_CONFIG_PATH
 export LD_LIBRARY_PATH
 
@@ -30,7 +51,13 @@ if test -n "${_OPENSSLDIR}" && test -d "${_OPENSSLDIR}"; then
   LD_LIBRARY_PATH="${_OPENSSLDIR}/lib:${LD_LIBRARY_PATH}"
 fi
 
-PKG_CHECK_MODULES([OPENSSL], [libcrypto >= 0.9.8])
+PKG_CHECK_MODULES([OPENSSL],
+   [libcrypto >= 0.9.8], [ ],
+   [
+     OPENSSL_LIBS=" -lcrypto ";
+     AC_MSG_WARN([OpenSSL pkg-config failed, using fallback defaults (${OPENSSL_LIBS})]);
+   ]
+)
 
 
 # Detect the Qt libraries and header
@@ -53,8 +80,14 @@ fi
 PKG_CHECK_MODULES(QT, [QtCore >= 4.6, QtCore < 5.0, QtGui >= 4.6, QtGui < 5.0], [
   QT_MOC="`pkg-config --variable=moc_location QtCore`"
   QT_UIC="`pkg-config --variable=uic_location QtCore`"
-]
-)
+], [
+  if test -z "$DARWIN"; then
+    QT_LIBS=" -lQtCore -lQtGui "
+  else
+    QT_LIBS=" -framework QtGui -framework QtCore "
+  fi
+  AC_MSG_WARN([Qt pkg-config failed, using fallback defaults (${QT_LIBS})]);
+])
 
 # Setup MOC UIC RCC LRELEASE with absolute PATH
 if test "x${QT_MOC}" = "x"; then
@@ -98,9 +131,11 @@ TOPDIR=`cd "${srcdir}" && pwd`
 AC_SUBST([TOPDIR])
 
 test -f Makefile || ln -fs "${srcdir}/Makefile"
-if test "$LINUXDOC" = ":" && test ! -f doc/xca-doc.tar.gz; then
-  mkdir -p doc
-  cp ${srcdir}doc/xca-doc.tar.gz doc/
+if test "$LINUXDOC" = ":"; then
+  if test ! -f doc/xca-doc.tgz; then
+    mkdir -p doc
+    cp ${TOPDIR}/doc/xca-doc.tgz doc/
+  fi
   AC_MSG_WARN(['linuxdoc' not found, using pre-compiled documentation])
 fi
 

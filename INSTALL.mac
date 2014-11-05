@@ -2,65 +2,65 @@
 This is a short overview of how to build
 XCA for MAC OSX
 
-Actually, I'm doing this on 64bit Lion
-It probably also works on older platforms or 32bit.
-
 Please drop me a mail if you experience problems..
+There are 2 ways to compile XCA on MAC:
 
-Only the < 200MB "Command Line Tools for Xcode" are required
-to build XCA, not the comlete 2GB Xcode binary.
+1) Simple local not very but a little portable build.
+   Use the locally installed OpenSSL library
 
-Either Install QT SDK in your home directory, say /Users/XXX/QtSDK
-or install the qt-mac-carbon-opensource-4.7.3.dmg
+2) Use an up-to-date OpenSSL library 1.0.1 and build
+   a 32 bit binary the should run even on "Leopard"
+   This is what I do for the official XCA .dmg releases
+   It is more complicated then 1)
 
-For later versions of QT which don't come as 32/64 bit bundles, i compiled
-QT (4.8.5) with the following command:
+Required tools for 1) and 2):
+  a) XCODE
+     Only the < 200MB "Command Line Tools for Xcode" are required
+     to build XCA, not the complete 2GB Xcode binary.
+  b) Qt Framework 4 (Qt 5 does not work with XCA, yet)
+     For 1) install the qt-mac-carbon-opensource-4.x.y.dmg
+     For 2) we need to compile Qt from source, see below
 
- ./configure -no-qt3support -no-xmlpatterns -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-svg -no-webkit -no-javascript-jit -no-script -no-scripttools -no-declarative -arch x86 -opensource -release -prefix $HOME/src/install/Qt485
+1) Simple local not very but a little portable build
+   Run
+      $ ./configure && make -j4
+   which should result in an xca-1.x.y-<darwin>.dmg
 
-You should then "export QTDIR=$HOME/src/install/Qt485"
+2) More portable 32 bit app with an up-to-date OpenSSL
+   Read below for using the misc/mac-build.sh script
+   Define an installation directory
+   export INSTALL_DIR="$HOME/src/install"
 
-Decide whether OpenSSL 1.0.x shall be used.
-It is needed if
+   a) Compile qt-everywhere-opensource-src-4.8.x
+      with the following command:
+      ./configure -no-qt3support -no-xmlpatterns -no-multimedia -no-audio-backend -no-phonon -no-phonon-backend -no-svg -no-webkit -no-javascript-jit -no-script -no-scripttools -no-declarative -arch x86 -opensource -release -prefix $INSTALL_DIR/Qt485
 
- - you want the most recent functionality of OpenSSL
- - you don't have at least SnowLeopard
-   (Mac OS 10.5 comes with OpenSSL 0.9.7, which is too old for XCA)
+   b) Compile OpenSSL 1.0.Xy
 
-Compile OpenSSL 1.0.1j:
-----------------------
-# Download the latest OpenSSL sources, unpack them and change into it
-curl http://www.openssl.org/source/openssl-1.0.1j.tar.gz >openssl-1.0.1j.tar.gz
-tar zxf openssl-1.0.1j.tar.gz
-cd openssl-1.0.1j
+      # define the installation dir and the path to the new library
+      # it will be installed locally in you home directory
+      export DYLD_LIBRARY_PATH=$INSTALL_DIR/lib
 
-# define the installation dir and the path to the new library
-# it will be installed locally in you home directory
-export OPENSSLINSTALLDIR=$HOME/instopenssl
-export DYLD_LIBRARY_PATH=$OPENSSLINSTALLDIR/lib
+      # configure openssl
+      ./config shared --prefix=$INSTALL_DIR
 
-# configure openssl
-./config shared --prefix=$OPENSSLINSTALLDIR
+      # build and install OpenSSL
+      make && make install
 
-# If your installation is 64 bit:
-./Configure darwin64-x86_64-cc shared --prefix=$OPENSSLINSTALLDIR
+      # IMPORTANT: you need to change access type of the libs to be writable
+      chmod 755 $OPENSSLINSTALLDIR/lib/*.dylib
 
-# build and install OpenSSL
-make && make install
+   c) Compile ibtool-2.2.6b
+      ./configure --prefix ${INSTALL_DIR} && make -j5 && make install
 
-# IMPORTANT: you need to change access type of the libs to be writable
-chmod 755 $OPENSSLINSTALLDIR/lib/*.dylib
+   d) Compile XCA:
 
-# If Qt was installed in your home, set QTDIR appropriately:
-export QTDIR=$HOME/QtSDK
+      # configure XCA and build the DMG file
+      export CXXFLAGS="-arch i386 -I${INSTALL_DIR}/include -L${INSTALL_DIR}/lib"
+      ./configure --with-openssl="$INSTALL_DIR" --with-qt="$INSTALL_DIR/Qt485"
+      make -j5 
 
-Compile XCA:
-------------
-# change into the xca-0.9.3 directory and download the documentation
-# (The documentation is not mandatory and XCA will build without it)
-cd xca-0.9.3
-curl http://git.hohnstaedt.de/xca-doc.tgz > doc/xca-doc.tgz
+      $XCA_DIR/configure --with-openssl="$INSTALL_DIR" --with-qt="$QTDIR"
+      :make -sdd5 && make xca.dmg
 
-# configure XCA and build the DMG file
-./configure $OPENSSLINSTALLDIR
-make -j5 xca.dmg
+    I do the steps b) - d) with the misc/build-mac.sh script
