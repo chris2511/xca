@@ -624,17 +624,18 @@ void pki_x509::setPubKey(pki_key *key)
 
 QString pki_x509::fingerprint(const EVP_MD *digest)
 {
-	int j;
 	QString fp="";
 	char zs[4];
-	unsigned int n;
+	unsigned int n, j;
 	unsigned char md[EVP_MAX_MD_SIZE];
-	X509_digest(cert, digest, md, &n);
-	pki_openssl_error();
-	for (j=0; j<(int)n; j++) {
-		sprintf(zs, "%02X%c",md[j], (j+1 == (int)n) ?'\0':':');
-		fp += zs;
+
+	if (X509_digest(cert, digest, md, &n)) {
+		for (j=0; j<n; j++) {
+			sprintf(zs, "%02X%c",md[j], (j+1 == n) ?'\0':':');
+			fp += zs;
+		}
 	}
+	pki_openssl_error();
 	return fp;
 }
 
