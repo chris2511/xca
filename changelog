@@ -1,3 +1,13 @@
+ * Translation updates
+ * Switch to autoconf for the configure script
+ * SF Feature Req. #76 Export private keys to clipboard
+ * EC Keys: show Curve name in table
+ * Support EC key generation on PKCS#11 token
+ * PKCS#11: Make EC and RSA signatures work
+ * PKCS#11: Fix reading EC keys from card
+ * SF Bug #82 Certificate Creation out of Spec
+ * SF Bug #95 XCA 1.0 only runs in French on a UK English Mac
+
 xca 1.0.0 Wed Oct 22 2014
 
  *  SF Bug #89 Validating CRL distribution point results in error

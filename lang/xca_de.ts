@@ -3561,7 +3561,7 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+81"/>
         <source>Illegal Key generation method</source>
-        <translation>Ungültige Schlüsselgenerierung methode</translation>
+        <translation>Ungültige Schlüsselgenerierungsmethode</translation>
     </message>
     <message>
         <location line="+67"/>

@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>October 2014 - Version 1.0.0
+<date>November 2014 - Version 1.1.0
 
 <abstract>
 
@@ -44,10 +44,10 @@ correct database password everytime a key is used.
 
 <p>
 When setting an empty password, XCA will never ask again for a password
-when opening this database. This can be useful when playing around with testcertificates or if all private keys are on tokens.
+when opening this database. This can be useful when playing around with testcertificates or if all private keys are on security tokens.
 
 <p>
-The database password can be  changed by the Menu item <em>File->Change DataBase password</em>
+The database password can be changed by the Menu item <em>File->Change DataBase password</em>
 
 <p>
 The different cryptographic parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revocation lists.
@@ -541,8 +541,9 @@ Since XCA 0.8.0 the use of Smartcards (Security tokens) is supported.
 It is based on the PKCS#11 standard. The Options dialog contains a list
 to add one or more PKCS#11 providers (libraries).
 This is not restricted to Smartcards but includes all type of security tokens like USB tokens.
-The default is <tt>/usr/lib/opensc-pkcs11.so</tt> and <tt>opensc-pkcs11.dll</tt> in the XCA installation path, depending on your OS.
 
+Up to version 1.0.0 unly RSA keys on security tokens were supported.
+Since version 1.1.0 XCA also supports EC private keys on security tokens.
 <p>
 
 Once again: This software comes with no warranty at all! If XCA transforms your security token into a fridge, don't blame me.
@@ -560,7 +561,8 @@ I also used Aladdin Etoken very successfully (Thanks for support!). The Aladdin 
 <p>
 
 Before the keys of a token can be used, they must be imported into XCA.
-This means that XCA reads the token and shows the keys and certificates on the token. They can then be imported partially or completely
+This means that XCA reads the token and shows the keys and certificates on the token.
+They can then be imported partially or completely
 via the Multi-import dialog.
 It is not unusal that a token contains more than one key or certificate.
 It is of course possible to create your own keys on the token.
@@ -782,13 +784,22 @@ All keys carry a use counter which counts the times it is used. For new
 requests or certificates the list of available keys is reduced to
 the keys with a use counter of 0.
 
+<p>
+When importing an EC key with explicit curve parameters, the corresponding curve OID is searched and set if found.
+
 <sect1>Generating Keys
 
 <p>
 
 The dialog asks for the internal name of the key and the keysize in bits.
-For EC keys, a list of curves is shown. It contains all X9.62 curves.
-When importing an EC key with explicit curve parameters, the corresponding curve OID is searched and set if found.
+For EC keys, a list of curves is shown. It contains all X9.62 curves and many others.
+
+<p>
+
+EC Brainpool curves are also supported when linking with OpenSSL 1.0.2, which
+is currently only available as BETA.
+
+<p>
 Even if the drop-down list only shows the most usual key sizes, any other value
 may be set here by editing this box.
 While searching for random prime numbers a progress bar is shown in the
@@ -797,15 +808,34 @@ After the key generation is done the key will be stored in the database.
 
 <p>
 
+When checking the <tt>Remember as default</tt> box, the settings (Key-type, key-size or EC curve)
+will be remembered and preset for the next key generation dialog. This option is not available
+when generating token keys.
+
+<p>
+
 For every connected token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown.
 It contains the name of the token and the valid key-sizes.
+
+<p>
+
+In case of EC keys generated on a token, the list of possible curves
+is restricted based on informations provided by the token (Key size and FP/F2M).
+The token may support even less ECParameters / OIDs. When selecting an EC curve
+not supported by the token an error will occure.
+Please consult the documentation of the PKCS#11 library.
 
 <sect1>Key Export
 
 <p>
 
 Keys can be exported by either selecting the key and pressing <em>Export</em>
-or by using the context-menu. This opens a Dialogbox where the following settings can be adjusted:
+or by using the context-menu.
+It may be chosen to export the key to the clipboard. In this case it
+is required to acknowledge the export of the unencrypted private key,
+or to only export the public key. When exporting a token key or a public key
+it is exported directly.
+In case of a file export a dialogbox opens where the following settings can be adjusted:
 
 <itemize>
 	<item>filename
@@ -995,10 +1025,11 @@ The filename can be selected in the export dialog and the Export format:
 </itemize>
 
 <item><bf>Request</bf> Create a PKCS#10 request by using the data from the certificate.
+                       The private key of the certificate must be available for this option.
 <item><bf>Token</bf> Store certificate on the Security token containing the private key
 <item><bf>Other token</bf> Store certificate on any Security token
 <item><bf>Template</bf> Create a template from the content of this certificate.
-<item><bf>OpenSSL config</bf> Create an OpenSSL config file from the contents of this certificate, which can be used to generate a similar certificate with openssl (openssl req -new -x509 -config &lt;file&gt;)
+<item><bf>OpenSSL config</bf> Create an OpenSSL config file from the content of this certificate, which can be used to generate a similar certificate with openssl (openssl req -new -x509 -config &lt;file&gt;)
 </itemize>
 
 <p>
@@ -1185,9 +1216,11 @@ The CRL expiration date will be marked red 2 days before expiration.
 
 <p>
 
-Here you can select the path to the PKCS#11 library on your system.
-If it is empty, the default <tt>/usr/lib/opensc-pkcs11.so</tt> will be used.
-On Windows the opensc-pkcs11.dll in the XCA installation directory will be tried.
+Here you can select the path to one or more PKCS#11 libraries on your system.
+If the list is empty, the <tt>Token</tt> menu will be unavailable.
+The default for new databases is /usr/lib/opensc-pkcs11.dll on unixish
+systems, /Library/OpenSC/lib/opensc-pkcs11.so on MacOSX and opensc-pkcs11.dll
+in the XCA installation directory on Windows systems.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Object IDs
@@ -1412,6 +1445,9 @@ applied together with the HTTPS_client or HTTPS_server template.
 </enum>
 
 Your template is now ready for use when creating new certificates.
+
+Alternatively, you may export an existing Certificate or Certificate signing request
+to a template by the Export-context menu of the item.
 
 </sect1>
 
