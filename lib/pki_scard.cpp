@@ -114,16 +114,17 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 	}
 #ifndef OPENSSL_NO_EC
 	case CKK_EC: {
-		unsigned long s;
-		long point_len;
-		int tag, xclass;
-		const unsigned char *p;
+		QByteArray ba;
+		EC_GROUP *group;
+		ASN1_OCTET_STRING *os;
+
 		EC_KEY *ec = EC_KEY_new();
 
 		pk11_attr_data grp(CKA_EC_PARAMS);
 		p11.loadAttribute(grp, object);
-		s = grp.getValue(&p);
-		EC_GROUP *group = d2i_ECPKParameters(NULL, &p, s);
+		ba = grp.getData();
+		group = (EC_GROUP *)
+			d2i_bytearray(D2I_VOID(d2i_ECPKParameters), ba);
 		pki_openssl_error();
 
 		EC_GROUP_set_asn1_flag(group, 1);
@@ -132,15 +133,19 @@ EVP_PKEY *pki_scard::load_pubkey(pkcs11 &p11, CK_OBJECT_HANDLE object) const
 
 		pk11_attr_data pt(CKA_EC_POINT);
 		p11.loadAttribute(pt, object);
-		s = pt.getValue(&p);
-		ASN1_get_object(&p, &point_len, &tag, &xclass, s);
+		ba = pt.getData();
+		os = (ASN1_OCTET_STRING *)
+			d2i_bytearray(D2I_VOID(d2i_ASN1_OCTET_STRING), ba);
 		pki_openssl_error();
-		BIGNUM *bn = BN_bin2bn(p, point_len, NULL);
+
+		BIGNUM *bn = BN_bin2bn(os->data, os->length, NULL);
 		pki_openssl_error();
 
 		EC_POINT *point = EC_POINT_bn2point(group, bn, NULL, NULL);
-		pki_openssl_error();
 		BN_free(bn);
+		ASN1_OCTET_STRING_free(os);
+		pki_openssl_error();
+
 		EC_KEY_set_public_key(ec, point);
 		pki_openssl_error();
 
@@ -313,7 +318,13 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	pk11_attlist priv_atts;
 	QList<CK_OBJECT_HANDLE> objects;
 	RSA *rsakey = pkey->pkey.rsa;
+	EC_KEY *ec  = pkey->pkey.ec;
 	const BIGNUM *ec_priv;
+	BIGNUM *point;
+	int size;
+	unsigned char *buf;
+	QByteArray ba_point;
+	ASN1_OCTET_STRING *os;
 
 	pub_atts = objectAttributesNoId(pkey, false);
 	priv_atts = objectAttributesNoId(pkey, true);
@@ -361,9 +372,25 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		break;
 
 	case EVP_PKEY_EC:
-		ec_priv = (BIGNUM *)EC_KEY_get0_private_key(pkey->pkey.ec);
-		priv_atts <<
-		pk11_attr_data(CKA_VALUE, ec_priv);
+		point = EC_POINT_point2bn(EC_KEY_get0_group(ec),
+				EC_KEY_get0_public_key(ec),
+				EC_KEY_get_conv_form(ec), NULL, NULL);
+
+		size = BN_num_bytes(point);
+		buf = (unsigned char *)OPENSSL_malloc(size);
+		check_oom(buf);
+		BN_bn2bin(point, buf);
+		os = ASN1_OCTET_STRING_new();
+		ASN1_STRING_set0(os, buf, size);
+
+		ba_point = i2d_bytearray(I2D_VOID(i2d_ASN1_OCTET_STRING), os);
+		ASN1_OCTET_STRING_free(os);
+		BN_free(point);
+		pki_openssl_error();
+		pub_atts <<  pk11_attr_data(CKA_EC_POINT, ba_point);
+
+		ec_priv = (BIGNUM *)EC_KEY_get0_private_key(ec);
+		priv_atts << pk11_attr_data(CKA_VALUE, ec_priv);
 		break;
 	default:
 		throw errorEx(tr("Only RSA and EC keys can be stored on tokens"));
