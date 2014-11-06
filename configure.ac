@@ -126,11 +126,6 @@ AX_CHECK_GNU_MAKE()
 AC_CHECK_PROG([LINUXDOC], [linuxdoc], ["linuxdoc"], [":"])
 AC_SUBST([LINUXDOC])
 
-
-TOPDIR=`cd "${srcdir}" && pwd`
-AC_SUBST([TOPDIR])
-
-test -f Makefile || ln -fs "${srcdir}/Makefile"
 if test "$LINUXDOC" = ":"; then
   if test ! -f doc/xca-doc.tgz; then
     mkdir -p doc
@@ -142,4 +137,5 @@ fi
 # Setup done. Write local.h and Local.mak
 ############################################
 AC_CONFIG_HEADERS(local.h)
+AC_CONFIG_LINKS(Makefile:Makefile)
 AC_OUTPUT([Local.mak])

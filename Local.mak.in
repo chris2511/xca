@@ -1,5 +1,8 @@
 
-export TOPDIR=@TOPDIR@
+# WARNING: This file will be overwritten by configure
+# @configure_input@
+
+export TOPDIR=@abs_srcdir@
 export VERSION=@PACKAGE_VERSION@
 
 CPPFLAGS=-DXCA_PREFIX=\"${xca_prefix}\" -DETC=\"@sysconfdir@\" -DDOCDIR=\"@docdir@\" @CXXFLAGS@

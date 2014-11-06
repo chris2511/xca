@@ -101,6 +101,8 @@ dist: $(TARGET).tar.gz
 $(TARGET).tar:
 	test ! -z "$(TVERSION)"
 	git archive --format=tar --prefix=$(TARGET)/ $(TAG) > _$@
+	V=`tar xf _$@ -O $(TARGET)/VERSION` && \
+		test "$(TVERSION)" = "$$V" && echo "$$V" > VERSION
 	./bootstrap "$(TARGET)"
 	tar -rf _$@ "$(TARGET)/configure"
 	rm -rf "$(TARGET)"
