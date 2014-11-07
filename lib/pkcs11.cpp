@@ -472,43 +472,68 @@ pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
 	return id;
 }
 
-pk11_attr_data pkcs11::generateKey(QString name, unsigned long ec_rsa_mech,
+pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 				unsigned long bits, int nid)
 {
 	CK_RV rv;
-	CK_OBJECT_HANDLE pubkey, privkey;
-	pk11_attlist priv_atts, pub_atts;
-	CK_MECHANISM mechanism = {ec_rsa_mech, NULL_PTR, 0};
+	CK_OBJECT_HANDLE pubkey, privkey, dsa_param_obj;
+	pk11_attlist priv_atts, pub_atts, dsa_param;
+	CK_MECHANISM mechanism = {mech, NULL_PTR, 0};
 	pk11_attr_data label(CKA_LABEL, name.toUtf8());
 
 	pk11_attr_data new_id = findUniqueID(CKO_PUBLIC_KEY);
 
-        pub_atts <<
+        pub_atts << label << new_id <<
 		pk11_attr_ulong(CKA_CLASS, CKO_PUBLIC_KEY) <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_bool(CKA_PRIVATE, false) <<
 		pk11_attr_bool(CKA_ENCRYPT, true) <<
 		pk11_attr_bool(CKA_VERIFY, true) <<
-		pk11_attr_bool(CKA_WRAP, true) <<
-		label << new_id;
+		pk11_attr_bool(CKA_WRAP, true);
 
-	priv_atts <<
+	priv_atts << label << new_id <<
 		pk11_attr_ulong(CKA_CLASS, CKO_PRIVATE_KEY) <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_bool(CKA_PRIVATE, true) <<
 		pk11_attr_bool(CKA_SENSITIVE, true) <<
 		pk11_attr_bool(CKA_DECRYPT, true) <<
 		pk11_attr_bool(CKA_SIGN, true) <<
-		pk11_attr_bool(CKA_UNWRAP, true) <<
-		label << new_id;
+		pk11_attr_bool(CKA_UNWRAP, true);
 
-	if (ec_rsa_mech == CKM_RSA_PKCS_KEY_PAIR_GEN) {
+	switch (mech) {
+	case CKM_RSA_PKCS_KEY_PAIR_GEN:
 		pub_atts <<
 		pk11_attr_ulong(CKA_MODULUS_BITS, bits) <<
 		pk11_attr_data(CKA_PUBLIC_EXPONENT, 0x10001);
-//DSA: Spec Seite 191 (175) C_GenerateKey
+		break;
+	case CKM_DSA_KEY_PAIR_GEN: {
+		//DSA: Spec Seite 191 (175) C_GenerateKey
+		CK_MECHANISM mechanism = {CKM_DSA_PARAMETER_GEN, NULL_PTR, 0};
+		dsa_param << label <<
+			pk11_attr_ulong(CKA_CLASS, CKO_DOMAIN_PARAMETERS) <<
+			pk11_attr_ulong(CKA_KEY_TYPE, CKK_DSA) <<
+			pk11_attr_bool(CKA_TOKEN, true) <<
+			pk11_attr_bool(CKA_PRIVATE, false) <<
+			pk11_attr_ulong(CKA_PRIME_BITS, bits);
+		p11slot.isValid();
+		WAITCURSOR_START;
+		rv = p11slot.p11()->C_GenerateKey(session, &mechanism,
+			dsa_param.getAttributes(), dsa_param.length(),
+			&dsa_param_obj);
+		WAITCURSOR_END;
+		if (rv != CKR_OK)
+			pk11error("C_GenerateKey(DSA_PARAMETER)", rv);
+
+		pk11_attr_data p(CKA_PRIME), q(CKA_SUBPRIME), g(CKA_BASE);
+		loadAttribute(p, dsa_param_obj);
+		loadAttribute(q, dsa_param_obj);
+		loadAttribute(g, dsa_param_obj);
+
+		pub_atts << p << q << g;
+		break;
+	}
 #ifndef OPENSSL_NO_EC
-	} else if (ec_rsa_mech == CKM_EC_KEY_PAIR_GEN) {
+	case CKM_EC_KEY_PAIR_GEN: {
 		CK_MECHANISM_INFO info;
 		mechanismInfo(p11slot, CKM_EC_KEY_PAIR_GEN, &info);
 
@@ -524,8 +549,9 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long ec_rsa_mech,
 		pub_atts  << pk11_attr_data(CKA_EC_PARAMS,
 			i2d_bytearray(I2D_VOID(i2d_ECPKParameters), group));
 		EC_GROUP_free(group);
+	}
 #endif
-	} else {
+	default:
 		throw errorEx(("Unsupported Key generation mechanism"));
 	}
 	p11slot.isValid();
@@ -692,6 +718,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 
 static int eng_idx = -1;
 static EVP_PKEY_METHOD *p11_rsa_method;
+static EVP_PKEY_METHOD *p11_dsa_method;
 #ifndef OPENSSL_NO_EC
 static EVP_PKEY_METHOD *p11_ec_method;
 #endif
@@ -709,7 +736,7 @@ static int eng_pmeth_ctrl_rsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 	switch (type) {
 	case EVP_PKEY_CTRL_RSA_PADDING:
 		return p1 == RSA_PKCS1_PADDING ? 1 : -2;
-#ifndef OPENSSL_NO_EC // WTF ???
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_CTRL_GET_RSA_PADDING:
 		*(int *)p2 = RSA_PKCS1_PADDING;
 		return 1;
@@ -717,6 +744,25 @@ static int eng_pmeth_ctrl_rsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 	case EVP_PKEY_CTRL_MD:
 		EVP_PKEY_CTX_set_data(ctx, p2);
 		return 1;
+	case EVP_PKEY_CTRL_DIGESTINIT:
+		return 1;
+	}
+	return -2;
+}
+
+static int eng_pmeth_ctrl_dsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
+{
+	switch (type) {
+	case EVP_PKEY_CTRL_MD:
+		EVP_PKEY_CTX_set_data(ctx, NULL);
+		switch (EVP_MD_type((const EVP_MD *)p2)) {
+		case NID_sha1:
+		case NID_sha256:
+			EVP_PKEY_CTX_set_data(ctx, p2);
+			return 1;
+		}
+		EVP_PKEY_CTX_set_data(ctx, p2);
+		return 0;
 	case EVP_PKEY_CTRL_DIGESTINIT:
 		return 1;
 	}
@@ -817,6 +863,48 @@ static int eng_pmeth_sign_rsa(EVP_PKEY_CTX *ctx,
 	return (len < 0) ? -1 : 1;
 }
 
+static int eng_pmeth_sign_dsa(EVP_PKEY_CTX *ctx,
+			unsigned char *sig, size_t *siglen,
+			const unsigned char *tbs, size_t tbslen)
+{
+	EVP_PKEY *pkey;
+	int len, rs_len, ret = -1;
+	unsigned char rs_buf[128];
+	DSA_SIG *dsa_sig = DSA_SIG_new();
+
+	pkey = EVP_PKEY_CTX_get0_pkey(ctx);
+
+	if (EVP_PKEY_type(pkey->type) != EVP_PKEY_DSA)
+		return -1;
+
+	pkcs11 *p11 = (pkcs11 *)ENGINE_get_ex_data(pkey->engine, eng_idx);
+
+	// siglen is unsigned and can't cope with -1 as return value
+	len = p11->encrypt(tbslen, tbs, rs_buf, sizeof rs_buf, CKM_DSA);
+//	len = p11->encrypt(tbslen, tbs, sig, *siglen, CKM_DSA);
+	if (len & 0x01) // Must be even
+		goto out;
+
+	fprintf(stderr, "DSA len_in:%zd, len_out:%d\n", tbslen, len);
+	rs_len = len/2;
+	
+	if (!BN_bin2bn(rs_buf, rs_len, dsa_sig->s))
+		goto out;
+	if (!BN_bin2bn(rs_buf + rs_len, rs_len, dsa_sig->r))
+		goto out;
+	len = i2d_DSA_SIG(dsa_sig, &sig);
+	openssl_error();
+	if (len <= 0)
+		goto out;
+	fprintf(stderr, "DSA len_in:%zd, len_i2d:%d *siglen:%zd\n", tbslen, len, *siglen);
+	*siglen = len;
+	ret = 1;
+out:
+	DSA_SIG_free(dsa_sig);
+	ign_openssl_error();
+	return ret;
+}
+
 #ifndef OPENSSL_NO_EC
 static int eng_pmeth_sign_ec(EVP_PKEY_CTX *ctx,
 			unsigned char *sig, size_t *siglen,
@@ -874,6 +962,9 @@ static int eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
 		case EVP_PKEY_RSA:
 			*m = p11_rsa_method;
 			return 1;
+		case EVP_PKEY_DSA:
+			*m = p11_dsa_method;
+			return 1;
 		}
 		return 0;
 	}
@@ -909,6 +1000,14 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 					eng_pmeth_ctrl_rsa, NULL);
 			EVP_PKEY_meth_set_copy(p11_rsa_method, eng_pmeth_copy);
 		}
+		if (!p11_dsa_method) {
+			p11_dsa_method = EVP_PKEY_meth_new(EVP_PKEY_RSA, 0);
+			EVP_PKEY_meth_set_sign(p11_dsa_method,
+					NULL, eng_pmeth_sign_dsa);
+			EVP_PKEY_meth_set_ctrl(p11_dsa_method,
+					eng_pmeth_ctrl_dsa, NULL);
+			EVP_PKEY_meth_set_copy(p11_dsa_method, eng_pmeth_copy);
+		}
 #ifndef OPENSSL_NO_EC
 		if (!p11_ec_method) {
 			p11_ec_method = EVP_PKEY_meth_new(EVP_PKEY_EC, 0);
@@ -928,6 +1027,7 @@ EVP_PKEY *pkcs11::getPrivateKey(EVP_PKEY *pub, CK_OBJECT_HANDLE obj)
 
 	switch (EVP_PKEY_type(pub->type)) {
 	case EVP_PKEY_RSA:
+	case EVP_PKEY_DSA:
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 #endif

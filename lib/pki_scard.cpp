@@ -410,7 +410,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		break;
 	}
 	default:
-		throw errorEx(tr("Only RSA and EC keys can be stored on tokens"));
+		throw errorEx(tr("Only RSA, DSA and EC keys can be stored on tokens"));
 
 	}
 
@@ -582,6 +582,9 @@ void pki_scard::generateKey_card(int type, slotid slot, int size,
 	switch (type) {
 	case EVP_PKEY_RSA:
 		kt.method = CKM_RSA_PKCS_KEY_PAIR_GEN;
+		break;
+	case EVP_PKEY_DSA:
+		kt.method = CKM_DSA_KEY_PAIR_GEN;
 		break;
 #ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
