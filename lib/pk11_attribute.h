@@ -172,8 +172,10 @@ public:
 	}
 	~pk11_attr_data()
 	{
-		if (attr.pValue)
+		if (attr.pValue) {
+			memset(attr.pValue, 0, attr.ulValueLen);
 			free(attr.pValue);
+		}
 	}
 	QString getText() const
 	{

@@ -108,8 +108,10 @@ pk11_attlist::pk11_attlist(const pk11_attlist &a)
 
 pk11_attlist::~pk11_attlist()
 {
-	for (unsigned long i=0; i<attlen; i++)
+	for (unsigned long i=0; i<attlen; i++) {
+		memset(attributes[i].pValue, 0, attributes[i].ulValueLen);
 		free(attributes[i].pValue);
+	}
 	if (attributes)
 		free(attributes);
 }
