@@ -231,26 +231,38 @@ void pki_scard::deleteFromToken()
 	deleteFromToken(slot);
 }
 
-static pk11_attlist objectAttributesNoId(EVP_PKEY *pk, bool priv)
+pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 {
-	unsigned long cka_class = priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY;
-	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS, cka_class));
+	QByteArray ba;
+	RSA *rsa = pk->pkey.rsa;
+	DSA *dsa = pk->pkey.dsa;
+	EC_KEY *ec = pk->pkey.ec;
+
+	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS,
+			priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY));
 
 	switch (EVP_PKEY_type(pk->type)) {
-	case EVP_PKEY_RSA: {
-		RSA *rsa = pk->pkey.rsa;
+	case EVP_PKEY_RSA:
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_RSA) <<
 			pk11_attr_data(CKA_MODULUS, rsa->n, false) <<
 			pk11_attr_data(CKA_PUBLIC_EXPONENT, rsa->e, false);
 		break;
-	}
-	case EVP_PKEY_EC: {
-		QByteArray ba_param;
-		ba_param = i2d_bytearray(I2D_VOID(i2d_ECPKParameters),
-				EC_KEY_get0_group(pk->pkey.ec));
+	case EVP_PKEY_DSA:
+		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_DSA) <<
+			pk11_attr_data(CKA_PRIME, dsa->p, false) <<
+			pk11_attr_data(CKA_SUBPRIME, dsa->q, false) <<
+			pk11_attr_data(CKA_BASE, dsa->g, false);
+		break;
+	case EVP_PKEY_EC:
+		ba = i2d_bytearray(I2D_VOID(i2d_ECPKParameters),
+				EC_KEY_get0_group(ec));
+
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC) <<
-			pk11_attr_data(CKA_EC_PARAMS, ba_param);
-	}
+			pk11_attr_data(CKA_EC_PARAMS, ba);
+		break;
+	default:
+		throw errorEx(tr("Only RSA and EC keys can be stored on tokens"));
+
 	}
 	return attrs;
 }
@@ -314,17 +326,13 @@ int pki_scard::renameOnToken(slotid slot, QString name)
 
 void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 {
+	QByteArray ba;
+	RSA *rsa = pkey->pkey.rsa;
+	DSA *dsa = pkey->pkey.dsa;
+	EC_KEY *ec = pkey->pkey.ec;
 	pk11_attlist pub_atts;
 	pk11_attlist priv_atts;
 	QList<CK_OBJECT_HANDLE> objects;
-	RSA *rsakey = pkey->pkey.rsa;
-	EC_KEY *ec  = pkey->pkey.ec;
-	const BIGNUM *ec_priv;
-	BIGNUM *point;
-	int size;
-	unsigned char *buf;
-	QByteArray ba_point;
-	ASN1_OCTET_STRING *os;
 
 	pub_atts = objectAttributesNoId(pkey, false);
 	priv_atts = objectAttributesNoId(pkey, true);
@@ -342,20 +350,18 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	}
 	pk11_attr_data new_id = p11.findUniqueID(CKO_PUBLIC_KEY);
 
-	pub_atts <<
+	pub_atts << new_id <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_data(CKA_LABEL, getIntName().toUtf8()) <<
 		pk11_attr_bool(CKA_PRIVATE, false) <<
-		new_id <<
 		pk11_attr_bool(CKA_WRAP, true) <<
 		pk11_attr_bool(CKA_ENCRYPT, true) <<
 		pk11_attr_bool(CKA_VERIFY, true);
 
-	priv_atts <<
+	priv_atts << new_id <<
 		pk11_attr_bool(CKA_TOKEN, true) <<
 		pk11_attr_data(CKA_LABEL, desc.toUtf8()) <<
 		pk11_attr_bool(CKA_PRIVATE, true) <<
-		new_id <<
 		pk11_attr_bool(CKA_UNWRAP, true) <<
 		pk11_attr_bool(CKA_DECRYPT, true) <<
 		pk11_attr_bool(CKA_SIGN, true);
@@ -363,39 +369,51 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	switch (EVP_PKEY_type(pkey->type)) {
 	case EVP_PKEY_RSA:
 		priv_atts <<
-		pk11_attr_data(CKA_PRIVATE_EXPONENT, rsakey->d, false) <<
-		pk11_attr_data(CKA_PRIME_1, rsakey->p, false) <<
-		pk11_attr_data(CKA_PRIME_2, rsakey->q, false) <<
-		pk11_attr_data(CKA_EXPONENT_1, rsakey->dmp1, false) <<
-		pk11_attr_data(CKA_EXPONENT_2, rsakey->dmq1, false) <<
-		pk11_attr_data(CKA_COEFFICIENT, rsakey->iqmp, false);
+		pk11_attr_data(CKA_PRIVATE_EXPONENT, rsa->d, false) <<
+		pk11_attr_data(CKA_PRIME_1, rsa->p, false) <<
+		pk11_attr_data(CKA_PRIME_2, rsa->q, false) <<
+		pk11_attr_data(CKA_EXPONENT_1, rsa->dmp1, false) <<
+		pk11_attr_data(CKA_EXPONENT_2, rsa->dmq1, false) <<
+		pk11_attr_data(CKA_COEFFICIENT, rsa->iqmp, false);
 		break;
-
-	case EVP_PKEY_EC:
+	case EVP_PKEY_DSA:
+		priv_atts << pk11_attr_data(CKA_VALUE, dsa->priv_key, false);
+		pub_atts << pk11_attr_data(CKA_VALUE, dsa->pub_key, false);
+		break;
+	case EVP_PKEY_EC: {
+		/* Public Key */
+		BIGNUM *point;
+		int size;
+		unsigned char *buf;
+		ASN1_OCTET_STRING *os;
 		point = EC_POINT_point2bn(EC_KEY_get0_group(ec),
-				EC_KEY_get0_public_key(ec),
-				EC_KEY_get_conv_form(ec), NULL, NULL);
+			EC_KEY_get0_public_key(ec),
+			EC_KEY_get_conv_form(ec), NULL, NULL);
 
+		pki_openssl_error();
 		size = BN_num_bytes(point);
 		buf = (unsigned char *)OPENSSL_malloc(size);
 		check_oom(buf);
 		BN_bn2bin(point, buf);
 		os = ASN1_OCTET_STRING_new();
+		/* set0 -> ASN1_OCTET_STRING_free() also free()s buf */
 		ASN1_STRING_set0(os, buf, size);
-
-		ba_point = i2d_bytearray(I2D_VOID(i2d_ASN1_OCTET_STRING), os);
+		ba = i2d_bytearray(I2D_VOID(i2d_ASN1_OCTET_STRING), os);
 		ASN1_OCTET_STRING_free(os);
 		BN_free(point);
 		pki_openssl_error();
-		pub_atts <<  pk11_attr_data(CKA_EC_POINT, ba_point);
+		pub_atts << pk11_attr_data(CKA_EC_POINT, ba);
 
-		ec_priv = (BIGNUM *)EC_KEY_get0_private_key(ec);
-		priv_atts << pk11_attr_data(CKA_VALUE, ec_priv);
+		/* Private key */
+		priv_atts << pk11_attr_data(CKA_VALUE,
+					EC_KEY_get0_private_key(ec));
 		break;
+	}
 	default:
 		throw errorEx(tr("Only RSA and EC keys can be stored on tokens"));
 
 	}
+
 
 	tkInfo ti = p11.tokenInfo();
 	if (p11.tokenLogin(ti.label(), false).isNull())

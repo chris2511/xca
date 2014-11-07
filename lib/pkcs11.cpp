@@ -506,6 +506,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long ec_rsa_mech,
 		pub_atts <<
 		pk11_attr_ulong(CKA_MODULUS_BITS, bits) <<
 		pk11_attr_data(CKA_PUBLIC_EXPONENT, 0x10001);
+//DSA: Spec Seite 191 (175) C_GenerateKey
 #ifndef OPENSSL_NO_EC
 	} else if (ec_rsa_mech == CKM_EC_KEY_PAIR_GEN) {
 		CK_MECHANISM_INFO info;

@@ -60,9 +60,15 @@ class keyListItem
 			maxKeySize = INT_MAX;
 		}
 		tkInfo ti = p11->tokenInfo(slot);
-		tl = typeList; //idx of EVP_PKEY_RSA
+		switch (m) {
+		case CKM_RSA_PKCS_KEY_PAIR_GEN:
+			tl = typeList; //idx of EVP_PKEY_RSA
+			break;
+		case CKM_DSA_KEY_PAIR_GEN:
+			tl = typeList +1;
+			break;
 #ifndef OPENSSL_NO_EC
-		if (m == CKM_EC_KEY_PAIR_GEN) {
+		case CKM_EC_KEY_PAIR_GEN:
 			tl = typeList +2;
 			CK_MECHANISM_INFO info;
 			p11->mechanismInfo(slot, m, &info);
@@ -148,6 +154,10 @@ NewKey::NewKey(QWidget *parent, QString name)
 			QList<CK_MECHANISM_TYPE> ml = p11.mechanismList(slot);
 			if (ml.contains(CKM_RSA_PKCS_KEY_PAIR_GEN)) {
 				keyListItem tk(&p11, slot, CKM_RSA_PKCS_KEY_PAIR_GEN);
+				keytypes << tk;
+			}
+			if (ml.contains(CKM_DSA_KEY_PAIR_GEN)) {
+				keyListItem tk(&p11, slot, CKM_DSA_KEY_PAIR_GEN);
 				keytypes << tk;
 			}
 #ifndef OPENSSL_NO_EC
