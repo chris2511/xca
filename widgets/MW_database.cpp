@@ -381,11 +381,14 @@ void MainWindow::update_history(QString fname)
 {
 	QFile file;
 	int pos;
-	QString name;
+	QString name, dir = getUserSettingsDir();
+	QDir d;
 
 	pos = history.indexOf(fname);
 	if (pos == 0)
 		return; /* no changes */
+
+	d.mkpath(dir);
 
 	if (pos > 0)
 		history.removeAt(pos);
@@ -393,7 +396,7 @@ void MainWindow::update_history(QString fname)
 	while (history.size() > 10)
 		history.removeLast();
 
-	name = getUserSettingsDir() + QDir::separator() + "dbhistory";
+	name = dir + QDir::separator() + "dbhistory";
 	file.setFileName(name);
 	if (!file.open(QIODevice::ReadWrite))
 		return;
