@@ -55,6 +55,8 @@ NIDlist *MainWindow::dn_nid = NULL;
 NIDlist *MainWindow::aia_nid = NULL;
 
 QString MainWindow::mandatory_dn;
+QString MainWindow::explicit_dn;
+QString MainWindow::explicit_dn_default = QString("C,ST,L,O,OU,CN,emailAddress");
 
 void MainWindow::enableTokenMenu(bool enable)
 {
@@ -127,6 +129,7 @@ MainWindow::MainWindow(QWidget *parent )
 	eku_nid = read_nidlist("eku.txt");
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
+
 	connect(this, SIGNAL(newURLs(QStringList &)),
 		this, SLOT(openURLs(QStringList &)));
 	setAcceptDrops(true);

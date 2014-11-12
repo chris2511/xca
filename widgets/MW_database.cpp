@@ -43,6 +43,8 @@ int MainWindow::init_database()
 	}
 
 	mandatory_dn = "";
+	explicit_dn = explicit_dn_default;
+
 	string_opt = QString("MASK:0x2002");
 	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
 	hashBox::resetDefault();
@@ -118,6 +120,13 @@ int MainWindow::init_database()
 				free(p);
 			}
 		}
+		mydb.first();
+		if (!mydb.find(setting, "explicit_dn")) {
+			if ((p = (char *)mydb.load(NULL))) {
+				explicit_dn = p;
+				free(p);
+			}
+		}
 		// what a stupid idea....
 		mydb.first();
 		if (!mydb.find(setting, "multiple_key_use")) {
@@ -176,6 +185,8 @@ int MainWindow::init_database()
 		Error(err);
 		return ret;
 	}
+	if (explicit_dn.isEmpty())
+		explicit_dn = explicit_dn_default;
 	setWindowTitle(tr(XCA_TITLE));
 	setItemEnabled(true);
 	if (pki_evp::passwd.isNull())

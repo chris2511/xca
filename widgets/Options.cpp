@@ -18,13 +18,14 @@ Options::Options(MainWindow *parent)
 {
 	mw = parent;
 
-	NIDlist dn_nid = *MainWindow::dn_nid;
 	setWindowTitle(tr(XCA_TITLE));
 	setupUi(this);
 
-	for (int i=0; i < dn_nid.count(); i++)
-		extDNobj->addItem(OBJ_nid2ln(dn_nid[i]));
-
+	foreach(int nid, *MainWindow::dn_nid) {
+		QString n = OBJ_nid2ln(nid);
+		extDNobj->addItem(n);
+		expDNobj->addItem(n);
+	}
 	string_opts << "MASK:0x2002" << "pkix" << "nombstr" <<
 			"utf8only" << "default";
 	QStringList s;
@@ -52,24 +53,40 @@ void Options::on_extDNdel_clicked()
 	extDNlist->takeItem(extDNlist->currentRow());
 }
 
-void Options::setDnString(QString dn)
+void Options::on_expDNadd_clicked()
+{
+	expDNlist->addItem(expDNobj->currentText());
+}
+
+void Options::on_expDNdel_clicked()
+{
+	expDNlist->takeItem(expDNlist->currentRow());
+}
+
+void Options::on_expDNdefault_clicked()
+{
+	setDnString(MainWindow::explicit_dn_default, expDNlist);
+}
+
+void Options::setDnString(QString dn, QListWidget *w)
 {
 	QStringList dnl;
 
 	if (!dn.isEmpty())
 		dnl = dn.split(",");
+	w->clear();
 	for (int i=0; i < dnl.count(); i++) {
 		int nid = OBJ_sn2nid(CCHAR(dnl[i]));
-		extDNlist->insertItem(0, OBJ_nid2ln(nid));
+		w->addItem(OBJ_nid2ln(nid));
 	}
 }
 
-QString Options::getDnString()
+QString Options::getDnString(QListWidget *w)
 {
 	QStringList dn;
 
-	for (int j=0; j<extDNlist->count(); j++) {
-		int nid = OBJ_ln2nid(CCHAR(extDNlist->item(j)->text()));
+	for (int j=0; j<w->count(); j++) {
+		int nid = OBJ_ln2nid(CCHAR(w->item(j)->text()));
 		dn << QString(OBJ_nid2sn(nid));
 	}
 	return dn.join(",");

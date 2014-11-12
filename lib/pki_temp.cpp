@@ -131,15 +131,14 @@ static int bitsToInt(extList &el, int nid, bool *crit)
 
 extList pki_temp::fromCert(pki_x509super *cert_or_req)
 {
-	int i;
 	x509name n;
 	extList el = cert_or_req->getV3ext();
 
 	nsComment = "";
 
 	n = cert_or_req->getSubject();
-	for (i=0; i<EXPLICIT_NAME_CNT; i++) {
-		int nid = NewX509::name_nid[i];
+	foreach(QString sn, MainWindow::explicit_dn) {
+		int nid =OBJ_sn2nid(CCHAR(sn));
 		QString ne = n.popEntryByNid(nid);
 		if (!ne.isNull())
 			xname.addEntryByNid(nid, ne);

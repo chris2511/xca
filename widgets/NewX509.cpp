@@ -26,16 +26,6 @@
 #include "lib/oid.h"
 #include "lib/func.h"
 
-int NewX509::name_nid[] = {
-	NID_countryName,
-	NID_stateOrProvinceName,
-	NID_localityName,
-	NID_organizationName,
-	NID_organizationalUnitName,
-	NID_commonName,
-	NID_pkcs9_emailAddress
-};
-
 NewX509::NewX509(QWidget *parent)
 	:QDialog(parent)
 {
@@ -44,6 +34,8 @@ NewX509::NewX509(QWidget *parent)
 	dn_nid = *MainWindow::dn_nid;
 	aia_nid = *MainWindow::aia_nid;
 	attr_nid << NID_pkcs9_unstructuredName << NID_pkcs9_challengePassword;
+	foreach(QString dn, MainWindow::explicit_dn.split(","))
+		expl_dn_nid << OBJ_sn2nid(CCHAR(dn));
 
 	QStringList keys;
 
@@ -131,19 +123,57 @@ NewX509::NewX509(QWidget *parent)
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
 	X509V3_set_ctx_nodb(&ext_ctx);
 
-	QList<QLabel *> nameLabel;
-	nameLabel << LcountryName << LstateOrProvinceName << LlocalityName <<
-	LorganisationName << LorganisationalUnitName << LcommonName <<
-	LemailAddress;
+	// Setup dnWidget
+	QMap<int, QString> tooltips;
+	tooltips[NID_countryName] = tr("Country code");
+	tooltips[NID_stateOrProvinceName] = tr("State or Province");
+	tooltips[NID_localityName] = tr("Locality");
+	tooltips[NID_organizationName] = tr("Organisation");
+	tooltips[NID_organizationalUnitName] = tr("Organisational unit");
+	tooltips[NID_commonName] = tr("Common name");
+	tooltips[NID_pkcs9_emailAddress] = tr("E-Mail address");
 
-	for(int i=0; i<nameLabel.count(); i++) {
-		nameLabel[i]->setText(OBJ_nid2ln(name_nid[i]));
-		QString tt = nameLabel[i]->toolTip();
-		nameLabel[i]->setToolTip(QString("[%1] %2").
-			arg(OBJ_nid2sn(name_nid[i])).arg(tt));
-		name_ptr[i] = (QLineEdit *)nameLabel[i]->buddy();
-		setupLineEditByNid(name_nid[i], name_ptr[i]);
+	if (dnWidget->layout())
+		delete dnWidget->layout();
+	QGridLayout *dnLayout = new QGridLayout(dnWidget);
+	dnLayout->setAlignment(Qt::AlignTop);
+	dnLayout->setSpacing(6);
+	dnLayout->setMargin(0);
+	int n = 1, col = 0;
+
+	description = new QLineEdit(this);
+	description->setToolTip(tr("This name is only used internally and does not appear in the resulting certificate"));
+	QLabel *label = new QLabel(this);
+	label->setText(tr("Internal name"));
+	dnLayout->addWidget(label, 0, 0);
+	dnLayout->addWidget(description, 0, 1);
+
+	QWidget::setTabOrder(description, extDNlist);
+	QLineEdit *old = description;
+	foreach(int nid, expl_dn_nid) {
+		QLabel *label;
+		QLineEdit *edit;
+
+		label = new QLabel(this);
+		label->setText(OBJ_nid2ln(nid));
+		label->setToolTip(QString("[%1] %2").
+			arg(OBJ_nid2sn(nid)).arg(tooltips[nid]));
+
+		edit = new QLineEdit(this);
+		setupLineEditByNid(nid, edit);
+		nameEdits << nameEdit(nid, edit, label);
+
+		dnLayout->addWidget(label, n, col);
+		dnLayout->addWidget(edit, n, col +1);
+		n++;
+		if (n > expl_dn_nid.size()/2 && col == 0) {
+			col = 2;
+			n = expl_dn_nid.size() & 1 ? 0 : 1;
+		}
+		QWidget::setTabOrder(old, edit);
+		old = edit;
 	}
+
 	// Setup Request Attributes
 	if (attrWidget->layout())
 		delete attrWidget->layout();
@@ -232,13 +262,13 @@ void NewX509::addReqAttributes(pki_x509req *req)
 
 void NewX509::setTemp(pki_temp *temp)
 {
-	QString text = tr("Create");
+	QString text = tr("Create XCA template");
 	if (temp->getIntName() != "--") {
 		description->setText(temp->getIntName());
 		description->setDisabled(true);
-		text = tr("Edit");
+		text = tr("Edit XCA template");
 	}
-	capt->setText(text + " " + tr("XCA template"));
+	capt->setText(text);
 	tabWidget->removeTab(0);
 	privKeyBox->setEnabled(false);
 	validityBox->setEnabled(false);
@@ -501,9 +531,9 @@ void NewX509::on_genKeyBut_clicked()
 {
 	QString name = description->text();
 	if (name.isEmpty())
-		name = commonName->text();
+		name = dnEntryByNid(NID_commonName);
 	if (name.isEmpty())
-		name = emailAddress->text();
+		name = dnEntryByNid(NID_pkcs9_emailAddress);
 	emit genKey(name);
 }
 
@@ -633,9 +663,8 @@ x509name NewX509::getX509name(int _throw)
 	int j, row, nid;
 
 	try {
-		for (j = 0; j<EXPLICIT_NAME_CNT; j++) {
-			nid = name_nid[j];
-			x.addEntryByNid(nid, name_ptr[j]->text());
+		foreach(nameEdit ne, nameEdits) {
+			x.addEntryByNid(ne.nid, ne.edit->text());
 		}
 		row = extDNlist->rowCount();
 		for (j=0; j<row; j++) {
@@ -654,24 +683,38 @@ x509name NewX509::getX509name(int _throw)
 	return x;
 }
 
+QString NewX509::dnEntryByNid(int nid)
+{
+	foreach(nameEdit ne, nameEdits) {
+		if (ne.nid == nid && !ne.edit->text().isEmpty())
+			return ne.edit->text();
+	}
+	for (int j=0; j<extDNlist->rowCount(); j++) {
+		QStringList l = extDNlist->getRow(j);
+	        if (OBJ_txt2nid(CCHAR(l[0])) == nid && !l[1].isEmpty())
+			return l[1];
+	}
+	return QString();
+}
+
 void NewX509::setX509name(const x509name &n)
 {
-	int i,j;
-
 	extDNlist->deleteAllRows();
-	for (j=0; j<EXPLICIT_NAME_CNT; j++) {
-		name_ptr[j]->setText("");
+	foreach(nameEdit ne, nameEdits) {
+		ne.edit->setText("");
 	}
-	for (i=0, j=0; i< n.entryCount(); i++) {
+	for (int i=0; i< n.entryCount(); i++) {
 		int nid = n.nid(i);
+		bool done = false;
 		QStringList sl = n.entryList(i);
-		for ( ; j<EXPLICIT_NAME_CNT; j++) {
-			if (nid == name_nid[j] && name_ptr[j]->text().isEmpty()) {
-				name_ptr[j]->setText(sl[2]);
+		foreach(nameEdit ne, nameEdits) {
+			if (nid == ne.nid && ne.edit->text().isEmpty()) {
+				ne.edit->setText(sl[2]);
+				done = true;
 				break;
 			}
 		}
-		if (j == EXPLICIT_NAME_CNT) {
+		if (!done) {
 			extDNlist->addRow(sl.mid(1, 2));
 		}
 	}
@@ -999,7 +1042,8 @@ void NewX509::accept()
 		}
 	}
 	if (description->text().isEmpty() && !fromReqCB->isChecked()) {
-		if (commonName->text().isEmpty()) {
+		QString cn = dnEntryByNid(NID_commonName);
+		if (cn.isEmpty()) {
 			gotoTab(1);
 			xcaWarning msg(this,
 				tr("The internal name and the common name are empty.\nPlease set at least the internal name."));
@@ -1010,7 +1054,7 @@ void NewX509::accept()
 			}
 			return;
 		} else {
-			description->setText(commonName->text());
+			description->setText(cn);
 		}
 	}
 	if (keyList->count() == 0 && keyList->isEnabled() &&

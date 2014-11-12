@@ -189,7 +189,8 @@ void MainWindow::setOptions()
 {
 	Options *opt = new Options(this);
 
-	opt->setDnString(mandatory_dn);
+	opt->setExtDnString(mandatory_dn);
+	opt->setExpDnString(explicit_dn);
 	opt->setStringOpt(string_opt);
 	opt->setupPkcs11Provider(pkcs11path);
 	opt->suppress->setCheckState(
@@ -208,10 +209,21 @@ void MainWindow::setOptions()
 			setting, "default_hash");
 	hashBox::setDefault(alg);
 
-	mandatory_dn = opt->getDnString();
+	mandatory_dn = opt->getExtDnString();
+	explicit_dn = opt->getExpDnString();
 	mydb.set((const unsigned char *)CCHAR(mandatory_dn),
 			mandatory_dn.length()+1, 1, setting, "mandatory_dn");
-
+	if (explicit_dn.isEmpty())
+		explicit_dn = explicit_dn_default;
+	if (explicit_dn != explicit_dn_default) {
+		mydb.set((const unsigned char *)CCHAR(explicit_dn),
+			explicit_dn.length()+1, 1, setting, "explicit_dn");
+	} else {
+		mydb.first();
+		if (!mydb.find(setting, "explicit_dn")) {
+			mydb.erase();
+		}
+	}
 	QString flags = getOptFlags();
 	pki_base::suppress_messages = opt->suppress->checkState();
 	pki_x509::dont_colorize_expiries = opt->noColorize->checkState();

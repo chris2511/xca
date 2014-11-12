@@ -98,6 +98,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 				*doneIco, *warnIco;
 		static NIDlist *eku_nid, *dn_nid, *aia_nid;
 		static QString mandatory_dn;
+		static QString explicit_dn;
+		static QString explicit_dn_default;
 		int exitApp;
 		QString dbfile;
 		QLabel *dbindex;

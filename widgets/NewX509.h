@@ -28,6 +28,16 @@ class x509name;
 class x509v3ext;
 class extList;
 
+class nameEdit {
+    public:
+	int nid;
+	QLineEdit *edit;
+	QLabel *label;
+	nameEdit(int n, QLineEdit *e, QLabel *l) {
+		nid = n; edit = e; label = l;
+	}
+};
+
 class NewX509: public QDialog, public Ui::NewX509
 {
 		Q_OBJECT
@@ -36,9 +46,9 @@ class NewX509: public QDialog, public Ui::NewX509
 		NIDlist dn_nid;
 		NIDlist aia_nid;
 		NIDlist attr_nid;
+		NIDlist expl_dn_nid;
 		QList<QLineEdit*> attr_edit;
-		#define EXPLICIT_NAME_CNT 7
-		QLineEdit *name_ptr[EXPLICIT_NAME_CNT];
+		QList<nameEdit> nameEdits;
 		X509V3_CTX ext_ctx;
 		void editV3ext(QLineEdit *le, QString types, int n);
 		enum pki_type pt;
@@ -50,10 +60,11 @@ class NewX509: public QDialog, public Ui::NewX509
 		kvmodel *extDNmodel;
 		extList getExtDuplicates();
 		void checkIcon(const QString &text, int nid, QLabel*img);
+		QString dnEntryByNid(int nid);
 
 	public:
-		static int name_nid[EXPLICIT_NAME_CNT];
 		QRadioButton *selfQASignRB;
+		QLineEdit *description;
 		NewX509(QWidget *parent);
 		virtual ~NewX509();
 		void initCtx();
