@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-05 14:06+0200\n"
+"POT-Creation-Date: 2014-11-13 23:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1033,6 +1033,7 @@ msgid "Extensions"
 msgstr ""
 
 #: NewCrl#13
+msgctxt "NewCrl#13"
 msgid "Authority key identifier"
 msgstr ""
 
@@ -1096,519 +1097,497 @@ msgid "Remember as default"
 msgstr ""
 
 #: NewKey#12
-msgctxt "NewKey#12"
 msgid "Create"
 msgstr ""
 
 #: NewX509#1
-msgctxt "NewX509#1"
-msgid "Create"
-msgstr ""
-
-#: NewX509#2
 msgid "Source"
 msgstr ""
 
-#: NewX509#3
+#: NewX509#2
 msgid "Signing request"
 msgstr ""
 
-#: NewX509#4
+#: NewX509#3
 msgid "Show request"
 msgstr ""
 
-#: NewX509#5
+#: NewX509#4
 msgid "Sign this Certificate signing &request"
 msgstr ""
 
-#: NewX509#6
+#: NewX509#5
 msgid "Copy extensions from the request"
 msgstr ""
 
-#: NewX509#7
+#: NewX509#6
 msgid "Modify subject of the request"
 msgstr ""
 
-#: NewX509#8
+#: NewX509#7
 msgid "Signing"
 msgstr ""
 
-#: NewX509#9
+#: NewX509#8
 msgid "Create a &self signed certificate with the serial"
 msgstr ""
 
-#: NewX509#10
+#: NewX509#9
 msgid "If you leave this blank the serial 00 will be used"
 msgstr ""
 
-#: NewX509#11
+#: NewX509#10
 msgid "1"
 msgstr ""
 
-#: NewX509#12
+#: NewX509#11
 msgid "Use &this Certificate for signing"
 msgstr ""
 
-#: NewX509#13
+#: NewX509#12
 msgid "All certificates in your database that can create valid signatures"
 msgstr ""
 
-#: NewX509#14
-msgctxt "NewX509#14"
+#: NewX509#13
+msgctxt "NewX509#13"
 msgid "Signature algorithm"
 msgstr ""
 
-#: NewX509#15
+#: NewX509#14
 msgid "Template for the new certificate"
 msgstr ""
 
-#: NewX509#16
+#: NewX509#15
 msgid "All available templates"
 msgstr ""
 
-#: NewX509#17
+#: NewX509#16
 msgid "Apply extensions"
 msgstr ""
 
-#: NewX509#18
+#: NewX509#17
 msgid "Apply subject"
 msgstr ""
 
-#: NewX509#19
+#: NewX509#18
 msgid "Apply all"
+msgstr ""
+
+#: NewX509#19
+msgctxt "NewX509#19"
+msgid "Subject"
 msgstr ""
 
 #: NewX509#20
 msgctxt "NewX509#20"
-msgid "Subject"
-msgstr ""
-
-#: NewX509#21
 msgid "Distinguished name"
 msgstr ""
 
+#: NewX509#21
+msgctxt "NewX509#21"
+msgid "Add"
+msgstr ""
+
 #: NewX509#22
-msgid "Organisation"
+msgctxt "NewX509#22"
+msgid "Delete"
 msgstr ""
 
 #: NewX509#23
+msgctxt "NewX509#23"
+msgid "Private key"
+msgstr ""
+
+#: NewX509#24
+msgid "This list only contains unused keys"
+msgstr ""
+
+#: NewX509#25
+msgid "Used keys too"
+msgstr ""
+
+#: NewX509#26
+msgid "&Generate a new key"
+msgstr ""
+
+#: NewX509#27
+msgctxt "NewX509#27"
+msgid "Extensions"
+msgstr ""
+
+#: NewX509#28
+msgid "Basic constraints"
+msgstr ""
+
+#: NewX509#29
+msgctxt "NewX509#29"
+msgid "Type"
+msgstr ""
+
+#: NewX509#30
+msgid "If this will become a CA certificate or not"
+msgstr ""
+
+#: NewX509#31
+msgid "Not defined"
+msgstr ""
+
+#: NewX509#32
+msgid "Certification Authority"
+msgstr ""
+
+#: NewX509#33
+msgid "End Entity"
+msgstr ""
+
+#: NewX509#34
+msgid "Path length"
+msgstr ""
+
+#: NewX509#35
+msgid "How much CAs may be below this."
+msgstr ""
+
+#: NewX509#36
+msgid "The basic constraints should always be critical"
+msgstr ""
+
+#: NewX509#37
+msgid "Key identifier"
+msgstr ""
+
+#: NewX509#38
+msgid "Creates a hash of the key following the PKIX guidelines"
+msgstr ""
+
+#: NewX509#39
+msgid "Copy the Subject Key Identifier from the issuer"
+msgstr ""
+
+#: NewX509#40
+msgctxt "NewX509#40"
+msgid "Validity"
+msgstr ""
+
+#: NewX509#41
+msgctxt "NewX509#41"
+msgid "Not before"
+msgstr ""
+
+#: NewX509#42
+msgctxt "NewX509#42"
+msgid "Not after"
+msgstr ""
+
+#: NewX509#43
+msgctxt "NewX509#43"
+msgid "Time range"
+msgstr ""
+
+#: NewX509#44
+msgctxt "NewX509#44"
+msgid "Days"
+msgstr ""
+
+#: NewX509#45
+msgctxt "NewX509#45"
+msgid "Months"
+msgstr ""
+
+#: NewX509#46
+msgctxt "NewX509#46"
+msgid "Years"
+msgstr ""
+
+#: NewX509#47
+msgctxt "NewX509#47"
+msgid "Apply"
+msgstr ""
+
+#: NewX509#48
+msgid "Set the time to 00:00:00 and 23:59:59 respectively"
+msgstr ""
+
+#: NewX509#49
+msgctxt "NewX509#49"
+msgid "Midnight"
+msgstr ""
+
+#: NewX509#50
+msgctxt "NewX509#50"
+msgid "Local time"
+msgstr ""
+
+#: NewX509#51
+msgctxt "NewX509#51"
+msgid "No well-defined expiration"
+msgstr ""
+
+#: NewX509#52
+msgctxt "NewX509#52"
+msgid "subject alternative name"
+msgstr ""
+
+#: NewX509#53
+msgid "DNS: IP: URI: email: RID:"
+msgstr ""
+
+#: NewX509#54
+msgid "Edit"
+msgstr ""
+
+#: NewX509#55
+msgctxt "NewX509#55"
+msgid "issuer alternative name"
+msgstr ""
+
+#: NewX509#56
+msgid "URI:"
+msgstr ""
+
+#: NewX509#57
+msgid "Authority Info Access"
+msgstr ""
+
+#: NewX509#58
+msgid "can be altered by the file \"aia.txt\""
+msgstr ""
+
+#: NewX509#59
+msgid "CRL distribution point"
+msgstr ""
+
+#: NewX509#60
+msgctxt "NewX509#60"
+msgid "Key usage"
+msgstr ""
+
+#: NewX509#61
+msgctxt "NewX509#61"
+msgid "Extended key usage"
+msgstr ""
+
+#: NewX509#62
+msgid "Netscape"
+msgstr ""
+
+#: NewX509#63
+msgctxt "NewX509#63"
+msgid "CA Revocation URL"
+msgstr ""
+
+#: NewX509#64
+msgctxt "NewX509#64"
+msgid "Revocation URL"
+msgstr ""
+
+#: NewX509#65
+msgctxt "NewX509#65"
+msgid "SSL server name"
+msgstr ""
+
+#: NewX509#66
+msgctxt "NewX509#66"
+msgid "Certificate renewal URL"
+msgstr ""
+
+#: NewX509#67
+msgctxt "NewX509#67"
+msgid "Comment"
+msgstr ""
+
+#: NewX509#68
+msgctxt "NewX509#68"
+msgid "CA policy URL"
+msgstr ""
+
+#: NewX509#69
+msgctxt "NewX509#69"
+msgid "Base URL"
+msgstr ""
+
+#: NewX509#70
+msgid "Advanced"
+msgstr ""
+
+#: NewX509#71
+msgctxt "NewX509#71"
+msgid "Validate"
+msgstr ""
+
+#: NewX509#72
+msgid "Create a &self signed certificate with a MD5-hashed QA serial"
+msgstr ""
+
+#: NewX509#73
 msgid ""
 "This name is only used internally and does not appear in the resulting "
 "certificate"
 msgstr ""
 
-#: NewX509#24
-msgid "Must be exactly 2 letter of size (DE, UK)"
-msgstr ""
-
-#: NewX509#25
-msgid "Country code"
-msgstr ""
-
-#: NewX509#26
-msgid "State or Province"
-msgstr ""
-
-#: NewX509#27
-msgid "Locality"
-msgstr ""
-
-#: NewX509#28
-msgid "Organisational unit"
-msgstr ""
-
-#: NewX509#29
-msgid "E-Mail address"
-msgstr ""
-
-#: NewX509#30
-msgctxt "NewX509#30"
+#: NewX509#74
+msgctxt "NewX509#74"
 msgid "Internal name"
 msgstr ""
 
-#: NewX509#31
-msgid "Common name"
-msgstr ""
-
-#: NewX509#32
-msgctxt "NewX509#32"
-msgid "Add"
-msgstr ""
-
-#: NewX509#33
-msgctxt "NewX509#33"
-msgid "Delete"
-msgstr ""
-
-#: NewX509#34
-msgctxt "NewX509#34"
-msgid "Private key"
-msgstr ""
-
-#: NewX509#35
-msgid "This list only contains unused keys"
-msgstr ""
-
-#: NewX509#36
-msgid "Used keys too"
-msgstr ""
-
-#: NewX509#37
-msgid "&Generate a new key"
-msgstr ""
-
-#: NewX509#38
-msgctxt "NewX509#38"
-msgid "Extensions"
-msgstr ""
-
-#: NewX509#39
-msgid "Basic constraints"
-msgstr ""
-
-#: NewX509#40
-msgctxt "NewX509#40"
-msgid "Type"
-msgstr ""
-
-#: NewX509#41
-msgid "If this will become a CA certificate or not"
-msgstr ""
-
-#: NewX509#42
-msgid "Not defined"
-msgstr ""
-
-#: NewX509#43
-msgid "Certification Authority"
-msgstr ""
-
-#: NewX509#44
-msgid "End Entity"
-msgstr ""
-
-#: NewX509#45
-msgid "Path length"
-msgstr ""
-
-#: NewX509#46
-msgid "How much CAs may be below this."
-msgstr ""
-
-#: NewX509#47
-msgid "The basic constraints should always be critical"
-msgstr ""
-
-#: NewX509#48
-msgid "Key identifier"
-msgstr ""
-
-#: NewX509#49
-msgid "Creates a hash of the key following the PKIX guidelines"
-msgstr ""
-
-#: NewX509#50
-msgid "Copy the Subject Key Identifier from the issuer"
-msgstr ""
-
-#: NewX509#51
-msgctxt "NewX509#51"
-msgid "Validity"
-msgstr ""
-
-#: NewX509#52
-msgctxt "NewX509#52"
-msgid "Not before"
-msgstr ""
-
-#: NewX509#53
-msgctxt "NewX509#53"
-msgid "Not after"
-msgstr ""
-
-#: NewX509#54
-msgctxt "NewX509#54"
-msgid "Time range"
-msgstr ""
-
-#: NewX509#55
-msgctxt "NewX509#55"
-msgid "Days"
-msgstr ""
-
-#: NewX509#56
-msgctxt "NewX509#56"
-msgid "Months"
-msgstr ""
-
-#: NewX509#57
-msgctxt "NewX509#57"
-msgid "Years"
-msgstr ""
-
-#: NewX509#58
-msgctxt "NewX509#58"
-msgid "Apply"
-msgstr ""
-
-#: NewX509#59
-msgid "Set the time to 00:00:00 and 23:59:59 respectively"
-msgstr ""
-
-#: NewX509#60
-msgctxt "NewX509#60"
-msgid "Midnight"
-msgstr ""
-
-#: NewX509#61
-msgctxt "NewX509#61"
-msgid "Local time"
-msgstr ""
-
-#: NewX509#62
-msgctxt "NewX509#62"
-msgid "No well-defined expiration"
-msgstr ""
-
-#: NewX509#63
-msgid "subject alternative name"
-msgstr ""
-
-#: NewX509#64
-msgid "DNS: IP: URI: email: RID:"
-msgstr ""
-
-#: NewX509#65
-msgid "Edit"
-msgstr ""
-
-#: NewX509#66
-msgid "issuer alternative name"
-msgstr ""
-
-#: NewX509#67
-msgid "URI:"
-msgstr ""
-
-#: NewX509#68
-msgid "Authority Info Access"
-msgstr ""
-
-#: NewX509#69
-msgid "can be altered by the file \"aia.txt\""
-msgstr ""
-
-#: NewX509#70
-msgid "CRL distribution point"
-msgstr ""
-
-#: NewX509#71
-msgid "Key usage"
-msgstr ""
-
-#: NewX509#72
-msgid "Extended key usage"
-msgstr ""
-
-#: NewX509#73
-msgid "Netscape"
-msgstr ""
-
-#: NewX509#74
-msgid "CA Revocation URL"
-msgstr ""
-
 #: NewX509#75
-msgid "Revocation URL"
+msgid "Critical"
 msgstr ""
 
 #: NewX509#76
-msgid "SSL server name"
-msgstr ""
-
-#: NewX509#77
-msgid "Certificate renewal URL"
-msgstr ""
-
-#: NewX509#78
-msgid "Comment"
-msgstr ""
-
-#: NewX509#79
-msgid "CA policy URL"
-msgstr ""
-
-#: NewX509#80
-msgid "Base URL"
-msgstr ""
-
-#: NewX509#81
-msgid "If you know a more pretty one tell me"
-msgstr ""
-
-#: NewX509#82
-msgid "Advanced"
-msgstr ""
-
-#: NewX509#83
-msgctxt "NewX509#83"
-msgid "Validate"
-msgstr ""
-
-#: NewX509#84
-msgid "Create a &self signed certificate with a MD5-hashed QA serial"
-msgstr ""
-
-#: NewX509#85
 msgid "Create Certificate signing request"
 msgstr ""
 
-#: NewX509#86
+#: NewX509#77
 msgid "minimum size: %1"
 msgstr ""
 
-#: NewX509#87
+#: NewX509#78
 msgid "maximum size: %1"
 msgstr ""
 
-#: NewX509#88
+#: NewX509#79
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr ""
 
-#: NewX509#89
+#: NewX509#80
 msgid "only 7-bit clean characters"
 msgstr ""
 
-#: NewX509#90
-msgid "XCA template"
+#: NewX509#81
+msgid "Create XCA template"
 msgstr ""
 
-#: NewX509#91
+#: NewX509#82
+msgid "Edit XCA template"
+msgstr ""
+
+#: NewX509#83
 msgid "Create x509 Certificate"
 msgstr ""
 
-#: NewX509#92
+#: NewX509#84
 msgid "Other Tabs"
 msgstr ""
 
-#: NewX509#93
+#: NewX509#85
 msgid "Advanced Tab"
 msgstr ""
 
-#: NewX509#94
+#: NewX509#86
 msgid "Errors"
 msgstr ""
 
-#: NewX509#95
+#: NewX509#87
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: NewX509#96
-msgctxt "NewX509#96"
+#: NewX509#88
+msgctxt "NewX509#88"
 msgid "Abort rollout"
 msgstr ""
 
-#: NewX509#97
+#: NewX509#89
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: NewX509#98
+#: NewX509#90
 msgid "Edit subject"
 msgstr ""
 
-#: NewX509#99
-msgctxt "NewX509#99"
+#: NewX509#91
+msgctxt "NewX509#91"
 msgid "Continue rollout"
 msgstr ""
 
-#: NewX509#100
+#: NewX509#92
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: NewX509#101
+#: NewX509#93
 msgid "Continue anyway"
 msgstr ""
 
-#: NewX509#102
+#: NewX509#94
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: NewX509#103
+#: NewX509#95
 msgid "Edit name"
 msgstr ""
 
-#: NewX509#104
+#: NewX509#96
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: NewX509#105
+#: NewX509#97
 msgid "Select key"
 msgstr ""
 
-#: NewX509#106
+#: NewX509#98
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: NewX509#107
-msgctxt "NewX509#107"
+#: NewX509#99
+msgctxt "NewX509#99"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: NewX509#108
+#: NewX509#100
 msgid "Select other signer"
 msgstr ""
 
-#: NewX509#109
+#: NewX509#101
 msgid "Select other key"
 msgstr ""
 
-#: NewX509#110
-msgctxt "NewX509#110"
+#: NewX509#102
+msgctxt "NewX509#102"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#111
+#: NewX509#103
 msgid "Edit dates"
 msgstr ""
 
-#: NewX509#112
-msgctxt "NewX509#112"
+#: NewX509#104
+msgctxt "NewX509#104"
 msgid "Adjust date and continue"
 msgstr ""
 
-#: NewX509#113
-msgctxt "NewX509#113"
+#: NewX509#105
+msgctxt "NewX509#105"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#114
+#: NewX509#106
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: NewX509#115
+#: NewX509#107
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
 "validation on the advanced tab."
 msgstr ""
 
-#: NewX509#116
+#: NewX509#108
 msgid "Edit extensions"
 msgstr ""
 
-#: NewX509#117
+#: NewX509#109
 msgid "Configfile error on line %1\n"
 msgstr ""
 
@@ -1617,69 +1596,102 @@ msgid "XCA Options"
 msgstr ""
 
 #: Options#2
-msgid "Mandatory subject entries"
+msgid "Settings"
 msgstr ""
 
 #: Options#3
-msgctxt "Options#3"
-msgid "Add"
-msgstr ""
-
-#: Options#4
-msgctxt "Options#4"
-msgid "Delete"
-msgstr ""
-
-#: Options#5
 msgid "Default hash algorithm"
 msgstr ""
 
-#: Options#6
+#: Options#4
 msgid "String types"
 msgstr ""
 
-#: Options#7
+#: Options#5
 msgid "Suppress success messages"
 msgstr ""
 
-#: Options#8
+#: Options#6
 msgid "Don't colorize expired certificates"
 msgstr ""
 
+#: Options#7
+msgid "Translate established x509 terms (%1 -> %2)"
+msgstr ""
+
+#: Options#8
+msgid ""
+"The hashing functionality of the token is not used by XCA.\n"
+"It may however honor a restricted hash-set propagated by the token.\n"
+"Especially EC and DSA are only defined with SHA1 in the PKCS#11 "
+"specification."
+msgstr ""
+
 #: Options#9
-msgid "PKCS#11 provider"
+msgid "Only use hashes supported by the token when signing with a token key"
 msgstr ""
 
 #: Options#10
-msgid "Remove"
+msgctxt "Options#10"
+msgid "Distinguished name"
 msgstr ""
 
 #: Options#11
-msgctxt "Options#11"
-msgid "Search"
+msgid "Mandatory subject entries"
 msgstr ""
 
 #: Options#12
-msgid "Printable string or UTF8 (default)"
+msgctxt "Options#12"
+msgid "Add"
 msgstr ""
 
 #: Options#13
-msgid "PKIX recommendation in RFC2459"
+msgctxt "Options#13"
+msgid "Delete"
 msgstr ""
 
 #: Options#14
-msgid "No BMP strings, only printable and T61"
+msgid "Explicit subject entries"
 msgstr ""
 
 #: Options#15
-msgid "UTF8 strings only (RFC2459)"
+msgid "Default"
 msgstr ""
 
 #: Options#16
-msgid "All strings"
+msgid "PKCS#11 provider"
 msgstr ""
 
 #: Options#17
+msgid "Remove"
+msgstr ""
+
+#: Options#18
+msgctxt "Options#18"
+msgid "Search"
+msgstr ""
+
+#: Options#19
+msgid "Printable string or UTF8 (default)"
+msgstr ""
+
+#: Options#20
+msgid "PKIX recommendation in RFC2459"
+msgstr ""
+
+#: Options#21
+msgid "No BMP strings, only printable and T61"
+msgstr ""
+
+#: Options#22
+msgid "UTF8 strings only (RFC2459)"
+msgstr ""
+
+#: Options#23
+msgid "All strings"
+msgstr ""
+
+#: Options#24
 msgid "Load failed"
 msgstr ""
 
@@ -2505,6 +2517,169 @@ msgstr ""
 msgid "Hash to lookup certs in directories"
 msgstr ""
 
+#: db_x509name#5
+msgid "Country code"
+msgstr ""
+
+#: db_x509name#6
+msgid "State or Province"
+msgstr ""
+
+#: db_x509name#7
+msgid "Locality"
+msgstr ""
+
+#: db_x509name#8
+msgid "Organisation"
+msgstr ""
+
+#: db_x509name#9
+msgid "Organisational unit"
+msgstr ""
+
+#: db_x509name#10
+msgid "Common name"
+msgstr ""
+
+#: db_x509name#11
+msgid "E-Mail address"
+msgstr ""
+
+#: db_x509name#12
+msgid "Serial number"
+msgstr ""
+
+#: db_x509name#13
+msgid "Given name"
+msgstr ""
+
+#: db_x509name#14
+msgid "Surname"
+msgstr ""
+
+#: db_x509name#15
+msgid "Title"
+msgstr ""
+
+#: db_x509name#16
+msgid "Initials"
+msgstr ""
+
+#: db_x509name#17
+msgid "Description"
+msgstr ""
+
+#: db_x509name#18
+msgid "Role"
+msgstr ""
+
+#: db_x509name#19
+msgid "Pseudonym"
+msgstr ""
+
+#: db_x509name#20
+msgid "Generation Qualifier"
+msgstr ""
+
+#: db_x509name#21
+msgid "x500 Unique Identifier"
+msgstr ""
+
+#: db_x509name#22
+msgctxt "db_x509name#22"
+msgid "Name"
+msgstr ""
+
+#: db_x509name#23
+msgid "DN Qualifier"
+msgstr ""
+
+#: db_x509name#24
+msgctxt "db_x509name#24"
+msgid "Unstructured name"
+msgstr ""
+
+#: db_x509name#25
+msgctxt "db_x509name#25"
+msgid "Challenge password"
+msgstr ""
+
+#: db_x509name#26
+msgctxt "db_x509name#26"
+msgid "subject alternative name"
+msgstr ""
+
+#: db_x509name#27
+msgctxt "db_x509name#27"
+msgid "issuer alternative name"
+msgstr ""
+
+#: db_x509name#28
+msgid "Subject key identifier"
+msgstr ""
+
+#: db_x509name#29
+msgctxt "db_x509name#29"
+msgid "Authority key identifier"
+msgstr ""
+
+#: db_x509name#30
+msgctxt "db_x509name#30"
+msgid "Key usage"
+msgstr ""
+
+#: db_x509name#31
+msgctxt "db_x509name#31"
+msgid "Extended key usage"
+msgstr ""
+
+#: db_x509name#32
+msgid "CRL distribution points"
+msgstr ""
+
+#: db_x509name#33
+msgid "Authority information access"
+msgstr ""
+
+#: db_x509name#34
+msgid "Certificate type"
+msgstr ""
+
+#: db_x509name#35
+msgctxt "db_x509name#35"
+msgid "Base URL"
+msgstr ""
+
+#: db_x509name#36
+msgctxt "db_x509name#36"
+msgid "Revocation URL"
+msgstr ""
+
+#: db_x509name#37
+msgctxt "db_x509name#37"
+msgid "CA Revocation URL"
+msgstr ""
+
+#: db_x509name#38
+msgctxt "db_x509name#38"
+msgid "Certificate renewal URL"
+msgstr ""
+
+#: db_x509name#39
+msgctxt "db_x509name#39"
+msgid "CA policy URL"
+msgstr ""
+
+#: db_x509name#40
+msgctxt "db_x509name#40"
+msgid "SSL server name"
+msgstr ""
+
+#: db_x509name#41
+msgctxt "db_x509name#41"
+msgid "Comment"
+msgstr ""
+
 #: db_x509req#1
 msgctxt "db_x509req#1"
 msgid "Signed"
@@ -2515,10 +2690,12 @@ msgid "whether the request is already signed or not"
 msgstr ""
 
 #: db_x509req#3
+msgctxt "db_x509req#3"
 msgid "Unstructured name"
 msgstr ""
 
 #: db_x509req#4
+msgctxt "db_x509req#4"
 msgid "Challenge password"
 msgstr ""
 
@@ -2858,55 +3035,51 @@ msgid "This Key is already on the token"
 msgstr ""
 
 #: pki_scard#7
-msgid "Only RSA and EC keys can be stored on tokens"
-msgstr ""
-
-#: pki_scard#8
 msgid "PIN input aborted"
 msgstr ""
 
-#: pki_scard#9
+#: pki_scard#8
 msgid "Unable to find copied key on the token"
 msgstr ""
 
-#: pki_scard#10
+#: pki_scard#9
 msgid "Please insert card: %1 %2 [%3] with Serial: %4"
 msgstr ""
 
-#: pki_scard#11
+#: pki_scard#10
 msgid "Public Key missmatch. Please re-import card"
 msgstr ""
 
-#: pki_scard#12
+#: pki_scard#11
 msgid "Illegal Key generation method"
 msgstr ""
 
-#: pki_scard#13
+#: pki_scard#12
 msgid "Unable to find generated key on card"
 msgstr ""
 
-#: pki_scard#14
+#: pki_scard#13
 msgid "Ignoring unsupported token key"
 msgstr ""
 
-#: pki_scard#15
-msgctxt "pki_scard#15"
+#: pki_scard#14
+msgctxt "pki_scard#14"
 msgid "Wrong Size %1"
 msgstr ""
 
-#: pki_scard#16
+#: pki_scard#15
 msgid "Token %1"
 msgstr ""
 
-#: pki_scard#17
+#: pki_scard#16
 msgid "Failed to find the key on the token"
 msgstr ""
 
-#: pki_scard#18
+#: pki_scard#17
 msgid "Invalid Pin for the token"
 msgstr ""
 
-#: pki_scard#19
+#: pki_scard#18
 msgid "Failed to initialize the key on the token"
 msgstr ""
 

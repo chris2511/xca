@@ -885,7 +885,7 @@ Serijski broj: %3</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+63"/>
+        <location filename="../widgets/MW_menu.cpp" line="+64"/>
         <source>Certificates</source>
         <translation>Potvrde</translation>
     </message>
@@ -930,7 +930,7 @@ Serijski broj: %3</translation>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+182"/>
+        <location filename="../widgets/MW_database.cpp" line="+210"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Korištenje ili izvoz privatnih ključeva neće biti moguće bez davanja ispravne zaporke</translation>
     </message>
@@ -1130,7 +1130,7 @@ Serijski broj: %3</translation>
         <translation>Ipak uvezi</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+277"/>
+        <location filename="../widgets/MainWindow.cpp" line="+280"/>
         <source>no such option: %1</source>
         <translation>nema te opcije: %1</translation>
     </message>
@@ -1360,7 +1360,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Zapamti kao osnovnu vrijednost</translation>
     </message>
     <message>
-        <location filename="../widgets/NewKey.cpp" line="+170"/>
+        <location filename="../widgets/NewKey.cpp" line="+180"/>
         <source>Create</source>
         <translation>Stvori</translation>
     </message>
@@ -1368,13 +1368,11 @@ Unesite bitove za DH parametre</translation>
 <context>
     <name>NewX509</name>
     <message>
-        <location filename="../ui/NewX509.ui" line="+30"/>
-        <location filename="../widgets/NewX509.cpp" line="+235"/>
         <source>Create</source>
-        <translation>Izradi</translation>
+        <translation type="obsolete">Izradi</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location filename="../ui/NewX509.ui" line="+75"/>
         <source>Source</source>
         <translatorcomment>Izvor, mislim da je Zahtjev više u duhu jezika</translatorcomment>
         <translation>Zahtjev</translation>
@@ -1385,7 +1383,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Zahtjev za izdavanje</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+24"/>
         <source>Show request</source>
         <translatorcomment>Prikaži</translatorcomment>
         <translation>Pokaži zahtjev</translation>
@@ -1469,68 +1467,60 @@ Unesite bitove za DH parametre</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+204"/>
+        <location filename="../widgets/NewX509.cpp" line="+516"/>
         <source>Subject</source>
         <translation>Subjekt</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+6"/>
         <source>Distinguished name</source>
         <translation>Jedinstveno ime (DN)</translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>Organisation</source>
-        <translation>Organizacija</translation>
+        <translation type="obsolete">Organizacija</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location filename="../widgets/NewX509.cpp" line="-380"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Ovo ime se samo interno koristi i neće se pojaviti u izrađenoj potvrdi</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Must be exactly 2 letter of size (DE, UK)</source>
-        <translation>Mora biti točno 2 velika slova (HR, UK)</translation>
+        <translation type="obsolete">Mora biti točno 2 velika slova (HR, UK)</translation>
     </message>
     <message>
-        <location line="+17"/>
         <source>Country code</source>
-        <translation>Kod države</translation>
+        <translation type="obsolete">Kod države</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>State or Province</source>
         <translatorcomment>U smislu savezna država</translatorcomment>
-        <translation>Država ili Pokrajina</translation>
+        <translation type="obsolete">Država ili Pokrajina</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Locality</source>
-        <translation>Mjesto</translation>
+        <translation type="obsolete">Mjesto</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Organisational unit</source>
-        <translation>Organizacijska jedinica</translation>
+        <translation type="obsolete">Organizacijska jedinica</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>E-Mail address</source>
-        <translation>E-mail adresa</translation>
+        <translation type="obsolete">E-mail adresa</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+2"/>
         <source>Internal name</source>
         <translation>Interno ime</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Common name</source>
-        <translation>Uobičajeno ime</translation>
+        <translation type="obsolete">Uobičajeno ime</translation>
     </message>
     <message>
-        <location line="+39"/>
+        <location filename="../ui/NewX509.ui" line="+39"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
@@ -1702,8 +1692,7 @@ Unesite bitove za DH parametre</translation>
         <location line="+24"/>
         <location line="+33"/>
         <location line="+50"/>
-        <location filename="../widgets/NewX509.cpp" line="-200"/>
-        <location line="+571"/>
+        <location filename="../widgets/NewX509.cpp" line="+762"/>
         <source>Edit</source>
         <translation>Uredi</translation>
     </message>
@@ -1784,13 +1773,12 @@ Unesite bitove za DH parametre</translation>
         <translation>Osnovni URL</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>If you know a more pretty one tell me</source>
         <translatorcomment>!!! Ovo vrijedi i za hrvatski prijevod</translatorcomment>
-        <translation>Ako znate bolje, javite mi</translation>
+        <translation type="obsolete">Ako znate bolje, javite mi</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+43"/>
         <source>Advanced</source>
         <translation>Napredno</translation>
     </message>
@@ -1801,12 +1789,12 @@ Unesite bitove za DH parametre</translation>
         <translation>Potvrditi</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-713"/>
+        <location filename="../widgets/NewX509.cpp" line="-811"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Izradi &amp;samopotpisanu potvrdu s MD5 sažetkom CA serijskog broja</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+162"/>
         <source>Create Certificate signing request</source>
         <translation>Izradi zahtjev za izdavanje potvrde (CSR)</translation>
     </message>
@@ -1831,17 +1819,16 @@ Unesite bitove za DH parametre</translation>
         <translation>samo 7 bitni znaci</translation>
     </message>
     <message>
-        <location line="+22"/>
         <source>XCA template</source>
-        <translation>XCA predložak</translation>
+        <translation type="obsolete">XCA predložak</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+32"/>
         <source>Create x509 Certificate</source>
         <translation>Izradi x509 Potvrdu</translation>
     </message>
     <message>
-        <location line="+627"/>
+        <location line="+640"/>
         <source>From PKCS#10 request</source>
         <translation>Iz PKCS#10 zahtjeva</translation>
     </message>
@@ -1851,7 +1838,22 @@ Unesite bitove za DH parametre</translation>
         <translation>Druge Kartice</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="-682"/>
+        <source>Critical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+63"/>
+        <source>Create XCA template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Edit XCA template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+628"/>
         <source>Advanced Tab</source>
         <translation>Kartica Napredno</translation>
     </message>
@@ -1864,7 +1866,7 @@ Unesite bitove za DH parametre</translation>
         <location line="+103"/>
         <location line="+13"/>
         <location line="+19"/>
-        <location line="+11"/>
+        <location line="+12"/>
         <location line="+16"/>
         <location line="+14"/>
         <location line="+34"/>
@@ -1876,19 +1878,19 @@ Unesite bitove za DH parametre</translation>
         <translation>O uvođenju</translation>
     </message>
     <message>
-        <location line="-173"/>
+        <location line="-174"/>
         <source>The following length restrictions of RFC3280 are violated:</source>
         <translation>Sljedeća ograničenja dužine iz RFC3280 su prekršena:</translation>
     </message>
     <message>
         <location line="+3"/>
-        <location line="+60"/>
+        <location line="+61"/>
         <source>Edit subject</source>
         <translation>Uredi subjekt</translation>
     </message>
     <message>
-        <location line="-58"/>
-        <location line="+60"/>
+        <location line="-59"/>
+        <location line="+61"/>
         <location line="+45"/>
         <location line="+23"/>
         <location line="+22"/>
@@ -1897,7 +1899,7 @@ Unesite bitove za DH parametre</translation>
         <translation>Nastavi uvođenje</translation>
     </message>
     <message>
-        <location line="-153"/>
+        <location line="-154"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Provjera zahtjeva za izdavanje Potvrde nije uspješna.
@@ -1909,7 +1911,7 @@ Uvođenje će biti prekinuto.</translation>
         <translation>Nastavi bez obzira na sve</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>The internal name and the common name are empty.
 Please set at least the internal name.</source>
         <translation>Interno ime i uobičajeno ime (CN) nisu popunjeni.
@@ -2007,28 +2009,35 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>XCA Opcije</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+113"/>
         <source>Mandatory subject entries</source>
         <translation>Obavezne stavke subjekta </translation>
     </message>
     <message>
         <location line="+24"/>
-        <location line="+103"/>
+        <location line="+60"/>
+        <location line="+57"/>
         <source>Add</source>
         <translation>Dodaj</translation>
     </message>
     <message>
-        <location line="-96"/>
+        <location line="-110"/>
+        <location line="+60"/>
         <source>Delete</source>
         <translation>Obriši</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-176"/>
         <source>Default hash algorithm</source>
         <translation>Osnovni algoritam sažetka</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="-14"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
         <source>String types</source>
         <translation>Vrste nizova</translation>
     </message>
@@ -2044,6 +2053,38 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     </message>
     <message>
         <location line="+7"/>
+        <source>Translate established x509 terms (%1 -&gt; %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>The hashing functionality of the token is not used by XCA.
+It may however honor a restricted hash-set propagated by the token.
+Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Only use hashes supported by the token when signing with a token key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Distinguished name</source>
+        <translation type="unfinished">Jedinstveno ime (DN)</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Explicit subject entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
         <source>PKCS#11 provider</source>
         <translation>PKCS#11 poslužitelj</translation>
     </message>
@@ -2058,7 +2099,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>Traži</translation>
     </message>
     <message>
-        <location filename="../widgets/Options.cpp" line="+31"/>
+        <location filename="../widgets/Options.cpp" line="+32"/>
         <source>Printable string or UTF8 (default)</source>
         <translatorcomment>!!! Ispisljivi koja je alternativa za Čitljivi</translatorcomment>
         <translation>Čitljivi niz ili UTF8 (osnovni odabir)</translation>
@@ -2084,7 +2125,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>Svi nizovi</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+155"/>
         <source>Load failed</source>
         <translation>Učitavanje nije uspjelo</translation>
     </message>
@@ -2330,12 +2371,12 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
         <translation>Neuspješno otvaranje PKCS11 knjižnice: %1</translation>
     </message>
     <message>
-        <location line="+218"/>
+        <location line="+219"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2</source>
         <translation>PKSC#11 funkcija &apos;%1&apos;prijavila grešku: %2</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>PKCS#11 function &apos;%1&apos; failed: %2
 In library %3
 %4</source>
@@ -2492,7 +2533,7 @@ U knjižnici %3
         <translation>Vrati na početak</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+34"/>
         <source>Paste PEM data</source>
         <translation>Zalijepi PEM podatke</translation>
     </message>
@@ -2602,12 +2643,12 @@ i zbog toga nije uvezen</translation>
         <translation>Dužina</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>EC Group</source>
         <translation>EC Grupa</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Use</source>
         <translation>Namjena</translation>
     </message>
@@ -3102,6 +3143,191 @@ i zbog toga nije uvezena</translation>
         <source>Hash to lookup certs in directories</source>
         <translation>Sažmi za pregledavanje potvrda u katalogu</translation>
     </message>
+    <message>
+        <location line="+3"/>
+        <source>Country code</source>
+        <translation type="unfinished">Kod države</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>State or Province</source>
+        <translation type="unfinished">Država ili Pokrajina</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Locality</source>
+        <translation type="unfinished">Mjesto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisation</source>
+        <translation type="unfinished">Organizacija</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisational unit</source>
+        <translation type="unfinished">Organizacijska jedinica</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Common name</source>
+        <translation type="unfinished">Uobičajeno ime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>E-Mail address</source>
+        <translation type="unfinished">E-mail adresa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Serial number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Given name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Surname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Initials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Role</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pseudonym</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Generation Qualifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>x500 Unique Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Name</source>
+        <translation type="unfinished">Ime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DN Qualifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unstructured name</source>
+        <translation type="unfinished">Nestrukturirano ime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Challenge password</source>
+        <translation type="unfinished">Zaporka za izazov</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>subject alternative name</source>
+        <translation type="unfinished">Alternativno ime subjekta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>issuer alternative name</source>
+        <translation type="unfinished">alternativno ime izdavača</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Subject key identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority key identifier</source>
+        <translation type="unfinished">Oznaka ključa Autoriteta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Key usage</source>
+        <translation type="unfinished">Namjena ključa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Extended key usage</source>
+        <translation type="unfinished">Proširena upotreba ključa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CRL distribution points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority information access</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Base URL</source>
+        <translation type="unfinished">Osnovni URL</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Revocation URL</source>
+        <translation type="unfinished">URL opoziva</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA Revocation URL</source>
+        <translation type="unfinished">URL opoziva CA</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate renewal URL</source>
+        <translation type="unfinished">URL za obnovu potvrde</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA policy URL</source>
+        <translation type="unfinished">URL politike CA</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SSL server name</source>
+        <translation type="unfinished">SSL ime poslužitelja</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Comment</source>
+        <translation type="unfinished">Napomena</translation>
+    </message>
 </context>
 <context>
     <name>db_x509req</name>
@@ -3208,7 +3434,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+31"/>
+        <location filename="../lib/db_x509super.cpp" line="+28"/>
         <source>Key name</source>
         <translation>Ime ključa</translation>
     </message>
@@ -3218,7 +3444,7 @@ i zbog toga nije spreman</translation>
         <translation>Interno ime ključa</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+71"/>
         <source>Save as OpenSSL config</source>
         <translation>Spremi kao OpenSSL konfiguraciju</translation>
     </message>
@@ -3329,7 +3555,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+199"/>
+        <location filename="../lib/pki_evp.cpp" line="+174"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation>Neuspješno dekriptiran ključ (pogrešna zaporka) </translation>
     </message>
@@ -3445,7 +3671,7 @@ i zbog toga nije spreman</translation>
         <translation>javni ključ</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+188"/>
         <source>Common</source>
         <translation>Opće</translation>
     </message>
@@ -3521,7 +3747,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+58"/>
+        <location filename="../lib/pki_scard.cpp" line="+59"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translatorcomment>!!! Da li je ključ s tokena ili ključ za token???</translatorcomment>
         <translation>Uspješno uvezen ključ za token &apos;%1&apos;</translation>
@@ -3542,22 +3768,21 @@ i zbog toga nije spreman</translation>
         <translation>Obrisati %1 ključ &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location line="+222"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Obrisati privatni ključ &apos;%1&apos; s tokena &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+63"/>
         <source>This Key is already on the token</source>
         <translation>Ovaj ključ se već nalazi na tokenu</translation>
     </message>
     <message>
-        <location line="+41"/>
         <source>Only RSA and EC keys can be stored on tokens</source>
-        <translation>Samo RSA i EC ključevi mogu biti spremljeni na tokenu</translation>
+        <translation type="obsolete">Samo RSA i EC ključevi mogu biti spremljeni na tokenu</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+73"/>
         <source>PIN input aborted</source>
         <translation>Prekinut unos PIN-a</translation>
     </message>
@@ -3567,7 +3792,7 @@ i zbog toga nije spreman</translation>
         <translation>Nije moguće naći kopirani ključ na tokenu</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+99"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Umetnite karticu:  %1 %2 [%3] s sa serijskim brojem: %4</translation>
     </message>
@@ -3577,7 +3802,7 @@ i zbog toga nije spreman</translation>
         <translation>Neodgovarajući javni ključ. Molimo ponovo umetnite karticu</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+56"/>
         <source>Illegal Key generation method</source>
         <translation>Nedozvoljeni način generiranja Ključa</translation>
     </message>
@@ -3641,7 +3866,7 @@ i zbog toga nije spreman</translation>
         <translation>Obrisati %1 XCA predložak &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+189"/>
         <location line="+205"/>
         <source>Wrong Size %1</source>
         <translation>Kriva Dužina %1</translation>
@@ -3705,8 +3930,8 @@ i zbog toga nije spreman</translation>
         <translation>Nema ključa za potpisivanje !</translation>
     </message>
     <message>
-        <location line="+37"/>
-        <location line="+484"/>
+        <location line="+38"/>
+        <location line="+486"/>
         <source>Wrong Size %1</source>
         <translation>Pogrešna Dužina %1</translation>
     </message>

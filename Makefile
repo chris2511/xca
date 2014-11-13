@@ -16,6 +16,9 @@ include Local.mak
 endif
 endif
 endif
+ifeq ($(TOPDIR),)
+TOPDIR=.
+endif
 
 VPATH=$(TOPDIR)
 SUBDIRS=lib widgets img misc
