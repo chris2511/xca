@@ -882,22 +882,19 @@ static int eng_pmeth_sign_dsa(EVP_PKEY_CTX *ctx,
 
 	// siglen is unsigned and can't cope with -1 as return value
 	len = p11->encrypt(tbslen, tbs, rs_buf, sizeof rs_buf, CKM_DSA);
-//	len = p11->encrypt(tbslen, tbs, sig, *siglen, CKM_DSA);
 	if (len & 0x01) // Must be even
 		goto out;
 
-	fprintf(stderr, "DSA len_in:%zd, len_out:%d\n", tbslen, len);
 	rs_len = len/2;
-	
-	if (!BN_bin2bn(rs_buf, rs_len, dsa_sig->s))
+	dsa_sig->r = BN_bin2bn(rs_buf, rs_len, NULL);
+	dsa_sig->s = BN_bin2bn(rs_buf + rs_len, rs_len, NULL);
+	if (!dsa_sig->s || !dsa_sig->r)
 		goto out;
-	if (!BN_bin2bn(rs_buf + rs_len, rs_len, dsa_sig->r))
-		goto out;
+
 	len = i2d_DSA_SIG(dsa_sig, &sig);
 	openssl_error();
 	if (len <= 0)
 		goto out;
-	fprintf(stderr, "DSA len_in:%zd, len_i2d:%d *siglen:%zd\n", tbslen, len, *siglen);
 	*siglen = len;
 	ret = 1;
 out:
