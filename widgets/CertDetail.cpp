@@ -194,8 +194,8 @@ void CertDetail::setReq(pki_x509req *req)
 				continue;
 			}
 			label = new QLabel(this);
-			trans = db_x509name::dn_translations[nid];
-			if (db_x509name::translate_dn && !trans.isEmpty()) {
+			trans = dn_translations[nid];
+			if (translate_dn && !trans.isEmpty()) {
 				label->setText(trans);
 				label->setToolTip(QString(OBJ_nid2sn(nid)));
 			} else {

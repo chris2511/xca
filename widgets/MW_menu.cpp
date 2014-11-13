@@ -199,7 +199,7 @@ void MainWindow::setOptions()
 	opt->noColorize->setCheckState(
 		pki_x509::dont_colorize_expiries ? Qt::Checked : Qt::Unchecked);
 	opt->transDnEntries->setCheckState(
-		db_x509name::translate_dn ? Qt::Checked : Qt::Unchecked);
+		translate_dn ? Qt::Checked : Qt::Unchecked);
 	opt->onlyTokenHashes->setCheckState(
 		pki_scard::only_token_hashes ? Qt::Checked : Qt::Unchecked);
 
@@ -232,7 +232,7 @@ void MainWindow::setOptions()
 	QString flags = getOptFlags();
 	pki_base::suppress_messages = opt->suppress->checkState();
 	pki_x509::dont_colorize_expiries = opt->noColorize->checkState();
-	db_x509name::translate_dn = opt->transDnEntries->checkState();
+	translate_dn = opt->transDnEntries->checkState();
 	pki_scard::only_token_hashes = opt->onlyTokenHashes->checkState();
 
 	if (flags != getOptFlags()) {
@@ -271,7 +271,7 @@ void MainWindow::setOptFlags_old(QString flags)
 
 	pki_base::suppress_messages = false;
 	pki_x509::dont_colorize_expiries = false;
-	db_x509name::translate_dn = false;
+	translate_dn = false;
 
 	for (i=0; i<s; i++) {
 		switch (b[i]) {
@@ -282,7 +282,7 @@ void MainWindow::setOptFlags_old(QString flags)
 			pki_x509::dont_colorize_expiries = true;
 			break;
 		case 'T':
-			db_x509name::translate_dn = true;
+			translate_dn = true;
 			break;
 		}
 	}
@@ -292,7 +292,7 @@ void MainWindow::setOptFlags(QString flags)
 {
 	pki_base::suppress_messages = false;
 	pki_x509::dont_colorize_expiries = false;
-	db_x509name::translate_dn = false;
+	translate_dn = false;
 	pki_scard::only_token_hashes = false;
 
 	foreach(QString flag, flags.split(",")) {
@@ -301,7 +301,7 @@ void MainWindow::setOptFlags(QString flags)
 		else if (flag == "dont_colorize_expiries")
 			pki_x509::dont_colorize_expiries = true;
 		else if (flag == "translate_dn")
-			db_x509name::translate_dn = true;
+			translate_dn = true;
 		else if (flag == "only_token_hashes")
 			pki_scard::only_token_hashes = true;
 		else if (!flag.isEmpty())
@@ -317,7 +317,7 @@ QString MainWindow::getOptFlags()
 		flags << "suppress_messages";
 	if (pki_x509::dont_colorize_expiries)
 		flags << "dont_colorize_expiries";
-	if (db_x509name::translate_dn)
+	if (translate_dn)
 		flags << "translate_dn";
 	if (pki_scard::only_token_hashes)
 		flags << "only_token_hashes";

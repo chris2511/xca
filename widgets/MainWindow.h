@@ -51,7 +51,8 @@ class tipMenu : public QMenu
 	bool event (QEvent * e)
 	{
 		const QHelpEvent *helpEvent = static_cast <QHelpEvent *>(e);
-		if (helpEvent->type() == QEvent::ToolTip && activeAction()) {
+		if (helpEvent->type() == QEvent::ToolTip && activeAction() &&
+		    activeAction()->toolTip() != activeAction()->text()) {
 			QToolTip::showText(helpEvent->globalPos(),
 				activeAction()->toolTip());
 		} else {

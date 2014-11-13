@@ -442,3 +442,6 @@ BIO *BIO_QBA_mem_buf(QByteArray &a)
 	BIO_seekable_romem(b);
 	return b;
 }
+
+bool translate_dn = false;
+QMap<int, QString> dn_translations;

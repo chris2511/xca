@@ -37,7 +37,9 @@ db_key::db_key(QString db, MainWindow *mw)
 	allHeaders <<
 		new dbheader(HD_key_type,   true, tr("Type")) <<
 		new dbheader(HD_key_size,   true, tr("Size")) <<
-		new dbheader(HD_key_curve,  true, tr("EC Group")) <<
+#ifndef OPENSSL_NO_EC
+		new dbheader(HD_key_curve,  false,tr("EC Group")) <<
+#endif
 		new dbheader(HD_key_use,    true, tr("Use")) <<
 		new dbheader(HD_key_passwd, true, tr("Password"));
 	loadContainer();

@@ -11,6 +11,7 @@
 #include <openssl/asn1.h>
 #include <QtGui/QPixmap>
 #include <QtCore/QByteArray>
+#include <QtCore/QMap>
 #include "base.h"
 
 class Validity;
@@ -38,6 +39,9 @@ const char *OBJ_obj2sn(ASN1_OBJECT *a);
 QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name = 0);
 
 void inc_progress_bar(int, int, void *p);
+
+extern bool translate_dn;
+extern QMap<int, QString> dn_translations;
 
 #define openssl_error(x) _openssl_error(QString(x), C_FILE, __LINE__)
 #define ign_openssl_error(x) _ign_openssl_error(QString(x), C_FILE, __LINE__)

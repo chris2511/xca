@@ -18,7 +18,7 @@ endif
 endif
 
 VPATH=$(TOPDIR)
-SUBDIRS=lib widgets img
+SUBDIRS=lib widgets img misc
 OBJECTS=$(patsubst %, %/.build-stamp, $(SUBDIRS))
 INSTDIR=misc lang doc img
 INSTTARGET=$(patsubst %, install.%, $(INSTDIR))

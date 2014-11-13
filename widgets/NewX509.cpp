@@ -144,10 +144,10 @@ NewX509::NewX509(QWidget *parent)
 	foreach(int nid, expl_dn_nid) {
 		QLabel *label;
 		QLineEdit *edit;
-		QString trans = db_x509name::dn_translations[nid];
+		QString trans = dn_translations[nid];
 
 		label = new QLabel(this);
-		if (db_x509name::translate_dn && !trans.isEmpty()) {
+		if (translate_dn && !trans.isEmpty()) {
 			label->setText(trans);
 			label->setToolTip(QString("[%1] %2")
 				.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid)));
@@ -183,10 +183,10 @@ NewX509::NewX509(QWidget *parent)
 	foreach(int nid, attr_nid) {
 		QLabel *label;
 		QLineEdit *edit;
-		QString trans = db_x509name::dn_translations[nid];
+		QString trans = dn_translations[nid];
 
 		label = new QLabel(this);
-		if (db_x509name::translate_dn && !trans.isEmpty()) {
+		if (translate_dn && !trans.isEmpty()) {
 			label->setText(trans);
 			label->setToolTip(QString(OBJ_nid2sn(nid)));
 		} else {
@@ -211,7 +211,7 @@ NewX509::NewX509(QWidget *parent)
 	attrWidget->hide();
 	pt = none;
 	notAfter->setEndDate(true);
-	if (db_x509name::translate_dn) {
+	if (translate_dn) {
 		QList<QGroupBox*> gb;
 		gb << distNameBox << bcBox << keyIdentBox << kuBox << ekuBox;
 		foreach(QGroupBox *g, gb) {

@@ -14,7 +14,7 @@
 #include <openssl/pem.h>
 #include <openssl/evp.h>
 #include "pki_base.h"
-#include "lib/builtin_curves.h"
+#include "builtin_curves.h"
 
 #define MAX_KEY_LENGTH 4096
 

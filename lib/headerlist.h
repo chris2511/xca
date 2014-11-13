@@ -5,13 +5,16 @@
  * All rights reserved.
  */
 
-#include "db.h"
-#include "func.h"
+#ifndef __HEADERLIST_H
+#define __HEADERLIST_H
+
 #include <QtCore/QString>
 #include <QtCore/QList>
 #include <QtGui/QAction>
 #include <QtGui/QHeaderView>
 #include <openssl/objects.h>
+#include "db.h"
+#include "func.h"
 
 #define HD_undef NID_undef
 #define HD_internal_name -2
@@ -47,7 +50,7 @@
 
 class dbheader
 {
-    private:
+    protected:
 	void init()
 	{
 		id = HD_undef;
@@ -58,6 +61,8 @@ class dbheader
 		sortIndicator = -1;
 		type = hd_default;
 	}
+	QString name, tooltip;
+
     public:
 	enum hdr_type {
 		hd_default,
@@ -67,33 +72,32 @@ class dbheader
 	int id;
 	bool show;
 	bool showDefault;
-	QString name;
-	QString tooltip;
+	virtual QString getName() { return name; }
+	virtual QString getTooltip() { return tooltip; }
 	QAction *action;
 	int size;
 	int visualIndex;
 	int sortIndicator;
 	enum hdr_type type;
 
+#if 1
 	dbheader(QString aname = QString())
 	{
 		init();
 		name = aname;
 	}
-	dbheader(int aid, bool ashow = false,
+#endif
+	dbheader(int aid, bool ashow,
 		QString aname = QString(), QString atip = QString())
 	{
 		init();
 		id = aid;
 		name = aname;
 		tooltip = atip;
-		if (id > 0 && name.isEmpty()) {
-			name = OBJ_nid2ln(aid);
-			tooltip = QString("[%1] %2").arg(OBJ_nid2sn(aid))
-						.arg(tooltip);
-		}
 		show = showDefault = ashow;
 	}
+	~dbheader() { }
+
 	bool mustSave()
 	{
 		return  size != -1 ||
@@ -160,6 +164,41 @@ class dbheader
 	}
 };
 
+class dn_dbheader : public dbheader
+{
+    private:
+	QString sn;
+
+    public:
+	dn_dbheader(int aid) : dbheader(aid, aid == NID_commonName)
+	{
+		type = hd_x509name;
+		tooltip = dn_translations[id];
+		name = OBJ_nid2ln(id);
+		sn = OBJ_nid2sn(id);
+		if (tooltip.isEmpty())
+			tooltip = name;
+	}
+	QString getName()
+	{
+		return translate_dn ? tooltip : name;
+	}
+	QString getTooltip()
+	{
+		return QString("[%1] %2").arg(sn)
+			.arg(translate_dn ? name : tooltip);
+	}
+};
+
+class v3e_dbheader : public dn_dbheader
+{
+    public:
+	v3e_dbheader(int aid) : dn_dbheader(aid)
+	{
+		type = hd_v3ext;
+	}
+};
+
 class dbheaderList: public QList<dbheader*>
 {
     public:
@@ -204,3 +243,4 @@ class dbheaderList: public QList<dbheader*>
 		}
 	}
 };
+#endif

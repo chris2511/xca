@@ -537,12 +537,12 @@ QVariant db_base::headerData(int section, Qt::Orientation orientation,
 	if (orientation == Qt::Horizontal) {
 		switch (role) {
 		case Qt::DisplayRole:
-			return QVariant(allHeaders[section]->name);
+			return QVariant(allHeaders[section]->getName());
 		case Qt::ToolTipRole:
 #if 0
 			return getHeaderViewInfo(section, allHeaders[section]);
 #endif
-			return QVariant(allHeaders[section]->tooltip);
+			return QVariant(allHeaders[section]->getTooltip());
 		}
 	}
 	return QVariant();
@@ -651,13 +651,13 @@ void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 {
 	int shown = 0;
-	QMenu *menu, *dn, *v3ext, *current;
+	tipMenu *menu, *dn, *v3ext, *current;
 	QAction *a, *sep;
 	dbheader *hd;
 
-	menu = new QMenu(mainwin);
-	dn = new QMenu(tr("Subject entries"));
-	v3ext = new QMenu(tr("X509v3 Extensions"));
+	menu = new tipMenu(QString(), mainwin);
+	dn = new tipMenu(tr("Subject entries"), mainwin);
+	v3ext = new tipMenu(tr("X509v3 Extensions"), mainwin);
 	menu->addAction(tr("Reset"), this, SLOT(columnResetDefaults()));
 	sep = menu->addSeparator();
 	foreach(hd, allHeaders) {
@@ -672,19 +672,24 @@ void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 				current = menu;
 				break;
 		}
-		a = current->addAction(hd->name);
+		a = current->addAction(hd->getName());
 		a->setCheckable(true);
 		a->setChecked(hd->show);
-		if (!hd->tooltip.isEmpty())
-			a->setToolTip(hd->tooltip);
+		a->setToolTip(hd->getTooltip());
 		hd->action = a;
 	}
 	if (!dn->isEmpty() || !v3ext->isEmpty())
 		menu->insertSeparator(sep);
+
 	if (!dn->isEmpty())
 		menu->insertMenu(sep, dn);
+	else
+		delete dn;
+
 	if (!v3ext->isEmpty())
 		menu->insertMenu(sep, v3ext);
+	else
+		delete v3ext;
 
 	if (parent) {
 		parent->addAction(tr("Paste PEM data"), mainwin,

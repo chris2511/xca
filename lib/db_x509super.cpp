@@ -9,15 +9,12 @@
 #include "db_x509super.h"
 #include "widgets/MainWindow.h"
 #include "ui_About.h"
+#include "oid.h"
 #include <QtGui/QMessageBox>
-
-bool db_x509name::translate_dn = false;
-QMap<int, QString> db_x509name::dn_translations;
 
 db_x509name::db_x509name(QString db, MainWindow *mw)
 	:db_base(db, mw)
 {
-	NIDlist dn_nid = *MainWindow::dn_nid;
 	allHeaders << new dbheader(HD_subject_name, false, tr("Subject"),
 			tr("Complete distinguished name")) <<
 		new dbheader(HD_subject_hash, false, tr("Subject hash"),
@@ -46,44 +43,37 @@ db_x509name::db_x509name(QString db, MainWindow *mw)
 		dn_translations[NID_pkcs9_unstructuredName] = tr("Unstructured name");
 		dn_translations[NID_pkcs9_challengePassword] = tr("Challenge password");
 	}
-
-	for (int i=0; i < dn_nid.count(); i++) {
-		int nid = dn_nid[i];
-		dbheader *h = new dbheader(nid, nid == NID_commonName, QString(), dn_translations[nid]);
-		h->type = dbheader::hd_x509name;
-		allHeaders << h;
-	}
+	foreach(int nid, *MainWindow::dn_nid)
+		allHeaders << new dn_dbheader(nid);
 }
 
 db_x509super::db_x509super(QString db, MainWindow *mw)
 	:db_x509name(db, mw)
 {
-	static const int v3nid[] = {
-		NID_subject_alt_name,
-		NID_issuer_alt_name,
-		NID_subject_key_identifier,
-		NID_authority_key_identifier,
-		NID_key_usage,
-		NID_ext_key_usage,
-		NID_crl_distribution_points,
-		NID_info_access,
-		NID_netscape_cert_type,
-		NID_netscape_base_url,
-		NID_netscape_revocation_url,
-		NID_netscape_ca_revocation_url,
-		NID_netscape_renewal_url,
-		NID_netscape_ca_policy_url,
-		NID_netscape_ssl_server_name,
-		NID_netscape_comment,
-	};
+	NIDlist v3nid;
+	v3nid <<
+		NID_subject_alt_name <<
+		NID_issuer_alt_name <<
+		NID_subject_key_identifier <<
+		NID_authority_key_identifier <<
+		NID_key_usage <<
+		NID_ext_key_usage <<
+		NID_crl_distribution_points <<
+		NID_info_access <<
+		NID_netscape_cert_type <<
+		NID_netscape_base_url <<
+		NID_netscape_revocation_url <<
+		NID_netscape_ca_revocation_url <<
+		NID_netscape_renewal_url <<
+		NID_netscape_ca_policy_url <<
+		NID_netscape_ssl_server_name <<
+		NID_netscape_comment;
+
 	allHeaders << new dbheader(HD_x509key_name, false, tr("Key name"),
 			tr("Internal name of the key"));
-	for (unsigned i=0; i<ARRAY_SIZE(v3nid); i++) {
-		int nid = v3nid[i];
-		dbheader *h = new dbheader(nid, false);
-		h->type = dbheader::hd_v3ext;
-		allHeaders << h;
-	}
+
+	foreach(int nid, v3nid)
+		allHeaders << new v3e_dbheader(nid);
 }
 
 void db_x509super::delKey(pki_key *delkey)

@@ -17,7 +17,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QAbstractItemModel>
 #include "pki_base.h"
-//#include "widgets/XcaTreeView.h"
+#include "headerlist.h"
 
 #define FOR_ALL_pki(pki, pki_type) \
 	for(pki_type *pki=(pki_type*)rootItem->iterate(); pki; pki=(pki_type*)pki->iterate())

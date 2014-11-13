@@ -46,7 +46,7 @@ int MainWindow::init_database()
 	explicit_dn = explicit_dn_default;
 	pki_base::suppress_messages = false;
 	pki_x509::dont_colorize_expiries = false;
-	db_x509name::translate_dn = false;
+	translate_dn = false;
 	pki_scard::only_token_hashes = false;
 
 	string_opt = QString("MASK:0x2002");

@@ -53,9 +53,9 @@ void DistName::setX509name(const x509name &n)
 	for (int i=0; i<n.entryCount(); i++) {
 		QString toolt, label, trans;
 		int nid = n.nid(i);
-		trans = db_x509name::dn_translations[nid];
+		trans = dn_translations[nid];
 		sl = n.entryList(i);
-		if (db_x509name::translate_dn && !trans.isEmpty()) {
+		if (translate_dn && !trans.isEmpty()) {
 			label = trans;
 			toolt = sl[1];
 		} else {
