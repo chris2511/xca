@@ -261,7 +261,7 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 			pk11_attr_data(CKA_EC_PARAMS, ba);
 		break;
 	default:
-		throw errorEx(tr("Only RSA and EC keys can be stored on tokens"));
+		throw errorEx(QString("Unkown Keytype %d").arg(pk->type));
 
 	}
 	return attrs;
@@ -410,7 +410,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		break;
 	}
 	default:
-		throw errorEx(tr("Only RSA, DSA and EC keys can be stored on tokens"));
+		throw errorEx(QString("Unkown Keytype %d").arg(pkey->type));
 
 	}
 

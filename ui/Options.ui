@@ -35,7 +35,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -93,6 +93,13 @@
         <widget class="QCheckBox" name="noColorize">
          <property name="text">
           <string>Don't colorize expired certificates</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="transDnEntries">
+         <property name="text">
+          <string>Translate established x509 terms (%1 -&gt; %2)</string>
          </property>
         </widget>
        </item>
@@ -243,7 +250,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string notr="true">PKCS#11 provider</string>
+       <string>PKCS#11 provider</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>

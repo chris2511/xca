@@ -15,6 +15,7 @@
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
 #include "lib/func.h"
+#include "lib/db_x509super.h"
 #include "ui_Options.h"
 #include "widgets/hashBox.h"
 #include <QtGui/QApplication>
@@ -197,6 +198,8 @@ void MainWindow::setOptions()
 		pki_base::suppress_messages ? Qt::Checked : Qt::Unchecked);
 	opt->noColorize->setCheckState(
 		pki_x509::dont_colorize_expiries ? Qt::Checked : Qt::Unchecked);
+	opt->transDnEntries->setCheckState(
+		db_x509name::translate_dn ? Qt::Checked : Qt::Unchecked);
 
 	if (!opt->exec()) {
 		delete opt;
@@ -227,11 +230,12 @@ void MainWindow::setOptions()
 	QString flags = getOptFlags();
 	pki_base::suppress_messages = opt->suppress->checkState();
 	pki_x509::dont_colorize_expiries = opt->noColorize->checkState();
+	db_x509name::translate_dn = opt->transDnEntries->checkState();
 
 	if (flags != getOptFlags()) {
 		flags = getOptFlags();
 		mydb.set((const unsigned char *)(CCHAR(flags)),
-				flags.length()+1, 1, setting, "optionflags");
+				flags.length()+1, 1, setting, "optionflags1");
 		mydb.first();
 		if (!mydb.find(setting, "suppress"))
 			mydb.erase();
@@ -257,13 +261,14 @@ void MainWindow::setOptions()
  * S: Suppress success messages
  * C: Don't colorize success messages
  */
-void MainWindow::setOptFlags(QString flags)
+void MainWindow::setOptFlags_old(QString flags)
 {
 	int s = flags.size(), i;
 	QByteArray b = flags.toAscii();
 
 	pki_base::suppress_messages = false;
 	pki_x509::dont_colorize_expiries = false;
+	db_x509name::translate_dn = false;
 
 	for (i=0; i<s; i++) {
 		switch (b[i]) {
@@ -273,20 +278,40 @@ void MainWindow::setOptFlags(QString flags)
 		case 'C':
 			pki_x509::dont_colorize_expiries = true;
 			break;
-		default:
-			abort();
+		case 'T':
+			db_x509name::translate_dn = true;
+			break;
 		}
+	}
+}
+
+void MainWindow::setOptFlags(QString flags)
+{
+	pki_base::suppress_messages = false;
+	pki_x509::dont_colorize_expiries = false;
+	db_x509name::translate_dn = false;
+
+	foreach(QString flag, flags.split(",")) {
+		if (flag == "suppress_messages")
+			pki_base::suppress_messages = true;
+		else if (flag == "dont_colorize_expiries")
+			pki_x509::dont_colorize_expiries = true;
+		else if (flag == "translate_dn")
+			db_x509name::translate_dn = true;
+		else if (!flag.isEmpty())
+			fprintf(stderr, "Unkown flag '%s'\n", CCHAR(flag));
 	}
 }
 
 QString MainWindow::getOptFlags()
 {
-	QString flags;
+	QStringList flags;
 
 	if (pki_base::suppress_messages)
-		flags += "S";
+		flags << "suppress_messages";
 	if (pki_x509::dont_colorize_expiries)
-		flags += "C";
-
-	return flags;
+		flags << "dont_colorize_expiries";
+	if (db_x509name::translate_dn)
+		flags += "translate_dn";
+	return flags.join(",");
 }

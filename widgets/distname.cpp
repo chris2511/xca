@@ -11,6 +11,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QLineEdit>
 #include "lib/x509name.h"
+#include "lib/db_x509super.h"
 #include "lib/base.h"
 #include "widgets/clicklabel.h"
 
@@ -50,20 +51,30 @@ void DistName::setX509name(const x509name &n)
 	QLabel *l1, *l2;
 	QStringList sl;
 	for (int i=0; i<n.entryCount(); i++) {
-		l1 = new QLabel( this );
-		l2 = new CopyLabel( this );
-		l1->setTextFormat(Qt::PlainText);
+		QString toolt, label, trans;
+		int nid = n.nid(i);
+		trans = db_x509name::dn_translations[nid];
 		sl = n.entryList(i);
-		l1->setText(sl[1]);
+		if (db_x509name::translate_dn && !trans.isEmpty()) {
+			label = trans;
+			toolt = sl[1];
+		} else {
+			toolt = trans;
+			label = sl[1];
+		}
+		l1 = new QLabel(this);
+		l2 = new CopyLabel(this);
+		l1->setTextFormat(Qt::PlainText);
+		l1->setText(label);
 		if (l1->text().isEmpty())
 			l1->setText(sl[0]);
 		l2->setText(sl[2]);
 
-		l1->setToolTip(sl[0]);
+		l1->setToolTip(QString("[%1] %2").arg(sl[0]).arg(toolt));
 		l2->setToolTip(sl[3]);
 
-		DistNameLayout->addWidget( l1, i, 0 );
-		DistNameLayout->addWidget( l2, i, 1 );
+		DistNameLayout->addWidget(l1, i, 0);
+		DistNameLayout->addWidget(l2, i, 1);
 	}
 	rfc2253->setText(n.oneLine(XN_FLAG_RFC2253));
 	rfc2253->setCursorPosition(0);

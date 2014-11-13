@@ -186,12 +186,23 @@ void CertDetail::setReq(pki_x509req *req)
 		for (int i = 0; i<cnt; i++) {
 			int nid;
 			QLabel *label;
+			QString trans;
 			X509_ATTRIBUTE *att = X509_REQ_get_attr(req->getReq(), i);
+
 			nid = OBJ_obj2nid(att->object);
 			if (X509_REQ_extension_nid(nid)) {
 				continue;
 			}
 			label = new QLabel(this);
+			trans = db_x509name::dn_translations[nid];
+			if (db_x509name::translate_dn && !trans.isEmpty()) {
+				label->setText(trans);
+				label->setToolTip(QString(OBJ_nid2sn(nid)));
+			} else {
+				label->setText(QString(OBJ_nid2ln(nid)));
+				label->setToolTip(trans);
+			}
+
 			label->setText(QString(OBJ_nid2ln(nid)));
 			label->setToolTip(QString(OBJ_nid2sn(nid)));
 			attrLayout->addWidget(label, i, 0);

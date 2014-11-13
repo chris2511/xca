@@ -12,11 +12,14 @@
 #include "db_key.h"
 #include "pki_x509super.h"
 #include <QtCore/QList>
+#include <QtCore/QMap>
 
 class db_x509name: public db_base
 {
 	Q_OBJECT
 	public:
+		static bool translate_dn;
+		static QMap<int, QString> dn_translations;
 		db_x509name(QString db, MainWindow *mw);
 };
 

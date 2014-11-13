@@ -11,6 +11,9 @@
 #include "ui_About.h"
 #include <QtGui/QMessageBox>
 
+bool db_x509name::translate_dn = false;
+QMap<int, QString> db_x509name::dn_translations;
+
 db_x509name::db_x509name(QString db, MainWindow *mw)
 	:db_base(db, mw)
 {
@@ -20,9 +23,33 @@ db_x509name::db_x509name(QString db, MainWindow *mw)
 		new dbheader(HD_subject_hash, false, tr("Subject hash"),
 			tr("Hash to lookup certs in directories"));
 
+	if (dn_translations.size() == 0) {
+		dn_translations[NID_countryName] = tr("Country code");
+		dn_translations[NID_stateOrProvinceName] = tr("State or Province");
+		dn_translations[NID_localityName] = tr("Locality");
+		dn_translations[NID_organizationName] = tr("Organisation");
+		dn_translations[NID_organizationalUnitName] = tr("Organisational unit");
+		dn_translations[NID_commonName] = tr("Common name");
+		dn_translations[NID_pkcs9_emailAddress] = tr("E-Mail address");
+		dn_translations[NID_serialNumber] = tr("Serial number");
+		dn_translations[NID_givenName] = tr("Given name");
+		dn_translations[NID_surname] = tr("Surname");
+		dn_translations[NID_title] = tr("Title");
+		dn_translations[NID_initials] = tr("Initials");
+		dn_translations[NID_description] = tr("Description");
+		dn_translations[NID_role] = tr("Role");
+		dn_translations[NID_pseudonym] = tr("Pseudonym");
+		dn_translations[NID_generationQualifier] = tr("Generation Qualifier");
+		dn_translations[NID_x500UniqueIdentifier] = tr("x500 Unique Identifier");
+		dn_translations[NID_name] = tr("Name");
+		dn_translations[NID_dnQualifier] = tr("DN Qualifier");
+		dn_translations[NID_pkcs9_unstructuredName] = tr("Unstructured name");
+		dn_translations[NID_pkcs9_challengePassword] = tr("Challenge password");
+	}
+
 	for (int i=0; i < dn_nid.count(); i++) {
 		int nid = dn_nid[i];
-		dbheader *h = new dbheader(nid, nid == NID_commonName);
+		dbheader *h = new dbheader(nid, nid == NID_commonName, QString(), dn_translations[nid]);
 		h->type = dbheader::hd_x509name;
 		allHeaders << h;
 	}

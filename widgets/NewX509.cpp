@@ -44,8 +44,8 @@ NewX509::NewX509(QWidget *parent)
 	/* temporary storage for creating temporary X509V3_CTX */
 	ctx_cert = NULL;
 
-	for (i=0; i < dn_nid.count(); i++)
-		keys << QString(OBJ_nid2ln(dn_nid[i]));
+	foreach(int nid, dn_nid)
+		keys << QString(OBJ_nid2ln(nid));
 
 	extDNlist->setKeys(keys);
 	extDNlist->setInfoLabel(extDNinfo);
@@ -112,27 +112,18 @@ NewX509::NewX509(QWidget *parent)
 	tempList->insertItems(0, strings);
 
 	// setup Extended keyusage
-	for (i=0; i < eku_nid.count(); i++)
-		ekeyUsage->addItem(OBJ_nid2ln(eku_nid[i]));
+	foreach(int nid, eku_nid)
+		ekeyUsage->addItem(OBJ_nid2ln(nid));
 
 	// setup Authority Info Access
-	for (i=0; i < aia_nid.count(); i++)
-		aiaOid->addItem(OBJ_nid2ln(aia_nid[i]));
+	foreach(int nid, aia_nid)
+		aiaOid->addItem(OBJ_nid2ln(nid));
 
 	// init the X509 v3 context
 	X509V3_set_ctx(&ext_ctx, NULL , NULL, NULL, NULL, 0);
 	X509V3_set_ctx_nodb(&ext_ctx);
 
 	// Setup dnWidget
-	QMap<int, QString> tooltips;
-	tooltips[NID_countryName] = tr("Country code");
-	tooltips[NID_stateOrProvinceName] = tr("State or Province");
-	tooltips[NID_localityName] = tr("Locality");
-	tooltips[NID_organizationName] = tr("Organisation");
-	tooltips[NID_organizationalUnitName] = tr("Organisational unit");
-	tooltips[NID_commonName] = tr("Common name");
-	tooltips[NID_pkcs9_emailAddress] = tr("E-Mail address");
-
 	if (dnWidget->layout())
 		delete dnWidget->layout();
 	QGridLayout *dnLayout = new QGridLayout(dnWidget);
@@ -149,16 +140,22 @@ NewX509::NewX509(QWidget *parent)
 	dnLayout->addWidget(description, 0, 1);
 
 	QWidget::setTabOrder(description, extDNlist);
-	QLineEdit *old = description;
+	QWidget *old = description;
 	foreach(int nid, expl_dn_nid) {
 		QLabel *label;
 		QLineEdit *edit;
+		QString trans = db_x509name::dn_translations[nid];
 
 		label = new QLabel(this);
-		label->setText(OBJ_nid2ln(nid));
-		label->setToolTip(QString("[%1] %2").
-			arg(OBJ_nid2sn(nid)).arg(tooltips[nid]));
-
+		if (db_x509name::translate_dn && !trans.isEmpty()) {
+			label->setText(trans);
+			label->setToolTip(QString("[%1] %2")
+				.arg(OBJ_nid2sn(nid)).arg(OBJ_nid2ln(nid)));
+		} else {
+			label->setText(OBJ_nid2ln(nid));
+			label->setToolTip(QString("[%1] %2")
+				.arg(OBJ_nid2sn(nid)).arg(trans));
+		}
 		edit = new QLineEdit(this);
 		setupLineEditByNid(nid, edit);
 		nameEdits << nameEdit(nid, edit, label);
@@ -181,19 +178,31 @@ NewX509::NewX509(QWidget *parent)
 	attrLayout->setAlignment(Qt::AlignTop);
 	attrLayout->setSpacing(6);
 	attrLayout->setMargin(0);
-	attr_edit.clear();
-	for (i=0; i < attr_nid.count(); i++) {
+	old = reqSubChange;
+	n = 0;
+	foreach(int nid, attr_nid) {
 		QLabel *label;
 		QLineEdit *edit;
-		int nid = attr_nid[i];
+		QString trans = db_x509name::dn_translations[nid];
+
 		label = new QLabel(this);
-		label->setText(QString(OBJ_nid2ln(nid)));
-		label->setToolTip(QString(OBJ_nid2sn(nid)));
+		if (db_x509name::translate_dn && !trans.isEmpty()) {
+			label->setText(trans);
+			label->setToolTip(QString(OBJ_nid2sn(nid)));
+		} else {
+			label->setText(QString(OBJ_nid2ln(nid)));
+			label->setToolTip(trans);
+		}
 		edit = new QLineEdit(this);
-		attr_edit << edit;
-		attrLayout->addWidget(label, i, 0);
-		attrLayout->addWidget(edit, i, 1);
+		attrEdits << nameEdit(nid, edit, label);
 		setupLineEditByNid(nid, edit);
+
+		attrLayout->addWidget(label, n, 0);
+		attrLayout->addWidget(edit, n, 1);
+
+		QWidget::setTabOrder(old, edit);
+		old = edit;
+		n++;
 	}
 	// last polish
 	on_certList_currentIndexChanged(0);
@@ -202,6 +211,29 @@ NewX509::NewX509(QWidget *parent)
 	attrWidget->hide();
 	pt = none;
 	notAfter->setEndDate(true);
+	if (db_x509name::translate_dn) {
+		QList<QGroupBox*> gb;
+		gb << distNameBox << bcBox << keyIdentBox << kuBox << ekuBox;
+		foreach(QGroupBox *g, gb) {
+			QString tt = g->toolTip();
+			g->setToolTip(g->title());
+			g->setTitle(tt);
+		}
+		QList<QLabel*> labels;
+		labels << sanLbl << ianLbl << crldpLbl << aiaLbl <<
+			nsBaseLbl << nsRevLbl << nsCaRevLbl << nsRenewLbl <<
+			nsCaPolicyLbl << nsSslServerLbl << nsCommentLbl;
+		foreach(QLabel *l, labels) {
+			QString tt = l->toolTip();
+			l->setToolTip(l->text());
+			l->setText(tt);
+		}
+		QList<QCheckBox*> cbList;
+		cbList << bcCritical << kuCritical << ekuCritical;
+		foreach(QCheckBox* cb, cbList) {
+			cb->setText(tr("Critical"));
+		}
+	}
 }
 
 void NewX509::setRequest()
@@ -255,8 +287,8 @@ void NewX509::setupLineEditByNid(int nid, QLineEdit *l)
 
 void NewX509::addReqAttributes(pki_x509req *req)
 {
-	for (int i=0; i < attr_nid.count(); i++) {
-		req->addAttribute(attr_nid[i], attr_edit[i]->text());
+	foreach(nameEdit e, attrEdits) {
+		req->addAttribute(e.nid, e.edit->text());
 	}
 }
 

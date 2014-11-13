@@ -149,10 +149,23 @@ int MainWindow::init_database()
 			}
 		}
 		mydb.first();
-		if (!mydb.find(setting, "optionflags")) {
+		if (!mydb.find(setting, "optionflags1")) {
 			if ((p = (char *)mydb.load(NULL))) {
 				setOptFlags((QString(p)));
 				free(p);
+			}
+		} else {
+			/* Different optionflags, since setOptFlags()
+			 * does an abort() for unknown flags in
+			 * older versions.   *Another stupid idea*
+			 * This is for backward compatibility
+			 */
+			mydb.first();
+			if (!mydb.find(setting, "optionflags")) {
+				if ((p = (char *)mydb.load(NULL))) {
+					setOptFlags_old((QString(p)));
+					free(p);
+				}
 			}
 		}
 		mydb.first();

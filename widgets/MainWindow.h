@@ -85,6 +85,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString homedir;
 		int changeDB(QString fname);
 		void setOptFlags(QString flags);
+		void setOptFlags_old(QString flags);
 		QString getOptFlags();
 
 	public:

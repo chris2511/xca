@@ -36,6 +36,9 @@ Options::Options(MainWindow *parent)
 	  << tr("All strings");
 	mbstring->addItems(s);
 	searchP11 = NULL;
+	transDnEntries->setText(transDnEntries->text()
+			.arg(OBJ_nid2ln(NID_commonName))
+			.arg(db_x509name::dn_translations[NID_commonName]));
 }
 
 Options::~Options()

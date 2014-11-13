@@ -89,7 +89,8 @@ class dbheader
 		tooltip = atip;
 		if (id > 0 && name.isEmpty()) {
 			name = OBJ_nid2ln(aid);
-			tooltip = OBJ_nid2sn(aid);
+			tooltip = QString("[%1] %2").arg(OBJ_nid2sn(aid))
+						.arg(tooltip);
 		}
 		show = showDefault = ashow;
 	}

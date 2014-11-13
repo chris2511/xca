@@ -47,7 +47,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		NIDlist aia_nid;
 		NIDlist attr_nid;
 		NIDlist expl_dn_nid;
-		QList<QLineEdit*> attr_edit;
+		QList<nameEdit> attrEdits;
 		QList<nameEdit> nameEdits;
 		X509V3_CTX ext_ctx;
 		void editV3ext(QLineEdit *le, QString types, int n);
