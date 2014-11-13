@@ -549,6 +549,7 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 		pub_atts  << pk11_attr_data(CKA_EC_PARAMS,
 			i2d_bytearray(I2D_VOID(i2d_ECPKParameters), group));
 		EC_GROUP_free(group);
+		break;
 	}
 #endif
 	default:
