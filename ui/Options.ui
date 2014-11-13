@@ -104,6 +104,18 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="onlyTokenHashes">
+         <property name="toolTip">
+          <string>The hashing functionality of the token is not used by XCA.
+It may however honor a restricted hash-set propagated by the token.
+Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</string>
+         </property>
+         <property name="text">
+          <string>Only use hashes supported by the token when signing with a token key</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

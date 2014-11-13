@@ -44,6 +44,10 @@ int MainWindow::init_database()
 
 	mandatory_dn = "";
 	explicit_dn = explicit_dn_default;
+	pki_base::suppress_messages = false;
+	pki_x509::dont_colorize_expiries = false;
+	db_x509name::translate_dn = false;
+	pki_scard::only_token_hashes = false;
 
 	string_opt = QString("MASK:0x2002");
 	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));

@@ -164,31 +164,6 @@ static bool EVP_PKEY_isPrivKey(EVP_PKEY *key)
 	return false;
 }
 
-QList<int> pki_evp::possibleHashNids()
-{
-	QList<int> nids;
-
-	switch (EVP_PKEY_type(key->type)) {
-		case EVP_PKEY_RSA:
-			nids << NID_md5 << NID_sha1 << NID_sha256 <<
-				NID_sha384 << NID_sha512 << NID_ripemd160;
-			break;
-		case EVP_PKEY_DSA:
-			nids << NID_sha1;
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
-			nids << NID_sha256;
-#endif
-			break;
-		case EVP_PKEY_EC:
-			nids << NID_sha1;
-#if OPENSSL_VERSION_NUMBER >= 0x10000000L
-			nids << NID_sha256 << NID_sha384 << NID_sha512;
-#endif
-			break;
-	}
-	return nids;
-};
-
 void pki_evp::openssl_pw_error(QString fname)
 {
 	switch (ERR_peek_error() & 0xff000fff) {

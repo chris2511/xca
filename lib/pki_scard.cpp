@@ -28,6 +28,7 @@
 #include <ltdl.h>
 
 QPixmap *pki_scard::icon[1] = { NULL };
+bool pki_scard::only_token_hashes = false;
 
 void pki_scard::init(void)
 {
@@ -437,25 +438,45 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 QList<int> pki_scard::possibleHashNids()
 {
 	QList<int> nids;
-	int i;
 
-	for (i=0; i< mech_list.count(); i++) {
-		switch (mech_list[i]) {
-		case CKM_MD5_RSA_PKCS:    nids << NID_md5; break;
-		case CKM_DSA_SHA1:
-#ifndef OPENSSL_NO_EC
-		case CKM_ECDSA_SHA1:
-#endif
-		case CKM_SHA1_RSA_PKCS:   nids << NID_sha1; break;
-		case CKM_SHA256_RSA_PKCS: nids << NID_sha256; break;
-		case CKM_SHA384_RSA_PKCS: nids << NID_sha384; break;
-		case CKM_SHA512_RSA_PKCS: nids << NID_sha512; break;
-		case CKM_RIPEMD160_RSA_PKCS: nids << NID_ripemd160; break;
+	if (!only_token_hashes)
+		return pki_key::possibleHashNids();
+
+	foreach(CK_MECHANISM_TYPE mechanism, mech_list) {
+		switch (EVP_PKEY_type(key->type)) {
+		case EVP_PKEY_RSA:
+			switch (mechanism) {
+			case CKM_MD5_RSA_PKCS:    nids << NID_md5; break;
+			case CKM_SHA1_RSA_PKCS:   nids << NID_sha1; break;
+			case CKM_SHA256_RSA_PKCS: nids << NID_sha256; break;
+			case CKM_SHA384_RSA_PKCS: nids << NID_sha384; break;
+			case CKM_SHA512_RSA_PKCS: nids << NID_sha512; break;
+			case CKM_RIPEMD160_RSA_PKCS: nids << NID_ripemd160; break;
+			}
+			break;
+		case EVP_PKEY_DSA:
+			switch (mechanism) {
+			case CKM_DSA_SHA1:        nids << NID_sha1; break;
+			}
+			break;
+		case EVP_PKEY_EC:
+			switch (mechanism) {
+			case CKM_ECDSA_SHA1:      nids << NID_sha1; break;
+			}
+			break;
 		}
 	}
 	if (nids.count() == 0) {
-		nids << NID_md5 << NID_sha1 << NID_sha256 <<
-			NID_sha384 << NID_sha512 << NID_ripemd160;
+		switch (EVP_PKEY_type(key->type)) {
+		case EVP_PKEY_RSA:
+			nids << NID_md5 << NID_sha1 << NID_sha256 <<
+				NID_sha384 << NID_sha512 << NID_ripemd160;
+			break;
+		case EVP_PKEY_DSA:
+		case EVP_PKEY_EC:
+			nids << NID_sha1;
+			break;
+		}
 	}
 	return nids;
 }

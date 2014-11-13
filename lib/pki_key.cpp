@@ -263,6 +263,32 @@ QString pki_key::ecPubKey()
 	return pub;
 }
 #endif
+
+QList<int> pki_key::possibleHashNids()
+{
+	QList<int> nids;
+
+	switch (EVP_PKEY_type(key->type)) {
+		case EVP_PKEY_RSA:
+			nids << NID_md5 << NID_sha1 << NID_sha256 <<
+				NID_sha384 << NID_sha512 << NID_ripemd160;
+			break;
+		case EVP_PKEY_DSA:
+			nids << NID_sha1;
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+			nids << NID_sha256;
+#endif
+			break;
+		case EVP_PKEY_EC:
+			nids << NID_sha1;
+#if OPENSSL_VERSION_NUMBER >= 0x10000000L
+			nids << NID_sha256 << NID_sha384 << NID_sha512;
+#endif
+			break;
+	}
+	return nids;
+};
+
 bool pki_key::compare(pki_base *ref)
 {
 	pki_key *kref = (pki_key *)ref;

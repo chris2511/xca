@@ -200,6 +200,8 @@ void MainWindow::setOptions()
 		pki_x509::dont_colorize_expiries ? Qt::Checked : Qt::Unchecked);
 	opt->transDnEntries->setCheckState(
 		db_x509name::translate_dn ? Qt::Checked : Qt::Unchecked);
+	opt->onlyTokenHashes->setCheckState(
+		pki_scard::only_token_hashes ? Qt::Checked : Qt::Unchecked);
 
 	if (!opt->exec()) {
 		delete opt;
@@ -231,6 +233,7 @@ void MainWindow::setOptions()
 	pki_base::suppress_messages = opt->suppress->checkState();
 	pki_x509::dont_colorize_expiries = opt->noColorize->checkState();
 	db_x509name::translate_dn = opt->transDnEntries->checkState();
+	pki_scard::only_token_hashes = opt->onlyTokenHashes->checkState();
 
 	if (flags != getOptFlags()) {
 		flags = getOptFlags();
@@ -290,6 +293,7 @@ void MainWindow::setOptFlags(QString flags)
 	pki_base::suppress_messages = false;
 	pki_x509::dont_colorize_expiries = false;
 	db_x509name::translate_dn = false;
+	pki_scard::only_token_hashes = false;
 
 	foreach(QString flag, flags.split(",")) {
 		if (flag == "suppress_messages")
@@ -298,6 +302,8 @@ void MainWindow::setOptFlags(QString flags)
 			pki_x509::dont_colorize_expiries = true;
 		else if (flag == "translate_dn")
 			db_x509name::translate_dn = true;
+		else if (flag == "only_token_hashes")
+			pki_scard::only_token_hashes = true;
 		else if (!flag.isEmpty())
 			fprintf(stderr, "Unkown flag '%s'\n", CCHAR(flag));
 	}
@@ -312,6 +318,8 @@ QString MainWindow::getOptFlags()
 	if (pki_x509::dont_colorize_expiries)
 		flags << "dont_colorize_expiries";
 	if (db_x509name::translate_dn)
-		flags += "translate_dn";
+		flags << "translate_dn";
+	if (pki_scard::only_token_hashes)
+		flags << "only_token_hashes";
 	return flags.join(",");
 }

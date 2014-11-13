@@ -491,6 +491,7 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	QByteArray ba((const char*)p, size);
 
 	d2i(ba);
+	pki_openssl_error();
 	trust = db::intFromData(ba);
 	isrevoked = db::boolFromData(ba);
 	revoked.d2i(ba);
@@ -510,6 +511,7 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
 	}
+	pki_openssl_error();
 }
 
 

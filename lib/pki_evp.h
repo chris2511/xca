@@ -46,7 +46,6 @@ class pki_evp: public pki_key
 		/* destructor */
 		virtual ~pki_evp();
 
-		QList<int> possibleHashNids();
 		EVP_PKEY *priv2pub(EVP_PKEY* key);
 		static QString removeTypeFromIntName(QString n);
 		void fromPEM_BIO(BIO *bio, QString name);
