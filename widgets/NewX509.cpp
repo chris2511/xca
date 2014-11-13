@@ -211,6 +211,25 @@ NewX509::NewX509(QWidget *parent)
 	attrWidget->hide();
 	pt = none;
 	notAfter->setEndDate(true);
+
+	QMap<int, QLabel*> nidLabel;
+	nidLabel[NID_subject_alt_name] = sanLbl;
+	nidLabel[NID_issuer_alt_name] = ianLbl;
+	nidLabel[NID_crl_distribution_points] = crldpLbl;
+	nidLabel[NID_info_access] = aiaLbl;
+	nidLabel[NID_netscape_base_url] = nsBaseLbl;
+	nidLabel[NID_netscape_revocation_url] = nsRevLbl;
+	nidLabel[NID_netscape_ca_revocation_url] = nsCaRevLbl;
+	nidLabel[NID_netscape_renewal_url] = nsRenewLbl;
+	nidLabel[NID_netscape_ca_policy_url] = nsCaPolicyLbl;
+	nidLabel[NID_netscape_ssl_server_name] = nsSslServerLbl;
+	nidLabel[NID_netscape_comment] = nsCommentLbl;
+
+	foreach(int nid, nidLabel.keys()) {
+		QLabel *l = nidLabel[nid];
+		l->setText(OBJ_nid2ln(nid));
+		l->setToolTip(dn_translations[nid]);
+	}
 	if (translate_dn) {
 		QList<QGroupBox*> gb;
 		gb << distNameBox << bcBox << keyIdentBox << kuBox << ekuBox;
@@ -219,11 +238,7 @@ NewX509::NewX509(QWidget *parent)
 			g->setToolTip(g->title());
 			g->setTitle(tt);
 		}
-		QList<QLabel*> labels;
-		labels << sanLbl << ianLbl << crldpLbl << aiaLbl <<
-			nsBaseLbl << nsRevLbl << nsCaRevLbl << nsRenewLbl <<
-			nsCaPolicyLbl << nsSslServerLbl << nsCommentLbl;
-		foreach(QLabel *l, labels) {
+		foreach(QLabel *l, nidLabel.values()) {
 			QString tt = l->toolTip();
 			l->setToolTip(l->text());
 			l->setText(tt);

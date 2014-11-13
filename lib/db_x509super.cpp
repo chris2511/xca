@@ -42,6 +42,23 @@ db_x509name::db_x509name(QString db, MainWindow *mw)
 		dn_translations[NID_dnQualifier] = tr("DN Qualifier");
 		dn_translations[NID_pkcs9_unstructuredName] = tr("Unstructured name");
 		dn_translations[NID_pkcs9_challengePassword] = tr("Challenge password");
+
+		dn_translations[NID_subject_alt_name] = tr("subject alternative name");
+		dn_translations[NID_issuer_alt_name] = tr("issuer alternative name");
+		dn_translations[NID_subject_key_identifier] = tr("Subject key identifier");
+		dn_translations[NID_authority_key_identifier] = tr("Authority key identifier");
+		dn_translations[NID_key_usage] = tr("Key usage");
+		dn_translations[NID_ext_key_usage] = tr("Extended key usage");
+		dn_translations[NID_crl_distribution_points] = tr("CRL distribution points");
+		dn_translations[NID_info_access] = tr("Authority information access");
+		dn_translations[NID_netscape_cert_type] = tr("Certificate type");
+		dn_translations[NID_netscape_base_url] = tr("Base URL");
+		dn_translations[NID_netscape_revocation_url] = tr("Revocation URL");
+		dn_translations[NID_netscape_ca_revocation_url] = tr("CA Revocation URL");
+		dn_translations[NID_netscape_renewal_url] = tr("Certificate renewal URL");
+		dn_translations[NID_netscape_ca_policy_url] = tr("CA policy URL");
+		dn_translations[NID_netscape_ssl_server_name] = tr("SSL server name");
+		dn_translations[NID_netscape_comment] = tr("Comment");
 	}
 	foreach(int nid, *MainWindow::dn_nid)
 		allHeaders << new dn_dbheader(nid);
