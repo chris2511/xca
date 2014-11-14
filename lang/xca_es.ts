@@ -1430,12 +1430,12 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+516"/>
+        <location filename="../widgets/NewX509.cpp" line="+532"/>
         <source>Subject</source>
         <translation>Sujeto</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-380"/>
+        <location filename="../widgets/NewX509.cpp" line="-396"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1480,12 +1480,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Basic constraints</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1595,104 +1590,43 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+128"/>
-        <source>Authority Info Access</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+69"/>
-        <source>CRL distribution point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-126"/>
-        <source>issuer alternative name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+100"/>
         <source>URI:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+36"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-93"/>
-        <location line="+24"/>
+        <location line="-79"/>
+        <location line="+17"/>
         <location line="+33"/>
-        <location line="+50"/>
-        <location filename="../widgets/NewX509.cpp" line="+762"/>
+        <location line="+43"/>
+        <location filename="../widgets/NewX509.cpp" line="+778"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-114"/>
-        <location line="+24"/>
-        <location line="+83"/>
+        <location line="-100"/>
+        <location line="+17"/>
+        <location line="+76"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-136"/>
-        <source>subject alternative name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+182"/>
-        <location line="+20"/>
+        <location line="+39"/>
         <source>Key usage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+80"/>
-        <source>Extended key usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+38"/>
+        <location line="+126"/>
         <source>Netscape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+133"/>
-        <source>CA Revocation URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+13"/>
-        <source>Revocation URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>SSL server name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>Certificate renewal URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Comment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>CA policy URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+10"/>
-        <source>Base URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+170"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1703,12 +1637,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-811"/>
+        <location filename="../widgets/NewX509.cpp" line="-827"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+178"/>
         <source>Create Certificate signing request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1902,12 +1836,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-976"/>
+        <location filename="../ui/NewX509.ui" line="-855"/>
         <source>Distinguished name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+352"/>
+        <location line="+346"/>
         <source>Local time</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2431,17 +2365,22 @@ In library %3
         <translation type="unfinished">Nombre interno</translation>
     </message>
     <message>
-        <location line="+633"/>
+        <location line="+634"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="-3"/>
         <source>Subject entries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+2"/>
+        <source>Netscape extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
         <source>Paste PEM data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2451,7 +2390,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-37"/>
+        <location line="-48"/>
         <source>X509v3 Extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3153,6 +3092,11 @@ and so it was not imported</source>
     </message>
     <message>
         <location line="+2"/>
+        <source>Basic Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>subject alternative name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3335,7 +3279,7 @@ and thus was not stored</source>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+28"/>
+        <location filename="../lib/db_x509super.cpp" line="+29"/>
         <source>Key name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3345,7 +3289,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+74"/>
         <source>Save as OpenSSL config</source>
         <translation type="unfinished"></translation>
     </message>

@@ -1447,7 +1447,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+516"/>
+        <location filename="../widgets/NewX509.cpp" line="+532"/>
         <source>Subject</source>
         <translation>Sujet</translation>
     </message>
@@ -1461,7 +1461,7 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation type="obsolete">Organisation</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-380"/>
+        <location filename="../widgets/NewX509.cpp" line="-396"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Ce nom est seulement utilisé par xca et n&apos;apparaît pas dans le certificat exporté</translation>
     </message>
@@ -1534,12 +1534,11 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Extensions</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Basic constraints</source>
-        <translation>Contraintes basiques</translation>
+        <translation type="obsolete">Contraintes basiques</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
@@ -1654,108 +1653,95 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Pas de date d&apos;expiration précise</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>subject alternative name</source>
-        <translation>nom alternatif du sujet</translation>
+        <translation type="obsolete">nom alternatif du sujet</translation>
     </message>
     <message>
-        <location line="+29"/>
-        <location line="+24"/>
-        <location line="+83"/>
+        <location line="+50"/>
+        <location line="+17"/>
+        <location line="+76"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-100"/>
-        <location line="+24"/>
+        <location line="-86"/>
+        <location line="+17"/>
         <location line="+33"/>
-        <location line="+50"/>
-        <location filename="../widgets/NewX509.cpp" line="+762"/>
+        <location line="+43"/>
+        <location filename="../widgets/NewX509.cpp" line="+778"/>
         <source>Edit</source>
         <translation>Modifier</translation>
     </message>
     <message>
-        <location line="-100"/>
         <source>issuer alternative name</source>
-        <translation>Nom alternatif du signataire</translation>
+        <translation type="obsolete">Nom alternatif du signataire</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="-50"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Authority Info Access</source>
-        <translation>Accès à l&apos;information de l&apos;autorité</translation>
+        <translation type="obsolete">Accès à l&apos;information de l&apos;autorité</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>peut être altéré par le fichier &quot;aia.txt&quot;</translation>
     </message>
     <message>
-        <location line="+40"/>
         <source>CRL distribution point</source>
-        <translation>Point de distribution de la liste de révocation</translation>
+        <translation type="obsolete">Point de distribution de la liste de révocation</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location line="+20"/>
+        <location line="+46"/>
         <source>Key usage</source>
         <translation>Utilisation de la clé</translation>
     </message>
     <message>
-        <location line="+80"/>
         <source>Extended key usage</source>
-        <translation>Utilisation étendue de la clé</translation>
+        <translation type="obsolete">Utilisation étendue de la clé</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+126"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
     <message>
-        <location line="+133"/>
         <source>CA Revocation URL</source>
-        <translation>URL de révocation du certificat CA</translation>
+        <translation type="obsolete">URL de révocation du certificat CA</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Revocation URL</source>
-        <translation>URL de révocation</translation>
+        <translation type="obsolete">URL de révocation</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>SSL server name</source>
-        <translation>Nom du serveur SSL</translation>
+        <translation type="obsolete">Nom du serveur SSL</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Certificate renewal URL</source>
-        <translation>URL de renouvellement de certificat</translation>
+        <translation type="obsolete">URL de renouvellement de certificat</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Comment</source>
-        <translation>Commentaire</translation>
+        <translation type="obsolete">Commentaire</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>CA policy URL</source>
-        <translation>URL des conditions générales du CA</translation>
+        <translation type="obsolete">URL des conditions générales du CA</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Base URL</source>
-        <translation>URL de base</translation>
+        <translation type="obsolete">URL de base</translation>
     </message>
     <message>
         <source>If you know a more pretty one tell me</source>
         <translation type="obsolete">Si vous en connaissez un plus joli, faites-le moi savoir</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+170"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
@@ -1766,12 +1752,12 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Valider</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-811"/>
+        <location filename="../widgets/NewX509.cpp" line="-827"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Créer un certificat auto-&amp;signé avec un numéro de série QA basé sur MD5</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+166"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2506,11 +2492,16 @@ Dans la bibliothèque %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Netscape extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Reset</source>
         <translation>Réinitialisation</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+44"/>
         <source>Paste PEM data</source>
         <translation>Coller les données en format PEM</translation>
     </message>
@@ -3226,6 +3217,11 @@ En conséquence, il n&apos;a pas été importé</translation>
     </message>
     <message>
         <location line="+2"/>
+        <source>Basic Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>subject alternative name</source>
         <translation type="unfinished">nom alternatif du sujet</translation>
     </message>
@@ -3410,7 +3406,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+28"/>
+        <location filename="../lib/db_x509super.cpp" line="+29"/>
         <source>Key name</source>
         <translation>Nom de la clé</translation>
     </message>
@@ -3420,7 +3416,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Nom interne de la clé</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+74"/>
         <source>Save as OpenSSL config</source>
         <translation>Enregistrer en format de configuration OpenSSL</translation>
     </message>

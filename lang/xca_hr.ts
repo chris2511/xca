@@ -1467,7 +1467,7 @@ Unesite bitove za DH parametre</translation>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+516"/>
+        <location filename="../widgets/NewX509.cpp" line="+532"/>
         <source>Subject</source>
         <translation>Subjekt</translation>
     </message>
@@ -1481,7 +1481,7 @@ Unesite bitove za DH parametre</translation>
         <translation type="obsolete">Organizacija</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-380"/>
+        <location filename="../widgets/NewX509.cpp" line="-396"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Ovo ime se samo interno koristi i neće se pojaviti u izrađenoj potvrdi</translation>
     </message>
@@ -1555,12 +1555,11 @@ Unesite bitove za DH parametre</translation>
         <translation>Proširenja</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Basic constraints</source>
-        <translation>Osnovna ograničenja</translation>
+        <translation type="obsolete">Osnovna ograničenja</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <source>Type</source>
         <translation>Vrsta</translation>
     </message>
@@ -1676,101 +1675,88 @@ Unesite bitove za DH parametre</translation>
         <translation>Nejasno definiran istek roka</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>subject alternative name</source>
-        <translation>Alternativno ime subjekta</translation>
+        <translation type="obsolete">Alternativno ime subjekta</translation>
     </message>
     <message>
-        <location line="+29"/>
-        <location line="+24"/>
-        <location line="+83"/>
+        <location line="+50"/>
+        <location line="+17"/>
+        <location line="+76"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-100"/>
-        <location line="+24"/>
+        <location line="-86"/>
+        <location line="+17"/>
         <location line="+33"/>
-        <location line="+50"/>
-        <location filename="../widgets/NewX509.cpp" line="+762"/>
+        <location line="+43"/>
+        <location filename="../widgets/NewX509.cpp" line="+778"/>
         <source>Edit</source>
         <translation>Uredi</translation>
     </message>
     <message>
-        <location line="-100"/>
         <source>issuer alternative name</source>
-        <translation>alternativno ime izdavača</translation>
+        <translation type="obsolete">alternativno ime izdavača</translation>
     </message>
     <message>
-        <location line="+126"/>
         <source>CRL distribution point</source>
-        <translation>Točka objave popisa opozvanih potvrda</translation>
+        <translation type="obsolete">Točka objave popisa opozvanih potvrda</translation>
     </message>
     <message>
-        <location line="-83"/>
+        <location line="-50"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Authority Info Access</source>
-        <translation>Dohvat informacija Autoriteta (AIA)</translation>
+        <translation type="obsolete">Dohvat informacija Autoriteta (AIA)</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+36"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>može biti promijenjeno pomoću datoteke &quot;aia.txt&quot;</translation>
     </message>
     <message>
-        <location line="+53"/>
-        <location line="+20"/>
+        <location line="+46"/>
         <source>Key usage</source>
         <translation>Namjena ključa</translation>
     </message>
     <message>
-        <location line="+80"/>
         <source>Extended key usage</source>
-        <translation>Proširena upotreba ključa</translation>
+        <translation type="obsolete">Proširena upotreba ključa</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+126"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
     <message>
-        <location line="+133"/>
         <source>CA Revocation URL</source>
-        <translation>URL opoziva CA</translation>
+        <translation type="obsolete">URL opoziva CA</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Revocation URL</source>
-        <translation>URL opoziva</translation>
+        <translation type="obsolete">URL opoziva</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>SSL server name</source>
-        <translation>SSL ime poslužitelja</translation>
+        <translation type="obsolete">SSL ime poslužitelja</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Certificate renewal URL</source>
-        <translation>URL za obnovu potvrde</translation>
+        <translation type="obsolete">URL za obnovu potvrde</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Comment</source>
-        <translation>Napomena</translation>
+        <translation type="obsolete">Napomena</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>CA policy URL</source>
-        <translation>URL politike CA</translation>
+        <translation type="obsolete">URL politike CA</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Base URL</source>
-        <translation>Osnovni URL</translation>
+        <translation type="obsolete">Osnovni URL</translation>
     </message>
     <message>
         <source>If you know a more pretty one tell me</source>
@@ -1778,7 +1764,7 @@ Unesite bitove za DH parametre</translation>
         <translation type="obsolete">Ako znate bolje, javite mi</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+170"/>
         <source>Advanced</source>
         <translation>Napredno</translation>
     </message>
@@ -1789,12 +1775,12 @@ Unesite bitove za DH parametre</translation>
         <translation>Potvrditi</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-811"/>
+        <location filename="../widgets/NewX509.cpp" line="-827"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Izradi &amp;samopotpisanu potvrdu s MD5 sažetkom CA serijskog broja</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+178"/>
         <source>Create Certificate signing request</source>
         <translation>Izradi zahtjev za izdavanje potvrde (CSR)</translation>
     </message>
@@ -2529,11 +2515,16 @@ U knjižnici %3
     </message>
     <message>
         <location line="+1"/>
+        <source>Netscape extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Reset</source>
         <translation>Vrati na početak</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+44"/>
         <source>Paste PEM data</source>
         <translation>Zalijepi PEM podatke</translation>
     </message>
@@ -3250,6 +3241,11 @@ i zbog toga nije uvezena</translation>
     </message>
     <message>
         <location line="+2"/>
+        <source>Basic Constraints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>subject alternative name</source>
         <translation type="unfinished">Alternativno ime subjekta</translation>
     </message>
@@ -3434,7 +3430,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+28"/>
+        <location filename="../lib/db_x509super.cpp" line="+29"/>
         <source>Key name</source>
         <translation>Ime ključa</translation>
     </message>
@@ -3444,7 +3440,7 @@ i zbog toga nije spreman</translation>
         <translation>Interno ime ključa</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+74"/>
         <source>Save as OpenSSL config</source>
         <translation>Spremi kao OpenSSL konfiguraciju</translation>
     </message>

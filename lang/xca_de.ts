@@ -1448,13 +1448,13 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Alle verfügbaren Vorlagen</translation>
     </message>
     <message>
-        <location line="+412"/>
+        <location line="+406"/>
         <source>Apply</source>
         <translation>Übernehmen</translation>
     </message>
     <message>
-        <location line="-341"/>
-        <location filename="../widgets/NewX509.cpp" line="+516"/>
+        <location line="-335"/>
+        <location filename="../widgets/NewX509.cpp" line="+532"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
     </message>
@@ -1469,7 +1469,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Eindeutiger Name</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-380"/>
+        <location filename="../widgets/NewX509.cpp" line="-396"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
@@ -1518,12 +1518,11 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Erweiterungen</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Basic constraints</source>
-        <translation>Grundsätzliche Einschränkungen</translation>
+        <translation type="obsolete">Grundsätzliche Einschränkungen</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+11"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
@@ -1628,109 +1627,96 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Ortszeit</translation>
     </message>
     <message>
-        <location line="+135"/>
         <source>Authority Info Access</source>
-        <translation>Ausstellerinformationszugang</translation>
+        <translation type="obsolete">Ausstellerinformationszugang</translation>
     </message>
     <message>
-        <location line="+69"/>
         <source>CRL distribution point</source>
-        <translation>CRL Verteilungsstelle</translation>
+        <translation type="obsolete">CRL Verteilungsstelle</translation>
     </message>
     <message>
-        <location line="-126"/>
         <source>issuer alternative name</source>
-        <translation>Alternativer Ausstellername</translation>
+        <translation type="obsolete">Alternativer Ausstellername</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+107"/>
         <source>URI:</source>
         <translation>URI:</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+36"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>Kann in der Datei &quot;aia.txt&quot; angepasst werden</translation>
     </message>
     <message>
-        <location line="-93"/>
-        <location line="+24"/>
+        <location line="-79"/>
+        <location line="+17"/>
         <location line="+33"/>
-        <location line="+50"/>
-        <location filename="../widgets/NewX509.cpp" line="+762"/>
+        <location line="+43"/>
+        <location filename="../widgets/NewX509.cpp" line="+778"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location line="-114"/>
-        <location line="+24"/>
-        <location line="+83"/>
+        <location line="-100"/>
+        <location line="+17"/>
+        <location line="+76"/>
         <source>DNS: IP: URI: email: RID:</source>
         <translation>DNS: IP: URI: email: RID:</translation>
     </message>
     <message>
-        <location line="-136"/>
         <source>subject alternative name</source>
-        <translation>Alternativer Eigentümername</translation>
+        <translation type="obsolete">Alternativer Eigentümername</translation>
     </message>
     <message>
-        <location line="+182"/>
-        <location line="+20"/>
+        <location line="+39"/>
         <source>Key usage</source>
         <translation>Schlüsselverwendung</translation>
     </message>
     <message>
-        <location line="+80"/>
         <source>Extended key usage</source>
-        <translation>Erweiterte Schlüsselverwendung</translation>
+        <translation type="obsolete">Erweiterte Schlüsselverwendung</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+126"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
     </message>
     <message>
-        <location line="+133"/>
         <source>CA Revocation URL</source>
-        <translation>CA Sperrlisten URL</translation>
+        <translation type="obsolete">CA Sperrlisten URL</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Revocation URL</source>
-        <translation>Sperrlisten URL</translation>
+        <translation type="obsolete">Sperrlisten URL</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>SSL server name</source>
-        <translation>SSL Servername</translation>
+        <translation type="obsolete">SSL Servername</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Certificate renewal URL</source>
-        <translation>Zertifikatsverlängerungs URL</translation>
+        <translation type="obsolete">Zertifikatsverlängerungs URL</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Comment</source>
-        <translation>Kommentar</translation>
+        <translation type="obsolete">Kommentar</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>CA policy URL</source>
-        <translation>CA Richtlinien URL</translation>
+        <translation type="obsolete">CA Richtlinien URL</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Base URL</source>
-        <translation>Basis URL</translation>
+        <translation type="obsolete">Basis URL</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-801"/>
+        <location filename="../widgets/NewX509.cpp" line="-817"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
     <message>
-        <location line="+162"/>
+        <location line="+178"/>
         <source>Create Certificate signing request</source>
         <translation>Erstelle einen Zertifikatsantrag</translation>
     </message>
@@ -1791,12 +1777,12 @@ Bitte mindestens den internen Namen setzen.</translation>
         <translation>Das Zertifikat wird abgelaufen sein, bevor es gültig wurde. Wahrscheinlich sind die Zeiten vertauscht.</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-1157"/>
+        <location filename="../ui/NewX509.ui" line="-909"/>
         <source>Modify subject of the request</source>
         <translation>Inhaberinformation &quot;subject&quot; des Zertifikatsantrags ändern</translation>
     </message>
     <message>
-        <location line="+1200"/>
+        <location line="+1079"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
@@ -1818,7 +1804,7 @@ The rollout should be aborted.</source>
         <translation>Trotzdem fortfahren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-617"/>
+        <location filename="../ui/NewX509.ui" line="-502"/>
         <source>No well-defined expiration</source>
         <translation>Undefiniertes Ablaufdatum</translation>
     </message>
@@ -1910,7 +1896,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Extensions editieren</translation>
     </message>
     <message>
-        <location filename="../ui/NewX509.ui" line="-414"/>
+        <location filename="../ui/NewX509.ui" line="-408"/>
         <source>Apply extensions</source>
         <translation>Erweiterungen übernehmen</translation>
     </message>
@@ -2490,12 +2476,12 @@ in Bibliothek %3
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+633"/>
+        <location line="+634"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="-3"/>
         <source>Subject entries</source>
         <translation>Namensteile</translation>
     </message>
@@ -2505,7 +2491,12 @@ in Bibliothek %3
         <translation>X509v3 Erweiterungen</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+1"/>
+        <source>Netscape extensions</source>
+        <translation>Netscape Erweiterungen</translation>
+    </message>
+    <message>
+        <location line="+45"/>
         <source>Paste PEM data</source>
         <translation>Einfügen (PEM)</translation>
     </message>
@@ -3142,7 +3133,7 @@ und wurde daher nicht importiert</translation>
     <message>
         <location line="+1"/>
         <source>Common name</source>
-        <translation>Üblicher Name</translation>
+        <translation>Allgemeine Bezeichnung</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3221,6 +3212,11 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="+2"/>
+        <source>Basic Constraints</source>
+        <translation>Basiseinschränkungen</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>subject alternative name</source>
         <translation>Alternativer Eigentümername</translation>
     </message>
@@ -3405,7 +3401,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+28"/>
+        <location filename="../lib/db_x509super.cpp" line="+29"/>
         <source>Key name</source>
         <translation>Schlüsselname</translation>
     </message>
@@ -3415,7 +3411,7 @@ und wurde daher nicht importiert</translation>
         <translation>Interner name des Schlüssels</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+74"/>
         <source>Save as OpenSSL config</source>
         <translation>OpenSSL Konfiguration speichern</translation>
     </message>
