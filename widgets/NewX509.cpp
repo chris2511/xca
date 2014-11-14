@@ -227,21 +227,37 @@ NewX509::NewX509(QWidget *parent)
 
 	foreach(int nid, nidLabel.keys()) {
 		QLabel *l = nidLabel[nid];
-		l->setText(OBJ_nid2ln(nid));
-		l->setToolTip(dn_translations[nid]);
+		l->setText(translate_dn ?
+			dn_translations[nid] : OBJ_nid2ln(nid));
+		if (l->toolTip().isEmpty()) {
+			l->setToolTip(translate_dn ?
+				OBJ_nid2ln(nid) : dn_translations[nid]);
+		}
 	}
+
+	QMap<int, QGroupBox*> nidGroupBox;
+	nidGroupBox[NID_basic_constraints] = bcBox;
+	nidGroupBox[NID_key_usage] = kuBox;
+	nidGroupBox[NID_ext_key_usage] = ekuBox;
+	nidGroupBox[NID_netscape_cert_type] = nsCertTypeBox;
+
+	foreach(int nid, nidGroupBox.keys()) {
+		QGroupBox *g = nidGroupBox[nid];
+		g->setTitle(translate_dn ?
+			dn_translations[nid] : OBJ_nid2ln(nid));
+		if (g->toolTip().isEmpty()) {
+			g->setToolTip(translate_dn ?
+				OBJ_nid2ln(nid) : dn_translations[nid]);
+		}
+	}
+
 	if (translate_dn) {
 		QList<QGroupBox*> gb;
-		gb << distNameBox << bcBox << keyIdentBox << kuBox << ekuBox;
+		gb << distNameBox << keyIdentBox;
 		foreach(QGroupBox *g, gb) {
 			QString tt = g->toolTip();
 			g->setToolTip(g->title());
 			g->setTitle(tt);
-		}
-		foreach(QLabel *l, nidLabel.values()) {
-			QString tt = l->toolTip();
-			l->setToolTip(l->text());
-			l->setText(tt);
 		}
 		QList<QCheckBox*> cbList;
 		cbList << bcCritical << kuCritical << ekuCritical;

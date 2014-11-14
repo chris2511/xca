@@ -68,7 +68,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_0">
       <attribute name="title">
@@ -523,12 +523,6 @@
         <layout class="QHBoxLayout" name="_6">
          <item>
           <widget class="QGroupBox" name="bcBox">
-           <property name="toolTip">
-            <string>Basic constraints</string>
-           </property>
-           <property name="title">
-            <string notr="true">Basic constraints</string>
-           </property>
            <layout class="QGridLayout" name="gridLayout_7">
             <item row="0" column="0">
              <widget class="QLabel" name="TextLabel2_2_3">
@@ -775,14 +769,7 @@
        <item>
         <layout class="QGridLayout" name="gridLayout_12">
          <item row="0" column="0">
-          <widget class="QLabel" name="sanLbl">
-           <property name="toolTip">
-            <string>subject alternative name</string>
-           </property>
-           <property name="text">
-            <string notr="true">subject alternative name</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="sanLbl"/>
          </item>
          <item row="0" column="1">
           <widget class="QLabel" name="subAltIco">
@@ -818,14 +805,7 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="ianLbl">
-           <property name="toolTip">
-            <string>issuer alternative name</string>
-           </property>
-           <property name="text">
-            <string notr="true">issuer alternative name</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="ianLbl"/>
          </item>
          <item row="1" column="2" colspan="2">
           <widget class="QLineEdit" name="issAltName">
@@ -875,14 +855,7 @@
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="aiaLbl">
-           <property name="toolTip">
-            <string>Authority Info Access</string>
-           </property>
-           <property name="text">
-            <string notr="true">Authority Info Access</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="aiaLbl"/>
          </item>
          <item row="3" column="1">
           <widget class="QLabel" name="authInfAccIco">
@@ -944,14 +917,7 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="crldpLbl">
-           <property name="toolTip">
-            <string>CRL distribution point</string>
-           </property>
-           <property name="text">
-            <string notr="true">CRL distribution point</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="crldpLbl"/>
          </item>
         </layout>
        </item>
@@ -978,12 +944,6 @@
          </property>
          <item>
           <widget class="QGroupBox" name="kuBox">
-           <property name="toolTip">
-            <string>Key usage</string>
-           </property>
-           <property name="title">
-            <string notr="true">Key usage</string>
-           </property>
            <layout class="QVBoxLayout">
             <property name="spacing">
              <number>6</number>
@@ -1058,12 +1018,6 @@
          </item>
          <item>
           <widget class="QGroupBox" name="ekuBox">
-           <property name="toolTip">
-            <string>Extended key usage</string>
-           </property>
-           <property name="title">
-            <string notr="true">Extended key usage</string>
-           </property>
            <layout class="QVBoxLayout">
             <property name="spacing">
              <number>6</number>
@@ -1099,61 +1053,55 @@
       <attribute name="title">
        <string>Netscape</string>
       </attribute>
-      <layout class="QVBoxLayout">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="margin">
-        <number>8</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
-        <layout class="QHBoxLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
-         <property name="margin">
-          <number>0</number>
-         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QListWidget" name="nsCertType">
-           <property name="selectionMode">
-            <enum>QAbstractItemView::MultiSelection</enum>
-           </property>
-           <item>
-            <property name="text">
-             <string notr="true">SSL Client</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">SSL Server</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">S/MIME</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">Object Signing</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">SSL CA</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">S/MIME CA</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string notr="true">Object Signing CA</string>
-            </property>
-           </item>
+          <widget class="QGroupBox" name="nsCertTypeBox">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QListWidget" name="nsCertType">
+              <property name="selectionMode">
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <item>
+               <property name="text">
+                <string notr="true">SSL Client</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">SSL Server</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">S/MIME</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">Object Signing</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">SSL CA</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">S/MIME CA</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">Object Signing CA</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -1228,37 +1176,16 @@
           <widget class="QLineEdit" name="nsCaPolicyUrl"/>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="nsCaRevLbl">
-           <property name="toolTip">
-            <string>CA Revocation URL</string>
-           </property>
-           <property name="text">
-            <string notr="true">CA Revocation URL</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="nsCaRevLbl"/>
          </item>
          <item row="5" column="1">
           <widget class="QLineEdit" name="nsSslServerName"/>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="nsRevLbl">
-           <property name="toolTip">
-            <string>Revocation URL</string>
-           </property>
-           <property name="text">
-            <string notr="true">Revocation URL</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="nsRevLbl"/>
          </item>
          <item row="5" column="0">
-          <widget class="QLabel" name="nsSslServerLbl">
-           <property name="toolTip">
-            <string>SSL server name</string>
-           </property>
-           <property name="text">
-            <string notr="true">SSL server name</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="nsSslServerLbl"/>
          </item>
          <item row="0" column="1">
           <widget class="QLineEdit" name="nsBaseUrl"/>
@@ -1267,44 +1194,16 @@
           <widget class="QLineEdit" name="nsCARevocationUrl"/>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="nsRenewLbl">
-           <property name="toolTip">
-            <string>Certificate renewal URL</string>
-           </property>
-           <property name="text">
-            <string notr="true">Certificate renewal URL</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="nsRenewLbl"/>
          </item>
          <item row="6" column="0">
-          <widget class="QLabel" name="nsCommentLbl">
-           <property name="toolTip">
-            <string>Comment</string>
-           </property>
-           <property name="text">
-            <string notr="true">Comment</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="nsCommentLbl"/>
          </item>
          <item row="4" column="0">
-          <widget class="QLabel" name="nsCaPolicyLbl">
-           <property name="toolTip">
-            <string>CA policy URL</string>
-           </property>
-           <property name="text">
-            <string notr="true">CA policy URL</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="nsCaPolicyLbl"/>
          </item>
          <item row="0" column="0">
-          <widget class="QLabel" name="nsBaseLbl">
-           <property name="toolTip">
-            <string>Base URL</string>
-           </property>
-           <property name="text">
-            <string notr="true">Base URL</string>
-           </property>
-          </widget>
+          <widget class="QLabel" name="nsBaseLbl"/>
          </item>
          <item row="1" column="1">
           <widget class="QLineEdit" name="nsRevocationUrl"/>
@@ -1319,26 +1218,6 @@
         </layout>
        </item>
       </layout>
-      <widget class="QWidget" name="widget_3_2" native="true">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>100</width>
-         <height>30</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QWidget" name="widget_5" native="true">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>100</width>
-         <height>30</height>
-        </rect>
-       </property>
-      </widget>
      </widget>
      <widget class="QWidget" name="Seite">
       <attribute name="title">

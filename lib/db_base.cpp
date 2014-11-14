@@ -651,13 +651,14 @@ void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
 void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 {
 	int shown = 0;
-	tipMenu *menu, *dn, *v3ext, *current;
+	tipMenu *menu, *dn, *v3ext, *current, *v3ns;
 	QAction *a, *sep;
 	dbheader *hd;
 
 	menu = new tipMenu(QString(), mainwin);
 	dn = new tipMenu(tr("Subject entries"), mainwin);
 	v3ext = new tipMenu(tr("X509v3 Extensions"), mainwin);
+	v3ns = new tipMenu(tr("Netscape extensions"), mainwin);
 	menu->addAction(tr("Reset"), this, SLOT(columnResetDefaults()));
 	sep = menu->addSeparator();
 	foreach(hd, allHeaders) {
@@ -667,6 +668,9 @@ void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 				break;
 			case dbheader::hd_v3ext:
 				current = v3ext;
+				break;
+			case dbheader::hd_v3ext_ns:
+				current = v3ns;
 				break;
 			default:
 				current = menu;
@@ -686,11 +690,18 @@ void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 	else
 		delete dn;
 
-	if (!v3ext->isEmpty())
+	if (!v3ext->isEmpty()) {
+		if (!v3ns->isEmpty()) {
+			v3ext->addSeparator();
+			v3ext->addMenu(v3ns);
+		} else {
+			delete v3ns;
+		}
 		menu->insertMenu(sep, v3ext);
-	else
+	} else {
 		delete v3ext;
-
+		delete v3ns;
+	}
 	if (parent) {
 		parent->addAction(tr("Paste PEM data"), mainwin,
 				SLOT(pastePem()));

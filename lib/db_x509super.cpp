@@ -43,6 +43,7 @@ db_x509name::db_x509name(QString db, MainWindow *mw)
 		dn_translations[NID_pkcs9_unstructuredName] = tr("Unstructured name");
 		dn_translations[NID_pkcs9_challengePassword] = tr("Challenge password");
 
+		dn_translations[NID_basic_constraints] = tr("Basic Constraints");
 		dn_translations[NID_subject_alt_name] = tr("subject alternative name");
 		dn_translations[NID_issuer_alt_name] = tr("issuer alternative name");
 		dn_translations[NID_subject_key_identifier] = tr("Subject key identifier");
@@ -61,13 +62,13 @@ db_x509name::db_x509name(QString db, MainWindow *mw)
 		dn_translations[NID_netscape_comment] = tr("Comment");
 	}
 	foreach(int nid, *MainWindow::dn_nid)
-		allHeaders << new dn_dbheader(nid);
+		allHeaders << new nid_dbheader(nid, dbheader::hd_x509name);
 }
 
 db_x509super::db_x509super(QString db, MainWindow *mw)
 	:db_x509name(db, mw)
 {
-	NIDlist v3nid;
+	NIDlist v3nid, v3ns_nid;
 	v3nid <<
 		NID_subject_alt_name <<
 		NID_issuer_alt_name <<
@@ -76,7 +77,8 @@ db_x509super::db_x509super(QString db, MainWindow *mw)
 		NID_key_usage <<
 		NID_ext_key_usage <<
 		NID_crl_distribution_points <<
-		NID_info_access <<
+		NID_info_access;
+	v3ns_nid <<
 		NID_netscape_cert_type <<
 		NID_netscape_base_url <<
 		NID_netscape_revocation_url <<
@@ -90,7 +92,10 @@ db_x509super::db_x509super(QString db, MainWindow *mw)
 			tr("Internal name of the key"));
 
 	foreach(int nid, v3nid)
-		allHeaders << new v3e_dbheader(nid);
+		allHeaders << new nid_dbheader(nid, dbheader::hd_v3ext);
+
+	foreach(int nid, v3ns_nid)
+		allHeaders << new nid_dbheader(nid, dbheader::hd_v3ext_ns);
 }
 
 void db_x509super::delKey(pki_key *delkey)

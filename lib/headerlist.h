@@ -68,6 +68,7 @@ class dbheader
 		hd_default,
 		hd_x509name,
 		hd_v3ext,
+		hd_v3ext_ns,
 	};
 	int id;
 	bool show;
@@ -164,15 +165,16 @@ class dbheader
 	}
 };
 
-class dn_dbheader : public dbheader
+class nid_dbheader : public dbheader
 {
     private:
 	QString sn;
 
     public:
-	dn_dbheader(int aid) : dbheader(aid, aid == NID_commonName)
+	nid_dbheader(int aid, enum hdr_type atype)
+		: dbheader(aid, aid == NID_commonName)
 	{
-		type = hd_x509name;
+		type = atype;
 		tooltip = dn_translations[id];
 		name = OBJ_nid2ln(id);
 		sn = OBJ_nid2sn(id);
@@ -187,15 +189,6 @@ class dn_dbheader : public dbheader
 	{
 		return QString("[%1] %2").arg(sn)
 			.arg(translate_dn ? name : tooltip);
-	}
-};
-
-class v3e_dbheader : public dn_dbheader
-{
-    public:
-	v3e_dbheader(int aid) : dn_dbheader(aid)
-	{
-		type = hd_v3ext;
 	}
 };
 
