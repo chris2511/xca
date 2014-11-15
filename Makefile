@@ -31,6 +31,7 @@ DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)-$(DARWIN)
 APPDIR=$(DMGSTAGE)/xca.app/Contents
 
+all: db_dump$(SUFFIX)
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX)
 else
@@ -74,9 +75,10 @@ headers: do.ui
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$*
 
-db_dump: lib/.build-stamp
+db_dump$(SUFFIX): lib/.build-stamp
 	$(MAKE) -C lib -f $(TOPDIR)/lib/Makefile \
-		VPATH=$(TOPDIR)/lib db_dump
+		VPATH=$(TOPDIR)/lib $@
+	cp lib/$@ $@
 
 $(INSTTARGET): install.%: %/.build-stamp
 	mkdir -p $*
@@ -119,24 +121,20 @@ snapshot:
 	git archive --format=tar --prefix=xca-$${HASH}/ HEAD | \
 		gzip -9 > xca-$${HASH}.tar.gz
 
-install: xca$(SUFFIX) $(INSTTARGET)
+install: xca$(SUFFIX) db_dump$(SUFFIX) $(INSTTARGET)
 	install -m 755 -d $(destdir)$(bindir)
 	install -m 755 xca $(destdir)$(bindir)
+	install -m 755 db_dump $(destdir)$(bindir)
 	$(STRIP) $(destdir)$(bindir)/xca
 
-$(MACDEPLOYQT):
-
-macdeployqt/macdeployqt:
-	$(MAKE) -C macdeployqt
-
-setup.exe: xca$(SUFFIX) do.doc do.lang
+setup.exe: xca$(SUFFIX) db_dump$(SUFFIX) do.doc do.lang
 setup.exe: misc/xca.nsi
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
 		-NOCD -V2 $<
 
-$(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT)
+$(DMGSTAGE): xca$(SUFFIX) db_dump$(SUFFIX)
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
@@ -144,7 +142,9 @@ $(DMGSTAGE): xca$(SUFFIX) $(MACDEPLOYQT)
 	ln -s /Applications $(DMGSTAGE)
 	install -m 644 $(TOPDIR)/COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
 	install -m 755 xca $(DMGSTAGE)/xca.app/Contents/MacOS
+	install -m 755 db_dump $(DMGSTAGE)/xca.app/Contents/MacOS
 	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca
+	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/db_dump
 	$(MAKE) $(APPTARGET)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html

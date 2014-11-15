@@ -42,6 +42,8 @@ class db_base: public QAbstractItemModel
 		QString class_name;
 		dbheaderList allHeaders;
 		int colResizing;
+		int handleBadEntry(unsigned char *p, db_header_t *head);
+
 	public:
 		pki_base *rootItem;
 		db_base(QString db, MainWindow *mw);

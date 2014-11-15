@@ -18,7 +18,6 @@
 #define XCA_MAGIC 0xcadb1969
 #define NAMELEN 80
 #define FNAMLEN 256
-#define OFF_EOF ((off_t)-1)
 
 #define DBFLAG_DELETED  0x1
 #define DBFLAG_OUTDATED 0x2
@@ -57,10 +56,12 @@ class db
 		QString name);
 	void convert_header(db_header_t *h);
 	void fileIOerr(QString s);
+	QString backup_name();
+	bool backup();
 
     public:
 	bool verify_magic(void);
-	off_t head_offset;
+	qint64 head_offset;
 	db(QString, QFlags<QFile::Permission> perm = QFile::ReadOwner | QFile::WriteOwner);
 	~db();
 	bool eof();

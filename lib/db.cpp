@@ -10,6 +10,8 @@
 #include "func.h"
 #include "exception.h"
 #include <QtCore/QStringList>
+#include <QtCore/QDebug>
+#include <QtCore/QDateTime>
 #ifdef WIN32
 #include <windows.h>
 #else
@@ -23,6 +25,8 @@
 #include <string.h>
 #include <errno.h>
 #endif
+
+#define XNUM(n) CCHAR(QString::number((n), 16))
 
 db::db(QString filename, QFlags<QFile::Permission> perm)
 {
@@ -80,9 +84,6 @@ bool db::verify_magic(void)
 {
 	if (!eof())
 		if (ntohl(head.magic) != XCA_MAGIC) {
-			throw errorEx(QString("database error '") +
-				file.fileName() +"'",
-				"at: " + QString::number(head_offset));
 			return false;
 		}
 	return true;
@@ -90,7 +91,7 @@ bool db::verify_magic(void)
 
 bool db::eof()
 {
-	return (head_offset == OFF_EOF);
+	return head_offset == file.size();
 }
 
 int db::find(enum pki_type type, QString name)
@@ -121,7 +122,7 @@ void db::first(int flag)
 	if (ret < 0 )
 		fileIOerr("read");
 	if (ret==0) {
-		head_offset = OFF_EOF;
+		head_offset = file.size();
 		return;
 	}
 	if (!verify_magic())
@@ -132,44 +133,90 @@ void db::first(int flag)
 
 int db::next(int flag)
 {
-	int ret;
+	qint64 ret;
+	qint64 garbage = -1;
+	int result = 1;
 
 	if (eof())
 		return 1;
 
 	head_offset += ntohl(head.len);
-	file.seek(head_offset);
-	ret = file.read((char*)&head, sizeof(db_header_t) );
-	if (ret==0) {
-		//printf("Next: EOF at %lu\n", head_offset);
-		head_offset = OFF_EOF;
+	if (head_offset >= file.size()) {
+		head_offset = file.size();
 		return 1;
 	}
-	if (ret < 0) {
-		fileIOerr("read");
-		return -1;
+	while (1) {
+		file.seek(head_offset);
+		ret = file.read((char*)&head, sizeof head);
+		if (ret==0) {
+			head_offset = file.size();
+			break;
+		}
+		if (ret < 0) {
+			fileIOerr("read");
+			return -1;
+		}
+		if (ret != sizeof head) {
+			qWarning("next(): Short read: 0x%s of 0x%s @ 0x%s",
+				XNUM(ret), XNUM(sizeof head),
+				XNUM(head_offset));
+			if (garbage != -1) {
+				ret += head_offset - garbage;
+				head_offset = garbage;
+			}
+			qWarning("next(): Truncating 0x%s garbage bytes @ 0x%s",
+				XNUM(ret), XNUM(head_offset));
+			if (backup())
+				file.resize(head_offset);
+			head_offset = file.size();
+			return -1;
+		}
+		qint64 hlen = ntohl(head.len);
+		if (!verify_magic()) {
+			if (garbage == -1)
+				garbage = head_offset;
+			head_offset += 1;
+			continue;
+		} else {
+			if (garbage != -1) {
+				qWarning("next(): 0x%s bytes garbage skipped at 0x%s",
+					XNUM(head_offset - garbage),
+					XNUM(garbage));
+			}
+			garbage = -1;
+			if (file.size() < head_offset + hlen) {
+				qWarning("next(): Short item (%s of %s) at 0x%s",
+					XNUM(ntohl(head.len)),
+					XNUM(file.size() - head_offset),
+					XNUM(head_offset));
+				garbage = head_offset;
+				/* invalidate the header */
+				qWarning("Invalidate short item @  0x%s\n",
+					XNUM(head_offset));
+				file.seek(head_offset);
+				char inval = 0xcb; // 0xca +1
+				file.write(&inval, 1);
+				head_offset += 4;
+				continue;
+			}
+		}
+		if (!(ntohs(head.flags) & flag)) {
+			result = 0;
+			break;
+		} else {
+			head_offset += hlen;
+		}
 	}
-	if (ret != sizeof(db_header_t)) {
-		printf("Length broken: %d instead of %ld\n", ret,
-				(long)sizeof(db_header_t) );
-		//ftruncate(fd, head_offset);
-		head_offset = OFF_EOF;
-		return -1;
+	if (garbage != -1) {
+		qWarning("next(): 0x%s bytes garbage skipped at 0x%s",
+			XNUM(head_offset - garbage), XNUM(garbage));
 	}
-	if (!verify_magic()){
-		printf("Garbage found at %lu\n", (unsigned long)head_offset);
-		head_offset+=4;
-		return next(flag);
-	}
-	if (ntohs(head.flags) & flag)
-		return next(flag);
-
-	return 0;
+	return result;
 }
 
 void db::rename(enum pki_type type, QString name, QString n)
 {
-	int ret;
+	qint64 ret;
 
 	first();
 	if (find(type, n) == 0) {
@@ -186,7 +233,7 @@ void db::rename(enum pki_type type, QString name, QString n)
 	if (ret < 0) {
 		fileIOerr("write");
 	}
-	if (ret != sizeof(head)) {
+	if (ret != sizeof head) {
 		throw errorEx(QObject::tr("DB: Write error %1 - %2"
 				).arg(ret).arg(sizeof(head)));
 	}
@@ -225,12 +272,12 @@ QString db::uniq_name(QString s, QList<enum pki_type> types)
 int db::add(const unsigned char *p, int len, int ver, enum pki_type type,
 		QString name)
 {
-	db_header_t db;
+	db_header_t head;
 
-	init_header(&db, ver, len, type, name);
+	init_header(&head, ver, len, type, name);
 	file.seek(file.size());
 
-	if (file.write((char*)&db, sizeof(db)) != sizeof(db)) {
+	if (file.write((char*)&head, sizeof head) != sizeof head) {
 		fileIOerr("write");
 		return -1;
 	}
@@ -244,27 +291,21 @@ int db::add(const unsigned char *p, int len, int ver, enum pki_type type,
 int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 		                QString name)
 {
-	int ret;
+	qint64 ret;
 
 	first();
 	ret = find(type, name);
-	if (ret == 1) {
+	if (ret != 0) {
 		return add(p, len, ver, type, name);
-	}
-	if (ret == 0) {
-		//printf("offs = %x, len=%d, head.len=%d name = %s flags=%x\n",
-		//		head_offset, len, ntohl(head.len), head.name,
-		//		ntohs(head.flags));
+	} else {
 		file.seek(head_offset);
 		if (len != (int)(ntohl(head.len) - sizeof(db_header_t))) {
-			//printf("## Found and len unequal %d, %d\n",
-			//	len, ntohl(head.len) - sizeof(db_header_t));
 			int flags;
 			flags = head.flags;
 			head.flags |= htons(DBFLAG_DELETED | DBFLAG_OUTDATED);
 
-			if (file.write((char*)&head, sizeof(db_header_t)) !=
-					sizeof(db_header_t))
+			if (file.write((char*)&head, sizeof head) !=
+					sizeof head)
 			{
 				fileIOerr("write");
 				return -1;
@@ -272,16 +313,14 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 			if (add(p, len, ver, type, name) < 0) {
 				file.seek(head_offset);
 				head.flags = flags;
-				ret = file.write((char*)&head, sizeof(db_header_t));
-				if (ret != sizeof(db_header_t))
+				ret = file.write((char*)&head, sizeof head);
+				if (ret != sizeof head)
 					fileIOerr("write");
 			}
 			return 0;
 		}
-		//printf("## Overwriting entry at %u\n", head_offset);
 		head.version = htons(ver);
-		if (file.write((char*)&head, sizeof(db_header_t)) !=
-						sizeof(db_header_t)) {
+		if (file.write((char*)&head, sizeof head) != sizeof head) {
 			fileIOerr("write");
 			return -1;
 		}
@@ -297,7 +336,7 @@ int db::set(const unsigned char *p, int len, int ver, enum pki_type type,
 unsigned char *db::load(db_header_t *u_header)
 {
 	uint32_t size;
-	unsigned ret;
+	qint64 ret;
 	unsigned char *data;
 
 	if (eof())
@@ -306,13 +345,14 @@ unsigned char *db::load(db_header_t *u_header)
 	data = (unsigned char *)malloc(size);
 	file.seek(head_offset + sizeof(db_header_t));
 	ret = file.read((char*)data, size);
-	if (ret == size) {
+	if (ret == (qint64)size) {
 		if (u_header)
 			convert_header(u_header);
 		return data;
 	} else {
 		free(data);
-		fileIOerr("read");
+		if (ret < 0)
+			fileIOerr("read");
 		return NULL;
 	}
 }
@@ -342,10 +382,11 @@ int db::erase(void)
 
 int db::shrink(int flags)
 {
-	int ret;
+	qint64 ret, garbage = -1;
 	uint32_t offs;
 	char buf[BUFSIZ];
 	QFile new_file;
+	int result = 0;
 
 	new_file.setFileName(name + "{new}");
 	if (!new_file.open(QIODevice::ReadWrite)) {
@@ -354,29 +395,57 @@ int db::shrink(int flags)
 	}
 	file.reset();
 
-	while ((ret = file.read((char*)&head, sizeof(head))) > 0) {
-		if (!verify_magic())
-			return 1;
-		head_offset = ntohl(head.len) - sizeof(head);
-		if ((ntohs(head.flags) & flags)) {
-			//printf("Skip Entry\n");
-			/* FF to the next entry */
-			offs = file.seek(head_offset + file.pos());
-			//printf("Seeking to %d\n", offs);
-			if (head_offset == -1)
-				break;
+	while ((ret = file.read((char*)&head, sizeof head)) > 0) {
+		if (ret < sizeof head) {
+			qWarning("shrink(): Short read: 0x%s instead of 0x%s",
+				XNUM(ret), XNUM(sizeof head));
+			result = 1;
+			break;
+		}
+		if (!verify_magic()) {
+			file.seek(file.pos() - sizeof(head) +1);
+			if (garbage == -1)
+				garbage = file.pos() -1;
+			result = 1;
 			continue;
 		}
+		if (garbage != -1)
+			qWarning("shrink(): 0x%s garbage found at %s",
+				XNUM(file.pos() - sizeof head - garbage),
+				XNUM(garbage));
+		garbage = -1;
+		head_offset = ntohl(head.len) - sizeof(head);
+		if ((ntohs(head.flags) & flags)) {
+			/* FF to the next entry */
+			if (!file.seek(head_offset + file.pos())) {
+				result = 1;
+				break;
+			}
+			continue;
+		}
+		if (head_offset + file.pos() > file.size()) {
+			file.seek(file.pos() - sizeof(head) +4);
+			if (garbage == -1)
+				garbage = file.pos() -4;
+			continue;
+		}
+
 		ret = new_file.write((char*)&head, sizeof(head));
-		if (ret != sizeof(head))
+		if (ret != sizeof(head)) {
+			result = 2;
 			break;
+		}
 		offs = head_offset;
 		while (offs) {
 			ret = file.read((char*)buf, (offs > BUFSIZ) ? BUFSIZ : offs);
-			if (ret<=0)
+			if (ret <= 0) {
+				result = 3;
 				break;
-			if (new_file.write(buf, ret) != ret)
+			}
+			if (new_file.write(buf, ret) != ret) {
+				result = 4;
 				break;
+			}
 			offs -= ret;
 		}
 		if (offs)
@@ -384,12 +453,71 @@ int db::shrink(int flags)
 
 	}
 	new_file.close();
-	if (ret) {
-		unlink(QString2filename(new_file.fileName()));
-		return 1;
-	}
 	file.close();
-	return mv(new_file);
+	QString backup, orig;
+
+	switch (result) {
+	case 0:
+		/* everything is fine */
+		result = mv(new_file);
+		break;
+	case 1:
+		/* Some repaireable errors in the database occured.
+		 * Keep the original as backup */
+		backup = backup_name();
+		QFile::remove(backup);
+		orig = file.fileName();
+		if (file.rename(backup)) {
+			new_file.rename(orig);
+		} else {
+			QFile::remove(new_file.fileName());
+			result = 2;
+		}
+		break;
+	case 2:
+	case 3:
+	case 4:
+		QFile::remove(new_file.fileName());
+		result = 2;
+		break;
+	}
+	return result;
+}
+
+QString db::backup_name()
+{
+	return file.fileName() + "_backup_" +
+		QDateTime::currentDateTime()
+		.toString("yyyyMMdd_hhmmss") + ".xdb";
+}
+
+bool db::backup()
+{
+	QFile this_file, new_file;
+	QString backup = backup_name();
+	qint64 ret, wret;
+	char buf[BUFSIZ];
+
+	this_file.setFileName(file.fileName());
+	if (!this_file.open(QIODevice::ReadOnly)) {
+		return false;
+	}
+	new_file.setFileName(backup);
+	if (!new_file.open(QIODevice::ReadWrite)) {
+		this_file.close();
+		return false;
+	}
+	while (1) {
+		ret = this_file.read(buf, sizeof buf);
+		if (ret <= 0)
+			break;
+		wret = new_file.write(buf, ret);
+		if (wret != ret)
+			break;
+	}
+	this_file.close();
+	new_file.close();
+	return ret == 0;
 }
 
 int db::mv(QFile &new_file)
@@ -406,7 +534,7 @@ int db::mv(QFile &new_file)
 		} else {
 			QFile::rename(tempn, name);
 			QFile::remove(new_file.fileName());
-			return 1;
+			return 2;
 		}
 	}
 	return 0;
@@ -416,7 +544,7 @@ int db::mv(QFile &new_file)
 	check_oom(newfile);
 	int ret = ::rename(newfile, QString2filename(name)) == -1;
 	free(newfile);
-	return ret;
+	return ret == 0 ? 0 : 2;
 #endif
 }
 

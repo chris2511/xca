@@ -60,6 +60,7 @@ Section "xca (required)" SecMain
   SetOutPath $INSTDIR
   ; Put files there
   File "xca.exe"
+  File "db_dump.exe"
   File "${TOPDIR}/misc\dn.txt"
   File "${TOPDIR}/misc\eku.txt"
   File "${TOPDIR}/misc\oids.txt"

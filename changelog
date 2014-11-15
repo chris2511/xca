@@ -1,4 +1,13 @@
+ * Database hardening
+   - Delete invalid items (on demand)
+   - Be more tolerant against database errors
+   - Gracefully handle and repair corrupt databases
+   - add "db_dump(.exe)" binary to all installations
  * Translation updates
+ * Optionally allow hash algos not supported by the token
+ * Select whether to translate established x509 terms
+ * Finish Token EC and DSA support - generate, import, export, sign
+ * SF Feat. Req. #57 More options for Distinguished Name
  * Switch to autoconf for the configure script
  * SF Feature Req. #76 Export private keys to clipboard
  * EC Keys: show Curve name in table

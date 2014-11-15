@@ -76,6 +76,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QStringList history;
 		tipMenu *historyMenu;
 		void update_history_menu();
+		void set_geometry(char *p, db_header_t *head);
 
 	protected:
 		void init_images();

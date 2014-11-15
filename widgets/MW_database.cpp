@@ -11,6 +11,7 @@
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
 #include <QtCore/QDir>
+#include <QtCore/QDebug>
 #include <QtGui/QStatusBar>
 #include <QtGui/QMessageBox>
 #include "lib/db_base.h"
@@ -18,10 +19,24 @@
 #include "widgets/ImportMulti.h"
 #include "widgets/NewKey.h"
 
+void MainWindow::set_geometry(char *p, db_header_t *head)
+{
+	if (head->version != 1)
+		return;
+	QByteArray ba = QByteArray::fromRawData(p, head->len);
+	int w, h, i;
+	w = db::intFromData(ba);
+	h = db::intFromData(ba);
+	i = db::intFromData(ba);
+	resize(w,h);
+	if (i != -1)
+		tabView->setCurrentIndex(i);
+}
+
 int MainWindow::init_database()
 {
 	int ret = 2;
-	fprintf(stderr, "Opening database: %s\n", QString2filename(dbfile));
+	qDebug("Opening database: %s", QString2filename(dbfile));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
 	certView->setRootIsDecorated(db_x509::treeview);
@@ -44,10 +59,6 @@ int MainWindow::init_database()
 
 	mandatory_dn = "";
 	explicit_dn = explicit_dn_default;
-	pki_base::suppress_messages = false;
-	pki_x509::dont_colorize_expiries = false;
-	translate_dn = false;
-	pki_scard::only_token_hashes = false;
 
 	string_opt = QString("MASK:0x2002");
 	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
@@ -55,6 +66,7 @@ int MainWindow::init_database()
 	pkcs11path = getDefaultPkcs11Lib();
 	workingdir = QDir::currentPath();
 	setOptFlags((QString()));
+
 	try {
 		pkcs11_lib p(pkcs11path);
 	} catch (errorEx &e) {
@@ -93,115 +105,59 @@ int MainWindow::init_database()
 	certView->setModel(certs);
 	tempView->setModel(temps);
 	crlView->setModel(crls);
-
 	try {
 		db mydb(dbfile);
-		char *p;
-		if (!mydb.find(setting, "workingdir")) {
-			if ((p = (char *)mydb.load(NULL))) {
+
+		while (mydb.find(setting, QString()) == 0) {
+			QString key;
+			db_header_t head;
+			char *p = (char *)mydb.load(&head);
+			if (!p) {
+				if (mydb.next())
+					break;
+				continue;
+			}
+			key = head.name;
+
+			if (key == "workingdir")
 				workingdir = p;
-				free(p);
-			}
-		}
-		mydb.first();
-		if (!mydb.find(setting, "pkcs11path")) {
-			if ((p = (char *)mydb.load(NULL))) {
+			else if (key == "pkcs11path")
 				pkcs11path = p;
-				free(p);
-			}
-		}
-		mydb.first();
-		if (!mydb.find(setting, "default_hash")) {
-			if ((p = (char *)mydb.load(NULL))) {
+			else if (key == "default_hash")
 				hashBox::setDefault(p);
-				free(p);
-			}
-		}
-		mydb.first();
-		if (!mydb.find(setting, "mandatory_dn")) {
-			if ((p = (char *)mydb.load(NULL))) {
+			else if (key == "mandatory_dn")
 				mandatory_dn = p;
-				free(p);
-			}
-		}
-		mydb.first();
-		if (!mydb.find(setting, "explicit_dn")) {
-			if ((p = (char *)mydb.load(NULL))) {
+			else if (key == "explicit_dn")
 				explicit_dn = p;
-				free(p);
-			}
-		}
-		// what a stupid idea....
-		mydb.first();
-		if (!mydb.find(setting, "multiple_key_use")) {
-			mydb.erase();
-		}
-		mydb.first();
-		if (!mydb.find(setting, "string_opt")) {
-			if ((p = (char *)mydb.load(NULL))) {
+			/* what a stupid idea.... */
+			else if (key == "multiple_key_use")
+				mydb.erase();
+			else if (key == "string_opt")
 				string_opt = p;
-				free(p);
-			}
-		}
-		mydb.first();
-		if (!mydb.find(setting, "suppress")) {
-			if ((p = (char *)mydb.load(NULL))) {
-				QString x = p;
-				free(p);
-				if (x == "1")
-					pki_base::suppress_messages = 1;
-			}
-		}
-		mydb.first();
-		if (!mydb.find(setting, "optionflags1")) {
-			if ((p = (char *)mydb.load(NULL))) {
+			else if (key == "suppress")
+				mydb.erase();
+			else if (key == "optionflags1")
 				setOptFlags((QString(p)));
-				free(p);
-			}
-		} else {
 			/* Different optionflags, since setOptFlags()
 			 * does an abort() for unknown flags in
 			 * older versions.   *Another stupid idea*
 			 * This is for backward compatibility
 			 */
-			mydb.first();
-			if (!mydb.find(setting, "optionflags")) {
-				if ((p = (char *)mydb.load(NULL))) {
-					setOptFlags_old((QString(p)));
-					free(p);
-				}
-			}
-		}
-		mydb.first();
-		if (!mydb.find(setting, "defaultkey")) {
-			if ((p = (char *)mydb.load(NULL))) {
+			else if (key == "optionflags")
+				setOptFlags_old((QString(p)));
+			else if (key == "defaultkey")
 				NewKey::setDefault((QString(p)));
-				free(p);
-			}
-		}
-		ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
-		mydb.first();
-		if (!mydb.find(setting, "mw_geometry")) {
-			db_header_t h;
-			if ((p = (char *)mydb.load(&h))) {
-				if (h.version == 1) {
-					QByteArray ba;
-					ba = QByteArray::fromRawData(p, h.len);
-					int w, h, i;
-					w = db::intFromData(ba);
-					h = db::intFromData(ba);
-					i = db::intFromData(ba);
-					resize(w,h);
-					if (i != -1)
-						tabView->setCurrentIndex(i);
-					}
-				free(p);
-			}
+			else if (key == "mw_geometry")
+				set_geometry(p, &head);
+			free(p);
+			if (mydb.next())
+				break;
 		}
 	} catch (errorEx &err) {
 		Error(err);
 		return ret;
 	}
+	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
 	if (explicit_dn.isEmpty())
 		explicit_dn = explicit_dn_default;
 	setWindowTitle(tr(XCA_TITLE));
@@ -367,8 +323,13 @@ void MainWindow::close_database()
 
 
 	try {
+		int ret;
 		db mydb(dbfile);
-		mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
+		ret = mydb.shrink( DBFLAG_OUTDATED | DBFLAG_DELETED );
+		if (ret == 1)
+			XCA_INFO(tr("Errors detected and repaired while deleting outdated items from the database. A backup file was created"));
+		if (ret == 2)
+			XCA_INFO(tr("Removing deleted or outdated items from the database failed."));
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);

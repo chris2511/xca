@@ -5,6 +5,11 @@
  * All rights reserved.
  */
 
+#ifdef WIN32
+#include <windows.h>
+#else
+#include <netinet/in.h>
+#endif
 
 #include "db_base.h"
 #include "func.h"
@@ -13,6 +18,7 @@
 #include <QtGui/QListView>
 #include <QtGui/QClipboard>
 #include <QtCore/QDir>
+#include <QtCore/QDebug>
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
 
@@ -64,6 +70,55 @@ void db_base::remFromCont(QModelIndex &idx)
 	emit columnsContentChanged();
 }
 
+int db_base::handleBadEntry(unsigned char *p, db_header_t *head)
+{
+	QString name = QString::fromUtf8(head->name);
+	QString txt = tr("Bad database item\nName: %1\nType: %2\nSize: %3\n%4")
+		.arg(name).arg(class_name)
+		.arg(head->len - sizeof(db_header_t))
+		.arg(tr("Do you want to delete the item from the database? The bad item may be extracted into a separate file."));
+
+	xcaWarning msg(mainwin, txt);
+	msg.addButton(QMessageBox::Ok)->setText(tr("Delete"));
+	msg.addButton(QMessageBox::Apply)->setText(tr("Delete and extract"));
+	msg.addButton(QMessageBox::Cancel)->setText(tr("Continue"));
+
+	switch (msg.exec()) {
+	case QMessageBox::Ok:
+		return 1;
+	case QMessageBox::Cancel:
+	default:
+		return 0;
+	case QMessageBox::Apply:
+		break;
+	}
+
+	QString s = QFileDialog::getSaveFileName(mainwin, QString(), name,
+			QString(), NULL, QFileDialog::DontConfirmOverwrite);
+
+	size_t l;
+	db_header_t h;
+	FILE *fp = fopen(QString2filename(s), "w");
+	if (!fp) {
+		throw errorEx(tr("Error opening file: '%1': %2").
+                        arg(s).arg(strerror(errno)), class_name);
+	}
+
+	h.magic   = ntohl(head->magic);
+	h.len     = ntohl(head->len);
+	h.headver = ntohs(head->headver);
+	h.type    = ntohs(head->type);
+	h.version = ntohs(head->version);
+	h.flags   = ntohs(head->flags);
+	memcpy(h.name, head->name, NAMELEN);
+
+	l = fwrite(&h, sizeof h, 1, fp);
+	l += fwrite(p, head->len - sizeof h, 1, fp);
+	fclose(fp);
+
+	return (l == 2);
+}
+
 void db_base::loadContainer()
 {
 	db mydb(dbName);
@@ -77,13 +132,13 @@ void db_base::loadContainer()
 			QString s;
 			p = mydb.load(&head);
 			if (!p) {
-				printf("Load was empty !\n");
+				qWarning("Load was empty !");
 				goto next;
 			}
 			pki = newPKI(&head);
 			if (pki->getVersion() < head.version) {
-				printf("Item[%s]: Version %d "
-					"> known version: %d -> ignored\n",
+				qWarning("Item[%s]: Version %d "
+					"> known version: %d -> ignored",
 					head.name, head.version,
 					pki->getVersion()
 				);
@@ -101,6 +156,13 @@ void db_base::loadContainer()
 				mainwin->Error(err);
 				delete pki;
 				pki = NULL;
+				try {
+					if (handleBadEntry(p, &head)) {
+						mydb.erase();
+					}
+				} catch (errorEx &err) {
+					mainwin->Error(err);
+				}
 			}
 			free(p);
 			if (pki) {

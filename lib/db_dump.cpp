@@ -8,7 +8,7 @@
 #include "db.h"
 #include "exception.h"
 #include <stdlib.h>
-#include <qbytearray.h>
+#include <QtCore/QByteArray>
 
 QByteArray filename2bytearray(const QString &fname)
 {
@@ -53,17 +53,25 @@ int main(int argc, char *argv[])
 	unsigned char *p;
 	db_header_t h;
 	int i=0;
-	char type[] = "NKRCLTSUXX";
+	const char *type[] = {
+		"(none)", "Software Key", "Request", "Certificate",
+		"Revocation", "Template", "Setting", "Token key"
+	};
 
 	try {
 		mydb.first(0);
+		printf("Index Type          Ver Offset Flags   Len  Name\n");
 		while (!mydb.eof()) {
 			p = mydb.load(&h);
 			free(p);
-			printf("%3d: %c V%d O:%6zd, F:%x L:%5d %s\n",
-				i++, type[h.type], h.version, mydb.head_offset,
+			if (h.type > smartCard)
+				h.type = 0;
+			printf("%5d %-12s%5d%7zx%6x%6x  %s\n",
+				i++, type[h.type], h.version,
+				(size_t)mydb.head_offset,
 				h.flags, h.len, h.name);
-			mydb.next(0);
+			if (mydb.next(0))
+				break;
 		}
 	} catch (errorEx &ex) {
 		printf("Exception: '%s'\n", ex.getCString());
