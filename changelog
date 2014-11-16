@@ -2,7 +2,7 @@
    - Delete invalid items (on demand)
    - Be more tolerant against database errors
    - Gracefully handle and repair corrupt databases
-   - add "db_dump(.exe)" binary to all installations
+   - Add "xca_db_stat(.exe)" binary to all installations
  * Translation updates
  * Optionally allow hash algos not supported by the token
  * Select whether to translate established x509 terms

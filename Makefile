@@ -31,7 +31,7 @@ DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)-$(DARWIN)
 APPDIR=$(DMGSTAGE)/xca.app/Contents
 
-all: db_dump$(SUFFIX)
+all: xca_db_stat$(SUFFIX)
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX)
 else
@@ -75,7 +75,7 @@ headers: do.ui
 	$(MAKE) -C $* -f $(TOPDIR)/$*/Makefile \
 		VPATH=$(TOPDIR)/$*
 
-db_dump$(SUFFIX): lib/.build-stamp
+xca_db_stat$(SUFFIX): lib/.build-stamp
 	$(MAKE) -C lib -f $(TOPDIR)/lib/Makefile \
 		VPATH=$(TOPDIR)/lib $@
 	cp lib/$@ $@
@@ -96,11 +96,11 @@ clean:
 	find lib widgets -name "moc_*.cpp" | xargs rm -f
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
 	rm -f lang/*.xml
-	rm -f *~ xca$(SUFFIX) setup_xca*.exe
+	rm -f *~ xca$(SUFFIX) setup_xca*.exe xca_db_stat$(SUFFIX)
 	rm -rf xca-*
 
 distclean: clean
-	rm -f conftest conftest.log local.h Local.mak *~ */.depend
+	rm -f conftest conftest.log local.h Local.mak *~ */.depend config.log config.status
 
 dist: $(TARGET).tar.gz
 $(TARGET).tar:
@@ -121,20 +121,20 @@ snapshot:
 	git archive --format=tar --prefix=xca-$${HASH}/ HEAD | \
 		gzip -9 > xca-$${HASH}.tar.gz
 
-install: xca$(SUFFIX) db_dump$(SUFFIX) $(INSTTARGET)
+install: xca$(SUFFIX) xca_db_stat$(SUFFIX) $(INSTTARGET)
 	install -m 755 -d $(destdir)$(bindir)
 	install -m 755 xca $(destdir)$(bindir)
-	install -m 755 db_dump $(destdir)$(bindir)
+	install -m 755 xca_db_stat $(destdir)$(bindir)
 	$(STRIP) $(destdir)$(bindir)/xca
 
-setup.exe: xca$(SUFFIX) db_dump$(SUFFIX) do.doc do.lang
+setup.exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang
 setup.exe: misc/xca.nsi
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
 		-NOCD -V2 $<
 
-$(DMGSTAGE): xca$(SUFFIX) db_dump$(SUFFIX)
+$(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	rm -rf $(DMGSTAGE)
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/MacOS
 	mkdir -p $(DMGSTAGE)/xca.app/Contents/Resources
@@ -142,9 +142,9 @@ $(DMGSTAGE): xca$(SUFFIX) db_dump$(SUFFIX)
 	ln -s /Applications $(DMGSTAGE)
 	install -m 644 $(TOPDIR)/COPYRIGHT $(DMGSTAGE)/COPYRIGHT.txt
 	install -m 755 xca $(DMGSTAGE)/xca.app/Contents/MacOS
-	install -m 755 db_dump $(DMGSTAGE)/xca.app/Contents/MacOS
+	install -m 755 xca_db_stat $(DMGSTAGE)/xca.app/Contents/MacOS
 	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca
-	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/db_dump
+	$(STRIP) $(DMGSTAGE)/xca.app/Contents/MacOS/xca_db_stat
 	$(MAKE) $(APPTARGET)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
