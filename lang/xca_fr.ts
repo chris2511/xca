@@ -6,7 +6,7 @@
     <message>
         <location filename="../ui/About.ui" line="+89"/>
         <source>Done</source>
-        <translation>OK</translation>
+        <translation>Terminé</translation>
     </message>
 </context>
 <context>
@@ -932,12 +932,12 @@ Numéro de série: %3</translation>
     <message>
         <location line="+93"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
-        <translation type="unfinished"></translation>
+        <translation>Des erreurs ont été détectées et réparées lors de la destruction des éléments échus de la base de données. Un fichier de sauvegarde a été créé</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Removing deleted or outdated items from the database failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nettoyage des éléments détruits ou échus de la base de données a échoué.</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-34"/>
@@ -1362,10 +1362,6 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
 <context>
     <name>NewX509</name>
     <message>
-        <source>Create</source>
-        <translation type="obsolete">Créer</translation>
-    </message>
-    <message>
         <location filename="../ui/NewX509.ui" line="+75"/>
         <source>Source</source>
         <translation>Source</translation>
@@ -1464,52 +1460,10 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
     <message>
         <location line="+6"/>
         <source>Distinguished name</source>
-        <translation>Nom distinctif complet</translation>
+        <translation>Nom distinctif</translation>
     </message>
     <message>
-        <source>Organisation</source>
-        <translation type="obsolete">Organisation</translation>
-    </message>
-    <message>
-        <location filename="../widgets/NewX509.cpp" line="-396"/>
-        <source>This name is only used internally and does not appear in the resulting certificate</source>
-        <translation>Ce nom est seulement utilisé par xca et n&apos;apparaît pas dans le certificat exporté</translation>
-    </message>
-    <message>
-        <source>Must be exactly 2 letter of size (DE, UK)</source>
-        <translation type="obsolete">Doit contenir exactement deux lettres [FR, UK]</translation>
-    </message>
-    <message>
-        <source>Country code</source>
-        <translation type="obsolete">Code du pays</translation>
-    </message>
-    <message>
-        <source>State or Province</source>
-        <translation type="obsolete">Etat ou Province</translation>
-    </message>
-    <message>
-        <source>Locality</source>
-        <translation type="obsolete">Ville</translation>
-    </message>
-    <message>
-        <source>Organisational unit</source>
-        <translation type="obsolete">Unité organisationnlle</translation>
-    </message>
-    <message>
-        <source>E-Mail address</source>
-        <translation type="obsolete">Adresse de courriel</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Internal name</source>
-        <translation>Nom interne</translation>
-    </message>
-    <message>
-        <source>Common name</source>
-        <translation type="obsolete">Nom commun</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewX509.ui" line="+39"/>
+        <location line="+39"/>
         <source>Add</source>
         <translation>Ajouter</translation>
     </message>
@@ -1542,10 +1496,6 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <location line="+11"/>
         <source>Extensions</source>
         <translation>Extensions</translation>
-    </message>
-    <message>
-        <source>Basic constraints</source>
-        <translation type="obsolete">Contraintes basiques</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1663,10 +1613,6 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Pas de date d&apos;expiration précise</translation>
     </message>
     <message>
-        <source>subject alternative name</source>
-        <translation type="obsolete">nom alternatif du sujet</translation>
-    </message>
-    <message>
         <location line="+50"/>
         <location line="+17"/>
         <location line="+76"/>
@@ -1678,13 +1624,9 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+43"/>
-        <location filename="../widgets/NewX509.cpp" line="+778"/>
+        <location filename="../widgets/NewX509.cpp" line="+384"/>
         <source>Edit</source>
         <translation>Modifier</translation>
-    </message>
-    <message>
-        <source>issuer alternative name</source>
-        <translation type="obsolete">Nom alternatif du signataire</translation>
     </message>
     <message>
         <location line="-50"/>
@@ -1692,17 +1634,9 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>URI:</translation>
     </message>
     <message>
-        <source>Authority Info Access</source>
-        <translation type="obsolete">Accès à l&apos;information de l&apos;autorité</translation>
-    </message>
-    <message>
         <location line="+36"/>
         <source>can be altered by the file &quot;aia.txt&quot;</source>
         <translation>peut être altéré par le fichier &quot;aia.txt&quot;</translation>
-    </message>
-    <message>
-        <source>CRL distribution point</source>
-        <translation type="obsolete">Point de distribution de la liste de révocation</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -1710,45 +1644,9 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Utilisation de la clé</translation>
     </message>
     <message>
-        <source>Extended key usage</source>
-        <translation type="obsolete">Utilisation étendue de la clé</translation>
-    </message>
-    <message>
         <location line="+126"/>
         <source>Netscape</source>
         <translation>Netscape</translation>
-    </message>
-    <message>
-        <source>CA Revocation URL</source>
-        <translation type="obsolete">URL de révocation du certificat CA</translation>
-    </message>
-    <message>
-        <source>Revocation URL</source>
-        <translation type="obsolete">URL de révocation</translation>
-    </message>
-    <message>
-        <source>SSL server name</source>
-        <translation type="obsolete">Nom du serveur SSL</translation>
-    </message>
-    <message>
-        <source>Certificate renewal URL</source>
-        <translation type="obsolete">URL de renouvellement de certificat</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation type="obsolete">Commentaire</translation>
-    </message>
-    <message>
-        <source>CA policy URL</source>
-        <translation type="obsolete">URL des conditions générales du CA</translation>
-    </message>
-    <message>
-        <source>Base URL</source>
-        <translation type="obsolete">URL de base</translation>
-    </message>
-    <message>
-        <source>If you know a more pretty one tell me</source>
-        <translation type="obsolete">Si vous en connaissez un plus joli, faites-le moi savoir</translation>
     </message>
     <message>
         <location line="+170"/>
@@ -1767,9 +1665,19 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Créer un certificat auto-&amp;signé avec un numéro de série QA basé sur MD5</translation>
     </message>
     <message>
-        <location line="+166"/>
+        <location line="+37"/>
+        <source>This name is only used internally and does not appear in the resulting certificate</source>
+        <translation>Ce nom est seulement utilisé par xca et n&apos;apparaît pas dans le certificat exporté</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Internal name</source>
+        <translation>Nom interne</translation>
+    </message>
+    <message>
+        <location line="+127"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Critique</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1797,18 +1705,14 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>seulement des caractères 7-bit ASCII imprimables</translation>
     </message>
     <message>
-        <source>XCA template</source>
-        <translation type="obsolete">modèle XCA</translation>
-    </message>
-    <message>
         <location line="+16"/>
         <source>Create XCA template</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer un modèle XCA</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Edit XCA template</source>
-        <translation type="unfinished"></translation>
+        <translation>Editer un modèle XCA</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1932,7 +1836,8 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     <message>
         <location line="+10"/>
         <source>The certificate will be earlier valid than the signer. This is probably not what you want.</source>
-        <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.</translation>
+        <translation>Le certificat serait valide avant son signataire. Ce n&apos;est probablement pas ce qui est désiré.
+</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1983,35 +1888,17 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
         <translation>Options de XCA</translation>
     </message>
     <message>
-        <location line="+113"/>
-        <source>Mandatory subject entries</source>
-        <translation>Inscriptions du sujet obligatoires</translation>
+        <location line="+14"/>
+        <source>Settings</source>
+        <translation>Réglages</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <location line="+60"/>
-        <location line="+57"/>
-        <source>Add</source>
-        <translation>Ajouter</translation>
-    </message>
-    <message>
-        <location line="-110"/>
-        <location line="+60"/>
-        <source>Delete</source>
-        <translation>Détruire</translation>
-    </message>
-    <message>
-        <location line="-176"/>
+        <location line="+14"/>
         <source>Default hash algorithm</source>
         <translation>Algorithme de hachage par défaut</translation>
     </message>
     <message>
-        <location line="-14"/>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+34"/>
+        <location line="+20"/>
         <source>String types</source>
         <translation>Types de chaînes</translation>
     </message>
@@ -2028,34 +1915,54 @@ bien que vous les avez déclarées comme obligatoires dans le menu des options.<
     <message>
         <location line="+7"/>
         <source>Translate established x509 terms (%1 -&gt; %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduire les termes standards définis par x509 (%1 -&gt; %2)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The hashing functionality of the token is not used by XCA.
 It may however honor a restricted hash-set propagated by the token.
 Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</source>
-        <translation type="unfinished"></translation>
+        <translation>La fonctionalité de hachage du jeton n&apos;est pas utilisée par XCA.
+Ce dernier peut néanmoins se limiter à un jeu restreint de fonctions de hachage reconnus par le jeton.
+En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécification PKCS#11.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Only use hashes supported by the token when signing with a token key</source>
-        <translation type="unfinished"></translation>
+        <translation>N&apos;utiliser que des fonction de hachage supportées par le jeton lors d&apos;une signature avec une clé du jeton</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Distinguished name</source>
-        <translation type="unfinished">Nom distinctif complet</translation>
+        <translation>Nom distinctif</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+6"/>
+        <source>Mandatory subject entries</source>
+        <translation>Inscriptions du sujet obligatoires</translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <location line="+60"/>
+        <location line="+57"/>
+        <source>Add</source>
+        <translation>Ajouter</translation>
+    </message>
+    <message>
+        <location line="-110"/>
+        <location line="+60"/>
+        <source>Delete</source>
+        <translation>Enlever</translation>
+    </message>
+    <message>
+        <location line="-35"/>
         <source>Explicit subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Inscriptions explicites du sujet</translation>
     </message>
     <message>
         <location line="+42"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Défaut</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -2497,32 +2404,36 @@ Name: %1
 Type: %2
 Size: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Elément de la base de données corrompu
+Nom: %1
+Type: %2
+Taille: %3
+%4</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Do you want to delete the item from the database? The bad item may be extracted into a separate file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez-vous détruire l&apos;élement de la base de données? L&apos;élément malformé peut être extrait dans un fichier séparé.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlever</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete and extract</source>
-        <translation type="unfinished"></translation>
+        <translation>Détruire et extraire</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Continuer</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+618"/>
@@ -2537,7 +2448,7 @@ Size: %3
     <message>
         <location line="+1"/>
         <source>Netscape extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensions Netscape</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3157,192 +3068,192 @@ En conséquence, il n&apos;a pas été importé</translation>
     <message>
         <location line="+3"/>
         <source>Country code</source>
-        <translation type="unfinished">Code du pays</translation>
+        <translation>Code du pays</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>State or Province</source>
-        <translation type="unfinished">Etat ou Province</translation>
+        <translation>Etat ou Province</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Locality</source>
-        <translation type="unfinished">Ville</translation>
+        <translation>Ville</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisation</source>
-        <translation type="unfinished">Organisation</translation>
+        <translation>Organisation</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisational unit</source>
-        <translation type="unfinished">Unité organisationnlle</translation>
+        <translation>Unité organisationnelle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Common name</source>
-        <translation type="unfinished">Nom commun</translation>
+        <translation>Nom commun</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>E-Mail address</source>
-        <translation type="unfinished">Adresse de courriel</translation>
+        <translation>Adresse de courriel</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numéro de série</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Given name</source>
-        <translation type="unfinished"></translation>
+        <translation>Prénom</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Surname</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de famille</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titre</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Initials</source>
-        <translation type="unfinished"></translation>
+        <translation>Initiales</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Description</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Rôle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pseudonym</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudonyme</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generation Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualificatif de génération</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>x500 Unique Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifiant unique X500</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DN Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualificatif de DN</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unstructured name</source>
-        <translation type="unfinished">Nom non-structuré</translation>
+        <translation>Nom non-structuré</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Challenge password</source>
-        <translation type="unfinished">Mot de passe challenge</translation>
+        <translation>Mot de passe challenge</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Basic Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraintes basiques</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>subject alternative name</source>
-        <translation type="unfinished">nom alternatif du sujet</translation>
+        <translation>nom alternatif du sujet</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>issuer alternative name</source>
-        <translation type="unfinished">Nom alternatif du signataire</translation>
+        <translation>Nom alternatif du signataire</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Subject key identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifiant de clé du sujet</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation type="unfinished">Identifiant de clé de l&apos;autorité</translation>
+        <translation>Identifiant de clé de l&apos;autorité</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key usage</source>
-        <translation type="unfinished">Utilisation de la clé</translation>
+        <translation>Utilisation de la clé</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Extended key usage</source>
-        <translation type="unfinished">Utilisation étendue de la clé</translation>
+        <translation>Utilisation étendue de la clé</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL distribution points</source>
-        <translation type="unfinished"></translation>
+        <translation>Points de distribution de la liste de révocation</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority information access</source>
-        <translation type="unfinished"></translation>
+        <translation>Accès à l&apos;information de l&apos;autorité</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de certificat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Base URL</source>
-        <translation type="unfinished">URL de base</translation>
+        <translation>URL de base</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Revocation URL</source>
-        <translation type="unfinished">URL de révocation</translation>
+        <translation>URL de révocation</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA Revocation URL</source>
-        <translation type="unfinished">URL de révocation du certificat CA</translation>
+        <translation>URL de révocation du certificat CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate renewal URL</source>
-        <translation type="unfinished">URL de renouvellement de certificat</translation>
+        <translation>URL de renouvellement de certificat</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA policy URL</source>
-        <translation type="unfinished">URL des conditions générales du CA</translation>
+        <translation>URL des conditions générales du CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSL server name</source>
-        <translation type="unfinished">Nom du serveur SSL</translation>
+        <translation>Nom du serveur SSL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comment</source>
-        <translation type="unfinished">Commentaire</translation>
+        <translation>Commentaire</translation>
     </message>
 </context>
 <context>
@@ -3791,10 +3702,6 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <location line="+63"/>
         <source>This Key is already on the token</source>
         <translation>Cette clé est déjà sur le jeton</translation>
-    </message>
-    <message>
-        <source>Only RSA and EC keys can be stored on tokens</source>
-        <translation type="obsolete">Seules les clés RSA et EC peuvent être enregistrées sur les jetons</translation>
     </message>
     <message>
         <location line="+73"/>
