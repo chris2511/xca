@@ -970,7 +970,7 @@ Seriennummer: %3</translation>
         <translation>Rücknahmelisten</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+212"/>
+        <location filename="../widgets/MW_database.cpp" line="+168"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
@@ -978,6 +978,16 @@ Seriennummer: %3</translation>
         <location line="+69"/>
         <source>No deleted items found</source>
         <translation>Keine gelöschten Einträge gefunden</translation>
+    </message>
+    <message>
+        <location line="+93"/>
+        <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
+        <translation>Beim Löschen veralteter Datenbankeinträge wurden Fehler erkannt und repariert. Eine Backup-datei wurde erstellt</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Removing deleted or outdated items from the database failed.</source>
+        <translation>Das Entfernen gelöschter oder veralteter Elemente aus der Datenbank ist Fehlgeschlagen.</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-18"/>
@@ -1141,7 +1151,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>unbekannte option: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="-71"/>
+        <location filename="../widgets/MW_database.cpp" line="-166"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Die Benutzung oder der Export privater Schlüssel ist nur mit dem richtigen Datenbankpasswort möglich</translation>
     </message>
@@ -2253,7 +2263,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>Ungültig</translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+176"/>
+        <location filename="../lib/db.cpp" line="+223"/>
         <source>DB: Rename: &apos;%1&apos; already in use</source>
         <translation>DB: Rename: &apos;%1&apos; wird bereits verwendet</translation>
     </message>
@@ -2308,7 +2318,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>Kein Speicher verfügbar %1: %2</translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+243"/>
+        <location filename="../lib/db.cpp" line="+324"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation>zuwenig Daten</translation>
@@ -2471,12 +2481,12 @@ in Bibliothek %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+28"/>
+        <location filename="../lib/db_base.cpp" line="+34"/>
         <source>Internal name</source>
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+634"/>
+        <location line="+690"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -2486,7 +2496,45 @@ in Bibliothek %3
         <translation>Namensteile</translation>
     </message>
     <message>
+        <location line="-645"/>
+        <source>Bad database item
+Name: %1
+Type: %2
+Size: %3
+%4</source>
+        <translation>Problematischer Datenbankeintrag
+Name: %1
+Typ: %2
+Grösse %3
+%4</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Do you want to delete the item from the database? The bad item may be extracted into a separate file.</source>
+        <translation>Soll der Eintrag aus der Datenbank gelöscht werden? Der problematische Eintrag kann in eine separate Datei extrahiert werden.</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
         <location line="+1"/>
+        <source>Delete and extract</source>
+        <translation>Löschen und extrahieren</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Continue</source>
+        <translation>Weiter</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation>Fehler beim Öffnen der Datei %1: %2</translation>
+    </message>
+    <message>
+        <location line="+619"/>
         <source>X509v3 Extensions</source>
         <translation>X509v3 Erweiterungen</translation>
     </message>

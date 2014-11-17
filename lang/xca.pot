@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-13 23:54+0200\n"
+"POT-Creation-Date: 2014-11-16 18:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -752,228 +752,238 @@ msgid "No deleted items found"
 msgstr ""
 
 #: MainWindow#22
-msgid "Recent DataBases"
+msgid ""
+"Errors detected and repaired while deleting outdated items from the "
+"database. A backup file was created"
 msgstr ""
 
 #: MainWindow#23
-msgid "&File"
+msgid "Removing deleted or outdated items from the database failed."
 msgstr ""
 
 #: MainWindow#24
-msgid "&New DataBase"
+msgid "Recent DataBases"
 msgstr ""
 
 #: MainWindow#25
-msgid "&Open DataBase"
+msgid "&File"
 msgstr ""
 
 #: MainWindow#26
-msgid "Generate DH parameter"
+msgid "&New DataBase"
 msgstr ""
 
 #: MainWindow#27
-msgid "Set as default DataBase"
+msgid "&Open DataBase"
 msgstr ""
 
 #: MainWindow#28
-msgid "&Close DataBase"
+msgid "Generate DH parameter"
 msgstr ""
 
 #: MainWindow#29
-msgid "&Dump DataBase"
+msgid "Set as default DataBase"
 msgstr ""
 
 #: MainWindow#30
-msgid "C&hange DataBase password"
+msgid "&Close DataBase"
 msgstr ""
 
 #: MainWindow#31
-msgid "&Import old db_dump"
+msgid "&Dump DataBase"
 msgstr ""
 
 #: MainWindow#32
-msgid "&Undelete items"
+msgid "C&hange DataBase password"
 msgstr ""
 
 #: MainWindow#33
-msgid "Options"
+msgid "&Import old db_dump"
 msgstr ""
 
 #: MainWindow#34
-msgid "Exit"
+msgid "&Undelete items"
 msgstr ""
 
 #: MainWindow#35
-msgid "I&mport"
+msgid "Options"
 msgstr ""
 
 #: MainWindow#36
-msgid "Keys"
+msgid "Exit"
 msgstr ""
 
 #: MainWindow#37
-msgid "Requests"
+msgid "I&mport"
 msgstr ""
 
 #: MainWindow#38
-msgid "PKCS#12"
+msgid "Keys"
 msgstr ""
 
 #: MainWindow#39
-msgctxt "MainWindow#39"
-msgid "PKCS#7"
+msgid "Requests"
 msgstr ""
 
 #: MainWindow#40
-msgctxt "MainWindow#40"
-msgid "Template"
+msgid "PKCS#12"
 msgstr ""
 
 #: MainWindow#41
-msgid "Revocation list"
+msgctxt "MainWindow#41"
+msgid "PKCS#7"
 msgstr ""
 
 #: MainWindow#42
-msgid "PEM file"
+msgctxt "MainWindow#42"
+msgid "Template"
 msgstr ""
 
 #: MainWindow#43
-msgid "paste PEM file"
+msgid "Revocation list"
 msgstr ""
 
 #: MainWindow#44
-msgid "&Token"
+msgid "PEM file"
 msgstr ""
 
 #: MainWindow#45
-msgid "&Manage Security token"
+msgid "paste PEM file"
 msgstr ""
 
 #: MainWindow#46
-msgid "&Init Security token"
+msgid "&Token"
 msgstr ""
 
 #: MainWindow#47
-msgid "&Change PIN"
+msgid "&Manage Security token"
 msgstr ""
 
 #: MainWindow#48
-msgid "Change &SO PIN"
+msgid "&Init Security token"
 msgstr ""
 
 #: MainWindow#49
-msgid "Init PIN"
+msgid "&Change PIN"
 msgstr ""
 
 #: MainWindow#50
-msgid "&Help"
+msgid "Change &SO PIN"
 msgstr ""
 
 #: MainWindow#51
-msgid "&Content"
+msgid "Init PIN"
 msgstr ""
 
 #: MainWindow#52
-msgid "&About"
+msgid "&Help"
 msgstr ""
 
 #: MainWindow#53
-msgid "Donations"
+msgid "&Content"
 msgstr ""
 
 #: MainWindow#54
-msgid "Database dump ( *.dump );;All files ( * )"
+msgid "&About"
 msgstr ""
 
 #: MainWindow#55
-msgid "Import password"
+msgid "Donations"
 msgstr ""
 
 #: MainWindow#56
-msgid "Please enter the password of the old database"
+msgid "Database dump ( *.dump );;All files ( * )"
 msgstr ""
 
 #: MainWindow#57
-msgid "Password verification error. Ignore keys ?"
+msgid "Import password"
 msgstr ""
 
 #: MainWindow#58
-msgid "Import anyway"
+msgid "Please enter the password of the old database"
 msgstr ""
 
 #: MainWindow#59
-msgid "no such option: %1"
+msgid "Password verification error. Ignore keys ?"
 msgstr ""
 
 #: MainWindow#60
-msgid "Import PEM data"
+msgid "Import anyway"
 msgstr ""
 
 #: MainWindow#61
-msgid "Please enter the original SO PIN (PUK) of the token '%1'"
+msgid "no such option: %1"
 msgstr ""
 
 #: MainWindow#62
-msgid "Please enter the new SO PIN (PUK) of the token '%1'"
+msgid "Import PEM data"
 msgstr ""
 
 #: MainWindow#63
-msgid "The new label of the token '%1'"
+msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
 #: MainWindow#64
-msgid "The token '%1' did not contain any keys or certificates"
+msgid "Please enter the new SO PIN (PUK) of the token '%1'"
 msgstr ""
 
 #: MainWindow#65
-msgid "New Password"
+msgid "The new label of the token '%1'"
 msgstr ""
 
 #: MainWindow#66
+msgid "The token '%1' did not contain any keys or certificates"
+msgstr ""
+
+#: MainWindow#67
+msgid "New Password"
+msgstr ""
+
+#: MainWindow#68
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
 msgstr ""
 
-#: MainWindow#67
+#: MainWindow#69
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#68
+#: MainWindow#70
 msgid "Password verify error, please try again"
 msgstr ""
 
-#: MainWindow#69
-msgctxt "MainWindow#69"
+#: MainWindow#71
+msgctxt "MainWindow#71"
 msgid "Password"
 msgstr ""
 
-#: MainWindow#70
+#: MainWindow#72
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#71
+#: MainWindow#73
 msgid "The following error occured:"
 msgstr ""
 
-#: MainWindow#72
+#: MainWindow#74
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: MainWindow#73
+#: MainWindow#75
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
 "handled by XCA.\n"
 "Please enter the DH parameter bits"
 msgstr ""
 
-#: MainWindow#74
-msgctxt "MainWindow#74"
+#: MainWindow#76
+msgctxt "MainWindow#76"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
@@ -1216,378 +1226,316 @@ msgid "Extensions"
 msgstr ""
 
 #: NewX509#28
-msgid "Basic constraints"
-msgstr ""
-
-#: NewX509#29
-msgctxt "NewX509#29"
+msgctxt "NewX509#28"
 msgid "Type"
 msgstr ""
 
-#: NewX509#30
+#: NewX509#29
 msgid "If this will become a CA certificate or not"
 msgstr ""
 
-#: NewX509#31
+#: NewX509#30
 msgid "Not defined"
 msgstr ""
 
-#: NewX509#32
+#: NewX509#31
 msgid "Certification Authority"
 msgstr ""
 
-#: NewX509#33
+#: NewX509#32
 msgid "End Entity"
 msgstr ""
 
-#: NewX509#34
+#: NewX509#33
 msgid "Path length"
 msgstr ""
 
-#: NewX509#35
+#: NewX509#34
 msgid "How much CAs may be below this."
 msgstr ""
 
-#: NewX509#36
+#: NewX509#35
 msgid "The basic constraints should always be critical"
 msgstr ""
 
-#: NewX509#37
+#: NewX509#36
 msgid "Key identifier"
 msgstr ""
 
-#: NewX509#38
+#: NewX509#37
 msgid "Creates a hash of the key following the PKIX guidelines"
 msgstr ""
 
-#: NewX509#39
+#: NewX509#38
 msgid "Copy the Subject Key Identifier from the issuer"
+msgstr ""
+
+#: NewX509#39
+msgctxt "NewX509#39"
+msgid "Validity"
 msgstr ""
 
 #: NewX509#40
 msgctxt "NewX509#40"
-msgid "Validity"
+msgid "Not before"
 msgstr ""
 
 #: NewX509#41
 msgctxt "NewX509#41"
-msgid "Not before"
+msgid "Not after"
 msgstr ""
 
 #: NewX509#42
 msgctxt "NewX509#42"
-msgid "Not after"
+msgid "Time range"
 msgstr ""
 
 #: NewX509#43
 msgctxt "NewX509#43"
-msgid "Time range"
+msgid "Days"
 msgstr ""
 
 #: NewX509#44
 msgctxt "NewX509#44"
-msgid "Days"
+msgid "Months"
 msgstr ""
 
 #: NewX509#45
 msgctxt "NewX509#45"
-msgid "Months"
+msgid "Years"
 msgstr ""
 
 #: NewX509#46
 msgctxt "NewX509#46"
-msgid "Years"
-msgstr ""
-
-#: NewX509#47
-msgctxt "NewX509#47"
 msgid "Apply"
 msgstr ""
 
-#: NewX509#48
+#: NewX509#47
 msgid "Set the time to 00:00:00 and 23:59:59 respectively"
+msgstr ""
+
+#: NewX509#48
+msgctxt "NewX509#48"
+msgid "Midnight"
 msgstr ""
 
 #: NewX509#49
 msgctxt "NewX509#49"
-msgid "Midnight"
+msgid "Local time"
 msgstr ""
 
 #: NewX509#50
 msgctxt "NewX509#50"
-msgid "Local time"
-msgstr ""
-
-#: NewX509#51
-msgctxt "NewX509#51"
 msgid "No well-defined expiration"
 msgstr ""
 
-#: NewX509#52
-msgctxt "NewX509#52"
-msgid "subject alternative name"
-msgstr ""
-
-#: NewX509#53
+#: NewX509#51
 msgid "DNS: IP: URI: email: RID:"
 msgstr ""
 
-#: NewX509#54
+#: NewX509#52
 msgid "Edit"
+msgstr ""
+
+#: NewX509#53
+msgid "URI:"
+msgstr ""
+
+#: NewX509#54
+msgid "can be altered by the file \"aia.txt\""
 msgstr ""
 
 #: NewX509#55
 msgctxt "NewX509#55"
-msgid "issuer alternative name"
-msgstr ""
-
-#: NewX509#56
-msgid "URI:"
-msgstr ""
-
-#: NewX509#57
-msgid "Authority Info Access"
-msgstr ""
-
-#: NewX509#58
-msgid "can be altered by the file \"aia.txt\""
-msgstr ""
-
-#: NewX509#59
-msgid "CRL distribution point"
-msgstr ""
-
-#: NewX509#60
-msgctxt "NewX509#60"
 msgid "Key usage"
 msgstr ""
 
-#: NewX509#61
-msgctxt "NewX509#61"
-msgid "Extended key usage"
-msgstr ""
-
-#: NewX509#62
+#: NewX509#56
 msgid "Netscape"
 msgstr ""
 
-#: NewX509#63
-msgctxt "NewX509#63"
-msgid "CA Revocation URL"
-msgstr ""
-
-#: NewX509#64
-msgctxt "NewX509#64"
-msgid "Revocation URL"
-msgstr ""
-
-#: NewX509#65
-msgctxt "NewX509#65"
-msgid "SSL server name"
-msgstr ""
-
-#: NewX509#66
-msgctxt "NewX509#66"
-msgid "Certificate renewal URL"
-msgstr ""
-
-#: NewX509#67
-msgctxt "NewX509#67"
-msgid "Comment"
-msgstr ""
-
-#: NewX509#68
-msgctxt "NewX509#68"
-msgid "CA policy URL"
-msgstr ""
-
-#: NewX509#69
-msgctxt "NewX509#69"
-msgid "Base URL"
-msgstr ""
-
-#: NewX509#70
+#: NewX509#57
 msgid "Advanced"
 msgstr ""
 
-#: NewX509#71
-msgctxt "NewX509#71"
+#: NewX509#58
+msgctxt "NewX509#58"
 msgid "Validate"
 msgstr ""
 
-#: NewX509#72
+#: NewX509#59
 msgid "Create a &self signed certificate with a MD5-hashed QA serial"
 msgstr ""
 
-#: NewX509#73
+#: NewX509#60
 msgid ""
 "This name is only used internally and does not appear in the resulting "
 "certificate"
 msgstr ""
 
-#: NewX509#74
-msgctxt "NewX509#74"
+#: NewX509#61
+msgctxt "NewX509#61"
 msgid "Internal name"
 msgstr ""
 
-#: NewX509#75
+#: NewX509#62
 msgid "Critical"
 msgstr ""
 
-#: NewX509#76
+#: NewX509#63
 msgid "Create Certificate signing request"
 msgstr ""
 
-#: NewX509#77
+#: NewX509#64
 msgid "minimum size: %1"
 msgstr ""
 
-#: NewX509#78
+#: NewX509#65
 msgid "maximum size: %1"
 msgstr ""
 
-#: NewX509#79
+#: NewX509#66
 msgid "only a-z A-Z 0-9 '()+,-./:=?"
 msgstr ""
 
-#: NewX509#80
+#: NewX509#67
 msgid "only 7-bit clean characters"
 msgstr ""
 
-#: NewX509#81
+#: NewX509#68
 msgid "Create XCA template"
 msgstr ""
 
-#: NewX509#82
+#: NewX509#69
 msgid "Edit XCA template"
 msgstr ""
 
-#: NewX509#83
+#: NewX509#70
 msgid "Create x509 Certificate"
 msgstr ""
 
-#: NewX509#84
+#: NewX509#71
 msgid "Other Tabs"
 msgstr ""
 
-#: NewX509#85
+#: NewX509#72
 msgid "Advanced Tab"
 msgstr ""
 
-#: NewX509#86
+#: NewX509#73
 msgid "Errors"
 msgstr ""
 
-#: NewX509#87
+#: NewX509#74
 msgid "From PKCS#10 request"
 msgstr ""
 
-#: NewX509#88
-msgctxt "NewX509#88"
+#: NewX509#75
+msgctxt "NewX509#75"
 msgid "Abort rollout"
 msgstr ""
 
-#: NewX509#89
+#: NewX509#76
 msgid "The following length restrictions of RFC3280 are violated:"
 msgstr ""
 
-#: NewX509#90
+#: NewX509#77
 msgid "Edit subject"
 msgstr ""
 
-#: NewX509#91
-msgctxt "NewX509#91"
+#: NewX509#78
+msgctxt "NewX509#78"
 msgid "Continue rollout"
 msgstr ""
 
-#: NewX509#92
+#: NewX509#79
 msgid ""
 "The verification of the Certificate request failed.\n"
 "The rollout should be aborted."
 msgstr ""
 
-#: NewX509#93
+#: NewX509#80
 msgid "Continue anyway"
 msgstr ""
 
-#: NewX509#94
+#: NewX509#81
 msgid ""
 "The internal name and the common name are empty.\n"
 "Please set at least the internal name."
 msgstr ""
 
-#: NewX509#95
+#: NewX509#82
 msgid "Edit name"
 msgstr ""
 
-#: NewX509#96
+#: NewX509#83
 msgid "There is no Key selected for signing."
 msgstr ""
 
-#: NewX509#97
+#: NewX509#84
 msgid "Select key"
 msgstr ""
 
-#: NewX509#98
+#: NewX509#85
 msgid ""
 "The following distinguished name entries are empty:\n"
 "%1\n"
 "though you have declared them as mandatory in the options menu."
 msgstr ""
 
-#: NewX509#99
-msgctxt "NewX509#99"
+#: NewX509#86
+msgctxt "NewX509#86"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: NewX509#100
+#: NewX509#87
 msgid "Select other signer"
 msgstr ""
 
-#: NewX509#101
+#: NewX509#88
 msgid "Select other key"
 msgstr ""
 
-#: NewX509#102
-msgctxt "NewX509#102"
+#: NewX509#89
+msgctxt "NewX509#89"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#103
+#: NewX509#90
 msgid "Edit dates"
 msgstr ""
 
-#: NewX509#104
-msgctxt "NewX509#104"
+#: NewX509#91
+msgctxt "NewX509#91"
 msgid "Adjust date and continue"
 msgstr ""
 
-#: NewX509#105
-msgctxt "NewX509#105"
+#: NewX509#92
+msgctxt "NewX509#92"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: NewX509#106
+#: NewX509#93
 msgid ""
 "The certificate will be out of date before it becomes valid. You most "
 "probably mixed up both dates."
 msgstr ""
 
-#: NewX509#107
+#: NewX509#94
 msgid ""
 "The certificate contains invalid or duplicate extensions. Check the "
 "validation on the advanced tab."
 msgstr ""
 
-#: NewX509#108
+#: NewX509#95
 msgid "Edit extensions"
 msgstr ""
 
-#: NewX509#109
+#: NewX509#96
 msgid "Configfile error on line %1\n"
 msgstr ""
 
@@ -1993,22 +1941,59 @@ msgid "Internal name"
 msgstr ""
 
 #: db_base#2
-msgid "Subject entries"
+msgid ""
+"Bad database item\n"
+"Name: %1\n"
+"Type: %2\n"
+"Size: %3\n"
+"%4"
 msgstr ""
 
 #: db_base#3
-msgid "X509v3 Extensions"
+msgid ""
+"Do you want to delete the item from the database? The bad item may be "
+"extracted into a separate file."
 msgstr ""
 
 #: db_base#4
-msgid "Reset"
+msgctxt "db_base#4"
+msgid "Delete"
 msgstr ""
 
 #: db_base#5
-msgid "Paste PEM data"
+msgid "Delete and extract"
 msgstr ""
 
 #: db_base#6
+msgid "Continue"
+msgstr ""
+
+#: db_base#7
+msgctxt "db_base#7"
+msgid "Error opening file: '%1': %2"
+msgstr ""
+
+#: db_base#8
+msgid "Subject entries"
+msgstr ""
+
+#: db_base#9
+msgid "X509v3 Extensions"
+msgstr ""
+
+#: db_base#10
+msgid "Netscape extensions"
+msgstr ""
+
+#: db_base#11
+msgid "Reset"
+msgstr ""
+
+#: db_base#12
+msgid "Paste PEM data"
+msgstr ""
+
+#: db_base#13
 msgid "Columns"
 msgstr ""
 
@@ -2605,78 +2590,72 @@ msgid "Challenge password"
 msgstr ""
 
 #: db_x509name#26
-msgctxt "db_x509name#26"
-msgid "subject alternative name"
+msgid "Basic Constraints"
 msgstr ""
 
 #: db_x509name#27
-msgctxt "db_x509name#27"
-msgid "issuer alternative name"
+msgid "subject alternative name"
 msgstr ""
 
 #: db_x509name#28
-msgid "Subject key identifier"
+msgid "issuer alternative name"
 msgstr ""
 
 #: db_x509name#29
-msgctxt "db_x509name#29"
-msgid "Authority key identifier"
+msgid "Subject key identifier"
 msgstr ""
 
 #: db_x509name#30
 msgctxt "db_x509name#30"
-msgid "Key usage"
+msgid "Authority key identifier"
 msgstr ""
 
 #: db_x509name#31
 msgctxt "db_x509name#31"
-msgid "Extended key usage"
+msgid "Key usage"
 msgstr ""
 
 #: db_x509name#32
-msgid "CRL distribution points"
+msgid "Extended key usage"
 msgstr ""
 
 #: db_x509name#33
-msgid "Authority information access"
+msgid "CRL distribution points"
 msgstr ""
 
 #: db_x509name#34
-msgid "Certificate type"
+msgid "Authority information access"
 msgstr ""
 
 #: db_x509name#35
-msgctxt "db_x509name#35"
-msgid "Base URL"
+msgid "Certificate type"
 msgstr ""
 
 #: db_x509name#36
-msgctxt "db_x509name#36"
-msgid "Revocation URL"
+msgid "Base URL"
 msgstr ""
 
 #: db_x509name#37
-msgctxt "db_x509name#37"
-msgid "CA Revocation URL"
+msgid "Revocation URL"
 msgstr ""
 
 #: db_x509name#38
-msgctxt "db_x509name#38"
-msgid "Certificate renewal URL"
+msgid "CA Revocation URL"
 msgstr ""
 
 #: db_x509name#39
-msgctxt "db_x509name#39"
-msgid "CA policy URL"
+msgid "Certificate renewal URL"
 msgstr ""
 
 #: db_x509name#40
-msgctxt "db_x509name#40"
-msgid "SSL server name"
+msgid "CA policy URL"
 msgstr ""
 
 #: db_x509name#41
-msgctxt "db_x509name#41"
+msgid "SSL server name"
+msgstr ""
+
+#: db_x509name#42
 msgid "Comment"
 msgstr ""
 

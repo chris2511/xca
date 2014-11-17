@@ -930,7 +930,7 @@ Serijski broj: %3</translation>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+210"/>
+        <location filename="../widgets/MW_database.cpp" line="+166"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Korištenje ili izvoz privatnih ključeva neće biti moguće bez davanja ispravne zaporke</translation>
     </message>
@@ -943,6 +943,16 @@ Serijski broj: %3</translation>
         <location line="+69"/>
         <source>No deleted items found</source>
         <translation>Nisu pronađene obrisane stavke</translation>
+    </message>
+    <message>
+        <location line="+93"/>
+        <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Removing deleted or outdated items from the database failed.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-34"/>
@@ -2166,7 +2176,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Poništen / Neispravan</translation>
     </message>
     <message>
-        <location filename="../lib/db.cpp" line="+176"/>
+        <location filename="../lib/db.cpp" line="+223"/>
         <source>DB: Rename: &apos;%1&apos; already in use</source>
         <translation>DB: Preimenuj: &apos;%1&apos; je već u upotrebi</translation>
     </message>
@@ -2181,7 +2191,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>DB: Greška u pisanju %1 - %2</translation>
     </message>
     <message>
-        <location line="+243"/>
+        <location line="+324"/>
         <location line="+17"/>
         <source>Out of data</source>
         <translation>Nema podatka</translation>
@@ -2499,12 +2509,46 @@ U knjižnici %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+28"/>
+        <location filename="../lib/db_base.cpp" line="+34"/>
         <source>Internal name</source>
         <translation>Interno ime</translation>
     </message>
     <message>
-        <location line="+631"/>
+        <location line="+42"/>
+        <source>Bad database item
+Name: %1
+Type: %2
+Size: %3
+%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Do you want to delete the item from the database? The bad item may be extracted into a separate file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Delete and extract</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation type="unfinished">Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
+    </message>
+    <message>
+        <location line="+618"/>
         <source>Subject entries</source>
         <translation>Stavke subjekta</translation>
     </message>
