@@ -26,10 +26,9 @@ x509v3ext::x509v3ext(const X509_EXTENSION *n)
 
 x509v3ext::x509v3ext(const x509v3ext &n)
 {
-	ext = NULL;
-	if (!n.isValid())
-		return;
-	set(n.ext);
+	ext = X509_EXTENSION_new();
+	if (n.ext && n.ext->value && n.ext->value->length > 0)
+		set(n.ext);
 }
 
 x509v3ext::~x509v3ext()
