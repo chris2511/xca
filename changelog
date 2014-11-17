@@ -1,3 +1,5 @@
+ * RedHat Bug #1164340 - segfault when viewing a
+   RHEL entitlement certificate
  * Database hardening
    - Delete invalid items (on demand)
    - Be more tolerant against database errors

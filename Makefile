@@ -34,6 +34,7 @@ APPDIR=$(DMGSTAGE)/xca.app/Contents
 all: xca_db_stat$(SUFFIX)
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX)
+export CFLAGS_XCA_DB_STAT=-mconsole
 else
 ifneq ($(MACDEPLOYQT),)
 all: $(MACTARGET).dmg

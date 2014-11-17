@@ -9,7 +9,7 @@ Requirements:
 
 for compilation, you need the following Libraries:
 
-QT          >=  4.4.0  from http://www.troll.no
+QT          >=  4.6.0  from http://www.troll.no
 OpenSSL     >=  0.9.8  from http://www.openssl.org
 
 GNU C++ compiler >= 3.1.0
@@ -21,17 +21,23 @@ Installation:
 
 Configuration:
 --------------
-XCA comes with its own configuration tool that has no
-relationship with the GNU "autoconf" and "automake" tools.
-Just the naming and invokation looks like it. Thus the
-usual way to configure and build a Package is the same:
-$ ./configure; make; make install
+When cloning the git sources the autoconf configure
+script must be assembled by calling
+$ ./bootstrap
+
+The officially published sources already come with
+a configure script.
+To build, just do  the following steps:
+
+$ ./configure; make -j6; make install
 
 You can build in a different subdirectory:
  - cd into the build directory and
  - call configure by its full path.
-For example, if you ar in the freshly unpacked xca-0.9.1 directory:
-  mkdir Build && cd Build && ../configure && make -j10
+For example, if you are in the freshly unpacked xca-1.1.0 directory:
+
+$ mkdir Build && cd Build && ../configure && make -j10
+
 To clean all built files: rm -rf Build
 
 If you have a special setup, you can predefine the following
@@ -41,40 +47,11 @@ to have a cached build and to not strip xca when installing it.
 XCA expects the translationfiles in /opt/xca/share/xca/
 and installs itself to /opt/xca/bin/
 
-The header and library files were searched in:
-"$QTDIR /usr /usr/X11R6 /usr/local"
-and all directorys supplied at the commandline of configure.
+configure allows to set the openssl and QT installation dir.
+$ ./configure --help
+shows all options. It writes all found settings to
+"Local.mak" and "local.h"
 
-The QT installation dir should not be supplied at the CMDline of configure
-but rather written to the $QTDIR environment variable as it is done
-with the most distributions.
-
-If for example your shiny recent QT is in /home/chris/aaa/src/qt4
-and your new OpenSSL is installed in /usr/local/ssl
-invoke configure like this:
-----------------------------------------------
-$ export QTDIR=/home/chris/aaa/src/qt4
-$ ./configure /usr/local/ssl
-Found: qobject.h at /home/chris/aaa/src/qt4/include
-Found: libqt.so at /home/chris/aaa/src/qt4/lib
-Found: openssl/opensslv.h at /usr/local/ssl/include
-Found: libcrypto.so at /usr/local/ssl/lib
-The Versions of the used libraries are:
-.....
-$
----------------------------------------------
-
-This writes all found settings, vars and headers to
-"Local.mak".
-
-the variables "prefix" and "docdir" may be set while invoking
-configure, like:
-
-$ prefix=/usr docdir=/usr/share/doc/xca ./configure
-If docdir is unset, $prefix/share/xca will be used.
-
-After Local.mak was created by configure it can be used
-and modified for your needs.
 
 Building:
 -----------
@@ -87,6 +64,10 @@ clean    :  deletes all builded files
 distclean:  deletes also Local.mak
 xca.exe  :  W32 executable (see INSTALL.w32)
 setup.exe:  W32 installer
+snapshot :  Creates a current snapshot from the local git repository
+xca.app  :  Creates the MacOSX xca.app
+xca.dmg  :  Creates the MacOSX Disk image
+xca_db_stat: Creates the database analyzer
 
 Installing:
 ------------

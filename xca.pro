@@ -17,7 +17,7 @@ macx {
 }
 
 LIBS += -lcrypto -lltdl
-QMAKE_CFLAGS = -Wno-unused-parameters
+QMAKE_CXXFLAGS = -Wno-unused-parameters -DPREFIX=\\\"/usr/local\\\" -DETC=\\\"/etc\\\" -DDOCDIR=\\\"/usr/local/doc/xca\\\"
 
 # Input
 HEADERS += local.h \
@@ -37,6 +37,7 @@ HEADERS += local.h \
            lib/func.h \
            lib/headerlist.h \
            lib/load_obj.h \
+           lib/main.h \
            lib/oid.h \
            lib/opensc-pkcs11.h \
            lib/pass_info.h \

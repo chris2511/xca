@@ -8,7 +8,7 @@ tar zxf "$openssl".tar.gz
 (cd $openssl
  #./Configure darwin64-x86_64-cc shared --prefix=$INSTALL_DIR
  ./config shared --prefix=$INSTALL_DIR
- make && make install
+ make && make install_sw
 )
 chmod 755 $INSTALL_DIR/lib/*.dylib
 }
@@ -33,8 +33,6 @@ export QTDIR=$HOME/src/install/Qt485
 
 XCA_DIR="`dirname $0`"
 XCA_DIR="`cd $XCA_DIR/.. && pwd`"
-doc=$XCA_DIR/doc/xca-doc.tgz
-test -f $doc || curl http://git.hohnstaedt.de/xca-doc.tgz > $doc
 
 do_libtool
 do_openssl

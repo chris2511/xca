@@ -19,4 +19,4 @@ sinclude .depend
 
 xca_db_stat$(SUFFIX): xca_db_stat.o db.o db.h
 	@$(PRINT) "  LINK   $@"
-	$(CC) $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) xca_db_stat.o db.o $(LIBS) -g -o $@
+	$(CC) $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) $(CFLAGS_XCA_DB_STAT) xca_db_stat.o db.o $(LIBS) -g -o $@

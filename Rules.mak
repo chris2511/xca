@@ -35,3 +35,4 @@ ui_%.h: %.ui
 	$(CC) -MM $(CPPFLAGS) $(CFLAGS) $^ > $@
 
 .SECONDARY:
+.PHONY: .build-stamp

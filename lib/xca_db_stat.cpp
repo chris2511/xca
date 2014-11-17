@@ -53,27 +53,56 @@ int main(int argc, char *argv[])
 	unsigned char *p;
 	db_header_t h;
 	int i=0;
+	size_t last_end = 0;
+	QList<size_t> errs;
+	int format=16;
 	const char *type[] = {
 		"(none)", "Software Key", "Request", "Certificate",
 		"Revocation", "Template", "Setting", "Token key"
 	};
-
+#define FW_IDX 5
+#define FW_TYPE -13
+#define FW_VER 3
+#define FW_SIZE 6
+#define FW_FLAGS 6
 	try {
 		mydb.first(0);
-		printf("Index Type          Ver Offset Flags   Len  Name\n");
+		//QString fmt = QString("%1 %2 %3 %4 %5 %6 %7");
+		QString fmt = QString("%1 | %2 | %3 | %4 | %5 | %6 | %7");
+		puts(CCHAR(fmt  .arg("Index", FW_IDX)
+				.arg("Type", FW_TYPE)
+				.arg("Ver", FW_VER)
+				.arg("Offset", FW_SIZE)
+				.arg("Length", FW_SIZE)
+				.arg("End", FW_SIZE)
+				.arg("Name")));
 		while (!mydb.eof()) {
 			p = mydb.load(&h);
 			free(p);
+			if (last_end != mydb.head_offset)
+				errs << mydb.head_offset;
+			last_end = mydb.head_offset + h.len;
 			if (h.type > smartCard)
 				h.type = 0;
-			printf("%5d %-12s%5d%7zx%6x%6x  %s\n",
-				i++, type[h.type], h.version,
-				(size_t)mydb.head_offset,
-				h.flags, h.len, h.name);
+			puts(CCHAR(fmt  .arg(i++, FW_IDX)
+					.arg(type[h.type], FW_TYPE)
+					.arg(h.version, FW_VER)
+					.arg(mydb.head_offset, FW_SIZE, format)
+					.arg(h.len, FW_SIZE, format)
+					.arg(last_end -1, FW_SIZE, format)
+					.arg(h.name)));
 			if (mydb.next(0))
 				break;
 		}
+		if (errs.size() > 0) {
+			fputs("Garbage found at offset:", stdout);
+			foreach(size_t e, errs)
+				puts(CCHAR(QString(" %1").arg(e)));
+			puts("");
+		}
 	} catch (errorEx &ex) {
 		printf("Exception: '%s'\n", ex.getCString());
+		return 1;
 	}
+	return 0;
 }
