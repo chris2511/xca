@@ -947,12 +947,12 @@ Serijski broj: %3</translation>
     <message>
         <location line="+93"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
-        <translation type="unfinished"></translation>
+        <translation>Tijekom brisanja zastarjelih stavaka iz baze podataka otkrivene su i popravljene greške. Kreirana je rezervna kopija</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Removing deleted or outdated items from the database failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije uspjelo uklanjanje obrisanih ili zastarjelih stavki iz baze podataka.</translation>
     </message>
     <message>
         <location filename="../widgets/MW_menu.cpp" line="-34"/>
@@ -1836,17 +1836,17 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="-682"/>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Ključan</translation>
     </message>
     <message>
         <location line="+63"/>
         <source>Create XCA template</source>
-        <translation type="unfinished"></translation>
+        <translation>Izradi XCA predložak</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Edit XCA template</source>
-        <translation type="unfinished"></translation>
+        <translation>Uredi XCA predložak</translation>
     </message>
     <message>
         <location line="+628"/>
@@ -2030,7 +2030,7 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location line="-14"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Postavke</translation>
     </message>
     <message>
         <location line="+34"/>
@@ -2050,34 +2050,37 @@ premda ste ih označili kao obavezno prisutnima u meniju s opcijama.</translatio
     <message>
         <location line="+7"/>
         <source>Translate established x509 terms (%1 -&gt; %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Prevedi uspostavljene x509 pojmove (%1 -&gt; %2)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The hashing functionality of the token is not used by XCA.
 It may however honor a restricted hash-set propagated by the token.
 Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</source>
-        <translation type="unfinished"></translation>
+        <translation>XCA ne koristi funkcionalnost sažetka tokena.
+XCA će možda prihvatiti ograničeni skup sažetka koje pruža token.
+Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Only use hashes supported by the token when signing with a token key</source>
-        <translation type="unfinished"></translation>
+        <translation>Kod potpisivanja ključem iz tokena koristi samo sažetke koje podržava token</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Distinguished name</source>
-        <translation type="unfinished">Jedinstveno ime (DN)</translation>
+        <translation>Jedinstveno ime</translation>
     </message>
     <message>
         <location line="+62"/>
         <source>Explicit subject entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Izričite stavke subjekta</translation>
     </message>
     <message>
         <location line="+42"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Osnovno</translatorcomment>
+        <translation>Osnovni</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -2520,32 +2523,37 @@ Name: %1
 Type: %2
 Size: %3
 %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Loša stavka baze podatka
+Ime: %1
+Vrsta: %2
+Veličina: %3
+%4</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Do you want to delete the item from the database? The bad item may be extracted into a separate file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Da li želite izbrisati stavku iz baze podataka? Pogrešne stavke mogu biti izdvojene u zasebnu datoteku.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Brisanje</translatorcomment>
+        <translation>Obriši</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Delete and extract</source>
-        <translation type="unfinished"></translation>
+        <translation>Obriši i izdvoji</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavi</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished">Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
+        <translation>Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
     </message>
     <message>
         <location line="+618"/>
@@ -2560,7 +2568,7 @@ Size: %3
     <message>
         <location line="+1"/>
         <source>Netscape extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Netscape proširenja</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3181,192 +3189,194 @@ i zbog toga nije uvezena</translation>
     <message>
         <location line="+3"/>
         <source>Country code</source>
-        <translation type="unfinished">Kod države</translation>
+        <translation>Kod države</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>State or Province</source>
-        <translation type="unfinished">Država ili Pokrajina</translation>
+        <translation>Država ili Pokrajina</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Locality</source>
-        <translation type="unfinished">Mjesto</translation>
+        <translation>Mjesto</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisation</source>
-        <translation type="unfinished">Organizacija</translation>
+        <translation>Organizacija</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Organisational unit</source>
-        <translation type="unfinished">Organizacijska jedinica</translation>
+        <translation>Organizacijska jedinica</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Common name</source>
-        <translation type="unfinished">Uobičajeno ime</translation>
+        <translation>Uobičajeno ime</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>E-Mail address</source>
-        <translation type="unfinished">E-mail adresa</translation>
+        <translation>E-mail adresa</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial number</source>
-        <translation type="unfinished"></translation>
+        <translation>Serijski broj</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Given name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Surname</source>
-        <translation type="unfinished"></translation>
+        <translation>Prezime</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Titula</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Initials</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicijali</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Opis</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Uloga</translatorcomment>
+        <translation>Funkcija</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pseudonym</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudonim</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generation Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>OID: 2.5.4.44</translatorcomment>
+        <translation>Oznaka Generacije</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>x500 Unique Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>x500 Jedinstveni Identifikator</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Name</source>
-        <translation type="unfinished">Ime</translation>
+        <translation>Ime</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DN Qualifier</source>
-        <translation type="unfinished"></translation>
+        <translation>DN Oznaka </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unstructured name</source>
-        <translation type="unfinished">Nestrukturirano ime</translation>
+        <translation>Nestrukturirano ime</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Challenge password</source>
-        <translation type="unfinished">Zaporka za izazov</translation>
+        <translation>Zaporka za izazov</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Basic Constraints</source>
-        <translation type="unfinished"></translation>
+        <translation>Osnovna Ograničenja</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>subject alternative name</source>
-        <translation type="unfinished">Alternativno ime subjekta</translation>
+        <translation>alternativno ime subjekta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>issuer alternative name</source>
-        <translation type="unfinished">alternativno ime izdavača</translation>
+        <translation>alternativno ime izdavača</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Subject key identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Oznaka ključa Subjekta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation type="unfinished">Oznaka ključa Autoriteta</translation>
+        <translation>Oznaka ključa Autoriteta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Key usage</source>
-        <translation type="unfinished">Namjena ključa</translation>
+        <translation>Namjena ključa</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Extended key usage</source>
-        <translation type="unfinished">Proširena upotreba ključa</translation>
+        <translation>Proširena upotreba ključa</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CRL distribution points</source>
-        <translation type="unfinished"></translation>
+        <translation>Točka objave popisa opozvanih potvrda</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authority information access</source>
-        <translation type="unfinished"></translation>
+        <translation>Dohvat informacija Autoriteta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate type</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrsta Potvrde</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Base URL</source>
-        <translation type="unfinished">Osnovni URL</translation>
+        <translation>Osnovni URL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Revocation URL</source>
-        <translation type="unfinished">URL opoziva</translation>
+        <translation>URL opoziva</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA Revocation URL</source>
-        <translation type="unfinished">URL opoziva CA</translation>
+        <translation>URL opoziva CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Certificate renewal URL</source>
-        <translation type="unfinished">URL za obnovu potvrde</translation>
+        <translation>URL za obnovu potvrde</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>CA policy URL</source>
-        <translation type="unfinished">URL politike CA</translation>
+        <translation>URL politike CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>SSL server name</source>
-        <translation type="unfinished">SSL ime poslužitelja</translation>
+        <translation>SSL ime poslužitelja</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Comment</source>
-        <translation type="unfinished">Napomena</translation>
+        <translation>Napomena</translation>
     </message>
 </context>
 <context>
