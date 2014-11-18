@@ -80,7 +80,7 @@ void pki_x509::fromPEM_BIO(BIO *bio, QString name)
 {
 	X509 *_cert;
 	_cert = PEM_read_bio_X509(bio, NULL, NULL, NULL);
-	openssl_error(name);
+	pki_openssl_error();
 	X509_free(cert);
 	cert = _cert;
 	autoIntName();
@@ -158,6 +158,7 @@ void pki_x509::setSerial(const a1int &serial)
 a1int pki_x509::getSerial() const
 {
 	a1int a(X509_get_serialNumber(cert));
+	pki_openssl_error();
 	return a;
 }
 
@@ -192,6 +193,7 @@ a1int pki_x509::getQASerial(const a1int &secret) const
 	a1int ret = hashInfo(EVP_md5());
 	ASN1_INTEGER_free(cert->cert_info->serialNumber);
 	cert->cert_info->serialNumber = hold;
+	pki_openssl_error();
 	return ret;
 }
 
@@ -244,6 +246,7 @@ void pki_x509::d2i(QByteArray &ba)
 		X509_free(cert);
 		cert = c;
 	}
+	pki_openssl_error();
 }
 
 QByteArray pki_x509::i2d()
@@ -380,12 +383,14 @@ void pki_x509::setNotBefore(const a1time &a)
 {
 	a1time t(a);
 	X509_set_notBefore(cert, t.get_utc());
+	pki_openssl_error();
 }
 
 void pki_x509::setNotAfter(const a1time &a)
 {
 	a1time t(a);
 	X509_set_notAfter(cert, t.get_utc());
+	pki_openssl_error();
 }
 
 a1time pki_x509::getNotBefore() const
@@ -419,6 +424,7 @@ void pki_x509::setSubject(const x509name &n)
 	if (cert->cert_info->subject != NULL)
 		X509_NAME_free(cert->cert_info->subject);
 	cert->cert_info->subject = n.get();
+	pki_openssl_error();
 }
 
 void pki_x509::setIssuer(const x509name &n)
@@ -426,6 +432,7 @@ void pki_x509::setIssuer(const x509name &n)
 	if ((cert->cert_info->issuer) != NULL)
 		X509_NAME_free(cert->cert_info->issuer);
 	cert->cert_info->issuer = n.get();
+	pki_openssl_error();
 }
 
 bool pki_x509::addV3ext(const x509v3ext &e, bool skip_existing)
@@ -622,6 +629,7 @@ pki_key *pki_x509::getPubKey() const
 void pki_x509::setPubKey(pki_key *key)
 {
 	 X509_set_pubkey(cert, key->getPubKey());
+	pki_openssl_error();
 }
 
 QString pki_x509::fingerprint(const EVP_MD *digest)
@@ -631,6 +639,7 @@ QString pki_x509::fingerprint(const EVP_MD *digest)
 	unsigned int n, j;
 	unsigned char md[EVP_MAX_MD_SIZE];
 
+	pki_openssl_error();
 	if (X509_digest(cert, digest, md, &n)) {
 		for (j=0; j<n; j++) {
 			sprintf(zs, "%02X%c",md[j], (j+1 == n) ?'\0':':');
@@ -648,6 +657,7 @@ bool pki_x509::checkDate()
 	n = a1time::now(),
 	b = getNotBefore();
 	a = getNotAfter();
+	pki_openssl_error();
 
 	if (!a.isValid() || !b.isValid())
 		return false;
@@ -671,6 +681,7 @@ x509v3ext pki_x509::getExtByNid(int nid)
 	extList el = getV3ext();
 	int i = el.idxByNid(nid);
 
+	pki_openssl_error();
 	if (i == -1)
 		return x509v3ext();
 	return el[i];
@@ -782,6 +793,7 @@ x509rev pki_x509::getRev(bool reason)
 		a.setReason(revoke_reason);
 		a.setInvalDate(invalDate);
 	}
+	pki_openssl_error();
 	return a;
 }
 
@@ -798,6 +810,7 @@ bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen)
 	if (ca)
 		*ca = bc->ca;
 	BASIC_CONSTRAINTS_free(bc);
+	pki_openssl_error();
 	return true;
 }
 
@@ -826,6 +839,8 @@ QVariant pki_x509::column_data(dbheader *hd)
 			return QVariant(fingerprint(EVP_md5()));
 		case HD_cert_sha1fp:
 			return QVariant(fingerprint(EVP_sha1()));
+		case HD_cert_sha256fp:
+			return QVariant(fingerprint(EVP_sha256()));
 		case HD_cert_ca: {
 			a1int len;
 			bool ca, haslen;
@@ -875,6 +890,7 @@ QVariant pki_x509::getIcon(dbheader *hd)
 QString pki_x509::getSigAlg()
 {
 	QString alg = OBJ_nid2ln(OBJ_obj2nid(cert->sig_alg->algorithm));
+	pki_openssl_error();
 	return alg;
 }
 

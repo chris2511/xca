@@ -90,12 +90,12 @@
         <translation>Gültig</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Details of the certificate signing request</source>
         <translation>Details des Zertifikatsantrags</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="+39"/>
+        <location filename="../ui/CertDetail.ui" line="+36"/>
         <source>Details of the Certificate</source>
         <translation>Details des Zertifikates</translation>
     </message>
@@ -105,7 +105,7 @@
         <translation>S&amp;tatus</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+54"/>
         <source>Serial</source>
         <translation>Seriennummer</translation>
     </message>
@@ -145,24 +145,34 @@
         <translation>Fingerprints</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+20"/>
         <source>SHA1</source>
         <translation>SHA1</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>MD5</source>
         <translation>MD5</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+21"/>
         <source>A SHA-1 hashsum of the certificate</source>
         <translation>Eine SHA-1 Summe des Zertifikats</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>An md5 hashsum of the certificate</source>
         <translation>Eine md5 Summe des Zertifikats</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>SHA256</source>
+        <translation>SHA256</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>A SHA-256 hashsum of the certificate</source>
+        <translation>Eine SHA-256 Summe des Zertifikats</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -201,7 +211,7 @@
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-119"/>
+        <location filename="../widgets/CertDetail.cpp" line="-120"/>
         <source>Show config</source>
         <translation>Konfiguration anzeigen</translation>
     </message>
@@ -311,7 +321,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+907"/>
+        <location filename="../lib/db_x509.cpp" line="+908"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Es wurde kein Schlüssel gefunden für das Zertifikat: </translation>
     </message>
@@ -2880,7 +2890,7 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-879"/>
+        <location filename="../lib/db_x509.cpp" line="-880"/>
         <source>Serial</source>
         <translation>Seriennummer</translation>
     </message>
@@ -2893,6 +2903,11 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <location line="+1"/>
         <source>sha1 fingerprint</source>
         <translation>sha1 Fingerprint</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>sha256 fingerprint</source>
+        <translation>sha256 Fingerprint</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3025,18 +3040,18 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Vertrauen</translation>
     </message>
     <message>
-        <location line="-608"/>
-        <location line="+610"/>
+        <location line="-609"/>
+        <location line="+611"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-610"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Zeigt den Inhalt der basic constraints erweiterung</translation>
     </message>
     <message>
-        <location line="+610"/>
+        <location line="+611"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
@@ -3904,7 +3919,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+807"/>
+        <location filename="../lib/pki_x509.cpp" line="+820"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -3919,12 +3934,12 @@ und wurde daher nicht importiert</translation>
         <translation>Immer Vertraut</translation>
     </message>
     <message>
-        <location line="-333"/>
+        <location line="-339"/>
         <source>There is no key for signing !</source>
         <translation>Kein Schlüssel zum Unterschreiben!</translation>
     </message>
     <message>
-        <location line="-403"/>
+        <location line="-410"/>
         <source>Delete the certificate &apos;%1&apos;?</source>
         <translation>Das Zertifikat &apos;%1&apos; löschen?</translation>
     </message>
@@ -3944,7 +3959,7 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat aus der Datei %1 konnte nicht geladen werden. Ist weder PEM noch DER.</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+174"/>
         <source>This certificate is already on the security token</source>
         <translation>Dieses Zertifikat ist bereits auf der Chipkarte</translation>
     </message>
@@ -3954,12 +3969,12 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+478"/>
+        <location line="+488"/>
         <source>CRL expires: %1</source>
         <translation>CRL ungültig ab: %1</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>No</source>
         <translation>Nein</translation>
     </message>
@@ -3969,13 +3984,13 @@ und wurde daher nicht importiert</translation>
         <translation>Ja</translation>
     </message>
     <message>
-        <location line="-768"/>
+        <location line="-783"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
-        <location line="+442"/>
-        <location line="+486"/>
+        <location line="+449"/>
+        <location line="+495"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>

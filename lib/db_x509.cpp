@@ -36,6 +36,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 		new dbheader(HD_cert_serial,	true, tr("Serial")) <<
 		new dbheader(HD_cert_md5fp,	false,tr("md5 fingerprint")) <<
 		new dbheader(HD_cert_sha1fp,	false,tr("sha1 fingerprint")) <<
+		new dbheader(HD_cert_sha256fp,	false,tr("sha256 fingerprint")) <<
 		new dbheader(HD_cert_notBefore, false,tr("Start date"),
 				tr("not Before")) <<
 		new dbheader(HD_cert_notAfter,	true, tr("Expiry date"),

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="tr_TR">
 <context>
     <name>About</name>
     <message>
@@ -40,7 +40,7 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../ui/CertDetail.ui" line="+39"/>
+        <location filename="../ui/CertDetail.ui" line="+36"/>
         <source>Details of the Certificate</source>
         <translation>Sertifika bilgileri</translation>
     </message>
@@ -50,7 +50,7 @@
         <translation>&amp;Durum</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+54"/>
         <source>Serial</source>
         <translation>Seri</translation>
     </message>
@@ -90,24 +90,34 @@
         <translation>Parmak izleri</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+20"/>
         <source>SHA1</source>
         <translation>SHA1</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>MD5</source>
         <translation>MD5</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+21"/>
         <source>A SHA-1 hashsum of the certificate</source>
         <translation>A SHA-1 hashsum sertifikası</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>An md5 hashsum of the certificate</source>
         <translation>An md5 hassum sertifikası</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>SHA256</source>
+        <translation>SHA256</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>A SHA-256 hashsum of the certificate</source>
+        <translation>A SHA-256 hashsum sertifikası</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -201,7 +211,7 @@
         <translation>Geçerli</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Details of the certificate signing request</source>
         <translation>sertifika imzalama isteği detayları</translation>
     </message>
@@ -311,7 +321,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+907"/>
+        <location filename="../lib/db_x509.cpp" line="+908"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Sertifikadaki anahtar bulunamıyor. </translation>
     </message>
@@ -2778,13 +2788,13 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-881"/>
-        <location line="+610"/>
+        <location filename="../lib/db_x509.cpp" line="-882"/>
+        <location line="+611"/>
         <source>CA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-610"/>
         <source>reflects the basic Constraints extension</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2801,6 +2811,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <message>
         <location line="+1"/>
         <source>sha1 fingerprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>sha256 fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3817,7 +3832,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+174"/>
         <source>This certificate is already on the security token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3827,18 +3842,18 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+134"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+486"/>
+        <location line="+495"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-194"/>
         <source>Not trusted</source>
         <translation type="unfinished">Güvenilmeyen</translation>
     </message>
@@ -3858,7 +3873,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>

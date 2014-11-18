@@ -30,6 +30,7 @@
 #define HD_cert_ca	 -15
 #define HD_cert_md5fp	 -16
 #define HD_cert_sha1fp   -17
+#define HD_cert_sha256fp -18
 
 #define HD_req_signed -20
 #define HD_req_unstr_name -21

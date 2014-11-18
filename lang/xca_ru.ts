@@ -91,12 +91,12 @@
         <translation type="unfinished">Действительный</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Details of the certificate signing request</source>
         <translation type="unfinished">Подробная информация о пакете запроса на подпись сертификата</translation>
     </message>
     <message>
-        <location filename="../ui/CertDetail.ui" line="+39"/>
+        <location filename="../ui/CertDetail.ui" line="+36"/>
         <source>Details of the Certificate</source>
         <translation>Подробная информация о сертификате</translation>
     </message>
@@ -106,7 +106,7 @@
         <translation>С&amp;татус</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+54"/>
         <source>Serial</source>
         <translation type="unfinished">Серийный номер</translation>
     </message>
@@ -146,24 +146,34 @@
         <translation type="unfinished">Хэш-суммы</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+20"/>
         <source>SHA1</source>
         <translation>SHA1</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>MD5</source>
         <translation>MD5</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+21"/>
         <source>A SHA-1 hashsum of the certificate</source>
         <translation>SHA-1 хэшсумма сертификата</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>An md5 hashsum of the certificate</source>
         <translation>MD5 хэшсумма сертификата</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>SHA256</source>
+        <translation type="unfinished">SHA256</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>A SHA-256 hashsum of the certificate</source>
+        <translation>SHA-256 хэшсумма сертификата</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -202,7 +212,7 @@
     </message>
     <message>
         <location line="+13"/>
-        <location filename="../widgets/CertDetail.cpp" line="-119"/>
+        <location filename="../widgets/CertDetail.cpp" line="-120"/>
         <source>Show config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -312,7 +322,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+907"/>
+        <location filename="../lib/db_x509.cpp" line="+908"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Не найден ключ для сетификата: </translation>
     </message>
@@ -2826,12 +2836,12 @@ and will be completed by the new, private part of the key</source>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-879"/>
+        <location filename="../lib/db_x509.cpp" line="-880"/>
         <source>Serial</source>
         <translation type="unfinished">Серийный номер</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>not After</source>
         <translation type="unfinished">Не позже, чем</translation>
     </message>
@@ -2851,7 +2861,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">Дата истечения срока действия</translation>
     </message>
     <message>
-        <location line="-6"/>
+        <location line="-7"/>
         <source>reflects the basic Constraints extension</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2863,6 +2873,11 @@ and will be completed by the new, private part of the key</source>
     <message>
         <location line="+1"/>
         <source>sha1 fingerprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>sha256 fingerprint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2976,8 +2991,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">Доверие</translation>
     </message>
     <message>
-        <location line="-608"/>
-        <location line="+610"/>
+        <location line="-609"/>
+        <location line="+611"/>
         <source>CA</source>
         <translation>ЦС</translation>
     </message>
@@ -3860,12 +3875,12 @@ and thus was not stored</source>
         <translation type="unfinished">Удалить %1 сертификатов: %2?</translation>
     </message>
     <message>
-        <location line="+270"/>
+        <location line="+273"/>
         <source>Delete the certificate &apos;%1&apos; from the token &apos;%2 (#%3)&apos;?</source>
         <translation>Удалить сертификат &apos;%1&apos; из Токена &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+463"/>
+        <location line="+473"/>
         <source>Not trusted</source>
         <translation>Доверия нет</translation>
     </message>
@@ -3880,7 +3895,7 @@ and thus was not stored</source>
         <translation>Доверие есть</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+31"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3890,28 +3905,28 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-364"/>
+        <location line="-372"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished">Не существует ключа для подписания !</translation>
     </message>
     <message>
-        <location line="-363"/>
+        <location line="-370"/>
         <source>Unable to load the certificate in file %1. Tried PEM and DER certificate.</source>
         <translation>Не удается загрузить сертификат из файла %1. Формат файла должен быть PEM или DER.</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+174"/>
         <source>This certificate is already on the security token</source>
         <translation>Этот сертификат уже есть на Токене</translation>
     </message>
     <message>
-        <location line="+540"/>
+        <location line="+550"/>
         <source>CRL expires: %1</source>
         <translation type="unfinished">CRL истекает: %1</translation>
     </message>
     <message>
-        <location line="-310"/>
-        <location line="+486"/>
+        <location line="-316"/>
+        <location line="+495"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>

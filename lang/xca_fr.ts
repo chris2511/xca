@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="en_US">
 <context>
     <name>About</name>
     <message>
@@ -40,7 +40,7 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../ui/CertDetail.ui" line="+39"/>
+        <location filename="../ui/CertDetail.ui" line="+36"/>
         <source>Details of the Certificate</source>
         <translation>Détails du Certificat</translation>
     </message>
@@ -50,7 +50,7 @@
         <translation>E&amp;tat</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+54"/>
         <source>Serial</source>
         <translation>Numéro de série</translation>
     </message>
@@ -90,24 +90,34 @@
         <translation>Empreinte</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+20"/>
         <source>SHA1</source>
         <translation>SHA1</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>MD5</source>
         <translation>MD5</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+21"/>
         <source>A SHA-1 hashsum of the certificate</source>
         <translation>La somme de hachage SHA-1 du certificat</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>An md5 hashsum of the certificate</source>
         <translation>La somme de hachage MD5 du certificat</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>SHA256</source>
+        <translation>SHA256</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>A SHA-256 hashsum of the certificate</source>
+        <translation>La somme de hachage SHA-256 du certificat</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -201,7 +211,7 @@
         <translation>Valide</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Details of the certificate signing request</source>
         <translation>Détails de la requête de signature</translation>
     </message>
@@ -312,7 +322,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+907"/>
+        <location filename="../lib/db_x509.cpp" line="+908"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Aucune clé n&apos;a été trouvée pour ce certificat: </translation>
     </message>
@@ -2792,13 +2802,13 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-881"/>
-        <location line="+610"/>
+        <location filename="../lib/db_x509.cpp" line="-882"/>
+        <location line="+611"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-610"/>
         <source>reflects the basic Constraints extension</source>
         <translation>reflète l&apos;extension des contraintes basiques</translation>
     </message>
@@ -2816,6 +2826,11 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <location line="+1"/>
         <source>sha1 fingerprint</source>
         <translation>Empreinte sha1</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>sha256 fingerprint</source>
+        <translation>Empreinte sha256</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3837,7 +3852,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Impossible de charge le certificat du fichier %1. Les formats PEM et DER ont été essayés.</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+174"/>
         <source>This certificate is already on the security token</source>
         <translation>Ce certificat est déjà dans le jeton de sécurité</translation>
     </message>
@@ -3847,18 +3862,18 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Détruire le certificat &apos;%1&apos; sur le jeton &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+134"/>
         <source>There is no key for signing !</source>
         <translation>Il n&apos;y a pas de clé pour signer !</translation>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+486"/>
+        <location line="+495"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-194"/>
         <source>Not trusted</source>
         <translation>Pas sûr</translation>
     </message>
@@ -3878,7 +3893,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>La liste de révocation expire le %1</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>No</source>
         <translation>Non</translation>
     </message>

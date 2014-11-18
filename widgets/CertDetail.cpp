@@ -139,6 +139,7 @@ void CertDetail::setCert(pki_x509 *cert)
 		// the fingerprints
 		fpMD5->setText(cert->fingerprint(EVP_md5()));
 		fpSHA1->setText(cert->fingerprint(EVP_sha1()));
+		fpSHA256->setText(cert->fingerprint(EVP_sha256()));
 
 		openssl_error();
 	} catch (errorEx &err) {

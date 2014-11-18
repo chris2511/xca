@@ -44,7 +44,7 @@
 <context>
     <name>CertDetail</name>
     <message>
-        <location filename="../ui/CertDetail.ui" line="+39"/>
+        <location filename="../ui/CertDetail.ui" line="+36"/>
         <source>Details of the Certificate</source>
         <translation>Detalji Potvrde</translation>
     </message>
@@ -55,7 +55,7 @@
         <translation>S&amp;tanje</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+54"/>
         <source>Serial</source>
         <translation>Serijski broj</translation>
     </message>
@@ -95,24 +95,34 @@
         <translation>Sažeci potvrde</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+20"/>
         <source>SHA1</source>
         <translation>SHA1</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>MD5</source>
         <translation>MD5</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+21"/>
         <source>A SHA-1 hashsum of the certificate</source>
         <translation>SHA-1 sažetak potvrde</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-14"/>
         <source>An md5 hashsum of the certificate</source>
         <translation>MD5 sažetak potvrde</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>SHA256</source>
+        <translation>SHA256</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>A SHA-256 hashsum of the certificate</source>
+        <translation>SHA-256 sažetak potvrde</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -210,7 +220,7 @@
         <translation>Važeći</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Details of the certificate signing request</source>
         <translation>Detalji zahtjeva za izdavanje potvrde</translation>
     </message>
@@ -326,7 +336,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+907"/>
+        <location filename="../lib/db_x509.cpp" line="+908"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Nije pronađen ključ za Potvrdu:</translation>
     </message>
@@ -2912,13 +2922,13 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-881"/>
-        <location line="+610"/>
+        <location filename="../lib/db_x509.cpp" line="-882"/>
+        <location line="+611"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-609"/>
+        <location line="-610"/>
         <source>reflects the basic Constraints extension</source>
         <translation>odražava proširenja osnovna Ograničenja</translation>
     </message>
@@ -2936,6 +2946,11 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <location line="+1"/>
         <source>sha1 fingerprint</source>
         <translation>sha1 sažetak</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>sha256 fingerprint</source>
+        <translation>sha256 sažetak</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3965,7 +3980,7 @@ i zbog toga nije spreman</translation>
         <translation>Nije moguće učitati potvrdu u datoteci %1. Proban je PEM i DER format.</translation>
     </message>
     <message>
-        <location line="+171"/>
+        <location line="+174"/>
         <source>This certificate is already on the security token</source>
         <translation>Ova potvrda se već nalazi na pametnom tokenu</translation>
     </message>
@@ -3975,18 +3990,18 @@ i zbog toga nije spreman</translation>
         <translation>Obrisati potvrdu %1 s tokena &apos;%2 (#%3)&apos;?</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+134"/>
         <source>There is no key for signing !</source>
         <translation>Nema ključa za potpisivanje !</translation>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+486"/>
+        <location line="+495"/>
         <source>Wrong Size %1</source>
         <translation>Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-194"/>
         <source>Not trusted</source>
         <translation>Nepouzdan</translation>
     </message>
@@ -4006,7 +4021,7 @@ i zbog toga nije spreman</translation>
         <translation>Popis opozvanih potvrda ističe: %1</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+16"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>

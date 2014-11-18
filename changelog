@@ -1,3 +1,4 @@
+ * SF Feat. Req. #75 show SHA-256 digest
  * RedHat Bug #1164340 - segfault when viewing a
    RHEL entitlement certificate
  * Database hardening
