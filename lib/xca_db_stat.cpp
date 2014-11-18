@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 		while (!mydb.eof()) {
 			p = mydb.load(&h);
 			free(p);
-			if (last_end != mydb.head_offset)
+			if (last_end != (size_t)mydb.head_offset)
 				errs << mydb.head_offset;
 			last_end = mydb.head_offset + h.len;
 			if (h.type > smartCard)
