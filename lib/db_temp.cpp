@@ -20,10 +20,10 @@
 db_temp::db_temp(QString DBfile, MainWindow *mw)
 	:db_x509name(DBfile, mw)
 {
-	allHeaders << new dbheader(HD_temp_type, true, tr("Type"));
 	class_name = "templates";
 	pkitype << tmpl;
 
+	updateHeaders();
 	loadContainer();
 
 	predefs = newPKI();
@@ -48,6 +48,13 @@ db_temp::db_temp(QString DBfile, MainWindow *mw)
 			XCA_WARN(tr("Bad template: %1").arg(name));
 		}
 	}
+}
+
+dbheaderList db_temp::getHeaders()
+{
+	dbheaderList h = db_x509name::getHeaders();
+	h << new dbheader(HD_temp_type, true, tr("Type"));
+	return h;
 }
 
 db_temp::~db_temp()

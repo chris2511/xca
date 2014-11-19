@@ -7,6 +7,7 @@ db_token::db_token(QString db, MainWindow *mw)
         :db_base(db, mw)
 {
 	class_name = "manageTokens";
+	updateHeaders();
 }
 
 bool db_token::setData(const QModelIndex &index, const QVariant &value, int role)

@@ -23,13 +23,65 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QMessageBox>
 
+class myLang
+{
+public:
+	QString english, native;
+	QLocale locale;
+	myLang(QString e, QString n, QLocale l) {
+		english = e; native = n, locale = l;
+	}
+};
+
 void MainWindow::init_menu()
 {
-	QMenu *file, *help, *import, *token;
+	static QMenu *file = NULL, *help = NULL, *import = NULL,
+			*token = NULL, *languageMenu = NULL;
+	static QActionGroup * langGroup = NULL;
+
+	QList<myLang> languages;
+	if (file) delete file;
+	if (help) delete help;
+	if (import) delete import;
+	if (token) delete token;
+	if (languageMenu) delete languageMenu;
+	if (historyMenu) delete historyMenu;
+	if (langGroup) delete langGroup;
+
+	wdMenuList.clear();
+	scardList.clear();
+	acList.clear();
+
+	langGroup = new QActionGroup(this);
 
 	historyMenu = new tipMenu(tr("Recent DataBases") + " ...", this);
 	connect(historyMenu, SIGNAL(triggered(QAction*)),
                 this, SLOT(open_database(QAction*)));
+
+	languages <<
+		myLang("System", tr("System"), QLocale::system()) <<
+		myLang("Croatian", tr("Croatian"), QLocale("hr")) <<
+		myLang("English", tr("English"), QLocale("en")) <<
+		myLang("French", tr("French"), QLocale("fr")) <<
+		myLang("German", tr("German"), QLocale("de")) <<
+		myLang("Russian", tr("Russian"), QLocale("ru")) <<
+		myLang("Spanish", tr("Spanish"), QLocale("es")) <<
+		myLang("Turkish", tr("Turkish"), QLocale("tr"));
+
+	languageMenu = new tipMenu(tr("Language"), this);
+	connect(languageMenu, SIGNAL(triggered(QAction*)),
+		qApp, SLOT(switchLanguage(QAction*)));
+
+	foreach(myLang l, languages) {
+		QAction *a = new QAction(l.english, langGroup);
+		a->setToolTip(l.native);
+		a->setData(QVariant(l.locale));
+		a->setCheckable(true);
+		langGroup->addAction(a);
+		languageMenu->addAction(a);
+		if (l.locale == XCA_application::language())
+			a->setChecked(true);
+	}
 
 	file = menuBar()->addMenu(tr("&File"));
 	file->addAction(tr("&New DataBase"), this, SLOT(new_database()),
@@ -41,6 +93,8 @@ void MainWindow::init_menu()
 				 SLOT(generateDHparam()));
 	acList += file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
+	acList += file->addAction(tr("No default DataBase"), this,
+				SLOT(no_default_database()));
 	acList += file->addAction(tr("&Close DataBase"), this,
 		SLOT(close_database()), QKeySequence(QKeySequence::Close));
 	acList += file->addAction(tr("&Dump DataBase"), this,
@@ -53,6 +107,7 @@ void MainWindow::init_menu()
 				SLOT(undelete()));
 	file->addSeparator();
 	acList += file->addAction(tr("Options"), this, SLOT(setOptions()));
+	file->addMenu(languageMenu);
 	file->addSeparator();
 	file->addAction(tr("Exit"), qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4);
 
@@ -93,7 +148,7 @@ void MainWindow::init_menu()
 			QKeySequence::HelpContents);
 	help->addAction(tr("&About"), this, SLOT(about()) );
 	help->addAction(tr("Donations"), this, SLOT(donations()) );
-	wdList += import;
+	wdMenuList += import;
 	scardList += token;
 }
 

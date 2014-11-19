@@ -17,6 +17,9 @@
 class db_x509name: public db_base
 {
 	Q_OBJECT
+
+	protected:
+		dbheaderList getHeaders();
 	public:
 		db_x509name(QString db, MainWindow *mw);
 };
@@ -25,6 +28,8 @@ class db_x509super: public db_x509name
 {
 	Q_OBJECT
 
+	protected:
+		dbheaderList getHeaders();
 	public:
 		db_x509super(QString db, MainWindow *mw);
 		pki_key *findKey(pki_x509super *ref);

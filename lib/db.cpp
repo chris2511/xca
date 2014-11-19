@@ -396,7 +396,7 @@ int db::shrink(int flags)
 	file.reset();
 
 	while ((ret = file.read((char*)&head, sizeof head)) > 0) {
-		if (ret < sizeof head) {
+		if (ret < (qint64)sizeof head) {
 			qWarning("shrink(): Short read: 0x%s instead of 0x%s",
 				XNUM(ret), XNUM(sizeof head));
 			result = 1;

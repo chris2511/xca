@@ -85,7 +85,7 @@ static QString fileNAmeDecoderFunc(const QByteArray &localFileName)
 	return filename2QString(localFileName.constData());
 }
 
-MainWindow::MainWindow(QWidget *parent )
+MainWindow::MainWindow(QWidget *parent)
 	:QMainWindow(parent)
 {
 	QFile::setEncodingFunction(fileNameEncoderFunc);
@@ -95,6 +95,7 @@ MainWindow::MainWindow(QWidget *parent )
 	dbindex->setFrameStyle(QFrame::Plain | QFrame::NoFrame);
 	dbindex->setMargin(6);
 
+	dn_translations_setup();
 	statusBar()->addWidget(dbindex, 1);
 
 	setupUi(this);
@@ -102,6 +103,8 @@ MainWindow::MainWindow(QWidget *parent )
 
 	wdList << keyButtons << reqButtons << certButtons <<
 		tempButtons <<	crlButtons;
+
+	historyMenu = NULL;
 	init_menu();
 	setItemEnabled(false);
 
@@ -135,7 +138,6 @@ MainWindow::MainWindow(QWidget *parent )
 	setAcceptDrops(true);
 
 	searchEdit = new QLineEdit();
-//	searchEdit->setMinimumWidth(220);
 
 	connect(searchEdit, SIGNAL(textChanged(const QString &)),
 		keyView, SLOT(setFilter(const QString&)));
@@ -194,6 +196,9 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 void MainWindow::setItemEnabled(bool enable)
 {
 	foreach(QWidget *w, wdList) {
+		w->setEnabled(enable);
+	}
+	foreach(QWidget *w, wdMenuList) {
 		w->setEnabled(enable);
 	}
 	foreach(QAction *a, acList) {
@@ -867,3 +872,25 @@ void MainWindow::generateDHparam()
 		delete bar;
 }
 
+void MainWindow::changeEvent(QEvent *event)
+{
+	if (event->type() == QEvent::LanguageChange) {
+		retranslateUi(this);
+		dn_translations_setup();
+		init_menu();
+		update_history_menu();
+		if (keys)
+			keys->updateHeaders();
+		if (reqs)
+			reqs->updateHeaders();
+		if (certs)
+			certs->updateHeaders();
+		if (crls)
+			crls->updateHeaders();
+		if (temps)
+			temps->updateHeaders();
+		if (!dbfile.isEmpty())
+			dbindex->setText(tr("Database") + ": " + dbfile);
+	}
+	QMainWindow::changeEvent(event);
+}

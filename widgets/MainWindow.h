@@ -18,6 +18,7 @@
 #include "lib/exception.h"
 #include "lib/oid.h"
 #include "lib/Passwd.h"
+#include "lib/main.h"
 #include <QtGui/QPixmap>
 #include <QtGui/QFileDialog>
 #include <QtGui/QMenuBar>
@@ -25,6 +26,7 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QMenu>
 #include <QtGui/QToolTip>
+#include <QtCore/QLocale>
 
 #define DBFILE "xca.xdb"
 
@@ -71,6 +73,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		QString string_opt;
 		QString pkcs11path;
 		QList<QWidget*> wdList;
+		QList<QWidget*> wdMenuList;
 		QList<QWidget*> scardList;
 		QList<QAction*> acList;
 		QStringList history;
@@ -141,6 +144,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void close_database();
 		void dump_database();
 		void default_database();
+		void no_default_database();
 		void connNewX509(NewX509 *nx);
 		void about();
 		void donations();
@@ -152,6 +156,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void pastePem();
 		void changeDbPass();
 		void openURLs(QStringList &files);
+		void changeEvent(QEvent *event);
 
 	signals:
 		void newURLs(QStringList &);

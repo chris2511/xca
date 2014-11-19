@@ -15,59 +15,29 @@
 db_x509name::db_x509name(QString db, MainWindow *mw)
 	:db_base(db, mw)
 {
-	allHeaders << new dbheader(HD_subject_name, false, tr("Subject"),
+}
+
+dbheaderList db_x509name::getHeaders()
+{
+	dbheaderList h = db_base::getHeaders();
+	h <<	new dbheader(HD_subject_name, false, tr("Subject"),
 			tr("Complete distinguished name")) <<
 		new dbheader(HD_subject_hash, false, tr("Subject hash"),
 			tr("Hash to lookup certs in directories"));
 
-	if (dn_translations.size() == 0) {
-		dn_translations[NID_countryName] = tr("Country code");
-		dn_translations[NID_stateOrProvinceName] = tr("State or Province");
-		dn_translations[NID_localityName] = tr("Locality");
-		dn_translations[NID_organizationName] = tr("Organisation");
-		dn_translations[NID_organizationalUnitName] = tr("Organisational unit");
-		dn_translations[NID_commonName] = tr("Common name");
-		dn_translations[NID_pkcs9_emailAddress] = tr("E-Mail address");
-		dn_translations[NID_serialNumber] = tr("Serial number");
-		dn_translations[NID_givenName] = tr("Given name");
-		dn_translations[NID_surname] = tr("Surname");
-		dn_translations[NID_title] = tr("Title");
-		dn_translations[NID_initials] = tr("Initials");
-		dn_translations[NID_description] = tr("Description");
-		dn_translations[NID_role] = tr("Role");
-		dn_translations[NID_pseudonym] = tr("Pseudonym");
-		dn_translations[NID_generationQualifier] = tr("Generation Qualifier");
-		dn_translations[NID_x500UniqueIdentifier] = tr("x500 Unique Identifier");
-		dn_translations[NID_name] = tr("Name");
-		dn_translations[NID_dnQualifier] = tr("DN Qualifier");
-		dn_translations[NID_pkcs9_unstructuredName] = tr("Unstructured name");
-		dn_translations[NID_pkcs9_challengePassword] = tr("Challenge password");
-
-		dn_translations[NID_basic_constraints] = tr("Basic Constraints");
-		dn_translations[NID_subject_alt_name] = tr("subject alternative name");
-		dn_translations[NID_issuer_alt_name] = tr("issuer alternative name");
-		dn_translations[NID_subject_key_identifier] = tr("Subject key identifier");
-		dn_translations[NID_authority_key_identifier] = tr("Authority key identifier");
-		dn_translations[NID_key_usage] = tr("Key usage");
-		dn_translations[NID_ext_key_usage] = tr("Extended key usage");
-		dn_translations[NID_crl_distribution_points] = tr("CRL distribution points");
-		dn_translations[NID_info_access] = tr("Authority information access");
-		dn_translations[NID_netscape_cert_type] = tr("Certificate type");
-		dn_translations[NID_netscape_base_url] = tr("Base URL");
-		dn_translations[NID_netscape_revocation_url] = tr("Revocation URL");
-		dn_translations[NID_netscape_ca_revocation_url] = tr("CA Revocation URL");
-		dn_translations[NID_netscape_renewal_url] = tr("Certificate renewal URL");
-		dn_translations[NID_netscape_ca_policy_url] = tr("CA policy URL");
-		dn_translations[NID_netscape_ssl_server_name] = tr("SSL server name");
-		dn_translations[NID_netscape_comment] = tr("Comment");
-	}
 	foreach(int nid, *MainWindow::dn_nid)
-		allHeaders << new nid_dbheader(nid, dbheader::hd_x509name);
+		h << new nid_dbheader(nid, dbheader::hd_x509name);
+	return h;
 }
 
 db_x509super::db_x509super(QString db, MainWindow *mw)
 	:db_x509name(db, mw)
 {
+}
+
+dbheaderList db_x509super::getHeaders()
+{
+	dbheaderList h = db_x509name::getHeaders();
 	NIDlist v3nid, v3ns_nid;
 	v3nid <<
 		NID_subject_alt_name <<
@@ -88,14 +58,15 @@ db_x509super::db_x509super(QString db, MainWindow *mw)
 		NID_netscape_ssl_server_name <<
 		NID_netscape_comment;
 
-	allHeaders << new dbheader(HD_x509key_name, false, tr("Key name"),
+	h <<	new dbheader(HD_x509key_name, false, tr("Key name"),
 			tr("Internal name of the key"));
 
 	foreach(int nid, v3nid)
-		allHeaders << new nid_dbheader(nid, dbheader::hd_v3ext);
+		h << new nid_dbheader(nid, dbheader::hd_v3ext);
 
 	foreach(int nid, v3ns_nid)
-		allHeaders << new nid_dbheader(nid, dbheader::hd_v3ext_ns);
+		h << new nid_dbheader(nid, dbheader::hd_v3ext_ns);
+	return h;
 }
 
 void db_x509super::delKey(pki_key *delkey)

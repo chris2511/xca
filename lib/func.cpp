@@ -445,3 +445,47 @@ BIO *BIO_QBA_mem_buf(QByteArray &a)
 
 bool translate_dn = false;
 QMap<int, QString> dn_translations;
+
+void dn_translations_setup()
+{
+	dn_translations.clear();
+	dn_translations[NID_countryName] = QObject::tr("Country code");
+	dn_translations[NID_stateOrProvinceName] = QObject::tr("State or Province");
+	dn_translations[NID_localityName] = QObject::tr("Locality");
+	dn_translations[NID_organizationName] = QObject::tr("Organisation");
+	dn_translations[NID_organizationalUnitName] = QObject::tr("Organisational unit");
+	dn_translations[NID_commonName] = QObject::tr("Common name");
+	dn_translations[NID_pkcs9_emailAddress] = QObject::tr("E-Mail address");
+	dn_translations[NID_serialNumber] = QObject::tr("Serial number");
+	dn_translations[NID_givenName] = QObject::tr("Given name");
+	dn_translations[NID_surname] = QObject::tr("Surname");
+	dn_translations[NID_title] = QObject::tr("Title");
+	dn_translations[NID_initials] = QObject::tr("Initials");
+	dn_translations[NID_description] = QObject::tr("Description");
+	dn_translations[NID_role] = QObject::tr("Role");
+	dn_translations[NID_pseudonym] = QObject::tr("Pseudonym");
+	dn_translations[NID_generationQualifier] = QObject::tr("Generation Qualifier");
+	dn_translations[NID_x500UniqueIdentifier] = QObject::tr("x500 Unique Identifier");
+	dn_translations[NID_name] = QObject::tr("Name");
+	dn_translations[NID_dnQualifier] = QObject::tr("DN Qualifier");
+	dn_translations[NID_pkcs9_unstructuredName] = QObject::tr("Unstructured name");
+	dn_translations[NID_pkcs9_challengePassword] = QObject::tr("Challenge password");
+
+	dn_translations[NID_basic_constraints] = QObject::tr("Basic Constraints");
+	dn_translations[NID_subject_alt_name] = QObject::tr("subject alternative name");
+	dn_translations[NID_issuer_alt_name] = QObject::tr("issuer alternative name");
+	dn_translations[NID_subject_key_identifier] = QObject::tr("Subject key identifier");
+	dn_translations[NID_authority_key_identifier] = QObject::tr("Authority key identifier");
+	dn_translations[NID_key_usage] = QObject::tr("Key usage");
+	dn_translations[NID_ext_key_usage] = QObject::tr("Extended key usage");
+	dn_translations[NID_crl_distribution_points] = QObject::tr("CRL distribution points");
+	dn_translations[NID_info_access] = QObject::tr("Authority information access");
+	dn_translations[NID_netscape_cert_type] = QObject::tr("Certificate type");
+	dn_translations[NID_netscape_base_url] = QObject::tr("Base URL");
+	dn_translations[NID_netscape_revocation_url] = QObject::tr("Revocation URL");
+	dn_translations[NID_netscape_ca_revocation_url] = QObject::tr("CA Revocation URL");
+	dn_translations[NID_netscape_renewal_url] = QObject::tr("Certificate renewal URL");
+	dn_translations[NID_netscape_ca_policy_url] = QObject::tr("CA policy URL");
+	dn_translations[NID_netscape_ssl_server_name] = QObject::tr("SSL server name");
+	dn_translations[NID_netscape_comment] = QObject::tr("Comment");
+}

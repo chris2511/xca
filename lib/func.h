@@ -42,6 +42,7 @@ void inc_progress_bar(int, int, void *p);
 
 extern bool translate_dn;
 extern QMap<int, QString> dn_translations;
+void dn_translations_setup();
 
 #define openssl_error(x) _openssl_error(QString(x), C_FILE, __LINE__)
 #define ign_openssl_error(x) _ign_openssl_error(QString(x), C_FILE, __LINE__)

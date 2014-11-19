@@ -30,8 +30,16 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
 	rootItem->setIntName("[x509 root]");
-	allHeaders <<
-		new dbheader(HD_cert_ca,	true, tr("CA"),
+	class_name = "certificates";
+	pkitype << x509;
+	updateHeaders();
+	loadContainer();
+}
+
+dbheaderList db_x509::getHeaders()
+{
+	dbheaderList h = db_x509super::getHeaders();
+	h <<	new dbheader(HD_cert_ca,	true, tr("CA"),
 			tr("reflects the basic Constraints extension")) <<
 		new dbheader(HD_cert_serial,	true, tr("Serial")) <<
 		new dbheader(HD_cert_md5fp,	false,tr("md5 fingerprint")) <<
@@ -43,10 +51,7 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 				tr("not After")) <<
 		new dbheader(HD_cert_trust,	false,tr("Trust state")) <<
 		new dbheader(HD_cert_revokation,true, tr("Revocation"));
-
-	class_name = "certificates";
-	pkitype << x509;
-	loadContainer();
+	return h;
 }
 
 pki_base *db_x509::newPKI(db_header_t *)

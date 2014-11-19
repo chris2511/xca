@@ -9,7 +9,9 @@
 #define __MAIN_H
 
 #include <QtGui/QApplication>
+#include <QtGui/QAction>
 #include <QtCore/QTranslator>
+#include <QtCore/QLocale>
 #include "widgets/MainWindow.h"
 #ifdef WIN32
 #include <windows.h>
@@ -37,17 +39,23 @@ class XCA_application : public QApplication
 
 private:
 	MainWindow *mainw;
-	XcaTranslator qtTr;
-	XcaTranslator xcaTr;
+	XcaTranslator *qtTr;
+	XcaTranslator *xcaTr;
+	static QLocale lang;
 
 public:
 	XCA_application(int &argc, char *argv[]);
 	void setMainwin(MainWindow *m);
+	void setupLanguage(QLocale lang);
+	static QLocale language() { return lang; }
 
 protected:
 	bool event(QEvent *ev);
 
 signals:
 	void openFiles(QStringList &);
+
+public slots:
+	void switchLanguage(QAction* a);
 };
 #endif

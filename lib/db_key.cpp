@@ -34,15 +34,21 @@ db_key::db_key(QString db, MainWindow *mw)
 	rootItem->setIntName("[key root]");
 	class_name = "keys";
 	pkitype << asym_key << smartCard;
-	allHeaders <<
-		new dbheader(HD_key_type,   true, tr("Type")) <<
+	updateHeaders();
+	loadContainer();
+}
+
+dbheaderList db_key::getHeaders()
+{
+	dbheaderList h = db_base::getHeaders();
+	h <<	new dbheader(HD_key_type,   true, tr("Type")) <<
 		new dbheader(HD_key_size,   true, tr("Size")) <<
 #ifndef OPENSSL_NO_EC
 		new dbheader(HD_key_curve,  false,tr("EC Group")) <<
 #endif
 		new dbheader(HD_key_use,    true, tr("Use")) <<
 		new dbheader(HD_key_passwd, true, tr("Password"));
-	loadContainer();
+	return h;
 }
 
 pki_base *db_key::newPKI(db_header_t *head)

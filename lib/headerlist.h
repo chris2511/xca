@@ -124,6 +124,7 @@ class dbheader
 		case HD_subject_hash:
 		case HD_cert_md5fp:
 		case HD_cert_sha1fp:
+		case HD_cert_sha256fp:
 		case NID_subject_key_identifier:
 		case NID_authority_key_identifier:
 			return true;
@@ -197,6 +198,11 @@ class dbheaderList: public QList<dbheader*>
 {
     public:
 
+	dbheaderList(dbheader *h) :QList<dbheader*>() {
+		append(h);
+	}
+	dbheaderList() :QList<dbheader*>() {
+	}
 	QByteArray toData()
 	{
 		QByteArray ba;

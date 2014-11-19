@@ -23,6 +23,8 @@ class db_temp: public db_x509name
     protected:
 	QPixmap *keyicon;
 	pki_base *predefs;
+	dbheaderList getHeaders();
+
     public:
 	db_temp(QString DBfile, MainWindow *mw);
 	~db_temp();

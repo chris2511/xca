@@ -18,15 +18,22 @@
 db_x509req::db_x509req(QString DBfile, MainWindow *mw)
 	:db_x509super(DBfile, mw)
 {
-	allHeaders << new dbheader(HD_req_signed, true, tr("Signed"),
+	class_name = "requests";
+	pkitype << x509_req;
+	updateHeaders();
+	loadContainer();
+}
+
+dbheaderList db_x509req::getHeaders()
+{
+	dbheaderList h = db_x509super::getHeaders();
+	h <<	new dbheader(HD_req_signed, true, tr("Signed"),
 			tr("whether the request is already signed or not")) <<
 		new dbheader(HD_req_unstr_name, false, tr("Unstructured name"),
 			QString(OBJ_nid2ln(NID_pkcs9_unstructuredName))) <<
 		new dbheader(HD_req_chall_pass, false, tr("Challenge password"),
 			 QString(OBJ_nid2ln(NID_pkcs9_challengePassword)));
-	class_name = "requests";
-	pkitype << x509_req;
-	loadContainer();
+	return h;
 }
 
 pki_base *db_x509req::newPKI(db_header_t *)

@@ -13,7 +13,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QContextMenuEvent>
 #include <QtCore/QVariant>
-#include <QRegExp>
+#include <QtCore/QRegExp>
 
 
 XcaTreeView::XcaTreeView(QWidget *parent)

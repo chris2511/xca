@@ -9,12 +9,15 @@
 #include <QtCore/QTranslator>
 #include <QtCore/QTextCodec>
 #include <QtCore/QDir>
+#include <QtCore/QFile>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
 #include "lib/main.h"
 #ifdef WIN32
 #include <windows.h>
 #endif
+
+QLocale XCA_application::lang = QLocale::system();
 
 void XCA_application::setMainwin(MainWindow *m)
 {
@@ -26,9 +29,39 @@ void XCA_application::setMainwin(MainWindow *m)
 XCA_application::XCA_application(int &argc, char *argv[])
 	:QApplication(argc, argv)
 {
-	QLocale sys = QLocale::system();
+	qtTr = NULL;
+	xcaTr = NULL;
+	mainw = NULL;
+
+	QFile file(getUserSettingsDir() +
+			QDir::separator() + "defaultlang");
+
+	if (file.open(QIODevice::ReadOnly)) {
+		lang = QLocale(QString(file.read(128)));
+	}
+	setupLanguage(lang);
+#ifdef Q_WS_MAC
+	QStringList libp = libraryPaths();
+	libp.prepend(applicationDirPath() + "/../Plugins");
+	setLibraryPaths(libp);
+#endif
+}
+
+void XCA_application::setupLanguage(QLocale l)
+{
 	QStringList dirs;
 
+	lang = l;
+	if (qtTr) {
+		removeTranslator(qtTr);
+		delete qtTr;
+	}
+	qtTr = new XcaTranslator();
+	if (xcaTr) {
+		removeTranslator(xcaTr);
+		delete xcaTr;
+	}
+	xcaTr = new XcaTranslator();
 	dirs
 #ifdef XCA_DEFAULT_QT_TRANSLATE
 		<< XCA_DEFAULT_QT_TRANSLATE
@@ -42,20 +75,34 @@ XCA_application::XCA_application(int &argc, char *argv[])
 		;
 
 	foreach(QString dir, dirs) {
-		if (qtTr.load(sys, "qt", dir)) {
+		if (qtTr->load(lang, "qt", dir)) {
 			break;
 		}
 	}
-	xcaTr.load(sys, "xca", getPrefix());
+	xcaTr->load(lang, "xca", getPrefix());
 
-	installTranslator(&qtTr);
-	installTranslator(&xcaTr);
+	installTranslator(qtTr);
+	installTranslator(xcaTr);
+}
 
-#ifdef Q_WS_MAC
-	QStringList libp = libraryPaths();
-	libp.prepend(applicationDirPath() + "/../Plugins");
-	setLibraryPaths(libp);
-#endif
+void XCA_application::switchLanguage(QAction* a)
+{
+	QLocale lang = a->data().toLocale();
+	setupLanguage(lang);
+
+	QString dir = getUserSettingsDir();
+	QFile file(dir +QDir::separator() +"defaultlang");
+
+	if (lang == QLocale::system()) {
+		file.remove();
+		return;
+	}
+
+	QDir d;
+	d.mkpath(dir);
+	if (file.open(QIODevice::WriteOnly)) {
+		file.write(lang.name().toUtf8());
+	}
 }
 
 bool XCA_application::event(QEvent *ev)
@@ -74,7 +121,7 @@ int main( int argc, char *argv[] )
 	int ret = 0, pkictr;
 	MainWindow *mw;
 
-	XCA_application a( argc, argv );
+	XCA_application a(argc, argv);
 	mw = new MainWindow(NULL);
 	try {
 		a.setMainwin(mw);

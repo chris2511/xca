@@ -31,7 +31,6 @@ db_base::db_base(QString db, MainWindow *mw)
 	colResizing = 0;
 	currentIdx = QModelIndex();
 	class_name = "base";
-	allHeaders << new dbheader(HD_internal_name, true, tr("Internal name"));
 }
 
 db_base::~db_base()
@@ -195,6 +194,22 @@ next:
 	emit columnsContentChanged();
 	return;
 }
+
+void db_base::updateHeaders()
+{
+	QByteArray ba = allHeaders.toData();
+	foreach(dbheader *h, allHeaders)
+		delete h;
+	allHeaders = getHeaders();
+	allHeaders.fromData(ba);
+}
+
+dbheaderList db_base::getHeaders()
+{
+	return dbheaderList(new dbheader(HD_internal_name, true,
+		tr("Internal name")));
+}
+
 
 void db_base::saveHeaderState()
 {

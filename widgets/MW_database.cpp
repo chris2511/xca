@@ -168,7 +168,7 @@ int MainWindow::init_database()
 	if (pki_evp::passwd.isNull())
 		XCA_INFO(tr("Using or exporting private keys will not be possible without providing the correct password"));
 
-	dbindex->setText(tr("Database") + ":" + dbfile);
+	dbindex->setText(tr("Database") + ": " + dbfile);
 	load_engine();
 	return ret;
 }
@@ -279,6 +279,11 @@ void MainWindow::default_database()
 		fclose(fp);
 	}
 
+}
+
+void MainWindow::no_default_database()
+{
+	QFile::remove(getUserSettingsDir() + QDir::separator() + "defaultdb");
 }
 
 void MainWindow::close_database()

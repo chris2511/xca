@@ -45,7 +45,7 @@ do_XCA()
   mkdir -p $XCA_BUILD
   cd $XCA_BUILD
   $XCA_DIR/configure.w32
-  make -j5 USE_HOSTTOOLS=no all
+  make -j5 USE_HOSTTOOLS=no
 )}
 
 if ! test -f db_dump.exe; then

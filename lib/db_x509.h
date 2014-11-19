@@ -25,6 +25,7 @@ class db_x509: public db_x509super
 	protected:
 		QPixmap *certicon[4];
 		pki_x509 *get1SelectedCert();
+		dbheaderList getHeaders();
 
 	public:
 		static bool treeview;

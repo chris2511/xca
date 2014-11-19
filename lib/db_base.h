@@ -41,12 +41,14 @@ class db_base: public QAbstractItemModel
 		MainWindow *mainwin;
 		QString class_name;
 		dbheaderList allHeaders;
+		virtual dbheaderList getHeaders();
 		int colResizing;
 		int handleBadEntry(unsigned char *p, db_header_t *head);
 
 	public:
 		pki_base *rootItem;
 		db_base(QString db, MainWindow *mw);
+		virtual void updateHeaders();
 		virtual ~db_base();
 		virtual pki_base *newPKI(db_header_t *head = NULL);
 		virtual void insertPKI(pki_base *pki);
