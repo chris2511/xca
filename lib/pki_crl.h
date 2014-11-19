@@ -69,6 +69,7 @@ class pki_crl: public pki_x509name
 		void setCrlNumber(a1int num);
 		bool getCrlNumber(a1int *num);
 		BIO *pem(BIO *);
+		bool visible();
 };
 
 #endif

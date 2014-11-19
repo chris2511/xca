@@ -133,6 +133,26 @@ MainWindow::MainWindow(QWidget *parent )
 	connect(this, SIGNAL(newURLs(QStringList &)),
 		this, SLOT(openURLs(QStringList &)));
 	setAcceptDrops(true);
+
+	searchEdit = new QLineEdit();
+//	searchEdit->setMinimumWidth(220);
+
+	connect(searchEdit, SIGNAL(textChanged(const QString &)),
+		keyView, SLOT(setFilter(const QString&)));
+	connect(searchEdit, SIGNAL(textChanged(const QString &)),
+		reqView, SLOT(setFilter(const QString&)));
+	connect(searchEdit, SIGNAL(textChanged(const QString &)),
+		certView, SLOT(setFilter(const QString&)));
+	connect(searchEdit, SIGNAL(textChanged(const QString &)),
+		tempView, SLOT(setFilter(const QString&)));
+	connect(searchEdit, SIGNAL(textChanged(const QString &)),
+		crlView, SLOT(setFilter(const QString&)));
+
+	keyView->setModel(keys);
+	reqView->setModel(reqs);
+	certView->setModel(certs);
+	tempView->setModel(temps);
+	crlView->setModel(crls);
 }
 
 void MainWindow::dropEvent(QDropEvent *event)

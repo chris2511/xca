@@ -87,8 +87,9 @@ class pki_scard: public pki_key
 		void deleteFromToken();
 		void deleteFromToken(slotid slot);
 		void store_token(slotid slot, EVP_PKEY *pkey);
-		virtual int renameOnToken(slotid slot, QString name);
-		virtual QString getMsg(msg_type msg);
+		int renameOnToken(slotid slot, QString name);
+		QString getMsg(msg_type msg);
+		bool visible();
 };
 
 #endif

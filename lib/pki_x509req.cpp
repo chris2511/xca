@@ -442,6 +442,17 @@ QVariant pki_x509req::getIcon(dbheader *hd)
 	return QVariant(*icon[pixnum]);
 }
 
+bool pki_x509req::visible()
+{
+	if (pki_x509super::visible())
+		return true;
+	if (getAttribute(request, NID_pkcs9_unstructuredName).contains(limitPattern))
+		return true;
+	if (getAttribute(request, NID_pkcs9_challengePassword).contains(limitPattern))
+		return true;
+	return false;
+}
+
 void pki_x509req::oldFromData(unsigned char *p, int size)
 {
 	QByteArray ba((const char *)p, size);

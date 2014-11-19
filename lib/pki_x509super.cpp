@@ -121,6 +121,16 @@ void pki_x509super::opensslConf(QString fname)
 	fwrite_ba(fp, ba, fname);
 	fclose(fp);
 }
+
+bool pki_x509super::visible()
+{
+	if (pki_x509name::visible())
+		return true;
+	if (getSigAlg().contains(limitPattern))
+		return true;
+	return getV3ext().search(limitPattern);
+}
+
 // Start class  pki_x509name
 
 pki_x509name::pki_x509name(const QString name)
@@ -147,4 +157,11 @@ QVariant pki_x509name::column_data(dbheader *hd)
 			return QVariant(getSubject().getEntryByNid(hd->id));
 	}
 	return pki_base::column_data(hd);
+}
+
+bool pki_x509name::visible()
+{
+	if (pki_base::visible())
+		return true;
+	return getSubject().search(limitPattern);
 }

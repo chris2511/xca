@@ -63,5 +63,6 @@ class extList : public QList<x509v3ext>
 	int idxByNid(int nid);
 	bool genConf(int nid, QString *single, QString *adv = NULL);
 	void genGenericConf(QString *adv);
+	bool search(const QRegExp &pattern);
 };
 #endif

@@ -168,6 +168,16 @@ void pki_crl::addV3ext(const x509v3ext &e)
 	pki_openssl_error();
 }
 
+bool pki_crl::visible()
+{
+	extList el;
+	if (pki_x509name::visible())
+		return true;
+	if (getSigAlg().contains(limitPattern))
+		return true;
+	el.setStack(crl->crl->extensions);
+	return el.search(limitPattern);
+}
 
 void pki_crl::sign(pki_key *key, const EVP_MD *md)
 {

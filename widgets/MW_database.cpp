@@ -57,6 +57,9 @@ int MainWindow::init_database()
 		return ret;
 	}
 
+	searchEdit->setText("");
+	searchEdit->show();
+	statusBar()->addWidget(searchEdit, 1);
 	mandatory_dn = "";
 	explicit_dn = explicit_dn_default;
 
@@ -290,6 +293,7 @@ void MainWindow::close_database()
 			setting, "mw_geometry");
 	}
 	setItemEnabled(false);
+	statusBar()->removeWidget(searchEdit);
 	dbindex->clear();
 
 	keyView->setModel(NULL);

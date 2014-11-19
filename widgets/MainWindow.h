@@ -77,6 +77,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		tipMenu *historyMenu;
 		void update_history_menu();
 		void set_geometry(char *p, db_header_t *head);
+		QLineEdit *searchEdit;
 
 	protected:
 		void init_images();

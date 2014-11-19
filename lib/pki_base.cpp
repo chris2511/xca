@@ -13,6 +13,7 @@
 
 int pki_base::pki_counter = 0;
 int pki_base::suppress_messages = 0;
+QRegExp pki_base::limitPattern;
 
 pki_base::pki_base(const QString name, pki_base *p)
 {
@@ -37,7 +38,7 @@ enum pki_type pki_base::getType()
 
 pki_base::~pki_base(void)
 {
-	while((childCount()))
+	while (childItems.size() > 0)
 		delete takeFirst();
 	pki_counter--;
 }
@@ -51,6 +52,13 @@ QString pki_base::getIntName() const
 QString pki_base::getUnderlinedName() const
 {
 	return getIntName().replace(QRegExp("[ &;`/\\\\]+"), "_");
+}
+
+bool pki_base::visible()
+{
+	if (limitPattern.isEmpty())
+		return true;
+	return getIntName().contains(limitPattern);
 }
 
 int pki_base::get_pki_counter()
@@ -130,7 +138,7 @@ void pki_base::insert(int row, pki_base *item)
 
 int pki_base::childCount()
 {
-	return childItems.count();
+	return childItems.size();
 }
 
 int pki_base::row(void) const

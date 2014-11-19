@@ -13,6 +13,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QContextMenuEvent>
 #include <QtCore/QVariant>
+#include <QRegExp>
 
 
 XcaTreeView::XcaTreeView(QWidget *parent)
@@ -147,6 +148,14 @@ void XcaTreeView::editIdx(const QModelIndex &idx)
 	edit(proxy->mapFromSource(idx));
 }
 
+void XcaTreeView::setFilter(const QString &pattern)
+{
+	 pki_base::limitPattern = QRegExp(pattern,
+			Qt::CaseInsensitive, QRegExp::Wildcard);
+	// Only to tell the model about the changed filter
+	 proxy->setFilterFixedString(pattern);
+}
+
 XcaProxyModel::XcaProxyModel(QWidget *parent)
 	:QSortFilterProxyModel(parent)
 {
@@ -174,6 +183,13 @@ bool XcaProxyModel::lessThan(const QModelIndex &left,
 			return l < r;
 	}
 	return QSortFilterProxyModel::lessThan(left, right);
+}
+
+bool XcaProxyModel::filterAcceptsRow(int sourceRow,
+         const QModelIndex &sourceParent) const
+{
+	QModelIndex idx = sourceModel()->index(sourceRow, 0, sourceParent);
+	return sourceModel()->data(idx, Qt::UserRole).toBool();
 }
 
 void XcaHeaderView::contextMenuEvent(QContextMenuEvent * e)

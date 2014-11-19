@@ -899,6 +899,23 @@ const EVP_MD *pki_x509::getDigest()
 	return EVP_get_digestbyobj(cert->sig_alg->algorithm);
 }
 
+bool pki_x509::visible()
+{
+	if (pki_x509super::visible())
+		return true;
+	if (getIssuer().search(limitPattern))
+		return true;
+	if (fingerprint(EVP_md5()).contains(limitPattern))
+		return true;
+	if (fingerprint(EVP_sha1()).contains(limitPattern))
+		return true;
+	if (fingerprint(EVP_sha256()).contains(limitPattern))
+		return true;
+	if (getSerial().toHex().contains(limitPattern))
+		return true;
+	return false;
+}
+
 QVariant pki_x509::bg_color(dbheader *hd)
 {
 #define BG_RED     QBrush(QColor(255,  0,  0))

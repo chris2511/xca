@@ -137,6 +137,7 @@ class pki_x509 : public pki_x509super
 		void setCrlExpiry(const a1time &time);
 		bool hasExtension(int nid);
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
+		bool visible();
 		void updateView();
 		x509rev getRev(bool reason = true);
 		QString getSigAlg();

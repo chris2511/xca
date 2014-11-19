@@ -24,6 +24,7 @@ class pki_x509name : public pki_base
 	};
 	void autoIntName();
 	QVariant column_data(dbheader *hd);
+	bool visible();
 };
 
 class pki_x509super : public pki_x509name
@@ -55,6 +56,7 @@ class pki_x509super : public pki_x509name
 		void delRefKey(pki_key *ref);
 		QVariant column_data(dbheader *hd);
 		void opensslConf(QString fname);
+		bool visible();
 };
 
 #endif

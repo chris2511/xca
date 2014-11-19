@@ -32,7 +32,6 @@ class pki_base : public QObject
 		enum pki_type pkiType;
 		/* model data */
 		pki_base *parent;
-
 		void my_error(const QString myerr) const;
 		void fopen_error(const QString fname);
 
@@ -44,6 +43,7 @@ class pki_base : public QObject
 			msg_create,
 		};
 		static int suppress_messages;
+		static QRegExp limitPattern;
 		QList<pki_base*> childItems;
 		pki_base(const QString d = "", pki_base *p = NULL);
 		virtual void fload(const QString) {};
@@ -56,6 +56,7 @@ class pki_base : public QObject
 			return QByteArray();
 		}
 		virtual bool compare(pki_base *);
+		virtual bool visible();
 		virtual ~pki_base();
 		QString getIntName() const;
 		QString getUnderlinedName() const;

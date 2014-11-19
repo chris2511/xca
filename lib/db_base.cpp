@@ -579,9 +579,10 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 				return QVariant(QFont("Monospace"));
 			return QVariant(QApplication::font());
 		}
-		case Qt::BackgroundRole: {
+		case Qt::BackgroundRole:
 			return item->bg_color(hd);
-		}
+		case Qt::UserRole:
+			return item->visible();
 	}
 	return QVariant();
 }

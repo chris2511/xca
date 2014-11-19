@@ -777,3 +777,17 @@ QVariant pki_scard::getIcon(dbheader *hd)
 	return hd->id == HD_internal_name ? QVariant(*icon[0]) : QVariant();
 }
 
+bool pki_scard::visible()
+{
+	QStringList sl;
+	if (pki_base::visible())
+		return true;
+
+	sl << card_serial << card_manufacturer << card_model <<
+		card_label << slot_label << object_id;
+	foreach(QString s, sl) {
+		if (s.contains(limitPattern))
+			return true;
+	}
+	return false;
+}

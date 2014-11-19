@@ -76,6 +76,7 @@ class pki_x509req : public pki_x509super
 		QByteArray i2d();
 		QByteArray i2d_spki();
 		BIO *pem(BIO *);
+		bool visible();
 };
 
 #endif

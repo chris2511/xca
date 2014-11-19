@@ -51,6 +51,7 @@ class XcaTreeView: public QTreeView
 	void sectionMoved(int idx, int oldI, int newI);
 	void columnsResize();
 	void editIdx(const QModelIndex &idx);
+	void setFilter(const QString &pattern);
 };
 
 class XcaProxyModel: public QSortFilterProxyModel
@@ -59,6 +60,8 @@ class XcaProxyModel: public QSortFilterProxyModel
    public:
 	XcaProxyModel(QWidget *parent = 0);
 	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
+	bool filterAcceptsRow(int sourceRow,
+			const QModelIndex &sourceParent) const;
 };
 
 #endif

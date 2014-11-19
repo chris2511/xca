@@ -794,6 +794,13 @@ STACK_OF(X509_EXTENSION) *extList::getStack()
 	return sk;
 }
 
+bool extList::search(const QRegExp &pattern)
+{
+	for (int i=0; i < size(); i++)
+		if (at(i).getValue(false).contains(pattern))
+			return true;
+	return false;
+}
 QString extList::getHtml(const QString &sep)
 {
 	x509v3ext e;

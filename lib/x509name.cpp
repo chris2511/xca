@@ -229,6 +229,16 @@ QString x509name::checkLength() const
 	return warn;
 }
 
+bool x509name::search(const QRegExp &pattern)
+{
+	int i, max = entryCount();
+	for (i=0; i<max; i++) {
+		if (getEntry(i).contains(pattern))
+			return true;
+	}
+	return false;
+}
+
 QString x509name::taggedValues() const
 {
 	int i, max = entryCount();
