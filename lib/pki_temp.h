@@ -18,6 +18,7 @@ class pki_temp: public pki_x509name
 		Q_OBJECT
 	protected:
 		int dataSize();
+		void try_fload(QString fname, const char *mode);
 	public:
 		static QPixmap *icon;
 		x509name xname;

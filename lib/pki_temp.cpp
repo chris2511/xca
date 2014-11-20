@@ -338,7 +338,7 @@ void pki_temp::writeDefault(const QString fname)
 void pki_temp::writeTemp(QString fname)
 {
 	QByteArray data, header;
-	FILE *fp = fopen(QString2filename(fname),"w");
+	FILE *fp = fopen(QString2filename(fname),"wb");
 
 	if (fp == NULL) {
 		fopen_error(fname);
@@ -354,11 +354,26 @@ void pki_temp::writeTemp(QString fname)
 
 void pki_temp::fload(QString fname)
 {
+	try {
+		try_fload(fname, "rb");
+	} catch (errorEx &err) {
+#if defined(_WIN32)
+		/* Try again in ascii mode on Windows
+		 * to support pre 1.1.0 template exports */
+		try_fload(fname, "r");
+#else
+		throw err;
+#endif
+	}
+}
+
+void pki_temp::try_fload(QString fname, const char *mode)
+{
 	int size, s, version;
 	const int hsize = 2 * sizeof(uint32_t);
 	char buf[hsize];
 	unsigned char *p;
-	FILE *fp = fopen(QString2filename(fname),"r");
+	FILE *fp = fopen(QString2filename(fname), mode);
 	bool oldimport = false;
 
 	if (fp == NULL) {

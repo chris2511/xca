@@ -1,3 +1,5 @@
+ * SF Bug #79 Template export from WinXP
+   cannot be imported in Linux and Mac OS X
  * Support for Brainpool windows and MacOSX binaries
  * SF Feat. Req. #70 ability to search certificates
  * SF Feat. Req. #75 show SHA-256 digest
