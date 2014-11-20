@@ -336,7 +336,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+908"/>
+        <location filename="../lib/db_x509.cpp" line="+913"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Nije pronađen ključ za Potvrdu:</translation>
     </message>
@@ -895,7 +895,7 @@ Serijski broj: %3</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+64"/>
+        <location filename="../widgets/MW_menu.cpp" line="+106"/>
         <source>Certificates</source>
         <translation>Potvrde</translation>
     </message>
@@ -940,12 +940,13 @@ Serijski broj: %3</translation>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+166"/>
+        <location filename="../widgets/MW_database.cpp" line="+169"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Korištenje ili izvoz privatnih ključeva neće biti moguće bez davanja ispravne zaporke</translation>
     </message>
     <message>
         <location line="+2"/>
+        <location filename="../widgets/MainWindow.cpp" line="+888"/>
         <source>Database</source>
         <translation>Baza podataka</translation>
     </message>
@@ -955,7 +956,7 @@ Serijski broj: %3</translation>
         <translation>Nisu pronađene obrisane stavke</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+94"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation>Tijekom brisanja zastarjelih stavaka iz baze podataka otkrivene su i popravljene greške. Kreirana je rezervna kopija</translation>
     </message>
@@ -965,12 +966,57 @@ Serijski broj: %3</translation>
         <translation>Nije uspjelo uklanjanje obrisanih ili zastarjelih stavki iz baze podataka.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-34"/>
+        <location filename="../widgets/MW_menu.cpp" line="-54"/>
         <source>Recent DataBases</source>
         <translation>Nedavna baza podataka</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
+        <source>System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Turkish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
@@ -1025,7 +1071,7 @@ Serijski broj: %3</translation>
         <translation>Opcije</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Exit</source>
         <translation>Izlaz</translation>
     </message>
@@ -1150,7 +1196,7 @@ Serijski broj: %3</translation>
         <translation>Ipak uvezi</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+280"/>
+        <location filename="../widgets/MainWindow.cpp" line="-587"/>
         <source>no such option: %1</source>
         <translation>nema te opcije: %1</translation>
     </message>
@@ -2408,6 +2454,196 @@ U knjižnici %3
         <source>%1 is longer than %2 bytes: &apos;%3&apos;</source>
         <translation>%1 je duže od %2 okteta: &apos;%3&apos;</translation>
     </message>
+    <message>
+        <location filename="../lib/func.cpp" line="+452"/>
+        <source>Country code</source>
+        <translation>Kod države</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>State or Province</source>
+        <translation>Država ili Pokrajina</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Locality</source>
+        <translation>Mjesto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisation</source>
+        <translation>Organizacija</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisational unit</source>
+        <translation>Organizacijska jedinica</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Common name</source>
+        <translation>Uobičajeno ime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>E-Mail address</source>
+        <translation>E-mail adresa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Serial number</source>
+        <translation>Serijski broj</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Given name</source>
+        <translation>Ime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Surname</source>
+        <translation>Prezime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Title</source>
+        <translation>Titula</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Initials</source>
+        <translation>Inicijali</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Description</source>
+        <translation>Opis</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Role</source>
+        <translation>Funkcija</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pseudonym</source>
+        <translation>Pseudonim</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Generation Qualifier</source>
+        <translation>Oznaka Generacije</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>x500 Unique Identifier</source>
+        <translation>x500 Jedinstveni Identifikator</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Name</source>
+        <translation>Ime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DN Qualifier</source>
+        <translation>DN Oznaka </translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unstructured name</source>
+        <translation>Nestrukturirano ime</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Challenge password</source>
+        <translation>Zaporka za izazov</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Basic Constraints</source>
+        <translation>Osnovna Ograničenja</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>subject alternative name</source>
+        <translation>alternativno ime subjekta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>issuer alternative name</source>
+        <translation>alternativno ime izdavača</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Subject key identifier</source>
+        <translation>Oznaka ključa Subjekta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority key identifier</source>
+        <translation>Oznaka ključa Autoriteta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Key usage</source>
+        <translation>Namjena ključa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Extended key usage</source>
+        <translation>Proširena upotreba ključa</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CRL distribution points</source>
+        <translation>Točka objave popisa opozvanih potvrda</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority information access</source>
+        <translation>Dohvat informacija Autoriteta</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate type</source>
+        <translation>Vrsta Potvrde</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Base URL</source>
+        <translation>Osnovni URL</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Revocation URL</source>
+        <translation>URL opoziva</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA Revocation URL</source>
+        <translation>URL opoziva CA</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate renewal URL</source>
+        <translation>URL za obnovu potvrde</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA policy URL</source>
+        <translation>URL politike CA</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SSL server name</source>
+        <translation>SSL ime poslužitelja</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Comment</source>
+        <translation>Napomena</translation>
+    </message>
 </context>
 <context>
     <name>Revoke</name>
@@ -2522,12 +2758,12 @@ U knjižnici %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+34"/>
+        <location filename="../lib/db_base.cpp" line="+206"/>
         <source>Internal name</source>
         <translation>Interno ime</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="-131"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2566,7 +2802,7 @@ Veličina: %3
         <translation>Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+618"/>
+        <location line="+631"/>
         <source>Subject entries</source>
         <translation>Stavke subjekta</translation>
     </message>
@@ -2599,7 +2835,7 @@ Veličina: %3
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+22"/>
+        <location filename="../lib/db_crl.cpp" line="+30"/>
         <source>Signer</source>
         <translation>Potpisnik</translation>
     </message>
@@ -2634,7 +2870,7 @@ Veličina: %3
         <translation>Broj CRL</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+67"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -2686,7 +2922,7 @@ i zbog toga nije uvezen</translation>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+38"/>
+        <location filename="../lib/db_key.cpp" line="+44"/>
         <source>Type</source>
         <translation>Vrsta</translation>
     </message>
@@ -2839,17 +3075,17 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
 <context>
     <name>db_temp</name>
     <message>
-        <location filename="../lib/db_temp.cpp" line="+23"/>
+        <location filename="../lib/db_temp.cpp" line="+56"/>
         <source>Type</source>
         <translation>Vrsta</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="-8"/>
         <source>Bad template: %1</source>
         <translation>Loš predložak: %1</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+71"/>
         <source>Nothing</source>
         <translation>Ništa</translation>
     </message>
@@ -2922,13 +3158,13 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-882"/>
-        <location line="+611"/>
+        <location filename="../lib/db_x509.cpp" line="-879"/>
+        <location line="+608"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-610"/>
+        <location line="-607"/>
         <source>reflects the basic Constraints extension</source>
         <translation>odražava proširenja osnovna Ograničenja</translation>
     </message>
@@ -2983,7 +3219,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Opoziv</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+105"/>
         <source>Plain View</source>
         <translation>Običan pregled</translation>
     </message>
@@ -3182,7 +3418,7 @@ i zbog toga nije uvezena</translation>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+18"/>
+        <location filename="../lib/db_x509super.cpp" line="+23"/>
         <source>Subject</source>
         <translation>Subjekt</translation>
     </message>
@@ -3202,202 +3438,164 @@ i zbog toga nije uvezena</translation>
         <translation>Sažmi za pregledavanje potvrda u katalogu</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Country code</source>
-        <translation>Kod države</translation>
+        <translation type="obsolete">Kod države</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>State or Province</source>
-        <translation>Država ili Pokrajina</translation>
+        <translation type="obsolete">Država ili Pokrajina</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Locality</source>
-        <translation>Mjesto</translation>
+        <translation type="obsolete">Mjesto</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Organisation</source>
-        <translation>Organizacija</translation>
+        <translation type="obsolete">Organizacija</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Organisational unit</source>
-        <translation>Organizacijska jedinica</translation>
+        <translation type="obsolete">Organizacijska jedinica</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Common name</source>
-        <translation>Uobičajeno ime</translation>
+        <translation type="obsolete">Uobičajeno ime</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>E-Mail address</source>
-        <translation>E-mail adresa</translation>
+        <translation type="obsolete">E-mail adresa</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Serial number</source>
-        <translation>Serijski broj</translation>
+        <translation type="obsolete">Serijski broj</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Given name</source>
-        <translation>Ime</translation>
+        <translation type="obsolete">Ime</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Surname</source>
-        <translation>Prezime</translation>
+        <translation type="obsolete">Prezime</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Title</source>
-        <translation>Titula</translation>
+        <translation type="obsolete">Titula</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Initials</source>
-        <translation>Inicijali</translation>
+        <translation type="obsolete">Inicijali</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Description</source>
-        <translation>Opis</translation>
+        <translation type="obsolete">Opis</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Role</source>
         <translatorcomment>Uloga</translatorcomment>
-        <translation>Funkcija</translation>
+        <translation type="obsolete">Funkcija</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Pseudonym</source>
-        <translation>Pseudonim</translation>
+        <translation type="obsolete">Pseudonim</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Generation Qualifier</source>
         <translatorcomment>OID: 2.5.4.44</translatorcomment>
-        <translation>Oznaka Generacije</translation>
+        <translation type="obsolete">Oznaka Generacije</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>x500 Unique Identifier</source>
-        <translation>x500 Jedinstveni Identifikator</translation>
+        <translation type="obsolete">x500 Jedinstveni Identifikator</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Name</source>
-        <translation>Ime</translation>
+        <translation type="obsolete">Ime</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>DN Qualifier</source>
-        <translation>DN Oznaka </translation>
+        <translation type="obsolete">DN Oznaka </translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Unstructured name</source>
-        <translation>Nestrukturirano ime</translation>
+        <translation type="obsolete">Nestrukturirano ime</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Challenge password</source>
-        <translation>Zaporka za izazov</translation>
+        <translation type="obsolete">Zaporka za izazov</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Basic Constraints</source>
-        <translation>Osnovna Ograničenja</translation>
+        <translation type="obsolete">Osnovna Ograničenja</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>subject alternative name</source>
-        <translation>alternativno ime subjekta</translation>
+        <translation type="obsolete">alternativno ime subjekta</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>issuer alternative name</source>
-        <translation>alternativno ime izdavača</translation>
+        <translation type="obsolete">alternativno ime izdavača</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Subject key identifier</source>
-        <translation>Oznaka ključa Subjekta</translation>
+        <translation type="obsolete">Oznaka ključa Subjekta</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation>Oznaka ključa Autoriteta</translation>
+        <translation type="obsolete">Oznaka ključa Autoriteta</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Key usage</source>
-        <translation>Namjena ključa</translation>
+        <translation type="obsolete">Namjena ključa</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Extended key usage</source>
-        <translation>Proširena upotreba ključa</translation>
+        <translation type="obsolete">Proširena upotreba ključa</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>CRL distribution points</source>
-        <translation>Točka objave popisa opozvanih potvrda</translation>
+        <translation type="obsolete">Točka objave popisa opozvanih potvrda</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Authority information access</source>
-        <translation>Dohvat informacija Autoriteta</translation>
+        <translation type="obsolete">Dohvat informacija Autoriteta</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Certificate type</source>
-        <translation>Vrsta Potvrde</translation>
+        <translation type="obsolete">Vrsta Potvrde</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Base URL</source>
-        <translation>Osnovni URL</translation>
+        <translation type="obsolete">Osnovni URL</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Revocation URL</source>
-        <translation>URL opoziva</translation>
+        <translation type="obsolete">URL opoziva</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>CA Revocation URL</source>
-        <translation>URL opoziva CA</translation>
+        <translation type="obsolete">URL opoziva CA</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Certificate renewal URL</source>
-        <translation>URL za obnovu potvrde</translation>
+        <translation type="obsolete">URL za obnovu potvrde</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>CA policy URL</source>
-        <translation>URL politike CA</translation>
+        <translation type="obsolete">URL politike CA</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>SSL server name</source>
-        <translation>SSL ime poslužitelja</translation>
+        <translation type="obsolete">SSL ime poslužitelja</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Comment</source>
-        <translation>Napomena</translation>
+        <translation type="obsolete">Napomena</translation>
     </message>
 </context>
 <context>
     <name>db_x509req</name>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="+21"/>
+        <location filename="../lib/db_x509req.cpp" line="+30"/>
         <source>Signed</source>
         <translation>Potpisan</translation>
     </message>
@@ -3417,7 +3615,7 @@ i zbog toga nije uvezena</translation>
         <translation>Zaporka za izazov</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+16"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
@@ -3499,7 +3697,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+29"/>
+        <location filename="../lib/db_x509super.cpp" line="+35"/>
         <source>Key name</source>
         <translation>Ime ključa</translation>
     </message>
@@ -3509,7 +3707,7 @@ i zbog toga nije spreman</translation>
         <translation>Interno ime ključa</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+75"/>
         <source>Save as OpenSSL config</source>
         <translation>Spremi kao OpenSSL konfiguraciju</translation>
     </message>
@@ -3553,7 +3751,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+74"/>
+        <location filename="../lib/pki_base.cpp" line="+82"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
     </message>
@@ -3568,7 +3766,7 @@ i zbog toga nije spreman</translation>
         <translation>Greška:</translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.h" line="+67"/>
+        <location filename="../lib/pki_base.h" line="+68"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Interna greška: Neočekivana poruka: %1 %2</translation>
     </message>
@@ -3607,7 +3805,7 @@ i zbog toga nije spreman</translation>
     </message>
     <message>
         <location line="+54"/>
-        <location line="+197"/>
+        <location line="+207"/>
         <source>Wrong Size %1</source>
         <translation>Pogrešna Dužina %1</translation>
     </message>
@@ -3996,12 +4194,12 @@ i zbog toga nije spreman</translation>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+495"/>
+        <location line="+512"/>
         <source>Wrong Size %1</source>
         <translation>Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-211"/>
         <source>Not trusted</source>
         <translation>Nepouzdan</translation>
     </message>
@@ -4074,7 +4272,7 @@ i zbog toga nije spreman</translation>
         <translation>Neobrađen</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+54"/>
         <source>Wrong Size %1</source>
         <translation>Kriva dužina %1</translation>
     </message>

@@ -322,7 +322,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+908"/>
+        <location filename="../lib/db_x509.cpp" line="+913"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Aucune clé n&apos;a été trouvée pour ce certificat: </translation>
     </message>
@@ -880,7 +880,7 @@ Numéro de série: %3</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+64"/>
+        <location filename="../widgets/MW_menu.cpp" line="+106"/>
         <source>Certificates</source>
         <translation>Certificats</translation>
     </message>
@@ -925,12 +925,13 @@ Numéro de série: %3</translation>
         <translation>Listes de révocation</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+166"/>
+        <location filename="../widgets/MW_database.cpp" line="+169"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>L&apos;usage ou l&apos;exportation de clés privées seront impossible sans fournir le mot de passe correct.</translation>
     </message>
     <message>
         <location line="+2"/>
+        <location filename="../widgets/MainWindow.cpp" line="+888"/>
         <source>Database</source>
         <translation>Base de donnée</translation>
     </message>
@@ -940,7 +941,7 @@ Numéro de série: %3</translation>
         <translation>Aucun objet détruit n&apos;a été trouvé</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+94"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation>Des erreurs ont été détectées et réparées lors de la destruction des éléments échus de la base de données. Un fichier de sauvegarde a été créé</translation>
     </message>
@@ -950,12 +951,57 @@ Numéro de série: %3</translation>
         <translation>Le nettoyage des éléments détruits ou échus de la base de données a échoué.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-34"/>
+        <location filename="../widgets/MW_menu.cpp" line="-54"/>
         <source>Recent DataBases</source>
         <translation>Bases de données utilisées recemment</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
+        <source>System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Turkish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -1010,7 +1056,7 @@ Numéro de série: %3</translation>
         <translation>Options</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Exit</source>
         <translation>Quitter</translation>
     </message>
@@ -1135,7 +1181,7 @@ Numéro de série: %3</translation>
         <translation>Importer quand-même</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+280"/>
+        <location filename="../widgets/MainWindow.cpp" line="-587"/>
         <source>no such option: %1</source>
         <translation>&apos;%1&apos; n&apos;est pas une option</translation>
     </message>
@@ -2289,6 +2335,196 @@ Dans la bibliothèque %3
         <source>%1 is longer than %2 bytes: &apos;%3&apos;</source>
         <translation>%1 est plus long que %2 octets: &apos;%3&apos;</translation>
     </message>
+    <message>
+        <location filename="../lib/func.cpp" line="+452"/>
+        <source>Country code</source>
+        <translation>Code du pays</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>State or Province</source>
+        <translation>Etat ou Province</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Locality</source>
+        <translation>Ville</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisation</source>
+        <translation>Organisation</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Organisational unit</source>
+        <translation>Unité organisationnelle</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Common name</source>
+        <translation>Nom commun</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>E-Mail address</source>
+        <translation>Adresse de courriel</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Serial number</source>
+        <translation>Numéro de série</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Given name</source>
+        <translation>Prénom</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Surname</source>
+        <translation>Nom de famille</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Title</source>
+        <translation>Titre</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Initials</source>
+        <translation>Initiales</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Description</source>
+        <translation>Description</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Role</source>
+        <translation>Rôle</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pseudonym</source>
+        <translation>Pseudonyme</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Generation Qualifier</source>
+        <translation>Qualificatif de génération</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>x500 Unique Identifier</source>
+        <translation>Identifiant unique X500</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Name</source>
+        <translation>Nom</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>DN Qualifier</source>
+        <translation>Qualificatif de DN</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unstructured name</source>
+        <translation>Nom non-structuré</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Challenge password</source>
+        <translation>Mot de passe challenge</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Basic Constraints</source>
+        <translation>Contraintes basiques</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>subject alternative name</source>
+        <translation>nom alternatif du sujet</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>issuer alternative name</source>
+        <translation>Nom alternatif du signataire</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Subject key identifier</source>
+        <translation>Identifiant de clé du sujet</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority key identifier</source>
+        <translation>Identifiant de clé de l&apos;autorité</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Key usage</source>
+        <translation>Utilisation de la clé</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Extended key usage</source>
+        <translation>Utilisation étendue de la clé</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CRL distribution points</source>
+        <translation>Points de distribution de la liste de révocation</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Authority information access</source>
+        <translation>Accès à l&apos;information de l&apos;autorité</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate type</source>
+        <translation>Type de certificat</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Base URL</source>
+        <translation>URL de base</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Revocation URL</source>
+        <translation>URL de révocation</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA Revocation URL</source>
+        <translation>URL de révocation du certificat CA</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Certificate renewal URL</source>
+        <translation>URL de renouvellement de certificat</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CA policy URL</source>
+        <translation>URL des conditions générales du CA</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>SSL server name</source>
+        <translation>Nom du serveur SSL</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Comment</source>
+        <translation>Commentaire</translation>
+    </message>
 </context>
 <context>
     <name>Revoke</name>
@@ -2403,12 +2639,12 @@ Dans la bibliothèque %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+34"/>
+        <location filename="../lib/db_base.cpp" line="+206"/>
         <source>Internal name</source>
         <translation>Nom interne</translation>
     </message>
     <message>
-        <location line="+42"/>
+        <location line="-131"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2446,7 +2682,7 @@ Taille: %3
         <translation>Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+618"/>
+        <location line="+631"/>
         <source>Subject entries</source>
         <translation>Inscriptions du sujet</translation>
     </message>
@@ -2479,7 +2715,7 @@ Taille: %3
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+22"/>
+        <location filename="../lib/db_crl.cpp" line="+30"/>
         <source>Signer</source>
         <translation>Signataire</translation>
     </message>
@@ -2514,7 +2750,7 @@ Taille: %3
         <translation>Numéro de la liste de révocation</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+67"/>
         <source>The revokation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -2566,7 +2802,7 @@ En conséquence, elle n&apos;a pas été importée</translation>
 <context>
     <name>db_key</name>
     <message>
-        <location filename="../lib/db_key.cpp" line="+38"/>
+        <location filename="../lib/db_key.cpp" line="+44"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
@@ -2719,17 +2955,17 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
 <context>
     <name>db_temp</name>
     <message>
-        <location filename="../lib/db_temp.cpp" line="+23"/>
+        <location filename="../lib/db_temp.cpp" line="+56"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="-8"/>
         <source>Bad template: %1</source>
         <translation>Mauvais modèle: %1</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+71"/>
         <source>Nothing</source>
         <translation>Rien</translation>
     </message>
@@ -2802,13 +3038,13 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="-882"/>
-        <location line="+611"/>
+        <location filename="../lib/db_x509.cpp" line="-879"/>
+        <location line="+608"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-610"/>
+        <location line="-607"/>
         <source>reflects the basic Constraints extension</source>
         <translation>reflète l&apos;extension des contraintes basiques</translation>
     </message>
@@ -2863,7 +3099,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Révocation</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+105"/>
         <source>Plain View</source>
         <translation>Vue à plat</translation>
     </message>
@@ -3061,7 +3297,7 @@ En conséquence, il n&apos;a pas été importé</translation>
 <context>
     <name>db_x509name</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+18"/>
+        <location filename="../lib/db_x509super.cpp" line="+23"/>
         <source>Subject</source>
         <translation>Sujet</translation>
     </message>
@@ -3081,200 +3317,162 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Hachage de recherche dans un dossier</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Country code</source>
-        <translation>Code du pays</translation>
+        <translation type="obsolete">Code du pays</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>State or Province</source>
-        <translation>Etat ou Province</translation>
+        <translation type="obsolete">Etat ou Province</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Locality</source>
-        <translation>Ville</translation>
+        <translation type="obsolete">Ville</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Organisation</source>
-        <translation>Organisation</translation>
+        <translation type="obsolete">Organisation</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Organisational unit</source>
-        <translation>Unité organisationnelle</translation>
+        <translation type="obsolete">Unité organisationnelle</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Common name</source>
-        <translation>Nom commun</translation>
+        <translation type="obsolete">Nom commun</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>E-Mail address</source>
-        <translation>Adresse de courriel</translation>
+        <translation type="obsolete">Adresse de courriel</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Serial number</source>
-        <translation>Numéro de série</translation>
+        <translation type="obsolete">Numéro de série</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Given name</source>
-        <translation>Prénom</translation>
+        <translation type="obsolete">Prénom</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Surname</source>
-        <translation>Nom de famille</translation>
+        <translation type="obsolete">Nom de famille</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Title</source>
-        <translation>Titre</translation>
+        <translation type="obsolete">Titre</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Initials</source>
-        <translation>Initiales</translation>
+        <translation type="obsolete">Initiales</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Description</source>
-        <translation>Description</translation>
+        <translation type="obsolete">Description</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Role</source>
-        <translation>Rôle</translation>
+        <translation type="obsolete">Rôle</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Pseudonym</source>
-        <translation>Pseudonyme</translation>
+        <translation type="obsolete">Pseudonyme</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Generation Qualifier</source>
-        <translation>Qualificatif de génération</translation>
+        <translation type="obsolete">Qualificatif de génération</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>x500 Unique Identifier</source>
-        <translation>Identifiant unique X500</translation>
+        <translation type="obsolete">Identifiant unique X500</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation type="obsolete">Nom</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>DN Qualifier</source>
-        <translation>Qualificatif de DN</translation>
+        <translation type="obsolete">Qualificatif de DN</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Unstructured name</source>
-        <translation>Nom non-structuré</translation>
+        <translation type="obsolete">Nom non-structuré</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Challenge password</source>
-        <translation>Mot de passe challenge</translation>
+        <translation type="obsolete">Mot de passe challenge</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Basic Constraints</source>
-        <translation>Contraintes basiques</translation>
+        <translation type="obsolete">Contraintes basiques</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>subject alternative name</source>
-        <translation>nom alternatif du sujet</translation>
+        <translation type="obsolete">nom alternatif du sujet</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>issuer alternative name</source>
-        <translation>Nom alternatif du signataire</translation>
+        <translation type="obsolete">Nom alternatif du signataire</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Subject key identifier</source>
-        <translation>Identifiant de clé du sujet</translation>
+        <translation type="obsolete">Identifiant de clé du sujet</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Authority key identifier</source>
-        <translation>Identifiant de clé de l&apos;autorité</translation>
+        <translation type="obsolete">Identifiant de clé de l&apos;autorité</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Key usage</source>
-        <translation>Utilisation de la clé</translation>
+        <translation type="obsolete">Utilisation de la clé</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Extended key usage</source>
-        <translation>Utilisation étendue de la clé</translation>
+        <translation type="obsolete">Utilisation étendue de la clé</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>CRL distribution points</source>
-        <translation>Points de distribution de la liste de révocation</translation>
+        <translation type="obsolete">Points de distribution de la liste de révocation</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Authority information access</source>
-        <translation>Accès à l&apos;information de l&apos;autorité</translation>
+        <translation type="obsolete">Accès à l&apos;information de l&apos;autorité</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Certificate type</source>
-        <translation>Type de certificat</translation>
+        <translation type="obsolete">Type de certificat</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Base URL</source>
-        <translation>URL de base</translation>
+        <translation type="obsolete">URL de base</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Revocation URL</source>
-        <translation>URL de révocation</translation>
+        <translation type="obsolete">URL de révocation</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>CA Revocation URL</source>
-        <translation>URL de révocation du certificat CA</translation>
+        <translation type="obsolete">URL de révocation du certificat CA</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Certificate renewal URL</source>
-        <translation>URL de renouvellement de certificat</translation>
+        <translation type="obsolete">URL de renouvellement de certificat</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>CA policy URL</source>
-        <translation>URL des conditions générales du CA</translation>
+        <translation type="obsolete">URL des conditions générales du CA</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>SSL server name</source>
-        <translation>Nom du serveur SSL</translation>
+        <translation type="obsolete">Nom du serveur SSL</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Comment</source>
-        <translation>Commentaire</translation>
+        <translation type="obsolete">Commentaire</translation>
     </message>
 </context>
 <context>
     <name>db_x509req</name>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="+21"/>
+        <location filename="../lib/db_x509req.cpp" line="+30"/>
         <source>Signed</source>
         <translation>Signé</translation>
     </message>
@@ -3294,7 +3492,7 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Mot de passe challenge</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+16"/>
         <source>The certificate signing request already exists in the database as
 &apos;%1&apos;
 and thus was not stored</source>
@@ -3376,7 +3574,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+29"/>
+        <location filename="../lib/db_x509super.cpp" line="+35"/>
         <source>Key name</source>
         <translation>Nom de la clé</translation>
     </message>
@@ -3386,7 +3584,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Nom interne de la clé</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+75"/>
         <source>Save as OpenSSL config</source>
         <translation>Enregistrer en format de configuration OpenSSL</translation>
     </message>
@@ -3430,7 +3628,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+74"/>
+        <location filename="../lib/pki_base.cpp" line="+82"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Erreur à l&apos;ouverture du fichier &apos;%1&apos;: %2</translation>
     </message>
@@ -3445,7 +3643,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Erreur: </translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.h" line="+67"/>
+        <location filename="../lib/pki_base.h" line="+68"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation>Erreur interne: message inattendu: %1 %2</translation>
     </message>
@@ -3484,7 +3682,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+54"/>
-        <location line="+197"/>
+        <location line="+207"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
@@ -3868,12 +4066,12 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+495"/>
+        <location line="+512"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
     <message>
-        <location line="-194"/>
+        <location line="-211"/>
         <source>Not trusted</source>
         <translation>Pas sûr</translation>
     </message>
@@ -3946,7 +4144,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Non-géré</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+54"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>

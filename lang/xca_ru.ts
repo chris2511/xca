@@ -322,7 +322,7 @@
 <context>
     <name>CertView</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+908"/>
+        <location filename="../lib/db_x509.cpp" line="+913"/>
         <source>There was no key found for the Certificate: </source>
         <translation>Не найден ключ для сетификата: </translation>
     </message>
@@ -811,7 +811,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+695"/>
+        <location filename="../widgets/MainWindow.cpp" line="+716"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -821,12 +821,12 @@ Serial: %3</source>
         <translation>Неверный пароль, попробуйте еще раз</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+44"/>
+        <location filename="../widgets/MW_menu.cpp" line="+85"/>
         <source>&amp;Close DataBase</source>
         <translation>&amp;Закрыть базу данных</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+49"/>
         <source>&amp;Content</source>
         <translation>&amp;Содержание</translation>
     </message>
@@ -836,17 +836,62 @@ Serial: %3</source>
         <translation>&amp;О программе</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-61"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location line="-4"/>
+        <location line="-23"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+5"/>
+        <source>System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Croatian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Turkish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
         <source>&amp;Help</source>
         <translation>&amp;Помощь</translation>
     </message>
@@ -973,7 +1018,8 @@ Serial: %3</source>
         <translation>Списки отозванных сертификатов</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+168"/>
+        <location filename="../widgets/MW_database.cpp" line="+171"/>
+        <location filename="../widgets/MainWindow.cpp" line="+135"/>
         <source>Database</source>
         <translation>База данных</translation>
     </message>
@@ -983,7 +1029,7 @@ Serial: %3</source>
         <translation>Нет удаленных записей</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+94"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation type="unfinished"></translation>
     </message>
@@ -993,7 +1039,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-18"/>
+        <location filename="../widgets/MW_menu.cpp" line="-19"/>
         <source>&amp;Dump DataBase</source>
         <translation>&amp;Дамп базы данных</translation>
     </message>
@@ -1013,7 +1059,7 @@ Serial: %3</source>
         <translation>Опции</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+6"/>
         <source>Keys</source>
         <translation>Ключи</translation>
     </message>
@@ -1088,7 +1134,7 @@ Serial: %3</source>
         <translation>Дамп базы данных ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-366"/>
+        <location filename="../widgets/MainWindow.cpp" line="-501"/>
         <source>Import PEM data</source>
         <translation>Импорт</translation>
     </message>
@@ -1121,7 +1167,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-126"/>
+        <location filename="../widgets/MW_menu.cpp" line="-127"/>
         <source>&amp;New DataBase</source>
         <translation>&amp;Новая база данных</translation>
     </message>
@@ -1131,17 +1177,17 @@ Please enter the DH parameter bits</source>
         <translation>&amp;Открыть базу данных</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+46"/>
         <source>&amp;Init Security token</source>
         <translation>&amp;Инициализировать Токен</translation>
     </message>
     <message>
-        <location line="-34"/>
+        <location line="-35"/>
         <source>C&amp;hange DataBase password</source>
         <translation>С&amp;менить пароль базы данных</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+10"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
@@ -1151,7 +1197,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">нет таких вариантов: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="-166"/>
+        <location filename="../widgets/MW_database.cpp" line="-167"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished">Использование или экспорт закрытых ключей будет невозможным без ввода правильного пароля</translation>
     </message>
@@ -1176,7 +1222,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Ошибка открытия файла: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-17"/>
+        <location filename="../widgets/MW_menu.cpp" line="-18"/>
         <source>Generate DH parameter</source>
         <translation type="unfinished">Создать DH параметр</translation>
     </message>
@@ -1186,7 +1232,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+38"/>
         <source>&amp;Token</source>
         <translation>&amp;Токен</translation>
     </message>
@@ -2334,786 +2380,8 @@ In library %3
 %4</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>Revoke</name>
     <message>
-        <location filename="../ui/Revoke.ui" line="+17"/>
-        <source>Revocation details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Invalid since</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Local time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Revocation reason</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SearchPkcs11</name>
-    <message>
-        <location filename="../ui/SearchPkcs11.ui" line="+14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>...</source>
-        <translation type="unfinished">...</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>include sub directorys</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
-        <source>The following files are possible PKCS#11 libraries</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SelectToken</name>
-    <message>
-        <location filename="../ui/SelectToken.ui" line="+14"/>
-        <source>Select Token</source>
-        <translation>Выберите Токен</translation>
-    </message>
-    <message>
-        <location line="+25"/>
-        <source>Security token</source>
-        <translation>Токен</translation>
-    </message>
-    <message>
-        <location line="+47"/>
-        <source>Please select the security token</source>
-        <translation>Пожалуйста, выберите Токен</translation>
-    </message>
-</context>
-<context>
-    <name>TrustState</name>
-    <message>
-        <location filename="../ui/TrustState.ui" line="+115"/>
-        <source>Trustment</source>
-        <translation type="unfinished">Доверия</translation>
-    </message>
-    <message>
-        <location line="+12"/>
-        <source>&amp;Never trust this certificate</source>
-        <translation>&amp;Никогда не доверять этому сертификату</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Only &amp;trust this certificate, if we trust the signer</source>
-        <translation type="unfinished">Доверять этому сертификату &amp;только, ели есть доверие к подписавшему</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>&amp;Always trust this certificate</source>
-        <translation>&amp;Всегда доверять этому сертификату</translation>
-    </message>
-    <message>
-        <location line="-102"/>
-        <source>Set trustment of the Certificate</source>
-        <translation type="unfinished">Установить доверия сертификата</translation>
-    </message>
-</context>
-<context>
-    <name>Validity</name>
-    <message>
-        <location filename="../widgets/validity.cpp" line="+94"/>
-        <source>yyyy-MM-dd hh:mm</source>
-        <translation type="unfinished">yyyy-MM-dd hh:mm</translation>
-    </message>
-</context>
-<context>
-    <name>db_base</name>
-    <message>
-        <location filename="../lib/db_base.cpp" line="+34"/>
-        <source>Internal name</source>
-        <translation type="unfinished">Внутреннее имя</translation>
-    </message>
-    <message>
-        <location line="+690"/>
-        <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-3"/>
-        <source>Subject entries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-645"/>
-        <source>Bad database item
-Name: %1
-Type: %2
-Size: %3
-%4</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Do you want to delete the item from the database? The bad item may be extracted into a separate file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Delete</source>
-        <translation type="unfinished">Удалить</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Delete and extract</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Continue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+19"/>
-        <source>Error opening file: &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+619"/>
-        <source>X509v3 Extensions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Netscape extensions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+45"/>
-        <source>Paste PEM data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Columns</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>db_crl</name>
-    <message>
-        <location filename="../lib/db_crl.cpp" line="+22"/>
-        <source>Signer</source>
-        <translation type="unfinished">Подписавший</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Internal name of the signer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>No. revoked</source>
-        <translation type="unfinished">Номер CRL</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Number of revoked certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Last update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Next update</source>
-        <translation type="unfinished">Следующее обновление</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>CRL number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+105"/>
-        <source>CRL ( *.pem *.der *.crl )</source>
-        <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Revocation list export</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+87"/>
-        <source>Import</source>
-        <translation>Импорт</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Rename</source>
-        <translation>Переименовать</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Export</source>
-        <translation>Экспорт</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>File</source>
-        <translation type="unfinished">Файл</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Delete</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <location line="-131"/>
-        <source>The revokation list already exists in the database as:
-&apos;%1&apos;
-and so it was not imported</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>db_key</name>
-    <message>
-        <location filename="../lib/db_key.cpp" line="+136"/>
-        <source>Key size too small !</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+97"/>
-        <source>New Key</source>
-        <translation>Новый ключ</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import</source>
-        <translation>Импорт</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Rename</source>
-        <translation>Переименовать</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show Details</source>
-        <translation>Посмотреть детали</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Export</source>
-        <translation>Экспорт</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Delete</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>Change password</source>
-        <translation>Задать индивидуальный пароль</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Reset password</source>
-        <translation>Удалить индивидуальный пароль</translation>
-    </message>
-    <message>
-        <location line="-51"/>
-        <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
-This will delete the key &apos;%1&apos; and make it unexportable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-161"/>
-        <source>Type</source>
-        <translation>Тип</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Size</source>
-        <translation>Размер</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>EC Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Use</source>
-        <translation>Использован</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Password</source>
-        <translation>Пароль</translation>
-    </message>
-    <message>
-        <location line="+196"/>
-        <source>Clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>File</source>
-        <translation type="unfinished">Файл</translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Change PIN</source>
-        <translation>Сменить PIN</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Init PIN with SO PIN (PUK)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Change SO PIN (PUK)</source>
-        <translation type="unfinished">Сменить SO PIN (PUK)</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Store on Security token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+83"/>
-        <source>Tried to change password of a token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Tried to change PIN of a key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>Tried to init PIN of a key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>Tried to change SO PIN of a key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-295"/>
-        <source>The key is already in the database as:
-&apos;%1&apos;
-and is not going to be imported</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>The database already contains the public part of the imported key as
-&apos;%1
-and will be completed by the new, private part of the key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+37"/>
-        <source>You are sure to create a key of the size: %1 ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>db_temp</name>
-    <message>
-        <location filename="../lib/db_temp.cpp" line="+23"/>
-        <source>Type</source>
-        <translation type="unfinished">Тип</translation>
-    </message>
-    <message>
-        <location line="+89"/>
-        <source>Nothing</source>
-        <translation type="unfinished">Новый</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Preset Template values</source>
-        <translation type="unfinished">Предустановленные значения шаблона</translation>
-    </message>
-    <message>
-        <location line="+39"/>
-        <source>copy</source>
-        <translation type="unfinished">копировать</translation>
-    </message>
-    <message>
-        <location line="+32"/>
-        <source>Save template as</source>
-        <translation>Сохранить шаблон как</translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>New Template</source>
-        <translation>Новый шаблон</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import</source>
-        <translation>Импорт</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Rename</source>
-        <translation>Переименовать</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Export</source>
-        <translation>Экспорт</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Change</source>
-        <translation type="unfinished">Изменение</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Delete</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Duplicate</source>
-        <translation type="unfinished">Дублировать</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Create certificate</source>
-        <translation>Создать сертификат</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Create request</source>
-        <translation>Создать запрос</translation>
-    </message>
-    <message>
-        <location line="-52"/>
-        <source>XCA templates ( *.xca);; All files ( * )</source>
-        <translation>XCA шаблоны ( *.xca);; Всеl файлы ( * )</translation>
-    </message>
-    <message>
-        <location line="-141"/>
-        <source>Bad template: %1</source>
-        <translation>Неправильный шаблон: %1</translation>
-    </message>
-</context>
-<context>
-    <name>db_x509</name>
-    <message>
-        <location filename="../lib/db_x509.cpp" line="-880"/>
-        <source>Serial</source>
-        <translation type="unfinished">Серийный номер</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>not After</source>
-        <translation type="unfinished">Не позже, чем</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Trust state</source>
-        <translation type="unfinished">Состояния доверия</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Revocation</source>
-        <translation type="unfinished">Аннулирован</translation>
-    </message>
-    <message>
-        <location line="-3"/>
-        <source>Expiry date</source>
-        <translation type="unfinished">Дата истечения срока действия</translation>
-    </message>
-    <message>
-        <location line="-7"/>
-        <source>reflects the basic Constraints extension</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>md5 fingerprint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>sha1 fingerprint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>sha256 fingerprint</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Start date</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>not Before</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+112"/>
-        <source>Plain View</source>
-        <translation>Список</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Tree View</source>
-        <translation>Дерево</translation>
-    </message>
-    <message>
-        <location line="+315"/>
-        <source>Invalid public key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+18"/>
-        <source>Please enter the new hexadecimal secret number for the QA process.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
-        <source>The QA process has been terminated by the user.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+17"/>
-        <source>The key you selected for signing is not a private one.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+101"/>
-        <source>New Certificate</source>
-        <translation>Новый сертификат</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import</source>
-        <translation>Импорт</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import PKCS#12</source>
-        <translation>Ипорт PKCS#12</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import from PKCS#7</source>
-        <translation>Импорт из PKCS#7</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Rename</source>
-        <translation>Переименовать</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Show Details</source>
-        <translation>Посмотреть детали</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Extract public Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Export</source>
-        <translation>Экспорт</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>File</source>
-        <translation>Файл</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Request</source>
-        <translation type="unfinished">Запрос</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>OpenSSL config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Delete</source>
-        <translation>Удалить</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Trust</source>
-        <translation type="unfinished">Доверие</translation>
-    </message>
-    <message>
-        <location line="-609"/>
-        <location line="+611"/>
-        <source>CA</source>
-        <translation>ЦС</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Properties</source>
-        <translation>Свойства</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Generate CRL</source>
-        <translation>Создать CRL</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>PKCS#7</source>
-        <translation>PKCS#7</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Sign</source>
-        <translation type="unfinished">Подпись</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Encrypt</source>
-        <translation type="unfinished">Шифровать</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Renewal</source>
-        <translation type="unfinished">Обновить</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Unrevoke</source>
-        <translation type="unfinished">Вернуть</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Revoke</source>
-        <translation type="unfinished">Отозвать</translation>
-    </message>
-    <message>
-        <location line="+111"/>
-        <source>Not possible for a token key: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+361"/>
-        <source> days</source>
-        <translation type="unfinished">дней</translation>
-    </message>
-    <message>
-        <location line="-502"/>
-        <source>Security token</source>
-        <translation>Токен</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Template</source>
-        <translation>Шаблон</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Delete from Security token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-301"/>
-        <source>The certificate already exists in the database as:
-&apos;%1&apos;
-and so it was not imported</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+427"/>
-        <location line="+31"/>
-        <source>There was no key found for the Certificate: &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-240"/>
-        <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+71"/>
-        <source>Other token</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>db_x509name</name>
-    <message>
-        <location filename="../lib/db_x509super.cpp" line="+18"/>
-        <source>Subject</source>
-        <translation type="unfinished">Владелец</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Complete distinguished name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Subject hash</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Hash to lookup certs in directories</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location filename="../lib/func.cpp" line="+452"/>
         <source>Country code</source>
         <translation type="unfinished">Код страны (C)</translation>
     </message>
@@ -3304,14 +2572,840 @@ and so it was not imported</source>
     </message>
 </context>
 <context>
+    <name>Revoke</name>
+    <message>
+        <location filename="../ui/Revoke.ui" line="+17"/>
+        <source>Revocation details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Invalid since</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Local time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Revocation reason</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchPkcs11</name>
+    <message>
+        <location filename="../ui/SearchPkcs11.ui" line="+14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>include sub directorys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/SearchPkcs11.cpp" line="+77"/>
+        <source>The following files are possible PKCS#11 libraries</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SelectToken</name>
+    <message>
+        <location filename="../ui/SelectToken.ui" line="+14"/>
+        <source>Select Token</source>
+        <translation>Выберите Токен</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Security token</source>
+        <translation>Токен</translation>
+    </message>
+    <message>
+        <location line="+47"/>
+        <source>Please select the security token</source>
+        <translation>Пожалуйста, выберите Токен</translation>
+    </message>
+</context>
+<context>
+    <name>TrustState</name>
+    <message>
+        <location filename="../ui/TrustState.ui" line="+115"/>
+        <source>Trustment</source>
+        <translation type="unfinished">Доверия</translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>&amp;Never trust this certificate</source>
+        <translation>&amp;Никогда не доверять этому сертификату</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Only &amp;trust this certificate, if we trust the signer</source>
+        <translation type="unfinished">Доверять этому сертификату &amp;только, ели есть доверие к подписавшему</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>&amp;Always trust this certificate</source>
+        <translation>&amp;Всегда доверять этому сертификату</translation>
+    </message>
+    <message>
+        <location line="-102"/>
+        <source>Set trustment of the Certificate</source>
+        <translation type="unfinished">Установить доверия сертификата</translation>
+    </message>
+</context>
+<context>
+    <name>Validity</name>
+    <message>
+        <location filename="../widgets/validity.cpp" line="+94"/>
+        <source>yyyy-MM-dd hh:mm</source>
+        <translation type="unfinished">yyyy-MM-dd hh:mm</translation>
+    </message>
+</context>
+<context>
+    <name>db_base</name>
+    <message>
+        <location filename="../lib/db_base.cpp" line="+206"/>
+        <source>Internal name</source>
+        <translation type="unfinished">Внутреннее имя</translation>
+    </message>
+    <message>
+        <location line="+530"/>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-3"/>
+        <source>Subject entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-658"/>
+        <source>Bad database item
+Name: %1
+Type: %2
+Size: %3
+%4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Do you want to delete the item from the database? The bad item may be extracted into a separate file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete</source>
+        <translation type="unfinished">Удалить</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Delete and extract</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Error opening file: &apos;%1&apos;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+632"/>
+        <source>X509v3 Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Netscape extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Paste PEM data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>db_crl</name>
+    <message>
+        <location filename="../lib/db_crl.cpp" line="+30"/>
+        <source>Signer</source>
+        <translation type="unfinished">Подписавший</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Internal name of the signer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>No. revoked</source>
+        <translation type="unfinished">Номер CRL</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Number of revoked certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Next update</source>
+        <translation type="unfinished">Следующее обновление</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CRL number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+102"/>
+        <source>CRL ( *.pem *.der *.crl )</source>
+        <translation type="unfinished">CRL ( *.pem *.der *.crl )</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Revocation list export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+87"/>
+        <source>Import</source>
+        <translation>Импорт</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Export</source>
+        <translation>Экспорт</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation type="unfinished">Файл</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location line="-131"/>
+        <source>The revokation list already exists in the database as:
+&apos;%1&apos;
+and so it was not imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>db_key</name>
+    <message>
+        <location filename="../lib/db_key.cpp" line="+142"/>
+        <source>Key size too small !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+97"/>
+        <source>New Key</source>
+        <translation>Новый ключ</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import</source>
+        <translation>Импорт</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Show Details</source>
+        <translation>Посмотреть детали</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Export</source>
+        <translation>Экспорт</translation>
+    </message>
+    <message>
+        <location line="-1"/>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Change password</source>
+        <translation>Задать индивидуальный пароль</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reset password</source>
+        <translation>Удалить индивидуальный пароль</translation>
+    </message>
+    <message>
+        <location line="-51"/>
+        <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
+This will delete the key &apos;%1&apos; and make it unexportable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-161"/>
+        <source>Type</source>
+        <translation>Тип</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Size</source>
+        <translation>Размер</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>EC Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Use</source>
+        <translation>Использован</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Password</source>
+        <translation>Пароль</translation>
+    </message>
+    <message>
+        <location line="+196"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation type="unfinished">Файл</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Change PIN</source>
+        <translation>Сменить PIN</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Init PIN with SO PIN (PUK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change SO PIN (PUK)</source>
+        <translation type="unfinished">Сменить SO PIN (PUK)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Store on Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+83"/>
+        <source>Tried to change password of a token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Tried to change PIN of a key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Tried to init PIN of a key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Tried to change SO PIN of a key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-295"/>
+        <source>The key is already in the database as:
+&apos;%1&apos;
+and is not going to be imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>The database already contains the public part of the imported key as
+&apos;%1
+and will be completed by the new, private part of the key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <source>You are sure to create a key of the size: %1 ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>db_temp</name>
+    <message>
+        <location filename="../lib/db_temp.cpp" line="+56"/>
+        <source>Type</source>
+        <translation type="unfinished">Тип</translation>
+    </message>
+    <message>
+        <location line="+63"/>
+        <source>Nothing</source>
+        <translation type="unfinished">Новый</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Preset Template values</source>
+        <translation type="unfinished">Предустановленные значения шаблона</translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>copy</source>
+        <translation type="unfinished">копировать</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Save template as</source>
+        <translation>Сохранить шаблон как</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>New Template</source>
+        <translation>Новый шаблон</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import</source>
+        <translation>Импорт</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Export</source>
+        <translation>Экспорт</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Change</source>
+        <translation type="unfinished">Изменение</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Duplicate</source>
+        <translation type="unfinished">Дублировать</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Create certificate</source>
+        <translation>Создать сертификат</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Create request</source>
+        <translation>Создать запрос</translation>
+    </message>
+    <message>
+        <location line="-52"/>
+        <source>XCA templates ( *.xca);; All files ( * )</source>
+        <translation>XCA шаблоны ( *.xca);; Всеl файлы ( * )</translation>
+    </message>
+    <message>
+        <location line="-148"/>
+        <source>Bad template: %1</source>
+        <translation>Неправильный шаблон: %1</translation>
+    </message>
+</context>
+<context>
+    <name>db_x509</name>
+    <message>
+        <location filename="../lib/db_x509.cpp" line="-877"/>
+        <source>Serial</source>
+        <translation type="unfinished">Серийный номер</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>not After</source>
+        <translation type="unfinished">Не позже, чем</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Trust state</source>
+        <translation type="unfinished">Состояния доверия</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Revocation</source>
+        <translation type="unfinished">Аннулирован</translation>
+    </message>
+    <message>
+        <location line="-3"/>
+        <source>Expiry date</source>
+        <translation type="unfinished">Дата истечения срока действия</translation>
+    </message>
+    <message>
+        <location line="-7"/>
+        <source>reflects the basic Constraints extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>md5 fingerprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>sha1 fingerprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>sha256 fingerprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Start date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>not Before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+109"/>
+        <source>Plain View</source>
+        <translation>Список</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Tree View</source>
+        <translation>Дерево</translation>
+    </message>
+    <message>
+        <location line="+315"/>
+        <source>Invalid public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Please enter the new hexadecimal secret number for the QA process.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>The QA process has been terminated by the user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>The key you selected for signing is not a private one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+101"/>
+        <source>New Certificate</source>
+        <translation>Новый сертификат</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import</source>
+        <translation>Импорт</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import PKCS#12</source>
+        <translation>Ипорт PKCS#12</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import from PKCS#7</source>
+        <translation>Импорт из PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Rename</source>
+        <translation>Переименовать</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Show Details</source>
+        <translation>Посмотреть детали</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Extract public Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Export</source>
+        <translation>Экспорт</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation>Файл</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Request</source>
+        <translation type="unfinished">Запрос</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>OpenSSL config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Trust</source>
+        <translation type="unfinished">Доверие</translation>
+    </message>
+    <message>
+        <location line="-606"/>
+        <location line="+608"/>
+        <source>CA</source>
+        <translation>ЦС</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Properties</source>
+        <translation>Свойства</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Generate CRL</source>
+        <translation>Создать CRL</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>PKCS#7</source>
+        <translation>PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Sign</source>
+        <translation type="unfinished">Подпись</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Encrypt</source>
+        <translation type="unfinished">Шифровать</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Renewal</source>
+        <translation type="unfinished">Обновить</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Unrevoke</source>
+        <translation type="unfinished">Вернуть</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Revoke</source>
+        <translation type="unfinished">Отозвать</translation>
+    </message>
+    <message>
+        <location line="+111"/>
+        <source>Not possible for a token key: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+361"/>
+        <source> days</source>
+        <translation type="unfinished">дней</translation>
+    </message>
+    <message>
+        <location line="-502"/>
+        <source>Security token</source>
+        <translation>Токен</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Template</source>
+        <translation>Шаблон</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Delete from Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-301"/>
+        <source>The certificate already exists in the database as:
+&apos;%1&apos;
+and so it was not imported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+427"/>
+        <location line="+31"/>
+        <source>There was no key found for the Certificate: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Not possible for the token-key Certificate &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-240"/>
+        <source>Store the certificate to the key on the token &apos;%1 (#%2)&apos; ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Other token</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>db_x509name</name>
+    <message>
+        <location filename="../lib/db_x509super.cpp" line="+23"/>
+        <source>Subject</source>
+        <translation type="unfinished">Владелец</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Complete distinguished name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Subject hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Hash to lookup certs in directories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Country code</source>
+        <translation type="obsolete">Код страны (C)</translation>
+    </message>
+    <message>
+        <source>State or Province</source>
+        <translation type="obsolete">Республика, край, область (ST)</translation>
+    </message>
+    <message>
+        <source>Locality</source>
+        <translation type="obsolete">Город, поселок, село</translation>
+    </message>
+    <message>
+        <source>Organisation</source>
+        <translation type="obsolete">Организация (O)</translation>
+    </message>
+    <message>
+        <source>Organisational unit</source>
+        <translation type="obsolete">Департамент, отдел (OU)</translation>
+    </message>
+    <message>
+        <source>Common name</source>
+        <translation type="obsolete">Общее имя (CN)</translation>
+    </message>
+    <message>
+        <source>E-Mail address</source>
+        <translation type="obsolete">Адрес эл.почты</translation>
+    </message>
+    <message>
+        <source>subject alternative name</source>
+        <translation type="obsolete">альтернативное имя владельца</translation>
+    </message>
+    <message>
+        <source>issuer alternative name</source>
+        <translation type="obsolete">алтернативное имя издателя</translation>
+    </message>
+    <message>
+        <source>Authority key identifier</source>
+        <translation type="obsolete">Идентификатор ключа ЦС</translation>
+    </message>
+    <message>
+        <source>Key usage</source>
+        <translation type="obsolete">Область применения ключа</translation>
+    </message>
+    <message>
+        <source>Extended key usage</source>
+        <translation type="obsolete">Расширенная область применения ключа</translation>
+    </message>
+</context>
+<context>
     <name>db_x509req</name>
     <message>
-        <location filename="../lib/db_x509req.cpp" line="+25"/>
+        <location filename="../lib/db_x509req.cpp" line="+34"/>
         <source>Challenge password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+106"/>
         <source>Certificate request ( *.pem *.der *.crl )</source>
         <translation type="unfinished">Запросы на сертификат ( *.pem *.der *.crl )</translation>
     </message>
@@ -3371,7 +3465,7 @@ and so it was not imported</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location line="-170"/>
+        <location line="-168"/>
         <source>Signed</source>
         <translation type="unfinished">Подписанный</translation>
     </message>
@@ -3386,7 +3480,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="+162"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
@@ -3406,7 +3500,7 @@ and thus was not stored</source>
 <context>
     <name>db_x509super</name>
     <message>
-        <location filename="../lib/db_x509super.cpp" line="+29"/>
+        <location filename="../lib/db_x509super.cpp" line="+35"/>
         <source>Key name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3416,7 +3510,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+75"/>
         <source>Save as OpenSSL config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3460,7 +3554,7 @@ and thus was not stored</source>
 <context>
     <name>pki_base</name>
     <message>
-        <location filename="../lib/pki_base.cpp" line="+74"/>
+        <location filename="../lib/pki_base.cpp" line="+82"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Произошла ошибка при открытии файла: &apos;%1&apos;: %2</translation>
     </message>
@@ -3475,7 +3569,7 @@ and thus was not stored</source>
         <translation>Ошибка: </translation>
     </message>
     <message>
-        <location filename="../lib/pki_base.h" line="+67"/>
+        <location filename="../lib/pki_base.h" line="+68"/>
         <source>Internal error: Unexpected message: %1 %2</source>
         <translation type="unfinished">Внутренняя ошибка: Неожиданное сообщение: %1 %2</translation>
     </message>
@@ -3488,12 +3582,12 @@ and thus was not stored</source>
         <translation>Данного издателя несуществует</translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+234"/>
         <source>unknown</source>
         <translation>неизвестный</translation>
     </message>
     <message>
-        <location line="-246"/>
+        <location line="-256"/>
         <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Не удается загрузить список отзыва сертификатов из файла %1. Формат файла, содержащий CRL должен быть PEM или DER.</translation>
     </message>
@@ -3519,7 +3613,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+96"/>
-        <location line="+197"/>
+        <location line="+207"/>
         <source>Wrong Size %1</source>
         <translation>Неправильный размер %1</translation>
     </message>
@@ -3926,7 +4020,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="-316"/>
-        <location line="+495"/>
+        <location line="+512"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>
@@ -3974,7 +4068,7 @@ and thus was not stored</source>
         <translation>Необработан</translation>
     </message>
     <message>
-        <location line="+43"/>
+        <location line="+54"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>
