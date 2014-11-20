@@ -28,7 +28,7 @@ INSTTARGET=$(patsubst %, install.%, $(INSTDIR))
 APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
-MACTARGET=$(DMGSTAGE)-$(DARWIN)
+MACTARGET=$(DMGSTAGE)-$(DARWIN)${EXTRA_VERSION}
 APPDIR=$(DMGSTAGE)/xca.app/Contents
 
 all: xca_db_stat$(SUFFIX)
@@ -133,7 +133,7 @@ setup.exe: misc/xca.nsi
 	$(STRIP) xca$(SUFFIX)
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
-		-NOCD -V2 $<
+		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
 
 $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	rm -rf $(DMGSTAGE)

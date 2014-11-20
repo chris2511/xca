@@ -3,8 +3,8 @@
 
 ; The name of the installer
 Name "XCA"
-Caption "XCA ${VERSION} Setup"
-OutFile "setup_xca-${VERSION}.exe"
+Caption "XCA ${VERSION}${EXTRA_VERSION} Setup"
+OutFile "setup_xca-${VERSION}${EXTRA_VERSION}.exe"
 
 InstallDir $PROGRAMFILES\xca
 ; Registry key to check for directory (so if you install again, it will

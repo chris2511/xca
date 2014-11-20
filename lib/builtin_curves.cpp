@@ -86,7 +86,7 @@ static const int other_curve_nids[] = {
 	NID_wap_wsg_idm_ecid_wtls11,
 	NID_wap_wsg_idm_ecid_wtls12,
 
-#if OPENSSL_VERSION_NUMBER >= 0x10002001L
+#ifdef NID_brainpoolP160r1
 	NID_brainpoolP160r1,
 	NID_brainpoolP160t1,
 	NID_brainpoolP192r1,

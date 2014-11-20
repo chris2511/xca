@@ -11,6 +11,9 @@
 #include <QtGui/QMimeSource>
 #include <QtGui/QPixmap>
 #include <QtGui/QLabel>
+#ifndef OPENSSL_NO_EC
+#include <openssl/ec.h>
+#endif
 #include "ui_About.h"
 #include "ui_Help.h"
 #include "lib/func.h"
@@ -47,8 +50,23 @@ void MainWindow::about()
 {
 	Ui::About ui;
 	QDialog *about = new QDialog(this, 0);
-	QString openssl, qt, cont, version;
-
+	QString openssl, qt, cont, version, brainpool;
+#ifndef OPENSSL_NO_EC
+#ifdef NID_brainpoolP160r1
+	EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_brainpoolP160r1);
+	ign_openssl_error();
+	if (group) {
+		EC_GROUP_free(group);
+		brainpool = "<p>ECC With RFC 5639 Brainpool curves"
+#if OPENSSL_VERSION_NUMBER < 0x10002001L
+	        "<br/>(Backported to " OPENSSL_VERSION_TEXT ")"
+#endif
+		;
+	}
+#endif
+#else
+	brainpool = "(Elliptic Curve Cryptography support disabled)"
+#endif
 	openssl = SSLeay_version(SSLEAY_VERSION);
 	qt = qVersion();
 	if (openssl != OPENSSL_VERSION_TEXT ||
@@ -72,10 +90,7 @@ void MainWindow::about()
 	"<p><h3><center><u>XCA</u></center></h3>"
 	"<p>Copyright 2001 - 2014 by Christian Hohnst&auml;dt\n"
 	"<p>Version: <b>" PACKAGE_VERSION "</b>"
-#ifdef OPENSSL_NO_EC
-	"<p>(Elliptic Curve Cryptography support disabled)"
-#endif
-	"<p>%1"
+	"<p>%1<p>%2"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
@@ -100,8 +115,7 @@ void MainWindow::about()
 	"<tr><th>Russian</th><td>Pavel Belly &lt;pavel.belly@gmail.com&gt;</td></tr>"
 	"<tr><th>French</th><td>Patrick Monnerat &lt;Patrick.Monnerat@datasphere.ch&gt;</td></tr>"
 	"<tr><th>Croatian</th><td>Nevenko Bartolincic &lt;nevenko.bartolincic@gmail.com&gt;</td></tr>"
-	"</table>").
-		arg(version);
+	"</table>").arg(brainpool).arg(version);
 
 	about->setWindowTitle(XCA_TITLE);
 	ui.image->setPixmap( *keyImg );

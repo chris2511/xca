@@ -1,3 +1,4 @@
+ * Support for Brainpool windows and MacOSX binaries
  * SF Feat. Req. #70 ability to search certificates
  * SF Feat. Req. #75 show SHA-256 digest
  * RedHat Bug #1164340 - segfault when viewing a
