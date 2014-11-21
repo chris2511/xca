@@ -266,12 +266,17 @@ void MainWindow::default_database()
 {
 	QFileInfo fi(dbfile);
 	QString dir = getUserSettingsDir();
+	QString file = dir +QDir::separator() +"defaultdb";
 	FILE *fp;
-
 	QDir d;
+
+	if (dbfile.isEmpty()) {
+		QFile::remove(file);
+		return;
+	}
 	d.mkpath(dir);
 
-	fp = fopen(QString2filename(dir +QDir::separator() +"defaultdb"), "w");
+	fp = fopen(QString2filename(file), "w");
 	if (fp) {
 		QByteArray ba;
 		ba = filename2bytearray(fi.canonicalFilePath() + "\n");
@@ -279,11 +284,6 @@ void MainWindow::default_database()
 		fclose(fp);
 	}
 
-}
-
-void MainWindow::no_default_database()
-{
-	QFile::remove(getUserSettingsDir() + QDir::separator() + "defaultdb");
 }
 
 void MainWindow::close_database()
@@ -346,6 +346,7 @@ void MainWindow::close_database()
 	update_history(dbfile);
 	pkcs11::remove_libs();
 	enableTokenMenu(pkcs11::loaded());
+	dbfile.clear();
 }
 
 void MainWindow::load_history()

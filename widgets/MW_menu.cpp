@@ -91,10 +91,8 @@ void MainWindow::init_menu()
 	file->addMenu(historyMenu);
 	file->addAction(tr("Generate DH parameter"), this,
 				 SLOT(generateDHparam()));
-	acList += file->addAction(tr("Set as default DataBase"), this,
+	file->addAction(tr("Set as default DataBase"), this,
 				SLOT(default_database()));
-	acList += file->addAction(tr("No default DataBase"), this,
-				SLOT(no_default_database()));
 	acList += file->addAction(tr("&Close DataBase"), this,
 		SLOT(close_database()), QKeySequence(QKeySequence::Close));
 	acList += file->addAction(tr("&Dump DataBase"), this,
