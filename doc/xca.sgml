@@ -47,7 +47,7 @@ When setting an empty password, XCA will never ask again for a password
 when opening this database. This can be useful when playing around with testcertificates or if all private keys are on security tokens.
 
 <p>
-The database password can be changed by the Menu item <em>File->Change DataBase password</em>
+The database password can be changed by the Menu item <em>File-&gt;Change DataBase password</em>
 
 <p>
 The different cryptographic parts are divided over 5 Tabs: Keys, Requests, Certificates, Templates and Revocation lists.
@@ -344,7 +344,11 @@ exporting the certificate to a request.
 This is however only possible if you own the private key of the
 certificate. Multiple items may be selected to delete them all at once.
 
+<sect1>Searching Items
 
+The displayed list of items can be reduced by the search-input at the
+bottom right. It affects all tabs. It does not only search inside the displayed columns but the whole content of the items. It searches the internal name,
+issuer, subject, extensions, PKCS#10 attributes and token provider.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>The Certificate Input Dialog<label id="wizard">
@@ -543,7 +547,7 @@ to add one or more PKCS#11 providers (libraries).
 This is not restricted to Smartcards but includes all type of security tokens like USB tokens.
 
 Up to version 1.0.0 unly RSA keys on security tokens were supported.
-Since version 1.1.0 XCA also supports EC private keys on security tokens.
+Since version 1.1.0 XCA also supports EC and DSA private keys on security tokens.
 <p>
 
 Once again: This software comes with no warranty at all! If XCA transforms your security token into a fridge, don't blame me.
@@ -558,16 +562,24 @@ Otherwise fix the opensc setup.
 I had a functional setup with a "Reiner SCT" and a DELL keyboard with integrated card reader and TCOS Netkey E4 cards.
 I also used Aladdin Etoken very successfully (Thanks for support!). The Aladdin PKCS#11 library supports all needed features very well.
 
+The ECC token support was tested with the www.cardcontact.de ECC tokens.
+The OpenDNSSEC SoftHSMv2 was used as PKCS#11 reference implementation
+to test all the token algorithms and certificate and key download functionality
+to the token.
 <p>
 
 Before the keys of a token can be used, they must be imported into XCA.
 This means that XCA reads the token and shows the keys and certificates on the token.
 They can then be imported partially or completely
-via the Multi-import dialog.
+via the Multi-import dialog to be used by XCA.
 It is not unusal that a token contains more than one key or certificate.
 It is of course possible to create your own keys on the token.
 When selecting a token-key for signing, XCA verifies that the
 corresponding token is available.
+
+If the Card reader supports a secure PIN input by a builtin keyboard,
+it will be used by XCA and it will not ask for the PIN but waits for the Pin-pad
+input.
 
 The following actions with smartcards are supported:
 
@@ -588,7 +600,7 @@ The following actions with smartcards are supported:
 
 Existing, non-deletable, built-in certificates of Smart-cards may be ignored.
 A new CA certificate can be created and self-signed by the Smart-card key.
-It can then be used to issue end-entity certificates, containing other RSA, DSA or EC keys or sign imported certificate requests.
+It can then be used to issue end-entity certificates, containing other RSA, DSA or EC keys, sign imported certificate requests or generate CRLs
 
 <sect1>Key Management on the Token
 
@@ -687,6 +699,10 @@ The following providers were used for testing:
 		token and delete them from the token.
 	<item>Linux only: OpenCryptoki (IBM): may be used as a pure software
 		token, but also supports TPMs and other IBM crypto processors
+	<item>www.cardcontact.de OpenSC branch supports RSA and EC Keys.
+		Downloading keys to the token is not supported.
+	<item>OpenDNSSEC SoftHSMv2 supports all mechanisms in software.
+		A great reference to test the PKCS#11 library interface.
 </itemize>
 
 <sect2>Tested compatibility with other applications
@@ -771,7 +787,7 @@ The pkcs11-id can be obtained with the command:
 
 For creating certificates, keys are needed.
 All keys are stored encrypted in the database using the 3DES algorithm.
-The password can be changed for each certificate. The password type means:
+The password can be changed for each key. The password type means:
 <itemize>
 <item>common: The database password provided during database load
 <item>private: The key has its own password, which is not stored by XCA. This can be set and reset via the context menu of the key
@@ -780,9 +796,10 @@ The password can be changed for each certificate. The password type means:
 </itemize>
 <p>
 
-All keys carry a use counter which counts the times it is used. For new
+All keys carry a use counter which counts the times it is used. When creating new
 requests or certificates the list of available keys is reduced to
-the keys with a use counter of 0.
+the keys with a use counter of 0. This can be overridden by the checkbox
+next to the key list.
 
 <p>
 When importing an EC key with explicit curve parameters, the corresponding curve OID is searched and set if found.
@@ -799,6 +816,9 @@ For EC keys, a list of curves is shown. It contains all X9.62 curves and many ot
 EC Brainpool curves are also supported when linking with OpenSSL 1.0.2, which
 is currently only available as BETA.
 
+Alternatively, the "-brainpool" denoted binary distributions for Windows and MacOSX
+may be used or the "misc/openssl-1.0.1-brainpool.patch" in the XCA sources.
+
 <p>
 Even if the drop-down list only shows the most usual key sizes, any other value
 may be set here by editing this box.
@@ -808,13 +828,15 @@ After the key generation is done the key will be stored in the database.
 
 <p>
 
-When checking the <tt>Remember as default</tt> box, the settings (Key-type, key-size or EC curve)
-will be remembered and preset for the next key generation dialog. This option is not available
+When checking the <tt>Remember as default</tt> box, the settings
+(Key-type, key-size or EC curve) will be remembered and preset for the
+next key generation dialog. This option is not available
 when generating token keys.
 
 <p>
 
-For every connected token providing the Key-generate facility an entry in the drop-down menu of the keytypes will be shown.
+For every connected token providing the Key-generate facility an entry in the
+drop-down menu of the keytypes will be shown.
 It contains the name of the token and the valid key-sizes.
 
 <p>
@@ -823,7 +845,7 @@ In case of EC keys generated on a token, the list of possible curves
 is restricted based on informations provided by the token (Key size and FP/F2M).
 The token may support even less ECParameters / OIDs. When selecting an EC curve
 not supported by the token an error will occure.
-Please consult the documentation of the PKCS#11 library.
+Please consult the documentation of the provider of the PKCS#11 library.
 
 <sect1>Key Export
 
@@ -1145,18 +1167,6 @@ configuration files.
 
 <p>
 
-<sect1>Mandatory subject entries
-
-<p>
-
-A list of mandatory distinguished name entries may be specified to
-get a warning, whenever issuing a certificate that lacks one or more listed
-entries. This requirement is not checked when editing templates,
-because templates may have empty entries that will be filled during
-the rollout of the certificate.
-
-<p>
-
 <sect1>String settings
 
 <p>
@@ -1212,7 +1222,57 @@ The CRL expiration date will be marked red 2 days before expiration.
 
 <p>
 
-<sect1>PKCS#11 library path
+<sect1>Translate established x509 terms
+
+<p>
+
+It is usually more clear to read "commonName" instead of e.g (german) "Allgemeine Bezeichnung". Same is true for "Extended key usage" or "Basic constraints".
+With this setting the translated terms are shown and the ToolTip of the
+entry shows the established term. If not set, the established term will be displayed
+and the ToolTip contains the translation.
+
+<p>
+
+<sect1>Only use hashes supported by the token when signing with a token key
+
+<p>
+
+The PKCS#11 token does probably not support all possible hashes for
+a signature operation. I.e. the EC and DSA signing algorithms are currently only
+defined with SHA1 in the PKCS#11 specification.
+
+XCA does the hashing part of the digital signature in software outside
+the token and uses the token to sign the hash.
+That's why XCA may use additional hashing algorithms like ecdsaWithSha256.
+
+If other applications that probably use the token hashing algorithms shall use the
+token, this option should be set.
+
+<p>
+
+<sect1>Mandatory subject entries
+
+<p>
+
+A list of mandatory distinguished name entries may be specified to
+get a warning, whenever issuing a certificate that lacks one or more listed
+entries. This requirement is not checked when editing templates,
+because templates may have empty entries that will be filled during
+the rollout of the certificate.
+
+<p>
+
+<sect1>Explicit subject entries
+
+<p>
+
+This list may be used to change the list of the usual 7 distinguished name entries
+shown in the subjet tab of the Certificate / Request /Template generation dialog
+to better fit ones needs.
+
+<p>
+
+<sect1>PKCS#11 provider
 
 <p>
 
