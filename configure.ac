@@ -36,6 +36,13 @@ if test -n "$DARWIN"; then
   export DYLD_LIBRARY_PATH
 fi
 
+if test "$srcdir" != "."; then
+  if test -r "$srcdir"/Local.mak || test -r "$srcdir"/local.h; then
+    AC_ERROR([The source directory (${srcdir}) contains a 'Local.mak' or 'local.h' file.
+		They must be removed before building here.])
+  fi
+fi
+
 # Detect the OpenSSL libraries and header
 #########################################
 AC_ARG_WITH([openssl],
@@ -136,9 +143,9 @@ AC_CHECK_PROG([LINUXDOC], [linuxdoc], ["linuxdoc"], [":"])
 AC_SUBST([LINUXDOC])
 
 if test "$LINUXDOC" = ":"; then
-  if test ! -f doc/xca-doc.tgz; then
+  if test "${srcdir}" != "."; then
     mkdir -p doc
-    cp ${TOPDIR}/doc/xca-doc.tgz doc/
+    cp ${srcdir}/doc/xca-doc.tgz doc/
   fi
   AC_MSG_WARN(['linuxdoc' not found, using pre-compiled documentation])
 fi
