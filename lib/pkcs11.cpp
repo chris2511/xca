@@ -542,9 +542,10 @@ pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 		EC_GROUP_set_asn1_flag(group, info.flags & CKF_EC_NAMEDCURVE ?
 			OPENSSL_EC_NAMED_CURVE : 0);
 
-		/// WORKAROUND:
-		 EC_GROUP_set_asn1_flag(group, OPENSSL_EC_NAMED_CURVE);
-		/// WORKAROUND END:
+		// Workaround for "www.CardContact.de" bug
+		if (tokenInfo().manufacturerID() == "www.CardContact.de") {
+			EC_GROUP_set_asn1_flag(group, OPENSSL_EC_NAMED_CURVE);
+		}
 		priv_atts << pk11_attr_bool(CKA_DERIVE, true);
 		pub_atts  << pk11_attr_data(CKA_EC_PARAMS,
 			i2d_bytearray(I2D_VOID(i2d_ECPKParameters), group));
