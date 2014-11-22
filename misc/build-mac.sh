@@ -47,7 +47,7 @@ for i in "" -brainpool; do
   mkdir -p "$XCA_BUILD"
   cd "$XCA_BUILD"
 
-  export CXXFLAGS="-arch i386 -I${INSTALL_DIR}/include -L${INSTALL_DIR}/lib"
+  export CXXFLAGS="-arch i386 -I${INSTALL_DIR}/include -L${INSTALL_DIR}/lib -F$QTDIR"
 
   (cd $XCA_DIR && ./bootstrap)
   $XCA_DIR/configure --with-openssl="$INSTALL_DIR" --with-qt="$QTDIR"

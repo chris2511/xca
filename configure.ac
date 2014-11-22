@@ -26,13 +26,15 @@ esac
 if test -n "${DARWIN}"; then
   AC_MSG_NOTICE([Mac OSX ${DARWIN} detected])
   CXXFLAGS="${CXXFLAGS} -pipe -gdwarf-2"
-  MACDEPLOYQT=macdeployqt
 fi
 AC_SUBST([DARWIN])
 AC_SUBST([MACDEPLOYQT])
 
 export PKG_CONFIG_PATH
 export LD_LIBRARY_PATH
+if test -n "$DARWIN"; then
+  export DYLD_LIBRARY_PATH
+fi
 
 # Detect the OpenSSL libraries and header
 #########################################
@@ -49,6 +51,7 @@ if test -n "${_OPENSSLDIR}" && test -d "${_OPENSSLDIR}"; then
   _OPENSSLDIR=`cd ${_OPENSSLDIR} && pwd`
   PKG_CONFIG_PATH="${_OPENSSLDIR}/lib/pkgconfig:${PKG_CONFIG_PATH}"
   LD_LIBRARY_PATH="${_OPENSSLDIR}/lib:${LD_LIBRARY_PATH}"
+  DYLD_LIBRARY_PATH="${_OPENSSLDIR}/lib:${DYLD_LIBRARY_PATH}"
 fi
 
 PKG_CHECK_MODULES([OPENSSL],
@@ -74,12 +77,15 @@ AC_ARG_WITH([qt],
 if test -n "${_QTDIR}" && test -d "${_QTDIR}"; then
   _QTDIR=`cd ${_QTDIR} && pwd`
   PKG_CONFIG_PATH="${_QTDIR}/lib/pkgconfig:${PKG_CONFIG_PATH}"
-  LD_LIBRARY_PATH="${_QTDIR}/lib:${LD_LIBRARY_PATH}"
+  DYLD_LIBRARY_PATH="${_QTDIR}/lib:${DYLD_LIBRARY_PATH}"
 fi
 
 PKG_CHECK_MODULES(QT, [QtCore >= 4.6, QtCore < 5.0, QtGui >= 4.6, QtGui < 5.0], [
   QT_MOC="`pkg-config --variable=moc_location QtCore`"
   QT_UIC="`pkg-config --variable=uic_location QtCore`"
+  if test -n "$DARWIN"; then
+    QT_CFLAGS="$QT_CFLAGS -F`pkg-config --variable=libdir QtCore`"
+  fi
 ], [
   if test -z "$DARWIN"; then
     QT_LIBS=" -lQtCore -lQtGui "
@@ -97,6 +103,9 @@ if test "x${QT_UIC}" = "x"; then
   QT_UIC="`which uic-qt4 || which uic`"
 fi
 QT_LRELEASE=`echo ${QT_MOC} | sed 's/moc/lrelease/'`
+if test -n "$DARWIN"; then
+  MACDEPLOYQT=`echo ${QT_MOC} | sed 's/moc/macdeployqt/'`
+fi
 QT_RCC=`echo ${QT_MOC} | sed 's/moc/rcc/'`
 if ! test -x ${QT_RCC}; then
   QT_RCC=`echo ${QT_MOC} | sed 's/moc.*/rcc/'`
