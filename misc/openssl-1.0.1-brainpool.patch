@@ -1,6 +1,6 @@
-From ad5ee781cc1da2b21e0ba31419cc98ddfd2f17a2 Mon Sep 17 00:00:00 2001
+From 3ee1ac6a0961eb3b97739fb86717e246a45e2743 Mon Sep 17 00:00:00 2001
 From: "Dr. Stephen Henson" <steve@openssl.org>
-Date: Thu, 20 Nov 2014 20:21:46 +0100
+Date: Sat, 22 Nov 2014 09:19:47 +0100
 Subject: [PATCH] PR: 2239
 
 Submitted by: Dominik Oepen <oepen@informatik.hu-berlin.de>
@@ -12,11 +12,11 @@ Original patch by Annie Yousar <a.yousar@informatik.hu-berlin.de>
 Backported to OpenSSL 1.0.1j by Christian Hohnstaedt <christian@hohnstaedt.de>
 ---
  crypto/ec/ec_curve.c       |  443 ++++++++++++++++++++++++++++++++++++++++++++
- crypto/objects/obj_dat.h   |   94 +++++++++-
- crypto/objects/obj_mac.h   |   56 ++++++
- crypto/objects/obj_mac.num |   14 ++
- crypto/objects/objects.txt |   20 ++
- 5 files changed, 622 insertions(+), 5 deletions(-)
+ crypto/objects/obj_dat.h   |   99 +++++++++-
+ crypto/objects/obj_mac.h   |   61 ++++++
+ crypto/objects/obj_mac.num |   15 ++
+ crypto/objects/objects.txt |   22 +++
+ 5 files changed, 635 insertions(+), 5 deletions(-)
 
 diff --git a/crypto/ec/ec_curve.c b/crypto/ec/ec_curve.c
 index c72fb26..a36efb2 100644
@@ -480,7 +480,7 @@ index c72fb26..a36efb2 100644
  
  #define curve_list_length (sizeof(curve_list)/sizeof(ec_list_element))
 diff --git a/crypto/objects/obj_dat.h b/crypto/objects/obj_dat.h
-index bc69665..980978a 100644
+index bc69665..cbc8d2c 100644
 --- a/crypto/objects/obj_dat.h
 +++ b/crypto/objects/obj_dat.h
 @@ -62,12 +62,12 @@
@@ -491,229 +491,263 @@ index bc69665..980978a 100644
 -#define NUM_SN 913
 -#define NUM_LN 913
 -#define NUM_OBJ 857
-+#define NUM_NID 934
-+#define NUM_SN 927
-+#define NUM_LN 927
-+#define NUM_OBJ 871
++#define NUM_NID 935
++#define NUM_SN 928
++#define NUM_LN 928
++#define NUM_OBJ 872
  
 -static const unsigned char lvalues[5974]={
-+static const unsigned char lvalues[6100]={
++static const unsigned char lvalues[6107]={
  0x2A,0x86,0x48,0x86,0xF7,0x0D,               /* [  0] OBJ_rsadsi */
  0x2A,0x86,0x48,0x86,0xF7,0x0D,0x01,          /* [  6] OBJ_pkcs */
  0x2A,0x86,0x48,0x86,0xF7,0x0D,0x02,0x02,     /* [ 13] OBJ_md2 */
-@@ -919,6 +919,20 @@ static const unsigned char lvalues[5974]={
+@@ -919,6 +919,21 @@ static const unsigned char lvalues[5974]={
  0x2A,0x86,0x48,0x86,0xF7,0x0D,0x01,0x01,0x08,/* [5946] OBJ_mgf1 */
  0x2A,0x86,0x48,0x86,0xF7,0x0D,0x01,0x01,0x0A,/* [5955] OBJ_rsassaPss */
  0x2A,0x86,0x48,0x86,0xF7,0x0D,0x01,0x01,0x07,/* [5964] OBJ_rsaesOaep */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x01,/* [5973] OBJ_brainpoolP160r1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x02,/* [5982] OBJ_brainpoolP160t1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x03,/* [5991] OBJ_brainpoolP192r1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x04,/* [6000] OBJ_brainpoolP192t1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x05,/* [6009] OBJ_brainpoolP224r1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x06,/* [6018] OBJ_brainpoolP224t1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x07,/* [6027] OBJ_brainpoolP256r1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x08,/* [6036] OBJ_brainpoolP256t1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x09,/* [6045] OBJ_brainpoolP320r1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0A,/* [6054] OBJ_brainpoolP320t1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0B,/* [6063] OBJ_brainpoolP384r1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0C,/* [6072] OBJ_brainpoolP384t1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0D,/* [6081] OBJ_brainpoolP512r1 */
-+0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0E,/* [6090] OBJ_brainpoolP512t1 */
++0x2A,0x86,0x48,0xCE,0x3E,0x02,0x01,          /* [5973] OBJ_dhpublicnumber */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x01,/* [5980] OBJ_brainpoolP160r1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x02,/* [5989] OBJ_brainpoolP160t1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x03,/* [5998] OBJ_brainpoolP192r1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x04,/* [6007] OBJ_brainpoolP192t1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x05,/* [6016] OBJ_brainpoolP224r1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x06,/* [6025] OBJ_brainpoolP224t1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x07,/* [6034] OBJ_brainpoolP256r1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x08,/* [6043] OBJ_brainpoolP256t1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x09,/* [6052] OBJ_brainpoolP320r1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0A,/* [6061] OBJ_brainpoolP320t1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0B,/* [6070] OBJ_brainpoolP384r1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0C,/* [6079] OBJ_brainpoolP384t1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0D,/* [6088] OBJ_brainpoolP512r1 */
++0x2B,0x24,0x03,0x03,0x02,0x08,0x01,0x01,0x0E,/* [6097] OBJ_brainpoolP512t1 */
  };
  
  static const ASN1_OBJECT nid_objs[NUM_NID]={
-@@ -2399,6 +2413,34 @@ static const ASN1_OBJECT nid_objs[NUM_NID]={
+@@ -2399,6 +2414,35 @@ static const ASN1_OBJECT nid_objs[NUM_NID]={
  {"AES-256-CBC-HMAC-SHA1","aes-256-cbc-hmac-sha1",
  	NID_aes_256_cbc_hmac_sha1,0,NULL,0},
  {"RSAES-OAEP","rsaesOaep",NID_rsaesOaep,9,&(lvalues[5964]),0},
++{"dhpublicnumber","X9.42 DH",NID_dhpublicnumber,7,&(lvalues[5973]),0},
 +{"brainpoolP160r1","brainpoolP160r1",NID_brainpoolP160r1,9,
-+	&(lvalues[5973]),0},
++	&(lvalues[5980]),0},
 +{"brainpoolP160t1","brainpoolP160t1",NID_brainpoolP160t1,9,
-+	&(lvalues[5982]),0},
++	&(lvalues[5989]),0},
 +{"brainpoolP192r1","brainpoolP192r1",NID_brainpoolP192r1,9,
-+	&(lvalues[5991]),0},
++	&(lvalues[5998]),0},
 +{"brainpoolP192t1","brainpoolP192t1",NID_brainpoolP192t1,9,
-+	&(lvalues[6000]),0},
++	&(lvalues[6007]),0},
 +{"brainpoolP224r1","brainpoolP224r1",NID_brainpoolP224r1,9,
-+	&(lvalues[6009]),0},
++	&(lvalues[6016]),0},
 +{"brainpoolP224t1","brainpoolP224t1",NID_brainpoolP224t1,9,
-+	&(lvalues[6018]),0},
++	&(lvalues[6025]),0},
 +{"brainpoolP256r1","brainpoolP256r1",NID_brainpoolP256r1,9,
-+	&(lvalues[6027]),0},
++	&(lvalues[6034]),0},
 +{"brainpoolP256t1","brainpoolP256t1",NID_brainpoolP256t1,9,
-+	&(lvalues[6036]),0},
++	&(lvalues[6043]),0},
 +{"brainpoolP320r1","brainpoolP320r1",NID_brainpoolP320r1,9,
-+	&(lvalues[6045]),0},
++	&(lvalues[6052]),0},
 +{"brainpoolP320t1","brainpoolP320t1",NID_brainpoolP320t1,9,
-+	&(lvalues[6054]),0},
++	&(lvalues[6061]),0},
 +{"brainpoolP384r1","brainpoolP384r1",NID_brainpoolP384r1,9,
-+	&(lvalues[6063]),0},
++	&(lvalues[6070]),0},
 +{"brainpoolP384t1","brainpoolP384t1",NID_brainpoolP384t1,9,
-+	&(lvalues[6072]),0},
++	&(lvalues[6079]),0},
 +{"brainpoolP512r1","brainpoolP512r1",NID_brainpoolP512r1,9,
-+	&(lvalues[6081]),0},
++	&(lvalues[6088]),0},
 +{"brainpoolP512t1","brainpoolP512t1",NID_brainpoolP512t1,9,
-+	&(lvalues[6090]),0},
++	&(lvalues[6097]),0},
  };
  
  static const unsigned int sn_objs[NUM_SN]={
-@@ -2613,6 +2655,20 @@ static const unsigned int sn_objs[NUM_SN]={
+@@ -2613,6 +2657,20 @@ static const unsigned int sn_objs[NUM_SN]={
  87,	/* "basicConstraints" */
  365,	/* "basicOCSPResponse" */
  285,	/* "biometricInfo" */
-+920,	/* "brainpoolP160r1" */
-+921,	/* "brainpoolP160t1" */
-+922,	/* "brainpoolP192r1" */
-+923,	/* "brainpoolP192t1" */
-+924,	/* "brainpoolP224r1" */
-+925,	/* "brainpoolP224t1" */
-+926,	/* "brainpoolP256r1" */
-+927,	/* "brainpoolP256t1" */
-+928,	/* "brainpoolP320r1" */
-+929,	/* "brainpoolP320t1" */
-+930,	/* "brainpoolP384r1" */
-+931,	/* "brainpoolP384t1" */
-+932,	/* "brainpoolP512r1" */
-+933,	/* "brainpoolP512t1" */
++921,	/* "brainpoolP160r1" */
++922,	/* "brainpoolP160t1" */
++923,	/* "brainpoolP192r1" */
++924,	/* "brainpoolP192t1" */
++925,	/* "brainpoolP224r1" */
++926,	/* "brainpoolP224t1" */
++927,	/* "brainpoolP256r1" */
++928,	/* "brainpoolP256t1" */
++929,	/* "brainpoolP320r1" */
++930,	/* "brainpoolP320t1" */
++931,	/* "brainpoolP384r1" */
++932,	/* "brainpoolP384t1" */
++933,	/* "brainpoolP512r1" */
++934,	/* "brainpoolP512t1" */
  494,	/* "buildingName" */
  860,	/* "businessCategory" */
  691,	/* "c2onb191v4" */
-@@ -3502,6 +3558,20 @@ static const unsigned int ln_objs[NUM_LN]={
+@@ -2668,6 +2726,7 @@ static const unsigned int sn_objs[NUM_SN]={
+ 107,	/* "description" */
+ 871,	/* "destinationIndicator" */
+ 28,	/* "dhKeyAgreement" */
++920,	/* "dhpublicnumber" */
+ 382,	/* "directory" */
+ 887,	/* "distinguishedName" */
+ 892,	/* "dmdName" */
+@@ -3451,6 +3510,7 @@ static const unsigned int ln_objs[NUM_LN]={
+ 85,	/* "X509v3 Subject Alternative Name" */
+ 769,	/* "X509v3 Subject Directory Attributes" */
+ 82,	/* "X509v3 Subject Key Identifier" */
++920,	/* "X9.42 DH" */
+ 184,	/* "X9.57" */
+ 185,	/* "X9.57 CM ?" */
+ 478,	/* "aRecord" */
+@@ -3502,6 +3562,20 @@ static const unsigned int ln_objs[NUM_LN]={
  93,	/* "bf-cfb" */
  92,	/* "bf-ecb" */
  94,	/* "bf-ofb" */
-+920,	/* "brainpoolP160r1" */
-+921,	/* "brainpoolP160t1" */
-+922,	/* "brainpoolP192r1" */
-+923,	/* "brainpoolP192t1" */
-+924,	/* "brainpoolP224r1" */
-+925,	/* "brainpoolP224t1" */
-+926,	/* "brainpoolP256r1" */
-+927,	/* "brainpoolP256t1" */
-+928,	/* "brainpoolP320r1" */
-+929,	/* "brainpoolP320t1" */
-+930,	/* "brainpoolP384r1" */
-+931,	/* "brainpoolP384t1" */
-+932,	/* "brainpoolP512r1" */
-+933,	/* "brainpoolP512t1" */
++921,	/* "brainpoolP160r1" */
++922,	/* "brainpoolP160t1" */
++923,	/* "brainpoolP192r1" */
++924,	/* "brainpoolP192t1" */
++925,	/* "brainpoolP224r1" */
++926,	/* "brainpoolP224t1" */
++927,	/* "brainpoolP256r1" */
++928,	/* "brainpoolP256t1" */
++929,	/* "brainpoolP320r1" */
++930,	/* "brainpoolP320t1" */
++931,	/* "brainpoolP384r1" */
++932,	/* "brainpoolP384t1" */
++933,	/* "brainpoolP512r1" */
++934,	/* "brainpoolP512t1" */
  494,	/* "buildingName" */
  860,	/* "businessCategory" */
  691,	/* "c2onb191v4" */
-@@ -4886,6 +4956,20 @@ static const unsigned int obj_objs[NUM_OBJ]={
+@@ -4608,6 +4682,7 @@ static const unsigned int obj_objs[NUM_OBJ]={
+ 416,	/* OBJ_ecdsa_with_SHA1              1 2 840 10045 4 1 */
+ 791,	/* OBJ_ecdsa_with_Recommended       1 2 840 10045 4 2 */
+ 792,	/* OBJ_ecdsa_with_Specified         1 2 840 10045 4 3 */
++920,	/* OBJ_dhpublicnumber               1 2 840 10046 2 1 */
+ 258,	/* OBJ_id_pkix_mod                  1 3 6 1 5 5 7 0 */
+ 175,	/* OBJ_id_pe                        1 3 6 1 5 5 7 1 */
+ 259,	/* OBJ_id_qt                        1 3 6 1 5 5 7 2 */
+@@ -4886,6 +4961,20 @@ static const unsigned int obj_objs[NUM_OBJ]={
  373,	/* OBJ_id_pkix_OCSP_valid           1 3 6 1 5 5 7 48 1 9 */
  374,	/* OBJ_id_pkix_OCSP_path            1 3 6 1 5 5 7 48 1 10 */
  375,	/* OBJ_id_pkix_OCSP_trustRoot       1 3 6 1 5 5 7 48 1 11 */
-+920,	/* OBJ_brainpoolP160r1              1 3 36 3 3 2 8 1 1 1 */
-+921,	/* OBJ_brainpoolP160t1              1 3 36 3 3 2 8 1 1 2 */
-+922,	/* OBJ_brainpoolP192r1              1 3 36 3 3 2 8 1 1 3 */
-+923,	/* OBJ_brainpoolP192t1              1 3 36 3 3 2 8 1 1 4 */
-+924,	/* OBJ_brainpoolP224r1              1 3 36 3 3 2 8 1 1 5 */
-+925,	/* OBJ_brainpoolP224t1              1 3 36 3 3 2 8 1 1 6 */
-+926,	/* OBJ_brainpoolP256r1              1 3 36 3 3 2 8 1 1 7 */
-+927,	/* OBJ_brainpoolP256t1              1 3 36 3 3 2 8 1 1 8 */
-+928,	/* OBJ_brainpoolP320r1              1 3 36 3 3 2 8 1 1 9 */
-+929,	/* OBJ_brainpoolP320t1              1 3 36 3 3 2 8 1 1 10 */
-+930,	/* OBJ_brainpoolP384r1              1 3 36 3 3 2 8 1 1 11 */
-+931,	/* OBJ_brainpoolP384t1              1 3 36 3 3 2 8 1 1 12 */
-+932,	/* OBJ_brainpoolP512r1              1 3 36 3 3 2 8 1 1 13 */
-+933,	/* OBJ_brainpoolP512t1              1 3 36 3 3 2 8 1 1 14 */
++921,	/* OBJ_brainpoolP160r1              1 3 36 3 3 2 8 1 1 1 */
++922,	/* OBJ_brainpoolP160t1              1 3 36 3 3 2 8 1 1 2 */
++923,	/* OBJ_brainpoolP192r1              1 3 36 3 3 2 8 1 1 3 */
++924,	/* OBJ_brainpoolP192t1              1 3 36 3 3 2 8 1 1 4 */
++925,	/* OBJ_brainpoolP224r1              1 3 36 3 3 2 8 1 1 5 */
++926,	/* OBJ_brainpoolP224t1              1 3 36 3 3 2 8 1 1 6 */
++927,	/* OBJ_brainpoolP256r1              1 3 36 3 3 2 8 1 1 7 */
++928,	/* OBJ_brainpoolP256t1              1 3 36 3 3 2 8 1 1 8 */
++929,	/* OBJ_brainpoolP320r1              1 3 36 3 3 2 8 1 1 9 */
++930,	/* OBJ_brainpoolP320t1              1 3 36 3 3 2 8 1 1 10 */
++931,	/* OBJ_brainpoolP384r1              1 3 36 3 3 2 8 1 1 11 */
++932,	/* OBJ_brainpoolP384t1              1 3 36 3 3 2 8 1 1 12 */
++933,	/* OBJ_brainpoolP512r1              1 3 36 3 3 2 8 1 1 13 */
++934,	/* OBJ_brainpoolP512t1              1 3 36 3 3 2 8 1 1 14 */
  418,	/* OBJ_aes_128_ecb                  2 16 840 1 101 3 4 1 1 */
  419,	/* OBJ_aes_128_cbc                  2 16 840 1 101 3 4 1 2 */
  420,	/* OBJ_aes_128_ofb128               2 16 840 1 101 3 4 1 3 */
 diff --git a/crypto/objects/obj_mac.h b/crypto/objects/obj_mac.h
-index b5ea7cd..039451c 100644
+index b5ea7cd..704697e 100644
 --- a/crypto/objects/obj_mac.h
 +++ b/crypto/objects/obj_mac.h
-@@ -4030,3 +4030,59 @@
+@@ -4030,3 +4030,64 @@
  #define LN_aes_256_cbc_hmac_sha1		"aes-256-cbc-hmac-sha1"
  #define NID_aes_256_cbc_hmac_sha1		918
  
++#define SN_dhpublicnumber		"dhpublicnumber"
++#define LN_dhpublicnumber		"X9.42 DH"
++#define NID_dhpublicnumber		920
++#define OBJ_dhpublicnumber		OBJ_ISO_US,10046L,2L,1L
++
 +#define SN_brainpoolP160r1		"brainpoolP160r1"
-+#define NID_brainpoolP160r1		920
++#define NID_brainpoolP160r1		921
 +#define OBJ_brainpoolP160r1		1L,3L,36L,3L,3L,2L,8L,1L,1L,1L
 +
 +#define SN_brainpoolP160t1		"brainpoolP160t1"
-+#define NID_brainpoolP160t1		921
++#define NID_brainpoolP160t1		922
 +#define OBJ_brainpoolP160t1		1L,3L,36L,3L,3L,2L,8L,1L,1L,2L
 +
 +#define SN_brainpoolP192r1		"brainpoolP192r1"
-+#define NID_brainpoolP192r1		922
++#define NID_brainpoolP192r1		923
 +#define OBJ_brainpoolP192r1		1L,3L,36L,3L,3L,2L,8L,1L,1L,3L
 +
 +#define SN_brainpoolP192t1		"brainpoolP192t1"
-+#define NID_brainpoolP192t1		923
++#define NID_brainpoolP192t1		924
 +#define OBJ_brainpoolP192t1		1L,3L,36L,3L,3L,2L,8L,1L,1L,4L
 +
 +#define SN_brainpoolP224r1		"brainpoolP224r1"
-+#define NID_brainpoolP224r1		924
++#define NID_brainpoolP224r1		925
 +#define OBJ_brainpoolP224r1		1L,3L,36L,3L,3L,2L,8L,1L,1L,5L
 +
 +#define SN_brainpoolP224t1		"brainpoolP224t1"
-+#define NID_brainpoolP224t1		925
++#define NID_brainpoolP224t1		926
 +#define OBJ_brainpoolP224t1		1L,3L,36L,3L,3L,2L,8L,1L,1L,6L
 +
 +#define SN_brainpoolP256r1		"brainpoolP256r1"
-+#define NID_brainpoolP256r1		926
++#define NID_brainpoolP256r1		927
 +#define OBJ_brainpoolP256r1		1L,3L,36L,3L,3L,2L,8L,1L,1L,7L
 +
 +#define SN_brainpoolP256t1		"brainpoolP256t1"
-+#define NID_brainpoolP256t1		927
++#define NID_brainpoolP256t1		928
 +#define OBJ_brainpoolP256t1		1L,3L,36L,3L,3L,2L,8L,1L,1L,8L
 +
 +#define SN_brainpoolP320r1		"brainpoolP320r1"
-+#define NID_brainpoolP320r1		928
++#define NID_brainpoolP320r1		929
 +#define OBJ_brainpoolP320r1		1L,3L,36L,3L,3L,2L,8L,1L,1L,9L
 +
 +#define SN_brainpoolP320t1		"brainpoolP320t1"
-+#define NID_brainpoolP320t1		929
++#define NID_brainpoolP320t1		930
 +#define OBJ_brainpoolP320t1		1L,3L,36L,3L,3L,2L,8L,1L,1L,10L
 +
 +#define SN_brainpoolP384r1		"brainpoolP384r1"
-+#define NID_brainpoolP384r1		930
++#define NID_brainpoolP384r1		931
 +#define OBJ_brainpoolP384r1		1L,3L,36L,3L,3L,2L,8L,1L,1L,11L
 +
 +#define SN_brainpoolP384t1		"brainpoolP384t1"
-+#define NID_brainpoolP384t1		931
++#define NID_brainpoolP384t1		932
 +#define OBJ_brainpoolP384t1		1L,3L,36L,3L,3L,2L,8L,1L,1L,12L
 +
 +#define SN_brainpoolP512r1		"brainpoolP512r1"
-+#define NID_brainpoolP512r1		932
++#define NID_brainpoolP512r1		933
 +#define OBJ_brainpoolP512r1		1L,3L,36L,3L,3L,2L,8L,1L,1L,13L
 +
 +#define SN_brainpoolP512t1		"brainpoolP512t1"
-+#define NID_brainpoolP512t1		933
++#define NID_brainpoolP512t1		934
 +#define OBJ_brainpoolP512t1		1L,3L,36L,3L,3L,2L,8L,1L,1L,14L
 +
 diff --git a/crypto/objects/obj_mac.num b/crypto/objects/obj_mac.num
-index 1d0a7c8..eafede2 100644
+index 1d0a7c8..9297435 100644
 --- a/crypto/objects/obj_mac.num
 +++ b/crypto/objects/obj_mac.num
-@@ -917,3 +917,17 @@ aes_128_cbc_hmac_sha1		916
+@@ -917,3 +917,18 @@ aes_128_cbc_hmac_sha1		916
  aes_192_cbc_hmac_sha1		917
  aes_256_cbc_hmac_sha1		918
  rsaesOaep		919
-+brainpoolP160r1		920
-+brainpoolP160t1		921
-+brainpoolP192r1		922
-+brainpoolP192t1		923
-+brainpoolP224r1		924
-+brainpoolP224t1		925
-+brainpoolP256r1		926
-+brainpoolP256t1		927
-+brainpoolP320r1		928
-+brainpoolP320t1		929
-+brainpoolP384r1		930
-+brainpoolP384t1		931
-+brainpoolP512r1		932
-+brainpoolP512t1		933
++dhpublicnumber		920
++brainpoolP160r1		921
++brainpoolP160t1		922
++brainpoolP192r1		923
++brainpoolP192t1		924
++brainpoolP224r1		925
++brainpoolP224t1		926
++brainpoolP256r1		927
++brainpoolP256t1		928
++brainpoolP320r1		929
++brainpoolP320t1		930
++brainpoolP384r1		931
++brainpoolP384t1		932
++brainpoolP512r1		933
++brainpoolP512t1		934
 diff --git a/crypto/objects/objects.txt b/crypto/objects/objects.txt
-index d3bfad7..4094822 100644
+index d3bfad7..23a955d 100644
 --- a/crypto/objects/objects.txt
 +++ b/crypto/objects/objects.txt
-@@ -1290,3 +1290,23 @@ kisa 1 6                : SEED-OFB      : seed-ofb
+@@ -1290,3 +1290,25 @@ kisa 1 6                : SEED-OFB      : seed-ofb
  			: AES-128-CBC-HMAC-SHA1		: aes-128-cbc-hmac-sha1
  			: AES-192-CBC-HMAC-SHA1		: aes-192-cbc-hmac-sha1
  			: AES-256-CBC-HMAC-SHA1		: aes-256-cbc-hmac-sha1
++
++ISO-US 10046 2 1	: dhpublicnumber		: X9.42 DH
 +
 +# RFC 5639 curve OIDs (see http://www.ietf.org/rfc/rfc5639.txt)
 +# versionOne OBJECT IDENTIFIER ::= {
