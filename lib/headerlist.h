@@ -98,7 +98,7 @@ class dbheader
 		tooltip = atip;
 		show = showDefault = ashow;
 	}
-	~dbheader() { }
+	virtual ~dbheader() { }
 
 	bool mustSave()
 	{

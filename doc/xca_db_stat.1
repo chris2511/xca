@@ -1,0 +1,41 @@
+.TH XCA_DB_STAT 1
+.SH NAME
+xca_db_stat \- XCA database analyse tool
+.br
+A small application to display the contents of an XCA  database
+.SH SYNOPSIS
+.B xca_db_stat <database name>
+.br
+.B xca_db_stat
+.RI [ -h / --help ]
+.br
+.SH "DESCRIPTION"
+This tool reads an XCA database and dumps the meta data of the different chunks.The XCA database is actually only a collection of different chunks containing keys, certificates, certificate signing requests, templates and CRLs.
+Each chunk is prefixed by a header containing a magic, the total length, the version of the chunk, the PKI type and the internal name.
+How to read the contents of a chunk depends on the type and the version.
+.br
+.br
+The header format is:
+
+.br
+typedef struct {
+.br
+        uint32_t magic;      /* 0xcadb1969 */
+.br
+        uint32_t len;        /* length of this entry */
+.br
+        uint16_t headver;    /* Header version, currently 1 */
+.br
+        uint16_t type;       /* PKI type */
+.br
+        uint16_t version;    /* version of the chunk */
+.br
+        uint16_t flags;      /* deleted(1) outdated(2) */
+.br
+        char name[80];       /* name of the entry */
+.br
+} db_header_t ;
+
+.SH AUTHOR
+This manual page was written by Christian Hohnstaedt <christian@hohnstaedt.de>
+

@@ -38,34 +38,44 @@ static QString fileNAmeDecoderFunc(const QByteArray &localFileName)
 	return filename2QString(localFileName.constData());
 }
 
+static void usage(const char *me)
+{
+	printf("%s <DatabaseFile>: Dump database statistics\n"
+		"    Prints details about the chunks in the database\n", me);
+}
 
 int main(int argc, char *argv[])
 {
-	if (argc < 2)
+	if (argc != 2 || !strcmp(argv[1], "-h") || !strcmp(argv[1], "--help")){
+		usage(argv[0]);
 		return 1;
-
+	}
 	QFile::setEncodingFunction(fileNameEncoderFunc);
 	QFile::setDecodingFunction(fileNAmeDecoderFunc);
 
 	QString database = filename2QString(argv[1]);
-
-	db mydb(database);
-	unsigned char *p;
-	db_header_t h;
-	int i=0;
-	size_t last_end = 0;
-	QList<size_t> errs;
-	int format=16;
-	const char *type[] = {
-		"(none)", "Software Key", "Request", "Certificate",
-		"Revocation", "Template", "Setting", "Token key"
-	};
+	if (!QFile::exists(database)) {
+		printf("Database file '%s' not found\n", argv[1]);
+		usage(argv[0]);
+		return 1;
+	}
+	try {
+		db mydb(database);
+		unsigned char *p;
+		db_header_t h;
+		int i=0;
+		size_t last_end = 0;
+		QList<size_t> errs;
+		int format=16;
+		const char *type[] = {
+			"(none)", "Software Key", "Request", "Certificate",
+			"Revocation", "Template", "Setting", "Token key"
+		};
 #define FW_IDX 5
 #define FW_TYPE -13
 #define FW_VER 3
 #define FW_SIZE 6
 #define FW_FLAGS 6
-	try {
 		mydb.first(0);
 		//QString fmt = QString("%1 %2 %3 %4 %5 %6 %7");
 		QString fmt = QString("%1 | %2 | %3 | %4 | %5 | %6 | %7");
