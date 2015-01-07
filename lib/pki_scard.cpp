@@ -237,7 +237,9 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 	QByteArray ba;
 	RSA *rsa = pk->pkey.rsa;
 	DSA *dsa = pk->pkey.dsa;
+#ifndef OPENSSL_NO_EC
 	EC_KEY *ec = pk->pkey.ec;
+#endif
 
 	pk11_attlist attrs(pk11_attr_ulong(CKA_CLASS,
 			priv ? CKO_PRIVATE_KEY : CKO_PUBLIC_KEY));
@@ -254,6 +256,7 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 			pk11_attr_data(CKA_SUBPRIME, dsa->q, false) <<
 			pk11_attr_data(CKA_BASE, dsa->g, false);
 		break;
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC:
 		ba = i2d_bytearray(I2D_VOID(i2d_ECPKParameters),
 				EC_KEY_get0_group(ec));
@@ -261,6 +264,7 @@ pk11_attlist pki_scard::objectAttributesNoId(EVP_PKEY *pk, bool priv) const
 		attrs << pk11_attr_ulong(CKA_KEY_TYPE, CKK_EC) <<
 			pk11_attr_data(CKA_EC_PARAMS, ba);
 		break;
+#endif
 	default:
 		throw errorEx(QString("Unkown Keytype %d").arg(pk->type));
 
@@ -330,7 +334,9 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 	QByteArray ba;
 	RSA *rsa = pkey->pkey.rsa;
 	DSA *dsa = pkey->pkey.dsa;
+#ifndef OPENSSL_NO_EC
 	EC_KEY *ec = pkey->pkey.ec;
+#endif
 	pk11_attlist pub_atts;
 	pk11_attlist priv_atts;
 	QList<CK_OBJECT_HANDLE> objects;
@@ -381,6 +387,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 		priv_atts << pk11_attr_data(CKA_VALUE, dsa->priv_key, false);
 		pub_atts << pk11_attr_data(CKA_VALUE, dsa->pub_key, false);
 		break;
+#ifndef OPENSSL_NO_EC
 	case EVP_PKEY_EC: {
 		/* Public Key */
 		BIGNUM *point;
@@ -410,6 +417,7 @@ void pki_scard::store_token(slotid slot, EVP_PKEY *pkey)
 					EC_KEY_get0_private_key(ec));
 		break;
 	}
+#endif
 	default:
 		throw errorEx(QString("Unkown Keytype %d").arg(pkey->type));
 
@@ -459,11 +467,13 @@ QList<int> pki_scard::possibleHashNids()
 			case CKM_DSA_SHA1:        nids << NID_sha1; break;
 			}
 			break;
+#ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
 			switch (mechanism) {
 			case CKM_ECDSA_SHA1:      nids << NID_sha1; break;
 			}
 			break;
+#endif
 		}
 	}
 	if (nids.count() == 0) {
@@ -473,7 +483,9 @@ QList<int> pki_scard::possibleHashNids()
 				NID_sha384 << NID_sha512 << NID_ripemd160;
 			break;
 		case EVP_PKEY_DSA:
+#ifndef OPENSSL_NO_EC
 		case EVP_PKEY_EC:
+#endif
 			nids << NID_sha1;
 			break;
 		}

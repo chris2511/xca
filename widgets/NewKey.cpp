@@ -79,8 +79,8 @@ class keyListItem
 				 */
 				ec_flags = CKF_EC_F_P | CKF_EC_F_2M;
 			}
-		}
 #endif
+		}
 		printname = QString("%1 #%2 (%3 Key of %4 - %5 bits)").
 			arg(ti.label()).arg(ti.serial()).
 			arg(tl->name).

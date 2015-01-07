@@ -57,7 +57,7 @@ void MainWindow::about()
 	}
 #endif
 #else
-	brainpool = "(Elliptic Curve Cryptography support disabled)"
+	brainpool = "(Elliptic Curve Cryptography support disabled)";
 #endif
 	openssl = SSLeay_version(SSLEAY_VERSION);
 	qt = qVersion();
