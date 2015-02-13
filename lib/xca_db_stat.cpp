@@ -78,13 +78,14 @@ int main(int argc, char *argv[])
 #define FW_FLAGS 6
 		mydb.first(0);
 		//QString fmt = QString("%1 %2 %3 %4 %5 %6 %7");
-		QString fmt = QString("%1 | %2 | %3 | %4 | %5 | %6 | %7");
+		QString fmt = QString("%1 | %2 | %3 | %4 | %5 | %6 | %7 | %8");
 		puts(CCHAR(fmt  .arg("Index", FW_IDX)
 				.arg("Type", FW_TYPE)
 				.arg("Ver", FW_VER)
 				.arg("Offset", FW_SIZE)
 				.arg("Length", FW_SIZE)
 				.arg("End", FW_SIZE)
+				.arg("Flags", FW_SIZE)
 				.arg("Name")));
 		while (!mydb.eof()) {
 			p = mydb.load(&h);
@@ -100,6 +101,7 @@ int main(int argc, char *argv[])
 					.arg(mydb.head_offset, FW_SIZE, format)
 					.arg(h.len, FW_SIZE, format)
 					.arg(last_end -1, FW_SIZE, format)
+					.arg(h.flags, FW_SIZE)
 					.arg(h.name)));
 			if (mydb.next(0))
 				break;
