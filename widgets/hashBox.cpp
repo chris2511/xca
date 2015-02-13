@@ -15,6 +15,7 @@ static struct {
 } hashalgos[] = {
 	{ "MD 5", EVP_md5() },
 	{ "SHA 1", EVP_sha1() },
+	{ "SHA 224", EVP_sha224() },
 	{ "SHA 256", EVP_sha256() },
 	{ "SHA 384", EVP_sha384() },
 	{ "SHA 512", EVP_sha512() },

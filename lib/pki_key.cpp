@@ -270,7 +270,7 @@ QList<int> pki_key::possibleHashNids()
 
 	switch (EVP_PKEY_type(key->type)) {
 		case EVP_PKEY_RSA:
-			nids << NID_md5 << NID_sha1 << NID_sha256 <<
+			nids << NID_md5 << NID_sha1 << NID_sha224 << NID_sha256 <<
 				NID_sha384 << NID_sha512 << NID_ripemd160;
 			break;
 		case EVP_PKEY_DSA:
@@ -282,7 +282,7 @@ QList<int> pki_key::possibleHashNids()
 		case EVP_PKEY_EC:
 			nids << NID_sha1;
 #if OPENSSL_VERSION_NUMBER >= 0x10000000L
-			nids << NID_sha256 << NID_sha384 << NID_sha512;
+			nids << NID_sha224 << NID_sha256 << NID_sha384 << NID_sha512;
 #endif
 			break;
 	}
