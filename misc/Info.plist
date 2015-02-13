@@ -10,6 +10,8 @@
 	<string>xca-mac-icon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>de.hohnstaedt.xca</string>
+	<key>CFBundleName</key>
+	<string>xca</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>

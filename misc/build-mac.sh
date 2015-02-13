@@ -38,8 +38,8 @@ for i in "" -brainpool; do
   export DYLD_LIBRARY_PATH=$INSTALL_DIR/lib
   export QTDIR=$HOME/src/install/Qt485
 
-  do_libtool
-  do_openssl
+#  do_libtool
+#  do_openssl
 
   XCA_BUILD="xca-macbuild$EXTRA_VERSION"
   # configure XCA and build the DMG file
@@ -54,4 +54,5 @@ for i in "" -brainpool; do
   make -j5
   cp *.dmg ..
   cd ..
+exit 0
 done

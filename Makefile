@@ -150,6 +150,7 @@ $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
+	codesign -s "Christian Hohnstädt" $(DMGSTAGE)/xca.app
 	tar zcf $(MACTARGET).tar.gz $(DMGSTAGE)
 
 xca.dmg: $(MACTARGET).dmg
