@@ -12,6 +12,7 @@
 #include <QtCore/QFile>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
+#include "lib/db.h"
 #include "lib/main.h"
 #ifdef WIN32
 #include <windows.h>
@@ -115,12 +116,93 @@ bool XCA_application::event(QEvent *ev)
 	}
 	return QApplication::event(ev);
 }
+int usage_extract(char *argv[])
+{
+	fprintf(stderr,
+		"Usage: %s %s <database> <type> <name>\n"
+		"  database : the filename of the database\n"
+		"  type     : one of 'crl' 'cert' 'req'\n",
+				argv[0], argv[1]);
+	return 1;
+}
+int main_extract(int argc, char *argv[])
+{
+	QFile dbfile;
+	enum pki_type pkitype = none;
+	unsigned char *p;
+        db_header_t head;
+	QString pkiname, name, fname;
+	pki_base *pki;
+	BIO *b;
+
+	if (argc != 5) {
+		fprintf(stderr, "Wrong number of arguments\n");
+		return usage_extract(argv);
+	}
+	fname = filename2QString(argv[2]);
+        dbfile.setFileName(fname);
+	if (!dbfile.exists()) {
+		fprintf(stderr, "Database '%s' not found\n",argv[2]);
+		return usage_extract(argv);
+	}
+	pkiname = argv[3];
+	if (pkiname == "cert")
+		pkitype = x509;
+	else if (pkiname == "crl")
+		pkitype = revokation;
+	else if (pkiname == "req")
+		pkitype = x509_req;
+	else {
+		fprintf(stderr, "Invalid type: '%s'\n", argv[3]);
+		return usage_extract(argv);
+	}
+	db mydb(fname);
+	name = argv[4];
+	if (mydb.find(pkitype, name)) {
+		fprintf(stderr, "Item of type %s with name '%s' not found.\n",
+			argv[3], argv[4]);
+		return usage_extract(argv);
+	}
+	p = mydb.load(&head);
+	if (!p) {
+		fprintf(stderr, "Load was empty !");
+		return usage_extract(argv);
+	}
+	name = QString::fromUtf8(head.name);
+	switch (pkitype) {
+	case x509: pki = new pki_x509(name); break;
+	case x509_req: pki = new pki_x509req(name); break;
+	case revokation: pki = new pki_crl(name); break;
+	default: return usage_extract(argv);
+	}
+	if (pki->getVersion() < head.version) {
+		fprintf(stderr, "Item[%s]: Version %d > known version: %d",
+			head.name, head.version, pki->getVersion());
+		free(p);
+		delete pki;
+		return usage_extract(argv);
+	}
+	pki->setIntName(QString::fromUtf8(head.name));
+	try {
+		pki->fromData(p, &head);
+	} catch (errorEx &err) {
+		fprintf(stderr, "Failed to load item from database: %s",
+			CCHAR(err.getString()));
+	}
+	b = BIO_new_fp(stdout, BIO_NOCLOSE);
+	pki->pem(b);
+	BIO_free(b);
+	return 0;
+}
 
 int main( int argc, char *argv[] )
 {
 	int ret = 0, pkictr;
 	MainWindow *mw;
 
+	if (QString(argv[1]) == "extract") {
+		return main_extract(argc, argv);
+	}
 	XCA_application a(argc, argv);
 	mw = new MainWindow(NULL);
 	try {
