@@ -20,11 +20,14 @@ ExportKey::ExportKey(QWidget *parent, QString fname, pki_key *key)
 	onlyPub = key->isPubKey() || key->isToken();
 	QString lbl;
 
-	QStringList sl; sl << "PEM" << "DER" << "SSH2 public key";
+	QStringList sl; sl << "PEM" << "DER";
+	if (key->getKeyType() == EVP_PKEY_RSA ||
+	    key->getKeyType() == EVP_PKEY_DSA)
+		sl << "SSH2 Public Key";
 	exportFormat->addItems(sl);
-	suffixes << "pem" << "der";
+	suffixes << "pem" << "der" << "pub";
 
-        filter = tr("Private keys ( *.pem *.der *.pk8 );;All files ( * )");
+        filter = tr("Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( * )");
 
 	formatLabel->setText(tr(
 		"DER is a binary format of the key without encryption\n"
@@ -61,12 +64,10 @@ ExportKey::ExportKey(QWidget *parent, QString fname, pki_key *key)
 void ExportKey::canEncrypt()
 {
 	if (exportFormat->currentIndex() == 2) {
-		extraFrame->hide();
+		extraFrame->setDisabled(true);
 		return;
 	} else {
-		if (!onlyPub) {
-			extraFrame->show();
-		}
+		extraFrame->setEnabled(true);
 	}
 	if (exportPrivate->isChecked()) {
 		exportPkcs8->setEnabled(true);

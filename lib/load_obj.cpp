@@ -50,7 +50,8 @@ load_key::load_key()
 	:load_base()
 {
 	filter = QObject::tr("PKI Keys ( *.pem *.der *.key );;"
-			"PKCS#8 Keys ( *.p8 *.pk8 );;") + filter;
+			"PKCS#8 Keys ( *.p8 *.pk8 );;"
+			"SSH Public Keys ( *.pub );;") + filter;
 	caption = QObject::tr("Import RSA key");
 }
 

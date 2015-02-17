@@ -452,15 +452,14 @@ EVP_PKEY *pki_key::load_ssh2_key(FILE *fp)
 
 void pki_key::ssh_key_QBA2data(QByteArray &ba, QByteArray *data)
 {
-	size_t size = ba.size();
-	unsigned char *p;
+	int size = ba.size();
+	unsigned char p[4];
 
-	data->resize(data->size() +4);
-	p = (unsigned char *)data->data();
 	p[0] = (size >> 24) & 0xff;
 	p[1] = (size >> 16) & 0xff;
 	p[2] = (size >>  8) & 0xff;
 	p[3] = size & 0xff;
+	data->append((char*)p, sizeof p);
 	data->append(ba);
 }
 
@@ -468,7 +467,7 @@ void pki_key::ssh_key_bn2data(BIGNUM *bn, QByteArray *data)
 {
 	QByteArray big;
 	big.resize(BN_num_bytes(bn));
-	BN_bn2bin(bn, (unsigned char *)data->data());
+	BN_bn2bin(bn, (unsigned char *)big.data());
 	pki_openssl_error();
 	ssh_key_QBA2data(big, data);
 }
@@ -486,6 +485,7 @@ void pki_key::writeSSH2public(QString fname)
 		break;
 	case EVP_PKEY_DSA:
 		txt = "ssh-dss";
+		ssh_key_QBA2data(txt, &data);
 		ssh_key_bn2data(key->pkey.dsa->p, &data);
 		ssh_key_bn2data(key->pkey.dsa->q, &data);
 		ssh_key_bn2data(key->pkey.dsa->g, &data);
@@ -495,6 +495,7 @@ void pki_key::writeSSH2public(QString fname)
 		return;
 	}
 	txt += " " + data.toBase64() + "\n";
+
 	QFile f(fname);
 	if (!f.open(QIODevice::ReadWrite))
 		fopen_error(fname);
