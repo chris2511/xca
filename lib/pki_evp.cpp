@@ -282,11 +282,21 @@ void pki_evp::fload(const QString fname)
 		rewind(fp);
 		pkey = d2i_PUBKEY_fp(fp, NULL);
 	}
+	if (!pkey) {
+		pki_ign_openssl_error();
+                rewind(fp);
+		try {
+			pkey = load_ssh2_key(fp);
+		} catch (errorEx &err) {
+			fclose(fp);
+			throw err;
+		}
+        }
 	fclose(fp);
-	if (pki_ign_openssl_error()) {
+	if (!pkey || pki_ign_openssl_error()) {
 		if (pkey)
 			EVP_PKEY_free(pkey);
-		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.").arg(fname));
+		throw errorEx(tr("Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.").arg(fname));
 	}
 	if (pkey){
 		search_ec_oid(pkey);

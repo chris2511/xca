@@ -380,3 +380,72 @@ QVariant pki_key::column_data(dbheader *hd)
 	return pki_base::column_data(hd);
 }
 
+BIGNUM *pki_key::ssh_key_data2bn(QByteArray *ba, bool skip)
+{
+	const unsigned char *d = (const unsigned char *)ba->constData();
+	uint32_t len;
+	BIGNUM *bn = NULL;
+
+	if (ba->size() < 4)
+			throw errorEx(tr("Invalid SSH2 public key"));
+	len = (d[0] << 24) + (d[1] << 16) + (d[2] << 8) + d[3];
+	if (!skip) {
+		bn = BN_bin2bn(d+4, len, NULL);
+		if (!ba)
+			throw errorEx(tr("Invalid SSH2 public key"));
+	}
+	if (ba->size() < (ssize_t)len + 4)
+		throw errorEx(tr("Invalid SSH2 public key"));
+	ba->remove(0, len+4);
+	return bn;
+}
+
+EVP_PKEY *pki_key::load_ssh2_key(FILE *fp)
+{
+	/* See RFC 4253 Section 6.6 */
+	QByteArray ba;
+	QStringList sl;
+	int type;
+	EVP_PKEY *pk = NULL;
+
+	ba.resize(4096);
+
+	if (!fgets(ba.data(), ba.size(), fp)) {
+		return NULL;
+	}
+	sl = QString(ba).split(" ", QString::SkipEmptyParts);
+	if (sl.size() < 2)
+		return NULL;
+	if (sl[0].startsWith("ssh-rsa"))
+		type = EVP_PKEY_RSA;
+	else if (sl[0].startsWith("ssh-dss"))
+		type = EVP_PKEY_DSA;
+	else
+		return NULL;
+
+	ba = QByteArray::fromBase64(sl[1].toAscii());
+	switch (type) {
+		case EVP_PKEY_RSA: {
+			RSA *rsa = RSA_new();
+			/* Skip "ssh-rsa..." */
+			ssh_key_data2bn(&ba, true);
+			rsa->e = ssh_key_data2bn(&ba);
+			rsa->n = ssh_key_data2bn(&ba);
+			pk = EVP_PKEY_new();
+			EVP_PKEY_assign_RSA(pk, rsa);
+			break;
+		}
+		case EVP_PKEY_DSA: {
+			DSA *dsa = DSA_new();
+			/* Skip "ssh-dsa..." */
+			ssh_key_data2bn(&ba, true);
+			dsa->p = ssh_key_data2bn(&ba);
+			dsa->q = ssh_key_data2bn(&ba);
+			dsa->g = ssh_key_data2bn(&ba);
+			dsa->pub_key = ssh_key_data2bn(&ba);
+			pk = EVP_PKEY_new();
+			EVP_PKEY_assign_DSA(pk, dsa);
+		}
+	}
+	return pk;
+}

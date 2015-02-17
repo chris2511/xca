@@ -28,6 +28,7 @@ class pki_key: public pki_base
 		QString BNoneLine(BIGNUM *bn) const;
 
 	private:
+		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
 		int ucount; // usage counter
 	public:
 		pki_key(const QString name = "");
@@ -86,6 +87,7 @@ class pki_key: public pki_base
 		void d2i(QByteArray &ba);
 		void d2i_old(QByteArray &ba, int type);
 		QByteArray i2d();
+		EVP_PKEY *load_ssh2_key(FILE *fp);
 };
 
 #endif
