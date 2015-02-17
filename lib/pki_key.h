@@ -29,6 +29,8 @@ class pki_key: public pki_base
 
 	private:
 		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
+		void ssh_key_QBA2data(QByteArray &ba, QByteArray *data);
+		void ssh_key_bn2data(BIGNUM *bn, QByteArray *data);
 		int ucount; // usage counter
 	public:
 		pki_key(const QString name = "");
@@ -88,6 +90,7 @@ class pki_key: public pki_base
 		void d2i_old(QByteArray &ba, int type);
 		QByteArray i2d();
 		EVP_PKEY *load_ssh2_key(FILE *fp);
+		void writeSSH2public(QString fname);
 };
 
 #endif

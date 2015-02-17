@@ -20,7 +20,7 @@ ExportKey::ExportKey(QWidget *parent, QString fname, pki_key *key)
 	onlyPub = key->isPubKey() || key->isToken();
 	QString lbl;
 
-	QStringList sl; sl << "PEM" << "DER";
+	QStringList sl; sl << "PEM" << "DER" << "SSH2 public key";
 	exportFormat->addItems(sl);
 	suffixes << "pem" << "der";
 
@@ -41,7 +41,7 @@ ExportKey::ExportKey(QWidget *parent, QString fname, pki_key *key)
         else
 		image->setPixmap(*MainWindow::keyImg);
 
-	if (key->isToken() || key->isPubKey()) {
+	if (onlyPub) {
 		lbl = tr("Export public %1 key");
 		extraFrame->hide();
 	} else {
@@ -60,13 +60,21 @@ ExportKey::ExportKey(QWidget *parent, QString fname, pki_key *key)
 
 void ExportKey::canEncrypt()
 {
+	if (exportFormat->currentIndex() == 2) {
+		extraFrame->hide();
+		return;
+	} else {
+		if (!onlyPub) {
+			extraFrame->show();
+		}
+	}
 	if (exportPrivate->isChecked()) {
 		exportPkcs8->setEnabled(true);
 	} else {
 		exportPkcs8->setEnabled(false);
 		exportPkcs8->setChecked(false);
 	}
-	if ((exportFormat->currentText() == "PEM" &&
+	if ((exportFormat->currentIndex() == 0 &&
 		exportPrivate->isChecked()) ||
 	    (exportPkcs8->isEnabled() && exportPkcs8->isChecked()))
 	{

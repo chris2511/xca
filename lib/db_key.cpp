@@ -302,7 +302,13 @@ void db_key::store()
 	}
 	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
-		pem = dlg->exportFormat->currentText() == "PEM" ? true : false;
+		switch (dlg->exportFormat->currentIndex()) {
+		case 0: pem = true;  break;
+		case 1: pem = false; break;
+		case 2: targetKey->writeSSH2public(fname);
+			delete dlg;
+			return;
+		}
 		if (dlg->encryptKey->isChecked())
 			enc = EVP_des_ede3_cbc();
 		if (dlg->exportPrivate->isChecked() && !targetKey->isToken()) {
@@ -320,7 +326,6 @@ void db_key::store()
 		mainwin->Error(err);
 	}
 	delete dlg;
-
 }
 
 void db_key::setOwnPass()
