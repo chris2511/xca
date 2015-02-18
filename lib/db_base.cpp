@@ -592,11 +592,8 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 			return item->getIcon(hd);
 		case Qt::TextAlignmentRole:
 			return hd->isNumeric() ? Qt::AlignRight : Qt::AlignLeft;
-		case Qt::FontRole: {
-			if (hd->isNumeric())
-				return QVariant(QFont("Monospace"));
-			return QVariant(QApplication::font());
-		}
+		case Qt::FontRole:
+			return QVariant(QFont("Courier"));
 		case Qt::BackgroundRole:
 			return item->bg_color(hd);
 		case Qt::UserRole:
@@ -604,14 +601,19 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 	}
 	return QVariant();
 }
-#if 0
-static QString getHeaderViewInfo(int sect, dbheader *h)
+static QVariant getHeaderViewInfo(int sect, dbheader *h)
 {
-	return QString("H[%1] Show:%2%3 Size:%4 VI:%5 Indi:%6").
+	return QVariant(
+#if 0
+	QString("H[%1] Show:%2%3 Size:%4 VI:%5 Indi:%6").
 		arg(sect).arg(h->show).arg(h->showDefault).arg(h->size).
-		arg(h->visualIndex).arg(h->sortIndicator);
-}
+		arg(h->visualIndex).arg(h->sortIndicator)
+#else
+	h->getTooltip()
 #endif
+	);
+}
+
 QVariant db_base::headerData(int section, Qt::Orientation orientation,
 		int role) const
 {
@@ -620,10 +622,7 @@ QVariant db_base::headerData(int section, Qt::Orientation orientation,
 		case Qt::DisplayRole:
 			return QVariant(allHeaders[section]->getName());
 		case Qt::ToolTipRole:
-#if 0
 			return getHeaderViewInfo(section, allHeaders[section]);
-#endif
-			return QVariant(allHeaders[section]->getTooltip());
 		}
 	}
 	return QVariant();

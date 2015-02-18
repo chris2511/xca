@@ -83,6 +83,7 @@ void MainWindow::about()
 	"<p>Copyright 2001 - 2014 by Christian Hohnst&auml;dt\n"
 	"<p>Version: <b>" PACKAGE_VERSION "</b>"
 	"<p>%1<p>%2"
+	"<p>http://sourceforge.net/projects/xca"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
