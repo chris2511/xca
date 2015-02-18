@@ -469,6 +469,8 @@ void pki_key::ssh_key_bn2data(BIGNUM *bn, QByteArray *data)
 	big.resize(BN_num_bytes(bn));
 	BN_bn2bin(bn, (unsigned char *)big.data());
 	pki_openssl_error();
+	if ((unsigned char)big[0] >= 0x80)
+		big.prepend('\0');
 	ssh_key_QBA2data(big, data);
 }
 
