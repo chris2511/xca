@@ -21,6 +21,7 @@
 #define HD_subject_name -3
 #define HD_subject_hash -4
 #define HD_x509key_name -5
+#define HD_counter -6
 
 #define HD_cert_serial -10
 #define HD_cert_notBefore -11

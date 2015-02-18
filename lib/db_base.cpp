@@ -206,8 +206,11 @@ void db_base::updateHeaders()
 
 dbheaderList db_base::getHeaders()
 {
-	return dbheaderList(new dbheader(HD_internal_name, true,
-		tr("Internal name")));
+	dbheaderList h;
+	/* "No." handled in XcaProxyModel */
+	h << new dbheader(HD_internal_name, true, tr("Internal name"))
+	  << new dbheader(HD_counter, false, tr("No."));
+	return h;
 }
 
 

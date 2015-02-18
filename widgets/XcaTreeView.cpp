@@ -192,6 +192,27 @@ bool XcaProxyModel::filterAcceptsRow(int sourceRow,
 	return sourceModel()->data(idx, Qt::UserRole).toBool();
 }
 
+QVariant XcaProxyModel::data(const QModelIndex &index, int role) const
+{
+	QModelIndex i;
+	QString number;
+
+	if (index.column() != 1)
+		return QSortFilterProxyModel::data(index, role);
+
+	/* Row number */
+	switch (role) {
+		case Qt::EditRole:
+		case Qt::DisplayRole:
+			for (i = index; i.isValid(); i = i.parent())
+				number += QString(" %1").arg(i.row()+1);
+			return QVariant(number);
+		case Qt::TextAlignmentRole:
+			return Qt::AlignRight;
+	}
+	return QVariant();
+}
+
 void XcaHeaderView::contextMenuEvent(QContextMenuEvent * e)
 {
 	XcaTreeView *tv = (XcaTreeView *)parentWidget();
@@ -208,4 +229,3 @@ void XcaHeaderView::resetMoves()
 		}
 	}
 }
-
