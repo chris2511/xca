@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4:
  *
- * Copyright (C) 2001 - 2014 Christian Hohnstaedt.
+ * Copyright (C) 2001 - 2015 Christian Hohnstaedt.
  *
  * All rights reserved.
  */
@@ -80,7 +80,7 @@ void MainWindow::about()
 
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
-	"<p>Copyright 2001 - 2014 by Christian Hohnst&auml;dt\n"
+	"<p>Copyright 2001 - 2015 by Christian Hohnst&auml;dt\n"
 	"<p>Version: <b>" PACKAGE_VERSION "</b>"
 	"<p>%1<p>%2"
 	"<p>http://sourceforge.net/projects/xca"
