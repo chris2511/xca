@@ -48,6 +48,7 @@ public:
 	void setMainwin(MainWindow *m);
 	void setupLanguage(QLocale lang);
 	static QLocale language() { return lang; }
+	static QFont tableFont;
 
 protected:
 	bool event(QEvent *ev);

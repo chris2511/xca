@@ -24,7 +24,7 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
 	setEditTriggers(QAbstractItemView::EditKeyPressed);
 	setRootIsDecorated(false);
-	setUniformRowHeights (true);
+	setUniformRowHeights(true);
 	//setAnimated(true);
 
 	proxy = new XcaProxyModel(this);
@@ -207,8 +207,8 @@ QVariant XcaProxyModel::data(const QModelIndex &index, int role) const
 			for (i = index; i.isValid(); i = i.parent())
 				number += QString(" %1").arg(i.row()+1);
 			return QVariant(number);
-		case Qt::TextAlignmentRole:
-			return Qt::AlignRight;
+		default:
+			return QSortFilterProxyModel::data(index, role);
 	}
 	return QVariant();
 }

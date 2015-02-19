@@ -117,6 +117,7 @@ class dbheader
 	bool isNumeric()
 	{
 		switch (id) {
+		case HD_counter:
 		case HD_key_size:
 		case HD_key_use:
 		case HD_cert_serial:

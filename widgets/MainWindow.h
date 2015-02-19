@@ -93,6 +93,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setOptFlags(QString flags);
 		void setOptFlags_old(QString flags);
 		QString getOptFlags();
+		void keyPressEvent(QKeyEvent *e);
 
 	public:
 		static db_x509 *certs;

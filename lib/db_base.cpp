@@ -593,7 +593,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 		case Qt::TextAlignmentRole:
 			return hd->isNumeric() ? Qt::AlignRight : Qt::AlignLeft;
 		case Qt::FontRole:
-			return QVariant(QFont("Courier"));
+			return QVariant(XCA_application::tableFont);
 		case Qt::BackgroundRole:
 			return item->bg_color(hd);
 		case Qt::UserRole:

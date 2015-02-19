@@ -19,6 +19,7 @@
 #endif
 
 QLocale XCA_application::lang = QLocale::system();
+QFont XCA_application::tableFont;
 
 void XCA_application::setMainwin(MainWindow *m)
 {
@@ -46,6 +47,8 @@ XCA_application::XCA_application(int &argc, char *argv[])
 	libp.prepend(applicationDirPath() + "/../Plugins");
 	setLibraryPaths(libp);
 #endif
+	tableFont = QFont("Courier");
+	tableFont.setPointSize(QApplication::font().pointSize());
 }
 
 void XCA_application::setupLanguage(QLocale l)

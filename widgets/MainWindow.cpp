@@ -894,3 +894,25 @@ void MainWindow::changeEvent(QEvent *event)
 	}
 	QMainWindow::changeEvent(event);
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+	if (e->modifiers() == Qt::ControlModifier) {
+		int siz = XCA_application::tableFont.pointSize();
+		switch (e->key()) {
+		case Qt::Key_Plus:
+			XCA_application::tableFont.setPointSize(siz +1);
+			update();
+			return;
+		case Qt::Key_Minus:
+			if (siz > 4) {
+				XCA_application::tableFont.setPointSize(siz -1);
+				update();
+			}
+			return;
+		default:
+			break;
+		}
+	}
+	QMainWindow::keyPressEvent(e);
+}

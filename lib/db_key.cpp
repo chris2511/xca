@@ -278,7 +278,7 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 
 void db_key::store()
 {
-	bool pem;
+	bool pem = true;
 	const EVP_CIPHER *enc = NULL;
 
 	if (!currentIdx.isValid())
