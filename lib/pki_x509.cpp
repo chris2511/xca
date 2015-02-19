@@ -136,7 +136,7 @@ void pki_x509::init()
 	caSerial = 1;
 	caTemplate = "";
 	crlDays = 30;
-	crlExpiry = a1time::now();
+	crlExpiry.setUndefined();
 	class_name = "pki_x509";
 	cert = NULL;
 	isrevoked = false;
@@ -831,7 +831,7 @@ QVariant pki_x509::column_data(dbheader *hd)
 		case HD_cert_revokation:
 			if (isRevoked())
 				return QVariant(getRevoked().toSortable());
-			else if (canSign())
+			else if (canSign() && !crlExpiry.isUndefined())
 				return QVariant(tr("CRL expires: %1").
 					arg(crlExpiry.toSortable()));
 			return QVariant();
@@ -954,11 +954,13 @@ QVariant pki_x509::bg_color(dbheader *hd)
 			if (canSign()) {
 				QDateTime crlwarn, crlex;
 				crlex = crlExpiry;
-				crlwarn = crlex.addSecs(-2 *60*60*24);
-				if (crlex < now)
-					return QVariant(BG_RED);
-				if (crlwarn < now || !crlex.isValid())
-					return QVariant(BG_YELLOW);
+				if (!crlExpiry.isUndefined()) {
+					crlwarn = crlex.addSecs(-2 *60*60*24);
+					if (crlex < now)
+						return QVariant(BG_RED);
+					if (crlwarn < now || !crlex.isValid())
+						return QVariant(BG_YELLOW);
+				}
 			}
 	}
 	return QVariant();
@@ -988,7 +990,7 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 		if (version == 1) {
 			caTemplate="";
 			caSerial=1;
-			crlExpiry=a1time::now();
+			crlExpiry.setUndefined();
 			crlDays=30;
 		}
 
