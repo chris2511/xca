@@ -8,7 +8,7 @@
 #ifndef __FOCUSCOMBO_H
 #define __FOCUSCOMBO_H
 
-#include <QtGui/QComboBox>
+#include <QComboBox>
 
 class focusCombo : public QComboBox
 {

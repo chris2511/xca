@@ -10,8 +10,8 @@
 #include "lib/base.h"
 #include "lib/Passwd.h"
 #include "widgets/MainWindow.h"
-#include <QtGui/QLabel>
-#include <QtGui/QMessageBox>
+#include <QLabel>
+#include <QMessageBox>
 
 static int hex2bin(QString &x, Passwd *final)
 {
@@ -106,7 +106,7 @@ void PwDialog::accept()
 			return;
 		}
 	} else {
-		final = pw.toAscii();
+		final = pw.toLatin1();
 	}
 	QDialog::accept();
 }

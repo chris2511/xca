@@ -8,7 +8,7 @@
 #include "db.h"
 #include "exception.h"
 #include <stdlib.h>
-#include <QtCore/QByteArray>
+#include <QByteArray>
 
 QByteArray filename2bytearray(const QString &fname)
 {
@@ -28,16 +28,6 @@ QString filename2QString(const char *fname)
 #endif
 }
 
-static QByteArray fileNameEncoderFunc(const QString &fileName)
-{
-	return filename2bytearray(fileName);
-}
-
-static QString fileNAmeDecoderFunc(const QByteArray &localFileName)
-{
-	return filename2QString(localFileName.constData());
-}
-
 static void usage(const char *me)
 {
 	printf("%s <DatabaseFile>: Dump database statistics\n"
@@ -50,8 +40,6 @@ int main(int argc, char *argv[])
 		usage(argv[0]);
 		return 1;
 	}
-	QFile::setEncodingFunction(fileNameEncoderFunc);
-	QFile::setDecodingFunction(fileNAmeDecoderFunc);
 
 	QString database = filename2QString(argv[1]);
 	if (!QFile::exists(database)) {

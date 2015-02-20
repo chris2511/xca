@@ -8,9 +8,9 @@
 #ifndef __XCAPROXYMODEL_H
 #define __XCAPROXYMODEL_H
 
-#include <QtGui/QWidget>
-#include <QtGui/QItemSelectionModel>
-#include <QtGui/QSortFilterProxyModel>
+#include <QWidget>
+#include <QItemSelectionModel>
+#include <QSortFilterProxyModel>
 
 class XcaProxyModel: public QSortFilterProxyModel
 {

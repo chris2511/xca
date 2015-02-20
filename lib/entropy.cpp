@@ -13,8 +13,8 @@
 #include <string.h>
 #include <errno.h>
 
-#include <QtCore/QFile>
-#include <QtCore/QDir>
+#include <QFile>
+#include <QDir>
 #include <openssl/rand.h>
 #include "func.h"
 #include "entropy.h"

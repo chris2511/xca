@@ -8,10 +8,10 @@
 #ifndef __HEADERLIST_H
 #define __HEADERLIST_H
 
-#include <QtCore/QString>
-#include <QtCore/QList>
-#include <QtGui/QAction>
-#include <QtGui/QHeaderView>
+#include <QString>
+#include <QList>
+#include <QAction>
+#include <QHeaderView>
 #include <openssl/objects.h>
 #include "db.h"
 #include "func.h"

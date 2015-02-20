@@ -19,14 +19,14 @@
 #include "lib/oid.h"
 #include "lib/Passwd.h"
 #include "lib/main.h"
-#include <QtGui/QPixmap>
-#include <QtGui/QFileDialog>
-#include <QtGui/QMenuBar>
-#include <QtCore/QList>
-#include <QtGui/QMessageBox>
-#include <QtGui/QMenu>
-#include <QtGui/QToolTip>
-#include <QtCore/QLocale>
+#include <QPixmap>
+#include <QFileDialog>
+#include <QMenuBar>
+#include <QList>
+#include <QMessageBox>
+#include <QMenu>
+#include <QToolTip>
+#include <QLocale>
 
 #define DBFILE "xca.xdb"
 
@@ -118,7 +118,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void loadSettings();
 		void saveSettings();
 		int initPass();
-		void read_cmdline();
+		void read_cmdline(int argc, char *argv[]);
 		void load_engine();
 		static void Error(errorEx &err);
 		void cmd_version();

@@ -12,9 +12,9 @@
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
 #include "widgets/RevocationList.h"
-#include <QtGui/QLabel>
-#include <QtGui/QTextEdit>
-#include <QtGui/QLineEdit>
+#include <QLabel>
+#include <QTextEdit>
+#include <QLineEdit>
 
 CrlDetail::CrlDetail(MainWindow *mainwin)
 	:QDialog(mainwin)

@@ -8,9 +8,9 @@
 #include "lib/pki_scard.h"
 #include "XcaTreeView.h"
 #include "MainWindow.h"
-#include <QtCore/QAbstractItemModel>
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QMenu>
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QMenu>
 
 void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 			const QModelIndex &index, QModelIndexList indexes)

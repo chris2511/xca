@@ -8,7 +8,7 @@
 #ifndef __PASSWD_H
 #define __PASSWD_H
 
-#include <QtCore/QByteArray>
+#include <QByteArray>
 
 class Passwd: public QByteArray
 {

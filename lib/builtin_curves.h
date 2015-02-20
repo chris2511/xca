@@ -7,8 +7,8 @@
 #ifndef __BUILTIN_EC_CURVES_H
 #define __BUILTIN_EC_CURVES_H
 
-#include <QtCore/QString>
-#include <QtCore/QList>
+#include <QString>
+#include <QList>
 
 #include "base.h"
 

@@ -9,7 +9,7 @@
 #ifndef __LOAD_OBJ_H
 #define __LOAD_OBJ_H
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 class pki_base;
 

@@ -12,8 +12,8 @@
 #include "db_base.h"
 #include "pki_temp.h"
 #include "db_x509super.h"
-#include <QtCore/QObject>
-#include <QtGui/QPixmap>
+#include <QObject>
+#include <QPixmap>
 
 class db_temp: public db_x509name
 {

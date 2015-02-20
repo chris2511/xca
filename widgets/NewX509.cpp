@@ -7,15 +7,15 @@
 
 
 #include "NewX509.h"
-#include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QRadioButton>
-#include <QtGui/QMessageBox>
-#include <QtGui/QLineEdit>
-#include <QtGui/QLabel>
-#include <QtGui/QPixmap>
-#include <QtGui/QPushButton>
-#include <QtGui/QValidator>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QRadioButton>
+#include <QMessageBox>
+#include <QLineEdit>
+#include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QValidator>
 #include "MainWindow.h"
 #include "v3ext.h"
 #include "lib/x509name.h"

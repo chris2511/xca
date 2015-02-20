@@ -5,7 +5,7 @@
  * All rights reserved.
  */
 
-#include <QtGui/QMessageBox>
+#include <QMessageBox>
 #include "x509name.h"
 #include "base.h"
 #include "func.h"
@@ -198,7 +198,7 @@ int x509name::entryCount() const
 
 int x509name::getNidByName(const QString &nid_name)
 {
-	return OBJ_txt2nid(nid_name.toAscii());
+	return OBJ_txt2nid(nid_name.toLatin1());
 }
 
 QString x509name::checkLength() const

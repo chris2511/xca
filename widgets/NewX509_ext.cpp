@@ -7,12 +7,12 @@
 
 
 #include "NewX509.h"
-#include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QRadioButton>
-#include <QtGui/QLineEdit>
-#include <QtGui/QListWidget>
-#include <QtGui/QMessageBox>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QRadioButton>
+#include <QLineEdit>
+#include <QListWidget>
+#include <QMessageBox>
 
 #include "MainWindow.h"
 #include "lib/x509v3ext.h"
@@ -209,7 +209,7 @@ extList NewX509::getAdvanced()
 	if (conf_str.isEmpty())
 		return elist;
 
-	QByteArray cs = conf_str.toAscii();
+	QByteArray cs = conf_str.toLatin1();
 	bio = BIO_new_mem_buf(cs.data(), cs.length());
 	if (!bio)
 		return elist;

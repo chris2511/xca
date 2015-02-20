@@ -14,11 +14,11 @@
 #include "db_base.h"
 #include "func.h"
 #include "exception.h"
-#include <QtGui/QMessageBox>
-#include <QtGui/QListView>
-#include <QtGui/QClipboard>
-#include <QtCore/QDir>
-#include <QtCore/QDebug>
+#include <QMessageBox>
+#include <QListView>
+#include <QClipboard>
+#include <QDir>
+#include <QDebug>
 #include "widgets/MainWindow.h"
 #include "widgets/ImportMulti.h"
 
@@ -216,10 +216,9 @@ dbheaderList db_base::getHeaders()
 
 void db_base::saveHeaderState()
 {
-	QByteArray ba;
 	if (dbName.isEmpty())
 		return;
-	ba = allHeaders.toData();
+	QByteArray ba = allHeaders.toData();
 	db mydb(dbName);
 	mydb.set((const unsigned char *)ba.constData(), ba.size(), 5,
 		setting, class_name + "_hdView");
@@ -633,7 +632,7 @@ void db_base::store(QModelIndexList indexes)
 		tr("PEM Files( *.pem );; All files ( * )"));
 	if (s.isEmpty())
 		return;
-	s = QDir::convertSeparators(s);
+	s = nativeSeparator(s);
 	mainwin->setPath(s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
 		QString pem = pem2QString(indexes);
@@ -642,7 +641,7 @@ void db_base::store(QModelIndexList indexes)
 			throw errorEx(tr("Error opening file: '%1': %2").
 				arg(s).arg(strerror(errno)), class_name);
 		}
-		fwrite(pem.toAscii(), pem.size(), 1, fp);
+		fwrite(pem.toLatin1(), pem.size(), 1, fp);
 		fclose(fp);
 	}
 	catch (errorEx &err) {

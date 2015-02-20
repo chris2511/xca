@@ -17,19 +17,19 @@
 #include <openssl/buffer.h>
 
 #if defined(Q_WS_MAC)
-#include <QtGui/QDesktopServices>
+#include <QDesktopServices>
 #endif
-#include <QtCore/QDir>
-#include <QtCore/QFile>
-#include <QtCore/QStringList>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QComboBox>
-#include <QtGui/QMessageBox>
-#include <QtGui/QApplication>
-#include <QtGui/QPushButton>
-#include <QtGui/QProgressBar>
-#include <QtGui/QTextEdit>
+#include <QDir>
+#include <QFile>
+#include <QStringList>
+#include <QLabel>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QMessageBox>
+#include <QApplication>
+#include <QPushButton>
+#include <QProgressBar>
+#include <QTextEdit>
 
 #ifdef WIN32
 #include <windows.h>
@@ -313,7 +313,7 @@ QString OBJ_obj2QString(const ASN1_OBJECT *a, int no_name)
 
 	len = OBJ_obj2txt(buf, 256, a, no_name);
 	openssl_error();
-	return QString::fromAscii(buf, len);
+	return QString::fromLatin1(buf, len);
 }
 
 QByteArray i2d_bytearray(int(*i2d)(const void*, unsigned char **),
@@ -441,7 +441,6 @@ QMap<int, QString> dn_translations;
 
 void dn_translations_setup()
 {
-	dn_translations.clear();
 	dn_translations[NID_countryName] = QObject::tr("Country code");
 	dn_translations[NID_stateOrProvinceName] = QObject::tr("State or Province");
 	dn_translations[NID_localityName] = QObject::tr("Locality");

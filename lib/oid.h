@@ -9,7 +9,7 @@
 #define __OID_H
 
 class QString;
-#include <QtCore/QList>
+#include <QList>
 
 extern int first_additional_oid;
 

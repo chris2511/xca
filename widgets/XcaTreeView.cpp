@@ -10,12 +10,12 @@
 #include "XcaTreeView.h"
 #include "XcaProxyModel.h"
 #include "MainWindow.h"
-#include <QtCore/QAbstractItemModel>
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QMenu>
-#include <QtCore/QVariant>
-#include <QtCore/QRegExp>
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QContextMenuEvent>
+#include <QMenu>
+#include <QVariant>
+#include <QRegExp>
 
 
 XcaTreeView::XcaTreeView(QWidget *parent)
@@ -39,7 +39,11 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 		this, SLOT(resizeColumnToContents(int)));
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
 		this, SLOT(doubleClick(const QModelIndex &)));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+	header()->setSectionsClickable(true);
+#else
 	header()->setClickable(true);
+#endif
 }
 
 XcaTreeView::~XcaTreeView()

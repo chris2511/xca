@@ -8,7 +8,7 @@
 #ifndef __PWDIALOG_H
 #define __PWDIALOG_H
 
-#include <QtCore/QByteArray>
+#include <QByteArray>
 #include "ui_PwDialog.h"
 #include "lib/Passwd.h"
 #include "lib/pki_x509.h"

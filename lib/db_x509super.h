@@ -11,8 +11,8 @@
 
 #include "db_key.h"
 #include "pki_x509super.h"
-#include <QtCore/QList>
-#include <QtCore/QMap>
+#include <QList>
+#include <QMap>
 
 class db_x509name: public db_base
 {

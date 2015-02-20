@@ -12,7 +12,7 @@
 #include "exception.h"
 #include <openssl/x509v3.h>
 #include <openssl/stack.h>
-#include <QtCore/QStringList>
+#include <QStringList>
 #include "base.h"
 
 x509v3ext::x509v3ext()

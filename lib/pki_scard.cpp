@@ -20,11 +20,11 @@
 #include <openssl/rand.h>
 #include <openssl/bn.h>
 
-#include <QtGui/QProgressDialog>
-#include <QtGui/QApplication>
-#include <QtCore/QDir>
-#include <QtGui/QMessageBox>
-#include <QtCore/QThread>
+#include <QProgressDialog>
+#include <QApplication>
+#include <QDir>
+#include <QMessageBox>
+#include <QThread>
 #include <ltdl.h>
 
 QPixmap *pki_scard::icon[1] = { NULL };

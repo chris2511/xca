@@ -11,7 +11,7 @@
 #include "func.h"
 #include "exception.h"
 #include <openssl/x509v3.h>
-#include <QtCore/QStringList>
+#include <QStringList>
 
 #ifndef CRL_REASON_UNSPECIFIED
 #define CRL_REASON_UNSPECIFIED                  0

@@ -10,8 +10,8 @@
 #include "SearchPkcs11.h"
 #include "lib/pki_scard.h"
 #include <openssl/objects.h>
-#include <QtGui/QMessageBox>
-#include <QtGui/QToolTip>
+#include <QMessageBox>
+#include <QToolTip>
 
 Options::Options(MainWindow *parent)
 	:QDialog(parent)

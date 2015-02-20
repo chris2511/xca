@@ -10,8 +10,8 @@
 
 #include "lib/exception.h"
 #include "opensc-pkcs11.h"
-#include <QtCore/QString>
-#include <QtCore/QList>
+#include <QString>
+#include <QList>
 
 #include <ltdl.h>
 

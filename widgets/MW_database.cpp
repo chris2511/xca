@@ -11,10 +11,10 @@
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
 #include "lib/entropy.h"
-#include <QtCore/QDir>
-#include <QtCore/QDebug>
-#include <QtGui/QStatusBar>
-#include <QtGui/QMessageBox>
+#include <QDir>
+#include <QDebug>
+#include <QStatusBar>
+#include <QMessageBox>
 #include "lib/db_base.h"
 #include "lib/func.h"
 #include "widgets/ImportMulti.h"

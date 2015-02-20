@@ -8,8 +8,8 @@
 #ifndef __PKI_EXCEPTION_H
 #define __PKI_EXCEPTION_H
 
-#include <QtCore/QString>
-#include <QtCore/QObject>
+#include <QString>
+#include <QObject>
 #include "base.h"
 
 #define E_PASSWD 1
@@ -42,7 +42,7 @@ class errorEx
 		}
 		const char *getCString() const
 		{
-			return msg.toAscii();
+			return msg.toLatin1();
 		}
 		bool isEmpty() const
 		{

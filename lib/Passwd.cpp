@@ -5,7 +5,7 @@
  * All rights reserved.
  */
 
-#include <QtCore/QByteArray>
+#include <QByteArray>
 #include "Passwd.h"
 
 void Passwd::cleanse()

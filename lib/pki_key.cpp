@@ -11,9 +11,9 @@
 #include "db.h"
 #include <openssl/rand.h>
 #include <openssl/pem.h>
-#include <QtGui/QProgressDialog>
-#include <QtGui/QApplication>
-#include <QtCore/QDir>
+#include <QProgressDialog>
+#include <QApplication>
+#include <QDir>
 #include "widgets/PwDialog.h"
 
 builtin_curves pki_key::builtinCurves;
@@ -418,7 +418,7 @@ EVP_PKEY *pki_key::load_ssh2_key(FILE *fp)
 	else
 		return NULL;
 
-	ba = QByteArray::fromBase64(sl[1].toAscii());
+	ba = QByteArray::fromBase64(sl[1].toLatin1());
 	switch (type) {
 		case EVP_PKEY_RSA: {
 			RSA *rsa = RSA_new();

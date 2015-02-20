@@ -14,18 +14,19 @@
 
 #include <openssl/rand.h>
 
-#include <QtGui/QApplication>
-#include <QtGui/QClipboard>
-#include <QtGui/QMessageBox>
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QListView>
-#include <QtGui/QLineEdit>
-#include <QtGui/QTextBrowser>
-#include <QtGui/QStatusBar>
-#include <QtCore/QList>
-#include <QtCore/QTimer>
-#include <QtGui/QInputDialog>
+#include <QApplication>
+#include <QClipboard>
+#include <QMessageBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QListView>
+#include <QLineEdit>
+#include <QTextBrowser>
+#include <QStatusBar>
+#include <QList>
+#include <QTimer>
+#include <QMimeData>
+#include <QInputDialog>
 
 #include "lib/exception.h"
 #include "lib/pki_evp.h"
@@ -77,22 +78,9 @@ void MainWindow::load_engine()
 	enableTokenMenu(pkcs11::loaded());
 }
 
-static QByteArray fileNameEncoderFunc(const QString &fileName)
-{
-	return filename2bytearray(fileName);
-}
-
-static QString fileNAmeDecoderFunc(const QByteArray &localFileName)
-{
-	return filename2QString(localFileName.constData());
-}
-
 MainWindow::MainWindow(QWidget *parent)
 	:QMainWindow(parent)
 {
-	QFile::setEncodingFunction(fileNameEncoderFunc);
-	QFile::setDecodingFunction(fileNAmeDecoderFunc);
-
 	dbindex = new QLabel();
 	dbindex->setFrameStyle(QFrame::Plain | QFrame::NoFrame);
 	dbindex->setMargin(6);
@@ -261,15 +249,15 @@ void MainWindow::init_images()
 	pki_crl::icon = loadImg("crl.png");
 }
 
-void MainWindow::read_cmdline()
+void MainWindow::read_cmdline(int argc, char *argv[])
 {
 	int cnt = 1, opt = 0, force_load = 0;
 	char *arg = NULL;
 	exitApp = 0;
 	QStringList failed;
 	ImportMulti *dlgi = new ImportMulti(this);
-	while (cnt < qApp->argc()) {
-		arg = qApp->argv()[cnt];
+	while (cnt < argc) {
+		arg = argv[cnt];
 		if (arg[0] == '-') { // option
 			opt = 1;
 			switch (arg[1]) {
@@ -339,7 +327,7 @@ void MainWindow::loadPem()
 bool MainWindow::pastePem(QString text)
 {
 	bool success = false;
-	QByteArray pemdata = text.toAscii();
+	QByteArray pemdata = text.toLatin1();
 	BIO *b = BIO_QBA_mem_buf(pemdata);
 	check_oom(b);
 	pki_multi *pem = NULL;

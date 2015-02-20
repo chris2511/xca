@@ -8,9 +8,9 @@
 #include "lib/pki_x509req.h"
 #include "ReqTreeView.h"
 #include "MainWindow.h"
-#include <QtCore/QAbstractItemModel>
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QMenu>
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QMenu>
 
 void ReqTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		const QModelIndex &index, QModelIndexList indexes)

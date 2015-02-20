@@ -8,8 +8,8 @@
 #ifndef __ASN1TIME_H
 #define __ASN1TIME_H
 
-#include <QtCore/QString>
-#include <QtCore/QDateTime>
+#include <QString>
+#include <QDateTime>
 #include <openssl/asn1.h>
 
 #define SECONDS_PER_DAY (60*60*24)

@@ -10,7 +10,7 @@
 #include "db.h"
 #include "exception.h"
 #include "widgets/MainWindow.h"
-#include <QtCore/QDir>
+#include <QDir>
 
 QPixmap *pki_temp::icon=  NULL;
 

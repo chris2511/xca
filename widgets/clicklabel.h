@@ -8,7 +8,7 @@
 #ifndef __CLICKLABEL_H
 #define __CLICKLABEL_H
 
-#include <QtGui/QLabel>
+#include <QLabel>
 
 class QMouseEvent;
 

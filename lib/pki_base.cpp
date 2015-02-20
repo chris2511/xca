@@ -9,7 +9,7 @@
 #include "func.h"
 #include "pki_base.h"
 #include "exception.h"
-#include <QtCore/QString>
+#include <QString>
 
 int pki_base::pki_counter = 0;
 int pki_base::suppress_messages = 0;
@@ -103,7 +103,7 @@ void pki_base::my_error(const QString error) const
 
 QString pki_base::rmslashdot(const QString &s)
 {
-	QByteArray a = s.toAscii().replace("\\", "/");
+	QByteArray a = s.toLatin1().replace("\\", "/");
 	int r = a.lastIndexOf('.');
 	int l = a.lastIndexOf('/');
 	return s.mid(l+1,r-l-1);

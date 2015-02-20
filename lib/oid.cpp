@@ -8,10 +8,10 @@
 /* here we have the possibility to add our own OIDS */
 
 #include <openssl/objects.h>
-#include <QtCore/QStringList>
-#include <QtGui/QMessageBox>
-#include <QtGui/QTextEdit>
-#include <QtCore/QDir>
+#include <QStringList>
+#include <QMessageBox>
+#include <QTextEdit>
+#include <QDir>
 #include "func.h"
 #include "oid.h"
 
@@ -44,9 +44,9 @@ static void readOIDs(QString fname)
 			fclose(fp);
 			return;
 		} else {
-			QByteArray oid = sl[0].trimmed().toAscii();
-			QByteArray sn = sl[1].trimmed().toAscii();
-			QByteArray ln = sl[2].trimmed().toAscii();
+			QByteArray oid = sl[0].trimmed().toLatin1();
+			QByteArray sn = sl[1].trimmed().toLatin1();
+			QByteArray ln = sl[2].trimmed().toLatin1();
 
 			int nid = OBJ_txt2nid(oid.constData());
 			if ((nid != NID_undef) && (sn != OBJ_nid2sn(nid))) {

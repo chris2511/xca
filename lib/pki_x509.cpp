@@ -14,8 +14,8 @@
 #include "exception.h"
 #include "pass_info.h"
 #include "widgets/MainWindow.h"
-#include <QtGui/QMessageBox>
-#include <QtCore/QDir>
+#include <QMessageBox>
+#include <QDir>
 #include <openssl/rand.h>
 
 bool pki_x509::dont_colorize_expiries = false;

@@ -5,9 +5,9 @@
  * All rights reserved.
  */
 
-#include <QtCore/QString>
-#include <QtGui/QWidget>
-#include <QtGui/QApplication>
+#include <QString>
+#include <QWidget>
+#include <QApplication>
 
 #include "pass_info.h"
 

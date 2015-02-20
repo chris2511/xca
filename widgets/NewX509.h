@@ -14,7 +14,7 @@
 #include "lib/db.h"
 #include "widgets/kvView.h"
 #include <openssl/x509v3.h>
-#include <QtGui/QListWidget>
+#include <QListWidget>
 
 class MainWindow;
 class extList;

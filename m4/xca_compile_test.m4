@@ -12,7 +12,7 @@ AC_TRY_RUN([
 #include <openssl/opensslconf.h>
 #include <openssl/crypto.h>
 #include <openssl/objects.h>
-#include <QtCore/qglobal.h>
+#include <qglobal.h>
 #define C "configure: "
 #define WARN C"###################### WARNING ######################\n"
 int main(){

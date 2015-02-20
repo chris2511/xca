@@ -11,11 +11,11 @@
 #include "db.h"
 #include "base.h"
 #include "load_obj.h"
-#include <QtGui/QListView>
-#include <QtGui/QPixmap>
-#include <QtGui/QContextMenuEvent>
-#include <QtCore/QStringList>
-#include <QtCore/QAbstractItemModel>
+#include <QListView>
+#include <QPixmap>
+#include <QContextMenuEvent>
+#include <QStringList>
+#include <QAbstractItemModel>
 #include "widgets/ExportDialog.h"
 #include "pki_base.h"
 #include "headerlist.h"

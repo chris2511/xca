@@ -12,7 +12,7 @@
 #include "func.h"
 #include "widgets/PwDialog.h"
 #include <openssl/err.h>
-#include <QtGui/QMessageBox>
+#include <QMessageBox>
 
 
 pki_pkcs12::pki_pkcs12(const QString d, pki_x509 *acert, pki_evp *akey)
@@ -63,7 +63,7 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 		if (mycert) {
 			if (mycert->aux && mycert->aux->alias) {
 				alias = asn1ToQString(mycert->aux->alias);
-				alias = QString::fromUtf8(alias.toAscii());
+				alias = QString::fromUtf8(alias.toLatin1());
 			}
 			cert = new pki_x509(mycert);
 			if (alias.isEmpty()) {

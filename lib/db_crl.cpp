@@ -11,9 +11,9 @@
 #include "widgets/MainWindow.h"
 #include "widgets/CrlDetail.h"
 #include "widgets/NewCrl.h"
-#include <QtGui/QMessageBox>
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QInputDialog>
+#include <QMessageBox>
+#include <QContextMenuEvent>
+#include <QInputDialog>
 #include "ui_NewCrl.h"
 
 db_crl::db_crl(QString db, MainWindow *mw)

@@ -10,9 +10,9 @@
 
 #include "pkcs11_lib.h"
 #include "opensc-pkcs11.h"
-#include <QtCore/QStringList>
-#include <QtCore/QString>
-#include <QtCore/QList>
+#include <QStringList>
+#include <QString>
+#include <QList>
 
 #include <ltdl.h>
 

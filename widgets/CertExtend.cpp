@@ -11,11 +11,11 @@
 #include "lib/func.h"
 #include "widgets/validity.h"
 #include "widgets/MainWindow.h"
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QComboBox>
-#include <QtGui/QCheckBox>
-#include <QtGui/QMessageBox>
+#include <QLabel>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QMessageBox>
 
 
 CertExtend::CertExtend(QWidget *parent, pki_x509 *s)

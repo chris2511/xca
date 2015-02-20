@@ -18,9 +18,9 @@
 #include <openssl/evp.h>
 #include <openssl/pem.h>
 
-#include <QtGui/QProgressDialog>
-#include <QtGui/QApplication>
-#include <QtCore/QDir>
+#include <QProgressDialog>
+#include <QApplication>
+#include <QDir>
 
 Passwd pki_evp::passwd;
 Passwd pki_evp::oldpasswd;
@@ -719,7 +719,7 @@ QString pki_evp::sha512passwd(QByteArray pass, QString salt)
 		abort();
 
 	str = salt.left(5);
-	pass = str.toAscii() + pass;
+	pass = str.toLatin1() + pass;
 
 	EVP_DigestInit(&mdctx, EVP_sha512());
 	EVP_DigestUpdate(&mdctx, pass.constData(), pass.size());

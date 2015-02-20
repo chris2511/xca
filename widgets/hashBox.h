@@ -8,7 +8,7 @@
 #ifndef __HASH_BOX_H
 #define __HASH_BOX_H
 
-#include <QtGui/QComboBox>
+#include <QComboBox>
 #include <openssl/evp.h>
 
 class hashBox: public QComboBox

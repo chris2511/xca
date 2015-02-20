@@ -50,7 +50,7 @@ CROSS=i586-mingw32msvc-
 CONSOLE=-mwindows
 #CONSOLE=-mconsole
 
-CPPFLAGS=-I\$(TOPDIR) -I\$(QTDIR)/include -I\$(INSTALL_DIR)/include -I\$(BUILD) -I\$(BUILD)/ui
+CPPFLAGS=-I\$(TOPDIR) -I\$(QTDIR)/include/QtGui -I\$(QTDIR)/include/QtCore -I\$(QTDIR)/include/QtWidgets -I\$(QTDIR)/include -I\$(INSTALL_DIR)/include -I\$(BUILD) -I\$(BUILD)/ui
 CFLAGS=-Wall -g -O2 -mthreads -mno-cygwin \$(CONSOLE) -mnop-fun-dllimport -Wno-strict-aliasing
 
 LDFLAGS= -L\$(QTDIR)/lib -L\$(INSTALL_DIR)/lib \
@@ -69,8 +69,8 @@ UIC=wine \$(QTDIR)/bin/uic
 RCC=wine \$(QTDIR)/bin/rcc
 LRELEASE=wine \$(QTDIR)/bin/lrelease
 else
-MOC=moc-qt4
-UIC=uic-qt4
+MOC=moc
+UIC=uic
 RCC=rcc
 LRELEASE=lrelease
 endif

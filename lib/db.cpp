@@ -9,9 +9,9 @@
 #include "base.h"
 #include "func.h"
 #include "exception.h"
-#include <QtCore/QStringList>
-#include <QtCore/QDebug>
-#include <QtCore/QDateTime>
+#include <QStringList>
+#include <QDebug>
+#include <QDateTime>
 #ifdef WIN32
 #include <windows.h>
 #else

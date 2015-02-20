@@ -6,11 +6,11 @@
  */
 
 #include <signal.h>
-#include <QtGui/QApplication>
-#include <QtCore/QTranslator>
-#include <QtCore/QTextCodec>
-#include <QtCore/QDir>
-#include <QtCore/QFile>
+#include <QApplication>
+#include <QTranslator>
+#include <QTextCodec>
+#include <QDir>
+#include <QFile>
 #include <openssl/rand.h>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
@@ -242,7 +242,7 @@ static LONG CALLBACK w32_segfault(LPEXCEPTION_POINTERS e)
 {
 	if (e->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION) {
 		if (segv_data[0]) {
-			XCA_WARN(segv_data);
+			XCA_WARN(QString(segv_data));
 			abort();
 		}
 		return EXCEPTION_CONTINUE_EXECUTION;
@@ -253,7 +253,7 @@ static LONG CALLBACK w32_segfault(LPEXCEPTION_POINTERS e)
 static void segv_handler_gui(int)
 {
 	if (segv_data[0])
-		XCA_WARN(segv_data);
+		XCA_WARN(QString(segv_data));
 	abort();
 }
 #endif
@@ -276,7 +276,7 @@ int main( int argc, char *argv[] )
 	mw = new MainWindow(NULL);
 	try {
 		a.setMainwin(mw);
-		mw->read_cmdline();
+		mw->read_cmdline(argc, argv);
 		if (mw->exitApp == 0) {
 			mw->load_history();
 			if (mw->open_default_db() != 2) {

@@ -7,7 +7,7 @@
 
 #include "validity.h"
 
-#include <QtCore/QDateTime>
+#include <QDateTime>
 #include "lib/asn1time.h"
 #include "lib/func.h"
 

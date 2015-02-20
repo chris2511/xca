@@ -8,14 +8,11 @@
 #ifndef __XCATREEVIEW_H
 #define __XCATREEVIEW_H
 
+#include <QTreeView>
+#include <QHeaderView>
+#include <QItemSelectionModel>
+#include <QSortFilterProxyModel>
 #include "lib/db_base.h"
-#include <QtGui/QTreeView>
-#include <QtGui/QItemSelectionModel>
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QHeaderView>
-
-class MainWindow;
-class QLineEdit;
 
 class XcaTreeView: public QTreeView
 {

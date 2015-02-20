@@ -9,7 +9,7 @@
 #include "pki_crl.h"
 #include "func.h"
 #include "exception.h"
-#include <QtCore/QDir>
+#include <QDir>
 
 QPixmap *pki_crl::icon = NULL;
 

@@ -8,9 +8,9 @@
 #include "lib/pki_x509.h"
 #include "CertTreeView.h"
 #include "MainWindow.h"
-#include <QtCore/QAbstractItemModel>
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QMenu>
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QMenu>
 
 void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		const QModelIndex &index, QModelIndexList indexes)

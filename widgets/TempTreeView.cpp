@@ -8,9 +8,9 @@
 #include "lib/pki_temp.h"
 #include "XcaTreeView.h"
 #include "MainWindow.h"
-#include <QtCore/QAbstractItemModel>
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QMenu>
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QMenu>
 
 void TempTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		const QModelIndex &index, QModelIndexList indexes)

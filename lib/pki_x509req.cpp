@@ -14,7 +14,7 @@
 #include "exception.h"
 #include <openssl/bio.h>
 #include <openssl/err.h>
-#include <QtCore/QDir>
+#include <QDir>
 
 QPixmap *pki_x509req::icon[4] = { NULL, NULL, NULL, NULL };
 

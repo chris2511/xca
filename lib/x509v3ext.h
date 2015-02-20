@@ -8,8 +8,8 @@
 #ifndef __X509V3EXT_H
 #define __X509V3EXT_H
 
-#include <QtCore/QList>
-#include <QtCore/QStringList>
+#include <QList>
+#include <QStringList>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 

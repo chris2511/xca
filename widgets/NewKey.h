@@ -10,7 +10,7 @@
 
 #include "ui_NewKey.h"
 #include "lib/pkcs11_lib.h"
-#include <QtCore/QStringList>
+#include <QStringList>
 
 class NewKey: public QDialog, public Ui::NewKey
 {

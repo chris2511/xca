@@ -8,7 +8,7 @@
 #ifndef __XCAHEADERVIEW_H
 #define __XCAHEADERVIEW_H
 
-#include <QtGui/QHeaderView>
+#include <QHeaderView>
 
 class XcaHeaderView: public QHeaderView
 {

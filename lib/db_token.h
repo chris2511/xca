@@ -8,9 +8,9 @@
 #ifndef __DB_TOKEN_H
 #define __DB_TOKEN_H
 
-#include <QtCore/QObject>
-#include <QtGui/QPixmap>
-#include <QtCore/QEvent>
+#include <QObject>
+#include <QPixmap>
+#include <QEvent>
 
 #include "pkcs11_lib.h"
 #include "db_base.h"

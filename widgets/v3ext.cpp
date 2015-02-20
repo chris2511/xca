@@ -6,13 +6,13 @@
  */
 
 #include "v3ext.h"
-#include <QtGui/QLabel>
-#include <QtGui/QListWidget>
-#include <QtGui/QComboBox>
-#include <QtGui/QLineEdit>
-#include <QtGui/QHeaderView>
-#include <QtCore/QStringList>
-#include <QtGui/QMessageBox>
+#include <QLabel>
+#include <QListWidget>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QHeaderView>
+#include <QStringList>
+#include <QMessageBox>
 #include "MainWindow.h"
 #include "lib/exception.h"
 

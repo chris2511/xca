@@ -8,7 +8,7 @@
 #ifndef __X509REV_H
 #define __X509REV_H
 
-#include <QtCore/QStringList>
+#include <QStringList>
 #include <openssl/x509.h>
 #include "asn1time.h"
 #include "asn1int.h"

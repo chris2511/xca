@@ -8,9 +8,9 @@
 #ifndef __PASS_INFO_H
 #define __PASS_INFO_H
 
-#include <QtCore/QString>
-#include <QtCore/QObject>
-#include <QtGui/QWidget>
+#include <QString>
+#include <QObject>
+#include <QWidget>
 
 #include "widgets/MainWindow.h"
 

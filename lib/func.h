@@ -10,9 +10,9 @@
 
 #include <stdio.h>
 #include <openssl/asn1.h>
-#include <QtGui/QPixmap>
-#include <QtCore/QByteArray>
-#include <QtCore/QMap>
+#include <QPixmap>
+#include <QByteArray>
+#include <QMap>
 #include "base.h"
 
 class Validity;

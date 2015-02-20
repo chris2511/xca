@@ -8,9 +8,9 @@
 #include "lib/pki_x509req.h"
 #include "X509SuperTreeView.h"
 #include "MainWindow.h"
-#include <QtCore/QAbstractItemModel>
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QMenu>
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QMenu>
 
 void X509SuperTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		const QModelIndex &index, QModelIndexList indexes)

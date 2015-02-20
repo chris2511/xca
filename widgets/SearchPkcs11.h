@@ -8,7 +8,7 @@
 #ifndef __SEARCHPKCS11DIALOG_H
 #define __SEARCHPKCS11DIALOG_H
 
-#include <QtCore/QThread>
+#include <QThread>
 #include "ui_SearchPkcs11.h"
 
 class SearchPkcs11;

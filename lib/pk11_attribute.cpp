@@ -8,7 +8,7 @@
 #include "pkcs11.h"
 #include "pk11_attribute.h"
 #include "exception.h"
-#include <QtCore/QObject>
+#include <QObject>
 
 void pk11_attribute::load(slotid slot,
 			CK_SESSION_HANDLE sess, CK_OBJECT_HANDLE obj)

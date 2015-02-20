@@ -13,9 +13,9 @@
 #include "lib/pki_scard.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
-#include <QtGui/QLabel>
-#include <QtGui/QPushButton>
-#include <QtGui/QLineEdit>
+#include <QLabel>
+#include <QPushButton>
+#include <QLineEdit>
 
 KeyDetail::KeyDetail(QWidget *parent)
 	:QDialog(parent)

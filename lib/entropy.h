@@ -8,9 +8,9 @@
 #ifndef __ENTROPY_H
 #define __ENTROPY_H
 
-#include <QtCore/QString>
-#include <QtCore/QByteArray>
-#include <QtCore/QTime>
+#include <QString>
+#include <QByteArray>
+#include <QTime>
 
 class Entropy
 {

@@ -9,9 +9,9 @@
 #ifndef __DB_X509_H
 #define __DB_X509_H
 
-#include <QtGui/QListView>
-#include <QtGui/QPixmap>
-#include <QtGui/QTreeWidget>
+#include <QListView>
+#include <QPixmap>
+#include <QTreeWidget>
 #include "widgets/ExportDialog.h"
 #include "db_key.h"
 #include "db_x509super.h"

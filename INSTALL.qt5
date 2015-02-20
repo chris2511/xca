@@ -1,0 +1,8 @@
+(Just my scratch board)
+
+export QTDIR=/home/chris/Qt5.1.1/5.1.1/gcc_64
+
+export LD_LIBRARY_PATH="/home/chris/instopenssl102/lib:${QTDIR}/lib"
+export PATH="${QTDIR}/bin:$PATH"
+
+../configure --with-openssl=/home/chris/instopenssl102 --with-qt="${QTDIR}"
