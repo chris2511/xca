@@ -139,16 +139,20 @@ AX_CHECK_GNU_MAKE()
 
 # linuxdoc application detection
 ##################################
-AC_CHECK_PROG([LINUXDOC], [linuxdoc], ["linuxdoc"], [":"])
-AC_SUBST([LINUXDOC])
+AC_CHECK_PROGS([DOCTOOL], [linudoc sgml2html], [":"])
+AC_SUBST([DOCTOOL])
 
-if test "$LINUXDOC" = ":"; then
+case "$DOCTOOL" in
+ linuxdoc) DOCTOOL="linuxdoc -B html";;
+ sgml2html) DOCTOOL="sgml2html -s 1";;
+ :)
   if test "${srcdir}" != "."; then
     mkdir -p doc
     cp ${srcdir}/doc/xca-doc.tgz doc/
   fi
-  AC_MSG_WARN(['linuxdoc' not found, using pre-compiled documentation])
-fi
+  AC_MSG_WARN(['linuxdoc' or 'sgml2html' not found, using pre-compiled documentation])
+  ;;
+esac
 
 # Setup done. Write local.h and Local.mak
 ############################################

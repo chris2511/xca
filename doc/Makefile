@@ -3,7 +3,7 @@ TOPDIR=..
 BUILD=..
 endif
 
-DELFILES=xca*.html xca.1.gz
+DELFILES=xca*.html xca.1.gz xca_db_stat.1.gz
 
 doc: xca.1.gz xca_db_stat.1.gz xca.html
 include $(TOPDIR)/Rules.mak
@@ -16,7 +16,7 @@ xca.html: xca.sgml
 	echo 'The documentation for XCA can be viewed online at: <a href="http://xca.sourceforge.net/">http://xca.sourceforge.net/</a>.' > $@
 	test ! -f xca-doc.tgz || tar zxf xca-doc.tgz
 	@$(PRINT) "  DOC    [$(BASENAME)] $@"
-	$(LINUXDOC) -B html $< >/dev/null
+	$(DOCTOOL) $< >/dev/null
 
 install: $(doc)
 	install -m 755 -d $(destdir)$(htmldir) \
