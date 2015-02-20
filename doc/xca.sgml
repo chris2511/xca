@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>February 2015 - Version 1.2.0
+<date>March 2015 - Version 1.2.0
 
 <abstract>
 
@@ -90,7 +90,7 @@ other applications.
 
 <tscreen><verb>
 
-Copyright (C) 2001 - 2014 Christian Hohnstaedt.
+Copyright (C) 2001 - 2015 Christian Hohnstaedt.
 
  All rights reserved.
 
@@ -280,7 +280,7 @@ of the file extension:
 
 <itemize>
 	<item><tt>Keys:</tt>  PEM private key, PEM public key,
-		DER private key, DER public key, PKCS#8 private key.
+		DER private key, DER public key, PKCS#8 private key, SSH public key.
 	<item><tt>Requests</tt> DER request, PEM request,
 		Netscape SPKAC request.
 	<item><tt>Certificates</tt> DER certificate, PEM certificate
@@ -326,7 +326,7 @@ content will be shown on "double-click"
 
 An Item can be renamed via the context menu by right-clicking on the item,
 by pressing &lt;F2&gt; or by the <em>Rename</em> button on the right border.
-If the new name of the item already exists in the database a <tt>_01</tt>
+If the new name of the item already exists in the database a <tt>_1</tt>
 will be appended to keep the internal name unique.
 
 <sect1>Deleting Items
@@ -345,6 +345,8 @@ This is however only possible if you own the private key of the
 certificate. Multiple items may be selected to delete them all at once.
 
 <sect1>Searching Items
+
+<p>
 
 The displayed list of items can be reduced by the search-input at the
 bottom right. It affects all tabs. It does not only search inside the displayed columns but the whole content of the items. It searches the internal name,
@@ -455,7 +457,7 @@ request.
 
 <p>
 
-The next 3 tabs contain all fields for adjusting the certificate extensions.
+The next three tabs contain all fields for adjusting the certificate extensions.
 It is not in the focus of this document to explain them all in detail.
 The most important are the <tt>Basic Constraints</tt> and the <tt>Validity</tt> range.
 
@@ -546,7 +548,7 @@ It is based on the PKCS#11 standard. The Options dialog contains a list
 to add one or more PKCS#11 providers (libraries).
 This is not restricted to Smartcards but includes all type of security tokens like USB tokens.
 
-Up to version 1.0.0 unly RSA keys on security tokens were supported.
+Up to version 1.0.0 only RSA keys on security tokens were supported.
 Since version 1.1.0 XCA also supports EC and DSA private keys on security tokens.
 <p>
 
@@ -813,11 +815,7 @@ For EC keys, a list of curves is shown. It contains all X9.62 curves and many ot
 
 <p>
 
-EC Brainpool curves are also supported when linking with OpenSSL 1.0.2, which
-is currently only available as BETA.
-
-Alternatively, the "-brainpool" denoted binary distributions for Windows and MacOSX
-may be used or the "misc/openssl-1.0.1-brainpool.patch" in the XCA sources.
+EC Brainpool curves are also supported when linking with OpenSSL 1.0.2.
 
 <p>
 Even if the drop-down list only shows the most usual key sizes, any other value
@@ -867,7 +865,7 @@ In case of a file export a dialogbox opens where the following settings can be a
 	<item>Encryption of the exported file (yes/no)
 </itemize>
 
-The filename is the internal name plus a <tt>pem</tt>, <tt>der</tt> or <tt>pk8</tt> suffix.
+The filename is the internal name plus a <tt>pem</tt>, <tt>der</tt>, <tt>pk8</tt> or <tt>pub</tt> suffix.
 When changing the fileformat, the suffix of the filename changes accordingly.
 Only PKCS&num;8 or PEM files can be encrypted, because
 the DER format (although it could be encrypted)
@@ -1267,7 +1265,7 @@ the rollout of the certificate.
 <p>
 
 This list may be used to change the list of the usual 7 distinguished name entries
-shown in the subjet tab of the Certificate / Request /Template generation dialog
+shown in the subject tab of the Certificate / Request /Template generation dialog
 to better fit ones needs.
 
 <p>
@@ -1278,9 +1276,6 @@ to better fit ones needs.
 
 Here you can select the path to one or more PKCS#11 libraries on your system.
 If the list is empty, the <tt>Token</tt> menu will be unavailable.
-The default for new databases is /usr/lib/opensc-pkcs11.dll on unixish
-systems, /Library/OpenSC/lib/opensc-pkcs11.so on MacOSX and opensc-pkcs11.dll
-in the XCA installation directory on Windows systems.
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Object IDs
