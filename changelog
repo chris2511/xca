@@ -1,3 +1,4 @@
+ * Use CTRL +/- to change the font size in the view
  * Add Row numbering for easy item counting
  * Support SSH2 public key format for import and export
  * Add support for SHA-224

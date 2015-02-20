@@ -875,20 +875,16 @@ void MainWindow::generateDHparam()
 void MainWindow::changeEvent(QEvent *event)
 {
 	if (event->type() == QEvent::LanguageChange) {
+		QList<db_base*> models;
 		retranslateUi(this);
 		dn_translations_setup();
 		init_menu();
 		update_history_menu();
-		if (keys)
-			keys->updateHeaders();
-		if (reqs)
-			reqs->updateHeaders();
-		if (certs)
-			certs->updateHeaders();
-		if (crls)
-			crls->updateHeaders();
-		if (temps)
-			temps->updateHeaders();
+		models << keys << reqs << certs << crls << temps;
+		foreach(db_base *model, models) {
+			if (model)
+				model->updateHeaders();
+		}
 		if (!dbfile.isEmpty())
 			dbindex->setText(tr("Database") + ": " + dbfile);
 	}
@@ -897,22 +893,33 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
-	if (e->modifiers() == Qt::ControlModifier) {
-		int siz = XCA_application::tableFont.pointSize();
-		switch (e->key()) {
-		case Qt::Key_Plus:
-			XCA_application::tableFont.setPointSize(siz +1);
-			update();
-			return;
-		case Qt::Key_Minus:
-			if (siz > 4) {
-				XCA_application::tableFont.setPointSize(siz -1);
-				update();
-			}
-			return;
-		default:
-			break;
+	if (e->modifiers() != Qt::ControlModifier) {
+		QMainWindow::keyPressEvent(e);
+		return;
+	}
+	int siz = XCA_application::tableFont.pointSize();
+	QList<XcaTreeView*> views;
+
+	switch (e->key()) {
+	case Qt::Key_Plus:
+		XCA_application::tableFont.setPointSize(siz +1);
+		break;
+	case Qt::Key_Minus:
+		if (siz > 4) {
+			XCA_application::tableFont.setPointSize(siz -1);
+		}
+		break;
+	default:
+		QMainWindow::keyPressEvent(e);
+		return;
+	}
+	views << keyView << reqView << certView << crlView << tempView;
+	foreach(XcaTreeView *v, views) {
+		if (v) {
+			v->header()->resizeSections(
+					QHeaderView::ResizeToContents);
+			v->reset();
 		}
 	}
-	QMainWindow::keyPressEvent(e);
+	update();
 }

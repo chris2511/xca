@@ -228,4 +228,5 @@ void XcaHeaderView::resetMoves()
 			i=0;
 		}
 	}
+	resizeSections(QHeaderView::ResizeToContents);
 }
