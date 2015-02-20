@@ -139,7 +139,7 @@ AX_CHECK_GNU_MAKE()
 
 # linuxdoc application detection
 ##################################
-AC_CHECK_PROGS([DOCTOOL], [linudoc sgml2html], [":"])
+AC_CHECK_PROGS([DOCTOOL], [linuxdoc sgml2html], [":"])
 AC_SUBST([DOCTOOL])
 
 case "$DOCTOOL" in
