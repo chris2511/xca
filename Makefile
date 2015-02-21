@@ -92,16 +92,17 @@ $(APPTARGET): app.%: %/.build-stamp
 		VPATH=$(TOPDIR)/$* APPDIR=$(APPDIR) app
 
 clean:
-	find lib widgets img -name "*.o" | xargs rm -f
-	find lib widgets img -name ".build-stamp" | xargs rm -f
-	find lib widgets -name "moc_*.cpp" | xargs rm -f
+	find lib widgets img misc  -name "*.o" \
+				-o -name ".build-stamp" \
+				-o -name ".depend" \
+				-o -name "moc_*.cpp" | xargs rm -f
 	rm -f ui/ui_*.h lang/xca_*.qm doc/*.html doc/xca.1.gz img/imgres.cpp
 	rm -f lang/*.xml
-	rm -f *~ xca$(SUFFIX) setup_xca*.exe xca_db_stat$(SUFFIX)
-	rm -rf xca-*
+	rm -f xca$(SUFFIX) setup_xca*.exe xca_db_stat$(SUFFIX) *.dmg
+	rm -rf xca-$(VERSION)*
 
 distclean: clean
-	rm -f conftest conftest.log local.h Local.mak *~ */.depend config.log config.status
+	rm -f local.h Local.mak config.log config.status
 
 dist: $(TARGET).tar.gz
 $(TARGET).tar:
