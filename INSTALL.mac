@@ -8,7 +8,7 @@ There are 2 ways to compile XCA on MAC:
 1) Simple local not very but a little portable build.
    Use the locally installed OpenSSL library
 
-2) Use an up-to-date OpenSSL library 1.0.1 and build
+2) Use an up-to-date OpenSSL library 1.0.2 and build
    a 32 bit binary the should run even on "Leopard"
    This is what I do for the official XCA .dmg releases
    It is more complicated then 1)

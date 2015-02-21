@@ -7,11 +7,10 @@ LIBTOOL_DIR="libtool-2.2.6b"
 LIBTOOL_GZ="${LIBTOOL_DIR}".tar.gz
 LIBTOOL_DL="http://ftp.gnu.org/gnu/libtool/${LIBTOOL_GZ}"
 
-OPENSSL_DIR="openssl-1.0.1l"
+OPENSSL_DIR="openssl-1.0.2"
 OPENSSL_GZ="${OPENSSL_DIR}".tar.gz
 OPENSSL_DL="http://www.openssl.org/source/${OPENSSL_GZ}"
 OPENSSL_PATCH="$XCA_DIR/misc/openssl-1.0.0-mingw32-cross.patch"
-BRAINPOOL_OPENSSL="$XCA_DIR/misc/openssl-1.0.1-brainpool.patch"
 
 unpack() {
   eval "dir=\${$1_DIR} gz=\${$1_GZ} dl=\${$1_DL} PATCH=\${$1_PATCH}"
@@ -29,9 +28,6 @@ unpack() {
 do_openssl()
 {(
 unpack OPENSSL
-if test "$EXTRA_VERSION" = "-brainpool"; then
-  patch -p1 < "$BRAINPOOL_OPENSSL"
-fi
 sh ms/mingw32-cross.sh
 )}
 
@@ -66,13 +62,10 @@ if ! test -f mingwm10.dll; then
   fi
 fi
 
-for i in "" -brainpool; do
 
-  export EXTRA_VERSION="$i"
-  XCA_BUILD="`pwd`"/xca_build"$EXTRA_VERSION"
-  export INSTALL_DIR=`pwd`/install"$EXTRA_VERSION"
+XCA_BUILD="`pwd`"/xca_build
+export INSTALL_DIR=`pwd`/install
 
-  do_openssl
-  do_libtool
-  do_XCA
-done
+do_openssl
+do_libtool
+do_XCA

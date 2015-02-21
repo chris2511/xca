@@ -24,14 +24,13 @@ or follow the steps below by hand:
 
 $ export INSTALL_DIR=`pwd`/install
 
-OpenSSL 0.9.8 and 1.0.0 are supported.
-$ cp openssl-0.9.8X.tar.gz .
-$ tar zxf openssl-0.9.8X.tar.gz
+OpenSSL 0.9.8 - 1.0.2 are supported.
+$ cp openssl-1.0.2.tar.gz .
+$ tar zxf openssl-1.0.2.tar.gz
 
 apply openssl-cross-patch:
-$ cd openssl-0.9.8X
-$ patch -p1 < ../xca/misc/openssl-0.9.8-mingw32-cross.patch
-(For openssl 1.0.0, use the ../xca/misc/openssl-1.0.0-mingw32-cross.patch)
+$ cd openssl-1.0.2
+$ patch -p1 < ../xca/misc/openssl-1.0.0-mingw32-cross.patch
 
 compile openssl with:
 $ sh ms/mingw32-cross.sh
@@ -41,7 +40,7 @@ $ ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
 $ make && make install
 
 compile xca:
-$ cd xca-0.x.y
+$ cd xca-1.2.0
 $ ./configure.w32
 Edit Local.mak if needed:
  if your linux-qt is the same version as the w32 one,
