@@ -590,9 +590,13 @@ PEM je base64 kodirana DER datoteka</translation>
         <translation>&amp;Kriptiraj Ključ sa zaporkom</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="+27"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
-        <translation>Privatni ključevi ( *.pem *.der *.pk8 );;Sve datoteke ( * )</translation>
+        <translation type="obsolete">Privatni ključevi ( *.pem *.der *.pk8 );;Sve datoteke ( * )</translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportKey.cpp" line="+30"/>
+        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( * )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -895,7 +899,7 @@ Serijski broj: %3</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+106"/>
+        <location filename="../widgets/MW_menu.cpp" line="+117"/>
         <source>Certificates</source>
         <translation>Potvrde</translation>
     </message>
@@ -946,7 +950,7 @@ Serijski broj: %3</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+888"/>
+        <location filename="../widgets/MainWindow.cpp" line="+889"/>
         <source>Database</source>
         <translation>Baza podataka</translation>
     </message>
@@ -956,7 +960,7 @@ Serijski broj: %3</translation>
         <translation>Nisu pronađene obrisane stavke</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+99"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation>Tijekom brisanja zastarjelih stavaka iz baze podataka otkrivene su i popravljene greške. Kreirana je rezervna kopija</translation>
     </message>
@@ -966,7 +970,7 @@ Serijski broj: %3</translation>
         <translation>Nije uspjelo uklanjanje obrisanih ili zastarjelih stavki iz baze podataka.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-54"/>
+        <location filename="../widgets/MW_menu.cpp" line="-60"/>
         <source>Recent DataBases</source>
         <translation>Nedavna baza podataka</translation>
     </message>
@@ -1016,7 +1020,7 @@ Serijski broj: %3</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+15"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
@@ -1196,7 +1200,7 @@ Serijski broj: %3</translation>
         <translation>Ipak uvezi</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-587"/>
+        <location filename="../widgets/MainWindow.cpp" line="-584"/>
         <source>no such option: %1</source>
         <translation>nema te opcije: %1</translation>
     </message>
@@ -2271,12 +2275,16 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
         <translation>Sve datoteke ( * )</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
-        <translation>PKI ključevi ( *.pem *.der *.key );;PKCS#8 ključevi ( *.p8 *.pk8 );;</translation>
+        <translation type="obsolete">PKI ključevi ( *.pem *.der *.key );;PKCS#8 ključevi ( *.p8 *.pk8 );;</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+32"/>
+        <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys ( *.pub );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Import RSA key</source>
         <translation>Uvezi RSA ključ</translation>
     </message>
@@ -2758,12 +2766,12 @@ U knjižnici %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+206"/>
+        <location filename="../lib/db_base.cpp" line="+211"/>
         <source>Internal name</source>
         <translation>Interno ime</translation>
     </message>
     <message>
-        <location line="-131"/>
+        <location line="-136"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2802,7 +2810,12 @@ Veličina: %3
         <translation>Greška u otvaranju datoteke: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+631"/>
+        <location line="+110"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+527"/>
         <source>Subject entries</source>
         <translation>Stavke subjekta</translation>
     </message>
@@ -3052,7 +3065,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Spremi na Pametni token</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+88"/>
         <source>Tried to change password of a token</source>
         <translation>Pokušaj promjene zaporke tokena</translation>
     </message>
@@ -3835,9 +3848,13 @@ i zbog toga nije spreman</translation>
 %1</translation>
     </message>
     <message>
-        <location line="+52"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
-        <translation>Nije moguće učitati privatni ključ u datoteci %1. Probani su PEM i DER privatni, javni i PKCS#8 tip ključeva.</translation>
+        <translation type="obsolete">Nije moguće učitati privatni ključ u datoteci %1. Probani su PEM i DER privatni, javni i PKCS#8 tip ključeva.</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+35"/>
@@ -3958,6 +3975,18 @@ i zbog toga nije spreman</translation>
         <source>No password</source>
         <translation>Bez zaporke</translation>
     </message>
+    <message>
+        <location line="+22"/>
+        <location line="+5"/>
+        <location line="+3"/>
+        <source>Invalid SSH2 public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+108"/>
+        <source>Failed writing to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_multi</name>
@@ -4031,12 +4060,12 @@ i zbog toga nije spreman</translation>
         <translation>Obrisati %1 ključ &apos;%2&apos;?</translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+226"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Obrisati privatni ključ &apos;%1&apos; s tokena &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+65"/>
         <source>This Key is already on the token</source>
         <translation>Ovaj ključ se već nalazi na tokenu</translation>
     </message>
@@ -4045,7 +4074,7 @@ i zbog toga nije spreman</translation>
         <translation type="obsolete">Samo RSA i EC ključevi mogu biti spremljeni na tokenu</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+75"/>
         <source>PIN input aborted</source>
         <translation>Prekinut unos PIN-a</translation>
     </message>
@@ -4055,7 +4084,7 @@ i zbog toga nije spreman</translation>
         <translation>Nije moguće naći kopirani ključ na tokenu</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+103"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Umetnite karticu:  %1 %2 [%3] s sa serijskim brojem: %4</translation>
     </message>
@@ -4130,7 +4159,7 @@ i zbog toga nije spreman</translation>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+205"/>
+        <location line="+220"/>
         <source>Wrong Size %1</source>
         <translation>Kriva Dužina %1</translation>
     </message>
@@ -4194,12 +4223,12 @@ i zbog toga nije spreman</translation>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+512"/>
+        <location line="+514"/>
         <source>Wrong Size %1</source>
         <translation>Pogrešna Dužina %1</translation>
     </message>
     <message>
-        <location line="-211"/>
+        <location line="-213"/>
         <source>Not trusted</source>
         <translation>Nepouzdan</translation>
     </message>

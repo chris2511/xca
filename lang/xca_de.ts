@@ -552,7 +552,12 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
 <context>
     <name>ExportKey</name>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="+34"/>
+        <location filename="../widgets/ExportKey.cpp" line="+30"/>
+        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( * )</source>
+        <translation>Private Schlüssel ( *.pem *.der *.pk8 );; Öffentliche SSH Schlüssel ( *.pub );; Alle Dateien ( * )</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Please enter the filename for the key.</source>
         <translation>Bitte geben Sie den Dateinamen für den Schlüssel ein.</translation>
     </message>
@@ -601,9 +606,8 @@ PKCS#8 ist ein offizielles Austauschformat für Passwort gesicherte Schlüssel</
         <translation>D&amp;en Schlüssel mit einem Passwort sichern</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="-2"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
-        <translation>Private Schlüssel ( *.pem *.der *.pk8 );;Alle Dateien ( * )</translation>
+        <translation type="obsolete">Private Schlüssel ( *.pem *.der *.pk8 );;Alle Dateien ( * )</translation>
     </message>
 </context>
 <context>
@@ -818,7 +822,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+716"/>
+        <location filename="../widgets/MainWindow.cpp" line="+720"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -844,7 +848,7 @@ Seriennummer: %3</translation>
         <translation>In die Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+85"/>
+        <location filename="../widgets/MW_menu.cpp" line="+96"/>
         <source>&amp;Close DataBase</source>
         <translation>Datenbank s&amp;chliessen</translation>
     </message>
@@ -864,7 +868,7 @@ Seriennummer: %3</translation>
         <translation>D&amp;atei</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-29"/>
         <source>Recent DataBases</source>
         <translation>Zuletzt geöffnet</translation>
     </message>
@@ -914,7 +918,7 @@ Seriennummer: %3</translation>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+73"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
@@ -1026,7 +1030,7 @@ Seriennummer: %3</translation>
     </message>
     <message>
         <location filename="../widgets/MW_database.cpp" line="+171"/>
-        <location filename="../widgets/MainWindow.cpp" line="+135"/>
+        <location filename="../widgets/MainWindow.cpp" line="+132"/>
         <source>Database</source>
         <translation>Datenbank</translation>
     </message>
@@ -1036,7 +1040,7 @@ Seriennummer: %3</translation>
         <translation>Keine gelöschten Einträge gefunden</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+99"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation>Beim Löschen veralteter Datenbankeinträge wurden Fehler erkannt und repariert. Eine Backup-datei wurde erstellt</translation>
     </message>
@@ -1141,7 +1145,7 @@ Seriennummer: %3</translation>
         <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-501"/>
+        <location filename="../widgets/MainWindow.cpp" line="-498"/>
         <source>Import PEM data</source>
         <translation>PEM daten importieren</translation>
     </message>
@@ -1207,7 +1211,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>unbekannte option: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="-167"/>
+        <location filename="../widgets/MW_database.cpp" line="-172"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Die Benutzung oder der Export privater Schlüssel ist nur mit dem richtigen Datenbankpasswort möglich</translation>
     </message>
@@ -2190,7 +2194,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../lib/load_obj.cpp" line="+54"/>
+        <location filename="../lib/load_obj.cpp" line="+55"/>
         <source>Import RSA key</source>
         <translation>Import von RSA Schlüssel</translation>
     </message>
@@ -2230,12 +2234,16 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>Importiere Zertifikatsrücknahmeliste</translation>
     </message>
     <message>
-        <location line="-82"/>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
-        <translation>PKI Schlüssel ( *.pem *.der *.key );;PKCS#8 Schlüssel ( *.p8 *.pk8 );;</translation>
+        <translation type="obsolete">PKI Schlüssel ( *.pem *.der *.key );;PKCS#8 Schlüssel ( *.p8 *.pk8 );;</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="-83"/>
+        <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys ( *.pub );;</source>
+        <translation>PKI Schlüssel ( *.pem *.der *.key );;PKCS#8 Schlüssel ( *.p8 *.pk8 );; Öffentliche SSH2 Schlüssel ( *.pub );;</translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;</source>
         <translation>PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;</translation>
     </message>
@@ -2300,7 +2308,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>%1 ist länger als %2 bytes: &apos;%3&apos;</translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="-149"/>
+        <location filename="../lib/load_obj.cpp" line="-150"/>
         <source>All files ( * )</source>
         <translation>Alle Dateien ( * )</translation>
     </message>
@@ -2329,7 +2337,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>DB: Eintrag zur Umbenennung nicht gefunden: %1</translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="+135"/>
+        <location filename="../lib/load_obj.cpp" line="+136"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation></translation>
     </message>
@@ -2727,12 +2735,12 @@ in Bibliothek %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+206"/>
+        <location filename="../lib/db_base.cpp" line="+211"/>
         <source>Internal name</source>
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+530"/>
+        <location line="+531"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -2742,7 +2750,7 @@ in Bibliothek %3
         <translation>Namensteile</translation>
     </message>
     <message>
-        <location line="-658"/>
+        <location line="-664"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2780,7 +2788,12 @@ Grösse %3
         <translation>Fehler beim Öffnen der Datei %1: %2</translation>
     </message>
     <message>
-        <location line="+632"/>
+        <location line="+110"/>
+        <source>No.</source>
+        <translation>Nr.</translation>
+    </message>
+    <message>
+        <location line="+528"/>
         <source>X509v3 Extensions</source>
         <translation>X509v3 Erweiterungen</translation>
     </message>
@@ -2997,7 +3010,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Auf der Chipkarte speichern</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+88"/>
         <source>Tried to change password of a token</source>
         <translation></translation>
     </message>
@@ -3017,7 +3030,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation></translation>
     </message>
     <message>
-        <location line="-295"/>
+        <location line="-300"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -3788,7 +3801,7 @@ und wurde daher nicht importiert</translation>
         <translation>Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort)</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+195"/>
         <location line="+11"/>
         <source>Password input aborted</source>
         <translation>Passworteingabe abgebrochen</translation>
@@ -3799,12 +3812,11 @@ und wurde daher nicht importiert</translation>
         <translation>Bitte geben sie das Passwort zur Verschlüsselung des privaten Schlüssels: &apos;%1&apos; ein</translation>
     </message>
     <message>
-        <location line="-163"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
-        <translation>Der Schlüssel aus der Datei %1 konnte nicht geladen werden. Private und öffentliche, sowie PKCS#8 Schlüssel im PEM und DER format wurden versucht.</translation>
+        <translation type="obsolete">Der Schlüssel aus der Datei %1 konnte nicht geladen werden. Private und öffentliche, sowie PKCS#8 Schlüssel im PEM und DER format wurden versucht.</translation>
     </message>
     <message>
-        <location line="-105"/>
+        <location line="-278"/>
         <source>Please enter the password to decrypt the private key.</source>
         <translation>Bitte geben sie das Passwort zur Entschlüsselung des privaten Schlüssels ein.</translation>
     </message>
@@ -3816,7 +3828,12 @@ und wurde daher nicht importiert</translation>
 %1 eingeben</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+62"/>
+        <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
+        <translation>Der Schlüssel aus der Datei %1 konnte nicht geladen werden. Private und öffentliche, sowie SSH2 und PKCS#8 Schlüssel im PEM und DER format wurden versucht.</translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>Ignoring unsupported private key</source>
         <translation>Ignoriere nicht unterstützen privaten Schlüssel</translation>
     </message>
@@ -3919,7 +3936,19 @@ und wurde daher nicht importiert</translation>
         <translation>Kein Passwort</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="+22"/>
+        <location line="+5"/>
+        <location line="+3"/>
+        <source>Invalid SSH2 public key</source>
+        <translation>Üngültiger öffentlicher SSH2 Schlüssel</translation>
+    </message>
+    <message>
+        <location line="+108"/>
+        <source>Failed writing to %1</source>
+        <translation>Fehler beim Schreiben von %1</translation>
+    </message>
+    <message>
+        <location line="-148"/>
         <source>PIN</source>
         <translation>PIN</translation>
     </message>
@@ -3975,7 +4004,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+348"/>
+        <location filename="../lib/pki_scard.cpp" line="+354"/>
         <source>This Key is already on the token</source>
         <translation>Der Schlüssel ist bereits auf der SmartCard</translation>
     </message>
@@ -3984,12 +4013,12 @@ und wurde daher nicht importiert</translation>
         <translation type="obsolete">Auf der Chipkarte können nur RSA oder EC Schlüssel gespeichert werden</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+87"/>
         <source>Unable to find copied key on the token</source>
         <translation>Kann den eben kopierten Schlüssel auf der Chipkarte nicht finden</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+131"/>
         <source>Public Key missmatch. Please re-import card</source>
         <translation>Öffentlicher Schlüssel passt nicht. Bitte Chipkarte neu importieren</translation>
     </message>
@@ -4010,12 +4039,12 @@ und wurde daher nicht importiert</translation>
         <translation>Ungültige Pin für die Chipkarte</translation>
     </message>
     <message>
-        <location line="-429"/>
+        <location line="-437"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Soll der private Schlüssel &apos;%1&apos; von der Chipkarte &apos;%2&apos; mit der Seriennummer %3 gelöscht werden ?</translation>
     </message>
     <message>
-        <location line="-226"/>
+        <location line="-230"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation>Der Chipkartenschlüssel &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -4035,12 +4064,12 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 Schlüssel: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+358"/>
+        <location line="+366"/>
         <source>PIN input aborted</source>
         <translation>PIN Eingabe abgebrochen</translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+115"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>Bitte die Chipkarte: %1 %2 [%3] mit Seriennummer: %4 einlegen</translation>
     </message>
@@ -4078,7 +4107,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die XCA Vorlage &apos;%1&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+270"/>
+        <location line="+285"/>
         <source>Template file content error (too small): %1</source>
         <translation>Template zu klein: %1</translation>
     </message>
@@ -4088,13 +4117,13 @@ und wurde daher nicht importiert</translation>
         <translation>Templatefile ungültig (länge): %1</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+205"/>
+        <location line="-119"/>
+        <location line="+220"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>
     <message>
-        <location line="-398"/>
+        <location line="-413"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>Die XCA Vorlage &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -4109,7 +4138,7 @@ und wurde daher nicht importiert</translation>
         <translation>Die %1 XCA Vorlagen: %2 löschen?</translation>
     </message>
     <message>
-        <location line="+284"/>
+        <location line="+299"/>
         <source>Template file content error (bad size): %1 </source>
         <translation>Templatefile ungültig (Größe): %1</translation>
     </message>
@@ -4188,7 +4217,7 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="+449"/>
-        <location line="+512"/>
+        <location line="+514"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>

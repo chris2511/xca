@@ -578,9 +578,13 @@ PEM est un format encodé en base64
         <translation>&amp;Encrypter la clé avec un mot de passe</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="+27"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
-        <translation>Clés privées ( *.pem *.der *.pk8 );;Tous les fichiers ( * )</translation>
+        <translation type="obsolete">Clés privées ( *.pem *.der *.pk8 );;Tous les fichiers ( * )</translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportKey.cpp" line="+30"/>
+        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( * )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -880,7 +884,7 @@ Numéro de série: %3</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+106"/>
+        <location filename="../widgets/MW_menu.cpp" line="+117"/>
         <source>Certificates</source>
         <translation>Certificats</translation>
     </message>
@@ -931,7 +935,7 @@ Numéro de série: %3</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+888"/>
+        <location filename="../widgets/MainWindow.cpp" line="+889"/>
         <source>Database</source>
         <translation>Base de donnée</translation>
     </message>
@@ -941,7 +945,7 @@ Numéro de série: %3</translation>
         <translation>Aucun objet détruit n&apos;a été trouvé</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+99"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation>Des erreurs ont été détectées et réparées lors de la destruction des éléments échus de la base de données. Un fichier de sauvegarde a été créé</translation>
     </message>
@@ -951,7 +955,7 @@ Numéro de série: %3</translation>
         <translation>Le nettoyage des éléments détruits ou échus de la base de données a échoué.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-54"/>
+        <location filename="../widgets/MW_menu.cpp" line="-60"/>
         <source>Recent DataBases</source>
         <translation>Bases de données utilisées recemment</translation>
     </message>
@@ -1001,7 +1005,7 @@ Numéro de série: %3</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+15"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
@@ -1181,7 +1185,7 @@ Numéro de série: %3</translation>
         <translation>Importer quand-même</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-587"/>
+        <location filename="../widgets/MainWindow.cpp" line="-584"/>
         <source>no such option: %1</source>
         <translation>&apos;%1&apos; n&apos;est pas une option</translation>
     </message>
@@ -2152,12 +2156,16 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
         <translation>Tous les fichiers ( * )</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
-        <translation>Clés PKI ( *.pem *.der *.key );;Clés PKCS#8 ( *.p8 *.pk8 );;</translation>
+        <translation type="obsolete">Clés PKI ( *.pem *.der *.key );;Clés PKCS#8 ( *.p8 *.pk8 );;</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+32"/>
+        <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys ( *.pub );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
         <source>Import RSA key</source>
         <translation>Importer une clé RSA</translation>
     </message>
@@ -2639,12 +2647,12 @@ Dans la bibliothèque %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+206"/>
+        <location filename="../lib/db_base.cpp" line="+211"/>
         <source>Internal name</source>
         <translation>Nom interne</translation>
     </message>
     <message>
-        <location line="-131"/>
+        <location line="-136"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2682,7 +2690,12 @@ Taille: %3
         <translation>Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+631"/>
+        <location line="+110"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+527"/>
         <source>Subject entries</source>
         <translation>Inscriptions du sujet</translation>
     </message>
@@ -2932,7 +2945,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Enregistrer dans le jeton de sécurité</translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+88"/>
         <source>Tried to change password of a token</source>
         <translation>Tentative de changement de mot de passe d&apos;un jeton de sécurité</translation>
     </message>
@@ -3712,9 +3725,13 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 %1</translation>
     </message>
     <message>
-        <location line="+52"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
-        <translation>Impossible de charger la clé privée du fichier %1. Les formats PEM et DER ainsi que les types de clés privé, public et PKCS#8 ont été essayés.</translation>
+        <translation type="obsolete">Impossible de charger la clé privée du fichier %1. Les formats PEM et DER ainsi que les types de clés privé, public et PKCS#8 ont été essayés.</translation>
+    </message>
+    <message>
+        <location line="+62"/>
+        <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+35"/>
@@ -3835,6 +3852,18 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <source>No password</source>
         <translation>Pas de mot de passe</translation>
     </message>
+    <message>
+        <location line="+22"/>
+        <location line="+5"/>
+        <location line="+3"/>
+        <source>Invalid SSH2 public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+108"/>
+        <source>Failed writing to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_multi</name>
@@ -3907,17 +3936,17 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Détruire les %1 clés: &apos;%2&apos; ?</translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+226"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Détruire la clé privée &apos;%1&apos; sur le jeton &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+65"/>
         <source>This Key is already on the token</source>
         <translation>Cette clé est déjà sur le jeton</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+75"/>
         <source>PIN input aborted</source>
         <translation>Saisie du NIP abandonnée</translation>
     </message>
@@ -3927,7 +3956,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Impossible de trouver la clé copiée sur le jeton</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+103"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation>SVP insérer la carte %1 %2 [%3] avec le numéro de série: %4</translation>
     </message>
@@ -4002,7 +4031,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+205"/>
+        <location line="+220"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
@@ -4066,12 +4095,12 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+512"/>
+        <location line="+514"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
     <message>
-        <location line="-211"/>
+        <location line="-213"/>
         <source>Not trusted</source>
         <translation>Pas sûr</translation>
     </message>

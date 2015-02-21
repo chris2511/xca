@@ -577,9 +577,13 @@ PEM base64 kodlanmış DER dosyası
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="+27"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
-        <translation>Özel anatarlar (*.pem *.der *.pk8);;Tüm dosyalar ( * )</translation>
+        <translation type="obsolete">Özel anatarlar (*.pem *.der *.pk8);;Tüm dosyalar ( * )</translation>
+    </message>
+    <message>
+        <location filename="../widgets/ExportKey.cpp" line="+30"/>
+        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( * )</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -874,7 +878,7 @@ Serial: %3</source>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+106"/>
+        <location filename="../widgets/MW_menu.cpp" line="+117"/>
         <source>Certificates</source>
         <translation>Sertifikalar</translation>
     </message>
@@ -925,7 +929,7 @@ Serial: %3</source>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+888"/>
+        <location filename="../widgets/MainWindow.cpp" line="+889"/>
         <source>Database</source>
         <translation>Veri Tabanı</translation>
     </message>
@@ -935,7 +939,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+99"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1120,7 +1124,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-587"/>
+        <location filename="../widgets/MainWindow.cpp" line="-584"/>
         <source>no such option: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1198,7 +1202,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-166"/>
+        <location filename="../widgets/MW_menu.cpp" line="-172"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1248,7 +1252,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+52"/>
+        <location line="+58"/>
         <source>paste PEM file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2145,11 +2149,11 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     </message>
     <message>
         <location line="+32"/>
-        <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
+        <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys ( *.pub );;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+3"/>
         <source>Import RSA key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2636,12 +2640,12 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+206"/>
+        <location filename="../lib/db_base.cpp" line="+211"/>
         <source>Internal name</source>
         <translation type="unfinished">Dahili adı</translation>
     </message>
     <message>
-        <location line="+530"/>
+        <location line="+531"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2651,7 +2655,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-658"/>
+        <location line="-664"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2685,7 +2689,12 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+633"/>
+        <location line="+110"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+529"/>
         <source>Netscape extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2903,7 +2912,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+88"/>
         <source>Tried to change password of a token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2923,7 +2932,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-352"/>
+        <location line="-357"/>
         <source>EC Group</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3561,8 +3570,8 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+52"/>
-        <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
+        <location line="+62"/>
+        <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3670,7 +3679,19 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-278"/>
+        <location line="+22"/>
+        <location line="+5"/>
+        <location line="+3"/>
+        <source>Invalid SSH2 public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+108"/>
+        <source>Failed writing to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-416"/>
         <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3755,17 +3776,17 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+226"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+65"/>
         <source>This Key is already on the token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+75"/>
         <source>PIN input aborted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3775,7 +3796,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+103"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3850,7 +3871,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+205"/>
+        <location line="+220"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3914,12 +3935,12 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+512"/>
+        <location line="+514"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-211"/>
+        <location line="-213"/>
         <source>Not trusted</source>
         <translation type="unfinished">Güvenilmeyen</translation>
     </message>

@@ -548,7 +548,12 @@ PEM is a base64 encoded DER file
 <context>
     <name>ExportKey</name>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="+34"/>
+        <location filename="../widgets/ExportKey.cpp" line="+30"/>
+        <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( * )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Please enter the filename for the key.</source>
         <translation>Пожалуйста, введите имя файла для ключа.</translation>
     </message>
@@ -597,9 +602,8 @@ PKCS#8 - это официальный формат обмена ключами 
         <translation type="unfinished">&amp;Шифрование ключа с помощью пароля</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportKey.cpp" line="-2"/>
         <source>Private keys ( *.pem *.der *.pk8 );;All files ( * )</source>
-        <translation>Закрытые ключи ( *.pem *.der *.pk8 );;Все файлы ( * )</translation>
+        <translation type="obsolete">Закрытые ключи ( *.pem *.der *.pk8 );;Все файлы ( * )</translation>
     </message>
 </context>
 <context>
@@ -811,7 +815,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+716"/>
+        <location filename="../widgets/MainWindow.cpp" line="+720"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -821,7 +825,7 @@ Serial: %3</source>
         <translation>Неверный пароль, попробуйте еще раз</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="+85"/>
+        <location filename="../widgets/MW_menu.cpp" line="+96"/>
         <source>&amp;Close DataBase</source>
         <translation>&amp;Закрыть базу данных</translation>
     </message>
@@ -841,7 +845,7 @@ Serial: %3</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location line="-23"/>
+        <location line="-29"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -891,7 +895,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+73"/>
         <source>&amp;Help</source>
         <translation>&amp;Помощь</translation>
     </message>
@@ -1019,7 +1023,7 @@ Serial: %3</source>
     </message>
     <message>
         <location filename="../widgets/MW_database.cpp" line="+171"/>
-        <location filename="../widgets/MainWindow.cpp" line="+135"/>
+        <location filename="../widgets/MainWindow.cpp" line="+132"/>
         <source>Database</source>
         <translation>База данных</translation>
     </message>
@@ -1029,7 +1033,7 @@ Serial: %3</source>
         <translation>Нет удаленных записей</translation>
     </message>
     <message>
-        <location line="+94"/>
+        <location line="+99"/>
         <source>Errors detected and repaired while deleting outdated items from the database. A backup file was created</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1134,7 +1138,7 @@ Serial: %3</source>
         <translation>Дамп базы данных ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-501"/>
+        <location filename="../widgets/MainWindow.cpp" line="-498"/>
         <source>Import PEM data</source>
         <translation>Импорт</translation>
     </message>
@@ -1197,7 +1201,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">нет таких вариантов: %1</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="-167"/>
+        <location filename="../widgets/MW_database.cpp" line="-172"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished">Использование или экспорт закрытых ключей будет невозможным без ввода правильного пароля</translation>
     </message>
@@ -2149,7 +2153,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../lib/load_obj.cpp" line="+54"/>
+        <location filename="../lib/load_obj.cpp" line="+55"/>
         <source>Import RSA key</source>
         <translation>Импорт RSA ключа</translation>
     </message>
@@ -2189,12 +2193,16 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation>Открыть базу данных XCA</translation>
     </message>
     <message>
-        <location line="-95"/>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;</source>
-        <translation>PKI ключи ( *.pem *.der *.key );;PKCS#8 ключи ( *.p8 *.pk8 );;</translation>
+        <translation type="obsolete">PKI ключи ( *.pem *.der *.key );;PKCS#8 ключи ( *.p8 *.pk8 );;</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="-96"/>
+        <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys ( *.pub );;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>PKCS#10 CSR ( *.pem *.der *.csr );;Netscape Request ( *.spkac *.spc );;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2259,7 +2267,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="-149"/>
+        <location filename="../lib/load_obj.cpp" line="-150"/>
         <source>All files ( * )</source>
         <translation>Все файлы ( * )</translation>
     </message>
@@ -2288,7 +2296,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/load_obj.cpp" line="+135"/>
+        <location filename="../lib/load_obj.cpp" line="+136"/>
         <source>PKCS#11 library ( *.dll );;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2684,12 +2692,12 @@ In library %3
 <context>
     <name>db_base</name>
     <message>
-        <location filename="../lib/db_base.cpp" line="+206"/>
+        <location filename="../lib/db_base.cpp" line="+211"/>
         <source>Internal name</source>
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+530"/>
+        <location line="+531"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2699,7 +2707,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-658"/>
+        <location line="-664"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2733,7 +2741,12 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+632"/>
+        <location line="+110"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+528"/>
         <source>X509v3 Extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2947,7 +2960,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+83"/>
+        <location line="+88"/>
         <source>Tried to change password of a token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2967,7 +2980,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-295"/>
+        <location line="-300"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -3626,7 +3639,7 @@ and thus was not stored</source>
         <translation type="unfinished">Не удалось расшифровать ключ (неверный пароль)</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+195"/>
         <location line="+11"/>
         <source>Password input aborted</source>
         <translation></translation>
@@ -3637,12 +3650,11 @@ and thus was not stored</source>
         <translation>Пожалуйста, введите пароль для защиты закрытого ключа &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="-163"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public and PKCS#8 key types.</source>
-        <translation type="unfinished">Не удается загрузить закрытый ключ из файла %1. Формат файла должен быть PEM или DER.</translation>
+        <translation type="obsolete">Не удается загрузить закрытый ключ из файла %1. Формат файла должен быть PEM или DER.</translation>
     </message>
     <message>
-        <location line="-105"/>
+        <location line="-278"/>
         <source>Please enter the password to decrypt the private key.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3653,7 +3665,12 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+62"/>
+        <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+35"/>
         <source>Ignoring unsupported private key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3756,7 +3773,19 @@ and thus was not stored</source>
         <translation>Без пароля</translation>
     </message>
     <message>
-        <location line="-10"/>
+        <location line="+22"/>
+        <location line="+5"/>
+        <location line="+3"/>
+        <source>Invalid SSH2 public key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+108"/>
+        <source>Failed writing to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-148"/>
         <source>PIN</source>
         <translation>ПИН</translation>
     </message>
@@ -3811,17 +3840,17 @@ and thus was not stored</source>
 <context>
     <name>pki_scard</name>
     <message>
-        <location filename="../lib/pki_scard.cpp" line="+348"/>
+        <location filename="../lib/pki_scard.cpp" line="+354"/>
         <source>This Key is already on the token</source>
         <translation type="unfinished">Этот ключ уже есть на Токене безопасности</translation>
     </message>
     <message>
-        <location line="+85"/>
+        <location line="+87"/>
         <source>Unable to find copied key on the token</source>
         <translation type="unfinished">Не удается найти копию ключа на Токене безопасности</translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+131"/>
         <source>Public Key missmatch. Please re-import card</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3842,12 +3871,12 @@ and thus was not stored</source>
         <translation type="unfinished">Неверный PIN для этого Токена безопасности</translation>
     </message>
     <message>
-        <location line="-429"/>
+        <location line="-437"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-226"/>
+        <location line="-230"/>
         <source>Successfully imported the token key &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3867,12 +3896,12 @@ and thus was not stored</source>
         <translation type="unfinished">Удалить %1 ключ: %2?</translation>
     </message>
     <message>
-        <location line="+358"/>
+        <location line="+366"/>
         <source>PIN input aborted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+115"/>
         <source>Please insert card: %1 %2 [%3] with Serial: %4</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3905,7 +3934,7 @@ and thus was not stored</source>
 <context>
     <name>pki_temp</name>
     <message>
-        <location filename="../lib/pki_temp.cpp" line="+370"/>
+        <location filename="../lib/pki_temp.cpp" line="+385"/>
         <source>Template file content error (too small): %1</source>
         <translation>Содержимое файл-шаблона ошибочно (слишком мал) :%1</translation>
     </message>
@@ -3915,13 +3944,13 @@ and thus was not stored</source>
         <translation>Содержимое файл-шаблона ошибочно (неверная длинна) :%1</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+205"/>
+        <location line="-119"/>
+        <location line="+220"/>
         <source>Wrong Size %1</source>
         <translation>Неправильный размер %1</translation>
     </message>
     <message>
-        <location line="-398"/>
+        <location line="-413"/>
         <source>Successfully imported the XCA template &apos;%1&apos;</source>
         <translation>XCA шаблон &apos;%1&apos; ипортирован успешно</translation>
     </message>
@@ -3941,7 +3970,7 @@ and thus was not stored</source>
         <translation>Удалить %1 XCA шаблоны: %2?</translation>
     </message>
     <message>
-        <location line="+284"/>
+        <location line="+299"/>
         <source>Template file content error (bad size): %1 </source>
         <translation>Содержимое файл-шаблона ошибочно (неверный размер) :%1</translation>
     </message>
@@ -4020,7 +4049,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="-316"/>
-        <location line="+512"/>
+        <location line="+514"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>

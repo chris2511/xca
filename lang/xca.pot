@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-16 18:56+0200\n"
+"POT-Creation-Date: 2015-02-21 09:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,83 +97,91 @@ msgid "An md5 hashsum of the certificate"
 msgstr ""
 
 #: CertDetail#15
-msgctxt "CertDetail#15"
-msgid "Validity"
+msgid "SHA256"
 msgstr ""
 
 #: CertDetail#16
-msgid "The time since the certificate is valid"
+msgid "A SHA-256 hashsum of the certificate"
 msgstr ""
 
 #: CertDetail#17
-msgid "The time until the certificate is valid"
+msgctxt "CertDetail#17"
+msgid "Validity"
 msgstr ""
 
 #: CertDetail#18
-msgid "&Subject"
+msgid "The time since the certificate is valid"
 msgstr ""
 
 #: CertDetail#19
-msgctxt "CertDetail#19"
-msgid "&Issuer"
+msgid "The time until the certificate is valid"
 msgstr ""
 
 #: CertDetail#20
-msgid "Attributes"
+msgid "&Subject"
 msgstr ""
 
 #: CertDetail#21
 msgctxt "CertDetail#21"
-msgid "&Extensions"
+msgid "&Issuer"
 msgstr ""
 
 #: CertDetail#22
-msgid "Show config"
+msgid "Attributes"
 msgstr ""
 
 #: CertDetail#23
-msgid "Show extensions"
+msgctxt "CertDetail#23"
+msgid "&Extensions"
 msgstr ""
 
 #: CertDetail#24
-msgctxt "CertDetail#24"
-msgid "Not available"
+msgid "Show config"
 msgstr ""
 
 #: CertDetail#25
-msgid "Details of the certificate"
+msgid "Show extensions"
 msgstr ""
 
 #: CertDetail#26
-msgid "Signer unknown"
+msgctxt "CertDetail#26"
+msgid "Not available"
 msgstr ""
 
 #: CertDetail#27
-msgid "Self signed"
+msgid "Details of the certificate"
 msgstr ""
 
 #: CertDetail#28
-msgctxt "CertDetail#28"
-msgid "Not trusted"
+msgid "Signer unknown"
 msgstr ""
 
 #: CertDetail#29
-msgid "Trusted"
+msgid "Self signed"
 msgstr ""
 
 #: CertDetail#30
-msgid "Revoked: "
+msgctxt "CertDetail#30"
+msgid "Not trusted"
 msgstr ""
 
 #: CertDetail#31
-msgid "Not valid"
+msgid "Trusted"
 msgstr ""
 
 #: CertDetail#32
-msgid "Valid"
+msgid "Revoked: "
 msgstr ""
 
 #: CertDetail#33
+msgid "Not valid"
+msgstr ""
+
+#: CertDetail#34
+msgid "Valid"
+msgstr ""
+
+#: CertDetail#35
 msgid "Details of the certificate signing request"
 msgstr ""
 
@@ -475,7 +483,9 @@ msgid "&Encrypt the Key with a password"
 msgstr ""
 
 #: ExportKey#6
-msgid "Private keys ( *.pem *.der *.pk8 );;All files ( * )"
+msgid ""
+"Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( "
+"* )"
 msgstr ""
 
 #: ExportKey#7
@@ -766,224 +776,260 @@ msgid "Recent DataBases"
 msgstr ""
 
 #: MainWindow#25
-msgid "&File"
+msgid "System"
 msgstr ""
 
 #: MainWindow#26
-msgid "&New DataBase"
+msgid "Croatian"
 msgstr ""
 
 #: MainWindow#27
-msgid "&Open DataBase"
+msgid "English"
 msgstr ""
 
 #: MainWindow#28
-msgid "Generate DH parameter"
+msgid "French"
 msgstr ""
 
 #: MainWindow#29
-msgid "Set as default DataBase"
+msgid "German"
 msgstr ""
 
 #: MainWindow#30
-msgid "&Close DataBase"
+msgid "Russian"
 msgstr ""
 
 #: MainWindow#31
-msgid "&Dump DataBase"
+msgid "Spanish"
 msgstr ""
 
 #: MainWindow#32
-msgid "C&hange DataBase password"
+msgid "Turkish"
 msgstr ""
 
 #: MainWindow#33
-msgid "&Import old db_dump"
+msgid "Language"
 msgstr ""
 
 #: MainWindow#34
-msgid "&Undelete items"
+msgid "&File"
 msgstr ""
 
 #: MainWindow#35
-msgid "Options"
+msgid "&New DataBase"
 msgstr ""
 
 #: MainWindow#36
-msgid "Exit"
+msgid "&Open DataBase"
 msgstr ""
 
 #: MainWindow#37
-msgid "I&mport"
+msgid "Generate DH parameter"
 msgstr ""
 
 #: MainWindow#38
-msgid "Keys"
+msgid "Set as default DataBase"
 msgstr ""
 
 #: MainWindow#39
-msgid "Requests"
+msgid "&Close DataBase"
 msgstr ""
 
 #: MainWindow#40
-msgid "PKCS#12"
+msgid "&Dump DataBase"
 msgstr ""
 
 #: MainWindow#41
-msgctxt "MainWindow#41"
-msgid "PKCS#7"
+msgid "C&hange DataBase password"
 msgstr ""
 
 #: MainWindow#42
-msgctxt "MainWindow#42"
-msgid "Template"
+msgid "&Import old db_dump"
 msgstr ""
 
 #: MainWindow#43
-msgid "Revocation list"
+msgid "&Undelete items"
 msgstr ""
 
 #: MainWindow#44
-msgid "PEM file"
+msgid "Options"
 msgstr ""
 
 #: MainWindow#45
-msgid "paste PEM file"
+msgid "Exit"
 msgstr ""
 
 #: MainWindow#46
-msgid "&Token"
+msgid "I&mport"
 msgstr ""
 
 #: MainWindow#47
-msgid "&Manage Security token"
+msgid "Keys"
 msgstr ""
 
 #: MainWindow#48
-msgid "&Init Security token"
+msgid "Requests"
 msgstr ""
 
 #: MainWindow#49
-msgid "&Change PIN"
+msgid "PKCS#12"
 msgstr ""
 
 #: MainWindow#50
-msgid "Change &SO PIN"
+msgctxt "MainWindow#50"
+msgid "PKCS#7"
 msgstr ""
 
 #: MainWindow#51
-msgid "Init PIN"
+msgctxt "MainWindow#51"
+msgid "Template"
 msgstr ""
 
 #: MainWindow#52
-msgid "&Help"
+msgid "Revocation list"
 msgstr ""
 
 #: MainWindow#53
-msgid "&Content"
+msgid "PEM file"
 msgstr ""
 
 #: MainWindow#54
-msgid "&About"
+msgid "paste PEM file"
 msgstr ""
 
 #: MainWindow#55
-msgid "Donations"
+msgid "&Token"
 msgstr ""
 
 #: MainWindow#56
-msgid "Database dump ( *.dump );;All files ( * )"
+msgid "&Manage Security token"
 msgstr ""
 
 #: MainWindow#57
-msgid "Import password"
+msgid "&Init Security token"
 msgstr ""
 
 #: MainWindow#58
-msgid "Please enter the password of the old database"
+msgid "&Change PIN"
 msgstr ""
 
 #: MainWindow#59
-msgid "Password verification error. Ignore keys ?"
+msgid "Change &SO PIN"
 msgstr ""
 
 #: MainWindow#60
-msgid "Import anyway"
+msgid "Init PIN"
 msgstr ""
 
 #: MainWindow#61
-msgid "no such option: %1"
+msgid "&Help"
 msgstr ""
 
 #: MainWindow#62
-msgid "Import PEM data"
+msgid "&Content"
 msgstr ""
 
 #: MainWindow#63
-msgid "Please enter the original SO PIN (PUK) of the token '%1'"
+msgid "&About"
 msgstr ""
 
 #: MainWindow#64
-msgid "Please enter the new SO PIN (PUK) of the token '%1'"
+msgid "Donations"
 msgstr ""
 
 #: MainWindow#65
-msgid "The new label of the token '%1'"
+msgid "Database dump ( *.dump );;All files ( * )"
 msgstr ""
 
 #: MainWindow#66
-msgid "The token '%1' did not contain any keys or certificates"
+msgid "Import password"
 msgstr ""
 
 #: MainWindow#67
-msgid "New Password"
+msgid "Please enter the password of the old database"
 msgstr ""
 
 #: MainWindow#68
+msgid "Password verification error. Ignore keys ?"
+msgstr ""
+
+#: MainWindow#69
+msgid "Import anyway"
+msgstr ""
+
+#: MainWindow#70
+msgid "no such option: %1"
+msgstr ""
+
+#: MainWindow#71
+msgid "Import PEM data"
+msgstr ""
+
+#: MainWindow#72
+msgid "Please enter the original SO PIN (PUK) of the token '%1'"
+msgstr ""
+
+#: MainWindow#73
+msgid "Please enter the new SO PIN (PUK) of the token '%1'"
+msgstr ""
+
+#: MainWindow#74
+msgid "The new label of the token '%1'"
+msgstr ""
+
+#: MainWindow#75
+msgid "The token '%1' did not contain any keys or certificates"
+msgstr ""
+
+#: MainWindow#76
+msgid "New Password"
+msgstr ""
+
+#: MainWindow#77
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
 msgstr ""
 
-#: MainWindow#69
+#: MainWindow#78
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#70
+#: MainWindow#79
 msgid "Password verify error, please try again"
 msgstr ""
 
-#: MainWindow#71
-msgctxt "MainWindow#71"
+#: MainWindow#80
+msgctxt "MainWindow#80"
 msgid "Password"
 msgstr ""
 
-#: MainWindow#72
+#: MainWindow#81
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#73
+#: MainWindow#82
 msgid "The following error occured:"
 msgstr ""
 
-#: MainWindow#74
+#: MainWindow#83
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: MainWindow#75
+#: MainWindow#84
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
 "handled by XCA.\n"
 "Please enter the DH parameter bits"
 msgstr ""
 
-#: MainWindow#76
-msgctxt "MainWindow#76"
+#: MainWindow#85
+msgctxt "MainWindow#85"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
@@ -1709,7 +1755,9 @@ msgid "All files ( * )"
 msgstr ""
 
 #: QObject#10
-msgid "PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;"
+msgid ""
+"PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys "
+"( *.pub );;"
 msgstr ""
 
 #: QObject#11
@@ -1855,6 +1903,163 @@ msgstr ""
 msgid "%1 is longer than %2 bytes: '%3'"
 msgstr ""
 
+#: QObject#46
+msgid "Country code"
+msgstr ""
+
+#: QObject#47
+msgid "State or Province"
+msgstr ""
+
+#: QObject#48
+msgid "Locality"
+msgstr ""
+
+#: QObject#49
+msgid "Organisation"
+msgstr ""
+
+#: QObject#50
+msgid "Organisational unit"
+msgstr ""
+
+#: QObject#51
+msgid "Common name"
+msgstr ""
+
+#: QObject#52
+msgid "E-Mail address"
+msgstr ""
+
+#: QObject#53
+msgid "Serial number"
+msgstr ""
+
+#: QObject#54
+msgid "Given name"
+msgstr ""
+
+#: QObject#55
+msgid "Surname"
+msgstr ""
+
+#: QObject#56
+msgid "Title"
+msgstr ""
+
+#: QObject#57
+msgid "Initials"
+msgstr ""
+
+#: QObject#58
+msgid "Description"
+msgstr ""
+
+#: QObject#59
+msgid "Role"
+msgstr ""
+
+#: QObject#60
+msgid "Pseudonym"
+msgstr ""
+
+#: QObject#61
+msgid "Generation Qualifier"
+msgstr ""
+
+#: QObject#62
+msgid "x500 Unique Identifier"
+msgstr ""
+
+#: QObject#63
+msgctxt "QObject#63"
+msgid "Name"
+msgstr ""
+
+#: QObject#64
+msgid "DN Qualifier"
+msgstr ""
+
+#: QObject#65
+msgctxt "QObject#65"
+msgid "Unstructured name"
+msgstr ""
+
+#: QObject#66
+msgctxt "QObject#66"
+msgid "Challenge password"
+msgstr ""
+
+#: QObject#67
+msgid "Basic Constraints"
+msgstr ""
+
+#: QObject#68
+msgid "subject alternative name"
+msgstr ""
+
+#: QObject#69
+msgid "issuer alternative name"
+msgstr ""
+
+#: QObject#70
+msgid "Subject key identifier"
+msgstr ""
+
+#: QObject#71
+msgctxt "QObject#71"
+msgid "Authority key identifier"
+msgstr ""
+
+#: QObject#72
+msgctxt "QObject#72"
+msgid "Key usage"
+msgstr ""
+
+#: QObject#73
+msgid "Extended key usage"
+msgstr ""
+
+#: QObject#74
+msgid "CRL distribution points"
+msgstr ""
+
+#: QObject#75
+msgid "Authority information access"
+msgstr ""
+
+#: QObject#76
+msgid "Certificate type"
+msgstr ""
+
+#: QObject#77
+msgid "Base URL"
+msgstr ""
+
+#: QObject#78
+msgid "Revocation URL"
+msgstr ""
+
+#: QObject#79
+msgid "CA Revocation URL"
+msgstr ""
+
+#: QObject#80
+msgid "Certificate renewal URL"
+msgstr ""
+
+#: QObject#81
+msgid "CA policy URL"
+msgstr ""
+
+#: QObject#82
+msgid "SSL server name"
+msgstr ""
+
+#: QObject#83
+msgid "Comment"
+msgstr ""
+
 #: Revoke#1
 msgid "Revocation details"
 msgstr ""
@@ -1974,26 +2179,30 @@ msgid "Error opening file: '%1': %2"
 msgstr ""
 
 #: db_base#8
-msgid "Subject entries"
+msgid "No."
 msgstr ""
 
 #: db_base#9
-msgid "X509v3 Extensions"
+msgid "Subject entries"
 msgstr ""
 
 #: db_base#10
-msgid "Netscape extensions"
+msgid "X509v3 Extensions"
 msgstr ""
 
 #: db_base#11
-msgid "Reset"
+msgid "Netscape extensions"
 msgstr ""
 
 #: db_base#12
-msgid "Paste PEM data"
+msgid "Reset"
 msgstr ""
 
 #: db_base#13
+msgid "Paste PEM data"
+msgstr ""
+
+#: db_base#14
 msgid "Columns"
 msgstr ""
 
@@ -2291,197 +2500,201 @@ msgid "sha1 fingerprint"
 msgstr ""
 
 #: db_x509#6
-msgid "Start date"
+msgid "sha256 fingerprint"
 msgstr ""
 
 #: db_x509#7
-msgid "not Before"
+msgid "Start date"
 msgstr ""
 
 #: db_x509#8
-msgid "Expiry date"
+msgid "not Before"
 msgstr ""
 
 #: db_x509#9
-msgid "not After"
+msgid "Expiry date"
 msgstr ""
 
 #: db_x509#10
-msgid "Trust state"
+msgid "not After"
 msgstr ""
 
 #: db_x509#11
-msgctxt "db_x509#11"
-msgid "Revocation"
+msgid "Trust state"
 msgstr ""
 
 #: db_x509#12
 msgctxt "db_x509#12"
-msgid "Plain View"
+msgid "Revocation"
 msgstr ""
 
 #: db_x509#13
-msgid "Tree View"
+msgctxt "db_x509#13"
+msgid "Plain View"
 msgstr ""
 
 #: db_x509#14
+msgid "Tree View"
+msgstr ""
+
+#: db_x509#15
 msgid ""
 "The certificate already exists in the database as:\n"
 "'%1'\n"
 "and so it was not imported"
 msgstr ""
 
-#: db_x509#15
+#: db_x509#16
 msgid "Invalid public key"
 msgstr ""
 
-#: db_x509#16
+#: db_x509#17
 msgid "Please enter the new hexadecimal secret number for the QA process."
 msgstr ""
 
-#: db_x509#17
+#: db_x509#18
 msgid "The QA process has been terminated by the user."
 msgstr ""
 
-#: db_x509#18
-msgctxt "db_x509#18"
+#: db_x509#19
+msgctxt "db_x509#19"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: db_x509#19
+#: db_x509#20
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr ""
 
-#: db_x509#20
+#: db_x509#21
 msgid "New Certificate"
 msgstr ""
 
-#: db_x509#21
-msgctxt "db_x509#21"
+#: db_x509#22
+msgctxt "db_x509#22"
 msgid "Import"
 msgstr ""
 
-#: db_x509#22
+#: db_x509#23
 msgid "Import PKCS#12"
 msgstr ""
 
-#: db_x509#23
-msgid "Import from PKCS#7"
-msgstr ""
-
 #: db_x509#24
-msgctxt "db_x509#24"
-msgid "Rename"
+msgid "Import from PKCS#7"
 msgstr ""
 
 #: db_x509#25
 msgctxt "db_x509#25"
-msgid "Show Details"
+msgid "Rename"
 msgstr ""
 
 #: db_x509#26
 msgctxt "db_x509#26"
-msgid "Extract public Key"
+msgid "Show Details"
 msgstr ""
 
 #: db_x509#27
 msgctxt "db_x509#27"
-msgid "Export"
+msgid "Extract public Key"
 msgstr ""
 
 #: db_x509#28
 msgctxt "db_x509#28"
-msgid "Clipboard"
+msgid "Export"
 msgstr ""
 
 #: db_x509#29
 msgctxt "db_x509#29"
-msgid "File"
+msgid "Clipboard"
 msgstr ""
 
 #: db_x509#30
-msgid "Request"
+msgctxt "db_x509#30"
+msgid "File"
 msgstr ""
 
 #: db_x509#31
-msgctxt "db_x509#31"
-msgid "Security token"
+msgid "Request"
 msgstr ""
 
 #: db_x509#32
-msgid "Other token"
+msgctxt "db_x509#32"
+msgid "Security token"
 msgstr ""
 
 #: db_x509#33
-msgctxt "db_x509#33"
-msgid "Template"
+msgid "Other token"
 msgstr ""
 
 #: db_x509#34
 msgctxt "db_x509#34"
-msgid "OpenSSL config"
+msgid "Template"
 msgstr ""
 
 #: db_x509#35
 msgctxt "db_x509#35"
-msgid "Delete"
+msgid "OpenSSL config"
 msgstr ""
 
 #: db_x509#36
-msgid "Delete from Security token"
+msgctxt "db_x509#36"
+msgid "Delete"
 msgstr ""
 
 #: db_x509#37
-msgid "Trust"
+msgid "Delete from Security token"
 msgstr ""
 
 #: db_x509#38
-msgid "Properties"
+msgid "Trust"
 msgstr ""
 
 #: db_x509#39
-msgid "Generate CRL"
+msgid "Properties"
 msgstr ""
 
 #: db_x509#40
-msgctxt "db_x509#40"
-msgid "PKCS#7"
+msgid "Generate CRL"
 msgstr ""
 
 #: db_x509#41
 msgctxt "db_x509#41"
-msgid "Sign"
+msgid "PKCS#7"
 msgstr ""
 
 #: db_x509#42
-msgid "Encrypt"
+msgctxt "db_x509#42"
+msgid "Sign"
 msgstr ""
 
 #: db_x509#43
-msgid "Renewal"
+msgid "Encrypt"
 msgstr ""
 
 #: db_x509#44
-msgid "Unrevoke"
+msgid "Renewal"
 msgstr ""
 
 #: db_x509#45
-msgid "Revoke"
+msgid "Unrevoke"
 msgstr ""
 
 #: db_x509#46
-msgid "There was no key found for the Certificate: '%1'"
+msgid "Revoke"
 msgstr ""
 
 #: db_x509#47
-msgid "Not possible for a token key: '%1'"
+msgid "There was no key found for the Certificate: '%1'"
 msgstr ""
 
 #: db_x509#48
-msgid "Not possible for the token-key Certificate '%1'"
+msgid "Not possible for a token key: '%1'"
 msgstr ""
 
 #: db_x509#49
+msgid "Not possible for the token-key Certificate '%1'"
+msgstr ""
+
+#: db_x509#50
 msgid " days"
 msgstr ""
 
@@ -2500,163 +2713,6 @@ msgstr ""
 
 #: db_x509name#4
 msgid "Hash to lookup certs in directories"
-msgstr ""
-
-#: db_x509name#5
-msgid "Country code"
-msgstr ""
-
-#: db_x509name#6
-msgid "State or Province"
-msgstr ""
-
-#: db_x509name#7
-msgid "Locality"
-msgstr ""
-
-#: db_x509name#8
-msgid "Organisation"
-msgstr ""
-
-#: db_x509name#9
-msgid "Organisational unit"
-msgstr ""
-
-#: db_x509name#10
-msgid "Common name"
-msgstr ""
-
-#: db_x509name#11
-msgid "E-Mail address"
-msgstr ""
-
-#: db_x509name#12
-msgid "Serial number"
-msgstr ""
-
-#: db_x509name#13
-msgid "Given name"
-msgstr ""
-
-#: db_x509name#14
-msgid "Surname"
-msgstr ""
-
-#: db_x509name#15
-msgid "Title"
-msgstr ""
-
-#: db_x509name#16
-msgid "Initials"
-msgstr ""
-
-#: db_x509name#17
-msgid "Description"
-msgstr ""
-
-#: db_x509name#18
-msgid "Role"
-msgstr ""
-
-#: db_x509name#19
-msgid "Pseudonym"
-msgstr ""
-
-#: db_x509name#20
-msgid "Generation Qualifier"
-msgstr ""
-
-#: db_x509name#21
-msgid "x500 Unique Identifier"
-msgstr ""
-
-#: db_x509name#22
-msgctxt "db_x509name#22"
-msgid "Name"
-msgstr ""
-
-#: db_x509name#23
-msgid "DN Qualifier"
-msgstr ""
-
-#: db_x509name#24
-msgctxt "db_x509name#24"
-msgid "Unstructured name"
-msgstr ""
-
-#: db_x509name#25
-msgctxt "db_x509name#25"
-msgid "Challenge password"
-msgstr ""
-
-#: db_x509name#26
-msgid "Basic Constraints"
-msgstr ""
-
-#: db_x509name#27
-msgid "subject alternative name"
-msgstr ""
-
-#: db_x509name#28
-msgid "issuer alternative name"
-msgstr ""
-
-#: db_x509name#29
-msgid "Subject key identifier"
-msgstr ""
-
-#: db_x509name#30
-msgctxt "db_x509name#30"
-msgid "Authority key identifier"
-msgstr ""
-
-#: db_x509name#31
-msgctxt "db_x509name#31"
-msgid "Key usage"
-msgstr ""
-
-#: db_x509name#32
-msgid "Extended key usage"
-msgstr ""
-
-#: db_x509name#33
-msgid "CRL distribution points"
-msgstr ""
-
-#: db_x509name#34
-msgid "Authority information access"
-msgstr ""
-
-#: db_x509name#35
-msgid "Certificate type"
-msgstr ""
-
-#: db_x509name#36
-msgid "Base URL"
-msgstr ""
-
-#: db_x509name#37
-msgid "Revocation URL"
-msgstr ""
-
-#: db_x509name#38
-msgid "CA Revocation URL"
-msgstr ""
-
-#: db_x509name#39
-msgid "Certificate renewal URL"
-msgstr ""
-
-#: db_x509name#40
-msgid "CA policy URL"
-msgstr ""
-
-#: db_x509name#41
-msgid "SSL server name"
-msgstr ""
-
-#: db_x509name#42
-msgid "Comment"
 msgstr ""
 
 #: db_x509req#1
@@ -2859,8 +2915,8 @@ msgstr ""
 
 #: pki_evp#4
 msgid ""
-"Unable to load the private key in file %1. Tried PEM and DER private, public "
-"and PKCS#8 key types."
+"Unable to load the private key in file %1. Tried PEM and DER private, "
+"public, PKCS#8 key types and SSH2 format."
 msgstr ""
 
 #: pki_evp#5
@@ -2956,6 +3012,14 @@ msgstr ""
 
 #: pki_key#15
 msgid "No password"
+msgstr ""
+
+#: pki_key#16
+msgid "Invalid SSH2 public key"
+msgstr ""
+
+#: pki_key#17
+msgid "Failed writing to %1"
 msgstr ""
 
 #: pki_multi#1
