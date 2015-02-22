@@ -48,8 +48,14 @@ XCA_application::XCA_application(int &argc, char *argv[])
 	libp.prepend(applicationDirPath() + "/../Plugins");
 	setLibraryPaths(libp);
 #endif
-	tableFont = QFont("Courier");
-	tableFont.setPointSize(QApplication::font().pointSize());
+
+	tableFont = QFont("Courier", QApplication::font().pointSize()
+#if defined(_WIN32) || defined(USE_CYGWIN)
+	+1
+#else
+	+2
+#endif
+	);
 }
 
 void XCA_application::setupLanguage(QLocale l)
