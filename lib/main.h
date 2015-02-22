@@ -17,6 +17,8 @@
 #include <windows.h>
 #endif
 
+extern char segv_data[1024];
+
 class XcaTranslator : public QTranslator
 {
 	Q_OBJECT

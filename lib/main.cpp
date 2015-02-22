@@ -5,6 +5,7 @@
  * All rights reserved.
  */
 
+#include <signal.h>
 #include <QtGui/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QTextCodec>
@@ -198,10 +199,39 @@ int main_extract(int argc, char *argv[])
 	return 0;
 }
 
+char segv_data[1024];
+
+#ifdef WIN32
+static LONG CALLBACK w32_segfault(LPEXCEPTION_POINTERS e)
+{
+	if (e->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION) {
+		if (segv_data[0]) {
+			XCA_WARN(segv_data);
+			abort();
+		}
+		return EXCEPTION_CONTINUE_EXECUTION;
+	} else
+		return EXCEPTION_CONTINUE_SEARCH;
+}
+#else
+static void segv_handler_gui(int)
+{
+	if (segv_data[0])
+		XCA_WARN(segv_data);
+	abort();
+}
+#endif
+
 int main( int argc, char *argv[] )
 {
 	int ret = 0, pkictr;
 	MainWindow *mw;
+
+#ifdef WIN32
+	SetUnhandledExceptionFilter(w32_segfault);
+#else
+	signal(SIGSEGV, segv_handler_gui);
+#endif
 
 	if (QString(argv[1]) == "extract") {
 		return main_extract(argc, argv);

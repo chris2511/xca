@@ -30,22 +30,22 @@ pkcs11_lib::pkcs11_lib(QString f)
 	if (dl_handle == NULL)
 		goto how_bad;
 
-	WAITCURSOR_START;
 	/* Get the list of function pointers */
 	c_get_function_list = (CK_RV (*)(CK_FUNCTION_LIST_PTR_PTR))
 				lt_dlsym(dl_handle, "C_GetFunctionList");
 	if (!c_get_function_list)
 		goto how_bad;
 
+	qDebug("Trying to load PKCS#11 provider %s", QString2filename(file));
 	if (c_get_function_list(&p11) != CKR_OK)
 		goto how_bad;
 
-	rv = p11->C_Initialize(NULL);
-	ign_openssl_error();
+	CALL_P11_C(this, C_Initialize, NULL);
 	if (rv != CKR_OK && rv != CKR_CRYPTOKI_ALREADY_INITIALIZED)
 		pk11error("C_Initialize", rv);
 
-	WAITCURSOR_END;
+	qDebug("Successfully loaded PKCS#11 provider %s",
+		QString2filename(file));
 	return;
 
 how_bad:
@@ -53,15 +53,20 @@ how_bad:
 	if (dl_handle)
 		lt_dlclose(dl_handle);
 	lt_dlexit();
+	qDebug("Failed to load PKCS#11 provider %s", QString2filename(file));
 	throw errorEx(QObject::tr("Failed to open PKCS11 library: %1").
 			arg(file));
 }
 
 pkcs11_lib::~pkcs11_lib()
 {
-	p11->C_Finalize(NULL);
+	CK_RV rv;
+	qDebug("Unloading PKCS#11 provider %s", QString2filename(file));
+	CALL_P11_C(this, C_Finalize, NULL);
+	(void)rv;
 	lt_dlclose(dl_handle);
 	lt_dlexit();
+	qDebug("Unloaded PKCS#11 provider %s", QString2filename(file));
 }
 
 QList<unsigned long> pkcs11_lib::getSlotList()
@@ -73,11 +78,9 @@ QList<unsigned long> pkcs11_lib::getSlotList()
 
 	/* This one helps to avoid errors.
 	 * Fist time it fails, 2nd time it works */
-	WAITCURSOR_START;
-	p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
-	WAITCURSOR_END;
+	CALL_P11_C(this, C_GetSlotList, CK_TRUE, p11_slots, &num_slots);
 	while (1) {
-		rv = p11->C_GetSlotList(CK_TRUE, p11_slots, &num_slots);
+		CALL_P11_C(this, C_GetSlotList, CK_TRUE, p11_slots, &num_slots);
 		if (rv != CKR_OK && rv != CKR_BUFFER_TOO_SMALL)
 			pk11error("C_GetSlotList", rv);
 
@@ -104,9 +107,7 @@ QString pkcs11_lib::driverInfo()
 	CK_INFO info;
 	CK_RV rv;
 
-	WAITCURSOR_START;
-	rv = p11->C_GetInfo(&info);
-	WAITCURSOR_END;
+	CALL_P11_C(this, C_GetInfo, &info);
 	if (rv != CKR_OK) {
 		pk11error("C_GetInfo", rv);
 	}
