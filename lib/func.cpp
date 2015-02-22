@@ -44,17 +44,6 @@ QPixmap *loadImg(const char *name )
 	return new QPixmap(QString(":") + name);
 }
 
-QString getDefaultPkcs11Lib()
-{
-#if defined(_WIN32) || defined(USE_CYGWIN)
-	return getLibDir() +QDir::separator() +QString("opensc-pkcs11.dll");
-#elif defined(Q_WS_MAC)
-	return QString("/Library/OpenSC/lib/opensc-pkcs11.so");
-#else
-	return QString("/usr/lib/opensc-pkcs11.so");
-#endif
-}
-
 QStringList getLibExtensions()
 {
 	QStringList l;

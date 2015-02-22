@@ -66,15 +66,9 @@ int MainWindow::init_database()
 	string_opt = QString("MASK:0x2002");
 	ASN1_STRING_set_default_mask_asc((char*)CCHAR(string_opt));
 	hashBox::resetDefault();
-	pkcs11path = getDefaultPkcs11Lib();
+	pkcs11path = QString();
 	workingdir = QDir::currentPath();
 	setOptFlags((QString()));
-
-	try {
-		pkcs11_lib p(pkcs11path);
-	} catch (errorEx &e) {
-		pkcs11path = QString();
-	}
 
 	connect( keys, SIGNAL(newKey(pki_key *)),
 		certs, SLOT(newKey(pki_key *)) );
