@@ -25,19 +25,21 @@ or follow the steps below by hand:
 $ export INSTALL_DIR=`pwd`/install
 
 OpenSSL 0.9.8 - 1.0.2 are supported.
-$ cp openssl-1.0.2.tar.gz .
-$ tar zxf openssl-1.0.2.tar.gz
+$ cp openssl-1.0.Xy.tar.gz .
+$ tar zxf openssl-1.0.Xy.tar.gz
 
 apply openssl-cross-patch:
-$ cd openssl-1.0.2
+$ cd openssl-1.0.Xy
 $ patch -p1 < ../xca/misc/openssl-1.0.0-mingw32-cross.patch
 
 compile openssl with:
 $ sh ms/mingw32-cross.sh
+$cd ..
 
 unpack libtool-2.2 and cd in libtool-2.2
 $ ./configure --host i586-mingw32msvc --prefix ${INSTALL_DIR}
 $ make && make install
+$ cd ..
 
 compile xca:
 $ cd xca-1.2.0

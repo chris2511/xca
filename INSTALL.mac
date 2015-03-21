@@ -8,10 +8,10 @@ There are 2 ways to compile XCA on MAC:
 1) Simple local not very but a little portable build.
    Use the locally installed OpenSSL library
 
-2) Use an up-to-date OpenSSL library 1.0.2 and build
-   a 32 bit binary the should run even on "Leopard"
+2) Use an up-to-date OpenSSL library 1.0.Xy and build
+   a 32 bit binary that should run even on "Leopard"
    This is what I do for the official XCA .dmg releases
-   It is more complicated then 1)
+   It is more complicated than 1)
 
 Required tools for 1) and 2):
   a) XCODE
@@ -59,8 +59,5 @@ Required tools for 1) and 2):
       export CXXFLAGS="-arch i386 -I${INSTALL_DIR}/include -L${INSTALL_DIR}/lib"
       ./configure --with-openssl="$INSTALL_DIR" --with-qt="$INSTALL_DIR/Qt485"
       make -j5 
-
-      $XCA_DIR/configure --with-openssl="$INSTALL_DIR" --with-qt="$QTDIR"
-      :make -sdd5 && make xca.dmg
 
     I do the steps b) - d) with the misc/build-mac.sh script
