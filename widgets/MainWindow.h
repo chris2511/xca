@@ -147,7 +147,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void default_database();
 		void connNewX509(NewX509 *nx);
 		void about();
-		void donations();
 		void help();
 		void import_dbdump();
 		void undelete();

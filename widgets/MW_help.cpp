@@ -118,33 +118,6 @@ void MainWindow::about()
 	delete about;
 }
 
-void MainWindow::donations()
-{
-	Ui::About ui;
-	QDialog *d = new QDialog(this, 0);
-
-	ui.setupUi(d);
-
-	QString cont;
-	cont.sprintf("<p><h3><center><u>XCA</u></center></h3>"
-	"<p>This program is free software."
-	"<p>It doesn't bother you with Pop-Ups, Countdown-Timers, "
-	"commercials or any type of 'Register Now' buttons. "
-	"Nor are there any constraints or any limited functionality."
-	"<p>Everybody who wants to support my work at XCA may use "
-	"my PayPal account: <b>&lt;christian@hohnstaedt.de&gt;</b> "
-	"for a donation."
-	"<p>Every donator will in return be honored in the about dialog "
-	"of the next version."
-	);
-
-	d->setWindowTitle(tr(XCA_TITLE));
-	ui.image->setPixmap( *keyImg );
-	ui.image1->setPixmap( *certImg );
-	ui.textbox->setHtml(cont);
-	d->exec();
-}
-
 void MainWindow::help()
 {
 	QDialog *h = new QDialog(this, 0);

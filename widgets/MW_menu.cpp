@@ -38,6 +38,7 @@ void MainWindow::init_menu()
 	static QMenu *file = NULL, *help = NULL, *import = NULL,
 			*token = NULL, *languageMenu = NULL;
 	static QActionGroup * langGroup = NULL;
+	QAction *a;
 
 	QList<myLang> languages;
 	if (file) delete file;
@@ -104,10 +105,18 @@ void MainWindow::init_menu()
 	acList += file->addAction(tr("&Undelete items"), this,
 				SLOT(undelete()));
 	file->addSeparator();
-	acList += file->addAction(tr("Options"), this, SLOT(setOptions()));
+	a = new QAction(tr("Options"), this);
+	connect(a, SIGNAL(triggered()), this, SLOT(setOptions()));
+	a->setMenuRole(QAction::PreferencesRole);
+	file->addAction(a);
+	acList += a;
+
 	file->addMenu(languageMenu);
 	file->addSeparator();
-	file->addAction(tr("Exit"), qApp, SLOT(quit()), Qt::ALT+Qt::Key_F4);
+	a = new QAction(tr("Exit"), this);
+	connect(a, SIGNAL(triggered()), qApp, SLOT(quit()));
+	a->setMenuRole(QAction::QuitRole);
+	file->addAction(a);
 
 	import = menuBar()->addMenu(tr("I&mport"));
 	import->addAction(tr("Keys"), this,
@@ -144,10 +153,14 @@ void MainWindow::init_menu()
 	help = menuBar()->addMenu(tr("&Help") );
 	help->addAction(tr("&Content"), this, SLOT(help()),
 			QKeySequence::HelpContents);
-	help->addAction(tr("&About"), this, SLOT(about()) );
-	help->addAction(tr("Donations"), this, SLOT(donations()) );
+	a = new QAction(tr("About"), this);
+	connect(a, SIGNAL(triggered()), this, SLOT(about()));
+	a->setMenuRole(QAction::AboutRole);
+	help->addAction(a);
 	wdMenuList += import;
 	scardList += token;
+
+	setItemEnabled(!dbfile.isEmpty());
 }
 
 int MainWindow::changeDB(QString fname)
@@ -241,6 +254,9 @@ void MainWindow::import_dbdump()
 
 void MainWindow::setOptions()
 {
+	if (dbfile.isEmpty())
+		return;
+
 	Options *opt = new Options(this);
 
 	opt->setExtDnString(mandatory_dn);
