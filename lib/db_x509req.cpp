@@ -174,7 +174,7 @@ void db_x509req::signReq()
 void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
-	QMenu *subExport;
+	QMenu *subExport, *transform;
 	currentIdx = index;
 
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
@@ -182,22 +182,26 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("New Request"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
 	if (index != QModelIndex()) {
-		if (!req->getRefKey())
-			menu->addAction(tr("Extract public Key"),
-				this, SLOT(extractPubkey()));
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
 		menu->addAction(tr("Sign"), this, SLOT(signReq()));
+
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("Clipboard"), this,
 					SLOT(pem2clipboard()));
 		subExport->addAction(tr("File"), this, SLOT(store()));
-		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
 		subExport->addAction(tr("OpenSSL config"), this,
 					SLOT(toOpenssl()));
-		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-
 		subExport->setEnabled(!req->isSpki());
+
+		transform = menu->addMenu(tr("Transform"));
+		transform->addAction(tr("Template"), this,
+					SLOT(toTemplate()))->
+					setEnabled(!req->isSpki());
+		transform->addAction(tr("Public Key"), this,
+					SLOT(extractPubkey()))->
+					setEnabled(!req->getRefKey());
+		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 	}
 	contextMenu(e, menu);
 	currentIdx = QModelIndex();

@@ -606,8 +606,8 @@ void db_x509::showPki(pki_base *pki)
 void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 {
 	QMenu *menu = new QMenu(mainwin);
-	QMenu *subExport, *subCa;
-	QAction *itemReq, *itemRevoke, *itemExtend, *itemTrust, *action;
+	QMenu *subExport, *subCa, *transform;
+	QAction *action;
 	QList<QAction*> scardItems;
 
 	bool parentCanSign, canSign, hasScard;
@@ -615,6 +615,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	pki_key *privkey;
 
 	pki_x509 *cert = static_cast<pki_x509*>(index.internalPointer());
+	pki_x509 *parent;
 
 	menu->addAction(tr("New Certificate"), this, SLOT(newItem()));
 	menu->addAction(tr("Import"), this, SLOT(load()));
@@ -622,65 +623,64 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	menu->addAction(tr("Import from PKCS#7"), this, SLOT(loadPKCS7()));
 	if (index != QModelIndex()) {
 		privkey = cert->getRefKey();
+		parent = cert->getSigner();
+		parentCanSign = parent && parent->canSign() && (parent != cert);
+		canSign = cert->canSign();
+
 		menu->addAction(tr("Rename"), this, SLOT(edit()));
 		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
-		if (!privkey)
-			menu->addAction(tr("Extract public Key"),
-				this, SLOT(extractPubkey()));
 		subExport = menu->addMenu(tr("Export"));
 		subExport->addAction(tr("Clipboard"), this,
 					SLOT(pem2clipboard()));
 		subExport->addAction(tr("File"), this, SLOT(store()));
-		itemReq = subExport->addAction(tr("Request"),
-				this, SLOT(toRequest()));
 		scardItems += subExport->addAction(tr("Security token"),
 				this, SLOT(toToken()));
 		scardItems += subExport->addAction(tr("Other token"),
 				this, SLOT(toOtherToken()));
-		subExport->addAction(tr("Template"), this, SLOT(toTemplate()));
 		subExport->addAction(tr("OpenSSL config"),
 				this, SLOT(toOpenssl()));
+
+		transform = menu->addMenu(tr("Transform"));
+		transform->addAction(tr("Public Key"),
+				this, SLOT(extractPubkey()))->
+				setEnabled(!privkey);
+		transform->addAction(tr("Request"),
+				this, SLOT(toRequest()))->
+				setEnabled(privkey && privkey->isPrivKey());
+		transform->addAction(tr("Template"), this, SLOT(toTemplate()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 		scardItems += menu->addAction(
 				tr("Delete from Security token"),
 				this, SLOT(deleteFromToken()));
-		itemTrust = menu->addAction(tr("Trust"), this,SLOT(setTrust()));
+		menu->addAction(tr("Trust"), this,SLOT(setTrust()))->
+				setEnabled(!cert->isRevoked());
 		menu->addSeparator();
 		subCa = menu->addMenu(tr("CA"));
 		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
 		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
+		subCa->setEnabled(canSign);
 #if 0
 		QMenu *subP7 = menu->addMenu(tr("PKCS#7"));
 		subP7->addAction(tr("Sign"), this, SLOT(signP7()));
 		subP7->addAction(tr("Encrypt"), this, SLOT(encryptP7()));
+		subP7->setEnabled(privkey);
 #endif
 		menu->addSeparator();
-		itemExtend = menu->addAction(tr("Renewal"),
-				this, SLOT(extendCert()));
+		menu->addAction(tr("Renewal"), this, SLOT(extendCert()))->
+				setEnabled(parentCanSign);
 		if (cert->isRevoked()) {
-			itemRevoke = menu->addAction(tr("Unrevoke"),
-				this, SLOT(unRevoke()));
-			itemTrust->setEnabled(false);
+			menu->addAction(tr("Unrevoke"),
+				this, SLOT(unRevoke()))->
+				setEnabled(parentCanSign);
 		} else {
-			itemRevoke = menu->addAction(tr("Revoke"),
-				this, SLOT(revoke()));
+			menu->addAction(tr("Revoke"), this, SLOT(revoke()))->
+				setEnabled(parentCanSign);
 		}
-		parentCanSign = (cert->getSigner() && cert->getSigner()->canSign()
-					&& (cert->getSigner() != cert));
-		canSign = cert->canSign();
 		hasScard = pkcs11::loaded();
-
-		itemRevoke->setEnabled(parentCanSign);
-		itemExtend->setEnabled(parentCanSign);
-		subCa->setEnabled(canSign);
-		itemReq->setEnabled(privkey && privkey->isPrivKey());
 
 		foreach(action, scardItems)
 			action->setEnabled(hasScard);
-#if 0
-		subP7->setEnabled(privkey);
-#endif
 	}
 	contextMenu(e, menu);
 	currentIdx = QModelIndex();
