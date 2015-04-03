@@ -166,8 +166,9 @@ QString pki_key::getMsg(msg_type msg)
 
 QString pki_key::getIntNameWithType()
 {
-	return QString("%1 (%2%3)").arg(getIntName()).arg(getTypeString()).
-		arg(isPubKey() ? QString(" ") + tr("public key") : QString(""));
+	return QString("%1 (%2:%3%4)").arg(getIntName()).arg(getTypeString()).
+		arg(length()).arg(isPubKey() ?
+			QString(" ") + tr("public key") : QString(""));
 }
 
 QString pki_key::removeTypeFromIntName(QString n)
