@@ -57,6 +57,9 @@ QVariant pki_x509super::column_data(dbheader *hd)
 			return QVariant("");
 		return QVariant(privkey->getIntName());
 	}
+	if (hd->id == HD_x509_sigalg) {
+		return QVariant(getSigAlg());
+	}
 	if (hd->type == dbheader::hd_v3ext || hd->type == dbheader::hd_v3ext_ns) {
 		extList el = getV3ext();
 		int idx = el.idxByNid(hd->id);
