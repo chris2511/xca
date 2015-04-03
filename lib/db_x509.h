@@ -55,6 +55,8 @@ class db_x509: public db_x509super
 		void changeView();
 		a1int getUniqueSerial(pki_x509 *signer);
 		void myToToken(bool alwaysSelect);
+		void encryptP7();
+		void signP7();
 
 	public slots:
 		void load(void);

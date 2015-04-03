@@ -674,7 +674,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
 		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
 		subCa->setEnabled(canSign);
-#if 0
+#if 1
 		QMenu *subP7 = menu->addMenu(tr("PKCS#7"));
 		subP7->addAction(tr("Sign"), this, SLOT(signP7()));
 		subP7->addAction(tr("Encrypt"), this, SLOT(encryptP7()));
@@ -876,82 +876,66 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
 		delete p7;
 
 }
-# if 0
-void ::signP7()
+# if 1
+void db_x509::signP7()
 {
-	QStringList filt;
     try {
-	pki_x509 *cert = (pki_x509 *)getSelected();
-	if (!cert) return;
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
+		return;
 	pki_key *privkey = cert->getRefKey();
 	if (!privkey || privkey->isPubKey()) {
 		XCA_WARN(tr("There was no key found for the Certificate: ") +
 			cert->getIntName());
 		return;
 	}
-		filt.append("All Files ( * )");
-	QString s="";
-	QStringList slist;
-	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
-	dlg->setCaption(tr("Import Certificate signing request"));
-	dlg->setFilters(filt);
-	dlg->setMode( Q3FileDialog::ExistingFiles );
-        dlg->setDir(MainWindow::getPath());
-	if (dlg->exec()) {
-		slist = dlg->selectedFiles();
-		MainWindow::setPath(dlg->dirPath());
-        }
-	delete dlg;
+	QStringList fnames = QFileDialog::getOpenFileNames(mainwin,
+		tr("File to be signed"), mainwin->getPath(),
+		tr("All Files ( * )"));
+	if (fnames.size() == 0)
+		return;
+	QString fn = fnames[0];
+	mainwin->setPath(fn.mid(0, fn.lastIndexOf("/")));
+
 	pki_pkcs7 * p7 = new pki_pkcs7("");
-	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
-		s = *it;
+	foreach(QString s, fnames) {
 		s = QDir::convertSeparators(s);
 		p7->signFile(cert, s);
+		openssl_error();
 		p7->writeP7((s + ".p7s"), true);
 	}
 	delete p7;
     }
     catch (errorEx &err) {
-	Qt::SocketError(err);
+	MainWindow::Error(err);
     }
 }
 
-void CertView::encryptP7()
+void db_x509::encryptP7()
 {
-	QStringList filt;
     try {
-	pki_x509 *cert = (pki_x509 *)getSelected();
-	if (!cert) return;
-	pki_key *privkey = cert->getRefKey();
-	if (!privkey || privkey->isPubKey()) {
-		XCA_WARN(tr("There was no key found for the Certificate: ") +
-			cert->getIntName()) ;
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
 		return;
-	}
-	filt.append("All Files ( * )");
-	QString s="";
-	QStringList slist;
-	Q3FileDialog *dlg = new Q3FileDialog(this,0,true);
-	dlg->setCaption(tr("Import Certificate signing request"));
-	dlg->setFilters(filt);
-	dlg->setMode( Q3FileDialog::ExistingFiles );
-	dlg->setDir(MainWindow::getPath());
-	if (dlg->exec()) {
-		slist = dlg->selectedFiles();
-		MainWindow::setPath(dlg->dirPath());
-	}
-	delete dlg;
+	QStringList fnames = QFileDialog::getOpenFileNames(mainwin,
+		tr("File to be encrypted"), mainwin->getPath(),
+		tr("All Files ( * )"));
+	if (fnames.size() == 0)
+		return;
+	QString fn = fnames[0];
+	mainwin->setPath(fn.mid(0, fn.lastIndexOf("/")));
+
 	pki_pkcs7 * p7 = new pki_pkcs7("");
-	for ( QStringList::Iterator it = slist.begin(); it != slist.end(); ++it ) {
-		s = *it;
+	foreach(QString s, fnames) {
 		s = QDir::convertSeparators(s);
 		p7->encryptFile(cert, s);
-		p7->writeP7((s + ".p7m"), true);
+		openssl_error();
+		p7->writeP7((s + ".p7s"), true);
 	}
 	delete p7;
     }
     catch (errorEx &err) {
-		Qt::SocketError(err);
+	MainWindow::Error(err);
     }
 }
 #endif
