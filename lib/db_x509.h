@@ -47,6 +47,7 @@ class db_x509: public db_x509super
 		pki_x509 *getBySubject(const x509name &xname, pki_x509 *last = NULL);
 		pki_base *insert(pki_base *item);
 		void newCert(NewX509 *dlg);
+		void newCert(pki_x509 *cert);
 		void writePKCS12(pki_x509 *cert, QString s, bool chain);
 		void writePKCS7(pki_x509 *cert, QString s, int type);
 		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
@@ -70,6 +71,7 @@ class db_x509: public db_x509super
 		void genCrl();
 		void caProperties();
 		void toRequest();
+		void toCertificate();
 		void toToken();
 		void toOtherToken();
 		void newCert(pki_temp *);

@@ -436,6 +436,18 @@ void db_x509::newCert(pki_temp *temp)
 	delete dlg;
 }
 
+void db_x509::newCert(pki_x509 *cert)
+{
+	NewX509 *dlg = new NewX509(mainwin);
+	emit connNewX509(dlg);
+	dlg->setCert();
+	dlg->defineCert(cert);
+	if (dlg->exec()) {
+		newCert(dlg);
+	}
+	delete dlg;
+}
+
 void db_x509::newCert(NewX509 *dlg)
 {
 	pki_x509 *cert = NULL;
@@ -647,6 +659,8 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		transform->addAction(tr("Request"),
 				this, SLOT(toRequest()))->
 				setEnabled(privkey && privkey->isPrivKey());
+		transform->addAction(tr("Similar Certificate"),
+				this, SLOT(toCertificate()));
 		transform->addAction(tr("Template"), this, SLOT(toTemplate()));
 
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
@@ -1081,6 +1095,15 @@ void db_x509::genCrl()
 	mainwin->crls->newItem(cert);
 }
 
+void db_x509::toCertificate()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
+		return;
+	if (!cert->getRefKey())
+		extractPubkey();
+	newCert(cert);
+}
 
 void db_x509::toRequest()
 {

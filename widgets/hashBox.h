@@ -24,6 +24,7 @@ class hashBox: public QComboBox
 		void setKeyType(int type);
 		const EVP_MD *currentHash();
 		QString currentHashName();
+		void setCurrentMD(const EVP_MD *md);
 		void setCurrentAsDefault();
 		void setDefaultHash();
 		void setupHashes(QList<int> nids);

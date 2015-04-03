@@ -73,6 +73,24 @@ void hashBox::setCurrentString(QString md)
 	}
 }
 
+void hashBox::setCurrentMD(const EVP_MD *md)
+{
+	int hash_nid;
+	unsigned idx;
+
+	if (!md)
+		return;
+
+	if (!OBJ_find_sigid_algs(EVP_MD_type(md), &hash_nid, NULL))
+		hash_nid = EVP_MD_type(md);
+	for (idx = 0; idx<ARRAY_SIZE(hashalgos); idx++) {
+		if (hash_nid == EVP_MD_type(hashalgos[idx].md)) {
+			setCurrentString(hashalgos[idx].name);
+			return;
+		}
+	}
+}
+
 void hashBox::setupHashes(QList<int> nids)
 {
 	QString md = currentText();

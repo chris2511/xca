@@ -368,6 +368,33 @@ void NewX509::defineRequest(pki_x509req *req)
 	on_fromReqCB_clicked();
 }
 
+void NewX509::defineCert(pki_x509 *cert)
+{
+	pki_temp *temp = new pki_temp("");
+	temp->fromCert(cert);
+	description->setText(cert->getIntName());
+	pki_x509 *signer = cert->getSigner();
+	if (signer == cert) {
+		foreignSignRB->setChecked(false);
+	} else if (signer) {
+		defineSigner(signer);
+	}
+	defineTemplate(temp);
+	delete temp;
+
+	pki_key *key = cert->getRefKey();
+	if (key) {
+		usedKeysToo->setChecked(true);
+		keyList->setCurrentIndex(private_keys.indexOf(
+			key->getIntNameWithType()));
+	}
+
+	notBefore->setDate(cert->getNotBefore());
+	notAfter->setDate(cert->getNotAfter());
+
+	hashAlgo->setCurrentMD(cert->getDigest());
+}
+
 void NewX509::defineSigner(pki_x509 *defcert)
 {
 	int index;
