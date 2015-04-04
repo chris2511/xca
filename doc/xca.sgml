@@ -913,8 +913,19 @@ Requests can be exported by the context-menu or by the button on the right.
 <itemize>
 <item><bf>Clipboard</bf> Stores the request in PEM format into the Clipboard and can be pasted into an other application.
 <item><bf>File</bf> Write the request into a file in PEM or DER format.
+<item><bf>OpenSSL config</bf> Create and store an OpenSSL config file which can be used to generate a similar request with openssl (openssl req -new -config &lt;file&gt;)
+</itemize>
+
+<sect1>Request Transformation
+
+<p>
+
+A request transformation creates a new database entry based on the selected request
+
+<itemize>
 <item><bf>Template</bf> Create a XCA template with the values of the request.
-<item><bf>OpenSSL config</bf> Create aand store an OpenSSL config file which can be used to generate a similar request with openssl (openssl req -new -config &lt;file&gt;)
+<item><bf>Public Key</bf> Extract the public key from the request and store it in the Private Keys Tab.
+<item><bf>Similar Request</bf> Starts the Certificate input dialog preset with all values from the current request to create a new request.
 </itemize>
 
 <sect1>Request Details
@@ -1004,7 +1015,7 @@ It can be set to:
 		This is the default for generated self-signed certificates.
 </itemize>
 
-<sect1>Certificate export
+<sect1>Certificate Export
 
 <p>
 <itemize>
@@ -1044,11 +1055,8 @@ The filename can be selected in the export dialog and the Export format:
 		private key in PKCS&num;8 format and certificate.
 </itemize>
 
-<item><bf>Request</bf> Create a PKCS#10 request by using the data from the certificate.
-                       The private key of the certificate must be available for this option.
 <item><bf>Token</bf> Store certificate on the Security token containing the private key
 <item><bf>Other token</bf> Store certificate on any Security token
-<item><bf>Template</bf> Create a template from the content of this certificate.
 <item><bf>OpenSSL config</bf> Create an OpenSSL config file from the content of this certificate, which can be used to generate a similar certificate with openssl (openssl req -new -x509 -config &lt;file&gt;)
 </itemize>
 
@@ -1056,6 +1064,19 @@ The filename can be selected in the export dialog and the Export format:
 
 When exporting PKCS#12 structures you are asked later for an encryption
 password.
+
+<sect1>Certificate Transformation
+
+<p>
+
+A certificate transformation creates a new database entry based on the selected certificate.
+
+<itemize>
+<item><bf>Public Key</bf> Extract the public key from the certificate and store it in the Private Keys Tab.
+<item><bf>Request</bf> Create a PKCS#10 request by using the data from the certificate. The private key of the certificate must be available for this option.
+<item><bf>Similar Certificate</bf> Starts the Certificate input dialog preset with all values from the current certificate to create a new certificate.
+<item><bf>Template</bf> Create a XCA template with the values of the request.
+</itemize>
 
 <sect1>Certificate revocation
 
