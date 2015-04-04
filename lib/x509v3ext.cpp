@@ -9,6 +9,7 @@
 #include "x509name.h"
 #include "asn1int.h"
 #include "func.h"
+#include "exception.h"
 #include <openssl/x509v3.h>
 #include <openssl/stack.h>
 #include <QtCore/QStringList>
@@ -51,7 +52,8 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 		ext = NULL;
 	}
 	if (!et.isEmpty()) {
-		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, (char*)CCHAR(et));
+		QByteArray ba = et.toLocal8Bit();
+		ext = X509V3_EXT_conf_nid(NULL, ctx, nid, ba.data());
 	}
 	if (!ext)
 		ext = X509_EXTENSION_new();
@@ -65,6 +67,15 @@ x509v3ext &x509v3ext::create(int nid, const QString &et, X509V3_CTX *ctx)
 	return *this;
 }
 
+x509v3ext &x509v3ext::create_ia5(int nid, const QString &et, X509V3_CTX *ctx)
+{
+	QByteArray ba = et.toLocal8Bit();
+	for (int i=0; i<ba.size(); i++) {
+		if (ba[i] & 0x80)
+			throw errorEx(QObject::tr("String '%1' for '%2' contains invalid characters").arg(et).arg(OBJ_nid2ln(nid)));
+	}
+	return create(nid, et, ctx);
+}
 int x509v3ext::nid() const
 {
 	ASN1_OBJECT *obj = X509_EXTENSION_get_object(ext);

@@ -290,13 +290,13 @@ extList NewX509::getNetscapeExt()
 	}
 
 	el << ext.create(NID_netscape_cert_type, cont.join(", "), &ext_ctx);
-	el << ext.create(NID_netscape_base_url, nsBaseUrl->text(), &ext_ctx);
-	el << ext.create(NID_netscape_revocation_url, nsRevocationUrl->text(), &ext_ctx);
-	el << ext.create(NID_netscape_ca_revocation_url, nsCARevocationUrl->text(), &ext_ctx);
-	el << ext.create(NID_netscape_renewal_url, nsRenewalUrl->text(), &ext_ctx);
-	el << ext.create(NID_netscape_ca_policy_url, nsCaPolicyUrl->text(), &ext_ctx);
-	el << ext.create(NID_netscape_ssl_server_name, nsSslServerName->text(), &ext_ctx);
-	el << ext.create(NID_netscape_comment, nsComment->text(), &ext_ctx);
+	el << ext.create_ia5(NID_netscape_base_url, nsBaseUrl->text(), &ext_ctx);
+	el << ext.create_ia5(NID_netscape_revocation_url, nsRevocationUrl->text(), &ext_ctx);
+	el << ext.create_ia5(NID_netscape_ca_revocation_url, nsCARevocationUrl->text(), &ext_ctx);
+	el << ext.create_ia5(NID_netscape_renewal_url, nsRenewalUrl->text(), &ext_ctx);
+	el << ext.create_ia5(NID_netscape_ca_policy_url, nsCaPolicyUrl->text(), &ext_ctx);
+	el << ext.create_ia5(NID_netscape_ssl_server_name, nsSslServerName->text(), &ext_ctx);
+	el << ext.create_ia5(NID_netscape_comment, nsComment->text(), &ext_ctx);
 	return el;
 }
 
@@ -342,12 +342,3 @@ extList NewX509::getExtDuplicates()
         }
 	return el_dup;
 }
-
-void NewX509::setExt(const x509v3ext &ext)
-{
-	switch (ext.nid()) {
-		case NID_basic_constraints:
-			bcCritical->setChecked(ext.getCritical());
-	}
-}
-
