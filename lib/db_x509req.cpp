@@ -55,7 +55,7 @@ pki_base *db_x509req::insert(pki_base *item)
 	return req;
 }
 
-void db_x509req::newItem(pki_temp *temp)
+void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 {
 	pki_x509req *req = NULL;
 	NewX509 *dlg = new NewX509(mainwin);
@@ -63,6 +63,8 @@ void db_x509req::newItem(pki_temp *temp)
 
 	if (temp) {
 		dlg->defineTemplate(temp);
+	} else if (orig) {
+		dlg->fromX509super(orig);
 	}
 	dlg->setRequest();
 	if (! dlg->exec()){
@@ -77,7 +79,7 @@ void db_x509req::newItem(pki_temp *temp)
 		req->setIntName(dlg->description->text());
 
 		dlg->initCtx(NULL, NULL, req);
-		dlg->addReqAttributes(req);
+		dlg->getReqAttributes(req);
 		req->createReq(key, xn, dlg->hashAlgo->currentHash(), dlg->getAllExt());
 		createSuccess(insert(req));
 	}
@@ -86,6 +88,15 @@ void db_x509req::newItem(pki_temp *temp)
 		if (req)
 			delete req;
 	}
+}
+
+void db_x509req::toRequest(void)
+{
+	pki_x509req *req = static_cast<pki_x509req*>
+			(currentIdx.internalPointer());
+	if (!req)
+		return;
+	newItem(NULL, req);
 }
 
 void db_x509req::inToCont(pki_base *pki)
@@ -201,6 +212,8 @@ void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		transform->addAction(tr("Public Key"), this,
 					SLOT(extractPubkey()))->
 					setEnabled(!req->getRefKey());
+		transform->addAction(tr("Similar Request"),
+				this, SLOT(toRequest()));
 		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
 	}
 	contextMenu(e, menu);

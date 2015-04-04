@@ -1084,7 +1084,7 @@ void db_x509::toCertificate()
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	if (!cert)
 		return;
-	if (!cert->getRefKey())
+	if (!cert->getRefKey() && cert->getSigner() != cert)
 		extractPubkey();
 	newCert(cert);
 }

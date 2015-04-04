@@ -28,11 +28,12 @@ class db_x509req: public db_x509super
 		void inToCont(pki_base *pki);
 
 	public slots:
-		void newItem(pki_temp *temp = NULL);
+		void newItem(pki_temp *temp = NULL, pki_x509req *orig = NULL);
 		void load();
 		void store();
 		void showPki(pki_base *pki);
 		void signReq();
+		void toRequest(void);
 	signals:
 		void newCert(pki_x509req *req);
 };

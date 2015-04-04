@@ -316,13 +316,21 @@ void NewX509::setupLineEditByNid(int nid, QLineEdit *l)
 	l->setValidator(validator);
 }
 
-void NewX509::addReqAttributes(pki_x509req *req)
+void NewX509::getReqAttributes(pki_x509req *req)
 {
 	foreach(nameEdit e, attrEdits) {
 		req->addAttribute(e.nid, e.edit->text());
 	}
 }
 
+void NewX509::setReqAttributes(pki_x509req *req)
+{
+	foreach(nameEdit e, attrEdits) {
+		e.edit->setText(req->getAttribute(e.nid));
+	}
+}
+
+/* Initialize dialog for Template creation */
 void NewX509::setTemp(pki_temp *temp)
 {
 	QString text = tr("Create XCA template");
@@ -339,6 +347,7 @@ void NewX509::setTemp(pki_temp *temp)
 	pt = tmpl;
 }
 
+/* Initialize dialog for Certificate creation */
 void NewX509::setCert()
 {
 	capt->setText(tr("Create x509 Certificate"));
@@ -351,12 +360,14 @@ void NewX509::setImage(QPixmap *img)
 	image->setPixmap(*img);
 }
 
+/* Select a template and apply it */
 void NewX509::defineTemplate(pki_temp *temp)
 {
 	fromTemplate(temp);
 	templateChanged(temp);
 }
 
+/* Select a Request for signing it */
 void NewX509::defineRequest(pki_x509req *req)
 {
 	if (!req)
@@ -368,33 +379,63 @@ void NewX509::defineRequest(pki_x509req *req)
 	on_fromReqCB_clicked();
 }
 
-void NewX509::defineCert(pki_x509 *cert)
+/* Preset all values from another request to create a aimilar one */
+void NewX509::fromX509super(pki_x509super *cert_or_req)
 {
 	pki_temp *temp = new pki_temp("");
-	temp->fromCert(cert);
-	description->setText(cert->getIntName());
+	temp->fromCert(cert_or_req);
+	defineTemplate(temp);
+	delete temp;
+
+	description->setText(cert_or_req->getIntName());
+	pki_key *key = cert_or_req->getRefKey();
+	if (key) {
+		usedKeysToo->setChecked(true);
+		keyList->setCurrentIndex(private_keys.indexOf(
+			key->getIntNameWithType()));
+	}
+	hashAlgo->setCurrentMD(cert_or_req->getDigest());
+
+	switch(cert_or_req->getType()) {
+	case x509: {
+		pki_x509 *cert = (pki_x509*)cert_or_req;
+		pki_x509 *signer = cert->getSigner();
+		if (signer == cert) {
+			foreignSignRB->setChecked(false);
+		} else if (signer) {
+			defineSigner(signer);
+		}
+		notBefore->setDate(cert->getNotBefore());
+		notAfter->setDate(cert->getNotAfter());
+		break;
+	}
+	case x509_req: {
+		pki_x509req *req = (pki_x509req*)cert_or_req;
+		setReqAttributes(req);
+		break;
+	}
+	default:
+		break;
+	}
+
+}
+
+/* Preset all values from another cert to create a aimilar one */
+void NewX509::defineCert(pki_x509 *cert)
+{
+	fromX509super(cert);
+
 	pki_x509 *signer = cert->getSigner();
 	if (signer == cert) {
 		foreignSignRB->setChecked(false);
 	} else if (signer) {
 		defineSigner(signer);
 	}
-	defineTemplate(temp);
-	delete temp;
-
-	pki_key *key = cert->getRefKey();
-	if (key) {
-		usedKeysToo->setChecked(true);
-		keyList->setCurrentIndex(private_keys.indexOf(
-			key->getIntNameWithType()));
-	}
-
 	notBefore->setDate(cert->getNotBefore());
 	notAfter->setDate(cert->getNotAfter());
-
-	hashAlgo->setCurrentMD(cert->getDigest());
 }
 
+/* Preset the signing certificate */
 void NewX509::defineSigner(pki_x509 *defcert)
 {
 	int index;

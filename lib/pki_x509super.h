@@ -32,6 +32,9 @@ class pki_x509super : public pki_x509name
 		Q_OBJECT
 	protected:
 		pki_key *privkey;
+		virtual ASN1_OBJECT *sigAlg() {
+			return NULL;
+		}
 	public:
 		pki_x509super(const QString name = "");
 		virtual ~pki_x509super();
@@ -47,10 +50,8 @@ class pki_x509super : public pki_x509name
 		{
 			return extList();
 		};
-		virtual QString getSigAlg()
-		{
-			return QString();
-		}
+		virtual QString getSigAlg();
+		virtual const EVP_MD *getDigest();
 		pki_key *getRefKey() const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);

@@ -37,6 +37,8 @@ class pki_x509 : public pki_x509super
 		X509 *cert;
 		QString revoke_reason;
 		void init();
+	protected:
+		ASN1_OBJECT *sigAlg();
 	public:
 		static QPixmap *icon[6];
 		static bool dont_colorize_expiries;
@@ -140,9 +142,7 @@ class pki_x509 : public pki_x509super
 		bool visible();
 		void updateView();
 		x509rev getRev(bool reason = true);
-		QString getSigAlg();
 		x509v3ext getExtByNid(int nid);
-		const EVP_MD *getDigest();
 		QVariant column_data(dbheader *hd);
 		QVariant getIcon(dbheader *hd);
 		QByteArray i2d();

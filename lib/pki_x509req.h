@@ -31,6 +31,7 @@ class pki_x509req : public pki_x509super
 		X509_REQ *request;
 		NETSCAPE_SPKI *spki;
 		bool done;
+		ASN1_OBJECT *sigAlg();
 
 	public:
 		extList getV3ext();
@@ -51,6 +52,7 @@ class pki_x509req : public pki_x509super
 			return request;
 		}
 		void addAttribute(int nid, QString content);
+		QString getAttribute(int nid);
 
 		int verify();
 		pki_key *getPubKey() const;

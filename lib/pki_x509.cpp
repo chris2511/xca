@@ -687,6 +687,11 @@ x509v3ext pki_x509::getExtByNid(int nid)
 	return el[i];
 }
 
+ASN1_OBJECT *pki_x509::sigAlg()
+{
+	return cert->sig_alg->algorithm;
+}
+
 pki_x509 *pki_x509::getSigner()
 {
 	return (pki_x509 *)psigner;
@@ -885,18 +890,6 @@ QVariant pki_x509::getIcon(dbheader *hd)
 		return QVariant();
 	}
 	return QVariant(*icon[pixnum]);
-}
-
-QString pki_x509::getSigAlg()
-{
-	QString alg = OBJ_nid2ln(OBJ_obj2nid(cert->sig_alg->algorithm));
-	pki_openssl_error();
-	return alg;
-}
-
-const EVP_MD *pki_x509::getDigest()
-{
-	return EVP_get_digestbyobj(cert->sig_alg->algorithm);
 }
 
 bool pki_x509::visible()

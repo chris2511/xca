@@ -206,6 +206,11 @@ x509name pki_x509req::getSubject() const
 	return x;
 }
 
+ASN1_OBJECT *pki_x509req::sigAlg()
+{
+	return request->sig_alg->algorithm;
+}
+
 void pki_x509req::setSubject(const x509name &n)
 {
 	if (request->req_info->subject != NULL)
@@ -384,13 +389,13 @@ ASN1_IA5STRING *pki_x509req::spki_challange()
 	return NULL;
 }
 
-static QString getAttribute(X509_REQ *req, int nid)
+QString pki_x509req::getAttribute(int nid)
 {
 	int n;
-	n = X509_REQ_get_attr_by_NID(req, nid, -1);
+	n = X509_REQ_get_attr_by_NID(request, nid, -1);
 	if (n == -1)
 		return QString("");
-	X509_ATTRIBUTE *att = X509_REQ_get_attr(req, n);
+	X509_ATTRIBUTE *att = X509_REQ_get_attr(request, n);
 	if (!att)
 		return QString("");
 	if (att->single)
@@ -411,9 +416,9 @@ QVariant pki_x509req::column_data(dbheader *hd)
 	case HD_req_signed:
 		return QVariant(done ? tr("Signed") : tr("Unhandled"));
 	case HD_req_unstr_name:
-		return getAttribute(request, NID_pkcs9_unstructuredName);
+		return getAttribute(NID_pkcs9_unstructuredName);
 	case HD_req_chall_pass:
-		return getAttribute(request, NID_pkcs9_challengePassword);
+		return getAttribute(NID_pkcs9_challengePassword);
 	}
 	return pki_x509super::column_data(hd);
 }
@@ -446,9 +451,9 @@ bool pki_x509req::visible()
 {
 	if (pki_x509super::visible())
 		return true;
-	if (getAttribute(request, NID_pkcs9_unstructuredName).contains(limitPattern))
+	if (getAttribute(NID_pkcs9_unstructuredName).contains(limitPattern))
 		return true;
-	if (getAttribute(request, NID_pkcs9_challengePassword).contains(limitPattern))
+	if (getAttribute(NID_pkcs9_challengePassword).contains(limitPattern))
 		return true;
 	return false;
 }

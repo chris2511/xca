@@ -20,6 +20,7 @@ class MainWindow;
 class extList;
 class pki_temp;
 class pki_x509req;
+class pki_x509super;
 class pki_x509;
 class pki_key;
 class QPixmap;
@@ -77,6 +78,7 @@ class NewX509: public QDialog, public Ui::NewX509
 		void defineCert(pki_x509 *cert);
 		void defineRequest(pki_x509req *req);
 		void defineSigner(pki_x509 *defcert);
+		void fromX509super(pki_x509super *cert_or_req);
 		void templateChanged(pki_temp *templ);
 		pki_key *getSelectedKey();
 		pki_x509 *getSelectedSigner();
@@ -101,9 +103,9 @@ class NewX509: public QDialog, public Ui::NewX509
 		extList getAllExt();
 		void setupTmpCtx();
 		void initCtx(pki_x509 *subj, pki_x509 *iss, pki_x509req *req);
-		void setExt(const x509v3ext &ext);
 		void switchHashAlgo();
-		void addReqAttributes(pki_x509req *req);
+		void setReqAttributes(pki_x509req *req);
+		void getReqAttributes(pki_x509req *req);
 		int checkExtDuplicates();
 		void subjectFromTemplate(pki_temp *temp);
 		void extensionsFromTemplate(pki_temp *temp);

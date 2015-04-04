@@ -50,6 +50,18 @@ void pki_x509super::delRefKey(pki_key *ref)
 	privkey = NULL;
 }
 
+QString pki_x509super::getSigAlg()
+{
+	QString alg = OBJ_nid2ln(OBJ_obj2nid(sigAlg()));
+	pki_openssl_error();
+	return alg;
+}
+
+const EVP_MD *pki_x509super::getDigest()
+{
+	return EVP_get_digestbyobj(sigAlg());
+}
+
 QVariant pki_x509super::column_data(dbheader *hd)
 {
 	if (hd->id == HD_x509key_name) {
