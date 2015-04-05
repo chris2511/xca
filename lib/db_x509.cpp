@@ -503,12 +503,6 @@ void db_x509::newCert(NewX509 *dlg)
 	} else if (dlg->selfQASignRB->isChecked()){
 		Passwd pass;
 		pass_info p(XCA_TITLE, tr("Please enter the new hexadecimal secret number for the QA process."));
-#if 0
-		ui.passA->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),
-				ui.passA));
-		ui.passB->setValidator(new QRegExpValidator(QRegExp("[0-9a-fA-F]*"),
-				ui.passB));
-#endif
 		if (PwDialog::execute(&p, &pass, true) != 1)
 			throw errorEx(tr("The QA process has been terminated by the user."));
 		signcert = cert;
@@ -674,12 +668,6 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
 		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
 		subCa->setEnabled(canSign);
-#if 1
-		QMenu *subP7 = menu->addMenu(tr("PKCS#7"));
-		subP7->addAction(tr("Sign"), this, SLOT(signP7()));
-		subP7->addAction(tr("Encrypt"), this, SLOT(encryptP7()));
-		subP7->setEnabled(privkey);
-#endif
 		menu->addSeparator();
 		menu->addAction(tr("Renewal"), this, SLOT(extendCert()))->
 				setEnabled(parentCanSign);
@@ -701,16 +689,11 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	return;
 }
 
-
-#define P7_ONLY 0
-#define P7_CHAIN 1
-#define P7_TRUSTED 2
-#define P7_ALL 3
-
 void db_x509::store()
 {
 	QStringList filt;
-	bool pkcs8 = false, append;
+	bool append, chain;
+	QList<exportType> types, usual;
 
 	if (!currentIdx.isValid())
 		return;
@@ -720,29 +703,65 @@ void db_x509::store()
 	if (!crt)
 		return;
 	pki_key *privkey = crt->getRefKey();
-	QString fn = mainwin->getPath() + QDir::separator() +
-			crt->getUnderlinedName() + ".crt";
-	ExportCert *dlg = new ExportCert(mainwin, fn,
-		privkey && privkey->isPrivKey() && !privkey->isToken(), crt);
-	dlg->image->setPixmap(*MainWindow::certImg);
-	int dlgret = dlg->exec();
+	pki_evp *pkey;
+	chain = crt->getSigner() && crt->getSigner() != crt;
 
-	if (!dlgret) {
+	usual <<
+		exportType(exportType::PEM, "crt", "PEM") <<
+		exportType(exportType::PKCS7, "p7b", "PKCS #7");
+
+	types << exportType(exportType::DER, "cer", "DER");
+	if (chain) {
+		types <<
+			exportType(exportType::PEM_chain, "pem",
+				tr("PEM chain")) <<
+			exportType(exportType::PKCS7_chain, "p7b",
+				tr("PKCS #7 chain"));
+	}
+
+	if (privkey && privkey->isPrivKey() && !privkey->isToken()) {
+		if (chain) {
+			usual << exportType(exportType::PKCS12_chain, "p12",
+				tr("PKCS #12 chain"));
+			types << exportType(exportType::PKCS12, "p12",
+				"PKCS #12");
+		} else {
+			usual << exportType(exportType::PKCS12, "p12",
+				"PKCS #12");
+		}
+		types <<
+			exportType(exportType::PEM_cert_key, "pem",
+				tr("PEM + key")) <<
+			exportType(exportType::PEM_cert_pk8, "pem",
+				"PEM + PKCS#8");
+	}
+	types << exportType() <<
+		exportType(exportType::PKCS7_trusted, "p7b",
+			tr("PKCS #7 trusted")) <<
+		exportType(exportType::PKCS7_all, "p7b",
+			tr("PKCS #7 all")) <<
+		exportType(exportType::PEM_trusted, "pem",
+			tr("PEM trusted")) <<
+		exportType(exportType::PEM_all, "pem",
+			tr("PEM all"));
+
+	types = usual << exportType() << types;
+	ExportDialog *dlg = new ExportDialog(mainwin, tr("Certificate export"),
+		tr("X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"), crt,
+		MainWindow::certImg, types);
+	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
 	QString fname = dlg->filename->text();
-	if (fname == "") {
-		delete dlg;
-		return;
-	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
+	enum exportType::etype type = dlg->type();
+	delete dlg;
 	try {
-		switch (dlg->exportFormat->currentIndex()) {
-		case 0: // PEM
-			crt->writeCert(fname,true,false);
+		switch (type) {
+		case exportType::PEM:
+			crt->writeCert(fname, true, false);
 			break;
-		case 1: // PEM with chain
+		case exportType::PEM_chain:
 			append = false;
 			while(crt && crt != oldcrt) {
 				crt->writeCert(fname, true, append);
@@ -751,60 +770,56 @@ void db_x509::store()
 				crt = crt->getSigner();
 			}
 			break;
-		case 2: // PEM all trusted Certificates
+		case exportType::PEM_trusted:
 			writeAllCerts(fname,true);
 			break;
-		case 3: // PEM all Certificates
+		case exportType::PEM_all:
 			writeAllCerts(fname,false);
 			break;
-		case 4: // DER
+		case exportType::DER:
 			crt->writeCert(fname,false,false);
 			break;
-		case 5: // P7 lonely
-			writePKCS7(crt,fname, P7_ONLY);
+		case exportType::PKCS7:
+		case exportType::PKCS7_chain:
+		case exportType::PKCS7_trusted:
+		case exportType::PKCS7_all:
+			writePKCS7(crt,fname, type);
 			break;
-		case 6: // P7
-			writePKCS7(crt,fname, P7_CHAIN);
-			break;
-		case 7: // P7
-			writePKCS7(crt,fname, P7_TRUSTED);
-			break;
-		case 8: // P7
-			writePKCS7(crt,fname, P7_ALL);
-			break;
-		case 9: // P12
+		case exportType::PKCS12:
 			writePKCS12(crt,fname,false);
 			break;
-		case 10: // P12 + cert chain
+		case exportType::PKCS12_chain:
 			writePKCS12(crt,fname,true);
 			break;
-		case 12: // Certificate and Key in PKCS8 format
-			pkcs8 = true;
-		case 11: // Certificate and Key in PEM format for apache
-			pki_evp *privkey = (pki_evp *)crt->getRefKey();
-			if (!privkey || privkey->isPubKey()) {
+		case exportType::PEM_cert_pk8:
+		case exportType::PEM_cert_key:
+			pkey = (pki_evp *)crt->getRefKey();
+			if (!pkey || pkey->isPubKey()) {
 				XCA_WARN(tr("There was no key found for the Certificate: '%1'").
 					arg(crt->getIntName()));
 				return;
 			}
-			if (privkey->isToken()) {
+			if (pkey->isToken()) {
 				XCA_WARN(tr("Not possible for a token key: '%1'").
 					arg(crt->getIntName()));
                                 return;
                         }
 
-			if (pkcs8) {
-				privkey->writePKCS8(fname, NULL, NULL, true);
+			if (type == exportType::PEM_cert_pk8) {
+				pkey->writePKCS8(fname, EVP_des_ede3_cbc(),
+						PwDialog::pwCallback, true);
 			} else {
-				privkey->writeKey(fname, NULL, NULL, true);
+				pkey->writeKey(fname, NULL, NULL, true);
 			}
 			crt->writeCert(fname, true, true);
+			break;
+		default:
+			exit(1);
 		}
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
 	}
-	delete dlg;
 }
 
 
@@ -840,15 +855,15 @@ void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
     }
 }
 
-void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
+void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type)
 {
-    pki_pkcs7 *p7 = NULL;
-    QList<pki_base> list;
+	pki_pkcs7 *p7 = NULL;
+	QList<pki_base> list;
 
-    try {
-		p7 =  new pki_pkcs7("");
+	try {
+		p7 = new pki_pkcs7("");
 		switch (type) {
-		case P7_CHAIN:
+		case exportType::PKCS7_chain:
 			while (cert != NULL) {
 				p7->addCert(cert);
 				if (cert->getSigner() == cert)
@@ -857,88 +872,29 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, int type)
 					cert = cert->getSigner();
 			}
 			break;
-		case P7_ONLY:
+		case exportType::PKCS7:
 			p7->addCert(cert);
 			break;
-		case P7_TRUSTED:
-		case P7_ALL:
+		case exportType::PKCS7_trusted:
+		case exportType::PKCS7_all:
 			FOR_ALL_pki(cer, pki_x509) {
-				if ((type == P7_ALL) || (cer->getTrust() == 2))
+				if ((type == exportType::PKCS7_all) ||
+				    (cer->getTrust() == 2))
 					p7->addCert(cer);
 			}
+			break;
+		default:
+			exit(1);
 		}
 		p7->writeP7(s, false);
-    }
-    catch (errorEx &err) {
+	}
+	catch (errorEx &err) {
 		MainWindow::Error(err);
-    }
-    if (p7 != NULL )
+	}
+	if (p7 != NULL )
 		delete p7;
 
 }
-# if 1
-void db_x509::signP7()
-{
-    try {
-	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
-	if (!cert)
-		return;
-	pki_key *privkey = cert->getRefKey();
-	if (!privkey || privkey->isPubKey()) {
-		XCA_WARN(tr("There was no key found for the Certificate: ") +
-			cert->getIntName());
-		return;
-	}
-	QStringList fnames = QFileDialog::getOpenFileNames(mainwin,
-		tr("File to be signed"), mainwin->getPath(),
-		tr("All Files ( * )"));
-	if (fnames.size() == 0)
-		return;
-	QString fn = fnames[0];
-	mainwin->setPath(fn.mid(0, fn.lastIndexOf("/")));
-
-	pki_pkcs7 * p7 = new pki_pkcs7("");
-	foreach(QString s, fnames) {
-		s = QDir::convertSeparators(s);
-		p7->signFile(cert, s);
-		openssl_error();
-		p7->writeP7((s + ".p7s"), true);
-	}
-	delete p7;
-    }
-    catch (errorEx &err) {
-	MainWindow::Error(err);
-    }
-}
-
-void db_x509::encryptP7()
-{
-    try {
-	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
-	if (!cert)
-		return;
-	QStringList fnames = QFileDialog::getOpenFileNames(mainwin,
-		tr("File to be encrypted"), mainwin->getPath(),
-		tr("All Files ( * )"));
-	if (fnames.size() == 0)
-		return;
-	QString fn = fnames[0];
-	mainwin->setPath(fn.mid(0, fn.lastIndexOf("/")));
-
-	pki_pkcs7 * p7 = new pki_pkcs7("");
-	foreach(QString s, fnames) {
-		s = QDir::convertSeparators(s);
-		p7->encryptFile(cert, s);
-		openssl_error();
-		p7->writeP7((s + ".p7s"), true);
-	}
-	delete p7;
-    }
-    catch (errorEx &err) {
-	MainWindow::Error(err);
-    }
-}
-#endif
 
 void db_x509::setMultiTrust(QAbstractItemView* view)
 {

@@ -12,6 +12,7 @@
 #include <QtGui/QListView>
 #include <QtCore/QObject>
 #include <QtGui/QPixmap>
+#include "widgets/ExportDialog.h"
 #include "db_key.h"
 #include "db_x509super.h"
 #include "pki_x509.h"
@@ -49,14 +50,13 @@ class db_x509: public db_x509super
 		void newCert(NewX509 *dlg);
 		void newCert(pki_x509 *cert);
 		void writePKCS12(pki_x509 *cert, QString s, bool chain);
-		void writePKCS7(pki_x509 *cert, QString s, int type);
+		void writePKCS7(pki_x509 *cert, QString s,
+				exportType::etype type);
 		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 		void inToCont(pki_base *pki);
 		void changeView();
 		a1int getUniqueSerial(pki_x509 *signer);
 		void myToToken(bool alwaysSelect);
-		void encryptP7();
-		void signP7();
 
 	public slots:
 		void load(void);

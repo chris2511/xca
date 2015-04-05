@@ -9,83 +9,49 @@
 #define __EXPORTDIALOG_H
 
 #include "ui_ExportDialog.h"
-#include "lib/pki_x509.h"
+#include "lib/pki_base.h"
+
+class MainWindow;
+class QPixmap;
+
+class exportType {
+    public:
+	enum etype { Separator, PEM, PEM_chain, PEM_trusted, PEM_all,
+		DER, PKCS7, PKCS7_chain, PKCS7_trusted, PKCS7_all,
+		PKCS12, PKCS12_chain, PEM_cert_key, PEM_cert_pk8,
+		PEM_key, PEM_private, PEM_private_encrypt, DER_private,
+		DER_key, PKCS8, PKCS8_encrypt, SSH2_public,
+		ETYPE_max };
+	enum etype type;
+	QString desc;
+	QString extension;
+	exportType(enum etype t, QString e, QString d) {
+		type = t; extension = e; desc = d;
+	}
+	exportType() { type = Separator; }
+};
+Q_DECLARE_METATYPE(exportType);
 
 class ExportDialog: public QDialog, public Ui::ExportDialog
 {
 	Q_OBJECT
 
    protected:
-	QStringList suffixes;
 	QString filter;
+	MainWindow *mainwin;
+	QVector<QString> help;
 
    public:
-	ExportDialog(QWidget *parent, QString fname, pki_base *pki);
+	ExportDialog(MainWindow *mw, QString title, QString filt,
+			pki_base *pki, QPixmap *img, QList<exportType> types);
 	static bool mayWriteFile(const QString &fname);
+	enum exportType::etype type();
 
    public slots:
 	void on_fileBut_clicked();
 	void on_exportFormat_activated(int);
+	void on_exportFormat_highlighted(int index);
 	void accept();
-};
-
-class ExportDer: public ExportDialog
-{
-        Q_OBJECT
-   public:
-	ExportDer(QWidget *parent, QString fname, QString _filter, pki_base *pki)
-		:ExportDialog(parent, fname, pki)
-	{
-		QStringList sl; sl << "PEM" << "DER";
-		exportFormat->addItems(sl);
-		suffixes << "pem" << "der";
-		filter = _filter + ";;" + tr("All files ( * )");
-		formatLabel->setText(tr(
-			"DER is a binary format\n"
-			"PEM is a base64 encoded DER file\n"));
-	}
-};
-
-class ExportCert: public ExportDialog
-{
-
-        Q_OBJECT
-   public:
-	ExportCert(QWidget *parent, QString fname, bool hasKey, pki_x509 *pki)
-		:ExportDialog(parent, fname, pki)
-	{
-		QStringList sl;
-		sl <<   "PEM" <<
-			"PEM with Certificate chain" <<
-			"PEM all trusted Certificates" <<
-			"PEM all Certificates" <<
-			"DER" <<
-			"PKCS #7" <<
-			"PKCS #7 with Certificate chain" <<
-			"PKCS #7 all trusted Certificates" <<
-			"PKCS #7 all Certificates";
-
-		if (hasKey) {
-			sl <<   "PKCS #12" <<
-				"PKCS #12 with Certificate chain" <<
-				"PEM Cert + key" <<
-				"PEM Cert + PKCS8 key";
-		}
-		exportFormat->addItems(sl);
-		suffixes << "crt" << "crt" << "crt" << "crt" << "cer" <<
-			"p7b" << "p7b" << "p7b" << "p7b" <<
-			"p12" << "p12" << "pem" << "pem";
-
-		filter = tr("X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )");
-		formatLabel->setText(tr(
-			"DER is a binary format of the Certificate\n"
-			"PEM is a base64 encoded Certificate\n"
-			"PKCS#7 is an official Certificate exchange format\n"
-			"PKCS#12 is an encrypted official Key-Certificate exchange format\n"));
-		filenameLabel->setText(tr(
-			"Please enter the filename for the certificate."));
-		label->setText(tr("Certificate export"));
-	}
 };
 
 #endif

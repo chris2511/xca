@@ -67,7 +67,6 @@ HEADERS += local.h \
            widgets/CrlDetail.h \
            widgets/distname.h \
            widgets/ExportDialog.h \
-           widgets/ExportKey.h \
            widgets/hashBox.h \
            widgets/ImportMulti.h \
            widgets/KeyDetail.h \
@@ -89,7 +88,6 @@ FORMS += ui/About.ui \
          ui/CertExtend.ui \
          ui/CrlDetail.ui \
          ui/ExportDialog.ui \
-         ui/ExportKey.ui \
          ui/Help.ui \
          ui/ImportMulti.ui \
          ui/KeyDetail.ui \
@@ -148,7 +146,6 @@ SOURCES += lib/asn1int.cpp \
            widgets/CrlDetail.cpp \
            widgets/distname.cpp \
            widgets/ExportDialog.cpp \
-           widgets/ExportKey.cpp \
            widgets/hashBox.cpp \
            widgets/ImportMulti.cpp \
            widgets/KeyDetail.cpp \

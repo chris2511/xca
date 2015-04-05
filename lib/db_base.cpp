@@ -546,14 +546,7 @@ QModelIndex db_base::parent(const QModelIndex &idx) const
 
 	pki_base *childItem = static_cast<pki_base*>(idx.internalPointer());
 	pki_base *parentItem = childItem->getParent();
-#if 0
-	if (parentItem == NULL) {
-		printf("Item: (%s) %s: parent == NULL\n",
-			childItem->className(), CCHAR(childItem->getIntName()));
-	}
-	printf("Parent of:%s(%p) %p %p\n",
-	CCHAR(childItem->getIntName()), childItem, parentItem, rootItem);
-#endif
+
 	if (parentItem == rootItem || parentItem == NULL)
 		return QModelIndex();
 
@@ -569,7 +562,6 @@ int db_base::rowCount(const QModelIndex &parent) const
 	else
 		parentItem = static_cast<pki_base*>(parent.internalPointer());
 
-	//printf("%s rows=%d\n", CCHAR(parentItem->getIntName()), parentItem->childCount());
 	return parentItem->childCount();
 }
 

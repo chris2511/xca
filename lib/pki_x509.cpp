@@ -628,7 +628,7 @@ pki_key *pki_x509::getPubKey() const
 
 void pki_x509::setPubKey(pki_key *key)
 {
-	 X509_set_pubkey(cert, key->getPubKey());
+	X509_set_pubkey(cert, key->getPubKey());
 	pki_openssl_error();
 }
 

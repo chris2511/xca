@@ -138,38 +138,33 @@ void db_x509req::showPki(pki_base *pki)
 
 void db_x509req::store()
 {
+	QList<exportType> types;
+
 	if (!currentIdx.isValid())
 		return;
 
 	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
 	if (!req)
 		return;
+	types << exportType(exportType::PEM, "pem", "PEM") <<
+			exportType(exportType::DER, "der", "DER");
 
-	QString fn = mainwin->getPath() + QDir::separator() +
-		req->getUnderlinedName() + ".pem";
-	ExportDer *dlg = new ExportDer(mainwin, fn,
-			tr("Certificate request ( *.pem *.der *.crl )"), req);
-	dlg->image->setPixmap(*MainWindow::csrImg);
-	dlg->label->setText(tr("Certificate request export"));
-	int dlgret = dlg->exec();
-
-	if (!dlgret) {
+	ExportDialog *dlg = new ExportDialog(mainwin,
+		tr("Certificate request export"),
+		tr("Certificate request ( *.pem *.der *.csr )"), req,
+		MainWindow::csrImg, types);
+	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
 	QString fname = dlg->filename->text();
-	bool pem = dlg->exportFormat->currentIndex() == 0 ? true : false;
-	delete dlg;
-	if (fname == "") {
-		return;
-	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
-		req->writeReq(fname, pem);
+		req->writeReq(fname, dlg->type() == exportType::PEM);
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
+	delete dlg;
 }
 
 

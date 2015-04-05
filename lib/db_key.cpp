@@ -24,7 +24,7 @@
 #include "pkcs11.h"
 
 #include "widgets/PwDialog.h"
-#include "widgets/ExportKey.h"
+#include "widgets/ExportDialog.h"
 #include "widgets/KeyDetail.h"
 #include "widgets/NewKey.h"
 
@@ -278,48 +278,83 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 
 void db_key::store()
 {
-	bool pem = true;
 	const EVP_CIPHER *enc = NULL;
+	QString title = tr("Export public key [%1]");
+	QList<exportType> types;
 
 	if (!currentIdx.isValid())
 		return;
 
-	pki_key *targetKey =static_cast<pki_evp*>(currentIdx.internalPointer());
+	pki_key *key =static_cast<pki_evp*>(currentIdx.internalPointer());
+	pki_evp *privkey = (pki_evp *)key;
 
-	QString fn = mainwin->getPath() + QDir::separator() +
-			targetKey->getUnderlinedName() + ".pem";
-
-	ExportKey *dlg = new ExportKey(mainwin, fn, targetKey);
+	types <<
+	exportType(exportType::PEM_key, "pem", tr("PEM public")) <<
+	exportType(exportType::DER_key, "der", tr("DER public"));
+	if (key->getKeyType() == EVP_PKEY_RSA ||
+            key->getKeyType() == EVP_PKEY_DSA)
+		types << exportType(exportType::SSH2_public,
+					"pub", tr("SSH2 public"));
+	if (!key->isPubKey() && !key->isToken()) {
+		QList<exportType> usual;
+		types <<
+		exportType(exportType::DER_private, "der",
+			tr("DER private")) <<
+		exportType(exportType::PEM_private_encrypt, "pem",
+			tr("PEM encryped")) <<
+		exportType(exportType::PKCS8, "pk8",
+			"PKCS#8");
+		usual <<
+		exportType(exportType::PEM_private, "pem",
+			tr("PEM private")) <<
+		exportType(exportType::PKCS8_encrypt, "pk8",
+			tr("PKCS#8 encrypted"));
+		title = tr("Export private key [%1]");
+		types = usual << exportType() << types;
+	}
+	ExportDialog *dlg = new ExportDialog(mainwin,
+		title.arg(key->getTypeString()),
+		tr("Private Keys ( *.pem *.der *.pk8 );; "
+		   "SSH Public Keys ( *.pub )"), key,
+		key->isToken() ? MainWindow::scardImg : MainWindow::keyImg,
+		types);
 
 	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
 	QString fname = dlg->filename->text();
-	if (fname.isEmpty()) {
-		delete dlg;
-		return;
-	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
-		switch (dlg->exportFormat->currentIndex()) {
-		case 0: pem = true;  break;
-		case 1: pem = false; break;
-		case 2: targetKey->writeSSH2public(fname);
-			delete dlg;
-			return;
-		}
-		if (dlg->encryptKey->isChecked())
+		exportType::etype type = dlg->type();
+		switch (type) {
+		case exportType::DER_key:
+			key->writePublic(fname, false);
+			break;
+		case exportType::DER_private:
+			privkey->writeKey(fname, NULL, NULL, false);
+			break;
+		case exportType::PEM_key:
+			key->writePublic(fname, true);
+			break;
+		case exportType::PEM_private_encrypt:
 			enc = EVP_des_ede3_cbc();
-		if (dlg->exportPrivate->isChecked() && !targetKey->isToken()) {
-			pki_evp *evpKey = (pki_evp *)targetKey;
-			if (dlg->exportPkcs8->isChecked()) {
-				evpKey->writePKCS8(fname, enc, PwDialog::pwCallback, pem);
-			} else {
-				evpKey->writeKey(fname, enc, PwDialog::pwCallback, pem);
-			}
-		} else {
-			targetKey->writePublic(fname, pem);
+			/* fall */
+		case exportType::PEM_private:
+			privkey->writeKey(fname, enc,
+				PwDialog::pwCallback, true);
+			break;
+		case exportType::PKCS8_encrypt:
+			enc = EVP_des_ede3_cbc();
+			/* fall */
+		case exportType::PKCS8:
+			privkey->writePKCS8(fname, enc,
+				PwDialog::pwCallback, true);
+			break;
+		case exportType::SSH2_public:
+			key->writeSSH2public(fname);
+			break;
+		default:
+			exit(1);
 		}
 	}
 	catch (errorEx &err) {

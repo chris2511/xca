@@ -125,6 +125,8 @@ void db_crl::showPki(pki_base *pki)
 
 void db_crl::store()
 {
+	QList<exportType> types;
+
 	if (!currentIdx.isValid())
 		return;
 
@@ -132,31 +134,25 @@ void db_crl::store()
 	if (!crl)
 		return;
 
-	QString fn = mainwin->getPath() + QDir::separator() +
-		crl->getUnderlinedName() + ".pem";
-	ExportDer *dlg = new ExportDer(mainwin, fn,
-			tr("CRL ( *.pem *.der *.crl )"), crl);
-	dlg->image->setPixmap(*MainWindow::revImg);
-	dlg->label->setText(tr("Revocation list export"));
-	int dlgret = dlg->exec();
-
-	if (!dlgret) {
+	types << exportType(exportType::PEM, "pem", "PEM") <<
+			exportType(exportType::DER, "der", "DER");
+	ExportDialog *dlg = new ExportDialog(mainwin,
+			tr("Revocation list export"),
+			tr("CRL ( *.pem *.der *.crl )"), crl,
+			MainWindow::revImg, types);
+	if (!dlg->exec()) {
 		delete dlg;
 		return;
 	}
 	QString fname = dlg->filename->text();
-	bool pem = dlg->exportFormat->currentIndex() == 0 ? true : false;
-	delete dlg;
-	if (fname == "") {
-		return;
-	}
-	mainwin->setPath(fname.mid(0, fname.lastIndexOf(QRegExp("[/\\\\]")) ));
+
 	try {
-		crl->writeCrl(fname, pem);
+		crl->writeCrl(fname, dlg->type() == exportType::PEM);
 	}
 	catch (errorEx &err) {
 		mainwin->Error(err);
 	}
+	delete dlg;
 }
 
 pki_crl *db_crl::newItem(pki_x509 *cert)

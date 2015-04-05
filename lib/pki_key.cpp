@@ -15,7 +15,6 @@
 #include <QtGui/QApplication>
 #include <QtCore/QDir>
 #include "widgets/PwDialog.h"
-#include "widgets/ExportKey.h"
 
 builtin_curves pki_key::builtinCurves;
 
