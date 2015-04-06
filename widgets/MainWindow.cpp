@@ -23,6 +23,7 @@
 #include <QtGui/QTextBrowser>
 #include <QtGui/QStatusBar>
 #include <QtCore/QList>
+#include <QtCore/QTimer>
 #include <QtGui/QInputDialog>
 
 #include "lib/exception.h"
@@ -133,8 +134,6 @@ MainWindow::MainWindow(QWidget *parent)
 	dn_nid = read_nidlist("dn.txt");
 	aia_nid = read_nidlist("aia.txt");
 
-	connect(this, SIGNAL(newURLs(QStringList &)),
-		this, SLOT(openURLs(QStringList &)));
 	setAcceptDrops(true);
 
 	searchEdit = new QLineEdit();
@@ -167,22 +166,29 @@ void MainWindow::dropEvent(QDropEvent *event)
 		QString s = u.toLocalFile();
 		files << s;
 	}
-	emit newURLs(files);
+	openURLs(files);
 	event->acceptProposedAction();
 }
 
 void MainWindow::openURLs(QStringList &files)
 {
+	urlsToOpen = files;
+	QTimer::singleShot(100, this, SLOT(openURLs()));
+}
+
+void MainWindow::openURLs()
+{
 	QStringList failed;
 	QString s;
 	ImportMulti *dlgi = new ImportMulti(this);
 
-	foreach(s, files) {
+	foreach(s, urlsToOpen) {
 	        pki_multi *pki = probeAnything(s);
 		if (pki && !pki->count())
 			failed << s;
 	        dlgi->addItem(pki);
 	}
+	urlsToOpen.clear();
 	dlgi->execute(1, failed);
 	delete dlgi;
 }

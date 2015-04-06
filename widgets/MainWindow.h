@@ -81,6 +81,7 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void update_history_menu();
 		void set_geometry(char *p, db_header_t *head);
 		QLineEdit *searchEdit;
+		QStringList urlsToOpen;
 
 	protected:
 		void init_images();
@@ -155,10 +156,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void pastePem();
 		void changeDbPass();
 		void openURLs(QStringList &files);
+		void openURLs();
 		void changeEvent(QEvent *event);
-
-	signals:
-		void newURLs(QStringList &);
 
 	private slots:
 		void setOptions();
