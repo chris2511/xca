@@ -74,6 +74,8 @@ void pki_evp::setOwnPass(enum passType x)
 
 void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
 {
+	XCA_application::seed_rng();
+
 	progress->setMinimum(0);
 	progress->setMaximum(100);
 	progress->setValue(50);

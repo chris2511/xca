@@ -90,6 +90,22 @@ void pkcs11::startSession(slotid slot, bool rw)
 	p11slot = slot;
 }
 
+void pkcs11::getRandom()
+{
+	CK_BYTE buf[16];
+	CK_ULONG len = sizeof buf;
+	CK_RV rv;
+
+	if (RAND_bytes(buf, len)) {
+		CALL_P11_C(p11slot.lib, C_SeedRandom, session, buf, len);
+	}
+	CALL_P11_C(p11slot.lib, C_GenerateRandom, session, buf, len);
+	if (rv == CKR_OK)
+		RAND_seed(buf, len);
+	else
+		qDebug("C_GenerateRandom: %s", pk11errorString(rv));
+}
+
 QList<CK_MECHANISM_TYPE> pkcs11::mechanismList(slotid slot)
 {
 	CK_RV rv;

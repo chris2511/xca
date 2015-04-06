@@ -602,6 +602,7 @@ void pki_scard::generateKey_card(int type, slotid slot, int size,
 
 	pkcs11 p11;
 	p11.startSession(slot, true);
+	p11.getRandom();
 
 	tkInfo ti = p11.tokenInfo();
 

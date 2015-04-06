@@ -11,6 +11,7 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <openssl/rand.h>
 #include "widgets/MainWindow.h"
 #include "lib/func.h"
 #include "lib/db.h"
@@ -25,8 +26,6 @@ QFont XCA_application::tableFont;
 void XCA_application::setMainwin(MainWindow *m)
 {
 	mainw = m;
-	connect(this, SIGNAL(openFiles(QStringList &)),
-		m, SLOT(openURLs(QStringList &)));
 }
 
 XCA_application::XCA_application(int &argc, char *argv[])
@@ -56,6 +55,8 @@ XCA_application::XCA_application(int &argc, char *argv[])
 	+2
 #endif
 	);
+	timer.start();
+	installEventFilter(this);
 }
 
 void XCA_application::setupLanguage(QLocale l)
@@ -116,16 +117,62 @@ void XCA_application::switchLanguage(QAction* a)
 	}
 }
 
-bool XCA_application::event(QEvent *ev)
+#define rand_buf_siz (sizeof(rand_buf)/sizeof(rand_buf[0]))
+unsigned char XCA_application::rand_buf[128];
+unsigned XCA_application::rand_pos;
+
+void XCA_application::add_entropy(int rand)
 {
-	if (ev->type() == QEvent::FileOpen) {
-		QStringList l;
-		l << static_cast<QFileOpenEvent *>(ev)->file();
-		emit openFiles(l);
-		return true;
-	}
-	return QApplication::event(ev);
+	rand_buf[rand_pos++ % rand_buf_siz] = rand & 0xff;
 }
+
+void XCA_application::seed_rng()
+{
+	if (rand_pos > rand_buf_siz)
+		rand_pos = rand_buf_siz;
+
+	RAND_seed(rand_buf, rand_pos);
+	rand_pos = 0;
+}
+
+bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
+{
+	static int mctr;
+	QMouseEvent *me;
+	QStringList l;
+	int key;
+
+	switch (ev->type()) {
+	case QEvent::FileOpen:
+		l << static_cast<QFileOpenEvent *>(ev)->file();
+		mainw->openURLs(l);
+		return true;
+	case QEvent::MouseMove:
+	case QEvent::NonClientAreaMouseMove:
+		if (mctr++ > 16) {
+			me = static_cast<QMouseEvent *>(ev);
+			add_entropy(me->globalX());
+			add_entropy(me->globalY());
+			mctr = 0;
+		}
+		break;
+	case QEvent::KeyPress:
+		key = static_cast<QKeyEvent *>(ev)->key();
+		if (key < 0x100) {
+			add_entropy(key ^ timer.elapsed());
+			timer.restart();
+		}
+		break;
+	default:
+		break;
+	}
+	return false;
+}
+
+XCA_application::~XCA_application()
+{
+}
+
 int usage_extract(char *argv[])
 {
 	fprintf(stderr,
@@ -235,8 +282,14 @@ int main( int argc, char *argv[] )
 
 #ifdef WIN32
 	SetUnhandledExceptionFilter(w32_segfault);
+	RAND_screen();
 #else
 	signal(SIGSEGV, segv_handler_gui);
+
+	if (QFile::exists("/dev/random"))
+		RAND_load_file("/dev/random", 64);
+	if (QFile::exists("/dev/hwrng"))
+		RAND_load_file("/dev/hwrng", 64);
 #endif
 
 	if (QString(argv[1]) == "extract") {

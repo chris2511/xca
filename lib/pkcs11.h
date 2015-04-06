@@ -164,6 +164,7 @@ class pkcs11
 				   CK_OBJECT_HANDLE object);
 		QList<CK_OBJECT_HANDLE> objectList(pk11_attlist &atts);
 		QString tokenLogin(QString name, bool so, bool force=false);
+		void getRandom();
 		void logout();
 		bool needsLogin(bool so);
 		void login(unsigned char *pin, unsigned long pinlen, bool so);

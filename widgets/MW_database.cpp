@@ -39,6 +39,7 @@ int MainWindow::init_database()
 	qDebug("Opening database: %s", QString2filename(dbfile));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
+	XCA_application::seed_rng();
 	certView->setRootIsDecorated(db_x509::treeview);
 
 	try {

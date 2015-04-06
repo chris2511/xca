@@ -506,6 +506,7 @@ void MainWindow::manageToken()
 				CKO_PUBLIC_KEY));
 
 		p11.startSession(slot);
+		p11.getRandom();
 		objects = p11.objectList(atts);
 
 		for (int j=0; j< objects.count(); j++) {

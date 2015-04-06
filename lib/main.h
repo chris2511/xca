@@ -44,19 +44,20 @@ private:
 	XcaTranslator *qtTr;
 	XcaTranslator *xcaTr;
 	static QLocale lang;
+	static unsigned char rand_buf[128];
+	static unsigned rand_pos;
+	static void add_entropy(int rand);
+	QTime timer;
 
 public:
 	XCA_application(int &argc, char *argv[]);
+	virtual ~XCA_application();
 	void setMainwin(MainWindow *m);
 	void setupLanguage(QLocale lang);
 	static QLocale language() { return lang; }
 	static QFont tableFont;
-
-protected:
-	bool event(QEvent *ev);
-
-signals:
-	void openFiles(QStringList &);
+	static void seed_rng();
+	bool eventFilter(QObject *watched, QEvent *ev);
 
 public slots:
 	void switchLanguage(QAction* a);
