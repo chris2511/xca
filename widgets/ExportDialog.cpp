@@ -107,7 +107,8 @@ void ExportDialog::on_exportFormat_activated(int selected)
 			break;
 		}
 	}
-	filename->setText(fn);
+	if (filename->isEnabled())
+		filename->setText(fn);
 	on_exportFormat_highlighted(selected);
 }
 
@@ -132,8 +133,14 @@ void ExportDialog::accept()
 {
 	QString fn = filename->text();
 
-	if (fn.isEmpty())
+	if (!filename->isEnabled()) {
+		QDialog::accept();
+		return;
+	}
+	if (fn.isEmpty()) {
 		reject();
+		return;
+	}
 	if (mayWriteFile(fn)) {
 		mainwin->setPath(fn.mid(0, fn.lastIndexOf(QRegExp("[/\\\\]"))));
 		QDialog::accept();

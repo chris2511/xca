@@ -75,31 +75,26 @@ QByteArray pki_key::i2d()
         return i2d_bytearray(I2D_VOID(i2d_PUBKEY), key);
 }
 
-BIO *pki_key::pem(BIO *b)
+BIO *pki_key::pem(BIO *b, int format)
 {
 	EVP_PKEY *pkey;
+	QByteArray ba;
 	if (!b)
 		b = BIO_new(BIO_s_mem());
 
-	if (isPubKey() || isToken()) {
-		PEM_write_bio_PUBKEY(b, key);
-		return b;
-	}
-
-	QString text = tr("Do you really want to export the private key unencrypted to the clipboard ?");
-	xcaWarning msg(NULL, text);
-	msg.addButton(QMessageBox::Ok)->setText(tr("Only export the public key"));
-	msg.addButton(QMessageBox::Apply)->setText(tr("Export the private key unencrypted"));
-
-	switch (msg.exec()) {
-	case QMessageBox::Apply:
+	switch (format) {
+	case exportType::SSH2_public:
+		ba = SSH2publicQByteArray();
+		BIO_write(b, ba.data(), ba.size());
+		break;
+	case exportType::PEM_private:
 		pkey = decryptKey();
 		PEM_write_bio_PrivateKey(b, pkey, NULL, NULL, 0, NULL, NULL);
 		EVP_PKEY_free(pkey);
-		return b;
-	case QMessageBox::Ok:
+		break;
+	case exportType::PEM_key:
 		PEM_write_bio_PUBKEY(b, key);
-		return b;
+		break;
 	}
 	return b;
 }
@@ -474,7 +469,7 @@ void pki_key::ssh_key_bn2data(BIGNUM *bn, QByteArray *data)
 	ssh_key_QBA2data(big, data);
 }
 
-void pki_key::writeSSH2public(QString fname)
+QByteArray pki_key::SSH2publicQByteArray()
 {
 	QByteArray txt, data;
 
@@ -494,14 +489,19 @@ void pki_key::writeSSH2public(QString fname)
 		ssh_key_bn2data(key->pkey.dsa->pub_key, &data);
 		break;
 	default:
-		return;
+		return QByteArray();
 	}
-	txt += " " + data.toBase64() + "\n";
+	return txt + " " + data.toBase64() + "\n";
+}
 
+void pki_key::writeSSH2public(QString fname)
+{
 	QFile f(fname);
+
 	if (!f.open(QIODevice::ReadWrite))
 		fopen_error(fname);
 	else {
+		QByteArray txt = SSH2publicQByteArray();
 		if (f.write(txt) != txt.size())
 			throw errorEx(tr("Failed writing to %1").arg(fname));
 		f.close();

@@ -22,6 +22,7 @@ class db_key: public db_base
 	Q_OBJECT
 	protected:
 		virtual dbheaderList getHeaders();
+		exportType::etype clipboardFormat();
 	private:
 		void __setOwnPass(enum pki_key::passType);
 	public:

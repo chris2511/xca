@@ -26,6 +26,7 @@ class pki_key: public pki_base
 		EVP_PKEY *key;
 		QString BN2QString(BIGNUM *bn) const;
 		QString BNoneLine(BIGNUM *bn) const;
+		QByteArray SSH2publicQByteArray();
 
 	private:
 		BIGNUM *ssh_key_data2bn(QByteArray *ba, bool skip = false);
@@ -78,7 +79,7 @@ class pki_key: public pki_base
 		{
 			return key;
 		}
-		BIO *pem(BIO *);
+		BIO *pem(BIO *, int);
 		QVariant column_data(dbheader *hd);
 		QString modulus();
 		QString pubEx();

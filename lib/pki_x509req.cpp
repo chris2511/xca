@@ -255,7 +255,7 @@ void pki_x509req::writeReq(const QString fname, bool pem)
 		fopen_error(fname);
 }
 
-BIO *pki_x509req::pem(BIO *b)
+BIO *pki_x509req::pem(BIO *b, int format)
 {
 	if (!b)
 		b = BIO_new(BIO_s_mem());

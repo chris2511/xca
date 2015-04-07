@@ -68,7 +68,7 @@ class pki_crl: public pki_x509name
 		QByteArray i2d();
 		void setCrlNumber(a1int num);
 		bool getCrlNumber(a1int *num);
-		BIO *pem(BIO *);
+		BIO *pem(BIO *, int);
 		bool visible();
 };
 

@@ -16,6 +16,7 @@
 #include <QtGui/QContextMenuEvent>
 #include <QtCore/QStringList>
 #include <QtCore/QAbstractItemModel>
+#include "widgets/ExportDialog.h"
 #include "pki_base.h"
 #include "headerlist.h"
 
@@ -44,6 +45,9 @@ class db_base: public QAbstractItemModel
 		virtual dbheaderList getHeaders();
 		int colResizing;
 		int handleBadEntry(unsigned char *p, db_header_t *head);
+		virtual exportType::etype clipboardFormat() {
+			return exportType::Separator;
+		}
 
 	public:
 		pki_base *rootItem;

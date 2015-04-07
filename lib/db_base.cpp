@@ -302,7 +302,8 @@ void db_base::delete_ask()
 void db_base::pem2clipboard()
 {
 	long l;
-        const char *p;
+	const char *p;
+	exportType::etype format;
 	QString msg;
 	QClipboard *cb = QApplication::clipboard();
 
@@ -310,7 +311,8 @@ void db_base::pem2clipboard()
 	if (!currentIdx.isValid())
 		return;
 	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
-	pki->pem(bio);
+	format = clipboardFormat();
+	pki->pem(bio, format);
 	openssl_error();
 	l = BIO_get_mem_data(bio, &p);
 	msg = QString::fromUtf8(p, l);

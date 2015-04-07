@@ -276,6 +276,38 @@ void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	return;
 }
 
+exportType::etype db_key::clipboardFormat()
+{
+	QString title = tr("Export public key [%1]");
+	QList<exportType> types;
+
+	pki_key *key =static_cast<pki_evp*>(currentIdx.internalPointer());
+
+	types << exportType(exportType::PEM_key, "pem", tr("PEM public"));
+	if (key->getKeyType() == EVP_PKEY_RSA ||
+            key->getKeyType() == EVP_PKEY_DSA)
+		types << exportType(exportType::SSH2_public,
+			"pub", tr("SSH2 public"));
+	if (!key->isPubKey() && !key->isToken()) {
+		types << exportType(exportType::PEM_private, "pem",
+			tr("PEM private"));
+		title = tr("Export private key [%1]");
+	}
+	ExportDialog *dlg = new ExportDialog(mainwin,
+		title.arg(key->getTypeString()), QString(), key,
+		key->isToken() ? MainWindow::scardImg : MainWindow::keyImg,
+		types);
+
+	dlg->filename->setText(tr("Clipboard"));
+	dlg->filename->setEnabled(false);
+	dlg->fileBut->setEnabled(false);
+	if (!dlg->exec()) {
+		delete dlg;
+		return exportType::Separator;
+	}
+	return dlg->type();
+}
+
 void db_key::store()
 {
 	const EVP_CIPHER *enc = NULL;

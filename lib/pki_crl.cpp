@@ -212,7 +212,7 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 		fopen_error(fname);
 }
 
-BIO *pki_crl::pem(BIO *b)
+BIO *pki_crl::pem(BIO *b, int format)
 {
 	if (!b)
 		b = BIO_new(BIO_s_mem());
