@@ -17,6 +17,7 @@
 #include "ui_About.h"
 #include "ui_Help.h"
 #include "lib/func.h"
+#include "lib/entropy.h"
 
 void MainWindow::cmd_version() {
 	fprintf(stderr, XCA_TITLE " Version " PACKAGE_VERSION "\n");
@@ -77,13 +78,14 @@ void MainWindow::about()
 		version = QString("%1<br>QT version: %2").arg(openssl).arg(qt);
 	}
 	ui.setupUi(about);
-
+	Entropy::seed_rng();
 	cont = QString(
 	"<p><h3><center><u>XCA</u></center></h3>"
 	"<p>Copyright 2001 - 2015 by Christian Hohnst&auml;dt\n"
 	"<p>Version: <b>" PACKAGE_VERSION "</b>"
 	"<p>%1<p>%2"
 	"<p>http://sourceforge.net/projects/xca"
+	"<p>Entropy strength: %3"
 	"<hr><table border=0>"
 	"<tr><th align=left>Christian Hohnst&auml;dt</th><td><u>&lt;christian@hohnstaedt.de&gt;</u></td></tr>"
 	"<tr><td></td><td>Programming, Translation and Testing</td></tr>"
@@ -108,7 +110,7 @@ void MainWindow::about()
 	"<tr><th>Russian</th><td>Pavel Belly &lt;pavel.belly@gmail.com&gt;</td></tr>"
 	"<tr><th>French</th><td>Patrick Monnerat &lt;Patrick.Monnerat@datasphere.ch&gt;</td></tr>"
 	"<tr><th>Croatian</th><td>Nevenko Bartolincic &lt;nevenko.bartolincic@gmail.com&gt;</td></tr>"
-	"</table>").arg(brainpool).arg(version);
+	"</table>").arg(brainpool).arg(version).arg(Entropy::strength());
 
 	about->setWindowTitle(XCA_TITLE);
 	ui.image->setPixmap( *keyImg );

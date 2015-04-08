@@ -11,6 +11,7 @@
 #include "Passwd.h"
 #include "func.h"
 #include "db.h"
+#include "entropy.h"
 #include "widgets/PwDialog.h"
 
 #include <openssl/rand.h>
@@ -74,7 +75,7 @@ void pki_evp::setOwnPass(enum passType x)
 
 void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid)
 {
-	XCA_application::seed_rng();
+	Entropy::seed_rng();
 
 	progress->setMinimum(0);
 	progress->setMaximum(100);
@@ -489,7 +490,7 @@ void pki_evp::encryptKey(const char *password)
 
 	/* Prepare Encryption */
 	memset(iv, 0, EVP_MAX_IV_LENGTH);
-	RAND_pseudo_bytes(iv,8);      /* Generate a salt */
+	Entropy::get(iv, 8);      /* Generate a salt */
 	EVP_BytesToKey(cipher, EVP_sha1(), iv,
 			ownPassBuf.constUchar(),
 			ownPassBuf.size(), 1, ckey, NULL);

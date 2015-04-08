@@ -16,6 +16,7 @@
 #include "lib/func.h"
 #include "lib/db.h"
 #include "lib/main.h"
+#include "lib/entropy.h"
 #ifdef WIN32
 #include <windows.h>
 #endif
@@ -55,7 +56,6 @@ XCA_application::XCA_application(int &argc, char *argv[])
 	+2
 #endif
 	);
-	timer.start();
 	installEventFilter(this);
 }
 
@@ -117,24 +117,6 @@ void XCA_application::switchLanguage(QAction* a)
 	}
 }
 
-#define rand_buf_siz (sizeof(rand_buf)/sizeof(rand_buf[0]))
-unsigned char XCA_application::rand_buf[128];
-unsigned XCA_application::rand_pos;
-
-void XCA_application::add_entropy(int rand)
-{
-	rand_buf[rand_pos++ % rand_buf_siz] = rand & 0xff;
-}
-
-void XCA_application::seed_rng()
-{
-	if (rand_pos > rand_buf_siz)
-		rand_pos = rand_buf_siz;
-
-	RAND_seed(rand_buf, rand_pos);
-	rand_pos = 0;
-}
-
 bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
 {
 	static int mctr;
@@ -149,18 +131,17 @@ bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
 		return true;
 	case QEvent::MouseMove:
 	case QEvent::NonClientAreaMouseMove:
-		if (mctr++ > 16) {
+		if (mctr++ > 8) {
 			me = static_cast<QMouseEvent *>(ev);
-			add_entropy(me->globalX());
-			add_entropy(me->globalY());
+			entropy.add(me->globalX());
+			entropy.add(me->globalY());
 			mctr = 0;
 		}
 		break;
 	case QEvent::KeyPress:
 		key = static_cast<QKeyEvent *>(ev)->key();
 		if (key < 0x100) {
-			add_entropy(key ^ timer.elapsed());
-			timer.restart();
+			entropy.add(key);
 		}
 		break;
 	default:
@@ -191,6 +172,7 @@ int main_extract(int argc, char *argv[])
 	QString pkiname, name, fname;
 	pki_base *pki;
 	BIO *b;
+	Entropy e;
 
 	if (argc != 5) {
 		fprintf(stderr, "Wrong number of arguments\n");
@@ -282,14 +264,8 @@ int main( int argc, char *argv[] )
 
 #ifdef WIN32
 	SetUnhandledExceptionFilter(w32_segfault);
-	RAND_screen();
 #else
 	signal(SIGSEGV, segv_handler_gui);
-
-	if (QFile::exists("/dev/random"))
-		RAND_load_file("/dev/random", 64);
-	if (QFile::exists("/dev/hwrng"))
-		RAND_load_file("/dev/hwrng", 64);
 #endif
 
 	if (QString(argv[1]) == "extract") {
@@ -312,7 +288,7 @@ int main( int argc, char *argv[] )
 	}
 
 	delete mw;
-	pkictr =  pki_base::get_pki_counter();
+	pkictr = pki_base::get_pki_counter();
 	if (pkictr)
 		fprintf(stderr, "PKI Counter (%d)\n", pkictr);
 

@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "ImportMulti.h"
 #include "lib/Passwd.h"
+#include "lib/entropy.h"
 
 #include <openssl/rand.h>
 
@@ -585,7 +586,7 @@ QString makeSalt(void)
 	unsigned char rand[2];
 	char saltbuf[10];
 
-	RAND_bytes(rand, 2);
+	Entropy::get(rand, 2);
 	snprintf(saltbuf, 10, "S%02X%02X", rand[0], rand[1]);
 	return QString(saltbuf);
 }

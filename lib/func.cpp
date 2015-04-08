@@ -172,7 +172,7 @@ QString getUserSettingsDir()
 #elif defined(Q_WS_MAC)
 	rv = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 	rv.insert(rv.count() - QCoreApplication::applicationName().count(),
-		QCoreApplication::organizationName() + "/");
+		QCoreApplication::organizationName());
 #else
 	rv = QDir::homePath();
 	rv += QDir::separator();

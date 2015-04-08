@@ -16,6 +16,7 @@
 #ifdef WIN32
 #include <windows.h>
 #endif
+#include "entropy.h"
 
 extern char segv_data[1024];
 
@@ -44,10 +45,7 @@ private:
 	XcaTranslator *qtTr;
 	XcaTranslator *xcaTr;
 	static QLocale lang;
-	static unsigned char rand_buf[128];
-	static unsigned rand_pos;
-	static void add_entropy(int rand);
-	QTime timer;
+	Entropy entropy;
 
 public:
 	XCA_application(int &argc, char *argv[]);
@@ -56,7 +54,6 @@ public:
 	void setupLanguage(QLocale lang);
 	static QLocale language() { return lang; }
 	static QFont tableFont;
-	static void seed_rng();
 	bool eventFilter(QObject *watched, QEvent *ev);
 
 public slots:

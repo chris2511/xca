@@ -10,6 +10,7 @@
 #include "lib/exception.h"
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
+#include "lib/entropy.h"
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
 #include <QtGui/QStatusBar>
@@ -39,7 +40,7 @@ int MainWindow::init_database()
 	qDebug("Opening database: %s", QString2filename(dbfile));
 	keys = NULL; reqs = NULL; certs = NULL; temps = NULL; crls = NULL;
 
-	XCA_application::seed_rng();
+	Entropy::seed_rng();
 	certView->setRootIsDecorated(db_x509::treeview);
 
 	try {
