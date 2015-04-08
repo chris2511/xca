@@ -20,10 +20,9 @@ class Entropy
 	static unsigned char pool[512];
 	static unsigned pool_pos;
 	static unsigned seed_strength;
-	static int random_from_file(QString fname, int amount, int weakness=1);
-
+	static int random_from_file(QString fname, unsigned amount,
+					int weakness=1);
     public:
-
 	Entropy();
 	~Entropy();
 	static void add(int rand);
