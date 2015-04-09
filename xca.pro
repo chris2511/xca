@@ -61,6 +61,7 @@ HEADERS += local.h \
            lib/x509rev.h \
            lib/x509v3ext.h \
            lib/builtin_curves.h \
+           lib/entropy.h \
            widgets/CertDetail.h \
            widgets/CertExtend.h \
            widgets/clicklabel.h \
@@ -140,6 +141,7 @@ SOURCES += lib/asn1int.cpp \
            lib/x509rev.cpp \
            lib/x509v3ext.cpp \
            lib/builtin_curves.cpp \
+           lib/entropy.cpp \
            widgets/CertDetail.cpp \
            widgets/CertExtend.cpp \
            widgets/clicklabel.cpp \

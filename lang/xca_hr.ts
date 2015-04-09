@@ -533,7 +533,7 @@ PEM je base64 kodirana DER datoteka</translation>
         <translation type="obsolete">Unesite ime datoteke</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+40"/>
         <source>Export Format</source>
         <translation>Format izvoza</translation>
     </message>
@@ -648,7 +648,7 @@ PEM je base64 kodirana DER datoteka</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+39"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Datoteka: &apos;%1&apos; već postoji!</translation>
     </message>
@@ -1031,13 +1031,13 @@ Serijski broj: %3</translation>
         <translation>Popis opozvanih potvrda</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+163"/>
+        <location filename="../widgets/MW_database.cpp" line="+165"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>Korištenje ili izvoz privatnih ključeva neće biti moguće bez davanja ispravne zaporke</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+889"/>
+        <location filename="../widgets/MainWindow.cpp" line="+897"/>
         <source>Database</source>
         <translation>Baza podataka</translation>
     </message>
@@ -1290,7 +1290,7 @@ Serijski broj: %3</translation>
         <translation>Ipak uvezi</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-584"/>
+        <location filename="../widgets/MainWindow.cpp" line="-585"/>
         <source>no such option: %1</source>
         <translation>nema te opcije: %1</translation>
     </message>
@@ -1315,7 +1315,7 @@ Serijski broj: %3</translation>
         <translation>Nova oznaka pametnog tokena &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+109"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Token &apos;%1&apos; ne sadrži ni jedan ključ ili potvrdu</translation>
     </message>
@@ -2479,7 +2479,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
         <translation>Učitaj PEM kodiranu datoteku</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+211"/>
+        <location filename="../lib/pkcs11.cpp" line="+228"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Unesite PIN u PinPad</translation>
     </message>
@@ -2910,7 +2910,7 @@ Veličina: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+519"/>
+        <location line="+521"/>
         <source>Subject entries</source>
         <translation>Stavke subjekta</translation>
     </message>
@@ -3121,11 +3121,12 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
         <location line="+1"/>
+        <location line="+55"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-53"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
@@ -3160,12 +3161,14 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Spremi na Pametni token</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
+        <location line="+33"/>
         <source>Export public key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-28"/>
+        <location line="+38"/>
         <source>PEM public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3175,7 +3178,8 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-35"/>
+        <location line="+39"/>
         <source>SSH2 public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3194,7 +3198,8 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="obsolete">PKCS#8</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-43"/>
+        <location line="+48"/>
         <source>PEM private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3204,7 +3209,8 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-49"/>
+        <location line="+50"/>
         <source>Export private key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4068,7 +4074,7 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+174"/>
+        <location filename="../lib/pki_evp.cpp" line="+177"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation>Neuspješno dekriptiran ključ (pogrešna zaporka) </translation>
     </message>
@@ -4138,22 +4144,19 @@ i zbog toga nije spreman</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+89"/>
         <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
-        <translation>Da li stvarno želite izvesti u clipboard nekriptirani privatni ključ?</translation>
+        <translation type="obsolete">Da li stvarno želite izvesti u clipboard nekriptirani privatni ključ?</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Only export the public key</source>
-        <translation>Izvezi samo javni ključ</translation>
+        <translation type="obsolete">Izvezi samo javni ključ</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export the private key unencrypted</source>
-        <translation>Izvezi nekriptirani privatni ključ</translation>
+        <translation type="obsolete">Izvezi nekriptirani privatni ključ</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location filename="../lib/pki_key.cpp" line="+142"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Uspješno uvezen %1 javni ključ &apos;%2&apos;</translation>
     </message>
@@ -4220,7 +4223,7 @@ i zbog toga nije spreman</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+113"/>
         <source>Failed writing to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4331,7 +4334,7 @@ i zbog toga nije spreman</translation>
         <translation>Neodgovarajući javni ključ. Molimo ponovo umetnite karticu</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+57"/>
         <source>Illegal Key generation method</source>
         <translation>Nedozvoljeni način generiranja Ključa</translation>
     </message>

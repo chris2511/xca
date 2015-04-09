@@ -510,7 +510,7 @@ PEM base64 kodlanmış DER dosyası
         <translation type="obsolete">Lütfen dosya adını giriniz</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+40"/>
         <source>Export Format</source>
         <translation>Verme biçimi</translation>
     </message>
@@ -625,7 +625,7 @@ PEM base64 kodlanmış DER dosyası
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+39"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Dosya: 2%1&apos; zaten var</translation>
     </message>
@@ -640,7 +640,7 @@ PEM base64 kodlanmış DER dosyası
         <translation>Üzerine yazmayın</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.ui" line="-100"/>
+        <location filename="../ui/ExportDialog.ui" line="-103"/>
         <source>Name</source>
         <translation type="unfinished">İsim</translation>
     </message>
@@ -988,13 +988,13 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+163"/>
+        <location filename="../widgets/MW_database.cpp" line="+165"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+889"/>
+        <location filename="../widgets/MainWindow.cpp" line="+897"/>
         <source>Database</source>
         <translation>Veri Tabanı</translation>
     </message>
@@ -1188,7 +1188,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-584"/>
+        <location filename="../widgets/MainWindow.cpp" line="-585"/>
         <source>no such option: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1213,7 +1213,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+109"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2322,7 +2322,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+211"/>
+        <location filename="../lib/pkcs11.cpp" line="+228"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2714,7 +2714,7 @@ In library %3
         <translation type="unfinished">Dahili adı</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+525"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2724,7 +2724,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-656"/>
+        <location line="-658"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2763,7 +2763,7 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+521"/>
+        <location line="+523"/>
         <source>Netscape extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2981,12 +2981,14 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
+        <location line="+33"/>
         <source>Export public key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-28"/>
+        <location line="+38"/>
         <source>PEM public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2996,7 +2998,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-35"/>
+        <location line="+39"/>
         <source>SSH2 public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3011,7 +3014,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-43"/>
+        <location line="+48"/>
         <source>PEM private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3021,7 +3025,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-49"/>
+        <location line="+50"/>
         <source>Export private key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3051,17 +3056,18 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-392"/>
+        <location line="-424"/>
         <source>EC Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+199"/>
+        <location line="+55"/>
         <source>Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-53"/>
         <source>File</source>
         <translation type="unfinished">&amp;Dosya</translation>
     </message>
@@ -3741,7 +3747,7 @@ and thus was not stored</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+174"/>
+        <location filename="../lib/pki_evp.cpp" line="+177"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3806,7 +3812,7 @@ and thus was not stored</source>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+147"/>
+        <location filename="../lib/pki_key.cpp" line="+142"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3873,23 +3879,8 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+113"/>
         <source>Failed writing to %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-417"/>
-        <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Only export the public key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Export the private key unencrypted</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3993,7 +3984,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+73"/>
         <source>Unable to find generated key on card</source>
         <translation type="unfinished"></translation>
     </message>

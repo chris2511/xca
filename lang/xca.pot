@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-21 09:54+0200\n"
+"POT-Creation-Date: 2015-04-09 07:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,16 +283,6 @@ msgid ""
 "what you want."
 msgstr ""
 
-#: CertView#1
-msgctxt "CertView#1"
-msgid "There was no key found for the Certificate: "
-msgstr ""
-
-#: CertView#2
-msgctxt "CertView#2"
-msgid "Import Certificate signing request"
-msgstr ""
-
 #: ClickLabel#1
 msgid "Double click for details"
 msgstr ""
@@ -392,37 +382,6 @@ msgstr ""
 msgid "Unknown certificate"
 msgstr ""
 
-#: ExportCert#1
-msgid "X509 Certificates ( *.cer *.crt *.p12 *.p7b);;All files ( * )"
-msgstr ""
-
-#: ExportCert#2
-msgid ""
-"DER is a binary format of the Certificate\n"
-"PEM is a base64 encoded Certificate\n"
-"PKCS#7 is an official Certificate exchange format\n"
-"PKCS#12 is an encrypted official Key-Certificate exchange format\n"
-msgstr ""
-
-#: ExportCert#3
-msgid "Please enter the filename for the certificate."
-msgstr ""
-
-#: ExportCert#4
-msgid "Certificate export"
-msgstr ""
-
-#: ExportDer#1
-msgctxt "ExportDer#1"
-msgid "All files ( * )"
-msgstr ""
-
-#: ExportDer#2
-msgid ""
-"DER is a binary format\n"
-"PEM is a base64 encoded DER file\n"
-msgstr ""
-
 #: ExportDialog#1
 msgctxt "ExportDialog#1"
 msgid "Name"
@@ -443,68 +402,114 @@ msgid "Filename"
 msgstr ""
 
 #: ExportDialog#5
-msgid "Please enter the filename"
-msgstr ""
-
-#: ExportDialog#6
 msgid "Export Format"
 msgstr ""
 
+#: ExportDialog#6
+msgctxt "ExportDialog#6"
+msgid "All files ( * )"
+msgstr ""
+
 #: ExportDialog#7
-msgid "The file: '%1' already exists!"
+msgid "PEM Text format format with headers"
 msgstr ""
 
 #: ExportDialog#8
-msgid "Overwrite"
+msgid ""
+"Concatenated text format of the complete certificate chain in one PEM file"
 msgstr ""
 
 #: ExportDialog#9
+msgid "Concatenated text format of all trusted certificates in one PEM file"
+msgstr ""
+
+#: ExportDialog#10
+msgid "Concatenated text format of all certificates in one PEM file"
+msgstr ""
+
+#: ExportDialog#11
+msgid "Binary DER encoded file"
+msgstr ""
+
+#: ExportDialog#12
+msgid "PKCS#7 encoded single certificate"
+msgstr ""
+
+#: ExportDialog#13
+msgid "PKCS#7 encoded complete certificate chain"
+msgstr ""
+
+#: ExportDialog#14
+msgid "All trusted certificates encoded in one PKCS#7 file"
+msgstr ""
+
+#: ExportDialog#15
+msgid "All certificates encoded in one PKCS#7 file"
+msgstr ""
+
+#: ExportDialog#16
+msgid "The certificate and the private key as encrypted PKCS#12 file"
+msgstr ""
+
+#: ExportDialog#17
+msgid ""
+"The complete certificate chain and the private key as encrypted PKCS#12 file"
+msgstr ""
+
+#: ExportDialog#18
+msgid ""
+"Concatenation of the certificate and the unencrypted private key in one PEM "
+"file"
+msgstr ""
+
+#: ExportDialog#19
+msgid ""
+"Concatenation of the certificate and the encrypted private key in PKCS#8 "
+"format in one file"
+msgstr ""
+
+#: ExportDialog#20
+msgid "Text format of the public key in one PEM file"
+msgstr ""
+
+#: ExportDialog#21
+msgid "Binary DER format of the public key"
+msgstr ""
+
+#: ExportDialog#22
+msgid "Unencrypted private key in text format"
+msgstr ""
+
+#: ExportDialog#23
+msgid "OpenSSL specific encrypted private key in text format"
+msgstr ""
+
+#: ExportDialog#24
+msgid "Unencrypted private key in binary DER format"
+msgstr ""
+
+#: ExportDialog#25
+msgid "Unencrypted private key in PKCS#8 text format"
+msgstr ""
+
+#: ExportDialog#26
+msgid "Encrypted private key in PKCS#8 text format"
+msgstr ""
+
+#: ExportDialog#27
+msgid "The public key encoded in SSH2 format"
+msgstr ""
+
+#: ExportDialog#28
+msgid "The file: '%1' already exists!"
+msgstr ""
+
+#: ExportDialog#29
+msgid "Overwrite"
+msgstr ""
+
+#: ExportDialog#30
 msgid "Do not overwrite"
-msgstr ""
-
-#: ExportKey#1
-msgid "When exporting the private key it should be encrypted."
-msgstr ""
-
-#: ExportKey#2
-msgid "When exporting the private part, it should be encrypted."
-msgstr ""
-
-#: ExportKey#3
-msgid "E&xport the private part of the Key too"
-msgstr ""
-
-#: ExportKey#4
-msgid "Export as PKCS#8"
-msgstr ""
-
-#: ExportKey#5
-msgid "&Encrypt the Key with a password"
-msgstr ""
-
-#: ExportKey#6
-msgid ""
-"Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub );; All files ( "
-"* )"
-msgstr ""
-
-#: ExportKey#7
-msgid ""
-"DER is a binary format of the key without encryption\n"
-"PEM is a base64 encoded key with optional encryption\n"
-"PKCS#8 is an encrypted official Key-exchange format"
-msgstr ""
-
-#: ExportKey#8
-msgid "Please enter the filename for the key."
-msgstr ""
-
-#: ExportKey#9
-msgid "Export public %1 key"
-msgstr ""
-
-#: ExportKey#10
-msgid "Export %1 key"
 msgstr ""
 
 #: Help#1
@@ -876,7 +881,6 @@ msgid "PKCS#12"
 msgstr ""
 
 #: MainWindow#50
-msgctxt "MainWindow#50"
 msgid "PKCS#7"
 msgstr ""
 
@@ -930,106 +934,102 @@ msgid "&Content"
 msgstr ""
 
 #: MainWindow#63
-msgid "&About"
+msgid "About"
 msgstr ""
 
 #: MainWindow#64
-msgid "Donations"
-msgstr ""
-
-#: MainWindow#65
 msgid "Database dump ( *.dump );;All files ( * )"
 msgstr ""
 
-#: MainWindow#66
+#: MainWindow#65
 msgid "Import password"
 msgstr ""
 
-#: MainWindow#67
+#: MainWindow#66
 msgid "Please enter the password of the old database"
 msgstr ""
 
-#: MainWindow#68
+#: MainWindow#67
 msgid "Password verification error. Ignore keys ?"
 msgstr ""
 
-#: MainWindow#69
+#: MainWindow#68
 msgid "Import anyway"
 msgstr ""
 
-#: MainWindow#70
+#: MainWindow#69
 msgid "no such option: %1"
 msgstr ""
 
-#: MainWindow#71
+#: MainWindow#70
 msgid "Import PEM data"
 msgstr ""
 
-#: MainWindow#72
+#: MainWindow#71
 msgid "Please enter the original SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#73
+#: MainWindow#72
 msgid "Please enter the new SO PIN (PUK) of the token '%1'"
 msgstr ""
 
-#: MainWindow#74
+#: MainWindow#73
 msgid "The new label of the token '%1'"
 msgstr ""
 
-#: MainWindow#75
+#: MainWindow#74
 msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
-#: MainWindow#76
+#: MainWindow#75
 msgid "New Password"
 msgstr ""
 
-#: MainWindow#77
+#: MainWindow#76
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
 msgstr ""
 
-#: MainWindow#78
+#: MainWindow#77
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#79
+#: MainWindow#78
 msgid "Password verify error, please try again"
 msgstr ""
 
-#: MainWindow#80
-msgctxt "MainWindow#80"
+#: MainWindow#79
+msgctxt "MainWindow#79"
 msgid "Password"
 msgstr ""
 
-#: MainWindow#81
+#: MainWindow#80
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#82
+#: MainWindow#81
 msgid "The following error occured:"
 msgstr ""
 
-#: MainWindow#83
+#: MainWindow#82
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: MainWindow#84
+#: MainWindow#83
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
 "handled by XCA.\n"
 "Please enter the DH parameter bits"
 msgstr ""
 
-#: MainWindow#85
-msgctxt "MainWindow#85"
+#: MainWindow#84
+msgctxt "MainWindow#84"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 
@@ -2060,6 +2060,10 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+#: QObject#84
+msgid "String '%1' for '%2' contains invalid characters"
+msgstr ""
+
 #: Revoke#1
 msgid "Revocation details"
 msgstr ""
@@ -2394,18 +2398,58 @@ msgid "Store on Security token"
 msgstr ""
 
 #: db_key#25
-msgid "Tried to change password of a token"
+msgid "Export public key [%1]"
 msgstr ""
 
 #: db_key#26
-msgid "Tried to change PIN of a key"
+msgid "PEM public"
 msgstr ""
 
 #: db_key#27
-msgid "Tried to init PIN of a key"
+msgid "SSH2 public"
 msgstr ""
 
 #: db_key#28
+msgid "PEM private"
+msgstr ""
+
+#: db_key#29
+msgid "Export private key [%1]"
+msgstr ""
+
+#: db_key#30
+msgid "DER public"
+msgstr ""
+
+#: db_key#31
+msgid "DER private"
+msgstr ""
+
+#: db_key#32
+msgid "PEM encryped"
+msgstr ""
+
+#: db_key#33
+msgid "PKCS#8 encrypted"
+msgstr ""
+
+#: db_key#34
+msgid "Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )"
+msgstr ""
+
+#: db_key#35
+msgid "Tried to change password of a token"
+msgstr ""
+
+#: db_key#36
+msgid "Tried to change PIN of a key"
+msgstr ""
+
+#: db_key#37
+msgid "Tried to init PIN of a key"
+msgstr ""
+
+#: db_key#38
 msgid "Tried to change SO PIN of a key"
 msgstr ""
 
@@ -2594,107 +2638,142 @@ msgstr ""
 
 #: db_x509#27
 msgctxt "db_x509#27"
-msgid "Extract public Key"
+msgid "Export"
 msgstr ""
 
 #: db_x509#28
 msgctxt "db_x509#28"
-msgid "Export"
+msgid "Clipboard"
 msgstr ""
 
 #: db_x509#29
 msgctxt "db_x509#29"
-msgid "Clipboard"
-msgstr ""
-
-#: db_x509#30
-msgctxt "db_x509#30"
 msgid "File"
 msgstr ""
 
-#: db_x509#31
+#: db_x509#30
 msgid "Request"
 msgstr ""
 
-#: db_x509#32
-msgctxt "db_x509#32"
+#: db_x509#31
+msgctxt "db_x509#31"
 msgid "Security token"
 msgstr ""
 
-#: db_x509#33
+#: db_x509#32
 msgid "Other token"
+msgstr ""
+
+#: db_x509#33
+msgctxt "db_x509#33"
+msgid "Template"
 msgstr ""
 
 #: db_x509#34
 msgctxt "db_x509#34"
-msgid "Template"
+msgid "OpenSSL config"
 msgstr ""
 
 #: db_x509#35
 msgctxt "db_x509#35"
-msgid "OpenSSL config"
+msgid "Transform"
 msgstr ""
 
 #: db_x509#36
 msgctxt "db_x509#36"
-msgid "Delete"
+msgid "Public Key"
 msgstr ""
 
 #: db_x509#37
-msgid "Delete from Security token"
+msgid "Similar Certificate"
 msgstr ""
 
 #: db_x509#38
-msgid "Trust"
+msgctxt "db_x509#38"
+msgid "Delete"
 msgstr ""
 
 #: db_x509#39
-msgid "Properties"
+msgid "Delete from Security token"
 msgstr ""
 
 #: db_x509#40
-msgid "Generate CRL"
+msgid "Trust"
 msgstr ""
 
 #: db_x509#41
-msgctxt "db_x509#41"
-msgid "PKCS#7"
+msgid "Properties"
 msgstr ""
 
 #: db_x509#42
-msgctxt "db_x509#42"
-msgid "Sign"
+msgid "Generate CRL"
 msgstr ""
 
 #: db_x509#43
-msgid "Encrypt"
-msgstr ""
-
-#: db_x509#44
 msgid "Renewal"
 msgstr ""
 
-#: db_x509#45
+#: db_x509#44
 msgid "Unrevoke"
 msgstr ""
 
-#: db_x509#46
+#: db_x509#45
 msgid "Revoke"
 msgstr ""
 
+#: db_x509#46
+msgid "PEM chain"
+msgstr ""
+
 #: db_x509#47
-msgid "There was no key found for the Certificate: '%1'"
+msgid "PKCS #7 chain"
 msgstr ""
 
 #: db_x509#48
-msgid "Not possible for a token key: '%1'"
+msgid "PKCS #12 chain"
 msgstr ""
 
 #: db_x509#49
-msgid "Not possible for the token-key Certificate '%1'"
+msgid "PEM + key"
 msgstr ""
 
 #: db_x509#50
+msgid "PKCS #7 trusted"
+msgstr ""
+
+#: db_x509#51
+msgid "PKCS #7 all"
+msgstr ""
+
+#: db_x509#52
+msgid "PEM trusted"
+msgstr ""
+
+#: db_x509#53
+msgid "PEM all"
+msgstr ""
+
+#: db_x509#54
+msgid "Certificate export"
+msgstr ""
+
+#: db_x509#55
+msgid "X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"
+msgstr ""
+
+#: db_x509#56
+msgid "There was no key found for the Certificate: '%1'"
+msgstr ""
+
+#: db_x509#57
+msgid "Not possible for a token key: '%1'"
+msgstr ""
+
+#: db_x509#58
+msgid "Not possible for the token-key Certificate '%1'"
+msgstr ""
+
+#: db_x509#59
 msgid " days"
 msgstr ""
 
@@ -2742,11 +2821,11 @@ msgid ""
 msgstr ""
 
 #: db_x509req#6
-msgid "Certificate request ( *.pem *.der *.crl )"
+msgid "Certificate request export"
 msgstr ""
 
 #: db_x509req#7
-msgid "Certificate request export"
+msgid "Certificate request ( *.pem *.der *.csr )"
 msgstr ""
 
 #: db_x509req#8
@@ -2760,37 +2839,36 @@ msgstr ""
 
 #: db_x509req#10
 msgctxt "db_x509req#10"
-msgid "Extract public Key"
+msgid "Rename"
 msgstr ""
 
 #: db_x509req#11
 msgctxt "db_x509req#11"
-msgid "Rename"
+msgid "Show Details"
 msgstr ""
 
 #: db_x509req#12
-msgctxt "db_x509req#12"
-msgid "Show Details"
+msgid "Sign"
 msgstr ""
 
 #: db_x509req#13
 msgctxt "db_x509req#13"
-msgid "Sign"
+msgid "Export"
 msgstr ""
 
 #: db_x509req#14
 msgctxt "db_x509req#14"
-msgid "Export"
+msgid "Clipboard"
 msgstr ""
 
 #: db_x509req#15
 msgctxt "db_x509req#15"
-msgid "Clipboard"
+msgid "File"
 msgstr ""
 
 #: db_x509req#16
 msgctxt "db_x509req#16"
-msgid "File"
+msgid "Transform"
 msgstr ""
 
 #: db_x509req#17
@@ -2805,6 +2883,15 @@ msgstr ""
 
 #: db_x509req#19
 msgctxt "db_x509req#19"
+msgid "Public Key"
+msgstr ""
+
+#: db_x509req#20
+msgid "Similar Request"
+msgstr ""
+
+#: db_x509req#21
+msgctxt "db_x509req#21"
 msgid "Delete"
 msgstr ""
 
@@ -2817,14 +2904,18 @@ msgid "Internal name of the key"
 msgstr ""
 
 #: db_x509super#3
-msgid "Save as OpenSSL config"
+msgid "Signature Algorithm"
 msgstr ""
 
 #: db_x509super#4
-msgid "Config files ( *.conf *.cnf);; All files ( * )"
+msgid "Save as OpenSSL config"
 msgstr ""
 
 #: db_x509super#5
+msgid "Config files ( *.conf *.cnf);; All files ( * )"
+msgstr ""
+
+#: db_x509super#6
 msgid "The following extensions were not ported into the template"
 msgstr ""
 
@@ -2952,73 +3043,60 @@ msgid "Please enter the export password for the private key '%1'"
 msgstr ""
 
 #: pki_key#1
-msgid ""
-"Do you really want to export the private key unencrypted to the clipboard ?"
-msgstr ""
-
-#: pki_key#2
-msgid "Only export the public key"
-msgstr ""
-
-#: pki_key#3
-msgid "Export the private key unencrypted"
-msgstr ""
-
-#: pki_key#4
 msgid "Successfully imported the %1 public key '%2'"
 msgstr ""
 
-#: pki_key#5
+#: pki_key#2
 msgid "Delete the %1 public key '%2'?"
 msgstr ""
 
-#: pki_key#6
+#: pki_key#3
 msgid "Successfully imported the %1 private key '%2'"
 msgstr ""
 
-#: pki_key#7
+#: pki_key#4
 msgid "Delete the %1 private key '%2'?"
 msgstr ""
 
-#: pki_key#8
+#: pki_key#5
 msgid "Successfully created the %1 private key '%2'"
 msgstr ""
 
-#: pki_key#9
-msgctxt "pki_key#9"
+#: pki_key#6
+msgctxt "pki_key#6"
 msgid "Delete the %1 keys: %2?"
 msgstr ""
 
-#: pki_key#10
+#: pki_key#7
 msgid "public key"
 msgstr ""
 
-#: pki_key#11
+#: pki_key#8
 msgid "Common"
 msgstr ""
 
-#: pki_key#12
+#: pki_key#9
 msgid "Private"
 msgstr ""
 
-#: pki_key#13
+#: pki_key#10
 msgid "Bogus"
 msgstr ""
 
-#: pki_key#14
-msgctxt "pki_key#14"
+#: pki_key#11
+msgctxt "pki_key#11"
 msgid "PIN"
 msgstr ""
 
-#: pki_key#15
+#: pki_key#12
 msgid "No password"
 msgstr ""
 
-#: pki_key#16
+#: pki_key#13
 msgid "Invalid SSH2 public key"
 msgstr ""
 
-#: pki_key#17
+#: pki_key#14
 msgid "Failed writing to %1"
 msgstr ""
 
@@ -3329,14 +3407,4 @@ msgstr ""
 msgid ""
 "Validation successful:\n"
 "'%1'"
-msgstr ""
-
-#: void#1
-msgctxt "void#1"
-msgid "There was no key found for the Certificate: "
-msgstr ""
-
-#: void#2
-msgctxt "void#2"
-msgid "Import Certificate signing request"
 msgstr ""

@@ -521,7 +521,7 @@ PEM est un format encodé en base64
         <translation type="obsolete">SVP saisir le nom du fichier</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+40"/>
         <source>Export Format</source>
         <translation>Format d&apos;exportation</translation>
     </message>
@@ -636,7 +636,7 @@ PEM est un format encodé en base64
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+39"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Le fichier &apos;%1&apos; existe déjà!</translation>
     </message>
@@ -1016,13 +1016,13 @@ Numéro de série: %3</translation>
         <translation>Listes de révocation</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+163"/>
+        <location filename="../widgets/MW_database.cpp" line="+165"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>L&apos;usage ou l&apos;exportation de clés privées seront impossible sans fournir le mot de passe correct.</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+889"/>
+        <location filename="../widgets/MainWindow.cpp" line="+897"/>
         <source>Database</source>
         <translation>Base de donnée</translation>
     </message>
@@ -1275,7 +1275,7 @@ Numéro de série: %3</translation>
         <translation>Importer quand-même</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-584"/>
+        <location filename="../widgets/MainWindow.cpp" line="-585"/>
         <source>no such option: %1</source>
         <translation>&apos;%1&apos; n&apos;est pas une option</translation>
     </message>
@@ -1300,7 +1300,7 @@ Numéro de série: %3</translation>
         <translation>La nouvelle étiquette du jeton &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+109"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Le jeton &apos;%1&apos; ne contient aucune clé ni aucun certificat</translation>
     </message>
@@ -2360,7 +2360,7 @@ En particulier, EC et DSA ne sont définis qu&apos;avec SHA1 dans la spécificat
         <translation>Charger un fichier encodé en PEM</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+211"/>
+        <location filename="../lib/pkcs11.cpp" line="+228"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Saisir le NIP sur le pavé prévu à cet effet SVP</translation>
     </message>
@@ -2790,7 +2790,7 @@ Taille: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+519"/>
+        <location line="+521"/>
         <source>Subject entries</source>
         <translation>Inscriptions du sujet</translation>
     </message>
@@ -3001,11 +3001,12 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location line="+1"/>
+        <location line="+55"/>
         <source>Clipboard</source>
         <translation>Presse-papier</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-53"/>
         <source>File</source>
         <translation>Fichier</translation>
     </message>
@@ -3040,12 +3041,14 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Enregistrer dans le jeton de sécurité</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
+        <location line="+33"/>
         <source>Export public key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-28"/>
+        <location line="+38"/>
         <source>PEM public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3055,7 +3058,8 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-35"/>
+        <location line="+39"/>
         <source>SSH2 public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3074,7 +3078,8 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation type="obsolete">PKCS#8</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-43"/>
+        <location line="+48"/>
         <source>PEM private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3084,7 +3089,8 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-49"/>
+        <location line="+50"/>
         <source>Export private key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3941,7 +3947,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+174"/>
+        <location filename="../lib/pki_evp.cpp" line="+177"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation>Le décryptage de la clé a échoué (mauvais mot de passe). </translation>
     </message>
@@ -4011,22 +4017,19 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+89"/>
         <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
-        <translation>Voulez-vous vraiment exporter la clé privée en clair dans le presse-papier ?</translation>
+        <translation type="obsolete">Voulez-vous vraiment exporter la clé privée en clair dans le presse-papier ?</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Only export the public key</source>
-        <translation>N&apos;exporter que la clé publique</translation>
+        <translation type="obsolete">N&apos;exporter que la clé publique</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export the private key unencrypted</source>
-        <translation>Exporter la clé privée en clair</translation>
+        <translation type="obsolete">Exporter la clé privée en clair</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location filename="../lib/pki_key.cpp" line="+142"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Les %1 clés publiques &apos;%2&apos; ont été importées avec succès</translation>
     </message>
@@ -4093,7 +4096,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+113"/>
         <source>Failed writing to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4199,7 +4202,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>La clé publique ne correspond pas. Veuillez re-importer la carte</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+57"/>
         <source>Illegal Key generation method</source>
         <translation>Méthode de génération de clé illégale</translation>
     </message>

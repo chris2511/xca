@@ -520,7 +520,7 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
         <translation type="obsolete">Bitte den Dateinamen eingeben</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+40"/>
         <source>Export Format</source>
         <translation>Exportformat</translation>
     </message>
@@ -635,7 +635,7 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
         <translation>Der öffentliche Schlüssel im SSH2 Format</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+39"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation>Die Datei &apos;%1&apos; existiert bereits!</translation>
     </message>
@@ -913,7 +913,7 @@ Seriennummer: %3</translation>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+720"/>
+        <location filename="../widgets/MainWindow.cpp" line="+728"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -1119,7 +1119,7 @@ Seriennummer: %3</translation>
         <translation>Rücknahmelisten</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+165"/>
+        <location filename="../widgets/MW_database.cpp" line="+167"/>
         <location filename="../widgets/MainWindow.cpp" line="+132"/>
         <source>Database</source>
         <translation>Datenbank</translation>
@@ -1239,7 +1239,7 @@ Seriennummer: %3</translation>
         <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-498"/>
+        <location filename="../widgets/MainWindow.cpp" line="-499"/>
         <source>Import PEM data</source>
         <translation>PEM daten importieren</translation>
     </message>
@@ -1249,7 +1249,7 @@ Seriennummer: %3</translation>
         <translation>Die neue Bezeichnung der Chipkarte &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+158"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Bitte das neue Passwort zur Verschlüsselung der privaten Schlüssel in der Datenbank eingeben</translation>
     </message>
@@ -1300,7 +1300,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-531"/>
+        <location filename="../widgets/MainWindow.cpp" line="-532"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
     </message>
@@ -1320,7 +1320,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Die neue SO PIN (PUK) für die Chipkarte &apos;%1&apos; eingeben</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+116"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation>Die Chipkarte &apos;%1&apos; enthält keine Schlüssel oder Zertifikate</translation>
     </message>
@@ -2451,7 +2451,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>Datenbank: Schreibfehler %1 - %2</translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+211"/>
+        <location filename="../lib/pkcs11.cpp" line="+228"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation>Bitte die PIN am Lesegerät eingeben</translation>
     </message>
@@ -2839,7 +2839,7 @@ in Bibliothek %3
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+525"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -2849,7 +2849,7 @@ in Bibliothek %3
         <translation>Namensteile</translation>
     </message>
     <message>
-        <location line="-656"/>
+        <location line="-658"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2892,7 +2892,7 @@ Grösse %3
         <translation>Nr.</translation>
     </message>
     <message>
-        <location line="+520"/>
+        <location line="+522"/>
         <source>X509v3 Extensions</source>
         <translation>X509v3 Erweiterungen</translation>
     </message>
@@ -3080,11 +3080,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
     </message>
     <message>
         <location line="+196"/>
+        <location line="+55"/>
         <source>Clipboard</source>
         <translation>Zwischenablage</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-53"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
@@ -3109,12 +3110,14 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Auf der Chipkarte speichern</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
+        <location line="+33"/>
         <source>Export public key [%1]</source>
         <translation>Export des öffentlichen Schlüssels [%1]</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-28"/>
+        <location line="+38"/>
         <source>PEM public</source>
         <translation>PEM öffentlich</translation>
     </message>
@@ -3124,7 +3127,8 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>DER öffentlich</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-35"/>
+        <location line="+39"/>
         <source>SSH2 public</source>
         <translation>SSH2 öffentlich</translation>
     </message>
@@ -3143,7 +3147,8 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation type="obsolete">PKCS#8</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-43"/>
+        <location line="+48"/>
         <source>PEM private</source>
         <translation>PEM privat</translation>
     </message>
@@ -3153,7 +3158,8 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>PKCS#8 verschlüsselt</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-49"/>
+        <location line="+50"/>
         <source>Export private key [%1]</source>
         <translation>Privaten Schlüssel exportieren [%1]</translation>
     </message>
@@ -3183,7 +3189,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation></translation>
     </message>
     <message>
-        <location line="-335"/>
+        <location line="-367"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -4049,7 +4055,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+174"/>
+        <location filename="../lib/pki_evp.cpp" line="+177"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation>Konnte den Schlüssel nicht entschlüsseln. (Falsches Passwort)</translation>
     </message>
@@ -4119,22 +4125,19 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+89"/>
         <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
-        <translation>Soll der private Schlüssel wirklich unverschlüsselt in die Zwischenablage kopiert werden ?</translation>
+        <translation type="obsolete">Soll der private Schlüssel wirklich unverschlüsselt in die Zwischenablage kopiert werden ?</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Only export the public key</source>
-        <translation>Nur den öffentlichen Schlüssel exportieren</translation>
+        <translation type="obsolete">Nur den öffentlichen Schlüssel exportieren</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export the private key unencrypted</source>
-        <translation>Privaten Schlüssel unverschlüsselt exportieren</translation>
+        <translation type="obsolete">Privaten Schlüssel unverschlüsselt exportieren</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location filename="../lib/pki_key.cpp" line="+142"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation>Der öffentliche %1 Schlüssel &apos;%2&apos; wurde erfolgreich importiert</translation>
     </message>
@@ -4196,12 +4199,12 @@ und wurde daher nicht importiert</translation>
         <translation>Üngültiger öffentlicher SSH2 Schlüssel</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+113"/>
         <source>Failed writing to %1</source>
         <translation>Fehler beim Schreiben von %1</translation>
     </message>
     <message>
-        <location line="-148"/>
+        <location line="-153"/>
         <source>PIN</source>
         <translation>PIN</translation>
     </message>
@@ -4276,7 +4279,7 @@ und wurde daher nicht importiert</translation>
         <translation>Öffentlicher Schlüssel passt nicht. Bitte Chipkarte neu importieren</translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+73"/>
         <source>Unable to find generated key on card</source>
         <translation>Kann den erstellten Schlüssel auf der Karte nicht finden</translation>
     </message>
@@ -4292,7 +4295,7 @@ und wurde daher nicht importiert</translation>
         <translation>Ungültige Pin für die Chipkarte</translation>
     </message>
     <message>
-        <location line="-437"/>
+        <location line="-438"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation>Soll der private Schlüssel &apos;%1&apos; von der Chipkarte &apos;%2&apos; mit der Seriennummer %3 gelöscht werden ?</translation>
     </message>
@@ -4327,7 +4330,7 @@ und wurde daher nicht importiert</translation>
         <translation>Bitte die Chipkarte: %1 %2 [%3] mit Seriennummer: %4 einlegen</translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+85"/>
         <source>Illegal Key generation method</source>
         <translation>Ungültige Schlüsselgenerierungsmethode</translation>
     </message>

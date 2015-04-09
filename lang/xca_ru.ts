@@ -490,7 +490,7 @@
         <translation type="unfinished">Имя файла</translation>
     </message>
     <message>
-        <location line="+37"/>
+        <location line="+40"/>
         <source>Export Format</source>
         <translation type="unfinished">Формат экспорта</translation>
     </message>
@@ -605,7 +605,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+39"/>
         <source>The file: &apos;%1&apos; already exists!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -868,7 +868,7 @@ Serial: %3</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+720"/>
+        <location filename="../widgets/MainWindow.cpp" line="+728"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -1074,7 +1074,7 @@ Serial: %3</source>
         <translation>Списки отозванных сертификатов</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+165"/>
+        <location filename="../widgets/MW_database.cpp" line="+167"/>
         <location filename="../widgets/MainWindow.cpp" line="+132"/>
         <source>Database</source>
         <translation>База данных</translation>
@@ -1194,7 +1194,7 @@ Serial: %3</source>
         <translation>Дамп базы данных ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-498"/>
+        <location filename="../widgets/MainWindow.cpp" line="-499"/>
         <source>Import PEM data</source>
         <translation>Импорт</translation>
     </message>
@@ -1204,7 +1204,7 @@ Serial: %3</source>
         <translation>Новое название Токена &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+158"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Пожалуйста, введите новый пароль для шифрования закрытых ключей в базе данных</translation>
     </message>
@@ -1252,7 +1252,7 @@ Please enter the DH parameter bits</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-531"/>
+        <location filename="../widgets/MainWindow.cpp" line="-532"/>
         <source>no such option: %1</source>
         <translation type="unfinished">нет таких вариантов: %1</translation>
     </message>
@@ -1272,7 +1272,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Пожалуйста, введите новый PIN SO (PUK) для Токена &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+115"/>
+        <location line="+116"/>
         <source>The token &apos;%1&apos; did not contain any keys or certificates</source>
         <translation type="unfinished">Маркер &apos;%1&apos; не содержит никаких ключей или сертификатов</translation>
     </message>
@@ -2372,7 +2372,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lib/pkcs11.cpp" line="+211"/>
+        <location filename="../lib/pkcs11.cpp" line="+228"/>
         <source>Please enter the PIN on the PinPad</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2758,7 +2758,7 @@ In library %3
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+525"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2768,7 +2768,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-656"/>
+        <location line="-658"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2807,7 +2807,7 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+520"/>
+        <location line="+522"/>
         <source>X509v3 Extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2992,11 +2992,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     </message>
     <message>
         <location line="+196"/>
+        <location line="+55"/>
         <source>Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-53"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
@@ -3021,12 +3022,14 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+11"/>
+        <location line="+33"/>
         <source>Export public key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-28"/>
+        <location line="+38"/>
         <source>PEM public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3036,7 +3039,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="-35"/>
+        <location line="+39"/>
         <source>SSH2 public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3055,7 +3059,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="obsolete">PKCS#8</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-43"/>
+        <location line="+48"/>
         <source>PEM private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3065,7 +3070,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-49"/>
+        <location line="+50"/>
         <source>Export private key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3095,7 +3101,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-335"/>
+        <location line="-367"/>
         <source>The key is already in the database as:
 &apos;%1&apos;
 and is not going to be imported</source>
@@ -3829,7 +3835,7 @@ and thus was not stored</source>
 <context>
     <name>pki_evp</name>
     <message>
-        <location filename="../lib/pki_evp.cpp" line="+174"/>
+        <location filename="../lib/pki_evp.cpp" line="+177"/>
         <source>Failed to decrypt the key (bad password) </source>
         <translation type="unfinished">Не удалось расшифровать ключ (неверный пароль)</translation>
     </message>
@@ -3898,22 +3904,7 @@ and thus was not stored</source>
 <context>
     <name>pki_key</name>
     <message>
-        <location filename="../lib/pki_key.cpp" line="+89"/>
-        <source>Do you really want to export the private key unencrypted to the clipboard ?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Only export the public key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Export the private key unencrypted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+55"/>
+        <location filename="../lib/pki_key.cpp" line="+142"/>
         <source>Successfully imported the %1 public key &apos;%2&apos;</source>
         <translation type="unfinished">Открытый %1 ключ &apos;%2&apos; импортирован успешно</translation>
     </message>
@@ -3975,12 +3966,12 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+113"/>
         <source>Failed writing to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-148"/>
+        <location line="-153"/>
         <source>PIN</source>
         <translation>ПИН</translation>
     </message>
@@ -4050,7 +4041,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+72"/>
+        <location line="+73"/>
         <source>Unable to find generated key on card</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4066,7 +4057,7 @@ and thus was not stored</source>
         <translation type="unfinished">Неверный PIN для этого Токена безопасности</translation>
     </message>
     <message>
-        <location line="-437"/>
+        <location line="-438"/>
         <source>Delete the private key &apos;%1&apos; from the token &apos;%2 (#%3)&apos; ?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4101,7 +4092,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+85"/>
         <source>Illegal Key generation method</source>
         <translation type="unfinished"></translation>
     </message>
