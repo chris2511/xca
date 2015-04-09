@@ -700,6 +700,9 @@ void db_base::showItem()
 
 bool db_base::columnHidden(int col) const
 {
+	if (pki_x509::disable_netscape &&
+	    allHeaders[col]->type == dbheader::hd_v3ext_ns)
+		return true;
 	return !allHeaders[col]->show;
 }
 
@@ -744,6 +747,8 @@ void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
 				current = v3ext;
 				break;
 			case dbheader::hd_v3ext_ns:
+				if (pki_x509::disable_netscape)
+					continue;
 				current = v3ns;
 				break;
 			default:

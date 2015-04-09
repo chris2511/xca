@@ -271,6 +271,8 @@ void MainWindow::setOptions()
 		translate_dn ? Qt::Checked : Qt::Unchecked);
 	opt->onlyTokenHashes->setCheckState(
 		pki_scard::only_token_hashes ? Qt::Checked : Qt::Unchecked);
+	opt->disableNetscape->setCheckState(
+		pki_x509::disable_netscape ? Qt::Checked : Qt::Unchecked);
 
 	if (!opt->exec()) {
 		delete opt;
@@ -303,6 +305,7 @@ void MainWindow::setOptions()
 	pki_x509::dont_colorize_expiries = opt->noColorize->checkState();
 	translate_dn = opt->transDnEntries->checkState();
 	pki_scard::only_token_hashes = opt->onlyTokenHashes->checkState();
+	pki_x509::disable_netscape = opt->disableNetscape->checkState();
 
 	if (flags != getOptFlags()) {
 		flags = getOptFlags();
@@ -311,6 +314,8 @@ void MainWindow::setOptions()
 		mydb.first();
 		if (!mydb.find(setting, "suppress"))
 			mydb.erase();
+		certView->showHideSections();
+		reqView->showHideSections();
 	}
 
 	if (opt->getStringOpt() != string_opt) {
@@ -359,10 +364,12 @@ void MainWindow::setOptFlags_old(QString flags)
 
 void MainWindow::setOptFlags(QString flags)
 {
+	bool old_disable_netscape = pki_x509::disable_netscape;
 	pki_base::suppress_messages = false;
 	pki_x509::dont_colorize_expiries = false;
 	translate_dn = false;
 	pki_scard::only_token_hashes = false;
+	pki_x509::disable_netscape = false;
 
 	foreach(QString flag, flags.split(",")) {
 		if (flag == "suppress_messages")
@@ -373,8 +380,14 @@ void MainWindow::setOptFlags(QString flags)
 			translate_dn = true;
 		else if (flag == "only_token_hashes")
 			pki_scard::only_token_hashes = true;
+		else if (flag == "disable_netscape")
+			pki_x509::disable_netscape = true;
 		else if (!flag.isEmpty())
 			fprintf(stderr, "Unkown flag '%s'\n", CCHAR(flag));
+	}
+	if (old_disable_netscape != pki_x509::disable_netscape) {
+		certView->showHideSections();
+		reqView->showHideSections();
 	}
 }
 
@@ -390,5 +403,7 @@ QString MainWindow::getOptFlags()
 		flags << "translate_dn";
 	if (pki_scard::only_token_hashes)
 		flags << "only_token_hashes";
+	if (pki_x509::disable_netscape)
+		flags << "disable_netscape";
 	return flags.join(",");
 }

@@ -42,6 +42,7 @@ class pki_x509 : public pki_x509super
 	public:
 		static QPixmap *icon[6];
 		static bool dont_colorize_expiries;
+		static bool disable_netscape;
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
 		pki_x509(const QString name = "");

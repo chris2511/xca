@@ -265,6 +265,8 @@ NewX509::NewX509(QWidget *parent)
 			cb->setText(tr("Critical"));
 		}
 	}
+	if (pki_x509::disable_netscape)
+		tabWidget->removeTab(4);
 }
 
 void NewX509::setRequest()
@@ -1004,7 +1006,8 @@ int NewX509::validateExtensions(QString nconf, QString &result)
 	(void)nconf;
 	try {
 		el = getGuiExt();
-		el += getNetscapeExt();
+		if (!pki_x509::disable_netscape)
+			el += getNetscapeExt();
 		el.delInvalid();
 	} catch (errorEx &err) {
 		errors += err.getString();

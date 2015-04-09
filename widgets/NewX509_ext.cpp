@@ -267,7 +267,8 @@ extList NewX509::getAllExt()
 	extList ne;
 	ne = getGuiExt();
 	ne += getAdvanced();
-	ne += getNetscapeExt();
+	if (!pki_x509::disable_netscape)
+		ne += getNetscapeExt();
 	return ne;
 }
 

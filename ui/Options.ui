@@ -116,6 +116,13 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="disableNetscape">
+         <property name="text">
+          <string>Disable legacy Netscape extensions</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>

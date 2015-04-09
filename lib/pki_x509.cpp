@@ -19,6 +19,8 @@
 #include <openssl/rand.h>
 
 bool pki_x509::dont_colorize_expiries = false;
+bool pki_x509::disable_netscape = false;
+
 QPixmap *pki_x509::icon[6] = { NULL, NULL, NULL, NULL, NULL, NULL };
 
 pki_x509::pki_x509(X509 *c)
