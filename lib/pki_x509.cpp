@@ -834,12 +834,13 @@ QVariant pki_x509::column_data(dbheader *hd)
 		case HD_cert_trust:
 			return QVariant(truststatus[getTrust()]);
 		case HD_cert_revokation:
-			if (isRevoked())
-				return QVariant(getRevoked().toSortable());
-			else if (canSign() && !crlExpiry.isUndefined())
-				return QVariant(tr("CRL expires: %1").
-					arg(crlExpiry.toSortable()));
-			return QVariant();
+			return QVariant(isRevoked() ?
+				getRevoked().toSortable() : "");
+		case HD_cert_crl_expire:
+			if (canSign() && !crlExpiry.isUndefined())
+				return QVariant(crlExpiry.toSortable());
+			else
+				return QVariant();
 		case HD_cert_md5fp:
 			return QVariant(fingerprint(EVP_md5()));
 		case HD_cert_sha1fp:
@@ -943,7 +944,7 @@ QVariant pki_x509::bg_color(dbheader *hd)
 				return QVariant(BG_YELLOW);
 			break;
 		}
-		case HD_cert_revokation:
+		case HD_cert_crl_expire:
 			if (canSign()) {
 				QDateTime crlwarn, crlex;
 				crlex = crlExpiry;
