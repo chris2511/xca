@@ -55,9 +55,6 @@ copying it from an NSIS windows installation.
 Get the mingw runtime lib:
 $ zcat /usr/share/doc/mingw32-runtime/mingwm10.dll.gz >mingwm10.dll
 
-get the precompiled db_dump.exe from an other XCA installation
-$ cp db_dump.exe xca-w32
-
 translate the QT language files
 $ lrelease-qt4 ../qt/4.6.2/translations/qt_*.ts
 

@@ -18,7 +18,7 @@ SetCompressor /SOLID lzma
 
 !define MUI_ABORTWARNING
 
-!define MUI_FINISHPAGE_TEXT $(DESC_donation)
+!define MUI_FINISHPAGE_TEXT $(DESC_Finish)
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
 !define MUI_FINISHPAGE_RUN "$INSTDIR\xca.exe"
 
@@ -107,32 +107,6 @@ Section "Start Menu Shortcuts" SecShortcut
 SectionEnd
 
 ;----------------------------------------
-Function dump_old_db
-  FindFirst $0 $1 $2\*.db
-  loop:
-    StrCmp $1 "" done
-    Exec '"$INSTDIR\db_dump.exe" -f "$2\$1.dump" "$2\$1"'
-    MessageBox MB_OK "Dumping $2\$1 to $2\$1.dump"
-    FindNext $0 $1
-    Goto loop
-  done:
-FunctionEnd
-
-Section "Update" SecUpdate
-
-  SetOutPath $INSTDIR
-  File "${BDIR}\db_dump.exe"
-  SetShellVarContext current
-  StrCpy $2 "$APPDATA\xca"
-  Call dump_old_db
-  SetShellVarContext all
-  StrCpy $2 "$APPDATA\xca"
-  Call dump_old_db
-  StrCpy $2 "$INSTDIR"
-  Call dump_old_db
-
-SectionEnd
-
 Section "Translations" SecTrans
 
   File /nonfatal "lang\*.qm"
@@ -140,6 +114,8 @@ Section "Translations" SecTrans
   File /nonfatal "${QTDIR}\translations\qt_es.qm"
   File /nonfatal "${QTDIR}\translations\qt_ru.qm"
   File /nonfatal "${QTDIR}\translations\qt_fr.qm"
+  File /nonfatal "${QTDIR}\translations\qt_hr.qm"
+  File /nonfatal "${QTDIR}\translations\qt_tr.qm"
 
 SectionEnd
 
@@ -216,7 +192,6 @@ Section "Uninstall"
   DeleteRegKey HKCU "SOFTWARE\xca"
   ; remove files
   Delete $INSTDIR\xca.exe
-  Delete $INSTDIR\db_dump.exe
   Delete $INSTDIR\xca_db_stat.exe
   Delete $INSTDIR\key.ico
   Delete $INSTDIR\key.xpm
@@ -311,37 +286,25 @@ SectionEnd
   LangString DESC_SecShortcut ${LANG_ENGLISH} "Shortcuts on the desktop and the menu."
   LangString DESC_SecShortcut ${LANG_GERMAN}  "Programmgruppe auf dem Desktop und im Menu."
 
-  LangString DESC_SecUpdate ${LANG_ENGLISH} "Dumps an old database <= 0.5.1 into an ASCII format, that can be imported by the current Version of XCA."
-  LangString DESC_SecUpdate ${LANG_GERMAN}  "Exportiert eine alte Datenbank <= 0.5.1 in ein ASCII format, das mit dieser Version von XCA importiert werden kann."
-
   LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb *.xca *.pem and 'open with' for *.crt *.crl *.pfx *.p7b *.cer"
   LangString DESC_SecFiles ${LANG_GERMAN}  "Registrierung der Dateiendung *.xdb *.xca *.pem und 'open with' für *.crt *.crl *.pfx *.p7b *.cer"
 
-  LangString DESC_SecTrans ${LANG_ENGLISH} "Translations for german, russian, spanish, french and russian."
-  LangString DESC_SecTrans ${LANG_GERMAN}  "Übersetzungen in deutsch, russisch, spanisch und französisch."
+  LangString DESC_SecTrans ${LANG_ENGLISH} "Translations for german, russian, spanish, french, croatian and russian."
+  LangString DESC_SecTrans ${LANG_GERMAN}  "Übersetzungen in deutsch, russisch, spanisch kroatisch und französisch."
 
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} $(DESC_SecMain)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcut} $(DESC_SecShortcut)
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecUpdate} $(DESC_SecUpdate)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecFiles} $(DESC_SecFiles)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecTrans} $(DESC_SecTrans)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
-LangString DESC_Donation ${LANG_ENGLISH} \
-"Please consider donating for XCA.\r\n\r\n\
-If this application saves you time and money, consider returning \
-a small share back to me."
-
-LangString DESC_Donation ${LANG_GERMAN} \
-"Bitte ziehen Sie eine Spende in Betracht.\r\n\r\n\
-Wenn Ihnen dieses Programm Zeit und Geld spart, \
-ziehen Sie bitte die Möglichkeit in Betracht mir einen kleinen \
-Teil davon abzugeben."
+LangString DESC_Finish ${LANG_ENGLISH} "\r\nEnjoy XCA and free Software"
+LangString DESC_Finish ${LANG_GERMAN} "\r\nViel Spass mit XCA und freier Software"
 
 ;-----------------------------------
- 
+
 Function .onInit
   !insertMacro MUI_LANGDLL_DISPLAY
 FunctionEnd
