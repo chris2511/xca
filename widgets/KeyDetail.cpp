@@ -8,6 +8,7 @@
 
 #include "KeyDetail.h"
 #include "MainWindow.h"
+#include "lib/main.h"
 #include "lib/pki_evp.h"
 #include "lib/pki_scard.h"
 #include "widgets/distname.h"
@@ -23,6 +24,7 @@ KeyDetail::KeyDetail(QWidget *parent)
 	setWindowTitle(tr(XCA_TITLE));
 	image->setPixmap(*MainWindow::keyImg);
 	keyDesc->setReadOnly(true);
+	keyModulus->setFont(XCA_application::tableFont);
 }
 
 #ifndef OPENSSL_NO_EC

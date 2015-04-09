@@ -236,11 +236,6 @@
       </item>
       <item>
        <widget class="QTextBrowser" name="keyModulus">
-        <property name="font">
-         <font>
-          <family>Monospace</family>
-         </font>
-        </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>
