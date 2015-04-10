@@ -1,0 +1,39 @@
+#!/bin/sh
+
+set -e
+
+type git || exit 1
+
+export TVERSION="$1"
+commit=master
+test -z "$2" || commit="$2"
+
+if test -z "$TVERSION"; then
+  echo "usage: $0 <VERSION> [commit]"
+  echo "   if commit is ommitted, 'master' is used"
+  exit 1
+fi
+
+if git status -s | grep -v '??'; then
+  echo "You have local changes, please commit, reset or stash them"
+  exit 1
+fi
+
+branchname="build-$TVERSION"
+
+git checkout -b  "$branchname" "$commit"
+echo "$TVERSION" > VERSION
+git commit VERSION -m "$TVERSION"
+git tag RELEASE.$TVERSION
+
+# Create the tar.gz
+make dist
+
+# Return to master
+git checkout master
+
+# Cleanup
+# Delete temporary branch
+git branch -D "$branchname"
+# Delete the temporary tag
+git tag -d RELEASE.$TVERSION
