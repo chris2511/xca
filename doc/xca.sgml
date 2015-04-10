@@ -851,18 +851,21 @@ Please consult the documentation of the provider of the PKCS#11 library.
 
 Keys can be exported by either selecting the key and pressing <em>Export</em>
 or by using the context-menu.
-It may be chosen to export the key to the clipboard. In this case it
-is required to acknowledge the export of the unencrypted private key,
-or to only export the public key. When exporting a token key or a public key
-it is exported directly.
-In case of a file export a dialogbox opens where the following settings can be adjusted:
+It may be chosen to export the key to the clipboard as PEM public, SSH2 public
+or unencrypted PEM private format.
+In case of a file export a dialogbox opens where next to the filename one of the
+following formats may be selected:
 
 <itemize>
-	<item>filename
-	<item>Output format ( DER, PEM )
-	<item>Public or Private Key
-	<item>PKCS&num;8 format
-	<item>Encryption of the exported file (yes/no)
+	<item><bf>PEM public</bf> the public part of the key in PEM format
+	<item><bf>DER public</bf> the public part of the key in DER format
+	<item><bf>SSH2 public</bf> the public part of the key in SSH2 format
+	<item><bf>PEM private</bf> the private key unencrypt in PEM format
+	<item><bf>PKCS#8 encrypted</bf> the encrypted private key in PKCS#8 format
+	<item><bf>DER private</bf> the private key in binary DER format
+	<item><bf>PEM encrypted</bf> the private key in PEM format with an OpenSSL specific
+		extensions for encryption
+	<item>PKCS#8 unencrypted</bf> the private key unencrypted in PKCS#8 format
 </itemize>
 
 The filename is the internal name plus a <tt>pem</tt>, <tt>der</tt>, <tt>pk8</tt> or <tt>pub</tt> suffix.
@@ -881,9 +884,9 @@ Of course, encryption does not make sense if the private part is not exported.
 
 Certificate signing requests are described in PKCS&num;10 standard.
 They are used to supply a Certification Authority with the
-needed information to issue a valid certificate for you,
-without knowing your private key. This
-includes your personal information, your public key and additional extensions.
+needed information to issue a valid certificate
+without knowing the private key. This
+includes personal information, they public key and additional extensions.
 
 <p>
 
@@ -891,6 +894,14 @@ Netscape SPKAC files can not be created or exported, but they can be imported an
 This requests are marked in the Signature field as SPKAC and a Netscape icon is
 shown.
 
+<p>
+
+It is not necessary to generate a request prior to signing it by your CA
+or before self-signing it. Simply start generating the certificate directly.
+People using the OpenSSL command line tools, are used to generate a request
+with "openssl req -new ..." and then signing it . This is not necessary with XCA.
+
+<p>
 <sect1>Generating a new Request
 
 <p>
@@ -1266,6 +1277,18 @@ That's why XCA may use additional hashing algorithms like ecdsaWithSha256.
 
 If other applications that probably use the token hashing algorithms shall use the
 token, this option should be set.
+
+<p>
+
+<sect1>Disable legacy Netscape extensions
+
+<p>
+
+With this option set the input and use of the legacy Netscape extensions
+will be suppressed. The certificate input dialog has no Netscape tab,
+the request and certificate columns don't show the Netscape extensions
+and when applying a template or converting certificates, the Netscape extensions
+are removed.
 
 <p>
 

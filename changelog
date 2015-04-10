@@ -1,3 +1,15 @@
+ * Add option for disabling legacy Netscape extensions
+ * Support exporting SSH2 public key to the clipboard
+ * SF Bug #102 Weak entropy source used for key generation:
+   /dev/random, mouse/kbd entropy, token RNG
+ * SF Feat. Req. #80 Create new certificate,
+   based on existing certificate, same for requests
+ * Add Cert/Req Column for Signature Algorithm
+ * SF Feat. Req. #81 Show key size in New Certificate dialog
+ * distinguish export from transform:
+   - Export writes to an external file,
+   - Transform generates another XCA item
+
 xca 1.2.0 Sat Mar 21 2015
 
  * Update to OpenSSL 1.0.2a for Windows and MAC
