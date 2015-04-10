@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-09 07:00+0200\n"
+"POT-Creation-Date: 2015-04-10 15:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1626,66 +1626,70 @@ msgid "Only use hashes supported by the token when signing with a token key"
 msgstr ""
 
 #: Options#10
-msgctxt "Options#10"
-msgid "Distinguished name"
+msgid "Disable legacy Netscape extensions"
 msgstr ""
 
 #: Options#11
-msgid "Mandatory subject entries"
+msgctxt "Options#11"
+msgid "Distinguished name"
 msgstr ""
 
 #: Options#12
-msgctxt "Options#12"
-msgid "Add"
+msgid "Mandatory subject entries"
 msgstr ""
 
 #: Options#13
 msgctxt "Options#13"
-msgid "Delete"
+msgid "Add"
 msgstr ""
 
 #: Options#14
-msgid "Explicit subject entries"
+msgctxt "Options#14"
+msgid "Delete"
 msgstr ""
 
 #: Options#15
-msgid "Default"
+msgid "Explicit subject entries"
 msgstr ""
 
 #: Options#16
-msgid "PKCS#11 provider"
+msgid "Default"
 msgstr ""
 
 #: Options#17
-msgid "Remove"
+msgid "PKCS#11 provider"
 msgstr ""
 
 #: Options#18
-msgctxt "Options#18"
-msgid "Search"
+msgid "Remove"
 msgstr ""
 
 #: Options#19
-msgid "Printable string or UTF8 (default)"
+msgctxt "Options#19"
+msgid "Search"
 msgstr ""
 
 #: Options#20
-msgid "PKIX recommendation in RFC2459"
+msgid "Printable string or UTF8 (default)"
 msgstr ""
 
 #: Options#21
-msgid "No BMP strings, only printable and T61"
+msgid "PKIX recommendation in RFC2459"
 msgstr ""
 
 #: Options#22
-msgid "UTF8 strings only (RFC2459)"
+msgid "No BMP strings, only printable and T61"
 msgstr ""
 
 #: Options#23
-msgid "All strings"
+msgid "UTF8 strings only (RFC2459)"
 msgstr ""
 
 #: Options#24
+msgid "All strings"
+msgstr ""
+
+#: Options#25
 msgid "Load failed"
 msgstr ""
 
@@ -2573,207 +2577,211 @@ msgid "Revocation"
 msgstr ""
 
 #: db_x509#13
-msgctxt "db_x509#13"
-msgid "Plain View"
+msgid "CRL Expiration"
 msgstr ""
 
 #: db_x509#14
-msgid "Tree View"
+msgctxt "db_x509#14"
+msgid "Plain View"
 msgstr ""
 
 #: db_x509#15
+msgid "Tree View"
+msgstr ""
+
+#: db_x509#16
 msgid ""
 "The certificate already exists in the database as:\n"
 "'%1'\n"
 "and so it was not imported"
 msgstr ""
 
-#: db_x509#16
+#: db_x509#17
 msgid "Invalid public key"
 msgstr ""
 
-#: db_x509#17
+#: db_x509#18
 msgid "Please enter the new hexadecimal secret number for the QA process."
 msgstr ""
 
-#: db_x509#18
+#: db_x509#19
 msgid "The QA process has been terminated by the user."
 msgstr ""
 
-#: db_x509#19
-msgctxt "db_x509#19"
+#: db_x509#20
+msgctxt "db_x509#20"
 msgid "The key you selected for signing is not a private one."
 msgstr ""
 
-#: db_x509#20
+#: db_x509#21
 msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr ""
 
-#: db_x509#21
+#: db_x509#22
 msgid "New Certificate"
 msgstr ""
 
-#: db_x509#22
-msgctxt "db_x509#22"
+#: db_x509#23
+msgctxt "db_x509#23"
 msgid "Import"
 msgstr ""
 
-#: db_x509#23
+#: db_x509#24
 msgid "Import PKCS#12"
 msgstr ""
 
-#: db_x509#24
-msgid "Import from PKCS#7"
-msgstr ""
-
 #: db_x509#25
-msgctxt "db_x509#25"
-msgid "Rename"
+msgid "Import from PKCS#7"
 msgstr ""
 
 #: db_x509#26
 msgctxt "db_x509#26"
-msgid "Show Details"
+msgid "Rename"
 msgstr ""
 
 #: db_x509#27
 msgctxt "db_x509#27"
-msgid "Export"
+msgid "Show Details"
 msgstr ""
 
 #: db_x509#28
 msgctxt "db_x509#28"
-msgid "Clipboard"
+msgid "Export"
 msgstr ""
 
 #: db_x509#29
 msgctxt "db_x509#29"
-msgid "File"
+msgid "Clipboard"
 msgstr ""
 
 #: db_x509#30
-msgid "Request"
+msgctxt "db_x509#30"
+msgid "File"
 msgstr ""
 
 #: db_x509#31
-msgctxt "db_x509#31"
-msgid "Security token"
+msgid "Request"
 msgstr ""
 
 #: db_x509#32
-msgid "Other token"
+msgctxt "db_x509#32"
+msgid "Security token"
 msgstr ""
 
 #: db_x509#33
-msgctxt "db_x509#33"
-msgid "Template"
+msgid "Other token"
 msgstr ""
 
 #: db_x509#34
 msgctxt "db_x509#34"
-msgid "OpenSSL config"
+msgid "Template"
 msgstr ""
 
 #: db_x509#35
 msgctxt "db_x509#35"
-msgid "Transform"
+msgid "OpenSSL config"
 msgstr ""
 
 #: db_x509#36
 msgctxt "db_x509#36"
-msgid "Public Key"
+msgid "Transform"
 msgstr ""
 
 #: db_x509#37
-msgid "Similar Certificate"
+msgctxt "db_x509#37"
+msgid "Public Key"
 msgstr ""
 
 #: db_x509#38
-msgctxt "db_x509#38"
-msgid "Delete"
+msgid "Similar Certificate"
 msgstr ""
 
 #: db_x509#39
-msgid "Delete from Security token"
+msgctxt "db_x509#39"
+msgid "Delete"
 msgstr ""
 
 #: db_x509#40
-msgid "Trust"
+msgid "Delete from Security token"
 msgstr ""
 
 #: db_x509#41
-msgid "Properties"
+msgid "Trust"
 msgstr ""
 
 #: db_x509#42
-msgid "Generate CRL"
+msgid "Properties"
 msgstr ""
 
 #: db_x509#43
-msgid "Renewal"
+msgid "Generate CRL"
 msgstr ""
 
 #: db_x509#44
-msgid "Unrevoke"
+msgid "Renewal"
 msgstr ""
 
 #: db_x509#45
-msgid "Revoke"
+msgid "Unrevoke"
 msgstr ""
 
 #: db_x509#46
-msgid "PEM chain"
+msgid "Revoke"
 msgstr ""
 
 #: db_x509#47
-msgid "PKCS #7 chain"
+msgid "PEM chain"
 msgstr ""
 
 #: db_x509#48
-msgid "PKCS #12 chain"
+msgid "PKCS #7 chain"
 msgstr ""
 
 #: db_x509#49
-msgid "PEM + key"
+msgid "PKCS #12 chain"
 msgstr ""
 
 #: db_x509#50
-msgid "PKCS #7 trusted"
+msgid "PEM + key"
 msgstr ""
 
 #: db_x509#51
-msgid "PKCS #7 all"
+msgid "PKCS #7 trusted"
 msgstr ""
 
 #: db_x509#52
-msgid "PEM trusted"
+msgid "PKCS #7 all"
 msgstr ""
 
 #: db_x509#53
-msgid "PEM all"
+msgid "PEM trusted"
 msgstr ""
 
 #: db_x509#54
-msgid "Certificate export"
+msgid "PEM all"
 msgstr ""
 
 #: db_x509#55
-msgid "X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"
+msgid "Certificate export"
 msgstr ""
 
 #: db_x509#56
-msgid "There was no key found for the Certificate: '%1'"
+msgid "X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"
 msgstr ""
 
 #: db_x509#57
-msgid "Not possible for a token key: '%1'"
+msgid "There was no key found for the Certificate: '%1'"
 msgstr ""
 
 #: db_x509#58
-msgid "Not possible for the token-key Certificate '%1'"
+msgid "Not possible for a token key: '%1'"
 msgstr ""
 
 #: db_x509#59
+msgid "Not possible for the token-key Certificate '%1'"
+msgstr ""
+
+#: db_x509#60
 msgid " days"
 msgstr ""
 
@@ -3289,14 +3297,10 @@ msgid "Always Trusted"
 msgstr ""
 
 #: pki_x509#13
-msgid "CRL expires: %1"
-msgstr ""
-
-#: pki_x509#14
 msgid "No"
 msgstr ""
 
-#: pki_x509#15
+#: pki_x509#14
 msgid "Yes"
 msgstr ""
 

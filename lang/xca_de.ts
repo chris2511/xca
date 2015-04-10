@@ -807,7 +807,7 @@ Seriennummer: %3</translation>
 <context>
     <name>KeyDetail</name>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="+50"/>
+        <location filename="../widgets/KeyDetail.cpp" line="+52"/>
         <source>Not available</source>
         <translation>Nicht verfügbar</translation>
     </message>
@@ -1618,7 +1618,7 @@ Bitte die DH Parameter bits angeben</translation>
     </message>
     <message>
         <location line="-335"/>
-        <location filename="../widgets/NewX509.cpp" line="+600"/>
+        <location filename="../widgets/NewX509.cpp" line="+602"/>
         <source>Subject</source>
         <translation>Inhaber</translation>
     </message>
@@ -1633,7 +1633,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Eindeutiger Name</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-464"/>
+        <location filename="../widgets/NewX509.cpp" line="-466"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation>Dieser Name wird nur intern verwendet und erscheint nicht im Zertifikat</translation>
     </message>
@@ -1817,7 +1817,7 @@ Bitte die DH Parameter bits angeben</translation>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+43"/>
-        <location filename="../widgets/NewX509.cpp" line="+846"/>
+        <location filename="../widgets/NewX509.cpp" line="+848"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
@@ -1875,12 +1875,12 @@ Bitte die DH Parameter bits angeben</translation>
         <translation type="obsolete">Basis URL</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-885"/>
+        <location filename="../widgets/NewX509.cpp" line="-887"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation>Erstelle ein &amp;Selbst signiertes Zertifikat mit eine MD5-gehashten Serien nummer</translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+180"/>
         <source>Create Certificate signing request</source>
         <translation>Erstelle einen Zertifikatsantrag</translation>
     </message>
@@ -1894,7 +1894,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Erstelle x509 Zertifikat</translation>
     </message>
     <message>
-        <location line="+785"/>
+        <location line="+786"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -1952,12 +1952,12 @@ Bitte mindestens den internen Namen setzen.</translation>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-305"/>
+        <location filename="../widgets/NewX509.cpp" line="-306"/>
         <source>Validate</source>
         <translation>Überprüfen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+174"/>
+        <location filename="../widgets/NewX509.cpp" line="+175"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation>Die Validierung des Requests ist fehlgeschlagen. Die Zertifikatserstellung sollte abgebrochen werden.</translation>
@@ -2009,12 +2009,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Der ausgewählte Schlüssel zum signieren ist nicht vollständig.</translation>
     </message>
     <message>
-        <location line="-978"/>
+        <location line="-981"/>
         <source>Critical</source>
         <translation>Wichtig</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+73"/>
         <source>Create XCA template</source>
         <translation>XCA Vorlage erstellen</translation>
     </message>
@@ -2024,7 +2024,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>XCA Vorlage ändern</translation>
     </message>
     <message>
-        <location line="+904"/>
+        <location line="+905"/>
         <source>Select other signer</source>
         <translation>Andere CA wählen</translation>
     </message>
@@ -2075,7 +2075,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Alles übernehmen</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1016"/>
+        <location filename="../widgets/NewX509.cpp" line="-1017"/>
         <source>minimum size: %1</source>
         <translation>Mindestlänge: %1</translation>
     </message>
@@ -2095,7 +2095,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Keine Sonderzeichen oder Umlaute</translation>
     </message>
     <message>
-        <location line="+740"/>
+        <location line="+741"/>
         <source>From PKCS#10 request</source>
         <translation>Aus dem PKCS#10 Zertifikatsantrag</translation>
     </message>
@@ -2125,7 +2125,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>Options</name>
     <message>
-        <location filename="../ui/Options.ui" line="+141"/>
+        <location filename="../ui/Options.ui" line="+148"/>
         <source>Mandatory subject entries</source>
         <translation>Pflichtfelder im subject-name</translation>
     </message>
@@ -2143,7 +2143,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location line="-176"/>
+        <location line="-183"/>
         <source>Default hash algorithm</source>
         <translation>Standard Hash Algorithmus</translation>
     </message>
@@ -2185,6 +2185,11 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <location line="+5"/>
         <source>Only use hashes supported by the token when signing with a token key</source>
         <translation>Verwende nur von der Smartcard angebotene Hash-funktionen</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Disable legacy Netscape extensions</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+21"/>
@@ -2247,7 +2252,7 @@ Insbesondere sind in der PKCS#11 Spezifikation EC und DSA signaturen nur mit SHA
         <translation>Laden fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-274"/>
+        <location filename="../ui/Options.ui" line="-281"/>
         <source>XCA Options</source>
         <translation>XCA Optionen</translation>
     </message>
@@ -2839,7 +2844,7 @@ in Bibliothek %3
         <translation>Interner Name</translation>
     </message>
     <message>
-        <location line="+525"/>
+        <location line="+528"/>
         <source>Reset</source>
         <translation>Zurücksetzen</translation>
     </message>
@@ -2849,7 +2854,7 @@ in Bibliothek %3
         <translation>Namensteile</translation>
     </message>
     <message>
-        <location line="-658"/>
+        <location line="-661"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2892,7 +2897,7 @@ Grösse %3
         <translation>Nr.</translation>
     </message>
     <message>
-        <location line="+522"/>
+        <location line="+525"/>
         <source>X509v3 Extensions</source>
         <translation>X509v3 Erweiterungen</translation>
     </message>
@@ -2902,7 +2907,7 @@ Grösse %3
         <translation>Netscape Erweiterungen</translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+47"/>
         <source>Paste PEM data</source>
         <translation>Einfügen (PEM)</translation>
     </message>
@@ -3348,6 +3353,11 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Rücknahme</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>CRL Expiration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+105"/>
         <source>Plain View</source>
         <translation>Einfache Ansicht</translation>
@@ -3447,18 +3457,18 @@ und wird duch den importierten, privaten Teil vervollständigt</translation>
         <translation>Vertrauen</translation>
     </message>
     <message>
-        <location line="-622"/>
-        <location line="+625"/>
+        <location line="-623"/>
+        <location line="+626"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-624"/>
+        <location line="-625"/>
         <source>reflects the basic Constraints extension</source>
         <translation>Zeigt den Inhalt der basic constraints erweiterung</translation>
     </message>
     <message>
-        <location line="+606"/>
+        <location line="+607"/>
         <source>Transform</source>
         <translation>Umwandeln</translation>
     </message>
@@ -4402,7 +4412,7 @@ und wurde daher nicht importiert</translation>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+825"/>
+        <location filename="../lib/pki_x509.cpp" line="+827"/>
         <source>Not trusted</source>
         <translation>Nicht vertrauenswürdig</translation>
     </message>
@@ -4452,12 +4462,11 @@ und wurde daher nicht importiert</translation>
         <translation>Das Zertifikat &apos;%1&apos; von der Chipkarte &apos;%2 (#%3)&apos; löschen?</translation>
     </message>
     <message>
-        <location line="+493"/>
         <source>CRL expires: %1</source>
-        <translation>CRL ungültig ab: %1</translation>
+        <translation type="obsolete">CRL ungültig ab: %1</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+510"/>
         <source>No</source>
         <translation>Nein</translation>
     </message>
@@ -4467,13 +4476,13 @@ und wurde daher nicht importiert</translation>
         <translation>Ja</translation>
     </message>
     <message>
-        <location line="-788"/>
+        <location line="-789"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Das Zertifikat &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>
         <location line="+449"/>
-        <location line="+507"/>
+        <location line="+508"/>
         <source>Wrong Size %1</source>
         <translation>Ungültige Größe %1</translation>
     </message>

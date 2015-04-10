@@ -762,7 +762,7 @@ Serial: %3</source>
 <context>
     <name>KeyDetail</name>
     <message>
-        <location filename="../widgets/KeyDetail.cpp" line="+62"/>
+        <location filename="../widgets/KeyDetail.cpp" line="+64"/>
         <source>Available</source>
         <translation>Есть в наличии</translation>
     </message>
@@ -1542,7 +1542,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="-335"/>
-        <location filename="../widgets/NewX509.cpp" line="+600"/>
+        <location filename="../widgets/NewX509.cpp" line="+602"/>
         <source>Subject</source>
         <translation>Владелец</translation>
     </message>
@@ -1557,7 +1557,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-464"/>
+        <location filename="../widgets/NewX509.cpp" line="-466"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1742,7 +1742,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+43"/>
-        <location filename="../widgets/NewX509.cpp" line="+846"/>
+        <location filename="../widgets/NewX509.cpp" line="+848"/>
         <source>Edit</source>
         <translation>Редактировать</translation>
     </message>
@@ -1772,12 +1772,12 @@ Please enter the DH parameter bits</source>
         <translation>Netscape</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-885"/>
+        <location filename="../widgets/NewX509.cpp" line="-887"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+180"/>
         <source>Create Certificate signing request</source>
         <translation>Создание запроса на сертификат</translation>
     </message>
@@ -1791,7 +1791,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Создание x509 сертификата</translation>
     </message>
     <message>
-        <location line="+785"/>
+        <location line="+786"/>
         <location line="+13"/>
         <location line="+19"/>
         <location line="+12"/>
@@ -1848,12 +1848,12 @@ Please set at least the internal name.</source>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="../widgets/NewX509.cpp" line="-305"/>
+        <location filename="../widgets/NewX509.cpp" line="-306"/>
         <source>Validate</source>
         <translation type="unfinished">Утвердить</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="+174"/>
+        <location filename="../widgets/NewX509.cpp" line="+175"/>
         <source>The verification of the Certificate request failed.
 The rollout should be aborted.</source>
         <translation type="unfinished"></translation>
@@ -1904,12 +1904,12 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-978"/>
+        <location line="-981"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+73"/>
         <source>Create XCA template</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1919,7 +1919,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+904"/>
+        <location line="+905"/>
         <source>Select other signer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1998,7 +1998,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Применить все</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-1016"/>
+        <location filename="../widgets/NewX509.cpp" line="-1017"/>
         <source>minimum size: %1</source>
         <translation type="unfinished">минимальный размер: %1</translation>
     </message>
@@ -2018,7 +2018,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+740"/>
+        <location line="+741"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2048,7 +2048,7 @@ though you have declared them as mandatory in the options menu.</source>
 <context>
     <name>Options</name>
     <message>
-        <location filename="../ui/Options.ui" line="+141"/>
+        <location filename="../ui/Options.ui" line="+148"/>
         <source>Mandatory subject entries</source>
         <translation type="unfinished">Обязательные записи</translation>
     </message>
@@ -2066,7 +2066,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Удалить</translation>
     </message>
     <message>
-        <location line="-176"/>
+        <location line="-183"/>
         <source>Default hash algorithm</source>
         <translation type="unfinished">Хэш-алгоритм по-умолчанию</translation>
     </message>
@@ -2105,6 +2105,11 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+5"/>
         <source>Only use hashes supported by the token when signing with a token key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Disable legacy Netscape extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2168,7 +2173,7 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-274"/>
+        <location filename="../ui/Options.ui" line="-281"/>
         <source>XCA Options</source>
         <translation>Опции XCA</translation>
     </message>
@@ -2758,7 +2763,7 @@ In library %3
         <translation type="unfinished">Внутреннее имя</translation>
     </message>
     <message>
-        <location line="+525"/>
+        <location line="+528"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2768,7 +2773,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-658"/>
+        <location line="-661"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2807,7 +2812,7 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+522"/>
+        <location line="+525"/>
         <source>X509v3 Extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2817,7 +2822,7 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+47"/>
         <source>Paste PEM data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3261,7 +3266,12 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+5"/>
+        <source>CRL Expiration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+105"/>
         <source>Plain View</source>
         <translation>Список</translation>
     </message>
@@ -3356,8 +3366,8 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished">Доверие</translation>
     </message>
     <message>
-        <location line="-622"/>
-        <location line="+625"/>
+        <location line="-623"/>
+        <location line="+626"/>
         <source>CA</source>
         <translation>ЦС</translation>
     </message>
@@ -4164,7 +4174,7 @@ and thus was not stored</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+70"/>
+        <location filename="../lib/pki_x509.cpp" line="+72"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Сертификат &apos;%1&apos; импортирован успешно</translation>
     </message>
@@ -4204,7 +4214,7 @@ and thus was not stored</source>
         <translation>Доверие есть</translation>
     </message>
     <message>
-        <location line="+31"/>
+        <location line="+32"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4214,7 +4224,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-377"/>
+        <location line="-378"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished">Не существует ключа для подписания !</translation>
     </message>
@@ -4229,13 +4239,12 @@ and thus was not stored</source>
         <translation>Этот сертификат уже есть на Токене</translation>
     </message>
     <message>
-        <location line="+555"/>
         <source>CRL expires: %1</source>
-        <translation type="unfinished">CRL истекает: %1</translation>
+        <translation type="obsolete">CRL истекает: %1</translation>
     </message>
     <message>
-        <location line="-321"/>
-        <location line="+507"/>
+        <location line="+234"/>
+        <location line="+508"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished">Неправильный размер %1</translation>
     </message>

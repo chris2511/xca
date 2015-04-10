@@ -802,7 +802,7 @@ Serial: %3</source>
     </message>
     <message>
         <location line="+17"/>
-        <location filename="../widgets/KeyDetail.cpp" line="+60"/>
+        <location filename="../widgets/KeyDetail.cpp" line="+62"/>
         <source>Key</source>
         <translation type="unfinished">Anahtar</translation>
     </message>
@@ -1572,7 +1572,7 @@ Please enter the DH parameter bits</source>
     </message>
     <message>
         <location line="+29"/>
-        <location filename="../widgets/NewX509.cpp" line="+600"/>
+        <location filename="../widgets/NewX509.cpp" line="+602"/>
         <source>Subject</source>
         <translation>Konu</translation>
     </message>
@@ -1581,7 +1581,7 @@ Please enter the DH parameter bits</source>
         <translation type="obsolete">Organizasyon</translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-464"/>
+        <location filename="../widgets/NewX509.cpp" line="-466"/>
         <source>This name is only used internally and does not appear in the resulting certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1758,7 +1758,7 @@ Please enter the DH parameter bits</source>
         <location line="+17"/>
         <location line="+33"/>
         <location line="+43"/>
-        <location filename="../widgets/NewX509.cpp" line="+846"/>
+        <location filename="../widgets/NewX509.cpp" line="+848"/>
         <source>Edit</source>
         <translation>Düzenle</translation>
     </message>
@@ -1791,12 +1791,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/NewX509.cpp" line="-895"/>
+        <location filename="../widgets/NewX509.cpp" line="-897"/>
         <source>Create a &amp;self signed certificate with a MD5-hashed QA serial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+178"/>
+        <location line="+180"/>
         <source>Create Certificate signing request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1826,7 +1826,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+699"/>
+        <location line="+700"/>
         <source>From PKCS#10 request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1836,12 +1836,12 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-750"/>
+        <location line="-753"/>
         <source>Critical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+73"/>
         <source>Create XCA template</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1851,7 +1851,7 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+688"/>
+        <location line="+689"/>
         <source>Advanced Tab</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2013,7 +2013,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+113"/>
+        <location line="+120"/>
         <source>Mandatory subject entries</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2031,7 +2031,7 @@ though you have declared them as mandatory in the options menu.</source>
         <translation type="unfinished">Sil</translation>
     </message>
     <message>
-        <location line="-176"/>
+        <location line="-183"/>
         <source>Default hash algorithm</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2065,6 +2065,11 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
     <message>
         <location line="+5"/>
         <source>Only use hashes supported by the token when signing with a token key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Disable legacy Netscape extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2123,12 +2128,12 @@ Especially EC and DSA are only defined with SHA1 in the PKCS#11 specification.</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/Options.ui" line="-200"/>
+        <location filename="../ui/Options.ui" line="-207"/>
         <source>Don&apos;t colorize expired certificates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+207"/>
+        <location line="+214"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2714,7 +2719,7 @@ In library %3
         <translation type="unfinished">Dahili adı</translation>
     </message>
     <message>
-        <location line="+525"/>
+        <location line="+528"/>
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2724,7 +2729,7 @@ In library %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-658"/>
+        <location line="-661"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2763,12 +2768,12 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+523"/>
+        <location line="+526"/>
         <source>Netscape extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+45"/>
+        <location line="+47"/>
         <source>Paste PEM data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2778,7 +2783,7 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-48"/>
+        <location line="-50"/>
         <source>X509v3 Extensions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3159,12 +3164,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
     <name>db_x509</name>
     <message>
         <location filename="../lib/db_x509.cpp" line="+42"/>
-        <location line="+625"/>
+        <location line="+626"/>
         <source>CA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-624"/>
+        <location line="-625"/>
         <source>reflects the basic Constraints extension</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3217,6 +3222,11 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <location line="+1"/>
         <source>Revocation</source>
         <translation type="unfinished">İptal</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>CRL Expiration</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+105"/>
@@ -4072,7 +4082,7 @@ and thus was not stored</source>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+70"/>
+        <location filename="../lib/pki_x509.cpp" line="+72"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4113,12 +4123,12 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+38"/>
-        <location line="+507"/>
+        <location line="+508"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-201"/>
+        <location line="-202"/>
         <source>Not trusted</source>
         <translation type="unfinished">Güvenilmeyen</translation>
     </message>
@@ -4133,12 +4143,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
-        <source>CRL expires: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
+        <location line="+32"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
