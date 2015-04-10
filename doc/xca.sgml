@@ -865,7 +865,7 @@ following formats may be selected:
 	<item><bf>DER private</bf> the private key in binary DER format
 	<item><bf>PEM encrypted</bf> the private key in PEM format with an OpenSSL specific
 		extensions for encryption
-	<item>PKCS#8 unencrypted</bf> the private key unencrypted in PKCS#8 format
+	<item><bf>PKCS#8 unencrypted</bf> the private key unencrypted in PKCS#8 format
 </itemize>
 
 The filename is the internal name plus a <tt>pem</tt>, <tt>der</tt>, <tt>pk8</tt> or <tt>pub</tt> suffix.

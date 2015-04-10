@@ -9,6 +9,7 @@ doc: xca.1.gz xca_db_stat.1.gz xca.html
 include $(TOPDIR)/Rules.mak
 
 %.1.gz: %.1
+	@$(PRINT) "  MAN    [$(BASENAME)] $@"
 	gzip -9 <$^ >$@
 
 xca.html: xca.sgml
