@@ -188,7 +188,7 @@ int main_extract(int argc, char *argv[])
 	if (pkiname == "cert")
 		pkitype = x509;
 	else if (pkiname == "crl")
-		pkitype = revokation;
+		pkitype = revocation;
 	else if (pkiname == "req")
 		pkitype = x509_req;
 	else {
@@ -211,7 +211,7 @@ int main_extract(int argc, char *argv[])
 	switch (pkitype) {
 	case x509: pki = new pki_x509(name); break;
 	case x509_req: pki = new pki_x509req(name); break;
-	case revokation: pki = new pki_crl(name); break;
+	case revocation: pki = new pki_crl(name); break;
 	default: return usage_extract(argv);
 	}
 	if (pki->getVersion() < head.version) {

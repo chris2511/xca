@@ -531,7 +531,7 @@ PEM ist eine base64 kodierte PEM Datei im Textformat
     </message>
     <message>
         <location line="+15"/>
-        <source>PEM Text format format with headers</source>
+        <source>PEM Text format with headers</source>
         <translation>PEM Textformat mit Kopf- und Fußzeilen</translation>
     </message>
     <message>
@@ -2996,7 +2996,7 @@ Grösse %3
     </message>
     <message>
         <location line="-127"/>
-        <source>The revokation list already exists in the database as:
+        <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
         <translation>Die Sperrliste existiert bereits in der Datenbank als:
@@ -4022,17 +4022,17 @@ und wurde daher nicht importiert</translation>
     <name>pki_crl</name>
     <message>
         <location filename="../lib/pki_crl.cpp" line="+47"/>
-        <source>Delete the revokation list &apos;%1&apos;?</source>
+        <source>Delete the revocation list &apos;%1&apos;?</source>
         <translation>Die Sperrliste &apos;%1&apos; löschen?</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Successfully created the revokation list &apos;%1&apos;</source>
+        <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation>Die Sperrliste &apos;%1&apos; wurde erfolgreich erstellt</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Delete the %1 revokation lists: %2?</source>
+        <source>Delete the %1 revocation lists: %2?</source>
         <translation>Die %1 Sperrlisten: %2 löschen?</translation>
     </message>
     <message>
@@ -4047,12 +4047,12 @@ und wurde daher nicht importiert</translation>
     </message>
     <message>
         <location line="-256"/>
-        <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
+        <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation>Konnte die Sperrliste %1 nicht laden. Ist weder eine PEM noch eine DER formatierte CRL.</translation>
     </message>
     <message>
         <location line="-24"/>
-        <source>Successfully imported the revokation list &apos;%1&apos;</source>
+        <source>Successfully imported the revocation list &apos;%1&apos;</source>
         <translation>Die Sperrliste &apos;%1&apos; wurde erfolgreich importiert</translation>
     </message>
     <message>

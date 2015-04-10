@@ -213,7 +213,7 @@ void MainWindow::undelete()
 			case asym_key: item = new pki_evp(name); break;
 			case x509_req: item = new pki_x509req(name); break;
 			case x509: item = new pki_x509(name); break;
-			case revokation: item = new pki_crl(name); break;
+			case revocation: item = new pki_crl(name); break;
 			case tmpl: item = new pki_temp(name); break;
 			case smartCard: item = new pki_scard(name); break;
 			default: continue;

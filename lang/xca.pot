@@ -411,7 +411,7 @@ msgid "All files ( * )"
 msgstr ""
 
 #: ExportDialog#7
-msgid "PEM Text format format with headers"
+msgid "PEM Text format with headers"
 msgstr ""
 
 #: ExportDialog#8
@@ -2244,7 +2244,7 @@ msgstr ""
 
 #: db_crl#8
 msgid ""
-"The revokation list already exists in the database as:\n"
+"The revocation list already exists in the database as:\n"
 "'%1'\n"
 "and so it was not imported"
 msgstr ""
@@ -2964,24 +2964,24 @@ msgid "Internal error: Unexpected message: %1 %2"
 msgstr ""
 
 #: pki_crl#1
-msgid "Successfully imported the revokation list '%1'"
+msgid "Successfully imported the revocation list '%1'"
 msgstr ""
 
 #: pki_crl#2
-msgid "Delete the revokation list '%1'?"
+msgid "Delete the revocation list '%1'?"
 msgstr ""
 
 #: pki_crl#3
-msgid "Successfully created the revokation list '%1'"
+msgid "Successfully created the revocation list '%1'"
 msgstr ""
 
 #: pki_crl#4
-msgid "Delete the %1 revokation lists: %2?"
+msgid "Delete the %1 revocation lists: %2?"
 msgstr ""
 
 #: pki_crl#5
 msgid ""
-"Unable to load the revokation list in file %1. Tried PEM and DER formatted "
+"Unable to load the revocation list in file %1. Tried PEM and DER formatted "
 "CRL."
 msgstr ""
 

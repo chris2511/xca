@@ -50,7 +50,7 @@ dbheaderList db_x509::getHeaders()
 		new dbheader(HD_cert_notAfter,	true, tr("Expiry date"),
 				tr("not After")) <<
 		new dbheader(HD_cert_trust,	false,tr("Trust state")) <<
-		new dbheader(HD_cert_revokation,false, tr("Revocation")) <<
+		new dbheader(HD_cert_revocation,false, tr("Revocation")) <<
 		new dbheader(HD_cert_crl_expire,true, tr("CRL Expiration"));
 	return h;
 }

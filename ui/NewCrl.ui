@@ -222,7 +222,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="revokationReasons">
+       <widget class="QCheckBox" name="revocationReasons">
         <property name="text">
          <string>Revocation reasons</string>
         </property>

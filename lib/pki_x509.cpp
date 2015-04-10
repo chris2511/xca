@@ -531,7 +531,7 @@ QByteArray pki_x509::toData()
 	ba += i2d(); // cert
 	ba += db::intToData(trust);
 	ba += db::boolToData(isrevoked);
-	ba += revoked.i2d(); // revokation date
+	ba += revoked.i2d(); // revocation date
 
 	// the serial if this is a CA
 	ba += db::stringToData(caSerial.toHex());
@@ -835,7 +835,7 @@ QVariant pki_x509::column_data(dbheader *hd)
 			return QVariant(getNotAfter().toSortable());
 		case HD_cert_trust:
 			return QVariant(truststatus[getTrust()]);
-		case HD_cert_revokation:
+		case HD_cert_revocation:
 			return QVariant(isRevoked() ?
 				getRevoked().toSortable() : "");
 		case HD_cert_crl_expire:

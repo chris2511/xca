@@ -21,7 +21,7 @@ pki_crl::pki_crl(const QString name )
 	class_name="pki_crl";
 	pki_openssl_error();
 	dataVersion=1;
-	pkiType=revokation;
+	pkiType=revocation;
 }
 
 void pki_crl::fromPEM_BIO(BIO *bio, QString name)
@@ -43,11 +43,11 @@ QString pki_crl::getMsg(msg_type msg)
 	 * %1 will be replaced by the internal name of the CRL
 	 */
 	switch (msg) {
-	case msg_import: return tr("Successfully imported the revokation list '%1'");
-	case msg_delete: return tr("Delete the revokation list '%1'?");
-	case msg_create: return tr("Successfully created the revokation list '%1'");
+	case msg_import: return tr("Successfully imported the revocation list '%1'");
+	case msg_delete: return tr("Delete the revocation list '%1'?");
+	case msg_create: return tr("Successfully created the revocation list '%1'");
 	/* %1: Number of CRLs; %2: list of CRL names */
-	case msg_delete_multi: return tr("Delete the %1 revokation lists: %2?");
+	case msg_delete_multi: return tr("Delete the %1 revocation lists: %2?");
 	}
 	return pki_base::getMsg(msg);
 }
@@ -67,7 +67,7 @@ void pki_crl::fload(const QString fname)
 		if (pki_ign_openssl_error()) {
 			if (_crl)
 				X509_CRL_free(_crl);
-			throw errorEx(tr("Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
+			throw errorEx(tr("Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.").arg(fname));
 		}
 		if (crl)
 			X509_CRL_free(crl);

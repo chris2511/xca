@@ -290,10 +290,10 @@ SectionEnd
   LangString DESC_SecShortcut ${LANG_FRENCH} "Raccourcis sur le bureau et dans le menu."
 
   LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb *.xca *.pem and 'open with' for *.crt *.crl *.pfx *.p7b *.cer"
-  LangString DESC_SecFiles ${LANG_GERMAN}  "Registrierung der Dateiendung *.xdb *.xca *.pem und 'open with' für *.crt *.crl *.pfx *.p7b *.cer"
+  LangString DESC_SecFiles ${LANG_GERMAN}  "Registrierung der Dateiendung *.xdb *.xca *.pem und 'Öffnen mit' für *.crt *.crl *.pfx *.p7b *.cer"
   LangString DESC_SecFiles ${LANG_FRENCH} "Application par défault pour *.xdb *.xca *.pem et 'Ouvrir avec' for *.crt *.crl *.pfx *.p7b *.cer"
 
-  LangString DESC_SecTrans ${LANG_ENGLISH} "Translations for german, russian, spanish, french, croatian and russian."
+  LangString DESC_SecTrans ${LANG_ENGLISH} "Translations for german, russian, spanish, french and croatian."
   LangString DESC_SecTrans ${LANG_GERMAN}  "Übersetzungen in deutsch, russisch, spanisch kroatisch und französisch."
   LangString DESC_SecTrans ${LANG_FRENCH} "Traductions pour l'allemand, le russe, l'espagnol, le français et le croate."
 

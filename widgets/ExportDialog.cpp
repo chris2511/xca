@@ -46,7 +46,7 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 	for (int i=0; i < exportType::ETYPE_max; i++)
 		help.append(QString());
 	help[exportType::Separator] = "What the heck!?";
-	help[exportType::PEM] = tr("PEM Text format format with headers");
+	help[exportType::PEM] = tr("PEM Text format with headers");
 	help[exportType::PEM_chain] = tr("Concatenated text format of the complete certificate chain in one PEM file");
 	help[exportType::PEM_trusted] =
 		tr("Concatenated text format of all trusted certificates in one PEM file");

@@ -27,7 +27,7 @@ enum pki_type {
 	asym_key,
 	x509_req,
 	x509,
-	revokation,
+	revocation,
 	tmpl,
 	setting,
 	smartCard,

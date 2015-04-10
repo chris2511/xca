@@ -28,7 +28,7 @@
 #define HD_cert_notBefore -11
 #define HD_cert_notAfter -12
 #define HD_cert_trust -13
-#define HD_cert_revokation -14
+#define HD_cert_revocation -14
 #define HD_cert_ca	 -15
 #define HD_cert_md5fp	 -16
 #define HD_cert_sha1fp   -17

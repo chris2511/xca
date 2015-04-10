@@ -19,7 +19,7 @@ db_crl::db_crl(QString db, MainWindow *mw)
 	:db_x509name(db,mw)
 {
 	class_name = "crls";
-	pkitype << revokation;
+	pkitype << revocation;
 	updateHeaders();
 	loadContainer();
 }
@@ -100,7 +100,7 @@ pki_base *db_crl::insert(pki_base *item)
 	pki_crl *crl = (pki_crl *)item;
 	pki_crl *oldcrl = (pki_crl *)getByReference(crl);
 	if (oldcrl) {
-		XCA_INFO(tr("The revokation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
+		XCA_INFO(tr("The revocation list already exists in the database as:\n'%1'\nand so it was not imported").arg(oldcrl->getIntName()));
 		delete(crl);
 		return NULL;
 	}
@@ -177,7 +177,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		crl->createCrl(cert->getIntName(), cert);
 
 		QList<pki_x509*> list = mainwin->certs->getIssuedCerts(cert);
-		bool reason = dlg->revokationReasons->isChecked();
+		bool reason = dlg->revocationReasons->isChecked();
 		for (int i =0; i<list.size(); i++) {
 			if (list.at(i)->isRevoked() ) {
 				crl->addRev(list.at(i)->getRev(reason));

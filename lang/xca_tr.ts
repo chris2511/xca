@@ -521,7 +521,7 @@ PEM base64 kodlanmış DER dosyası
     </message>
     <message>
         <location line="+15"/>
-        <source>PEM Text format format with headers</source>
+        <source>PEM Text format with headers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2827,7 +2827,7 @@ Size: %3
     </message>
     <message>
         <location line="+67"/>
-        <source>The revokation list already exists in the database as:
+        <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
         <translation type="unfinished"></translation>
@@ -3714,27 +3714,27 @@ and thus was not stored</source>
     <name>pki_crl</name>
     <message>
         <location filename="../lib/pki_crl.cpp" line="+46"/>
-        <source>Successfully imported the revokation list &apos;%1&apos;</source>
+        <source>Successfully imported the revocation list &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Delete the revokation list &apos;%1&apos;?</source>
+        <source>Delete the revocation list &apos;%1&apos;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Successfully created the revokation list &apos;%1&apos;</source>
+        <source>Successfully created the revocation list &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Delete the %1 revokation lists: %2?</source>
+        <source>Delete the %1 revocation lists: %2?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+20"/>
-        <source>Unable to load the revokation list in file %1. Tried PEM and DER formatted CRL.</source>
+        <source>Unable to load the revocation list in file %1. Tried PEM and DER formatted CRL.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
