@@ -125,8 +125,12 @@ void v3ext::setupLineEdit(const QString &s, QLineEdit *l)
 /* for one TYPE:Content String */
 void v3ext::addEntry(QString line)
 {
-	int idx = line.indexOf(':');
+	int idx;
 	QString type, value;
+
+	line = line.trimmed();
+	idx = line.indexOf(':');
+
 	if (idx == -1) {
 		value = line;
 	} else {
@@ -152,14 +156,14 @@ QString v3ext::toString()
 		QStringList s = tab->getRow(i);
 		str += s[0] + ":" +s[1];
 	}
-	return str.join(",");
+	return str.join(", ");
 }
 
 void v3ext::on_apply_clicked()
 {
+	__validate(false);
 	if (le)
 		le->setText(toString());
-	__validate(false);
 	accept();
 }
 
