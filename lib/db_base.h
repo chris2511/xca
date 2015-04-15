@@ -105,6 +105,7 @@ class db_base: public QAbstractItemModel
 		{
 			colResizing--;
 		}
+		virtual void store(QModelIndexList list);
 
 	public slots:
 		void deletePKI();
@@ -112,7 +113,10 @@ class db_base: public QAbstractItemModel
 		void edit();
 		void columnResetDefaults();
 		virtual void showItem();
-		virtual void store(){};
+		virtual void store()
+		{
+			store(QModelIndexList());
+		};
 		virtual void showPki(pki_base *) {};
 		virtual void showItem(const QModelIndex &index);
 		virtual void showItem(const QString keyname);

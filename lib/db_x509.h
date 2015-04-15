@@ -51,18 +51,18 @@ class db_x509: public db_x509super
 		void newCert(pki_x509 *cert);
 		void writePKCS12(pki_x509 *cert, QString s, bool chain);
 		void writePKCS7(pki_x509 *cert, QString s,
-				exportType::etype type);
+				exportType::etype type, QModelIndexList list);
 		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
 		void inToCont(pki_base *pki);
 		void changeView();
 		a1int getUniqueSerial(pki_x509 *signer);
 		void myToToken(bool alwaysSelect);
+		void store(QModelIndexList list);
 
 	public slots:
 		void load(void);
 		void newItem(void);
 		void revokeCert(const x509rev &revok, const pki_x509 *issuer);
-		void store();
 		void showPki(pki_base *pki);
 		void setMultiTrust(QAbstractItemView* view);
 		void setTrust();

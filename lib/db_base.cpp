@@ -370,8 +370,6 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 		return;
 
 	foreach(index, indexes) {
-		if (index.column() != 0)
-			continue;
 		pki = static_cast<pki_base*>(index.internalPointer());
 		items += "'" + pki->getIntName() + "' ";
 		count++;
@@ -386,8 +384,6 @@ void db_base::deleteSelectedItems(XcaTreeView* view)
 		return;
 
 	foreach(index, indexes) {
-		if (index.column() != 0)
-			continue;
 		currentIdx = index;
 		deletePKI();
 	}
@@ -401,21 +397,29 @@ void db_base::showSelectedItems(XcaTreeView* view)
 	QString items;
 
 	foreach(index, indexes) {
-		if (index.column() != 0)
-			continue;
 		currentIdx = index;
 		showItem();
 	}
 	currentIdx = QModelIndex();
 }
 
+
 void db_base::storeSelectedItems(XcaTreeView* view)
 {
-	QModelIndexList indexes = view->getSelectedIndexes();
+	QModelIndexList list = view->getSelectedIndexes();
+	if (list.size() == 0)
+		return;
+	if (!currentIdx.isValid())
+		currentIdx = list[0];
+	store(list);
+}
+
+void db_base::store(QModelIndexList list)
+{
 	QModelIndex index;
 	QString items;
 
-	foreach(index, indexes) {
+	foreach(index, list) {
 		if (index.column() != 0)
 			continue;
 		try {

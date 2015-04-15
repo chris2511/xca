@@ -690,7 +690,7 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 	return;
 }
 
-void db_x509::store()
+void db_x509::store(QModelIndexList list)
 {
 	QStringList filt;
 	bool append, chain;
@@ -712,6 +712,14 @@ void db_x509::store()
 		exportType(exportType::PKCS7, "p7b", "PKCS #7");
 
 	types << exportType(exportType::DER, "cer", "DER");
+
+	if (list.size() > 1) {
+		usual <<
+			exportType(exportType::PEM_selected, "pem",
+				"PEM selected") <<
+			exportType(exportType::PKCS7_selected, "pem",
+				"PKCS7 selected");
+	}
 	if (chain) {
 		types <<
 			exportType(exportType::PEM_chain, "pem",
@@ -771,6 +779,14 @@ void db_x509::store()
 				crt = crt->getSigner();
 			}
 			break;
+		case exportType::PEM_selected:
+			append = false;
+			foreach(QModelIndex idx, list) {
+				crt = static_cast<pki_x509*>(idx.internalPointer());
+				crt->writeCert(fname, true, append);
+				append = true;
+			}
+			break;
 		case exportType::PEM_trusted:
 			writeAllCerts(fname,true);
 			break;
@@ -783,14 +799,15 @@ void db_x509::store()
 		case exportType::PKCS7:
 		case exportType::PKCS7_chain:
 		case exportType::PKCS7_trusted:
+		case exportType::PKCS7_selected:
 		case exportType::PKCS7_all:
-			writePKCS7(crt,fname, type);
+			writePKCS7(crt, fname, type, list);
 			break;
 		case exportType::PKCS12:
-			writePKCS12(crt,fname,false);
+			writePKCS12(crt, fname,false);
 			break;
 		case exportType::PKCS12_chain:
-			writePKCS12(crt,fname,true);
+			writePKCS12(crt, fname,true);
 			break;
 		case exportType::PEM_cert_pk8:
 		case exportType::PEM_cert_key:
@@ -856,10 +873,10 @@ void db_x509::writePKCS12(pki_x509 *cert, QString s, bool chain)
     }
 }
 
-void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type)
+void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type,
+			QModelIndexList list)
 {
 	pki_pkcs7 *p7 = NULL;
-	QList<pki_base> list;
 
 	try {
 		p7 = new pki_pkcs7("");
@@ -875,6 +892,12 @@ void db_x509::writePKCS7(pki_x509 *cert, QString s, exportType::etype type)
 			break;
 		case exportType::PKCS7:
 			p7->addCert(cert);
+			break;
+		case exportType::PKCS7_selected:
+			foreach(QModelIndex idx, list) {
+				cert = static_cast<pki_x509*>(idx.internalPointer());
+				p7->addCert(cert);
+			}
 			break;
 		case exportType::PKCS7_trusted:
 		case exportType::PKCS7_all:

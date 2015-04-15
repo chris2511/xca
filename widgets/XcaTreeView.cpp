@@ -44,9 +44,13 @@ XcaTreeView::~XcaTreeView()
 
 void XcaTreeView::contextMenuEvent(QContextMenuEvent * e)
 {
+	QModelIndex index;
 	if (!basemodel)
 		return;
-	basemodel->showContextMenu(e, getIndex(indexAt(e->pos())));
+	index = indexAt(e->pos());
+	/* unselect all but the current on context menu */
+	setCurrentIndex(index);
+	basemodel->showContextMenu(e, getIndex(index));
 }
 
 void XcaTreeView::showHideSections()
@@ -116,8 +120,19 @@ QModelIndex XcaTreeView::getProxyIndex(const QModelIndex &index)
 
 QModelIndexList XcaTreeView::getSelectedIndexes()
 {
+	QModelIndexList list;
 	QItemSelection indexes = selectionModel()->selection();
-	return proxy->mapSelectionToSource(indexes).indexes();
+	list = proxy->mapSelectionToSource(indexes).indexes();
+
+	/* Reduce list to column 0 items */
+	QModelIndexList::iterator it = list.begin();
+	while (it != list.end()) {
+		if ((*it).column() != 0)
+			it = list.erase(it);
+		else
+			++it;
+	}
+	return list;
 }
 
 void XcaTreeView::columnsResize()

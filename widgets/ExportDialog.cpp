@@ -47,6 +47,8 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 		help.append(QString());
 	help[exportType::Separator] = "What the heck!?";
 	help[exportType::PEM] = tr("PEM Text format with headers");
+	help[exportType::PEM_selected] =
+		tr("Concatenated list of all selected items in one PEM text file");
 	help[exportType::PEM_chain] = tr("Concatenated text format of the complete certificate chain in one PEM file");
 	help[exportType::PEM_trusted] =
 		tr("Concatenated text format of all trusted certificates in one PEM file");
@@ -58,6 +60,8 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 		tr("PKCS#7 encoded complete certificate chain");
 	help[exportType::PKCS7_trusted] =
 		tr("All trusted certificates encoded in one PKCS#7 file");
+	help[exportType::PKCS7_selected] =
+		tr("All selected certificates encoded in one PKCS#7 file");
 	help[exportType::PKCS7_all] =
 		tr("All certificates encoded in one PKCS#7 file");
 	help[exportType::PKCS12] =
