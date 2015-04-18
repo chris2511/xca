@@ -154,9 +154,9 @@ QByteArray pki_crl::toData()
 	return ba;
 }
 
-void pki_crl::addRev(const x509rev &xrev)
+void pki_crl::addRev(const x509rev &xrev, bool withReason)
 {
-	X509_CRL_add0_revoked(crl, xrev.get());
+	X509_CRL_add0_revoked(crl, xrev.get(withReason));
 	pki_openssl_error();
 }
 
@@ -240,16 +240,18 @@ int pki_crl::numRev()
 {
 	if (crl && crl->crl && crl->crl->revoked)
 		return sk_X509_REVOKED_num(crl->crl->revoked);
-	else
-		return 0;
+	return 0;
 }
 
-x509rev pki_crl::getRev(int num)
+x509revList pki_crl::getRevList()
 {
-	x509rev ret;
-	if (crl && crl->crl && crl->crl->revoked) {
-		ret.set(sk_X509_REVOKED_value(crl->crl->revoked, num));
+	x509revList ret;
+	int i, num = numRev();
+
+	for (i=0; i<num; i++) {
+		x509rev r(sk_X509_REVOKED_value(crl->crl->revoked, i));
 		pki_openssl_error();
+		ret << r;
 	}
 	return ret;
 }

@@ -50,17 +50,19 @@ void db_crl::load()
 
 void db_crl::revokeCerts(pki_crl *crl)
 {
-	int numc, i;
+	x509revList revlist;
+
 	if (!mainwin->certs)
 		return;
-	x509rev revok;
 	pki_x509 *signer = crl->getIssuer();
 	if (!signer)
 		return;
-	numc = crl->numRev();
-	for (i=0; i<numc; i++) {
-		revok = crl->getRev(i);
-		mainwin->certs->revokeCert(revok, signer);
+	revlist = crl->getRevList();
+	signer->mergeRevList(revlist);
+	foreach(x509rev revok, revlist) {
+		pki_x509 *crt = signer->getBySerial(revok.getSerial());
+		if (crt)
+			crt->setRevoked(revok);
 	}
 }
 
@@ -91,7 +93,6 @@ void db_crl::inToCont(pki_base *pki)
 		}
 		crl->setIssuer(iss);
 	}
-	revokeCerts(crl);
 	db_base::inToCont(pki);
 }
 
@@ -105,6 +106,10 @@ pki_base *db_crl::insert(pki_base *item)
 		return NULL;
 	}
 	insertPKI(crl);
+	revokeCerts(crl);
+	pki_x509 *issuer = crl->getIssuer();
+	if (issuer)
+		mainwin->certs->updateAfterCrlLoad(issuer);
 	return crl;
 }
 
@@ -155,17 +160,17 @@ void db_crl::store()
 	delete dlg;
 }
 
-pki_crl *db_crl::newItem(pki_x509 *cert)
+void db_crl::newItem(pki_x509 *cert)
 {
 	if (!cert)
-		return NULL;
+		return;
 
 	pki_crl *crl = NULL;
 	NewCrl *dlg = new NewCrl(mainwin, cert);
 
 	if (!dlg->exec()) {
 		delete dlg;
-		return NULL;
+		return;
 	}
 	try {
 		x509v3ext e;
@@ -176,13 +181,9 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		crl = new pki_crl();
 		crl->createCrl(cert->getIntName(), cert);
 
-		QList<pki_x509*> list = mainwin->certs->getIssuedCerts(cert);
-		bool reason = dlg->revocationReasons->isChecked();
-		for (int i =0; i<list.size(); i++) {
-			if (list.at(i)->isRevoked() ) {
-				crl->addRev(list.at(i)->getRev(reason));
-			}
-		}
+		bool withReason = dlg->revocationReasons->isChecked();
+		foreach(x509rev rev, cert->revList)
+			crl->addRev(rev, withReason);
 
 		if (dlg->authKeyId->isChecked()) {
 			crl->addV3ext(e.create(NID_authority_key_identifier,
@@ -211,7 +212,7 @@ pki_crl *db_crl::newItem(pki_x509 *cert)
 		crl = NULL;
 	}
 	delete dlg;
-	return crl;
+	return;
 }
 
 void db_crl::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)

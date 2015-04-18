@@ -16,10 +16,10 @@
 #include "widgets/ExportDialog.h"
 #include "widgets/MainWindow.h"
 #include "widgets/PwDialog.h"
+#include "widgets/RevocationList.h"
 #include "ui_TrustState.h"
 #include "ui_CaProperties.h"
 #include "ui_About.h"
-#include "ui_Revoke.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QAction>
@@ -34,6 +34,22 @@ db_x509::db_x509(QString DBfile, MainWindow *mw)
 	pkitype << x509;
 	updateHeaders();
 	loadContainer();
+}
+
+void db_x509::updateAfterCrlLoad(pki_x509 *pki)
+{
+	if (pki->revList.merged) {
+		fprintf(stderr, "Update '%s'\n", CCHAR(pki->getIntName()));
+		updatePKI(pki);
+		pki->revList.merged = false;
+	}
+}
+
+void db_x509::updateAfterDbLoad()
+{
+	FOR_ALL_pki(pki, pki_x509) {
+		updateAfterCrlLoad(pki);
+	}
 }
 
 dbheaderList db_x509::getHeaders()
@@ -229,20 +245,6 @@ void db_x509::inToCont(pki_base *pki)
 	calcEffTrust();
 }
 
-
-QList<pki_x509*> db_x509::getIssuedCerts(const pki_x509 *issuer)
-{
-	QList<pki_x509*> c;
-	c.clear();
-	if (!issuer)
-		return c;
-	FOR_ALL_pki(pki, pki_x509) {
-		if (pki->getSigner() == issuer)
-			c.append(pki);
-	}
-	return c;
-}
-
 pki_x509 *db_x509::getBySubject(const x509name &xname, pki_x509 *last)
 {
 	bool lastfound = false;
@@ -257,23 +259,6 @@ pki_x509 *db_x509::getBySubject(const x509name &xname, pki_x509 *last)
 		if (pki == last) {
 			lastfound = true;
 		}
-	}
-	return NULL;
-}
-
-void db_x509::revokeCert(const x509rev &revok, const pki_x509 *iss)
-{
-	pki_x509 *crt = getByIssSerial(iss, revok.getSerial());
-	if (crt)
-		crt->setRevoked(revok.getDate());
-}
-
-pki_x509 *db_x509::getByIssSerial(const pki_x509 *issuer, const a1int &a)
-{
-	if (!issuer ) return NULL;
-	FOR_ALL_pki(pki, pki_x509) {
-		if ((pki->getSigner() == issuer) && (a == pki->getSerial()))
-			return pki;
 	}
 	return NULL;
 }
@@ -321,18 +306,16 @@ a1int db_x509::getUniqueSerial(pki_x509 *signer)
 {
 	// returnes an unused unique serial
 	a1int serial;
-	bool dup;
-	do {
-		dup = false;
+	x509rev rev;
+	while (true) {
 		serial = signer->getIncCaSerial();
-		FOR_ALL_pki(pki, pki_x509)
-			if (pki->getSigner() == signer)  {
-				if (serial == pki->getSerial()) {
-					dup = true;
-					break;
-				}
-			}
-	} while (dup);
+		rev.setSerial(serial);
+		if (signer->revList.contains(rev))
+			continue;
+		if (signer->getBySerial(serial))
+			continue;
+		break;
+	}
 	if (!signer->usesRandomSerial())
 		updatePKI(signer);
 	return serial;
@@ -668,6 +651,8 @@ void db_x509::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
 		subCa = menu->addMenu(tr("CA"));
 		subCa->addAction(tr("Properties"), this, SLOT(caProperties()));
 		subCa->addAction(tr("Generate CRL"), this, SLOT(genCrl()));
+		subCa->addAction(tr("Manage revocations"),
+				this, SLOT(manageRevocations()));
 		subCa->setEnabled(canSign);
 		menu->addSeparator();
 		menu->addAction(tr("Renewal"), this, SLOT(extendCert()))->
@@ -944,6 +929,21 @@ void db_x509::deleteFromToken()
 	}
 }
 
+void db_x509::manageRevocations()
+{
+	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	if (!cert)
+		return;
+	RevocationList *dlg = new RevocationList(mainwin);
+	dlg->setRevList(cert->revList, cert);
+	connect(dlg, SIGNAL(genCRL(pki_x509*)),
+		mainwin->crls, SLOT(newItem(pki_x509*)));
+	if (dlg->exec()) {
+		cert->setRevocations(dlg->getRevList());
+		updatePKI(cert);
+	}
+}
+
 void db_x509::setTrust()
 {
 	int state, newstate = 0;
@@ -964,7 +964,6 @@ void db_x509::setTrust()
 	if (state == 0 ) ui.trust0->setChecked(true);
 	if (state == 1 ) ui.trust1->setChecked(true);
 	if (state == 2 ) ui.trust2->setChecked(true);
-	ui.certName->setText(cert->getIntName());
 	if (dlg->exec()) {
 		if (ui.trust0->isChecked()) newstate = 0;
 		if (ui.trust1->isChecked()) newstate = 1;
@@ -1016,6 +1015,9 @@ void db_x509::extendCert()
 		newcert->sign(signkey, oldcert->getDigest());
 		newcert = (pki_x509 *)insert(newcert);
 		createSuccess(newcert);
+
+		if (dlg->revoke->isChecked())
+			revoke();
 	}
 	catch (errorEx &err) {
 		MainWindow::Error(err);
@@ -1032,25 +1034,37 @@ void db_x509::revoke()
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
 	if (!cert)
 		return;
-	Ui::Revoke ui;
-	QDialog *revoke = new QDialog(mainwin, 0);
-	ui.setupUi(revoke);
-	ui.invalid->setNow();
-	ui.reason->addItems(x509rev::crlreasons());
+	Revocation *revoke = new Revocation(mainwin, cert);
 	if (revoke->exec()) {
-		cert->setRevoked(true, ui.invalid->getDate(),
-					ui.reason->currentText());
-		updatePKI(cert);
+		const x509rev r = revoke->getRevocation();
+		cert->setRevoked(r);
+		pki_x509 *iss = cert->getSigner();
+		if (iss) {
+			x509revList rl(r);
+			iss->mergeRevList(rl);
+			updatePKI(iss);
+		}
 	}
 }
 
 void db_x509::unRevoke()
 {
 	pki_x509 *cert = static_cast<pki_x509*>(currentIdx.internalPointer());
+	pki_x509 *sig;
+	int idx;
+	x509rev rev;
+
 	if (!cert)
 		return;
-	cert->setRevoked(false);
-	updatePKI(cert);
+	sig = cert->getSigner();
+	if (!sig)
+		return;
+	cert->setRevoked(x509rev());
+	rev.setSerial(cert->getSerial());
+	idx = sig->revList.indexOf(rev);
+	if (idx != -1)
+		sig->revList.takeAt(idx);
+	updatePKI(sig);
 }
 
 void db_x509::genCrl()
@@ -1146,4 +1160,3 @@ void db_x509::caProperties()
 	}
 	delete dlg;
 }
-

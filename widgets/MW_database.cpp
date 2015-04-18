@@ -52,6 +52,7 @@ int MainWindow::init_database()
 		certs = new db_x509(dbfile, this);
 		temps = new db_temp(dbfile, this);
 		crls = new db_crl(dbfile, this);
+		certs->updateAfterDbLoad();
 	}
 	catch (errorEx &err) {
 		Error(err);

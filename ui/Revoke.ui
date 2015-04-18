@@ -6,46 +6,126 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>195</height>
+    <width>417</width>
+    <height>282</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="capt">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+         <underline>false</underline>
+         <strikeout>false</strikeout>
+        </font>
+       </property>
+       <property name="text">
+        <string>Certificate revocation</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>78</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="image">
+       <property name="minimumSize">
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>95</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Revocation details</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Invalid since</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
-       <widget class="Validity" name="invalid">
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
+       <widget class="QLineEdit" name="serial"/>
       </item>
-      <item row="1" column="1">
-       <widget class="QCheckBox" name="checkBox">
-        <property name="text">
-         <string>Local time</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Revocation reason</string>
         </property>
        </widget>
       </item>
+      <item row="1" column="1">
+       <widget class="Validity" name="invalid">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="1">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>Local time</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Invalid since</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Serial</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
        <widget class="QComboBox" name="reason"/>
       </item>
      </layout>
@@ -57,7 +137,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -100,12 +180,12 @@
    <slot>localTime(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>244</x>
-     <y>82</y>
+     <x>397</x>
+     <y>122</y>
     </hint>
     <hint type="destinationlabel">
-     <x>244</x>
-     <y>55</y>
+     <x>389</x>
+     <y>93</y>
     </hint>
    </hints>
   </connection>

@@ -11,6 +11,7 @@
 #include "lib/pki_crl.h"
 #include "widgets/distname.h"
 #include "widgets/clicklabel.h"
+#include "widgets/RevocationList.h"
 #include <QtGui/QLabel>
 #include <QtGui/QTextEdit>
 #include <QtGui/QLineEdit>
@@ -22,25 +23,14 @@ CrlDetail::CrlDetail(MainWindow *mainwin)
 	setupUi(this);
 	setWindowTitle(tr(XCA_TITLE));
 
-	certList->clear();
-	certList->setColumnCount(3);
-
-	QStringList sl;
-	sl << tr("Name") << tr("Serial") << tr("Revocation") << tr("Reason") <<
-		tr("Invalidation");
-	certList->setHeaderLabels(sl);
-
 	image->setPixmap(*MainWindow::revImg);
 	descr->setReadOnly(true);
 }
 
 void CrlDetail::setCrl(pki_crl *crl)
 {
-	int numc, i;
-	pki_x509 *iss, *rev;
-	x509rev revit;
+	pki_x509 *iss;
 	x509v3ext e1, e2;
-	QStringList sl;
 
 	iss = crl->getIssuer();
 	signCheck->disableToolTip();
@@ -74,29 +64,7 @@ void CrlDetail::setCrl(pki_crl *crl)
 
 	issuer->setX509name(crl->getSubject());
 
-	numc = crl->numRev();
-	for (i=0; i<numc; i++) {
-		QTreeWidgetItem *current;
-		a1time a;
-		revit = crl->getRev(i);
-		rev = mw->certs->getByIssSerial(iss, revit.getSerial());
-		certList->setColumnCount(5);
-		current = new QTreeWidgetItem(certList);
-		if (rev != NULL) {
-			current->setText(0, rev->getIntName() );
-		} else {
-			current->setText(0, tr("Unknown certificate"));
-		}
-		current->setIcon(0, *pki_x509::icon[2]);
-		current->setText(1, revit.getSerial().toHex()) ;
-		current->setText(2, revit.getDate().toSortable());
-		current->setText(3, revit.getReason());
-		a = revit.getInvalDate();
-		if (!a.isUndefined())
-			current->setText(4, a.toSortable());
-	}
-	for (i=0; i<5; i++)
-		certList->resizeColumnToContents(i);
-	certList->setSortingEnabled(true);
+	RevocationList::setupRevocationView(certList, crl->getRevList(), iss);
+
 	v3extensions->document()->setHtml(crl->printV3ext());
 }

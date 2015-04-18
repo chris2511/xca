@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TrustState</class>
- <widget class="QDialog" name="TrustState">
+ <class>RevocationList</class>
+ <widget class="QDialog" name="RevocationList">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>435</width>
-    <height>211</height>
+    <width>628</width>
+    <height>320</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string/>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QHBoxLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="TextLabel1">
+      <widget class="QLabel" name="label_3">
        <property name="font">
         <font>
          <family>Arial</family>
@@ -30,7 +27,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Certificate trust</string>
+        <string>Manage revocations</string>
        </property>
       </widget>
      </item>
@@ -64,9 +61,6 @@
          <height>40</height>
         </size>
        </property>
-       <property name="text">
-        <string/>
-       </property>
        <property name="scaledContents">
         <bool>true</bool>
        </property>
@@ -75,96 +69,98 @@
     </layout>
    </item>
    <item>
-    <spacer>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Trustment</string>
-     </property>
-     <layout class="QVBoxLayout">
-      <property name="margin">
-       <number>8</number>
-      </property>
-      <item>
-       <widget class="QRadioButton" name="trust0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QTreeWidget" name="certList">
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::MultiSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <column>
         <property name="text">
-         <string>&amp;Never trust this certificate</string>
+         <string notr="true">1</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="trust1">
-        <property name="text">
-         <string>Only &amp;trust this certificate, if we trust the signer</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="trust2">
-        <property name="text">
-         <string>&amp;Always trust this certificate</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="addRev">
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="delRev">
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Abort|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>trust0</tabstop>
-  <tabstop>trust1</tabstop>
-  <tabstop>trust2</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>TrustState</receiver>
+   <receiver>RevocationList</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>286</x>
-     <y>264</y>
+     <x>341</x>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
-     <x>83</x>
-     <y>245</y>
+     <x>292</x>
+     <y>254</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>TrustState</receiver>
+   <receiver>RevocationList</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>386</x>
-     <y>260</y>
+     <x>445</x>
+     <y>292</y>
     </hint>
     <hint type="destinationlabel">
-     <x>430</x>
-     <y>85</y>
+     <x>445</x>
+     <y>237</y>
     </hint>
    </hints>
   </connection>

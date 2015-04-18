@@ -10,8 +10,8 @@
 #define __DB_X509_H
 
 #include <QtGui/QListView>
-#include <QtCore/QObject>
 #include <QtGui/QPixmap>
+#include <QtGui/QTreeWidget>
 #include "widgets/ExportDialog.h"
 #include "db_key.h"
 #include "db_x509super.h"
@@ -33,6 +33,9 @@ class db_x509: public db_x509super
 		db_x509(QString DBfile, MainWindow *mw);
 		pki_base *newPKI(db_header_t *head = NULL);
 		pki_x509 *findSigner(pki_x509 *client);
+		void updateAfterDbLoad();
+		void updateAfterCrlLoad(pki_x509 *pki);
+
 		bool updateView();
 		void updateViewAll();
 		void updateViewPKI(pki_base *pki);
@@ -40,7 +43,6 @@ class db_x509: public db_x509super
 		QStringList getPrivateDesc();
 		QStringList getSignerDesc();
 		void calcEffTrust();
-		QList<pki_x509*> getIssuedCerts(const pki_x509 *issuer);
 		QList<pki_x509*> getCerts(bool onlyTrusted);
 		a1int searchSerial(pki_x509 *signer);
 		void writeAllCerts(const QString fname, bool onlyTrusted);
@@ -62,7 +64,6 @@ class db_x509: public db_x509super
 	public slots:
 		void load(void);
 		void newItem(void);
-		void revokeCert(const x509rev &revok, const pki_x509 *issuer);
 		void showPki(pki_base *pki);
 		void setMultiTrust(QAbstractItemView* view);
 		void setTrust();
@@ -80,6 +81,7 @@ class db_x509: public db_x509super
 		void newCert(pki_x509req *);
 		void loadPKCS12();
 		void loadPKCS7();
+		void manageRevocations();
 };
 
 #endif

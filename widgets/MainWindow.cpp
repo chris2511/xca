@@ -818,8 +818,9 @@ pki_multi *MainWindow::probeAnything(QString file, int *ret)
 		if (file.endsWith(".xdb")) {
 			try {
 				int r;
-				db mydb(file);
-				mydb.verify_magic();
+				db *mydb = new db(file);
+				mydb->verify_magic();
+				delete mydb;
 				r = changeDB(file);
 				delete pki;
 				if (ret)

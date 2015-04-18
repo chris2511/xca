@@ -41,12 +41,11 @@ pki_x509::pki_x509(const pki_x509 *crt)
 	setRefKey(crt->getRefKey());
 	trust = crt->trust;
 	efftrust = crt->efftrust;
-	revoked = crt->revoked;
 	caSerial = crt->caSerial;
 	caTemplate = crt->caTemplate;
+	revocation = crt->revocation;
 	crlDays = crt->crlDays;
 	crlExpiry = crt->crlExpiry;
-	isrevoked = isrevoked;
 	pki_openssl_error();
 }
 
@@ -134,18 +133,15 @@ void pki_x509::init()
 	psigner = NULL;
 	trust = 0;
 	efftrust = 0;
-	revoked = a1time::now();
 	caSerial = 1;
 	caTemplate = "";
 	crlDays = 30;
 	crlExpiry.setUndefined();
 	class_name = "pki_x509";
 	cert = NULL;
-	isrevoked = false;
-	dataVersion = 3;
+	dataVersion = 4;
 	pkiType = x509;
 	randomSerial = false;
-	revoke_reason = "";
 }
 
 void pki_x509::setSerial(const a1int &serial)
@@ -162,6 +158,16 @@ a1int pki_x509::getSerial() const
 	a1int a(X509_get_serialNumber(cert));
 	pki_openssl_error();
 	return a;
+}
+
+pki_x509 *pki_x509::getBySerial(const a1int &a) const
+{
+	foreach(pki_base *p, childItems) {
+		pki_x509 *pki = static_cast<pki_x509 *>(p);
+		if (a == pki->getSerial())
+			return pki;
+	}
+	return NULL;
 }
 
 #define SERIAL_LEN 8
@@ -493,6 +499,7 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 {
 	int version, size;
+	bool isRevoked;
 
 	version = head->version;
 	size = head->len - sizeof(db_header_t);
@@ -502,8 +509,15 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 	d2i(ba);
 	pki_openssl_error();
 	trust = db::intFromData(ba);
-	isrevoked = db::boolFromData(ba);
-	revoked.d2i(ba);
+	if (version < 4) {
+		a1time revoked;
+		isRevoked = db::boolFromData(ba);
+		revoked.d2i(ba);
+		if (isRevoked) {
+			revocation.setDate(revoked);
+			revocation.setSerial(getSerial());
+		}
+	}
 	caSerial.setHex(db::stringFromData(ba));
 	caTemplate = db::stringFromData(ba);
 	crlDays = db::intFromData(ba);
@@ -512,10 +526,22 @@ void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 		randomSerial = db::boolFromData(ba);
 	else
 		randomSerial = false;
-	if (version > 2) {
+	if (version > 2)
 		crlNumber.setHex(db::stringFromData(ba));
-		revoke_reason = db::stringFromData(ba);
+	if (version > 2 && version < 4) {
+		// load own revocation info, to tell daddy about it
+		a1time invalDate;
+		QString revoke_reason = db::stringFromData(ba);
 		invalDate.d2i(ba);
+		if (isRevoked) {
+			revocation.setReason(revoke_reason);
+			revocation.setInvalDate(invalDate);
+		}
+	}
+	if (version > 3) {
+		x509revList curr(revList);
+		revList.fromBA(ba);
+		revList.merge(curr);
 	}
 	if (ba.count() > 0) {
 		my_error(tr("Wrong Size %1").arg(ba.count()));
@@ -530,8 +556,7 @@ QByteArray pki_x509::toData()
 
 	ba += i2d(); // cert
 	ba += db::intToData(trust);
-	ba += db::boolToData(isrevoked);
-	ba += revoked.i2d(); // revocation date
+	// version 4: don't store isrevoked, revoked
 
 	// the serial if this is a CA
 	ba += db::stringToData(caSerial.toHex());
@@ -542,8 +567,8 @@ QByteArray pki_x509::toData()
 	ba += crlExpiry.i2d(); // last CRL date
 	ba += db::boolToData(randomSerial);
 	ba += db::stringToData(crlNumber.toHex());
-	ba += db::stringToData(revoke_reason);
-	ba += invalDate.i2d();
+	// version 4: don't store own revocation but client revocations
+	ba += revList.toBA();
 	pki_openssl_error();
 	return ba;
 }
@@ -610,12 +635,34 @@ bool pki_x509::verify(pki_x509 *signer)
 	int i = X509_verify(cert, pub);
 	pki_ign_openssl_error();
 	if (i>0) {
+		int idx;
+		x509rev r;
+		r.setSerial(getSerial());
 		psigner = signer;
+		psigner->revList.merge(x509revList(revocation));
+		idx = psigner->revList.indexOf(r);
+		if (idx != -1)
+			revocation = psigner->revList[idx];
 		return true;
 	}
 	return false;
 }
 
+void pki_x509::setRevocations(const x509revList &rl)
+{
+	revList = rl;
+	x509rev rev;
+
+	foreach(pki_base *p, childItems) {
+		pki_x509 *pki = static_cast<pki_x509 *>(p);
+		rev.setSerial(pki->getSerial());
+		int idx = revList.indexOf(rev);
+		if (idx != -1)
+			pki->revocation = revList[idx];
+		else
+			pki->revocation = x509rev();
+	}
+}
 
 pki_key *pki_x509::getPubKey() const
 {
@@ -727,34 +774,16 @@ void pki_x509::setEffTrust(int t)
 
 bool pki_x509::isRevoked()
 {
-	return isrevoked ;
+	return revocation.isValid();
 }
 
-void pki_x509::setRevoked(bool rev, a1time inval, QString reason)
+void pki_x509::setRevoked(const x509rev &revok)
 {
-	if (rev) {
+	revocation = revok;
+	if (revok.isValid()) {
 		setEffTrust(0);
-		revoked = a1time::now();
-		pki_openssl_error();
-		revoke_reason = reason;
-		invalDate = inval;
+		setTrust(0);
 	}
-	isrevoked = rev;
-	pki_openssl_error();
-}
-
-a1time &pki_x509::getRevoked()
-{
-	return revoked;
-}
-
-void pki_x509::setRevoked(const a1time &when)
-{
-	isrevoked = true;
-	revoked = when;
-	setEffTrust(0);
-	setTrust(0);
-	pki_openssl_error();
 }
 
 int pki_x509::calcEffTrust()
@@ -791,19 +820,6 @@ void pki_x509::setCrlExpiry(const a1time &time)
 	pki_openssl_error();
 }
 
-x509rev pki_x509::getRev(bool reason)
-{
-	x509rev a;
-	a.setDate(getRevoked());
-	a.setSerial(getSerial());
-	if (reason) {
-		a.setReason(revoke_reason);
-		a.setInvalDate(invalDate);
-	}
-	pki_openssl_error();
-	return a;
-}
-
 bool pki_x509::caAndPathLen(bool *ca, a1int *pathlen, bool *hasLen)
 {
 	x509v3ext e = getExtByNid(NID_basic_constraints);
@@ -837,7 +853,7 @@ QVariant pki_x509::column_data(dbheader *hd)
 			return QVariant(truststatus[getTrust()]);
 		case HD_cert_revocation:
 			return QVariant(isRevoked() ?
-				getRevoked().toSortable() : "");
+				revocation.getDate().toSortable() : "");
 		case HD_cert_crl_expire:
 			if (canSign() && !crlExpiry.isUndefined())
 				return QVariant(crlExpiry.toSortable());
@@ -975,12 +991,14 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 		trust = intFromData(ba);
 		sRev = intFromData(ba);
 		if (sRev) {
-			if (version != 3) isrevoked = true;
-			revoked.d2i(ba);
-		}
-		else {
-			isrevoked = false;
-			revoked = a1time::now();
+			a1time r;
+			r.d2i(ba);
+			if (version != 3) {
+				revocation.setSerial(getSerial());
+				revocation.setDate(r);
+			}
+		} else {
+			revocation = x509rev();
 		}
 
 		if (version == 1) {
@@ -1016,7 +1034,6 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 	}
 	else { // old version
 		d2i(ba);
-		revoked = NULL;
 		trust = 1;
 		efftrust = 1;
 	}
@@ -1029,4 +1046,3 @@ void pki_x509::oldFromData(unsigned char *p, int size)
 		my_error(tr("Wrong Size %1").arg(ba.count()));
 	}
 }
-

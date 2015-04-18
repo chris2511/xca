@@ -26,8 +26,8 @@ class pki_x509 : public pki_x509super
 		Q_OBJECT
 	private:
 		pki_x509 *psigner;
-		a1time revoked, crlExpiry, invalDate;
-		bool isrevoked, randomSerial;
+		a1time crlExpiry;
+		bool randomSerial;
 		int trust;
 		int efftrust;
 		a1int caSerial;
@@ -35,14 +35,17 @@ class pki_x509 : public pki_x509super
 		int crlDays;
 		QString caTemplate;
 		X509 *cert;
-		QString revoke_reason;
 		void init();
+		x509rev revocation;
+
 	protected:
 		ASN1_OBJECT *sigAlg();
+
 	public:
 		static QPixmap *icon[6];
 		static bool dont_colorize_expiries;
 		static bool disable_netscape;
+		x509revList revList;
 		pki_x509(X509 *c);
 		pki_x509(const pki_x509 *crt);
 		pki_x509(const QString name = "");
@@ -93,9 +96,9 @@ class pki_x509 : public pki_x509super
 		void setEffTrust(int t);
 		void setRevoked(bool rev, a1time inval = a1time(),
 				QString reason = QString());
-		void setRevoked(const a1time &when);
-		a1time &getRevoked();
+		void setRevoked(const x509rev &revok);
 		bool isRevoked();
+		pki_x509 *getBySerial(const a1int &a) const;
 		int calcEffTrust();
 		a1int getIncCaSerial();
 		a1int getCaSerial()
@@ -136,13 +139,16 @@ class pki_x509 : public pki_x509super
 		{
 			randomSerial = r;
 		}
+		x509rev getRevocation()
+		{
+			return revocation;
+		}
 		pk11_attlist objectAttributes();
 		void setCrlExpiry(const a1time &time);
 		bool hasExtension(int nid);
 		bool cmpIssuerAndSerial(pki_x509 *refcert);
 		bool visible();
 		void updateView();
-		x509rev getRev(bool reason = true);
 		x509v3ext getExtByNid(int nid);
 		QVariant column_data(dbheader *hd);
 		QVariant getIcon(dbheader *hd);
@@ -154,6 +160,10 @@ class pki_x509 : public pki_x509super
 		virtual int renameOnToken(slotid slot, QString name);
 		BIO *pem(BIO *, int);
 		virtual QVariant bg_color(dbheader *hd);
+		void mergeRevList(x509revList l) {
+			revList.merge(l);
+		}
+		void setRevocations(const x509revList &rl);
 };
 
 #endif

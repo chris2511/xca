@@ -81,6 +81,7 @@ HEADERS += local.h \
            widgets/v3ext.h \
            widgets/validity.h \
            widgets/SearchPkcs11.h \
+           widgets/RevocationList.h \
            widgets/XcaTreeView.h
 
 FORMS += ui/About.ui \
@@ -103,6 +104,7 @@ FORMS += ui/About.ui \
          ui/TrustState.ui \
          ui/SearchPkcs11.ui \
          ui/v3ext.ui \
+	 ui/RevocationList.ui
 
 SOURCES += lib/asn1int.cpp \
            lib/asn1time.cpp \
@@ -165,6 +167,7 @@ SOURCES += lib/asn1int.cpp \
            widgets/v3ext.cpp \
            widgets/validity.cpp \
            widgets/SearchPkcs11.cpp \
+           widgets/RevocationList.cpp \
            widgets/XcaTreeView.cpp
 
 TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts lang/xca_hr.ts

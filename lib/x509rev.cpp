@@ -6,8 +6,10 @@
  */
 
 #include "x509rev.h"
+#include "db.h"
 #include "base.h"
 #include "func.h"
+#include "exception.h"
 #include <openssl/x509v3.h>
 #include <QtCore/QStringList>
 
@@ -47,153 +49,158 @@ QStringList x509rev::crlreasons()
 	return l;
 }
 
-static X509_REVOKED *X509_REVOKED_dup(const X509_REVOKED *n)
-{
-	int len;
-	X509_REVOKED *ret;
-	unsigned char *buf, *p;
-
-	len = i2d_X509_REVOKED((X509_REVOKED *)n, NULL);
-	buf = (unsigned char *)OPENSSL_malloc(len);
-	p = buf;
-	i2d_X509_REVOKED((X509_REVOKED *)n, &p);
-	p = buf;
-	ret = d2i_X509_REVOKED(NULL, (const unsigned char **)&p, len);
-	OPENSSL_free(buf);
-	return(ret);
-}
-
-x509rev::x509rev()
-{
-	rev = X509_REVOKED_new();
-}
-
-x509rev::x509rev(const X509_REVOKED *n)
-{
-	rev = X509_REVOKED_dup(n);
-}
-
-x509rev::x509rev(const x509rev &n)
-{
-	rev = NULL;
-	set(n.rev);
-}
-
-x509rev::~x509rev()
-{
-	X509_REVOKED_free(rev);
-}
-
-x509rev &x509rev::set(const X509_REVOKED *n)
-{
-	if (rev != NULL)
-		X509_REVOKED_free(rev);
-	rev = X509_REVOKED_dup(n);
-	return *this;
-}
-
-bool x509rev::operator == (const x509rev &x) const
-{
-	return (getSerial() == x.getSerial() &&
-		getDate() == x.getDate());
-}
-
-x509rev &x509rev::operator = (const x509rev &x)
-{
-	set(x.rev);
-	return *this;
-}
-
-void x509rev::setSerial(const a1int &i)
-{
-	if (rev->serialNumber != NULL)
-		ASN1_INTEGER_free(rev->serialNumber);
-	rev->serialNumber = i.get();
-}
-
-void x509rev::setDate(const a1time &a)
-{
-	a1time t(a);
-	X509_REVOKED_set_revocationDate(rev, t.get_utc());
-}
-
-a1int x509rev::getSerial() const
-{
-	a1int a(rev->serialNumber);
-	return a;
-}
-
-a1time x509rev::getDate() const
-{
-	a1time t(rev->revocationDate);
-	return t;
-}
-
-void x509rev::setInvalDate(const a1time &date)
-{
-	a1time t(date);
-	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date, t.get(), 0, 0);
-	openssl_error();
-}
-
-void x509rev::setReason(const QString &reason)
-{
-	/* RFC says to not add the extension if it is "unspecified" */
-	if (reason == crl_reasons[0].lname)
-		return;
-	ASN1_ENUMERATED *a = ASN1_ENUMERATED_new();
-	openssl_error();
-
-	for (int i=0; crl_reasons[i].lname; i++) {
-		if (reason == crl_reasons[i].lname) {
-			ASN1_ENUMERATED_set(a, crl_reasons[i].bitnum);
-                        break;
-		}
-	}
-	openssl_error();
-	X509_REVOKED_add1_ext_i2d(rev, NID_crl_reason, a, 0, 0);
-	openssl_error();
-	ASN1_ENUMERATED_free(a);
-}
-
 QString x509rev::getReason() const
 {
-	ASN1_ENUMERATED *reason;
-	int j, r;
-	reason = (ASN1_ENUMERATED *)X509_REVOKED_get_ext_d2i(rev,
-					NID_crl_reason, &j, NULL);
-	openssl_error();
-	if (j == -1)
-		return QString(crl_reasons[0].lname);
-	r = ASN1_ENUMERATED_get(reason);
-	openssl_error();
-	ASN1_ENUMERATED_free(reason);
-	for (int i=0; crl_reasons[i].lname; i++) {
-		if (r == crl_reasons[i].bitnum) {
-			return QString(crl_reasons[i].lname);
-		}
-	}
-	return QString();
+	return crl_reasons[reason_idx].lname;
 }
 
-a1time x509rev::getInvalDate() const
+void x509rev::fromREVOKED(const X509_REVOKED *rev)
 {
+	ASN1_ENUMERATED *reason;
 	ASN1_TIME *at;
-	a1time a;
-	int j;
-	at = (ASN1_TIME *)X509_REVOKED_get_ext_d2i(rev,
+	int j = -1, r;
+
+	if (!rev)
+		return;
+	serial = a1int(rev->serialNumber);
+	date = a1time(rev->revocationDate);
+
+	reason = (ASN1_ENUMERATED *)X509_REVOKED_get_ext_d2i(
+			(X509_REVOKED *)rev, NID_crl_reason, &j, NULL);
+	openssl_error();
+	reason_idx = 0;
+	if (reason) {
+		r = ASN1_ENUMERATED_get(reason);
+		openssl_error();
+		for (int i=0; crl_reasons[i].lname; i++) {
+			if (r == crl_reasons[i].bitnum) {
+				reason_idx = i;
+			}
+		}
+		ASN1_ENUMERATED_free(reason);
+	}
+	ivalDate.setUndefined();
+	at = (ASN1_TIME *)X509_REVOKED_get_ext_d2i((X509_REVOKED *)rev,
 			NID_invalidity_date, &j, NULL);
 	openssl_error();
-	if (j == -1) {
-		a.setUndefined();
-		return a;
+	if (at) {
+		ivalDate = a1time(at);
+		ASN1_GENERALIZEDTIME_free(at);
 	}
-	a.set(at);
-	ASN1_GENERALIZEDTIME_free(at);
-	return a;
+	//dump();
 }
 
-X509_REVOKED *x509rev::get() const
+X509_REVOKED *x509rev::toREVOKED(bool withReason) const
 {
-	return X509_REVOKED_dup(rev);
+	a1time i = ivalDate;
+	a1time d = date;
+	X509_REVOKED *rev = X509_REVOKED_new();
+	check_oom(rev);
+	rev->serialNumber = serial.get();
+	X509_REVOKED_set_revocationDate(rev, d.get_utc());
+
+	X509_REVOKED_add1_ext_i2d(rev, NID_invalidity_date,
+				i.get(), 0, 0);
+
+	/* RFC says to not add the extension if it is "unspecified" */
+	if (reason_idx != 0 && withReason) {
+		ASN1_ENUMERATED *a = ASN1_ENUMERATED_new();
+		ASN1_ENUMERATED_set(a, crl_reasons[reason_idx].bitnum);
+		X509_REVOKED_add1_ext_i2d(rev, NID_crl_reason, a, 0, 0);
+		ASN1_ENUMERATED_free(a);
+	}
+	openssl_error();
+	//dump();
+	return rev;
+}
+
+void x509rev::d2i(QByteArray &ba)
+{
+	X509_REVOKED *r;
+	r = (X509_REVOKED *)d2i_bytearray(D2I_VOID(d2i_X509_REVOKED), ba);
+	if (!r)
+		return;
+	fromREVOKED(r);
+	X509_REVOKED_free(r);
+}
+
+QByteArray x509rev::i2d() const
+{
+	QByteArray ba;
+	X509_REVOKED *r = toREVOKED();
+	ba = i2d_bytearray(I2D_VOID(i2d_X509_REVOKED), r);
+	X509_REVOKED_free(r);
+	return ba;
+}
+
+void x509rev::set(const x509rev &x)
+{
+	serial = x.serial;
+	date = x.date;
+	ivalDate = x.ivalDate;
+	reason_idx = x.reason_idx;
+}
+
+bool x509rev::identical(const x509rev &x) const
+{
+	return	serial == x.serial &&
+		date == x.date &&
+		ivalDate == x.ivalDate &&
+		reason_idx == x.reason_idx;
+}
+
+void x509rev::dump() const
+{
+	fprintf(stderr, "Rev: %s D:%s I:%s Reason: %d '%s'\n",
+		CCHAR(serial.toHex()), CCHAR(date.toSortable()),
+		CCHAR(ivalDate.toSortable()), reason_idx,
+		CCHAR(crl_reasons[reason_idx].lname));
+}
+
+void x509revList::fromBA(QByteArray &ba)
+{
+	int i, num = db::intFromData(ba);
+	x509rev r;
+	clear();
+	merged = false;
+	for (i=0; i<num; i++) {
+		r.d2i(ba);
+		append(r);
+	}
+}
+
+QByteArray x509revList::toBA()
+{
+	int i, len = size();
+	QByteArray ba(db::intToData(len));
+
+	for (i=0; i<len; i++) {
+		ba += at(i).i2d();
+	}
+	return ba;
+}
+
+void x509revList::merge(const x509revList &other)
+{
+	foreach(x509rev r, other) {
+		if (r.isValid() && !contains(r)) {
+			merged = true;
+			append(r);
+		}
+	}
+}
+
+bool x509revList::identical(const x509revList &other) const
+{
+	if (size() != other.size())
+		return false;
+	for (int i=0; i<size(); i++) {
+		x509rev r = at(i);
+		int c = other.indexOf(r);
+		if (c == -1)
+			return false;
+		if (!r.identical(other.at(c)))
+			return false;
+	}
+	return true;
 }

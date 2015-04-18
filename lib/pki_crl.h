@@ -33,7 +33,7 @@ class pki_crl: public pki_x509name
 		void writeDefault(const QString fname);
 		static QPixmap *icon;
 		void createCrl(const QString d, pki_x509 *iss);
-		void addRev(const x509rev &rev);
+		void addRev(const x509rev &rev, bool withReason=true);
 		void addExt(int nid, QString value);
 		void write(QString fname);
 		void addV3ext(const x509v3ext &e);
@@ -55,9 +55,9 @@ class pki_crl: public pki_x509name
 		void fromData(const unsigned char *p, db_header_t *head);
 		void oldFromData(unsigned char *p, int size);
 		QByteArray toData();
-		int numRev();
 		bool verify(pki_key *pkey);
-		x509rev getRev(int num);
+		int numRev();
+		x509revList getRevList();
 		QString printV3ext();
 		x509v3ext getExtByNid(int nid);
 		a1int getVersion();

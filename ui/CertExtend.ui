@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
-    <height>288</height>
+    <width>411</width>
+    <height>416</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -95,126 +95,130 @@
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Validity</string>
      </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="title">
-        <string>Validity</string>
-       </property>
-       <layout class="QVBoxLayout">
-        <property name="spacing">
-         <number>6</number>
-        </property>
-        <property name="margin">
-         <number>8</number>
-        </property>
-        <item>
-         <layout class="QGridLayout">
-          <property name="margin">
-           <number>0</number>
-          </property>
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="TextLabel1_2">
-            <property name="text">
-             <string>Not before</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="TextLabel2_4">
-            <property name="text">
-             <string>Not after</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="Validity" name="notBefore">
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="Validity" name="notAfter">
-            <property name="calendarPopup">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>Time range</string>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_1">
-        <item row="0" column="0" colspan="2">
-         <widget class="QLineEdit" name="validNumber"/>
-        </item>
-        <item row="0" column="2">
-         <widget class="QComboBox" name="validRange">
-          <item>
-           <property name="text">
-            <string>Days</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Months</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Years</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QPushButton" name="applyTime">
+     <layout class="QVBoxLayout">
+      <property name="margin">
+       <number>8</number>
+      </property>
+      <item>
+       <layout class="QGridLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="TextLabel1_2">
           <property name="text">
-           <string>Apply</string>
+           <string>Not before</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="midnightCB">
+         <widget class="QLabel" name="TextLabel2_4">
           <property name="text">
-           <string>Midnight</string>
+           <string>Not after</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="Validity" name="notBefore">
+          <property name="calendarPopup">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox">
-          <property name="text">
-           <string>Local time</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2" colspan="2">
-         <widget class="QCheckBox" name="noWellDefinedExpDate">
-          <property name="text">
-           <string>No well-defined expiration</string>
+         <widget class="Validity" name="notAfter">
+          <property name="calendarPopup">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
        </layout>
-      </widget>
-     </item>
-    </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Time range</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_1">
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>Local time</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="validRange">
+        <item>
+         <property name="text">
+          <string>Days</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Months</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Years</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="2" colspan="2">
+       <widget class="QCheckBox" name="noWellDefinedExpDate">
+        <property name="text">
+         <string>No well-defined expiration</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="midnightCB">
+        <property name="text">
+         <string>Midnight</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="applyTime">
+        <property name="text">
+         <string>Apply</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLineEdit" name="validNumber"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>2</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="revoke">
+     <property name="text">
+      <string>Revoke old certificate</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer>
@@ -269,8 +273,8 @@
    <slot>hideTimeCheck(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>456</x>
-     <y>193</y>
+     <x>453</x>
+     <y>197</y>
     </hint>
     <hint type="destinationlabel">
      <x>231</x>
@@ -289,8 +293,8 @@
      <y>193</y>
     </hint>
     <hint type="destinationlabel">
-     <x>351</x>
-     <y>194</y>
+     <x>331</x>
+     <y>200</y>
     </hint>
    </hints>
   </connection>
@@ -301,8 +305,8 @@
    <slot>hideTimeCheck(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>456</x>
-     <y>193</y>
+     <x>453</x>
+     <y>197</y>
     </hint>
     <hint type="destinationlabel">
      <x>239</x>
@@ -353,8 +357,8 @@
      <y>182</y>
     </hint>
     <hint type="destinationlabel">
-     <x>487</x>
-     <y>176</y>
+     <x>544</x>
+     <y>197</y>
     </hint>
    </hints>
   </connection>
@@ -369,8 +373,8 @@
      <y>189</y>
     </hint>
     <hint type="destinationlabel">
-     <x>344</x>
-     <y>151</y>
+     <x>331</x>
+     <y>164</y>
     </hint>
    </hints>
   </connection>
@@ -385,8 +389,8 @@
      <y>190</y>
     </hint>
     <hint type="destinationlabel">
-     <x>334</x>
-     <y>191</y>
+     <x>331</x>
+     <y>200</y>
     </hint>
    </hints>
   </connection>
