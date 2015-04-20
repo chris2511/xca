@@ -540,112 +540,114 @@ PEM je base64 kodirana DER datoteka</translation>
     <message>
         <location filename="../widgets/ExportDialog.cpp" line="+34"/>
         <source>All files ( * )</source>
-        <translation type="unfinished">Sve datoteke ( * )</translation>
+        <translation>Sve datoteke ( * )</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>PEM Text format with headers</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM Tekst format sa zaglavljima</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenated text format of the complete certificate chain in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Cjelokupni lanac potvrda spojen u jednu tekstualnu PEM datoteku</translatorcomment>
+        <translation>Tekstualni format s cjelokupnim lancem potvrda spojenim u jednu PEM datoteku</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Concatenated text format of all trusted certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstualni format sa svim pouzdanim potvrdama u jednoj PEM datoteci</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Concatenated text format of all certificates in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Sve potvrde spojene u jednu tekstualnu PEM datoteku</translatorcomment>
+        <translation>Tekstualni format sa svim potvrdama spojenim u jednu PEM datoteku</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Binary DER encoded file</source>
-        <translation type="unfinished"></translation>
+        <translation>Binarna datoteka kodirana u DER formatu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PKCS#7 encoded single certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Pojedinačni certifikat kodiran u PKCS#7 formatu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PKCS#7 encoded complete certificate chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Cjelokupni lanac potvrda kodiran u PKCS#7 formatu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>All trusted certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sve pouzdane potvrde kodirane u jednoj PKCS#7 datoteci</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>All certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sve potvrde kodirane u jednoj PKCS#7 datoteci</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The certificate and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrda i privatni ključ u kriptiranoj PKCS#12 datoteci</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The complete certificate chain and the private key as encrypted PKCS#12 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Cjelokupni lanac potvrda i privatni ključ u kriptiranoj PKCS#12 datoteci</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the unencrypted private key in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Spajanje potvrde i nekriptiranog privatnog ključa u jednu PEM datoteku</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Concatenation of the certificate and the encrypted private key in PKCS#8 format in one file</source>
-        <translation type="unfinished"></translation>
+        <translation>Spajanje potvrde i kriptiranog privatnog ključa u PKCS#8 formatu u jednu datoteku</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Text format of the public key in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstualni format javnog ključa u jednoj PEM datoteci</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Binary DER format of the public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Binarni DER format javnog ključa</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekriptirani privatni ključ u tekstualnom formatu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>OpenSSL specific encrypted private key in text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Privatni ključ kriptiran na OpenSSL način u tekstualnom formatu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in binary DER format</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekriptirani privatni ključ u binarnom DER formatu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unencrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Nekriptirani privatni ključ u PKCS#8 tekst formatu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Encrypted private key in PKCS#8 text format</source>
-        <translation type="unfinished"></translation>
+        <translation>Kriptirani privatni ključ u PKCS#8 tekst formatu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The public key encoded in SSH2 format</source>
-        <translation type="unfinished"></translation>
+        <translation>Javni ključ kodiran u SSH2 formatu</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -1064,47 +1066,47 @@ Serijski broj: %3</translation>
     <message>
         <location line="+5"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sustav</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Croatian</source>
-        <translation type="unfinished"></translation>
+        <translation>Hrvatski</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>Engleski</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Francuski</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>German</source>
-        <translation type="unfinished"></translation>
+        <translation>Njemački</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruski</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Španjolski</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turski</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Jezik</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1254,7 +1256,7 @@ Serijski broj: %3</translation>
     <message>
         <location line="+2"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>O</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -2219,7 +2221,8 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location line="+7"/>
         <source>Disable legacy Netscape extensions</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Deaktiviraj/isključi zastarjela Netscape proširenja</translatorcomment>
+        <translation>Onemogući nasljeđena Netscape proširenja</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -2376,7 +2379,7 @@ Posebno EC i DSA su samo definirani sa SHA1 u PKCS#11 specifikaciji.</translatio
     <message>
         <location line="+32"/>
         <source>PKI Keys ( *.pem *.der *.key );;PKCS#8 Keys ( *.p8 *.pk8 );;SSH Public Keys ( *.pub );;</source>
-        <translation type="unfinished"></translation>
+        <translation>PKI ključevi ( *.pem *.der *.key );;PKCS#8 ključevi ( *.p8 *.pk8 );;SSH javni ključevi ( *.pub );;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2750,7 +2753,7 @@ U knjižnici %3
     <message>
         <location filename="../lib/x509v3ext.cpp" line="+75"/>
         <source>String &apos;%1&apos; for &apos;%2&apos; contains invalid characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Niz&apos;%1&apos; za &apos;%2&apos; sadrži nevažeće znakove</translation>
     </message>
 </context>
 <context>
@@ -2912,7 +2915,8 @@ Veličina: %3
     <message>
         <location line="+110"/>
         <source>No.</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Broj</translatorcomment>
+        <translation>Br.</translation>
     </message>
     <message>
         <location line="+524"/>
@@ -3169,34 +3173,34 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <location line="+11"/>
         <location line="+33"/>
         <source>Export public key [%1]</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi javni ključ [%1]</translation>
     </message>
     <message>
         <location line="-28"/>
         <location line="+38"/>
         <source>PEM public</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM javni</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>DER public</source>
-        <translation type="unfinished"></translation>
+        <translation>DER javni</translation>
     </message>
     <message>
         <location line="-35"/>
         <location line="+39"/>
         <source>SSH2 public</source>
-        <translation type="unfinished"></translation>
+        <translation>SSH2 javni</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>DER private</source>
-        <translation type="unfinished"></translation>
+        <translation>DER privatni</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM encryped</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM kriptirani</translation>
     </message>
     <message>
         <source>PKCS#8</source>
@@ -3206,23 +3210,23 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <location line="-43"/>
         <location line="+48"/>
         <source>PEM private</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM privatni</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PKCS#8 encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS#8 kriptirani</translation>
     </message>
     <message>
         <location line="-49"/>
         <location line="+50"/>
         <source>Export private key [%1]</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi privatni ključ [%1]</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )</source>
-        <translation type="unfinished"></translation>
+        <translation>Privatni ključevi ( *.pem *.der *.pk8 );; SSH javni ključevi ( *.pub )</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -3394,7 +3398,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+1"/>
         <source>CRL Expiration</source>
-        <translation type="unfinished"></translation>
+        <translation>Rok trajanja CRL</translation>
     </message>
     <message>
         <location line="+105"/>
@@ -3474,42 +3478,42 @@ i zbog toga nije uvezena</translation>
     <message>
         <location line="+80"/>
         <source>PEM chain</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM lanac</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PKCS #7 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #7 lanac</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>PKCS #12 chain</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #12 lanac</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>PEM + key</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM + ključ</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>PKCS #7 trusted</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #7 pouzdan</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PKCS #7 all</source>
-        <translation type="unfinished"></translation>
+        <translation>PKCS #7 sve</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM trusted</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM pouzdan</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>PEM all</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM sve</translation>
     </message>
     <message>
         <source>Extract public Key</source>
@@ -3558,17 +3562,17 @@ i zbog toga nije uvezena</translation>
     <message>
         <location line="+3"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Preobrazi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Public Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Javni ključ</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Similar Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Slična potvrda</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3625,12 +3629,12 @@ i zbog toga nije uvezena</translation>
     <message>
         <location line="+70"/>
         <source>Certificate export</source>
-        <translation type="unfinished">Izvoz potvrde</translation>
+        <translation>Izvoz potvrde</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )</source>
-        <translation type="unfinished"></translation>
+        <translation>X509 potvrde ( *.pem *.cer *.crt *.p12 *.p7b )</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -3922,7 +3926,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="+5"/>
         <source>Transform</source>
-        <translation type="unfinished"></translation>
+        <translation>Preobrazi</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3937,17 +3941,17 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="-45"/>
         <source>Certificate request ( *.pem *.der *.csr )</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahtjev za izdavanje potvrde ( *.pem *.der *.csr )</translation>
     </message>
     <message>
         <location line="+53"/>
         <source>Public Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Javni ključ</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Similar Request</source>
-        <translation type="unfinished"></translation>
+        <translation>Sličan zahtjev</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3970,7 +3974,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="+1"/>
         <source>Signature Algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritam potpisa</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -4107,7 +4111,7 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="+62"/>
         <source>Unable to load the private key in file %1. Tried PEM and DER private, public, PKCS#8 key types and SSH2 format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće učitati privatni ključ u datoteci %1. Probani su PEM i DER privatni, javni, PKCS#8 tip ključeva i SSH2 format.</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -4230,12 +4234,12 @@ i zbog toga nije spreman</translation>
         <location line="+5"/>
         <location line="+3"/>
         <source>Invalid SSH2 public key</source>
-        <translation type="unfinished"></translation>
+        <translation>Neispravan SSH2 javni ključ</translation>
     </message>
     <message>
         <location line="+113"/>
         <source>Failed writing to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nije moguće pisati u %1 </translation>
     </message>
 </context>
 <context>

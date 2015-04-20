@@ -6,6 +6,7 @@ Comment=A graphical user interface for handling and issuing X.509 compliant Cert
 Comment[de]=Eine graphische Oberfläche zur Erstellung von X.509 konformen Zertifikaten
 Comment[fi]=Graafinen X.509-varmenteiden hallintatyökalu
 Comment[fr]=Création et gestion de certificats conformes à la norme X.509
+Comment[hr]=Grafičko korisničko sučelje za upravljanje životnim ciklusom X.509 sukladnih potvrda
 Exec=xca %F
 Icon=xca-32x32
 Terminal=false

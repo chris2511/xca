@@ -40,6 +40,7 @@ SetCompressor /SOLID lzma
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "German"
 !insertmacro MUI_LANGUAGE "French"
+!insertmacro MUI_LANGUAGE "Croatian"
 
 ;-----------------------------------
 ; The stuff to install
@@ -284,18 +285,22 @@ SectionEnd
   LangString DESC_SecMain ${LANG_ENGLISH} "XCA main application."
   LangString DESC_SecMain ${LANG_GERMAN}  "XCA Applikation."
   LangString DESC_SecMain ${LANG_FRENCH}  "application XCA."
+  LangString DESC_SecMain ${LANG_CROATIAN}  "XCA aplikacija."
 
   LangString DESC_SecShortcut ${LANG_ENGLISH} "Shortcuts on the desktop and the menu."
   LangString DESC_SecShortcut ${LANG_GERMAN}  "Programmgruppe auf dem Desktop und im Menu."
   LangString DESC_SecShortcut ${LANG_FRENCH} "Raccourcis sur le bureau et dans le menu."
+  LangString DESC_SecShortcut ${LANG_CROATIAN} "Preƒçac na radnoj povr≈°ini i izborniku."
 
   LangString DESC_SecFiles ${LANG_ENGLISH} "File association for *.xdb *.xca *.pem and 'open with' for *.crt *.crl *.pfx *.p7b *.cer"
-  LangString DESC_SecFiles ${LANG_GERMAN}  "Registrierung der Dateiendung *.xdb *.xca *.pem und '÷ffnen mit' f¸r *.crt *.crl *.pfx *.p7b *.cer"
-  LangString DESC_SecFiles ${LANG_FRENCH} "Application par dÈfault pour *.xdb *.xca *.pem et 'Ouvrir avec' four *.crt *.crl *.pfx *.p7b *.cer"
+  LangString DESC_SecFiles ${LANG_GERMAN}  "Registrierung der Dateiendung *.xdb *.xca *.pem und '√ñffnen mit' f√ºr *.crt *.crl *.pfx *.p7b *.cer"
+  LangString DESC_SecFiles ${LANG_FRENCH} "Application par d√©fault pour *.xdb *.xca *.pem et 'Ouvrir avec' pour *.crt *.crl *.pfx *.p7b *.cer"
+  LangString DESC_SecFiles ${LANG_CROATIAN} "Osnovna aplikacija za datoteke *.xdb *.xca *.pem i 'Otvori s' za *.crt *.crl *.pfx *.p7b *.cer"
 
   LangString DESC_SecTrans ${LANG_ENGLISH} "Translations for german, russian, spanish, french and croatian."
-  LangString DESC_SecTrans ${LANG_GERMAN}  "‹bersetzungen in deutsch, russisch, spanisch kroatisch und franzˆsisch."
-  LangString DESC_SecTrans ${LANG_FRENCH} "Traductions pour l'allemand, le russe, l'espagnol, le franÁais et le croate."
+  LangString DESC_SecTrans ${LANG_GERMAN}  "√úbersetzungen in deutsch, russisch, spanisch kroatisch und franz√∂sisch."
+  LangString DESC_SecTrans ${LANG_FRENCH} "Traductions pour l'allemand, le russe, l'espagnol, le fran√ßais et le croate."
+  LangString DESC_SecTrans ${LANG_CROATIAN} "Prijevodi na njemaƒçki, ruski, ≈°panjolski, francuski i hrvatski jezik."
 
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
@@ -308,6 +313,7 @@ SectionEnd
 LangString DESC_Finish ${LANG_ENGLISH} "\r\nEnjoy XCA and free Software"
 LangString DESC_Finish ${LANG_GERMAN} "\r\nViel Spass mit XCA und freier Software"
 LangString DESC_Finish ${LANG_FRENCH} "\r\nAmusez-vous bien avec XCA et les logiciels libres"
+LangString DESC_Finish ${LANG_CROATIAN} "\r\nU≈æivajte u XCA i slobodnom softveru"
 
 ;-----------------------------------
 
