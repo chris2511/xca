@@ -154,7 +154,7 @@ void x509rev::dump() const
 	fprintf(stderr, "Rev: %s D:%s I:%s Reason: %d '%s'\n",
 		CCHAR(serial.toHex()), CCHAR(date.toSortable()),
 		CCHAR(ivalDate.toSortable()), reason_idx,
-		CCHAR(crl_reasons[reason_idx].lname));
+		crl_reasons[reason_idx].lname);
 }
 
 void x509revList::fromBA(QByteArray &ba)

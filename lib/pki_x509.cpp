@@ -499,7 +499,7 @@ void pki_x509::sign(pki_key *signkey, const EVP_MD *digest)
 void pki_x509::fromData(const unsigned char *p, db_header_t *head)
 {
 	int version, size;
-	bool isRevoked;
+	bool isRevoked = false;
 
 	version = head->version;
 	size = head->len - sizeof(db_header_t);
