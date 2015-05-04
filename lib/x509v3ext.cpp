@@ -589,8 +589,8 @@ bool x509v3ext::parse_certpol(QString *, QString *adv) const
 		}
 	}
 	if (retval && adv)
-		*adv = QString("certificatePolicies=ia5org,%1\n").
-		arg(pols.join(", ")) + *adv + myadv;
+		*adv = QString("certificatePolicies=%1ia5org,%2\n").
+		arg(parse_critical()).arg(pols.join(", ")) + *adv + myadv;
 	sk_POLICYINFO_free(pol);
 	return retval;
 }
@@ -700,6 +700,41 @@ bool x509v3ext::parse_generic(QString *, QString *adv) const
 	return true;
 }
 
+bool x509v3ext::parse_inhibitAnyPolicy(QString *, QString *adv) const
+{
+	ASN1_INTEGER *a = (ASN1_INTEGER *)d2i();
+
+	a1int val(a);
+	if (adv) {
+		*adv = QString("%1=%2%3\n").arg(OBJ_nid2sn(nid())).
+			arg(parse_critical()).arg(val.toDec()) + *adv;
+	}
+	ASN1_INTEGER_free(a);
+	return true;
+}
+
+bool x509v3ext::parse_policyConstraints(QString *, QString *adv) const
+{
+	QStringList v;
+	a1int a1null(0L), a;
+	POLICY_CONSTRAINTS *pol = (POLICY_CONSTRAINTS *)d2i();
+
+	a = a1int(pol->requireExplicitPolicy);
+	if (a != a1null)
+		v << QString("requireExplicitPolicy:%1").arg(a.toDec());
+
+	a = a1int(pol->inhibitPolicyMapping);
+	if (a != a1null)
+		v << QString("inhibitPolicyMapping:%1").arg(a.toDec());
+
+	if (adv)
+		*adv = QString("%1=%2%3\n").arg(OBJ_nid2sn(nid())).
+			arg(parse_critical()).arg(v.join(", ")) + *adv;
+	POLICY_CONSTRAINTS_free(pol);
+	return true;
+
+}
+
 bool x509v3ext::genConf(QString *single, QString *adv) const
 {
 	int n = nid();
@@ -732,6 +767,11 @@ bool x509v3ext::genConf(QString *single, QString *adv) const
 		return parse_sKeyId(single, adv);
 	case NID_authority_key_identifier:
 		return parse_aKeyId(single, adv);
+	case NID_inhibit_any_policy:
+		return parse_inhibitAnyPolicy(single, adv);
+	case NID_policy_constraints:
+		return parse_policyConstraints(single, adv);
+	case NID_policy_mappings:
 	default:
 		return parse_generic(single, adv);
 	}
