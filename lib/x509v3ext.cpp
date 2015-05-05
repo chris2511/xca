@@ -355,8 +355,12 @@ bool x509v3ext::parse_generalName(QString *single, QString *adv) const
 {
 	bool retval = true;
 	QString sect, ret;
-	QString tag = OBJ_nid2sn(nid());
 	STACK_OF(GENERAL_NAME) *gens = (STACK_OF(GENERAL_NAME) *)d2i();
+
+	if (!gens)
+		return false;
+
+	QString tag = OBJ_nid2sn(nid());
 
 	if (!genNameStack2conf(gens, tag, &ret, &sect))
 		retval = false;
@@ -375,6 +379,9 @@ bool x509v3ext::parse_eku(QString *single, QString *adv) const
 	EXTENDED_KEY_USAGE *eku = (EXTENDED_KEY_USAGE *)d2i();
 	QStringList sl;
 	int i;
+
+	if (!eku)
+		return false;
 
 	for (i = 0; i < sk_ASN1_OBJECT_num(eku); i++) {
 		sl << QString(OBJ_obj2sn(sk_ASN1_OBJECT_value(eku, i)));
@@ -398,6 +405,9 @@ bool x509v3ext::parse_ainfo(QString *single, QString *adv) const
 	int i;
 
 	AUTHORITY_INFO_ACCESS *ainfo = (AUTHORITY_INFO_ACCESS *)d2i();
+
+	if (!ainfo)
+		return false;
 
 	for (i = 0; i < sk_ACCESS_DESCRIPTION_num(ainfo); i++) {
 		QString one;
@@ -455,6 +465,10 @@ bool x509v3ext::parse_Crldp(QString *single, QString *adv) const
 	const char *sn = OBJ_nid2sn(nid());
 
 	STACK_OF(DIST_POINT) *crld = (STACK_OF(DIST_POINT)*)d2i();
+
+	if (!crld)
+		return false;
+
 	if (sk_DIST_POINT_num(crld) == 1 && single) {
 		DIST_POINT *point = sk_DIST_POINT_value(crld, 0);
 		if (point->distpoint && !point->reasons && !point->CRLissuer &&
@@ -561,6 +575,9 @@ static bool gen_cpol_qual_sect(QString tag, POLICYINFO *pinfo, QString *adv)
 	STACK_OF(POLICYQUALINFO) *quals = pinfo->qualifiers;
 	int i;
 
+	if (!quals)
+		return false;
+
 	if (!adv)
 		adv = &_adv;
 
@@ -594,8 +611,12 @@ bool x509v3ext::parse_certpol(QString *, QString *adv) const
 	bool retval = true;
 	QStringList pols;
 	QString myadv;
-	STACK_OF(POLICYINFO) *pol = (STACK_OF(POLICYINFO) *)d2i();
 	int i;
+	STACK_OF(POLICYINFO) *pol = (STACK_OF(POLICYINFO) *)d2i();
+
+	if (!pol)
+		return false;
+
 	for (i = 0; i < sk_POLICYINFO_num(pol); i++) {
 		POLICYINFO *pinfo = sk_POLICYINFO_value(pol, i);
 		if (!pinfo->qualifiers) {
@@ -619,6 +640,10 @@ bool x509v3ext::parse_certpol(QString *, QString *adv) const
 bool x509v3ext::parse_bc(QString *single, QString *adv) const
 {
 	BASIC_CONSTRAINTS *bc = (BASIC_CONSTRAINTS *)d2i();
+
+	if (!bc)
+		return false;
+
 	QString ret = a1int(bc->pathlen).toDec();
 	if (!ret.isEmpty())
 		ret = ",pathlen:" + ret;
@@ -668,6 +693,10 @@ bool x509v3ext::parse_bitstring(QString *single, QString *adv) const
 	default: return false;
 	}
 	bs = (ASN1_BIT_STRING *)d2i();
+
+	if (!bs)
+		return false;
+
 	QString ret = parse_critical() + parse_bits(bnames, bs);
 	if (single)
 		*single = ret;
@@ -688,6 +717,9 @@ bool x509v3ext::parse_aKeyId(QString *, QString *adv) const
 {
 	QStringList ret;
 	AUTHORITY_KEYID *akeyid = (AUTHORITY_KEYID *)d2i();
+
+	if (!akeyid)
+		return false;
 
 	if (akeyid->keyid)
 		ret << "keyid";
@@ -719,6 +751,9 @@ bool x509v3ext::parse_inhibitAnyPolicy(QString *, QString *adv) const
 {
 	ASN1_INTEGER *a = (ASN1_INTEGER *)d2i();
 
+	if (!a)
+		return false;
+
 	a1int val(a);
 	if (adv) {
 		*adv = QString("%1=%2%3\n").arg(OBJ_nid2sn(nid())).
@@ -733,6 +768,9 @@ bool x509v3ext::parse_policyConstraints(QString *, QString *adv) const
 	QStringList v;
 	a1int a1null(0L), a;
 	POLICY_CONSTRAINTS *pol = (POLICY_CONSTRAINTS *)d2i();
+
+	if (!pol)
+		return false;
 
 	a = a1int(pol->requireExplicitPolicy);
 	if (a != a1null)
@@ -756,6 +794,9 @@ bool x509v3ext::parse_policyMappings(QString *, QString *adv) const
 	QStringList polMaps;
 	QString myadv;
 	POLICY_MAPPINGS *pmaps = (POLICY_MAPPINGS *)d2i();
+
+	if (!pmaps)
+		return false;
 
 	for (int i = 0; i < sk_POLICY_MAPPING_num(pmaps); i++) {
 		POLICY_MAPPING *pmap = sk_POLICY_MAPPING_value(pmaps, i);
@@ -799,6 +840,9 @@ bool x509v3ext::parse_nameConstraints(QString *, QString *adv) const
 	QStringList permEx;
 	QString tag = OBJ_nid2sn(nid());
 	NAME_CONSTRAINTS *cons = (NAME_CONSTRAINTS *)d2i();
+
+	if (!cons)
+		return false;
 
 	if (!nameConstraint(cons->permittedSubtrees, "permitted",
 				tag, &ret, &sect))
@@ -861,6 +905,10 @@ bool x509v3ext::genConf(QString *single, QString *adv) const
 		return parse_policyMappings(single, adv);
 	case NID_name_constraints:
 		return parse_nameConstraints(single, adv);
+	case NID_id_pkix_OCSP_noCheck:
+		if (adv)
+			*adv = "noCheck = ignored\n" + *adv;
+		return true;
 	default:
 		return parse_generic(single, adv);
 	}
