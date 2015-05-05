@@ -306,7 +306,7 @@ const char *OBJ_obj2sn(ASN1_OBJECT *a)
 	return OBJ_nid2sn(OBJ_obj2nid(a));
 }
 
-QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name)
+QString OBJ_obj2QString(const ASN1_OBJECT *a, int no_name)
 {
 	char buf[512];
 	int len;

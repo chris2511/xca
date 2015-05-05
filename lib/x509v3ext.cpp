@@ -159,6 +159,18 @@ bool x509v3ext::parse_ia5(QString *single, QString *adv) const
 	return true;
 }
 
+static QString obj2SnOid(const ASN1_OBJECT *a)
+{
+	QString obj;
+	int nid = OBJ_obj2nid(a);
+
+	if (nid == NID_undef)
+		obj = OBJ_obj2QString(a);
+	else
+		obj = OBJ_nid2sn(nid);
+
+	return obj;
+}
 
 static const char *asn1Type2Name(int type)
 {
@@ -269,15 +281,24 @@ genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 			*single = QString("IP:%1.%2.%3.%4").
 				arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]);
 			return true;
+		} else if(gen->d.ip->length == 8) {
+			 *single = QString("IP:%1.%2.%3.%4/%5.%6.%7.%8").
+                                arg(p[0]).arg(p[1]).arg(p[2]).arg(p[3]).
+                                arg(p[4]).arg(p[5]).arg(p[6]).arg(p[7]);
+                        return true;
 		} else if(gen->d.ip->length == 16) {
 			*single = "IP:" + ipv6_from_binary(gen->d.ip->data);
+			return true;
+		} else if(gen->d.ip->length == 32) {
+			*single = "IP:" + ipv6_from_binary(gen->d.ip->data) +
+				"/" + ipv6_from_binary(gen->d.ip->data +16);
 			return true;
 		}
 		return false;
 
 	case GEN_RID:
 		*single = QString("RID:%1").
-				arg(OBJ_obj2QString(gen->d.rid));
+				arg(obj2SnOid(gen->d.rid));
 		return true;
 	case GEN_OTHERNAME: {
 		int type = gen->d.otherName->value->type;
@@ -285,12 +306,12 @@ genName2conf(GENERAL_NAME *gen, QString tag, QString *single, QString *sect)
 		a = gen->d.otherName->value->value.asn1_string;
 		if (asn1TypePrintable(type)) {
 			*single = QString("otherName:%1;%2:%3").
-			arg(OBJ_obj2QString(gen->d.otherName->type_id)).
+			arg(obj2SnOid(gen->d.otherName->type_id)).
 			arg(asn1Type2Name(type)).
 			arg(asn1ToQString(a, true));
 		} else {
 			*single = QString("otherName:%1;FORMAT:HEX,%2").
-			arg(OBJ_obj2QString(gen->d.otherName->type_id)).
+			arg(obj2SnOid(gen->d.otherName->type_id)).
 			arg(asn1Type2Name(type));
 			for (int i=0; i<a->length; i++) {
 				*single += QString(":%1").
@@ -544,7 +565,7 @@ static bool gen_cpol_qual_sect(QString tag, POLICYINFO *pinfo, QString *adv)
 		adv = &_adv;
 
 	polsect += QString("policyIdentifier=%1\n").
-			arg(OBJ_obj2QString(pinfo->policyid));
+			arg(obj2SnOid(pinfo->policyid));
 
 	for (i = 0; i < sk_POLICYQUALINFO_num(quals); i++) {
 		POLICYQUALINFO *qualinfo = sk_POLICYQUALINFO_value(quals, i);
@@ -578,7 +599,7 @@ bool x509v3ext::parse_certpol(QString *, QString *adv) const
 	for (i = 0; i < sk_POLICYINFO_num(pol); i++) {
 		POLICYINFO *pinfo = sk_POLICYINFO_value(pol, i);
 		if (!pinfo->qualifiers) {
-			pols << OBJ_obj2QString(pinfo->policyid);
+			pols << obj2SnOid(pinfo->policyid);
 			continue;
 		}
 		QString tag = QString("certpol%1_sect").arg(i);
@@ -681,15 +702,9 @@ bool x509v3ext::parse_aKeyId(QString *, QString *adv) const
 
 bool x509v3ext::parse_generic(QString *, QString *adv) const
 {
-	QString der, obj;
-	int n = nid();
-
-	if (n == NID_undef)
-		obj = OBJ_obj2QString(X509_EXTENSION_get_object(ext));
-	else
-		obj = OBJ_nid2sn(n);
-
+	QString der, obj = obj2SnOid(X509_EXTENSION_get_object(ext));
 	ASN1_OCTET_STRING *v = ext->value;
+
 	for (int i=0; i<v->length; i++)
 		der += QString(":%1").arg((int)(v->data[i]), 2, 16, QChar('0'));
 
@@ -735,6 +750,77 @@ bool x509v3ext::parse_policyConstraints(QString *, QString *adv) const
 
 }
 
+bool x509v3ext::parse_policyMappings(QString *, QString *adv) const
+{
+	bool retval = true;
+	QStringList polMaps;
+	QString myadv;
+	POLICY_MAPPINGS *pmaps = (POLICY_MAPPINGS *)d2i();
+
+	for (int i = 0; i < sk_POLICY_MAPPING_num(pmaps); i++) {
+		POLICY_MAPPING *pmap = sk_POLICY_MAPPING_value(pmaps, i);
+		polMaps << QString("%1 = %2").
+			arg(obj2SnOid(pmap->issuerDomainPolicy)).
+			arg(obj2SnOid(pmap->subjectDomainPolicy));
+	}
+	if (polMaps.size() > 0 && adv) {
+		*adv = QString("policyMappings=%1@policyMappings_sect\n").
+		arg(parse_critical()) + *adv +
+		QString("[policyMappings_sect]\n") + polMaps.join("\n");
+	}
+	sk_POLICY_MAPPING_free(pmaps);
+	return retval;
+}
+
+static bool nameConstraint(STACK_OF(GENERAL_SUBTREE) *trees,
+		QString prefix, QString tag, QString *single, QString *sect)
+{
+	QStringList sl;
+	for (int i = 0; i < sk_GENERAL_SUBTREE_num(trees); i++) {
+		QString one;
+		GENERAL_SUBTREE *tree = sk_GENERAL_SUBTREE_value(trees, i);
+		if (!genName2conf(tree->base,
+			QString("%1_%2").arg(tag).arg(i), &one, sect))
+		{
+			return false;
+		}
+		fprintf(stderr, "%s: %d '%s'\n", __func__, i, CCHAR(one));
+		sl << prefix + ";" + one;
+	}
+	*single = vlist2Section(sl, tag+prefix, sect);
+	fprintf(stderr, "Single: '%s'\n", CCHAR(*single));
+	return true;
+}
+
+bool x509v3ext::parse_nameConstraints(QString *, QString *adv) const
+{
+	bool retval = true;
+	QString sect, ret;
+	QStringList permEx;
+	QString tag = OBJ_nid2sn(nid());
+	NAME_CONSTRAINTS *cons = (NAME_CONSTRAINTS *)d2i();
+
+	if (!nameConstraint(cons->permittedSubtrees, "permitted",
+				tag, &ret, &sect))
+		retval = false;
+	if (ret.size() > 0)
+		permEx << ret;
+	if (!nameConstraint(cons->excludedSubtrees, "excluded",
+				tag, &ret, &sect))
+		retval = false;
+	if (ret.size() > 0)
+		permEx << ret;
+
+	if (adv && retval &&permEx.size() > 0) {
+		ret = permEx.join(", ");
+		fprintf(stderr, "%s %d '%s'\n", __func__, retval, CCHAR(ret));
+		*adv = QString("%1=%2\n").arg(tag).
+			arg(parse_critical() +ret) + *adv + sect;
+	}
+	NAME_CONSTRAINTS_free(cons);
+	return retval;
+}
+
 bool x509v3ext::genConf(QString *single, QString *adv) const
 {
 	int n = nid();
@@ -772,6 +858,9 @@ bool x509v3ext::genConf(QString *single, QString *adv) const
 	case NID_policy_constraints:
 		return parse_policyConstraints(single, adv);
 	case NID_policy_mappings:
+		return parse_policyMappings(single, adv);
+	case NID_name_constraints:
+		return parse_nameConstraints(single, adv);
 	default:
 		return parse_generic(single, adv);
 	}

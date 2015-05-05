@@ -35,7 +35,7 @@ ASN1_STRING *QStringToAsn1(QString s, int nid);
 const char *OBJ_ln2sn(const char *ln);
 const char *OBJ_sn2ln(const char *sn);
 const char *OBJ_obj2sn(ASN1_OBJECT *a);
-QString OBJ_obj2QString(ASN1_OBJECT *a, int no_name = 0);
+QString OBJ_obj2QString(const ASN1_OBJECT *a, int no_name = 0);
 
 void inc_progress_bar(int, int, void *p);
 

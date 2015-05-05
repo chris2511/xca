@@ -54,6 +54,8 @@ class x509v3ext
 	bool parse_aKeyId(QString *single, QString *adv) const;
 	bool parse_inhibitAnyPolicy(QString *, QString *adv) const;
 	bool parse_policyConstraints(QString *, QString *adv) const;
+	bool parse_policyMappings(QString *, QString *adv) const;
+	bool parse_nameConstraints(QString *, QString *adv) const;
 };
 
 class extList : public QList<x509v3ext>
