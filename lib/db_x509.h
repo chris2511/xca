@@ -54,34 +54,29 @@ class db_x509: public db_x509super
 		void writePKCS12(pki_x509 *cert, QString s, bool chain);
 		void writePKCS7(pki_x509 *cert, QString s,
 				exportType::etype type, QModelIndexList list);
-		void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+		void fillContextMenu(QMenu *menu, const QModelIndex &index);
 		void inToCont(pki_base *pki);
 		void changeView();
 		a1int getUniqueSerial(pki_x509 *signer);
-		void myToToken(bool alwaysSelect);
+		void toToken(QModelIndex idx, bool alwaysSelect);
+		void toRequest(QModelIndex idx);
 		void store(QModelIndexList list);
+		void showPki(pki_base *pki);
+		void load();
+		void caProperties(QModelIndex idx);
+		void toCertificate(QModelIndex index);
+		void manageRevocations(QModelIndex idx);
+		void certRenewal(QModelIndexList indexes);
+		void revoke(QModelIndexList indexes);
+		void do_revoke(QModelIndexList indexes, const x509rev &r);
+		void unRevoke(QModelIndexList indexes);
+		void setTrust(QModelIndexList indexes);
 
 	public slots:
-		void load(void);
-		void newItem(void);
-		void showPki(pki_base *pki);
-		void setMultiTrust(QAbstractItemView* view);
-		void setTrust();
-		void deleteFromToken();
-		void extendCert();
-		void revoke();
-		void unRevoke();
-		void genCrl();
-		void caProperties();
-		void toRequest();
-		void toCertificate();
-		void toToken();
-		void toOtherToken();
+		void newItem();
+
 		void newCert(pki_temp *);
 		void newCert(pki_x509req *);
-		void loadPKCS12();
-		void loadPKCS7();
-		void manageRevocations();
 };
 
 #endif

@@ -55,6 +55,11 @@ pki_base *db_x509req::insert(pki_base *item)
 	return req;
 }
 
+void db_x509req::newItem()
+{
+	newItem(NULL, NULL);
+}
+
 void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 {
 	pki_x509req *req = NULL;
@@ -67,7 +72,7 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 		dlg->fromX509super(orig);
 	}
 	dlg->setRequest();
-	if (! dlg->exec()){
+	if (!dlg->exec()){
 		delete dlg;
 		return;
 	}
@@ -90,10 +95,9 @@ void db_x509req::newItem(pki_temp *temp, pki_x509req *orig)
 	}
 }
 
-void db_x509req::toRequest(void)
+void db_x509req::toRequest(QModelIndex index)
 {
-	pki_x509req *req = static_cast<pki_x509req*>
-			(currentIdx.internalPointer());
+	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
 	if (!req)
 		return;
 	newItem(NULL, req);
@@ -136,16 +140,14 @@ void db_x509req::showPki(pki_base *pki)
 	}
 }
 
-void db_x509req::store()
+void db_x509req::store(QModelIndex index)
 {
 	QList<exportType> types;
 
-	if (!currentIdx.isValid())
-		return;
-
-	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
+	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
 	if (!req)
 		return;
+
 	types << exportType(exportType::PEM, "pem", "PEM") <<
 			exportType(exportType::DER, "der", "DER");
 
@@ -167,51 +169,8 @@ void db_x509req::store()
 	delete dlg;
 }
 
-
-void db_x509req::signReq()
+void db_x509req::signReq(QModelIndex index)
 {
-	if (!currentIdx.isValid())
-		return;
-
-	pki_x509req *req = static_cast<pki_x509req*>(currentIdx.internalPointer());
-	emit newCert(req);
-}
-
-void db_x509req::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
-{
-	QMenu *menu = new QMenu(mainwin);
-	QMenu *subExport, *transform;
-	currentIdx = index;
-
 	pki_x509req *req = static_cast<pki_x509req*>(index.internalPointer());
-
-	menu->addAction(tr("New Request"), this, SLOT(newItem()));
-	menu->addAction(tr("Import"), this, SLOT(load()));
-	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), this, SLOT(edit()));
-		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
-		menu->addAction(tr("Sign"), this, SLOT(signReq()));
-
-		subExport = menu->addMenu(tr("Export"));
-		subExport->addAction(tr("Clipboard"), this,
-					SLOT(pem2clipboard()));
-		subExport->addAction(tr("File"), this, SLOT(store()));
-		subExport->addAction(tr("OpenSSL config"), this,
-					SLOT(toOpenssl()));
-		subExport->setEnabled(!req->isSpki());
-
-		transform = menu->addMenu(tr("Transform"));
-		transform->addAction(tr("Template"), this,
-					SLOT(toTemplate()))->
-					setEnabled(!req->isSpki());
-		transform->addAction(tr("Public Key"), this,
-					SLOT(extractPubkey()))->
-					setEnabled(!req->getRefKey());
-		transform->addAction(tr("Similar Request"),
-				this, SLOT(toRequest()));
-		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-	}
-	contextMenu(e, menu);
-	currentIdx = QModelIndex();
-	return;
+	emit newCert(req);
 }

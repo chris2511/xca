@@ -82,7 +82,14 @@ HEADERS += local.h \
            widgets/validity.h \
            widgets/SearchPkcs11.h \
            widgets/RevocationList.h \
-           widgets/XcaTreeView.h
+           widgets/XcaTreeView.h \
+           widgets/CertTreeView.h \
+           widgets/KeyTreeView.h \
+           widgets/ReqTreeView.h \
+           widgets/TempTreeView.h \
+           widgets/X509SuperTreeView.h \
+           widgets/XcaHeaderView.h \
+           widgets/XcaProxyModel.h
 
 FORMS += ui/About.ui \
          ui/CaProperties.ui \
@@ -168,6 +175,13 @@ SOURCES += lib/asn1int.cpp \
            widgets/validity.cpp \
            widgets/SearchPkcs11.cpp \
            widgets/RevocationList.cpp \
-           widgets/XcaTreeView.cpp
+           widgets/XcaTreeView.cpp \
+	   widgets/CertTreeView.cpp \
+	   widgets/KeyTreeView.cpp \
+	   widgets/ReqTreeView.cpp \
+	   widgets/TempTreeView.cpp \
+	   widgets/X509SuperTreeView.cpp \
+	   widgets/XcaHeaderView.cpp \
+	   widgets/XcaProxyModel.cpp
 
 TRANSLATIONS += lang/xca_de.ts lang/xca_es.ts lang/xca_ru.ts lang/xca.ts lang/xca_tr.ts lang/xca_fr.ts lang/xca_hr.ts

@@ -82,7 +82,7 @@ QStringList db_key::get0KeyDesc(bool all)
 void db_key::remFromCont(QModelIndex &idx)
 {
 	db_base::remFromCont(idx);
-	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 	emit delKey((pki_key *)pki);
 }
 
@@ -109,9 +109,7 @@ pki_base* db_key::insert(pki_base *item)
 			XCA_INFO(
 			tr("The database already contains the public part of the imported key as\n'%1\nand will be completed by the new, private part of the key").arg(oldkey->getIntName()));
 			lkey->setIntName(oldkey->getIntName());
-			currentIdx = index(oldkey->row(), 0, QModelIndex());
-			deletePKI();
-			currentIdx = QModelIndex();
+			deletePKI(index(oldkey->row(), 0, QModelIndex()));
 		}
 	}
 	insertPKI(lkey);
@@ -187,35 +185,6 @@ void db_key::load(void)
 	load_default(l);
 }
 
-void db_key::toToken()
-{
-	pki_key *key = static_cast<pki_scard*>(currentIdx.internalPointer());
-	if (!key || !pkcs11::loaded() || key->isToken())
-		return;
-
-	pki_scard *card = NULL;
-	try {
-		pkcs11 p11;
-		slotid slot;
-
-		if (!p11.selectToken(&slot, mainwin))
-			return;
-		card = new pki_scard(key->getIntName());
-		card->store_token(slot, key->decryptKey());
-		QString msg = tr("Shall the original key '%1' be replaced by the key on the token?\nThis will delete the key '%1' and make it unexportable").
-			arg(key->getIntName());
-		if (XCA_YESNO(msg)) {
-			deletePKI();
-			insertPKI(card);
-			card = NULL;
-		}
-	} catch (errorEx &err) {
-		mainwin->Error(err);
-        }
-	if (card)
-		delete card;
-}
-
 void db_key::showPki(pki_base *pki)
 {
 	pki_evp *key = (pki_evp *)pki;
@@ -226,77 +195,35 @@ void db_key::showPki(pki_base *pki)
 		delete dlg;
 	}
 }
-
-void db_key::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
+exportType::etype db_key::clipboardFormat(QModelIndexList indexes)
 {
-	QMenu *menu = new QMenu(mainwin);
-	QMenu *subExport;
-
-	currentIdx = index;
-
-	pki_key *key = static_cast<pki_key*>(currentIdx.internalPointer());
-
-	menu->addAction(tr("New Key"), this, SLOT(newItem()));
-	menu->addAction(tr("Import"), this, SLOT(load()));
-	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), this, SLOT(edit()));
-		menu->addAction(tr("Show Details"), this, SLOT(showItem()));
-		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-		subExport = menu->addMenu(tr("Export"));
-		subExport->addAction(tr("Clipboard"), this,
-					SLOT(pem2clipboard()));
-		subExport->addAction(tr("File"), this, SLOT(store()));
-		if (key->isPrivKey() && !key->isToken()) {
-			switch (key->getOwnPass()) {
-			case pki_key::ptCommon:
-				menu->addAction(tr("Change password"), this,
-						SLOT(setOwnPass()));
-				break;
-			case pki_key::ptPrivate:
-				menu->addAction(tr("Reset password"), this,
-						SLOT(resetOwnPass()));
-				break;
-			}
-		}
-		if (key->isToken() && pkcs11::loaded()) {
-			menu->addAction(tr("Change PIN"), this,
-				SLOT(changePin()));
-			menu->addAction(tr("Init PIN with SO PIN (PUK)"), this,
-				SLOT(initPin()));
-			menu->addAction(tr("Change SO PIN (PUK)"), this,
-				SLOT(changeSoPin()));
-		}
-		if (!key->isToken() && pkcs11::loaded()) {
-			menu->addAction(tr("Store on Security token"),
-				this, SLOT(toToken()));
-		}
-	}
-	contextMenu(e, menu);
-	currentIdx = QModelIndex();
-	return;
-}
-
-exportType::etype db_key::clipboardFormat()
-{
-	QString title = tr("Export public key [%1]");
 	QList<exportType> types;
+	bool allPriv = true;
+	bool allRSADSA = true;
 
-	pki_key *key =static_cast<pki_evp*>(currentIdx.internalPointer());
+	foreach(QModelIndex idx, indexes) {
+		pki_key *key = static_cast<pki_key*>
+				(idx.internalPointer());
+		if (key->isPubKey() || key->isToken())
+			allPriv = false;
+		if (key->getKeyType() != EVP_PKEY_RSA &&
+		    key->getKeyType() != EVP_PKEY_DSA)
+			allRSADSA = false;
+	}
+	if (!allPriv && !allRSADSA)
+		return exportType::PEM_key;
 
 	types << exportType(exportType::PEM_key, "pem", tr("PEM public"));
-	if (key->getKeyType() == EVP_PKEY_RSA ||
-            key->getKeyType() == EVP_PKEY_DSA)
+	if (allRSADSA)
 		types << exportType(exportType::SSH2_public,
 			"pub", tr("SSH2 public"));
-	if (!key->isPubKey() && !key->isToken()) {
+	if (allPriv)
 		types << exportType(exportType::PEM_private, "pem",
 			tr("PEM private"));
-		title = tr("Export private key [%1]");
-	}
+
 	ExportDialog *dlg = new ExportDialog(mainwin,
-		title.arg(key->getTypeString()), QString(), key,
-		key->isToken() ? MainWindow::scardImg : MainWindow::keyImg,
-		types);
+		tr("Export keys to CLipboard"), QString(), NULL,
+		MainWindow::keyImg, types);
 
 	dlg->filename->setText(tr("Clipboard"));
 	dlg->filename->setEnabled(false);
@@ -308,16 +235,16 @@ exportType::etype db_key::clipboardFormat()
 	return dlg->type();
 }
 
-void db_key::store()
+void db_key::store(QModelIndex index)
 {
 	const EVP_CIPHER *enc = NULL;
 	QString title = tr("Export public key [%1]");
 	QList<exportType> types;
 
-	if (!currentIdx.isValid())
+	if (!index.isValid())
 		return;
 
-	pki_key *key =static_cast<pki_evp*>(currentIdx.internalPointer());
+	pki_key *key =static_cast<pki_evp*>(index.internalPointer());
 	pki_evp *privkey = (pki_evp *)key;
 
 	types <<
@@ -395,84 +322,15 @@ void db_key::store()
 	delete dlg;
 }
 
-void db_key::setOwnPass()
-{
-	try {
-		__setOwnPass(pki_key::ptPrivate);
-	}
-	catch (errorEx &err) {
-		mainwin->Error(err);
-	}
-}
-
-void db_key::resetOwnPass()
-{
-	try {
-		__setOwnPass(pki_key::ptCommon);
-	}
-	catch (errorEx &err) {
-		mainwin->Error(err);
-	}
-}
-
-void db_key::__setOwnPass(enum pki_key::passType x)
+void db_key::setOwnPass(QModelIndex idx, enum pki_key::passType x)
 {
 	pki_evp *targetKey;
-	if (!currentIdx.isValid())
-		        return;
-	targetKey = static_cast<pki_evp*>(currentIdx.internalPointer());
+	if (!idx.isValid())
+		return;
+	targetKey = static_cast<pki_evp*>(idx.internalPointer());
 	if (targetKey->isToken()) {
 		throw errorEx(tr("Tried to change password of a token"));
 	}
 	targetKey->setOwnPass(x);
 	updatePKI(targetKey);
 }
-
-void db_key::changePin()
-{
-	pki_scard *scard;
-	if (!currentIdx.isValid())
-		        return;
-	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
-	try {
-		if (!scard->isToken()) {
-			throw errorEx(tr("Tried to change PIN of a key"));
-		}
-		scard->changePin();
-	} catch (errorEx &err) {
-		mainwin->Error(err);
-	}
-}
-
-void db_key::initPin()
-{
-	pki_scard *scard;
-	if (!currentIdx.isValid())
-		        return;
-	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
-	try {
-		if (!scard->isToken()) {
-			throw errorEx(tr("Tried to init PIN of a key"));
-		}
-		scard->initPin();
-	} catch (errorEx &err) {
-		mainwin->Error(err);
-	}
-}
-
-void db_key::changeSoPin()
-{
-	pki_scard *scard;
-	if (!currentIdx.isValid())
-		        return;
-	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
-	try {
-		if (!scard->isToken()) {
-			throw errorEx(tr("Tried to change SO PIN of a key"));
-		}
-		scard->changeSoPin();
-	} catch (errorEx &err) {
-		mainwin->Error(err);
-	}
-}
-

@@ -97,7 +97,7 @@ int db_base::handleBadEntry(unsigned char *p, db_header_t *head)
 
 	size_t l;
 	db_header_t h;
-	FILE *fp = fopen(QString2filename(s), "w");
+	FILE *fp = fopen(QString2filename(s), "wb");
 	if (!fp) {
 		throw errorEx(tr("Error opening file: '%1': %2").
                         arg(s).arg(strerror(errno)), class_name);
@@ -287,47 +287,41 @@ void db_base::insertPKI(pki_base *pki)
 	emit columnsContentChanged();
 }
 
-void db_base::delete_ask()
+QString db_base::pem2QString(QModelIndexList indexes)
 {
-	if (!currentIdx.isValid())
-		return;
-	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
-
-	if (!XCA_OKCANCEL(pki->getMsg(pki_base::msg_delete).arg(pki->getIntName())))
-		 return;
-
-	deletePKI();
-}
-
-void db_base::pem2clipboard()
-{
-	long l;
-	const char *p;
 	exportType::etype format;
 	QString msg;
+
+	format = clipboardFormat(indexes);
+	foreach(QModelIndex idx, indexes) {
+		long l;
+		const char *p;
+		BIO *bio = BIO_new(BIO_s_mem());
+		pki_base *pki = static_cast<pki_base*>
+				(idx.internalPointer());
+		pki->pem(bio, format);
+		openssl_error();
+		l = BIO_get_mem_data(bio, &p);
+		msg += QString::fromUtf8(p, l);
+		BIO_free(bio);
+	}
+	return msg;
+}
+
+void db_base::pem2clipboard(QModelIndexList indexes)
+{
+	QString msg = pem2QString(indexes);
 	QClipboard *cb = QApplication::clipboard();
 
-	BIO *bio = BIO_new(BIO_s_mem());
-	if (!currentIdx.isValid())
-		return;
-	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
-	format = clipboardFormat();
-	pki->pem(bio, format);
-	openssl_error();
-	l = BIO_get_mem_data(bio, &p);
-	msg = QString::fromUtf8(p, l);
-	BIO_free(bio);
 	if (cb->supportsSelection())
 		cb->setText(msg, QClipboard::Selection);
 	else
 		cb->setText(msg);
 }
 
-void db_base::deletePKI()
+void db_base::deletePKI(QModelIndex idx)
 {
-	if (!currentIdx.isValid())
-		return;
-	pki_base *pki = static_cast<pki_base*>(currentIdx.internalPointer());
+	pki_base *pki = static_cast<pki_base*>(idx.internalPointer());
 	try {
 		try {
 			pki->deleteFromToken();
@@ -335,7 +329,7 @@ void db_base::deletePKI()
 			MainWindow::Error(err);
 		}
 
-		remFromCont(currentIdx);
+		remFromCont(idx);
 
 		db mydb(dbName);
 		mydb.find(pki->getType(), pki->getIntName());
@@ -358,84 +352,9 @@ void db_base::updatePKI(pki_base *pki)
 	}
 }
 
-void db_base::deleteSelectedItems(XcaTreeView* view)
-{
-	QModelIndexList indexes = view->getSelectedIndexes();
-	QModelIndex index;
-	QString items, msg;
-	int count = 0;
-	pki_base *pki = NULL;
-
-	if (indexes.count() == 0)
-		return;
-
-	foreach(index, indexes) {
-		pki = static_cast<pki_base*>(index.internalPointer());
-		items += "'" + pki->getIntName() + "' ";
-		count++;
-	}
-	if (count == 1)
-		msg = pki->getMsg(pki_base::msg_delete).arg(pki->getIntName());
-	else
-		msg = pki->getMsg(pki_base::msg_delete_multi).arg(count).
-				arg(items);
-
-	if (!XCA_OKCANCEL(msg))
-		return;
-
-	foreach(index, indexes) {
-		currentIdx = index;
-		deletePKI();
-	}
-	currentIdx = QModelIndex();
-}
-
-void db_base::showSelectedItems(XcaTreeView* view)
-{
-	QModelIndexList indexes = view->getSelectedIndexes();
-	QModelIndex index;
-	QString items;
-
-	foreach(index, indexes) {
-		currentIdx = index;
-		showItem();
-	}
-	currentIdx = QModelIndex();
-}
-
-
-void db_base::storeSelectedItems(XcaTreeView* view)
-{
-	QModelIndexList list = view->getSelectedIndexes();
-	if (list.size() == 0)
-		return;
-	if (!currentIdx.isValid())
-		currentIdx = list[0];
-	store(list);
-}
-
-void db_base::store(QModelIndexList list)
-{
-	QModelIndex index;
-	QString items;
-
-	foreach(index, list) {
-		if (index.column() != 0)
-			continue;
-		try {
-			currentIdx = index;
-			store();
-		} catch (errorEx &err) {
-			MainWindow::Error(err);
-		}
-
-	}
-	currentIdx = QModelIndex();
-}
-
 void db_base::showItem(const QModelIndex &index)
 {
-	showPki(static_cast<pki_key*>(index.internalPointer()));
+	showPki(static_cast<pki_base*>(index.internalPointer()));
 }
 
 void db_base::showItem(const QString name)
@@ -542,6 +461,8 @@ QModelIndex db_base::index(int row, int column, const QModelIndex &parent)
 
 QModelIndex db_base::index(pki_base *pki) const
 {
+	if (!pki)
+		return QModelIndex();
 	return createIndex(pki->row(), 0, pki);
 }
 
@@ -688,18 +609,45 @@ void db_base::load_default(load_base &load)
 	delete dlgi;
 }
 
-void db_base::edit()
+void db_base::store(QModelIndexList indexes)
 {
-	if (!currentIdx.isValid())
-		return;
-	emit editItem(currentIdx);
-}
+	int ret;
 
-void db_base::showItem()
-{
-	if (!currentIdx.isValid())
+	xcaWarning msg(mainwin, tr("How to export the %1 selected items").
+				arg(indexes.size()));
+	msg.addButton(QMessageBox::Ok)->setText(tr("All in one PEM file"));
+	msg.addButton(QMessageBox::Apply)->setText(tr("Each item in one file"));
+	msg.addButton(QMessageBox::Cancel);
+	ret = msg.exec();
+	if (ret == QMessageBox::Apply) {
+		foreach(QModelIndex i, indexes)
+			store(i);
 		return;
-	showItem(currentIdx);
+	} else if (ret != QMessageBox::Ok) {
+		return;
+	}
+
+	QString fn = mainwin->getPath() + QDir::separator() + "export.pem";
+	QString s = QFileDialog::getSaveFileName(mainwin,
+		tr("Save %1 items in one file as").arg(indexes.size()), fn,
+		tr("PEM Files( *.pem );; All files ( * )"));
+	if (s.isEmpty())
+		return;
+	s = QDir::convertSeparators(s);
+	mainwin->setPath(s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")) ));
+	try {
+		QString pem = pem2QString(indexes);
+		FILE *fp = fopen(QString2filename(s), "wb");
+		if (!fp) {
+			throw errorEx(tr("Error opening file: '%1': %2").
+				arg(s).arg(strerror(errno)), class_name);
+		}
+		fwrite(pem.toAscii(), pem.size(), 1, fp);
+		fclose(fp);
+	}
+	catch (errorEx &err) {
+		MainWindow::Error(err);
+	}
 }
 
 bool db_base::columnHidden(int col) const
@@ -722,87 +670,4 @@ void db_base::columnResetDefaults()
 bool db_base::isNumericCol(int col) const
 {
 	return allHeaders[col]->isNumeric();
-}
-
-void db_base::showHeaderMenu(QContextMenuEvent *e, int sect)
-{
-	contextMenu(e, NULL, sect);
-}
-
-void db_base::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
-{
-	int shown = 0;
-	tipMenu *menu, *dn, *v3ext, *current, *v3ns;
-	QAction *a, *sep;
-	dbheader *hd;
-
-	menu = new tipMenu(QString(), mainwin);
-	dn = new tipMenu(tr("Subject entries"), mainwin);
-	v3ext = new tipMenu(tr("X509v3 Extensions"), mainwin);
-	v3ns = new tipMenu(tr("Netscape extensions"), mainwin);
-	menu->addAction(tr("Reset"), this, SLOT(columnResetDefaults()));
-	sep = menu->addSeparator();
-	foreach(hd, allHeaders) {
-		switch (hd->type) {
-			case dbheader::hd_x509name:
-				current = dn;
-				break;
-			case dbheader::hd_v3ext:
-				current = v3ext;
-				break;
-			case dbheader::hd_v3ext_ns:
-				if (pki_x509::disable_netscape)
-					continue;
-				current = v3ns;
-				break;
-			default:
-				current = menu;
-				break;
-		}
-		a = current->addAction(hd->getName());
-		a->setCheckable(true);
-		a->setChecked(hd->show);
-		a->setToolTip(hd->getTooltip());
-		hd->action = a;
-	}
-	if (!dn->isEmpty() || !v3ext->isEmpty())
-		menu->insertSeparator(sep);
-
-	if (!dn->isEmpty())
-		menu->insertMenu(sep, dn);
-	else
-		delete dn;
-
-	if (!v3ext->isEmpty()) {
-		if (!v3ns->isEmpty()) {
-			v3ext->addSeparator();
-			v3ext->addMenu(v3ns);
-		} else {
-			delete v3ns;
-		}
-		menu->insertMenu(sep, v3ext);
-	} else {
-		delete v3ext;
-		delete v3ns;
-	}
-	if (parent) {
-		parent->addAction(tr("Paste PEM data"), mainwin,
-				SLOT(pastePem()));
-		parent->addMenu(menu)->setText(tr("Columns"));
-		parent->exec(e->globalPos());
-	} else {
-		menu->exec(e->globalPos());
-	}
-	foreach(hd, allHeaders) {
-		if (hd->action)
-			hd->show = hd->action->isChecked();
-		shown += hd->show ? 1 : 0;
-		hd->action = NULL;
-	}
-	if (!shown)
-		allHeaders[0]->show = true;
-        delete menu;
-	if (parent)
-		delete parent;
-	emit updateHeader();
 }

@@ -12,30 +12,21 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout">
-    <property name="spacing">
-     <number>6</number>
-    </property>
-    <property name="margin">
-     <number>9</number>
-    </property>
     <item>
      <widget class="QTabWidget" name="tabView">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="RSATab">
        <attribute name="title">
         <string>Private Keys</string>
        </attribute>
        <layout class="QHBoxLayout">
-        <property name="spacing">
-         <number>6</number>
-        </property>
         <property name="margin">
          <number>8</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="keyView"/>
+         <widget class="KeyTreeView" name="keyView"/>
         </item>
         <item>
          <widget class="QFrame" name="keyButtons">
@@ -133,14 +124,11 @@
         <string>Certificate signing requests</string>
        </attribute>
        <layout class="QHBoxLayout">
-        <property name="spacing">
-         <number>6</number>
-        </property>
         <property name="margin">
          <number>8</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="reqView"/>
+         <widget class="ReqTreeView" name="reqView"/>
         </item>
         <item>
          <widget class="QFrame" name="reqButtons">
@@ -157,9 +145,6 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <layout class="QVBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="margin">
             <number>8</number>
            </property>
@@ -237,14 +222,11 @@
         <string>Certificates</string>
        </attribute>
        <layout class="QHBoxLayout">
-        <property name="spacing">
-         <number>6</number>
-        </property>
         <property name="margin">
          <number>8</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="certView"/>
+         <widget class="CertTreeView" name="certView"/>
         </item>
         <item>
          <widget class="QFrame" name="certButtons">
@@ -255,9 +237,6 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <layout class="QVBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="margin">
             <number>11</number>
            </property>
@@ -356,14 +335,11 @@
         <string>Templates</string>
        </attribute>
        <layout class="QHBoxLayout">
-        <property name="spacing">
-         <number>6</number>
-        </property>
         <property name="margin">
          <number>8</number>
         </property>
         <item>
-         <widget class="XcaTreeView" name="tempView">
+         <widget class="TempTreeView" name="tempView">
           <property name="alternatingRowColors">
            <bool>true</bool>
           </property>
@@ -378,9 +354,6 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <layout class="QVBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <property name="margin">
             <number>11</number>
            </property>
@@ -458,12 +431,6 @@
         <string>Revocation lists</string>
        </attribute>
        <layout class="QHBoxLayout">
-        <property name="spacing">
-         <number>6</number>
-        </property>
-        <property name="margin">
-         <number>9</number>
-        </property>
         <item>
          <widget class="XcaTreeView" name="crlView"/>
         </item>
@@ -476,12 +443,6 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <layout class="QVBoxLayout">
-           <property name="spacing">
-            <number>6</number>
-           </property>
-           <property name="margin">
-            <number>9</number>
-           </property>
            <item>
             <widget class="QPushButton" name="BNexportCrl">
              <property name="text">
@@ -554,8 +515,489 @@
    <class>XcaTreeView</class>
    <extends>QTreeView</extends>
    <header>widgets/XcaTreeView.h</header>
+   <slots>
+    <slot>newItem()</slot>
+    <slot>load()</slot>
+    <slot>storeItems()</slot>
+    <slot>showItems()</slot>
+    <slot>deleteItems()</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>KeyTreeView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/KeyTreeView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TempTreeView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/TempTreeView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ReqTreeView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/ReqTreeView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CertTreeView</class>
+   <extends>QTreeView</extends>
+   <header>widgets/CertTreeView.h</header>
+   <slots>
+    <slot>loadPKCS12()</slot>
+    <slot>loadPKCS7()</slot>
+    <slot>changeView()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>BNimportKey</sender>
+   <signal>clicked()</signal>
+   <receiver>keyView</receiver>
+   <slot>load()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>505</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>135</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNnewKey</sender>
+   <signal>clicked()</signal>
+   <receiver>keyView</receiver>
+   <slot>newItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>488</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>392</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNexportKey</sender>
+   <signal>clicked()</signal>
+   <receiver>keyView</receiver>
+   <slot>storeItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>526</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>393</x>
+     <y>99</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdetailsKey</sender>
+   <signal>clicked()</signal>
+   <receiver>keyView</receiver>
+   <slot>showItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>473</x>
+     <y>200</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdeleteKey</sender>
+   <signal>clicked()</signal>
+   <receiver>keyView</receiver>
+   <slot>deleteItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>470</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>404</x>
+     <y>230</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNnewReq</sender>
+   <signal>clicked()</signal>
+   <receiver>reqView</receiver>
+   <slot>newItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>496</x>
+     <y>57</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>371</x>
+     <y>58</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNexportReq</sender>
+   <signal>clicked()</signal>
+   <receiver>reqView</receiver>
+   <slot>storeItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>489</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>400</x>
+     <y>95</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNimportReq</sender>
+   <signal>clicked()</signal>
+   <receiver>reqView</receiver>
+   <slot>load()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>500</x>
+     <y>123</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>412</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdetailsReq</sender>
+   <signal>clicked()</signal>
+   <receiver>reqView</receiver>
+   <slot>showItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdeleteReq</sender>
+   <signal>clicked()</signal>
+   <receiver>reqView</receiver>
+   <slot>deleteItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>475</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNnewCert</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>newItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>478</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>398</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNexportCert</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>storeItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>499</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>99</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNimportCert</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>load()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>475</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>128</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdetailsCert</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>showItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>486</x>
+     <y>162</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>395</x>
+     <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdeleteCert</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>deleteItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>482</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>357</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNnewTemp</sender>
+   <signal>clicked()</signal>
+   <receiver>tempView</receiver>
+   <slot>newItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>513</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>363</x>
+     <y>62</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNchangeTemp</sender>
+   <signal>clicked()</signal>
+   <receiver>tempView</receiver>
+   <slot>showItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>481</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>415</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdeleteTemp</sender>
+   <signal>clicked()</signal>
+   <receiver>tempView</receiver>
+   <slot>deleteItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>482</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>428</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNimportTemp</sender>
+   <signal>clicked()</signal>
+   <receiver>tempView</receiver>
+   <slot>load()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>487</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>407</x>
+     <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNexportTemp</sender>
+   <signal>clicked()</signal>
+   <receiver>tempView</receiver>
+   <slot>storeItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>488</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>428</x>
+     <y>201</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNexportCrl</sender>
+   <signal>clicked()</signal>
+   <receiver>crlView</receiver>
+   <slot>storeItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>472</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>381</x>
+     <y>70</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNimportCrl</sender>
+   <signal>clicked()</signal>
+   <receiver>crlView</receiver>
+   <slot>load()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>496</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>99</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdetailsCrl</sender>
+   <signal>clicked()</signal>
+   <receiver>crlView</receiver>
+   <slot>showItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>477</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>391</x>
+     <y>131</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNdeleteCrl</sender>
+   <signal>clicked()</signal>
+   <receiver>crlView</receiver>
+   <slot>deleteItems()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>471</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>386</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNimportPKCS12</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>loadPKCS12()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>504</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>420</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNimportPKCS7</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>loadPKCS7()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>406</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNimportPFX</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>loadPKCS12()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>483</x>
+     <y>170</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>230</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BNviewState</sender>
+   <signal>clicked()</signal>
+   <receiver>certView</receiver>
+   <slot>changeView()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>472</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>402</x>
+     <y>301</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

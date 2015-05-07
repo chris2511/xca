@@ -52,6 +52,10 @@ class pki_x509super : public pki_x509name
 		};
 		virtual QString getSigAlg();
 		virtual const EVP_MD *getDigest();
+		virtual bool isSpki() const
+		{
+			return false;
+		}
 		pki_key *getRefKey() const;
 		void setRefKey(pki_key *ref);
 		void delRefKey(pki_key *ref);

@@ -78,20 +78,27 @@ void db_crl::inToCont(pki_base *pki)
 {
 	pki_crl *crl = (pki_crl *)pki;
 	if (crl->getIssuer() == NULL) {
-		pki_x509 *iss = NULL, *last = NULL;
+		pki_x509 *iss = NULL, *last = NULL, *newest = NULL;
 		x509name issname = crl->getSubject();
 		while ((iss = mainwin->certs->getBySubject(issname, last)) != NULL) {
 			pki_key *key = iss->getPubKey();
-			if (key) {
-				if (crl->verify(key)) {
-					delete key;
-					break;
-				}
+			if (!key)
+				continue;
+
+			if (!crl->verify(key)) {
 				delete key;
+				continue;
 			}
+			delete key;
 			last = iss;
+			if (!newest) {
+				newest = iss;
+			} else {
+				if (newest->getNotAfter() < iss->getNotAfter())
+					newest = iss;
+			}
 		}
-		crl->setIssuer(iss);
+		crl->setIssuer(newest);
 	}
 	db_base::inToCont(pki);
 }
@@ -128,14 +135,13 @@ void db_crl::showPki(pki_base *pki)
 	}
 }
 
-void db_crl::store()
+void db_crl::store(QModelIndex index)
 {
 	QList<exportType> types;
 
-	if (!currentIdx.isValid())
+	if (!index.isValid())
 		return;
-
-	pki_crl *crl = static_cast<pki_crl*>(currentIdx.internalPointer());
+	pki_crl *crl = static_cast<pki_crl*>(index.internalPointer());
 	if (!crl)
 		return;
 
@@ -158,6 +164,40 @@ void db_crl::store()
 		mainwin->Error(err);
 	}
 	delete dlg;
+}
+
+void db_crl::updateRevocations(pki_x509 *cert)
+{
+	x509name issname = cert->getSubject();
+	x509revList revlist;
+	pki_crl *latest = NULL;
+
+	FOR_ALL_pki(crl, pki_crl) {
+		if (!(issname == crl->getSubject()))
+			continue;
+		pki_key *key = cert->getPubKey();
+		if (!key)
+			continue;
+		if (!crl->verify(key)) {
+			delete key;
+			continue;
+		}
+		delete key;
+		pki_x509 *old = crl->getIssuer();
+		if (!old) {
+			crl->setIssuer(cert);
+		} else if (old != cert) {
+			if (old->getNotAfter() < cert->getNotAfter())
+				crl->setIssuer(cert);
+		}
+		if (!latest || (latest->getCrlNumber() < crl->getCrlNumber()))
+			latest = crl;
+	}
+	if (latest) {
+		revlist = latest->getRevList();
+		cert->mergeRevList(revlist);
+		cert->setCrlNumber(latest->getCrlNumber());
+	}
 }
 
 void db_crl::newItem(pki_x509 *cert)
@@ -212,25 +252,5 @@ void db_crl::newItem(pki_x509 *cert)
 		crl = NULL;
 	}
 	delete dlg;
-	return;
-}
-
-void db_crl::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
-{
-	QMenu *menu = new QMenu(mainwin);
-	currentIdx = index;
-	QMenu *subExport;
-
-	menu->addAction(tr("Import"), this, SLOT(load()));
-	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), this, SLOT(edit()));
-		subExport = menu->addMenu(tr("Export"));
-		subExport->addAction(tr("Clipboard"), this,
-					SLOT(pem2clipboard()));
-		subExport->addAction(tr("File"), this, SLOT(store()));
-		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-	}
-	contextMenu(e, menu);
-	currentIdx = QModelIndex();
 	return;
 }

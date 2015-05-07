@@ -119,24 +119,15 @@ void MainWindow::init_menu()
 	file->addAction(a);
 
 	import = menuBar()->addMenu(tr("I&mport"));
-	import->addAction(tr("Keys"), this,
-				SLOT(on_BNimportKey_clicked()) );
-	import->addAction(tr("Requests"), this,
-				SLOT(on_BNimportReq_clicked()) );
-	import->addAction(tr("Certificates"), this,
-				SLOT(on_BNimportCert_clicked()) );
-	import->addAction(tr("PKCS#12"), this,
-				SLOT(on_BNimportPKCS12_clicked()) );
-	import->addAction(tr("PKCS#7"), this,
-				SLOT(on_BNimportPKCS7_clicked()) );
-	import->addAction(tr("Template"), this,
-				SLOT(on_BNimportTemp_clicked()) );
-	import->addAction(tr("Revocation list"), this,
-				SLOT(on_BNimportCrl_clicked()) );
-	import->addAction(tr("PEM file"), this,
-				SLOT(loadPem()) );
-	import->addAction(tr("paste PEM file"), this,
-				SLOT(pastePem()) );
+	import->addAction(tr("Keys"), keyView, SLOT(load()) );
+	import->addAction(tr("Requests"), reqView, SLOT(load()) );
+	import->addAction(tr("Certificates"), certView, SLOT(load()) );
+	import->addAction(tr("PKCS#12"), certView, SLOT(loadPKCS12()) );
+	import->addAction(tr("PKCS#7"), certView, SLOT(loadPKCS7()) );
+	import->addAction(tr("Template"), tempView, SLOT(load()) );
+	import->addAction(tr("Revocation list"), crlView, SLOT(load()));
+	import->addAction(tr("PEM file"), this, SLOT(loadPem()) );
+	import->addAction(tr("paste PEM file"), this, SLOT(pastePem()));
 
 	token = menuBar()->addMenu(tr("&Token"));
 	token->addAction(tr("&Manage Security token"), this,

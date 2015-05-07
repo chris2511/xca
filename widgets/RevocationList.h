@@ -11,6 +11,7 @@
 #include "ui_RevocationList.h"
 #include "ui_Revoke.h"
 #include "lib/x509rev.h"
+#include <QtCore/QModelIndex>
 
 class pki_x509;
 
@@ -42,7 +43,7 @@ class Revocation: public QDialog, public Ui::Revoke
 	Q_OBJECT
 
 	public:
-		Revocation(QWidget *w, pki_x509 *r);
+		Revocation(QWidget *w, QModelIndexList indexes);
 		x509rev getRevocation();
 };
 #endif

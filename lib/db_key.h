@@ -20,11 +20,10 @@ class QContextMenuEvent;
 class db_key: public db_base
 {
 	Q_OBJECT
+
 	protected:
 		virtual dbheaderList getHeaders();
-		exportType::etype clipboardFormat();
-	private:
-		void __setOwnPass(enum pki_key::passType);
+		exportType::etype clipboardFormat(QModelIndexList indexes);
 	public:
 		db_key(QString db, MainWindow *mw);
 		QStringList getPrivateDesc();
@@ -34,20 +33,14 @@ class db_key: public db_base
 		void remFromCont(QModelIndex &idx);
 		pki_base* insert(pki_base *item);
 		void writeAll();
-		void showContextMenu(QContextMenuEvent * e, const QModelIndex &index);
+		void setOwnPass(QModelIndex idx, enum pki_key::passType);
 
 	public slots:
 		void newItem();
 		void newItem(QString name);
 		void load();
-		void store();
+		void store(QModelIndex index);
 		void showPki(pki_base *pki);
-		void setOwnPass();
-		void resetOwnPass();
-		void changePin();
-		void initPin();
-		void changeSoPin();
-		void toToken();
 
 	signals:
 		void delKey(pki_key *delkey);

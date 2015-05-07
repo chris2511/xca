@@ -89,9 +89,9 @@ int MainWindow::init_database()
 
 	connect( reqs, SIGNAL(newCert(pki_x509req *)),
 		certs, SLOT(newCert(pki_x509req *)) );
-	connect( temps, SIGNAL(newCert(pki_temp *)),
+	connect( tempView, SIGNAL(newCert(pki_temp *)),
 		certs, SLOT(newCert(pki_temp *)) );
-	connect( temps, SIGNAL(newReq(pki_temp *)),
+	connect( tempView, SIGNAL(newReq(pki_temp *)),
 		reqs, SLOT(newItem(pki_temp *)) );
 
 	keyView->setIconSize(pki_evp::icon[0]->size());
@@ -298,11 +298,11 @@ void MainWindow::close_database()
 	statusBar()->removeWidget(searchEdit);
 	dbindex->clear();
 
-	keyView->setModel(NULL);
-	reqView->setModel(NULL);
-	certView->setModel(NULL);
-	tempView->setModel(NULL);
-	crlView->setModel(NULL);
+	keyView->setModel();
+	reqView->setModel();
+	certView->setModel();
+	tempView->setModel();
+	crlView->setModel();
 
 	if (crls)
 		delete(crls);
@@ -405,189 +405,4 @@ void MainWindow::update_history(QString fname)
 	}
 	file.close();
 	update_history_menu();
-}
-
-/* Asymetric Key buttons */
-void MainWindow::on_BNnewKey_clicked(void)
-{
-	if (keys)
-		keys->newItem();
-}
-void MainWindow::on_BNdeleteKey_clicked(void)
-{
-	if (keys)
-		keys->deleteSelectedItems(keyView);
-}
-void MainWindow::on_BNdetailsKey_clicked(void)
-{
-	if (keys)
-		keys->showSelectedItems(keyView);
-}
-void MainWindow::on_BNimportKey_clicked(void)
-{
-	if (keys)
-		keys->load();
-}
-void MainWindow::on_BNexportKey_clicked(void)
-{
-	if (keys)
-		keys->storeSelectedItems(keyView);
-}
-
-void MainWindow::on_keyView_doubleClicked(const QModelIndex &m)
-{
-	if (keys)
-		keys->showItem(keyView->getIndex(m));
-}
-
-void MainWindow::on_reqView_doubleClicked(const QModelIndex &m)
-{
-	if (reqs)
-		reqs->showItem(reqView->getIndex(m));
-}
-
-void MainWindow::on_certView_doubleClicked(const QModelIndex &m)
-{
-	if (certs)
-		certs->showItem(certView->getIndex(m));
-}
-
-void MainWindow::on_tempView_doubleClicked(const QModelIndex &m)
-{
-	if (temps)
-		temps->showItem(tempView->getIndex(m));
-}
-
-void MainWindow::on_crlView_doubleClicked(const QModelIndex &m)
-{
-	if (crls)
-		crls->showItem(crlView->getIndex(m));
-}
-
-void MainWindow::on_BNimportPFX_clicked(void)
-{
-	if (certs)
-		certs->loadPKCS12();
-}
-
-/* Certificate request buttons */
-void MainWindow::on_BNnewReq_clicked(void)
-{
-	if (reqs)
-		reqs->newItem();
-}
-void MainWindow::on_BNdeleteReq_clicked(void)
-{
-	if (reqs)
-		reqs->deleteSelectedItems(reqView);
-}
-void MainWindow::on_BNdetailsReq_clicked(void)
-{
-	if (reqs)
-		reqs->showSelectedItems(reqView);
-}
-void MainWindow::on_BNimportReq_clicked(void)
-{
-	if (reqs)
-		reqs->load();
-}
-void MainWindow::on_BNexportReq_clicked(void)
-{
-	if(reqs)
-		reqs->storeSelectedItems(reqView);
-}
-
-/* Certificate  buttons */
-void MainWindow::on_BNnewCert_clicked(void)
-{
-	if (certs)
-		certs->newItem();
-}
-void MainWindow::on_BNdeleteCert_clicked(void)
-{
-	if (certs)
-		certs->deleteSelectedItems(certView);
-}
-void MainWindow::on_BNdetailsCert_clicked(void)
-{
-	if (certs)
-		certs->showSelectedItems(certView);
-}
-void MainWindow::on_BNimportCert_clicked(void)
-{
-	if (certs)
-		certs->load();
-}
-void MainWindow::on_BNexportCert_clicked(void)
-{
-	if(certs)
-		certs->storeSelectedItems(certView);
-}
-
-void MainWindow::on_BNimportPKCS12_clicked(void)
-{
-	if(certs)
-		certs->loadPKCS12();
-}
-
-void MainWindow::on_BNimportPKCS7_clicked(void)
-{
-	if(certs)
-		certs->loadPKCS7();
-}
-
-void MainWindow::on_BNviewState_clicked(void)
-{
-	if(certs)
-		certs->changeView();
-	 certView->setRootIsDecorated(db_x509::treeview);
-}
-
-/* Template buttons */
-void MainWindow::on_BNdeleteTemp_clicked(void)
-{
-	if (temps)
-		temps->deleteSelectedItems(tempView);
-}
-void MainWindow::on_BNchangeTemp_clicked(void)
-{
-	if (temps)
-		temps->showSelectedItems(tempView);
-}
-void MainWindow::on_BNimportTemp_clicked(void)
-{
-	if (temps)
-		temps->load();
-}
-void MainWindow::on_BNexportTemp_clicked(void)
-{
-	if(temps)
-		temps->storeSelectedItems(tempView);
-}
-void MainWindow::on_BNnewTemp_clicked(void)
-{
-	if (temps)
-		temps->newItem();
-}
-
-/* CRL buttons */
-void MainWindow::on_BNdeleteCrl_clicked(void)
-{
-	if (crls)
-		crls->deleteSelectedItems(crlView);
-}
-void MainWindow::on_BNimportCrl_clicked(void)
-{
-	if (crls)
-		crls->load();
-}
-void MainWindow::on_BNexportCrl_clicked(void)
-{
-	if (crls)
-		crls->storeSelectedItems(crlView);
-}
-void MainWindow::on_BNdetailsCrl_clicked(void)
-{
-	if(crls)
-		crls->showSelectedItems(crlView);
 }

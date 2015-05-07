@@ -8,7 +8,7 @@ CPPFLAGS += -I$(TOPDIR) -I$(BUILD) -I$(BUILD)/ui
 all: .build-stamp
 
 .build-stamp: $(OBJS)
-	echo $(patsubst %, $(shell pwd)/%, $(OBJS)) > $@
+	for i in $(patsubst %, $(shell pwd)/%, $(OBJS)); do echo $$i; done > $@
 	@$(PRINT) "  DONE   [$(BASENAME)]"
 
 SRCS=$(patsubst %.o, %.cpp, $(OBJS))

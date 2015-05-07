@@ -160,7 +160,6 @@ $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
 	codesign -s "Open Source Developer, Christian Hohnstaedt" $(DMGSTAGE)/xca.app
-	tar zcf $(MACTARGET).tar.gz $(DMGSTAGE)
 
 xca.dmg: $(MACTARGET).dmg
 

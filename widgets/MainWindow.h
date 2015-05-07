@@ -168,44 +168,5 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void initPin();
 		void generateDHparam();
 		void open_database(QAction* a);
-
-		void on_keyView_doubleClicked(const QModelIndex &m);
-		void on_reqView_doubleClicked(const QModelIndex &m);
-		void on_certView_doubleClicked(const QModelIndex &m);
-		void on_tempView_doubleClicked(const QModelIndex &m);
-		void on_crlView_doubleClicked(const QModelIndex &m);
-
-		void on_BNnewKey_clicked();
-		void on_BNdeleteKey_clicked();
-		void on_BNdetailsKey_clicked();
-		void on_BNimportKey_clicked();
-		void on_BNexportKey_clicked();
-		void on_BNimportPFX_clicked();
-
-		void on_BNnewReq_clicked();
-		void on_BNdeleteReq_clicked();
-		void on_BNdetailsReq_clicked();
-		void on_BNimportReq_clicked();
-		void on_BNexportReq_clicked();
-
-		void on_BNnewCert_clicked();
-		void on_BNdeleteCert_clicked();
-		void on_BNdetailsCert_clicked();
-		void on_BNimportCert_clicked();
-		void on_BNexportCert_clicked();
-		void on_BNimportPKCS12_clicked();
-		void on_BNimportPKCS7_clicked();
-		void on_BNviewState_clicked();
-
-		void on_BNnewTemp_clicked();
-		void on_BNdeleteTemp_clicked();
-		void on_BNchangeTemp_clicked();
-		void on_BNimportTemp_clicked();
-		void on_BNexportTemp_clicked();
-
-		void on_BNdeleteCrl_clicked();
-		void on_BNdetailsCrl_clicked();
-		void on_BNimportCrl_clicked();
-		void on_BNexportCrl_clicked();
 };
 #endif

@@ -15,8 +15,6 @@
 #include <QtCore/QObject>
 #include <QtGui/QPixmap>
 
-class Mainwin;
-
 class db_temp: public db_x509name
 {
 	Q_OBJECT
@@ -31,23 +29,12 @@ class db_temp: public db_x509name
 	pki_base *newPKI(db_header_t *head = NULL);
 	bool runTempDlg(pki_temp *temp);
 	bool alterTemp(pki_temp *temp);
-	void showContextMenu(QContextMenuEvent *e, const QModelIndex &index);
+	void fillContextMenu(QMenu *menu, const QModelIndex &index);
 	pki_base *getByName(QString desc);
 	QStringList getDescPredefs();
-
-    public slots:
 	void newItem();
-	void changeTemp();
 	void showPki(pki_base *pki);
 	void load();
-	void store();
-	void certFromTemp();
-	void reqFromTemp();
-	void alterTemp();
-	void duplicateTemp();
-    signals:
-	void newReq(pki_temp *);
-	void newCert(pki_temp *);
-
+	void store(QModelIndex index);
 };
 #endif

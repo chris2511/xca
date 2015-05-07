@@ -10,22 +10,50 @@
 #include "lib/asn1int.h"
 #include "lib/pki_x509.h"
 
-enum revCol { Cserial, Cdate, Creason, CiDate };
+enum revCol { Cnumber, Cserial, Cdate, Creason, CiDate };
+
+class revListItem : public QTreeWidgetItem
+{
+    public:
+	revListItem(QTreeWidget *w) : QTreeWidgetItem(w) { };
+	bool operator < (const QTreeWidgetItem &other) const
+	{
+		int col = treeWidget()->sortColumn();
+		switch (col) {
+		case Cserial: {
+			a1int ithis, iother;
+			ithis.setHex(text(Cserial));
+			iother.setHex(other.text(Cserial));
+			return ithis < iother;
+		}
+		case Cnumber:
+			return text(Cnumber).toLong() <
+				other.text(Cnumber).toLong();
+		default:
+			return QTreeWidgetItem::operator < (other);
+		}
+	}
+};
 
 static void addRevItem(QTreeWidget *certList, const x509rev &revit,
-			const pki_x509 *iss)
+			int no, const pki_x509 *iss)
 {
-	QTreeWidgetItem *current;
+	revListItem *current;
 	pki_x509 *rev;
 	a1time a;
 	rev = iss->getBySerial(revit.getSerial());
-	current = new QTreeWidgetItem(certList);
+	current = new revListItem(certList);
 	if (rev != NULL) {
 		current->setToolTip(Cserial, rev->getIntName() );
 	}
-	current->setText(Cserial, revit.getSerial().toHex()) ;
+	current->setText(Cnumber, QString("%1").arg(no));
+	current->setText(Cserial, revit.getSerial().toHex());
 	current->setText(Cdate, revit.getDate().toSortable());
 	current->setText(Creason, revit.getReason());
+
+	current->setTextAlignment(Cnumber, Qt::AlignRight);
+	current->setTextAlignment(Cserial, Qt::AlignRight);
+
 	a = revit.getInvalDate();
 	if (!a.isUndefined())
 		current->setText(CiDate, a.toSortable());
@@ -39,7 +67,7 @@ void RevocationList::setupRevocationView(QTreeWidget *certList,
 
 	certList->clear();
 
-	sl << tr("Serial") << tr("Revocation") << tr("Reason") <<
+	sl << tr("No.") << tr("Serial") << tr("Revocation") << tr("Reason") <<
 		tr("Invalidation");
 
 	cols = sl.size();
@@ -47,9 +75,11 @@ void RevocationList::setupRevocationView(QTreeWidget *certList,
 	certList->setHeaderLabels(sl);
 	certList->setItemsExpandable(false);
 	certList->setRootIsDecorated(false);
+	certList->sortItems(Cnumber, Qt::AscendingOrder);
 
+	i=1;
 	foreach(x509rev revit, revList) {
-		addRevItem(certList, revit, iss);
+		addRevItem(certList, revit, i++, iss);
 	}
 	for (i=0; i<cols; i++)
 		certList->resizeColumnToContents(i);
@@ -88,11 +118,11 @@ const x509revList &RevocationList::getRevList()
 
 void RevocationList::on_addRev_clicked(void)
 {
-	Revocation *revoke = new Revocation(this, NULL);
+	Revocation *revoke = new Revocation(this, QModelIndexList());
         if (revoke->exec()) {
 		x509rev revit = revoke->getRevocation();
 		revList << revit;
-		addRevItem(certList, revit, issuer);
+		addRevItem(certList, revit, revList.size(), issuer);
 	}
 }
 
@@ -114,14 +144,32 @@ void RevocationList::on_delRev_clicked(void)
                 revList.takeAt(idx);
 }
 
-Revocation::Revocation(QWidget *w, pki_x509 *r) : QDialog(w)
+Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 {
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	reason->addItems(x509rev::crlreasons());
 	invalid->setNow();
-	if (r) {
-		serial->setText(r->getSerial().toHex());
+
+	if (indexes.size() > 1) {
+		QList<a1int> serials;
+		QStringList sl;
+		serial->setText(QString("Batch revocation of %1 Certificates").
+				arg(indexes.size()));
+		foreach(QModelIndex idx, indexes) {
+			pki_x509 *cert = static_cast<pki_x509*>
+				(idx.internalPointer());
+			serials << cert->getSerial();
+		}
+		qSort(serials.begin(), serials.end());
+		foreach(a1int a, serials)
+			sl << a.toHex();
+		serial->setToolTip(sl.join("\n"));
+		serial->setEnabled(false);
+	} else if (indexes.size() == 1) {
+		pki_x509 *cert = static_cast<pki_x509*>
+				(indexes[0].internalPointer());
+		serial->setText(cert->getSerial().toHex());
 		serial->setEnabled(false);
 	}
 }

@@ -13,6 +13,7 @@
 #include "pki_pkcs7.h"
 #include "pki_pkcs12.h"
 #include "pki_crl.h"
+#include "pki_temp.h"
 #include "load_obj.h"
 #include "exception.h"
 #include "func.h"
@@ -40,12 +41,12 @@ pki_base *pki_multi::pull()
 	return multi.takeFirst();
 }
 
+#define D5 "-----"
+#define BEGIN D5 "BEGIN "
 /* General PEM loader */
 static pki_base *pkiByPEM(QString text, int *skip)
 {
 	int pos;
-#define D5 "-----"
-#define BEGIN D5 "BEGIN "
 	pos = text.indexOf(BEGIN);
 	if (pos <0) {
 		if (skip)
@@ -73,6 +74,9 @@ static pki_base *pkiByPEM(QString text, int *skip)
 
 	if (text.startsWith(PEM_STRING_X509_CRL D5))
 		return new pki_crl();
+
+	if (text.startsWith(PEM_STRING_XCA_TEMPLATE D5))
+		return new pki_temp();
 
 	if (text.startsWith(PEM_STRING_EVP_PKEY D5) ||
 				text.startsWith(PEM_STRING_PUBLIC D5) ||
@@ -155,7 +159,8 @@ void pki_multi::probeAnything(const QString fname)
 	load_base *lb;
 	QList<load_base *> lbs;
 
-	lbs <<  new load_cert() << new load_pkcs7() << new load_pkcs12() <<
+	lbs <<  new load_pem() <<
+		new load_cert() << new load_pkcs7() << new load_pkcs12() <<
 		new load_crl() <<  new load_req() <<   new load_key() <<
 		new load_temp();
 

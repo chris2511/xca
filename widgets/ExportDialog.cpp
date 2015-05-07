@@ -24,13 +24,16 @@ ExportDialog::ExportDialog(MainWindow *mw, QString title, QString filt,
 	setupUi(this);
 	mainwin = mw;
 	setWindowTitle(XCA_TITLE);
-	descr->setText(pki->getIntName());
+	if (pki)
+		descr->setText(pki->getIntName());
 	descr->setReadOnly(true);
 	image->setPixmap(*img);
         label->setText(title);
-	QString fn = mainwin->getPath() + QDir::separator() +
-		pki->getUnderlinedName() + "." + types[0].extension;
-	filename->setText(fn);
+	if (pki) {
+		QString fn = mainwin->getPath() + QDir::separator() +
+			pki->getUnderlinedName() + "." + types[0].extension;
+		filename->setText(fn);
+	}
 	filter = filt + ";;" + tr("All files ( * )");
 
 	foreach(exportType t, types) {

@@ -8,27 +8,14 @@
 #ifndef __XCATREEVIEW_H
 #define __XCATREEVIEW_H
 
+#include "lib/db_base.h"
 #include <QtGui/QTreeView>
 #include <QtGui/QItemSelectionModel>
 #include <QtGui/QSortFilterProxyModel>
 #include <QtGui/QHeaderView>
-#include "lib/db_base.h"
 
-class db_base;
-
-class XcaHeaderView: public QHeaderView
-{
-	Q_OBJECT
-    public:
-	XcaHeaderView()
-		:QHeaderView(Qt::Horizontal)
-	{
-		setMovable(true);
-	}
-	void contextMenuEvent(QContextMenuEvent *e);
-    public slots:
-	void resetMoves();
-};
+class MainWindow;
+class QLineEdit;
 
 class XcaTreeView: public QTreeView
 {
@@ -36,33 +23,38 @@ class XcaTreeView: public QTreeView
    protected:
 	db_base *basemodel;
 	QSortFilterProxyModel *proxy;
+	MainWindow *mainwin;
+
    public:
 	XcaTreeView(QWidget *parent = 0);
-	~XcaTreeView();
+	virtual ~XcaTreeView();
 	void contextMenuEvent(QContextMenuEvent *e);
-	void setModel(QAbstractItemModel *model);
+	virtual void setModel(QAbstractItemModel *model=NULL);
+	void setMainwin(MainWindow *mw, QLineEdit *filter);
 	QModelIndex getIndex(const QModelIndex &index);
 	QModelIndex getProxyIndex(const QModelIndex &index);
 	QModelIndexList getSelectedIndexes();
 	void headerEvent(QContextMenuEvent *e, int col);
+	QModelIndex currentIndex();
+	void showContextMenu(QContextMenuEvent *e,
+				const QModelIndex &index);
+	virtual void fillContextMenu(QMenu *menu, QMenu *subExport,
+			const QModelIndex &index, QModelIndexList indexes) {}
+	void contextMenu(QContextMenuEvent *e,
+			QMenu *parent = NULL, int sect = -1);
 
    public slots:
 	void showHideSections();
 	void sectionMoved(int idx, int oldI, int newI);
 	void columnsResize();
-	void editIdx(const QModelIndex &idx);
+	void editIdx();
 	void setFilter(const QString &pattern);
+	void deleteItems(void);
+	void storeItems(void);
+	void showItems(void);
+	void newItem(void);
+	void doubleClick(const QModelIndex &m);
+	void load(void);
+	void pem2clipboard(void);
 };
-
-class XcaProxyModel: public QSortFilterProxyModel
-{
-	Q_OBJECT
-   public:
-	XcaProxyModel(QWidget *parent = 0);
-	bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
-	bool filterAcceptsRow(int sourceRow,
-			const QModelIndex &sourceParent) const;
-	QVariant data(const QModelIndex &index, int role) const;
-};
-
 #endif

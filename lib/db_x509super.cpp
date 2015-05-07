@@ -112,10 +112,11 @@ QList<pki_x509super *> db_x509super::findByPubKey(pki_key *refkey)
 	return list;
 }
 
-void db_x509super::extractPubkey()
+void db_x509super::extractPubkey(QModelIndex index)
 {
 	pki_key *key;
-	pki_x509super *pki = static_cast<pki_x509super*>(currentIdx.internalPointer());
+	pki_x509super *pki = static_cast<pki_x509super*>
+				(index.internalPointer());
 	if (!pki)
 		return;
 	key = pki->getPubKey();
@@ -130,9 +131,9 @@ void db_x509super::extractPubkey()
 	XCA_INFO(key->getMsg(pki_base::msg_import).arg(pki->getIntName()));
 }
 
-void db_x509super::toOpenssl() const
+void db_x509super::toOpenssl(QModelIndex index) const
 {
-	pki_x509super *pki = static_cast<pki_x509super*>(currentIdx.internalPointer());
+	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
 	QString fn = mainwin->getPath() + QDir::separator() +
 		pki->getUnderlinedName() + ".conf";
 	QString fname = QFileDialog::getSaveFileName(mainwin,
@@ -145,9 +146,9 @@ void db_x509super::toOpenssl() const
 	pki->opensslConf(fname);
 }
 
-void db_x509super::toTemplate()
+void db_x509super::toTemplate(QModelIndex index)
 {
-	pki_x509super *pki = static_cast<pki_x509super*>(currentIdx.internalPointer());
+	pki_x509super *pki = static_cast<pki_x509super*>(index.internalPointer());
 	if (!pki)
 		return;
 

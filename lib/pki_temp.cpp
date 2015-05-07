@@ -251,7 +251,7 @@ void pki_temp::fromData(const unsigned char *p, int size, int version)
 	eKeyUseCrit = db::boolFromData(ba);
 	subKey = db::boolFromData(ba);
 	authKey = db::boolFromData(ba);
-	ca = db:: intFromData(ba);
+	ca = db::intFromData(ba);
 	if (version > 5) {
 		pathLen = db::stringFromData(ba);
 	} else {
@@ -330,25 +330,113 @@ QByteArray pki_temp::toData()
 	return ba;
 }
 
-void pki_temp::writeDefault(const QString fname)
+QByteArray pki_temp::toExportData()
 {
-	writeTemp(fname + QDir::separator() + getIntName() + ".xca");
+	QByteArray data, header;
+	data = toData();
+	header = db::intToData(data.count());
+	header += db::intToData(dataVersion);
+	header += data;
+	return header;
 }
 
 void pki_temp::writeTemp(QString fname)
 {
-	QByteArray data, header;
 	FILE *fp = fopen(QString2filename(fname),"wb");
 
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;
 	}
-	data = toData();
-	header = db::intToData(data.count());
-	header += db::intToData(dataVersion);
-	header += data;
-	fwrite_ba(fp, header, fname);
+	fwrite_ba(fp, toExportData(), fname);
+	fclose(fp);
+}
+
+void pki_temp::writeDefault(const QString fname)
+{
+	writeTemp(fname + QDir::separator() + getIntName() + ".xca");
+}
+
+BIO *pki_temp::pem(BIO *b, int format)
+{
+	QByteArray ba = toExportData();
+        if (!b)
+		b = BIO_new(BIO_s_mem());
+	PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, "",
+		(const unsigned char*)ba.constData(), ba.size());
+	pki_openssl_error();
+	return b;
+}
+
+void pki_temp::fromExportData(QByteArray data)
+{
+	int size, version;
+	const int hsize = sizeof(uint32_t);
+	bool oldimport = false;
+
+	if (data.size() < hsize) {
+		my_error(tr("Template file content error (too small)"));
+	}
+
+	QByteArray header = data.mid(0, hsize);
+	size = db::intFromData(header);
+
+	if (size > 65535 || size <0) {
+		/* oldimport templates are prepended by its size in
+		 * host endianess. Recover the size */
+                size = intFromData(data);
+		if (size > 65535 || size <0) {
+			my_error(tr("Template file content error (bad size)"));
+		}
+		oldimport = true;
+	}
+	if (oldimport) {
+		oldFromData((const unsigned char*)data.constData(),
+				data.size());
+	} else {
+		size = db::intFromData(data);
+		version = db::intFromData(data);
+		fromData((const unsigned char*)data.constData(),
+				data.size(), version);
+	}
+}
+
+void pki_temp::try_fload(QString fname, const char *mode)
+{
+	FILE *fp = fopen(QString2filename(fname), mode);
+	char buf[4096];
+	QByteArray ba;
+	BIO *b;
+
+	if (fp == NULL) {
+		fopen_error(fname);
+		return;
+	}
+	b = BIO_new(BIO_s_file());
+	pki_openssl_error();
+	BIO_set_fp(b,fp,BIO_NOCLOSE);
+	try {
+		fromPEM_BIO(b, fname);
+		BIO_free(b);
+		return;
+	} catch (errorEx &err) {
+		BIO_free(b);
+		fseek(fp, 0, SEEK_SET);
+	}
+	while (1) {
+		size_t ret = fread(buf, 1, sizeof buf, fp);
+		ba.append(buf, ret);
+		if (ret < sizeof buf)
+			break;
+	}
+	int err = ferror(fp);
+	fclose(fp);
+	if (err) {
+		my_error(tr("Template file content error (too small): %1").
+			arg(fname));
+	}
+	fromExportData(ba);
+	setIntName(rmslashdot(fname));
 	fclose(fp);
 }
 
@@ -367,58 +455,30 @@ void pki_temp::fload(QString fname)
 	}
 }
 
-void pki_temp::try_fload(QString fname, const char *mode)
+void pki_temp::fromPEM_BIO(BIO *bio, QString name)
 {
-	int size, s, version;
-	const int hsize = 2 * sizeof(uint32_t);
-	char buf[hsize];
-	unsigned char *p;
-	FILE *fp = fopen(QString2filename(fname), mode);
-	bool oldimport = false;
+	QByteArray ba;
+	QString msg;
+	char *nm = NULL, *header = NULL;
+        unsigned char *data = NULL;
+	long len;
 
-	if (fp == NULL) {
-		fopen_error(fname);
-		return;
+	PEM_read_bio(bio, &nm, &header, &data, &len);
+
+	pki_openssl_error();
+
+	if (!strcmp(nm, PEM_STRING_XCA_TEMPLATE)) {
+		ba = QByteArray::fromRawData((char*)data, len);
+		fromExportData(ba);
+		setIntName(rmslashdot(name));
+	} else {
+		msg = tr("Not an XCA Template, but '%1'").arg(nm);
 	}
-	if (fread(buf, hsize, 1, fp) != 1) {
-		fclose(fp);
-		my_error(tr("Template file content error (too small): %1").
-			arg(fname));
-	}
-
-	QByteArray header(buf, hsize);
-	QByteArray backup = header;
-
-	size = db::intFromData(header);
-	version = db::intFromData(header);
-
-	if (size > 65535 || size <0) {
-		/* oldimport templates are prepended by its size in host endianess.
-		   Set fp after the first int and recover the size */
-		fseek(fp, sizeof(int), SEEK_SET);
-                size = intFromData(backup);
-		if (size > 65535 || size <0) {
-			fclose(fp);
-			my_error(tr("Template file content error (bad size): %1 ").arg(fname));
-		}
-		oldimport = true;
-	}
-	p = (unsigned char *)OPENSSL_malloc(size);
-	if (p) {
-		if ((s=fread(p, 1, size, fp)) != size) {
-			OPENSSL_free(p);
-			fclose(fp);
-			my_error(tr("Template file content error (bad length) :%1").arg(fname));
-		}
-	}
-	if (oldimport)
-		oldFromData(p, size);
-	else
-		fromData(p, size, version);
-	OPENSSL_free(p);
-
-	setIntName(rmslashdot(fname));
-	fclose(fp);
+	OPENSSL_free(nm);
+	OPENSSL_free(header);
+	OPENSSL_free(data);
+	if (!msg.isEmpty())
+		my_error(msg);
 }
 
 pki_temp::~pki_temp()
@@ -447,7 +507,7 @@ QVariant pki_temp::getIcon(dbheader *hd)
 	return hd->id == HD_internal_name ? QVariant(*icon) : QVariant();
 }
 
-void pki_temp::oldFromData(unsigned char *p, int size)
+void pki_temp::oldFromData(const unsigned char *p, int size)
 {
 	int version;
 

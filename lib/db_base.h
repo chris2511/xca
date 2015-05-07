@@ -45,7 +45,8 @@ class db_base: public QAbstractItemModel
 		virtual dbheaderList getHeaders();
 		int colResizing;
 		int handleBadEntry(unsigned char *p, db_header_t *head);
-		virtual exportType::etype clipboardFormat() {
+		virtual exportType::etype clipboardFormat(QModelIndexList indexes)
+		{
 			return exportType::Separator;
 		}
 
@@ -69,9 +70,6 @@ class db_base: public QAbstractItemModel
 		QPixmap *loadImg(const char *name);
 		void writeAll(void);
 		void dump(QString dirname);
-		virtual void showContextMenu(QContextMenuEvent * ,
-				const QModelIndex &) {};
-
 		QModelIndex index(int row, int column, const QModelIndex &parent)const;
 		QModelIndex index(pki_base *pki)const;
 		QModelIndex parent(const QModelIndex &index) const;
@@ -82,18 +80,13 @@ class db_base: public QAbstractItemModel
 				int role) const;
 		Qt::ItemFlags flags(const QModelIndex &index) const;
 		bool setData(const QModelIndex &index, const QVariant &value, int role);
-		void deleteSelectedItems(XcaTreeView* view);
-		void showSelectedItems(XcaTreeView *view);
-		void storeSelectedItems(XcaTreeView *view);
+		void deleteSelectedItems(QModelIndexList indexes);
 		void load_default(load_base &load);
 		void insertChild(pki_base *parent, pki_base *child);
 		void createSuccess(pki_base *pki);
-		void showHeaderMenu(QContextMenuEvent *e, int sect);
 		bool columnHidden(int col) const;
 		bool isNumericCol(int col) const;
 		void saveHeaderState();
-		void contextMenu(QContextMenuEvent *e,
-			QMenu *parent = NULL, int sect = -1);
 		void initHeaderView(QHeaderView *hv);
 		void setVisualIndex(int i, int visualIndex);
 		bool fixedHeaderSize(int sect);
@@ -105,31 +98,31 @@ class db_base: public QAbstractItemModel
 		{
 			colResizing--;
 		}
-		virtual void store(QModelIndexList list);
+		virtual void store(QModelIndexList indexes);
+		virtual void store(QModelIndex index) { };
+		dbheaderList getAllHeaders() {
+			return allHeaders;
+		}
+		void pem2clipboard(QModelIndexList indexes);
+		QString pem2QString(QModelIndexList indexes);
+
+		void deletePKI(QModelIndex idx);
 
 	public slots:
-		void deletePKI();
-		void delete_ask();
-		void edit();
+		virtual void newItem() { }
+		virtual void load() { }
 		void columnResetDefaults();
-		virtual void showItem();
-		virtual void store()
-		{
-			store(QModelIndexList());
-		};
 		virtual void showPki(pki_base *) {};
 		virtual void showItem(const QModelIndex &index);
 		virtual void showItem(const QString keyname);
 		void sectionResized(int i, int, int newSize);
-		void sortIndicatorChanged(int logicalIndex, Qt::SortOrder order);
-		void pem2clipboard();
+		void sortIndicatorChanged(int, Qt::SortOrder);
 
 	signals:
 		void connNewX509(NewX509 *dlg);
 		void resetHeader();
 		void updateHeader();
 		void columnsContentChanged();
-		void editItem(const QModelIndex &);
 };
 
 #endif

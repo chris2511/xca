@@ -164,8 +164,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>236</x>
-     <y>185</y>
+     <x>242</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -180,12 +180,28 @@
    <slot>localTime(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>122</y>
+     <x>398</x>
+     <y>194</y>
     </hint>
     <hint type="destinationlabel">
      <x>389</x>
-     <y>93</y>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Revoke</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>97</x>
+     <y>268</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>109</x>
+     <y>59</y>
     </hint>
    </hints>
   </connection>

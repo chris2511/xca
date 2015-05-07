@@ -6,12 +6,14 @@
  */
 
 
+#include "XcaHeaderView.h"
 #include "XcaTreeView.h"
-#include "lib/db_base.h"
+#include "XcaProxyModel.h"
+#include "MainWindow.h"
 #include <QtCore/QAbstractItemModel>
 #include <QtGui/QAbstractItemView>
-#include <QtGui/QHeaderView>
 #include <QtGui/QContextMenuEvent>
+#include <QtGui/QMenu>
 #include <QtCore/QVariant>
 #include <QtCore/QRegExp>
 
@@ -19,6 +21,7 @@
 XcaTreeView::XcaTreeView(QWidget *parent)
 	:QTreeView(parent)
 {
+	mainwin = NULL;
 	setHeader(new XcaHeaderView());
 	setAlternatingRowColors(true);
 	setSelectionMode(QAbstractItemView::ExtendedSelection);
@@ -34,6 +37,8 @@ XcaTreeView::XcaTreeView(QWidget *parent)
 	basemodel = NULL;
 	connect(header(), SIGNAL(sectionHandleDoubleClicked(int)),
 		this, SLOT(resizeColumnToContents(int)));
+	connect(this, SIGNAL(doubleClicked(const QModelIndex &)),
+		this, SLOT(doubleClick(const QModelIndex &)));
 	header()->setClickable(true);
 }
 
@@ -48,9 +53,7 @@ void XcaTreeView::contextMenuEvent(QContextMenuEvent * e)
 	if (!basemodel)
 		return;
 	index = indexAt(e->pos());
-	/* unselect all but the current on context menu */
-	setCurrentIndex(index);
-	basemodel->showContextMenu(e, getIndex(index));
+	showContextMenu(e, getIndex(index));
 }
 
 void XcaTreeView::showHideSections()
@@ -69,12 +72,18 @@ void XcaTreeView::showHideSections()
 	columnsResize();
 }
 
+void XcaTreeView::setMainwin(MainWindow *mw, QLineEdit *filter)
+{
+	mainwin = mw;
+	connect(filter, SIGNAL(textChanged(const QString &)),
+		this, SLOT(setFilter(const QString&)));
+}
+
 void XcaTreeView::setModel(QAbstractItemModel *model)
 {
 	QByteArray ba;
 
 	basemodel = (db_base *)model;
-
 	proxy->setSourceModel(model);
 	QTreeView::setModel(proxy);
 
@@ -83,8 +92,6 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 			header(), SLOT(resetMoves()));
 		connect(basemodel, SIGNAL(resetHeader()),
 			this, SLOT(columnsResize()));
-		connect(basemodel, SIGNAL(updateHeader()),
-			this, SLOT(showHideSections()));
 		connect(header(), SIGNAL(sectionMoved(int,int,int)),
 			this, SLOT(sectionMoved(int,int,int)));
 		connect(header(), SIGNAL(sectionResized(int,int,int)),
@@ -95,8 +102,6 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 			this, SLOT(columnsResize()));
 		connect(basemodel, SIGNAL(columnsContentChanged()),
 			proxy, SLOT(invalidate()));
-		connect(basemodel, SIGNAL(editItem(const QModelIndex &)),
-			this, SLOT(editIdx(const QModelIndex &)));
 
 		basemodel->initHeaderView(header());
 	}
@@ -105,7 +110,7 @@ void XcaTreeView::setModel(QAbstractItemModel *model)
 
 void XcaTreeView::headerEvent(QContextMenuEvent *e, int col)
 {
-	basemodel->showHeaderMenu(e, col);
+	contextMenu(e, NULL, col);
 }
 
 QModelIndex XcaTreeView::getIndex(const QModelIndex &index)
@@ -158,90 +163,216 @@ void XcaTreeView::sectionMoved(int, int, int)
 	}
 }
 
-void XcaTreeView::editIdx(const QModelIndex &idx)
+QModelIndex XcaTreeView::currentIndex()
 {
-	edit(proxy->mapFromSource(idx));
+	QModelIndex idx = QTreeView::currentIndex();
+	idx = getIndex(idx);
+	idx = basemodel->index(idx.row(), 0, idx.parent());
+	if (!idx.isValid()) {
+		QModelIndexList l = getSelectedIndexes();
+		if (l.size() > 0)
+			idx = l[0];
+	}
+	return idx;
+}
+
+void XcaTreeView::editIdx()
+{
+	edit(getProxyIndex(currentIndex()));
 }
 
 void XcaTreeView::setFilter(const QString &pattern)
 {
-	 pki_base::limitPattern = QRegExp(pattern,
+	pki_base::limitPattern = QRegExp(pattern,
 			Qt::CaseInsensitive, QRegExp::Wildcard);
 	// Only to tell the model about the changed filter
-	 proxy->setFilterFixedString(pattern);
+	proxy->setFilterFixedString(pattern);
 }
 
-XcaProxyModel::XcaProxyModel(QWidget *parent)
-	:QSortFilterProxyModel(parent)
+void XcaTreeView::deleteItems(void)
 {
-}
+	QModelIndex index;
+	QModelIndexList indexes = getSelectedIndexes();
+	QString items, msg;
+	int count = 0;
+	pki_base *pki = NULL;
 
-bool XcaProxyModel::lessThan(const QModelIndex &left,
-		const QModelIndex &right) const
-{
-	db_base *db = (db_base *)sourceModel();
-	if (!db)
-		return QSortFilterProxyModel::lessThan(left, right);
+	if (indexes.count() == 0 || !basemodel)
+		return;
 
-	if (db->isNumericCol(left.column()) &&
-	    db->isNumericCol(right.column()))
-	{
-		int diff;
-		QString l = sourceModel()->data(left).toString();
-		QString r = sourceModel()->data(right).toString();
-		diff = l.size() - r.size();
-		if (diff<0)
-			return true;
-		else if (diff>0)
-			return false;
-		else
-			return l < r;
+	foreach(index, indexes) {
+		pki = static_cast<pki_base*>(index.internalPointer());
+		items += "'" + pki->getIntName() + "' ";
+		count++;
 	}
-	return QSortFilterProxyModel::lessThan(left, right);
-}
 
-bool XcaProxyModel::filterAcceptsRow(int sourceRow,
-         const QModelIndex &sourceParent) const
-{
-	QModelIndex idx = sourceModel()->index(sourceRow, 0, sourceParent);
-	return sourceModel()->data(idx, Qt::UserRole).toBool();
-}
+	if (count == 1)
+		msg = pki->getMsg(pki_base::msg_delete).arg(pki->getIntName());
+	else
+		msg = pki->getMsg(pki_base::msg_delete_multi).arg(count).
+				arg(items);
 
-QVariant XcaProxyModel::data(const QModelIndex &index, int role) const
-{
-	QModelIndex i;
-	QString number;
+	if (!XCA_OKCANCEL(msg))
+		return;
 
-	if (index.column() != 1)
-		return QSortFilterProxyModel::data(index, role);
-
-	/* Row number */
-	switch (role) {
-		case Qt::EditRole:
-		case Qt::DisplayRole:
-			for (i = index; i.isValid(); i = i.parent())
-				number += QString(" %1").arg(i.row()+1);
-			return QVariant(number);
-		default:
-			return QSortFilterProxyModel::data(index, role);
+	foreach(index, indexes) {
+		basemodel->deletePKI(index);
 	}
-	return QVariant();
 }
 
-void XcaHeaderView::contextMenuEvent(QContextMenuEvent * e)
+void XcaTreeView::storeItems(void)
 {
-	XcaTreeView *tv = (XcaTreeView *)parentWidget();
-	if (tv)
-		tv->headerEvent(e, logicalIndexAt(e->pos()));
-}
-
-void XcaHeaderView::resetMoves()
-{
-	for (int i=0; i<count(); i++) {
-		if (i != visualIndex(i)) {
-			moveSection(visualIndex(i), i);
-			i=0;
+	QModelIndexList indexes = getSelectedIndexes();
+	if (basemodel) {
+		try {
+			switch (indexes.size()) {
+			case 0: return;
+			case 1: basemodel->store(indexes[0]); return;
+			default: basemodel->store(getSelectedIndexes());
+				return;
+			}
+		} catch (errorEx &err) {
+			MainWindow::Error(err);
 		}
 	}
-	resizeSections(QHeaderView::ResizeToContents);
+}
+
+void XcaTreeView::showItems(void)
+{
+	if (basemodel) {
+		QModelIndexList indexes = getSelectedIndexes();
+		foreach(QModelIndex index, indexes)
+			basemodel->showItem(index);
+	}
+}
+
+void XcaTreeView::newItem(void)
+{
+	if (basemodel)
+		basemodel->newItem();
+}
+
+void XcaTreeView::load(void)
+{
+	if (basemodel)
+		basemodel->load();
+}
+
+void XcaTreeView::doubleClick(const QModelIndex &m)
+{
+	if (basemodel)
+		basemodel->showItem(getIndex(m));
+}
+
+void XcaTreeView::pem2clipboard(void)
+{
+	if (basemodel)
+		basemodel->pem2clipboard(getSelectedIndexes());
+}
+
+void XcaTreeView::contextMenu(QContextMenuEvent *e, QMenu *parent, int)
+{
+	int shown = 0;
+	tipMenu *menu, *dn, *v3ext, *current, *v3ns;
+	QAction *a, *sep;
+	dbheader *hd;
+	dbheaderList allHeaders = basemodel->getAllHeaders();
+
+	menu = new tipMenu(QString(), mainwin);
+	dn = new tipMenu(tr("Subject entries"), mainwin);
+	v3ext = new tipMenu(tr("X509v3 Extensions"), mainwin);
+	v3ns = new tipMenu(tr("Netscape extensions"), mainwin);
+	menu->addAction(tr("Reset"), basemodel, SLOT(columnResetDefaults()));
+	sep = menu->addSeparator();
+	foreach(hd, allHeaders) {
+		switch (hd->type) {
+			case dbheader::hd_x509name:
+				current = dn;
+				break;
+			case dbheader::hd_v3ext:
+				current = v3ext;
+				break;
+			case dbheader::hd_v3ext_ns:
+				if (pki_x509::disable_netscape)
+					continue;
+				current = v3ns;
+				break;
+			default:
+				current = menu;
+				break;
+		}
+		a = current->addAction(hd->getName());
+		a->setCheckable(true);
+		a->setChecked(hd->show);
+		a->setToolTip(hd->getTooltip());
+		hd->action = a;
+	}
+	if (!dn->isEmpty() || !v3ext->isEmpty())
+		menu->insertSeparator(sep);
+
+	if (!dn->isEmpty())
+		menu->insertMenu(sep, dn);
+	else
+		delete dn;
+
+	if (!v3ext->isEmpty()) {
+		if (!v3ns->isEmpty()) {
+			v3ext->addSeparator();
+			v3ext->addMenu(v3ns);
+		} else {
+			delete v3ns;
+		}
+		menu->insertMenu(sep, v3ext);
+	} else {
+		delete v3ext;
+		delete v3ns;
+	}
+	if (parent) {
+		parent->addSeparator();
+		parent->addMenu(menu)->setText(tr("Columns"));
+		parent->exec(e->globalPos());
+	} else {
+		menu->exec(e->globalPos());
+	}
+	foreach(hd, allHeaders) {
+		if (hd->action)
+			hd->show = hd->action->isChecked();
+		shown += hd->show ? 1 : 0;
+		hd->action = NULL;
+	}
+	if (!shown)
+		allHeaders[0]->show = true;
+        delete menu;
+	if (parent)
+		delete parent;
+	showHideSections();
+}
+
+void XcaTreeView::showContextMenu(QContextMenuEvent *e,
+		const QModelIndex &idx)
+{
+	QMenu *menu = new QMenu(mainwin);
+	QMenu *subExport = NULL;
+	QModelIndexList indexes = getSelectedIndexes();
+	QModelIndex index;
+
+	index = idx.isValid() ? idx : currentIndex();
+	menu->addAction(tr("New"), this, SLOT(newItem()));
+	menu->addAction(tr("Import"), this, SLOT(load()));
+	menu->addAction(tr("Paste PEM data"), mainwin, SLOT(pastePem()));
+
+	if (indexes.size() == 1)
+		menu->addAction(tr("Rename"), this, SLOT(editIdx()));
+
+	if (indexes.size() > 0) {
+		menu->addAction(tr("Delete"), this, SLOT(deleteItems()));
+		subExport = menu->addMenu(tr("Export"));
+		subExport->addAction(tr("Clipboard"), this,
+				SLOT(pem2clipboard()));
+		subExport->addAction(tr("File"), this, SLOT(storeItems()));
+	}
+
+	fillContextMenu(menu, subExport, index, indexes);
+
+	contextMenu(e, menu);
 }

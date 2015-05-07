@@ -269,10 +269,10 @@ bool pki_crl::verify(pki_key *key)
 {
 	bool ret=false;
 	if (crl && crl->crl && key) {
-		ret = (X509_CRL_verify(crl , key->getPubKey()) == 1);
+		ret = (X509_CRL_verify(crl, key->getPubKey()) == 1);
 		pki_ign_openssl_error();
 	}
-	return ret ;
+	return ret;
 }
 
 void pki_crl::setCrlNumber(a1int num)
@@ -282,6 +282,14 @@ void pki_crl::setCrlNumber(a1int num)
 	X509_CRL_add1_ext_i2d(crl, NID_crl_number, tmpser, 0, 0);
 	ASN1_INTEGER_free(tmpser);
 	pki_openssl_error();
+}
+
+a1int pki_crl::getCrlNumber()
+{
+	a1int num;
+	if (!getCrlNumber(&num))
+		num.set(0L);
+	return num;
 }
 
 bool pki_crl::getCrlNumber(a1int *num)

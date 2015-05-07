@@ -57,8 +57,6 @@ class pki_x509 : public pki_x509super
 		void fromPEM_BIO(BIO *bio, QString name);
 		void writeDefault(const QString fname);
 		a1int hashInfo(const EVP_MD *md) const;
-		a1int getQASerial(const a1int &secret) const;
-		bool verifyQASerial(const a1int &secret) const;
 		void setSerial(const a1int &serial);
 		a1int getSerial() const;
 		void setNotBefore(const a1time &a);
@@ -77,6 +75,7 @@ class pki_x509 : public pki_x509super
 		bool canSign();
 		void writeCert(const QString fname, bool PEM, bool append = false);
 		bool verify(pki_x509 *signer);
+		bool verify_only(pki_x509 *signer);
 		pki_key *getPubKey() const;
 		void setPubKey(pki_key *key);
 		pki_x509 *getSigner();
@@ -112,6 +111,11 @@ class pki_x509 : public pki_x509super
 		a1int getIncCrlNumber()
 		{
 			return ++crlNumber;
+		}
+		void setCrlNumber(a1int n)
+		{
+			if (n > crlNumber)
+				crlNumber = n;
 		}
 		void setTemplate(QString s)
 		{
@@ -164,6 +168,7 @@ class pki_x509 : public pki_x509super
 			revList.merge(l);
 		}
 		void setRevocations(const x509revList &rl);
+		bool compareNameAndKey(pki_x509 *other);
 };
 
 #endif

@@ -145,36 +145,9 @@ void db_temp::newItem()
 	}
 	delete temp;
 }
-
-void db_temp::changeTemp()
-{
-	if (!currentIdx.isValid())
-		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
-	alterTemp(temp);
-}
-
-void db_temp::duplicateTemp()
-{
-	if (!currentIdx.isValid())
-		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
-	pki_temp *newtemp = new pki_temp(temp);
-	newtemp->setIntName(newtemp->getIntName() + " " + tr("copy"));
-	insertPKI(newtemp);
-}
-
-bool db_temp::alterTemp(pki_temp *temp)
-{
-	if (!runTempDlg(temp))
-		return false;
-	updatePKI(temp);
-	return true;
-}
-
 void db_temp::showPki(pki_base *pki)
 {
-	alterTemp((pki_temp *)pki);
+	alterTemp(static_cast<pki_temp *>(pki));
 }
 
 void db_temp::load()
@@ -183,11 +156,12 @@ void db_temp::load()
 	load_default(l);
 }
 
-void db_temp::store()
+void db_temp::store(QModelIndex index)
 {
-	if (!currentIdx.isValid())
+	if (!index.isValid())
 		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
+
+	pki_temp *temp = static_cast<pki_temp*>(index.internalPointer());
 
 	QString fn = mainwin->getPath() + QDir::separator() +
 		temp->getUnderlinedName() + ".xca";
@@ -206,48 +180,10 @@ void db_temp::store()
 	}
 }
 
-void db_temp::certFromTemp()
+bool db_temp::alterTemp(pki_temp *temp)
 {
-	if (!currentIdx.isValid())
-		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
-	emit newCert(temp);
-}
-
-void db_temp::reqFromTemp()
-{
-	if (!currentIdx.isValid())
-		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
-	emit newReq(temp);
-}
-
-void db_temp::alterTemp()
-{
-	if (!currentIdx.isValid())
-		return;
-	pki_temp *temp = static_cast<pki_temp*>(currentIdx.internalPointer());
-	alterTemp(temp);
-}
-
-void db_temp::showContextMenu(QContextMenuEvent *e, const QModelIndex &index)
-{
-	QMenu *menu = new QMenu(mainwin);
-	currentIdx = index;
-
-	menu->addAction(tr("New Template"), this, SLOT(newItem()));
-	menu->addAction(tr("Import"), this, SLOT(load()));
-	if (index != QModelIndex()) {
-		menu->addAction(tr("Rename"), this, SLOT(edit()));
-		menu->addAction(tr("Export"), this, SLOT(store()));
-		menu->addAction(tr("Change"), this, SLOT(alterTemp()));
-		menu->addAction(tr("Delete"), this, SLOT(delete_ask()));
-		menu->addAction(tr("Duplicate"), this, SLOT(duplicateTemp()));
-		menu->addAction(tr("Create certificate"), this,
-				SLOT(certFromTemp()));
-		menu->addAction(tr("Create request"), this, SLOT(reqFromTemp()));
-	}
-	contextMenu(e, menu);
-	currentIdx = QModelIndex();
-	return;
+	if (!runTempDlg(temp))
+		return false;
+	updatePKI(temp);
+	return true;
 }

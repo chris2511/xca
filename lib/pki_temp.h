@@ -13,6 +13,9 @@
 #include "asn1time.h"
 #include "pki_x509.h"
 
+#define D5 "-----"
+#define PEM_STRING_XCA_TEMPLATE "XCA TEMPLATE"
+
 class pki_temp: public pki_x509name
 {
 		Q_OBJECT
@@ -41,7 +44,7 @@ class pki_temp: public pki_x509name
 		~pki_temp();
 		void fromData(const unsigned char *p, int size, int version);
 		void fromData(const unsigned char *p, db_header_t *head );
-		void oldFromData(unsigned char *p, int size);
+		void oldFromData(const unsigned char *p, int size);
 
 		QByteArray toData();
 		bool compare(pki_base *ref);
@@ -50,6 +53,10 @@ class pki_temp: public pki_x509name
 		QVariant getIcon(dbheader *hd);
 		virtual QString getMsg(msg_type msg);
 		x509name getSubject() const;
+		BIO *pem(BIO *b, int format);
+		QByteArray toExportData();
+		void fromPEM_BIO(BIO *, QString);
+		void fromExportData(QByteArray data);
 };
 
 #endif

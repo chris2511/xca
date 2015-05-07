@@ -194,17 +194,6 @@ a1int pki_x509::hashInfo(const EVP_MD *md) const
 	return a;
 }
 
-a1int pki_x509::getQASerial(const a1int &secret) const
-{
-	ASN1_INTEGER *hold = cert->cert_info->serialNumber;
-	cert->cert_info->serialNumber = secret.get();
-	a1int ret = hashInfo(EVP_md5());
-	ASN1_INTEGER_free(cert->cert_info->serialNumber);
-	cert->cert_info->serialNumber = hold;
-	pki_openssl_error();
-	return ret;
-}
-
 void pki_x509::load_token(pkcs11 &p11, CK_OBJECT_HANDLE object)
 {
 	QString desc;
@@ -380,11 +369,6 @@ int pki_x509::renameOnToken(slotid slot, QString name)
                 return 0;
 	p11.storeAttribute(label, objs[0]);
 	return 1;
-}
-
-bool pki_x509::verifyQASerial(const a1int &secret) const
-{
-	return getQASerial(secret) == getSerial();
 }
 
 void pki_x509::setNotBefore(const a1time &a)
@@ -615,13 +599,9 @@ bool pki_x509::cmpIssuerAndSerial(pki_x509 *refcert)
 
 }
 
-bool pki_x509::verify(pki_x509 *signer)
+bool pki_x509::verify_only(pki_x509 *signer)
 {
-	if (psigner == signer)
-		return true;
-	if ((psigner != NULL )||( signer == NULL))
-		return false;
-	X509_NAME *subject =  X509_get_subject_name(signer->cert);
+	X509_NAME *subject = X509_get_subject_name(signer->cert);
 	X509_NAME *issuer = X509_get_issuer_name(cert);
 	pki_openssl_error();
 	if (X509_NAME_cmp(subject, issuer)) {
@@ -634,7 +614,16 @@ bool pki_x509::verify(pki_x509 *signer)
 	}
 	int i = X509_verify(cert, pub);
 	pki_ign_openssl_error();
-	if (i>0) {
+	return i>0;
+}
+
+bool pki_x509::verify(pki_x509 *signer)
+{
+	if (psigner == signer)
+		return true;
+	if ((psigner != NULL) || (signer == NULL))
+		return false;
+	if (verify_only(signer)) {
 		int idx;
 		x509rev r;
 		r.setSerial(getSerial());
@@ -673,6 +662,25 @@ pki_key *pki_x509::getPubKey() const
 	pki_evp *key = new pki_evp(pkey);
 	pki_openssl_error();
 	return key;
+}
+
+bool pki_x509::compareNameAndKey(pki_x509 *other)
+{
+	X509_NAME *subject = X509_get_subject_name(other->cert);
+	X509_NAME *issuer = X509_get_issuer_name(cert);
+	pki_openssl_error();
+	if (!subject || !issuer)
+		return false;
+	if (X509_NAME_cmp(subject, issuer))
+		return false;
+	EVP_PKEY *pub1 = X509_get_pubkey(cert);
+	EVP_PKEY *pub2 = X509_get_pubkey(other->cert);
+	pki_ign_openssl_error();
+	if (!pub1 || !pub2)
+		return false;
+	int r = EVP_PKEY_cmp(pub1, pub2);
+	pki_openssl_error();
+	return r == 1;
 }
 
 void pki_x509::setPubKey(pki_key *key)
