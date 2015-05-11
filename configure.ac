@@ -128,8 +128,16 @@ AC_SUBST([QT_RCC])
 
 # The dyn_loader library libltdl
 ##################################
-AC_CHECK_LIB(ltdl, lt_dlopen)
-AC_CHECK_HEADER(ltdl.h)
+AC_CHECK_LIB(ltdl, lt_dlopen, , [
+  echo "ERROR: Library 'ltdl' with symbol 'lt_dlopen' not found."
+  echo "       Try installing the package 'libltdl-dev' or 'libtool'"
+  exit 1
+])
+AC_CHECK_HEADER(ltdl.h, , [
+  echo "ERROR: Header 'ltdl.h' not found."
+  echo "       Try installing the package 'libltdl-dev' or 'libtool'"
+  exit 1
+])
 
 # Just give it a try .....
 ##########################
