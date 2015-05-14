@@ -30,7 +30,10 @@ APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)-$(DARWIN)${EXTRA_VERSION}
 APPDIR=$(DMGSTAGE)/xca.app/Contents
-
+OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass -n "XCA $(VERSION)" -i https://sourceforge.net/projects/xca/
+ifeq ($(OSSLSIGN),)
+ OSSLSIGN=:
+endif
 all: xca_db_stat$(SUFFIX)
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX)
@@ -129,12 +132,17 @@ install: xca$(SUFFIX) xca_db_stat$(SUFFIX) $(INSTTARGET)
 	install -m 755 xca_db_stat $(destdir)$(bindir)
 	$(STRIP) $(destdir)$(bindir)/xca
 
-setup.exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang
-setup.exe: misc/xca.nsi
+setup.exe: setup_xca-$(VERSION).exe
+setup_xca-$(VERSION).exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang
+setup_xca-$(VERSION).exe: misc/xca.nsi
 	$(STRIP) xca$(SUFFIX)
+	$(OSSLSIGN) $(OSSLSIGN_OPT) -in xca$(SUFFIX) -out xca.signed && \
+		mv xca.signed xca$(SUFFIX)
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
 		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
+	$(OSSLSIGN) $(OSSLSIGN_OPT) -in $@ -out setup.tmp && mv setup.tmp $@
+
 
 $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	rm -rf $(DMGSTAGE)
@@ -151,7 +159,7 @@ $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)
 	cp -r $(DMGSTAGE)/xca.app/Contents/Resources/*.html $(DMGSTAGE)/manual
 	ln -s xca.html $(DMGSTAGE)/manual/index.html
 	$(MACDEPLOYQT) $(DMGSTAGE)/xca.app
-	codesign -s "Christian Hohnstädt" $(DMGSTAGE)/xca.app
+	codesign -s "Open Source Developer, Christian Hohnstaedt" $(DMGSTAGE)/xca.app
 	tar zcf $(MACTARGET).tar.gz $(DMGSTAGE)
 
 xca.dmg: $(MACTARGET).dmg
