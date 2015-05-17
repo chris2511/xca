@@ -19,7 +19,7 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 
 	pki_key *key = static_cast<pki_key*>(index.internalPointer());
 
-	if (index == QModelIndex())
+	if (indexes.size() == 0)
 		return;
 
 	if (!multi && key && key->isPrivKey() && !key->isToken()) {

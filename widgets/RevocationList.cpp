@@ -171,6 +171,9 @@ Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 				(indexes[0].internalPointer());
 		serial->setText(cert->getSerial().toHex());
 		serial->setEnabled(false);
+	} else {
+		serial->setValidator(
+			new QRegExpValidator(QRegExp("[A-Fa-f0-9]+")));
 	}
 }
 

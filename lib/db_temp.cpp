@@ -120,8 +120,8 @@ void db_temp::newItem()
 	for (i=0; i<len; i++) {
 		sl << predefs->child(i)->getIntName();
 	}
-	type = QInputDialog::getItem(mainwin, tr(XCA_TITLE),
-		tr("Preset Template values"), sl, 0, false, &ok, 0 );
+	type = QInputDialog::getItem(mainwin, XCA_TITLE,
+		tr("Preset Template values"), sl, 0, false, &ok, 0);
 	if (ok) {
 		if (type == sl[0]) {
 			temp = new pki_temp("");

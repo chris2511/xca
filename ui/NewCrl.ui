@@ -7,18 +7,12 @@
     <x>0</x>
     <y>0</y>
     <width>451</width>
-    <height>503</height>
+    <height>478</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QHBoxLayout">
-     <property name="spacing">
-      <number>6</number>
-     </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
      <item>
       <widget class="QLabel" name="TextLabel1">
        <property name="font">
@@ -85,9 +79,9 @@
     </spacer>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="dateBox">
      <property name="title">
-      <string>Dates</string>
+      <string/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -180,39 +174,16 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Hashing algorithm</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="hashBox" name="hashAlgo"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Extensions</string>
+      <string>Options</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QCheckBox" name="authKeyId">
-        <property name="text">
-         <string>Authority key identifier</string>
-        </property>
-       </widget>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="crlNumber"/>
       </item>
-      <item>
-       <widget class="QCheckBox" name="subAltName">
-        <property name="text">
-         <string>Subject alternative name</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="crlNumber">
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="setCrlNumber">
         <property name="text">
          <string>CRL Number</string>
         </property>
@@ -221,13 +192,37 @@
         </property>
        </widget>
       </item>
-      <item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="subAltName">
+        <property name="text">
+         <string>Subject alternative name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
        <widget class="QCheckBox" name="revocationReasons">
         <property name="text">
          <string>Revocation reasons</string>
         </property>
         <property name="checked">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="authKeyId">
+        <property name="text">
+         <string>Authority key identifier</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="hashBox" name="hashAlgo"/>
+      </item>
+      <item row="0" column="0" alignment="Qt::AlignRight">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Hash algorithm</string>
         </property>
        </widget>
       </item>
@@ -274,7 +269,6 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>authKeyId</tabstop>
   <tabstop>subAltName</tabstop>
  </tabstops>
  <resources/>
@@ -286,8 +280,8 @@
    <slot>hideTimeCheck(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>220</y>
+     <x>104</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
      <x>233</x>
@@ -302,8 +296,8 @@
    <slot>hideTimeCheck(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>220</y>
+     <x>124</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
      <x>233</x>
@@ -318,8 +312,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>310</x>
-     <y>478</y>
+     <x>316</x>
+     <y>538</y>
     </hint>
     <hint type="destinationlabel">
      <x>70</x>
@@ -334,8 +328,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>404</x>
-     <y>474</y>
+     <x>410</x>
+     <y>538</y>
     </hint>
     <hint type="destinationlabel">
      <x>179</x>
@@ -350,12 +344,12 @@
    <slot>localTime(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>212</x>
-     <y>207</y>
+     <x>291</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
-     <x>188</x>
-     <y>145</y>
+     <x>418</x>
+     <y>160</y>
     </hint>
    </hints>
   </connection>
@@ -366,12 +360,12 @@
    <slot>localTime(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>216</x>
-     <y>204</y>
+     <x>291</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
-     <x>209</x>
-     <y>114</y>
+     <x>422</x>
+     <y>124</y>
     </hint>
    </hints>
   </connection>
@@ -382,12 +376,28 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>54</x>
-     <y>208</y>
+     <x>81</x>
+     <y>243</y>
     </hint>
     <hint type="destinationlabel">
-     <x>184</x>
-     <y>211</y>
+     <x>291</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>setCrlNumber</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>crlNumber</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>158</x>
+     <y>424</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>428</y>
     </hint>
    </hints>
   </connection>

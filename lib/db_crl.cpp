@@ -13,6 +13,7 @@
 #include "widgets/NewCrl.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QContextMenuEvent>
+#include <QtGui/QInputDialog>
 #include "ui_NewCrl.h"
 
 db_crl::db_crl(QString db, MainWindow *mw)
@@ -200,6 +201,20 @@ void db_crl::updateRevocations(pki_x509 *cert)
 	}
 }
 
+void db_crl::newItem()
+{
+	bool ok;
+	QStringList sl = mainwin->certs->getSignerDesc();
+	QString ca = QInputDialog::getItem(mainwin, XCA_TITLE,
+		tr("Select CA certificate"), sl, 0, false, &ok, 0);
+	if (!ok)
+		return;
+
+	pki_x509 *cert = static_cast<pki_x509*>
+		(mainwin->certs->getByName(ca));
+	newItem(cert);
+}
+
 void db_crl::newItem(pki_x509 *cert)
 {
 	if (!cert)
@@ -235,8 +250,11 @@ void db_crl::newItem(pki_x509 *cert)
 					"issuer:copy", &ext_ctx));
 			}
 		}
-		if (dlg->crlNumber->isChecked()) {
-			crl->setCrlNumber(cert->getIncCrlNumber());
+		if (dlg->setCrlNumber->isChecked()) {
+			a1int num;
+			num.setDec(dlg->crlNumber->text());
+			crl->setCrlNumber(num);
+			cert->setCrlNumber(num);
 		}
 		crl->setLastUpdate(dlg->lastUpdate->getDate());
 		crl->setNextUpdate(dlg->nextUpdate->getDate());

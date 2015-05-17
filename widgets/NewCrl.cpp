@@ -23,6 +23,7 @@ NewCrl::NewCrl(QWidget *parent, pki_x509 *signer)
 	setupUi(this);
 	setWindowTitle(XCA_TITLE);
 	image->setPixmap(*MainWindow::revImg);
+	dateBox->setTitle(signer->getIntName());
 	validNumber->setText(QString::number(signer->getCrlDays()));
 	validRange->setCurrentIndex(0);
 	on_applyTime_clicked();
@@ -32,6 +33,9 @@ NewCrl::NewCrl(QWidget *parent, pki_x509 *signer)
 	hashAlgo->setKeyType(key->getKeyType());
 	hashAlgo->setupHashes(key->possibleHashNids());
 
+	a1int num = signer->getCrlNumber();
+	num++;
+	crlNumber->setText(num.toDec());
 	if (signer->hasExtension(NID_subject_alt_name))
 		subAltName->setEnabled(true);
 	else

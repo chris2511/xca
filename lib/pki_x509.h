@@ -108,9 +108,9 @@ class pki_x509 : public pki_x509super
 		{
 			caSerial = s;
 		}
-		a1int getIncCrlNumber()
+		a1int getCrlNumber()
 		{
-			return ++crlNumber;
+			return crlNumber;
 		}
 		void setCrlNumber(a1int n)
 		{
