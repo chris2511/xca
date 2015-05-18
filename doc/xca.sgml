@@ -24,7 +24,7 @@ All crypto data is stored in an endian-agnostic file format portable across oper
 <sect>Introduction
 
 <p>
-This application is intended as Certificate- and key-store and as
+This application is intended as certificate- and key-store and as
 signing application issuing certificates.
 
 <p>
@@ -32,7 +32,7 @@ All data structures (Keys, Certificate signing requests, Certificates and Templa
 can be imported and exported in several formats like DER or PEM.
 Import means reading a file from the filesystem and storing the data structure
 into the database file, while exporting means to write the data structure
-from the database file to the filesystem to be e.g imported into an other application.
+from the database file to the filesystem to be imported into an other application.
 
 <p>
 When opening a new database the first time, it needs a password to encrypt the
@@ -44,7 +44,7 @@ correct database password everytime a key is used.
 
 <p>
 When setting an empty password, XCA will never ask again for a password
-when opening this database. This can be useful when playing around with testcertificates or if all private keys are on security tokens.
+when opening this database. This can be useful when playing around with test certificates or if all private keys are on security tokens.
 
 <p>
 The database password can be changed by the Menu item <em>File-&gt;Change DataBase password</em>
@@ -54,13 +54,13 @@ The different cryptographic parts are divided over 5 Tabs: Keys, Requests, Certi
 All items can be manipulated either by a context menu available by
 right-clicking on the item, or by using the buttons at the right border.
 Every item is identified by an internal name which is unique in one tab-view
-and is always shown in the first column.
+and is always shown in the first column (as long as the columns are not reordered by the user).
 
 <sect1>File Formats
 
 <p>
 
-There are several default file-formats to exchange cryptographic data with
+There are several default file formats to exchange cryptographic data with
 other applications.
 
 <itemize>
@@ -139,16 +139,6 @@ This program links to software with different licenses from:
 
 Kerstin Steinhauff &lt;tine (at) kerstine.de&gt;
         Arts and graphics
-
-Ilya Kozhevnikov &lt;ilya (at) ef.unn.ru&gt;
-        Registry stuff for WIN32
-
-Wolfgang Glas &lt;wolfgang.glas (at) ev-i.at&gt;
-	Implementation of SPKAC and UTF8 support
-
-Bugreports and feature input:
-	Frank Werner &lt;Frank (at) WeSoft.de&gt;
-	Peter Bieringer &lt;pb (at) bieringer.de&gt;
 
 </verb></tscreen>
 
@@ -244,6 +234,20 @@ Usually after importing the items from commandline
 the application will startup as usual. With the -x
 option given it will exit after finishing the import dialog. This is useful if xca is used as default application for viewing certificates, keys or requests.
 
+<p>
+
+<sect1>Extracting items
+
+<p>
+
+On the command line xca may be called with the first argument "extract".
+
+<tt>xca extract &lt;database&gt; &lt;type&gt; &lt;name&gt;</tt>
+
+extracts the item with internal name &lt;name&gt; and the type
+<tt>cert</tt> <tt>req</tt> or <tt>crl</tt> from the database database in PEM format to &lt;STDOUT&gt;
+
+<p>
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 
 <sect>Common Actions
@@ -252,7 +256,7 @@ option given it will exit after finishing the import dialog. This is useful if x
 
 Many actions are common to all crypto parts and are mentioned here once for all.
 The goal of this application is to provide an easy to use signing-tool and
-also a common place for all selected PKI items like Requests or Certificates.
+also a common place for all selected PKI items like requests or certificates.
 
 <sect1>Column Handling
 
@@ -285,7 +289,7 @@ of the file extension:
 		Netscape SPKAC request.
 	<item><tt>Certificates</tt> DER certificate, PEM certificate
 		(PKCS#12 and PKCS#7 certificates must be imported with an
-		extra button, because they can contain more than
+		extra button, because they may contain more than
 		one certificate and key)
 </itemize>
 
@@ -302,7 +306,7 @@ certificate or csr. This import facility discovers the type and loads it.
 
 When importing more than one Key, CRL, Certificate or Request
 all items are shown in a Multi-import dialog.
-When importing a PKCS#7 or PKCS#12 item, the contained Keys and Certificates are shown in the Multi-import dialog.
+When importing a PKCS#7 or PKCS#12 item, the contained keys and certificates are shown in the Multi-import dialog.
 By using the Multi-import dialog the items can be examined, imported or dropped.
 
 <p>
@@ -357,9 +361,9 @@ issuer, subject, extensions, PKCS#10 attributes and token provider.
 
 <p>
 
-This input dialog is the central part for collecting all data regarding Certificates,
-Requests and Templates. It will be invoked whenever such an item is going
-to be created or, in case of a Template, is altered.
+This input dialog is the central part for collecting all data regarding certificates,
+requests and templates. It will be invoked whenever such an item is going
+to be created or, in case of a template, is altered.
 
 <sect1>Source
 
@@ -391,7 +395,7 @@ with an available private key.
 
 Usually SHA256 or higher should be used, but
 since older windows versions including XP can not handle them,
-Windows users should consider using SHA1.
+you may opt to use SHA1.
 
 <sect2>Templates
 
@@ -416,26 +420,35 @@ can be filled in.
 The <tt>Country code</tt> field must either be empty or exactly contain
 two letters representing your country code; e.g. <tt>DE</tt> for Germany.
 If you want to create an SSL-server certificate the <tt>Common name</tt>
-must contain the <tt>DNS</tt> name of the server.
+must contain the <tt>DNS</tt> name of the server. Alternatively the subject-alternative-name
+extension may be used to define additional DNS names, even wildcards. In this case
+the CommonName must be repeated here, because Web servers disregard the CommonName
+in case subject-alternative-name extension exists.
 If the <tt>internal name</tt> is empty, the common name will be used
 as internal name.
 It will also be used as default internal name, if a new key is created here.
 
 <p>
 
-Other rarely used <tt>name-entries</tt> can be selected in the dialog
-below.
+Other rarely used <tt>name-entries</tt> can be selected in the dialog below.
 By using this table instead of the table above, the order of the entries can be adjusted.
 A new line can be added via the <em>Add</em> button.
 The current line can be deleted via the <em>Delete</em> button.
 Existing lines can be exchanged and reordered by moving the row-header (containing the row-number) around.
 All items can be added more than once, even those from above. This is not very usual but allowed.
 
+<p>
+
+The list of the 7 explicit distinguished name entries may be adjusted in the options dialog
+at <ref id="expDN" name="Explicit subject entries">
+
+<p>
+
 <sect2>Private Key
 
 <p>
 
-Keys can be generated here <tt>on the fly</tt> by pressing the button.
+Keys can be generated here "on the fly" by pressing the button.
 The name of the new key will be preset by the common name of the certificate.
 The newly generated key will be stored in the database and stay there,
 even if the input dialog is canceled. The drop-down list of the keys
@@ -485,6 +498,9 @@ or disable it completely by setting it to <tt>Not defined</tt>
 The <tt>not Before</tt> field is set to the current date and time of the
 operating system and the <tt>not After</tt> field is set to the current
 date and time plus the specified time range.
+When applying time ranges, the expiry date (not after) is calculated by taking
+the currently configured start date (not before) and adding the time range.
+
 
 <p>
 
@@ -530,6 +546,18 @@ explicitText="Explicit Text Here"
 organization="Organisation Name"
 noticeNumbers=1,2,3,4
 
+</verb></tscreen>
+
+Adding more than one AuthorityInfoAccess entry is also possible here:
+
+<tscreen><verb>
+authorityInfoAccess=@aia_sect
+
+[aia_sect]
+OCSP;URI.1=http://www.some.responder.org/
+OCSP;URI.2=http://www.some.other-responder.org/
+caIssuers;URI.3=http://server.whatever.org/cert-path
+caIssuers;URI.4=ldap://server.whatever.org/xxx,yyy
 </verb></tscreen>
 
 <p>
@@ -1304,7 +1332,7 @@ the rollout of the certificate.
 
 <p>
 
-<sect1>Explicit subject entries
+<sect1>Explicit subject entries<label id="expDN">
 
 <p>
 
