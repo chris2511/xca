@@ -173,7 +173,7 @@ Revocation::Revocation(QWidget *w, QModelIndexList indexes) : QDialog(w)
 		serial->setEnabled(false);
 	} else {
 		serial->setValidator(
-			new QRegExpValidator(QRegExp("[A-Fa-f0-9]+")));
+			new QRegExpValidator(QRegExp("[A-Fa-f0-9]+"), serial));
 	}
 }
 
