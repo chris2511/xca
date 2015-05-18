@@ -437,7 +437,6 @@ void pki_temp::try_fload(QString fname, const char *mode)
 	}
 	fromExportData(ba);
 	setIntName(rmslashdot(fname));
-	fclose(fp);
 }
 
 void pki_temp::fload(QString fname)

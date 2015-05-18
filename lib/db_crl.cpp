@@ -203,10 +203,22 @@ void db_crl::updateRevocations(pki_x509 *cert)
 
 void db_crl::newItem()
 {
-	bool ok;
+	bool ok = false;
 	QStringList sl = mainwin->certs->getSignerDesc();
-	QString ca = QInputDialog::getItem(mainwin, XCA_TITLE,
-		tr("Select CA certificate"), sl, 0, false, &ok, 0);
+	QString ca;
+
+	switch (sl.size()) {
+	case 0:
+		XCA_INFO(tr("There are no CA certificates for CRL generation"));
+		break;
+	case 1:
+		ca = sl[0];
+		ok = true;
+		break;
+	default:
+		ca = QInputDialog::getItem(mainwin, XCA_TITLE,
+			tr("Select CA certificate"), sl, 0, false, &ok, 0);
+	}
 	if (!ok)
 		return;
 

@@ -56,7 +56,8 @@ void CertTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 		subExport->addAction(tr("Security token"), this,
 			SLOT(toToken()))->setEnabled(hasScard);
 		subExport->addAction(tr("Other token"), this,
-			SLOT(toOtherToken()))->setEnabled(hasScard);
+			SLOT(toOtherToken()))->setEnabled(
+					hasScard && privkey->isToken());
 
 		transform->addAction(tr("Similar Certificate"), this,
 			SLOT(toCertificate()));

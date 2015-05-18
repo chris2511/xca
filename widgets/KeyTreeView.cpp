@@ -45,8 +45,8 @@ void KeyTreeView::fillContextMenu(QMenu *menu, QMenu *subExport,
 			SLOT(initPin()));
 		menu->addAction(tr("Change SO PIN (PUK)"), this,
 			SLOT(changeSoPin()));
-	} else {
-		menu->addAction(tr("Store on Security token"),
+	} else if (subExport) {
+		subExport->addAction(tr("Security token"),
 			this, SLOT(toToken()));
 	}
 }
