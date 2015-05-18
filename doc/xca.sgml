@@ -7,7 +7,7 @@
 
 <author>(c) by Christian Hohnst&auml;dt, <tt>christian@hohnstaedt.de</tt>
 
-<date>March 2015 - Version 1.2.0
+<date>June 2015 - Version 1.3.0
 
 <abstract>
 
@@ -338,13 +338,10 @@ will be appended to keep the internal name unique.
 <p>
 
 Items can be deleted by the button on the right or via the context menu.
-If a certificate signed by this application is going to be removed
-the application will warn you once more, because you can not revoke a
-deleted certificate. Thus only delete a certificate signed by you
-if you never exported it. Certificate signing requests can be deleted
-when they get signed, because they are not needed anymore.
+Certificate signing requests can be deleted
+when they got signed, because they are not needed anymore.
 The request can be recovered from the resulting certificate by
-exporting the certificate to a request.
+transforming the certificate to a request.
 This is however only possible if you own the private key of the
 certificate. Multiple items may be selected to delete them all at once.
 
@@ -395,7 +392,8 @@ with an available private key.
 
 Usually SHA256 or higher should be used, but
 since older windows versions including XP can not handle them,
-you may opt to use SHA1.
+you may opt to use SHA1. The default signing algorithm may be
+selected by the <em>Options</em> menu.
 
 <sect2>Templates
 
@@ -423,7 +421,7 @@ If you want to create an SSL-server certificate the <tt>Common name</tt>
 must contain the <tt>DNS</tt> name of the server. Alternatively the subject-alternative-name
 extension may be used to define additional DNS names, even wildcards. In this case
 the CommonName must be repeated here, because Web servers disregard the CommonName
-in case subject-alternative-name extension exists.
+in case ithe subject-alternative-name extension exists.
 If the <tt>internal name</tt> is empty, the common name will be used
 as internal name.
 It will also be used as default internal name, if a new key is created here.
@@ -950,7 +948,7 @@ In this case all needed data is copied from the certificate and the Certificate 
 Requests can be exported by the context-menu or by the button on the right.
 
 <itemize>
-<item><bf>Clipboard</bf> Stores the request in PEM format into the Clipboard and can be pasted into an other application.
+<item><bf>Clipboard</bf> Writes all selected requests in PEM format to the Clipboard.
 <item><bf>File</bf> Write the request into a file in PEM or DER format.
 <item><bf>OpenSSL config</bf> Create and store an OpenSSL config file which can be used to generate a similar request with openssl (openssl req -new -config &lt;file&gt;)
 </itemize>
@@ -1058,7 +1056,7 @@ It can be set to:
 
 <p>
 <itemize>
-<item><bf>Clipboard</bf> Copy to clipboard as PEM file
+<item><bf>Clipboard</bf> Copy all selected certificates to the clipboard as PEM file
 <item><bf>File</bf> Export to external file.
 The filename can be selected in the export dialog and the Export format:
 <itemize>
@@ -1123,7 +1121,11 @@ A certificate transformation creates a new database entry based on the selected 
 
 Certificates can only be revoked, if the private key of the issuer's certificate
 is available. The certificate will be marked as revoked and the revocation date
-will be stored with the certificate.
+and reason will be stored with the CA certificate.
+
+If more than one unrevoked certificate of the same issuer is selected, all of them will be revoked
+at once with the same revocation date and reason. The context menu shows this by adding
+the number of selected certificates in squared brackets.
 
 <p>
 
@@ -1137,6 +1139,13 @@ Certificates can only be renewed, if the private key of the issuer's certificate
 is available. Renewal is done by creating a new certificate as a copy of the original one
 with adjusted validity dates.
 
+Use the <tt>Revoke old certificate</tt> checkbox to automatically revoke the old
+certificate.
+
+If more than one certificate of the same issuer is selected, all of them will be renewed
+at once with the same validity dates. The context menu shows this by adding
+the number of selected certificates in squared brackets.
+
 <sect1>CA special functions
 
 <p>
@@ -1148,6 +1157,7 @@ which makes the following functions available:
 	<item><bf>Properties</bf>
 	<item><bf>Generate CRL</bf> Generate the CRL by collecting all
 		revoked certificates and their revocation date.
+	<item><bf>Manage revocations</bf> Displays all revocations and allows to manipulate them.
 </itemize>
 
 <sect2>CA Properties
@@ -1159,8 +1169,14 @@ which makes the following functions available:
 	<item><bf>CRL days</bf> The days until the next CRL release.
 	<item><bf>Signing Template</bf> The default template for
 		signing certificates.
-	<item><bf>Use random serial numbers</bf> generates an 8 byte unique serial number for every newly issued certificate
 </itemize>
+
+<sect2>Manage revocations
+<p>
+Non existing certificates may be revoked by adding the serial number of the certificate.
+Since version 1.3.0 it is not required anymore to keep revoked certificates in the database,
+because the revocation information is stored together with the CA certificate.
+
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
 <sect>Templates
@@ -1269,7 +1285,7 @@ This switch disables the messages.
 
 <p>
 
-<sect1>Don't Colorize expired certificates
+<sect1>Don't colorize expired certificates
 
 <p>
 
@@ -1317,6 +1333,7 @@ will be suppressed. The certificate input dialog has no Netscape tab,
 the request and certificate columns don't show the Netscape extensions
 and when applying a template or converting certificates, the Netscape extensions
 are removed.
+However, the details of certificates and requests still show the netscape extensions if they exist.
 
 <p>
 
@@ -1337,7 +1354,7 @@ the rollout of the certificate.
 <p>
 
 This list may be used to change the list of the usual 7 distinguished name entries
-shown in the subject tab of the Certificate / Request /Template generation dialog
+shown in the subject tab of the Certificate / Request / Template generation dialog
 to better fit ones needs.
 
 <p>

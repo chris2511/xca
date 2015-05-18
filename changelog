@@ -1,3 +1,14 @@
+ * Digitaly sign Windows and MAC binaries with a valid certificate
+ * Refactor the context menu. Exporting many selected items
+   to the clipboard or a PEM file now works. Certificate renewal and revocation
+   may now be performed on a batch of certificates.
+ * Feat. Reg. #83 Option to revoke old certificate when renewing
+ * Refactor revocation handling. All revocation information is
+   stored with the CA and may be modified.
+   Revoked certificates may now be deleted from the database
+ * Support nameConstraints, policyMappings, InhibitAnyPolicy, PolicyConstraint
+   and (OSCP)noCheck when transforming certificates to templates or OpenSSL configs
+ * Fix SF Bug #104 Export to template introduces spaces
  * Add option for disabling legacy Netscape extensions
  * Support exporting SSH2 public key to the clipboard
  * SF Bug #102 Weak entropy source used for key generation:
