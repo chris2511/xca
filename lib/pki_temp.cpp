@@ -465,7 +465,7 @@ void pki_temp::fromPEM_BIO(BIO *bio, QString name)
 	PEM_read_bio(bio, &nm, &header, &data, &len);
 
 	if (ign_openssl_error())
-		my_error(tr("Not a PEM encoded XCA Template"));
+		throw errorEx(tr("Not a PEM encoded XCA Template"), class_name);
 
 	if (!strcmp(nm, PEM_STRING_XCA_TEMPLATE)) {
 		ba = QByteArray::fromRawData((char*)data, len);

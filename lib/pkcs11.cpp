@@ -773,6 +773,7 @@ static int eng_pmeth_ctrl_ec(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 			EVP_PKEY_CTX_set_data(ctx, p2);
 			return 1;
 		}
+		return 0;
 	case EVP_PKEY_CTRL_DIGESTINIT:
 		return 1;
 	}
@@ -906,7 +907,7 @@ static int eng_pmeth_sign_ec(EVP_PKEY_CTX *ctx,
 		goto out;
 	/* The buffer contains r and s concatenated
 	 * Both of equal size
-	 * pkcs-11v2-20.pdfchapter 12.13.1, page 232
+	 * pkcs-11v2-20.pdf chapter 12.13.1, page 232
 	 */
 	rs_len = len/2;
 	if (!BN_bin2bn(rs_buf, rs_len, ec_sig->r))

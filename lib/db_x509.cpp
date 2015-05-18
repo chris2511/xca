@@ -212,9 +212,6 @@ void db_x509::inToCont(pki_base *pki)
 	pki_base *root = cert->getSigner();
 	if (!treeview || root == cert || root == NULL)
 		root = rootItem;
-	fprintf(stderr, "INSERT '%s' below '%s'\n",
-		CCHAR(cert->getIntName()),
-		CCHAR(root->getIntName()));
 
 	insertChild(root, cert);
 
@@ -228,9 +225,6 @@ void db_x509::inToCont(pki_base *pki)
 			continue;
 		if (cert->getNotAfter() < client->getNotAfter())
 			continue;
-		fprintf(stderr, "Other CA '%s' is older then us '%s'\n",
-			CCHAR(client->getIntName()),
-			CCHAR(cert->getIntName()));
 		foreach(pki_base *_child, client->childItems) {
 			pki_x509 *child = static_cast<pki_x509*>(_child);
 			child->delSigner(client);
@@ -252,10 +246,6 @@ void db_x509::inToCont(pki_base *pki)
 			continue;
 		if (!child->verify(cert))
 			continue;
-		fprintf(stderr, "MOVE Child '%s' from '%s' to '%s'\n",
-			CCHAR(child->getIntName()),
-			CCHAR(child->getParent()->getIntName()),
-			CCHAR(cert->getIntName()));
 		row = child->row();
 		beginRemoveRows(index(child), row, row);
 		child->getParent()->takeChild(child);

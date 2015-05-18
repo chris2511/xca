@@ -666,19 +666,29 @@ pki_key *pki_x509::getPubKey() const
 
 bool pki_x509::compareNameAndKey(pki_x509 *other)
 {
-	X509_NAME *subject = X509_get_subject_name(other->cert);
-	X509_NAME *issuer = X509_get_issuer_name(cert);
+	int r;
+	X509_NAME *s1, *s2;
+	EVP_PKEY *pub1, *pub2;
+
+	if (!cert || !other->cert)
+		return false;
+	s1 = X509_get_subject_name(cert);
+	s2 = X509_get_subject_name(other->cert);
 	pki_openssl_error();
-	if (!subject || !issuer)
+	if (!s1 || !s2)
 		return false;
-	if (X509_NAME_cmp(subject, issuer))
+	/* X509_NAME_cmp returns 0 if they match */
+	r = X509_NAME_cmp(s1, s2);
+	pki_openssl_error();
+	if (r)
 		return false;
-	EVP_PKEY *pub1 = X509_get_pubkey(cert);
-	EVP_PKEY *pub2 = X509_get_pubkey(other->cert);
+	pub1 = X509_get_pubkey(cert);
+	pub2 = X509_get_pubkey(other->cert);
 	pki_ign_openssl_error();
 	if (!pub1 || !pub2)
 		return false;
-	int r = EVP_PKEY_cmp(pub1, pub2);
+	/* EVP_PKEY_cmp() return 1 if the keys match */
+	r = EVP_PKEY_cmp(pub1, pub2);
 	pki_openssl_error();
 	return r == 1;
 }

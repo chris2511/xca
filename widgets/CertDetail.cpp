@@ -140,7 +140,10 @@ void CertDetail::setCert(pki_x509 *cert)
 		// the fingerprints
 		fpMD5->setText(cert->fingerprint(EVP_md5()));
 		fpSHA1->setText(cert->fingerprint(EVP_sha1()));
-		fpSHA256->setText(cert->fingerprint(EVP_sha256()));
+		QString fp = cert->fingerprint(EVP_sha256());
+		int x = fp.size() / 2;
+		fp = fp.mid(0,x) + "\n" + fp.mid(x+1, -1);
+		fpSHA256->setText(fp);
 
 		openssl_error();
 	} catch (errorEx &err) {

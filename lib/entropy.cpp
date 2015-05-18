@@ -27,7 +27,7 @@
 #define O_NONBLOCK 0
 #endif
 
-#define DEBUG_ENTROPY 1
+#undef DEBUG_ENTROPY
 
 #define pool_siz (sizeof(pool)/sizeof(pool[0]))
 unsigned char Entropy::pool[512];
