@@ -30,7 +30,9 @@ APPTARGET=$(patsubst %, app.%, $(INSTDIR))
 DMGSTAGE=$(BUILD)/xca-$(VERSION)
 MACTARGET=$(DMGSTAGE)-$(DARWIN)${EXTRA_VERSION}
 APPDIR=$(DMGSTAGE)/xca.app/Contents
-OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass -n "XCA $(VERSION)" -i https://sourceforge.net/projects/xca/
+OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
+	-n "XCA $(VERSION)" -i https://sourceforge.net/projects/xca/ \
+	-t http://time.certum.pl -h sha2 -verbose
 ifeq ($(OSSLSIGN),)
  OSSLSIGN=:
 endif
@@ -135,9 +137,11 @@ install: xca$(SUFFIX) xca_db_stat$(SUFFIX) $(INSTTARGET)
 setup.exe: setup_xca-$(VERSION).exe
 setup_xca-$(VERSION).exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang
 setup_xca-$(VERSION).exe: misc/xca.nsi
-	$(STRIP) xca$(SUFFIX)
-	$(OSSLSIGN) $(OSSLSIGN_OPT) -in xca$(SUFFIX) -out xca.signed && \
-		mv xca.signed xca$(SUFFIX)
+	for binary in xca$(SUFFIX) xca_db_stat$(SUFFIX); do \
+	  $(STRIP) xca$(SUFFIX) && \
+	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in $${binary} -out $${binary}.signed && \
+		mv $${binary}.signed $${binary}; \
+	done
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
 		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
