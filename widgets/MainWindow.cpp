@@ -589,8 +589,8 @@ void MainWindow::changeDbPass()
 	db mydb(dbfile);
 	if (!mydb.find(setting, "pwhash")) {
 		char *cpass;
-		pass_info p(tr("Old Password"),
-			tr("Please enter the old database password"), this);
+		pass_info p(tr("Current Password"),
+			tr("Please enter the current database password"), this);
 
 		if ((cpass = (char *)mydb.load(NULL))) {
 			passHash = cpass;
@@ -604,7 +604,7 @@ void MainWindow::changeDbPass()
 		}
 
 		if (pki_evp::sha512passwd(pass, passHash) != passHash) {
-			XCA_WARN(tr("Password verification error"));
+			XCA_WARN(tr("The entered password is wrong"));
 			return;
 		}
 	}
