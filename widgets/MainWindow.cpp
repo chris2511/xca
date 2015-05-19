@@ -584,6 +584,30 @@ void MainWindow::changeDbPass()
 {
 
 	Passwd pass;
+	QString passHash;
+
+	db mydb(dbfile);
+	if (!mydb.find(setting, "pwhash")) {
+		char *cpass;
+		pass_info p(tr("Old Password"),
+			tr("Please enter the old database password"), this);
+
+		if ((cpass = (char *)mydb.load(NULL))) {
+			passHash = cpass;
+			free(cpass);
+		}
+		/* Try empty password */
+		if (pki_evp::sha512passwd(pass, passHash) != passHash) {
+			/* Not the empty password, check it */
+			if (PwDialog::execute(&p, &pass, false) != 1)
+				return;
+		}
+
+		if (pki_evp::sha512passwd(pass, passHash) != passHash) {
+			XCA_WARN(tr("Password verification error"));
+			return;
+		}
+	}
 
 	pass_info p(tr("New Password"), tr("Please enter the new password "
 			"to encrypt your private keys in the database-file"),
@@ -596,12 +620,15 @@ void MainWindow::changeDbPass()
 		if (!QFile::copy(dbfile, tempn))
 			throw errorEx("Could not create temporary file: " +
 				tempn);
+		QString dbfile_bkup = dbfile;
 		QString passhash = updateDbPassword(tempn, pass);
 
 		QFile new_file(tempn);
 		db mydb(dbfile);
 		mydb.mv(new_file);
+		/* closing the database erases 'dbfile' */
 		close_database();
+		dbfile = dbfile_bkup;
 		pki_evp::passHash = passhash;
 		pki_evp::passwd = pass;
 		init_database();

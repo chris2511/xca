@@ -245,7 +245,7 @@ On the command line xca may be called with the first argument "extract".
 <tt>xca extract &lt;database&gt; &lt;type&gt; &lt;name&gt;</tt>
 
 extracts the item with internal name &lt;name&gt; and the type
-<tt>cert</tt> <tt>req</tt> or <tt>crl</tt> from the database database in PEM format to &lt;STDOUT&gt;
+<tt>cert</tt> <tt>req</tt> or <tt>crl</tt> from the database in PEM format to &lt;STDOUT&gt;
 
 <p>
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
