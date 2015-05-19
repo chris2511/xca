@@ -363,7 +363,7 @@ BIO *pki_temp::pem(BIO *b, int format)
         if (!b)
 		b = BIO_new(BIO_s_mem());
 	PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, "",
-		(const unsigned char*)ba.constData(), ba.size());
+		(unsigned char*)ba.data(), ba.size());
 	pki_openssl_error();
 	return b;
 }

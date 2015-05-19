@@ -1031,14 +1031,14 @@ void db_x509::unRevoke(QModelIndexList indexes)
 	}
 	foreach(QModelIndex idx, indexes) {
 		pki_x509 *cert = static_cast<pki_x509*>(idx.internalPointer());
-		int idx;
+		int i;
 		x509rev rev;
 
 		cert->setRevoked(x509rev());
 		rev.setSerial(cert->getSerial());
-		idx = parent->revList.indexOf(rev);
-		if (idx != -1)
-			parent->revList.takeAt(idx);
+		i = parent->revList.indexOf(rev);
+		if (i != -1)
+			parent->revList.takeAt(i);
 	}
 	updatePKI(parent);
 	emit columnsContentChanged();
