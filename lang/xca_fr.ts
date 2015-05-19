@@ -1063,7 +1063,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+887"/>
+        <location filename="../widgets/MainWindow.cpp" line="+914"/>
         <source>Database</source>
         <translation>Base de donnée</translation>
     </message>
@@ -1308,7 +1308,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Importer quand-même</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-586"/>
+        <location filename="../widgets/MainWindow.cpp" line="-613"/>
         <source>no such option: %1</source>
         <translation>&apos;%1&apos; n&apos;est pas une option</translation>
     </message>
@@ -1338,18 +1338,33 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Le jeton &apos;%1&apos; ne contient aucune clé ni aucun certificat</translation>
     </message>
     <message>
-        <location line="+49"/>
-        <location line="+102"/>
+        <location line="+53"/>
+        <source>Current Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter the current database password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>The entered password is wrong</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+105"/>
         <source>New Password</source>
         <translation>Nouveau mot de passe</translation>
     </message>
     <message>
-        <location line="-102"/>
+        <location line="-105"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>SVP saisir le nouveau mot de passe pour encrypter les clés privées dans le fichier de base de données</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+105"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
         <translation>Veuillez entrer un mot de passe, qui sera utiliser pour chiffrer vos clés privées dans le fichier de la base de données:

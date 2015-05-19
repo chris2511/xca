@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-19 06:14+0200\n"
+"POT-Creation-Date: 2015-05-19 13:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1068,54 +1068,66 @@ msgid "The token '%1' did not contain any keys or certificates"
 msgstr ""
 
 #: MainWindow#75
-msgid "New Password"
+msgid "Current Password"
 msgstr ""
 
 #: MainWindow#76
+msgid "Please enter the current database password"
+msgstr ""
+
+#: MainWindow#77
+msgid "The entered password is wrong"
+msgstr ""
+
+#: MainWindow#78
+msgid "New Password"
+msgstr ""
+
+#: MainWindow#79
 msgid ""
 "Please enter the new password to encrypt your private keys in the database-"
 "file"
 msgstr ""
 
-#: MainWindow#77
+#: MainWindow#80
 msgid ""
 "Please enter a password, that will be used to encrypt your private keys in "
 "the database file:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#78
+#: MainWindow#81
 msgid "Password verify error, please try again"
 msgstr ""
 
-#: MainWindow#79
-msgctxt "MainWindow#79"
+#: MainWindow#82
+msgctxt "MainWindow#82"
 msgid "Password"
 msgstr ""
 
-#: MainWindow#80
+#: MainWindow#83
 msgid ""
 "Please enter the password for unlocking the database:\n"
 "%1"
 msgstr ""
 
-#: MainWindow#81
+#: MainWindow#84
 msgid "The following error occured:"
 msgstr ""
 
-#: MainWindow#82
+#: MainWindow#85
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: MainWindow#83
+#: MainWindow#86
 msgid ""
 "Diffie-Hellman parameters are needed for different applications, but not "
 "handled by XCA.\n"
 "Please enter the DH parameter bits"
 msgstr ""
 
-#: MainWindow#84
-msgctxt "MainWindow#84"
+#: MainWindow#87
+msgctxt "MainWindow#87"
 msgid "Error opening file: '%1': %2"
 msgstr ""
 

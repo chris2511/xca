@@ -1050,7 +1050,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+717"/>
+        <location filename="../widgets/MainWindow.cpp" line="+744"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
@@ -1060,8 +1060,23 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Die Passwort überprüfung ist fehlgeschlagen</translation>
     </message>
     <message>
-        <location line="-128"/>
-        <location line="+102"/>
+        <location line="-151"/>
+        <source>Current Password</source>
+        <translation>Aktuelles Passwort</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter the current database password</source>
+        <translation>Bitte das aktuelle Passwort eingeben</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>The entered password is wrong</source>
+        <translation>Das angegebene Passwort war falsch</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+105"/>
         <source>New Password</source>
         <translation>Neues Passwort</translation>
     </message>
@@ -1376,7 +1391,7 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Database dump ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-500"/>
+        <location filename="../widgets/MainWindow.cpp" line="-527"/>
         <source>Import PEM data</source>
         <translation>PEM daten importieren</translation>
     </message>
@@ -1386,12 +1401,12 @@ Dies löscht den Schlüssel &apos;%1&apos; und macht ihn nicht-exportierbar</tra
         <translation>Die neue Bezeichnung der Chipkarte &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+182"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Bitte das neue Passwort zur Verschlüsselung der privaten Schlüssel in der Datenbank eingeben</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+105"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
         <translation>Bitte geben Sie ein Passwort an um die privaten Schlüssel in der Datenbank
@@ -1437,7 +1452,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-533"/>
+        <location filename="../widgets/MainWindow.cpp" line="-560"/>
         <source>no such option: %1</source>
         <translation>unbekannte option: %1</translation>
     </message>
@@ -1462,7 +1477,7 @@ Bitte die DH Parameter bits angeben</translation>
         <translation>Die Chipkarte &apos;%1&apos; enthält keine Schlüssel oder Zertifikate</translation>
     </message>
     <message>
-        <location line="+318"/>
+        <location line="+345"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Öffnen der Datei &apos;%1&apos; fehlgeschlagen: %2</translation>
     </message>

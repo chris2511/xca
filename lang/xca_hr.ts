@@ -1184,7 +1184,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+887"/>
+        <location filename="../widgets/MainWindow.cpp" line="+914"/>
         <source>Database</source>
         <translation>Baza podataka</translation>
     </message>
@@ -1437,7 +1437,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Ipak uvezi</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-586"/>
+        <location filename="../widgets/MainWindow.cpp" line="-613"/>
         <source>no such option: %1</source>
         <translation>nema te opcije: %1</translation>
     </message>
@@ -1467,18 +1467,33 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
         <translation>Token &apos;%1&apos; ne sadrži ni jedan ključ ili potvrdu</translation>
     </message>
     <message>
-        <location line="+49"/>
-        <location line="+102"/>
+        <location line="+53"/>
+        <source>Current Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter the current database password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>The entered password is wrong</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <location line="+105"/>
         <source>New Password</source>
         <translation>Nova Zaporka</translation>
     </message>
     <message>
-        <location line="-102"/>
+        <location line="-105"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Unesite novu zaporku za kripciju privatnih ključeva u bazi podataka</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+105"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
         <translation>Unesite novu zaporku, koja će se koristiti za kripciju Vaših privatnih ključeva u datoteci baze podataka:

@@ -992,7 +992,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="+717"/>
+        <location filename="../widgets/MainWindow.cpp" line="+744"/>
         <source>Password</source>
         <translation>Пароль</translation>
     </message>
@@ -1076,8 +1076,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>&amp;Помощь</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-128"/>
-        <location line="+102"/>
+        <location filename="../widgets/MainWindow.cpp" line="-131"/>
+        <location line="+105"/>
         <source>New Password</source>
         <translation>Новый Пароль</translation>
     </message>
@@ -1318,7 +1318,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Дамп базы данных ( *.dump );;All files ( * )</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-500"/>
+        <location filename="../widgets/MainWindow.cpp" line="-527"/>
         <source>Import PEM data</source>
         <translation>Импорт</translation>
     </message>
@@ -1328,12 +1328,12 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation>Новое название Токена &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+158"/>
+        <location line="+182"/>
         <source>Please enter the new password to encrypt your private keys in the database-file</source>
         <translation>Пожалуйста, введите новый пароль для шифрования закрытых ключей в базе данных</translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+105"/>
         <source>Please enter a password, that will be used to encrypt your private keys in the database file:
 %1</source>
         <translation type="unfinished"></translation>
@@ -1376,7 +1376,7 @@ Please enter the DH parameter bits</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-533"/>
+        <location filename="../widgets/MainWindow.cpp" line="-560"/>
         <source>no such option: %1</source>
         <translation type="unfinished">нет таких вариантов: %1</translation>
     </message>
@@ -1401,7 +1401,22 @@ Please enter the DH parameter bits</source>
         <translation type="unfinished">Маркер &apos;%1&apos; не содержит никаких ключей или сертификатов</translation>
     </message>
     <message>
-        <location line="+318"/>
+        <location line="+53"/>
+        <source>Current Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter the current database password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>The entered password is wrong</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+277"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished">Ошибка открытия файла: &apos;%1&apos;: %2</translation>
     </message>
