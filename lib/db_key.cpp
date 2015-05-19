@@ -222,7 +222,7 @@ exportType::etype db_key::clipboardFormat(QModelIndexList indexes)
 			tr("PEM private"));
 
 	ExportDialog *dlg = new ExportDialog(mainwin,
-		tr("Export keys to CLipboard"), QString(), NULL,
+		tr("Export keys to Clipboard"), QString(), NULL,
 		MainWindow::keyImg, types);
 
 	dlg->filename->setText(tr("Clipboard"));

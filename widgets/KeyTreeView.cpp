@@ -79,7 +79,7 @@ void KeyTreeView::changePin()
 	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
 	try {
 		if (!scard->isToken()) {
-			throw errorEx(tr("Tried to change PIN of a key"));
+			throw errorEx(tr("This is not a token"));
 		}
 		scard->changePin();
 	} catch (errorEx &err) {
@@ -97,7 +97,7 @@ void KeyTreeView::initPin()
 	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
 	try {
 		if (!scard->isToken()) {
-			throw errorEx(tr("Tried to init PIN of a key"));
+			throw errorEx(tr("This is not a token"));
 		}
 		scard->initPin();
 	} catch (errorEx &err) {
@@ -115,7 +115,7 @@ void KeyTreeView::changeSoPin()
 	scard = static_cast<pki_scard*>(currentIdx.internalPointer());
 	try {
 		if (!scard->isToken()) {
-			throw errorEx(tr("Tried to change SO PIN of a key"));
+			throw errorEx(tr("This is not a token"));
 		}
 		scard->changeSoPin();
 	} catch (errorEx &err) {

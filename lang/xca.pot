@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-10 15:07+0200\n"
+"POT-Creation-Date: 2015-05-19 06:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,51 +236,119 @@ msgid "Apply"
 msgstr ""
 
 #: CertExtend#11
-msgctxt "CertExtend#11"
-msgid "Midnight"
+msgid "Revoke old certificate"
 msgstr ""
 
 #: CertExtend#12
 msgctxt "CertExtend#12"
-msgid "Local time"
+msgid "Midnight"
 msgstr ""
 
 #: CertExtend#13
 msgctxt "CertExtend#13"
-msgid "No well-defined expiration"
+msgid "Local time"
 msgstr ""
 
 #: CertExtend#14
 msgctxt "CertExtend#14"
+msgid "No well-defined expiration"
+msgstr ""
+
+#: CertExtend#15
+msgctxt "CertExtend#15"
 msgid ""
 "The certificate will be earlier valid than the signer. This is probably not "
 "what you want."
 msgstr ""
 
-#: CertExtend#15
-msgid "Edit times"
-msgstr ""
-
 #: CertExtend#16
-msgctxt "CertExtend#16"
-msgid "Abort rollout"
+msgid "Edit times"
 msgstr ""
 
 #: CertExtend#17
 msgctxt "CertExtend#17"
-msgid "Continue rollout"
+msgid "Abort rollout"
 msgstr ""
 
 #: CertExtend#18
 msgctxt "CertExtend#18"
-msgid "Adjust date and continue"
+msgid "Continue rollout"
 msgstr ""
 
 #: CertExtend#19
 msgctxt "CertExtend#19"
+msgid "Adjust date and continue"
+msgstr ""
+
+#: CertExtend#20
+msgctxt "CertExtend#20"
 msgid ""
 "The certificate will be longer valid than the signer. This is probably not "
 "what you want."
+msgstr ""
+
+#: CertTreeView#1
+msgid "Import PKCS#12"
+msgstr ""
+
+#: CertTreeView#2
+msgid "Import from PKCS#7"
+msgstr ""
+
+#: CertTreeView#3
+msgid "Request"
+msgstr ""
+
+#: CertTreeView#4
+msgctxt "CertTreeView#4"
+msgid "Security token"
+msgstr ""
+
+#: CertTreeView#5
+msgid "Other token"
+msgstr ""
+
+#: CertTreeView#6
+msgid "Similar Certificate"
+msgstr ""
+
+#: CertTreeView#7
+msgid "Delete from Security token"
+msgstr ""
+
+#: CertTreeView#8
+msgctxt "CertTreeView#8"
+msgid "CA"
+msgstr ""
+
+#: CertTreeView#9
+msgid "Properties"
+msgstr ""
+
+#: CertTreeView#10
+msgctxt "CertTreeView#10"
+msgid "Generate CRL"
+msgstr ""
+
+#: CertTreeView#11
+msgctxt "CertTreeView#11"
+msgid "Manage revocations"
+msgstr ""
+
+#: CertTreeView#12
+msgid "Trust"
+msgstr ""
+
+#: CertTreeView#13
+msgid "Renewal"
+msgstr ""
+
+#: CertTreeView#14
+msgid "Revoke"
+msgstr ""
+
+#: CertTreeView#15
+msgid "Unrevoke"
 msgstr ""
 
 #: ClickLabel#1
@@ -345,41 +413,15 @@ msgid "&Revocation list"
 msgstr ""
 
 #: CrlDetail#14
-msgid "0"
-msgstr ""
-
-#: CrlDetail#15
-msgctxt "CrlDetail#15"
-msgid "Serial"
-msgstr ""
-
-#: CrlDetail#16
-msgctxt "CrlDetail#16"
-msgid "Revocation"
-msgstr ""
-
-#: CrlDetail#17
-msgid "Reason"
-msgstr ""
-
-#: CrlDetail#18
-msgid "Invalidation"
-msgstr ""
-
-#: CrlDetail#19
 msgid "Failed"
 msgstr ""
 
-#: CrlDetail#20
+#: CrlDetail#15
 msgid "Unknown signer"
 msgstr ""
 
-#: CrlDetail#21
+#: CrlDetail#16
 msgid "Verification not possible"
-msgstr ""
-
-#: CrlDetail#22
-msgid "Unknown certificate"
 msgstr ""
 
 #: ExportDialog#1
@@ -415,100 +457,108 @@ msgid "PEM Text format with headers"
 msgstr ""
 
 #: ExportDialog#8
+msgid "Concatenated list of all selected items in one PEM text file"
+msgstr ""
+
+#: ExportDialog#9
 msgid ""
 "Concatenated text format of the complete certificate chain in one PEM file"
 msgstr ""
 
-#: ExportDialog#9
+#: ExportDialog#10
 msgid "Concatenated text format of all trusted certificates in one PEM file"
 msgstr ""
 
-#: ExportDialog#10
+#: ExportDialog#11
 msgid "Concatenated text format of all certificates in one PEM file"
 msgstr ""
 
-#: ExportDialog#11
+#: ExportDialog#12
 msgid "Binary DER encoded file"
 msgstr ""
 
-#: ExportDialog#12
+#: ExportDialog#13
 msgid "PKCS#7 encoded single certificate"
 msgstr ""
 
-#: ExportDialog#13
+#: ExportDialog#14
 msgid "PKCS#7 encoded complete certificate chain"
 msgstr ""
 
-#: ExportDialog#14
+#: ExportDialog#15
 msgid "All trusted certificates encoded in one PKCS#7 file"
 msgstr ""
 
-#: ExportDialog#15
-msgid "All certificates encoded in one PKCS#7 file"
-msgstr ""
-
 #: ExportDialog#16
-msgid "The certificate and the private key as encrypted PKCS#12 file"
+msgid "All selected certificates encoded in one PKCS#7 file"
 msgstr ""
 
 #: ExportDialog#17
+msgid "All certificates encoded in one PKCS#7 file"
+msgstr ""
+
+#: ExportDialog#18
+msgid "The certificate and the private key as encrypted PKCS#12 file"
+msgstr ""
+
+#: ExportDialog#19
 msgid ""
 "The complete certificate chain and the private key as encrypted PKCS#12 file"
 msgstr ""
 
-#: ExportDialog#18
+#: ExportDialog#20
 msgid ""
 "Concatenation of the certificate and the unencrypted private key in one PEM "
 "file"
 msgstr ""
 
-#: ExportDialog#19
+#: ExportDialog#21
 msgid ""
 "Concatenation of the certificate and the encrypted private key in PKCS#8 "
 "format in one file"
 msgstr ""
 
-#: ExportDialog#20
+#: ExportDialog#22
 msgid "Text format of the public key in one PEM file"
 msgstr ""
 
-#: ExportDialog#21
+#: ExportDialog#23
 msgid "Binary DER format of the public key"
 msgstr ""
 
-#: ExportDialog#22
+#: ExportDialog#24
 msgid "Unencrypted private key in text format"
 msgstr ""
 
-#: ExportDialog#23
+#: ExportDialog#25
 msgid "OpenSSL specific encrypted private key in text format"
 msgstr ""
 
-#: ExportDialog#24
+#: ExportDialog#26
 msgid "Unencrypted private key in binary DER format"
 msgstr ""
 
-#: ExportDialog#25
+#: ExportDialog#27
 msgid "Unencrypted private key in PKCS#8 text format"
 msgstr ""
 
-#: ExportDialog#26
+#: ExportDialog#28
 msgid "Encrypted private key in PKCS#8 text format"
 msgstr ""
 
-#: ExportDialog#27
+#: ExportDialog#29
 msgid "The public key encoded in SSH2 format"
 msgstr ""
 
-#: ExportDialog#28
+#: ExportDialog#30
 msgid "The file: '%1' already exists!"
 msgstr ""
 
-#: ExportDialog#29
+#: ExportDialog#31
 msgid "Overwrite"
 msgstr ""
 
-#: ExportDialog#30
+#: ExportDialog#32
 msgid "Do not overwrite"
 msgstr ""
 
@@ -676,6 +726,41 @@ msgstr ""
 
 #: KeyDetail#20
 msgid "Unknown key"
+msgstr ""
+
+#: KeyTreeView#1
+msgid "Change password"
+msgstr ""
+
+#: KeyTreeView#2
+msgid "Reset password"
+msgstr ""
+
+#: KeyTreeView#3
+msgid "Change PIN"
+msgstr ""
+
+#: KeyTreeView#4
+msgid "Init PIN with SO PIN (PUK)"
+msgstr ""
+
+#: KeyTreeView#5
+msgid "Change SO PIN (PUK)"
+msgstr ""
+
+#: KeyTreeView#6
+msgctxt "KeyTreeView#6"
+msgid "Security token"
+msgstr ""
+
+#: KeyTreeView#7
+msgid "This is not a token"
+msgstr ""
+
+#: KeyTreeView#8
+msgid ""
+"Shall the original key '%1' be replaced by the key on the token?\n"
+"This will delete the key '%1' and make it unexportable"
 msgstr ""
 
 #: MainWindow#1
@@ -857,6 +942,7 @@ msgid "&Undelete items"
 msgstr ""
 
 #: MainWindow#44
+msgctxt "MainWindow#44"
 msgid "Options"
 msgstr ""
 
@@ -1038,70 +1124,66 @@ msgid "Create CRL"
 msgstr ""
 
 #: NewCrl#2
-msgid "Dates"
-msgstr ""
-
-#: NewCrl#3
 msgid "last update"
 msgstr ""
 
-#: NewCrl#4
+#: NewCrl#3
 msgid "next update"
+msgstr ""
+
+#: NewCrl#4
+msgctxt "NewCrl#4"
+msgid "Days"
 msgstr ""
 
 #: NewCrl#5
 msgctxt "NewCrl#5"
-msgid "Days"
+msgid "Months"
 msgstr ""
 
 #: NewCrl#6
 msgctxt "NewCrl#6"
-msgid "Months"
+msgid "Years"
 msgstr ""
 
 #: NewCrl#7
 msgctxt "NewCrl#7"
-msgid "Years"
+msgid "Midnight"
 msgstr ""
 
 #: NewCrl#8
 msgctxt "NewCrl#8"
-msgid "Midnight"
+msgid "Local time"
 msgstr ""
 
 #: NewCrl#9
 msgctxt "NewCrl#9"
-msgid "Local time"
-msgstr ""
-
-#: NewCrl#10
-msgctxt "NewCrl#10"
 msgid "Apply"
 msgstr ""
 
+#: NewCrl#10
+msgid "Hash algorithm"
+msgstr ""
+
 #: NewCrl#11
-msgid "Hashing algorithm"
+msgctxt "NewCrl#11"
+msgid "Authority key identifier"
 msgstr ""
 
 #: NewCrl#12
-msgctxt "NewCrl#12"
-msgid "Extensions"
+msgid "Subject alternative name"
 msgstr ""
 
 #: NewCrl#13
 msgctxt "NewCrl#13"
-msgid "Authority key identifier"
+msgid "Options"
 msgstr ""
 
 #: NewCrl#14
-msgid "Subject alternative name"
-msgstr ""
-
-#: NewCrl#15
 msgid "CRL Number"
 msgstr ""
 
-#: NewCrl#16
+#: NewCrl#15
 msgid "Revocation reasons"
 msgstr ""
 
@@ -1127,7 +1209,6 @@ msgid "The internal name of the new key"
 msgstr ""
 
 #: NewKey#6
-msgctxt "NewKey#6"
 msgid "New Key"
 msgstr ""
 
@@ -1267,7 +1348,6 @@ msgid "&Generate a new key"
 msgstr ""
 
 #: NewX509#27
-msgctxt "NewX509#27"
 msgid "Extensions"
 msgstr ""
 
@@ -2068,6 +2148,57 @@ msgstr ""
 msgid "String '%1' for '%2' contains invalid characters"
 msgstr ""
 
+#: ReqTreeView#1
+msgid "Sign"
+msgstr ""
+
+#: ReqTreeView#2
+msgid "Similar Request"
+msgstr ""
+
+#: RevocationList#1
+msgctxt "RevocationList#1"
+msgid "Manage revocations"
+msgstr ""
+
+#: RevocationList#2
+msgctxt "RevocationList#2"
+msgid "Add"
+msgstr ""
+
+#: RevocationList#3
+msgctxt "RevocationList#3"
+msgid "Delete"
+msgstr ""
+
+#: RevocationList#4
+msgctxt "RevocationList#4"
+msgid "No."
+msgstr ""
+
+#: RevocationList#5
+msgctxt "RevocationList#5"
+msgid "Serial"
+msgstr ""
+
+#: RevocationList#6
+msgctxt "RevocationList#6"
+msgid "Revocation"
+msgstr ""
+
+#: RevocationList#7
+msgid "Reason"
+msgstr ""
+
+#: RevocationList#8
+msgid "Invalidation"
+msgstr ""
+
+#: RevocationList#9
+msgctxt "RevocationList#9"
+msgid "Generate CRL"
+msgstr ""
+
 #: Revoke#1
 msgid "Revocation details"
 msgstr ""
@@ -2082,7 +2213,16 @@ msgid "Local time"
 msgstr ""
 
 #: Revoke#4
+msgid "Certificate revocation"
+msgstr ""
+
+#: Revoke#5
 msgid "Revocation reason"
+msgstr ""
+
+#: Revoke#6
+msgctxt "Revoke#6"
+msgid "Serial"
 msgstr ""
 
 #: SearchPkcs11#1
@@ -2124,8 +2264,24 @@ msgstr ""
 msgid "Please select the security token"
 msgstr ""
 
+#: TempTreeView#1
+msgid "Duplicate"
+msgstr ""
+
+#: TempTreeView#2
+msgid "Create certificate"
+msgstr ""
+
+#: TempTreeView#3
+msgid "Create request"
+msgstr ""
+
+#: TempTreeView#4
+msgid "copy"
+msgstr ""
+
 #: TrustState#1
-msgid "Set trustment of the Certificate"
+msgid "Certificate trust"
 msgstr ""
 
 #: TrustState#2
@@ -2146,6 +2302,77 @@ msgstr ""
 
 #: Validity#1
 msgid "yyyy-MM-dd hh:mm"
+msgstr ""
+
+#: X509SuperTreeView#1
+msgid "OpenSSL config"
+msgstr ""
+
+#: X509SuperTreeView#2
+msgid "Transform"
+msgstr ""
+
+#: X509SuperTreeView#3
+msgctxt "X509SuperTreeView#3"
+msgid "Template"
+msgstr ""
+
+#: X509SuperTreeView#4
+msgid "Public Key"
+msgstr ""
+
+#: XcaTreeView#1
+msgid "Subject entries"
+msgstr ""
+
+#: XcaTreeView#2
+msgid "X509v3 Extensions"
+msgstr ""
+
+#: XcaTreeView#3
+msgid "Netscape extensions"
+msgstr ""
+
+#: XcaTreeView#4
+msgid "Reset"
+msgstr ""
+
+#: XcaTreeView#5
+msgid "Columns"
+msgstr ""
+
+#: XcaTreeView#6
+msgid "New"
+msgstr ""
+
+#: XcaTreeView#7
+msgid "Import"
+msgstr ""
+
+#: XcaTreeView#8
+msgid "Paste PEM data"
+msgstr ""
+
+#: XcaTreeView#9
+msgid "Rename"
+msgstr ""
+
+#: XcaTreeView#10
+msgctxt "XcaTreeView#10"
+msgid "Delete"
+msgstr ""
+
+#: XcaTreeView#11
+msgid "Export"
+msgstr ""
+
+#: XcaTreeView#12
+msgctxt "XcaTreeView#12"
+msgid "Clipboard"
+msgstr ""
+
+#: XcaTreeView#13
+msgid "File"
 msgstr ""
 
 #: db_base#1
@@ -2187,31 +2414,28 @@ msgid "Error opening file: '%1': %2"
 msgstr ""
 
 #: db_base#8
+msgctxt "db_base#8"
 msgid "No."
 msgstr ""
 
 #: db_base#9
-msgid "Subject entries"
+msgid "How to export the %1 selected items"
 msgstr ""
 
 #: db_base#10
-msgid "X509v3 Extensions"
+msgid "All in one PEM file"
 msgstr ""
 
 #: db_base#11
-msgid "Netscape extensions"
+msgid "Each item in one file"
 msgstr ""
 
 #: db_base#12
-msgid "Reset"
+msgid "Save %1 items in one file as"
 msgstr ""
 
 #: db_base#13
-msgid "Paste PEM data"
-msgstr ""
-
-#: db_base#14
-msgid "Columns"
+msgid "PEM Files( *.pem );; All files ( * )"
 msgstr ""
 
 #: db_crl#1
@@ -2250,41 +2474,19 @@ msgid ""
 msgstr ""
 
 #: db_crl#9
-msgid "CRL ( *.pem *.der *.crl )"
+msgid "There are no CA certificates for CRL generation"
 msgstr ""
 
 #: db_crl#10
-msgid "Revocation list export"
+msgid "Select CA certificate"
 msgstr ""
 
 #: db_crl#11
-msgctxt "db_crl#11"
-msgid "Import"
+msgid "CRL ( *.pem *.der *.crl )"
 msgstr ""
 
 #: db_crl#12
-msgctxt "db_crl#12"
-msgid "Rename"
-msgstr ""
-
-#: db_crl#13
-msgctxt "db_crl#13"
-msgid "Export"
-msgstr ""
-
-#: db_crl#14
-msgctxt "db_crl#14"
-msgid "Clipboard"
-msgstr ""
-
-#: db_crl#15
-msgctxt "db_crl#15"
-msgid "File"
-msgstr ""
-
-#: db_crl#16
-msgctxt "db_crl#16"
-msgid "Delete"
+msgid "Revocation list export"
 msgstr ""
 
 #: db_key#1
@@ -2332,129 +2534,56 @@ msgid "You are sure to create a key of the size: %1 ?"
 msgstr ""
 
 #: db_key#10
-msgid ""
-"Shall the original key '%1' be replaced by the key on the token?\n"
-"This will delete the key '%1' and make it unexportable"
+msgid "Export keys to Clipboard"
 msgstr ""
 
 #: db_key#11
 msgctxt "db_key#11"
-msgid "New Key"
-msgstr ""
-
-#: db_key#12
-msgctxt "db_key#12"
-msgid "Import"
-msgstr ""
-
-#: db_key#13
-msgctxt "db_key#13"
-msgid "Rename"
-msgstr ""
-
-#: db_key#14
-msgctxt "db_key#14"
-msgid "Show Details"
-msgstr ""
-
-#: db_key#15
-msgctxt "db_key#15"
-msgid "Delete"
-msgstr ""
-
-#: db_key#16
-msgctxt "db_key#16"
-msgid "Export"
-msgstr ""
-
-#: db_key#17
-msgctxt "db_key#17"
 msgid "Clipboard"
 msgstr ""
 
-#: db_key#18
-msgctxt "db_key#18"
-msgid "File"
-msgstr ""
-
-#: db_key#19
-msgid "Change password"
-msgstr ""
-
-#: db_key#20
-msgid "Reset password"
-msgstr ""
-
-#: db_key#21
-msgid "Change PIN"
-msgstr ""
-
-#: db_key#22
-msgid "Init PIN with SO PIN (PUK)"
-msgstr ""
-
-#: db_key#23
-msgid "Change SO PIN (PUK)"
-msgstr ""
-
-#: db_key#24
-msgid "Store on Security token"
-msgstr ""
-
-#: db_key#25
+#: db_key#12
 msgid "Export public key [%1]"
 msgstr ""
 
-#: db_key#26
+#: db_key#13
 msgid "PEM public"
 msgstr ""
 
-#: db_key#27
+#: db_key#14
 msgid "SSH2 public"
 msgstr ""
 
-#: db_key#28
+#: db_key#15
 msgid "PEM private"
 msgstr ""
 
-#: db_key#29
+#: db_key#16
 msgid "Export private key [%1]"
 msgstr ""
 
-#: db_key#30
+#: db_key#17
 msgid "DER public"
 msgstr ""
 
-#: db_key#31
+#: db_key#18
 msgid "DER private"
 msgstr ""
 
-#: db_key#32
+#: db_key#19
 msgid "PEM encryped"
 msgstr ""
 
-#: db_key#33
+#: db_key#20
 msgid "PKCS#8 encrypted"
 msgstr ""
 
-#: db_key#34
+#: db_key#21
 msgid "Private Keys ( *.pem *.der *.pk8 );; SSH Public Keys ( *.pub )"
 msgstr ""
 
-#: db_key#35
+#: db_key#22
 msgid "Tried to change password of a token"
-msgstr ""
-
-#: db_key#36
-msgid "Tried to change PIN of a key"
-msgstr ""
-
-#: db_key#37
-msgid "Tried to init PIN of a key"
-msgstr ""
-
-#: db_key#38
-msgid "Tried to change SO PIN of a key"
 msgstr ""
 
 #: db_temp#1
@@ -2475,58 +2604,15 @@ msgid "Preset Template values"
 msgstr ""
 
 #: db_temp#5
-msgid "copy"
-msgstr ""
-
-#: db_temp#6
 msgid "Save template as"
 msgstr ""
 
-#: db_temp#7
+#: db_temp#6
 msgid "XCA templates ( *.xca);; All files ( * )"
 msgstr ""
 
-#: db_temp#8
-msgid "New Template"
-msgstr ""
-
-#: db_temp#9
-msgctxt "db_temp#9"
-msgid "Import"
-msgstr ""
-
-#: db_temp#10
-msgctxt "db_temp#10"
-msgid "Rename"
-msgstr ""
-
-#: db_temp#11
-msgctxt "db_temp#11"
-msgid "Export"
-msgstr ""
-
-#: db_temp#12
-msgid "Change"
-msgstr ""
-
-#: db_temp#13
-msgctxt "db_temp#13"
-msgid "Delete"
-msgstr ""
-
-#: db_temp#14
-msgid "Duplicate"
-msgstr ""
-
-#: db_temp#15
-msgid "Create certificate"
-msgstr ""
-
-#: db_temp#16
-msgid "Create request"
-msgstr ""
-
 #: db_x509#1
+msgctxt "db_x509#1"
 msgid "CA"
 msgstr ""
 
@@ -2618,170 +2704,58 @@ msgid "Store the certificate to the key on the token '%1 (#%2)' ?"
 msgstr ""
 
 #: db_x509#22
-msgid "New Certificate"
-msgstr ""
-
-#: db_x509#23
-msgctxt "db_x509#23"
-msgid "Import"
-msgstr ""
-
-#: db_x509#24
-msgid "Import PKCS#12"
-msgstr ""
-
-#: db_x509#25
-msgid "Import from PKCS#7"
-msgstr ""
-
-#: db_x509#26
-msgctxt "db_x509#26"
-msgid "Rename"
-msgstr ""
-
-#: db_x509#27
-msgctxt "db_x509#27"
-msgid "Show Details"
-msgstr ""
-
-#: db_x509#28
-msgctxt "db_x509#28"
-msgid "Export"
-msgstr ""
-
-#: db_x509#29
-msgctxt "db_x509#29"
-msgid "Clipboard"
-msgstr ""
-
-#: db_x509#30
-msgctxt "db_x509#30"
-msgid "File"
-msgstr ""
-
-#: db_x509#31
-msgid "Request"
-msgstr ""
-
-#: db_x509#32
-msgctxt "db_x509#32"
-msgid "Security token"
-msgstr ""
-
-#: db_x509#33
-msgid "Other token"
-msgstr ""
-
-#: db_x509#34
-msgctxt "db_x509#34"
-msgid "Template"
-msgstr ""
-
-#: db_x509#35
-msgctxt "db_x509#35"
-msgid "OpenSSL config"
-msgstr ""
-
-#: db_x509#36
-msgctxt "db_x509#36"
-msgid "Transform"
-msgstr ""
-
-#: db_x509#37
-msgctxt "db_x509#37"
-msgid "Public Key"
-msgstr ""
-
-#: db_x509#38
-msgid "Similar Certificate"
-msgstr ""
-
-#: db_x509#39
-msgctxt "db_x509#39"
-msgid "Delete"
-msgstr ""
-
-#: db_x509#40
-msgid "Delete from Security token"
-msgstr ""
-
-#: db_x509#41
-msgid "Trust"
-msgstr ""
-
-#: db_x509#42
-msgid "Properties"
-msgstr ""
-
-#: db_x509#43
-msgid "Generate CRL"
-msgstr ""
-
-#: db_x509#44
-msgid "Renewal"
-msgstr ""
-
-#: db_x509#45
-msgid "Unrevoke"
-msgstr ""
-
-#: db_x509#46
-msgid "Revoke"
-msgstr ""
-
-#: db_x509#47
 msgid "PEM chain"
 msgstr ""
 
-#: db_x509#48
+#: db_x509#23
 msgid "PKCS #7 chain"
 msgstr ""
 
-#: db_x509#49
+#: db_x509#24
 msgid "PKCS #12 chain"
 msgstr ""
 
-#: db_x509#50
+#: db_x509#25
 msgid "PEM + key"
 msgstr ""
 
-#: db_x509#51
+#: db_x509#26
 msgid "PKCS #7 trusted"
 msgstr ""
 
-#: db_x509#52
+#: db_x509#27
 msgid "PKCS #7 all"
 msgstr ""
 
-#: db_x509#53
+#: db_x509#28
 msgid "PEM trusted"
 msgstr ""
 
-#: db_x509#54
+#: db_x509#29
 msgid "PEM all"
 msgstr ""
 
-#: db_x509#55
+#: db_x509#30
 msgid "Certificate export"
 msgstr ""
 
-#: db_x509#56
+#: db_x509#31
 msgid "X509 Certificates ( *.pem *.cer *.crt *.p12 *.p7b )"
 msgstr ""
 
-#: db_x509#57
+#: db_x509#32
 msgid "There was no key found for the Certificate: '%1'"
 msgstr ""
 
-#: db_x509#58
+#: db_x509#33
 msgid "Not possible for a token key: '%1'"
 msgstr ""
 
-#: db_x509#59
+#: db_x509#34
 msgid "Not possible for the token-key Certificate '%1'"
 msgstr ""
 
-#: db_x509#60
+#: db_x509#35
 msgid " days"
 msgstr ""
 
@@ -2834,73 +2808,6 @@ msgstr ""
 
 #: db_x509req#7
 msgid "Certificate request ( *.pem *.der *.csr )"
-msgstr ""
-
-#: db_x509req#8
-msgid "New Request"
-msgstr ""
-
-#: db_x509req#9
-msgctxt "db_x509req#9"
-msgid "Import"
-msgstr ""
-
-#: db_x509req#10
-msgctxt "db_x509req#10"
-msgid "Rename"
-msgstr ""
-
-#: db_x509req#11
-msgctxt "db_x509req#11"
-msgid "Show Details"
-msgstr ""
-
-#: db_x509req#12
-msgid "Sign"
-msgstr ""
-
-#: db_x509req#13
-msgctxt "db_x509req#13"
-msgid "Export"
-msgstr ""
-
-#: db_x509req#14
-msgctxt "db_x509req#14"
-msgid "Clipboard"
-msgstr ""
-
-#: db_x509req#15
-msgctxt "db_x509req#15"
-msgid "File"
-msgstr ""
-
-#: db_x509req#16
-msgctxt "db_x509req#16"
-msgid "Transform"
-msgstr ""
-
-#: db_x509req#17
-msgctxt "db_x509req#17"
-msgid "Template"
-msgstr ""
-
-#: db_x509req#18
-msgctxt "db_x509req#18"
-msgid "OpenSSL config"
-msgstr ""
-
-#: db_x509req#19
-msgctxt "db_x509req#19"
-msgid "Public Key"
-msgstr ""
-
-#: db_x509req#20
-msgid "Similar Request"
-msgstr ""
-
-#: db_x509req#21
-msgctxt "db_x509req#21"
-msgid "Delete"
 msgstr ""
 
 #: db_x509super#1
@@ -3234,15 +3141,23 @@ msgid "Wrong Size %1"
 msgstr ""
 
 #: pki_temp#6
-msgid "Template file content error (too small): %1"
+msgid "Template file content error (too small)"
 msgstr ""
 
 #: pki_temp#7
-msgid "Template file content error (bad size): %1 "
+msgid "Template file content error (bad size)"
 msgstr ""
 
 #: pki_temp#8
-msgid "Template file content error (bad length) :%1"
+msgid "Template file content error (too small): %1"
+msgstr ""
+
+#: pki_temp#9
+msgid "Not a PEM encoded XCA Template"
+msgstr ""
+
+#: pki_temp#10
+msgid "Not an XCA Template, but '%1'"
 msgstr ""
 
 #: pki_x509#1

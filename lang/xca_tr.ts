@@ -196,7 +196,7 @@
         <translation>Güvenilir</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+20"/>
         <source>Revoked: </source>
         <translation>İptaledilmiş </translation>
     </message>
@@ -211,7 +211,7 @@
         <translation>Geçerli</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+19"/>
         <source>Details of the certificate signing request</source>
         <translation>sertifika imzalama isteği detayları</translation>
     </message>
@@ -229,12 +229,12 @@
         <translation>Bu yeni bir seri numarası ve düzeltilmiş geçerlilik değerleri ile eski bir kopyası olarak yeni bir sertifika oluşturur.</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+26"/>
         <source>Validity</source>
         <translation>Geçerlilik</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+11"/>
         <source>Not before</source>
         <translation>Öncedeğil</translation>
     </message>
@@ -249,17 +249,22 @@
         <translation>Zaman aralığı</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+32"/>
         <source>No well-defined expiration</source>
         <translation>Tanımlanmamış son</translation>
     </message>
     <message>
-        <location line="-21"/>
+        <location line="+14"/>
         <source>Apply</source>
         <translation>Uygula</translation>
     </message>
     <message>
-        <location line="-18"/>
+        <location line="+26"/>
+        <source>Revoke old certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-58"/>
         <source>Days</source>
         <translation>Gün</translation>
     </message>
@@ -313,8 +318,86 @@
         <translation>Sertifika önceki imzalayandan daha geçerli olacaktır. Muhtemelen istediğiniz bu değildir.</translation>
     </message>
     <message>
-        <location filename="../ui/CertExtend.ui" line="+7"/>
+        <location filename="../ui/CertExtend.ui" line="-33"/>
         <source>Local time</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CertTreeView</name>
+    <message>
+        <location filename="../widgets/CertTreeView.cpp" line="+25"/>
+        <source>Import PKCS#12</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import from PKCS#7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Other token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Similar Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete from Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>CA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Generate CRL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Manage revocations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Trust</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Renewal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Revoke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Unrevoke</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -340,7 +423,7 @@
 <context>
     <name>CrlDetail</name>
     <message>
-        <location filename="../ui/CrlDetail.ui" line="+39"/>
+        <location filename="../ui/CrlDetail.ui" line="+30"/>
         <source>Details of the Revocation list</source>
         <translation>İptal listesi için çift tıklayın</translation>
     </message>
@@ -350,7 +433,7 @@
         <translation>&amp;Durum</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+48"/>
         <source>Version</source>
         <translation>Sürüm</translation>
     </message>
@@ -366,7 +449,6 @@
     </message>
     <message>
         <location line="+7"/>
-        <location filename="../widgets/CrlDetail.cpp" line="+29"/>
         <source>Name</source>
         <translation>İsim</translation>
     </message>
@@ -381,7 +463,7 @@
         <translation>Verilen tarih</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+9"/>
         <source>Next Update</source>
         <translation>Sonraki Güncelleme</translation>
     </message>
@@ -396,42 +478,37 @@
         <translation>&amp;veren</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+13"/>
         <source>&amp;Extensions</source>
         <translation>&amp;Uzantıları</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+20"/>
         <source>&amp;Revocation list</source>
         <translation>&amp;İptal listesi</translation>
     </message>
     <message>
-        <location line="+25"/>
         <source>0</source>
-        <translation>0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="+0"/>
         <source>Serial</source>
-        <translation>Seri</translation>
+        <translation type="obsolete">Seri</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Revocation</source>
-        <translation>İptal</translation>
+        <translation type="obsolete">İptal</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Reason</source>
-        <translation>Neden</translation>
+        <translation type="obsolete">Neden</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Invalidation</source>
-        <translation>İptal</translation>
+        <translation type="obsolete">İptal</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location filename="../widgets/CrlDetail.cpp" line="+45"/>
         <source>Failed</source>
         <translation>Başarısız</translation>
     </message>
@@ -446,9 +523,8 @@
         <translation>Doğrulama mümkün değil</translation>
     </message>
     <message>
-        <location line="+24"/>
         <source>Unknown certificate</source>
-        <translation>Bilinmeyen sertifika</translation>
+        <translation type="obsolete">Bilinmeyen sertifika</translation>
     </message>
 </context>
 <context>
@@ -515,13 +591,18 @@ PEM base64 kodlanmış DER dosyası
         <translation>Verme biçimi</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+34"/>
+        <location filename="../widgets/ExportDialog.cpp" line="+37"/>
         <source>All files ( * )</source>
         <translation type="unfinished">Bütün dosyalar ( * )</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>PEM Text format with headers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Concatenated list of all selected items in one PEM text file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -557,6 +638,11 @@ PEM base64 kodlanmış DER dosyası
     <message>
         <location line="+2"/>
         <source>All trusted certificates encoded in one PKCS#7 file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>All selected certificates encoded in one PKCS#7 file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -880,75 +966,121 @@ Serial: %3</source>
     </message>
 </context>
 <context>
+    <name>KeyTreeView</name>
+    <message>
+        <location filename="../widgets/KeyTreeView.cpp" line="+28"/>
+        <source>Change password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reset password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Change PIN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Init PIN with SO PIN (PUK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change SO PIN (PUK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Security token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <location line="+18"/>
+        <location line="+18"/>
+        <source>This is not a token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
+This will delete the key &apos;%1&apos; and make it unexportable</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+28"/>
+        <location filename="../ui/MainWindow.ui" line="+22"/>
         <source>Private Keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+27"/>
         <source>&amp;New Key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+111"/>
-        <location line="+98"/>
-        <location line="+144"/>
-        <location line="+70"/>
+        <location line="+105"/>
+        <location line="+92"/>
+        <location line="+138"/>
+        <location line="+58"/>
         <source>&amp;Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-416"/>
-        <location line="+111"/>
-        <location line="+98"/>
-        <location line="+130"/>
-        <location line="+84"/>
+        <location line="-386"/>
+        <location line="+105"/>
+        <location line="+92"/>
+        <location line="+124"/>
+        <location line="+72"/>
         <source>&amp;Import</source>
         <translation type="unfinished">&amp;İçe Aktar</translation>
     </message>
     <message>
-        <location line="-416"/>
+        <location line="-386"/>
         <source>Import PFX (PKCS#12)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+104"/>
         <location line="+98"/>
-        <location line="+214"/>
+        <location line="+92"/>
+        <location line="+196"/>
         <source>&amp;Show Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-409"/>
-        <location line="+104"/>
+        <location line="-379"/>
         <location line="+98"/>
-        <location line="+109"/>
-        <location line="+105"/>
+        <location line="+92"/>
+        <location line="+103"/>
+        <location line="+93"/>
         <source>&amp;Delete</source>
         <translation>&amp;Sil</translation>
     </message>
     <message>
-        <location line="-376"/>
+        <location line="-346"/>
         <source>Certificate signing requests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+30"/>
         <source>&amp;New Request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+126"/>
+        <location filename="../widgets/MW_menu.cpp" line="+124"/>
         <source>Certificates</source>
         <translation>Sertifikalar</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -973,7 +1105,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+28"/>
         <source>&amp;New template</source>
         <translation type="unfinished"></translation>
     </message>
@@ -988,13 +1120,13 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+165"/>
+        <location filename="../widgets/MW_database.cpp" line="+166"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+897"/>
+        <location filename="../widgets/MainWindow.cpp" line="+887"/>
         <source>Database</source>
         <translation>Veri Tabanı</translation>
     </message>
@@ -1014,7 +1146,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-39"/>
+        <location filename="../widgets/MW_menu.cpp" line="-37"/>
         <source>&amp;File</source>
         <translation>&amp;Dosya</translation>
     </message>
@@ -1084,37 +1216,37 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Requests</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>PKCS#12</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>PKCS#7</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Revocation list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>PEM file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+3"/>
         <source>&amp;Token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1188,7 +1320,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-585"/>
+        <location filename="../widgets/MainWindow.cpp" line="-586"/>
         <source>no such option: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1261,12 +1393,12 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+102"/>
+        <location line="+103"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-184"/>
+        <location filename="../widgets/MW_menu.cpp" line="-175"/>
         <source>Recent DataBases</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1316,7 +1448,7 @@ Serial: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+58"/>
         <source>paste PEM file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1330,17 +1462,12 @@ Please enter the DH parameter bits</source>
 <context>
     <name>NewCrl</name>
     <message>
-        <location filename="../ui/NewCrl.ui" line="+36"/>
+        <location filename="../ui/NewCrl.ui" line="+30"/>
         <source>Create CRL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+54"/>
-        <source>Dates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+8"/>
+        <location line="+62"/>
         <source>last update</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1375,37 +1502,37 @@ Please enter the DH parameter bits</source>
         <translation>Uygula</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>Hashing algorithm</source>
+        <location line="+58"/>
+        <source>Hash algorithm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>Extensions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="-10"/>
         <source>Authority key identifier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-17"/>
         <source>Subject alternative name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-19"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>CRL Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+17"/>
         <source>Revocation reasons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-61"/>
+        <location line="-45"/>
         <source>Local time</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2602,26 +2729,97 @@ In library %3
     </message>
 </context>
 <context>
+    <name>ReqTreeView</name>
+    <message>
+        <location filename="../widgets/ReqTreeView.cpp" line="+23"/>
+        <source>Sign</source>
+        <translation type="unfinished">İmzalayan:</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Similar Request</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RevocationList</name>
+    <message>
+        <location filename="../ui/RevocationList.ui" line="+30"/>
+        <source>Manage revocations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Add</source>
+        <translation type="unfinished">Ekle</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Delete</source>
+        <translation type="unfinished">Sil</translation>
+    </message>
+    <message>
+        <location filename="../widgets/RevocationList.cpp" line="+70"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Serial</source>
+        <translation type="unfinished">Seri</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Revocation</source>
+        <translation type="unfinished">İptal</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Reason</source>
+        <translation type="unfinished">Neden</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Invalidation</source>
+        <translation type="unfinished">İptal</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Generate CRL</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Revoke</name>
     <message>
-        <location filename="../ui/Revoke.ui" line="+17"/>
+        <location filename="../ui/Revoke.ui" line="+87"/>
         <source>Revocation details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+30"/>
         <source>Invalid since</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="-21"/>
         <source>Revocation reason</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-7"/>
+        <location line="-66"/>
+        <source>Certificate revocation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+80"/>
         <source>Local time</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Serial</source>
+        <translation type="unfinished">Seri</translation>
     </message>
 </context>
 <context>
@@ -2676,19 +2874,42 @@ In library %3
     </message>
 </context>
 <context>
-    <name>TrustState</name>
+    <name>TempTreeView</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+39"/>
-        <source>Set trustment of the Certificate</source>
+        <location filename="../widgets/TempTreeView.cpp" line="+20"/>
+        <source>Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+1"/>
+        <source>Create certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Create request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TrustState</name>
+    <message>
+        <location filename="../ui/TrustState.ui" line="+33"/>
+        <source>Certificate trust</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+60"/>
         <source>Trustment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2712,6 +2933,97 @@ In library %3
     </message>
 </context>
 <context>
+    <name>X509SuperTreeView</name>
+    <message>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+25"/>
+        <source>OpenSSL config</source>
+        <translation type="unfinished">Yapılandırmayı göster</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Transform</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Public Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XcaTreeView</name>
+    <message>
+        <location filename="../widgets/XcaTreeView.cpp" line="+282"/>
+        <source>Subject entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>X509v3 Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Netscape extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+47"/>
+        <source>Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import</source>
+        <translation type="unfinished">&amp;İçe Aktar</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Paste PEM data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Rename</source>
+        <translation type="unfinished">Dosya adı</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete</source>
+        <translation type="unfinished">Sil</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Export</source>
+        <translation type="unfinished">Verme biçimi</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation type="unfinished">&amp;Dosya</translation>
+    </message>
+</context>
+<context>
     <name>db_base</name>
     <message>
         <location filename="../lib/db_base.cpp" line="+211"/>
@@ -2719,17 +3031,7 @@ In library %3
         <translation type="unfinished">Dahili adı</translation>
     </message>
     <message>
-        <location line="+528"/>
-        <source>Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-3"/>
-        <source>Subject entries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-661"/>
+        <location line="-136"/>
         <source>Bad database item
 Name: %1
 Type: %2
@@ -2759,39 +3061,45 @@ Size: %3
     </message>
     <message>
         <location line="+19"/>
+        <location line="+540"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="-430"/>
         <source>No.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+526"/>
-        <source>Netscape extensions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+47"/>
-        <source>Paste PEM data</source>
+        <location line="+404"/>
+        <source>How to export the %1 selected items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Columns</source>
+        <source>All in one PEM file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-50"/>
-        <source>X509v3 Extensions</source>
+        <location line="+1"/>
+        <source>Each item in one file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Save %1 items in one file as</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PEM Files( *.pem );; All files ( * )</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+30"/>
+        <location filename="../lib/db_crl.cpp" line="+31"/>
         <source>Signer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2826,51 +3134,51 @@ Size: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+75"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+41"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="+59"/>
+        <source>There are no CA certificates for CRL generation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Select CA certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-68"/>
         <source>Revocation list export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+83"/>
         <source>Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation type="obsolete">&amp;İçe Aktar</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished">Dosya adı</translation>
+        <translation type="obsolete">Dosya adı</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Verme biçimi</translation>
+        <translation type="obsolete">Verme biçimi</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
         <source>File</source>
-        <translation type="unfinished">&amp;Dosya</translation>
+        <translation type="obsolete">&amp;Dosya</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation type="obsolete">Sil</translation>
     </message>
 </context>
 <context>
@@ -2910,7 +3218,7 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+30"/>
         <source>Key size too small !</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2920,80 +3228,33 @@ and will be completed by the new, private part of the key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+58"/>
-        <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
-This will delete the key &apos;%1&apos; and make it unexportable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+34"/>
-        <source>New Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation type="obsolete">&amp;İçe Aktar</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished">Dosya adı</translation>
+        <translation type="obsolete">Dosya adı</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show Details</source>
-        <translation type="unfinished">Detaylar</translation>
+        <translation type="obsolete">Detaylar</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation type="obsolete">Sil</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Verme biçimi</translation>
+        <translation type="obsolete">Verme biçimi</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Change password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Reset password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Change PIN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Init PIN with SO PIN (PUK)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Change SO PIN (PUK)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Store on Security token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <location line="+33"/>
+        <location line="+96"/>
         <source>Export public key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-28"/>
-        <location line="+38"/>
+        <location line="-25"/>
+        <location line="+35"/>
         <source>PEM public</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3003,13 +3264,18 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-35"/>
-        <location line="+39"/>
+        <location line="-33"/>
+        <location line="+37"/>
         <source>SSH2 public</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-31"/>
+        <source>Export keys to Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
         <source>DER private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3019,8 +3285,8 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-43"/>
-        <location line="+48"/>
+        <location line="-41"/>
+        <location line="+46"/>
         <source>PEM private</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3030,8 +3296,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-49"/>
-        <location line="+50"/>
+        <location line="+1"/>
         <source>Export private key [%1]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3041,40 +3306,23 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+56"/>
         <source>Tried to change password of a token</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+14"/>
-        <source>Tried to change PIN of a key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>Tried to init PIN of a key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+16"/>
-        <source>Tried to change SO PIN of a key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-424"/>
+        <location line="-285"/>
         <source>EC Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+199"/>
-        <location line="+55"/>
+        <location line="+181"/>
         <source>Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-53"/>
         <source>File</source>
-        <translation type="unfinished">&amp;Dosya</translation>
+        <translation type="obsolete">&amp;Dosya</translation>
     </message>
 </context>
 <context>
@@ -3100,12 +3348,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+39"/>
-        <source>copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+32"/>
+        <location line="+45"/>
         <source>Save template as</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3115,61 +3358,31 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+42"/>
-        <source>New Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation type="obsolete">&amp;İçe Aktar</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished">Dosya adı</translation>
+        <translation type="obsolete">Dosya adı</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Verme biçimi</translation>
+        <translation type="obsolete">Verme biçimi</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Duplicate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Create certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Create request</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Sil</translation>
     </message>
 </context>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+42"/>
-        <location line="+626"/>
+        <location filename="../lib/db_x509.cpp" line="+57"/>
         <source>CA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="+1"/>
         <source>reflects the basic Constraints extension</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3229,7 +3442,7 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+103"/>
         <source>Plain View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3239,14 +3452,14 @@ This will delete the key &apos;%1&apos; and make it unexportable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+178"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+133"/>
         <source>Invalid public key</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3271,57 +3484,27 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+53"/>
-        <source>New Certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation type="obsolete">&amp;İçe Aktar</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Import PKCS#12</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Import from PKCS#7</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+7"/>
         <source>Rename</source>
-        <translation type="unfinished">Dosya adı</translation>
+        <translation type="obsolete">Dosya adı</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show Details</source>
-        <translation type="unfinished">Detaylar</translation>
+        <translation type="obsolete">Detaylar</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Verme biçimi</translation>
+        <translation type="obsolete">Verme biçimi</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
         <source>File</source>
-        <translation type="unfinished">&amp;Dosya</translation>
+        <translation type="obsolete">&amp;Dosya</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>Request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+64"/>
+        <location line="+73"/>
         <source>PEM chain</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3361,64 +3544,12 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-104"/>
-        <source>Security token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Other token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-12"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Yapılandırmayı göster</translation>
+        <translation type="obsolete">Yapılandırmayı göster</translation>
     </message>
     <message>
-        <location line="+3"/>
-        <source>Transform</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Public Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Similar Certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Delete from Security token</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
-        <source>Trust</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Properties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Generate CRL</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Sil</translation>
     </message>
     <message>
         <source>Sign</source>
@@ -3426,21 +3557,6 @@ and so it was not imported</source>
     </message>
     <message>
         <location line="+3"/>
-        <source>Renewal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Unrevoke</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Revoke</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+70"/>
         <source>Certificate export</source>
         <translation type="unfinished">Sertifika dışa aktar</translation>
     </message>
@@ -3450,7 +3566,7 @@ and so it was not imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+57"/>
         <location line="+34"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
@@ -3470,7 +3586,7 @@ and so it was not imported</source>
         <translation type="obsolete">Sertifikadaki anahtar bulunamıyor. </translation>
     </message>
     <message>
-        <location line="+265"/>
+        <location line="+330"/>
         <source> days</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3548,7 +3664,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+105"/>
         <source>Certificate request export</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3558,74 +3674,36 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
-        <source>New Request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished">&amp;İçe Aktar</translation>
+        <translation type="obsolete">&amp;İçe Aktar</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation type="unfinished">Dosya adı</translation>
+        <translation type="obsolete">Dosya adı</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show Details</source>
-        <translation type="unfinished">Detaylar</translation>
+        <translation type="obsolete">Detaylar</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Sign</source>
-        <translation type="unfinished">İmzalayan:</translation>
+        <translation type="obsolete">İmzalayan:</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Export</source>
-        <translation type="unfinished">Verme biçimi</translation>
+        <translation type="obsolete">Verme biçimi</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
         <source>File</source>
-        <translation type="unfinished">&amp;Dosya</translation>
+        <translation type="obsolete">&amp;Dosya</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Transform</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-5"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">Yapılandırmayı göster</translation>
+        <translation type="obsolete">Yapılandırmayı göster</translation>
     </message>
     <message>
-        <location line="+8"/>
-        <source>Public Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Similar Request</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+2"/>
         <source>Delete</source>
-        <translation type="unfinished">Sil</translation>
+        <translation type="obsolete">Sil</translation>
     </message>
 </context>
 <context>
@@ -3646,7 +3724,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+77"/>
         <source>Save as OpenSSL config</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3744,7 +3822,7 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+54"/>
-        <location line="+207"/>
+        <location line="+217"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3897,7 +3975,7 @@ and thus was not stored</source>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+125"/>
+        <location filename="../lib/pki_multi.cpp" line="+129"/>
         <location line="+5"/>
         <location line="+5"/>
         <source>Seek failed</source>
@@ -4059,30 +4137,40 @@ and thus was not stored</source>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+220"/>
+        <location line="+280"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-194"/>
+        <source>Template file content error (too small)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Template file content error (bad size)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Template file content error (too small): %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
-        <source>Template file content error (bad size): %1 </source>
+        <location line="+33"/>
+        <source>Not a PEM encoded XCA Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>Template file content error (bad length) :%1</source>
+        <location line="+7"/>
+        <source>Not an XCA Template, but &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+72"/>
+        <location filename="../lib/pki_x509.cpp" line="+71"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4107,7 +4195,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+170"/>
         <source>This certificate is already on the security token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4117,18 +4205,18 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+129"/>
         <source>There is no key for signing !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+38"/>
-        <location line="+508"/>
+        <location line="+58"/>
+        <location line="+533"/>
         <source>Wrong Size %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="-203"/>
         <source>Not trusted</source>
         <translation type="unfinished">Güvenilmeyen</translation>
     </message>
@@ -4269,7 +4357,7 @@ and thus was not stored</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+67"/>
         <source>Validation failed:
 &apos;%1&apos;
 %2</source>

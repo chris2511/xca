@@ -196,7 +196,7 @@
         <translation>Sûr</translation>
     </message>
     <message>
-        <location line="+19"/>
+        <location line="+20"/>
         <source>Revoked: </source>
         <translation>Révoqués: </translation>
     </message>
@@ -211,7 +211,7 @@
         <translation>Valide</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+19"/>
         <source>Details of the certificate signing request</source>
         <translation>Détails de la requête de signature</translation>
     </message>
@@ -229,12 +229,12 @@
         <translation>Créer un nouveau certificat conforme à l&apos;ancien, mais avec un nouveau numéro de série et les limites de validité ajustées.</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+26"/>
         <source>Validity</source>
         <translation>Validité</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+11"/>
         <source>Not before</source>
         <translation>Pas avant</translation>
     </message>
@@ -249,7 +249,7 @@
         <translation>Intervalle de temps</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+14"/>
         <source>Days</source>
         <translation>Jours</translation>
     </message>
@@ -264,22 +264,27 @@
         <translation>Années</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+22"/>
         <source>Apply</source>
         <translation>Appliquer</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+26"/>
+        <source>Revoke old certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-33"/>
         <source>Midnight</source>
         <translation>Minuit</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-33"/>
         <source>Local time</source>
         <translation>Heure locale</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+26"/>
         <source>No well-defined expiration</source>
         <translation>Pas de date d&apos;expiration précise</translation>
     </message>
@@ -320,6 +325,84 @@
     </message>
 </context>
 <context>
+    <name>CertTreeView</name>
+    <message>
+        <location filename="../widgets/CertTreeView.cpp" line="+25"/>
+        <source>Import PKCS#12</source>
+        <translation type="unfinished">Importer en PKCS#12</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import from PKCS#7</source>
+        <translation type="unfinished">Importer en PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Request</source>
+        <translation type="unfinished">Requête</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Security token</source>
+        <translation type="unfinished">Jeton de sécurité</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Other token</source>
+        <translation type="unfinished">Autre jeton</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Similar Certificate</source>
+        <translation type="unfinished">Certificat similaire</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete from Security token</source>
+        <translation type="unfinished">Détruire sur le jeton de sécurité</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>CA</source>
+        <translation type="unfinished">CA</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Properties</source>
+        <translation type="unfinished">Propriétés</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Generate CRL</source>
+        <translation type="unfinished">Générer la liste de révocation</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Manage revocations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Trust</source>
+        <translation type="unfinished">Niveau de confiance</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Renewal</source>
+        <translation type="unfinished">Renouvellement</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Revoke</source>
+        <translation type="unfinished">Révoquer</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Unrevoke</source>
+        <translation type="unfinished">Dé-révoquer</translation>
+    </message>
+</context>
+<context>
     <name>ClickLabel</name>
     <message>
         <location filename="../widgets/clicklabel.cpp" line="+23"/>
@@ -330,7 +413,7 @@
 <context>
     <name>CrlDetail</name>
     <message>
-        <location filename="../ui/CrlDetail.ui" line="+39"/>
+        <location filename="../ui/CrlDetail.ui" line="+30"/>
         <source>Details of the Revocation list</source>
         <translation>Détails de la liste de révocation</translation>
     </message>
@@ -340,7 +423,7 @@
         <translation>&amp;Etat</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+48"/>
         <source>Version</source>
         <translation>Version</translation>
     </message>
@@ -356,7 +439,6 @@
     </message>
     <message>
         <location line="+7"/>
-        <location filename="../widgets/CrlDetail.cpp" line="+29"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
@@ -371,7 +453,7 @@
         <translation>date d&apos;émission</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+9"/>
         <source>Next Update</source>
         <translation>Prochaine mise-à-jour</translation>
     </message>
@@ -386,42 +468,37 @@
         <translation>&amp;Emetteur</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+13"/>
         <source>&amp;Extensions</source>
         <translation>E&amp;xtensions</translation>
     </message>
     <message>
-        <location line="+23"/>
+        <location line="+20"/>
         <source>&amp;Revocation list</source>
         <translation>Liste de &amp;révocation</translation>
     </message>
     <message>
-        <location line="+25"/>
         <source>0</source>
-        <translation>0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
-        <location filename="../widgets/CrlDetail.cpp" line="+0"/>
         <source>Serial</source>
-        <translation>Numéro de série</translation>
+        <translation type="obsolete">Numéro de série</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Revocation</source>
-        <translation>Révocation</translation>
+        <translation type="obsolete">Révocation</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Reason</source>
-        <translation>Raison</translation>
+        <translation type="obsolete">Raison</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Invalidation</source>
-        <translation>Invalidation</translation>
+        <translation type="obsolete">Invalidation</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location filename="../widgets/CrlDetail.cpp" line="+45"/>
         <source>Failed</source>
         <translation>Echoué</translation>
     </message>
@@ -436,9 +513,8 @@
         <translation>Vérification impossible</translation>
     </message>
     <message>
-        <location line="+24"/>
         <source>Unknown certificate</source>
-        <translation>Certificat inconnu</translation>
+        <translation type="obsolete">Certificat inconnu</translation>
     </message>
 </context>
 <context>
@@ -469,7 +545,7 @@
         <translation>Format d&apos;exportation</translation>
     </message>
     <message>
-        <location filename="../widgets/ExportDialog.cpp" line="+34"/>
+        <location filename="../widgets/ExportDialog.cpp" line="+37"/>
         <source>All files ( * )</source>
         <translation>Tous les fichiers ( * )</translation>
     </message>
@@ -477,6 +553,11 @@
         <location line="+15"/>
         <source>PEM Text format with headers</source>
         <translation>Format textuel PEM avec des en-têtes</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Concatenated list of all selected items in one PEM text file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -512,6 +593,11 @@
         <location line="+2"/>
         <source>All trusted certificates encoded in one PKCS#7 file</source>
         <translation>Tous les certificats de confiance encodés en un seul fichier PKCS#7</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>All selected certificates encoded in one PKCS#7 file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -804,75 +890,134 @@ Numéro de série: %3</translation>
     </message>
 </context>
 <context>
+    <name>KeyTreeView</name>
+    <message>
+        <location filename="../widgets/KeyTreeView.cpp" line="+28"/>
+        <source>Change password</source>
+        <translation type="unfinished">Changer le mot de passe</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Reset password</source>
+        <translation type="unfinished">Effacer le mot de passe</translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Change PIN</source>
+        <translation type="unfinished">Changer le NIP</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Init PIN with SO PIN (PUK)</source>
+        <translation type="unfinished">Initialiser le NIP avec le PUK</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Change SO PIN (PUK)</source>
+        <translation type="unfinished">Changer le PUK</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Security token</source>
+        <translation type="unfinished">Jeton de sécurité</translation>
+    </message>
+    <message>
+        <location line="+33"/>
+        <location line="+18"/>
+        <location line="+18"/>
+        <source>This is not a token</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to change PIN of a key</source>
+        <translation type="obsolete">Tentative de changement de NIP d&apos;une clé</translation>
+    </message>
+    <message>
+        <source>Tried to init PIN of a key</source>
+        <translation type="obsolete">Tentative d&apos;initialisation du NIP d&apos;une clé</translation>
+    </message>
+    <message>
+        <source>Tried to change SO PIN of a key</source>
+        <translation type="obsolete">Tentative de changement de PUK d&apos;une clé</translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
+This will delete the key &apos;%1&apos; and make it unexportable</source>
+        <translation type="unfinished">La clé originale &apos;%1&apos; doit-elle être remplacée par la clé en provenance du jeton ?
+Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui/MainWindow.ui" line="+28"/>
+        <location filename="../ui/MainWindow.ui" line="+22"/>
         <source>Private Keys</source>
         <translation>Clés privées</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+27"/>
         <source>&amp;New Key</source>
         <translation>&amp;Nouvelle clé</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+111"/>
-        <location line="+98"/>
-        <location line="+144"/>
-        <location line="+70"/>
+        <location line="+105"/>
+        <location line="+92"/>
+        <location line="+138"/>
+        <location line="+58"/>
         <source>&amp;Export</source>
         <translation>&amp;Exporter</translation>
     </message>
     <message>
-        <location line="-416"/>
-        <location line="+111"/>
-        <location line="+98"/>
-        <location line="+130"/>
-        <location line="+84"/>
+        <location line="-386"/>
+        <location line="+105"/>
+        <location line="+92"/>
+        <location line="+124"/>
+        <location line="+72"/>
         <source>&amp;Import</source>
         <translation>&amp;Importer</translation>
     </message>
     <message>
-        <location line="-416"/>
+        <location line="-386"/>
         <source>Import PFX (PKCS#12)</source>
         <translation>Importer en PFX (PKCS#12)</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+104"/>
         <location line="+98"/>
-        <location line="+214"/>
+        <location line="+92"/>
+        <location line="+196"/>
         <source>&amp;Show Details</source>
         <translation>&amp;Afficher les Détails</translation>
     </message>
     <message>
-        <location line="-409"/>
-        <location line="+104"/>
+        <location line="-379"/>
         <location line="+98"/>
-        <location line="+109"/>
-        <location line="+105"/>
+        <location line="+92"/>
+        <location line="+103"/>
+        <location line="+93"/>
         <source>&amp;Delete</source>
         <translation>&amp;Détruire</translation>
     </message>
     <message>
-        <location line="-376"/>
+        <location line="-346"/>
         <source>Certificate signing requests</source>
         <translation>Requêtes de signature de certificat</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+30"/>
         <source>&amp;New Request</source>
         <translation>&amp;Nouvelle requête</translation>
     </message>
     <message>
         <location line="+68"/>
-        <location filename="../widgets/MW_menu.cpp" line="+126"/>
+        <location filename="../widgets/MW_menu.cpp" line="+124"/>
         <source>Certificates</source>
         <translation>Certificats</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
         <source>&amp;New Certificate</source>
         <translation>&amp;Nouveau Certificat</translation>
     </message>
@@ -897,7 +1042,7 @@ Numéro de série: %3</translation>
         <translation>Modèles</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+28"/>
         <source>&amp;New template</source>
         <translation>&amp;Nouveau modèle</translation>
     </message>
@@ -912,13 +1057,13 @@ Numéro de série: %3</translation>
         <translation>Listes de révocation</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_database.cpp" line="+165"/>
+        <location filename="../widgets/MW_database.cpp" line="+166"/>
         <source>Using or exporting private keys will not be possible without providing the correct password</source>
         <translation>L&apos;usage ou l&apos;exportation de clés privées seront impossible sans fournir le mot de passe correct.</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../widgets/MainWindow.cpp" line="+897"/>
+        <location filename="../widgets/MainWindow.cpp" line="+887"/>
         <source>Database</source>
         <translation>Base de donnée</translation>
     </message>
@@ -938,7 +1083,7 @@ Numéro de série: %3</translation>
         <translation>Le nettoyage des éléments détruits ou échus de la base de données a échoué.</translation>
     </message>
     <message>
-        <location filename="../widgets/MW_menu.cpp" line="-68"/>
+        <location filename="../widgets/MW_menu.cpp" line="-66"/>
         <source>Recent DataBases</source>
         <translation>Bases de données utilisées recemment</translation>
     </message>
@@ -1058,42 +1203,42 @@ Numéro de série: %3</translation>
         <translation>Clés</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Requests</source>
         <translation>Requêtes</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+2"/>
         <source>PKCS#12</source>
         <translation>PKCS#12</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>PKCS#7</source>
         <translation>PKCS#7</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Template</source>
         <translation>Modèle</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Revocation list</source>
         <translation>Liste de révocation</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>PEM file</source>
         <translation>Fichier PEM</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>paste PEM file</source>
         <translation>Coller un fichier PEM</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>&amp;Token</source>
         <translation>&amp;Jeton</translation>
     </message>
@@ -1163,7 +1308,7 @@ Numéro de série: %3</translation>
         <translation>Importer quand-même</translation>
     </message>
     <message>
-        <location filename="../widgets/MainWindow.cpp" line="-585"/>
+        <location filename="../widgets/MainWindow.cpp" line="-586"/>
         <source>no such option: %1</source>
         <translation>&apos;%1&apos; n&apos;est pas une option</translation>
     </message>
@@ -1238,7 +1383,7 @@ Numéro de série: %3</translation>
         <translation>Copier dans le presse-papier</translation>
     </message>
     <message>
-        <location line="+79"/>
+        <location line="+80"/>
         <source>Diffie-Hellman parameters are needed for different applications, but not handled by XCA.
 Please enter the DH parameter bits</source>
         <translation>Les paramètres de Diffie-Hellman sont nécessaires à certaines applications mais ne sont pas gérés par XCA.
@@ -1253,17 +1398,16 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
 <context>
     <name>NewCrl</name>
     <message>
-        <location filename="../ui/NewCrl.ui" line="+36"/>
+        <location filename="../ui/NewCrl.ui" line="+30"/>
         <source>Create CRL</source>
         <translation>Créer une liste de révocation</translation>
     </message>
     <message>
-        <location line="+54"/>
         <source>Dates</source>
-        <translation>Dates</translation>
+        <translation type="obsolete">Dates</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+62"/>
         <source>last update</source>
         <translation>dernière mise-à-jour</translation>
     </message>
@@ -1303,32 +1447,40 @@ Saisir le nombre de bits du paramètre de Diffie-Hellman SVP</translation>
         <translation>Appliquer</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+58"/>
+        <source>Hash algorithm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Hashing algorithm</source>
-        <translation>Algorithme de hachage</translation>
+        <translation type="obsolete">Algorithme de hachage</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Extensions</source>
-        <translation>Extensions</translation>
+        <translation type="obsolete">Extensions</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-10"/>
         <source>Authority key identifier</source>
         <translation>Identifiant de clé de l&apos;autorité</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-17"/>
         <source>Subject alternative name</source>
         <translation>Nom alternatif du sujet</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-19"/>
+        <source>Options</source>
+        <translation type="unfinished">Options</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>CRL Number</source>
         <translation>Numéro de la liste de révocation</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+17"/>
         <source>Revocation reasons</source>
         <translation>Raisons de la révocation</translation>
     </message>
@@ -2519,26 +2671,97 @@ Dans la bibliothèque %3
     </message>
 </context>
 <context>
+    <name>ReqTreeView</name>
+    <message>
+        <location filename="../widgets/ReqTreeView.cpp" line="+23"/>
+        <source>Sign</source>
+        <translation type="unfinished">Signer</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Similar Request</source>
+        <translation type="unfinished">Requête similaire</translation>
+    </message>
+</context>
+<context>
+    <name>RevocationList</name>
+    <message>
+        <location filename="../ui/RevocationList.ui" line="+30"/>
+        <source>Manage revocations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+66"/>
+        <source>Add</source>
+        <translation type="unfinished">Ajouter</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../widgets/RevocationList.cpp" line="+70"/>
+        <source>No.</source>
+        <translation type="unfinished">Non.</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Serial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Revocation</source>
+        <translation type="unfinished">Révocation</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Reason</source>
+        <translation type="unfinished">Raison</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Invalidation</source>
+        <translation type="unfinished">Invalidation</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Generate CRL</source>
+        <translation type="unfinished">Générer la liste de révocation</translation>
+    </message>
+</context>
+<context>
     <name>Revoke</name>
     <message>
-        <location filename="../ui/Revoke.ui" line="+17"/>
+        <location filename="../ui/Revoke.ui" line="+87"/>
         <source>Revocation details</source>
         <translation>Détails de la révocation</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+30"/>
         <source>Invalid since</source>
         <translation>Non-valide depuis</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="-7"/>
         <source>Local time</source>
         <translation>Heure locale</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="-80"/>
+        <source>Certificate revocation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+66"/>
         <source>Revocation reason</source>
         <translation>Raison de la révocation</translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Serial</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2593,19 +2816,46 @@ Dans la bibliothèque %3
     </message>
 </context>
 <context>
-    <name>TrustState</name>
+    <name>TempTreeView</name>
     <message>
-        <location filename="../ui/TrustState.ui" line="+39"/>
-        <source>Set trustment of the Certificate</source>
-        <translation>Ajuster le niveau de confiance du certificat</translation>
+        <location filename="../widgets/TempTreeView.cpp" line="+20"/>
+        <source>Duplicate</source>
+        <translation type="unfinished">Dupliquer</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+1"/>
+        <source>Create certificate</source>
+        <translation type="unfinished">Créer un certificat</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Create request</source>
+        <translation type="unfinished">Créer une requête</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>copy</source>
+        <translation type="unfinished">copier</translation>
+    </message>
+</context>
+<context>
+    <name>TrustState</name>
+    <message>
+        <source>Set trustment of the Certificate</source>
+        <translation type="obsolete">Ajuster le niveau de confiance du certificat</translation>
+    </message>
+    <message>
+        <location filename="../ui/TrustState.ui" line="+33"/>
+        <source>Certificate trust</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+60"/>
         <source>Trustment</source>
         <translation>Niveau de confiance</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+9"/>
         <source>&amp;Never trust this certificate</source>
         <translation>&amp;Ne jamais se fier à ce certificat</translation>
     </message>
@@ -2626,6 +2876,97 @@ Dans la bibliothèque %3
         <location filename="../widgets/validity.cpp" line="+94"/>
         <source>yyyy-MM-dd hh:mm</source>
         <translation>yyyy-MM-dd hh:mm</translation>
+    </message>
+</context>
+<context>
+    <name>X509SuperTreeView</name>
+    <message>
+        <location filename="../widgets/X509SuperTreeView.cpp" line="+25"/>
+        <source>OpenSSL config</source>
+        <translation type="unfinished">Configuration OpenSSL</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Transform</source>
+        <translation type="unfinished">Transformer</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Public Key</source>
+        <translation type="unfinished">Clé publique</translation>
+    </message>
+</context>
+<context>
+    <name>XcaTreeView</name>
+    <message>
+        <location filename="../widgets/XcaTreeView.cpp" line="+282"/>
+        <source>Subject entries</source>
+        <translation type="unfinished">Inscriptions du sujet</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>X509v3 Extensions</source>
+        <translation type="unfinished">Extensions X509v3</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Netscape extensions</source>
+        <translation type="unfinished">Extensions Netscape</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Reset</source>
+        <translation type="unfinished">Réinitialisation</translation>
+    </message>
+    <message>
+        <location line="+47"/>
+        <source>Columns</source>
+        <translation type="unfinished">Colonnes</translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Import</source>
+        <translation type="unfinished">Importer</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Paste PEM data</source>
+        <translation type="unfinished">Coller les données en format PEM</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Rename</source>
+        <translation type="unfinished">Renommer</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Export</source>
+        <translation type="unfinished">Exporter</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Clipboard</source>
+        <translation type="unfinished">Presse-papier</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>File</source>
+        <translation type="unfinished">Fichier</translation>
     </message>
 </context>
 <context>
@@ -2670,49 +3011,69 @@ Taille: %3
     </message>
     <message>
         <location line="+19"/>
+        <location line="+540"/>
         <source>Error opening file: &apos;%1&apos;: %2</source>
         <translation>Erreur lors de l&apos;ouverture du fichier: &apos;%1&apos;: %2</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="-430"/>
         <source>No.</source>
         <translation>Non.</translation>
     </message>
     <message>
-        <location line="+524"/>
-        <source>Subject entries</source>
-        <translation>Inscriptions du sujet</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>X509v3 Extensions</source>
-        <translation>Extensions X509v3</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Netscape extensions</source>
-        <translation>Extensions Netscape</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Reset</source>
-        <translation>Réinitialisation</translation>
-    </message>
-    <message>
-        <location line="+46"/>
-        <source>Paste PEM data</source>
-        <translation>Coller les données en format PEM</translation>
+        <location line="+404"/>
+        <source>How to export the %1 selected items</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
+        <source>All in one PEM file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Each item in one file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Save %1 items in one file as</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PEM Files( *.pem );; All files ( * )</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subject entries</source>
+        <translation type="obsolete">Inscriptions du sujet</translation>
+    </message>
+    <message>
+        <source>X509v3 Extensions</source>
+        <translation type="obsolete">Extensions X509v3</translation>
+    </message>
+    <message>
+        <source>Netscape extensions</source>
+        <translation type="obsolete">Extensions Netscape</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation type="obsolete">Réinitialisation</translation>
+    </message>
+    <message>
+        <source>Paste PEM data</source>
+        <translation type="obsolete">Coller les données en format PEM</translation>
+    </message>
+    <message>
         <source>Columns</source>
-        <translation>Colonnes</translation>
+        <translation type="obsolete">Colonnes</translation>
     </message>
 </context>
 <context>
     <name>db_crl</name>
     <message>
-        <location filename="../lib/db_crl.cpp" line="+30"/>
+        <location filename="../lib/db_crl.cpp" line="+31"/>
         <source>Signer</source>
         <translation>Signataire</translation>
     </message>
@@ -2747,7 +3108,7 @@ Taille: %3
         <translation>Numéro de la liste de révocation</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+75"/>
         <source>The revocation list already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -2756,44 +3117,48 @@ and so it was not imported</source>
 En conséquence, elle n&apos;a pas été importée</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+41"/>
         <source>CRL ( *.pem *.der *.crl )</source>
         <translation>Listes de révocation ( *.pem *.der *.crl )</translation>
     </message>
     <message>
-        <location line="-1"/>
+        <location line="+59"/>
+        <source>There are no CA certificates for CRL generation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Select CA certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-68"/>
         <source>Revocation list export</source>
         <translation>Exportation d&apos;une liste de révocation</translation>
     </message>
     <message>
-        <location line="+83"/>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation type="obsolete">Renommer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation>Exporter</translation>
+        <translation type="obsolete">Exporter</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Clipboard</source>
-        <translation>Presse-papier</translation>
+        <translation type="obsolete">Presse-papier</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>File</source>
-        <translation>Fichier</translation>
+        <translation type="obsolete">Fichier</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete</source>
-        <translation>Supprimer</translation>
+        <translation type="obsolete">Supprimer</translation>
     </message>
 </context>
 <context>
@@ -2842,7 +3207,7 @@ and will be completed by the new, private part of the key</source>
 En conséquence, cette dernière sera complétée par la partie privée de la clé importée</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+30"/>
         <source>Key size too small !</source>
         <translation>Taille de clé trop petite !</translation>
     </message>
@@ -2852,110 +3217,98 @@ En conséquence, cette dernière sera complétée par la partie privée de la cl
         <translation>Etes-vous sûr de couloir créer une clé de taille %1 ?</translation>
     </message>
     <message>
-        <location line="+58"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
-        <translation>La clé originale &apos;%1&apos; doit-elle être remplacée par la clé en provenance du jeton ?
+        <translation type="obsolete">La clé originale &apos;%1&apos; doit-elle être remplacée par la clé en provenance du jeton ?
 Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translation>
     </message>
     <message>
-        <location line="+34"/>
         <source>New Key</source>
-        <translation>Nouvelle Clé</translation>
+        <translation type="obsolete">Nouvelle Clé</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation type="obsolete">Renommer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show Details</source>
-        <translation>Afficher les Détails</translation>
+        <translation type="obsolete">Afficher les Détails</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete</source>
-        <translation>Enlever</translation>
+        <translation type="obsolete">Enlever</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation>Exporter</translation>
+        <translation type="obsolete">Exporter</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <location line="+55"/>
+        <location line="+83"/>
         <source>Clipboard</source>
         <translation>Presse-papier</translation>
     </message>
     <message>
-        <location line="-53"/>
         <source>File</source>
-        <translation>Fichier</translation>
+        <translation type="obsolete">Fichier</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Change password</source>
-        <translation>Changer le mot de passe</translation>
+        <translation type="obsolete">Changer le mot de passe</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Reset password</source>
-        <translation>Effacer le mot de passe</translation>
+        <translation type="obsolete">Effacer le mot de passe</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Change PIN</source>
-        <translation>Changer le NIP</translation>
+        <translation type="obsolete">Changer le NIP</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Init PIN with SO PIN (PUK)</source>
-        <translation>Initialiser le NIP avec le PUK</translation>
+        <translation type="obsolete">Initialiser le NIP avec le PUK</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Change SO PIN (PUK)</source>
-        <translation>Changer le PUK</translation>
+        <translation type="obsolete">Changer le PUK</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Store on Security token</source>
-        <translation>Enregistrer dans le jeton de sécurité</translation>
+        <translation type="obsolete">Enregistrer dans le jeton de sécurité</translation>
     </message>
     <message>
-        <location line="+11"/>
-        <location line="+33"/>
+        <location line="+13"/>
         <source>Export public key [%1]</source>
         <translation>Exporter la clé publique [%1]</translation>
     </message>
     <message>
-        <location line="-28"/>
-        <location line="+38"/>
+        <location line="-25"/>
+        <location line="+35"/>
         <source>PEM public</source>
         <translation>clé publique PEM</translation>
     </message>
     <message>
-        <location line="-34"/>
-        <location line="+39"/>
+        <location line="-32"/>
+        <location line="+37"/>
         <source>SSH2 public</source>
         <translation>Clé publique SSH2</translation>
     </message>
     <message>
-        <location line="-36"/>
-        <location line="+48"/>
+        <location line="-34"/>
+        <location line="+46"/>
         <source>PEM private</source>
         <translation>Clé privée PEM</translation>
     </message>
     <message>
-        <location line="-47"/>
-        <location line="+50"/>
+        <location line="-43"/>
+        <source>Export keys to Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Export private key [%1]</source>
         <translation>Exporter la clé privée [%1]</translation>
     </message>
@@ -2985,24 +3338,21 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Clés privées ( *.pem *.der *.pk8 );; Clé publiques SSH ( *.pub )</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+56"/>
         <source>Tried to change password of a token</source>
         <translation>Tentative de changement de mot de passe d&apos;un jeton de sécurité</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Tried to change PIN of a key</source>
-        <translation>Tentative de changement de NIP d&apos;une clé</translation>
+        <translation type="obsolete">Tentative de changement de NIP d&apos;une clé</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Tried to init PIN of a key</source>
-        <translation>Tentative d&apos;initialisation du NIP d&apos;une clé</translation>
+        <translation type="obsolete">Tentative d&apos;initialisation du NIP d&apos;une clé</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>Tried to change SO PIN of a key</source>
-        <translation>Tentative de changement de PUK d&apos;une clé</translation>
+        <translation type="obsolete">Tentative de changement de PUK d&apos;une clé</translation>
     </message>
 </context>
 <context>
@@ -3028,12 +3378,11 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Initaliser les valeurs du modèle</translation>
     </message>
     <message>
-        <location line="+39"/>
         <source>copy</source>
-        <translation>copier</translation>
+        <translation type="obsolete">copier</translation>
     </message>
     <message>
-        <location line="+32"/>
+        <location line="+45"/>
         <source>Save template as</source>
         <translation>Enregistrer le modèle sous</translation>
     </message>
@@ -3043,61 +3392,51 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Modèles XCA ( *.xca);; Tous les fichiers ( * )</translation>
     </message>
     <message>
-        <location line="+42"/>
         <source>New Template</source>
-        <translation>Nouveau modèle</translation>
+        <translation type="obsolete">Nouveau modèle</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation type="obsolete">Renommer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation>Exporter</translation>
+        <translation type="obsolete">Exporter</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Change</source>
-        <translation>Changer</translation>
+        <translation type="obsolete">Changer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Delete</source>
-        <translation>Détruire</translation>
+        <translation type="obsolete">Détruire</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Duplicate</source>
-        <translation>Dupliquer</translation>
+        <translation type="obsolete">Dupliquer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Create certificate</source>
-        <translation>Créer un certificat</translation>
+        <translation type="obsolete">Créer un certificat</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Create request</source>
-        <translation>Créer une requête</translation>
+        <translation type="obsolete">Créer une requête</translation>
     </message>
 </context>
 <context>
     <name>db_x509</name>
     <message>
-        <location filename="../lib/db_x509.cpp" line="+42"/>
-        <location line="+626"/>
+        <location filename="../lib/db_x509.cpp" line="+57"/>
         <source>CA</source>
         <translation>CA</translation>
     </message>
     <message>
-        <location line="-625"/>
+        <location line="+1"/>
         <source>reflects the basic Constraints extension</source>
         <translation>reflète l&apos;extension des contraintes basiques</translation>
     </message>
@@ -3157,7 +3496,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+103"/>
         <source>Plain View</source>
         <translation>Vue à plat</translation>
     </message>
@@ -3167,7 +3506,7 @@ Cela détruirait la clé &apos;%1&apos; et la rendrait non-exportable.</translat
         <translation>Vue arborescente</translation>
     </message>
     <message>
-        <location line="+185"/>
+        <location line="+178"/>
         <source>The certificate already exists in the database as:
 &apos;%1&apos;
 and so it was not imported</source>
@@ -3176,7 +3515,7 @@ and so it was not imported</source>
 En conséquence, il n&apos;a pas été importé</translation>
     </message>
     <message>
-        <location line="+142"/>
+        <location line="+133"/>
         <source>Invalid public key</source>
         <translation>Clé publique invalide</translation>
     </message>
@@ -3201,132 +3540,107 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Enregistrer le certificate avec la clé sur le jeton &apos;%1 (#%2)&apos; ?</translation>
     </message>
     <message>
-        <location line="+53"/>
         <source>New Certificate</source>
-        <translation>Nouveau Certificat</translation>
+        <translation type="obsolete">Nouveau Certificat</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Import PKCS#12</source>
-        <translation>Importer en PKCS#12</translation>
+        <translation type="obsolete">Importer en PKCS#12</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Import from PKCS#7</source>
-        <translation>Importer en PKCS#7</translation>
+        <translation type="obsolete">Importer en PKCS#7</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation type="obsolete">Renommer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show Details</source>
-        <translation>Afficher les Détails</translation>
+        <translation type="obsolete">Afficher les Détails</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Export</source>
-        <translation>Exporter</translation>
+        <translation type="obsolete">Exporter</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Clipboard</source>
-        <translation>Presse-papier</translation>
+        <translation type="obsolete">Presse-papier</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>File</source>
-        <translation>Fichier</translation>
+        <translation type="obsolete">Fichier</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Request</source>
-        <translation>Requête</translation>
+        <translation type="obsolete">Requête</translation>
     </message>
     <message>
-        <location line="-11"/>
         <source>Security token</source>
-        <translation>Jeton de sécurité</translation>
+        <translation type="obsolete">Jeton de sécurité</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Other token</source>
-        <translation>Autre jeton</translation>
+        <translation type="obsolete">Autre jeton</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Template</source>
-        <translation>Modèle</translation>
+        <translation type="obsolete">Modèle</translation>
     </message>
     <message>
-        <location line="-12"/>
         <source>OpenSSL config</source>
-        <translation>Configuration OpenSSL</translation>
+        <translation type="obsolete">Configuration OpenSSL</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Transform</source>
-        <translation>Transformer</translation>
+        <translation type="obsolete">Transformer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Public Key</source>
-        <translation>Clé publique</translation>
+        <translation type="obsolete">Clé publique</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Similar Certificate</source>
-        <translation>Certificat similaire</translation>
+        <translation type="obsolete">Certificat similaire</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Delete</source>
-        <translation>Enlever</translation>
+        <translation type="obsolete">Enlever</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete from Security token</source>
-        <translation>Détruire sur le jeton de sécurité</translation>
+        <translation type="obsolete">Détruire sur le jeton de sécurité</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Trust</source>
-        <translation>Niveau de confiance</translation>
+        <translation type="obsolete">Niveau de confiance</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Properties</source>
-        <translation>Propriétés</translation>
+        <translation type="obsolete">Propriétés</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Generate CRL</source>
-        <translation>Générer la liste de révocation</translation>
+        <translation type="obsolete">Générer la liste de révocation</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Renewal</source>
-        <translation>Renouvellement</translation>
+        <translation type="obsolete">Renouvellement</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Unrevoke</source>
-        <translation>Dé-révoquer</translation>
+        <translation type="obsolete">Dé-révoquer</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>Revoke</source>
-        <translation>Révoquer</translation>
+        <translation type="obsolete">Révoquer</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+73"/>
         <source>PEM chain</source>
         <translation>Chaîne en PEM</translation>
     </message>
@@ -3376,7 +3690,7 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Certificats X509 ( *.pem *.cer *.crt *.p12 *.p7b)</translation>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+57"/>
         <location line="+34"/>
         <source>There was no key found for the Certificate: &apos;%1&apos;</source>
         <translation>Aucune clé n&apos;a été trouvée pour le Certificat. &apos;%1&apos;</translation>
@@ -3392,7 +3706,7 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Impossible pour le certificat d&apos;une clé d&apos;un jeton de sécurité: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location line="+265"/>
+        <location line="+330"/>
         <source> days</source>
         <translation> jours</translation>
     </message>
@@ -3452,7 +3766,7 @@ and thus was not stored</source>
 En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+105"/>
         <source>Certificate request export</source>
         <translation>Exporter la requête de signature</translation>
     </message>
@@ -3462,74 +3776,60 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Requête de signature de certificat ( *.pem *.der *.csr )</translation>
     </message>
     <message>
-        <location line="+34"/>
         <source>New Request</source>
-        <translation>Nouvelle requête</translation>
+        <translation type="obsolete">Nouvelle requête</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Rename</source>
-        <translation>Renommer</translation>
+        <translation type="obsolete">Renommer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show Details</source>
-        <translation>Afficher les Détails</translation>
+        <translation type="obsolete">Afficher les Détails</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Sign</source>
-        <translation>Signer</translation>
+        <translation type="obsolete">Signer</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Export</source>
-        <translation>Exporter</translation>
+        <translation type="obsolete">Exporter</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Clipboard</source>
-        <translation>Presse-papier</translation>
+        <translation type="obsolete">Presse-papier</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>File</source>
-        <translation>Fichier</translation>
+        <translation type="obsolete">Fichier</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Transform</source>
-        <translation>Transformer</translation>
+        <translation type="obsolete">Transformer</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Template</source>
-        <translation>Modèle</translation>
+        <translation type="obsolete">Modèle</translation>
     </message>
     <message>
-        <location line="-5"/>
         <source>OpenSSL config</source>
-        <translation>Configuration OpenSSL</translation>
+        <translation type="obsolete">Configuration OpenSSL</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Public Key</source>
-        <translation>Clé publique</translation>
+        <translation type="obsolete">Clé publique</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Similar Request</source>
-        <translation>Requête similaire</translation>
+        <translation type="obsolete">Requête similaire</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Delete</source>
-        <translation>Enlever</translation>
+        <translation type="obsolete">Enlever</translation>
     </message>
 </context>
 <context>
@@ -3550,7 +3850,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Algorithme de signature</translation>
     </message>
     <message>
-        <location line="+76"/>
+        <location line="+77"/>
         <source>Save as OpenSSL config</source>
         <translation>Enregistrer en format de configuration OpenSSL</translation>
     </message>
@@ -3648,7 +3948,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+54"/>
-        <location line="+207"/>
+        <location line="+217"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
@@ -3802,7 +4102,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
 <context>
     <name>pki_multi</name>
     <message>
-        <location filename="../lib/pki_multi.cpp" line="+125"/>
+        <location filename="../lib/pki_multi.cpp" line="+129"/>
         <location line="+5"/>
         <location line="+5"/>
         <source>Seek failed</source>
@@ -3965,30 +4265,48 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+220"/>
+        <location line="+280"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
     <message>
-        <location line="-127"/>
+        <location line="-194"/>
+        <source>Template file content error (too small)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Template file content error (bad size)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>Template file content error (too small): %1</source>
         <translation>erreur de contenu du fichier de modèle (trop petit): %1</translation>
     </message>
     <message>
-        <location line="+17"/>
-        <source>Template file content error (bad size): %1 </source>
-        <translation>erreur de contenu du fichier de modèle (mauvaise taille): %1 </translation>
+        <location line="+33"/>
+        <source>Not a PEM encoded XCA Template</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+7"/>
+        <source>Not an XCA Template, but &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template file content error (bad size): %1 </source>
+        <translation type="obsolete">erreur de contenu du fichier de modèle (mauvaise taille): %1 </translation>
+    </message>
+    <message>
         <source>Template file content error (bad length) :%1</source>
-        <translation>erreur de contenu du fichier de modèle (mauvaise longueur): %1</translation>
+        <translation type="obsolete">erreur de contenu du fichier de modèle (mauvaise longueur): %1</translation>
     </message>
 </context>
 <context>
     <name>pki_x509</name>
     <message>
-        <location filename="../lib/pki_x509.cpp" line="+72"/>
+        <location filename="../lib/pki_x509.cpp" line="+71"/>
         <source>Successfully imported the certificate &apos;%1&apos;</source>
         <translation>Le certificat &apos;%1&apos; a été importée avec succès</translation>
     </message>
@@ -4013,7 +4331,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Impossible de charge le certificat du fichier %1. Les formats PEM et DER ont été essayés.</translation>
     </message>
     <message>
-        <location line="+174"/>
+        <location line="+170"/>
         <source>This certificate is already on the security token</source>
         <translation>Ce certificat est déjà dans le jeton de sécurité</translation>
     </message>
@@ -4023,18 +4341,18 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Détruire le certificat &apos;%1&apos; sur le jeton &apos;%2 (#%3)&apos; ?</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+129"/>
         <source>There is no key for signing !</source>
         <translation>Il n&apos;y a pas de clé pour signer !</translation>
     </message>
     <message>
-        <location line="+38"/>
-        <location line="+508"/>
+        <location line="+58"/>
+        <location line="+533"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="-203"/>
         <source>Not trusted</source>
         <translation>Pas sûr</translation>
     </message>
@@ -4179,7 +4497,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <translation>Pas de modification possible. Seul &apos;copy&apos; est permis ici</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+67"/>
         <source>Validation failed:
 &apos;%1&apos;
 %2</source>
