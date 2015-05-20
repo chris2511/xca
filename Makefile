@@ -33,9 +33,7 @@ APPDIR=$(DMGSTAGE)/xca.app/Contents
 OSSLSIGN_OPT=sign -pkcs12 "$(HOME)"/Christian_Hohnstaedt.p12 -askpass \
 	-n "XCA $(VERSION)" -i https://sourceforge.net/projects/xca/ \
 	-t http://time.certum.pl -h sha2 -verbose
-ifeq ($(OSSLSIGN),)
- OSSLSIGN=:
-endif
+
 all: xca_db_stat$(SUFFIX)
 ifeq ($(SUFFIX), .exe)
 all: setup$(SUFFIX)
@@ -138,14 +136,18 @@ setup.exe: setup_xca-$(VERSION).exe
 setup_xca-$(VERSION).exe: xca$(SUFFIX) xca_db_stat$(SUFFIX) do.doc do.lang
 setup_xca-$(VERSION).exe: misc/xca.nsi
 	for binary in xca$(SUFFIX) xca_db_stat$(SUFFIX); do \
-	  $(STRIP) xca$(SUFFIX) && \
-	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in $${binary} -out $${binary}.signed && \
+	  $(STRIP) xca$(SUFFIX); \
+	  if test -n "$(OSSLSIGN)"; then \
+	    $(OSSLSIGN) $(OSSLSIGN_OPT) -in $${binary} -out $${binary}.signed && \
 		mv $${binary}.signed $${binary}; \
+	  fi; \
 	done
 	$(MAKENSIS) -DINSTALLDIR=$(INSTALL_DIR) -DQTDIR=$(QTDIR) \
 		-DVERSION=$(VERSION) -DBDIR=$(BDIR) -DTOPDIR=$(TOPDIR)\
 		-NOCD -V2 -DEXTRA_VERSION=${EXTRA_VERSION} $<
-	$(OSSLSIGN) $(OSSLSIGN_OPT) -in $@ -out setup.tmp && mv setup.tmp $@
+	if test -n "$(OSSLSIGN)"; then \
+	  $(OSSLSIGN) $(OSSLSIGN_OPT) -in $@ -out setup.tmp && mv setup.tmp $@; \
+	fi
 
 
 $(DMGSTAGE): xca$(SUFFIX) xca_db_stat$(SUFFIX)

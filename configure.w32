@@ -33,6 +33,10 @@ please look at INSTALL.w32
 EOF
 fi
 
+if test -x "`type osslsigncode`" && test -f "${HOME}/Christian_Hohnstaedt.p12"; then
+  OSSLSIGN=osslsigncode
+fi
+
 cat > Local.mak << EOF
 export TOPDIR=$TOPDIR
 export VERSION=$VERSION
@@ -77,7 +81,7 @@ STRIP=\$(CROSS)strip
 WINDRES=\$(CROSS)windres
 SUFFIX=.exe
 DOCTOOL=linuxdoc -B html
-OSSLSIGN=osslsigncode
+OSSLSIGN=$OSSLSIGN
 
 prefix=
 basedir=
