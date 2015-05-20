@@ -362,7 +362,7 @@ BIO *pki_temp::pem(BIO *b, int format)
 	QByteArray ba = toExportData();
         if (!b)
 		b = BIO_new(BIO_s_mem());
-#if OPENSSL_VERSION_NUMBER < 0x10000000L
+#if OPENSSL_VERSION_NUMBER < 0x10002000L
 	PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, (char*)"",
 		(unsigned char*)(ba.data()), ba.size());
 #else
