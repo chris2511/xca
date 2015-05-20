@@ -8,6 +8,7 @@
 #ifndef __FUNC_H
 #define __FUNC_H
 
+#include <stdio.h>
 #include <openssl/asn1.h>
 #include <QtGui/QPixmap>
 #include <QtCore/QByteArray>
@@ -42,7 +43,6 @@ void inc_progress_bar(int, int, void *p);
 extern bool translate_dn;
 extern QMap<int, QString> dn_translations;
 void dn_translations_setup();
-
 #define openssl_error(x) _openssl_error(QString(x), C_FILE, __LINE__)
 #define ign_openssl_error(x) _ign_openssl_error(QString(x), C_FILE, __LINE__)
 void _openssl_error(const QString txt, const char *file, int line);
@@ -57,4 +57,15 @@ BIO *BIO_QBA_mem_buf(QByteArray &a);
 #define D2I_VOID(a) ((void *(*)(void *, unsigned char **, long))(a))
 
 #define QString2filename(str) filename2bytearray(str).constData()
+
+static inline FILE *fopen_read(QString s)
+{
+	return fopen(QString2filename(s), "rb");
+}
+
+static inline FILE *fopen_write(QString s)
+{
+	return fopen(QString2filename(s), "wb");
+}
+
 #endif

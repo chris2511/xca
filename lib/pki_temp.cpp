@@ -342,7 +342,7 @@ QByteArray pki_temp::toExportData()
 
 void pki_temp::writeTemp(QString fname)
 {
-	FILE *fp = fopen(QString2filename(fname),"wb");
+	FILE *fp = fopen_write(fname);
 
 	if (fp == NULL) {
 		fopen_error(fname);
@@ -362,8 +362,13 @@ BIO *pki_temp::pem(BIO *b, int format)
 	QByteArray ba = toExportData();
         if (!b)
 		b = BIO_new(BIO_s_mem());
+#if OPENSSL_VERSION_NUMBER < 0x10000000L
+	PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, (char*)"",
+		(unsigned char*)(ba.data()), ba.size());
+#else
 	PEM_write_bio(b, PEM_STRING_XCA_TEMPLATE, "",
-		(unsigned char*)ba.data(), ba.size());
+		(const unsigned char*)(ba.constData()), ba.size());
+#endif
 	pki_openssl_error();
 	return b;
 }

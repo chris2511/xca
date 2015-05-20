@@ -93,7 +93,7 @@ void pki_x509::fromPEM_BIO(BIO *bio, QString name)
 
 void pki_x509::fload(const QString fname)
 {
-	FILE *fp = fopen(QString2filename(fname), "r");
+	FILE *fp = fopen_read(fname);
 	X509 *_cert;
 	if (!fp) {
 		fopen_error(fname);
@@ -566,9 +566,9 @@ void pki_x509::writeDefault(const QString fname)
 void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 {
 	FILE *fp;
-	const char *p = "w";
+	const char *p = "wb";
 	if (append)
-		p = "a";
+		p = "ab";
 	fp = fopen(QString2filename(fname), p);
 	if (fp != NULL) {
 		if (cert){

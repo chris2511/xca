@@ -100,7 +100,7 @@ void pki_pkcs7::signCert(pki_x509 *crt, pki_x509 *contCert)
 void pki_pkcs7::writeP7(QString fname,bool PEM)
 {
 	FILE *fp;
-	fp = fopen(QString2filename(fname),"w");
+	fp = fopen_write(fname);
 	if (fp != NULL) {
 		if (p7){
 			if (PEM)
@@ -145,7 +145,7 @@ void pki_pkcs7::fload(const QString fname)
 {
 	FILE *fp;
 	PKCS7 *_p7;
-	fp = fopen(QString2filename(fname), "rb");
+	fp = fopen_read(fname);
 	if (fp) {
 		_p7 = PEM_read_PKCS7(fp, NULL, NULL, NULL);
 		if (!_p7) {

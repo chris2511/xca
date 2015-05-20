@@ -879,7 +879,7 @@ void MainWindow::generateDHparam()
 			fname, "All files ( * )", NULL);
 		if (fname == "")
 			throw errorEx("");
-		fp = fopen(QString2filename(fname), "w");
+		fp = fopen_write(fname);
 		if (fp == NULL) {
 			throw errorEx(tr("Error opening file: '%1': %2").
 				arg(fname).arg(strerror(errno)));

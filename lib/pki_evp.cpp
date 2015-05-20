@@ -240,7 +240,7 @@ void pki_evp::fload(const QString fname)
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the private key from file:\n%1").
 		arg(compressFilename(fname)));
 	pem_password_cb *cb = PwDialog::pwCallback;
-	FILE *fp = fopen(QString2filename(fname), "r");
+	FILE *fp = fopen_read(fname);
 	EVP_PKEY *pkey;
 
 	pki_ign_openssl_error();
@@ -561,7 +561,7 @@ void pki_evp::writePKCS8(const QString fname, const EVP_CIPHER *enc,
 {
 	EVP_PKEY *pkey;
 	pass_info p(XCA_TITLE, tr("Please enter the password protecting the PKCS#8 key '%1'").arg(getIntName()));
-	FILE *fp = fopen(QString2filename(fname), "w");
+	FILE *fp = fopen_write(fname);
 	if (fp != NULL) {
 		if (key) {
 			pkey = decryptKey();
@@ -600,7 +600,7 @@ void pki_evp::writeKey(const QString fname, const EVP_CIPHER *enc,
 		writePublic(fname, pem);
 		return;
 	}
-	FILE *fp = fopen(QString2filename(fname), "w");
+	FILE *fp = fopen_write(fname);
 	if (!fp) {
 		fopen_error(fname);
 		return;

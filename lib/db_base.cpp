@@ -97,7 +97,7 @@ int db_base::handleBadEntry(unsigned char *p, db_header_t *head)
 
 	size_t l;
 	db_header_t h;
-	FILE *fp = fopen(QString2filename(s), "wb");
+	FILE *fp = fopen_write(s);
 	if (!fp) {
 		throw errorEx(tr("Error opening file: '%1': %2").
                         arg(s).arg(strerror(errno)), class_name);
@@ -637,7 +637,7 @@ void db_base::store(QModelIndexList indexes)
 	mainwin->setPath(s.mid(0, s.lastIndexOf(QRegExp("[/\\\\]")) ));
 	try {
 		QString pem = pem2QString(indexes);
-		FILE *fp = fopen(QString2filename(s), "wb");
+		FILE *fp = fopen_write(s);
 		if (!fp) {
 			throw errorEx(tr("Error opening file: '%1': %2").
 				arg(s).arg(strerror(errno)), class_name);

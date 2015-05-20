@@ -26,7 +26,7 @@ static void readOIDs(QString fname)
 	int line = 0;
 	QStringList sl;
 
-	fp = fopen(QString2filename(fname), "r");
+	fp = fopen_read(fname);
 	if (fp == NULL)
 		return;
 
@@ -92,7 +92,7 @@ NIDlist readNIDlist(QString fname)
 	int line = 0, nid;
 	NIDlist nl;
 	nl.clear();
-	fp = fopen(QString2filename(fname), "r");
+	fp = fopen_read(fname);
 	if (fp == NULL) return nl;
 	while (fgets(buff, 127, fp)) {
 		line++;

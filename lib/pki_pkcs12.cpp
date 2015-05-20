@@ -36,7 +36,7 @@ pki_pkcs12::pki_pkcs12(const QString fname)
 	class_name="pki_pkcs12";
 	certstack = sk_X509_new_null();
 	pass_info p(XCA_TITLE, tr("Please enter the password to decrypt the PKCS#12 file:\n%1").arg(compressFilename(fname)));
-	fp = fopen(QString2filename(fname), "rb");
+	fp = fopen_read(fname);
 	if (fp) {
 		PKCS12 *pkcs12 = d2i_PKCS12_fp(fp, NULL);
 		fclose(fp);
@@ -114,7 +114,7 @@ void pki_pkcs12::writePKCS12(const QString fname)
 		my_error(tr("No key or no Cert and no pkcs12"));
 	}
 
-	FILE *fp = fopen(QString2filename(fname), "wb");
+	FILE *fp = fopen_write(fname);
 	if (fp != NULL) {
 		if (PwDialog::execute(&p, &pass, true) != 1) {
 			fclose(fp);

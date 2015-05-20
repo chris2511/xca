@@ -54,7 +54,7 @@ QString pki_crl::getMsg(msg_type msg)
 
 void pki_crl::fload(const QString fname)
 {
-	FILE *fp = fopen(QString2filename(fname), "r");
+	FILE *fp = fopen_read(fname);
 	X509_CRL *_crl;
 	if (fp != NULL) {
 		_crl = PEM_read_X509_CRL(fp, NULL, NULL, NULL);
@@ -198,7 +198,7 @@ void pki_crl::writeDefault(const QString fname)
 
 void pki_crl::writeCrl(const QString fname, bool pem)
 {
-	FILE *fp = fopen(QString2filename(fname), "w");
+	FILE *fp = fopen_write(fname);
 	if (fp != NULL) {
 		if (crl){
 			if (pem)

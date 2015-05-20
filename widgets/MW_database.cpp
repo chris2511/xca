@@ -243,8 +243,8 @@ int MainWindow::open_default_db()
 {
 	if (!dbfile.isEmpty())
 		return 0;
-	FILE *fp = fopen(QString2filename(getUserSettingsDir() +
-					QDir::separator() + "defaultdb"), "r");
+	FILE *fp = fopen_read(getUserSettingsDir() +
+			QDir::separator() + "defaultdb");
 	if (!fp)
 		return 0;
 
@@ -273,7 +273,7 @@ void MainWindow::default_database()
 	}
 	d.mkpath(dir);
 
-	fp = fopen(QString2filename(file), "w");
+	fp = fopen_write(file);
 	if (fp) {
 		QByteArray ba;
 		ba = filename2bytearray(fi.canonicalFilePath() + "\n");

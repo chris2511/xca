@@ -127,7 +127,7 @@ void pki_x509super::opensslConf(QString fname)
 		"%2").arg(name).arg(extensions).
 			arg(ASN1_STRING_get_default_mask(), 0, 16);
 
-	FILE *fp = fopen(QString2filename(fname),"w");
+	FILE *fp = fopen_write(fname);
 	if (fp == NULL) {
 		fopen_error(fname);
 		return;

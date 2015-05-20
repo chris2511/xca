@@ -98,7 +98,7 @@ void pki_multi::fload(const QString fname)
 	FILE * fp;
 	BIO *bio = NULL;
 
-	fp = fopen(QString2filename(fname), "r");
+	fp = fopen_read(fname);
 	if (!fp) {
 		fopen_error(fname);
 		return;
@@ -151,6 +151,8 @@ void pki_multi::fromPEM_BIO(BIO *bio, QString name)
 			item = NULL;
 		}
 	}
+	if (multi.size() == 0)
+		throw errorEx(tr("No known PEM encoded items found"));
 }
 
 void pki_multi::probeAnything(const QString fname)
