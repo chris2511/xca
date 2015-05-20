@@ -33,7 +33,7 @@ please look at INSTALL.w32
 EOF
 fi
 
-if test -x "`type osslsigncode`" && test -f "${HOME}/Christian_Hohnstaedt.p12"; then
+if test -x "`which osslsigncode`" && test -f "${HOME}/Christian_Hohnstaedt.p12"; then
   OSSLSIGN=osslsigncode
 fi
 
