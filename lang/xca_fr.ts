@@ -2667,7 +2667,7 @@ Dans la bibliothèque %3
         <translation>Enlever</translation>
     </message>
     <message>
-        <location filename="../widgets/RevocationList.cpp" line="+70"/>
+        <location filename="../widgets/RevocationList.cpp" line="+71"/>
         <source>No.</source>
         <translation>No.</translation>
     </message>
@@ -2893,7 +2893,7 @@ Dans la bibliothèque %3
     <message>
         <location line="+28"/>
         <source>New</source>
-        <translation>Nouvelle clé</translation>
+        <translation>Créer</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3344,7 +3344,7 @@ En conséquence, il n&apos;a pas été importé</translation>
         <translation>Enregistrer le certificate avec la clé sur le jeton &apos;%1 (#%2)&apos; ?</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+80"/>
         <source>PEM chain</source>
         <translation>Chaîne en PEM</translation>
     </message>
@@ -3756,6 +3756,11 @@ En conséquence, elle n&apos;a pas été chargée</translation>
         <source>Seek failed</source>
         <translation>Un &quot;seek&quot; a échoué</translation>
     </message>
+    <message>
+        <location line="+16"/>
+        <source>No known PEM encoded items found</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>pki_pkcs12</name>
@@ -3913,7 +3918,7 @@ En conséquence, elle n&apos;a pas été chargée</translation>
     </message>
     <message>
         <location line="+189"/>
-        <location line="+280"/>
+        <location line="+285"/>
         <source>Wrong Size %1</source>
         <translation>Taille fausse %1</translation>
     </message>

@@ -2444,7 +2444,7 @@ msgstr "Colonnes"
 
 #: XcaTreeView#6
 msgid "New"
-msgstr "Nouvelle clé"
+msgstr "Créer"
 
 #: XcaTreeView#7
 msgid "Import"
