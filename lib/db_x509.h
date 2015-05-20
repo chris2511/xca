@@ -60,6 +60,7 @@ class db_x509: public db_x509super
 		a1int getUniqueSerial(pki_x509 *signer);
 		void toToken(QModelIndex idx, bool alwaysSelect);
 		void toRequest(QModelIndex idx);
+		void store(QModelIndex idx);
 		void store(QModelIndexList list);
 		void showPki(pki_base *pki);
 		void load();

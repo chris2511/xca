@@ -607,6 +607,13 @@ void db_x509::showPki(pki_base *pki)
 	}
 }
 
+void db_x509::store(QModelIndex idx)
+{
+	QModelIndexList l;
+	l << idx;
+	store(l);
+}
+
 void db_x509::store(QModelIndexList list)
 {
 	QStringList filt;
