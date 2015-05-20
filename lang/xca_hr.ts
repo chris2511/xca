@@ -284,7 +284,7 @@
     <message>
         <location line="+26"/>
         <source>Revoke old certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Opozovi staru potvrdu</translation>
     </message>
     <message>
         <location line="-33"/>
@@ -343,77 +343,77 @@
     <message>
         <location filename="../widgets/CertTreeView.cpp" line="+25"/>
         <source>Import PKCS#12</source>
-        <translation type="unfinished">Uvezi PKCS#12</translation>
+        <translation>Uvezi PKCS#12</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import from PKCS#7</source>
-        <translation type="unfinished">Uvezi PKCS#7</translation>
+        <translation>Uvezi PKCS#7</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Request</source>
-        <translation type="unfinished">Zahtjev</translation>
+        <translation>Zahtjev</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Security token</source>
-        <translation type="unfinished">Pametni token</translation>
+        <translation>Pametni token</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Other token</source>
-        <translation type="unfinished">Drugi token</translation>
+        <translation>Drugi token</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Similar Certificate</source>
-        <translation type="unfinished">Slična potvrda</translation>
+        <translation>Slična potvrda</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Delete from Security token</source>
-        <translation type="unfinished">Obriši s pametnog tokena</translation>
+        <translation>Obriši s pametnog tokena</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>CA</source>
-        <translation type="unfinished">CA</translation>
+        <translation>CA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Properties</source>
-        <translation type="unfinished">Osobine</translation>
+        <translation>Osobine</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Generate CRL</source>
-        <translation type="unfinished">Izradi CRL</translation>
+        <translation>Izradi CRL</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Manage revocations</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravljaj opozivima</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Trust</source>
-        <translation type="unfinished">Povjerenje</translation>
+        <translation>Povjerenje</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Renewal</source>
-        <translation type="unfinished">Obnovi</translation>
+        <translation>Obnovi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Revoke</source>
-        <translation type="unfinished">Opozovi</translation>
+        <translation>Opozovi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unrevoke</source>
-        <translation type="unfinished">Nemoj opozvat</translation>
+        <translation>Nemoj opozvat</translation>
     </message>
 </context>
 <context>
@@ -626,7 +626,7 @@ PEM je base64 kodirana DER datoteka</translation>
     <message>
         <location line="+2"/>
         <source>Concatenated list of all selected items in one PEM text file</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista svih odabranih stavki spojena u jednu PEM datoteku</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -668,7 +668,7 @@ PEM je base64 kodirana DER datoteka</translation>
     <message>
         <location line="+2"/>
         <source>All selected certificates encoded in one PKCS#7 file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sve odabrane potvrde kodirane u jednoj PKCS#7 datoteci</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1015,39 +1015,39 @@ Serijski broj: %3</translation>
     <message>
         <location filename="../widgets/KeyTreeView.cpp" line="+28"/>
         <source>Change password</source>
-        <translation type="unfinished">Promjena zaporke</translation>
+        <translation>Promjena zaporke</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Reset password</source>
-        <translation type="unfinished">Postavi početnu zaporku</translation>
+        <translation>Postavi početnu zaporku</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Change PIN</source>
-        <translation type="unfinished">Promijeni PIN</translation>
+        <translation>Promijeni PIN</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Init PIN with SO PIN (PUK)</source>
-        <translation type="unfinished">Pripremi PIN pomoću SO PIN (PUK)</translation>
+        <translation>Pripremi PIN pomoću SO PIN (PUK)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Change SO PIN (PUK)</source>
-        <translation type="unfinished">Promijeni SO PIN (PUK)</translation>
+        <translation>Promijeni SO PIN (PUK)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Security token</source>
-        <translation type="unfinished">Pametni token</translation>
+        <translation>Pametni token</translation>
     </message>
     <message>
         <location line="+33"/>
         <location line="+18"/>
         <location line="+18"/>
         <source>This is not a token</source>
-        <translation type="unfinished"></translation>
+        <translation>Ovo nije token</translation>
     </message>
     <message>
         <source>Tried to change PIN of a key</source>
@@ -1065,7 +1065,7 @@ Serijski broj: %3</translation>
         <location line="+28"/>
         <source>Shall the original key &apos;%1&apos; be replaced by the key on the token?
 This will delete the key &apos;%1&apos; and make it unexportable</source>
-        <translation type="unfinished">Da li da originalni ključ &apos;%1&apos; treba biti zamijenjen ključem s tokena?
+        <translation>Da li da originalni ključ &apos;%1&apos; treba biti zamijenjen ključem s tokena?
 To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     </message>
 </context>
@@ -1469,17 +1469,17 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="+53"/>
         <source>Current Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Trenutna zaporka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Please enter the current database password</source>
-        <translation type="unfinished"></translation>
+        <translation>Unesite trenutnu zaporku baze podataka</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>The entered password is wrong</source>
-        <translation type="unfinished"></translation>
+        <translation>Unesena zaporka je neispravna</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1594,7 +1594,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="+58"/>
         <source>Hash algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritam sažetka</translation>
     </message>
     <message>
         <source>Hashing algorithm</source>
@@ -1617,7 +1617,7 @@ Unesite bitove za DH parametre</translation>
     <message>
         <location line="-19"/>
         <source>Options</source>
-        <translation type="unfinished">Opcije</translation>
+        <translation>Opcije</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -2928,12 +2928,12 @@ U knjižnici %3
     <message>
         <location filename="../widgets/ReqTreeView.cpp" line="+23"/>
         <source>Sign</source>
-        <translation type="unfinished">Potpiši</translation>
+        <translation>Potpiši</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Similar Request</source>
-        <translation type="unfinished">Sličan zahtjev</translation>
+        <translation>Sličan zahtjev</translation>
     </message>
 </context>
 <context>
@@ -2941,47 +2941,47 @@ U knjižnici %3
     <message>
         <location filename="../ui/RevocationList.ui" line="+30"/>
         <source>Manage revocations</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravljaj opozivima</translation>
     </message>
     <message>
         <location line="+66"/>
         <source>Add</source>
-        <translation type="unfinished">Dodaj</translation>
+        <translation>Dodaj</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Obriši</translation>
     </message>
     <message>
         <location filename="../widgets/RevocationList.cpp" line="+70"/>
         <source>No.</source>
-        <translation type="unfinished">Br.</translation>
+        <translation>Br.</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Serial</source>
-        <translation type="unfinished">Serijski broj</translation>
+        <translation>Serijski broj</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Revocation</source>
-        <translation type="unfinished">Opoziv</translation>
+        <translation>Opoziv</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Reason</source>
-        <translation type="unfinished">Razlog</translation>
+        <translation>Razlog</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Invalidation</source>
-        <translation type="unfinished">Poništenje</translation>
+        <translation>Poništenje</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Generate CRL</source>
-        <translation type="unfinished">Izradi CRL</translation>
+        <translation>Izradi CRL</translation>
     </message>
 </context>
 <context>
@@ -3004,7 +3004,7 @@ U knjižnici %3
     <message>
         <location line="-80"/>
         <source>Certificate revocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Opoziv potvrde</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -3014,7 +3014,7 @@ U knjižnici %3
     <message>
         <location line="+28"/>
         <source>Serial</source>
-        <translation type="unfinished">Serijski broj</translation>
+        <translation>Serijski broj</translation>
     </message>
 </context>
 <context>
@@ -3073,22 +3073,22 @@ U knjižnici %3
     <message>
         <location filename="../widgets/TempTreeView.cpp" line="+20"/>
         <source>Duplicate</source>
-        <translation type="unfinished">Podvostruči</translation>
+        <translation>Podvostruči</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Create certificate</source>
-        <translation type="unfinished">Izradi potvrdu</translation>
+        <translation>Izradi potvrdu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Create request</source>
-        <translation type="unfinished">Izradi zahtjev</translation>
+        <translation>Izradi zahtjev</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>copy</source>
-        <translation type="unfinished">kopiraj</translation>
+        <translation>kopiraj</translation>
     </message>
 </context>
 <context>
@@ -3100,7 +3100,7 @@ U knjižnici %3
     <message>
         <location filename="../ui/TrustState.ui" line="+33"/>
         <source>Certificate trust</source>
-        <translation type="unfinished"></translation>
+        <translation>Povjerenje u potvrdu</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -3136,22 +3136,22 @@ U knjižnici %3
     <message>
         <location filename="../widgets/X509SuperTreeView.cpp" line="+25"/>
         <source>OpenSSL config</source>
-        <translation type="unfinished">OpenSSL konfiguracija</translation>
+        <translation>OpenSSL konfiguracija</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Transform</source>
-        <translation type="unfinished">Preobrazi</translation>
+        <translation>Preobrazi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Template</source>
-        <translation type="unfinished">Predložak</translation>
+        <translation>Predložak</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Public Key</source>
-        <translation type="unfinished">Javni ključ</translation>
+        <translation>Javni ključ</translation>
     </message>
 </context>
 <context>
@@ -3159,67 +3159,67 @@ U knjižnici %3
     <message>
         <location filename="../widgets/XcaTreeView.cpp" line="+282"/>
         <source>Subject entries</source>
-        <translation type="unfinished">Stavke subjekta</translation>
+        <translation>Stavke subjekta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>X509v3 Extensions</source>
-        <translation type="unfinished">X509v3 Proširenja</translation>
+        <translation>X509v3 Proširenja</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Netscape extensions</source>
-        <translation type="unfinished">Netscape proširenja</translation>
+        <translation>Netscape proširenja</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset</source>
-        <translation type="unfinished">Vrati na početak</translation>
+        <translation>Vrati na početak</translation>
     </message>
     <message>
         <location line="+47"/>
         <source>Columns</source>
-        <translation type="unfinished">Stupci</translation>
+        <translation>Stupci</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Novo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Import</source>
-        <translation type="unfinished">Uvezi</translation>
+        <translation>Uvezi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Paste PEM data</source>
-        <translation type="unfinished">Zalijepi PEM podatke</translation>
+        <translation>Zalijepi PEM podatke</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Rename</source>
-        <translation type="unfinished">Preimenuj</translation>
+        <translation>Preimenuj</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Obriši</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Export</source>
-        <translation type="unfinished">Izvoz</translation>
+        <translation>Izvezi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Clipboard</source>
-        <translation type="unfinished">Clipboard</translation>
+        <translation>Clipboard</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>File</source>
-        <translation type="unfinished">Datoteka</translation>
+        <translation>Datoteka</translation>
     </message>
 </context>
 <context>
@@ -3278,27 +3278,27 @@ Veličina: %3
     <message>
         <location line="+404"/>
         <source>How to export the %1 selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Kako da izvezemo %1 odabranih stavki</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>All in one PEM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sve u jednoj PEM datoteci</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Each item in one file</source>
-        <translation type="unfinished"></translation>
+        <translation>Svaka stavka u zasebnoj datoteci</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Save %1 items in one file as</source>
-        <translation type="unfinished"></translation>
+        <translation>Spremi %1 stavki u jednoj datoteci kao</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>PEM Files( *.pem );; All files ( * )</source>
-        <translation type="unfinished"></translation>
+        <translation>PEM datoteke (*.pem);; Sve datoteke ( * )</translation>
     </message>
     <message>
         <source>Subject entries</source>
@@ -3379,12 +3379,12 @@ i zbog toga nije uvezen</translation>
     <message>
         <location line="+59"/>
         <source>There are no CA certificates for CRL generation</source>
-        <translation type="unfinished"></translation>
+        <translation>Nema CA potvrda za izradu liste opozvanih potvrda</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Select CA certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Odaberi CA potvrdu</translation>
     </message>
     <message>
         <location line="-68"/>
@@ -3559,7 +3559,7 @@ To će obrisati ključ &apos;%1&apos; i zabraniti njegov izvoz </translation>
     <message>
         <location line="-31"/>
         <source>Export keys to Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvezi ključeve u Clipboard</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -4735,12 +4735,12 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="-194"/>
         <source>Template file content error (too small)</source>
-        <translation type="unfinished"></translation>
+        <translation>Greška u sadržaju datoteke predloška (prekratka)</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Template file content error (bad size)</source>
-        <translation type="unfinished"></translation>
+        <translation>Greška u sadržaju datoteke predloška (pogrešna dužina)</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -4750,12 +4750,12 @@ i zbog toga nije spreman</translation>
     <message>
         <location line="+33"/>
         <source>Not a PEM encoded XCA Template</source>
-        <translation type="unfinished"></translation>
+        <translation>To nije PEM kodirani XCA Predložak</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Not an XCA Template, but &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>To nije XCA Predložak, već &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Template file content error (bad size): %1 </source>
