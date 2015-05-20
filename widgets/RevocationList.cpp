@@ -10,7 +10,7 @@
 #include "lib/asn1int.h"
 #include "lib/pki_x509.h"
 
-enum revCol { Cnumber, Cserial, Cdate, Creason, CiDate };
+enum revCol { Cnumber, Cserial, Cdate, Creason, CiDate, Cmax };
 
 class revListItem : public QTreeWidgetItem
 {
@@ -41,10 +41,11 @@ static void addRevItem(QTreeWidget *certList, const x509rev &revit,
 	revListItem *current;
 	pki_x509 *rev;
 	a1time a;
-	rev = iss->getBySerial(revit.getSerial());
+	rev = iss ? iss->getBySerial(revit.getSerial()) : NULL;
 	current = new revListItem(certList);
 	if (rev != NULL) {
-		current->setToolTip(Cserial, rev->getIntName() );
+		for (int i = 0; i < Cmax; i++)
+			current->setToolTip(i, rev->getIntName());
 	}
 	current->setText(Cnumber, QString("%1").arg(no));
 	current->setText(Cserial, revit.getSerial().toHex());
