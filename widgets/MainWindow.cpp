@@ -863,6 +863,13 @@ void MainWindow::generateDHparam()
 
 	if (!ok)
 		return;
+	/*
+	 * 1024:   6 sec
+	 * 2048:  38 sec
+	 * 4096: 864 sec
+	 */
+
+	Entropy::seed_rng();
 	try {
 		QStatusBar *status = statusBar();
 		bar = new QProgressBar();
