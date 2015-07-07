@@ -1,3 +1,4 @@
+ * Update to OpenSSL 1.0.2c for Windows and MAC
  * Digitaly sign Windows and MAC binaries with a valid certificate
  * Refactor the context menu. Exporting many selected items
    to the clipboard or a PEM file now works. Certificate renewal and revocation
