@@ -6,6 +6,8 @@
 	<string>xca</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Created by Qt/QMake</string>
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
 	<key>CFBundleIconFile</key>
 	<string>xca-mac-icon.icns</string>
 	<key>CFBundleIdentifier</key>
