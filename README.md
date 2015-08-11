@@ -3,18 +3,33 @@
 ## __Release Notes__
 
  * Make a backup copy of your database!
- * Updates the Windows and MAC precompiled OpenSSL binaries
-   to OpenSSL 1.0.2a to fix Issues reported by OpenSSL at Mar. 19 2015
  * Send bugs to christian@hohnstaedt.de
 
 ## __Changelog:__
 
-### xca 1.2.0
+### xca 1.3.0
+ * Update to OpenSSL 1.0.2d for Windows and MAC
+ * SF Bug #105 1.2.0 OS X Retina Display Support
+ * Digitaly sign Windows and MAC binaries with a valid certificate
+ * Refactor the context menu. Exporting many selected items
+   to the clipboard or a PEM file now works. Certificate renewal and revocation
+   may now be performed on a batch of certificates.
+ * Feat. Reg. #83 Option to revoke old certificate when renewing
+ * Refactor revocation handling. All revocation information is
+   stored with the CA and may be modified.
+   Revoked certificates may now be deleted from the database
+ * Support nameConstraints, policyMappings, InhibitAnyPolicy, PolicyConstraint
+   and (OSCP)noCheck when transforming certificates to templates or OpenSSL configs
+ * Fix SF Bug #104 Export to template introduces spaces
+ * Add option for disabling legacy Netscape extensions
+ * Support exporting SSH2 public key to the clipboard
+ * SF Bug #102 Weak entropy source used for key generation:
+   Use /dev/random, mouse/kbd entropy, token RNG
+ * SF Feat. Req. #80 Create new certificate,
+   based on existing certificate, same for requests
+ * Add Cert/Req Column for Signature Algorithm
+ * SF Feat. Req. #81 Show key size in New Certificate dialog
+ * Distinguish export from transform:
+   - Export writes to an external file,
+   - Transform generates another XCA item
 
- * Update to OpenSSL 1.0.2a for Windows and MAC
-   drop brainpool extra builds
- * Use CTRL +/- to change the font size in the view
- * Add Row numbering for easy item counting
- * Support SSH2 public key format for import and export
- * Add support for SHA-224
- * add "xca extract" to export items from the database on the commandline
