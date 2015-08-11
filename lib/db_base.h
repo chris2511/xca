@@ -47,6 +47,7 @@ class db_base: public QAbstractItemModel
 		int handleBadEntry(unsigned char *p, db_header_t *head);
 		virtual exportType::etype clipboardFormat(QModelIndexList indexes)
 		{
+			(void)indexes;
 			return exportType::Separator;
 		}
 
@@ -99,7 +100,7 @@ class db_base: public QAbstractItemModel
 			colResizing--;
 		}
 		virtual void store(QModelIndexList indexes);
-		virtual void store(QModelIndex index) { };
+		virtual void store(QModelIndex index) { (void)index; };
 		dbheaderList getAllHeaders() {
 			return allHeaders;
 		}

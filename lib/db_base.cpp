@@ -520,7 +520,7 @@ QVariant db_base::data(const QModelIndex &index, int role) const
 	}
 	return QVariant();
 }
-static QVariant getHeaderViewInfo(int sect, dbheader *h)
+static QVariant getHeaderViewInfo(dbheader *h)
 {
 	return QVariant(
 #if 0
@@ -541,7 +541,7 @@ QVariant db_base::headerData(int section, Qt::Orientation orientation,
 		case Qt::DisplayRole:
 			return QVariant(allHeaders[section]->getName());
 		case Qt::ToolTipRole:
-			return getHeaderViewInfo(section, allHeaders[section]);
+			return getHeaderViewInfo(allHeaders[section]);
 		}
 	}
 	return QVariant();

@@ -214,6 +214,7 @@ void pki_crl::writeCrl(const QString fname, bool pem)
 
 BIO *pki_crl::pem(BIO *b, int format)
 {
+	(void)format;
 	if (!b)
 		b = BIO_new(BIO_s_mem());
 	PEM_write_bio_X509_CRL(b, crl);

@@ -124,6 +124,7 @@ bool XCA_application::eventFilter(QObject *watched, QEvent *ev)
 	QStringList l;
 	int key;
 
+	(void)watched;
 	switch (ev->type()) {
 	case QEvent::FileOpen:
 		l << static_cast<QFileOpenEvent *>(ev)->file();

@@ -100,6 +100,7 @@ class pki_base : public QObject
 		}
 		virtual BIO *pem(BIO *, int format=0)
 		{
+			(void)format;
 			return NULL;
 		}
 		void fwrite_ba(FILE *fp, QByteArray ba, QString fname);

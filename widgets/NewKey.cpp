@@ -211,6 +211,8 @@ void NewKey::updateCurves(unsigned min, unsigned max, unsigned long ec_flags)
 	curveBox->setCurrentIndex(curveBox->findText(ec_default));
 	if (curveBox->currentIndex() == -1)
 		curveBox->setCurrentIndex(0);
+#else
+	(void)min; (void)max; (void)ec_flags;
 #endif
 }
 

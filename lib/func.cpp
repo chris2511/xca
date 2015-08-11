@@ -366,6 +366,10 @@ bool _ign_openssl_error(const QString txt, const char *file, int line)
 #if PRINT_IGNORED_ANYWAY
 	if (!txt.isEmpty() && ERR_peek_error())
 		fprintf(stderr, "%s\n", CCHAR(txt));
+#else
+	(void)txt;
+	(void)file;
+	(void)line;
 #endif
 	while (int i = ERR_get_error() ) {
 		errtxt = ERR_error_string(i, NULL);

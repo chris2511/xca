@@ -77,6 +77,9 @@ void pki_evp::generate(int bits, int type, QProgressBar *progress, int curve_nid
 {
 	Entropy::seed_rng();
 
+#ifdef OPENSSL_NO_EC
+	(void)curve_nid;
+#endif
 	progress->setMinimum(0);
 	progress->setMaximum(100);
 	progress->setValue(50);
@@ -232,6 +235,8 @@ static void search_ec_oid(EVP_PKEY *pkey)
 		}
 		EC_GROUP_free(builtin);
 	}
+#else
+	(void)pkey;
 #endif
 }
 

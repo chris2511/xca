@@ -95,7 +95,7 @@ class x509rev
 		}
 		X509_REVOKED *get(bool withReason=true) const
 		{
-			return toREVOKED();
+			return toREVOKED(withReason);
 		}
 };
 

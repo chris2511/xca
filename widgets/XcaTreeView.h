@@ -39,7 +39,10 @@ class XcaTreeView: public QTreeView
 	void showContextMenu(QContextMenuEvent *e,
 				const QModelIndex &index);
 	virtual void fillContextMenu(QMenu *menu, QMenu *subExport,
-			const QModelIndex &index, QModelIndexList indexes) {}
+			const QModelIndex &index, QModelIndexList indexes)
+	{
+		(void)menu; (void)subExport; (void)index; (void)indexes;
+	}
 	void contextMenu(QContextMenuEvent *e,
 			QMenu *parent = NULL, int sect = -1);
 

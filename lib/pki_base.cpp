@@ -185,6 +185,7 @@ QVariant pki_base::column_data(dbheader *hd)
 
 QVariant pki_base::getIcon(dbheader *hd)
 {
+	(void)hd;
 	return QVariant();
 }
 

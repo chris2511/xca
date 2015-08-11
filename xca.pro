@@ -17,7 +17,7 @@ macx {
 }
 
 LIBS += -lcrypto -lltdl
-QMAKE_CXXFLAGS = -Wno-unused-parameters -DPREFIX=\\\"/usr/local\\\" -DETC=\\\"/etc\\\" -DDOCDIR=\\\"/usr/local/doc/xca\\\"
+QMAKE_CXXFLAGS = -DPREFIX=\\\"/usr/local\\\" -DETC=\\\"/etc\\\" -DDOCDIR=\\\"/usr/local/doc/xca\\\" -Werror
 
 # Input
 HEADERS += local.h \

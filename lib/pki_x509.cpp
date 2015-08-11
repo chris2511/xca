@@ -585,6 +585,7 @@ void pki_x509::writeCert(const QString fname, bool PEM, bool append)
 
 BIO *pki_x509::pem(BIO *b, int format)
 {
+	(void)format;
 	if (!b)
 		b = BIO_new(BIO_s_mem());
 	PEM_write_bio_X509(b, cert);

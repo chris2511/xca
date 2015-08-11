@@ -359,6 +359,7 @@ void pki_temp::writeDefault(const QString fname)
 
 BIO *pki_temp::pem(BIO *b, int format)
 {
+	(void)format;
 	QByteArray ba = toExportData();
         if (!b)
 		b = BIO_new(BIO_s_mem());

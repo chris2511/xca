@@ -470,6 +470,9 @@ pk11_attr_data pkcs11::findUniqueID(unsigned long oclass)
 pk11_attr_data pkcs11::generateKey(QString name, unsigned long mech,
 				unsigned long bits, int nid)
 {
+#ifdef OPENSSL_NO_EC
+	(void)nid;
+#endif
 	CK_RV rv;
 	CK_OBJECT_HANDLE pubkey, privkey, dsa_param_obj;
 	pk11_attlist priv_atts, pub_atts, dsa_param;
@@ -738,6 +741,7 @@ static int eng_pmeth_ctrl_rsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 
 static int eng_pmeth_ctrl_dsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 {
+	(void)p1;
 	switch (type) {
 	case EVP_PKEY_CTRL_MD:
 		EVP_PKEY_CTX_set_data(ctx, NULL);
@@ -758,6 +762,7 @@ static int eng_pmeth_ctrl_dsa(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 #ifndef OPENSSL_NO_EC
 static int eng_pmeth_ctrl_ec(EVP_PKEY_CTX *ctx, int type, int p1, void *p2)
 {
+	(void)p1;
 	switch (type) {
 	case EVP_PKEY_CTRL_MD:
 		EVP_PKEY_CTX_set_data(ctx, NULL);
@@ -936,6 +941,7 @@ static int eng_pmeth_copy(EVP_PKEY_CTX *dst, EVP_PKEY_CTX *src)
 static int eng_meths(ENGINE *e, EVP_PKEY_METHOD **m, const int **nids, int nid)
 {
 	static const int my_nids[] = { EVP_PKEY_EC, EVP_PKEY_RSA };
+	(void)e;
 	if (m) {
 		switch (nid) {
 #ifndef OPENSSL_NO_EC
