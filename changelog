@@ -1,4 +1,8 @@
-xca 1.2.0 Thu Aug 11 2015
+xca 1.3.1 Fri Aug 21 2015
+
+ * Fix endless loop while searching for a signer of a CRL
+
+xca 1.3.0 Thu Aug 11 2015
 
  * Update to OpenSSL 1.0.2d for Windows and MAC
  * SF Bug #105 1.2.0 OS X Retina Display Support
