@@ -81,7 +81,11 @@ void db_crl::inToCont(pki_base *pki)
 	if (crl->getIssuer() == NULL) {
 		pki_x509 *iss = NULL, *last = NULL, *newest = NULL;
 		x509name issname = crl->getSubject();
-		while ((iss = mainwin->certs->getBySubject(issname, last)) != NULL) {
+		while (1) {
+			iss = mainwin->certs->getBySubject(issname, last);
+			if (!iss)
+				break;
+			last = iss;
 			pki_key *key = iss->getPubKey();
 			if (!key)
 				continue;
@@ -91,7 +95,6 @@ void db_crl::inToCont(pki_base *pki)
 				continue;
 			}
 			delete key;
-			last = iss;
 			if (!newest) {
 				newest = iss;
 			} else {
