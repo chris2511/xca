@@ -19,6 +19,7 @@ class x509v3ext
 {
    private:
 	X509_EXTENSION *ext;
+	const ASN1_OBJECT *object() const;
    public:
 	x509v3ext();
 	x509v3ext(const X509_EXTENSION *n);

@@ -76,15 +76,29 @@ x509v3ext &x509v3ext::create_ia5(int nid, const QString &et, X509V3_CTX *ctx)
 	}
 	return create(nid, et, ctx);
 }
-int x509v3ext::nid() const
+
+const ASN1_OBJECT *x509v3ext::object() const
 {
 	ASN1_OBJECT *obj = X509_EXTENSION_get_object(ext);
-	return OBJ_obj2nid(obj);
+	try {
+		openssl_error();
+	} catch (errorEx e) {
+		return NULL;
+	}
+	return obj;
+}
+
+int x509v3ext::nid() const
+{
+	const ASN1_OBJECT *obj = object();
+	return obj ? OBJ_obj2nid(obj) : NID_undef;
 }
 
 void *x509v3ext::d2i() const
 {
-	return X509V3_EXT_d2i(ext);
+	void *r = X509V3_EXT_d2i(ext);
+	ign_openssl_error();
+	return r;
 }
 
 x509v3ext &x509v3ext::operator = (const x509v3ext &x)
@@ -95,7 +109,8 @@ x509v3ext &x509v3ext::operator = (const x509v3ext &x)
 
 QString x509v3ext::getObject() const
 {
-	return OBJ_obj2QString(X509_EXTENSION_get_object(ext));
+	const ASN1_OBJECT *obj = object();
+	return obj ? OBJ_obj2QString(obj) : QString("<ERROR>");
 }
 
 int x509v3ext::getCritical() const
@@ -111,7 +126,10 @@ QString x509v3ext::getValue(bool html) const
 	BIO *bio = BIO_new(BIO_s_mem());
 
 	ret = X509V3_EXT_print(bio, ext, X509V3_EXT_DEFAULT, 0);
-	if (ret) {
+	if (ign_openssl_error() || !ret) {
+		ret = M_ASN1_OCTET_STRING_print(bio, ext->value);
+	}
+	if (!ign_openssl_error() && ret) {
 		long len = BIO_get_mem_data(bio, &p);
 		text = QString::fromLocal8Bit(p, len);
 	}
@@ -140,23 +158,6 @@ static QString vlist2Section(QStringList vlist, QString tag, QString *sect)
 			arg(i).arg(s.mid(eq+1));
 	}
 	return QString("@%1_sect\n").arg(tag);
-}
-
-bool x509v3ext::parse_ia5(QString *single, QString *adv) const
-{
-	ASN1_STRING *str = (ASN1_STRING *)d2i();
-	QString ret;
-
-	if (!str)
-		return false;
-	ret = QString(asn1ToQString(str));
-	if (single)
-		*single = ret;
-	else if (adv)
-		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).arg(ret) +*adv;
-
-	ASN1_STRING_free(str);
-	return true;
 }
 
 static QString obj2SnOid(const ASN1_OBJECT *a)
@@ -202,7 +203,7 @@ static const char *asn1Type2Name(int type)
 		if (tags[i].tag == type)
 			return tags[i].strnam;
 	}
-	return NULL;
+	return "UNKNOWN";
 }
 
 static bool asn1TypePrintable(int type)
@@ -349,6 +350,35 @@ static bool genNameStack2conf(STACK_OF(GENERAL_NAME) *gens, QString tag,
 QString x509v3ext::parse_critical() const
 {
 	return QString(getCritical() ? "critical," : "");
+}
+
+#define TEXTS (\
+	B_ASN1_TIME | B_ASN1_DIRECTORYSTRING | B_ASN1_DISPLAYTEXT | \
+	B_ASN1_NUMERICSTRING | B_ASN1_T61STRING | B_ASN1_UNIVERSALSTRING)
+
+bool x509v3ext::parse_ia5(QString *single, QString *adv) const
+{
+	ASN1_STRING *str = (ASN1_STRING *)d2i();
+	QString ret;
+
+	if (!str) {
+		const unsigned char *p = ext->value->data;
+		str = d2i_ASN1_type_bytes(NULL, &p, ext->value->length, TEXTS);
+		if (ign_openssl_error() || !str)
+			return false;
+		ret = QString("<ERROR: NOT IA5 but %1>%2").
+			arg(asn1Type2Name(str->type)).
+			arg(QString(asn1ToQString(str)));
+	} else {
+		ret = QString(asn1ToQString(str));
+	}
+	if (single)
+		*single = ret;
+	else if (adv)
+		*adv = QString("%1=%2\n").arg(OBJ_nid2sn(nid())).arg(ret) +*adv;
+
+	ASN1_STRING_free(str);
+	return true;
 }
 
 bool x509v3ext::parse_generalName(QString *single, QString *adv) const
@@ -734,7 +764,8 @@ bool x509v3ext::parse_aKeyId(QString *, QString *adv) const
 
 bool x509v3ext::parse_generic(QString *, QString *adv) const
 {
-	QString der, obj = obj2SnOid(X509_EXTENSION_get_object(ext));
+	const ASN1_OBJECT *o = object();
+	QString der, obj = o ? obj2SnOid(o) : QString("<ERROR>");
 	ASN1_OCTET_STRING *v = ext->value;
 
 	for (int i=0; i<v->length; i++)

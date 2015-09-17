@@ -749,7 +749,11 @@ x509v3ext pki_x509::getExtByNid(int nid)
 	extList el = getV3ext();
 	int i = el.idxByNid(nid);
 
-	pki_openssl_error();
+	try {
+		pki_openssl_error();
+	} catch(errorEx &err) {
+		XCA_WARN(err.getString());
+	}
 	if (i == -1)
 		return x509v3ext();
 	return el[i];
