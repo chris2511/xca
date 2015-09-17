@@ -1297,7 +1297,8 @@ void NewX509::accept()
 				notAfter->setDate(signer->getNotAfter());
 		}
 	}
-	if (notBefore->getDate() > notAfter->getDate()) {
+	if (validityBox->isEnabled() &&
+	    notBefore->getDate() > notAfter->getDate()) {
 		gotoTab(2);
 		QString text = tr("The certificate will be out of date before it becomes valid. You most probably mixed up both dates.");
 		xcaWarning msg(this, text);
