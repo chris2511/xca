@@ -7,6 +7,11 @@
 
 ## __Changelog:__
 
+### xca 1.3.1
+
+ * Fix endless loop while searching for a signer of a CRL
+   (XCA does not respond)
+
 ### xca 1.3.0
  * Update to OpenSSL 1.0.2d for Windows and MAC
  * SF Bug #105 1.2.0 OS X Retina Display Support
