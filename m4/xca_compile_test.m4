@@ -8,6 +8,7 @@ LIBS="${LIBS} ${OPENSSL_LIBS}${QT_LIBS}"
 AC_TRY_RUN([
 #include <stdio.h>
 #include <string.h>
+#include <ltdl.h>
 #include <openssl/opensslv.h>
 #include <openssl/opensslconf.h>
 #include <openssl/crypto.h>
@@ -17,6 +18,7 @@ AC_TRY_RUN([
 #define WARN C"###################### WARNING ######################\n"
 int main(){
   char buf[2048] = "";
+  int r = lt_dlinit();
   printf(C"The Versions of the used libraries are:\n"
         C"Header:\n"
         C"\t%s 0x%lxL\n"
@@ -33,6 +35,8 @@ int main(){
         strcat(buf, C"The versions of the QT headers and library differ\n");
   if (strcmp(OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION)))
         strcat(buf, C"The versions of the OpenSSL headers and library differ\n");
+  if (r)
+	strcat(buf, C"lt_dlinit() returned != 0\n");
 #ifdef OPENSSL_NO_EC
   strcat(buf, C"This OpenSSL installation has no EC cryptography support\n");
 #else

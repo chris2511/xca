@@ -61,14 +61,16 @@ if test -n "${_OPENSSLDIR}" && test -d "${_OPENSSLDIR}"; then
   DYLD_LIBRARY_PATH="${_OPENSSLDIR}/lib:${DYLD_LIBRARY_PATH}"
 fi
 
-PKG_CHECK_MODULES([OPENSSL],
+PKG_CHECK_MODULES([OpenSSL],
    [libcrypto >= 0.9.8], [ ],
    [
-     OPENSSL_LIBS=" -lcrypto ";
-     AC_MSG_WARN([OpenSSL pkg-config failed, using fallback defaults (${OPENSSL_LIBS})]);
+     OpenSSL_LIBS=" -lcrypto ";
+     AC_MSG_WARN([OpenSSL pkg-config failed, using fallback defaults (${OpenSSL_LIBS})]);
    ]
 )
 
+OPENSSL_LIBS="$OpenSSL_LIBS"
+OPENSSL_CFLAGS="$OpenSSL_CFLAGS"
 
 # Detect the Qt libraries and header
 ####################################
@@ -84,6 +86,7 @@ AC_ARG_WITH([qt],
 if test -n "${_QTDIR}" && test -d "${_QTDIR}"; then
   _QTDIR=`cd ${_QTDIR} && pwd`
   PKG_CONFIG_PATH="${_QTDIR}/lib/pkgconfig:${PKG_CONFIG_PATH}"
+  LD_LIBRARY_PATH="${_QTDIR}/lib:${LD_LIBRARY_PATH}"
   DYLD_LIBRARY_PATH="${_QTDIR}/lib:${DYLD_LIBRARY_PATH}"
 fi
 
@@ -128,16 +131,27 @@ fi
 if test "x${QT_UIC}" = "x"; then
   QT_UIC="`which uic-qt${QT_VERSION} || which uic`"
 fi
-QT_LRELEASE=`echo ${QT_MOC} | sed 's/moc/lrelease/'`
+
+# Add the location of 'moc' to $PATH
+QT_BIN_PATH="`dirname ${QT_MOC}`:$PATH"
+
+AC_PATH_PROG([QT_LRELEASEQT], [lrelease-qt${QT_VERSION}], , [$QT_BIN_PATH])
+if test "x${QT_LRELEASEQT}" = "x"; then
+  AC_PATH_PROG([QT_LRELEASE], [lrelease], [lrelease], [$QT_BIN_PATH])
+else
+  QT_LRELEASE="$QT_LRELEASEQT"
+fi
+
+AC_PATH_PROG([QT_RCCQT], [rcc-qt${QT_VERSION}], , [$QT_BIN_PATH])
+if test "x${QT_RCCQT}" = "x"; then
+  AC_PATH_PROG([QT_RCC], [rcc], [rcc], [$QT_BIN_PATH])
+else
+  QT_RCC="$QT_RCCQT"
+fi
+
+
 if test -n "$DARWIN"; then
-  MACDEPLOYQT=`echo ${QT_MOC} | sed 's/moc/macdeployqt/'`
-fi
-QT_RCC=`echo ${QT_MOC} | sed 's/moc/rcc/'`
-if ! test -x ${QT_RCC}; then
-  QT_RCC=`echo ${QT_MOC} | sed 's/moc.*/rcc/'`
-fi
-if ! test -x ${QT_RCC}; then
-  QT_RCC="`which rcc-qt${QT_VERSION} || which rcc`"
+  AC_PATH_PROG([MACDEPLOYQT], [macdeployqt], [macdeployqt], [$QT_BIN_PATH])
 fi
 
 AC_SUBST([QT_MOC])
