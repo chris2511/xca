@@ -96,7 +96,7 @@ PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
   QT_UIC="${_QT_HOST_BINS}/uic"
   if test -n "$DARWIN"; then
     FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
-    QT5_CFLAGS="$Qt5_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers"
+    Qt5_CFLAGS="$Qt5_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers"
   fi
   QT_VERSION=5
   QT_CFLAGS="${Qt5_CFLAGS} -fPIC"
@@ -110,7 +110,7 @@ PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
     fi
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
-      QT4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers"
+      Qt4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers"
     fi
     QT_VERSION=4
     QT_CFLAGS="${Qt4_CFLAGS}"
