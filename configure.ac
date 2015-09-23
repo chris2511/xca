@@ -90,27 +90,31 @@ if test -n "${_QTDIR}" && test -d "${_QTDIR}"; then
   DYLD_LIBRARY_PATH="${_QTDIR}/lib:${DYLD_LIBRARY_PATH}"
 fi
 
-PKG_CHECK_MODULES(QT5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
-  QT_MOC="`pkg-config --variable=moc_location Qt5Core`"
-  QT_UIC="`pkg-config --variable=uic_location Qt5Core`"
+PKG_CHECK_MODULES(Qt5, [Qt5Core >= 5.0, Qt5Widgets >= 5.0], [
+  _QT_HOST_BINS="`pkg-config --variable=host_bins Qt5Core`"
+  QT_MOC="${_QT_HOST_BINS}/moc"
+  QT_UIC="${_QT_HOST_BINS}/uic"
   if test -n "$DARWIN"; then
     FRAMEDIR=`pkg-config --variable=libdir Qt5Core`
-    QT5_CFLAGS="$QT5_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers"
+    QT5_CFLAGS="$Qt5_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers -I${FRAMEDIR}/QtWdgets.framework/Headers"
   fi
   QT_VERSION=5
-  QT_CFLAGS="${QT5_CFLAGS} -fPIC"
-  QT_LIBS="${QT5_LIBS}"
+  QT_CFLAGS="${Qt5_CFLAGS} -fPIC"
+  QT_LIBS="${Qt5_LIBS}"
 ], [
-  PKG_CHECK_MODULES(QT4, [QtCore >= 4.6, QtCore < 5.0, QtGui >= 4.6, QtGui < 5.0], [
+  PKG_CHECK_MODULES(Qt4, [QtCore >= 4.6, QtCore < 5.0, QtGui >= 4.6, QtGui < 5.0], [
     QT_MOC="`pkg-config --variable=moc_location QtCore`"
     QT_UIC="`pkg-config --variable=uic_location QtCore`"
+    if test -n "${QT_MOC}"; then
+      _QT_HOST_BINS="`dirname ${QT_MOC}`"
+    fi
     if test -n "$DARWIN"; then
       FRAMEDIR=`pkg-config --variable=libdir QtCore`
-      QT4_CFLAGS="$QT4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers"
+      QT4_CFLAGS="$Qt4_CFLAGS -F${FRAMEDIR} -I${FRAMEDIR}/QtCore.framework/Headers -I${FRAMEDIR}/QtGui.framework/Headers"
     fi
     QT_VERSION=4
-    QT_CFLAGS="${QT4_CFLAGS}"
-    QT_LIBS="${QT4_LIBS}"
+    QT_CFLAGS="${Qt4_CFLAGS}"
+    QT_LIBS="${Qt4_LIBS}"
   ], [
     if test -z "$DARWIN"; then
       QT_LIBS=" -lQtCore -lQtGui "
@@ -132,8 +136,7 @@ if test "x${QT_UIC}" = "x"; then
   QT_UIC="`which uic-qt${QT_VERSION} || which uic`"
 fi
 
-# Add the location of 'moc' to $PATH
-QT_BIN_PATH="`dirname ${QT_MOC}`:$PATH"
+QT_BIN_PATH="${_QT_HOST_BINS}:$PATH"
 
 AC_PATH_PROG([QT_LRELEASEQT], [lrelease-qt${QT_VERSION}], , [$QT_BIN_PATH])
 if test "x${QT_LRELEASEQT}" = "x"; then
