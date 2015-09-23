@@ -47,8 +47,8 @@ INSTALL_DIR=$INSTALL_DIR
 MAKENSIS=makensis
 CROSS=i586-mingw32msvc-
 
-CONSOLE=-mwindows
-#CONSOLE=-mconsole
+#CONSOLE=-mwindows
+CONSOLE=-mconsole
 
 CPPFLAGS=-I\$(TOPDIR) -I\$(QTDIR)/include/QtGui -I\$(QTDIR)/include/QtCore -I\$(QTDIR)/include/QtWidgets -I\$(QTDIR)/include -I\$(INSTALL_DIR)/include -I\$(BUILD) -I\$(BUILD)/ui
 CFLAGS=-Wall -g -O2 -mthreads -mno-cygwin \$(CONSOLE) -mnop-fun-dllimport -Wno-strict-aliasing

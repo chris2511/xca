@@ -388,7 +388,7 @@ int db::shrink(int flags)
 	QFile new_file;
 	int result = 0;
 
-	new_file.setFileName(name + "{new}");
+	new_file.setFileName(name + "{shrink}");
 	if (!new_file.open(QIODevice::ReadWrite)) {
 		fileIOerr("open");
 		return 1;
@@ -520,13 +520,14 @@ bool db::backup()
 	return ret == 0;
 }
 
+// Move "new_file" to this database
 int db::mv(QFile &new_file)
 {
 #ifdef WIN32
 	// here we try to reimplement the simple "mv" command on unix
 	// atomic renaming fails on WIN32 platforms and
 	// forces us to work with temporary files :-(
-	QString tempn = name + "{orig}";
+	QString tempn = name + "{mv_orig}";
 	QFile::remove(tempn);
 	if (file.rename(tempn)) {
 		if (new_file.rename(name)) {
@@ -534,8 +535,12 @@ int db::mv(QFile &new_file)
 		} else {
 			QFile::rename(tempn, name);
 			QFile::remove(new_file.fileName());
+			printf("%s file.error(%d)\n", CCHAR(name), file.error());
 			return 2;
 		}
+	} else {
+		printf("%s file.error(%d)\n", CCHAR(tempn), file.error());
+		return 2;
 	}
 	return 0;
 #else

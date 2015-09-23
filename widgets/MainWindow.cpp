@@ -568,13 +568,11 @@ QString makeSalt(void)
 	return QString(saltbuf);
 }
 
-void MainWindow::changeDbPass()
+int MainWindow::checkOldGetNewPass(Passwd &pass)
 {
-
-	Passwd pass;
 	QString passHash;
-
 	db mydb(dbfile);
+
 	if (!mydb.find(setting, "pwhash")) {
 		char *cpass;
 		pass_info p(tr("Current Password"),
@@ -588,12 +586,12 @@ void MainWindow::changeDbPass()
 		if (pki_evp::sha512passwd(pass, passHash) != passHash) {
 			/* Not the empty password, check it */
 			if (PwDialog::execute(&p, &pass, false) != 1)
-				return;
+				return 0;
 		}
 
 		if (pki_evp::sha512passwd(pass, passHash) != passHash) {
 			XCA_WARN(tr("The entered password is wrong"));
-			return;
+			return 0;
 		}
 	}
 
@@ -601,21 +599,31 @@ void MainWindow::changeDbPass()
 			"to encrypt your private keys in the database-file"),
 			this);
 
-	if (PwDialog::execute(&p, &pass, true) != 1)
+	return PwDialog::execute(&p, &pass, true) != 1 ? 0 : 1;
+}
+
+void MainWindow::changeDbPass()
+{
+	Passwd pass;
+	QString tempn = dbfile + "{recrypt}";
+
+	if (!checkOldGetNewPass(pass))
 		return;
-	QString tempn = dbfile + "{new}";
+
 	try {
 		if (!QFile::copy(dbfile, tempn))
 			throw errorEx("Could not create temporary file: " +
 				tempn);
-		QString dbfile_bkup = dbfile;
-		QString passhash = updateDbPassword(tempn, pass);
 
+		QString passhash = updateDbPassword(tempn, pass);
 		QFile new_file(tempn);
-		db mydb(dbfile);
-		mydb.mv(new_file);
 		/* closing the database erases 'dbfile' */
+		QString dbfile_bkup = dbfile;
 		close_database();
+		db mydb(dbfile_bkup);
+		if (mydb.mv(new_file))
+			throw errorEx(QString("Failed to rename %1 to %2").
+						arg(tempn).arg(dbfile_bkup));
 		dbfile = dbfile_bkup;
 		pki_evp::passHash = passhash;
 		pki_evp::passwd = pass;
@@ -644,20 +652,17 @@ QString MainWindow::updateDbPassword(QString newdb, Passwd pass)
 		db_header_t head;
 
 		p = mydb.load(&head);
-		if (!p) {
-			printf("Load was empty !\n");
-			goto next;
-		}
+		if (!p)
+			throw errorEx("Failed to load item");
 		key = new pki_evp();
 		if (key->getVersion() < head.version) {
-			printf("Item[%s]: Version %d "
-				"> known version: %d -> ignored\n",
-				head.name, head.version,
-				key->getVersion()
-			);
+			int v = key->getVersion();
 			free(p);
 			delete key;
-			goto next;
+			throw errorEx(QString("Item[%1]: Version %2 "
+				"> known version: %3 -> ignored")
+				.arg(head.name).arg(head.version).arg(v)
+			);
 		}
 		key->setIntName(QString::fromUtf8(head.name));
 
@@ -666,9 +671,9 @@ QString MainWindow::updateDbPassword(QString newdb, Passwd pass)
 		}
 		catch (errorEx &err) {
 			err.appendString(key->getIntName());
-			Error(err);
+			free(p);
 			delete key;
-			key = NULL;
+			throw err;
 		}
 		free(p);
 		if (key && key->getOwnPass() == pki_key::ptCommon &&
@@ -680,7 +685,7 @@ QString MainWindow::updateDbPassword(QString newdb, Passwd pass)
 			klist << key;
 		} else if (key)
 			delete key;
-next:
+
 		if (mydb.next())
 			break;
 	}

@@ -82,6 +82,8 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void set_geometry(char *p, db_header_t *head);
 		QLineEdit *searchEdit;
 		QStringList urlsToOpen;
+		int checkOldGetNewPass(Passwd &pass);
+		QString updateDbPassword(QString newdb, Passwd pass);
 
 	protected:
 		void init_images();
@@ -128,7 +130,6 @@ class MainWindow: public QMainWindow, public Ui::MainWindow
 		void setPath(QString path);
 		bool mkDir(QString dir);
 		void setItemEnabled(bool enable);
-		QString updateDbPassword(QString newdb, Passwd pass);
 		void enableTokenMenu(bool enable);
 		pki_multi *probeAnything(QString file, int *ret = NULL);
 		void importAnything(QString file);
